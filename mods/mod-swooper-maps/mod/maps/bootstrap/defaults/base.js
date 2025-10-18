@@ -540,6 +540,11 @@ export const BASE_CONFIG = Object.freeze({
                     eastOceanOffset: -1.0, // - 1.00 × iOceanWaterColumns (to map edge)
                 }),
             ]),
+            post: Object.freeze({
+                expandTiles: 0,
+                expandWestTiles: 0,
+                expandEastTiles: 0,
+            }),
         }),
     }),
     // --- Coastlines (rugged coasts; lane-safe) ---

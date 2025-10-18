@@ -5,9 +5,9 @@ Tracking work to integrate Civ VII plate generation into the Swooper map pipelin
 ## Task List
 
 - [x] Config surface updates (types, defaults, tunables) for WorldModel controls
-- [ ] New preset/entry wiring to opt into plate-driven settings
-- [ ] Landmass generation refactor to consume WorldModel plate output
-- [ ] Optional post-processing hooks (plate seed overrides, ocean adjustments)
+- [x] New preset/entry wiring to opt into plate-driven settings
+- [x] Landmass generation refactor to consume WorldModel plate output
+- [x] Optional post-processing hooks (plate seed overrides, ocean adjustments)
 
 ## Notes
 

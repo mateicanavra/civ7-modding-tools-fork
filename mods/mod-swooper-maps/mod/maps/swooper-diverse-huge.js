@@ -7,6 +7,6 @@
  */
 import { bootstrap } from "./bootstrap/entry.js";
 bootstrap({
-    presets: ["classic"],
+    presets: ["voronoi"],
 });
 import "./map_orchestrator.js";

@@ -124,67 +124,101 @@ function generateMap() {
     // Compute band windows from per-map geometry config (if provided)
     {
         const GEOM = LANDMASS_GEOMETRY || /**/ {};
-        const oceanScale = Number.isFinite(GEOM.oceanColumnsScale)
-            ? GEOM.oceanColumnsScale
-            : 1.1;
-        let iOceanWaterColumns = Math.floor(globals.g_OceanWaterColumns * oceanScale);
-        // Select bands from preset when present; fallback to explicit bands, then defaults
-        const presetName = GEOM.preset;
-        const presetBands = presetName &&
-            GEOM.presets &&
-            Array.isArray(GEOM.presets[presetName]?.bands)
-            ? GEOM.presets[presetName].bands
-            : null;
-        const bandDefs = Array.isArray(presetBands) && presetBands.length >= 3
-            ? presetBands
-            : Array.isArray(GEOM.bands) && GEOM.bands.length >= 3
-                ? GEOM.bands
-                : [
-                    {
-                        westFrac: 0.0,
-                        eastFrac: 0.3,
-                        westOceanOffset: 1.0,
-                        eastOceanOffset: -0.35,
-                    },
-                    {
-                        westFrac: 0.35,
-                        eastFrac: 0.6,
-                        westOceanOffset: 0.25,
-                        eastOceanOffset: -0.25,
-                    },
-                    {
-                        westFrac: 0.75,
-                        eastFrac: 1.0,
-                        westOceanOffset: 0.5,
-                        eastOceanOffset: -1.0,
-                    },
-                ];
-        function bandWindow(band, idx) {
-            const west = Math.floor(iWidth * (band.westFrac ?? 0)) +
-                Math.floor(iOceanWaterColumns * (band.westOceanOffset ?? 0));
-            const east = Math.floor(iWidth * (band.eastFrac ?? 1)) +
-                Math.floor(iOceanWaterColumns * (band.eastOceanOffset ?? 0));
-            return {
-                west: Math.max(0, Math.min(iWidth - 1, west)),
-                east: Math.max(0, Math.min(iWidth - 1, east)),
-                south: globals.g_PolarWaterRows,
-                north: iHeight - globals.g_PolarWaterRows,
-                continent: idx,
+        const usePlateGeometry = (GEOM.mode === "plates" || (GEOM.mode === "auto" && WorldModel?.isEnabled?.()));
+        let landmassWindows;
+        let derivedStartRegions;
+        if (usePlateGeometry) {
+            const derived = derivePlateLandmasses(iWidth, iHeight);
+            if (derived && Array.isArray(derived.landmasses) && derived.landmasses.length > 0) {
+                landmassWindows = derived.landmasses;
+                derivedStartRegions = derived.startRegions;
+            }
+        }
+        if (!landmassWindows) {
+            const oceanScale = Number.isFinite(GEOM.oceanColumnsScale)
+                ? GEOM.oceanColumnsScale
+                : 1.1;
+            let iOceanWaterColumns = Math.floor(globals.g_OceanWaterColumns * oceanScale);
+            const presetName = GEOM.preset;
+            const presetBands = presetName &&
+                GEOM.presets &&
+                Array.isArray(GEOM.presets[presetName]?.bands)
+                ? GEOM.presets[presetName].bands
+                : null;
+            const bandDefs = Array.isArray(presetBands) && presetBands.length >= 3
+                ? presetBands
+                : Array.isArray(GEOM.bands) && GEOM.bands.length >= 3
+                    ? GEOM.bands
+                    : [
+                        {
+                            westFrac: 0.0,
+                            eastFrac: 0.3,
+                            westOceanOffset: 1.0,
+                            eastOceanOffset: -0.35,
+                        },
+                        {
+                            westFrac: 0.35,
+                            eastFrac: 0.6,
+                            westOceanOffset: 0.25,
+                            eastOceanOffset: -0.25,
+                        },
+                        {
+                            westFrac: 0.75,
+                            eastFrac: 1.0,
+                            westOceanOffset: 0.5,
+                            eastOceanOffset: -1.0,
+                        },
+                    ];
+            function bandWindow(band, idx) {
+                const west = Math.floor(iWidth * (band.westFrac ?? 0)) +
+                    Math.floor(iOceanWaterColumns * (band.westOceanOffset ?? 0));
+                const east = Math.floor(iWidth * (band.eastFrac ?? 1)) +
+                    Math.floor(iOceanWaterColumns * (band.eastOceanOffset ?? 0));
+                return {
+                    west: Math.max(0, Math.min(iWidth - 1, west)),
+                    east: Math.max(0, Math.min(iWidth - 1, east)),
+                    south: globals.g_PolarWaterRows,
+                    north: iHeight - globals.g_PolarWaterRows,
+                    continent: idx,
+                };
+            }
+            landmassWindows = [
+                bandWindow(bandDefs[0], 0),
+                bandWindow(bandDefs[1], 1),
+                bandWindow(bandDefs[2], 2),
+            ];
+        }
+        landmassWindows = applyLandmassPostAdjustments(landmassWindows, GEOM, iWidth, iHeight);
+        if (!derivedStartRegions && Array.isArray(landmassWindows) && landmassWindows.length >= 2) {
+            const first = landmassWindows[0];
+            const last = landmassWindows[landmassWindows.length - 1];
+            derivedStartRegions = {
+                westContinent: Object.assign({}, first),
+                eastContinent: Object.assign({}, last),
             };
         }
-        // Landmass approach – 3 vertical bands using configurable geometry
-        var landmass1 = bandWindow(bandDefs[0], 0);
-        var landmass2 = bandWindow(bandDefs[1], 1);
-        var landmass3 = bandWindow(bandDefs[2], 2);
+        if (derivedStartRegions?.westContinent && derivedStartRegions?.eastContinent) {
+            westContinent = {
+                west: derivedStartRegions.westContinent.west,
+                east: derivedStartRegions.westContinent.east,
+                south: derivedStartRegions.westContinent.south,
+                north: derivedStartRegions.westContinent.north,
+                continent: derivedStartRegions.westContinent.continent ?? 0,
+            };
+            eastContinent = {
+                west: derivedStartRegions.eastContinent.west,
+                east: derivedStartRegions.eastContinent.east,
+                south: derivedStartRegions.eastContinent.south,
+                north: derivedStartRegions.eastContinent.north,
+                continent: derivedStartRegions.eastContinent.continent ?? 1,
+            };
+        }
+        var landmassWindowsFinal = landmassWindows;
     }
     // Generate landmasses without creating a hard horizontal ocean band
     {
         const t = timeStart("Landmass");
-        layerCreateDiverseLandmasses(iWidth, iHeight, [
-            landmass1,
-            landmass2,
-            landmass3,
-        ], ctx);
+        layerCreateDiverseLandmasses(iWidth, iHeight, landmassWindowsFinal, ctx);
         timeEnd(t);
     }
     TerrainBuilder.validateAndFixTerrain();
@@ -367,3 +401,159 @@ function generateMap() {
 engine.on("RequestMapInitData", requestMapData);
 engine.on("GenerateMap", generateMap);
 console.log("Epic Diverse Huge Map Generator loaded and ready!");
+
+function derivePlateLandmasses(width, height) {
+    try {
+        if (!WorldModel || typeof WorldModel.isEnabled !== "function" || !WorldModel.isEnabled())
+            return null;
+        const plateIds = WorldModel.plateId;
+        if (!plateIds || typeof plateIds.length !== "number" || plateIds.length === 0)
+            return null;
+        const statsById = new Map();
+        for (let y = 0; y < height; y++) {
+            const rowOffset = y * width;
+            for (let x = 0; x < width; x++) {
+                const id = plateIds[rowOffset + x];
+                if (id == null || id < 0)
+                    continue;
+                let info = statsById.get(id);
+                if (!info) {
+                    info = {
+                        id,
+                        count: 0,
+                        minX: width,
+                        maxX: -1,
+                        minY: height,
+                        maxY: -1,
+                    };
+                    statsById.set(id, info);
+                }
+                info.count++;
+                if (x < info.minX)
+                    info.minX = x;
+                if (x > info.maxX)
+                    info.maxX = x;
+                if (y < info.minY)
+                    info.minY = y;
+                if (y > info.maxY)
+                    info.maxY = y;
+            }
+        }
+        if (!statsById.size)
+            return null;
+        const stats = Array.from(statsById.values()).map((info) => {
+            const widthSpan = info.maxX >= info.minX ? info.maxX - info.minX + 1 : 0;
+            const heightSpan = info.maxY >= info.minY ? info.maxY - info.minY + 1 : 0;
+            return Object.assign(Object.assign({}, info), { widthSpan, heightSpan, centerX: info.minX + widthSpan / 2 });
+        });
+        const minWidth = Math.max(6, Math.floor(width * 0.12));
+        const minHeight = Math.max(6, Math.floor(height * 0.2));
+        const minTiles = Math.max(128, Math.floor(width * height * 0.04));
+        const significant = stats.filter((s) => s.widthSpan >= minWidth && s.heightSpan >= minHeight && s.count >= minTiles);
+        const candidates = significant.length ? significant : stats;
+        if (!candidates.length)
+            return null;
+        candidates.sort((a, b) => b.count - a.count);
+        const maxContinents = Math.min(4, candidates.length);
+        const selected = candidates.slice(0, maxContinents).sort((a, b) => a.centerX - b.centerX);
+        if (!selected.length)
+            return null;
+        const polarRows = globals.g_PolarWaterRows ?? 0;
+        const oceanColumns = globals.g_OceanWaterColumns ?? Math.floor(width * 0.05);
+        const padding = Math.max(1, Math.floor(oceanColumns * 0.5));
+        const landmasses = selected.map((s, idx) => ({
+            west: Math.max(0, s.minX - padding),
+            east: Math.min(width - 1, s.maxX + padding),
+            south: polarRows,
+            north: height - polarRows,
+            continent: idx,
+        }));
+        if (!landmasses.length)
+            return null;
+        let startRegions = null;
+        if (landmasses.length >= 2) {
+            const west = landmasses[0];
+            const east = landmasses[landmasses.length - 1];
+            startRegions = {
+                westContinent: Object.assign({}, west),
+                eastContinent: Object.assign({}, east),
+            };
+        }
+        return {
+            landmasses,
+            startRegions,
+        };
+    }
+    catch (err) {
+        devLogIf("LOG_STORY_TAGS", "[WorldModel] derivePlateLandmasses error", err?.message ?? err);
+        return null;
+    }
+}
+
+function applyLandmassPostAdjustments(windows, geomCfg, width, height) {
+    if (!Array.isArray(windows) || windows.length === 0)
+        return windows;
+    const post = geomCfg?.post;
+    if (!post || typeof post !== "object")
+        return windows;
+    const expandAll = Number.isFinite(post.expandTiles) ? Math.trunc(post.expandTiles) : 0;
+    const expandWest = Number.isFinite(post.expandWestTiles) ? Math.trunc(post.expandWestTiles) : 0;
+    const expandEast = Number.isFinite(post.expandEastTiles) ? Math.trunc(post.expandEastTiles) : 0;
+    const clampWest = Number.isFinite(post.clampWestMin) ? Math.max(0, Math.trunc(post.clampWestMin)) : null;
+    const clampEast = Number.isFinite(post.clampEastMax) ? Math.min(width - 1, Math.trunc(post.clampEastMax)) : null;
+    const overrideSouth = Number.isFinite(post.overrideSouth) ? Math.max(0, Math.min(height - 1, Math.trunc(post.overrideSouth))) : null;
+    const overrideNorth = Number.isFinite(post.overrideNorth) ? Math.max(0, Math.min(height - 1, Math.trunc(post.overrideNorth))) : null;
+    const minWidth = Number.isFinite(post.minWidthTiles) ? Math.max(0, Math.trunc(post.minWidthTiles)) : null;
+    let changed = false;
+    const adjusted = windows.map((win) => {
+        if (!win)
+            return win;
+        let west = Math.max(0, win.west | 0);
+        let east = Math.min(width - 1, win.east | 0);
+        let south = Math.max(0, win.south | 0);
+        let north = Math.min(height - 1, win.north | 0);
+        const expansionWest = expandAll + expandWest;
+        const expansionEast = expandAll + expandEast;
+        if (expansionWest > 0) {
+            west = Math.max(0, west - expansionWest);
+        }
+        if (expansionEast > 0) {
+            east = Math.min(width - 1, east + expansionEast);
+        }
+        if (clampWest != null) {
+            west = Math.max(west, clampWest);
+        }
+        if (clampEast != null) {
+            east = Math.min(east, clampEast);
+        }
+        if (minWidth != null && minWidth > 0) {
+            const span = east - west + 1;
+            if (span < minWidth) {
+                const deficit = minWidth - span;
+                const shiftWest = Math.floor(deficit / 2);
+                const shiftEast = deficit - shiftWest;
+                west = Math.max(0, west - shiftWest);
+                east = Math.min(width - 1, east + shiftEast);
+            }
+        }
+        if (overrideSouth != null) {
+            south = Math.max(0, Math.min(height - 1, overrideSouth));
+        }
+        if (overrideNorth != null) {
+            north = Math.max(0, Math.min(height - 1, overrideNorth));
+        }
+        const mutated = west !== win.west || east !== win.east || south !== win.south || north !== win.north;
+        if (mutated)
+            changed = true;
+        if (!mutated)
+            return win;
+        return {
+            west,
+            east,
+            south,
+            north,
+            continent: win.continent,
+        };
+    });
+    return changed ? adjusted : windows;
+}

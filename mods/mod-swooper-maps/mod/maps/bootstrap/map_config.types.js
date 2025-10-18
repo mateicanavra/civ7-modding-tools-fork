@@ -182,6 +182,7 @@
  * @property {string} [preset] - Active preset name to mirror (string key into presets)
  * @property {Object.<string, {bands: ReadonlyArray<LandmassBand>}>} [presets] - Named presets mapping to band arrays (open set of presets)
  * @property {ReadonlyArray<LandmassBand>} [bands] - Three-band layout fallback (should mirror selected preset). Fractions are relative to map width (ratio 0..1).
+ * @property {LandmassGeometryPost} [post] - Optional post-processing adjustments applied after deriving landmass windows
  */
 
 /**
@@ -191,6 +192,20 @@
  * @property {number} eastFrac - East bound as a fraction of map width (ratio 0..1)
  * @property {number} westOceanOffset - West ocean offset (+ scalar x iOceanWaterColumns to tiles)
  * @property {number} eastOceanOffset - East ocean offset (- scalar x iOceanWaterColumns to tiles)
+ */
+
+/**
+ * Post-processing adjustments for derived landmass windows.
+ * Values are applied after either preset bands or plate-derived windows are computed.
+ * @typedef {Object} LandmassGeometryPost
+ * @property {number} [expandTiles] - Expand each landmass west/east by this many tiles (applied before individual offsets)
+ * @property {number} [expandWestTiles] - Additional west-side expansion per landmass (tiles)
+ * @property {number} [expandEastTiles] - Additional east-side expansion per landmass (tiles)
+ * @property {number} [clampWestMin] - Minimum west boundary allowed (tiles, 0-based)
+ * @property {number} [clampEastMax] - Maximum east boundary allowed (tiles, inclusive)
+ * @property {number} [overrideSouth] - Override south boundary for all landmasses (tiles)
+ * @property {number} [overrideNorth] - Override north boundary for all landmasses (tiles)
+ * @property {number} [minWidthTiles] - Ensure each landmass spans at least this many tiles horizontally (tiles)
  */
 
 /**
