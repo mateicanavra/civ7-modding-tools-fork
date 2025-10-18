@@ -27,6 +27,7 @@
  * Master toggles (all false by default).
  * Flip selectively during development sessions; keep off for release builds.
  */
+import * as globals from "/base-standard/maps/map-globals.js";
 import { DEV_LOG_CFG as __DEV_CFG__ } from "./resolved.js";
 export const DEV = {
     ENABLED: true, // Master switch — must be true for any dev logging
@@ -36,6 +37,7 @@ export const DEV = {
     LOG_CORRIDOR_ASCII: true, // Print a coarse ASCII overlay of corridor tags (downsampled)
     LOG_WORLDMODEL_SUMMARY: false, // Print compact WorldModel summary when available
     LOG_WORLDMODEL_ASCII: true, // ASCII visualization of plate boundaries & terrain mix
+    LOG_BOUNDARY_METRICS: false, // Quantitative summary of plate boundary coverage
     WORLDMODEL_HISTOGRAMS: false, // Print histograms for rift/uplift (optionally near tags)
     LAYER_COUNTS: false, // Reserved for layer-specific counters (if used by callers)
 };
@@ -65,6 +67,8 @@ try {
             DEV.LOG_WORLDMODEL_SUMMARY = !!__cfg.LOG_WORLDMODEL_SUMMARY;
         if ("LOG_WORLDMODEL_ASCII" in __cfg)
             DEV.LOG_WORLDMODEL_ASCII = !!__cfg.LOG_WORLDMODEL_ASCII;
+        if ("LOG_BOUNDARY_METRICS" in __cfg)
+            DEV.LOG_BOUNDARY_METRICS = !!__cfg.LOG_BOUNDARY_METRICS;
         if ("WORLDMODEL_HISTOGRAMS" in __cfg)
             DEV.WORLDMODEL_HISTOGRAMS = !!__cfg.WORLDMODEL_HISTOGRAMS;
     }
@@ -466,6 +470,154 @@ export function logWorldModelAscii(WorldModel, opts = {}) {
     }
 }
 /**
+ * Quantitative boundary diagnostics (coverage, closeness bands, terrain overlays).
+ * @param {{isEnabled?:()=>boolean,boundaryType?:Uint8Array,boundaryCloseness?:Uint8Array}} WorldModel
+ * @param {{bins?:number,thresholds?:number[],stage?:string}} [opts]
+ */
+export function logBoundaryMetrics(WorldModel, opts = {}) {
+    if (!isOn("LOG_BOUNDARY_METRICS"))
+        return;
+    try {
+        const enabled = !!WorldModel && typeof WorldModel.isEnabled === "function" && !!WorldModel.isEnabled();
+        if (!enabled) {
+            safeLog("[DEV][wm] metrics: WorldModel disabled or unavailable.");
+            return;
+        }
+        const width = GameplayMap?.getGridWidth?.() ?? 0;
+        const height = GameplayMap?.getGridHeight?.() ?? 0;
+        if (!width || !height) {
+            safeLog("[DEV][wm] metrics: No map bounds.");
+            return;
+        }
+        const boundaryType = WorldModel.boundaryType;
+        const boundaryCloseness = WorldModel.boundaryCloseness;
+        if (!boundaryType || !boundaryCloseness) {
+            safeLog("[DEV][wm] metrics: Missing boundary arrays.");
+            return;
+        }
+        const bins = Math.max(3, Math.min(40, Number.isFinite(opts.bins) ? Math.trunc(opts.bins) : 10));
+        const thresholds = Array.isArray(opts.thresholds) && opts.thresholds.length
+            ? opts.thresholds.map((t) => Math.max(0, Math.min(1, Number(t)))).sort((a, b) => a - b)
+            : [0.35, 0.6];
+        const stage = opts.stage ? ` (${String(opts.stage)})` : "";
+
+        const hist = new Array(bins).fill(0);
+        const counts = [0, 0, 0, 0];
+        const thresholdHits = thresholds.map(() => 0);
+        const mountainByType = [0, 0, 0, 0];
+        const hillByType = [0, 0, 0, 0];
+        const volcanoByType = [0, 0, 0, 0];
+        const mountainByBand = thresholds.map(() => 0);
+        const hillByBand = thresholds.map(() => 0);
+        const volcanoByBand = thresholds.map(() => 0);
+
+        let mountains = 0;
+        let hills = 0;
+        let volcanoes = 0;
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const i = y * width + x;
+                const closeness = (boundaryCloseness[i] | 0) / 255;
+                const bType = boundaryType[i] | 0;
+                if (bType >= 0 && bType < counts.length)
+                    counts[bType]++;
+                const bin = Math.min(bins - 1, Math.floor(closeness * bins));
+                hist[bin]++;
+                thresholds.forEach((t, idx) => {
+                    if (closeness >= t)
+                        thresholdHits[idx]++;
+                });
+
+                const isMountain = !!GameplayMap.isMountain?.(x, y);
+                const terrainType = GameplayMap.getTerrainType?.(x, y) ?? -1;
+                const featureType = GameplayMap.getFeatureType?.(x, y) ?? -1;
+
+                if (isMountain) {
+                    mountains++;
+                    if (bType >= 0 && bType < mountainByType.length)
+                        mountainByType[bType]++;
+                    thresholds.forEach((t, idx) => {
+                        if (closeness >= t)
+                            mountainByBand[idx]++;
+                    });
+                } else if (terrainType === globals.g_HillTerrain) {
+                    hills++;
+                    if (bType >= 0 && bType < hillByType.length)
+                        hillByType[bType]++;
+                    thresholds.forEach((t, idx) => {
+                        if (closeness >= t)
+                            hillByBand[idx]++;
+                    });
+                }
+                if (featureType === globals.g_VolcanoFeature) {
+                    volcanoes++;
+                    if (bType >= 0 && bType < volcanoByType.length)
+                        volcanoByType[bType]++;
+                    thresholds.forEach((t, idx) => {
+                        if (closeness >= t)
+                            volcanoByBand[idx]++;
+                    });
+                }
+            }
+        }
+
+        const totalTiles = Math.min(boundaryType.length, boundaryCloseness.length, width * height);
+        const pct = (value, total) => total > 0 ? ((value / total) * 100).toFixed(1) + "%" : "0%";
+
+        safeLog(`[DEV][wm] metrics${stage}: counts`, {
+            totalTiles,
+            none: counts[0],
+            convergent: counts[1],
+            divergent: counts[2],
+            transform: counts[3],
+        });
+        safeLog("[DEV][wm] metrics: share", {
+            convergent: pct(counts[1], totalTiles),
+            divergent: pct(counts[2], totalTiles),
+            transform: pct(counts[3], totalTiles),
+        });
+        safeLog("[DEV][wm] metrics: closeness histogram", hist.map((count, idx) => ({ bin: idx, count })));
+        thresholds.forEach((t, idx) => {
+            safeLog(`[DEV][wm] metrics: closeness >= ${t.toFixed(2)}`, {
+                tiles: thresholdHits[idx],
+                share: pct(thresholdHits[idx], totalTiles),
+            });
+        });
+        safeLog("[DEV][wm] metrics: mountains", {
+            total: mountains,
+            none: mountainByType[0],
+            convergent: mountainByType[1],
+            divergent: mountainByType[2],
+            transform: mountainByType[3],
+        });
+        safeLog("[DEV][wm] metrics: hills", {
+            total: hills,
+            none: hillByType[0],
+            convergent: hillByType[1],
+            divergent: hillByType[2],
+            transform: hillByType[3],
+        });
+        safeLog("[DEV][wm] metrics: volcanoes", {
+            total: volcanoes,
+            none: volcanoByType[0],
+            convergent: volcanoByType[1],
+            divergent: volcanoByType[2],
+            transform: volcanoByType[3],
+        });
+        thresholds.forEach((t, idx) => {
+            safeLog(`[DEV][wm] metrics: >=${t.toFixed(2)} overlays`, {
+                mountains: mountainByBand[idx],
+                hills: hillByBand[idx],
+                volcanoes: volcanoByBand[idx],
+            });
+        });
+    }
+    catch (err) {
+        safeLog("[DEV][wm] metrics error:", err);
+    }
+}
+/**
  * Log a coarse ASCII overlay of corridor tags (downsampled).
  * Legend:
  * Legend:
@@ -579,4 +731,5 @@ export default {
     logWorldModelSummary,
     logWorldModelHistograms,
     logWorldModelAscii,
+    logBoundaryMetrics,
 };

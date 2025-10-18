@@ -31,7 +31,7 @@ import { refineRainfallEarthlike as layerRefineRainfallEarthlike } from "./layer
 import { designateEnhancedBiomes as layerDesignateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures as layerAddDiverseFeatures } from "./layers/features.js";
 import { runPlacement as layerRunPlacement } from "./layers/placement.js";
-import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, } from "./bootstrap/dev.js";
+import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, } from "./bootstrap/dev.js";
 import { WorldModel } from "./world/model.js";
 // Phase 1 Refactoring: Context + Adapter layer
 import { createMapContext } from "./core/types.js";
@@ -333,11 +333,13 @@ function generateMap() {
         layerAddMountainsPhysics(ctx, mountainOptions);
         timeEnd(t);
     }
+    logBoundaryMetrics(WorldModel, { stage: "post-mountains" });
     {
         const t = timeStart("Volcanoes");
         layerAddVolcanoesPlateAware(ctx, volcanoOptions);
         timeEnd(t);
     }
+    logBoundaryMetrics(WorldModel, { stage: "post-volcanoes" });
     // Lakes – fewer than before
     {
         const t = timeStart("Lakes");

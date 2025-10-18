@@ -560,6 +560,17 @@ export const BASE_CONFIG = Object.freeze({
             passiveBonus: 2,
         }),
         minSeaLaneWidth: 4,
+        plateBias: Object.freeze({
+            threshold: 0.45,
+            power: 1.25,
+            convergent: 1.0,
+            transform: 0.4,
+            divergent: -0.6,
+            interior: 0,
+            bayWeight: 0.35,
+            bayNoiseBonus: 1.0,
+            fjordWeight: 0.8,
+        }),
     }),
     // --- Margins (active/passive tagging) ---
     margins: Object.freeze({
@@ -705,6 +716,7 @@ export const BASE_CONFIG = Object.freeze({
         logTiming: true,
         logStoryTags: true,
         rainfallHistogram: true,
+        LOG_BOUNDARY_METRICS: false,
     }),
 });
 export default BASE_CONFIG;

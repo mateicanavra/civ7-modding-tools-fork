@@ -275,6 +275,26 @@
  * @property {number} [fjord.activeBonus] - Extra fjords on active margins (converging plates); subtracts from baseDenom (typically 3-8)
  * @property {number} [fjord.passiveBonus] - Fjords near passive shelves; subtracts from baseDenom (typically 0-2)
  * @property {number} [minSeaLaneWidth] - Minimum channel width to preserve for naval passage (typically 3-6 tiles)
+ * @property {CoastlinePlateBias} [plateBias] - Plate-aware weighting for bay/fjord odds based on boundary closeness
+ */
+
+/**
+ * Plate-aware coastline weighting (optional).
+ *
+ * Provides continuous control over how boundary closeness and boundary type
+ * influence bay and fjord chances. Positive values make denominators smaller
+ * (more edits); negative values make them larger (fewer edits).
+ *
+ * @typedef {Object} CoastlinePlateBias
+ * @property {number} [threshold] - Closeness threshold (0..1) where boundary influence starts (default 0.45)
+ * @property {number} [power] - Exponent shaping how quickly influence ramps after the threshold (default 1.25)
+ * @property {number} [convergent] - Multiplier for convergent boundaries (default 1.0)
+ * @property {number} [transform] - Multiplier for transform boundaries (default 0.4)
+ * @property {number} [divergent] - Multiplier for divergent boundaries (negative to reduce edits, default -0.6)
+ * @property {number} [interior] - Residual influence for interior coasts (default 0)
+ * @property {number} [bayWeight] - Strength applied to bay denominators (default 0.35)
+ * @property {number} [bayNoiseBonus] - Extra noise gate reduction when bias is positive (default 1.0)
+ * @property {number} [fjordWeight] - Strength applied to fjord denominators (default 0.8)
  */
 
 /**
