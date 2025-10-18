@@ -19,6 +19,7 @@
 
 ## Mod: Swooper Maps
 - The huge-plate baseline entry now lives at `mods/mod-swooper-maps/mod/maps/swooper-desert-mountains.js`, with config and localization rows using the same `desert-mountains` slug.
+- `mods/mod-swooper-maps/mod/maps/bootstrap/dev.js` now emits ASCII diagnostics for landmass windows, relief (mountains/hills/volcanoes), rainfall buckets, and biome distribution in addition to plate boundaries/corridors. Toggle them with `DEV.LOG_LANDMASS_ASCII`, `DEV.LOG_RELIEF_ASCII`, `DEV.LOG_RAINFALL_ASCII`, and `DEV.LOG_BIOME_ASCII`.
 
 ### Testing imports
 - Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.

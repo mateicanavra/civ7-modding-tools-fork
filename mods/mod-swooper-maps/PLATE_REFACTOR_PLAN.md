@@ -21,8 +21,8 @@ Unified tracker for the plate-driven landmass refactor. This document replaces b
   - [x] Thread new `mountains` config block through bootstrap → orchestrator → `layerAddMountainsPhysics`.
   - [x] Surface plate-aware volcano toggles/weights (convergent arcs vs. interior hot spots).
   - [x] Expose coastline boundary bias knobs (`coastlines.js`) so convergent/transform margins can be tuned per preset.
-  - [ ] Add plate-aware ocean separation/water knobs (worldModel policy → landmass/coast shaping).
-  - [ ] Refresh presets/README snippets to document the exposed knobs and defaults.
+  - [x] Add plate-aware ocean separation/water knobs (worldModel policy → landmass/coast shaping).
+  - [x] Refresh presets/README snippets to document the exposed knobs and defaults.
 - [ ] Observability: improve plate debugging overlays.
   - [x] Add DEV ASCII snapshot that annotates plate boundaries alongside terrain.
   - [x] Surface lightweight boundary metrics (counts, hotspots) in logs.

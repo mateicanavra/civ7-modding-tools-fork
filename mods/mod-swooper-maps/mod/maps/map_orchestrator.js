@@ -31,7 +31,7 @@ import { refineRainfallEarthlike as layerRefineRainfallEarthlike } from "./layer
 import { designateEnhancedBiomes as layerDesignateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures as layerAddDiverseFeatures } from "./layers/features.js";
 import { runPlacement as layerRunPlacement } from "./layers/placement.js";
-import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, } from "./bootstrap/dev.js";
+import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, } from "./bootstrap/dev.js";
 import { WorldModel } from "./world/model.js";
 // Phase 1 Refactoring: Context + Adapter layer
 import { createMapContext } from "./core/types.js";
@@ -167,6 +167,7 @@ function generateMap() {
         continent: 0,
     };
     let usedPlateLandmasses = false;
+    let landmaskDebug = null;
     // Create more complex continent boundaries for our diverse terrain generation
     // Compute band windows from per-map geometry config (if provided)
     {
@@ -182,6 +183,7 @@ function generateMap() {
                 landmassWindows = voronoiResult.windows;
                 derivedStartRegions = voronoiResult.startRegions;
                 adjustmentsApplied = true;
+                landmaskDebug = voronoiResult.landMask || null;
             }
         }
         if (!landmassWindows && usePlateGeometry) {
@@ -194,6 +196,7 @@ function generateMap() {
                 landmassWindows = plateResult.windows;
                 derivedStartRegions = plateResult.startRegions;
                 adjustmentsApplied = true;
+                landmaskDebug = plateResult.landMask || null;
             }
         }
         if (!landmassWindows) {
@@ -273,6 +276,10 @@ function generateMap() {
         }
         timeEnd(t);
     }
+    logLandmassAscii(usedPlateLandmasses ? "plate" : "bands", {
+        windows: Array.isArray(landmassWindowsFinal) ? landmassWindowsFinal : [],
+        landMask: landmaskDebug || undefined,
+    });
     TerrainBuilder.validateAndFixTerrain();
     {
         const t = timeStart("ExpandCoasts");
@@ -340,6 +347,7 @@ function generateMap() {
         timeEnd(t);
     }
     logBoundaryMetrics(WorldModel, { stage: "post-volcanoes" });
+    logTerrainReliefAscii("post-volcanoes");
     // Lakes – fewer than before
     {
         const t = timeStart("Lakes");
@@ -380,6 +388,7 @@ function generateMap() {
         layerBuildEnhancedRainfall(iWidth, iHeight);
         timeEnd(t);
     }
+    logRainfallAscii("baseline");
     {
         const t = timeStart("Climate: Swatches");
         const swatchResult = storyTagClimateSwatches();
@@ -406,12 +415,14 @@ function generateMap() {
         layerRefineRainfallEarthlike(iWidth, iHeight, ctx);
         timeEnd(t);
     }
+    logRainfallAscii("refined");
     // Enhanced biome diversity
     {
         const t = timeStart("Biomes");
         layerDesignateEnhancedBiomes(iWidth, iHeight);
         timeEnd(t);
     }
+    logBiomeAscii("final");
     // Add extensive feature variety
     {
         const t = timeStart("Features");

@@ -31,6 +31,19 @@ export const VORONOI_PRESET = {
             },
         }),
     },
+    coastlines: {
+        plateBias: {
+            threshold: 0.48,
+            power: 1.2,
+            convergent: 1.25,
+            transform: 0.55,
+            divergent: -0.35,
+            interior: -0.15,
+            bayWeight: 0.45,
+            bayNoiseBonus: 1.35,
+            fjordWeight: 1.05,
+        },
+    },
     worldModel: /** @type {WorldModelCfg} */ ({
         enabled: true,
         plates: {
@@ -42,10 +55,14 @@ export const VORONOI_PRESET = {
         policy: {
             oceanSeparation: {
                 enabled: true,
+                bandPairs: [
+                    [0, 1],
+                    [1, 2],
+                ],
                 baseSeparationTiles: 3,
                 boundaryClosenessMultiplier: 1.4,
                 maxPerRowDelta: 4,
-                minChannelWidth: 4,
+                minChannelWidth: 5,
                 respectSeaLanes: true,
                 edgeWest: {
                     enabled: false,
