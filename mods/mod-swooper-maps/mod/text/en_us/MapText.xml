@@ -8,18 +8,5 @@
 			<Text>Plate-forged mega ranges carve a hyper-arid world into stark basins and windward oases. Expect towering boundary cordilleras, savage lee-side deserts, and a handful of monsoon belts clinging to the mountains that feed them.</Text>
 		</Row>
 
-		<Row Tag="LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_NAME">
-			<Text>Swooper Diverse Huge (Temperate)</Text>
-		</Row>
-		<Row Tag="LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_DESCRIPTION">
-			<Text>Temperate climate variant with milder weather patterns and reduced extremes. Same physics-based generation with adjusted climate parameters for a more moderate world.</Text>
-		</Row>
-
-		<Row Tag="LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_NAME">
-			<Text>Swooper Diverse Huge (Kahula)</Text>
-		</Row>
-		<Row Tag="LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_DESCRIPTION">
-			<Text>Dramatic tectonic variant featuring a massive central continent with a north-south convergent ridge and flanking rifts. Extreme geography with pronounced mountain chains and rift valleys.</Text>
-		</Row>
 	</EnglishText>
 </Database>

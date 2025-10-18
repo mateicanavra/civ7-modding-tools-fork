@@ -8,19 +8,5 @@
 			Description="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_DESCRIPTION"
 			SortIndex="500"
 		/>
-		<!-- Temperate variant - Milder climate -->
-		<Row
-			File="{swooper-maps}/maps/swooper-diverse-huge-temperate.js"
-			Name="LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_NAME"
-			Description="LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_DESCRIPTION"
-			SortIndex="501"
-		/>
-		<!-- Kahula variant - Dramatic tectonics with central ridge -->
-		<Row
-			File="{swooper-maps}/maps/swooper-diverse-huge-kahula.js"
-			Name="LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_NAME"
-			Description="LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_DESCRIPTION"
-			SortIndex="502"
-		/>
 	</Maps>
 </Database>

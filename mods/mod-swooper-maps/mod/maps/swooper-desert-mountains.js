@@ -230,7 +230,7 @@ bootstrap({
         worldModel: /** @type {Partial<WorldModelCfg>} */ ({
             plates: {
                 count: 14,
-                axisAngles: Object.freeze([15, 195]),
+                axisAngles: [15, 195],
                 convergenceMix: 0.78,
                 relaxationSteps: 3,
                 seedJitter: 2,
