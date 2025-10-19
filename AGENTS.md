@@ -23,6 +23,8 @@
 - `mods/mod-swooper-maps/DESIGN.md` captures the current layer stack and forward-looking physics roadmap; `SWOOPER_MAPS_ARCHITECTURE_AUDIT.md` now includes Section 7 for Earth-system expansion ideas.
 - Stage execution is coordinated through `stageManifest` (defaults in `mods/mod-swooper-maps/mod/maps/bootstrap/defaults/base.js`). The resolver normalizes dependencies, mirrors legacy `STORY_ENABLE_*` toggles, and logs `[StageManifest]` warnings when prerequisites are missing. Use `tunables.stageEnabled()` instead of raw toggles when gating layers.
 - Landmass generation now flows Voronoi → plate mask; ocean separation lives in `layers/landmass_utils.js::applyPlateAwareOceanSeparation` and the legacy three-band generator has been removed.
+- Entries and named presets can declare a `stageConfig` map to indicate which stages they supply overrides for; the resolver warns when those stages are disabled or missing so presets can prune dead config.
+- `bootstrap/tunables.js` exposes a `CLIMATE` helper (`CLIMATE.drivers`, `CLIMATE.moistureAdjustments`) that climate layers and story overlays consume instead of reading raw config blocks.
 
 ### Testing imports
 - Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.

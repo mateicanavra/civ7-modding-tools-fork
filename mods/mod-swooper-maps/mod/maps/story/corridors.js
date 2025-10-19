@@ -18,6 +18,54 @@ import { StoryTags } from "./tags.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 import { STORY_ENABLE_CORRIDORS, CORRIDORS_CFG, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { devLogIf } from "../bootstrap/dev.js";
+
+const STYLE_PRIMITIVE_CACHE = new Map();
+
+function freezeClone(obj) {
+    if (!obj || typeof obj !== "object")
+        return undefined;
+    const out = {};
+    for (const key of Object.keys(obj))
+        out[key] = obj[key];
+    return Object.freeze(out);
+}
+
+function fetchCorridorStylePrimitive(kind, style) {
+    if (typeof kind !== "string" || typeof style !== "string")
+        return null;
+    const cacheKey = `${kind}:${style}`;
+    if (STYLE_PRIMITIVE_CACHE.has(cacheKey))
+        return STYLE_PRIMITIVE_CACHE.get(cacheKey);
+    const kindCfg = CORRIDORS_CFG?.kinds?.[kind];
+    const styleCfg = kindCfg && kindCfg.styles ? kindCfg.styles[style] : null;
+    if (!styleCfg)
+        return null;
+    const primitive = Object.freeze({
+        kind,
+        style,
+        biomes: styleCfg.biomes ? freezeClone(styleCfg.biomes) : undefined,
+        features: styleCfg.features ? freezeClone(styleCfg.features) : undefined,
+        edge: styleCfg.edge ? freezeClone(styleCfg.edge) : undefined,
+    });
+    STYLE_PRIMITIVE_CACHE.set(cacheKey, primitive);
+    return primitive;
+}
+
+function assignCorridorMetadata(key, kind, style) {
+    if (typeof key !== "string" || typeof kind !== "string" || typeof style !== "string")
+        return;
+    StoryTags.corridorKind.set(key, kind);
+    StoryTags.corridorStyle.set(key, style);
+    const primitive = fetchCorridorStylePrimitive(kind, style);
+    if (primitive)
+        StoryTags.corridorAttributes.set(key, primitive);
+    else
+        StoryTags.corridorAttributes.delete(key);
+}
+
+function clearCorridorStyleCache() {
+    STYLE_PRIMITIVE_CACHE.clear();
+}
 /**
  * Safe random helper (engine provided).
  * @param {number} n
@@ -403,11 +451,10 @@ function tagSeaLanes() {
                 if (GameplayMap.isWater(x, y)) {
                     const kk = storyKey(x, y);
                     StoryTags.corridorSeaLane.add(kk);
-                    StoryTags.corridorKind.set(kk, "sea");
                     const style = isAdjacentToLand(x, y, 2)
                         ? "coastal"
                         : "ocean";
-                    StoryTags.corridorStyle.set(kk, style);
+                    assignCorridorMetadata(kk, "sea", style);
                 }
             }
         }
@@ -417,11 +464,10 @@ function tagSeaLanes() {
                 if (GameplayMap.isWater(x, y)) {
                     const kk = storyKey(x, y);
                     StoryTags.corridorSeaLane.add(kk);
-                    StoryTags.corridorKind.set(kk, "sea");
                     const style = isAdjacentToLand(x, y, 2)
                         ? "coastal"
                         : "ocean";
-                    StoryTags.corridorStyle.set(kk, style);
+                    assignCorridorMetadata(kk, "sea", style);
                 }
             }
         }
@@ -436,11 +482,10 @@ function tagSeaLanes() {
                     GameplayMap.isWater(x, y)) {
                     const kk = storyKey(x, y);
                     StoryTags.corridorSeaLane.add(kk);
-                    StoryTags.corridorKind.set(kk, "sea");
                     const style = isAdjacentToLand(x, y, 2)
                         ? "coastal"
                         : "ocean";
-                    StoryTags.corridorStyle.set(kk, style);
+                    assignCorridorMetadata(kk, "sea", style);
                 }
             }
         }
@@ -455,11 +500,10 @@ function tagSeaLanes() {
                     GameplayMap.isWater(x, y)) {
                     const kk = storyKey(x, y);
                     StoryTags.corridorSeaLane.add(kk);
-                    StoryTags.corridorKind.set(kk, "sea");
                     const style = isAdjacentToLand(x, y, 2)
                         ? "coastal"
                         : "ocean";
-                    StoryTags.corridorStyle.set(kk, style);
+                    assignCorridorMetadata(kk, "sea", style);
                 }
             }
         }
@@ -509,8 +553,7 @@ function tagIslandHopFromHotspots() {
                 {
                     const kk = storyKey(nx, ny);
                     StoryTags.corridorIslandHop.add(kk);
-                    StoryTags.corridorKind.set(kk, "islandHop");
-                    StoryTags.corridorStyle.set(kk, "archipelago");
+                    assignCorridorMetadata(kk, "islandHop", "archipelago");
                 }
             }
         }
@@ -658,8 +701,7 @@ function tagLandCorridorsFromRifts() {
                         if (!GameplayMap.isWater(cx, y)) {
                             const kk = storyKey(cx, y);
                             StoryTags.corridorLandOpen.add(kk);
-                            StoryTags.corridorKind.set(kk, "land");
-                            StoryTags.corridorStyle.set(kk, style);
+                            assignCorridorMetadata(kk, "land", style);
                         }
                     }
                     usedRows.push(y);
@@ -747,8 +789,7 @@ function tagRiverChainsPostRivers() {
             for (let i = 0; i < pathKeys.length; i++) {
                 const kk = pathKeys[i];
                 StoryTags.corridorRiverChain.add(kk);
-                StoryTags.corridorKind.set(kk, "river");
-                StoryTags.corridorStyle.set(kk, "riverChain");
+                assignCorridorMetadata(kk, "river", "riverChain");
             }
             chains++;
         }
@@ -764,6 +805,7 @@ function tagRiverChainsPostRivers() {
 export function storyTagStrategicCorridors(stage) {
     if (!STORY_ENABLE_CORRIDORS)
         return;
+    clearCorridorStyleCache();
     if (stage === "preIslands") {
         tagSeaLanes();
         tagIslandHopFromHotspots();
@@ -778,43 +820,33 @@ export function storyTagStrategicCorridors(stage) {
 function backfillCorridorKinds() {
     // Sea lanes: classify as coastal when adjacent to shallow water; else ocean
     for (const key of StoryTags.corridorSeaLane) {
-        if (!StoryTags.corridorKind.has(key)) {
-            StoryTags.corridorKind.set(key, "sea");
-        }
-        if (!StoryTags.corridorStyle.has(key)) {
+        let kind = StoryTags.corridorKind.get(key) || "sea";
+        let style = StoryTags.corridorStyle.get(key);
+        if (!style) {
             const [sx, sy] = key.split(",").map(Number);
-            const style = GameplayMap.isAdjacentToShallowWater(sx, sy)
+            style = GameplayMap.isAdjacentToShallowWater(sx, sy)
                 ? "coastal"
                 : "ocean";
-            StoryTags.corridorStyle.set(key, style);
         }
+        assignCorridorMetadata(key, kind, style);
     }
     // Island-hop lanes: archipelago style
     for (const key of StoryTags.corridorIslandHop) {
-        if (!StoryTags.corridorKind.has(key)) {
-            StoryTags.corridorKind.set(key, "islandHop");
-        }
-        if (!StoryTags.corridorStyle.has(key)) {
-            StoryTags.corridorStyle.set(key, "archipelago");
-        }
+        const kind = StoryTags.corridorKind.get(key) || "islandHop";
+        const style = StoryTags.corridorStyle.get(key) || "archipelago";
+        assignCorridorMetadata(key, kind, style);
     }
     // Land-open corridors: default to plainsBelt style (playable open land)
     for (const key of StoryTags.corridorLandOpen) {
-        if (!StoryTags.corridorKind.has(key)) {
-            StoryTags.corridorKind.set(key, "land");
-        }
-        if (!StoryTags.corridorStyle.has(key)) {
-            StoryTags.corridorStyle.set(key, "plainsBelt");
-        }
+        const kind = StoryTags.corridorKind.get(key) || "land";
+        const style = StoryTags.corridorStyle.get(key) || "plainsBelt";
+        assignCorridorMetadata(key, kind, style);
     }
     // River-chain corridors: riverChain style
     for (const key of StoryTags.corridorRiverChain) {
-        if (!StoryTags.corridorKind.has(key)) {
-            StoryTags.corridorKind.set(key, "river");
-        }
-        if (!StoryTags.corridorStyle.has(key)) {
-            StoryTags.corridorStyle.set(key, "riverChain");
-        }
+        const kind = StoryTags.corridorKind.get(key) || "river";
+        const style = StoryTags.corridorStyle.get(key) || "riverChain";
+        assignCorridorMetadata(key, kind, style);
     }
     // Dev: style distribution summary (counts by kind:style)
     try {

@@ -15,6 +15,10 @@
  */
 // @ts-check
 export const CLASSIC_PRESET = Object.freeze({
+    stageConfig: Object.freeze({
+        worldModel: true,
+        landmass: true,
+    }),
     // Keep all major systems enabled by default
     toggles: Object.freeze({
         STORY_ENABLE_HOTSPOTS: true,

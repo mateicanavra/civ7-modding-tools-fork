@@ -42,6 +42,7 @@
  * @property {DevLogging} [dev] - Debug logging: timing stats, story tag counts, rainfall distribution histograms
  * @property {WorldModel} [worldModel] - Earth-like physical simulation: tectonic plates, prevailing winds, ocean currents, mantle convection
  * @property {StageManifest} [stageManifest] - Pipeline manifest describing stage order, enablement, and inter-stage dependencies
+ * @property {StageConfigProviders} [stageConfig] - Metadata indicating which stages a preset or entry supplies configuration for
  */
 
 /**
@@ -70,6 +71,13 @@
  * @typedef {Object} StageManifest
  * @property {ReadonlyArray<StageName>} order - Ordered list of stages to execute (duplicates removed during normalization)
  * @property {Record<StageName, StageDescriptor>} stages - Descriptor metadata keyed by stage identifier
+ */
+
+/**
+ * Stage configuration providers metadata (used for diagnostics).
+ * Keys are stage identifiers and values indicate whether overrides target that stage.
+ *
+ * @typedef {Object.<StageName, boolean>} StageConfigProviders
  */
 
 /**

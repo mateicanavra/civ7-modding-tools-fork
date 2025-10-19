@@ -319,6 +319,59 @@ function normalizeStageManifest(manifestInput, togglesInput, worldModelCfg) {
         warnings,
     };
 }
+
+/**
+ * Normalize stage configuration provider metadata from runtime entries.
+ * @param {any} input
+ * @returns {Record<string, boolean>}
+ */
+function normalizeStageConfigProviders(input) {
+    if (!isPlainObject(input))
+        return {};
+    /** @type {Record<string, boolean>} */
+    const out = {};
+    for (const key of Object.keys(input)) {
+        if (typeof key !== "string")
+            continue;
+        const value = input[key];
+        if (typeof value === "boolean") {
+            if (value)
+                out[key] = true;
+            continue;
+        }
+        if (value != null)
+            out[key] = true;
+    }
+    return out;
+}
+
+/**
+ * Derive warnings when overrides target disabled or missing stages.
+ * @param {Record<string, boolean>} providers
+ * @param {StageManifest} manifest
+ * @returns {Array<string>}
+ */
+function deriveStageOverrideWarnings(providers, manifest) {
+    /** @type {Array<string>} */
+    const warnings = [];
+    if (!providers)
+        return warnings;
+    const stages = manifest?.stages || {};
+    for (const name of Object.keys(providers)) {
+        if (!providers[name])
+            continue;
+        const desc = stages[name];
+        if (!desc) {
+            warnings.push(`Stage "${name}" not present in manifest; overrides will not run.`);
+            continue;
+        }
+        if (desc.enabled)
+            continue;
+        const reason = desc.blockedBy ? ` (${desc.blockedBy})` : "";
+        warnings.push(`Stage "${name}" disabled${reason}; overrides for this stage will be ignored.`);
+    }
+    return warnings;
+}
 /* -----------------------------------------------------------------------------
  * Resolution
  * -------------------------------------------------------------------------- */
@@ -346,22 +399,27 @@ function buildSnapshot() {
             merged = deepMerge(merged, presetObj);
         }
     }
+    const stageConfigProviders = normalizeStageConfigProviders(rc.stageConfig);
     // Strip control keys (e.g., 'presets') from overrides before merge
     /** @type {AnyObject} */
     const overrides = {};
     for (const k of Object.keys(rc)) {
-        if (k === "presets")
+        if (k === "presets" || k === "stageConfig")
             continue;
         overrides[k] = rc[k];
     }
     // Apply per-entry overrides last (highest precedence)
     merged = deepMerge(merged, overrides);
+    if (Object.keys(stageConfigProviders).length > 0) {
+        merged.stageConfig = stageConfigProviders;
+    }
     const togglesBase = isPlainObject(merged.toggles) ? /** @type {AnyObject} */ (merged.toggles) : {};
     const worldModelCfg = isPlainObject(merged.worldModel) ? /** @type {AnyObject} */ (merged.worldModel) : {};
     const { manifest: normalizedManifest, toggles: manifestToggles, warnings } = normalizeStageManifest(merged.stageManifest, togglesBase, worldModelCfg);
+    const overrideWarnings = deriveStageOverrideWarnings(stageConfigProviders, normalizedManifest);
     merged.stageManifest = normalizedManifest;
     merged.toggles = { ...togglesBase, ...manifestToggles };
-    for (const msg of warnings) {
+    for (const msg of [...warnings, ...overrideWarnings]) {
         try {
             console.warn(`[StageManifest] ${msg}`);
         }

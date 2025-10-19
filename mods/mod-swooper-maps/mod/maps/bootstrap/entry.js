@@ -84,6 +84,7 @@ function clone(v) {
  * @param {object} [options]
  * @param {ReadonlyArray<string>} [options.presets] - Ordered list of preset names understood by resolved.js
  * @param {Partial<MapConfig>} [options.overrides] - Inline overrides applied last (highest precedence)
+ * @param {Record<string, boolean>} [options.stageConfig] - Stage metadata indicating which stages provide config overrides
  */
 export function bootstrap(options = {}) {
     const presets = Array.isArray(options.presets) &&
@@ -93,9 +94,14 @@ export function bootstrap(options = {}) {
     const overrides = options && typeof options === "object" && options.overrides
         ? clone(options.overrides)
         : undefined;
+    const stageConfig = options && typeof options === "object" && options.stageConfig
+        ? clone(options.stageConfig)
+        : undefined;
     const cfg = {};
     if (presets)
         cfg.presets = presets;
+    if (stageConfig)
+        cfg.stageConfig = stageConfig;
     if (overrides) {
         // If both presets and overrides exist, ensure overrides apply last (highest precedence)
         Object.assign(cfg, deepMerge(cfg, overrides));

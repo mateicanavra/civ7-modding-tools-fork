@@ -107,6 +107,26 @@ export let ISLANDS_CFG = Object.freeze({});
 export let CLIMATE_BASELINE_CFG = Object.freeze({});
 /** @type {Readonly<ClimateRefine>} */
 export let CLIMATE_REFINE_CFG = Object.freeze({});
+/**
+ * Shared climate primitives exposed to layers and narrative overlays.
+ *
+ * climate.drivers — canonical baseline/refinement parameter blocks.
+ * climate.moistureAdjustments — targeted adjustments used by layers and overlays.
+ */
+export let CLIMATE = Object.freeze({
+    drivers: Object.freeze({
+        baseline: Object.freeze({}),
+        refine: Object.freeze({}),
+    }),
+    moistureAdjustments: Object.freeze({
+        baseline: Object.freeze({}),
+        refine: Object.freeze({}),
+        story: Object.freeze({}),
+        micro: Object.freeze({}),
+    }),
+});
+export let CLIMATE_DRIVERS = CLIMATE.drivers;
+export let MOISTURE_ADJUSTMENTS = CLIMATE.moistureAdjustments;
 /** @type {Readonly<MountainsCfg>} */
 export let MOUNTAINS_CFG = Object.freeze({});
 /** @type {Readonly<VolcanoesCfg>} */
@@ -209,6 +229,63 @@ export function rebind() {
     WORLDMODEL_POLICY = safeObj(__WM_POLICY__());
     WORLDMODEL_DIRECTIONALITY = safeObj(__WM_DIR__());
     WORLDMODEL_OCEAN_SEPARATION = safeObj(__WM_OSEPARATION__());
+    // 7) Climate primitives (drivers + shared adjustments)
+    const baselineDrivers = Object.freeze({
+        bands: safeObj(CLIMATE_BASELINE_CFG.bands),
+        blend: safeObj(CLIMATE_BASELINE_CFG.blend),
+    });
+    const refineDrivers = Object.freeze({
+        waterGradient: safeObj(CLIMATE_REFINE_CFG.waterGradient),
+        orographic: safeObj(CLIMATE_REFINE_CFG.orographic),
+        riverCorridor: safeObj(CLIMATE_REFINE_CFG.riverCorridor),
+        lowBasin: safeObj(CLIMATE_REFINE_CFG.lowBasin),
+        pressure: safeObj(CLIMATE_REFINE_CFG.pressure),
+    });
+    const storyMoisture = Object.freeze({
+        swatches: safeObj(S.swatches),
+        paleo: safeObj(S.paleo),
+        rainfall: safeObj(M.rainfall),
+        orogeny: safeObj(S.orogeny),
+    });
+    const baselineMoisture = Object.freeze({
+        orographic: safeObj(CLIMATE_BASELINE_CFG.orographic),
+        coastal: safeObj(CLIMATE_BASELINE_CFG.coastal),
+        noise: safeObj(CLIMATE_BASELINE_CFG.noise),
+        bands: baselineDrivers.bands,
+        blend: baselineDrivers.blend,
+    });
+    const refineMoisture = Object.freeze({
+        waterGradient: refineDrivers.waterGradient,
+        orographic: refineDrivers.orographic,
+        riverCorridor: refineDrivers.riverCorridor,
+        lowBasin: refineDrivers.lowBasin,
+        pressure: refineDrivers.pressure,
+    });
+    const microMoisture = Object.freeze({
+        rainfall: safeObj(M.rainfall),
+        features: safeObj(M.features),
+    });
+    CLIMATE = Object.freeze({
+        drivers: Object.freeze({
+            baseline: Object.freeze({
+                ...baselineDrivers,
+                orographic: baselineMoisture.orographic,
+                coastal: baselineMoisture.coastal,
+                noise: baselineMoisture.noise,
+            }),
+            refine: Object.freeze({
+                ...refineDrivers,
+            }),
+        }),
+        moistureAdjustments: Object.freeze({
+            baseline: baselineMoisture,
+            refine: refineMoisture,
+            story: storyMoisture,
+            micro: microMoisture,
+        }),
+    });
+    CLIMATE_DRIVERS = CLIMATE.drivers;
+    MOISTURE_ADJUSTMENTS = CLIMATE.moistureAdjustments;
 }
 /* -----------------------------------------------------------------------------
  * Helpers
@@ -287,5 +364,8 @@ export default {
     },
     get WORLD_MODEL() {
         return WORLDMODEL_CFG;
+    },
+    get CLIMATE() {
+        return CLIMATE;
     },
 };

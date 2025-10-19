@@ -11,7 +11,7 @@
 import * as globals from "/base-standard/maps/map-globals.js";
 import { isAdjacentToLand } from "../core/utils.js";
 import { StoryTags } from "../story/tags.js";
-import { COASTLINES_CFG, CORRIDOR_POLICY, CORRIDOR_KINDS, } from "../bootstrap/tunables.js";
+import { COASTLINES_CFG, CORRIDOR_POLICY, } from "../bootstrap/tunables.js";
 import { ctxRandom } from "../core/types.js";
 import { WorldModel } from "../world/model.js";
 
@@ -159,7 +159,7 @@ export function addRuggedCoasts(iWidth, iHeight, ctx) {
                     bayRollDenUsed = Math.max(1, Math.round(bayRollDenUsed / scale));
                 }
                 // Corridor edge effect: if near a sea-lane, apply style-based bay carve bias
-                const __laneStyle = (function () {
+                const laneAttr = (function () {
                     for (let ddy = -1; ddy <= 1; ddy++) {
                         for (let ddx = -1; ddx <= 1; ddx++) {
                             if (ddx === 0 && ddy === 0)
@@ -167,14 +167,14 @@ export function addRuggedCoasts(iWidth, iHeight, ctx) {
                             const k = `${x + ddx},${y + ddy}`;
                             if (StoryTags.corridorSeaLane &&
                                 StoryTags.corridorSeaLane.has(k)) {
-                                return (StoryTags.corridorStyle?.get?.(k) || null);
+                                return StoryTags.corridorAttributes?.get?.(k) || null;
                             }
                         }
                     }
                     return null;
                 })();
-                if (__laneStyle) {
-                    const edgeCfg = CORRIDOR_KINDS?.sea?.styles?.[__laneStyle]?.edge || {};
+                if (laneAttr && laneAttr.edge) {
+                    const edgeCfg = laneAttr.edge;
                     const bayMult = Number.isFinite(edgeCfg.bayCarveMultiplier)
                         ? edgeCfg.bayCarveMultiplier
                         : 1;
@@ -240,23 +240,22 @@ export function addRuggedCoasts(iWidth, iHeight, ctx) {
                         }
                         // Corridor edge effect: if adjacent to a sea-lane tile, increase fjord/coast conversion chance
                         {
-                            let __style = null;
-                            for (let my = -1; my <= 1 && !__style; my++) {
+                            let edgeCfg = null;
+                            for (let my = -1; my <= 1 && !edgeCfg; my++) {
                                 for (let mx = -1; mx <= 1; mx++) {
                                     if (mx === 0 && my === 0)
                                         continue;
                                     const kk = `${x + mx},${y + my}`;
                                     if (StoryTags.corridorSeaLane &&
                                         StoryTags.corridorSeaLane.has(kk)) {
-                                        __style =
-                                            StoryTags.corridorStyle?.get?.(kk) || null;
-                                        break;
+                                        const attr = StoryTags.corridorAttributes?.get?.(kk);
+                                        edgeCfg = attr && attr.edge ? attr.edge : null;
+                                        if (edgeCfg)
+                                            break;
                                     }
                                 }
                             }
-                            if (__style) {
-                                const edgeCfg = CORRIDOR_KINDS?.sea?.styles?.[__style]
-                                    ?.edge || {};
+                            if (edgeCfg) {
                                 const fj = Number.isFinite(edgeCfg.fjordChance)
                                     ? edgeCfg.fjordChance
                                     : 0;

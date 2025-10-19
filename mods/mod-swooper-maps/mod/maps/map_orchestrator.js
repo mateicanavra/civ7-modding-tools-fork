@@ -15,7 +15,7 @@ import { expandCoasts, generateLakes } from "/base-standard/maps/elevation-terra
 import { layerAddMountainsPhysics } from "./layers/mountains.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import * as utilities from "/base-standard/maps/map-utilities.js";
-import { STORY_ENABLE_HOTSPOTS, STORY_ENABLE_RIFTS, STORY_ENABLE_OROGENY, STORY_ENABLE_WORLDMODEL, LANDMASS_CFG, LANDMASS_GEOMETRY, MOUNTAINS_CFG, VOLCANOES_CFG, rebind, } from "./bootstrap/tunables.js";
+import { stageEnabled, LANDMASS_CFG, LANDMASS_GEOMETRY, MOUNTAINS_CFG, VOLCANOES_CFG, rebind, } from "./bootstrap/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import { storyTagHotspotTrails, storyTagRiftValleys, storyTagOrogenyBelts, storyTagContinentalMargins, storyTagClimateSwatches, OrogenyCache, } from "./story/tagging.js";
@@ -60,6 +60,26 @@ function generateMap() {
     console.log("Generating Epic Diverse Map with maximum terrain variety!");
     // Ensure tunables reflect the active entry config for this run.
     rebind();
+    const stageWorldModel = stageEnabled("worldModel");
+    const stageLandmass = stageEnabled("landmass");
+    const stageCoastlines = stageEnabled("coastlines");
+    const stageStorySeed = stageEnabled("storySeed");
+    const stageStoryHotspots = stageEnabled("storyHotspots");
+    const stageStoryRifts = stageEnabled("storyRifts");
+    const stageStoryOrogeny = stageEnabled("storyOrogeny");
+    const stageStoryCorridorsPre = stageEnabled("storyCorridorsPre");
+    const stageIslands = stageEnabled("islands");
+    const stageMountains = stageEnabled("mountains");
+    const stageVolcanoes = stageEnabled("volcanoes");
+    const stageLakes = stageEnabled("lakes");
+    const stageClimateBaseline = stageEnabled("climateBaseline");
+    const stageStorySwatches = stageEnabled("storySwatches");
+    const stageRivers = stageEnabled("rivers");
+    const stageStoryCorridorsPost = stageEnabled("storyCorridorsPost");
+    const stageClimateRefine = stageEnabled("climateRefine");
+    const stageBiomes = stageEnabled("biomes");
+    const stageFeatures = stageEnabled("features");
+    const stagePlacement = stageEnabled("placement");
     const mountainsConfig = MOUNTAINS_CFG || {};
     const mountainOptions = {
         mountainPercent: mountainsConfig.mountainPercent ?? 3,
@@ -118,16 +138,16 @@ function generateMap() {
         { width: iWidth, height: iHeight },
         adapter,
         {
-            STORY_ENABLE_WORLDMODEL,
-            STORY_ENABLE_HOTSPOTS,
-            STORY_ENABLE_RIFTS,
-            STORY_ENABLE_OROGENY,
+            STORY_ENABLE_WORLDMODEL: stageWorldModel,
+            STORY_ENABLE_HOTSPOTS: stageStoryHotspots,
+            STORY_ENABLE_RIFTS: stageStoryRifts,
+            STORY_ENABLE_OROGENY: stageStoryOrogeny,
             LANDMASS_GEOMETRY,
         }
     );
 
     // Initialize WorldModel (optional) and attach to context
-    if (STORY_ENABLE_WORLDMODEL) {
+    if (stageWorldModel) {
         try {
             if (WorldModel.init()) {
                 ctx.worldModel = WorldModel;
@@ -139,6 +159,9 @@ function generateMap() {
         catch (err) {
             devLogIf("LOG_STORY_TAGS", "[WorldModel] init error");
         }
+    }
+    else {
+        devLogIf("LOG_STORY_TAGS", "[WorldModel] Stage disabled; skipping init");
     }
     let iNumNaturalWonders = Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders);
     let iTilesPerLake = Math.max(10, mapInfo.LakeGenerationFrequency * 2); // fewer lakes than base script used
@@ -167,9 +190,10 @@ function generateMap() {
     };
     let landmassSource = null;
     let landmaskDebug = null;
+    let landmassWindowsFinal = null;
     // Create more complex continent boundaries for our diverse terrain generation
     // Compute landmass windows using Voronoi/plate geometry preferences
-    {
+    if (stageLandmass) {
         const GEOM = LANDMASS_GEOMETRY || /**/ {};
         const geomMode = typeof GEOM.mode === "string" ? GEOM.mode : "auto";
         const worldModelActive = !!(WorldModel?.isEnabled?.() && WorldModel.isEnabled());
@@ -243,10 +267,7 @@ function generateMap() {
                 continent: derivedStartRegions.eastContinent.continent ?? 1,
             };
         }
-        var landmassWindowsFinal = landmassWindows;
-    }
-    // Generate landmasses without creating a hard horizontal ocean band
-    {
+        landmassWindowsFinal = landmassWindows;
         const t = timeStart("Landmass");
         if (landmassSource === "plate") {
             console.log("[SWOOPER_MOD] Applied plate-driven landmass mask");
@@ -255,63 +276,71 @@ function generateMap() {
             console.log("[SWOOPER_MOD] Applied Voronoi landmass mask");
         }
         timeEnd(t);
-    }
-    if (Array.isArray(landmassWindowsFinal) && landmassWindowsFinal.length) {
-        const windowSummary = landmassWindowsFinal.map((win, idx) => {
-            if (!win)
-                return { index: idx };
-            const spanX = Number.isFinite(win.east) && Number.isFinite(win.west) ? win.east - win.west + 1 : null;
-            const spanY = Number.isFinite(win.north) && Number.isFinite(win.south) ? win.north - win.south + 1 : null;
-            return {
-                index: idx,
-                continent: win.continent ?? idx,
-                west: win.west,
-                east: win.east,
-                south: win.south,
-                north: win.north,
-                width: spanX,
-                height: spanY,
-                area: spanX && spanY ? spanX * spanY : null,
-            };
-        });
-        devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", windowSummary);
+        if (Array.isArray(landmassWindowsFinal) && landmassWindowsFinal.length) {
+            const windowSummary = landmassWindowsFinal.map((win, idx) => {
+                if (!win)
+                    return { index: idx };
+                const spanX = Number.isFinite(win.east) && Number.isFinite(win.west) ? win.east - win.west + 1 : null;
+                const spanY = Number.isFinite(win.north) && Number.isFinite(win.south) ? win.north - win.south + 1 : null;
+                return {
+                    index: idx,
+                    continent: win.continent ?? idx,
+                    west: win.west,
+                    east: win.east,
+                    south: win.south,
+                    north: win.north,
+                    width: spanX,
+                    height: spanY,
+                    area: spanX && spanY ? spanX * spanY : null,
+                };
+            });
+            devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", windowSummary);
+        }
+        else {
+            devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", "no plate windows");
+        }
     }
     else {
-        devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", "no plate windows");
+        console.log("[StageManifest] Landmass stage disabled — skipping landmass generation.");
     }
-    logLandmassAscii(landmassSource || "unknown", {
+    logLandmassAscii(stageLandmass ? landmassSource || "unknown" : "disabled", {
         windows: Array.isArray(landmassWindowsFinal) ? landmassWindowsFinal : [],
-        landMask: landmaskDebug || undefined,
+        landMask: stageLandmass ? landmaskDebug || undefined : undefined,
     });
     TerrainBuilder.validateAndFixTerrain();
-    {
+    if (stageCoastlines) {
         const t = timeStart("ExpandCoasts");
         expandCoasts(iWidth, iHeight);
         timeEnd(t);
     }
+    else {
+        console.log("[StageManifest] Coastlines stage disabled — skipping expandCoasts()");
+    }
     // Reset StoryTags and tag continental margins before coast shaping
-    resetStoryTags();
-    console.log("Imprinting continental margins (active/passive)...");
-    storyTagContinentalMargins();
+    if (stageStorySeed) {
+        resetStoryTags();
+        console.log("Imprinting continental margins (active/passive)...");
+        storyTagContinentalMargins();
+    }
     // Add post-processing to make coasts more rugged (margin-aware) and place a few islands
-    {
+    if (stageCoastlines) {
         const t = timeStart("RuggedCoasts");
         layerAddRuggedCoasts(iWidth, iHeight, ctx);
         timeEnd(t);
     }
     // Climate Story v0.1: Tag narrative motifs after coasts exist
-    if (STORY_ENABLE_HOTSPOTS || STORY_ENABLE_RIFTS) {
+    if (stageStoryHotspots || stageStoryRifts) {
         resetStoryTags();
     }
-    if (STORY_ENABLE_HOTSPOTS) {
+    if (stageStoryHotspots) {
         console.log("Drawing hotspot trails...");
         storyTagHotspotTrails(iWidth, iHeight);
     }
-    if (STORY_ENABLE_RIFTS) {
+    if (stageStoryRifts) {
         console.log("Marking rift lines and shoulders...");
         storyTagRiftValleys(iWidth, iHeight);
     }
-    if (STORY_ENABLE_OROGENY) {
+    if (stageStoryOrogeny) {
         console.log("Tagging orogenic belts...");
         storyTagOrogenyBelts();
         logWorldModelHistograms(WorldModel, {
@@ -321,13 +350,19 @@ function generateMap() {
         });
     }
     // Re-tag continental margins for downstream consumers (islands/features) after reset
-    storyTagContinentalMargins();
+    if (stageStorySeed) {
+        storyTagContinentalMargins();
+    }
     // Strategic Corridors: tag pre-islands lanes and land corridors
-    storyTagStrategicCorridors("preIslands");
-    logCorridorAsciiOverlay();
-    devLogIf("LOG_STORY_TAGS", "StoryTags summary follows");
-    logStoryTagsSummary(StoryTags, OrogenyCache);
-    {
+    if (stageStoryCorridorsPre) {
+        storyTagStrategicCorridors("preIslands");
+        logCorridorAsciiOverlay();
+    }
+    if (stageStorySeed || stageStoryHotspots || stageStoryRifts || stageStoryOrogeny) {
+        devLogIf("LOG_STORY_TAGS", "StoryTags summary follows");
+        logStoryTagsSummary(StoryTags, OrogenyCache);
+    }
+    if (stageIslands) {
         const t = timeStart("IslandChains");
         layerAddIslandChains(iWidth, iHeight, ctx);
         timeEnd(t);
@@ -338,21 +373,27 @@ function generateMap() {
     // Restore plot tags (west/east landmass, corridor water, etc.) for downstream placement logic.
     utilities.addPlotTags(iHeight, iWidth, eastContinent.west);
     // Mountains & Hills – Phase 2: Physics-based placement using plate boundaries
-    {
+    if (stageMountains) {
         const t = timeStart("Mountains & Hills (Physics)");
         layerAddMountainsPhysics(ctx, mountainOptions);
         timeEnd(t);
+        if (stageWorldModel) {
+            logBoundaryMetrics(WorldModel, { stage: "post-mountains" });
+        }
     }
-    logBoundaryMetrics(WorldModel, { stage: "post-mountains" });
-    {
+    if (stageVolcanoes) {
         const t = timeStart("Volcanoes");
         layerAddVolcanoesPlateAware(ctx, volcanoOptions);
         timeEnd(t);
+        if (stageWorldModel) {
+            logBoundaryMetrics(WorldModel, { stage: "post-volcanoes" });
+        }
     }
-    logBoundaryMetrics(WorldModel, { stage: "post-volcanoes" });
-    logTerrainReliefAscii("post-volcanoes");
+    if (stageMountains || stageVolcanoes) {
+        logTerrainReliefAscii("post-volcanoes");
+    }
     // Lakes – fewer than before
-    {
+    if (stageLakes) {
         const t = timeStart("Lakes");
         generateLakes(iWidth, iHeight, iTilesPerLake);
         timeEnd(t);
@@ -389,14 +430,14 @@ function generateMap() {
     // engine propagates terrain height for rainfall, biomes, and placement.
     TerrainBuilder.buildElevation();
     // Create moderated rainfall patterns (keep enhanced but gentle)
-    {
+    if (stageClimateBaseline) {
         const t = timeStart("Climate: Baseline");
         layerBuildEnhancedRainfall(iWidth, iHeight);
         timeEnd(t);
+        logRainfallAscii("baseline");
+        logRainfallStats("baseline", iWidth, iHeight);
     }
-    logRainfallAscii("baseline");
-    logRainfallStats("baseline", iWidth, iHeight);
-    {
+    if (stageStorySwatches) {
         const t = timeStart("Climate: Swatches");
         const swatchResult = storyTagClimateSwatches();
         if (swatchResult && swatchResult.kind) {
@@ -406,46 +447,50 @@ function generateMap() {
         timeEnd(t);
     }
     // Rivers – closer to base values for balance
-    {
+    if (stageRivers) {
         const t = timeStart("Rivers");
         TerrainBuilder.modelRivers(5, 15, globals.g_NavigableRiverTerrain);
         timeEnd(t);
+        TerrainBuilder.validateAndFixTerrain();
+        TerrainBuilder.defineNamedRivers();
     }
-    TerrainBuilder.validateAndFixTerrain();
-    TerrainBuilder.defineNamedRivers();
     // Strategic Corridors: tag river-chain corridors post-rivers
-    storyTagStrategicCorridors("postRivers");
-    logCorridorAsciiOverlay();
+    if (stageStoryCorridorsPost) {
+        storyTagStrategicCorridors("postRivers");
+        logCorridorAsciiOverlay();
+    }
     // Refine rainfall with earthlike dynamics after rivers exist
-    {
+    if (stageClimateRefine) {
         const t = timeStart("Climate: Earthlike Refinements");
         // Phase 1: Pass context to refactored layer
         layerRefineRainfallEarthlike(iWidth, iHeight, ctx);
         timeEnd(t);
+        logRainfallAscii("refined");
+        logRainfallStats("refined", iWidth, iHeight);
     }
-    logRainfallAscii("refined");
-    logRainfallStats("refined", iWidth, iHeight);
     // Enhanced biome diversity
-    {
+    if (stageBiomes) {
         const t = timeStart("Biomes");
         layerDesignateEnhancedBiomes(iWidth, iHeight);
         timeEnd(t);
+        logBiomeAscii("final");
+        logBiomeSummary("final", iWidth, iHeight);
     }
-    logBiomeAscii("final");
-    logBiomeSummary("final", iWidth, iHeight);
     // Add extensive feature variety
-    {
+    if (stageFeatures) {
         const t = timeStart("Features");
         layerAddDiverseFeatures(iWidth, iHeight, ctx);
         timeEnd(t);
+        TerrainBuilder.validateAndFixTerrain();
+        AreaBuilder.recalculateAreas();
     }
-    TerrainBuilder.validateAndFixTerrain();
-    AreaBuilder.recalculateAreas();
-    devLogIf("RAINFALL_HISTOGRAM", "Rainfall histogram (land tiles)");
-    logRainfallHistogram(iWidth, iHeight, 12);
+    if (stageClimateBaseline || stageClimateRefine) {
+        devLogIf("RAINFALL_HISTOGRAM", "Rainfall histogram (land tiles)");
+        logRainfallHistogram(iWidth, iHeight, 12);
+    }
     TerrainBuilder.storeWaterData();
     // Placement phase (wonders, floodplains, snow, resources, starts, discoveries, fertility, advanced starts)
-    {
+    if (stagePlacement) {
         const t = timeStart("Placement");
         startPositions = layerRunPlacement(iWidth, iHeight, {
             mapInfo,

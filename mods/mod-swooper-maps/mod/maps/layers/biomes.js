@@ -23,7 +23,7 @@
 import { designateBiomes as baseDesignateBiomes } from "/base-standard/maps/feature-biome-generator.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import { StoryTags } from "../story/tags.js";
-import { STORY_ENABLE_RIFTS, BIOMES_CFG, CORRIDOR_POLICY, CORRIDOR_KINDS, } from "../bootstrap/tunables.js";
+import { STORY_ENABLE_RIFTS, BIOMES_CFG, CORRIDOR_POLICY, } from "../bootstrap/tunables.js";
 /**
  * Enhanced biome designation with gentle, readable nudges.
  * @param {number} iWidth
@@ -118,37 +118,26 @@ export function designateEnhancedBiomes(iWidth, iHeight) {
             {
                 if (!(StoryTags.corridorLandOpen?.has?.(`${x},${y}`) ||
                     StoryTags.corridorRiverChain?.has?.(`${x},${y}`))) {
-                    let edgeKind = null;
-                    let edgeStyle = null;
-                    // Find adjacent corridor neighbor and its style
-                    for (let ddy = -1; ddy <= 1 && !edgeKind; ddy++) {
+                    let edgeAttr = null;
+                    for (let ddy = -1; ddy <= 1 && !edgeAttr; ddy++) {
                         for (let ddx = -1; ddx <= 1; ddx++) {
                             if (ddx === 0 && ddy === 0)
                                 continue;
                             const nx = x + ddx;
                             const ny = y + ddy;
                             const nk = `${nx},${ny}`;
-                            if (!StoryTags || !StoryTags.corridorKind)
+                            if (!StoryTags)
                                 continue;
-                            if (StoryTags.corridorLandOpen?.has?.(nk)) {
-                                edgeKind = "land";
-                                edgeStyle =
-                                    StoryTags.corridorStyle?.get?.(nk) ||
-                                        "plainsBelt";
-                                break;
-                            }
-                            if (StoryTags.corridorRiverChain?.has?.(nk)) {
-                                edgeKind = "river";
-                                edgeStyle =
-                                    StoryTags.corridorStyle?.get?.(nk) ||
-                                        "riverChain";
-                                break;
+                            if (StoryTags.corridorLandOpen?.has?.(nk) ||
+                                StoryTags.corridorRiverChain?.has?.(nk)) {
+                                const attr = StoryTags.corridorAttributes?.get?.(nk);
+                                if (attr && attr.edge)
+                                    edgeAttr = attr;
                             }
                         }
                     }
-                    if (edgeKind && edgeStyle && CORRIDOR_KINDS?.[edgeKind]) {
-                        const edgeCfg = CORRIDOR_KINDS?.[edgeKind]?.styles?.[edgeStyle]
-                            ?.edge || {};
+                    if (edgeAttr && edgeAttr.edge) {
+                        const edgeCfg = edgeAttr.edge;
                         // Forest rim: bias toward forest-friendly biomes (grassland/tropical) when moist
                         const forestRimChance = Math.max(0, Math.min(1, edgeCfg.forestRimChance ?? 0));
                         if (forestRimChance > 0 &&
@@ -181,17 +170,10 @@ export function designateEnhancedBiomes(iWidth, iHeight) {
             // Strategic Corridors: kind/style biome bias (very gentle; policy-scaled)
             {
                 const cKey = `${x},${y}`;
-                const cKind = StoryTags.corridorKind && StoryTags.corridorKind.get(cKey);
-                const cStyle = StoryTags.corridorStyle &&
-                    StoryTags.corridorStyle.get(cKey);
-                if ((cKind === "land" || cKind === "river") &&
-                    cStyle &&
-                    CORRIDOR_KINDS &&
-                    CORRIDOR_KINDS[cKind] &&
-                    CORRIDOR_KINDS[cKind].styles &&
-                    CORRIDOR_KINDS[cKind].styles[cStyle] &&
-                    CORRIDOR_KINDS[cKind].styles[cStyle].biomes) {
-                    const biomesCfg = CORRIDOR_KINDS[cKind].styles[cStyle].biomes;
+                const attr = StoryTags.corridorAttributes?.get?.(cKey);
+                const cKind = attr?.kind || (StoryTags.corridorKind && StoryTags.corridorKind.get(cKey));
+                const biomesCfg = attr?.biomes;
+                if ((cKind === "land" || cKind === "river") && biomesCfg) {
                     const strength = cKind === "land"
                         ? LAND_BIAS_STRENGTH
                         : RIVER_BIAS_STRENGTH;

@@ -15,6 +15,22 @@ import { bootstrap } from "./bootstrap/entry.js";
 /** @typedef {import("./bootstrap/map_config.types.js").WorldModel} WorldModelCfg */
 
 bootstrap({
+    stageConfig: {
+        worldModel: true,
+        landmass: true,
+        coastlines: true,
+        storyHotspots: true,
+        storyRifts: true,
+        storyOrogeny: true,
+        storySwatches: true,
+        storyPaleo: true,
+        climateBaseline: true,
+        climateRefine: true,
+        mountains: true,
+        volcanoes: true,
+        biomes: true,
+        features: true,
+    },
     overrides: /** @type {Partial<MapConfig>} */ ({
         landmass: {
             baseWaterPercent: 58,

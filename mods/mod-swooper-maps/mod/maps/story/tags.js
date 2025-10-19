@@ -49,6 +49,8 @@ export const StoryTags = Object.freeze({
     corridorKind: new Map(),
     /** @type {Map<string, string>} */
     corridorStyle: new Map(),
+    /** @type {Map<string, Readonly<Record<string, any>>>} */
+    corridorAttributes: new Map(),
 });
 /**
  * Clears all StoryTags sets. Call once per generation (or when rebuilding tags)
@@ -69,5 +71,6 @@ export function resetStoryTags() {
     // Corridor metadata maps
     StoryTags.corridorKind.clear();
     StoryTags.corridorStyle.clear();
+    StoryTags.corridorAttributes.clear();
 }
 export default StoryTags;

@@ -17,7 +17,7 @@
  *  - Climate tuning (baseline and refinement) is configured via map_config and consumed in the climate layers; this module only tags, while consumers preserve clamps.
  */
 import { StoryTags } from "./tags.js";
-import { STORY_TUNABLES, STORY_ENABLE_SWATCHES, STORY_ENABLE_PALEO, MARGINS_CFG, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
+import { STORY_TUNABLES, STORY_ENABLE_SWATCHES, STORY_ENABLE_PALEO, MARGINS_CFG, MOISTURE_ADJUSTMENTS, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 import { WorldModel } from "../world/model.js";
 /**
@@ -727,7 +727,8 @@ export function storyTagContinentalMargins() {
 export function storyTagClimateSwatches() {
     if (!STORY_ENABLE_SWATCHES)
         return { applied: false, kind: "disabled" };
-    const cfg = STORY_TUNABLES?.swatches;
+    const storyMoisture = MOISTURE_ADJUSTMENTS?.story || {};
+    const cfg = storyMoisture.swatches;
     if (!cfg)
         return { applied: false, kind: "missing-config" };
     const width = GameplayMap.getGridWidth();
@@ -999,7 +1000,8 @@ export function storyTagClimateSwatches() {
  *  - All rainfall ops clamped [0, 200]. No broad flood‑fills. Strict caps.
  */
 export function storyTagPaleoHydrology() {
-    const cfg = STORY_TUNABLES?.paleo;
+    const storyMoisture = MOISTURE_ADJUSTMENTS?.story || {};
+    const cfg = storyMoisture.paleo;
     if (!cfg)
         return { deltas: 0, oxbows: 0, fossils: 0 };
     const width = GameplayMap.getGridWidth();

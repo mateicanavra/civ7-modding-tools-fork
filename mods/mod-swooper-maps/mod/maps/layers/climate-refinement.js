@@ -25,7 +25,7 @@
 import { clamp, inBounds } from "../core/utils.js";
 import { StoryTags } from "../story/tags.js";
 import { OrogenyCache } from "../story/tagging.js";
-import { STORY_TUNABLES, STORY_ENABLE_OROGENY, CLIMATE_REFINE_CFG, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
+import { STORY_TUNABLES, STORY_ENABLE_OROGENY, MOISTURE_ADJUSTMENTS, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { WorldModel } from "../world/model.js";
 import { devLogIf } from "../bootstrap/dev.js";
 /**
@@ -165,12 +165,16 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
         isAdjacentToRivers: (x, y, rad) => GameplayMap.isAdjacentToRivers(x, y, rad),
     };
     const worldModel = ctx && ctx.worldModel ? ctx.worldModel : WorldModel;
+    const refineAdjust = MOISTURE_ADJUSTMENTS?.refine || {};
+    const storyMoisture = MOISTURE_ADJUSTMENTS?.story || {};
+    const storyRain = storyMoisture.rainfall || {};
 
     console.log(`[Climate Refinement] Using ${ctx ? 'MapContext adapter' : 'direct engine calls'}`);
 
     // Pass A: coastal and lake humidity gradient (decays with distance; configurable)
     {
-        const maxR = (CLIMATE_REFINE_CFG?.waterGradient?.radius ?? 5) | 0;
+        const waterGradient = refineAdjust.waterGradient || {};
+        const maxR = (waterGradient?.radius ?? 5) | 0;
         for (let y = 0; y < iHeight; y++) {
             for (let x = 0; x < iWidth; x++) {
                 if (adapter.isWater(x, y))
@@ -180,11 +184,9 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                     // Closer to water -> more humidity; stronger if also low elevation
                     const elev = adapter.getElevation(x, y);
                     let bonus = Math.max(0, maxR - dist) *
-                        (CLIMATE_REFINE_CFG?.waterGradient?.perRingBonus ?? 5);
+                        (waterGradient?.perRingBonus ?? 5);
                     if (elev < 150)
-                        bonus +=
-                            CLIMATE_REFINE_CFG?.waterGradient?.lowlandBonus ??
-                                3;
+                        bonus += waterGradient?.lowlandBonus ?? 3;
                     const rf = adapter.getRainfall(x, y);
                     adapter.setRainfall(x, y, clamp(rf + bonus, 0, 200));
                 }
@@ -193,11 +195,12 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
     }
     // Pass B: orographic rain shadows with latitude-dependent prevailing winds (configurable)
     {
+        const orographic = refineAdjust.orographic || {};
         for (let y = 0; y < iHeight; y++) {
             for (let x = 0; x < iWidth; x++) {
                 if (adapter.isWater(x, y))
                     continue;
-                const baseSteps = (CLIMATE_REFINE_CFG?.orographic?.steps ?? 4) | 0;
+                const baseSteps = (orographic?.steps ?? 4) | 0;
                 let steps = baseSteps;
                 try {
                     const DIR = WORLDMODEL_DIRECTIONALITY || {};
@@ -225,10 +228,8 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                 }
                 if (barrier) {
                     const rf = adapter.getRainfall(x, y);
-                    const reduction = (CLIMATE_REFINE_CFG?.orographic?.reductionBase ?? 8) +
-                        barrier *
-                            (CLIMATE_REFINE_CFG?.orographic?.reductionPerStep ??
-                                6);
+                    const reduction = (orographic?.reductionBase ?? 8) +
+                        barrier * (orographic?.reductionPerStep ?? 6);
                     adapter.setRainfall(x, y, clamp(rf - reduction, 0, 200));
                 }
             }
@@ -236,6 +237,8 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
     }
     // Pass C: river corridor greening and basin humidity (configurable)
     {
+        const riverCorridor = refineAdjust.riverCorridor || {};
+        const lowBasinCfg = refineAdjust.lowBasin || {};
         for (let y = 0; y < iHeight; y++) {
             for (let x = 0; x < iWidth; x++) {
                 if (adapter.isWater(x, y))
@@ -244,40 +247,38 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                 const elev = adapter.getElevation(x, y);
                 // River adjacency boost (stronger at low elevation)
                 if (adapter.isAdjacentToRivers(x, y, 1)) {
-                    rf +=
-                        elev < 250
-                            ? (CLIMATE_REFINE_CFG?.riverCorridor
-                                ?.lowlandAdjacencyBonus ?? 14)
-                            : (CLIMATE_REFINE_CFG?.riverCorridor
-                                ?.highlandAdjacencyBonus ?? 10);
+                    rf += elev < 250
+                        ? (riverCorridor?.lowlandAdjacencyBonus ?? 14)
+                        : (riverCorridor?.highlandAdjacencyBonus ?? 10);
                 }
                 // Slight wetness in enclosed low basins (surrounded by higher elevation; configurable radius)
-                let lowBasin = true;
-                for (let dy = -(CLIMATE_REFINE_CFG?.lowBasin?.radius ?? 2); dy <= (CLIMATE_REFINE_CFG?.lowBasin?.radius ?? 2) &&
-                    lowBasin; dy++) {
-                    for (let dx = -(CLIMATE_REFINE_CFG?.lowBasin?.radius ?? 2); dx <= (CLIMATE_REFINE_CFG?.lowBasin?.radius ?? 2); dx++) {
+                let lowBasinClosed = true;
+                const basinRadius = lowBasinCfg?.radius ?? 2;
+                for (let dy = -basinRadius; dy <= basinRadius &&
+                    lowBasinClosed; dy++) {
+                    for (let dx = -basinRadius; dx <= basinRadius; dx++) {
                         if (dx === 0 && dy === 0)
                             continue;
                         const nx = x + dx;
                         const ny = y + dy;
                         if (inBounds(nx, ny)) {
                             if (adapter.getElevation(nx, ny) < elev + 20) {
-                                lowBasin = false;
+                                lowBasinClosed = false;
                                 break;
                             }
                         }
                     }
                 }
-                if (lowBasin && elev < 200)
-                    rf += CLIMATE_REFINE_CFG?.lowBasin?.delta ?? 6;
+                if (lowBasinClosed && elev < 200)
+                    rf += lowBasinCfg?.delta ?? 6;
                 adapter.setRainfall(x, y, clamp(rf, 0, 200));
             }
         }
     }
     // Pass D: Rift humidity boost (narrow radius, elevation-aware)
     {
-        const riftR = STORY_TUNABLES?.rainfall?.riftRadius ?? 2;
-        const riftBoost = STORY_TUNABLES?.rainfall?.riftBoost ?? 8;
+        const riftR = storyRain?.riftRadius ?? 2;
+        const riftBoost = storyRain?.riftBoost ?? 8;
         if (StoryTags.riftLine.size > 0 && riftR > 0 && riftBoost !== 0) {
             for (let y = 0; y < iHeight; y++) {
                 for (let x = 0; x < iWidth; x++) {
@@ -343,8 +344,8 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
     }
     // Pass F: Hotspot island microclimates (paradise/volcanic centers)
     {
-        const paradiseDelta = STORY_TUNABLES?.rainfall?.paradiseDelta ?? 6;
-        const volcanicDelta = STORY_TUNABLES?.rainfall?.volcanicDelta ?? 8;
+        const paradiseDelta = storyRain?.paradiseDelta ?? 6;
+        const volcanicDelta = storyRain?.volcanicDelta ?? 8;
         const radius = 2;
         const hasParadise = StoryTags.hotspotParadise.size > 0;
         const hasVolcanic = StoryTags.hotspotVolcanic.size > 0;
@@ -394,7 +395,8 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
     {
         if (worldModel?.isEnabled?.() && worldModel.pressure) {
             const pressure = worldModel.pressure;
-            const pressureStrength = CLIMATE_REFINE_CFG?.pressure?.strength ?? 0.15; // 0..1, how much pressure affects rainfall
+            const pressureCfg = refineAdjust.pressure || {};
+            const pressureStrength = pressureCfg?.strength ?? 0.15; // 0..1, how much pressure affects rainfall
 
             for (let y = 0; y < iHeight; y++) {
                 for (let x = 0; x < iWidth; x++) {

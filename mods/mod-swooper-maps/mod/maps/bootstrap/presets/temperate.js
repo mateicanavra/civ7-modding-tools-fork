@@ -15,6 +15,10 @@
  */
 // @ts-check
 export const TEMPERATE_PRESET = Object.freeze({
+    stageConfig: Object.freeze({
+        worldModel: true,
+        landmass: true,
+    }),
     // Keep all major systems enabled (gentle, cohesive world)
     toggles: Object.freeze({
         STORY_ENABLE_HOTSPOTS: true,
