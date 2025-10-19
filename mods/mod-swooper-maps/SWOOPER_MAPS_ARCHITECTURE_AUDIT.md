@@ -37,7 +37,7 @@
 2. **Separate foundational vs. narrative config** — Split current `story` and `microclimate` knobs into (a) **Climate Drivers** (baseline bands, pressure cells, aridity controls) and (b) **Narrative Overlays** (swatches, paleo, corridors). Ensure dryness controls live in the climate driver group with additive deltas referenced by overlays.
 3. **Unify moisture schema** — Replace `drynessDelta`, `dryDelta`, and implicit lee subtractions with a shared `moistureAdjustments` schema (`{ target: "desert" | "rainbelt" | ... , magnitude, radius, elevationBias }`). Climate baseline would consume global defaults; swatches would just add entries to the adjustment set.
 4. **Context-only surface** — Migrate remaining story/tagging passes onto `MapContext.adapter` and store StoryTags inside `ctx` so every pass consumes the same state object. This enables instrumentation and testing without engine globals.
-5. **Preset capabilities** — Let presets declare which stage groups they configure (e.g., `presets.voronoi.stages = { worldModel: true, landmass: "plates" }`). The resolver can warn when an override touches a stage that is disabled or missing dependencies.
+5. **Preset capabilities** — Let presets declare which stage groups they configure (e.g., `presets.voronoi.stages = { foundation: true, landmassPlates: true }`). The resolver can warn when an override touches a stage that is disabled or missing dependencies.
 6. **Config-driven diagnostics** — Add a `diagnostics` group that allows presets to request histogram/log timing per stage. The orchestrator would honor the stage manifest when running logs, keeping metrics in `ctx.metrics` for later reporting.
 
 ## 4. Tunable Surface Audit & Gaps

@@ -42,8 +42,9 @@ Unify plate generation under a single authoritative pipeline that leverages Civi
    - ✅ `landmass_plate.js` is the default landmass stage, sourcing WorldModel tensors.
    - ✅ Removed the Voronoi adapter; no compatibility manifest stage remains.
 4. **Manifest & Orchestrator Changes**
-   - `defaults/base.js` sets `stageManifest.order` to use `landmassPlates`.  
-   - `stageEnabled()` asserts that `FoundationContext` exists before any morphology stage executes.  
+   - ✅ `defaults/base.js` sets `stageManifest.order` to use `landmassPlates`.
+   - ✅ Retired the `landmassVoronoiLegacy` manifest entry; presets now rely solely on the plate pipeline.
+   - `stageEnabled()` asserts that `FoundationContext` exists before any morphology stage executes.
    - Removal of `STORY_ENABLE_WORLDMODEL` toggle as a runtime guard; physics is always on.
 5. **Diagnostics**
    - `bootstrap/dev.js` gains `logPlateSeed`, `logPlateBoundaries`, and consistency checks (plate/continent overlap).
@@ -60,8 +61,8 @@ Unify plate generation under a single authoritative pipeline that leverages Civi
    - Replace `generateVoronoiLandmasses()` calls with `landmass_plate` usage by default.  
    - Rework geometry post-processing to operate on `FoundationContext` data (plate bounding boxes).
 4. **Manifest Update**
-   - `map_config.types.js` and `defaults/base.js` gain the new stage identifiers (`landmassPlates`, `landmassVoronoiLegacy`).  
-   - Presets that rely on the legacy flow must opt in explicitly.
+   - `map_config.types.js` and `defaults/base.js` expose `landmassPlates` as the sole landmass stage identifier.
+   - Presets that relied on the Voronoi fallback must migrate or be archived.
 5. **Cleanup**
    - ✅ Removed the `STORY_ENABLE_WORLDMODEL` toggle and adjusted tunables.  
    - ✅ Deleted `landmass_voronoi.js` from the live pipeline.

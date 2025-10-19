@@ -24,8 +24,8 @@ import { bootstrap } from "./bootstrap/entry.js";
 
 bootstrap({
     stageConfig: /** @type {StageConfigProviders} */ ({
-        worldModel: true,
-        landmass: true,
+        foundation: true,
+        landmassPlates: true,
         coastlines: true,
         storySeed: true,
         storyHotspots: true,
