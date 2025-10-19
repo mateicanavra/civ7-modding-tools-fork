@@ -5,7 +5,7 @@
  */
 import { buildRainfallMap } from "/base-standard/maps/elevation-terrain-generator.js";
 import { clamp, inBounds } from "../core/utils.js";
-import { CLIMATE_DRIVERS, MOISTURE_ADJUSTMENTS, STORY_TUNABLES, STORY_ENABLE_OROGENY, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
+import { CLIMATE_DRIVERS, MOISTURE_ADJUSTMENTS, STORY_TUNABLES, STORY_ENABLE_OROGENY, FOUNDATION_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { ctxRandom, writeClimateField, syncClimateField } from "../core/types.js";
 import { WorldModel } from "../world/model.js";
 import { StoryTags } from "../story/tags.js";
@@ -239,7 +239,7 @@ export function applyClimateSwatches(width, height, ctx = null, options = {}) {
         w: Math.max(0, types[key].weight | 0),
     }));
     try {
-        const DIR = WORLDMODEL_DIRECTIONALITY || {};
+        const DIR = FOUNDATION_DIRECTIONALITY || {};
         const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
         if (COH > 0) {
             const windDeg = (DIR?.primaryAxes?.windBiasDeg ?? 0) | 0;
@@ -376,7 +376,7 @@ export function applyClimateSwatches(width, height, ctx = null, options = {}) {
         }
     }
     try {
-        const DIR = WORLDMODEL_DIRECTIONALITY || {};
+        const DIR = FOUNDATION_DIRECTIONALITY || {};
         const monsoonBias = Math.max(0, Math.min(1, DIR?.hemispheres?.monsoonBias ?? 0));
         const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
         const eqBand = Math.max(0, (DIR?.hemispheres?.equatorBandDeg ?? 12) | 0);
@@ -480,7 +480,7 @@ export function refineClimateEarthlike(width, height, ctx = null, options = {}) 
                 const baseSteps = (orographic?.steps ?? 4) | 0;
                 let steps = baseSteps;
                 try {
-                    const DIR = WORLDMODEL_DIRECTIONALITY || {};
+                    const DIR = FOUNDATION_DIRECTIONALITY || {};
                     const coh = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
                     const windC = Math.max(0, Math.min(1, DIR?.interplay?.windsFollowPlates ?? 0));
                     const extra = Math.round(coh * windC);

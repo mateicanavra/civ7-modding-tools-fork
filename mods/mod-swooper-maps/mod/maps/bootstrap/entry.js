@@ -13,7 +13,7 @@
  *     presets: ["classic", "temperate"], // optional, ordered
  *     overrides: {
  *       // any partial config to override the resolved result
- *       worldModel: { enabled: true },
+ *       foundation: { world: { enabled: true } },
  *       // ...
  *     }
  *   });

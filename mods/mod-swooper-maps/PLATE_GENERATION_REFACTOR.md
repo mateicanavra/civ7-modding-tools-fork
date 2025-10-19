@@ -31,7 +31,7 @@ Unify plate generation under a single authoritative pipeline that leverages Civi
 
 ## 5. Proposed Architecture
 1. **PlateSeed Module**
-   - New module (`world/plate_seed.js`) exposes `createPlateSeed(dimensions, config)` returning the raw Voronoi sites and RNG state. Uses Civ utilities and obeys seed controls in `WORLDMODEL_PLATES`.
+   - New module (`world/plate_seed.js`) exposes `createPlateSeed(dimensions, config)` returning the raw Voronoi sites and RNG state. Uses Civ utilities and obeys seed controls in `FOUNDATION_PLATES`.
    - Logged via diagnostics for replay.
 2. **WorldModel Integration**
    - `WorldModel.init()` consumes `PlateSeed` to compute tensors (boundary closeness/type, uplift, etc.) exactly as today, but without re-sampling sites.

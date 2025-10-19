@@ -34,6 +34,16 @@ The tunables bridge now exports a `CLIMATE` object with two helper views:
 
 `layers/climate-engine.js` and story overlays reference these shared primitives instead of touching the raw config blocks directly. The climate overlays remain conservative, but the shared primitives make it easier to compose new moisture effects without duplicating normalization logic.
 
+
+## Foundation Primitives
+
+The tunables bridge now exports a `FOUNDATION` object alongside the climate helpers:
+
+- `FOUNDATION.world` – physics configuration for plates, winds, currents, and mantle pressure.
+- `FOUNDATION.policy` – shared influence weights (wind impact, ocean separation, shelf bias).
+
+Layers consume these helpers instead of reaching into raw config groups. This keeps the plate/wind/currents contract aligned with the `foundation` block in `BASE_CONFIG` and makes it easier to reuse policy defaults when adding new morphology consumers.
+
 ## Legacy Toggles
 Legacy `STORY_ENABLE_*` toggles are now derived from the manifest. Each stage lists the toggle keys it controls. The resolver writes the resolved on/off state back onto the `toggles` group so existing callers continue to work. The tunables bridge reads the manifest first, falling back to any residual toggle values in case an entry opts out of the manifest system.
 
