@@ -12,7 +12,7 @@ import * as globals from "/base-standard/maps/map-globals.js";
 import { isAdjacentToLand } from "../core/utils.js";
 import { StoryTags } from "../story/tags.js";
 import { COASTLINES_CFG, CORRIDOR_POLICY, } from "../bootstrap/tunables.js";
-import { ctxRandom } from "../core/types.js";
+import { ctxRandom, writeHeightfield } from "../core/types.js";
 import { WorldModel } from "../world/model.js";
 
 const ENUM_BOUNDARY = Object.freeze({

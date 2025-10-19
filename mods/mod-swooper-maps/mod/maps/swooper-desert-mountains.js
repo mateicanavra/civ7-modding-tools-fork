@@ -13,32 +13,40 @@ import { bootstrap } from "./bootstrap/entry.js";
 /** @typedef {import("./bootstrap/map_config.types.js").MapConfig} MapConfig */
 /** @typedef {import("./bootstrap/map_config.types.js").ClimateRefine} ClimateRefine */
 /** @typedef {import("./bootstrap/map_config.types.js").WorldModel} WorldModelCfg */
+/** @typedef {import("./bootstrap/map_config.types.js").StageConfigProviders} StageConfigProviders */
 
 bootstrap({
-    stageConfig: {
+    stageConfig: /** @type {StageConfigProviders} */ ({
         worldModel: true,
         landmass: true,
         coastlines: true,
+        storySeed: true,
         storyHotspots: true,
         storyRifts: true,
         storyOrogeny: true,
-        storySwatches: true,
         storyPaleo: true,
-        climateBaseline: true,
-        climateRefine: true,
+        storyCorridorsPre: true,
         mountains: true,
         volcanoes: true,
+        climateBaseline: true,
+        storySwatches: true,
+        climateRefine: true,
         biomes: true,
         features: true,
-    },
+    }),
     overrides: /** @type {Partial<MapConfig>} */ ({
+        toggles: {
+            STORY_ENABLE_HOTSPOTS: true,
+            STORY_ENABLE_RIFTS: true,
+            STORY_ENABLE_OROGENY: true,
+            STORY_ENABLE_SWATCHES: true,
+            STORY_ENABLE_PALEO: true,
+            STORY_ENABLE_CORRIDORS: true,
+        },
         landmass: {
             baseWaterPercent: 58,
             waterThumbOnScale: -6,
             jitterAmpFracBase: 0.02,
-            geometry: {
-                mode: "plates",
-            },
         },
         margins: {
             activeFraction: 0.34,
