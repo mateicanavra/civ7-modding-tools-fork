@@ -25,7 +25,7 @@
  */
 
 import { WorldModel } from "../world/model.js";
-import { ctxRandom, idx } from "../core/types.js";
+import { ctxRandom, idx, writeHeightfield } from "../core/types.js";
 import { devLogIf } from "../bootstrap/dev.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 
@@ -98,6 +98,23 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
             });
         return;
     }
+    const landMaskBuffer = ctx?.buffers?.heightfield?.landMask || null;
+    const isWater = (x, y) => {
+        if (landMaskBuffer) {
+            const idx = y * width + x;
+            return landMaskBuffer[idx] === 0;
+        }
+        return adapter.isWater(x, y);
+    };
+    const terrainWriter = (x, y, terrain) => {
+        const isLand = terrain !== globals.g_CoastTerrain && terrain !== globals.g_OceanTerrain;
+        if (ctx) {
+            writeHeightfield(ctx, x, y, { terrain, isLand });
+        }
+        else {
+            adapter.setTerrainType(x, y, terrain);
+        }
+    };
     const worldModelEnabled = WorldModel.isEnabled();
 
     devLogIf &&
@@ -120,7 +137,7 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
     let landTiles = 0;
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            if (!adapter.isWater(x, y)) {
+            if (!isWater(x, y)) {
                 landTiles++;
             }
         }
@@ -183,10 +200,14 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
     }
 
     // Select top-scoring tiles for mountains
-    const mountainTiles = selectTopScoringTiles(scores, width, height, targetMountains, adapter);
+    const selectionAdapter = {
+        isWater,
+    };
+
+    const mountainTiles = selectTopScoringTiles(scores, width, height, targetMountains, selectionAdapter);
 
     // Select top-scoring tiles for hills (excluding mountains)
-    const hillTiles = selectTopScoringTiles(hillScores, width, height, targetHills, adapter, mountainTiles);
+    const hillTiles = selectTopScoringTiles(hillScores, width, height, targetHills, selectionAdapter, mountainTiles);
 
     const mountainsPlaced = mountainTiles instanceof Set
         ? mountainTiles.size
@@ -202,14 +223,14 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
     for (const i of mountainTiles) {
         const x = i % width;
         const y = Math.floor(i / width);
-        adapter.setTerrainType(x, y, globals.g_MountainTerrain);
+        terrainWriter(x, y, globals.g_MountainTerrain);
     }
 
     // Place hills
     for (const i of hillTiles) {
         const x = i % width;
         const y = Math.floor(i / width);
-        adapter.setTerrainType(x, y, globals.g_HillTerrain);
+        terrainWriter(x, y, globals.g_HillTerrain);
     }
 
     const summary = {

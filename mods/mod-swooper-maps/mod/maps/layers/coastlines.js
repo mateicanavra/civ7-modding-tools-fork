@@ -119,6 +119,15 @@ export function addRuggedCoasts(iWidth, iHeight, ctx) {
     const seaPolicy = (CORRIDOR_POLICY && CORRIDOR_POLICY.sea) || {};
     const SEA_PROTECTION = seaPolicy.protection || "hard";
     const SOFT_MULT = Math.max(0, Math.min(1, seaPolicy.softChanceMultiplier ?? 0.5));
+
+    const applyTerrain = (x, y, terrain, isLand) => {
+        if (ctx) {
+            writeHeightfield(ctx, x, y, { terrain, isLand });
+        }
+        else {
+            TerrainBuilder.setTerrainType(x, y, terrain);
+        }
+    };
     for (let y = 1; y < iHeight - 1; y++) {
         for (let x = 1; x < iWidth - 1; x++) {
             // Sea-lane policy: hard skip or soft probability reduction
@@ -184,11 +193,7 @@ export function addRuggedCoasts(iWidth, iHeight, ctx) {
                 }
                 if (h % 97 < noiseGate &&
                     (ctx ? ctxRandom(ctx, "Carve Bay", bayRollDenUsed) : TerrainBuilder.getRandomNumber(bayRollDenUsed, "Carve Bay")) === 0) {
-                    if (ctx && ctx.adapter) {
-                        ctx.adapter.setTerrainType(x, y, globals.g_CoastTerrain);
-                    } else {
-                        TerrainBuilder.setTerrainType(x, y, globals.g_CoastTerrain);
-                    }
+                    applyTerrain(x, y, globals.g_CoastTerrain, false);
                     continue; // Avoid double-touching same tile in this pass
                 }
             }
@@ -270,11 +275,7 @@ export function addRuggedCoasts(iWidth, iHeight, ctx) {
                             }
                         }
                         if ((ctx ? ctxRandom(ctx, "Fjord Coast", denomUsed) : TerrainBuilder.getRandomNumber(denomUsed, "Fjord Coast")) === 0) {
-                            if (ctx && ctx.adapter) {
-                                ctx.adapter.setTerrainType(x, y, globals.g_CoastTerrain);
-                            } else {
-                                TerrainBuilder.setTerrainType(x, y, globals.g_CoastTerrain);
-                            }
+                            applyTerrain(x, y, globals.g_CoastTerrain, false);
                         }
                     }
                 }

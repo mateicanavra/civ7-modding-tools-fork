@@ -15,7 +15,7 @@
  */
 
 import { WorldModel } from "../world/model.js";
-import { idx } from "../core/types.js";
+import { idx, writeHeightfield } from "../core/types.js";
 import { devLogIf } from "../bootstrap/dev.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import { addVolcanoes as baseAddVolcanoes, isTooCloseToExistingVolcanoes } from "/base-standard/maps/volcano-generator.js";
@@ -174,7 +174,15 @@ export function layerAddVolcanoesPlateAware(ctx, options = {}) {
         if (GameplayMap.getFeatureType(candidate.x, candidate.y) === globals.g_VolcanoFeature) continue;
         if (isTooCloseToExistingVolcanoes(candidate.x, candidate.y, placed, minSpacingClamped)) continue;
 
-        adapter.setTerrainType(candidate.x, candidate.y, globals.g_MountainTerrain);
+        if (ctx) {
+            writeHeightfield(ctx, candidate.x, candidate.y, {
+                terrain: globals.g_MountainTerrain,
+                isLand: true,
+            });
+        }
+        else {
+            adapter.setTerrainType(candidate.x, candidate.y, globals.g_MountainTerrain);
+        }
         adapter.setFeatureType(candidate.x, candidate.y, {
             Feature: globals.g_VolcanoFeature,
             Direction: -1,

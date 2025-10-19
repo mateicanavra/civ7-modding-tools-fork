@@ -12,6 +12,7 @@
 import * as globals from "/base-standard/maps/map-globals.js";
 import { LANDMASS_CFG } from "../bootstrap/tunables.js";
 import { WorldModel } from "../world/model.js";
+import { writeHeightfield } from "../core/types.js";
 
 const DEFAULT_CLOSENESS_LIMIT = 215;
 const CLOSENESS_STEP_PER_TILE = 8;
@@ -74,10 +75,6 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         }
     }
 
-    const adapter = ctx && ctx.adapter && typeof ctx.adapter.setTerrainType === "function"
-        ? ctx.adapter
-        : null;
-
     const landMask = new Uint8Array(size);
     let finalLandTiles = 0;
     for (let y = 0; y < height; y++) {
@@ -88,11 +85,29 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             if (isLand) {
                 landMask[idx] = 1;
                 finalLandTiles++;
-                setTerrain(adapter, x, y, globals.g_FlatTerrain);
+                if (ctx) {
+                    writeHeightfield(ctx, x, y, {
+                        terrain: globals.g_FlatTerrain,
+                        elevation: 0,
+                        isLand: true,
+                    });
+                }
+                else {
+                    setTerrain(null, x, y, globals.g_FlatTerrain);
+                }
             }
             else {
                 landMask[idx] = 0;
-                setTerrain(adapter, x, y, globals.g_OceanTerrain);
+                if (ctx) {
+                    writeHeightfield(ctx, x, y, {
+                        terrain: globals.g_OceanTerrain,
+                        elevation: -1,
+                        isLand: false,
+                    });
+                }
+                else {
+                    setTerrain(null, x, y, globals.g_OceanTerrain);
+                }
             }
         }
     }
@@ -189,6 +204,10 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             westContinent: Object.assign({}, windowsOut[0]),
             eastContinent: Object.assign({}, windowsOut[windowsOut.length - 1]),
         };
+    }
+
+    if (ctx?.buffers?.heightfield?.landMask) {
+        ctx.buffers.heightfield.landMask.set(landMask);
     }
 
     return {

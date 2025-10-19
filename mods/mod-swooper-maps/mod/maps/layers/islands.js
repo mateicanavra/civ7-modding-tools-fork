@@ -19,7 +19,7 @@ import * as globals from "/base-standard/maps/map-globals.js";
 import { StoryTags } from "../story/tags.js";
 import { STORY_TUNABLES, ISLANDS_CFG, CORRIDORS_CFG, } from "../bootstrap/tunables.js";
 import { isAdjacentToLand, storyKey } from "../core/utils.js";
-import { ctxRandom } from "../core/types.js";
+import { ctxRandom, writeHeightfield } from "../core/types.js";
 /**
  * Place small island clusters in deep water, with hotspot bias.
  * @param {number} iWidth
@@ -35,6 +35,14 @@ export function addIslandChains(iWidth, iHeight, ctx) {
     const paradiseWeight = (STORY_TUNABLES?.hotspot?.paradiseBias ?? 2) | 0; // default 2
     const volcanicWeight = (STORY_TUNABLES?.hotspot?.volcanicBias ?? 1) | 0; // default 1
     const peakPercent = Math.max(0, Math.min(100, Math.round((STORY_TUNABLES?.hotspot?.volcanicPeakChance ?? 0.33) * 100) + 10));
+    const applyTerrain = (tileX, tileY, terrain, isLand) => {
+        if (ctx) {
+            writeHeightfield(ctx, tileX, tileY, { terrain, isLand });
+        }
+        else {
+            TerrainBuilder.setTerrainType(tileX, tileY, terrain);
+        }
+    };
     for (let y = 2; y < iHeight - 2; y++) {
         for (let x = 2; x < iWidth - 2; x++) {
             if (!GameplayMap.isWater(x, y))
@@ -111,11 +119,8 @@ export function addIslandChains(iWidth, iHeight, ctx) {
                 }
             }
             // Place center tile
-            if (ctx && ctx.adapter) {
-                ctx.adapter.setTerrainType(x, y, centerTerrain);
-            } else {
-                TerrainBuilder.setTerrainType(x, y, centerTerrain);
-            }
+            const centerIsLand = centerTerrain !== globals.g_CoastTerrain && centerTerrain !== globals.g_OceanTerrain;
+            applyTerrain(x, y, centerTerrain, centerIsLand);
             // Classify center for downstream microclimates/features
             if (isHotspot) {
                 if (classifyParadise) {
@@ -137,11 +142,7 @@ export function addIslandChains(iWidth, iHeight, ctx) {
                     continue;
                 if (!GameplayMap.isWater(nx, ny))
                     continue;
-                if (ctx && ctx.adapter) {
-                    ctx.adapter.setTerrainType(nx, ny, globals.g_CoastTerrain);
-                } else {
-                    TerrainBuilder.setTerrainType(nx, ny, globals.g_CoastTerrain);
-                }
+                applyTerrain(nx, ny, globals.g_CoastTerrain, false);
             }
         }
     }

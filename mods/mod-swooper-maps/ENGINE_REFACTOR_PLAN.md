@@ -39,9 +39,9 @@ _Updated: 2025-10-18_
 3. Emit `FoundationContext` and guard all downstream stages with runtime assertions (`stageEnabled` + presence of required data product).
 
 ### Phase B – Morphology Refactor
-1. Introduce a heightfield buffer in `MapContext` (elevation + terrain layers).  
-2. Port coastlines, mountains, volcanoes, lakes, and terrain adjustments to operate on the buffer and publish structured outputs (shore mask, margin metrics).  
-3. Replace `StoryTags.reset()` loops with calls that ingest the published margin metadata.
+- [x] Introduce a heightfield buffer in `MapContext` (elevation + terrain layers).  
+- [x] Port landmass post-processing, coastlines, islands, mountains, volcanoes, and lakes to operate on the buffer and advertise `heightfield` in stage outputs.  
+- [ ] Replace `StoryTags.reset()` loops with calls that ingest the published margin metadata.
 
 ### Phase C – Hydrology & Climate Unification
 1. Consolidate rainfall baseline, refinement, and swatch modifications into a single climate engine module.  
@@ -76,4 +76,3 @@ _Updated: 2025-10-18_
 1. Land the plate-generation consolidation (see `PLATE_GENERATION_REFACTOR.md`).  
 2. Draft interface definitions (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) and add TypeScript typings in `map_config.types.js`.  
 3. Update `SWOOPER_MAPS_ARCHITECTURE_AUDIT.md` to reference this plan and mark the legacy flow as deprecated.
-

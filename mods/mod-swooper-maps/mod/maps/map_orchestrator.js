@@ -32,7 +32,7 @@ import { runPlacement as layerRunPlacement } from "./layers/placement.js";
 import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logRainfallStats, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, logBiomeSummary, } from "./bootstrap/dev.js";
 import { WorldModel } from "./world/model.js";
 // Phase 1 Refactoring: Context + Adapter layer
-import { createMapContext } from "./core/types.js";
+import { createMapContext, syncHeightfield } from "./core/types.js";
 import { CivEngineAdapter } from "./core/adapters.js";
 
 // Maintain compatibility with dev helpers that expect StoryTags on the global scope.
@@ -151,9 +151,9 @@ function generateMap() {
     try {
         if (WorldModel.init()) {
             ctx.worldModel = WorldModel;
-            ctx.foundation = Object.freeze({
-                plateSeed: WorldModel.plateSeed,
-            });
+            if (ctx.foundation) {
+                ctx.foundation.plateSeed = WorldModel.plateSeed || null;
+            }
             devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
             logWorldModelSummary(WorldModel);
             logWorldModelAscii(WorldModel);
@@ -211,6 +211,7 @@ function generateMap() {
             height: iHeight,
             windows: landmassWindows,
             landMask: plateResult.landMask,
+            context: ctx,
             adapter: ctx?.adapter,
             worldModel: WorldModel,
         });
@@ -274,6 +275,7 @@ function generateMap() {
         landMask: landmaskDebug || undefined,
     });
     TerrainBuilder.validateAndFixTerrain();
+    syncHeightfield(ctx);
     if (stageCoastlines) {
         const t = timeStart("ExpandCoasts");
         expandCoasts(iWidth, iHeight);
@@ -363,6 +365,7 @@ function generateMap() {
         const t = timeStart("Lakes");
         generateLakes(iWidth, iHeight, iTilesPerLake);
         timeEnd(t);
+        syncHeightfield(ctx);
     }
     // MAP STATISTICS LOGGING - Diagnostic for start placement failures
     console.log("[SWOOPER_MOD] About to calculate MAP_STATS...");
@@ -418,6 +421,7 @@ function generateMap() {
         TerrainBuilder.modelRivers(5, 15, globals.g_NavigableRiverTerrain);
         timeEnd(t);
         TerrainBuilder.validateAndFixTerrain();
+        syncHeightfield(ctx);
         TerrainBuilder.defineNamedRivers();
     }
     // Strategic Corridors: tag river-chain corridors post-rivers
@@ -448,6 +452,7 @@ function generateMap() {
         layerAddDiverseFeatures(iWidth, iHeight, ctx);
         timeEnd(t);
         TerrainBuilder.validateAndFixTerrain();
+        syncHeightfield(ctx);
         AreaBuilder.recalculateAreas();
     }
     if (stageClimateBaseline || stageClimateRefine) {

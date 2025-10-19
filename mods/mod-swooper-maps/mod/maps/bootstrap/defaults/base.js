@@ -57,12 +57,12 @@ export const BASE_CONFIG = Object.freeze({
             landmass: Object.freeze({
                 enabled: true,
                 requires: Object.freeze(["worldModel"]),
-                provides: Object.freeze(["continents", "plateWindows"]),
+                provides: Object.freeze(["continents", "plateWindows", "heightfield"]),
             }),
             coastlines: Object.freeze({
                 enabled: true,
                 requires: Object.freeze(["landmass"]),
-                provides: Object.freeze(["expandedCoasts"]),
+                provides: Object.freeze(["expandedCoasts", "heightfield"]),
             }),
             storySeed: Object.freeze({
                 enabled: true,
@@ -97,19 +97,22 @@ export const BASE_CONFIG = Object.freeze({
             islands: Object.freeze({
                 enabled: true,
                 requires: Object.freeze(["storySeed"]),
+                provides: Object.freeze(["heightfield"]),
             }),
             mountains: Object.freeze({
                 enabled: true,
                 requires: Object.freeze(["landmass"]),
-                provides: Object.freeze(["mountainHeights", "hillHeights"]),
+                provides: Object.freeze(["mountainHeights", "hillHeights", "heightfield"]),
             }),
             volcanoes: Object.freeze({
                 enabled: true,
                 requires: Object.freeze(["mountains"]),
+                provides: Object.freeze(["volcanoes", "heightfield"]),
             }),
             lakes: Object.freeze({
                 enabled: true,
                 requires: Object.freeze(["mountains"]),
+                provides: Object.freeze(["heightfield"]),
             }),
             climateBaseline: Object.freeze({
                 enabled: true,

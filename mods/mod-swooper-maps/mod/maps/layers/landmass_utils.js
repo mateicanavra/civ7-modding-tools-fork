@@ -7,6 +7,7 @@
 import * as globals from "/base-standard/maps/map-globals.js";
 import { WORLDMODEL_OCEAN_SEPARATION } from "../bootstrap/tunables.js";
 import { WorldModel } from "../world/model.js";
+import { writeHeightfield } from "../core/types.js";
 
 /**
  * Apply geometry post-processing adjustments defined in config.
@@ -98,6 +99,7 @@ function clampInt(value, min, max) {
  *   height: number,
  *   windows: ReadonlyArray<{west:number,east:number,south:number,north:number,continent?:number}>,
  *   landMask?: Uint8Array | null,
+ *   context?: import("../core/types.js").MapContext | null,
  *   adapter?: { setTerrainType?(x:number,y:number,terrain:number):void } | null,
  *   policy?: any,
  *   worldModel?: typeof WorldModel | null,
@@ -111,6 +113,7 @@ export function applyPlateAwareOceanSeparation(params) {
     if (!width || !height || windows.length === 0) {
         return { windows: windows.map((win, idx) => normalizeWindow(win, idx, width, height)) };
     }
+    const ctx = params?.context ?? null;
     const adapter = params?.adapter && typeof params.adapter.setTerrainType === "function"
         ? params.adapter
         : null;
@@ -132,6 +135,7 @@ export function applyPlateAwareOceanSeparation(params) {
     const landMask = params?.landMask instanceof Uint8Array && params.landMask.length === width * height
         ? params.landMask
         : null;
+    const heightfield = ctx?.buffers?.heightfield;
     const bandPairs = Array.isArray(policy.bandPairs) && policy.bandPairs.length
         ? policy.bandPairs
         : [
@@ -144,17 +148,27 @@ export function applyPlateAwareOceanSeparation(params) {
         : 1.0;
     const maxPerRow = Math.max(0, policy.maxPerRowDelta | 0 || 3);
     const rowStates = windows.map((win, idx) => createRowState(win, idx, width, height));
-    const setTerrain = (x, y, terrain) => {
+    const setTerrain = (x, y, terrain, isLand) => {
         if (x < 0 || x >= width || y < 0 || y >= height)
             return;
+        const idx = y * width + x;
         if (landMask) {
-            landMask[y * width + x] = terrain === globals.g_FlatTerrain ? 1 : 0;
+            landMask[idx] = isLand ? 1 : 0;
         }
-        if (adapter) {
+        if (ctx) {
+            writeHeightfield(ctx, x, y, {
+                terrain,
+                isLand,
+            });
+        }
+        else if (adapter) {
             adapter.setTerrainType(x, y, terrain);
         }
         else {
             TerrainBuilder.setTerrainType(x, y, terrain);
+        }
+        if (heightfield && !landMask) {
+            heightfield.landMask[idx] = isLand ? 1 : 0;
         }
     };
     const carveOceanFromEast = (state, y, tiles) => {
@@ -167,7 +181,7 @@ export function applyPlateAwareOceanSeparation(params) {
         while (removed < tiles && x >= limit) {
             const idx = rowOffset + x;
             if (!landMask || landMask[idx]) {
-                setTerrain(x, y, globals.g_OceanTerrain);
+                setTerrain(x, y, globals.g_OceanTerrain, false);
                 removed++;
             }
             x--;
@@ -185,7 +199,7 @@ export function applyPlateAwareOceanSeparation(params) {
         while (removed < tiles && x <= limit) {
             const idx = rowOffset + x;
             if (!landMask || landMask[idx]) {
-                setTerrain(x, y, globals.g_OceanTerrain);
+                setTerrain(x, y, globals.g_OceanTerrain, false);
                 removed++;
             }
             x++;
@@ -199,7 +213,7 @@ export function applyPlateAwareOceanSeparation(params) {
         let added = 0;
         let x = state.west[y] - 1;
         while (added < tiles && x >= 0) {
-            setTerrain(x, y, globals.g_FlatTerrain);
+            setTerrain(x, y, globals.g_FlatTerrain, true);
             added++;
             x--;
         }
@@ -212,7 +226,7 @@ export function applyPlateAwareOceanSeparation(params) {
         let added = 0;
         let x = state.east[y] + 1;
         while (added < tiles && x < width) {
-            setTerrain(x, y, globals.g_FlatTerrain);
+            setTerrain(x, y, globals.g_FlatTerrain, true);
             added++;
             x++;
         }
@@ -291,6 +305,9 @@ export function applyPlateAwareOceanSeparation(params) {
         }
     }
     const normalized = rowStates.map((state) => aggregateRowState(state, width, height));
+    if (ctx && landMask && ctx.buffers?.heightfield?.landMask) {
+        ctx.buffers.heightfield.landMask.set(landMask);
+    }
     return {
         windows: normalized,
         landMask: landMask ?? undefined,
