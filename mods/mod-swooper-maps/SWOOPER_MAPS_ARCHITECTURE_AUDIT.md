@@ -1,6 +1,6 @@
-# Swooper Maps Architecture Audit
+# Swooper Maps Architecture Audit _(Superseded)_
 
-_Updated: 2025-10-18_
+> **Note**: This document is kept for historical context. The current roadmap and refactor plan live in `ENGINE_REFACTOR_PLAN.md`. Refer to that plan for up-to-date stage sequencing, data products, and deliverables.
 
 ## 1. Layer Stack and Shared State
 
