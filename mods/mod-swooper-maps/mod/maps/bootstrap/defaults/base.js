@@ -324,6 +324,7 @@ export const BASE_CONFIG = Object.freeze({
         enabled: true,
         // Plates (Voronoi plates + boundary types; fields drive rifts/orogeny/margins)
         plates: Object.freeze({
+            seedMode: "engine",
             count: 8, // Huge maps: 6–10 recommended
             axisAngles: Object.freeze([15, -20, 35]), // degrees; used to align macro trends
             convergenceMix: 0.6, // 0..1 fraction for convergent vs divergent balance
@@ -357,30 +358,30 @@ export const BASE_CONFIG = Object.freeze({
         // can evolve in concert while remaining varied. These are read by WorldModel and consumers.
         directionality: Object.freeze({
             // Master cohesion dial (0..1): higher = stronger alignment between systems
-            cohesion: 0.75,
+            cohesion: 0.45,
             // Macro axes in degrees: bias plate motion, prevailing winds, and gyre/currents
             primaryAxes: Object.freeze({
-                plateAxisDeg: 20, // macro plate motion axis (deg)
-                windBiasDeg: 270, // global wind bias offset (deg)
-                currentBiasDeg: -10, // global current gyre bias (deg)
+                plateAxisDeg: 0, // neutral macro plate motion axis (deg)
+                windBiasDeg: 260, // global wind bias offset (deg)
+                currentBiasDeg: -5, // global current gyre bias (deg)
             }),
             // Interplay weights (0..1): how much one system aligns with another
             interplay: Object.freeze({
-                windsFollowPlates: 0.6, // jets and streaks tend to align with plate axes
-                currentsFollowWinds: 0.75, // surface currents track prevailing winds
-                riftsFollowPlates: 0.8, // divergent rifts along plate boundaries
-                orogenyOpposesRifts: 0.5, // convergent uplift tends to oppose divergent directions
+                windsFollowPlates: 0.55, // jets and streaks tend to align with plate axes
+                currentsFollowWinds: 0.7, // surface currents track prevailing winds
+                riftsFollowPlates: 0.75, // divergent rifts along plate boundaries
+                orogenyOpposesRifts: 0.55, // convergent uplift tends to oppose divergent directions
             }),
             // Hemisphere options and seasonal asymmetry (future-facing)
             hemispheres: Object.freeze({
                 southernFlip: true, // flip sign conventions in S hemisphere for winds/currents bias
                 equatorBandDeg: 18, // symmetric behavior band around equator
-                monsoonBias: 0.7, // seasonal asymmetry placeholder (kept conservative)
+                monsoonBias: 0.6, // seasonal asymmetry placeholder (kept conservative)
             }),
             // Variability knobs to avoid rigid patterns while honoring directionality
             variability: Object.freeze({
-                angleJitterDeg: 8, // random jitter around macro axes
-                magnitudeVariance: 0.35, // 0..1 variance applied to vector magnitudes
+                angleJitterDeg: 15, // random jitter around macro axes
+                magnitudeVariance: 0.45, // 0..1 variance applied to vector magnitudes
                 seedOffset: 0, // RNG stream offset dedicated to directionality
             }),
         }),
@@ -536,21 +537,21 @@ export const BASE_CONFIG = Object.freeze({
     mountains: Object.freeze({
         mountainPercent: 3,
         hillPercent: 8,
-        upliftWeight: 0.75,
-        fractalWeight: 0.25,
-        riftDepth: 0.3,
-        variance: 2.0,
-        boundaryWeight: 0.6,
-        boundaryExponent: 1.4,
-        interiorPenaltyWeight: 0.2,
-        convergenceBonus: 0.9,
-        transformPenalty: 0.3,
-        riftPenalty: 0.75,
-        hillBoundaryWeight: 0.45,
-        hillRiftBonus: 0.5,
-        hillConvergentFoothill: 0.25,
+        upliftWeight: 0.6,
+        fractalWeight: 0.4,
+        riftDepth: 0.25,
+        variance: 1.6,
+        boundaryWeight: 0.85,
+        boundaryExponent: 1.3,
+        interiorPenaltyWeight: 0.18,
+        convergenceBonus: 0.65,
+        transformPenalty: 0.25,
+        riftPenalty: 0.65,
+        hillBoundaryWeight: 0.4,
+        hillRiftBonus: 0.45,
+        hillConvergentFoothill: 0.22,
         hillInteriorFalloff: 0.2,
-        hillUpliftWeight: 0.25,
+        hillUpliftWeight: 0.3,
     }),
     volcanoes: Object.freeze({
         enabled: true,

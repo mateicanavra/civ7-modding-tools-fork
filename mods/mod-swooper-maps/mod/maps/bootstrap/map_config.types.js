@@ -602,8 +602,10 @@
  * @property {number} [plates.seedJitter] - Random offset applied to initial plate seeds in tiles; adds irregularity (typically 0-8)
  * @property {number} [plates.interiorSmooth] - Smoothing steps for shield interiors (steps; iterations)
  * @property {number} [plates.plateRotationMultiple] - Multiplier for plate rotation influence when evaluating boundaries
- * @property {number} [plates.seedOffset] - Additional RNG offset applied before plate generation (integer)
- * @property {number} [plates.seedBase] - Optional explicit RNG seed; overrides engine seed when provided
+ * @property {"engine"|"fixed"} [plates.seedMode] - Use the Civ engine seed ("engine") or force a fixed seed ("fixed")
+ * @property {number} [plates.fixedSeed] - Seed value to use when seedMode === "fixed"
+ * @property {number} [plates.seedOffset] - Integer added to the chosen base seed (engine or fixed) before plate
+ * generation. Combined with seedMode/fixedSeed this gives deterministic reruns; leave undefined to use Civ's RNG verbatim.
  * @property {Object} [wind] - Atmospheric circulation (prevailing winds and jet streams for rain shadows)
  * @property {number} [wind.jetStreaks] - Number of high-altitude jet stream bands; affects storm tracks (typically 2-4)
  * @property {number} [wind.jetStrength] - Jet stream intensity multiplier; stronger = more pronounced effects (typically 0.8-1.5)

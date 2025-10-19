@@ -46,8 +46,9 @@ import { RandomImpl } from '/base-standard/scripts/random-pcg-32.js';
  * @property {number} convergenceMix - 0..1, ratio of convergent vs divergent boundaries
  * @property {number} plateRotationMultiple - Multiplier for plate rotation influence
  * @property {Object} directionality - Optional directionality config
- * @property {number} [seedOffset] - Additional RNG offset applied before plate generation (integer)
- * @property {number} [seedBase] - Optional explicit RNG seed overriding the engine seed
+ * @property {"engine"|"fixed"} [seedMode] - Use Civ's seed (engine) or a fixed seed value (fixed)
+ * @property {number} [fixedSeed] - Seed value when seedMode is "fixed"
+ * @property {number} [seedOffset] - Integer offset applied to the chosen base seed
 */
 
 const ENUM_BOUNDARY = Object.freeze({
@@ -57,13 +58,14 @@ const ENUM_BOUNDARY = Object.freeze({
     transform: 3,
 });
 
-function applySeedControl(seedBase, seedOffset) {
+function applySeedControl(seedMode, fixedSeed, seedOffset) {
     if (!RandomImpl || typeof RandomImpl.getState !== "function" || typeof RandomImpl.setState !== "function") {
         return null;
     }
-    const hasBase = Number.isFinite(seedBase);
+    const mode = seedMode === "fixed" ? "fixed" : "engine";
+    const hasFixedSeed = mode === "fixed" && Number.isFinite(fixedSeed);
     const offsetValue = Number.isFinite(seedOffset) ? Math.trunc(seedOffset) : 0;
-    if (!hasBase && offsetValue === 0) {
+    if (!hasFixedSeed && offsetValue === 0 && mode !== "fixed") {
         return null;
     }
     try {
@@ -72,8 +74,8 @@ function applySeedControl(seedBase, seedOffset) {
             return null;
         }
         let seedValue;
-        if (hasBase) {
-            seedValue = Math.trunc(seedBase);
+        if (hasFixedSeed) {
+            seedValue = Math.trunc(fixedSeed);
         }
         else {
             seedValue = Number(originalState.state & 0xffffffffn);
@@ -116,8 +118,9 @@ export function computePlatesVoronoi(width, height, config) {
         convergenceMix = 0.5,
         plateRotationMultiple = 1.0,
         directionality = null,
+        seedMode = "engine",
+        fixedSeed = undefined,
         seedOffset = 0,
-        seedBase = undefined,
     } = config;
 
     const size = width * height;
@@ -277,7 +280,7 @@ export function computePlatesVoronoi(width, height, config) {
         };
     };
 
-    const restoreSeed = applySeedControl(seedBase, seedOffset);
+    const restoreSeed = applySeedControl(seedMode, fixedSeed, seedOffset);
     let output;
     try {
         output = runGeneration();

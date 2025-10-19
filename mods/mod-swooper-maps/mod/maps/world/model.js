@@ -199,11 +199,12 @@ function computePlates(width, height) {
     const convergenceMix = Math.max(0, Math.min(1, WORLDMODEL_PLATES?.convergenceMix ?? 0.5));
     const relaxationSteps = Math.max(0, WORLDMODEL_PLATES?.relaxationSteps | 0 || 5);
     const plateRotationMultiple = WORLDMODEL_PLATES?.plateRotationMultiple ?? 1.0;
+    const seedMode = WORLDMODEL_PLATES?.seedMode === "fixed" ? "fixed" : "engine";
     const seedOffset = Number.isFinite(WORLDMODEL_PLATES?.seedOffset)
         ? Math.trunc(WORLDMODEL_PLATES.seedOffset)
         : 0;
-    const seedBase = Number.isFinite(WORLDMODEL_PLATES?.seedBase)
-        ? Math.trunc(WORLDMODEL_PLATES.seedBase)
+    const fixedSeed = Number.isFinite(WORLDMODEL_PLATES?.fixedSeed)
+        ? Math.trunc(WORLDMODEL_PLATES.fixedSeed)
         : undefined;
 
     // Call new Voronoi-based plate generation
@@ -213,8 +214,9 @@ function computePlates(width, height) {
         convergenceMix,
         plateRotationMultiple,
         directionality: WORLDMODEL_DIRECTIONALITY,
+        seedMode,
+        fixedSeed,
         seedOffset,
-        seedBase,
     });
 
     // Copy results into WorldModel state arrays

@@ -44,7 +44,6 @@
 import { BASE_CONFIG } from "./defaults/base.js";
 import { CLASSIC_PRESET } from "./presets/classic.js";
 import { TEMPERATE_PRESET } from "./presets/temperate.js";
-import { VORONOI_PRESET } from "./presets/voronoi.js";
 import { getConfig as getRuntimeConfig } from "./runtime.js";
 /* -----------------------------------------------------------------------------
  * Internal state
@@ -54,7 +53,6 @@ import { getConfig as getRuntimeConfig } from "./runtime.js";
 const PRESET_REGISTRY = Object.freeze({
     classic: CLASSIC_PRESET,
     temperate: TEMPERATE_PRESET,
-    voronoi: VORONOI_PRESET,
 });
 /** @type {ReadonlyArray<string>} */
 let ACTIVE_PRESETS = Object.freeze([]);

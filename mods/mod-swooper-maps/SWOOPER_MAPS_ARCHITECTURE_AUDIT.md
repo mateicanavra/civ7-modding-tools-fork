@@ -17,7 +17,7 @@ _Updated: 2025-10-18_
 **Shared State Pathways**
 - `MapContext.adapter` mediates most terrain/feature writes in refactored layers; some legacy calls still use `GameplayMap` directly (e.g., story tagging, base-standard helpers), creating a hybrid access pattern.
 - `StoryTags` is mutated across stages: margins are tagged, reset, and re-applied before/after coasts and rivers, so downstream layers rely on the most recent pass.
-- `WorldModel` is optional but influences landmass separation, coasts, mountains, volcanoes, climate refinement, and corridor directionality; when disabled, layers fall back to legacy heuristics.
+- `WorldModel` is optional but influences landmass separation, coasts, mountains, volcanoes, climate refinement, and corridor directionality; when disabled, stages stay on the Voronoi-first path and rely on non-WorldModel heuristics (fractal relief, corridor defaults) instead of the removed three-band generator.
 - Tunables in `tunables.js` expose frozen group objects; consumers treat them as read-only snapshots for the active generation run.
 
 ## 2. Orchestration Pain Points
@@ -31,7 +31,7 @@ _Updated: 2025-10-18_
 
 ## 3. Proposed Orchestration & Config Model
 
-1. **Stage-first orchestration manifest** — Introduce a declarative `stages` array (e.g., in `map_config.types` or a new `orchestration` block) that lists enabled stages and their order (`worldModel`, `landmass`, `coast`, `storySeed`, `relief`, `hydrology`, `climate`, `biome`, `features`, `placement`). The orchestrator should loop this manifest instead of hard-coded calls, letting presets select or skip stages explicitly.
+1. **Stage-first orchestration manifest** — Introduce a declarative `stages` array (e.g., in `map_config.types` or a new `orchestration` block) that lists enabled stages and their order (`worldModel`, `landmass`, `coast`, `storySeed`, `relief`, `hydrology`, `climate`, `biome`, `features`, `placement`). The orchestrator should loop this manifest instead of hard-coded calls, letting presets select or skip stages explicitly and encode the Voronoi-first -> plate-mask fallback so the retired band generator cannot silently return.
 2. **Separate foundational vs. narrative config** — Split current `story` and `microclimate` knobs into (a) **Climate Drivers** (baseline bands, pressure cells, aridity controls) and (b) **Narrative Overlays** (swatches, paleo, corridors). Ensure dryness controls live in the climate driver group with additive deltas referenced by overlays.
 3. **Unify moisture schema** — Replace `drynessDelta`, `dryDelta`, and implicit lee subtractions with a shared `moistureAdjustments` schema (`{ target: "desert" | "rainbelt" | ... , magnitude, radius, elevationBias }`). Climate baseline would consume global defaults; swatches would just add entries to the adjustment set.
 4. **Context-only surface** — Migrate remaining story/tagging passes onto `MapContext.adapter` and store StoryTags inside `ctx` so every pass consumes the same state object. This enables instrumentation and testing without engine globals.
@@ -62,7 +62,7 @@ Missing concepts:
 ## 5. Observability & Tooling Gaps
 
 - **Stage metrics registry** — `dev.js` exposes timers and ASCII logs, but timings are stored as console output. Capturing them in `ctx.metrics.timings` would enable automated regression checks.
-- **StoryTag & climate visualization** — Core diagnostics now emit ASCII grids for landmass windows, plate boundaries, relief, rainfall buckets, corridors, and biome outcomes. We still lack snapshots for swatches/paleo traces or rainfall deltas introduced by specific microclimate overlays; lightweight heatmaps (e.g., export arrays to disk when running headless) would help validate desert placement.
+- **StoryTag & climate visualization** — Core diagnostics now emit ASCII grids for landmass windows, plate boundaries, relief, rainfall buckets, corridors, and biome outcomes. We still lack snapshots for swatches/paleo traces or rainfall deltas introduced by specific microclimate overlays; with the headless stub gone we need a FireTuner/CLI capture path (e.g., JSON dumps triggered by `DEV.LOG_*` toggles) to persist those arrays for validation.
 - **Config validation** — Resolver merges configs but does not warn when stage dependencies are unsatisfied (e.g., enabling plate ocean separation without worldModel). Add schema validation hooks before `deepFreeze`.
 - **Test harness** — No Vitest coverage around orchestration order or config resolution. A small suite asserting stage manifest compliance would catch regressions before game runtime.
 - **Plan alignment** — Phase 2 in `PLATE_REFACTOR_PLAN.md` calls for auditing climate/coast consumers of WorldModel data; current mixed adapter usage makes that audit difficult without instrumentation.
@@ -74,4 +74,4 @@ Missing concepts:
 3. Normalize moisture controls by introducing climate profiles and migrating swatch/microclimate settings to the shared schema.
 4. Port remaining StoryTag producers to use `MapContext.adapter` and store tags within `ctx` to remove global state.
 5. Extend presets to declare stage participation; add resolver validation that warns when presets and overrides conflict with stage availability.
-6. Build lightweight observability helpers that capture per-stage metrics into `ctx.metrics`, and surface CLI tooling to dump them, aligning with Phase 2/3 checkpoints in the refactor plan.
+6. Build lightweight observability helpers that capture per-stage metrics into `ctx.metrics`, and surface CLI/FireTuner tooling to dump them now that headless output is gone, aligning with Phase 2/3 checkpoints in the refactor plan and supporting deterministic regression capture.
