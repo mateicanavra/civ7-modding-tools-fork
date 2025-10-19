@@ -41,7 +41,7 @@ import { applyClimateBaseline, refineClimateEarthlike } from "./layers/climate-e
 import { designateEnhancedBiomes as layerDesignateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures as layerAddDiverseFeatures } from "./layers/features.js";
 import { runPlacement as layerRunPlacement } from "./layers/placement.js";
-import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logRainfallStats, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, logBiomeSummary, logFoundationSeed, logFoundationPlates, logFoundationDynamics, logFoundationSurface, } from "./bootstrap/dev.js";
+import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logRainfallStats, logCorridorAsciiOverlay, logFoundationSummary, logFoundationHistograms, logFoundationAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, logBiomeSummary, logFoundationSeed, logFoundationPlates, logFoundationDynamics, logFoundationSurface, } from "./bootstrap/dev.js";
 import { WorldModel } from "./world/model.js";
 // Phase 1 Refactoring: Context + Adapter layer
 import {
@@ -190,8 +190,8 @@ function generateMap() {
             });
             ctx.foundation = foundationContext;
             devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
-            logWorldModelSummary(WorldModel);
-            logWorldModelAscii(WorldModel);
+            logFoundationSummary(WorldModel);
+            logFoundationAscii(WorldModel);
             logFoundationSeed(FOUNDATION_SEED, foundationContext.plateSeed || null, { skipConfig: true });
         }
         catch (err) {
@@ -353,7 +353,7 @@ function generateMap() {
         ensureFoundation("storyOrogeny");
         console.log("Tagging orogenic belts...");
         storyTagOrogenyBelts();
-        logWorldModelHistograms(WorldModel, {
+        logFoundationHistograms(WorldModel, {
             riftSet: StoryTags.riftLine,
             beltSet: OrogenyCache.belts,
             bins: 12,

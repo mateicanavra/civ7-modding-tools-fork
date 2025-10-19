@@ -365,108 +365,33 @@ function deriveStageOverrideWarnings(providers, manifest) {
 }
 
 /**
- * Build a partial foundation object from legacy worldModel/landmass groups.
- * Only includes keys that existed historically so new overrides take precedence.
- * @param {AnyObject} worldModel
- * @param {AnyObject} landmass
- * @returns {AnyObject}
- */
-function legacyFoundationFrom(worldModel, landmass) {
-    /** @type {AnyObject} */
-    const foundation = {};
-    if (isPlainObject(worldModel?.plates)) {
-        foundation.plates = worldModel.plates;
-    }
-    /** @type {AnyObject} */
-    const dynamics = {};
-    if (isPlainObject(worldModel?.wind))
-        dynamics.wind = worldModel.wind;
-    if (isPlainObject(worldModel?.currents))
-        dynamics.currents = worldModel.currents;
-    if (isPlainObject(worldModel?.pressure))
-        dynamics.mantle = worldModel.pressure;
-    if (isPlainObject(worldModel?.directionality))
-        dynamics.directionality = worldModel.directionality;
-    if (Object.keys(dynamics).length > 0) {
-        foundation.dynamics = dynamics;
-    }
-    if (isPlainObject(worldModel?.policy)) {
-        foundation.policy = worldModel.policy;
-    }
-    /** @type {AnyObject} */
-    const surface = {};
-    if (isPlainObject(landmass) && Object.keys(landmass).length > 0)
-        surface.landmass = landmass;
-    if (isPlainObject(worldModel?.policy?.oceanSeparation))
-        surface.oceanSeparation = worldModel.policy.oceanSeparation;
-    if (Object.keys(surface).length > 0) {
-        foundation.surface = surface;
-    }
-    return foundation;
-}
-
-/**
- * Project the consolidated foundation config back into the legacy worldModel shape.
- * This keeps existing consumers working while new code migrates to foundation.*.
- * @param {AnyObject} foundation
- * @param {AnyObject} legacyWorldModel
- * @returns {AnyObject}
- */
-function foundationToWorldModel(foundation, legacyWorldModel) {
-    /** @type {AnyObject} */
-    const out = {};
-    if (isPlainObject(foundation?.plates))
-        out.plates = foundation.plates;
-    const dynamics = foundation?.dynamics;
-    if (isPlainObject(dynamics?.wind))
-        out.wind = dynamics.wind;
-    if (isPlainObject(dynamics?.currents))
-        out.currents = dynamics.currents;
-    if (isPlainObject(dynamics?.mantle))
-        out.pressure = dynamics.mantle;
-    if (isPlainObject(dynamics?.directionality))
-        out.directionality = dynamics.directionality;
-    if (isPlainObject(foundation?.policy))
-        out.policy = foundation.policy;
-    if (typeof legacyWorldModel?.enabled === "boolean")
-        out.enabled = legacyWorldModel.enabled;
-    else if (legacyWorldModel && Object.keys(legacyWorldModel).length > 0)
-        out.enabled = true;
-    return out;
-}
-
-/**
- * Normalize the new foundation group and sync legacy worldModel/landmass data.
+ * Normalize the foundation group and surface landmass metadata.
  * Mutates the supplied merged snapshot and returns any migration warnings.
  * @param {AnyObject} merged
  * @returns {Array<string>}
  */
-function normalizeFoundationGroups(merged) {
+function normalizeFoundationGroup(merged) {
     /** @type {Array<string>} */
     const warnings = [];
     const foundationInput = isPlainObject(merged.foundation) ? /** @type {AnyObject} */ (merged.foundation) : {};
-    const worldModelInput = isPlainObject(merged.worldModel) ? /** @type {AnyObject} */ (merged.worldModel) : {};
     const landmassInput = isPlainObject(merged.landmass) ? /** @type {AnyObject} */ (merged.landmass) : {};
-    const legacyBridge = legacyFoundationFrom(worldModelInput, landmassInput);
-    const foundationWasEmpty = !foundationInput || Object.keys(foundationInput).length === 0;
-    const legacyProvided = Object.keys(legacyBridge).length > 0;
-    const foundationNormalized = /** @type {AnyObject} */ (deepMerge(legacyBridge, foundationInput || {}));
-    if (foundationWasEmpty && legacyProvided) {
-        warnings.push("Copied legacy `worldModel` overrides into `foundation.*`; please migrate overrides to the new group.");
-    }
-    if (isPlainObject(foundationNormalized.surface)) {
-        foundationNormalized.surface = deepMerge({ landmass: landmassInput }, foundationNormalized.surface);
-    }
-    else if (Object.keys(landmassInput).length > 0) {
-        foundationNormalized.surface = { landmass: landmassInput };
+    /** @type {AnyObject} */
+    const foundationNormalized = deepMerge({}, foundationInput || {});
+    if (Object.keys(landmassInput).length > 0) {
+        if (isPlainObject(foundationNormalized.surface)) {
+            foundationNormalized.surface = deepMerge({ landmass: landmassInput }, foundationNormalized.surface);
+        }
+        else {
+            foundationNormalized.surface = { landmass: landmassInput };
+        }
     }
     merged.foundation = foundationNormalized;
-    const worldModelBackfill = foundationToWorldModel(foundationNormalized, worldModelInput);
-    const worldModelNormalized = deepMerge(worldModelBackfill, worldModelInput);
-    if (!Object.keys(worldModelInput).length && Object.keys(worldModelNormalized).length > 0) {
-        warnings.push("Legacy `worldModel` group now mirrors `foundation.*`; update consumers to read `foundation` directly.");
+    if (merged.worldModel && isPlainObject(merged.worldModel) && Object.keys(merged.worldModel).length > 0) {
+        warnings.push("Legacy `worldModel` overrides are no longer supported; migrate overrides to `foundation.*`.");
     }
-    merged.worldModel = worldModelNormalized;
+    if ("worldModel" in merged) {
+        delete merged.worldModel;
+    }
     return warnings;
 }
 /* -----------------------------------------------------------------------------
@@ -523,7 +448,7 @@ function buildSnapshot() {
             // Ignore console access issues in restrictive runtimes.
         }
     }
-    const foundationWarnings = normalizeFoundationGroups(merged);
+    const foundationWarnings = normalizeFoundationGroup(merged);
     for (const msg of foundationWarnings) {
         try {
             console.warn(`[Foundation] ${msg}`);
@@ -585,7 +510,7 @@ export function STAGE_MANIFEST() {
         : EMPTY_STAGE_MANIFEST;
 }
 /**
- * Dot-path getter for convenience (e.g., "worldModel.directionality").
+ * Dot-path getter for convenience (e.g., "foundation.dynamics.wind").
  * Returns undefined if not found.
  * @param {string} path
  * @returns {any}

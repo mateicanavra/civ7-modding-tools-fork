@@ -37,8 +37,8 @@ export const DEV = {
     RAINFALL_HISTOGRAM: false, // Log a coarse rainfall histogram (non-water tiles only)
     LOG_RAINFALL_SUMMARY: false, // Log rainfall min/max/avg statistics
     LOG_CORRIDOR_ASCII: false, // Print a coarse ASCII overlay of corridor tags (downsampled)
-    LOG_WORLDMODEL_SUMMARY: false, // Print compact WorldModel summary when available
-    LOG_WORLDMODEL_ASCII: false, // ASCII visualization of plate boundaries & terrain mix
+    LOG_FOUNDATION_SUMMARY: false, // Print compact Foundation summary when available
+    LOG_FOUNDATION_ASCII: false, // ASCII visualization of plate boundaries & terrain mix
     LOG_LANDMASS_ASCII: false, // ASCII snapshot of land vs. ocean bands/continents
     LOG_LANDMASS_WINDOWS: false, // Log landmass window bounding boxes/areas
     LOG_RELIEF_ASCII: false, // ASCII visualization of major relief (mountains/hills/volcanoes)
@@ -49,7 +49,7 @@ export const DEV = {
     LOG_MOUNTAINS: false, // Detailed mountain placement summaries
     LOG_VOLCANOES: false, // Detailed volcano placement summaries
     LOG_BOUNDARY_METRICS: false, // Quantitative summary of plate boundary coverage
-    WORLDMODEL_HISTOGRAMS: false, // Print histograms for rift/uplift (optionally near tags)
+    FOUNDATION_HISTOGRAMS: false, // Print histograms for rift/uplift (optionally near tags)
     LAYER_COUNTS: false, // Reserved for layer-specific counters (if used by callers)
     LOG_FOUNDATION_SEED: false,
     LOG_FOUNDATION_PLATES: false,
@@ -80,10 +80,14 @@ try {
             DEV.LOG_RAINFALL_SUMMARY = !!__cfg.LOG_RAINFALL_SUMMARY;
         if ("LOG_CORRIDOR_ASCII" in __cfg)
             DEV.LOG_CORRIDOR_ASCII = !!__cfg.LOG_CORRIDOR_ASCII;
-        if ("LOG_WORLDMODEL_SUMMARY" in __cfg)
-            DEV.LOG_WORLDMODEL_SUMMARY = !!__cfg.LOG_WORLDMODEL_SUMMARY;
-        if ("LOG_WORLDMODEL_ASCII" in __cfg)
-            DEV.LOG_WORLDMODEL_ASCII = !!__cfg.LOG_WORLDMODEL_ASCII;
+        if ("LOG_FOUNDATION_SUMMARY" in __cfg)
+            DEV.LOG_FOUNDATION_SUMMARY = !!__cfg.LOG_FOUNDATION_SUMMARY;
+        else if ("LOG_WORLDMODEL_SUMMARY" in __cfg)
+            DEV.LOG_FOUNDATION_SUMMARY = !!__cfg.LOG_WORLDMODEL_SUMMARY;
+        if ("LOG_FOUNDATION_ASCII" in __cfg)
+            DEV.LOG_FOUNDATION_ASCII = !!__cfg.LOG_FOUNDATION_ASCII;
+        else if ("LOG_WORLDMODEL_ASCII" in __cfg)
+            DEV.LOG_FOUNDATION_ASCII = !!__cfg.LOG_WORLDMODEL_ASCII;
         if ("LOG_LANDMASS_ASCII" in __cfg)
             DEV.LOG_LANDMASS_ASCII = !!__cfg.LOG_LANDMASS_ASCII;
         if ("LOG_LANDMASS_WINDOWS" in __cfg)
@@ -104,8 +108,10 @@ try {
             DEV.LOG_MOUNTAINS = !!__cfg.LOG_MOUNTAINS;
         if ("LOG_VOLCANOES" in __cfg)
             DEV.LOG_VOLCANOES = !!__cfg.LOG_VOLCANOES;
-        if ("WORLDMODEL_HISTOGRAMS" in __cfg)
-            DEV.WORLDMODEL_HISTOGRAMS = !!__cfg.WORLDMODEL_HISTOGRAMS;
+        if ("FOUNDATION_HISTOGRAMS" in __cfg)
+            DEV.FOUNDATION_HISTOGRAMS = !!__cfg.FOUNDATION_HISTOGRAMS;
+        else if ("WORLDMODEL_HISTOGRAMS" in __cfg)
+            DEV.FOUNDATION_HISTOGRAMS = !!__cfg.WORLDMODEL_HISTOGRAMS;
         if ("LOG_FOUNDATION_SEED" in __cfg)
             DEV.LOG_FOUNDATION_SEED = !!__cfg.LOG_FOUNDATION_SEED;
         if ("LOG_FOUNDATION_PLATES" in __cfg)
@@ -144,13 +150,13 @@ function applyFoundationDiagnostics() {
     }
     if (logPlates) {
         DEV.LOG_FOUNDATION_PLATES = true;
-        DEV.LOG_WORLDMODEL_SUMMARY = true;
-        DEV.LOG_WORLDMODEL_ASCII = true;
+        DEV.LOG_FOUNDATION_SUMMARY = true;
+        DEV.LOG_FOUNDATION_ASCII = true;
         DEV.LOG_BOUNDARY_METRICS = true;
     }
     if (logDynamics) {
         DEV.LOG_FOUNDATION_DYNAMICS = true;
-        DEV.WORLDMODEL_HISTOGRAMS = true;
+        DEV.FOUNDATION_HISTOGRAMS = true;
     }
     if (logSurface) {
         DEV.LOG_FOUNDATION_SURFACE = true;
@@ -497,20 +503,20 @@ export function logFoundationSurface(surfaceConfig) {
     }
 }
 /**
- * WorldModel summary: plates and boundary type counts (compact).
+ * Foundation summary: plates and boundary type counts (compact).
  * Accepts a WorldModel-like object (so callers can pass the singleton).
- * No-op if LOG_WORLDMODEL_SUMMARY disabled.
+ * No-op if LOG_FOUNDATION_SUMMARY disabled.
  * @param {{isEnabled?:()=>boolean,plateId?:Int16Array,boundaryType?:Uint8Array,boundaryCloseness?:Uint8Array,upliftPotential?:Uint8Array, riftPotential?:Uint8Array}} WorldModel
  */
-export function logWorldModelSummary(WorldModel) {
-    if (!isOn("LOG_WORLDMODEL_SUMMARY"))
+export function logFoundationSummary(WorldModel) {
+    if (!isOn("LOG_FOUNDATION_SUMMARY"))
         return;
     try {
         const enabled = !!WorldModel &&
             typeof WorldModel.isEnabled === "function" &&
             !!WorldModel.isEnabled();
         if (!enabled) {
-            safeLog("[DEV][wm] WorldModel disabled or unavailable.");
+            safeLog("[DEV][foundation] WorldModel disabled or unavailable.");
             return;
         }
         const width = GameplayMap?.getGridWidth?.() ?? 0;
@@ -522,7 +528,7 @@ export function logWorldModelSummary(WorldModel) {
         const uplift = WorldModel.upliftPotential;
         const rift = WorldModel.riftPotential;
         if (!plateId || !bType || !bClose) {
-            safeLog("[DEV][wm] Missing core fields; skipping summary.");
+            safeLog("[DEV][foundation] Missing core fields; skipping summary.");
             return;
         }
         const plates = new Set();
@@ -560,28 +566,28 @@ export function logWorldModelSummary(WorldModel) {
             upliftAvg: uplift ? avgByte(uplift) : null,
             riftAvg: rift ? avgByte(rift) : null,
         };
-        safeLog("[DEV][wm] summary:", summary);
+        safeLog("[DEV][foundation] summary:", summary);
     }
     catch (err) {
-        safeLog("[DEV][wm] summary error:", err);
+        safeLog("[DEV][foundation] summary error:", err);
     }
 }
 /**
- * WorldModel histograms for uplift/rift potentials. Optionally restrict samples
+ * Foundation histograms for uplift/rift potentials. Optionally restrict samples
  * to tiles included in provided tag sets (Orogeny belts or Rift lines).
- * No-op if WORLDMODEL_HISTOGRAMS disabled.
+ * No-op if FOUNDATION_HISTOGRAMS disabled.
  * @param {{isEnabled?:()=>boolean,upliftPotential?:Uint8Array, riftPotential?:Uint8Array}} WorldModel
  * @param {{riftSet?:Set<string>, beltSet?:Set<string>, bins?:number}} [opts]
  */
-export function logWorldModelHistograms(WorldModel, opts = {}) {
-    if (!isOn("WORLDMODEL_HISTOGRAMS"))
+export function logFoundationHistograms(WorldModel, opts = {}) {
+    if (!isOn("FOUNDATION_HISTOGRAMS"))
         return;
     try {
         const enabled = !!WorldModel &&
             typeof WorldModel.isEnabled === "function" &&
             !!WorldModel.isEnabled();
         if (!enabled) {
-            safeLog("[DEV][wm] hist: WorldModel disabled or unavailable.");
+            safeLog("[DEV][foundation] hist: WorldModel disabled or unavailable.");
             return;
         }
         const width = GameplayMap?.getGridWidth?.() ?? 0;
@@ -590,7 +596,7 @@ export function logWorldModelHistograms(WorldModel, opts = {}) {
         const uplift = WorldModel.upliftPotential;
         const rift = WorldModel.riftPotential;
         if (!uplift || !rift) {
-            safeLog("[DEV][wm] hist: Missing fields (uplift/rift).");
+            safeLog("[DEV][foundation] hist: Missing fields (uplift/rift).");
             return;
         }
         const bins = Math.max(5, Math.min(50, opts.bins | 0 || 10));
@@ -629,24 +635,24 @@ export function logWorldModelHistograms(WorldModel, opts = {}) {
         const pct = (h, total) => h.map((c) => ((c / Math.max(1, total)) * 100).toFixed(1) + "%");
         const aU = histAll(uplift);
         const aR = histAll(rift);
-        safeLog("[DEV][wm] uplift (all) hist:", pct(aU.h, aU.samples));
-        safeLog("[DEV][wm] rift   (all) hist:", pct(aR.h, aR.samples));
+        safeLog("[DEV][foundation] uplift (all) hist:", pct(aU.h, aU.samples));
+        safeLog("[DEV][foundation] rift   (all) hist:", pct(aR.h, aR.samples));
         // Optional masked histograms near tags
         const mUrift = histMasked(uplift, opts.riftSet);
         const mRrift = histMasked(rift, opts.riftSet);
         if (mUrift && mRrift) {
-            safeLog("[DEV][wm] uplift (near riftLine) hist:", pct(mUrift.h, mUrift.samples));
-            safeLog("[DEV][wm] rift   (near riftLine) hist:", pct(mRrift.h, mRrift.samples));
+            safeLog("[DEV][foundation] uplift (near riftLine) hist:", pct(mUrift.h, mUrift.samples));
+            safeLog("[DEV][foundation] rift   (near riftLine) hist:", pct(mRrift.h, mRrift.samples));
         }
         const mUbelts = histMasked(uplift, opts.beltSet);
         const mRbelts = histMasked(rift, opts.beltSet);
         if (mUbelts && mRbelts) {
-            safeLog("[DEV][wm] uplift (near orogeny belts) hist:", pct(mUbelts.h, mUbelts.samples));
-            safeLog("[DEV][wm] rift   (near orogeny belts) hist:", pct(mRbelts.h, mRbelts.samples));
+            safeLog("[DEV][foundation] uplift (near orogeny belts) hist:", pct(mUbelts.h, mUbelts.samples));
+            safeLog("[DEV][foundation] rift   (near orogeny belts) hist:", pct(mRbelts.h, mRbelts.samples));
         }
     }
     catch (err) {
-        safeLog("[DEV][wm] hist error:", err);
+        safeLog("[DEV][foundation] hist error:", err);
     }
 }
 const ASCII_GRID_LAYOUT = {
@@ -659,7 +665,7 @@ const ASCII_GRID_LAYOUT = {
         right: " ",
     },
 };
-const ASCII_WORLD_MODEL_CHARS = {
+const ASCII_FOUNDATION_CHARS = {
     base: {
         water: "~",
         land: ".",
@@ -685,7 +691,7 @@ const ASCII_CORRIDOR_CHARS = {
 };
 export const ASCII_DISPLAY = {
     grid: ASCII_GRID_LAYOUT,
-    worldModel: ASCII_WORLD_MODEL_CHARS,
+    foundation: ASCII_FOUNDATION_CHARS,
     corridor: ASCII_CORRIDOR_CHARS,
 };
 /**
@@ -696,33 +702,33 @@ export const ASCII_DISPLAY = {
  * @param {{isEnabled?:()=>boolean,boundaryCloseness?:Uint8Array,boundaryType?:Uint8Array}} WorldModel
  * @param {{step?:number,boundaryThreshold?:number}} [opts]
  */
-export function logWorldModelAscii(WorldModel, opts = {}) {
-    if (!isOn("LOG_WORLDMODEL_ASCII"))
+export function logFoundationAscii(WorldModel, opts = {}) {
+    if (!isOn("LOG_FOUNDATION_ASCII"))
         return;
     try {
         const enabled = !!WorldModel &&
             typeof WorldModel.isEnabled === "function" &&
             !!WorldModel.isEnabled();
         if (!enabled) {
-            safeLog("[DEV][wm] ascii: WorldModel disabled or unavailable.");
+            safeLog("[DEV][foundation] ascii: WorldModel disabled or unavailable.");
             return;
         }
         const width = GameplayMap?.getGridWidth?.() ?? 0;
         const height = GameplayMap?.getGridHeight?.() ?? 0;
         if (!width || !height) {
-            safeLog("[DEV][wm] ascii: No map bounds; skipping overlay.");
+            safeLog("[DEV][foundation] ascii: No map bounds; skipping overlay.");
             return;
         }
         const boundaryCloseness = WorldModel.boundaryCloseness;
         const boundaryType = WorldModel.boundaryType;
         if (!boundaryCloseness || !boundaryType) {
-            safeLog("[DEV][wm] ascii: Missing boundary data.");
+            safeLog("[DEV][foundation] ascii: Missing boundary data.");
             return;
         }
         const size = width * height;
         const boundaryLen = Math.min(size, boundaryCloseness.length, boundaryType.length);
         if (!boundaryLen) {
-            safeLog("[DEV][wm] ascii: Boundary arrays empty.");
+            safeLog("[DEV][foundation] ascii: Boundary arrays empty.");
             return;
         }
         const sampleStep = computeAsciiSampleStep(width, height, opts.step);
@@ -730,7 +736,7 @@ export function logWorldModelAscii(WorldModel, opts = {}) {
             ? Math.max(0, Math.min(1, opts.boundaryThreshold))
             : 0.65;
         const closenessCutoff = Math.round(thresholdRatio * 255);
-        const asciiChars = ASCII_DISPLAY.worldModel;
+        const asciiChars = ASCII_DISPLAY.foundation;
         const baseWater = asciiChars.base.water;
         const baseLand = asciiChars.base.land;
         const overlays = asciiChars.overlay;
@@ -751,11 +757,11 @@ export function logWorldModelAscii(WorldModel, opts = {}) {
                         : overlays.boundary;
             return { base, overlay };
         });
-        safeLog(`[DEV][wm] ascii plates (step=${sampleStep}): base ${legendBasePair(baseWater)} ocean, ${legendBasePair(baseLand)} land; overlays ${overlays.convergent} convergent, ${overlays.divergent} divergent, ${overlays.transform} transform, ${overlays.boundary} boundary/unknown`);
+        safeLog(`[DEV][foundation] ascii plates (step=${sampleStep}): base ${legendBasePair(baseWater)} ocean, ${legendBasePair(baseLand)} land; overlays ${overlays.convergent} convergent, ${overlays.divergent} divergent, ${overlays.transform} transform, ${overlays.boundary} boundary/unknown`);
         rows.forEach((row) => safeLog(row));
     }
     catch (err) {
-        safeLog("[DEV][wm] ascii error:", err);
+        safeLog("[DEV][foundation] ascii error:", err);
     }
 }
 
@@ -841,19 +847,19 @@ export function logBoundaryMetrics(WorldModel, opts = {}) {
     try {
         const enabled = !!WorldModel && typeof WorldModel.isEnabled === "function" && !!WorldModel.isEnabled();
         if (!enabled) {
-            safeLog("[DEV][wm] metrics: WorldModel disabled or unavailable.");
+            safeLog("[DEV][foundation] metrics: WorldModel disabled or unavailable.");
             return;
         }
         const width = GameplayMap?.getGridWidth?.() ?? 0;
         const height = GameplayMap?.getGridHeight?.() ?? 0;
         if (!width || !height) {
-            safeLog("[DEV][wm] metrics: No map bounds.");
+            safeLog("[DEV][foundation] metrics: No map bounds.");
             return;
         }
         const boundaryType = WorldModel.boundaryType;
         const boundaryCloseness = WorldModel.boundaryCloseness;
         if (!boundaryType || !boundaryCloseness) {
-            safeLog("[DEV][wm] metrics: Missing boundary arrays.");
+            safeLog("[DEV][foundation] metrics: Missing boundary arrays.");
             return;
         }
         const bins = Math.max(3, Math.min(40, Number.isFinite(opts.bins) ? Math.trunc(opts.bins) : 10));
@@ -926,40 +932,40 @@ export function logBoundaryMetrics(WorldModel, opts = {}) {
         const totalTiles = Math.min(boundaryType.length, boundaryCloseness.length, width * height);
         const pct = (value, total) => total > 0 ? ((value / total) * 100).toFixed(1) + "%" : "0%";
 
-        safeLog(`[DEV][wm] metrics${stage}: counts`, {
+        safeLog(`[DEV][foundation] metrics${stage}: counts`, {
             totalTiles,
             none: counts[0],
             convergent: counts[1],
             divergent: counts[2],
             transform: counts[3],
         });
-        safeLog("[DEV][wm] metrics: share", {
+        safeLog("[DEV][foundation] metrics: share", {
             convergent: pct(counts[1], totalTiles),
             divergent: pct(counts[2], totalTiles),
             transform: pct(counts[3], totalTiles),
         });
-        safeLog("[DEV][wm] metrics: closeness histogram", hist.map((count, idx) => ({ bin: idx, count })));
+        safeLog("[DEV][foundation] metrics: closeness histogram", hist.map((count, idx) => ({ bin: idx, count })));
         thresholds.forEach((t, idx) => {
-            safeLog(`[DEV][wm] metrics: closeness >= ${t.toFixed(2)}`, {
+            safeLog(`[DEV][foundation] metrics: closeness >= ${t.toFixed(2)}`, {
                 tiles: thresholdHits[idx],
                 share: pct(thresholdHits[idx], totalTiles),
             });
         });
-        safeLog("[DEV][wm] metrics: mountains", {
+        safeLog("[DEV][foundation] metrics: mountains", {
             total: mountains,
             none: mountainByType[0],
             convergent: mountainByType[1],
             divergent: mountainByType[2],
             transform: mountainByType[3],
         });
-        safeLog("[DEV][wm] metrics: hills", {
+        safeLog("[DEV][foundation] metrics: hills", {
             total: hills,
             none: hillByType[0],
             convergent: hillByType[1],
             divergent: hillByType[2],
             transform: hillByType[3],
         });
-        safeLog("[DEV][wm] metrics: volcanoes", {
+        safeLog("[DEV][foundation] metrics: volcanoes", {
             total: volcanoes,
             none: volcanoByType[0],
             convergent: volcanoByType[1],
@@ -967,7 +973,7 @@ export function logBoundaryMetrics(WorldModel, opts = {}) {
             transform: volcanoByType[3],
         });
         thresholds.forEach((t, idx) => {
-            safeLog(`[DEV][wm] metrics: >=${t.toFixed(2)} overlays`, {
+            safeLog(`[DEV][foundation] metrics: >=${t.toFixed(2)} overlays`, {
                 mountains: mountainByBand[idx],
                 hills: hillByBand[idx],
                 volcanoes: volcanoByBand[idx],
@@ -975,7 +981,7 @@ export function logBoundaryMetrics(WorldModel, opts = {}) {
         });
     }
     catch (err) {
-        safeLog("[DEV][wm] metrics error:", err);
+        safeLog("[DEV][foundation] metrics error:", err);
     }
 }
 /**
@@ -1325,9 +1331,9 @@ export default {
     logStoryTagsSummary,
     logRainfallHistogram,
     logRainfallStats,
-    logWorldModelSummary,
-    logWorldModelHistograms,
-    logWorldModelAscii,
+    logFoundationSummary,
+    logFoundationHistograms,
+    logFoundationAscii,
     logBoundaryMetrics,
     logBiomeSummary,
     ASCII_DISPLAY,

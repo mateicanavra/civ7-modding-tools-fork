@@ -62,7 +62,7 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 - Archive `mods/mod-swooper-maps/PLATE_GENERATION_REFACTOR.md` once the new `foundation` block ships; its open items migrate into this plan.
 - Replace the `WorldModel` typedef in `bootstrap/map_config.types.js` with `FoundationConfig`/`FoundationPolicy` types and update downstream imports (`swooper-desert-mountains.js`, tests) to read from `foundation`.
 - Collapse the `worldModel` section in `bootstrap/defaults/base.js` and the `WORLDMODEL_*` exports in `bootstrap/tunables.js`; they become thin wrappers that proxy the new `FOUNDATION` helpers. **(Done)**
-- Update diagnostics in `bootstrap/dev.js` to emit `[Foundation]` messages and remove plate-specific ASCII toggles once the consolidated logging switches take over.
+- Update diagnostics in `bootstrap/dev.js` to emit `[Foundation]` messages and remove plate-specific ASCII toggles once the consolidated logging switches take over. **(Done)**
 
 ## 4. Phase Roadmap
 
@@ -70,7 +70,7 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 1. Promote `landmassPlates` to the default stage; demote the legacy continent generator to an opt-in manifest entry. **(Done)**
 2. Expose a deterministic `PlateSeed` from WorldModel so every consumer (landmass, diagnostics) shares identical Voronoi sites. **(Done)** — `PlateSeedManager.capture()` now owns RNG overrides and `WorldModel` publishes a frozen seed snapshot.
 3. **(Done)** Emit `FoundationContext` and guard all downstream stages with runtime assertions (`stageEnabled` + presence of required data product).
-4. Migrate config + tunables to the new `foundation` block, deleting the legacy `worldModel` toggle/typedefs once consumers compile.
+4. **(Done)** Migrate config + tunables to the new `foundation` block, deleting the legacy `worldModel` toggle/typedefs once consumers compile. Legacy `worldModel` overrides now emit `[Foundation]` warnings and are dropped during resolution.
 
 ### Phase B – Morphology Refactor
 - [x] Introduce a heightfield buffer in `MapContext` (elevation + terrain layers).  

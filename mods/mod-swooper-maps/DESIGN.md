@@ -3,7 +3,7 @@
 ## Stage Manifest Overview
 The bootstrap resolver now normalizes a `stageManifest` block that lives alongside the other map configuration groups. Each manifest entry describes:
 
-- **`order`** – The canonical execution order for generator stages (`worldModel`, `landmass`, `coastlines`, `storySeed`, `storyHotspots`, etc.).
+- **`order`** – The canonical execution order for generator stages (`foundation`, `landmass`, `coastlines`, `storySeed`, `storyHotspots`, etc.).
 - **`stages`** – Stage descriptors capturing enablement, hard dependencies (`requires`), documented outputs (`provides`), and legacy toggle bindings (`legacyToggles`).
 - **`blockedBy`** – Automatically populated by the resolver when a stage is disabled because a prerequisite is absent, disabled, or scheduled later in the pipeline.
 
@@ -40,7 +40,7 @@ The physics pipeline now sources its inputs from a single top-level `foundation`
 
 ### Migration hints
 
-- The resolver currently backfills `foundation` from the legacy keys and emits `[Foundation]` warnings; presets should start writing both until the shim is removed.
+- Runtime overrides must now write directly to `foundation.*`. Legacy `worldModel` overrides are ignored with a `[Foundation]` warning so stale configs surface quickly during testing.
 - `foundation.surface.landmass` inherits the fields from `landmass.*`. Once presets move over, delete the duplicate `landmass` overrides to avoid drift.
 - Old `worldModel.policy.oceanSeparation` becomes `foundation.surface.oceanSeparation` so the landmass utilities can read policy + surface data from the same bundle.
 
@@ -64,7 +64,7 @@ The tunables bridge now exports a `CLIMATE` object with two helper views:
 - `FOUNDATION.diagnostics` – live logging toggles (seed dumps, ASCII summaries, manifest warnings) surfaced through dev tooling.
 - Shortcut exports (`FOUNDATION_SEED`, `FOUNDATION_PLATES`, `FOUNDATION_DIRECTIONALITY`, etc.) replace the old `WORLDMODEL_*` constants so layers can import only what they need.
 
-Layers consume these helpers instead of reaching into raw config groups. This keeps the plate/wind/currents contract aligned with the `foundation` block in `BASE_CONFIG` and makes it easier to reuse policy defaults when adding new morphology consumers. During the migration the bridge emits `[Foundation]` warnings whenever legacy getters are invoked; remove `worldModel` accesses once consumers read the new bundle.
+Layers consume these helpers instead of reaching into raw config groups. This keeps the plate/wind/currents contract aligned with the `foundation` block in `BASE_CONFIG` and makes it easier to reuse policy defaults when adding new morphology consumers. The resolver now drops `worldModel` overrides entirely, emitting `[Foundation]` warnings when it encounters the legacy group so remaining presets migrate cleanly.
 
 ## Legacy Toggles
 Legacy `STORY_ENABLE_*` toggles are now derived from the manifest. Each stage lists the toggle keys it controls. The resolver writes the resolved on/off state back onto the `toggles` group so existing callers continue to work. The tunables bridge reads the manifest first, falling back to any residual toggle values in case an entry opts out of the manifest system.
