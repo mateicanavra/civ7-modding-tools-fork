@@ -58,8 +58,8 @@ function generateMap() {
     console.log("Generating Epic Diverse Map with maximum terrain variety!");
     // Ensure tunables reflect the active entry config for this run.
     rebind();
-    const stageWorldModel = stageEnabled("worldModel");
-    const stageLandmass = stageEnabled("landmass");
+    const stageFoundation = stageEnabled("foundation");
+    const stageLandmassPlates = stageEnabled("landmassPlates");
     const stageCoastlines = stageEnabled("coastlines");
     const stageStorySeed = stageEnabled("storySeed");
     const stageStoryHotspots = stageEnabled("storyHotspots");
@@ -148,26 +148,28 @@ function generateMap() {
     );
 
     // Initialize WorldModel (optional) and attach to context
-    if (!stageWorldModel) {
-        console.warn("[StageManifest] WorldModel stage disabled; physics pipeline requires it.");
+    if (!stageFoundation) {
+        console.warn("[StageManifest] Foundation stage disabled; physics pipeline requires it.");
     }
-    try {
-        if (WorldModel.init()) {
-            ctx.worldModel = WorldModel;
-            if (ctx.foundation) {
-                ctx.foundation.plateSeed = WorldModel.plateSeed || null;
+    if (stageFoundation) {
+        try {
+            if (WorldModel.init()) {
+                ctx.worldModel = WorldModel;
+                if (ctx.foundation) {
+                    ctx.foundation.plateSeed = WorldModel.plateSeed || null;
+                }
+                devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
+                logWorldModelSummary(WorldModel);
+                logWorldModelAscii(WorldModel);
+                logFoundationSeed(FOUNDATION_SEED, WorldModel.plateSeed || null, { skipConfig: true });
             }
-            devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
-            logWorldModelSummary(WorldModel);
-            logWorldModelAscii(WorldModel);
-            logFoundationSeed(FOUNDATION_SEED, WorldModel.plateSeed || null, { skipConfig: true });
+            else {
+                console.error("[WorldModel] Initialization failed; physics data unavailable.");
+            }
         }
-        else {
-            console.error("[WorldModel] Initialization failed; physics data unavailable.");
+        catch (err) {
+            devLogIf("LOG_STORY_TAGS", "[WorldModel] init error");
         }
-    }
-    catch (err) {
-        devLogIf("LOG_STORY_TAGS", "[WorldModel] init error");
     }
     let iNumNaturalWonders = Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders);
     let iTilesPerLake = Math.max(10, mapInfo.LakeGenerationFrequency * 2); // fewer lakes than base script used
@@ -194,10 +196,10 @@ function generateMap() {
         north: iHeight - globals.g_PolarWaterRows,
         continent: 0,
     };
-    const landmassSource = stageLandmass ? "plate" : "disabled";
+    const landmassSource = stageLandmassPlates ? "plate" : "disabled";
     let landmaskDebug = null;
     let landmassWindowsFinal = [];
-    if (stageLandmass) {
+    if (stageLandmassPlates) {
         const t = timeStart("Landmass (Plate-Driven)");
         const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
             landmassCfg: LANDMASS_CFG,
@@ -349,7 +351,7 @@ function generateMap() {
         const t = timeStart("Mountains & Hills (Physics)");
         layerAddMountainsPhysics(ctx, mountainOptions);
         timeEnd(t);
-        if (stageWorldModel) {
+        if (stageFoundation) {
             logBoundaryMetrics(WorldModel, { stage: "post-mountains" });
         }
     }
@@ -357,7 +359,7 @@ function generateMap() {
         const t = timeStart("Volcanoes");
         layerAddVolcanoesPlateAware(ctx, volcanoOptions);
         timeEnd(t);
-        if (stageWorldModel) {
+        if (stageFoundation) {
             logBoundaryMetrics(WorldModel, { stage: "post-volcanoes" });
         }
     }

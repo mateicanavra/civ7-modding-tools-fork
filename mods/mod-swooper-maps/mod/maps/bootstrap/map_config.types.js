@@ -50,7 +50,7 @@
  * Stage names mirror the major passes in map_orchestrator.js; use them to
  * express dependencies. Adding a new stage requires updating this union.
  *
- * @typedef {"worldModel" | "landmass" | "coastlines" | "storySeed" | "storyHotspots" | "storyRifts" | "storyOrogeny" | "storyPaleo" | "storyCorridorsPre" | "islands" | "mountains" | "volcanoes" | "lakes" | "climateBaseline" | "storySwatches" | "rivers" | "storyCorridorsPost" | "climateRefine" | "biomes" | "features" | "placement"} StageName
+* @typedef {"foundation" | "landmassPlates" | "coastlines" | "storySeed" | "storyHotspots" | "storyRifts" | "storyOrogeny" | "storyPaleo" | "storyCorridorsPre" | "islands" | "mountains" | "volcanoes" | "lakes" | "climateBaseline" | "storySwatches" | "rivers" | "storyCorridorsPost" | "climateRefine" | "biomes" | "features" | "placement"} StageName
  */
 
 /**

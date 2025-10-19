@@ -13,12 +13,13 @@ _Updated: 2025-10-18_
 - **Physics Before Narrative:** Morphology and climate operate on the finished heightfield before story overlays or placement fire.
 - **Determinism & Observability:** Shared seeds and logging ensure reproducibility; diagnostics track data products instead of implicit state.
 - **No Optional Physics:** The pipeline always runs with the physics stack enabled. Legacy non-physics flows become opt-in extensions, not defaults.
+- **Voronoi Physics Stack:** The Civ VII Voronoi + physics integration is the canonical world foundation; “legacy” references never reuse the Voronoi label.
 
 ## 3. Target Stage Topology
 
 | Cluster | Stages | Required Inputs | Outputs |
 | --- | --- | --- | --- |
-| **Foundations** | `worldModel`, `landmassPlates` | Engine seed, map dimensions, Civ Voronoi utilities | Plate seeds, plate tensors, initial landmask, `FoundationContext` |
+| **Foundations** | `foundation`, `landmassPlates` | Engine seed, map dimensions, Civ Voronoi utilities | Plate seeds, plate tensors, initial landmask, `FoundationContext` |
 | **Morphology** | `coastlines`, `mountains`, `volcanoes`, `lakes`, `terrainAdjust` | `FoundationContext`, heightfield buffer | Final heightfield, shore mask, margin metadata |
 | **Hydrology & Climate** | `rivers`, `rainfallBaseline`, `climateRefine`, `humidity` | Heightfield, wind/currents, shore mask | Rainfall/humidity grids, water flow graph |
 | **Narrative Overlays** | `storySeed`, `storyHotspots`, `storyRifts`, `storyOrogeny`, `storyCorridors`, `storySwatches` | Heightfield, climate grids, plate tensors | Overlay layers (`corridors`, `hotspots`, `swatches`, etc.) |
@@ -66,7 +67,7 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 ## 4. Phase Roadmap
 
 ### Phase A – Foundations Alignment
-1. Promote `landmassPlates` to the default stage; demote Voronoi continents to an opt-in manifest entry.
+1. Promote `landmassPlates` to the default stage; demote the legacy continent generator to an opt-in manifest entry. **(Done)**
 2. Expose a deterministic `PlateSeed` from WorldModel so every consumer (landmass, diagnostics) shares identical Voronoi sites.
 3. Emit `FoundationContext` and guard all downstream stages with runtime assertions (`stageEnabled` + presence of required data product).
 4. Migrate config + tunables to the new `foundation` block, deleting the legacy `worldModel` toggle/typedefs once consumers compile.
@@ -92,7 +93,7 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 
 ### Phase F – Manifest Enforcement & Cleanup
 1. Extend manifest descriptors with `consumes`/`produces` metadata and validate them at runtime.  
-2. Strip legacy compatibility shims (implicit Voronoi fallback, StoryTag resets).  
+2. Strip legacy compatibility shims (implicit landmass fallback, StoryTag resets).  
 3. Document the final flow in `DESIGN.md` and retire obsolete sections in the audit archive.
 
 ## 5. Tooling & Verification
@@ -110,3 +111,28 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 2. Draft interface definitions (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) and add TypeScript typings in `map_config.types.js`.
 3. Author the `foundation` schema + resolver wiring (defaults, presets, tunables) so presets can opt into new physics clusters.
 4. Update `SWOOPER_MAPS_ARCHITECTURE_AUDIT.md` to reference this plan and mark the legacy flow as deprecated.
+
+### Hotlist – Upcoming module touchpoints
+
+| File | Action | Notes |
+| --- | --- | --- |
+| `ENGINE_REFACTOR_PLAN.md` | Keep this blueprint updated as each hotlist item lands. | Capture status deltas (✅/⚠️) so downstream docs stay trustworthy. |
+| `PLATE_GENERATION_REFACTOR.md` | Close out remaining deliverables once manifest + context changes ship. | Mark subsections complete as stages migrate to `foundation`. |
+| `mod/maps/bootstrap/defaults/base.js` | ✅ `foundation`/`landmassPlates` defaults live; legacy landmass stub removed. | Ensure diagnostics call out when landmass stages are disabled or missing. |
+| `mod/maps/map_orchestrator.js` | Thread `FoundationContext` deeper (heightfield sync, diagnostics) and remove the lingering WorldModel-only logging helpers. | Stage gating now points at `foundation`; next enforce context invariants. |
+| `mod/maps/bootstrap/resolved.js` | Drop the world-model merge shim once presets stop referencing it and validate stage names during normalization. | Prevents stale overrides from slipping through silently. |
+| `mod/maps/bootstrap/map_config.types.js` | Expand the new stage unions with context-aware typedefs (`FoundationContext`, landmass APIs). | Keeps editor hints aligned with runtime reality. |
+| `mod/maps/core/types.js` | Extend `MapContext`/adapters with a required `foundation` payload and typed buffers. | Unlocks strict runtime guards for downstream stages. |
+| `mod/maps/bootstrap/entry.js` | Document the new stage names and seed defaults; consider auto-populating stageConfig with `foundation`/`landmassPlates`. | Helps presets avoid stale identifiers. |
+| `mod/maps/bootstrap/foundation-tunables.js` | Re-export `FOUNDATION_CONTEXT`, dynamics, and policy bundles for consumers migrating off `tunables.js`. | Simplifies import sites during the rollout. |
+| `mod/maps/bootstrap/dev.js` | Swap `logWorldModel*` helpers to `logFoundation*`, prune ASCII dumps tied to removed stages, and document the new identifiers. | Keeps diagnostics and docs aligned with the current pipeline. |
+| `mod/maps/layers/coastlines.js` | Read shoreline policy from `FoundationContext.surface` instead of legacy globals. | Harmonizes coastal shaping with new separation knobs. |
+| `mod/maps/layers/volcanoes.js` | Drive eruption bias via `FOUNDATION_DYNAMICS`/context tensors. | Removes duplicated normalization paths. |
+| `mod/maps/layers/climate-engine.js` | Consume `FOUNDATION_DIRECTIONALITY` + `FoundationContext` drivers throughout baseline/refinement. | Ensures rainfall tuning matches the shared physics pipeline. |
+| `mod/maps/layers/climate-baseline.js` | Mirror the climate engine helpers so both stages stay in sync. | Avoids divergent normalization between baseline and refinement passes. |
+| `mod/maps/swooper-desert-mountains.js` | Audit preset stageConfig/overrides after the stage rename. | Prevents new presets from copying outdated identifiers. |
+| `.git/COMMIT_EDITMSG` | Clear stale commit templates before opening PRs. | Avoids leaking old summaries into new submissions. |
+
+_First up:_ rename the manifest/default wiring to use `foundation` + `landmassPlates` so downstream modules can follow suit.
+
+_Status update:_ Manifest defaults now export `foundation` and `landmassPlates` only; the legacy landmass stub is gone and orchestrator gating reflects the single Voronoi physics path.

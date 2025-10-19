@@ -273,8 +273,8 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
     // Canonical execution order and dependency graph for generator stages.
     stageManifest: Object.freeze({
         order: Object.freeze([
-            "worldModel",
-            "landmass",
+            "foundation",
+            "landmassPlates",
             "coastlines",
             "storySeed",
             "storyHotspots",
@@ -296,18 +296,25 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
             "placement",
         ]),
         stages: Object.freeze({
-            worldModel: Object.freeze({
+            foundation: Object.freeze({
                 enabled: true,
-                provides: Object.freeze(["plates", "wind", "currents", "pressure", "directionality"]),
+                provides: Object.freeze([
+                    "foundationContext",
+                    "plates",
+                    "wind",
+                    "currents",
+                    "mantle",
+                    "directionality",
+                ]),
             }),
-            landmass: Object.freeze({
+            landmassPlates: Object.freeze({
                 enabled: true,
-                requires: Object.freeze(["worldModel"]),
+                requires: Object.freeze(["foundation"]),
                 provides: Object.freeze(["continents", "plateWindows", "heightfield"]),
             }),
             coastlines: Object.freeze({
                 enabled: true,
-                requires: Object.freeze(["landmass"]),
+                requires: Object.freeze(["landmassPlates"]),
                 provides: Object.freeze(["expandedCoasts", "heightfield"]),
             }),
             storySeed: Object.freeze({
@@ -317,17 +324,17 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
             }),
             storyHotspots: Object.freeze({
                 enabled: false,
-                requires: Object.freeze(["storySeed", "worldModel"]),
+                requires: Object.freeze(["storySeed", "foundation"]),
                 legacyToggles: Object.freeze(["STORY_ENABLE_HOTSPOTS"]),
             }),
             storyRifts: Object.freeze({
                 enabled: false,
-                requires: Object.freeze(["storySeed", "worldModel"]),
+                requires: Object.freeze(["storySeed", "foundation"]),
                 legacyToggles: Object.freeze(["STORY_ENABLE_RIFTS"]),
             }),
             storyOrogeny: Object.freeze({
                 enabled: false,
-                requires: Object.freeze(["storySeed", "worldModel"]),
+                requires: Object.freeze(["storySeed", "foundation"]),
                 legacyToggles: Object.freeze(["STORY_ENABLE_OROGENY"]),
             }),
             storyPaleo: Object.freeze({
@@ -347,7 +354,7 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
             }),
             mountains: Object.freeze({
                 enabled: true,
-                requires: Object.freeze(["landmass"]),
+                requires: Object.freeze(["landmassPlates"]),
                 provides: Object.freeze(["mountainHeights", "hillHeights", "heightfield"]),
             }),
             volcanoes: Object.freeze({

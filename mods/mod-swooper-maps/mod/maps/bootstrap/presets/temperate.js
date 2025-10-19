@@ -16,8 +16,8 @@
 // @ts-check
 export const TEMPERATE_PRESET = Object.freeze({
     stageConfig: Object.freeze({
-        worldModel: true,
-        landmass: true,
+        foundation: true,
+        landmassPlates: true,
     }),
     // Keep all major systems enabled (gentle, cohesive world)
     toggles: Object.freeze({
@@ -29,12 +29,14 @@ export const TEMPERATE_PRESET = Object.freeze({
         STORY_ENABLE_CORRIDORS: true,
     }),
     // Lightweight Earth Forces with moderated global cohesion
-    worldModel: Object.freeze({
-        directionality: Object.freeze({
-            cohesion: 0.6,
-            hemispheres: Object.freeze({
-                // Slight seasonal/hemispheric asymmetry
-                monsoonBias: 0.25,
+    foundation: Object.freeze({
+        dynamics: Object.freeze({
+            directionality: Object.freeze({
+                cohesion: 0.6,
+                hemispheres: Object.freeze({
+                    // Slight seasonal/hemispheric asymmetry
+                    monsoonBias: 0.25,
+                }),
             }),
         }),
     }),

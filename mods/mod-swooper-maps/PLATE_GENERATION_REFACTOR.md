@@ -8,7 +8,7 @@ _Updated: 2025-10-18_
 Unify plate generation under a single authoritative pipeline that leverages Civilization VII’s Voronoi utilities (sites, growth, boundary detection) and feeds the Swooper physics stack (WorldModel, landmass shaping, climate). Remove duplicate continent generators and eliminate the concept of “physics disabled.”
 
 ## 2. Current State
-- Landmass generation now exclusively uses `landmass_plate.js` fed by `WorldModel` stability fields; the Voronoi continent adapter has been retired.
+- Landmass generation now exclusively uses `landmass_plate.js` fed by `WorldModel` stability fields; the legacy continent adapter (`landmassVoronoiLegacy`) has been retired in favor of the Voronoi physics pipeline.
 - `WorldModel.init()` (`world/model.js`) computes plates once per map, storing tensors and a frozen `plateSeed` snapshot for diagnostics.
 - Physics is mandatory—the legacy `STORY_ENABLE_WORLDMODEL` toggle has been removed and landmass depends on the world stage via the manifest.
 - Downstream layers already read WorldModel tensors, but we still need to formalize a `FoundationContext` and expand diagnostics so every consumer shares the same plate metadata explicitly.
@@ -40,10 +40,11 @@ Unify plate generation under a single authoritative pipeline that leverages Civi
    - Stores tensors in `FoundationContext`.
 3. **Landmass Generation**
    - ✅ `landmass_plate.js` is the default landmass stage, sourcing WorldModel tensors.
-   - ✅ Removed the Voronoi adapter; no compatibility manifest stage remains.
+   - ✅ Removed the legacy landmass adapter; no compatibility manifest stage remains.
 4. **Manifest & Orchestrator Changes**
-   - `defaults/base.js` sets `stageManifest.order` to use `landmassPlates`.  
-   - `stageEnabled()` asserts that `FoundationContext` exists before any morphology stage executes.  
+   - ✅ `defaults/base.js` sets `stageManifest.order` to use `landmassPlates`.
+   - ✅ Retired the `landmassVoronoiLegacy` manifest entry; presets now rely solely on the Voronoi physics pipeline.
+   - `stageEnabled()` asserts that `FoundationContext` exists before any morphology stage executes.
    - Removal of `STORY_ENABLE_WORLDMODEL` toggle as a runtime guard; physics is always on.
 5. **Diagnostics**
    - `bootstrap/dev.js` gains `logPlateSeed`, `logPlateBoundaries`, and consistency checks (plate/continent overlap).
@@ -60,8 +61,8 @@ Unify plate generation under a single authoritative pipeline that leverages Civi
    - Replace `generateVoronoiLandmasses()` calls with `landmass_plate` usage by default.  
    - Rework geometry post-processing to operate on `FoundationContext` data (plate bounding boxes).
 4. **Manifest Update**
-   - `map_config.types.js` and `defaults/base.js` gain the new stage identifiers (`landmassPlates`, `landmassVoronoiLegacy`).  
-   - Presets that rely on the legacy flow must opt in explicitly.
+   - `map_config.types.js` and `defaults/base.js` expose `landmassPlates` as the sole landmass stage identifier.
+   - Presets that relied on the legacy landmass fallback (`landmassVoronoiLegacy`) must migrate or be archived.
 5. **Cleanup**
    - ✅ Removed the `STORY_ENABLE_WORLDMODEL` toggle and adjusted tunables.  
    - ✅ Deleted `landmass_voronoi.js` from the live pipeline.
@@ -71,7 +72,7 @@ Unify plate generation under a single authoritative pipeline that leverages Civi
 
 ## 7. Risks & Mitigations
 - **Seed Drift:** Unit tests capture Voronoi sites for known seeds to detect accidental changes.  
-- **Legacy Preset Breakage:** Communicate the removal of the Voronoi continent path; presets must rely on the plate pipeline going forward.  
+- **Legacy Preset Breakage:** Communicate the removal of the legacy continent path; presets must rely on the Voronoi physics pipeline going forward.  
 - **Performance Impact:** Monitor initialization time after removing duplicate Voronoi passes; expected decrease, but ensure caching remains optional.
 
 ## 8. Deliverables
