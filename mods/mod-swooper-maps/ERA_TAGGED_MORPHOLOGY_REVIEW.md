@@ -110,3 +110,33 @@ function tagEraMorphology(ctx, tensors, stageId, configSnapshot) {
 5. **Visual Sanity:** Enable ASCII diagnostics (`DEV.LOG_RELIEF_ASCII`, `DEV.LOG_RAINFALL_ASCII`) to confirm paleo scars influence river placement and climate overlays plausibly.
 6. **Narrative Regression:** Disable a morphology stage via manifest and ensure overlay queries degrade gracefully (no stale tags, clear warnings).
 
+## Narrative Q&A Context
+
+**Why no multi-pass reruns?** The era tags are analytic labels extracted from the single physics snapshot. We map WorldModel tensors—shield stability, rift potential, uplift, tectonic stress—into “early vs. late” categories and record them via overlays. Narrative overlays then consume an ordered tag stack, weighting recent signals more heavily while still referencing older scars. Because the mountains layer already blends those tensors when placing ranges (older belts bias toward hills, newer belts stay steep), we don’t have to rerun mountain placement. Adjustments to Appalachians-vs.-Rockies style outcomes remain inside the one mountains stage heuristic, keeping physics and narrative in sync. Multiple Voronoi solves would just duplicate cost without yielding more grounded tags.
+
+## Where the Tensors Come From
+
+1. **Voronoi Plate Solve:** `computePlatesVoronoi()` seeds plates with Civ VII’s Voronoi utilities and performs Lloyd relaxation (`mod/maps/world/plates.js:61-118`). Each Voronoi cell is assigned to the nearest plate, producing the primary `plateId` field.
+2. **Boundary Analysis:** The helper builds a kd-tree of Voronoi region cells and calls `computePlateBoundaries()` to evaluate each shared edge (`plates.js:259-311`). For every boundary it calculates:
+   - **Subduction (convergent/divergent):** Difference in plate movement along the boundary normal (`plates.js:295-309`).
+   - **Sliding:** Relative movement perpendicular to the normal (`plates.js:294-308`).
+3. **Movement Vectors:** `calculatePlateMovement()` blends each plate’s translational movement with a rotational component derived from Civ’s `PlateRegion` metadata (`plates.js:332-356`). Global directionality config from `foundation.dynamics.directionality` biases these vectors via `applyDirectionalityBias()` before the solve runs (`plates.js:363-388`).
+4. **Scalar Fields:** For each tile, the solver finds the nearest boundary, converts distance into a 0–255 “closeness” value, and classifies boundary type based on subduction/sliding thresholds (`plates.js:191-243`). From those:
+   - `tectonicStress` = `boundaryCloseness`.
+   - `upliftPotential` boosts stress near convergent boundaries; otherwise it’s quartered (`plates.js:226-234`).
+   - `riftPotential` mirrors uplift for divergent boundaries.
+   - `shieldStability` is the inverse (255 – stress), highlighting interior cratons.
+   - Movement arrays (`plateMovementU/V`, `plateRotation`) capture the vector outputs.
+5. **WorldModel Publication:** `WorldModel.init()` copies these arrays into its singleton state (`mod/maps/world/model.js:259-269`) and exposes them through `FoundationContext.plates` for downstream stages (`core/types.js:437-452`).
+
+> **Physics Fidelity:** These tensors are heuristic approximations built from geometry and scripted plate motions. Civ’s Voronoi stack gives us coherent boundaries and relative motion, but the fields are not simulating full geodynamics—they encode directional biases and proximity metrics that mimic tectonic behavior well enough for downstream morphology and narrative logic. Continuous evolution is not modeled; the “eras” are interpretations layered atop this static snapshot.
+
+## Easy Enhancements (Optional)
+
+1. **Blended Scar Metric:** Derive scars from a weighted blend of `shieldStability`, `riftPotential`, and local relief (slope computed from the heightfield buffer) rather than a single tensor. This better separates weathered belts from flat interiors without extra simulation.
+2. **Pseudo-Erosion Smoothing:** After mountains/hills execute, run a small kernel smoothing pass over `upliftPotential` where current relief is low. The smoothed value feeds early-era tags to represent aged ranges.
+3. **Boundary Lifetimes:** Use plate movement magnitude and direction (`plateMovementU/V`, `plateRotation`) to estimate how quickly a boundary refreshes. Fast-moving convergent zones bias tiles toward later eras; sluggish zones drift toward earlier eras.
+4. **Percentile Thresholds:** Instead of fixed thresholds, compute map-specific percentiles (e.g., top 10 % uplift → latest era) when emitting tags. This keeps tag densities stable across presets.
+5. **Climate Sanity Check:** Cross-reference the staged climate buffer; if an “ancient” tag coincides with rainforest-level rainfall, dampen the era weight to avoid contradictory storytelling cues.
+
+These refinements live entirely inside the single-pass tagging routine—no additional Voronoi solves or engine hooks required. Designers can adopt them incrementally to tighten the link between physics heuristics and authored eras.
