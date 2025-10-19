@@ -117,7 +117,7 @@ export const BASE_CONFIG = Object.freeze({
             climateBaseline: Object.freeze({
                 enabled: true,
                 requires: Object.freeze(["mountains"]),
-                provides: Object.freeze(["rainfallBaseline"]),
+                provides: Object.freeze(["rainfallBaseline", "climateField"]),
             }),
             storySwatches: Object.freeze({
                 enabled: false,
@@ -137,7 +137,7 @@ export const BASE_CONFIG = Object.freeze({
             climateRefine: Object.freeze({
                 enabled: true,
                 requires: Object.freeze(["climateBaseline", "rivers"]),
-                provides: Object.freeze(["rainfallRefined"]),
+                provides: Object.freeze(["rainfallRefined", "climateField"]),
             }),
             biomes: Object.freeze({
                 enabled: true,

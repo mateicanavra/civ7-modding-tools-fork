@@ -19,6 +19,7 @@
 import { StoryTags } from "./tags.js";
 import { STORY_TUNABLES, STORY_ENABLE_SWATCHES, STORY_ENABLE_PALEO, MARGINS_CFG, MOISTURE_ADJUSTMENTS, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
+import { writeClimateField, syncClimateField, ctxRandom } from "../core/types.js";
 import { WorldModel } from "../world/model.js";
 /**
  * Tag deep‑ocean hotspot trails as sparse polylines.
@@ -724,26 +725,77 @@ export function storyTagContinentalMargins() {
  *  - mountainForests: add on orogeny windward, subtract a touch on lee.
  *  - greatPlains: lowland mid-lat dry bias (broad plains feel).
  */
-export function storyTagClimateSwatches() {
+export function storyTagClimateSwatches(ctx = null) {
     if (!STORY_ENABLE_SWATCHES)
         return { applied: false, kind: "disabled" };
     const storyMoisture = MOISTURE_ADJUSTMENTS?.story || {};
     const cfg = storyMoisture.swatches;
     if (!cfg)
         return { applied: false, kind: "missing-config" };
-    const width = GameplayMap.getGridWidth();
-    const height = GameplayMap.getGridHeight();
+    const width = ctx?.dimensions?.width ?? GameplayMap.getGridWidth();
+    const height = ctx?.dimensions?.height ?? GameplayMap.getGridHeight();
     const area = Math.max(1, width * height);
     const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
-    // Helper clamp
+    if (ctx) {
+        syncClimateField(ctx);
+    }
     const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
-    // Choose one type by weight
+    const adapter = ctx?.adapter ?? null;
+    const rainfallBuf = ctx?.buffers?.climate?.rainfall || null;
+    const idx = (x, y) => y * width + x;
+    const inLocalBounds = (x, y) => x >= 0 && x < width && y >= 0 && y < height;
+    const readRainfall = (x, y) => {
+        if (ctx && rainfallBuf) {
+            return rainfallBuf[idx(x, y)] | 0;
+        }
+        return GameplayMap.getRainfall(x, y);
+    };
+    const writeRainfall = (x, y, rf) => {
+        const clamped = clamp(rf, 0, 200);
+        if (ctx) {
+            writeClimateField(ctx, x, y, { rainfall: clamped });
+        }
+        else {
+            TerrainBuilder.setRainfall(x, y, clamped);
+        }
+    };
+    const rand = (max, label) => (ctx ? ctxRandom(ctx, label, max) : TerrainBuilder.getRandomNumber(max, label));
+    const isWater = (x, y) => (adapter?.isWater ? adapter.isWater(x, y) : GameplayMap.isWater(x, y));
+    const getElevation = (x, y) => (adapter?.getElevation ? adapter.getElevation(x, y) : GameplayMap.getElevation(x, y));
+    const signedLatitudeAt = (y) => (adapter?.getLatitude ? adapter.getLatitude(0, y) : GameplayMap.getPlotLatitude(0, y));
+    const isCoastalLand = (x, y) => {
+        if (adapter?.isCoastalLand)
+            return adapter.isCoastalLand(x, y);
+        if (typeof GameplayMap?.isCoastalLand === "function")
+            return GameplayMap.isCoastalLand(x, y);
+        if (isWater(x, y))
+            return false;
+        for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+                if (dx === 0 && dy === 0)
+                    continue;
+                const nx = x + dx;
+                const ny = y + dy;
+                if (!inLocalBounds(nx, ny))
+                    continue;
+                if (isWater(nx, ny))
+                    return true;
+            }
+        }
+        return false;
+    };
+    const isAdjacentToShallowWater = (x, y) => {
+        if (adapter?.isAdjacentToShallowWater)
+            return adapter.isAdjacentToShallowWater(x, y);
+        if (typeof GameplayMap?.isAdjacentToShallowWater === "function")
+            return GameplayMap.isAdjacentToShallowWater(x, y);
+        return false;
+    };
     const types = cfg.types || {};
     let entries = Object.keys(types).map((k) => ({
         key: k,
         w: Math.max(0, types[k].weight | 0),
     }));
-    // Directionality-aligned swatch weighting (cohesive, conservative)
     try {
         const DIR = WORLDMODEL_DIRECTIONALITY || {};
         const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
@@ -752,8 +804,8 @@ export function storyTagClimateSwatches() {
             const plateDeg = (DIR?.primaryAxes?.plateAxisDeg ?? 0) | 0;
             const wRad = (windDeg * Math.PI) / 180;
             const pRad = (plateDeg * Math.PI) / 180;
-            const alignZonal = Math.abs(Math.cos(wRad)); // alignment with E–W
-            const alignPlate = Math.abs(Math.cos(pRad)); // coarse proxy
+            const alignZonal = Math.abs(Math.cos(wRad));
+            const alignPlate = Math.abs(Math.cos(pRad));
             entries = entries.map((e) => {
                 let mul = 1;
                 if (e.key === "macroDesertBelt") {
@@ -776,7 +828,7 @@ export function storyTagClimateSwatches() {
         /* keep default weights on any error */
     }
     const totalW = entries.reduce((s, e) => s + e.w, 0) || 1;
-    let roll = TerrainBuilder.getRandomNumber(totalW, "SwatchType");
+    let roll = rand(totalW, "SwatchType");
     let chosenKey = entries[0]?.key || "macroDesertBelt";
     for (const e of entries) {
         if (roll < e.w) {
@@ -787,150 +839,120 @@ export function storyTagClimateSwatches() {
     }
     const kind = chosenKey;
     const t = types[chosenKey] || {};
-    // Scaling knobs
     const widthMul = 1 + (cfg.sizeScaling?.widthMulSqrt || 0) * (sqrtScale - 1);
-    const lengthMul = 1 + (cfg.sizeScaling?.lengthMulSqrt || 0) * (sqrtScale - 1);
-    // Per-kind helpers
-    function latBandCenter() {
-        return t.latitudeCenterDeg ?? 0;
-    }
-    function halfWidthDeg() {
-        return Math.max(4, Math.round((t.halfWidthDeg ?? 10) * widthMul));
-    }
-    function degAt(y) {
-        return Math.abs(GameplayMap.getPlotLatitude(0, y));
-    }
-    function falloff(v, r) {
-        return Math.max(0, 1 - v / Math.max(1, r));
-    } // linear falloff 0..1
+    const latBandCenter = () => t.latitudeCenterDeg ?? 0;
+    const halfWidthDeg = () => Math.max(4, Math.round((t.halfWidthDeg ?? 10) * widthMul));
+    const falloff = (v, r) => Math.max(0, 1 - v / Math.max(1, r));
     let applied = 0;
-    // Pass over map once; apply deltas per-kind with soft edges
     for (let y = 0; y < height; y++) {
-        const latDeg = degAt(y);
+        const latDegAbs = Math.abs(signedLatitudeAt(y));
         for (let x = 0; x < width; x++) {
-            if (GameplayMap.isWater(x, y))
+            if (isWater(x, y))
                 continue;
-            let rf = GameplayMap.getRainfall(x, y);
-            const elev = GameplayMap.getElevation(x, y);
+            let rf = readRainfall(x, y);
+            const elev = getElevation(x, y);
+            let tileAdjusted = false;
             if (kind === "macroDesertBelt") {
-                // Center at ~20°, subtract with falloff across halfWidthDeg and add tiny lee dryness
-                const center = latBandCenter(); // ~20
-                const hw = halfWidthDeg(); // ~12 → widened with size
-                const dDeg = Math.abs(latDeg - center);
-                const f = falloff(dDeg, hw);
+                const center = latBandCenter();
+                const hw = halfWidthDeg();
+                const f = falloff(Math.abs(latDegAbs - center), hw);
                 if (f > 0) {
                     const base = t.drynessDelta ?? 28;
-                    const bleed = t.bleedRadius ?? 2; // latitude-driven only; kept small
-                    // Lowlands dry more
                     const lowlandBonus = elev < 250 ? 4 : 0;
                     const delta = Math.round((base + lowlandBonus) * f);
                     rf = clamp(rf - delta, 0, 200);
                     applied++;
+                    tileAdjusted = true;
                 }
             }
             else if (kind === "equatorialRainbelt") {
-                const center = latBandCenter(); // 0
-                const hw = halfWidthDeg(); // ~10 → wider on large
-                const dDeg = Math.abs(latDeg - center);
-                const f = falloff(dDeg, hw);
+                const center = latBandCenter();
+                const hw = halfWidthDeg();
+                const f = falloff(Math.abs(latDegAbs - center), hw);
                 if (f > 0) {
                     const base = t.wetnessDelta ?? 24;
-                    // Extra near coast
                     let coastBoost = 0;
-                    if (GameplayMap.isCoastalLand(x, y))
+                    if (isCoastalLand(x, y))
                         coastBoost += 6;
-                    if (GameplayMap.isAdjacentToShallowWater(x, y))
+                    if (isAdjacentToShallowWater(x, y))
                         coastBoost += 4;
                     const delta = Math.round((base + coastBoost) * f);
                     rf = clamp(rf + delta, 0, 200);
                     applied++;
+                    tileAdjusted = true;
                 }
             }
             else if (kind === "rainforestArchipelago") {
-                // Tropics-only; require near coast or island-y zones
-                const fTropics = latDeg < 23 ? 1 : latDeg < 30 ? 0.5 : 0;
+                const fTropics = latDegAbs < 23 ? 1 : latDegAbs < 30 ? 0.5 : 0;
                 if (fTropics > 0) {
                     let islandy = 0;
-                    if (GameplayMap.isCoastalLand(x, y))
+                    if (isCoastalLand(x, y))
                         islandy += 1;
-                    if (GameplayMap.isAdjacentToShallowWater(x, y))
+                    if (isAdjacentToShallowWater(x, y))
                         islandy += 0.5;
                     if (islandy > 0) {
                         const base = t.wetnessDelta ?? 18;
                         const delta = Math.round(base * fTropics * islandy);
                         rf = clamp(rf + delta, 0, 200);
                         applied++;
+                        tileAdjusted = true;
                     }
                 }
             }
             else if (kind === "mountainForests") {
-                // Couple to orogeny windward if available; small lee penalty
-                const inWindward = !!(typeof OrogenyCache === "object" &&
-                    OrogenyCache.windward?.has?.(`${x},${y}`));
-                const inLee = !!(typeof OrogenyCache === "object" &&
-                    OrogenyCache.lee?.has?.(`${x},${y}`));
+                const inWindward = !!(typeof OrogenyCache === "object" && OrogenyCache.windward?.has?.(`${x},${y}`));
+                const inLee = !!(typeof OrogenyCache === "object" && OrogenyCache.lee?.has?.(`${x},${y}`));
                 if (inWindward) {
                     const base = t.windwardBonus ?? 6;
                     const delta = base + (elev < 300 ? 2 : 0);
                     rf = clamp(rf + delta, 0, 200);
                     applied++;
+                    tileAdjusted = true;
                 }
                 else if (inLee) {
                     const base = t.leePenalty ?? 2;
                     rf = clamp(rf - base, 0, 200);
                     applied++;
+                    tileAdjusted = true;
                 }
             }
             else if (kind === "greatPlains") {
-                // Mid-lat plains; prefer lowlands
                 const center = t.latitudeCenterDeg ?? 45;
                 const hw = Math.max(6, Math.round((t.halfWidthDeg ?? 8) * widthMul));
-                const dDeg = Math.abs(latDeg - center);
-                const f = falloff(dDeg, hw);
-                if (f > 0) {
+                const f = falloff(Math.abs(latDegAbs - center), hw);
+                if (f > 0 && elev <= (t.lowlandMaxElevation ?? 300)) {
                     const dry = t.dryDelta ?? 12;
-                    if (elev <= (t.lowlandMaxElevation ?? 300)) {
-                        const delta = Math.round(dry * f);
-                        rf = clamp(rf - delta, 0, 200);
-                        applied++;
-                    }
+                    const delta = Math.round(dry * f);
+                    rf = clamp(rf - delta, 0, 200);
+                    applied++;
+                    tileAdjusted = true;
                 }
             }
-            if (applied > 0) {
-                TerrainBuilder.setRainfall(x, y, rf);
+            if (tileAdjusted) {
+                writeRainfall(x, y, rf);
             }
         }
     }
-    // Monsoon tweak (directionality-aligned, coastal onshore bias; conservative)
     try {
         const DIR = WORLDMODEL_DIRECTIONALITY || {};
         const monsoonBias = Math.max(0, Math.min(1, DIR?.hemispheres?.monsoonBias ?? 0));
         const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
         const eqBand = Math.max(0, (DIR?.hemispheres?.equatorBandDeg ?? 12) | 0);
-        if (monsoonBias > 0 &&
-            COH > 0 &&
-            WorldModel?.isEnabled?.() &&
-            WorldModel.windU &&
-            WorldModel.windV) {
-            const width = GameplayMap.getGridWidth();
-            const height = GameplayMap.getGridHeight();
+        if (monsoonBias > 0 && COH > 0 && WorldModel?.isEnabled?.() && WorldModel.windU && WorldModel.windV) {
             const baseDelta = Math.max(1, Math.round(3 * COH * monsoonBias));
             for (let y = 0; y < height; y++) {
-                const lat = GameplayMap.getPlotLatitude(0, y);
-                // Focus effect near equatorial/monsoon band
-                if (Math.abs(lat) > eqBand + 18)
+                const latSigned = signedLatitudeAt(y);
+                const absLat = Math.abs(latSigned);
+                if (absLat > eqBand + 18)
                     continue;
                 for (let x = 0; x < width; x++) {
-                    if (GameplayMap.isWater(x, y))
+                    if (isWater(x, y))
                         continue;
-                    // Coastal adjacency
-                    if (!GameplayMap.isCoastalLand(x, y) &&
-                        !GameplayMap.isAdjacentToShallowWater(x, y))
+                    if (!isCoastalLand(x, y) && !isAdjacentToShallowWater(x, y))
                         continue;
-                    const i = y * width + x;
+                    const i = idx(x, y);
                     const u = WorldModel.windU[i] | 0;
                     const v = WorldModel.windV[i] | 0;
-                    // Upwind unit step from dominant component
                     let ux = 0, vy = 0;
                     if (Math.abs(u) >= Math.abs(v)) {
                         ux = u === 0 ? 0 : u > 0 ? 1 : -1;
@@ -940,32 +962,24 @@ export function storyTagClimateSwatches() {
                         ux = 0;
                         vy = v === 0 ? 0 : v > 0 ? 1 : -1;
                     }
-                    // Upwind is opposite of wind direction
-                    const upX = x - ux;
-                    const upY = y - vy;
-                    const dnX = x + ux;
-                    const dnY = y + vy;
-                    let delta = 0;
-                    if (upX >= 0 &&
-                        upX < width &&
-                        upY >= 0 &&
-                        upY < height &&
-                        GameplayMap.isWater(upX, upY)) {
-                        // Onshore flow -> small wet boost
-                        delta = baseDelta;
-                    }
-                    else if (dnX >= 0 &&
-                        dnX < width &&
-                        dnY >= 0 &&
-                        dnY < height &&
-                        GameplayMap.isWater(dnX, dnY)) {
-                        // Offshore flow -> tiny dry penalty
-                        delta = -Math.max(1, Math.floor(baseDelta / 2));
-                    }
-                    if (delta !== 0) {
-                        const rf0 = GameplayMap.getRainfall(x, y);
-                        const rf1 = Math.max(0, Math.min(200, rf0 + delta));
-                        TerrainBuilder.setRainfall(x, y, rf1);
+                    const dnX = x - ux;
+                    const dnY = y - vy;
+                    if (!inLocalBounds(dnX, dnY))
+                        continue;
+                    let rf = readRainfall(x, y);
+                    let baseDeltaAdj = baseDelta;
+                    if (absLat <= eqBand)
+                        baseDeltaAdj += 2;
+                    if (isWater(dnX, dnY))
+                        baseDeltaAdj += 2;
+                    rf = clamp(rf + baseDeltaAdj, 0, 200);
+                    writeRainfall(x, y, rf);
+                    const upX = x + ux;
+                    const upY = y + vy;
+                    if (inLocalBounds(upX, upY) && isWater(dnX, dnY)) {
+                        const rf0 = readRainfall(x, y);
+                        const rf1 = Math.max(0, Math.min(200, rf0 - 1));
+                        writeRainfall(x, y, rf1);
                     }
                 }
             }
@@ -975,10 +989,9 @@ export function storyTagClimateSwatches() {
         /* keep resilient */
     }
     let _swatchResult = { applied: applied > 0, kind, tiles: applied };
-    // Opportunistically run Paleo‑Hydrology after swatch+monsoon so its overlays blend
     if (STORY_ENABLE_PALEO) {
         try {
-            const paleoResult = storyTagPaleoHydrology();
+            const paleoResult = storyTagPaleoHydrology(ctx || undefined);
             _swatchResult.paleo = paleoResult;
         }
         catch (_) {
@@ -999,87 +1012,97 @@ export function storyTagClimateSwatches() {
  * Invariants:
  *  - All rainfall ops clamped [0, 200]. No broad flood‑fills. Strict caps.
  */
-export function storyTagPaleoHydrology() {
+export function storyTagPaleoHydrology(ctx = null) {
     const storyMoisture = MOISTURE_ADJUSTMENTS?.story || {};
     const cfg = storyMoisture.paleo;
     if (!cfg)
         return { deltas: 0, oxbows: 0, fossils: 0 };
-    const width = GameplayMap.getGridWidth();
-    const height = GameplayMap.getGridHeight();
+    const width = ctx?.dimensions?.width ?? GameplayMap.getGridWidth();
+    const height = ctx?.dimensions?.height ?? GameplayMap.getGridHeight();
     const area = Math.max(1, width * height);
     const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
-    // Helpers
+    if (ctx) {
+        syncClimateField(ctx);
+    }
     const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
-    const nearStartGuard = ( /*x,y*/) => true; // reserved; we don't have start positions here
-    const rand = (n, lbl) => TerrainBuilder.getRandomNumber(n, lbl || "Paleo");
+    const nearStartGuard = ( /*x,y*/) => true;
+    const rand = (n, lbl) => (ctx ? ctxRandom(ctx, lbl || 'Paleo', n) : TerrainBuilder.getRandomNumber(n, lbl || 'Paleo'));
+    const adapter = ctx?.adapter ?? null;
+    const rainfallBuf = ctx?.buffers?.climate?.rainfall || null;
+    const idx = (x, y) => y * width + x;
+    const readRainfall = (x, y) => {
+        if (ctx && rainfallBuf) {
+            return rainfallBuf[idx(x, y)] | 0;
+        }
+        return GameplayMap.getRainfall(x, y);
+    };
+    const writeRainfall = (x, y, rf) => {
+        const clamped = clamp(rf, 0, 200);
+        if (ctx) {
+            writeClimateField(ctx, x, y, { rainfall: clamped });
+        }
+        else {
+            TerrainBuilder.setRainfall(x, y, clamped);
+        }
+    };
     let deltas = 0, oxbows = 0, fossils = 0;
-    // --- Deltas (coastal river mouths) ---
     if (cfg.maxDeltas > 0) {
         for (let y = 1; y < height - 1 && deltas < cfg.maxDeltas; y++) {
             for (let x = 1; x < width - 1 && deltas < cfg.maxDeltas; x++) {
-                if (!GameplayMap.isCoastalLand(x, y))
+                if (!(adapter?.isCoastalLand ? adapter.isCoastalLand(x, y) : GameplayMap.isCoastalLand(x, y)))
                     continue;
-                // Use "river adjacency" to approximate mouths.
-                if (!GameplayMap.isAdjacentToRivers(x, y, 1))
+                if (!(adapter?.isAdjacentToRivers ? adapter.isAdjacentToRivers(x, y, 1) : GameplayMap.isAdjacentToRivers(x, y, 1)))
                     continue;
-                // Favor lowland deltas
-                if (GameplayMap.getElevation(x, y) > 300)
+                if ((adapter?.getElevation ? adapter.getElevation(x, y) : GameplayMap.getElevation(x, y)) > 300)
                     continue;
-                // Landward fan (radius 1)
                 const fanR = Math.max(0, cfg.deltaFanRadius | 0);
                 for (let dy = -fanR; dy <= fanR; dy++) {
                     for (let dx = -fanR; dx <= fanR; dx++) {
                         const nx = x + dx, ny = y + dy;
                         if (!inBounds(nx, ny))
                             continue;
-                        if (GameplayMap.isWater(nx, ny))
+                        if (adapter?.isWater ? adapter.isWater(nx, ny) : GameplayMap.isWater(nx, ny))
                             continue;
-                        let rf = GameplayMap.getRainfall(nx, ny);
-                        // Modest humidity bump; validated features would be added in features layer.
-                        if (rand(100, "DeltaMarsh") <
-                            Math.round((cfg.deltaMarshChance || 0.35) * 100)) {
+                        let rf = readRainfall(nx, ny);
+                        if (rand(100, 'DeltaMarsh') < Math.round((cfg.deltaMarshChance || 0.35) * 100)) {
                             rf = clamp(rf + 6, 0, 200);
                         }
                         else {
                             rf = clamp(rf + 3, 0, 200);
                         }
-                        TerrainBuilder.setRainfall(nx, ny, rf);
+                        writeRainfall(nx, ny, rf);
                     }
                 }
                 deltas++;
             }
         }
     }
-    // --- Oxbows (lowland meander pockets) ---
     if (cfg.maxOxbows > 0) {
         let attempts = 0;
         while (oxbows < cfg.maxOxbows && attempts < 300) {
             attempts++;
-            const x = rand(width, "OxbowX");
-            const y = rand(height, "OxbowY");
+            const x = rand(width, 'OxbowX');
+            const y = rand(height, 'OxbowY');
             if (!inBounds(x, y))
                 continue;
-            if (GameplayMap.isWater(x, y))
+            if (adapter?.isWater ? adapter.isWater(x, y) : GameplayMap.isWater(x, y))
                 continue;
-            const elev = GameplayMap.getElevation(x, y);
+            const elev = adapter?.getElevation ? adapter.getElevation(x, y) : GameplayMap.getElevation(x, y);
             if (elev > (cfg.oxbowElevationMax ?? 280))
                 continue;
-            if (!GameplayMap.isAdjacentToRivers(x, y, 1))
+            if (!(adapter?.isAdjacentToRivers ? adapter.isAdjacentToRivers(x, y, 1) : GameplayMap.isAdjacentToRivers(x, y, 1)))
                 continue;
             if (!nearStartGuard(x, y))
                 continue;
-            // Small wet pocket; keep single‑tile to avoid noise.
-            let rf = GameplayMap.getRainfall(x, y);
-            TerrainBuilder.setRainfall(x, y, clamp(rf + 8, 0, 200));
+            let rf = readRainfall(x, y);
+            writeRainfall(x, y, rf + 8);
             oxbows++;
         }
     }
-    // --- Fossil channels (dryland green lines toward basins) ---
     if (cfg.maxFossilChannels > 0) {
         const baseLen = Math.max(6, cfg.fossilChannelLengthTiles | 0);
         const step = Math.max(1, cfg.fossilChannelStep | 0);
-        const len = Math.round(baseLen *
-            (1 + (cfg.sizeScaling?.lengthMulSqrt || 0) * (sqrtScale - 1)));
+        const len = Math.round(baseLen * (1 + (cfg.sizeScaling?.lengthMulSqrt || 0) * (sqrtScale - 1)));
         const hum = cfg.fossilChannelHumidity | 0;
         const minDistFromRivers = Math.max(0, cfg.fossilChannelMinDistanceFromCurrentRivers | 0);
         const canyonCfg = cfg.elevationCarving || {};
@@ -1088,93 +1111,77 @@ export function storyTagPaleoHydrology() {
         let tries = 0;
         while (fossils < cfg.maxFossilChannels && tries < 120) {
             tries++;
-            // Seed in relatively dry, lowland tiles, not adjacent to rivers.
-            let sx = rand(width, "FossilX");
-            let sy = rand(height, "FossilY");
+            let sx = rand(width, 'FossilX');
+            let sy = rand(height, 'FossilY');
             if (!inBounds(sx, sy))
                 continue;
-            if (GameplayMap.isWater(sx, sy))
+            if (adapter?.isWater ? adapter.isWater(sx, sy) : GameplayMap.isWater(sx, sy))
                 continue;
-            const startElev = GameplayMap.getElevation(sx, sy);
+            const startElev = adapter?.getElevation ? adapter.getElevation(sx, sy) : GameplayMap.getElevation(sx, sy);
             if (startElev > 320)
                 continue;
-            if (GameplayMap.isAdjacentToRivers(sx, sy, minDistFromRivers))
+            if ((adapter?.isAdjacentToRivers ? adapter.isAdjacentToRivers(sx, sy, minDistFromRivers) : GameplayMap.isAdjacentToRivers(sx, sy, minDistFromRivers)))
                 continue;
-            // March toward local basins by greedily stepping to lowest neighbor every "step".
             let x = sx, y = sy;
             let used = 0;
             while (used < len) {
-                // Apply fossil humidity on the centerline with small canyon dryness.
-                if (inBounds(x, y) && !GameplayMap.isWater(x, y)) {
-                    let rf = GameplayMap.getRainfall(x, y);
+                if (inBounds(x, y) && !(adapter?.isWater ? adapter.isWater(x, y) : GameplayMap.isWater(x, y))) {
+                    let rf = readRainfall(x, y);
                     rf = clamp(rf + hum, 0, 200);
-                    if ((canyonCfg.enableCanyonRim ?? true) &&
-                        canyonDryBonus > 0) {
-                        rf = clamp(rf - canyonDryBonus, 0, 200); // canyon floor is a touch drier
+                    if ((canyonCfg.enableCanyonRim ?? true) && canyonDryBonus > 0) {
+                        rf = clamp(rf - canyonDryBonus, 0, 200);
                     }
-                    TerrainBuilder.setRainfall(x, y, rf);
-                    // Optional immediate “rim” hint (very subtle; width 1).
+                    writeRainfall(x, y, rf);
                     if ((canyonCfg.enableCanyonRim ?? true) && rimW > 0) {
                         for (let ry = -rimW; ry <= rimW; ry++) {
                             for (let rx = -rimW; rx <= rimW; rx++) {
                                 if (rx === 0 && ry === 0)
                                     continue;
                                 const nx = x + rx, ny = y + ry;
-                                if (!inBounds(nx, ny) ||
-                                    GameplayMap.isWater(nx, ny))
+                                if (!inBounds(nx, ny) || (adapter?.isWater ? adapter.isWater(nx, ny) : GameplayMap.isWater(nx, ny)))
                                     continue;
-                                const e0 = GameplayMap.getElevation(x, y);
-                                const e1 = GameplayMap.getElevation(nx, ny);
+                                const e0 = adapter?.getElevation ? adapter.getElevation(x, y) : GameplayMap.getElevation(x, y);
+                                const e1 = adapter?.getElevation ? adapter.getElevation(nx, ny) : GameplayMap.getElevation(nx, ny);
                                 if (e1 > e0 + 15) {
-                                    // Slight contrast; leave rf mostly intact to avoid large brush.
-                                    const rfn = clamp(GameplayMap.getRainfall(nx, ny) -
-                                        (cfg.bluffWetReduction ?? 0), 0, 200);
-                                    TerrainBuilder.setRainfall(nx, ny, rfn);
+                                    const rfn = clamp(readRainfall(nx, ny) - (cfg.bluffWetReduction ?? 0), 0, 200);
+                                    writeRainfall(nx, ny, rfn);
                                 }
                             }
                         }
                     }
                 }
-                // Step toward a local minimum
-                let bestNX = x, bestNY = y, bestElev = GameplayMap.getElevation(x, y);
+                let bestNX = x, bestNY = y, bestElev = adapter?.getElevation ? adapter.getElevation(x, y) : GameplayMap.getElevation(x, y);
                 for (let dy = -1; dy <= 1; dy++) {
                     for (let dx = -1; dx <= 1; dx++) {
                         if (dx === 0 && dy === 0)
                             continue;
-                        const nx = x + dx, ny = y + dy;
-                        if (!inBounds(nx, ny) || GameplayMap.isWater(nx, ny))
+                        if ((dx !== 0 || dy !== 0) && (Math.abs(dx) + Math.abs(dy)) * step > 2)
                             continue;
-                        const e = GameplayMap.getElevation(nx, ny);
-                        if (e < bestElev) {
-                            bestElev = e;
+                        const nx = x + dx;
+                        const ny = y + dy;
+                        if (!inBounds(nx, ny))
+                            continue;
+                        const elev = adapter?.getElevation ? adapter.getElevation(nx, ny) : GameplayMap.getElevation(nx, ny);
+                        if (elev < bestElev) {
+                            bestElev = elev;
                             bestNX = nx;
                             bestNY = ny;
                         }
                     }
                 }
-                // If no descent, introduce a gentle lateral nudge
-                if (bestNX === x && bestNY === y) {
-                    const dir = rand(4, "FossilNudge");
-                    if (dir === 0 && inBounds(x + step, y))
-                        x += step;
-                    else if (dir === 1 && inBounds(x - step, y))
-                        x -= step;
-                    else if (dir === 2 && inBounds(x, y + step))
-                        y += step;
-                    else if (dir === 3 && inBounds(x, y - step))
-                        y -= step;
-                }
-                else {
-                    x = bestNX;
-                    y = bestNY;
-                }
+                if (bestNX === x && bestNY === y)
+                    break;
+                x = bestNX;
+                y = bestNY;
                 used += step;
             }
-            fossils++;
+            if (used >= len)
+                fossils++;
         }
     }
     return { deltas, oxbows, fossils };
 }
+
 export default {
     storyTagHotspotTrails,
     storyTagRiftValleys,

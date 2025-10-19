@@ -27,15 +27,19 @@
 import { buildRainfallMap } from "/base-standard/maps/elevation-terrain-generator.js";
 import { clamp } from "../core/utils.js";
 import { CLIMATE_DRIVERS, MOISTURE_ADJUSTMENTS } from "../bootstrap/tunables.js";
+import { ctxRandom, writeClimateField, syncClimateField } from "../core/types.js";
 /**
  * Build the baseline rainfall map with latitude bands and gentle local modifiers.
  * @param {number} iWidth
  * @param {number} iHeight
  */
-export function buildEnhancedRainfall(iWidth, iHeight) {
+export function buildEnhancedRainfall(iWidth, iHeight, ctx = null) {
     console.log("Building enhanced rainfall patterns...");
     // Start from the engine’s base rainfall to preserve vanilla assumptions.
     buildRainfallMap(iWidth, iHeight);
+    if (ctx) {
+        syncClimateField(ctx);
+    }
     // Apply latitude bands + small local adjustments
     const BASE_AREA = 10000;
     const sqrt = Math.min(2.0, Math.max(0.6, Math.sqrt(Math.max(1, iWidth * iHeight) / BASE_AREA)));
@@ -56,13 +60,72 @@ export function buildEnhancedRainfall(iWidth, iHeight) {
                 ? noiseCfg.spanLargeScaleFactor
                 : 1)
         : noiseBase;
+    const adapter = ctx
+        ? ctx.adapter
+        : {
+            isWater: (x, y) => GameplayMap.isWater(x, y),
+            getRainfall: (x, y) => GameplayMap.getRainfall(x, y),
+            setRainfall: (x, y, rf) => TerrainBuilder.setRainfall(x, y, rf),
+            getElevation: (x, y) => GameplayMap.getElevation(x, y),
+            getLatitude: (x, y) => GameplayMap.getPlotLatitude(x, y),
+        };
+    const rainfallBuf = ctx?.buffers?.climate?.rainfall || null;
+    const idx = (x, y) => y * iWidth + x;
+    const readRainfall = (x, y) => {
+        if (ctx && rainfallBuf) {
+            return rainfallBuf[idx(x, y)] | 0;
+        }
+        return adapter.getRainfall(x, y);
+    };
+    const writeRainfall = (x, y, rf) => {
+        const clamped = clamp(rf, 0, 200);
+        if (ctx) {
+            writeClimateField(ctx, x, y, { rainfall: clamped });
+        }
+        else {
+            adapter.setRainfall(x, y, clamped);
+        }
+    };
+    const isCoastalLand = (x, y) => {
+        if (adapter.isWater(x, y))
+            return false;
+        if (ctx?.adapter?.isCoastalLand)
+            return ctx.adapter.isCoastalLand(x, y);
+        if (typeof GameplayMap?.isCoastalLand === "function")
+            return GameplayMap.isCoastalLand(x, y);
+        for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+                if (dx === 0 && dy === 0)
+                    continue;
+                const nx = x + dx;
+                const ny = y + dy;
+                if (nx < 0 || nx >= iWidth || ny < 0 || ny >= iHeight)
+                    continue;
+                if (adapter.isWater(nx, ny))
+                    return true;
+            }
+        }
+        return false;
+    };
+    const isAdjacentToShallowWater = (x, y) => {
+        if (ctx?.adapter?.isAdjacentToShallowWater)
+            return ctx.adapter.isAdjacentToShallowWater(x, y);
+        if (typeof GameplayMap?.isAdjacentToShallowWater === "function")
+            return GameplayMap.isAdjacentToShallowWater(x, y);
+        return false;
+    };
+    const rollNoise = () => {
+        if (ctx)
+            return ctxRandom(ctx, "RainNoise", noiseSpan * 2 + 1) - noiseSpan;
+        return TerrainBuilder.getRandomNumber(noiseSpan * 2 + 1, "Rain Noise") - noiseSpan;
+    };
     for (let y = 0; y < iHeight; y++) {
         for (let x = 0; x < iWidth; x++) {
-            if (GameplayMap.isWater(x, y))
+            if (adapter.isWater(x, y))
                 continue;
-            const base = GameplayMap.getRainfall(x, y);
-            const elevation = GameplayMap.getElevation(x, y);
-            const lat = Math.abs(GameplayMap.getPlotLatitude(x, y)); // 0 at equator, 90 at poles
+            const base = readRainfall(x, y);
+            const elevation = adapter.getElevation(x, y);
+            const lat = Math.abs(adapter.getLatitude(x, y)); // 0 at equator, 90 at poles
             // Band target by absolute latitude (configurable)
             const b0 = Number.isFinite(bands.deg0to10) ? bands.deg0to10 : 120;
             const b1 = Number.isFinite(bands.deg10to20) ? bands.deg10to20 : 104;
@@ -111,14 +174,13 @@ export function buildEnhancedRainfall(iWidth, iHeight) {
             const shallowBonus = Number.isFinite(coastalCfg.shallowAdjBonus)
                 ? coastalCfg.shallowAdjBonus
                 : 16;
-            if (GameplayMap.isCoastalLand(x, y))
+            if (isCoastalLand(x, y))
                 currentRainfall += coastalBonus;
-            if (GameplayMap.isAdjacentToShallowWater(x, y))
+            if (isAdjacentToShallowWater(x, y))
                 currentRainfall += shallowBonus;
             // Light noise to avoid striping/banding artifacts (size-aware jitter)
-            currentRainfall +=
-                TerrainBuilder.getRandomNumber(noiseSpan * 2 + 1, "Rain Noise") - noiseSpan;
-            TerrainBuilder.setRainfall(x, y, clamp(currentRainfall, 0, 200));
+            currentRainfall += rollNoise();
+            writeRainfall(x, y, currentRainfall);
         }
     }
 }

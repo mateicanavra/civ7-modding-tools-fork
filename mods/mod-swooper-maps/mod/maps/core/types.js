@@ -42,12 +42,23 @@
  */
 
 /**
- * Collection of reusable buffers shared across morphology stages.
+ * Staged climate buffer for rainfall and humidity fields. Mirrors the heightfield
+ * staging approach so climate passes can operate without mutating GameplayMap
+ * directly.
+ *
+ * @typedef {Object} ClimateFieldBuffer
+ * @property {Uint8Array} rainfall - Rainfall values staged for climate passes (0..200)
+ * @property {Uint8Array} humidity - Relative humidity or derived moisture metrics (0..255)
+ */
+
+/**
+ * Collection of reusable buffers shared across generation stages.
  * Additional staging arrays (shore masks, coast metrics, etc.) can be added in
  * later phases.
  *
- * @typedef {Object} MorphologyBuffers
+ * @typedef {Object} MapBuffers
  * @property {HeightfieldBuffer} heightfield - Canonical heightfield staging buffers
+ * @property {ClimateFieldBuffer} climate - Staged rainfall/humidity buffers for climate + narrative
  * @property {Map<string, Uint8Array>} scratchMasks - Named scratch masks reused across stages
  */
 
@@ -82,7 +93,7 @@
  * @property {GenerationMetrics} metrics - Performance and validation metrics
  * @property {EngineAdapter} adapter - Abstraction layer for engine operations
  * @property {{ plateSeed: Readonly<any>|null }} foundation - Shared world foundations (e.g., plate seed metadata)
- * @property {MorphologyBuffers} buffers - Shared morphology buffers
+ * @property {MapBuffers} buffers - Shared staging buffers
  */
 
 /**
@@ -143,10 +154,16 @@ export function createMapContext(dimensions, adapter, config) {
     landMask: new Uint8Array(size),
   };
 
+  const rainfall = new Uint8Array(size);
+  const climate = {
+    rainfall,
+    humidity: new Uint8Array(size),
+  };
+
   return {
     dimensions,
     fields: {
-      rainfall: new Uint8Array(size),
+      rainfall,
       elevation: new Int16Array(size),
       temperature: new Uint8Array(size),
       biomeId: new Uint8Array(size),
@@ -170,6 +187,7 @@ export function createMapContext(dimensions, adapter, config) {
     },
     buffers: {
       heightfield,
+      climate,
       scratchMasks: new Map(),
     },
   };
@@ -253,6 +271,40 @@ export function writeHeightfield(ctx, x, y, options) {
 }
 
 /**
+ * Write staged climate values (rainfall/humidity) and mirror the
+ * change to the engine adapter when provided.
+ *
+ * @param {MapContext} ctx
+ * @param {number} x
+ * @param {number} y
+ * @param {{ rainfall?: number, humidity?: number }} options
+ */
+export function writeClimateField(ctx, x, y, options) {
+  if (!ctx || !options) return;
+  const { width } = ctx.dimensions;
+  const idxValue = y * width + x;
+  const climate = ctx.buffers?.climate;
+
+  if (climate) {
+    if (typeof options.rainfall === "number") {
+      const rf = Math.max(0, Math.min(200, options.rainfall)) | 0;
+      climate.rainfall[idxValue] = rf & 0xff;
+      if (ctx.fields?.rainfall) {
+        ctx.fields.rainfall[idxValue] = rf & 0xff;
+      }
+    }
+    if (typeof options.humidity === "number") {
+      const hum = Math.max(0, Math.min(255, options.humidity)) | 0;
+      climate.humidity[idxValue] = hum & 0xff;
+    }
+  }
+
+  if (typeof options.rainfall === "number" && ctx.adapter?.setRainfall) {
+    ctx.adapter.setRainfall(x, y, Math.max(0, Math.min(200, options.rainfall)) | 0);
+  }
+}
+
+/**
  * Convenience helper to fill an entire buffer with a value (used for resets).
  *
  * @param {TypedArray} buffer
@@ -301,12 +353,45 @@ export function syncHeightfield(ctx) {
   }
 }
 
+/**
+ * Synchronize the staged climate buffers from the current engine surface.
+ * Useful after invoking legacy generators (rivers, swatches) that mutate the
+ * gameplay surface directly.
+ *
+ * @param {MapContext} ctx
+ */
+export function syncClimateField(ctx) {
+  if (!ctx || !ctx.adapter) return;
+  const climate = ctx.buffers?.climate;
+  if (!climate) return;
+  const { width, height } = ctx.dimensions;
+  const hasRainfall = typeof ctx.adapter.getRainfall === "function";
+
+  if (!hasRainfall) return;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idxValue = y * width + x;
+      const rf = ctx.adapter.getRainfall(x, y);
+      if (Number.isFinite(rf)) {
+        const rfClamped = Math.max(0, Math.min(200, rf)) | 0;
+        climate.rainfall[idxValue] = rfClamped & 0xff;
+        if (ctx.fields?.rainfall) {
+          ctx.fields.rainfall[idxValue] = rfClamped & 0xff;
+        }
+      }
+    }
+  }
+}
+
 export default {
   createMapContext,
   ctxRandom,
   idx,
   inBounds,
   writeHeightfield,
+  writeClimateField,
   fillBuffer,
   syncHeightfield,
+  syncClimateField,
 };

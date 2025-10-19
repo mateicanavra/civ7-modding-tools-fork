@@ -28,6 +28,7 @@ import { OrogenyCache } from "../story/tagging.js";
 import { STORY_TUNABLES, STORY_ENABLE_OROGENY, MOISTURE_ADJUSTMENTS, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { WorldModel } from "../world/model.js";
 import { devLogIf } from "../bootstrap/dev.js";
+import { writeClimateField } from "../core/types.js";
 /**
  * Distance in tiles (Chebyshev radius) to nearest water within maxR; -1 if none.
  * @param {number} x
@@ -164,6 +165,23 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
         isMountain: (x, y) => GameplayMap.isMountain ? GameplayMap.isMountain(x, y) : GameplayMap.getElevation(x, y) >= 500,
         isAdjacentToRivers: (x, y, rad) => GameplayMap.isAdjacentToRivers(x, y, rad),
     };
+    const rainfallBuf = ctx?.buffers?.climate?.rainfall || null;
+    const idx = (x, y) => y * iWidth + x;
+    const readRainfall = (x, y) => {
+        if (ctx && rainfallBuf) {
+            return rainfallBuf[idx(x, y)] | 0;
+        }
+        return adapter.getRainfall(x, y);
+    };
+    const writeRainfall = (x, y, rf) => {
+        const clamped = clamp(rf, 0, 200);
+        if (ctx) {
+            writeClimateField(ctx, x, y, { rainfall: clamped });
+        }
+        else {
+            adapter.setRainfall(x, y, clamped);
+        }
+    };
     const worldModel = ctx && ctx.worldModel ? ctx.worldModel : WorldModel;
     const refineAdjust = MOISTURE_ADJUSTMENTS?.refine || {};
     const storyMoisture = MOISTURE_ADJUSTMENTS?.story || {};
@@ -187,8 +205,8 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                         (waterGradient?.perRingBonus ?? 5);
                     if (elev < 150)
                         bonus += waterGradient?.lowlandBonus ?? 3;
-                    const rf = adapter.getRainfall(x, y);
-                    adapter.setRainfall(x, y, clamp(rf + bonus, 0, 200));
+                    const rf = readRainfall(x, y);
+                    writeRainfall(x, y, rf + bonus);
                 }
             }
         }
@@ -227,10 +245,10 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                     barrier = hasUpwindBarrier(x, y, dx, dy, steps, adapter, iWidth, iHeight);
                 }
                 if (barrier) {
-                    const rf = adapter.getRainfall(x, y);
+                    const rf = readRainfall(x, y);
                     const reduction = (orographic?.reductionBase ?? 8) +
                         barrier * (orographic?.reductionPerStep ?? 6);
-                    adapter.setRainfall(x, y, clamp(rf - reduction, 0, 200));
+                    writeRainfall(x, y, rf - reduction);
                 }
             }
         }
@@ -243,7 +261,7 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
             for (let x = 0; x < iWidth; x++) {
                 if (adapter.isWater(x, y))
                     continue;
-                let rf = adapter.getRainfall(x, y);
+                let rf = readRainfall(x, y);
                 const elev = adapter.getElevation(x, y);
                 // River adjacency boost (stronger at low elevation)
                 if (adapter.isAdjacentToRivers(x, y, 1)) {
@@ -271,7 +289,7 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                 }
                 if (lowBasinClosed && elev < 200)
                     rf += lowBasinCfg?.delta ?? 6;
-                adapter.setRainfall(x, y, clamp(rf, 0, 200));
+                writeRainfall(x, y, rf);
             }
         }
     }
@@ -301,12 +319,12 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                         }
                     }
                     if (nearRift) {
-                        const rf = adapter.getRainfall(x, y);
+                        const rf = readRainfall(x, y);
                         const elev = adapter.getElevation(x, y);
                         // Slightly reduce boost at higher elevation
                         const penalty = Math.max(0, Math.floor((elev - 200) / 150));
                         const delta = Math.max(0, riftBoost - penalty);
-                        adapter.setRainfall(x, y, clamp(rf + delta, 0, 200));
+                        writeRainfall(x, y, rf + delta);
                     }
                 }
             }
@@ -324,7 +342,7 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                     for (let x = 0; x < iWidth; x++) {
                         if (adapter.isWater(x, y))
                             continue;
-                        let rf = adapter.getRainfall(x, y);
+                        let rf = readRainfall(x, y);
                         const key = `${x},${y}`;
                         // Apply windward boost (small, positive)
                         if (hasWindward && OrogenyCache.windward.has(key)) {
@@ -336,7 +354,7 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                             const extra = Math.max(0, Math.round(baseSubtract * (leeAmp - 1)));
                             rf = clamp(rf - (baseSubtract + extra), 0, 200);
                         }
-                        adapter.setRainfall(x, y, rf);
+                        writeRainfall(x, y, rf);
                     }
                 }
             }
@@ -378,13 +396,13 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                         }
                     }
                     if (nearParadise || nearVolcanic) {
-                        const rf = adapter.getRainfall(x, y);
+                        const rf = readRainfall(x, y);
                         let delta = 0;
                         if (nearParadise)
                             delta += paradiseDelta;
                         if (nearVolcanic)
                             delta += volcanicDelta;
-                        adapter.setRainfall(x, y, clamp(rf + delta, 0, 200));
+                        writeRainfall(x, y, rf + delta);
                     }
                 }
             }
@@ -404,7 +422,7 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
 
                     const i = y * iWidth + x;
                     const p = pressure[i] / 255; // 0..1, normalized pressure
-                    let rf = adapter.getRainfall(x, y);
+                    let rf = readRainfall(x, y);
 
                     // High pressure (p > 0.5) reduces rainfall (descending air, stable conditions)
                     // Low pressure (p < 0.5) increases rainfall (rising air, convection)
@@ -412,7 +430,7 @@ export function refineRainfallEarthlike(iWidth, iHeight, ctx = null) {
                     const delta = -pressureBias * 15 * pressureStrength; // Inverted: low pressure (+), high pressure (-)
 
                     rf = clamp(rf + delta, 0, 200);
-                    adapter.setRainfall(x, y, rf);
+                    writeRainfall(x, y, rf);
                 }
             }
 

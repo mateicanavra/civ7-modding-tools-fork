@@ -32,7 +32,7 @@ import { runPlacement as layerRunPlacement } from "./layers/placement.js";
 import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logRainfallStats, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, logBiomeSummary, } from "./bootstrap/dev.js";
 import { WorldModel } from "./world/model.js";
 // Phase 1 Refactoring: Context + Adapter layer
-import { createMapContext, syncHeightfield } from "./core/types.js";
+import { createMapContext, syncHeightfield, syncClimateField } from "./core/types.js";
 import { CivEngineAdapter } from "./core/adapters.js";
 
 // Maintain compatibility with dev helpers that expect StoryTags on the global scope.
@@ -401,14 +401,14 @@ function generateMap() {
     // Create moderated rainfall patterns (keep enhanced but gentle)
     if (stageClimateBaseline) {
         const t = timeStart("Climate: Baseline");
-        layerBuildEnhancedRainfall(iWidth, iHeight);
+        layerBuildEnhancedRainfall(iWidth, iHeight, ctx);
         timeEnd(t);
         logRainfallAscii("baseline");
         logRainfallStats("baseline", iWidth, iHeight);
     }
     if (stageStorySwatches) {
         const t = timeStart("Climate: Swatches");
-        const swatchResult = storyTagClimateSwatches();
+        const swatchResult = storyTagClimateSwatches(ctx);
         if (swatchResult && swatchResult.kind) {
             devLogIf("LOG_STORY_TAGS", `Climate Swatch: ${swatchResult.kind} (${swatchResult.tiles} tiles)`);
         }
@@ -422,6 +422,7 @@ function generateMap() {
         timeEnd(t);
         TerrainBuilder.validateAndFixTerrain();
         syncHeightfield(ctx);
+        syncClimateField(ctx);
         TerrainBuilder.defineNamedRivers();
     }
     // Strategic Corridors: tag river-chain corridors post-rivers

@@ -25,6 +25,7 @@
 - Landmass generation now flows Voronoi → plate mask; ocean separation lives in `layers/landmass_utils.js::applyPlateAwareOceanSeparation` and the legacy three-band generator has been removed.
 - Entries and named presets can declare a `stageConfig` map to indicate which stages they supply overrides for; the resolver warns when those stages are disabled or missing so presets can prune dead config.
 - `bootstrap/tunables.js` exposes a `CLIMATE` helper (`CLIMATE.drivers`, `CLIMATE.moistureAdjustments`) that climate layers and story overlays consume instead of reading raw config blocks.
+- Climate layers stage rainfall via `MapContext.buffers.climate`; prefer `writeClimateField` / `syncClimateField` when mutating or syncing rainfall rather than writing to `GameplayMap` directly.
 
 ### Testing imports
 - Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.
