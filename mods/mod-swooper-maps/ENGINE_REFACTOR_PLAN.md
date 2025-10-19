@@ -44,7 +44,7 @@ _Updated: 2025-10-18_
 - [ ] Replace `StoryTags.reset()` loops with calls that ingest the published margin metadata.
 
 ### Phase C – Hydrology & Climate Unification
-- [ ] Consolidate rainfall baseline, refinement, and swatch modifications into a single climate engine module.
+- [x] Consolidate rainfall baseline, refinement, and swatch modifications into a single climate engine module.
 - [x] Generate rivers after the climate baseline but before narrative overlays, capturing flow data for later overlays.
 - [x] Publish `ClimateField` arrays and migrate consumers (biomes, story overlays) to them.
 

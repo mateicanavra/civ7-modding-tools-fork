@@ -11,6 +11,100 @@
  * - Arrays are provided as plain arrays; resolver will treat arrays as replace-by-default.
  */
 // @ts-check
+const CLIMATE_BASELINE_DEFAULT = Object.freeze({
+    blend: Object.freeze({
+        baseWeight: 0.6,
+        bandWeight: 0.4,
+    }),
+    bands: Object.freeze({
+        deg0to10: 120,
+        deg10to20: 104,
+        deg20to35: 75,
+        deg35to55: 70,
+        deg55to70: 60,
+        deg70plus: 45,
+    }),
+    orographic: Object.freeze({
+        hi1Threshold: 350,
+        hi1Bonus: 8,
+        hi2Threshold: 600,
+        hi2Bonus: 7,
+    }),
+    coastal: Object.freeze({
+        coastalLandBonus: 24,
+        shallowAdjBonus: 16,
+    }),
+    noise: Object.freeze({
+        baseSpanSmall: 3,
+        spanLargeScaleFactor: 1.0,
+    }),
+});
+const CLIMATE_REFINE_DEFAULT = Object.freeze({
+    waterGradient: Object.freeze({
+        radius: 5,
+        perRingBonus: 5,
+        lowlandBonus: 3,
+    }),
+    orographic: Object.freeze({
+        steps: 4,
+        reductionBase: 8,
+        reductionPerStep: 6,
+    }),
+    riverCorridor: Object.freeze({
+        lowlandAdjacencyBonus: 14,
+        highlandAdjacencyBonus: 5,
+    }),
+    lowBasin: Object.freeze({
+        radius: 3,
+        delta: 6,
+    }),
+});
+const CLIMATE_SWATCHES_DEFAULT = Object.freeze({
+    maxPerMap: 7,
+    forceAtLeastOne: true,
+    sizeScaling: Object.freeze({
+        widthMulSqrt: 0.3,
+        lengthMulSqrt: 0.4,
+    }),
+    types: Object.freeze({
+        macroDesertBelt: Object.freeze({
+            weight: 8,
+            latitudeCenterDeg: 20,
+            halfWidthDeg: 12,
+            drynessDelta: 28,
+            bleedRadius: 3,
+        }),
+        equatorialRainbelt: Object.freeze({
+            weight: 3,
+            latitudeCenterDeg: 0,
+            halfWidthDeg: 10,
+            wetnessDelta: 24,
+            bleedRadius: 3,
+        }),
+        rainforestArchipelago: Object.freeze({
+            weight: 7,
+            islandBias: 2,
+            reefBias: 1,
+            wetnessDelta: 18,
+            bleedRadius: 3,
+        }),
+        mountainForests: Object.freeze({
+            weight: 2,
+            coupleToOrogeny: true,
+            windwardBonus: 6,
+            leePenalty: 2,
+            bleedRadius: 3,
+        }),
+        greatPlains: Object.freeze({
+            weight: 5,
+            latitudeCenterDeg: 45,
+            halfWidthDeg: 8,
+            dryDelta: 12,
+            lowlandMaxElevation: 300,
+            bleedRadius: 4,
+        }),
+    }),
+});
 /** @type {import('../map_config.types.js').MapConfig} */
 export const BASE_CONFIG = Object.freeze({
     // --- Master Feature Toggles ---
@@ -22,6 +116,12 @@ export const BASE_CONFIG = Object.freeze({
         STORY_ENABLE_SWATCHES: false,
         STORY_ENABLE_PALEO: false,
         STORY_ENABLE_CORRIDORS: false,
+    }),
+    // --- Climate aggregates (baseline + refinement + swatches) ---
+    climate: Object.freeze({
+        baseline: CLIMATE_BASELINE_DEFAULT,
+        refine: CLIMATE_REFINE_DEFAULT,
+        swatches: CLIMATE_SWATCHES_DEFAULT,
     }),
     // --- Stage Manifest ---
     // Canonical execution order and dependency graph for generator stages.
@@ -186,52 +286,7 @@ export const BASE_CONFIG = Object.freeze({
             leeDrynessAmplifier: 1.2,
         }),
         // "Black swan" climate swatches (guaranteed N≈1 macro zone)
-        swatches: Object.freeze({
-            maxPerMap: 7,
-            forceAtLeastOne: true,
-            sizeScaling: Object.freeze({
-                widthMulSqrt: 0.3,
-                lengthMulSqrt: 0.4,
-            }),
-            types: Object.freeze({
-                macroDesertBelt: Object.freeze({
-                    weight: 8,
-                    latitudeCenterDeg: 20,
-                    halfWidthDeg: 12,
-                    drynessDelta: 28,
-                    bleedRadius: 3,
-                }),
-                equatorialRainbelt: Object.freeze({
-                    weight: 3,
-                    latitudeCenterDeg: 0,
-                    halfWidthDeg: 10,
-                    wetnessDelta: 24,
-                    bleedRadius: 3,
-                }),
-                rainforestArchipelago: Object.freeze({
-                    weight: 7,
-                    islandBias: 2,
-                    reefBias: 1,
-                    wetnessDelta: 18,
-                    bleedRadius: 3,
-                }),
-                mountainForests: Object.freeze({
-                    weight: 2,
-                    coupleToOrogeny: true,
-                    windwardBonus: 6,
-                    leePenalty: 2,
-                    bleedRadius: 3,
-                }),
-                greatPlains: Object.freeze({
-                    weight: 5,
-                    latitudeCenterDeg: 45,
-                    halfWidthDeg: 8,
-                    dryDelta: 12,
-                    lowlandMaxElevation: 300,
-                    bleedRadius: 4,
-                }),
-            }),
-        }),
+        swatches: CLIMATE_SWATCHES_DEFAULT,
         // Paleo‑Hydrology (deltas, oxbows, fossil channels)
         paleo: Object.freeze({
             maxDeltas: 4,
@@ -615,55 +670,9 @@ export const BASE_CONFIG = Object.freeze({
         minDistFromLandRadius: 2,
     }),
     // --- Climate Baseline (banded blend + local bonuses) ---
-    climateBaseline: Object.freeze({
-        blend: Object.freeze({
-            baseWeight: 0.6,
-            bandWeight: 0.4,
-        }),
-        bands: Object.freeze({
-            deg0to10: 120,
-            deg10to20: 104,
-            deg20to35: 75,
-            deg35to55: 70,
-            deg55to70: 60,
-            deg70plus: 45,
-        }),
-        orographic: Object.freeze({
-            hi1Threshold: 350,
-            hi1Bonus: 8,
-            hi2Threshold: 600,
-            hi2Bonus: 7,
-        }),
-        coastal: Object.freeze({
-            coastalLandBonus: 24,
-            shallowAdjBonus: 16,
-        }),
-        noise: Object.freeze({
-            baseSpanSmall: 3,
-            spanLargeScaleFactor: 1.0,
-        }),
-    }),
+    climateBaseline: CLIMATE_BASELINE_DEFAULT,
     // --- Climate Refinement (earthlike) ---
-    climateRefine: Object.freeze({
-        waterGradient: Object.freeze({
-            radius: 5,
-            perRingBonus: 5,
-            lowlandBonus: 3,
-        }),
-        orographic: Object.freeze({
-            steps: 4,
-            reductionBase: 8,
-            reductionPerStep: 6,
-        }),
-        riverCorridor: Object.freeze({
-            lowlandAdjacencyBonus: 14,
-            highlandAdjacencyBonus: 5,
-        }),
-        lowBasin: Object.freeze({
-            radius: 3,
-            delta: 6,
-        }),
-    }),
+    climateRefine: CLIMATE_REFINE_DEFAULT,
     // --- Mountains & Hills (WorldModel-driven) ---
     mountains: Object.freeze({
         mountainPercent: 3,

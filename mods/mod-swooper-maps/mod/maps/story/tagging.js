@@ -21,6 +21,7 @@ import { STORY_TUNABLES, STORY_ENABLE_SWATCHES, STORY_ENABLE_PALEO, MARGINS_CFG,
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 import { writeClimateField, syncClimateField, ctxRandom } from "../core/types.js";
 import { WorldModel } from "../world/model.js";
+import { applyClimateSwatches } from "../layers/climate-engine.js";
 /**
  * Tag deep‑ocean hotspot trails as sparse polylines.
  * Trails are later used to bias offshore island placement and microclimates.
@@ -729,276 +730,22 @@ export function storyTagClimateSwatches(ctx = null) {
     if (!STORY_ENABLE_SWATCHES)
         return { applied: false, kind: "disabled" };
     const storyMoisture = MOISTURE_ADJUSTMENTS?.story || {};
-    const cfg = storyMoisture.swatches;
-    if (!cfg)
+    if (!storyMoisture?.swatches)
         return { applied: false, kind: "missing-config" };
     const width = ctx?.dimensions?.width ?? GameplayMap.getGridWidth();
     const height = ctx?.dimensions?.height ?? GameplayMap.getGridHeight();
-    const area = Math.max(1, width * height);
-    const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
-    if (ctx) {
-        syncClimateField(ctx);
-    }
-    const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
-    const adapter = ctx?.adapter ?? null;
-    const rainfallBuf = ctx?.buffers?.climate?.rainfall || null;
-    const idx = (x, y) => y * width + x;
-    const inLocalBounds = (x, y) => x >= 0 && x < width && y >= 0 && y < height;
-    const readRainfall = (x, y) => {
-        if (ctx && rainfallBuf) {
-            return rainfallBuf[idx(x, y)] | 0;
-        }
-        return GameplayMap.getRainfall(x, y);
-    };
-    const writeRainfall = (x, y, rf) => {
-        const clamped = clamp(rf, 0, 200);
-        if (ctx) {
-            writeClimateField(ctx, x, y, { rainfall: clamped });
-        }
-        else {
-            TerrainBuilder.setRainfall(x, y, clamped);
-        }
-    };
-    const rand = (max, label) => (ctx ? ctxRandom(ctx, label, max) : TerrainBuilder.getRandomNumber(max, label));
-    const isWater = (x, y) => (adapter?.isWater ? adapter.isWater(x, y) : GameplayMap.isWater(x, y));
-    const getElevation = (x, y) => (adapter?.getElevation ? adapter.getElevation(x, y) : GameplayMap.getElevation(x, y));
-    const signedLatitudeAt = (y) => (adapter?.getLatitude ? adapter.getLatitude(0, y) : GameplayMap.getPlotLatitude(0, y));
-    const isCoastalLand = (x, y) => {
-        if (adapter?.isCoastalLand)
-            return adapter.isCoastalLand(x, y);
-        if (typeof GameplayMap?.isCoastalLand === "function")
-            return GameplayMap.isCoastalLand(x, y);
-        if (isWater(x, y))
-            return false;
-        for (let dy = -1; dy <= 1; dy++) {
-            for (let dx = -1; dx <= 1; dx++) {
-                if (dx === 0 && dy === 0)
-                    continue;
-                const nx = x + dx;
-                const ny = y + dy;
-                if (!inLocalBounds(nx, ny))
-                    continue;
-                if (isWater(nx, ny))
-                    return true;
-            }
-        }
-        return false;
-    };
-    const isAdjacentToShallowWater = (x, y) => {
-        if (adapter?.isAdjacentToShallowWater)
-            return adapter.isAdjacentToShallowWater(x, y);
-        if (typeof GameplayMap?.isAdjacentToShallowWater === "function")
-            return GameplayMap.isAdjacentToShallowWater(x, y);
-        return false;
-    };
-    const types = cfg.types || {};
-    let entries = Object.keys(types).map((k) => ({
-        key: k,
-        w: Math.max(0, types[k].weight | 0),
-    }));
-    try {
-        const DIR = WORLDMODEL_DIRECTIONALITY || {};
-        const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
-        if (COH > 0) {
-            const windDeg = (DIR?.primaryAxes?.windBiasDeg ?? 0) | 0;
-            const plateDeg = (DIR?.primaryAxes?.plateAxisDeg ?? 0) | 0;
-            const wRad = (windDeg * Math.PI) / 180;
-            const pRad = (plateDeg * Math.PI) / 180;
-            const alignZonal = Math.abs(Math.cos(wRad));
-            const alignPlate = Math.abs(Math.cos(pRad));
-            entries = entries.map((e) => {
-                let mul = 1;
-                if (e.key === "macroDesertBelt") {
-                    mul *= 1 + 0.4 * COH * alignZonal;
-                }
-                else if (e.key === "equatorialRainbelt") {
-                    mul *= 1 + 0.25 * COH * alignZonal;
-                }
-                else if (e.key === "mountainForests") {
-                    mul *= 1 + 0.2 * COH * alignPlate;
-                }
-                else if (e.key === "greatPlains") {
-                    mul *= 1 + 0.2 * COH * alignZonal;
-                }
-                return { key: e.key, w: Math.max(0, Math.round(e.w * mul)) };
-            });
-        }
-    }
-    catch (_) {
-        /* keep default weights on any error */
-    }
-    const totalW = entries.reduce((s, e) => s + e.w, 0) || 1;
-    let roll = rand(totalW, "SwatchType");
-    let chosenKey = entries[0]?.key || "macroDesertBelt";
-    for (const e of entries) {
-        if (roll < e.w) {
-            chosenKey = e.key;
-            break;
-        }
-        roll -= e.w;
-    }
-    const kind = chosenKey;
-    const t = types[chosenKey] || {};
-    const widthMul = 1 + (cfg.sizeScaling?.widthMulSqrt || 0) * (sqrtScale - 1);
-    const latBandCenter = () => t.latitudeCenterDeg ?? 0;
-    const halfWidthDeg = () => Math.max(4, Math.round((t.halfWidthDeg ?? 10) * widthMul));
-    const falloff = (v, r) => Math.max(0, 1 - v / Math.max(1, r));
-    let applied = 0;
-    for (let y = 0; y < height; y++) {
-        const latDegAbs = Math.abs(signedLatitudeAt(y));
-        for (let x = 0; x < width; x++) {
-            if (isWater(x, y))
-                continue;
-            let rf = readRainfall(x, y);
-            const elev = getElevation(x, y);
-            let tileAdjusted = false;
-            if (kind === "macroDesertBelt") {
-                const center = latBandCenter();
-                const hw = halfWidthDeg();
-                const f = falloff(Math.abs(latDegAbs - center), hw);
-                if (f > 0) {
-                    const base = t.drynessDelta ?? 28;
-                    const lowlandBonus = elev < 250 ? 4 : 0;
-                    const delta = Math.round((base + lowlandBonus) * f);
-                    rf = clamp(rf - delta, 0, 200);
-                    applied++;
-                    tileAdjusted = true;
-                }
-            }
-            else if (kind === "equatorialRainbelt") {
-                const center = latBandCenter();
-                const hw = halfWidthDeg();
-                const f = falloff(Math.abs(latDegAbs - center), hw);
-                if (f > 0) {
-                    const base = t.wetnessDelta ?? 24;
-                    let coastBoost = 0;
-                    if (isCoastalLand(x, y))
-                        coastBoost += 6;
-                    if (isAdjacentToShallowWater(x, y))
-                        coastBoost += 4;
-                    const delta = Math.round((base + coastBoost) * f);
-                    rf = clamp(rf + delta, 0, 200);
-                    applied++;
-                    tileAdjusted = true;
-                }
-            }
-            else if (kind === "rainforestArchipelago") {
-                const fTropics = latDegAbs < 23 ? 1 : latDegAbs < 30 ? 0.5 : 0;
-                if (fTropics > 0) {
-                    let islandy = 0;
-                    if (isCoastalLand(x, y))
-                        islandy += 1;
-                    if (isAdjacentToShallowWater(x, y))
-                        islandy += 0.5;
-                    if (islandy > 0) {
-                        const base = t.wetnessDelta ?? 18;
-                        const delta = Math.round(base * fTropics * islandy);
-                        rf = clamp(rf + delta, 0, 200);
-                        applied++;
-                        tileAdjusted = true;
-                    }
-                }
-            }
-            else if (kind === "mountainForests") {
-                const inWindward = !!(typeof OrogenyCache === "object" && OrogenyCache.windward?.has?.(`${x},${y}`));
-                const inLee = !!(typeof OrogenyCache === "object" && OrogenyCache.lee?.has?.(`${x},${y}`));
-                if (inWindward) {
-                    const base = t.windwardBonus ?? 6;
-                    const delta = base + (elev < 300 ? 2 : 0);
-                    rf = clamp(rf + delta, 0, 200);
-                    applied++;
-                    tileAdjusted = true;
-                }
-                else if (inLee) {
-                    const base = t.leePenalty ?? 2;
-                    rf = clamp(rf - base, 0, 200);
-                    applied++;
-                    tileAdjusted = true;
-                }
-            }
-            else if (kind === "greatPlains") {
-                const center = t.latitudeCenterDeg ?? 45;
-                const hw = Math.max(6, Math.round((t.halfWidthDeg ?? 8) * widthMul));
-                const f = falloff(Math.abs(latDegAbs - center), hw);
-                if (f > 0 && elev <= (t.lowlandMaxElevation ?? 300)) {
-                    const dry = t.dryDelta ?? 12;
-                    const delta = Math.round(dry * f);
-                    rf = clamp(rf - delta, 0, 200);
-                    applied++;
-                    tileAdjusted = true;
-                }
-            }
-            if (tileAdjusted) {
-                writeRainfall(x, y, rf);
-            }
-        }
-    }
-    try {
-        const DIR = WORLDMODEL_DIRECTIONALITY || {};
-        const monsoonBias = Math.max(0, Math.min(1, DIR?.hemispheres?.monsoonBias ?? 0));
-        const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
-        const eqBand = Math.max(0, (DIR?.hemispheres?.equatorBandDeg ?? 12) | 0);
-        if (monsoonBias > 0 && COH > 0 && WorldModel?.isEnabled?.() && WorldModel.windU && WorldModel.windV) {
-            const baseDelta = Math.max(1, Math.round(3 * COH * monsoonBias));
-            for (let y = 0; y < height; y++) {
-                const latSigned = signedLatitudeAt(y);
-                const absLat = Math.abs(latSigned);
-                if (absLat > eqBand + 18)
-                    continue;
-                for (let x = 0; x < width; x++) {
-                    if (isWater(x, y))
-                        continue;
-                    if (!isCoastalLand(x, y) && !isAdjacentToShallowWater(x, y))
-                        continue;
-                    const i = idx(x, y);
-                    const u = WorldModel.windU[i] | 0;
-                    const v = WorldModel.windV[i] | 0;
-                    let ux = 0, vy = 0;
-                    if (Math.abs(u) >= Math.abs(v)) {
-                        ux = u === 0 ? 0 : u > 0 ? 1 : -1;
-                        vy = 0;
-                    }
-                    else {
-                        ux = 0;
-                        vy = v === 0 ? 0 : v > 0 ? 1 : -1;
-                    }
-                    const dnX = x - ux;
-                    const dnY = y - vy;
-                    if (!inLocalBounds(dnX, dnY))
-                        continue;
-                    let rf = readRainfall(x, y);
-                    let baseDeltaAdj = baseDelta;
-                    if (absLat <= eqBand)
-                        baseDeltaAdj += 2;
-                    if (isWater(dnX, dnY))
-                        baseDeltaAdj += 2;
-                    rf = clamp(rf + baseDeltaAdj, 0, 200);
-                    writeRainfall(x, y, rf);
-                    const upX = x + ux;
-                    const upY = y + vy;
-                    if (inLocalBounds(upX, upY) && isWater(dnX, dnY)) {
-                        const rf0 = readRainfall(x, y);
-                        const rf1 = Math.max(0, Math.min(200, rf0 - 1));
-                        writeRainfall(x, y, rf1);
-                    }
-                }
-            }
-        }
-    }
-    catch (_) {
-        /* keep resilient */
-    }
-    let _swatchResult = { applied: applied > 0, kind, tiles: applied };
+    const result = applyClimateSwatches(width, height, ctx, { orogenyCache: OrogenyCache });
+    const summary = { ...result };
     if (STORY_ENABLE_PALEO) {
         try {
             const paleoResult = storyTagPaleoHydrology(ctx || undefined);
-            _swatchResult.paleo = paleoResult;
+            summary.paleo = paleoResult;
         }
         catch (_) {
             /* keep generation resilient */
         }
     }
-    return _swatchResult;
+    return summary;
 }
 // -------------------------------- Paleo‑Hydrology --------------------------------
 /**

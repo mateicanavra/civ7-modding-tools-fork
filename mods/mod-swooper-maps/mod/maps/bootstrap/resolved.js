@@ -527,6 +527,10 @@ export function MARGINS_CFG() {
 export function ISLANDS_CFG() {
     return /** @type {Readonly<Islands>} */ (getGroup("islands"));
 }
+/** @returns {Readonly<any>} */
+export function CLIMATE_CFG() {
+    return /** @type {Readonly<any>} */ (getGroup("climate"));
+}
 /** @returns {Readonly<ClimateBaseline>} */
 export function CLIMATE_BASELINE_CFG() {
     return /** @type {Readonly<ClimateBaseline>} */ (getGroup("climateBaseline"));
@@ -605,6 +609,7 @@ export default {
     COASTLINES_CFG,
     MARGINS_CFG,
     ISLANDS_CFG,
+    CLIMATE_CFG,
     CLIMATE_BASELINE_CFG,
     CLIMATE_REFINE_CFG,
     BIOMES_CFG,

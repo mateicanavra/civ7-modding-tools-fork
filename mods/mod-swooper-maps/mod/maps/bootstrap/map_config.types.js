@@ -27,6 +27,7 @@
  * @property {Toggles} toggles - Enable/disable major systems (hotspots, rifts, orogeny, swatches, corridors)
  * @property {Story} story - Narrative elements creating distinctive terrain features (volcanic trails, rift valleys, mountain rain shadows)
  * @property {Microclimate} microclimate - Fine-tuned rainfall and feature bonuses near story elements (rift lines, hotspot centers)
+ * @property {Climate} [climate] - Aggregated climate configuration (baseline/refine/swatches)
  * @property {Corridors} [corridors] - Protected travel routes (sea lanes, island chains, land corridors, river valleys) that remain unobstructed
  * @property {Landmass} [landmass] - Continental layout: water percentage, band geometry, curvature/jitter, plate-driven vs preset modes
  * @property {Coastlines} [coastlines] - Coast ruggedization: bay/fjord probabilities, active vs passive margin effects
@@ -445,6 +446,14 @@
  * @property {Object.<string, number>} [biomes] - Biome mixture biases where values represent weights or fractions for biome tendencies. Values are unitless weights or ratios (0..1 typical). Keys are biome names as consumed by the layer.
  * @property {Object.<string, number>} [features] - Feature biases where numeric values represent probabilities (ratios 0..1) or multipliers (scalars). Example keys (not exhaustive): reefBias (scalar), floodplainBias (scalar), forestBias (scalar).
  * @property {Object.<string, number>} [edge] - Edge-shaping hints where numeric values are probabilities (ratios 0..1) or multipliers (scalars). Example keys (not exhaustive): cliffsChance (ratio), fjordChance (ratio), bayCarveMultiplier (scalar), shelfReefMultiplier (scalar), mountainRimChance (ratio), forestRimChance (ratio), hillRimChance (ratio), cliffChance (ratio), escarpmentChance (ratio).
+ */
+
+/**
+ * Aggregated climate configuration grouping baseline, refinement, and macro swatch knobs.
+ * @typedef {Object} Climate
+ * @property {ClimateBaseline} [baseline]
+ * @property {ClimateRefine} [refine]
+ * @property {Swatches} [swatches]
  */
 
 /**
