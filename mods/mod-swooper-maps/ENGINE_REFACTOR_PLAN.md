@@ -60,7 +60,7 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 
 - Archive `mods/mod-swooper-maps/PLATE_GENERATION_REFACTOR.md` once the new `foundation` block ships; its open items migrate into this plan.
 - Replace the `WorldModel` typedef in `bootstrap/map_config.types.js` with `FoundationConfig`/`FoundationPolicy` types and update downstream imports (`swooper-desert-mountains.js`, tests) to read from `foundation`.
-- Collapse the `worldModel` section in `bootstrap/defaults/base.js` and the `WORLDMODEL_*` exports in `bootstrap/tunables.js`; they become thin wrappers that proxy the new `FOUNDATION` helpers.
+- Collapse the `worldModel` section in `bootstrap/defaults/base.js` and the `WORLDMODEL_*` exports in `bootstrap/tunables.js`; they become thin wrappers that proxy the new `FOUNDATION` helpers. **(Done)**
 - Update diagnostics in `bootstrap/dev.js` to emit `[Foundation]` messages and remove plate-specific ASCII toggles once the consolidated logging switches take over.
 
 ## 4. Phase Roadmap

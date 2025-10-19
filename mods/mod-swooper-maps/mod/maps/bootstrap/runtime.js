@@ -13,7 +13,7 @@
  *
  *   setConfig({
  *     landmass: { /* ... *\/ },
- *     worldModel: { /* ... *\/ },
+ *     foundation: { /* ... *\/ },
  *     /* other groups ... *\/
  *   });
  *

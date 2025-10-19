@@ -17,7 +17,7 @@
  *  - Climate tuning (baseline and refinement) is configured via map_config and consumed in the climate layers; this module only tags, while consumers preserve clamps.
  */
 import { StoryTags } from "./tags.js";
-import { STORY_TUNABLES, STORY_ENABLE_SWATCHES, STORY_ENABLE_PALEO, MARGINS_CFG, MOISTURE_ADJUSTMENTS, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
+import { STORY_TUNABLES, STORY_ENABLE_SWATCHES, STORY_ENABLE_PALEO, MARGINS_CFG, MOISTURE_ADJUSTMENTS, FOUNDATION_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 import { writeClimateField, syncClimateField, ctxRandom } from "../core/types.js";
 import { WorldModel } from "../world/model.js";
@@ -254,7 +254,7 @@ export function storyTagRiftValleys(ctx) {
                 // Helper: directionality bias toward plateAxisDeg (cohesion × riftsFollowPlates)
                 function stepDirBias(tx, ty) {
                     try {
-                        const DIR = WORLDMODEL_DIRECTIONALITY || {};
+                        const DIR = FOUNDATION_DIRECTIONALITY || {};
                         const coh = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
                         const follow = Math.max(0, Math.min(1, DIR?.interplay?.riftsFollowPlates ?? 0)) * coh;
                         if (follow <= 0)

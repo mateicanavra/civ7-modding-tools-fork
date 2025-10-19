@@ -252,16 +252,6 @@ const FOUNDATION_DEFAULT = Object.freeze({
     diagnostics: FOUNDATION_DIAGNOSTICS_DEFAULT,
 });
 
-const WORLD_MODEL_DEFAULT = Object.freeze({
-    enabled: true,
-    plates: FOUNDATION_PLATES_DEFAULT,
-    wind: FOUNDATION_WIND_DEFAULT,
-    currents: FOUNDATION_CURRENTS_DEFAULT,
-    pressure: FOUNDATION_MANTLE_DEFAULT,
-    directionality: FOUNDATION_DIRECTIONALITY_DEFAULT,
-    policy: FOUNDATION_POLICY_DEFAULT,
-});
-
 export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig} */ Object.freeze({
     // --- Master Feature Toggles ---
     // Enable or disable major Climate Story systems. Set to false to skip a layer entirely.
@@ -663,8 +653,6 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
             }),
         }),
     }),
-    // --- World Model (legacy shim; prefer foundation.*) ---
-    worldModel: WORLD_MODEL_DEFAULT,
     // --- Landmass (base land/ocean and shaping) ---
     landmass: LANDMASS_DEFAULT,
     // --- Coastlines (rugged coasts; lane-safe) ---

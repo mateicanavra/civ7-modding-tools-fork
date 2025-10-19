@@ -5,7 +5,7 @@
  */
 
 import * as globals from "/base-standard/maps/map-globals.js";
-import { WORLDMODEL_OCEAN_SEPARATION } from "../bootstrap/tunables.js";
+import { FOUNDATION_OCEAN_SEPARATION } from "../bootstrap/tunables.js";
 import { WorldModel } from "../world/model.js";
 import { writeHeightfield } from "../core/types.js";
 
@@ -118,7 +118,7 @@ export function applyPlateAwareOceanSeparation(params) {
         ? params.adapter
         : null;
     const worldModel = params?.worldModel ?? WorldModel;
-    const policy = params?.policy || worldModel?.policy?.oceanSeparation || WORLDMODEL_OCEAN_SEPARATION;
+    const policy = params?.policy || worldModel?.policy?.oceanSeparation || FOUNDATION_OCEAN_SEPARATION;
     if (!policy || !policy.enabled || !worldModel || typeof worldModel.isEnabled !== "function" || !worldModel.isEnabled()) {
         return {
             windows: windows.map((win, idx) => normalizeWindow(win, idx, width, height)),

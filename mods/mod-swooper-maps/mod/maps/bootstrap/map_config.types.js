@@ -21,7 +21,7 @@
 /**
  * Master configuration object controlling all map generation layers.
  *
- * Generation pipeline: WorldModel (plates/winds) → Landmass → Climate → Biomes → Features
+ * Generation pipeline: Foundation (plates/winds) → Landmass → Climate → Biomes → Features
  *
  * @typedef {Object} MapConfig
  * @property {Toggles} toggles - Enable/disable major systems (hotspots, rifts, orogeny, swatches, corridors)
@@ -40,7 +40,6 @@
  * @property {Placement} [placement] - Final placement: natural wonder counts, floodplain river lengths
  * @property {DevLogging} [dev] - Debug logging: timing stats, story tag counts, rainfall distribution histograms
  * @property {FoundationConfig} [foundation] - Unified world foundation configuration (seed, plates, dynamics, surface, policy)
- * @property {WorldModel} [worldModel] - Earth-like physical simulation: tectonic plates, prevailing winds, ocean currents, mantle convection
  * @property {StageManifest} [stageManifest] - Pipeline manifest describing stage order, enablement, and inter-stage dependencies
  * @property {StageConfigProviders} [stageConfig] - Metadata indicating which stages a preset or entry supplies configuration for
  */
@@ -622,96 +621,117 @@
  */
 
 /**
- * Optional world model (comprehensive Earth-like physical simulation).
- *
- * Simulates tectonic plates, atmospheric circulation (winds), ocean currents, and mantle convection.
- * When enabled, the map generator uses plate boundaries to derive continents, mountain ranges,
- * rifts, and realistic climate patterns. More computationally expensive but creates coherent,
- * geologically plausible worlds.
- *
- * Recommended for players who want Earth-realism. Can be disabled for faster/simpler generation.
- *
- * @typedef {Object} WorldModel
- * @property {boolean} [enabled] - Master switch: true = full simulation, false = simpler preset-based generation
- * @property {Object} [plates] - Tectonic plate generation using Voronoi diagrams; drives continental layout and boundaries
- * @property {number} [plates.count] - Number of tectonic plates; 8=Pangaea, 15-20=Earth-like, 25+=fragmented (typically 12-18)
- * @property {ReadonlyArray<number>} [plates.axisAngles] - **Deprecated** (ignored by the current plate solver); kept for legacy configs only
- * @property {number} [plates.convergenceMix] - Ratio of convergent (colliding/mountains) vs divergent (rifting) boundaries (0..1, typically 0.4-0.6)
- * @property {number} [plates.relaxationSteps] - Lloyd relaxation iterations: smooths plate shapes by moving seeds toward region centers; 0=random, 5=balanced, 10+=very uniform (typically 4-7)
- * @property {number} [plates.seedJitter] - Random offset applied to initial plate seeds in tiles; adds irregularity (typically 0-8)
- * @property {number} [plates.interiorSmooth] - Smoothing steps for shield interiors (steps; iterations)
- * @property {number} [plates.plateRotationMultiple] - Multiplier for plate rotation influence when evaluating boundaries
- * @property {"engine"|"fixed"} [plates.seedMode] - Use the Civ engine seed ("engine") or force a fixed seed ("fixed")
- * @property {number} [plates.fixedSeed] - Seed value to use when seedMode === "fixed"
- * @property {number} [plates.seedOffset] - Integer added to the chosen base seed (engine or fixed) before plate
- * generation. Combined with seedMode/fixedSeed this gives deterministic reruns; leave undefined to use Civ's RNG verbatim.
- * @property {Object} [wind] - Atmospheric circulation (prevailing winds and jet streams for rain shadows)
- * @property {number} [wind.jetStreaks] - Number of high-altitude jet stream bands; affects storm tracks (typically 2-4)
- * @property {number} [wind.jetStrength] - Jet stream intensity multiplier; stronger = more pronounced effects (typically 0.8-1.5)
- * @property {number} [wind.variance] - Wind direction variability; higher = less uniform patterns (0..1, typically 0.2-0.5)
- * @property {number} [wind.coriolisZonalScale] - Coriolis effect strength on east-west winds (typically 0.8-1.2)
- * @property {Object} [currents] - Ocean circulation (gyres and boundary currents affecting coastal climate)
- * @property {number} [currents.basinGyreCountMax] - Maximum ocean gyre systems like Gulf Stream/Kuroshio (typically 3-6)
- * @property {number} [currents.westernBoundaryBias] - Intensity of western boundary currents (unitless multiplier; higher = stronger Gulf Stream analogs, typically 1.0-2.0)
- * @property {number} [currents.currentStrength] - Overall ocean current strength multiplier (typically 0.8-1.5)
- * @property {Object} [pressure] - Mantle convection pressure (subsurface hotspots affecting terrain relief)
- * @property {number} [pressure.bumps] - Number of mantle plume hotspots creating localized uplift (typically 3-8)
- * @property {number} [pressure.amplitude] - Uplift strength from mantle pressure; higher = more relief variation (typically 0.5-1.5)
- * @property {number} [pressure.scale] - Spatial scale of pressure effects; higher = broader influence (typically 0.8-1.5)
- * @property {Object} [directionality] - System coherence (how aligned plates/winds/currents are with each other)
- * @property {number} [directionality.cohesion] - Global alignment strength; 0=independent systems, 1=fully aligned (0..1, typically 0.3-0.7)
- * @property {Object} [directionality.primaryAxes] - Preferred directions for each system in compass degrees
- * @property {number} [directionality.primaryAxes.plateAxisDeg] - Primary plate movement direction (0°=east, 90°=south, 180°=west, 270°=north)
- * @property {number} [directionality.primaryAxes.windBiasDeg] - Wind direction bias offset from zonal (0-360 degrees)
- * @property {number} [directionality.primaryAxes.currentBiasDeg] - Ocean gyre rotation bias (0-360 degrees)
- * @property {Object} [directionality.interplay] - Cross-system coupling strength (how systems influence each other)
- * @property {number} [directionality.interplay.windsFollowPlates] - Jet streams align with plate movement (0..1, typically 0.3-0.6)
- * @property {number} [directionality.interplay.currentsFollowWinds] - Ocean currents follow wind patterns (0..1, typically 0.4-0.7)
- * @property {number} [directionality.interplay.riftsFollowPlates] - Rift valleys align with divergent plate boundaries (0..1, typically 0.5-0.9)
- * @property {number} [directionality.interplay.orogenyOpposesRifts] - Mountain ranges oppose rift directions (0..1, typically 0.4-0.7)
- * @property {Object} [directionality.hemispheres] - Hemisphere-specific behavior (Coriolis effect and seasonal patterns)
- * @property {boolean} [directionality.hemispheres.southernFlip] - Reverse wind/current rotation in southern hemisphere (realistic Coriolis)
- * @property {number} [directionality.hemispheres.equatorBandDeg] - Latitude band around equator with symmetric behavior (typically 10-20 degrees)
- * @property {number} [directionality.hemispheres.monsoonBias] - Seasonal wind variation strength (0..1, typically 0.0-0.3 for conservative)
- * @property {Object} [directionality.variability] - Randomness injection to prevent overly uniform patterns
- * @property {number} [directionality.variability.angleJitterDeg] - Random angle deviation from preferred axes (degrees, typically 15-45)
- * @property {number} [directionality.variability.magnitudeVariance] - Strength variation in vectors (0..1, typically 0.2-0.4)
- * @property {number} [directionality.variability.seedOffset] - Random seed offset for directionality calculations (integer)
- * @property {Object} [policy] - Effect strength modifiers (how much WorldModel systems affect terrain)
- * @property {number} [policy.windInfluence] - Wind impact on rain shadow calculations (multiplier, typically 0.5-1.5)
- * @property {number} [policy.currentHumidityBias] - Ocean current humidity effects on coasts (multiplier, typically 0.5-1.5)
- * @property {number} [policy.boundaryFjordBias] - Fjord frequency increase at convergent boundaries (multiplier, typically 0.8-2.0)
- * @property {number} [policy.shelfReefBias] - Coral reef density on passive shelves (multiplier, typically 0.8-1.5)
- * @property {Object} [policy.oceanSeparation] - Tectonic ocean widening (push continents apart at plate boundaries)
- * @property {boolean} [policy.oceanSeparation.enabled] - Enable plate-driven ocean expansion between continents
- * @property {ReadonlyArray<ReadonlyArray<number>>} [policy.oceanSeparation.bandPairs] - Continent pairs to separate; 0-based indices, e.g., [[0,1],[1,2]] separates first-second and second-third
- * @property {number} [policy.oceanSeparation.baseSeparationTiles] - Base ocean widening in tiles; positive = wider oceans (typically 2-8 tiles)
- * @property {number} [policy.oceanSeparation.boundaryClosenessMultiplier] - Extra separation near active plate boundaries (multiplier 0..2, typically 0.5-1.5)
- * @property {number} [policy.oceanSeparation.maxPerRowDelta] - Maximum separation variation per latitude row; prevents distortion (typically 1-3 tiles)
- * @property {boolean} [policy.oceanSeparation.respectSeaLanes] - Preserve strategic corridors during ocean widening
- * @property {number} [policy.oceanSeparation.minChannelWidth] - Minimum ocean channel width to maintain for naval passage (typically 4-8 tiles)
- * @property {Object} [policy.oceanSeparation.edgeWest] - Optional outer-edge ocean widening/narrowing (west map edge)
- * @property {boolean} [policy.oceanSeparation.edgeWest.enabled] - Enable west-edge override
- * @property {number} [policy.oceanSeparation.edgeWest.baseTiles] - Base lateral tiles at west edge (tiles)
- * @property {number} [policy.oceanSeparation.edgeWest.boundaryClosenessMultiplier] - Boundary-closeness multiplier (ratio; unitless)
- * @property {number} [policy.oceanSeparation.edgeWest.maxPerRowDelta] - Max per-row delta (tiles)
- * @property {Object} [policy.oceanSeparation.edgeEast] - Optional outer-edge ocean widening/narrowing (east map edge)
- * @property {boolean} [policy.oceanSeparation.edgeEast.enabled] - Enable east-edge override
- * @property {number} [policy.oceanSeparation.edgeEast.baseTiles] - Base lateral tiles at east edge (tiles)
- * @property {number} [policy.oceanSeparation.edgeEast.boundaryClosenessMultiplier] - Boundary-closeness multiplier (ratio; unitless)
- * @property {number} [policy.oceanSeparation.edgeEast.maxPerRowDelta] - Max per-row delta (tiles)
- */
-
-/**
  * Unified world foundation configuration replacing the legacy `worldModel` + `landmass` split.
  *
  * @typedef {Object} FoundationConfig
  * @property {FoundationSeedConfig} [seed] - Deterministic seed controls shared by plates/dynamics.
- * @property {WorldModel['plates']} [plates] - Voronoi plate generation controls.
+ * @property {FoundationPlatesConfig} [plates] - Voronoi plate generation controls.
  * @property {FoundationDynamicsConfig} [dynamics] - Atmospheric/oceanic drivers and mantle pressure.
  * @property {FoundationSurfaceConfig} [surface] - Landmass targets and ocean separation policy.
- * @property {WorldModel['policy']} [policy] - Consumer-facing policy multipliers (legacy mirror).
+ * @property {FoundationPolicyConfig} [policy] - Consumer-facing policy multipliers.
  * @property {FoundationDiagnosticsConfig} [diagnostics] - Logging + replay toggles for foundations.
+ */
+
+/**
+ * Voronoi plate layout controls for the world foundation.
+ *
+ * @typedef {Object} FoundationPlatesConfig
+ * @property {number} [count] - Number of tectonic plates; 8=Pangaea, 15-20=Earth-like, 25+=fragmented (typically 12-18).
+ * @property {ReadonlyArray<number>} [axisAngles] - **Deprecated** legacy axis hints retained for compatibility.
+ * @property {number} [convergenceMix] - Ratio of convergent vs divergent boundaries (0..1, typically 0.4-0.6).
+ * @property {number} [relaxationSteps] - Lloyd relaxation iterations to smooth plate shapes (0=random, 5=balanced, 10+=uniform).
+ * @property {number} [seedJitter] - Random offset applied to initial plate seeds in tiles (0-8 typical).
+ * @property {number} [interiorSmooth] - Shield interior smoothing steps (iterations).
+ * @property {number} [plateRotationMultiple] - Multiplier for plate rotation weighting along boundaries.
+ * @property {"engine"|"fixed"} [seedMode] - Use Civ engine seed ("engine") or a fixed seed ("fixed").
+ * @property {number} [fixedSeed] - Explicit plate seed used when `seedMode === "fixed"`.
+ * @property {number} [seedOffset] - Integer added to the base seed before plate generation for deterministic reruns.
+ */
+
+/**
+ * Prevailing wind configuration for rainfall/orographic modelling.
+ *
+ * @typedef {Object} FoundationWindConfig
+ * @property {number} [jetStreaks] - Number of jet stream bands influencing storm tracks (typically 2-5).
+ * @property {number} [jetStrength] - Jet stream intensity multiplier (typically 0.8-2.0).
+ * @property {number} [variance] - Directional variance for winds (0..1, typically 0.2-0.6).
+ * @property {number} [coriolisZonalScale] - Coriolis effect strength on zonal (east/west) flow (typically 0.8-1.5).
+ */
+
+/**
+ * Ocean circulation configuration for humidity and coastal climate effects.
+ *
+ * @typedef {Object} FoundationCurrentsConfig
+ * @property {number} [basinGyreCountMax] - Maximum gyre systems to model (typically 3-6).
+ * @property {number} [westernBoundaryBias] - Strength of western boundary currents (unitless multiplier, typically 1.0-2.0).
+ * @property {number} [currentStrength] - Overall ocean current strength multiplier (typically 0.8-1.5).
+ */
+
+/**
+ * Mantle convection hotspot configuration used for uplift potential.
+ *
+ * @typedef {Object} FoundationMantleConfig
+ * @property {number} [bumps] - Number of mantle plume hotspots (typically 3-8).
+ * @property {number} [amplitude] - Uplift strength from mantle pressure (typically 0.5-1.5).
+ * @property {number} [scale] - Spatial scale of pressure effects (typically 0.8-1.5).
+ */
+
+/**
+ * Alignment and interplay controls for plates, winds, and currents.
+ *
+ * @typedef {Object} FoundationDirectionalityConfig
+ * @property {number} [cohesion] - Global alignment strength (0..1, typically 0.3-0.7).
+ * @property {Object} [primaryAxes] - Preferred axes for each subsystem (degrees, 0°=east).
+ * @property {number} [primaryAxes.plateAxisDeg] - Primary plate movement direction.
+ * @property {number} [primaryAxes.windBiasDeg] - Wind direction bias offset from zonal flow.
+ * @property {number} [primaryAxes.currentBiasDeg] - Ocean gyre rotation bias.
+ * @property {Object} [interplay] - Cross-system coupling strengths controlling mutual influence.
+ * @property {number} [interplay.windsFollowPlates] - Jet streams align with plate motion (0..1).
+ * @property {number} [interplay.currentsFollowWinds] - Ocean currents align with winds (0..1).
+ * @property {number} [interplay.riftsFollowPlates] - Rift valleys align with divergent plate boundaries (0..1).
+ * @property {number} [interplay.orogenyOpposesRifts] - Mountain ranges oppose rift direction (0..1).
+ * @property {Object} [hemispheres] - Hemisphere-specific behaviour.
+ * @property {boolean} [hemispheres.southernFlip] - Flip directionality in the southern hemisphere (Coriolis realism).
+ * @property {number} [hemispheres.equatorBandDeg] - Symmetric latitude band around the equator (degrees).
+ * @property {number} [hemispheres.monsoonBias] - Seasonal wind variation strength (0..1).
+ * @property {Object} [variability] - Randomness injection to avoid uniform patterns.
+ * @property {number} [variability.angleJitterDeg] - Random deviation from preferred axes (degrees).
+ * @property {number} [variability.magnitudeVariance] - Strength variation multiplier (0..1).
+ * @property {number} [variability.seedOffset] - Seed offset for reproducible variability.
+ */
+
+/**
+ * Policy multipliers exposed to downstream stages (story overlays, coastlines, etc.).
+ *
+ * @typedef {Object} FoundationPolicyConfig
+ * @property {number} [windInfluence] - Wind impact on rain shadow calculations (multiplier, typically 0.5-1.5).
+ * @property {number} [currentHumidityBias] - Coastal humidity bias from currents (multiplier, typically 0.5-1.5).
+ * @property {number} [boundaryFjordBias] - Fjord frequency multiplier near convergent boundaries (typically 0.8-2.0).
+ * @property {number} [shelfReefBias] - Coral reef density multiplier on passive shelves (typically 0.8-1.5).
+ * @property {FoundationOceanSeparationConfig} [oceanSeparation] - Plate-aware ocean separation policy.
+ */
+
+/**
+ * Plate-aware ocean separation policy controlling continental drift spacing.
+ *
+ * @typedef {Object} FoundationOceanSeparationConfig
+ * @property {boolean} [enabled] - Enable plate-driven separation between continent bands.
+ * @property {ReadonlyArray<ReadonlyArray<number>>} [bandPairs] - Pairs of continent indices to separate (e.g., [[0,1],[1,2]]).
+ * @property {number} [baseSeparationTiles] - Baseline widening between continents in tiles (typically 2-8).
+ * @property {number} [boundaryClosenessMultiplier] - Extra separation near active boundaries (multiplier 0..2).
+ * @property {number} [maxPerRowDelta] - Maximum per-latitude variation in separation (tiles, typically 1-3).
+ * @property {boolean} [respectSeaLanes] - Preserve strategic corridors when widening oceans.
+ * @property {number} [minChannelWidth] - Minimum channel width to maintain for navigation (tiles, typically 4-8).
+ * @property {Object} [edgeWest] - Optional overrides for the western map edge.
+ * @property {boolean} [edgeWest.enabled] - Enable west-edge override.
+ * @property {number} [edgeWest.baseTiles] - Baseline tiles at the west edge.
+ * @property {number} [edgeWest.boundaryClosenessMultiplier] - Boundary multiplier at the west edge.
+ * @property {number} [edgeWest.maxPerRowDelta] - Maximum per-row delta at the west edge.
+ * @property {Object} [edgeEast] - Optional overrides for the eastern map edge.
+ * @property {boolean} [edgeEast.enabled] - Enable east-edge override.
+ * @property {number} [edgeEast.baseTiles] - Baseline tiles at the east edge.
+ * @property {number} [edgeEast.boundaryClosenessMultiplier] - Boundary multiplier at the east edge.
+ * @property {number} [edgeEast.maxPerRowDelta] - Maximum per-row delta at the east edge.
  */
 
 /**
@@ -729,10 +749,10 @@
  * Atmospheric, oceanic, and mantle drivers for the foundation tensors.
  *
  * @typedef {Object} FoundationDynamicsConfig
- * @property {WorldModel['wind']} [wind] - Prevailing wind configuration.
- * @property {WorldModel['currents']} [currents] - Ocean circulation settings.
- * @property {WorldModel['pressure']} [mantle] - Mantle pressure hotspot configuration.
- * @property {WorldModel['directionality']} [directionality] - Cross-system alignment controls.
+ * @property {FoundationWindConfig} [wind] - Prevailing wind configuration.
+ * @property {FoundationCurrentsConfig} [currents] - Ocean circulation settings.
+ * @property {FoundationMantleConfig} [mantle] - Mantle pressure hotspot configuration.
+ * @property {FoundationDirectionalityConfig} [directionality] - Cross-system alignment controls.
  */
 
 /**
@@ -740,7 +760,7 @@
  *
  * @typedef {Object} FoundationSurfaceConfig
  * @property {Landmass} [landmass] - Landmass targets and geometry preferences.
- * @property {WorldModel['policy']['oceanSeparation']} [oceanSeparation] - Plate-aware ocean separation policy.
+ * @property {FoundationOceanSeparationConfig} [oceanSeparation] - Plate-aware ocean separation policy.
  * @property {Object<string, any>} [overrides] - Additional surface overrides keyed by stage name.
  */
 

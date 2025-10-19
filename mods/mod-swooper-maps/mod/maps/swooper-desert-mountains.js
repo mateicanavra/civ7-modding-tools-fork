@@ -13,13 +13,13 @@
  *   reducing boundary bonuses, raising interior penalties, and enabling a
  *   light ocean-separation pass. If convergent belts begin clumping again,
  *   revisit `mountains.*` weights or tweak the plate seed/rotation knobs
- *   under `worldModel`.
+ *   under the `foundation` config.
  */
 import { bootstrap } from "./bootstrap/entry.js";
 
 /** @typedef {import("./bootstrap/map_config.types.js").MapConfig} MapConfig */
 /** @typedef {import("./bootstrap/map_config.types.js").ClimateRefine} ClimateRefine */
-/** @typedef {import("./bootstrap/map_config.types.js").WorldModel} WorldModelCfg */
+/** @typedef {import("./bootstrap/map_config.types.js").FoundationConfig} FoundationCfg */
 /** @typedef {import("./bootstrap/map_config.types.js").StageConfigProviders} StageConfigProviders */
 
 bootstrap({
@@ -271,7 +271,7 @@ bootstrap({
             taigaExtraChance: 2,
             shelfReefMultiplier: 0.85,
         },
-        worldModel: /** @type {Partial<WorldModelCfg>} */ ({
+        foundation: /** @type {Partial<FoundationCfg>} */ ({
             plates: {
                 count: 13,
                 convergenceMix: 0.55,
@@ -281,44 +281,46 @@ bootstrap({
                 plateRotationMultiple: 2,
                 // seedOffset: 2203, // tweak for alternate plate tessellations
             },
-            wind: {
-                jetStreaks: 5,
-                jetStrength: 2.0,
-                variance: 0.4,
-                coriolisZonalScale: 2.1,
-            },
-            currents: {
-                basinGyreCountMax: 4,
-                westernBoundaryBias: 1.6,
-                currentStrength: 1.4,
-            },
-            pressure: {
-                bumps: 10,
-                amplitude: 6,
-                scale: 1.8,
-            },
-            directionality: {
-                cohesion: 0.48,
-                primaryAxes: {
-                    plateAxisDeg: 180,
-                    windBiasDeg: 24,
-                    currentBiasDeg: 195,
+            dynamics: {
+                wind: {
+                    jetStreaks: 5,
+                    jetStrength: 2.0,
+                    variance: 0.4,
+                    coriolisZonalScale: 2.1,
                 },
-                interplay: {
-                    windsFollowPlates: 0.55,
-                    currentsFollowWinds: 0.62,
-                    riftsFollowPlates: 0.78,
-                    orogenyOpposesRifts: 0.62,
+                currents: {
+                    basinGyreCountMax: 4,
+                    westernBoundaryBias: 1.6,
+                    currentStrength: 1.4,
                 },
-                hemispheres: {
-                    southernFlip: true,
-                    equatorBandDeg: 14,
-                    monsoonBias: 0.24,
+                mantle: {
+                    bumps: 10,
+                    amplitude: 6,
+                    scale: 1.8,
                 },
-                variability: {
-                    angleJitterDeg: 22,
-                    magnitudeVariance: 0.45,
-                    // seedOffset: 9053,
+                directionality: {
+                    cohesion: 0.48,
+                    primaryAxes: {
+                        plateAxisDeg: 180,
+                        windBiasDeg: 24,
+                        currentBiasDeg: 195,
+                    },
+                    interplay: {
+                        windsFollowPlates: 0.55,
+                        currentsFollowWinds: 0.62,
+                        riftsFollowPlates: 0.78,
+                        orogenyOpposesRifts: 0.62,
+                    },
+                    hemispheres: {
+                        southernFlip: true,
+                        equatorBandDeg: 14,
+                        monsoonBias: 0.24,
+                    },
+                    variability: {
+                        angleJitterDeg: 22,
+                        magnitudeVariance: 0.45,
+                        // seedOffset: 9053,
+                    },
                 },
             },
             policy: {

@@ -12,7 +12,7 @@
  *   import {
  *     rebind,
  *     LANDMASS_CFG,
- *     WORLDMODEL_DIRECTIONALITY,
+ *     FOUNDATION_DIRECTIONALITY,
  *     // ...
  *   } from "./config/tunables.js";
  *
@@ -44,7 +44,6 @@ import {
     PLACEMENT_CFG as __PLACEMENT__,
     DEV_LOG_CFG as __DEV__,
     FOUNDATION_CFG as __FOUNDATION__,
-    WORLDMODEL_CFG as __WM__,
     STAGE_MANIFEST as __STAGE_MANIFEST__,
     // foundation helpers
     FOUNDATION_SEED as __FOUNDATION_SEED__,
@@ -55,14 +54,6 @@ import {
     FOUNDATION_DIAGNOSTICS as __FOUNDATION_DIAGNOSTICS__,
     FOUNDATION_DIRECTIONALITY as __FOUNDATION_DIR__,
     FOUNDATION_OCEAN_SEPARATION as __FOUNDATION_OSEPARATION__,
-    // nested WM helpers
-    WORLDMODEL_PLATES as __WM_PLATES__,
-    WORLDMODEL_WIND as __WM_WIND__,
-    WORLDMODEL_CURRENTS as __WM_CURRENTS__,
-    WORLDMODEL_PRESSURE as __WM_PRESSURE__,
-    WORLDMODEL_POLICY as __WM_POLICY__,
-    WORLDMODEL_DIRECTIONALITY as __WM_DIR__,
-    WORLDMODEL_OCEAN_SEPARATION as __WM_OSEPARATION__,
 } from "./resolved.js";
 /**
  * Type definitions for configuration objects (available at runtime).
@@ -82,10 +73,13 @@ import {
  * @typedef {import('./map_config.types.js').CorridorKinds} CorridorKinds
  * @typedef {import('./map_config.types.js').Placement} Placement
  * @typedef {import('./map_config.types.js').DevLogging} DevLogging
- * @typedef {import('./map_config.types.js').WorldModel} WorldModel
  * @typedef {import('./map_config.types.js').FoundationConfig} FoundationConfig
  * @typedef {import('./map_config.types.js').FoundationSeedConfig} FoundationSeedConfig
+ * @typedef {import('./map_config.types.js').FoundationPlatesConfig} FoundationPlatesConfig
  * @typedef {import('./map_config.types.js').FoundationDynamicsConfig} FoundationDynamicsConfig
+ * @typedef {import('./map_config.types.js').FoundationDirectionalityConfig} FoundationDirectionalityConfig
+ * @typedef {import('./map_config.types.js').FoundationPolicyConfig} FoundationPolicyConfig
+ * @typedef {import('./map_config.types.js').FoundationOceanSeparationConfig} FoundationOceanSeparationConfig
  * @typedef {import('./map_config.types.js').FoundationSurfaceConfig} FoundationSurfaceConfig
  * @typedef {import('./map_config.types.js').FoundationDiagnosticsConfig} FoundationDiagnosticsConfig
  * @typedef {import('./map_config.types.js').StageManifest} StageManifest
@@ -189,23 +183,23 @@ export let FOUNDATION = Object.freeze({
     dynamics: Object.freeze({}),
     surface: Object.freeze({}),
     policy: Object.freeze({}),
-        diagnostics: Object.freeze({}),
-    });
+    diagnostics: Object.freeze({}),
+});
 /** @type {Readonly<FoundationSeedConfig>} */
 export let FOUNDATION_SEED = Object.freeze({});
-/** @type {Readonly<WorldModel['plates']>} */
+/** @type {Readonly<FoundationPlatesConfig>} */
 export let FOUNDATION_PLATES = Object.freeze({});
 /** @type {Readonly<FoundationDynamicsConfig>} */
 export let FOUNDATION_DYNAMICS = Object.freeze({});
 /** @type {Readonly<FoundationSurfaceConfig>} */
 export let FOUNDATION_SURFACE = Object.freeze({});
-/** @type {Readonly<WorldModel['policy']>} */
+/** @type {Readonly<FoundationPolicyConfig>} */
 export let FOUNDATION_POLICY = Object.freeze({});
 /** @type {Readonly<FoundationDiagnosticsConfig>} */
 export let FOUNDATION_DIAGNOSTICS = Object.freeze({});
-/** @type {Readonly<WorldModel['directionality']>} */
+/** @type {Readonly<FoundationDirectionalityConfig>} */
 export let FOUNDATION_DIRECTIONALITY = Object.freeze({});
-/** @type {Readonly<NonNullable<WorldModel['policy']>['oceanSeparation']>} */
+/** @type {Readonly<FoundationOceanSeparationConfig>} */
 export let FOUNDATION_OCEAN_SEPARATION = Object.freeze({});
 /** @type {Readonly<MountainsCfg>} */
 export let MOUNTAINS_CFG = Object.freeze({});
@@ -221,28 +215,11 @@ export let CORRIDORS_CFG = Object.freeze({});
 export let PLACEMENT_CFG = Object.freeze({});
 /** @type {Readonly<DevLogging>} */
 export let DEV_LOG_CFG = Object.freeze({});
-/** @type {Readonly<WorldModel>} */
-export let WORLDMODEL_CFG = Object.freeze({});
 // Corridor sub-groups
 /** @type {Readonly<CorridorPolicy>} */
 export let CORRIDOR_POLICY = Object.freeze({});
 /** @type {Readonly<CorridorKinds>} */
 export let CORRIDOR_KINDS = Object.freeze({});
-// WorldModel nested groups
-/** @type {Readonly<WorldModel['plates']>} */
-export let WORLDMODEL_PLATES = Object.freeze({});
-/** @type {Readonly<WorldModel['wind']>} */
-export let WORLDMODEL_WIND = Object.freeze({});
-/** @type {Readonly<WorldModel['currents']>} */
-export let WORLDMODEL_CURRENTS = Object.freeze({});
-/** @type {Readonly<WorldModel['pressure']>} */
-export let WORLDMODEL_PRESSURE = Object.freeze({});
-/** @type {Readonly<WorldModel['policy']>} */
-export let WORLDMODEL_POLICY = Object.freeze({});
-/** @type {Readonly<WorldModel['directionality']>} */
-export let WORLDMODEL_DIRECTIONALITY = Object.freeze({});
-/** @type {Readonly<NonNullable<WorldModel['policy']>['oceanSeparation']>} */
-export let WORLDMODEL_OCEAN_SEPARATION = Object.freeze({});
 /* -----------------------------------------------------------------------------
  * Namespaced views (lightweight import helpers)
  * -------------------------------------------------------------------------- */
@@ -297,35 +274,6 @@ export const FOUNDATION_TUNABLES = Object.freeze({
     },
     get oceanSeparation() {
         return FOUNDATION_OCEAN_SEPARATION;
-    },
-});
-/**
- * Legacy world model accessor bundle (mirrors foundation data when available).
- */
-export const WORLDMODEL_TUNABLES = Object.freeze({
-    get config() {
-        return WORLDMODEL_CFG;
-    },
-    get plates() {
-        return WORLDMODEL_PLATES;
-    },
-    get wind() {
-        return WORLDMODEL_WIND;
-    },
-    get currents() {
-        return WORLDMODEL_CURRENTS;
-    },
-    get pressure() {
-        return WORLDMODEL_PRESSURE;
-    },
-    get policy() {
-        return WORLDMODEL_POLICY;
-    },
-    get directionality() {
-        return WORLDMODEL_DIRECTIONALITY;
-    },
-    get oceanSeparation() {
-        return WORLDMODEL_OCEAN_SEPARATION;
     },
 });
 /* -----------------------------------------------------------------------------
@@ -396,9 +344,6 @@ export function rebind() {
     FOUNDATION_SEED = safeObj(__FOUNDATION_SEED__());
     FOUNDATION_PLATES = safeObj(__FOUNDATION_PLATES__());
     FOUNDATION_DYNAMICS = safeObj(__FOUNDATION_DYNAMICS__());
-    const foundationWind = safeObj(FOUNDATION_DYNAMICS.wind);
-    const foundationCurrents = safeObj(FOUNDATION_DYNAMICS.currents);
-    const foundationMantle = safeObj(FOUNDATION_DYNAMICS.mantle);
     const foundationDirResolved = safeObj(__FOUNDATION_DIR__());
     const foundationSurfaceRaw = safeObj(__FOUNDATION_SURFACE__());
     FOUNDATION_SURFACE = foundationSurfaceRaw;
@@ -428,45 +373,9 @@ export function rebind() {
         policy: FOUNDATION_POLICY,
         diagnostics: FOUNDATION_DIAGNOSTICS,
     });
-    // 6) Legacy worldModel snapshot (mirrors foundation; keep until consumers migrate)
-    WORLDMODEL_CFG = safeObj(__WM__());
     // Corridor sub-groups
     CORRIDOR_POLICY = safeObj(CORRIDORS_CFG.policy);
     CORRIDOR_KINDS = safeObj(CORRIDORS_CFG.kinds);
-    // WorldModel nested groups
-    WORLDMODEL_PLATES = safeObj(__WM_PLATES__());
-    WORLDMODEL_WIND = safeObj(__WM_WIND__());
-    WORLDMODEL_CURRENTS = safeObj(__WM_CURRENTS__());
-    WORLDMODEL_PRESSURE = safeObj(__WM_PRESSURE__());
-    WORLDMODEL_POLICY = safeObj(__WM_POLICY__());
-    WORLDMODEL_DIRECTIONALITY = safeObj(__WM_DIR__());
-    WORLDMODEL_OCEAN_SEPARATION = safeObj(__WM_OSEPARATION__());
-    const foundationHasData = Object.keys(FOUNDATION_CFG).length > 0;
-    if (!Object.keys(WORLDMODEL_CFG).length && foundationHasData) {
-        WORLDMODEL_CFG = Object.freeze({
-            enabled: true,
-            plates: FOUNDATION_PLATES,
-            wind: foundationWind,
-            currents: foundationCurrents,
-            pressure: foundationMantle,
-            directionality: FOUNDATION_DIRECTIONALITY,
-            policy: FOUNDATION_POLICY,
-        });
-    }
-    if (!Object.keys(WORLDMODEL_PLATES).length && foundationHasData)
-        WORLDMODEL_PLATES = FOUNDATION_PLATES;
-    if (!Object.keys(WORLDMODEL_WIND).length && foundationHasData)
-        WORLDMODEL_WIND = foundationWind;
-    if (!Object.keys(WORLDMODEL_CURRENTS).length && foundationHasData)
-        WORLDMODEL_CURRENTS = foundationCurrents;
-    if (!Object.keys(WORLDMODEL_PRESSURE).length && foundationHasData)
-        WORLDMODEL_PRESSURE = foundationMantle;
-    if (!Object.keys(WORLDMODEL_DIRECTIONALITY).length && foundationHasData)
-        WORLDMODEL_DIRECTIONALITY = FOUNDATION_DIRECTIONALITY;
-    if (!Object.keys(WORLDMODEL_POLICY).length && foundationHasData)
-        WORLDMODEL_POLICY = FOUNDATION_POLICY;
-    if (!Object.keys(WORLDMODEL_OCEAN_SEPARATION).length && foundationHasData)
-        WORLDMODEL_OCEAN_SEPARATION = FOUNDATION_OCEAN_SEPARATION;
     // 7) Climate primitives (drivers + shared adjustments)
     const baselineDrivers = Object.freeze({
         bands: safeObj(climateBaseline.bands),
@@ -647,9 +556,6 @@ export default {
     },
     get CORRIDORS() {
         return CORRIDORS_CFG;
-    },
-    get WORLD_MODEL() {
-        return WORLDMODEL_CFG;
     },
     get FOUNDATION() {
         return FOUNDATION;

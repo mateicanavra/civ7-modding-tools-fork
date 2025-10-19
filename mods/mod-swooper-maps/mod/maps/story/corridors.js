@@ -16,7 +16,7 @@
  */
 import { StoryTags } from "./tags.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
-import { STORY_ENABLE_CORRIDORS, CORRIDORS_CFG, WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
+import { STORY_ENABLE_CORRIDORS, CORRIDORS_CFG, FOUNDATION_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { devLogIf } from "../bootstrap/dev.js";
 
 const STYLE_PRIMITIVE_CACHE = new Map();
@@ -260,8 +260,8 @@ function tagSeaLanes() {
         };
     }
     // Build candidates with simple scores and spacing metadata
-    // Directionality bias setup (uses WorldModel directionality config; safe fallbacks)
-    const DIR = WORLDMODEL_DIRECTIONALITY || {};
+    // Directionality bias setup (uses foundation directionality config; safe fallbacks)
+    const DIR = FOUNDATION_DIRECTIONALITY || {};
     const COH = Math.max(0, Math.min(1, DIR.cohesion ?? 0));
     const plateAxisDeg = (DIR?.primaryAxes?.plateAxisDeg ?? 0) | 0;
     let windAxisDeg = (DIR?.primaryAxes?.windBiasDeg ?? 0) | 0;
@@ -643,7 +643,7 @@ function tagLandCorridorsFromRifts() {
                     // Directionality-influenced steering (cohesive macro alignment)
                     // Lanes here are row-oriented (east-west). Use global axes to nudge style.
                     try {
-                        const DIR = WORLDMODEL_DIRECTIONALITY || {};
+                        const DIR = FOUNDATION_DIRECTIONALITY || {};
                         const cohesion = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
                         if (cohesion > 0) {
                             const plateDeg = (DIR?.primaryAxes?.plateAxisDeg ?? 0) | 0;

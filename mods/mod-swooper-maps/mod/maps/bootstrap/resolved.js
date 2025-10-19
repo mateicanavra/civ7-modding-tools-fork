@@ -38,7 +38,6 @@
  * @typedef {import('./map_config.types.js').Corridors} Corridors
  * @typedef {import('./map_config.types.js').Placement} Placement
  * @typedef {import('./map_config.types.js').DevLogging} DevLogging
- * @typedef {import('./map_config.types.js').WorldModel} WorldModel
  * @typedef {import('./map_config.types.js').FoundationConfig} FoundationConfig
  * @typedef {import('./map_config.types.js').StageManifest} StageManifest
  * @typedef {import('./map_config.types.js').StageDescriptor} StageDescriptor
@@ -194,10 +193,9 @@ function normalizeStringArray(values) {
  *
  * @param {any} manifestInput
  * @param {AnyObject} togglesInput
- * @param {AnyObject} worldModelCfg
  * @returns {{ manifest: StageManifest, toggles: Record<string, boolean>, warnings: Array<string> }}
  */
-function normalizeStageManifest(manifestInput, togglesInput, worldModelCfg) {
+function normalizeStageManifest(manifestInput, togglesInput) {
     const manifestObj = isPlainObject(manifestInput) ? manifestInput : {};
     const rawOrder = Array.isArray(manifestObj.order) ? manifestObj.order : [];
     const rawStages = isPlainObject(manifestObj.stages) ? manifestObj.stages : {};
@@ -222,9 +220,6 @@ function normalizeStageManifest(manifestInput, togglesInput, worldModelCfg) {
     const states = {};
     const toggles = isPlainObject(togglesInput) ? togglesInput : {};
     const orderIndex = new Map(order.map((name, idx) => [name, idx]));
-    const worldModelEnabledByConfig = isPlainObject(worldModelCfg)
-        ? worldModelCfg.enabled !== false
-        : false;
     for (const name of order) {
         const rawDescriptor = rawStages[name];
         const descriptor = isPlainObject(rawDescriptor) ? rawDescriptor : {};
@@ -240,18 +235,13 @@ function normalizeStageManifest(manifestInput, togglesInput, worldModelCfg) {
                 requested = !!toggles[key];
             }
         }
-        let blockedBy = undefined;
-        if (name === "worldModel" && !worldModelEnabledByConfig) {
-            blockedBy = "worldModel config disabled";
-            enabled = false;
-        }
         states[name] = {
             enabled,
             requested,
             requires,
             legacyToggles,
             provides,
-            blockedBy,
+            blockedBy: undefined,
         };
     }
     for (const name of order) {
@@ -460,7 +450,7 @@ function normalizeFoundationGroups(merged) {
     const legacyBridge = legacyFoundationFrom(worldModelInput, landmassInput);
     const foundationWasEmpty = !foundationInput || Object.keys(foundationInput).length === 0;
     const legacyProvided = Object.keys(legacyBridge).length > 0;
-    const foundationNormalized = deepMerge(legacyBridge, foundationInput || {});
+    const foundationNormalized = /** @type {AnyObject} */ (deepMerge(legacyBridge, foundationInput || {}));
     if (foundationWasEmpty && legacyProvided) {
         warnings.push("Copied legacy `worldModel` overrides into `foundation.*`; please migrate overrides to the new group.");
     }
@@ -521,8 +511,7 @@ function buildSnapshot() {
         merged.stageConfig = stageConfigProviders;
     }
     const togglesBase = isPlainObject(merged.toggles) ? /** @type {AnyObject} */ (merged.toggles) : {};
-    const worldModelCfg = isPlainObject(merged.worldModel) ? /** @type {AnyObject} */ (merged.worldModel) : {};
-    const { manifest: normalizedManifest, toggles: manifestToggles, warnings } = normalizeStageManifest(merged.stageManifest, togglesBase, worldModelCfg);
+    const { manifest: normalizedManifest, toggles: manifestToggles, warnings } = normalizeStageManifest(merged.stageManifest, togglesBase);
     const overrideWarnings = deriveStageOverrideWarnings(stageConfigProviders, normalizedManifest);
     merged.stageManifest = normalizedManifest;
     merged.toggles = { ...togglesBase, ...manifestToggles };
@@ -679,33 +668,6 @@ export function DEV_LOG_CFG() {
 export function FOUNDATION_CFG() {
     return /** @type {Readonly<FoundationConfig>} */ (getGroup("foundation"));
 }
-/** @returns {Readonly<WorldModel>} */
-export function WORLDMODEL_CFG() {
-    return /** @type {Readonly<WorldModel>} */ (getGroup("worldModel"));
-}
-/* ---- Common nested worldModel helpers ---- */
-export function WORLDMODEL_PLATES() {
-    return /** @type {any} */ (get("worldModel.plates") || {});
-}
-export function WORLDMODEL_WIND() {
-    return /** @type {any} */ (get("worldModel.wind") || {});
-}
-export function WORLDMODEL_CURRENTS() {
-    return /** @type {any} */ (get("worldModel.currents") || {});
-}
-export function WORLDMODEL_PRESSURE() {
-    return /** @type {any} */ (get("worldModel.pressure") || {});
-}
-export function WORLDMODEL_POLICY() {
-    return /** @type {any} */ (get("worldModel.policy") || {});
-}
-export function WORLDMODEL_DIRECTIONALITY() {
-    return /** @type {any} */ (get("worldModel.directionality") || {});
-}
-export function WORLDMODEL_OCEAN_SEPARATION() {
-    return /** @type {any} */ (get("worldModel.policy.oceanSeparation") || {});
-}
-
 /* ---- Foundation helpers ---- */
 export function FOUNDATION_SEED() {
     return /** @type {any} */ (get("foundation.seed") || {});
@@ -757,15 +719,6 @@ export default {
     PLACEMENT_CFG,
     DEV_LOG_CFG,
     FOUNDATION_CFG,
-    WORLDMODEL_CFG,
-    // WorldModel subsets
-    WORLDMODEL_PLATES,
-    WORLDMODEL_WIND,
-    WORLDMODEL_CURRENTS,
-    WORLDMODEL_PRESSURE,
-    WORLDMODEL_POLICY,
-    WORLDMODEL_DIRECTIONALITY,
-    WORLDMODEL_OCEAN_SEPARATION,
     // Foundation subsets
     FOUNDATION_SEED,
     FOUNDATION_PLATES,

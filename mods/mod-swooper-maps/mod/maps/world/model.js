@@ -21,14 +21,11 @@
  * - Phase 1.5 Complete: Proper Voronoi-based plates with physics-driven boundaries
  * - Phase 2 Pending: Wire WorldModel to consumers (mountains, climate, coasts)
  */
-import { WORLDMODEL_CFG as __WORLDMODEL_CFG, WORLDMODEL_PLATES as __WORLDMODEL_PLATES, WORLDMODEL_WIND as __WORLDMODEL_WIND, WORLDMODEL_CURRENTS as __WORLDMODEL_CURRENTS, WORLDMODEL_PRESSURE as __WORLDMODEL_PRESSURE, WORLDMODEL_DIRECTIONALITY as __WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
+import { FOUNDATION_PLATES as __FOUNDATION_PLATES, FOUNDATION_DYNAMICS as __FOUNDATION_DYNAMICS, FOUNDATION_DIRECTIONALITY as __FOUNDATION_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { computePlatesVoronoi } from "./plates.js";
-const WORLDMODEL_CFG = __WORLDMODEL_CFG;
-const WORLDMODEL_PLATES = __WORLDMODEL_PLATES;
-const WORLDMODEL_WIND = __WORLDMODEL_WIND;
-const WORLDMODEL_CURRENTS = __WORLDMODEL_CURRENTS;
-const WORLDMODEL_PRESSURE = __WORLDMODEL_PRESSURE;
-const WORLDMODEL_DIRECTIONALITY = __WORLDMODEL_DIRECTIONALITY;
+const FOUNDATION_PLATES = __FOUNDATION_PLATES;
+const FOUNDATION_DYNAMICS = __FOUNDATION_DYNAMICS;
+const FOUNDATION_DIRECTIONALITY = __FOUNDATION_DIRECTIONALITY;
 import { devLogIf } from "../bootstrap/dev.js";
 /** @typedef {"none" | "convergent" | "divergent" | "transform"} BoundaryType */
 const ENUM_BOUNDARY = Object.freeze({
@@ -124,7 +121,7 @@ export const WorldModel = {
             devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized fields for this map.", {
                 width,
                 height,
-                plates: WORLDMODEL_PLATES?.count ?? 0,
+                plates: FOUNDATION_PLATES?.count ?? 0,
             });
         return true;
     },
@@ -197,16 +194,17 @@ function idx(x, y, width) {
  * Phase 1.5 Upgrade: Replaced simple distance-based Voronoi with proper edge-based system
  */
 function computePlates(width, height) {
-    const count = Math.max(2, WORLDMODEL_PLATES?.count | 0 || 8);
-    const convergenceMix = Math.max(0, Math.min(1, WORLDMODEL_PLATES?.convergenceMix ?? 0.5));
-    const relaxationSteps = Math.max(0, WORLDMODEL_PLATES?.relaxationSteps | 0 || 5);
-    const plateRotationMultiple = WORLDMODEL_PLATES?.plateRotationMultiple ?? 1.0;
-    const seedMode = WORLDMODEL_PLATES?.seedMode === "fixed" ? "fixed" : "engine";
-    const seedOffset = Number.isFinite(WORLDMODEL_PLATES?.seedOffset)
-        ? Math.trunc(WORLDMODEL_PLATES.seedOffset)
+    const platesCfg = FOUNDATION_PLATES || {};
+    const count = Math.max(2, platesCfg?.count | 0 || 8);
+    const convergenceMix = Math.max(0, Math.min(1, platesCfg?.convergenceMix ?? 0.5));
+    const relaxationSteps = Math.max(0, platesCfg?.relaxationSteps | 0 || 5);
+    const plateRotationMultiple = platesCfg?.plateRotationMultiple ?? 1.0;
+    const seedMode = platesCfg?.seedMode === "fixed" ? "fixed" : "engine";
+    const seedOffset = Number.isFinite(platesCfg?.seedOffset)
+        ? Math.trunc(platesCfg.seedOffset)
         : 0;
-    const fixedSeed = Number.isFinite(WORLDMODEL_PLATES?.fixedSeed)
-        ? Math.trunc(WORLDMODEL_PLATES.fixedSeed)
+    const fixedSeed = Number.isFinite(platesCfg?.fixedSeed)
+        ? Math.trunc(platesCfg.fixedSeed)
         : undefined;
 
     // Call new Voronoi-based plate generation
@@ -215,7 +213,7 @@ function computePlates(width, height) {
         relaxationSteps,
         convergenceMix,
         plateRotationMultiple,
-        directionality: WORLDMODEL_DIRECTIONALITY,
+        directionality: FOUNDATION_DIRECTIONALITY,
         seedMode,
         fixedSeed,
         seedOffset,
@@ -275,9 +273,10 @@ function computePressure(width, height) {
     if (!pressure)
         return;
     // Params
-    const bumps = Math.max(1, WORLDMODEL_PRESSURE?.bumps | 0 || 4);
-    const amp = Math.max(0.1, WORLDMODEL_PRESSURE?.amplitude ?? 0.6);
-    const scl = Math.max(0.1, WORLDMODEL_PRESSURE?.scale ?? 0.4);
+    const mantleCfg = FOUNDATION_DYNAMICS?.mantle || {};
+    const bumps = Math.max(1, mantleCfg?.bumps | 0 || 4);
+    const amp = Math.max(0.1, mantleCfg?.amplitude ?? 0.6);
+    const scl = Math.max(0.1, mantleCfg?.scale ?? 0.4);
     const sigma = Math.max(4, Math.floor(Math.min(width, height) * scl));
     // Random bump centers
     const centers = [];
@@ -328,9 +327,10 @@ function computeWinds(width, height) {
     const V = _state.windV;
     if (!U || !V)
         return;
-    const streaks = Math.max(0, WORLDMODEL_WIND?.jetStreaks | 0 || 3);
-    const jetStrength = Math.max(0, WORLDMODEL_WIND?.jetStrength ?? 1.0);
-    const variance = Math.max(0, WORLDMODEL_WIND?.variance ?? 0.6);
+    const windCfg = FOUNDATION_DYNAMICS?.wind || {};
+    const streaks = Math.max(0, windCfg?.jetStreaks | 0 || 3);
+    const jetStrength = Math.max(0, windCfg?.jetStrength ?? 1.0);
+    const variance = Math.max(0, windCfg?.variance ?? 0.6);
     // Build jet streak latitude centers (absolute degrees)
     const streakLats = [];
     for (let s = 0; s < streaks; s++) {
@@ -363,7 +363,7 @@ function computeWinds(width, height) {
             // Directionality bias for winds (cohesive global control)
             (function applyWindBias() {
                 try {
-                    const DIR = WORLDMODEL_DIRECTIONALITY || {};
+                    const DIR = FOUNDATION_DIRECTIONALITY || {};
                     const cohesion = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
                     const followPlates = Math.max(0, Math.min(1, DIR?.interplay?.windsFollowPlates ?? 0));
                     let biasDeg = DIR?.primaryAxes?.windBiasDeg ?? 0;
@@ -427,7 +427,7 @@ function computeCurrents(width, height) {
                 let cv = baseV;
                 (function applyCurrentBias() {
                     try {
-                        const DIR = WORLDMODEL_DIRECTIONALITY || {};
+                        const DIR = FOUNDATION_DIRECTIONALITY || {};
                         const cohesion = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
                         const windsFactor = Math.max(0, Math.min(1, DIR?.interplay?.currentsFollowWinds ?? 0)) * cohesion;
                         // Sample prevailing wind vector at the row center (cheap proxy)
