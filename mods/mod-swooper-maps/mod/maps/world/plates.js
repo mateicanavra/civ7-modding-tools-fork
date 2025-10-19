@@ -21,7 +21,6 @@
 import { VoronoiUtils, RegionCell, PlateBoundary, RegionCellPosGetter, PlateBoundaryPosGetter } from '/base-standard/scripts/voronoi-utils.js';
 import { PlateRegion } from '/base-standard/scripts/voronoi-region.js';
 import { kdTree } from '/base-standard/scripts/kd-tree.js';
-import { RandomImpl } from '/base-standard/scripts/random-pcg-32.js';
 
 /**
  * @typedef {Object} PlateGenerationResult
@@ -49,7 +48,7 @@ import { RandomImpl } from '/base-standard/scripts/random-pcg-32.js';
  * @property {"engine"|"fixed"} [seedMode] - Use Civ's seed (engine) or a fixed seed value (fixed)
  * @property {number} [fixedSeed] - Seed value when seedMode is "fixed"
  * @property {number} [seedOffset] - Integer offset applied to the chosen base seed
-*/
+ */
 
 const ENUM_BOUNDARY = Object.freeze({
     none: 0,
@@ -57,51 +56,6 @@ const ENUM_BOUNDARY = Object.freeze({
     divergent: 2,
     transform: 3,
 });
-
-function applySeedControl(seedMode, fixedSeed, seedOffset) {
-    if (!RandomImpl || typeof RandomImpl.getState !== "function" || typeof RandomImpl.setState !== "function") {
-        return null;
-    }
-    const mode = seedMode === "fixed" ? "fixed" : "engine";
-    const hasFixedSeed = mode === "fixed" && Number.isFinite(fixedSeed);
-    const offsetValue = Number.isFinite(seedOffset) ? Math.trunc(seedOffset) : 0;
-    if (!hasFixedSeed && offsetValue === 0 && mode !== "fixed") {
-        return null;
-    }
-    try {
-        const originalState = RandomImpl.getState();
-        if (!originalState || typeof originalState.state !== "bigint") {
-            return null;
-        }
-        let seedValue;
-        if (hasFixedSeed) {
-            seedValue = Math.trunc(fixedSeed);
-        }
-        else {
-            seedValue = Number(originalState.state & 0xffffffffn);
-        }
-        if (offsetValue) {
-            seedValue = (seedValue + offsetValue) >>> 0;
-        }
-        else {
-            seedValue = seedValue >>> 0;
-        }
-        if (typeof RandomImpl.seed === "function") {
-            RandomImpl.seed(seedValue >>> 0);
-        }
-        return () => {
-            try {
-                RandomImpl.setState(originalState);
-            }
-            catch (_) {
-                /* no-op */
-            }
-        };
-    }
-    catch (_) {
-        return null;
-    }
-}
 
 /**
  * Generate tectonic plates using proper Voronoi diagrams
@@ -300,17 +254,7 @@ export function computePlatesVoronoi(width, height, config) {
         };
     };
 
-    const restoreSeed = applySeedControl(seedMode, fixedSeed, seedOffset);
-    let output;
-    try {
-        output = runGeneration();
-    }
-    finally {
-        if (restoreSeed) {
-            restoreSeed();
-        }
-    }
-    return output;
+    return runGeneration();
 }
 
 /**

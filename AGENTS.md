@@ -24,6 +24,7 @@
 - Stage execution is coordinated through `stageManifest` (defaults in `mods/mod-swooper-maps/mod/maps/bootstrap/defaults/base.js`). The resolver normalizes dependencies, mirrors legacy `STORY_ENABLE_*` toggles, and logs `[StageManifest]` warnings when prerequisites are missing. Use `tunables.stageEnabled()` instead of raw toggles when gating layers.
 - The manifest now exposes `foundation` and `landmassPlates` as the default early stages. The legacy landmass stub has been removed, so presets and orchestration must target the Voronoi physics pipeline exclusively.
 - Landmass generation now flows Voronoi → plate mask; ocean separation lives in `layers/landmass_utils.js::applyPlateAwareOceanSeparation` and the legacy three-band generator has been removed.
+- Deterministic Voronoi seeds are captured through `mod/maps/world/plate_seed.js::PlateSeedManager`; `WorldModel` publishes the frozen snapshot via `plateSeed` for diagnostics and context consumers.
 - Entries and named presets can declare a `stageConfig` map to indicate which stages they supply overrides for; the resolver warns when those stages are disabled or missing so presets can prune dead config.
 - `bootstrap/tunables.js` exposes a `CLIMATE` helper (`CLIMATE.drivers`, `CLIMATE.moistureAdjustments`) that climate layers and story overlays consume instead of reading raw config blocks.
 - Climate layers stage rainfall via `MapContext.buffers.climate`; prefer `writeClimateField` / `syncClimateField` when mutating or syncing rainfall rather than writing to `GameplayMap` directly.

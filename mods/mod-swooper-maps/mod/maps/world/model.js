@@ -23,6 +23,7 @@
  */
 import { FOUNDATION_PLATES as __FOUNDATION_PLATES, FOUNDATION_DYNAMICS as __FOUNDATION_DYNAMICS, FOUNDATION_DIRECTIONALITY as __FOUNDATION_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { computePlatesVoronoi } from "./plates.js";
+import { PlateSeedManager } from "./plate_seed.js";
 const FOUNDATION_PLATES = __FOUNDATION_PLATES;
 const FOUNDATION_DYNAMICS = __FOUNDATION_DYNAMICS;
 const FOUNDATION_DIRECTIONALITY = __FOUNDATION_DIRECTIONALITY;
@@ -207,17 +208,53 @@ function computePlates(width, height) {
         ? Math.trunc(platesCfg.fixedSeed)
         : undefined;
 
-    // Call new Voronoi-based plate generation
-    const plateData = computePlatesVoronoi(width, height, {
+    const configSnapshot = {
         count,
         relaxationSteps,
         convergenceMix,
         plateRotationMultiple,
-        directionality: FOUNDATION_DIRECTIONALITY,
         seedMode,
         fixedSeed,
         seedOffset,
-    });
+    };
+    const generationConfig = {
+        ...configSnapshot,
+        directionality: FOUNDATION_DIRECTIONALITY,
+    };
+    const { snapshot: seedBase, restore: restoreSeed } = PlateSeedManager.capture(width, height, generationConfig);
+    let plateData = null;
+    try {
+        // Call new Voronoi-based plate generation
+        plateData = computePlatesVoronoi(width, height, generationConfig);
+    }
+    finally {
+        if (typeof restoreSeed === "function") {
+            try {
+                restoreSeed();
+            }
+            catch (_err) {
+                /* no-op */
+            }
+        }
+    }
+    if (!plateData) {
+        const fallbackConfig = Object.freeze({ ...configSnapshot });
+        const fallbackSeed = seedBase
+            ? Object.freeze({
+                ...seedBase,
+                config: fallbackConfig,
+            })
+            : Object.freeze({
+                width,
+                height,
+                config: fallbackConfig,
+            });
+        _state.plateSeed =
+            PlateSeedManager.finalize(seedBase, {
+                config: configSnapshot,
+            }) || fallbackSeed;
+        return;
+    }
 
     // Copy results into WorldModel state arrays
     _state.plateId.set(plateData.plateId);
@@ -234,28 +271,22 @@ function computePlates(width, height) {
     // Store boundary tree for Phase 2 mountain placement
     _state.boundaryTree = plateData.boundaryTree;
     const meta = plateData.meta || {};
-    const configSnapshot = Object.freeze({
-        count,
-        relaxationSteps,
-        convergenceMix,
-        plateRotationMultiple,
-        seedMode,
-        fixedSeed,
-        seedOffset,
-    });
-    const seeds = Array.isArray(meta.seedLocations)
-        ? Object.freeze(meta.seedLocations.map((loc, idx) => Object.freeze({
-            id: loc?.id ?? idx,
-            x: loc?.x ?? 0,
-            y: loc?.y ?? 0,
-        })))
-        : Object.freeze([]);
-    _state.plateSeed = Object.freeze({
-        width,
-        height,
-        config: configSnapshot,
-        seedLocations: seeds,
-    });
+    const fallbackConfig = Object.freeze({ ...configSnapshot });
+    const fallbackSeed = seedBase
+        ? Object.freeze({
+            ...seedBase,
+            config: fallbackConfig,
+        })
+        : Object.freeze({
+            width,
+            height,
+            config: fallbackConfig,
+        });
+    _state.plateSeed =
+        PlateSeedManager.finalize(seedBase, {
+            config: configSnapshot,
+            meta,
+        }) || fallbackSeed;
 
     devLogIf &&
         devLogIf("LOG_STORY_TAGS", "[WorldModel] Plate generation complete", {

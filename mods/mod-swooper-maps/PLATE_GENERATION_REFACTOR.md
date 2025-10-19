@@ -51,9 +51,9 @@ Unify plate generation under a single authoritative pipeline that leverages Civi
 
 ## 6. Implementation Steps
 1. **Seed Extraction**
-   - Split seed logic out of `computePlatesVoronoi()` into `PlateSeedManager`.  
-   - Ensure `RandomImpl` state is restored after seed capture.  
-   - Update tests/diagnostics to log seed data.
+   - ✅ Split seed logic out of `computePlatesVoronoi()` into `PlateSeedManager`.
+   - ✅ Ensure `RandomImpl` state is restored after seed capture.
+   - ✅ Update diagnostics to log the captured seed snapshot via `logFoundationSeed`.
 2. **WorldModel Refactor**
    - Accept a precomputed seed; remove internal site sampling.  
    - Optionally expose a method to serialize plate tensors for debugging.
