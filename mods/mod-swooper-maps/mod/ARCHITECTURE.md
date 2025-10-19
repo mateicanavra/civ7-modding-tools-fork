@@ -113,12 +113,9 @@ import "./map_orchestrator.js";    // Shared generator
 
 **Example**:
 ```javascript
-export let STORY_ENABLE_WORLDMODEL = true;  // Live binding
-export let LANDMASS_CFG = {};               // Updated by rebind()
+export let LANDMASS_CFG = {};  // Updated by rebind()
 
 export function rebind() {
-    // Re-read from resolved config
-    STORY_ENABLE_WORLDMODEL = getToggles().STORY_ENABLE_WORLDMODEL;
     LANDMASS_CFG = getLandmass();
     // ... etc
 }
@@ -138,14 +135,12 @@ export function rebind() {
 
 **Flow**:
 ```javascript
-import { rebind, STORY_ENABLE_WORLDMODEL, LANDMASS_CFG } from "./bootstrap/tunables.js";
+import { rebind, LANDMASS_CFG } from "./bootstrap/tunables.js";
 
 function generateMap() {
     rebind();  // Refresh config for this run
 
-    if (STORY_ENABLE_WORLDMODEL) {
-        WorldModel.init();
-    }
+    WorldModel.init(); // Always required
 
     createLandmasses(LANDMASS_CFG);
     // ... etc
@@ -274,8 +269,8 @@ import { bootstrap } from "/mod/maps/bootstrap/entry.js";  // Absolute (breaks)
 **Correct**:
 ```javascript
 function generateMap() {
-    rebind();  // Refresh config first!
-    if (STORY_ENABLE_WORLDMODEL) { /* ... */ }
+    rebind();      // Refresh config first!
+    WorldModel.init(); // Physics stack relies on this
 }
 ```
 
@@ -283,7 +278,7 @@ function generateMap() {
 ```javascript
 function generateMap() {
     // rebind() not called - using stale config!
-    if (STORY_ENABLE_WORLDMODEL) { /* ... */ }
+    WorldModel.init();
 }
 ```
 

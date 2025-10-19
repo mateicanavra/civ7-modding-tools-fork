@@ -45,8 +45,8 @@ Unified tracker for the plate-driven landmass refactor. This document replaces b
   - [x] Refresh `SWOOPER_MAPS_ARCHITECTURE_AUDIT.md` to describe the new landmass flow and delete the “legacy three-band” wording.
   - [x] Note in this plan that Voronoi → plate-mask is now the only fallback chain.
 - [ ] Validation & rollout.
-  - [ ] Smoke-test Voronoi, Desert Mountains, and other plate-heavy presets with/without `STORY_ENABLE_WORLDMODEL`.
-  - [ ] Force a Voronoi failure (mock throw) to exercise the plate fallback; force a WorldModel init failure to confirm the abort message.
+  - [ ] Smoke-test Voronoi, Desert Mountains, and other plate-heavy presets with the unified plate pipeline.
+  - [ ] Force a WorldModel init failure to confirm the abort message.
   - [x] Run `pnpm lint` and `pnpm test`; schedule the in-game seed sweep before final sign-off.
 
 ## Upcoming Phases
@@ -63,7 +63,7 @@ Unified tracker for the plate-driven landmass refactor. This document replaces b
 ## Legacy Safety Nets (Keep Until Phase 2 Sign-off)
 
 - `layers/landmass_plate.js` – shield-stability fallback mask.
-- Voronoi continents are now the first path with plate masks as the sole fallback; no legacy band generator remains.
+- Plate-driven landmass generation is the primary path; the legacy Voronoi helper has been removed.
 
 ## Validation & Testing Checklist
 

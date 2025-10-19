@@ -12,7 +12,6 @@
  *   import "./map_orchestrator.js"; // or your generator module that reads getConfig() at runtime
  *
  *   setConfig({
- *     toggles: { STORY_ENABLE_WORLDMODEL: true },
  *     landmass: { /* ... *\/ },
  *     worldModel: { /* ... *\/ },
  *     /* other groups ... *\/

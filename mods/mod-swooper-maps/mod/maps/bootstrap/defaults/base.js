@@ -22,7 +22,6 @@ export const BASE_CONFIG = Object.freeze({
         STORY_ENABLE_SWATCHES: false,
         STORY_ENABLE_PALEO: false,
         STORY_ENABLE_CORRIDORS: false,
-        STORY_ENABLE_WORLDMODEL: true,
     }),
     // --- Stage Manifest ---
     // Canonical execution order and dependency graph for generator stages.
@@ -53,12 +52,11 @@ export const BASE_CONFIG = Object.freeze({
         stages: Object.freeze({
             worldModel: Object.freeze({
                 enabled: true,
-                legacyToggles: Object.freeze(["STORY_ENABLE_WORLDMODEL"]),
                 provides: Object.freeze(["plates", "wind", "currents", "pressure", "directionality"]),
             }),
             landmass: Object.freeze({
                 enabled: true,
-                requires: Object.freeze([]),
+                requires: Object.freeze(["worldModel"]),
                 provides: Object.freeze(["continents", "plateWindows"]),
             }),
             coastlines: Object.freeze({
@@ -566,7 +564,6 @@ export const BASE_CONFIG = Object.freeze({
         // Geometry: orchestrator preferences for landmass generators.
         // Auto prefers Voronoi continents, then plate-driven masks when the WorldModel is active.
         geometry: Object.freeze({
-            mode: "auto",
             post: Object.freeze({
                 expandTiles: 0,
                 expandWestTiles: 0,

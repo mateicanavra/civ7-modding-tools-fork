@@ -27,17 +27,9 @@ export const TEMPERATE_PRESET = Object.freeze({
         STORY_ENABLE_SWATCHES: true,
         STORY_ENABLE_PALEO: true,
         STORY_ENABLE_CORRIDORS: true,
-        STORY_ENABLE_WORLDMODEL: true,
-    }),
-    // Voronoi-first layout with gentle plate fallback (safe navigation)
-    landmass: Object.freeze({
-        geometry: Object.freeze({
-            mode: "auto",
-        }),
     }),
     // Lightweight Earth Forces with moderated global cohesion
     worldModel: Object.freeze({
-        enabled: true,
         directionality: Object.freeze({
             cohesion: 0.6,
             hemispheres: Object.freeze({

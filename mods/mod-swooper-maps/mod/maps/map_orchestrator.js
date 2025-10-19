@@ -20,7 +20,6 @@ import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import { storyTagHotspotTrails, storyTagRiftValleys, storyTagOrogenyBelts, storyTagContinentalMargins, storyTagClimateSwatches, OrogenyCache, } from "./story/tagging.js";
 import { layerAddVolcanoesPlateAware } from "./layers/volcanoes.js";
-import { generateVoronoiLandmasses } from "./layers/landmass_voronoi.js";
 import { createPlateDrivenLandmasses } from "./layers/landmass_plate.js";
 import { applyLandmassPostAdjustments, applyPlateAwareOceanSeparation } from "./layers/landmass_utils.js";
 import { addRuggedCoasts as layerAddRuggedCoasts } from "./layers/coastlines.js";
@@ -138,7 +137,6 @@ function generateMap() {
         { width: iWidth, height: iHeight },
         adapter,
         {
-            STORY_ENABLE_WORLDMODEL: stageWorldModel,
             STORY_ENABLE_HOTSPOTS: stageStoryHotspots,
             STORY_ENABLE_RIFTS: stageStoryRifts,
             STORY_ENABLE_OROGENY: stageStoryOrogeny,
@@ -147,21 +145,25 @@ function generateMap() {
     );
 
     // Initialize WorldModel (optional) and attach to context
-    if (stageWorldModel) {
-        try {
-            if (WorldModel.init()) {
-                ctx.worldModel = WorldModel;
-                devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
-                logWorldModelSummary(WorldModel);
-                logWorldModelAscii(WorldModel);
-            }
+    if (!stageWorldModel) {
+        console.warn("[StageManifest] WorldModel stage disabled; physics pipeline requires it.");
+    }
+    try {
+        if (WorldModel.init()) {
+            ctx.worldModel = WorldModel;
+            ctx.foundation = Object.freeze({
+                plateSeed: WorldModel.plateSeed,
+            });
+            devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
+            logWorldModelSummary(WorldModel);
+            logWorldModelAscii(WorldModel);
         }
-        catch (err) {
-            devLogIf("LOG_STORY_TAGS", "[WorldModel] init error");
+        else {
+            console.error("[WorldModel] Initialization failed; physics data unavailable.");
         }
     }
-    else {
-        devLogIf("LOG_STORY_TAGS", "[WorldModel] Stage disabled; skipping init");
+    catch (err) {
+        devLogIf("LOG_STORY_TAGS", "[WorldModel] init error");
     }
     let iNumNaturalWonders = Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders);
     let iTilesPerLake = Math.max(10, mapInfo.LakeGenerationFrequency * 2); // fewer lakes than base script used
@@ -188,95 +190,59 @@ function generateMap() {
         north: iHeight - globals.g_PolarWaterRows,
         continent: 0,
     };
-    let landmassSource = null;
+    const landmassSource = stageLandmass ? "plate" : "disabled";
     let landmaskDebug = null;
-    let landmassWindowsFinal = null;
-    // Create more complex continent boundaries for our diverse terrain generation
-    // Compute landmass windows using Voronoi/plate geometry preferences
+    let landmassWindowsFinal = [];
     if (stageLandmass) {
-        const GEOM = LANDMASS_GEOMETRY || /**/ {};
-        const geomMode = typeof GEOM.mode === "string" ? GEOM.mode : "auto";
-        const worldModelActive = !!(WorldModel?.isEnabled?.() && WorldModel.isEnabled());
-        const preferVoronoi = geomMode === "voronoi" || geomMode === "auto" || !worldModelActive;
-        const allowPlate = geomMode !== "voronoi" && worldModelActive;
-        let landmassWindows;
-        let derivedStartRegions;
-        let activeLandMask = null;
-        if (preferVoronoi) {
-            const voronoiResult = generateVoronoiLandmasses(iWidth, iHeight, ctx, mapInfo, GEOM);
-            if (voronoiResult && Array.isArray(voronoiResult.windows) && voronoiResult.windows.length > 0) {
-                landmassSource = "voronoi";
-                landmassWindows = voronoiResult.windows;
-                derivedStartRegions = voronoiResult.startRegions;
-                activeLandMask = voronoiResult.landMask || null;
-                landmaskDebug = activeLandMask;
-            }
-        }
-        if (!landmassWindows && allowPlate) {
-            const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
-                landmassCfg: LANDMASS_CFG,
-                geometry: GEOM,
-            });
-            if (plateResult && Array.isArray(plateResult.windows) && plateResult.windows.length > 0) {
-                landmassSource = "plate";
-                landmassWindows = plateResult.windows;
-                derivedStartRegions = plateResult.startRegions;
-                activeLandMask = plateResult.landMask || null;
-                landmaskDebug = activeLandMask;
-            }
-        }
-        if (!landmassWindows) {
-            console.log("[SWOOPER_MOD] ERROR: Landmass generation failed — no Voronoi or plate windows returned.");
+        const t = timeStart("Landmass (Plate-Driven)");
+        const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
+            landmassCfg: LANDMASS_CFG,
+            geometry: LANDMASS_GEOMETRY,
+        });
+        if (!plateResult || !Array.isArray(plateResult.windows) || plateResult.windows.length === 0) {
+            console.error("[SWOOPER_MOD] ERROR: Plate-driven landmass generation failed (no windows).");
+            timeEnd(t);
             return;
         }
+        landmaskDebug = plateResult.landMask || null;
+        let landmassWindows = plateResult.windows.slice();
         const separationResult = applyPlateAwareOceanSeparation({
             width: iWidth,
             height: iHeight,
             windows: landmassWindows,
-            landMask: activeLandMask,
+            landMask: plateResult.landMask,
             adapter: ctx?.adapter,
             worldModel: WorldModel,
         });
         landmassWindows = separationResult.windows;
         if (separationResult.landMask) {
-            activeLandMask = separationResult.landMask;
-            landmaskDebug = activeLandMask;
+            landmaskDebug = separationResult.landMask;
         }
-        landmassWindows = applyLandmassPostAdjustments(landmassWindows, GEOM, iWidth, iHeight);
-        if (!derivedStartRegions && Array.isArray(landmassWindows) && landmassWindows.length >= 2) {
+        landmassWindows = applyLandmassPostAdjustments(landmassWindows, LANDMASS_GEOMETRY, iWidth, iHeight);
+        if (Array.isArray(landmassWindows) && landmassWindows.length >= 2) {
             const first = landmassWindows[0];
             const last = landmassWindows[landmassWindows.length - 1];
-            derivedStartRegions = {
-                westContinent: Object.assign({}, first),
-                eastContinent: Object.assign({}, last),
-            };
-        }
-        if (derivedStartRegions?.westContinent && derivedStartRegions?.eastContinent) {
-            westContinent = {
-                west: derivedStartRegions.westContinent.west,
-                east: derivedStartRegions.westContinent.east,
-                south: derivedStartRegions.westContinent.south,
-                north: derivedStartRegions.westContinent.north,
-                continent: derivedStartRegions.westContinent.continent ?? 0,
-            };
-            eastContinent = {
-                west: derivedStartRegions.eastContinent.west,
-                east: derivedStartRegions.eastContinent.east,
-                south: derivedStartRegions.eastContinent.south,
-                north: derivedStartRegions.eastContinent.north,
-                continent: derivedStartRegions.eastContinent.continent ?? 1,
-            };
+            if (first && last) {
+                westContinent = {
+                    west: first.west,
+                    east: first.east,
+                    south: first.south,
+                    north: first.north,
+                    continent: first.continent ?? 0,
+                };
+                eastContinent = {
+                    west: last.west,
+                    east: last.east,
+                    south: last.south,
+                    north: last.north,
+                    continent: last.continent ?? 1,
+                };
+            }
         }
         landmassWindowsFinal = landmassWindows;
-        const t = timeStart("Landmass");
-        if (landmassSource === "plate") {
-            console.log("[SWOOPER_MOD] Applied plate-driven landmass mask");
-        }
-        else if (landmassSource === "voronoi") {
-            console.log("[SWOOPER_MOD] Applied Voronoi landmass mask");
-        }
+        console.log("[SWOOPER_MOD] Applied plate-driven landmass mask");
         timeEnd(t);
-        if (Array.isArray(landmassWindowsFinal) && landmassWindowsFinal.length) {
+        if (landmassWindowsFinal.length) {
             const windowSummary = landmassWindowsFinal.map((win, idx) => {
                 if (!win)
                     return { index: idx };
@@ -301,11 +267,11 @@ function generateMap() {
         }
     }
     else {
-        console.log("[StageManifest] Landmass stage disabled — skipping landmass generation.");
+        console.warn("[StageManifest] Landmass stage disabled — skipping landmass generation.");
     }
-    logLandmassAscii(stageLandmass ? landmassSource || "unknown" : "disabled", {
+    logLandmassAscii(landmassSource, {
         windows: Array.isArray(landmassWindowsFinal) ? landmassWindowsFinal : [],
-        landMask: stageLandmass ? landmaskDebug || undefined : undefined,
+        landMask: landmaskDebug || undefined,
     });
     TerrainBuilder.validateAndFixTerrain();
     if (stageCoastlines) {

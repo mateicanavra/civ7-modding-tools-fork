@@ -27,17 +27,6 @@ export const CLASSIC_PRESET = Object.freeze({
         STORY_ENABLE_SWATCHES: true,
         STORY_ENABLE_PALEO: true,
         STORY_ENABLE_CORRIDORS: true,
-        STORY_ENABLE_WORLDMODEL: true,
-    }),
-    // Classic baseline: rely on Voronoi first with plate fallback when available
-    landmass: Object.freeze({
-        geometry: Object.freeze({
-            mode: "auto",
-        }),
-    }),
-    // WorldModel is available but uses central defaults for detailed fields
-    worldModel: Object.freeze({
-        enabled: true,
     }),
     // Dev logger defaults (quiet; entries/presets may override for debugging)
     dev: Object.freeze({

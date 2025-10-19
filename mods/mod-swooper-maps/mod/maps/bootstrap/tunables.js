@@ -12,7 +12,6 @@
  *   // Import once anywhere (bindings are live)
  *   import {
  *     rebind,
- *     STORY_ENABLE_WORLDMODEL,
  *     LANDMASS_CFG,
  *     WORLDMODEL_DIRECTIONALITY,
  *     // ...
@@ -81,7 +80,6 @@ export let STORY_ENABLE_OROGENY = true;
 export let STORY_ENABLE_SWATCHES = true;
 export let STORY_ENABLE_PALEO = true;
 export let STORY_ENABLE_CORRIDORS = true;
-export let STORY_ENABLE_WORLDMODEL = true;
 // Merged story+micro tunables convenience view
 export let STORY_TUNABLES = Object.freeze({
     hotspot: Object.freeze({}),
@@ -189,7 +187,6 @@ export function rebind() {
     STORY_ENABLE_SWATCHES = toggleValue("STORY_ENABLE_SWATCHES", true);
     STORY_ENABLE_PALEO = toggleValue("STORY_ENABLE_PALEO", true);
     STORY_ENABLE_CORRIDORS = toggleValue("STORY_ENABLE_CORRIDORS", true);
-    STORY_ENABLE_WORLDMODEL = toggleValue("STORY_ENABLE_WORLDMODEL", true);
     // 3) Story+Micro merged convenience
     const S = safeObj(__STORY__());
     const M = safeObj(__MICROCLIMATE__());

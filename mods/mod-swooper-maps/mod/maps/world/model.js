@@ -21,7 +21,7 @@
  * - Phase 1.5 Complete: Proper Voronoi-based plates with physics-driven boundaries
  * - Phase 2 Pending: Wire WorldModel to consumers (mountains, climate, coasts)
  */
-import { STORY_ENABLE_WORLDMODEL, WORLDMODEL_CFG as __WORLDMODEL_CFG, WORLDMODEL_PLATES as __WORLDMODEL_PLATES, WORLDMODEL_WIND as __WORLDMODEL_WIND, WORLDMODEL_CURRENTS as __WORLDMODEL_CURRENTS, WORLDMODEL_PRESSURE as __WORLDMODEL_PRESSURE, WORLDMODEL_DIRECTIONALITY as __WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
+import { WORLDMODEL_CFG as __WORLDMODEL_CFG, WORLDMODEL_PLATES as __WORLDMODEL_PLATES, WORLDMODEL_WIND as __WORLDMODEL_WIND, WORLDMODEL_CURRENTS as __WORLDMODEL_CURRENTS, WORLDMODEL_PRESSURE as __WORLDMODEL_PRESSURE, WORLDMODEL_DIRECTIONALITY as __WORLDMODEL_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { computePlatesVoronoi } from "./plates.js";
 const WORLDMODEL_CFG = __WORLDMODEL_CFG;
 const WORLDMODEL_PLATES = __WORLDMODEL_PLATES;
@@ -64,6 +64,7 @@ const _state = {
     pressure: /** @type {Uint8Array|null} */ (null),
     // Plate boundary spatial index (new in Phase 1.5)
     boundaryTree: /** @type {any|null} */ (null), // kdTree for fast boundary queries
+    plateSeed: /** @type {Readonly<any>|null} */ (null),
 };
 /**
  * Public singleton API
@@ -73,15 +74,13 @@ export const WorldModel = {
      * Returns true if WorldModel is toggled on and successfully initialized for this map.
      */
     isEnabled() {
-        return !!STORY_ENABLE_WORLDMODEL && !!_state.initialized;
+        return !!_state.initialized;
     },
     /**
      * Initialize world fields. Safe to call multiple times; subsequent calls are no-ops.
      * Does nothing if the toggle is disabled or engine APIs are unavailable.
      */
     init() {
-        if (!STORY_ENABLE_WORLDMODEL)
-            return false;
         if (_state.initialized)
             return true;
         // Guard: engine-provided API
@@ -181,6 +180,9 @@ export const WorldModel = {
     get boundaryTree() {
         return _state.boundaryTree;
     },
+    get plateSeed() {
+        return _state.plateSeed;
+    },
 };
 /* ---------------------------------- helpers ---------------------------------- */
 function idx(x, y, width) {
@@ -233,6 +235,29 @@ function computePlates(width, height) {
 
     // Store boundary tree for Phase 2 mountain placement
     _state.boundaryTree = plateData.boundaryTree;
+    const meta = plateData.meta || {};
+    const configSnapshot = Object.freeze({
+        count,
+        relaxationSteps,
+        convergenceMix,
+        plateRotationMultiple,
+        seedMode,
+        fixedSeed,
+        seedOffset,
+    });
+    const seeds = Array.isArray(meta.seedLocations)
+        ? Object.freeze(meta.seedLocations.map((loc, idx) => Object.freeze({
+            id: loc?.id ?? idx,
+            x: loc?.x ?? 0,
+            y: loc?.y ?? 0,
+        })))
+        : Object.freeze([]);
+    _state.plateSeed = Object.freeze({
+        width,
+        height,
+        config: configSnapshot,
+        seedLocations: seeds,
+    });
 
     devLogIf &&
         devLogIf("LOG_STORY_TAGS", "[WorldModel] Plate generation complete", {

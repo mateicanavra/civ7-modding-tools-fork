@@ -124,6 +124,20 @@ export function computePlatesVoronoi(width, height, config) {
     } = config;
 
     const size = width * height;
+    const meta = {
+        width,
+        height,
+        config: {
+            count,
+            relaxationSteps,
+            convergenceMix,
+            plateRotationMultiple,
+            seedMode,
+            fixedSeed,
+            seedOffset,
+        },
+        seedLocations: [],
+    };
 
     const runGeneration = () => {
         // Create Voronoi diagram using base game utilities
@@ -149,6 +163,11 @@ export function computePlatesVoronoi(width, height, config) {
 
             return region;
         });
+        meta.seedLocations = plateRegions.map((region, id) => ({
+            id,
+            x: region.seedLocation?.x ?? 0,
+            y: region.seedLocation?.y ?? 0,
+        }));
 
         // Create RegionCells for the map grid
         // Note: For performance, we create a coarser Voronoi grid for plate assignment
@@ -277,6 +296,7 @@ export function computePlatesVoronoi(width, height, config) {
             plateRotation,
             boundaryTree,
             plateRegions,
+            meta,
         };
     };
 

@@ -90,7 +90,6 @@
  * @property {boolean} STORY_ENABLE_SWATCHES - Guaranteed macro-climate zones (e.g., Sahara-like desert belt, Congo/Amazon rainbelt)
  * @property {boolean} STORY_ENABLE_PALEO - Ancient river features: fossil channels in deserts, oxbow lakes, delta wetlands
  * @property {boolean} STORY_ENABLE_CORRIDORS - Protected routes for strategic gameplay (sea lanes, island chains, river valleys)
- * @property {boolean} [STORY_ENABLE_WORLDMODEL] - Full Earth simulation (tectonic plates, winds, currents); enables plate-driven landmass mode
  */
 
 /**
@@ -249,20 +248,15 @@
  * @property {number} [jitterAmpFracBase] - Base coastline waviness as fraction of width; higher = more irregular (typically 0.02-0.08)
  * @property {number} [jitterAmpFracScale] - Extra jitter on larger maps (typically 0.01-0.04)
  * @property {number} [curveAmpFrac] - Continental bowing/curvature; higher = more crescent-shaped landmasses (typically 0.1-0.3)
- * @property {LandmassGeometry} [geometry] - Generator preference (Voronoi vs plates) and post adjustments
+ * @property {LandmassGeometry} [geometry] - Post-processing adjustments applied after plate-driven layout
  */
 
 /**
- * Landmass geometry orchestrator preferences.
+ * Landmass geometry post-processing.
  *
- * Controls which landmass generator the orchestrator invokes and how the resulting
- * plate windows are adjusted after generation.
- * - "voronoi": Always use the official Civ VII Voronoi continent builder
- * - "plates": Use the plate-driven mask derived from WorldModel stability
- * - "auto": Prefer Voronoi, falling back to plate masks when the WorldModel is enabled
+ * Provides fine-grained adjustments applied after the plate-driven landmask is computed.
  *
  * @typedef {Object} LandmassGeometry
- * @property {"auto"|"voronoi"|"plates"} [mode] - Generator selection strategy
  * @property {LandmassGeometryPost} [post] - Fine-tuning adjustments applied after initial layout
  */
 

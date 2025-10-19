@@ -13,7 +13,6 @@
  *     presets: ["classic", "temperate"], // optional, ordered
  *     overrides: {
  *       // any partial config to override the resolved result
- *       toggles: { STORY_ENABLE_WORLDMODEL: true },
  *       worldModel: { enabled: true },
  *       // ...
  *     }
