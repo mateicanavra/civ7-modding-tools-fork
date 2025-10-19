@@ -29,10 +29,10 @@ The normalized snapshot exposes the resolved `stageConfig` map so diagnostics an
 
 The tunables bridge now exports a `CLIMATE` object with two helper views:
 
-- `CLIMATE.drivers` – canonical baseline and refinement driver blocks mirroring the resolved `climateBaseline` and `climateRefine` groups.
+- `CLIMATE.drivers` – canonical baseline and refinement driver blocks mirroring the resolved `climate.baseline` and `climate.refine` groups.
 - `CLIMATE.moistureAdjustments` – targeted adjustments consumed by rainfall layers and narrative overlays. It includes baseline coastal/orographic noise, refinement gradients, and story-scale rainfall deltas (hotspots, rifts, paleo motifs, etc.).
 
-`layers/climate-baseline.js`, `layers/climate-refinement.js`, and story overlays reference these shared primitives instead of touching the raw config groups directly. The climate overlays remain conservative, but the shared primitives make it easier to compose new moisture effects without duplicating normalization logic.
+`layers/climate-engine.js` and story overlays reference these shared primitives instead of touching the raw config blocks directly. The climate overlays remain conservative, but the shared primitives make it easier to compose new moisture effects without duplicating normalization logic.
 
 ## Legacy Toggles
 Legacy `STORY_ENABLE_*` toggles are now derived from the manifest. Each stage lists the toggle keys it controls. The resolver writes the resolved on/off state back onto the `toggles` group so existing callers continue to work. The tunables bridge reads the manifest first, falling back to any residual toggle values in case an entry opts out of the manifest system.

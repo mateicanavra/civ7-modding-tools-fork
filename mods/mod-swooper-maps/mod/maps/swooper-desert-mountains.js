@@ -106,54 +106,56 @@ bootstrap({
             minVolcanoes: 9,
             maxVolcanoes: 42,
         },
-        climateBaseline: {
-            blend: {
-                baseWeight: 0.45,
-                bandWeight: 0.55,
+        climate: {
+            baseline: {
+                blend: {
+                    baseWeight: 0.45,
+                    bandWeight: 0.55,
+                },
+                bands: {
+                    deg0to10: 92,
+                    deg10to20: 64,
+                    deg20to35: 32,
+                    deg35to55: 52,
+                    deg55to70: 34,
+                    deg70plus: 18,
+                },
+                orographic: {
+                    hi1Threshold: 280,
+                    hi1Bonus: 6,
+                    hi2Threshold: 540,
+                    hi2Bonus: 18,
+                },
+                coastal: {
+                    coastalLandBonus: 3,
+                    shallowAdjBonus: 2,
+                },
+                noise: {
+                    baseSpanSmall: 5,
+                    spanLargeScaleFactor: 1.1,
+                },
             },
-            bands: {
-                deg0to10: 92,
-                deg10to20: 64,
-                deg20to35: 32,
-                deg35to55: 52,
-                deg55to70: 34,
-                deg70plus: 18,
-            },
-            orographic: {
-                hi1Threshold: 280,
-                hi1Bonus: 6,
-                hi2Threshold: 540,
-                hi2Bonus: 18,
-            },
-            coastal: {
-                coastalLandBonus: 3,
-                shallowAdjBonus: 2,
-            },
-            noise: {
-                baseSpanSmall: 5,
-                spanLargeScaleFactor: 1.1,
-            },
+            refine: /** @type {Partial<ClimateRefine>} */ ({
+                waterGradient: {
+                    radius: 7,
+                    perRingBonus: 1.6,
+                    lowlandBonus: 3,
+                },
+                orographic: {
+                    steps: 6,
+                    reductionBase: 34,
+                    reductionPerStep: 14,
+                },
+                riverCorridor: {
+                    lowlandAdjacencyBonus: 22,
+                    highlandAdjacencyBonus: 11,
+                },
+                lowBasin: {
+                    radius: 4,
+                    delta: 16,
+                },
+            }),
         },
-        climateRefine: /** @type {Partial<ClimateRefine>} */ ({
-            waterGradient: {
-                radius: 7,
-                perRingBonus: 1.6,
-                lowlandBonus: 3,
-            },
-            orographic: {
-                steps: 6,
-                reductionBase: 34,
-                reductionPerStep: 14,
-            },
-            riverCorridor: {
-                lowlandAdjacencyBonus: 22,
-                highlandAdjacencyBonus: 11,
-            },
-            lowBasin: {
-                radius: 4,
-                delta: 16,
-            },
-        }),
         story: {
             hotspot: {
                 maxTrails: 9,

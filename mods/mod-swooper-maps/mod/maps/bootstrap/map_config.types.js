@@ -33,8 +33,6 @@
  * @property {Coastlines} [coastlines] - Coast ruggedization: bay/fjord probabilities, active vs passive margin effects
  * @property {Margins} [margins] - Tectonic margin types: convergent (mountains, subduction) vs divergent (rifts, spreading)
  * @property {Islands} [islands] - Offshore island generation: fractal thresholds, hotspot biasing, cluster distribution
- * @property {ClimateBaseline} [climateBaseline] - Initial rainfall: latitude bands, orographic lift from mountains, coastal humidity
- * @property {ClimateRefine} [climateRefine] - Realistic refinements: coastal gradients, rain shadows (leeward drying), river/basin effects
  * @property {Mountains} [mountains] - Mountain and hill placement weights: WorldModel uplift, boundary biasing, foothill distribution
  * @property {Volcanoes} [volcanoes] - Volcano placement controls: convergent arc bias, hotspot allowance, spacing
  * @property {Biomes} [biomes] - Biome assignment rules: tundra limits, tropical coast preferences, river grasslands, rift shoulders

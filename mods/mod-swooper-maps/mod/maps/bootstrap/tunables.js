@@ -28,7 +28,7 @@
 // @ts-check
 import { refresh as __refreshResolved__,
 // group getters
-TOGGLES as __TOGGLES__, STORY as __STORY__, MICROCLIMATE as __MICROCLIMATE__, LANDMASS_CFG as __LANDMASS__, COASTLINES_CFG as __COASTLINES__, MARGINS_CFG as __MARGINS__, ISLANDS_CFG as __ISLANDS__, CLIMATE_CFG as __CLIMATE__, CLIMATE_BASELINE_CFG as __CLIMATE_BASELINE__, CLIMATE_REFINE_CFG as __CLIMATE_REFINE__, MOUNTAINS_CFG as __MOUNTAINS__, VOLCANOES_CFG as __VOLCANOES__, BIOMES_CFG as __BIOMES__, FEATURES_DENSITY_CFG as __FEATURES_DENSITY__, CORRIDORS_CFG as __CORRIDORS__, PLACEMENT_CFG as __PLACEMENT__, DEV_LOG_CFG as __DEV__, WORLDMODEL_CFG as __WM__, STAGE_MANIFEST as __STAGE_MANIFEST__,
+TOGGLES as __TOGGLES__, STORY as __STORY__, MICROCLIMATE as __MICROCLIMATE__, LANDMASS_CFG as __LANDMASS__, COASTLINES_CFG as __COASTLINES__, MARGINS_CFG as __MARGINS__, ISLANDS_CFG as __ISLANDS__, CLIMATE_CFG as __CLIMATE__, MOUNTAINS_CFG as __MOUNTAINS__, VOLCANOES_CFG as __VOLCANOES__, BIOMES_CFG as __BIOMES__, FEATURES_DENSITY_CFG as __FEATURES_DENSITY__, CORRIDORS_CFG as __CORRIDORS__, PLACEMENT_CFG as __PLACEMENT__, DEV_LOG_CFG as __DEV__, WORLDMODEL_CFG as __WM__, STAGE_MANIFEST as __STAGE_MANIFEST__,
 // nested WM helpers
 WORLDMODEL_PLATES as __WM_PLATES__, WORLDMODEL_WIND as __WM_WIND__, WORLDMODEL_CURRENTS as __WM_CURRENTS__, WORLDMODEL_PRESSURE as __WM_PRESSURE__, WORLDMODEL_POLICY as __WM_POLICY__, WORLDMODEL_DIRECTIONALITY as __WM_DIR__, WORLDMODEL_OCEAN_SEPARATION as __WM_OSEPARATION__, } from "./resolved.js";
 /**
@@ -103,10 +103,6 @@ export let MARGINS_CFG = Object.freeze({});
 export let ISLANDS_CFG = Object.freeze({});
 /** @type {Readonly<any>} */
 export let CLIMATE_CFG = Object.freeze({});
-/** @type {Readonly<ClimateBaseline>} */
-export let CLIMATE_BASELINE_CFG = Object.freeze({});
-/** @type {Readonly<ClimateRefine>} */
-export let CLIMATE_REFINE_CFG = Object.freeze({});
 /**
  * Shared climate primitives exposed to layers and narrative overlays.
  *
@@ -208,15 +204,11 @@ export function rebind() {
     MARGINS_CFG = safeObj(__MARGINS__());
     ISLANDS_CFG = safeObj(__ISLANDS__());
     CLIMATE_CFG = safeObj(__CLIMATE__());
-    const climateBaseline = safeObj(CLIMATE_CFG.baseline);
-    const climateRefine = safeObj(CLIMATE_CFG.refine);
+    const climateBaselineRaw = safeObj(CLIMATE_CFG.baseline);
+    const climateRefineRaw = safeObj(CLIMATE_CFG.refine);
     const climateSwatches = safeObj(CLIMATE_CFG.swatches);
-    const fallbackBaseline = safeObj(__CLIMATE_BASELINE__());
-    const fallbackRefine = safeObj(__CLIMATE_REFINE__());
-    CLIMATE_BASELINE_CFG =
-        Object.keys(climateBaseline).length > 0 ? climateBaseline : fallbackBaseline;
-    CLIMATE_REFINE_CFG =
-        Object.keys(climateRefine).length > 0 ? climateRefine : fallbackRefine;
+    const climateBaseline = Object.keys(climateBaselineRaw).length > 0 ? climateBaselineRaw : Object.freeze({});
+    const climateRefine = Object.keys(climateRefineRaw).length > 0 ? climateRefineRaw : Object.freeze({});
     MOUNTAINS_CFG = safeObj(__MOUNTAINS__());
     VOLCANOES_CFG = safeObj(__VOLCANOES__());
     BIOMES_CFG = safeObj(__BIOMES__());
@@ -238,15 +230,15 @@ export function rebind() {
     WORLDMODEL_OCEAN_SEPARATION = safeObj(__WM_OSEPARATION__());
     // 7) Climate primitives (drivers + shared adjustments)
     const baselineDrivers = Object.freeze({
-        bands: safeObj(CLIMATE_BASELINE_CFG.bands),
-        blend: safeObj(CLIMATE_BASELINE_CFG.blend),
+        bands: safeObj(climateBaseline.bands),
+        blend: safeObj(climateBaseline.blend),
     });
     const refineDrivers = Object.freeze({
-        waterGradient: safeObj(CLIMATE_REFINE_CFG.waterGradient),
-        orographic: safeObj(CLIMATE_REFINE_CFG.orographic),
-        riverCorridor: safeObj(CLIMATE_REFINE_CFG.riverCorridor),
-        lowBasin: safeObj(CLIMATE_REFINE_CFG.lowBasin),
-        pressure: safeObj(CLIMATE_REFINE_CFG.pressure),
+        waterGradient: safeObj(climateRefine.waterGradient),
+        orographic: safeObj(climateRefine.orographic),
+        riverCorridor: safeObj(climateRefine.riverCorridor),
+        lowBasin: safeObj(climateRefine.lowBasin),
+        pressure: safeObj(climateRefine.pressure),
     });
     const storyMoisture = Object.freeze({
         swatches: Object.keys(climateSwatches).length > 0 ? climateSwatches : safeObj(S.swatches),
@@ -255,9 +247,9 @@ export function rebind() {
         orogeny: safeObj(S.orogeny),
     });
     const baselineMoisture = Object.freeze({
-        orographic: safeObj(CLIMATE_BASELINE_CFG.orographic),
-        coastal: safeObj(CLIMATE_BASELINE_CFG.coastal),
-        noise: safeObj(CLIMATE_BASELINE_CFG.noise),
+        orographic: safeObj(climateBaseline.orographic),
+        coastal: safeObj(climateBaseline.coastal),
+        noise: safeObj(climateBaseline.noise),
         bands: baselineDrivers.bands,
         blend: baselineDrivers.blend,
     });

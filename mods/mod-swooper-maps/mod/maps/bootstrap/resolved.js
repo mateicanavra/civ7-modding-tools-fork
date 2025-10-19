@@ -531,14 +531,6 @@ export function ISLANDS_CFG() {
 export function CLIMATE_CFG() {
     return /** @type {Readonly<any>} */ (getGroup("climate"));
 }
-/** @returns {Readonly<ClimateBaseline>} */
-export function CLIMATE_BASELINE_CFG() {
-    return /** @type {Readonly<ClimateBaseline>} */ (getGroup("climateBaseline"));
-}
-/** @returns {Readonly<ClimateRefine>} */
-export function CLIMATE_REFINE_CFG() {
-    return /** @type {Readonly<ClimateRefine>} */ (getGroup("climateRefine"));
-}
 /** @returns {Readonly<Mountains>} */
 export function MOUNTAINS_CFG() {
     return /** @type {Readonly<Mountains>} */ (getGroup("mountains"));
@@ -610,8 +602,6 @@ export default {
     MARGINS_CFG,
     ISLANDS_CFG,
     CLIMATE_CFG,
-    CLIMATE_BASELINE_CFG,
-    CLIMATE_REFINE_CFG,
     BIOMES_CFG,
     FEATURES_DENSITY_CFG,
     CORRIDORS_CFG,

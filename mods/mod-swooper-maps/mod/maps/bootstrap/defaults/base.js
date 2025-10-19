@@ -105,8 +105,8 @@ const CLIMATE_SWATCHES_DEFAULT = Object.freeze({
         }),
     }),
 });
-/** @type {import('../map_config.types.js').MapConfig} */
-export const BASE_CONFIG = Object.freeze({
+
+export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig} */ Object.freeze({
     // --- Master Feature Toggles ---
     // Enable or disable major Climate Story systems. Set to false to skip a layer entirely.
     toggles: Object.freeze({
@@ -670,9 +670,6 @@ export const BASE_CONFIG = Object.freeze({
         minDistFromLandRadius: 2,
     }),
     // --- Climate Baseline (banded blend + local bonuses) ---
-    climateBaseline: CLIMATE_BASELINE_DEFAULT,
-    // --- Climate Refinement (earthlike) ---
-    climateRefine: CLIMATE_REFINE_DEFAULT,
     // --- Mountains & Hills (WorldModel-driven) ---
     mountains: Object.freeze({
         mountainPercent: 3,

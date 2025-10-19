@@ -311,7 +311,9 @@ bootstrap({
    bootstrap({
        presets: ["classic"],
        overrides: {
-           climateBaseline: { /* arid settings */ }
+           climate: {
+               baseline: { /* arid settings */ }
+           }
        }
    });
    import "./map_orchestrator.js";

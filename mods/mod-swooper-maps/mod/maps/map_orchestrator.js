@@ -24,8 +24,7 @@ import { createPlateDrivenLandmasses } from "./layers/landmass_plate.js";
 import { applyLandmassPostAdjustments, applyPlateAwareOceanSeparation } from "./layers/landmass_utils.js";
 import { addRuggedCoasts as layerAddRuggedCoasts } from "./layers/coastlines.js";
 import { addIslandChains as layerAddIslandChains } from "./layers/islands.js";
-import { buildEnhancedRainfall as layerBuildEnhancedRainfall } from "./layers/climate-baseline.js";
-import { refineRainfallEarthlike as layerRefineRainfallEarthlike } from "./layers/climate-refinement.js";
+import { applyClimateBaseline, refineClimateEarthlike } from "./layers/climate-engine.js";
 import { designateEnhancedBiomes as layerDesignateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures as layerAddDiverseFeatures } from "./layers/features.js";
 import { runPlacement as layerRunPlacement } from "./layers/placement.js";
@@ -401,7 +400,7 @@ function generateMap() {
     // Create moderated rainfall patterns (keep enhanced but gentle)
     if (stageClimateBaseline) {
         const t = timeStart("Climate: Baseline");
-        layerBuildEnhancedRainfall(iWidth, iHeight, ctx);
+        applyClimateBaseline(iWidth, iHeight, ctx);
         timeEnd(t);
         logRainfallAscii("baseline");
         logRainfallStats("baseline", iWidth, iHeight);
@@ -434,7 +433,7 @@ function generateMap() {
     if (stageClimateRefine) {
         const t = timeStart("Climate: Earthlike Refinements");
         // Phase 1: Pass context to refactored layer
-        layerRefineRainfallEarthlike(iWidth, iHeight, ctx);
+        refineClimateEarthlike(iWidth, iHeight, ctx);
         timeEnd(t);
         logRainfallAscii("refined");
         logRainfallStats("refined", iWidth, iHeight);
