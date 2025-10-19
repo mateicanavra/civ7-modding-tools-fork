@@ -7,6 +7,13 @@
  * - Lean on plate-aware uplift so convergent margins become mega ranges.
  * - Reserve humidity for narrow rainfall belts hugging those ranges and a
  *   few equatorial/monsoonal refuges.
+ *
+ * Notes
+ * - Mountains: the config intentionally dampens shoreline stacking by
+ *   reducing boundary bonuses, raising interior penalties, and enabling a
+ *   light ocean-separation pass. If convergent belts begin clumping again,
+ *   revisit `mountains.*` weights or tweak the plate seed/rotation knobs
+ *   under `worldModel`.
  */
 import { bootstrap } from "./bootstrap/entry.js";
 
@@ -73,13 +80,13 @@ bootstrap({
             fractalWeight: 0.3,
             riftDepth: 0.4,
             variance: 1.2,
-            boundaryWeight: 1.05,
+            boundaryWeight: 0.6,
             boundaryExponent: 1.28,
-            interiorPenaltyWeight: 0.28,
-            convergenceBonus: 1.1,
+            interiorPenaltyWeight: 0.5,
+            convergenceBonus: 0.7,
             transformPenalty: 0.24,
             riftPenalty: 0.85,
-            hillBoundaryWeight: 0.7,
+            hillBoundaryWeight: 0.4,
             hillRiftBonus: 0.52,
             hillConvergentFoothill: 0.38,
             hillInteriorFalloff: 0.24,
@@ -264,14 +271,13 @@ bootstrap({
         },
         worldModel: /** @type {Partial<WorldModelCfg>} */ ({
             plates: {
-                count: 7,
-                axisAngles: [10, 190],
-                convergenceMix: 0.65,
+                count: 13,
+                convergenceMix: 0.55,
                 relaxationSteps: 4,
                 seedJitter: 3,
                 interiorSmooth: 2,
-                plateRotationMultiple: 3,
-                // seedOffset: 2203,
+                plateRotationMultiple: 2,
+                // seedOffset: 2203, // tweak for alternate plate tessellations
             },
             wind: {
                 jetStreaks: 5,
@@ -292,7 +298,7 @@ bootstrap({
             directionality: {
                 cohesion: 0.48,
                 primaryAxes: {
-                    plateAxisDeg: 8,
+                    plateAxisDeg: 180,
                     windBiasDeg: 24,
                     currentBiasDeg: 195,
                 },
@@ -319,14 +325,10 @@ bootstrap({
                 boundaryFjordBias: 1.1,
                 shelfReefBias: 0.7,
                 oceanSeparation: {
-                    enabled: false,
-                    bandPairs: [
-                        [0, 1],
-                        [1, 2],
-                    ],
-                    baseSeparationTiles: 2,
-                    boundaryClosenessMultiplier: 0.2,
-                    maxPerRowDelta: 2,
+                    enabled: true,
+                    baseSeparationTiles: 1,
+                    boundaryClosenessMultiplier: 0.35,
+                    maxPerRowDelta: 1,
                     minChannelWidth: 5,
                     respectSeaLanes: true,
                     edgeWest: {

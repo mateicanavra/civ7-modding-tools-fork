@@ -297,12 +297,12 @@
 /**
  * Plate-aware coastline weighting (optional).
  *
- * Provides continuous control over how boundary closeness and boundary type
+ * Provides continuous control over how plate-boundary closeness and boundary type
  * influence bay and fjord chances. Positive values make denominators smaller
  * (more edits); negative values make them larger (fewer edits).
  *
  * @typedef {Object} CoastlinePlateBias
- * @property {number} [threshold] - Closeness threshold (0..1) where boundary influence starts (default 0.45)
+ * @property {number} [threshold] - Normalized plate-boundary closeness threshold (0..1) where influence starts (default 0.45)
  * @property {number} [power] - Exponent shaping how quickly influence ramps after the threshold (default 1.25)
  * @property {number} [convergent] - Multiplier for convergent boundaries (default 1.0)
  * @property {number} [transform] - Multiplier for transform boundaries (default 0.4)
@@ -517,13 +517,13 @@
  * @property {number} [fractalWeight] - Weight (0..1) applied to fractal noise; higher = more legacy randomness in belts
  * @property {number} [riftDepth] - 0..1 depression severity at divergent boundaries (1 = completely flatten divergent zones)
  * @property {number} [variance] - Random +/- percentage variance (in percentage points) applied to mountain/hill targets
- * @property {number} [boundaryWeight] - Additional mountain weight contributed by boundary closeness (0..2 typical)
- * @property {number} [boundaryExponent] - Exponent (>=0.25) shaping how quickly boundary weight falls off from plate margins (1.0 = linear)
+ * @property {number} [boundaryWeight] - Additional mountain weight contributed by plate-boundary closeness (unitless multiplier, typically 0..2)
+ * @property {number} [boundaryExponent] - Exponent (>=0.25) shaping how quickly the boundary bonus decays with distance from a plate boundary (1.0 = linear)
  * @property {number} [interiorPenaltyWeight] - Amount subtracted from mountains deep inside plates; nudges belts toward margins (0..1)
  * @property {number} [convergenceBonus] - Extra additive weight for convergent tiles (0..1.5 typical) creating high orogeny ridges
  * @property {number} [transformPenalty] - Multiplier penalty applied along transform boundaries (0..1; 0.3 softens shearing ridges)
  * @property {number} [riftPenalty] - Multiplier penalty applied along divergent boundaries before `riftDepth` carve (0..1.5)
- * @property {number} [hillBoundaryWeight] - Hill weight contributed by boundary closeness (0..1; creates foothill skirts)
+ * @property {number} [hillBoundaryWeight] - Hill weight contributed by plate-boundary closeness (0..1; creates foothill skirts)
  * @property {number} [hillRiftBonus] - Hill bonus for divergent belts (0..1; creates uplifted shoulders beside rifts)
  * @property {number} [hillConvergentFoothill] - Extra foothill weight on convergent tiles (0..0.5 typical)
  * @property {number} [hillInteriorFalloff] - Penalty for hills deep inside plates (0..0.5; higher keeps hills near action)
@@ -540,8 +540,8 @@
  * @property {boolean} [enabled] - Toggle volcano placement (default true)
  * @property {number} [baseDensity] - Volcanoes per land tile (e.g., 1/170 ≈ 0.0059)
  * @property {number} [minSpacing] - Minimum Euclidean distance between volcanoes (tiles)
- * @property {number} [boundaryThreshold] - Boundary closeness threshold (0..1) for treating a tile as margin adjacent
- * @property {number} [boundaryWeight] - Base weight applied to tiles within the boundary band (0..3 typical)
+ * @property {number} [boundaryThreshold] - Plate-boundary closeness threshold (0..1) for treating a tile as margin adjacent
+ * @property {number} [boundaryWeight] - Base weight applied to tiles within the plate-boundary band (0..3 typical)
  * @property {number} [convergentMultiplier] - Weight multiplier for convergent boundaries (>=0)
  * @property {number} [transformMultiplier] - Weight multiplier for transform boundaries (>=0)
  * @property {number} [divergentMultiplier] - Weight multiplier for divergent boundaries (>=0; usually <1 to discourage)
@@ -627,7 +627,7 @@
  * @property {boolean} [enabled] - Master switch: true = full simulation, false = simpler preset-based generation
  * @property {Object} [plates] - Tectonic plate generation using Voronoi diagrams; drives continental layout and boundaries
  * @property {number} [plates.count] - Number of tectonic plates; 8=Pangaea, 15-20=Earth-like, 25+=fragmented (typically 12-18)
- * @property {ReadonlyArray<number>} [plates.axisAngles] - Preferred plate movement directions in degrees to create aligned features
+ * @property {ReadonlyArray<number>} [plates.axisAngles] - **Deprecated** (ignored by the current plate solver); kept for legacy configs only
  * @property {number} [plates.convergenceMix] - Ratio of convergent (colliding/mountains) vs divergent (rifting) boundaries (0..1, typically 0.4-0.6)
  * @property {number} [plates.relaxationSteps] - Lloyd relaxation iterations: smooths plate shapes by moving seeds toward region centers; 0=random, 5=balanced, 10+=very uniform (typically 4-7)
  * @property {number} [plates.seedJitter] - Random offset applied to initial plate seeds in tiles; adds irregularity (typically 0-8)
@@ -644,7 +644,7 @@
  * @property {number} [wind.coriolisZonalScale] - Coriolis effect strength on east-west winds (typically 0.8-1.2)
  * @property {Object} [currents] - Ocean circulation (gyres and boundary currents affecting coastal climate)
  * @property {number} [currents.basinGyreCountMax] - Maximum ocean gyre systems like Gulf Stream/Kuroshio (typically 3-6)
- * @property {number} [currents.westernBoundaryBias] - Intensity of western boundary currents; higher = stronger Gulf Stream analogs (typically 1.0-2.0)
+ * @property {number} [currents.westernBoundaryBias] - Intensity of western boundary currents (unitless multiplier; higher = stronger Gulf Stream analogs, typically 1.0-2.0)
  * @property {number} [currents.currentStrength] - Overall ocean current strength multiplier (typically 0.8-1.5)
  * @property {Object} [pressure] - Mantle convection pressure (subsurface hotspots affecting terrain relief)
  * @property {number} [pressure.bumps] - Number of mantle plume hotspots creating localized uplift (typically 3-8)
@@ -653,7 +653,7 @@
  * @property {Object} [directionality] - System coherence (how aligned plates/winds/currents are with each other)
  * @property {number} [directionality.cohesion] - Global alignment strength; 0=independent systems, 1=fully aligned (0..1, typically 0.3-0.7)
  * @property {Object} [directionality.primaryAxes] - Preferred directions for each system in compass degrees
- * @property {number} [directionality.primaryAxes.plateAxisDeg] - Primary plate movement direction (0-360 degrees, e.g., 45=northeast)
+ * @property {number} [directionality.primaryAxes.plateAxisDeg] - Primary plate movement direction (0°=east, 90°=south, 180°=west, 270°=north)
  * @property {number} [directionality.primaryAxes.windBiasDeg] - Wind direction bias offset from zonal (0-360 degrees)
  * @property {number} [directionality.primaryAxes.currentBiasDeg] - Ocean gyre rotation bias (0-360 degrees)
  * @property {Object} [directionality.interplay] - Cross-system coupling strength (how systems influence each other)
