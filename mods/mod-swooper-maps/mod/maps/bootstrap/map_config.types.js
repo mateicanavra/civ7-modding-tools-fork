@@ -80,6 +80,59 @@
  */
 
 /**
+ * Plate tensors emitted by the foundation stage.
+ *
+ * @typedef {Object} FoundationPlateFields
+ * @property {Int16Array} id - Plate identifier per tile
+ * @property {Uint8Array} boundaryCloseness - Distance-to-boundary metric (0 = on boundary)
+ * @property {Uint8Array} boundaryType - Encoded boundary type (convergent/divergent/transform)
+ * @property {Uint8Array} tectonicStress - Aggregate stress magnitude per tile
+ * @property {Uint8Array} upliftPotential - Mountain uplift weighting per tile
+ * @property {Uint8Array} riftPotential - Rift weighting per tile
+ * @property {Uint8Array} shieldStability - Continental interior stability per tile
+ * @property {Int8Array} movementU - Horizontal plate motion component
+ * @property {Int8Array} movementV - Vertical plate motion component
+ * @property {Int8Array} rotation - Plate rotation scalar
+ */
+
+/**
+ * Atmospheric and oceanic tensors emitted by the foundation stage.
+ *
+ * @typedef {Object} FoundationDynamicsFields
+ * @property {Int8Array} windU - Zonal wind component per tile
+ * @property {Int8Array} windV - Meridional wind component per tile
+ * @property {Int8Array} currentU - Zonal ocean current component per tile
+ * @property {Int8Array} currentV - Meridional ocean current component per tile
+ * @property {Uint8Array} pressure - Mantle pressure field per tile
+ */
+
+/**
+ * Diagnostics payload bundled with the foundation context.
+ *
+ * @typedef {Object} FoundationDiagnosticsFields
+ * @property {any|null} boundaryTree - Spatial index for boundary queries
+ */
+
+/**
+ * Immutable runtime snapshot emitted by the `foundation` stage.
+ *
+ * @typedef {Object} FoundationContext
+ * @property {{ width: number, height: number, size: number }} dimensions - Map dimensions baked into the tensors
+ * @property {Readonly<any>|null} plateSeed - Captured Voronoi seed bundle used for deterministic replay
+ * @property {FoundationPlateFields} plates - Plate/boundary tensors shared across stages
+ * @property {FoundationDynamicsFields} dynamics - Wind, current, and mantle pressure tensors
+ * @property {FoundationDiagnosticsFields} diagnostics - Supplemental diagnostics (kd-tree, metadata)
+ * @property {{
+ *   seed: FoundationSeedConfig,
+ *   plates: FoundationPlatesConfig,
+ *   dynamics: FoundationDynamicsConfig,
+ *   surface: FoundationSurfaceConfig,
+ *   policy: FoundationPolicyConfig,
+ *   diagnostics: FoundationDiagnosticsConfig,
+ * }} config - Normalized configuration snapshot associated with the tensors
+ */
+
+/**
  * Feature toggles for major narrative and simulation systems.
  *
  * @typedef {Object} Toggles

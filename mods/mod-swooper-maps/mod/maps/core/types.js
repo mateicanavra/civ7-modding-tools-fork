@@ -63,6 +63,70 @@
  */
 
 /**
+ * Snapshot of the configuration objects that informed the current foundation run.
+ * Mirrors come from the resolved tunables so downstream consumers can reason
+ * about the knobs that produced the published tensors.
+ *
+ * @typedef {Object} FoundationConfigSnapshot
+ * @property {Readonly<any>} seed
+ * @property {Readonly<any>} plates
+ * @property {Readonly<any>} dynamics
+ * @property {Readonly<any>} surface
+ * @property {Readonly<any>} policy
+ * @property {Readonly<any>} diagnostics
+ */
+
+/**
+ * Plate-centric tensors emitted by the WorldModel. All arrays share the map
+ * dimensions (width × height) and are treated as read-only snapshots.
+ *
+ * @typedef {Object} FoundationPlateFields
+ * @property {Int16Array} id
+ * @property {Uint8Array} boundaryCloseness
+ * @property {Uint8Array} boundaryType
+ * @property {Uint8Array} tectonicStress
+ * @property {Uint8Array} upliftPotential
+ * @property {Uint8Array} riftPotential
+ * @property {Uint8Array} shieldStability
+ * @property {Int8Array} movementU
+ * @property {Int8Array} movementV
+ * @property {Int8Array} rotation
+ */
+
+/**
+ * Atmospheric and oceanic tensors emitted by the WorldModel.
+ *
+ * @typedef {Object} FoundationDynamicsFields
+ * @property {Int8Array} windU
+ * @property {Int8Array} windV
+ * @property {Int8Array} currentU
+ * @property {Int8Array} currentV
+ * @property {Uint8Array} pressure
+ */
+
+/**
+ * Diagnostics payload accompanying the foundation tensors.
+ *
+ * @typedef {Object} FoundationDiagnosticsFields
+ * @property {any|null} boundaryTree
+ */
+
+/**
+ * Immutable data product emitted by the foundation stage.
+ * Downstream stages rely on this object instead of touching WorldModel directly.
+ *
+ * @typedef {Object} FoundationContext
+ * @property {{ width: number, height: number, size: number }} dimensions
+ * @property {Readonly<any>|null} plateSeed
+ * @property {FoundationPlateFields} plates
+ * @property {FoundationDynamicsFields} dynamics
+ * @property {FoundationDiagnosticsFields} diagnostics
+ * @property {FoundationConfigSnapshot} config
+ */
+
+const EMPTY_FROZEN_OBJECT = Object.freeze({});
+
+/**
  * @typedef {Object} RNGState
  * @property {Map<string, number>} callCounts - Tracks RNG calls per label for determinism
  * @property {number|null} seed - Optional seed for replay
@@ -92,7 +156,7 @@
  * @property {any} config - Resolved configuration object
  * @property {GenerationMetrics} metrics - Performance and validation metrics
  * @property {EngineAdapter} adapter - Abstraction layer for engine operations
- * @property {{ plateSeed: Readonly<any>|null }} foundation - Shared world foundations (e.g., plate seed metadata)
+ * @property {FoundationContext|null} foundation - Shared world foundations (immutable data product)
  * @property {MapBuffers} buffers - Shared staging buffers
  */
 
@@ -182,9 +246,7 @@ export function createMapContext(dimensions, adapter, config) {
       warnings: [],
     },
     adapter,
-    foundation: {
-      plateSeed: null,
-    },
+    foundation: null,
     buffers: {
       heightfield,
       climate,
@@ -304,6 +366,124 @@ export function writeClimateField(ctx, x, y, options) {
   }
 }
 
+function freezeConfigSnapshot(value) {
+  if (!value || typeof value !== "object") return EMPTY_FROZEN_OBJECT;
+  try {
+    return Object.freeze(value);
+  } catch {
+    return value;
+  }
+}
+
+function ensureTensor(name, tensor, size) {
+  if (!tensor || typeof tensor.length !== "number") {
+    throw new Error(`[FoundationContext] Missing ${name} tensor.`);
+  }
+  if (tensor.length !== size) {
+    throw new Error(
+      `[FoundationContext] ${name} tensor length mismatch (expected ${size}, received ${tensor.length}).`
+    );
+  }
+  return tensor;
+}
+
+/**
+ * Create an immutable FoundationContext snapshot from the active WorldModel.
+ *
+ * @param {import('../world/model.js').WorldModel} worldModel
+ * @param {{ dimensions: MapDimensions, config?: Partial<FoundationConfigSnapshot> }} options
+ * @returns {FoundationContext}
+ */
+export function createFoundationContext(worldModel, options) {
+  if (!worldModel || typeof worldModel.isEnabled !== "function" || !worldModel.isEnabled()) {
+    throw new Error("[FoundationContext] WorldModel is not initialized or disabled.");
+  }
+  if (!options || !options.dimensions) {
+    throw new Error("[FoundationContext] Map dimensions are required to build the context.");
+  }
+  const width = options.dimensions.width | 0;
+  const height = options.dimensions.height | 0;
+  const size = Math.max(0, width * height) | 0;
+  if (size <= 0) {
+    throw new Error("[FoundationContext] Invalid map dimensions.");
+  }
+
+  const plateId = ensureTensor("plateId", worldModel.plateId, size);
+  const boundaryCloseness = ensureTensor("boundaryCloseness", worldModel.boundaryCloseness, size);
+  const boundaryType = ensureTensor("boundaryType", worldModel.boundaryType, size);
+  const tectonicStress = ensureTensor("tectonicStress", worldModel.tectonicStress, size);
+  const upliftPotential = ensureTensor("upliftPotential", worldModel.upliftPotential, size);
+  const riftPotential = ensureTensor("riftPotential", worldModel.riftPotential, size);
+  const shieldStability = ensureTensor("shieldStability", worldModel.shieldStability, size);
+  const plateMovementU = ensureTensor("plateMovementU", worldModel.plateMovementU, size);
+  const plateMovementV = ensureTensor("plateMovementV", worldModel.plateMovementV, size);
+  const plateRotation = ensureTensor("plateRotation", worldModel.plateRotation, size);
+  const windU = ensureTensor("windU", worldModel.windU, size);
+  const windV = ensureTensor("windV", worldModel.windV, size);
+  const currentU = ensureTensor("currentU", worldModel.currentU, size);
+  const currentV = ensureTensor("currentV", worldModel.currentV, size);
+  const pressure = ensureTensor("pressure", worldModel.pressure, size);
+
+  const configInput = options.config || {};
+  const configSnapshot = {
+    seed: freezeConfigSnapshot(configInput.seed),
+    plates: freezeConfigSnapshot(configInput.plates),
+    dynamics: freezeConfigSnapshot(configInput.dynamics),
+    surface: freezeConfigSnapshot(configInput.surface),
+    policy: freezeConfigSnapshot(configInput.policy),
+    diagnostics: freezeConfigSnapshot(configInput.diagnostics),
+  };
+
+  return Object.freeze({
+    dimensions: Object.freeze({ width, height, size }),
+    plateSeed: worldModel.plateSeed || null,
+    plates: Object.freeze({
+      id: plateId,
+      boundaryCloseness,
+      boundaryType,
+      tectonicStress,
+      upliftPotential,
+      riftPotential,
+      shieldStability,
+      movementU: plateMovementU,
+      movementV: plateMovementV,
+      rotation: plateRotation,
+    }),
+    dynamics: Object.freeze({ windU, windV, currentU, currentV, pressure }),
+    diagnostics: Object.freeze({ boundaryTree: worldModel.boundaryTree || null }),
+    config: Object.freeze(configSnapshot),
+  });
+}
+
+/**
+ * Check whether the provided MapContext already carries a FoundationContext.
+ *
+ * @param {MapContext} ctx
+ * @returns {ctx is MapContext & { foundation: FoundationContext }}
+ */
+export function hasFoundationContext(ctx) {
+  return !!(ctx && ctx.foundation && typeof ctx.foundation === "object");
+}
+
+/**
+ * Assert that a FoundationContext exists on the provided MapContext.
+ * Throws when absent so stages fail loudly instead of running with stale data.
+ *
+ * @param {MapContext} ctx
+ * @param {string} [stage]
+ * @returns {FoundationContext}
+ */
+export function assertFoundationContext(ctx, stage) {
+  if (hasFoundationContext(ctx)) {
+    return /** @type {FoundationContext} */ (ctx.foundation);
+  }
+  const message = stage
+    ? `[StageManifest] Stage "${stage}" requires FoundationContext but it is unavailable.`
+    : "[StageManifest] Required FoundationContext is unavailable.";
+  console.error(message);
+  throw new Error(message);
+}
+
 /**
  * Convenience helper to fill an entire buffer with a value (used for resets).
  *
@@ -391,6 +571,9 @@ export default {
   inBounds,
   writeHeightfield,
   writeClimateField,
+  createFoundationContext,
+  hasFoundationContext,
+  assertFoundationContext,
   fillBuffer,
   syncHeightfield,
   syncClimateField,

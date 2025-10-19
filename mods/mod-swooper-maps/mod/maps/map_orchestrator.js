@@ -15,7 +15,20 @@ import { expandCoasts, generateLakes } from "/base-standard/maps/elevation-terra
 import { layerAddMountainsPhysics } from "./layers/mountains.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import * as utilities from "/base-standard/maps/map-utilities.js";
-import { stageEnabled, LANDMASS_CFG, LANDMASS_GEOMETRY, MOUNTAINS_CFG, VOLCANOES_CFG, FOUNDATION_SEED, FOUNDATION_PLATES, FOUNDATION_DYNAMICS, FOUNDATION_SURFACE, rebind, } from "./bootstrap/tunables.js";
+import {
+    stageEnabled,
+    LANDMASS_CFG,
+    LANDMASS_GEOMETRY,
+    MOUNTAINS_CFG,
+    VOLCANOES_CFG,
+    FOUNDATION_SEED,
+    FOUNDATION_PLATES,
+    FOUNDATION_DYNAMICS,
+    FOUNDATION_SURFACE,
+    FOUNDATION_POLICY,
+    FOUNDATION_DIAGNOSTICS,
+    rebind,
+} from "./bootstrap/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import { storyTagHotspotTrails, storyTagRiftValleys, storyTagOrogenyBelts, storyTagContinentalMargins, storyTagClimateSwatches, OrogenyCache, } from "./story/tagging.js";
@@ -31,7 +44,13 @@ import { runPlacement as layerRunPlacement } from "./layers/placement.js";
 import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logRainfallStats, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, logBiomeSummary, logFoundationSeed, logFoundationPlates, logFoundationDynamics, logFoundationSurface, } from "./bootstrap/dev.js";
 import { WorldModel } from "./world/model.js";
 // Phase 1 Refactoring: Context + Adapter layer
-import { createMapContext, syncHeightfield, syncClimateField } from "./core/types.js";
+import {
+    createMapContext,
+    syncHeightfield,
+    syncClimateField,
+    createFoundationContext,
+    assertFoundationContext,
+} from "./core/types.js";
 import { CivEngineAdapter } from "./core/adapters.js";
 
 // Maintain compatibility with dev helpers that expect StoryTags on the global scope.
@@ -151,24 +170,34 @@ function generateMap() {
     if (!stageFoundation) {
         console.warn("[StageManifest] Foundation stage disabled; physics pipeline requires it.");
     }
+    let foundationContext = null;
     if (stageFoundation) {
         try {
-            if (WorldModel.init()) {
-                ctx.worldModel = WorldModel;
-                if (ctx.foundation) {
-                    ctx.foundation.plateSeed = WorldModel.plateSeed || null;
-                }
-                devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
-                logWorldModelSummary(WorldModel);
-                logWorldModelAscii(WorldModel);
-                logFoundationSeed(FOUNDATION_SEED, WorldModel.plateSeed || null, { skipConfig: true });
+            if (!WorldModel.init()) {
+                throw new Error("[WorldModel] Initialization failed; physics data unavailable.");
             }
-            else {
-                console.error("[WorldModel] Initialization failed; physics data unavailable.");
-            }
+            ctx.worldModel = WorldModel;
+            foundationContext = createFoundationContext(WorldModel, {
+                dimensions: ctx.dimensions,
+                config: {
+                    seed: FOUNDATION_SEED,
+                    plates: FOUNDATION_PLATES,
+                    dynamics: FOUNDATION_DYNAMICS,
+                    surface: FOUNDATION_SURFACE,
+                    policy: FOUNDATION_POLICY,
+                    diagnostics: FOUNDATION_DIAGNOSTICS,
+                },
+            });
+            ctx.foundation = foundationContext;
+            devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
+            logWorldModelSummary(WorldModel);
+            logWorldModelAscii(WorldModel);
+            logFoundationSeed(FOUNDATION_SEED, foundationContext.plateSeed || null, { skipConfig: true });
         }
         catch (err) {
-            devLogIf("LOG_STORY_TAGS", "[WorldModel] init error");
+            const message = err && typeof err.message === "string" ? err.message : String(err);
+            console.error(`[FoundationContext] Failed to initialize: ${message}`);
+            throw err;
         }
     }
     let iNumNaturalWonders = Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders);
@@ -199,7 +228,9 @@ function generateMap() {
     const landmassSource = stageLandmassPlates ? "plate" : "disabled";
     let landmaskDebug = null;
     let landmassWindowsFinal = [];
+    const ensureFoundation = (stageName) => assertFoundationContext(ctx, stageName);
     if (stageLandmassPlates) {
+        ensureFoundation("landmassPlates");
         const t = timeStart("Landmass (Plate-Driven)");
         const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
             landmassCfg: LANDMASS_CFG,
@@ -283,6 +314,7 @@ function generateMap() {
     TerrainBuilder.validateAndFixTerrain();
     syncHeightfield(ctx);
     if (stageCoastlines) {
+        ensureFoundation("coastlines");
         const t = timeStart("ExpandCoasts");
         expandCoasts(iWidth, iHeight);
         timeEnd(t);
@@ -292,6 +324,7 @@ function generateMap() {
     }
     // Reset StoryTags and tag continental margins before coast shaping
     if (stageStorySeed) {
+        ensureFoundation("storySeed");
         resetStoryTags();
         console.log("Imprinting continental margins (active/passive)...");
         storyTagContinentalMargins();
@@ -307,14 +340,17 @@ function generateMap() {
         resetStoryTags();
     }
     if (stageStoryHotspots) {
+        ensureFoundation("storyHotspots");
         console.log("Drawing hotspot trails...");
         storyTagHotspotTrails(iWidth, iHeight);
     }
     if (stageStoryRifts) {
+        ensureFoundation("storyRifts");
         console.log("Marking rift lines and shoulders...");
         storyTagRiftValleys(iWidth, iHeight);
     }
     if (stageStoryOrogeny) {
+        ensureFoundation("storyOrogeny");
         console.log("Tagging orogenic belts...");
         storyTagOrogenyBelts();
         logWorldModelHistograms(WorldModel, {
@@ -329,6 +365,7 @@ function generateMap() {
     }
     // Strategic Corridors: tag pre-islands lanes and land corridors
     if (stageStoryCorridorsPre) {
+        ensureFoundation("storyCorridorsPre");
         storyTagStrategicCorridors("preIslands");
         logCorridorAsciiOverlay();
     }
@@ -337,6 +374,7 @@ function generateMap() {
         logStoryTagsSummary(StoryTags, OrogenyCache);
     }
     if (stageIslands) {
+        ensureFoundation("islands");
         const t = timeStart("IslandChains");
         layerAddIslandChains(iWidth, iHeight, ctx);
         timeEnd(t);
@@ -348,6 +386,7 @@ function generateMap() {
     utilities.addPlotTags(iHeight, iWidth, eastContinent.west);
     // Mountains & Hills – Phase 2: Physics-based placement using plate boundaries
     if (stageMountains) {
+        ensureFoundation("mountains");
         const t = timeStart("Mountains & Hills (Physics)");
         layerAddMountainsPhysics(ctx, mountainOptions);
         timeEnd(t);
@@ -356,6 +395,7 @@ function generateMap() {
         }
     }
     if (stageVolcanoes) {
+        ensureFoundation("volcanoes");
         const t = timeStart("Volcanoes");
         layerAddVolcanoesPlateAware(ctx, volcanoOptions);
         timeEnd(t);
@@ -368,6 +408,7 @@ function generateMap() {
     }
     // Lakes – fewer than before
     if (stageLakes) {
+        ensureFoundation("lakes");
         const t = timeStart("Lakes");
         generateLakes(iWidth, iHeight, iTilesPerLake);
         timeEnd(t);
@@ -406,6 +447,7 @@ function generateMap() {
     TerrainBuilder.buildElevation();
     // Create moderated rainfall patterns (keep enhanced but gentle)
     if (stageClimateBaseline) {
+        ensureFoundation("climateBaseline");
         const t = timeStart("Climate: Baseline");
         applyClimateBaseline(iWidth, iHeight, ctx);
         timeEnd(t);
@@ -413,6 +455,7 @@ function generateMap() {
         logRainfallStats("baseline", iWidth, iHeight);
     }
     if (stageStorySwatches) {
+        ensureFoundation("storySwatches");
         const t = timeStart("Climate: Swatches");
         const swatchResult = storyTagClimateSwatches(ctx);
         if (swatchResult && swatchResult.kind) {
@@ -423,6 +466,7 @@ function generateMap() {
     }
     // Rivers – closer to base values for balance
     if (stageRivers) {
+        ensureFoundation("rivers");
         const t = timeStart("Rivers");
         TerrainBuilder.modelRivers(5, 15, globals.g_NavigableRiverTerrain);
         timeEnd(t);
@@ -433,11 +477,13 @@ function generateMap() {
     }
     // Strategic Corridors: tag river-chain corridors post-rivers
     if (stageStoryCorridorsPost) {
+        ensureFoundation("storyCorridorsPost");
         storyTagStrategicCorridors("postRivers");
         logCorridorAsciiOverlay();
     }
     // Refine rainfall with earthlike dynamics after rivers exist
     if (stageClimateRefine) {
+        ensureFoundation("climateRefine");
         const t = timeStart("Climate: Earthlike Refinements");
         // Phase 1: Pass context to refactored layer
         refineClimateEarthlike(iWidth, iHeight, ctx);
@@ -447,6 +493,7 @@ function generateMap() {
     }
     // Enhanced biome diversity
     if (stageBiomes) {
+        ensureFoundation("biomes");
         const t = timeStart("Biomes");
         layerDesignateEnhancedBiomes(iWidth, iHeight);
         timeEnd(t);
@@ -455,6 +502,7 @@ function generateMap() {
     }
     // Add extensive feature variety
     if (stageFeatures) {
+        ensureFoundation("features");
         const t = timeStart("Features");
         layerAddDiverseFeatures(iWidth, iHeight, ctx);
         timeEnd(t);
@@ -469,6 +517,7 @@ function generateMap() {
     TerrainBuilder.storeWaterData();
     // Placement phase (wonders, floodplains, snow, resources, starts, discoveries, fertility, advanced starts)
     if (stagePlacement) {
+        ensureFoundation("placement");
         const t = timeStart("Placement");
         startPositions = layerRunPlacement(iWidth, iHeight, {
             mapInfo,

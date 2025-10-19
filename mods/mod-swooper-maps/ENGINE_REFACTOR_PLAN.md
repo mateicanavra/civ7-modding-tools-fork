@@ -69,7 +69,7 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 ### Phase A – Foundations Alignment
 1. Promote `landmassPlates` to the default stage; demote the legacy continent generator to an opt-in manifest entry. **(Done)**
 2. Expose a deterministic `PlateSeed` from WorldModel so every consumer (landmass, diagnostics) shares identical Voronoi sites. **(Done)** — `PlateSeedManager.capture()` now owns RNG overrides and `WorldModel` publishes a frozen seed snapshot.
-3. Emit `FoundationContext` and guard all downstream stages with runtime assertions (`stageEnabled` + presence of required data product).
+3. **(Done)** Emit `FoundationContext` and guard all downstream stages with runtime assertions (`stageEnabled` + presence of required data product).
 4. Migrate config + tunables to the new `foundation` block, deleting the legacy `worldModel` toggle/typedefs once consumers compile.
 
 ### Phase B – Morphology Refactor
@@ -135,4 +135,4 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 
 _First up:_ rename the manifest/default wiring to use `foundation` + `landmassPlates` so downstream modules can follow suit.
 
-_Status update:_ Manifest defaults now export `foundation` and `landmassPlates` only; the legacy landmass stub is gone and orchestrator gating reflects the single Voronoi physics path. `PlateSeedManager` now captures and shares the deterministic Voronoi physics seed through `WorldModel` diagnostics.
+_Status update:_ Manifest defaults now export `foundation` and `landmassPlates` only; the legacy landmass stub is gone and orchestrator gating reflects the single Voronoi physics path. `PlateSeedManager` now captures and shares the deterministic Voronoi physics seed through `WorldModel` diagnostics, and the orchestrator emits an immutable `FoundationContext` before any downstream stage executes.

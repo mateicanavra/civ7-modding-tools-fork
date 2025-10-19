@@ -29,6 +29,7 @@
 - `bootstrap/tunables.js` exposes a `CLIMATE` helper (`CLIMATE.drivers`, `CLIMATE.moistureAdjustments`) that climate layers and story overlays consume instead of reading raw config blocks.
 - Climate layers stage rainfall via `MapContext.buffers.climate`; prefer `writeClimateField` / `syncClimateField` when mutating or syncing rainfall rather than writing to `GameplayMap` directly.
 - Baseline, swatch, and refinement rainfall logic live in `layers/climate-engine.js`; stage wrappers delegate to this module so edits stay centralized.
+- `core/types.js` exports `createFoundationContext`/`assertFoundationContext`; `MapContext.foundation` is now an immutable snapshot that must exist before any stage requiring physics runs.
 
 ### Testing imports
 - Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.
