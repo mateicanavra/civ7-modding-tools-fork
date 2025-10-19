@@ -21,6 +21,7 @@
 - The huge-plate baseline entry now lives at `mods/mod-swooper-maps/mod/maps/swooper-desert-mountains.js`, with config and localization rows using the same `desert-mountains` slug.
 - `mods/mod-swooper-maps/mod/maps/bootstrap/dev.js` now emits ASCII diagnostics for landmass windows, relief (mountains/hills/volcanoes), rainfall buckets, and biome distribution in addition to plate boundaries/corridors. Toggle them with `DEV.LOG_LANDMASS_ASCII`, `DEV.LOG_RELIEF_ASCII`, `DEV.LOG_RAINFALL_ASCII`, and `DEV.LOG_BIOME_ASCII`.
 - `mods/mod-swooper-maps/DESIGN.md` captures the current layer stack and forward-looking physics roadmap; `SWOOPER_MAPS_ARCHITECTURE_AUDIT.md` now includes Section 7 for Earth-system expansion ideas.
+- Stage execution is coordinated through `stageManifest` (defaults in `mods/mod-swooper-maps/mod/maps/bootstrap/defaults/base.js`). The resolver normalizes dependencies, mirrors legacy `STORY_ENABLE_*` toggles, and logs `[StageManifest]` warnings when prerequisites are missing. Use `tunables.stageEnabled()` instead of raw toggles when gating layers.
 - Landmass generation now flows Voronoi → plate mask; ocean separation lives in `layers/landmass_utils.js::applyPlateAwareOceanSeparation` and the legacy three-band generator has been removed.
 
 ### Testing imports

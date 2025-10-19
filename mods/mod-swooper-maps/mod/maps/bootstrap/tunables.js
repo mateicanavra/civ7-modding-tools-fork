@@ -27,9 +27,9 @@
  * - Arrays and objects returned from the resolver are treated as read‑only.
  */
 // @ts-check
-import { refresh as __refreshResolved__, 
+import { refresh as __refreshResolved__,
 // group getters
-TOGGLES as __TOGGLES__, STORY as __STORY__, MICROCLIMATE as __MICROCLIMATE__, LANDMASS_CFG as __LANDMASS__, COASTLINES_CFG as __COASTLINES__, MARGINS_CFG as __MARGINS__, ISLANDS_CFG as __ISLANDS__, CLIMATE_BASELINE_CFG as __CLIMATE_BASELINE__, CLIMATE_REFINE_CFG as __CLIMATE_REFINE__, MOUNTAINS_CFG as __MOUNTAINS__, VOLCANOES_CFG as __VOLCANOES__, BIOMES_CFG as __BIOMES__, FEATURES_DENSITY_CFG as __FEATURES_DENSITY__, CORRIDORS_CFG as __CORRIDORS__, PLACEMENT_CFG as __PLACEMENT__, DEV_LOG_CFG as __DEV__, WORLDMODEL_CFG as __WM__, 
+TOGGLES as __TOGGLES__, STORY as __STORY__, MICROCLIMATE as __MICROCLIMATE__, LANDMASS_CFG as __LANDMASS__, COASTLINES_CFG as __COASTLINES__, MARGINS_CFG as __MARGINS__, ISLANDS_CFG as __ISLANDS__, CLIMATE_BASELINE_CFG as __CLIMATE_BASELINE__, CLIMATE_REFINE_CFG as __CLIMATE_REFINE__, MOUNTAINS_CFG as __MOUNTAINS__, VOLCANOES_CFG as __VOLCANOES__, BIOMES_CFG as __BIOMES__, FEATURES_DENSITY_CFG as __FEATURES_DENSITY__, CORRIDORS_CFG as __CORRIDORS__, PLACEMENT_CFG as __PLACEMENT__, DEV_LOG_CFG as __DEV__, WORLDMODEL_CFG as __WM__, STAGE_MANIFEST as __STAGE_MANIFEST__,
 // nested WM helpers
 WORLDMODEL_PLATES as __WM_PLATES__, WORLDMODEL_WIND as __WM_WIND__, WORLDMODEL_CURRENTS as __WM_CURRENTS__, WORLDMODEL_PRESSURE as __WM_PRESSURE__, WORLDMODEL_POLICY as __WM_POLICY__, WORLDMODEL_DIRECTIONALITY as __WM_DIR__, WORLDMODEL_OCEAN_SEPARATION as __WM_OSEPARATION__, } from "./resolved.js";
 /**
@@ -51,10 +51,29 @@ WORLDMODEL_PLATES as __WM_PLATES__, WORLDMODEL_WIND as __WM_WIND__, WORLDMODEL_C
  * @typedef {import('./map_config.types.js').Placement} Placement
  * @typedef {import('./map_config.types.js').DevLogging} DevLogging
  * @typedef {import('./map_config.types.js').WorldModel} WorldModel
+ * @typedef {import('./map_config.types.js').StageManifest} StageManifest
+ * @typedef {import('./map_config.types.js').StageName} StageName
  */
 /* -----------------------------------------------------------------------------
  * Exported live bindings (updated by rebind)
  * -------------------------------------------------------------------------- */
+/** @type {Readonly<StageManifest>} */
+export let STAGE_MANIFEST = Object.freeze({
+    order: Object.freeze([]),
+    stages: Object.freeze({}),
+});
+/**
+ * Check whether a manifest stage is enabled after dependency evaluation.
+ * @param {StageName} stage
+ * @returns {boolean}
+ */
+export function stageEnabled(stage) {
+    if (!STAGE_MANIFEST || typeof STAGE_MANIFEST !== "object")
+        return false;
+    const stages = STAGE_MANIFEST.stages || {};
+    const entry = stages && stages[stage];
+    return !!(entry && entry.enabled !== false);
+}
 // Master toggles
 export let STORY_ENABLE_HOTSPOTS = true;
 export let STORY_ENABLE_RIFTS = true;
@@ -134,15 +153,23 @@ export let WORLDMODEL_OCEAN_SEPARATION = Object.freeze({});
 export function rebind() {
     // 1) Resolve the current snapshot from defaults + presets + per-entry overrides
     __refreshResolved__();
+    STAGE_MANIFEST = safeObj(__STAGE_MANIFEST__());
+    const manifestToggleMap = deriveManifestToggleMap(STAGE_MANIFEST);
+    const resolvedToggleSnapshot = safeObj(__TOGGLES__());
+    const toggleValue = (key, fallback) => {
+        if (Object.prototype.hasOwnProperty.call(manifestToggleMap, key))
+            return manifestToggleMap[key];
+        const raw = resolvedToggleSnapshot[key];
+        return typeof raw === "boolean" ? raw : fallback;
+    };
     // 2) Toggles
-    const T = safeObj(__TOGGLES__());
-    STORY_ENABLE_HOTSPOTS = T.STORY_ENABLE_HOTSPOTS ?? true;
-    STORY_ENABLE_RIFTS = T.STORY_ENABLE_RIFTS ?? true;
-    STORY_ENABLE_OROGENY = T.STORY_ENABLE_OROGENY ?? true;
-    STORY_ENABLE_SWATCHES = T.STORY_ENABLE_SWATCHES ?? true;
-    STORY_ENABLE_PALEO = T.STORY_ENABLE_PALEO ?? true;
-    STORY_ENABLE_CORRIDORS = T.STORY_ENABLE_CORRIDORS ?? true;
-    STORY_ENABLE_WORLDMODEL = T.STORY_ENABLE_WORLDMODEL ?? true;
+    STORY_ENABLE_HOTSPOTS = toggleValue("STORY_ENABLE_HOTSPOTS", true);
+    STORY_ENABLE_RIFTS = toggleValue("STORY_ENABLE_RIFTS", true);
+    STORY_ENABLE_OROGENY = toggleValue("STORY_ENABLE_OROGENY", true);
+    STORY_ENABLE_SWATCHES = toggleValue("STORY_ENABLE_SWATCHES", true);
+    STORY_ENABLE_PALEO = toggleValue("STORY_ENABLE_PALEO", true);
+    STORY_ENABLE_CORRIDORS = toggleValue("STORY_ENABLE_CORRIDORS", true);
+    STORY_ENABLE_WORLDMODEL = toggleValue("STORY_ENABLE_WORLDMODEL", true);
     // 3) Story+Micro merged convenience
     const S = safeObj(__STORY__());
     const M = safeObj(__MICROCLIMATE__());
@@ -186,6 +213,44 @@ export function rebind() {
 /* -----------------------------------------------------------------------------
  * Helpers
  * -------------------------------------------------------------------------- */
+/**
+ * Build a lookup of legacy toggle keys derived from the stage manifest.
+ * @param {Readonly<StageManifest>} manifest
+ * @returns {Record<string, boolean>}
+ */
+function deriveManifestToggleMap(manifest) {
+    /** @type {Record<string, boolean>} */
+    const out = {};
+    if (!manifest || typeof manifest !== "object")
+        return out;
+    const stages = manifest.stages || {};
+    const order = Array.isArray(manifest.order) && manifest.order.length > 0
+        ? manifest.order
+        : Object.keys(stages || {});
+    for (const name of order) {
+        const stage = stages && stages[name];
+        if (!stage)
+            continue;
+        const toggles = Array.isArray(stage.legacyToggles) ? stage.legacyToggles : [];
+        for (const key of toggles) {
+            if (typeof key !== "string")
+                continue;
+            out[key] = stage.enabled !== false;
+        }
+    }
+    for (const name of Object.keys(stages || {})) {
+        const stage = stages[name];
+        if (!stage)
+            continue;
+        const toggles = Array.isArray(stage.legacyToggles) ? stage.legacyToggles : [];
+        for (const key of toggles) {
+            if (typeof key !== "string" || Object.prototype.hasOwnProperty.call(out, key))
+                continue;
+            out[key] = stage.enabled !== false;
+        }
+    }
+    return out;
+}
 /**
  * Ensure we always return a frozen object of the expected shape for TS consumers.
  * Falls back to an empty frozen object when input is null/undefined or not an object.

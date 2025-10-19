@@ -41,6 +41,35 @@
  * @property {Placement} [placement] - Final placement: natural wonder counts, floodplain river lengths
  * @property {DevLogging} [dev] - Debug logging: timing stats, story tag counts, rainfall distribution histograms
  * @property {WorldModel} [worldModel] - Earth-like physical simulation: tectonic plates, prevailing winds, ocean currents, mantle convection
+ * @property {StageManifest} [stageManifest] - Pipeline manifest describing stage order, enablement, and inter-stage dependencies
+ */
+
+/**
+ * Known stage identifiers for the bootstrap manifest.
+ *
+ * Stage names mirror the major passes in map_orchestrator.js; use them to
+ * express dependencies. Adding a new stage requires updating this union.
+ *
+ * @typedef {"worldModel" | "landmass" | "coastlines" | "storySeed" | "storyHotspots" | "storyRifts" | "storyOrogeny" | "storyPaleo" | "storyCorridorsPre" | "islands" | "mountains" | "volcanoes" | "lakes" | "climateBaseline" | "storySwatches" | "rivers" | "storyCorridorsPost" | "climateRefine" | "biomes" | "features" | "placement"} StageName
+ */
+
+/**
+ * Stage descriptor containing enablement and dependency metadata.
+ *
+ * @typedef {Object} StageDescriptor
+ * @property {boolean} [enabled] - Explicit enable/disable flag (defaults to true when omitted)
+ * @property {ReadonlyArray<StageName>} [requires] - Hard prerequisites that must execute (and remain enabled) first
+ * @property {ReadonlyArray<StageName>} [provides] - Data surfaces emitted by the stage (documentation only)
+ * @property {ReadonlyArray<string>} [legacyToggles] - Legacy toggle keys mirrored from the new manifest state
+ * @property {string} [blockedBy] - Resolved reason for automatic disablement (populated by resolver diagnostics)
+ */
+
+/**
+ * Stage manifest describing execution order and dependency graph for the generator.
+ *
+ * @typedef {Object} StageManifest
+ * @property {ReadonlyArray<StageName>} order - Ordered list of stages to execute (duplicates removed during normalization)
+ * @property {Record<StageName, StageDescriptor>} stages - Descriptor metadata keyed by stage identifier
  */
 
 /**

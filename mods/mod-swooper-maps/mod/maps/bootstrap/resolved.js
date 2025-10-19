@@ -39,6 +39,9 @@
  * @typedef {import('./map_config.types.js').Placement} Placement
  * @typedef {import('./map_config.types.js').DevLogging} DevLogging
  * @typedef {import('./map_config.types.js').WorldModel} WorldModel
+ * @typedef {import('./map_config.types.js').StageManifest} StageManifest
+ * @typedef {import('./map_config.types.js').StageDescriptor} StageDescriptor
+ * @typedef {import('./map_config.types.js').StageName} StageName
  */
 
 import { BASE_CONFIG } from "./defaults/base.js";
@@ -58,6 +61,11 @@ const PRESET_REGISTRY = Object.freeze({
 let ACTIVE_PRESETS = Object.freeze([]);
 /** @type {Readonly<AnyObject>} */
 let SNAPSHOT = BASE_CONFIG;
+/** @type {StageManifest} */
+const EMPTY_STAGE_MANIFEST = Object.freeze({
+    order: Object.freeze([]),
+    stages: Object.freeze({}),
+});
 /* -----------------------------------------------------------------------------
  * Merge and freeze helpers
  * -------------------------------------------------------------------------- */
@@ -151,6 +159,166 @@ function deepFreeze(v) {
     }
     return v;
 }
+/**
+ * @typedef {Object} StageState
+ * @property {boolean} enabled
+ * @property {boolean} requested
+ * @property {Array<StageName>} requires
+ * @property {Array<string>} legacyToggles
+ * @property {Array<string>} provides
+ * @property {string | undefined} blockedBy
+ */
+/**
+ * @param {any} values
+ * @returns {Array<string>}
+ */
+function normalizeStringArray(values) {
+    if (!Array.isArray(values))
+        return [];
+    /** @type {Array<string>} */
+    const out = [];
+    const seen = new Set();
+    for (const val of values) {
+        if (typeof val !== "string")
+            continue;
+        if (seen.has(val))
+            continue;
+        seen.add(val);
+        out.push(val);
+    }
+    return out;
+}
+/**
+ * Normalize stage manifest metadata, enforce dependencies, and derive toggle state.
+ *
+ * @param {any} manifestInput
+ * @param {AnyObject} togglesInput
+ * @param {AnyObject} worldModelCfg
+ * @returns {{ manifest: StageManifest, toggles: Record<string, boolean>, warnings: Array<string> }}
+ */
+function normalizeStageManifest(manifestInput, togglesInput, worldModelCfg) {
+    const manifestObj = isPlainObject(manifestInput) ? manifestInput : {};
+    const rawOrder = Array.isArray(manifestObj.order) ? manifestObj.order : [];
+    const rawStages = isPlainObject(manifestObj.stages) ? manifestObj.stages : {};
+    /** @type {Array<StageName>} */
+    const order = [];
+    const seen = new Set();
+    for (const entry of rawOrder) {
+        if (typeof entry !== "string")
+            continue;
+        if (seen.has(entry))
+            continue;
+        order.push(entry);
+        seen.add(entry);
+    }
+    for (const key of Object.keys(rawStages)) {
+        if (seen.has(key))
+            continue;
+        order.push(key);
+        seen.add(key);
+    }
+    /** @type {Record<string, StageState>} */
+    const states = {};
+    const toggles = isPlainObject(togglesInput) ? togglesInput : {};
+    const orderIndex = new Map(order.map((name, idx) => [name, idx]));
+    const worldModelEnabledByConfig = isPlainObject(worldModelCfg)
+        ? worldModelCfg.enabled !== false
+        : false;
+    for (const name of order) {
+        const rawDescriptor = rawStages[name];
+        const descriptor = isPlainObject(rawDescriptor) ? rawDescriptor : {};
+        const requires = normalizeStringArray(descriptor.requires);
+        const provides = normalizeStringArray(descriptor.provides);
+        const legacyToggles = normalizeStringArray(descriptor.legacyToggles);
+        let enabled = descriptor.enabled !== false;
+        let requested = enabled;
+        for (const key of legacyToggles) {
+            if (Object.prototype.hasOwnProperty.call(toggles, key) &&
+                typeof toggles[key] === "boolean") {
+                enabled = !!toggles[key];
+                requested = !!toggles[key];
+            }
+        }
+        let blockedBy = undefined;
+        if (name === "worldModel" && !worldModelEnabledByConfig) {
+            blockedBy = "worldModel config disabled";
+            enabled = false;
+        }
+        states[name] = {
+            enabled,
+            requested,
+            requires,
+            legacyToggles,
+            provides,
+            blockedBy,
+        };
+    }
+    for (const name of order) {
+        const state = states[name];
+        if (!state || !state.enabled)
+            continue;
+        for (const dep of state.requires) {
+            const depState = states[dep];
+            if (!depState) {
+                if (!state.blockedBy)
+                    state.blockedBy = `requires missing stage "${dep}"`;
+                state.enabled = false;
+                break;
+            }
+            if (!depState.enabled) {
+                if (!state.blockedBy)
+                    state.blockedBy = `requires disabled stage "${dep}"`;
+                state.enabled = false;
+                break;
+            }
+            const depIdx = orderIndex.get(dep);
+            const stageIdx = orderIndex.get(name);
+            if (depIdx != null && stageIdx != null && depIdx > stageIdx) {
+                if (!state.blockedBy)
+                    state.blockedBy = `dependency "${dep}" executes after stage`;
+                state.enabled = false;
+                break;
+            }
+        }
+    }
+    /** @type {Record<string, boolean>} */
+    const derivedToggles = {};
+    /** @type {Array<string>} */
+    const warnings = [];
+    /** @type {Record<string, StageDescriptor>} */
+    const normalizedStages = {};
+    for (const name of order) {
+        const state = states[name];
+        if (!state)
+            continue;
+        for (const key of state.legacyToggles) {
+            derivedToggles[key] = !!state.enabled;
+        }
+        if (state.blockedBy && state.requested) {
+            warnings.push(`Stage "${name}" disabled: ${state.blockedBy}.`);
+        }
+        const desc = /** @type {StageDescriptor} */ ({
+            enabled: !!state.enabled,
+        });
+        if (state.requires.length)
+            desc.requires = state.requires.slice();
+        if (state.provides.length)
+            desc.provides = state.provides.slice();
+        if (state.legacyToggles.length)
+            desc.legacyToggles = state.legacyToggles.slice();
+        if (state.blockedBy)
+            desc.blockedBy = state.blockedBy;
+        normalizedStages[name] = desc;
+    }
+    return {
+        manifest: {
+            order: order.slice(),
+            stages: normalizedStages,
+        },
+        toggles: derivedToggles,
+        warnings,
+    };
+}
 /* -----------------------------------------------------------------------------
  * Resolution
  * -------------------------------------------------------------------------- */
@@ -188,6 +356,19 @@ function buildSnapshot() {
     }
     // Apply per-entry overrides last (highest precedence)
     merged = deepMerge(merged, overrides);
+    const togglesBase = isPlainObject(merged.toggles) ? /** @type {AnyObject} */ (merged.toggles) : {};
+    const worldModelCfg = isPlainObject(merged.worldModel) ? /** @type {AnyObject} */ (merged.worldModel) : {};
+    const { manifest: normalizedManifest, toggles: manifestToggles, warnings } = normalizeStageManifest(merged.stageManifest, togglesBase, worldModelCfg);
+    merged.stageManifest = normalizedManifest;
+    merged.toggles = { ...togglesBase, ...manifestToggles };
+    for (const msg of warnings) {
+        try {
+            console.warn(`[StageManifest] ${msg}`);
+        }
+        catch (_) {
+            // Ignore console access issues in restrictive runtimes.
+        }
+    }
     // Freeze deeply for safety
     const frozen = deepFreeze(merged);
     return {
@@ -229,6 +410,16 @@ export function currentActivePresets() {
 export function getGroup(groupName) {
     const g = SNAPSHOT && /** @type {AnyObject} */ (SNAPSHOT)[groupName];
     return /** @type {any} */ (isPlainObject(g) ? g : {});
+}
+/**
+ * Retrieve the normalized stage manifest (order + descriptors).
+ * @returns {Readonly<StageManifest>}
+ */
+export function STAGE_MANIFEST() {
+    const manifest = SNAPSHOT && /** @type {AnyObject} */ (SNAPSHOT).stageManifest;
+    return isPlainObject(manifest)
+        ? /** @type {Readonly<StageManifest>} */ (manifest)
+        : EMPTY_STAGE_MANIFEST;
 }
 /**
  * Dot-path getter for convenience (e.g., "worldModel.directionality").
@@ -347,6 +538,7 @@ export default {
     currentActivePresets,
     getGroup,
     get,
+    STAGE_MANIFEST,
     // Groups
     TOGGLES,
     STORY,

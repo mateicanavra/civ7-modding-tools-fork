@@ -24,6 +24,137 @@ export const BASE_CONFIG = Object.freeze({
         STORY_ENABLE_CORRIDORS: false,
         STORY_ENABLE_WORLDMODEL: true,
     }),
+    // --- Stage Manifest ---
+    // Canonical execution order and dependency graph for generator stages.
+    stageManifest: Object.freeze({
+        order: Object.freeze([
+            "worldModel",
+            "landmass",
+            "coastlines",
+            "storySeed",
+            "storyHotspots",
+            "storyRifts",
+            "storyOrogeny",
+            "storyPaleo",
+            "storyCorridorsPre",
+            "islands",
+            "mountains",
+            "volcanoes",
+            "lakes",
+            "climateBaseline",
+            "storySwatches",
+            "rivers",
+            "storyCorridorsPost",
+            "climateRefine",
+            "biomes",
+            "features",
+            "placement",
+        ]),
+        stages: Object.freeze({
+            worldModel: Object.freeze({
+                enabled: true,
+                legacyToggles: Object.freeze(["STORY_ENABLE_WORLDMODEL"]),
+                provides: Object.freeze(["plates", "wind", "currents", "pressure", "directionality"]),
+            }),
+            landmass: Object.freeze({
+                enabled: true,
+                requires: Object.freeze([]),
+                provides: Object.freeze(["continents", "plateWindows"]),
+            }),
+            coastlines: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["landmass"]),
+                provides: Object.freeze(["expandedCoasts"]),
+            }),
+            storySeed: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["coastlines"]),
+                provides: Object.freeze(["storyTags", "marginTags"]),
+            }),
+            storyHotspots: Object.freeze({
+                enabled: false,
+                requires: Object.freeze(["storySeed", "worldModel"]),
+                legacyToggles: Object.freeze(["STORY_ENABLE_HOTSPOTS"]),
+            }),
+            storyRifts: Object.freeze({
+                enabled: false,
+                requires: Object.freeze(["storySeed", "worldModel"]),
+                legacyToggles: Object.freeze(["STORY_ENABLE_RIFTS"]),
+            }),
+            storyOrogeny: Object.freeze({
+                enabled: false,
+                requires: Object.freeze(["storySeed", "worldModel"]),
+                legacyToggles: Object.freeze(["STORY_ENABLE_OROGENY"]),
+            }),
+            storyPaleo: Object.freeze({
+                enabled: false,
+                requires: Object.freeze(["storySeed"]),
+                legacyToggles: Object.freeze(["STORY_ENABLE_PALEO"]),
+            }),
+            storyCorridorsPre: Object.freeze({
+                enabled: false,
+                requires: Object.freeze(["storySeed"]),
+                legacyToggles: Object.freeze(["STORY_ENABLE_CORRIDORS"]),
+            }),
+            islands: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["storySeed"]),
+            }),
+            mountains: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["landmass"]),
+                provides: Object.freeze(["mountainHeights", "hillHeights"]),
+            }),
+            volcanoes: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["mountains"]),
+            }),
+            lakes: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["mountains"]),
+            }),
+            climateBaseline: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["mountains"]),
+                provides: Object.freeze(["rainfallBaseline"]),
+            }),
+            storySwatches: Object.freeze({
+                enabled: false,
+                requires: Object.freeze(["climateBaseline", "storySeed"]),
+                legacyToggles: Object.freeze(["STORY_ENABLE_SWATCHES"]),
+            }),
+            rivers: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["climateBaseline"]),
+                provides: Object.freeze(["rivers"]),
+            }),
+            storyCorridorsPost: Object.freeze({
+                enabled: false,
+                requires: Object.freeze(["rivers", "storyCorridorsPre"]),
+                legacyToggles: Object.freeze(["STORY_ENABLE_CORRIDORS"]),
+            }),
+            climateRefine: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["climateBaseline", "rivers"]),
+                provides: Object.freeze(["rainfallRefined"]),
+            }),
+            biomes: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["climateRefine"]),
+                provides: Object.freeze(["biomes"]),
+            }),
+            features: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["biomes"]),
+                provides: Object.freeze(["features"]),
+            }),
+            placement: Object.freeze({
+                enabled: true,
+                requires: Object.freeze(["features"]),
+                provides: Object.freeze(["starts", "resources", "discoveries"]),
+            }),
+        }),
+    }),
     // --- Climate Story Tunables ---
     // Detailed parameters for each narrative motif.
     story: Object.freeze({
