@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Unified Tunables — Live bindings with runtime rebind()
  *
@@ -26,11 +25,45 @@
  * - Arrays and objects returned from the resolver are treated as read‑only.
  */
 // @ts-check
-import { refresh as __refreshResolved__,
-// group getters
-TOGGLES as __TOGGLES__, STORY as __STORY__, MICROCLIMATE as __MICROCLIMATE__, LANDMASS_CFG as __LANDMASS__, COASTLINES_CFG as __COASTLINES__, MARGINS_CFG as __MARGINS__, ISLANDS_CFG as __ISLANDS__, CLIMATE_CFG as __CLIMATE__, MOUNTAINS_CFG as __MOUNTAINS__, VOLCANOES_CFG as __VOLCANOES__, BIOMES_CFG as __BIOMES__, FEATURES_DENSITY_CFG as __FEATURES_DENSITY__, CORRIDORS_CFG as __CORRIDORS__, PLACEMENT_CFG as __PLACEMENT__, DEV_LOG_CFG as __DEV__, WORLDMODEL_CFG as __WM__, STAGE_MANIFEST as __STAGE_MANIFEST__,
-// nested WM helpers
-WORLDMODEL_PLATES as __WM_PLATES__, WORLDMODEL_WIND as __WM_WIND__, WORLDMODEL_CURRENTS as __WM_CURRENTS__, WORLDMODEL_PRESSURE as __WM_PRESSURE__, WORLDMODEL_POLICY as __WM_POLICY__, WORLDMODEL_DIRECTIONALITY as __WM_DIR__, WORLDMODEL_OCEAN_SEPARATION as __WM_OSEPARATION__, } from "./resolved.js";
+import {
+    refresh as __refreshResolved__,
+    // group getters
+    TOGGLES as __TOGGLES__,
+    STORY as __STORY__,
+    MICROCLIMATE as __MICROCLIMATE__,
+    LANDMASS_CFG as __LANDMASS__,
+    COASTLINES_CFG as __COASTLINES__,
+    MARGINS_CFG as __MARGINS__,
+    ISLANDS_CFG as __ISLANDS__,
+    CLIMATE_CFG as __CLIMATE__,
+    MOUNTAINS_CFG as __MOUNTAINS__,
+    VOLCANOES_CFG as __VOLCANOES__,
+    BIOMES_CFG as __BIOMES__,
+    FEATURES_DENSITY_CFG as __FEATURES_DENSITY__,
+    CORRIDORS_CFG as __CORRIDORS__,
+    PLACEMENT_CFG as __PLACEMENT__,
+    DEV_LOG_CFG as __DEV__,
+    FOUNDATION_CFG as __FOUNDATION__,
+    WORLDMODEL_CFG as __WM__,
+    STAGE_MANIFEST as __STAGE_MANIFEST__,
+    // foundation helpers
+    FOUNDATION_SEED as __FOUNDATION_SEED__,
+    FOUNDATION_PLATES as __FOUNDATION_PLATES__,
+    FOUNDATION_DYNAMICS as __FOUNDATION_DYNAMICS__,
+    FOUNDATION_SURFACE as __FOUNDATION_SURFACE__,
+    FOUNDATION_POLICY as __FOUNDATION_POLICY__,
+    FOUNDATION_DIAGNOSTICS as __FOUNDATION_DIAGNOSTICS__,
+    FOUNDATION_DIRECTIONALITY as __FOUNDATION_DIR__,
+    FOUNDATION_OCEAN_SEPARATION as __FOUNDATION_OSEPARATION__,
+    // nested WM helpers
+    WORLDMODEL_PLATES as __WM_PLATES__,
+    WORLDMODEL_WIND as __WM_WIND__,
+    WORLDMODEL_CURRENTS as __WM_CURRENTS__,
+    WORLDMODEL_PRESSURE as __WM_PRESSURE__,
+    WORLDMODEL_POLICY as __WM_POLICY__,
+    WORLDMODEL_DIRECTIONALITY as __WM_DIR__,
+    WORLDMODEL_OCEAN_SEPARATION as __WM_OSEPARATION__,
+} from "./resolved.js";
 /**
  * Type definitions for configuration objects (available at runtime).
  * @typedef {import('./map_config.types.js').Landmass} Landmass
@@ -39,7 +72,7 @@ WORLDMODEL_PLATES as __WM_PLATES__, WORLDMODEL_WIND as __WM_WIND__, WORLDMODEL_C
  * @typedef {import('./map_config.types.js').Margins} MarginsCfg
  * @typedef {import('./map_config.types.js').Islands} IslandsCfg
  * @typedef {import('./map_config.types.js').ClimateBaseline} ClimateBaseline
-* @typedef {import('./map_config.types.js').ClimateRefine} ClimateRefine
+ * @typedef {import('./map_config.types.js').ClimateRefine} ClimateRefine
  * @typedef {import('./map_config.types.js').Mountains} MountainsCfg
  * @typedef {import('./map_config.types.js').Biomes} Biomes
  * @typedef {import('./map_config.types.js').Volcanoes} VolcanoesCfg
@@ -50,17 +83,38 @@ WORLDMODEL_PLATES as __WM_PLATES__, WORLDMODEL_WIND as __WM_WIND__, WORLDMODEL_C
  * @typedef {import('./map_config.types.js').Placement} Placement
  * @typedef {import('./map_config.types.js').DevLogging} DevLogging
  * @typedef {import('./map_config.types.js').WorldModel} WorldModel
+ * @typedef {import('./map_config.types.js').FoundationConfig} FoundationConfig
+ * @typedef {import('./map_config.types.js').FoundationSeedConfig} FoundationSeedConfig
+ * @typedef {import('./map_config.types.js').FoundationDynamicsConfig} FoundationDynamicsConfig
+ * @typedef {import('./map_config.types.js').FoundationSurfaceConfig} FoundationSurfaceConfig
+ * @typedef {import('./map_config.types.js').FoundationDiagnosticsConfig} FoundationDiagnosticsConfig
  * @typedef {import('./map_config.types.js').StageManifest} StageManifest
+ * @typedef {import('./map_config.types.js').StageDescriptor} StageDescriptor
  * @typedef {import('./map_config.types.js').StageName} StageName
  */
+/**
+ * @typedef {Readonly<Partial<Record<string, StageDescriptor>>>} StageDescriptorMap
+ * @typedef {Readonly<{
+ *   order: ReadonlyArray<string>;
+ *   stages: StageDescriptorMap;
+ * }>} StageManifestSnapshot
+ */
+const EMPTY_OBJECT = /** @type {Readonly<any>} */ (Object.freeze({}));
+const EMPTY_ARRAY = /** @type {ReadonlyArray<any>} */ (Object.freeze([]));
+const EMPTY_STAGE_ORDER = /** @type {ReadonlyArray<string>} */ (Object.freeze([]));
+const EMPTY_STAGE_MANIFEST = /** @type {StageManifestSnapshot} */ (Object.freeze({
+    order: EMPTY_STAGE_ORDER,
+    stages: Object.freeze(
+        /** @type {Partial<Record<string, StageDescriptor>>} */ ({})
+    ),
+}));
+const EMPTY_CLIMATE_BASELINE = /** @type {Readonly<ClimateBaseline>} */ (Object.freeze({}));
+const EMPTY_CLIMATE_REFINE = /** @type {Readonly<ClimateRefine>} */ (Object.freeze({}));
 /* -----------------------------------------------------------------------------
  * Exported live bindings (updated by rebind)
  * -------------------------------------------------------------------------- */
-/** @type {Readonly<StageManifest>} */
-export let STAGE_MANIFEST = Object.freeze({
-    order: Object.freeze([]),
-    stages: Object.freeze({}),
-});
+/** @type {StageManifestSnapshot} */
+export let STAGE_MANIFEST = EMPTY_STAGE_MANIFEST;
 /**
  * Check whether a manifest stage is enabled after dependency evaluation.
  * @param {StageName} stage
@@ -123,6 +177,36 @@ export let CLIMATE = Object.freeze({
 });
 export let CLIMATE_DRIVERS = CLIMATE.drivers;
 export let MOISTURE_ADJUSTMENTS = CLIMATE.moistureAdjustments;
+/** @type {Readonly<FoundationConfig>} */
+export let FOUNDATION_CFG = Object.freeze({});
+/**
+ * Consolidated view of the world foundation configuration (seed, plates, dynamics, surface, policy).
+ */
+export let FOUNDATION = Object.freeze({
+    core: Object.freeze({}),
+    seed: Object.freeze({}),
+    plates: Object.freeze({}),
+    dynamics: Object.freeze({}),
+    surface: Object.freeze({}),
+    policy: Object.freeze({}),
+        diagnostics: Object.freeze({}),
+    });
+/** @type {Readonly<FoundationSeedConfig>} */
+export let FOUNDATION_SEED = Object.freeze({});
+/** @type {Readonly<WorldModel['plates']>} */
+export let FOUNDATION_PLATES = Object.freeze({});
+/** @type {Readonly<FoundationDynamicsConfig>} */
+export let FOUNDATION_DYNAMICS = Object.freeze({});
+/** @type {Readonly<FoundationSurfaceConfig>} */
+export let FOUNDATION_SURFACE = Object.freeze({});
+/** @type {Readonly<WorldModel['policy']>} */
+export let FOUNDATION_POLICY = Object.freeze({});
+/** @type {Readonly<FoundationDiagnosticsConfig>} */
+export let FOUNDATION_DIAGNOSTICS = Object.freeze({});
+/** @type {Readonly<WorldModel['directionality']>} */
+export let FOUNDATION_DIRECTIONALITY = Object.freeze({});
+/** @type {Readonly<NonNullable<WorldModel['policy']>['oceanSeparation']>} */
+export let FOUNDATION_OCEAN_SEPARATION = Object.freeze({});
 /** @type {Readonly<MountainsCfg>} */
 export let MOUNTAINS_CFG = Object.freeze({});
 /** @type {Readonly<VolcanoesCfg>} */
@@ -160,6 +244,91 @@ export let WORLDMODEL_DIRECTIONALITY = Object.freeze({});
 /** @type {Readonly<NonNullable<WorldModel['policy']>['oceanSeparation']>} */
 export let WORLDMODEL_OCEAN_SEPARATION = Object.freeze({});
 /* -----------------------------------------------------------------------------
+ * Namespaced views (lightweight import helpers)
+ * -------------------------------------------------------------------------- */
+/**
+ * Focused accessor bundle for climate-related tunables.
+ * Uses getters so consumers always see the most recent rebind() snapshot.
+ */
+export const CLIMATE_TUNABLES = Object.freeze({
+    get config() {
+        return CLIMATE_CFG;
+    },
+    get snapshot() {
+        return CLIMATE;
+    },
+    get drivers() {
+        return CLIMATE_DRIVERS;
+    },
+    get moistureAdjustments() {
+        return MOISTURE_ADJUSTMENTS;
+    },
+});
+/**
+ * Focused accessor bundle for foundation/world settings.
+ */
+export const FOUNDATION_TUNABLES = Object.freeze({
+    get config() {
+        return FOUNDATION_CFG;
+    },
+    get snapshot() {
+        return FOUNDATION;
+    },
+    get seed() {
+        return FOUNDATION_SEED;
+    },
+    get plates() {
+        return FOUNDATION_PLATES;
+    },
+    get dynamics() {
+        return FOUNDATION_DYNAMICS;
+    },
+    get surface() {
+        return FOUNDATION_SURFACE;
+    },
+    get policy() {
+        return FOUNDATION_POLICY;
+    },
+    get diagnostics() {
+        return FOUNDATION_DIAGNOSTICS;
+    },
+    get directionality() {
+        return FOUNDATION_DIRECTIONALITY;
+    },
+    get oceanSeparation() {
+        return FOUNDATION_OCEAN_SEPARATION;
+    },
+});
+/**
+ * Legacy world model accessor bundle (mirrors foundation data when available).
+ */
+export const WORLDMODEL_TUNABLES = Object.freeze({
+    get config() {
+        return WORLDMODEL_CFG;
+    },
+    get plates() {
+        return WORLDMODEL_PLATES;
+    },
+    get wind() {
+        return WORLDMODEL_WIND;
+    },
+    get currents() {
+        return WORLDMODEL_CURRENTS;
+    },
+    get pressure() {
+        return WORLDMODEL_PRESSURE;
+    },
+    get policy() {
+        return WORLDMODEL_POLICY;
+    },
+    get directionality() {
+        return WORLDMODEL_DIRECTIONALITY;
+    },
+    get oceanSeparation() {
+        return WORLDMODEL_OCEAN_SEPARATION;
+    },
+});
+/* -----------------------------------------------------------------------------
  * Rebind implementation
  * -------------------------------------------------------------------------- */
 /**
@@ -169,9 +338,15 @@ export let WORLDMODEL_OCEAN_SEPARATION = Object.freeze({});
 export function rebind() {
     // 1) Resolve the current snapshot from defaults + presets + per-entry overrides
     __refreshResolved__();
-    STAGE_MANIFEST = safeObj(__STAGE_MANIFEST__());
+    STAGE_MANIFEST = coerceStageManifest(__STAGE_MANIFEST__());
     const manifestToggleMap = deriveManifestToggleMap(STAGE_MANIFEST);
-    const resolvedToggleSnapshot = safeObj(__TOGGLES__());
+    const resolvedToggleSnapshot = /** @type {Readonly<Record<string, unknown>>} */ (safeObj(__TOGGLES__()));
+    /**
+     * Resolve a toggle key using manifest overrides, then runtime toggles.
+     * @param {string} key
+     * @param {boolean} fallback
+     * @returns {boolean}
+     */
     const toggleValue = (key, fallback) => {
         if (Object.prototype.hasOwnProperty.call(manifestToggleMap, key))
             return manifestToggleMap[key];
@@ -204,11 +379,11 @@ export function rebind() {
     MARGINS_CFG = safeObj(__MARGINS__());
     ISLANDS_CFG = safeObj(__ISLANDS__());
     CLIMATE_CFG = safeObj(__CLIMATE__());
-    const climateBaselineRaw = safeObj(CLIMATE_CFG.baseline);
-    const climateRefineRaw = safeObj(CLIMATE_CFG.refine);
+    const climateBaselineRaw = safeObj(CLIMATE_CFG.baseline, EMPTY_CLIMATE_BASELINE);
+    const climateRefineRaw = safeObj(CLIMATE_CFG.refine, EMPTY_CLIMATE_REFINE);
     const climateSwatches = safeObj(CLIMATE_CFG.swatches);
-    const climateBaseline = Object.keys(climateBaselineRaw).length > 0 ? climateBaselineRaw : Object.freeze({});
-    const climateRefine = Object.keys(climateRefineRaw).length > 0 ? climateRefineRaw : Object.freeze({});
+    const climateBaseline = Object.keys(climateBaselineRaw).length > 0 ? climateBaselineRaw : EMPTY_CLIMATE_BASELINE;
+    const climateRefine = Object.keys(climateRefineRaw).length > 0 ? climateRefineRaw : EMPTY_CLIMATE_REFINE;
     MOUNTAINS_CFG = safeObj(__MOUNTAINS__());
     VOLCANOES_CFG = safeObj(__VOLCANOES__());
     BIOMES_CFG = safeObj(__BIOMES__());
@@ -216,11 +391,49 @@ export function rebind() {
     CORRIDORS_CFG = safeObj(__CORRIDORS__());
     PLACEMENT_CFG = safeObj(__PLACEMENT__());
     DEV_LOG_CFG = safeObj(__DEV__());
+    // 5) Foundation config (new unified world settings)
+    FOUNDATION_CFG = safeObj(__FOUNDATION__());
+    FOUNDATION_SEED = safeObj(__FOUNDATION_SEED__());
+    FOUNDATION_PLATES = safeObj(__FOUNDATION_PLATES__());
+    FOUNDATION_DYNAMICS = safeObj(__FOUNDATION_DYNAMICS__());
+    const foundationWind = safeObj(FOUNDATION_DYNAMICS.wind);
+    const foundationCurrents = safeObj(FOUNDATION_DYNAMICS.currents);
+    const foundationMantle = safeObj(FOUNDATION_DYNAMICS.mantle);
+    const foundationDirResolved = safeObj(__FOUNDATION_DIR__());
+    const foundationSurfaceRaw = safeObj(__FOUNDATION_SURFACE__());
+    FOUNDATION_SURFACE = foundationSurfaceRaw;
+    const foundationPolicyRaw = safeObj(__FOUNDATION_POLICY__());
+    FOUNDATION_POLICY = foundationPolicyRaw;
+    FOUNDATION_DIAGNOSTICS = safeObj(__FOUNDATION_DIAGNOSTICS__());
+    const foundationDirectionalityFromDynamics = safeObj(FOUNDATION_DYNAMICS.directionality);
+    FOUNDATION_DIRECTIONALITY =
+        Object.keys(foundationDirectionalityFromDynamics).length > 0
+            ? foundationDirectionalityFromDynamics
+            : foundationDirResolved;
+    const foundationSurfaceOcean = safeObj(foundationSurfaceRaw.oceanSeparation);
+    const foundationPolicyOcean = safeObj(foundationPolicyRaw.oceanSeparation);
+    const foundationOceanResolved = safeObj(__FOUNDATION_OSEPARATION__());
+    FOUNDATION_OCEAN_SEPARATION =
+        Object.keys(foundationSurfaceOcean).length > 0
+            ? foundationSurfaceOcean
+            : Object.keys(foundationPolicyOcean).length > 0
+                ? foundationPolicyOcean
+                : foundationOceanResolved;
+    FOUNDATION = Object.freeze({
+        core: FOUNDATION_CFG,
+        seed: FOUNDATION_SEED,
+        plates: FOUNDATION_PLATES,
+        dynamics: FOUNDATION_DYNAMICS,
+        surface: FOUNDATION_SURFACE,
+        policy: FOUNDATION_POLICY,
+        diagnostics: FOUNDATION_DIAGNOSTICS,
+    });
+    // 6) Legacy worldModel snapshot (mirrors foundation; keep until consumers migrate)
     WORLDMODEL_CFG = safeObj(__WM__());
-    // 5) Corridor sub-groups
+    // Corridor sub-groups
     CORRIDOR_POLICY = safeObj(CORRIDORS_CFG.policy);
     CORRIDOR_KINDS = safeObj(CORRIDORS_CFG.kinds);
-    // 6) WorldModel nested groups
+    // WorldModel nested groups
     WORLDMODEL_PLATES = safeObj(__WM_PLATES__());
     WORLDMODEL_WIND = safeObj(__WM_WIND__());
     WORLDMODEL_CURRENTS = safeObj(__WM_CURRENTS__());
@@ -228,6 +441,32 @@ export function rebind() {
     WORLDMODEL_POLICY = safeObj(__WM_POLICY__());
     WORLDMODEL_DIRECTIONALITY = safeObj(__WM_DIR__());
     WORLDMODEL_OCEAN_SEPARATION = safeObj(__WM_OSEPARATION__());
+    const foundationHasData = Object.keys(FOUNDATION_CFG).length > 0;
+    if (!Object.keys(WORLDMODEL_CFG).length && foundationHasData) {
+        WORLDMODEL_CFG = Object.freeze({
+            enabled: true,
+            plates: FOUNDATION_PLATES,
+            wind: foundationWind,
+            currents: foundationCurrents,
+            pressure: foundationMantle,
+            directionality: FOUNDATION_DIRECTIONALITY,
+            policy: FOUNDATION_POLICY,
+        });
+    }
+    if (!Object.keys(WORLDMODEL_PLATES).length && foundationHasData)
+        WORLDMODEL_PLATES = FOUNDATION_PLATES;
+    if (!Object.keys(WORLDMODEL_WIND).length && foundationHasData)
+        WORLDMODEL_WIND = foundationWind;
+    if (!Object.keys(WORLDMODEL_CURRENTS).length && foundationHasData)
+        WORLDMODEL_CURRENTS = foundationCurrents;
+    if (!Object.keys(WORLDMODEL_PRESSURE).length && foundationHasData)
+        WORLDMODEL_PRESSURE = foundationMantle;
+    if (!Object.keys(WORLDMODEL_DIRECTIONALITY).length && foundationHasData)
+        WORLDMODEL_DIRECTIONALITY = FOUNDATION_DIRECTIONALITY;
+    if (!Object.keys(WORLDMODEL_POLICY).length && foundationHasData)
+        WORLDMODEL_POLICY = FOUNDATION_POLICY;
+    if (!Object.keys(WORLDMODEL_OCEAN_SEPARATION).length && foundationHasData)
+        WORLDMODEL_OCEAN_SEPARATION = FOUNDATION_OCEAN_SEPARATION;
     // 7) Climate primitives (drivers + shared adjustments)
     const baselineDrivers = Object.freeze({
         bands: safeObj(climateBaseline.bands),
@@ -290,8 +529,44 @@ export function rebind() {
  * Helpers
  * -------------------------------------------------------------------------- */
 /**
+ * Normalize a resolver-provided manifest into a frozen snapshot with safe defaults.
+ * @param {Readonly<StageManifest> | StageManifestSnapshot | null | undefined} manifest
+ * @returns {StageManifestSnapshot}
+ */
+function coerceStageManifest(manifest) {
+    if (!manifest || typeof manifest !== "object")
+        return EMPTY_STAGE_MANIFEST;
+    const rawOrder = Array.isArray(manifest.order) ? manifest.order : EMPTY_ARRAY;
+    /** @type {Array<string>} */
+    const order = [];
+    for (const entry of rawOrder) {
+        if (typeof entry === "string")
+            order.push(entry);
+    }
+    const rawStages = manifest.stages && typeof manifest.stages === "object"
+        ? /** @type {Record<string, any>} */ (manifest.stages)
+        : {};
+    /** @type {Partial<Record<string, StageDescriptor>>} */
+    const normalizedStages = {};
+    for (const name of Object.keys(rawStages)) {
+        const descriptor = rawStages[name];
+        if (!descriptor || typeof descriptor !== "object")
+            continue;
+        normalizedStages[name] = /** @type {StageDescriptor} */ (Object.isFrozen(descriptor)
+            ? descriptor
+            : Object.freeze({ ...descriptor }));
+    }
+    if (!order.length && !Object.keys(normalizedStages).length) {
+        return EMPTY_STAGE_MANIFEST;
+    }
+    return /** @type {StageManifestSnapshot} */ (Object.freeze({
+        order: /** @type {ReadonlyArray<string>} */ (Object.freeze(order)),
+        stages: Object.freeze(normalizedStages),
+    }));
+}
+/**
  * Build a lookup of legacy toggle keys derived from the stage manifest.
- * @param {Readonly<StageManifest>} manifest
+ * @param {StageManifestSnapshot} manifest
  * @returns {Record<string, boolean>}
  */
 function deriveManifestToggleMap(manifest) {
@@ -299,10 +574,12 @@ function deriveManifestToggleMap(manifest) {
     const out = {};
     if (!manifest || typeof manifest !== "object")
         return out;
-    const stages = manifest.stages || {};
-    const order = Array.isArray(manifest.order) && manifest.order.length > 0
-        ? manifest.order
-        : Object.keys(stages || {});
+    const stages = manifest?.stages
+        ? /** @type {Partial<Record<string, StageDescriptor>>} */ (manifest.stages)
+        : {};
+    const order = manifest?.order && manifest.order.length > 0
+        ? Array.from(manifest.order)
+        : Object.keys(stages);
     for (const name of order) {
         const stage = stages && stages[name];
         if (!stage)
@@ -314,7 +591,7 @@ function deriveManifestToggleMap(manifest) {
             out[key] = stage.enabled !== false;
         }
     }
-    for (const name of Object.keys(stages || {})) {
+    for (const name of Object.keys(stages)) {
         const stage = stages[name];
         if (!stage)
             continue;
@@ -330,14 +607,24 @@ function deriveManifestToggleMap(manifest) {
 /**
  * Ensure we always return a frozen object of the expected shape for TS consumers.
  * Falls back to an empty frozen object when input is null/undefined or not an object.
- * @template T
- * @param {any} v
+ * @template {object | ReadonlyArray<any>} T
+ * @param {T | null | undefined} value
+ * @param {Readonly<T>} [fallback]
  * @returns {Readonly<T>}
  */
-function safeObj(v) {
-    if (!v || typeof v !== "object")
-        return /** @type {Readonly<T>} */ (Object.freeze({}));
-    return /** @type {Readonly<T>} */ (v);
+function safeObj(value, fallback) {
+    if (!value || typeof value !== "object") {
+        if (fallback)
+            return fallback;
+        return /** @type {Readonly<T>} */ (EMPTY_OBJECT);
+    }
+    if (Object.isFrozen(value))
+        return /** @type {Readonly<T>} */ (value);
+    if (Array.isArray(value)) {
+        const clone = value.slice();
+        return /** @type {Readonly<T>} */ (/** @type {unknown} */ (Object.freeze(clone)));
+    }
+    return /** @type {Readonly<T>} */ (Object.freeze({ ...value }));
 }
 /* -----------------------------------------------------------------------------
  * Module-load bootstrap
@@ -363,6 +650,9 @@ export default {
     },
     get WORLD_MODEL() {
         return WORLDMODEL_CFG;
+    },
+    get FOUNDATION() {
+        return FOUNDATION;
     },
     get CLIMATE() {
         return CLIMATE;

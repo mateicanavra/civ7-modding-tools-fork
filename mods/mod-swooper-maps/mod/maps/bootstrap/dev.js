@@ -29,28 +29,32 @@
  */
 import * as globals from "/base-standard/maps/map-globals.js";
 import { dumpTerrain, dumpRainfall, dumpBiomes, dumpContinents } from "/base-standard/maps/map-debug-helpers.js";
-import { DEV_LOG_CFG as __DEV_CFG__ } from "./resolved.js";
+import { DEV_LOG_CFG as __DEV_CFG__, FOUNDATION_DIAGNOSTICS as __FOUNDATION_DIAGNOSTICS__ } from "./resolved.js";
 export const DEV = {
-    ENABLED: true, // Master switch — must be true for any dev logging
-    LOG_TIMING: true, // Log per-section timings (timeSection / timeStart/timeEnd)
-    LOG_STORY_TAGS: true, // Log StoryTags summary counts
-    RAINFALL_HISTOGRAM: true, // Log a coarse rainfall histogram (non-water tiles only)
-    LOG_RAINFALL_SUMMARY: true, // Log rainfall min/max/avg statistics
-    LOG_CORRIDOR_ASCII: true, // Print a coarse ASCII overlay of corridor tags (downsampled)
+    ENABLED: false, // Master switch — must be true for any dev logging
+    LOG_TIMING: false, // Log per-section timings (timeSection / timeStart/timeEnd)
+    LOG_STORY_TAGS: false, // Log StoryTags summary counts
+    RAINFALL_HISTOGRAM: false, // Log a coarse rainfall histogram (non-water tiles only)
+    LOG_RAINFALL_SUMMARY: false, // Log rainfall min/max/avg statistics
+    LOG_CORRIDOR_ASCII: false, // Print a coarse ASCII overlay of corridor tags (downsampled)
     LOG_WORLDMODEL_SUMMARY: false, // Print compact WorldModel summary when available
-    LOG_WORLDMODEL_ASCII: true, // ASCII visualization of plate boundaries & terrain mix
-    LOG_LANDMASS_ASCII: true, // ASCII snapshot of land vs. ocean bands/continents
-    LOG_LANDMASS_WINDOWS: true, // Log landmass window bounding boxes/areas
-    LOG_RELIEF_ASCII: true, // ASCII visualization of major relief (mountains/hills/volcanoes)
-    LOG_RAINFALL_ASCII: true, // ASCII heatmap buckets for rainfall bands
-    LOG_BIOME_ASCII: true, // ASCII biome classification overlay
-    LOG_BIOME_SUMMARY: true, // Log biome tile counts
-    LOG_SWATCHES: true, // Log climate swatch usage/results
-    LOG_MOUNTAINS: true, // Detailed mountain placement summaries
-    LOG_VOLCANOES: true, // Detailed volcano placement summaries
+    LOG_WORLDMODEL_ASCII: false, // ASCII visualization of plate boundaries & terrain mix
+    LOG_LANDMASS_ASCII: false, // ASCII snapshot of land vs. ocean bands/continents
+    LOG_LANDMASS_WINDOWS: false, // Log landmass window bounding boxes/areas
+    LOG_RELIEF_ASCII: false, // ASCII visualization of major relief (mountains/hills/volcanoes)
+    LOG_RAINFALL_ASCII: false, // ASCII heatmap buckets for rainfall bands
+    LOG_BIOME_ASCII: false, // ASCII biome classification overlay
+    LOG_BIOME_SUMMARY: false, // Log biome tile counts
+    LOG_SWATCHES: false, // Log climate swatch usage/results
+    LOG_MOUNTAINS: false, // Detailed mountain placement summaries
+    LOG_VOLCANOES: false, // Detailed volcano placement summaries
     LOG_BOUNDARY_METRICS: false, // Quantitative summary of plate boundary coverage
     WORLDMODEL_HISTOGRAMS: false, // Print histograms for rift/uplift (optionally near tags)
     LAYER_COUNTS: false, // Reserved for layer-specific counters (if used by callers)
+    LOG_FOUNDATION_SEED: false,
+    LOG_FOUNDATION_PLATES: false,
+    LOG_FOUNDATION_DYNAMICS: false,
+    LOG_FOUNDATION_SURFACE: false,
 };
 /**
  * Internal: guard that checks if a specific flag is enabled (and master is on).
@@ -102,13 +106,57 @@ try {
             DEV.LOG_VOLCANOES = !!__cfg.LOG_VOLCANOES;
         if ("WORLDMODEL_HISTOGRAMS" in __cfg)
             DEV.WORLDMODEL_HISTOGRAMS = !!__cfg.WORLDMODEL_HISTOGRAMS;
+        if ("LOG_FOUNDATION_SEED" in __cfg)
+            DEV.LOG_FOUNDATION_SEED = !!__cfg.LOG_FOUNDATION_SEED;
+        if ("LOG_FOUNDATION_PLATES" in __cfg)
+            DEV.LOG_FOUNDATION_PLATES = !!__cfg.LOG_FOUNDATION_PLATES;
+        if ("LOG_FOUNDATION_DYNAMICS" in __cfg)
+            DEV.LOG_FOUNDATION_DYNAMICS = !!__cfg.LOG_FOUNDATION_DYNAMICS;
+        if ("LOG_FOUNDATION_SURFACE" in __cfg)
+            DEV.LOG_FOUNDATION_SURFACE = !!__cfg.LOG_FOUNDATION_SURFACE;
     }
 }
 catch (_) {
     /* no-op */
 }
+
+applyFoundationDiagnostics();
+
 function isOn(flag) {
     return !!(DEV && DEV.ENABLED && DEV[flag]);
+}
+
+function applyFoundationDiagnostics() {
+    let diag = null;
+    try {
+        diag = typeof __FOUNDATION_DIAGNOSTICS__ === "function" ? __FOUNDATION_DIAGNOSTICS__() : null;
+    }
+    catch (_) {
+        diag = null;
+    }
+    if (!diag || typeof diag !== "object")
+        return;
+    const { logSeed, logPlates, logDynamics, logSurface } = diag;
+    if (logSeed || logPlates || logDynamics || logSurface)
+        DEV.ENABLED = true;
+    if (logSeed) {
+        DEV.LOG_FOUNDATION_SEED = true;
+    }
+    if (logPlates) {
+        DEV.LOG_FOUNDATION_PLATES = true;
+        DEV.LOG_WORLDMODEL_SUMMARY = true;
+        DEV.LOG_WORLDMODEL_ASCII = true;
+        DEV.LOG_BOUNDARY_METRICS = true;
+    }
+    if (logDynamics) {
+        DEV.LOG_FOUNDATION_DYNAMICS = true;
+        DEV.WORLDMODEL_HISTOGRAMS = true;
+    }
+    if (logSurface) {
+        DEV.LOG_FOUNDATION_SURFACE = true;
+        DEV.LOG_LANDMASS_ASCII = true;
+        DEV.LOG_LANDMASS_WINDOWS = true;
+    }
 }
 /**
  * Safe console.log wrapper (no-op if disabled).
@@ -379,6 +427,74 @@ function resolveBiomeName(id) {
         /* ignore */
     }
     return null;
+}
+
+/**
+ * Log foundation seed configuration and (optional) captured plate seed snapshot.
+ * @param {any} seedConfig
+ * @param {any} plateSeed
+ * @param {{skipConfig?:boolean}} [options]
+ */
+export function logFoundationSeed(seedConfig, plateSeed, options = {}) {
+    if (!isOn("LOG_FOUNDATION_SEED"))
+        return;
+    const { skipConfig = false } = options || {};
+    try {
+        if (!skipConfig) {
+            safeLog("[Foundation] seed config:", summarizeFoundationSeedConfig(seedConfig));
+        }
+        if (plateSeed && typeof plateSeed === "object") {
+            safeLog("[Foundation] plate seed snapshot:", summarizePlateSeed(plateSeed));
+        }
+    }
+    catch (err) {
+        safeLog("[Foundation] seed log error:", err);
+    }
+}
+
+/**
+ * Log configured plate generation parameters.
+ * @param {any} platesConfig
+ */
+export function logFoundationPlates(platesConfig) {
+    if (!isOn("LOG_FOUNDATION_PLATES"))
+        return;
+    try {
+        safeLog("[Foundation] plates config:", summarizeFoundationPlates(platesConfig));
+    }
+    catch (err) {
+        safeLog("[Foundation] plates log error:", err);
+    }
+}
+
+/**
+ * Log wind/currents/mantle/directionality drivers.
+ * @param {any} dynamicsConfig
+ */
+export function logFoundationDynamics(dynamicsConfig) {
+    if (!isOn("LOG_FOUNDATION_DYNAMICS"))
+        return;
+    try {
+        safeLog("[Foundation] dynamics config:", summarizeFoundationDynamics(dynamicsConfig));
+    }
+    catch (err) {
+        safeLog("[Foundation] dynamics log error:", err);
+    }
+}
+
+/**
+ * Log surface targets (landmass + ocean separation).
+ * @param {any} surfaceConfig
+ */
+export function logFoundationSurface(surfaceConfig) {
+    if (!isOn("LOG_FOUNDATION_SURFACE"))
+        return;
+    try {
+        safeLog("[Foundation] surface config:", summarizeFoundationSurface(surfaceConfig));
+    }
+    catch (err) {
+        safeLog("[Foundation] surface log error:", err);
+    }
 }
 /**
  * WorldModel summary: plates and boundary type counts (compact).
@@ -953,6 +1069,206 @@ function legendBasePair(baseChar) {
     const right = padding.right ?? left;
     return `${left}${c}${right}`;
 }
+
+function summarizeFoundationSeedConfig(cfg) {
+    const seedCfg = typeof cfg === "object" && cfg ? cfg : {};
+    const summary = {
+        mode: seedCfg.mode ?? "engine",
+        fixed: seedCfg.fixed ?? null,
+        offset: seedCfg.offset ?? 0,
+        manifestHash: seedCfg.manifestHash ?? null,
+    };
+    if (seedCfg.offsets && typeof seedCfg.offsets === "object") {
+        const offsets = {};
+        for (const key of Object.keys(seedCfg.offsets)) {
+            const value = seedCfg.offsets[key];
+            if (value != null)
+                offsets[key] = value;
+        }
+        if (Object.keys(offsets).length > 0)
+            summary.offsets = offsets;
+    }
+    return summary;
+}
+
+function summarizePlateSeed(plateSeed) {
+    if (!plateSeed || typeof plateSeed !== "object")
+        return { available: false };
+    const summary = { available: true };
+    const width = plateSeed.width ?? plateSeed.mapWidth;
+    const height = plateSeed.height ?? plateSeed.mapHeight;
+    if (width != null)
+        summary.width = width;
+    if (height != null)
+        summary.height = height;
+    const sites = Array.isArray(plateSeed.sites)
+        ? plateSeed.sites
+        : Array.isArray(plateSeed.siteCoords)
+            ? plateSeed.siteCoords
+            : null;
+    if (sites)
+        summary.siteCount = sites.length;
+    if (plateSeed.seed != null)
+        summary.seed = plateSeed.seed;
+    if (plateSeed.seedOffset != null)
+        summary.seedOffset = plateSeed.seedOffset;
+    if (plateSeed.timestamp != null)
+        summary.timestamp = plateSeed.timestamp;
+    const rngState = plateSeed.rngState ?? plateSeed.randomState ?? null;
+    if (rngState)
+        summary.rngState = summarizeRngState(rngState);
+    return summary;
+}
+
+function summarizeFoundationPlates(cfg) {
+    if (!cfg || typeof cfg !== "object")
+        return {};
+    const summary = pickFields(cfg, [
+        "seedMode",
+        "count",
+        "convergenceMix",
+        "relaxationSteps",
+        "seedJitter",
+        "interiorSmooth",
+        "plateRotationMultiple",
+        "seedOffset",
+    ]) || {};
+    if (Array.isArray(cfg.axisAngles) && cfg.axisAngles.length)
+        summary.axisAngles = cfg.axisAngles.slice(0, 3);
+    return summary;
+}
+
+function summarizeFoundationDynamics(cfg) {
+    if (!cfg || typeof cfg !== "object")
+        return {};
+    const wind = pickFields(cfg.wind, ["jetStreaks", "jetStrength", "variance", "coriolisZonalScale"]);
+    const currents = pickFields(cfg.currents, ["basinGyreCountMax", "westernBoundaryBias", "currentStrength"]);
+    const mantle = pickFields(cfg.mantle, ["bumps", "amplitude", "scale"]);
+    const directionality = summarizeDirectionality(cfg.directionality);
+    const out = {};
+    if (wind)
+        out.wind = wind;
+    if (currents)
+        out.currents = currents;
+    if (mantle)
+        out.mantle = mantle;
+    if (directionality)
+        out.directionality = directionality;
+    return out;
+}
+
+function summarizeDirectionality(cfg) {
+    if (!cfg || typeof cfg !== "object")
+        return null;
+    const out = {};
+    if (cfg.cohesion != null)
+        out.cohesion = cfg.cohesion;
+    const primaryAxes = pickFields(cfg.primaryAxes, ["plateAxisDeg", "windBiasDeg", "currentBiasDeg"]);
+    if (primaryAxes)
+        out.primaryAxes = primaryAxes;
+    const interplay = pickFields(cfg.interplay, [
+        "windsFollowPlates",
+        "currentsFollowWinds",
+        "riftsFollowPlates",
+        "orogenyOpposesRifts",
+    ]);
+    if (interplay)
+        out.interplay = interplay;
+    const hemispheres = pickFields(cfg.hemispheres, ["southernFlip", "equatorBandDeg", "monsoonBias"]);
+    if (hemispheres)
+        out.hemispheres = hemispheres;
+    const variability = pickFields(cfg.variability, ["angleJitterDeg", "magnitudeVariance", "seedOffset"]);
+    if (variability)
+        out.variability = variability;
+    return Object.keys(out).length ? out : null;
+}
+
+function summarizeFoundationSurface(cfg) {
+    if (!cfg || typeof cfg !== "object")
+        return {};
+    const out = {};
+    const landmass = pickFields(cfg.landmass, [
+        "baseWaterPercent",
+        "waterThumbOnScale",
+        "jitterAmpFracBase",
+        "jitterAmpFracScale",
+        "curveAmpFrac",
+    ]);
+    if (landmass) {
+        const post = pickFields(cfg.landmass?.geometry?.post, [
+            "expandTiles",
+            "expandWestTiles",
+            "expandEastTiles",
+            "clampWestMin",
+            "clampEastMax",
+            "minWidthTiles",
+            "overrideSouth",
+            "overrideNorth",
+        ]);
+        if (post)
+            landmass.geometryPost = post;
+        out.landmass = landmass;
+    }
+    const oceanSeparation = summarizeOceanSeparation(cfg.oceanSeparation);
+    if (oceanSeparation)
+        out.oceanSeparation = oceanSeparation;
+    if (cfg.overrides && typeof cfg.overrides === "object") {
+        const overrideKeys = Object.keys(cfg.overrides);
+        if (overrideKeys.length)
+            out.overrides = { count: overrideKeys.length };
+    }
+    return out;
+}
+
+function summarizeOceanSeparation(cfg) {
+    if (!cfg || typeof cfg !== "object")
+        return null;
+    const out = pickFields(cfg, [
+        "enabled",
+        "baseSeparationTiles",
+        "boundaryClosenessMultiplier",
+        "maxPerRowDelta",
+        "respectSeaLanes",
+        "minChannelWidth",
+    ]) || {};
+    if (Array.isArray(cfg.bandPairs))
+        out.bandPairs = cfg.bandPairs.length;
+    if (cfg.edgeWest && cfg.edgeWest.enabled)
+        out.edgeWest = pickFields(cfg.edgeWest, ["baseTiles", "boundaryClosenessMultiplier", "maxPerRowDelta"]);
+    if (cfg.edgeEast && cfg.edgeEast.enabled)
+        out.edgeEast = pickFields(cfg.edgeEast, ["baseTiles", "boundaryClosenessMultiplier", "maxPerRowDelta"]);
+    return Object.keys(out).length ? out : null;
+}
+
+function summarizeRngState(state) {
+    if (!state || typeof state !== "object")
+        return state ?? null;
+    const keys = Object.keys(state);
+    if (!keys.length)
+        return {};
+    const summary = {};
+    const limit = 4;
+    for (let i = 0; i < Math.min(limit, keys.length); i++) {
+        const key = keys[i];
+        summary[key] = state[key];
+    }
+    if (keys.length > limit)
+        summary.truncatedKeys = keys.length - limit;
+    return summary;
+}
+
+function pickFields(src, fields) {
+    if (!src || typeof src !== "object")
+        return null;
+    const out = {};
+    for (const key of fields) {
+        if (Object.prototype.hasOwnProperty.call(src, key) && src[key] != null) {
+            out[key] = src[key];
+        }
+    }
+    return Object.keys(out).length ? out : null;
+}
+
 /* ----------------------- internal helpers ----------------------- */
 function safeLog(...args) {
     try {

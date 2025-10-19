@@ -106,6 +106,162 @@ const CLIMATE_SWATCHES_DEFAULT = Object.freeze({
     }),
 });
 
+const LANDMASS_DEFAULT = Object.freeze({
+    baseWaterPercent: 64,
+    waterThumbOnScale: -4,
+    jitterAmpFracBase: 0.03,
+    jitterAmpFracScale: 0.015,
+    curveAmpFrac: 0.05,
+    geometry: Object.freeze({
+        post: Object.freeze({
+            expandTiles: 0,
+            expandWestTiles: 0,
+            expandEastTiles: 0,
+        }),
+    }),
+});
+
+const FOUNDATION_SEED_DEFAULT = Object.freeze({
+    mode: "engine",
+    fixed: null,
+    offset: 0,
+    offsets: Object.freeze({
+        plates: 0,
+        dynamics: 0,
+        surface: 0,
+        diagnostics: 0,
+    }),
+    manifestHash: null,
+});
+
+const FOUNDATION_PLATES_DEFAULT = Object.freeze({
+    seedMode: "engine",
+    count: 8,
+    axisAngles: Object.freeze([15, -20, 35]),
+    convergenceMix: 0.6,
+    relaxationSteps: 5,
+    seedJitter: 3,
+    interiorSmooth: 3,
+    plateRotationMultiple: 5,
+    seedOffset: 0,
+});
+
+const FOUNDATION_WIND_DEFAULT = Object.freeze({
+    jetStreaks: 5,
+    jetStrength: 1.75,
+    variance: 0.6,
+    coriolisZonalScale: 1.0,
+});
+
+const FOUNDATION_CURRENTS_DEFAULT = Object.freeze({
+    basinGyreCountMax: 2,
+    westernBoundaryBias: 1.1,
+    currentStrength: 4.0,
+});
+
+const FOUNDATION_MANTLE_DEFAULT = Object.freeze({
+    bumps: 7,
+    amplitude: 0.75,
+    scale: 0.4,
+});
+
+const FOUNDATION_DIRECTIONALITY_DEFAULT = Object.freeze({
+    cohesion: 0.45,
+    primaryAxes: Object.freeze({
+        plateAxisDeg: 0,
+        windBiasDeg: 260,
+        currentBiasDeg: -5,
+    }),
+    interplay: Object.freeze({
+        windsFollowPlates: 0.55,
+        currentsFollowWinds: 0.7,
+        riftsFollowPlates: 0.75,
+        orogenyOpposesRifts: 0.55,
+    }),
+    hemispheres: Object.freeze({
+        southernFlip: true,
+        equatorBandDeg: 18,
+        monsoonBias: 0.6,
+    }),
+    variability: Object.freeze({
+        angleJitterDeg: 15,
+        magnitudeVariance: 0.45,
+        seedOffset: 0,
+    }),
+});
+
+const FOUNDATION_OCEAN_SEPARATION_DEFAULT = Object.freeze({
+    enabled: false,
+    bandPairs: Object.freeze([
+        [0, 1],
+        [1, 2],
+    ]),
+    baseSeparationTiles: 2,
+    boundaryClosenessMultiplier: 1.0,
+    maxPerRowDelta: 3,
+    respectSeaLanes: true,
+    minChannelWidth: 4,
+    edgeWest: Object.freeze({
+        enabled: false,
+        baseTiles: 0,
+        boundaryClosenessMultiplier: 1.0,
+        maxPerRowDelta: 2,
+    }),
+    edgeEast: Object.freeze({
+        enabled: false,
+        baseTiles: 0,
+        boundaryClosenessMultiplier: 1.0,
+        maxPerRowDelta: 2,
+    }),
+});
+
+const FOUNDATION_POLICY_DEFAULT = Object.freeze({
+    windInfluence: 1.0,
+    currentHumidityBias: 0.4,
+    boundaryFjordBias: 0.3,
+    shelfReefBias: 0.2,
+    oceanSeparation: FOUNDATION_OCEAN_SEPARATION_DEFAULT,
+});
+
+const FOUNDATION_SURFACE_DEFAULT = Object.freeze({
+    landmass: LANDMASS_DEFAULT,
+    oceanSeparation: FOUNDATION_OCEAN_SEPARATION_DEFAULT,
+    overrides: Object.freeze({}),
+});
+
+const FOUNDATION_DYNAMICS_DEFAULT = Object.freeze({
+    wind: FOUNDATION_WIND_DEFAULT,
+    currents: FOUNDATION_CURRENTS_DEFAULT,
+    mantle: FOUNDATION_MANTLE_DEFAULT,
+    directionality: FOUNDATION_DIRECTIONALITY_DEFAULT,
+});
+
+const FOUNDATION_DIAGNOSTICS_DEFAULT = Object.freeze({
+    logSeed: false,
+    logPlates: false,
+    logDynamics: false,
+    logSurface: false,
+});
+
+const FOUNDATION_DEFAULT = Object.freeze({
+    seed: FOUNDATION_SEED_DEFAULT,
+    plates: FOUNDATION_PLATES_DEFAULT,
+    dynamics: FOUNDATION_DYNAMICS_DEFAULT,
+    surface: FOUNDATION_SURFACE_DEFAULT,
+    policy: FOUNDATION_POLICY_DEFAULT,
+    diagnostics: FOUNDATION_DIAGNOSTICS_DEFAULT,
+});
+
+const WORLD_MODEL_DEFAULT = Object.freeze({
+    enabled: true,
+    plates: FOUNDATION_PLATES_DEFAULT,
+    wind: FOUNDATION_WIND_DEFAULT,
+    currents: FOUNDATION_CURRENTS_DEFAULT,
+    pressure: FOUNDATION_MANTLE_DEFAULT,
+    directionality: FOUNDATION_DIRECTIONALITY_DEFAULT,
+    policy: FOUNDATION_POLICY_DEFAULT,
+});
+
 export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig} */ Object.freeze({
     // --- Master Feature Toggles ---
     // Enable or disable major Climate Story systems. Set to false to skip a layer entirely.
@@ -256,6 +412,8 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
             }),
         }),
     }),
+    // --- World Foundation (seed + physics controls) ---
+    foundation: FOUNDATION_DEFAULT,
     // --- Climate Story Tunables ---
     // Detailed parameters for each narrative motif.
     story: Object.freeze({
@@ -505,130 +663,10 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
             }),
         }),
     }),
-    // --- World Model (Earth Forces; lightweight, optional) ---
-    worldModel: Object.freeze({
-        // Master switch for foundational Earth Forces fields (dev-on by default)
-        enabled: true,
-        // Plates (Voronoi plates + boundary types; fields drive rifts/orogeny/margins)
-        plates: Object.freeze({
-            seedMode: "engine",
-            count: 8, // Huge maps: 6–10 recommended
-            axisAngles: Object.freeze([15, -20, 35]), // degrees; used to align macro trends
-            convergenceMix: 0.6, // 0..1 fraction for convergent vs divergent balance
-            relaxationSteps: 5, // Lloyd relaxation iterations for plate sites
-            seedJitter: 3, // tile jitter for plate seeds
-            interiorSmooth: 3, // smoothing steps for shield interiors
-            plateRotationMultiple: 5, // rotation influence multiplier (mirrors base Voronoi scripts)
-            seedOffset: 0, // RNG offset to produce deterministic plate variants
-        }),
-        // Global winds (zonal baseline + jet streams; used in refinement upwind checks)
-        wind: Object.freeze({
-            jetStreaks: 5,
-            jetStrength: 1.75,
-            variance: 0.6,
-            coriolisZonalScale: 1.0,
-        }),
-        // Ocean currents (basin gyres + boundary currents; small humidity/coast effects)
-        currents: Object.freeze({
-            basinGyreCountMax: 2,
-            westernBoundaryBias: 1.1,
-            currentStrength: 4.0,
-        }),
-        // Mantle pressure (bumps/ridges; optional small influence on hills/relief)
-        pressure: Object.freeze({
-            bumps: 7,
-            amplitude: 0.75,
-            scale: 0.4,
-        }),
-        // Directionality (global cohesion and alignment controls for Earth forces)
-        // Purpose: provide cohesive, high-level controls so plates, winds, currents, and rift/orogeny
-        // can evolve in concert while remaining varied. These are read by WorldModel and consumers.
-        directionality: Object.freeze({
-            // Master cohesion dial (0..1): higher = stronger alignment between systems
-            cohesion: 0.45,
-            // Macro axes in degrees: bias plate motion, prevailing winds, and gyre/currents
-            primaryAxes: Object.freeze({
-                plateAxisDeg: 0, // neutral macro plate motion axis (deg)
-                windBiasDeg: 260, // global wind bias offset (deg)
-                currentBiasDeg: -5, // global current gyre bias (deg)
-            }),
-            // Interplay weights (0..1): how much one system aligns with another
-            interplay: Object.freeze({
-                windsFollowPlates: 0.55, // jets and streaks tend to align with plate axes
-                currentsFollowWinds: 0.7, // surface currents track prevailing winds
-                riftsFollowPlates: 0.75, // divergent rifts along plate boundaries
-                orogenyOpposesRifts: 0.55, // convergent uplift tends to oppose divergent directions
-            }),
-            // Hemisphere options and seasonal asymmetry (future-facing)
-            hemispheres: Object.freeze({
-                southernFlip: true, // flip sign conventions in S hemisphere for winds/currents bias
-                equatorBandDeg: 18, // symmetric behavior band around equator
-                monsoonBias: 0.6, // seasonal asymmetry placeholder (kept conservative)
-            }),
-            // Variability knobs to avoid rigid patterns while honoring directionality
-            variability: Object.freeze({
-                angleJitterDeg: 15, // random jitter around macro axes
-                magnitudeVariance: 0.45, // 0..1 variance applied to vector magnitudes
-                seedOffset: 0, // RNG stream offset dedicated to directionality
-            }),
-        }),
-        // Policy scalars for consumers (keep gentle; all effects remain clamped/validated)
-        policy: Object.freeze({
-            windInfluence: 1.0, // scales wind use in refinement upwind barrier checks
-            currentHumidityBias: 0.4, // scales coastal humidity tweak from currents
-            boundaryFjordBias: 0.3, // scales fjord/bay bias near convergent boundaries
-            shelfReefBias: 0.2, // scales passive-shelf reef bias (validated in features)
-            // Ocean separation policy (plate-aware; consumed by landmass/coast shaping)
-            oceanSeparation: Object.freeze({
-                enabled: false, // default off until consumer layer is wired
-                // Which continent band pairs to bias apart (0-based indices used by orchestrator):
-                // Use [] to disable, or [[0,1],[1,2]] to bias both left–middle and middle–right bands.
-                bandPairs: Object.freeze([
-                    [0, 1],
-                    [1, 2],
-                ]),
-                // Base lateral push (tiles) applied pre-coast expansion; positive widens oceans
-                baseSeparationTiles: 2,
-                // Multiplier (0..2) scaling separation near high WorldModel.boundaryCloseness
-                boundaryClosenessMultiplier: 1.0,
-                // Maximum absolute separation delta per row to preserve robust sea lanes
-                maxPerRowDelta: 3,
-                // Respect strategic sea lanes and enforce minimum channel width
-                respectSeaLanes: true,
-                minChannelWidth: 4,
-                // Optional outer-edge ocean widening/narrowing (map sides)
-                edgeWest: Object.freeze({
-                    enabled: false,
-                    baseTiles: 0,
-                    boundaryClosenessMultiplier: 1.0,
-                    maxPerRowDelta: 2,
-                }),
-                edgeEast: Object.freeze({
-                    enabled: false,
-                    baseTiles: 0,
-                    boundaryClosenessMultiplier: 1.0,
-                    maxPerRowDelta: 2,
-                }),
-            }),
-        }),
-    }),
+    // --- World Model (legacy shim; prefer foundation.*) ---
+    worldModel: WORLD_MODEL_DEFAULT,
     // --- Landmass (base land/ocean and shaping) ---
-    landmass: Object.freeze({
-        baseWaterPercent: 64,
-        waterThumbOnScale: -4,
-        jitterAmpFracBase: 0.03,
-        jitterAmpFracScale: 0.015,
-        curveAmpFrac: 0.05,
-        // Geometry: orchestrator preferences for landmass generators.
-        // Auto prefers Voronoi continents, then plate-driven masks when the WorldModel is active.
-        geometry: Object.freeze({
-            post: Object.freeze({
-                expandTiles: 0,
-                expandWestTiles: 0,
-                expandEastTiles: 0,
-            }),
-        }),
-    }),
+    landmass: LANDMASS_DEFAULT,
     // --- Coastlines (rugged coasts; lane-safe) ---
     coastlines: Object.freeze({
         bay: Object.freeze({

@@ -39,6 +39,7 @@
  * @typedef {import('./map_config.types.js').Placement} Placement
  * @typedef {import('./map_config.types.js').DevLogging} DevLogging
  * @typedef {import('./map_config.types.js').WorldModel} WorldModel
+ * @typedef {import('./map_config.types.js').FoundationConfig} FoundationConfig
  * @typedef {import('./map_config.types.js').StageManifest} StageManifest
  * @typedef {import('./map_config.types.js').StageDescriptor} StageDescriptor
  * @typedef {import('./map_config.types.js').StageName} StageName
@@ -372,6 +373,112 @@ function deriveStageOverrideWarnings(providers, manifest) {
     }
     return warnings;
 }
+
+/**
+ * Build a partial foundation object from legacy worldModel/landmass groups.
+ * Only includes keys that existed historically so new overrides take precedence.
+ * @param {AnyObject} worldModel
+ * @param {AnyObject} landmass
+ * @returns {AnyObject}
+ */
+function legacyFoundationFrom(worldModel, landmass) {
+    /** @type {AnyObject} */
+    const foundation = {};
+    if (isPlainObject(worldModel?.plates)) {
+        foundation.plates = worldModel.plates;
+    }
+    /** @type {AnyObject} */
+    const dynamics = {};
+    if (isPlainObject(worldModel?.wind))
+        dynamics.wind = worldModel.wind;
+    if (isPlainObject(worldModel?.currents))
+        dynamics.currents = worldModel.currents;
+    if (isPlainObject(worldModel?.pressure))
+        dynamics.mantle = worldModel.pressure;
+    if (isPlainObject(worldModel?.directionality))
+        dynamics.directionality = worldModel.directionality;
+    if (Object.keys(dynamics).length > 0) {
+        foundation.dynamics = dynamics;
+    }
+    if (isPlainObject(worldModel?.policy)) {
+        foundation.policy = worldModel.policy;
+    }
+    /** @type {AnyObject} */
+    const surface = {};
+    if (isPlainObject(landmass) && Object.keys(landmass).length > 0)
+        surface.landmass = landmass;
+    if (isPlainObject(worldModel?.policy?.oceanSeparation))
+        surface.oceanSeparation = worldModel.policy.oceanSeparation;
+    if (Object.keys(surface).length > 0) {
+        foundation.surface = surface;
+    }
+    return foundation;
+}
+
+/**
+ * Project the consolidated foundation config back into the legacy worldModel shape.
+ * This keeps existing consumers working while new code migrates to foundation.*.
+ * @param {AnyObject} foundation
+ * @param {AnyObject} legacyWorldModel
+ * @returns {AnyObject}
+ */
+function foundationToWorldModel(foundation, legacyWorldModel) {
+    /** @type {AnyObject} */
+    const out = {};
+    if (isPlainObject(foundation?.plates))
+        out.plates = foundation.plates;
+    const dynamics = foundation?.dynamics;
+    if (isPlainObject(dynamics?.wind))
+        out.wind = dynamics.wind;
+    if (isPlainObject(dynamics?.currents))
+        out.currents = dynamics.currents;
+    if (isPlainObject(dynamics?.mantle))
+        out.pressure = dynamics.mantle;
+    if (isPlainObject(dynamics?.directionality))
+        out.directionality = dynamics.directionality;
+    if (isPlainObject(foundation?.policy))
+        out.policy = foundation.policy;
+    if (typeof legacyWorldModel?.enabled === "boolean")
+        out.enabled = legacyWorldModel.enabled;
+    else if (legacyWorldModel && Object.keys(legacyWorldModel).length > 0)
+        out.enabled = true;
+    return out;
+}
+
+/**
+ * Normalize the new foundation group and sync legacy worldModel/landmass data.
+ * Mutates the supplied merged snapshot and returns any migration warnings.
+ * @param {AnyObject} merged
+ * @returns {Array<string>}
+ */
+function normalizeFoundationGroups(merged) {
+    /** @type {Array<string>} */
+    const warnings = [];
+    const foundationInput = isPlainObject(merged.foundation) ? /** @type {AnyObject} */ (merged.foundation) : {};
+    const worldModelInput = isPlainObject(merged.worldModel) ? /** @type {AnyObject} */ (merged.worldModel) : {};
+    const landmassInput = isPlainObject(merged.landmass) ? /** @type {AnyObject} */ (merged.landmass) : {};
+    const legacyBridge = legacyFoundationFrom(worldModelInput, landmassInput);
+    const foundationWasEmpty = !foundationInput || Object.keys(foundationInput).length === 0;
+    const legacyProvided = Object.keys(legacyBridge).length > 0;
+    const foundationNormalized = deepMerge(legacyBridge, foundationInput || {});
+    if (foundationWasEmpty && legacyProvided) {
+        warnings.push("Copied legacy `worldModel` overrides into `foundation.*`; please migrate overrides to the new group.");
+    }
+    if (isPlainObject(foundationNormalized.surface)) {
+        foundationNormalized.surface = deepMerge({ landmass: landmassInput }, foundationNormalized.surface);
+    }
+    else if (Object.keys(landmassInput).length > 0) {
+        foundationNormalized.surface = { landmass: landmassInput };
+    }
+    merged.foundation = foundationNormalized;
+    const worldModelBackfill = foundationToWorldModel(foundationNormalized, worldModelInput);
+    const worldModelNormalized = deepMerge(worldModelBackfill, worldModelInput);
+    if (!Object.keys(worldModelInput).length && Object.keys(worldModelNormalized).length > 0) {
+        warnings.push("Legacy `worldModel` group now mirrors `foundation.*`; update consumers to read `foundation` directly.");
+    }
+    merged.worldModel = worldModelNormalized;
+    return warnings;
+}
 /* -----------------------------------------------------------------------------
  * Resolution
  * -------------------------------------------------------------------------- */
@@ -422,6 +529,15 @@ function buildSnapshot() {
     for (const msg of [...warnings, ...overrideWarnings]) {
         try {
             console.warn(`[StageManifest] ${msg}`);
+        }
+        catch (_) {
+            // Ignore console access issues in restrictive runtimes.
+        }
+    }
+    const foundationWarnings = normalizeFoundationGroups(merged);
+    for (const msg of foundationWarnings) {
+        try {
+            console.warn(`[Foundation] ${msg}`);
         }
         catch (_) {
             // Ignore console access issues in restrictive runtimes.
@@ -559,6 +675,10 @@ export function PLACEMENT_CFG() {
 export function DEV_LOG_CFG() {
     return /** @type {Readonly<DevLogging>} */ (getGroup("dev"));
 }
+/** @returns {Readonly<FoundationConfig>} */
+export function FOUNDATION_CFG() {
+    return /** @type {Readonly<FoundationConfig>} */ (getGroup("foundation"));
+}
 /** @returns {Readonly<WorldModel>} */
 export function WORLDMODEL_CFG() {
     return /** @type {Readonly<WorldModel>} */ (getGroup("worldModel"));
@@ -585,6 +705,35 @@ export function WORLDMODEL_DIRECTIONALITY() {
 export function WORLDMODEL_OCEAN_SEPARATION() {
     return /** @type {any} */ (get("worldModel.policy.oceanSeparation") || {});
 }
+
+/* ---- Foundation helpers ---- */
+export function FOUNDATION_SEED() {
+    return /** @type {any} */ (get("foundation.seed") || {});
+}
+export function FOUNDATION_PLATES() {
+    return /** @type {any} */ (get("foundation.plates") || {});
+}
+export function FOUNDATION_DYNAMICS() {
+    return /** @type {any} */ (get("foundation.dynamics") || {});
+}
+export function FOUNDATION_SURFACE() {
+    return /** @type {any} */ (get("foundation.surface") || {});
+}
+export function FOUNDATION_POLICY() {
+    return /** @type {any} */ (get("foundation.policy") || {});
+}
+export function FOUNDATION_DIAGNOSTICS() {
+    return /** @type {any} */ (get("foundation.diagnostics") || {});
+}
+export function FOUNDATION_DIRECTIONALITY() {
+    return /** @type {any} */ (get("foundation.dynamics.directionality") || {});
+}
+export function FOUNDATION_OCEAN_SEPARATION() {
+    return /** @type {any} */ (get("foundation.surface.oceanSeparation") ||
+        get("foundation.policy.oceanSeparation") ||
+        {});
+}
+
 /* ---- Default export (optional convenience) ---- */
 export default {
     refresh,
@@ -607,6 +756,7 @@ export default {
     CORRIDORS_CFG,
     PLACEMENT_CFG,
     DEV_LOG_CFG,
+    FOUNDATION_CFG,
     WORLDMODEL_CFG,
     // WorldModel subsets
     WORLDMODEL_PLATES,
@@ -616,4 +766,13 @@ export default {
     WORLDMODEL_POLICY,
     WORLDMODEL_DIRECTIONALITY,
     WORLDMODEL_OCEAN_SEPARATION,
+    // Foundation subsets
+    FOUNDATION_SEED,
+    FOUNDATION_PLATES,
+    FOUNDATION_DYNAMICS,
+    FOUNDATION_SURFACE,
+    FOUNDATION_POLICY,
+    FOUNDATION_DIAGNOSTICS,
+    FOUNDATION_DIRECTIONALITY,
+    FOUNDATION_OCEAN_SEPARATION,
 };

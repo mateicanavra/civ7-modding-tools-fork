@@ -15,7 +15,7 @@ import { expandCoasts, generateLakes } from "/base-standard/maps/elevation-terra
 import { layerAddMountainsPhysics } from "./layers/mountains.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import * as utilities from "/base-standard/maps/map-utilities.js";
-import { stageEnabled, LANDMASS_CFG, LANDMASS_GEOMETRY, MOUNTAINS_CFG, VOLCANOES_CFG, rebind, } from "./bootstrap/tunables.js";
+import { stageEnabled, LANDMASS_CFG, LANDMASS_GEOMETRY, MOUNTAINS_CFG, VOLCANOES_CFG, FOUNDATION_SEED, FOUNDATION_PLATES, FOUNDATION_DYNAMICS, FOUNDATION_SURFACE, rebind, } from "./bootstrap/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import { storyTagHotspotTrails, storyTagRiftValleys, storyTagOrogenyBelts, storyTagContinentalMargins, storyTagClimateSwatches, OrogenyCache, } from "./story/tagging.js";
@@ -28,7 +28,7 @@ import { applyClimateBaseline, refineClimateEarthlike } from "./layers/climate-e
 import { designateEnhancedBiomes as layerDesignateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures as layerAddDiverseFeatures } from "./layers/features.js";
 import { runPlacement as layerRunPlacement } from "./layers/placement.js";
-import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logRainfallStats, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, logBiomeSummary, } from "./bootstrap/dev.js";
+import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logRainfallStats, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, logBiomeSummary, logFoundationSeed, logFoundationPlates, logFoundationDynamics, logFoundationSurface, } from "./bootstrap/dev.js";
 import { WorldModel } from "./world/model.js";
 // Phase 1 Refactoring: Context + Adapter layer
 import { createMapContext, syncHeightfield, syncClimateField } from "./core/types.js";
@@ -78,6 +78,10 @@ function generateMap() {
     const stageBiomes = stageEnabled("biomes");
     const stageFeatures = stageEnabled("features");
     const stagePlacement = stageEnabled("placement");
+    logFoundationSeed(FOUNDATION_SEED, null);
+    logFoundationPlates(FOUNDATION_PLATES);
+    logFoundationDynamics(FOUNDATION_DYNAMICS);
+    logFoundationSurface(FOUNDATION_SURFACE);
     const mountainsConfig = MOUNTAINS_CFG || {};
     const mountainOptions = {
         mountainPercent: mountainsConfig.mountainPercent ?? 3,
@@ -156,6 +160,7 @@ function generateMap() {
             devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
             logWorldModelSummary(WorldModel);
             logWorldModelAscii(WorldModel);
+            logFoundationSeed(FOUNDATION_SEED, WorldModel.plateSeed || null, { skipConfig: true });
         }
         else {
             console.error("[WorldModel] Initialization failed; physics data unavailable.");

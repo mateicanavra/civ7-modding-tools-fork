@@ -39,6 +39,7 @@
  * @property {FeaturesDensity} [featuresDensity] - Feature density: rainforest, forest, taiga prevalence, coral reef placement
  * @property {Placement} [placement] - Final placement: natural wonder counts, floodplain river lengths
  * @property {DevLogging} [dev] - Debug logging: timing stats, story tag counts, rainfall distribution histograms
+ * @property {FoundationConfig} [foundation] - Unified world foundation configuration (seed, plates, dynamics, surface, policy)
  * @property {WorldModel} [worldModel] - Earth-like physical simulation: tectonic plates, prevailing winds, ocean currents, mantle convection
  * @property {StageManifest} [stageManifest] - Pipeline manifest describing stage order, enablement, and inter-stage dependencies
  * @property {StageConfigProviders} [stageConfig] - Metadata indicating which stages a preset or entry supplies configuration for
@@ -699,6 +700,58 @@
  * @property {number} [policy.oceanSeparation.edgeEast.baseTiles] - Base lateral tiles at east edge (tiles)
  * @property {number} [policy.oceanSeparation.edgeEast.boundaryClosenessMultiplier] - Boundary-closeness multiplier (ratio; unitless)
  * @property {number} [policy.oceanSeparation.edgeEast.maxPerRowDelta] - Max per-row delta (tiles)
+ */
+
+/**
+ * Unified world foundation configuration replacing the legacy `worldModel` + `landmass` split.
+ *
+ * @typedef {Object} FoundationConfig
+ * @property {FoundationSeedConfig} [seed] - Deterministic seed controls shared by plates/dynamics.
+ * @property {WorldModel['plates']} [plates] - Voronoi plate generation controls.
+ * @property {FoundationDynamicsConfig} [dynamics] - Atmospheric/oceanic drivers and mantle pressure.
+ * @property {FoundationSurfaceConfig} [surface] - Landmass targets and ocean separation policy.
+ * @property {WorldModel['policy']} [policy] - Consumer-facing policy multipliers (legacy mirror).
+ * @property {FoundationDiagnosticsConfig} [diagnostics] - Logging + replay toggles for foundations.
+ */
+
+/**
+ * Deterministic seed configuration for world foundations.
+ *
+ * @typedef {Object} FoundationSeedConfig
+ * @property {"engine"|"fixed"} [mode] - Use Civ engine seed or a fixed value.
+ * @property {number} [fixed] - Explicit seed value when `mode === "fixed"`.
+ * @property {number} [offset] - Global offset applied before deriving subsystem seeds.
+ * @property {Object} [offsets] - Optional per-subsystem offsets (e.g., { plates, dynamics, surface }).
+ * @property {number} [manifestHash] - Hash of the resolved manifest for replay diagnostics.
+ */
+
+/**
+ * Atmospheric, oceanic, and mantle drivers for the foundation tensors.
+ *
+ * @typedef {Object} FoundationDynamicsConfig
+ * @property {WorldModel['wind']} [wind] - Prevailing wind configuration.
+ * @property {WorldModel['currents']} [currents] - Ocean circulation settings.
+ * @property {WorldModel['pressure']} [mantle] - Mantle pressure hotspot configuration.
+ * @property {WorldModel['directionality']} [directionality] - Cross-system alignment controls.
+ */
+
+/**
+ * Surface targets derived from the world foundation seed.
+ *
+ * @typedef {Object} FoundationSurfaceConfig
+ * @property {Landmass} [landmass] - Landmass targets and geometry preferences.
+ * @property {WorldModel['policy']['oceanSeparation']} [oceanSeparation] - Plate-aware ocean separation policy.
+ * @property {Object<string, any>} [overrides] - Additional surface overrides keyed by stage name.
+ */
+
+/**
+ * Diagnostics and logging toggles for the foundation pipeline.
+ *
+ * @typedef {Object} FoundationDiagnosticsConfig
+ * @property {boolean} [logSeed] - Emit plate seed + RNG metadata to diagnostics.
+ * @property {boolean} [logPlates] - Log plate ASCII/summary output.
+ * @property {boolean} [logDynamics] - Log wind/current summaries.
+ * @property {boolean} [logSurface] - Log landmass window + separation summaries.
  */
 
 // Export empty object to make this a proper ES module
