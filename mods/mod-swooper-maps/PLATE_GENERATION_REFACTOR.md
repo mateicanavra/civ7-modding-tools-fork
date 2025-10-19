@@ -2,6 +2,8 @@
 
 _Updated: 2025-10-18_
 
+> **Status**: This plan now folds into the broader world-foundation consolidation captured in `ENGINE_REFACTOR_PLAN.md`. Continue to treat the implementation notes below as background. New work should target the unified `foundation` config model and archive this file once the migration lands.
+
 ## 1. Objective
 Unify plate generation under a single authoritative pipeline that leverages Civilization VII’s Voronoi utilities (sites, growth, boundary detection) and feeds the Swooper physics stack (WorldModel, landmass shaping, climate). Remove duplicate continent generators and eliminate the concept of “physics disabled.”
 

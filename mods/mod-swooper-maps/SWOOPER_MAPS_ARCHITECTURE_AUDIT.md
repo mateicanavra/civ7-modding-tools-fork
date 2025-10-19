@@ -1,6 +1,8 @@
 # Swooper Maps Architecture Audit _(Superseded)_
 
 > **Note**: This document is kept for historical context. The current roadmap and refactor plan live in `ENGINE_REFACTOR_PLAN.md`. Refer to that plan for up-to-date stage sequencing, data products, and deliverables.
+>
+> **Foundation consolidation**: The `worldModel` + `landmass` configuration discussed below has been superseded by the unified `foundation` block documented in `ENGINE_REFACTOR_PLAN.md` and `DESIGN.md`. Treat any references to the legacy config schema as historical only; new work should rely on the `foundation` structure and associated tunables.
 
 ## 1. Layer Stack and Shared State
 

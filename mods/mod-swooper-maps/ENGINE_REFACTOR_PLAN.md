@@ -31,12 +31,45 @@ _Updated: 2025-10-18_
 - `ClimateField`: rainfall, humidity, temperature arrays (read-only).
 - `StoryOverlays`: structured map of sparse overlays (corridors, hotspots, active/passive margins).
 
+### World Foundation Configuration Model
+
+We will collapse the scattered plate + core-world knobs into a single top-level `foundation` config group. The group exposes consistent sub-clusters so orchestration, diagnostics, and presets all reason about the same structure:
+
+- **`foundation.seed`** – mandatory determinism controls (`mode`, `fixed`, per-system `offsets`, manifest hash) that replace `worldModel.enabled`/seed toggles and capture the shared RNG state surfaced through `FoundationContext`.
+- **`foundation.plates`** – Voronoi + plate-layout definitions (`count`, `convergenceMix`, `relaxation`, `jitter`, `rotation`, `shieldSmoothing`). Downstream consumers read the normalized copy, not bespoke copies of `worldModel.plates`.
+- **`foundation.dynamics`** – atmospheric and oceanic drivers with parity to the physics tensors (`wind`, `currents`, `mantle`, `directionality`). Each child exposes both raw config and derived scalars so layers avoid recomputing normalization.
+- **`foundation.surface`** – continental targets that currently live under `landmass.*` (`baseWaterPercent`, band geometry, post-adjustments) plus ocean-separation policy wiring. These values travel with the plate seed so diagnostics can render the intended window layout.
+- **`foundation.policy`** – consumer-facing multipliers previously scattered under `worldModel.policy` (wind influence, coast/reef biases, ocean separation, story coupling). Stage manifests will declare which pieces they consult.
+- **`foundation.diagnostics`** – logging + replay toggles (plate seed snapshots, ASCII dumps, manifest checks) consolidated from `dev` flags and the plate refactor plan.
+
+#### Legacy mapping (v0 → foundation)
+
+| Current Path | New Path | Notes |
+| --- | --- | --- |
+| `worldModel.enabled` | _(removed)_ | Physics is mandatory; manifests gate compatibility via `stageConfig`. |
+| `worldModel.plates.*` | `foundation.plates.*` | Direct rename; seed/offset fields move into `foundation.seed`. |
+| `worldModel.wind.*` | `foundation.dynamics.wind.*` | Preserve field names; directionality overrides are shared through `foundation.dynamics`. |
+| `worldModel.currents.*` | `foundation.dynamics.currents.*` | Same schema, now colocated with winds. |
+| `worldModel.pressure.*` | `foundation.dynamics.mantle.*` | Rename captures mantle focus; staged into `FoundationContext.pressure`. |
+| `worldModel.directionality.*` | `foundation.dynamics.directionality.*` | Subdivide into `axes`, `interplay`, `hemispheres`, `variability` under a single namespace. |
+| `worldModel.policy.*` | `foundation.policy.*` | Split into `coasts`, `climate`, `separation`; consumers import through `FOUNDATION.policy`. |
+| `landmass.baseWaterPercent` / `landmass.geometry.*` | `foundation.surface.landmass.*` | Landmass defaults ship with the seed bundle instead of a separate config root. |
+| `tunables.WORLDMODEL_*` helpers | `tunables.FOUNDATION_*` | `rebind()` will hydrate `FOUNDATION.core`, `FOUNDATION.policy`, and `FOUNDATION.surface`. |
+
+#### Deprecations & cleanup
+
+- Archive `mods/mod-swooper-maps/PLATE_GENERATION_REFACTOR.md` once the new `foundation` block ships; its open items migrate into this plan.
+- Replace the `WorldModel` typedef in `bootstrap/map_config.types.js` with `FoundationConfig`/`FoundationPolicy` types and update downstream imports (`swooper-desert-mountains.js`, tests) to read from `foundation`.
+- Collapse the `worldModel` section in `bootstrap/defaults/base.js` and the `WORLDMODEL_*` exports in `bootstrap/tunables.js`; they become thin wrappers that proxy the new `FOUNDATION` helpers.
+- Update diagnostics in `bootstrap/dev.js` to emit `[Foundation]` messages and remove plate-specific ASCII toggles once the consolidated logging switches take over.
+
 ## 4. Phase Roadmap
 
 ### Phase A – Foundations Alignment
 1. Promote `landmassPlates` to the default stage; demote Voronoi continents to an opt-in manifest entry.
 2. Expose a deterministic `PlateSeed` from WorldModel so every consumer (landmass, diagnostics) shares identical Voronoi sites.
 3. Emit `FoundationContext` and guard all downstream stages with runtime assertions (`stageEnabled` + presence of required data product).
+4. Migrate config + tunables to the new `foundation` block, deleting the legacy `worldModel` toggle/typedefs once consumers compile.
 
 ### Phase B – Morphology Refactor
 - [x] Introduce a heightfield buffer in `MapContext` (elevation + terrain layers).  
@@ -73,6 +106,7 @@ _Updated: 2025-10-18_
 - **Manifest drift:** Gate new stages behind the `consumes/produces` validator to prevent future entropy.
 
 ## 7. Next Actions
-1. Land the plate-generation consolidation (see `PLATE_GENERATION_REFACTOR.md`).  
-2. Draft interface definitions (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) and add TypeScript typings in `map_config.types.js`.  
-3. Update `SWOOPER_MAPS_ARCHITECTURE_AUDIT.md` to reference this plan and mark the legacy flow as deprecated.
+1. Land the plate-generation consolidation (see `PLATE_GENERATION_REFACTOR.md`).
+2. Draft interface definitions (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) and add TypeScript typings in `map_config.types.js`.
+3. Author the `foundation` schema + resolver wiring (defaults, presets, tunables) so presets can opt into new physics clusters.
+4. Update `SWOOPER_MAPS_ARCHITECTURE_AUDIT.md` to reference this plan and mark the legacy flow as deprecated.
