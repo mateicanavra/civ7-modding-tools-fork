@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Maps>
+		<!-- Base variant - Classic preset -->
+		<Row
+			File="{swooper-maps}/maps/swooper-desert-mountains.js"
+			Name="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_NAME"
+			Description="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_DESCRIPTION"
+			SortIndex="500"
+		/>
+	</Maps>
+</Database>

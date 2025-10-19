@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_NAME">
+			<Text>Swooper Desert Mountains</Text>
+		</Row>
+		<Row Tag="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_DESCRIPTION">
+			<Text>Plate-forged mega ranges carve a hyper-arid world into stark basins and windward oases. Expect towering boundary cordilleras, savage lee-side deserts, and a handful of monsoon belts clinging to the mountains that feed them.</Text>
+		</Row>
+
+	</EnglishText>
+</Database>
