@@ -51,20 +51,21 @@ jargon that a typical Civilization player might not know.
    `syncHeightfield()` so every pass keeps operating on the same authoritative
    arrays.
 4. **Margin tagging** resets the StoryTags singleton and calls
-   `storyTagContinentalMargins()` before any narrative overlay runs. The helper
-   scans row by row, finds long coastal runs, and marks a sparse subset as
+   `storyTagContinentalMargins(ctx)` before any narrative overlay runs. The
+   helper scans row by row, finds long coastal runs, and marks a sparse subset as
    active or passive margins according to the configured fractions and minimum
-   segment length. Each tagged tile becomes a coordinate key in either
-   `StoryTags.activeMargin` or `StoryTags.passiveShelf`.
+   segment length. The result is published to the new `StoryOverlays` registry as
+   `ctx.overlays.get("margins")`, and the same snapshot seeds
+   `StoryTags.activeMargin` / `StoryTags.passiveShelf` for legacy consumers.
 5. **Margin-aware coast polish** (`layerAddRuggedCoasts`) consults those tags to
-   add fjords and shelf smoothing where appropriate. Because the tags live in a
-   shared singleton, later passes (islands, features, or story corridors) can
-   make consistent decisions about the same stretches of coastline.
+   add fjords and shelf smoothing where appropriate. Because the overlay lives
+   in the shared registry, later passes can rehydrate the StoryTags view at any
+   time without recomputing the sweep.
 6. **Narrative reset window** – Some story passes (hotspots, rifts) clear tags
    again before writing their own overlays. Once those motifs are stamped, the
-   orchestrator replays `storyTagContinentalMargins()` so the active/passive
-   sets are fresh for downstream consumers such as island placement and feature
-   dressing.
+   orchestrator simply rehydrates the margin sets from the published overlay so
+   the active/passive keys stay in sync for downstream consumers such as island
+   placement and feature dressing—no second tagging pass required.
 7. **Mountains, volcanoes, lakes** operate on the heightfield buffer with full
    access to the margin tags and the foundation tensors. Mountains pull uplift
    and boundary proximity from the world model, volcanoes bias toward convergent
@@ -109,11 +110,10 @@ passes to query.
   rolls and leans on the active set when promoting volcanic vegetation. The
   helper still validates every placement through the engine to keep gameplay
   fair.
-- **Future overlays** – Phase B of the refactor plan calls for morphology to
-  publish “margin metadata” alongside the heightfield so narrative overlays can
-  ingest the tags without rerunning the tagging pass. That work is still pending,
-  so the orchestrator currently replays the tagging helper whenever StoryTags are
-  reset.
+- **Overlay registry** – Phase B now publishes the “margin metadata” snapshot via
+  `StoryOverlays`. Narrative passes and downstream layers hydrate their local tag
+  view straight from this registry, so resets no longer force another
+  `storyTagContinentalMargins()` sweep.
 
 ### Why this does not rerun physics
 

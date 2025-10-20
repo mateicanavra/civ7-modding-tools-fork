@@ -30,6 +30,7 @@
 - Climate layers stage rainfall via `MapContext.buffers.climate`; prefer `writeClimateField` / `syncClimateField` when mutating or syncing rainfall rather than writing to `GameplayMap` directly.
 - Baseline, swatch, and refinement rainfall logic live in `layers/climate-engine.js`; stage wrappers delegate to this module so edits stay centralized.
 - `core/types.js` exports `createFoundationContext`/`assertFoundationContext`; `MapContext.foundation` is now an immutable snapshot that must exist before any stage requiring physics runs.
+- Narrative metadata now publishes through `MapContext.overlays` (see `story/overlays.js`). Continental margins are seeded once during morphology and rehydrated from the `StoryOverlays` registry instead of rerunning the tagging helper.
 - Runtime overrides must target the consolidated `foundation.*` block directly—`bootstrap/resolved.js` no longer backfills from `worldModel`, and the resolver emits `[Foundation]` warnings if legacy groups are present.
 - Dev diagnostics toggles have been renamed to `LOG_FOUNDATION_*`; the ASCII, summary, and histogram helpers now log under a `[Foundation]` prefix.
 

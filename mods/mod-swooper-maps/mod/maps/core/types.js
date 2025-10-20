@@ -63,6 +63,30 @@
  */
 
 /**
+ * Immutable snapshot describing a sparse narrative overlay.
+ * Overlays capture derived storytelling metadata (margins, corridors, etc.)
+ * produced during generation so downstream stages can consume consistent
+ * products without rerunning expensive passes.
+ *
+ * @typedef {Object} StoryOverlaySnapshot
+ * @property {string} key - Overlay registry key (e.g., "margins")
+ * @property {string} kind - Overlay kind identifier
+ * @property {number} version - Schema version for the overlay payload
+ * @property {number} width - Map width in tiles
+ * @property {number} height - Map height in tiles
+ * @property {ReadonlyArray<string>} [active] - Active tile identifiers ("x,y" form) when applicable
+ * @property {ReadonlyArray<string>} [passive] - Passive tile identifiers ("x,y" form) when applicable
+ * @property {Readonly<Record<string, any>>} summary - Overlay summary metadata (counts, thresholds, etc.)
+ */
+
+/**
+ * Registry of immutable story overlays published during generation.
+ * Keys map to overlay snapshots (see StoryOverlaySnapshot).
+ *
+ * @typedef {Map<string, StoryOverlaySnapshot>} StoryOverlayRegistry
+ */
+
+/**
  * Snapshot of the configuration objects that informed the current foundation run.
  * Mirrors come from the resolved tunables so downstream consumers can reason
  * about the knobs that produced the published tensors.
@@ -158,6 +182,7 @@ const EMPTY_FROZEN_OBJECT = Object.freeze({});
  * @property {EngineAdapter} adapter - Abstraction layer for engine operations
  * @property {FoundationContext|null} foundation - Shared world foundations (immutable data product)
  * @property {MapBuffers} buffers - Shared staging buffers
+ * @property {StoryOverlayRegistry} overlays - Published story overlays keyed by overlay id
  */
 
 /**
@@ -252,6 +277,7 @@ export function createMapContext(dimensions, adapter, config) {
       climate,
       scratchMasks: new Map(),
     },
+    overlays: new Map(),
   };
 }
 

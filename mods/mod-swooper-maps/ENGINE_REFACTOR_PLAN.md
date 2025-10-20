@@ -75,7 +75,7 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 ### Phase B – Morphology Refactor
 - [x] Introduce a heightfield buffer in `MapContext` (elevation + terrain layers).  
 - [x] Port landmass post-processing, coastlines, islands, mountains, volcanoes, and lakes to operate on the buffer and advertise `heightfield` in stage outputs.  
-- [ ] Replace `StoryTags.reset()` loops with calls that ingest the published margin metadata.
+- [x] Stand up the `StoryOverlays` registry with a `margins` entry so morphology publishes immutable coastal metadata and downstream stages stop rerunning `storyTagContinentalMargins()`.
 
 ### Phase C – Hydrology & Climate Unification
 - [x] Consolidate rainfall baseline, refinement, and swatch modifications into a single climate engine module.
@@ -84,7 +84,7 @@ We will collapse the scattered plate + core-world knobs into a single top-level 
 
 ### Phase D – Narrative Overlays Modernization
 1. Rewrite story tagging functions to consume `FoundationContext`, `Heightfield`, and `ClimateField` rather than direct `GameplayMap` probes.  
-2. Store results in `StoryOverlays` (immutable snapshots per overlay).  
+2. Extend the `StoryOverlays` registry (seeded with margins during Phase B) so each narrative pass emits immutable snapshots instead of mutating singletons.  
 3. Update island, corridor, and feature layers to read overlays from the new registry.
 
 ### Phase E – Biomes, Features, Placement Harmonization

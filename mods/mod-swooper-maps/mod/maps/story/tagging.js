@@ -17,6 +17,7 @@
  *  - Climate tuning (baseline and refinement) is configured via map_config and consumed in the climate layers; this module only tags, while consumers preserve clamps.
  */
 import { StoryTags } from "./tags.js";
+import { publishStoryOverlay, finalizeStoryOverlay, StoryOverlayKeys, hydrateMarginsStoryTags } from "./overlays.js";
 import { STORY_TUNABLES, STORY_ENABLE_SWATCHES, STORY_ENABLE_PALEO, MARGINS_CFG, MOISTURE_ADJUSTMENTS, FOUNDATION_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 import { writeClimateField, syncClimateField, ctxRandom } from "../core/types.js";
@@ -616,9 +617,19 @@ export function storyTagOrogenyBelts(ctx) {
  * - Works without continent IDs; segments stay local and sparse to avoid noisy toggling.
  * - Consumers (coastlines/islands/features) must preserve minimum sea-lane width.
  */
-export function storyTagContinentalMargins() {
-    const width = GameplayMap.getGridWidth();
-    const height = GameplayMap.getGridHeight();
+export function storyTagContinentalMargins(ctxOrOptions = null, maybeOptions = null) {
+    let ctx = null;
+    let options = maybeOptions || {};
+    if (ctxOrOptions && typeof ctxOrOptions === "object") {
+        if (ctxOrOptions.adapter && ctxOrOptions.dimensions) {
+            ctx = ctxOrOptions;
+        }
+        else if (!maybeOptions) {
+            options = ctxOrOptions;
+        }
+    }
+    const width = ctx?.dimensions?.width ?? GameplayMap.getGridWidth();
+    const height = ctx?.dimensions?.height ?? GameplayMap.getGridHeight();
     // Size-aware fractions (configurable with safe defaults)
     const area = Math.max(1, width * height);
     const sqrt = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
@@ -647,25 +658,27 @@ export function storyTagContinentalMargins() {
     const targetPassive = Math.floor(totalCoast * passiveFrac);
     let markedActive = 0;
     let markedPassive = 0;
+    const activeSet = new Set();
+    const passiveSet = new Set();
     // Helper to mark a segment safely
     function markSegment(y, x0, x1, active) {
         for (let x = x0; x <= x1; x++) {
             const k = `${x},${y}`;
+            if (!GameplayMap.isCoastalLand(x, y))
+                continue;
             if (active) {
                 if (markedActive >= targetActive)
                     break;
-                if (!StoryTags.activeMargin.has(k) &&
-                    GameplayMap.isCoastalLand(x, y)) {
-                    StoryTags.activeMargin.add(k);
+                if (!activeSet.has(k)) {
+                    activeSet.add(k);
                     markedActive++;
                 }
             }
             else {
                 if (markedPassive >= targetPassive)
                     break;
-                if (!StoryTags.passiveShelf.has(k) &&
-                    GameplayMap.isCoastalLand(x, y)) {
-                    StoryTags.passiveShelf.add(k);
+                if (!passiveSet.has(k)) {
+                    passiveSet.add(k);
                     markedPassive++;
                 }
             }
@@ -704,13 +717,29 @@ export function storyTagContinentalMargins() {
         // Reset scanning x for next row
         x = 1;
     }
-    return {
-        active: markedActive,
-        passive: markedPassive,
-        targetActive,
-        targetPassive,
-        minSegLen,
+    const overlay = {
+        kind: StoryOverlayKeys.MARGINS,
+        version: 1,
+        width,
+        height,
+        active: Array.from(activeSet),
+        passive: Array.from(passiveSet),
+        summary: {
+            active: markedActive,
+            passive: markedPassive,
+            targetActive,
+            targetPassive,
+            minSegmentLength: minSegLen,
+        },
     };
+    const shouldPublish = options.publish !== false;
+    const snapshot = shouldPublish
+        ? publishStoryOverlay(ctx, StoryOverlayKeys.MARGINS, overlay)
+        : finalizeStoryOverlay(StoryOverlayKeys.MARGINS, overlay);
+    if (options.hydrateStoryTags !== false) {
+        hydrateMarginsStoryTags(snapshot, StoryTags);
+    }
+    return snapshot;
 }
 // -------------------------------- Climate Swatches --------------------------------
 /**

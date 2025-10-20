@@ -32,6 +32,7 @@ import {
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import { storyTagHotspotTrails, storyTagRiftValleys, storyTagOrogenyBelts, storyTagContinentalMargins, storyTagClimateSwatches, OrogenyCache, } from "./story/tagging.js";
+import { StoryOverlayKeys, getStoryOverlay, hydrateMarginsStoryTags } from "./story/overlays.js";
 import { layerAddVolcanoesPlateAware } from "./layers/volcanoes.js";
 import { createPlateDrivenLandmasses } from "./layers/landmass_plate.js";
 import { applyLandmassPostAdjustments, applyPlateAwareOceanSeparation } from "./layers/landmass_utils.js";
@@ -323,11 +324,15 @@ function generateMap() {
         console.log("[StageManifest] Coastlines stage disabled — skipping expandCoasts()");
     }
     // Reset StoryTags and tag continental margins before coast shaping
+    let marginsOverlay = null;
     if (stageStorySeed) {
         ensureFoundation("storySeed");
         resetStoryTags();
         console.log("Imprinting continental margins (active/passive)...");
-        storyTagContinentalMargins();
+        marginsOverlay = storyTagContinentalMargins(ctx);
+        if (!marginsOverlay) {
+            marginsOverlay = getStoryOverlay(ctx, StoryOverlayKeys.MARGINS);
+        }
     }
     // Add post-processing to make coasts more rugged (margin-aware) and place a few islands
     if (stageCoastlines) {
@@ -338,6 +343,12 @@ function generateMap() {
     // Climate Story v0.1: Tag narrative motifs after coasts exist
     if (stageStoryHotspots || stageStoryRifts) {
         resetStoryTags();
+        if (!marginsOverlay) {
+            marginsOverlay = getStoryOverlay(ctx, StoryOverlayKeys.MARGINS);
+        }
+        if (marginsOverlay) {
+            hydrateMarginsStoryTags(marginsOverlay, StoryTags);
+        }
     }
     if (stageStoryHotspots) {
         ensureFoundation("storyHotspots");
@@ -360,8 +371,8 @@ function generateMap() {
         });
     }
     // Re-tag continental margins for downstream consumers (islands/features) after reset
-    if (stageStorySeed) {
-        storyTagContinentalMargins();
+    if (stageStorySeed && marginsOverlay) {
+        hydrateMarginsStoryTags(marginsOverlay, StoryTags);
     }
     // Strategic Corridors: tag pre-islands lanes and land corridors
     if (stageStoryCorridorsPre) {
