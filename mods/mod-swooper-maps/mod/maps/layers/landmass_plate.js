@@ -172,12 +172,15 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         if (postCfg.clampEastMax != null) {
             east = Math.min(east, Math.min(width - 1, Math.trunc(postCfg.clampEastMax)));
         }
+        const verticalPad = Math.max(0, expand);
+        const baseSouth = Math.max(polarRows, s.minY - verticalPad);
+        const baseNorth = Math.min(height - polarRows, s.maxY + verticalPad);
         const south = postCfg.overrideSouth != null
             ? clampInt(Math.trunc(postCfg.overrideSouth), 0, height - 1)
-            : polarRows;
+            : clampInt(baseSouth, 0, height - 1);
         const north = postCfg.overrideNorth != null
             ? clampInt(Math.trunc(postCfg.overrideNorth), 0, height - 1)
-            : height - polarRows;
+            : clampInt(baseNorth, 0, height - 1);
         return {
             plateId: s.plateId,
             west,

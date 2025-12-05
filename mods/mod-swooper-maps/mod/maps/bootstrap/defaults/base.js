@@ -782,7 +782,15 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
         logTiming: true,
         logStoryTags: true,
         rainfallHistogram: true,
-        LOG_BOUNDARY_METRICS: false,
+        LOG_FOUNDATION_SUMMARY: true,
+        LOG_FOUNDATION_ASCII: true,
+        LOG_FOUNDATION_SEED: true,
+        LOG_FOUNDATION_PLATES: true,
+        LOG_BOUNDARY_METRICS: true,
+        LOG_LANDMASS_ASCII: true,
+        LOG_LANDMASS_WINDOWS: true,
+        LOG_RELIEF_ASCII: true,
+        LOG_MOUNTAINS: true,
     }),
 });
 export default BASE_CONFIG;

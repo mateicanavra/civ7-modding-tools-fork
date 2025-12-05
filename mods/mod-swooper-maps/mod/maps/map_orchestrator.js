@@ -300,7 +300,7 @@ function generateMap() {
                     area: spanX && spanY ? spanX * spanY : null,
                 };
             });
-            devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", windowSummary);
+            devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", JSON.stringify(windowSummary));
         }
         else {
             devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", "no plate windows");

@@ -238,7 +238,8 @@ export function computePlatesVoronoi(width, height, config) {
                 }
                 const distToBoundary = Math.sqrt(VoronoiUtils.sqDistance(pos, nearestBoundary.pos));
 
-                const scaleFactor = 4.0;
+                // Keep boundary influence narrow so only tiles near edges score high.
+                const scaleFactor = 2.0;
                 const closeness = 1 - distToBoundary / (distToBoundary + scaleFactor);
                 boundaryCloseness[i] = toByte(closeness);
 

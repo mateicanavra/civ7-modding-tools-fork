@@ -552,6 +552,33 @@ export function logFoundationSummary(WorldModel) {
                 s += arr[i] | 0;
             return Math.round(s / Math.max(1, m));
         }
+        // Row sampling to spot directional bias quickly.
+        const rowSamples = [];
+        const rowsToSample = [0, Math.floor(height * 0.25), Math.floor(height * 0.5), Math.floor(height * 0.75), height - 1].filter((y, idx, arr) => y >= 0 && y < height && arr.indexOf(y) === idx);
+        for (const y of rowsToSample) {
+            let clos = 0, ups = 0, landClos = 0, landUps = 0, landCount = 0;
+            for (let x = 0; x < width; x++) {
+                const i = y * width + x;
+                const c = bClose[i] | 0;
+                const u = uplift ? uplift[i] | 0 : 0;
+                const isLand = GameplayMap?.isWater ? !GameplayMap.isWater(x, y) : true;
+                clos += c;
+                ups += u;
+                if (isLand) {
+                    landCount++;
+                    landClos += c;
+                    landUps += u;
+                }
+            }
+            rowSamples.push({
+                row: y,
+                closAvg: Math.round(clos / Math.max(1, width)),
+                upliftAvg: uplift ? Math.round(ups / Math.max(1, width)) : null,
+                landCount,
+                landClosAvg: landCount ? Math.round(landClos / landCount) : null,
+                landUpliftAvg: landCount && uplift ? Math.round(landUps / landCount) : null,
+            });
+        }
         const summary = {
             width,
             height,
@@ -565,8 +592,9 @@ export function logFoundationSummary(WorldModel) {
             },
             upliftAvg: uplift ? avgByte(uplift) : null,
             riftAvg: rift ? avgByte(rift) : null,
+            rowSamples,
         };
-        safeLog("[DEV][foundation] summary:", summary);
+        safeLog(`[DEV][foundation] summary: ${JSON.stringify(summary)}`);
     }
     catch (err) {
         safeLog("[DEV][foundation] summary error:", err);
@@ -932,52 +960,52 @@ export function logBoundaryMetrics(WorldModel, opts = {}) {
         const totalTiles = Math.min(boundaryType.length, boundaryCloseness.length, width * height);
         const pct = (value, total) => total > 0 ? ((value / total) * 100).toFixed(1) + "%" : "0%";
 
-        safeLog(`[DEV][foundation] metrics${stage}: counts`, {
+        safeLog(`[DEV][foundation] metrics${stage}: counts ${JSON.stringify({
             totalTiles,
             none: counts[0],
             convergent: counts[1],
             divergent: counts[2],
             transform: counts[3],
-        });
-        safeLog("[DEV][foundation] metrics: share", {
+        })}`);
+        safeLog(`[DEV][foundation] metrics: share ${JSON.stringify({
             convergent: pct(counts[1], totalTiles),
             divergent: pct(counts[2], totalTiles),
             transform: pct(counts[3], totalTiles),
-        });
-        safeLog("[DEV][foundation] metrics: closeness histogram", hist.map((count, idx) => ({ bin: idx, count })));
+        })}`);
+        safeLog(`[DEV][foundation] metrics: closeness histogram ${JSON.stringify(hist.map((count, idx) => ({ bin: idx, count })))}`);
         thresholds.forEach((t, idx) => {
-            safeLog(`[DEV][foundation] metrics: closeness >= ${t.toFixed(2)}`, {
+            safeLog(`[DEV][foundation] metrics: closeness >= ${t.toFixed(2)} ${JSON.stringify({
                 tiles: thresholdHits[idx],
                 share: pct(thresholdHits[idx], totalTiles),
-            });
+            })}`);
         });
-        safeLog("[DEV][foundation] metrics: mountains", {
+        safeLog(`[DEV][foundation] metrics: mountains ${JSON.stringify({
             total: mountains,
             none: mountainByType[0],
             convergent: mountainByType[1],
             divergent: mountainByType[2],
             transform: mountainByType[3],
-        });
-        safeLog("[DEV][foundation] metrics: hills", {
+        })}`);
+        safeLog(`[DEV][foundation] metrics: hills ${JSON.stringify({
             total: hills,
             none: hillByType[0],
             convergent: hillByType[1],
             divergent: hillByType[2],
             transform: hillByType[3],
-        });
-        safeLog("[DEV][foundation] metrics: volcanoes", {
+        })}`);
+        safeLog(`[DEV][foundation] metrics: volcanoes ${JSON.stringify({
             total: volcanoes,
             none: volcanoByType[0],
             convergent: volcanoByType[1],
             divergent: volcanoByType[2],
             transform: volcanoByType[3],
-        });
+        })}`);
         thresholds.forEach((t, idx) => {
-            safeLog(`[DEV][foundation] metrics: >=${t.toFixed(2)} overlays`, {
+            safeLog(`[DEV][foundation] metrics: >=${t.toFixed(2)} overlays ${JSON.stringify({
                 mountains: mountainByBand[idx],
                 hills: hillByBand[idx],
                 volcanoes: volcanoByBand[idx],
-            });
+            })}`);
         });
     }
     catch (err) {

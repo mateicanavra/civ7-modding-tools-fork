@@ -21,12 +21,9 @@
  * - Phase 1.5 Complete: Proper Voronoi-based plates with physics-driven boundaries
  * - Phase 2 Pending: Wire WorldModel to consumers (mountains, climate, coasts)
  */
-import { FOUNDATION_PLATES as __FOUNDATION_PLATES, FOUNDATION_DYNAMICS as __FOUNDATION_DYNAMICS, FOUNDATION_DIRECTIONALITY as __FOUNDATION_DIRECTIONALITY, } from "../bootstrap/tunables.js";
+import { FOUNDATION_PLATES, FOUNDATION_DYNAMICS, FOUNDATION_DIRECTIONALITY, } from "../bootstrap/tunables.js";
 import { computePlatesVoronoi } from "./plates.js";
 import { PlateSeedManager } from "./plate_seed.js";
-const FOUNDATION_PLATES = __FOUNDATION_PLATES;
-const FOUNDATION_DYNAMICS = __FOUNDATION_DYNAMICS;
-const FOUNDATION_DIRECTIONALITY = __FOUNDATION_DIRECTIONALITY;
 import { devLogIf } from "../bootstrap/dev.js";
 /** @typedef {"none" | "convergent" | "divergent" | "transform"} BoundaryType */
 const ENUM_BOUNDARY = Object.freeze({
