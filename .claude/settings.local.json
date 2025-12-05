@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(while read file)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []
