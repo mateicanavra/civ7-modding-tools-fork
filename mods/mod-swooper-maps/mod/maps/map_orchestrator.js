@@ -52,6 +52,7 @@ import {
     createFoundationContext,
     assertFoundationContext,
 } from "./core/types.js";
+import { addPlotTags } from "./core/plot_tags.js";
 import { CivEngineAdapter } from "./core/adapters.js";
 
 // Maintain compatibility with dev helpers that expect StoryTags on the global scope.
@@ -394,7 +395,7 @@ function generateMap() {
     AreaBuilder.recalculateAreas();
     TerrainBuilder.stampContinents();
     // Restore plot tags (west/east landmass, corridor water, etc.) for downstream placement logic.
-    utilities.addPlotTags(iHeight, iWidth, eastContinent.west);
+    addPlotTags(iHeight, iWidth, eastContinent.west);
     // Mountains & Hills – Phase 2: Physics-based placement using plate boundaries
     if (stageMountains) {
         ensureFoundation("mountains");

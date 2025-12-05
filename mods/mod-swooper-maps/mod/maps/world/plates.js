@@ -8,9 +8,8 @@
  * - Provide structured data for WorldModel to consume
  *
  * Dependencies (from base-standard module):
- * - /base-standard/scripts/voronoi-utils.js - Voronoi diagram generation
+ * - /base-standard/scripts/kd-tree.js - VoronoiUtils + spatial queries + region/boundary helpers
  * - /base-standard/scripts/voronoi-region.js - PlateRegion with movement vectors
- * - /base-standard/scripts/kd-tree.js - Spatial queries for boundaries
  *
  * Architecture:
  * - Imports base game's proven plate generation algorithms
@@ -18,9 +17,8 @@
  * - Returns typed arrays and boundary data structures
  */
 
-import { VoronoiUtils, RegionCell, PlateBoundary, RegionCellPosGetter, PlateBoundaryPosGetter } from '/base-standard/scripts/voronoi-utils.js';
+import { VoronoiUtils, RegionCell, PlateBoundary, RegionCellPosGetter, PlateBoundaryPosGetter, kdTree } from '/base-standard/scripts/kd-tree.js';
 import { PlateRegion } from '/base-standard/scripts/voronoi-region.js';
-import { kdTree } from '/base-standard/scripts/kd-tree.js';
 
 /**
  * @typedef {Object} PlateGenerationResult
@@ -117,6 +115,19 @@ export function computePlatesVoronoi(width, height, config) {
 
             return region;
         });
+        if (!plateRegions.length) {
+            throw new Error(
+                `[WorldModel] Plate generation returned zero plates (sites=${sites.length}, cells=${diagram.cells?.length ?? 0}).`
+            );
+        }
+        const invalidPlateIndex = plateRegions.findIndex(
+            (p) => !p || !p.seedLocation || !isFinite(p.seedLocation.x) || !isFinite(p.seedLocation.y)
+        );
+        if (invalidPlateIndex >= 0) {
+            throw new Error(
+                `[WorldModel] Plate generation produced invalid plate ${invalidPlateIndex}; seed missing or NaN (cells=${diagram.cells?.length ?? 0}).`
+            );
+        }
         meta.seedLocations = plateRegions.map((region, id) => ({
             id,
             x: region.seedLocation?.x ?? 0,
@@ -158,6 +169,12 @@ export function computePlatesVoronoi(width, height, config) {
 
             regionCell.plateId = bestPlateId;
         }
+        const invalidCell = regionCells.find((c) => c.plateId < 0 || c.plateId >= plateRegions.length);
+        if (invalidCell) {
+            throw new Error(
+                `[WorldModel] Plate assignment failed: invalid plateId ${invalidCell.plateId} for regionCell ${invalidCell.id} (plates=${plateRegions.length}, sites=${sites.length}).`
+            );
+        }
 
         // Compute plate boundaries at Voronoi edges
         const plateBoundaries = computePlateBoundaries(
@@ -165,6 +182,11 @@ export function computePlatesVoronoi(width, height, config) {
             plateRegions,
             plateRotationMultiple
         );
+        if (!plateBoundaries.length) {
+            throw new Error(
+                `[WorldModel] Plate generation produced zero boundaries (plates=${plateRegions.length}, regions=${regionCells.length}).`
+            );
+        }
 
         // Build kdTree for boundary queries
         const boundaryTree = new kdTree(PlateBoundaryPosGetter);
@@ -192,17 +214,28 @@ export function computePlatesVoronoi(width, height, config) {
                 const i = y * width + x;
                 const pos = { x, y };
 
-                const nearestCell = cellKdTree.search(pos);
+                const nearestCellResult = cellKdTree.search(pos);
+                const nearestCell = nearestCellResult?.data ?? nearestCellResult;
+                if (!nearestCell) {
+                    throw new Error(`[WorldModel] Nearest Voronoi cell not found at pos (${x},${y}).`);
+                }
                 const pId = nearestCell.plateId;
                 plateId[i] = pId;
 
                 const plate = plateRegions[pId];
+                if (!plate || !plate.seedLocation) {
+                    throw new Error(`[WorldModel] Missing plate data for plateId=${pId} at pos (${x},${y}).`);
+                }
                 const movement = calculatePlateMovement(plate, pos, plateRotationMultiple);
                 plateMovementU[i] = clampInt8(Math.round(movement.x * 100));
                 plateMovementV[i] = clampInt8(Math.round(movement.y * 100));
                 plateRotation[i] = clampInt8(Math.round(plate.m_rotation * 100));
 
-                const nearestBoundary = boundaryTree.search(pos);
+                const nearestBoundaryResult = boundaryTree?.search(pos);
+                const nearestBoundary = nearestBoundaryResult?.data ?? nearestBoundaryResult;
+                if (!nearestBoundary || !nearestBoundary.pos) {
+                    throw new Error(`[WorldModel] Boundary search failed at pos (${x},${y}); boundaries=${plateBoundaries.length}.`);
+                }
                 const distToBoundary = Math.sqrt(VoronoiUtils.sqDistance(pos, nearestBoundary.pos));
 
                 const scaleFactor = 4.0;
@@ -293,6 +326,13 @@ function computePlateBoundaries(regionCells, plateRegions, plateRotationMultiple
                 const plate1 = plateRegions[plateCell.plateId];
                 const plate2 = plateRegions[neighbor.plateId];
 
+                // Fast fail if we see missing plates; indicates upstream plate assignment failure.
+                if (!plate1 || !plate2 || !plate1.seedLocation || !plate2.seedLocation) {
+                    throw new Error(
+                        `[WorldModel] Boundary references missing plate(s): ${plateCell.plateId}/${neighbor.plateId} (plates=${plateRegions.length}).`
+                    );
+                }
+
                 const plate1Movement = calculatePlateMovement(plate1, pos, plateRotationMultiple);
                 const plate2Movement = calculatePlateMovement(plate2, pos, plateRotationMultiple);
 
@@ -330,6 +370,9 @@ function computePlateBoundaries(regionCells, plateRegions, plateRotationMultiple
  * @returns {{x: number, y: number}} Movement vector
  */
 function calculatePlateMovement(plate, pos, rotationMultiple) {
+    if (!plate || !plate.seedLocation) {
+        return { x: 0, y: 0 };
+    }
     // Relative position from plate center
     const relPos = {
         x: pos.x - plate.seedLocation.x,
