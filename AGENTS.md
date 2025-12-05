@@ -69,4 +69,4 @@ See [docs/process/CONTRIBUTING.md](docs/process/CONTRIBUTING.md) for full guidel
 ## Task tracking
 
 - See [docs/projects/](docs/projects/) for active project work
-- Past planning documents are archived under `.ai/archive/plans/` and `docs/archive/`
+- Past planning documents are archived under `.ai/archive/plans/` and `docs/_archive/`

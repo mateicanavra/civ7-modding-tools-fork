@@ -42,7 +42,7 @@ docs/
   process/        # Collaboration, process, and workflows
   projects/       # Time-bound work, tied to initiatives
   templates/      # Scaffolds for new docs
-  archive/        # Retired/old docs
+  _archive/       # Retired/old docs
 ```
 
 ### Root Gateway Docs
@@ -145,7 +145,7 @@ docs/templates/
 - Reusable scaffolds for new docs.
 - Copy these into `projects/`, `system/`, or `product/` as appropriate; do not edit them in place for project-specific work.
 
-### 3.6 `archive/` — Retired Docs
+### 3.6 `_archive/` — Retired Docs
 
 - Store retired or superseded docs here.
 - Preserve original filenames; update links and note moves in relevant logs/milestones where it matters.
@@ -259,7 +259,7 @@ For **evergreen** docs, decide if they are canonical or supporting:
 | Component/system details    | `docs/system/<area>/`             | lowercase (see note below)  |
 | Project work                | `docs/projects/<project>/`        | lowercase                   |
 | Templates                   | `docs/templates/`                 | lowercase                   |
-| Archived docs               | `docs/archive/`                   | preserve original           |
+| Archived docs               | `docs/_archive/`                  | preserve original           |
 
 ---
 

@@ -3,7 +3,8 @@
     "allow": [
       "Bash(while read file)",
       "Bash(find:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(git mv:*)"
     ],
     "deny": [],
     "ask": []
