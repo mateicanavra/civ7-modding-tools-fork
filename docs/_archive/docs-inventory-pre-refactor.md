@@ -142,7 +142,7 @@ These files were created as part of the docs centralization:
 | mods/mod-swooper-maps/DESIGN.md | docs/system/mods/swooper-maps/design.md |
 | mods/mod-swooper-maps/mod/ARCHITECTURE.md | docs/system/mods/swooper-maps/architecture.md |
 | mods/mod-swooper-maps/MARGINS_AND_NARRATIVE_PIPELINE.md | docs/system/mods/swooper-maps/margins-narrative.md |
-| mods/mod-swooper-maps/ENGINE_REFACTOR_PLAN.md | docs/projects/swooper-maps/engine-refactor-plan.md |
+| mods/mod-swooper-maps/ENGINE_REFACTOR_PLAN.md | docs/projects/swooper-maps/MAPS-engine-refactor/overview.md |
 | mods/mod-swooper-maps/ERA_TAGGED_MORPHOLOGY_REVIEW.md | docs/projects/swooper-maps/era-tagged-morphology-review.md |
 | mods/mod-swooper-maps/PLATE_GENERATION_REFACTOR.md | docs/projects/swooper-maps/plate-generation-refactor.md |
 | mods/mod-swooper-maps/SWOOPER_MAPS_ARCHITECTURE_AUDIT.md | docs/archive/swooper-maps-architecture-audit.md |

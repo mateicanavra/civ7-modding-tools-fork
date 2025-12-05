@@ -20,7 +20,7 @@ Large-scale procedural map generation mod for Civilization VII featuring:
 
 ## Active Plans
 
-- [Engine Refactor Plan](engine-refactor-plan.md) — Physics-first orchestration engine
+- [MAPS Engine Refactor](MAPS-engine-refactor/overview.md) — Physics-first orchestration engine
 - [Era-Tagged Morphology Review](era-tagged-morphology-review.md) — Morphology assessment
 - [Plate Generation Refactor](plate-generation-refactor.md) — Unified Voronoi pipeline
 
