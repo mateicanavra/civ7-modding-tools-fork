@@ -1,5 +1,7 @@
 # Epic Diverse Huge Map Generator — DESIGN
 
+> Legacy reference from the retired `plugin-mapgen` extraction. Keep for historical contracts and guardrails; the live implementation is `mods/mod-swooper-maps`.
+
 Appendix A — Layer Contracts (authoritative quick reference)
 This appendix documents inputs, outputs, order constraints, and guarantees for each major layer. All layers are O(width × height) with small constants unless noted.
 

@@ -52,11 +52,6 @@ export default defineConfig({
       },
       {
         extends: true,
-        root: r('packages/plugins/plugin-mapgen'),
-        test: { name: 'plugin-mapgen' }
-      },
-      {
-        extends: true,
         root: r('packages/plugins/plugin-git'),
         test: { name: 'plugin-git' }
       }

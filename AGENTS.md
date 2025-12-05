@@ -23,7 +23,7 @@
 
 ## Plugins architecture
 - Reusable logic lives under `packages/plugins/*` (e.g., `plugin-files`, `plugin-graph`).
-- `plugin-mapgen` sources are written in TypeScript with legacy JS copies under `js-archive/` for verification.
+- The old `plugin-mapgen` package has been removed; legacy reference docs now live under `docs/system/mods/swooper-maps/reference/`.
 - CLI commands should remain thin wrappers around these plugins.
 - Status-style CLI commands now accept `--json` for machine-readable output.
  - Subtree-based CLI commands expose only relevant flags; missing `slug` or `repoUrl` values are prompted interactively during setup, import, or update. Repo URL, remote name, and default branch are stored during setup and reused by downstream commands.

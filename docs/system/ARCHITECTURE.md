@@ -23,8 +23,7 @@ packages/           # Core libraries
     ├── plugin-files/   # Zip/unzip utilities
     ├── plugin-graph/   # XML graph crawling
     ├── plugin-git/     # Git operations
-    ├── plugin-mods/    # Mod management
-    └── plugin-mapgen/  # Map generation
+    └── plugin-mods/    # Mod management
 
 apps/               # Applications
 ├── docs/           # Documentation site (Mintlify)
@@ -52,8 +51,8 @@ mods/               # Colocated mods
 
 - [SDK Technical Guide](sdk/technical-guide.md)
 - [CLI Features](cli/features.md)
-- [Plugin Mapgen Design](plugins/plugin-mapgen/design.md)
 - [Swooper Maps Architecture](mods/swooper-maps/architecture.md)
+- [Legacy Mapgen Reference](../system/mods/swooper-maps/reference/) — archived Epic Diverse Huge notes
 
 <!-- NOTE FOR AGENTS:
 If this overview exceeds ~300 lines or you find yourself adding a major subsystem,

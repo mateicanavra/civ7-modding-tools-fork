@@ -35,7 +35,7 @@ civ7-modding-tools/
 
 ### Plugins
 
-- [plugin-mapgen](system/plugins/plugin-mapgen/) — Map generation pipeline
+- Mapgen notes are archived; see legacy reference under [Swooper Maps](system/mods/swooper-maps/reference/).
 
 ### Mods
 

@@ -1,5 +1,7 @@
 # Climate Story TL;DR
 
+> Legacy quick reference preserved from the deprecated `plugin-mapgen` effort. Use as a guardrail checklist; current behavior lives in `mods/mod-swooper-maps`.
+
 What
 - Narrative Imprint Layer = sparse “StoryTags” that hint at tectonics/volcanism/rifts/glaciation—without heavy simulation.
 - We bias existing passes (coasts, islands, rainfall Phase B, biome nudges) with tiny, clamped adjustments.
