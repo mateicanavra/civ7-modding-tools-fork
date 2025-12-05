@@ -43,6 +43,7 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         return null;
     }
     const landmassCfg = options.landmassCfg || LANDMASS_CFG || {};
+    const boundaryBias = Number.isFinite(landmassCfg.boundaryBias) ? landmassCfg.boundaryBias : 0.35;
     const geomCfg = options.geometry || {};
     const postCfg = geomCfg.post || {};
 
@@ -54,13 +55,13 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
 
     // Binary search threshold on shield stability to hit target land count (after closeness gating)
     let low = 0;
-    let high = 255;
+    let high = 255 + Math.round(255 * boundaryBias);
     let bestThreshold = 200;
     let bestDiff = Number.POSITIVE_INFINITY;
     let bestCount = 0;
     while (low <= high) {
         const mid = (low + high) >> 1;
-        const count = countTilesAbove(shield, closeness, mid, closenessLimit);
+        const count = countTilesAbove(shield, closeness, mid, closenessLimit, boundaryBias);
         const diff = Math.abs(count - targetLandTiles);
         if (diff < bestDiff || (diff === bestDiff && count > bestCount)) {
             bestDiff = diff;
@@ -81,7 +82,8 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         const rowOffset = y * width;
         for (let x = 0; x < width; x++) {
             const idx = rowOffset + x;
-            const isLand = shield[idx] >= bestThreshold && closeness[idx] <= closenessLimit;
+            const score = shield[idx] + Math.round((closeness[idx] | 0) * boundaryBias);
+            const isLand = score >= bestThreshold && closeness[idx] <= closenessLimit;
             if (isLand) {
                 landMask[idx] = 1;
                 finalLandTiles++;
@@ -228,10 +230,12 @@ function computeClosenessLimit(postCfg) {
     return clampInt(limit, MIN_CLOSENESS_LIMIT, MAX_CLOSENESS_LIMIT);
 }
 
-function countTilesAbove(shield, closeness, threshold, closenessLimit) {
+function countTilesAbove(shield, closeness, threshold, closenessLimit, boundaryBias = 0) {
+    const bias = Math.max(0, boundaryBias);
     let count = 0;
     for (let i = 0; i < shield.length; i++) {
-        if (shield[i] >= threshold && closeness[i] <= closenessLimit) {
+        const score = (shield[i] | 0) + Math.round((closeness[i] | 0) * bias);
+        if (score >= threshold && closeness[i] <= closenessLimit) {
             count++;
         }
     }

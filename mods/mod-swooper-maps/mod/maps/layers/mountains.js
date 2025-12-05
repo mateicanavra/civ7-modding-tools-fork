@@ -283,6 +283,7 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
     }
 
     const exponent = Math.max(0.25, boundaryExponent || 1);
+    const boundaryGate = 0.25;
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
@@ -298,7 +299,7 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
             const fractalHill = FractalBuilder.getHeight(g_HillFractal, x, y) / 65535;
 
             let mountainScore = uplift * upliftWeight + fractalMtn * fractalWeight;
-            if (boundaryWeight > 0 && closeness > 0) {
+            if (boundaryWeight > 0 && closenessRaw > boundaryGate) {
                 mountainScore += closeness * boundaryWeight;
             }
             if (interiorPenaltyWeight > 0) {
@@ -306,20 +307,22 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
                 mountainScore = Math.max(0, mountainScore - interiorPenalty);
             }
 
-            if (bType === ENUM_BOUNDARY.convergent) {
-                mountainScore += closeness * convergenceBonus;
-            }
-            else if (bType === ENUM_BOUNDARY.divergent) {
-                mountainScore *= Math.max(0, 1 - rift * riftPenalty);
-            }
-            else if (bType === ENUM_BOUNDARY.transform) {
-                mountainScore *= Math.max(0, 1 - closenessRaw * transformPenalty);
+            if (closenessRaw > boundaryGate) {
+                if (bType === ENUM_BOUNDARY.convergent) {
+                    mountainScore += closeness * convergenceBonus;
+                }
+                else if (bType === ENUM_BOUNDARY.divergent) {
+                    mountainScore *= Math.max(0, 1 - rift * riftPenalty);
+                }
+                else if (bType === ENUM_BOUNDARY.transform) {
+                    mountainScore *= Math.max(0, 1 - closenessRaw * transformPenalty);
+                }
             }
 
             scores[i] = Math.max(0, mountainScore);
 
             let hillScore = fractalHill * fractalWeight + uplift * hillUpliftWeight;
-            if (hillBoundaryWeight > 0 && closenessRaw > 0) {
+            if (hillBoundaryWeight > 0 && closenessRaw > boundaryGate) {
                 const foothillBand = Math.sqrt(closenessRaw);
                 hillScore += foothillBand * hillBoundaryWeight;
             }
@@ -327,11 +330,13 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
                 hillScore -= (1 - closenessRaw) * hillInteriorFalloff;
             }
 
-            if (bType === ENUM_BOUNDARY.divergent) {
-                hillScore += rift * hillRiftBonus;
-            }
-            else if (bType === ENUM_BOUNDARY.convergent) {
-                hillScore += closeness * hillConvergentFoothill;
+            if (closenessRaw > boundaryGate) {
+                if (bType === ENUM_BOUNDARY.divergent) {
+                    hillScore += rift * hillRiftBonus;
+                }
+                else if (bType === ENUM_BOUNDARY.convergent) {
+                    hillScore += closeness * hillConvergentFoothill;
+                }
             }
 
             hillScores[i] = Math.max(0, hillScore);

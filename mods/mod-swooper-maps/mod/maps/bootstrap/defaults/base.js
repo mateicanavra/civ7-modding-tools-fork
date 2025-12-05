@@ -112,6 +112,7 @@ const LANDMASS_DEFAULT = Object.freeze({
     jitterAmpFracBase: 0.03,
     jitterAmpFracScale: 0.015,
     curveAmpFrac: 0.05,
+    boundaryBias: 0.35,
     geometry: Object.freeze({
         post: Object.freeze({
             expandTiles: 0,
