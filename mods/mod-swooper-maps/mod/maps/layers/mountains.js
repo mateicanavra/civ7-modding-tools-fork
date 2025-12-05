@@ -250,7 +250,10 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
  * Compute plate-based mountain scores using WorldModel boundaries
  */
 function computePlateBasedScores(ctx, scores, hillScores, options) {
-    const { width, height } = ctx;
+    // Get dimensions properly from ctx.dimensions (not ctx.width/height which don't exist!)
+    const dims = ctx?.dimensions || {};
+    const width = Number.isFinite(dims.width) ? dims.width : (GameplayMap?.getGridWidth?.() ?? 0);
+    const height = Number.isFinite(dims.height) ? dims.height : (GameplayMap?.getGridHeight?.() ?? 0);
     const {
         upliftWeight,
         fractalWeight,
@@ -283,15 +286,11 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
     }
 
     // ========== DEBUG #1: Diagnose Land/Uplift Disconnect ==========
-    // Get dimensions properly (ctx.dimensions or fallback to GameplayMap)
-    const dims = ctx?.dimensions || {};
-    const debugWidth = Number.isFinite(dims.width) ? dims.width : (GameplayMap?.getGridWidth?.() ?? 0);
-    const debugHeight = Number.isFinite(dims.height) ? dims.height : (GameplayMap?.getGridHeight?.() ?? 0);
-
+    // (Reuses width/height declared at function start)
     const landMaskBuffer = ctx?.buffers?.heightfield?.landMask || null;
     const isWaterCheck = (x, y) => {
         if (landMaskBuffer) {
-            const i = y * debugWidth + x;
+            const i = y * width + x;
             return landMaskBuffer[i] === 0;
         }
         return GameplayMap?.isWater?.(x, y) ?? false;
@@ -307,15 +306,15 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
 
     // Row-by-row analysis for south bias detection
     const rowStats = [];
-    const rowStep = Math.max(1, Math.floor(debugHeight / 10));
+    const rowStep = Math.max(1, Math.floor(height / 10));
 
-    for (let y = 0; y < debugHeight; y++) {
+    for (let y = 0; y < height; y++) {
         let rowLandCount = 0;
         let rowLandUpliftSum = 0;
         let rowLandClosenessSum = 0;
 
-        for (let x = 0; x < debugWidth; x++) {
-            const i = y * debugWidth + x;
+        for (let x = 0; x < width; x++) {
+            const i = y * width + x;
             const isLand = !isWaterCheck(x, y);
 
             if (isLand) {
@@ -362,7 +361,7 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
     devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Land by boundary type: none=${landByBoundaryType[0]}, convergent=${landByBoundaryType[1]}, divergent=${landByBoundaryType[2]}, transform=${landByBoundaryType[3]}`);
     devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Land uplift buckets: <25=${landUpliftBuckets.under25}, 25-50=${landUpliftBuckets.under50}, 50-100=${landUpliftBuckets.under100}, >100=${landUpliftBuckets.over100}`);
     devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Land closeness buckets: <64=${landClosenessBuckets.under64}, 64-128=${landClosenessBuckets.under128}, 128-192=${landClosenessBuckets.under192}, >192=${landClosenessBuckets.over192}`);
-    devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Row-by-row (south=0, north=${debugHeight-1}):`);
+    devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Row-by-row (south=0, north=${height-1}):`);
     rowStats.forEach(rs => {
         devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1]   row ${rs.row}: land=${rs.landCount}, avgUplift=${rs.avgUplift}, avgCloseness=${rs.avgCloseness}`);
     });
@@ -435,7 +434,10 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
  * Fallback: pure fractal-based scores (base game approach)
  */
 function computeFractalOnlyScores(ctx, scores, hillScores, options) {
-    const { width, height } = ctx;
+    // Get dimensions properly from ctx.dimensions
+    const dims = ctx?.dimensions || {};
+    const width = Number.isFinite(dims.width) ? dims.width : (GameplayMap?.getGridWidth?.() ?? 0);
+    const height = Number.isFinite(dims.height) ? dims.height : (GameplayMap?.getGridHeight?.() ?? 0);
     const { g_MountainFractal, g_HillFractal } = options;
 
     for (let y = 0; y < height; y++) {
@@ -452,7 +454,10 @@ function computeFractalOnlyScores(ctx, scores, hillScores, options) {
  * Apply rift depressions (lower mountains/hills at divergent boundaries)
  */
 function applyRiftDepressions(ctx, scores, hillScores, riftDepth) {
-    const { width, height } = ctx;
+    // Get dimensions properly from ctx.dimensions
+    const dims = ctx?.dimensions || {};
+    const width = Number.isFinite(dims.width) ? dims.width : (GameplayMap?.getGridWidth?.() ?? 0);
+    const height = Number.isFinite(dims.height) ? dims.height : (GameplayMap?.getGridHeight?.() ?? 0);
     const riftPotential = WorldModel.riftPotential;
     const boundaryType = WorldModel.boundaryType;
 

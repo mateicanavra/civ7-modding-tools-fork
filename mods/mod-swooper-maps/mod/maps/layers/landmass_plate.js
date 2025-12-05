@@ -20,6 +20,14 @@ const CLOSENESS_STEP_PER_TILE = 8;
 const MIN_CLOSENESS_LIMIT = 150;
 const MAX_CLOSENESS_LIMIT = 255;
 
+// Boundary type constants (must match WorldModel/plates.js)
+const BOUNDARY_TYPE = Object.freeze({
+    none: 0,
+    convergent: 1,
+    divergent: 2,
+    transform: 3,
+});
+
 /**
  * Create landmasses using plate stability metrics.
  *
@@ -35,8 +43,9 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     }
     const shield = WorldModel.shieldStability;
     const closeness = WorldModel.boundaryCloseness;
+    const boundaryType = WorldModel.boundaryType;
     const plateIds = WorldModel.plateId;
-    if (!shield || !closeness || !plateIds) {
+    if (!shield || !closeness || !boundaryType || !plateIds) {
         return null;
     }
     const size = width * height;
@@ -48,6 +57,20 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     const boundaryShareTarget = Number.isFinite(landmassCfg.boundaryShareTarget)
         ? Math.max(0, Math.min(1, landmassCfg.boundaryShareTarget))
         : 0.2;
+
+    // NEW: Boundary-type-aware scoring parameters
+    // Convergent boundaries (collision zones) should become LAND for mountain building
+    // Divergent boundaries (spreading ridges) should become OCEAN
+    const convergentLandBonus = Number.isFinite(landmassCfg.convergentLandBonus)
+        ? landmassCfg.convergentLandBonus
+        : 0.9;  // Strong bonus: convergent zones become land
+    const divergentOceanPenalty = Number.isFinite(landmassCfg.divergentOceanPenalty)
+        ? landmassCfg.divergentOceanPenalty
+        : 0.4;  // Moderate penalty: divergent zones become ocean
+    const convergentClosenessThreshold = Number.isFinite(landmassCfg.convergentClosenessThreshold)
+        ? landmassCfg.convergentClosenessThreshold
+        : 64;   // Only apply bonus when close enough to boundary (0-255 scale)
+
     const geomCfg = options.geometry || {};
     const postCfg = geomCfg.post || {};
 
@@ -57,17 +80,58 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
 
     const closenessLimit = MAX_CLOSENESS_LIMIT; // allow high-closeness tiles to become land when scored high
 
-    // Binary search threshold on shield stability to hit target land count (after closeness gating)
+    /**
+     * Compute land score for a tile, accounting for boundary TYPE.
+     * - Convergent boundaries get a BONUS (mountain-building zones should be land)
+     * - Divergent boundaries get a PENALTY (spreading ridges should be ocean)
+     * - Transform boundaries and interiors use the base formula
+     */
+    const computeLandScore = (idx) => {
+        const shieldVal = shield[idx] | 0;
+        const closenessVal = closeness[idx] | 0;
+        const bType = boundaryType[idx] | 0;
+
+        // Base score: shield stability + small closeness bias
+        let score = shieldVal + Math.round(closenessVal * boundaryBias);
+
+        // Apply boundary-type-specific modifiers when near a boundary
+        if (closenessVal >= convergentClosenessThreshold) {
+            if (bType === BOUNDARY_TYPE.convergent) {
+                // CONVERGENT: Boost score significantly - these should be mountains/land!
+                score += Math.round(closenessVal * convergentLandBonus);
+            } else if (bType === BOUNDARY_TYPE.divergent) {
+                // DIVERGENT: Reduce score - these should be ocean spreading ridges
+                score -= Math.round(closenessVal * divergentOceanPenalty);
+            }
+            // TRANSFORM: No special modifier (neutral)
+        }
+
+        return score;
+    };
+
+    // Count tiles above threshold using boundary-type-aware scoring
+    const countTilesAboveTyped = (threshold) => {
+        let count = 0;
+        for (let i = 0; i < size; i++) {
+            const score = computeLandScore(i);
+            if (score >= threshold && closeness[i] <= closenessLimit) {
+                count++;
+            }
+        }
+        return count;
+    };
+
+    // Binary search threshold to hit target land count
     // Hybrid selection: find a threshold that hits total land, but also enforce a minimum share in boundary bands.
     // First pass: baseline threshold search.
-    let low = 0;
-    let high = 255 + Math.round(255 * boundaryBias);
+    let low = -100;  // Lower bound to allow negative scores (after divergent penalty)
+    let high = 255 + Math.round(255 * (boundaryBias + convergentLandBonus));
     let bestThreshold = 200;
     let bestDiff = Number.POSITIVE_INFINITY;
     let bestCount = 0;
     while (low <= high) {
         const mid = (low + high) >> 1;
-        const count = countTilesAbove(shield, closeness, mid, closenessLimit, boundaryBias);
+        const count = countTilesAboveTyped(mid);
         const diff = Math.abs(count - targetLandTiles);
         if (diff < bestDiff || (diff === bestDiff && count > bestCount)) {
             bestDiff = diff;
@@ -85,17 +149,19 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     // Second pass: ensure boundary share. If below target, lower threshold until boundary share is met or we hit caps.
     const boundaryBand = (closenessArr, idx) => (closenessArr[idx] | 0) >= 90; // ~0.35 band: 90/255
     const computeShares = (threshold) => {
-        let land = 0, boundaryLand = 0;
+        let land = 0, boundaryLand = 0, convergentLand = 0;
         for (let i = 0; i < size; i++) {
-            const score = (shield[i] | 0) + Math.round((closeness[i] | 0) * boundaryBias);
+            const score = computeLandScore(i);
             const isLand = score >= threshold && closeness[i] <= closenessLimit;
             if (isLand) {
                 land++;
                 if (boundaryBand(closeness, i))
                     boundaryLand++;
+                if (boundaryType[i] === BOUNDARY_TYPE.convergent)
+                    convergentLand++;
             }
         }
-        return { land, boundaryLand };
+        return { land, boundaryLand, convergentLand };
     };
 
     let { land: landCount, boundaryLand } = computeShares(bestThreshold);
@@ -117,13 +183,20 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
 
     const landMask = new Uint8Array(size);
     let finalLandTiles = 0;
+    let convergentLandCount = 0;
+    let divergentOceanCount = 0;
     for (let y = 0; y < height; y++) {
         const rowOffset = y * width;
         for (let x = 0; x < width; x++) {
             const idx = rowOffset + x;
-            const score = (shield[idx] | 0) + Math.round((closeness[idx] | 0) * boundaryBias);
+            const score = computeLandScore(idx);
             const isLand = score >= bestThreshold && closeness[idx] <= closenessLimit;
+
+            // Track boundary type distribution for logging
+            const bType = boundaryType[idx] | 0;
+
             if (isLand) {
+                if (bType === BOUNDARY_TYPE.convergent) convergentLandCount++;
                 landMask[idx] = 1;
                 finalLandTiles++;
                 if (ctx) {
@@ -138,6 +211,7 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
                 }
             }
             else {
+                if (bType === BOUNDARY_TYPE.divergent) divergentOceanCount++;
                 landMask[idx] = 0;
                 if (ctx) {
                     writeHeightfield(ctx, x, y, {
@@ -152,6 +226,9 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             }
         }
     }
+
+    // Log the boundary-type-aware distribution
+    console.log(`[Landmass] Boundary-type-aware scoring: threshold=${bestThreshold}, land=${finalLandTiles}, convergentLand=${convergentLandCount}, divergentOcean=${divergentOceanCount}`);
 
     // Derive bounding boxes per plate for downstream start placement heuristics.
     const plateStats = new Map();
