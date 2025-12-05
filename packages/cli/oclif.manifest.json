@@ -1550,7 +1550,7 @@
       "description": "Copies files from an input directory into Mods/[mod-id].",
       "examples": [
         "<%= config.bin %> mod manage deploy --input ./dist --id my_mod",
-        "<%= config.bin %> mod manage deploy -i ../plugin-mapgen/dist -m epic-diverse-huge"
+        "<%= config.bin %> mod manage deploy -i mods/mod-swooper-maps/mod -m swooper-maps"
       ],
       "flags": {
         "input": {

@@ -24,7 +24,7 @@
                     "*/Platforms/*", "*/movies/*", "*/data/icons/*", "*/fonts/*", "*/Assets/Benchmark/*",
                     "*/Assets/Legal/*", "Assets.car", "AppIcon.icns", "default.metallib",
                     "ShaderAutoGen_*", "*.mp4", "*.webm", "*.mov", "*.ogg", "*.mp3", "*.wav",
-                    "*.dds", "*.png", "*.ttf", "*.otf"
+                    "*.dds", "*.png", "*.ttf", "*.otf", "*.js.map"
                 ]
             }
         },
