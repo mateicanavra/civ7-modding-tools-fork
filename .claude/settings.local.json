@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(while read file)"
+      "Bash(while read file)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

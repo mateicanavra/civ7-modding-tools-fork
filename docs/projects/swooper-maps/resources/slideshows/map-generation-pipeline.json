@@ -1,0 +1,758 @@
+{
+  "slideshows": [
+    {
+      "id": "map-generation-pipeline",
+      "title": "Map Generation Pipeline: Layers of Control",
+      "concepts": {
+        "engine": {
+          "label": "Engine Layer",
+          "description": "Civ VII base game systems",
+          "color": "default"
+        },
+        "physics": {
+          "label": "Physics",
+          "description": "Foundation and morphology",
+          "color": "blue"
+        },
+        "climate": {
+          "label": "Climate",
+          "description": "Rainfall and humidity systems",
+          "color": "green"
+        },
+        "narrative": {
+          "label": "Narrative",
+          "description": "Story overlays and tags",
+          "color": "purple"
+        },
+        "config": {
+          "label": "Configuration",
+          "description": "3-tier config system",
+          "color": "orange"
+        }
+      },
+      "slides": [
+        {
+          "id": "introduction",
+          "order": 1,
+          "concept": "engine",
+          "explanation": "# Map Generation at Scale\nBuilding procedural worlds for Civilization VII",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Civilization VII needs rich, diverse maps that feel both realistic and engaging. Players expect mountain ranges that follow geological logic, climate patterns that make intuitive sense, and coastlines with character. But they also need gameplay balance—no civilization should spawn in an unwinnable position due to random generation.\n\nThe challenge is **architectural**: how do you generate complex, interdependent systems (terrain, climate, narrative elements) in a way that's predictable, configurable, and debuggable? Traditional approaches often couple everything together, making it impossible to tune one aspect without breaking others."
+              }
+            },
+            {
+              "explanation": "### The Swooper Pipeline Approach\n\nOur solution is a **layered pipeline architecture** where each layer has clear responsibilities and data contracts. Lower layers establish physical reality (plates, elevation, climate). Higher layers add interpretation and gameplay elements (biomes, features, balance).\n\nThe key insight: **physics before narrative**. We lock in the fundamental structure of the world first, then annotate and interpret it for gameplay purposes. This prevents conflicts and ensures deterministic results."
+            },
+            {
+              "layers": {
+                "title": "Swooper Pipeline Architecture",
+                "caption": "Seven layers condensed into five major groups",
+                "layout": "pyramid",
+                "layers": [
+                  {
+                    "label": "Configuration",
+                    "value": "Meta-Layer",
+                    "description": "3-tier system enabling map variants from shared codebase"
+                  },
+                  {
+                    "label": "Biomes & Features",
+                    "value": "Layer 4",
+                    "description": "Transform abstract data into visible gameplay elements"
+                  },
+                  {
+                    "label": "Narrative Overlays",
+                    "value": "Layer 3",
+                    "description": "Story annotations that interpret physics without modifying terrain"
+                  },
+                  {
+                    "label": "Climate Systems",
+                    "value": "Layer 1-2",
+                    "description": "Two-phase climate with river integration and atmospheric patterns"
+                  },
+                  {
+                    "label": "Engine Foundation",
+                    "value": "Layer 0",
+                    "description": "Civ VII globals + physics foundation + morphology buffers"
+                  }
+                ]
+              }
+            },
+            {
+              "explanation": "### Why This Matters\n\nTraditional map generators often suffer from **tight coupling**—changing mountain placement accidentally breaks climate calculations, or adjusting biome rules creates impossible starting positions. The layered approach provides **separation of concerns**:\n\n- **Predictability**: Same inputs always produce same outputs at each layer\n- **Debuggability**: Problems can be isolated to specific stages\n- **Configurability**: Each layer has its own control surface without affecting others\n- **Extensibility**: New map variants require minimal code changes"
+            },
+            {
+              "explanation": "### Current Challenge: Pipeline Integrity\n\nWhile the architecture is sound, we're facing **data flow consistency** issues. Some stages read stale data, others bypass the buffer system, and contract validation isn't enforced. This creates a cascade problem where small inconsistencies amplify into unpredictable results.\n\nThe following slides detail each layer's role, current status, and where intervention is needed to restore pipeline integrity."
+            },
+            {
+              "kpiGrid": {
+                "layout": "uniform",
+                "items": [
+                  {
+                    "label": "Layers Complete",
+                    "value": 3,
+                    "subtitle": "Foundation solid"
+                  },
+                  {
+                    "label": "In Progress",
+                    "value": 1,
+                    "subtitle": "Narrative migration"
+                  },
+                  {
+                    "label": "Pending Work",
+                    "value": 2,
+                    "subtitle": "Contract enforcement"
+                  },
+                  {
+                    "label": "Map Variants",
+                    "value": "8+",
+                    "subtitle": "From shared codebase"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "foundation-layer",
+          "order": 2,
+          "concept": "physics",
+          "explanation": "## Layer 1: Physics Foundation\nThe single source of truth for world physics",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "The foundation layer establishes the physical reality of the world before any terrain is sculpted. It answers questions like: Where are the tectonic plates? Which boundaries are converging? What are the prevailing wind patterns? How do ocean currents flow?\n\nThe key architectural decision here is **single source of truth**. Rather than having each stage compute its own plate lookups or wind calculations, we compute everything once and freeze it into an immutable `FoundationContext`. Every downstream stage reads from this shared reference."
+              }
+            },
+            {
+              "explanation": "### The FoundationContext Object\n\nThe **FoundationContext** is the architectural cornerstone of the entire pipeline. It's a single, immutable object that contains every physics primitive the world needs—plate boundaries, tectonic forces, atmospheric patterns, and RNG seeds. Once created by the `foundation` stage, it gets frozen with `Object.freeze()` to prevent accidental mutation.\n\nThis design eliminates the classic problem of stages recomputing the same expensive operations (like Voronoi cell lookups) or getting inconsistent results from slightly different calculations. Instead of \"ask the engine what plate this tile belongs to,\" every stage reads `foundationContext.plateIds[tileIndex]` from the same source.\n\nThe context flows through every downstream stage as a read-only dependency:\n- **Morphology** uses it for uplift-aware mountain placement\n- **Climate** reads wind patterns and ocean currents\n- **Narrative overlays** use plate boundaries to identify collision zones for fjords versus trailing edges for reefs"
+            },
+            {
+              "explanation": "### Internal Structure\n\nThe FoundationContext organizes physics data hierarchically. At the top are immutable constants. Below that, plate tectonics data (Voronoi cells and force vectors). The bulk of the data is environmental systems—atmospheric patterns, oceanic currents, and surface topology."
+            },
+            {
+              "layers": {
+                "title": "FoundationContext Structure",
+                "caption": "Hierarchical organization of frozen physics data",
+                "layout": "pyramid",
+                "layers": [
+                  {
+                    "label": "Physics Constants",
+                    "value": "5%",
+                    "description": "Immutable world parameters"
+                  },
+                  {
+                    "label": "Plate Tectonics",
+                    "value": "25%",
+                    "description": "Continental drift & boundaries",
+                    "segments": [
+                      {
+                        "label": "Voronoi Cells",
+                        "value": "10%",
+                        "description": "Plate boundary geometry"
+                      },
+                      {
+                        "label": "Force Vectors",
+                        "value": "15%",
+                        "description": "Convergence & divergence"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Environmental Systems",
+                    "value": "70%",
+                    "description": "Weather, currents & surface features",
+                    "segments": [
+                      {
+                        "label": "Atmospheric",
+                        "value": "30%",
+                        "description": "Wind patterns & pressure"
+                      },
+                      {
+                        "label": "Oceanic",
+                        "value": "25%",
+                        "description": "Current flows & temperatures"
+                      },
+                      {
+                        "label": "Surface",
+                        "value": "15%",
+                        "description": "Base water levels & topology"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "explanation": "### Configuration Control Surface\n\nThe foundation layer is heavily configurable through the `foundation.*` config namespace. These knobs control everything from deterministic seeding to plate count to atmospheric dynamics."
+            },
+            {
+              "table": {
+                "rows": [
+                  "Config Namespace,Key Controls",
+                  "foundation.seed,mode / fixed / offsets — determinism and reproducibility",
+                  "foundation.plates,count / convergenceMix / relaxation / jitter — plate layout",
+                  "foundation.dynamics,wind / currents / mantle / directionality — atmospheric drivers",
+                  "foundation.surface,baseWaterPercent / band geometry / separation — continental targets"
+                ],
+                "caption": "Control surface for physics foundation"
+              }
+            },
+            {
+              "explanation": "### Phase Status\n\nPhase A (Foundations Alignment) is **complete**. The `PlateSeedManager` captures deterministic seeds, `WorldModel` publishes frozen snapshots, and the orchestrator gates downstream stages with runtime assertions. This is the most solid layer in the stack."
+            },
+            {
+              "kpi": {
+                "label": "Phase A Status",
+                "value": "Complete",
+                "status": "positive",
+                "subtitle": "Solid foundation layer"
+              }
+            }
+          ]
+        },
+        {
+          "id": "morphology-layer",
+          "order": 3,
+          "concept": "physics",
+          "explanation": "## Layer 2: Heightfield Buffer\nWhere terrain gets sculpted without micro-mutating the engine",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Morphology is where the world gets its physical shape—coastlines, mountains, volcanoes, lakes. But there's an architectural challenge: if we write to the engine after every tweak, we risk micro-mutations that get out of sync. The solution is a **staging buffer**.\n\nInstead of mutating `GameplayMap` directly, morphology stages operate on an in-memory heightfield buffer. Changes accumulate in this buffer, and we flush to the engine only at cluster boundaries via `syncHeightfield()`. This batching ensures consistency and makes it possible to reason about terrain state at any point in the pipeline."
+              }
+            },
+            {
+              "explanation": "### Buffer Architecture\n\nThe heightfield buffer is a parallel data structure that mirrors the engine's terrain state. It consists of three typed arrays that track elevation, terrain type, and land/water status for every tile."
+            },
+            {
+              "layers": {
+                "title": "Heightfield Buffer Components",
+                "caption": "In-memory arrays, not engine state",
+                "layout": "stack",
+                "layers": [
+                  {
+                    "label": "elevation",
+                    "value": "Int16Array",
+                    "description": "Height values per tile (-32768 to 32767)"
+                  },
+                  {
+                    "label": "terrain",
+                    "value": "Uint8Array",
+                    "description": "Terrain type codes (ocean, coast, plains, etc.)"
+                  },
+                  {
+                    "label": "landMask",
+                    "value": "binary",
+                    "description": "Boolean: is this tile land?"
+                  }
+                ]
+              }
+            },
+            {
+              "explanation": "### Stage Flow\n\nMorphology runs as a cluster of ordered stages. Each stage reads from and writes to the shared buffer. Only after the entire cluster completes do we sync back to the engine. This is the \"buffer pattern\" that keeps terrain mutations consistent."
+            },
+            {
+              "diagram": {
+                "content": "graph LR\n    subgraph MORPH[\"MORPHOLOGY CLUSTER\"]\n        C[coastlines] --> I[islands]\n        I --> M[mountains]\n        M --> V[volcanoes]\n        V --> L[lakes]\n    end\n    MORPH --> HF[Heightfield Buffer]\n    HF -->|syncHeightfield| GM[GameplayMap]\n    \n    style HF fill:#3b82f6,color:#fff\n    style GM fill:#6b7280,color:#fff",
+                "caption": "Buffer pattern: batch operations, sync at cluster boundary"
+              }
+            },
+            {
+              "explanation": "### Per-Stage Configuration\n\nEach morphology stage has its own config namespace with specific controls. Coastlines control ruggedization and fjord density. Islands control chain placement and sea lane protection. Mountains are plate-aware with uplift sensitivity. Volcanoes bias toward convergent zones and hotspots. Lakes provide balance moderation."
+            },
+            {
+              "table": {
+                "rows": [
+                  "Stage,Config Namespace,Controls",
+                  "coastlines,coastlines.*,ruggedization / fjord density / shelf smoothing",
+                  "islands,islands.*,chain placement / sea lane protection / volcanic arcs",
+                  "mountains,mountains.*,plate-aware placement / uplift sensitivity / range continuity",
+                  "volcanoes,volcanoes.*,convergent zone bias / hotspot cues / eruption frequency",
+                  "lakes,lakes.*,balance moderation / minimum size / drainage patterns"
+                ],
+                "caption": "Per-stage morphology controls"
+              }
+            },
+            {
+              "explanation": "### Phase Status & Gaps\n\nPhase B (Morphology Refactor) is **complete**. The heightfield buffer is in place, all morphology stages operate on it, and `StoryOverlays.margins` is now published so downstream stages don't need to rerun margin detection.\n\nThe remaining gap is **tuning validation**. The config knobs exist, but we haven't systematically verified that fjord/smoothing ratios produce the expected visual results. This tuning work is blocked until downstream phases stabilize—no point tuning morphology if narrative overlays are still reading stale data."
+            },
+            {
+              "kpi": {
+                "label": "Phase B Status",
+                "value": "Complete",
+                "status": "positive",
+                "subtitle": "StoryOverlays.margins now published"
+              }
+            }
+          ]
+        },
+        {
+          "id": "climate-layer",
+          "order": 4,
+          "concept": "climate",
+          "explanation": "## Layer 3: Climate System\nAdding atmosphere to the terrain",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "With terrain shape established, the climate layer adds atmospheric realism. This determines where deserts form, where rainforests thrive, and how moisture flows across the landscape. Like morphology, climate operates on its own buffer—rainfall and humidity arrays that parallel the heightfield.\n\nThe key insight is that climate needs terrain data (for orographic effects) but also needs river flow data (for corridor moisture). This creates an ordering challenge that we solve with a **two-phase approach**."
+              }
+            },
+            {
+              "explanation": "### Two-Phase Climate Generation\n\nClimate generation splits into two distinct phases with river generation sandwiched between:\n\n1. **Baseline** establishes broad patterns from latitude bands (poles dry, equator wet) plus orographic bonuses near mountains\n2. **Rivers** run after baseline because they need the initial moisture distribution, and their flow data informs corridor effects\n3. **Refinement** adds fine-grained detail: water gradients near coasts, rain shadows on lee sides of mountains, corridor moisture along rivers, and basin effects in low areas"
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    HF[Heightfield + Wind/Currents] --> CB[climateBaseline]\n    CB -->|latitude bands + orographic| R[rivers]\n    R -->|flow data captured| CR[climateRefine]\n    CR -->|gradients + shadows + corridors| CF[ClimateField]\n    \n    style CF fill:#22c55e,color:#fff",
+                "caption": "Two-phase climate: baseline → rivers → refinement"
+              }
+            },
+            {
+              "explanation": "### Phase Breakdown\n\nEach phase has distinct responsibilities. Baseline thinks in broad strokes—latitude, elevation, distance from coast. Refinement thinks locally—what's the terrain like in the immediate neighborhood?"
+            },
+            {
+              "layers": {
+                "title": "Two-Phase Climate",
+                "caption": "Baseline establishes patterns, refinement adds detail",
+                "layout": "pyramid",
+                "layers": [
+                  {
+                    "label": "Phase 1: Baseline",
+                    "value": "broad",
+                    "description": "Latitude bands (poles dry, equator wet) + orographic bonuses"
+                  },
+                  {
+                    "label": "Rivers",
+                    "value": "vanilla",
+                    "description": "Engine generation captures flow data for corridor effects"
+                  },
+                  {
+                    "label": "Phase 2: Refinement",
+                    "value": "detailed",
+                    "description": "Water gradients, lee shadows, river corridors, basin effects"
+                  }
+                ]
+              }
+            },
+            {
+              "explanation": "### Configuration Control Surface\n\nClimate is controlled through three config namespaces: `baseline` for broad patterns, `refine` for local effects, and `swatches` for named climate zones like desert belts and rainbelts."
+            },
+            {
+              "table": {
+                "rows": [
+                  "Config Namespace,Controls",
+                  "climate.baseline,bands / orographic / coastal / noise amplitude",
+                  "climate.refine,waterGradient / orographic / riverCorridor / lowBasin",
+                  "climate.swatches,macroDesertBelt / equatorialRainbelt / polar zones"
+                ],
+                "caption": "Climate configuration surface"
+              }
+            },
+            {
+              "explanation": "### Phase Status & Gaps\n\nPhase C (Hydrology & Climate Unification) is **complete**. The two-phase approach is implemented, rivers run at the right time, and `ClimateField` arrays are published for downstream consumers.\n\nThe gap is **swatch tuning**. Do desert belts land where expected relative to latitude and orography? Do rain shadows form correctly on mountain lee sides? These are empirical questions that require systematic testing once the contract layer is enforced."
+            },
+            {
+              "kpi": {
+                "label": "Phase C Status",
+                "value": "Complete",
+                "status": "positive",
+                "subtitle": "Architecture sound, tuning pending"
+              }
+            }
+          ]
+        },
+        {
+          "id": "narrative-layer",
+          "order": 5,
+          "concept": "narrative",
+          "explanation": "## Layer 4: Narrative Overlays\nNon-destructive annotation on locked terrain",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Once physics (heightfield + climate) is locked, the narrative layer interprets and annotates without modifying. This is a critical architectural boundary: narrative stages **READ** the physics buffers and **WRITE** to tag registries. They never mutate terrain or climate directly.\n\nThis separation ensures physics integrity while allowing rich storytelling cues. A rift line doesn't carve a canyon—the canyon was carved during morphology. The rift tag just marks where the canyon is so downstream stages can place appropriate features."
+              }
+            },
+            {
+              "explanation": "### Two Tag Systems\n\nThe pipeline has two parallel tagging systems with different mutability characteristics:\n\n- **StoryOverlays** is an immutable registry of frozen snapshots. Once an overlay is published (like `margins`), it never changes. This provides stable reference data.\n- **StoryTags** is a mutable singleton with working sets. Stages can add tags, and downstream stages can read them. This is the legacy system being migrated.\n\nThe architectural goal is to move toward StoryOverlays as the authoritative source, with StoryTags hydrated from overlays at stage boundaries."
+            },
+            {
+              "table": {
+                "rows": [
+                  "System,Mutability,Purpose",
+                  "StoryOverlays,Immutable,Registry of frozen snapshots (margins / corridors / hotspots)",
+                  "StoryTags,Mutable,Working sets hydrated from overlays and extended by current pass"
+                ],
+                "caption": "Two tag systems: overlays are immutable source, tags are mutable working copies"
+              }
+            },
+            {
+              "explanation": "### Narrative Stage Flow\n\nNarrative stages run in a specific order, each reading from physics data and prior overlays, then writing new overlays or tags. The flow ensures that each stage has the context it needs."
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    subgraph INPUTS[\"📚 INPUTS (read-only)\"]\n        style INPUTS fill:#e8f4f8,stroke:#2563eb,stroke-width:3px,color:#1e40af,rx:10,ry:10\n        FC[\"🌍 FoundationContext\"]\n        HF[\"⛰️ Heightfield\"]\n        CF[\"🌦️ ClimateField\"]\n        style FC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1d4ed8\n        style HF fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1d4ed8\n        style CF fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1d4ed8\n    end\n    \n    subgraph STAGES[\"⚙️ NARRATIVE STAGES\"]\n        style STAGES fill:#fef3e2,stroke:#f59e0b,stroke-width:3px,color:#d97706,rx:10,ry:10\n        SS[\"🎲 storySeed\"] --> SH[\"🔥 storyHotspots\"]\n        SH --> SR[\"⚡ storyRifts\"]\n        SR --> SO[\"🏔️ storyOrogeny\"]\n        SO --> SC[\"🛤️ storyCorridors\"]\n        SC --> SW[\"🎨 storySwatches\"]\n        style SS fill:#fed7aa,stroke:#f97316,stroke-width:2px,color:#ea580c\n        style SH fill:#fed7aa,stroke:#f97316,stroke-width:2px,color:#ea580c\n        style SR fill:#fed7aa,stroke:#f97316,stroke-width:2px,color:#ea580c\n        style SO fill:#fed7aa,stroke:#f97316,stroke-width:2px,color:#ea580c\n        style SC fill:#fed7aa,stroke:#f97316,stroke-width:2px,color:#ea580c\n        style SW fill:#fed7aa,stroke:#f97316,stroke-width:2px,color:#ea580c\n    end\n    \n    subgraph OUTPUTS[\"📤 OUTPUTS\"]\n        style OUTPUTS fill:#f0fdf4,stroke:#16a34a,stroke-width:3px,color:#15803d,rx:10,ry:10\n        OV[\"📋 StoryOverlays\"]\n        ST[\"🏷️ StoryTags\"]\n        style OV fill:#bbf7d0,stroke:#22c55e,stroke-width:2px,color:#16a34a\n        style ST fill:#fecaca,stroke:#ef4444,stroke-width:2px,color:#dc2626\n    end\n    \n    INPUTS -->|\"Read Physics\"| STAGES\n    STAGES -->|\"Write Tags\"| OUTPUTS",
+                "caption": "Overlays read physics, write tags—never modify terrain"
+              }
+            },
+            {
+              "explanation": "### Concrete Example: The Margin System\n\nContinental margins illustrate how narrative overlays work:\n\n1. `storyTagContinentalMargins()` scans coastal tiles row by row\n2. Long runs get classified as **active** (collision zones, like the Andes) or **passive** (trailing edges, like the U.S. Atlantic coast)\n3. Results publish to `StoryOverlays.margins` as an immutable snapshot\n4. Legacy consumers read from `StoryTags.activeMargin` and `StoryTags.passiveShelf`\n5. Downstream stages like coastline polish and island placement use these tags to bias their decisions—fjords on active margins, reefs on passive shelves"
+            },
+            {
+              "explanation": "### Configuration Control Surface\n\nNarrative overlays are controlled through several config namespaces, each targeting different story elements."
+            },
+            {
+              "table": {
+                "rows": [
+                  "Config Namespace,Controls",
+                  "story.*,hotspot count / rift frequency / corridor width",
+                  "margins.*,active/passive fractions / minimum segment length",
+                  "swatches.*,desert density / rainfall multipliers / climate tweaks"
+                ],
+                "caption": "Narrative overlay configuration"
+              }
+            },
+            {
+              "explanation": "### Phase Status & Gaps\n\nPhase D (Narrative Overlays Modernization) is **in progress**. This is a key gap area with several issues:\n\n1. **Direct engine probes**: Some story stages still query `GameplayMap` directly instead of reading the authoritative heightfield buffer\n2. **Singleton pattern**: StoryTags is a global singleton—inconsistent with the overlay registry model\n3. **Hydration inconsistency**: Some passes reset tags, others don't, leading to unpredictable state\n\nThese issues likely contribute to inconsistent results. A narrative stage might run with stale tag data or see terrain state that doesn't match what earlier stages wrote to the buffer."
+            },
+            {
+              "kpi": {
+                "label": "Phase D Status",
+                "value": "In Progress",
+                "status": "neutral",
+                "subtitle": "Key gap area—migration incomplete"
+              }
+            }
+          ]
+        },
+        {
+          "id": "biomes-layer",
+          "order": 6,
+          "concept": "narrative",
+          "explanation": "## Layer 5: Biomes & Features\nDecorating the terrain with gameplay elements",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Biomes and features are the final terrain layer—where abstract physics and climate data become visible gameplay elements. This layer **consumes everything** that came before: heightfield for elevation, climate field for moisture, and story overlays for narrative context.\n\nThe approach is \"vanilla first, then bias\": we let the engine's standard biome assignment run, then apply gentle overlays from StoryTags to nudge results toward narrative intent. A tile tagged as a hotspot gets a slight bias toward volcanic vegetation. A passive shelf gets extra reef chances."
+              }
+            },
+            {
+              "explanation": "### Consumption Pattern\n\nThis layer is a pure consumer—it doesn't produce new data products that downstream stages need. Instead, it transforms all prior data into final terrain assignments validated against gameplay rules."
+            },
+            {
+              "diagram": {
+                "content": "graph LR\n    HF[Heightfield] --> B[biomes]\n    CF[ClimateField] --> B\n    OV[StoryOverlays] --> B\n    ST[StoryTags] --> B\n    B --> F[features]\n    F -->|canHaveFeature validation| FINAL[Final terrain]\n    \n    style FINAL fill:#22c55e,color:#fff",
+                "caption": "Biomes/features consume all prior layers"
+              }
+            },
+            {
+              "explanation": "### Story-Driven Placement Biases\n\nStoryTags influence feature placement through weighted biases. The engine's `canHaveFeature()` validation ensures gameplay legality—we only nudge the *probability* of valid placements."
+            },
+            {
+              "table": {
+                "rows": [
+                  "StoryTag,Biases Toward",
+                  "Hotspots,volcanic vegetation / igneous rock features",
+                  "Active margins,dramatic cliffs / volcanic arcs / rugged coastlines",
+                  "Passive shelves,coral reefs / gentle coastal features / fishing grounds",
+                  "Rift lines,arid terrain / exposed bedrock / mineral deposits"
+                ],
+                "caption": "Story-driven placement biases"
+              }
+            },
+            {
+              "explanation": "### Phase Status & Gaps\n\nPhase E (Biomes & Features Harmonization) is **pending**. This layer has significant work remaining:\n\n1. **Engine re-probing**: May be querying `GameplayMap` directly instead of reading from authoritative buffers, causing performance issues and potential consistency problems\n2. **Contract migration**: Not yet ported to the new data contracts (`requires`/`provides`)\n3. **Read-only enforcement**: `StoryOverlays` should be treated as immutable, but enforcement isn't in place\n\nIf biomes/features read stale engine state instead of authoritative buffers, their output diverges from what earlier layers intended. This is a likely contributor to inconsistent map generation results."
+            },
+            {
+              "kpi": {
+                "label": "Phase E Status",
+                "value": "Pending",
+                "status": "negative",
+                "subtitle": "Needs contract migration"
+              }
+            }
+          ]
+        },
+        {
+          "id": "config-layer",
+          "order": 7,
+          "concept": "config",
+          "explanation": "## Layer 6: Configuration Control\nThe meta-layer: how all the knobs are organized",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Configuration is the meta-layer that controls all other layers. The challenge: how do you let multiple map variants (classic, temperate, desert) share a single codebase while having different behaviors?\n\nThe solution is a **3-tier configuration system** that separates concerns: game-facing entry points, bootstrap resolution, and runtime execution. This architecture enables map variants without code duplication—adding a new variant means writing ~10-200 lines instead of copying ~320 lines of generation logic."
+              }
+            },
+            {
+              "explanation": "### Three-Tier Architecture\n\nThe three tiers form a pipeline that transforms declarative configuration into runtime behavior:\n\n**Tier 1: Entry Files** — What Civ VII loads. Each map variant has a tiny entry file (`epic-diverse-huge.js`, `epic-diverse-huge-temperate.js`) that declares which presets to use and any overrides.\n\n**Tier 2: Bootstrap Pipeline** — Configuration resolution. `entry.js` → `runtime.js` → `resolved.js` → `tunables.js`. This chain deep-merges presets, stores config globally, and exports live bindings.\n\n**Tier 3: Execution** — The orchestrator calls `rebind()` at generation start, reads tunables, and executes layers in order."
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    subgraph T1[\"TIER 1: ENTRY FILES\"]\n        E1[epic-diverse-huge.js]\n        E2[epic-diverse-huge-temperate.js]\n        E3[epic-diverse-huge-kahula.js]\n    end\n    subgraph T2[\"TIER 2: BOOTSTRAP\"]\n        EN[entry.js] --> RT[runtime.js]\n        RT --> RS[resolved.js]\n        RS --> TU[tunables.js]\n    end\n    subgraph T3[\"TIER 3: EXECUTION\"]\n        ORCH[map_orchestrator.js]\n    end\n    T1 -->|bootstrap + presets| T2\n    T2 -->|rebind + read| T3\n    \n    style T1 fill:#f97316,color:#fff\n    style T2 fill:#f97316,color:#fff\n    style T3 fill:#f97316,color:#fff",
+                "caption": "3-tier configuration flow"
+              }
+            },
+            {
+              "explanation": "### Key Architectural Properties\n\nThe config system has three critical properties that enable safe, predictable behavior:"
+            },
+            {
+              "layers": {
+                "title": "Configuration Properties",
+                "caption": "Key architectural properties",
+                "layout": "stack",
+                "layers": [
+                  {
+                    "label": "Frozen config",
+                    "value": "immutable",
+                    "description": "No runtime mutation after bootstrap—prevents accidental changes"
+                  },
+                  {
+                    "label": "Live bindings",
+                    "value": "ES modules",
+                    "description": "Tunables are `let` exports updated by `rebind()`—no stale reads"
+                  },
+                  {
+                    "label": "Preset composition",
+                    "value": "stackable",
+                    "description": "BASE → presets (ordered) → overrides—predictable merge order"
+                  }
+                ]
+              }
+            },
+            {
+              "explanation": "### Entry File Example\n\nHere's what a map variant entry file looks like. Notice how declarative it is—just presets and overrides, no generation logic:"
+            },
+            {
+              "codeBlock": {
+                "file": "maps/epic-diverse-huge-desert.js",
+                "startLine": 1,
+                "endLine": 10,
+                "code": "import { bootstrap } from \"./bootstrap/entry.js\";\nbootstrap({\n    presets: [\"classic\"],\n    overrides: {\n        climate: {\n            baseline: { /* arid settings */ }\n        }\n    }\n});\nimport \"./map_orchestrator.js\";",
+                "language": "javascript"
+              }
+            },
+            {
+              "explanation": "### Architecture Assessment\n\nThe configuration system is **solid**. It achieves the goal of multiple variants from one codebase with clean separation of concerns. Adding a new variant requires:\n1. Entry file (~10-200 lines)\n2. XML registration\n3. Localization strings\n\nNo orchestrator changes needed. Future enhancements could include hot reload during development, preset validation at load time, and a config inspector debug tool."
+            }
+          ]
+        },
+        {
+          "id": "contracts-layer",
+          "order": 8,
+          "concept": "config",
+          "explanation": "## Data Contracts\nHow layers communicate and where enforcement is needed",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Data contracts are the connective tissue of the pipeline. Each stage declares what it **requires** (inputs) and what it **provides** (outputs). When contracts are enforced, a stage cannot run without its declared inputs—the orchestrator blocks execution and logs a clear error.\n\nThis isn't just documentation. It's runtime validation that catches bugs early: \"Stage X tried to run but Stage Y (which provides the data X needs) was disabled.\" Without enforcement, bad data silently propagates downstream."
+              }
+            },
+            {
+              "explanation": "### The Data Product Chain\n\nData products flow through the pipeline in a strict order. Each product is immutable once published—downstream stages can read but not modify."
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    S[Engine Seed] --> FC[FoundationContext]\n    FC -->|immutable| HF[Heightfield]\n    HF -->|buffered| CF[ClimateField]\n    CF -->|buffered| OV[StoryOverlays]\n    OV -->|immutable| ST[StoryTags]\n    ST -->|mutable| GM[Final GameplayMap]\n    \n    style FC fill:#3b82f6,color:#fff\n    style HF fill:#3b82f6,color:#fff\n    style CF fill:#22c55e,color:#fff\n    style OV fill:#a855f7,color:#fff\n    style ST fill:#f43f5e,color:#fff",
+                "caption": "Data product chain through the pipeline"
+              }
+            },
+            {
+              "explanation": "### Manifest Structure\n\nThe stage manifest is where contracts are declared. Each stage entry specifies `enabled` (can be toggled), `requires` (what must exist), and `provides` (what this stage produces)."
+            },
+            {
+              "codeBlock": {
+                "file": "bootstrap/manifest.js",
+                "startLine": 1,
+                "endLine": 20,
+                "code": "stageManifest: {\n  order: [\"foundation\", \"landmassPlates\", \"coastlines\", \n          \"storySeed\", /* ... */, \"placement\"],\n  stages: {\n    foundation: { \n      enabled: true, \n      requires: [], \n      provides: [\"FoundationContext\"]\n    },\n    coastlines: { \n      enabled: true, \n      requires: [\"foundation\"], \n      provides: [\"heightfield\"] \n    },\n    biomes: {\n      enabled: true,\n      requires: [\"heightfield\", \"climate\", \"narrative\"],\n      provides: [\"biomes\"]\n    }\n  }\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "explanation": "### The Canonical Principle: Physics Before Narrative\n\nThe ordering enforced by contracts reflects a core architectural principle: **physics before narrative**. Morphology and climate operate on the finished heightfield *before* story overlays fire.\n\nThis ensures:\n- **Terrain stability**: Narrative interprets terrain that won't change\n- **No conflicts**: Overlays annotate rather than fight physics\n- **Determinism**: Same inputs produce same outputs"
+            },
+            {
+              "explanation": "### Phase Status & Gaps\n\nPhase F (Manifest Enforcement & Cleanup) is **pending**. This is a critical enforcement layer with significant gaps:\n\n- Runtime assertions exist but are incomplete\n- Some stages bypass contract checks entirely\n- No `consumes`/`produces` metadata validation yet\n- Stages can run with missing inputs, producing garbage that cascades downstream\n\nThis is likely a major contributor to inconsistent results. A downstream stage might operate on stale or absent data products without any warning."
+            },
+            {
+              "kpi": {
+                "label": "Phase F Status",
+                "value": "Pending",
+                "status": "negative",
+                "subtitle": "Critical enforcement layer"
+              }
+            }
+          ]
+        },
+        {
+          "id": "synthesis",
+          "order": 9,
+          "concept": "config",
+          "explanation": "## Synthesis: Gaps & Path Forward\nWhere control is needed and what to do about it",
+          "blocks": [
+            {
+              "explanation": "### Phase Status Overview\n\nThe pipeline is roughly two-thirds complete. Foundation, morphology, and climate are solid. Narrative is in progress. Biomes and contract enforcement are pending."
+            },
+            {
+              "kpiGrid": {
+                "layout": "uniform",
+                "items": [
+                  {
+                    "label": "Phase A",
+                    "value": "Complete",
+                    "status": "positive",
+                    "subtitle": "Foundations"
+                  },
+                  {
+                    "label": "Phase B",
+                    "value": "Complete",
+                    "status": "positive",
+                    "subtitle": "Morphology"
+                  },
+                  {
+                    "label": "Phase C",
+                    "value": "Complete",
+                    "status": "positive",
+                    "subtitle": "Climate"
+                  },
+                  {
+                    "label": "Phase D",
+                    "value": "In Progress",
+                    "status": "neutral",
+                    "subtitle": "Narrative"
+                  },
+                  {
+                    "label": "Phase E",
+                    "value": "Pending",
+                    "status": "negative",
+                    "subtitle": "Biomes"
+                  },
+                  {
+                    "label": "Phase F",
+                    "value": "Pending",
+                    "status": "negative",
+                    "subtitle": "Contracts"
+                  }
+                ]
+              }
+            },
+            {
+              "explanation": "### Key Gaps Identified\n\nFour systemic issues explain most of the inconsistent results:\n\n**1. Direct Engine Probes**\nSome stages (especially narrative and biomes) query `GameplayMap` directly instead of reading from authoritative buffers. This creates inconsistency—they may see stale or out-of-sync terrain state that doesn't match what earlier stages wrote.\n\n**2. StoryTags Singleton vs. Overlay Registry**\nTwo parallel tagging systems exist with different mutability guarantees. The legacy `StoryTags` singleton and the new `StoryOverlays` registry aren't consistently used. Some passes hydrate from overlays, others don't, leading to incomplete tag data.\n\n**3. No Contract Validation**\n`consumes`/`produces` metadata exists in concept but isn't enforced at runtime. Stages can run without their declared inputs, producing garbage outputs that cascade downstream. There's no error, no warning—just wrong results.\n\n**4. Tuning Uncertainty**\nConfig knobs exist at every layer, but systematic tuning hasn't happened. Hard to know if values are right when data flow isn't clean. Tuning before fixing contracts is wasted effort."
+            },
+            {
+              "explanation": "### The Cascade Problem\n\nMissing or stale inputs don't cause errors—they cause wrong outputs that look plausible. These wrong outputs become inputs to downstream stages, amplifying the error."
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    A[Missing/stale input] --> B[Stage runs anyway]\n    B -->|no error| C[Produces incorrect output]\n    C --> D[Downstream consumes bad output]\n    D --> E[Unpredictable results]\n    \n    style A fill:#ef4444,color:#fff\n    style E fill:#ef4444,color:#fff",
+                "caption": "Gap cascade: missing inputs propagate silently"
+              }
+            },
+            {
+              "explanation": "### Recommended Path Forward\n\nThe gaps have a natural priority order. Fix data flow first, then enforce contracts, then tune."
+            },
+            {
+              "objectivesDisplay": {
+                "objectives": [
+                  {
+                    "title": "Complete Phase D (Narrative Migration)",
+                    "description": "Ensure all narrative stages read buffers, not GameplayMap",
+                    "keyResults": [
+                      {
+                        "category": "remove",
+                        "text": "Direct GameplayMap probes in story stages"
+                      },
+                      {
+                        "category": "add",
+                        "text": "Consistent StoryOverlays registry usage"
+                      },
+                      {
+                        "category": "increase",
+                        "text": "Tag hydration consistency across passes"
+                      }
+                    ],
+                    "rank": 1
+                  },
+                  {
+                    "title": "Implement Phase F (Contract Enforcement)",
+                    "description": "Add consumes/produces validation to stage manifest",
+                    "keyResults": [
+                      {
+                        "category": "add",
+                        "text": "consumes/produces metadata on all stages"
+                      },
+                      {
+                        "category": "add",
+                        "text": "Runtime validation that blocks bad execution"
+                      },
+                      {
+                        "category": "add",
+                        "text": "Clear error messages identifying missing data"
+                      }
+                    ],
+                    "rank": 2
+                  },
+                  {
+                    "title": "Build Diagnostic Tooling",
+                    "description": "Visualize what each stage actually produces",
+                    "keyResults": [
+                      {
+                        "category": "add",
+                        "text": "Data product visualization at stage boundaries"
+                      },
+                      {
+                        "category": "add",
+                        "text": "Cross-run diff tooling for reproducibility testing"
+                      },
+                      {
+                        "category": "add",
+                        "text": "ASCII dumps showing buffer state evolution"
+                      }
+                    ],
+                    "rank": 3
+                  },
+                  {
+                    "title": "Systematic Tuning Pass",
+                    "description": "Only after contracts enforced and data flow clean",
+                    "keyResults": [
+                      {
+                        "category": "add",
+                        "text": "Per-namespace config testing with expected outputs"
+                      },
+                      {
+                        "category": "add",
+                        "text": "Documentation of expected results per preset"
+                      }
+                    ],
+                    "rank": 4
+                  }
+                ],
+                "layout": "default"
+              }
+            },
+            {
+              "explanation": "### Control Surface Summary\n\nEach layer has its own control surface with varying levels of maturity. The summary below captures current status."
+            },
+            {
+              "table": {
+                "rows": [
+                  "Layer,Control Surface,Status",
+                  "Engine (L0),Limited—we wrap not replace,Accepted tradeoff",
+                  "Foundation (L1),foundation.* namespace,Solid",
+                  "Morphology (L2),coastlines.*/mountains.*/etc.,Complete but needs tuning",
+                  "Climate (L3),climate.* namespace,Sound architecture",
+                  "Narrative (L4),story.* namespace,Inconsistent reads—needs migration",
+                  "Biomes (L5),biomes.*/features.*,Needs contract port",
+                  "Config (L6),3-tier system,Solid",
+                  "Contracts,Stage manifest,Enforcement pending"
+                ],
+                "caption": "Control surface summary across all layers"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

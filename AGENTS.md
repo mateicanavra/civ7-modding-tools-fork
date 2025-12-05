@@ -1,5 +1,16 @@
 # AGENTS
 
+> Quick reference for AI agents. For comprehensive documentation, see the [docs/](docs/) directory.
+
+## Documentation Quick Links
+
+- [Product Overview](docs/PRODUCT.md) — What this is and why
+- [System Architecture](docs/SYSTEM.md) — Technical overview
+- [How We Work](docs/PROCESS.md) — Collaboration and workflows
+- [Roadmap](docs/ROADMAP.md) — Direction and milestones
+
+---
+
 ## Civ7 Resources Quick Access
 - Run `pnpm run unzip-civ` to extract the official Civ7 data into `civ7-official-resources/`, placing the game files directly under that folder.
 - Age-specific XML definitions live under `civ7-official-resources/Base/modules/age-*/data/`.
@@ -18,9 +29,11 @@
  - Subtree-based CLI commands expose only relevant flags; missing `slug` or `repoUrl` values are prompted interactively during setup, import, or update. Repo URL, remote name, and default branch are stored during setup and reused by downstream commands.
 
 ## Mod: Swooper Maps
+
+**Documentation:** See [docs/system/mods/swooper-maps/](docs/system/mods/swooper-maps/) for architecture and design docs, and [docs/projects/swooper-maps/](docs/projects/swooper-maps/) for active plans.
+
 - The huge-plate baseline entry now lives at `mods/mod-swooper-maps/mod/maps/swooper-desert-mountains.js`, with config and localization rows using the same `desert-mountains` slug.
 - `mods/mod-swooper-maps/mod/maps/bootstrap/dev.js` now emits ASCII diagnostics for landmass windows, relief (mountains/hills/volcanoes), rainfall buckets, and biome distribution in addition to plate boundaries/corridors. Toggle them with `DEV.LOG_LANDMASS_ASCII`, `DEV.LOG_RELIEF_ASCII`, `DEV.LOG_RAINFALL_ASCII`, and `DEV.LOG_BIOME_ASCII`.
-- `mods/mod-swooper-maps/DESIGN.md` captures the current layer stack and forward-looking physics roadmap; `SWOOPER_MAPS_ARCHITECTURE_AUDIT.md` now includes Section 7 for Earth-system expansion ideas.
 - Stage execution is coordinated through `stageManifest` (defaults in `mods/mod-swooper-maps/mod/maps/bootstrap/defaults/base.js`). The resolver normalizes dependencies, mirrors legacy `STORY_ENABLE_*` toggles, and logs `[StageManifest]` warnings when prerequisites are missing. Use `tunables.stageEnabled()` instead of raw toggles when gating layers.
 - The manifest now exposes `foundation` and `landmassPlates` as the default early stages. The legacy landmass stub has been removed, so presets and orchestration must target the Voronoi physics pipeline exclusively.
 - Landmass generation now flows Voronoi → plate mask; ocean separation lives in `layers/landmass_utils.js::applyPlateAwareOceanSeparation` and the legacy three-band generator has been removed.
@@ -38,6 +51,9 @@
 - Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.
 
 ## Contributing
+
+See [docs/process/CONTRIBUTING.md](docs/process/CONTRIBUTING.md) for full guidelines.
+
 - When modifying scripts or TypeScript sources, run `pnpm run build` before committing.
 - Run `pnpm lint` to ensure code style and `pnpm test` for unit tests across workspaces.
 - Verify XML examples in docs against `civ7-official-resources` so that `<ActionGroups>` and `<Item>` tags match the SDK output.
@@ -51,5 +67,6 @@
 - We now push branches and open pull requests exclusively against the `fork` remote (`mateicanavra/civ7-modding-tools-fork`). Do not target the original `origin` upstream, as it has diverged and no longer receives updates.
 
 ## Task tracking
-- See `TASKS.md` for outstanding follow-up items.
-- Past planning documents are archived under `.ai/archive/plans/`.
+
+- See [docs/projects/](docs/projects/) for active project work
+- Past planning documents are archived under `.ai/archive/plans/` and `docs/archive/`

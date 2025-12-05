@@ -10,10 +10,20 @@ This repository began from [izica/civ7-modding-tools](https://github.com/izica/c
 - 🔌 **[Plugin libraries](packages/plugins)** - Reusable file and graph logic consumed by the CLI
 
 ## Quick Links
+
+**Documentation:**
+- [Product Overview](docs/PRODUCT.md) — What this is and why
+- [System Architecture](docs/SYSTEM.md) — Technical overview
+- [How We Work](docs/PROCESS.md) — Contributing and workflows
+- [Roadmap](docs/ROADMAP.md) — Direction and milestones
+
+**Getting Started:**
 - [Installation](#installation-and-setup)
 - [Using the CLI](#using-the-cli)
 - [SDK Documentation](packages/sdk/README.md)
 - [Configuration Utilities](packages/config/README.md)
+
+**External Resources:**
 - [Community Guides](apps/docs/site/community/)
 - [Official Modding Docs](apps/docs/site/civ7-official/modding/)
 
@@ -21,6 +31,7 @@ This repository began from [izica/civ7-modding-tools](https://github.com/izica/c
 
 ```
 civ7-modding-tools/
+├── docs/                 # Project documentation (see docs/DOCS.md for architecture)
 ├── packages/
 │   ├── sdk/              # TypeScript SDK for mod generation
 │   ├── cli/              # Command-line tools (oclif)
@@ -29,11 +40,11 @@ civ7-modding-tools/
 │       ├── plugin-files/ # Programmatic zip/unzip library (consumed by CLI/docs)
 │       └── plugin-graph/ # Graph crawl/render library (consumed by CLI)
 ├── apps/
-│   ├── docs/         # Documentation site (Docsify)
-│   └── playground/   # Example mods and experiments
+│   ├── docs/             # Documentation site (Mintlify)
+│   └── playground/       # Example mods and experiments
 ├── mods/
-│   └── <mod-name>/    # Colocated mod workspaces that consume the SDK; build to ./mod/
-└── civ.config.jsonc  # CLI configuration
+│   └── <mod-name>/       # Colocated mod workspaces that consume the SDK
+└── civ.config.jsonc      # CLI configuration
 ```
 
 ## Installation and Setup
