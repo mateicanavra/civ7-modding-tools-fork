@@ -282,6 +282,93 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
         return;
     }
 
+    // ========== DEBUG #1: Diagnose Land/Uplift Disconnect ==========
+    // Get dimensions properly (ctx.dimensions or fallback to GameplayMap)
+    const dims = ctx?.dimensions || {};
+    const debugWidth = Number.isFinite(dims.width) ? dims.width : (GameplayMap?.getGridWidth?.() ?? 0);
+    const debugHeight = Number.isFinite(dims.height) ? dims.height : (GameplayMap?.getGridHeight?.() ?? 0);
+
+    const landMaskBuffer = ctx?.buffers?.heightfield?.landMask || null;
+    const isWaterCheck = (x, y) => {
+        if (landMaskBuffer) {
+            const i = y * debugWidth + x;
+            return landMaskBuffer[i] === 0;
+        }
+        return GameplayMap?.isWater?.(x, y) ?? false;
+    };
+
+    // Collect diagnostic data
+    let totalLandTiles = 0;
+    let landUpliftSum = 0;
+    let landClosenessSum = 0;
+    const landByBoundaryType = [0, 0, 0, 0]; // none, convergent, divergent, transform
+    const landUpliftBuckets = { under25: 0, under50: 0, under100: 0, over100: 0 };
+    const landClosenessBuckets = { under64: 0, under128: 0, under192: 0, over192: 0 };
+
+    // Row-by-row analysis for south bias detection
+    const rowStats = [];
+    const rowStep = Math.max(1, Math.floor(debugHeight / 10));
+
+    for (let y = 0; y < debugHeight; y++) {
+        let rowLandCount = 0;
+        let rowLandUpliftSum = 0;
+        let rowLandClosenessSum = 0;
+
+        for (let x = 0; x < debugWidth; x++) {
+            const i = y * debugWidth + x;
+            const isLand = !isWaterCheck(x, y);
+
+            if (isLand) {
+                totalLandTiles++;
+                const upliftVal = upliftPotential[i] | 0;
+                const closenessVal = boundaryCloseness[i] | 0;
+                const bType = boundaryType[i] | 0;
+
+                landUpliftSum += upliftVal;
+                landClosenessSum += closenessVal;
+
+                if (bType >= 0 && bType < 4) landByBoundaryType[bType]++;
+
+                if (upliftVal < 25) landUpliftBuckets.under25++;
+                else if (upliftVal < 50) landUpliftBuckets.under50++;
+                else if (upliftVal < 100) landUpliftBuckets.under100++;
+                else landUpliftBuckets.over100++;
+
+                if (closenessVal < 64) landClosenessBuckets.under64++;
+                else if (closenessVal < 128) landClosenessBuckets.under128++;
+                else if (closenessVal < 192) landClosenessBuckets.under192++;
+                else landClosenessBuckets.over192++;
+
+                rowLandCount++;
+                rowLandUpliftSum += upliftVal;
+                rowLandClosenessSum += closenessVal;
+            }
+        }
+
+        if (y % rowStep === 0 || y === height - 1) {
+            rowStats.push({
+                row: y,
+                landCount: rowLandCount,
+                avgUplift: rowLandCount > 0 ? Math.round(rowLandUpliftSum / rowLandCount) : 0,
+                avgCloseness: rowLandCount > 0 ? Math.round(rowLandClosenessSum / rowLandCount) : 0,
+            });
+        }
+    }
+
+    devLogIf && devLogIf("LOG_MOUNTAINS", "[DEBUG #1] ========== LAND/UPLIFT DIAGNOSTIC ==========");
+    devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Total land tiles: ${totalLandTiles}`);
+    devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Avg uplift on land: ${totalLandTiles > 0 ? (landUpliftSum / totalLandTiles).toFixed(1) : 0} / 255`);
+    devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Avg closeness on land: ${totalLandTiles > 0 ? (landClosenessSum / totalLandTiles).toFixed(1) : 0} / 255`);
+    devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Land by boundary type: none=${landByBoundaryType[0]}, convergent=${landByBoundaryType[1]}, divergent=${landByBoundaryType[2]}, transform=${landByBoundaryType[3]}`);
+    devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Land uplift buckets: <25=${landUpliftBuckets.under25}, 25-50=${landUpliftBuckets.under50}, 50-100=${landUpliftBuckets.under100}, >100=${landUpliftBuckets.over100}`);
+    devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Land closeness buckets: <64=${landClosenessBuckets.under64}, 64-128=${landClosenessBuckets.under128}, 128-192=${landClosenessBuckets.under192}, >192=${landClosenessBuckets.over192}`);
+    devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1] Row-by-row (south=0, north=${debugHeight-1}):`);
+    rowStats.forEach(rs => {
+        devLogIf && devLogIf("LOG_MOUNTAINS", `[DEBUG #1]   row ${rs.row}: land=${rs.landCount}, avgUplift=${rs.avgUplift}, avgCloseness=${rs.avgCloseness}`);
+    });
+    devLogIf && devLogIf("LOG_MOUNTAINS", "[DEBUG #1] ================================================");
+    // ========== END DEBUG #1 ==========
+
     const exponent = Math.max(0.25, boundaryExponent || 1);
     const boundaryGate = 0.25;
 

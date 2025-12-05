@@ -14,7 +14,8 @@ import { LANDMASS_CFG } from "../bootstrap/tunables.js";
 import { WorldModel } from "../world/model.js";
 import { writeHeightfield } from "../core/types.js";
 
-const DEFAULT_CLOSENESS_LIMIT = 215;
+// With boundary-aware scoring we no longer gate land by closeness; keep legacy constants for fallback.
+const DEFAULT_CLOSENESS_LIMIT = 255;
 const CLOSENESS_STEP_PER_TILE = 8;
 const MIN_CLOSENESS_LIMIT = 150;
 const MAX_CLOSENESS_LIMIT = 255;
@@ -44,6 +45,9 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     }
     const landmassCfg = options.landmassCfg || LANDMASS_CFG || {};
     const boundaryBias = Number.isFinite(landmassCfg.boundaryBias) ? landmassCfg.boundaryBias : 0.35;
+    const boundaryShareTarget = Number.isFinite(landmassCfg.boundaryShareTarget)
+        ? Math.max(0, Math.min(1, landmassCfg.boundaryShareTarget))
+        : 0.2;
     const geomCfg = options.geometry || {};
     const postCfg = geomCfg.post || {};
 
@@ -51,9 +55,11 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     const totalTiles = size;
     const targetLandTiles = Math.max(1, Math.min(totalTiles - 1, Math.round(totalTiles * (1 - baseWaterPct / 100))));
 
-    const closenessLimit = computeClosenessLimit(postCfg);
+    const closenessLimit = MAX_CLOSENESS_LIMIT; // allow high-closeness tiles to become land when scored high
 
     // Binary search threshold on shield stability to hit target land count (after closeness gating)
+    // Hybrid selection: find a threshold that hits total land, but also enforce a minimum share in boundary bands.
+    // First pass: baseline threshold search.
     let low = 0;
     let high = 255 + Math.round(255 * boundaryBias);
     let bestThreshold = 200;
@@ -76,13 +82,46 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         }
     }
 
+    // Second pass: ensure boundary share. If below target, lower threshold until boundary share is met or we hit caps.
+    const boundaryBand = (closenessArr, idx) => (closenessArr[idx] | 0) >= 90; // ~0.35 band: 90/255
+    const computeShares = (threshold) => {
+        let land = 0, boundaryLand = 0;
+        for (let i = 0; i < size; i++) {
+            const score = (shield[i] | 0) + Math.round((closeness[i] | 0) * boundaryBias);
+            const isLand = score >= threshold && closeness[i] <= closenessLimit;
+            if (isLand) {
+                land++;
+                if (boundaryBand(closeness, i))
+                    boundaryLand++;
+            }
+        }
+        return { land, boundaryLand };
+    };
+
+    let { land: landCount, boundaryLand } = computeShares(bestThreshold);
+    const minBoundary = Math.round(targetLandTiles * boundaryShareTarget);
+    if (boundaryLand < minBoundary) {
+        // Loosen threshold to admit more boundary tiles.
+        let t = bestThreshold - 10;
+        while (t >= 0) {
+            const shares = computeShares(t);
+            landCount = shares.land;
+            boundaryLand = shares.boundaryLand;
+            if (boundaryLand >= minBoundary || landCount >= targetLandTiles * 1.05) {
+                bestThreshold = t;
+                break;
+            }
+            t -= 10;
+        }
+    }
+
     const landMask = new Uint8Array(size);
     let finalLandTiles = 0;
     for (let y = 0; y < height; y++) {
         const rowOffset = y * width;
         for (let x = 0; x < width; x++) {
             const idx = rowOffset + x;
-            const score = shield[idx] + Math.round((closeness[idx] | 0) * boundaryBias);
+            const score = (shield[idx] | 0) + Math.round((closeness[idx] | 0) * boundaryBias);
             const isLand = score >= bestThreshold && closeness[idx] <= closenessLimit;
             if (isLand) {
                 landMask[idx] = 1;

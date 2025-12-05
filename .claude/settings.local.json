@@ -5,7 +5,8 @@
       "Bash(find:*)",
       "Bash(git stash:*)",
       "Bash(git mv:*)",
-      "WebFetch(domain:civilization.2k.com)"
+      "WebFetch(domain:civilization.2k.com)",
+      "Read(//Users/mateicanavra/Library/Application Support/Civilization VII/Logs/**)"
     ],
     "deny": [],
     "ask": []
