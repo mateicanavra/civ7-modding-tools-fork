@@ -368,8 +368,8 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
     devLogIf && devLogIf("LOG_MOUNTAINS", "[DEBUG #1] ================================================");
     // ========== END DEBUG #1 ==========
 
-    const exponent = Math.max(0.25, boundaryExponent || 1);
-    const boundaryGate = 0.25;
+    const boundaryGate = 0.20;  // Minimum closeness (0-1) to consider boundary effects
+    const falloffExponent = boundaryExponent || 2.5;  // Exponential falloff for concentrated mountain belts
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
@@ -378,51 +378,91 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
             const uplift = upliftPotential ? upliftPotential[i] / 255 : 0;
             const bType = boundaryType[i];
             const closenessRaw = boundaryCloseness ? boundaryCloseness[i] / 255 : 0;
-            const closeness = Math.pow(closenessRaw, exponent);
             const rift = riftPotential ? riftPotential[i] / 255 : 0;
 
             const fractalMtn = FractalBuilder.getHeight(g_MountainFractal, x, y) / 65535;
             const fractalHill = FractalBuilder.getHeight(g_HillFractal, x, y) / 65535;
 
+            // Base score: uplift potential + fractal variety
             let mountainScore = uplift * upliftWeight + fractalMtn * fractalWeight;
-            if (boundaryWeight > 0 && closenessRaw > boundaryGate) {
-                mountainScore += closeness * boundaryWeight;
+
+            // Physics-based boundary effects with exponential falloff
+            // Mountain building is most intense RIGHT AT the collision zone
+            // BUT we modulate by fractal noise to create natural variation:
+            // - Peaks where fractal is high
+            // - Saddles/valleys where fractal is low
+            // - Interruptions in the mountain chain
+            if (closenessRaw > boundaryGate) {
+                // Normalize to 0-1 above threshold, then apply exponential falloff
+                const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
+                const intensity = Math.pow(normalized, falloffExponent);
+
+                // General boundary weight (foothills near any boundary)
+                // Modulated by fractal to create variable foothill bands
+                if (boundaryWeight > 0) {
+                    const foothillNoise = 0.5 + fractalMtn * 0.5; // 0.5-1.0 range
+                    mountainScore += intensity * boundaryWeight * foothillNoise;
+                }
+
+                // Boundary-type-specific modifiers
+                if (bType === ENUM_BOUNDARY.convergent) {
+                    // CONVERGENT: Strong mountain bonus concentrated at collision zone
+                    // Modulated by fractal: creates peaks where noise is high, saddles where low
+                    // fractalMtn ranges 0-1, so bonus ranges from 0.3x to 1.0x of full bonus
+                    const peakNoise = 0.3 + fractalMtn * 0.7; // Minimum 30% ensures some mountains
+                    mountainScore += intensity * convergenceBonus * peakNoise;
+                }
+                else if (bType === ENUM_BOUNDARY.divergent) {
+                    // DIVERGENT: Suppress mountains (rift valleys, not peaks)
+                    mountainScore *= Math.max(0, 1 - intensity * riftPenalty);
+                }
+                else if (bType === ENUM_BOUNDARY.transform) {
+                    // TRANSFORM: Moderate suppression (strike-slip faults, linear valleys)
+                    mountainScore *= Math.max(0, 1 - intensity * transformPenalty);
+                }
             }
+
+            // Interior penalty - push mountains toward plate margins
             if (interiorPenaltyWeight > 0) {
                 const interiorPenalty = (1 - closenessRaw) * interiorPenaltyWeight;
                 mountainScore = Math.max(0, mountainScore - interiorPenalty);
             }
 
-            if (closenessRaw > boundaryGate) {
-                if (bType === ENUM_BOUNDARY.convergent) {
-                    mountainScore += closeness * convergenceBonus;
-                }
-                else if (bType === ENUM_BOUNDARY.divergent) {
-                    mountainScore *= Math.max(0, 1 - rift * riftPenalty);
-                }
-                else if (bType === ENUM_BOUNDARY.transform) {
-                    mountainScore *= Math.max(0, 1 - closenessRaw * transformPenalty);
-                }
-            }
-
             scores[i] = Math.max(0, mountainScore);
 
+            // Hill scoring - foothills form around mountain belts with softer falloff
+            // Hills use fractalHill for natural variation in foothill extent
             let hillScore = fractalHill * fractalWeight + uplift * hillUpliftWeight;
-            if (hillBoundaryWeight > 0 && closenessRaw > boundaryGate) {
-                const foothillBand = Math.sqrt(closenessRaw);
-                hillScore += foothillBand * hillBoundaryWeight;
-            }
-            if (hillInteriorFalloff > 0) {
-                hillScore -= (1 - closenessRaw) * hillInteriorFalloff;
-            }
 
             if (closenessRaw > boundaryGate) {
+                // Normalize and apply softer falloff for hills (sqrt instead of pow 2.5)
+                // Hills spread wider than peaks, forming foothill bands
+                const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
+                const hillIntensity = Math.sqrt(normalized);  // Softer falloff for wider foothill bands
+
+                // Variable foothill width based on fractal noise
+                // Some areas have extensive foothills, others transition sharply
+                const foothillExtent = 0.4 + fractalHill * 0.6; // 0.4-1.0 range
+
+                if (hillBoundaryWeight > 0) {
+                    hillScore += hillIntensity * hillBoundaryWeight * foothillExtent;
+                }
+
                 if (bType === ENUM_BOUNDARY.divergent) {
-                    hillScore += rift * hillRiftBonus;
+                    // Rift shoulders - hills along divergent boundaries (like East African Rift)
+                    // Modulated by fractal for irregular rift shoulder terrain
+                    hillScore += hillIntensity * rift * hillRiftBonus * foothillExtent;
                 }
                 else if (bType === ENUM_BOUNDARY.convergent) {
-                    hillScore += closeness * hillConvergentFoothill;
+                    // Foothill bands adjacent to mountain belts
+                    // Variable extent creates natural-looking piedmont zones
+                    hillScore += hillIntensity * hillConvergentFoothill * foothillExtent;
                 }
+            }
+
+            // Interior falloff - fewer hills deep in plate interiors
+            if (hillInteriorFalloff > 0) {
+                hillScore -= (1 - closenessRaw) * hillInteriorFalloff;
             }
 
             hillScores[i] = Math.max(0, hillScore);

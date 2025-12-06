@@ -61,15 +61,22 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     // NEW: Boundary-type-aware scoring parameters
     // Convergent boundaries (collision zones) should become LAND for mountain building
     // Divergent boundaries (spreading ridges) should become OCEAN
+    //
+    // Physics model: Effects are strongest RIGHT AT the boundary and fall off
+    // exponentially with distance. This creates narrow mountain belts at collision
+    // zones rather than broad "blob" regions.
     const convergentLandBonus = Number.isFinite(landmassCfg.convergentLandBonus)
         ? landmassCfg.convergentLandBonus
-        : 0.9;  // Strong bonus: convergent zones become land
+        : 180;  // Max bonus points at boundary (was 0.9 multiplier, now absolute)
     const divergentOceanPenalty = Number.isFinite(landmassCfg.divergentOceanPenalty)
         ? landmassCfg.divergentOceanPenalty
-        : 0.4;  // Moderate penalty: divergent zones become ocean
-    const convergentClosenessThreshold = Number.isFinite(landmassCfg.convergentClosenessThreshold)
-        ? landmassCfg.convergentClosenessThreshold
-        : 64;   // Only apply bonus when close enough to boundary (0-255 scale)
+        : 100;  // Max penalty points at boundary
+    const boundaryEffectThreshold = Number.isFinite(landmassCfg.boundaryEffectThreshold)
+        ? landmassCfg.boundaryEffectThreshold
+        : 40;   // Minimum closeness to apply any boundary effect (0-255) - lowered to match tighter scaleFactor
+    const boundaryFalloffExponent = Number.isFinite(landmassCfg.boundaryFalloffExponent)
+        ? landmassCfg.boundaryFalloffExponent
+        : 2.5;  // Falloff power (higher = more concentrated at boundary, 1=linear, 2=squared)
 
     const geomCfg = options.geometry || {};
     const postCfg = geomCfg.post || {};
@@ -85,6 +92,11 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
      * - Convergent boundaries get a BONUS (mountain-building zones should be land)
      * - Divergent boundaries get a PENALTY (spreading ridges should be ocean)
      * - Transform boundaries and interiors use the base formula
+     *
+     * Physics model: Tectonic effects are strongest RIGHT AT the plate boundary
+     * and fall off exponentially with distance. This creates:
+     * - Narrow mountain belts at convergent boundaries (like the Himalayas, Andes)
+     * - Linear ocean ridges at divergent boundaries (like the Mid-Atlantic Ridge)
      */
     const computeLandScore = (idx) => {
         const shieldVal = shield[idx] | 0;
@@ -94,16 +106,27 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         // Base score: shield stability + small closeness bias
         let score = shieldVal + Math.round(closenessVal * boundaryBias);
 
-        // Apply boundary-type-specific modifiers when near a boundary
-        if (closenessVal >= convergentClosenessThreshold) {
+        // Apply boundary-type-specific modifiers with physics-based falloff
+        if (closenessVal >= boundaryEffectThreshold) {
+            // Normalize closeness to 0-1 range above threshold
+            // At threshold: normalized = 0, at max (255): normalized = 1
+            const normalized = (closenessVal - boundaryEffectThreshold) / (255 - boundaryEffectThreshold);
+
+            // Apply exponential falloff - effects concentrated near boundary
+            // With exponent=2.5: at normalized=0.5, intensity=0.18 (not 0.5)
+            // This creates narrow bands rather than broad zones
+            const intensity = Math.pow(normalized, boundaryFalloffExponent);
+
             if (bType === BOUNDARY_TYPE.convergent) {
-                // CONVERGENT: Boost score significantly - these should be mountains/land!
-                score += Math.round(closenessVal * convergentLandBonus);
+                // CONVERGENT: Boost score - collision zones build mountains/land
+                // Full bonus only right at the boundary, falls off rapidly
+                score += Math.round(convergentLandBonus * intensity);
             } else if (bType === BOUNDARY_TYPE.divergent) {
-                // DIVERGENT: Reduce score - these should be ocean spreading ridges
-                score -= Math.round(closenessVal * divergentOceanPenalty);
+                // DIVERGENT: Reduce score - spreading ridges create ocean floor
+                score -= Math.round(divergentOceanPenalty * intensity);
             }
-            // TRANSFORM: No special modifier (neutral)
+            // TRANSFORM: No land/ocean modifier (these create linear features
+            // but don't fundamentally change crust type - future enhancement)
         }
 
         return score;

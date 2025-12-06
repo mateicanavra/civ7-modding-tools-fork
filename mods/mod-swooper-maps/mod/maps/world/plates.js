@@ -239,13 +239,18 @@ export function computePlatesVoronoi(width, height, config) {
                 const distToBoundary = Math.sqrt(VoronoiUtils.sqDistance(pos, nearestBoundary.pos));
 
                 // Keep boundary influence narrow so only tiles near edges score high.
-                const scaleFactor = 2.0;
+                // scaleFactor controls falloff speed: lower = faster falloff = narrower boundaries
+                // With scaleFactor=1.5: dist=1 → 0.6, dist=2 → 0.43, dist=3 → 0.33, dist=4 → 0.27
+                // This creates ~3-4 tile wide boundary bands (narrow but not too narrow)
+                const scaleFactor = 1.5;
                 const closeness = 1 - distToBoundary / (distToBoundary + scaleFactor);
                 boundaryCloseness[i] = toByte(closeness);
 
                 let bType = ENUM_BOUNDARY.none;
 
-                if (closeness > 0.3) {
+                // Assign boundary type to tiles reasonably close to boundaries
+                // Threshold 0.33 = ~3 tiles from boundary get a type assigned
+                if (closeness > 0.33) {
                     const subduction = nearestBoundary.plateSubduction;
                     const sliding = nearestBoundary.plateSliding;
 
