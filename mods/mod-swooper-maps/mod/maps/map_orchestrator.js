@@ -105,12 +105,14 @@ function generateMap() {
     logFoundationSurface(FOUNDATION_SURFACE);
     const mountainsConfig = MOUNTAINS_CFG || {};
     const mountainOptions = {
-        mountainPercent: mountainsConfig.mountainPercent ?? 3,
-        hillPercent: mountainsConfig.hillPercent ?? 8,
+        // Physics-threshold controls (no quota - mountains only where physics justifies)
+        tectonicIntensity: mountainsConfig.tectonicIntensity ?? 1.0,
+        mountainThreshold: mountainsConfig.mountainThreshold ?? 0.45,
+        hillThreshold: mountainsConfig.hillThreshold ?? 0.25,
+        // Physics weights
         upliftWeight: mountainsConfig.upliftWeight ?? 0.75,
         fractalWeight: mountainsConfig.fractalWeight ?? 0.25,
         riftDepth: mountainsConfig.riftDepth ?? 0.3,
-        variance: mountainsConfig.variance ?? 2.0,
         boundaryWeight: mountainsConfig.boundaryWeight ?? 0.6,
         boundaryExponent: mountainsConfig.boundaryExponent ?? 1.4,
         interiorPenaltyWeight: mountainsConfig.interiorPenaltyWeight ?? 0.2,
@@ -141,7 +143,7 @@ function generateMap() {
     };
     console.log("[SWOOPER_MOD] Tunables rebound successfully");
     console.log(
-        `[SWOOPER_MOD] Mountain target: ${mountainOptions.mountainPercent}% | Hills: ${mountainOptions.hillPercent}%`
+        `[SWOOPER_MOD] Mountains: intensity=${mountainOptions.tectonicIntensity}, threshold=${mountainOptions.mountainThreshold} | Hills: threshold=${mountainOptions.hillThreshold}`
     );
     console.log(
         `[SWOOPER_MOD] Volcano config — base density ${(volcanoOptions.baseDensity ?? 0).toFixed(4)}, spacing ${volcanoOptions.minSpacing}`

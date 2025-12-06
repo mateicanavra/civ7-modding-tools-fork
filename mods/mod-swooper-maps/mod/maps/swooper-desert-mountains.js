@@ -44,11 +44,11 @@ bootstrap({
     overrides: /** @type {Partial<MapConfig>} */ ({
         toggles: {
             STORY_ENABLE_HOTSPOTS: true,
-            STORY_ENABLE_RIFTS: true,
-            STORY_ENABLE_OROGENY: true,
+            STORY_ENABLE_RIFTS: false,
+            STORY_ENABLE_OROGENY: false,
             STORY_ENABLE_SWATCHES: true,
             STORY_ENABLE_PALEO: true,
-            STORY_ENABLE_CORRIDORS: true,
+            STORY_ENABLE_CORRIDORS: false,
         },
         landmass: {
             baseWaterPercent: 58,
@@ -74,12 +74,14 @@ bootstrap({
             },
         },
         mountains: {
-            mountainPercent: 11,
-            hillPercent: 20,
+            // Physics-threshold controls (higher intensity = more dramatic mountains)
+            tectonicIntensity: 1.4,      // High intensity for dramatic desert mountains
+            mountainThreshold: 0.40,     // Slightly lower threshold for more peaks
+            hillThreshold: 0.22,         // Lower threshold for extensive foothills
+            // Physics weights
             upliftWeight: 0.85,
             fractalWeight: 0.15,
             riftDepth: 0.4,
-            variance: 1.2,
             boundaryWeight: 0.9,
             boundaryExponent: 1.35,
             interiorPenaltyWeight: 0.6,

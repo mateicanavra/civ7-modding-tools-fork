@@ -705,14 +705,16 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
         minDistFromLandRadius: 2,
     }),
     // --- Climate Baseline (banded blend + local bonuses) ---
-    // --- Mountains & Hills (WorldModel-driven) ---
+    // --- Mountains & Hills (WorldModel-driven, physics-threshold system) ---
     mountains: Object.freeze({
-        mountainPercent: 3,
-        hillPercent: 8,
+        // Physics-threshold controls (mountains only where physics justifies)
+        tectonicIntensity: 1.0,      // Base intensity (1.0 = standard tectonics)
+        mountainThreshold: 0.45,     // Score must exceed this for mountains
+        hillThreshold: 0.25,         // Score must exceed this for hills
+        // Physics weights
         upliftWeight: 0.6,
         fractalWeight: 0.4,
         riftDepth: 0.25,
-        variance: 1.6,
         boundaryWeight: 0.85,
         boundaryExponent: 1.3,
         interiorPenaltyWeight: 0.18,

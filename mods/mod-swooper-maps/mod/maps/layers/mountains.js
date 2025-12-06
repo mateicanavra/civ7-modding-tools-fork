@@ -17,10 +17,11 @@
  * Usage:
  *   import { layerAddMountainsPhysics } from "./layers/mountains.js";
  *   layerAddMountainsPhysics(ctx, {
- *     mountainPercent: 8,        // % of land to be mountainous
+ *     tectonicIntensity: 1.2,    // Higher = stronger tectonic effects = more mountains
+ *     mountainThreshold: 0.45,   // Score threshold for mountains (lower = more permissive)
+ *     hillThreshold: 0.25,       // Score threshold for hills
  *     upliftWeight: 0.75,        // 0..1, how much WorldModel drives placement
  *     fractalWeight: 0.25,       // 0..1, how much random fractal adds variety
- *     riftDepth: 0.5,            // 0..1, how much to lower divergent boundaries
  *   });
  */
 
@@ -39,14 +40,20 @@ const ENUM_BOUNDARY = Object.freeze({
 /**
  * Add mountains using WorldModel plate boundaries
  *
+ * ARCHITECTURE: Physics-threshold based (not quota based)
+ * - Mountains appear where physics score > mountainThreshold
+ * - No forced quota - if tectonics don't create mountains, there are fewer mountains
+ * - tectonicIntensity scales the physics parameters to control mountain prevalence
+ * - This ensures mountains ONLY appear where plate tectonics justify them
+ *
  * @param {import('../core/types.js').MapContext} ctx - Map context
  * @param {Object} options - Mountain generation options
- * @param {number} [options.mountainPercent=8] - Target % of land as mountains
- * @param {number} [options.hillPercent=18] - Target % of land as hills
+ * @param {number} [options.tectonicIntensity=1.0] - Scales all tectonic effects (higher = more mountains)
+ * @param {number} [options.mountainThreshold=0.45] - Score threshold for mountain placement (0..1)
+ * @param {number} [options.hillThreshold=0.25] - Score threshold for hill placement (0..1)
  * @param {number} [options.upliftWeight=0.75] - Weight for WorldModel uplift (0..1)
  * @param {number} [options.fractalWeight=0.25] - Weight for fractal noise (0..1)
  * @param {number} [options.riftDepth=0.3] - Depression strength at rifts (0..1)
- * @param {number} [options.variance=2.0] - Random variance in percentages
  * @param {number} [options.boundaryWeight=0.6] - Additional mountain weight contributed by boundary closeness
  * @param {number} [options.boundaryExponent=1.4] - Exponent applied to boundary closeness shaping belt width
  * @param {number} [options.interiorPenaltyWeight=0.2] - Penalty applied to interior tiles (push mountains toward margins)
@@ -61,12 +68,14 @@ const ENUM_BOUNDARY = Object.freeze({
  */
 export function layerAddMountainsPhysics(ctx, options = {}) {
     const {
-        mountainPercent = 8,
-        hillPercent = 18,
+        // Physics-threshold controls
+        tectonicIntensity = 1.0,               // Dial to increase/decrease mountain prevalence
+        mountainThreshold = 0.45,              // Score must exceed this for mountain placement
+        hillThreshold = 0.25,                  // Score must exceed this for hill placement
+        // Physics weights (scaled by tectonicIntensity)
         upliftWeight = 0.75,
         fractalWeight = 0.25,
         riftDepth = 0.3,
-        variance = 2.0,
         boundaryWeight = 0.6,
         boundaryExponent = 1.4,
         interiorPenaltyWeight = 0.2,
@@ -79,6 +88,14 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
         hillInteriorFalloff = 0.2,
         hillUpliftWeight = 0.25,
     } = options;
+
+    // Scale physics parameters by tectonic intensity
+    // Higher intensity = stronger boundary effects = more tiles exceed threshold
+    const scaledConvergenceBonus = convergenceBonus * tectonicIntensity;
+    const scaledBoundaryWeight = boundaryWeight * tectonicIntensity;
+    const scaledUpliftWeight = upliftWeight * tectonicIntensity;
+    const scaledHillBoundaryWeight = hillBoundaryWeight * tectonicIntensity;
+    const scaledHillConvergentFoothill = hillConvergentFoothill * tectonicIntensity;
 
     const dimensions = ctx?.dimensions || {};
     const width = Number.isFinite(dimensions.width)
@@ -143,24 +160,12 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
         }
     }
 
-    // Apply variance
-    const mountainVariance = (ctxRandom(ctx, "MtnVariance", 200) - 100) / 100 * variance;
-    const hillVariance = (ctxRandom(ctx, "HillVariance", 200) - 100) / 100 * variance;
-
-    const targetMountains = Math.max(
-        1,
-        Math.round(landTiles * (mountainPercent + mountainVariance) / 100)
-    );
-    const targetHills = Math.max(
-        1,
-        Math.round(landTiles * (hillPercent + hillVariance) / 100)
-    );
-
     devLogIf &&
-        devLogIf("LOG_MOUNTAINS", "[Mountains] Target counts", {
+        devLogIf("LOG_MOUNTAINS", "[Mountains] Physics-threshold mode", {
             landTiles,
-            targetMountains,
-            targetHills,
+            tectonicIntensity,
+            mountainThreshold,
+            hillThreshold,
         });
 
     // Compute placement scores for each tile
@@ -169,20 +174,21 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
 
     if (worldModelEnabled) {
         // Physics-based placement using WorldModel
+        // Pass SCALED parameters - tectonicIntensity affects mountain prevalence
         computePlateBasedScores(ctx, scores, hillScores, {
-            upliftWeight,
+            upliftWeight: scaledUpliftWeight,
             fractalWeight,
             g_MountainFractal,
             g_HillFractal,
-            boundaryWeight,
+            boundaryWeight: scaledBoundaryWeight,
             boundaryExponent,
             interiorPenaltyWeight,
-            convergenceBonus,
+            convergenceBonus: scaledConvergenceBonus,
             transformPenalty,
             riftPenalty,
-            hillBoundaryWeight,
+            hillBoundaryWeight: scaledHillBoundaryWeight,
             hillRiftBonus,
-            hillConvergentFoothill,
+            hillConvergentFoothill: scaledHillConvergentFoothill,
             hillInteriorFalloff,
             hillUpliftWeight,
         });
@@ -199,26 +205,19 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
         applyRiftDepressions(ctx, scores, hillScores, riftDepth);
     }
 
-    // Select top-scoring tiles for mountains
+    // Select tiles that exceed physics thresholds (no quota forcing)
     const selectionAdapter = {
         isWater,
     };
 
-    const mountainTiles = selectTopScoringTiles(scores, width, height, targetMountains, selectionAdapter);
+    // Mountains: tiles where mountainScore > mountainThreshold
+    const mountainTiles = selectTilesAboveThreshold(scores, width, height, mountainThreshold, selectionAdapter);
 
-    // Select top-scoring tiles for hills (excluding mountains)
-    const hillTiles = selectTopScoringTiles(hillScores, width, height, targetHills, selectionAdapter, mountainTiles);
+    // Hills: tiles where hillScore > hillThreshold (excluding mountains)
+    const hillTiles = selectTilesAboveThreshold(hillScores, width, height, hillThreshold, selectionAdapter, mountainTiles);
 
-    const mountainsPlaced = mountainTiles instanceof Set
-        ? mountainTiles.size
-        : Array.isArray(mountainTiles)
-            ? mountainTiles.length
-            : 0;
-    const hillsPlaced = hillTiles instanceof Set
-        ? hillTiles.size
-        : Array.isArray(hillTiles)
-            ? hillTiles.length
-            : 0;
+    const mountainsPlaced = mountainTiles.size;
+    const hillsPlaced = hillTiles.size;
     // Place mountains
     for (const i of mountainTiles) {
         const x = i % width;
@@ -234,14 +233,16 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
     }
 
     const summary = {
-        targetMountains,
-        targetHills,
+        mode: "physics-threshold",
+        tectonicIntensity,
+        mountainThreshold,
+        hillThreshold,
         mountainsPlaced,
         hillsPlaced,
+        mountainPercent: landTiles > 0 ? ((mountainsPlaced / landTiles) * 100).toFixed(1) + "%" : "0%",
+        hillPercent: landTiles > 0 ? ((hillsPlaced / landTiles) * 100).toFixed(1) + "%" : "0%",
         landTiles,
         worldModelEnabled,
-        upliftWeight,
-        fractalWeight,
     };
     devLogIf && devLogIf("LOG_MOUNTAINS", "[Mountains] placement", JSON.stringify(summary));
 }
@@ -520,10 +521,23 @@ function applyRiftDepressions(ctx, scores, hillScores, riftDepth) {
 }
 
 /**
- * Select top N scoring tiles, excluding water and optionally excluding a set
+ * Select tiles where score exceeds threshold (physics-driven, no quota)
+ *
+ * This is the core of the physics-threshold architecture:
+ * - Only tiles that genuinely qualify based on tectonic physics get selected
+ * - No forcing tiles to meet a quota
+ * - Mountain count is determined by geology, not arbitrary percentage
+ *
+ * @param {Float32Array} scores - Score array for all tiles
+ * @param {number} width - Map width
+ * @param {number} height - Map height
+ * @param {number} threshold - Minimum score for selection (0..1)
+ * @param {Object} adapter - Adapter with isWater(x,y) method
+ * @param {Set} [excludeSet] - Optional set of tile indices to exclude
+ * @returns {Set} Set of selected tile indices
  */
-function selectTopScoringTiles(scores, width, height, targetCount, adapter, excludeSet = null) {
-    const candidates = [];
+function selectTilesAboveThreshold(scores, width, height, threshold, adapter, excludeSet = null) {
+    const selected = new Set();
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
@@ -535,17 +549,11 @@ function selectTopScoringTiles(scores, width, height, targetCount, adapter, excl
             // Skip excluded tiles
             if (excludeSet && excludeSet.has(i)) continue;
 
-            candidates.push({ index: i, score: scores[i] });
+            // Only select if score exceeds threshold
+            if (scores[i] > threshold) {
+                selected.add(i);
+            }
         }
-    }
-
-    // Sort by score descending
-    candidates.sort((a, b) => b.score - a.score);
-
-    // Take top N
-    const selected = new Set();
-    for (let k = 0; k < Math.min(targetCount, candidates.length); k++) {
-        selected.add(candidates[k].index);
     }
 
     return selected;
@@ -563,8 +571,7 @@ export function addMountainsCompat(width, height) {
     };
 
     const ctx = {
-        width,
-        height,
+        dimensions: { width, height },
         adapter,
         rng: {
             calls: 0,
@@ -573,8 +580,9 @@ export function addMountainsCompat(width, height) {
     };
 
     layerAddMountainsPhysics(ctx, {
-        mountainPercent: 8,
-        hillPercent: 18,
+        tectonicIntensity: 1.0,  // Standard intensity
+        mountainThreshold: 0.45,
+        hillThreshold: 0.25,
         upliftWeight: WorldModel.isEnabled() ? 0.75 : 0,
         fractalWeight: WorldModel.isEnabled() ? 0.25 : 1.0,
     });
