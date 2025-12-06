@@ -43,15 +43,15 @@ bootstrap({
     }),
     overrides: /** @type {Partial<MapConfig>} */ ({
         toggles: {
-            STORY_ENABLE_HOTSPOTS: true,
+            STORY_ENABLE_HOTSPOTS: false,
             STORY_ENABLE_RIFTS: false,
             STORY_ENABLE_OROGENY: false,
-            STORY_ENABLE_SWATCHES: true,
-            STORY_ENABLE_PALEO: true,
+            STORY_ENABLE_SWATCHES: false,
+            STORY_ENABLE_PALEO: false,
             STORY_ENABLE_CORRIDORS: false,
         },
         landmass: {
-            baseWaterPercent: 58,
+            baseWaterPercent: 63,
             waterThumbOnScale: -6,
             jitterAmpFracBase: 0.02,
         },
@@ -75,14 +75,14 @@ bootstrap({
         },
         mountains: {
             // Physics-threshold controls (higher intensity = more dramatic mountains)
-            tectonicIntensity: 1.4,      // High intensity for dramatic desert mountains
-            mountainThreshold: 0.40,     // Slightly lower threshold for more peaks
-            hillThreshold: 0.22,         // Lower threshold for extensive foothills
+            tectonicIntensity: 0.77,      // Moderate intensity for balanced mountains
+            mountainThreshold: 0.62,     // Higher threshold = fewer mountains
+            hillThreshold: 0.20,         // Higher threshold = fewer hills
             // Physics weights
-            upliftWeight: 0.85,
-            fractalWeight: 0.15,
+            upliftWeight: 0.65,
+            fractalWeight: 0.35,
             riftDepth: 0.4,
-            boundaryWeight: 0.9,
+            boundaryWeight: 0.7,
             boundaryExponent: 1.35,
             interiorPenaltyWeight: 0.6,
             convergenceBonus: 0.9,
@@ -275,12 +275,12 @@ bootstrap({
         },
         foundation: /** @type {Partial<FoundationCfg>} */ ({
             plates: {
-                count: 9,
+                count: 23,
                 convergenceMix: 0.55,
-                relaxationSteps: 4,
-                seedJitter: 3,
-                interiorSmooth: 2,
-                plateRotationMultiple: 2,
+                relaxationSteps: 3,
+                seedJitter: 5,
+                interiorSmooth: 1.35,
+                plateRotationMultiple: 3,
                 // seedOffset: 2203, // tweak for alternate plate tessellations
             },
             dynamics: {
@@ -303,9 +303,9 @@ bootstrap({
                 directionality: {
                     cohesion: 0.48,
                     primaryAxes: {
-                        plateAxisDeg: 180,
+                        plateAxisDeg: 47,
                         windBiasDeg: 24,
-                        currentBiasDeg: 195,
+                        currentBiasDeg: 85,
                     },
                     interplay: {
                         windsFollowPlates: 0.55,

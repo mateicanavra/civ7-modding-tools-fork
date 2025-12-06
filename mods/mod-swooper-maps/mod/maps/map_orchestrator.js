@@ -74,6 +74,39 @@ function requestMapData(initParams) {
     console.log(`Latitude range: ${initParams.bottomLatitude} to ${initParams.topLatitude}`);
     engine.call("SetMapInitData", initParams);
 }
+
+/**
+ * Lightweight surface sanity check before calling engine area/continent builders.
+ * Reports aggregate land/water counts so crashes inside AreaBuilder or
+ * TerrainBuilder can be correlated with the last known terrain mix.
+ *
+ * @param {number} width
+ * @param {number} height
+ */
+function logSurfaceSanity(label, width, height) {
+    try {
+        let water = 0;
+        let land = 0;
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                if (GameplayMap.isWater(x, y)) {
+                    water++;
+                } else {
+                    land++;
+                }
+            }
+        }
+        const total = width * height || 1;
+        const waterPct = ((water / total) * 100).toFixed(1);
+        const landPct = ((land / total) * 100).toFixed(1);
+        console.log(
+            `[SWOOPER_MOD][SurfaceCheck] ${label}: water=${water} (${waterPct}%), land=${land} (${landPct}%)`
+        );
+    } catch (err) {
+        console.warn("[SWOOPER_MOD][SurfaceCheck] Failed during", label, ":", err);
+    }
+}
+
 function generateMap() {
     console.log("[SWOOPER_MOD] === generateMap() CALLED ===");
     console.log("Generating Epic Diverse Map with maximum terrain variety!");
@@ -284,6 +317,19 @@ function generateMap() {
         landmassWindowsFinal = landmassWindows;
         console.log("[SWOOPER_MOD] Applied plate-driven landmass mask");
         timeEnd(t);
+
+        // === FOUNDATION SURFACE GATE: Landmass → Engine Continents ===
+        // At this point, the macro land/ocean pattern is established (plates + separation).
+        // Stamp engine continents once here so downstream systems can rely on them.
+        // Later surface tweaks (coasts, islands, mountains) should not require re-stamping.
+        TerrainBuilder.validateAndFixTerrain();
+        logSurfaceSanity("post-landmass", iWidth, iHeight);
+        console.log("[SWOOPER_MOD] Recalculating areas after plate-driven landmass...");
+        AreaBuilder.recalculateAreas();
+        console.log("[SWOOPER_MOD] Stamping continents from plate-driven landmass...");
+        TerrainBuilder.stampContinents();
+
+        // Derive west/east macro regions from windows for placement & plot tagging.
         if (landmassWindowsFinal.length) {
             const windowSummary = landmassWindowsFinal.map((win, idx) => {
                 if (!win)
@@ -307,6 +353,31 @@ function generateMap() {
         else {
             devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", "no plate windows");
         }
+
+        // Update start-continent hints from the stamped landmass windows.
+        if (Array.isArray(landmassWindowsFinal) && landmassWindowsFinal.length >= 2) {
+            const first = landmassWindowsFinal[0];
+            const last = landmassWindowsFinal[landmassWindowsFinal.length - 1];
+            if (first && last) {
+                westContinent = {
+                    west: first.west,
+                    east: first.east,
+                    south: first.south,
+                    north: first.north,
+                    continent: first.continent ?? 0,
+                };
+                eastContinent = {
+                    west: last.west,
+                    east: last.east,
+                    south: last.south,
+                    north: last.north,
+                    continent: last.continent ?? 1,
+                };
+            }
+        }
+
+        // Apply plot tags based on the macro east/west split.
+        addPlotTags(iHeight, iWidth, eastContinent.west);
     }
     else {
         console.warn("[StageManifest] Landmass stage disabled — skipping landmass generation.");
@@ -315,8 +386,6 @@ function generateMap() {
         windows: Array.isArray(landmassWindowsFinal) ? landmassWindowsFinal : [],
         landMask: landmaskDebug || undefined,
     });
-    TerrainBuilder.validateAndFixTerrain();
-    syncHeightfield(ctx);
     if (stageCoastlines) {
         ensureFoundation("coastlines");
         const t = timeStart("ExpandCoasts");
@@ -393,11 +462,6 @@ function generateMap() {
         layerAddIslandChains(iWidth, iHeight, ctx);
         timeEnd(t);
     }
-    // Remove aggressive cliff systems for playability
-    AreaBuilder.recalculateAreas();
-    TerrainBuilder.stampContinents();
-    // Restore plot tags (west/east landmass, corridor water, etc.) for downstream placement logic.
-    addPlotTags(iHeight, iWidth, eastContinent.west);
     // Mountains & Hills – Phase 2: Physics-based placement using plate boundaries
     if (stageMountains) {
         ensureFoundation("mountains");

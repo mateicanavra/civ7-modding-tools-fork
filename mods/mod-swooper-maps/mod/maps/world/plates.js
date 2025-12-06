@@ -17,7 +17,7 @@
  * - Returns typed arrays and boundary data structures
  */
 
-import { VoronoiUtils, RegionCell, PlateBoundary, RegionCellPosGetter, PlateBoundaryPosGetter, kdTree } from '/base-standard/scripts/kd-tree.js';
+import { VoronoiUtils, RegionCell, RegionCellPosGetter, kdTree } from '/base-standard/scripts/kd-tree.js';
 import { PlateRegion } from '/base-standard/scripts/voronoi-region.js';
 
 /**
@@ -32,7 +32,7 @@ import { PlateRegion } from '/base-standard/scripts/voronoi-region.js';
  * @property {Int8Array} plateMovementU - -127..127, horizontal plate movement
  * @property {Int8Array} plateMovementV - -127..127, vertical plate movement
  * @property {Int8Array} plateRotation - -127..127, plate rotation value
- * @property {kdTree} boundaryTree - kdTree of PlateBoundary objects for fast queries
+ * @property {null} boundaryTree - Deprecated: tile-precise boundaries used instead
  * @property {Array<PlateRegion>} plateRegions - Array of PlateRegion instances
  */
 
@@ -91,10 +91,22 @@ export function computePlatesVoronoi(width, height, config) {
         seedLocations: [],
     };
 
-    const runGeneration = () => {
+    const runGeneration = (attempt = {}) => {
+        const {
+            // Density of intermediate Voronoi cells that approximate plate areas.
+            // Lower density → larger cells → thicker interiors and fewer boundary seams.
+            cellDensity = 0.003,
+            // How far boundary influence propagates into interiors (in hex tiles).
+            boundaryInfluenceDistance = 3,
+            // Exponential falloff for boundary closeness; higher = faster decay.
+            boundaryDecay = 0.8,
+            // Optionally override plate count for retries.
+            plateCountOverride = null,
+        } = attempt;
+        const plateCount = Math.max(2, plateCountOverride ?? count);
         // Create Voronoi diagram using base game utilities
         const bbox = { xl: 0, xr: width, yt: 0, yb: height };
-        const sites = VoronoiUtils.createRandomSites(count, bbox.xr, bbox.yb);
+        const sites = VoronoiUtils.createRandomSites(plateCount, bbox.xr, bbox.yb);
         const diagram = VoronoiUtils.computeVoronoi(sites, bbox, relaxationSteps);
 
         // Create PlateRegion instances with movement vectors
@@ -137,7 +149,11 @@ export function computePlatesVoronoi(width, height, config) {
         // Create RegionCells for the map grid
         // Note: For performance, we create a coarser Voronoi grid for plate assignment
         // This matches the base game's approach in ContinentGenerator.growPlates()
-        const cellCount = Math.floor(width * height * 0.01); // 1% of tiles as Voronoi cells
+        const cellCount = Math.max(
+            plateCount * 2, // keep cells per plate low to thicken interiors
+            Math.floor(width * height * cellDensity),
+            plateCount
+        );
         const cellSites = VoronoiUtils.createRandomSites(cellCount, bbox.xr, bbox.yb);
         const cellDiagram = VoronoiUtils.computeVoronoi(cellSites, bbox, 2);
 
@@ -176,22 +192,6 @@ export function computePlatesVoronoi(width, height, config) {
             );
         }
 
-        // Compute plate boundaries at Voronoi edges
-        const plateBoundaries = computePlateBoundaries(
-            regionCells,
-            plateRegions,
-            plateRotationMultiple
-        );
-        if (!plateBoundaries.length) {
-            throw new Error(
-                `[WorldModel] Plate generation produced zero boundaries (plates=${plateRegions.length}, regions=${regionCells.length}).`
-            );
-        }
-
-        // Build kdTree for boundary queries
-        const boundaryTree = new kdTree(PlateBoundaryPosGetter);
-        boundaryTree.build(plateBoundaries);
-
         // Allocate output arrays
         const plateId = new Int16Array(size);
         const boundaryCloseness = new Uint8Array(size);
@@ -204,11 +204,7 @@ export function computePlatesVoronoi(width, height, config) {
         const plateMovementV = new Int8Array(size);
         const plateRotation = new Int8Array(size);
 
-        // Assign each map tile to nearest Voronoi cell, then inherit plate properties
-        const convThreshold = 0.3; // Subduction threshold for convergent
-        const divThreshold = -0.2; // Divergence threshold
-        const transformThreshold = 0.5; // Sliding threshold for transform
-
+        // Step 1: Assign each map tile to nearest Voronoi cell for plateId and movement
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
                 const i = y * width + x;
@@ -230,51 +226,43 @@ export function computePlatesVoronoi(width, height, config) {
                 plateMovementU[i] = clampInt8(Math.round(movement.x * 100));
                 plateMovementV[i] = clampInt8(Math.round(movement.y * 100));
                 plateRotation[i] = clampInt8(Math.round(plate.m_rotation * 100));
-
-                const nearestBoundaryResult = boundaryTree?.search(pos);
-                const nearestBoundary = nearestBoundaryResult?.data ?? nearestBoundaryResult;
-                if (!nearestBoundary || !nearestBoundary.pos) {
-                    throw new Error(`[WorldModel] Boundary search failed at pos (${x},${y}); boundaries=${plateBoundaries.length}.`);
-                }
-                const distToBoundary = Math.sqrt(VoronoiUtils.sqDistance(pos, nearestBoundary.pos));
-
-                // Keep boundary influence narrow so only tiles near edges score high.
-                // scaleFactor controls falloff speed: lower = faster falloff = narrower boundaries
-                // With scaleFactor=1.5: dist=1 → 0.6, dist=2 → 0.43, dist=3 → 0.33, dist=4 → 0.27
-                // This creates ~3-4 tile wide boundary bands (narrow but not too narrow)
-                const scaleFactor = 1.5;
-                const closeness = 1 - distToBoundary / (distToBoundary + scaleFactor);
-                boundaryCloseness[i] = toByte(closeness);
-
-                let bType = ENUM_BOUNDARY.none;
-
-                // Assign boundary type to tiles reasonably close to boundaries
-                // Threshold 0.33 = ~3 tiles from boundary get a type assigned
-                if (closeness > 0.33) {
-                    const subduction = nearestBoundary.plateSubduction;
-                    const sliding = nearestBoundary.plateSliding;
-
-                    if (subduction > convThreshold) {
-                        bType = ENUM_BOUNDARY.convergent;
-                    }
-                    else if (subduction < divThreshold) {
-                        bType = ENUM_BOUNDARY.divergent;
-                    }
-                    else if (sliding > transformThreshold) {
-                        bType = ENUM_BOUNDARY.transform;
-                    }
-                }
-
-                boundaryType[i] = bType;
-
-                const stress255 = boundaryCloseness[i];
-                tectonicStress[i] = stress255;
-
-                upliftPotential[i] = bType === ENUM_BOUNDARY.convergent ? stress255 : stress255 >> 2;
-                riftPotential[i] = bType === ENUM_BOUNDARY.divergent ? stress255 : stress255 >> 2;
-                shieldStability[i] = 255 - stress255;
             }
         }
+
+        // Step 2: Tile-precise boundary detection (replaces kdTree approach)
+        // Detects boundaries by checking if any hex neighbor has a different plateId
+        const { isBoundary, neighborPlates } = detectBoundaryTiles(plateId, width, height);
+
+        // Step 3: Compute distance field from boundary tiles using BFS
+        // This gives us precise tile distances instead of approximate kdTree distances
+        const distanceField = computeDistanceField(
+            isBoundary,
+            width,
+            height,
+            boundaryInfluenceDistance + 1 // compute just past the influence band
+        );
+
+        // Step 4: Compute boundary physics (subduction/sliding) for boundary tiles
+        const physics = computeBoundaryPhysicsForTiles(
+            isBoundary, neighborPlates, plateId, plateRegions,
+            width, height, plateRotationMultiple
+        );
+
+        // Step 5: Assign boundary types with inheritance for near-boundary tiles
+        assignBoundaryTypesWithInheritance(
+            distanceField, isBoundary, neighborPlates, physics,
+            boundaryType, boundaryCloseness, upliftPotential, riftPotential,
+            shieldStability, tectonicStress, width, height,
+            boundaryInfluenceDistance, boundaryDecay
+        );
+
+        const boundaryStats = summarizeBoundaryCoverage(isBoundary, boundaryCloseness);
+        meta.generationAttempts = meta.generationAttempts || [];
+        meta.generationAttempts.push({
+            params: { cellDensity, boundaryInfluenceDistance, boundaryDecay, cellCount },
+            boundaryStats,
+        });
+        meta.boundaryStats = boundaryStats;
 
         return {
             plateId,
@@ -287,107 +275,43 @@ export function computePlatesVoronoi(width, height, config) {
             plateMovementU,
             plateMovementV,
             plateRotation,
-            boundaryTree,
+            boundaryTree: null, // No longer using kdTree for boundaries
             plateRegions,
             meta,
         };
     };
 
-    return runGeneration();
-}
+    const attempts = [
+        // Default: very coarse grid so plates span hundreds of tiles; fast decay keeps boundary belts thin.
+        { cellDensity: 0.003, boundaryInfluenceDistance: 3, boundaryDecay: 0.8 },
+        // Fallback: even coarser grid + shorter influence if boundaries still dominate.
+        { cellDensity: 0.002, boundaryInfluenceDistance: 2, boundaryDecay: 0.9 },
+        // Final fallback: reduce plate count modestly to grow interiors if saturation persists.
+        { cellDensity: 0.002, boundaryInfluenceDistance: 2, boundaryDecay: 0.9, plateCountOverride: Math.max(6, Math.round(count * 0.6)) },
+        // Extreme fallback: force low plate count and ultra-coarse cells to guarantee interiors.
+        { cellDensity: 0.0015, boundaryInfluenceDistance: 2, boundaryDecay: 1.0, plateCountOverride: Math.max(4, Math.round(count * 0.4)) },
+    ];
+    const saturationLimit = 0.45; // if >45% of tiles are influenced by boundaries, reroll with coarser params
+    const closenessLimit = 80;    // if average influenced closeness is too high, reroll
 
-/**
- * Compute plate boundaries at Voronoi edges
- * Adapted from base game's ContinentGenerator.growPlates() (lines 7894-7931)
- *
- * @param {Array<RegionCell>} regionCells - Voronoi cells
- * @param {Array<PlateRegion>} plateRegions - Plate regions
- * @param {number} plateRotationMultiple - Rotation influence multiplier
- * @returns {Array<PlateBoundary>} Array of plate boundaries
- */
-function computePlateBoundaries(regionCells, plateRegions, plateRotationMultiple) {
-    const plateBoundaries = [];
-
-    // Sample multiple points along each boundary edge to create LINEAR features
-    // instead of circular blobs around single midpoints
-    const SAMPLES_PER_EDGE = 5; // Number of points to sample along each boundary edge
-
-    for (const plateCell of regionCells) {
-        plateCell.ruleConsideration = true; // Mark as visited
-
-        for (const neighborId of plateCell.cell.getNeighborIds()) {
-            const neighbor = regionCells[neighborId];
-
-            // Only create boundary once per edge (check if neighbor visited)
-            if (neighbor.plateId !== plateCell.plateId && !neighbor.ruleConsideration) {
-                // Midpoint between cell centers
-                const midX = (plateCell.cell.site.x + neighbor.cell.site.x) * 0.5;
-                const midY = (plateCell.cell.site.y + neighbor.cell.site.y) * 0.5;
-
-                // Boundary normal: direction from plateCell to neighbor
-                const normal = VoronoiUtils.normalize({
-                    x: neighbor.cell.site.x - plateCell.cell.site.x,
-                    y: neighbor.cell.site.y - plateCell.cell.site.y,
-                });
-
-                // Edge direction (perpendicular to normal) - this is the actual boundary line direction
-                const edgeDir = { x: -normal.y, y: normal.x };
-
-                // Calculate plate movements and physics at midpoint (same for all samples on this edge)
-                const plate1 = plateRegions[plateCell.plateId];
-                const plate2 = plateRegions[neighbor.plateId];
-
-                // Fast fail if we see missing plates; indicates upstream plate assignment failure.
-                if (!plate1 || !plate2 || !plate1.seedLocation || !plate2.seedLocation) {
-                    throw new Error(
-                        `[WorldModel] Boundary references missing plate(s): ${plateCell.plateId}/${neighbor.plateId} (plates=${plateRegions.length}).`
-                    );
-                }
-
-                const plate1Movement = calculatePlateMovement(plate1, { x: midX, y: midY }, plateRotationMultiple);
-                const plate2Movement = calculatePlateMovement(plate2, { x: midX, y: midY }, plateRotationMultiple);
-
-                // Subduction: relative movement along normal
-                // Positive = plates converging (collision)
-                // Negative = plates diverging (rifting)
-                const subduction = dot2(normal, plate1Movement) - dot2(normal, plate2Movement);
-
-                // Sliding: relative movement perpendicular to normal (transform)
-                const sliding = Math.abs(dot2_90(normal, plate1Movement) - dot2_90(normal, plate2Movement));
-
-                // Estimate edge length based on distance between cell centers
-                // The actual Voronoi edge is perpendicular to the center-to-center line
-                const cellDist = Math.sqrt(
-                    (neighbor.cell.site.x - plateCell.cell.site.x) ** 2 +
-                    (neighbor.cell.site.y - plateCell.cell.site.y) ** 2
-                );
-                // Edge length is roughly proportional to cell distance (heuristic)
-                const edgeLength = cellDist * 0.8;
-
-                // Sample multiple points along the boundary edge
-                for (let s = 0; s < SAMPLES_PER_EDGE; s++) {
-                    // t goes from -0.5 to +0.5 to span the edge, centered on midpoint
-                    const t = (s / (SAMPLES_PER_EDGE - 1) - 0.5) * edgeLength;
-
-                    const pos = {
-                        x: midX + edgeDir.x * t,
-                        y: midY + edgeDir.y * t,
-                    };
-
-                    plateBoundaries.push({
-                        pos,
-                        normal,
-                        plateSubduction: subduction,
-                        plateSliding: sliding,
-                        id1: plateCell.plateId,
-                        id2: neighbor.plateId,
-                    });
-                }
-            }
+    let lastResult = null;
+    for (const attempt of attempts) {
+        const result = runGeneration(attempt);
+        lastResult = result;
+        const stats = result?.meta?.boundaryStats;
+        const boundaryShare = stats?.boundaryInfluenceShare ?? 1;
+        const boundaryTileShare = stats?.boundaryTileShare ?? 1;
+        const avgInfluenceCloseness = stats?.avgInfluenceCloseness ?? 255;
+        if (
+            boundaryShare <= saturationLimit &&
+            boundaryTileShare <= saturationLimit &&
+            avgInfluenceCloseness <= closenessLimit
+        ) {
+            return result;
         }
     }
 
-    return plateBoundaries;
+    return lastResult;
 }
 
 /**
@@ -488,4 +412,324 @@ function sub2(a, b) {
 
 function add2(a, b) {
     return { x: a.x + b.x, y: a.y + b.y };
+}
+
+function summarizeBoundaryCoverage(isBoundary, boundaryCloseness) {
+    const size = isBoundary?.length || 1;
+    let boundaryTiles = 0;
+    let influencedTiles = 0;
+    let closenessSum = 0;
+    let closenessInfluencedSum = 0;
+    let maxCloseness = 0;
+
+    for (let i = 0; i < size; i++) {
+        if (isBoundary[i]) boundaryTiles++;
+        const c = boundaryCloseness[i] | 0;
+        if (c > 0) influencedTiles++;
+        closenessSum += c;
+        if (c > 0) closenessInfluencedSum += c;
+        if (c > maxCloseness) maxCloseness = c;
+    }
+
+    return {
+        boundaryTileShare: boundaryTiles / size,
+        boundaryInfluenceShare: influencedTiles / size,
+        avgCloseness: closenessSum / size,
+        avgInfluenceCloseness: influencedTiles > 0 ? closenessInfluencedSum / influencedTiles : 0,
+        maxCloseness,
+        boundaryTiles,
+        influencedTiles,
+        totalTiles: size,
+    };
+}
+
+// -------------------------------- Tile-Precise Boundary Detection --------------------------------
+
+/**
+ * Get hex neighbors for a tile (odd-q vertical layout as used by Civ7)
+ * @param {number} x - Tile x coordinate
+ * @param {number} y - Tile y coordinate
+ * @param {number} width - Map width
+ * @param {number} height - Map height
+ * @returns {Array<{x: number, y: number, i: number}>} Array of valid neighbor coordinates and indices
+ */
+function getHexNeighbors(x, y, width, height) {
+    const neighbors = [];
+    const isOddCol = (x & 1) === 1;
+
+    // Hex offsets for odd-q vertical layout
+    const offsets = isOddCol
+        ? [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, 1], [1, 1]]   // Odd column
+        : [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [1, -1]]; // Even column
+
+    for (const [dx, dy] of offsets) {
+        const nx = x + dx;
+        const ny = y + dy;
+        // Handle cylindrical wrapping for x, but clamp y
+        const wrappedX = ((nx % width) + width) % width;
+        if (ny >= 0 && ny < height) {
+            neighbors.push({ x: wrappedX, y: ny, i: ny * width + wrappedX });
+        }
+    }
+    return neighbors;
+}
+
+/**
+ * Detect boundary tiles by checking if any neighbor has a different plateId
+ * @param {Int16Array} plateId - Plate assignment per tile
+ * @param {number} width - Map width
+ * @param {number} height - Map height
+ * @returns {{isBoundary: Uint8Array, neighborPlates: Int16Array}} Boundary detection results
+ */
+function detectBoundaryTiles(plateId, width, height) {
+    const size = width * height;
+    const isBoundary = new Uint8Array(size); // 1 if boundary, 0 otherwise
+    const neighborPlates = new Int16Array(size); // Store the OTHER plate id for boundary tiles
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const i = y * width + x;
+            const myPlate = plateId[i];
+            neighborPlates[i] = -1; // Default: no neighboring plate
+
+            const neighbors = getHexNeighbors(x, y, width, height);
+            for (const n of neighbors) {
+                const otherPlate = plateId[n.i];
+                if (otherPlate !== myPlate) {
+                    isBoundary[i] = 1;
+                    neighborPlates[i] = otherPlate; // Store first different neighbor plate
+                    break;
+                }
+            }
+        }
+    }
+
+    return { isBoundary, neighborPlates };
+}
+
+/**
+ * Compute distance field from boundary tiles using BFS
+ * @param {Uint8Array} isBoundary - Boundary mask
+ * @param {number} width - Map width
+ * @param {number} height - Map height
+ * @param {number} maxDistance - Maximum distance to compute (default 20)
+ * @returns {Uint8Array} Distance to nearest boundary (0 for boundary tiles)
+ */
+function computeDistanceField(isBoundary, width, height, maxDistance = 20) {
+    const size = width * height;
+    const distance = new Uint8Array(size);
+    distance.fill(255); // Initialize with max
+
+    // BFS queue: start with all boundary tiles
+    const queue = [];
+    for (let i = 0; i < size; i++) {
+        if (isBoundary[i]) {
+            distance[i] = 0;
+            queue.push(i);
+        }
+    }
+
+    // BFS to compute distances
+    let head = 0;
+    while (head < queue.length) {
+        const i = queue[head++];
+        const d = distance[i];
+        if (d >= maxDistance) continue;
+
+        const x = i % width;
+        const y = Math.floor(i / width);
+        const neighbors = getHexNeighbors(x, y, width, height);
+
+        for (const n of neighbors) {
+            if (distance[n.i] > d + 1) {
+                distance[n.i] = d + 1;
+                queue.push(n.i);
+            }
+        }
+    }
+
+    return distance;
+}
+
+/**
+ * Compute boundary physics (subduction/sliding) for boundary tiles
+ * @param {Uint8Array} isBoundary - Boundary mask
+ * @param {Int16Array} neighborPlates - Neighboring plate IDs for boundary tiles
+ * @param {Int16Array} plateId - Plate assignment per tile
+ * @param {Array<PlateRegion>} plateRegions - Plate regions with movement data
+ * @param {number} width - Map width
+ * @param {number} height - Map height
+ * @param {number} plateRotationMultiple - Rotation influence multiplier
+ * @returns {{subduction: Float32Array, sliding: Float32Array}} Physics values for each tile
+ */
+function computeBoundaryPhysicsForTiles(isBoundary, neighborPlates, plateId, plateRegions, width, height, plateRotationMultiple) {
+    const size = width * height;
+    const subduction = new Float32Array(size);
+    const sliding = new Float32Array(size);
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const i = y * width + x;
+            if (!isBoundary[i]) continue;
+
+            const plate1Id = plateId[i];
+            const plate2Id = neighborPlates[i];
+            if (plate2Id < 0 || plate2Id >= plateRegions.length) continue;
+
+            const plate1 = plateRegions[plate1Id];
+            const plate2 = plateRegions[plate2Id];
+            if (!plate1 || !plate2) continue;
+
+            const pos = { x, y };
+
+            // Calculate movement vectors at this position
+            const movement1 = calculatePlateMovement(plate1, pos, plateRotationMultiple);
+            const movement2 = calculatePlateMovement(plate2, pos, plateRotationMultiple);
+
+            // Normal: direction from plate1 toward plate2 center
+            const normal = VoronoiUtils.normalize({
+                x: plate2.seedLocation.x - plate1.seedLocation.x,
+                y: plate2.seedLocation.y - plate1.seedLocation.y,
+            });
+
+            // Subduction: relative movement along normal (positive = converging)
+            subduction[i] = dot2(normal, movement1) - dot2(normal, movement2);
+
+            // Sliding: relative movement perpendicular to normal
+            sliding[i] = Math.abs(dot2_90(normal, movement1) - dot2_90(normal, movement2));
+        }
+    }
+
+    return { subduction, sliding };
+}
+
+/**
+ * Assign boundary types based on physics, with inheritance for near-boundary tiles
+ * @param {Uint8Array} distanceField - Distance to nearest boundary
+ * @param {Uint8Array} isBoundary - Boundary mask
+ * @param {Int16Array} neighborPlates - Neighboring plate IDs
+ * @param {{subduction: Float32Array, sliding: Float32Array}} physics - Physics values
+ * @param {Uint8Array} boundaryType - Output: boundary type per tile
+ * @param {Uint8Array} boundaryCloseness - Output: closeness to boundary (255 at boundary)
+ * @param {Uint8Array} upliftPotential - Output: uplift potential
+ * @param {Uint8Array} riftPotential - Output: rift potential
+ * @param {Uint8Array} shieldStability - Output: shield stability
+ * @param {Uint8Array} tectonicStress - Output: tectonic stress
+ * @param {number} width - Map width
+ * @param {number} height - Map height
+ * @param {number} maxInfluenceDistance - Maximum distance for boundary influence (default 8)
+ * @param {number} decay - Exponential decay applied to boundary influence
+ */
+function assignBoundaryTypesWithInheritance(
+    distanceField, isBoundary, neighborPlates, physics,
+    boundaryType, boundaryCloseness, upliftPotential, riftPotential, shieldStability, tectonicStress,
+    width, height, maxInfluenceDistance = 5, decay = 0.55
+) {
+    const size = width * height;
+    const convThreshold = 0.25;  // Slightly more permissive for convergent
+    const divThreshold = -0.15;  // Slightly more permissive for divergent
+    const transformThreshold = 0.4;
+
+    // First pass: assign types to boundary tiles
+    for (let i = 0; i < size; i++) {
+        if (!isBoundary[i]) continue;
+
+        const sub = physics.subduction[i];
+        const slid = physics.sliding[i];
+
+        if (sub > convThreshold) {
+            boundaryType[i] = ENUM_BOUNDARY.convergent;
+        } else if (sub < divThreshold) {
+            boundaryType[i] = ENUM_BOUNDARY.divergent;
+        } else if (slid > transformThreshold) {
+            boundaryType[i] = ENUM_BOUNDARY.transform;
+        } else {
+            boundaryType[i] = ENUM_BOUNDARY.none;
+        }
+    }
+
+    // Second pass: non-boundary tiles inherit from nearest boundary via BFS traversal
+    // We need to track which boundary tile each interior tile inherits from
+    const inheritedFrom = new Int32Array(size);
+    inheritedFrom.fill(-1);
+
+    // Mark boundary tiles as inheriting from themselves
+    for (let i = 0; i < size; i++) {
+        if (isBoundary[i]) {
+            inheritedFrom[i] = i;
+        }
+    }
+
+    // BFS to propagate boundary type inheritance
+    const queue = [];
+    for (let i = 0; i < size; i++) {
+        if (isBoundary[i]) queue.push(i);
+    }
+
+    let head = 0;
+    while (head < queue.length) {
+        const i = queue[head++];
+        const d = distanceField[i];
+        if (d >= maxInfluenceDistance) continue;
+
+        const x = i % width;
+        const y = Math.floor(i / width);
+        const neighbors = getHexNeighbors(x, y, width, height);
+
+        for (const n of neighbors) {
+            if (inheritedFrom[n.i] < 0 && distanceField[n.i] === d + 1) {
+                inheritedFrom[n.i] = inheritedFrom[i];
+                queue.push(n.i);
+            }
+        }
+    }
+
+    // Third pass: compute all derived values
+    for (let i = 0; i < size; i++) {
+        const dist = distanceField[i];
+
+        // Compute closeness: 255 at boundary, falls off with distance
+        // Use exponential falloff for sharp boundary influence
+        if (dist >= maxInfluenceDistance) {
+            boundaryCloseness[i] = 0;
+            boundaryType[i] = ENUM_BOUNDARY.none;
+            upliftPotential[i] = 0;
+            riftPotential[i] = 0;
+            shieldStability[i] = 255;
+            tectonicStress[i] = 0;
+            continue;
+        }
+
+        const closeness = Math.exp(-dist * decay);
+        const closeness255 = toByte(closeness);
+        boundaryCloseness[i] = closeness255;
+
+        // Inherit boundary type from nearest boundary tile
+        const sourceIdx = inheritedFrom[i];
+        if (sourceIdx >= 0 && !isBoundary[i]) {
+            boundaryType[i] = boundaryType[sourceIdx];
+        }
+
+        // Compute derived values
+        const bType = boundaryType[i];
+        tectonicStress[i] = closeness255;
+        // Shield stability is a simple inverse of boundary closeness:
+        // deep interiors → 255, boundary core → 0. Landmass selection then
+        // treats shield as the primary interior signal, while boundary
+        // closeness is a secondary bias; do NOT make these perfectly
+        // complementary, or the combined score becomes constant.
+        shieldStability[i] = 255 - closeness255;
+
+        // Uplift/rift potential scaled by closeness and boundary type
+        if (bType === ENUM_BOUNDARY.convergent) {
+            upliftPotential[i] = closeness255;
+            riftPotential[i] = closeness255 >> 2;
+        } else if (bType === ENUM_BOUNDARY.divergent) {
+            upliftPotential[i] = closeness255 >> 2;
+            riftPotential[i] = closeness255;
+        } else {
+            upliftPotential[i] = closeness255 >> 2;
+            riftPotential[i] = closeness255 >> 2;
+        }
+    }
 }

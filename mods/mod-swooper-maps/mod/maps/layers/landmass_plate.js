@@ -14,19 +14,22 @@ import { LANDMASS_CFG } from "../bootstrap/tunables.js";
 import { WorldModel } from "../world/model.js";
 import { writeHeightfield } from "../core/types.js";
 
-// With boundary-aware scoring we no longer gate land by closeness; keep legacy constants for fallback.
+// Default closeness gating for land selection. We keep the full 0–255 band so
+// that boundary tiles remain eligible; presets can still clamp via geometry.post.
 const DEFAULT_CLOSENESS_LIMIT = 255;
 const CLOSENESS_STEP_PER_TILE = 8;
 const MIN_CLOSENESS_LIMIT = 150;
 const MAX_CLOSENESS_LIMIT = 255;
 
-// Boundary type constants (must match WorldModel/plates.js)
 const BOUNDARY_TYPE = Object.freeze({
     none: 0,
     convergent: 1,
     divergent: 2,
     transform: 3,
 });
+// Reserve a dedicated tectonic fractal slot for interior noise and arc raggedness.
+// Base-standard maps typically claim 0..2; we keep 3 for Swooper tectonics.
+const FRACTAL_TECTONIC_ID = 3;
 
 /**
  * Create landmasses using plate stability metrics.
@@ -49,90 +52,111 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         return null;
     }
     const size = width * height;
-    if (shield.length !== size || closeness.length !== size || plateIds.length !== size) {
+    if (shield.length !== size || closeness.length !== size || boundaryType.length !== size || plateIds.length !== size) {
         return null;
     }
     const landmassCfg = options.landmassCfg || LANDMASS_CFG || {};
-    const boundaryBias = Number.isFinite(landmassCfg.boundaryBias) ? landmassCfg.boundaryBias : 0.35;
+    // Keep a modest bias toward margins but clamp to a “core-first” band.
+    const boundaryBias = clampInt(
+        Number.isFinite(landmassCfg.boundaryBias) ? landmassCfg.boundaryBias : 0.25,
+        0,
+        0.4
+    );
     const boundaryShareTarget = Number.isFinite(landmassCfg.boundaryShareTarget)
         ? Math.max(0, Math.min(1, landmassCfg.boundaryShareTarget))
-        : 0.2;
-
-    // NEW: Boundary-type-aware scoring parameters
-    // Convergent boundaries (collision zones) should become LAND for mountain building
-    // Divergent boundaries (spreading ridges) should become OCEAN
-    //
-    // Physics model: Effects are strongest RIGHT AT the boundary and fall off
-    // exponentially with distance. This creates narrow mountain belts at collision
-    // zones rather than broad "blob" regions.
-    const convergentLandBonus = Number.isFinite(landmassCfg.convergentLandBonus)
-        ? landmassCfg.convergentLandBonus
-        : 180;  // Max bonus points at boundary (was 0.9 multiplier, now absolute)
-    const divergentOceanPenalty = Number.isFinite(landmassCfg.divergentOceanPenalty)
-        ? landmassCfg.divergentOceanPenalty
-        : 100;  // Max penalty points at boundary
-    const boundaryEffectThreshold = Number.isFinite(landmassCfg.boundaryEffectThreshold)
-        ? landmassCfg.boundaryEffectThreshold
-        : 40;   // Minimum closeness to apply any boundary effect (0-255) - lowered to match tighter scaleFactor
-    const boundaryFalloffExponent = Number.isFinite(landmassCfg.boundaryFalloffExponent)
-        ? landmassCfg.boundaryFalloffExponent
-        : 2.5;  // Falloff power (higher = more concentrated at boundary, 1=linear, 2=squared)
-
+        : 0.15;
+    const tectonicsCfg = landmassCfg.tectonics || {};
+    const interiorNoiseWeight = clamp01(tectonicsCfg.interiorNoiseWeight, 0.3);
+    const arcWeight = clampRange(tectonicsCfg.boundaryArcWeight, 0.8, 0, 2);
+    const arcNoiseWeight = clamp01(tectonicsCfg.boundaryArcNoiseWeight, 0.5);
+    const fractalGrain = clampInt(
+        Number.isFinite(tectonicsCfg.fractalGrain) ? tectonicsCfg.fractalGrain : 4,
+        1,
+        32
+    );
     const geomCfg = options.geometry || {};
     const postCfg = geomCfg.post || {};
 
+    // Earth-like baseline water coverage with a scalar to nudge wetter/drier worlds.
     const baseWaterPct = clampPct(landmassCfg.baseWaterPercent, 0, 100, 64);
+    const waterScalar = clampPct(
+        Number.isFinite(landmassCfg.waterScalar) ? landmassCfg.waterScalar * 100 : 100,
+        25,
+        175,
+        100
+    ) / 100;
+    const waterPct = clampPct(baseWaterPct * waterScalar, 0, 100, baseWaterPct);
     const totalTiles = size;
-    const targetLandTiles = Math.max(1, Math.min(totalTiles - 1, Math.round(totalTiles * (1 - baseWaterPct / 100))));
+    const targetLandTiles = Math.max(1, Math.min(totalTiles - 1, Math.round(totalTiles * (1 - waterPct / 100))));
 
-    const closenessLimit = MAX_CLOSENESS_LIMIT; // allow high-closeness tiles to become land when scored high
+    // Allow high-closeness tiles to become land when scored high.
+    const closenessLimit = computeClosenessLimit(postCfg);
+    const adapter = ctx?.adapter;
+    const useFractal = !!(
+        adapter &&
+        typeof adapter.createFractal === "function" &&
+        typeof adapter.getFractalHeight === "function" &&
+        (interiorNoiseWeight > 0 || arcNoiseWeight > 0)
+    );
+    if (useFractal) {
+        adapter.createFractal(FRACTAL_TECTONIC_ID, width, height, fractalGrain, 0);
+    }
+    const baseInteriorWeight = 1 - interiorNoiseWeight;
+    const interiorScore = new Uint16Array(size);
+    const arcScore = new Uint16Array(size);
+    const landScore = new Uint16Array(size);
 
-    /**
-     * Compute land score for a tile, accounting for boundary TYPE.
-     * - Convergent boundaries get a BONUS (mountain-building zones should be land)
-     * - Divergent boundaries get a PENALTY (spreading ridges should be ocean)
-     * - Transform boundaries and interiors use the base formula
-     *
-     * Physics model: Tectonic effects are strongest RIGHT AT the plate boundary
-     * and fall off exponentially with distance. This creates:
-     * - Narrow mountain belts at convergent boundaries (like the Himalayas, Andes)
-     * - Linear ocean ridges at divergent boundaries (like the Mid-Atlantic Ridge)
-     */
-    const computeLandScore = (idx) => {
-        const shieldVal = shield[idx] | 0;
-        const closenessVal = closeness[idx] | 0;
-        const bType = boundaryType[idx] | 0;
+    for (let y = 0; y < height; y++) {
+        const rowOffset = y * width;
+        for (let x = 0; x < width; x++) {
+            const idx = rowOffset + x;
+            const closenessVal = closeness[idx] | 0;
+            const interiorBase = 255 - closenessVal;
 
-        // Base score: shield stability + small closeness bias
-        let score = shieldVal + Math.round(closenessVal * boundaryBias);
-
-        // Apply boundary-type-specific modifiers with physics-based falloff
-        if (closenessVal >= boundaryEffectThreshold) {
-            // Normalize closeness to 0-1 range above threshold
-            // At threshold: normalized = 0, at max (255): normalized = 1
-            const normalized = (closenessVal - boundaryEffectThreshold) / (255 - boundaryEffectThreshold);
-
-            // Apply exponential falloff - effects concentrated near boundary
-            // With exponent=2.5: at normalized=0.5, intensity=0.18 (not 0.5)
-            // This creates narrow bands rather than broad zones
-            const intensity = Math.pow(normalized, boundaryFalloffExponent);
-
-            if (bType === BOUNDARY_TYPE.convergent) {
-                // CONVERGENT: Boost score - collision zones build mountains/land
-                // Full bonus only right at the boundary, falls off rapidly
-                score += Math.round(convergentLandBonus * intensity);
-            } else if (bType === BOUNDARY_TYPE.divergent) {
-                // DIVERGENT: Reduce score - spreading ridges create ocean floor
-                score -= Math.round(divergentOceanPenalty * intensity);
+            // --- Interior score: plate core + tectonic noise ---
+            let noise255 = 128;
+            if (useFractal && interiorNoiseWeight > 0) {
+                const raw = adapter.getFractalHeight(FRACTAL_TECTONIC_ID, x, y) | 0;
+                noise255 = raw >>> 8; // downscale 0..65535 → 0..255
             }
-            // TRANSFORM: No land/ocean modifier (these create linear features
-            // but don't fundamentally change crust type - future enhancement)
+            const centeredNoise = noise255 - 128; // -128..127
+            const noisyInterior = interiorBase * baseInteriorWeight + centeredNoise * interiorNoiseWeight;
+            const clampedInterior = noisyInterior < 0 ? 0 : noisyInterior > 255 ? 255 : noisyInterior;
+            const interiorVal = clampedInterior & 0xff;
+            interiorScore[idx] = interiorVal;
+
+            // --- Arc score: convergent uplift / island arcs ---
+            const bType = boundaryType[idx] | 0;
+            const rawArc = closenessVal;
+            let arc = rawArc;
+            if (bType === BOUNDARY_TYPE.convergent) {
+                arc = rawArc * arcWeight;
+            }
+            else if (bType === BOUNDARY_TYPE.divergent) {
+                arc = rawArc * 0.25;
+            }
+            else {
+                arc = rawArc * 0.5;
+            }
+            if (useFractal && arcNoiseWeight > 0) {
+                const raw = adapter.getFractalHeight(FRACTAL_TECTONIC_ID, x, y) | 0;
+                const noiseNorm = (raw >>> 8) / 255; // 0..1
+                const noiseMix = 0.5 + (noiseNorm - 0.5) * arcNoiseWeight; // ~[0.5, 1.5] scaled by weight
+                arc *= noiseMix;
+            }
+            if (boundaryBias > 0) {
+                arc += closenessVal * boundaryBias;
+            }
+            const clampedArc = arc < 0 ? 0 : arc > 255 ? 255 : arc;
+            arcScore[idx] = clampedArc & 0xff;
+
+            // --- Final land score: core vs boundary uplift ---
+            landScore[idx] = interiorVal >= clampedArc ? interiorVal : clampedArc;
         }
+    }
 
-        return score;
-    };
+    const computeLandScore = (idx) => landScore[idx] | 0;
 
-    // Count tiles above threshold using boundary-type-aware scoring
     const countTilesAboveTyped = (threshold) => {
         let count = 0;
         for (let i = 0; i < size; i++) {
@@ -144,12 +168,10 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         return count;
     };
 
-    // Binary search threshold to hit target land count
-    // Hybrid selection: find a threshold that hits total land, but also enforce a minimum share in boundary bands.
-    // First pass: baseline threshold search.
-    let low = -100;  // Lower bound to allow negative scores (after divergent penalty)
-    let high = 255 + Math.round(255 * (boundaryBias + convergentLandBonus));
-    let bestThreshold = 200;
+    // Binary search threshold to hit target land count.
+    let low = 0;
+    let high = 255;
+    let bestThreshold = 128;
     let bestDiff = Number.POSITIVE_INFINITY;
     let bestCount = 0;
     while (low <= high) {
@@ -163,14 +185,13 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         }
         if (count > targetLandTiles) {
             low = mid + 1;
-        }
-        else {
+        } else {
             high = mid - 1;
         }
     }
 
-    // Second pass: ensure boundary share. If below target, lower threshold until boundary share is met or we hit caps.
-    const boundaryBand = (closenessArr, idx) => (closenessArr[idx] | 0) >= 90; // ~0.35 band: 90/255
+    // Ensure a minimum share of land within the high-closeness band near boundaries.
+    const boundaryBand = (closenessArr, idx) => (closenessArr[idx] | 0) >= 90;
     const computeShares = (threshold) => {
         let land = 0, boundaryLand = 0, convergentLand = 0;
         for (let i = 0; i < size; i++) {
@@ -178,10 +199,8 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             const isLand = score >= threshold && closeness[i] <= closenessLimit;
             if (isLand) {
                 land++;
-                if (boundaryBand(closeness, i))
-                    boundaryLand++;
-                if (boundaryType[i] === BOUNDARY_TYPE.convergent)
-                    convergentLand++;
+                if (boundaryBand(closeness, i)) boundaryLand++;
+                if (boundaryType[i] === BOUNDARY_TYPE.convergent) convergentLand++;
             }
         }
         return { land, boundaryLand, convergentLand };
@@ -190,17 +209,20 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     let { land: landCount, boundaryLand } = computeShares(bestThreshold);
     const minBoundary = Math.round(targetLandTiles * boundaryShareTarget);
     if (boundaryLand < minBoundary) {
-        // Loosen threshold to admit more boundary tiles.
-        let t = bestThreshold - 10;
+        const maxAllowedLand = Math.round(targetLandTiles * 1.03);
+        let t = bestThreshold - 5;
         while (t >= 0) {
             const shares = computeShares(t);
             landCount = shares.land;
             boundaryLand = shares.boundaryLand;
-            if (boundaryLand >= minBoundary || landCount >= targetLandTiles * 1.05) {
+            if (boundaryLand >= minBoundary) {
                 bestThreshold = t;
                 break;
             }
-            t -= 10;
+            if (landCount > maxAllowedLand) {
+                break;
+            }
+            t -= 5;
         }
     }
 
@@ -214,12 +236,8 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             const idx = rowOffset + x;
             const score = computeLandScore(idx);
             const isLand = score >= bestThreshold && closeness[idx] <= closenessLimit;
-
-            // Track boundary type distribution for logging
-            const bType = boundaryType[idx] | 0;
-
             if (isLand) {
-                if (bType === BOUNDARY_TYPE.convergent) convergentLandCount++;
+                if (boundaryType[idx] === BOUNDARY_TYPE.convergent) convergentLandCount++;
                 landMask[idx] = 1;
                 finalLandTiles++;
                 if (ctx) {
@@ -234,7 +252,7 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
                 }
             }
             else {
-                if (bType === BOUNDARY_TYPE.divergent) divergentOceanCount++;
+                if (boundaryType[idx] === BOUNDARY_TYPE.divergent) divergentOceanCount++;
                 landMask[idx] = 0;
                 if (ctx) {
                     writeHeightfield(ctx, x, y, {
@@ -250,8 +268,11 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         }
     }
 
-    // Log the boundary-type-aware distribution
-    console.log(`[Landmass] Boundary-type-aware scoring: threshold=${bestThreshold}, land=${finalLandTiles}, convergentLand=${convergentLandCount}, divergentOcean=${divergentOceanCount}`);
+    console.log(
+        `[Landmass] Core-vs-boundary scoring: threshold=${bestThreshold}, land=${finalLandTiles}, convergentLand=${convergentLandCount}, divergentOcean=${divergentOceanCount}, boundaryShare=${boundaryLand}/${Math.round(
+            targetLandTiles * boundaryShareTarget
+        )}`
+    );
 
     // Derive bounding boxes per plate for downstream start placement heuristics.
     const plateStats = new Map();
@@ -400,6 +421,26 @@ function clampPct(value, min, max, fallback) {
 function clampInt(value, min, max) {
     if (!Number.isFinite(value))
         return min;
+    if (value < min)
+        return min;
+    if (value > max)
+        return max;
+    return value;
+}
+
+function clamp01(value, fallback = 0) {
+    if (!Number.isFinite(value))
+        return fallback;
+    if (value < 0)
+        return 0;
+    if (value > 1)
+        return 1;
+    return value;
+}
+
+function clampRange(value, fallback, min, max) {
+    if (!Number.isFinite(value))
+        return fallback;
     if (value < min)
         return min;
     if (value > max)

@@ -6,7 +6,7 @@
  * - Replace random fractal mountain placement with plate-boundary-driven orogenesis
  * - Place mountain chains along convergent boundaries (collision zones)
  * - Create rift valleys and lowlands along divergent boundaries (spreading zones)
- * - Use WorldModel.upliftPotential and boundaryTree for accurate placement
+ * - Use WorldModel.upliftPotential and tile-precise boundary data for accurate placement
  *
  * Architecture:
  * - Reads WorldModel plate boundary data (Phase 1.5 output)
@@ -29,6 +29,13 @@ import { WorldModel } from "../world/model.js";
 import { ctxRandom, idx, writeHeightfield } from "../core/types.js";
 import { devLogIf } from "../bootstrap/dev.js";
 import * as globals from "/base-standard/maps/map-globals.js";
+
+// Baseline Earthlike relief proportions (approximate) expressed as percent of
+// land tiles. These act as canonical ratios; configs scale them via a single
+// scalar instead of hard-coding absolute mountain/hill quotas per preset.
+const BASE_MOUNTAIN_PERCENT = 14; // ≈ mid-point between Civ-style and real-world highlands
+const BASE_HILL_PERCENT = 28;     // hills cover roughly twice the mountainous area
+const MAX_RELIEF_FRACTION = 0.7;  // safety cap so relief never exceeds ~70% of land
 
 const ENUM_BOUNDARY = Object.freeze({
     none: 0,
@@ -68,10 +75,13 @@ const ENUM_BOUNDARY = Object.freeze({
  */
 export function layerAddMountainsPhysics(ctx, options = {}) {
     const {
-        // Physics-threshold controls
-        tectonicIntensity = 1.0,               // Dial to increase/decrease mountain prevalence
-        mountainThreshold = 0.45,              // Score must exceed this for mountain placement
-        hillThreshold = 0.25,                  // Score must exceed this for hill placement
+        // Global relief scalar – higher values increase both tectonic forcing
+        // and the fraction of land promoted to mountains/hills.
+        tectonicIntensity = 1.0,
+        // Legacy thresholds are still accepted but no longer drive the primary
+        // selection; they act only as optional minimum-score floors.
+        mountainThreshold = 0.0,
+        hillThreshold = 0.0,
         // Physics weights (scaled by tectonicIntensity)
         upliftWeight = 0.75,
         fractalWeight = 0.25,
@@ -111,18 +121,11 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
             devLogIf("LOG_MOUNTAINS", "[Mountains] Missing dimensions/adapter; skipping placement", {
                 width,
                 height,
-                hasAdapter: !!adapter,
-            });
+            hasAdapter: !!adapter,
+        });
         return;
     }
-    const landMaskBuffer = ctx?.buffers?.heightfield?.landMask || null;
-    const isWater = (x, y) => {
-        if (landMaskBuffer) {
-            const idx = y * width + x;
-            return landMaskBuffer[idx] === 0;
-        }
-        return adapter.isWater(x, y);
-    };
+    const isWater = createIsWaterTile(ctx, adapter, width, height);
     const terrainWriter = (x, y, terrain) => {
         const isLand = terrain !== globals.g_CoastTerrain && terrain !== globals.g_OceanTerrain;
         if (ctx) {
@@ -191,7 +194,7 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
             hillConvergentFoothill: scaledHillConvergentFoothill,
             hillInteriorFalloff,
             hillUpliftWeight,
-        });
+        }, isWater);
     } else {
         // Fallback: pure fractal (base game behavior)
         computeFractalOnlyScores(ctx, scores, hillScores, {
@@ -205,16 +208,33 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
         applyRiftDepressions(ctx, scores, hillScores, riftDepth);
     }
 
-    // Select tiles that exceed physics thresholds (no quota forcing)
+    // Relief selection — quota-based with Earthlike proportions.
+    //
+    // We determine target mountain/hill counts as:
+    //   landTiles × BASE_*_PERCENT × tectonicIntensity
+    // subject to a global MAX_RELIEF_FRACTION cap. Scores still come from
+    // physics; quotas only fix the *ratio* of relief to land.
     const selectionAdapter = {
         isWater,
     };
 
-    // Mountains: tiles where mountainScore > mountainThreshold
-    const mountainTiles = selectTilesAboveThreshold(scores, width, height, mountainThreshold, selectionAdapter);
+    let mountainFrac = BASE_MOUNTAIN_PERCENT / 100;
+    let hillFrac = BASE_HILL_PERCENT / 100;
+    mountainFrac *= tectonicIntensity;
+    hillFrac *= tectonicIntensity;
 
-    // Hills: tiles where hillScore > hillThreshold (excluding mountains)
-    const hillTiles = selectTilesAboveThreshold(hillScores, width, height, hillThreshold, selectionAdapter, mountainTiles);
+    const totalFrac = mountainFrac + hillFrac;
+    if (totalFrac > MAX_RELIEF_FRACTION && totalFrac > 0) {
+        const k = MAX_RELIEF_FRACTION / totalFrac;
+        mountainFrac *= k;
+        hillFrac *= k;
+    }
+
+    const targetMountains = Math.max(1, Math.round(landTiles * mountainFrac));
+    const targetHills = Math.max(1, Math.round(landTiles * hillFrac));
+
+    const mountainTiles = selectTopScoringTiles(scores, width, height, targetMountains, selectionAdapter);
+    const hillTiles = selectTopScoringTiles(hillScores, width, height, targetHills, selectionAdapter, mountainTiles);
 
     const mountainsPlaced = mountainTiles.size;
     const hillsPlaced = hillTiles.size;
@@ -233,10 +253,12 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
     }
 
     const summary = {
-        mode: "physics-threshold",
+        mode: "physics-quota",
         tectonicIntensity,
-        mountainThreshold,
-        hillThreshold,
+        baseMountainPercent: BASE_MOUNTAIN_PERCENT,
+        baseHillPercent: BASE_HILL_PERCENT,
+        targetMountains,
+        targetHills,
         mountainsPlaced,
         hillsPlaced,
         mountainPercent: landTiles > 0 ? ((mountainsPlaced / landTiles) * 100).toFixed(1) + "%" : "0%",
@@ -250,7 +272,7 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
 /**
  * Compute plate-based mountain scores using WorldModel boundaries
  */
-function computePlateBasedScores(ctx, scores, hillScores, options) {
+function computePlateBasedScores(ctx, scores, hillScores, options, isWaterCheck) {
     // Get dimensions properly from ctx.dimensions (not ctx.width/height which don't exist!)
     const dims = ctx?.dimensions || {};
     const width = Number.isFinite(dims.width) ? dims.width : (GameplayMap?.getGridWidth?.() ?? 0);
@@ -288,14 +310,7 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
 
     // ========== DEBUG #1: Diagnose Land/Uplift Disconnect ==========
     // (Reuses width/height declared at function start)
-    const landMaskBuffer = ctx?.buffers?.heightfield?.landMask || null;
-    const isWaterCheck = (x, y) => {
-        if (landMaskBuffer) {
-            const i = y * width + x;
-            return landMaskBuffer[i] === 0;
-        }
-        return GameplayMap?.isWater?.(x, y) ?? false;
-    };
+    const isWater = typeof isWaterCheck === "function" ? isWaterCheck : (x, y) => GameplayMap?.isWater?.(x, y) ?? false;
 
     // Collect diagnostic data
     let totalLandTiles = 0;
@@ -316,7 +331,7 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
 
         for (let x = 0; x < width; x++) {
             const i = y * width + x;
-            const isLand = !isWaterCheck(x, y);
+            const isLand = !isWater(x, y);
 
             if (isLand) {
                 totalLandTiles++;
@@ -472,6 +487,52 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
 }
 
 /**
+ * Select top N scoring tiles, excluding water and optionally excluding a set.
+ * Scores remain physics-driven; this helper only fixes the *count* of tiles.
+ *
+ * @param {Float32Array} scores
+ * @param {number} width
+ * @param {number} height
+ * @param {number} targetCount
+ * @param {{ isWater(x:number,y:number):boolean }} adapter
+ * @param {Set<number>|null} [excludeSet]
+ * @returns {Set<number>}
+ */
+function selectTopScoringTiles(scores, width, height, targetCount, adapter, excludeSet = null) {
+    const candidates = [];
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const i = y * width + x;
+
+            // Skip water
+            if (adapter.isWater(x, y)) continue;
+
+            // Skip excluded tiles
+            if (excludeSet && excludeSet.has(i)) continue;
+
+            candidates.push({ index: i, score: scores[i] });
+        }
+    }
+
+    if (!candidates.length || targetCount <= 0) {
+        return new Set();
+    }
+
+    // Sort by score descending
+    candidates.sort((a, b) => b.score - a.score);
+
+    // Take top N
+    const selected = new Set();
+    const limit = Math.min(targetCount, candidates.length);
+    for (let k = 0; k < limit; k++) {
+        selected.add(candidates[k].index);
+    }
+
+    return selected;
+}
+
+/**
  * Fallback: pure fractal-based scores (base game approach)
  */
 function computeFractalOnlyScores(ctx, scores, hillScores, options) {
@@ -518,6 +579,25 @@ function applyRiftDepressions(ctx, scores, hillScores, riftDepth) {
             }
         }
     }
+}
+
+/**
+ * Build a water check that prefers the landMask buffer written by landmass generation.
+ */
+function createIsWaterTile(ctx, adapter, width, height) {
+    const landMask = ctx?.buffers?.heightfield?.landMask || null;
+    return (x, y) => {
+        if (landMask) {
+            const idx = y * width + x;
+            if (idx >= 0 && idx < landMask.length) {
+                return landMask[idx] === 0;
+            }
+        }
+        if (adapter?.isWater) {
+            return adapter.isWater(x, y);
+        }
+        return GameplayMap?.isWater?.(x, y) ?? false;
+    };
 }
 
 /**

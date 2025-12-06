@@ -300,7 +300,24 @@
  * @property {number} [jitterAmpFracBase] - Base coastline waviness as fraction of width; higher = more irregular (typically 0.02-0.08)
  * @property {number} [jitterAmpFracScale] - Extra jitter on larger maps (typically 0.01-0.04)
  * @property {number} [curveAmpFrac] - Continental bowing/curvature; higher = more crescent-shaped landmasses (typically 0.1-0.3)
+ * @property {number} [boundaryBias] - Mild closeness assist for boundary tiles (0..1, typically 0.2-0.3); higher values hug boundaries more
+ * @property {number} [boundaryShareTarget] - Soft backstop: desired share of land inside the high-closeness band (0..1, typically ~0.15)
+ * @property {LandmassTectonics} [tectonics] - Tectonic noise and arc weighting controls
  * @property {LandmassGeometry} [geometry] - Post-processing adjustments applied after plate-driven layout
+ */
+
+/**
+ * Tectonic knobs for landmass scoring.
+ *
+ * `interiorNoiseWeight` blends coarse fractal noise into plate interiors so continents have thick/thin spots.
+ * `boundaryArcWeight` controls uplift along convergent boundaries; lower = fewer boundary arcs, higher = stronger arcs.
+ * `boundaryArcNoiseWeight` roughens arcs to avoid perfect straight lines.
+ *
+ * @typedef {Object} LandmassTectonics
+ * @property {number} [interiorNoiseWeight] - 0..1 weight for plate-interior fractal noise (default ~0.3)
+ * @property {number} [fractalGrain] - Grain for the tectonic fractal; higher = finer noise (default 4)
+ * @property {number} [boundaryArcWeight] - Multiplier for convergent arc score (0..2, default ~0.8)
+ * @property {number} [boundaryArcNoiseWeight] - 0..1 multiplier for arc raggedness (default ~0.5)
  */
 
 /**

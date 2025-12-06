@@ -112,8 +112,16 @@ const LANDMASS_DEFAULT = Object.freeze({
     jitterAmpFracBase: 0.03,
     jitterAmpFracScale: 0.015,
     curveAmpFrac: 0.05,
-    boundaryBias: 0.6,
-    boundaryShareTarget: 0.25,
+    // Core-first: interiors lead; boundaries get a light assist only.
+    boundaryBias: 0.25,
+    // Soft backstop: minimum share of land in the high-closeness band.
+    boundaryShareTarget: 0.15,
+    tectonics: Object.freeze({
+        interiorNoiseWeight: 0.3, // 0..1 blend weight for plate-interior noise
+        fractalGrain: 4, // coarser grain keeps tectonic blobs thick
+        boundaryArcWeight: 0.8, // convergent arc multiplier; 1.0 = parity with closeness
+        boundaryArcNoiseWeight: 0.5, // raggedness for arcs (0 = straight, 1 = noisy)
+    }),
     geometry: Object.freeze({
         post: Object.freeze({
             expandTiles: 0,
