@@ -148,7 +148,7 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             if (useFractal && arcNoiseWeight > 0) {
                 const raw = adapter.getFractalHeight(FRACTAL_TECTONIC_ID, x, y) | 0;
                 const noiseNorm = (raw >>> 8) / 255; // 0..1
-                const noiseMix = 0.5 + (noiseNorm - 0.5) * arcNoiseWeight; // ~[0.5, 1.5] scaled by weight
+                const noiseMix = 1.0 + (noiseNorm - 0.5) * arcNoiseWeight; // ~[0.75, 1.25] scaled by weight
                 arc *= noiseMix;
             }
             if (boundaryBias > 0) {

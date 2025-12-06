@@ -30,13 +30,6 @@ import { ctxRandom, idx, writeHeightfield } from "../core/types.js";
 import { devLogIf } from "../bootstrap/dev.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 
-// Baseline Earthlike relief proportions (approximate) expressed as percent of
-// land tiles. These act as canonical ratios; configs scale them via a single
-// scalar instead of hard-coding absolute mountain/hill quotas per preset.
-const BASE_MOUNTAIN_PERCENT = 14; // ≈ mid-point between Civ-style and real-world highlands
-const BASE_HILL_PERCENT = 28;     // hills cover roughly twice the mountainous area
-const MAX_RELIEF_FRACTION = 0.7;  // safety cap so relief never exceeds ~70% of land
-
 const ENUM_BOUNDARY = Object.freeze({
     none: 0,
     convergent: 1,
@@ -78,10 +71,8 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
         // Global relief scalar – higher values increase both tectonic forcing
         // and the fraction of land promoted to mountains/hills.
         tectonicIntensity = 1.0,
-        // Legacy thresholds are still accepted but no longer drive the primary
-        // selection; they act only as optional minimum-score floors.
-        mountainThreshold = 0.0,
-        hillThreshold = 0.0,
+        mountainThreshold = 0.45,
+        hillThreshold = 0.25,
         // Physics weights (scaled by tectonicIntensity)
         upliftWeight = 0.75,
         fractalWeight = 0.25,
@@ -121,8 +112,8 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
             devLogIf("LOG_MOUNTAINS", "[Mountains] Missing dimensions/adapter; skipping placement", {
                 width,
                 height,
-            hasAdapter: !!adapter,
-        });
+                hasAdapter: !!adapter,
+            });
         return;
     }
     const isWater = createIsWaterTile(ctx, adapter, width, height);
@@ -208,33 +199,25 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
         applyRiftDepressions(ctx, scores, hillScores, riftDepth);
     }
 
-    // Relief selection — quota-based with Earthlike proportions.
-    //
-    // We determine target mountain/hill counts as:
-    //   landTiles × BASE_*_PERCENT × tectonicIntensity
-    // subject to a global MAX_RELIEF_FRACTION cap. Scores still come from
-    // physics; quotas only fix the *ratio* of relief to land.
     const selectionAdapter = {
         isWater,
     };
 
-    let mountainFrac = BASE_MOUNTAIN_PERCENT / 100;
-    let hillFrac = BASE_HILL_PERCENT / 100;
-    mountainFrac *= tectonicIntensity;
-    hillFrac *= tectonicIntensity;
-
-    const totalFrac = mountainFrac + hillFrac;
-    if (totalFrac > MAX_RELIEF_FRACTION && totalFrac > 0) {
-        const k = MAX_RELIEF_FRACTION / totalFrac;
-        mountainFrac *= k;
-        hillFrac *= k;
-    }
-
-    const targetMountains = Math.max(1, Math.round(landTiles * mountainFrac));
-    const targetHills = Math.max(1, Math.round(landTiles * hillFrac));
-
-    const mountainTiles = selectTopScoringTiles(scores, width, height, targetMountains, selectionAdapter);
-    const hillTiles = selectTopScoringTiles(hillScores, width, height, targetHills, selectionAdapter, mountainTiles);
+    const mountainTiles = selectTilesAboveThreshold(
+        scores,
+        width,
+        height,
+        mountainThreshold,
+        selectionAdapter
+    );
+    const hillTiles = selectTilesAboveThreshold(
+        hillScores,
+        width,
+        height,
+        hillThreshold,
+        selectionAdapter,
+        mountainTiles
+    );
 
     const mountainsPlaced = mountainTiles.size;
     const hillsPlaced = hillTiles.size;
@@ -253,12 +236,8 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
     }
 
     const summary = {
-        mode: "physics-quota",
+        mode: "physics-threshold",
         tectonicIntensity,
-        baseMountainPercent: BASE_MOUNTAIN_PERCENT,
-        baseHillPercent: BASE_HILL_PERCENT,
-        targetMountains,
-        targetHills,
         mountainsPlaced,
         hillsPlaced,
         mountainPercent: landTiles > 0 ? ((mountainsPlaced / landTiles) * 100).toFixed(1) + "%" : "0%",
@@ -484,52 +463,6 @@ function computePlateBasedScores(ctx, scores, hillScores, options, isWaterCheck)
             hillScores[i] = Math.max(0, hillScore);
         }
     }
-}
-
-/**
- * Select top N scoring tiles, excluding water and optionally excluding a set.
- * Scores remain physics-driven; this helper only fixes the *count* of tiles.
- *
- * @param {Float32Array} scores
- * @param {number} width
- * @param {number} height
- * @param {number} targetCount
- * @param {{ isWater(x:number,y:number):boolean }} adapter
- * @param {Set<number>|null} [excludeSet]
- * @returns {Set<number>}
- */
-function selectTopScoringTiles(scores, width, height, targetCount, adapter, excludeSet = null) {
-    const candidates = [];
-
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            const i = y * width + x;
-
-            // Skip water
-            if (adapter.isWater(x, y)) continue;
-
-            // Skip excluded tiles
-            if (excludeSet && excludeSet.has(i)) continue;
-
-            candidates.push({ index: i, score: scores[i] });
-        }
-    }
-
-    if (!candidates.length || targetCount <= 0) {
-        return new Set();
-    }
-
-    // Sort by score descending
-    candidates.sort((a, b) => b.score - a.score);
-
-    // Take top N
-    const selected = new Set();
-    const limit = Math.min(targetCount, candidates.length);
-    for (let k = 0; k < limit; k++) {
-        selected.add(candidates[k].index);
-    }
-
-    return selected;
 }
 
 /**
