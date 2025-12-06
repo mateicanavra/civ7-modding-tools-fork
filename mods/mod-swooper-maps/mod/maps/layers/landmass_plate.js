@@ -109,6 +109,7 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     let interiorMin = 255, interiorMax = 0, interiorSum = 0;
     let arcMin = 255, arcMax = 0, arcSum = 0;
     let landMin = 255, landMax = 0, landSum = 0;
+    let interiorStretch = 1;
 
     for (let y = 0; y < height; y++) {
         const rowOffset = y * width;
@@ -159,14 +160,39 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             arcMin = Math.min(arcMin, arcScore[idx]);
             arcMax = Math.max(arcMax, arcScore[idx]);
             arcSum += arcScore[idx];
-
-            // --- Final land score: core vs boundary uplift ---
-            const l = interiorVal >= clampedArc ? interiorVal : clampedArc;
-            landScore[idx] = l;
-            landMin = Math.min(landMin, l);
-            landMax = Math.max(landMax, l);
-            landSum += l;
         }
+    }
+
+    // Stretch interior scores if they trail arcs, but cap to avoid flattening the distribution.
+    if (interiorMax > 0) {
+        const desiredTop = arcMax > 0 ? arcMax + 32 : 255;
+        interiorStretch = desiredTop / interiorMax;
+        if (interiorStretch < 1.05 || !Number.isFinite(interiorStretch)) {
+            interiorStretch = 1;
+        }
+        else {
+            interiorStretch = Math.min(1.6, interiorStretch);
+            interiorMin = 255;
+            interiorMax = 0;
+            interiorSum = 0;
+            for (let i = 0; i < size; i++) {
+                const stretched = Math.min(255, Math.round(interiorScore[i] * interiorStretch));
+                interiorScore[i] = stretched;
+                interiorMin = Math.min(interiorMin, stretched);
+                interiorMax = Math.max(interiorMax, stretched);
+                interiorSum += stretched;
+            }
+        }
+    }
+
+    // --- Final land score: core vs boundary uplift ---
+    landMin = 255; landMax = 0; landSum = 0;
+    for (let i = 0; i < size; i++) {
+        const l = interiorScore[i] >= arcScore[i] ? interiorScore[i] : arcScore[i];
+        landScore[i] = l;
+        landMin = Math.min(landMin, l);
+        landMax = Math.max(landMax, l);
+        landSum += l;
     }
 
     const computeLandScore = (idx) => landScore[idx] | 0;
@@ -199,6 +225,7 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             boundaryBias,
             boundaryShareTarget,
             interiorNoiseWeight,
+            interiorStretch,
             arcWeight,
             arcNoiseWeight,
             fractalGrain,
@@ -263,7 +290,7 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     let { land: landCount, boundaryLand } = computeShares(bestThreshold);
     const minBoundary = Math.round(targetLandTiles * boundaryShareTarget);
     if (boundaryLand < minBoundary) {
-        const maxAllowedLand = Math.round(targetLandTiles * 1.03);
+        const maxAllowedLand = Math.round(targetLandTiles * 1.5);
         let t = bestThreshold - 5;
         while (t >= 0) {
             const shares = computeShares(t);
