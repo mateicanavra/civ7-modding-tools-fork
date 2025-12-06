@@ -308,6 +308,10 @@ export function computePlatesVoronoi(width, height, config) {
 function computePlateBoundaries(regionCells, plateRegions, plateRotationMultiple) {
     const plateBoundaries = [];
 
+    // Sample multiple points along each boundary edge to create LINEAR features
+    // instead of circular blobs around single midpoints
+    const SAMPLES_PER_EDGE = 5; // Number of points to sample along each boundary edge
+
     for (const plateCell of regionCells) {
         plateCell.ruleConsideration = true; // Mark as visited
 
@@ -316,11 +320,9 @@ function computePlateBoundaries(regionCells, plateRegions, plateRotationMultiple
 
             // Only create boundary once per edge (check if neighbor visited)
             if (neighbor.plateId !== plateCell.plateId && !neighbor.ruleConsideration) {
-                // Boundary position: midpoint between cells
-                const pos = {
-                    x: (plateCell.cell.site.x + neighbor.cell.site.x) * 0.5,
-                    y: (plateCell.cell.site.y + neighbor.cell.site.y) * 0.5,
-                };
+                // Midpoint between cell centers
+                const midX = (plateCell.cell.site.x + neighbor.cell.site.x) * 0.5;
+                const midY = (plateCell.cell.site.y + neighbor.cell.site.y) * 0.5;
 
                 // Boundary normal: direction from plateCell to neighbor
                 const normal = VoronoiUtils.normalize({
@@ -328,7 +330,10 @@ function computePlateBoundaries(regionCells, plateRegions, plateRotationMultiple
                     y: neighbor.cell.site.y - plateCell.cell.site.y,
                 });
 
-                // Calculate plate movements at boundary
+                // Edge direction (perpendicular to normal) - this is the actual boundary line direction
+                const edgeDir = { x: -normal.y, y: normal.x };
+
+                // Calculate plate movements and physics at midpoint (same for all samples on this edge)
                 const plate1 = plateRegions[plateCell.plateId];
                 const plate2 = plateRegions[neighbor.plateId];
 
@@ -339,8 +344,8 @@ function computePlateBoundaries(regionCells, plateRegions, plateRotationMultiple
                     );
                 }
 
-                const plate1Movement = calculatePlateMovement(plate1, pos, plateRotationMultiple);
-                const plate2Movement = calculatePlateMovement(plate2, pos, plateRotationMultiple);
+                const plate1Movement = calculatePlateMovement(plate1, { x: midX, y: midY }, plateRotationMultiple);
+                const plate2Movement = calculatePlateMovement(plate2, { x: midX, y: midY }, plateRotationMultiple);
 
                 // Subduction: relative movement along normal
                 // Positive = plates converging (collision)
@@ -350,14 +355,34 @@ function computePlateBoundaries(regionCells, plateRegions, plateRotationMultiple
                 // Sliding: relative movement perpendicular to normal (transform)
                 const sliding = Math.abs(dot2_90(normal, plate1Movement) - dot2_90(normal, plate2Movement));
 
-                plateBoundaries.push({
-                    pos,
-                    normal,
-                    plateSubduction: subduction,
-                    plateSliding: sliding,
-                    id1: plateCell.plateId,
-                    id2: neighbor.plateId,
-                });
+                // Estimate edge length based on distance between cell centers
+                // The actual Voronoi edge is perpendicular to the center-to-center line
+                const cellDist = Math.sqrt(
+                    (neighbor.cell.site.x - plateCell.cell.site.x) ** 2 +
+                    (neighbor.cell.site.y - plateCell.cell.site.y) ** 2
+                );
+                // Edge length is roughly proportional to cell distance (heuristic)
+                const edgeLength = cellDist * 0.8;
+
+                // Sample multiple points along the boundary edge
+                for (let s = 0; s < SAMPLES_PER_EDGE; s++) {
+                    // t goes from -0.5 to +0.5 to span the edge, centered on midpoint
+                    const t = (s / (SAMPLES_PER_EDGE - 1) - 0.5) * edgeLength;
+
+                    const pos = {
+                        x: midX + edgeDir.x * t,
+                        y: midY + edgeDir.y * t,
+                    };
+
+                    plateBoundaries.push({
+                        pos,
+                        normal,
+                        plateSubduction: subduction,
+                        plateSliding: sliding,
+                        id1: plateCell.plateId,
+                        id2: neighbor.plateId,
+                    });
+                }
             }
         }
     }
