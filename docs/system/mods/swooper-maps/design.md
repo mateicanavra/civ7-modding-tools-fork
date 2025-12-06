@@ -81,3 +81,14 @@ Two runtime helpers expose the manifest to the orchestrator and tests:
 
 - `resolved.STAGE_MANIFEST()` returns the normalized manifest snapshot.
 - `tunables.stageEnabled("stageName")` reports whether a specific stage survived dependency validation. Use this instead of reading raw toggles when you need to know whether a layer actually runs.
+
+## Landmass Scoring (Core vs Boundary)
+
+Plate-driven land now separates core vs boundary signals:
+
+- `interiorScore = (255 - boundaryCloseness) ⊕ tectonicNoise` (noise from adapter fractal id 3, weight ~0.3).
+- `arcScore` only for boundaries (convergent > transform > divergent) with optional raggedness (`boundaryArcNoiseWeight`).
+- Final land score is `max(interiorScore, arcScore)`; thresholds still chosen via binary search.
+- `boundaryShareTarget` is a soft backstop (default 0.15); it lowers the threshold slightly if boundary land is severely under-represented but caps overshoot.
+- `boundaryBias` is clamped low (default 0.25) and only adds a light closeness assist to arcs; interiors remain the primary driver.
+- Mountains respect the landmask written by `createPlateDrivenLandmasses`; submerged high-uplift tiles stay water unless explicitly handled as seamounts elsewhere.

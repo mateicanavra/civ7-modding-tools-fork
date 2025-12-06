@@ -1,0 +1,565 @@
+{
+  "slideshows": [
+    {
+      "id": "voronoi-plate-generation",
+      "title": "Voronoi Plate Generation: From Geology to Code",
+      "concepts": {
+        "geology": {
+          "label": "Geology",
+          "description": "Real-world plate tectonics",
+          "color": "orange"
+        },
+        "voronoi": {
+          "label": "Voronoi",
+          "description": "Mathematical space partitioning",
+          "color": "blue"
+        },
+        "physics": {
+          "label": "Physics",
+          "description": "Plate movement and rotation",
+          "color": "green"
+        },
+        "boundaries": {
+          "label": "Boundaries",
+          "description": "Collision math and types",
+          "color": "orange"
+        },
+        "landmass": {
+          "label": "Landmass",
+          "description": "Rule-based continent growth",
+          "color": "purple"
+        },
+        "integration": {
+          "label": "Integration",
+          "description": "Swooper's hook mechanism",
+          "color": "blue"
+        },
+        "intent": {
+          "label": "Intent",
+          "description": "Why and how we use plate data",
+          "color": "green"
+        },
+        "config": {
+          "label": "Config",
+          "description": "Tunable parameters",
+          "color": "default"
+        },
+        "creative": {
+          "label": "Creative",
+          "description": "World-building possibilities",
+          "color": "purple"
+        }
+      },
+      "slides": [
+        {
+          "id": "plate-tectonics-101",
+          "order": 1,
+          "concept": "geology",
+          "explanation": "# Why Mountains Exist\nPlate Tectonics 101",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Every mountain range, volcanic island, and oceanic trench exists because of plate tectonics. The Earth's surface is broken into massive plates that drift, collide, and pull apart over millions of years.\n\nWhen India crashed into Asia, the Himalayas rose. When the Pacific plate dives under the Americas, volcanoes erupt along the Ring of Fire. When Africa pulls away from Arabia, the Red Sea opens.\n\nTo simulate realistic terrain in Civilization VII, Firaxis needed to capture this fundamental geological process computationally."
+              }
+            },
+            {
+              "explanation": "### The Three Boundary Types\n\nPlate interactions fall into three categories, each producing distinct geological features:\n\n**Convergent (Collision)**\n- Plates push toward each other\n- Result: Mountains, volcanic arcs, deep ocean trenches\n- Examples: Himalayas, Andes, Mariana Trench\n\n**Divergent (Separation)**\n- Plates pull apart from each other\n- Result: Rift valleys, mid-ocean ridges, new crust formation\n- Examples: East African Rift, Mid-Atlantic Ridge, Iceland\n\n**Transform (Sliding)**\n- Plates slide horizontally past each other\n- Result: Fault lines, earthquakes, shear zones\n- Examples: San Andreas Fault, Alpine Fault (New Zealand)"
+            },
+            {
+              "layers": {
+                "title": "Boundary Types and Their Results",
+                "caption": "What happens when plates meet",
+                "layout": "stack",
+                "layers": [
+                  {
+                    "label": "Convergent",
+                    "value": "Collision",
+                    "description": "Uplift, mountains, volcanic arcs, ocean trenches"
+                  },
+                  {
+                    "label": "Divergent",
+                    "value": "Separation",
+                    "description": "Rifts, spreading ridges, new oceanic crust, volcanic activity"
+                  },
+                  {
+                    "label": "Transform",
+                    "value": "Sliding",
+                    "description": "Fault lines, earthquakes, lateral shear stress"
+                  }
+                ]
+              }
+            },
+            {
+              "explanation": "### The Simulation Challenge\n\nSimulating plate tectonics computationally requires solving two problems:\n\n1. **Space partitioning**: How do you divide a map into \"plates\"?\n2. **Physics simulation**: How do you give those plates movement and calculate what happens at boundaries?\n\nThe answer to the first question is elegant: **Voronoi diagrams**."
+            }
+          ]
+        },
+        {
+          "id": "voronoi-abstraction",
+          "order": 2,
+          "concept": "voronoi",
+          "explanation": "# The Voronoi Abstraction\nCracking the World into Cells",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Imagine dropping a handful of pebbles onto a frozen lake. Cracks spread from each impact point until they meet cracks from neighboring impacts. The result is a pattern of cells where each cell contains all points closest to its seed pebble.\n\nThis is a **Voronoi diagram**: a partition of space where every point belongs to the region of its nearest seed. The pattern looks like cracked glass, honeycomb, or dried mud. It's mathematically elegant and computationally efficient."
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph LR\n    subgraph SEEDS[\"1. Seed Points\"]\n        S1((seed))\n        S2((seed))\n        S3((seed))\n        S4((seed))\n    end\n    \n    subgraph EDGES[\"2. Voronoi Edges\"]\n        E[\"Lines equidistant\\nfrom neighbors\"]\n    end\n    \n    subgraph CELLS[\"3. Voronoi Cells\"]\n        C[\"Closed polygons\\n= tectonic plates\"]\n    end\n    \n    SEEDS --> EDGES --> CELLS\n    \n    style SEEDS fill:#3b82f6,color:#fff\n    style CELLS fill:#22c55e,color:#fff",
+                "caption": "From random points to plate boundaries"
+              }
+            },
+            {
+              "explanation": "### Fortune's Algorithm: The Sweep Line\n\nComputing a Voronoi diagram efficiently uses **Fortune's algorithm**, an O(n log n) sweep-line method:\n\n1. Sort all seed points by Y coordinate\n2. Sweep a horizontal line from top to bottom\n3. Maintain a \"beachline\" of parabolic arcs above the sweep line\n4. Detect \"circle events\" where three arcs converge — this creates a Voronoi vertex\n5. As arcs shrink and disappear, Voronoi edges form between them\n\nThe result is a clean tessellation of the plane into convex polygons."
+            },
+            {
+              "codeBlock": {
+                "file": "core/scripts/external/TypeScript-Voronoi-master/src/voronoi.js",
+                "startLine": 29,
+                "endLine": 74,
+                "code": "compute(sites, bbox) {\n  this.reset();\n  let siteEvents = sites.slice(0);\n  \n  // Sort sites by y-coordinate (sweep direction)\n  siteEvents.sort((a, b) => {\n    let r = b.y - a.y;\n    if (r) return r;\n    return b.x - a.x;\n  });\n  \n  let site = siteEvents.pop();\n  let circle;\n  \n  for (;;) {\n    circle = this.firstCircleEvent;\n    \n    // Process site events before circle events at same y\n    if (site && (!circle || site.y < circle.y)) {\n      // New site: add parabola to beachline\n      cells[siteid] = this.createCell(site);\n      site.id = siteid++;\n      this.addBeachsection(site);\n      site = siteEvents.pop();\n    } else if (circle) {\n      // Circle event: remove arc, create Voronoi vertex\n      this.removeBeachsection(circle.arc);\n    } else {\n      break;\n    }\n  }\n  \n  // Clean up edges at bounding box\n  this.clipEdges(bbox);\n  this.closeCells(bbox);\n  \n  return diagram;\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "explanation": "### Lloyd Relaxation: Smoothing the Pattern\n\nRaw random seed points create irregular, jagged cells. CIV7 applies **Lloyd relaxation** to create more uniform, organic-looking plates:\n\n1. Compute the Voronoi diagram\n2. Move each seed to its cell's centroid (center of mass)\n3. Recompute the Voronoi diagram\n4. Repeat N times\n\nEach iteration makes cells more regular and similar in size. CIV7 typically uses 5 relaxation steps for plates."
+            },
+            {
+              "codeBlock": {
+                "file": "base-standard/scripts/kd-tree.js",
+                "startLine": 351,
+                "endLine": 363,
+                "code": "function lloydRelaxation(cells, strength) {\n  return cells.map((cell) => {\n    // Find centroid of cell\n    const centerSite = voronoiCentroid(cell);\n    \n    // Move seed toward centroid\n    const newX = cell.site.x + strength * (centerSite.x - cell.site.x);\n    const newY = cell.site.y + strength * (centerSite.y - cell.site.y);\n    \n    return { id: 0, x: newX, y: newY };\n  });\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "explanation": "### From Geometry to Physics\n\nVoronoi diagrams give us the **shape** of plates — polygonal regions that tile the map. But static geometry isn't plate tectonics. Real plates *move*.\n\nThe next step is adding physics: giving each Voronoi cell a movement vector and rotation value that simulate continental drift."
+            }
+          ]
+        },
+        {
+          "id": "plates-in-motion",
+          "order": 3,
+          "concept": "physics",
+          "explanation": "# Plates in Motion\nAdding Movement and Rotation",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "A Voronoi cell becomes a tectonic plate by adding two physical properties:\n\n1. **Movement vector**: Which direction the plate is drifting, and how fast\n2. **Rotation value**: Whether the plate is spinning clockwise or counterclockwise\n\nThese properties are randomly assigned when the plate is created, giving each map a unique tectonic configuration. Some plates drift north, others south. Some spin, others translate. The combination creates emergent complexity."
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    subgraph PLATE[\"Tectonic Plate\"]\n        SEED[\"Seed Point\\n(plate center)\"]\n        MOV[\"Movement Vector\\n(drift direction)\"]\n        ROT[\"Rotation Value\\n(-1 to +1)\"]\n    end\n    \n    SEED --> MOV\n    SEED --> ROT\n    \n    MOV --> |\"Linear drift\"| EDGE1[\"Edge movement\"]\n    ROT --> |\"Angular motion\"| EDGE2[\"Edge movement\"]\n    \n    EDGE1 --> BOUNDARY[\"Boundary\\ninteraction\"]\n    EDGE2 --> BOUNDARY\n    \n    style PLATE fill:#22c55e,color:#fff\n    style BOUNDARY fill:#ef4444,color:#fff",
+                "caption": "Each plate has a center, drift vector, and rotation"
+              }
+            },
+            {
+              "explanation": "### PlateRegion: The Physics Container\n\nCIV7's `PlateRegion` class extends the basic `VoronoiRegion` to add physics properties. On construction, it randomly initializes:\n\n- **Movement direction**: Random angle 0° to 360°\n- **Movement speed**: Random 0 to 1\n- **Rotation**: Random -1 to +1 (counterclockwise to clockwise)"
+            },
+            {
+              "codeBlock": {
+                "file": "base-standard/scripts/voronoi-region.js",
+                "startLine": 141,
+                "endLine": 162,
+                "code": "class PlateRegion extends VoronoiRegion {\n  m_movement = { x: 0, y: 0 };\n  m_rotation = 0;\n\n  constructor(name, id, type, maxArea, color) {\n    super(name, id, type, maxArea, 0, color);\n    \n    // Random movement direction (0 to 2π radians)\n    const dir = RandomImpl.fRand(\"Plate Movement Direction\") * Math.PI * 2;\n    \n    // Random movement speed (0 to 1)\n    const movementSpeed = RandomImpl.fRand(\"Plate Movement Speed\");\n    \n    // Convert polar to Cartesian\n    this.m_movement.x = Math.cos(dir) * movementSpeed;\n    this.m_movement.y = Math.sin(dir) * movementSpeed;\n    \n    // Random rotation: -1 (CCW) to +1 (CW)\n    this.m_rotation = RandomImpl.fRand(\"Plate Rotation\") * 2 - 1;\n  }\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "explanation": "### Movement at Any Position\n\nA plate's movement at its center is just the linear drift vector. But points far from the center also experience rotational motion. The total movement at any position combines:\n\n1. **Translation**: The plate's linear drift (same everywhere)\n2. **Rotation**: Angular motion around the plate center (increases with distance from center)\n\nThis is why plate boundaries can curve — different parts of a rotating plate move in different directions."
+            },
+            {
+              "codeBlock": {
+                "file": "swooper-maps/mod/maps/world/plates.js",
+                "startLine": 363,
+                "endLine": 388,
+                "code": "function calculatePlateMovement(plate, pos, rotationMultiple) {\n  // Position relative to plate center\n  const relPos = {\n    x: pos.x - plate.seedLocation.x,\n    y: pos.y - plate.seedLocation.y,\n  };\n\n  // Rotation component: how much has this point rotated?\n  const angularMovement = plate.m_rotation * Math.PI / 180 * rotationMultiple;\n  const rotatedPos = rotate2(relPos, angularMovement);\n  \n  // Rotation movement = difference between original and rotated position\n  const rotationMovement = {\n    x: relPos.x - rotatedPos.x,\n    y: relPos.y - rotatedPos.y,\n  };\n\n  // Total movement = rotation + translation\n  return {\n    x: rotationMovement.x + plate.m_movement.x,\n    y: rotationMovement.y + plate.m_movement.y,\n  };\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "explanation": "### The Key Insight\n\nPlate physics is **local**, not global. The movement vector at a boundary point depends on:\n- Which plate it belongs to\n- How far it is from that plate's center\n- The plate's rotation value\n\nThis locality is what makes boundary interactions interesting — the same two plates can have convergent boundaries in one place and divergent boundaries elsewhere, depending on geometry and rotation."
+            }
+          ]
+        },
+        {
+          "id": "boundary-physics",
+          "order": 4,
+          "concept": "boundaries",
+          "explanation": "# Boundary Physics\nThe Math of Collision",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "A plate boundary isn't just a line — it's a zone where two plates interact. The *type* of interaction (collision, separation, sliding) depends entirely on how each plate is moving **relative to the boundary**.\n\nCIV7 computes this using vector dot products: project each plate's movement onto the boundary normal, then compare. The result determines whether plates are converging, diverging, or sliding past each other."
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    subgraph PLATEAB[\"Two Adjacent Plates\"]\n        PA[\"Plate A\\nseed + movement\"]\n        PB[\"Plate B\\nseed + movement\"]\n    end\n    \n    subgraph BOUNDARY[\"Boundary Computation\"]\n        MID[\"Midpoint\\n(A.site + B.site) / 2\"]\n        NORM[\"Normal vector\\nB.site - A.site\\nnormalized\"]\n    end\n    \n    subgraph PHYSICS[\"Physics Calculation\"]\n        SUB[\"Subduction\\ndot(normal, moveA) - dot(normal, moveB)\"]\n        SLIDE[\"Sliding\\n|dot90(normal, moveA) - dot90(normal, moveB)|\"]\n    end\n    \n    PA --> MID\n    PB --> MID\n    PA --> NORM\n    PB --> NORM\n    MID --> SUB\n    NORM --> SUB\n    NORM --> SLIDE\n    \n    style BOUNDARY fill:#3b82f6,color:#fff\n    style PHYSICS fill:#ef4444,color:#fff",
+                "caption": "Computing boundary type from plate movements"
+              }
+            },
+            {
+              "explanation": "### The Subduction Formula\n\nThe key calculation is **subduction** — how much the plates are moving toward or away from each other:\n\n```\nnormal = normalize(plateB.position - plateA.position)\nsubduction = dot(normal, movementA) - dot(normal, movementB)\n```\n\n- **Positive subduction**: Plates converging (collision)\n- **Negative subduction**: Plates diverging (rift)\n- **Near zero**: Plates moving parallel (transform)\n\nThe dot product projects each plate's movement onto the boundary normal. If plate A is moving toward the boundary and plate B is moving away, subduction is strongly positive."
+            },
+            {
+              "codeBlock": {
+                "file": "base-standard/scripts/voronoi_generators/continent-generator.js",
+                "startLine": 710,
+                "endLine": 747,
+                "code": "// Iterate over all plate cells to find boundaries\nfor (const plateCell of regionCells) {\n  plateCell.ruleConsideration = true; // Mark as visited\n  \n  for (const neighborId of plateCell.cell.getNeighborIds()) {\n    const neighbor = regionCells[neighborId];\n    \n    // Only process boundary once (skip if neighbor already visited)\n    if (neighbor.plateId !== plateCell.plateId && !neighbor.ruleConsideration) {\n      \n      // Boundary position: midpoint between cell centers\n      const pos = {\n        x: (plateCell.cell.site.x + neighbor.cell.site.x) * 0.5,\n        y: (plateCell.cell.site.y + neighbor.cell.site.y) * 0.5,\n      };\n\n      // Boundary normal: direction from this plate to neighbor\n      const normal = VoronoiUtils.normalize({\n        x: neighbor.cell.site.x - plateCell.cell.site.x,\n        y: neighbor.cell.site.y - plateCell.cell.site.y,\n      });\n\n      // Calculate plate movements at this boundary point\n      const plate1Movement = calculateMovement(plates[plateCell.plateId], pos);\n      const plate2Movement = calculateMovement(plates[neighbor.plateId], pos);\n\n      // Subduction: positive = converging, negative = diverging\n      const subduction = dot2(normal, plate1Movement) - dot2(normal, plate2Movement);\n\n      // Sliding: magnitude of perpendicular motion (transform faults)\n      const sliding = Math.abs(dot2_90(normal, plate1Movement) - dot2_90(normal, plate2Movement));\n\n      plateBoundaries.push({ pos, normal, plateSubduction: subduction, plateSliding: sliding });\n    }\n  }\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "table": {
+                "rows": [
+                  "Subduction,Sliding,Boundary Type,Geological Result",
+                  "> 0.3,*,Convergent,Mountains / volcanic arcs / trenches",
+                  "< -0.2,*,Divergent,Rift valleys / mid-ocean ridges",
+                  "*,> 0.5,Transform,Fault lines / earthquake zones",
+                  "else,else,Passive,Stable plate interior"
+                ],
+                "caption": "Boundary classification from physics values"
+              }
+            },
+            {
+              "explanation": "### Spatial Indexing with kdTree\n\nAll computed boundaries are stored in a **kdTree** (k-dimensional tree) for fast spatial queries. Any downstream system can ask \"what's the nearest boundary to tile (x, y)?\" and get an O(log n) answer.\n\nThis is critical for performance — landmass growth, mountain placement, and climate all need to query boundary proximity thousands of times."
+            },
+            {
+              "codeBlock": {
+                "file": "base-standard/scripts/kd-tree.js",
+                "startLine": 19,
+                "endLine": 58,
+                "code": "class kdTree {\n  rootNode;\n  getPos;  // Function to extract position from data\n\n  constructor(getPos) {\n    this.getPos = getPos;\n  }\n\n  build(data) {\n    this.rootNode = this.buildInternal([...data]);\n  }\n\n  search(pos) {\n    return this.rootNode \n      ? this.searchInternal(this.rootNode, pos, 0, { data: this.rootNode.data, distSq: Infinity })\n      : undefined;\n  }\n\n  // Recursive build: split on alternating axes\n  buildInternal(data, axis = 0) {\n    if (data.length === 0) return undefined;\n    \n    // Sort by current axis (x or y)\n    data.sort((a, b) => \n      axis === 0 \n        ? this.getPos(a).x - this.getPos(b).x \n        : this.getPos(a).y - this.getPos(b).y\n    );\n    \n    const midIndex = Math.floor(data.length / 2);\n    const node = new kdNode(data[midIndex]);\n    \n    // Recurse on left and right halves, alternating axis\n    node.left = this.buildInternal(data.slice(0, midIndex), (axis + 1) % 2);\n    node.right = this.buildInternal(data.slice(midIndex + 1), (axis + 1) % 2);\n    \n    return node;\n  }\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "explanation": "### Why This Matters\n\nThe boundary physics calculation is where random plate movements become meaningful geological forces. A plate drifting northeast toward a stationary plate creates a **convergent boundary** — mountains rise. Two plates pulling apart create a **divergent boundary** — rifts form.\n\nThis emergence from simple rules is what makes CIV7's terrain feel geologically authentic rather than randomly placed."
+            }
+          ]
+        },
+        {
+          "id": "landmass-growth",
+          "order": 5,
+          "concept": "landmass",
+          "explanation": "# Landmass Growth\nSmelling Plate Boundaries",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "CIV7 doesn't place continents randomly. Landmasses **grow** cell by cell from seed points, with each candidate cell scored by a weighted sum of rules. One critical rule: prefer cells near plate boundaries, especially convergent ones.\n\nThis creates terrain that follows tectonic logic — coastlines align with collision zones, mountain ranges form where plates crash together, volcanic arcs emerge at subduction zones."
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    SEED[\"Landmass Seed\"] --> CONSIDER[\"Consider neighbor cells\"]\n    CONSIDER --> SCORE[\"Score each candidate\"]\n    \n    subgraph RULES[\"Weighted Rule System\"]\n        R1[\"RuleCellArea\\nweight: 0.1\"]\n        R2[\"RuleNearNeighbor\\nweight: 0.5\"]\n        R3[\"RuleAvoidEdge\\nweight: 1.0\"]\n        R4[\"RuleNearPlateBoundary\\nweight: 0.75\"]\n        R5[\"RulePreferLatitude\\nweight: 0.5\"]\n    end\n    \n    SCORE --> RULES\n    RULES --> PICK[\"Pick highest-scoring cell\"]\n    PICK --> ADD[\"Add to landmass\"]\n    ADD --> |\"Until target size\"| CONSIDER\n    \n    style R4 fill:#ef4444,color:#fff\n    style RULES fill:#f3f4f6,stroke:#374151",
+                "caption": "Rule-based landmass growth — RuleNearPlateBoundary biases toward tectonics"
+              }
+            },
+            {
+              "explanation": "### The Rule System\n\nLandmass growth uses a **weighted rule system** where each rule assigns a score to candidate cells:\n\n| Rule | Weight | Effect |\n|------|--------|--------|\n| RuleAvoidEdge | 1.0 | Stay away from map poles/edges |\n| RuleNearPlateBoundary | 0.75 | Prefer convergent boundaries |\n| RuleNearNeighbor | 0.5 | Stay connected to existing cells |\n| RulePreferLatitude | 0.5 | Bias toward temperate zones |\n| RuleNeighborsInRegion | 0.25 | Prefer compact shapes |\n| RuleCellArea | 0.1 | Prefer larger Voronoi cells |\n| RuleNearRegionSeed | 0.05 | Don't stray too far from origin |\n\nThe final score is the weighted sum. Highest-scoring cell gets added to the landmass."
+            },
+            {
+              "codeBlock": {
+                "file": "base-standard/scripts/voronoi_rules/near-plate-boundary.js",
+                "startLine": 13,
+                "endLine": 54,
+                "code": "class RuleNearPlateBoundary extends Rule {\n  static getName() { return \"Near Plate Boundary\"; }\n  \n  name = RuleNearPlateBoundary.getName();\n  description = \"Scores cells based on distance to nearest plate boundary.\";\n\n  configDefs = {\n    scaleFactor: {\n      label: \"Scale Factor\",\n      description: \"Distance where score = 0.5. Nearer scores higher.\",\n      defaultValue: 4,\n      min: 0, max: 10, step: 0.1\n    },\n    directionInfluence: {\n      label: \"Plate Direction Influence\", \n      description: \"How much plate movement direction affects score.\",\n      defaultValue: 0.5,\n      min: 0, max: 1, step: 0.05\n    }\n  };\n\n  score(regionCell, ctx) {\n    const cellPos = { x: regionCell.cell.site.x, y: regionCell.cell.site.y };\n    \n    // Query kdTree for nearest boundary\n    const boundary = this.m_plateBoundaries.search(cellPos);\n    const distance = Math.sqrt(boundary.distSq);\n\n    // Distance score: 1 at boundary, approaches 0 far away\n    const distanceScore = 1 - distance / (distance + this.configValues.scaleFactor);\n\n    // Direction score: boost for convergent (positive subduction)\n    const plateMovementScore = distanceScore * boundary.data.plateSubduction * 0.5;\n\n    // Blend based on config\n    return VoronoiUtils.lerp(distanceScore, plateMovementScore, \n                             this.configValues.directionInfluence);\n  }\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "explanation": "### The Emergence of Realistic Terrain\n\nWith `RuleNearPlateBoundary` weighted at 0.75, landmasses naturally grow along convergent boundaries. This produces:\n\n- **Coastal mountain ranges** (like the Andes) where ocean plates subduct under continents\n- **Volcanic arcs** (like Japan) at island chain collision zones  \n- **Rifted coastlines** where continents pulled apart\n- **Stable continental interiors** far from boundaries\n\nThe terrain isn't placed by hand — it **emerges** from the physics rules. This is why CIV7 maps feel geologically coherent."
+            },
+            {
+              "explanation": "### Why It Works\n\nThe genius of this system is that it's **physically motivated but gameplay-friendly**:\n\n1. Mountains form at realistic locations (collision zones)\n2. But the rule weights can be tuned for gameplay balance\n3. Other rules prevent degenerate cases (too close to poles, disconnected blobs)\n4. The random seed creates variety while physics creates plausibility\n\nThis balance between simulation and design is what makes procedural terrain successful."
+            }
+          ]
+        },
+        {
+          "id": "swooper-hook",
+          "order": 6,
+          "concept": "integration",
+          "explanation": "# The Swooper Hook\nWorldModel & Typed Arrays",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "CIV7's plate generation is excellent — but the physics data disappears after landmass growth. The engine doesn't persist plate boundaries or tectonic stress values.\n\nSwooper needs this data for downstream systems: climate calculations, narrative overlays, feature placement. We solve this by **wrapping** CIV7's utilities and **capturing** the physics into persistent typed arrays."
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph LR\n    subgraph CIV7[\"CIV7 Base Game\"]\n        VU[\"VoronoiUtils\"]\n        PR[\"PlateRegion\"]\n        KD[\"kdTree\"]\n    end\n    \n    subgraph SWOOPER[\"Swooper Engine\"]\n        PLATES[\"plates.js\\ncomputePlatesVoronoi()\"]\n        MODEL[\"WorldModel\"]\n    end\n    \n    subgraph ARRAYS[\"Typed Arrays\"]\n        A1[\"plateId[]\"]\n        A2[\"boundaryCloseness[]\"]\n        A3[\"boundaryType[]\"]\n        A4[\"upliftPotential[]\"]\n        A5[\"riftPotential[]\"]\n        A6[\"tectonicStress[]\"]\n    end\n    \n    VU -->|import| PLATES\n    PR -->|import| PLATES\n    KD -->|import| PLATES\n    PLATES -->|compute| MODEL\n    MODEL -->|publish| ARRAYS\n    \n    style CIV7 fill:#6b7280,color:#fff\n    style SWOOPER fill:#3b82f6,color:#fff\n    style ARRAYS fill:#22c55e,color:#fff",
+                "caption": "Swooper wraps CIV7 utilities and captures physics into typed arrays"
+              }
+            },
+            {
+              "explanation": "### The Wrapper: computePlatesVoronoi()\n\nOur `plates.js` module imports CIV7's base utilities directly and wraps them in a function that:\n\n1. Creates Voronoi diagram using `VoronoiUtils.computeVoronoi()`\n2. Instantiates `PlateRegion` objects with physics\n3. Computes boundaries using the same algorithm as CIV7\n4. Stores boundaries in a `kdTree` for fast queries\n5. **Captures everything into typed arrays** indexed by tile position"
+            },
+            {
+              "codeBlock": {
+                "file": "swooper-maps/mod/maps/world/plates.js",
+                "startLine": 66,
+                "endLine": 118,
+                "code": "export function computePlatesVoronoi(width, height, config) {\n  const { count, relaxationSteps, convergenceMix, plateRotationMultiple } = config;\n  const size = width * height;\n\n  // Use CIV7's utilities directly\n  const bbox = { xl: 0, xr: width, yt: 0, yb: height };\n  const sites = VoronoiUtils.createRandomSites(count, bbox.xr, bbox.yb);\n  const diagram = VoronoiUtils.computeVoronoi(sites, bbox, relaxationSteps);\n\n  // Create PlateRegions with physics (CIV7's class)\n  const plateRegions = diagram.cells.map((cell, index) => {\n    const region = new PlateRegion(`Plate${index}`, index, 0, bbox.xr * bbox.yb, randomColor());\n    region.seedLocation = { x: cell.site.x, y: cell.site.y };\n    return region;\n  });\n\n  // Compute boundaries (same algorithm as CIV7)\n  const plateBoundaries = computePlateBoundaries(regionCells, plateRegions, plateRotationMultiple);\n  const boundaryTree = new kdTree(PlateBoundaryPosGetter);\n  boundaryTree.build(plateBoundaries);\n\n  // Allocate output arrays\n  const plateId = new Int16Array(size);\n  const boundaryCloseness = new Uint8Array(size);\n  const boundaryType = new Uint8Array(size);\n  const tectonicStress = new Uint8Array(size);\n  const upliftPotential = new Uint8Array(size);\n  const riftPotential = new Uint8Array(size);\n  const shieldStability = new Uint8Array(size);\n\n  // Populate arrays from boundary queries\n  for (let y = 0; y < height; y++) {\n    for (let x = 0; x < width; x++) {\n      const i = y * width + x;\n      const nearestBoundary = boundaryTree.search({ x, y });\n      // ... classify and store values\n    }\n  }\n\n  return { plateId, boundaryCloseness, boundaryType, upliftPotential, ... };\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "table": {
+                "rows": [
+                  "Array,Type,Range,Purpose",
+                  "plateId,Int16Array,0..N,Which plate owns this tile",
+                  "boundaryCloseness,Uint8Array,0..255,Proximity to nearest boundary (255 = at boundary)",
+                  "boundaryType,Uint8Array,0..3,none / convergent / divergent / transform",
+                  "tectonicStress,Uint8Array,0..255,Overall stress level (tracks boundary closeness)",
+                  "upliftPotential,Uint8Array,0..255,Mountain formation potential (high at convergent)",
+                  "riftPotential,Uint8Array,0..255,Rift valley potential (high at divergent)",
+                  "shieldStability,Uint8Array,0..255,Plate interior stability (inverse of stress)",
+                  "plateMovementU/V,Int8Array,-127..127,Plate drift vector components",
+                  "plateRotation,Int8Array,-127..127,Plate rotation value"
+                ],
+                "caption": "WorldModel typed array schema"
+              }
+            },
+            {
+              "explanation": "### Why Typed Arrays?\n\nDownstream systems process thousands of tiles and need **O(1) access** to plate data. With flat typed arrays indexed by position, any stage can instantly query:\n\n```javascript\nconst i = y * width + x;\nconst isConvergent = WorldModel.boundaryType[i] === BOUNDARY.convergent;\nconst uplift = WorldModel.upliftPotential[i] / 255;  // Normalized 0..1\n```\n\nNo kdTree queries, no lookups — just array access. This is critical for performance when climate, mountains, and features all need tectonic data."
+            }
+          ]
+        },
+        {
+          "id": "intent-downstream",
+          "order": 7,
+          "concept": "intent",
+          "explanation": "# Why We Hook In\nIntent and Downstream Consumers",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Swooper's architecture follows a core principle: **physics before narrative**. Plate tectonics is foundational physics — it should inform everything downstream without being overridden by it.\n\nBy capturing plate data early, we ensure all subsequent stages (climate, morphology, narrative, features) work from the same physical truth. A mountain stage doesn't decide where mountains go — it reads `upliftPotential` and places peaks where the physics says they should form."
+              }
+            },
+            {
+              "layers": {
+                "title": "Downstream Consumers of Plate Data",
+                "caption": "Who reads WorldModel and why",
+                "layout": "stack",
+                "layers": [
+                  {
+                    "label": "Morphology",
+                    "value": "mountains.js, volcanoes.js, coastlines.js",
+                    "description": "Uplift-aware peaks, volcanic arcs at subduction zones, ruggedized active margins"
+                  },
+                  {
+                    "label": "Climate",
+                    "value": "climateBaseline.js",
+                    "description": "Orographic effects use boundary-aware elevation gradients"
+                  },
+                  {
+                    "label": "Narrative",
+                    "value": "storyRifts.js, storyOrogeny.js",
+                    "description": "Tag rift valleys at divergent boundaries, collision zones at convergent"
+                  },
+                  {
+                    "label": "Features",
+                    "value": "feature-biomes.js",
+                    "description": "Volcanic features biased toward convergent zones and hotspots"
+                  },
+                  {
+                    "label": "Balance",
+                    "value": "assign-starting-plots.js",
+                    "description": "Avoid placing civs on tectonic stress zones"
+                  }
+                ]
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    WM[\"WorldModel\\n(plate physics)\"] --> MORPH[\"Morphology\"]\n    WM --> CLIMATE[\"Climate\"]\n    WM --> NARRATIVE[\"Narrative Overlays\"]\n    WM --> FEATURES[\"Features\"]\n    WM --> BALANCE[\"Gameplay Balance\"]\n    \n    MORPH --> |mountains| FINAL[\"Final Terrain\"]\n    MORPH --> |volcanoes| FINAL\n    MORPH --> |coasts| FINAL\n    CLIMATE --> |rainfall| FINAL\n    NARRATIVE --> |tags| FINAL\n    FEATURES --> |placement| FINAL\n    \n    style WM fill:#22c55e,color:#fff\n    style FINAL fill:#3b82f6,color:#fff",
+                "caption": "WorldModel as single source of truth for all downstream systems"
+              }
+            },
+            {
+              "explanation": "### Specific Use Cases\n\n**Mountains**: The `upliftPotential` array directly influences mountain placement. Cells with high uplift (near convergent boundaries) score higher for peak placement:\n\n```javascript\nconst uplift = WorldModel.upliftPotential[i] / 255;\nscore += uplift * CONFIG.mountains.upliftWeight;\n```\n\n**Volcanoes**: Placed preferentially where `boundaryType === convergent` AND `boundaryCloseness > threshold`. This creates volcanic arcs along subduction zones.\n\n**Coastlines**: Active margins (where `boundaryType === convergent`) get fjord-like ruggedization. Passive margins get gentle continental shelves.\n\n**Climate**: Rain shadow calculations use plate-derived elevation gradients. Mountains at convergent boundaries create strong orographic effects.\n\n**Narrative Tags**: `StoryOverlays.rifts` marks divergent zones for rift valley features. `StoryOverlays.collisionZones` marks convergent areas for dramatic terrain."
+            },
+            {
+              "codeBlock": {
+                "file": "example-downstream-usage.js",
+                "startLine": 1,
+                "endLine": 25,
+                "code": "// Example: Mountain placement using plate data\nfunction scoreMountainPlacement(x, y) {\n  const i = y * width + x;\n  \n  // Base score from terrain type\n  let score = getBaseTerrainScore(x, y);\n  \n  // Boost from tectonic uplift potential\n  const uplift = WorldModel.upliftPotential[i] / 255;  // 0..1\n  score += uplift * CONFIG.mountains.upliftWeight;\n  \n  // Extra boost at convergent boundaries\n  if (WorldModel.boundaryType[i] === ENUM_BOUNDARY.convergent) {\n    score += CONFIG.mountains.convergentBonus;\n  }\n  \n  // Penalty at rift zones (divergent = thin crust)\n  if (WorldModel.boundaryType[i] === ENUM_BOUNDARY.divergent) {\n    score -= CONFIG.mountains.divergentPenalty;\n  }\n  \n  return score;\n}",
+                "language": "javascript"
+              }
+            },
+            {
+              "explanation": "### The Architecture Payoff\n\nBy centralizing plate physics in WorldModel:\n\n1. **Consistency**: All stages see the same tectonic truth\n2. **Performance**: Pre-computed arrays enable O(1) lookups\n3. **Debuggability**: Can visualize plate data independently of terrain\n4. **Tunability**: Config knobs affect physics, which cascades to all consumers\n5. **Determinism**: Same seed → same plates → same downstream results"
+            }
+          ]
+        },
+        {
+          "id": "configuration",
+          "order": 8,
+          "concept": "config",
+          "explanation": "# Taking Control\nConfiguration Surface",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Plate generation is highly configurable through the `foundation.plates.*` namespace. You can control plate count, boundary character, relaxation quality, directionality bias, and even override the RNG seed for reproducible results.\n\nThese settings cascade through the entire pipeline — change plate count, and everything downstream adapts."
+              }
+            },
+            {
+              "table": {
+                "rows": [
+                  "Config Key,Type,Default,Effect",
+                  "foundation.plates.relaxationSteps,number,5,Lloyd iterations (higher = more uniform cells)",
+                  "foundation.plates.relaxationSteps,number,5,Lloyd iterations (higher = more uniform cells)",
+                  "foundation.plates.plateRotationMultiple,number,1.0,Amplify or dampen rotational influence"
+                ],
+                "caption": "Core plate configuration"
+              }
+            },
+            {
+              "explanation": "### Seed Control for Reproducibility\n\nThe `PlateSeedManager` provides deterministic seeding:\n\n- **engine mode**: Use CIV7's internal RNG (different each game)\n- **fixed mode**: Use a specific seed value (reproducible results)\n- **seedOffset**: Integer offset applied to base seed (variants from same base)"
+            },
+            {
+              "codeBlock": {
+                "file": "swooper-maps/mod/maps/world/plate_seed.js",
+                "startLine": 128,
+                "endLine": 150,
+                "code": "export const PlateSeedManager = {\n  capture(width, height, config) {\n    const seedCfg = normalizeSeedConfig(config);\n    // seedMode: \"engine\" or \"fixed\"\n    // fixedSeed: specific value when mode is \"fixed\"\n    // seedOffset: integer offset applied to base seed\n    \n    const control = applySeedControl(\n      seedCfg.seedMode, \n      seedCfg.fixedSeed, \n      seedCfg.seedOffset\n    );\n\n    return {\n      snapshot: Object.freeze({ \n        ...seedCfg, \n        seed: control.seed,\n        rngState: control.rngState \n      }),\n      restore: control.restore,  // Restore original RNG after generation\n    };\n  }\n};",
+                "language": "javascript"
+              }
+            },
+            {
+              "table": {
+                "rows": [
+                  "Config Key,Type,Default,Effect",
+                  "foundation.seed.mode,\"engine\"/\"fixed\",\"engine\",Use CIV's RNG or fixed seed",
+                  "foundation.seed.fixed,number,undefined,Specific seed when mode is \"fixed\"",
+                  "foundation.seed.offset,number,0,Offset applied to base seed"
+                ],
+                "caption": "Seed configuration for reproducibility"
+              }
+            },
+            {
+              "explanation": "### Directionality Control\n\nBeyond random plates, you can bias plate movement toward a preferred axis. This creates maps with coherent tectonic patterns — like all plates drifting generally eastward, creating parallel mountain ranges."
+            },
+            {
+              "table": {
+                "rows": [
+                  "Config Key,Type,Default,Effect",
+                  "foundation.directionality.cohesion,0..1,0,How strongly to bias toward primary axis",
+                  "foundation.directionality.primaryAxes.plateAxisDeg,degrees,0,Preferred plate movement direction",
+                  "foundation.directionality.variability.angleJitterDeg,degrees,0,Random variation around axis",
+                  "foundation.directionality.variability.magnitudeVariance,0..1,0.35,Speed variation between plates"
+                ],
+                "caption": "Directionality configuration for coherent drift patterns"
+              }
+            },
+            {
+              "codeBlock": {
+                "file": "swooper-maps/mod/maps/world/plates.js",
+                "startLine": 397,
+                "endLine": 415,
+                "code": "function applyDirectionalityBias(plate, directionality) {\n  const cohesion = directionality?.cohesion ?? 0;\n  const plateAxisDeg = directionality?.primaryAxes?.plateAxisDeg ?? 0;\n  const jitter = getRandomJitter(directionality?.variability?.angleJitterDeg ?? 0);\n\n  // Current movement angle\n  const currentAngle = Math.atan2(plate.m_movement.y, plate.m_movement.x) * 180 / Math.PI;\n  const currentMag = Math.sqrt(plate.m_movement.x ** 2 + plate.m_movement.y ** 2);\n\n  // Blend toward target axis based on cohesion\n  const targetAngle = currentAngle * (1 - cohesion) + plateAxisDeg * cohesion + jitter;\n\n  // Apply new angle, preserve magnitude\n  const rad = targetAngle * Math.PI / 180;\n  plate.m_movement.x = Math.cos(rad) * currentMag;\n  plate.m_movement.y = Math.sin(rad) * currentMag;\n}",
+                "language": "javascript"
+              }
+            }
+          ]
+        },
+        {
+          "id": "creative-possibilities",
+          "order": 9,
+          "concept": "creative",
+          "explanation": "# Creative Possibilities\nDifferent Worlds",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "By tuning plate generation parameters, you can create dramatically different geological settings. A high-convergence world has intense mountain building. A divergent world has rift valleys and spreading seas. Many small plates create archipelagos.\n\nConfiguration becomes world-building."
+              }
+            },
+            {
+              "table": {
+                "rows": [
+                  "World Type,Plates,Convergence,Rotation,Result",
+                  "Pangaea,3-4,0.8,0.5,Few large continents with massive collision zones",
+                  "Archipelago,15-20,0.3,1.5,Many small landmasses with volcanic island chains",
+                  "Rift World,6-8,0.2,0.3,Elongated continents separated by young seas",
+                  "Ring of Fire,8-10,0.9,1.0,Coastal mountain ranges with volcanic arcs everywhere",
+                  "Shield World,4-5,0.1,0.2,Stable flat continents with minimal mountain building"
+                ],
+                "caption": "Example configurations and their geological outcomes"
+              }
+            },
+            {
+              "layers": {
+                "title": "Configuration to Outcome",
+                "caption": "How parameters affect world character",
+                "layout": "pyramid",
+                "layers": [
+                  {
+                    "label": "High Convergence (0.8+)",
+                    "value": "Collision",
+                    "description": "Many convergent boundaries → frequent mountain building → rugged coastlines, volcanic arcs"
+                  },
+                  {
+                    "label": "Low Convergence (0.2-)",
+                    "value": "Rifting",
+                    "description": "Many divergent boundaries → rift valleys, spreading ridges → elongated seas, young ocean floor"
+                  },
+                  {
+                    "label": "High Rotation (1.5+)",
+                    "value": "Curves",
+                    "description": "Amplified rotational effects → curved plate boundaries → arc-shaped island chains"
+                  },
+                  {
+                    "label": "Many Plates (15+)",
+                    "value": "Fragmentation",
+                    "description": "Small plates → frequent boundaries → archipelago terrain, complex coastlines"
+                  }
+                ]
+              }
+            },
+            {
+              "explanation": "### Future Possibilities\n\nThe current system captures plate boundaries and movement. Future enhancements could add:\n\n- **Hotspot simulation**: Volcanic chains that cross plate boundaries (like Hawaii)\n- **Plate age**: Older plates = thicker, more stable; younger = thinner, more active\n- **Mantle plumes**: Deep heat sources creating localized volcanic activity independent of boundaries\n- **Historical tectonics**: Simulate plate positions at different geological eras\n- **Supercontinent cycles**: Plates that converge to form Pangaea, then rift apart"
+            },
+            {
+              "kpiGrid": {
+                "layout": "uniform",
+                "items": [
+                  {
+                    "label": "Plate Count",
+                    "value": "2-20",
+                    "subtitle": "Landmass fragmentation"
+                  },
+                  {
+                    "label": "Convergence",
+                    "value": "0-1",
+                    "subtitle": "Mountain intensity"
+                  },
+                  {
+                    "label": "Rotation",
+                    "value": "0-2",
+                    "subtitle": "Boundary curvature"
+                  },
+                  {
+                    "label": "Directionality",
+                    "value": "0-1",
+                    "subtitle": "Global drift coherence"
+                  }
+                ]
+              }
+            },
+            {
+              "explanation": "### Summary\n\nVoronoi plate generation transforms random geometry into physically-motivated terrain:\n\n1. **Fortune's algorithm** partitions space into cells efficiently\n2. **PlateRegion** adds movement vectors and rotation to each cell\n3. **Boundary physics** computes subduction and sliding from relative motion\n4. **Rule-based growth** biases landmasses toward convergent zones\n5. **Swooper captures** the physics into typed arrays for downstream use\n6. **Configuration** controls plate count, convergence, rotation, and seeding\n\nThe result: terrain that feels geologically authentic because it emerges from the same forces that shape real worlds."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

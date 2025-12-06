@@ -112,6 +112,16 @@ const LANDMASS_DEFAULT = Object.freeze({
     jitterAmpFracBase: 0.03,
     jitterAmpFracScale: 0.015,
     curveAmpFrac: 0.05,
+    // Core-first: interiors lead; boundaries get a light assist only.
+    boundaryBias: 0.25,
+    // Soft backstop: minimum share of land in the high-closeness band.
+    boundaryShareTarget: 0.15,
+    tectonics: Object.freeze({
+        interiorNoiseWeight: 0.3, // 0..1 blend weight for plate-interior noise
+        fractalGrain: 4, // coarser grain keeps tectonic blobs thick
+        boundaryArcWeight: 0.8, // convergent arc multiplier; 1.0 = parity with closeness
+        boundaryArcNoiseWeight: 0.5, // raggedness for arcs (0 = straight, 1 = noisy)
+    }),
     geometry: Object.freeze({
         post: Object.freeze({
             expandTiles: 0,
@@ -703,14 +713,16 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
         minDistFromLandRadius: 2,
     }),
     // --- Climate Baseline (banded blend + local bonuses) ---
-    // --- Mountains & Hills (WorldModel-driven) ---
+    // --- Mountains & Hills (WorldModel-driven, physics-threshold system) ---
     mountains: Object.freeze({
-        mountainPercent: 3,
-        hillPercent: 8,
+        // Physics-threshold controls (mountains only where physics justifies)
+        tectonicIntensity: 1.0,      // Base intensity (1.0 = standard tectonics)
+        mountainThreshold: 0.45,     // Score must exceed this for mountains
+        hillThreshold: 0.25,         // Score must exceed this for hills
+        // Physics weights
         upliftWeight: 0.6,
         fractalWeight: 0.4,
         riftDepth: 0.25,
-        variance: 1.6,
         boundaryWeight: 0.85,
         boundaryExponent: 1.3,
         interiorPenaltyWeight: 0.18,
@@ -782,7 +794,15 @@ export const BASE_CONFIG = /** @type {import('../map_config.types.js').MapConfig
         logTiming: true,
         logStoryTags: true,
         rainfallHistogram: true,
-        LOG_BOUNDARY_METRICS: false,
+        LOG_FOUNDATION_SUMMARY: true,
+        LOG_FOUNDATION_ASCII: true,
+        LOG_FOUNDATION_SEED: true,
+        LOG_FOUNDATION_PLATES: true,
+        LOG_BOUNDARY_METRICS: true,
+        LOG_LANDMASS_ASCII: true,
+        LOG_LANDMASS_WINDOWS: true,
+        LOG_RELIEF_ASCII: true,
+        LOG_MOUNTAINS: true,
     }),
 });
 export default BASE_CONFIG;

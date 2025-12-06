@@ -300,7 +300,24 @@
  * @property {number} [jitterAmpFracBase] - Base coastline waviness as fraction of width; higher = more irregular (typically 0.02-0.08)
  * @property {number} [jitterAmpFracScale] - Extra jitter on larger maps (typically 0.01-0.04)
  * @property {number} [curveAmpFrac] - Continental bowing/curvature; higher = more crescent-shaped landmasses (typically 0.1-0.3)
+ * @property {number} [boundaryBias] - Mild closeness assist for boundary tiles (0..1, typically 0.2-0.3); higher values hug boundaries more
+ * @property {number} [boundaryShareTarget] - Soft backstop: desired share of land inside the high-closeness band (0..1, typically ~0.15)
+ * @property {LandmassTectonics} [tectonics] - Tectonic noise and arc weighting controls
  * @property {LandmassGeometry} [geometry] - Post-processing adjustments applied after plate-driven layout
+ */
+
+/**
+ * Tectonic knobs for landmass scoring.
+ *
+ * `interiorNoiseWeight` blends coarse fractal noise into plate interiors so continents have thick/thin spots.
+ * `boundaryArcWeight` controls uplift along convergent boundaries; lower = fewer boundary arcs, higher = stronger arcs.
+ * `boundaryArcNoiseWeight` roughens arcs to avoid perfect straight lines.
+ *
+ * @typedef {Object} LandmassTectonics
+ * @property {number} [interiorNoiseWeight] - 0..1 weight for plate-interior fractal noise (default ~0.3)
+ * @property {number} [fractalGrain] - Grain for the tectonic fractal; higher = finer noise (default 4)
+ * @property {number} [boundaryArcWeight] - Multiplier for convergent arc score (0..2, default ~0.8)
+ * @property {number} [boundaryArcNoiseWeight] - 0..1 multiplier for arc raggedness (default ~0.5)
  */
 
 /**
@@ -566,17 +583,17 @@
 /**
  * Mountain and hill placement tuning (WorldModel-driven orogeny).
  *
- * Controls how the physics-based `layerAddMountainsPhysics` module blends uplift, plate boundaries,
- * and fractal noise when selecting mountain and hill tiles. Defaults are conservative; increasing
- * weights pushes more extreme belts along convergent margins and deeper rift depressions.
+ * ARCHITECTURE: Physics-threshold based (not quota based).
+ * Mountains appear only where physics score exceeds threshold - no forced quotas.
+ * The tectonicIntensity dial scales physics effects to control mountain prevalence.
  *
  * @typedef {Object} Mountains
- * @property {number} [mountainPercent] - Target % of land tiles promoted to mountains (typically 4-12%)
- * @property {number} [hillPercent] - Target % of land tiles promoted to hills (typically 10-22%)
+ * @property {number} [tectonicIntensity] - Scales all tectonic effects (1.0 = standard, higher = more mountains). This is the primary dial for mountain prevalence.
+ * @property {number} [mountainThreshold] - Score threshold for mountain placement (0..1, typically 0.4-0.5). Lower = more permissive.
+ * @property {number} [hillThreshold] - Score threshold for hill placement (0..1, typically 0.2-0.3). Lower = more hills.
  * @property {number} [upliftWeight] - Weight (0..1) applied to `WorldModel.upliftPotential`; higher = mountains stick to convergent zones
- * @property {number} [fractalWeight] - Weight (0..1) applied to fractal noise; higher = more legacy randomness in belts
+ * @property {number} [fractalWeight] - Weight (0..1) applied to fractal noise; higher = more natural variation in mountain chains
  * @property {number} [riftDepth] - 0..1 depression severity at divergent boundaries (1 = completely flatten divergent zones)
- * @property {number} [variance] - Random +/- percentage variance (in percentage points) applied to mountain/hill targets
  * @property {number} [boundaryWeight] - Additional mountain weight contributed by plate-boundary closeness (unitless multiplier, typically 0..2)
  * @property {number} [boundaryExponent] - Exponent (>=0.25) shaping how quickly the boundary bonus decays with distance from a plate boundary (1.0 = linear)
  * @property {number} [interiorPenaltyWeight] - Amount subtracted from mountains deep inside plates; nudges belts toward margins (0..1)

@@ -43,15 +43,15 @@ bootstrap({
     }),
     overrides: /** @type {Partial<MapConfig>} */ ({
         toggles: {
-            STORY_ENABLE_HOTSPOTS: true,
-            STORY_ENABLE_RIFTS: true,
-            STORY_ENABLE_OROGENY: true,
-            STORY_ENABLE_SWATCHES: true,
-            STORY_ENABLE_PALEO: true,
-            STORY_ENABLE_CORRIDORS: true,
+            STORY_ENABLE_HOTSPOTS: false,
+            STORY_ENABLE_RIFTS: false,
+            STORY_ENABLE_OROGENY: false,
+            STORY_ENABLE_SWATCHES: false,
+            STORY_ENABLE_PALEO: false,
+            STORY_ENABLE_CORRIDORS: false,
         },
         landmass: {
-            baseWaterPercent: 58,
+            baseWaterPercent: 63,
             waterThumbOnScale: -6,
             jitterAmpFracBase: 0.02,
         },
@@ -74,23 +74,25 @@ bootstrap({
             },
         },
         mountains: {
-            mountainPercent: 11,
-            hillPercent: 20,
-            upliftWeight: 0.7,
-            fractalWeight: 0.3,
+            // Physics-threshold controls (higher intensity = more dramatic mountains)
+            tectonicIntensity: 0.77,      // Moderate intensity for balanced mountains
+            mountainThreshold: 0.62,     // Higher threshold = fewer mountains
+            hillThreshold: 0.20,         // Higher threshold = fewer hills
+            // Physics weights
+            upliftWeight: 0.65,
+            fractalWeight: 0.35,
             riftDepth: 0.4,
-            variance: 1.2,
-            boundaryWeight: 0.6,
-            boundaryExponent: 1.28,
-            interiorPenaltyWeight: 0.5,
-            convergenceBonus: 0.7,
-            transformPenalty: 0.24,
-            riftPenalty: 0.85,
-            hillBoundaryWeight: 0.4,
+            boundaryWeight: 0.7,
+            boundaryExponent: 1.35,
+            interiorPenaltyWeight: 0.6,
+            convergenceBonus: 0.9,
+            transformPenalty: 0.3,
+            riftPenalty: 0.9,
+            hillBoundaryWeight: 0.5,
             hillRiftBonus: 0.52,
-            hillConvergentFoothill: 0.38,
-            hillInteriorFalloff: 0.24,
-            hillUpliftWeight: 0.36,
+            hillConvergentFoothill: 0.4,
+            hillInteriorFalloff: 0.3,
+            hillUpliftWeight: 0.4,
         },
         volcanoes: {
             baseDensity: 1 / 175,
@@ -273,12 +275,12 @@ bootstrap({
         },
         foundation: /** @type {Partial<FoundationCfg>} */ ({
             plates: {
-                count: 13,
+                count: 23,
                 convergenceMix: 0.55,
-                relaxationSteps: 4,
-                seedJitter: 3,
-                interiorSmooth: 2,
-                plateRotationMultiple: 2,
+                relaxationSteps: 3,
+                seedJitter: 5,
+                interiorSmooth: 1.35,
+                plateRotationMultiple: 3,
                 // seedOffset: 2203, // tweak for alternate plate tessellations
             },
             dynamics: {
@@ -301,9 +303,9 @@ bootstrap({
                 directionality: {
                     cohesion: 0.48,
                     primaryAxes: {
-                        plateAxisDeg: 180,
+                        plateAxisDeg: 47,
                         windBiasDeg: 24,
-                        currentBiasDeg: 195,
+                        currentBiasDeg: 85,
                     },
                     interplay: {
                         windsFollowPlates: 0.55,
@@ -329,10 +331,10 @@ bootstrap({
                 boundaryFjordBias: 1.1,
                 shelfReefBias: 0.7,
                 oceanSeparation: {
-                    enabled: true,
-                    baseSeparationTiles: 1,
-                    boundaryClosenessMultiplier: 0.35,
-                    maxPerRowDelta: 1,
+                    enabled: false,
+                    baseSeparationTiles: 0,
+                    boundaryClosenessMultiplier: 0,
+                    maxPerRowDelta: 0,
                     minChannelWidth: 5,
                     respectSeaLanes: true,
                     edgeWest: {
