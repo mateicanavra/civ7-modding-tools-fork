@@ -86,7 +86,7 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         100
     ) / 100;
     const waterPct = clampPct(baseWaterPct * waterScalar, 0, 100, baseWaterPct);
-    const totalTiles = size;
+    const totalTiles = size || 1;
     const targetLandTiles = Math.max(1, Math.min(totalTiles - 1, Math.round(totalTiles * (1 - waterPct / 100))));
 
     // Allow high-closeness tiles to become land when scored high.
@@ -105,6 +105,10 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     const interiorScore = new Uint16Array(size);
     const arcScore = new Uint16Array(size);
     const landScore = new Uint16Array(size);
+    // Debug stats to validate score ranges before thresholding.
+    let interiorMin = 255, interiorMax = 0, interiorSum = 0;
+    let arcMin = 255, arcMax = 0, arcSum = 0;
+    let landMin = 255, landMax = 0, landSum = 0;
 
     for (let y = 0; y < height; y++) {
         const rowOffset = y * width;
@@ -124,6 +128,9 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             const clampedInterior = noisyInterior < 0 ? 0 : noisyInterior > 255 ? 255 : noisyInterior;
             const interiorVal = clampedInterior & 0xff;
             interiorScore[idx] = interiorVal;
+            interiorMin = Math.min(interiorMin, interiorVal);
+            interiorMax = Math.max(interiorMax, interiorVal);
+            interiorSum += interiorVal;
 
             // --- Arc score: convergent uplift / island arcs ---
             const bType = boundaryType[idx] | 0;
@@ -149,9 +156,16 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
             }
             const clampedArc = arc < 0 ? 0 : arc > 255 ? 255 : arc;
             arcScore[idx] = clampedArc & 0xff;
+            arcMin = Math.min(arcMin, arcScore[idx]);
+            arcMax = Math.max(arcMax, arcScore[idx]);
+            arcSum += arcScore[idx];
 
             // --- Final land score: core vs boundary uplift ---
-            landScore[idx] = interiorVal >= clampedArc ? interiorVal : clampedArc;
+            const l = interiorVal >= clampedArc ? interiorVal : clampedArc;
+            landScore[idx] = l;
+            landMin = Math.min(landMin, l);
+            landMax = Math.max(landMax, l);
+            landSum += l;
         }
     }
 
@@ -167,6 +181,46 @@ export function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
         }
         return count;
     };
+
+    // Distribution and sanity logs to avoid zero-land failures.
+    const thresholdsProbe = [32, 64, 96, 128, 160, 192, 224];
+    const probeCounts = thresholdsProbe.map((t) => ({
+        threshold: t,
+        count: countTilesAboveTyped(t),
+    }));
+
+    console.log(
+        "[Landmass][Debug] score ranges",
+        JSON.stringify({
+            width,
+            height,
+            targetLandTiles,
+            closenessLimit,
+            boundaryBias,
+            boundaryShareTarget,
+            interiorNoiseWeight,
+            arcWeight,
+            arcNoiseWeight,
+            fractalGrain,
+            useFractal,
+            interior: {
+                min: interiorMin,
+                max: interiorMax,
+                avg: Number((interiorSum / totalTiles).toFixed(2)),
+            },
+            arc: {
+                min: arcMin,
+                max: arcMax,
+                avg: Number((arcSum / totalTiles).toFixed(2)),
+            },
+            land: {
+                min: landMin,
+                max: landMax,
+                avg: Number((landSum / totalTiles).toFixed(2)),
+            },
+            probes: probeCounts,
+        })
+    );
 
     // Binary search threshold to hit target land count.
     let low = 0;
