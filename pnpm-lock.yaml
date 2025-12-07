@@ -113,6 +113,12 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
+  packages/civ7-types:
+    devDependencies:
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+
   packages/cli:
     dependencies:
       '@civ7/config':
@@ -230,25 +236,6 @@ importers:
       tsup:
         specifier: ^8.5.0
         version: 8.5.0(jiti@1.21.7)(postcss@8.5.6)(tsx@4.20.4)(typescript@5.9.2)(yaml@2.8.1)
-      typescript:
-        specifier: ^5.9.2
-        version: 5.9.2
-      vitest:
-        specifier: ^3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.1)(@vitest/ui@3.2.4)(jiti@1.21.7)(tsx@4.20.4)(yaml@2.8.1)
-
-  packages/plugins/plugin-mapgen:
-    dependencies:
-      '@civ7/plugin-files':
-        specifier: workspace:*
-        version: link:../plugin-files
-      '@civ7/plugin-mods':
-        specifier: workspace:*
-        version: link:../plugin-mods
-    devDependencies:
-      '@types/node':
-        specifier: ^24.2.1
-        version: 24.2.1
       typescript:
         specifier: ^5.9.2
         version: 5.9.2

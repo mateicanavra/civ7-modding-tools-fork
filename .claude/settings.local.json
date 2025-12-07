@@ -8,7 +8,15 @@
       "WebFetch(domain:civilization.2k.com)",
       "Read(//Users/mateicanavra/Library/Application Support/Civilization VII/Logs/**)",
       "Bash(ls:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(mkdir:*)",
+      "Bash(linear team:*)",
+      "Bash(linear project:*)",
+      "Bash(gt ls:*)",
+      "Bash(gt create:*)",
+      "Bash(rg:*)",
+      "Bash(pnpm:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []
