@@ -1,23 +1,34 @@
 /**
  * World module - Voronoi tectonics and plate simulation
  *
- * This module will contain the WorldModel, plate generation,
- * and Voronoi cell algorithms. Placeholder for Gate A.
+ * This module contains the WorldModel, plate generation,
+ * and Voronoi cell algorithms for simulating plate tectonics.
+ *
+ * @module @swooper/mapgen-core/world
  */
 
-// Placeholder exports - will be populated in CIV-5
-export const WORLD_MODULE_VERSION = "0.1.0";
+// Export types
+export * from "./types.js";
 
-/**
- * Placeholder for Voronoi cell calculation
- * Will be implemented in CIV-5 (Gate B)
- */
-export function calculateVoronoiCells(options: {
-  width: number;
-  height: number;
-  count: number;
-}): Array<{ id: number; x: number; y: number }> {
-  // Gate A placeholder - returns empty array
-  console.log("[world] calculateVoronoiCells called with:", options);
-  return [];
-}
+// Export plate seed management
+export { PlateSeedManager } from "./plate-seed.js";
+export type { PlateSeedManagerInterface } from "./plate-seed.js";
+
+// Export plate generation
+export {
+  computePlatesVoronoi,
+  calculateVoronoiCells,
+  type ComputePlatesOptions,
+} from "./plates.js";
+
+// Export world model
+export {
+  WorldModel,
+  setConfigProvider,
+  type WorldModelConfig,
+  type WorldModelInterface,
+  type InitOptions,
+} from "./model.js";
+
+// Module version
+export const WORLD_MODULE_VERSION = "0.2.0";
