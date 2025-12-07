@@ -271,8 +271,7 @@ bootstrap({
         wind: {
           jetStreaks: 5,
           jetStrength: 2,
-          variance: 0.4,
-          coriolisZonalScale: 2.1
+          variance: 0.4
         },
         currents: {
           basinGyreCountMax: 4,
@@ -293,14 +292,10 @@ bootstrap({
           },
           interplay: {
             windsFollowPlates: 0.55,
-            currentsFollowWinds: 0.62,
-            riftsFollowPlates: 0.78,
-            orogenyOpposesRifts: 0.62
+            currentsFollowWinds: 0.62
           },
           hemispheres: {
-            southernFlip: true,
-            equatorBandDeg: 14,
-            monsoonBias: 0.24
+            southernFlip: true
           },
           variability: {
             angleJitterDeg: 22,
