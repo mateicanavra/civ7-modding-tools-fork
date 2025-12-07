@@ -5,6 +5,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "types/**", "example-generated-mod/**", "mods/*/mod/**"]
     },
+    "deploy": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "dev": { "cache": false, "persistent": true },
     "check": { "dependsOn": ["^check"], "outputs": [] },
     "lint": {},

@@ -24,7 +24,8 @@
     "refresh:data": "pnpm dev:cli -- data zip default && pnpm dev:cli -- data unzip default",
     "mods:import": "pnpm exec civ7 mod git import",
     "test:mapgen": "pnpm -C packages/mapgen-core test",
-    "build:mapgen": "pnpm -C packages/mapgen-core build"
+    "build:mapgen": "pnpm -C packages/mapgen-core build",
+    "deploy:mods": "turbo run deploy --filter='./mods/*'"
   },
   "workspaces": [
     "apps/*",
