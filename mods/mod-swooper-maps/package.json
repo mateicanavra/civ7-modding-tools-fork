@@ -1,0 +1,21 @@
+{
+  "name": "mod-swooper-maps",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Swooper Maps mod for Civilization VII",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit",
+    "deploy": "pnpm run build && pnpm exec civ7 mod manage deploy"
+  },
+  "dependencies": {
+    "@swooper/mapgen-core": "workspace:*",
+    "@civ7/adapter": "workspace:*"
+  },
+  "devDependencies": {
+    "@civ7/types": "workspace:*",
+    "tsup": "^8.3.0",
+    "typescript": "^5.9.2"
+  }
+}
