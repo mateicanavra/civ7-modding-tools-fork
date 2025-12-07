@@ -214,12 +214,22 @@ export function rebind(): void {
 
 /**
  * Check whether a manifest stage is enabled.
+ *
+ * Uses "Opt-Out" pattern: stages are enabled by default unless explicitly disabled.
+ * This ensures that if no manifest is provided, all stages run by default.
  */
 export function stageEnabled(stage: string): boolean {
   const tunables = getTunables();
   const stages = tunables.STAGE_MANIFEST.stages || {};
   const entry = stages[stage];
-  return !!(entry && entry.enabled !== false);
+
+  // If entry does NOT exist, default to TRUE (run the stage)
+  if (!entry) {
+    return true;
+  }
+
+  // If entry exists, respect its 'enabled' flag
+  return entry.enabled !== false;
 }
 
 // ============================================================================

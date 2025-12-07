@@ -67,6 +67,52 @@ import { addDiverseFeatures } from "./layers/features.js";
 import { runPlacement } from "./layers/placement.js";
 
 // ============================================================================
+// Constants
+// ============================================================================
+
+/**
+ * Explicit stage manifest that enables all pipeline stages.
+ * This bypasses the complex default logic in tunables.ts and ensures
+ * the full generation pipeline runs regardless of other configuration.
+ */
+const DEFAULT_STAGE_MANIFEST = {
+  order: [
+    "foundation",
+    "landmassPlates",
+    "coastlines",
+    "storySeed",
+    "ruggedCoasts",
+    "islands",
+    "mountains",
+    "volcanoes",
+    "lakes",
+    "climateBaseline",
+    "rivers",
+    "climateRefine",
+    "biomes",
+    "features",
+    "placement",
+  ],
+  stages: {
+    foundation: { enabled: true },
+    landmassPlates: { enabled: true },
+    coastlines: { enabled: true },
+    storySeed: { enabled: true },
+    ruggedCoasts: { enabled: true },
+    islands: { enabled: true },
+    mountains: { enabled: true },
+    volcanoes: { enabled: true },
+    lakes: { enabled: true },
+    climateBaseline: { enabled: true },
+    rivers: { enabled: true },
+    climateRefine: { enabled: true },
+    biomes: { enabled: true },
+    features: { enabled: true },
+    placement: { enabled: true },
+  },
+};
+
+// ============================================================================
 // Types
 // ============================================================================
 
@@ -352,10 +398,11 @@ export class MapOrchestrator {
     const targetPlates = Math.max(8, Math.round(iWidth * iHeight * 0.0025));
     console.log(`${prefix} Auto-scaling: Setting plate count to ${targetPlates} for size ${iWidth}x${iHeight}`);
 
-    // Update runtime config, preserving any existing overrides
+    // Update runtime config with explicit stage manifest and plate count
     const currentConfig = getConfig();
     const newConfig: MapConfig = {
       ...currentConfig,
+      stageManifest: DEFAULT_STAGE_MANIFEST, // Force enable all stages
       foundation: {
         ...(currentConfig.foundation || {}),
         plates: {
@@ -366,10 +413,10 @@ export class MapOrchestrator {
     };
     setConfig(newConfig);
 
-    // 2. Rebind Tunables (Now picks up the new plate count)
+    // Rebind Tunables (picks up new plate count and stage manifest)
     resetTunables();
     const tunables = getTunables();
-    console.log(`${prefix} Tunables rebound successfully`);
+    console.log(`${prefix} Tunables bound. Stages enabled: ${Object.keys(DEFAULT_STAGE_MANIFEST.stages).length}`);
 
     // Get stage configuration
     const stageFlags = this.resolveStageFlags();
