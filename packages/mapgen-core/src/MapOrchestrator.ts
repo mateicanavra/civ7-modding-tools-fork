@@ -33,6 +33,7 @@ import type {
   MountainsConfig,
   VolcanoesConfig,
   ContinentBounds,
+  MapConfig,
 } from "./bootstrap/types.js";
 import type { ExtendedMapContext, FoundationContext } from "./core/types.js";
 import type { WorldModelState } from "./world/types.js";
@@ -45,6 +46,7 @@ import {
 } from "./core/types.js";
 import { addPlotTagsSimple, type TerrainBuilderLike } from "./core/plot-tags.js";
 import { getTunables, resetTunables, stageEnabled } from "./bootstrap/tunables.js";
+import { setConfig, getConfig } from "./bootstrap/runtime.js";
 import { resetStoryTags } from "./story/tags.js";
 import { WorldModel } from "./world/model.js";
 
@@ -327,12 +329,7 @@ export class MapOrchestrator {
     this.stageResults = [];
     const startPositions: number[] = [];
 
-    // Refresh configuration
-    resetTunables();
-    const tunables = getTunables();
-    console.log(`${prefix} Tunables rebound successfully`);
-
-    // Get map dimensions
+    // 1. Get map dimensions first (before tunables bind)
     const iWidth = this.adapter.getGridWidth();
     const iHeight = this.adapter.getGridHeight();
     const uiMapSize = this.adapter.getMapSize();
@@ -344,6 +341,35 @@ export class MapOrchestrator {
     }
 
     console.log(`${prefix} Map size: ${iWidth}x${iHeight}`);
+
+    // ------------------------------------------------------------------------
+    // FIX: DYNAMIC PLATE SCALING
+    // Calculate target plates based on area to ensure stability gradients exist.
+    // Factor 0.0025 yields ~9 plates for Standard (74x46) and ~18 for Huge (106x66).
+    // On larger maps, static 8 plates create massive interiors where all tiles
+    // share the same maximum stability score, causing landmass generation to fail.
+    // ------------------------------------------------------------------------
+    const targetPlates = Math.max(8, Math.round(iWidth * iHeight * 0.0025));
+    console.log(`${prefix} Auto-scaling: Setting plate count to ${targetPlates} for size ${iWidth}x${iHeight}`);
+
+    // Update runtime config, preserving any existing overrides
+    const currentConfig = getConfig();
+    const newConfig: MapConfig = {
+      ...currentConfig,
+      foundation: {
+        ...(currentConfig.foundation || {}),
+        plates: {
+          ...(currentConfig.foundation?.plates || {}),
+          count: targetPlates,
+        },
+      },
+    };
+    setConfig(newConfig);
+
+    // 2. Rebind Tunables (Now picks up the new plate count)
+    resetTunables();
+    const tunables = getTunables();
+    console.log(`${prefix} Tunables rebound successfully`);
 
     // Get stage configuration
     const stageFlags = this.resolveStageFlags();
