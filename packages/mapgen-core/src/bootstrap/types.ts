@@ -127,6 +127,10 @@ export interface FoundationConfig {
   story?: StoryConfig;
   /** Corridor policy configuration */
   corridors?: CorridorsConfig;
+  /** Biomes layer configuration */
+  biomes?: BiomeConfig;
+  /** Features density configuration */
+  featuresDensity?: FeaturesDensityConfig;
   [key: string]: unknown;
 }
 
@@ -386,6 +390,52 @@ export interface ClimateRefine {
   lowBasin?: Record<string, unknown>;
   pressure?: Record<string, unknown>;
   [key: string]: unknown;
+}
+
+// ============================================================================
+// Biomes Types
+// ============================================================================
+
+/** Biome layer configuration */
+export interface BiomeConfig {
+  tundra?: {
+    latMin?: number;
+    elevMin?: number;
+    rainMax?: number;
+  };
+  tropicalCoast?: {
+    latMax?: number;
+    rainMin?: number;
+  };
+  riverValleyGrassland?: {
+    latMax?: number;
+    rainMin?: number;
+  };
+  riftShoulder?: {
+    grasslandLatMax?: number;
+    grasslandRainMin?: number;
+    tropicalLatMax?: number;
+    tropicalRainMin?: number;
+  };
+}
+
+// ============================================================================
+// Features Types
+// ============================================================================
+
+/** Features layer configuration */
+export interface FeaturesConfig {
+  paradiseReefChance?: number;
+  volcanicForestChance?: number;
+  volcanicTaigaChance?: number;
+}
+
+/** Features density configuration */
+export interface FeaturesDensityConfig {
+  shelfReefMultiplier?: number;
+  rainforestExtraChance?: number;
+  forestExtraChance?: number;
+  taigaExtraChance?: number;
 }
 
 // ============================================================================
