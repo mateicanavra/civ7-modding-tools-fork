@@ -17,6 +17,11 @@ Large-scale procedural map generation mod for Civilization VII featuring:
 - [ ] Climate engine integration
 - [ ] Narrative overlay system
 - [ ] Multiple map presets
+- [ ] TypeScript migration with testable package architecture
+
+## Milestones
+
+- [M-TS: TypeScript Migration & Package Architecture](milestones/M-TS-typescript-migration.md) — Transform monolithic JS into typed, testable packages
 
 ## Active Plans
 
