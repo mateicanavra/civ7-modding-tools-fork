@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsup",
     "check": "tsc --noEmit",
-    "deploy": "pnpm run build && pnpm exec civ7 mod manage deploy"
+    "deploy": "pnpm run build && pnpm exec civ7 mod manage deploy --input ./mod --id swooper-maps"
   },
   "dependencies": {
     "@swooper/mapgen-core": "workspace:*",
