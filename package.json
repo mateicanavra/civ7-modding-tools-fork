@@ -25,7 +25,8 @@
     "mods:import": "pnpm exec civ7 mod git import",
     "test:mapgen": "pnpm -C packages/mapgen-core test",
     "build:mapgen": "pnpm -C packages/mapgen-core build",
-    "lint:adapter-boundary": "./scripts/lint-adapter-boundary.sh"
+    "lint:adapter-boundary": "./scripts/lint-adapter-boundary.sh",
+    "deploy:mods": "turbo run deploy --filter='./mods/*'"
   },
   "workspaces": [
     "apps/*",
