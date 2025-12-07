@@ -16,7 +16,11 @@
       "Bash(gt create:*)",
       "Bash(rg:*)",
       "Bash(pnpm:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(time pnpm -C packages/mapgen-core test:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(bun test:*)"
     ],
     "deny": [],
     "ask": []
