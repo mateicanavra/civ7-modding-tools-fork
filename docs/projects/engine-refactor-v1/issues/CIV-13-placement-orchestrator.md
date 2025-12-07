@@ -22,28 +22,28 @@ Migrate the placement layer and MapOrchestrator from JavaScript to TypeScript, c
 
 ## Deliverables
 
-- [ ] Migrate placement layer:
-  - [ ] `placement.js` → `placement.ts` (wonders, resources, starts, discoveries)
-- [ ] Migrate orchestrator:
-  - [ ] `map_orchestrator.js` → `src/MapOrchestrator.ts`
-  - [ ] Type stage manifest system
-  - [ ] Type `generateMap()` and `requestMapData()` functions
-  - [ ] Wire up lazy bootstrap integration
-  - [ ] Consume adapter interface for all engine calls
+- [x] Migrate placement layer:
+  - [x] `placement.js` → `placement.ts` (wonders, resources, starts, discoveries)
+- [x] Migrate orchestrator:
+  - [x] `map_orchestrator.js` → `src/MapOrchestrator.ts`
+  - [x] Type stage manifest system
+  - [x] Type `generateMap()` and `requestMapData()` functions
+  - [x] Wire up lazy bootstrap integration
+  - [x] Consume adapter interface for all engine calls
 - [ ] Update mod entry point:
   - [ ] `src/swooper-desert-mountains.ts` imports from `@swooper/mapgen-core`
   - [ ] Call `bootstrap()` with preset config
   - [ ] Wire `engine.on()` handlers through adapter
-- [ ] Ensure all public APIs are exported
+- [x] Ensure all public APIs are exported
 
 ## Acceptance Criteria
 
-- [ ] MapOrchestrator compiles without TypeScript errors
-- [ ] `pnpm -C packages/mapgen-core build` succeeds
+- [x] MapOrchestrator compiles without TypeScript errors
+- [x] `pnpm -C packages/mapgen-core build` succeeds
 - [ ] `pnpm -C mods/mod-swooper-maps build` produces valid bundle
 - [ ] Bundle includes inlined core code with external `/base-standard/...` imports
-- [ ] Stage manifest properly typed with requires/provides
-- [ ] No remaining `.js` files in `packages/mapgen-core/src/`
+- [x] Stage manifest properly typed with requires/provides
+- [x] No remaining `.js` files in `packages/mapgen-core/src/`
 
 ## Testing / Verification
 

@@ -117,6 +117,19 @@ export {
 } from "./features.js";
 
 // ============================================================================
+// Placement Layer
+// ============================================================================
+
+export {
+  runPlacement,
+  type PlacementConfig,
+  type FloodplainsConfig,
+  type ContinentBounds,
+  type StartsConfig,
+  type PlacementOptions,
+} from "./placement.js";
+
+// ============================================================================
 // Layer Stage Types
 // ============================================================================
 
