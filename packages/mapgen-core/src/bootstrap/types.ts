@@ -430,6 +430,44 @@ export interface FeaturesConfig {
   volcanicTaigaChance?: number;
 }
 
+// ============================================================================
+// Placement Types
+// ============================================================================
+
+/** Floodplains generation configuration */
+export interface FloodplainsConfig {
+  minLength?: number;
+  maxLength?: number;
+}
+
+/** Placement layer configuration */
+export interface PlacementConfig {
+  /** Whether to add +1 to default natural wonder count */
+  wondersPlusOne?: boolean;
+  /** Floodplains generation settings */
+  floodplains?: FloodplainsConfig;
+}
+
+/** Start placement continent boundary */
+export interface ContinentBounds {
+  west: number;
+  east: number;
+  south: number;
+  north: number;
+  continent: number;
+}
+
+/** Start placement configuration passed to the placement layer */
+export interface StartsConfig {
+  playersLandmass1: number;
+  playersLandmass2: number;
+  westContinent: ContinentBounds;
+  eastContinent: ContinentBounds;
+  startSectorRows: number;
+  startSectorCols: number;
+  startSectors: unknown[];
+}
+
 /** Features density configuration */
 export interface FeaturesDensityConfig {
   shelfReefMultiplier?: number;
