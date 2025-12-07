@@ -1,0 +1,25 @@
+{
+  "name": "@civ7/types",
+  "version": "0.1.0",
+  "description": "TypeScript type definitions for Civilization VII modding runtime environment",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts"
+    }
+  },
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  },
+  "keywords": [
+    "civ7",
+    "civilization",
+    "modding",
+    "types",
+    "typescript"
+  ],
+  "license": "MIT"
+}
