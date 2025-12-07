@@ -22,25 +22,25 @@ Migrate core utility files and story system from JavaScript to TypeScript, estab
 
 ## Deliverables
 
-- [ ] Migrate core utilities to `src/core/`:
-  - [ ] `types.js` → `types.ts` (MapContext, FoundationContext, etc.)
-  - [ ] `utils.js` → `utils.ts` (clamp, inBounds, getFeatureTypeIndex)
-  - [ ] `plot_tags.js` → `plot-tags.ts` (addPlotTags)
-  - [ ] Remove `adapters.js` (use `@civ7/adapter` instead)
-- [ ] Migrate story system to `src/story/`:
-  - [ ] `tags.js` → `tags.ts` (StoryTags sparse registry)
-  - [ ] `overlays.js` → `overlays.ts` (StoryOverlaySnapshot)
-  - [ ] `tagging.js` → `tagging.ts` (hotspots, rifts, orogeny)
-  - [ ] `corridors.js` → `corridors.ts` (corridor tagging)
-- [ ] Export all types from `@swooper/mapgen-core`
-- [ ] Write unit tests for story tag operations
+- [x] Migrate core utilities to `src/core/`:
+  - [x] `types.js` → `types.ts` (ExtendedMapContext, FoundationContext, MapFields, MapBuffers)
+  - [x] `utils.js` → `utils.ts` (clamp, inBounds, storyKey, fillBuffer)
+  - [x] `plot_tags.js` → `plot-tags.ts` (addPlotTags with adapter pattern)
+  - [x] Remove `adapters.js` (use `@civ7/adapter` instead)
+- [x] Migrate story system to `src/story/`:
+  - [x] `tags.js` → `tags.ts` (StoryTags sparse registry with lazy provider)
+  - [x] `overlays.js` → `overlays.ts` (StoryOverlaySnapshot)
+  - [ ] `tagging.js` → `tagging.ts` (deferred to CIV-11/12/13 layer migrations)
+  - [ ] `corridors.js` → `corridors.ts` (deferred to CIV-11/12/13 layer migrations)
+- [x] Export all types from `@swooper/mapgen-core`
+- [x] Write unit tests for story tag operations
 
 ## Acceptance Criteria
 
-- [ ] All core/story files compile without TypeScript errors
-- [ ] Types are properly exported and importable
-- [ ] StoryTags sparse registry operations tested
-- [ ] No remaining `.js` files in `src/core/` or `src/story/`
+- [x] All core/story files compile without TypeScript errors
+- [x] Types are properly exported and importable
+- [x] StoryTags sparse registry operations tested (19 tests)
+- [x] No remaining `.js` files in `src/core/` or `src/story/`
 
 ## Testing / Verification
 
