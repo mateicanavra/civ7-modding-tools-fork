@@ -22,7 +22,9 @@
     "link:cli": "pnpm -F @mateicanavra/civ7-cli run link:global",
     "unlink:cli": "pnpm -F @mateicanavra/civ7-cli run unlink:global",
     "refresh:data": "pnpm dev:cli -- data zip default && pnpm dev:cli -- data unzip default",
-    "mods:import": "pnpm exec civ7 mod git import"
+    "mods:import": "pnpm exec civ7 mod git import",
+    "test:mapgen": "pnpm -C packages/mapgen-core test",
+    "build:mapgen": "pnpm -C packages/mapgen-core build"
   },
   "workspaces": [
     "apps/*",
