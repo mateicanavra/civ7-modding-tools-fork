@@ -5,6 +5,14 @@
  * across all other modules.
  */
 
+// Re-export types
+export * from "./types.js";
+export * from "./plot-tags.js";
+
+// ============================================================================
+// Coordinate Utilities
+// ============================================================================
+
 /**
  * Calculate linear index from (x, y) coordinates
  */
@@ -25,6 +33,26 @@ export function inBounds(
 }
 
 /**
+ * Produce a stable string key for a tile coordinate.
+ * Used for sparse storage in Sets/Maps.
+ */
+export function storyKey(x: number, y: number): string {
+  return `${x},${y}`;
+}
+
+/**
+ * Parse a story key back into coordinates
+ */
+export function parseStoryKey(key: string): { x: number; y: number } {
+  const [x, y] = key.split(",").map(Number);
+  return { x, y };
+}
+
+// ============================================================================
+// Math Utilities
+// ============================================================================
+
+/**
  * Clamp a value between min and max
  */
 export function clamp(value: number, min: number, max: number): number {
@@ -43,4 +71,16 @@ export function lerp(a: number, b: number, t: number): number {
  */
 export function wrapX(x: number, width: number): number {
   return ((x % width) + width) % width;
+}
+
+/**
+ * Fill a typed array buffer with a value
+ */
+export function fillBuffer(
+  buffer: { fill: (value: number) => void } | null | undefined,
+  value: number
+): void {
+  if (buffer && typeof buffer.fill === "function") {
+    buffer.fill(value);
+  }
 }

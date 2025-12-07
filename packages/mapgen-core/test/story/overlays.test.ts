@@ -1,0 +1,252 @@
+/**
+ * Story Overlays Tests
+ *
+ * Tests for publishStoryOverlay, getStoryOverlay, hydrateMarginsStoryTags functions.
+ */
+
+import { describe, it, expect, beforeEach } from "bun:test";
+import {
+  STORY_OVERLAY_KEYS,
+  resetStoryOverlays,
+  getStoryOverlayRegistry,
+  publishStoryOverlay,
+  finalizeStoryOverlay,
+  getStoryOverlay,
+  hydrateMarginsStoryTags,
+} from "../../src/story/overlays.js";
+import type { StoryOverlaySnapshot } from "../../src/core/types.js";
+
+describe("story/overlays", () => {
+  beforeEach(() => {
+    resetStoryOverlays();
+  });
+
+  describe("STORY_OVERLAY_KEYS", () => {
+    it("has expected keys", () => {
+      expect(STORY_OVERLAY_KEYS.MARGINS).toBe("margins");
+      expect(STORY_OVERLAY_KEYS.CORRIDORS).toBe("corridors");
+    });
+  });
+
+  describe("resetStoryOverlays", () => {
+    it("clears the registry", () => {
+      publishStoryOverlay(null, "test", { width: 10, height: 10 });
+      expect(getStoryOverlayRegistry().size).toBe(1);
+
+      resetStoryOverlays();
+
+      expect(getStoryOverlayRegistry().size).toBe(0);
+    });
+  });
+
+  describe("publishStoryOverlay", () => {
+    it("publishes an overlay to the registry", () => {
+      const snapshot = publishStoryOverlay(null, "test", {
+        width: 100,
+        height: 80,
+        active: ["1,1", "2,2"],
+        passive: ["3,3"],
+      });
+
+      expect(snapshot.key).toBe("test");
+      expect(snapshot.width).toBe(100);
+      expect(snapshot.height).toBe(80);
+      expect(snapshot.active).toEqual(["1,1", "2,2"]);
+      expect(snapshot.passive).toEqual(["3,3"]);
+
+      const fromRegistry = getStoryOverlayRegistry().get("test");
+      expect(fromRegistry).toBe(snapshot);
+    });
+
+    it("attaches overlay to context when provided", () => {
+      const ctx = { overlays: new Map<string, StoryOverlaySnapshot>() };
+
+      publishStoryOverlay(ctx, "margins", { width: 50, height: 50 });
+
+      expect(ctx.overlays.has("margins")).toBe(true);
+      expect(ctx.overlays.get("margins")?.width).toBe(50);
+    });
+
+    it("creates overlays map on context if missing", () => {
+      const ctx: { overlays?: Map<string, StoryOverlaySnapshot> } = {};
+
+      publishStoryOverlay(ctx, "test", { width: 10, height: 10 });
+
+      expect(ctx.overlays).toBeDefined();
+      expect(ctx.overlays!.has("test")).toBe(true);
+    });
+
+    it("normalizes overlay with defaults", () => {
+      const snapshot = publishStoryOverlay(null, "test", {});
+
+      expect(snapshot.key).toBe("test");
+      expect(snapshot.kind).toBe("test"); // defaults to key
+      expect(snapshot.version).toBe(1);
+      expect(snapshot.width).toBe(0);
+      expect(snapshot.height).toBe(0);
+      expect(snapshot.active).toEqual([]);
+      expect(snapshot.passive).toEqual([]);
+      expect(snapshot.summary).toEqual({});
+    });
+
+    it("freezes the snapshot", () => {
+      const snapshot = publishStoryOverlay(null, "test", { width: 10 });
+
+      expect(Object.isFrozen(snapshot)).toBe(true);
+    });
+
+    it("deduplicates active/passive arrays", () => {
+      const snapshot = publishStoryOverlay(null, "test", {
+        active: ["1,1", "2,2", "1,1", "3,3", "2,2"],
+        passive: ["4,4", "4,4", "5,5"],
+      });
+
+      expect(snapshot.active).toEqual(["1,1", "2,2", "3,3"]);
+      expect(snapshot.passive).toEqual(["4,4", "5,5"]);
+    });
+  });
+
+  describe("finalizeStoryOverlay", () => {
+    it("creates snapshot without publishing to registry", () => {
+      const snapshot = finalizeStoryOverlay("test", {
+        width: 100,
+        height: 80,
+      });
+
+      expect(snapshot.key).toBe("test");
+      expect(snapshot.width).toBe(100);
+
+      // Not in registry
+      expect(getStoryOverlayRegistry().has("test")).toBe(false);
+    });
+
+    it("normalizes the same as publishStoryOverlay", () => {
+      const snapshot = finalizeStoryOverlay("test", {
+        active: ["1,1", "1,1"],
+      });
+
+      expect(snapshot.active).toEqual(["1,1"]);
+      expect(Object.isFrozen(snapshot)).toBe(true);
+    });
+  });
+
+  describe("getStoryOverlay", () => {
+    it("returns overlay from context if available", () => {
+      const snapshot = finalizeStoryOverlay("test", { width: 42 });
+      const ctx = {
+        overlays: new Map<string, StoryOverlaySnapshot>([["test", snapshot]]),
+      };
+
+      const result = getStoryOverlay(ctx, "test");
+
+      expect(result).toBe(snapshot);
+    });
+
+    it("falls back to global registry", () => {
+      publishStoryOverlay(null, "global", { width: 100 });
+
+      const result = getStoryOverlay(null, "global");
+
+      expect(result?.width).toBe(100);
+    });
+
+    it("prefers context over global registry", () => {
+      publishStoryOverlay(null, "test", { width: 100 });
+      const localSnapshot = finalizeStoryOverlay("test", { width: 50 });
+      const ctx = {
+        overlays: new Map<string, StoryOverlaySnapshot>([
+          ["test", localSnapshot],
+        ]),
+      };
+
+      const result = getStoryOverlay(ctx, "test");
+
+      expect(result?.width).toBe(50);
+    });
+
+    it("returns null for missing overlay", () => {
+      const result = getStoryOverlay(null, "nonexistent");
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe("hydrateMarginsStoryTags", () => {
+    it("populates activeMargin and passiveShelf sets", () => {
+      const overlay = finalizeStoryOverlay("margins", {
+        active: ["1,1", "2,2"],
+        passive: ["3,3", "4,4"],
+      });
+      const storyTags = {
+        activeMargin: new Set<string>(),
+        passiveShelf: new Set<string>(),
+      };
+
+      hydrateMarginsStoryTags(overlay, storyTags);
+
+      expect(storyTags.activeMargin.has("1,1")).toBe(true);
+      expect(storyTags.activeMargin.has("2,2")).toBe(true);
+      expect(storyTags.passiveShelf.has("3,3")).toBe(true);
+      expect(storyTags.passiveShelf.has("4,4")).toBe(true);
+    });
+
+    it("clears existing data by default", () => {
+      const overlay = finalizeStoryOverlay("margins", {
+        active: ["new,1"],
+      });
+      const storyTags = {
+        activeMargin: new Set(["old,1", "old,2"]),
+        passiveShelf: new Set(["old,3"]),
+      };
+
+      hydrateMarginsStoryTags(overlay, storyTags);
+
+      expect(storyTags.activeMargin.size).toBe(1);
+      expect(storyTags.activeMargin.has("new,1")).toBe(true);
+      expect(storyTags.activeMargin.has("old,1")).toBe(false);
+      expect(storyTags.passiveShelf.size).toBe(0);
+    });
+
+    it("preserves existing data when clear=false", () => {
+      const overlay = finalizeStoryOverlay("margins", {
+        active: ["new,1"],
+      });
+      const storyTags = {
+        activeMargin: new Set(["old,1"]),
+        passiveShelf: new Set(["old,2"]),
+      };
+
+      hydrateMarginsStoryTags(overlay, storyTags, { clear: false });
+
+      expect(storyTags.activeMargin.has("old,1")).toBe(true);
+      expect(storyTags.activeMargin.has("new,1")).toBe(true);
+      expect(storyTags.passiveShelf.has("old,2")).toBe(true);
+    });
+
+    it("handles null overlay gracefully", () => {
+      const storyTags = {
+        activeMargin: new Set(["1,1"]),
+        passiveShelf: new Set<string>(),
+      };
+
+      const result = hydrateMarginsStoryTags(null, storyTags);
+
+      expect(result).toBe(storyTags);
+      expect(storyTags.activeMargin.has("1,1")).toBe(true);
+    });
+
+    it("handles null storyTags gracefully", () => {
+      const overlay = finalizeStoryOverlay("margins", { active: ["1,1"] });
+
+      const result = hydrateMarginsStoryTags(overlay, null);
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe("isolation", () => {
+    it("does not leak state between tests", () => {
+      expect(getStoryOverlayRegistry().size).toBe(0);
+    });
+  });
+});
