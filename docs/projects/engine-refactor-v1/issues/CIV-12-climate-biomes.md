@@ -22,20 +22,20 @@ Migrate climate simulation, biome designation, and feature placement layers from
 
 ## Deliverables
 
-- [ ] Migrate climate layers to `src/layers/`:
-  - [ ] `climate-engine.js` → `climate-engine.ts` (rainfall & humidity modeling)
-- [ ] Migrate biome/feature layers:
-  - [ ] `biomes.js` → `biomes.ts` (enhanced biome designation)
-  - [ ] `features.js` → `features.ts` (feature placement with climate awareness)
-- [ ] Type ClimateField interfaces
-- [ ] Ensure layers consume adapter interface for base-standard calls
+- [x] Migrate climate layers to `src/layers/`:
+  - [x] `climate-engine.js` → `climate-engine.ts` (rainfall & humidity modeling)
+- [x] Migrate biome/feature layers:
+  - [x] `biomes.js` → `biomes.ts` (enhanced biome designation)
+  - [x] `features.js` → `features.ts` (feature placement with climate awareness)
+- [x] Type ClimateField interfaces
+- [x] Ensure layers consume adapter interface for base-standard calls
 
 ## Acceptance Criteria
 
-- [ ] All climate/biome/feature layer files compile without TypeScript errors
-- [ ] ClimateField types properly defined and exported
-- [ ] Layers delegate `/base-standard/...` calls through adapter
-- [ ] No remaining `.js` files for these layers
+- [x] All climate/biome/feature layer files compile without TypeScript errors
+- [x] ClimateField types properly defined and exported
+- [x] Layers delegate `/base-standard/...` calls through adapter
+- [x] No remaining `.js` files for these layers
 
 ## Testing / Verification
 
