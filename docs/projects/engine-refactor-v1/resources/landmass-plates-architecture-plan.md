@@ -27,3 +27,13 @@
 ## Notes
 - No experiment flags retained; new behavior is the default path.
 - WorldModel tensors remain immutable; fixes stay inside landmass/mountains layers.
+
+## Phase 3 — Robustness & Refactoring
+- **Fix Zero Noise Crash:** Patch `landmass-plate.ts` to adaptively handle fractal inputs. If `FractalBuilder` returns 8-bit values (0-255), the legacy `>>> 8` shift results in zero noise, causing flat scores and binary search failure (picking 0 land tiles). The fix checks magnitude before shifting.
+- **Pipeline Architecture:** Refactor the monolithic `landmass-plate.ts` into composable components under `packages/mapgen-core/src/layers/landmass/`:
+  - `scoring.ts`: Encapsulates the specific Plate/Fractal scoring logic.
+  - `masking.ts`: Handles threshold application and mask generation.
+  - `index.ts`: Coordinator that wires components together.
+- **Shared Utilities:** Extract generic logic to `packages/mapgen-core/src/utils/`:
+  - `threshold-solver.ts`: The generic binary search algorithm (reusable by Mountains/Biomes).
+  - `grid-analysis.ts`: Logic for extracting windows/bounds from binary masks.
