@@ -323,9 +323,36 @@ export function applyClimateBaseline(
     return false;
   };
 
+  // CIV-18: Ad-hoc fallback helper for shallow water adjacency.
+  // No prior implementation existed - this was added to fix the gap where
+  // removing stubs left no fallback behavior. A tile is "adjacent to shallow
+  // water" if it neighbors a water tile that has 2+ land neighbors (bay/lagoon).
   const isAdjacentToShallowWater = (x: number, y: number): boolean => {
     if (adapter.isAdjacentToShallowWater)
       return adapter.isAdjacentToShallowWater(x, y);
+    if (adapter.isWater(x, y)) return false;
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        if (dx === 0 && dy === 0) continue;
+        const nx = x + dx;
+        const ny = y + dy;
+        if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+        if (adapter.isWater(nx, ny)) {
+          // Check if this water tile has multiple land neighbors (shallow)
+          let landNeighbors = 0;
+          for (let ddy = -1; ddy <= 1; ddy++) {
+            for (let ddx = -1; ddx <= 1; ddx++) {
+              if (ddx === 0 && ddy === 0) continue;
+              const nnx = nx + ddx;
+              const nny = ny + ddy;
+              if (nnx < 0 || nnx >= width || nny < 0 || nny >= height) continue;
+              if (!adapter.isWater(nnx, nny)) landNeighbors++;
+            }
+          }
+          if (landNeighbors >= 2) return true;
+        }
+      }
+    }
     return false;
   };
 
@@ -440,9 +467,32 @@ export function applyClimateSwatches(
     return false;
   };
 
+  // CIV-18: Ad-hoc fallback helper for shallow water adjacency (same as baseline).
   const isAdjacentToShallowWater = (x: number, y: number): boolean => {
     if (adapter.isAdjacentToShallowWater)
       return adapter.isAdjacentToShallowWater(x, y);
+    if (isWater(x, y)) return false;
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        if (dx === 0 && dy === 0) continue;
+        const nx = x + dx;
+        const ny = y + dy;
+        if (!inLocalBounds(nx, ny)) continue;
+        if (isWater(nx, ny)) {
+          let landNeighbors = 0;
+          for (let ddy = -1; ddy <= 1; ddy++) {
+            for (let ddx = -1; ddx <= 1; ddx++) {
+              if (ddx === 0 && ddy === 0) continue;
+              const nnx = nx + ddx;
+              const nny = ny + ddy;
+              if (!inLocalBounds(nnx, nny)) continue;
+              if (!isWater(nnx, nny)) landNeighbors++;
+            }
+          }
+          if (landNeighbors >= 2) return true;
+        }
+      }
+    }
     return false;
   };
 

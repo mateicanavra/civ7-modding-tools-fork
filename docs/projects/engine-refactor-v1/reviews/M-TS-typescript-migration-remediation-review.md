@@ -132,18 +132,18 @@ Unblock the biomes and climate stages by fixing a missing `ctx` parameter on the
 **Issues / gaps**
 - The biomes test only checks the `designateEnhancedBiomes` signature (`length`/arity) rather than exercising an end-to-end call with a real or mock `ExtendedMapContext`; it would not catch regressions where `ctx` is dropped again or where the adapter resolution path breaks.
 - `resolveAdapter` hand-constructs a `ClimateAdapter` instead of spreading the underlying `EngineAdapter`, so any future adapter that adds `isCoastalLand`/`isAdjacentToShallowWater` will have those methods silently dropped until this function is revisited.
-- The shallow-water path still has no local fallback; if `adapter.isAdjacentToShallowWater` is undefined, the code simply returns `false`, so the “shallow” portion of the acceptance criteria is only partially met (stubs no longer block anything, but there is still no neighborhood-based behavior).
+- ~~The shallow-water path still has no local fallback; if `adapter.isAdjacentToShallowWater` is undefined, the code simply returns `false`, so the "shallow" portion of the acceptance criteria is only partially met (stubs no longer block anything, but there is still no neighborhood-based behavior).~~ **FIXED**: Added ad-hoc `isAdjacentToShallowWater` fallback helper that checks if land is adjacent to water with 2+ land neighbors (bay/lagoon pattern).
 - There is no orchestrator-level or MapContext-level smoke test that runs `bootstrap` + `MapOrchestrator.generateMap()` with a minimal adapter and asserts that climate and biomes stages execute successfully using their fallbacks; current tests validate patterns, not the actual wiring.
 
 **Suggested follow-up**
 - Upgrade the CIV-18 tests to include a small MapContext-based smoke test: construct a minimal `ExtendedMapContext` + mock adapter, call `applyClimateBaseline`/`refineClimateEarthlike` and `designateEnhancedBiomes`, and assert that (a) calls succeed without throwing and (b) rainfall/biomes fields change on at least a few tiles.
 - When CIV-19/CIV-20 introduce richer climate/biomes capabilities in the adapter, refactor `resolveAdapter` to spread the underlying `EngineAdapter` (e.g., `return { ...engineAdapter, …overrides } as ClimateAdapter;`) so optional adapter methods are honored instead of being unintentionally dropped.
-- Consider introducing a shallow-water neighborhood helper alongside the coastal one, so that the "shallowAdjBonus" path has a true fallback when adapter methods are absent; keep behavior controlled via tunables to avoid surprising map changes.
+- ~~Consider introducing a shallow-water neighborhood helper alongside the coastal one, so that the "shallowAdjBonus" path has a true fallback when adapter methods are absent; keep behavior controlled via tunables to avoid surprising map changes.~~ **DONE**: Added `isAdjacentToShallowWater` fallback in both `applyClimateBaseline` and `applyClimateSwatches`.
 - Add a small orchestrator-level regression test that runs `generateMap()` with all CIV-18 fixes in place and asserts that the `stageResults` set includes successful `climateBaseline`, `climateRefine`, and `biomes` stages, guarding against future call-site regressions.
 
 **Deferred Tests**
 - [ ] Biomes ctx wiring test: call `designateEnhancedBiomes(w, h, ctx)` with mock adapter, assert adapter methods called
 - [ ] Climate fallback smoke test: call `applyClimateBaseline`/`refineClimateEarthlike` with adapter missing `isCoastalLand`, assert rainfall changes on coastal tiles via local fallback
-- [ ] Shallow-water fallback test: implement and test neighborhood-based `isAdjacentToShallowWater` fallback (currently returns `false` when undefined)
+- [x] ~~Shallow-water fallback test: implement and test neighborhood-based `isAdjacentToShallowWater` fallback~~ **DONE**: Implemented fallback and added test in `callsite-fixes.test.ts`
 - [ ] Orchestrator regression test: `generateMap()` with CIV-18 fixes, assert `climateBaseline`, `climateRefine`, `biomes` in successful `stageResults`
 - [ ] resolveAdapter spread test: when adapter provides `isCoastalLand`, verify it flows through (currently hand-constructed, will drop future methods)
