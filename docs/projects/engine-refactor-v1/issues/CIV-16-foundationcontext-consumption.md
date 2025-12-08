@@ -53,21 +53,21 @@ export function applyMountains(ctx: ExtendedMapContext) {
 
 ## Deliverables
 
-- [ ] **Update layers to read from `ctx.foundation`:**
-  - [ ] `layers/landmass-plate.ts` — read `ctx.foundation.plates.*`
-  - [ ] `layers/coastlines.ts` — read `ctx.foundation.plates.*`
-  - [ ] `layers/mountains.ts` — read `ctx.foundation.plates.*`
-  - [ ] `layers/volcanoes.ts` — read `ctx.foundation.plates.*`
-  - [ ] `layers/landmass-utils.ts` — read `ctx.foundation.plates.*`
-  - [ ] `layers/climate-engine.ts` — read `ctx.foundation.dynamics.*`
-- [ ] **Export `BOUNDARY_TYPE` from shared location:**
-  - Create `world/constants.ts` or add to `core/types.ts`
-  - Remove need to import from `WorldModel` for constants
-- [ ] **Keep `WorldModel` singleton only for orchestrator:**
+- [x] **Update layers to read from `ctx.foundation`:**
+  - [x] `layers/landmass-plate.ts` — read `ctx.foundation.plates.*`
+  - [x] `layers/coastlines.ts` — read `ctx.foundation.plates.*`
+  - [x] `layers/mountains.ts` — read `ctx.foundation.plates.*`
+  - [x] `layers/volcanoes.ts` — read `ctx.foundation.plates.*`
+  - [x] `layers/landmass-utils.ts` — read `ctx.foundation.plates.*`
+  - [x] `layers/climate-engine.ts` — read `ctx.foundation.dynamics.*`
+- [x] **Export `BOUNDARY_TYPE` from shared location:**
+  - Created `world/constants.ts` re-exporting from `world/types.ts`
+  - Layers now import from constants, not WorldModel
+- [x] **Keep `WorldModel` singleton only for orchestrator:**
   - `WorldModel.init()` and `WorldModel.reset()` called only by orchestrator
   - Layers never call these methods directly
-- [ ] **Add `WorldModel.reset()` if missing:**
-  - Call in orchestrator entry sequence before `init()`
+- [x] **Add `WorldModel.reset()` if missing:**
+  - Already exists in world/model.ts (lines 543-564)
 - [ ] **Document authoritative generation session sequence:**
   ```
   1. resetConfig() / resetTunables() / WorldModel.reset()
@@ -79,11 +79,11 @@ export function applyMountains(ctx: ExtendedMapContext) {
 
 ## Acceptance Criteria
 
-- [ ] No layer file contains `import { WorldModel } from`
-- [ ] Layers read from `ctx.foundation.plates.*` and `ctx.foundation.dynamics.*`
-- [ ] `BOUNDARY_TYPE` exported from shared location (not requiring WorldModel import)
-- [ ] `WorldModel.reset()` exists and is called in orchestrator entry
-- [ ] Build passes, existing tests still pass
+- [x] No layer file contains `import { WorldModel } from`
+- [x] Layers read from `ctx.foundation.plates.*` and `ctx.foundation.dynamics.*`
+- [x] `BOUNDARY_TYPE` exported from shared location (not requiring WorldModel import)
+- [x] `WorldModel.reset()` exists and is called in orchestrator entry
+- [x] Build passes, existing tests still pass
 - [ ] Pipeline still "null script" (expected — stages not yet enabled in Stack 2)
 
 ## Testing / Verification
