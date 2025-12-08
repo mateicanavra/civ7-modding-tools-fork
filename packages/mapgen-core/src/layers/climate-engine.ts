@@ -32,8 +32,10 @@ export interface ClimateRuntime {
 export interface ClimateAdapter {
   isWater: (x: number, y: number) => boolean;
   isMountain: (x: number, y: number) => boolean;
-  isCoastalLand: (x: number, y: number) => boolean;
-  isAdjacentToShallowWater: (x: number, y: number) => boolean;
+  /** Optional - when undefined, climate code uses local neighborhood fallback */
+  isCoastalLand?: (x: number, y: number) => boolean;
+  /** Optional - when undefined, climate code uses local fallback */
+  isAdjacentToShallowWater?: (x: number, y: number) => boolean;
   isAdjacentToRivers: (x: number, y: number, radius: number) => boolean;
   getRainfall: (x: number, y: number) => number;
   setRainfall: (x: number, y: number, rf: number) => void;
@@ -66,8 +68,10 @@ function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
     return {
       isWater: (x, y) => engineAdapter.isWater(x, y),
       isMountain: (x, y) => engineAdapter.isMountain(x, y),
-      isCoastalLand: () => false, // Not on base interface - computed locally
-      isAdjacentToShallowWater: () => false, // Not on base interface - computed locally
+      // NOTE: isCoastalLand and isAdjacentToShallowWater intentionally omitted.
+      // These are not on the base EngineAdapter interface. By leaving them
+      // undefined, the climate code's local fallbacks will execute instead of
+      // receiving stubbed `() => false` values that block the fallback path.
       isAdjacentToRivers: (x, y, radius) =>
         engineAdapter.isAdjacentToRivers(x, y, radius),
       getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
@@ -75,10 +79,12 @@ function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
       getElevation: (x, y) => engineAdapter.getElevation(x, y),
       getLatitude: (x, y) => engineAdapter.getLatitude(x, y),
       getRandomNumber: (max, label) => engineAdapter.getRandomNumber(max, label),
-    };
+    } as ClimateAdapter;
   }
 
-  // Fallback: return dummy adapter that will throw
+  // Fallback: return dummy adapter that will throw on critical methods
+  // NOTE: isCoastalLand and isAdjacentToShallowWater intentionally omitted
+  // to allow local neighborhood fallbacks to execute.
   return {
     isWater: () => {
       throw new Error("ClimateEngine: No adapter available");
@@ -86,15 +92,13 @@ function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
     isMountain: () => {
       throw new Error("ClimateEngine: No adapter available");
     },
-    isCoastalLand: () => false,
-    isAdjacentToShallowWater: () => false,
     isAdjacentToRivers: () => false,
     getRainfall: () => 0,
     setRainfall: () => {},
     getElevation: () => 0,
     getLatitude: () => 0,
     getRandomNumber: (max) => Math.floor(Math.random() * max),
-  };
+  } as ClimateAdapter;
 }
 
 /**
