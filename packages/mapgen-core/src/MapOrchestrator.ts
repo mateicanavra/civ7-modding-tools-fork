@@ -101,6 +101,12 @@ export interface MapInitParams {
 
 /** Map info from GameInfo.Maps lookup */
 export interface MapInfo {
+  // === Map Size Dimensions ===
+  GridWidth?: number;
+  GridHeight?: number;
+  MinLatitude?: number;
+  MaxLatitude?: number;
+  // === Game Setup Parameters ===
   NumNaturalWonders?: number;
   LakeGenerationFrequency?: number;
   PlayersLandmass1?: number;
@@ -108,6 +114,14 @@ export interface MapInfo {
   StartSectorRows?: number;
   StartSectorCols?: number;
   [key: string]: unknown;
+}
+
+/** Map size defaults for testing (bypasses game settings) */
+export interface MapSizeDefaults {
+  /** Map size ID (e.g., "MAPSIZE_STANDARD", "MAPSIZE_LARGE") */
+  mapSizeId?: number;
+  /** Map info to return for lookups */
+  mapInfo?: MapInfo;
 }
 
 /** Orchestrator configuration */
@@ -124,6 +138,11 @@ export interface OrchestratorConfig {
   createAdapter?: (width: number, height: number) => EngineAdapter;
   /** Log prefix for console output */
   logPrefix?: string;
+  /**
+   * Override map size defaults for testing.
+   * When set, bypasses GameplayMap.getMapSize() and GameInfo.Maps.lookup().
+   */
+  mapSizeDefaults?: MapSizeDefaults;
 }
 
 /** Stage execution result */
@@ -346,23 +365,55 @@ export class MapOrchestrator {
 
   /**
    * Handle RequestMapInitData event.
-   * Sets map dimensions and latitude parameters.
+   * Sets map dimensions and latitude parameters from game settings.
+   *
+   * Flow: GameplayMap.getMapSize() → GameInfo.Maps.lookup() → extract dimensions
+   * This replaces the previous hard-coded 84×54 approach (CIV-22).
+   *
+   * For testing, use `config.mapSizeDefaults` to bypass game settings.
    */
   requestMapData(initParams?: Partial<MapInitParams>): void {
     const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} === RequestMapInitData ===`);
 
+    // Get map size and info: use config defaults if provided (for testing),
+    // otherwise query game settings
+    let mapSizeId: number;
+    let mapInfo: MapInfo | null;
+
+    if (this.config.mapSizeDefaults) {
+      // Testing mode: use provided defaults
+      mapSizeId = this.config.mapSizeDefaults.mapSizeId ?? 0;
+      mapInfo = this.config.mapSizeDefaults.mapInfo ?? null;
+      console.log(`${prefix} Using test mapSizeDefaults`);
+    } else {
+      // Production mode: query game settings
+      mapSizeId = this.adapter.getMapSize();
+      mapInfo = this.adapter.lookupMapInfo(mapSizeId);
+    }
+
+    // Extract dimensions from MapInfo, with sensible fallbacks
+    // These fallbacks match MAPSIZE_STANDARD defaults
+    const gameWidth = mapInfo?.GridWidth ?? 84;
+    const gameHeight = mapInfo?.GridHeight ?? 54;
+    const gameMaxLat = mapInfo?.MaxLatitude ?? 80;
+    const gameMinLat = mapInfo?.MinLatitude ?? -80;
+
+    console.log(`${prefix} Map size ID: ${mapSizeId}`);
+    console.log(`${prefix} MapInfo: GridWidth=${gameWidth}, GridHeight=${gameHeight}, Lat=[${gameMinLat}, ${gameMaxLat}]`);
+
+    // Build params: explicit overrides take precedence over game settings
     const params: MapInitParams = {
-      width: initParams?.width ?? 84,
-      height: initParams?.height ?? 54,
-      topLatitude: initParams?.topLatitude ?? 80,
-      bottomLatitude: initParams?.bottomLatitude ?? -80,
+      width: initParams?.width ?? gameWidth,
+      height: initParams?.height ?? gameHeight,
+      topLatitude: initParams?.topLatitude ?? gameMaxLat,
+      bottomLatitude: initParams?.bottomLatitude ?? gameMinLat,
       wrapX: initParams?.wrapX ?? true,
       wrapY: initParams?.wrapY ?? false,
     };
 
-    console.log(`${prefix} Map dimensions: ${params.width} x ${params.height}`);
-    console.log(`${prefix} Latitude range: ${params.bottomLatitude} to ${params.topLatitude}`);
+    console.log(`${prefix} Final dimensions: ${params.width} x ${params.height}`);
+    console.log(`${prefix} Final latitude range: ${params.bottomLatitude} to ${params.topLatitude}`);
 
     this.adapter.setMapInitData(params);
   }
