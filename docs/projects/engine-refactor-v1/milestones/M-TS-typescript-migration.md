@@ -169,3 +169,106 @@ Core stays "pure TS"; adapter owns all engine/Civ7 imports. Tests mock the adapt
 - Existing adapter in `mod/maps/core/adapters.js` can be promoted to shared package
 - Story system (`story/*.js`) migration not explicitly scoped but follows same patterns
 - `mod/maps/base-standard/` contains 28 bundled game files — plan uses game runtime paths
+
+---
+
+## P0 Remediation (Post-Migration Fixes)
+
+> **Status:** Added after discovering the migrated TypeScript pipeline compiles successfully but produces no runtime output ("Null Map Script"). This section tracks the structured fix required to complete CIV-8 validation.
+
+### Why Remediation Was Needed
+
+The TypeScript migration (CIV-1 through CIV-13) passed all compilation gates but failed at runtime:
+
+1. **Config Air Gap** — `bootstrap()` stores `stageConfig`, but `stageEnabled()` reads `stageManifest` (always empty)
+2. **Adapter Anti-Pattern** — Dynamic require fails silently, falls back to globals, `@civ7/adapter` never used
+3. **Story Void** — `story/tagging.ts` never ported, all story-aware code paths are no-ops
+4. **FoundationContext Bypass** — Layers import `WorldModel` singleton instead of reading `ctx.foundation`
+
+**Root cause:** Gate criteria focused on build artifacts, not runtime behavior. The migration faithfully ported broken patterns from the original JS codebase.
+
+### Remediation Issues
+
+- [ ] [CIV-14: TypeScript Migration Remediation](../issues/CIV-14-typescript-migration-remediation.md) — Parent issue
+
+#### Stack 1: Shape Fixes (P0-A.1)
+- [ ] [CIV-15: Fix Adapter Boundary & Orchestration Wiring](../issues/CIV-15-fix-adapter-boundary.md)
+- [ ] [CIV-16: Migrate Layers to FoundationContext Consumption](../issues/CIV-16-foundationcontext-consumption.md)
+
+#### Stack 2: Enable Behavior (P0-A.2)
+- [ ] [CIV-17: Implement Config→Manifest Resolver](../issues/CIV-17-config-manifest-resolver.md)
+- [ ] [CIV-18: Fix Biomes & Climate Call-Sites](../issues/CIV-18-callsite-fixes.md)
+
+#### Stack 3: Wire to Engine (P0-B)
+- [ ] [CIV-19: Biomes & Features Adapter Integration](../issues/CIV-19-biomes-features-adapter.md)
+- [ ] [CIV-20: Placement Adapter Integration](../issues/CIV-20-placement-adapter.md)
+- [ ] [CIV-21: Reactivate Minimal Story Tagging](../issues/CIV-21-story-tagging.md)
+- [ ] [CIV-22: Restore Map-Size Awareness](../issues/CIV-22-map-size-awareness.md)
+
+#### Stack 4: Validation (P0-C)
+- [ ] [CIV-23: Integration & Behavior Tests](../issues/CIV-23-integration-tests.md)
+- Completes: [CIV-8: Validate End-to-End](../issues/CIV-8-validate-end-to-end.md)
+
+### Remediation Stack Dependencies
+
+```mermaid
+flowchart TD
+    subgraph P0A1["Stack 1: Shape (P0-A.1)"]
+        CIV15["CIV-15<br/>Adapter Boundary"]
+        CIV16["CIV-16<br/>FoundationContext"]
+        CIV15 --> CIV16
+    end
+
+    subgraph P0A2["Stack 2: Behavior (P0-A.2)"]
+        CIV17["CIV-17<br/>Config Resolver"]
+        CIV18["CIV-18<br/>Call-Site Fixes"]
+        CIV17 --> CIV18
+    end
+
+    subgraph P0B["Stack 3: Engine (P0-B)"]
+        CIV19["CIV-19<br/>Biomes/Features"]
+        CIV20["CIV-20<br/>Placement"]
+        CIV21["CIV-21<br/>Story Tagging"]
+        CIV22["CIV-22<br/>Map Size"]
+    end
+
+    subgraph P0C["Stack 4: Validation (P0-C)"]
+        CIV23["CIV-23<br/>Integration Tests"]
+        CIV8R["CIV-8<br/>E2E Completes"]
+        CIV23 --> CIV8R
+    end
+
+    CIV16 --> CIV17
+    CIV18 --> CIV19
+    CIV18 --> CIV20
+    CIV18 --> CIV21
+    CIV18 --> CIV22
+    CIV19 --> CIV23
+    CIV20 --> CIV23
+    CIV21 --> CIV23
+    CIV22 --> CIV23
+
+    style CIV15 fill:#ffcdd2
+    style CIV16 fill:#ffcdd2
+    style CIV17 fill:#ffe0b2
+    style CIV18 fill:#ffe0b2
+    style CIV19 fill:#c8e6c9
+    style CIV20 fill:#c8e6c9
+    style CIV21 fill:#c8e6c9
+    style CIV22 fill:#c8e6c9
+    style CIV23 fill:#bbdefb
+    style CIV8R fill:#bbdefb
+```
+
+### Lessons Learned
+
+1. **Gate criteria must include behavioral verification** — "Builds successfully" ≠ "Works correctly"
+2. **Blind ports preserve blind spots** — The original JS had subtle architectural issues the migration faithfully copied
+3. **Follow-up work:** Add adapter boundary lint to CI; add minimal MockAdapter smoke test to gate criteria
+
+### Reference Documents
+
+- [M-TS-typescript-migration-review.md](../reviews/M-TS-typescript-migration-review.md) — Detailed technical review
+- [M-TS-typescript-migration-canvas.md](../reviews/M-TS-typescript-migration-canvas.md) — Concern canvas
+- [M-TS-typescript-migration-remediation.md](../reviews/M-TS-typescript-migration-remediation.md) — Remediation analysis
+- [M-TS-typescript-migration-prioritization.md](../reviews/M-TS-typescript-migration-prioritization.md) — Prioritized action plan
