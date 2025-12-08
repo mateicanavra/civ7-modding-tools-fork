@@ -185,8 +185,11 @@ export class Civ7Adapter implements EngineAdapter {
   }
 
   get NO_FEATURE(): number {
-    // Standard sentinel for "no feature" in Civ7
-    return -1;
+    // Use the engine's actual sentinel value for parity
+    // Falls back to -1 if FeatureTypes isn't available (e.g., in tests)
+    return typeof FeatureTypes !== "undefined" && "NO_FEATURE" in FeatureTypes
+      ? FeatureTypes.NO_FEATURE
+      : -1;
   }
 }
 
