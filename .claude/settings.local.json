@@ -21,7 +21,8 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(bun test:*)",
-      "Bash(gt ss:*)"
+      "Bash(gt ss:*)",
+      "mcp__linear-personal__update_issue"
     ],
     "deny": [],
     "ask": []
