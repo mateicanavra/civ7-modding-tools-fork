@@ -19,6 +19,7 @@
 import type { MapConfig } from "./types.js";
 import { setConfig, resetConfig } from "./runtime.js";
 import { resetTunables, rebind as rebindTunables } from "./tunables.js";
+import { resolveStageManifest, validateOverrides } from "./resolved.js";
 
 // ============================================================================
 // Types
@@ -117,6 +118,16 @@ export function bootstrap(options: BootstrapConfig = {}): void {
   if (presets) cfg.presets = presets;
   if (stageConfig) cfg.stageConfig = stageConfig;
 
+  // Resolve stageConfig → stageManifest (bridges the "Config Air Gap")
+  // This ensures stageEnabled() returns the correct values
+  const manifest = resolveStageManifest(stageConfig);
+  cfg.stageManifest = manifest;
+
+  // Validate overrides against manifest (warn about targeting disabled stages)
+  if (overrides) {
+    validateOverrides(overrides, manifest);
+  }
+
   // Merge overrides (highest precedence)
   if (overrides) {
     Object.assign(cfg, deepMerge(cfg, overrides as Partial<MapConfig>));
@@ -150,5 +161,12 @@ export function rebind(): void {
 export type { MapConfig } from "./types.js";
 export { setConfig, getConfig, resetConfig } from "./runtime.js";
 export { getTunables, resetTunables, stageEnabled, TUNABLES } from "./tunables.js";
+export {
+  STAGE_ORDER,
+  resolveStageManifest,
+  validateOverrides,
+  validateStageDrift,
+  resetDriftCheck,
+} from "./resolved.js";
 
 export default { bootstrap, resetBootstrap, rebind };

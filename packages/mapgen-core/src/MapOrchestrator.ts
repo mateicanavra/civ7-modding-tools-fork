@@ -46,6 +46,7 @@ import {
 } from "./core/types.js";
 import { addPlotTagsSimple, type TerrainBuilderLike } from "./core/plot-tags.js";
 import { getTunables, resetTunables, stageEnabled } from "./bootstrap/tunables.js";
+import { validateStageDrift } from "./bootstrap/resolved.js";
 import { resetStoryTags } from "./story/tags.js";
 import { WorldModel } from "./world/model.js";
 
@@ -695,7 +696,7 @@ export class MapOrchestrator {
   // ==========================================================================
 
   private resolveStageFlags(): Record<string, boolean> {
-    return {
+    const flags = {
       foundation: stageEnabled("foundation"),
       landmassPlates: stageEnabled("landmassPlates"),
       coastlines: stageEnabled("coastlines"),
@@ -717,6 +718,11 @@ export class MapOrchestrator {
       features: stageEnabled("features"),
       placement: stageEnabled("placement"),
     };
+
+    // Validate resolver/orchestrator stage alignment (runs once per session)
+    validateStageDrift(Object.keys(flags));
+
+    return flags;
   }
 
   private runStage(name: string, fn: () => void): StageResult {
