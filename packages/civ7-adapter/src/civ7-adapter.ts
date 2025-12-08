@@ -12,10 +12,9 @@ import type { EngineAdapter, FeatureData } from "./types.js";
 // Import from /base-standard/... — these are external Civ7 runtime paths
 // resolved by the game's module loader, not TypeScript
 import "/base-standard/maps/map-globals.js";
-// @ts-expect-error - Civ7 runtime module
-import { designateBiomes as civ7DesignateBiomes } from "/base-standard/maps/biomes.js";
-// @ts-expect-error - Civ7 runtime module
-import { addFeatures as civ7AddFeatures } from "/base-standard/maps/features.js";
+// Vanilla Civ7 biomes/features live in feature-biome-generator.js
+// @ts-ignore - resolved only at Civ7 runtime
+import { designateBiomes as civ7DesignateBiomes, addFeatures as civ7AddFeatures } from "/base-standard/maps/feature-biome-generator.js";
 
 /**
  * Production adapter wrapping GameplayMap, TerrainBuilder, AreaBuilder, FractalBuilder

@@ -396,15 +396,7 @@ declare module "/base-standard/maps/map-globals.js" {
 }
 
 declare module "/base-standard/maps/feature-biome-generator.js" {
-  export function addFeatures(): void;
-  export function addBiomes(): void;
-}
-
-declare module "/base-standard/maps/biomes.js" {
   export function designateBiomes(width: number, height: number): void;
-}
-
-declare module "/base-standard/maps/features.js" {
   export function addFeatures(width: number, height: number): void;
 }
 

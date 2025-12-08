@@ -36,7 +36,7 @@
       "Bash(./scripts/lint-adapter-boundary.sh:*)",
       "mcp__linear-personal__create_comment"
     ],
-    "deny": [],
+    "deny": ["rm -rf"],
     "ask": []
   }
 }

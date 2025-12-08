@@ -148,7 +148,80 @@ function stageEnabled(stage) {
   return !!(entry && entry.enabled !== false);
 }
 
-// ../../packages/mapgen-core/dist/chunk-HODRDV2O.js
+// ../../packages/mapgen-core/dist/chunk-2FCWAWWB.js
+var STAGE_ORDER = Object.freeze([
+  "foundation",
+  "landmassPlates",
+  "coastlines",
+  "storySeed",
+  "storyHotspots",
+  "storyRifts",
+  "storyOrogeny",
+  "storyCorridorsPre",
+  "islands",
+  "mountains",
+  "volcanoes",
+  "lakes",
+  "climateBaseline",
+  "storySwatches",
+  "rivers",
+  "storyCorridorsPost",
+  "climateRefine",
+  "biomes",
+  "features",
+  "placement"
+]);
+function resolveStageManifest(stageConfig) {
+  const config = stageConfig || {};
+  const stages = {};
+  for (let i = 0; i < STAGE_ORDER.length; i++) {
+    const stageName = STAGE_ORDER[i];
+    stages[stageName] = {
+      enabled: config[stageName] === true
+    };
+  }
+  return {
+    order: [...STAGE_ORDER],
+    stages
+  };
+}
+function validateOverrides(overrides, manifest) {
+  if (!overrides || typeof overrides !== "object") {
+    return;
+  }
+  for (const key of Object.keys(overrides)) {
+    if (!STAGE_ORDER.includes(key)) {
+      continue;
+    }
+    const stage = manifest.stages[key];
+    if (!stage) {
+      console.warn(`[StageManifest] Override targets unknown stage: "${key}"`);
+    } else if (!stage.enabled) {
+      console.warn(`[StageManifest] Override targets disabled stage: "${key}"`);
+    }
+  }
+}
+var _driftChecked = false;
+function validateStageDrift(orchestratorStages) {
+  if (_driftChecked) return;
+  _driftChecked = true;
+  const resolverSet = new Set(STAGE_ORDER);
+  const orchestratorSet = new Set(orchestratorStages);
+  for (const stage of orchestratorStages) {
+    if (!resolverSet.has(stage)) {
+      console.warn(
+        `[StageManifest] Orchestrator has stage "${stage}" not in STAGE_ORDER. Add it to bootstrap/resolved.ts to enable configuration.`
+      );
+    }
+  }
+  for (const stage of STAGE_ORDER) {
+    if (!orchestratorSet.has(stage)) {
+      console.warn(
+        `[StageManifest] STAGE_ORDER has stage "${stage}" not in orchestrator. It will never execute. Remove from bootstrap/resolved.ts or add to orchestrator.`
+      );
+    }
+  }
+}
 function isObject2(v) {
   return v != null && typeof v === "object" && (Object.getPrototypeOf(v) === Object.prototype || Object.getPrototypeOf(v) === null);
 }
@@ -184,6 +257,11 @@ function bootstrap(options = {}) {
   const cfg = {};
   if (presets) cfg.presets = presets;
   if (stageConfig) cfg.stageConfig = stageConfig;
+  const manifest = resolveStageManifest(stageConfig);
+  cfg.stageManifest = manifest;
+  if (overrides) {
+    validateOverrides(overrides, manifest);
+  }
   if (overrides) {
     Object.assign(cfg, deepMerge2(cfg, overrides));
   }
@@ -191,13 +269,15 @@ function bootstrap(options = {}) {
   rebind();
 }
 
-// ../../packages/mapgen-core/dist/chunk-F3UBWB2Z.js
+// ../../packages/mapgen-core/dist/chunk-2FHS3EML.js
 var BOUNDARY_TYPE = {
   none: 0,
   convergent: 1,
   divergent: 2,
   transform: 3
 };
+
+// ../../packages/mapgen-core/dist/chunk-OBDEMXTN.js
 function safeTimestamp() {
   try {
     return typeof Date?.now === "function" ? Date.now() : null;
@@ -1260,7 +1340,7 @@ var WorldModel = {
   }
 };
 
-// ../../packages/mapgen-core/dist/chunk-WMVVCSVA.js
+// ../../packages/mapgen-core/dist/chunk-UI4DBKC3.js
 import { addNaturalWonders } from "/base-standard/maps/natural-wonder-generator.js";
 import { generateResources } from "/base-standard/maps/resource-generator.js";
 import { assignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-start-region.js";
@@ -1660,13 +1740,14 @@ function applyPlateAwareOceanSeparation(params) {
   const tunables = getTunables();
   const foundationPolicy = tunables.FOUNDATION_CFG?.oceanSeparation;
   const policy = params?.policy || foundationPolicy || DEFAULT_OCEAN_SEPARATION;
-  if (!policy || !policy.enabled || !WorldModel.isEnabled()) {
+  const foundation = ctx?.foundation;
+  if (!policy || !policy.enabled || !foundation) {
     return {
       windows: windows.map((win, idx4) => normalizeWindow(win, idx4, width, height)),
       landMask: params?.landMask ?? void 0
     };
   }
-  const closeness = WorldModel.boundaryCloseness;
+  const closeness = foundation.plates.boundaryCloseness;
   if (!closeness || closeness.length !== width * height) {
     return {
       windows: windows.map((win, idx4) => normalizeWindow(win, idx4, width, height)),
@@ -1858,13 +1939,15 @@ function computeClosenessLimit(postCfg) {
   return clampInt22(limit, MIN_CLOSENESS_LIMIT, MAX_CLOSENESS_LIMIT);
 }
 function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
-  if (!WorldModel.isEnabled()) {
+  const foundation = ctx?.foundation;
+  if (!foundation) {
     return null;
   }
-  const shield = WorldModel.shieldStability;
-  const closeness = WorldModel.boundaryCloseness;
-  const boundaryType = WorldModel.boundaryType;
-  const plateIds = WorldModel.plateId;
+  const { plates } = foundation;
+  const shield = plates.shieldStability;
+  const closeness = plates.boundaryCloseness;
+  const boundaryType = plates.boundaryType;
+  const plateIds = plates.id;
   if (!shield || !closeness || !boundaryType || !plateIds) {
     return null;
   }
@@ -2235,9 +2318,9 @@ function addRuggedCoasts(iWidth, iHeight, ctx) {
   if (adapter?.createFractal) {
     adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 4, 0);
   }
-  const worldModelEnabled = WorldModel.isEnabled();
-  const boundaryCloseness = worldModelEnabled ? WorldModel.boundaryCloseness : null;
-  const boundaryType = worldModelEnabled ? WorldModel.boundaryType : null;
+  const foundation = ctx?.foundation;
+  const boundaryCloseness = foundation?.plates.boundaryCloseness ?? null;
+  const boundaryType = foundation?.plates.boundaryType ?? null;
   const tunables = getTunables();
   const cfg = tunables.FOUNDATION_CFG?.coastlines || {};
   const cfgBay = cfg.bay || {};
@@ -2281,7 +2364,7 @@ function addRuggedCoasts(iWidth, iHeight, ctx) {
       adapter.setTerrainType(x, y, terrain);
     }
   };
-  const isCoastalLand = (x, y) => {
+  const isCoastalLand2 = (x, y) => {
     if (!adapter) return false;
     if (adapter.isWater(x, y)) return false;
     for (let dy = -1; dy <= 1; dy++) {
@@ -2333,7 +2416,7 @@ function addRuggedCoasts(iWidth, iHeight, ctx) {
       if (onSeaLane && SEA_PROTECTION === "hard") {
         continue;
       }
-      if (isCoastalLand(x, y)) {
+      if (isCoastalLand2(x, y)) {
         const h = getFractalHeight(x, y);
         const i = y * iWidth + x;
         const closenessByte = boundaryCloseness ? boundaryCloseness[i] | 0 : 0;
@@ -2621,7 +2704,8 @@ function layerAddMountainsPhysics(ctx, options = {}) {
     const isLand = terrain !== COAST_TERRAIN3 && terrain !== OCEAN_TERRAIN3;
     writeHeightfield(ctx, x, y, { terrain, isLand });
   };
-  const worldModelEnabled = WorldModel.isEnabled();
+  const foundation = ctx?.foundation;
+  const foundationEnabled = !!foundation;
   const grainAmount = 5;
   const iFlags = 0;
   adapter.createFractal(MOUNTAIN_FRACTAL, width, height, grainAmount, iFlags);
@@ -2637,7 +2721,7 @@ function layerAddMountainsPhysics(ctx, options = {}) {
   const size = width * height;
   const scores = new Float32Array(size);
   const hillScores = new Float32Array(size);
-  if (worldModelEnabled) {
+  if (foundationEnabled && foundation) {
     computePlateBasedScores(
       ctx,
       scores,
@@ -2658,13 +2742,14 @@ function layerAddMountainsPhysics(ctx, options = {}) {
         hillUpliftWeight
       },
       isWater,
-      adapter
+      adapter,
+      foundation
     );
   } else {
     computeFractalOnlyScores(ctx, scores, hillScores, adapter);
   }
-  if (worldModelEnabled && riftDepth > 0) {
-    applyRiftDepressions(ctx, scores, hillScores, riftDepth);
+  if (foundationEnabled && foundation && riftDepth > 0) {
+    applyRiftDepressions(ctx, scores, hillScores, riftDepth, foundation);
   }
   const selectionAdapter = { isWater };
   const mountainTiles = selectTilesAboveThreshold(
@@ -2693,14 +2778,15 @@ function layerAddMountainsPhysics(ctx, options = {}) {
     terrainWriter(x, y, HILL_TERRAIN);
   }
 }
-function computePlateBasedScores(ctx, scores, hillScores, options, isWaterCheck, adapter) {
+function computePlateBasedScores(ctx, scores, hillScores, options, isWaterCheck, adapter, foundation) {
   const dims = ctx?.dimensions;
   const width = dims?.width ?? 0;
   const height = dims?.height ?? 0;
-  const upliftPotential = WorldModel.upliftPotential;
-  const boundaryType = WorldModel.boundaryType;
-  const boundaryCloseness = WorldModel.boundaryCloseness;
-  const riftPotential = WorldModel.riftPotential;
+  const { plates } = foundation;
+  const upliftPotential = plates.upliftPotential;
+  const boundaryType = plates.boundaryType;
+  const boundaryCloseness = plates.boundaryCloseness;
+  const riftPotential = plates.riftPotential;
   if (!upliftPotential || !boundaryType) {
     computeFractalOnlyScores(ctx, scores, hillScores, adapter);
     return;
@@ -2771,12 +2857,13 @@ function computeFractalOnlyScores(ctx, scores, hillScores, adapter) {
     }
   }
 }
-function applyRiftDepressions(ctx, scores, hillScores, riftDepth) {
+function applyRiftDepressions(ctx, scores, hillScores, riftDepth, foundation) {
   const dims = ctx?.dimensions;
   const width = dims?.width ?? 0;
   const height = dims?.height ?? 0;
-  const riftPotential = WorldModel.riftPotential;
-  const boundaryType = WorldModel.boundaryType;
+  const { plates } = foundation;
+  const riftPotential = plates.riftPotential;
+  const boundaryType = plates.boundaryType;
   if (!riftPotential || !boundaryType) return;
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -2867,11 +2954,15 @@ function layerAddVolcanoesPlateAware(ctx, options = {}) {
   if (!enabled) {
     return;
   }
-  const worldEnabled = WorldModel.isEnabled();
-  const boundaryCloseness = WorldModel.boundaryCloseness;
-  const boundaryType = WorldModel.boundaryType;
-  const shieldStability = WorldModel.shieldStability;
-  if (!worldEnabled || !boundaryCloseness || !boundaryType) {
+  const foundation = ctx?.foundation;
+  if (!foundation) {
+    return;
+  }
+  const { plates } = foundation;
+  const boundaryCloseness = plates.boundaryCloseness;
+  const boundaryType = plates.boundaryType;
+  const shieldStability = plates.shieldStability;
+  if (!boundaryCloseness || !boundaryType) {
     return;
   }
   let landTiles = 0;
@@ -2997,10 +3088,10 @@ function resolveAdapter(ctx) {
     return {
       isWater: (x, y) => engineAdapter.isWater(x, y),
       isMountain: (x, y) => engineAdapter.isMountain(x, y),
-      isCoastalLand: () => false,
-      // Not on base interface - computed locally
-      isAdjacentToShallowWater: () => false,
-      // Not on base interface - computed locally
+      // NOTE: isCoastalLand and isAdjacentToShallowWater intentionally omitted.
+      // These are not on the base EngineAdapter interface. By leaving them
+      // undefined, the climate code's local fallbacks will execute instead of
+      // receiving stubbed `() => false` values that block the fallback path.
       isAdjacentToRivers: (x, y, radius) => engineAdapter.isAdjacentToRivers(x, y, radius),
       getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
       setRainfall: (x, y, rf) => engineAdapter.setRainfall(x, y, rf),
@@ -3016,8 +3107,6 @@ function resolveAdapter(ctx) {
     isMountain: () => {
       throw new Error("ClimateEngine: No adapter available");
     },
-    isCoastalLand: () => false,
-    isAdjacentToShallowWater: () => false,
     isAdjacentToRivers: () => false,
     getRainfall: () => 0,
     setRainfall: () => {
@@ -3087,9 +3176,9 @@ function hasUpwindBarrier(x, y, dx, dy, steps, adapter, width, height) {
   }
   return 0;
 }
-function hasUpwindBarrierWM(x, y, steps, adapter, width, height, worldModel) {
-  const U = worldModel.windU;
-  const V = worldModel.windV;
+function hasUpwindBarrierWM(x, y, steps, adapter, width, height, dynamics) {
+  const U = dynamics.windU;
+  const V = dynamics.windV;
   if (!U || !V) return 0;
   let cx = x;
   let cy = y;
@@ -3155,7 +3244,7 @@ function applyClimateBaseline(width, height, ctx = null) {
   const noiseSpan = sqrt > 1 ? noiseBase + Math.round(
     Number.isFinite(noiseCfg?.spanLargeScaleFactor) ? noiseCfg.spanLargeScaleFactor : 1
   ) : noiseBase;
-  const isCoastalLand = (x, y) => {
+  const isCoastalLand2 = (x, y) => {
     if (adapter.isCoastalLand) return adapter.isCoastalLand(x, y);
     if (adapter.isWater(x, y)) return false;
     for (let dy = -1; dy <= 1; dy++) {
@@ -3172,6 +3261,28 @@ function applyClimateBaseline(width, height, ctx = null) {
   const isAdjacentToShallowWater = (x, y) => {
     if (adapter.isAdjacentToShallowWater)
       return adapter.isAdjacentToShallowWater(x, y);
+    if (adapter.isWater(x, y)) return false;
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        if (dx === 0 && dy === 0) continue;
+        const nx = x + dx;
+        const ny = y + dy;
+        if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+        if (adapter.isWater(nx, ny)) {
+          let landNeighbors = 0;
+          for (let ddy = -1; ddy <= 1; ddy++) {
+            for (let ddx = -1; ddx <= 1; ddx++) {
+              if (ddx === 0 && ddy === 0) continue;
+              const nnx = nx + ddx;
+              const nny = ny + ddy;
+              if (nnx < 0 || nnx >= width || nny < 0 || nny >= height) continue;
+              if (!adapter.isWater(nnx, nny)) landNeighbors++;
+            }
+          }
+          if (landNeighbors >= 2) return true;
+        }
+      }
+    }
     return false;
   };
   const rollNoise = () => rand(noiseSpan * 2 + 1, "RainNoise") - noiseSpan;
@@ -3205,7 +3316,7 @@ function applyClimateBaseline(width, height, ctx = null) {
       if (elevation > hi2T) currentRainfall += hi2B;
       const coastalBonus = Number.isFinite(coastalCfg.coastalLandBonus) ? coastalCfg.coastalLandBonus : 24;
       const shallowBonus = Number.isFinite(coastalCfg.shallowAdjBonus) ? coastalCfg.shallowAdjBonus : 16;
-      if (isCoastalLand(x, y)) currentRainfall += coastalBonus;
+      if (isCoastalLand2(x, y)) currentRainfall += coastalBonus;
       if (isAdjacentToShallowWater(x, y)) currentRainfall += shallowBonus;
       currentRainfall += rollNoise();
       writeRainfall(x, y, currentRainfall);
@@ -3215,7 +3326,7 @@ function applyClimateBaseline(width, height, ctx = null) {
 function refineClimateEarthlike(width, height, ctx = null, options = {}) {
   const runtime = createClimateRuntime(width, height, ctx);
   const { adapter, readRainfall, writeRainfall } = runtime;
-  const worldModel = ctx && ctx.worldModel ? ctx.worldModel : WorldModel;
+  const dynamics = ctx?.foundation?.dynamics;
   const tunables = getTunables();
   const climateCfg = tunables.CLIMATE_CFG || {};
   const refineCfg = climateCfg.refine || {};
@@ -3263,8 +3374,8 @@ function refineClimateEarthlike(width, height, ctx = null, options = {}) {
           steps = baseSteps;
         }
         let barrier = 0;
-        const worldModelEnabled = WorldModel.isEnabled() && WorldModel.windU && WorldModel.windV;
-        if (worldModelEnabled) {
+        const dynamicsEnabled = dynamics && dynamics.windU && dynamics.windV;
+        if (dynamicsEnabled) {
           barrier = hasUpwindBarrierWM(
             x,
             y,
@@ -3272,7 +3383,7 @@ function refineClimateEarthlike(width, height, ctx = null, options = {}) {
             adapter,
             width,
             height,
-            WorldModel
+            dynamics
           );
         } else {
           const lat = Math.abs(adapter.getLatitude(x, y));
@@ -3418,60 +3529,41 @@ function refineClimateEarthlike(width, height, ctx = null, options = {}) {
     }
   }
 }
-function resolveAdapter2(ctx) {
-  if (ctx && ctx.adapter) {
-    const engineAdapter = ctx.adapter;
-    return {
-      isWater: (x, y) => engineAdapter.isWater(x, y),
-      isCoastalLand: () => false,
-      // Not on base interface - computed locally if needed
-      isAdjacentToRivers: (x, y, radius) => engineAdapter.isAdjacentToRivers(x, y, radius),
-      getLatitude: (x, y) => engineAdapter.getLatitude(x, y),
-      getElevation: (x, y) => engineAdapter.getElevation(x, y),
-      getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
-      setBiomeType: () => {
-      },
-      // Placeholder - setBiomeType not on base interface
-      getRandomNumber: (max, label) => engineAdapter.getRandomNumber(max, label),
-      designateBiomes: () => {
-      },
-      // Placeholder - designateBiomes not on base interface
-      getBiomeGlobals: () => ({
-        tundra: 0,
-        tropical: 1,
-        grassland: 2,
-        plains: 3,
-        desert: 4,
-        snow: 5
-      })
-    };
-  }
+function resolveBiomeGlobals(adapter) {
   return {
-    isWater: () => false,
-    isCoastalLand: () => false,
-    isAdjacentToRivers: () => false,
-    getLatitude: () => 0,
-    getElevation: () => 0,
-    getRainfall: () => 0,
-    setBiomeType: () => {
-    },
-    getRandomNumber: (max) => Math.floor(Math.random() * max),
-    designateBiomes: () => {
-    },
-    getBiomeGlobals: () => ({
-      tundra: 0,
-      tropical: 1,
-      grassland: 2,
-      plains: 3,
-      desert: 4,
-      snow: 5
-    })
+    tundra: adapter.getBiomeGlobal("tundra"),
+    tropical: adapter.getBiomeGlobal("tropical"),
+    grassland: adapter.getBiomeGlobal("grassland"),
+    plains: adapter.getBiomeGlobal("plains"),
+    desert: adapter.getBiomeGlobal("desert"),
+    snow: adapter.getBiomeGlobal("snow")
   };
+}
+function isCoastalLand(adapter, x, y, width, height) {
+  if (adapter.isWater(x, y)) return false;
+  const neighbors = [
+    [x - 1, y],
+    [x + 1, y],
+    [x, y - 1],
+    [x, y + 1],
+    [x - 1, y - 1],
+    [x + 1, y + 1]
+  ];
+  for (const [nx, ny] of neighbors) {
+    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+      if (adapter.isWater(nx, ny)) return true;
+    }
+  }
+  return false;
 }
 function designateEnhancedBiomes(iWidth, iHeight, ctx) {
   console.log("Creating enhanced biome diversity (climate-aware)...");
-  const adapter = resolveAdapter2(ctx ?? null);
-  const globals = adapter.getBiomeGlobals();
+  if (!ctx?.adapter) {
+    console.warn("designateEnhancedBiomes: No adapter available, skipping");
+    return;
+  }
+  const adapter = ctx.adapter;
+  const globals = resolveBiomeGlobals(adapter);
   adapter.designateBiomes(iWidth, iHeight);
   const tunables = getTunables();
   const foundationCfg = tunables.FOUNDATION_CFG || {};
@@ -3517,7 +3609,7 @@ function designateEnhancedBiomes(iWidth, iHeight, ctx) {
         adapter.setBiomeType(x, y, globals.tundra);
         continue;
       }
-      if (lat < TCOAST_LAT_MAX && adapter.isCoastalLand(x, y) && rainfall > TCOAST_RAIN_MIN) {
+      if (lat < TCOAST_LAT_MAX && isCoastalLand(adapter, x, y, iWidth, iHeight) && rainfall > TCOAST_RAIN_MIN) {
         adapter.setBiomeType(x, y, globals.tropical);
       }
       if (adapter.isAdjacentToRivers(x, y, 1) && rainfall > RV_RAIN_MIN && lat < RV_LAT_MAX) {
@@ -3642,52 +3734,13 @@ function designateEnhancedBiomes(iWidth, iHeight, ctx) {
     }
   }
 }
-function resolveAdapter3(ctx) {
-  if (ctx && ctx.adapter) {
-    const engineAdapter = ctx.adapter;
-    return {
-      isWater: (x, y) => engineAdapter.isWater(x, y),
-      getFeatureType: (x, y) => engineAdapter.getFeatureType(x, y),
-      getBiomeType: () => 0,
-      // Not on base interface
-      getElevation: (x, y) => engineAdapter.getElevation(x, y),
-      getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
-      getLatitude: (x, y) => engineAdapter.getLatitude(x, y),
-      canHaveFeature: (x, y, featureIndex) => engineAdapter.canHaveFeature(x, y, featureIndex),
-      setFeatureType: (x, y, featureData) => engineAdapter.setFeatureType(x, y, featureData),
-      getRandomNumber: (max, label) => engineAdapter.getRandomNumber(max, label),
-      addFeatures: () => {
-      },
-      // Not on base interface
-      getFeatureTypeIndex: () => -1,
-      // Not on base interface
-      getBiomeGlobal: () => -1,
-      // Not on base interface
-      getNoFeatureConstant: () => -1
-      // Not on base interface
-    };
-  }
-  return {
-    isWater: () => false,
-    getFeatureType: () => -1,
-    getBiomeType: () => 0,
-    getElevation: () => 0,
-    getRainfall: () => 0,
-    getLatitude: () => 0,
-    canHaveFeature: () => false,
-    setFeatureType: () => {
-    },
-    getRandomNumber: (max) => Math.floor(Math.random() * max),
-    addFeatures: () => {
-    },
-    getFeatureTypeIndex: () => -1,
-    getBiomeGlobal: () => -1,
-    getNoFeatureConstant: () => -1
-  };
-}
 function addDiverseFeatures(iWidth, iHeight, ctx) {
   console.log("Adding diverse terrain features...");
-  const adapter = resolveAdapter3(ctx ?? null);
+  if (!ctx?.adapter) {
+    console.warn("addDiverseFeatures: No adapter available, skipping");
+    return;
+  }
+  const adapter = ctx.adapter;
   const inBounds2 = (x, y) => inBounds(x, y, iWidth, iHeight);
   adapter.addFeatures(iWidth, iHeight);
   const tunables = getTunables();
@@ -3703,7 +3756,7 @@ function addDiverseFeatures(iWidth, iHeight, ctx) {
   const g_GrasslandBiome = adapter.getBiomeGlobal("grassland");
   const g_TropicalBiome = adapter.getBiomeGlobal("tropical");
   const g_TundraBiome = adapter.getBiomeGlobal("tundra");
-  const NO_FEATURE = adapter.getNoFeatureConstant();
+  const NO_FEATURE = adapter.NO_FEATURE;
   const getRandom = (label, max) => {
     if (ctx) {
       return ctxRandom(ctx, label, max);
@@ -3864,7 +3917,7 @@ function addDiverseFeatures(iWidth, iHeight, ctx) {
     }
   }
 }
-function resolveAdapter4() {
+function resolveAdapter2() {
   return {
     addFloodplains: (minLength, maxLength) => {
       const tb = TerrainBuilder;
@@ -3904,7 +3957,7 @@ function runPlacement(iWidth, iHeight, options = {}) {
   console.log(`[SWOOPER_MOD] Map size: ${iWidth}x${iHeight}`);
   const { mapInfo, wondersPlusOne, floodplains, starts } = options;
   const placementCfg = getPlacementConfig();
-  const adapter = resolveAdapter4();
+  const adapter = resolveAdapter2();
   const startPositions = [];
   try {
     const useWondersPlusOne = typeof wondersPlusOne === "boolean" ? wondersPlusOne : typeof placementCfg.wondersPlusOne === "boolean" ? placementCfg.wondersPlusOne : true;
@@ -4016,6 +4069,134 @@ var __require2 = /* @__PURE__ */ ((x) => typeof __require !== "undefined" ? __re
 });
 
 // ../../packages/mapgen-core/dist/index.js
+import "/base-standard/maps/map-globals.js";
+import { designateBiomes as civ7DesignateBiomes, addFeatures as civ7AddFeatures } from "/base-standard/maps/feature-biome-generator.js";
+var Civ7Adapter = class {
+  width;
+  height;
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+  // === TERRAIN READS ===
+  isWater(x, y) {
+    return GameplayMap.isWater(x, y);
+  }
+  isMountain(x, y) {
+    if (typeof GameplayMap.isMountain === "function") {
+      return GameplayMap.isMountain(x, y);
+    }
+    return GameplayMap.getElevation(x, y) >= 500;
+  }
+  isAdjacentToRivers(x, y, radius = 1) {
+    return GameplayMap.isAdjacentToRivers(x, y, radius);
+  }
+  getElevation(x, y) {
+    return GameplayMap.getElevation(x, y);
+  }
+  getTerrainType(x, y) {
+    return GameplayMap.getTerrainType(x, y);
+  }
+  getRainfall(x, y) {
+    return GameplayMap.getRainfall(x, y);
+  }
+  getTemperature(x, y) {
+    return GameplayMap.getTemperature(x, y);
+  }
+  getLatitude(x, y) {
+    return GameplayMap.getPlotLatitude(x, y);
+  }
+  // === TERRAIN WRITES ===
+  setTerrainType(x, y, terrainType) {
+    TerrainBuilder.setTerrainType(x, y, terrainType);
+  }
+  setRainfall(x, y, rainfall) {
+    TerrainBuilder.setRainfall(x, y, rainfall);
+  }
+  setElevation(x, y, elevation) {
+    TerrainBuilder.setElevation(x, y, elevation);
+  }
+  // === FEATURE READS/WRITES ===
+  getFeatureType(x, y) {
+    return GameplayMap.getFeatureType(x, y);
+  }
+  setFeatureType(x, y, featureData) {
+    TerrainBuilder.setFeatureType(x, y, featureData);
+  }
+  canHaveFeature(x, y, featureType) {
+    return TerrainBuilder.canHaveFeature(x, y, featureType);
+  }
+  // === RANDOM NUMBER GENERATION ===
+  getRandomNumber(max, label) {
+    return TerrainBuilder.getRandomNumber(max, label);
+  }
+  // === UTILITIES ===
+  validateAndFixTerrain() {
+    TerrainBuilder.validateAndFixTerrain();
+  }
+  recalculateAreas() {
+    AreaBuilder.recalculateAreas();
+  }
+  createFractal(fractalId, width, height, grain, flags) {
+    FractalBuilder.create(fractalId, width, height, grain, flags);
+  }
+  getFractalHeight(fractalId, x, y) {
+    return FractalBuilder.getHeight(fractalId, x, y);
+  }
+  stampContinents() {
+    TerrainBuilder.stampContinents();
+  }
+  buildElevation() {
+    TerrainBuilder.buildElevation();
+  }
+  modelRivers(minLength, maxLength, navigableTerrain) {
+    TerrainBuilder.modelRivers(minLength, maxLength, navigableTerrain);
+  }
+  defineNamedRivers() {
+    TerrainBuilder.defineNamedRivers();
+  }
+  storeWaterData() {
+    TerrainBuilder.storeWaterData();
+  }
+  // === BIOMES ===
+  designateBiomes(width, height) {
+    civ7DesignateBiomes(width, height);
+  }
+  getBiomeGlobal(name) {
+    const globalName = `g_${name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}Biome`;
+    const value = globalThis[globalName];
+    return typeof value === "number" ? value : -1;
+  }
+  setBiomeType(x, y, biomeId) {
+    TerrainBuilder.setBiomeType(x, y, biomeId);
+  }
+  getBiomeType(x, y) {
+    return GameplayMap.getBiomeType(x, y);
+  }
+  // === FEATURES (extended) ===
+  addFeatures(width, height) {
+    civ7AddFeatures(width, height);
+  }
+  getFeatureTypeIndex(name) {
+    const features = GameInfo?.Features;
+    if (!features) return -1;
+    const feature = features.find((f) => f.FeatureType === name);
+    return feature?.Index ?? -1;
+  }
+  get NO_FEATURE() {
+    return typeof FeatureTypes !== "undefined" && "NO_FEATURE" in FeatureTypes ? FeatureTypes.NO_FEATURE : -1;
+  }
+};
+function assertFoundationContext2(ctx, stageName) {
+  if (!ctx) {
+    throw new Error(`Stage "${stageName}" requires ExtendedMapContext but ctx is null`);
+  }
+  if (!ctx.foundation) {
+    throw new Error(
+      `Stage "${stageName}" requires FoundationContext but ctx.foundation is null. Ensure the "foundation" stage is enabled and runs before "${stageName}".`
+    );
+  }
+}
 function timeStart(label) {
   console.log(`[SWOOPER_MOD] Starting: ${label}`);
   return { label, start: Date.now() };
@@ -4155,6 +4336,7 @@ var MapOrchestrator = class {
     resetTunables();
     const tunables = getTunables();
     console.log(`${prefix} Tunables rebound successfully`);
+    WorldModel.reset();
     const iWidth = this.adapter.getGridWidth();
     const iHeight = this.adapter.getGridHeight();
     const uiMapSize = this.adapter.getMapSize();
@@ -4212,6 +4394,7 @@ var MapOrchestrator = class {
     let eastContinent = this.createDefaultContinentBounds(iWidth, iHeight, "east");
     if (stageFlags.landmassPlates && ctx) {
       const stageResult = this.runStage("landmassPlates", () => {
+        assertFoundationContext2(ctx, "landmassPlates");
         const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
           landmassCfg,
           geometry: landmassCfg.geometry
@@ -4284,12 +4467,14 @@ var MapOrchestrator = class {
     }
     if (stageFlags.mountains && ctx) {
       const stageResult = this.runStage("mountains", () => {
+        assertFoundationContext2(ctx, "mountains");
         layerAddMountainsPhysics(ctx, mountainOptions);
       });
       this.stageResults.push(stageResult);
     }
     if (stageFlags.volcanoes && ctx) {
       const stageResult = this.runStage("volcanoes", () => {
+        assertFoundationContext2(ctx, "volcanoes");
         layerAddVolcanoesPlateAware(ctx, volcanoOptions);
       });
       this.stageResults.push(stageResult);
@@ -4306,6 +4491,7 @@ var MapOrchestrator = class {
     this.adapter.buildElevation();
     if (stageFlags.climateBaseline && ctx) {
       const stageResult = this.runStage("climateBaseline", () => {
+        assertFoundationContext2(ctx, "climateBaseline");
         applyClimateBaseline(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
@@ -4323,13 +4509,14 @@ var MapOrchestrator = class {
     }
     if (stageFlags.climateRefine && ctx) {
       const stageResult = this.runStage("climateRefine", () => {
+        assertFoundationContext2(ctx, "climateRefine");
         refineClimateEarthlike(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
     }
     if (stageFlags.biomes && ctx) {
       const stageResult = this.runStage("biomes", () => {
-        designateEnhancedBiomes(iWidth, iHeight);
+        designateEnhancedBiomes(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
     }
@@ -4371,7 +4558,7 @@ var MapOrchestrator = class {
   // Private Helpers
   // ==========================================================================
   resolveStageFlags() {
-    return {
+    const flags = {
       foundation: stageEnabled("foundation"),
       landmassPlates: stageEnabled("landmassPlates"),
       coastlines: stageEnabled("coastlines"),
@@ -4393,6 +4580,8 @@ var MapOrchestrator = class {
       features: stageEnabled("features"),
       placement: stageEnabled("placement")
     };
+    validateStageDrift(Object.keys(flags));
+    return flags;
   }
   runStage(name, fn) {
     const timer = timeStart(name);
@@ -4438,74 +4627,13 @@ var MapOrchestrator = class {
     }
   }
   createLayerAdapter(width, height) {
+    if (this.config.adapter) {
+      return this.config.adapter;
+    }
     if (this.config.createAdapter) {
       return this.config.createAdapter(width, height);
     }
-    try {
-      const adaptersModule = __require2("./core/adapters.js");
-      if (adaptersModule?.CivEngineAdapter) {
-        return new adaptersModule.CivEngineAdapter(width, height);
-      }
-    } catch {
-    }
-    return this.createFallbackAdapter(width, height);
-  }
-  createFallbackAdapter(width, height) {
-    return {
-      width,
-      height,
-      isWater: (x, y) => typeof GameplayMap !== "undefined" ? GameplayMap.isWater(x, y) : true,
-      isMountain: (x, y) => typeof GameplayMap !== "undefined" ? GameplayMap.isMountain(x, y) : false,
-      isAdjacentToRivers: () => false,
-      getElevation: (x, y) => typeof GameplayMap !== "undefined" ? GameplayMap.getElevation?.(x, y) ?? 0 : 0,
-      getTerrainType: (x, y) => typeof GameplayMap !== "undefined" ? GameplayMap.getTerrainType(x, y) : 0,
-      getRainfall: (x, y) => typeof GameplayMap !== "undefined" ? GameplayMap.getRainfall?.(x, y) ?? 0 : 0,
-      getTemperature: (x, y) => typeof GameplayMap !== "undefined" ? GameplayMap.getTemperature?.(x, y) ?? 15 : 15,
-      getLatitude: (x, y) => typeof GameplayMap !== "undefined" ? GameplayMap.getLatitude?.(x, y) ?? 0 : 0,
-      setTerrainType: (x, y, t) => {
-        if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setTerrainType) {
-          TerrainBuilder.setTerrainType(x, y, t);
-        }
-      },
-      setRainfall: (x, y, r) => {
-        if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setRainfall) {
-          TerrainBuilder.setRainfall(x, y, r);
-        }
-      },
-      setElevation: (x, y, e) => {
-        if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setElevation) {
-          TerrainBuilder.setElevation(x, y, e);
-        }
-      },
-      getFeatureType: (x, y) => typeof GameplayMap !== "undefined" ? GameplayMap.getFeatureType?.(x, y) ?? -1 : -1,
-      setFeatureType: (x, y, data) => {
-        if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setFeatureType) {
-          TerrainBuilder.setFeatureType(x, y, data);
-        }
-      },
-      canHaveFeature: () => true,
-      getRandomNumber: (max) => Math.floor(Math.random() * max),
-      validateAndFixTerrain: () => this.adapter.validateAndFixTerrain(),
-      recalculateAreas: () => this.adapter.recalculateAreas(),
-      createFractal: (id, w, h, grain, flags) => {
-        const tb = TerrainBuilder;
-        if (typeof TerrainBuilder !== "undefined" && tb.createFractal) {
-          tb.createFractal(id, w, h, grain, flags);
-        }
-      },
-      getFractalHeight: (id, x, y) => {
-        const tb = TerrainBuilder;
-        if (typeof TerrainBuilder !== "undefined" && tb.getFractalHeight) {
-          return tb.getFractalHeight(id, x, y);
-        }
-        return 0;
-      },
-      stampContinents: () => this.adapter.stampContinents(),
-      buildElevation: () => this.adapter.buildElevation(),
-      modelRivers: (min, max, nav) => this.adapter.modelRivers(min, max, nav),
-      defineNamedRivers: () => this.adapter.defineNamedRivers(),
-      storeWaterData: () => this.adapter.storeWaterData()
-    };
+    return new Civ7Adapter(width, height);
   }
   createDefaultContinentBounds(width, height, side) {
     const avoidSeamOffset = 4;
