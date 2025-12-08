@@ -22,8 +22,15 @@
       "Bash(git commit:*)",
       "Bash(bun test:*)",
       "Bash(gt ss:*)",
+      "Bash(git log:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "mcp__linear-personal__get_issue",
+      "mcp__linear-personal__list_comments",
       "mcp__linear-personal__update_issue",
-      "mcp__linear-personal__get_issue"
+      "Bash(git ls-tree:*)",
+      "Bash(gh pr diff:*)",
+      "mcp__linear-personal__list_issues"
     ],
     "deny": [],
     "ask": []
