@@ -178,3 +178,24 @@ Replace local biomes/features stubs in `mapgen-core` with real adapter-backed ca
 - [ ] MockAdapter biomes/features test: validate `designateBiomes/addFeatures` call-tracking, `getBiomeGlobal`, `getFeatureTypeIndex`, and `NO_FEATURE` behavior.
 - [ ] Biomes/features integration smoke test: run `designateEnhancedBiomes`/`addDiverseFeatures` with a `MockAdapter`/`ExtendedMapContext` and assert that vanilla calls plus TS nudges execute and change at least some tiles.
 - [ ] `getBiomeGlobal` semantics test: verify known biome names resolve correctly, unknown names return `-1` with optional warning logging.
+
+---
+
+## Cross-Cutting Follow-Up – Restore Dev Diagnostics & Stage Logging
+
+**Intent / gap**
+- The legacy `bootstrap/dev.js` diagnostics layer (DEV flags, ASCII dumps, histograms, per-stage dev logging) was not migrated into the TypeScript pipeline. The current TS orchestrator only logs coarse stage boundaries (`[SWOOPER_MOD] Starting/Completed`) and a few ad-hoc messages, which makes debugging world/foundation/climate/biomes behavior significantly harder than in the JS mod.
+
+**Suggested follow-up**
+- Introduce a TypeScript `dev` module in `@swooper/mapgen-core` that:
+  - Recreates the `DEV` flag surface (`DEV.ENABLED`, `DEV.LOG_LANDMASS_ASCII`, `DEV.LOG_RELIEF_ASCII`, `DEV.LOG_RAINFALL_ASCII`, `DEV.LOG_BIOME_ASCII`, `DEV.LOG_TIMING`, etc.).
+  - Reads its configuration from the resolved map config (e.g., `DEV_LOG_CFG` equivalent), so entries can toggle diagnostics per run.
+  - Exposes helpers like `devLog`, `devLogIf`, `timeSection`, `logFoundationSummary`, `logFoundationAscii`, `logRainfallHistogram`, and hooks for Story overlays.
+- Wire the new dev helpers into `MapOrchestrator` and key layers (landmass, coastlines, mountains, volcanoes, climate, biomes, placement) in a way that:
+  - Keeps diagnostics opt-in and no-op in production (DEV disabled).
+  - Mirrors the behavior and coverage of the archived JS `bootstrap/dev.js` as closely as practical.
+
+**Deferred Work**
+- [ ] Define and document the TS `DEV` surface and its mapping to config.
+- [ ] Port core ASCII/histogram helpers for foundation, landmass, relief, rainfall, and biomes.
+- [ ] Add at least one “DEV-on” integration scenario (manual or automated) to validate that stage logs and diagnostics fire as expected without impacting normal runs.

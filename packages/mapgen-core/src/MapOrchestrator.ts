@@ -66,6 +66,24 @@ import { designateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures } from "./layers/features.js";
 import { runPlacement } from "./layers/placement.js";
 
+// Dev diagnostics
+import {
+  DEV,
+  initDevFlags,
+  timeSection,
+  logFoundationSummary,
+  logFoundationAscii,
+  logLandmassAscii,
+  logReliefAscii,
+  logRainfallStats,
+  logBiomeSummary,
+  logMountainSummary,
+  logVolcanoSummary,
+  logFoundationHistograms,
+  logBoundaryMetrics,
+  type FoundationPlates,
+} from "./dev/index.js";
+
 // ============================================================================
 // Types
 // ============================================================================
@@ -146,12 +164,14 @@ function assertFoundationContext(
 // Timing Utilities
 // ============================================================================
 
-function timeStart(label: string): { label: string; start: number } {
+/** Simple timing helper for stage execution (always logs, unlike DEV timing) */
+function stageTimeStart(label: string): { label: string; start: number } {
   console.log(`[SWOOPER_MOD] Starting: ${label}`);
   return { label, start: Date.now() };
 }
 
-function timeEnd(timer: { label: string; start: number }): number {
+/** End stage timing and return elapsed ms */
+function stageTimeEnd(timer: { label: string; start: number }): number {
   const elapsed = Date.now() - timer.start;
   console.log(`[SWOOPER_MOD] Completed: ${timer.label} (${elapsed}ms)`);
   return elapsed;
@@ -378,9 +398,19 @@ export class MapOrchestrator {
     }
 
     console.log(`${prefix} Map size: ${iWidth}x${iHeight}`);
+    console.log(
+      `${prefix} MapInfo summary: NumNaturalWonders=${mapInfo.NumNaturalWonders}, ` +
+        `LakeGenerationFrequency=${mapInfo.LakeGenerationFrequency}, ` +
+        `PlayersLandmass1=${mapInfo.PlayersLandmass1}, PlayersLandmass2=${mapInfo.PlayersLandmass2}`
+    );
 
     // Get stage configuration
     const stageFlags = this.resolveStageFlags();
+    const enabledStages = Object.entries(stageFlags)
+      .filter(([, enabled]) => enabled)
+      .map(([name]) => name)
+      .join(", ");
+    console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
 
     // Get layer configurations from tunables
     const foundationCfg = tunables.FOUNDATION_CFG || {};
@@ -414,6 +444,7 @@ export class MapOrchestrator {
           },
         }
       );
+      console.log(`${prefix} MapContext created successfully`);
     } catch (err) {
       console.error(`${prefix} Failed to create context:`, err);
       return { success: false, stageResults: this.stageResults, startPositions };
@@ -508,6 +539,11 @@ export class MapOrchestrator {
         addPlotTagsSimple(iHeight, iWidth, eastContinent.west, ctx.adapter, terrainBuilder);
       });
       this.stageResults.push(stageResult);
+
+      // Dev: log landmass visualization
+      if (DEV.ENABLED && ctx?.adapter) {
+        logLandmassAscii(ctx.adapter, iWidth, iHeight);
+      }
     }
 
     // ========================================================================
@@ -563,6 +599,12 @@ export class MapOrchestrator {
         layerAddMountainsPhysics(ctx, mountainOptions);
       });
       this.stageResults.push(stageResult);
+
+      // Dev: log mountain summary and relief
+      if (DEV.ENABLED && ctx?.adapter) {
+        logMountainSummary(ctx.adapter, iWidth, iHeight);
+        logReliefAscii(ctx.adapter, iWidth, iHeight);
+      }
     }
 
     // ========================================================================
@@ -576,6 +618,13 @@ export class MapOrchestrator {
         layerAddVolcanoesPlateAware(ctx, volcanoOptions);
       });
       this.stageResults.push(stageResult);
+
+      // Dev: log volcano summary
+      if (DEV.ENABLED && ctx?.adapter) {
+        // Try to get volcano feature ID from adapter
+        const volcanoId = ctx.adapter.getFeatureTypeIndex?.("FEATURE_VOLCANO") ?? -1;
+        logVolcanoSummary(ctx.adapter, iWidth, iHeight, volcanoId);
+      }
     }
 
     // ========================================================================
@@ -633,6 +682,11 @@ export class MapOrchestrator {
         refineClimateEarthlike(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
+
+      // Dev: log rainfall stats after climate refinement
+      if (DEV.ENABLED && ctx?.adapter) {
+        logRainfallStats(ctx.adapter, iWidth, iHeight, "post-climate");
+      }
     }
 
     // ========================================================================
@@ -643,6 +697,11 @@ export class MapOrchestrator {
         designateEnhancedBiomes(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
+
+      // Dev: log biome summary
+      if (DEV.ENABLED && ctx?.adapter) {
+        logBiomeSummary(ctx.adapter, iWidth, iHeight);
+      }
     }
 
     // ========================================================================
@@ -726,13 +785,13 @@ export class MapOrchestrator {
   }
 
   private runStage(name: string, fn: () => void): StageResult {
-    const timer = timeStart(name);
+    const timer = stageTimeStart(name);
     try {
       fn();
-      const durationMs = timeEnd(timer);
+      const durationMs = stageTimeEnd(timer);
       return { stage: name, success: true, durationMs };
     } catch (err) {
-      const durationMs = timeEnd(timer);
+      const durationMs = stageTimeEnd(timer);
       const errorMessage = err instanceof Error ? err.message : String(err);
       console.error(`[MapOrchestrator] Stage "${name}" failed:`, err);
       return { stage: name, success: false, durationMs, error: errorMessage };
@@ -744,13 +803,17 @@ export class MapOrchestrator {
     tunables: ReturnType<typeof getTunables>
   ): FoundationContext | null {
     const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
+    console.log(`${prefix} Initializing foundation...`);
     try {
+      console.log(`${prefix} WorldModel.init() starting`);
       if (!WorldModel.init()) {
         throw new Error("WorldModel initialization failed");
       }
+      console.log(`${prefix} WorldModel.init() succeeded`);
       ctx.worldModel = WorldModel as unknown as WorldModelState;
 
       const foundationCfg = tunables.FOUNDATION_CFG || {};
+      console.log(`${prefix} createFoundationContext() starting`);
       const foundationContext = createFoundationContext(
         WorldModel as unknown as WorldModelState,
         {
@@ -765,9 +828,25 @@ export class MapOrchestrator {
           },
         }
       );
+      console.log(`${prefix} createFoundationContext() succeeded`);
       ctx.foundation = foundationContext;
 
       console.log(`${prefix} Foundation context initialized`);
+
+      // Dev diagnostics for foundation
+      if (DEV.ENABLED && ctx.adapter) {
+        const plates: FoundationPlates = {
+          plateId: foundationContext.plates.id,
+          boundaryType: foundationContext.plates.boundaryType,
+          boundaryCloseness: foundationContext.plates.boundaryCloseness,
+          upliftPotential: foundationContext.plates.upliftPotential,
+          riftPotential: foundationContext.plates.riftPotential,
+        };
+        logFoundationSummary(ctx.adapter, ctx.dimensions.width, ctx.dimensions.height, plates);
+        logFoundationAscii(ctx.adapter, ctx.dimensions.width, ctx.dimensions.height, plates);
+        logFoundationHistograms(ctx.dimensions.width, ctx.dimensions.height, plates);
+      }
+
       return foundationContext;
     } catch (err) {
       console.error(`${prefix} Failed to initialize foundation:`, err);
