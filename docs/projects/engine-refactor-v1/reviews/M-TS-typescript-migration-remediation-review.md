@@ -181,6 +181,31 @@ Replace local biomes/features stubs in `mapgen-core` with real adapter-backed ca
 
 ---
 
+## CIV-20 – Placement Adapter Integration
+
+**Intent / AC (short)**
+Move all Civ7 placement integration (natural wonders, floodplains, snow, resources, starts, discoveries, fertility, advanced start) behind the `EngineAdapter`, remove `/base-standard/...` imports from `layers/placement.ts`, and ensure adapter-boundary lint passes with only `MapOrchestrator.ts` allowlisted.
+
+**Strengths**
+- Extends `EngineAdapter`/`Civ7Adapter` with a clear placement surface (`addNaturalWonders`, `generateSnow`, `generateResources`, `assignStartPositions`, `generateDiscoveries`, `assignAdvancedStartRegions`, `addFloodplains`, `recalculateFertility`) that matches the official Civ7 scripts and the legacy JS placement layer.
+- Refactors `layers/placement.ts::runPlacement` to be purely adapter-driven while preserving legacy behavior (wonders+1 semantics, floodplains tunables, snow→resources→starts→discoveries→fertility→advanced-start ordering) and start-placement diagnostics.
+- Updates `MockAdapter` with placement call tracking and deterministic `assignStartPositions` behavior, enabling tests to exercise placement without the Civ7 engine.
+- Adapter-boundary lint now passes with only `MapOrchestrator.ts` in the allowlist, completing the placement side of the adapter boundary cleanup.
+
+**Issues / gaps**
+- No dedicated tests currently assert that `runPlacement` calls the new adapter methods in the expected order or that it returns correctly sized `startPositions`; regressions here would only be caught in-game. **DEFERRED**: Per testing strategy, deferring to post-stabilization test sweep.
+- ~~`ContinentBounds` is defined in both `mapgen-core` and `@civ7/adapter` with slightly different shapes (required vs. optional `continent`), creating a small but real risk of type drift between packages.~~ **FIXED**: Consolidated to single source in `@civ7/adapter`, re-exported by `mapgen-core`.
+
+**Suggested follow-up**
+- Add a `placement.test.ts` in `packages/mapgen-core/test/layers/` that uses `MockAdapter` to verify call ordering and `startPositions` length for a small map, locking in the adapter-based wiring.
+
+**Deferred Tests** *(to be addressed in post-M-TS test sweep)*
+- [ ] Placement call-order test: verify `runPlacement` calls adapter methods in expected order (wonders → floodplains → snow → resources → starts → discoveries → fertility → advanced-start).
+- [ ] Start positions length test: verify `runPlacement` returns `startPositions` array with length matching `playersLandmass1 + playersLandmass2`.
+- [ ] MockAdapter placement tracking test: verify call counters increment correctly for all placement methods.
+
+---
+
 ## Cross-Cutting Follow-Up – Restore Dev Diagnostics & Stage Logging
 
 **Intent / gap**
