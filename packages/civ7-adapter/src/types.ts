@@ -72,9 +72,6 @@ export interface EngineAdapter {
   /** Set rainfall (0..200) */
   setRainfall(x: number, y: number, rainfall: number): void;
 
-  /** Set elevation */
-  setElevation(x: number, y: number, elevation: number): void;
-
   // === FEATURE READS/WRITES ===
 
   /** Get feature type ID */

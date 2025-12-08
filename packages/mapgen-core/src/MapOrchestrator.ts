@@ -81,6 +81,7 @@ import {
   logVolcanoSummary,
   logFoundationHistograms,
   logBoundaryMetrics,
+  logEngineSurfaceApisOnce,
   type FoundationPlates,
 } from "./dev/index.js";
 
@@ -377,6 +378,10 @@ export class MapOrchestrator {
     this.stageResults = [];
     const startPositions: number[] = [];
 
+    // Enable dev diagnostics so engine surface introspection and other DEV
+    // helpers can run during this generation pass.
+    initDevFlags({ enabled: true });
+
     // Refresh configuration and world state
     resetTunables();
     const tunables = getTunables();
@@ -403,6 +408,9 @@ export class MapOrchestrator {
         `LakeGenerationFrequency=${mapInfo.LakeGenerationFrequency}, ` +
         `PlayersLandmass1=${mapInfo.PlayersLandmass1}, PlayersLandmass2=${mapInfo.PlayersLandmass2}`
     );
+
+    // Dev: introspect engine surface APIs once per context (GameplayMap, TerrainBuilder)
+    logEngineSurfaceApisOnce();
 
     // Get stage configuration
     const stageFlags = this.resolveStageFlags();

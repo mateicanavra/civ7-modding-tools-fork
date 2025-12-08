@@ -54,6 +54,9 @@ export {
   type TimingToken,
 } from "./timing.js";
 
+// Engine surface introspection
+export { logEngineSurfaceApisOnce } from "./introspection.js";
+
 // ASCII visualization
 export {
   ASCII_CHARS,

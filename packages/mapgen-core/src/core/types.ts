@@ -301,9 +301,6 @@ export function writeHeightfield(
   if (typeof options.terrain === "number") {
     ctx.adapter.setTerrainType(x, y, options.terrain);
   }
-  if (typeof options.elevation === "number") {
-    ctx.adapter.setElevation(x, y, options.elevation);
-  }
 }
 
 export interface ClimateWriteOptions {

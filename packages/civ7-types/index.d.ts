@@ -181,7 +181,7 @@ declare global {
     setTerrainType(x: number, y: number, terrainType: number): void;
     setBiomeType(x: number, y: number, biomeType: number): void;
     setFeatureType(x: number, y: number, featureData: FeatureData): void;
-    setElevation(x: number, y: number, elevation: number): void;
+    setLandmassRegionId(x: number, y: number, regionId: number): void;
     setRainfall(x: number, y: number, rainfall: number): void;
 
     // Plot tags
@@ -212,7 +212,6 @@ declare global {
       minDistance: number,
       maxAttempts: number
     ): PlotLocation[];
-    getHeightFromPercent(percent: number): number;
   };
 
   // ---------------------------------------------------------------------------
@@ -234,6 +233,7 @@ declare global {
       flags: number
     ): void;
     getHeight(fractalId: number, x: number, y: number): number;
+    getHeightFromPercent(fractalId: number, percent: number): number;
   };
 
   // ---------------------------------------------------------------------------

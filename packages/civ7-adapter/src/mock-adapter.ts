@@ -153,10 +153,6 @@ export class MockAdapter implements EngineAdapter {
     this.rainfall[this.idx(x, y)] = Math.max(0, Math.min(200, value));
   }
 
-  setElevation(x: number, y: number, elevation: number): void {
-    this.elevations[this.idx(x, y)] = elevation;
-  }
-
   // === FEATURE READS/WRITES ===
 
   getFeatureType(x: number, y: number): number {

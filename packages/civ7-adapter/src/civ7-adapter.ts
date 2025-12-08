@@ -76,10 +76,6 @@ export class Civ7Adapter implements EngineAdapter {
     TerrainBuilder.setRainfall(x, y, rainfall);
   }
 
-  setElevation(x: number, y: number, elevation: number): void {
-    TerrainBuilder.setElevation(x, y, elevation);
-  }
-
   // === FEATURE READS/WRITES ===
 
   getFeatureType(x: number, y: number): number {

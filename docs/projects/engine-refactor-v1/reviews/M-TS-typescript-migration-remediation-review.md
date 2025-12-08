@@ -199,3 +199,33 @@ Replace local biomes/features stubs in `mapgen-core` with real adapter-backed ca
 - [ ] Define and document the TS `DEV` surface and its mapping to config.
 - [ ] Port core ASCII/histogram helpers for foundation, landmass, relief, rainfall, and biomes.
 - [ ] Add at least one “DEV-on” integration scenario (manual or automated) to validate that stage logs and diagnostics fire as expected without impacting normal runs.
+
+---
+
+## Cross-Cutting Note – Elevation Surface vs Adapter Capabilities
+
+**What we learned**
+- Runtime introspection of the Civ7 engine confirmed that:
+  - `GameplayMap` exposes `getElevation` (read-only) alongside `getRainfall`, `getBiomeType`, `getTerrainType`, etc.
+  - `TerrainBuilder` does **not** expose `setElevation`; elevation and cliffs are derived internally via `buildElevation()` and related fractal helpers, not pushed in from scripts.
+  - `TerrainBuilder` does expose other write operations (`setTerrainType`, `setBiomeType`, `setFeatureType`, `setRainfall`, `setPlotTag`/`addPlotTag`/`removePlotTag`, `setLandmassRegionId`, etc.).
+  - `FractalBuilder` is the owner of `getHeightFromPercent(fractalId, percent)`, not `TerrainBuilder`.
+
+**Remediation changes**
+- Updated `@civ7/types` to match the actual engine surface:
+  - Removed the optimistic `TerrainBuilder.setElevation` declaration.
+  - Added `TerrainBuilder.setLandmassRegionId` and moved `getHeightFromPercent` onto `FractalBuilder`.
+- Updated `@civ7/adapter` and `@swooper/mapgen-core`:
+  - Dropped `setElevation` from the public `EngineAdapter` surface and from `Civ7Adapter`; the prior guarded call was a no-op on real builds.
+  - Kept internal heightfield writes intact (`hf.elevation` in `writeHeightfield`), while removing the illusion that elevation can be pushed into the engine directly.
+  - Continued to rely on `TerrainBuilder.buildElevation()` plus terrain/fractal configuration for engine-side elevation and cliffs.
+
+**Why this matters for the milestone**
+- Clarifies the boundary between our physics model and the Civ7 engine:
+  - Our heightfield is authoritative for **simulation and storytelling** in `FoundationContext`.
+  - The engine remains authoritative for the **rendered elevation surface**, derived from its own fractal configuration and terrain.
+- Removes dead / over-optimistic API usage that could mislead future work:
+  - New layers should not assume they can “force” engine elevation per-plot; they should instead:
+    - Shape terrain and masks in ways that feed the engine’s elevation builder.
+    - Use the internal heightfield for gameplay and narrative overlays.
+- This closes the loop on the earlier TypeScript migration assumption that elevation had a direct setter and ensures future remediation work builds on the real engine surface, not on inferred APIs.
