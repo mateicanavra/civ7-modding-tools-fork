@@ -116,11 +116,21 @@ export interface MapInfo {
   [key: string]: unknown;
 }
 
-/** Map size defaults for testing (bypasses game settings) */
+/**
+ * Map size defaults for testing (bypasses game settings).
+ *
+ * When provided via OrchestratorConfig.mapSizeDefaults, these values
+ * bypass GameplayMap.getMapSize() and GameInfo.Maps.lookup() calls,
+ * allowing tests to control map dimensions without engine globals.
+ */
 export interface MapSizeDefaults {
-  /** Map size ID (e.g., "MAPSIZE_STANDARD", "MAPSIZE_LARGE") */
+  /**
+   * Numeric map size ID as returned by GameplayMap.getMapSize().
+   * Used for logging only; the actual dimensions come from mapInfo.
+   * Example values: 0 (small), 1 (standard), 2 (large), etc.
+   */
   mapSizeId?: number;
-  /** Map info to return for lookups */
+  /** Map info to use for dimension/latitude lookups */
   mapInfo?: MapInfo;
 }
 
@@ -392,8 +402,12 @@ export class MapOrchestrator {
       mapInfo = this.adapter.lookupMapInfo(mapSizeId);
     }
 
-    // Extract dimensions from MapInfo, with sensible fallbacks
-    // These fallbacks match MAPSIZE_STANDARD defaults
+    // Extract dimensions from MapInfo, with sensible fallbacks.
+    // Fallback values intentionally mirror Civ7's MAPSIZE_STANDARD defaults:
+    //   - 84×54 grid dimensions
+    //   - ±80° latitude bounds
+    // These are used when GameInfo.Maps.lookup() fails or returns incomplete data.
+    // If Civ7's base map defaults change, these should be updated to match.
     const gameWidth = mapInfo?.GridWidth ?? 84;
     const gameHeight = mapInfo?.GridHeight ?? 54;
     const gameMaxLat = mapInfo?.MaxLatitude ?? 80;

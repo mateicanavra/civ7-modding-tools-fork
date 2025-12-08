@@ -532,6 +532,34 @@ export function createPlateDrivenLandmasses(
     continent: index,
   }));
 
+  // Debug logging for landmass generation diagnostics
+  const logPrefix = "[landmass-plate]";
+  console.log(`${logPrefix} Generation stats: threshold=${bestThreshold}, landTiles=${finalLandTiles}/${size} (${((finalLandTiles / size) * 100).toFixed(1)}%)`);
+  console.log(`${logPrefix} Score ranges: interior=[${interiorMin},${interiorMax}], arc=[${arcMin},${arcMax}], stretch=${interiorStretch.toFixed(2)}`);
+  console.log(`${logPrefix} Config: closenessLimit=${closenessLimit}, targetLandTiles=${targetLandTiles}, waterPct=${waterPct.toFixed(1)}%`);
+  console.log(`${logPrefix} Plates with land: ${plateStats.size}, windows generated: ${windowsOut.length}`);
+
+  // Detailed debug when no windows generated (helps diagnose failures)
+  // Note: Using console.log instead of console.warn - Civ7's V8 doesn't have console.warn
+  if (windowsOut.length === 0) {
+    console.log(`${logPrefix} WARNING: No landmass windows generated!`);
+    console.log(`${logPrefix}   - finalLandTiles: ${finalLandTiles}`);
+    console.log(`${logPrefix}   - plateStats entries: ${plateStats.size}`);
+    console.log(`${logPrefix}   - bestThreshold: ${bestThreshold}`);
+    console.log(`${logPrefix}   - closenessLimit: ${closenessLimit}`);
+
+    // Sample some closeness values to understand the distribution
+    const closenessAboveLimit = closeness.filter((v) => v > closenessLimit).length;
+    console.log(`${logPrefix}   - tiles with closeness > ${closenessLimit}: ${closenessAboveLimit}/${size}`);
+
+    // Check if plates array has valid IDs
+    const validPlateIds = new Set<number>();
+    for (let i = 0; i < size; i++) {
+      if (plateIds[i] >= 0) validPlateIds.add(plateIds[i]);
+    }
+    console.log(`${logPrefix}   - unique valid plate IDs: ${validPlateIds.size}`);
+  }
+
   let startRegions: LandmassGenerationResult["startRegions"] = undefined;
   if (windowsOut.length >= 2) {
     startRegions = {
