@@ -10,7 +10,7 @@ import type {
   FoundationDirectionalityConfig,
 } from "../bootstrap/types.js";
 import { ctxRandom, writeClimateField, syncClimateField } from "../core/types.js";
-import { WorldModel } from "../world/model.js";
+import type { FoundationContext } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
 import { getTunables } from "../bootstrap/tunables.js";
 import { clamp, inBounds as boundsCheck } from "../core/index.js";
@@ -194,7 +194,7 @@ function hasUpwindBarrier(
 }
 
 /**
- * Upwind barrier using world model wind vectors.
+ * Upwind barrier using foundation dynamics wind vectors.
  */
 function hasUpwindBarrierWM(
   x: number,
@@ -203,10 +203,10 @@ function hasUpwindBarrierWM(
   adapter: ClimateAdapter,
   width: number,
   height: number,
-  worldModel: typeof WorldModel
+  dynamics: FoundationContext["dynamics"]
 ): number {
-  const U = worldModel.windU;
-  const V = worldModel.windV;
+  const U = dynamics.windU;
+  const V = dynamics.windV;
   if (!U || !V) return 0;
 
   let cx = x;
@@ -602,12 +602,14 @@ export function applyClimateSwatches(
     const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
     const eqBand = Math.max(0, (hemispheres?.equatorBandDeg ?? 12) | 0);
 
+    // Use foundation dynamics for wind data
+    const dynamics = ctx?.foundation?.dynamics;
     if (
       monsoonBias > 0 &&
       COH > 0 &&
-      WorldModel?.isEnabled?.() &&
-      WorldModel.windU &&
-      WorldModel.windV
+      dynamics &&
+      dynamics.windU &&
+      dynamics.windV
     ) {
       const baseDelta = Math.max(1, Math.round(3 * COH * monsoonBias));
 
@@ -621,8 +623,8 @@ export function applyClimateSwatches(
           if (!isCoastalLand(x, y) && !isAdjacentToShallowWater(x, y)) continue;
 
           const i = idx(x, y);
-          const u = WorldModel.windU[i] | 0;
-          const v = WorldModel.windV[i] | 0;
+          const u = dynamics.windU[i] | 0;
+          const v = dynamics.windV[i] | 0;
           let ux = 0;
           let vy = 0;
 
@@ -673,7 +675,7 @@ export function refineClimateEarthlike(
 ): void {
   const runtime = createClimateRuntime(width, height, ctx);
   const { adapter, readRainfall, writeRainfall } = runtime;
-  const worldModel = ctx && ctx.worldModel ? ctx.worldModel : WorldModel;
+  const dynamics = ctx?.foundation?.dynamics;
 
   const tunables = getTunables();
   const climateCfg = tunables.CLIMATE_CFG || {};
@@ -744,9 +746,8 @@ export function refineClimateEarthlike(
         }
 
         let barrier = 0;
-        const worldModelEnabled =
-          WorldModel.isEnabled() && WorldModel.windU && WorldModel.windV;
-        if (worldModelEnabled) {
+        const dynamicsEnabled = dynamics && dynamics.windU && dynamics.windV;
+        if (dynamicsEnabled) {
           barrier = hasUpwindBarrierWM(
             x,
             y,
@@ -754,7 +755,7 @@ export function refineClimateEarthlike(
             adapter,
             width,
             height,
-            WorldModel
+            dynamics
           );
         } else {
           const lat = Math.abs(adapter.getLatitude(x, y));

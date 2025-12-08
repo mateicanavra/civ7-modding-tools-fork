@@ -14,7 +14,6 @@ import type {
   OceanSeparationEdgePolicy,
 } from "../bootstrap/types.js";
 import { writeHeightfield } from "../core/types.js";
-import { WorldModel } from "../world/model.js";
 import { getTunables } from "../bootstrap/tunables.js";
 
 // ============================================================================
@@ -311,10 +310,12 @@ export function applyPlateAwareOceanSeparation(
   const foundationPolicy = tunables.FOUNDATION_CFG?.oceanSeparation as OceanSeparationPolicy | undefined;
   const policy = params?.policy || foundationPolicy || DEFAULT_OCEAN_SEPARATION;
 
+  // Require foundation context for plate data
+  const foundation = ctx?.foundation;
   if (
     !policy ||
     !policy.enabled ||
-    !WorldModel.isEnabled()
+    !foundation
   ) {
     return {
       windows: windows.map((win, idx) => normalizeWindow(win, idx, width, height)),
@@ -322,7 +323,7 @@ export function applyPlateAwareOceanSeparation(
     };
   }
 
-  const closeness = WorldModel.boundaryCloseness;
+  const closeness = foundation.plates.boundaryCloseness;
   if (!closeness || closeness.length !== width * height) {
     return {
       windows: windows.map((win, idx) => normalizeWindow(win, idx, width, height)),

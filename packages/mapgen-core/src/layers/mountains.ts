@@ -18,7 +18,7 @@ import type { ExtendedMapContext } from "../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
 import type { MountainsConfig as BootstrapMountainsConfig } from "../bootstrap/types.js";
 import { writeHeightfield } from "../core/types.js";
-import { WorldModel, BOUNDARY_TYPE } from "../world/model.js";
+import { BOUNDARY_TYPE } from "../world/constants.js";
 
 // ============================================================================
 // Types
@@ -108,7 +108,9 @@ export function layerAddMountainsPhysics(
     writeHeightfield(ctx, x, y, { terrain, isLand });
   };
 
-  const worldModelEnabled = WorldModel.isEnabled();
+  // Use foundation context for plate data
+  const foundation = ctx?.foundation;
+  const foundationEnabled = !!foundation;
 
   // Create fractals for base noise
   const grainAmount = 5;
@@ -132,7 +134,7 @@ export function layerAddMountainsPhysics(
   const scores = new Float32Array(size);
   const hillScores = new Float32Array(size);
 
-  if (worldModelEnabled) {
+  if (foundationEnabled && foundation) {
     computePlateBasedScores(
       ctx,
       scores,
@@ -153,15 +155,16 @@ export function layerAddMountainsPhysics(
         hillUpliftWeight,
       },
       isWater,
-      adapter
+      adapter,
+      foundation
     );
   } else {
     computeFractalOnlyScores(ctx, scores, hillScores, adapter);
   }
 
   // Apply rift depressions
-  if (worldModelEnabled && riftDepth > 0) {
-    applyRiftDepressions(ctx, scores, hillScores, riftDepth);
+  if (foundationEnabled && foundation && riftDepth > 0) {
+    applyRiftDepressions(ctx, scores, hillScores, riftDepth, foundation);
   }
 
   const selectionAdapter = { isWater };
@@ -198,7 +201,7 @@ export function layerAddMountainsPhysics(
 }
 
 /**
- * Compute plate-based mountain scores using WorldModel boundaries.
+ * Compute plate-based mountain scores using foundation context plate data.
  */
 function computePlateBasedScores(
   ctx: ExtendedMapContext,
@@ -220,16 +223,18 @@ function computePlateBasedScores(
     hillUpliftWeight: number;
   },
   isWaterCheck: (x: number, y: number) => boolean,
-  adapter: EngineAdapter
+  adapter: EngineAdapter,
+  foundation: NonNullable<ExtendedMapContext["foundation"]>
 ): void {
   const dims = ctx?.dimensions;
   const width = dims?.width ?? 0;
   const height = dims?.height ?? 0;
 
-  const upliftPotential = WorldModel.upliftPotential;
-  const boundaryType = WorldModel.boundaryType;
-  const boundaryCloseness = WorldModel.boundaryCloseness;
-  const riftPotential = WorldModel.riftPotential;
+  const { plates } = foundation;
+  const upliftPotential = plates.upliftPotential;
+  const boundaryType = plates.boundaryType;
+  const boundaryCloseness = plates.boundaryCloseness;
+  const riftPotential = plates.riftPotential;
 
   if (!upliftPotential || !boundaryType) {
     computeFractalOnlyScores(ctx, scores, hillScores, adapter);
@@ -339,13 +344,15 @@ function applyRiftDepressions(
   ctx: ExtendedMapContext,
   scores: Float32Array,
   hillScores: Float32Array,
-  riftDepth: number
+  riftDepth: number,
+  foundation: NonNullable<ExtendedMapContext["foundation"]>
 ): void {
   const dims = ctx?.dimensions;
   const width = dims?.width ?? 0;
   const height = dims?.height ?? 0;
-  const riftPotential = WorldModel.riftPotential;
-  const boundaryType = WorldModel.boundaryType;
+  const { plates } = foundation;
+  const riftPotential = plates.riftPotential;
+  const boundaryType = plates.boundaryType;
 
   if (!riftPotential || !boundaryType) return;
 
@@ -423,12 +430,13 @@ export function addMountainsCompat(
   ctx?: ExtendedMapContext | null
 ): void {
   if (!ctx) return;
+  const foundationEnabled = !!ctx.foundation;
   layerAddMountainsPhysics(ctx, {
     tectonicIntensity: 1.0,
     mountainThreshold: 0.45,
     hillThreshold: 0.25,
-    upliftWeight: WorldModel.isEnabled() ? 0.75 : 0,
-    fractalWeight: WorldModel.isEnabled() ? 0.25 : 1.0,
+    upliftWeight: foundationEnabled ? 0.75 : 0,
+    fractalWeight: foundationEnabled ? 0.25 : 1.0,
   });
 }
 

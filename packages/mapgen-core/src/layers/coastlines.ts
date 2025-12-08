@@ -17,7 +17,7 @@ import type {
   CorridorsConfig,
 } from "../bootstrap/types.js";
 import { ctxRandom, writeHeightfield } from "../core/types.js";
-import { WorldModel, BOUNDARY_TYPE } from "../world/model.js";
+import { BOUNDARY_TYPE } from "../world/constants.js";
 import { getStoryTags } from "../story/tags.js";
 import { getTunables } from "../bootstrap/tunables.js";
 
@@ -113,10 +113,10 @@ export function addRuggedCoasts(
     adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 4, 0);
   }
 
-  // WorldModel integration
-  const worldModelEnabled = WorldModel.isEnabled();
-  const boundaryCloseness = worldModelEnabled ? WorldModel.boundaryCloseness : null;
-  const boundaryType = worldModelEnabled ? WorldModel.boundaryType : null;
+  // Foundation context integration (plate data)
+  const foundation = ctx?.foundation;
+  const boundaryCloseness = foundation?.plates.boundaryCloseness ?? null;
+  const boundaryType = foundation?.plates.boundaryType ?? null;
 
   // Configuration
   const tunables = getTunables();
