@@ -1,7 +1,7 @@
 import {
   MapOrchestrator,
   bootstrap
-} from "./chunk-3F6B7V6Z.js";
+} from "./chunk-V65UJZNM.js";
 
 // src/swooper-desert-mountains.ts
 bootstrap({

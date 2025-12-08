@@ -244,7 +244,8 @@ export function createPlateDrivenLandmasses(
       let noise255 = 128;
       if (useFractal && interiorNoiseWeight > 0) {
         const raw = adapter!.getFractalHeight(FRACTAL_TECTONIC_ID, x, y) | 0;
-        noise255 = raw >>> 8;
+        // Adaptive normalization: 8-bit input (0-255) keeps value, 16-bit input (0-65535) shifts down
+        noise255 = raw > 255 ? raw >>> 8 : raw;
       }
       const centeredNoise = noise255 - 128;
       const noisyInterior = interiorBase * baseInteriorWeight + centeredNoise * interiorNoiseWeight;
@@ -269,7 +270,9 @@ export function createPlateDrivenLandmasses(
 
       if (useFractal && arcNoiseWeight > 0) {
         const raw = adapter!.getFractalHeight(FRACTAL_TECTONIC_ID, x, y) | 0;
-        const noiseNorm = (raw >>> 8) / 255;
+        // Adaptive normalization: 8-bit input (0-255) keeps value, 16-bit input (0-65535) shifts down
+        const noiseVal = raw > 255 ? raw >>> 8 : raw;
+        const noiseNorm = noiseVal / 255;
         const noiseMix = 1.0 + (noiseNorm - 0.5) * arcNoiseWeight;
         arc *= noiseMix;
       }
