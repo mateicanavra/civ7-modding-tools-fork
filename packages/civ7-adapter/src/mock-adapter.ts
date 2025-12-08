@@ -79,6 +79,19 @@ export class MockAdapter implements EngineAdapter {
   readonly calls: {
     designateBiomes: Array<{ width: number; height: number }>;
     addFeatures: Array<{ width: number; height: number }>;
+    addNaturalWonders: Array<{ width: number; height: number; numWonders: number }>;
+    generateSnow: Array<{ width: number; height: number }>;
+    generateResources: Array<{ width: number; height: number }>;
+    assignStartPositions: Array<{
+      playersLandmass1: number;
+      playersLandmass2: number;
+      startSectorRows: number;
+      startSectorCols: number;
+    }>;
+    generateDiscoveries: Array<{ width: number; height: number; startPositions: number[] }>;
+    assignAdvancedStartRegions: number;
+    addFloodplains: Array<{ minLength: number; maxLength: number }>;
+    recalculateFertility: number;
   };
 
   constructor(config: MockAdapterConfig = {}) {
@@ -100,6 +113,14 @@ export class MockAdapter implements EngineAdapter {
     this.calls = {
       designateBiomes: [],
       addFeatures: [],
+      addNaturalWonders: [],
+      generateSnow: [],
+      generateResources: [],
+      assignStartPositions: [],
+      generateDiscoveries: [],
+      assignAdvancedStartRegions: 0,
+      addFloodplains: [],
+      recalculateFertility: 0,
     };
   }
 
@@ -253,6 +274,63 @@ export class MockAdapter implements EngineAdapter {
     return -1;
   }
 
+  // === PLACEMENT ===
+
+  addNaturalWonders(width: number, height: number, numWonders: number): void {
+    this.calls.addNaturalWonders.push({ width, height, numWonders });
+    // Mock: no-op
+  }
+
+  generateSnow(width: number, height: number): void {
+    this.calls.generateSnow.push({ width, height });
+    // Mock: no-op
+  }
+
+  generateResources(width: number, height: number): void {
+    this.calls.generateResources.push({ width, height });
+    // Mock: no-op
+  }
+
+  assignStartPositions(
+    playersLandmass1: number,
+    playersLandmass2: number,
+    _westContinent: { west: number; east: number; south: number; north: number },
+    _eastContinent: { west: number; east: number; south: number; north: number },
+    startSectorRows: number,
+    startSectorCols: number,
+    _startSectors: number[]
+  ): number[] {
+    this.calls.assignStartPositions.push({
+      playersLandmass1,
+      playersLandmass2,
+      startSectorRows,
+      startSectorCols,
+    });
+    // Mock: return array of placeholder positions (one per player)
+    const totalPlayers = playersLandmass1 + playersLandmass2;
+    return Array.from({ length: totalPlayers }, (_, i) => i * 100);
+  }
+
+  generateDiscoveries(width: number, height: number, startPositions: number[]): void {
+    this.calls.generateDiscoveries.push({ width, height, startPositions: [...startPositions] });
+    // Mock: no-op
+  }
+
+  assignAdvancedStartRegions(): void {
+    this.calls.assignAdvancedStartRegions++;
+    // Mock: no-op
+  }
+
+  addFloodplains(minLength: number, maxLength: number): void {
+    this.calls.addFloodplains.push({ minLength, maxLength });
+    // Mock: no-op
+  }
+
+  recalculateFertility(): void {
+    this.calls.recalculateFertility++;
+    // Mock: no-op
+  }
+
   // === MOCK-SPECIFIC HELPERS ===
 
   /** Set water mask for testing */
@@ -282,6 +360,14 @@ export class MockAdapter implements EngineAdapter {
     this.mountainMask.fill(0);
     this.calls.designateBiomes.length = 0;
     this.calls.addFeatures.length = 0;
+    this.calls.addNaturalWonders.length = 0;
+    this.calls.generateSnow.length = 0;
+    this.calls.generateResources.length = 0;
+    this.calls.assignStartPositions.length = 0;
+    this.calls.generateDiscoveries.length = 0;
+    this.calls.assignAdvancedStartRegions = 0;
+    this.calls.addFloodplains.length = 0;
+    this.calls.recalculateFertility = 0;
   }
 
   /** Set biome type for testing */

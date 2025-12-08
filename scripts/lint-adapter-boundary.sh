@@ -24,10 +24,9 @@ echo ""
 # Files that are explicitly allowed to contain /base-standard/ imports
 # Each entry should be removed when its corresponding issue is completed.
 ALLOWLIST=(
-  # CIV-15: Orchestrator-level operations (deferred to CIV-20/CIV-22)
+  # CIV-15: Orchestrator-level operations (deferred to CIV-22)
   "packages/mapgen-core/src/MapOrchestrator.ts"
-  # CIV-20: Placement layer (heavy /base-standard/ usage)
-  "packages/mapgen-core/src/layers/placement.ts"
+  # CIV-20: DONE - placement.ts now uses adapter
 )
 
 # Config/build files that may reference /base-standard/ in comments or patterns

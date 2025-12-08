@@ -4,8 +4,6 @@
  * @packageDocumentation
  */
 
-/// <reference types="@civ7/types" />
-
 /**
  * Purpose:
  * - Encapsulate all late-stage placement and finalization passes into a single, reusable function.
@@ -23,7 +21,7 @@
  *
  * Usage:
  *   import { runPlacement } from "./layers/placement.js";
- *   const startPositions = runPlacement(iWidth, iHeight, {
+ *   const startPositions = runPlacement(adapter, iWidth, iHeight, {
  *     mapInfo,
  *     wondersPlusOne: true, // default true
  *     floodplains: { minLength: 4, maxLength: 10 },
@@ -36,10 +34,11 @@
  *   });
  *
  * Notes:
- * - All external engine/module calls are wrapped in light defensive try/catch where sensible.
+ * - All external engine/module calls go through the EngineAdapter.
  * - Returns the computed startPositions array for downstream consumers (e.g., discoveries).
  */
 
+import type { EngineAdapter } from "@civ7/adapter";
 import type {
   PlacementConfig,
   FloodplainsConfig,
@@ -47,27 +46,10 @@ import type {
   StartsConfig,
 } from "../bootstrap/types.js";
 
+import { getTunables } from "../bootstrap/tunables.js";
+
 // Re-export config types
 export type { PlacementConfig, FloodplainsConfig, ContinentBounds, StartsConfig };
-
-// ============================================================================
-// External Engine Imports (Civ7 base-standard modules)
-// ============================================================================
-
-// @ts-expect-error - Civ7 engine module
-import { addNaturalWonders } from "/base-standard/maps/natural-wonder-generator.js";
-// @ts-expect-error - Civ7 engine module
-import { generateResources } from "/base-standard/maps/resource-generator.js";
-// @ts-expect-error - Civ7 engine module
-import { assignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-start-region.js";
-// @ts-expect-error - Civ7 engine module
-import { generateDiscoveries } from "/base-standard/maps/discovery-generator.js";
-// @ts-expect-error - Civ7 engine module
-import { generateSnow } from "/base-standard/maps/snow-generator.js";
-// @ts-expect-error - Civ7 engine module
-import { assignStartPositions } from "/base-standard/maps/assign-starting-plots.js";
-
-import { getTunables } from "../bootstrap/tunables.js";
 
 // ============================================================================
 // Types
@@ -89,44 +71,6 @@ export interface PlacementOptions {
   floodplains?: FloodplainsConfig;
   /** Start placement inputs */
   starts?: StartsConfig;
-}
-
-// ============================================================================
-// Adapter Resolution
-// ============================================================================
-
-interface PlacementAdapter {
-  addFloodplains: (minLength: number, maxLength: number) => void;
-  recalculateFertility: () => void;
-}
-
-// Extended engine interface for methods not in base @civ7/types
-interface ExtendedTerrainBuilder {
-  addFloodplains?: (minLength: number, maxLength: number) => void;
-}
-
-interface FertilityBuilderLike {
-  recalculate?: () => void;
-}
-
-// Declare FertilityBuilder for engines that have it
-declare const FertilityBuilder: FertilityBuilderLike | undefined;
-
-function resolveAdapter(): PlacementAdapter {
-  // Use engine globals directly - these aren't on the base EngineAdapter
-  return {
-    addFloodplains: (minLength: number, maxLength: number): void => {
-      const tb = TerrainBuilder as unknown as ExtendedTerrainBuilder;
-      if (typeof TerrainBuilder !== "undefined" && tb.addFloodplains) {
-        tb.addFloodplains(minLength, maxLength);
-      }
-    },
-    recalculateFertility: (): void => {
-      if (typeof FertilityBuilder !== "undefined" && FertilityBuilder?.recalculate) {
-        FertilityBuilder.recalculate();
-      }
-    },
-  };
 }
 
 // ============================================================================
@@ -170,12 +114,14 @@ function getPlacementConfig(): PlacementConfig {
 /**
  * Run late-stage placement and finalization passes.
  *
+ * @param adapter - Engine adapter for all engine interactions
  * @param iWidth - Map width
  * @param iHeight - Map height
  * @param options - Placement options
  * @returns startPositions array for downstream consumers
  */
 export function runPlacement(
+  adapter: EngineAdapter,
   iWidth: number,
   iHeight: number,
   options: PlacementOptions = {}
@@ -185,7 +131,6 @@ export function runPlacement(
 
   const { mapInfo, wondersPlusOne, floodplains, starts } = options;
   const placementCfg = getPlacementConfig();
-  const adapter = resolveAdapter();
   const startPositions: number[] = [];
 
   // 1) Natural Wonders
@@ -197,7 +142,7 @@ export function runPlacement(
           ? placementCfg.wondersPlusOne
           : true;
     const wonders = resolveNaturalWonderCount(mapInfo, useWondersPlusOne);
-    addNaturalWonders(iWidth, iHeight, wonders);
+    adapter.addNaturalWonders(iWidth, iHeight, wonders);
   } catch (err) {
     console.log("[Placement] addNaturalWonders failed:", err);
   }
@@ -216,14 +161,14 @@ export function runPlacement(
 
   // 3) Snow (post-water/terrain stabilization)
   try {
-    generateSnow(iWidth, iHeight);
+    adapter.generateSnow(iWidth, iHeight);
   } catch (err) {
     console.log("[Placement] generateSnow failed:", err);
   }
 
   // 4) Resources (after snow)
   try {
-    generateResources(iWidth, iHeight);
+    adapter.generateResources(iWidth, iHeight);
   } catch (err) {
     console.log("[Placement] generateResources failed:", err);
   }
@@ -256,15 +201,15 @@ export function runPlacement(
         `[START_DEBUG] Sectors: ${startSectorRows}x${startSectorCols} grid, ${startSectors.length} sectors chosen`
       );
 
-      const pos = assignStartPositions(
+      const pos = adapter.assignStartPositions(
         playersLandmass1,
         playersLandmass2,
         westContinent,
         eastContinent,
         startSectorRows,
         startSectorCols,
-        startSectors
-      ) as number[] | undefined;
+        startSectors as number[]
+      );
 
       // DIAGNOSTIC LOGGING - Placement results
       const successCount = pos ? pos.filter((p) => p !== undefined && p >= 0).length : 0;
@@ -295,7 +240,7 @@ export function runPlacement(
 
   // 6) Discoveries (post-starts to seed exploration)
   try {
-    generateDiscoveries(iWidth, iHeight, startPositions);
+    adapter.generateDiscoveries(iWidth, iHeight, startPositions);
     console.log("[Placement] Discoveries generated successfully");
   } catch (err) {
     console.log("[Placement] generateDiscoveries failed:", err);
@@ -308,7 +253,7 @@ export function runPlacement(
     console.log("[Placement] FertilityBuilder.recalculate failed:", err);
   }
   try {
-    assignAdvancedStartRegions();
+    adapter.assignAdvancedStartRegions();
   } catch (err) {
     console.log("[Placement] assignAdvancedStartRegions failed:", err);
   }

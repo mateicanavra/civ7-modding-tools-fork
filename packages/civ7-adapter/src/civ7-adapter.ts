@@ -15,6 +15,19 @@ import "/base-standard/maps/map-globals.js";
 // Vanilla Civ7 biomes/features live in feature-biome-generator.js
 // @ts-ignore - resolved only at Civ7 runtime
 import { designateBiomes as civ7DesignateBiomes, addFeatures as civ7AddFeatures } from "/base-standard/maps/feature-biome-generator.js";
+// Placement modules
+// @ts-ignore - resolved only at Civ7 runtime
+import { addNaturalWonders as civ7AddNaturalWonders } from "/base-standard/maps/natural-wonder-generator.js";
+// @ts-ignore - resolved only at Civ7 runtime
+import { generateSnow as civ7GenerateSnow } from "/base-standard/maps/snow-generator.js";
+// @ts-ignore - resolved only at Civ7 runtime
+import { generateResources as civ7GenerateResources } from "/base-standard/maps/resource-generator.js";
+// @ts-ignore - resolved only at Civ7 runtime
+import { assignStartPositions as civ7AssignStartPositions } from "/base-standard/maps/assign-starting-plots.js";
+// @ts-ignore - resolved only at Civ7 runtime
+import { generateDiscoveries as civ7GenerateDiscoveries } from "/base-standard/maps/discovery-generator.js";
+// @ts-ignore - resolved only at Civ7 runtime
+import { assignAdvancedStartRegions as civ7AssignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-start-region.js";
 
 /**
  * Production adapter wrapping GameplayMap, TerrainBuilder, AreaBuilder, FractalBuilder
@@ -185,6 +198,65 @@ export class Civ7Adapter implements EngineAdapter {
     return typeof FeatureTypes !== "undefined" && "NO_FEATURE" in FeatureTypes
       ? FeatureTypes.NO_FEATURE
       : -1;
+  }
+
+  // === PLACEMENT ===
+
+  addNaturalWonders(width: number, height: number, numWonders: number): void {
+    civ7AddNaturalWonders(width, height, numWonders);
+  }
+
+  generateSnow(width: number, height: number): void {
+    civ7GenerateSnow(width, height);
+  }
+
+  generateResources(width: number, height: number): void {
+    civ7GenerateResources(width, height);
+  }
+
+  assignStartPositions(
+    playersLandmass1: number,
+    playersLandmass2: number,
+    westContinent: { west: number; east: number; south: number; north: number },
+    eastContinent: { west: number; east: number; south: number; north: number },
+    startSectorRows: number,
+    startSectorCols: number,
+    startSectors: number[]
+  ): number[] {
+    const result = civ7AssignStartPositions(
+      playersLandmass1,
+      playersLandmass2,
+      westContinent,
+      eastContinent,
+      startSectorRows,
+      startSectorCols,
+      startSectors
+    );
+    return Array.isArray(result) ? result : [];
+  }
+
+  generateDiscoveries(width: number, height: number, startPositions: number[]): void {
+    civ7GenerateDiscoveries(width, height, startPositions);
+  }
+
+  assignAdvancedStartRegions(): void {
+    civ7AssignAdvancedStartRegions();
+  }
+
+  addFloodplains(minLength: number, maxLength: number): void {
+    // TerrainBuilder.addFloodplains may not exist in all engine versions
+    const tb = TerrainBuilder as unknown as { addFloodplains?: (min: number, max: number) => void };
+    if (typeof tb.addFloodplains === "function") {
+      tb.addFloodplains(minLength, maxLength);
+    }
+  }
+
+  recalculateFertility(): void {
+    // FertilityBuilder may not exist in all engine versions
+    const fb = (globalThis as unknown as { FertilityBuilder?: { recalculate?: () => void } }).FertilityBuilder;
+    if (fb && typeof fb.recalculate === "function") {
+      fb.recalculate();
+    }
   }
 }
 

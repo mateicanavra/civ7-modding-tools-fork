@@ -731,9 +731,9 @@ export class MapOrchestrator {
     // ========================================================================
     // Stage: Placement
     // ========================================================================
-    if (stageFlags.placement) {
+    if (stageFlags.placement && ctx) {
       const stageResult = this.runStage("placement", () => {
-        const positions = runPlacement(iWidth, iHeight, {
+        const positions = runPlacement(ctx.adapter, iWidth, iHeight, {
           mapInfo: mapInfo as { NumNaturalWonders?: number },
           wondersPlusOne: true,
           floodplains: { minLength: 4, maxLength: 10 },

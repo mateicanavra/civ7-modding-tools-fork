@@ -167,6 +167,76 @@ export interface EngineAdapter {
    * Sentinel value for "no feature"
    */
   readonly NO_FEATURE: number;
+
+  // === PLACEMENT ===
+
+  /**
+   * Add natural wonders to the map
+   * Wraps /base-standard/maps/natural-wonder-generator.js addNaturalWonders()
+   */
+  addNaturalWonders(width: number, height: number, numWonders: number): void;
+
+  /**
+   * Generate snow terrain
+   * Wraps /base-standard/maps/snow-generator.js generateSnow()
+   */
+  generateSnow(width: number, height: number): void;
+
+  /**
+   * Generate resources on the map
+   * Wraps /base-standard/maps/resource-generator.js generateResources()
+   */
+  generateResources(width: number, height: number): void;
+
+  /**
+   * Assign starting positions for players
+   * Wraps /base-standard/maps/assign-starting-plots.js assignStartPositions()
+   */
+  assignStartPositions(
+    playersLandmass1: number,
+    playersLandmass2: number,
+    westContinent: ContinentBounds,
+    eastContinent: ContinentBounds,
+    startSectorRows: number,
+    startSectorCols: number,
+    startSectors: number[]
+  ): number[];
+
+  /**
+   * Generate discoveries on the map (post-starts)
+   * Wraps /base-standard/maps/discovery-generator.js generateDiscoveries()
+   */
+  generateDiscoveries(width: number, height: number, startPositions: number[]): void;
+
+  /**
+   * Assign advanced start regions
+   * Wraps /base-standard/maps/assign-advanced-start-region.js assignAdvancedStartRegions()
+   */
+  assignAdvancedStartRegions(): void;
+
+  /**
+   * Add floodplains to rivers
+   * Wraps TerrainBuilder.addFloodplains()
+   */
+  addFloodplains(minLength: number, maxLength: number): void;
+
+  /**
+   * Recalculate fertility values
+   * Wraps FertilityBuilder.recalculate()
+   */
+  recalculateFertility(): void;
+}
+
+/**
+ * Continent bounds for start placement
+ * Compatible with mapgen-core ContinentBounds
+ */
+export interface ContinentBounds {
+  west: number;
+  east: number;
+  south: number;
+  north: number;
+  continent?: number;
 }
 
 /**
