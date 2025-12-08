@@ -6,8 +6,6 @@
     "declaration": true,
     "declarationMap": true,
     "noEmit": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
     "types": ["@civ7/types"]
   },
   "include": ["src/**/*.ts"]

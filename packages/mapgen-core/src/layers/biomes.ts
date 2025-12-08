@@ -61,19 +61,9 @@ export interface CorridorPolicy {
   };
 }
 
-interface BiomeAdapter {
-  isWater: (x: number, y: number) => boolean;
-  isCoastalLand: (x: number, y: number) => boolean;
-  isAdjacentToRivers: (x: number, y: number, radius: number) => boolean;
-  getLatitude: (x: number, y: number) => number;
-  getElevation: (x: number, y: number) => number;
-  getRainfall: (x: number, y: number) => number;
-  setBiomeType: (x: number, y: number, biomeType: number) => void;
-  getRandomNumber: (max: number, label: string) => number;
-  designateBiomes: (width: number, height: number) => void;
-  getBiomeGlobals: () => BiomeGlobals;
-}
-
+/**
+ * Biome global indices resolved from the adapter
+ */
 interface BiomeGlobals {
   tundra: number;
   tropical: number;
@@ -83,55 +73,53 @@ interface BiomeGlobals {
   snow: number;
 }
 
+/**
+ * Resolve biome globals from the engine adapter
+ */
+function resolveBiomeGlobals(adapter: EngineAdapter): BiomeGlobals {
+  return {
+    tundra: adapter.getBiomeGlobal("tundra"),
+    tropical: adapter.getBiomeGlobal("tropical"),
+    grassland: adapter.getBiomeGlobal("grassland"),
+    plains: adapter.getBiomeGlobal("plains"),
+    desert: adapter.getBiomeGlobal("desert"),
+    snow: adapter.getBiomeGlobal("snow"),
+  };
+}
+
 // ============================================================================
 // Helper Functions
 // ============================================================================
 
-function resolveAdapter(ctx: ExtendedMapContext | null): BiomeAdapter {
-  if (ctx && ctx.adapter) {
-    const engineAdapter = ctx.adapter;
-    return {
-      isWater: (x, y) => engineAdapter.isWater(x, y),
-      isCoastalLand: () => false, // Not on base interface - computed locally if needed
-      isAdjacentToRivers: (x, y, radius) =>
-        engineAdapter.isAdjacentToRivers(x, y, radius),
-      getLatitude: (x, y) => engineAdapter.getLatitude(x, y),
-      getElevation: (x, y) => engineAdapter.getElevation(x, y),
-      getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
-      setBiomeType: () => {}, // Placeholder - setBiomeType not on base interface
-      getRandomNumber: (max, label) => engineAdapter.getRandomNumber(max, label),
-      designateBiomes: () => {}, // Placeholder - designateBiomes not on base interface
-      getBiomeGlobals: () => ({
-        tundra: 0,
-        tropical: 1,
-        grassland: 2,
-        plains: 3,
-        desert: 4,
-        snow: 5,
-      }),
-    };
-  }
+/**
+ * Check if a tile is coastal land (land adjacent to water)
+ * Local implementation since this isn't always on the base adapter
+ */
+function isCoastalLand(
+  adapter: EngineAdapter,
+  x: number,
+  y: number,
+  width: number,
+  height: number
+): boolean {
+  if (adapter.isWater(x, y)) return false;
 
-  // Fallback: return dummy adapter
-  return {
-    isWater: () => false,
-    isCoastalLand: () => false,
-    isAdjacentToRivers: () => false,
-    getLatitude: () => 0,
-    getElevation: () => 0,
-    getRainfall: () => 0,
-    setBiomeType: () => {},
-    getRandomNumber: (max) => Math.floor(Math.random() * max),
-    designateBiomes: () => {},
-    getBiomeGlobals: () => ({
-      tundra: 0,
-      tropical: 1,
-      grassland: 2,
-      plains: 3,
-      desert: 4,
-      snow: 5,
-    }),
-  };
+  // Check all 6 hex neighbors
+  const neighbors = [
+    [x - 1, y],
+    [x + 1, y],
+    [x, y - 1],
+    [x, y + 1],
+    [x - 1, y - 1],
+    [x + 1, y + 1],
+  ];
+
+  for (const [nx, ny] of neighbors) {
+    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+      if (adapter.isWater(nx, ny)) return true;
+    }
+  }
+  return false;
 }
 
 // ============================================================================
@@ -148,10 +136,15 @@ export function designateEnhancedBiomes(
 ): void {
   console.log("Creating enhanced biome diversity (climate-aware)...");
 
-  const adapter = resolveAdapter(ctx ?? null);
-  const globals = adapter.getBiomeGlobals();
+  if (!ctx?.adapter) {
+    console.warn("designateEnhancedBiomes: No adapter available, skipping");
+    return;
+  }
 
-  // Start with vanilla-consistent biomes
+  const adapter = ctx.adapter;
+  const globals = resolveBiomeGlobals(adapter);
+
+  // Start with vanilla-consistent biomes via the real engine
   adapter.designateBiomes(iWidth, iHeight);
 
   const tunables = getTunables();
@@ -235,7 +228,7 @@ export function designateEnhancedBiomes(
       // Wet, warm coasts near the equator tend tropical
       if (
         lat < TCOAST_LAT_MAX &&
-        adapter.isCoastalLand(x, y) &&
+        isCoastalLand(adapter, x, y, iWidth, iHeight) &&
         rainfall > TCOAST_RAIN_MIN
       ) {
         adapter.setBiomeType(x, y, globals.tropical);

@@ -39,71 +39,7 @@ export interface FeaturesDensityConfig {
   taigaExtraChance?: number;
 }
 
-interface FeatureData {
-  Feature: number;
-  Direction: number;
-  Elevation: number;
-}
-
-interface FeaturesAdapter {
-  isWater: (x: number, y: number) => boolean;
-  getFeatureType: (x: number, y: number) => number;
-  getBiomeType: (x: number, y: number) => number;
-  getElevation: (x: number, y: number) => number;
-  getRainfall: (x: number, y: number) => number;
-  getLatitude: (x: number, y: number) => number;
-  canHaveFeature: (x: number, y: number, featureIndex: number) => boolean;
-  setFeatureType: (x: number, y: number, featureData: FeatureData) => void;
-  getRandomNumber: (max: number, label: string) => number;
-  addFeatures: (width: number, height: number) => void;
-  getFeatureTypeIndex: (featureName: string) => number;
-  getBiomeGlobal: (name: string) => number;
-  getNoFeatureConstant: () => number;
-}
-
-// ============================================================================
-// Helper Functions
-// ============================================================================
-
-function resolveAdapter(ctx: ExtendedMapContext | null): FeaturesAdapter {
-  if (ctx && ctx.adapter) {
-    const engineAdapter = ctx.adapter;
-    return {
-      isWater: (x, y) => engineAdapter.isWater(x, y),
-      getFeatureType: (x, y) => engineAdapter.getFeatureType(x, y),
-      getBiomeType: () => 0, // Not on base interface
-      getElevation: (x, y) => engineAdapter.getElevation(x, y),
-      getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
-      getLatitude: (x, y) => engineAdapter.getLatitude(x, y),
-      canHaveFeature: (x, y, featureIndex) =>
-        engineAdapter.canHaveFeature(x, y, featureIndex),
-      setFeatureType: (x, y, featureData) =>
-        engineAdapter.setFeatureType(x, y, featureData),
-      getRandomNumber: (max, label) => engineAdapter.getRandomNumber(max, label),
-      addFeatures: () => {}, // Not on base interface
-      getFeatureTypeIndex: () => -1, // Not on base interface
-      getBiomeGlobal: () => -1, // Not on base interface
-      getNoFeatureConstant: () => -1, // Not on base interface
-    };
-  }
-
-  // Fallback: return dummy adapter
-  return {
-    isWater: () => false,
-    getFeatureType: () => -1,
-    getBiomeType: () => 0,
-    getElevation: () => 0,
-    getRainfall: () => 0,
-    getLatitude: () => 0,
-    canHaveFeature: () => false,
-    setFeatureType: () => {},
-    getRandomNumber: (max) => Math.floor(Math.random() * max),
-    addFeatures: () => {},
-    getFeatureTypeIndex: () => -1,
-    getBiomeGlobal: () => -1,
-    getNoFeatureConstant: () => -1,
-  };
-}
+// Note: FeatureData is imported from @civ7/adapter via the EngineAdapter interface
 
 // ============================================================================
 // Main Function
@@ -119,13 +55,18 @@ export function addDiverseFeatures(
 ): void {
   console.log("Adding diverse terrain features...");
 
-  const adapter = resolveAdapter(ctx ?? null);
+  if (!ctx?.adapter) {
+    console.warn("addDiverseFeatures: No adapter available, skipping");
+    return;
+  }
+
+  const adapter = ctx.adapter;
 
   // Local bounds check with captured dimensions
   const inBounds = (x: number, y: number): boolean =>
     boundsCheck(x, y, iWidth, iHeight);
 
-  // 1) Base-standard features (vanilla-compatible baseline)
+  // 1) Base-standard features (vanilla-compatible baseline) via the real engine
   adapter.addFeatures(iWidth, iHeight);
 
   const tunables = getTunables();
@@ -136,18 +77,18 @@ export function addDiverseFeatures(
 
   const StoryTags = getStoryTags();
 
-  // Feature indices
+  // Feature indices from the adapter
   const reefIndex = adapter.getFeatureTypeIndex("FEATURE_REEF");
   const rainforestIdx = adapter.getFeatureTypeIndex("FEATURE_RAINFOREST");
   const forestIdx = adapter.getFeatureTypeIndex("FEATURE_FOREST");
   const taigaIdx = adapter.getFeatureTypeIndex("FEATURE_TAIGA");
 
-  // Biome globals
+  // Biome globals from the adapter
   const g_GrasslandBiome = adapter.getBiomeGlobal("grassland");
   const g_TropicalBiome = adapter.getBiomeGlobal("tropical");
   const g_TundraBiome = adapter.getBiomeGlobal("tundra");
 
-  const NO_FEATURE = adapter.getNoFeatureConstant();
+  const NO_FEATURE = adapter.NO_FEATURE;
 
   const getRandom = (label: string, max: number): number => {
     if (ctx) {

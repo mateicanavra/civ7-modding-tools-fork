@@ -9,8 +9,13 @@
 
 import type { EngineAdapter, FeatureData } from "./types.js";
 
-// Import from /base-standard/... — these are external and resolved at runtime
+// Import from /base-standard/... — these are external Civ7 runtime paths
+// resolved by the game's module loader, not TypeScript
 import "/base-standard/maps/map-globals.js";
+// @ts-expect-error - Civ7 runtime module
+import { designateBiomes as civ7DesignateBiomes } from "/base-standard/maps/biomes.js";
+// @ts-expect-error - Civ7 runtime module
+import { addFeatures as civ7AddFeatures } from "/base-standard/maps/features.js";
 
 /**
  * Production adapter wrapping GameplayMap, TerrainBuilder, AreaBuilder, FractalBuilder
@@ -138,6 +143,50 @@ export class Civ7Adapter implements EngineAdapter {
 
   storeWaterData(): void {
     TerrainBuilder.storeWaterData();
+  }
+
+  // === BIOMES ===
+
+  designateBiomes(width: number, height: number): void {
+    civ7DesignateBiomes(width, height);
+  }
+
+  getBiomeGlobal(name: string): number {
+    // Biome globals are exposed as g_<Name>Biome on globalThis
+    // e.g., g_TropicalBiome, g_GrasslandBiome, g_TundraBiome, etc.
+    const globalName = `g_${name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}Biome`;
+    const value = (globalThis as Record<string, unknown>)[globalName];
+    return typeof value === "number" ? value : -1;
+  }
+
+  setBiomeType(x: number, y: number, biomeId: number): void {
+    TerrainBuilder.setBiomeType(x, y, biomeId);
+  }
+
+  getBiomeType(x: number, y: number): number {
+    return GameplayMap.getBiomeType(x, y);
+  }
+
+  // === FEATURES (extended) ===
+
+  addFeatures(width: number, height: number): void {
+    civ7AddFeatures(width, height);
+  }
+
+  getFeatureTypeIndex(name: string): number {
+    // GameInfo.Features is an iterable table of feature definitions
+    // Each has a FeatureType string and an Index number
+    const features = GameInfo?.Features;
+    if (!features) return -1;
+
+    // Use the find method from GameInfoTable interface
+    const feature = features.find((f) => f.FeatureType === name);
+    return feature?.Index ?? -1;
+  }
+
+  get NO_FEATURE(): number {
+    // Standard sentinel for "no feature" in Civ7
+    return -1;
   }
 }
 
