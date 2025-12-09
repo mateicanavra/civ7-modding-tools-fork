@@ -17,6 +17,14 @@ The Map Generation Engine is designed as a **Data-Driven Task Graph**. It moves 
 ### 2.1. The Step Interface
 
 ```typescript
+export type GenerationPhase = 
+  | "setup" 
+  | "foundation" 
+  | "morphology" 
+  | "hydrology" 
+  | "ecology" 
+  | "placement";
+
 /**
  * A single unit of work in the map generation pipeline.
  */
@@ -24,18 +32,27 @@ export interface MapGenStep {
   /** Unique identifier for the registry (e.g., "core.mesh.voronoi") */
   id: string;
 
+  /** The architectural phase this step belongs to */
+  phase: GenerationPhase;
+
   /** Data required in the Context before this step can run */
   requires: string[]; // e.g., ["dimensions"]
 
   /** Data this step promises to add to the Context */
   provides: string[]; // e.g., ["mesh"]
 
+  /** 
+   * Optional dynamic check to skip this step based on context state.
+   * e.g. Skip river generation if map has no water.
+   */
+  shouldRun?: (context: MapGenContext, config: any) => boolean;
+
   /**
    * Execute the logic.
    * @param context The shared blackboard (mutable).
    * @param config Step-specific configuration from JSON.
    */
-  run(context: MapContext, config: Record<string, unknown>): Promise<void>;
+  run(context: MapGenContext, config: Record<string, unknown>): Promise<void>;
 }
 ```
 
@@ -78,27 +95,44 @@ The map script is no longer code; it is a JSON recipe. This allows the UI to man
 
 ## 3. Data Flow & The Blackboard
 
-To prevent "spaghetti code" where steps depend on internal details of other steps, all communication happens via the **Extended Map Context**.
+To prevent "spaghetti code" where steps depend on internal details of other steps, all communication happens via the **MapGenContext**.
 
 ### 3.1. The Context Structure
 
-The context is divided into "Domains" to organize data.
+The context is explicitly divided into **Infrastructure**, **Canvas** (Mutable Output), and **Artifacts** (Intermediate Data) to clarify provenance.
 
 ```typescript
-interface ExtendedMapContext {
-  // 1. Global Metadata
+export interface MapGenContext {
+  // --- Infrastructure ---
+  adapter: EngineAdapter; // Injected via constructor (Strict Injection)
+  config: MapConfig;
   dimensions: MapDimensions;
   rng: RNGState;
 
-  // 2. The "Board" (Graph representations)
-  mesh?: RegionMesh;
-  graph?: PlateGraph;
+  // --- The Canvas (Mutable Output) ---
+  // "What the map looks like right now" - Flushed to engine at the end.
+  fields: {
+    elevation: Int16Array;
+    terrain: Uint8Array;
+    biomes: Uint8Array;
+    features: Int16Array;
+    rainfall: Uint8Array;
+  };
 
-  // 3. The "Simulation" (Physics tensors)
-  foundation?: FoundationContext; // Tectonics, Wind, Pressure
+  // --- The Artifacts (Intermediate Data) ---
+  // "The math behind the map" - Owned by specific phases.
+  artifacts: {
+    // Foundation Phase
+    mesh?: RegionMesh;
+    plateGraph?: PlateGraph;
+    tectonics?: TectonicData; // (Stress, Uplift tensors)
 
-  // 4. The "Output" (Game Engine buffers)
-  fields: MapFields; // Elevation, TerrainType, FeatureType
+    // Hydrology Phase
+    riverGraph?: RiverGraph;
+    
+    // Ecology Phase
+    // ...
+  };
 }
 ```
 
@@ -107,6 +141,12 @@ interface ExtendedMapContext {
 *   **Internal Purity:** Steps should calculate their results using internal, pure logic (e.g., `MeshBuilder.create()`).
 *   **Explicit Commit:** Only at the very end of `run()` should a step mutate the `context`.
 *   **No Hidden State:** Steps must not rely on global variables or singletons (other than the provided `context.rng`).
+
+### 3.3. System Integrity & Legacy Integration
+
+*   **Fail Fast:** We do not use "Mock Adapters" in production. If the game engine adapter cannot be loaded, the system throws a critical error. If a step requires `mesh` and it is missing from `artifacts`, it throws `MissingDependencyError`.
+*   **No Global State:** The legacy `WorldModel` singleton is **banned** in new code. New steps must read/write strictly to `context.artifacts`.
+*   **The Bridge Strategy:** To support legacy scripts that haven't been refactored yet, the `MapOrchestrator` acts as a bridge. After the Foundation pipeline runs, it copies the clean `context.artifacts` data into the dirty global `WorldModel` so downstream legacy scripts can still function. This isolates the technical debt to the Orchestrator boundary.
 
 ---
 
@@ -134,15 +174,15 @@ The Foundation stage is composed of three atomic strategies:
 2.  **Mesh Step** runs:
     *   Reads `dimensions`.
     *   Computes Voronoi.
-    *   Writes `context.mesh`.
+    *   Writes `context.artifacts.mesh`.
 3.  **Partition Step** runs:
-    *   Reads `context.mesh`.
+    *   Reads `context.artifacts.mesh`.
     *   Computes clusters.
-    *   Writes `context.graph`.
+    *   Writes `context.artifacts.plateGraph`.
 4.  **Physics Step** runs:
-    *   Reads `context.graph`.
+    *   Reads `context.artifacts.plateGraph`.
     *   Simulates forces.
-    *   Writes `context.foundation` (Stress, Uplift).
+    *   Writes `context.artifacts.tectonics` (Stress, Uplift).
 
 ---
 
@@ -160,5 +200,3 @@ This architecture enables three levels of modding:
 2.  **Refactor Foundation:** Implement `MeshStep`, `PartitionStep`, and `PhysicsStep` as the first concrete strategies.
 3.  **Update Orchestrator:** Replace the hardcoded `runGeneration()` loop with a dynamic pipeline executor.
 4.  **Migrate Config:** Convert existing `PlateConfig` presets into the new JSON pipeline format.
-```
-</file_content>
