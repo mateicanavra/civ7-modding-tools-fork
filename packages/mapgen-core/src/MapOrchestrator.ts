@@ -28,7 +28,7 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import { Civ7Adapter } from "@civ7/adapter/civ7";
+import { Civ7Adapter, createCiv7Adapter } from "@civ7/adapter/civ7";
 import type {
   LandmassConfig,
   MountainsConfig,
@@ -44,7 +44,7 @@ import {
   syncHeightfield,
   syncClimateField,
 } from "./core/types.js";
-import { addPlotTagsSimple, type TerrainBuilderLike } from "./core/plot-tags.js";
+import { addPlotTagsSimple, markLandmassRegionId, LANDMASS_REGION, type TerrainBuilderLike } from "./core/plot-tags.js";
 import { getTunables, resetTunables, stageEnabled } from "./bootstrap/tunables.js";
 import { validateStageDrift } from "./bootstrap/resolved.js";
 import { resetStoryTags } from "./story/tags.js";
@@ -326,30 +326,26 @@ function resolveOrchestratorAdapter(): OrchestratorAdapter {
       cols: number,
       humanNearEquator: boolean
     ) => {
+      // Use Civ7Adapter with static imports instead of require()
       try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const mod = require("/base-standard/maps/assign-starting-plots.js") as {
-          chooseStartSectors?: (p1: number, p2: number, r: number, c: number, h: boolean) => unknown[];
-        };
-        if (mod?.chooseStartSectors) {
-          return mod.chooseStartSectors(players1, players2, rows, cols, humanNearEquator);
+        const civ7 = createCiv7Adapter();
+        if (typeof civ7.chooseStartSectors === "function") {
+          return civ7.chooseStartSectors(players1, players2, rows, cols, humanNearEquator);
         }
-      } catch {
-        console.log("[MapOrchestrator] chooseStartSectors not available");
+      } catch (err) {
+        console.log("[MapOrchestrator] chooseStartSectors not available:", err);
       }
       return [];
     },
     needHumanNearEquator: () => {
+      // Use Civ7Adapter with static imports instead of require()
       try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const mod = require("/base-standard/maps/map-utilities.js") as {
-          needHumanNearEquator?: () => boolean;
-        };
-        if (mod?.needHumanNearEquator) {
-          return mod.needHumanNearEquator();
+        const civ7 = createCiv7Adapter();
+        if (typeof civ7.needHumanNearEquator === "function") {
+          return civ7.needHumanNearEquator();
         }
-      } catch {
-        console.log("[MapOrchestrator] needHumanNearEquator not available");
+      } catch (err) {
+        console.log("[MapOrchestrator] needHumanNearEquator not available:", err);
       }
       return false;
     },
@@ -445,7 +441,11 @@ export class MapOrchestrator {
 
     // Enable dev diagnostics so engine surface introspection and other DEV
     // helpers can run during this generation pass.
-    initDevFlags({ enabled: true });
+    // Load diagnostics flags from config (e.g. LOG_LANDMASS_ASCII)
+    const devTunables = getTunables();
+    const devFoundationCfg = devTunables.FOUNDATION_CFG || {};
+    const diagnostics = (devFoundationCfg.diagnostics || {}) as Record<string, unknown>;
+    initDevFlags({ ...diagnostics, enabled: true });
 
     // Refresh configuration and world state
     resetTunables();
@@ -590,6 +590,13 @@ export class MapOrchestrator {
             eastContinent = this.windowToContinentBounds(last, 1);
           }
         }
+
+        // Mark LandmassRegionId EARLY - this MUST happen before validateAndFixTerrain.
+        // The vanilla StartPositioner.divideMapIntoMajorRegions() filters by this ID.
+        // This matches the vanilla continents.js order: markLandmassRegionId → validate → expand → recalculate → stamp
+        const westMarked = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
+        const eastMarked = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
+        console.log(`[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`);
 
         // Validate and stamp continents
         this.adapter.validateAndFixTerrain();
