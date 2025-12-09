@@ -11,8 +11,9 @@ import type { EngineAdapter } from "@civ7/adapter";
 import { isDevEnabled } from "./flags.js";
 import { devLog, devLogJson } from "./logging.js";
 
-// Hill terrain type constant (from map-globals)
-const HILL_TERRAIN_DEFAULT = 2;
+// Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
+// CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
+import { HILL_TERRAIN } from "../core/terrain-constants.js";
 
 /**
  * Build a histogram from a value array.
@@ -256,7 +257,7 @@ export function logBoundaryMetrics(
       const isMountain = adapter.isMountain(x, y);
       // Check hills by terrain type (no isHills on adapter)
       const terrainType = adapter.getTerrainType(x, y);
-      const isHill = terrainType === HILL_TERRAIN_DEFAULT;
+      const isHill = terrainType === HILL_TERRAIN;
 
       if (isMountain) {
         mountains++;

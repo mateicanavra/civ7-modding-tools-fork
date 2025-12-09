@@ -44,7 +44,17 @@ import {
   syncHeightfield,
   syncClimateField,
 } from "./core/types.js";
-import { addPlotTagsSimple, markLandmassRegionId, LANDMASS_REGION, type TerrainBuilderLike } from "./core/plot-tags.js";
+import {
+  addPlotTagsSimple,
+  markLandmassRegionId,
+  LANDMASS_REGION,
+  type TerrainBuilderLike,
+} from "./core/plot-tags.js";
+import {
+  MOUNTAIN_TERRAIN,
+  HILL_TERRAIN,
+  NAVIGABLE_RIVER_TERRAIN,
+} from "./core/terrain-constants.js";
 import { getTunables, resetTunables, stageEnabled } from "./bootstrap/tunables.js";
 import { validateStageDrift } from "./bootstrap/resolved.js";
 import { resetStoryTags } from "./story/tags.js";
@@ -178,7 +188,9 @@ export interface GenerationResult {
 function assertFoundationContext(
   ctx: ExtendedMapContext | null,
   stageName: string
-): asserts ctx is ExtendedMapContext & { foundation: NonNullable<ExtendedMapContext["foundation"]> } {
+): asserts ctx is ExtendedMapContext & {
+  foundation: NonNullable<ExtendedMapContext["foundation"]>;
+} {
   if (!ctx) {
     throw new Error(`Stage "${stageName}" requires ExtendedMapContext but ctx is null`);
   }
@@ -240,10 +252,8 @@ interface OrchestratorAdapter {
 function resolveOrchestratorAdapter(): OrchestratorAdapter {
   // Use engine globals directly - orchestrator-specific operations
   return {
-    getGridWidth: () =>
-      typeof GameplayMap !== "undefined" ? GameplayMap.getGridWidth() : 0,
-    getGridHeight: () =>
-      typeof GameplayMap !== "undefined" ? GameplayMap.getGridHeight() : 0,
+    getGridWidth: () => (typeof GameplayMap !== "undefined" ? GameplayMap.getGridWidth() : 0),
+    getGridHeight: () => (typeof GameplayMap !== "undefined" ? GameplayMap.getGridHeight() : 0),
     getMapSize: () =>
       typeof GameplayMap !== "undefined" ? (GameplayMap.getMapSize() as unknown as number) : 0,
     lookupMapInfo: (mapSize: number) =>
@@ -411,7 +421,9 @@ export class MapOrchestrator {
     const gameMinLat = mapInfo?.MinLatitude ?? -80;
 
     console.log(`${prefix} Map size ID: ${mapSizeId}`);
-    console.log(`${prefix} MapInfo: GridWidth=${gameWidth}, GridHeight=${gameHeight}, Lat=[${gameMinLat}, ${gameMaxLat}]`);
+    console.log(
+      `${prefix} MapInfo: GridWidth=${gameWidth}, GridHeight=${gameHeight}, Lat=[${gameMinLat}, ${gameMaxLat}]`
+    );
 
     // Build params: explicit overrides take precedence over game settings
     const params: MapInitParams = {
@@ -424,7 +436,9 @@ export class MapOrchestrator {
     };
 
     console.log(`${prefix} Final dimensions: ${params.width} x ${params.height}`);
-    console.log(`${prefix} Final latitude range: ${params.bottomLatitude} to ${params.topLatitude}`);
+    console.log(
+      `${prefix} Final latitude range: ${params.bottomLatitude} to ${params.topLatitude}`
+    );
 
     this.adapter.setMapInitData(params);
   }
@@ -504,20 +518,16 @@ export class MapOrchestrator {
     try {
       // Create adapter for layer operations
       const layerAdapter = this.createLayerAdapter(iWidth, iHeight);
-      ctx = createExtendedMapContext(
-        { width: iWidth, height: iHeight },
-        layerAdapter,
-        {
-          toggles: {
-            STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
-            STORY_ENABLE_RIFTS: stageFlags.storyRifts,
-            STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
-            STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
-            STORY_ENABLE_PALEO: false,
-            STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
-          },
-        }
-      );
+      ctx = createExtendedMapContext({ width: iWidth, height: iHeight }, layerAdapter, {
+        toggles: {
+          STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
+          STORY_ENABLE_RIFTS: stageFlags.storyRifts,
+          STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
+          STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
+          STORY_ENABLE_PALEO: false,
+          STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
+        },
+      });
       console.log(`${prefix} MapContext created successfully`);
     } catch (err) {
       console.error(`${prefix} Failed to create context:`, err);
@@ -597,7 +607,9 @@ export class MapOrchestrator {
         // This matches the vanilla continents.js order: markLandmassRegionId → validate → expand → recalculate → stamp
         const westMarked = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
         const eastMarked = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
-        console.log(`[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`);
+        console.log(
+          `[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`
+        );
 
         // Validate and stamp continents
         this.adapter.validateAndFixTerrain();
@@ -761,10 +773,44 @@ export class MapOrchestrator {
     // Stage: Rivers
     // ========================================================================
     if (stageFlags.rivers && ctx) {
-      const navigableRiverTerrain = 3; // g_NavigableRiverTerrain
+      // Use terrain constant from shared module (terrain.xml: 5=NAVIGABLE_RIVER)
+      const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
+      const logStats = (label: string) => {
+        const w = iWidth;
+        const h = iHeight;
+        let flat = 0,
+          hill = 0,
+          mtn = 0,
+          water = 0;
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            if (ctx!.adapter.isWater(x, y)) {
+              water++;
+              continue;
+            }
+            const t = ctx!.adapter.getTerrainType(x, y);
+            // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
+            if (t === MOUNTAIN_TERRAIN) mtn++;
+            else if (t === HILL_TERRAIN) hill++;
+            else flat++;
+          }
+        }
+        const total = w * h;
+        const land = Math.max(1, flat + hill + mtn);
+        console.log(
+          `[Rivers] ${label}: Land=${land} (${((land / total) * 100).toFixed(1)}%) ` +
+            `Mtn=${((mtn / land) * 100).toFixed(1)}% ` +
+            `Hill=${((hill / land) * 100).toFixed(1)}% ` +
+            `Flat=${((flat / land) * 100).toFixed(1)}%`
+        );
+      };
+
       const stageResult = this.runStage("rivers", () => {
+        logStats("PRE-RIVERS");
         this.adapter.modelRivers(5, 15, navigableRiverTerrain);
+        logStats("POST-MODELRIVERS");
         this.adapter.validateAndFixTerrain();
+        logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
         syncClimateField(ctx!);
         this.adapter.defineNamedRivers();
@@ -933,20 +979,17 @@ export class MapOrchestrator {
 
       const foundationCfg = tunables.FOUNDATION_CFG || {};
       console.log(`${prefix} createFoundationContext() starting`);
-      const foundationContext = createFoundationContext(
-        WorldModel as unknown as WorldModelState,
-        {
-          dimensions: ctx.dimensions,
-          config: {
-            seed: (foundationCfg.seed || {}) as Record<string, unknown>,
-            plates: tunables.FOUNDATION_PLATES as Record<string, unknown>,
-            dynamics: tunables.FOUNDATION_DYNAMICS as Record<string, unknown>,
-            surface: (foundationCfg.surface || {}) as Record<string, unknown>,
-            policy: (foundationCfg.policy || {}) as Record<string, unknown>,
-            diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
-          },
-        }
-      );
+      const foundationContext = createFoundationContext(WorldModel as unknown as WorldModelState, {
+        dimensions: ctx.dimensions,
+        config: {
+          seed: (foundationCfg.seed || {}) as Record<string, unknown>,
+          plates: tunables.FOUNDATION_PLATES as Record<string, unknown>,
+          dynamics: tunables.FOUNDATION_DYNAMICS as Record<string, unknown>,
+          surface: (foundationCfg.surface || {}) as Record<string, unknown>,
+          policy: (foundationCfg.policy || {}) as Record<string, unknown>,
+          diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
+        },
+      });
       console.log(`${prefix} createFoundationContext() succeeded`);
       ctx.foundation = foundationContext;
 

@@ -45,8 +45,8 @@ interface PlacedVolcano {
 // Constants
 // ============================================================================
 
-const MOUNTAIN_TERRAIN = 5;
-const VOLCANO_FEATURE = 1; // Standard volcano feature type
+// Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
+import { MOUNTAIN_TERRAIN, VOLCANO_FEATURE } from "../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions

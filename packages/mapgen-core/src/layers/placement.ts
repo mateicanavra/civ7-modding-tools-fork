@@ -48,6 +48,14 @@ import type {
 
 import { getTunables } from "../bootstrap/tunables.js";
 
+// Terrain type constants - imported from shared module
+// CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
+import {
+  MOUNTAIN_TERRAIN,
+  HILL_TERRAIN,
+  getTerrainSymbol,
+} from "../core/terrain-constants.js";
+
 // Re-export config types
 export type { PlacementConfig, FloodplainsConfig, ContinentBounds, StartsConfig };
 
@@ -107,6 +115,58 @@ function getPlacementConfig(): PlacementConfig {
   return {};
 }
 
+function logTerrainStats(
+  adapter: EngineAdapter,
+  width: number,
+  height: number,
+  stage: string
+): void {
+  let flat = 0;
+  let hill = 0;
+  let mtn = 0;
+  let water = 0;
+  const total = width * height;
+
+  // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (adapter.isWater(x, y)) {
+        water++;
+        continue;
+      }
+      const t = adapter.getTerrainType(x, y);
+      if (t === MOUNTAIN_TERRAIN) mtn++;
+      else if (t === HILL_TERRAIN) hill++;
+      else flat++;
+    }
+  }
+
+  const land = Math.max(1, flat + hill + mtn);
+  console.log(`[Placement] Stats (${stage}):`);
+  console.log(`  Water: ${((water / total) * 100).toFixed(1)}%`);
+  console.log(`  Land:  ${((land / total) * 100).toFixed(1)}% (${land} tiles)`);
+  console.log(`    Mtn:  ${((mtn / land) * 100).toFixed(1)}%`);
+  console.log(`    Hill: ${((hill / land) * 100).toFixed(1)}%`);
+  console.log(`    Flat: ${((flat / land) * 100).toFixed(1)}%`);
+}
+
+function logAsciiMap(adapter: EngineAdapter, width: number, height: number): void {
+  console.log("[Placement] Final Map ASCII:");
+  // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
+  // Using getTerrainSymbol() from terrain-constants for correct mapping
+
+  for (let y = height - 1; y >= 0; y--) {
+    let row = "";
+    if (y % 2 !== 0) row += " ";
+    for (let x = 0; x < width; x++) {
+      const t = adapter.getTerrainType(x, y);
+      row += getTerrainSymbol(t) + " ";
+    }
+    console.log(row);
+  }
+}
+
+// ============================================================================
 // ============================================================================
 // Main Function
 // ============================================================================
@@ -128,6 +188,8 @@ export function runPlacement(
 ): number[] {
   console.log("[SWOOPER_MOD] === runPlacement() CALLED ===");
   console.log(`[SWOOPER_MOD] Map size: ${iWidth}x${iHeight}`);
+
+  logTerrainStats(adapter, iWidth, iHeight, "Initial");
 
   const { mapInfo, wondersPlusOne, floodplains, starts } = options;
   const placementCfg = getPlacementConfig();
@@ -161,10 +223,8 @@ export function runPlacement(
   // 2) Floodplains
   try {
     const floodplainsCfg = floodplains || placementCfg.floodplains || {};
-    const minLen =
-      typeof floodplainsCfg.minLength === "number" ? floodplainsCfg.minLength : 4;
-    const maxLen =
-      typeof floodplainsCfg.maxLength === "number" ? floodplainsCfg.maxLength : 10;
+    const minLen = typeof floodplainsCfg.minLength === "number" ? floodplainsCfg.minLength : 4;
+    const maxLen = typeof floodplainsCfg.maxLength === "number" ? floodplainsCfg.maxLength : 10;
     adapter.addFloodplains(minLen, maxLen);
   } catch (err) {
     console.log("[Placement] addFloodplains failed:", err);
@@ -174,6 +234,7 @@ export function runPlacement(
   try {
     adapter.validateAndFixTerrain();
     console.log("[Placement] Terrain validated successfully");
+    logTerrainStats(adapter, iWidth, iHeight, "After validateAndFixTerrain");
   } catch (err) {
     console.log("[Placement] validateAndFixTerrain failed:", err);
   }
@@ -303,6 +364,9 @@ export function runPlacement(
   } catch (err) {
     console.log("[Placement] assignAdvancedStartRegions failed:", err);
   }
+
+  logTerrainStats(adapter, iWidth, iHeight, "Final");
+  logAsciiMap(adapter, iWidth, iHeight);
 
   return startPositions;
 }

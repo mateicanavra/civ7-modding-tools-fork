@@ -8,6 +8,7 @@
 // Re-export types
 export * from "./types.js";
 export * from "./plot-tags.js";
+export * from "./terrain-constants.js";
 
 // ============================================================================
 // Coordinate Utilities

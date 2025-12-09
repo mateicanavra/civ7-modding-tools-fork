@@ -31,14 +31,18 @@ export type MountainsConfig = BootstrapMountainsConfig;
 // Constants
 // ============================================================================
 
+// Fractal indices (from map-globals.js)
 const MOUNTAIN_FRACTAL = 0;
 const HILL_FRACTAL = 1;
-// Terrain constants matched to Civ7 terrain.xml order:
-// 0:COAST, 1:FLAT, 2:HILL, 3:MOUNTAIN, 4:OCEAN
-const MOUNTAIN_TERRAIN = 3;
-const HILL_TERRAIN = 2;
-const COAST_TERRAIN = 0;
-const OCEAN_TERRAIN = 4;
+
+// Terrain type constants - imported from shared module
+// CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
+import {
+  MOUNTAIN_TERRAIN,
+  HILL_TERRAIN,
+  COAST_TERRAIN,
+  OCEAN_TERRAIN,
+} from "../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions
@@ -107,6 +111,30 @@ export function layerAddMountainsPhysics(
     hillInteriorFalloff = 0.1,
     hillUpliftWeight = 0.2,
   } = options;
+
+  console.log("[Mountains] Physics Config (Input):", JSON.stringify(options));
+  console.log(
+    "[Mountains] Physics Config (Effective):",
+    JSON.stringify({
+      tectonicIntensity,
+      mountainThreshold,
+      hillThreshold,
+      upliftWeight,
+      fractalWeight,
+      riftDepth,
+      boundaryWeight,
+      boundaryExponent,
+      interiorPenaltyWeight,
+      convergenceBonus,
+      transformPenalty,
+      riftPenalty,
+      hillBoundaryWeight,
+      hillRiftBonus,
+      hillConvergentFoothill,
+      hillInteriorFalloff,
+      hillUpliftWeight,
+    })
+  );
 
   // Scale physics parameters by tectonic intensity
   const scaledConvergenceBonus = convergenceBonus * tectonicIntensity;
@@ -221,6 +249,17 @@ export function layerAddMountainsPhysics(
     const y = Math.floor(i / width);
     terrainWriter(x, y, HILL_TERRAIN);
   }
+
+  // Debug: Log Terrain Histogram
+  const mtnCount = mountainTiles.size;
+  const hillCount = hillTiles.size;
+  const flatCount = Math.max(0, landTiles - mtnCount - hillCount);
+  const total = Math.max(1, landTiles);
+
+  console.log(`[Mountains] Terrain Distribution (Land Tiles: ${landTiles}):`);
+  console.log(`  Mountains: ${mtnCount} (${((mtnCount / total) * 100).toFixed(1)}%)`);
+  console.log(`  Hills:     ${hillCount} (${((hillCount / total) * 100).toFixed(1)}%)`);
+  console.log(`  Flat:      ${flatCount} (${((flatCount / total) * 100).toFixed(1)}%)`);
 }
 
 /**

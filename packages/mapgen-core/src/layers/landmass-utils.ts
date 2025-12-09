@@ -84,9 +84,8 @@ const DEFAULT_OCEAN_SEPARATION: OceanSeparationPolicy = {
   maxPerRowDelta: 3,
 };
 
-// Terrain type constants (from base-standard/maps/map-globals.js)
-const OCEAN_TERRAIN = 0;
-const FLAT_TERRAIN = 3;
+// Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
+import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions

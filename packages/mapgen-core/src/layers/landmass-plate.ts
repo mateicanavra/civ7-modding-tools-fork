@@ -79,9 +79,8 @@ const CLOSENESS_STEP_PER_TILE = 8;
 const MIN_CLOSENESS_LIMIT = 150;
 const MAX_CLOSENESS_LIMIT = 255;
 
-// Terrain type constants (Matched to Civ7 terrain.xml)
-const OCEAN_TERRAIN = 4; // TERRAIN_OCEAN
-const FLAT_TERRAIN = 1; // TERRAIN_FLAT
+// Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
+import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../core/terrain-constants.js";
 
 // ============================================================================
 // ============================================================================
@@ -340,7 +339,7 @@ export function createPlateDrivenLandmasses(
     if (ctx) {
       writeHeightfield(ctx, x, y, {
         terrain,
-        elevation: isLand ? 0 : -1,
+        elevation: isLand ? 10 : -1,
         isLand,
       });
     } else if (adapter) {

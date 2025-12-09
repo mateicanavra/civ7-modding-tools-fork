@@ -9,6 +9,7 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
+import { OCEAN_TERRAIN } from "./terrain-constants.js";
 
 // ============================================================================
 // Plot Tag Constants
@@ -239,8 +240,8 @@ export function markLandmassRegionId(
   regionId: number,
   adapter: EngineAdapter
 ): number {
-  // Ocean terrain is index 0
-  const OCEAN_TERRAIN = 0;
+  // OCEAN_TERRAIN imported from shared terrain-constants module
+  // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
   let markedCount = 0;
 
   for (let y = continent.south; y <= continent.north; y++) {
