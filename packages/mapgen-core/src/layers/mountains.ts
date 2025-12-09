@@ -87,22 +87,23 @@ export function layerAddMountainsPhysics(
 ): void {
   const {
     tectonicIntensity = 1.0,
-    mountainThreshold = 0.45,
-    hillThreshold = 0.25,
-    upliftWeight = 0.75,
-    fractalWeight = 0.25,
-    riftDepth = 0.3,
-    boundaryWeight = 0.6,
-    boundaryExponent = 1.4,
-    interiorPenaltyWeight = 0.2,
-    convergenceBonus = 0.9,
-    transformPenalty = 0.3,
-    riftPenalty = 0.75,
-    hillBoundaryWeight = 0.45,
-    hillRiftBonus = 0.5,
-    hillConvergentFoothill = 0.25,
-    hillInteriorFalloff = 0.2,
-    hillUpliftWeight = 0.25,
+    // Crust-first defaults: mountains only where collisions are strong
+    mountainThreshold = 0.58,
+    hillThreshold = 0.32,
+    upliftWeight = 0.35,
+    fractalWeight = 0.15,
+    riftDepth = 0.2,
+    boundaryWeight = 1.0,
+    boundaryExponent = 1.6,
+    interiorPenaltyWeight = 0.0, // disabled in the new formulation
+    convergenceBonus = 1.0,
+    transformPenalty = 0.6,
+    riftPenalty = 1.0,
+    hillBoundaryWeight = 0.35,
+    hillRiftBonus = 0.25,
+    hillConvergentFoothill = 0.35,
+    hillInteriorFalloff = 0.1,
+    hillUpliftWeight = 0.2,
   } = options;
 
   // Scale physics parameters by tectonic intensity
@@ -255,13 +256,15 @@ function computePlateBasedScores(
   const boundaryType = plates.boundaryType;
   const boundaryCloseness = plates.boundaryCloseness;
   const riftPotential = plates.riftPotential;
+  const tectonicStress = plates.tectonicStress;
 
   if (!upliftPotential || !boundaryType) {
     computeFractalOnlyScores(ctx, scores, hillScores, adapter);
     return;
   }
 
-  const boundaryGate = 0.2;
+  // Require proximity to boundaries before allowing uplift to form mountains.
+  const boundaryGate = 0.35;
   const falloffExponent = options.boundaryExponent || 2.5;
 
   for (let y = 0; y < height; y++) {
@@ -272,6 +275,7 @@ function computePlateBasedScores(
       const bType = boundaryType[i];
       const closenessRaw = boundaryCloseness ? boundaryCloseness[i] / 255 : 0;
       const rift = riftPotential ? riftPotential[i] / 255 : 0;
+      const stress = tectonicStress ? tectonicStress[i] / 255 : uplift;
 
       // Adaptive noise normalization supports 8, 16, or 32-bit heights
       const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y);
@@ -279,58 +283,53 @@ function computePlateBasedScores(
       const fractalMtn = normalizeFractal(rawMtn);
       const fractalHill = normalizeFractal(rawHill);
 
-      // Base score: uplift potential + fractal variety
-      let mountainScore = uplift * options.upliftWeight + fractalMtn * options.fractalWeight;
-
-      // Physics-based boundary effects
-      if (closenessRaw > boundaryGate) {
-        const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
-        const intensity = Math.pow(normalized, falloffExponent);
-
-        if (options.boundaryWeight > 0) {
-          const foothillNoise = 0.5 + fractalMtn * 0.5;
-          mountainScore += intensity * options.boundaryWeight * foothillNoise;
-        }
-
-        if (bType === BOUNDARY_TYPE.convergent) {
-          const peakNoise = 0.3 + fractalMtn * 0.7;
-          mountainScore += intensity * options.convergenceBonus * peakNoise;
-        } else if (bType === BOUNDARY_TYPE.divergent) {
-          mountainScore *= Math.max(0, 1 - intensity * options.riftPenalty);
-        } else if (bType === BOUNDARY_TYPE.transform) {
-          mountainScore *= Math.max(0, 1 - intensity * options.transformPenalty);
-        }
+      // Early exit: if we're far from any boundary, mountains remain zero and hills only use light fractal.
+      if (closenessRaw < boundaryGate) {
+        scores[i] = 0;
+        hillScores[i] = Math.max(0, fractalHill * options.fractalWeight * 0.5);
+        continue;
       }
 
-      // Interior penalty
-      if (options.interiorPenaltyWeight > 0) {
-        const interiorPenalty = (1 - closenessRaw) * options.interiorPenaltyWeight;
-        mountainScore = Math.max(0, mountainScore - interiorPenalty);
+      const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
+      const boundaryStrength = Math.pow(normalized, falloffExponent);
+      const collision = bType === BOUNDARY_TYPE.convergent ? boundaryStrength : 0;
+      const transform = bType === BOUNDARY_TYPE.transform ? boundaryStrength : 0;
+      const divergence = bType === BOUNDARY_TYPE.divergent ? boundaryStrength : 0;
+
+      // Base score: collision-driven uplift with a touch of upliftPotential and jitter.
+      let mountainScore =
+        collision * options.boundaryWeight * (0.7 * stress + 0.3 * uplift) +
+        uplift * options.upliftWeight * 0.4 +
+        fractalMtn * options.fractalWeight * 0.2;
+
+      // Boundary-specific adjustments: boost convergent, suppress divergent/transform.
+      if (collision > 0) {
+        mountainScore += collision * options.convergenceBonus * (0.6 + fractalMtn * 0.2);
+      }
+      if (divergence > 0) {
+        mountainScore *= Math.max(0, 1 - divergence * options.riftPenalty);
+      }
+      if (transform > 0) {
+        mountainScore *= Math.max(0, 1 - transform * options.transformPenalty);
       }
 
       scores[i] = Math.max(0, mountainScore);
 
       // Hill scoring
-      let hillScore = fractalHill * options.fractalWeight + uplift * options.hillUpliftWeight;
+      const hillIntensity = Math.sqrt(boundaryStrength);
+      const foothillExtent = 0.5 + fractalHill * 0.5;
 
-      if (closenessRaw > boundaryGate) {
-        const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
-        const hillIntensity = Math.sqrt(normalized);
-        const foothillExtent = 0.4 + fractalHill * 0.6;
+      let hillScore =
+        fractalHill * options.fractalWeight * 0.8 +
+        uplift * options.hillUpliftWeight * 0.3;
 
-        if (options.hillBoundaryWeight > 0) {
-          hillScore += hillIntensity * options.hillBoundaryWeight * foothillExtent;
-        }
-
-        if (bType === BOUNDARY_TYPE.divergent) {
-          hillScore += hillIntensity * rift * options.hillRiftBonus * foothillExtent;
-        } else if (bType === BOUNDARY_TYPE.convergent) {
-          hillScore += hillIntensity * options.hillConvergentFoothill * foothillExtent;
-        }
+      if (collision > 0 && options.hillBoundaryWeight > 0) {
+        hillScore += hillIntensity * options.hillBoundaryWeight * foothillExtent;
+        hillScore += hillIntensity * options.hillConvergentFoothill * foothillExtent;
       }
 
-      if (options.hillInteriorFalloff > 0) {
-        hillScore -= (1 - closenessRaw) * options.hillInteriorFalloff;
+      if (divergence > 0) {
+        hillScore += hillIntensity * rift * options.hillRiftBonus * foothillExtent * 0.5;
       }
 
       hillScores[i] = Math.max(0, hillScore);

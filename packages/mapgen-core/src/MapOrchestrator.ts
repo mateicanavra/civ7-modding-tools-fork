@@ -48,7 +48,7 @@ import { addPlotTagsSimple, markLandmassRegionId, LANDMASS_REGION, type TerrainB
 import { getTunables, resetTunables, stageEnabled } from "./bootstrap/tunables.js";
 import { validateStageDrift } from "./bootstrap/resolved.js";
 import { resetStoryTags } from "./story/tags.js";
-import { WorldModel } from "./world/model.js";
+import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/index.js";
 
 // Layer imports
 import { createPlateDrivenLandmasses } from "./layers/landmass-plate.js";
@@ -363,6 +363,7 @@ export class MapOrchestrator {
   private config: OrchestratorConfig;
   private adapter: OrchestratorAdapter;
   private stageResults: StageResult[] = [];
+  private worldModelConfigBound = false;
 
   constructor(config: OrchestratorConfig = {}) {
     this.config = config;
@@ -676,6 +677,16 @@ export class MapOrchestrator {
         // Assert foundation is available - fail fast if not
         assertFoundationContext(ctx, "mountains");
 
+        console.log(
+          `${prefix} [Mountains] thresholds ` +
+            `mountain=${mountainOptions.mountainThreshold}, ` +
+            `hill=${mountainOptions.hillThreshold}, ` +
+            `tectonicIntensity=${mountainOptions.tectonicIntensity}, ` +
+            `boundaryWeight=${mountainOptions.boundaryWeight}, ` +
+            `boundaryExponent=${mountainOptions.boundaryExponent}, ` +
+            `interiorPenaltyWeight=${mountainOptions.interiorPenaltyWeight}`
+        );
+
         layerAddMountainsPhysics(ctx, mountainOptions);
       });
       this.stageResults.push(stageResult);
@@ -722,6 +733,16 @@ export class MapOrchestrator {
     // Build elevation after terrain modifications
     this.adapter.recalculateAreas();
     this.adapter.buildElevation();
+
+    // Refresh landmass regions after coast/rugged/island/lake/mountain changes so StartPositioner
+    // sees the final land/water layout.
+    const westRestamped = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
+    const eastRestamped = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
+    ctx.adapter.recalculateAreas();
+    ctx.adapter.stampContinents();
+    console.log(
+      `[landmass-plate] LandmassRegionId refreshed post-terrain: ${westRestamped} west (ID=${LANDMASS_REGION.WEST}), ${eastRestamped} east (ID=${LANDMASS_REGION.EAST})`
+    );
 
     // ========================================================================
     // Stage: Climate Baseline
@@ -878,12 +899,30 @@ export class MapOrchestrator {
     }
   }
 
+  private bindWorldModelConfigProvider(): void {
+    if (this.worldModelConfigBound) return;
+
+    setConfigProvider((): WorldModelConfig => {
+      const tunables = getTunables();
+      return {
+        plates: tunables.FOUNDATION_PLATES,
+        dynamics: tunables.FOUNDATION_DYNAMICS,
+        directionality: tunables.FOUNDATION_DIRECTIONALITY,
+      };
+    });
+
+    this.worldModelConfigBound = true;
+  }
+
   private initializeFoundation(
     ctx: ExtendedMapContext,
     tunables: ReturnType<typeof getTunables>
   ): FoundationContext | null {
     const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} Initializing foundation...`);
+
+    // Ensure WorldModel pulls configuration from foundation tunables
+    this.bindWorldModelConfigProvider();
     try {
       console.log(`${prefix} WorldModel.init() starting`);
       if (!WorldModel.init()) {
@@ -989,22 +1028,25 @@ export class MapOrchestrator {
   private buildMountainOptions(config: MountainsConfig): MountainsConfig {
     return {
       tectonicIntensity: config.tectonicIntensity ?? 1.0,
-      mountainThreshold: config.mountainThreshold ?? 0.45,
-      hillThreshold: config.hillThreshold ?? 0.25,
-      upliftWeight: config.upliftWeight ?? 0.75,
-      fractalWeight: config.fractalWeight ?? 0.25,
-      riftDepth: config.riftDepth ?? 0.3,
-      boundaryWeight: config.boundaryWeight ?? 0.6,
-      boundaryExponent: config.boundaryExponent ?? 1.4,
-      interiorPenaltyWeight: config.interiorPenaltyWeight ?? 0.2,
-      convergenceBonus: config.convergenceBonus ?? 0.9,
-      transformPenalty: config.transformPenalty ?? 0.3,
-      riftPenalty: config.riftPenalty ?? 0.75,
-      hillBoundaryWeight: config.hillBoundaryWeight ?? 0.45,
-      hillRiftBonus: config.hillRiftBonus ?? 0.5,
-      hillConvergentFoothill: config.hillConvergentFoothill ?? 0.25,
-      hillInteriorFalloff: config.hillInteriorFalloff ?? 0.2,
-      hillUpliftWeight: config.hillUpliftWeight ?? 0.25,
+      // Defaults are aligned with the crust-first collision-only formulation in
+      // layers/mountains.ts. If callers supply overrides, those values will be
+      // used instead.
+      mountainThreshold: config.mountainThreshold ?? 0.58,
+      hillThreshold: config.hillThreshold ?? 0.32,
+      upliftWeight: config.upliftWeight ?? 0.35,
+      fractalWeight: config.fractalWeight ?? 0.15,
+      riftDepth: config.riftDepth ?? 0.2,
+      boundaryWeight: config.boundaryWeight ?? 1.0,
+      boundaryExponent: config.boundaryExponent ?? 1.6,
+      interiorPenaltyWeight: config.interiorPenaltyWeight ?? 0.0,
+      convergenceBonus: config.convergenceBonus ?? 1.0,
+      transformPenalty: config.transformPenalty ?? 0.6,
+      riftPenalty: config.riftPenalty ?? 1.0,
+      hillBoundaryWeight: config.hillBoundaryWeight ?? 0.35,
+      hillRiftBonus: config.hillRiftBonus ?? 0.25,
+      hillConvergentFoothill: config.hillConvergentFoothill ?? 0.35,
+      hillInteriorFalloff: config.hillInteriorFalloff ?? 0.1,
+      hillUpliftWeight: config.hillUpliftWeight ?? 0.2,
     };
   }
 

@@ -1,11 +1,10 @@
 /**
  * Plate-Driven Landmass Generator
  *
- * Uses Civ VII WorldModel plate fields to carve land and ocean before the
- * remainder of the Swooper pipeline runs. The algorithm ranks tiles by plate
- * interior "stability" (WorldModel.shieldStability) and selects the highest
- * scoring tiles until the configured land/sea ratio is satisfied, while also
- * respecting boundary closeness to preserve coastlines.
+ * Crust-first implementation: builds plate topology, assigns crust types, and
+ * derives land/water purely from crust + sea level. Boundary closeness is only
+ * used as a mask so land does not sit directly on seams; tectonic uplift no
+ * longer controls land existence.
  */
 
 import type { ExtendedMapContext } from "../core/types.js";
@@ -16,9 +15,12 @@ import type {
   LandmassGeometry,
   LandmassGeometryPost,
 } from "../bootstrap/types.js";
-import { writeHeightfield } from "../core/types.js";
-import { BOUNDARY_TYPE } from "../world/constants.js";
+import { ctxRandom, writeHeightfield } from "../core/types.js";
 import { getTunables } from "../bootstrap/tunables.js";
+import { buildPlateTopology } from "../lib/plates/topology.js";
+import { assignCrustTypes, CrustType } from "../lib/plates/crust.js";
+import { generateBaseHeightfield } from "../lib/heightfield/base.js";
+import { computeSeaLevel } from "../lib/heightfield/sea-level.js";
 import type { LandmassWindow } from "./landmass-utils.js";
 
 // ============================================================================
@@ -76,7 +78,6 @@ const DEFAULT_CLOSENESS_LIMIT = 255;
 const CLOSENESS_STEP_PER_TILE = 8;
 const MIN_CLOSENESS_LIMIT = 150;
 const MAX_CLOSENESS_LIMIT = 255;
-const FRACTAL_TECTONIC_ID = 3;
 
 // Terrain type constants
 const OCEAN_TERRAIN = 0;
@@ -105,17 +106,130 @@ function clamp01(value: number | undefined, fallback: number = 0): number {
   return value;
 }
 
-function clampRange(value: number | undefined, fallback: number, min: number, max: number): number {
-  if (value === undefined || !Number.isFinite(value)) return fallback;
-  if (value < min) return min;
-  if (value > max) return max;
-  return value;
-}
-
 function computeClosenessLimit(postCfg: GeometryPostConfig | undefined): number {
   const expand = postCfg?.expandTiles ? Math.trunc(postCfg.expandTiles) : 0;
   const limit = DEFAULT_CLOSENESS_LIMIT + expand * CLOSENESS_STEP_PER_TILE;
   return clampInt(limit, MIN_CLOSENESS_LIMIT, MAX_CLOSENESS_LIMIT);
+}
+
+interface CrustFirstResult {
+  landMask: Uint8Array;
+  landTiles: number;
+  seaLevel: number;
+  plateCount: number;
+  continentalPlates: number;
+  baseHeightRange: { min: number; max: number };
+  crustConfigApplied: {
+    continentalFraction: number;
+    clusteringBias: number;
+    microcontinentChance: number;
+    edgeBlend: number;
+    noiseAmplitude: number;
+    continentalHeight: number;
+    oceanicHeight: number;
+  };
+}
+
+function tryCrustFirstLandmask(
+  width: number,
+  height: number,
+  plateIds: Int16Array | Int8Array | Uint16Array | Uint8Array | number[],
+  closeness: Uint8Array | null,
+  closenessLimit: number,
+  targetLandTiles: number,
+  landmassCfg: LandmassConfig,
+  ctx?: ExtendedMapContext | null
+): CrustFirstResult | null {
+  const size = width * height;
+  if (plateIds.length !== size) return null;
+  if (closeness && closeness.length !== size) return null;
+
+  // Plate count derived from raster IDs
+  let maxPlateId = -1;
+  for (let i = 0; i < size; i++) {
+    const id = plateIds[i];
+    if (id > maxPlateId) maxPlateId = id;
+  }
+
+  const plateCount = maxPlateId + 1;
+  if (plateCount <= 0) return null;
+
+  const continentalFraction = clamp01(
+    (landmassCfg.continentalFraction as number) ??
+      (landmassCfg.crustContinentalFraction as number) ??
+      targetLandTiles / size,
+    targetLandTiles / size
+  );
+  const clusteringBias = clamp01((landmassCfg.crustClusteringBias as number) ?? 0.7, 0.7);
+  const microcontinentChance = clamp01((landmassCfg.microcontinentChance as number) ?? 0.04, 0.04);
+  const edgeBlend = clamp01((landmassCfg.crustEdgeBlend as number) ?? 0.45, 0.45);
+  const noiseAmplitude = clamp01((landmassCfg.crustNoiseAmplitude as number) ?? 0.08, 0.08);
+  const continentalHeight = Number.isFinite(landmassCfg.continentalHeight)
+    ? (landmassCfg.continentalHeight as number)
+    : 0.32;
+  const oceanicHeight = Number.isFinite(landmassCfg.oceanicHeight)
+    ? (landmassCfg.oceanicHeight as number)
+    : -0.55;
+
+  const graph = buildPlateTopology(plateIds, width, height, plateCount);
+  const crustTypes = assignCrustTypes(graph, ctx ? () => ctxRandom(ctx, "CrustType", 1_000_000) / 1_000_000 : Math.random, {
+    continentalFraction,
+    microcontinentChance,
+    clusteringBias,
+  });
+
+  const noiseFn = noiseAmplitude === 0
+    ? undefined
+    : (x: number, y: number) =>
+        ctx ? ctxRandom(ctx, "CrustNoise", 1_000_000) / 1_000_000 : Math.random();
+
+  const baseHeight = generateBaseHeightfield(plateIds, crustTypes, width, height, {
+    continentalHeight,
+    oceanicHeight,
+    edgeBlend,
+    noiseAmplitude,
+    noiseFn,
+  });
+
+  const seaLevel = computeSeaLevel(baseHeight, targetLandTiles);
+  const landMask = new Uint8Array(size);
+
+  let landTiles = 0;
+  let minHeight = Number.POSITIVE_INFINITY;
+  let maxHeight = Number.NEGATIVE_INFINITY;
+
+  for (let i = 0; i < size; i++) {
+    const h = baseHeight[i];
+    if (h < minHeight) minHeight = h;
+    if (h > maxHeight) maxHeight = h;
+
+    const passesCloseness = !closeness || closeness[i] <= closenessLimit;
+    const isLand = passesCloseness && h > seaLevel;
+    if (isLand) {
+      landMask[i] = 1;
+      landTiles++;
+    }
+  }
+
+  const continentalPlates = crustTypes.reduce((acc, t) => acc + (t === CrustType.CONTINENTAL ? 1 : 0), 0);
+
+  return {
+    landMask,
+    landTiles,
+    seaLevel,
+    plateCount,
+    continentalPlates,
+    baseHeightRange: { min: minHeight, max: maxHeight },
+    crustConfigApplied: {
+      continentalFraction,
+      clusteringBias,
+      microcontinentChance,
+      edgeBlend,
+      noiseAmplitude,
+      continentalHeight,
+      oceanicHeight,
+    },
+  };
 }
 
 // ============================================================================
@@ -144,22 +258,19 @@ export function createPlateDrivenLandmasses(
   }
 
   const { plates } = foundation;
-  const shield = plates.shieldStability;
-  const closeness = plates.boundaryCloseness;
-  const boundaryType = plates.boundaryType;
+  const closeness = plates.boundaryCloseness || null;
   const plateIds = plates.id;
 
-  if (!shield || !closeness || !boundaryType || !plateIds) {
+  if (!plateIds) {
     return null;
   }
 
   const size = width * height;
-  if (
-    shield.length !== size ||
-    closeness.length !== size ||
-    boundaryType.length !== size ||
-    plateIds.length !== size
-  ) {
+  if (plateIds.length !== size) {
+    return null;
+  }
+
+  if (closeness && closeness.length !== size) {
     return null;
   }
 
@@ -168,26 +279,6 @@ export function createPlateDrivenLandmasses(
   const landmassCfg: LandmassConfig = (options.landmassCfg ||
     (tunables.LANDMASS_CFG as unknown as LandmassConfig) ||
     {}) as LandmassConfig;
-
-  // Configuration extraction
-  const boundaryBias = clampInt(
-    Number.isFinite(landmassCfg.boundaryBias) ? landmassCfg.boundaryBias! : 0.25,
-    0,
-    0.4
-  );
-  const boundaryShareTarget = Number.isFinite(landmassCfg.boundaryShareTarget)
-    ? Math.max(0, Math.min(1, landmassCfg.boundaryShareTarget!))
-    : 0.15;
-
-  const tectonicsCfg: TectonicsConfig = landmassCfg.tectonics || {};
-  const interiorNoiseWeight = clamp01(tectonicsCfg.interiorNoiseWeight, 0.3);
-  const arcWeight = clampRange(tectonicsCfg.boundaryArcWeight, 0.8, 0, 2);
-  const arcNoiseWeight = clamp01(tectonicsCfg.boundaryArcNoiseWeight, 0.5);
-  const fractalGrain = clampInt(
-    Number.isFinite(tectonicsCfg.fractalGrain) ? tectonicsCfg.fractalGrain! : 4,
-    1,
-    32
-  );
 
   const geomCfg: GeometryConfig = options.geometry || {};
   const postCfg: GeometryPostConfig = geomCfg.post || {};
@@ -210,194 +301,32 @@ export function createPlateDrivenLandmasses(
 
   const closenessLimit = computeClosenessLimit(postCfg);
   const adapter = ctx?.adapter;
-
-  // Fractal setup for noise
-  const useFractal = !!(
-    adapter &&
-    typeof adapter.createFractal === "function" &&
-    typeof adapter.getFractalHeight === "function" &&
-    (interiorNoiseWeight > 0 || arcNoiseWeight > 0)
+  const logPrefix = "[landmass-plate]";
+  const crustResult = tryCrustFirstLandmask(
+    width,
+    height,
+    plateIds,
+    closeness,
+    closenessLimit,
+    targetLandTiles,
+    landmassCfg,
+    ctx
   );
 
-  if (useFractal) {
-    adapter!.createFractal(FRACTAL_TECTONIC_ID, width, height, fractalGrain, 0);
+  if (!crustResult) {
+    console.log(`${logPrefix} ERROR: Crust-first landmask generation failed (invalid plate data).`);
+    return null;
   }
 
-  // Score computation
-  const baseInteriorWeight = 1 - interiorNoiseWeight;
-  const interiorScore = new Uint16Array(size);
-  const arcScore = new Uint16Array(size);
-  const landScore = new Uint16Array(size);
-
-  let interiorMin = 255, interiorMax = 0, interiorSum = 0;
-  let arcMin = 255, arcMax = 0, arcSum = 0;
-  let interiorStretch = 1;
-
-  for (let y = 0; y < height; y++) {
-    const rowOffset = y * width;
-    for (let x = 0; x < width; x++) {
-      const idx = rowOffset + x;
-      const closenessVal = closeness[idx] | 0;
-      const interiorBase = 255 - closenessVal;
-
-      // Interior score: plate core + tectonic noise
-      let noise255 = 128;
-      if (useFractal && interiorNoiseWeight > 0) {
-        const raw = adapter!.getFractalHeight(FRACTAL_TECTONIC_ID, x, y) | 0;
-        // Adaptive normalization: 8-bit input (0-255) keeps value, 16-bit input (0-65535) shifts down
-        noise255 = raw > 255 ? raw >>> 8 : raw;
-      }
-      const centeredNoise = noise255 - 128;
-      const noisyInterior = interiorBase * baseInteriorWeight + centeredNoise * interiorNoiseWeight;
-      const clampedInterior = noisyInterior < 0 ? 0 : noisyInterior > 255 ? 255 : noisyInterior;
-      const interiorVal = clampedInterior & 0xff;
-      interiorScore[idx] = interiorVal;
-      interiorMin = Math.min(interiorMin, interiorVal);
-      interiorMax = Math.max(interiorMax, interiorVal);
-      interiorSum += interiorVal;
-
-      // Arc score: convergent uplift / island arcs
-      const bType = boundaryType[idx] | 0;
-      const rawArc = closenessVal;
-      let arc = rawArc;
-      if (bType === BOUNDARY_TYPE.convergent) {
-        arc = rawArc * arcWeight;
-      } else if (bType === BOUNDARY_TYPE.divergent) {
-        arc = rawArc * 0.25;
-      } else {
-        arc = rawArc * 0.5;
-      }
-
-      if (useFractal && arcNoiseWeight > 0) {
-        const raw = adapter!.getFractalHeight(FRACTAL_TECTONIC_ID, x, y) | 0;
-        // Adaptive normalization: 8-bit input (0-255) keeps value, 16-bit input (0-65535) shifts down
-        const noiseVal = raw > 255 ? raw >>> 8 : raw;
-        const noiseNorm = noiseVal / 255;
-        const noiseMix = 1.0 + (noiseNorm - 0.5) * arcNoiseWeight;
-        arc *= noiseMix;
-      }
-
-      if (boundaryBias > 0) {
-        arc += closenessVal * boundaryBias;
-      }
-
-      const clampedArc = arc < 0 ? 0 : arc > 255 ? 255 : arc;
-      arcScore[idx] = clampedArc & 0xff;
-      arcMin = Math.min(arcMin, arcScore[idx]);
-      arcMax = Math.max(arcMax, arcScore[idx]);
-      arcSum += arcScore[idx];
-    }
-  }
-
-  // Stretch interior scores if needed
-  if (interiorMax > 0) {
-    const desiredTop = arcMax > 0 ? arcMax + 32 : 255;
-    interiorStretch = desiredTop / interiorMax;
-    if (interiorStretch < 1.05 || !Number.isFinite(interiorStretch)) {
-      interiorStretch = 1;
-    } else {
-      interiorStretch = Math.min(1.6, interiorStretch);
-      interiorMin = 255;
-      interiorMax = 0;
-      interiorSum = 0;
-      for (let i = 0; i < size; i++) {
-        const stretched = Math.min(255, Math.round(interiorScore[i] * interiorStretch));
-        interiorScore[i] = stretched;
-        interiorMin = Math.min(interiorMin, stretched);
-        interiorMax = Math.max(interiorMax, stretched);
-        interiorSum += stretched;
-      }
-    }
-  }
-
-  // Final land score
-  for (let i = 0; i < size; i++) {
-    landScore[i] = interiorScore[i] >= arcScore[i] ? interiorScore[i] : arcScore[i];
-  }
-
-  const computeLandScore = (idx: number): number => landScore[idx] | 0;
-
-  const countTilesAboveTyped = (threshold: number): number => {
-    let count = 0;
-    for (let i = 0; i < size; i++) {
-      const score = computeLandScore(i);
-      if (score >= threshold && closeness[i] <= closenessLimit) {
-        count++;
-      }
-    }
-    return count;
-  };
-
-  // Binary search threshold to hit target land count
-  let low = 0;
-  let high = 255;
-  let bestThreshold = 128;
-  let bestDiff = Number.POSITIVE_INFINITY;
-  let bestCount = 0;
-
-  while (low <= high) {
-    const mid = (low + high) >> 1;
-    const count = countTilesAboveTyped(mid);
-    const diff = Math.abs(count - targetLandTiles);
-    if (diff < bestDiff || (diff === bestDiff && count > bestCount)) {
-      bestDiff = diff;
-      bestThreshold = mid;
-      bestCount = count;
-    }
-    if (count > targetLandTiles) {
-      low = mid + 1;
-    } else {
-      high = mid - 1;
-    }
-  }
-
-  // Boundary share adjustment
-  const boundaryBand = (closenessArr: Uint8Array, idx: number): boolean =>
-    (closenessArr[idx] | 0) >= 90;
-
-  const computeShares = (
-    threshold: number
-  ): { land: number; boundaryLand: number; convergentLand: number } => {
-    let land = 0,
-      boundaryLand = 0,
-      convergentLand = 0;
-    for (let i = 0; i < size; i++) {
-      const score = computeLandScore(i);
-      const isLand = score >= threshold && closeness[i] <= closenessLimit;
-      if (isLand) {
-        land++;
-        if (boundaryBand(closeness, i)) boundaryLand++;
-        if (boundaryType[i] === BOUNDARY_TYPE.convergent) convergentLand++;
-      }
-    }
-    return { land, boundaryLand, convergentLand };
-  };
-
-  let { land: landCount, boundaryLand } = computeShares(bestThreshold);
-  const minBoundary = Math.round(targetLandTiles * boundaryShareTarget);
-
-  if (boundaryLand < minBoundary) {
-    const maxAllowedLand = Math.round(targetLandTiles * 1.5);
-    let t = bestThreshold - 5;
-    while (t >= 0) {
-      const shares = computeShares(t);
-      landCount = shares.land;
-      boundaryLand = shares.boundaryLand;
-      if (boundaryLand >= minBoundary) {
-        bestThreshold = t;
-        break;
-      }
-      if (landCount > maxAllowedLand) {
-        break;
-      }
-      t -= 5;
-    }
-  }
+  const landMask = crustResult.landMask;
+  const finalLandTiles = crustResult.landTiles;
+  const seaLevel = crustResult.seaLevel;
+  const crustPlateCount = crustResult.plateCount;
+  const crustContinentalPlates = crustResult.continentalPlates;
+  const crustConfigApplied = crustResult.crustConfigApplied;
+  const baseHeightRange = crustResult.baseHeightRange;
 
   // Apply terrain
-  const landMask = new Uint8Array(size);
-  let finalLandTiles = 0;
-
   const setTerrain = (
     x: number,
     y: number,
@@ -419,17 +348,9 @@ export function createPlateDrivenLandmasses(
     const rowOffset = y * width;
     for (let x = 0; x < width; x++) {
       const idx = rowOffset + x;
-      const score = computeLandScore(idx);
-      const isLand = score >= bestThreshold && closeness[idx] <= closenessLimit;
+      const isLand = landMask[idx] === 1;
 
-      if (isLand) {
-        landMask[idx] = 1;
-        finalLandTiles++;
-        setTerrain(x, y, FLAT_TERRAIN, true);
-      } else {
-        landMask[idx] = 0;
-        setTerrain(x, y, OCEAN_TERRAIN, false);
-      }
+      setTerrain(x, y, isLand ? FLAT_TERRAIN : OCEAN_TERRAIN, isLand);
     }
   }
 
@@ -536,10 +457,20 @@ export function createPlateDrivenLandmasses(
   }));
 
   // Debug logging for landmass generation diagnostics
-  const logPrefix = "[landmass-plate]";
-  console.log(`${logPrefix} Generation stats: threshold=${bestThreshold}, landTiles=${finalLandTiles}/${size} (${((finalLandTiles / size) * 100).toFixed(1)}%)`);
-  console.log(`${logPrefix} Score ranges: interior=[${interiorMin},${interiorMax}], arc=[${arcMin},${arcMax}], stretch=${interiorStretch.toFixed(2)}`);
-  console.log(`${logPrefix} Config: closenessLimit=${closenessLimit}, targetLandTiles=${targetLandTiles}, waterPct=${waterPct.toFixed(1)}%`);
+  const seaLevelStr = seaLevel != null && Number.isFinite(seaLevel) ? seaLevel.toFixed(3) : "n/a";
+  const applied = crustConfigApplied;
+  console.log(
+    `${logPrefix} Crust-first stats: seaLevel=${seaLevelStr}, landTiles=${finalLandTiles}/${size} (${((finalLandTiles / size) * 100).toFixed(1)}%)`
+  );
+  console.log(
+    `${logPrefix} Crust config: plates=${crustContinentalPlates}/${crustPlateCount} continental, edgeBlend=${applied ? applied.edgeBlend.toFixed(2) : "n/a"}, noise=${applied ? applied.noiseAmplitude.toFixed(2) : "n/a"}, heights=[${applied ? applied.oceanicHeight.toFixed(2) : "n/a"},${applied ? applied.continentalHeight.toFixed(2) : "n/a"}], closenessLimit=${closenessLimit}, targetLandTiles=${targetLandTiles}, waterPct=${waterPct.toFixed(1)}%`
+  );
+  if (baseHeightRange) {
+    console.log(
+      `${logPrefix} Height range: [${baseHeightRange.min.toFixed(3)},${baseHeightRange.max.toFixed(3)}]`
+    );
+  }
+
   console.log(`${logPrefix} Plates with land: ${plateStats.size}, windows generated: ${windowsOut.length}`);
 
   // Detailed debug when no windows generated (helps diagnose failures)
@@ -548,12 +479,16 @@ export function createPlateDrivenLandmasses(
     console.log(`${logPrefix} WARNING: No landmass windows generated!`);
     console.log(`${logPrefix}   - finalLandTiles: ${finalLandTiles}`);
     console.log(`${logPrefix}   - plateStats entries: ${plateStats.size}`);
-    console.log(`${logPrefix}   - bestThreshold: ${bestThreshold}`);
+    console.log(`${logPrefix}   - seaLevel: ${seaLevel}`);
     console.log(`${logPrefix}   - closenessLimit: ${closenessLimit}`);
 
     // Sample some closeness values to understand the distribution
-    const closenessAboveLimit = closeness.filter((v) => v > closenessLimit).length;
-    console.log(`${logPrefix}   - tiles with closeness > ${closenessLimit}: ${closenessAboveLimit}/${size}`);
+    const closenessAboveLimit = closeness
+      ? closeness.filter((v) => v > closenessLimit).length
+      : 0;
+    if (closeness) {
+      console.log(`${logPrefix}   - tiles with closeness > ${closenessLimit}: ${closenessAboveLimit}/${size}`);
+    }
 
     // Check if plates array has valid IDs
     const validPlateIds = new Set<number>();
@@ -580,7 +515,6 @@ export function createPlateDrivenLandmasses(
     startRegions,
     landMask,
     landTiles: finalLandTiles,
-    threshold: bestThreshold,
   };
 }
 

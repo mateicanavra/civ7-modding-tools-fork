@@ -1,7 +1,7 @@
 import {
   MapOrchestrator,
   bootstrap
-} from "./chunk-IPIM3GHM.js";
+} from "./chunk-W3CUNERN.js";
 
 // src/swooper-desert-mountains.ts
 var PLATE_DENSITY_TARGET = 300;
@@ -78,40 +78,6 @@ function buildConfig(plateCount) {
           bayNoiseBonus: 1.2,
           fjordWeight: 1.05
         }
-      },
-      mountains: {
-        // Corrected physics settings to prevent mountain-spam
-        tectonicIntensity: 0.5,
-        mountainThreshold: 0.82,
-        hillThreshold: 0.35,
-        upliftWeight: 0.65,
-        fractalWeight: 0.35,
-        riftDepth: 0.4,
-        boundaryWeight: 0.7,
-        boundaryExponent: 1.35,
-        interiorPenaltyWeight: 0.6,
-        convergenceBonus: 0.9,
-        transformPenalty: 0.3,
-        riftPenalty: 0.9,
-        hillBoundaryWeight: 0.5,
-        hillRiftBonus: 0.52,
-        hillConvergentFoothill: 0.4,
-        hillInteriorFalloff: 0.3,
-        hillUpliftWeight: 0.4
-      },
-      volcanoes: {
-        baseDensity: 1 / 175,
-        minSpacing: 5,
-        boundaryThreshold: 0.3,
-        boundaryWeight: 1.6,
-        convergentMultiplier: 3.25,
-        transformMultiplier: 0.9,
-        divergentMultiplier: 0.22,
-        hotspotWeight: 0.16,
-        shieldPenalty: 0.78,
-        randomJitter: 0.12,
-        minVolcanoes: 9,
-        maxVolcanoes: 42
       },
       climate: {
         baseline: {
@@ -279,6 +245,40 @@ function buildConfig(plateCount) {
         shelfReefMultiplier: 0.85
       },
       foundation: {
+        mountains: {
+          // Corrected physics settings to prevent mountain-spam
+          tectonicIntensity: 0.5,
+          mountainThreshold: 0.82,
+          hillThreshold: 0.35,
+          upliftWeight: 0.65,
+          fractalWeight: 0.35,
+          riftDepth: 0.4,
+          boundaryWeight: 0.7,
+          boundaryExponent: 1.35,
+          interiorPenaltyWeight: 0.6,
+          convergenceBonus: 0.9,
+          transformPenalty: 0.3,
+          riftPenalty: 0.9,
+          hillBoundaryWeight: 0.5,
+          hillRiftBonus: 0.52,
+          hillConvergentFoothill: 0.4,
+          hillInteriorFalloff: 0.3,
+          hillUpliftWeight: 0.4
+        },
+        volcanoes: {
+          baseDensity: 1 / 175,
+          minSpacing: 5,
+          boundaryThreshold: 0.3,
+          boundaryWeight: 1.6,
+          convergentMultiplier: 3.25,
+          transformMultiplier: 0.9,
+          divergentMultiplier: 0.22,
+          hotspotWeight: 0.16,
+          shieldPenalty: 0.78,
+          randomJitter: 0.12,
+          minVolcanoes: 9,
+          maxVolcanoes: 42
+        },
         plates: {
           count: plateCount,
           // <-- DYNAMIC: calculated from map dimensions

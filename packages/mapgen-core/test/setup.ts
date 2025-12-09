@@ -26,6 +26,10 @@ mock.module("/base-standard/maps/resource-generator.js", () => ({
 }));
 mock.module("/base-standard/maps/assign-starting-plots.js", () => ({
   assignStartPositions: () => [],
+  chooseStartSectors: () => [],
+}));
+mock.module("/base-standard/maps/map-utilities.js", () => ({
+  needHumanNearEquator: () => false,
 }));
 mock.module("/base-standard/maps/discovery-generator.js", () => ({
   generateDiscoveries: () => {},

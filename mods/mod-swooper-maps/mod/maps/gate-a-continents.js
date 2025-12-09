@@ -1,6 +1,6 @@
 import {
   VERSION
-} from "./chunk-IPIM3GHM.js";
+} from "./chunk-W3CUNERN.js";
 
 // src/gate-a-continents.ts
 import "/base-standard/maps/continents.js";
