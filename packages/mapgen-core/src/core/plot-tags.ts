@@ -1,8 +1,11 @@
 /**
- * Plot Tags — Engine-independent plot tagging helpers
+ * Plot Tags — Engine-aware plot tagging helpers
  *
- * Maintains plot tagging (land/water + east/west) independently of Civ7 updates.
- * Uses adapter pattern to work without direct engine dependencies.
+ * Maintains plot tagging (land/water + east/west) using the engine's PlotTags enum.
+ * Falls back to hardcoded values only in test environments where PlotTags is unavailable.
+ *
+ * IMPORTANT: The engine's PlotTags enum values must be used at runtime for compatibility
+ * with vanilla start position algorithms that filter by these tags.
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
@@ -12,19 +15,56 @@ import type { EngineAdapter } from "@civ7/adapter";
 // ============================================================================
 
 /**
- * Plot tag types matching the engine's PlotTags enum
+ * Get plot tag value from engine's PlotTags global, with fallback for testing.
+ *
+ * The engine's PlotTags enum is the source of truth. Hardcoded fallbacks are
+ * provided only for test environments where the engine globals aren't available.
+ */
+function getPlotTagValue(name: string, fallback: number): number {
+  // Try to get from engine's PlotTags global
+  if (typeof PlotTags !== "undefined") {
+    const engineValue = (PlotTags as Record<string, number>)[`PLOT_TAG_${name}`];
+    if (typeof engineValue === "number") {
+      return engineValue;
+    }
+  }
+  // Fallback for testing environments
+  return fallback;
+}
+
+// One-time debug logging when first accessed
+let _plotTagsLogged = false;
+function logPlotTagsOnce(): void {
+  if (_plotTagsLogged) return;
+  _plotTagsLogged = true;
+
+  const hasPlotTags = typeof PlotTags !== "undefined";
+  console.log(`[PlotTags] Engine PlotTags available: ${hasPlotTags}`);
+  if (hasPlotTags) {
+    console.log(`[PlotTags] Keys: ${Object.keys(PlotTags).join(", ")}`);
+    console.log(`[PlotTags] PLOT_TAG_NONE=${(PlotTags as any).PLOT_TAG_NONE}, PLOT_TAG_LANDMASS=${(PlotTags as any).PLOT_TAG_LANDMASS}, PLOT_TAG_WATER=${(PlotTags as any).PLOT_TAG_WATER}`);
+    console.log(`[PlotTags] PLOT_TAG_EAST_LANDMASS=${(PlotTags as any).PLOT_TAG_EAST_LANDMASS}, PLOT_TAG_WEST_LANDMASS=${(PlotTags as any).PLOT_TAG_WEST_LANDMASS}`);
+  }
+}
+
+/**
+ * Plot tag types - resolved at runtime from engine's PlotTags enum.
+ *
+ * CRITICAL: These values MUST match what the vanilla start position algorithm
+ * uses when filtering tiles by PlotTags.PLOT_TAG_WEST_LANDMASS etc.
  */
 export const PLOT_TAG = {
-  NONE: 0,
-  LANDMASS: 1,
-  WATER: 2,
-  EAST_LANDMASS: 3,
-  WEST_LANDMASS: 4,
-  EAST_WATER: 5,
-  WEST_WATER: 6,
+  get NONE() { logPlotTagsOnce(); return getPlotTagValue("NONE", 0); },
+  get LANDMASS() { return getPlotTagValue("LANDMASS", 1); },
+  get WATER() { return getPlotTagValue("WATER", 2); },
+  get EAST_LANDMASS() { return getPlotTagValue("EAST_LANDMASS", 3); },
+  get WEST_LANDMASS() { return getPlotTagValue("WEST_LANDMASS", 4); },
+  get EAST_WATER() { return getPlotTagValue("EAST_WATER", 5); },
+  get WEST_WATER() { return getPlotTagValue("WEST_WATER", 6); },
+  get ISLAND() { return getPlotTagValue("ISLAND", 7); },
 } as const;
 
-export type PlotTagType = (typeof PLOT_TAG)[keyof typeof PLOT_TAG];
+export type PlotTagType = number;
 
 // ============================================================================
 // Terrain Type Constants (for land/water detection)
@@ -137,4 +177,80 @@ export function addPlotTagsSimple(
       }
     }
   }
+}
+
+// ============================================================================
+// Landmass Region ID Functions
+// ============================================================================
+
+/**
+ * Get landmass region ID value from engine's LandmassRegion global.
+ *
+ * The engine's LandmassRegion enum is the source of truth. The StartPositioner
+ * algorithm filters by these values when dividing the map into start regions.
+ */
+function getLandmassRegionValue(name: string, fallback: number): number {
+  if (typeof LandmassRegion !== "undefined") {
+    const engineValue = (LandmassRegion as Record<string, number>)[`LANDMASS_REGION_${name}`];
+    if (typeof engineValue === "number") {
+      return engineValue;
+    }
+  }
+  return fallback;
+}
+
+/**
+ * Landmass region constants - resolved at runtime from engine's LandmassRegion enum.
+ *
+ * CRITICAL: These values MUST match what the vanilla StartPositioner algorithm
+ * uses when filtering tiles via getLandmassRegionId().
+ */
+export const LANDMASS_REGION = {
+  get NONE() { return getLandmassRegionValue("NONE", 0); },
+  get WEST() { return getLandmassRegionValue("WEST", 2); },
+  get EAST() { return getLandmassRegionValue("EAST", 1); },
+  get DEFAULT() { return getLandmassRegionValue("DEFAULT", 0); },
+  get ANY() { return getLandmassRegionValue("ANY", -1); },
+} as const;
+
+/**
+ * Continent bounds interface for markLandmassRegionId
+ */
+export interface ContinentBoundsLike {
+  west: number;
+  east: number;
+  south: number;
+  north: number;
+}
+
+/**
+ * Mark all non-ocean tiles in a continent with a specific LandmassRegionId.
+ *
+ * This function MUST be called early in the map generation pipeline, BEFORE
+ * validateAndFixTerrain/expandCoasts/recalculateAreas/stampContinents.
+ * The vanilla StartPositioner.divideMapIntoMajorRegions() filters by this ID.
+ *
+ * @param continent - Bounds of the continent to mark
+ * @param regionId - LandmassRegion ID to assign (use LANDMASS_REGION.WEST/EAST)
+ * @param adapter - Engine adapter for terrain queries
+ */
+export function markLandmassRegionId(
+  continent: ContinentBoundsLike,
+  regionId: number,
+  adapter: EngineAdapter
+): number {
+  // Ocean terrain is index 0
+  const OCEAN_TERRAIN = 0;
+  let markedCount = 0;
+
+  for (let y = continent.south; y <= continent.north; y++) {
+    for (let x = continent.west; x <= continent.east; x++) {
+      if (adapter.getTerrainType(x, y) !== OCEAN_TERRAIN) {
+        adapter.setLandmassRegionId(x, y, regionId);
+        markedCount++;
+      }
+    }
+  }
+
+  return markedCount;
 }
