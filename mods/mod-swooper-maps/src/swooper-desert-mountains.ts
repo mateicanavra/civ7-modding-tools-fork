@@ -85,6 +85,15 @@ function buildConfig(plateCount: number): BootstrapOptions {
         baseWaterPercent: 63,
         waterThumbOnScale: -6,
         jitterAmpFracBase: 0.02,
+        // --- Invert Landmass Priorities ---
+        // Force the engine to pick stable plate interiors (flat land)
+        // instead of just picking the tectonic boundaries (mountains).
+        boundaryBias: 0.0, // Removed bonus for being near a boundary
+        boundaryShareTarget: 0.0, // Do not force a specific % of land to be boundary
+        tectonics: {
+          boundaryArcWeight: 0.2, // Drastically reduce value of ridges (was ~0.8)
+          interiorNoiseWeight: 0.1, // Make interiors solid/reliable (was ~0.3)
+        },
       },
       margins: {
         activeFraction: 0.34,
