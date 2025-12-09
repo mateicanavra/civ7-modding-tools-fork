@@ -164,6 +164,31 @@ function rotate2(v: Point2D, angleRad: number): Point2D {
 }
 
 // ============================================================================
+// Hex Geometry Helpers (odd-q vertical layout)
+// ============================================================================
+
+const HEX_WIDTH = Math.sqrt(3);
+const HEX_HEIGHT = 1.5;
+const HALF_HEX_HEIGHT = HEX_HEIGHT / 2;
+
+function projectToHexSpace(x: number, y: number): { px: number; py: number } {
+  const px = x * HEX_WIDTH;
+  const py = y * HEX_HEIGHT + ((Math.floor(x) & 1) ? HALF_HEX_HEIGHT : 0);
+  return { px, py };
+}
+
+function wrappedHexDistanceSq(
+  a: { px: number; py: number },
+  b: { px: number; py: number },
+  wrapWidth: number
+): number {
+  const rawDx = Math.abs(a.px - b.px);
+  const dx = Math.min(rawDx, wrapWidth - rawDx);
+  const dy = a.py - b.py;
+  return dx * dx + dy * dy;
+}
+
+// ============================================================================
 // Hex Grid Utilities
 // ============================================================================
 
@@ -609,6 +634,7 @@ export function computePlatesVoronoi(
     } = attempt;
 
     const plateCount = Math.max(2, plateCountOverride ?? count);
+    const wrapWidthPx = width * HEX_WIDTH;
 
     // Create Voronoi diagram
     const bbox: BoundingBox = { xl: 0, xr: width, yt: 0, yb: height };
@@ -634,6 +660,10 @@ export function computePlatesVoronoi(
 
       return region;
     });
+
+    const plateCenters = plateRegions.map((region) =>
+      projectToHexSpace(region.seedLocation.x, region.seedLocation.y)
+    );
 
     if (!plateRegions.length) {
       throw new Error("[WorldModel] Plate generation returned zero plates");
@@ -664,15 +694,12 @@ export function computePlatesVoronoi(
     // Assign each region cell to nearest plate (with cylindrical wrapping)
     for (const regionCell of regionCells) {
       const pos = { x: regionCell.cell.site.x, y: regionCell.cell.site.y };
+      const posHex = projectToHexSpace(pos.x, pos.y);
       let bestDist = Infinity;
       let bestPlateId = -1;
 
       for (let i = 0; i < plateRegions.length; i++) {
-        // Handle cylindrical wrapping for X distance
-        let dx = Math.abs(pos.x - plateRegions[i].seedLocation.x);
-        if (dx > width / 2) dx = width - dx;
-        const dy = pos.y - plateRegions[i].seedLocation.y;
-        const dist = dx * dx + dy * dy;
+        const dist = wrappedHexDistanceSq(posHex, plateCenters[i], wrapWidthPx);
 
         if (dist < bestDist) {
           bestDist = dist;
@@ -700,15 +727,12 @@ export function computePlatesVoronoi(
       for (let x = 0; x < width; x++) {
         const i = y * width + x;
 
-        // Find nearest plate seed with cylindrical wrapping
+        // Find nearest plate seed with cylindrical wrapping (hex geometry)
         let bestDist = Infinity;
         let pId = 0;
+        const tileHex = projectToHexSpace(x, y);
         for (let p = 0; p < plateRegions.length; p++) {
-          // Handle cylindrical wrapping for X distance
-          let dx = Math.abs(x - plateRegions[p].seedLocation.x);
-          if (dx > width / 2) dx = width - dx;
-          const dy = y - plateRegions[p].seedLocation.y;
-          const dist = dx * dx + dy * dy;
+          const dist = wrappedHexDistanceSq(tileHex, plateCenters[p], wrapWidthPx);
           if (dist < bestDist) {
             bestDist = dist;
             pId = p;

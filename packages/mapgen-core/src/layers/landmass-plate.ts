@@ -17,7 +17,7 @@ import type {
 } from "../bootstrap/types.js";
 import { ctxRandom, writeHeightfield } from "../core/types.js";
 import { getTunables } from "../bootstrap/tunables.js";
-import { buildPlateTopology } from "../lib/plates/topology.js";
+import { buildPlateTopology, type PlateGraph } from "../lib/plates/topology.js";
 import { assignCrustTypes, CrustType } from "../lib/plates/crust.js";
 import { generateBaseHeightfield } from "../lib/heightfield/base.js";
 import { computeSeaLevel } from "../lib/heightfield/sea-level.js";
@@ -87,6 +87,12 @@ import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../core/terrain-constants.js";
 // Helper Functions
 // ============================================================================
 
+type CrustMode = "legacy" | "area";
+
+function normalizeCrustMode(mode: unknown): CrustMode {
+  return mode === "area" ? "area" : "legacy";
+}
+
 function clampInt(value: number, min: number, max: number): number {
   if (!Number.isFinite(value)) return min;
   if (value < min) return min;
@@ -112,14 +118,96 @@ function computeClosenessLimit(postCfg: GeometryPostConfig | undefined): number 
   return clampInt(limit, MIN_CLOSENESS_LIMIT, MAX_CLOSENESS_LIMIT);
 }
 
+interface CrustSummary {
+  continentalPlateIds: number[];
+  oceanicPlateIds: number[];
+  continentalArea: number;
+  oceanicArea: number;
+}
+
+function summarizeCrustTypes(crustTypes: Uint8Array, graph: PlateGraph): CrustSummary {
+  const continentalPlateIds: number[] = [];
+  const oceanicPlateIds: number[] = [];
+  let continentalArea = 0;
+  let oceanicArea = 0;
+
+  for (const plate of graph) {
+    const type = crustTypes[plate.id] === CrustType.CONTINENTAL ? CrustType.CONTINENTAL : CrustType.OCEANIC;
+    if (type === CrustType.CONTINENTAL) {
+      continentalPlateIds.push(plate.id);
+      continentalArea += plate.area;
+    } else {
+      oceanicPlateIds.push(plate.id);
+      oceanicArea += plate.area;
+    }
+  }
+
+  return {
+    continentalPlateIds,
+    oceanicPlateIds,
+    continentalArea,
+    oceanicArea,
+  };
+}
+
+interface AreaCrustResult extends CrustSummary {
+  crustTypes: Uint8Array;
+}
+
+function assignCrustTypesByArea(graph: PlateGraph, targetLandTiles: number): AreaCrustResult {
+  const types = new Uint8Array(graph.length).fill(CrustType.OCEANIC);
+  const sorted = graph
+    .filter((plate) => plate.area > 0)
+    .slice()
+    .sort((a, b) => b.area - a.area);
+
+  let assignedArea = 0;
+  const continentalPlateIds: number[] = [];
+
+  for (const plate of sorted) {
+    if (assignedArea >= targetLandTiles && continentalPlateIds.length > 0) break;
+    types[plate.id] = CrustType.CONTINENTAL;
+    assignedArea += plate.area;
+    continentalPlateIds.push(plate.id);
+  }
+
+  // Guarantee at least one continental plate when any land is requested
+  if (continentalPlateIds.length === 0 && sorted[0]) {
+    types[sorted[0].id] = CrustType.CONTINENTAL;
+    continentalPlateIds.push(sorted[0].id);
+    assignedArea += sorted[0].area;
+  }
+
+  // Promote a second plate when possible to reduce single-supercontinent layouts
+  if (continentalPlateIds.length === 1 && sorted.length > 1 && targetLandTiles > 0) {
+    types[sorted[1].id] = CrustType.CONTINENTAL;
+    assignedArea += sorted[1].area;
+    continentalPlateIds.push(sorted[1].id);
+  }
+
+  const summary = summarizeCrustTypes(types, graph);
+
+  return {
+    crustTypes: types,
+    ...summary,
+  };
+}
+
 interface CrustFirstResult {
+  mode: CrustMode;
   landMask: Uint8Array;
   landTiles: number;
   seaLevel: number;
   plateCount: number;
   continentalPlates: number;
+  continentalPlateIds: number[];
+  oceanicPlateIds: number[];
+  continentalArea: number;
+  oceanicArea: number;
+  targetLandTiles: number;
   baseHeightRange: { min: number; max: number };
   crustConfigApplied: {
+    mode: CrustMode;
     continentalFraction: number;
     clusteringBias: number;
     microcontinentChance: number;
@@ -138,6 +226,7 @@ function tryCrustFirstLandmask(
   closenessLimit: number,
   targetLandTiles: number,
   landmassCfg: LandmassConfig,
+  crustMode: CrustMode,
   ctx?: ExtendedMapContext | null
 ): CrustFirstResult | null {
   const size = width * height;
@@ -171,16 +260,21 @@ function tryCrustFirstLandmask(
     ? (landmassCfg.oceanicHeight as number)
     : -0.55;
 
+  const mode = normalizeCrustMode(crustMode);
   const graph = buildPlateTopology(plateIds, width, height, plateCount);
-  const crustTypes = assignCrustTypes(
-    graph,
-    ctx ? () => ctxRandom(ctx, "CrustType", 1_000_000) / 1_000_000 : Math.random,
-    {
-      continentalFraction,
-      microcontinentChance,
-      clusteringBias,
-    }
-  );
+
+  const areaResult = mode === "area" ? assignCrustTypesByArea(graph, targetLandTiles) : null;
+  const crustTypes =
+    areaResult?.crustTypes ||
+    assignCrustTypes(
+      graph,
+      ctx ? () => ctxRandom(ctx, "CrustType", 1_000_000) / 1_000_000 : Math.random,
+      {
+        continentalFraction,
+        microcontinentChance,
+        clusteringBias,
+      }
+    );
 
   const noiseFn =
     noiseAmplitude === 0
@@ -196,7 +290,7 @@ function tryCrustFirstLandmask(
     noiseFn,
   });
 
-  const seaLevel = computeSeaLevel(baseHeight, targetLandTiles);
+  const seaLevel = mode === "area" ? 0 : computeSeaLevel(baseHeight, targetLandTiles);
   const landMask = new Uint8Array(size);
 
   let landTiles = 0;
@@ -216,22 +310,31 @@ function tryCrustFirstLandmask(
     }
   }
 
-  const continentalPlates = crustTypes.reduce(
-    (acc, t) => acc + (t === CrustType.CONTINENTAL ? 1 : 0),
-    0
-  );
+  const summary = areaResult || summarizeCrustTypes(crustTypes, graph);
+  const continentalPlates = summary.continentalPlateIds.length;
+  const appliedContinentalFraction =
+    mode === "area"
+      ? summary.continentalArea / Math.max(1, summary.continentalArea + summary.oceanicArea)
+      : continentalFraction;
 
   return {
+    mode,
     landMask,
     landTiles,
     seaLevel,
     plateCount,
     continentalPlates,
+    continentalPlateIds: summary.continentalPlateIds,
+    oceanicPlateIds: summary.oceanicPlateIds,
+    continentalArea: summary.continentalArea,
+    oceanicArea: summary.oceanicArea,
+    targetLandTiles,
     baseHeightRange: { min: minHeight, max: maxHeight },
     crustConfigApplied: {
-      continentalFraction,
-      clusteringBias,
-      microcontinentChance,
+      mode,
+      continentalFraction: appliedContinentalFraction,
+      clusteringBias: mode === "area" ? 0 : clusteringBias,
+      microcontinentChance: mode === "area" ? 0 : microcontinentChance,
       edgeBlend,
       noiseAmplitude,
       continentalHeight,
@@ -307,6 +410,17 @@ export function createPlateDrivenLandmasses(
     Math.min(totalTiles - 1, Math.round(totalTiles * (1 - waterPct / 100)))
   );
 
+  const foundationCfg = tunables.FOUNDATION_CFG as {
+    crustMode?: CrustMode;
+    surface?: { crustMode?: CrustMode; landmass?: { crustMode?: CrustMode } };
+  };
+  const crustMode = normalizeCrustMode(
+    landmassCfg.crustMode ??
+      foundationCfg?.crustMode ??
+      foundationCfg?.surface?.crustMode ??
+      foundationCfg?.surface?.landmass?.crustMode
+  );
+
   const closenessLimit = computeClosenessLimit(postCfg);
   const adapter = ctx?.adapter;
   const logPrefix = "[landmass-plate]";
@@ -318,6 +432,7 @@ export function createPlateDrivenLandmasses(
     closenessLimit,
     targetLandTiles,
     landmassCfg,
+    crustMode,
     ctx
   );
 
@@ -331,6 +446,11 @@ export function createPlateDrivenLandmasses(
   const seaLevel = crustResult.seaLevel;
   const crustPlateCount = crustResult.plateCount;
   const crustContinentalPlates = crustResult.continentalPlates;
+  const crustContinentalPlateIds = crustResult.continentalPlateIds;
+  const crustOceanicPlateIds = crustResult.oceanicPlateIds;
+  const crustContinentalArea = crustResult.continentalArea;
+  const crustOceanicArea = crustResult.oceanicArea;
+  const crustModeApplied = crustResult.mode;
   const crustConfigApplied = crustResult.crustConfigApplied;
   const baseHeightRange = crustResult.baseHeightRange;
 
@@ -460,14 +580,22 @@ export function createPlateDrivenLandmasses(
   }));
 
   // Debug logging for landmass generation diagnostics
-  const seaLevelStr = seaLevel != null && Number.isFinite(seaLevel) ? seaLevel.toFixed(3) : "n/a";
   const applied = crustConfigApplied;
   console.log(
-    `${logPrefix} Crust-first stats: seaLevel=${seaLevelStr}, landTiles=${finalLandTiles}/${size} (${((finalLandTiles / size) * 100).toFixed(1)}%)`
+    `${logPrefix} Crust mode=${crustModeApplied} seaLevel=${seaLevel != null && Number.isFinite(seaLevel) ? seaLevel.toFixed(3) : "n/a"}, landTiles=${finalLandTiles}/${size} (${((finalLandTiles / size) * 100).toFixed(1)}%), targetLandTiles=${targetLandTiles}, continentalArea=${crustContinentalArea}, oceanicArea=${crustOceanicArea}, waterPct=${waterPct.toFixed(1)}%`
   );
   console.log(
-    `${logPrefix} Crust config: plates=${crustContinentalPlates}/${crustPlateCount} continental, edgeBlend=${applied ? applied.edgeBlend.toFixed(2) : "n/a"}, noise=${applied ? applied.noiseAmplitude.toFixed(2) : "n/a"}, heights=[${applied ? applied.oceanicHeight.toFixed(2) : "n/a"},${applied ? applied.continentalHeight.toFixed(2) : "n/a"}], closenessLimit=${closenessLimit}, targetLandTiles=${targetLandTiles}, waterPct=${waterPct.toFixed(1)}%`
+    `${logPrefix} Crust config: plates=${crustContinentalPlates}/${crustPlateCount} continental, mode=${applied ? applied.mode : crustModeApplied}, edgeBlend=${applied ? applied.edgeBlend.toFixed(2) : "n/a"}, noise=${applied ? applied.noiseAmplitude.toFixed(2) : "n/a"}, heights=[${applied ? applied.oceanicHeight.toFixed(2) : "n/a"},${applied ? applied.continentalHeight.toFixed(2) : "n/a"}], closenessLimit=${closenessLimit}`
   );
+  console.log(
+    `${logPrefix} Continental plates (${crustContinentalPlateIds.length}): [${crustContinentalPlateIds.join(",")}]`
+  );
+  console.log(
+    `${logPrefix} Oceanic plates (${crustOceanicPlateIds.length}): [${crustOceanicPlateIds.join(",")}]`
+  );
+  if (crustModeApplied === "area" && crustOceanicPlateIds.length === 0) {
+    console.log(`${logPrefix} WARNING: Area crust typing produced no oceanic plates`);
+  }
   if (baseHeightRange) {
     console.log(
       `${logPrefix} Height range: [${baseHeightRange.min.toFixed(3)},${baseHeightRange.max.toFixed(3)}]`

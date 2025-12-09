@@ -586,6 +586,7 @@ export class MapOrchestrator {
           landMask: plateResult.landMask,
           context: ctx,
           adapter: ctx.adapter,
+          crustMode: landmassCfg.crustMode,
         });
         windows = separationResult.windows;
 

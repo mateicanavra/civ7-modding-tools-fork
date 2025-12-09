@@ -540,7 +540,7 @@ function computeSeaLevel(heights, targetLandTiles) {
   return Number.isFinite(seaLevel) ? seaLevel : 0;
 }
 
-// ../../packages/mapgen-core/dist/chunk-ST4GX2A5.js
+// ../../packages/mapgen-core/dist/chunk-KMD6UZXV.js
 var EMPTY_FROZEN_OBJECT2 = Object.freeze({});
 function createExtendedMapContext(dimensions, adapter, config) {
   const { width, height } = dimensions;
@@ -794,6 +794,61 @@ function syncClimateField(ctx) {
     }
   }
 }
+function lookupTerrain(terrainType) {
+  try {
+    const entry = GameInfo.Terrains.find((t) => t.TerrainType === terrainType);
+    return entry?.$index;
+  } catch {
+    return void 0;
+  }
+}
+var MOUNTAIN_TERRAIN = lookupTerrain("TERRAIN_MOUNTAIN") ?? 0;
+var HILL_TERRAIN = lookupTerrain("TERRAIN_HILL") ?? 1;
+var FLAT_TERRAIN = lookupTerrain("TERRAIN_FLAT") ?? 2;
+var COAST_TERRAIN = lookupTerrain("TERRAIN_COAST") ?? 3;
+var OCEAN_TERRAIN = lookupTerrain("TERRAIN_OCEAN") ?? 4;
+var NAVIGABLE_RIVER_TERRAIN = lookupTerrain("TERRAIN_NAVIGABLE_RIVER") ?? 5;
+function lookupBiome(biomeType) {
+  try {
+    const entry = GameInfo.Biomes.find((t) => t.BiomeType === biomeType);
+    return entry?.$index;
+  } catch {
+    return void 0;
+  }
+}
+var TUNDRA_BIOME = lookupBiome("BIOME_TUNDRA") ?? 0;
+var GRASSLAND_BIOME = lookupBiome("BIOME_GRASSLAND") ?? 1;
+var PLAINS_BIOME = lookupBiome("BIOME_PLAINS") ?? 2;
+var TROPICAL_BIOME = lookupBiome("BIOME_TROPICAL") ?? 3;
+var DESERT_BIOME = lookupBiome("BIOME_DESERT") ?? 4;
+var MARINE_BIOME = lookupBiome("BIOME_MARINE") ?? 5;
+function lookupFeature(featureType) {
+  try {
+    const entry = GameInfo.Features.find((t) => t.FeatureType === featureType);
+    return entry?.$index;
+  } catch {
+    return void 0;
+  }
+}
+var VOLCANO_FEATURE = lookupFeature("FEATURE_VOLCANO") ?? -1;
+function getTerrainSymbol(terrain) {
+  switch (terrain) {
+    case MOUNTAIN_TERRAIN:
+      return "M";
+    case HILL_TERRAIN:
+      return "^";
+    case FLAT_TERRAIN:
+      return ".";
+    case COAST_TERRAIN:
+      return "~";
+    case OCEAN_TERRAIN:
+      return "O";
+    case NAVIGABLE_RIVER_TERRAIN:
+      return "R";
+    default:
+      return "?";
+  }
+}
 var DEFAULT_OCEAN_SEPARATION = {
   enabled: true,
   bandPairs: [
@@ -804,12 +859,13 @@ var DEFAULT_OCEAN_SEPARATION = {
   boundaryClosenessMultiplier: 1,
   maxPerRowDelta: 3
 };
-var OCEAN_TERRAIN = 0;
-var FLAT_TERRAIN = 3;
 function clampInt(value, min, max) {
   if (value < min) return min;
   if (value > max) return max;
   return value;
+}
+function normalizeCrustMode(mode) {
+  return mode === "area" ? "area" : "legacy";
 }
 function normalizeWindow(win, index, width, height) {
   if (!win) {
@@ -856,8 +912,18 @@ function aggregateRowState(state, width, height) {
   const south = clampInt(state.south, 0, height - 1);
   const north = clampInt(state.north, 0, height - 1);
   for (let y = south; y <= north; y++) {
+    if (state.west[y] > state.east[y]) continue;
     if (state.west[y] < minWest) minWest = state.west[y];
     if (state.east[y] > maxEast) maxEast = state.east[y];
+  }
+  if (maxEast < minWest) {
+    return {
+      west: 0,
+      east: 0,
+      south,
+      north,
+      continent: state.continent
+    };
   }
   return {
     west: clampInt(minWest, 0, width - 1),
@@ -929,32 +995,19 @@ function applyPlateAwareOceanSeparation(params) {
   const ctx = params?.context ?? null;
   const adapter = params?.adapter && typeof params.adapter.setTerrainType === "function" ? params.adapter : null;
   const tunables = getTunables();
-  const foundationPolicy = tunables.FOUNDATION_CFG?.oceanSeparation;
+  const foundationCfg = tunables.FOUNDATION_CFG;
+  const foundationPolicy = foundationCfg?.oceanSeparation ?? foundationCfg?.policy?.oceanSeparation;
   const policy = params?.policy || foundationPolicy || DEFAULT_OCEAN_SEPARATION;
+  const normalizedWindows = windows.map((win, idx4) => normalizeWindow(win, idx4, width, height));
   const foundation = ctx?.foundation;
   if (!policy || !policy.enabled || !foundation) {
     return {
-      windows: windows.map((win, idx4) => normalizeWindow(win, idx4, width, height)),
-      landMask: params?.landMask ?? void 0
-    };
-  }
-  const closeness = foundation.plates.boundaryCloseness;
-  if (!closeness || closeness.length !== width * height) {
-    return {
-      windows: windows.map((win, idx4) => normalizeWindow(win, idx4, width, height)),
+      windows: normalizedWindows,
       landMask: params?.landMask ?? void 0
     };
   }
   const landMask = params?.landMask instanceof Uint8Array && params.landMask.length === width * height ? params.landMask : null;
   const heightfield = ctx?.buffers?.heightfield;
-  const bandPairs = Array.isArray(policy.bandPairs) && policy.bandPairs.length ? policy.bandPairs : [
-    [0, 1],
-    [1, 2]
-  ];
-  const baseSeparation = Math.max(0, (policy.baseSeparationTiles ?? 0) | 0);
-  const closenessMultiplier = Number.isFinite(policy.boundaryClosenessMultiplier) ? policy.boundaryClosenessMultiplier : 1;
-  const maxPerRow = Math.max(0, (policy.maxPerRowDelta ?? 3) | 0);
-  const rowStates = windows.map((win, idx4) => createRowState(win, idx4, width, height));
   const setTerrain = (x, y, terrain, isLand) => {
     if (x < 0 || x >= width || y < 0 || y >= height) return;
     const idx4 = y * width + x;
@@ -970,6 +1023,71 @@ function applyPlateAwareOceanSeparation(params) {
       heightfield.landMask[idx4] = isLand ? 1 : 0;
     }
   };
+  const crustMode = normalizeCrustMode(
+    params?.crustMode ?? foundationCfg?.crustMode ?? foundationCfg?.policy?.crustMode ?? foundationCfg?.surface?.crustMode ?? foundationCfg?.surface?.landmass?.crustMode
+  );
+  if (crustMode === "area") {
+    const minChannelWidth = Math.max(1, (policy.minChannelWidth ?? 3) | 0);
+    const channelJitter = Math.max(0, (policy.channelJitter ?? 0) | 0);
+    const rowStates2 = normalizedWindows.map((win, idx4) => createRowState(win, idx4, width, height));
+    for (let i = 0; i < rowStates2.length - 1; i++) {
+      const left = rowStates2[i];
+      const right = rowStates2[i + 1];
+      if (!left || !right) continue;
+      const rowStart = Math.max(0, Math.max(left.south, right.south));
+      const rowEnd = Math.min(height - 1, Math.min(left.north, right.north));
+      if (rowStart > rowEnd) continue;
+      for (let y = rowStart; y <= rowEnd; y++) {
+        const baseCenter = clampInt(Math.floor((left.east[y] + right.west[y]) / 2), 0, width - 1);
+        const span = channelJitter * 2 + 1;
+        const jitter = channelJitter > 0 ? (y + i) % span - channelJitter : 0;
+        const center = clampInt(baseCenter + jitter, 0, width - 1);
+        const halfWidth = Math.max(0, Math.floor((minChannelWidth - 1) / 2));
+        let start = clampInt(center - halfWidth, 0, width - 1);
+        let end = clampInt(start + minChannelWidth - 1, 0, width - 1);
+        if (end >= width) {
+          end = width - 1;
+          start = Math.max(0, end - minChannelWidth + 1);
+        }
+        for (let x = start; x <= end; x++) {
+          setTerrain(x, y, OCEAN_TERRAIN, false);
+        }
+        if (start <= left.west[y]) {
+          left.east[y] = left.west[y] - 1;
+        } else {
+          left.east[y] = clampInt(Math.min(left.east[y], start - 1), 0, width - 1);
+        }
+        if (end >= right.east[y]) {
+          right.west[y] = right.east[y] + 1;
+        } else {
+          right.west[y] = clampInt(Math.max(right.west[y], end + 1), 0, width - 1);
+        }
+      }
+    }
+    const normalized2 = rowStates2.map((state) => aggregateRowState(state, width, height));
+    if (ctx && landMask && heightfield?.landMask) {
+      heightfield.landMask.set(landMask);
+    }
+    return {
+      windows: normalized2,
+      landMask: landMask ?? void 0
+    };
+  }
+  const closeness = foundation.plates.boundaryCloseness;
+  if (!closeness || closeness.length !== width * height) {
+    return {
+      windows: normalizedWindows,
+      landMask: landMask ?? void 0
+    };
+  }
+  const bandPairs = Array.isArray(policy.bandPairs) && policy.bandPairs.length ? policy.bandPairs : [
+    [0, 1],
+    [1, 2]
+  ];
+  const baseSeparation = Math.max(0, (policy.baseSeparationTiles ?? 0) | 0);
+  const closenessMultiplier = Number.isFinite(policy.boundaryClosenessMultiplier) ? policy.boundaryClosenessMultiplier : 1;
+  const maxPerRow = Math.max(0, (policy.maxPerRowDelta ?? 3) | 0);
+  const rowStates = normalizedWindows.map((win, idx4) => createRowState(win, idx4, width, height));
   const carveOceanFromEast = (state, y, tiles) => {
     if (!tiles) return 0;
     let removed = 0;
@@ -1099,8 +1217,9 @@ var DEFAULT_CLOSENESS_LIMIT = 255;
 var CLOSENESS_STEP_PER_TILE = 8;
 var MIN_CLOSENESS_LIMIT = 150;
 var MAX_CLOSENESS_LIMIT = 255;
-var OCEAN_TERRAIN2 = 4;
-var FLAT_TERRAIN2 = 1;
+function normalizeCrustMode2(mode) {
+  return mode === "area" ? "area" : "legacy";
+}
 function clampInt2(value, min, max) {
   if (!Number.isFinite(value)) return min;
   if (value < min) return min;
@@ -1122,7 +1241,59 @@ function computeClosenessLimit(postCfg) {
   const limit = DEFAULT_CLOSENESS_LIMIT + expand * CLOSENESS_STEP_PER_TILE;
   return clampInt2(limit, MIN_CLOSENESS_LIMIT, MAX_CLOSENESS_LIMIT);
 }
-function tryCrustFirstLandmask(width, height, plateIds, closeness, closenessLimit, targetLandTiles, landmassCfg, ctx) {
+function summarizeCrustTypes(crustTypes, graph) {
+  const continentalPlateIds = [];
+  const oceanicPlateIds = [];
+  let continentalArea = 0;
+  let oceanicArea = 0;
+  for (const plate of graph) {
+    const type = crustTypes[plate.id] === 1 ? 1 : 0;
+    if (type === 1) {
+      continentalPlateIds.push(plate.id);
+      continentalArea += plate.area;
+    } else {
+      oceanicPlateIds.push(plate.id);
+      oceanicArea += plate.area;
+    }
+  }
+  return {
+    continentalPlateIds,
+    oceanicPlateIds,
+    continentalArea,
+    oceanicArea
+  };
+}
+function assignCrustTypesByArea(graph, targetLandTiles) {
+  const types = new Uint8Array(graph.length).fill(
+    0
+    /* OCEANIC */
+  );
+  const sorted = graph.filter((plate) => plate.area > 0).slice().sort((a, b) => b.area - a.area);
+  let assignedArea = 0;
+  const continentalPlateIds = [];
+  for (const plate of sorted) {
+    if (assignedArea >= targetLandTiles && continentalPlateIds.length > 0) break;
+    types[plate.id] = 1;
+    assignedArea += plate.area;
+    continentalPlateIds.push(plate.id);
+  }
+  if (continentalPlateIds.length === 0 && sorted[0]) {
+    types[sorted[0].id] = 1;
+    continentalPlateIds.push(sorted[0].id);
+    assignedArea += sorted[0].area;
+  }
+  if (continentalPlateIds.length === 1 && sorted.length > 1 && targetLandTiles > 0) {
+    types[sorted[1].id] = 1;
+    assignedArea += sorted[1].area;
+    continentalPlateIds.push(sorted[1].id);
+  }
+  const summary = summarizeCrustTypes(types, graph);
+  return {
+    crustTypes: types,
+    ...summary
+  };
+}
+function tryCrustFirstLandmask(width, height, plateIds, closeness, closenessLimit, targetLandTiles, landmassCfg, crustMode, ctx) {
   const size = width * height;
   if (plateIds.length !== size) return null;
   if (closeness && closeness.length !== size) return null;
@@ -1143,8 +1314,10 @@ function tryCrustFirstLandmask(width, height, plateIds, closeness, closenessLimi
   const noiseAmplitude = clamp013(landmassCfg.crustNoiseAmplitude ?? 0.08, 0.08);
   const continentalHeight = Number.isFinite(landmassCfg.continentalHeight) ? landmassCfg.continentalHeight : 0.32;
   const oceanicHeight = Number.isFinite(landmassCfg.oceanicHeight) ? landmassCfg.oceanicHeight : -0.55;
+  const mode = normalizeCrustMode2(crustMode);
   const graph = buildPlateTopology(plateIds, width, height, plateCount);
-  const crustTypes = assignCrustTypes(
+  const areaResult = mode === "area" ? assignCrustTypesByArea(graph, targetLandTiles) : null;
+  const crustTypes = areaResult?.crustTypes || assignCrustTypes(
     graph,
     ctx ? () => ctxRandom(ctx, "CrustType", 1e6) / 1e6 : Math.random,
     {
@@ -1161,7 +1334,7 @@ function tryCrustFirstLandmask(width, height, plateIds, closeness, closenessLimi
     noiseAmplitude,
     noiseFn
   });
-  const seaLevel = computeSeaLevel(baseHeight, targetLandTiles);
+  const seaLevel = mode === "area" ? 0 : computeSeaLevel(baseHeight, targetLandTiles);
   const landMask = new Uint8Array(size);
   let landTiles = 0;
   let minHeight = Number.POSITIVE_INFINITY;
@@ -1177,21 +1350,27 @@ function tryCrustFirstLandmask(width, height, plateIds, closeness, closenessLimi
       landTiles++;
     }
   }
-  const continentalPlates = crustTypes.reduce(
-    (acc, t) => acc + (t === 1 ? 1 : 0),
-    0
-  );
+  const summary = areaResult || summarizeCrustTypes(crustTypes, graph);
+  const continentalPlates = summary.continentalPlateIds.length;
+  const appliedContinentalFraction = mode === "area" ? summary.continentalArea / Math.max(1, summary.continentalArea + summary.oceanicArea) : continentalFraction;
   return {
+    mode,
     landMask,
     landTiles,
     seaLevel,
     plateCount,
     continentalPlates,
+    continentalPlateIds: summary.continentalPlateIds,
+    oceanicPlateIds: summary.oceanicPlateIds,
+    continentalArea: summary.continentalArea,
+    oceanicArea: summary.oceanicArea,
+    targetLandTiles,
     baseHeightRange: { min: minHeight, max: maxHeight },
     crustConfigApplied: {
-      continentalFraction,
-      clusteringBias,
-      microcontinentChance,
+      mode,
+      continentalFraction: appliedContinentalFraction,
+      clusteringBias: mode === "area" ? 0 : clusteringBias,
+      microcontinentChance: mode === "area" ? 0 : microcontinentChance,
       edgeBlend,
       noiseAmplitude,
       continentalHeight,
@@ -1234,6 +1413,10 @@ function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     1,
     Math.min(totalTiles - 1, Math.round(totalTiles * (1 - waterPct / 100)))
   );
+  const foundationCfg = tunables.FOUNDATION_CFG;
+  const crustMode = normalizeCrustMode2(
+    landmassCfg.crustMode ?? foundationCfg?.crustMode ?? foundationCfg?.surface?.crustMode ?? foundationCfg?.surface?.landmass?.crustMode
+  );
   const closenessLimit = computeClosenessLimit(postCfg);
   const adapter = ctx?.adapter;
   const logPrefix = "[landmass-plate]";
@@ -1245,6 +1428,7 @@ function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     closenessLimit,
     targetLandTiles,
     landmassCfg,
+    crustMode,
     ctx
   );
   if (!crustResult) {
@@ -1256,6 +1440,11 @@ function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
   const seaLevel = crustResult.seaLevel;
   const crustPlateCount = crustResult.plateCount;
   const crustContinentalPlates = crustResult.continentalPlates;
+  const crustContinentalPlateIds = crustResult.continentalPlateIds;
+  const crustOceanicPlateIds = crustResult.oceanicPlateIds;
+  const crustContinentalArea = crustResult.continentalArea;
+  const crustOceanicArea = crustResult.oceanicArea;
+  const crustModeApplied = crustResult.mode;
   const crustConfigApplied = crustResult.crustConfigApplied;
   const baseHeightRange = crustResult.baseHeightRange;
   const setTerrain = (x, y, terrain, isLand) => {
@@ -1274,7 +1463,7 @@ function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     for (let x = 0; x < width; x++) {
       const idx4 = rowOffset + x;
       const isLand = landMask[idx4] === 1;
-      setTerrain(x, y, isLand ? FLAT_TERRAIN2 : OCEAN_TERRAIN2, isLand);
+      setTerrain(x, y, isLand ? FLAT_TERRAIN : OCEAN_TERRAIN, isLand);
     }
   }
   const plateStats = /* @__PURE__ */ new Map();
@@ -1350,14 +1539,22 @@ function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     north: win.north,
     continent: index
   }));
-  const seaLevelStr = seaLevel != null && Number.isFinite(seaLevel) ? seaLevel.toFixed(3) : "n/a";
   const applied = crustConfigApplied;
   console.log(
-    `${logPrefix} Crust-first stats: seaLevel=${seaLevelStr}, landTiles=${finalLandTiles}/${size} (${(finalLandTiles / size * 100).toFixed(1)}%)`
+    `${logPrefix} Crust mode=${crustModeApplied} seaLevel=${seaLevel != null && Number.isFinite(seaLevel) ? seaLevel.toFixed(3) : "n/a"}, landTiles=${finalLandTiles}/${size} (${(finalLandTiles / size * 100).toFixed(1)}%), targetLandTiles=${targetLandTiles}, continentalArea=${crustContinentalArea}, oceanicArea=${crustOceanicArea}, waterPct=${waterPct.toFixed(1)}%`
   );
   console.log(
-    `${logPrefix} Crust config: plates=${crustContinentalPlates}/${crustPlateCount} continental, edgeBlend=${applied ? applied.edgeBlend.toFixed(2) : "n/a"}, noise=${applied ? applied.noiseAmplitude.toFixed(2) : "n/a"}, heights=[${applied ? applied.oceanicHeight.toFixed(2) : "n/a"},${applied ? applied.continentalHeight.toFixed(2) : "n/a"}], closenessLimit=${closenessLimit}, targetLandTiles=${targetLandTiles}, waterPct=${waterPct.toFixed(1)}%`
+    `${logPrefix} Crust config: plates=${crustContinentalPlates}/${crustPlateCount} continental, mode=${applied ? applied.mode : crustModeApplied}, edgeBlend=${applied ? applied.edgeBlend.toFixed(2) : "n/a"}, noise=${applied ? applied.noiseAmplitude.toFixed(2) : "n/a"}, heights=[${applied ? applied.oceanicHeight.toFixed(2) : "n/a"},${applied ? applied.continentalHeight.toFixed(2) : "n/a"}], closenessLimit=${closenessLimit}`
   );
+  console.log(
+    `${logPrefix} Continental plates (${crustContinentalPlateIds.length}): [${crustContinentalPlateIds.join(",")}]`
+  );
+  console.log(
+    `${logPrefix} Oceanic plates (${crustOceanicPlateIds.length}): [${crustOceanicPlateIds.join(",")}]`
+  );
+  if (crustModeApplied === "area" && crustOceanicPlateIds.length === 0) {
+    console.log(`${logPrefix} WARNING: Area crust typing produced no oceanic plates`);
+  }
   if (baseHeightRange) {
     console.log(
       `${logPrefix} Height range: [${baseHeightRange.min.toFixed(3)},${baseHeightRange.max.toFixed(3)}]`
@@ -1433,8 +1630,7 @@ function getStoryTags() {
 function resetStoryTags() {
   _cache2 = null;
 }
-var HILL_FRACTAL = 1;
-var COAST_TERRAIN = 1;
+var HILL_FRACTAL2 = 1;
 function clamp(v, lo, hi) {
   if (v < lo) return lo;
   if (v > hi) return hi;
@@ -1466,7 +1662,7 @@ function addRuggedCoasts(iWidth, iHeight, ctx) {
   const area = Math.max(1, iWidth * iHeight);
   const sqrtScale = Math.min(2, Math.max(0.6, Math.sqrt(area / 1e4)));
   if (adapter?.createFractal) {
-    adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 4, 0);
+    adapter.createFractal(HILL_FRACTAL2, iWidth, iHeight, 4, 0);
   }
   const foundation = ctx?.foundation;
   const boundaryCloseness = foundation?.plates.boundaryCloseness ?? null;
@@ -1554,7 +1750,7 @@ function addRuggedCoasts(iWidth, iHeight, ctx) {
   };
   const getFractalHeight = (x, y) => {
     if (adapter?.getFractalHeight) {
-      return adapter.getFractalHeight(HILL_FRACTAL, x, y);
+      return adapter.getFractalHeight(HILL_FRACTAL2, x, y);
     }
     return 0;
   };
@@ -1664,16 +1860,14 @@ function addRuggedCoasts(iWidth, iHeight, ctx) {
     }
   }
 }
-var HILL_FRACTAL2 = 1;
-var COAST_TERRAIN2 = 1;
-var FLAT_TERRAIN3 = 3;
+var HILL_FRACTAL3 = 1;
 function storyKey(x, y) {
   return `${x},${y}`;
 }
 function addIslandChains(iWidth, iHeight, ctx) {
   const adapter = ctx?.adapter;
   if (adapter?.createFractal) {
-    adapter.createFractal(HILL_FRACTAL2, iWidth, iHeight, 5, 0);
+    adapter.createFractal(HILL_FRACTAL3, iWidth, iHeight, 5, 0);
   }
   const tunables = getTunables();
   const islandsCfg = tunables.FOUNDATION_CFG?.islands || {};
@@ -1706,7 +1900,7 @@ function addIslandChains(iWidth, iHeight, ctx) {
   };
   const getFractalHeight = (x, y) => {
     if (adapter?.getFractalHeight) {
-      return adapter.getFractalHeight(HILL_FRACTAL2, x, y);
+      return adapter.getFractalHeight(HILL_FRACTAL3, x, y);
     }
     return 0;
   };
@@ -1767,7 +1961,7 @@ function addIslandChains(iWidth, iHeight, ctx) {
       const baseAllowed = v > threshold && getRandom("Island Seed", baseIslandDen) === 0;
       const hotspotAllowed = isHotspot && getRandom("Hotspot Island Seed", Math.max(1, (islandsCfg.hotspotSeedDenom ?? 2) | 0)) === 0;
       if (!(baseAllowed || hotspotAllowed)) continue;
-      let centerTerrain = COAST_TERRAIN2;
+      let centerTerrain = COAST_TERRAIN;
       let classifyParadise = false;
       if (isHotspot) {
         const pWeight = paradiseWeight + (nearPassive ? 1 : 0);
@@ -1777,11 +1971,11 @@ function addIslandChains(iWidth, iHeight, ctx) {
         classifyParadise = roll < pWeight;
         if (!classifyParadise) {
           if (getRandom("HotspotPeak", 100) < peakPercent) {
-            centerTerrain = FLAT_TERRAIN3;
+            centerTerrain = FLAT_TERRAIN;
           }
         }
       }
-      const centerIsLand = centerTerrain !== COAST_TERRAIN2 && centerTerrain !== 0;
+      const centerIsLand = centerTerrain !== COAST_TERRAIN && centerTerrain !== OCEAN_TERRAIN;
       applyTerrain(x, y, centerTerrain, centerIsLand);
       if (isHotspot) {
         if (classifyParadise) {
@@ -1799,7 +1993,7 @@ function addIslandChains(iWidth, iHeight, ctx) {
         const ny = y + dy;
         if (nx <= 0 || nx >= iWidth - 1 || ny <= 0 || ny >= iHeight - 1) continue;
         if (!isWater(nx, ny)) continue;
-        applyTerrain(nx, ny, COAST_TERRAIN2, false);
+        applyTerrain(nx, ny, COAST_TERRAIN, false);
       }
     }
   }
@@ -1808,12 +2002,8 @@ function getFractalThreshold(adapter, percent) {
   const clampedPercent = Math.max(0, Math.min(100, percent));
   return Math.floor(clampedPercent / 100 * 65535);
 }
-var MOUNTAIN_FRACTAL = 0;
-var HILL_FRACTAL3 = 1;
-var MOUNTAIN_TERRAIN = 3;
-var HILL_TERRAIN = 2;
-var COAST_TERRAIN3 = 0;
-var OCEAN_TERRAIN3 = 4;
+var MOUNTAIN_FRACTAL2 = 0;
+var HILL_FRACTAL4 = 1;
 function idx(x, y, width) {
   return y * width + x;
 }
@@ -1887,15 +2077,15 @@ function layerAddMountainsPhysics(ctx, options = {}) {
   }
   const isWater = createIsWaterTile(ctx, adapter, width, height);
   const terrainWriter = (x, y, terrain) => {
-    const isLand = terrain !== COAST_TERRAIN3 && terrain !== OCEAN_TERRAIN3;
+    const isLand = terrain !== COAST_TERRAIN && terrain !== OCEAN_TERRAIN;
     writeHeightfield(ctx, x, y, { terrain, isLand });
   };
   const foundation = ctx?.foundation;
   const foundationEnabled = !!foundation;
   const grainAmount = 5;
   const iFlags = 0;
-  adapter.createFractal(MOUNTAIN_FRACTAL, width, height, grainAmount, iFlags);
-  adapter.createFractal(HILL_FRACTAL3, width, height, grainAmount, iFlags);
+  adapter.createFractal(MOUNTAIN_FRACTAL2, width, height, grainAmount, iFlags);
+  adapter.createFractal(HILL_FRACTAL4, width, height, grainAmount, iFlags);
   let landTiles = 0;
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -1996,8 +2186,8 @@ function computePlateBasedScores(ctx, scores, hillScores, options, isWaterCheck,
       const closenessRaw = boundaryCloseness ? boundaryCloseness[i] / 255 : 0;
       const rift = riftPotential ? riftPotential[i] / 255 : 0;
       const stress = tectonicStress ? tectonicStress[i] / 255 : uplift;
-      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y);
-      const rawHill = adapter.getFractalHeight(HILL_FRACTAL3, x, y);
+      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL2, x, y);
+      const rawHill = adapter.getFractalHeight(HILL_FRACTAL4, x, y);
       const fractalMtn = normalizeFractal(rawMtn);
       const fractalHill = normalizeFractal(rawHill);
       if (closenessRaw < boundaryGate) {
@@ -2042,8 +2232,8 @@ function computeFractalOnlyScores(ctx, scores, hillScores, adapter) {
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = idx(x, y, width);
-      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y);
-      const rawHill = adapter.getFractalHeight(HILL_FRACTAL3, x, y);
+      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL2, x, y);
+      const rawHill = adapter.getFractalHeight(HILL_FRACTAL4, x, y);
       scores[i] = normalizeFractal(rawMtn);
       hillScores[i] = normalizeFractal(rawHill);
     }
@@ -2096,8 +2286,6 @@ function selectTilesAboveThreshold(scores, width, height, threshold, adapter, ex
   }
   return selected;
 }
-var MOUNTAIN_TERRAIN2 = 5;
-var VOLCANO_FEATURE = 1;
 function idx2(x, y, width) {
   return y * width + x;
 }
@@ -2224,7 +2412,7 @@ function layerAddVolcanoesPlateAware(ctx, options = {}) {
     if (adapter.getFeatureType(candidate.x, candidate.y) === VOLCANO_FEATURE) continue;
     if (isTooCloseToExisting(candidate.x, candidate.y, placed, minSpacingClamped)) continue;
     writeHeightfield(ctx, candidate.x, candidate.y, {
-      terrain: MOUNTAIN_TERRAIN2,
+      terrain: MOUNTAIN_TERRAIN,
       isLand: true
     });
     const featureData = {
@@ -2334,11 +2522,10 @@ var LANDMASS_REGION = {
   }
 };
 function markLandmassRegionId(continent, regionId, adapter) {
-  const OCEAN_TERRAIN4 = 0;
   let markedCount = 0;
   for (let y = continent.south; y <= continent.north; y++) {
     for (let x = continent.west; x <= continent.east; x++) {
-      if (adapter.getTerrainType(x, y) !== OCEAN_TERRAIN4) {
+      if (adapter.getTerrainType(x, y) !== OCEAN_TERRAIN) {
         adapter.setLandmassRegionId(x, y, regionId);
         markedCount++;
       }
@@ -3220,8 +3407,8 @@ function logTerrainStats(adapter, width, height, stage) {
         continue;
       }
       const t = adapter.getTerrainType(x, y);
-      if (t === 3) mtn++;
-      else if (t === 2) hill++;
+      if (t === MOUNTAIN_TERRAIN) mtn++;
+      else if (t === HILL_TERRAIN) hill++;
       else flat++;
     }
   }
@@ -3235,13 +3422,12 @@ function logTerrainStats(adapter, width, height, stage) {
 }
 function logAsciiMap(adapter, width, height) {
   console.log("[Placement] Final Map ASCII:");
-  const SYMBOLS = ["~", " ", "^", "M", "."];
   for (let y = height - 1; y >= 0; y--) {
     let row = "";
     if (y % 2 !== 0) row += " ";
     for (let x = 0; x < width; x++) {
       const t = adapter.getTerrainType(x, y);
-      row += (SYMBOLS[t] || "?") + " ";
+      row += getTerrainSymbol(t) + " ";
     }
     console.log(row);
   }
@@ -3376,7 +3562,7 @@ function runPlacement(adapter, iWidth, iHeight, options = {}) {
   return startPositions;
 }
 
-// ../../packages/mapgen-core/dist/chunk-RHF7HTA4.js
+// ../../packages/mapgen-core/dist/chunk-SRKU7MYS.js
 function safeTimestamp() {
   try {
     return typeof Date?.now === "function" ? Date.now() : null;
@@ -3613,6 +3799,20 @@ function rotate2(v, angleRad) {
     x: v.x * cos - v.y * sin,
     y: v.x * sin + v.y * cos
   };
+}
+var HEX_WIDTH = Math.sqrt(3);
+var HEX_HEIGHT = 1.5;
+var HALF_HEX_HEIGHT = HEX_HEIGHT / 2;
+function projectToHexSpace(x, y) {
+  const px = x * HEX_WIDTH;
+  const py = y * HEX_HEIGHT + (Math.floor(x) & 1 ? HALF_HEX_HEIGHT : 0);
+  return { px, py };
+}
+function wrappedHexDistanceSq(a, b, wrapWidth) {
+  const rawDx = Math.abs(a.px - b.px);
+  const dx = Math.min(rawDx, wrapWidth - rawDx);
+  const dy = a.py - b.py;
+  return dx * dx + dy * dy;
 }
 function getHexNeighbors(x, y, width, height) {
   const neighbors = [];
@@ -3881,6 +4081,7 @@ function computePlatesVoronoi(width, height, config, options = {}) {
       plateCountOverride = null
     } = attempt;
     const plateCount = Math.max(2, plateCountOverride ?? count);
+    const wrapWidthPx = width * HEX_WIDTH;
     const bbox = { xl: 0, xr: width, yt: 0, yb: height };
     const sites = voronoiUtils.createRandomSites(plateCount, bbox.xr, bbox.yb);
     const diagram = voronoiUtils.computeVoronoi(sites, bbox, relaxationSteps);
@@ -3899,6 +4100,9 @@ function computePlatesVoronoi(width, height, config, options = {}) {
       }
       return region;
     });
+    const plateCenters = plateRegions.map(
+      (region) => projectToHexSpace(region.seedLocation.x, region.seedLocation.y)
+    );
     if (!plateRegions.length) {
       throw new Error("[WorldModel] Plate generation returned zero plates");
     }
@@ -3922,13 +4126,11 @@ function computePlatesVoronoi(width, height, config, options = {}) {
     }));
     for (const regionCell of regionCells) {
       const pos = { x: regionCell.cell.site.x, y: regionCell.cell.site.y };
+      const posHex = projectToHexSpace(pos.x, pos.y);
       let bestDist = Infinity;
       let bestPlateId = -1;
       for (let i = 0; i < plateRegions.length; i++) {
-        let dx = Math.abs(pos.x - plateRegions[i].seedLocation.x);
-        if (dx > width / 2) dx = width - dx;
-        const dy = pos.y - plateRegions[i].seedLocation.y;
-        const dist = dx * dx + dy * dy;
+        const dist = wrappedHexDistanceSq(posHex, plateCenters[i], wrapWidthPx);
         if (dist < bestDist) {
           bestDist = dist;
           bestPlateId = i;
@@ -3951,11 +4153,9 @@ function computePlatesVoronoi(width, height, config, options = {}) {
         const i = y * width + x;
         let bestDist = Infinity;
         let pId = 0;
+        const tileHex = projectToHexSpace(x, y);
         for (let p = 0; p < plateRegions.length; p++) {
-          let dx = Math.abs(x - plateRegions[p].seedLocation.x);
-          if (dx > width / 2) dx = width - dx;
-          const dy = y - plateRegions[p].seedLocation.y;
-          const dist = dx * dx + dy * dy;
+          const dist = wrappedHexDistanceSq(tileHex, plateCenters[p], wrapWidthPx);
           if (dist < bestDist) {
             bestDist = dist;
             pId = p;
@@ -4662,7 +4862,6 @@ function logEngineSurfaceApisOnce() {
     devLogPrefixed("ENGINE_API", "Failed to introspect engine APIs", err);
   }
 }
-var HILL_TERRAIN_DEFAULT = 2;
 var ASCII_CHARS = {
   /** Base terrain characters */
   base: {
@@ -4800,7 +4999,7 @@ function logReliefAscii(adapter, width, height, options = {}) {
         }
         const isMountain = adapter.isMountain(x, y);
         const terrainType = adapter.getTerrainType(x, y);
-        const isHills = terrainType === HILL_TERRAIN_DEFAULT;
+        const isHills = terrainType === HILL_TERRAIN;
         if (isMountain) {
           return { base: chars.base.land, overlay: chars.relief.mountain };
         }
@@ -5476,7 +5675,8 @@ var MapOrchestrator = class {
           windows,
           landMask: plateResult.landMask,
           context: ctx,
-          adapter: ctx.adapter
+          adapter: ctx.adapter,
+          crustMode: landmassCfg.crustMode
         });
         windows = separationResult.windows;
         windows = applyLandmassPostAdjustments(windows, landmassCfg.geometry, iWidth, iHeight);
@@ -5590,7 +5790,7 @@ var MapOrchestrator = class {
       this.stageResults.push(stageResult);
     }
     if (stageFlags.rivers && ctx) {
-      const navigableRiverTerrain = 3;
+      const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
       const logStats = (label) => {
         const w = iWidth;
         const h = iHeight;
@@ -5602,8 +5802,8 @@ var MapOrchestrator = class {
               continue;
             }
             const t = ctx.adapter.getTerrainType(x, y);
-            if (t === 3) mtn++;
-            else if (t === 2) hill++;
+            if (t === MOUNTAIN_TERRAIN) mtn++;
+            else if (t === HILL_TERRAIN) hill++;
             else flat++;
           }
         }

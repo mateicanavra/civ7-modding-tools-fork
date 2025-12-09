@@ -46,10 +46,10 @@ function buildConfig(plateCount: number): BootstrapOptions {
       landmassPlates: true,
       coastlines: true,
       storySeed: true,
-      storyHotspots: false,
-      storyRifts: false,
-      storyOrogeny: false,
-      storyCorridorsPre: false,
+      storyHotspots: true,
+      storyRifts: true,
+      storyOrogeny: true,
+      storyCorridorsPre: true,
       storyPaleo: true,
       storySwatches: true,
       mountains: true,
@@ -64,22 +64,23 @@ function buildConfig(plateCount: number): BootstrapOptions {
     overrides: {
       toggles: {
         // Enable standard story features for variety
-        STORY_ENABLE_HOTSPOTS: false,
-        STORY_ENABLE_RIFTS: false,
-        STORY_ENABLE_OROGENY: false,
+        STORY_ENABLE_HOTSPOTS: true,
+        STORY_ENABLE_RIFTS: true,
+        STORY_ENABLE_OROGENY: true,
         STORY_ENABLE_SWATCHES: true,
         STORY_ENABLE_PALEO: true,
-        STORY_ENABLE_CORRIDORS: false,
+        STORY_ENABLE_CORRIDORS: true,
       },
       landmass: {
-        baseWaterPercent: 20, // More ocean for distinct continents
+        crustMode: "area",
+        baseWaterPercent: 40, // More ocean for distinct continents
         waterThumbOnScale: -2,
         jitterAmpFracBase: 0.015,
         boundaryBias: 0.1, // Slight bias towards boundaries for interest
         boundaryShareTarget: 0.4,
         tectonics: {
           boundaryArcWeight: 0.2, // Balanced
-          interiorNoiseWeight: 0.4, // Balanced
+          interiorNoiseWeight: 0.6, // Balanced
         },
       },
       margins: {
@@ -92,7 +93,7 @@ function buildConfig(plateCount: number): BootstrapOptions {
           threshold: 0.55,
           power: 1.0,
           convergent: 1.4,
-          transform: 0.8,
+          transform: 1.6,
           divergent: 0.6,
           interior: 0.2,
           bayWeight: 0.5,
@@ -189,8 +190,8 @@ function buildConfig(plateCount: number): BootstrapOptions {
           oceanSeparation: {
             enabled: true, // Ensure oceans separate continents
             baseSeparationTiles: 3,
-            boundaryClosenessMultiplier: 0.5,
-            maxPerRowDelta: 1,
+            boundaryClosenessMultiplier: 0.9,
+            maxPerRowDelta: 10,
             minChannelWidth: 3,
             respectSeaLanes: true,
             edgeWest: {
