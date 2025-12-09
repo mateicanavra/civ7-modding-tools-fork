@@ -17,7 +17,7 @@ importers:
         specifier: ^9.39.1
         version: 9.39.1
       '@types/node':
-        specifier: ^24.10.1
+        specifier: ^24.2.1
         version: 24.10.1
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.48.1
@@ -38,13 +38,13 @@ importers:
         specifier: ^3.7.4
         version: 3.7.4
       rimraf:
-        specifier: ^6.1.2
+        specifier: ^6.0.1
         version: 6.1.2
       turbo:
         specifier: ^2.6.3
         version: 2.6.3
       typescript:
-        specifier: ^5.9.3
+        specifier: ^5.9.2
         version: 5.9.3
       vitest:
         specifier: ^3.2.4

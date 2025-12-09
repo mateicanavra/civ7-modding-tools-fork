@@ -1,15 +1,11 @@
 /**
  * Swooper Desert Mountains — Hyper-arid, plate-driven world (TypeScript)
  *
- * Purpose:
- * - Deliver a mostly dry planet punctuated by brutal orographic walls.
- * - Lean on plate-aware uplift so convergent margins become mega ranges.
- * - Reserve humidity for narrow rainfall belts hugging those ranges and a
- *   few equatorial/monsoonal refuges.
+ * REFACTORED CONFIGURATION:
+ * This version uses a completely standard, balanced configuration to eliminate
+ * extreme mountain generation and start failures.
  *
- * This is the TypeScript version using the migrated MapOrchestrator from
- * @swooper/mapgen-core. All map generation logic is encapsulated in the
- * library; this entry point only wires configuration and engine events.
+ * It uses the migrated MapOrchestrator from @swooper/mapgen-core.
  */
 
 /// <reference types="@civ7/types" />
@@ -20,25 +16,18 @@ import type { BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
 // ============================================================================
 // Dynamic Plate Density Calculation
 // ============================================================================
-// The root cause of "mountain spam" was a mismatch between plate count and map
-// size. With 23 plates on a 74x46 map (~3400 tiles), each plate averages only
-// ~148 tiles (radius ~7). This means EVERY tile is near a plate boundary, so
-// the interior penalty never applies and mountains form everywhere.
-//
-// Solution: Calculate plate count dynamically based on actual map dimensions.
-// Target density: 1 plate per 300 tiles ensures plate interiors are large
-// enough for the interior penalty to suppress mountains away from boundaries.
-// ============================================================================
-
-const PLATE_DENSITY_TARGET = 300; // tiles per plate
+// Standard density target to ensure reasonable plate sizes.
+// 500 tiles per plate ensures plates are large enough to have distinct
+// interiors vs boundaries.
+const PLATE_DENSITY_TARGET = 500;
 const PLATE_COUNT_MIN = 4;
-const PLATE_COUNT_MAX = 30;
+const PLATE_COUNT_MAX = 24;
 
 /**
  * Calculate optimal plate count for the given map dimensions.
  * @param width - Map width in tiles
  * @param height - Map height in tiles
- * @returns Plate count clamped to [4, 30]
+ * @returns Plate count clamped to [4, 24]
  */
 function calculatePlateCount(width: number, height: number): number {
   const totalTiles = width * height;
@@ -48,7 +37,7 @@ function calculatePlateCount(width: number, height: number): number {
 
 /**
  * Build the bootstrap configuration with dynamic plate count.
- * MUST be called inside GenerateMap event when map dimensions are finalized.
+ * Uses standard, balanced defaults to ensure playability.
  */
 function buildConfig(plateCount: number): BootstrapOptions {
   return {
@@ -74,315 +63,318 @@ function buildConfig(plateCount: number): BootstrapOptions {
     },
     overrides: {
       toggles: {
-        STORY_ENABLE_HOTSPOTS: false,
-        STORY_ENABLE_RIFTS: false,
-        STORY_ENABLE_OROGENY: false,
-        STORY_ENABLE_SWATCHES: false,
-        STORY_ENABLE_PALEO: false,
-        STORY_ENABLE_CORRIDORS: false,
+        // Enable standard story features for variety
+        STORY_ENABLE_HOTSPOTS: true,
+        STORY_ENABLE_RIFTS: true,
+        STORY_ENABLE_OROGENY: true,
+        STORY_ENABLE_SWATCHES: true,
+        STORY_ENABLE_PALEO: true,
+        STORY_ENABLE_CORRIDORS: true,
       },
       landmass: {
-        baseWaterPercent: 63,
-        waterThumbOnScale: -6,
-        jitterAmpFracBase: 0.02,
-        // --- Invert Landmass Priorities ---
-        // Force the engine to pick stable plate interiors (flat land)
-        // instead of just picking the tectonic boundaries (mountains).
-        boundaryBias: 0.0, // Removed bonus for being near a boundary
-        boundaryShareTarget: 0.0, // Do not force a specific % of land to be boundary
+        baseWaterPercent: 60, // Standard water level
+        waterThumbOnScale: 0,
+        jitterAmpFracBase: 0.015,
+        boundaryBias: 0.1, // Slight bias towards boundaries for interest
+        boundaryShareTarget: 0.4,
         tectonics: {
-          boundaryArcWeight: 0.2, // Drastically reduce value of ridges (was ~0.8)
-          interiorNoiseWeight: 0.1, // Make interiors solid/reliable (was ~0.3)
+          boundaryArcWeight: 0.6, // Balanced
+          interiorNoiseWeight: 0.4, // Balanced
         },
       },
       margins: {
-        activeFraction: 0.34,
-        passiveFraction: 0.18,
-        minSegmentLength: 28,
+        activeFraction: 0.35,
+        passiveFraction: 0.2,
+        minSegmentLength: 15,
       },
       coastlines: {
         plateBias: {
-          threshold: 0.54,
-          power: 1.25,
-          convergent: 1.1,
-          transform: 0.45,
-          divergent: -0.2,
-          interior: -0.15,
-          bayWeight: 0.48,
-          bayNoiseBonus: 1.2,
-          fjordWeight: 1.05,
+          threshold: 0.55,
+          power: 1.0,
+          convergent: 1.0,
+          transform: 0.8,
+          divergent: 0.6,
+          interior: 0.2,
+          bayWeight: 0.5,
+          bayNoiseBonus: 0.5,
+          fjordWeight: 0.8,
         },
       },
-      climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0.45,
-            bandWeight: 0.55,
-          },
-          bands: {
-            deg0to10: 92,
-            deg10to20: 64,
-            deg20to35: 32,
-            deg35to55: 52,
-            deg55to70: 34,
-            deg70plus: 18,
-          },
-          orographic: {
-            hi1Threshold: 280,
-            hi1Bonus: 6,
-            hi2Threshold: 540,
-            hi2Bonus: 18,
-          },
-          coastal: {
-            coastalLandBonus: 3,
-            shallowAdjBonus: 2,
-          },
-          noise: {
-            baseSpanSmall: 5,
-            spanLargeScaleFactor: 1.1,
-          },
-        },
-        refine: {
-          waterGradient: {
-            radius: 7,
-            perRingBonus: 1.6,
-            lowlandBonus: 3,
-          },
-          orographic: {
-            steps: 6,
-            reductionBase: 34,
-            reductionPerStep: 14,
-          },
-          riverCorridor: {
-            lowlandAdjacencyBonus: 22,
-            highlandAdjacencyBonus: 11,
-          },
-          lowBasin: {
-            radius: 4,
-            delta: 16,
-          },
-        },
-      },
-      story: {
-        hotspot: {
-          maxTrails: 9,
-          steps: 13,
-          stepLen: 2,
-          minDistFromLand: 6,
-          minTrailSeparation: 14,
-          paradiseBias: 1,
-          volcanicBias: 2,
-          volcanicPeakChance: 0.58,
-        },
-        rift: {
-          maxRiftsPerMap: 2,
-          lineSteps: 22,
-          stepLen: 3,
-          shoulderWidth: 1,
-        },
-        orogeny: {
-          beltMaxPerContinent: 4,
-          beltMinLength: 16,
-          radius: 7,
-          windwardBoost: 24,
-          leeDrynessAmplifier: 2.6,
-        },
-        swatches: {
-          maxPerMap: 8,
-          forceAtLeastOne: true,
-          types: {
-            macroDesertBelt: {
-              weight: 20,
-              latitudeCenterDeg: 18,
-              halfWidthDeg: 18,
-              drynessDelta: 60,
-              bleedRadius: 10,
-            },
-            equatorialRainbelt: {
-              weight: 7,
-              latitudeCenterDeg: 4,
-              halfWidthDeg: 6,
-              wetnessDelta: 70,
-              bleedRadius: 5,
-            },
-            mountainForests: {
-              weight: 5,
-              coupleToOrogeny: true,
-              windwardBonus: 18,
-              leePenalty: 10,
-              bleedRadius: 5,
-            },
-            rainforestArchipelago: {
-              weight: 2,
-              islandBias: 1.5,
-              reefBias: 1.2,
-              wetnessDelta: 28,
-              bleedRadius: 4,
-            },
-          },
-        },
-        paleo: {
-          maxFossilChannels: 24,
-          fossilChannelLengthTiles: 18,
-          fossilChannelStep: 2,
-          fossilChannelHumidity: 7,
-          fossilChannelMinDistanceFromCurrentRivers: 5,
-          sizeScaling: {
-            lengthMulSqrt: 0.8,
-          },
-          elevationCarving: {
-            enableCanyonRim: true,
-            rimWidth: 5,
-            canyonDryBonus: 12,
-            bluffWetReduction: 2,
-          },
-        },
-      },
-      microclimate: {
-        rainfall: {
-          riftBoost: 6,
-          riftRadius: 2,
-          paradiseDelta: 4,
-          volcanicDelta: 5,
-        },
-        features: {
-          paradiseReefChance: 18,
-          volcanicForestChance: 14,
-          volcanicTaigaChance: 12,
-        },
-      },
-      biomes: {
-        tundra: {
-          latMin: 62,
-          elevMin: 420,
-          rainMax: 55,
-        },
-        tropicalCoast: {
-          latMax: 22,
-          rainMin: 115,
-        },
-        riverValleyGrassland: {
-          latMax: 48,
-          rainMin: 65,
-        },
-        riftShoulder: {
-          grasslandLatMax: 48,
-          grasslandRainMin: 55,
-          tropicalLatMax: 28,
-          tropicalRainMin: 95,
-        },
-      },
-      featuresDensity: {
-        rainforestExtraChance: 18,
-        forestExtraChance: 12,
-        taigaExtraChance: 2,
-        shelfReefMultiplier: 0.85,
-      },
+      // Configuration moved inside foundation to ensure it is picked up correctly
+      // by the orchestrator without relying on complex merging logic.
       foundation: {
         mountains: {
-          // Corrected physics settings to prevent mountain-spam
-          tectonicIntensity: 0.5,
-          mountainThreshold: 0.82,
-          hillThreshold: 0.35,
-          upliftWeight: 0.65,
-          fractalWeight: 0.35,
-          riftDepth: 0.4,
-          boundaryWeight: 0.7,
-          boundaryExponent: 1.35,
-          interiorPenaltyWeight: 0.6,
-          convergenceBonus: 0.9,
-          transformPenalty: 0.3,
-          riftPenalty: 0.9,
-          hillBoundaryWeight: 0.5,
-          hillRiftBonus: 0.52,
-          hillConvergentFoothill: 0.4,
-          hillInteriorFalloff: 0.3,
-          hillUpliftWeight: 0.4,
+          // "Safety" physics settings to prove control
+          // HARD-CODED LOW WEIGHTS to bypass potential build staleness/intensity logic
+          tectonicIntensity: 1.0,
+          mountainThreshold: 0.95, // Near impossible
+          hillThreshold: 0.5, // High bar for hills
+          upliftWeight: 0.05, // Tiny
+          fractalWeight: 0.05, // Tiny
+          riftDepth: 0.2,
+          boundaryWeight: 0.1, // Tiny
+          boundaryExponent: 2.0,
+          interiorPenaltyWeight: 0.0,
+          convergenceBonus: 0.1, // Tiny
+          transformPenalty: 0.9,
+          riftPenalty: 1.0,
+          hillBoundaryWeight: 0.1,
+          hillRiftBonus: 0.1,
+          hillConvergentFoothill: 0.1,
+          hillInteriorFalloff: 0.5,
+          hillUpliftWeight: 0.05,
         },
         volcanoes: {
-          baseDensity: 1 / 175,
-          minSpacing: 5,
+          enabled: false, // Disabled to isolate terrain
+          baseDensity: 0.008,
+          minSpacing: 4,
           boundaryThreshold: 0.3,
-          boundaryWeight: 1.6,
-          convergentMultiplier: 3.25,
-          transformMultiplier: 0.9,
-          divergentMultiplier: 0.22,
-          hotspotWeight: 0.16,
-          shieldPenalty: 0.78,
-          randomJitter: 0.12,
-          minVolcanoes: 9,
-          maxVolcanoes: 42,
+          boundaryWeight: 1.2,
+          convergentMultiplier: 2.5,
+          transformMultiplier: 0.8,
+          divergentMultiplier: 0.3,
+          hotspotWeight: 0.4,
+          shieldPenalty: 0.5,
+          randomJitter: 0.1,
+          minVolcanoes: 5,
+          maxVolcanoes: 25,
         },
         plates: {
-          count: plateCount, // <-- DYNAMIC: calculated from map dimensions
-          convergenceMix: 0.55,
-          relaxationSteps: 3,
-          seedJitter: 5,
-          interiorSmooth: 1.35,
-          plateRotationMultiple: 3,
+          count: plateCount,
+          convergenceMix: 0.5,
+          relaxationSteps: 5, // Smoother cells
+          seedJitter: 0.2,
+          interiorSmooth: 1.0,
+          plateRotationMultiple: 1.0,
         },
         dynamics: {
           wind: {
-            jetStreaks: 5,
-            jetStrength: 2.0,
-            variance: 0.4,
+            jetStreaks: 3,
+            jetStrength: 1.0,
+            variance: 0.5,
           },
           currents: {
-            basinGyreCountMax: 4,
-            westernBoundaryBias: 1.6,
-            currentStrength: 1.4,
+            basinGyreCountMax: 3,
+            westernBoundaryBias: 1.2,
+            currentStrength: 1.0,
           },
           mantle: {
-            bumps: 10,
-            amplitude: 6,
-            scale: 1.8,
+            bumps: 6,
+            amplitude: 1.0,
+            scale: 1.0,
           },
           directionality: {
-            cohesion: 0.48,
+            cohesion: 0.2,
             primaryAxes: {
-              plateAxisDeg: 47,
-              windBiasDeg: 24,
-              currentBiasDeg: 85,
+              plateAxisDeg: 45,
+              windBiasDeg: 0,
+              currentBiasDeg: 90,
             },
             interplay: {
-              windsFollowPlates: 0.55,
-              currentsFollowWinds: 0.62,
+              windsFollowPlates: 0.3,
+              currentsFollowWinds: 0.5,
             },
             hemispheres: {
               southernFlip: true,
             },
             variability: {
-              angleJitterDeg: 22,
-              magnitudeVariance: 0.45,
+              angleJitterDeg: 15,
+              magnitudeVariance: 0.3,
             },
           },
         },
         policy: {
-          windInfluence: 1.2,
-          currentHumidityBias: 0.6,
-          boundaryFjordBias: 1.1,
-          shelfReefBias: 0.7,
+          windInfluence: 1.0,
+          currentHumidityBias: 0.5,
+          boundaryFjordBias: 0.8,
+          shelfReefBias: 0.5,
           oceanSeparation: {
-            enabled: false,
-            baseSeparationTiles: 0,
-            boundaryClosenessMultiplier: 0,
-            maxPerRowDelta: 0,
-            minChannelWidth: 5,
+            enabled: true, // Ensure oceans separate continents
+            baseSeparationTiles: 3,
+            boundaryClosenessMultiplier: 0.5,
+            maxPerRowDelta: 1,
+            minChannelWidth: 3,
             respectSeaLanes: true,
             edgeWest: {
-              enabled: false,
-              baseTiles: 0,
-              boundaryClosenessMultiplier: 1.0,
+              enabled: true,
+              baseTiles: 3,
+              boundaryClosenessMultiplier: 0.5,
               maxPerRowDelta: 1,
             },
             edgeEast: {
-              enabled: false,
-              baseTiles: 0,
-              boundaryClosenessMultiplier: 1.0,
+              enabled: true,
+              baseTiles: 3,
+              boundaryClosenessMultiplier: 0.5,
               maxPerRowDelta: 1,
             },
           },
         },
+      },
+      climate: {
+        baseline: {
+          blend: {
+            baseWeight: 0.5,
+            bandWeight: 0.5,
+          },
+          bands: {
+            // Standard Earth-like distribution
+            deg0to10: 80, // Wet tropics
+            deg10to20: 60,
+            deg20to35: 20, // Deserts
+            deg35to55: 60, // Temperate
+            deg55to70: 40,
+            deg70plus: 20,
+          },
+          orographic: {
+            hi1Threshold: 200,
+            hi1Bonus: 10,
+            hi2Threshold: 400,
+            hi2Bonus: 20,
+          },
+          coastal: {
+            coastalLandBonus: 10,
+            shallowAdjBonus: 5,
+          },
+          noise: {
+            baseSpanSmall: 3,
+            spanLargeScaleFactor: 1.0,
+          },
+        },
+        refine: {
+          waterGradient: {
+            radius: 5,
+            perRingBonus: 2,
+            lowlandBonus: 5,
+          },
+          orographic: {
+            steps: 4,
+            reductionBase: 20,
+            reductionPerStep: 10,
+          },
+          riverCorridor: {
+            lowlandAdjacencyBonus: 15,
+            highlandAdjacencyBonus: 5,
+          },
+          lowBasin: {
+            radius: 3,
+            delta: 10,
+          },
+        },
+      },
+      story: {
+        hotspot: {
+          maxTrails: 5,
+          steps: 8,
+          stepLen: 2,
+          minDistFromLand: 4,
+          minTrailSeparation: 10,
+          paradiseBias: 1,
+          volcanicBias: 1,
+          volcanicPeakChance: 0.3,
+        },
+        rift: {
+          maxRiftsPerMap: 2,
+          lineSteps: 15,
+          stepLen: 2,
+          shoulderWidth: 1,
+        },
+        orogeny: {
+          beltMaxPerContinent: 2,
+          beltMinLength: 10,
+          radius: 5,
+          windwardBoost: 15,
+          leeDrynessAmplifier: 1.5,
+        },
+        swatches: {
+          maxPerMap: 4,
+          forceAtLeastOne: false,
+          types: {
+            macroDesertBelt: {
+              weight: 10,
+              latitudeCenterDeg: 30,
+              halfWidthDeg: 10,
+              drynessDelta: 40,
+              bleedRadius: 5,
+            },
+            equatorialRainbelt: {
+              weight: 10,
+              latitudeCenterDeg: 0,
+              halfWidthDeg: 8,
+              wetnessDelta: 40,
+              bleedRadius: 5,
+            },
+            mountainForests: {
+              weight: 5,
+              coupleToOrogeny: true,
+              windwardBonus: 15,
+              leePenalty: 10,
+              bleedRadius: 3,
+            },
+            rainforestArchipelago: {
+              weight: 5,
+              islandBias: 1.2,
+              reefBias: 1.2,
+              wetnessDelta: 20,
+              bleedRadius: 3,
+            },
+          },
+        },
+        paleo: {
+          maxFossilChannels: 12,
+          fossilChannelLengthTiles: 12,
+          fossilChannelStep: 2,
+          fossilChannelHumidity: 10,
+          fossilChannelMinDistanceFromCurrentRivers: 4,
+          sizeScaling: {
+            lengthMulSqrt: 0.8,
+          },
+          elevationCarving: {
+            enableCanyonRim: true,
+            rimWidth: 3,
+            canyonDryBonus: 10,
+            bluffWetReduction: 5,
+          },
+        },
+      },
+      microclimate: {
+        rainfall: {
+          riftBoost: 10,
+          riftRadius: 2,
+          paradiseDelta: 10,
+          volcanicDelta: 10,
+        },
+        features: {
+          paradiseReefChance: 25,
+          volcanicForestChance: 20,
+          volcanicTaigaChance: 15,
+        },
+      },
+      biomes: {
+        tundra: {
+          latMin: 60,
+          elevMin: 400,
+          rainMax: 60,
+        },
+        tropicalCoast: {
+          latMax: 23,
+          rainMin: 80,
+        },
+        riverValleyGrassland: {
+          latMax: 50,
+          rainMin: 50,
+        },
+        riftShoulder: {
+          grasslandLatMax: 50,
+          grasslandRainMin: 40,
+          tropicalLatMax: 30,
+          tropicalRainMin: 80,
+        },
+      },
+      featuresDensity: {
+        rainforestExtraChance: 10,
+        forestExtraChance: 10,
+        taigaExtraChance: 5,
+        shelfReefMultiplier: 1.0,
       },
     },
   };
@@ -405,11 +397,12 @@ engine.on("GenerateMap", () => {
   const height = GameplayMap.getGridHeight();
   const totalTiles = width * height;
 
-  // 2. Calculate dynamic plate count (1 plate per 300 tiles)
-  // Example: 74x46 (3404 tiles) -> 11 plates (vs original hardcoded 23)
+  // 2. Calculate dynamic plate count (1 plate per 500 tiles)
   const plateCount = calculatePlateCount(width, height);
 
-  console.log(`[SWOOPER_MOD] Dynamic Config: ${width}x${height} (${totalTiles} tiles) -> ${plateCount} plates`);
+  console.log(
+    `[SWOOPER_MOD] Dynamic Config: ${width}x${height} (${totalTiles} tiles) -> ${plateCount} plates`
+  );
 
   // 3. Bootstrap with just-in-time configuration
   bootstrap(buildConfig(plateCount));

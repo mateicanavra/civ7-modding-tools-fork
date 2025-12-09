@@ -33,10 +33,12 @@ export type MountainsConfig = BootstrapMountainsConfig;
 
 const MOUNTAIN_FRACTAL = 0;
 const HILL_FRACTAL = 1;
-const MOUNTAIN_TERRAIN = 5;
-const HILL_TERRAIN = 4;
-const COAST_TERRAIN = 1;
-const OCEAN_TERRAIN = 0;
+// Terrain constants matched to Civ7 terrain.xml order:
+// 0:COAST, 1:FLAT, 2:HILL, 3:MOUNTAIN, 4:OCEAN
+const MOUNTAIN_TERRAIN = 3;
+const HILL_TERRAIN = 2;
+const COAST_TERRAIN = 0;
+const OCEAN_TERRAIN = 4;
 
 // ============================================================================
 // Helper Functions
@@ -320,8 +322,7 @@ function computePlateBasedScores(
       const foothillExtent = 0.5 + fractalHill * 0.5;
 
       let hillScore =
-        fractalHill * options.fractalWeight * 0.8 +
-        uplift * options.hillUpliftWeight * 0.3;
+        fractalHill * options.fractalWeight * 0.8 + uplift * options.hillUpliftWeight * 0.3;
 
       if (collision > 0 && options.hillBoundaryWeight > 0) {
         hillScore += hillIntensity * options.hillBoundaryWeight * foothillExtent;

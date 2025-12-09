@@ -67,20 +67,13 @@ export {
 // Mountains Layer
 // ============================================================================
 
-export {
-  layerAddMountainsPhysics,
-  addMountainsCompat,
-  type MountainsConfig,
-} from "./mountains.js";
+export { layerAddMountainsPhysics, addMountainsCompat, type MountainsConfig } from "./mountains.js";
 
 // ============================================================================
 // Volcanoes Layer
 // ============================================================================
 
-export {
-  layerAddVolcanoesPlateAware,
-  type VolcanoesConfig,
-} from "./volcanoes.js";
+export { layerAddVolcanoesPlateAware, type VolcanoesConfig } from "./volcanoes.js";
 
 // ============================================================================
 // Climate Layer
@@ -101,20 +94,13 @@ export {
 // Biomes Layer
 // ============================================================================
 
-export {
-  designateEnhancedBiomes,
-  type BiomeConfig,
-} from "./biomes.js";
+export { designateEnhancedBiomes, type BiomeConfig } from "./biomes.js";
 
 // ============================================================================
 // Features Layer
 // ============================================================================
 
-export {
-  addDiverseFeatures,
-  type FeaturesConfig,
-  type FeaturesDensityConfig,
-} from "./features.js";
+export { addDiverseFeatures, type FeaturesConfig, type FeaturesDensityConfig } from "./features.js";
 
 // ============================================================================
 // Placement Layer

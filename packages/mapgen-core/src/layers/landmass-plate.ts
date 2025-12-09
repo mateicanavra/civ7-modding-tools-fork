@@ -79,10 +79,11 @@ const CLOSENESS_STEP_PER_TILE = 8;
 const MIN_CLOSENESS_LIMIT = 150;
 const MAX_CLOSENESS_LIMIT = 255;
 
-// Terrain type constants
-const OCEAN_TERRAIN = 0;
-const FLAT_TERRAIN = 3;
+// Terrain type constants (Matched to Civ7 terrain.xml)
+const OCEAN_TERRAIN = 4; // TERRAIN_OCEAN
+const FLAT_TERRAIN = 1; // TERRAIN_FLAT
 
+// ============================================================================
 // ============================================================================
 // Helper Functions
 // ============================================================================
@@ -172,16 +173,21 @@ function tryCrustFirstLandmask(
     : -0.55;
 
   const graph = buildPlateTopology(plateIds, width, height, plateCount);
-  const crustTypes = assignCrustTypes(graph, ctx ? () => ctxRandom(ctx, "CrustType", 1_000_000) / 1_000_000 : Math.random, {
-    continentalFraction,
-    microcontinentChance,
-    clusteringBias,
-  });
+  const crustTypes = assignCrustTypes(
+    graph,
+    ctx ? () => ctxRandom(ctx, "CrustType", 1_000_000) / 1_000_000 : Math.random,
+    {
+      continentalFraction,
+      microcontinentChance,
+      clusteringBias,
+    }
+  );
 
-  const noiseFn = noiseAmplitude === 0
-    ? undefined
-    : (x: number, y: number) =>
-        ctx ? ctxRandom(ctx, "CrustNoise", 1_000_000) / 1_000_000 : Math.random();
+  const noiseFn =
+    noiseAmplitude === 0
+      ? undefined
+      : (x: number, y: number) =>
+          ctx ? ctxRandom(ctx, "CrustNoise", 1_000_000) / 1_000_000 : Math.random();
 
   const baseHeight = generateBaseHeightfield(plateIds, crustTypes, width, height, {
     continentalHeight,
@@ -211,7 +217,10 @@ function tryCrustFirstLandmask(
     }
   }
 
-  const continentalPlates = crustTypes.reduce((acc, t) => acc + (t === CrustType.CONTINENTAL ? 1 : 0), 0);
+  const continentalPlates = crustTypes.reduce(
+    (acc, t) => acc + (t === CrustType.CONTINENTAL ? 1 : 0),
+    0
+  );
 
   return {
     landMask,
@@ -327,12 +336,7 @@ export function createPlateDrivenLandmasses(
   const baseHeightRange = crustResult.baseHeightRange;
 
   // Apply terrain
-  const setTerrain = (
-    x: number,
-    y: number,
-    terrain: number,
-    isLand: boolean
-  ): void => {
+  const setTerrain = (x: number, y: number, terrain: number, isLand: boolean): void => {
     if (ctx) {
       writeHeightfield(ctx, x, y, {
         terrain,
@@ -471,7 +475,9 @@ export function createPlateDrivenLandmasses(
     );
   }
 
-  console.log(`${logPrefix} Plates with land: ${plateStats.size}, windows generated: ${windowsOut.length}`);
+  console.log(
+    `${logPrefix} Plates with land: ${plateStats.size}, windows generated: ${windowsOut.length}`
+  );
 
   // Detailed debug when no windows generated (helps diagnose failures)
   // Note: Using console.log instead of console.warn - Civ7's V8 doesn't have console.warn
@@ -483,11 +489,11 @@ export function createPlateDrivenLandmasses(
     console.log(`${logPrefix}   - closenessLimit: ${closenessLimit}`);
 
     // Sample some closeness values to understand the distribution
-    const closenessAboveLimit = closeness
-      ? closeness.filter((v) => v > closenessLimit).length
-      : 0;
+    const closenessAboveLimit = closeness ? closeness.filter((v) => v > closenessLimit).length : 0;
     if (closeness) {
-      console.log(`${logPrefix}   - tiles with closeness > ${closenessLimit}: ${closenessAboveLimit}/${size}`);
+      console.log(
+        `${logPrefix}   - tiles with closeness > ${closenessLimit}: ${closenessAboveLimit}/${size}`
+      );
     }
 
     // Check if plates array has valid IDs
