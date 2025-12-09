@@ -353,6 +353,15 @@ declare global {
     [featureName: string]: number;
   };
 
+  // ---------------------------------------------------------------------------
+  // LandmassRegion - Landmass region constants for start placement
+  // ---------------------------------------------------------------------------
+  const LandmassRegion: {
+    LANDMASS_REGION_WEST: number;
+    LANDMASS_REGION_EAST: number;
+    [regionName: string]: number;
+  };
+
   // Ensure console is available
   var console: Console;
 }
