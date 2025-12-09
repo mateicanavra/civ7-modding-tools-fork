@@ -19,9 +19,9 @@ import type { BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
 // Standard density target to ensure reasonable plate sizes.
 // 500 tiles per plate ensures plates are large enough to have distinct
 // interiors vs boundaries.
-const PLATE_DENSITY_TARGET = 500;
-const PLATE_COUNT_MIN = 4;
-const PLATE_COUNT_MAX = 24;
+const PLATE_DENSITY_TARGET = 300;
+const PLATE_COUNT_MIN = 9;
+const PLATE_COUNT_MAX = 27;
 
 /**
  * Calculate optimal plate count for the given map dimensions.
@@ -45,16 +45,16 @@ function buildConfig(plateCount: number): BootstrapOptions {
       foundation: true,
       landmassPlates: true,
       coastlines: true,
-      storySeed: false,
+      storySeed: true,
       storyHotspots: false,
       storyRifts: false,
       storyOrogeny: false,
-      storyPaleo: false,
       storyCorridorsPre: false,
+      storyPaleo: true,
+      storySwatches: true,
       mountains: true,
       volcanoes: true,
       climateBaseline: true,
-      storySwatches: true,
       climateRefine: true,
       biomes: true,
       features: true,
@@ -67,8 +67,8 @@ function buildConfig(plateCount: number): BootstrapOptions {
         STORY_ENABLE_HOTSPOTS: false,
         STORY_ENABLE_RIFTS: false,
         STORY_ENABLE_OROGENY: false,
-        STORY_ENABLE_SWATCHES: false,
-        STORY_ENABLE_PALEO: false,
+        STORY_ENABLE_SWATCHES: true,
+        STORY_ENABLE_PALEO: true,
         STORY_ENABLE_CORRIDORS: false,
       },
       landmass: {
@@ -141,9 +141,9 @@ function buildConfig(plateCount: number): BootstrapOptions {
           count: plateCount,
           convergenceMix: 0.65,
           relaxationSteps: 5, // Smoother cells
-          seedJitter: 0.2,
-          interiorSmooth: 1.0,
-          plateRotationMultiple: 0.45,
+          seedJitter: 7,
+          interiorSmooth: 5,
+          plateRotationMultiple: 2,
         },
         dynamics: {
           wind: {
@@ -187,20 +187,20 @@ function buildConfig(plateCount: number): BootstrapOptions {
           boundaryFjordBias: 0.8,
           shelfReefBias: 0.5,
           oceanSeparation: {
-            enabled: false, // Ensure oceans separate continents
+            enabled: true, // Ensure oceans separate continents
             baseSeparationTiles: 3,
             boundaryClosenessMultiplier: 0.5,
             maxPerRowDelta: 1,
             minChannelWidth: 3,
             respectSeaLanes: true,
             edgeWest: {
-              enabled: true,
+              enabled: false,
               baseTiles: 3,
               boundaryClosenessMultiplier: 0.5,
               maxPerRowDelta: 1,
             },
             edgeEast: {
-              enabled: true,
+              enabled: false,
               baseTiles: 3,
               boundaryClosenessMultiplier: 0.5,
               maxPerRowDelta: 1,

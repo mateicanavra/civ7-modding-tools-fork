@@ -4,9 +4,9 @@ import {
 } from "./chunk-6VYELCP7.js";
 
 // src/swooper-desert-mountains.ts
-var PLATE_DENSITY_TARGET = 500;
-var PLATE_COUNT_MIN = 4;
-var PLATE_COUNT_MAX = 24;
+var PLATE_DENSITY_TARGET = 300;
+var PLATE_COUNT_MIN = 9;
+var PLATE_COUNT_MAX = 27;
 function calculatePlateCount(width, height) {
   const totalTiles = width * height;
   const calculated = Math.floor(totalTiles / PLATE_DENSITY_TARGET);
@@ -18,16 +18,16 @@ function buildConfig(plateCount) {
       foundation: true,
       landmassPlates: true,
       coastlines: true,
-      storySeed: false,
+      storySeed: true,
       storyHotspots: false,
       storyRifts: false,
       storyOrogeny: false,
-      storyPaleo: false,
       storyCorridorsPre: false,
+      storyPaleo: true,
+      storySwatches: true,
       mountains: true,
       volcanoes: true,
       climateBaseline: true,
-      storySwatches: true,
       climateRefine: true,
       biomes: true,
       features: true,
@@ -40,8 +40,8 @@ function buildConfig(plateCount) {
         STORY_ENABLE_HOTSPOTS: false,
         STORY_ENABLE_RIFTS: false,
         STORY_ENABLE_OROGENY: false,
-        STORY_ENABLE_SWATCHES: false,
-        STORY_ENABLE_PALEO: false,
+        STORY_ENABLE_SWATCHES: true,
+        STORY_ENABLE_PALEO: true,
         STORY_ENABLE_CORRIDORS: false
       },
       landmass: {
@@ -127,9 +127,9 @@ function buildConfig(plateCount) {
           convergenceMix: 0.65,
           relaxationSteps: 5,
           // Smoother cells
-          seedJitter: 0.2,
-          interiorSmooth: 1,
-          plateRotationMultiple: 0.45
+          seedJitter: 7,
+          interiorSmooth: 5,
+          plateRotationMultiple: 2
         },
         dynamics: {
           wind: {
@@ -173,7 +173,7 @@ function buildConfig(plateCount) {
           boundaryFjordBias: 0.8,
           shelfReefBias: 0.5,
           oceanSeparation: {
-            enabled: false,
+            enabled: true,
             // Ensure oceans separate continents
             baseSeparationTiles: 3,
             boundaryClosenessMultiplier: 0.5,
@@ -181,13 +181,13 @@ function buildConfig(plateCount) {
             minChannelWidth: 3,
             respectSeaLanes: true,
             edgeWest: {
-              enabled: true,
+              enabled: false,
               baseTiles: 3,
               boundaryClosenessMultiplier: 0.5,
               maxPerRowDelta: 1
             },
             edgeEast: {
-              enabled: true,
+              enabled: false,
               baseTiles: 3,
               boundaryClosenessMultiplier: 0.5,
               maxPerRowDelta: 1
