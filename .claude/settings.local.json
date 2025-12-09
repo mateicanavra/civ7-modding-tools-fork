@@ -12,11 +12,11 @@
       "Bash(mkdir:*)",
       "Bash(linear team:*)",
       "Bash(linear project:*)",
-      "Bash(gt ls:*)"
+      "Bash(gt ls:*)",
       "Bash(gt create:*)",
       "Bash(rg:*)",
       "Bash(pnpm run check-types:*)",
-      "Bash(pnpm run check:*)"
+      "Bash(pnpm run check:*)",
       "Bash(grep:*)",
       "Bash(time pnpm -C packages/mapgen-core test:*)",
       "Bash(git add:*)",
