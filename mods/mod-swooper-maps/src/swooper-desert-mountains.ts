@@ -45,12 +45,12 @@ function buildConfig(plateCount: number): BootstrapOptions {
       foundation: true,
       landmassPlates: true,
       coastlines: true,
-      storySeed: true,
-      storyHotspots: true,
-      storyRifts: true,
-      storyOrogeny: true,
-      storyPaleo: true,
-      storyCorridorsPre: true,
+      storySeed: false,
+      storyHotspots: false,
+      storyRifts: false,
+      storyOrogeny: false,
+      storyPaleo: false,
+      storyCorridorsPre: false,
       mountains: true,
       volcanoes: true,
       climateBaseline: true,
@@ -64,21 +64,21 @@ function buildConfig(plateCount: number): BootstrapOptions {
     overrides: {
       toggles: {
         // Enable standard story features for variety
-        STORY_ENABLE_HOTSPOTS: true,
-        STORY_ENABLE_RIFTS: true,
-        STORY_ENABLE_OROGENY: true,
-        STORY_ENABLE_SWATCHES: true,
-        STORY_ENABLE_PALEO: true,
-        STORY_ENABLE_CORRIDORS: true,
+        STORY_ENABLE_HOTSPOTS: false,
+        STORY_ENABLE_RIFTS: false,
+        STORY_ENABLE_OROGENY: false,
+        STORY_ENABLE_SWATCHES: false,
+        STORY_ENABLE_PALEO: false,
+        STORY_ENABLE_CORRIDORS: false,
       },
       landmass: {
-        baseWaterPercent: 60, // Standard water level
-        waterThumbOnScale: 0,
+        baseWaterPercent: 20, // More ocean for distinct continents
+        waterThumbOnScale: -2,
         jitterAmpFracBase: 0.015,
         boundaryBias: 0.1, // Slight bias towards boundaries for interest
         boundaryShareTarget: 0.4,
         tectonics: {
-          boundaryArcWeight: 0.6, // Balanced
+          boundaryArcWeight: 0.2, // Balanced
           interiorNoiseWeight: 0.4, // Balanced
         },
       },
@@ -91,7 +91,7 @@ function buildConfig(plateCount: number): BootstrapOptions {
         plateBias: {
           threshold: 0.55,
           power: 1.0,
-          convergent: 1.0,
+          convergent: 1.4,
           transform: 0.8,
           divergent: 0.6,
           interior: 0.2,
@@ -104,24 +104,24 @@ function buildConfig(plateCount: number): BootstrapOptions {
       // by the orchestrator without relying on complex merging logic.
       foundation: {
         mountains: {
-          // Standard physics settings
-          tectonicIntensity: 1.0, // Standard intensity
-          mountainThreshold: 0.65, // Standard threshold
-          hillThreshold: 0.3, // Standard hill threshold
-          upliftWeight: 0.4,
-          fractalWeight: 0.4, // Balanced fractal/physics
+          // Balanced physics settings for plate-driven terrain
+          tectonicIntensity: 0.5, // Full intensity for proper mountain formation
+          mountainThreshold: 0.7, // Slightly lowered for reliable mountain generation
+          hillThreshold: 0.35, // Much lower - hill scores are inherently smaller than mountain scores
+          upliftWeight: 0.37, // Standard uplift contribution
+          fractalWeight: 0.4, // Standard fractal noise
           riftDepth: 0.2,
-          boundaryWeight: 0.8,
-          boundaryExponent: 1.6, // Standard sharpness
-          interiorPenaltyWeight: 0.2,
-          convergenceBonus: 1.0,
-          transformPenalty: 0.5,
-          riftPenalty: 0.8,
-          hillBoundaryWeight: 0.4,
-          hillRiftBonus: 0.3,
-          hillConvergentFoothill: 0.4,
-          hillInteriorFalloff: 0.2,
-          hillUpliftWeight: 0.3,
+          boundaryWeight: 1.0, // Standard boundary weight
+          boundaryExponent: 2.37, // Standard falloff
+          interiorPenaltyWeight: 0.0, // Disabled as per mountains.ts defaults
+          convergenceBonus: 0.4,
+          transformPenalty: 0.6,
+          riftPenalty: 1.0,
+          hillBoundaryWeight: 0.35,
+          hillRiftBonus: 0.25,
+          hillConvergentFoothill: 0.35,
+          hillInteriorFalloff: 0.1,
+          hillUpliftWeight: 0.2,
         },
         volcanoes: {
           baseDensity: 0.008,
@@ -139,11 +139,11 @@ function buildConfig(plateCount: number): BootstrapOptions {
         },
         plates: {
           count: plateCount,
-          convergenceMix: 0.5,
+          convergenceMix: 0.65,
           relaxationSteps: 5, // Smoother cells
           seedJitter: 0.2,
           interiorSmooth: 1.0,
-          plateRotationMultiple: 1.0,
+          plateRotationMultiple: 0.45,
         },
         dynamics: {
           wind: {
@@ -157,14 +157,14 @@ function buildConfig(plateCount: number): BootstrapOptions {
             currentStrength: 1.0,
           },
           mantle: {
-            bumps: 6,
+            bumps: 3,
             amplitude: 1.0,
             scale: 1.0,
           },
           directionality: {
             cohesion: 0.2,
             primaryAxes: {
-              plateAxisDeg: 45,
+              plateAxisDeg: 65,
               windBiasDeg: 0,
               currentBiasDeg: 90,
             },
@@ -187,7 +187,7 @@ function buildConfig(plateCount: number): BootstrapOptions {
           boundaryFjordBias: 0.8,
           shelfReefBias: 0.5,
           oceanSeparation: {
-            enabled: true, // Ensure oceans separate continents
+            enabled: false, // Ensure oceans separate continents
             baseSeparationTiles: 3,
             boundaryClosenessMultiplier: 0.5,
             maxPerRowDelta: 1,

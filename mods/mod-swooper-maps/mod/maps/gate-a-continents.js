@@ -1,6 +1,6 @@
 import {
   VERSION
-} from "./chunk-TD3ICEQJ.js";
+} from "./chunk-6VYELCP7.js";
 
 // src/gate-a-continents.ts
 import "/base-standard/maps/continents.js";
