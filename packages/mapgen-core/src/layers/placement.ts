@@ -133,6 +133,17 @@ export function runPlacement(
   const placementCfg = getPlacementConfig();
   const startPositions: number[] = [];
 
+  // =========================================================================
+  // Vanilla continents.js order (after features):
+  //   addNaturalWonders → addFloodplains → addFeatures → validateAndFixTerrain →
+  //   recalculateAreas → storeWaterData → generateSnow → generateResources →
+  //   assignStartPositions → generateDiscoveries → FertilityBuilder.recalculate
+  //
+  // IMPORTANT: LandmassRegionId is already set early in landmassPlates stage.
+  // PlotTags LANDMASS/WATER/EAST_LANDMASS/WEST_LANDMASS no longer exist in the engine.
+  // The vanilla algorithm now uses LandmassRegion IDs for filtering, not PlotTags.
+  // =========================================================================
+
   // 1) Natural Wonders
   try {
     const useWondersPlusOne =
@@ -159,21 +170,52 @@ export function runPlacement(
     console.log("[Placement] addFloodplains failed:", err);
   }
 
-  // 3) Snow (post-water/terrain stabilization)
+  // 3) Validate and fix terrain (matches vanilla order before recalculateAreas)
+  try {
+    adapter.validateAndFixTerrain();
+    console.log("[Placement] Terrain validated successfully");
+  } catch (err) {
+    console.log("[Placement] validateAndFixTerrain failed:", err);
+  }
+
+  // 4) Area recalculation (after terrain validation)
+  try {
+    adapter.recalculateAreas();
+    console.log("[Placement] Areas recalculated successfully");
+  } catch (err) {
+    console.log("[Placement] AreaBuilder.recalculateAreas failed:", err);
+  }
+
+  // 5) Store water data (CRITICAL for start position scoring)
+  // This must happen BEFORE generateSnow and generateResources per vanilla order.
+  // Without this, the StartPositioner may not have valid water data for scoring.
+  try {
+    adapter.storeWaterData();
+    console.log("[Placement] Water data stored successfully");
+  } catch (err) {
+    console.log("[Placement] storeWaterData failed:", err);
+  }
+
+  // 6) Snow (after water data is stored)
   try {
     adapter.generateSnow(iWidth, iHeight);
   } catch (err) {
     console.log("[Placement] generateSnow failed:", err);
   }
 
-  // 4) Resources (after snow)
+  // 7) Resources (after snow, before start positions)
   try {
     adapter.generateResources(iWidth, iHeight);
   } catch (err) {
     console.log("[Placement] generateResources failed:", err);
   }
 
-  // 5) Start positions (vanilla-compatible)
+  // NOTE: LandmassRegionId is already set early in landmassPlates stage.
+  // PlotTags (LANDMASS, WATER, EAST_LANDMASS, WEST_LANDMASS) no longer exist in Civ7.
+  // The vanilla StartPositioner.divideMapIntoMajorRegions() now uses LandmassRegion IDs.
+  // Do NOT mark them again here - that causes inconsistency with the early marking.
+
+  // 8) Start positions (vanilla-compatible)
   try {
     if (!starts) {
       console.log("[Placement] Start placement skipped (no starts config provided).");
@@ -238,7 +280,7 @@ export function runPlacement(
     console.log("[Placement] assignStartPositions failed:", err);
   }
 
-  // 6) Discoveries (post-starts to seed exploration)
+  // 9) Discoveries (post-starts to seed exploration)
   try {
     adapter.generateDiscoveries(iWidth, iHeight, startPositions);
     console.log("[Placement] Discoveries generated successfully");
@@ -246,12 +288,16 @@ export function runPlacement(
     console.log("[Placement] generateDiscoveries failed:", err);
   }
 
-  // 7) Fertility + Advanced Start
+  // 10) Fertility recalculation (AFTER starts, matching vanilla order)
+  // Must be after features are added per vanilla comment
   try {
     adapter.recalculateFertility();
+    console.log("[Placement] Fertility recalculated successfully");
   } catch (err) {
     console.log("[Placement] FertilityBuilder.recalculate failed:", err);
   }
+
+  // 11) Advanced Start regions
   try {
     adapter.assignAdvancedStartRegions();
   } catch (err) {
