@@ -149,7 +149,34 @@ function buildTunablesSnapshot(): TunablesSnapshot {
   };
 
   // Resolve foundation config
-  const foundationConfig = (config.foundation || {}) as FoundationConfig;
+  // Start with foundation config from config.foundation
+  const rawFoundation = (config.foundation || {}) as FoundationConfig;
+  const foundationConfig: FoundationConfig = { ...rawFoundation };
+
+  // Merge top-level layer configs into foundation (mod overrides pattern)
+  // This allows mods to specify e.g. { mountains: {...} } at top level instead of
+  // nested inside { foundation: { mountains: {...} } }
+  const mergeTopLevelLayer = <K extends keyof FoundationConfig>(key: K): void => {
+    const topLevel = config[key as string];
+    if (topLevel && typeof topLevel === "object") {
+      foundationConfig[key] = deepMerge(
+        (foundationConfig[key] as object) || {},
+        topLevel as object
+      ) as FoundationConfig[K];
+    }
+  };
+
+  // Merge supported top-level layer configs
+  mergeTopLevelLayer("mountains");
+  mergeTopLevelLayer("volcanoes");
+  mergeTopLevelLayer("coastlines");
+  mergeTopLevelLayer("islands");
+  mergeTopLevelLayer("biomes");
+  mergeTopLevelLayer("featuresDensity");
+  mergeTopLevelLayer("story");
+  mergeTopLevelLayer("corridors");
+  mergeTopLevelLayer("oceanSeparation");
+
   const platesConfig = deepMerge(DEFAULT_PLATES, foundationConfig.plates);
   const dynamicsConfig = deepMerge(DEFAULT_DYNAMICS, foundationConfig.dynamics);
   const directionalityConfig = deepMerge(

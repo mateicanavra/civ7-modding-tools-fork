@@ -1,7 +1,7 @@
 import {
   MapOrchestrator,
   bootstrap
-} from "./chunk-W3CUNERN.js";
+} from "./chunk-GIANMMCD.js";
 
 // src/swooper-desert-mountains.ts
 var PLATE_DENSITY_TARGET = 300;

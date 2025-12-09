@@ -661,14 +661,16 @@ export function computePlatesVoronoi(
       plateId: -1,
     }));
 
-    // Assign each region cell to nearest plate
+    // Assign each region cell to nearest plate (with cylindrical wrapping)
     for (const regionCell of regionCells) {
       const pos = { x: regionCell.cell.site.x, y: regionCell.cell.site.y };
       let bestDist = Infinity;
       let bestPlateId = -1;
 
       for (let i = 0; i < plateRegions.length; i++) {
-        const dx = pos.x - plateRegions[i].seedLocation.x;
+        // Handle cylindrical wrapping for X distance
+        let dx = Math.abs(pos.x - plateRegions[i].seedLocation.x);
+        if (dx > width / 2) dx = width - dx;
         const dy = pos.y - plateRegions[i].seedLocation.y;
         const dist = dx * dx + dy * dy;
 
@@ -693,18 +695,19 @@ export function computePlatesVoronoi(
     const plateMovementV = new Int8Array(size);
     const plateRotation = new Int8Array(size);
 
-    // Assign each map tile to nearest plate
+    // Assign each map tile to nearest plate (with cylindrical wrapping)
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const i = y * width + x;
-        const pos = { x, y };
 
-        // Find nearest plate seed
+        // Find nearest plate seed with cylindrical wrapping
         let bestDist = Infinity;
         let pId = 0;
         for (let p = 0; p < plateRegions.length; p++) {
-          const dx = pos.x - plateRegions[p].seedLocation.x;
-          const dy = pos.y - plateRegions[p].seedLocation.y;
+          // Handle cylindrical wrapping for X distance
+          let dx = Math.abs(x - plateRegions[p].seedLocation.x);
+          if (dx > width / 2) dx = width - dx;
+          const dy = y - plateRegions[p].seedLocation.y;
           const dist = dx * dx + dy * dy;
           if (dist < bestDist) {
             bestDist = dist;
@@ -715,7 +718,7 @@ export function computePlatesVoronoi(
         plateId[i] = pId;
 
         const plate = plateRegions[pId];
-        const movement = calculatePlateMovement(plate, pos, plateRotationMultiple);
+        const movement = calculatePlateMovement(plate, { x, y }, plateRotationMultiple);
         plateMovementU[i] = clampInt8(Math.round(movement.x * 100));
         plateMovementV[i] = clampInt8(Math.round(movement.y * 100));
         plateRotation[i] = clampInt8(Math.round(plate.m_rotation * 100));
