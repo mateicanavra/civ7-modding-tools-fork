@@ -46,6 +46,26 @@ function idx(x: number, y: number, width: number): number {
   return y * width + x;
 }
 
+/**
+ * Normalize fractal output to 0..1, adapting to engines that emit 8, 16, or 32-bit heights.
+ * - Values > 65535 are treated as 32-bit; use the top 8 bits (>>> 24)
+ * - Values > 255 are treated as 16-bit; use the top 8 bits (>>> 8)
+ * - Values <= 255 are treated as 8-bit
+ * - Negative values are clamped to 0 to avoid wrapping artifacts
+ */
+function normalizeFractal(raw: number): number {
+  let val = raw | 0;
+  if (val < 0) val = 0;
+
+  if (val > 65535) {
+    return (val >>> 24) / 255;
+  }
+  if (val > 255) {
+    return (val >>> 8) / 255;
+  }
+  return val / 255;
+}
+
 // ============================================================================
 // Main Function
 // ============================================================================
@@ -253,8 +273,11 @@ function computePlateBasedScores(
       const closenessRaw = boundaryCloseness ? boundaryCloseness[i] / 255 : 0;
       const rift = riftPotential ? riftPotential[i] / 255 : 0;
 
-      const fractalMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y) / 65535;
-      const fractalHill = adapter.getFractalHeight(HILL_FRACTAL, x, y) / 65535;
+      // Adaptive noise normalization supports 8, 16, or 32-bit heights
+      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y);
+      const rawHill = adapter.getFractalHeight(HILL_FRACTAL, x, y);
+      const fractalMtn = normalizeFractal(rawMtn);
+      const fractalHill = normalizeFractal(rawHill);
 
       // Base score: uplift potential + fractal variety
       let mountainScore = uplift * options.upliftWeight + fractalMtn * options.fractalWeight;
@@ -331,8 +354,11 @@ function computeFractalOnlyScores(
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = idx(x, y, width);
-      scores[i] = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y) / 65535;
-      hillScores[i] = adapter.getFractalHeight(HILL_FRACTAL, x, y) / 65535;
+      // Adaptive noise normalization for fallback path too
+      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y);
+      const rawHill = adapter.getFractalHeight(HILL_FRACTAL, x, y);
+      scores[i] = normalizeFractal(rawMtn);
+      hillScores[i] = normalizeFractal(rawHill);
     }
   }
 }
