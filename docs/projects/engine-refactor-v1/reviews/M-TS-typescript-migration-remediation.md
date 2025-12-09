@@ -307,3 +307,13 @@ Once the above wiring and tests are in place, re-run CIV‑8 with explicit, docu
   - Comparisons vs a JS-baseline save or screenshots, at least at a qualitative level.
 
 Document these observations in the CIV‑8 review so we have a concrete “TS parity achieved” checkpoint.
+
+6. JS → TS Parity Matrix Second-Pass Remediation
+
+Beyond the P0 remediation stacks captured in this canvas, we now track a dedicated JS → TS parity matrix that compares the archived JS mod against the current TypeScript mapgen core.
+
+- Reference: [M-TS-parity-matrix.md](../resources/M-TS-parity-matrix.md) — canonical matrix of `Parity`, `Missing`, and `Detraction / Open` rows across story/corridors, bootstrap, world, and layers.
+- Intent: Treat this as a **second-pass remediation** focused on:
+  - Deciding, row by row, which `Detraction / Open` divergences are intentional evolutions to bless vs. regressions to fix.
+  - Turning `Missing` rows (e.g., story tagging & corridors, presets/base config, adapter parity, volcano fallback, dev logging facades) into explicit CIV issues and/or follow-on remediation stacks.
+- Current state: This second pass is **not yet decomposed into scoped sections or issue stacks**; we first need product/engineering decisions on desired parity vs. evolution. Until those decisions are made, the parity matrix stands as the central record of remaining migration work.

@@ -263,6 +263,19 @@ flowchart TD
     style CIV8R fill:#bbdefb
 ```
 
+## P1: JS → TS Parity Matrix (Second-Pass Remediation)
+
+> Status: Not yet scoped (pending decisions)
+
+The P0 remediation stack above focuses on fixing the "Null Map Script" behavior, adapter boundary, and foundational wiring. In parallel, we now have a dedicated JS → TS parity matrix that inventories module-by-module status and divergences versus the original JS mod.
+
+- Reference: [M-TS-parity-matrix.md](../resources/M-TS-parity-matrix.md) — canonical list of `Parity`, `Missing`, and `Detraction / Open` rows across story, bootstrap, world, and layers.
+- Goal: Run a **second-pass remediation** that:
+  - Classifies each `Detraction / Open` row as either an intentionally accepted evolution (and documents it) or required follow-up work.
+  - Turns each `Missing` row into concrete issues (e.g., story tagging & corridors, presets/base config ownership, adapter method parity, dev logging surfaces).
+  - Feeds any resulting work back into this milestone and the CIV-14+ remediation issues.
+- Scope: This second pass is **not yet broken down into CIV issues or gate stacks**; we first need to make decisions on which divergences we want to bless vs. close. Until then, the parity matrix remains the authoritative checklist of remaining migration work.
+
 ### Lessons Learned
 
 1. **Gate criteria must include behavioral verification** — "Builds successfully" ≠ "Works correctly"
@@ -275,3 +288,4 @@ flowchart TD
 - [M-TS-typescript-migration-canvas.md](../reviews/M-TS-typescript-migration-canvas.md) — Concern canvas
 - [M-TS-typescript-migration-remediation.md](../reviews/M-TS-typescript-migration-remediation.md) — Remediation analysis
 - [M-TS-typescript-migration-prioritization.md](../reviews/M-TS-typescript-migration-prioritization.md) — Prioritized action plan
+ - [M-TS-parity-matrix.md](../resources/M-TS-parity-matrix.md) — JS → TS parity status and divergences

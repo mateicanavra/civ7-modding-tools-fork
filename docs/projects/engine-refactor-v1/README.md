@@ -26,7 +26,7 @@ Large-scale procedural map generation mod for Civilization VII featuring:
 ## Active Plans
 
 - [MAPS Engine Refactor](MAPS-engine-refactor/overview.md) — Physics-first orchestration engine
-- [Era-Tagged Morphology Review](era-tagged-morphology-review.md) — Morphology assessment
+- [Era-Tagged Morphology ADR](../../system/libs/mapgen/adrs/adr-001-era-tagged-morphology.md) — Single-Pass Morphology decision
 - [Plate Generation Refactor](plate-generation-refactor.md) — Unified Voronoi pipeline
 
 ## Resources
@@ -37,9 +37,10 @@ Large-scale procedural map generation mod for Civilization VII featuring:
 ## System Documentation
 
 Evergreen architecture docs live in the system directory:
-- [Architecture](../../system/mods/swooper-maps/architecture.md) — Bootstrap and config pipeline
-- [Design](../../system/mods/swooper-maps/design.md) — Stage manifest and foundation config
-- [Margins & Narrative](../../system/mods/swooper-maps/margins-narrative.md) — Continental margins pipeline
+- [Mod Architecture](../../system/mods/swooper-maps/architecture.md) — Bootstrap and config pipeline
+- [Mod Vision](../../system/mods/swooper-maps/vision.md) — Epic Diverse content vision
+- [Mapgen Design](../../system/libs/mapgen/design.md) — Stage manifest and foundation config
+- [Mapgen Pipeline](../../system/libs/mapgen/margins-narrative.md) — Continental margins and narrative overlays
 
 ## Links & References
 

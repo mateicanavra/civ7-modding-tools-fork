@@ -419,7 +419,7 @@ This section should be updated as later issues (CIV‑6, CIV‑7, CIV‑8, CIV�
   - Decide whether the long‑term design is:
     - A fully independent TS Voronoi implementation (documented as such), or
     - A thin, testable wrapper around Civ7’s `/base-standard/voronoi-utils.js` exposed via an adapter.
-  - If it is the latter, implement a `VoronoiUtilsInterface` adapter that uses the real game utilities in production while keeping `DefaultVoronoiUtils` for tests, and adjust docs (`era-tagged-morphology-review.md`, `migrate-to-ts-plan.md`) accordingly.
+  - If it is the latter, implement a `VoronoiUtilsInterface` adapter that uses the real game utilities in production while keeping `DefaultVoronoiUtils` for tests, and adjust docs (`system/libs/mapgen/adrs/`, `migrate-to-ts-plan.md`) accordingly.
 - Add targeted `WorldModel` tests under `test/world`:
   - Cover `WorldModel.init` with explicit `width`/`height` (no globals) and verify that plate arrays, winds, currents, and pressure are allocated and populated as expected for a small grid.
   - Assert that `plateSeed` snapshots are present and stable when `PlateSeedManager` is used.

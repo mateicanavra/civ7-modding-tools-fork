@@ -67,11 +67,11 @@ function buildConfig(plateCount) {
       },
       coastlines: {
         plateBias: {
-          threshold: 0.55,
-          power: 1,
-          convergent: 1.4,
-          transform: 1.6,
-          divergent: 0.6,
+          threshold: 0.35,
+          power: 1.3,
+          convergent: 1.25,
+          transform: 0.75,
+          divergent: 0.5,
           interior: 0.2,
           bayWeight: 0.5,
           bayNoiseBonus: 0.5,
@@ -126,11 +126,11 @@ function buildConfig(plateCount) {
         plates: {
           count: plateCount,
           convergenceMix: 0.65,
-          relaxationSteps: 7,
+          relaxationSteps: 4,
           // Smoother cells
-          seedJitter: 17,
-          interiorSmooth: 17,
-          plateRotationMultiple: 1.37
+          seedJitter: 21,
+          interiorSmooth: 15,
+          plateRotationMultiple: 1.77
         },
         dynamics: {
           wind: {
