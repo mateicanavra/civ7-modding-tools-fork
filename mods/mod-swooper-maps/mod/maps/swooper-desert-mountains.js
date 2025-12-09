@@ -1,10 +1,10 @@
 import {
   MapOrchestrator,
   bootstrap
-} from "./chunk-5QZ7EBXA.js";
+} from "./chunk-UNNX7WFS.js";
 
 // src/swooper-desert-mountains.ts
-var PLATE_DENSITY_TARGET = 300;
+var PLATE_DENSITY_TARGET = 160;
 var PLATE_COUNT_MIN = 9;
 var PLATE_COUNT_MAX = 27;
 function calculatePlateCount(width, height) {
@@ -46,15 +46,15 @@ function buildConfig(plateCount) {
       },
       landmass: {
         crustMode: "area",
-        baseWaterPercent: 40,
+        baseWaterPercent: 43,
         // More ocean for distinct continents
-        waterThumbOnScale: -2,
+        waterThumbOnScale: -1.5,
         jitterAmpFracBase: 0.015,
         boundaryBias: 0.1,
         // Slight bias towards boundaries for interest
         boundaryShareTarget: 0.4,
         tectonics: {
-          boundaryArcWeight: 0.2,
+          boundaryArcWeight: 0.35,
           // Balanced
           interiorNoiseWeight: 0.6
           // Balanced
@@ -87,11 +87,11 @@ function buildConfig(plateCount) {
           // Full intensity for proper mountain formation
           mountainThreshold: 0.7,
           // Slightly lowered for reliable mountain generation
-          hillThreshold: 0.35,
+          hillThreshold: 0.25,
           // Much lower - hill scores are inherently smaller than mountain scores
           upliftWeight: 0.37,
           // Standard uplift contribution
-          fractalWeight: 0.4,
+          fractalWeight: 0.635,
           // Standard fractal noise
           riftDepth: 0.2,
           boundaryWeight: 1,
@@ -126,11 +126,11 @@ function buildConfig(plateCount) {
         plates: {
           count: plateCount,
           convergenceMix: 0.65,
-          relaxationSteps: 5,
+          relaxationSteps: 7,
           // Smoother cells
-          seedJitter: 7,
-          interiorSmooth: 5,
-          plateRotationMultiple: 2
+          seedJitter: 17,
+          interiorSmooth: 17,
+          plateRotationMultiple: 1.37
         },
         dynamics: {
           wind: {
@@ -151,7 +151,7 @@ function buildConfig(plateCount) {
           directionality: {
             cohesion: 0.2,
             primaryAxes: {
-              plateAxisDeg: 65,
+              plateAxisDeg: 127,
               windBiasDeg: 0,
               currentBiasDeg: 90
             },
@@ -174,7 +174,7 @@ function buildConfig(plateCount) {
           boundaryFjordBias: 0.8,
           shelfReefBias: 0.5,
           oceanSeparation: {
-            enabled: true,
+            enabled: false,
             // Ensure oceans separate continents
             baseSeparationTiles: 3,
             boundaryClosenessMultiplier: 0.9,

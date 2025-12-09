@@ -3562,7 +3562,7 @@ function runPlacement(adapter, iWidth, iHeight, options = {}) {
   return startPositions;
 }
 
-// ../../packages/mapgen-core/dist/chunk-SRKU7MYS.js
+// ../../packages/mapgen-core/dist/chunk-HWB6NMD7.js
 function safeTimestamp() {
   try {
     return typeof Date?.now === "function" ? Date.now() : null;
@@ -3762,6 +3762,45 @@ var DefaultVoronoiUtils = {
     return { x: v.x / len, y: v.y / len };
   }
 };
+var injectedVoronoiUtils = null;
+var injectedVoronoiLabel = null;
+var loggedInjectedVoronoi = false;
+function adaptGlobalVoronoiUtils() {
+  const globalUtils = globalThis.VoronoiUtils;
+  if (globalUtils && typeof globalUtils.computeVoronoi === "function") {
+    return {
+      utils: {
+        createRandomSites: (count, width, height) => globalUtils.createRandomSites(
+          count,
+          width,
+          height
+        ),
+        computeVoronoi: (sites, bbox, relaxationSteps = 0) => globalUtils.computeVoronoi(
+          sites,
+          bbox,
+          relaxationSteps
+        ),
+        calculateCellArea: (cell) => globalUtils.calculateCellArea(cell),
+        normalize: (v) => globalUtils.normalize(v)
+      },
+      label: "global"
+    };
+  }
+  return { utils: null, label: "fallback" };
+}
+function resolveVoronoiUtils(options) {
+  if (options.voronoiUtils) {
+    return { utils: options.voronoiUtils, label: "custom" };
+  }
+  const globalUtils = adaptGlobalVoronoiUtils();
+  if (globalUtils.utils) {
+    return { utils: globalUtils.utils, label: globalUtils.label };
+  }
+  if (injectedVoronoiUtils) {
+    return { utils: injectedVoronoiUtils, label: injectedVoronoiLabel ?? "injected" };
+  }
+  return { utils: DefaultVoronoiUtils, label: "fallback" };
+}
 function createPlateRegion(name, id, type, maxArea, color, rng) {
   const angle = rng(360, "PlateAngle") * Math.PI / 180;
   const speed = 0.5 + rng(100, "PlateSpeed") / 200;
@@ -4043,6 +4082,13 @@ function summarizeBoundaryCoverage(isBoundary, boundaryCloseness) {
   };
 }
 function computePlatesVoronoi(width, height, config, options = {}) {
+  const voronoiChoice = resolveVoronoiUtils(options);
+  if (voronoiChoice.label !== "fallback" && !loggedInjectedVoronoi) {
+    console.log(
+      `[WorldModel] Using ${voronoiChoice.label} Voronoi utilities (${width}x${height})`
+    );
+    loggedInjectedVoronoi = true;
+  }
   const {
     count = 8,
     relaxationSteps = 5,
@@ -4050,7 +4096,7 @@ function computePlatesVoronoi(width, height, config, options = {}) {
     plateRotationMultiple = 1,
     directionality = null
   } = config;
-  const voronoiUtils = options.voronoiUtils || DefaultVoronoiUtils;
+  const voronoiUtils = voronoiChoice.utils;
   const rng = options.rng || ((max, _label) => {
     const global = globalThis;
     if (global.TerrainBuilder && typeof global.TerrainBuilder.getRandomNumber === "function") {
@@ -4682,6 +4728,7 @@ var __require2 = /* @__PURE__ */ ((x) => typeof __require !== "undefined" ? __re
 
 // ../../packages/mapgen-core/dist/index.js
 import "/base-standard/maps/map-globals.js";
+import { VoronoiUtils as CivVoronoiUtils } from "/base-standard/scripts/kd-tree.js";
 import { designateBiomes as civ7DesignateBiomes, addFeatures as civ7AddFeatures } from "/base-standard/maps/feature-biome-generator.js";
 import { addNaturalWonders as civ7AddNaturalWonders } from "/base-standard/maps/natural-wonder-generator.js";
 import { generateSnow as civ7GenerateSnow } from "/base-standard/maps/snow-generator.js";
@@ -5244,6 +5291,7 @@ function logVolcanoSummary(adapter, width, height, volcanoFeatureId) {
     onMountain
   });
 }
+globalThis.VoronoiUtils = globalThis.VoronoiUtils || CivVoronoiUtils;
 var Civ7Adapter = class {
   width;
   height;

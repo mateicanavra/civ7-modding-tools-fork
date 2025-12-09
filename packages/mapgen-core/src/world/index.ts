@@ -19,6 +19,7 @@ export {
   computePlatesVoronoi,
   calculateVoronoiCells,
   type ComputePlatesOptions,
+  setDefaultVoronoiUtils,
 } from "./plates.js";
 
 // Export world model

@@ -163,26 +163,15 @@ function assignCrustTypesByArea(graph: PlateGraph, targetLandTiles: number): Are
 
   let assignedArea = 0;
   const continentalPlateIds: number[] = [];
+  const desiredContinents = Math.min(sorted.length, Math.max(2, Math.min(5, sorted.length)));
 
   for (const plate of sorted) {
-    if (assignedArea >= targetLandTiles && continentalPlateIds.length > 0) break;
+    const needMoreLand = assignedArea < targetLandTiles;
+    const needMoreContinents = continentalPlateIds.length < desiredContinents;
+    if (!needMoreLand && !needMoreContinents && continentalPlateIds.length > 0) break;
     types[plate.id] = CrustType.CONTINENTAL;
     assignedArea += plate.area;
     continentalPlateIds.push(plate.id);
-  }
-
-  // Guarantee at least one continental plate when any land is requested
-  if (continentalPlateIds.length === 0 && sorted[0]) {
-    types[sorted[0].id] = CrustType.CONTINENTAL;
-    continentalPlateIds.push(sorted[0].id);
-    assignedArea += sorted[0].area;
-  }
-
-  // Promote a second plate when possible to reduce single-supercontinent layouts
-  if (continentalPlateIds.length === 1 && sorted.length > 1 && targetLandTiles > 0) {
-    types[sorted[1].id] = CrustType.CONTINENTAL;
-    assignedArea += sorted[1].area;
-    continentalPlateIds.push(sorted[1].id);
   }
 
   const summary = summarizeCrustTypes(types, graph);

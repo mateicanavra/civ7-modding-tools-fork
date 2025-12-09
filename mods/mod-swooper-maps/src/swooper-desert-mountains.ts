@@ -19,7 +19,7 @@ import type { BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
 // Standard density target to ensure reasonable plate sizes.
 // 500 tiles per plate ensures plates are large enough to have distinct
 // interiors vs boundaries.
-const PLATE_DENSITY_TARGET = 300;
+const PLATE_DENSITY_TARGET = 160;
 const PLATE_COUNT_MIN = 9;
 const PLATE_COUNT_MAX = 27;
 
@@ -73,13 +73,13 @@ function buildConfig(plateCount: number): BootstrapOptions {
       },
       landmass: {
         crustMode: "area",
-        baseWaterPercent: 40, // More ocean for distinct continents
-        waterThumbOnScale: -2,
+        baseWaterPercent: 43, // More ocean for distinct continents
+        waterThumbOnScale: -1.5,
         jitterAmpFracBase: 0.015,
         boundaryBias: 0.1, // Slight bias towards boundaries for interest
         boundaryShareTarget: 0.4,
         tectonics: {
-          boundaryArcWeight: 0.2, // Balanced
+          boundaryArcWeight: 0.35, // Balanced
           interiorNoiseWeight: 0.6, // Balanced
         },
       },
@@ -108,9 +108,9 @@ function buildConfig(plateCount: number): BootstrapOptions {
           // Balanced physics settings for plate-driven terrain
           tectonicIntensity: 0.5, // Full intensity for proper mountain formation
           mountainThreshold: 0.7, // Slightly lowered for reliable mountain generation
-          hillThreshold: 0.35, // Much lower - hill scores are inherently smaller than mountain scores
+          hillThreshold: 0.25, // Much lower - hill scores are inherently smaller than mountain scores
           upliftWeight: 0.37, // Standard uplift contribution
-          fractalWeight: 0.4, // Standard fractal noise
+          fractalWeight: 0.635, // Standard fractal noise
           riftDepth: 0.2,
           boundaryWeight: 1.0, // Standard boundary weight
           boundaryExponent: 2.37, // Standard falloff
@@ -141,10 +141,10 @@ function buildConfig(plateCount: number): BootstrapOptions {
         plates: {
           count: plateCount,
           convergenceMix: 0.65,
-          relaxationSteps: 5, // Smoother cells
-          seedJitter: 7,
-          interiorSmooth: 5,
-          plateRotationMultiple: 2,
+          relaxationSteps: 7, // Smoother cells
+          seedJitter: 17,
+          interiorSmooth: 17,
+          plateRotationMultiple: 1.37,
         },
         dynamics: {
           wind: {
@@ -165,7 +165,7 @@ function buildConfig(plateCount: number): BootstrapOptions {
           directionality: {
             cohesion: 0.2,
             primaryAxes: {
-              plateAxisDeg: 65,
+              plateAxisDeg: 127,
               windBiasDeg: 0,
               currentBiasDeg: 90,
             },
@@ -188,7 +188,7 @@ function buildConfig(plateCount: number): BootstrapOptions {
           boundaryFjordBias: 0.8,
           shelfReefBias: 0.5,
           oceanSeparation: {
-            enabled: true, // Ensure oceans separate continents
+            enabled: false, // Ensure oceans separate continents
             baseSeparationTiles: 3,
             boundaryClosenessMultiplier: 0.9,
             maxPerRowDelta: 10,
