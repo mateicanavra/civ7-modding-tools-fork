@@ -1,7 +1,7 @@
 import {
   MapOrchestrator,
   bootstrap
-} from "./chunk-V65UJZNM.js";
+} from "./chunk-IPIM3GHM.js";
 
 // src/swooper-desert-mountains.ts
 bootstrap({
@@ -21,7 +21,9 @@ bootstrap({
     storySwatches: true,
     climateRefine: true,
     biomes: true,
-    features: true
+    features: true,
+    rivers: true,
+    placement: true
   },
   overrides: {
     toggles: {

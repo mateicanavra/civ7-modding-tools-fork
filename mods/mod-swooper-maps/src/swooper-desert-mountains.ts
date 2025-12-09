@@ -15,6 +15,7 @@
 /// <reference types="@civ7/types" />
 
 import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
+import type { BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
 
 // Bootstrap configuration - same as the original JS version
 bootstrap({
@@ -35,6 +36,8 @@ bootstrap({
     climateRefine: true,
     biomes: true,
     features: true,
+    rivers: true,
+    placement: true,
   },
   overrides: {
     toggles: {
@@ -69,11 +72,10 @@ bootstrap({
       },
     },
     mountains: {
-      // Physics-threshold controls (higher intensity = more dramatic mountains)
-      tectonicIntensity: 0.77, // Moderate intensity for balanced mountains
-      mountainThreshold: 0.62, // Higher threshold = fewer mountains
-      hillThreshold: 0.2, // Higher threshold = fewer hills
-      // Physics weights
+      // Corrected physics settings to prevent mountain-spam
+      tectonicIntensity: 0.5,
+      mountainThreshold: 0.82,
+      hillThreshold: 0.35,
       upliftWeight: 0.65,
       fractalWeight: 0.35,
       riftDepth: 0.4,
@@ -341,7 +343,7 @@ bootstrap({
       },
     },
   },
-});
+} satisfies BootstrapOptions);
 
 // Create orchestrator instance
 const orchestrator = new MapOrchestrator({
