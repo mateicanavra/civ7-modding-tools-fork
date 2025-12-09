@@ -1,8 +1,8 @@
-# Revised Plate & Landmass Generation Pipeline
+# PRD: Plate & Landmass Generation
 
 ## 1. Overview
 
-This document outlines the architectural refactor for the map generation pipeline, shifting from a "nearest-neighbor" pixel-based approach to a robust **Mesh -> Partition -> Physics** model.
+This document defines the requirements for the "Foundation Stage" of the map generation pipeline. It focuses on replacing the legacy "nearest-neighbor" plate generation with a robust **Mesh -> Partition -> Physics** model.
 
 **Key Goals:**
 1.  **Ownership:** Remove reliance on game engine "fallbacks" or opaque utilities. We own the mesh generation using standard libraries (`d3-delaunay`).
@@ -107,7 +107,7 @@ export interface PlateGenerationConfig {
 
 ## 4. Implementation Details
 
-The Foundation Stage is implemented as a pipeline of three atomic strategies, following the [Map Generation Architecture](../../system/libs/mapgen/architecture.md).
+The Foundation Stage is implemented as a pipeline of three atomic strategies, following the [Map Generation Architecture](../../system/libs/mapgen/ARCHITECTURE.md).
 
 ### 4.1. Step 1: Mesh Generation (`MeshBuilder`)
 
