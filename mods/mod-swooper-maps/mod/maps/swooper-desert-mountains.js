@@ -81,35 +81,31 @@ function buildConfig(plateCount) {
       // by the orchestrator without relying on complex merging logic.
       foundation: {
         mountains: {
-          // "Safety" physics settings to prove control
-          // HARD-CODED LOW WEIGHTS to bypass potential build staleness/intensity logic
+          // Standard physics settings
           tectonicIntensity: 1,
-          mountainThreshold: 0.95,
-          // Near impossible
-          hillThreshold: 0.5,
-          // High bar for hills
-          upliftWeight: 0.05,
-          // Tiny
-          fractalWeight: 0.05,
-          // Tiny
+          // Standard intensity
+          mountainThreshold: 0.65,
+          // Standard threshold
+          hillThreshold: 0.3,
+          // Standard hill threshold
+          upliftWeight: 0.4,
+          fractalWeight: 0.4,
+          // Balanced fractal/physics
           riftDepth: 0.2,
-          boundaryWeight: 0.1,
-          // Tiny
-          boundaryExponent: 2,
-          interiorPenaltyWeight: 0,
-          convergenceBonus: 0.1,
-          // Tiny
-          transformPenalty: 0.9,
-          riftPenalty: 1,
-          hillBoundaryWeight: 0.1,
-          hillRiftBonus: 0.1,
-          hillConvergentFoothill: 0.1,
-          hillInteriorFalloff: 0.5,
-          hillUpliftWeight: 0.05
+          boundaryWeight: 0.8,
+          boundaryExponent: 1.6,
+          // Standard sharpness
+          interiorPenaltyWeight: 0.2,
+          convergenceBonus: 1,
+          transformPenalty: 0.5,
+          riftPenalty: 0.8,
+          hillBoundaryWeight: 0.4,
+          hillRiftBonus: 0.3,
+          hillConvergentFoothill: 0.4,
+          hillInteriorFalloff: 0.2,
+          hillUpliftWeight: 0.3
         },
         volcanoes: {
-          enabled: false,
-          // Disabled to isolate terrain
           baseDensity: 8e-3,
           minSpacing: 4,
           boundaryThreshold: 0.3,
