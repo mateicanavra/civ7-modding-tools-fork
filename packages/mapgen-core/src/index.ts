@@ -9,9 +9,10 @@
  * - world/: Voronoi tectonics, plate simulation
  * - layers/: Terrain generation stages (mountains, climate, etc.)
  * - core/: Shared utilities and types
+ * - story/: Narrative tagging and overlay system
  */
 
-// Re-export core types
+// Re-export core types from adapter
 export type { EngineAdapter, MapContext } from "@civ7/adapter";
 
 // Re-export bootstrap entry
@@ -23,8 +24,11 @@ export * from "./world/index.js";
 // Re-export layers module
 export * from "./layers/index.js";
 
-// Re-export core utilities
+// Re-export core utilities and types
 export * from "./core/index.js";
+
+// Re-export story module
+export * from "./story/index.js";
 
 // Package version
 export const VERSION = "0.1.0";
