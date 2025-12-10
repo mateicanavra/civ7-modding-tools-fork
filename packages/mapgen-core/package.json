@@ -1,0 +1,49 @@
+{
+  "name": "@swooper/mapgen-core",
+  "version": "0.1.0",
+  "description": "Pure TypeScript domain library for map generation algorithms",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./bootstrap": {
+      "types": "./dist/bootstrap/entry.d.ts",
+      "import": "./dist/bootstrap/entry.js"
+    },
+    "./world": {
+      "types": "./dist/world/index.d.ts",
+      "import": "./dist/world/index.js"
+    },
+    "./layers": {
+      "types": "./dist/layers/index.d.ts",
+      "import": "./dist/layers/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "bun test",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@civ7/types": "workspace:*",
+    "@civ7/adapter": "workspace:*"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "tsup": "^8.3.0",
+    "typescript": "^5.9.2"
+  },
+  "keywords": [
+    "civ7",
+    "civilization",
+    "modding",
+    "mapgen",
+    "voronoi",
+    "tectonics"
+  ],
+  "license": "MIT"
+}
