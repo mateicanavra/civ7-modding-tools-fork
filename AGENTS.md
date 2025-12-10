@@ -50,6 +50,7 @@
 ## MapGen configuration
 
 - The canonical TypeBox schema and derived types live at `packages/mapgen-core/src/config/schema.ts` and are exported via `@swooper/mapgen-core/config` (built by the `tsup` entry `src/config/index.ts`).
+- The schema now includes inline JSDoc for every field. When clarifying semantics or tuning ranges, refer to `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/bootstrap/map_config.types.js` for the historical descriptions that informed the current comments.
 
 ### Testing imports
 - Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.
