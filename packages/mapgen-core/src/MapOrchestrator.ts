@@ -28,6 +28,7 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
+import { Civ7Adapter } from "@civ7/adapter/civ7";
 import type {
   LandmassConfig,
   MountainsConfig,
@@ -91,7 +92,15 @@ export interface MapInfo {
 
 /** Orchestrator configuration */
 export interface OrchestratorConfig {
-  /** Custom adapter factory (defaults to CivEngineAdapter) */
+  /**
+   * Pre-built adapter instance (takes precedence over createAdapter).
+   * Use this when you have an adapter ready to use.
+   */
+  adapter?: EngineAdapter;
+  /**
+   * Custom adapter factory (defaults to Civ7Adapter from @civ7/adapter).
+   * Called with map dimensions when generateMap() runs.
+   */
   createAdapter?: (width: number, height: number) => EngineAdapter;
   /** Log prefix for console output */
   logPrefix?: string;
@@ -722,96 +731,19 @@ export class MapOrchestrator {
   }
 
   private createLayerAdapter(width: number, height: number): EngineAdapter {
+    // Priority 1: Use pre-built adapter if provided
+    if (this.config.adapter) {
+      return this.config.adapter;
+    }
+
+    // Priority 2: Use custom factory if provided
     if (this.config.createAdapter) {
       return this.config.createAdapter(width, height);
     }
 
-    // Default: try to import CivEngineAdapter
-    try {
-      // Dynamic import to avoid circular dependencies
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const adaptersModule = require("./core/adapters.js");
-      if (adaptersModule?.CivEngineAdapter) {
-        return new adaptersModule.CivEngineAdapter(width, height);
-      }
-    } catch {
-      // Fallback: create minimal adapter
-    }
-
-    // Fallback minimal adapter using globals
-    return this.createFallbackAdapter(width, height);
-  }
-
-  private createFallbackAdapter(width: number, height: number): EngineAdapter {
-    return {
-      width,
-      height,
-      isWater: (x, y) =>
-        typeof GameplayMap !== "undefined" ? GameplayMap.isWater(x, y) : true,
-      isMountain: (x, y) =>
-        typeof GameplayMap !== "undefined" ? GameplayMap.isMountain(x, y) : false,
-      isAdjacentToRivers: () => false,
-      getElevation: (x, y) =>
-        typeof GameplayMap !== "undefined" ? GameplayMap.getElevation?.(x, y) ?? 0 : 0,
-      getTerrainType: (x, y) =>
-        typeof GameplayMap !== "undefined" ? GameplayMap.getTerrainType(x, y) : 0,
-      getRainfall: (x, y) =>
-        typeof GameplayMap !== "undefined" ? GameplayMap.getRainfall?.(x, y) ?? 0 : 0,
-      getTemperature: (x, y) =>
-        typeof GameplayMap !== "undefined" ? GameplayMap.getTemperature?.(x, y) ?? 15 : 15,
-      getLatitude: (x, y) =>
-        typeof GameplayMap !== "undefined"
-          ? ((GameplayMap as unknown as { getLatitude?: (x: number, y: number) => number }).getLatitude?.(x, y) ?? 0)
-          : 0,
-      setTerrainType: (x, y, t) => {
-        if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setTerrainType) {
-          TerrainBuilder.setTerrainType(x, y, t);
-        }
-      },
-      setRainfall: (x, y, r) => {
-        if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setRainfall) {
-          TerrainBuilder.setRainfall(x, y, r);
-        }
-      },
-      setElevation: (x, y, e) => {
-        if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setElevation) {
-          TerrainBuilder.setElevation(x, y, e);
-        }
-      },
-      getFeatureType: (x, y) =>
-        typeof GameplayMap !== "undefined" ? GameplayMap.getFeatureType?.(x, y) ?? -1 : -1,
-      setFeatureType: (x, y, data) => {
-        if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setFeatureType) {
-          TerrainBuilder.setFeatureType(x, y, data);
-        }
-      },
-      canHaveFeature: () => true,
-      getRandomNumber: (max) => Math.floor(Math.random() * max),
-      validateAndFixTerrain: () => this.adapter.validateAndFixTerrain(),
-      recalculateAreas: () => this.adapter.recalculateAreas(),
-      createFractal: (id, w, h, grain, flags) => {
-        const tb = TerrainBuilder as unknown as {
-          createFractal?: (id: number, w: number, h: number, grain: number, flags: number) => void;
-        };
-        if (typeof TerrainBuilder !== "undefined" && tb.createFractal) {
-          tb.createFractal(id, w, h, grain, flags);
-        }
-      },
-      getFractalHeight: (id, x, y) => {
-        const tb = TerrainBuilder as unknown as {
-          getFractalHeight?: (id: number, x: number, y: number) => number;
-        };
-        if (typeof TerrainBuilder !== "undefined" && tb.getFractalHeight) {
-          return tb.getFractalHeight(id, x, y);
-        }
-        return 0;
-      },
-      stampContinents: () => this.adapter.stampContinents(),
-      buildElevation: () => this.adapter.buildElevation(),
-      modelRivers: (min, max, nav) => this.adapter.modelRivers(min, max, nav),
-      defineNamedRivers: () => this.adapter.defineNamedRivers(),
-      storeWaterData: () => this.adapter.storeWaterData(),
-    };
+    // Priority 3: Default to Civ7Adapter from @civ7/adapter
+    // This is the production adapter that wraps GameplayMap, TerrainBuilder, etc.
+    return new Civ7Adapter(width, height);
   }
 
   private createDefaultContinentBounds(
