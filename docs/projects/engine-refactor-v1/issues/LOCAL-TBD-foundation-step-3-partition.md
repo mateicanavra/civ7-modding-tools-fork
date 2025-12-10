@@ -3,11 +3,11 @@ id: LOCAL-TBD-3
 title: Implement Plate Partitioning Strategy
 state: planned
 priority: 2
-estimate: 3
+estimate: 0
 project: engine-refactor-v1
 milestone: milestone-1-foundation
 assignees: [codex]
-labels: [Feature, Architecture]
+labels: [Improvement, Architecture]
 parent: LOCAL-TBD
 children: []
 blocked_by: [LOCAL-TBD-2]
@@ -17,36 +17,47 @@ related_to: []
 
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
-Implement the `PlatePartitioner` strategy to group mesh cells into "Major" and "Minor" plates using a weighted multi-source flood fill algorithm.
+Create the "Pieces" (Plates). Implement the `PlatePartitioner` strategy to group mesh cells into "Major" (Continental) and "Minor" (Oceanic/Island) plates using a **Multi-Source Weighted Flood Fill** algorithm.
 
 ## Deliverables
-- `packages/mapgen-core/src/world/partitioner.ts` implementing the `MapGenStep` interface.
-- Logic to select seed locations based on "Major" (continental) vs "Minor" (island) configuration.
+- `packages/mapgen-core/src/strategies/plate-partitioner.ts` implementing the `MapGenStep` interface.
+- Logic to select seed locations based on "Major" vs "Minor" plate configuration.
 - A priority-queue based flood fill that allows major plates to expand more aggressively.
+- `PlateGraph` output with `cellToPlate` mapping and `PlateRegion` definitions (including velocity vectors).
 - Unit tests verifying plate size distribution matches configuration.
 
 ## Acceptance Criteria
 - [ ] `PlatePartitioner` implements `MapGenStep` with ID `core.plates.weighted`.
-- [ ] `run()` populates `context.graph` with `cellToPlate` mapping and `PlateRegion` definitions.
-- [ ] Major plates occupy significantly more area than minor plates (approx matching `majorPlateStrength`).
-- [ ] All mesh cells are assigned to a plate (no holes).
+- [ ] `run()` populates `context.artifacts.plateGraph` with `cellToPlate` mapping and `plates` array.
+- [ ] Major plates occupy significantly more area than minor plates (respecting `majorPlateStrength`).
+- [ ] All mesh cells are assigned to a plate (no holes - `cellToPlate` has no `-1` values).
+- [ ] Each `PlateRegion` has a valid `velocity` vector and `rotation` value for downstream physics.
 
 ## Testing / Verification
 - `pnpm test:mapgen`
-- Check that `context.graph.plates` contains the expected number of plates.
-- Verify that `cellToPlate` array has no `-1` values.
+- Check that `context.artifacts.plateGraph.plates` contains the expected number of plates.
+- Verify that `cellToPlate` array length equals mesh cell count and has no unassigned cells.
+- Verify plate types: correct count of 'major' vs 'minor' plates.
 
 ## Dependencies / Notes
-- Depends on `RegionMesh` from LOCAL-TBD-2.
-- Reference [Plate Generation PRD](../resources/PRD-plate-generation.md#42-step-2-plate-partitioning-platepartitioner).
-- **Note:** WrapX (horizontal map wrapping) is not needed for initial implementation. The mesh neighbors already define connectivity - if we later add WrapX support to the mesh, partitioning will automatically respect it.
+- **Blocked by:** LOCAL-TBD-2 (Mesh Generation Strategy) - requires `context.artifacts.mesh`.
+- **Blocked:** LOCAL-TBD-4 (Tectonic Physics Strategy)
+- **Reference:** [Foundation Stage Architecture - Strategy 2: Plate Partitioning](../../../system/libs/mapgen/foundation.md#32-strategy-2-plate-partitioning)
+- **Note:** WrapX (horizontal map wrapping) is not needed for initial implementation. The mesh neighbors already define connectivity.
 
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Details (Local Only)
 
-### Algorithm Overview
+### Algorithm (from Foundation Architecture)
+1. Select $M$ seeds for "Major" plates (Continental).
+2. Select $m$ seeds for "Minor" plates (Oceanic/Island).
+3. Assign "Strength" (travel cost) to each seed. Major plates have lower cost, allowing them to expand further.
+4. Run a Priority Queue flood fill from all seeds simultaneously.
+**Result:** A map partitioned into large continental plates and smaller buffer plates, without the "uniform size" artifact of simple nearest-neighbor Voronoi.
+
+### Algorithm Details
 1. **Seed Selection:** Pick `majorPlates` seeds with distance buffers, then `minorPlates` seeds in gaps.
 2. **Priority Queue Init:** Major plates start with lower cost (higher expansion priority).
 3. **Flood Fill:** Pop lowest-cost cell, claim it, push unclaimed neighbors with perturbed cost.
@@ -55,6 +66,29 @@ Implement the `PlatePartitioner` strategy to group mesh cells into "Major" and "
 ### Priority Queue
 - Can use a simple binary heap or even a sorted array for small N (4000 cells).
 - Cost function: `baseCost + randomPerturbation * cellArea` (perturbation creates organic shapes).
+
+### PlateRegion Velocity Assignment
+```typescript
+interface PlateRegion {
+  id: number;
+  type: 'major' | 'minor';
+  seedLocation: Point2D;
+  velocity: Vector2D; // Random direction with magnitude based on plate type
+  rotation: number;   // Angular velocity (radians/unit)
+}
+```
+- Major plates: slower velocity (stable continents)
+- Minor plates: faster velocity (oceanic drift)
+- Velocity direction: random, seeded
+
+### Configuration Schema
+```typescript
+interface PartitionConfig {
+  majorPlates: number;       // Count of large plates (default: 6-8)
+  minorPlates: number;       // Count of small plates (default: 8-12)
+  majorPlateStrength: number;// 0-1: Expansion bias for majors (default: 0.7)
+}
+```
 
 ### Quick Navigation
 - [TL;DR](#tldr)

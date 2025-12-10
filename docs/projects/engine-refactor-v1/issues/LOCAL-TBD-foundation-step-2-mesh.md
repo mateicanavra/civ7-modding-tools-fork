@@ -3,11 +3,11 @@ id: LOCAL-TBD-2
 title: Implement Mesh Generation Strategy
 state: planned
 priority: 2
-estimate: 3
+estimate: 0
 project: engine-refactor-v1
 milestone: milestone-1-foundation
 assignees: [codex]
-labels: [Feature, Architecture]
+labels: [Improvement, Architecture]
 parent: LOCAL-TBD
 children: []
 blocked_by: [LOCAL-TBD-1]
@@ -17,38 +17,47 @@ related_to: []
 
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
-Implement the `MeshBuilder` strategy using `d3-delaunay` to generate a Lloyd-relaxed Voronoi mesh, replacing the legacy random point generation.
+Build the "Board" (Voronoi Mesh). Implement the `MeshBuilder` strategy using `d3-delaunay` to generate a Lloyd-relaxed Voronoi mesh as the foundation for all downstream plate generation.
 
 ## Deliverables
 - `d3-delaunay` and `@types/d3-delaunay` added as dependencies to `packages/mapgen-core`.
-- `packages/mapgen-core/src/core/mesh.ts` implementing the `MapGenStep` interface.
-- Utility functions: `computeCentroid()` (~15 lines) and `calculateCellArea()` (~10 lines).
-- Logic to generate random points, run Lloyd relaxation, and build the adjacency graph.
+- `packages/mapgen-core/src/strategies/mesh-builder.ts` implementing the `MapGenStep` interface.
+- Utility functions: `computeCentroid()` and `calculateCellArea()` for polygon math.
+- Logic to generate random points, run Lloyd relaxation, and build the `RegionMesh` (sites, neighbors, areas, centroids).
 - Unit tests verifying mesh properties (centroid convergence, neighbor connectivity).
 
 ## Acceptance Criteria
 - [ ] `MeshBuilder` implements `MapGenStep` with ID `core.mesh.voronoi`.
-- [ ] `run()` populates `context.mesh` with `sites`, `neighbors`, `areas`, and `centroids`.
-- [ ] Lloyd relaxation correctly regularizes the cell shapes over N iterations.
+- [ ] `run()` populates `context.artifacts.mesh` with `sites`, `neighbors`, `areas`, and `centroids`.
+- [ ] Lloyd relaxation correctly regularizes the cell shapes over N iterations (Config: `relaxationSteps`).
 - [ ] `d3-delaunay` is correctly bundled in the build process (via tsup).
 - [ ] All degenerate cells (null polygons at boundaries) are handled gracefully.
+- [ ] Mesh generation for 4000 cells completes in under 100ms.
 
 ## Testing / Verification
 - `pnpm test:mapgen`
-- Verify that `context.mesh.neighbors` is a valid adjacency list (symmetric, no out-of-bounds indices).
+- Verify that `context.artifacts.mesh.neighbors` is a valid adjacency list (symmetric, no out-of-bounds indices).
 - Test centroid convergence: after 3+ relaxation steps, cell shapes should be more regular.
 
 ## Dependencies / Notes
-- Requires `d3-delaunay` (install: `pnpm add d3-delaunay && pnpm add -D @types/d3-delaunay`).
-- Reference [Plate Generation PRD](../resources/PRD-plate-generation.md#41-step-1-mesh-generation-meshbuilder).
-- **Library Decision:** We chose `d3-delaunay` over Civ7's `TypeScript-Voronoi` for 5-10x performance gains and active maintenance. Both produce identical Voronoi diagrams (mathematical duals). See spec Section 2 for rationale.
-- **Utilities to implement:** d3-delaunay provides core Voronoi but not centroid/area helpers. We write ~35 lines of basic polygon math (see spec Section 2.4).
-- **WrapX:** Not needed initially. Civ7's voronoi maps default to `wrapX: 0`. When needed, reference Civ7's `VoronoiUtils` implementation in `kd-tree.js:377-438`.
+- **Blocked by:** LOCAL-TBD-1 (Core Pipeline Infrastructure)
+- **Blocked:** LOCAL-TBD-3 (Plate Partitioning Strategy)
+- **Requires:** `d3-delaunay` (install: `pnpm add d3-delaunay && pnpm add -D @types/d3-delaunay`).
+- **Reference:** [Foundation Stage Architecture - Strategy 1: Mesh Generation](../../../system/libs/mapgen/foundation.md#31-strategy-1-mesh-generation)
+- **Library Decision:** We chose `d3-delaunay` over Civ7's `TypeScript-Voronoi` for 5-10x performance gains and active maintenance.
+- **WrapX:** Not needed initially. Civ7 defaults to `wrapX: 0`. Wrapping logic can be added later.
 
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Details (Local Only)
+
+### Algorithm (from Foundation Architecture)
+1. Generate $N$ random points.
+2. Compute Voronoi diagram (using `d3-delaunay`).
+3. Move each point to the centroid of its cell.
+4. Repeat $K$ times (Config: `relaxationSteps`).
+**Result:** A "relaxed" mesh where cells are roughly hexagonal but organic.
 
 ### d3-delaunay API Summary
 ```typescript
@@ -77,6 +86,14 @@ function computeCentroid(polygon: [number, number][]): [number, number] {
   }
   area *= 0.5;
   return [cx / (6 * area), cy / (6 * area)];
+}
+```
+
+### Configuration Schema
+```typescript
+interface MeshConfig {
+  cellCount: number;      // Resolution of the physics board (default: 4000)
+  relaxationSteps: number;// Regularity of the mesh (0=Chaos, 5=Hex-like)
 }
 ```
 
