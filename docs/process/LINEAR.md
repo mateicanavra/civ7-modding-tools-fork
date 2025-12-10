@@ -9,6 +9,42 @@ This document provides conventions for working with Linear in this workspace. It
 - When drafting those artifacts locally, copy the appropriate scaffold from `docs/templates/` (project, service, issue, milestone) before syncing the final content into Linear.
 - Do **not** create a `docs/resources/` directory in the repo—active resources either live under the relevant `docs/projects/<slug>/` folder or inside Linear itself.
 
+When working on a non-trivial project, use this **three-layer doc structure**:
+
+- **Project directional doc** (e.g., `docs/projects/<project-slug>/PRD-<project-slug>.md`)
+  - Single entrypoint for understanding goals, scope, and milestones.
+  - Links to feature PRDs (detailed specs) and milestone docs (time-bounded plans).
+- **Milestone docs** (e.g., `docs/projects/<project-slug>/milestones/M2-*.md`)
+  - Own scope, sequencing, and cross-cutting dependencies for that slice of work.
+  - Stay high-level; they should point to issues and PRDs rather than duplicate implementation details.
+- **Feature PRDs** (e.g., `docs/projects/<project-slug>/resources/PRD-*.md`)
+  - Own detailed requirements and technical phases for a specific area (config, pipeline, plates, etc.).
+  - May reference milestones for context, but never own schedule.
+
+**Linear issues then link these layers together:**
+- Each issue should:
+  - Reference its milestone (`milestone:` field in the YAML front matter and in Linear).
+  - Link to the relevant feature PRD section in `References` (e.g., config Phase 1, pipeline Phase 1).
+  - Optionally link back to the project directional doc if it’s a “top-level” or cross-cutting task.
+
+### When to Create a PROJECT doc vs PRD vs “just an issue”
+
+- **PROJECT-<slug>.md (project directional doc)**
+  - Use when a body of work spans multiple capabilities and/or multiple milestones.
+  - Describes *what we’re doing and why* at project scope, plus how milestones slice it.
+  - Does **not** replace feature PRDs; it links to them.
+- **PRD-*.md (feature/capability spec)**
+  - Use when you’re defining or changing an external contract:
+    - Config schema and validation behavior
+    - Pipeline/data-product contracts
+    - Public APIs or surfaces other code depends on
+  - Describes “what correct looks like” and any internal phases; scheduling lives in milestones/issues.
+- **Issues and milestones without a PRD**
+  - Use for localized, short-lived, or purely internal work:
+    - Small refactors that don’t change observable behavior
+    - Minor UX tweaks, wiring fixes, or one-off bug clusters
+  - A strong issue description (and, if needed, a small design note) is preferred over a full PRD.
+
 ---
 
 ## Milestone Naming

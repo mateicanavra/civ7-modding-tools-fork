@@ -132,6 +132,32 @@ docs/projects/
   - Specs, logs, issue docs, resources tied to that initiative.
 - Project docs are typically lowercased and can be archived when the project sunsets.
 
+For non-trivial projects, use a three-layer structure:
+
+- **Project directional doc** (e.g., `docs/projects/<project-slug>/PRD-<project-slug>.md`)
+  - Defines goals, high-level milestones, and links to feature PRDs and milestone docs.
+  - Acts as the *entrypoint* for people trying to understand the project.
+- **Milestone docs** (e.g., `docs/projects/<project-slug>/milestones/M2-*.md`)
+  - Own scope, sequencing, and cross-cutting dependencies for a time-bounded slice.
+  - Stay relatively high-level; they should point to PRDs and issues for details, not duplicate them.
+- **Feature PRDs** (e.g., `docs/projects/<project-slug>/resources/PRD-*.md`)
+  - Own detailed requirements and technical phases for a specific subsystem.
+  - May reference milestones for scheduling context, but do not define timelines directly.
+
+When deciding what to create for a project:
+
+- Reach for a **PROJECT-<slug>.md** directional doc when:
+  - The work spans multiple capabilities or subsystems.
+  - You expect multiple milestones or a prolonged timeline.
+  - You need a single place to explain “what we’re doing and why” at project scope.
+- Reach for a **feature PRD** (`PRD-*.md`) when:
+  - You are changing an external contract, data shape, or observable behavior (e.g., config schema, pipeline contracts, API surfaces).
+  - Multiple milestones or issues will depend on a stable definition of “what correct looks like.”
+  - You need room to describe phases, edge cases, and invariants for one capability.
+- Rely on **milestone docs** and **issues only** when:
+  - The work is short-lived, localized, or purely internal (e.g., internal refactors that do not change public behavior).
+  - A clear issue description, possibly with a short design note, is enough to express intent and acceptance criteria.
+
 ### 3.5 `templates/` — Scaffolds
 
 ```text

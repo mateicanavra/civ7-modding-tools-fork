@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 0
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M3-core-engine-refactor-config-evolution
 assignees: []
 labels: [bug]
 parent: CIV-14
@@ -19,6 +19,8 @@ related_to: [CIV-10]
 ## TL;DR
 
 Port a minimal subset of story tagging from JS to populate `StoryTags` with continental margins, hotspots, and rifts — the foundational tags that climate, biomes, and features depend on.
+
+> **Note:** This issue was originally scoped as P0 remediation under the M1 TypeScript migration (CIV-14). It is now part of Milestone M3, where story tagging will be implemented against the stabilized pipeline and config shapes.
 
 ## Problem
 

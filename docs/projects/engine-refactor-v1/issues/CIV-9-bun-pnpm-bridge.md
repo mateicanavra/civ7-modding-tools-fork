@@ -5,7 +5,7 @@ state: planned
 priority: 3
 estimate: 2
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M4-tests-validation-cleanup
 assignees: []
 labels: [architecture, technical-debt]
 parent: null
@@ -19,6 +19,8 @@ related_to: [CIV-5, CIV-6]
 ## TL;DR
 
 Create bridge scripts for Bun ↔ pnpm interop and document the fallback path if Bun introduces instability, ensuring the migration can proceed regardless of toolchain friction.
+
+> **Note:** This was originally a Gate D contingency under the M1 migration. The core TS engine is now stable, so this bridge is tracked as an optional tooling improvement under M4 and is not required for the main engine refactor milestones.
 
 ## Deliverables
 
