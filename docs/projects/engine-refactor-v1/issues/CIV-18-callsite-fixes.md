@@ -57,23 +57,24 @@ if (adapter.isCoastalLand) {
 
 ## Deliverables
 
-- [ ] **Biomes ctx fix (1 line):**
-  - `MapOrchestrator.ts:594`: Add `ctx` parameter to `designateEnhancedBiomes` call
-- [ ] **Climate adapter fix (~10 lines):**
+- [x] **Biomes ctx fix (1 line):**
+  - `MapOrchestrator.ts:643`: Add `ctx` parameter to `designateEnhancedBiomes` call
+- [x] **Climate adapter fix (~10 lines):**
   - `climate-engine.ts`: Modify `resolveAdapter()`
   - Remove `isCoastalLand` and `isAdjacentToShallowWater` stub implementations
   - Leave them undefined so fallback code path executes
-- [ ] **Verify biomes receives context:**
-  - Add assertion or log in `designateEnhancedBiomes` confirming ctx.adapter is present
-- [ ] **Smoke test:**
-  - With MockAdapter, run climate stage and verify coastal modifiers apply
+  - Made `ClimateAdapter.isCoastalLand` and `isAdjacentToShallowWater` optional in interface
+- [x] **Verify biomes receives context:**
+  - Added test verifying `designateEnhancedBiomes` accepts ctx parameter
+- [x] **Smoke test:**
+  - Added `test/layers/callsite-fixes.test.ts` with 5 tests verifying fallback behavior
 
 ## Acceptance Criteria
 
-- [ ] Biomes stage receives `ctx` and can access adapter
-- [ ] Climate coastal/shallow fallbacks execute (not blocked by stubs)
-- [ ] Build passes, tests pass
-- [ ] A minimal MockAdapter smoke test shows biomes and climate stages execute (basic assertions)
+- [x] Biomes stage receives `ctx` and can access adapter
+- [x] Climate coastal/shallow fallbacks execute (not blocked by stubs)
+- [x] Build passes, tests pass (179 tests)
+- [x] A minimal MockAdapter smoke test shows biomes and climate stages execute (basic assertions)
 
 ## Testing / Verification
 

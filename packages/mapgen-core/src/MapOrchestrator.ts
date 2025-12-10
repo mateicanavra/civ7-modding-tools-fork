@@ -640,7 +640,7 @@ export class MapOrchestrator {
     // ========================================================================
     if (stageFlags.biomes && ctx) {
       const stageResult = this.runStage("biomes", () => {
-        designateEnhancedBiomes(iWidth, iHeight);
+        designateEnhancedBiomes(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
     }

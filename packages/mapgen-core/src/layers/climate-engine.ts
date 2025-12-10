@@ -32,8 +32,10 @@ export interface ClimateRuntime {
 export interface ClimateAdapter {
   isWater: (x: number, y: number) => boolean;
   isMountain: (x: number, y: number) => boolean;
-  isCoastalLand: (x: number, y: number) => boolean;
-  isAdjacentToShallowWater: (x: number, y: number) => boolean;
+  /** Optional - when undefined, climate code uses local neighborhood fallback */
+  isCoastalLand?: (x: number, y: number) => boolean;
+  /** Optional - when undefined, climate code uses local fallback */
+  isAdjacentToShallowWater?: (x: number, y: number) => boolean;
   isAdjacentToRivers: (x: number, y: number, radius: number) => boolean;
   getRainfall: (x: number, y: number) => number;
   setRainfall: (x: number, y: number, rf: number) => void;
@@ -66,8 +68,10 @@ function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
     return {
       isWater: (x, y) => engineAdapter.isWater(x, y),
       isMountain: (x, y) => engineAdapter.isMountain(x, y),
-      isCoastalLand: () => false, // Not on base interface - computed locally
-      isAdjacentToShallowWater: () => false, // Not on base interface - computed locally
+      // NOTE: isCoastalLand and isAdjacentToShallowWater intentionally omitted.
+      // These are not on the base EngineAdapter interface. By leaving them
+      // undefined, the climate code's local fallbacks will execute instead of
+      // receiving stubbed `() => false` values that block the fallback path.
       isAdjacentToRivers: (x, y, radius) =>
         engineAdapter.isAdjacentToRivers(x, y, radius),
       getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
@@ -75,10 +79,12 @@ function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
       getElevation: (x, y) => engineAdapter.getElevation(x, y),
       getLatitude: (x, y) => engineAdapter.getLatitude(x, y),
       getRandomNumber: (max, label) => engineAdapter.getRandomNumber(max, label),
-    };
+    } as ClimateAdapter;
   }
 
-  // Fallback: return dummy adapter that will throw
+  // Fallback: return dummy adapter that will throw on critical methods
+  // NOTE: isCoastalLand and isAdjacentToShallowWater intentionally omitted
+  // to allow local neighborhood fallbacks to execute.
   return {
     isWater: () => {
       throw new Error("ClimateEngine: No adapter available");
@@ -86,15 +92,13 @@ function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
     isMountain: () => {
       throw new Error("ClimateEngine: No adapter available");
     },
-    isCoastalLand: () => false,
-    isAdjacentToShallowWater: () => false,
     isAdjacentToRivers: () => false,
     getRainfall: () => 0,
     setRainfall: () => {},
     getElevation: () => 0,
     getLatitude: () => 0,
     getRandomNumber: (max) => Math.floor(Math.random() * max),
-  };
+  } as ClimateAdapter;
 }
 
 /**
@@ -319,9 +323,36 @@ export function applyClimateBaseline(
     return false;
   };
 
+  // CIV-18: Ad-hoc fallback helper for shallow water adjacency.
+  // No prior implementation existed - this was added to fix the gap where
+  // removing stubs left no fallback behavior. A tile is "adjacent to shallow
+  // water" if it neighbors a water tile that has 2+ land neighbors (bay/lagoon).
   const isAdjacentToShallowWater = (x: number, y: number): boolean => {
     if (adapter.isAdjacentToShallowWater)
       return adapter.isAdjacentToShallowWater(x, y);
+    if (adapter.isWater(x, y)) return false;
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        if (dx === 0 && dy === 0) continue;
+        const nx = x + dx;
+        const ny = y + dy;
+        if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+        if (adapter.isWater(nx, ny)) {
+          // Check if this water tile has multiple land neighbors (shallow)
+          let landNeighbors = 0;
+          for (let ddy = -1; ddy <= 1; ddy++) {
+            for (let ddx = -1; ddx <= 1; ddx++) {
+              if (ddx === 0 && ddy === 0) continue;
+              const nnx = nx + ddx;
+              const nny = ny + ddy;
+              if (nnx < 0 || nnx >= width || nny < 0 || nny >= height) continue;
+              if (!adapter.isWater(nnx, nny)) landNeighbors++;
+            }
+          }
+          if (landNeighbors >= 2) return true;
+        }
+      }
+    }
     return false;
   };
 
@@ -436,9 +467,32 @@ export function applyClimateSwatches(
     return false;
   };
 
+  // CIV-18: Ad-hoc fallback helper for shallow water adjacency (same as baseline).
   const isAdjacentToShallowWater = (x: number, y: number): boolean => {
     if (adapter.isAdjacentToShallowWater)
       return adapter.isAdjacentToShallowWater(x, y);
+    if (isWater(x, y)) return false;
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        if (dx === 0 && dy === 0) continue;
+        const nx = x + dx;
+        const ny = y + dy;
+        if (!inLocalBounds(nx, ny)) continue;
+        if (isWater(nx, ny)) {
+          let landNeighbors = 0;
+          for (let ddy = -1; ddy <= 1; ddy++) {
+            for (let ddx = -1; ddx <= 1; ddx++) {
+              if (ddx === 0 && ddy === 0) continue;
+              const nnx = nx + ddx;
+              const nny = ny + ddy;
+              if (!inLocalBounds(nnx, nny)) continue;
+              if (!isWater(nnx, nny)) landNeighbors++;
+            }
+          }
+          if (landNeighbors >= 2) return true;
+        }
+      }
+    }
     return false;
   };
 
