@@ -2,20 +2,21 @@
 
 ## 1. Overview
 
-The **Foundation Stage** is the first major phase of the map generation pipeline. Its responsibility is to construct the physical "board" (Mesh) and the tectonic "pieces" (Plates) that drive all downstream morphology.
+The **Foundation Stage** is the first major phase of the map generation pipeline. Its responsibility is to construct the physical "board" (Mesh), the geological material (Crust), and the tectonic "pieces" (Plates) that drive all downstream morphology.
 
-Unlike legacy approaches that rely on grid-based noise or nearest-neighbor heuristics, the Foundation stage uses a **Graph-Based Physics Model**.
+Unlike legacy approaches that rely on grid-based noise or nearest-neighbor heuristics, the Foundation stage uses a **Graph-Based Physics Model** that explicitly decouples **Kinematics** (Plate Movement) from **Material** (Crust Type).
 
 ### Core Responsibilities
 1.  **Mesh Generation:** Create a regularized Voronoi graph to represent the world surface.
-2.  **Partitioning:** Group mesh cells into tectonic plates with distinct properties (Major vs. Minor).
-3.  **Tectonics:** Simulate physical interactions (Convergence, Divergence, Shear) at plate boundaries.
+2.  **Crust Generation:** Define the material properties of the world (Continental vs. Oceanic) independent of plate boundaries.
+3.  **Partitioning:** Group mesh cells into tectonic plates with distinct kinematic properties (Velocity, Rotation).
+4.  **Tectonics:** Simulate physical interactions (Subduction, Orogeny, Rifting) by intersecting the Plate Graph with the Crust Mask.
 
 ---
 
 ## 2. Data Model
 
-The Foundation stage operates on graph structures stored in the `MapGenContext.artifacts` container. These structures are immutable once created.
+The Foundation stage operates on graph structures stored in the `MapGenContext.artifacts` container. These structures are immutable once created, though the `TectonicData` can accumulate history across eras.
 
 ### 2.1. Region Mesh (`context.artifacts.mesh`)
 The underlying geometry of the world. We use a **Voronoi Diagram** derived from a Lloyd-relaxed Delaunay triangulation.
@@ -33,7 +34,19 @@ interface RegionMesh {
 }
 ```
 
-### 2.2. Plate Graph (`context.artifacts.plateGraph`)
+### 2.2. Crust Mask (`context.artifacts.crust`)
+The material definition of the lithosphere. This is generated *before* plates are defined, ensuring that landmasses can exist in the middle of plates (Passive Margins) or span across boundaries.
+
+```typescript
+interface CrustData {
+  /** 0=Oceanic (Basalt), 1=Continental (Granite) */
+  type: Uint8Array;
+  /** 0=New (Active), 255=Ancient (Craton) */
+  age: Uint8Array;
+}
+```
+
+### 2.3. Plate Graph (`context.artifacts.plateGraph`)
 The logical grouping of mesh cells into plates.
 
 ```typescript
@@ -46,26 +59,30 @@ interface PlateGraph {
 
 interface PlateRegion {
   id: number;
-  type: 'major' | 'minor';
+  type: 'major' | 'minor'; // Kinematic scale, NOT material type
   seedLocation: Point2D;
   velocity: Vector2D; // Movement direction & speed
   rotation: number;   // Angular velocity
 }
 ```
 
-### 2.3. Tectonic Data (`context.artifacts.tectonics`)
+### 2.4. Tectonic Data (`context.artifacts.tectonics`)
 The physical forces calculated at plate boundaries. These tensors drive mountain uplift, rift valleys, and earthquake zones.
 
 ```typescript
 interface TectonicData {
-  /** 0-1: Intensity of collision (Convergent) */
+  /** 0-255: Intensity of collision (Convergent) */
   upliftPotential: Uint8Array;
-  /** 0-1: Intensity of separation (Divergent) */
+  /** 0-255: Intensity of separation (Divergent) */
   riftPotential: Uint8Array;
-  /** 0-1: Intensity of shearing (Transform) */
+  /** 0-255: Intensity of shearing (Transform) */
   shearStress: Uint8Array;
-  /** 0-1: Distance to nearest boundary (inverted) */
-  boundaryCloseness: Uint8Array;
+  /** 0-255: Derived from Subduction + Hotspots */
+  volcanism: Uint8Array;
+  /** 0-255: Derived from Shear + Rifting */
+  fracture: Uint8Array;
+  /** Accumulation buffer for multi-era simulation */
+  cumulativeUplift: Uint8Array;
 }
 ```
 
@@ -73,7 +90,7 @@ interface TectonicData {
 
 ## 3. The Pipeline
 
-The Foundation stage is implemented as a sub-pipeline of three atomic strategies.
+The Foundation stage is implemented as a sub-pipeline of four atomic strategies.
 
 ### 3.1. Strategy 1: Mesh Generation
 **Goal:** Create a uniform, organic grid.
@@ -86,55 +103,86 @@ The Foundation stage is implemented as a sub-pipeline of three atomic strategies
     4.  Repeat $K$ times (Config: `relaxationSteps`).
 *   **Result:** A "relaxed" mesh where cells are roughly hexagonal but organic.
 
-### 3.2. Strategy 2: Plate Partitioning
-**Goal:** Divide the mesh into realistic tectonic plates.
+### 3.2. Strategy 2: Crust Generation
+**Goal:** Define the material "Anvil" that receives tectonic forces.
+
+*   **Algorithm:** **Craton Seeding & Noise**.
+*   **Process:**
+    1.  Seed "Craton" centers (Ancient stable cores).
+    2.  Grow Continental Crust around Cratons using noise/distance fields.
+    3.  Remaining area is defined as Oceanic Crust.
+*   **Result:** A `CrustData` mask defining where the "Land" is, independent of where the plates will be.
+
+### 3.3. Strategy 3: Plate Partitioning
+**Goal:** Divide the mesh into realistic tectonic plates (The "Engine").
 
 *   **Algorithm:** **Multi-Source Weighted Flood Fill**.
 *   **Process:**
-    1.  Select $M$ seeds for "Major" plates (Continental).
-    2.  Select $m$ seeds for "Minor" plates (Oceanic/Island).
-    3.  Assign "Strength" (travel cost) to each seed. Major plates have lower cost, allowing them to expand further.
-    4.  Run a Priority Queue flood fill from all seeds simultaneously.
-*   **Result:** A map partitioned into large continental plates and smaller buffer plates, without the "uniform size" artifact of simple nearest-neighbor Voronoi.
+    1.  Select $M$ seeds for "Major" plates (Large kinematic domains).
+    2.  Select $m$ seeds for "Minor" plates (Buffer zones).
+    3.  Run a Priority Queue flood fill from all seeds simultaneously.
+*   **Result:** A map partitioned into plates. Note that a single Major Plate might contain both a Continent and an Ocean (e.g., African Plate).
 
-### 3.3. Strategy 3: Tectonic Physics
-**Goal:** Calculate geological forces at boundaries.
+### 3.4. Strategy 4: Tectonic Physics
+**Goal:** Calculate geological forces by intersecting Kinematics (Plates) with Material (Crust).
 
-*   **Algorithm:** **Vector Analysis on Graph Edges**.
+*   **Algorithm:** **Vector Analysis + Material Lookup**.
 *   **Process:**
-    1.  Identify **Boundary Edges** (edges where `Cell A` and `Cell B` belong to different plates).
-    2.  For each boundary edge:
-        *   Calculate the **Relative Velocity** vector: $V_{rel} = V_{plateA} - V_{plateB}$.
-        *   Calculate the **Edge Normal** vector $N$ (perpendicular to the boundary).
-        *   **Convergence:** $C = -(V_{rel} \cdot N)$. Positive = Collision, Negative = Separation.
-        *   **Shear:** $S = |V_{rel} \times N|$. Sliding motion.
-    3.  **Rasterization:** Interpolate these edge values onto the hex grid to populate `upliftPotential` and `riftPotential`.
+    1.  Identify **Boundary Edges**.
+    2.  For each boundary edge, calculate **Relative Velocity** ($V_{rel}$).
+    3.  **Resolve Interaction based on Crust Type:**
+        *   **Cont-Cont Convergence:** High Uplift, Low Volcanism (Himalayas).
+        *   **Ocean-Cont Convergence:** Medium Uplift, High Volcanism (Andes/Subduction).
+        *   **Ocean-Ocean Convergence:** Low Uplift, Island Arcs (Japan).
+        *   **Divergence:** Rift Valley (Land) or Mid-Ocean Ridge (Sea).
+    4.  **Inject Hotspots:** Add uplift/volcanism at random non-boundary points.
+    5.  **Accumulate:** Add results to `cumulativeUplift`.
 
 ---
 
-## 4. Configuration
+## 4. Iterative Simulation (Eras)
+
+To support "Geologic History," the Foundation stage can be run in multiple passes (Eras).
+
+1.  **Paleo Era:**
+    *   Run Steps 1-4.
+    *   Result: `cumulativeUplift` contains ancient mountain ranges.
+2.  **Meso/Ceno Era:**
+    *   Re-run Steps 3-4 (New Plates, same Crust).
+    *   Result: New forces are added to `cumulativeUplift`.
+3.  **Morphology Interpretation:**
+    *   High `cumulativeUplift` + Ancient `crustAge` = **Hills/Coal**.
+    *   High `cumulativeUplift` + Young `crustAge` = **Mountains/Geothermal**.
+
+---
+
+## 5. Configuration
 
 The behavior of the Foundation stage is controlled by the `PlateGenerationConfig` schema.
 
 ```typescript
 interface PlateGenerationConfig {
   mesh: {
-    cellCount: number;      // Resolution of the physics board
-    relaxationSteps: number;// Regularity of the mesh (0=Chaos, 5=Hex-like)
+    cellCount: number;
+    relaxationSteps: number;
+  };
+  crust: {
+    continentalRatio: number; // % of world that is continental crust
+    cratonCount: number;      // Number of stable cores
   };
   partition: {
-    majorPlates: number;    // Count of large plates
-    minorPlates: number;    // Count of small plates
-    majorPlateStrength: number; // 0-1: Expansion bias for majors
+    majorPlates: number;
+    minorPlates: number;
   };
   tectonics: {
-    collisionScale: number; // Global multiplier for uplift
-    rotationInfluence: number; // How much plate rotation contributes to velocity
+    collisionScale: number;
+    volcanismScale: number;
+    hotspotCount: number;
   };
 }
 ```
 
-## 5. Dependencies
+## 6. Dependencies
 
 *   **Requires:** `d3-delaunay` (for Voronoi/Delaunay computation).
-*   **Provides:** `FoundationContext` (consumed by Morphology and Hydrology).
+*   **Provides:** `FoundationContext` (Legacy Bridge) and `context.artifacts` (Modern Pipeline).
