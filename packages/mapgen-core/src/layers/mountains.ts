@@ -1,0 +1,435 @@
+/**
+ * Mountains Layer — Physics-Based Mountain and Rift Placement
+ *
+ * Purpose:
+ * - Replace random fractal mountain placement with plate-boundary-driven orogenesis
+ * - Place mountain chains along convergent boundaries (collision zones)
+ * - Create rift valleys and lowlands along divergent boundaries (spreading zones)
+ * - Use WorldModel.upliftPotential and tile-precise boundary data for accurate placement
+ *
+ * Architecture:
+ * - Reads WorldModel plate boundary data
+ * - Uses ExtendedMapContext + Adapter pattern
+ * - Blends WorldModel-driven placement with optional fractal noise for variety
+ * - Backward compatible: Falls back to base game fractals if WorldModel disabled
+ */
+
+import type { ExtendedMapContext } from "../core/types.js";
+import type { EngineAdapter } from "@civ7/adapter";
+import type { MountainsConfig as BootstrapMountainsConfig } from "../bootstrap/types.js";
+import { writeHeightfield } from "../core/types.js";
+import { WorldModel, BOUNDARY_TYPE } from "../world/model.js";
+
+// ============================================================================
+// Types
+// ============================================================================
+
+// Re-export canonical type
+export type MountainsConfig = BootstrapMountainsConfig;
+
+// ============================================================================
+// Constants
+// ============================================================================
+
+const MOUNTAIN_FRACTAL = 0;
+const HILL_FRACTAL = 1;
+const MOUNTAIN_TERRAIN = 5;
+const HILL_TERRAIN = 4;
+const COAST_TERRAIN = 1;
+const OCEAN_TERRAIN = 0;
+
+// ============================================================================
+// Helper Functions
+// ============================================================================
+
+function idx(x: number, y: number, width: number): number {
+  return y * width + x;
+}
+
+// ============================================================================
+// Main Function
+// ============================================================================
+
+/**
+ * Add mountains using WorldModel plate boundaries.
+ *
+ * ARCHITECTURE: Physics-threshold based (not quota based)
+ * - Mountains appear where physics score > mountainThreshold
+ * - No forced quota - if tectonics don't create mountains, there are fewer mountains
+ * - tectonicIntensity scales the physics parameters to control mountain prevalence
+ *
+ * @param ctx - Map context
+ * @param options - Mountain generation options
+ */
+export function layerAddMountainsPhysics(
+  ctx: ExtendedMapContext,
+  options: Partial<MountainsConfig> = {}
+): void {
+  const {
+    tectonicIntensity = 1.0,
+    mountainThreshold = 0.45,
+    hillThreshold = 0.25,
+    upliftWeight = 0.75,
+    fractalWeight = 0.25,
+    riftDepth = 0.3,
+    boundaryWeight = 0.6,
+    boundaryExponent = 1.4,
+    interiorPenaltyWeight = 0.2,
+    convergenceBonus = 0.9,
+    transformPenalty = 0.3,
+    riftPenalty = 0.75,
+    hillBoundaryWeight = 0.45,
+    hillRiftBonus = 0.5,
+    hillConvergentFoothill = 0.25,
+    hillInteriorFalloff = 0.2,
+    hillUpliftWeight = 0.25,
+  } = options;
+
+  // Scale physics parameters by tectonic intensity
+  const scaledConvergenceBonus = convergenceBonus * tectonicIntensity;
+  const scaledBoundaryWeight = boundaryWeight * tectonicIntensity;
+  const scaledUpliftWeight = upliftWeight * tectonicIntensity;
+  const scaledHillBoundaryWeight = hillBoundaryWeight * tectonicIntensity;
+  const scaledHillConvergentFoothill = hillConvergentFoothill * tectonicIntensity;
+
+  const dimensions = ctx?.dimensions;
+  const width = dimensions?.width ?? 0;
+  const height = dimensions?.height ?? 0;
+  const adapter = ctx?.adapter;
+
+  if (!width || !height || !adapter) {
+    return;
+  }
+
+  const isWater = createIsWaterTile(ctx, adapter, width, height);
+
+  const terrainWriter = (x: number, y: number, terrain: number): void => {
+    const isLand = terrain !== COAST_TERRAIN && terrain !== OCEAN_TERRAIN;
+    writeHeightfield(ctx, x, y, { terrain, isLand });
+  };
+
+  const worldModelEnabled = WorldModel.isEnabled();
+
+  // Create fractals for base noise
+  const grainAmount = 5;
+  const iFlags = 0;
+
+  adapter.createFractal(MOUNTAIN_FRACTAL, width, height, grainAmount, iFlags);
+  adapter.createFractal(HILL_FRACTAL, width, height, grainAmount, iFlags);
+
+  // Count land tiles
+  let landTiles = 0;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (!isWater(x, y)) {
+        landTiles++;
+      }
+    }
+  }
+
+  // Compute placement scores
+  const size = width * height;
+  const scores = new Float32Array(size);
+  const hillScores = new Float32Array(size);
+
+  if (worldModelEnabled) {
+    computePlateBasedScores(
+      ctx,
+      scores,
+      hillScores,
+      {
+        upliftWeight: scaledUpliftWeight,
+        fractalWeight,
+        boundaryWeight: scaledBoundaryWeight,
+        boundaryExponent,
+        interiorPenaltyWeight,
+        convergenceBonus: scaledConvergenceBonus,
+        transformPenalty,
+        riftPenalty,
+        hillBoundaryWeight: scaledHillBoundaryWeight,
+        hillRiftBonus,
+        hillConvergentFoothill: scaledHillConvergentFoothill,
+        hillInteriorFalloff,
+        hillUpliftWeight,
+      },
+      isWater,
+      adapter
+    );
+  } else {
+    computeFractalOnlyScores(ctx, scores, hillScores, adapter);
+  }
+
+  // Apply rift depressions
+  if (worldModelEnabled && riftDepth > 0) {
+    applyRiftDepressions(ctx, scores, hillScores, riftDepth);
+  }
+
+  const selectionAdapter = { isWater };
+
+  const mountainTiles = selectTilesAboveThreshold(
+    scores,
+    width,
+    height,
+    mountainThreshold,
+    selectionAdapter
+  );
+  const hillTiles = selectTilesAboveThreshold(
+    hillScores,
+    width,
+    height,
+    hillThreshold,
+    selectionAdapter,
+    mountainTiles
+  );
+
+  // Place mountains
+  for (const i of mountainTiles) {
+    const x = i % width;
+    const y = Math.floor(i / width);
+    terrainWriter(x, y, MOUNTAIN_TERRAIN);
+  }
+
+  // Place hills
+  for (const i of hillTiles) {
+    const x = i % width;
+    const y = Math.floor(i / width);
+    terrainWriter(x, y, HILL_TERRAIN);
+  }
+}
+
+/**
+ * Compute plate-based mountain scores using WorldModel boundaries.
+ */
+function computePlateBasedScores(
+  ctx: ExtendedMapContext,
+  scores: Float32Array,
+  hillScores: Float32Array,
+  options: {
+    upliftWeight: number;
+    fractalWeight: number;
+    boundaryWeight: number;
+    boundaryExponent: number;
+    interiorPenaltyWeight: number;
+    convergenceBonus: number;
+    transformPenalty: number;
+    riftPenalty: number;
+    hillBoundaryWeight: number;
+    hillRiftBonus: number;
+    hillConvergentFoothill: number;
+    hillInteriorFalloff: number;
+    hillUpliftWeight: number;
+  },
+  isWaterCheck: (x: number, y: number) => boolean,
+  adapter: EngineAdapter
+): void {
+  const dims = ctx?.dimensions;
+  const width = dims?.width ?? 0;
+  const height = dims?.height ?? 0;
+
+  const upliftPotential = WorldModel.upliftPotential;
+  const boundaryType = WorldModel.boundaryType;
+  const boundaryCloseness = WorldModel.boundaryCloseness;
+  const riftPotential = WorldModel.riftPotential;
+
+  if (!upliftPotential || !boundaryType) {
+    computeFractalOnlyScores(ctx, scores, hillScores, adapter);
+    return;
+  }
+
+  const boundaryGate = 0.2;
+  const falloffExponent = options.boundaryExponent || 2.5;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = idx(x, y, width);
+
+      const uplift = upliftPotential ? upliftPotential[i] / 255 : 0;
+      const bType = boundaryType[i];
+      const closenessRaw = boundaryCloseness ? boundaryCloseness[i] / 255 : 0;
+      const rift = riftPotential ? riftPotential[i] / 255 : 0;
+
+      const fractalMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y) / 65535;
+      const fractalHill = adapter.getFractalHeight(HILL_FRACTAL, x, y) / 65535;
+
+      // Base score: uplift potential + fractal variety
+      let mountainScore = uplift * options.upliftWeight + fractalMtn * options.fractalWeight;
+
+      // Physics-based boundary effects
+      if (closenessRaw > boundaryGate) {
+        const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
+        const intensity = Math.pow(normalized, falloffExponent);
+
+        if (options.boundaryWeight > 0) {
+          const foothillNoise = 0.5 + fractalMtn * 0.5;
+          mountainScore += intensity * options.boundaryWeight * foothillNoise;
+        }
+
+        if (bType === BOUNDARY_TYPE.convergent) {
+          const peakNoise = 0.3 + fractalMtn * 0.7;
+          mountainScore += intensity * options.convergenceBonus * peakNoise;
+        } else if (bType === BOUNDARY_TYPE.divergent) {
+          mountainScore *= Math.max(0, 1 - intensity * options.riftPenalty);
+        } else if (bType === BOUNDARY_TYPE.transform) {
+          mountainScore *= Math.max(0, 1 - intensity * options.transformPenalty);
+        }
+      }
+
+      // Interior penalty
+      if (options.interiorPenaltyWeight > 0) {
+        const interiorPenalty = (1 - closenessRaw) * options.interiorPenaltyWeight;
+        mountainScore = Math.max(0, mountainScore - interiorPenalty);
+      }
+
+      scores[i] = Math.max(0, mountainScore);
+
+      // Hill scoring
+      let hillScore = fractalHill * options.fractalWeight + uplift * options.hillUpliftWeight;
+
+      if (closenessRaw > boundaryGate) {
+        const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
+        const hillIntensity = Math.sqrt(normalized);
+        const foothillExtent = 0.4 + fractalHill * 0.6;
+
+        if (options.hillBoundaryWeight > 0) {
+          hillScore += hillIntensity * options.hillBoundaryWeight * foothillExtent;
+        }
+
+        if (bType === BOUNDARY_TYPE.divergent) {
+          hillScore += hillIntensity * rift * options.hillRiftBonus * foothillExtent;
+        } else if (bType === BOUNDARY_TYPE.convergent) {
+          hillScore += hillIntensity * options.hillConvergentFoothill * foothillExtent;
+        }
+      }
+
+      if (options.hillInteriorFalloff > 0) {
+        hillScore -= (1 - closenessRaw) * options.hillInteriorFalloff;
+      }
+
+      hillScores[i] = Math.max(0, hillScore);
+    }
+  }
+}
+
+/**
+ * Fallback: pure fractal-based scores.
+ */
+function computeFractalOnlyScores(
+  ctx: ExtendedMapContext,
+  scores: Float32Array,
+  hillScores: Float32Array,
+  adapter: EngineAdapter
+): void {
+  const dims = ctx?.dimensions;
+  const width = dims?.width ?? 0;
+  const height = dims?.height ?? 0;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = idx(x, y, width);
+      scores[i] = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y) / 65535;
+      hillScores[i] = adapter.getFractalHeight(HILL_FRACTAL, x, y) / 65535;
+    }
+  }
+}
+
+/**
+ * Apply rift depressions.
+ */
+function applyRiftDepressions(
+  ctx: ExtendedMapContext,
+  scores: Float32Array,
+  hillScores: Float32Array,
+  riftDepth: number
+): void {
+  const dims = ctx?.dimensions;
+  const width = dims?.width ?? 0;
+  const height = dims?.height ?? 0;
+  const riftPotential = WorldModel.riftPotential;
+  const boundaryType = WorldModel.boundaryType;
+
+  if (!riftPotential || !boundaryType) return;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = idx(x, y, width);
+      const rift = riftPotential[i] / 255;
+      const bType = boundaryType[i];
+
+      if (bType === BOUNDARY_TYPE.divergent) {
+        const depression = rift * riftDepth;
+        scores[i] = Math.max(0, scores[i] - depression);
+        hillScores[i] = Math.max(0, hillScores[i] - depression * 0.5);
+      }
+    }
+  }
+}
+
+/**
+ * Build a water check using landMask buffer or adapter.
+ */
+function createIsWaterTile(
+  ctx: ExtendedMapContext,
+  adapter: EngineAdapter,
+  width: number,
+  height: number
+): (x: number, y: number) => boolean {
+  const landMask = ctx?.buffers?.heightfield?.landMask || null;
+  return (x: number, y: number): boolean => {
+    if (landMask) {
+      const i = y * width + x;
+      if (i >= 0 && i < landMask.length) {
+        return landMask[i] === 0;
+      }
+    }
+    return adapter.isWater(x, y);
+  };
+}
+
+/**
+ * Select tiles where score exceeds threshold.
+ */
+function selectTilesAboveThreshold(
+  scores: Float32Array,
+  width: number,
+  height: number,
+  threshold: number,
+  adapter: { isWater: (x: number, y: number) => boolean },
+  excludeSet: Set<number> | null = null
+): Set<number> {
+  const selected = new Set<number>();
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = y * width + x;
+
+      if (adapter.isWater(x, y)) continue;
+      if (excludeSet && excludeSet.has(i)) continue;
+
+      if (scores[i] > threshold) {
+        selected.add(i);
+      }
+    }
+  }
+
+  return selected;
+}
+
+/**
+ * Backward-compatible wrapper.
+ */
+export function addMountainsCompat(
+  width: number,
+  height: number,
+  ctx?: ExtendedMapContext | null
+): void {
+  if (!ctx) return;
+  layerAddMountainsPhysics(ctx, {
+    tectonicIntensity: 1.0,
+    mountainThreshold: 0.45,
+    hillThreshold: 0.25,
+    upliftWeight: WorldModel.isEnabled() ? 0.75 : 0,
+    fractalWeight: WorldModel.isEnabled() ? 0.25 : 1.0,
+  });
+}
+
+export default layerAddMountainsPhysics;
