@@ -23,14 +23,14 @@ Establish the "Skeleton" for the new Foundation Pipeline: define the `MapGenStep
 - `MapGenStep` interface in `packages/mapgen-core/src/core/pipeline.ts` with `phase`, `requires`, `provides`, `shouldRun`.
 - `StepRegistry` implementation (simple Map-based plugin system) in the same file.
 - Updated `MapGenContext` in `packages/mapgen-core/src/core/types.ts` with the new `artifacts` container.
-- Type definitions for `RegionMesh`, `PlateGraph`, and `TectonicData` (can be empty interfaces initially).
+- Type definitions for `RegionMesh`, `CrustData`, `PlateGraph`, and `TectonicData` (can be empty interfaces initially).
 - Unit tests for the Registry (registration, lookup, error handling).
 
 ## Acceptance Criteria
 - [ ] `MapGenStep` interface is defined with `phase`, `requires`, `provides`, and `shouldRun` properties.
 - [ ] `StepRegistry` allows registering and retrieving steps by string ID.
-- [ ] `MapGenContext` includes `artifacts` object with optional `mesh`, `plateGraph`, and `tectonics` properties.
-- [ ] `RegionMesh`, `PlateGraph`, and `TectonicData` interfaces match the Foundation Stage Architecture spec.
+- [ ] `MapGenContext` includes `artifacts` object with optional `mesh`, `crust`, `plateGraph`, and `tectonics` properties.
+- [ ] `RegionMesh`, `CrustData`, `PlateGraph`, and `TectonicData` interfaces match the Foundation Stage Architecture spec.
 - [ ] TypeScript compiles without errors.
 
 ## Testing / Verification
@@ -63,6 +63,13 @@ interface RegionMesh {
   centroids: Point2D[];
 }
 
+interface CrustData {
+  /** 0=Oceanic (Basalt), 1=Continental (Granite) */
+  type: Uint8Array;
+  /** 0=New (Active), 255=Ancient (Craton) */
+  age: Uint8Array;
+}
+
 interface PlateGraph {
   /** Maps Mesh Cell Index -> Plate ID */
   cellToPlate: Int16Array;
@@ -72,21 +79,25 @@ interface PlateGraph {
 
 interface PlateRegion {
   id: number;
-  type: 'major' | 'minor';
+  type: 'major' | 'minor'; // Kinematic scale, NOT material type
   seedLocation: Point2D;
-  velocity: Vector2D;
-  rotation: number;
+  velocity: Vector2D; // Movement direction & speed
+  rotation: number;   // Angular velocity
 }
 
 interface TectonicData {
-  /** 0-1: Intensity of collision (Convergent) */
+  /** 0-255: Intensity of collision (Convergent) */
   upliftPotential: Uint8Array;
-  /** 0-1: Intensity of separation (Divergent) */
+  /** 0-255: Intensity of separation (Divergent) */
   riftPotential: Uint8Array;
-  /** 0-1: Intensity of shearing (Transform) */
+  /** 0-255: Intensity of shearing (Transform) */
   shearStress: Uint8Array;
-  /** 0-1: Distance to nearest boundary (inverted) */
-  boundaryCloseness: Uint8Array;
+  /** 0-255: Derived from Subduction + Hotspots */
+  volcanism: Uint8Array;
+  /** 0-255: Derived from Shear + Rifting */
+  fracture: Uint8Array;
+  /** Accumulation buffer for multi-era simulation */
+  cumulativeUplift: Uint8Array;
 }
 ```
 

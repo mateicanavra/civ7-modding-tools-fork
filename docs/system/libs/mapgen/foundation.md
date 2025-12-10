@@ -111,6 +111,9 @@ The Foundation stage is implemented as a sub-pipeline of four atomic strategies.
     1.  Seed "Craton" centers (Ancient stable cores).
     2.  Grow Continental Crust around Cratons using noise/distance fields.
     3.  Remaining area is defined as Oceanic Crust.
+*   **Design Rationale:**
+    *   **Why before Plates?** By defining material first, we allow for "Passive Margins" (e.g., the US East Coast) where a continent sits safely in the middle of a plate. If we generated plates first, every coastline would be a plate boundary (like the Andes), which is geologically incorrect.
+    *   **Independence:** This step is largely independent of plate kinematics, mimicking the deep-time stability of cratons.
 *   **Result:** A `CrustData` mask defining where the "Land" is, independent of where the plates will be.
 
 ### 3.3. Strategy 3: Plate Partitioning
@@ -121,6 +124,8 @@ The Foundation stage is implemented as a sub-pipeline of four atomic strategies.
     1.  Select $M$ seeds for "Major" plates (Large kinematic domains).
     2.  Select $m$ seeds for "Minor" plates (Buffer zones).
     3.  Run a Priority Queue flood fill from all seeds simultaneously.
+*   **Design Rationale:**
+    *   **Cost Heuristic:** While plates are seeded randomly, the flood fill uses a "Travel Cost" that is higher for Continental Crust than Oceanic Crust. This biases plate boundaries to form in oceans or wrap *around* continents, simulating the strength of cratons. However, it *can* still split a continent (Rifting) if the geometry demands it.
 *   **Result:** A map partitioned into plates. Note that a single Major Plate might contain both a Continent and an Ocean (e.g., African Plate).
 
 ### 3.4. Strategy 4: Tectonic Physics

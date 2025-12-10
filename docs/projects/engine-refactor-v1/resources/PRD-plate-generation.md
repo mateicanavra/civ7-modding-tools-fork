@@ -2,13 +2,14 @@
 
 ## 1. Overview
 
-This document defines the requirements for the **Foundation Stage** of the map generation pipeline. The goal is to replace the legacy "nearest-neighbor" plate generation with a robust **Mesh -> Partition -> Physics** model to improve map realism and stability.
+This document defines the requirements for the **Foundation Stage** of the map generation pipeline. The goal is to replace the legacy "nearest-neighbor" plate generation with a robust **Mesh -> Crust -> Partition -> Physics** model to improve map realism and stability.
 
 **Key Objectives:**
 1.  **Realism:** Generate organic continents and island chains using weighted plate partitioning.
 2.  **Physics:** Drive mountain uplift and rift valleys via vector simulation rather than random noise.
 3.  **Ownership:** Remove reliance on opaque game engine utilities by owning the mesh generation stack.
 4.  **Stability:** Eliminate "silent failures" and ensure reproducible results via Lloyd relaxation.
+5.  **Decoupling:** Separate kinematic plate boundaries from material landmass definitions to support realistic continental shelves and passive margins.
 
 ---
 
@@ -26,9 +27,14 @@ The current plate generation system has several critical flaws:
 
 ### 3.1. Functional Requirements
 *   **REQ-FND-1 (Mesh):** The system must generate a regularized Voronoi mesh to serve as the simulation board.
-*   **REQ-FND-2 (Partitioning):** The system must support "Major" (Continental) and "Minor" (Oceanic) plate types, with configurable counts and strengths.
-*   **REQ-FND-3 (Physics):** The system must calculate `upliftPotential` (convergence), `riftPotential` (divergence), and `shearStress` (transform) based on relative plate velocity vectors.
-*   **REQ-FND-4 (Output):** The stage must produce an immutable `FoundationContext` containing the Mesh, PlateGraph, and Tectonic tensors.
+*   **REQ-FND-2 (Crust):** The system must generate a `CrustMask` (Continental vs. Oceanic) independent of plate boundaries, supporting "Craton" seeding for stable continental cores.
+*   **REQ-FND-3 (Partitioning):** The system must support "Major" and "Minor" plate types (kinematic scale, not material), with configurable counts and strengths.
+*   **REQ-FND-4 (Physics):** The system must:
+    *   Calculate `upliftPotential` (convergence), `riftPotential` (divergence), and `shearStress` (transform) based on relative plate velocity vectors.
+    *   Resolve interaction type based on Crust Type (Cont-Cont Collision vs. Ocean-Cont Subduction vs. Ocean-Ocean).
+    *   Output `volcanism` and `fracture` tensors derived from subduction zones and shear.
+    *   Support **Iterative Accumulation** (Eras) via a `cumulativeUplift` buffer.
+*   **REQ-FND-5 (Output):** The stage must populate `context.artifacts` with `RegionMesh`, `CrustData`, `PlateGraph`, and `TectonicData`. The `FoundationContext` serves as the Legacy Bridge snapshot for downstream compatibility.
 
 ### 3.2. Non-Functional Requirements
 *   **REQ-PERF-1:** Mesh generation (4000 cells) must complete in under 100ms on standard hardware.
@@ -52,16 +58,17 @@ Implementers should refer to `foundation.md` for the specific math behind Lloyd 
 
 ### Phase 1: Infrastructure & Dependencies
 *   Install `d3-delaunay` and configure `tsup` to bundle it.
-*   Define the `RegionMesh` and `PlateGraph` interfaces in `core/types.ts`.
+*   Define the `RegionMesh`, `CrustData`, `PlateGraph`, and `TectonicData` interfaces in `core/types.ts`.
 
 ### Phase 2: Strategy Implementation
 *   Implement `MeshBuilder` (Voronoi/Lloyd).
+*   Implement `CrustGenerator` (Craton/Noise).
 *   Implement `PlatePartitioner` (Flood Fill).
-*   Implement `TectonicEngine` (Vector Physics).
+*   Implement `TectonicEngine` (Vector Physics with Material-Aware Interactions).
 
 ### Phase 3: Integration
 *   Wire the strategies into the `MapOrchestrator` via the new `StepRegistry`.
-*   Implement the "Legacy Bridge" to sync the new `FoundationContext` to the old `WorldModel` singleton (to keep downstream morphology scripts working).
+*   Implement the "Legacy Bridge" to sync the new `context.artifacts` to the old `WorldModel` singleton (to keep downstream morphology scripts working).
 
 ---
 
@@ -71,5 +78,11 @@ Implementers should refer to `foundation.md` for the specific math behind Lloyd 
     *   *Reasoning:* Delaunator is significantly faster (5-10x), actively maintained, and produces identical mathematical results. It allows us to run the engine in a headless test environment without mocking game internals.
 *   **WrapX Support:** Horizontal map wrapping (cylindrical worlds) is **out of scope** for v1.
     *   *Note:* Civ7 defaults to `wrapX: 0`. We will implement standard bounded Voronoi first. Wrapping logic can be added later by duplicating "ghost sites" at the boundaries during mesh generation.
+*   **Crust-Plate Decoupling:** The `CrustMask` (Continental/Oceanic) is generated *before* plates are defined, ensuring that landmasses can exist in the middle of plates (Passive Margins like East Coast USA) or span across plate boundaries. This supports realistic geology where a single plate can contain both ocean and continent.
+*   **Material-Aware Physics:** Tectonic interactions must resolve differently based on crust types:
+    *   Continent-Continent Convergence → High Uplift, Low Volcanism (Himalayas)
+    *   Ocean-Continent Convergence → Medium Uplift, High Volcanism (Andes/Subduction)
+    *   Ocean-Ocean Convergence → Low Uplift, Island Arcs (Japan)
+*   **Iterative Simulation (Eras):** The Foundation stage can be run in multiple passes to simulate geologic history. Each era accumulates uplift into `cumulativeUplift`, allowing ancient mountain ranges to be represented alongside modern tectonics.
 *   **Legacy Bridge:** The `MapOrchestrator` must explicitly copy `context.artifacts.tectonics` arrays into the `WorldModel` singleton after the Foundation stage runs. This is a temporary measure to avoid refactoring the entire Morphology layer in this PR.
 *   **Performance:** Default cell count should be **4000**. This provides sufficient resolution for a "Large" map (approx 10k hexes) while keeping Voronoi generation time negligible (~10ms).

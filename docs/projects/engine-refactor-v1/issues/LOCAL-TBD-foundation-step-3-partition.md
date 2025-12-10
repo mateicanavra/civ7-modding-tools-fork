@@ -17,7 +17,7 @@ related_to: []
 
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
-Create the "Pieces" (Plates). Implement the `PlatePartitioner` strategy to group mesh cells into "Major" (Continental) and "Minor" (Oceanic/Island) plates using a **Multi-Source Weighted Flood Fill** algorithm.
+Create the "Pieces" (Plates). Implement the `PlatePartitioner` strategy to group mesh cells into "Major" and "Minor" plates using a **Multi-Source Weighted Flood Fill** algorithm. Note: Plate type refers to **kinematic scale**, not material type. A single "Major" plate can contain both ocean and continent (like the African Plate).
 
 ## Deliverables
 - `packages/mapgen-core/src/strategies/plate-partitioner.ts` implementing the `MapGenStep` interface.
@@ -51,11 +51,11 @@ Create the "Pieces" (Plates). Implement the `PlatePartitioner` strategy to group
 ## Implementation Details (Local Only)
 
 ### Algorithm (from Foundation Architecture)
-1. Select $M$ seeds for "Major" plates (Continental).
-2. Select $m$ seeds for "Minor" plates (Oceanic/Island).
+1. Select $M$ seeds for "Major" plates (large kinematic domains).
+2. Select $m$ seeds for "Minor" plates (buffer zones).
 3. Assign "Strength" (travel cost) to each seed. Major plates have lower cost, allowing them to expand further.
 4. Run a Priority Queue flood fill from all seeds simultaneously.
-**Result:** A map partitioned into large continental plates and smaller buffer plates, without the "uniform size" artifact of simple nearest-neighbor Voronoi.
+**Result:** A map partitioned into large plates and smaller buffer plates, without the "uniform size" artifact of simple nearest-neighbor Voronoi. Note: A single plate can contain both ocean and continent (material is determined by Crust, not Plate).
 
 ### Algorithm Details
 1. **Seed Selection:** Pick `majorPlates` seeds with distance buffers, then `minorPlates` seeds in gaps.
@@ -71,15 +71,16 @@ Create the "Pieces" (Plates). Implement the `PlatePartitioner` strategy to group
 ```typescript
 interface PlateRegion {
   id: number;
-  type: 'major' | 'minor';
+  type: 'major' | 'minor'; // Kinematic scale, NOT material type
   seedLocation: Point2D;
   velocity: Vector2D; // Random direction with magnitude based on plate type
   rotation: number;   // Angular velocity (radians/unit)
 }
 ```
-- Major plates: slower velocity (stable continents)
-- Minor plates: faster velocity (oceanic drift)
+- Major plates: slower velocity (large stable domains)
+- Minor plates: faster velocity (small buffer zones)
 - Velocity direction: random, seeded
+- Note: Material (Continental/Oceanic) is determined by Crust, not Plate type.
 
 ### Configuration Schema
 ```typescript

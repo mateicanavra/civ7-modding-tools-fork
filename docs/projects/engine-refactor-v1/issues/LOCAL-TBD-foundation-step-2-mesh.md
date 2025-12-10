@@ -11,7 +11,7 @@ labels: [Improvement, Architecture]
 parent: LOCAL-TBD
 children: []
 blocked_by: [LOCAL-TBD-1]
-blocked: [LOCAL-TBD-3]
+blocked: [LOCAL-TBD-2.5, LOCAL-TBD-3]
 related_to: []
 ---
 
