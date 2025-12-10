@@ -1,11 +1,11 @@
 ---
 id: CIV-4
 title: "[M-TS-04] Validate Build Pipeline (Gate A)"
-state: planned
+state: done
 priority: 2
 estimate: 2
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [architecture, testing]
 parent: null

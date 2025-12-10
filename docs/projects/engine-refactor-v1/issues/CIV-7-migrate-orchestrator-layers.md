@@ -1,11 +1,11 @@
 ---
 id: CIV-7
 title: "[M-TS-07] Migrate Orchestrator & Layers (Gate C)"
-state: planned
+state: done
 priority: 2
 estimate: 8
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [feature]
 parent: null

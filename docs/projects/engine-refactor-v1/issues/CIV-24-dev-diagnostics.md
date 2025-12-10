@@ -1,11 +1,11 @@
 ---
 id: CIV-24
 title: "[M-TS-P0] Restore Dev Diagnostics & Stage Logging"
-state: planned
+state: done
 priority: 3
 estimate: 2
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [improvement, technical-debt]
 parent: CIV-14

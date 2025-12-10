@@ -1,6 +1,6 @@
 ---
 id: M-TS-remediation-review
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 title: "M-TS: TypeScript Migration Remediation – Aggregate Review"
 status: draft
 reviewer: AI agent (Codex CLI)

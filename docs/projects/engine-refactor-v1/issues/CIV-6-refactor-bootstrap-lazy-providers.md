@@ -1,11 +1,11 @@
 ---
 id: CIV-6
 title: "[M-TS-06] Refactor Bootstrap to Lazy Providers"
-state: planned
+state: done
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [architecture, technical-debt]
 parent: null

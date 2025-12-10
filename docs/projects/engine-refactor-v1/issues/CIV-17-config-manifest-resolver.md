@@ -1,11 +1,11 @@
 ---
 id: CIV-17
 title: "[M-TS-P0] Implement Config to Manifest Resolver"
-state: planned
+state: done
 priority: 1
 estimate: 0
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [bug, architecture]
 parent: CIV-14

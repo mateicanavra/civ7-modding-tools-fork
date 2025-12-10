@@ -1,11 +1,11 @@
 ---
 id: CIV-14
 title: "[M-TS-P0] TypeScript Migration Remediation"
-state: planned
+state: done
 priority: 1
 estimate: 13
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [bug, technical-debt, architecture]
 parent: null
@@ -19,6 +19,16 @@ related_to: [CIV-7]
 ## TL;DR
 
 Emergency remediation for the TypeScript migration that compiles successfully but produces no runtime output ("Null Map Script"). Three foundational breaks must be fixed before CIV-8 E2E validation can complete.
+
+### Status & Carry-Over
+
+M1 remediation is considered complete for the purposes of the TypeScript migration:
+
+- Stacks 1-3 (shape, behavior, engine wiring) were implemented via CIV-15-CIV-20 and CIV-22/CIV-24.
+- The pipeline no longer produces a "Null Map Script" and the TS engine generates real maps.
+- Remaining longer-tail work (story tagging, integration tests, and deeper parity clean-up) has been re-scoped into later milestones (M3/M4) and/or the parity docs.
+
+CIV-14 now serves as the historical umbrella for the M1 remediation work, not an active work bucket.
 
 > **Context:** The TypeScript migration (CIV-1 through CIV-13) succeeded at the compilation gate but failed at runtime orchestration. The system builds, deploys, and loads—but generates nothing. This issue tracks the structured fix organized into four Graphite stacks.
 

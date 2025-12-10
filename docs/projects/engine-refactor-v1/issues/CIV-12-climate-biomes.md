@@ -1,11 +1,11 @@
 ---
 id: CIV-12
 title: "[M-TS-07c] Migrate Climate & Biomes Layers"
-state: planned
+state: done
 priority: 2
 estimate: 2
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [feature]
 parent: CIV-7

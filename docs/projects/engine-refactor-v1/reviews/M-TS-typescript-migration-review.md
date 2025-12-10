@@ -1,6 +1,6 @@
 # M-TS: TypeScript Migration – Review Log
 
-**Milestone:** `M-TS-typescript-migration`  
+**Milestone:** `M1-TS-typescript-migration`  
 **Scope:** Refactor Swooper Maps engine from JavaScript to TypeScript (Stack A/B/C/D).  
 **Purpose:** Central place to record code-level reviews for each issue in this milestone as work lands in the repo.
 

@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 0
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M4-tests-validation-cleanup
 assignees: []
 labels: [testing]
 parent: CIV-14
@@ -19,6 +19,8 @@ related_to: [CIV-8]
 ## TL;DR
 
 Lock in guardrails with integration tests proving the pipeline actually works: orchestrator executes stages, WorldModel lifecycle is deterministic, and climate/biomes/features produce expected behavior.
+
+> **Note:** Initially defined as P0 remediation under the M1 migration. With the engine architecture now evolving through M2/M3, this integration/behavior test sweep is tracked under M4 so we can lock in guardrails once the final engine shape and clusters are in place.
 
 ## Context
 

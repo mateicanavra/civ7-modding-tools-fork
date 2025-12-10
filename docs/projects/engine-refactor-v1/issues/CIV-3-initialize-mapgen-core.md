@@ -1,11 +1,11 @@
 ---
 id: CIV-3
 title: "[M-TS-03] Initialize MapGen Core Library (@swooper/mapgen-core)"
-state: planned
+state: done
 priority: 2
 estimate: 3
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [architecture, feature]
 parent: null

@@ -1,11 +1,11 @@
 ---
 id: CIV-1
 title: "[M-TS-01] Scaffold Type Foundation (@civ7/types)"
-state: planned
+state: done
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [architecture, feature]
 parent: null

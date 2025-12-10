@@ -1,11 +1,11 @@
 ---
 id: CIV-18
 title: "[M-TS-P0] Fix Biomes & Climate Call-Sites"
-state: planned
+state: done
 priority: 1
 estimate: 0
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [bug]
 parent: CIV-14

@@ -215,7 +215,7 @@ To get to “migration finished” in the sense you describe (parity or explicit
 
 - **Step 4: Behavioral acceptance checklist (TS parity checkpoint)**
 
-  Add a short checklist to `M-TS-typescript-migration.md` (or a new “Remediation Done” section), something like:
+  Add a short checklist to `M1-TS-typescript-migration.md` (or a new “Remediation Done” section), something like:
 
   - [ ] For every JS module in `_archive/original-mod-swooper-maps-js`, we have:
     - [ ] a TS equivalent, OR
@@ -230,4 +230,3 @@ At that point you can say: “Migration is fully done, and any differences from 
 If you’d like, I can next:  
 - Draft the parity matrix skeleton with concrete rows for each archive file, and/or  
 - Propose the shape of `story/tagging.ts`/`story/corridors.ts` interfaces so they plug neatly into the existing `MapOrchestrator` and `StoryTags` types.
-

@@ -97,4 +97,8 @@ This PRD depends on the configuration hygiene work described in `PRD-config-refa
 * The plate/foundation parameters described here must be modeled as part of `MapGenConfig` and validated at engine startup.
 * The Foundation stage should read its configuration through `MapGenContext.config`, consistent with the engine architecture in `docs/system/libs/mapgen/architecture.md`.
 
-While exploratory work on the Foundation algorithms can begin earlier, production integration of the Foundation stage into the pipeline should assume Phase 1 of the config refactor is in place.
+While exploratory work on the Foundation algorithms can begin earlier, production
+integration of the Foundation stage into the pipeline should assume Phase 1 of
+the config refactor is in place. Milestone ownership and timing for this work is
+tracked in the engine-level project brief (`PROJECT-engine-refactor-v1.md`) and milestone
+docs (for example, `milestones/M2-stable-engine-slice.md`).

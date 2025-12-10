@@ -285,6 +285,10 @@ This sequencing balances:
 - The desire to **avoid dragging legacy traps** into new engine work.
 - The need to avoid doing a large, speculative config reshaping before the Task Graph and Foundation are concretely implemented.
 
+Milestone-level scheduling for these phases is maintained in the engine-level project
+brief (`PROJECT-engine-refactor-v1.md`) and the milestone docs (for example,
+`milestones/M2-stable-engine-slice.md` and `milestones/M3-core-engine-refactor-config-evolution.md`).
+
 ---
 
 ## 8. Open Questions & Considerations
@@ -308,4 +312,3 @@ This sequencing balances:
    - This should be decided in coordination with downstream mod authors and the broader engine roadmap.
 
 These questions should be revisited after Phase 1 and Phase 2 are complete and the Task Graph / Foundation pipeline are running against `MapGenConfig`.
-

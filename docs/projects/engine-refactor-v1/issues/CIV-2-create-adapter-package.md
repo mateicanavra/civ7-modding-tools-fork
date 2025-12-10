@@ -1,11 +1,11 @@
 ---
 id: CIV-2
 title: "[M-TS-02] Create Centralized Adapter (@civ7/adapter)"
-state: planned
+state: done
 priority: 2
 estimate: 3
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [architecture, feature]
 parent: null

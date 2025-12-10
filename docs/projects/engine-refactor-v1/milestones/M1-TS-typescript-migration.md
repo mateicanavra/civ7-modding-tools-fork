@@ -1,10 +1,24 @@
-# M-TS: TypeScript Migration & Package Architecture
+# M1: TypeScript Migration & Package Architecture
 
+**Milestone ID:** `M1-TS-typescript-migration`  
 **Goal:** Transform swooper-maps from a monolithic JavaScript mod into a typed, testable TypeScript library architecture with clean package boundaries.
 
-**Status:** Planned
+**Status:** Complete
 
 **Owner:** Engineering
+
+## Status & Carry-Over
+
+M1 is considered complete for the TypeScript migration and initial remediation:
+
+- Core packages (`@civ7/types`, `@civ7/adapter`, `@swooper/mapgen-core`) and the Swooper mod entry are migrated to TypeScript and building successfully.
+- P0 remediation for the "Null Map Script" (adapter boundary, FoundationContext consumption, config-to-manifest resolver, call-site fixes, map-size awareness, and dev diagnostics) has landed via CIV-15-CIV-20, CIV-22, and CIV-24.
+- M1 issues are closed; remaining work is intentionally deferred:
+  - Story tagging (CIV-21) now lives in M3.
+  - Integration & behavior tests (CIV-23) now live in M4.
+  - Further JS-to-TS parity clean-up will be driven from the parity docs and later milestones (see below).
+
+Future work on engine shape, story overlays, and tests should be scoped under M2-M4 rather than re-opening this milestone.
 
 ## Summary
 

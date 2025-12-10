@@ -1,11 +1,11 @@
 ---
 id: CIV-5
 title: "[M-TS-05] Migrate World/Voronoi Logic (Gate B)"
-state: planned
+state: done
 priority: 2
 estimate: 5
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [feature, testing]
 parent: null

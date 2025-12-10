@@ -1,11 +1,11 @@
 ---
 id: CIV-16
 title: "[M-TS-P0] Migrate Layers to FoundationContext Consumption"
-state: planned
+state: done
 priority: 1
 estimate: 0
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [bug, architecture, technical-debt]
 parent: CIV-14

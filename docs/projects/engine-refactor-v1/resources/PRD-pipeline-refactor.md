@@ -73,17 +73,22 @@ The engine will be driven by a JSON configuration object.
 
 ## 5. Implementation Phases
 
-### Phase 1: Core Plumbing (Milestone 1)
+> Note: Milestone ownership and timing for these phases is tracked in
+> `PROJECT-engine-refactor-v1.md` and the corresponding milestone docs (for example
+> `milestones/M2-stable-engine-slice.md`). This PRD only describes the technical
+> phases; it does not assign them to specific calendar slices.
+
+### Phase 1: Core Plumbing
 *   Create `core/pipeline.ts` (Interfaces & Registry).
 *   Update `core/types.ts` (Context definitions).
 *   Refactor `MapOrchestrator` to accept a `PipelineConfig`.
-*   Ensure `MapGenContext` carries a validated `MapGenConfig` as defined in `PRD-config-refactor.md` (Phase 1), rather than relying on global config.
+*   Ensure `MapGenContext` is able to carry a validated `MapGenConfig` as defined in `PRD-config-refactor.md` (Phase 1), rather than relying on global config. The exact milestone where this wiring lands is defined in the engine-level PRD and milestone docs.
 
-### Phase 2: Foundation Migration (Milestone 1)
+### Phase 2: Foundation Migration
 *   Implement `Mesh`, `Partition`, and `Physics` steps as `MapGenStep`s.
 *   (See `PRD-plate-generation.md` for details).
 
-### Phase 3: Legacy Wrapper (Milestone 2)
+### Phase 3: Legacy Wrapper
 *   Wrap existing legacy logic (Hydrology, Ecology) into "Shell Steps" (e.g., `LegacyHydrologyStep`) that simply call the old functions.
 *   This allows the entire engine to run via the Pipeline Executor, even if the internals of some steps are still legacy.
 

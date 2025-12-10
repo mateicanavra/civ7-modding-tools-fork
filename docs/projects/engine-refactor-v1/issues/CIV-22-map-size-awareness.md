@@ -1,11 +1,11 @@
 ---
 id: CIV-22
 title: "[M-TS-P0] Restore Map-Size Awareness"
-state: planned
+state: done
 priority: 2
 estimate: 0
 project: engine-refactor-v1
-milestone: M-TS-typescript-migration
+milestone: M1-TS-typescript-migration
 assignees: []
 labels: [bug]
 parent: CIV-14
