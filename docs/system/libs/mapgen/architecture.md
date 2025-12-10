@@ -92,6 +92,39 @@ The map script is defined by a JSON recipe. This allows the UI to manipulate the
 }
 ```
 
+### 2.5. Configuration Schema (MapGenConfig)
+
+In addition to the pipeline recipe, the engine is driven by a strongly-typed, runtime‑validated **configuration object**:
+
+```typescript
+export interface MapGenContext {
+  // --- Infrastructure ---
+  adapter: EngineAdapter;
+  config: MapGenConfig;
+  dimensions: MapDimensions;
+  rng: RNGState;
+  // ...
+}
+```
+
+Key points:
+
+- `MapGenConfig` is defined once via a schema in the engine (see `PRD-config-refactor.md` and `SPIKE-config-refactor-design.md`).
+- The schema is implemented with a JSON‑Schema‑compatible library and used to:
+  - Apply defaults and type coercions.
+  - Validate incoming configs at the engine boundary (fail fast on invalid input).
+  - Export JSON Schema for documentation and tooling.
+- The engine entrypoint (e.g., `MapOrchestrator` or a pipeline runner) is responsible for:
+  - Accepting raw config from the map script.
+  - Validating it once at startup via the schema.
+  - Injecting the resulting `MapGenConfig` into `MapGenContext.config`.
+
+Relationship to the recipe:
+
+- `MapGenConfig` covers **parameters** (plate counts, landmass water %, mountains/volcano/climate tuning, diagnostics, etc.).
+- The recipe covers **which steps run and in what order** (and may provide per‑step overrides via the `config` field).
+- Steps read configuration either directly from `context.config` or from a combination of `context.config` and their recipe‑level `config`, depending on their design.
+
 ---
 
 ## 3. Data Flow & The Blackboard
@@ -106,7 +139,7 @@ The context is explicitly divided into **Infrastructure**, **Canvas** (Mutable O
 export interface MapGenContext {
   // --- Infrastructure ---
   adapter: EngineAdapter; // Injected via constructor (Strict Injection)
-  config: MapConfig;
+  config: MapGenConfig;
   dimensions: MapDimensions;
   rng: RNGState;
 

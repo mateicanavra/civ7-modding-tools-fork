@@ -163,7 +163,9 @@ To support "Geologic History," the Foundation stage can be run in multiple passe
 
 ## 5. Configuration
 
-The behavior of the Foundation stage is controlled by the `PlateGenerationConfig` schema.
+The behavior of the Foundation stage is controlled by a configuration slice within the global `MapGenConfig` schema (see `docs/system/libs/mapgen/architecture.md` and `PRD-config-refactor.md`).
+
+Conceptually, the Foundation needs parameters in four clusters:
 
 ```typescript
 interface PlateGenerationConfig {
@@ -186,6 +188,12 @@ interface PlateGenerationConfig {
   };
 }
 ```
+
+In the implementation, these fields are realized as part of `MapGenConfig` (for example under `config.foundation` or related sub‑objects) and are:
+
+- Defined and validated via the shared configuration schema.
+- Injected into the pipeline as part of `MapGenContext.config`.
+- Consumed by the Foundation sub‑pipeline steps (Mesh, Crust, Partition, Physics) via that context.
 
 ## 6. Dependencies
 

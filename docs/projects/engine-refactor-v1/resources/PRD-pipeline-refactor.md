@@ -77,6 +77,7 @@ The engine will be driven by a JSON configuration object.
 *   Create `core/pipeline.ts` (Interfaces & Registry).
 *   Update `core/types.ts` (Context definitions).
 *   Refactor `MapOrchestrator` to accept a `PipelineConfig`.
+*   Ensure `MapGenContext` carries a validated `MapGenConfig` as defined in `PRD-config-refactor.md` (Phase 1), rather than relying on global config.
 
 ### Phase 2: Foundation Migration (Milestone 1)
 *   Implement `Mesh`, `Partition`, and `Physics` steps as `MapGenStep`s.
@@ -93,6 +94,17 @@ The engine will be driven by a JSON configuration object.
 *   **Risk:** Performance overhead of the generic Executor.
     *   *Mitigation:* The overhead of a loop and a few map lookups is negligible compared to the heavy math of Voronoi/Erosion.
 *   **Risk:** "Air Gap" between JSON config and Step config types.
-    *   *Mitigation:* Use Zod or similar runtime validation in the `run()` method of each step to ensure `config` matches expected schema.
+    *   *Mitigation:* Use the shared `MapGenConfig` schema (see `PRD-config-refactor.md`) to validate engine configuration at the entrypoint, and optionally layer additional per-step validation where needed.
 *   **Risk:** Debugging complexity.
     *   *Mitigation:* The Executor should log "Starting Step X..." and "Finished Step X (15ms)" to provide a clear trace.
+
+---
+
+## 7. Dependencies
+
+This PRD assumes the configuration system has been brought up to the Phase 1 “hygiene” standard described in `PRD-config-refactor.md`:
+
+* A single validated `MapGenConfig` schema is available and used to construct `MapGenContext.config`.
+* Global config stores and multi-stage deep-merge paths have been removed in favor of explicit injection at the engine boundary.
+
+The pipeline refactor can be prototyped earlier, but full adoption of the Task Graph in production should be gated on completing Phase 1 of the config refactor to avoid carrying legacy configuration traps into the new architecture.

@@ -59,6 +59,7 @@ Implementers should refer to `foundation.md` for the specific math behind Lloyd 
 ### Phase 1: Infrastructure & Dependencies
 *   Install `d3-delaunay` and configure `tsup` to bundle it.
 *   Define the `RegionMesh`, `CrustData`, `PlateGraph`, and `TectonicData` interfaces in `core/types.ts`.
+*   Ensure the configuration parameters required for plate generation are represented in, and validated by, the shared `MapGenConfig` schema (see `PRD-config-refactor.md`, Phase 1).
 
 ### Phase 2: Strategy Implementation
 *   Implement `MeshBuilder` (Voronoi/Lloyd).
@@ -86,3 +87,14 @@ Implementers should refer to `foundation.md` for the specific math behind Lloyd 
 *   **Iterative Simulation (Eras):** The Foundation stage can be run in multiple passes to simulate geologic history. Each era accumulates uplift into `cumulativeUplift`, allowing ancient mountain ranges to be represented alongside modern tectonics.
 *   **Legacy Bridge:** The `MapOrchestrator` must explicitly copy `context.artifacts.tectonics` arrays into the `WorldModel` singleton after the Foundation stage runs. This is a temporary measure to avoid refactoring the entire Morphology layer in this PR.
 *   **Performance:** Default cell count should be **4000**. This provides sufficient resolution for a "Large" map (approx 10k hexes) while keeping Voronoi generation time negligible (~10ms).
+
+---
+
+## 7. Dependencies
+
+This PRD depends on the configuration hygiene work described in `PRD-config-refactor.md`:
+
+* The plate/foundation parameters described here must be modeled as part of `MapGenConfig` and validated at engine startup.
+* The Foundation stage should read its configuration through `MapGenContext.config`, consistent with the engine architecture in `docs/system/libs/mapgen/architecture.md`.
+
+While exploratory work on the Foundation algorithms can begin earlier, production integration of the Foundation stage into the pipeline should assume Phase 1 of the config refactor is in place.
