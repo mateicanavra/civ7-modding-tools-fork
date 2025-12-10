@@ -67,24 +67,25 @@ Yes for M2: the loader is fully implemented and tested on top of `MapGenConfigSc
 - `config/index.ts` re-exports both schema/types and loader helpers, matching the intended `@swooper/mapgen-core/config` surface.  
 - `packages/mapgen-core/test/config/loader.test.ts` covers defaults, type/range failures, safe-parse behavior, and the internal vs public JSON Schema guard.
 
-**High-Leverage Issues**  
-- The loader is not yet the canonical runtime entrypoint: production code still reads config via the legacy global store (`bootstrap/runtime.ts`) and does not call `parseConfig` on input. This is squarely in CIV‑29/30/31 scope but worth calling out so we don’t assume hygiene is “done” just because the loader exists.  
-- Tests currently import the loader via its internal path (`../../src/config/loader.js`) instead of the public `config` entrypoint, which slightly weakens guarantees that the exported surface matches what’s tested (low risk given the thin index, but an easy future improvement).  
-- Documentation for CIV‑28 refers to `TypeCompiler` while the implementation uses TypeBox’s `Compile` API; functionally correct but mildly confusing when cross-referencing tickets.
+**High-Leverage Issues**
+- The loader is not yet the canonical runtime entrypoint: production code still reads config via the legacy global store (`bootstrap/runtime.ts`) and does not call `parseConfig` on input. This is squarely in CIV‑29/30/31 scope but worth calling out so we don't assume hygiene is "done" just because the loader exists.
+- ~~Tests currently import the loader via its internal path (`../../src/config/loader.js`) instead of the public `config` entrypoint, which slightly weakens guarantees that the exported surface matches what's tested (low risk given the thin index, but an easy future improvement).~~ **Resolved**: tests now import via `config/index.js`.
+- ~~Documentation for CIV‑28 refers to `TypeCompiler` while the implementation uses TypeBox's `Compile` API; functionally correct but mildly confusing when cross-referencing tickets.~~ **Resolved**: docs updated to reference `Compile` API and `getPublicJsonSchema`.
 
 **Fit Within the Milestone**  
 Together with CIV‑27, this task delivers the backbone of M2’s config hygiene story: a schema-backed, defaulting, and validating loader with clear errors and JSON Schema export. It intentionally stops short of removing globals or rewiring the orchestrator/tunables, which are addressed in later tasks. For M2’s “stable slice” goal, this is an appropriate and complete step.
 
-**Recommended Next Moves (Future Work, Not M2)**  
-1. As part of CIV‑29/30/31, route all engine configuration through `parseConfig` and eliminate direct dependence on `globalThis.__EPIC_MAP_CONFIG__` in runtime paths.  
-2. Update `loader.test.ts` (or add an integration-style test) to import from `@swooper/mapgen-core/config` to validate the exported surface end to end.  
-3. Refresh CIV‑27/CIV‑28 docs to reference the current TypeBox compile API and call out the existence of `getPublicJsonSchema` for public tooling.
+**Recommended Next Moves (Future Work, Not M2)**
+1. As part of CIV‑29/30/31, route all engine configuration through `parseConfig` and eliminate direct dependence on `globalThis.__EPIC_MAP_CONFIG__` in runtime paths.
+2. ~~Update `loader.test.ts` (or add an integration-style test) to import from `@swooper/mapgen-core/config` to validate the exported surface end to end.~~ **Done.**
+3. ~~Refresh CIV‑27/CIV‑28 docs to reference the current TypeBox compile API and call out the existence of `getPublicJsonSchema` for public tooling.~~ **Done.**
 
-**Follow-ups / Checklist**  
-- [x] `packages/mapgen-core/src/config/loader.ts` implements `parseConfig`, `safeParseConfig`, `getDefaultConfig`, and `getJsonSchema` on top of `MapGenConfigSchema`.  
-- [x] Helpers are re-exported via `packages/mapgen-core/src/config/index.ts` and usable from `@swooper/mapgen-core/config`.  
-- [x] Unit tests cover defaults, type/range errors, safe-parse behavior, and the public vs internal JSON Schema guard.  
-- [ ] Wire `parseConfig` into orchestrator/tunables and remove reliance on the global config store (CIV‑29/30/31).  
-- [ ] Align CIV‑28 documentation and milestone notes with the actual TypeBox compile API and public-schema helper.
+**Follow-ups / Checklist**
+- [x] `packages/mapgen-core/src/config/loader.ts` implements `parseConfig`, `safeParseConfig`, `getDefaultConfig`, and `getJsonSchema` on top of `MapGenConfigSchema`.
+- [x] Helpers are re-exported via `packages/mapgen-core/src/config/index.ts` and usable from `@swooper/mapgen-core/config`.
+- [x] Unit tests cover defaults, type/range errors, safe-parse behavior, and the public vs internal JSON Schema guard.
+- [x] Tests import from `config/index.js` entrypoint (validates exported surface).
+- [x] CIV‑28 documentation aligned with actual TypeBox `Compile` API and `getPublicJsonSchema` helper.
+- [ ] Wire `parseConfig` into orchestrator/tunables and remove reliance on the global config store (CIV‑29/30/31 scope).
 
 ---

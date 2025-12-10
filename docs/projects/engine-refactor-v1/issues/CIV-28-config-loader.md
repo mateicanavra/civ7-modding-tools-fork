@@ -1,7 +1,7 @@
 ---
 id: CIV-28
 title: "[M2] Implement parseConfig loader and validation helpers"
-state: planned
+state: done
 priority: 2
 estimate: 0
 project: engine-refactor-v1
@@ -22,27 +22,27 @@ Implement the `parseConfig` helper and related utilities that validate raw confi
 
 ## Deliverables
 
-- [ ] Create `packages/mapgen-core/src/config/loader.ts` with:
+- [x] Create `packages/mapgen-core/src/config/loader.ts` with:
   - `parseConfig(input: unknown): MapGenConfig` — throws on validation failure
   - `safeParseConfig(input: unknown): ParseResult` — returns success/failure with errors
   - `getDefaultConfig(): MapGenConfig` — returns a fully-defaulted config
   - `getJsonSchema(): object` — exports JSON Schema for external tooling
-- [ ] Use TypeBox `Compile` for high-performance validation
-- [ ] Use TypeBox `Value` utilities for defaults (Clone → Default → Convert → Clean)
-- [ ] Add `getPublicJsonSchema()` helper to filter internal fields for public tooling
-- [ ] Export helpers from `packages/mapgen-core/src/config/index.ts`
-- [ ] Add unit tests for validation edge cases
+- [x] Use TypeBox `Compile` for high-performance validation
+- [x] Use TypeBox `Value` utilities for defaults (Clone → Default → Convert → Clean)
+- [x] Add `getPublicJsonSchema()` helper to filter internal fields for public tooling
+- [x] Export helpers from `packages/mapgen-core/src/config/index.ts`
+- [x] Add unit tests for validation edge cases
 
 ## Acceptance Criteria
 
-- [ ] `parseConfig({})` returns a valid `MapGenConfig` with all defaults applied
-- [ ] `parseConfig({ foundation: { plates: { count: 50 } } })` throws (count > max)
-- [ ] `parseConfig({ foundation: { plates: { count: "invalid" } } })` throws (wrong type)
-- [ ] `safeParseConfig` returns `{ success: false, errors: [...] }` on invalid input
-- [ ] `getDefaultConfig()` returns config that passes validation
-- [ ] `getJsonSchema()` returns valid JSON Schema object
-- [ ] Clear error messages indicate which field failed and why
-- [ ] TypeScript compiles without errors
+- [x] `parseConfig({})` returns a valid `MapGenConfig` with all defaults applied
+- [x] `parseConfig({ foundation: { plates: { count: 50 } } })` throws (count > max)
+- [x] `parseConfig({ foundation: { plates: { count: "invalid" } } })` throws (wrong type)
+- [x] `safeParseConfig` returns `{ success: false, errors: [...] }` on invalid input
+- [x] `getDefaultConfig()` returns config that passes validation
+- [x] `getJsonSchema()` returns valid JSON Schema object
+- [x] Clear error messages indicate which field failed and why
+- [x] TypeScript compiles without errors
 
 ## Testing / Verification
 
