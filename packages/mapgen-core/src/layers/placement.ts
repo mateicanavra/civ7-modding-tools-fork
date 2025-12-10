@@ -57,7 +57,12 @@ import {
 } from "../core/terrain-constants.js";
 
 // Re-export config types
-export type { PlacementConfig, FloodplainsConfig, ContinentBounds, StartsConfig };
+export type {
+  PlacementConfig,
+  FloodplainsConfig,
+  ContinentBounds,
+  StartsConfig,
+} from "../bootstrap/types.js";
 
 // ============================================================================
 // Types

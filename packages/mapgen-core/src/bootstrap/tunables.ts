@@ -185,10 +185,10 @@ function buildTunablesSnapshot(): TunablesSnapshot {
   );
 
   // Resolve stage manifest
-  const manifestConfig = config.stageManifest || {};
+  const manifestConfig = (config.stageManifest || {}) as Partial<StageManifest>;
   const stageManifest: Readonly<StageManifest> = Object.freeze({
-    order: (manifestConfig.order || []) as string[],
-    stages: (manifestConfig.stages || {}) as Record<string, StageDescriptor>,
+    order: (manifestConfig.order ?? []) as string[],
+    stages: (manifestConfig.stages ?? {}) as Record<string, StageDescriptor>,
   });
 
   return {
