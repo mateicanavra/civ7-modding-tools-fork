@@ -27,8 +27,9 @@ Implement the `parseConfig` helper and related utilities that validate raw confi
   - `safeParseConfig(input: unknown): ParseResult` — returns success/failure with errors
   - `getDefaultConfig(): MapGenConfig` — returns a fully-defaulted config
   - `getJsonSchema(): object` — exports JSON Schema for external tooling
-- [ ] Use TypeBox `TypeCompiler` for high-performance validation
+- [ ] Use TypeBox `Compile` for high-performance validation
 - [ ] Use TypeBox `Value` utilities for defaults (Clone → Default → Convert → Clean)
+- [ ] Add `getPublicJsonSchema()` helper to filter internal fields for public tooling
 - [ ] Export helpers from `packages/mapgen-core/src/config/index.ts`
 - [ ] Add unit tests for validation edge cases
 
@@ -81,11 +82,12 @@ node -e "
 
 ```typescript
 // config/loader.ts
-import { TypeCompiler, Value } from "@sinclair/typebox/compiler";
-import { MapGenConfigSchema, type MapGenConfig } from "./schema.js";
+import { Compile } from "typebox/compile";
+import { Value } from "typebox/value";
+import { MapGenConfigSchema, INTERNAL_METADATA_KEY, type MapGenConfig } from "./schema.js";
 
 // Compile schema once for performance
-const compiledValidator = TypeCompiler.Compile(MapGenConfigSchema);
+const compiled = Compile(MapGenConfigSchema);
 
 export interface ParseResult {
   success: boolean;
@@ -105,8 +107,8 @@ export function parseConfig(input: unknown): MapGenConfig {
   const cleaned = Value.Clean(MapGenConfigSchema, converted);
 
   // Validate
-  if (!compiledValidator.Check(cleaned)) {
-    const errors = [...compiledValidator.Errors(cleaned)];
+  if (!compiled.Check(cleaned)) {
+    const errors = [...compiled.Errors(cleaned)];
     const messages = errors.map(e => `${e.path}: ${e.message}`).join("; ");
     throw new Error(`Invalid MapGenConfig: ${messages}`);
   }
@@ -138,10 +140,19 @@ export function getDefaultConfig(): MapGenConfig {
 }
 
 /**
- * Export JSON Schema for external tooling.
+ * Export JSON Schema for external tooling (includes internal fields).
  */
 export function getJsonSchema(): object {
-  return { ...MapGenConfigSchema };
+  return JSON.parse(JSON.stringify(MapGenConfigSchema));
+}
+
+/**
+ * Export filtered JSON Schema excluding internal fields.
+ * Use for public tooling, editor integrations, and documentation.
+ */
+export function getPublicJsonSchema(): object {
+  const fullSchema = JSON.parse(JSON.stringify(MapGenConfigSchema));
+  return filterInternalFields(fullSchema) ?? {};
 }
 ```
 
