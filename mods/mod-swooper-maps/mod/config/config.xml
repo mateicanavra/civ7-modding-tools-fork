@@ -8,5 +8,12 @@
 			Description="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_DESCRIPTION"
 			SortIndex="500"
 		/>
+		<!-- Gate A - TypeScript pipeline validation -->
+		<Row
+			File="{swooper-maps}/maps/gate-a-continents.js"
+			Name="LOC_MAP_GATE_A_CONTINENTS_NAME"
+			Description="LOC_MAP_GATE_A_CONTINENTS_DESCRIPTION"
+			SortIndex="501"
+		/>
 	</Maps>
 </Database>
