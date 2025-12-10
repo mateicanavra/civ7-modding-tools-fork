@@ -1,0 +1,40 @@
+{
+  "name": "@civ7/adapter",
+  "version": "0.1.0",
+  "description": "Centralized adapter for Civ7 engine APIs - the only package allowed to import /base-standard/...",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./civ7": {
+      "types": "./dist/civ7-adapter.d.ts",
+      "import": "./dist/civ7-adapter.js"
+    },
+    "./mock": {
+      "types": "./dist/mock-adapter.d.ts",
+      "import": "./dist/mock-adapter.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@civ7/types": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0",
+    "typescript": "^5.9.2"
+  },
+  "keywords": [
+    "civ7",
+    "civilization",
+    "modding",
+    "adapter"
+  ],
+  "license": "MIT"
+}
