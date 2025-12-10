@@ -47,17 +47,17 @@ All 14 stages skipped  ← "NULL SCRIPT"
 
 ## Deliverables
 
-- [ ] **Implement minimal resolver:**
+- [x] **Implement minimal resolver:**
   - Create `bootstrap/resolved.ts` (or integrate into existing bootstrap)
   - Map `stageConfig` booleans into `StageManifest.stages` structure
-  - Use canonical stage order from `bootstrap/defaults/base.js`
-- [ ] **Ensure `tunables.STAGE_MANIFEST` is populated:**
+  - Use canonical stage order from `MapOrchestrator.resolveStageFlags()`
+- [x] **Ensure `tunables.STAGE_MANIFEST` is populated:**
   - After `bootstrap()` completes, `STAGE_MANIFEST.stages` should contain enabled flags
   - `stageEnabled()` should return the intended boolean values
-- [ ] **Reintroduce minimal `[StageManifest]` warnings:**
+- [x] **Reintroduce minimal `[StageManifest]` warnings:**
   - Warn when overrides target missing or disabled stages
   - Helps catch configuration errors early
-- [ ] **Add resolver unit test:**
+- [x] **Add resolver unit test:**
   - Given `stageConfig: { foundation: true, landmassPlates: true }`
   - Assert `stageEnabled("foundation") === true`
   - Assert `stageEnabled("landmassPlates") === true`
@@ -65,10 +65,10 @@ All 14 stages skipped  ← "NULL SCRIPT"
 
 ## Acceptance Criteria
 
-- [ ] `stageEnabled("foundation")` returns `true` when `stageConfig.foundation = true`
-- [ ] `stageEnabled("landmassPlates")` returns `true` when `stageConfig.landmassPlates = true`
-- [ ] Resolver test confirms stageConfig→manifest mapping works
-- [ ] Build passes, tests pass
+- [x] `stageEnabled("foundation")` returns `true` when `stageConfig.foundation = true`
+- [x] `stageEnabled("landmassPlates")` returns `true` when `stageConfig.landmassPlates = true`
+- [x] Resolver test confirms stageConfig→manifest mapping works
+- [x] Build passes, tests pass
 - [ ] Pipeline still won't generate full terrain (depends on later stacks), but stages should now *attempt* to execute
 
 ## Testing / Verification

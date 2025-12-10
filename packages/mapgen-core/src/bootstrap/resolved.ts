@@ -1,0 +1,170 @@
+/**
+ * Stage Manifest Resolver
+ *
+ * Bridges the "Config Air Gap" by translating `stageConfig` booleans
+ * into the `StageManifest` structure that `stageEnabled()` reads.
+ *
+ * Problem:
+ *   bootstrap({ stageConfig: { foundation: true } })
+ *       -> config.stageConfig = { foundation: true }  // STORED HERE
+ *       -> buildTunablesSnapshot() reads config.stageManifest  // BUT READS HERE
+ *       -> stageManifest = {} // ALWAYS EMPTY without this resolver
+ *
+ * Solution: This module provides `resolveStageManifest()` which
+ * creates a proper StageManifest from stageConfig booleans.
+ */
+
+import type { StageManifest, StageDescriptor } from "./types.js";
+
+// ============================================================================
+// Canonical Stage Order
+// ============================================================================
+
+/**
+ * Canonical stage execution order.
+ * Derived from MapOrchestrator.resolveStageFlags() execution sequence.
+ */
+export const STAGE_ORDER: readonly string[] = Object.freeze([
+  "foundation",
+  "landmassPlates",
+  "coastlines",
+  "storySeed",
+  "storyHotspots",
+  "storyRifts",
+  "storyOrogeny",
+  "storyCorridorsPre",
+  "islands",
+  "mountains",
+  "volcanoes",
+  "lakes",
+  "climateBaseline",
+  "storySwatches",
+  "rivers",
+  "storyCorridorsPost",
+  "climateRefine",
+  "biomes",
+  "features",
+  "placement",
+]);
+
+// ============================================================================
+// Resolver
+// ============================================================================
+
+/**
+ * Resolve stageConfig booleans into a proper StageManifest.
+ *
+ * @param stageConfig - Record of stage names to enabled booleans
+ * @returns StageManifest with order and stages populated
+ *
+ * @example
+ * ```typescript
+ * const manifest = resolveStageManifest({ foundation: true, landmassPlates: true });
+ * // manifest.stages.foundation.enabled === true
+ * // manifest.stages.landmassPlates.enabled === true
+ * // manifest.stages.coastlines.enabled === false
+ * ```
+ */
+export function resolveStageManifest(
+  stageConfig: Record<string, boolean> | undefined
+): StageManifest {
+  const config = stageConfig || {};
+  const stages: Record<string, StageDescriptor> = {};
+
+  for (let i = 0; i < STAGE_ORDER.length; i++) {
+    const stageName = STAGE_ORDER[i];
+    stages[stageName] = {
+      enabled: config[stageName] === true,
+    };
+  }
+
+  return {
+    order: [...STAGE_ORDER],
+    stages,
+  };
+}
+
+// ============================================================================
+// Validation
+// ============================================================================
+
+/**
+ * Validate overrides against the stage manifest.
+ * Logs warnings for overrides targeting unknown or disabled stages.
+ *
+ * @param overrides - Configuration overrides object
+ * @param manifest - Resolved stage manifest
+ */
+export function validateOverrides(
+  overrides: Record<string, unknown> | undefined,
+  manifest: StageManifest
+): void {
+  if (!overrides || typeof overrides !== "object") {
+    return;
+  }
+
+  // Check if any override keys match stage names
+  for (const key of Object.keys(overrides)) {
+    // Skip non-stage config keys
+    if (!STAGE_ORDER.includes(key)) {
+      continue;
+    }
+
+    const stage = manifest.stages[key];
+    if (!stage) {
+      console.warn(`[StageManifest] Override targets unknown stage: "${key}"`);
+    } else if (!stage.enabled) {
+      console.warn(`[StageManifest] Override targets disabled stage: "${key}"`);
+    }
+  }
+}
+
+// ============================================================================
+// Drift Detection
+// ============================================================================
+
+let _driftChecked = false;
+
+/**
+ * Validate that orchestrator stage flags match STAGE_ORDER.
+ * Call this once from the orchestrator to detect drift between
+ * the resolver's stage list and the orchestrator's stage flags.
+ *
+ * @param orchestratorStages - Keys from resolveStageFlags() object
+ */
+export function validateStageDrift(orchestratorStages: string[]): void {
+  if (_driftChecked) return;
+  _driftChecked = true;
+
+  const resolverSet = new Set(STAGE_ORDER);
+  const orchestratorSet = new Set(orchestratorStages);
+
+  // Check for stages in orchestrator but not in resolver
+  for (const stage of orchestratorStages) {
+    if (!resolverSet.has(stage)) {
+      console.warn(
+        `[StageManifest] Orchestrator has stage "${stage}" not in STAGE_ORDER. ` +
+          `Add it to bootstrap/resolved.ts to enable configuration.`
+      );
+    }
+  }
+
+  // Check for stages in resolver but not in orchestrator
+  for (const stage of STAGE_ORDER) {
+    if (!orchestratorSet.has(stage)) {
+      console.warn(
+        `[StageManifest] STAGE_ORDER has stage "${stage}" not in orchestrator. ` +
+          `It will never execute. Remove from bootstrap/resolved.ts or add to orchestrator.`
+      );
+    }
+  }
+}
+
+/**
+ * Reset drift check flag (for testing).
+ */
+export function resetDriftCheck(): void {
+  _driftChecked = false;
+}
+
+export default { STAGE_ORDER, resolveStageManifest, validateOverrides, validateStageDrift, resetDriftCheck };
