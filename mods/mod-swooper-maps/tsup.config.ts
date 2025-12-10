@@ -1,8 +1,11 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  // Entry point for the Gate A validation map
-  entry: ["src/gate-a-continents.ts"],
+  // Entry points for mod maps
+  entry: [
+    "src/gate-a-continents.ts",
+    "src/swooper-desert-mountains.ts",
+  ],
 
   // Output directly to the structure the .modinfo expects
   outDir: "mod/maps",

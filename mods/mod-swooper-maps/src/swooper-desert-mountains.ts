@@ -1,9 +1,22 @@
-import {
-  MapOrchestrator,
-  bootstrap
-} from "./chunk-MMMXD7WB.js";
+/**
+ * Swooper Desert Mountains — Hyper-arid, plate-driven world (TypeScript)
+ *
+ * Purpose:
+ * - Deliver a mostly dry planet punctuated by brutal orographic walls.
+ * - Lean on plate-aware uplift so convergent margins become mega ranges.
+ * - Reserve humidity for narrow rainfall belts hugging those ranges and a
+ *   few equatorial/monsoonal refuges.
+ *
+ * This is the TypeScript version using the migrated MapOrchestrator from
+ * @swooper/mapgen-core. All map generation logic is encapsulated in the
+ * library; this entry point only wires configuration and engine events.
+ */
 
-// src/swooper-desert-mountains.ts
+/// <reference types="@civ7/types" />
+
+import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
+
+// Bootstrap configuration - same as the original JS version
 bootstrap({
   stageConfig: {
     foundation: true,
@@ -21,7 +34,7 @@ bootstrap({
     storySwatches: true,
     climateRefine: true,
     biomes: true,
-    features: true
+    features: true,
   },
   overrides: {
     toggles: {
@@ -30,17 +43,17 @@ bootstrap({
       STORY_ENABLE_OROGENY: false,
       STORY_ENABLE_SWATCHES: false,
       STORY_ENABLE_PALEO: false,
-      STORY_ENABLE_CORRIDORS: false
+      STORY_ENABLE_CORRIDORS: false,
     },
     landmass: {
       baseWaterPercent: 63,
       waterThumbOnScale: -6,
-      jitterAmpFracBase: 0.02
+      jitterAmpFracBase: 0.02,
     },
     margins: {
       activeFraction: 0.34,
       passiveFraction: 0.18,
-      minSegmentLength: 28
+      minSegmentLength: 28,
     },
     coastlines: {
       plateBias: {
@@ -52,17 +65,14 @@ bootstrap({
         interior: -0.15,
         bayWeight: 0.48,
         bayNoiseBonus: 1.2,
-        fjordWeight: 1.05
-      }
+        fjordWeight: 1.05,
+      },
     },
     mountains: {
       // Physics-threshold controls (higher intensity = more dramatic mountains)
-      tectonicIntensity: 0.77,
-      // Moderate intensity for balanced mountains
-      mountainThreshold: 0.62,
-      // Higher threshold = fewer mountains
-      hillThreshold: 0.2,
-      // Higher threshold = fewer hills
+      tectonicIntensity: 0.77, // Moderate intensity for balanced mountains
+      mountainThreshold: 0.62, // Higher threshold = fewer mountains
+      hillThreshold: 0.2, // Higher threshold = fewer hills
       // Physics weights
       upliftWeight: 0.65,
       fractalWeight: 0.35,
@@ -77,7 +87,7 @@ bootstrap({
       hillRiftBonus: 0.52,
       hillConvergentFoothill: 0.4,
       hillInteriorFalloff: 0.3,
-      hillUpliftWeight: 0.4
+      hillUpliftWeight: 0.4,
     },
     volcanoes: {
       baseDensity: 1 / 175,
@@ -91,13 +101,13 @@ bootstrap({
       shieldPenalty: 0.78,
       randomJitter: 0.12,
       minVolcanoes: 9,
-      maxVolcanoes: 42
+      maxVolcanoes: 42,
     },
     climate: {
       baseline: {
         blend: {
           baseWeight: 0.45,
-          bandWeight: 0.55
+          bandWeight: 0.55,
         },
         bands: {
           deg0to10: 92,
@@ -105,43 +115,43 @@ bootstrap({
           deg20to35: 32,
           deg35to55: 52,
           deg55to70: 34,
-          deg70plus: 18
+          deg70plus: 18,
         },
         orographic: {
           hi1Threshold: 280,
           hi1Bonus: 6,
           hi2Threshold: 540,
-          hi2Bonus: 18
+          hi2Bonus: 18,
         },
         coastal: {
           coastalLandBonus: 3,
-          shallowAdjBonus: 2
+          shallowAdjBonus: 2,
         },
         noise: {
           baseSpanSmall: 5,
-          spanLargeScaleFactor: 1.1
-        }
+          spanLargeScaleFactor: 1.1,
+        },
       },
       refine: {
         waterGradient: {
           radius: 7,
           perRingBonus: 1.6,
-          lowlandBonus: 3
+          lowlandBonus: 3,
         },
         orographic: {
           steps: 6,
           reductionBase: 34,
-          reductionPerStep: 14
+          reductionPerStep: 14,
         },
         riverCorridor: {
           lowlandAdjacencyBonus: 22,
-          highlandAdjacencyBonus: 11
+          highlandAdjacencyBonus: 11,
         },
         lowBasin: {
           radius: 4,
-          delta: 16
-        }
-      }
+          delta: 16,
+        },
+      },
     },
     story: {
       hotspot: {
@@ -152,20 +162,20 @@ bootstrap({
         minTrailSeparation: 14,
         paradiseBias: 1,
         volcanicBias: 2,
-        volcanicPeakChance: 0.58
+        volcanicPeakChance: 0.58,
       },
       rift: {
         maxRiftsPerMap: 2,
         lineSteps: 22,
         stepLen: 3,
-        shoulderWidth: 1
+        shoulderWidth: 1,
       },
       orogeny: {
         beltMaxPerContinent: 4,
         beltMinLength: 16,
         radius: 7,
         windwardBoost: 24,
-        leeDrynessAmplifier: 2.6
+        leeDrynessAmplifier: 2.6,
       },
       swatches: {
         maxPerMap: 8,
@@ -176,30 +186,30 @@ bootstrap({
             latitudeCenterDeg: 18,
             halfWidthDeg: 18,
             drynessDelta: 60,
-            bleedRadius: 10
+            bleedRadius: 10,
           },
           equatorialRainbelt: {
             weight: 7,
             latitudeCenterDeg: 4,
             halfWidthDeg: 6,
             wetnessDelta: 70,
-            bleedRadius: 5
+            bleedRadius: 5,
           },
           mountainForests: {
             weight: 5,
             coupleToOrogeny: true,
             windwardBonus: 18,
             leePenalty: 10,
-            bleedRadius: 5
+            bleedRadius: 5,
           },
           rainforestArchipelago: {
             weight: 2,
             islandBias: 1.5,
             reefBias: 1.2,
             wetnessDelta: 28,
-            bleedRadius: 4
-          }
-        }
+            bleedRadius: 4,
+          },
+        },
       },
       paleo: {
         maxFossilChannels: 24,
@@ -208,55 +218,55 @@ bootstrap({
         fossilChannelHumidity: 7,
         fossilChannelMinDistanceFromCurrentRivers: 5,
         sizeScaling: {
-          lengthMulSqrt: 0.8
+          lengthMulSqrt: 0.8,
         },
         elevationCarving: {
           enableCanyonRim: true,
           rimWidth: 5,
           canyonDryBonus: 12,
-          bluffWetReduction: 2
-        }
-      }
+          bluffWetReduction: 2,
+        },
+      },
     },
     microclimate: {
       rainfall: {
         riftBoost: 6,
         riftRadius: 2,
         paradiseDelta: 4,
-        volcanicDelta: 5
+        volcanicDelta: 5,
       },
       features: {
         paradiseReefChance: 18,
         volcanicForestChance: 14,
-        volcanicTaigaChance: 12
-      }
+        volcanicTaigaChance: 12,
+      },
     },
     biomes: {
       tundra: {
         latMin: 62,
         elevMin: 420,
-        rainMax: 55
+        rainMax: 55,
       },
       tropicalCoast: {
         latMax: 22,
-        rainMin: 115
+        rainMin: 115,
       },
       riverValleyGrassland: {
         latMax: 48,
-        rainMin: 65
+        rainMin: 65,
       },
       riftShoulder: {
         grasslandLatMax: 48,
         grasslandRainMin: 55,
         tropicalLatMax: 28,
-        tropicalRainMin: 95
-      }
+        tropicalRainMin: 95,
+      },
     },
     featuresDensity: {
       rainforestExtraChance: 18,
       forestExtraChance: 12,
       taigaExtraChance: 2,
-      shelfReefMultiplier: 0.85
+      shelfReefMultiplier: 0.85,
     },
     foundation: {
       plates: {
@@ -265,43 +275,43 @@ bootstrap({
         relaxationSteps: 3,
         seedJitter: 5,
         interiorSmooth: 1.35,
-        plateRotationMultiple: 3
+        plateRotationMultiple: 3,
       },
       dynamics: {
         wind: {
           jetStreaks: 5,
-          jetStrength: 2,
-          variance: 0.4
+          jetStrength: 2.0,
+          variance: 0.4,
         },
         currents: {
           basinGyreCountMax: 4,
           westernBoundaryBias: 1.6,
-          currentStrength: 1.4
+          currentStrength: 1.4,
         },
         mantle: {
           bumps: 10,
           amplitude: 6,
-          scale: 1.8
+          scale: 1.8,
         },
         directionality: {
           cohesion: 0.48,
           primaryAxes: {
             plateAxisDeg: 47,
             windBiasDeg: 24,
-            currentBiasDeg: 85
+            currentBiasDeg: 85,
           },
           interplay: {
             windsFollowPlates: 0.55,
-            currentsFollowWinds: 0.62
+            currentsFollowWinds: 0.62,
           },
           hemispheres: {
-            southernFlip: true
+            southernFlip: true,
           },
           variability: {
             angleJitterDeg: 22,
-            magnitudeVariance: 0.45
-          }
-        }
+            magnitudeVariance: 0.45,
+          },
+        },
       },
       policy: {
         windInfluence: 1.2,
@@ -318,25 +328,31 @@ bootstrap({
           edgeWest: {
             enabled: false,
             baseTiles: 0,
-            boundaryClosenessMultiplier: 1,
-            maxPerRowDelta: 1
+            boundaryClosenessMultiplier: 1.0,
+            maxPerRowDelta: 1,
           },
           edgeEast: {
             enabled: false,
             baseTiles: 0,
-            boundaryClosenessMultiplier: 1,
-            maxPerRowDelta: 1
-          }
-        }
-      }
-    }
-  }
+            boundaryClosenessMultiplier: 1.0,
+            maxPerRowDelta: 1,
+          },
+        },
+      },
+    },
+  },
 });
-var orchestrator = new MapOrchestrator({
-  logPrefix: "[SWOOPER_MOD]"
+
+// Create orchestrator instance
+const orchestrator = new MapOrchestrator({
+  logPrefix: "[SWOOPER_MOD]",
 });
+
+// Wire engine events to orchestrator methods
 engine.on("RequestMapInitData", () => orchestrator.requestMapData());
 engine.on("GenerateMap", () => orchestrator.generateMap());
+
+// TypeScript build marker
 console.log("[SWOOPER_MOD] ========================================");
 console.log("[SWOOPER_MOD] Swooper Desert Mountains (TypeScript Build) Loaded");
 console.log("[SWOOPER_MOD] Using MapOrchestrator from @swooper/mapgen-core");

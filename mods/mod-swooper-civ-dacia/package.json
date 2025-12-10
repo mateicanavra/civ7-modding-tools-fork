@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsx build.ts",
-    "deploy": "pnpm -C ../../ dev:cli mod deploy --input ./mod --id macnsqueeze-dacia",
+    "deploy": "pnpm exec civ7 mod manage deploy --input ./mod --id mod-swooper-civ-dacia",
     "docs": "docsify serve docs",
     "lint": "eslint .",
     "format": "prettier --write .",

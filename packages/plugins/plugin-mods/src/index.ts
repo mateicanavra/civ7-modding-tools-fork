@@ -169,6 +169,11 @@ export function deployMod(options: DeployOptions): DeployResult {
   const modsDir = options.modsDir ?? resolveModsDir().modsDir;
   ensureDirectory(modsDir);
   const targetDir = path.join(modsDir, modId);
+  
+  // Wholesale replacement: remove target directory before copying
+  if (fs.existsSync(targetDir)) {
+    fs.rmSync(targetDir, { recursive: true, force: true });
+  }
   ensureDirectory(targetDir);
 
   const summary = copyDirectoryRecursive(inputDir, targetDir);
