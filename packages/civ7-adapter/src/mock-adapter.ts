@@ -10,6 +10,31 @@ import type { EngineAdapter, FeatureData } from "./types.js";
 /**
  * Configuration options for MockAdapter
  */
+/**
+ * Default biome globals for testing
+ */
+export const DEFAULT_BIOME_GLOBALS: Record<string, number> = {
+  desert: 0,
+  plains: 1,
+  grassland: 2,
+  tundra: 3,
+  tropical: 4,
+  snow: 5,
+};
+
+/**
+ * Default feature type indices for testing
+ */
+export const DEFAULT_FEATURE_TYPES: Record<string, number> = {
+  FEATURE_REEF: 0,
+  FEATURE_RAINFOREST: 1,
+  FEATURE_FOREST: 2,
+  FEATURE_TAIGA: 3,
+  FEATURE_MARSH: 4,
+  FEATURE_OASIS: 5,
+  FEATURE_FLOODPLAINS: 6,
+};
+
 export interface MockAdapterConfig {
   width?: number;
   height?: number;
@@ -21,8 +46,14 @@ export interface MockAdapterConfig {
   defaultRainfall?: number;
   /** Default temperature for all tiles */
   defaultTemperature?: number;
+  /** Default biome type for all tiles */
+  defaultBiomeType?: number;
   /** Custom RNG function (default: Math.random) */
   rng?: (max: number, label: string) => number;
+  /** Custom biome globals (default: DEFAULT_BIOME_GLOBALS) */
+  biomeGlobals?: Record<string, number>;
+  /** Custom feature type indices (default: DEFAULT_FEATURE_TYPES) */
+  featureTypes?: Record<string, number>;
 }
 
 /**
@@ -37,9 +68,18 @@ export class MockAdapter implements EngineAdapter {
   private rainfall: Uint8Array;
   private temperature: Uint8Array;
   private features: Int16Array;
+  private biomes: Uint8Array;
   private waterMask: Uint8Array;
   private mountainMask: Uint8Array;
   private rngFn: (max: number, label: string) => number;
+  private biomeGlobals: Record<string, number>;
+  private featureTypes: Record<string, number>;
+
+  /** Track calls for testing */
+  readonly calls: {
+    designateBiomes: Array<{ width: number; height: number }>;
+    addFeatures: Array<{ width: number; height: number }>;
+  };
 
   constructor(config: MockAdapterConfig = {}) {
     this.width = config.width ?? 128;
@@ -51,9 +91,16 @@ export class MockAdapter implements EngineAdapter {
     this.rainfall = new Uint8Array(size).fill(config.defaultRainfall ?? 50);
     this.temperature = new Uint8Array(size).fill(config.defaultTemperature ?? 15);
     this.features = new Int16Array(size).fill(-1);
+    this.biomes = new Uint8Array(size).fill(config.defaultBiomeType ?? 0);
     this.waterMask = new Uint8Array(size);
     this.mountainMask = new Uint8Array(size);
     this.rngFn = config.rng ?? ((max) => Math.floor(Math.random() * max));
+    this.biomeGlobals = config.biomeGlobals ?? { ...DEFAULT_BIOME_GLOBALS };
+    this.featureTypes = config.featureTypes ?? { ...DEFAULT_FEATURE_TYPES };
+    this.calls = {
+      designateBiomes: [],
+      addFeatures: [],
+    };
   }
 
   private idx(x: number, y: number): number {
@@ -174,6 +221,42 @@ export class MockAdapter implements EngineAdapter {
     // No-op in mock
   }
 
+  // === BIOMES ===
+
+  designateBiomes(width: number, height: number): void {
+    // Track call for testing
+    this.calls.designateBiomes.push({ width, height });
+    // Mock: no-op (biomes already initialized to default)
+  }
+
+  getBiomeGlobal(name: string): number {
+    return this.biomeGlobals[name] ?? -1;
+  }
+
+  setBiomeType(x: number, y: number, biomeId: number): void {
+    this.biomes[this.idx(x, y)] = biomeId;
+  }
+
+  getBiomeType(x: number, y: number): number {
+    return this.biomes[this.idx(x, y)];
+  }
+
+  // === FEATURES (extended) ===
+
+  addFeatures(width: number, height: number): void {
+    // Track call for testing
+    this.calls.addFeatures.push({ width, height });
+    // Mock: no-op (features already initialized to NO_FEATURE)
+  }
+
+  getFeatureTypeIndex(name: string): number {
+    return this.featureTypes[name] ?? -1;
+  }
+
+  get NO_FEATURE(): number {
+    return -1;
+  }
+
   // === MOCK-SPECIFIC HELPERS ===
 
   /** Set water mask for testing */
@@ -198,8 +281,31 @@ export class MockAdapter implements EngineAdapter {
     this.rainfall.fill(config.defaultRainfall ?? 50);
     this.temperature.fill(config.defaultTemperature ?? 15);
     this.features.fill(-1);
+    this.biomes.fill(config.defaultBiomeType ?? 0);
     this.waterMask.fill(0);
     this.mountainMask.fill(0);
+    this.calls.designateBiomes.length = 0;
+    this.calls.addFeatures.length = 0;
+  }
+
+  /** Set biome type for testing */
+  setBiome(x: number, y: number, biomeId: number): void {
+    this.biomes[this.idx(x, y)] = biomeId;
+  }
+
+  /** Fill all tiles with a biome type */
+  fillBiome(biomeId: number): void {
+    this.biomes.fill(biomeId);
+  }
+
+  /** Register a custom biome global */
+  registerBiomeGlobal(name: string, index: number): void {
+    this.biomeGlobals[name] = index;
+  }
+
+  /** Register a custom feature type */
+  registerFeatureType(name: string, index: number): void {
+    this.featureTypes[name] = index;
   }
 }
 

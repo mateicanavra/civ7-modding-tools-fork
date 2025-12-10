@@ -125,6 +125,51 @@ export interface EngineAdapter {
 
   /** Store water data */
   storeWaterData(): void;
+
+  // === BIOMES ===
+
+  /**
+   * Run base-standard biome designation
+   * Wraps /base-standard/maps/biomes.js designateBiomes()
+   */
+  designateBiomes(width: number, height: number): void;
+
+  /**
+   * Get biome global index by name
+   * @param name - Biome name (e.g., "tropical", "grassland", "tundra")
+   * @returns Biome index or -1 if not found
+   */
+  getBiomeGlobal(name: string): number;
+
+  /**
+   * Set biome type for a tile
+   */
+  setBiomeType(x: number, y: number, biomeId: number): void;
+
+  /**
+   * Get biome type for a tile
+   */
+  getBiomeType(x: number, y: number): number;
+
+  // === FEATURES (extended) ===
+
+  /**
+   * Run base-standard feature generation
+   * Wraps /base-standard/maps/features.js addFeatures()
+   */
+  addFeatures(width: number, height: number): void;
+
+  /**
+   * Get feature type index by name
+   * @param name - Feature type name (e.g., "FEATURE_REEF", "FEATURE_FOREST")
+   * @returns Feature index or -1 if not found
+   */
+  getFeatureTypeIndex(name: string): number;
+
+  /**
+   * Sentinel value for "no feature"
+   */
+  readonly NO_FEATURE: number;
 }
 
 /**

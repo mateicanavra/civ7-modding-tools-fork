@@ -147,3 +147,34 @@ Unblock the biomes and climate stages by fixing a missing `ctx` parameter on the
 - [x] ~~Shallow-water fallback test: implement and test neighborhood-based `isAdjacentToShallowWater` fallback~~ **DONE**: Implemented fallback and added test in `callsite-fixes.test.ts`
 - [ ] Orchestrator regression test: `generateMap()` with CIV-18 fixes, assert `climateBaseline`, `climateRefine`, `biomes` in successful `stageResults`
 - [ ] resolveAdapter spread test: when adapter provides `isCoastalLand`, verify it flows through (currently hand-constructed, will drop future methods)
+
+---
+
+## CIV-19 – Wire Biomes & Features Adapter Integration
+
+**Intent / AC (short)**  
+Replace local biomes/features stubs in `mapgen-core` with real adapter-backed calls into Civ7’s biomes and features generators, so TS layers become thin nudging passes over an engine-backed baseline instead of synthetic map logic.
+
+**Strengths**
+- Extends `EngineAdapter` with explicit biomes and feature methods (`designateBiomes`, `getBiomeGlobal`, `addFeatures`, `getFeatureTypeIndex`, `NO_FEATURE`), keeping the integration surface centralized in `@civ7/adapter` and preserving the adapter boundary.
+- Implements these methods in `Civ7Adapter` by importing `/base-standard/maps/biomes.js` and `/base-standard/maps/features.js`, using `map-globals` and `GameInfo.Features.find(...)` for biome globals and feature indices; `mapgen-core` no longer needs `/base-standard/...` imports or local stubs.
+- Updates `MockAdapter` to carry dedicated biome/feature buffers, default globals/feature maps, and call-tracking for `designateBiomes`/`addFeatures`, giving tests a realistic, engine-free surface to exercise biomes/features behavior.
+- Rewrites `layers/biomes.ts::designateEnhancedBiomes` and `layers/features.ts::addDiverseFeatures` to operate entirely on `EngineAdapter`, running the vanilla `adapter.designateBiomes/addFeatures` passes first and then applying narrowly scoped TS nudges, which matches the milestone’s “adapter-first, nudges-on-top” intent.
+
+**Issues / gaps**
+- ~~`Civ7Adapter.NO_FEATURE` currently returns `-1` instead of the engine sentinel `FeatureTypes.NO_FEATURE`; because `addDiverseFeatures` gates work on `adapter.getFeatureType(...) === NO_FEATURE`, this is likely to treat all tiles as already-featured in production and effectively disable the TS embellishment pass even though the adapter surface exists.~~ **FIXED**: Updated to return `FeatureTypes.NO_FEATURE` when available, with `-1` fallback for test environments.
+- There are no targeted tests for the new adapter surface: `MockAdapter`'s new biome/feature behavior (globals, indices, NO_FEATURE) and the fact that `designateEnhancedBiomes`/`addDiverseFeatures` invoke `adapter.designateBiomes/addFeatures` and respect NO_FEATURE are all untested; regressions here would be hard to spot. **DEFERRED**: Per testing strategy, deferring to post-stabilization test sweep.
+- `getBiomeGlobal(name)` builds global names via string munging (`"tropical" → g_TropicalBiome`); this is convenient but brittle—typos or new biome names will quietly resolve to `-1` with no diagnostics, leaving downstream logic effectively disabled. **DEFERRED**: Safe fallback behavior is acceptable; tightening semantics can wait for test sweep.
+
+**Suggested follow-up**
+- ~~Change `Civ7Adapter.NO_FEATURE` to return `FeatureTypes.NO_FEATURE` (using the global from the Civ7 runtime) and, if possible, add a tiny assertion or smoke test that `adapter.NO_FEATURE === GameplayMap.getFeatureType(x, y)` on a known empty tile in the test harness.~~ **DONE**
+- Add a small `@civ7/adapter` test module that:
+  - Constructs a `MockAdapter` with custom `biomeGlobals`/`featureTypes` and asserts that `designateBiomes/addFeatures` calls are recorded and that `getBiomeGlobal`/`getFeatureTypeIndex` and `NO_FEATURE` behave as expected.
+  - Exercises `designateEnhancedBiomes`/`addDiverseFeatures` with a `MockAdapter` + minimal `ExtendedMapContext` to assert they call into the adapter and subtly mutate biomes/features on eligible tiles.
+- Consider tightening `getBiomeGlobal` semantics by either (a) supporting only a whitelisted set of known biome keys with explicit mappings and logging a warning when lookups fail, or (b) moving the string → global mapping into a small helper with clearer behavior and tests.
+
+**Deferred Tests** *(to be addressed in post-M-TS test sweep)*
+- [x] ~~Adapter NO_FEATURE parity test: verify `Civ7Adapter.NO_FEATURE === FeatureTypes.NO_FEATURE` in the Civ7 test harness.~~ **Addressed by implementation** - `NO_FEATURE` now returns engine sentinel with fallback.
+- [ ] MockAdapter biomes/features test: validate `designateBiomes/addFeatures` call-tracking, `getBiomeGlobal`, `getFeatureTypeIndex`, and `NO_FEATURE` behavior.
+- [ ] Biomes/features integration smoke test: run `designateEnhancedBiomes`/`addDiverseFeatures` with a `MockAdapter`/`ExtendedMapContext` and assert that vanilla calls plus TS nudges execute and change at least some tiles.
+- [ ] `getBiomeGlobal` semantics test: verify known biome names resolve correctly, unknown names return `-1` with optional warning logging.
