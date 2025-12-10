@@ -30,6 +30,9 @@ export * from "./core/index.js";
 // Re-export story module
 export * from "./story/index.js";
 
+// Re-export dev diagnostics module
+export * from "./dev/index.js";
+
 // Re-export MapOrchestrator
 export {
   MapOrchestrator,

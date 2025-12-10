@@ -209,6 +209,9 @@ The TypeScript migration (CIV-1 through CIV-13) passed all compilation gates but
 - [ ] [CIV-23: Integration & Behavior Tests](../issues/CIV-23-integration-tests.md)
 - Completes: [CIV-8: Validate End-to-End](../issues/CIV-8-validate-end-to-end.md)
 
+#### Cross-Cutting: Tooling
+- [ ] [CIV-24: Restore Dev Diagnostics & Stage Logging](../issues/CIV-24-dev-diagnostics.md)
+
 ### Remediation Stack Dependencies
 
 ```mermaid

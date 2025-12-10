@@ -425,12 +425,14 @@ function computeCurrents(
 
 function getDefaultRng(): RngFunction {
   const global = globalThis as Record<string, unknown>;
-  if (
-    global.TerrainBuilder &&
-    typeof (global.TerrainBuilder as Record<string, unknown>).getRandomNumber === "function"
-  ) {
-    return (global.TerrainBuilder as { getRandomNumber: RngFunction }).getRandomNumber;
+  if (global.TerrainBuilder) {
+    const tb = global.TerrainBuilder as Record<string, unknown>;
+    if (typeof tb.getRandomNumber === "function") {
+      console.log("[WorldModel] Using TerrainBuilder.getRandomNumber as RNG");
+      return (tb as { getRandomNumber: RngFunction }).getRandomNumber.bind(tb);
+    }
   }
+  console.log("[WorldModel] Using Math.random as RNG");
   return (max) => Math.floor(Math.random() * max);
 }
 
@@ -439,6 +441,11 @@ function getDefaultRng(): RngFunction {
 // ============================================================================
 
 export interface WorldModelInterface {
+  // Initialization state
+  readonly initialized: boolean;
+  readonly width: number;
+  readonly height: number;
+
   isEnabled(): boolean;
   init(options?: InitOptions): boolean;
   reset(): void;
@@ -479,6 +486,18 @@ export interface InitOptions {
 }
 
 export const WorldModel: WorldModelInterface = {
+  get initialized() {
+    return _state.initialized;
+  },
+
+  get width() {
+    return _state.width;
+  },
+
+  get height() {
+    return _state.height;
+  },
+
   isEnabled(): boolean {
     return !!_state.initialized;
   },
@@ -513,6 +532,10 @@ export const WorldModel: WorldModelInterface = {
     _state.height = height | 0;
     const size = Math.max(0, width * height) | 0;
 
+    console.log(
+      `[WorldModel] init starting with dimensions ${_state.width}x${_state.height} (size=${size})`
+    );
+
     // Allocate arrays
     _state.plateId = new Int16Array(size);
     _state.boundaryCloseness = new Uint8Array(size);
@@ -531,12 +554,24 @@ export const WorldModel: WorldModelInterface = {
     _state.pressure = new Uint8Array(size);
 
     // Compute fields
+    console.log("[WorldModel] computePlates starting");
     computePlates(width, height, options.plateOptions);
+    console.log("[WorldModel] computePlates succeeded");
+
+    console.log("[WorldModel] computePressure starting");
     computePressure(width, height, options.rng);
+    console.log("[WorldModel] computePressure succeeded");
+
+    console.log("[WorldModel] computeWinds starting");
     computeWinds(width, height, options.getLatitude, options.rng);
+    console.log("[WorldModel] computeWinds succeeded");
+
+    console.log("[WorldModel] computeCurrents starting");
     computeCurrents(width, height, options.isWater, options.getLatitude);
+    console.log("[WorldModel] computeCurrents succeeded");
 
     _state.initialized = true;
+    console.log("[WorldModel] init completed successfully");
     return true;
   },
 

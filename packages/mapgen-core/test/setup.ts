@@ -61,7 +61,6 @@
   setTerrainType: () => {},
   setBiomeType: () => {},
   setFeatureType: () => {},
-  setElevation: () => {},
   setRainfall: () => {},
   setPlotTag: () => {},
   addPlotTag: () => {},
@@ -77,7 +76,6 @@
   storeWaterData: () => {},
   addFloodplains: () => {},
   generatePoissonMap: () => [],
-  getHeightFromPercent: (p: number) => p * 500,
 };
 
 // Mock AreaBuilder
@@ -89,6 +87,7 @@
 (globalThis as any).FractalBuilder = {
   create: () => {},
   getHeight: () => 0,
+  getHeightFromPercent: (_fractalId: number, percent: number) => percent * 500,
 };
 
 // Mock GameInfo

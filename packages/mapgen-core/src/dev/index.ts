@@ -1,0 +1,98 @@
+/**
+ * Developer diagnostics module for map generation.
+ *
+ * Provides logging, timing, ASCII visualization, histograms, and summaries
+ * for debugging world/foundation/climate/biomes behavior.
+ *
+ * All diagnostics are no-op when DEV.ENABLED is false.
+ *
+ * @example
+ * ```typescript
+ * import { DEV, initDevFlags, devLog, timeSection, logFoundationSummary } from "@swooper/mapgen-core/dev";
+ *
+ * // Enable dev logging from config
+ * initDevFlags({ enabled: true, logTiming: true, logFoundationSummary: true });
+ *
+ * // Use timing wrapper
+ * const result = timeSection("Foundation init", () => initFoundation());
+ *
+ * // Log summaries
+ * logFoundationSummary(adapter, width, height, foundation);
+ * ```
+ *
+ * @module dev
+ */
+
+// Flags
+export {
+  DEV,
+  initDevFlags,
+  resetDevFlags,
+  isDevEnabled,
+  type DevFlags,
+  type DevFlagKey,
+  type DevLogConfig,
+} from "./flags.js";
+
+// Logging
+export {
+  devLog,
+  devLogIf,
+  devLogPrefixed,
+  devWarn,
+  devError,
+  devLogJson,
+  devLogLines,
+} from "./logging.js";
+
+// Timing
+export {
+  timeSection,
+  timeStart,
+  timeEnd,
+  measureMs,
+  type TimingToken,
+} from "./timing.js";
+
+// Engine surface introspection
+export { logEngineSurfaceApisOnce } from "./introspection.js";
+
+// ASCII visualization
+export {
+  ASCII_CHARS,
+  computeSampleStep,
+  renderAsciiGrid,
+  logAsciiGrid,
+  logFoundationAscii,
+  logLandmassAscii,
+  logReliefAscii,
+  logRainfallAscii,
+  logBiomeAscii,
+  type AsciiGridConfig,
+  type AsciiCell,
+} from "./ascii.js";
+
+// Histograms
+export {
+  buildHistogram,
+  formatHistogramPercent,
+  logRainfallHistogram,
+  logRainfallStats,
+  logFoundationHistograms,
+  logBoundaryMetrics,
+} from "./histograms.js";
+
+// Summaries
+export {
+  logFoundationSummary,
+  logBiomeSummary,
+  logStoryTagsSummary,
+  logMountainSummary,
+  logVolcanoSummary,
+  logLandmassWindows,
+  type FoundationPlates,
+  type StoryTagsSummary,
+} from "./summaries.js";
+
+/** Module version */
+export const DEV_MODULE_VERSION = "1.0.0";
