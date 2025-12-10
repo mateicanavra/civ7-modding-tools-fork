@@ -188,6 +188,7 @@ This choice is compatible with the Task Graph and Foundation PRDs:
 **Notes**
 
 - Schema is authored with `@sinclair/typebox` under `packages/mapgen-core/src/config/schema.ts`, with sub-schemas for foundation, landmass, climate, and layer-level tuning.
+- Landmass shaping semantics (water scaling, boundary biasing, boundary share backstop) are documented inline in the schema; use those comments when adjusting water targets or margin hugging behavior.
 - Phase 1 is intentionally **conservative**: we keep the shape mostly as-is and do not yet flatten or re-group config.
 - It is the minimum required to support the Fail Fast policy and avoid carrying brittle config flows into the new pipeline.
 

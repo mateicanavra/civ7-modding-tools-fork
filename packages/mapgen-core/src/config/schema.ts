@@ -257,26 +257,31 @@ export const LandmassConfigSchema = Type.Object(
     baseWaterPercent: Type.Optional(
       Type.Number({
         description:
-          "Target global water coverage (0-100). Lower values create supercontinents; higher values yield archipelagos.",
+          "Target global water coverage (0-100). Clamped in landmass scoring; 55-65 mimics Earth,"
+          + " 70-75 drifts toward archipelago worlds, and 50-55 yields Pangaea-style supercontinents.",
       })
     ),
     waterScalar: Type.Optional(
       Type.Number({
         description:
-          "Additional water adjustment applied after baseWaterPercent; useful for map-size scaling.",
+          "Multiplier applied after baseWaterPercent (typically 0.75-1.25). Values are clamped to a 0.25-1.75"
+          + " band so nudging water for huge/tiny maps cannot wipe out land entirely.",
       })
     ),
     boundaryBias: Type.Optional(
       Type.Number({
         description:
-          "Closeness bonus favoring tiles near plate boundaries; higher values pull continents toward margins.",
+          "Closeness bonus favoring tiles near plate boundaries (clamped to ~0.4). Higher values pull continents"
+          + " toward active margins to guarantee coastal mountain arcs while still keeping interior cores.",
       })
     ),
     boundaryShareTarget: Type.Optional(
       Type.Number({
         description:
-          "Soft target fraction of land that should sit inside the boundary closeness band (0..1)."
-          + " For example, 0.15 nudges the threshold down until ~15% of land hugs active margins, ensuring coastal mountain belts without overwhelming interiors.",
+          "Soft backstop on the share of land that should fall inside the boundary closeness band (0..1)."
+          + " After picking an initial threshold, the solver lowers it in 5-point steps until the boundary"
+          + " share meets this target (default ~0.15) or land exceeds ~150% of the goal. Use this to ensure"
+          + " some land hugs convergent margins for dramatic coasts without drowning interiors.",
       })
     ),
     continentalFraction: Type.Optional(
