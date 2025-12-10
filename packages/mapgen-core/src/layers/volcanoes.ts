@@ -17,7 +17,7 @@ import type { ExtendedMapContext } from "../core/types.js";
 import type { EngineAdapter, FeatureData } from "@civ7/adapter";
 import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "../bootstrap/types.js";
 import { writeHeightfield } from "../core/types.js";
-import { WorldModel, BOUNDARY_TYPE } from "../world/model.js";
+import { BOUNDARY_TYPE } from "../world/constants.js";
 
 // ============================================================================
 // Types
@@ -125,13 +125,19 @@ export function layerAddVolcanoesPlateAware(
     return;
   }
 
-  const worldEnabled = WorldModel.isEnabled();
-  const boundaryCloseness = WorldModel.boundaryCloseness;
-  const boundaryType = WorldModel.boundaryType;
-  const shieldStability = WorldModel.shieldStability;
+  // Require foundation context for plate data
+  const foundation = ctx?.foundation;
+  if (!foundation) {
+    // Foundation unavailable - skip placement
+    return;
+  }
 
-  if (!worldEnabled || !boundaryCloseness || !boundaryType) {
-    // WorldModel unavailable - skip placement
+  const { plates } = foundation;
+  const boundaryCloseness = plates.boundaryCloseness;
+  const boundaryType = plates.boundaryType;
+  const shieldStability = plates.shieldStability;
+
+  if (!boundaryCloseness || !boundaryType) {
     return;
   }
 

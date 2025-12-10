@@ -17,7 +17,7 @@ import type {
   LandmassGeometryPost,
 } from "../bootstrap/types.js";
 import { writeHeightfield } from "../core/types.js";
-import { WorldModel, BOUNDARY_TYPE } from "../world/model.js";
+import { BOUNDARY_TYPE } from "../world/constants.js";
 import { getTunables } from "../bootstrap/tunables.js";
 import type { LandmassWindow } from "./landmass-utils.js";
 
@@ -137,14 +137,17 @@ export function createPlateDrivenLandmasses(
   ctx?: ExtendedMapContext | null,
   options: CreateLandmassesOptions = {}
 ): LandmassGenerationResult | null {
-  if (!WorldModel.isEnabled()) {
+  // Require foundation context for plate data
+  const foundation = ctx?.foundation;
+  if (!foundation) {
     return null;
   }
 
-  const shield = WorldModel.shieldStability;
-  const closeness = WorldModel.boundaryCloseness;
-  const boundaryType = WorldModel.boundaryType;
-  const plateIds = WorldModel.plateId;
+  const { plates } = foundation;
+  const shield = plates.shieldStability;
+  const closeness = plates.boundaryCloseness;
+  const boundaryType = plates.boundaryType;
+  const plateIds = plates.id;
 
   if (!shield || !closeness || !boundaryType || !plateIds) {
     return null;

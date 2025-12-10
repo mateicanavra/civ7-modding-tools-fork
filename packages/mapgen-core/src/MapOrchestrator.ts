@@ -121,6 +121,26 @@ export interface GenerationResult {
   startPositions: number[];
 }
 
+/**
+ * Asserts that foundation context is available.
+ * Throws an error if foundation is missing - this surfaces manifest/wiring issues
+ * rather than silently degrading to fallback behavior.
+ */
+function assertFoundationContext(
+  ctx: ExtendedMapContext | null,
+  stageName: string
+): asserts ctx is ExtendedMapContext & { foundation: NonNullable<ExtendedMapContext["foundation"]> } {
+  if (!ctx) {
+    throw new Error(`Stage "${stageName}" requires ExtendedMapContext but ctx is null`);
+  }
+  if (!ctx.foundation) {
+    throw new Error(
+      `Stage "${stageName}" requires FoundationContext but ctx.foundation is null. ` +
+        `Ensure the "foundation" stage is enabled and runs before "${stageName}".`
+    );
+  }
+}
+
 // ============================================================================
 // Timing Utilities
 // ============================================================================
@@ -336,10 +356,14 @@ export class MapOrchestrator {
     this.stageResults = [];
     const startPositions: number[] = [];
 
-    // Refresh configuration
+    // Refresh configuration and world state
     resetTunables();
     const tunables = getTunables();
     console.log(`${prefix} Tunables rebound successfully`);
+
+    // Reset WorldModel to ensure fresh state for this generation run
+    // This clears any stale plate/dynamics data from previous runs
+    WorldModel.reset();
 
     // Get map dimensions
     const iWidth = this.adapter.getGridWidth();
@@ -424,7 +448,10 @@ export class MapOrchestrator {
     // ========================================================================
     if (stageFlags.landmassPlates && ctx) {
       const stageResult = this.runStage("landmassPlates", () => {
-        const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx!, {
+        // Assert foundation is available - fail fast if not
+        assertFoundationContext(ctx, "landmassPlates");
+
+        const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
           landmassCfg: landmassCfg as LandmassConfig,
           geometry: landmassCfg.geometry,
         });
@@ -441,8 +468,8 @@ export class MapOrchestrator {
           height: iHeight,
           windows,
           landMask: plateResult.landMask,
-          context: ctx!,
-          adapter: ctx!.adapter,
+          context: ctx,
+          adapter: ctx.adapter,
         });
         windows = separationResult.windows;
 
@@ -477,7 +504,7 @@ export class MapOrchestrator {
             }
           },
         };
-        addPlotTagsSimple(iHeight, iWidth, eastContinent.west, ctx!.adapter, terrainBuilder);
+        addPlotTagsSimple(iHeight, iWidth, eastContinent.west, ctx.adapter, terrainBuilder);
       });
       this.stageResults.push(stageResult);
     }
@@ -529,7 +556,10 @@ export class MapOrchestrator {
     // ========================================================================
     if (stageFlags.mountains && ctx) {
       const stageResult = this.runStage("mountains", () => {
-        layerAddMountainsPhysics(ctx!, mountainOptions);
+        // Assert foundation is available - fail fast if not
+        assertFoundationContext(ctx, "mountains");
+
+        layerAddMountainsPhysics(ctx, mountainOptions);
       });
       this.stageResults.push(stageResult);
     }
@@ -539,7 +569,10 @@ export class MapOrchestrator {
     // ========================================================================
     if (stageFlags.volcanoes && ctx) {
       const stageResult = this.runStage("volcanoes", () => {
-        layerAddVolcanoesPlateAware(ctx!, volcanoOptions);
+        // Assert foundation is available - fail fast if not
+        assertFoundationContext(ctx, "volcanoes");
+
+        layerAddVolcanoesPlateAware(ctx, volcanoOptions);
       });
       this.stageResults.push(stageResult);
     }
@@ -565,7 +598,10 @@ export class MapOrchestrator {
     // ========================================================================
     if (stageFlags.climateBaseline && ctx) {
       const stageResult = this.runStage("climateBaseline", () => {
-        applyClimateBaseline(iWidth, iHeight, ctx!);
+        // Assert foundation is available - fail fast if not
+        assertFoundationContext(ctx, "climateBaseline");
+
+        applyClimateBaseline(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
     }
@@ -590,7 +626,10 @@ export class MapOrchestrator {
     // ========================================================================
     if (stageFlags.climateRefine && ctx) {
       const stageResult = this.runStage("climateRefine", () => {
-        refineClimateEarthlike(iWidth, iHeight, ctx!);
+        // Assert foundation is available - fail fast if not
+        assertFoundationContext(ctx, "climateRefine");
+
+        refineClimateEarthlike(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
     }
