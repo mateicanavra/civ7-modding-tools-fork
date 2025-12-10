@@ -12,11 +12,11 @@
       "Bash(mkdir:*)",
       "Bash(linear team:*)",
       "Bash(linear project:*)",
-      "Bash(gt ls:*)"
+      "Bash(gt ls:*)",
       "Bash(gt create:*)",
       "Bash(rg:*)",
       "Bash(pnpm run check-types:*)",
-      "Bash(pnpm run check:*)"
+      "Bash(pnpm run check:*)",
       "Bash(grep:*)",
       "Bash(time pnpm -C packages/mapgen-core test:*)",
       "Bash(git add:*)",
@@ -35,7 +35,8 @@
       "mcp__linear-personal__list_teams",
       "mcp__linear-personal__create_issue",
       "Bash(./scripts/lint-adapter-boundary.sh:*)",
-      "mcp__linear-personal__create_comment"
+      "mcp__linear-personal__create_comment",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

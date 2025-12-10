@@ -6,6 +6,38 @@
  * doesn't crash during test execution.
  */
 
+import { mock } from "bun:test";
+
+// Mock /base-standard/ modules that Civ7Adapter imports
+// These are Civ7 runtime paths that don't exist in test environment
+mock.module("/base-standard/maps/map-globals.js", () => ({}));
+mock.module("/base-standard/maps/feature-biome-generator.js", () => ({
+  designateBiomes: () => {},
+  addFeatures: () => {},
+}));
+mock.module("/base-standard/maps/natural-wonder-generator.js", () => ({
+  addNaturalWonders: () => {},
+}));
+mock.module("/base-standard/maps/snow-generator.js", () => ({
+  generateSnow: () => {},
+}));
+mock.module("/base-standard/maps/resource-generator.js", () => ({
+  generateResources: () => {},
+}));
+mock.module("/base-standard/maps/assign-starting-plots.js", () => ({
+  assignStartPositions: () => [],
+  chooseStartSectors: () => [],
+}));
+mock.module("/base-standard/maps/map-utilities.js", () => ({
+  needHumanNearEquator: () => false,
+}));
+mock.module("/base-standard/maps/discovery-generator.js", () => ({
+  generateDiscoveries: () => {},
+}));
+mock.module("/base-standard/maps/assign-advanced-start-region.js", () => ({
+  assignAdvancedStartRegions: () => {},
+}));
+
 // Mock engine API
 (globalThis as any).engine = {
   on: () => {},

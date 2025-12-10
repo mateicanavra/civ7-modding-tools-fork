@@ -206,6 +206,38 @@ Move all Civ7 placement integration (natural wonders, floodplains, snow, resourc
 
 ---
 
+## CIV-22 – Restore Map-Size Awareness
+
+**Intent / AC (short)**  
+Stop hard-coding `84×54` / ±80° in `MapOrchestrator.requestMapData()` and instead derive map dimensions and latitude bounds from Civ7’s map size selection (`GameplayMap.getMapSize()` → `GameInfo.Maps.lookup()`), with a test-friendly override hook.
+
+**Strengths**
+- Replaces hard-coded dimensions in `requestMapData()` with a proper map-size flow using `GameInfo.Maps.lookup`, and introduces a `MapInfo` shape that mirrors Civ7’s map metadata (`GridWidth`, `GridHeight`, `MinLatitude`, `MaxLatitude`).
+- Adds `mapSizeDefaults` to `OrchestratorConfig`, enabling tests and tools to bypass engine globals when driving map size and latitudes while keeping production behavior unchanged.
+- Ensures `generateMap()` reads dimensions from the engine (`GameplayMap.getGridWidth()`, `GameplayMap.getGridHeight()`) after `SetMapInitData`, keeping the generation pipeline in sync with init-time size selection.
+- Provides clear override semantics via `initParams` for width/height/latitudes, which will be useful for future testing and tooling.
+
+**Issues / gaps**
+- No dedicated tests currently exercise `requestMapData()`, `mapSizeDefaults`, or the override behavior, despite the issue defining straightforward test cases; regressions here would only be caught in-game until CIV-23 lands.
+- Map-size and map-info lookup still rely on an internal orchestrator adapter that talks directly to `GameplayMap`/`GameInfo`, leaving `MapOrchestrator.ts` on the adapter-boundary allowlist and making pure unit tests depend on global stubs.
+- Minor mismatch between `MapSizeDefaults.mapSizeId`’s type (number) and its documentation (string-like size IDs), which could confuse future config or CLI work if not clarified.
+- Latitude fallbacks reintroduce ±80° as implicit “standard defaults” when `GameInfo.Maps` fails, without centralizing or clearly documenting that contract.
+
+**Suggested follow-up**
+- Under CIV-23 or a small follow-on task, add unit tests for `requestMapData()` that validate:
+  - Dimensions/latitudes from `mapInfo`.
+  - `initParams`-override behavior.
+  - Fallback behavior when `mapInfo` is absent.
+- Clarify `MapSizeDefaults.mapSizeId`’s intended type/docs and document the latitude fallback as an explicit “standard map” default.
+- Decide, in a future adapter-boundary cleanup, whether to keep an explicit “init adapter” owned by `MapOrchestrator` for engine events or extend `EngineAdapter` with the minimal surface needed for map init, so map-size awareness can eventually sit fully behind the adapter boundary.
+
+**Deferred Tests** *(to be addressed in post-M-TS test sweep)*
+- [ ] `requestMapData` size/latitude test: verify `SetMapInitData` receives dimensions/latitudes from `mapInfo` when `mapSizeDefaults` is provided.
+- [ ] `requestMapData` override test: verify `initParams` width/height/latitudes override `mapInfo` values when supplied.
+- [ ] Fallback behavior test: verify sensible defaults (84×54, ±80°) when `mapInfo` is null, and that this is treated as a guarded fallback rather than a primary path.
+
+---
+
 ## Cross-Cutting Follow-Up – Restore Dev Diagnostics & Stage Logging
 
 **Intent / gap**

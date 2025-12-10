@@ -31,12 +31,18 @@ export type MountainsConfig = BootstrapMountainsConfig;
 // Constants
 // ============================================================================
 
+// Fractal indices (from map-globals.js)
 const MOUNTAIN_FRACTAL = 0;
 const HILL_FRACTAL = 1;
-const MOUNTAIN_TERRAIN = 5;
-const HILL_TERRAIN = 4;
-const COAST_TERRAIN = 1;
-const OCEAN_TERRAIN = 0;
+
+// Terrain type constants - imported from shared module
+// CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
+import {
+  MOUNTAIN_TERRAIN,
+  HILL_TERRAIN,
+  COAST_TERRAIN,
+  OCEAN_TERRAIN,
+} from "../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions
@@ -44,6 +50,26 @@ const OCEAN_TERRAIN = 0;
 
 function idx(x: number, y: number, width: number): number {
   return y * width + x;
+}
+
+/**
+ * Normalize fractal output to 0..1, adapting to engines that emit 8, 16, or 32-bit heights.
+ * - Values > 65535 are treated as 32-bit; use the top 8 bits (>>> 24)
+ * - Values > 255 are treated as 16-bit; use the top 8 bits (>>> 8)
+ * - Values <= 255 are treated as 8-bit
+ * - Negative values are clamped to 0 to avoid wrapping artifacts
+ */
+function normalizeFractal(raw: number): number {
+  let val = raw | 0;
+  if (val < 0) val = 0;
+
+  if (val > 65535) {
+    return (val >>> 24) / 255;
+  }
+  if (val > 255) {
+    return (val >>> 8) / 255;
+  }
+  return val / 255;
 }
 
 // ============================================================================
@@ -67,23 +93,48 @@ export function layerAddMountainsPhysics(
 ): void {
   const {
     tectonicIntensity = 1.0,
-    mountainThreshold = 0.45,
-    hillThreshold = 0.25,
-    upliftWeight = 0.75,
-    fractalWeight = 0.25,
-    riftDepth = 0.3,
-    boundaryWeight = 0.6,
-    boundaryExponent = 1.4,
-    interiorPenaltyWeight = 0.2,
-    convergenceBonus = 0.9,
-    transformPenalty = 0.3,
-    riftPenalty = 0.75,
-    hillBoundaryWeight = 0.45,
-    hillRiftBonus = 0.5,
-    hillConvergentFoothill = 0.25,
-    hillInteriorFalloff = 0.2,
-    hillUpliftWeight = 0.25,
+    // Crust-first defaults: mountains only where collisions are strong
+    mountainThreshold = 0.58,
+    hillThreshold = 0.32,
+    upliftWeight = 0.35,
+    fractalWeight = 0.15,
+    riftDepth = 0.2,
+    boundaryWeight = 1.0,
+    boundaryExponent = 1.6,
+    interiorPenaltyWeight = 0.0, // disabled in the new formulation
+    convergenceBonus = 1.0,
+    transformPenalty = 0.6,
+    riftPenalty = 1.0,
+    hillBoundaryWeight = 0.35,
+    hillRiftBonus = 0.25,
+    hillConvergentFoothill = 0.35,
+    hillInteriorFalloff = 0.1,
+    hillUpliftWeight = 0.2,
   } = options;
+
+  console.log("[Mountains] Physics Config (Input):", JSON.stringify(options));
+  console.log(
+    "[Mountains] Physics Config (Effective):",
+    JSON.stringify({
+      tectonicIntensity,
+      mountainThreshold,
+      hillThreshold,
+      upliftWeight,
+      fractalWeight,
+      riftDepth,
+      boundaryWeight,
+      boundaryExponent,
+      interiorPenaltyWeight,
+      convergenceBonus,
+      transformPenalty,
+      riftPenalty,
+      hillBoundaryWeight,
+      hillRiftBonus,
+      hillConvergentFoothill,
+      hillInteriorFalloff,
+      hillUpliftWeight,
+    })
+  );
 
   // Scale physics parameters by tectonic intensity
   const scaledConvergenceBonus = convergenceBonus * tectonicIntensity;
@@ -198,6 +249,17 @@ export function layerAddMountainsPhysics(
     const y = Math.floor(i / width);
     terrainWriter(x, y, HILL_TERRAIN);
   }
+
+  // Debug: Log Terrain Histogram
+  const mtnCount = mountainTiles.size;
+  const hillCount = hillTiles.size;
+  const flatCount = Math.max(0, landTiles - mtnCount - hillCount);
+  const total = Math.max(1, landTiles);
+
+  console.log(`[Mountains] Terrain Distribution (Land Tiles: ${landTiles}):`);
+  console.log(`  Mountains: ${mtnCount} (${((mtnCount / total) * 100).toFixed(1)}%)`);
+  console.log(`  Hills:     ${hillCount} (${((hillCount / total) * 100).toFixed(1)}%)`);
+  console.log(`  Flat:      ${flatCount} (${((flatCount / total) * 100).toFixed(1)}%)`);
 }
 
 /**
@@ -235,13 +297,15 @@ function computePlateBasedScores(
   const boundaryType = plates.boundaryType;
   const boundaryCloseness = plates.boundaryCloseness;
   const riftPotential = plates.riftPotential;
+  const tectonicStress = plates.tectonicStress;
 
   if (!upliftPotential || !boundaryType) {
     computeFractalOnlyScores(ctx, scores, hillScores, adapter);
     return;
   }
 
-  const boundaryGate = 0.2;
+  // Require proximity to boundaries before allowing uplift to form mountains.
+  const boundaryGate = 0.35;
   const falloffExponent = options.boundaryExponent || 2.5;
 
   for (let y = 0; y < height; y++) {
@@ -252,62 +316,60 @@ function computePlateBasedScores(
       const bType = boundaryType[i];
       const closenessRaw = boundaryCloseness ? boundaryCloseness[i] / 255 : 0;
       const rift = riftPotential ? riftPotential[i] / 255 : 0;
+      const stress = tectonicStress ? tectonicStress[i] / 255 : uplift;
 
-      const fractalMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y) / 65535;
-      const fractalHill = adapter.getFractalHeight(HILL_FRACTAL, x, y) / 65535;
+      // Adaptive noise normalization supports 8, 16, or 32-bit heights
+      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y);
+      const rawHill = adapter.getFractalHeight(HILL_FRACTAL, x, y);
+      const fractalMtn = normalizeFractal(rawMtn);
+      const fractalHill = normalizeFractal(rawHill);
 
-      // Base score: uplift potential + fractal variety
-      let mountainScore = uplift * options.upliftWeight + fractalMtn * options.fractalWeight;
-
-      // Physics-based boundary effects
-      if (closenessRaw > boundaryGate) {
-        const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
-        const intensity = Math.pow(normalized, falloffExponent);
-
-        if (options.boundaryWeight > 0) {
-          const foothillNoise = 0.5 + fractalMtn * 0.5;
-          mountainScore += intensity * options.boundaryWeight * foothillNoise;
-        }
-
-        if (bType === BOUNDARY_TYPE.convergent) {
-          const peakNoise = 0.3 + fractalMtn * 0.7;
-          mountainScore += intensity * options.convergenceBonus * peakNoise;
-        } else if (bType === BOUNDARY_TYPE.divergent) {
-          mountainScore *= Math.max(0, 1 - intensity * options.riftPenalty);
-        } else if (bType === BOUNDARY_TYPE.transform) {
-          mountainScore *= Math.max(0, 1 - intensity * options.transformPenalty);
-        }
+      // Early exit: if we're far from any boundary, mountains remain zero and hills only use light fractal.
+      if (closenessRaw < boundaryGate) {
+        scores[i] = 0;
+        hillScores[i] = Math.max(0, fractalHill * options.fractalWeight * 0.5);
+        continue;
       }
 
-      // Interior penalty
-      if (options.interiorPenaltyWeight > 0) {
-        const interiorPenalty = (1 - closenessRaw) * options.interiorPenaltyWeight;
-        mountainScore = Math.max(0, mountainScore - interiorPenalty);
+      const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
+      const boundaryStrength = Math.pow(normalized, falloffExponent);
+      const collision = bType === BOUNDARY_TYPE.convergent ? boundaryStrength : 0;
+      const transform = bType === BOUNDARY_TYPE.transform ? boundaryStrength : 0;
+      const divergence = bType === BOUNDARY_TYPE.divergent ? boundaryStrength : 0;
+
+      // Base score: collision-driven uplift with a touch of upliftPotential and jitter.
+      let mountainScore =
+        collision * options.boundaryWeight * (0.7 * stress + 0.3 * uplift) +
+        uplift * options.upliftWeight * 0.4 +
+        fractalMtn * options.fractalWeight * 0.2;
+
+      // Boundary-specific adjustments: boost convergent, suppress divergent/transform.
+      if (collision > 0) {
+        mountainScore += collision * options.convergenceBonus * (0.6 + fractalMtn * 0.2);
+      }
+      if (divergence > 0) {
+        mountainScore *= Math.max(0, 1 - divergence * options.riftPenalty);
+      }
+      if (transform > 0) {
+        mountainScore *= Math.max(0, 1 - transform * options.transformPenalty);
       }
 
       scores[i] = Math.max(0, mountainScore);
 
       // Hill scoring
-      let hillScore = fractalHill * options.fractalWeight + uplift * options.hillUpliftWeight;
+      const hillIntensity = Math.sqrt(boundaryStrength);
+      const foothillExtent = 0.5 + fractalHill * 0.5;
 
-      if (closenessRaw > boundaryGate) {
-        const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
-        const hillIntensity = Math.sqrt(normalized);
-        const foothillExtent = 0.4 + fractalHill * 0.6;
+      let hillScore =
+        fractalHill * options.fractalWeight * 0.8 + uplift * options.hillUpliftWeight * 0.3;
 
-        if (options.hillBoundaryWeight > 0) {
-          hillScore += hillIntensity * options.hillBoundaryWeight * foothillExtent;
-        }
-
-        if (bType === BOUNDARY_TYPE.divergent) {
-          hillScore += hillIntensity * rift * options.hillRiftBonus * foothillExtent;
-        } else if (bType === BOUNDARY_TYPE.convergent) {
-          hillScore += hillIntensity * options.hillConvergentFoothill * foothillExtent;
-        }
+      if (collision > 0 && options.hillBoundaryWeight > 0) {
+        hillScore += hillIntensity * options.hillBoundaryWeight * foothillExtent;
+        hillScore += hillIntensity * options.hillConvergentFoothill * foothillExtent;
       }
 
-      if (options.hillInteriorFalloff > 0) {
-        hillScore -= (1 - closenessRaw) * options.hillInteriorFalloff;
+      if (divergence > 0) {
+        hillScore += hillIntensity * rift * options.hillRiftBonus * foothillExtent * 0.5;
       }
 
       hillScores[i] = Math.max(0, hillScore);
@@ -331,8 +393,11 @@ function computeFractalOnlyScores(
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = idx(x, y, width);
-      scores[i] = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y) / 65535;
-      hillScores[i] = adapter.getFractalHeight(HILL_FRACTAL, x, y) / 65535;
+      // Adaptive noise normalization for fallback path too
+      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y);
+      const rawHill = adapter.getFractalHeight(HILL_FRACTAL, x, y);
+      scores[i] = normalizeFractal(rawMtn);
+      hillScores[i] = normalizeFractal(rawHill);
     }
   }
 }

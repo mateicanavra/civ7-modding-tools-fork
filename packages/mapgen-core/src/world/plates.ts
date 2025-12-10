@@ -102,6 +102,66 @@ const DefaultVoronoiUtils: VoronoiUtilsInterface = {
   },
 };
 
+// Optional injected Voronoi implementation (e.g., Civ7 kd-tree utilities)
+let injectedVoronoiUtils: VoronoiUtilsInterface | null = null;
+let injectedVoronoiLabel: string | null = null;
+let loggedInjectedVoronoi = false;
+
+function adaptGlobalVoronoiUtils(): { utils: VoronoiUtilsInterface | null; label: string } {
+  const globalUtils = (globalThis as Record<string, unknown>).VoronoiUtils as
+    | Record<string, unknown>
+    | undefined;
+  if (globalUtils && typeof globalUtils.computeVoronoi === "function") {
+    return {
+      utils: {
+        createRandomSites: (count: number, width: number, height: number) =>
+          (globalUtils as { createRandomSites: VoronoiUtilsInterface["createRandomSites"] }).createRandomSites(
+            count,
+            width,
+            height
+          ),
+        computeVoronoi: (sites, bbox, relaxationSteps = 0) =>
+          (globalUtils as { computeVoronoi: VoronoiUtilsInterface["computeVoronoi"] }).computeVoronoi(
+            sites,
+            bbox,
+            relaxationSteps
+          ),
+        calculateCellArea: (cell) =>
+          (globalUtils as { calculateCellArea: VoronoiUtilsInterface["calculateCellArea"] }).calculateCellArea(cell),
+        normalize: (v) =>
+          (globalUtils as { normalize: VoronoiUtilsInterface["normalize"] }).normalize(v),
+      },
+      label: "global",
+    };
+  }
+  return { utils: null, label: "fallback" };
+}
+
+export function setDefaultVoronoiUtils(
+  utils: VoronoiUtilsInterface | null,
+  label = "external"
+): void {
+  injectedVoronoiUtils = utils;
+  injectedVoronoiLabel = utils ? label : null;
+  loggedInjectedVoronoi = false;
+}
+
+function resolveVoronoiUtils(
+  options: ComputePlatesOptions
+): { utils: VoronoiUtilsInterface; label: string } {
+  if (options.voronoiUtils) {
+    return { utils: options.voronoiUtils, label: "custom" };
+  }
+  const globalUtils = adaptGlobalVoronoiUtils();
+  if (globalUtils.utils) {
+    return { utils: globalUtils.utils, label: globalUtils.label };
+  }
+  if (injectedVoronoiUtils) {
+    return { utils: injectedVoronoiUtils, label: injectedVoronoiLabel ?? "injected" };
+  }
+  return { utils: DefaultVoronoiUtils, label: "fallback" };
+}
+
 // ============================================================================
 // Plate Region Factory
 // ============================================================================
@@ -161,6 +221,31 @@ function rotate2(v: Point2D, angleRad: number): Point2D {
     x: v.x * cos - v.y * sin,
     y: v.x * sin + v.y * cos,
   };
+}
+
+// ============================================================================
+// Hex Geometry Helpers (odd-q vertical layout)
+// ============================================================================
+
+const HEX_WIDTH = Math.sqrt(3);
+const HEX_HEIGHT = 1.5;
+const HALF_HEX_HEIGHT = HEX_HEIGHT / 2;
+
+function projectToHexSpace(x: number, y: number): { px: number; py: number } {
+  const px = x * HEX_WIDTH;
+  const py = y * HEX_HEIGHT + ((Math.floor(x) & 1) ? HALF_HEX_HEIGHT : 0);
+  return { px, py };
+}
+
+function wrappedHexDistanceSq(
+  a: { px: number; py: number },
+  b: { px: number; py: number },
+  wrapWidth: number
+): number {
+  const rawDx = Math.abs(a.px - b.px);
+  const dx = Math.min(rawDx, wrapWidth - rawDx);
+  const dy = a.py - b.py;
+  return dx * dx + dy * dy;
 }
 
 // ============================================================================
@@ -553,6 +638,14 @@ export function computePlatesVoronoi(
   config: PlateConfig,
   options: ComputePlatesOptions = {}
 ): PlateGenerationResult {
+  const voronoiChoice = resolveVoronoiUtils(options);
+  if (voronoiChoice.label !== "fallback" && !loggedInjectedVoronoi) {
+    console.log(
+      `[WorldModel] Using ${voronoiChoice.label} Voronoi utilities (${width}x${height})`
+    );
+    loggedInjectedVoronoi = true;
+  }
+
   const {
     count = 8,
     relaxationSteps = 5,
@@ -562,7 +655,8 @@ export function computePlatesVoronoi(
   } = config;
 
   // Use provided utilities or defaults
-  const voronoiUtils = options.voronoiUtils || DefaultVoronoiUtils;
+  const voronoiUtils = voronoiChoice.utils;
+  const allowPlateDownsample = voronoiChoice.label === "fallback";
   const rng: RngFunction =
     options.rng ||
     ((max, _label) => {
@@ -609,6 +703,7 @@ export function computePlatesVoronoi(
     } = attempt;
 
     const plateCount = Math.max(2, plateCountOverride ?? count);
+    const wrapWidthPx = width * HEX_WIDTH;
 
     // Create Voronoi diagram
     const bbox: BoundingBox = { xl: 0, xr: width, yt: 0, yb: height };
@@ -634,6 +729,10 @@ export function computePlatesVoronoi(
 
       return region;
     });
+
+    const plateCenters = plateRegions.map((region) =>
+      projectToHexSpace(region.seedLocation.x, region.seedLocation.y)
+    );
 
     if (!plateRegions.length) {
       throw new Error("[WorldModel] Plate generation returned zero plates");
@@ -661,16 +760,15 @@ export function computePlatesVoronoi(
       plateId: -1,
     }));
 
-    // Assign each region cell to nearest plate
+    // Assign each region cell to nearest plate (with cylindrical wrapping)
     for (const regionCell of regionCells) {
       const pos = { x: regionCell.cell.site.x, y: regionCell.cell.site.y };
+      const posHex = projectToHexSpace(pos.x, pos.y);
       let bestDist = Infinity;
       let bestPlateId = -1;
 
       for (let i = 0; i < plateRegions.length; i++) {
-        const dx = pos.x - plateRegions[i].seedLocation.x;
-        const dy = pos.y - plateRegions[i].seedLocation.y;
-        const dist = dx * dx + dy * dy;
+        const dist = wrappedHexDistanceSq(posHex, plateCenters[i], wrapWidthPx);
 
         if (dist < bestDist) {
           bestDist = dist;
@@ -693,19 +791,17 @@ export function computePlatesVoronoi(
     const plateMovementV = new Int8Array(size);
     const plateRotation = new Int8Array(size);
 
-    // Assign each map tile to nearest plate
+    // Assign each map tile to nearest plate (with cylindrical wrapping)
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const i = y * width + x;
-        const pos = { x, y };
 
-        // Find nearest plate seed
+        // Find nearest plate seed with cylindrical wrapping (hex geometry)
         let bestDist = Infinity;
         let pId = 0;
+        const tileHex = projectToHexSpace(x, y);
         for (let p = 0; p < plateRegions.length; p++) {
-          const dx = pos.x - plateRegions[p].seedLocation.x;
-          const dy = pos.y - plateRegions[p].seedLocation.y;
-          const dist = dx * dx + dy * dy;
+          const dist = wrappedHexDistanceSq(tileHex, plateCenters[p], wrapWidthPx);
           if (dist < bestDist) {
             bestDist = dist;
             pId = p;
@@ -715,7 +811,7 @@ export function computePlatesVoronoi(
         plateId[i] = pId;
 
         const plate = plateRegions[pId];
-        const movement = calculatePlateMovement(plate, pos, plateRotationMultiple);
+        const movement = calculatePlateMovement(plate, { x, y }, plateRotationMultiple);
         plateMovementU[i] = clampInt8(Math.round(movement.x * 100));
         plateMovementV[i] = clampInt8(Math.round(movement.y * 100));
         plateRotation[i] = clampInt8(Math.round(plate.m_rotation * 100));
@@ -787,18 +883,32 @@ export function computePlatesVoronoi(
   const attempts = [
     { cellDensity: 0.003, boundaryInfluenceDistance: 3, boundaryDecay: 0.8 },
     { cellDensity: 0.002, boundaryInfluenceDistance: 2, boundaryDecay: 0.9 },
-    {
-      cellDensity: 0.002,
-      boundaryInfluenceDistance: 2,
-      boundaryDecay: 0.9,
-      plateCountOverride: Math.max(6, Math.round(count * 0.6)),
-    },
-    {
-      cellDensity: 0.0015,
-      boundaryInfluenceDistance: 2,
-      boundaryDecay: 1.0,
-      plateCountOverride: Math.max(4, Math.round(count * 0.4)),
-    },
+    allowPlateDownsample
+      ? {
+          cellDensity: 0.002,
+          boundaryInfluenceDistance: 2,
+          boundaryDecay: 0.9,
+          plateCountOverride: Math.max(6, Math.round(count * 0.6)),
+        }
+      : {
+          cellDensity: 0.002,
+          boundaryInfluenceDistance: 2,
+          boundaryDecay: 0.95,
+          plateCountOverride: count,
+        },
+    allowPlateDownsample
+      ? {
+          cellDensity: 0.0015,
+          boundaryInfluenceDistance: 2,
+          boundaryDecay: 1.0,
+          plateCountOverride: Math.max(4, Math.round(count * 0.4)),
+        }
+      : {
+          cellDensity: 0.0015,
+          boundaryInfluenceDistance: 2,
+          boundaryDecay: 1.0,
+          plateCountOverride: count,
+        },
   ];
 
   const saturationLimit = 0.45;

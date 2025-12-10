@@ -12,6 +12,12 @@ import type { EngineAdapter, FeatureData } from "./types.js";
 // Import from /base-standard/... — these are external Civ7 runtime paths
 // resolved by the game's module loader, not TypeScript
 import "/base-standard/maps/map-globals.js";
+// Load Voronoi/kd-tree utilities so global VoronoiUtils is available for plate generation
+// @ts-ignore - resolved only at Civ7 runtime
+import { VoronoiUtils as CivVoronoiUtils } from "/base-standard/scripts/kd-tree.js";
+// Ensure global exposure for mapgen-core's auto-detect
+(globalThis as Record<string, unknown>).VoronoiUtils =
+  (globalThis as Record<string, unknown>).VoronoiUtils || CivVoronoiUtils;
 // Vanilla Civ7 biomes/features live in feature-biome-generator.js
 // @ts-ignore - resolved only at Civ7 runtime
 import { designateBiomes as civ7DesignateBiomes, addFeatures as civ7AddFeatures } from "/base-standard/maps/feature-biome-generator.js";
@@ -23,7 +29,9 @@ import { generateSnow as civ7GenerateSnow } from "/base-standard/maps/snow-gener
 // @ts-ignore - resolved only at Civ7 runtime
 import { generateResources as civ7GenerateResources } from "/base-standard/maps/resource-generator.js";
 // @ts-ignore - resolved only at Civ7 runtime
-import { assignStartPositions as civ7AssignStartPositions } from "/base-standard/maps/assign-starting-plots.js";
+import { assignStartPositions as civ7AssignStartPositions, chooseStartSectors as civ7ChooseStartSectors } from "/base-standard/maps/assign-starting-plots.js";
+// @ts-ignore - resolved only at Civ7 runtime
+import { needHumanNearEquator as civ7NeedHumanNearEquator } from "/base-standard/maps/map-utilities.js";
 // @ts-ignore - resolved only at Civ7 runtime
 import { generateDiscoveries as civ7GenerateDiscoveries } from "/base-standard/maps/discovery-generator.js";
 // @ts-ignore - resolved only at Civ7 runtime
@@ -87,6 +95,18 @@ export class Civ7Adapter implements EngineAdapter {
 
   setRainfall(x: number, y: number, rainfall: number): void {
     TerrainBuilder.setRainfall(x, y, rainfall);
+  }
+
+  setLandmassRegionId(x: number, y: number, regionId: number): void {
+    TerrainBuilder.setLandmassRegionId(x, y, regionId);
+  }
+
+  addPlotTag(x: number, y: number, plotTag: number): void {
+    TerrainBuilder.addPlotTag(x, y, plotTag);
+  }
+
+  setPlotTag(x: number, y: number, plotTag: number): void {
+    TerrainBuilder.setPlotTag(x, y, plotTag);
   }
 
   // === FEATURE READS/WRITES ===
@@ -235,6 +255,21 @@ export class Civ7Adapter implements EngineAdapter {
     return Array.isArray(result) ? result : [];
   }
 
+  chooseStartSectors(
+    players1: number,
+    players2: number,
+    rows: number,
+    cols: number,
+    humanNearEquator: boolean
+  ): unknown[] {
+    const result = civ7ChooseStartSectors(players1, players2, rows, cols, humanNearEquator);
+    return Array.isArray(result) ? result : [];
+  }
+
+  needHumanNearEquator(): boolean {
+    return civ7NeedHumanNearEquator();
+  }
+
   generateDiscoveries(width: number, height: number, startPositions: number[]): void {
     civ7GenerateDiscoveries(width, height, startPositions);
   }
@@ -256,6 +291,8 @@ export class Civ7Adapter implements EngineAdapter {
     const fb = (globalThis as unknown as { FertilityBuilder?: { recalculate?: () => void } }).FertilityBuilder;
     if (fb && typeof fb.recalculate === "function") {
       fb.recalculate();
+    } else {
+      console.log("[Civ7Adapter] FertilityBuilder not available - fertility will be calculated by engine defaults");
     }
   }
 }

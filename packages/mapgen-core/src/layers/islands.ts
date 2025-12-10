@@ -39,9 +39,11 @@ export type CorridorsConfig = BootstrapCorridorsConfig;
 // Constants
 // ============================================================================
 
+// Fractal indices (from map-globals.js)
 const HILL_FRACTAL = 1;
-const COAST_TERRAIN = 1;
-const FLAT_TERRAIN = 3;
+
+// Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
+import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions
@@ -212,7 +214,7 @@ export function addIslandChains(
 
       // Place center tile
       const centerIsLand =
-        centerTerrain !== COAST_TERRAIN && centerTerrain !== 0; // 0 = OCEAN_TERRAIN
+        centerTerrain !== COAST_TERRAIN && centerTerrain !== OCEAN_TERRAIN;
       applyTerrain(x, y, centerTerrain, centerIsLand);
 
       // Classify center for downstream microclimates/features

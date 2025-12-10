@@ -50,6 +50,7 @@ export interface PlateAwareOceanSeparationParams {
   context?: ExtendedMapContext | null;
   adapter?: Pick<EngineAdapter, "setTerrainType"> | null;
   policy?: OceanSeparationPolicy | null;
+  crustMode?: CrustMode;
 }
 
 /** Result of plate-aware ocean separation */
@@ -84,9 +85,8 @@ const DEFAULT_OCEAN_SEPARATION: OceanSeparationPolicy = {
   maxPerRowDelta: 3,
 };
 
-// Terrain type constants (from base-standard/maps/map-globals.js)
-const OCEAN_TERRAIN = 0;
-const FLAT_TERRAIN = 3;
+// Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
+import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions
@@ -96,6 +96,12 @@ function clampInt(value: number, min: number, max: number): number {
   if (value < min) return min;
   if (value > max) return max;
   return value;
+}
+
+type CrustMode = "legacy" | "area";
+
+function normalizeCrustMode(mode: unknown): CrustMode {
+  return mode === "area" ? "area" : "legacy";
 }
 
 function normalizeWindow(
@@ -159,9 +165,21 @@ function aggregateRowState(
   const south = clampInt(state.south, 0, height - 1);
   const north = clampInt(state.north, 0, height - 1);
   for (let y = south; y <= north; y++) {
+    if (state.west[y] > state.east[y]) continue;
     if (state.west[y] < minWest) minWest = state.west[y];
     if (state.east[y] > maxEast) maxEast = state.east[y];
   }
+
+  if (maxEast < minWest) {
+    return {
+      west: 0,
+      east: 0,
+      south,
+      north,
+      continent: state.continent,
+    };
+  }
+
   return {
     west: clampInt(minWest, 0, width - 1),
     east: clampInt(maxEast, 0, width - 1),
@@ -307,8 +325,21 @@ export function applyPlateAwareOceanSeparation(
       : null;
 
   const tunables = getTunables();
-  const foundationPolicy = tunables.FOUNDATION_CFG?.oceanSeparation as OceanSeparationPolicy | undefined;
+  const foundationCfg = tunables.FOUNDATION_CFG as {
+    oceanSeparation?: OceanSeparationPolicy;
+    policy?: { oceanSeparation?: OceanSeparationPolicy; crustMode?: CrustMode };
+    crustMode?: CrustMode;
+    surface?: { crustMode?: CrustMode; landmass?: { crustMode?: CrustMode } };
+  };
+
+  // Prefer explicit policy passed at callsite, then foundation-level config.
+  // Support both FOUNDATION_CFG.oceanSeparation and FOUNDATION_CFG.policy.oceanSeparation
+  // to mirror the legacy WorldModel.policy.oceanSeparation wiring.
+  const foundationPolicy =
+    foundationCfg?.oceanSeparation ?? foundationCfg?.policy?.oceanSeparation;
+
   const policy = params?.policy || foundationPolicy || DEFAULT_OCEAN_SEPARATION;
+  const normalizedWindows = windows.map((win, idx) => normalizeWindow(win, idx, width, height));
 
   // Require foundation context for plate data
   const foundation = ctx?.foundation;
@@ -318,15 +349,7 @@ export function applyPlateAwareOceanSeparation(
     !foundation
   ) {
     return {
-      windows: windows.map((win, idx) => normalizeWindow(win, idx, width, height)),
-      landMask: params?.landMask ?? undefined,
-    };
-  }
-
-  const closeness = foundation.plates.boundaryCloseness;
-  if (!closeness || closeness.length !== width * height) {
-    return {
-      windows: windows.map((win, idx) => normalizeWindow(win, idx, width, height)),
+      windows: normalizedWindows,
       landMask: params?.landMask ?? undefined,
     };
   }
@@ -337,21 +360,6 @@ export function applyPlateAwareOceanSeparation(
       : null;
 
   const heightfield = ctx?.buffers?.heightfield;
-  const bandPairs =
-    Array.isArray(policy.bandPairs) && policy.bandPairs.length
-      ? policy.bandPairs
-      : [
-          [0, 1],
-          [1, 2],
-        ];
-
-  const baseSeparation = Math.max(0, (policy.baseSeparationTiles ?? 0) | 0);
-  const closenessMultiplier = Number.isFinite(policy.boundaryClosenessMultiplier)
-    ? policy.boundaryClosenessMultiplier!
-    : 1.0;
-  const maxPerRow = Math.max(0, (policy.maxPerRowDelta ?? 3) | 0);
-
-  const rowStates = windows.map((win, idx) => createRowState(win, idx, width, height));
 
   const setTerrain = (x: number, y: number, terrain: number, isLand: boolean): void => {
     if (x < 0 || x >= width || y < 0 || y >= height) return;
@@ -371,6 +379,96 @@ export function applyPlateAwareOceanSeparation(
       heightfield.landMask[idx] = isLand ? 1 : 0;
     }
   };
+
+  const crustMode = normalizeCrustMode(
+    params?.crustMode ??
+      foundationCfg?.crustMode ??
+      foundationCfg?.policy?.crustMode ??
+      foundationCfg?.surface?.crustMode ??
+      foundationCfg?.surface?.landmass?.crustMode
+  );
+
+  if (crustMode === "area") {
+    const minChannelWidth = Math.max(1, (policy.minChannelWidth ?? 3) | 0);
+    const channelJitter = Math.max(0, (policy.channelJitter ?? 0) | 0);
+    const rowStates = normalizedWindows.map((win, idx) => createRowState(win, idx, width, height));
+
+    for (let i = 0; i < rowStates.length - 1; i++) {
+      const left = rowStates[i];
+      const right = rowStates[i + 1];
+      if (!left || !right) continue;
+
+      const rowStart = Math.max(0, Math.max(left.south, right.south));
+      const rowEnd = Math.min(height - 1, Math.min(left.north, right.north));
+      if (rowStart > rowEnd) continue;
+
+      for (let y = rowStart; y <= rowEnd; y++) {
+        const baseCenter = clampInt(Math.floor((left.east[y] + right.west[y]) / 2), 0, width - 1);
+        const span = channelJitter * 2 + 1;
+        const jitter = channelJitter > 0 ? ((y + i) % span) - channelJitter : 0;
+        const center = clampInt(baseCenter + jitter, 0, width - 1);
+        const halfWidth = Math.max(0, Math.floor((minChannelWidth - 1) / 2));
+
+        let start = clampInt(center - halfWidth, 0, width - 1);
+        let end = clampInt(start + minChannelWidth - 1, 0, width - 1);
+        if (end >= width) {
+          end = width - 1;
+          start = Math.max(0, end - minChannelWidth + 1);
+        }
+
+        for (let x = start; x <= end; x++) {
+          setTerrain(x, y, OCEAN_TERRAIN, false);
+        }
+
+        if (start <= left.west[y]) {
+          left.east[y] = left.west[y] - 1;
+        } else {
+          left.east[y] = clampInt(Math.min(left.east[y], start - 1), 0, width - 1);
+        }
+
+        if (end >= right.east[y]) {
+          right.west[y] = right.east[y] + 1;
+        } else {
+          right.west[y] = clampInt(Math.max(right.west[y], end + 1), 0, width - 1);
+        }
+      }
+    }
+
+    const normalized = rowStates.map((state) => aggregateRowState(state, width, height));
+
+    if (ctx && landMask && heightfield?.landMask) {
+      heightfield.landMask.set(landMask);
+    }
+
+    return {
+      windows: normalized,
+      landMask: landMask ?? undefined,
+    };
+  }
+
+  const closeness = foundation.plates.boundaryCloseness;
+  if (!closeness || closeness.length !== width * height) {
+    return {
+      windows: normalizedWindows,
+      landMask: landMask ?? undefined,
+    };
+  }
+
+  const bandPairs =
+    Array.isArray(policy.bandPairs) && policy.bandPairs.length
+      ? policy.bandPairs
+      : [
+          [0, 1],
+          [1, 2],
+        ];
+
+  const baseSeparation = Math.max(0, (policy.baseSeparationTiles ?? 0) | 0);
+  const closenessMultiplier = Number.isFinite(policy.boundaryClosenessMultiplier)
+    ? policy.boundaryClosenessMultiplier!
+    : 1.0;
+  const maxPerRow = Math.max(0, (policy.maxPerRowDelta ?? 3) | 0);
+
+  const rowStates = normalizedWindows.map((win, idx) => createRowState(win, idx, width, height));
 
   const carveOceanFromEast = (state: RowState, y: number, tiles: number): number => {
     if (!tiles) return 0;

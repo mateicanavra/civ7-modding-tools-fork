@@ -91,6 +91,8 @@ export interface LandmassGeometry {
 
 /** Landmass generation configuration */
 export interface LandmassConfig {
+  /** Crust classification mode (legacy sea-level vs area-based typing) */
+  crustMode?: "legacy" | "area";
   /** Base water percentage (0-100) */
   baseWaterPercent?: number;
   /** Water scalar multiplier (0.25-1.75) */
@@ -195,6 +197,7 @@ export interface FoundationDirectionalityConfig {
 export interface FoundationSurfaceConfig {
   landmass?: LandmassConfig;
   oceanSeparation?: FoundationOceanSeparationConfig;
+  crustMode?: "legacy" | "area";
   [key: string]: unknown;
 }
 
@@ -230,6 +233,12 @@ export interface OceanSeparationConfig {
   baseSeparationTiles?: number;
   boundaryClosenessMultiplier?: number;
   maxPerRowDelta?: number;
+  /** Minimum guaranteed channel width for simplified separation */
+  minChannelWidth?: number;
+  /** Row-wise jitter for simplified separation */
+  channelJitter?: number;
+  /** Carry-over for compatibility with existing configs */
+  respectSeaLanes?: boolean;
   edgeWest?: OceanSeparationEdgePolicy;
   edgeEast?: OceanSeparationEdgePolicy;
 }

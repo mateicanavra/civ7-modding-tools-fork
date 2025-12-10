@@ -39,8 +39,11 @@ export type CorridorPolicy = CorridorsConfig;
 // Constants
 // ============================================================================
 
+// Fractal indices (from map-globals.js)
 const HILL_FRACTAL = 1;
-const COAST_TERRAIN = 1;
+
+// Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
+import { COAST_TERRAIN } from "../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions

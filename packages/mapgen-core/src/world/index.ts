@@ -19,6 +19,7 @@ export {
   computePlatesVoronoi,
   calculateVoronoiCells,
   type ComputePlatesOptions,
+  setDefaultVoronoiUtils,
 } from "./plates.js";
 
 // Export world model
@@ -29,6 +30,19 @@ export {
   type WorldModelInterface,
   type InitOptions,
 } from "./model.js";
+
+// Export crust-first Phase A utilities
+export {
+  buildPlateTopology,
+  type PlateGraph,
+  type PlateNode,
+} from "../lib/plates/topology.js";
+export { assignCrustTypes, CrustType, type CrustConfig } from "../lib/plates/crust.js";
+export {
+  generateBaseHeightfield,
+  type BaseHeightConfig,
+} from "../lib/heightfield/base.js";
+export { computeSeaLevel } from "../lib/heightfield/sea-level.js";
 
 // Module version
 export const WORLD_MODULE_VERSION = "0.2.0";

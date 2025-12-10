@@ -5,7 +5,7 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
   throw Error('Dynamic require of "' + x + '" is not supported');
 });
 
-// ../../packages/mapgen-core/dist/chunk-S2LUEUIL.js
+// ../../packages/mapgen-core/dist/chunk-O2NXAM2Y.js
 var GLOBAL_KEY = "__EPIC_MAP_CONFIG__";
 var EMPTY_FROZEN_OBJECT = Object.freeze({});
 var _localStore = EMPTY_FROZEN_OBJECT;
@@ -101,7 +101,26 @@ function buildTunablesSnapshot() {
     const val = togglesConfig[key];
     return typeof val === "boolean" ? val : fallback;
   };
-  const foundationConfig = config.foundation || {};
+  const rawFoundation = config.foundation || {};
+  const foundationConfig = { ...rawFoundation };
+  const mergeTopLevelLayer = (key) => {
+    const topLevel = config[key];
+    if (topLevel && typeof topLevel === "object") {
+      foundationConfig[key] = deepMerge(
+        foundationConfig[key] || {},
+        topLevel
+      );
+    }
+  };
+  mergeTopLevelLayer("mountains");
+  mergeTopLevelLayer("volcanoes");
+  mergeTopLevelLayer("coastlines");
+  mergeTopLevelLayer("islands");
+  mergeTopLevelLayer("biomes");
+  mergeTopLevelLayer("featuresDensity");
+  mergeTopLevelLayer("story");
+  mergeTopLevelLayer("corridors");
+  mergeTopLevelLayer("oceanSeparation");
   const platesConfig = deepMerge(DEFAULT_PLATES, foundationConfig.plates);
   const dynamicsConfig = deepMerge(DEFAULT_DYNAMICS, foundationConfig.dynamics);
   const directionalityConfig = deepMerge(
@@ -148,7 +167,7 @@ function stageEnabled(stage) {
   return !!(entry && entry.enabled !== false);
 }
 
-// ../../packages/mapgen-core/dist/chunk-2FCWAWWB.js
+// ../../packages/mapgen-core/dist/chunk-ZHHY5SFD.js
 var STAGE_ORDER = Object.freeze([
   "foundation",
   "landmassPlates",
@@ -269,21 +288,259 @@ function bootstrap(options = {}) {
   rebind();
 }
 
-// ../../packages/mapgen-core/dist/chunk-2FHS3EML.js
+// ../../packages/mapgen-core/dist/chunk-SS2V5CK7.js
 var BOUNDARY_TYPE = {
   none: 0,
   convergent: 1,
   divergent: 2,
   transform: 3
 };
+function assertValidDimensions(plateIds, width, height) {
+  const expected = width * height;
+  if (plateIds.length < expected) {
+    throw new Error(
+      `[plates/topology] plateIds length (${plateIds.length}) below expected size (${expected})`
+    );
+  }
+}
+function getHexNeighborIndices(x, y, width, height) {
+  const isOddCol = (x & 1) === 1;
+  const offsets = isOddCol ? [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+    [-1, 1],
+    [1, 1]
+  ] : [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+    [-1, -1],
+    [1, -1]
+  ];
+  const indices = [];
+  for (const [dx, dy] of offsets) {
+    const nx = x + dx;
+    const ny = y + dy;
+    if (ny < 0 || ny >= height) continue;
+    const wrappedX = (nx % width + width) % width;
+    indices.push(ny * width + wrappedX);
+  }
+  return indices;
+}
+function buildPlateTopology(plateIds, width, height, plateCount) {
+  assertValidDimensions(plateIds, width, height);
+  const nodes = Array.from({ length: plateCount }, (_, id) => ({
+    id,
+    area: 0,
+    centroid: { x: 0, y: 0 },
+    neighbors: []
+  }));
+  const neighborSets = Array.from({ length: plateCount }, () => /* @__PURE__ */ new Set());
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = y * width + x;
+      const currentId = plateIds[i];
+      if (typeof currentId !== "number" || !Number.isFinite(currentId)) continue;
+      if (currentId < 0 || currentId >= plateCount) continue;
+      const node = nodes[currentId];
+      node.area++;
+      node.centroid.x += x;
+      node.centroid.y += y;
+      const neighbors = getHexNeighborIndices(x, y, width, height);
+      for (const ni of neighbors) {
+        const neighborId = plateIds[ni];
+        if (typeof neighborId !== "number" || !Number.isFinite(neighborId)) continue;
+        if (neighborId === currentId) continue;
+        if (neighborId < 0 || neighborId >= plateCount) continue;
+        neighborSets[currentId].add(neighborId);
+      }
+    }
+  }
+  for (let id = 0; id < plateCount; id++) {
+    const node = nodes[id];
+    if (node.area > 0) {
+      node.centroid.x /= node.area;
+      node.centroid.y /= node.area;
+    }
+    node.neighbors = Array.from(neighborSets[id]).sort((a, b) => a - b);
+  }
+  return nodes;
+}
+var MIN_SEED_AREA = 20;
+function clamp01(value) {
+  if (!Number.isFinite(value)) return 0;
+  return Math.min(1, Math.max(0, value));
+}
+function rollUnit(rng, label) {
+  const scale = 1e6;
+  const roll = rng(scale, label);
+  return roll % scale / scale;
+}
+function pickRandom(items, rng, label) {
+  if (!items.length) return null;
+  const index = rng(items.length, label) % items.length;
+  return items[index] ?? null;
+}
+function assignCrustTypes(graph, rng, config) {
+  const plateCount = graph.length;
+  const types = new Uint8Array(plateCount).fill(
+    0
+    /* OCEANIC */
+  );
+  if (plateCount === 0) return types;
+  const continentalFraction = clamp01(config.continentalFraction);
+  const clusteringBias = clamp01(config.clusteringBias);
+  const microcontinentChance = clamp01(config.microcontinentChance);
+  const targetContinental = Math.min(
+    plateCount,
+    Math.max(0, Math.round(plateCount * continentalFraction))
+  );
+  const seedCandidates = graph.filter((plate) => plate.area >= MIN_SEED_AREA).map((plate) => plate.id);
+  const fallbackCandidates = seedCandidates.length ? seedCandidates : graph.map((plate) => plate.id);
+  const frontier = /* @__PURE__ */ new Set();
+  let assignedCount = 0;
+  const addNeighborsToFrontier = (plateId) => {
+    for (const neighborId of graph[plateId]?.neighbors ?? []) {
+      if (types[neighborId] === 0) {
+        frontier.add(neighborId);
+      }
+    }
+  };
+  if (targetContinental > 0 && fallbackCandidates.length) {
+    const initialSeed = pickRandom(fallbackCandidates, rng, "crust-seed");
+    if (initialSeed !== null) {
+      types[initialSeed] = 1;
+      assignedCount = 1;
+      addNeighborsToFrontier(initialSeed);
+    }
+  }
+  while (assignedCount < targetContinental) {
+    const shouldCluster = frontier.size > 0 && rollUnit(rng, "crust-cluster") < clusteringBias;
+    let nextId = null;
+    if (shouldCluster) {
+      const candidates = Array.from(frontier);
+      nextId = pickRandom(candidates, rng, "crust-frontier");
+      if (nextId !== null) {
+        frontier.delete(nextId);
+      }
+    } else {
+      const available = graph.filter((plate) => types[plate.id] === 0 && plate.area > 0).map((plate) => plate.id);
+      nextId = pickRandom(available, rng, "crust-random");
+    }
+    if (nextId === null) break;
+    types[nextId] = 1;
+    assignedCount++;
+    addNeighborsToFrontier(nextId);
+  }
+  if (microcontinentChance > 0) {
+    for (const plate of graph) {
+      if (types[plate.id] === 0) {
+        const roll = rollUnit(rng, "crust-micro");
+        if (roll < microcontinentChance) {
+          types[plate.id] = 1;
+        }
+      }
+    }
+  }
+  return types;
+}
+function clamp012(v, fallback) {
+  if (!Number.isFinite(v)) return fallback;
+  if (v < 0) return 0;
+  if (v > 1) return 1;
+  return v;
+}
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+var HEX_OFFSETS_ODD = [
+  [-1, 0],
+  [1, 0],
+  [0, -1],
+  [0, 1],
+  [-1, 1],
+  [1, 1]
+];
+var HEX_OFFSETS_EVEN = [
+  [-1, 0],
+  [1, 0],
+  [0, -1],
+  [0, 1],
+  [-1, -1],
+  [1, -1]
+];
+var DEFAULT_CONTINENTAL_HEIGHT = 0.32;
+var DEFAULT_OCEANIC_HEIGHT = -0.55;
+var DEFAULT_EDGE_BLEND = 0.45;
+var DEFAULT_NOISE_AMPLITUDE = 0.1;
+function generateBaseHeightfield(plateIds, crustTypes, width, height, config = {}) {
+  const size = width * height;
+  const baseHeights = new Float32Array(size);
+  const continentalHeight = Number.isFinite(config.continentalHeight) ? config.continentalHeight : DEFAULT_CONTINENTAL_HEIGHT;
+  const oceanicHeight = Number.isFinite(config.oceanicHeight) ? config.oceanicHeight : DEFAULT_OCEANIC_HEIGHT;
+  const edgeBlend = clamp012(config.edgeBlend ?? DEFAULT_EDGE_BLEND, DEFAULT_EDGE_BLEND);
+  const noiseAmplitude = config.noiseAmplitude ?? DEFAULT_NOISE_AMPLITUDE;
+  const noiseFn = config.noiseFn;
+  const getNeighborIndices = (x, y) => {
+    const offsets = (x & 1) === 1 ? HEX_OFFSETS_ODD : HEX_OFFSETS_EVEN;
+    const indices = [];
+    for (const [dx, dy] of offsets) {
+      const nx = x + dx;
+      const ny = y + dy;
+      if (ny < 0 || ny >= height) continue;
+      const wrappedX = (nx % width + width) % width;
+      indices.push(ny * width + wrappedX);
+    }
+    return indices;
+  };
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width;
+    for (let x = 0; x < width; x++) {
+      const i = rowOffset + x;
+      const plateId = plateIds[i];
+      const crust = plateId >= 0 && plateId < crustTypes.length ? crustTypes[plateId] : 0;
+      const base = crust === 1 ? continentalHeight : oceanicHeight;
+      const neighbors = getNeighborIndices(x, y);
+      let neighborSum = 0;
+      let neighborCount = 0;
+      for (const ni of neighbors) {
+        const nPlate = plateIds[ni];
+        if (nPlate < 0 || nPlate >= crustTypes.length) continue;
+        neighborSum += crustTypes[nPlate] === 1 ? continentalHeight : oceanicHeight;
+        neighborCount++;
+      }
+      const neighborAvg = neighborCount > 0 ? neighborSum / neighborCount : base;
+      let heightVal = edgeBlend > 0 ? lerp(base, neighborAvg, edgeBlend) : base;
+      if (noiseFn && noiseAmplitude !== 0) {
+        const n = noiseFn(x, y);
+        const centered = Number.isFinite(n) ? n - 0.5 : 0;
+        heightVal += centered * 2 * noiseAmplitude;
+      }
+      baseHeights[i] = heightVal;
+    }
+  }
+  return baseHeights;
+}
+function computeSeaLevel(heights, targetLandTiles) {
+  const size = heights.length;
+  if (size === 0) return 0;
+  const clampedTarget = Math.max(0, Math.min(size, Math.floor(targetLandTiles)));
+  if (clampedTarget === 0) {
+    return Number.POSITIVE_INFINITY;
+  }
+  if (clampedTarget >= size) {
+    return Number.NEGATIVE_INFINITY;
+  }
+  const sorted = Array.from(heights).sort((a, b) => a - b);
+  const cutoffIndex = size - clampedTarget;
+  const seaLevel = sorted[Math.max(0, Math.min(size - 1, cutoffIndex))];
+  return Number.isFinite(seaLevel) ? seaLevel : 0;
+}
 
-// ../../packages/mapgen-core/dist/chunk-UI4DBKC3.js
-import { addNaturalWonders } from "/base-standard/maps/natural-wonder-generator.js";
-import { generateResources } from "/base-standard/maps/resource-generator.js";
-import { assignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-start-region.js";
-import { generateDiscoveries } from "/base-standard/maps/discovery-generator.js";
-import { generateSnow } from "/base-standard/maps/snow-generator.js";
-import { assignStartPositions } from "/base-standard/maps/assign-starting-plots.js";
+// ../../packages/mapgen-core/dist/chunk-KMD6UZXV.js
 var EMPTY_FROZEN_OBJECT2 = Object.freeze({});
 function createExtendedMapContext(dimensions, adapter, config) {
   const { width, height } = dimensions;
@@ -352,9 +609,6 @@ function writeHeightfield(ctx, x, y, options) {
   }
   if (typeof options.terrain === "number") {
     ctx.adapter.setTerrainType(x, y, options.terrain);
-  }
-  if (typeof options.elevation === "number") {
-    ctx.adapter.setElevation(x, y, options.elevation);
   }
 }
 function writeClimateField(ctx, x, y, options) {
@@ -540,6 +794,61 @@ function syncClimateField(ctx) {
     }
   }
 }
+function lookupTerrain(terrainType) {
+  try {
+    const entry = GameInfo.Terrains.find((t) => t.TerrainType === terrainType);
+    return entry?.$index;
+  } catch {
+    return void 0;
+  }
+}
+var MOUNTAIN_TERRAIN = lookupTerrain("TERRAIN_MOUNTAIN") ?? 0;
+var HILL_TERRAIN = lookupTerrain("TERRAIN_HILL") ?? 1;
+var FLAT_TERRAIN = lookupTerrain("TERRAIN_FLAT") ?? 2;
+var COAST_TERRAIN = lookupTerrain("TERRAIN_COAST") ?? 3;
+var OCEAN_TERRAIN = lookupTerrain("TERRAIN_OCEAN") ?? 4;
+var NAVIGABLE_RIVER_TERRAIN = lookupTerrain("TERRAIN_NAVIGABLE_RIVER") ?? 5;
+function lookupBiome(biomeType) {
+  try {
+    const entry = GameInfo.Biomes.find((t) => t.BiomeType === biomeType);
+    return entry?.$index;
+  } catch {
+    return void 0;
+  }
+}
+var TUNDRA_BIOME = lookupBiome("BIOME_TUNDRA") ?? 0;
+var GRASSLAND_BIOME = lookupBiome("BIOME_GRASSLAND") ?? 1;
+var PLAINS_BIOME = lookupBiome("BIOME_PLAINS") ?? 2;
+var TROPICAL_BIOME = lookupBiome("BIOME_TROPICAL") ?? 3;
+var DESERT_BIOME = lookupBiome("BIOME_DESERT") ?? 4;
+var MARINE_BIOME = lookupBiome("BIOME_MARINE") ?? 5;
+function lookupFeature(featureType) {
+  try {
+    const entry = GameInfo.Features.find((t) => t.FeatureType === featureType);
+    return entry?.$index;
+  } catch {
+    return void 0;
+  }
+}
+var VOLCANO_FEATURE = lookupFeature("FEATURE_VOLCANO") ?? -1;
+function getTerrainSymbol(terrain) {
+  switch (terrain) {
+    case MOUNTAIN_TERRAIN:
+      return "M";
+    case HILL_TERRAIN:
+      return "^";
+    case FLAT_TERRAIN:
+      return ".";
+    case COAST_TERRAIN:
+      return "~";
+    case OCEAN_TERRAIN:
+      return "O";
+    case NAVIGABLE_RIVER_TERRAIN:
+      return "R";
+    default:
+      return "?";
+  }
+}
 var DEFAULT_OCEAN_SEPARATION = {
   enabled: true,
   bandPairs: [
@@ -550,12 +859,13 @@ var DEFAULT_OCEAN_SEPARATION = {
   boundaryClosenessMultiplier: 1,
   maxPerRowDelta: 3
 };
-var OCEAN_TERRAIN = 0;
-var FLAT_TERRAIN = 3;
 function clampInt(value, min, max) {
   if (value < min) return min;
   if (value > max) return max;
   return value;
+}
+function normalizeCrustMode(mode) {
+  return mode === "area" ? "area" : "legacy";
 }
 function normalizeWindow(win, index, width, height) {
   if (!win) {
@@ -602,8 +912,18 @@ function aggregateRowState(state, width, height) {
   const south = clampInt(state.south, 0, height - 1);
   const north = clampInt(state.north, 0, height - 1);
   for (let y = south; y <= north; y++) {
+    if (state.west[y] > state.east[y]) continue;
     if (state.west[y] < minWest) minWest = state.west[y];
     if (state.east[y] > maxEast) maxEast = state.east[y];
+  }
+  if (maxEast < minWest) {
+    return {
+      west: 0,
+      east: 0,
+      south,
+      north,
+      continent: state.continent
+    };
   }
   return {
     west: clampInt(minWest, 0, width - 1),
@@ -675,32 +995,19 @@ function applyPlateAwareOceanSeparation(params) {
   const ctx = params?.context ?? null;
   const adapter = params?.adapter && typeof params.adapter.setTerrainType === "function" ? params.adapter : null;
   const tunables = getTunables();
-  const foundationPolicy = tunables.FOUNDATION_CFG?.oceanSeparation;
+  const foundationCfg = tunables.FOUNDATION_CFG;
+  const foundationPolicy = foundationCfg?.oceanSeparation ?? foundationCfg?.policy?.oceanSeparation;
   const policy = params?.policy || foundationPolicy || DEFAULT_OCEAN_SEPARATION;
+  const normalizedWindows = windows.map((win, idx4) => normalizeWindow(win, idx4, width, height));
   const foundation = ctx?.foundation;
   if (!policy || !policy.enabled || !foundation) {
     return {
-      windows: windows.map((win, idx4) => normalizeWindow(win, idx4, width, height)),
-      landMask: params?.landMask ?? void 0
-    };
-  }
-  const closeness = foundation.plates.boundaryCloseness;
-  if (!closeness || closeness.length !== width * height) {
-    return {
-      windows: windows.map((win, idx4) => normalizeWindow(win, idx4, width, height)),
+      windows: normalizedWindows,
       landMask: params?.landMask ?? void 0
     };
   }
   const landMask = params?.landMask instanceof Uint8Array && params.landMask.length === width * height ? params.landMask : null;
   const heightfield = ctx?.buffers?.heightfield;
-  const bandPairs = Array.isArray(policy.bandPairs) && policy.bandPairs.length ? policy.bandPairs : [
-    [0, 1],
-    [1, 2]
-  ];
-  const baseSeparation = Math.max(0, (policy.baseSeparationTiles ?? 0) | 0);
-  const closenessMultiplier = Number.isFinite(policy.boundaryClosenessMultiplier) ? policy.boundaryClosenessMultiplier : 1;
-  const maxPerRow = Math.max(0, (policy.maxPerRowDelta ?? 3) | 0);
-  const rowStates = windows.map((win, idx4) => createRowState(win, idx4, width, height));
   const setTerrain = (x, y, terrain, isLand) => {
     if (x < 0 || x >= width || y < 0 || y >= height) return;
     const idx4 = y * width + x;
@@ -716,6 +1023,71 @@ function applyPlateAwareOceanSeparation(params) {
       heightfield.landMask[idx4] = isLand ? 1 : 0;
     }
   };
+  const crustMode = normalizeCrustMode(
+    params?.crustMode ?? foundationCfg?.crustMode ?? foundationCfg?.policy?.crustMode ?? foundationCfg?.surface?.crustMode ?? foundationCfg?.surface?.landmass?.crustMode
+  );
+  if (crustMode === "area") {
+    const minChannelWidth = Math.max(1, (policy.minChannelWidth ?? 3) | 0);
+    const channelJitter = Math.max(0, (policy.channelJitter ?? 0) | 0);
+    const rowStates2 = normalizedWindows.map((win, idx4) => createRowState(win, idx4, width, height));
+    for (let i = 0; i < rowStates2.length - 1; i++) {
+      const left = rowStates2[i];
+      const right = rowStates2[i + 1];
+      if (!left || !right) continue;
+      const rowStart = Math.max(0, Math.max(left.south, right.south));
+      const rowEnd = Math.min(height - 1, Math.min(left.north, right.north));
+      if (rowStart > rowEnd) continue;
+      for (let y = rowStart; y <= rowEnd; y++) {
+        const baseCenter = clampInt(Math.floor((left.east[y] + right.west[y]) / 2), 0, width - 1);
+        const span = channelJitter * 2 + 1;
+        const jitter = channelJitter > 0 ? (y + i) % span - channelJitter : 0;
+        const center = clampInt(baseCenter + jitter, 0, width - 1);
+        const halfWidth = Math.max(0, Math.floor((minChannelWidth - 1) / 2));
+        let start = clampInt(center - halfWidth, 0, width - 1);
+        let end = clampInt(start + minChannelWidth - 1, 0, width - 1);
+        if (end >= width) {
+          end = width - 1;
+          start = Math.max(0, end - minChannelWidth + 1);
+        }
+        for (let x = start; x <= end; x++) {
+          setTerrain(x, y, OCEAN_TERRAIN, false);
+        }
+        if (start <= left.west[y]) {
+          left.east[y] = left.west[y] - 1;
+        } else {
+          left.east[y] = clampInt(Math.min(left.east[y], start - 1), 0, width - 1);
+        }
+        if (end >= right.east[y]) {
+          right.west[y] = right.east[y] + 1;
+        } else {
+          right.west[y] = clampInt(Math.max(right.west[y], end + 1), 0, width - 1);
+        }
+      }
+    }
+    const normalized2 = rowStates2.map((state) => aggregateRowState(state, width, height));
+    if (ctx && landMask && heightfield?.landMask) {
+      heightfield.landMask.set(landMask);
+    }
+    return {
+      windows: normalized2,
+      landMask: landMask ?? void 0
+    };
+  }
+  const closeness = foundation.plates.boundaryCloseness;
+  if (!closeness || closeness.length !== width * height) {
+    return {
+      windows: normalizedWindows,
+      landMask: landMask ?? void 0
+    };
+  }
+  const bandPairs = Array.isArray(policy.bandPairs) && policy.bandPairs.length ? policy.bandPairs : [
+    [0, 1],
+    [1, 2]
+  ];
+  const baseSeparation = Math.max(0, (policy.baseSeparationTiles ?? 0) | 0);
+  const closenessMultiplier = Number.isFinite(policy.boundaryClosenessMultiplier) ? policy.boundaryClosenessMultiplier : 1;
+  const maxPerRow = Math.max(0, (policy.maxPerRowDelta ?? 3) | 0);
+  const rowStates = normalizedWindows.map((win, idx4) => createRowState(win, idx4, width, height));
   const carveOceanFromEast = (state, y, tiles) => {
     if (!tiles) return 0;
     let removed = 0;
@@ -845,9 +1217,9 @@ var DEFAULT_CLOSENESS_LIMIT = 255;
 var CLOSENESS_STEP_PER_TILE = 8;
 var MIN_CLOSENESS_LIMIT = 150;
 var MAX_CLOSENESS_LIMIT = 255;
-var FRACTAL_TECTONIC_ID = 3;
-var OCEAN_TERRAIN2 = 0;
-var FLAT_TERRAIN2 = 3;
+function normalizeCrustMode2(mode) {
+  return mode === "area" ? "area" : "legacy";
+}
 function clampInt2(value, min, max) {
   if (!Number.isFinite(value)) return min;
   if (value < min) return min;
@@ -858,16 +1230,10 @@ function clampPct(value, min, max, fallback) {
   if (!Number.isFinite(value)) return fallback;
   return Math.max(min, Math.min(max, value));
 }
-function clamp01(value, fallback = 0) {
+function clamp013(value, fallback = 0) {
   if (value === void 0 || !Number.isFinite(value)) return fallback;
   if (value < 0) return 0;
   if (value > 1) return 1;
-  return value;
-}
-function clampRange(value, fallback, min, max) {
-  if (value === void 0 || !Number.isFinite(value)) return fallback;
-  if (value < min) return min;
-  if (value > max) return max;
   return value;
 }
 function computeClosenessLimit(postCfg) {
@@ -875,40 +1241,163 @@ function computeClosenessLimit(postCfg) {
   const limit = DEFAULT_CLOSENESS_LIMIT + expand * CLOSENESS_STEP_PER_TILE;
   return clampInt2(limit, MIN_CLOSENESS_LIMIT, MAX_CLOSENESS_LIMIT);
 }
+function summarizeCrustTypes(crustTypes, graph) {
+  const continentalPlateIds = [];
+  const oceanicPlateIds = [];
+  let continentalArea = 0;
+  let oceanicArea = 0;
+  for (const plate of graph) {
+    const type = crustTypes[plate.id] === 1 ? 1 : 0;
+    if (type === 1) {
+      continentalPlateIds.push(plate.id);
+      continentalArea += plate.area;
+    } else {
+      oceanicPlateIds.push(plate.id);
+      oceanicArea += plate.area;
+    }
+  }
+  return {
+    continentalPlateIds,
+    oceanicPlateIds,
+    continentalArea,
+    oceanicArea
+  };
+}
+function assignCrustTypesByArea(graph, targetLandTiles) {
+  const types = new Uint8Array(graph.length).fill(
+    0
+    /* OCEANIC */
+  );
+  const sorted = graph.filter((plate) => plate.area > 0).slice().sort((a, b) => b.area - a.area);
+  let assignedArea = 0;
+  const continentalPlateIds = [];
+  for (const plate of sorted) {
+    if (assignedArea >= targetLandTiles && continentalPlateIds.length > 0) break;
+    types[plate.id] = 1;
+    assignedArea += plate.area;
+    continentalPlateIds.push(plate.id);
+  }
+  if (continentalPlateIds.length === 0 && sorted[0]) {
+    types[sorted[0].id] = 1;
+    continentalPlateIds.push(sorted[0].id);
+    assignedArea += sorted[0].area;
+  }
+  if (continentalPlateIds.length === 1 && sorted.length > 1 && targetLandTiles > 0) {
+    types[sorted[1].id] = 1;
+    assignedArea += sorted[1].area;
+    continentalPlateIds.push(sorted[1].id);
+  }
+  const summary = summarizeCrustTypes(types, graph);
+  return {
+    crustTypes: types,
+    ...summary
+  };
+}
+function tryCrustFirstLandmask(width, height, plateIds, closeness, closenessLimit, targetLandTiles, landmassCfg, crustMode, ctx) {
+  const size = width * height;
+  if (plateIds.length !== size) return null;
+  if (closeness && closeness.length !== size) return null;
+  let maxPlateId = -1;
+  for (let i = 0; i < size; i++) {
+    const id = plateIds[i];
+    if (id > maxPlateId) maxPlateId = id;
+  }
+  const plateCount = maxPlateId + 1;
+  if (plateCount <= 0) return null;
+  const continentalFraction = clamp013(
+    landmassCfg.continentalFraction ?? landmassCfg.crustContinentalFraction ?? targetLandTiles / size,
+    targetLandTiles / size
+  );
+  const clusteringBias = clamp013(landmassCfg.crustClusteringBias ?? 0.7, 0.7);
+  const microcontinentChance = clamp013(landmassCfg.microcontinentChance ?? 0.04, 0.04);
+  const edgeBlend = clamp013(landmassCfg.crustEdgeBlend ?? 0.45, 0.45);
+  const noiseAmplitude = clamp013(landmassCfg.crustNoiseAmplitude ?? 0.08, 0.08);
+  const continentalHeight = Number.isFinite(landmassCfg.continentalHeight) ? landmassCfg.continentalHeight : 0.32;
+  const oceanicHeight = Number.isFinite(landmassCfg.oceanicHeight) ? landmassCfg.oceanicHeight : -0.55;
+  const mode = normalizeCrustMode2(crustMode);
+  const graph = buildPlateTopology(plateIds, width, height, plateCount);
+  const areaResult = mode === "area" ? assignCrustTypesByArea(graph, targetLandTiles) : null;
+  const crustTypes = areaResult?.crustTypes || assignCrustTypes(
+    graph,
+    ctx ? () => ctxRandom(ctx, "CrustType", 1e6) / 1e6 : Math.random,
+    {
+      continentalFraction,
+      microcontinentChance,
+      clusteringBias
+    }
+  );
+  const noiseFn = noiseAmplitude === 0 ? void 0 : (x, y) => ctx ? ctxRandom(ctx, "CrustNoise", 1e6) / 1e6 : Math.random();
+  const baseHeight = generateBaseHeightfield(plateIds, crustTypes, width, height, {
+    continentalHeight,
+    oceanicHeight,
+    edgeBlend,
+    noiseAmplitude,
+    noiseFn
+  });
+  const seaLevel = mode === "area" ? 0 : computeSeaLevel(baseHeight, targetLandTiles);
+  const landMask = new Uint8Array(size);
+  let landTiles = 0;
+  let minHeight = Number.POSITIVE_INFINITY;
+  let maxHeight = Number.NEGATIVE_INFINITY;
+  for (let i = 0; i < size; i++) {
+    const h = baseHeight[i];
+    if (h < minHeight) minHeight = h;
+    if (h > maxHeight) maxHeight = h;
+    const passesCloseness = !closeness || closeness[i] <= closenessLimit;
+    const isLand = passesCloseness && h > seaLevel;
+    if (isLand) {
+      landMask[i] = 1;
+      landTiles++;
+    }
+  }
+  const summary = areaResult || summarizeCrustTypes(crustTypes, graph);
+  const continentalPlates = summary.continentalPlateIds.length;
+  const appliedContinentalFraction = mode === "area" ? summary.continentalArea / Math.max(1, summary.continentalArea + summary.oceanicArea) : continentalFraction;
+  return {
+    mode,
+    landMask,
+    landTiles,
+    seaLevel,
+    plateCount,
+    continentalPlates,
+    continentalPlateIds: summary.continentalPlateIds,
+    oceanicPlateIds: summary.oceanicPlateIds,
+    continentalArea: summary.continentalArea,
+    oceanicArea: summary.oceanicArea,
+    targetLandTiles,
+    baseHeightRange: { min: minHeight, max: maxHeight },
+    crustConfigApplied: {
+      mode,
+      continentalFraction: appliedContinentalFraction,
+      clusteringBias: mode === "area" ? 0 : clusteringBias,
+      microcontinentChance: mode === "area" ? 0 : microcontinentChance,
+      edgeBlend,
+      noiseAmplitude,
+      continentalHeight,
+      oceanicHeight
+    }
+  };
+}
 function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
   const foundation = ctx?.foundation;
   if (!foundation) {
     return null;
   }
   const { plates } = foundation;
-  const shield = plates.shieldStability;
-  const closeness = plates.boundaryCloseness;
-  const boundaryType = plates.boundaryType;
+  const closeness = plates.boundaryCloseness || null;
   const plateIds = plates.id;
-  if (!shield || !closeness || !boundaryType || !plateIds) {
+  if (!plateIds) {
     return null;
   }
   const size = width * height;
-  if (shield.length !== size || closeness.length !== size || boundaryType.length !== size || plateIds.length !== size) {
+  if (plateIds.length !== size) {
+    return null;
+  }
+  if (closeness && closeness.length !== size) {
     return null;
   }
   const tunables = getTunables();
   const landmassCfg = options.landmassCfg || tunables.LANDMASS_CFG || {};
-  const boundaryBias = clampInt2(
-    Number.isFinite(landmassCfg.boundaryBias) ? landmassCfg.boundaryBias : 0.25,
-    0,
-    0.4
-  );
-  const boundaryShareTarget = Number.isFinite(landmassCfg.boundaryShareTarget) ? Math.max(0, Math.min(1, landmassCfg.boundaryShareTarget)) : 0.15;
-  const tectonicsCfg = landmassCfg.tectonics || {};
-  const interiorNoiseWeight = clamp01(tectonicsCfg.interiorNoiseWeight, 0.3);
-  const arcWeight = clampRange(tectonicsCfg.boundaryArcWeight, 0.8, 0, 2);
-  const arcNoiseWeight = clamp01(tectonicsCfg.boundaryArcNoiseWeight, 0.5);
-  const fractalGrain = clampInt2(
-    Number.isFinite(tectonicsCfg.fractalGrain) ? tectonicsCfg.fractalGrain : 4,
-    1,
-    32
-  );
   const geomCfg = options.geometry || {};
   const postCfg = geomCfg.post || {};
   const baseWaterPct = clampPct(landmassCfg.baseWaterPercent ?? 64, 0, 100, 64);
@@ -924,157 +1413,45 @@ function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     1,
     Math.min(totalTiles - 1, Math.round(totalTiles * (1 - waterPct / 100)))
   );
+  const foundationCfg = tunables.FOUNDATION_CFG;
+  const crustMode = normalizeCrustMode2(
+    landmassCfg.crustMode ?? foundationCfg?.crustMode ?? foundationCfg?.surface?.crustMode ?? foundationCfg?.surface?.landmass?.crustMode
+  );
   const closenessLimit = computeClosenessLimit(postCfg);
   const adapter = ctx?.adapter;
-  const useFractal = !!(adapter && typeof adapter.createFractal === "function" && typeof adapter.getFractalHeight === "function" && (interiorNoiseWeight > 0 || arcNoiseWeight > 0));
-  if (useFractal) {
-    adapter.createFractal(FRACTAL_TECTONIC_ID, width, height, fractalGrain, 0);
+  const logPrefix = "[landmass-plate]";
+  const crustResult = tryCrustFirstLandmask(
+    width,
+    height,
+    plateIds,
+    closeness,
+    closenessLimit,
+    targetLandTiles,
+    landmassCfg,
+    crustMode,
+    ctx
+  );
+  if (!crustResult) {
+    console.log(`${logPrefix} ERROR: Crust-first landmask generation failed (invalid plate data).`);
+    return null;
   }
-  const baseInteriorWeight = 1 - interiorNoiseWeight;
-  const interiorScore = new Uint16Array(size);
-  const arcScore = new Uint16Array(size);
-  const landScore = new Uint16Array(size);
-  let interiorMin = 255, interiorMax = 0, interiorSum = 0;
-  let arcMin = 255, arcMax = 0, arcSum = 0;
-  let interiorStretch = 1;
-  for (let y = 0; y < height; y++) {
-    const rowOffset = y * width;
-    for (let x = 0; x < width; x++) {
-      const idx4 = rowOffset + x;
-      const closenessVal = closeness[idx4] | 0;
-      const interiorBase = 255 - closenessVal;
-      let noise255 = 128;
-      if (useFractal && interiorNoiseWeight > 0) {
-        const raw = adapter.getFractalHeight(FRACTAL_TECTONIC_ID, x, y) | 0;
-        noise255 = raw >>> 8;
-      }
-      const centeredNoise = noise255 - 128;
-      const noisyInterior = interiorBase * baseInteriorWeight + centeredNoise * interiorNoiseWeight;
-      const clampedInterior = noisyInterior < 0 ? 0 : noisyInterior > 255 ? 255 : noisyInterior;
-      const interiorVal = clampedInterior & 255;
-      interiorScore[idx4] = interiorVal;
-      interiorMin = Math.min(interiorMin, interiorVal);
-      interiorMax = Math.max(interiorMax, interiorVal);
-      interiorSum += interiorVal;
-      const bType = boundaryType[idx4] | 0;
-      const rawArc = closenessVal;
-      let arc = rawArc;
-      if (bType === BOUNDARY_TYPE.convergent) {
-        arc = rawArc * arcWeight;
-      } else if (bType === BOUNDARY_TYPE.divergent) {
-        arc = rawArc * 0.25;
-      } else {
-        arc = rawArc * 0.5;
-      }
-      if (useFractal && arcNoiseWeight > 0) {
-        const raw = adapter.getFractalHeight(FRACTAL_TECTONIC_ID, x, y) | 0;
-        const noiseNorm = (raw >>> 8) / 255;
-        const noiseMix = 1 + (noiseNorm - 0.5) * arcNoiseWeight;
-        arc *= noiseMix;
-      }
-      if (boundaryBias > 0) {
-        arc += closenessVal * boundaryBias;
-      }
-      const clampedArc = arc < 0 ? 0 : arc > 255 ? 255 : arc;
-      arcScore[idx4] = clampedArc & 255;
-      arcMin = Math.min(arcMin, arcScore[idx4]);
-      arcMax = Math.max(arcMax, arcScore[idx4]);
-      arcSum += arcScore[idx4];
-    }
-  }
-  if (interiorMax > 0) {
-    const desiredTop = arcMax > 0 ? arcMax + 32 : 255;
-    interiorStretch = desiredTop / interiorMax;
-    if (interiorStretch < 1.05 || !Number.isFinite(interiorStretch)) {
-      interiorStretch = 1;
-    } else {
-      interiorStretch = Math.min(1.6, interiorStretch);
-      interiorMin = 255;
-      interiorMax = 0;
-      interiorSum = 0;
-      for (let i = 0; i < size; i++) {
-        const stretched = Math.min(255, Math.round(interiorScore[i] * interiorStretch));
-        interiorScore[i] = stretched;
-        interiorMin = Math.min(interiorMin, stretched);
-        interiorMax = Math.max(interiorMax, stretched);
-        interiorSum += stretched;
-      }
-    }
-  }
-  for (let i = 0; i < size; i++) {
-    landScore[i] = interiorScore[i] >= arcScore[i] ? interiorScore[i] : arcScore[i];
-  }
-  const computeLandScore = (idx4) => landScore[idx4] | 0;
-  const countTilesAboveTyped = (threshold) => {
-    let count = 0;
-    for (let i = 0; i < size; i++) {
-      const score = computeLandScore(i);
-      if (score >= threshold && closeness[i] <= closenessLimit) {
-        count++;
-      }
-    }
-    return count;
-  };
-  let low = 0;
-  let high = 255;
-  let bestThreshold = 128;
-  let bestDiff = Number.POSITIVE_INFINITY;
-  let bestCount = 0;
-  while (low <= high) {
-    const mid = low + high >> 1;
-    const count = countTilesAboveTyped(mid);
-    const diff = Math.abs(count - targetLandTiles);
-    if (diff < bestDiff || diff === bestDiff && count > bestCount) {
-      bestDiff = diff;
-      bestThreshold = mid;
-      bestCount = count;
-    }
-    if (count > targetLandTiles) {
-      low = mid + 1;
-    } else {
-      high = mid - 1;
-    }
-  }
-  const boundaryBand = (closenessArr, idx4) => (closenessArr[idx4] | 0) >= 90;
-  const computeShares = (threshold) => {
-    let land = 0, boundaryLand2 = 0, convergentLand = 0;
-    for (let i = 0; i < size; i++) {
-      const score = computeLandScore(i);
-      const isLand = score >= threshold && closeness[i] <= closenessLimit;
-      if (isLand) {
-        land++;
-        if (boundaryBand(closeness, i)) boundaryLand2++;
-        if (boundaryType[i] === BOUNDARY_TYPE.convergent) convergentLand++;
-      }
-    }
-    return { land, boundaryLand: boundaryLand2, convergentLand };
-  };
-  let { land: landCount, boundaryLand } = computeShares(bestThreshold);
-  const minBoundary = Math.round(targetLandTiles * boundaryShareTarget);
-  if (boundaryLand < minBoundary) {
-    const maxAllowedLand = Math.round(targetLandTiles * 1.5);
-    let t = bestThreshold - 5;
-    while (t >= 0) {
-      const shares = computeShares(t);
-      landCount = shares.land;
-      boundaryLand = shares.boundaryLand;
-      if (boundaryLand >= minBoundary) {
-        bestThreshold = t;
-        break;
-      }
-      if (landCount > maxAllowedLand) {
-        break;
-      }
-      t -= 5;
-    }
-  }
-  const landMask = new Uint8Array(size);
-  let finalLandTiles = 0;
+  const landMask = crustResult.landMask;
+  const finalLandTiles = crustResult.landTiles;
+  const seaLevel = crustResult.seaLevel;
+  const crustPlateCount = crustResult.plateCount;
+  const crustContinentalPlates = crustResult.continentalPlates;
+  const crustContinentalPlateIds = crustResult.continentalPlateIds;
+  const crustOceanicPlateIds = crustResult.oceanicPlateIds;
+  const crustContinentalArea = crustResult.continentalArea;
+  const crustOceanicArea = crustResult.oceanicArea;
+  const crustModeApplied = crustResult.mode;
+  const crustConfigApplied = crustResult.crustConfigApplied;
+  const baseHeightRange = crustResult.baseHeightRange;
   const setTerrain = (x, y, terrain, isLand) => {
     if (ctx) {
       writeHeightfield(ctx, x, y, {
         terrain,
-        elevation: isLand ? 0 : -1,
+        elevation: isLand ? 10 : -1,
         isLand
       });
     } else if (adapter) {
@@ -1085,16 +1462,8 @@ function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     const rowOffset = y * width;
     for (let x = 0; x < width; x++) {
       const idx4 = rowOffset + x;
-      const score = computeLandScore(idx4);
-      const isLand = score >= bestThreshold && closeness[idx4] <= closenessLimit;
-      if (isLand) {
-        landMask[idx4] = 1;
-        finalLandTiles++;
-        setTerrain(x, y, FLAT_TERRAIN2, true);
-      } else {
-        landMask[idx4] = 0;
-        setTerrain(x, y, OCEAN_TERRAIN2, false);
-      }
+      const isLand = landMask[idx4] === 1;
+      setTerrain(x, y, isLand ? FLAT_TERRAIN : OCEAN_TERRAIN, isLand);
     }
   }
   const plateStats = /* @__PURE__ */ new Map();
@@ -1170,6 +1539,48 @@ function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     north: win.north,
     continent: index
   }));
+  const applied = crustConfigApplied;
+  console.log(
+    `${logPrefix} Crust mode=${crustModeApplied} seaLevel=${seaLevel != null && Number.isFinite(seaLevel) ? seaLevel.toFixed(3) : "n/a"}, landTiles=${finalLandTiles}/${size} (${(finalLandTiles / size * 100).toFixed(1)}%), targetLandTiles=${targetLandTiles}, continentalArea=${crustContinentalArea}, oceanicArea=${crustOceanicArea}, waterPct=${waterPct.toFixed(1)}%`
+  );
+  console.log(
+    `${logPrefix} Crust config: plates=${crustContinentalPlates}/${crustPlateCount} continental, mode=${applied ? applied.mode : crustModeApplied}, edgeBlend=${applied ? applied.edgeBlend.toFixed(2) : "n/a"}, noise=${applied ? applied.noiseAmplitude.toFixed(2) : "n/a"}, heights=[${applied ? applied.oceanicHeight.toFixed(2) : "n/a"},${applied ? applied.continentalHeight.toFixed(2) : "n/a"}], closenessLimit=${closenessLimit}`
+  );
+  console.log(
+    `${logPrefix} Continental plates (${crustContinentalPlateIds.length}): [${crustContinentalPlateIds.join(",")}]`
+  );
+  console.log(
+    `${logPrefix} Oceanic plates (${crustOceanicPlateIds.length}): [${crustOceanicPlateIds.join(",")}]`
+  );
+  if (crustModeApplied === "area" && crustOceanicPlateIds.length === 0) {
+    console.log(`${logPrefix} WARNING: Area crust typing produced no oceanic plates`);
+  }
+  if (baseHeightRange) {
+    console.log(
+      `${logPrefix} Height range: [${baseHeightRange.min.toFixed(3)},${baseHeightRange.max.toFixed(3)}]`
+    );
+  }
+  console.log(
+    `${logPrefix} Plates with land: ${plateStats.size}, windows generated: ${windowsOut.length}`
+  );
+  if (windowsOut.length === 0) {
+    console.log(`${logPrefix} WARNING: No landmass windows generated!`);
+    console.log(`${logPrefix}   - finalLandTiles: ${finalLandTiles}`);
+    console.log(`${logPrefix}   - plateStats entries: ${plateStats.size}`);
+    console.log(`${logPrefix}   - seaLevel: ${seaLevel}`);
+    console.log(`${logPrefix}   - closenessLimit: ${closenessLimit}`);
+    const closenessAboveLimit = closeness ? closeness.filter((v) => v > closenessLimit).length : 0;
+    if (closeness) {
+      console.log(
+        `${logPrefix}   - tiles with closeness > ${closenessLimit}: ${closenessAboveLimit}/${size}`
+      );
+    }
+    const validPlateIds = /* @__PURE__ */ new Set();
+    for (let i = 0; i < size; i++) {
+      if (plateIds[i] >= 0) validPlateIds.add(plateIds[i]);
+    }
+    console.log(`${logPrefix}   - unique valid plate IDs: ${validPlateIds.size}`);
+  }
   let startRegions = void 0;
   if (windowsOut.length >= 2) {
     startRegions = {
@@ -1184,8 +1595,7 @@ function createPlateDrivenLandmasses(width, height, ctx, options = {}) {
     windows: windowsOut,
     startRegions,
     landMask,
-    landTiles: finalLandTiles,
-    threshold: bestThreshold
+    landTiles: finalLandTiles
   };
 }
 var _cache2 = null;
@@ -1220,8 +1630,7 @@ function getStoryTags() {
 function resetStoryTags() {
   _cache2 = null;
 }
-var HILL_FRACTAL = 1;
-var COAST_TERRAIN = 1;
+var HILL_FRACTAL2 = 1;
 function clamp(v, lo, hi) {
   if (v < lo) return lo;
   if (v > hi) return hi;
@@ -1253,7 +1662,7 @@ function addRuggedCoasts(iWidth, iHeight, ctx) {
   const area = Math.max(1, iWidth * iHeight);
   const sqrtScale = Math.min(2, Math.max(0.6, Math.sqrt(area / 1e4)));
   if (adapter?.createFractal) {
-    adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 4, 0);
+    adapter.createFractal(HILL_FRACTAL2, iWidth, iHeight, 4, 0);
   }
   const foundation = ctx?.foundation;
   const boundaryCloseness = foundation?.plates.boundaryCloseness ?? null;
@@ -1341,7 +1750,7 @@ function addRuggedCoasts(iWidth, iHeight, ctx) {
   };
   const getFractalHeight = (x, y) => {
     if (adapter?.getFractalHeight) {
-      return adapter.getFractalHeight(HILL_FRACTAL, x, y);
+      return adapter.getFractalHeight(HILL_FRACTAL2, x, y);
     }
     return 0;
   };
@@ -1451,16 +1860,14 @@ function addRuggedCoasts(iWidth, iHeight, ctx) {
     }
   }
 }
-var HILL_FRACTAL2 = 1;
-var COAST_TERRAIN2 = 1;
-var FLAT_TERRAIN3 = 3;
+var HILL_FRACTAL3 = 1;
 function storyKey(x, y) {
   return `${x},${y}`;
 }
 function addIslandChains(iWidth, iHeight, ctx) {
   const adapter = ctx?.adapter;
   if (adapter?.createFractal) {
-    adapter.createFractal(HILL_FRACTAL2, iWidth, iHeight, 5, 0);
+    adapter.createFractal(HILL_FRACTAL3, iWidth, iHeight, 5, 0);
   }
   const tunables = getTunables();
   const islandsCfg = tunables.FOUNDATION_CFG?.islands || {};
@@ -1493,7 +1900,7 @@ function addIslandChains(iWidth, iHeight, ctx) {
   };
   const getFractalHeight = (x, y) => {
     if (adapter?.getFractalHeight) {
-      return adapter.getFractalHeight(HILL_FRACTAL2, x, y);
+      return adapter.getFractalHeight(HILL_FRACTAL3, x, y);
     }
     return 0;
   };
@@ -1554,7 +1961,7 @@ function addIslandChains(iWidth, iHeight, ctx) {
       const baseAllowed = v > threshold && getRandom("Island Seed", baseIslandDen) === 0;
       const hotspotAllowed = isHotspot && getRandom("Hotspot Island Seed", Math.max(1, (islandsCfg.hotspotSeedDenom ?? 2) | 0)) === 0;
       if (!(baseAllowed || hotspotAllowed)) continue;
-      let centerTerrain = COAST_TERRAIN2;
+      let centerTerrain = COAST_TERRAIN;
       let classifyParadise = false;
       if (isHotspot) {
         const pWeight = paradiseWeight + (nearPassive ? 1 : 0);
@@ -1564,11 +1971,11 @@ function addIslandChains(iWidth, iHeight, ctx) {
         classifyParadise = roll < pWeight;
         if (!classifyParadise) {
           if (getRandom("HotspotPeak", 100) < peakPercent) {
-            centerTerrain = FLAT_TERRAIN3;
+            centerTerrain = FLAT_TERRAIN;
           }
         }
       }
-      const centerIsLand = centerTerrain !== COAST_TERRAIN2 && centerTerrain !== 0;
+      const centerIsLand = centerTerrain !== COAST_TERRAIN && centerTerrain !== OCEAN_TERRAIN;
       applyTerrain(x, y, centerTerrain, centerIsLand);
       if (isHotspot) {
         if (classifyParadise) {
@@ -1586,7 +1993,7 @@ function addIslandChains(iWidth, iHeight, ctx) {
         const ny = y + dy;
         if (nx <= 0 || nx >= iWidth - 1 || ny <= 0 || ny >= iHeight - 1) continue;
         if (!isWater(nx, ny)) continue;
-        applyTerrain(nx, ny, COAST_TERRAIN2, false);
+        applyTerrain(nx, ny, COAST_TERRAIN, false);
       }
     }
   }
@@ -1595,35 +2002,67 @@ function getFractalThreshold(adapter, percent) {
   const clampedPercent = Math.max(0, Math.min(100, percent));
   return Math.floor(clampedPercent / 100 * 65535);
 }
-var MOUNTAIN_FRACTAL = 0;
-var HILL_FRACTAL3 = 1;
-var MOUNTAIN_TERRAIN = 5;
-var HILL_TERRAIN = 4;
-var COAST_TERRAIN3 = 1;
-var OCEAN_TERRAIN3 = 0;
+var MOUNTAIN_FRACTAL2 = 0;
+var HILL_FRACTAL4 = 1;
 function idx(x, y, width) {
   return y * width + x;
+}
+function normalizeFractal(raw) {
+  let val = raw | 0;
+  if (val < 0) val = 0;
+  if (val > 65535) {
+    return (val >>> 24) / 255;
+  }
+  if (val > 255) {
+    return (val >>> 8) / 255;
+  }
+  return val / 255;
 }
 function layerAddMountainsPhysics(ctx, options = {}) {
   const {
     tectonicIntensity = 1,
-    mountainThreshold = 0.45,
-    hillThreshold = 0.25,
-    upliftWeight = 0.75,
-    fractalWeight = 0.25,
-    riftDepth = 0.3,
-    boundaryWeight = 0.6,
-    boundaryExponent = 1.4,
-    interiorPenaltyWeight = 0.2,
-    convergenceBonus = 0.9,
-    transformPenalty = 0.3,
-    riftPenalty = 0.75,
-    hillBoundaryWeight = 0.45,
-    hillRiftBonus = 0.5,
-    hillConvergentFoothill = 0.25,
-    hillInteriorFalloff = 0.2,
-    hillUpliftWeight = 0.25
+    // Crust-first defaults: mountains only where collisions are strong
+    mountainThreshold = 0.58,
+    hillThreshold = 0.32,
+    upliftWeight = 0.35,
+    fractalWeight = 0.15,
+    riftDepth = 0.2,
+    boundaryWeight = 1,
+    boundaryExponent = 1.6,
+    interiorPenaltyWeight = 0,
+    // disabled in the new formulation
+    convergenceBonus = 1,
+    transformPenalty = 0.6,
+    riftPenalty = 1,
+    hillBoundaryWeight = 0.35,
+    hillRiftBonus = 0.25,
+    hillConvergentFoothill = 0.35,
+    hillInteriorFalloff = 0.1,
+    hillUpliftWeight = 0.2
   } = options;
+  console.log("[Mountains] Physics Config (Input):", JSON.stringify(options));
+  console.log(
+    "[Mountains] Physics Config (Effective):",
+    JSON.stringify({
+      tectonicIntensity,
+      mountainThreshold,
+      hillThreshold,
+      upliftWeight,
+      fractalWeight,
+      riftDepth,
+      boundaryWeight,
+      boundaryExponent,
+      interiorPenaltyWeight,
+      convergenceBonus,
+      transformPenalty,
+      riftPenalty,
+      hillBoundaryWeight,
+      hillRiftBonus,
+      hillConvergentFoothill,
+      hillInteriorFalloff,
+      hillUpliftWeight
+    })
+  );
   const scaledConvergenceBonus = convergenceBonus * tectonicIntensity;
   const scaledBoundaryWeight = boundaryWeight * tectonicIntensity;
   const scaledUpliftWeight = upliftWeight * tectonicIntensity;
@@ -1638,15 +2077,15 @@ function layerAddMountainsPhysics(ctx, options = {}) {
   }
   const isWater = createIsWaterTile(ctx, adapter, width, height);
   const terrainWriter = (x, y, terrain) => {
-    const isLand = terrain !== COAST_TERRAIN3 && terrain !== OCEAN_TERRAIN3;
+    const isLand = terrain !== COAST_TERRAIN && terrain !== OCEAN_TERRAIN;
     writeHeightfield(ctx, x, y, { terrain, isLand });
   };
   const foundation = ctx?.foundation;
   const foundationEnabled = !!foundation;
   const grainAmount = 5;
   const iFlags = 0;
-  adapter.createFractal(MOUNTAIN_FRACTAL, width, height, grainAmount, iFlags);
-  adapter.createFractal(HILL_FRACTAL3, width, height, grainAmount, iFlags);
+  adapter.createFractal(MOUNTAIN_FRACTAL2, width, height, grainAmount, iFlags);
+  adapter.createFractal(HILL_FRACTAL4, width, height, grainAmount, iFlags);
   let landTiles = 0;
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -1714,6 +2153,14 @@ function layerAddMountainsPhysics(ctx, options = {}) {
     const y = Math.floor(i / width);
     terrainWriter(x, y, HILL_TERRAIN);
   }
+  const mtnCount = mountainTiles.size;
+  const hillCount = hillTiles.size;
+  const flatCount = Math.max(0, landTiles - mtnCount - hillCount);
+  const total = Math.max(1, landTiles);
+  console.log(`[Mountains] Terrain Distribution (Land Tiles: ${landTiles}):`);
+  console.log(`  Mountains: ${mtnCount} (${(mtnCount / total * 100).toFixed(1)}%)`);
+  console.log(`  Hills:     ${hillCount} (${(hillCount / total * 100).toFixed(1)}%)`);
+  console.log(`  Flat:      ${flatCount} (${(flatCount / total * 100).toFixed(1)}%)`);
 }
 function computePlateBasedScores(ctx, scores, hillScores, options, isWaterCheck, adapter, foundation) {
   const dims = ctx?.dimensions;
@@ -1724,11 +2171,12 @@ function computePlateBasedScores(ctx, scores, hillScores, options, isWaterCheck,
   const boundaryType = plates.boundaryType;
   const boundaryCloseness = plates.boundaryCloseness;
   const riftPotential = plates.riftPotential;
+  const tectonicStress = plates.tectonicStress;
   if (!upliftPotential || !boundaryType) {
     computeFractalOnlyScores(ctx, scores, hillScores, adapter);
     return;
   }
-  const boundaryGate = 0.2;
+  const boundaryGate = 0.35;
   const falloffExponent = options.boundaryExponent || 2.5;
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -1737,46 +2185,41 @@ function computePlateBasedScores(ctx, scores, hillScores, options, isWaterCheck,
       const bType = boundaryType[i];
       const closenessRaw = boundaryCloseness ? boundaryCloseness[i] / 255 : 0;
       const rift = riftPotential ? riftPotential[i] / 255 : 0;
-      const fractalMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y) / 65535;
-      const fractalHill = adapter.getFractalHeight(HILL_FRACTAL3, x, y) / 65535;
-      let mountainScore = uplift * options.upliftWeight + fractalMtn * options.fractalWeight;
-      if (closenessRaw > boundaryGate) {
-        const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
-        const intensity = Math.pow(normalized, falloffExponent);
-        if (options.boundaryWeight > 0) {
-          const foothillNoise = 0.5 + fractalMtn * 0.5;
-          mountainScore += intensity * options.boundaryWeight * foothillNoise;
-        }
-        if (bType === BOUNDARY_TYPE.convergent) {
-          const peakNoise = 0.3 + fractalMtn * 0.7;
-          mountainScore += intensity * options.convergenceBonus * peakNoise;
-        } else if (bType === BOUNDARY_TYPE.divergent) {
-          mountainScore *= Math.max(0, 1 - intensity * options.riftPenalty);
-        } else if (bType === BOUNDARY_TYPE.transform) {
-          mountainScore *= Math.max(0, 1 - intensity * options.transformPenalty);
-        }
+      const stress = tectonicStress ? tectonicStress[i] / 255 : uplift;
+      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL2, x, y);
+      const rawHill = adapter.getFractalHeight(HILL_FRACTAL4, x, y);
+      const fractalMtn = normalizeFractal(rawMtn);
+      const fractalHill = normalizeFractal(rawHill);
+      if (closenessRaw < boundaryGate) {
+        scores[i] = 0;
+        hillScores[i] = Math.max(0, fractalHill * options.fractalWeight * 0.5);
+        continue;
       }
-      if (options.interiorPenaltyWeight > 0) {
-        const interiorPenalty = (1 - closenessRaw) * options.interiorPenaltyWeight;
-        mountainScore = Math.max(0, mountainScore - interiorPenalty);
+      const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
+      const boundaryStrength = Math.pow(normalized, falloffExponent);
+      const collision = bType === BOUNDARY_TYPE.convergent ? boundaryStrength : 0;
+      const transform = bType === BOUNDARY_TYPE.transform ? boundaryStrength : 0;
+      const divergence = bType === BOUNDARY_TYPE.divergent ? boundaryStrength : 0;
+      let mountainScore = collision * options.boundaryWeight * (0.7 * stress + 0.3 * uplift) + uplift * options.upliftWeight * 0.4 + fractalMtn * options.fractalWeight * 0.2;
+      if (collision > 0) {
+        mountainScore += collision * options.convergenceBonus * (0.6 + fractalMtn * 0.2);
+      }
+      if (divergence > 0) {
+        mountainScore *= Math.max(0, 1 - divergence * options.riftPenalty);
+      }
+      if (transform > 0) {
+        mountainScore *= Math.max(0, 1 - transform * options.transformPenalty);
       }
       scores[i] = Math.max(0, mountainScore);
-      let hillScore = fractalHill * options.fractalWeight + uplift * options.hillUpliftWeight;
-      if (closenessRaw > boundaryGate) {
-        const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
-        const hillIntensity = Math.sqrt(normalized);
-        const foothillExtent = 0.4 + fractalHill * 0.6;
-        if (options.hillBoundaryWeight > 0) {
-          hillScore += hillIntensity * options.hillBoundaryWeight * foothillExtent;
-        }
-        if (bType === BOUNDARY_TYPE.divergent) {
-          hillScore += hillIntensity * rift * options.hillRiftBonus * foothillExtent;
-        } else if (bType === BOUNDARY_TYPE.convergent) {
-          hillScore += hillIntensity * options.hillConvergentFoothill * foothillExtent;
-        }
+      const hillIntensity = Math.sqrt(boundaryStrength);
+      const foothillExtent = 0.5 + fractalHill * 0.5;
+      let hillScore = fractalHill * options.fractalWeight * 0.8 + uplift * options.hillUpliftWeight * 0.3;
+      if (collision > 0 && options.hillBoundaryWeight > 0) {
+        hillScore += hillIntensity * options.hillBoundaryWeight * foothillExtent;
+        hillScore += hillIntensity * options.hillConvergentFoothill * foothillExtent;
       }
-      if (options.hillInteriorFalloff > 0) {
-        hillScore -= (1 - closenessRaw) * options.hillInteriorFalloff;
+      if (divergence > 0) {
+        hillScore += hillIntensity * rift * options.hillRiftBonus * foothillExtent * 0.5;
       }
       hillScores[i] = Math.max(0, hillScore);
     }
@@ -1789,8 +2232,10 @@ function computeFractalOnlyScores(ctx, scores, hillScores, adapter) {
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = idx(x, y, width);
-      scores[i] = adapter.getFractalHeight(MOUNTAIN_FRACTAL, x, y) / 65535;
-      hillScores[i] = adapter.getFractalHeight(HILL_FRACTAL3, x, y) / 65535;
+      const rawMtn = adapter.getFractalHeight(MOUNTAIN_FRACTAL2, x, y);
+      const rawHill = adapter.getFractalHeight(HILL_FRACTAL4, x, y);
+      scores[i] = normalizeFractal(rawMtn);
+      hillScores[i] = normalizeFractal(rawHill);
     }
   }
 }
@@ -1841,8 +2286,6 @@ function selectTilesAboveThreshold(scores, width, height, threshold, adapter, ex
   }
   return selected;
 }
-var MOUNTAIN_TERRAIN2 = 5;
-var VOLCANO_FEATURE = 1;
 function idx2(x, y, width) {
   return y * width + x;
 }
@@ -1969,7 +2412,7 @@ function layerAddVolcanoesPlateAware(ctx, options = {}) {
     if (adapter.getFeatureType(candidate.x, candidate.y) === VOLCANO_FEATURE) continue;
     if (isTooCloseToExisting(candidate.x, candidate.y, placed, minSpacingClamped)) continue;
     writeHeightfield(ctx, candidate.x, candidate.y, {
-      terrain: MOUNTAIN_TERRAIN2,
+      terrain: MOUNTAIN_TERRAIN,
       isLand: true
     });
     const featureData = {
@@ -1981,14 +2424,53 @@ function layerAddVolcanoesPlateAware(ctx, options = {}) {
     placed.push({ x: candidate.x, y: candidate.y });
   }
 }
+function getPlotTagValue(name, fallback) {
+  if (typeof PlotTags !== "undefined") {
+    const engineValue = PlotTags[`PLOT_TAG_${name}`];
+    if (typeof engineValue === "number") {
+      return engineValue;
+    }
+  }
+  return fallback;
+}
+var _plotTagsLogged = false;
+function logPlotTagsOnce() {
+  if (_plotTagsLogged) return;
+  _plotTagsLogged = true;
+  const hasPlotTags = typeof PlotTags !== "undefined";
+  console.log(`[PlotTags] Engine PlotTags available: ${hasPlotTags}`);
+  if (hasPlotTags) {
+    console.log(`[PlotTags] Keys: ${Object.keys(PlotTags).join(", ")}`);
+    console.log(`[PlotTags] PLOT_TAG_NONE=${PlotTags.PLOT_TAG_NONE}, PLOT_TAG_LANDMASS=${PlotTags.PLOT_TAG_LANDMASS}, PLOT_TAG_WATER=${PlotTags.PLOT_TAG_WATER}`);
+    console.log(`[PlotTags] PLOT_TAG_EAST_LANDMASS=${PlotTags.PLOT_TAG_EAST_LANDMASS}, PLOT_TAG_WEST_LANDMASS=${PlotTags.PLOT_TAG_WEST_LANDMASS}`);
+  }
+}
 var PLOT_TAG = {
-  NONE: 0,
-  LANDMASS: 1,
-  WATER: 2,
-  EAST_LANDMASS: 3,
-  WEST_LANDMASS: 4,
-  EAST_WATER: 5,
-  WEST_WATER: 6
+  get NONE() {
+    logPlotTagsOnce();
+    return getPlotTagValue("NONE", 0);
+  },
+  get LANDMASS() {
+    return getPlotTagValue("LANDMASS", 1);
+  },
+  get WATER() {
+    return getPlotTagValue("WATER", 2);
+  },
+  get EAST_LANDMASS() {
+    return getPlotTagValue("EAST_LANDMASS", 3);
+  },
+  get WEST_LANDMASS() {
+    return getPlotTagValue("WEST_LANDMASS", 4);
+  },
+  get EAST_WATER() {
+    return getPlotTagValue("EAST_WATER", 5);
+  },
+  get WEST_WATER() {
+    return getPlotTagValue("WEST_WATER", 6);
+  },
+  get ISLAND() {
+    return getPlotTagValue("ISLAND", 7);
+  }
 };
 function addPlotTagsSimple(height, width, eastContinentLeftCol, adapter, terrainBuilder) {
   for (let y = 0; y < height; y++) {
@@ -2012,6 +2494,44 @@ function addPlotTagsSimple(height, width, eastContinentLeftCol, adapter, terrain
       }
     }
   }
+}
+function getLandmassRegionValue(name, fallback) {
+  if (typeof LandmassRegion !== "undefined") {
+    const engineValue = LandmassRegion[`LANDMASS_REGION_${name}`];
+    if (typeof engineValue === "number") {
+      return engineValue;
+    }
+  }
+  return fallback;
+}
+var LANDMASS_REGION = {
+  get NONE() {
+    return getLandmassRegionValue("NONE", 0);
+  },
+  get WEST() {
+    return getLandmassRegionValue("WEST", 2);
+  },
+  get EAST() {
+    return getLandmassRegionValue("EAST", 1);
+  },
+  get DEFAULT() {
+    return getLandmassRegionValue("DEFAULT", 0);
+  },
+  get ANY() {
+    return getLandmassRegionValue("ANY", -1);
+  }
+};
+function markLandmassRegionId(continent, regionId, adapter) {
+  let markedCount = 0;
+  for (let y = continent.south; y <= continent.north; y++) {
+    for (let x = continent.west; x <= continent.east; x++) {
+      if (adapter.getTerrainType(x, y) !== OCEAN_TERRAIN) {
+        adapter.setLandmassRegionId(x, y, regionId);
+        markedCount++;
+      }
+    }
+  }
+  return markedCount;
 }
 function inBounds(x, y, width, height) {
   return x >= 0 && x < width && y >= 0 && y < height;
@@ -2854,21 +3374,6 @@ function addDiverseFeatures(iWidth, iHeight, ctx) {
     }
   }
 }
-function resolveAdapter2() {
-  return {
-    addFloodplains: (minLength, maxLength) => {
-      const tb = TerrainBuilder;
-      if (typeof TerrainBuilder !== "undefined" && tb.addFloodplains) {
-        tb.addFloodplains(minLength, maxLength);
-      }
-    },
-    recalculateFertility: () => {
-      if (typeof FertilityBuilder !== "undefined" && FertilityBuilder?.recalculate) {
-        FertilityBuilder.recalculate();
-      }
-    }
-  };
-}
 function resolveNaturalWonderCount(mapInfo, wondersPlusOne) {
   if (!mapInfo || typeof mapInfo.NumNaturalWonders !== "number") {
     return 1;
@@ -2889,17 +3394,55 @@ function getPlacementConfig() {
   }
   return {};
 }
-function runPlacement(iWidth, iHeight, options = {}) {
+function logTerrainStats(adapter, width, height, stage) {
+  let flat = 0;
+  let hill = 0;
+  let mtn = 0;
+  let water = 0;
+  const total = width * height;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (adapter.isWater(x, y)) {
+        water++;
+        continue;
+      }
+      const t = adapter.getTerrainType(x, y);
+      if (t === MOUNTAIN_TERRAIN) mtn++;
+      else if (t === HILL_TERRAIN) hill++;
+      else flat++;
+    }
+  }
+  const land = Math.max(1, flat + hill + mtn);
+  console.log(`[Placement] Stats (${stage}):`);
+  console.log(`  Water: ${(water / total * 100).toFixed(1)}%`);
+  console.log(`  Land:  ${(land / total * 100).toFixed(1)}% (${land} tiles)`);
+  console.log(`    Mtn:  ${(mtn / land * 100).toFixed(1)}%`);
+  console.log(`    Hill: ${(hill / land * 100).toFixed(1)}%`);
+  console.log(`    Flat: ${(flat / land * 100).toFixed(1)}%`);
+}
+function logAsciiMap(adapter, width, height) {
+  console.log("[Placement] Final Map ASCII:");
+  for (let y = height - 1; y >= 0; y--) {
+    let row = "";
+    if (y % 2 !== 0) row += " ";
+    for (let x = 0; x < width; x++) {
+      const t = adapter.getTerrainType(x, y);
+      row += getTerrainSymbol(t) + " ";
+    }
+    console.log(row);
+  }
+}
+function runPlacement(adapter, iWidth, iHeight, options = {}) {
   console.log("[SWOOPER_MOD] === runPlacement() CALLED ===");
   console.log(`[SWOOPER_MOD] Map size: ${iWidth}x${iHeight}`);
+  logTerrainStats(adapter, iWidth, iHeight, "Initial");
   const { mapInfo, wondersPlusOne, floodplains, starts } = options;
   const placementCfg = getPlacementConfig();
-  const adapter = resolveAdapter2();
   const startPositions = [];
   try {
     const useWondersPlusOne = typeof wondersPlusOne === "boolean" ? wondersPlusOne : typeof placementCfg.wondersPlusOne === "boolean" ? placementCfg.wondersPlusOne : true;
     const wonders = resolveNaturalWonderCount(mapInfo, useWondersPlusOne);
-    addNaturalWonders(iWidth, iHeight, wonders);
+    adapter.addNaturalWonders(iWidth, iHeight, wonders);
   } catch (err) {
     console.log("[Placement] addNaturalWonders failed:", err);
   }
@@ -2912,12 +3455,31 @@ function runPlacement(iWidth, iHeight, options = {}) {
     console.log("[Placement] addFloodplains failed:", err);
   }
   try {
-    generateSnow(iWidth, iHeight);
+    adapter.validateAndFixTerrain();
+    console.log("[Placement] Terrain validated successfully");
+    logTerrainStats(adapter, iWidth, iHeight, "After validateAndFixTerrain");
+  } catch (err) {
+    console.log("[Placement] validateAndFixTerrain failed:", err);
+  }
+  try {
+    adapter.recalculateAreas();
+    console.log("[Placement] Areas recalculated successfully");
+  } catch (err) {
+    console.log("[Placement] AreaBuilder.recalculateAreas failed:", err);
+  }
+  try {
+    adapter.storeWaterData();
+    console.log("[Placement] Water data stored successfully");
+  } catch (err) {
+    console.log("[Placement] storeWaterData failed:", err);
+  }
+  try {
+    adapter.generateSnow(iWidth, iHeight);
   } catch (err) {
     console.log("[Placement] generateSnow failed:", err);
   }
   try {
-    generateResources(iWidth, iHeight);
+    adapter.generateResources(iWidth, iHeight);
   } catch (err) {
     console.log("[Placement] generateResources failed:", err);
   }
@@ -2945,7 +3507,7 @@ function runPlacement(iWidth, iHeight, options = {}) {
       console.log(
         `[START_DEBUG] Sectors: ${startSectorRows}x${startSectorCols} grid, ${startSectors.length} sectors chosen`
       );
-      const pos = assignStartPositions(
+      const pos = adapter.assignStartPositions(
         playersLandmass1,
         playersLandmass2,
         westContinent,
@@ -2979,25 +3541,28 @@ function runPlacement(iWidth, iHeight, options = {}) {
     console.log("[Placement] assignStartPositions failed:", err);
   }
   try {
-    generateDiscoveries(iWidth, iHeight, startPositions);
+    adapter.generateDiscoveries(iWidth, iHeight, startPositions);
     console.log("[Placement] Discoveries generated successfully");
   } catch (err) {
     console.log("[Placement] generateDiscoveries failed:", err);
   }
   try {
     adapter.recalculateFertility();
+    console.log("[Placement] Fertility recalculated successfully");
   } catch (err) {
     console.log("[Placement] FertilityBuilder.recalculate failed:", err);
   }
   try {
-    assignAdvancedStartRegions();
+    adapter.assignAdvancedStartRegions();
   } catch (err) {
     console.log("[Placement] assignAdvancedStartRegions failed:", err);
   }
+  logTerrainStats(adapter, iWidth, iHeight, "Final");
+  logAsciiMap(adapter, iWidth, iHeight);
   return startPositions;
 }
 
-// ../../packages/mapgen-core/dist/chunk-OBDEMXTN.js
+// ../../packages/mapgen-core/dist/chunk-HWB6NMD7.js
 function safeTimestamp() {
   try {
     return typeof Date?.now === "function" ? Date.now() : null;
@@ -3197,6 +3762,45 @@ var DefaultVoronoiUtils = {
     return { x: v.x / len, y: v.y / len };
   }
 };
+var injectedVoronoiUtils = null;
+var injectedVoronoiLabel = null;
+var loggedInjectedVoronoi = false;
+function adaptGlobalVoronoiUtils() {
+  const globalUtils = globalThis.VoronoiUtils;
+  if (globalUtils && typeof globalUtils.computeVoronoi === "function") {
+    return {
+      utils: {
+        createRandomSites: (count, width, height) => globalUtils.createRandomSites(
+          count,
+          width,
+          height
+        ),
+        computeVoronoi: (sites, bbox, relaxationSteps = 0) => globalUtils.computeVoronoi(
+          sites,
+          bbox,
+          relaxationSteps
+        ),
+        calculateCellArea: (cell) => globalUtils.calculateCellArea(cell),
+        normalize: (v) => globalUtils.normalize(v)
+      },
+      label: "global"
+    };
+  }
+  return { utils: null, label: "fallback" };
+}
+function resolveVoronoiUtils(options) {
+  if (options.voronoiUtils) {
+    return { utils: options.voronoiUtils, label: "custom" };
+  }
+  const globalUtils = adaptGlobalVoronoiUtils();
+  if (globalUtils.utils) {
+    return { utils: globalUtils.utils, label: globalUtils.label };
+  }
+  if (injectedVoronoiUtils) {
+    return { utils: injectedVoronoiUtils, label: injectedVoronoiLabel ?? "injected" };
+  }
+  return { utils: DefaultVoronoiUtils, label: "fallback" };
+}
 function createPlateRegion(name, id, type, maxArea, color, rng) {
   const angle = rng(360, "PlateAngle") * Math.PI / 180;
   const speed = 0.5 + rng(100, "PlateSpeed") / 200;
@@ -3234,6 +3838,20 @@ function rotate2(v, angleRad) {
     x: v.x * cos - v.y * sin,
     y: v.x * sin + v.y * cos
   };
+}
+var HEX_WIDTH = Math.sqrt(3);
+var HEX_HEIGHT = 1.5;
+var HALF_HEX_HEIGHT = HEX_HEIGHT / 2;
+function projectToHexSpace(x, y) {
+  const px = x * HEX_WIDTH;
+  const py = y * HEX_HEIGHT + (Math.floor(x) & 1 ? HALF_HEX_HEIGHT : 0);
+  return { px, py };
+}
+function wrappedHexDistanceSq(a, b, wrapWidth) {
+  const rawDx = Math.abs(a.px - b.px);
+  const dx = Math.min(rawDx, wrapWidth - rawDx);
+  const dy = a.py - b.py;
+  return dx * dx + dy * dy;
 }
 function getHexNeighbors(x, y, width, height) {
   const neighbors = [];
@@ -3464,6 +4082,13 @@ function summarizeBoundaryCoverage(isBoundary, boundaryCloseness) {
   };
 }
 function computePlatesVoronoi(width, height, config, options = {}) {
+  const voronoiChoice = resolveVoronoiUtils(options);
+  if (voronoiChoice.label !== "fallback" && !loggedInjectedVoronoi) {
+    console.log(
+      `[WorldModel] Using ${voronoiChoice.label} Voronoi utilities (${width}x${height})`
+    );
+    loggedInjectedVoronoi = true;
+  }
   const {
     count = 8,
     relaxationSteps = 5,
@@ -3471,7 +4096,7 @@ function computePlatesVoronoi(width, height, config, options = {}) {
     plateRotationMultiple = 1,
     directionality = null
   } = config;
-  const voronoiUtils = options.voronoiUtils || DefaultVoronoiUtils;
+  const voronoiUtils = voronoiChoice.utils;
   const rng = options.rng || ((max, _label) => {
     const global = globalThis;
     if (global.TerrainBuilder && typeof global.TerrainBuilder.getRandomNumber === "function") {
@@ -3502,6 +4127,7 @@ function computePlatesVoronoi(width, height, config, options = {}) {
       plateCountOverride = null
     } = attempt;
     const plateCount = Math.max(2, plateCountOverride ?? count);
+    const wrapWidthPx = width * HEX_WIDTH;
     const bbox = { xl: 0, xr: width, yt: 0, yb: height };
     const sites = voronoiUtils.createRandomSites(plateCount, bbox.xr, bbox.yb);
     const diagram = voronoiUtils.computeVoronoi(sites, bbox, relaxationSteps);
@@ -3520,6 +4146,9 @@ function computePlatesVoronoi(width, height, config, options = {}) {
       }
       return region;
     });
+    const plateCenters = plateRegions.map(
+      (region) => projectToHexSpace(region.seedLocation.x, region.seedLocation.y)
+    );
     if (!plateRegions.length) {
       throw new Error("[WorldModel] Plate generation returned zero plates");
     }
@@ -3543,12 +4172,11 @@ function computePlatesVoronoi(width, height, config, options = {}) {
     }));
     for (const regionCell of regionCells) {
       const pos = { x: regionCell.cell.site.x, y: regionCell.cell.site.y };
+      const posHex = projectToHexSpace(pos.x, pos.y);
       let bestDist = Infinity;
       let bestPlateId = -1;
       for (let i = 0; i < plateRegions.length; i++) {
-        const dx = pos.x - plateRegions[i].seedLocation.x;
-        const dy = pos.y - plateRegions[i].seedLocation.y;
-        const dist = dx * dx + dy * dy;
+        const dist = wrappedHexDistanceSq(posHex, plateCenters[i], wrapWidthPx);
         if (dist < bestDist) {
           bestDist = dist;
           bestPlateId = i;
@@ -3569,13 +4197,11 @@ function computePlatesVoronoi(width, height, config, options = {}) {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const i = y * width + x;
-        const pos = { x, y };
         let bestDist = Infinity;
         let pId = 0;
+        const tileHex = projectToHexSpace(x, y);
         for (let p = 0; p < plateRegions.length; p++) {
-          const dx = pos.x - plateRegions[p].seedLocation.x;
-          const dy = pos.y - plateRegions[p].seedLocation.y;
-          const dist = dx * dx + dy * dy;
+          const dist = wrappedHexDistanceSq(tileHex, plateCenters[p], wrapWidthPx);
           if (dist < bestDist) {
             bestDist = dist;
             pId = p;
@@ -3583,7 +4209,7 @@ function computePlatesVoronoi(width, height, config, options = {}) {
         }
         plateId[i] = pId;
         const plate = plateRegions[pId];
-        const movement = calculatePlateMovement(plate, pos, plateRotationMultiple);
+        const movement = calculatePlateMovement(plate, { x, y }, plateRotationMultiple);
         plateMovementU[i] = clampInt8(Math.round(movement.x * 100));
         plateMovementV[i] = clampInt8(Math.round(movement.y * 100));
         plateRotation[i] = clampInt8(Math.round(plate.m_rotation * 100));
@@ -3708,6 +4334,9 @@ var _state = {
   plateSeed: null
 };
 var _configProvider = null;
+function setConfigProvider(provider) {
+  _configProvider = provider;
+}
 function getConfig2() {
   if (_configProvider) {
     return _configProvider();
@@ -3748,6 +4377,9 @@ function computePlates(width, height, options) {
     seedOffset,
     directionality: config.directionality ?? null
   };
+  console.log(
+    `[WorldModel] Config plates.count=${count}, relaxationSteps=${relaxationSteps}, convergenceMix=${convergenceMix}, rotationMultiple=${plateRotationMultiple}, seedMode=${seedMode}, directionality.cohesion=${configSnapshot.directionality?.cohesion ?? "n/a"}`
+  );
   const { snapshot: seedBase, restore: restoreSeed } = PlateSeedManager.capture(
     width,
     height,
@@ -3933,12 +4565,26 @@ function computeCurrents(width, height, isWater, getLatitude) {
 }
 function getDefaultRng() {
   const global = globalThis;
-  if (global.TerrainBuilder && typeof global.TerrainBuilder.getRandomNumber === "function") {
-    return global.TerrainBuilder.getRandomNumber;
+  if (global.TerrainBuilder) {
+    const tb = global.TerrainBuilder;
+    if (typeof tb.getRandomNumber === "function") {
+      console.log("[WorldModel] Using TerrainBuilder.getRandomNumber as RNG");
+      return tb.getRandomNumber.bind(tb);
+    }
   }
+  console.log("[WorldModel] Using Math.random as RNG");
   return (max) => Math.floor(Math.random() * max);
 }
 var WorldModel = {
+  get initialized() {
+    return _state.initialized;
+  },
+  get width() {
+    return _state.width;
+  },
+  get height() {
+    return _state.height;
+  },
   isEnabled() {
     return !!_state.initialized;
   },
@@ -3963,6 +4609,9 @@ var WorldModel = {
     _state.width = width | 0;
     _state.height = height | 0;
     const size = Math.max(0, width * height) | 0;
+    console.log(
+      `[WorldModel] init starting with dimensions ${_state.width}x${_state.height} (size=${size})`
+    );
     _state.plateId = new Int16Array(size);
     _state.boundaryCloseness = new Uint8Array(size);
     _state.boundaryType = new Uint8Array(size);
@@ -3978,11 +4627,20 @@ var WorldModel = {
     _state.currentU = new Int8Array(size);
     _state.currentV = new Int8Array(size);
     _state.pressure = new Uint8Array(size);
+    console.log("[WorldModel] computePlates starting");
     computePlates(width, height, options.plateOptions);
+    console.log("[WorldModel] computePlates succeeded");
+    console.log("[WorldModel] computePressure starting");
     computePressure(width, height, options.rng);
+    console.log("[WorldModel] computePressure succeeded");
+    console.log("[WorldModel] computeWinds starting");
     computeWinds(width, height, options.getLatitude, options.rng);
+    console.log("[WorldModel] computeWinds succeeded");
+    console.log("[WorldModel] computeCurrents starting");
     computeCurrents(width, height, options.isWater, options.getLatitude);
+    console.log("[WorldModel] computeCurrents succeeded");
     _state.initialized = true;
+    console.log("[WorldModel] init completed successfully");
     return true;
   },
   reset() {
@@ -4070,8 +4728,569 @@ var __require2 = /* @__PURE__ */ ((x) => typeof __require !== "undefined" ? __re
 
 // ../../packages/mapgen-core/dist/index.js
 import "/base-standard/maps/map-globals.js";
-import { designateBiomes as civ7DesignateBiomes } from "/base-standard/maps/biomes.js";
-import { addFeatures as civ7AddFeatures } from "/base-standard/maps/features.js";
+import "/base-standard/scripts/kd-tree.js";
+import { designateBiomes as civ7DesignateBiomes, addFeatures as civ7AddFeatures } from "/base-standard/maps/feature-biome-generator.js";
+import { addNaturalWonders as civ7AddNaturalWonders } from "/base-standard/maps/natural-wonder-generator.js";
+import { generateSnow as civ7GenerateSnow } from "/base-standard/maps/snow-generator.js";
+import { generateResources as civ7GenerateResources } from "/base-standard/maps/resource-generator.js";
+import { assignStartPositions as civ7AssignStartPositions, chooseStartSectors as civ7ChooseStartSectors } from "/base-standard/maps/assign-starting-plots.js";
+import { needHumanNearEquator as civ7NeedHumanNearEquator } from "/base-standard/maps/map-utilities.js";
+import { generateDiscoveries as civ7GenerateDiscoveries } from "/base-standard/maps/discovery-generator.js";
+import { assignAdvancedStartRegions as civ7AssignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-start-region.js";
+var DEV = {
+  ENABLED: false,
+  LOG_TIMING: false,
+  LOG_FOUNDATION_SEED: false,
+  LOG_FOUNDATION_PLATES: false,
+  LOG_FOUNDATION_DYNAMICS: false,
+  LOG_FOUNDATION_SURFACE: false,
+  LOG_FOUNDATION_SUMMARY: false,
+  LOG_FOUNDATION_ASCII: false,
+  LOG_LANDMASS_ASCII: false,
+  LOG_LANDMASS_WINDOWS: false,
+  LOG_RELIEF_ASCII: false,
+  LOG_RAINFALL_ASCII: false,
+  LOG_RAINFALL_SUMMARY: false,
+  LOG_BIOME_ASCII: false,
+  LOG_BIOME_SUMMARY: false,
+  LOG_STORY_TAGS: false,
+  LOG_CORRIDOR_ASCII: false,
+  LOG_BOUNDARY_METRICS: false,
+  LOG_MOUNTAINS: false,
+  LOG_VOLCANOES: false,
+  FOUNDATION_HISTOGRAMS: false,
+  LAYER_COUNTS: false
+};
+function initDevFlags(config) {
+  if (!config || typeof config !== "object") return;
+  const mapping = {
+    enabled: "ENABLED",
+    logTiming: "LOG_TIMING",
+    logFoundationSeed: "LOG_FOUNDATION_SEED",
+    logFoundationPlates: "LOG_FOUNDATION_PLATES",
+    logFoundationDynamics: "LOG_FOUNDATION_DYNAMICS",
+    logFoundationSurface: "LOG_FOUNDATION_SURFACE",
+    logFoundationSummary: "LOG_FOUNDATION_SUMMARY",
+    logFoundationAscii: "LOG_FOUNDATION_ASCII",
+    logLandmassAscii: "LOG_LANDMASS_ASCII",
+    logLandmassWindows: "LOG_LANDMASS_WINDOWS",
+    logReliefAscii: "LOG_RELIEF_ASCII",
+    logRainfallAscii: "LOG_RAINFALL_ASCII",
+    logRainfallSummary: "LOG_RAINFALL_SUMMARY",
+    logBiomeAscii: "LOG_BIOME_ASCII",
+    logBiomeSummary: "LOG_BIOME_SUMMARY",
+    logStoryTags: "LOG_STORY_TAGS",
+    logCorridorAscii: "LOG_CORRIDOR_ASCII",
+    logBoundaryMetrics: "LOG_BOUNDARY_METRICS",
+    logMountains: "LOG_MOUNTAINS",
+    logVolcanoes: "LOG_VOLCANOES",
+    foundationHistograms: "FOUNDATION_HISTOGRAMS",
+    layerCounts: "LAYER_COUNTS"
+  };
+  for (const [configKey, flagKey] of Object.entries(mapping)) {
+    const value = config[configKey];
+    if (value !== void 0) {
+      DEV[flagKey] = !!value;
+    }
+  }
+}
+function isDevEnabled(flag) {
+  return !!(DEV.ENABLED && DEV[flag]);
+}
+var LOG_PREFIX = "[DEV]";
+function devLog(...args) {
+  if (!DEV.ENABLED) return;
+  try {
+    console.log(LOG_PREFIX, ...args);
+  } catch {
+  }
+}
+function devLogPrefixed(prefix, ...args) {
+  if (!DEV.ENABLED) return;
+  try {
+    console.log(`${LOG_PREFIX}[${prefix}]`, ...args);
+  } catch {
+  }
+}
+function devLogJson(label, data) {
+  if (!DEV.ENABLED) return;
+  try {
+    console.log(`${LOG_PREFIX}[${label}]`, JSON.stringify(data));
+  } catch {
+  }
+}
+function devLogLines(lines, prefix) {
+  if (!DEV.ENABLED) return;
+  const pfx = prefix ? `${LOG_PREFIX}[${prefix}]` : LOG_PREFIX;
+  try {
+    for (const line of lines) {
+      console.log(pfx, line);
+    }
+  } catch {
+  }
+}
+function collectApiKeys(obj) {
+  const names = [];
+  const seen = /* @__PURE__ */ new Set();
+  let current = obj;
+  while (current && typeof current === "object") {
+    for (const name of Object.getOwnPropertyNames(current)) {
+      if (!seen.has(name)) {
+        seen.add(name);
+        names.push(name);
+      }
+    }
+    current = Object.getPrototypeOf(current);
+  }
+  names.sort();
+  return names;
+}
+function logEngineObjectApi(label, obj) {
+  if (!DEV.ENABLED) return;
+  if (!obj || typeof obj !== "object" && typeof obj !== "function") {
+    devLogPrefixed(
+      "ENGINE_API",
+      `${label} is not an object/function (typeof=${typeof obj})`
+    );
+    return;
+  }
+  const apiKeys = collectApiKeys(obj);
+  devLogPrefixed("ENGINE_API", `${label} API (${apiKeys.length} keys)`);
+  for (const name of apiKeys) {
+    let kind = "unknown";
+    try {
+      const value = obj[name];
+      kind = typeof value === "function" ? `fn(${value.length})` : typeof value;
+    } catch {
+      kind = "unknown";
+    }
+    devLogPrefixed("ENGINE_API", `  ${label}.${name}: ${kind}`);
+  }
+}
+var engineApiLogged = false;
+function logEngineSurfaceApisOnce() {
+  if (!DEV.ENABLED) return;
+  if (engineApiLogged) return;
+  engineApiLogged = true;
+  try {
+    const globalAny = globalThis;
+    const gameplayMap = globalAny.GameplayMap;
+    const terrainBuilder = globalAny.TerrainBuilder;
+    const fractalBuilder = globalAny.FractalBuilder;
+    const areaBuilder = globalAny.AreaBuilder;
+    if (!gameplayMap && !terrainBuilder && !fractalBuilder && !areaBuilder) {
+      devLogPrefixed(
+        "ENGINE_API",
+        "GameplayMap, TerrainBuilder, FractalBuilder, and AreaBuilder are not defined in global scope"
+      );
+      return;
+    }
+    if (gameplayMap) {
+      logEngineObjectApi("GameplayMap", gameplayMap);
+    } else {
+      devLogPrefixed("ENGINE_API", "GameplayMap is not defined");
+    }
+    if (terrainBuilder) {
+      logEngineObjectApi("TerrainBuilder", terrainBuilder);
+    } else {
+      devLogPrefixed("ENGINE_API", "TerrainBuilder is not defined");
+    }
+    if (fractalBuilder) {
+      logEngineObjectApi("FractalBuilder", fractalBuilder);
+    } else {
+      devLogPrefixed("ENGINE_API", "FractalBuilder is not defined");
+    }
+    if (areaBuilder) {
+      logEngineObjectApi("AreaBuilder", areaBuilder);
+    } else {
+      devLogPrefixed("ENGINE_API", "AreaBuilder is not defined");
+    }
+  } catch (err) {
+    devLogPrefixed("ENGINE_API", "Failed to introspect engine APIs", err);
+  }
+}
+var ASCII_CHARS = {
+  /** Base terrain characters */
+  base: {
+    water: "~",
+    land: ".",
+    coast: ","
+  },
+  /** Plate boundary overlays */
+  boundary: {
+    convergent: "^",
+    divergent: "_",
+    transform: "#",
+    unknown: "+"
+  },
+  /** Terrain relief overlays */
+  relief: {
+    mountain: "M",
+    hill: "h",
+    volcano: "V",
+    flat: "."
+  },
+  /** Biome overlays */
+  biome: {
+    desert: "D",
+    grassland: "G",
+    plains: "P",
+    tundra: "T",
+    tropical: "J",
+    unknown: "?"
+  },
+  /** Story corridor overlays */
+  corridor: {
+    seaLane: "S",
+    islandHop: "I",
+    riverChain: "R",
+    landOpen: "L"
+  }
+};
+function computeSampleStep(width, height, requested) {
+  if (requested !== void 0 && Number.isFinite(requested)) {
+    return Math.max(1, Math.floor(requested));
+  }
+  const targetCols = 72;
+  const targetRows = 48;
+  const stepX = width > targetCols ? Math.floor(width / targetCols) : 1;
+  const stepY = height > targetRows ? Math.floor(height / targetRows) : 1;
+  return Math.max(1, Math.min(stepX, stepY));
+}
+function renderAsciiGrid(config) {
+  const { width, height, cellFn } = config;
+  const step = computeSampleStep(width, height, config.sampleStep);
+  const rows = [];
+  for (let y = 0; y < height; y += step) {
+    let row = "";
+    for (let x = 0; x < width; x += step) {
+      const cell = cellFn(x, y);
+      row += cell.overlay ?? cell.base;
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+function logAsciiGrid(flag, label, config, legend) {
+  if (!isDevEnabled(flag)) return;
+  const step = computeSampleStep(config.width, config.height, config.sampleStep);
+  devLog(`${label} (step=${step})${legend ? `: ${legend}` : ""}`);
+  const rows = renderAsciiGrid(config);
+  devLogLines(rows);
+}
+function logFoundationAscii(adapter, width, height, foundation, options = {}) {
+  if (!isDevEnabled("LOG_FOUNDATION_ASCII")) return;
+  const { boundaryCloseness, boundaryType } = foundation;
+  if (!boundaryCloseness || !boundaryType) {
+    devLog("[foundation] ascii: Missing boundary data");
+    return;
+  }
+  const threshold = Math.round((options.threshold ?? 0.65) * 255);
+  const chars = ASCII_CHARS;
+  logAsciiGrid(
+    "LOG_FOUNDATION_ASCII",
+    "[foundation] plates",
+    {
+      width,
+      height,
+      sampleStep: options.sampleStep,
+      cellFn: (x, y) => {
+        const idx22 = y * width + x;
+        const isWater = adapter.isWater(x, y);
+        const base = isWater ? chars.base.water : chars.base.land;
+        const closeness = boundaryCloseness[idx22] ?? 0;
+        if (closeness < threshold) {
+          return { base };
+        }
+        const bType = boundaryType[idx22] ?? 0;
+        const overlay = bType === 1 ? chars.boundary.convergent : bType === 2 ? chars.boundary.divergent : bType === 3 ? chars.boundary.transform : chars.boundary.unknown;
+        return { base, overlay };
+      }
+    },
+    `${chars.base.water}=water ${chars.base.land}=land ${chars.boundary.convergent}=conv ${chars.boundary.divergent}=div ${chars.boundary.transform}=trans`
+  );
+}
+function logLandmassAscii(adapter, width, height, options = {}) {
+  if (!isDevEnabled("LOG_LANDMASS_ASCII")) return;
+  const chars = ASCII_CHARS;
+  logAsciiGrid(
+    "LOG_LANDMASS_ASCII",
+    "[landmass] continents",
+    {
+      width,
+      height,
+      sampleStep: options.sampleStep,
+      cellFn: (x, y) => {
+        const isWater = adapter.isWater(x, y);
+        const base = isWater ? chars.base.water : chars.base.land;
+        return { base };
+      }
+    },
+    `${chars.base.water}=water ${chars.base.land}=land`
+  );
+}
+function logReliefAscii(adapter, width, height, options = {}) {
+  if (!isDevEnabled("LOG_RELIEF_ASCII")) return;
+  const chars = ASCII_CHARS;
+  logAsciiGrid(
+    "LOG_RELIEF_ASCII",
+    "[relief] terrain",
+    {
+      width,
+      height,
+      sampleStep: options.sampleStep,
+      cellFn: (x, y) => {
+        const isWater = adapter.isWater(x, y);
+        if (isWater) {
+          return { base: chars.base.water };
+        }
+        const isMountain = adapter.isMountain(x, y);
+        const terrainType = adapter.getTerrainType(x, y);
+        const isHills = terrainType === HILL_TERRAIN;
+        if (isMountain) {
+          return { base: chars.base.land, overlay: chars.relief.mountain };
+        }
+        if (isHills) {
+          return { base: chars.base.land, overlay: chars.relief.hill };
+        }
+        return { base: chars.base.land };
+      }
+    },
+    `${chars.base.water}=water ${chars.relief.mountain}=mountain ${chars.relief.hill}=hill ${chars.base.land}=flat`
+  );
+}
+function buildHistogram(values, bins = 10, range) {
+  const n = values.length;
+  if (n === 0) {
+    return { counts: new Array(bins).fill(0), total: 0, min: 0, max: 0, binWidth: 0 };
+  }
+  let min, max;
+  if (range) {
+    [min, max] = range;
+  } else {
+    min = values[0];
+    max = values[0];
+    for (let i = 1; i < n; i++) {
+      if (values[i] < min) min = values[i];
+      if (values[i] > max) max = values[i];
+    }
+  }
+  const binWidth = max > min ? (max - min) / bins : 1;
+  const counts = new Array(bins).fill(0);
+  for (let i = 0; i < n; i++) {
+    const v = values[i];
+    const binIdx = Math.min(bins - 1, Math.max(0, Math.floor((v - min) / binWidth)));
+    counts[binIdx]++;
+  }
+  return { counts, total: n, min, max, binWidth };
+}
+function formatHistogramPercent(counts, total) {
+  if (total === 0) return counts.map(() => "0.0%");
+  return counts.map((c) => `${(c / total * 100).toFixed(1)}%`);
+}
+function logRainfallStats(adapter, width, height, label = "rainfall") {
+  if (!isDevEnabled("LOG_RAINFALL_SUMMARY")) return;
+  let min = Infinity;
+  let max = -Infinity;
+  let sum = 0;
+  let landTiles = 0;
+  const buckets = { arid: 0, semiArid: 0, temperate: 0, wet: 0, lush: 0 };
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (adapter.isWater(x, y)) continue;
+      const value = adapter.getRainfall(x, y);
+      landTiles++;
+      if (value < min) min = value;
+      if (value > max) max = value;
+      sum += value;
+      if (value < 25) buckets.arid++;
+      else if (value < 60) buckets.semiArid++;
+      else if (value < 95) buckets.temperate++;
+      else if (value < 130) buckets.wet++;
+      else buckets.lush++;
+    }
+  }
+  if (landTiles === 0) {
+    devLog(`[${label}] stats: No land tiles`);
+    return;
+  }
+  devLogJson(`${label} stats`, {
+    landTiles,
+    min,
+    max,
+    avg: Number((sum / landTiles).toFixed(2)),
+    buckets
+  });
+}
+function logFoundationHistograms(width, height, foundation, options = {}) {
+  if (!isDevEnabled("FOUNDATION_HISTOGRAMS")) return;
+  const { upliftPotential, riftPotential } = foundation;
+  if (!upliftPotential || !riftPotential) {
+    devLog("[foundation] histograms: Missing uplift/rift data");
+    return;
+  }
+  const bins = Math.max(5, Math.min(20, options.bins ?? 10));
+  const size = Math.min(width * height, upliftPotential.length, riftPotential.length);
+  const upliftValues = Array.from(upliftPotential.slice(0, size));
+  const riftValues = Array.from(riftPotential.slice(0, size));
+  const upliftHist = buildHistogram(upliftValues, bins, [0, 255]);
+  const riftHist = buildHistogram(riftValues, bins, [0, 255]);
+  devLogJson("foundation uplift histogram", {
+    samples: upliftHist.total,
+    distribution: formatHistogramPercent(upliftHist.counts, upliftHist.total)
+  });
+  devLogJson("foundation rift histogram", {
+    samples: riftHist.total,
+    distribution: formatHistogramPercent(riftHist.counts, riftHist.total)
+  });
+}
+function logFoundationSummary(adapter, width, height, foundation) {
+  if (!isDevEnabled("LOG_FOUNDATION_SUMMARY")) return;
+  const { plateId, boundaryType, boundaryCloseness, upliftPotential, riftPotential } = foundation;
+  if (!plateId || !boundaryType || !boundaryCloseness) {
+    devLog("[foundation] summary: Missing core fields");
+    return;
+  }
+  const size = width * height;
+  const n = Math.min(size, plateId.length, boundaryType.length, boundaryCloseness.length);
+  const plates = /* @__PURE__ */ new Set();
+  for (let i = 0; i < n; i++) {
+    plates.add(plateId[i]);
+  }
+  const btCounts = [0, 0, 0, 0];
+  let boundaryTiles = 0;
+  for (let i = 0; i < n; i++) {
+    const bt = boundaryType[i];
+    if (bt >= 0 && bt < 4) btCounts[bt]++;
+    if (boundaryCloseness[i] > 32) boundaryTiles++;
+  }
+  const avgByte = (arr) => {
+    if (!arr || arr.length === 0) return null;
+    const m = Math.min(arr.length, size);
+    let sum = 0;
+    for (let i = 0; i < m; i++) sum += arr[i];
+    return Math.round(sum / m);
+  };
+  const rowSamples = [];
+  const sampleRows = [
+    0,
+    Math.floor(height * 0.25),
+    Math.floor(height * 0.5),
+    Math.floor(height * 0.75),
+    height - 1
+  ].filter((y, i, arr) => y >= 0 && y < height && arr.indexOf(y) === i);
+  for (const y of sampleRows) {
+    let closSum = 0;
+    let upliftSum = 0;
+    let landCount = 0;
+    for (let x = 0; x < width; x++) {
+      const idx22 = y * width + x;
+      closSum += boundaryCloseness[idx22] ?? 0;
+      upliftSum += upliftPotential?.[idx22] ?? 0;
+      if (!adapter.isWater(x, y)) landCount++;
+    }
+    rowSamples.push({
+      row: y,
+      closAvg: Math.round(closSum / Math.max(1, width)),
+      upliftAvg: upliftPotential ? Math.round(upliftSum / Math.max(1, width)) : null,
+      landCount
+    });
+  }
+  devLogJson("foundation summary", {
+    dimensions: { width, height },
+    plates: plates.size,
+    boundaryTiles,
+    boundaryTypes: {
+      none: btCounts[0],
+      convergent: btCounts[1],
+      divergent: btCounts[2],
+      transform: btCounts[3]
+    },
+    upliftAvg: avgByte(upliftPotential),
+    riftAvg: avgByte(riftPotential),
+    rowSamples
+  });
+}
+function logBiomeSummary(adapter, width, height, biomeNames) {
+  if (!isDevEnabled("LOG_BIOME_SUMMARY")) return;
+  const counts = /* @__PURE__ */ new Map();
+  let landTiles = 0;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (adapter.isWater(x, y)) continue;
+      landTiles++;
+      const biomeId = adapter.getBiomeType(x, y);
+      counts.set(biomeId, (counts.get(biomeId) ?? 0) + 1);
+    }
+  }
+  if (landTiles === 0) {
+    devLog("[biome] summary: No land tiles");
+    return;
+  }
+  const summary = Array.from(counts.entries()).map(([id, count]) => ({
+    id,
+    name: biomeNames?.get(id) ?? null,
+    count,
+    share: Number((count / landTiles * 100).toFixed(2))
+  })).sort((a, b) => b.count - a.count);
+  devLogJson("biome summary", {
+    landTiles,
+    biomes: summary
+  });
+}
+function logMountainSummary(adapter, width, height) {
+  if (!isDevEnabled("LOG_MOUNTAINS")) return;
+  let mountains = 0;
+  let onLand = 0;
+  let coastal = 0;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (!adapter.isMountain(x, y)) continue;
+      mountains++;
+      if (!adapter.isWater(x, y)) onLand++;
+      let hasWaterNeighbor = false;
+      for (let dy = -1; dy <= 1 && !hasWaterNeighbor; dy++) {
+        for (let dx = -1; dx <= 1 && !hasWaterNeighbor; dx++) {
+          if (dx === 0 && dy === 0) continue;
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+            if (adapter.isWater(nx, ny)) hasWaterNeighbor = true;
+          }
+        }
+      }
+      if (hasWaterNeighbor) coastal++;
+    }
+  }
+  devLogJson("mountains summary", {
+    total: mountains,
+    onLand,
+    coastal,
+    share: width * height > 0 ? `${(mountains / (width * height) * 100).toFixed(2)}%` : "0%"
+  });
+}
+function logVolcanoSummary(adapter, width, height, volcanoFeatureId) {
+  if (!isDevEnabled("LOG_VOLCANOES")) return;
+  if (volcanoFeatureId === void 0 || volcanoFeatureId < 0) {
+    devLog("[volcanoes] summary: Volcano feature ID not available");
+    return;
+  }
+  let volcanoes = 0;
+  let onMountain = 0;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const featureType = adapter.getFeatureType(x, y);
+      if (featureType === volcanoFeatureId) {
+        volcanoes++;
+        if (adapter.isMountain(x, y)) onMountain++;
+      }
+    }
+  }
+  devLogJson("volcanoes summary", {
+    total: volcanoes,
+    onMountain
+  });
+}
 var Civ7Adapter = class {
   width;
   height;
@@ -4114,8 +5333,14 @@ var Civ7Adapter = class {
   setRainfall(x, y, rainfall) {
     TerrainBuilder.setRainfall(x, y, rainfall);
   }
-  setElevation(x, y, elevation) {
-    TerrainBuilder.setElevation(x, y, elevation);
+  setLandmassRegionId(x, y, regionId) {
+    TerrainBuilder.setLandmassRegionId(x, y, regionId);
+  }
+  addPlotTag(x, y, plotTag) {
+    TerrainBuilder.addPlotTag(x, y, plotTag);
+  }
+  setPlotTag(x, y, plotTag) {
+    TerrainBuilder.setPlotTag(x, y, plotTag);
   }
   // === FEATURE READS/WRITES ===
   getFeatureType(x, y) {
@@ -4187,7 +5412,61 @@ var Civ7Adapter = class {
   get NO_FEATURE() {
     return typeof FeatureTypes !== "undefined" && "NO_FEATURE" in FeatureTypes ? FeatureTypes.NO_FEATURE : -1;
   }
+  // === PLACEMENT ===
+  addNaturalWonders(width, height, numWonders) {
+    civ7AddNaturalWonders(width, height, numWonders);
+  }
+  generateSnow(width, height) {
+    civ7GenerateSnow(width, height);
+  }
+  generateResources(width, height) {
+    civ7GenerateResources(width, height);
+  }
+  assignStartPositions(playersLandmass1, playersLandmass2, westContinent, eastContinent, startSectorRows, startSectorCols, startSectors) {
+    const result = civ7AssignStartPositions(
+      playersLandmass1,
+      playersLandmass2,
+      westContinent,
+      eastContinent,
+      startSectorRows,
+      startSectorCols,
+      startSectors
+    );
+    return Array.isArray(result) ? result : [];
+  }
+  chooseStartSectors(players1, players2, rows, cols, humanNearEquator) {
+    const result = civ7ChooseStartSectors(players1, players2, rows, cols, humanNearEquator);
+    return Array.isArray(result) ? result : [];
+  }
+  needHumanNearEquator() {
+    return civ7NeedHumanNearEquator();
+  }
+  generateDiscoveries(width, height, startPositions) {
+    civ7GenerateDiscoveries(width, height, startPositions);
+  }
+  assignAdvancedStartRegions() {
+    civ7AssignAdvancedStartRegions();
+  }
+  addFloodplains(minLength, maxLength) {
+    const tb = TerrainBuilder;
+    if (typeof tb.addFloodplains === "function") {
+      tb.addFloodplains(minLength, maxLength);
+    }
+  }
+  recalculateFertility() {
+    const fb = globalThis.FertilityBuilder;
+    if (fb && typeof fb.recalculate === "function") {
+      fb.recalculate();
+    } else {
+      console.log("[Civ7Adapter] FertilityBuilder not available - fertility will be calculated by engine defaults");
+    }
+  }
 };
+function createCiv7Adapter() {
+  const width = GameplayMap.getGridWidth();
+  const height = GameplayMap.getGridHeight();
+  return new Civ7Adapter(width, height);
+}
 function assertFoundationContext2(ctx, stageName) {
   if (!ctx) {
     throw new Error(`Stage "${stageName}" requires ExtendedMapContext but ctx is null`);
@@ -4198,11 +5477,11 @@ function assertFoundationContext2(ctx, stageName) {
     );
   }
 }
-function timeStart(label) {
+function stageTimeStart(label) {
   console.log(`[SWOOPER_MOD] Starting: ${label}`);
   return { label, start: Date.now() };
 }
-function timeEnd(timer) {
+function stageTimeEnd(timer) {
   const elapsed = Date.now() - timer.start;
   console.log(`[SWOOPER_MOD] Completed: ${timer.label} (${elapsed}ms)`);
   return elapsed;
@@ -4276,23 +5555,23 @@ function resolveOrchestratorAdapter() {
     },
     chooseStartSectors: (players1, players2, rows, cols, humanNearEquator) => {
       try {
-        const mod = __require2("/base-standard/maps/assign-starting-plots.js");
-        if (mod?.chooseStartSectors) {
-          return mod.chooseStartSectors(players1, players2, rows, cols, humanNearEquator);
+        const civ7 = createCiv7Adapter();
+        if (typeof civ7.chooseStartSectors === "function") {
+          return civ7.chooseStartSectors(players1, players2, rows, cols, humanNearEquator);
         }
-      } catch {
-        console.log("[MapOrchestrator] chooseStartSectors not available");
+      } catch (err) {
+        console.log("[MapOrchestrator] chooseStartSectors not available:", err);
       }
       return [];
     },
     needHumanNearEquator: () => {
       try {
-        const mod = __require2("/base-standard/maps/map-utilities.js");
-        if (mod?.needHumanNearEquator) {
-          return mod.needHumanNearEquator();
+        const civ7 = createCiv7Adapter();
+        if (typeof civ7.needHumanNearEquator === "function") {
+          return civ7.needHumanNearEquator();
         }
-      } catch {
-        console.log("[MapOrchestrator] needHumanNearEquator not available");
+      } catch (err) {
+        console.log("[MapOrchestrator] needHumanNearEquator not available:", err);
       }
       return false;
     }
@@ -4302,27 +5581,53 @@ var MapOrchestrator = class {
   config;
   adapter;
   stageResults = [];
+  worldModelConfigBound = false;
   constructor(config = {}) {
     this.config = config;
     this.adapter = resolveOrchestratorAdapter();
   }
   /**
    * Handle RequestMapInitData event.
-   * Sets map dimensions and latitude parameters.
+   * Sets map dimensions and latitude parameters from game settings.
+   *
+   * Flow: GameplayMap.getMapSize() → GameInfo.Maps.lookup() → extract dimensions
+   * This replaces the previous hard-coded 84×54 approach (CIV-22).
+   *
+   * For testing, use `config.mapSizeDefaults` to bypass game settings.
    */
   requestMapData(initParams) {
     const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} === RequestMapInitData ===`);
+    let mapSizeId;
+    let mapInfo;
+    if (this.config.mapSizeDefaults) {
+      mapSizeId = this.config.mapSizeDefaults.mapSizeId ?? 0;
+      mapInfo = this.config.mapSizeDefaults.mapInfo ?? null;
+      console.log(`${prefix} Using test mapSizeDefaults`);
+    } else {
+      mapSizeId = this.adapter.getMapSize();
+      mapInfo = this.adapter.lookupMapInfo(mapSizeId);
+    }
+    const gameWidth = mapInfo?.GridWidth ?? 84;
+    const gameHeight = mapInfo?.GridHeight ?? 54;
+    const gameMaxLat = mapInfo?.MaxLatitude ?? 80;
+    const gameMinLat = mapInfo?.MinLatitude ?? -80;
+    console.log(`${prefix} Map size ID: ${mapSizeId}`);
+    console.log(
+      `${prefix} MapInfo: GridWidth=${gameWidth}, GridHeight=${gameHeight}, Lat=[${gameMinLat}, ${gameMaxLat}]`
+    );
     const params = {
-      width: initParams?.width ?? 84,
-      height: initParams?.height ?? 54,
-      topLatitude: initParams?.topLatitude ?? 80,
-      bottomLatitude: initParams?.bottomLatitude ?? -80,
+      width: initParams?.width ?? gameWidth,
+      height: initParams?.height ?? gameHeight,
+      topLatitude: initParams?.topLatitude ?? gameMaxLat,
+      bottomLatitude: initParams?.bottomLatitude ?? gameMinLat,
       wrapX: initParams?.wrapX ?? true,
       wrapY: initParams?.wrapY ?? false
     };
-    console.log(`${prefix} Map dimensions: ${params.width} x ${params.height}`);
-    console.log(`${prefix} Latitude range: ${params.bottomLatitude} to ${params.topLatitude}`);
+    console.log(`${prefix} Final dimensions: ${params.width} x ${params.height}`);
+    console.log(
+      `${prefix} Final latitude range: ${params.bottomLatitude} to ${params.topLatitude}`
+    );
     this.adapter.setMapInitData(params);
   }
   /**
@@ -4334,6 +5639,10 @@ var MapOrchestrator = class {
     console.log(`${prefix} === GenerateMap ===`);
     this.stageResults = [];
     const startPositions = [];
+    const devTunables = getTunables();
+    const devFoundationCfg = devTunables.FOUNDATION_CFG || {};
+    const diagnostics = devFoundationCfg.diagnostics || {};
+    initDevFlags({ ...diagnostics, enabled: true });
     resetTunables();
     const tunables = getTunables();
     console.log(`${prefix} Tunables rebound successfully`);
@@ -4347,7 +5656,13 @@ var MapOrchestrator = class {
       return { success: false, stageResults: this.stageResults, startPositions };
     }
     console.log(`${prefix} Map size: ${iWidth}x${iHeight}`);
+    console.log(
+      `${prefix} MapInfo summary: NumNaturalWonders=${mapInfo.NumNaturalWonders}, LakeGenerationFrequency=${mapInfo.LakeGenerationFrequency}, PlayersLandmass1=${mapInfo.PlayersLandmass1}, PlayersLandmass2=${mapInfo.PlayersLandmass2}`
+    );
+    logEngineSurfaceApisOnce();
     const stageFlags = this.resolveStageFlags();
+    const enabledStages = Object.entries(stageFlags).filter(([, enabled]) => enabled).map(([name]) => name).join(", ");
+    console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
     const foundationCfg = tunables.FOUNDATION_CFG || {};
     const landmassCfg = tunables.LANDMASS_CFG || {};
     const mountainsCfg = foundationCfg.mountains || {};
@@ -4357,20 +5672,17 @@ var MapOrchestrator = class {
     let ctx = null;
     try {
       const layerAdapter = this.createLayerAdapter(iWidth, iHeight);
-      ctx = createExtendedMapContext(
-        { width: iWidth, height: iHeight },
-        layerAdapter,
-        {
-          toggles: {
-            STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
-            STORY_ENABLE_RIFTS: stageFlags.storyRifts,
-            STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
-            STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
-            STORY_ENABLE_PALEO: false,
-            STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost
-          }
+      ctx = createExtendedMapContext({ width: iWidth, height: iHeight }, layerAdapter, {
+        toggles: {
+          STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
+          STORY_ENABLE_RIFTS: stageFlags.storyRifts,
+          STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
+          STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
+          STORY_ENABLE_PALEO: false,
+          STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost
         }
-      );
+      });
+      console.log(`${prefix} MapContext created successfully`);
     } catch (err) {
       console.error(`${prefix} Failed to create context:`, err);
       return { success: false, stageResults: this.stageResults, startPositions };
@@ -4410,7 +5722,8 @@ var MapOrchestrator = class {
           windows,
           landMask: plateResult.landMask,
           context: ctx,
-          adapter: ctx.adapter
+          adapter: ctx.adapter,
+          crustMode: landmassCfg.crustMode
         });
         windows = separationResult.windows;
         windows = applyLandmassPostAdjustments(windows, landmassCfg.geometry, iWidth, iHeight);
@@ -4422,6 +5735,11 @@ var MapOrchestrator = class {
             eastContinent = this.windowToContinentBounds(last, 1);
           }
         }
+        const westMarked = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
+        const eastMarked = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
+        console.log(
+          `[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`
+        );
         this.adapter.validateAndFixTerrain();
         this.adapter.recalculateAreas();
         this.adapter.stampContinents();
@@ -4440,6 +5758,9 @@ var MapOrchestrator = class {
         addPlotTagsSimple(iHeight, iWidth, eastContinent.west, ctx.adapter, terrainBuilder);
       });
       this.stageResults.push(stageResult);
+      if (DEV.ENABLED && ctx?.adapter) {
+        logLandmassAscii(ctx.adapter, iWidth, iHeight);
+      }
     }
     if (stageFlags.coastlines && ctx) {
       const stageResult = this.runStage("coastlines", () => {
@@ -4469,9 +5790,16 @@ var MapOrchestrator = class {
     if (stageFlags.mountains && ctx) {
       const stageResult = this.runStage("mountains", () => {
         assertFoundationContext2(ctx, "mountains");
+        console.log(
+          `${prefix} [Mountains] thresholds mountain=${mountainOptions.mountainThreshold}, hill=${mountainOptions.hillThreshold}, tectonicIntensity=${mountainOptions.tectonicIntensity}, boundaryWeight=${mountainOptions.boundaryWeight}, boundaryExponent=${mountainOptions.boundaryExponent}, interiorPenaltyWeight=${mountainOptions.interiorPenaltyWeight}`
+        );
         layerAddMountainsPhysics(ctx, mountainOptions);
       });
       this.stageResults.push(stageResult);
+      if (DEV.ENABLED && ctx?.adapter) {
+        logMountainSummary(ctx.adapter, iWidth, iHeight);
+        logReliefAscii(ctx.adapter, iWidth, iHeight);
+      }
     }
     if (stageFlags.volcanoes && ctx) {
       const stageResult = this.runStage("volcanoes", () => {
@@ -4479,6 +5807,10 @@ var MapOrchestrator = class {
         layerAddVolcanoesPlateAware(ctx, volcanoOptions);
       });
       this.stageResults.push(stageResult);
+      if (DEV.ENABLED && ctx?.adapter) {
+        const volcanoId = ctx.adapter.getFeatureTypeIndex?.("FEATURE_VOLCANO") ?? -1;
+        logVolcanoSummary(ctx.adapter, iWidth, iHeight, volcanoId);
+      }
     }
     if (stageFlags.lakes && ctx) {
       const iTilesPerLake = Math.max(10, (mapInfo.LakeGenerationFrequency ?? 5) * 2);
@@ -4490,6 +5822,13 @@ var MapOrchestrator = class {
     }
     this.adapter.recalculateAreas();
     this.adapter.buildElevation();
+    const westRestamped = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
+    const eastRestamped = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
+    ctx.adapter.recalculateAreas();
+    ctx.adapter.stampContinents();
+    console.log(
+      `[landmass-plate] LandmassRegionId refreshed post-terrain: ${westRestamped} west (ID=${LANDMASS_REGION.WEST}), ${eastRestamped} east (ID=${LANDMASS_REGION.EAST})`
+    );
     if (stageFlags.climateBaseline && ctx) {
       const stageResult = this.runStage("climateBaseline", () => {
         assertFoundationContext2(ctx, "climateBaseline");
@@ -4498,10 +5837,35 @@ var MapOrchestrator = class {
       this.stageResults.push(stageResult);
     }
     if (stageFlags.rivers && ctx) {
-      const navigableRiverTerrain = 3;
+      const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
+      const logStats = (label) => {
+        const w = iWidth;
+        const h = iHeight;
+        let flat = 0, hill = 0, mtn = 0, water = 0;
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            if (ctx.adapter.isWater(x, y)) {
+              water++;
+              continue;
+            }
+            const t = ctx.adapter.getTerrainType(x, y);
+            if (t === MOUNTAIN_TERRAIN) mtn++;
+            else if (t === HILL_TERRAIN) hill++;
+            else flat++;
+          }
+        }
+        const total = w * h;
+        const land = Math.max(1, flat + hill + mtn);
+        console.log(
+          `[Rivers] ${label}: Land=${land} (${(land / total * 100).toFixed(1)}%) Mtn=${(mtn / land * 100).toFixed(1)}% Hill=${(hill / land * 100).toFixed(1)}% Flat=${(flat / land * 100).toFixed(1)}%`
+        );
+      };
       const stageResult = this.runStage("rivers", () => {
+        logStats("PRE-RIVERS");
         this.adapter.modelRivers(5, 15, navigableRiverTerrain);
+        logStats("POST-MODELRIVERS");
         this.adapter.validateAndFixTerrain();
+        logStats("POST-VALIDATE");
         syncHeightfield(ctx);
         syncClimateField(ctx);
         this.adapter.defineNamedRivers();
@@ -4514,12 +5878,18 @@ var MapOrchestrator = class {
         refineClimateEarthlike(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
+      if (DEV.ENABLED && ctx?.adapter) {
+        logRainfallStats(ctx.adapter, iWidth, iHeight, "post-climate");
+      }
     }
     if (stageFlags.biomes && ctx) {
       const stageResult = this.runStage("biomes", () => {
         designateEnhancedBiomes(iWidth, iHeight, ctx);
       });
       this.stageResults.push(stageResult);
+      if (DEV.ENABLED && ctx?.adapter) {
+        logBiomeSummary(ctx.adapter, iWidth, iHeight);
+      }
     }
     if (stageFlags.features && ctx) {
       const stageResult = this.runStage("features", () => {
@@ -4531,9 +5901,9 @@ var MapOrchestrator = class {
       this.stageResults.push(stageResult);
     }
     this.adapter.storeWaterData();
-    if (stageFlags.placement) {
+    if (stageFlags.placement && ctx) {
       const stageResult = this.runStage("placement", () => {
-        const positions = runPlacement(iWidth, iHeight, {
+        const positions = runPlacement(ctx.adapter, iWidth, iHeight, {
           mapInfo,
           wondersPlusOne: true,
           floodplains: { minLength: 4, maxLength: 10 },
@@ -4585,42 +5955,69 @@ var MapOrchestrator = class {
     return flags;
   }
   runStage(name, fn) {
-    const timer = timeStart(name);
+    const timer = stageTimeStart(name);
     try {
       fn();
-      const durationMs = timeEnd(timer);
+      const durationMs = stageTimeEnd(timer);
       return { stage: name, success: true, durationMs };
     } catch (err) {
-      const durationMs = timeEnd(timer);
+      const durationMs = stageTimeEnd(timer);
       const errorMessage = err instanceof Error ? err.message : String(err);
       console.error(`[MapOrchestrator] Stage "${name}" failed:`, err);
       return { stage: name, success: false, durationMs, error: errorMessage };
     }
   }
+  bindWorldModelConfigProvider() {
+    if (this.worldModelConfigBound) return;
+    setConfigProvider(() => {
+      const tunables = getTunables();
+      return {
+        plates: tunables.FOUNDATION_PLATES,
+        dynamics: tunables.FOUNDATION_DYNAMICS,
+        directionality: tunables.FOUNDATION_DIRECTIONALITY
+      };
+    });
+    this.worldModelConfigBound = true;
+  }
   initializeFoundation(ctx, tunables) {
     const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
+    console.log(`${prefix} Initializing foundation...`);
+    this.bindWorldModelConfigProvider();
     try {
+      console.log(`${prefix} WorldModel.init() starting`);
       if (!WorldModel.init()) {
         throw new Error("WorldModel initialization failed");
       }
+      console.log(`${prefix} WorldModel.init() succeeded`);
       ctx.worldModel = WorldModel;
       const foundationCfg = tunables.FOUNDATION_CFG || {};
-      const foundationContext = createFoundationContext(
-        WorldModel,
-        {
-          dimensions: ctx.dimensions,
-          config: {
-            seed: foundationCfg.seed || {},
-            plates: tunables.FOUNDATION_PLATES,
-            dynamics: tunables.FOUNDATION_DYNAMICS,
-            surface: foundationCfg.surface || {},
-            policy: foundationCfg.policy || {},
-            diagnostics: foundationCfg.diagnostics || {}
-          }
+      console.log(`${prefix} createFoundationContext() starting`);
+      const foundationContext = createFoundationContext(WorldModel, {
+        dimensions: ctx.dimensions,
+        config: {
+          seed: foundationCfg.seed || {},
+          plates: tunables.FOUNDATION_PLATES,
+          dynamics: tunables.FOUNDATION_DYNAMICS,
+          surface: foundationCfg.surface || {},
+          policy: foundationCfg.policy || {},
+          diagnostics: foundationCfg.diagnostics || {}
         }
-      );
+      });
+      console.log(`${prefix} createFoundationContext() succeeded`);
       ctx.foundation = foundationContext;
       console.log(`${prefix} Foundation context initialized`);
+      if (DEV.ENABLED && ctx.adapter) {
+        const plates = {
+          plateId: foundationContext.plates.id,
+          boundaryType: foundationContext.plates.boundaryType,
+          boundaryCloseness: foundationContext.plates.boundaryCloseness,
+          upliftPotential: foundationContext.plates.upliftPotential,
+          riftPotential: foundationContext.plates.riftPotential
+        };
+        logFoundationSummary(ctx.adapter, ctx.dimensions.width, ctx.dimensions.height, plates);
+        logFoundationAscii(ctx.adapter, ctx.dimensions.width, ctx.dimensions.height, plates);
+        logFoundationHistograms(ctx.dimensions.width, ctx.dimensions.height, plates);
+      }
       return foundationContext;
     } catch (err) {
       console.error(`${prefix} Failed to initialize foundation:`, err);
@@ -4668,22 +6065,25 @@ var MapOrchestrator = class {
   buildMountainOptions(config) {
     return {
       tectonicIntensity: config.tectonicIntensity ?? 1,
-      mountainThreshold: config.mountainThreshold ?? 0.45,
-      hillThreshold: config.hillThreshold ?? 0.25,
-      upliftWeight: config.upliftWeight ?? 0.75,
-      fractalWeight: config.fractalWeight ?? 0.25,
-      riftDepth: config.riftDepth ?? 0.3,
-      boundaryWeight: config.boundaryWeight ?? 0.6,
-      boundaryExponent: config.boundaryExponent ?? 1.4,
-      interiorPenaltyWeight: config.interiorPenaltyWeight ?? 0.2,
-      convergenceBonus: config.convergenceBonus ?? 0.9,
-      transformPenalty: config.transformPenalty ?? 0.3,
-      riftPenalty: config.riftPenalty ?? 0.75,
-      hillBoundaryWeight: config.hillBoundaryWeight ?? 0.45,
-      hillRiftBonus: config.hillRiftBonus ?? 0.5,
-      hillConvergentFoothill: config.hillConvergentFoothill ?? 0.25,
-      hillInteriorFalloff: config.hillInteriorFalloff ?? 0.2,
-      hillUpliftWeight: config.hillUpliftWeight ?? 0.25
+      // Defaults are aligned with the crust-first collision-only formulation in
+      // layers/mountains.ts. If callers supply overrides, those values will be
+      // used instead.
+      mountainThreshold: config.mountainThreshold ?? 0.58,
+      hillThreshold: config.hillThreshold ?? 0.32,
+      upliftWeight: config.upliftWeight ?? 0.35,
+      fractalWeight: config.fractalWeight ?? 0.15,
+      riftDepth: config.riftDepth ?? 0.2,
+      boundaryWeight: config.boundaryWeight ?? 1,
+      boundaryExponent: config.boundaryExponent ?? 1.6,
+      interiorPenaltyWeight: config.interiorPenaltyWeight ?? 0,
+      convergenceBonus: config.convergenceBonus ?? 1,
+      transformPenalty: config.transformPenalty ?? 0.6,
+      riftPenalty: config.riftPenalty ?? 1,
+      hillBoundaryWeight: config.hillBoundaryWeight ?? 0.35,
+      hillRiftBonus: config.hillRiftBonus ?? 0.25,
+      hillConvergentFoothill: config.hillConvergentFoothill ?? 0.35,
+      hillInteriorFalloff: config.hillInteriorFalloff ?? 0.1,
+      hillUpliftWeight: config.hillUpliftWeight ?? 0.2
     };
   }
   buildVolcanoOptions(config) {

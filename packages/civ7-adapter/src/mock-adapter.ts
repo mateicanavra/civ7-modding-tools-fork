@@ -71,6 +71,7 @@ export class MockAdapter implements EngineAdapter {
   private biomes: Uint8Array;
   private waterMask: Uint8Array;
   private mountainMask: Uint8Array;
+  private landmassRegionIds: Uint8Array;
   private rngFn: (max: number, label: string) => number;
   private biomeGlobals: Record<string, number>;
   private featureTypes: Record<string, number>;
@@ -107,6 +108,7 @@ export class MockAdapter implements EngineAdapter {
     this.biomes = new Uint8Array(size).fill(config.defaultBiomeType ?? 0);
     this.waterMask = new Uint8Array(size);
     this.mountainMask = new Uint8Array(size);
+    this.landmassRegionIds = new Uint8Array(size);
     this.rngFn = config.rng ?? ((max) => Math.floor(Math.random() * max));
     this.biomeGlobals = config.biomeGlobals ?? { ...DEFAULT_BIOME_GLOBALS };
     this.featureTypes = config.featureTypes ?? { ...DEFAULT_FEATURE_TYPES };
@@ -172,6 +174,18 @@ export class MockAdapter implements EngineAdapter {
 
   setRainfall(x: number, y: number, value: number): void {
     this.rainfall[this.idx(x, y)] = Math.max(0, Math.min(200, value));
+  }
+
+  setLandmassRegionId(x: number, y: number, regionId: number): void {
+    this.landmassRegionIds[this.idx(x, y)] = regionId;
+  }
+
+  addPlotTag(_x: number, _y: number, _plotTag: number): void {
+    // No-op in mock - plot tags are engine-specific
+  }
+
+  setPlotTag(_x: number, _y: number, _plotTag: number): void {
+    // No-op in mock - plot tags are engine-specific
   }
 
   // === FEATURE READS/WRITES ===
@@ -358,6 +372,7 @@ export class MockAdapter implements EngineAdapter {
     this.biomes.fill(config.defaultBiomeType ?? 0);
     this.waterMask.fill(0);
     this.mountainMask.fill(0);
+    this.landmassRegionIds.fill(0);
     this.calls.designateBiomes.length = 0;
     this.calls.addFeatures.length = 0;
     this.calls.addNaturalWonders.length = 0;

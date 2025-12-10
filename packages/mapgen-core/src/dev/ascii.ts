@@ -11,9 +11,9 @@ import type { EngineAdapter } from "@civ7/adapter";
 import { isDevEnabled, type DevFlagKey } from "./flags.js";
 import { devLog, devLogLines } from "./logging.js";
 
-// Hill terrain type constant (from map-globals)
-// This is typically 2 in Civ7, but we check dynamically when possible
-const HILL_TERRAIN_DEFAULT = 2;
+// Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
+// CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
+import { HILL_TERRAIN } from "../core/terrain-constants.js";
 
 /**
  * Standard ASCII character sets for different visualizations.
@@ -252,7 +252,7 @@ export function logReliefAscii(
         const isMountain = adapter.isMountain(x, y);
         // Check hills by terrain type (no isHills on adapter)
         const terrainType = adapter.getTerrainType(x, y);
-        const isHills = terrainType === HILL_TERRAIN_DEFAULT;
+        const isHills = terrainType === HILL_TERRAIN;
 
         if (isMountain) {
           return { base: chars.base.land, overlay: chars.relief.mountain };

@@ -72,6 +72,15 @@ export interface EngineAdapter {
   /** Set rainfall (0..200) */
   setRainfall(x: number, y: number, rainfall: number): void;
 
+  /** Set landmass region ID for start position filtering */
+  setLandmassRegionId(x: number, y: number, regionId: number): void;
+
+  /** Add a plot tag to a tile (used for start position filtering) */
+  addPlotTag(x: number, y: number, plotTag: number): void;
+
+  /** Set plot tag (replaces existing tags) */
+  setPlotTag(x: number, y: number, plotTag: number): void;
+
   // === FEATURE READS/WRITES ===
 
   /** Get feature type ID */
@@ -225,6 +234,24 @@ export interface EngineAdapter {
    * Wraps FertilityBuilder.recalculate()
    */
   recalculateFertility(): void;
+
+  /**
+   * Choose start sectors for players
+   * Wraps /base-standard/maps/assign-starting-plots.js chooseStartSectors()
+   */
+  chooseStartSectors?(
+    players1: number,
+    players2: number,
+    rows: number,
+    cols: number,
+    humanNearEquator: boolean
+  ): unknown[];
+
+  /**
+   * Check if human player should start near equator
+   * Wraps /base-standard/maps/map-utilities.js needHumanNearEquator()
+   */
+  needHumanNearEquator?(): boolean;
 }
 
 /**

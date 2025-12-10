@@ -28,7 +28,7 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import { Civ7Adapter } from "@civ7/adapter/civ7";
+import { Civ7Adapter, createCiv7Adapter } from "@civ7/adapter/civ7";
 import type {
   LandmassConfig,
   MountainsConfig,
@@ -44,11 +44,21 @@ import {
   syncHeightfield,
   syncClimateField,
 } from "./core/types.js";
-import { addPlotTagsSimple, type TerrainBuilderLike } from "./core/plot-tags.js";
+import {
+  addPlotTagsSimple,
+  markLandmassRegionId,
+  LANDMASS_REGION,
+  type TerrainBuilderLike,
+} from "./core/plot-tags.js";
+import {
+  MOUNTAIN_TERRAIN,
+  HILL_TERRAIN,
+  NAVIGABLE_RIVER_TERRAIN,
+} from "./core/terrain-constants.js";
 import { getTunables, resetTunables, stageEnabled } from "./bootstrap/tunables.js";
 import { validateStageDrift } from "./bootstrap/resolved.js";
 import { resetStoryTags } from "./story/tags.js";
-import { WorldModel } from "./world/model.js";
+import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/index.js";
 
 // Layer imports
 import { createPlateDrivenLandmasses } from "./layers/landmass-plate.js";
@@ -101,6 +111,12 @@ export interface MapInitParams {
 
 /** Map info from GameInfo.Maps lookup */
 export interface MapInfo {
+  // === Map Size Dimensions ===
+  GridWidth?: number;
+  GridHeight?: number;
+  MinLatitude?: number;
+  MaxLatitude?: number;
+  // === Game Setup Parameters ===
   NumNaturalWonders?: number;
   LakeGenerationFrequency?: number;
   PlayersLandmass1?: number;
@@ -108,6 +124,24 @@ export interface MapInfo {
   StartSectorRows?: number;
   StartSectorCols?: number;
   [key: string]: unknown;
+}
+
+/**
+ * Map size defaults for testing (bypasses game settings).
+ *
+ * When provided via OrchestratorConfig.mapSizeDefaults, these values
+ * bypass GameplayMap.getMapSize() and GameInfo.Maps.lookup() calls,
+ * allowing tests to control map dimensions without engine globals.
+ */
+export interface MapSizeDefaults {
+  /**
+   * Numeric map size ID as returned by GameplayMap.getMapSize().
+   * Used for logging only; the actual dimensions come from mapInfo.
+   * Example values: 0 (small), 1 (standard), 2 (large), etc.
+   */
+  mapSizeId?: number;
+  /** Map info to use for dimension/latitude lookups */
+  mapInfo?: MapInfo;
 }
 
 /** Orchestrator configuration */
@@ -124,6 +158,11 @@ export interface OrchestratorConfig {
   createAdapter?: (width: number, height: number) => EngineAdapter;
   /** Log prefix for console output */
   logPrefix?: string;
+  /**
+   * Override map size defaults for testing.
+   * When set, bypasses GameplayMap.getMapSize() and GameInfo.Maps.lookup().
+   */
+  mapSizeDefaults?: MapSizeDefaults;
 }
 
 /** Stage execution result */
@@ -149,7 +188,9 @@ export interface GenerationResult {
 function assertFoundationContext(
   ctx: ExtendedMapContext | null,
   stageName: string
-): asserts ctx is ExtendedMapContext & { foundation: NonNullable<ExtendedMapContext["foundation"]> } {
+): asserts ctx is ExtendedMapContext & {
+  foundation: NonNullable<ExtendedMapContext["foundation"]>;
+} {
   if (!ctx) {
     throw new Error(`Stage "${stageName}" requires ExtendedMapContext but ctx is null`);
   }
@@ -211,10 +252,8 @@ interface OrchestratorAdapter {
 function resolveOrchestratorAdapter(): OrchestratorAdapter {
   // Use engine globals directly - orchestrator-specific operations
   return {
-    getGridWidth: () =>
-      typeof GameplayMap !== "undefined" ? GameplayMap.getGridWidth() : 0,
-    getGridHeight: () =>
-      typeof GameplayMap !== "undefined" ? GameplayMap.getGridHeight() : 0,
+    getGridWidth: () => (typeof GameplayMap !== "undefined" ? GameplayMap.getGridWidth() : 0),
+    getGridHeight: () => (typeof GameplayMap !== "undefined" ? GameplayMap.getGridHeight() : 0),
     getMapSize: () =>
       typeof GameplayMap !== "undefined" ? (GameplayMap.getMapSize() as unknown as number) : 0,
     lookupMapInfo: (mapSize: number) =>
@@ -297,30 +336,26 @@ function resolveOrchestratorAdapter(): OrchestratorAdapter {
       cols: number,
       humanNearEquator: boolean
     ) => {
+      // Use Civ7Adapter with static imports instead of require()
       try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const mod = require("/base-standard/maps/assign-starting-plots.js") as {
-          chooseStartSectors?: (p1: number, p2: number, r: number, c: number, h: boolean) => unknown[];
-        };
-        if (mod?.chooseStartSectors) {
-          return mod.chooseStartSectors(players1, players2, rows, cols, humanNearEquator);
+        const civ7 = createCiv7Adapter();
+        if (typeof civ7.chooseStartSectors === "function") {
+          return civ7.chooseStartSectors(players1, players2, rows, cols, humanNearEquator);
         }
-      } catch {
-        console.log("[MapOrchestrator] chooseStartSectors not available");
+      } catch (err) {
+        console.log("[MapOrchestrator] chooseStartSectors not available:", err);
       }
       return [];
     },
     needHumanNearEquator: () => {
+      // Use Civ7Adapter with static imports instead of require()
       try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const mod = require("/base-standard/maps/map-utilities.js") as {
-          needHumanNearEquator?: () => boolean;
-        };
-        if (mod?.needHumanNearEquator) {
-          return mod.needHumanNearEquator();
+        const civ7 = createCiv7Adapter();
+        if (typeof civ7.needHumanNearEquator === "function") {
+          return civ7.needHumanNearEquator();
         }
-      } catch {
-        console.log("[MapOrchestrator] needHumanNearEquator not available");
+      } catch (err) {
+        console.log("[MapOrchestrator] needHumanNearEquator not available:", err);
       }
       return false;
     },
@@ -338,6 +373,7 @@ export class MapOrchestrator {
   private config: OrchestratorConfig;
   private adapter: OrchestratorAdapter;
   private stageResults: StageResult[] = [];
+  private worldModelConfigBound = false;
 
   constructor(config: OrchestratorConfig = {}) {
     this.config = config;
@@ -346,23 +382,63 @@ export class MapOrchestrator {
 
   /**
    * Handle RequestMapInitData event.
-   * Sets map dimensions and latitude parameters.
+   * Sets map dimensions and latitude parameters from game settings.
+   *
+   * Flow: GameplayMap.getMapSize() → GameInfo.Maps.lookup() → extract dimensions
+   * This replaces the previous hard-coded 84×54 approach (CIV-22).
+   *
+   * For testing, use `config.mapSizeDefaults` to bypass game settings.
    */
   requestMapData(initParams?: Partial<MapInitParams>): void {
     const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} === RequestMapInitData ===`);
 
+    // Get map size and info: use config defaults if provided (for testing),
+    // otherwise query game settings
+    let mapSizeId: number;
+    let mapInfo: MapInfo | null;
+
+    if (this.config.mapSizeDefaults) {
+      // Testing mode: use provided defaults
+      mapSizeId = this.config.mapSizeDefaults.mapSizeId ?? 0;
+      mapInfo = this.config.mapSizeDefaults.mapInfo ?? null;
+      console.log(`${prefix} Using test mapSizeDefaults`);
+    } else {
+      // Production mode: query game settings
+      mapSizeId = this.adapter.getMapSize();
+      mapInfo = this.adapter.lookupMapInfo(mapSizeId);
+    }
+
+    // Extract dimensions from MapInfo, with sensible fallbacks.
+    // Fallback values intentionally mirror Civ7's MAPSIZE_STANDARD defaults:
+    //   - 84×54 grid dimensions
+    //   - ±80° latitude bounds
+    // These are used when GameInfo.Maps.lookup() fails or returns incomplete data.
+    // If Civ7's base map defaults change, these should be updated to match.
+    const gameWidth = mapInfo?.GridWidth ?? 84;
+    const gameHeight = mapInfo?.GridHeight ?? 54;
+    const gameMaxLat = mapInfo?.MaxLatitude ?? 80;
+    const gameMinLat = mapInfo?.MinLatitude ?? -80;
+
+    console.log(`${prefix} Map size ID: ${mapSizeId}`);
+    console.log(
+      `${prefix} MapInfo: GridWidth=${gameWidth}, GridHeight=${gameHeight}, Lat=[${gameMinLat}, ${gameMaxLat}]`
+    );
+
+    // Build params: explicit overrides take precedence over game settings
     const params: MapInitParams = {
-      width: initParams?.width ?? 84,
-      height: initParams?.height ?? 54,
-      topLatitude: initParams?.topLatitude ?? 80,
-      bottomLatitude: initParams?.bottomLatitude ?? -80,
+      width: initParams?.width ?? gameWidth,
+      height: initParams?.height ?? gameHeight,
+      topLatitude: initParams?.topLatitude ?? gameMaxLat,
+      bottomLatitude: initParams?.bottomLatitude ?? gameMinLat,
       wrapX: initParams?.wrapX ?? true,
       wrapY: initParams?.wrapY ?? false,
     };
 
-    console.log(`${prefix} Map dimensions: ${params.width} x ${params.height}`);
-    console.log(`${prefix} Latitude range: ${params.bottomLatitude} to ${params.topLatitude}`);
+    console.log(`${prefix} Final dimensions: ${params.width} x ${params.height}`);
+    console.log(
+      `${prefix} Final latitude range: ${params.bottomLatitude} to ${params.topLatitude}`
+    );
 
     this.adapter.setMapInitData(params);
   }
@@ -380,7 +456,11 @@ export class MapOrchestrator {
 
     // Enable dev diagnostics so engine surface introspection and other DEV
     // helpers can run during this generation pass.
-    initDevFlags({ enabled: true });
+    // Load diagnostics flags from config (e.g. LOG_LANDMASS_ASCII)
+    const devTunables = getTunables();
+    const devFoundationCfg = devTunables.FOUNDATION_CFG || {};
+    const diagnostics = (devFoundationCfg.diagnostics || {}) as Record<string, unknown>;
+    initDevFlags({ ...diagnostics, enabled: true });
 
     // Refresh configuration and world state
     resetTunables();
@@ -438,20 +518,16 @@ export class MapOrchestrator {
     try {
       // Create adapter for layer operations
       const layerAdapter = this.createLayerAdapter(iWidth, iHeight);
-      ctx = createExtendedMapContext(
-        { width: iWidth, height: iHeight },
-        layerAdapter,
-        {
-          toggles: {
-            STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
-            STORY_ENABLE_RIFTS: stageFlags.storyRifts,
-            STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
-            STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
-            STORY_ENABLE_PALEO: false,
-            STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
-          },
-        }
-      );
+      ctx = createExtendedMapContext({ width: iWidth, height: iHeight }, layerAdapter, {
+        toggles: {
+          STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
+          STORY_ENABLE_RIFTS: stageFlags.storyRifts,
+          STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
+          STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
+          STORY_ENABLE_PALEO: false,
+          STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
+        },
+      });
       console.log(`${prefix} MapContext created successfully`);
     } catch (err) {
       console.error(`${prefix} Failed to create context:`, err);
@@ -510,6 +586,7 @@ export class MapOrchestrator {
           landMask: plateResult.landMask,
           context: ctx,
           adapter: ctx.adapter,
+          crustMode: landmassCfg.crustMode,
         });
         windows = separationResult.windows;
 
@@ -525,6 +602,15 @@ export class MapOrchestrator {
             eastContinent = this.windowToContinentBounds(last, 1);
           }
         }
+
+        // Mark LandmassRegionId EARLY - this MUST happen before validateAndFixTerrain.
+        // The vanilla StartPositioner.divideMapIntoMajorRegions() filters by this ID.
+        // This matches the vanilla continents.js order: markLandmassRegionId → validate → expand → recalculate → stamp
+        const westMarked = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
+        const eastMarked = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
+        console.log(
+          `[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`
+        );
 
         // Validate and stamp continents
         this.adapter.validateAndFixTerrain();
@@ -604,6 +690,16 @@ export class MapOrchestrator {
         // Assert foundation is available - fail fast if not
         assertFoundationContext(ctx, "mountains");
 
+        console.log(
+          `${prefix} [Mountains] thresholds ` +
+            `mountain=${mountainOptions.mountainThreshold}, ` +
+            `hill=${mountainOptions.hillThreshold}, ` +
+            `tectonicIntensity=${mountainOptions.tectonicIntensity}, ` +
+            `boundaryWeight=${mountainOptions.boundaryWeight}, ` +
+            `boundaryExponent=${mountainOptions.boundaryExponent}, ` +
+            `interiorPenaltyWeight=${mountainOptions.interiorPenaltyWeight}`
+        );
+
         layerAddMountainsPhysics(ctx, mountainOptions);
       });
       this.stageResults.push(stageResult);
@@ -651,6 +747,16 @@ export class MapOrchestrator {
     this.adapter.recalculateAreas();
     this.adapter.buildElevation();
 
+    // Refresh landmass regions after coast/rugged/island/lake/mountain changes so StartPositioner
+    // sees the final land/water layout.
+    const westRestamped = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
+    const eastRestamped = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
+    ctx.adapter.recalculateAreas();
+    ctx.adapter.stampContinents();
+    console.log(
+      `[landmass-plate] LandmassRegionId refreshed post-terrain: ${westRestamped} west (ID=${LANDMASS_REGION.WEST}), ${eastRestamped} east (ID=${LANDMASS_REGION.EAST})`
+    );
+
     // ========================================================================
     // Stage: Climate Baseline
     // ========================================================================
@@ -668,10 +774,44 @@ export class MapOrchestrator {
     // Stage: Rivers
     // ========================================================================
     if (stageFlags.rivers && ctx) {
-      const navigableRiverTerrain = 3; // g_NavigableRiverTerrain
+      // Use terrain constant from shared module (terrain.xml: 5=NAVIGABLE_RIVER)
+      const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
+      const logStats = (label: string) => {
+        const w = iWidth;
+        const h = iHeight;
+        let flat = 0,
+          hill = 0,
+          mtn = 0,
+          water = 0;
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            if (ctx!.adapter.isWater(x, y)) {
+              water++;
+              continue;
+            }
+            const t = ctx!.adapter.getTerrainType(x, y);
+            // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
+            if (t === MOUNTAIN_TERRAIN) mtn++;
+            else if (t === HILL_TERRAIN) hill++;
+            else flat++;
+          }
+        }
+        const total = w * h;
+        const land = Math.max(1, flat + hill + mtn);
+        console.log(
+          `[Rivers] ${label}: Land=${land} (${((land / total) * 100).toFixed(1)}%) ` +
+            `Mtn=${((mtn / land) * 100).toFixed(1)}% ` +
+            `Hill=${((hill / land) * 100).toFixed(1)}% ` +
+            `Flat=${((flat / land) * 100).toFixed(1)}%`
+        );
+      };
+
       const stageResult = this.runStage("rivers", () => {
+        logStats("PRE-RIVERS");
         this.adapter.modelRivers(5, 15, navigableRiverTerrain);
+        logStats("POST-MODELRIVERS");
         this.adapter.validateAndFixTerrain();
+        logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
         syncClimateField(ctx!);
         this.adapter.defineNamedRivers();
@@ -806,12 +946,30 @@ export class MapOrchestrator {
     }
   }
 
+  private bindWorldModelConfigProvider(): void {
+    if (this.worldModelConfigBound) return;
+
+    setConfigProvider((): WorldModelConfig => {
+      const tunables = getTunables();
+      return {
+        plates: tunables.FOUNDATION_PLATES,
+        dynamics: tunables.FOUNDATION_DYNAMICS,
+        directionality: tunables.FOUNDATION_DIRECTIONALITY,
+      };
+    });
+
+    this.worldModelConfigBound = true;
+  }
+
   private initializeFoundation(
     ctx: ExtendedMapContext,
     tunables: ReturnType<typeof getTunables>
   ): FoundationContext | null {
     const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} Initializing foundation...`);
+
+    // Ensure WorldModel pulls configuration from foundation tunables
+    this.bindWorldModelConfigProvider();
     try {
       console.log(`${prefix} WorldModel.init() starting`);
       if (!WorldModel.init()) {
@@ -822,20 +980,17 @@ export class MapOrchestrator {
 
       const foundationCfg = tunables.FOUNDATION_CFG || {};
       console.log(`${prefix} createFoundationContext() starting`);
-      const foundationContext = createFoundationContext(
-        WorldModel as unknown as WorldModelState,
-        {
-          dimensions: ctx.dimensions,
-          config: {
-            seed: (foundationCfg.seed || {}) as Record<string, unknown>,
-            plates: tunables.FOUNDATION_PLATES as Record<string, unknown>,
-            dynamics: tunables.FOUNDATION_DYNAMICS as Record<string, unknown>,
-            surface: (foundationCfg.surface || {}) as Record<string, unknown>,
-            policy: (foundationCfg.policy || {}) as Record<string, unknown>,
-            diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
-          },
-        }
-      );
+      const foundationContext = createFoundationContext(WorldModel as unknown as WorldModelState, {
+        dimensions: ctx.dimensions,
+        config: {
+          seed: (foundationCfg.seed || {}) as Record<string, unknown>,
+          plates: tunables.FOUNDATION_PLATES as Record<string, unknown>,
+          dynamics: tunables.FOUNDATION_DYNAMICS as Record<string, unknown>,
+          surface: (foundationCfg.surface || {}) as Record<string, unknown>,
+          policy: (foundationCfg.policy || {}) as Record<string, unknown>,
+          diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
+        },
+      });
       console.log(`${prefix} createFoundationContext() succeeded`);
       ctx.foundation = foundationContext;
 
@@ -917,22 +1072,25 @@ export class MapOrchestrator {
   private buildMountainOptions(config: MountainsConfig): MountainsConfig {
     return {
       tectonicIntensity: config.tectonicIntensity ?? 1.0,
-      mountainThreshold: config.mountainThreshold ?? 0.45,
-      hillThreshold: config.hillThreshold ?? 0.25,
-      upliftWeight: config.upliftWeight ?? 0.75,
-      fractalWeight: config.fractalWeight ?? 0.25,
-      riftDepth: config.riftDepth ?? 0.3,
-      boundaryWeight: config.boundaryWeight ?? 0.6,
-      boundaryExponent: config.boundaryExponent ?? 1.4,
-      interiorPenaltyWeight: config.interiorPenaltyWeight ?? 0.2,
-      convergenceBonus: config.convergenceBonus ?? 0.9,
-      transformPenalty: config.transformPenalty ?? 0.3,
-      riftPenalty: config.riftPenalty ?? 0.75,
-      hillBoundaryWeight: config.hillBoundaryWeight ?? 0.45,
-      hillRiftBonus: config.hillRiftBonus ?? 0.5,
-      hillConvergentFoothill: config.hillConvergentFoothill ?? 0.25,
-      hillInteriorFalloff: config.hillInteriorFalloff ?? 0.2,
-      hillUpliftWeight: config.hillUpliftWeight ?? 0.25,
+      // Defaults are aligned with the crust-first collision-only formulation in
+      // layers/mountains.ts. If callers supply overrides, those values will be
+      // used instead.
+      mountainThreshold: config.mountainThreshold ?? 0.58,
+      hillThreshold: config.hillThreshold ?? 0.32,
+      upliftWeight: config.upliftWeight ?? 0.35,
+      fractalWeight: config.fractalWeight ?? 0.15,
+      riftDepth: config.riftDepth ?? 0.2,
+      boundaryWeight: config.boundaryWeight ?? 1.0,
+      boundaryExponent: config.boundaryExponent ?? 1.6,
+      interiorPenaltyWeight: config.interiorPenaltyWeight ?? 0.0,
+      convergenceBonus: config.convergenceBonus ?? 1.0,
+      transformPenalty: config.transformPenalty ?? 0.6,
+      riftPenalty: config.riftPenalty ?? 1.0,
+      hillBoundaryWeight: config.hillBoundaryWeight ?? 0.35,
+      hillRiftBonus: config.hillRiftBonus ?? 0.25,
+      hillConvergentFoothill: config.hillConvergentFoothill ?? 0.35,
+      hillInteriorFalloff: config.hillInteriorFalloff ?? 0.1,
+      hillUpliftWeight: config.hillUpliftWeight ?? 0.2,
     };
   }
 

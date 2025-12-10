@@ -151,6 +151,12 @@ function computePlates(
     directionality: config.directionality ?? null,
   };
 
+  console.log(
+    `[WorldModel] Config plates.count=${count}, relaxationSteps=${relaxationSteps}, ` +
+      `convergenceMix=${convergenceMix}, rotationMultiple=${plateRotationMultiple}, ` +
+      `seedMode=${seedMode}, directionality.cohesion=${configSnapshot.directionality?.cohesion ?? "n/a"}`
+  );
+
   const { snapshot: seedBase, restore: restoreSeed } = PlateSeedManager.capture(
     width,
     height,

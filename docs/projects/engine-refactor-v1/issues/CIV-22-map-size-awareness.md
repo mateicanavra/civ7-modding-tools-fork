@@ -40,27 +40,28 @@ This ignores:
 
 ## Deliverables
 
-- [ ] **Restore map size lookup flow:**
+- [x] **Restore map size lookup flow:**
   - `GameplayMap.getMapSize()` → get selected map size ID
   - `GameInfo.Maps.lookup(sizeId)` → get map defaults
   - Extract width, height, min/max latitude from defaults
-- [ ] **Add adapter methods if needed:**
-  - `adapter.getMapSize(): MapSizeId`
-  - `adapter.getMapDefaults(sizeId): MapDefaults`
-- [ ] **Update `requestMapData()`:**
+- [x] **Add adapter methods if needed:**
+  - `OrchestratorAdapter.getMapSize()` already existed
+  - `OrchestratorAdapter.lookupMapInfo()` already existed
+  - Added `GridWidth`, `GridHeight`, `MinLatitude`, `MaxLatitude` to `MapInfo` interface
+- [x] **Update `requestMapData()`:**
   - Read dimensions from game, not constants
   - Pass latitude bounds from map defaults
-- [ ] **Fallback for testing:**
-  - MockAdapter should provide sensible test defaults
-  - Allow explicit dimension override in bootstrap for tests
+- [x] **Fallback for testing:**
+  - Added `mapSizeDefaults` config option for testing
+  - Allow explicit dimension override via `initParams`
 
 ## Acceptance Criteria
 
-- [ ] `requestMapData()` reads dimensions from game settings
-- [ ] Different map size selections produce different dimension maps
-- [ ] Latitude bounds come from map defaults, not constants
-- [ ] MockAdapter provides default dimensions for testing
-- [ ] Build passes, tests pass
+- [x] `requestMapData()` reads dimensions from game settings
+- [x] Different map size selections produce different dimension maps
+- [x] Latitude bounds come from map defaults, not constants
+- [x] `mapSizeDefaults` config option for testing
+- [x] Build passes, tests pass
 
 ## Testing / Verification
 
