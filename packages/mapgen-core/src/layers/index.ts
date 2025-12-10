@@ -7,9 +7,12 @@
  * - Islands: Island chain placement
  * - Mountains: Physics-based mountain placement
  * - Volcanoes: Plate-aware volcano placement
+ * - Climate: Rainfall and humidity modeling
+ * - Biomes: Climate-aware biome designation
+ * - Features: Feature placement with climate awareness
  */
 
-export const LAYERS_MODULE_VERSION = "0.2.0";
+export const LAYERS_MODULE_VERSION = "0.3.0";
 
 // ============================================================================
 // Landmass Layers
@@ -78,6 +81,40 @@ export {
   layerAddVolcanoesPlateAware,
   type VolcanoesConfig,
 } from "./volcanoes.js";
+
+// ============================================================================
+// Climate Layer
+// ============================================================================
+
+export {
+  applyClimateBaseline,
+  applyClimateSwatches,
+  refineClimateEarthlike,
+  type ClimateConfig,
+  type ClimateRuntime,
+  type ClimateAdapter,
+  type OrogenyCache,
+  type ClimateSwatchResult,
+} from "./climate-engine.js";
+
+// ============================================================================
+// Biomes Layer
+// ============================================================================
+
+export {
+  designateEnhancedBiomes,
+  type BiomeConfig,
+} from "./biomes.js";
+
+// ============================================================================
+// Features Layer
+// ============================================================================
+
+export {
+  addDiverseFeatures,
+  type FeaturesConfig,
+  type FeaturesDensityConfig,
+} from "./features.js";
 
 // ============================================================================
 // Layer Stage Types
