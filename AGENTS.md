@@ -47,6 +47,10 @@
 - Runtime overrides must target the consolidated `foundation.*` block directly—`bootstrap/resolved.js` no longer backfills from `worldModel`, and the resolver emits `[Foundation]` warnings if legacy groups are present.
 - Dev diagnostics toggles have been renamed to `LOG_FOUNDATION_*`; the ASCII, summary, and histogram helpers now log under a `[Foundation]` prefix.
 
+## MapGen configuration
+
+- The canonical TypeBox schema and derived types live at `packages/mapgen-core/src/config/schema.ts` and are exported via `@swooper/mapgen-core/config` (built by the `tsup` entry `src/config/index.ts`).
+
 ### Testing imports
 - Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.
 
