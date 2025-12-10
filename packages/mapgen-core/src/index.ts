@@ -30,5 +30,15 @@ export * from "./core/index.js";
 // Re-export story module
 export * from "./story/index.js";
 
+// Re-export MapOrchestrator
+export {
+  MapOrchestrator,
+  type MapInitParams,
+  type MapInfo,
+  type OrchestratorConfig,
+  type StageResult,
+  type GenerationResult,
+} from "./MapOrchestrator.js";
+
 // Package version
 export const VERSION = "0.1.0";
