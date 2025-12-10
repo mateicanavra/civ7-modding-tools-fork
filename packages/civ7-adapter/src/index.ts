@@ -16,7 +16,7 @@
  */
 
 // Re-export types
-export type { EngineAdapter, FeatureData, MapDimensions, MapContext } from "./types.js";
+export type { EngineAdapter, FeatureData, MapDimensions, MapContext, ContinentBounds } from "./types.js";
 
 // Re-export mock adapter (safe to import anywhere)
 export { MockAdapter, createMockAdapter } from "./mock-adapter.js";

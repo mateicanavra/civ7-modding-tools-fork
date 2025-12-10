@@ -4,6 +4,10 @@
  * Type definitions for configuration and bootstrap system.
  */
 
+// ContinentBounds canonical source is @civ7/adapter
+import type { ContinentBounds } from "@civ7/adapter";
+export type { ContinentBounds };
+
 // ============================================================================
 // Runtime Configuration Types
 // ============================================================================
@@ -446,15 +450,6 @@ export interface PlacementConfig {
   wondersPlusOne?: boolean;
   /** Floodplains generation settings */
   floodplains?: FloodplainsConfig;
-}
-
-/** Start placement continent boundary */
-export interface ContinentBounds {
-  west: number;
-  east: number;
-  south: number;
-  north: number;
-  continent: number;
 }
 
 /** Start placement configuration passed to the placement layer */
