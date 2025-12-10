@@ -1,7 +1,7 @@
 ---
 id: CIV-30
 title: "[M2] Wire MapOrchestrator to validated config"
-state: planned
+state: in-progress
 priority: 2
 estimate: 0
 project: engine-refactor-v1
@@ -22,22 +22,22 @@ Update `MapOrchestrator` to receive validated `MapGenConfig` via constructor inj
 
 ## Deliverables
 
-- [ ] Update `MapOrchestrator` constructor to accept `MapGenConfig` as parameter
-- [ ] Remove internal calls to `getConfig()` or global config lookups
-- [ ] Store validated config as instance property (`this.config`)
-- [ ] Add fail-fast check: throw if config is not provided or invalid
-- [ ] Update callers (mod entry points) to pass config from `bootstrap()`
-- [ ] Ensure config is accessible to downstream stages via orchestrator
+- [x] Update `MapOrchestrator` constructor to accept `MapGenConfig` as parameter
+- [x] Remove internal calls to `getConfig()` or global config lookups
+- [x] Store validated config as instance property (`this.mapGenConfig`)
+- [x] Add fail-fast check: throw if config is not provided or invalid
+- [x] Update callers (mod entry points) to pass config from `bootstrap()`
+- [x] Ensure config is accessible to downstream stages via orchestrator (`getMapGenConfig()`)
 
 ## Acceptance Criteria
 
-- [ ] `MapOrchestrator` constructor signature: `constructor(config: MapGenConfig, adapter: EngineAdapter)`
-- [ ] Constructing without config throws: `new MapOrchestrator(undefined as any, adapter)` → Error
-- [ ] `this.config` is available throughout orchestration lifecycle
-- [ ] No `getConfig()` calls remain in `MapOrchestrator.ts`
-- [ ] Mod entry points updated to: `const config = bootstrap(opts); new MapOrchestrator(config, adapter)`
-- [ ] TypeScript compiles without errors
-- [ ] Existing map generation continues to work
+- [x] `MapOrchestrator` constructor signature: `constructor(config: MapGenConfig, options?: OrchestratorConfig)`
+- [x] Constructing without config throws: `new MapOrchestrator(undefined as any, {})` → Error
+- [x] `this.mapGenConfig` is available throughout orchestration lifecycle
+- [x] No `getConfig()` calls remain in `MapOrchestrator.ts`
+- [x] Mod entry points updated to: `const config = bootstrap(opts); new MapOrchestrator(config, options)`
+- [x] TypeScript compiles without errors
+- [x] Existing map generation continues to work (deploy succeeds)
 
 ## Testing / Verification
 

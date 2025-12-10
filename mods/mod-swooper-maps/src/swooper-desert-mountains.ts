@@ -299,17 +299,20 @@ function buildConfig(plateCount: number): BootstrapConfig {
   };
 }
 
-// Create orchestrator instance
-const orchestrator = new MapOrchestrator({
-  logPrefix: "[SWOOPER_MOD]",
-});
+// Orchestrator options (shared between requestMapData and generateMap)
+const orchestratorOptions = { logPrefix: "[SWOOPER_MOD]" };
 
 // Wire engine events to orchestrator methods
-engine.on("RequestMapInitData", () => orchestrator.requestMapData());
+// RequestMapInitData: Bootstrap with defaults to set up map dimensions
+// Note: requestMapData() doesn't need custom config - just sets dimensions
+engine.on("RequestMapInitData", () => {
+  const defaultConfig = bootstrap({});
+  const initOrchestrator = new MapOrchestrator(defaultConfig, orchestratorOptions);
+  initOrchestrator.requestMapData();
+});
 
-// CRITICAL: Bootstrap configuration happens INSIDE GenerateMap event.
-// This ensures we read the *actual* player-selected map dimensions,
-// which are not available when the script file first loads.
+// GenerateMap: Bootstrap with full config, then run generation
+// CRITICAL: Config happens INSIDE GenerateMap event to read actual player-selected dimensions.
 engine.on("GenerateMap", () => {
   // 1. Get runtime dimensions (finalized by engine at this point)
   const width = GameplayMap.getGridWidth();
@@ -323,10 +326,11 @@ engine.on("GenerateMap", () => {
     `[SWOOPER_MOD] Dynamic Config: ${width}x${height} (${totalTiles} tiles) -> ${plateCount} plates`
   );
 
-  // 3. Bootstrap with just-in-time configuration
-  bootstrap(buildConfig(plateCount));
+  // 3. Bootstrap with full configuration, get validated config
+  const config = bootstrap(buildConfig(plateCount));
 
-  // 4. Run generation with the new config
+  // 4. Create orchestrator with validated config and run generation
+  const orchestrator = new MapOrchestrator(config, orchestratorOptions);
   orchestrator.generateMap();
 });
 
