@@ -1,7 +1,7 @@
 ---
 id: CIV-27
 title: "[M2] Define MapGenConfigSchema with TypeBox"
-state: planned
+state: done
 priority: 2
 estimate: 0
 project: engine-refactor-v1
@@ -22,18 +22,19 @@ Define `MapGenConfigSchema` using TypeBox as the canonical, single source of tru
 
 ## Deliverables
 
-- [ ] Install `@sinclair/typebox` as a dependency in `mapgen-core`
-- [ ] Create `packages/mapgen-core/src/config/schema.ts` with:
+- [x] Install `@sinclair/typebox` as a dependency in `mapgen-core`
+- [x] Create `packages/mapgen-core/src/config/schema.ts` with:
   - `MapGenConfigSchema`: TypeBox schema for the full config
   - `MapGenConfig`: TypeScript type derived via `Static<typeof MapGenConfigSchema>`
   - Sub-schemas for each config group (foundation, landmass, climate, etc.)
-- [ ] Create `packages/mapgen-core/src/config/index.ts` re-exporting public API
-- [ ] Document the schema structure in code comments
+- [x] Create `packages/mapgen-core/src/config/index.ts` re-exporting public API
+- [x] Document the schema structure in code comments
+- [x] Add schema-level metadata for internal-only fields (`xInternal`) and a public-schema guard helper (`getPublicJsonSchema`) as groundwork for future public/internal surface cleanup.
 
 ## Acceptance Criteria
 
-- [ ] `@sinclair/typebox` is listed in `mapgen-core/package.json` dependencies
-- [ ] `MapGenConfigSchema` covers all fields currently consumed by tunables and layers:
+- [x] `@sinclair/typebox` is listed in `mapgen-core/package.json` dependencies
+- [x] `MapGenConfigSchema` covers all fields currently consumed by tunables and layers:
   - `presets?: string[]`
   - `stageConfig?: Record<string, boolean>`
   - `stageManifest?: StageManifest`
@@ -50,9 +51,10 @@ Define `MapGenConfigSchema` using TypeBox as the canonical, single source of tru
   - `story?: StoryConfig`
   - `corridors?: CorridorsConfig`
   - `oceanSeparation?: OceanSeparationConfig`
-- [ ] Schema preserves existing nesting patterns for backward compatibility
-- [ ] TypeScript compiles without errors
-- [ ] Types can be imported: `import { MapGenConfig, MapGenConfigSchema } from '@swooper/mapgen-core/config'`
+- [x] Schema preserves existing nesting patterns for backward compatibility
+- [x] TypeScript compiles without errors
+- [x] Types can be imported: `import { MapGenConfig, MapGenConfigSchema } from '@swooper/mapgen-core/config'`
+- [x] Internal-only config plumbing is tagged at the schema level via `xInternal`, and a `getPublicJsonSchema` helper exists to filter those fields for future public-schema consumers (no current callers; integration is explicitly deferred).
 
 ## Testing / Verification
 
@@ -75,6 +77,12 @@ node -e "import('@swooper/mapgen-core/config').then(m => console.log(Object.keys
 - **Parent Issue**: CIV-26 (Config Hygiene & Fail-Fast Validation)
 - **Blocks**: CIV-28 (needs schema for validation)
 - **PRD Reference**: `resources/PRD-config-refactor.md` (Phase 1, Section 6.1)
+
+### M2 Outcome: Public vs. Internal Schema
+
+- For M2 we **do not** introduce a separate public config type or reshape the config surface.  
+- The `xInternal` tagging and `getPublicJsonSchema` helper are implemented as **non-breaking groundwork** so that future issues can curate a public schema for tooling/docs without revisiting the core schema/loader again.  
+- All existing consumers continue to use the full schema / `getJsonSchema()` for now; deciding where to consume the public schema is deferred to a later milestone.
 
 ### Why TypeBox?
 
