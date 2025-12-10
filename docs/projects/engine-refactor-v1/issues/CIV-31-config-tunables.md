@@ -22,26 +22,26 @@ Refactor `bootstrap/tunables.ts` so that `buildTunablesSnapshot()` operates on a
 
 ## Deliverables
 
-- [ ] Update `buildTunablesSnapshot()` to accept `MapGenConfig` parameter
-- [ ] Remove internal calls to `getConfig()` — receive config explicitly
-- [ ] Move defaults from tunables into the TypeBox schema where possible
-- [ ] Keep public `TUNABLES` object and `getTunables()` API unchanged
-- [ ] Add `buildTunablesFromConfig(config: MapGenConfig): TunablesSnapshot` helper
-- [ ] Document which defaults are now in schema vs tunables
+- [x] Update `buildTunablesSnapshot()` to accept `MapGenConfig` parameter (renamed to `buildTunablesFromConfig`)
+- [x] Remove internal calls to `getConfig()` — receive config explicitly
+- [x] Move defaults from tunables into the TypeBox schema where possible (schema already has defaults; tunables defaults serve as fallbacks)
+- [x] Keep public `TUNABLES` object and `getTunables()` API unchanged
+- [x] Add `buildTunablesFromConfig(config: MapGenConfig): TunablesSnapshot` helper
+- [x] Document which defaults are now in schema vs tunables (schema has primary defaults, tunables has fallbacks for merge behavior)
 
 ## Acceptance Criteria
 
-- [ ] `buildTunablesSnapshot(config: MapGenConfig)` signature updated
-- [ ] No `getConfig()` calls in `tunables.ts`
-- [ ] `getTunables()` continues to work (reads from module state for backward compat)
-- [ ] Public tunables surface unchanged:
+- [x] `buildTunablesSnapshot(config: MapGenConfig)` signature updated (now `buildTunablesFromConfig`)
+- [x] No `getConfig()` calls in `tunables.ts`
+- [x] `getTunables()` continues to work (reads from module state for backward compat)
+- [x] Public tunables surface unchanged:
   - `TUNABLES.STAGE_MANIFEST`
   - `TUNABLES.FOUNDATION_CFG`
   - `TUNABLES.FOUNDATION_PLATES`
   - `TUNABLES.CLIMATE_CFG`
   - etc.
-- [ ] TypeScript compiles without errors
-- [ ] Existing layers continue to work without modification
+- [x] TypeScript compiles without errors
+- [x] Existing layers continue to work without modification
 
 ## Testing / Verification
 

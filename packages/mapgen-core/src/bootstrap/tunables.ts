@@ -35,13 +35,14 @@ import type {
   StageDescriptor,
   TunablesSnapshot,
 } from "./types.js";
-import { getConfig } from "./runtime.js";
+import type { MapGenConfig } from "../config/index.js";
 
 // ============================================================================
 // Internal State (memoized cache)
 // ============================================================================
 
 let _cache: TunablesSnapshot | null = null;
+let _boundConfig: MapGenConfig | null = null;
 
 // ============================================================================
 // Default Values
@@ -135,11 +136,13 @@ function deepMerge<T extends object>(base: T, override: Partial<T> | undefined):
 // ============================================================================
 
 /**
- * Build the tunables snapshot from current config.
- * This is called lazily when getTunables() is first accessed after reset.
+ * Build the tunables snapshot from a validated config.
+ * This is the primary interface for constructing tunables from config.
+ *
+ * @param config - Validated MapGenConfig instance
+ * @returns Frozen TunablesSnapshot for use by legacy layers
  */
-function buildTunablesSnapshot(): TunablesSnapshot {
-  const config = getConfig();
+export function buildTunablesFromConfig(config: MapGenConfig): TunablesSnapshot {
 
   // Resolve toggles
   const togglesConfig = config.toggles || {};
@@ -213,30 +216,50 @@ function buildTunablesSnapshot(): TunablesSnapshot {
 // ============================================================================
 
 /**
+ * Bind tunables to a validated config.
+ * Call this from bootstrap() after config validation.
+ * Invalidates the cache so next getTunables() rebuilds from new config.
+ *
+ * @param config - Validated MapGenConfig instance
+ */
+export function bindTunables(config: MapGenConfig): void {
+  _boundConfig = config;
+  _cache = null; // Invalidate cache so next access rebuilds
+}
+
+/**
  * Get the current tunables snapshot.
- * Returns cached value if available, otherwise builds from current config.
+ * Returns cached value if available, otherwise builds from bound config.
+ *
+ * @throws Error if tunables not bound via bindTunables()
  */
 export function getTunables(): Readonly<TunablesSnapshot> {
   if (_cache) return _cache;
-  _cache = buildTunablesSnapshot();
+  if (!_boundConfig) {
+    throw new Error(
+      "Tunables not bound. Call bindTunables(config) or bootstrap() before accessing tunables."
+    );
+  }
+  _cache = buildTunablesFromConfig(_boundConfig);
   return _cache;
 }
 
 /**
- * Reset the tunables cache.
+ * Reset the tunables cache and bound config.
  * Call this at the start of each generateMap() or in test beforeEach().
  */
 export function resetTunables(): void {
   _cache = null;
+  _boundConfig = null;
 }
 
 /**
- * Refresh the tunables from current config.
- * Alias for resetTunables() + getTunables() for backwards compatibility.
+ * Refresh the tunables from current bound config.
+ * Invalidates cache so next getTunables() rebuilds.
+ * For backwards compatibility - prefer bindTunables() for explicit binding.
  */
 export function rebind(): void {
-  resetTunables();
-  getTunables();
+  _cache = null; // Just invalidate; next getTunables() rebuilds from _boundConfig
 }
 
 /**
@@ -299,6 +322,8 @@ export const TUNABLES = {
 };
 
 export default {
+  bindTunables,
+  buildTunablesFromConfig,
   getTunables,
   resetTunables,
   rebind,

@@ -28,7 +28,7 @@ import {
   setConfig,
   getConfig,
 } from "./runtime.js";
-import { resetTunables, rebind as rebindTunables } from "./tunables.js";
+import { bindTunables, resetTunables, rebind as rebindTunables } from "./tunables.js";
 import { resolveStageManifest, validateOverrides } from "./resolved.js";
 
 // ============================================================================
@@ -154,8 +154,8 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
   // Store validated config in module-scoped state
   setValidatedConfig(validatedConfig);
 
-  // Rebind tunables to pick up new config
-  rebindTunables();
+  // Bind tunables to validated config (CIV-31: tunables now receive config explicitly)
+  bindTunables(validatedConfig);
 
   return validatedConfig;
 }
@@ -189,7 +189,14 @@ export {
   setConfig,
   getConfig,
 } from "./runtime.js";
-export { getTunables, resetTunables, stageEnabled, TUNABLES } from "./tunables.js";
+export {
+  bindTunables,
+  buildTunablesFromConfig,
+  getTunables,
+  resetTunables,
+  stageEnabled,
+  TUNABLES,
+} from "./tunables.js";
 export {
   STAGE_ORDER,
   resolveStageManifest,
