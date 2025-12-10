@@ -122,3 +122,36 @@ For M2’s “stable engine slice” goal, CIV‑29 delivers the key hygiene ste
 1. As part of CIV‑30, inject `MapGenConfig` into `MapOrchestrator` (constructor or equivalent) and have it rely on `getValidatedConfig()` only as a temporary fallback, if at all.  
 2. As part of CIV‑31, refactor `bootstrap/tunables.ts` to build its snapshot directly from a provided `MapGenConfig` (or a bound validated config), keeping the public tunables surface stable while removing dependence on the legacy `getConfig()` path.  
 3. When touching bootstrap/runtime tests next, shift expectations to the fail-fast model (`getValidatedConfig()` throws before bootstrap, `hasConfig` gates access) and treat `setConfig`/`getConfig` strictly as deprecated shims.
+
+---
+
+## CIV-30 – Wire MapOrchestrator to Validated Config
+
+**Quick Take**  
+Mostly, with notable gaps: `MapOrchestrator` now takes a validated `MapGenConfig` via constructor, fails fast when it’s missing, and all mod entry points pass config from `bootstrap()`. However, the orchestrator still bridges to the tunables/global-style view via side effects, and the existing `requestMapData` tests and top-of-file usage docs still assume the pre-injection constructor shape.
+
+**Intent & Assumptions**  
+- Make configuration at the orchestration boundary explicit: `new MapOrchestrator(config, options)` with a validated `MapGenConfig` from `bootstrap()`.  
+- Eliminate direct reads from legacy config globals inside `MapOrchestrator`, treating the constructor-injected config as the single source of truth for the pipeline.  
+- Keep tunables and world model wiring working for M2, with deeper refactors (tunables as a view on `MapGenConfig`) pushed into CIV‑31 rather than blocking this slice.
+
+**What’s Strong**  
+- `packages/mapgen-core/src/MapOrchestrator.ts` now defines `constructor(config: MapGenConfig, options: OrchestratorConfig = {})`, stores `config` on `this.mapGenConfig`, and exposes `getMapGenConfig()` for downstream consumers.  
+- The constructor performs a clear fail-fast check for missing/undefined configs and is used consistently from the Swooper entry point (`mods/mod-swooper-maps/src/swooper-desert-mountains.ts`), which now calls `bootstrap(...)` and passes the returned config into `MapOrchestrator`.  
+- Direct calls to `getConfig()`/`getValidatedConfig()` were removed from the orchestrator; instead, it owns the config instance and relies on tunables/world-model hooks to derive per-stage views, which aligns with the CIV‑26/CIV‑29 direction.
+
+**High-Leverage Issues**  
+- **Constructor still has non-obvious side effects into the tunables runtime (CIV‑31 scope).**  
+  `MapOrchestrator`’s constructor calls `setValidatedConfig(config)` and `rebindTunables()` behind the scenes. This keeps M2 working but means the orchestrator is not yet “pure” from the config perspective, and callers can still accidentally rely on “constructor as global-mutator”. This bridging is appropriate for M2 but should be explicitly unwound in CIV‑31 when tunables are refactored to derive from injected config rather than hidden module state.  
+- **Tests still instantiate `MapOrchestrator` with options-shaped arguments, not `(config, options)`.**  
+  `packages/mapgen-core/test/orchestrator/requestMapData.test.ts` still does `new MapOrchestrator({ mapSizeDefaults: { … } })`, which under the new signature is treated as a `MapGenConfig` rather than `OrchestratorConfig`. That means the `mapSizeDefaults` path is never exercised in these tests, and they instead fall back to engine globals and standard defaults. This doesn’t block runtime behavior but weakens our guardrails around the new constructor contract; updating these tests to pass a simple dummy `MapGenConfig` plus `{ mapSizeDefaults }` as `options` is a worthwhile follow-up, and can reasonably ride with CIV‑31 or a small CIV‑26 hygiene task.  
+- **Top-of-file usage docs still show the pre-injection constructor.**  
+  The header comment in `MapOrchestrator.ts` still advertises `const orchestrator = new MapOrchestrator();` without config, which no longer matches the implementation. This is low-risk but confusing for future entry point authors. It’s an easy cleanup to update the examples to the new pattern (`const config = bootstrap(opts); const orchestrator = new MapOrchestrator(config, options)`), ideally when CIV‑31 touches this file next.
+
+**Fit Within the Milestone**  
+CIV‑30 delivers the key boundary shift for M2: the orchestrator is now constructed with a validated `MapGenConfig`, direct global reads are gone from its implementation, and the primary mod entry point has been updated to flow `bootstrap()` → `MapOrchestrator(config, options)`. The remaining reliance on `setValidatedConfig`/tunables and the misaligned tests/docs represent transitional debt rather than blockers and are already conceptually covered by CIV‑31 (tunables refactor) and the broader CIV‑26 config hygiene epic.
+
+**Recommended Next Moves (Future Work, Not M2)**  
+1. As part of CIV‑31, move the `setValidatedConfig`/`rebindTunables` behavior out of the orchestrator constructor and into a clearer “bind config to tunables” layer, ideally driven directly from the injected `MapGenConfig`.  
+2. Update `requestMapData` tests to use a minimal `MapGenConfig` instance plus an explicit `{ mapSizeDefaults }` `OrchestratorConfig`, so the tests cover the intended override behavior instead of relying on global fallbacks.  
+3. Refresh the `MapOrchestrator` header documentation and any in-repo usage snippets to consistently show the “bootstrap → `MapOrchestrator(config, options)`” pattern and discourage resurrecting the old no-arg constructor in future work.

@@ -19,12 +19,19 @@
  * - Stages are enabled/disabled via configuration
  *
  * Usage (in mod entry point):
- *   import { MapOrchestrator } from '@swooper/mapgen-core';
- *   import { CivEngineAdapter } from '@civ7/adapter';
+ *   import { bootstrap, MapOrchestrator } from '@swooper/mapgen-core';
  *
- *   const orchestrator = new MapOrchestrator();
- *   engine.on('RequestMapInitData', () => orchestrator.requestMapData());
- *   engine.on('GenerateMap', () => orchestrator.generateMap());
+ *   engine.on('RequestMapInitData', () => {
+ *     const config = bootstrap({});
+ *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
+ *     orchestrator.requestMapData();
+ *   });
+ *
+ *   engine.on('GenerateMap', () => {
+ *     const config = bootstrap({ overrides: { ... } });
+ *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
+ *     orchestrator.generateMap();
+ *   });
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
