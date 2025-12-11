@@ -255,8 +255,10 @@ describe("bootstrap/resolved", () => {
       expect(stageEnabled("foundation")).toBe(true);
 
       resetBootstrap();
-      expect(stageEnabled("foundation")).toBe(false);
+      // After reset, stageEnabled throws because tunables are not bound (fail-fast)
+      expect(() => stageEnabled("foundation")).toThrow("Tunables not initialized");
 
+      // Bootstrap again with different config
       bootstrap({
         stageConfig: { biomes: true },
       });

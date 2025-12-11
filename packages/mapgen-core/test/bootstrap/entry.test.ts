@@ -74,11 +74,12 @@ describe("bootstrap/entry", () => {
     });
 
     it("triggers tunables rebind", () => {
-      // Get tunables with defaults
+      // Bootstrap first to access tunables (fail-fast behavior)
+      bootstrap();
       const before = getTunables();
       expect(before.FOUNDATION_PLATES.count).toBe(8);
 
-      // Bootstrap with override
+      // Bootstrap again with override - this rebinds tunables
       bootstrap({
         overrides: {
           foundation: { plates: { count: 16 } },
@@ -100,7 +101,7 @@ describe("bootstrap/entry", () => {
   });
 
   describe("resetBootstrap", () => {
-    it("resets config and tunables", () => {
+    it("resets config and makes tunables inaccessible", () => {
       bootstrap({
         presets: ["test"],
         overrides: { toggles: { STORY_ENABLE_HOTSPOTS: false } },
@@ -108,11 +109,12 @@ describe("bootstrap/entry", () => {
 
       resetBootstrap();
 
+      // Config returns empty object via deprecated getConfig()
       const config = getConfig();
-      const tunables = getTunables();
-
       expect(config.presets).toBeUndefined();
-      expect(tunables.STORY_ENABLE_HOTSPOTS).toBe(true);
+
+      // Tunables should throw after reset (fail-fast behavior)
+      expect(() => getTunables()).toThrow("Tunables not initialized");
     });
 
     it("allows fresh bootstrap after reset", () => {
@@ -122,6 +124,15 @@ describe("bootstrap/entry", () => {
 
       const config = getConfig();
       expect(config.presets).toEqual(["second"]);
+    });
+
+    it("re-enables tunables access after fresh bootstrap", () => {
+      bootstrap({ toggles: { STORY_ENABLE_HOTSPOTS: false } });
+      resetBootstrap();
+      bootstrap({ toggles: { STORY_ENABLE_HOTSPOTS: true } });
+
+      const tunables = getTunables();
+      expect(tunables.STORY_ENABLE_HOTSPOTS).toBe(true);
     });
   });
 
@@ -133,7 +144,8 @@ describe("bootstrap/entry", () => {
       expect(tunables.LANDMASS_CFG.baseWaterPercent).toBe(50);
     });
 
-    it("can be called multiple times", () => {
+    it("can be called multiple times after bootstrap", () => {
+      bootstrap(); // Need to bootstrap first for rebind to have a config to work with
       expect(() => {
         rebind();
         rebind();
@@ -144,8 +156,8 @@ describe("bootstrap/entry", () => {
 
   describe("integration", () => {
     it("full bootstrap -> rebind -> reset cycle", () => {
-      // Initial state
-      expect(getTunables().FOUNDATION_PLATES.count).toBe(8);
+      // Initial state: tunables not accessible without bootstrap
+      expect(() => getTunables()).toThrow("Tunables not initialized");
 
       // Bootstrap with overrides
       bootstrap({
@@ -164,20 +176,31 @@ describe("bootstrap/entry", () => {
       rebind();
       expect(getTunables().FOUNDATION_PLATES.count).toBe(10);
 
-      // Reset
+      // Reset - tunables become inaccessible
       resetBootstrap();
       expect(getConfig().presets).toBeUndefined();
+      expect(() => getTunables()).toThrow("Tunables not initialized");
+
+      // Bootstrap again - tunables become accessible again with defaults
+      bootstrap();
       expect(getTunables().FOUNDATION_PLATES.count).toBe(8);
       expect(getTunables().STORY_ENABLE_OROGENY).toBe(true);
     });
   });
 
   describe("test isolation", () => {
-    it("starts clean in each test", () => {
+    it("starts clean in each test - config empty, tunables uninitialized", () => {
+      // getConfig() returns empty object (deprecated API behavior)
       const config = getConfig();
-      const tunables = getTunables();
-
       expect(config.presets).toBeUndefined();
+
+      // getTunables() should throw - fail-fast behavior
+      expect(() => getTunables()).toThrow("Tunables not initialized");
+    });
+
+    it("bootstrap provides access to tunables with defaults", () => {
+      bootstrap();
+      const tunables = getTunables();
       expect(tunables.FOUNDATION_PLATES.count).toBe(8);
       expect(tunables.STORY_ENABLE_HOTSPOTS).toBe(true);
     });

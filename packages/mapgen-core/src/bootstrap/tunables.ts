@@ -36,7 +36,6 @@ import type {
   TunablesSnapshot,
 } from "./types.js";
 import type { MapGenConfig } from "../config/index.js";
-import { getConfig } from "./runtime.js";
 
 // ============================================================================
 // Internal State (memoized cache)
@@ -232,14 +231,20 @@ export function bindTunables(config: MapGenConfig): void {
  * Get the current tunables snapshot.
  * Returns cached value if available, otherwise builds from bound config.
  *
- * For backward compatibility, falls back to getConfig() if no config is explicitly bound.
- * Prefer using bindTunables(config) or bootstrap() for explicit config binding.
+ * Fail-fast behavior: throws if no config has been bound via bindTunables() or bootstrap().
+ * This ensures the config→tunables flow is explicit and prevents silent fallback to
+ * uninitialized or stale module-scoped state.
+ *
+ * @throws Error if called before bindTunables(config) or bootstrap()
  */
 export function getTunables(): Readonly<TunablesSnapshot> {
   if (_cache) return _cache;
-  // Use explicitly bound config, or fall back to legacy runtime config for backward compat
-  const config = _boundConfig ?? (getConfig() as MapGenConfig);
-  _cache = buildTunablesFromConfig(config);
+  if (!_boundConfig) {
+    throw new Error(
+      "Tunables not initialized. Call bootstrap() or bindTunables(config) before accessing tunables."
+    );
+  }
+  _cache = buildTunablesFromConfig(_boundConfig);
   return _cache;
 }
 
