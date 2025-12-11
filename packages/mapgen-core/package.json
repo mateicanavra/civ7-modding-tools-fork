@@ -18,6 +18,10 @@
       "types": "./dist/bootstrap/entry.d.ts",
       "import": "./dist/bootstrap/entry.js"
     },
+    "./polyfills/text-encoder": {
+      "types": "./dist/polyfills/text-encoder.d.ts",
+      "import": "./dist/polyfills/text-encoder.js"
+    },
     "./world": {
       "types": "./dist/world/index.d.ts",
       "import": "./dist/world/index.js"

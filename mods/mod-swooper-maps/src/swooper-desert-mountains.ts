@@ -10,6 +10,7 @@
 
 /// <reference types="@civ7/types" />
 
+import "@swooper/mapgen-core/polyfills/text-encoder";
 import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
 import type { BootstrapConfig, BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
 
@@ -74,7 +75,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
       landmass: {
         crustMode: "area",
         baseWaterPercent: 43, // More ocean for distinct continents
-        waterScalar: -1.5,
+        waterScalar: 1,
         boundaryBias: 0.1, // Slight bias towards boundaries for interest
         boundaryShareTarget: 0.4,
         tectonics: {
