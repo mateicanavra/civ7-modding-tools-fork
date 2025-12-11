@@ -23,7 +23,7 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 ### Dependencies & Sequencing
 
 - This milestone runs after:
-  - **M2** has established the validated-config + foundation slice of the Task Graph (see `M2-stable-engine-slice.md` and related PRDs).
+  - **M2** has established the validated-config + foundation slice driven by `MapOrchestrator` (see `M2-stable-engine-slice.md` and related PRDs).
   - **M3** has generalized the pipeline and evolved `MapGenConfig` into its step/phase-aligned shape (see `M3-core-engine-refactor-config-evolution.md`).
 - Within that baseline, M4 focuses on:
   - Hardening the engine with tests and validation (leveraging the Task Graph and data products defined in `resources/PRD-pipeline-refactor.md` and `PROJECT-engine-refactor-v1.md`).

@@ -1,5 +1,7 @@
 # Map Generation Engine Architecture
 
+> This document describes the **target** architecture for the MAPS engine. The current implementation is converging toward this design; some details (such as the generic Pipeline Executor and full step registry) may be introduced incrementally across milestones.
+
 ## 1. Core Philosophy
 
 The Map Generation Engine is designed as a **Data-Driven Task Graph**. It moves away from monolithic "God Classes" (like the legacy `MapOrchestrator`) towards a composable pipeline of small, single-purpose **Strategies**.

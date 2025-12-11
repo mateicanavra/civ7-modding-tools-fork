@@ -41,7 +41,7 @@ This document is the **directional project brief** for **MAPS Engine Refactor v1
 
 ## 3. Current Status (Snapshot)
 
-- **Foundations and morphology:** ✅ Complete. Voronoi-only landmass pipeline, deterministic `PlateSeedManager`, `FoundationContext` emitted and asserted, heightfield buffers in place. Mountains/volcanoes, coasts, and landmass generation consume the physics stack.
+- **Foundations and morphology:** ✅ Complete. Voronoi-only landmass pipeline, deterministic `PlateSeedManager`, `FoundationContext` emitted and asserted, heightfield buffers in place. Mountains/volcanoes, coasts, and landmass generation consume the physics stack. A working contract for `FoundationContext` and the config → tunables → orchestrator flow lives at `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` and will be promoted into system docs once stable.
 - **Climate:** ⚠️ Partial. Climate engine is centralized and rivers run after baseline, but consumers still read `GameplayMap` instead of `ClimateField`; river flow data is not published.
 - **Narrative overlays:** ⏳ Not modernized. Margin overlays exist, but other story passes still mutate `StoryTags` directly and do not publish immutable overlays.
 - **Biomes/features/placement:** ⏳ Legacy read paths (`GameplayMap` + `StoryTags`). No overlay/`ClimateField` consumption yet.
@@ -84,12 +84,11 @@ These residual tasks are tracked in the milestone doc and will be completed acro
 **Depends on:** Milestone 1, plus feature PRDs:
 
 - `PRD-config-refactor.md` (Phase 1)
-- `PRD-pipeline-refactor.md` (Phase 1)
 - `PRD-plate-generation.md`
 
 **Intent**
 
-Establish a minimal but production-ready slice of the new engine architecture: validated config, task-graph pipeline, and modern plate/foundation stack, all wired into Swooper Maps with strong diagnostics, while leaving most downstream stages in their existing form.
+Establish a minimal but production-ready slice of the new engine architecture: validated config and a modern plate/foundation stack wired into Swooper Maps with strong diagnostics via the existing `MapOrchestrator`-centric flow, while leaving most downstream stages in their existing form.
 
 **Scope**  
 See `milestones/M2-stable-engine-slice.md` for detailed scope, dependency mapping, and sequencing. At a high level, this milestone covers:
@@ -100,35 +99,27 @@ See `milestones/M2-stable-engine-slice.md` for detailed scope, dependency mappin
   - Refactor `MapOrchestrator` and bootstrap/tunables to consume validated config instead of globals.
   - Preserve external config shape for Swooper Maps; no large-scale reshaping yet.
 
-- **Pipeline core plumbing (Phase 1)**
-  - Define `MapGenStep`, `StepRegistry`, `MapGenContext`, and `PipelineExecutor` per the architecture docs.
-  - Refactor `MapOrchestrator` to:
-    - Construct `MapGenContext` (including `config`, RNG, adapter, fields/artifacts).
-    - Execute a pipeline recipe for the `foundation` phase via the executor.
-    - Bridge results into the legacy `WorldModel` where needed for downstream stages.
-
 - **Foundation / plate generation**
   - Implement `MeshBuilder`, `CrustGenerator`, `PlatePartitioner`, and `TectonicEngine` according to `foundation.md` and `PRD-plate-generation.md`.
-  - Wrap these strategies as `MapGenStep`s in the `foundation` phase.
-  - Populate `context.artifacts.mesh`, `crust`, `plateGraph`, and `tectonics`, and expose `FoundationContext` as the legacy bridge.
+  - Ensure these strategies populate the foundation data products (mesh, crust, plate graph, tectonics) and expose `FoundationContext` as the legacy bridge.
   - Ensure deterministic behavior and basic performance targets on typical map sizes.
 
 - **Diagnostics & instrumentation**
-  - Ensure `[Foundation]` diagnostics are wired to the new pipeline (seed/plate/dynamics/surface logs, ASCII maps, histograms).
-  - Add basic step-level logging around the executor (start/finish, duration, errors).
+  - Ensure `[Foundation]` diagnostics are wired to the orchestrated foundation slice (seed/plate/dynamics/surface logs, ASCII maps, histograms).
+  - Add basic stage-level logging around the foundation slice (start/finish, duration, errors).
 
 **Out of Scope (Milestone 2)**
 
 - Full config shape evolution or tunables retirement.
-- Refactoring non-foundation phases (climate, overlays, biomes, placement) into first-class steps.
+- Refactoring non-foundation phases (climate, overlays, biomes, placement) into first-class pipeline steps.
 - Comprehensive test suite or manifest validator (those land in Milestone 4, with some groundwork here).
 
 **Exit Criteria**
 
-- Engine can run via the new `foundation` pipeline slice using validated config.
+- Engine can run the `foundation` slice via `MapOrchestrator` using validated config.
 - Plate generation is powered by the new mesh–crust–partition–physics stack.
 - Existing Swooper Maps presets still generate valid maps via the legacy downstream stages.
-- Diagnostics clearly report pipeline and foundation behavior.
+- Diagnostics clearly report foundation behavior and stage flow.
 
 ### 4.3 Milestone 3 — Core Engine Refactor & Config Shape Evolution
 
@@ -138,7 +129,7 @@ See `milestones/M2-stable-engine-slice.md` for detailed scope, dependency mappin
 
 **Intent**
 
-Extend the task-graph architecture and data-product model across the full engine, while reshaping configuration to match the long-term design. This is where most core refactoring happens.
+Extend the task-graph architecture and data-product model across the full engine, while reshaping configuration to match the long-term design. This is where most core refactoring happens, including introducing generic pipeline primitives on top of the stable M2 slice.
 
 **Scope**  
 See `milestones/M3-core-engine-refactor-config-evolution.md` for detailed scope and sequencing. At a high level, this milestone covers:
@@ -150,6 +141,7 @@ See `milestones/M3-core-engine-refactor-config-evolution.md` for detailed scope 
   - Provide adapters for older config shapes where necessary to ease migrations.
 
 - **Pipeline generalization**
+  - Define and implement `MapGenStep`, `StepRegistry`, `MapGenContext` (including artifacts), and `PipelineExecutor` per the architecture docs.
   - Wrap legacy hydrology, climate, narrative overlay, biome, and placement logic in `MapGenStep`s (e.g., `LegacyHydrologyStep`), then progressively refactor internals.
   - Enforce phase boundaries (`setup`, `foundation`, `morphology`, `hydrology`, `ecology`, `placement`), and ensure each step declares `requires`/`provides`.
   - Remove direct `WorldModel` usage from new steps; `MapGenContext` + overlays become canonical.

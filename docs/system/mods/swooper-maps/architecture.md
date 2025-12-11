@@ -90,36 +90,25 @@ import "./map_orchestrator.js";    // Shared generator
 - Deep merges presets with overrides
 - Calls `setConfig()` to store result globally
 
-#### `bootstrap/runtime.js`
-**Purpose**: Global configuration storage
+#### `bootstrap/runtime.js` (legacy JS architecture)
+**Purpose (historical)**: Global configuration storage
 
-- Uses `globalThis[__EPIC_MAP_CONFIG__]` for cross-module access
-- No import-time coupling (avoids circular dependencies)
-- Freezes config to prevent mutation
+- Stored merged config under a global key (e.g., `globalThis[__EPIC_MAP_CONFIG__]`) for cross-module access.
+- Avoided import-time coupling (reduced circular dependency risk).
+- Froze config to prevent mutation.
 
 #### `bootstrap/resolved.js`
 **Purpose**: Configuration resolution and merging
 
-- Reads from runtime store
-- Merges: `BASE_CONFIG` + presets (ordered) + runtime overrides
+- Reads from the current config source.
+- Merges: `BASE_CONFIG` + presets (ordered) + runtime overrides.
 - Exports typed getters: `getToggles()`, `getLandmass()`, etc.
 
 #### `bootstrap/tunables.js`
 **Purpose**: Live module bindings
 
-- Exports ES module `let` variables (not constants!)
-- `rebind()` updates all bindings from resolved config
-- Called at start of `generateMap()` to refresh values
-
-**Example**:
-```javascript
-export let LANDMASS_CFG = {};  // Updated by rebind()
-
-export function rebind() {
-    LANDMASS_CFG = getLandmass();
-    // ... etc
-}
-```
+- Exports ES module `let` variables (not constants).
+- Produces a derived, read-only view over the resolved config for consumers such as the map orchestrator and world model.
 
 ---
 

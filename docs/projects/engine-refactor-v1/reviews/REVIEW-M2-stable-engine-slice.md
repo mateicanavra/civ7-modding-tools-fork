@@ -6,6 +6,44 @@ status: draft
 reviewer: AI agent (Codex CLI)
 ---
 
+## Milestone M2 – Final Analysis & Path Forward
+
+M2 is effectively concluded as a **“config + foundation slice is stable, documented, and test-backed”** milestone, implemented on the current `MapOrchestrator`-centric architecture. It **does not** include a fully generic `PipelineExecutor` / `MapGenStep` / `StepRegistry`; those pipeline primitives are now explicitly planned for early M3+ on top of the stabilized data products.
+
+Before calling M2 fully done, we will land a small, concrete cleanup/stabilization batch:
+
+- **Docs alignment**
+  - Update M2 docs and relevant issue files so they accurately describe the real flow: `bootstrap() → MapGenConfig → tunables → MapOrchestrator → FoundationContext`.
+  - Remove or clearly mark as “future” any remaining references to `globalThis.__EPIC_MAP_CONFIG__` and the old global-config pattern.
+  - Soften or relocate language that assumes a currently implemented generic `PipelineExecutor` / `MapGenStep` / `StepRegistry`, making clear that these land in M3+.
+- **Contract stabilization**
+  - Make the `FoundationContext` contract explicit: what it guarantees to downstream consumers and which data products exist at the end of the M2 slice (captured in `resources/CONTRACT-foundation-context.md` as a working contract doc).
+  - Clarify the role of tunables as a derived, read-only view over `MapGenConfig`, not a primary config store.
+- **Tests**
+  - Add at least one end-to-end `MapOrchestrator.generateMap` smoke test using a minimal/default `MapGenConfig` and a stub adapter, asserting that:
+    - Foundation data products are populated as expected.
+    - The stage flow does not regress under the current M2 slice.
+
+These cleanup items will become a small set of discrete M2 follow-up issues (to be created in Linear later), for example:
+
+- “Align M2 docs and status with the actual config/orchestrator implementation.”
+- “Document the `FoundationContext` contract and the config → tunables → world-model flow.”
+- “Add `MapOrchestrator.generateMap` smoke tests over the current slice.”
+
+Looking forward, M3 and M4 are realigned at a high level as follows:
+
+- **M3**
+  - Introduce `PipelineExecutor` / `MapGenStep` / `StepRegistry` *on top of* the now-stable data products, rather than in parallel to them.
+  - Canonicalize core engine data products, including:
+    - `ClimateField` and basic hydrology/river products.
+    - `StoryOverlays` and their relationship to `StoryTags`.
+  - Start migrating key clusters (foundation extensions, climate, early story overlays) into `MapGenStep`s with clear `requires` / `provides` contracts.
+- **M4**
+  - Focus on validation, contracts, and robustness:
+    - Data-product and `StageManifest` validation (requires/provides checks, manifest consistency).
+    - Orchestrator/pipeline integration tests and diagnostics.
+    - Final cleanup of legacy paths and shims as the new architecture becomes the default.
+
 # M2: Stable Engine Slice – Aggregate Review (Running Log)
 
 This running log captures task-level reviews for milestone M2. Entries focus on

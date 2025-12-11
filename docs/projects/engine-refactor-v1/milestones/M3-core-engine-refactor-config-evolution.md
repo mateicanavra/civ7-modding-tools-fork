@@ -26,9 +26,9 @@ This milestone corresponds to **Milestone 3** in `PROJECT-engine-refactor-v1.md`
   - **M1** has effectively completed the bulk of the TypeScript migration and package layout.
   - **M2** has delivered:
     - Phase 1 “Config Hygiene” from `resources/PRD-config-refactor.md`.
-    - The initial Task Graph plumbing and foundation slice from `resources/PRD-pipeline-refactor.md`.
-    - The first integrated foundation/plate stack from `resources/PRD-plate-generation.md`.
+    - A validated-config + foundation slice driven by `MapOrchestrator`, with the modern foundation/plate stack integrated behind it.
 - Within that baseline, M3 is responsible for:
+  - Introducing the generic pipeline primitives (`MapGenStep`, `StepRegistry`, `PipelineExecutor`) on top of the stabilized data products.
   - Driving **Phase 2 & 3** of the config refactor (config integration + shape evolution).
   - Generalizing the pipeline from the foundation slice to all major clusters (morphology, hydrology/climate, overlays, biomes, placement).
   - Promoting the shared data products (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) to canonical status across the engine.
