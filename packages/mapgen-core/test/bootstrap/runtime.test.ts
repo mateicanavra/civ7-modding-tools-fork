@@ -20,10 +20,12 @@ describe("bootstrap/runtime", () => {
       expect(typeof config).toBe("object");
     });
 
-    it("returns the same object on repeated calls", () => {
+    it("returns equivalent objects on repeated calls", () => {
+      // Note: getConfig() is deprecated. When no config is set,
+      // it returns a new empty object each time (not referentially equal).
       const config1 = getConfig();
       const config2 = getConfig();
-      expect(config1).toBe(config2);
+      expect(config1).toEqual(config2);
     });
   });
 

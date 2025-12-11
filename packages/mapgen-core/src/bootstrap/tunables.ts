@@ -36,6 +36,7 @@ import type {
   TunablesSnapshot,
 } from "./types.js";
 import type { MapGenConfig } from "../config/index.js";
+import { getConfig } from "./runtime.js";
 
 // ============================================================================
 // Internal State (memoized cache)
@@ -231,24 +232,33 @@ export function bindTunables(config: MapGenConfig): void {
  * Get the current tunables snapshot.
  * Returns cached value if available, otherwise builds from bound config.
  *
- * @throws Error if tunables not bound via bindTunables()
+ * For backward compatibility, falls back to getConfig() if no config is explicitly bound.
+ * Prefer using bindTunables(config) or bootstrap() for explicit config binding.
  */
 export function getTunables(): Readonly<TunablesSnapshot> {
   if (_cache) return _cache;
-  if (!_boundConfig) {
-    throw new Error(
-      "Tunables not bound. Call bindTunables(config) or bootstrap() before accessing tunables."
-    );
-  }
-  _cache = buildTunablesFromConfig(_boundConfig);
+  // Use explicitly bound config, or fall back to legacy runtime config for backward compat
+  const config = _boundConfig ?? (getConfig() as MapGenConfig);
+  _cache = buildTunablesFromConfig(config);
   return _cache;
 }
 
 /**
- * Reset the tunables cache and bound config.
- * Call this at the start of each generateMap() or in test beforeEach().
+ * Reset the tunables cache (forces rebuild on next getTunables() call).
+ * The bound config is preserved - only the cached snapshot is cleared.
+ * Call this at the start of each generateMap() to pick up any config changes.
+ *
+ * For test isolation, use resetTunablesForTest() which also clears the binding.
  */
 export function resetTunables(): void {
+  _cache = null;
+}
+
+/**
+ * Fully reset tunables state including the bound config.
+ * Use this in test beforeEach() for complete isolation between tests.
+ */
+export function resetTunablesForTest(): void {
   _cache = null;
   _boundConfig = null;
 }
@@ -326,6 +336,7 @@ export default {
   buildTunablesFromConfig,
   getTunables,
   resetTunables,
+  resetTunablesForTest,
   rebind,
   stageEnabled,
   TUNABLES,

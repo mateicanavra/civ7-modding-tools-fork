@@ -9,6 +9,7 @@ import { setConfig, resetConfig } from "../../src/bootstrap/runtime.js";
 import {
   getTunables,
   resetTunables,
+  resetTunablesForTest,
   rebind,
   stageEnabled,
   TUNABLES,
@@ -17,7 +18,7 @@ import {
 describe("bootstrap/tunables", () => {
   beforeEach(() => {
     resetConfig();
-    resetTunables();
+    resetTunablesForTest(); // Use full reset for test isolation
   });
 
   describe("getTunables", () => {

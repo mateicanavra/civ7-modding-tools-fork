@@ -28,7 +28,7 @@ import {
   setConfig,
   getConfig,
 } from "./runtime.js";
-import { bindTunables, resetTunables, rebind as rebindTunables } from "./tunables.js";
+import { bindTunables, resetTunablesForTest, rebind as rebindTunables } from "./tunables.js";
 import { resolveStageManifest, validateOverrides } from "./resolved.js";
 
 // ============================================================================
@@ -161,12 +161,14 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
 }
 
 /**
- * Reset all bootstrap state.
- * Call this at the start of each generateMap() or in test beforeEach().
+ * Reset all bootstrap state including bound config.
+ * Use in test beforeEach() for complete isolation between tests.
+ *
+ * Note: For production generateMap(), use rebind() instead which only clears cache.
  */
 export function resetBootstrap(): void {
   resetConfig();
-  resetTunables();
+  resetTunablesForTest();
 }
 
 /**
@@ -194,6 +196,7 @@ export {
   buildTunablesFromConfig,
   getTunables,
   resetTunables,
+  resetTunablesForTest,
   stageEnabled,
   TUNABLES,
 } from "./tunables.js";
