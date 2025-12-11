@@ -3,6 +3,7 @@
  * narrative overlays operate against a single shared module.
  */
 
+import { PerlinNoise } from "../lib/noise.js";
 import type { ExtendedMapContext } from "../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
 import type {
@@ -34,8 +35,6 @@ export interface ClimateAdapter {
   isMountain: (x: number, y: number) => boolean;
   /** Optional - when undefined, climate code uses local neighborhood fallback */
   isCoastalLand?: (x: number, y: number) => boolean;
-  /** Optional - when undefined, climate code uses local fallback */
-  isAdjacentToShallowWater?: (x: number, y: number) => boolean;
   isAdjacentToRivers: (x: number, y: number, radius: number) => boolean;
   getRainfall: (x: number, y: number) => number;
   setRainfall: (x: number, y: number, rf: number) => void;
@@ -68,12 +67,11 @@ function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
     return {
       isWater: (x, y) => engineAdapter.isWater(x, y),
       isMountain: (x, y) => engineAdapter.isMountain(x, y),
-      // NOTE: isCoastalLand and isAdjacentToShallowWater intentionally omitted.
+      // NOTE: isCoastalLand intentionally omitted.
       // These are not on the base EngineAdapter interface. By leaving them
       // undefined, the climate code's local fallbacks will execute instead of
       // receiving stubbed `() => false` values that block the fallback path.
-      isAdjacentToRivers: (x, y, radius) =>
-        engineAdapter.isAdjacentToRivers(x, y, radius),
+      isAdjacentToRivers: (x, y, radius) => engineAdapter.isAdjacentToRivers(x, y, radius),
       getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
       setRainfall: (x, y, rf) => engineAdapter.setRainfall(x, y, rf),
       getElevation: (x, y) => engineAdapter.getElevation(x, y),
@@ -83,7 +81,7 @@ function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
   }
 
   // Fallback: return dummy adapter that will throw on critical methods
-  // NOTE: isCoastalLand and isAdjacentToShallowWater intentionally omitted
+  // NOTE: isCoastalLand intentionally omitted
   // to allow local neighborhood fallbacks to execute.
   return {
     isWater: () => {
@@ -149,13 +147,90 @@ function createClimateRuntime(
  * Distance helper for the refinement pass.
  */
 function distanceToNearestWater(
+  width: number,
+  height: number,
+  isWater: (x: number, y: number) => boolean
+): Int16Array;
+function distanceToNearestWater(
   x: number,
   y: number,
   maxR: number,
   adapter: ClimateAdapter,
   width: number,
   height: number
-): number {
+): number;
+function distanceToNearestWater(
+  a: number,
+  b: number,
+  c: number | ((x: number, y: number) => boolean),
+  adapter?: ClimateAdapter,
+  width?: number,
+  height?: number
+): Int16Array | number {
+  if (typeof c === "function") {
+    const widthVal = a;
+    const heightVal = b;
+    const isWaterFn = c;
+    const total = Math.max(0, widthVal * heightVal);
+    const dist = new Int16Array(total);
+    dist.fill(-1);
+    const queueX: number[] = [];
+    const queueY: number[] = [];
+
+    for (let y = 0; y < heightVal; y++) {
+      for (let x = 0; x < widthVal; x++) {
+        if (isWaterFn(x, y)) {
+          const idx = y * widthVal + x;
+          dist[idx] = 0;
+          queueX.push(x);
+          queueY.push(y);
+        }
+      }
+    }
+
+    let head = 0;
+    const offsets = [
+      [1, 0],
+      [-1, 0],
+      [0, 1],
+      [0, -1],
+      [1, 1],
+      [-1, 1],
+      [1, -1],
+      [-1, -1],
+    ];
+
+    while (head < queueX.length) {
+      const cx = queueX[head];
+      const cy = queueY[head];
+      head++;
+      const baseIdx = cy * widthVal + cx;
+      const baseDist = dist[baseIdx];
+
+      for (let i = 0; i < offsets.length; i++) {
+        const dx = offsets[i][0];
+        const dy = offsets[i][1];
+        const nx = cx + dx;
+        const ny = cy + dy;
+        if (nx < 0 || nx >= widthVal || ny < 0 || ny >= heightVal) continue;
+        const idx = ny * widthVal + nx;
+        if (dist[idx] !== -1) continue;
+        dist[idx] = baseDist + 1;
+        queueX.push(nx);
+        queueY.push(ny);
+      }
+    }
+
+    return dist;
+  }
+
+  const x = a;
+  const y = b;
+  const maxR = c as number;
+  if (!adapter || width === undefined || height === undefined) {
+    return -1;
+  }
+
   for (let r = 1; r <= maxR; r++) {
     for (let dy = -r; dy <= r; dy++) {
       for (let dx = -r; dx <= r; dx++) {
@@ -289,74 +364,30 @@ export function applyClimateBaseline(
   const noiseCfg = (baselineCfg.noise || {}) as Record<string, number>;
 
   const BASE_AREA = 10000;
-  const sqrt = Math.min(
-    2.0,
-    Math.max(0.6, Math.sqrt(Math.max(1, width * height) / BASE_AREA))
-  );
+  const sqrt = Math.min(2.0, Math.max(0.6, Math.sqrt(Math.max(1, width * height) / BASE_AREA)));
   const equatorPlus = Math.round(12 * (sqrt - 1));
 
-  const noiseBase = Number.isFinite(noiseCfg?.baseSpanSmall)
-    ? noiseCfg.baseSpanSmall
-    : 3;
+  const noiseBase = Number.isFinite(noiseCfg?.baseSpanSmall) ? noiseCfg.baseSpanSmall : 3;
   const noiseSpan =
     sqrt > 1
       ? noiseBase +
         Math.round(
-          Number.isFinite(noiseCfg?.spanLargeScaleFactor)
-            ? noiseCfg.spanLargeScaleFactor
-            : 1
+          Number.isFinite(noiseCfg?.spanLargeScaleFactor) ? noiseCfg.spanLargeScaleFactor : 1
         )
       : noiseBase;
+  const maxSpread = Number.isFinite(coastalCfg.spread) ? coastalCfg.spread : 4;
+  const noiseScale = Number.isFinite(noiseCfg.scale) ? noiseCfg.scale : 0.15;
 
-  const isCoastalLand = (x: number, y: number): boolean => {
-    if (adapter.isCoastalLand) return adapter.isCoastalLand(x, y);
-    if (adapter.isWater(x, y)) return false;
-    for (let dy = -1; dy <= 1; dy++) {
-      for (let dx = -1; dx <= 1; dx++) {
-        if (dx === 0 && dy === 0) continue;
-        const nx = x + dx;
-        const ny = y + dy;
-        if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
-        if (adapter.isWater(nx, ny)) return true;
-      }
-    }
-    return false;
+  const seed = rand(10000, "PerlinSeed");
+  const perlin = new PerlinNoise(seed);
+  const distMap = distanceToNearestWater(width, height, (x: number, y: number) =>
+    adapter.isWater(x, y)
+  );
+
+  const rollNoise = (x: number, y: number): number => {
+    const n = perlin.noise2D(x * noiseScale, y * noiseScale);
+    return n * noiseSpan;
   };
-
-  // CIV-18: Ad-hoc fallback helper for shallow water adjacency.
-  // No prior implementation existed - this was added to fix the gap where
-  // removing stubs left no fallback behavior. A tile is "adjacent to shallow
-  // water" if it neighbors a water tile that has 2+ land neighbors (bay/lagoon).
-  const isAdjacentToShallowWater = (x: number, y: number): boolean => {
-    if (adapter.isAdjacentToShallowWater)
-      return adapter.isAdjacentToShallowWater(x, y);
-    if (adapter.isWater(x, y)) return false;
-    for (let dy = -1; dy <= 1; dy++) {
-      for (let dx = -1; dx <= 1; dx++) {
-        if (dx === 0 && dy === 0) continue;
-        const nx = x + dx;
-        const ny = y + dy;
-        if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
-        if (adapter.isWater(nx, ny)) {
-          // Check if this water tile has multiple land neighbors (shallow)
-          let landNeighbors = 0;
-          for (let ddy = -1; ddy <= 1; ddy++) {
-            for (let ddx = -1; ddx <= 1; ddx++) {
-              if (ddx === 0 && ddy === 0) continue;
-              const nnx = nx + ddx;
-              const nny = ny + ddy;
-              if (nnx < 0 || nnx >= width || nny < 0 || nny >= height) continue;
-              if (!adapter.isWater(nnx, nny)) landNeighbors++;
-            }
-          }
-          if (landNeighbors >= 2) return true;
-        }
-      }
-    }
-    return false;
-  };
-
-  const rollNoise = (): number => rand(noiseSpan * 2 + 1, "RainNoise") - noiseSpan;
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -385,31 +416,24 @@ export function applyClimateBaseline(
       const bandW = Number.isFinite(blend?.bandWeight) ? blend.bandWeight : 0.4;
       let currentRainfall = Math.round(base * baseW + bandRain * bandW);
 
-      const hi1T = Number.isFinite(orographic?.hi1Threshold)
-        ? orographic.hi1Threshold
-        : 350;
-      const hi1B = Number.isFinite(orographic?.hi1Bonus)
-        ? orographic.hi1Bonus
-        : 8;
-      const hi2T = Number.isFinite(orographic?.hi2Threshold)
-        ? orographic.hi2Threshold
-        : 600;
-      const hi2B = Number.isFinite(orographic?.hi2Bonus)
-        ? orographic.hi2Bonus
-        : 7;
+      const hi1T = Number.isFinite(orographic?.hi1Threshold) ? orographic.hi1Threshold : 350;
+      const hi1B = Number.isFinite(orographic?.hi1Bonus) ? orographic.hi1Bonus : 8;
+      const hi2T = Number.isFinite(orographic?.hi2Threshold) ? orographic.hi2Threshold : 600;
+      const hi2B = Number.isFinite(orographic?.hi2Bonus) ? orographic.hi2Bonus : 7;
       if (elevation > hi1T) currentRainfall += hi1B;
       if (elevation > hi2T) currentRainfall += hi2B;
 
       const coastalBonus = Number.isFinite(coastalCfg.coastalLandBonus)
         ? coastalCfg.coastalLandBonus
         : 24;
-      const shallowBonus = Number.isFinite(coastalCfg.shallowAdjBonus)
-        ? coastalCfg.shallowAdjBonus
-        : 16;
-      if (isCoastalLand(x, y)) currentRainfall += coastalBonus;
-      if (isAdjacentToShallowWater(x, y)) currentRainfall += shallowBonus;
 
-      currentRainfall += rollNoise();
+      const dist = distMap[y * width + x];
+      if (dist > 0 && dist <= maxSpread) {
+        const factor = 1 - (dist - 1) / maxSpread;
+        currentRainfall += coastalBonus * factor;
+      }
+
+      currentRainfall += rollNoise(x, y);
       writeRainfall(x, y, currentRainfall);
     }
   }
@@ -448,8 +472,7 @@ export function applyClimateSwatches(
   const inLocalBounds = (x: number, y: number): boolean =>
     x >= 0 && x < width && y >= 0 && y < height;
   const isWater = (x: number, y: number): boolean => adapter.isWater(x, y);
-  const getElevation = (x: number, y: number): number =>
-    adapter.getElevation(x, y);
+  const getElevation = (x: number, y: number): number => adapter.getElevation(x, y);
   const signedLatitudeAt = (y: number): number => adapter.getLatitude(0, y);
 
   const isCoastalLand = (x: number, y: number): boolean => {
@@ -467,39 +490,7 @@ export function applyClimateSwatches(
     return false;
   };
 
-  // CIV-18: Ad-hoc fallback helper for shallow water adjacency (same as baseline).
-  const isAdjacentToShallowWater = (x: number, y: number): boolean => {
-    if (adapter.isAdjacentToShallowWater)
-      return adapter.isAdjacentToShallowWater(x, y);
-    if (isWater(x, y)) return false;
-    for (let dy = -1; dy <= 1; dy++) {
-      for (let dx = -1; dx <= 1; dx++) {
-        if (dx === 0 && dy === 0) continue;
-        const nx = x + dx;
-        const ny = y + dy;
-        if (!inLocalBounds(nx, ny)) continue;
-        if (isWater(nx, ny)) {
-          let landNeighbors = 0;
-          for (let ddy = -1; ddy <= 1; ddy++) {
-            for (let ddx = -1; ddx <= 1; ddx++) {
-              if (ddx === 0 && ddy === 0) continue;
-              const nnx = nx + ddx;
-              const nny = ny + ddy;
-              if (!inLocalBounds(nnx, nny)) continue;
-              if (!isWater(nnx, nny)) landNeighbors++;
-            }
-          }
-          if (landNeighbors >= 2) return true;
-        }
-      }
-    }
-    return false;
-  };
-
-  const types = (cfg.types || {}) as Record<
-    string,
-    Record<string, number | undefined>
-  >;
+  const types = (cfg.types || {}) as Record<string, Record<string, number | undefined>>;
   let entries = Object.keys(types).map((key) => ({
     key,
     w: Math.max(0, (types[key].weight as number) | 0),
@@ -589,7 +580,6 @@ export function applyClimateSwatches(
           const base = (t.wetnessDelta as number) ?? 24;
           let coastBoost = 0;
           if (isCoastalLand(x, y)) coastBoost += 6;
-          if (isAdjacentToShallowWater(x, y)) coastBoost += 4;
           const delta = Math.round((base + coastBoost) * f);
           rf = clamp200(rf + delta);
           applied++;
@@ -600,7 +590,6 @@ export function applyClimateSwatches(
         if (fTropics > 0) {
           let islandy = 0;
           if (isCoastalLand(x, y)) islandy += 1;
-          if (isAdjacentToShallowWater(x, y)) islandy += 0.5;
           if (islandy > 0) {
             const base = (t.wetnessDelta as number) ?? 18;
             const delta = Math.round(base * fTropics * islandy);
@@ -626,10 +615,7 @@ export function applyClimateSwatches(
         }
       } else if (kind === "greatPlains") {
         const center = (t.latitudeCenterDeg as number) ?? 45;
-        const hw = Math.max(
-          6,
-          Math.round(((t.halfWidthDeg as number) ?? 8) * widthMul)
-        );
+        const hw = Math.max(6, Math.round(((t.halfWidthDeg as number) ?? 8) * widthMul));
         const f = falloff(Math.abs(latDegAbs - center), hw);
         if (f > 0 && elev <= ((t.lowlandMaxElevation as number) ?? 300)) {
           const dry = (t.dryDelta as number) ?? 12;
@@ -658,13 +644,7 @@ export function applyClimateSwatches(
 
     // Use foundation dynamics for wind data
     const dynamics = ctx?.foundation?.dynamics;
-    if (
-      monsoonBias > 0 &&
-      COH > 0 &&
-      dynamics &&
-      dynamics.windU &&
-      dynamics.windV
-    ) {
+    if (monsoonBias > 0 && COH > 0 && dynamics && dynamics.windU && dynamics.windV) {
       const baseDelta = Math.max(1, Math.round(3 * COH * monsoonBias));
 
       for (let y = 0; y < height; y++) {
@@ -674,7 +654,7 @@ export function applyClimateSwatches(
 
         for (let x = 0; x < width; x++) {
           if (isWater(x, y)) continue;
-          if (!isCoastalLand(x, y) && !isAdjacentToShallowWater(x, y)) continue;
+          if (!isCoastalLand(x, y)) continue;
 
           const i = idx(x, y);
           const u = dynamics.windU[i] | 0;
@@ -743,19 +723,13 @@ export function refineClimateEarthlike(
   const StoryTags = getStoryTags();
 
   // Local bounds check with captured width/height
-  const inBounds = (x: number, y: number): boolean =>
-    boundsCheck(x, y, width, height);
+  const inBounds = (x: number, y: number): boolean => boundsCheck(x, y, width, height);
 
-  console.log(
-    `[Climate Refinement] Using ${ctx ? "MapContext adapter" : "direct engine calls"}`
-  );
+  console.log(`[Climate Refinement] Using ${ctx ? "MapContext adapter" : "direct engine calls"}`);
 
   // Pass A: coastal and lake humidity gradient
   {
-    const waterGradient = (refineCfg.waterGradient || {}) as Record<
-      string,
-      number
-    >;
+    const waterGradient = (refineCfg.waterGradient || {}) as Record<string, number>;
     const maxR = (waterGradient?.radius ?? 5) | 0;
 
     for (let y = 0; y < height; y++) {
@@ -765,8 +739,7 @@ export function refineClimateEarthlike(
         const dist = distanceToNearestWater(x, y, maxR, adapter, width, height);
         if (dist >= 0) {
           const elev = adapter.getElevation(x, y);
-          let bonus =
-            Math.max(0, maxR - dist) * (waterGradient?.perRingBonus ?? 5);
+          let bonus = Math.max(0, maxR - dist) * (waterGradient?.perRingBonus ?? 5);
           if (elev < 150) bonus += waterGradient?.lowlandBonus ?? 3;
           rf += bonus;
           writeRainfall(x, y, rf);
@@ -802,15 +775,7 @@ export function refineClimateEarthlike(
         let barrier = 0;
         const dynamicsEnabled = dynamics && dynamics.windU && dynamics.windV;
         if (dynamicsEnabled) {
-          barrier = hasUpwindBarrierWM(
-            x,
-            y,
-            steps,
-            adapter,
-            width,
-            height,
-            dynamics
-          );
+          barrier = hasUpwindBarrierWM(x, y, steps, adapter, width, height, dynamics);
         } else {
           const lat = Math.abs(adapter.getLatitude(x, y));
           const dx = lat < 30 || lat >= 60 ? -1 : 1;
@@ -821,8 +786,7 @@ export function refineClimateEarthlike(
         if (barrier) {
           const rf = readRainfall(x, y);
           const reduction =
-            (orographic?.reductionBase ?? 8) +
-            barrier * (orographic?.reductionPerStep ?? 6);
+            (orographic?.reductionBase ?? 8) + barrier * (orographic?.reductionPerStep ?? 6);
           writeRainfall(x, y, rf - reduction);
         }
       }
@@ -831,10 +795,7 @@ export function refineClimateEarthlike(
 
   // Pass C: river corridor greening and basin humidity
   {
-    const riverCorridor = (refineCfg.riverCorridor || {}) as Record<
-      string,
-      number
-    >;
+    const riverCorridor = (refineCfg.riverCorridor || {}) as Record<string, number>;
     const lowBasinCfg = (refineCfg.lowBasin || {}) as Record<string, number>;
 
     for (let y = 0; y < height; y++) {
@@ -911,14 +872,8 @@ export function refineClimateEarthlike(
 
   // Pass E: Orogeny belts (windward/lee)
   {
-    const storyTunables = (tunables.FOUNDATION_CFG?.story || {}) as Record<
-      string,
-      unknown
-    >;
-    const orogenyTunables = (storyTunables.orogeny || {}) as Record<
-      string,
-      number
-    >;
+    const storyTunables = (tunables.FOUNDATION_CFG?.story || {}) as Record<string, unknown>;
+    const orogenyTunables = (storyTunables.orogeny || {}) as Record<string, number>;
 
     if (tunables.STORY_ENABLE_OROGENY && orogenyCache !== null) {
       const windwardSet = orogenyCache.windward;
@@ -967,11 +922,7 @@ export function refineClimateEarthlike(
           let nearParadise = false;
           let nearVolcanic = false;
 
-          for (
-            let dy = -radius;
-            dy <= radius && (!nearParadise || !nearVolcanic);
-            dy++
-          ) {
+          for (let dy = -radius; dy <= radius && (!nearParadise || !nearVolcanic); dy++) {
             for (let dx = -radius; dx <= radius; dx++) {
               if (dx === 0 && dy === 0) continue;
               const nx = x + dx;
