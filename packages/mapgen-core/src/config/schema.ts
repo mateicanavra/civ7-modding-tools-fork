@@ -759,7 +759,7 @@ export const FoundationDynamicsConfigSchema = Type.Object(
             Type.Number({
               description: "Strength of mantle pressure contributions; higher values increase uplift everywhere.",
               default: 0.6,
-              minimum: 0,
+              minimum: 0.1,
               maximum: 5,
             })
           ),
@@ -772,7 +772,7 @@ export const FoundationDynamicsConfigSchema = Type.Object(
             Type.Number({
               description: "Spatial scale of mantle effects; larger scales spread hotspots wider before decay.",
               default: 0.4,
-              minimum: 0,
+              minimum: 0.1,
               maximum: 1,
             })
           ),

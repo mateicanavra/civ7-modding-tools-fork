@@ -120,6 +120,8 @@ function toByte(v: number): number {
 // Plate Computation
 // ============================================================================
 
+// Defaults for plates/dynamics/wind now live in the config schema (src/config/schema.ts).
+// WorldModel assumes it receives fully validated config via tunables/MapGenConfig.
 function computePlates(
   width: number,
   height: number,
@@ -128,14 +130,14 @@ function computePlates(
   const config = getConfig();
   const platesCfg = config.plates || {};
 
-  const count = Math.max(2, (platesCfg.count ?? 8) | 0);
-  const convergenceMix = Math.max(0, Math.min(1, platesCfg.convergenceMix ?? 0.5));
-  const relaxationSteps = Math.max(0, (platesCfg.relaxationSteps ?? 5) | 0);
-  const plateRotationMultiple = platesCfg.plateRotationMultiple ?? 1.0;
-  const seedMode = platesCfg.seedMode === "fixed" ? "fixed" : "engine";
-  const seedOffset = Number.isFinite(platesCfg.seedOffset)
-    ? Math.trunc(platesCfg.seedOffset!)
-    : 0;
+  // Schema defaults and min/max constraints are enforced by parseConfig.
+  // Integer conversion (| 0) retained for runtime safety; no re-defaulting.
+  const count = (platesCfg.count! | 0);
+  const convergenceMix = platesCfg.convergenceMix!;
+  const relaxationSteps = (platesCfg.relaxationSteps! | 0);
+  const plateRotationMultiple = platesCfg.plateRotationMultiple!;
+  const seedMode = platesCfg.seedMode!;
+  const seedOffset = Math.trunc(platesCfg.seedOffset!);
   const fixedSeed = Number.isFinite(platesCfg.fixedSeed)
     ? Math.trunc(platesCfg.fixedSeed!)
     : undefined;
@@ -234,9 +236,10 @@ function computePressure(width: number, height: number, rng?: RngFunction): void
 
   const config = getConfig();
   const mantleCfg = config.dynamics?.mantle || {};
-  const bumps = Math.max(1, (mantleCfg.bumps ?? 4) | 0);
-  const amp = Math.max(0.1, mantleCfg.amplitude ?? 0.6);
-  const scl = Math.max(0.1, mantleCfg.scale ?? 0.4);
+  // Schema defaults and min/max constraints are enforced by parseConfig.
+  const bumps = (mantleCfg.bumps! | 0);
+  const amp = mantleCfg.amplitude!;
+  const scl = mantleCfg.scale!;
   const sigma = Math.max(4, Math.floor(Math.min(width, height) * scl));
 
   const getRandom = rng || getDefaultRng();
@@ -297,9 +300,10 @@ function computeWinds(
 
   const config = getConfig();
   const windCfg = config.dynamics?.wind || {};
-  const streaks = Math.max(0, (windCfg.jetStreaks ?? 3) | 0);
-  const jetStrength = Math.max(0, windCfg.jetStrength ?? 1.0);
-  const variance = Math.max(0, windCfg.variance ?? 0.6);
+  // Schema defaults and min/max constraints are enforced by parseConfig.
+  const streaks = (windCfg.jetStreaks! | 0);
+  const jetStrength = windCfg.jetStrength!;
+  const variance = windCfg.variance!;
 
   const getRandom = rng || getDefaultRng();
   const getLat =

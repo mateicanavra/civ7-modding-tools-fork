@@ -156,13 +156,14 @@ export function buildTunablesFromConfig(config: MapGenConfig): TunablesSnapshot 
 
   return {
     STAGE_MANIFEST: stageManifest,
-    // Toggles: read directly; defaults are in schema (all true)
-    STORY_ENABLE_HOTSPOTS: togglesConfig.STORY_ENABLE_HOTSPOTS ?? true,
-    STORY_ENABLE_RIFTS: togglesConfig.STORY_ENABLE_RIFTS ?? true,
-    STORY_ENABLE_OROGENY: togglesConfig.STORY_ENABLE_OROGENY ?? true,
-    STORY_ENABLE_SWATCHES: togglesConfig.STORY_ENABLE_SWATCHES ?? true,
-    STORY_ENABLE_PALEO: togglesConfig.STORY_ENABLE_PALEO ?? true,
-    STORY_ENABLE_CORRIDORS: togglesConfig.STORY_ENABLE_CORRIDORS ?? true,
+    // Toggles: schema defaults apply via parseConfig; tunables reads directly.
+    // Non-null assertions (!) document the contract that parseConfig has applied defaults.
+    STORY_ENABLE_HOTSPOTS: togglesConfig.STORY_ENABLE_HOTSPOTS!,
+    STORY_ENABLE_RIFTS: togglesConfig.STORY_ENABLE_RIFTS!,
+    STORY_ENABLE_OROGENY: togglesConfig.STORY_ENABLE_OROGENY!,
+    STORY_ENABLE_SWATCHES: togglesConfig.STORY_ENABLE_SWATCHES!,
+    STORY_ENABLE_PALEO: togglesConfig.STORY_ENABLE_PALEO!,
+    STORY_ENABLE_CORRIDORS: togglesConfig.STORY_ENABLE_CORRIDORS!,
     // Layer configs: read directly; defaults are in schema
     LANDMASS_CFG: safeFreeze(config.landmass ?? {}),
     FOUNDATION_CFG: safeFreeze(foundationConfig),
