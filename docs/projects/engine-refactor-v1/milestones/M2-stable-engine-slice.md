@@ -108,3 +108,9 @@ These may be split or reassigned across milestones as we refine the execution pl
     - Canonicalizing engine data products (`ClimateField`, river/hydrology products, `StoryOverlays`) and wiring stages to those products.
   - **M4 will own:**
     - Stronger contracts and validation around data products and `StageManifest` (requires/provides checking, integration tests, diagnostics).
+
+### Adapter Boundary (EngineAdapter vs. OrchestratorAdapter)
+
+- **Current state for M2 planning:** The architecture docs target a single adapter boundary at `MapGenContext.adapter: EngineAdapter`, but the current implementation still uses a second, internal `OrchestratorAdapter` inside `MapOrchestrator` for Civ7 map-init concerns (map size lookup, `SetMapInitData`, `GameplayMap`/`GameInfo` wiring). This two-adapter setup is intentional tech debt for now, not a new pattern to extend.
+- **Out of scope for this milestone:** M2’s “config hygiene + foundation slice” does **not** attempt to collapse the adapter boundary; it only ensures config/tunables are validated and injected cleanly into the existing `MapOrchestrator`-centric flow.
+- **Planned follow-up (M3+):** A later milestone will extend `EngineAdapter`/`Civ7Adapter` to cover map-init responsibilities, update `MapOrchestrator` to depend solely on `EngineAdapter` + validated `MapGenConfig`/`MapGenContext`, and delete `OrchestratorAdapter` so the implementation matches the single-adapter design in `architecture.md`.

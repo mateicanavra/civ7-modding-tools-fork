@@ -168,3 +168,90 @@ When implementing M3+ issues (pipeline generalization, climate, story overlays):
     - Move this contract (possibly refined) into `docs/system/libs/mapgen` as canonical architecture.
     - Optionally introduce similar contract docs for other data products (`Heightfield`, `ClimateField`, `StoryOverlays`).
 
+## 6. Proposed Extensions (Non-Canonical, To Review)
+
+> The ideas in this section are **proposals**, not decided architecture.  
+> They exist to seed discussion and planning for M3/M4. It is explicitly okay to
+> revise or discard them as we learn more.
+
+### 6.1 Proposed Step Contracts on Top of FoundationContext
+
+The following outlines **candidate** `requires`/`provides` contracts for future steps,
+assuming `FoundationContext` remains the canonical physics snapshot.
+
+- **Foundation slice (today, implicit via MapOrchestrator)**
+  - `requires`:
+    - `config.foundation` and related tunables (plates, dynamics, surface, diagnostics).
+  - `provides`:
+    - `FoundationContext` (as defined above).
+    - Populated `HeightfieldBuffer` (via `syncHeightfield`) and initial land mask.
+
+- **Proposed: Climate baseline step (M3)**
+  - `requires`:
+    - `FoundationContext.dynamics` (wind/current/pressure).
+    - `HeightfieldBuffer` and land mask.
+  - `provides`:
+    - `ClimateField` (baseline rainfall/humidity, stored in `MapContext.buffers.climate`).
+    - Optional derived diagnostics (e.g., rainfall histograms).
+
+- **Proposed: Hydrology / rivers step (M3)**
+  - `requires`:
+    - `HeightfieldBuffer` (elevation + landMask).
+    - `ClimateField` (rainfall/humidity).
+  - `provides`:
+    - Canonical river flow / basin descriptors (e.g., “RiverGraph” data product).
+    - Engine-surface effects via adapter (river placement), but with a structured backing product.
+
+- **Proposed: Story overlays (early pass, M3)**
+  - `requires`:
+    - `FoundationContext.plates` and `FoundationContext.dynamics`.
+    - `HeightfieldBuffer` and `ClimateField`.
+  - `provides`:
+    - One or more sparse `StoryOverlays` (e.g., continental margins, high-stress belts, rift zones).
+    - These overlays become the canonical source for later story passes instead of mutating `StoryTags` directly.
+
+These contracts are intentionally high-level; exact field names and manifests should be defined in the
+actual M3/M4 issues and PRDs.
+
+### 6.2 Proposed Cross-Product Contracts
+
+As we introduce more data products, we may want lightweight “cross-product” contracts
+that describe how they relate to `FoundationContext`:
+
+- **Heightfield ↔ FoundationContext**
+  - Proposal: Heightfield generation should be **derived** from:
+    - `FoundationContext.plates` (uplift/rift/shield fields).
+    - `FoundationContext.dynamics` (to bias erosion/weathering).
+  - Implication: morphology layers should avoid reaching directly into `WorldModel` once
+    `FoundationContext` and the heightfield buffers are stable.
+
+- **ClimateField ↔ FoundationContext**
+  - Proposal: climate steps should treat `FoundationContext.dynamics` as the **only** source
+    of large-scale wind/current/pressure, and should publish a `ClimateField` that downstream
+    consumers use instead of reading `GameplayMap` climate state directly.
+
+- **StoryOverlays ↔ FoundationContext / ClimateField**
+  - Proposal: story passes that describe tectonic or climatic phenomena should:
+    - Use `FoundationContext` and `ClimateField` as inputs.
+    - Publish overlays in `MapContext.overlays` that encode the narrative interpretation
+      (e.g., “orogeny belts”, “rift valleys”, “storm tracks”) without re-deriving physics.
+
+These cross-product contracts are **not binding yet**; they are here to guide future design
+and should be adjusted as we introduce real steps and products.
+
+### 6.3 Promotion Criteria (When This Becomes Canonical)
+
+Before we promote this contract (or a refined version) into system docs, we should
+be confident that:
+
+- Multiple downstream clusters (at least climate + one story overlay + one placement/biome step)
+  use `FoundationContext` in a consistent way.
+- Tests exist that:
+  - Assert the presence and basic invariants of `FoundationContext` for typical map sizes.
+  - Exercise at least one consumer step end-to-end (e.g., foundation → climate → simple overlay).
+- The proposed `requires`/`provides` relationships above have either:
+  - Been implemented and validated, or
+  - Been replaced with a better scheme that is documented here.
+
+Until then, treat this section as a **design sandbox**: useful for planning and coordination,
+but not authoritative.

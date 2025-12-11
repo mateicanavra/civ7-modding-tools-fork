@@ -61,6 +61,7 @@ pnpm -C packages/mapgen-core test
 - **PRD Reference**: `resources/PRD-config-refactor.md` (Phase 1)
 - **Milestone**: M2: Stable Shape & Instrumented Engine Slice
 - **Blocks**: Foundation pipeline work (LOCAL-TBD-foundation-stage-parent)
+- **Adapter boundary scope**: This issue owns config/tunables hygiene only (schema, validation, injection). The adapter boundary cleanup (moving remaining Civ7 map-init behavior off the internal `OrchestratorAdapter` and into `EngineAdapter`, then removing `OrchestratorAdapter`) is explicitly deferred to a later milestone and should be tracked as separate follow-up work.
 
 **Sub-Issues:**
 - CIV-27: Define MapGenConfigSchema with TypeBox
