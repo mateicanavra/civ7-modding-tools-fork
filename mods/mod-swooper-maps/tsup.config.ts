@@ -24,6 +24,7 @@ export default defineConfig({
   entry: [
     "src/gate-a-continents.ts",
     "src/swooper-desert-mountains.ts",
+    "src/swooper-earthlike.ts",
   ],
 
   // Output directly to the structure the .modinfo expects

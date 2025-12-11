@@ -15,5 +15,12 @@
 			Description="LOC_MAP_GATE_A_CONTINENTS_DESCRIPTION"
 			SortIndex="501"
 		/>
+		<!-- Earthlike variant - Realistic Earth analogue -->
+		<Row
+			File="{swooper-maps}/maps/swooper-earthlike.js"
+			Name="LOC_MAP_SWOOPER_EARTHLIKE_NAME"
+			Description="LOC_MAP_SWOOPER_EARTHLIKE_DESCRIPTION"
+			SortIndex="502"
+		/>
 	</Maps>
 </Database>
