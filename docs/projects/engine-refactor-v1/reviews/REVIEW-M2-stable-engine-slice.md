@@ -199,8 +199,10 @@ Mostly, with notable gaps: `MapOrchestrator` now takes a validated `MapGenConfig
   ~~`MapOrchestrator`'s constructor calls `setValidatedConfig(config)` and `rebindTunables()` behind the scenes. This keeps M2 working but means the orchestrator is not yet "pure" from the config perspective, and callers can still accidentally rely on "constructor as global-mutator". This bridging is appropriate for M2 but should be explicitly unwound in CIV‑31 when tunables are refactored to derive from injected config rather than hidden module state.~~
 
   **Update (2025‑12):** The `setValidatedConfig` and `rebindTunables` side effects have been removed from `MapOrchestrator`. The constructor no longer mutates module state. Configuration binding now happens explicitly via `bootstrap() → bindTunables(config)` before the orchestrator is constructed.  
-- **Tests still instantiate `MapOrchestrator` with options-shaped arguments, not `(config, options)`.**  
-  `packages/mapgen-core/test/orchestrator/requestMapData.test.ts` still does `new MapOrchestrator({ mapSizeDefaults: { … } })`, which under the new signature is treated as a `MapGenConfig` rather than `OrchestratorConfig`. That means the `mapSizeDefaults` path is never exercised in these tests, and they instead fall back to engine globals and standard defaults. This doesn’t block runtime behavior but weakens our guardrails around the new constructor contract; updating these tests to pass a simple dummy `MapGenConfig` plus `{ mapSizeDefaults }` as `options` is a worthwhile follow-up, and can reasonably ride with CIV‑31 or a small CIV‑26 hygiene task.  
+- ~~**Tests still instantiate `MapOrchestrator` with options-shaped arguments, not `(config, options)`.**~~
+  ~~`packages/mapgen-core/test/orchestrator/requestMapData.test.ts` still does `new MapOrchestrator({ mapSizeDefaults: { … } })`, which under the new signature is treated as a `MapGenConfig` rather than `OrchestratorConfig`. That means the `mapSizeDefaults` path is never exercised in these tests, and they instead fall back to engine globals and standard defaults. This doesn't block runtime behavior but weakens our guardrails around the new constructor contract; updating these tests to pass a simple dummy `MapGenConfig` plus `{ mapSizeDefaults }` as `options` is a worthwhile follow-up, and can reasonably ride with CIV‑31 or a small CIV‑26 hygiene task.~~
+
+  **Update (2025‑12):** Resolved. Tests in `requestMapData.test.ts` now use `new MapOrchestrator(getDefaultConfig(), { mapSizeDefaults: ... })`. The integration test in `generateMap.integration.test.ts` uses the correct `(config, options)` signature and properly separates EngineAdapter (for layer operations) from the globals-based OrchestratorAdapter (for map-init operations).  
 - **Top-of-file usage docs still show the pre-injection constructor.**  
   The header comment in `MapOrchestrator.ts` still advertises `const orchestrator = new MapOrchestrator();` without config, which no longer matches the implementation. This is low-risk but confusing for future entry point authors. It’s an easy cleanup to update the examples to the new pattern (`const config = bootstrap(opts); const orchestrator = new MapOrchestrator(config, options)`), ideally when CIV‑31 touches this file next.
 
@@ -295,3 +297,27 @@ The following items are **not in scope for this lane** but represent the next lo
 **Outcome:** We centralized key `WorldModel` defaults (plates, mantle, wind) into the schema, but some engine subsystems (currents, certain diagnostics, possibly other world fields) still embed internal magic numbers.
 
 **Follow‑up:** Audit these remaining defaults and decide which should be surfaced in `MapGenConfig` vs. remain internal constants, to avoid hidden behavior and make tuning more explicit.
+
+### Adapter boundary – EngineAdapter vs. OrchestratorAdapter
+
+~~**Outcome:** The architecture docs (`docs/system/libs/mapgen/architecture.md`, `foundation.md`) describe a single adapter boundary at `MapGenContext.adapter: EngineAdapter`, but the current implementation still uses two adapters in practice: `EngineAdapter` (from `@civ7/adapter`) as the canonical boundary for layers/WorldModel, and an internal `OrchestratorAdapter` inside `MapOrchestrator` that handles Civ7 map-init details (map size lookup, `SetMapInitData`, `GameplayMap`/`GameInfo` wiring). The latter is a transitional bridge, not part of the long-term design.~~
+
+**Update (2025‑12):** The adapter wiring in `MapOrchestrator` has been corrected to remove the accidental conflation between `EngineAdapter` and `OrchestratorAdapter`:
+
+- `MapOrchestrator` now maintains two **explicit, separate** adapter fields:
+  - `orchestratorAdapter: OrchestratorAdapter` — for Civ7 map-init operations (map size, `SetMapInitData`, `GameplayMap`/`GameInfo` globals, lake/coast stamping). Always resolved from engine globals via `resolveOrchestratorAdapter()`. **Not configurable via options.**
+  - The `EngineAdapter` from `OrchestratorConfig.adapter` is used **only** for layer operations via `createLayerAdapter()` and flows into `ctx.adapter` for terrain/biome/feature operations.
+
+- `OrchestratorConfig.adapter` (typed as `EngineAdapter`) now feeds **only** the engine adapter for layers — it no longer accidentally flows into the orchestrator adapter.
+
+- Tests have been updated to reflect this separation:
+  - The integration test stubs the globals (`GameplayMap`, `GameInfo`, `engine.call`, `TerrainBuilder`, `AreaBuilder`) that `resolveOrchestratorAdapter()` reads from, rather than passing orchestrator methods via the `adapter` option.
+  - The `requestMapData` tests use `mapSizeDefaults` to bypass orchestrator adapter calls where appropriate.
+
+**Remaining work (future milestone):**
+
+- We are still in a **transitional state** with two adapters. This is intentional tech debt, not an open-ended pattern.
+- A future dedicated issue will:
+  - Extend `EngineAdapter`/`Civ7Adapter` to cover map-size and map-init semantics.
+  - Remove `OrchestratorAdapter` entirely so `MapOrchestrator` depends solely on `EngineAdapter` + `MapGenConfig`/`MapGenContext`.
+- This lane intentionally did **not** attempt to collapse the adapter boundary; it only removed the accidental conflation where `OrchestratorConfig.adapter` (typed as `EngineAdapter`) was being assigned to the `OrchestratorAdapter` field.

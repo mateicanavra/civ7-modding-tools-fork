@@ -394,7 +394,13 @@ export class MapOrchestrator {
   private readonly mapGenConfig: MapGenConfig;
   /** Orchestrator options (adapter, logging, etc.) */
   private options: OrchestratorConfig;
-  private adapter: OrchestratorAdapter;
+  /**
+   * Orchestrator-specific adapter for Civ7 map-init operations.
+   * Handles: map size, MapInitData, GameplayMap/GameInfo globals,
+   * lake/coast stamping, continent operations.
+   * Always resolved from engine globals - NOT configurable via options.
+   */
+  private orchestratorAdapter: OrchestratorAdapter;
   private stageResults: StageResult[] = [];
   private worldModelConfigBound = false;
 
@@ -416,8 +422,13 @@ export class MapOrchestrator {
 
     this.mapGenConfig = config;
     this.options = options;
-    // Prefer caller-supplied adapter to avoid pulling real Civ7 adapter in tests.
-    this.adapter = options.adapter ?? resolveOrchestratorAdapter();
+
+    // OrchestratorAdapter is always resolved from engine globals.
+    // It handles Civ7-specific map-init operations (map size, SetMapInitData,
+    // GameplayMap/GameInfo, lake/coast stamping).
+    // NOTE: options.adapter (EngineAdapter) is used separately for layer operations
+    // via createLayerAdapter() - the two adapters serve different purposes.
+    this.orchestratorAdapter = resolveOrchestratorAdapter();
 
     // Note: Tunables must already be bound before constructing MapOrchestrator.
     // The expected flow is: bootstrap(options) → config → new MapOrchestrator(config)
@@ -458,8 +469,8 @@ export class MapOrchestrator {
       console.log(`${prefix} Using test mapSizeDefaults`);
     } else {
       // Production mode: query game settings
-      mapSizeId = this.adapter.getMapSize();
-      mapInfo = this.adapter.lookupMapInfo(mapSizeId);
+      mapSizeId = this.orchestratorAdapter.getMapSize();
+      mapInfo = this.orchestratorAdapter.lookupMapInfo(mapSizeId);
     }
 
     // Extract dimensions from MapInfo, with sensible fallbacks.
@@ -493,7 +504,7 @@ export class MapOrchestrator {
       `${prefix} Final latitude range: ${params.bottomLatitude} to ${params.topLatitude}`
     );
 
-    this.adapter.setMapInitData(params);
+    this.orchestratorAdapter.setMapInitData(params);
   }
 
   /**
@@ -525,10 +536,10 @@ export class MapOrchestrator {
     WorldModel.reset();
 
     // Get map dimensions
-    const iWidth = this.adapter.getGridWidth();
-    const iHeight = this.adapter.getGridHeight();
-    const uiMapSize = this.adapter.getMapSize();
-    const mapInfo = this.adapter.lookupMapInfo(uiMapSize);
+    const iWidth = this.orchestratorAdapter.getGridWidth();
+    const iHeight = this.orchestratorAdapter.getGridHeight();
+    const uiMapSize = this.orchestratorAdapter.getMapSize();
+    const mapInfo = this.orchestratorAdapter.lookupMapInfo(uiMapSize);
 
     if (!mapInfo) {
       console.error(`${prefix} Failed to lookup map info`);
@@ -598,8 +609,8 @@ export class MapOrchestrator {
     const iNumPlayers2 = mapInfo.PlayersLandmass2 ?? 4;
     const iStartSectorRows = mapInfo.StartSectorRows ?? 4;
     const iStartSectorCols = mapInfo.StartSectorCols ?? 4;
-    const bHumanNearEquator = this.adapter.needHumanNearEquator();
-    const startSectors = this.adapter.chooseStartSectors(
+    const bHumanNearEquator = this.orchestratorAdapter.needHumanNearEquator();
+    const startSectors = this.orchestratorAdapter.chooseStartSectors(
       iNumPlayers1,
       iNumPlayers2,
       iStartSectorRows,
@@ -666,9 +677,9 @@ export class MapOrchestrator {
         );
 
         // Validate and stamp continents
-        this.adapter.validateAndFixTerrain();
-        this.adapter.recalculateAreas();
-        this.adapter.stampContinents();
+        this.orchestratorAdapter.validateAndFixTerrain();
+        this.orchestratorAdapter.recalculateAreas();
+        this.orchestratorAdapter.stampContinents();
 
         // Apply plot tags
         const terrainBuilder: TerrainBuilderLike = {
@@ -698,7 +709,7 @@ export class MapOrchestrator {
     // ========================================================================
     if (stageFlags.coastlines && ctx) {
       const stageResult = this.runStage("coastlines", () => {
-        this.adapter.expandCoasts(iWidth, iHeight);
+        this.orchestratorAdapter.expandCoasts(iWidth, iHeight);
       });
       this.stageResults.push(stageResult);
     }
@@ -790,15 +801,15 @@ export class MapOrchestrator {
     if (stageFlags.lakes && ctx) {
       const iTilesPerLake = Math.max(10, (mapInfo.LakeGenerationFrequency ?? 5) * 2);
       const stageResult = this.runStage("lakes", () => {
-        this.adapter.generateLakes(iWidth, iHeight, iTilesPerLake);
+        this.orchestratorAdapter.generateLakes(iWidth, iHeight, iTilesPerLake);
         syncHeightfield(ctx!);
       });
       this.stageResults.push(stageResult);
     }
 
     // Build elevation after terrain modifications
-    this.adapter.recalculateAreas();
-    this.adapter.buildElevation();
+    this.orchestratorAdapter.recalculateAreas();
+    this.orchestratorAdapter.buildElevation();
 
     // Refresh landmass regions after coast/rugged/island/lake/mountain changes so StartPositioner
     // sees the final land/water layout.
@@ -861,13 +872,13 @@ export class MapOrchestrator {
 
       const stageResult = this.runStage("rivers", () => {
         logStats("PRE-RIVERS");
-        this.adapter.modelRivers(5, 15, navigableRiverTerrain);
+        this.orchestratorAdapter.modelRivers(5, 15, navigableRiverTerrain);
         logStats("POST-MODELRIVERS");
-        this.adapter.validateAndFixTerrain();
+        this.orchestratorAdapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
         syncClimateField(ctx!);
-        this.adapter.defineNamedRivers();
+        this.orchestratorAdapter.defineNamedRivers();
       });
       this.stageResults.push(stageResult);
     }
@@ -911,15 +922,15 @@ export class MapOrchestrator {
     if (stageFlags.features && ctx) {
       const stageResult = this.runStage("features", () => {
         addDiverseFeatures(iWidth, iHeight, ctx!);
-        this.adapter.validateAndFixTerrain();
+        this.orchestratorAdapter.validateAndFixTerrain();
         syncHeightfield(ctx!);
-        this.adapter.recalculateAreas();
+        this.orchestratorAdapter.recalculateAreas();
       });
       this.stageResults.push(stageResult);
     }
 
     // Store water data before placement
-    this.adapter.storeWaterData();
+    this.orchestratorAdapter.storeWaterData();
 
     // ========================================================================
     // Stage: Placement

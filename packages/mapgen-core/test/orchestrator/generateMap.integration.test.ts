@@ -11,62 +11,152 @@ import type { EngineAdapter } from "@civ7/adapter";
  * and supply a no-op adapter. The goal is to verify that generateMap() can run
  * end-to-end with schema-defaulted config and bound tunables, not to exercise
  * the full layer pipeline.
+ *
+ * ## Adapter Architecture
+ *
+ * MapOrchestrator uses two distinct adapters:
+ *
+ * 1. **EngineAdapter** (from `@civ7/adapter`): Used for terrain/biome/feature operations
+ *    in layers and WorldModel. Passed via `OrchestratorConfig.adapter`.
+ *
+ * 2. **OrchestratorAdapter** (internal): Used for Civ7 map-init operations (map size,
+ *    SetMapInitData, GameplayMap/GameInfo, lake/coast stamping). Always resolved from
+ *    engine globals via `resolveOrchestratorAdapter()` — NOT configurable via options.
+ *
+ * Tests that need to control orchestrator-level behavior must stub the globals
+ * (GameplayMap, GameInfo, engine.call, TerrainBuilder, AreaBuilder) that
+ * `resolveOrchestratorAdapter()` reads from.
  */
 describe("integration: bootstrap → tunables → orchestrator (stages disabled)", () => {
   const calls: Array<{ method: string; args: unknown[] }> = [];
 
-  const adapter: EngineAdapter = {
-    getGridWidth: () => 84,
-    getGridHeight: () => 54,
-    getMapSize: () => 1,
-    lookupMapInfo: () => ({
-      GridWidth: 84,
-      GridHeight: 54,
-      MinLatitude: -80,
-      MaxLatitude: 80,
-      NumNaturalWonders: 0,
-      LakeGenerationFrequency: 0,
-      PlayersLandmass1: 4,
-      PlayersLandmass2: 4,
-      StartSectorRows: 4,
-      StartSectorCols: 4,
-    }),
-    setMapInitData: (params) => calls.push({ method: "setMapInitData", args: [params] }),
+  // EngineAdapter mock for layer operations (terrain, biomes, features, WorldModel)
+  // This is the proper EngineAdapter interface from @civ7/adapter
+  const engineAdapter: EngineAdapter = {
+    width: 84,
+    height: 54,
     isWater: () => false,
-    validateAndFixTerrain: () => calls.push({ method: "validateAndFixTerrain", args: [] }),
-    recalculateAreas: () => calls.push({ method: "recalculateAreas", args: [] }),
-    stampContinents: () => calls.push({ method: "stampContinents", args: [] }),
-    buildElevation: () => calls.push({ method: "buildElevation", args: [] }),
-    modelRivers: () => calls.push({ method: "modelRivers", args: [] }),
-    defineNamedRivers: () => calls.push({ method: "defineNamedRivers", args: [] }),
-    storeWaterData: () => calls.push({ method: "storeWaterData", args: [] }),
-    generateLakes: () => calls.push({ method: "generateLakes", args: [] }),
-    expandCoasts: () => calls.push({ method: "expandCoasts", args: [] }),
-    chooseStartSectors: () => {
-      calls.push({ method: "chooseStartSectors", args: [] });
-      return [];
-    },
-    needHumanNearEquator: () => false,
-    getRandomNumber: () => 0,
-    setTerrainType: () => {},
-    setWater: () => {},
-    setHeight: () => {},
+    isMountain: () => false,
+    isAdjacentToRivers: () => false,
+    getElevation: () => 0,
     getTerrainType: () => 0,
-    setPlotTag: () => {},
-    getPlotTag: () => 0,
-    hasPlotTag: () => false,
-    removePlotTag: () => {},
-    addPlotTag: () => {},
+    getRainfall: () => 100,
+    getTemperature: () => 20,
+    getLatitude: () => 0,
+    setTerrainType: () => {},
+    setRainfall: () => {},
     setLandmassRegionId: () => {},
+    addPlotTag: () => {},
+    setPlotTag: () => {},
+    getFeatureType: () => -1,
+    setFeatureType: () => {},
+    canHaveFeature: () => true,
+    getRandomNumber: () => 0,
+    validateAndFixTerrain: () => {},
+    recalculateAreas: () => {},
+    createFractal: () => {},
+    getFractalHeight: () => 0,
+    stampContinents: () => {},
+    buildElevation: () => {},
+    modelRivers: () => {},
+    defineNamedRivers: () => {},
+    storeWaterData: () => {},
+    designateBiomes: () => {},
+    getBiomeGlobal: () => 0,
+    setBiomeType: () => {},
+    getBiomeType: () => 0,
+    addFeatures: () => {},
+    getFeatureTypeIndex: () => -1,
+    NO_FEATURE: -1,
+    addNaturalWonders: () => {},
+    generateSnow: () => {},
+    generateResources: () => {},
+    assignStartPositions: () => [],
+    generateDiscoveries: () => {},
+    assignAdvancedStartRegions: () => {},
+    addFloodplains: () => {},
+    recalculateFertility: () => {},
+    chooseStartSectors: () => [],
+    needHumanNearEquator: () => false,
   };
+
+  // Map info for orchestrator operations
+  const mapInfo = {
+    GridWidth: 84,
+    GridHeight: 54,
+    MinLatitude: -80,
+    MaxLatitude: 80,
+    NumNaturalWonders: 0,
+    LakeGenerationFrequency: 0,
+    PlayersLandmass1: 4,
+    PlayersLandmass2: 4,
+    StartSectorRows: 4,
+    StartSectorCols: 4,
+  };
+
+  // Store original globals for restoration
+  let originalGameplayMap: unknown;
+  let originalGameInfo: unknown;
+  let originalEngine: unknown;
+  let originalTerrainBuilder: unknown;
+  let originalAreaBuilder: unknown;
 
   beforeEach(() => {
     calls.length = 0;
     resetTunablesForTest();
+
+    // Save original globals
+    originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
+    originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
+    originalEngine = (globalThis as Record<string, unknown>).engine;
+    originalTerrainBuilder = (globalThis as Record<string, unknown>).TerrainBuilder;
+    originalAreaBuilder = (globalThis as Record<string, unknown>).AreaBuilder;
+
+    // Stub globals for OrchestratorAdapter (map-init operations)
+    (globalThis as Record<string, unknown>).GameplayMap = {
+      getGridWidth: () => 84,
+      getGridHeight: () => 54,
+      getMapSize: () => 1,
+      isWater: () => false,
+    };
+
+    (globalThis as Record<string, unknown>).GameInfo = {
+      Maps: {
+        lookup: () => mapInfo,
+      },
+    };
+
+    (globalThis as Record<string, unknown>).engine = {
+      call: (name: string, params: unknown) => {
+        calls.push({ method: `engine.call:${name}`, args: [params] });
+      },
+    };
+
+    (globalThis as Record<string, unknown>).TerrainBuilder = {
+      validateAndFixTerrain: () => calls.push({ method: "validateAndFixTerrain", args: [] }),
+      stampContinents: () => calls.push({ method: "stampContinents", args: [] }),
+      buildElevation: () => calls.push({ method: "buildElevation", args: [] }),
+      modelRivers: () => calls.push({ method: "modelRivers", args: [] }),
+      defineNamedRivers: () => calls.push({ method: "defineNamedRivers", args: [] }),
+      storeWaterData: () => calls.push({ method: "storeWaterData", args: [] }),
+      setPlotTag: () => {},
+      addPlotTag: () => {},
+    };
+
+    (globalThis as Record<string, unknown>).AreaBuilder = {
+      recalculateAreas: () => calls.push({ method: "recalculateAreas", args: [] }),
+    };
   });
 
   afterEach(() => {
     resetTunablesForTest();
+
+    // Restore original globals
+    (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
+    (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
+    (globalThis as Record<string, unknown>).engine = originalEngine;
+    (globalThis as Record<string, unknown>).TerrainBuilder = originalTerrainBuilder;
+    (globalThis as Record<string, unknown>).AreaBuilder = originalAreaBuilder;
   });
 
   it("runs generateMap with schema defaults and no stage execution", () => {
@@ -76,10 +166,13 @@ describe("integration: bootstrap → tunables → orchestrator (stages disabled)
     });
 
     const orchestrator = new MapOrchestrator(config, {
-      adapter,
+      // EngineAdapter for layer operations only
+      adapter: engineAdapter,
+      // mapSizeDefaults bypasses some orchestrator adapter calls in requestMapData
+      // but generateMap still uses orchestrator adapter for grid dimensions
       mapSizeDefaults: {
         mapSizeId: 1,
-        mapInfo: adapter.lookupMapInfo(1),
+        mapInfo,
       },
       logPrefix: "[TEST]",
     });
@@ -87,5 +180,25 @@ describe("integration: bootstrap → tunables → orchestrator (stages disabled)
     const result = orchestrator.generateMap();
 
     expect(result.success).toBe(true);
+  });
+
+  it("calls orchestrator adapter methods for map-init operations", () => {
+    const config = bootstrap({
+      stageManifest: { order: [], stages: {} },
+    });
+
+    const orchestrator = new MapOrchestrator(config, {
+      adapter: engineAdapter,
+      mapSizeDefaults: { mapSizeId: 1, mapInfo },
+      logPrefix: "[TEST]",
+    });
+
+    orchestrator.generateMap();
+
+    // Orchestrator operations should go through the stubbed globals
+    // (recalculateAreas, buildElevation, storeWaterData are always called)
+    expect(calls.some((c) => c.method === "recalculateAreas")).toBe(true);
+    expect(calls.some((c) => c.method === "buildElevation")).toBe(true);
+    expect(calls.some((c) => c.method === "storeWaterData")).toBe(true);
   });
 });
