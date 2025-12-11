@@ -91,7 +91,9 @@ function getConfig(): WorldModelConfig {
   if (_configProvider) {
     return _configProvider();
   }
-  return {};
+  throw new Error(
+    "WorldModel configuration provider not set. MapOrchestrator must bind a provider before WorldModel.init()."
+  );
 }
 
 // ============================================================================

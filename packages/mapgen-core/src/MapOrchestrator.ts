@@ -416,7 +416,8 @@ export class MapOrchestrator {
 
     this.mapGenConfig = config;
     this.options = options;
-    this.adapter = resolveOrchestratorAdapter();
+    // Prefer caller-supplied adapter to avoid pulling real Civ7 adapter in tests.
+    this.adapter = options.adapter ?? resolveOrchestratorAdapter();
 
     // Note: Tunables must already be bound before constructing MapOrchestrator.
     // The expected flow is: bootstrap(options) → config → new MapOrchestrator(config)
