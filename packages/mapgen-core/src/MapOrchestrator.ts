@@ -67,9 +67,7 @@ import {
   getTunables,
   resetTunables,
   stageEnabled,
-  rebind as rebindTunables,
 } from "./bootstrap/tunables.js";
-import { setValidatedConfig, hasConfig } from "./bootstrap/runtime.js";
 import { validateStageDrift } from "./bootstrap/resolved.js";
 import { resetStoryTags } from "./story/tags.js";
 import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/index.js";
@@ -420,11 +418,10 @@ export class MapOrchestrator {
     this.options = options;
     this.adapter = resolveOrchestratorAdapter();
 
-    // Store config in module-scoped state for backwards compatibility
-    // with tunables system (which reads from getValidatedConfig())
-    // This ensures getTunables() returns values derived from this config.
-    setValidatedConfig(config);
-    rebindTunables();
+    // Note: Tunables must already be bound before constructing MapOrchestrator.
+    // The expected flow is: bootstrap(options) → config → new MapOrchestrator(config)
+    // bootstrap() calls bindTunables() internally, so getTunables() will work.
+    // If tunables are not bound, getTunables() will throw (fail-fast).
   }
 
   /**

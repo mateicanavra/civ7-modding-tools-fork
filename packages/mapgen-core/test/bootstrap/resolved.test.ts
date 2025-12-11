@@ -19,7 +19,6 @@ import {
   validateOverrides,
   validateStageDrift,
   resetDriftCheck,
-  getConfig,
 } from "../../src/bootstrap/entry.js";
 
 describe("bootstrap/resolved", () => {
@@ -148,14 +147,13 @@ describe("bootstrap/resolved", () => {
     });
 
     it("populates stageManifest in config after bootstrap", () => {
-      bootstrap({
+      const config = bootstrap({
         stageConfig: {
           foundation: true,
           mountains: true,
         },
       });
 
-      const config = getConfig();
       expect(config.stageManifest).toBeDefined();
       expect(config.stageManifest?.stages?.foundation?.enabled).toBe(true);
       expect(config.stageManifest?.stages?.mountains?.enabled).toBe(true);

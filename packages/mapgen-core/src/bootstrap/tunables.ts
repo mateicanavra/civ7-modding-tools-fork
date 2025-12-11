@@ -7,30 +7,22 @@
  * - Provide reset functions for test isolation
  *
  * Usage:
- *   import { getTunables, resetTunables, rebind } from "./tunables.js";
+ *   import { getTunables, resetTunables, bindTunables } from "./tunables.js";
  *
  *   // In tests
  *   beforeEach(() => {
- *     resetTunables();
+ *     resetTunablesForTest();
  *   });
  *
- *   // In generator
- *   function generateMap() {
- *     rebind(); // Refresh config from game state
- *     const tunables = getTunables();
- *     // use tunables.LANDMASS_CFG, etc.
- *   }
+ *   // In generator (via bootstrap)
+ *   const config = bootstrap(options);
+ *   // bootstrap() calls bindTunables(config) internally
+ *   const tunables = getTunables();
+ *   // use tunables.LANDMASS_CFG, etc.
  */
 
 import type {
-  MapConfig,
-  Toggles,
-  LandmassConfig,
   FoundationConfig,
-  FoundationPlatesConfig,
-  FoundationDynamicsConfig,
-  FoundationDirectionalityConfig,
-  ClimateConfig,
   StageManifest,
   StageDescriptor,
   TunablesSnapshot,
@@ -45,49 +37,14 @@ let _cache: TunablesSnapshot | null = null;
 let _boundConfig: MapGenConfig | null = null;
 
 // ============================================================================
-// Default Values
+// Structural Constants (not defaults - these are fallbacks for missing nested objects)
 // ============================================================================
 
 const EMPTY_OBJECT = Object.freeze({}) as Readonly<Record<string, unknown>>;
 
-const EMPTY_STAGE_MANIFEST: Readonly<StageManifest> = Object.freeze({
-  order: [] as string[],
-  stages: {} as Record<string, StageDescriptor>,
-});
-
-const DEFAULT_TOGGLES: Readonly<Toggles> = Object.freeze({
-  STORY_ENABLE_HOTSPOTS: true,
-  STORY_ENABLE_RIFTS: true,
-  STORY_ENABLE_OROGENY: true,
-  STORY_ENABLE_SWATCHES: true,
-  STORY_ENABLE_PALEO: true,
-  STORY_ENABLE_CORRIDORS: true,
-});
-
-const DEFAULT_LANDMASS: Readonly<LandmassConfig> = Object.freeze({
-  baseWaterPercent: 60,
-});
-
-const DEFAULT_FOUNDATION: Readonly<FoundationConfig> = Object.freeze({});
-
-const DEFAULT_PLATES: Readonly<FoundationPlatesConfig> = Object.freeze({
-  count: 8,
-  relaxationSteps: 5,
-  convergenceMix: 0.5,
-  plateRotationMultiple: 1.0,
-  seedMode: "engine",
-});
-
-const DEFAULT_DYNAMICS: Readonly<FoundationDynamicsConfig> = Object.freeze({
-  mantle: Object.freeze({ bumps: 4, amplitude: 0.6, scale: 0.4 }),
-  wind: Object.freeze({ jetStreaks: 3, jetStrength: 1.0, variance: 0.6 }),
-});
-
-const DEFAULT_DIRECTIONALITY: Readonly<FoundationDirectionalityConfig> = Object.freeze({
-  cohesion: 0,
-});
-
-const DEFAULT_CLIMATE: Readonly<ClimateConfig> = Object.freeze({});
+// NOTE: All value defaults (e.g., count: 8, baseWaterPercent: 60) are now in
+// the schema (src/config/schema.ts). parseConfig applies them automatically.
+// The tunables layer should NOT re-default values; it just reshapes the config.
 
 // ============================================================================
 // Helpers
@@ -139,21 +96,23 @@ function deepMerge<T extends object>(base: T, override: Partial<T> | undefined):
  * Build the tunables snapshot from a validated config.
  * This is the primary interface for constructing tunables from config.
  *
- * @param config - Validated MapGenConfig instance
+ * IMPORTANT: This function assumes config has already been validated via parseConfig(),
+ * which applies all schema defaults. The tunables layer does NOT apply its own defaults;
+ * it only reshapes the validated config into the TunablesSnapshot structure.
+ *
+ * @param config - Validated MapGenConfig instance (with defaults already applied by parseConfig)
  * @returns Frozen TunablesSnapshot for use by legacy layers
  */
 export function buildTunablesFromConfig(config: MapGenConfig): TunablesSnapshot {
+  // Config should be validated with defaults applied by parseConfig.
+  // We read directly from config without applying fallbacks.
 
-  // Resolve toggles
-  const togglesConfig = config.toggles || {};
-  const toggleValue = (key: keyof Toggles, fallback: boolean): boolean => {
-    const val = togglesConfig[key];
-    return typeof val === "boolean" ? val : fallback;
-  };
+  // Resolve toggles - read directly from validated config
+  const togglesConfig = config.toggles ?? {};
 
   // Resolve foundation config
   // Start with foundation config from config.foundation
-  const rawFoundation = (config.foundation || {}) as FoundationConfig;
+  const rawFoundation = (config.foundation ?? {}) as FoundationConfig;
   const foundationConfig: FoundationConfig = { ...rawFoundation };
 
   // Merge top-level layer configs into foundation (mod overrides pattern)
@@ -163,7 +122,7 @@ export function buildTunablesFromConfig(config: MapGenConfig): TunablesSnapshot 
     const topLevel = config[key as string];
     if (topLevel && typeof topLevel === "object") {
       foundationConfig[key] = deepMerge(
-        (foundationConfig[key] as object) || {},
+        (foundationConfig[key] as object) ?? {},
         topLevel as object
       ) as FoundationConfig[K];
     }
@@ -180,15 +139,16 @@ export function buildTunablesFromConfig(config: MapGenConfig): TunablesSnapshot 
   mergeTopLevelLayer("corridors");
   mergeTopLevelLayer("oceanSeparation");
 
-  const platesConfig = deepMerge(DEFAULT_PLATES, foundationConfig.plates);
-  const dynamicsConfig = deepMerge(DEFAULT_DYNAMICS, foundationConfig.dynamics);
-  const directionalityConfig = deepMerge(
-    DEFAULT_DIRECTIONALITY,
-    dynamicsConfig.directionality || foundationConfig.dynamics?.directionality
+  // Read plates/dynamics/directionality from validated config
+  // Defaults are applied by schema, so we just reshape here
+  const platesConfig = safeFreeze(foundationConfig.plates ?? {});
+  const dynamicsConfig = safeFreeze(foundationConfig.dynamics ?? {});
+  const directionalityConfig = safeFreeze(
+    dynamicsConfig.directionality ?? foundationConfig.dynamics?.directionality ?? {}
   );
 
   // Resolve stage manifest
-  const manifestConfig = (config.stageManifest || {}) as Partial<StageManifest>;
+  const manifestConfig = (config.stageManifest ?? {}) as Partial<StageManifest>;
   const stageManifest: Readonly<StageManifest> = Object.freeze({
     order: (manifestConfig.order ?? []) as string[],
     stages: (manifestConfig.stages ?? {}) as Record<string, StageDescriptor>,
@@ -196,18 +156,20 @@ export function buildTunablesFromConfig(config: MapGenConfig): TunablesSnapshot 
 
   return {
     STAGE_MANIFEST: stageManifest,
-    STORY_ENABLE_HOTSPOTS: toggleValue("STORY_ENABLE_HOTSPOTS", true),
-    STORY_ENABLE_RIFTS: toggleValue("STORY_ENABLE_RIFTS", true),
-    STORY_ENABLE_OROGENY: toggleValue("STORY_ENABLE_OROGENY", true),
-    STORY_ENABLE_SWATCHES: toggleValue("STORY_ENABLE_SWATCHES", true),
-    STORY_ENABLE_PALEO: toggleValue("STORY_ENABLE_PALEO", true),
-    STORY_ENABLE_CORRIDORS: toggleValue("STORY_ENABLE_CORRIDORS", true),
-    LANDMASS_CFG: deepMerge(DEFAULT_LANDMASS, config.landmass as LandmassConfig | undefined),
+    // Toggles: read directly; defaults are in schema (all true)
+    STORY_ENABLE_HOTSPOTS: togglesConfig.STORY_ENABLE_HOTSPOTS ?? true,
+    STORY_ENABLE_RIFTS: togglesConfig.STORY_ENABLE_RIFTS ?? true,
+    STORY_ENABLE_OROGENY: togglesConfig.STORY_ENABLE_OROGENY ?? true,
+    STORY_ENABLE_SWATCHES: togglesConfig.STORY_ENABLE_SWATCHES ?? true,
+    STORY_ENABLE_PALEO: togglesConfig.STORY_ENABLE_PALEO ?? true,
+    STORY_ENABLE_CORRIDORS: togglesConfig.STORY_ENABLE_CORRIDORS ?? true,
+    // Layer configs: read directly; defaults are in schema
+    LANDMASS_CFG: safeFreeze(config.landmass ?? {}),
     FOUNDATION_CFG: safeFreeze(foundationConfig),
     FOUNDATION_PLATES: platesConfig,
     FOUNDATION_DYNAMICS: dynamicsConfig,
     FOUNDATION_DIRECTIONALITY: directionalityConfig,
-    CLIMATE_CFG: deepMerge(DEFAULT_CLIMATE, config.climate as ClimateConfig | undefined),
+    CLIMATE_CFG: safeFreeze(config.climate ?? {}),
   };
 }
 
@@ -268,14 +230,6 @@ export function resetTunablesForTest(): void {
   _boundConfig = null;
 }
 
-/**
- * Refresh the tunables from current bound config.
- * Invalidates cache so next getTunables() rebuilds.
- * For backwards compatibility - prefer bindTunables() for explicit binding.
- */
-export function rebind(): void {
-  _cache = null; // Just invalidate; next getTunables() rebuilds from _boundConfig
-}
 
 /**
  * Check whether a manifest stage is enabled.
@@ -342,7 +296,6 @@ export default {
   getTunables,
   resetTunables,
   resetTunablesForTest,
-  rebind,
   stageEnabled,
   TUNABLES,
 };

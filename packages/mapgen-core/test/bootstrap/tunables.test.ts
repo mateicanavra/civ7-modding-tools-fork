@@ -1,16 +1,13 @@
 /**
  * Bootstrap Tunables Tests
  *
- * Tests for getTunables/resetTunables/rebind/stageEnabled functions.
+ * Tests for getTunables/resetTunables/stageEnabled functions.
  *
  * Note: These tests use the canonical flow: bootstrap() or bindTunables() to
- * set up config, then getTunables() to read tunables. The deprecated
- * setConfig()/getConfig() APIs are NOT used here - those are tested in
- * runtime.test.ts as a separate compatibility concern.
+ * set up config, then getTunables() to read tunables.
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
-import { resetConfig } from "../../src/bootstrap/runtime.js";
 import { parseConfig } from "../../src/config/index.js";
 import type { MapGenConfig } from "../../src/config/index.js";
 import {
@@ -18,7 +15,6 @@ import {
   resetTunables,
   resetTunablesForTest,
   bindTunables,
-  rebind,
   stageEnabled,
   TUNABLES,
 } from "../../src/bootstrap/tunables.js";
@@ -33,7 +29,6 @@ function createConfig(overrides: Partial<MapGenConfig> = {}): MapGenConfig {
 
 describe("bootstrap/tunables", () => {
   beforeEach(() => {
-    resetConfig();
     resetTunablesForTest(); // Use full reset for test isolation
   });
 
@@ -167,35 +162,6 @@ describe("bootstrap/tunables", () => {
 
       // Should throw because bound config was cleared
       expect(() => getTunables()).toThrow("Tunables not initialized");
-    });
-  });
-
-  describe("rebind", () => {
-    it("refreshes tunables from current bound config", () => {
-      bindTunables(createConfig({ landmass: { baseWaterPercent: 50 } }));
-
-      const tunables = getTunables();
-      expect(tunables.LANDMASS_CFG.baseWaterPercent).toBe(50);
-    });
-
-    it("invalidates cache so next getTunables rebuilds", () => {
-      bindTunables(createConfig());
-      const tunables1 = getTunables();
-
-      rebind();
-      const tunables2 = getTunables();
-
-      // After rebind, should be a fresh instance
-      expect(tunables1).not.toBe(tunables2);
-    });
-
-    it("can be called multiple times without error", () => {
-      bindTunables(createConfig());
-      expect(() => {
-        rebind();
-        rebind();
-        rebind();
-      }).not.toThrow();
     });
   });
 

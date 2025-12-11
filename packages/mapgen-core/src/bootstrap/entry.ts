@@ -2,10 +2,10 @@
  * Bootstrap Entry Point
  *
  * Provides the main `bootstrap()` function that initializes map generation.
- * Config is validated via parseConfig() and stored module-scoped.
+ * Config is validated via parseConfig() and bound to tunables.
  *
  * Config Flow:
- *   bootstrap(options) → parseConfig(rawConfig) → setValidatedConfig() → MapGenConfig
+ *   bootstrap(options) → parseConfig(rawConfig) → bindTunables(config) → MapGenConfig
  *
  * Usage (in a map entry file):
  *   import { bootstrap } from "@swooper/mapgen-core/bootstrap";
@@ -21,14 +21,7 @@
 
 import type { MapGenConfig } from "../config/index.js";
 import { parseConfig } from "../config/index.js";
-import {
-  setValidatedConfig,
-  resetConfig,
-  // Deprecated exports for backwards compatibility
-  setConfig,
-  getConfig,
-} from "./runtime.js";
-import { bindTunables, resetTunablesForTest, rebind as rebindTunables } from "./tunables.js";
+import { bindTunables, resetTunablesForTest } from "./tunables.js";
 import { resolveStageManifest, validateOverrides } from "./resolved.js";
 
 // ============================================================================
@@ -151,10 +144,8 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
   // This uses the TypeBox schema to ensure type correctness
   const validatedConfig = parseConfig(rawConfig);
 
-  // Store validated config in module-scoped state
-  setValidatedConfig(validatedConfig);
-
-  // Bind tunables to validated config (CIV-31: tunables now receive config explicitly)
+  // Bind tunables to validated config
+  // This is the single binding point; getTunables() reads from this bound config.
   bindTunables(validatedConfig);
 
   return validatedConfig;
@@ -164,33 +155,16 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
  * Reset all bootstrap state including bound config.
  * Use in test beforeEach() for complete isolation between tests.
  *
- * Note: For production generateMap(), use rebind() instead which only clears cache.
+ * Note: For production generateMap(), use resetTunables() instead which only clears the cache.
  */
 export function resetBootstrap(): void {
-  resetConfig();
   resetTunablesForTest();
 }
 
-/**
- * Rebind all tunables from current config.
- * Call this at the start of each generateMap() entry.
- */
-export function rebind(): void {
-  rebindTunables();
-}
 
 // Re-export types and functions for convenience
 export type { MapConfig } from "./runtime.js";
 export type { MapGenConfig } from "../config/index.js";
-export {
-  setValidatedConfig,
-  getValidatedConfig,
-  hasConfig,
-  resetConfig,
-  // Deprecated exports
-  setConfig,
-  getConfig,
-} from "./runtime.js";
 export {
   bindTunables,
   buildTunablesFromConfig,
@@ -208,4 +182,4 @@ export {
   resetDriftCheck,
 } from "./resolved.js";
 
-export default { bootstrap, resetBootstrap, rebind };
+export default { bootstrap, resetBootstrap };

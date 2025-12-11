@@ -1,7 +1,7 @@
 /**
  * Bootstrap Entry Tests
  *
- * Tests for bootstrap/resetBootstrap/rebind functions.
+ * Tests for bootstrap/resetBootstrap functions.
  * Key acceptance criteria: importing @swooper/mapgen-core/bootstrap does NOT crash without globals.
  */
 
@@ -9,8 +9,6 @@ import { describe, it, expect, beforeEach } from "bun:test";
 import {
   bootstrap,
   resetBootstrap,
-  rebind,
-  getConfig,
   getTunables,
   resetTunables,
 } from "../../src/bootstrap/entry.js";
@@ -25,14 +23,12 @@ describe("bootstrap/entry", () => {
       // This test passes if the import at the top of this file succeeded
       expect(bootstrap).toBeDefined();
       expect(resetBootstrap).toBeDefined();
-      expect(rebind).toBeDefined();
     });
 
     it("functions are callable without game engine globals", () => {
       // Should not throw even without RandomImpl, etc.
       expect(() => bootstrap()).not.toThrow();
       expect(() => resetBootstrap()).not.toThrow();
-      expect(() => rebind()).not.toThrow();
     });
   });
 
@@ -42,38 +38,32 @@ describe("bootstrap/entry", () => {
       expect(() => bootstrap({})).not.toThrow();
     });
 
-    it("stores presets in config", () => {
-      bootstrap({ presets: ["classic", "temperate"] });
-
-      const config = getConfig();
+    it("returns config with presets", () => {
+      const config = bootstrap({ presets: ["classic", "temperate"] });
       expect(config.presets).toEqual(["classic", "temperate"]);
     });
 
-    it("stores overrides in config", () => {
-      bootstrap({
+    it("returns config with overrides", () => {
+      const config = bootstrap({
         overrides: {
           foundation: { plates: { count: 12 } },
         },
       });
-
-      const config = getConfig();
       expect(config.foundation?.plates?.count).toBe(12);
     });
 
-    it("stores stageConfig in config", () => {
-      bootstrap({
+    it("returns config with stageConfig", () => {
+      const config = bootstrap({
         stageConfig: {
           foundation: true,
           climate: false,
         },
       });
-
-      const config = getConfig();
       expect(config.stageConfig?.foundation).toBe(true);
       expect(config.stageConfig?.climate).toBe(false);
     });
 
-    it("triggers tunables rebind", () => {
+    it("triggers tunables binding", () => {
       // Bootstrap first to access tunables (fail-fast behavior)
       bootstrap();
       const before = getTunables();
@@ -91,11 +81,9 @@ describe("bootstrap/entry", () => {
     });
 
     it("filters invalid preset values", () => {
-      bootstrap({
+      const config = bootstrap({
         presets: ["valid", 123 as unknown as string, null as unknown as string, "another"],
       });
-
-      const config = getConfig();
       expect(config.presets).toEqual(["valid", "another"]);
     });
   });
@@ -109,10 +97,6 @@ describe("bootstrap/entry", () => {
 
       resetBootstrap();
 
-      // Config returns empty object via deprecated getConfig()
-      const config = getConfig();
-      expect(config.presets).toBeUndefined();
-
       // Tunables should throw after reset (fail-fast behavior)
       expect(() => getTunables()).toThrow("Tunables not initialized");
     });
@@ -120,9 +104,7 @@ describe("bootstrap/entry", () => {
     it("allows fresh bootstrap after reset", () => {
       bootstrap({ presets: ["first"] });
       resetBootstrap();
-      bootstrap({ presets: ["second"] });
-
-      const config = getConfig();
+      const config = bootstrap({ presets: ["second"] });
       expect(config.presets).toEqual(["second"]);
     });
 
@@ -136,31 +118,13 @@ describe("bootstrap/entry", () => {
     });
   });
 
-  describe("rebind", () => {
-    it("refreshes tunables from current config", () => {
-      bootstrap({ overrides: { landmass: { baseWaterPercent: 50 } } });
-
-      const tunables = getTunables();
-      expect(tunables.LANDMASS_CFG.baseWaterPercent).toBe(50);
-    });
-
-    it("can be called multiple times after bootstrap", () => {
-      bootstrap(); // Need to bootstrap first for rebind to have a config to work with
-      expect(() => {
-        rebind();
-        rebind();
-        rebind();
-      }).not.toThrow();
-    });
-  });
-
   describe("integration", () => {
-    it("full bootstrap -> rebind -> reset cycle", () => {
+    it("full bootstrap -> reset cycle", () => {
       // Initial state: tunables not accessible without bootstrap
       expect(() => getTunables()).toThrow("Tunables not initialized");
 
       // Bootstrap with overrides
-      bootstrap({
+      const config = bootstrap({
         presets: ["continent"],
         overrides: {
           foundation: { plates: { count: 10 } },
@@ -168,17 +132,12 @@ describe("bootstrap/entry", () => {
         },
       });
 
-      expect(getConfig().presets).toEqual(["continent"]);
+      expect(config.presets).toEqual(["continent"]);
       expect(getTunables().FOUNDATION_PLATES.count).toBe(10);
       expect(getTunables().STORY_ENABLE_OROGENY).toBe(false);
 
-      // Rebind (should maintain state)
-      rebind();
-      expect(getTunables().FOUNDATION_PLATES.count).toBe(10);
-
       // Reset - tunables become inaccessible
       resetBootstrap();
-      expect(getConfig().presets).toBeUndefined();
       expect(() => getTunables()).toThrow("Tunables not initialized");
 
       // Bootstrap again - tunables become accessible again with defaults
@@ -189,11 +148,7 @@ describe("bootstrap/entry", () => {
   });
 
   describe("test isolation", () => {
-    it("starts clean in each test - config empty, tunables uninitialized", () => {
-      // getConfig() returns empty object (deprecated API behavior)
-      const config = getConfig();
-      expect(config.presets).toBeUndefined();
-
+    it("starts clean in each test - tunables uninitialized", () => {
       // getTunables() should throw - fail-fast behavior
       expect(() => getTunables()).toThrow("Tunables not initialized");
     });
