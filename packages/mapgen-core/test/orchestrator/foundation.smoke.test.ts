@@ -94,6 +94,24 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
     expect(WorldModel.plateSeed?.width).toBe(width);
     expect(WorldModel.plateSeed?.height).toBe(height);
 
+    const expectFiniteNumbers = (label: string, values: ArrayLike<number> | null | undefined) => {
+      expect(values).not.toBeNull();
+      if (!values) return;
+      for (let i = 0; i < values.length; i++) {
+        const value = values[i];
+        expect(Number.isFinite(value)).toBe(true);
+      }
+    };
+
+    expectFiniteNumbers("boundaryCloseness", WorldModel.boundaryCloseness);
+    expectFiniteNumbers("upliftPotential", WorldModel.upliftPotential);
+    expectFiniteNumbers("riftPotential", WorldModel.riftPotential);
+    expectFiniteNumbers("windU", WorldModel.windU);
+    expectFiniteNumbers("windV", WorldModel.windV);
+    expectFiniteNumbers("currentU", WorldModel.currentU);
+    expectFiniteNumbers("currentV", WorldModel.currentV);
+    expectFiniteNumbers("pressure", WorldModel.pressure);
+
     const plateId = WorldModel.plateId;
     expect(plateId).not.toBeNull();
     const uniquePlates = new Set<number>();
@@ -103,4 +121,3 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
     expect(uniquePlates.size).toBeGreaterThan(1);
   });
 });
-
