@@ -79,7 +79,13 @@ related_to: [CIV-30, CIV-31]
 - Post-wiring tuning and optional enhancements:
   - After wiring is verified, evaluate boundary coverage metrics and, if necessary, introduce a dynamic starting `boundaryInfluenceDistance` proportional to average plate radius.
   - Optionally add horizontal wrap to the Voronoi cell→plate assignment distance metric.
-  - Revisit `tectonicIntensity` behavior and adjust thresholds and weights in `swooper-desert-mountains` once semantics are finalized.
+- Revisit `tectonicIntensity` behavior and adjust thresholds and weights in `swooper-desert-mountains` once semantics are finalized.
+
+## Review Feedback (M2)
+- [x] Remove legacy/no-op landmass knobs from the Swooper entry config (avoid tuning no-ops).
+- [x] Gate `WorldModel` plates/dynamics logs under `foundation.diagnostics` and include key wind/mantle fields.
+- [x] Add a lightweight mountains wiring assertion (log-based) under `LOG_MOUNTAINS`.
+- [ ] Deterministic “start placement doesn’t catastrophically fail” integration test (defer).
 
 ### Quick Navigation
 - [TL;DR](#tldr)
