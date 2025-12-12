@@ -12,6 +12,8 @@ Establish a minimal but production-ready slice of the new engine architecture: v
 
 This milestone corresponds to **Milestone 2** in `PROJECT-engine-refactor-v1.md`.
 
+**Milestone boundary note:** M2 owns config parity/wiring and behavioral correctness for the **current orchestrator‑centric stable slice** (foundation + minimal story + diagnostics) where those configs are meaningful today and unlikely to be invalidated by later Task Graph work. Anything whose shape or wiring depends on `MapGenStep`/`PipelineExecutor` or canonical product boundaries is deferred to M3.
+
 ## Objectives
 
 - Introduce a single, validated `MapGenConfig` schema and fail-fast configuration loading.
@@ -70,6 +72,15 @@ Related PRD: `resources/PRD-plate-generation.md`
 - Run these through the existing story stages in `MapOrchestrator` without introducing pipeline primitives yet.
 - Add a small smoke check or warning when story stages are enabled but produce empty tag sets.
 
+### 5. Stable‑Slice Config Surface Alignment (Current‑Slice Correctness)
+
+- Ensure the validated schema and docs reflect the config keys actually consumed in the M2 stable slice:
+  - `foundation.diagnostics` dev flags (currently untyped but wired via `initDevFlags`).
+  - Story‑driven rainfall knobs (`climate.story.rainfall.*`, `climate.story.orogeny.*`) that influence `climateRefine` once minimal story tags exist.
+  - Resolve the mismatch between top‑level `diagnostics.*` aliases and the stable `foundation.diagnostics` block (parity vs. deprecate).
+- Open questions: Promote these untyped keys into schema now vs. keep internal but document? Should `diagnostics.*` remain public or be deprecated in favor of `foundation.diagnostics`?
+- Sources: `resources/config-wiring-status.md` (diagnostics + untyped stable‑slice keys), `resources/STATUS-M-TS-parity-matrix.md` (dev diagnostics + story/climate notes), `../issues/LOCAL-M2-story-parity.md`.
+
 ## Acceptance Criteria
 
 - Engine can execute the `foundation` slice via the `MapOrchestrator` using validated config.
@@ -86,8 +97,11 @@ Related PRD: `resources/PRD-plate-generation.md`
   - [ ] CIV-17: Config → manifest resolver (`../issues/CIV-17-config-manifest-resolver.md`)
   - [ ] CIV-18: Call-site fixes for climate/biomes (`../issues/CIV-18-callsite-fixes.md`)
   - [ ] LOCAL-TBD: Foundation/mountains wiring into `WorldModel` (`../issues/LOCAL-TBD-worldmodel-mountains-wiring.md`)
+  - [ ] LOCAL‑M2‑TUNABLES‑FACADE‑DECISION (planned): Decide parity vs. deprecate JS‑era `CLIMATE_TUNABLES` / `FOUNDATION_TUNABLES` facades; update docs/snippets accordingly.
 - Foundation pipeline & diagnostics:
-  - [ ] CIV-24: Dev diagnostics and executor logging (`../issues/CIV-24-dev-diagnostics.md`)
+  - [ ] CIV-24 (planned): Dev diagnostics and executor logging (no issue doc yet; stable‑slice config surface alignment tracked in Scope §5).
+- Stable‑slice config correctness:
+  - [ ] LOCAL‑M2‑CONFIG‑SURFACE‑ALIGNMENT (planned): Align schema/docs for stable‑slice diagnostics + story‑rainfall knobs (see Scope §5).
 - Narrative parity:
   - [ ] LOCAL-M2-STORY-PARITY: Minimal story parity (`../issues/LOCAL-M2-story-parity.md`)
 

@@ -90,6 +90,8 @@ These residual tasks are tracked in the milestone doc and will be completed acro
 
 Establish a minimal but production-ready slice of the new engine architecture: validated config and a modern plate/foundation stack wired into Swooper Maps with strong diagnostics via the existing `MapOrchestrator`-centric flow, while leaving most downstream stages in their existing form.
 
+**M2 ↔ M3 boundary (config/behavior vs. architecture):** M2 is about a stable, reliable orchestrator‑centric engine slice, and it owns config parity/wiring and behavioral correctness for that slice (foundation + minimal story + diagnostics) where those configs are meaningful today. M3 is about architectural parity (Task Graph, steps, canonical products) and the config/behavior work that only makes sense once those primitives exist, to avoid double‑refactoring.
+
 **Scope**  
 See `milestones/M2-stable-engine-slice.md` for detailed scope, dependency mapping, and sequencing. At a high level, this milestone covers:
 

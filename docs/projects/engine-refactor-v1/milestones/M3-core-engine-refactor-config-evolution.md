@@ -16,6 +16,8 @@ Extend the task-graph architecture from the foundation slice to the full engine,
 
 This milestone corresponds to **Milestone 3** in `PROJECT-engine-refactor-v1.md`.
 
+**Milestone boundary note:** M3 owns config/behavior work that is tightly coupled to Task Graph primitives (`MapGenStep`, `PipelineExecutor`, `requires/provides`) and canonical data products, where wiring early would risk double‑refactoring. Stable‑slice config correctness that is meaningful in the current orchestrator flow (foundation + minimal story + diagnostics) is handled in M2.
+
 ## Objectives
 
 - Make all major stages (foundation, morphology, hydrology/climate, narrative overlays, biomes, placement) run as pipeline steps with explicit `requires`/`provides`.
@@ -131,7 +133,7 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
 
 - **Config parity “keep vs. deprecate” decisions**
   - What/why: Resolve remaining config wiring gaps that affect behavior or diagnostics, and explicitly decide parity vs. deprecation for dead/legacy fields.
-  - Open questions: Decide on at least: top‑level diagnostics flags vs. `diagnostics.*`; `foundation.seed.*` fields; `oceanSeparation.respectSeaLanes`; other `Missing` rows in `config-wiring-status.md`.
+  - Open questions: Decide on remaining dead/legacy fields beyond the M2 stable slice (e.g., `foundation.seed.*`, `oceanSeparation.respectSeaLanes`, other `Missing` rows in `config-wiring-status.md`). Stable‑slice diagnostics + story‑rainfall surface alignment is owned by M2.
   - Sources: `resources/config-wiring-status.md`, `resources/PRD-config-refactor.md`, M2 outcomes in `M2-stable-engine-slice.md`.
 
 ## Acceptance Criteria
