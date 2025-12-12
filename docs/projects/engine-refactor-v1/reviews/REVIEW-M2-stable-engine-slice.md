@@ -15,14 +15,14 @@ M2 is effectively concluded as a **“config + foundation slice is stable, docum
 Before calling M2 fully done, we will land a small, concrete cleanup/stabilization batch:
 
 - **Docs alignment**
-  - Update M2 docs and relevant issue files so they accurately describe the real flow: `bootstrap() → MapGenConfig → tunables → MapOrchestrator → FoundationContext`.
+  - Update M2 docs and relevant issue files so they accurately describe the real flow: `bootstrap() → validated MapGenConfig → tunables → MapOrchestrator → FoundationContext`.
   - Remove or clearly mark as “future” any remaining references to `globalThis.__EPIC_MAP_CONFIG__` and the old global-config pattern.
   - Soften or relocate language that assumes a currently implemented generic `PipelineExecutor` / `MapGenStep` / `StepRegistry`, making clear that these land in M3+.
 - **Stable‑slice config surface**
   - Align schema/docs with stable‑slice keys already meaningful in M2 (foundation diagnostics flags, story‑driven rainfall knobs) and decide parity vs. deprecate for any diagnostics aliases.
 - **Contract stabilization**
   - Make the `FoundationContext` contract explicit: what it guarantees to downstream consumers and which data products exist at the end of the M2 slice (captured in `resources/CONTRACT-foundation-context.md` as a working contract doc).
-  - Clarify the role of tunables as a derived, read-only view over `MapGenConfig`, not a primary config store.
+  - Clarify the role of tunables as a derived, read-only view over validated `MapGenConfig`, not a primary config store.
 - **Tests**
   - Add at least one end-to-end `MapOrchestrator.generateMap` smoke test using a minimal/default `MapGenConfig` and a stub adapter, asserting that:
     - Foundation data products are populated as expected.
