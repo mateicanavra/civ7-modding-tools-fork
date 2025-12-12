@@ -22,33 +22,33 @@ Finish wiring and validating the developer diagnostics surface and stage‑level
 
 ## Deliverables
 
-- [ ] **Dev flag wiring**
+- [x] **Dev flag wiring**
   - Confirm `MapOrchestrator.generateMap()` initializes `DEV` from `foundation.diagnostics` (camelCase keys) and enables diagnostics for the generation pass.
   - Ensure the stable‑slice diagnostics keys used today are documented and consistent with code.
-- [ ] **Validated stable‑slice diagnostics surface**
+- [x] **Validated stable‑slice diagnostics surface**
   - Promote the currently‑used `foundation.diagnostics` dev flags into `MapGenConfigSchema` as explicit, validated keys (matching `DevLogConfig` in `dev/flags.ts`).
   - Keep `foundation.diagnostics` as the canonical stable‑slice diagnostics block; document it as M2‑supported config.
-- [ ] **Diagnostics surface cleanup**
+- [x] **Diagnostics surface cleanup**
   - Deprecate/remove the unused top‑level `diagnostics.*` schema/docs (`logAscii`, `logHistograms`) so the documented surface matches runtime behavior.
   - If a deprecated surface must remain in schema text for back‑compat, mark it clearly as legacy/non‑functional in M2.
-- [ ] **Stage‑level executor logging**
+- [x] **Stage‑level executor logging**
   - Emit a clear start/finish log for each stage in the orchestrator slice, including duration.
   - Surface stage errors with a consistent prefix and include them in `stageResults`.
-- [ ] **Foundation diagnostics parity**
+- [x] **Foundation diagnostics parity**
   - Ensure existing `[Foundation]` summaries, ASCII maps, histograms, and boundary metrics are reachable via `DEV` flags for the foundation/plate stages.
-- [ ] **Minimal smoke warnings**
+- [x] **Minimal smoke warnings**
   - When a stage is enabled but yields obviously empty results (e.g., zero plates, empty story tags), emit a warning to aid debugging.
 
 ## Acceptance Criteria
 
-- [ ] Running a map generation with diagnostics enabled produces:
+- [x] Running a map generation with diagnostics enabled produces:
   - Per‑stage start/finish logs with durations.
   - Foundation summaries/ASCII/histograms when the corresponding `DEV.LOG_FOUNDATION_*` flags are true.
-- [ ] `foundation.diagnostics` is explicitly modeled in `MapGenConfigSchema` with the same camelCase keys accepted by `initDevFlags`, and those keys are documented as stable‑slice config.
-- [ ] Top‑level `diagnostics.*` is either removed or clearly marked deprecated/non‑functional in schema/docs.
-- [ ] When diagnostics flags are absent/disabled, diagnostics output is no‑op except for critical errors.
-- [ ] Stage failures are logged once with a consistent prefix and recorded in `stageResults`.
-- [ ] Build and tests pass.
+- [x] `foundation.diagnostics` is explicitly modeled in `MapGenConfigSchema` with the same camelCase keys accepted by `initDevFlags`, and those keys are documented as stable‑slice config.
+- [x] Top‑level `diagnostics.*` is either removed or clearly marked deprecated/non‑functional in schema/docs.
+- [x] When diagnostics flags are absent/disabled, diagnostics output is no‑op except for critical errors.
+- [x] Stage failures are logged once with a consistent prefix and recorded in `stageResults`.
+- [x] Build and tests pass.
 
 ## Out of Scope
 
