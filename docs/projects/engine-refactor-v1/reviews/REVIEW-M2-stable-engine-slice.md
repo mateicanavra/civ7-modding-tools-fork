@@ -504,3 +504,33 @@ This task is a good M2 compromise: it restores story‑driven consumer behavior 
 - **Globals coupling:** acknowledged; tracked under `docs/projects/engine-refactor-v1/issues/LOCAL-M3-story-system.md` as part of step/task‑graph migration (no M2 change required).  
 - **Regression harness:** added to project backlog in `docs/projects/engine-refactor-v1/triage.md` (“Add minimal story parity regression harness”).  
 - **Orogeny belts:** explicitly deferred out of M2 in `docs/projects/engine-refactor-v1/issues/CIV-36-story-parity.md` and `docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md`; backlog entry exists in `docs/projects/engine-refactor-v1/triage.md`.
+
+---
+
+## CIV-34 – FoundationContext Contract + Config → Tunables → World-Model Flow Doc
+
+**Quick Take**  
+Yes for M2. The `FoundationContext` contract is explicit, grounded in the actual M2 implementation, and centrally documents the config→tunables→orchestrator→world-model flow in a way that M3 work can safely reference without re-deriving intent from code.
+
+**Intent & Assumptions**  
+- Deliver an M2 “binding” contract for what `ctx.foundation` guarantees after the foundation stage.  
+- Document the canonical “stable slice” wiring (`bootstrap → MapGenConfig → tunables → MapOrchestrator → WorldModel → FoundationContext`).  
+- Clarify tunables as a derived, read-only view over validated `MapGenConfig` (not a primary config store).
+
+**What’s Strong**  
+- `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` cleanly separates binding guarantees (shape/semantics/invariants) from non-binding planning notes, which reduces future ambiguity.  
+- The contract matches the code surfaces that matter for M2 consumers (`createFoundationContext` fail-fast validation; `MapOrchestrator.initializeFoundation` building the snapshot from WorldModel and tunables).  
+- Project-level docs already point to the contract (`PROJECT-engine-refactor-v1.md`, `milestones/M2-stable-engine-slice.md`, `triage.md`), which makes it discoverable for M3+.
+
+**High-Leverage Issues**  
+- **The contract doc mixes “binding” and “planning” in one file.**  
+  This is currently well-labeled, but it is a drift risk as M3 evolves: non-binding content tends to accrete and can blur what is actually guaranteed. Direction: keep Sections 1–5 strict and minimal; consider moving Sections 6–7 into a separate “design notes” doc once M3 starts landing step contracts. (Follow-up)  
+- **Typed-array immutability is a convention, not enforced.**  
+  The doc correctly warns consumers not to mutate tensor contents; the code freezes the object graph but cannot deep-freeze typed arrays. Direction: add a small “consumer contract” test or lint-style guideline that catches accidental mutation in new steps, once step migration begins. (Nice-to-have)
+
+**Fit Within the Milestone**  
+This is the right kind of “stabilize the consumer boundary” work for M2: it codifies the minimum reliable interface (`FoundationContext`) without forcing premature pipeline abstractions. It also cleanly reinforces M2’s sequencing decision that tunables are transitional/view-layer plumbing.
+
+**Recommended Next Moves (Future Work, Not M2)**  
+1. Promote the binding portion of the contract into `docs/system/libs/mapgen/` once the `FoundationContext` shape stabilizes across early M3 steps.  
+2. Add one small integration check that asserts the contract’s invariants (tensor lengths, nullability rules) across a couple of canonical seeds.
