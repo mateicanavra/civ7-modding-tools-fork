@@ -23,24 +23,24 @@ Story orogeny (windward/lee amplification along belts) is explicitly deferred to
 
 ## Deliverables
 
-- [ ] **Typed `climate.story.rainfall` block**
+- [x] **Typed `climate.story.rainfall` block**
   - Add an optional `story` sub‑block to `ClimateConfigSchema` with a `rainfall` object that explicitly models the stable‑slice knobs used today:
     - `riftRadius` (tiles)
     - `riftBoost` (rainfall units)
     - `paradiseDelta` (rainfall units)
     - `volcanicDelta` (rainfall units)
   - Document defaults/ranges consistent with current behavior in `layers/climate-engine.ts`.
-- [ ] **Stable‑slice docs alignment**
+- [x] **Stable‑slice docs alignment**
   - Update any M2 stable‑slice config docs/snippets to advertise these blocks as supported in the orchestrator‑centric slice.
   - Keep scope limited to keys already used in TS; no new story climate behavior is introduced here.
 
 ## Acceptance Criteria
 
-- [ ] `MapGenConfigSchema` validates and defaults:
+- [x] `MapGenConfigSchema` validates and defaults:
   - `climate.story.rainfall.{riftRadius,riftBoost,paradiseDelta,volcanicDelta}`.
-- [ ] `getTunables().CLIMATE_CFG.story.rainfall` resolves to the validated values without extra shims.
-- [ ] Climate refinement uses these knobs when minimal story tags exist (from CIV‑36) and is unchanged when blocks are absent.
-- [ ] Build and tests pass.
+- [x] `getTunables().CLIMATE_CFG.story.rainfall` resolves to the validated values without extra shims.
+- [x] Climate refinement uses these knobs when minimal story tags exist (from CIV‑36) and is unchanged when blocks are absent.
+- [x] Build and tests pass.
 
 ## Out of Scope
 
