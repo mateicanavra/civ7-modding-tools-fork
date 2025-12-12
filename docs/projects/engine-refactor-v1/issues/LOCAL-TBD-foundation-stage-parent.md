@@ -5,7 +5,7 @@ state: planned
 priority: 1
 estimate: 8
 project: engine-refactor-v1
-milestone: milestone-1-foundation
+milestone: M3-core-engine-refactor-config-evolution
 assignees: [codex]
 labels: [Improvement, Architecture, Technical Debt]
 parent: null

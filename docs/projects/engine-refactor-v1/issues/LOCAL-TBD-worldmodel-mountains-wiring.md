@@ -4,7 +4,7 @@ state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: null
+milestone: M2-stable-engine-slice
 assignees: [codex]
 labels: [Bug, Architecture]
 parent: null
@@ -87,4 +87,3 @@ related_to: []
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
-

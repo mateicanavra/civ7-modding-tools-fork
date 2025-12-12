@@ -85,8 +85,8 @@ Related PRD: `resources/PRD-plate-generation.md`
 - Config hygiene & context wiring:
   - [ ] CIV-17: Config → manifest resolver (`../issues/CIV-17-config-manifest-resolver.md`)
   - [ ] CIV-18: Call-site fixes for climate/biomes (`../issues/CIV-18-callsite-fixes.md`)
+  - [ ] LOCAL-TBD: Foundation/mountains wiring into `WorldModel` (`../issues/LOCAL-TBD-worldmodel-mountains-wiring.md`)
 - Foundation pipeline & diagnostics:
-  - [ ] LOCAL-TBD: foundation stage parent and step issues (`../issues/LOCAL-TBD-foundation-stage-parent.md`, step 1–5 issues)
   - [ ] CIV-24: Dev diagnostics and executor logging (`../issues/CIV-24-dev-diagnostics.md`)
 - Narrative parity:
   - [ ] LOCAL-M2-STORY-PARITY: Minimal story parity (`../issues/LOCAL-M2-story-parity.md`)
