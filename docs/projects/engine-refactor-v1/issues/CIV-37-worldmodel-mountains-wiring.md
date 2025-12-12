@@ -20,23 +20,23 @@ related_to: [CIV-30, CIV-31]
 - Fix miswired foundation and mountain configuration so the Swooper Desert Mountains map uses its intended plate and mountain tuning, then refine boundary and intensity behavior to allow valid civilization starts.
 
 ## Deliverables
-- `swooper-desert-mountains` entry config updated so mountain tuning lives under `foundation.mountains` instead of a top-level `mountains` override.
-- `WorldModel` wired to read plate and dynamics configuration from the `foundation.*` tunables via `setConfigProvider`.
-- Mountains layer confirmed to consume `foundation.mountains` values (thresholds, weights, tectonicIntensity) via orchestrator wiring.
-- Debug logs (temporary or gated) that show effective `WorldModel` plate config and mountains thresholds in a real game run.
-- Documentation note describing the configuration flow for `foundation.mountains` and `foundation.plates` for future map entries.
+- [x] `swooper-desert-mountains` entry config uses `foundation.mountains` (and tuned for less boundary saturation).
+- [x] `WorldModel` reads plate/dynamics config from `foundation.*` via `setConfigProvider` binding in `MapOrchestrator`.
+- [x] Mountains layer consumes `foundation.mountains` (thresholds/weights/intensity) via orchestrator wiring.
+- [x] Debug logs for effective `WorldModel`/mountains config are available under DEV flags (see `foundation.diagnostics`).
+- [x] Documentation note exists for `foundation.mountains` + `foundation.plates` flow (see `docs/projects/engine-refactor-v1/resources/config-wiring-status.md`).
 
 ## Acceptance Criteria
-- On a fresh map generation:
+- [ ] On a fresh map generation:
   - Logs show `WorldModel` plate count and key dynamics fields that match `foundation.plates` from `swooper-desert-mountains` (not the internal 4/4 defaults).
   - Mountains layer logs show `mountainThreshold`, `hillThreshold`, `tectonicIntensity`, and key weights matching `foundation.mountains` overrides.
   - The landmass log (`landmass-plate`) reflects the configured plate count and produces clear basins (not a single boundary-saturated landmass).
-- Start placement:
+- [ ] Start placement:
   - `pickStartPlotByTile` still reports a healthy number of candidate tiles per region.
   - At least most major civilizations receive valid start positions (no longer `0/6 civilizations placed successfully` on standard settings).
-- Visual inspection:
+- [ ] Visual inspection:
   - The ASCII advanced start region dump shows a mix of mountains and non-mountain land, with evident basins suitable for starts.
-- All new wiring is covered by at least one lightweight unit test (e.g., `setConfigProvider` influencing `WorldModel` config) and passes `pnpm test`.
+- [x] Wiring has a lightweight unit test and `bun run test` passes.
 
 ## Testing / Verification
 - Build and tests:
