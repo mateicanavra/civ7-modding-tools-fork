@@ -16,6 +16,12 @@ Milestone and issue docs remain canonical for scheduled/active scope; entries he
 
 ## Triage (needs decision / research)
 
+- **Revisit `FoundationContext` contract doc structure & enforcement** [Review by: end of M3]
+  - **Context:** M2 stable-slice contract at `resources/CONTRACT-foundation-context.md` (CIV-34 follow-up).
+  - **Type:** triage
+  - **Notes:** Re-evaluate whether to split into (1) a crisp, binding contract doc and (2) a separate aspirations/planning doc; tighten semantics as more M3 consumers land; implement enforcement ideas outlined in the contract doc (tests/CI/mutation guards) when the interface stabilizes.
+  - **Next check:** after the first real M3 consumer steps ship (e.g., climate baseline) or at the end of M3.
+
 ## Backlog (definite, unsequenced)
 
 - **Modern story orogeny layer (windward/lee amplification)** [Review by: early M3+]
