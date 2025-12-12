@@ -32,10 +32,10 @@ Add at least one end-to-end `MapOrchestrator.generateMap` smoke test over the cu
 
 ## Acceptance Criteria
 
-- [ ] Test suite includes at least one end-to-end `MapOrchestrator.generateMap` smoke test for the M2 slice.
-- [ ] The test uses validated `MapGenConfig` and does not rely on global config stores.
-- [ ] The test asserts presence of foundation data products and fails loudly if a regression breaks the foundation slice.
-- [ ] Tests run as part of `pnpm test` and pass reliably.
+- [x] Test suite includes at least one end-to-end `MapOrchestrator.generateMap` smoke test for the M2 slice.
+- [x] The test uses validated `MapGenConfig` and does not rely on global config stores.
+- [x] The test asserts presence of foundation data products and fails loudly if a regression breaks the foundation slice.
+- [x] Tests run as part of `pnpm test` and pass reliably.
 
 ## Testing / Verification
 
@@ -54,4 +54,3 @@ Add at least one end-to-end `MapOrchestrator.generateMap` smoke test over the cu
 
 - Consider reusing any existing stub adapters or test helpers from other engine tests to avoid duplication.
 - Keep the test narrow and smoke-level; detailed assertions about climate, overlays, or placement belong in later milestones.
-
