@@ -1,0 +1,598 @@
+{
+  "slideshows": [
+    {
+      "id": "earth-physics-systems-modeling",
+      "title": "Earth Physics Systems Modeling: From Causes to Code",
+      "concepts": {
+        "overview": {
+          "label": "Overview",
+          "description": "Why causal physics matters",
+          "color": "default"
+        },
+        "architecture": {
+          "label": "Architecture",
+          "description": "Task graph + Voronoi fields",
+          "color": "blue"
+        },
+        "geomorphology": {
+          "label": "Geomorphology",
+          "description": "Land shape and erosion",
+          "color": "orange"
+        },
+        "oceanography": {
+          "label": "Oceanography",
+          "description": "Currents and heat transport",
+          "color": "blue"
+        },
+        "climatology": {
+          "label": "Climatology",
+          "description": "Winds, temperature, rainfall",
+          "color": "green"
+        },
+        "hydrology": {
+          "label": "Hydrology",
+          "description": "Rivers, lakes, freshwater",
+          "color": "purple"
+        },
+        "pedology": {
+          "label": "Soils & Resources",
+          "description": "Economy bridge from physical history",
+          "color": "rose"
+        },
+        "ecology": {
+          "label": "Ecology",
+          "description": "Biomes and vegetation",
+          "color": "green"
+        },
+        "integration": {
+          "label": "Integration",
+          "description": "Feedback loops and missing links",
+          "color": "purple"
+        }
+      },
+      "slides": [
+        {
+          "id": "causal-realism-intro",
+          "order": 1,
+          "concept": "overview",
+          "explanation": "# From Random Noise to Causal Worlds\nPhysics‑Based Planetary Modeling for MapGen",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "Most strategy games generate maps by *painting* terrain and biomes with noise. The result can look pretty, but it lacks internal logic: deserts appear with no mountains to block rain, rivers split uphill, resources cluster arbitrarily.\n\nThis research proposes **causal realism**: we don’t simulate Earth in full fidelity, but we do model the *causes* that make Earth‑like worlds coherent. Each stage encodes a physical process, produces fields, and hands them to the next stage. What players see becomes explainable — and therefore tunable."
+              }
+            },
+            {
+              "explanation": "### The Story Arc\nWe’ll walk the pipeline **stage by stage**. For each stage, we’ll follow the same vertical slice:\n\n**Inputs → Real physics causes → Game abstraction → Technical module/tasks → Outputs & downstream → Design affordances**"
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n    G[Geomorphology] --> O[Oceanography]\n    O --> C[Climatology]\n    C --> H[Hydrology]\n    H --> P[Pedology & Geology]\n    P --> E[Ecology]\n\n    style G fill:#f59e0b,color:#fff\n    style O fill:#3b82f6,color:#fff\n    style C fill:#22c55e,color:#fff\n    style H fill:#a855f7,color:#fff\n    style P fill:#f43f5e,color:#fff\n    style E fill:#16a34a,color:#fff",
+                "caption": "Six causal domains form the feed‑forward core"
+              }
+            },
+            {
+              "table": {
+                "rows": [
+                  "Approach,What it does,Typical failure,What we gain",
+                  "Noise-first,Place features independently,Contradictory maps (deserts without shadows; uphill rivers),Visual variety only",
+                  "Causal pipeline,Model upstream causes then derive effects,Errors are localized per-stage,Explainable and tunable worlds"
+                ],
+                "caption": "Why stage-by-stage causes matter"
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph LR\n  Plates[Tectonic plates] --> Relief[Relief & basins]\n  Relief --> Currents[Currents & SST]\n  Currents --> Climate[Winds / temp / rain]\n  Climate --> Rivers[Rivers & lakes]\n  Rivers --> Soils[Soils & resources]\n  Soils --> Biomes[Biomes & vegetation]",
+                "caption": "Visible world features trace back to upstream causes"
+              }
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/pipeline.ts",
+                "startLine": 1,
+                "endLine": 9,
+                "code": "stages = [geo, ocean, climate, hydro, soils, ecology]\nctx = seedInitialFields(seed, plates)\n\nfor stage in stages:\n  inputs = pick(ctx, stage.requires)\n  outputs = stage.run(ctx, inputs)\n  ctx = { ...ctx, ...outputs }",
+                "language": "text"
+              }
+            }
+          ]
+        },
+        {
+          "id": "architecture-primer",
+          "order": 2,
+          "concept": "architecture",
+          "explanation": "# Architecture Primer\nTask Graph + Voronoi Fields",
+          "blocks": [
+            {
+              "explanation": "**Data‑Driven Task Graph**\n- Each stage is a node with explicit `requires`/`provides` contracts.\n- Stages run in parallel when dependencies allow, then freeze their outputs.\n\n**Spherical Voronoi Mesh**\n- The world is a graph of Voronoi cells; each cell stores scalar/vector fields (height, temp, rain, flux, etc.).\n- The dual (Delaunay) edges are ideal for flows like rivers and plate boundaries.\n\n**Reusable Physics Operators**\n- Graph diffusion (Laplacian smoothing), advection, flow routing/accumulation, and lookup tables.\n- Heavy engineering sims are replaced with stable field abstractions."
+            },
+            {
+              "diagram": {
+                "content": "graph LR\n    subgraph Fields[Voronoi Cell Fields]\n      Z[Height z]\n      K[Erodibility K]\n      T[Temperature T]\n      R[Rainfall P]\n      F[Flux/Flow A]\n    end\n\n    subgraph Graph[Task Graph Stages]\n      S1[Geomorphology]\n      S2[Oceanography]\n      S3[Climatology]\n      S4[Hydrology]\n      S5[Pedology]\n      S6[Ecology]\n    end\n\n    Z --> S1 --> Z\n    Z --> S2 --> T\n    T --> S3 --> R\n    R --> S4 --> F\n    Z --> S5 --> K\n    T --> S6\n\n    style Fields fill:#111827,color:#fff\n    style Graph fill:#1f2937,color:#fff",
+                "caption": "Stages read/write fields on the Voronoi graph"
+              }
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/task-graph-stage.ts",
+                "startLine": 1,
+                "endLine": 14,
+                "code": "interface Stage<I, O> {\n  id: string;\n  requires: (keyof I)[];\n  provides: (keyof O)[];\n  run(ctx: MapContext, inputs: I): O;\n}\n\n// The task graph schedules stages when\n// all required fields are available.\n// Each stage is pure over Voronoi fields.",
+                "language": "typescript"
+              }
+            },
+            {
+              "explanation": "### Field Operators as Physics Primitives\nOn a Voronoi graph, most “physics” reduces to stable field updates:\n\n- **Diffusion / mixing (Laplacian)** for creep, heat exchange, moisture smoothing:\n  \n  `\\partial \\phi / \\partial t = D \\nabla^2 \\phi`  \n  `\\phi_i \\leftarrow \\phi_i + D \\sum_j w_{ij}(\\phi_j-\\phi_i)`\n\n- **Advection** for winds/currents carrying scalars:\n  \n  `\\partial \\phi / \\partial t = -\\vec v\\cdot\\nabla \\phi` (implemented as upwind edge transport)\n\n- **Potential flow / routing** for gravity-driven systems:\n  \n  `flowTo(i)=argmin_j (z_j)` and accumulate along the DAG.\n\nThese operators are reusable across stages and make tasks deterministic and debuggable."
+            },
+            {
+              "table": {
+                "rows": [
+                  "Operator,Physical analog,Used in stages",
+                  "Graph Laplacian,Diffusion/creep/heat mixing,Geomorphology Climatology Oceanography",
+                  "Advection along edges,Winds & currents transport,Oceanography Climatology",
+                  "Steepest-descent routing,Gravity drainage paths,Geomorphology Hydrology",
+                  "Lookup tables,Empirical Earth mappings,Pedology Ecology"
+                ],
+                "caption": "A small operator set powers the whole pipeline"
+              }
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/graph-operators.ts",
+                "startLine": 1,
+                "endLine": 12,
+                "code": "// Graph Laplacian diffusion\nfunction diffuse(phi, D, dt):\n  for i in cells:\n    lap = sum_j( w(i,j) * (phi[j] - phi[i]) )\n    phiNext[i] = phi[i] + D * lap * dt\n  return phiNext\n\n// Upwind advection moves scalars along edge vectors.",
+                "language": "text"
+              }
+            }
+          ]
+        },
+        {
+          "id": "geomorphology-stage",
+          "order": 3,
+          "concept": "geomorphology",
+          "explanation": "# Stage 1: Geomorphology\nUplift vs. Erosion Shapes the Land",
+          "blocks": [
+            {
+              "explanation": "**Inputs**\n- Voronoi topology (neighbors, edge lengths)\n- Tectonic uplift field `U` from plates\n- Crust/lithology IDs → erodibility field `K`\n- Base height field `z`\n\n**Real‑World Physics → Visible Effects**\n- Tectonic uplift builds relief; rivers then carve **V‑valleys** by stream power.\n- Hillslope creep and freeze‑thaw act like diffusion, rounding peaks.\n- Glaciers carve **U‑valleys** and fjords; sediment is conserved and deposited into plains.\n- Hard rock erodes slowly → resistant ridges and waterfalls.\n\n**Game Abstraction**\n- Field‑based **Stream Power Incision Model** on the graph plus thermal diffusion.\n- Optional slow glacial pass; conserve sediment.\n- We skip droplet particles and full CFD — too costly and noisy.\n\n**Technical Architecture**\n- Tasks: steepest‑descent flow routing → drainage area `A`; compute `E = K*A^m*S^n`; Laplacian smoothing for talus; transport/deposit sediment.\n\n**Outputs / Downstream**\n- Final elevation `z`, sediment depth, paleo‑drainage blueprint.\n- Consumed by ocean basins, orographic climate, hydrology, and soils.\n\n**Design Affordances**\n- Knobs: `erosionRate`, `duration`, `talusAngle`, `sedimentCapacity`.\n- Guarantees mountains, basins, and coastlines follow a geological story."
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/geomorphology.ts",
+                "startLine": 1,
+                "endLine": 13,
+                "code": "// Flow accumulation on Voronoi DAG\nfor cell in topoOrder(highToLow):\n  A[cell] = rain[cell] + sum(A[upstream])\n\n// Stream power incision\nS = slope(cell)\nE = K[cell] * pow(A[cell], m) * pow(S, n)\nz[cell] -= E * dt\n\n// Hillslope diffusion + sediment deposition\nz = laplacianSmooth(z, talusAngle)\nsediment = moveAndDeposit(sediment, z)",
+                "language": "text"
+              }
+            },
+            {
+              "explanation": "### Core Landscape Evolution Approximation\nWe compress millions of years of geology into a stable field PDE:\n\n`\\partial z/\\partial t = U - K A^m S^n + D\\nabla^2 z`\n\n- `U` uplift from plates (adds height)\n- `K` erodibility from rock type (controls incision)\n- `A` drainage area (proxy for discharge)\n- `S=|\\nabla z|` slope\n- `D\\nabla^2 z` hillslope diffusion / talus rounding\n\nDiscrete Voronoi updates preserve the *cause → effect* chain: uplift creates relief, relief focuses flow, flow incises valleys, sediment fills plains."
+            },
+            {
+              "chart": {
+                "type": "scatter",
+                "csv": {
+                  "rows": [
+                    "A_km2,E_relative",
+                    "1,0.1",
+                    "10,0.6",
+                    "100,3.0",
+                    "1000,15.0"
+                  ]
+                },
+                "config": {
+                  "title": "Stream power: bigger basins incise more",
+                  "xLabel": "Drainage area A (km²)",
+                  "yLabel": "Incision rate E (relative)"
+                },
+                "caption": "Power-law scaling drives realistic river hierarchies"
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n  Uplift[Uplift field U] --> Relief[z]\n  Relief --> Flow[Flow routing]\n  Flow --> Area[Drainage area A]\n  Area --> Incise[Incision E=K*A^m*S^n]\n  Incise --> Relief\n  Relief --> Diffuse[Hillslope diffusion D∇²z]\n  Diffuse --> Relief\n  Relief --> Sediment[Sediment transport/deposit]\n  Sediment --> Plains[Alluvial plains]",
+                "caption": "A simple feedback loop yields coherent mountains and valleys"
+              }
+            }
+          ]
+        },
+        {
+          "id": "oceanography-stage",
+          "order": 4,
+          "concept": "oceanography",
+          "explanation": "# Stage 2: Oceanography\nThe Planet’s Heat Engine",
+          "blocks": [
+            {
+              "explanation": "**Inputs**\n- Land/ocean mask and bathymetry from geomorphology\n- Initial wind field (or defaults)\n- Sea level and rotation direction parameters\n\n**Real‑World Physics → Visible Effects**\n- Winds plus Coriolis form rotating **gyres** that move warm water poleward and cold water equator‑ward.\n- Deep **thermohaline circulation** redistributes heat and shapes coastal climates.\n- Sea ice forms where SSTs freeze, increasing albedo.\n\n**Game Abstraction**\n- Procedural gyre centers in basins; blended current vectors.\n- Graph advection‑diffusion for SST.\n- We avoid Navier‑Stokes and full density stratification.\n\n**Technical Architecture**\n- Basin flood‑fill → regions.\n- Build current field:\n  `Current = w1*Wind + w2*Gyre + w3*CoastTangent`.\n- Advect SST along currents; freeze to sea‑ice where `T < 0`.\n\n**Outputs / Downstream**\n- Sea‑surface temperature, current vectors, sea‑ice extent.\n- Consumed by climatology (evaporation + moderation) and naval gameplay.\n\n**Design Affordances**\n- Knobs: `seaLevel`, `rotationDir`, `heatTransportEfficiency`.\n- Enables warm western‑boundary coasts, frozen inland seas, and predictable sailing currents."
+            },
+            {
+              "diagram": {
+                "content": "graph LR\n  Geo[Ocean Mask + Basins] --> Ocean[Oceanography Stage]\n  Wind[Prevailing Winds] --> Ocean\n  Ocean --> SST[Sea Surface Temp]\n  Ocean --> Curr[Current Vectors]\n  Ocean --> Ice[Sea Ice Extent]",
+                "caption": "Ocean circulation fields bridge land physics to climate"
+              }
+            },
+            {
+              "explanation": "### Physics Sketch\n- **Coriolis rotation:** `f = 2\\Omega\\sin\\varphi` bends flow right/left by hemisphere.\n- **Wind-driven gyres:** surface transport aligns with wind stress but curls into basin-scale rotations.\n- **Heat transport:** currents advect warm water poleward and cold water equatorward.\n\nWe approximate SST as advection–diffusion on the graph:\n\n`\\partial T/\\partial t = -\\vec v\\cdot\\nabla T + \\kappa\\nabla^2T + Q_{sun} - Q_{loss}`"
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/oceanography.ts",
+                "startLine": 1,
+                "endLine": 14,
+                "code": "// Build currents from drivers\nfor basin in basins:\n  gyre = idealGyre(basin, rotationDir)\n  for edge in basinEdges:\n    current[edge] = wWind*wind[edge] + wGyre*gyre[edge] + wCoast*coastTangent(edge)\n\n// Advect-diffuse SST\nSST = advect(SST, current, dt)\nSST = diffuse(SST, kappa, dt)\nseaIce = SST < freezePoint",
+                "language": "text"
+              }
+            },
+            {
+              "chart": {
+                "type": "line",
+                "csv": {
+                  "rows": [
+                    "LatitudeDeg,MeanSST_C",
+                    "-60,0",
+                    "-30,8",
+                    "0,26",
+                    "30,18",
+                    "60,4"
+                  ]
+                },
+                "config": {
+                  "title": "Currents flatten the latitudinal temperature gradient",
+                  "xLabel": "Latitude (deg)",
+                  "yLabel": "Mean sea-surface temperature (°C)"
+                },
+                "caption": "Poleward heat transport is the key causal bridge to climate"
+              }
+            }
+          ]
+        },
+        {
+          "id": "climatology-stage",
+          "order": 5,
+          "concept": "climatology",
+          "explanation": "# Stage 3: Climatology\nWinds, Temperature, Rain",
+          "blocks": [
+            {
+              "explanation": "**Inputs**\n- Heightmap + orography from geomorphology\n- Ocean mask + SST from oceanography\n- Axial tilt, solar constant, lapse‑rate parameters\n- Optional ice/albedo fields\n\n**Real‑World Physics → Visible Effects**\n- Insolation varies by latitude and tilt, creating temperature belts.\n- The **three‑cell circulation** (Hadley/Ferrel/Polar) plus Coriolis yields Trades and Westerlies.\n- **Orographic lift** wrings moisture on windward slopes and creates leeward deserts.\n\n**Game Abstraction**\n- Zonal wind bands blended across latitude.\n- Moisture as a scalar “bucket” advected downwind.\n- Precipitation on upslope cooling; temperature diffusion.\n- No full atmospheric CFD.\n\n**Technical Architecture**\n- Compute insolation → base temperature with lapse‑rate.\n- Generate wind vectors from idealized cells.\n- Walk moisture packets downwind, extracting rain on lift.\n\n**Outputs / Downstream**\n- Temperature field (mean + seasonality), precipitation map, wind vectors.\n- Consumed by hydrology, soils, ecology, and gameplay wind effects.\n\n**Design Affordances**\n- Knobs: `axialTilt`, `solarConstant`, `lapseRate`, `rainShadowIntensity`.\n- Guarantees deserts, rainforests, and snowlines are *caused* by terrain + circulation."
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/climatology.ts",
+                "startLine": 1,
+                "endLine": 16,
+                "code": "// Moisture bucket advection\nfor cell in oceanCells:\n  moisture[cell] += evapFactor * SST[cell]\n\nfor step in 1..N:\n  for cell in cells:\n    next = downwindNeighbor(cell)\n    packet = moisture[cell]\n    dh = height[next] - height[cell]\n    if dh > 0: // orographic lift\n      rain = packet * dh * liftFactor\n      precip[next] += rain\n      packet -= rain\n    moisture[next] += packet",
+                "language": "text"
+              }
+            },
+            {
+              "explanation": "### Climate Math We Keep (and Why)\n- **Insolation belts:** approximate annual mean sunlight as\n\n  `I(\\varphi) \\propto \\cos(\\varphi)\\,(1+\\alpha\\sin\\theta)`\n\n  where `\\varphi` is latitude and `\\theta` axial tilt.\n\n- **Temperature with elevation:**\n\n  `T = T_{base}(\\varphi) - \\Gamma z`  (\\Gamma ≈ lapse rate)\n\n- **Rain on uplift:** moisture cools as air rises:\n\n  `\\Delta P \\propto max(0, \\Delta h) * M`.\n\nWe skip full atmospheric CFD but keep the causal scaffolding that makes deserts, monsoons, and snowlines explainable."
+            },
+            {
+              "diagram": {
+                "content": "graph LR\n  Sun[Insolation by latitude/tilt] --> TempBelts[Temperature belts]\n  TempBelts --> Pressure[Pressure gradients]\n  Pressure --> Winds[Hadley/Ferrel/Polar winds]\n  Winds --> Moisture[Moisture advection]\n  Oro[Mountains] --> Lift[Orographic lift]\n  Moisture --> Lift --> Rain[Precipitation]\n  Lift --> Shadow[Rain shadow deserts]",
+                "caption": "A causal chain from sunlight to rain"
+              }
+            },
+            {
+              "chart": {
+                "type": "line",
+                "csv": {
+                  "rows": [
+                    "LatitudeDeg,BaseTemp_C",
+                    "-90,-15",
+                    "-60,-5",
+                    "-30,10",
+                    "0,28",
+                    "30,12",
+                    "60,-2",
+                    "90,-12"
+                  ]
+                },
+                "config": {
+                  "title": "Base temperature by latitude",
+                  "xLabel": "Latitude (deg)",
+                  "yLabel": "T_base (°C)"
+                },
+                "caption": "Idealized cosine belts before terrain modifies them"
+              }
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/wind-bands.ts",
+                "startLine": 1,
+                "endLine": 10,
+                "code": "// Idealized 3‑cell circulation\nfor cell in cells:\n  lat = latitude(cell)\n  if |lat| < hadleyEdge: windDir = tradeDir(lat)\n  else if |lat| < ferrelEdge: windDir = westerlyDir(lat)\n  else: windDir = polarEasterlyDir(lat)\n  wind[cell] = normalize(windDir) * windStrength(lat)",
+                "language": "text"
+              }
+            }
+          ]
+        },
+        {
+          "id": "hydrology-stage",
+          "order": 6,
+          "concept": "hydrology",
+          "explanation": "# Stage 4: Hydrology\nRivers and Lakes Follow Gravity",
+          "blocks": [
+            {
+              "explanation": "**Inputs**\n- Precipitation map from climatology\n- Elevation field + sea level from geomorphology\n- Optional infiltration/soil parameters\n\n**Real‑World Physics → Visible Effects**\n- Water flows downhill, forming **watersheds** and branching river networks.\n- Depressions fill into lakes; some spill (exorheic), others evaporate (endorheic).\n- Groundwater buffers flow in dry seasons.\n\n**Game Abstraction**\n- Depression filling to ensure every cell drains.\n- Steepest‑descent flow DAG + O(N) flux accumulation.\n- Simple soil‑moisture bucket; no full hydraulic routing.\n\n**Technical Architecture**\n- Planchon‑Darboux fill → `filledZ`.\n- For each cell pick lowest neighbor → `flowTo`.\n- Topological accumulation → discharge.\n- Threshold edges into streams/rivers; lakes from `filledZ - z`.\n\n**Outputs / Downstream**\n- River segments + discharge, lake bodies, freshwater availability.\n- Consumed by soils (moisture/floodplains), ecology (wetlands), settlement logic.\n\n**Design Affordances**\n- Knobs: `riverThreshold`, `seaLevel`, `endorheicProbability`.\n- Enables deltas, inland seas, and fertile corridors players can reason about."
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/hydrology.ts",
+                "startLine": 1,
+                "endLine": 12,
+                "code": "filledZ = fillDepressions(z, seaLevel)\nflowTo[cell] = lowestNeighbor(filledZ)\n\n// Flux accumulation\nA[cell] = precip[cell] + sum(A[upstream])\n\nif A[edge] > riverThreshold:\n  markRiver(edge)\n\nlakes = { cell | filledZ[cell] > z[cell] }",
+                "language": "text"
+              }
+            },
+            {
+              "explanation": "### Hydrology as Graph Potential Flow\nOn the filled surface `z̃`, every cell drains to a lower neighbor:\n\n`flowTo(i)=argmin_j z̃_j`\n\nDischarge is conserved by accumulation:\n\n`Q_i = P_i + \\sum_{k\\in upstream(i)} Q_k`\n\nLakes are just stored potential:\n\n`lakeDepth_i = z̃_i - z_i`.\n\nThis keeps *gravity → networks → corridors* as a direct causal story."
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n  z[Elevation z] --> Fill[Depression fill]\n  Fill --> zt[Filled z̃]\n  zt --> Route[Steepest routing]\n  Route --> DAG[Flow DAG]\n  DAG --> Accum[Accumulate discharge Q]\n  Accum --> Rivers[Threshold → rivers]\n  zt --> Lakes[Residual → lakes]\n  Rivers --> Flood[Overbank/floodplains]",
+                "caption": "A minimal pipeline from rainfall to rivers"
+              }
+            },
+            {
+              "chart": {
+                "type": "line",
+                "csv": {
+                  "rows": [
+                    "RiverRank,DischargeRelative",
+                    "1,1.0",
+                    "2,0.7",
+                    "3,0.5",
+                    "4,0.35",
+                    "5,0.25"
+                  ]
+                },
+                "config": {
+                  "title": "Rank-size discharge distribution",
+                  "xLabel": "River rank (largest → smaller)",
+                  "yLabel": "Relative discharge"
+                },
+                "caption": "Accumulation produces realistic branching hierarchy"
+              }
+            }
+          ]
+        },
+        {
+          "id": "pedology-stage",
+          "order": 7,
+          "concept": "pedology",
+          "explanation": "# Stage 5: Pedology & Geology\nSoils and Resources from History",
+          "blocks": [
+            {
+              "explanation": "**Inputs**\n- Bedrock type and geological age\n- Temperature + rainfall from climatology\n- Hydrology moisture/flux and elevation\n\n**Real‑World Physics → Visible Effects**\n- Soil follows **CLORPT**: climate, organisms, relief, parent material, time.\n- Tropics leach into laterites; temperate grasslands build chernozem.\n- Resources form where history allows: coal in ancient swamps, oil in marine basins, iron in old shields.\n\n**Game Abstraction**\n- Lookup `(rock, temp, rain) → soilType/fertility`.\n- Resource placement via conditional probability fields and CA clustering.\n- We do not simulate billions of years of stratigraphy.\n\n**Technical Architecture**\n- Compute soil scalars per cell.\n- Scatter resources using logical rules (e.g., sedimentary + lowland + wet → coal chance).\n- Smooth into basins with cellular automata.\n\n**Outputs / Downstream**\n- Soil fertility field; strategic/luxury resource clusters.\n- Consumed by yields, AI valuation, and biome dressing.\n\n**Design Affordances**\n- Knobs: `resourceAbundance`, `geologicalAge`, `strategicBalanceBias`.\n- Guarantees resources align with terrain/climate causes, reducing “start screwing.”"
+            },
+            {
+              "explanation": "### CLORPT → Game Fields\nWe turn CLORPT into a compact fertility function:\n\n`F = w_c C(T,P) + w_r R(slope, floodplain) + w_p P(rock) + w_t timeAge`\n\n- Climate term `C` boosts organics under moderate wetness and temperature.\n- Relief term `R` penalizes steep slopes, rewards depositional valleys.\n- Parent term `P(rock)` sets mineral baseline (e.g., volcanic → rich, quartzite → poor).\n\nThis keeps *geologic history → soils → yields/resources* causal and controllable."
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/pedology.ts",
+                "startLine": 1,
+                "endLine": 14,
+                "code": "// Soil lookup\nfor cell in cells:\n  soil[cell] = soilTable.lookup(rock[cell], temp[cell], rain[cell])\n  fertility[cell] = soilFertility(soil[cell], slope[cell], floodplain[cell])\n\n// Resource probabilities\nfor resource in resources:\n  p[cell] = rules[resource].eval(fieldsAt(cell))\n\nclusters = cellularAutomataCluster(p, abundance)\nplaceResources(clusters)",
+                "language": "text"
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n  Rock[Rock type / age] --> Soil[Soil model]\n  Climate[T,P] --> Soil\n  Hydro[Moisture / flux] --> Soil\n  Soil --> Fert[Fertility F]\n\n  Rock --> ResProb[Resource rules]\n  Climate --> ResProb\n  Relief[z,slope] --> ResProb\n  ResProb --> Cluster[CA clustering]\n  Cluster --> ResOut[Resource nodes]",
+                "caption": "Soils bridge physical history to economy layers"
+              }
+            },
+            {
+              "chart": {
+                "type": "bar",
+                "csv": {
+                  "rows": [
+                    "RockType,CoalChance",
+                    "Sedimentary,0.8",
+                    "Metamorphic,0.2",
+                    "Igneous,0.1"
+                  ]
+                },
+                "config": {
+                  "title": "Example conditional resource bias",
+                  "xLabel": "Parent rock",
+                  "yLabel": "Relative chance"
+                },
+                "caption": "Rules encode real-world priors without full stratigraphy"
+              }
+            }
+          ]
+        },
+        {
+          "id": "ecology-stage",
+          "order": 8,
+          "concept": "ecology",
+          "explanation": "# Stage 6: Ecology\nBiomes as Emergent Climate Results",
+          "blocks": [
+            {
+              "explanation": "**Inputs**\n- Temperature + precipitation fields\n- Soil moisture/fertility and elevation\n\n**Real‑World Physics → Visible Effects**\n- **Whittaker/Holdridge** life zones map heat and moisture to deserts, forests, tundra, etc.\n- Ecotones form natural transitions; seasons shift visual state.\n\n**Game Abstraction**\n- 2D lookup to biome IDs, with local noise for sub‑variation.\n- Seasonal visuals via shaders over fixed biomes.\n- No fully dynamic vegetation or species simulation.\n\n**Technical Architecture**\n- For each cell, query biome table by `(temp, rain)`.\n- Derive vegetation density from effective moisture.\n\n**Outputs / Downstream**\n- Biome ID and vegetation density for rendering and feature placement.\n\n**Design Affordances**\n- Knobs: `wetDryBias`, `tempBias`, `biomeDistinctness`.\n- Players can infer *why* a biome exists because upstream causes are coherent."
+            },
+            {
+              "explanation": "### Effective Moisture and Vegetation\nWe compress ecohydrology into one scalar:\n\n`M_{eff} = P - E(T, wind)`\n\nVegetation density is a saturating response:\n\n`veg = clamp( M_{eff} / M_{sat}, 0..1 )`.\n\nThis keeps the causal rule simple: **water + heat = life**."
+            },
+            {
+              "diagram": {
+                "content": "graph TB\n    ColdDry[Cold + dry → polar desert]\n    ColdWet[Cold + wet → taiga/tundra]\n    WarmDry[Warm + dry → hot desert]\n    WarmWet[Warm + wet → rainforest]\n    WarmMid[Warm + moderate → savanna/forest]\n    ColdMid[Cold + moderate → steppe]\n    \n    ColdDry --- ColdWet\n    WarmDry --- WarmWet\n    ColdMid --- WarmMid",
+                "caption": "Whittaker-style zones as a 2D table"
+              }
+            },
+            {
+              "chart": {
+                "type": "line",
+                "csv": {
+                  "rows": [
+                    "Meff,VegetationDensity",
+                    "0,0.0",
+                    "0.25,0.2",
+                    "0.5,0.6",
+                    "0.75,0.85",
+                    "1.0,1.0"
+                  ]
+                },
+                "config": {
+                  "title": "Vegetation response to moisture",
+                  "xLabel": "Normalized effective moisture",
+                  "yLabel": "Vegetation density"
+                },
+                "caption": "Smooth gradients yield believable ecotones"
+              }
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/ecology.ts",
+                "startLine": 1,
+                "endLine": 11,
+                "code": "for cell in cells:\n  Meff = rain[cell] - evap(temp[cell], wind[cell])\n  biome[cell] = biomeTable.lookup(temp[cell], Meff)\n\n// Blend sharp borders into ecotones\nbiome = smoothDiscrete(biome, distinctness)\nvegDensity[cell] = saturate(Meff / Msat)",
+                "language": "text"
+              }
+            }
+          ]
+        },
+        {
+          "id": "integration-feedback",
+          "order": 9,
+          "concept": "integration",
+          "explanation": "# Integration & Missing Links\nFeedback Loops for Living Worlds",
+          "blocks": [
+            {
+              "explanation": "Feed‑forward pipelines give coherence, but **feedback loops** give life.\n\n**Albedo–Temperature Feedback**\n- Ice has high albedo; more ice → less absorbed solar energy → colder temps → more ice.\n- Small nudges can create tipping points (ice ages vs. greenhouse worlds).\n\n**Cryosphere (Glaciers)**\n- Snow accumulation + slow ice flow carves U‑valleys and stores freshwater.\n- In game terms: a slow geomorphology pass + dynamic sea‑ice layer.\n\n**Task‑Graph Impact**\n- Add iterative stages: `temperature → iceExtent → albedo → temperature` with convergence guards.\n- Store new fields (`ice`, `albedo`) on Voronoi cells."
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n  Temp[Temperature] --> Ice[Snow/Ice Extent]\n  Ice --> Alb[Albedo]\n  Alb --> Insol[Effective Insolation]\n  Insol --> Temp\n\n  style Ice fill:#93c5fd,color:#000\n  style Alb fill:#f8fafc,color:#000",
+                "caption": "A minimal causal loop adds climate tipping behavior"
+              }
+            },
+            {
+              "explanation": "### Other Missing Links Worth Adding\n- **Vegetation–albedo:** forests darken surfaces, warming locally and shifting rain.\n- **River sediment → coasts:** deltas and fertile floodplains reshape shorelines.\n- **Biotic weathering:** dense vegetation increases soil depth and fertility over time.\n\nAll of these can be expressed as *iterative field stages* with explicit convergence checks."
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/feedback-loop.ts",
+                "startLine": 1,
+                "endLine": 12,
+                "code": "for iter in 1..maxIter:\n  T0 = temp\n  ice = computeIce(temp, precip)\n  albedo = mix(baseAlbedo, iceAlbedo, ice)\n  temp = recomputeTemperature(albedo, insolation)\n  if maxAbs(temp - T0) < epsilon: break",
+                "language": "text"
+              }
+            },
+            {
+              "chart": {
+                "type": "line",
+                "csv": {
+                  "rows": [
+                    "MeanTemp_C,IceFraction",
+                    "-10,0.95",
+                    "-5,0.8",
+                    "0,0.4",
+                    "5,0.15",
+                    "10,0.05"
+                  ]
+                },
+                "config": {
+                  "title": "Albedo feedback creates tipping behavior",
+                  "xLabel": "Mean temperature (°C)",
+                  "yLabel": "Ice fraction"
+                },
+                "caption": "Small temperature shifts can flip climate states"
+              }
+            }
+          ]
+        },
+        {
+          "id": "design-levers-summary",
+          "order": 10,
+          "concept": "overview",
+          "explanation": "# Design Levers & Guarantees\nWhat Each Stage Buys Us",
+          "blocks": [
+            {
+              "explanation": "Because each stage is causal and modular, designers can tune worlds *predictably*. The table summarizes the highest‑leverage knobs and the visible effects they control."
+            },
+            {
+              "table": {
+                "rows": [
+                  "Stage,Key Levers,Player‑Visible Outcomes",
+                  "Geomorphology,erosionRate/duration/talusAngle,Mountain ruggedness; valley depth; plains vs peaks",
+                  "Oceanography,seaLevel/rotationDir/heatTransportEfficiency,Warm vs cold coasts; frozen seas; current‑aided sailing",
+                  "Climatology,axialTilt/solarConstant/rainShadowIntensity,Desert belts; monsoons; snowlines; rainforests",
+                  "Hydrology,riverThreshold/endorheicProbability,Major river corridors; inland lakes; deltas",
+                  "Pedology/Geology,resourceAbundance/geologicalAge/balanceBias,Coal/oil basins; iron shields; fair starts",
+                  "Ecology,wetDryBias/tempBias/biomeDistinctness,Causal biome placement; sharp vs blended ecotones",
+                  "Feedback Loops,iceBias/albedoStrength,Ice ages; runaway greenhouse; stable vs unstable climates"
+                ],
+                "caption": "Control surfaces map cleanly to outcomes"
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph LR\n  Knob[Designer knob] --> Stage[Stage module]\n  Stage --> Field[Voronoi field]\n  Field --> Outcome[Player-visible feature]\n\n  Knob2[Example: axialTilt] --> StageC[Climatology]\n  StageC --> FieldR[Rain belts]\n  FieldR --> OutcomeD[Desert vs monsoon placement]",
+                "caption": "Knobs act through fields, not direct painting"
+              }
+            },
+            {
+              "chart": {
+                "type": "line",
+                "csv": {
+                  "rows": [
+                    "AxialTiltDeg,DesertLandPercent",
+                    "10,8",
+                    "20,12",
+                    "30,18",
+                    "40,25"
+                  ]
+                },
+                "config": {
+                  "title": "Example sensitivity: tilt increases desert belts",
+                  "xLabel": "Axial tilt (deg)",
+                  "yLabel": "% land in desert biomes"
+                },
+                "caption": "Stage levers produce predictable global outcomes"
+              }
+            },
+            {
+              "explanation": "### Tuning Workflow\n1. Adjust a stage knob.\n2. Re-run only dependent stages via the task graph.\n3. Inspect intermediate fields (ASCII/heatmaps/histograms).\n4. Lock in values when downstream behavior matches design intent.\n\nBecause causes are modular, designers can tune *locally* and trust the global story to remain coherent."
+            }
+          ]
+        },
+        {
+          "id": "takeaways-next",
+          "order": 11,
+          "concept": "overview",
+          "explanation": "# Takeaways\nPhysics → Abstractions → Code → Gameplay",
+          "blocks": [
+            {
+              "explainer": {
+                "content": "This pipeline makes worlds feel real because **every layer has a cause**:\n\n- Plates uplift land → erosion sculpts terrain\n- Terrain shapes currents → currents shape climate\n- Climate drives rainfall → rainfall drives rivers\n- Rivers and climate form soils → soils and climate form biomes\n\nArchitecturally, the task graph + Voronoi fields keep these causes modular, parallelizable, and debuggable.\n\nNext steps are clear: implement the albedo/cryosphere loop, enforce stage contracts, and tune levers with diagnostics. The result is a generator that produces not just *variety*, but *meaningful, explainable variety*."
+              }
+            },
+            {
+              "diagram": {
+                "content": "graph TD\n  Plates --> Geo[Geomorphology]\n  Geo --> Ocean[Oceanography]\n  Ocean --> Climate[Climatology]\n  Climate --> Hydro[Hydrology]\n  Hydro --> Soils[Pedology]\n  Soils --> Eco[Ecology]\n  Eco --> Play[Gameplay & aesthetics]\n\n  Geo -.fields.-> Play\n  Climate -.fields.-> Play\n  Hydro -.fields.-> Play",
+                "caption": "The full causal spine from physics to play"
+              }
+            },
+            {
+              "codeBlock": {
+                "file": "pseudo/stage-manifest.ts",
+                "startLine": 1,
+                "endLine": 10,
+                "code": "stageManifest = {\n  geomorphology: { enabled: true },\n  oceanography: { enabled: true },\n  climatology: { enabled: true },\n  hydrology: { enabled: true },\n  pedology: { enabled: true },\n  ecology: { enabled: true },\n}\n// Disable a stage and downstream auto-prune.",
+                "language": "typescript"
+              }
+            },
+            {
+              "explanation": "### North Star\nModel **causes**, not appearances. If a player can point to a mountain and say “that’s why this desert exists,” the generator is working.\n\nNext logical extensions are feedback loops (ice/albedo, vegetation/albedo) and richer geological time proxies."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
