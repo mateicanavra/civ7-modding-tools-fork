@@ -14,6 +14,7 @@ This repo uses nested `AGENTS.md` files as lightweight domain routers: short, en
 - Record significant architectural decisions in `docs/system/ADR.md` and intentional deferrals with triggers in `docs/system/DEFERRALS.md`.
 - Treat generated artifacts (e.g., `dist/`, `mod/`) and lockfiles as read‑only; regenerate them via scripts instead of hand‑editing.
 - Follow established directory conventions; consult the relevant `docs/system/**` overviews before introducing new domains or layouts.
+- When you find important, surprising, interesting, or particularly novel or useful, please add it to the respective project or canonical doc (depending on the timescale of its quality).
 
 ## Docs Architecture (Where Things Go)
 
