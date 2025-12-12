@@ -19,7 +19,7 @@ This milestone corresponds to **Milestone 2** in `PROJECT-engine-refactor-v1.md`
 - Introduce a single, validated `MapGenConfig` schema and fail-fast configuration loading.
 - Wire the existing `MapOrchestrator` and context/tunables flow to consume validated config instead of globals.
 - Run the **foundation / plate generation** stack through this orchestrated slice and bridge its outputs into legacy downstream stages.
-- Restore **minimal story parity** (margins + hotspots + rifts, optional orogeny) via orchestrator story stages so climate/biomes/features regain narrative signals.
+- Restore **minimal story parity** (margins + hotspots + rifts). **Orogeny belts are deferred out of M2** despite the stage flag existing, because they require additional cache/plumbing that is better handled once the remaining story stages are in view.
 - Preserve existing map behavior as much as possible while enabling new diagnostics and determinism.
 
 ## Scope
@@ -68,7 +68,8 @@ Related PRD: `resources/PRD-plate-generation.md`
 
 - Port and wire the minimal story tagging subset from the JS archive:
   - Continental margins (active/passive shelves) + margins overlay publication.
-  - Hotspot trails and rift valleys (optional early orogeny belts if low‑risk).
+  - Hotspot trails and rift valleys.
+  - **Explicit deferral:** `storyTagOrogenyBelts` / orogeny windward‑lee caches are *not* part of M2. Even though M2 configs may enable `storyOrogeny`, the TS stable slice does not yet provide the necessary `OrogenyCache` plumbing into climate/swatches. This is tracked in project triage/backlog and revisited in M3.
 - Run these through the existing story stages in `MapOrchestrator` without introducing pipeline primitives yet.
 - Add a small smoke check or warning when story stages are enabled but produce empty tag sets.
 

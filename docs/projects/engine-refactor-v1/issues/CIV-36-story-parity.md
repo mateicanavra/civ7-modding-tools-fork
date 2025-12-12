@@ -29,6 +29,7 @@ Parent issue: `CIV-21-story-tagging.md`.
   - Hotspot trail tagging with core sub-tags (`hotspot`, `hotspotParadise`, `hotspotVolcanic`).
   - Rift line + shoulder tagging.
   - Optional: basic orogeny belts if it is low‑risk in the orchestrator slice.
+    - **Decision (2025‑12‑12, M2 / CIV‑36 discussion):** **deferred**. Orogeny belts are not ported in this M2 slice because they require additional cross‑stage plumbing (an `OrogenyCache`, a `storyOrogeny` stage, and passing that cache into story‑aware climate/swatches). We will revisit once the remaining story stages (swatches/corridors) are in view; tracked in project triage/backlog.
 - [x] **Wire into `MapOrchestrator`**
   - Call minimal tagging in `storySeed` / `storyHotspots` / `storyRifts` stages without changing ordering.
   - Ensure story tags/overlays exist before climate/biomes/features run.
@@ -39,7 +40,7 @@ Parent issue: `CIV-21-story-tagging.md`.
 
 ## Acceptance Criteria
 
-- [x] TS `story/tagging.ts` exists and implements margins/hotspots/rifts (± orogeny).
+- [x] TS `story/tagging.ts` exists and implements margins/hotspots/rifts. Orogeny belts are explicitly deferred out of M2 (see Deliverables note).
 - [x] `StoryTags` are populated after story stages execute.
 - [x] Margins overlay is published and `hydrateMarginsStoryTags` is exercised.
 - [x] Downstream climate/biomes/features regain story‑aware branches.
@@ -58,6 +59,9 @@ These land under `LOCAL-M3-story-system.md`.
 
 - Depends on config/call‑site stability (CIV‑18).
 - This is an orchestrator‑centric port intended to be wrapped as steps in M3.
+- Follow‑ups:
+  - Globals coupling retirement and step‑style wrapping are tracked in `LOCAL-M3-story-system.md`.
+  - Distribution/overlay regression harness is tracked in project backlog (`docs/projects/engine-refactor-v1/triage.md`).
 
 ---
 
