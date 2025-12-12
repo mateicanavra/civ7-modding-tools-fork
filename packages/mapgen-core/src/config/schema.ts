@@ -1941,12 +1941,72 @@ export const ClimateRefineSchema = Type.Object(
 /**
  * Aggregated climate configuration grouping baseline, refinement, and swatch knobs.
  */
+export const ClimateStoryRainfallSchema = Type.Object(
+  {
+    /**
+     * Radius around rift line tiles that receives a humidity boost.
+     * @default 2
+     */
+    riftRadius: Type.Optional(
+      Type.Number({
+        default: 2,
+        description:
+          "Radius around rift line tiles that receives a humidity boost (tiles). Typically 2–5.",
+      })
+    ),
+    /**
+     * Base rainfall bonus applied near rift shoulders, reduced by elevation.
+     * @default 8
+     */
+    riftBoost: Type.Optional(
+      Type.Number({
+        default: 8,
+        description:
+          "Base rainfall bonus applied near rifts before elevation penalties (rainfall units). Typically 15–30.",
+      })
+    ),
+    /**
+     * Rainfall bonus applied within hotspot paradise neighborhoods.
+     * @default 6
+     */
+    paradiseDelta: Type.Optional(
+      Type.Number({
+        default: 6,
+        description:
+          "Rainfall bonus applied near paradise hotspots (rainfall units). Typically 10–20.",
+      })
+    ),
+    /**
+     * Rainfall bonus applied within hotspot volcanic neighborhoods.
+     * @default 8
+     */
+    volcanicDelta: Type.Optional(
+      Type.Number({
+        default: 8,
+        description:
+          "Rainfall bonus applied near volcanic hotspots (rainfall units). Typically 8–15.",
+      })
+    ),
+  },
+  { additionalProperties: true, default: {} }
+);
+
+export const ClimateStorySchema = Type.Object(
+  {
+    /** Story-driven rainfall modifiers keyed off narrative tags. */
+    rainfall: Type.Optional(ClimateStoryRainfallSchema),
+  },
+  { additionalProperties: true, default: {} }
+);
+
 export const ClimateConfigSchema = Type.Object(
   {
     /** Baseline rainfall and local bonuses. */
     baseline: Type.Optional(ClimateBaselineSchema),
     /** Earthlike refinement parameters (rain shadow, river corridors, etc.). */
     refine: Type.Optional(ClimateRefineSchema),
+    /** Story-driven climate modifiers reacting to narrative overlays. */
+    story: Type.Optional(ClimateStorySchema),
     /** Swatch overrides for macro climate regions (untyped placeholder). */
     swatches: Type.Optional(UnknownRecord),
   },

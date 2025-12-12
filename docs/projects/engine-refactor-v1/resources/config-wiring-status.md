@@ -340,6 +340,17 @@ All refine sub-fields except `pressure` are wired in `layers/climate-engine.ts::
 |---|---|---|
 | `climate.swatches` | **Unused / planned** | Schema placeholder. TS instead reads `climate.story.swatches` (untyped) for macro swatch logic. |
 
+### climate.story.rainfall
+
+Typed story rainfall knobs consumed in `layers/climate-engine.ts::refineClimateEarthlike`.
+
+| Field | Status | Notes |
+|---|---|---|
+| `climate.story.rainfall.riftRadius` | **Wired** | Pass D rift humidity radius (tiles). Default 2. |
+| `climate.story.rainfall.riftBoost` | **Wired** | Pass D rift humidity delta (rainfall units). Default 8. |
+| `climate.story.rainfall.paradiseDelta` | **Wired** | Pass F paradise hotspot humidity bonus. Default 6. |
+| `climate.story.rainfall.volcanicDelta` | **Wired** | Pass F volcanic hotspot humidity bonus. Default 8. |
+
 Untyped climate.story keys in use are listed later.
 
 ## biomes (stage: `biomes`)
@@ -438,15 +449,11 @@ Read in `layers/climate-engine.ts`:
 | `climate.story.swatches.types.<kind>.lowlandMaxElevation` | `storySwatches` | Used by `greatPlains`. |
 | `climate.story.swatches.types.<kind>.dryDelta` | `storySwatches` | Used by `greatPlains`. |
 | `climate.story.swatches.sizeScaling.widthMulSqrt` | `storySwatches` | Scales band widths with map area. |
-| `climate.story.rainfall.riftRadius` | `climateRefine` | Pass D rift humidity radius. |
-| `climate.story.rainfall.riftBoost` | `climateRefine` | Pass D rift humidity delta. |
-| `climate.story.rainfall.paradiseDelta` | `climateRefine` | Pass F paradise hotspot humidity. |
-| `climate.story.rainfall.volcanicDelta` | `climateRefine` | Pass F volcanic hotspot humidity. |
-| `climate.story.orogeny.windwardBoost` | `climateRefine` | Pass E windward rainfall bonus (gated by STORY_ENABLE_OROGENY). |
-| `climate.story.orogeny.leeDrynessAmplifier` | `climateRefine` | Pass E lee-side drying multiplier. |
 
 Swatch kinds currently recognized by code: `macroDesertBelt`, `equatorialRainbelt`, `rainforestArchipelago`,
 `mountainForests`, `greatPlains` (others ignored unless code adds handlers).
+
+Note: `refineClimateEarthlike` also contains an orogeny windward/lee pass, but M2 stable slice does not provide orogeny belts/cache plumbing. Orogeny is deferred to a modern M3+ step/layer (no legacy `OrogenyCache` port).
 
 ### foundation.diagnostics (dev flags)
 

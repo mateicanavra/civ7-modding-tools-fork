@@ -77,7 +77,8 @@ Related PRD: `resources/PRD-plate-generation.md`
 
 - Ensure the validated schema and docs reflect the config keys actually consumed in the M2 stable slice:
   - `foundation.diagnostics` dev flags (currently untyped but wired via `initDevFlags`).
-  - Story‑driven rainfall/orogeny knobs (`climate.story.rainfall.*`, `foundation.story.orogeny.*`) that influence `climateRefine` once minimal story tags exist.
+  - Story‑driven rainfall knobs (`climate.story.rainfall.*`) that influence `climateRefine` once minimal story tags exist.
+  - **Note:** story orogeny windward‑lee amplification (and any legacy `foundation.story.orogeny.*` knobs) is deferred to M3+ as a modern orogeny step/layer.
   - Resolve the mismatch between top‑level `diagnostics.*` aliases and the stable `foundation.diagnostics` block by treating `foundation.diagnostics` as canonical and deprecating/removing the unused top‑level surface.
 - This work is limited to promoting and documenting keys already meaningful in the stable slice; no diagnostics redesign is intended in M2.
 - Sources: `resources/config-wiring-status.md` (diagnostics + untyped stable‑slice keys), `resources/STATUS-M-TS-parity-matrix.md` (dev diagnostics + story/climate notes), `../issues/CIV-36-story-parity.md`, `../issues/CIV-38-dev-diagnostics.md`, `../issues/CIV-39-config-surface-alignment.md`.

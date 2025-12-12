@@ -11,21 +11,21 @@ Milestone and issue docs remain canonical for scheduled/active scope; entries he
   - **Next check:** when/how to re‑evaluate.
 
 **Revisit index (best‑effort scan)**
-- [Early M3] Port story orogeny belts to TS
+- [Early M3+] Design/implement modern story orogeny layer
 - [During M3 story migration] Add minimal story parity regression harness
 
 ## Triage (needs decision / research)
 
 ## Backlog (definite, unsequenced)
 
-- **Port story orogeny belts to TS** [Review by: early M3]
-  - **Context:** M2 / `CIV-36` minimal story parity; decision to defer recorded 2025‑12‑12 discussion.
+- **Modern story orogeny layer (windward/lee amplification)** [Review by: early M3+]
+  - **Context:** M2 / `CIV-36` minimal story parity deferred orogeny; `CIV-39` orogeny tunables promotion explicitly deferred in 2025‑12‑12 discussion.
   - **Type:** backlog
-  - **Notes:** Legacy `storyTagOrogenyBelts` relies on convergent‑boundary physics (`upliftPotential`, `tectonicStress`, `boundaryType`, `boundaryCloseness`) and prevailing winds. To make it meaningful in TS we need:
-    - A TS port producing belt + windward/lee sets.
-    - A `storyOrogeny` orchestrator stage.
-    - Passing an `OrogenyCache` into `refineClimateEarthlike` (and `applyClimateSwatches` once that stage is wired), so rainfall/biomes regain the windward‑lee motifs.
-  - **Next check:** revisit in early M3 when story swatches/corridors plumbing is scheduled and we can validate parity without destabilizing M2 defaults.
+  - **Notes:** Legacy JS used `storyTagOrogenyBelts` + an `OrogenyCache` to amplify rainfall on windward/lee flanks along long convergent belts. We will **not** port that cache‑based flow in M2. In the task‑graph architecture (`docs/system/libs/mapgen/architecture.md`), reintroduce orogeny as a dedicated step/layer that:
+    - Derives belts/flanks from `MapGenContext.artifacts.tectonics` (uplift/convergence) and prevailing winds.
+    - Publishes modern story tags/overlays and/or applies rainfall/biome modifiers via context fields/buffers.
+    - Owns a modern config surface (may replace legacy `foundation.story.orogeny.*` knobs).
+  - **Next check:** schedule once Pipeline/Story steps land in M3 and we can validate parity without re‑adding legacy shims.
 
 - **Add minimal story parity regression harness** [Review by: during M3 story migration]
   - **Context:** M2 review `REVIEW-M2-stable-engine-slice.md` CIV‑36 section; noted 2025‑12‑12.

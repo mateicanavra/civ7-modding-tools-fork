@@ -47,13 +47,13 @@ Detractions / Open Questions:
 
 | JS Module | TS Equivalent | Status | Notes |
 |----------|---------------|--------|-------|
-| `story/tagging.js` | **None** (expected: `packages/mapgen-core/src/story/tagging.ts`) | Missing (planned split across M2/M3) | JS implements the core climate story: `storyTagHotspotTrails`, `storyTagRiftValleys`, `storyTagOrogenyBelts`, `storyTagContinentalMargins`, `storyTagClimateSwatches`, `storyTagPaleoHydrology` plus an `OrogenyCache`. These functions populate `StoryTags`, publish overlays, and drive rainfall via `writeClimateField`/`syncClimateField` and `applyClimateSwatches`. TS implementation is tracked under parent `CIV-21` with children `CIV-36` and `LOCAL-M3-STORY-SYSTEM`. |
+| `story/tagging.js` | **None** (expected: `packages/mapgen-core/src/story/tagging.ts`) | Missing (planned split across M2/M3) | JS implements the core climate story: `storyTagHotspotTrails`, `storyTagRiftValleys`, `storyTagOrogenyBelts`, `storyTagContinentalMargins`, `storyTagClimateSwatches`, `storyTagPaleoHydrology` plus an `OrogenyCache`. TS implementation is tracked under parent `CIV-21` with children `CIV-36` and `LOCAL-M3-STORY-SYSTEM`. **Decision:** TS will not recreate the legacy cache flow; orogeny windward/lee amplification will return as a modern M3+ orogeny step/layer. |
 
 Detractions / Open Questions:
 - **Missing parity:** None of the following exist in TS:
   - Hotspot trail tagging (`hotspot`, `hotspotParadise`, `hotspotVolcanic`) with size, land-distance, and directionality constraints.
   - Rift line + shoulder tagging using `WorldModel` fields and `FOUNDATION_DIRECTIONALITY`.
-  - Orogeny belts and caches used by climate refinement.
+  - Orogeny belts (windward/lee amplification) are deferred to M3+ modern pipeline; legacy cache plumbing will not be ported in M2.
   - Continental margins tagging + margins overlay publication.
   - Climate swatches and paleo passes that adjust rainfall around story structures.
 - **Orchestration gap (today):** `MapOrchestrator` only has a stub `storySeed` stage that calls `resetStoryTags()`. Minimal tagging will be wired into existing story stages in M2 (`CIV-36`), with remaining stages migrated into Task Graph steps in M3 (`LOCAL-M3-STORY-SYSTEM`).
