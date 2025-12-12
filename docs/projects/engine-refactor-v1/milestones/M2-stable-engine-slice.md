@@ -76,10 +76,10 @@ Related PRD: `resources/PRD-plate-generation.md`
 
 - Ensure the validated schema and docs reflect the config keys actually consumed in the M2 stable slice:
   - `foundation.diagnostics` dev flags (currently untyped but wired via `initDevFlags`).
-  - Story‑driven rainfall knobs (`climate.story.rainfall.*`, `climate.story.orogeny.*`) that influence `climateRefine` once minimal story tags exist.
+  - Story‑driven rainfall/orogeny knobs (`climate.story.rainfall.*`, `foundation.story.orogeny.*`) that influence `climateRefine` once minimal story tags exist.
   - Resolve the mismatch between top‑level `diagnostics.*` aliases and the stable `foundation.diagnostics` block by treating `foundation.diagnostics` as canonical and deprecating/removing the unused top‑level surface.
 - This work is limited to promoting and documenting keys already meaningful in the stable slice; no diagnostics redesign is intended in M2.
-- Sources: `resources/config-wiring-status.md` (diagnostics + untyped stable‑slice keys), `resources/STATUS-M-TS-parity-matrix.md` (dev diagnostics + story/climate notes), `../issues/LOCAL-M2-story-parity.md`.
+- Sources: `resources/config-wiring-status.md` (diagnostics + untyped stable‑slice keys), `resources/STATUS-M-TS-parity-matrix.md` (dev diagnostics + story/climate notes), `../issues/CIV-36-story-parity.md`, `../issues/LOCAL-M2-dev-diagnostics.md`, `../issues/LOCAL-M2-config-surface-alignment.md`.
 
 ## Acceptance Criteria
 
@@ -97,15 +97,18 @@ Related PRD: `resources/PRD-plate-generation.md`
   - [ ] CIV-17: Config → manifest resolver (`../issues/CIV-17-config-manifest-resolver.md`)
   - [ ] CIV-18: Call-site fixes for climate/biomes (`../issues/CIV-18-callsite-fixes.md`)
   - [ ] LOCAL-TBD: Foundation/mountains wiring into `WorldModel` (`../issues/LOCAL-TBD-worldmodel-mountains-wiring.md`)
-  - [ ] LOCAL‑M2‑TUNABLES‑FACADE‑DECISION (planned): Decide parity vs. deprecate JS‑era `CLIMATE_TUNABLES` / `FOUNDATION_TUNABLES` facades; update docs/snippets accordingly.
 - Foundation pipeline & diagnostics:
   - [ ] LOCAL-M2-DEV-DIAGNOSTICS: Dev diagnostics and executor logging (`../issues/LOCAL-M2-dev-diagnostics.md`).
 - Stable‑slice config correctness:
-  - [ ] LOCAL‑M2‑CONFIG‑SURFACE‑ALIGNMENT (planned): Align schema/docs for stable‑slice story‑rainfall/orogeny knobs (diagnostics surface tracked in `LOCAL-M2-DEV-DIAGNOSTICS`; see Scope §5).
+  - [ ] LOCAL‑M2‑CONFIG‑SURFACE‑ALIGNMENT: Align schema/docs for stable‑slice story‑rainfall/orogeny knobs (`../issues/LOCAL-M2-config-surface-alignment.md`).
 - Narrative parity:
-  - [ ] LOCAL-M2-STORY-PARITY: Minimal story parity (`../issues/LOCAL-M2-story-parity.md`)
+  - [ ] CIV-36: Minimal story parity (`../issues/CIV-36-story-parity.md`)
 
 These may be split or reassigned across milestones as we refine the execution plan.
+
+### Intentionally Dropped (No Parity Targets)
+
+- JS-era tunables facades (`CLIMATE_TUNABLES`, `FOUNDATION_TUNABLES`, `STORY_TUNABLES`) are intentionally **not** being reintroduced. TS layers should use the core tunables blocks and helpers from `bootstrap/tunables.ts` directly. See `resources/STATUS-M-TS-parity-matrix.md` §5.4 and `resources/PRD-config-refactor.md` (Phase 3 deprecations).
 
 ## Outcomes & Follow-Ups
 

@@ -162,11 +162,11 @@ Detractions / Open Questions:
 
 | JS Module | TS Equivalent | Status | Notes |
 |----------|---------------|--------|-------|
-| `bootstrap/climate-tunables.js` | **None** (callers use `bootstrap/tunables.ts`) | Detraction / Open | JS exposed a climate-focused facade (`CLIMATE_TUNABLES`, `CLIMATE_DRIVERS`, `MOISTURE_ADJUSTMENTS`, `STORY_TUNABLES`). TS expects layers to read `CLIMATE_CFG` (and story sub-blocks) directly from tunables. |
-| `bootstrap/foundation-tunables.js` | **None** (callers use `bootstrap/tunables.ts`) | Detraction / Open | JS had a dedicated `FOUNDATION_TUNABLES` view; TS uses `FOUNDATION_CFG`, `FOUNDATION_PLATES`, etc., directly. |
+| `bootstrap/climate-tunables.js` | **None** (callers use `bootstrap/tunables.ts`) | Parity (intentional drop) | JS exposed a climate-focused facade (`CLIMATE_TUNABLES`, `CLIMATE_DRIVERS`, `MOISTURE_ADJUSTMENTS`, `STORY_TUNABLES`). TS intentionally does **not** reintroduce these facades; layers should read `CLIMATE_CFG` (and story sub-blocks) and `CLIMATE.*` helpers directly from tunables. |
+| `bootstrap/foundation-tunables.js` | **None** (callers use `bootstrap/tunables.ts`) | Parity (intentional drop) | JS had a dedicated `FOUNDATION_TUNABLES` view; TS intentionally uses `FOUNDATION_CFG`, `FOUNDATION_PLATES`, etc., directly without a facade. |
 
 Detractions / Open Questions:
-- These look like intentional simplifications, but they break JS-era import ergonomics. We should either reintroduce typed facades, or mark them as intentionally dropped and update docs/snippets.
+- Resolved: JS-era tunables facades are intentionally not ported. TS code should use core tunables blocks and helpers directly; no follow‑up parity work is planned for these facades.
 
 ---
 
