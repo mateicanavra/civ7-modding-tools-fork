@@ -77,8 +77,8 @@ Related PRD: `resources/PRD-plate-generation.md`
 - Ensure the validated schema and docs reflect the config keys actually consumed in the M2 stable slice:
   - `foundation.diagnostics` dev flags (currently untyped but wired via `initDevFlags`).
   - Story‑driven rainfall knobs (`climate.story.rainfall.*`, `climate.story.orogeny.*`) that influence `climateRefine` once minimal story tags exist.
-  - Resolve the mismatch between top‑level `diagnostics.*` aliases and the stable `foundation.diagnostics` block (parity vs. deprecate).
-- Open questions: Promote these untyped keys into schema now vs. keep internal but document? Should `diagnostics.*` remain public or be deprecated in favor of `foundation.diagnostics`?
+  - Resolve the mismatch between top‑level `diagnostics.*` aliases and the stable `foundation.diagnostics` block by treating `foundation.diagnostics` as canonical and deprecating/removing the unused top‑level surface.
+- This work is limited to promoting and documenting keys already meaningful in the stable slice; no diagnostics redesign is intended in M2.
 - Sources: `resources/config-wiring-status.md` (diagnostics + untyped stable‑slice keys), `resources/STATUS-M-TS-parity-matrix.md` (dev diagnostics + story/climate notes), `../issues/LOCAL-M2-story-parity.md`.
 
 ## Acceptance Criteria
@@ -101,7 +101,7 @@ Related PRD: `resources/PRD-plate-generation.md`
 - Foundation pipeline & diagnostics:
   - [ ] LOCAL-M2-DEV-DIAGNOSTICS: Dev diagnostics and executor logging (`../issues/LOCAL-M2-dev-diagnostics.md`).
 - Stable‑slice config correctness:
-  - [ ] LOCAL‑M2‑CONFIG‑SURFACE‑ALIGNMENT (planned): Align schema/docs for stable‑slice diagnostics + story‑rainfall knobs (see Scope §5).
+  - [ ] LOCAL‑M2‑CONFIG‑SURFACE‑ALIGNMENT (planned): Align schema/docs for stable‑slice story‑rainfall/orogeny knobs (diagnostics surface tracked in `LOCAL-M2-DEV-DIAGNOSTICS`; see Scope §5).
 - Narrative parity:
   - [ ] LOCAL-M2-STORY-PARITY: Minimal story parity (`../issues/LOCAL-M2-story-parity.md`)
 
