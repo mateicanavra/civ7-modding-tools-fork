@@ -135,13 +135,11 @@ contracts, not internal implementation details.
 - When running the `foundation` stage, the orchestrator:
   - Creates an `ExtendedMapContext` with:
     - Dimensions from the Civ7 adapter or test defaults.
-    - The same `MapGenConfig` instance passed into the constructor.
-  - Configures and runs `WorldModel` using tunables derived from that config.
+    - A lightweight runtime `ctx.config` object (currently: toggle flags) for legacy call sites.
+  - Configures and runs `WorldModel` using tunables derived from the **validated `MapGenConfig`** (bound via `bootstrap()` / `bindTunables()`).
   - After `WorldModel` finishes foundation physics, calls:
     - `createFoundationContext(WorldModel, { dimensions, config: foundationConfigSlice })`.
-  - Stores the resulting `FoundationContext` on:
-    - `ctx.foundation` (for downstream TS stages).
-    - `WorldModel` (for any remaining legacy consumers and diagnostics).
+  - Stores the resulting `FoundationContext` on `ctx.foundation` (for downstream TS stages and diagnostics).
 
 **M2 Contract for World Model & FoundationContext**
 
@@ -184,7 +182,7 @@ assuming `FoundationContext` remains the canonical physics snapshot.
     - `config.foundation` and related tunables (plates, dynamics, surface, diagnostics).
   - `provides`:
     - `FoundationContext` (as defined above).
-    - Populated `HeightfieldBuffer` (via `syncHeightfield`) and initial land mask.
+    - `HeightfieldBuffer` exists on `ctx.buffers.heightfield`, but it is populated later (via `syncHeightfield()` after terrain-modifying stages), not during foundation initialization.
 
 - **Proposed: Climate baseline step (M3)**
   - `requires`:
