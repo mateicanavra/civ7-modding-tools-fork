@@ -40,8 +40,9 @@ related_to: [CIV-30, CIV-31]
 
 ## Testing / Verification
 - Build and tests:
-  - `pnpm run build`
-  - `pnpm test`
+  - `bun run check-types`
+  - `bun run build`
+  - `bun run test`
 - In-game manual tests:
   - Generate multiple Swooper Desert Mountains maps at the standard 74x46 size.
   - Confirm:
