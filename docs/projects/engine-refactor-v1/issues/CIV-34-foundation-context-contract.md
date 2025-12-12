@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M2-FOUNDATION-CONTEXT-CONTRACT
+id: CIV-34
 title: "[M2] Document FoundationContext contract and config → tunables → world-model flow"
 state: planned
 priority: 2

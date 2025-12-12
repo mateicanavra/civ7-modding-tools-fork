@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M2-DOCS-ALIGNMENT
+id: CIV-33
 title: "[M2] Align docs and status with config + foundation slice implementation"
 state: planned
 priority: 2

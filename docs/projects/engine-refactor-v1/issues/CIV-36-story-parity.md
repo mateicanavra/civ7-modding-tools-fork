@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M2-STORY-PARITY
+id: CIV-36
 title: "[M2] Minimal Story Parity (Margins, Hotspots, Rifts)"
 state: planned
 priority: 2

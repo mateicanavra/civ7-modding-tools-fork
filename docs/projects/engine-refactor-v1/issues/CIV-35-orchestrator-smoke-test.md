@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M2-ORCHESTRATOR-SMOKE-TEST
+id: CIV-35
 title: "[M2] Add MapOrchestrator.generateMap smoke test for config + foundation slice"
 state: planned
 priority: 2

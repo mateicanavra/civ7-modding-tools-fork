@@ -1,5 +1,6 @@
-id: LOCAL-TBD
-title: Wire foundation config into WorldModel and mountains layer for Swooper Desert Mountains
+---
+id: CIV-37
+title: "[M2] Wire foundation config into WorldModel and mountains layer for Swooper Desert Mountains"
 state: planned
 priority: 2
 estimate: 4
