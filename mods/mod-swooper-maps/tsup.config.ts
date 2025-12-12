@@ -5,7 +5,7 @@ import type { Plugin } from "esbuild";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 // Reuse mapgen-core’s TypeBox format shim to avoid Unicode regexes in Civ7’s V8 (built-in format validation is disabled).
-const typeboxFormatShim = join(__dirname, "../packages/mapgen-core/src/shims/typebox-format.ts");
+const typeboxFormatShim = join(__dirname, "../../packages/mapgen-core/src/shims/typebox-format.ts");
 const typeboxFormatPlugin: Plugin = {
   name: "typebox-format-shim",
   setup(build) {
