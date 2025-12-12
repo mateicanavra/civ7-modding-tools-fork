@@ -75,12 +75,9 @@ function buildConfig(plateCount: number): BootstrapConfig {
         crustMode: "area",
         baseWaterPercent: 53, // More ocean for distinct continents
         waterScalar: 1,
-        boundaryBias: 0.1, // Slight bias towards boundaries for interest
-        boundaryShareTarget: 0.4,
-        tectonics: {
-          boundaryArcWeight: 0.23, // Balanced
-          interiorNoiseWeight: 0.77, // Balanced
-        },
+        // NOTE (M2): The TS stable slice does not currently consume the legacy
+        // boundary/tectonics tuning knobs (boundaryBias, boundaryShareTarget, etc.).
+        // Tune boundary saturation via `foundation.plates` + `foundation.mountains` instead.
       },
       margins: {
         activeFraction: 0.35,
