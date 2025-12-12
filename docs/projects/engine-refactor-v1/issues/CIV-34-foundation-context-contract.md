@@ -32,10 +32,10 @@ Make the `FoundationContext` contract explicit and document the end-to-end flow 
 
 ## Acceptance Criteria
 
-- [ ] `FoundationContext` fields and guarantees are documented in `resources/CONTRACT-foundation-context.md` and linked from the engine-refactor project docs.
-- [ ] The config → tunables → world-model flow is described as the canonical M2 slice and matches the actual implementation.
-- [ ] M2 docs and review explicitly describe tunables as a view over validated `MapGenConfig`, not as a separate config store.
-- [ ] Future M3+ issues can reference this contract instead of re-deriving the behavior from code/reviews.
+- [x] `FoundationContext` fields and guarantees are documented in `resources/CONTRACT-foundation-context.md` and linked from the engine-refactor project docs.
+- [x] The config → tunables → world-model flow is described as the canonical M2 slice and matches the actual implementation.
+- [x] M2 docs and review explicitly describe tunables as a view over validated `MapGenConfig`, not as a separate config store.
+- [x] Future M3+ issues can reference this contract instead of re-deriving the behavior from code/reviews.
 
 ## Testing / Verification
 
