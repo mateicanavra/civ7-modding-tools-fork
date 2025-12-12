@@ -37,7 +37,7 @@ Looking forward, M3 and M4 are realigned at a high level as follows:
   - Canonicalize core engine data products, including:
     - `ClimateField` and basic hydrology/river products.
     - `StoryOverlays` and their relationship to `StoryTags`.
-  - Start migrating key clusters (foundation extensions, climate, early story overlays) into `MapGenStep`s with clear `requires` / `provides` contracts.
+  - Start migrating key clusters (foundation extensions, climate, remaining story overlays after M2 minimal parity) into `MapGenStep`s with clear `requires` / `provides` contracts.
 - **M4**
   - Focus on validation, contracts, and robustness:
     - Data-product and `StageManifest` validation (requires/provides checks, manifest consistency).

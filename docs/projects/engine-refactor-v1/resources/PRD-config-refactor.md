@@ -305,9 +305,10 @@ brief (`PROJECT-engine-refactor-v1.md`) and the milestone docs (for example,
 
 3. **Story/corridors config timing**
    - `SPIKE-config-refactor-design.md` and the parity matrix call out story/corridor config surfaces that currently have no TS implementation.
-   - We likely want to:
+   - We want to:
      - Include the necessary fields in the schema in Phase 1 (for compatibility).
-     - Treat them as “config for not-yet-implemented steps” until story/corridor steps are implemented in the Task Graph.
+     - Implement **minimal story parity** (margins/hotspots/rifts ± orogeny) under the existing orchestrator in M2 so these knobs become real and consumers stabilize.
+     - Treat the remaining story/corridors surfaces (corridors, swatches, paleo, canonical overlays) as “config for not‑yet‑implemented steps” until they are migrated into the Task Graph in M3.
 
 4. **Backward compatibility window**
    - How long do we support old config shapes via adapters once the new shape is in place?

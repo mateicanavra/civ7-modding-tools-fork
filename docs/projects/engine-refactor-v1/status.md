@@ -9,15 +9,16 @@
 
 ## Gaps / In Progress
 - Climate consumers still read `GameplayMap` instead of `ClimateField`; river flow data not exposed as a product.
-- Narrative overlays (hotspots/rifts/orogeny/corridors/swatches) still mutate `StoryTags`; overlays registry only holds margins.
+- Narrative overlays are still largely unported: minimal parity (margins/hotspots/rifts ± orogeny) is now scoped for M2 (`LOCAL-M2-STORY-PARITY`), while corridors/swatches/paleo and canonical overlay products remain M3 work (`LOCAL-M3-STORY-SYSTEM`).
 - Biomes/features/placement read legacy fields and do not require overlays or `ClimateField` inputs.
 - No manifest/data-product validator; stages can still run without declared inputs beyond manual assertions.
 - No automated smoke tests for orchestrator/context; verification is manual via diagnostics.
 
 ## Ready Next
-1. Make `ClimateField` the canonical rainfall source and surface river flow/summary data for downstream overlays (Phase C / early M3).
-2. Begin refitting story tagging to consume `FoundationContext`/`Heightfield`/`ClimateField` and publish `StoryOverlays`; retire direct `StoryTags` mutation (Phase D / M3).
-3. Introduce `PipelineExecutor` / `MapGenStep` / `StepRegistry` on top of the stabilized data products, and add manifest/data-product validation to gate stages on declared `requires`/`provides` (late M3–M4).
+1. Restore minimal story parity (margins/hotspots/rifts ± orogeny) via orchestrator stages so narrative‑aware consumers react again (M2).
+2. Make `ClimateField` the canonical rainfall source and surface river flow/summary data for downstream overlays (Phase C / early M3).
+3. Complete remaining story system modernization (corridors, swatches, paleo, canonical overlays) and migrate story logic into steps after pipeline refactor (M3).
+4. Introduce `PipelineExecutor` / `MapGenStep` / `StepRegistry` on top of the stabilized data products, and add manifest/data-product validation to gate stages on declared `requires`/`provides` (late M3–M4).
 
 ## Spikes / Research
 - Overlay payload schema for corridors/hotspots/rifts/swatches (fields + summary for consumers).
