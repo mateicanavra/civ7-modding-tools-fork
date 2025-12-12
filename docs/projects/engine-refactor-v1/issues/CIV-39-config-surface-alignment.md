@@ -1,8 +1,8 @@
 ---
-id: LOCAL-M2-CONFIG-SURFACE-ALIGNMENT
+id: CIV-39
 title: "[M2] Stable-Slice Story Rainfall/Orogeny Config Surface Alignment"
 state: planned
-priority: 3
+priority: 2
 estimate: 1
 project: engine-refactor-v1
 milestone: M2-stable-engine-slice
@@ -12,7 +12,7 @@ parent: null
 children: []
 blocked_by: [CIV-36]
 blocked: []
-related_to: [CIV-27, CIV-30, LOCAL-M2-DEV-DIAGNOSTICS]
+related_to: [CIV-27, CIV-30, CIV-38]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
@@ -51,7 +51,7 @@ Promote and document the **story-driven rainfall and orogeny knobs** that are al
 
 - Any new story overlays or additional climate/story passes beyond what is already in the stable slice.
 - Canonical data‑product reshaping of story/climate config (owned by M3).
-- Diagnostics config promotion or alias cleanup (owned by `LOCAL-M2-DEV-DIAGNOSTICS`).
+- Diagnostics config promotion or alias cleanup (owned by CIV-38).
 
 ## Dependencies / Notes
 

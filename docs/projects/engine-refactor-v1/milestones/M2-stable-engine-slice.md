@@ -79,7 +79,7 @@ Related PRD: `resources/PRD-plate-generation.md`
   - Story‑driven rainfall/orogeny knobs (`climate.story.rainfall.*`, `foundation.story.orogeny.*`) that influence `climateRefine` once minimal story tags exist.
   - Resolve the mismatch between top‑level `diagnostics.*` aliases and the stable `foundation.diagnostics` block by treating `foundation.diagnostics` as canonical and deprecating/removing the unused top‑level surface.
 - This work is limited to promoting and documenting keys already meaningful in the stable slice; no diagnostics redesign is intended in M2.
-- Sources: `resources/config-wiring-status.md` (diagnostics + untyped stable‑slice keys), `resources/STATUS-M-TS-parity-matrix.md` (dev diagnostics + story/climate notes), `../issues/CIV-36-story-parity.md`, `../issues/LOCAL-M2-dev-diagnostics.md`, `../issues/LOCAL-M2-config-surface-alignment.md`.
+- Sources: `resources/config-wiring-status.md` (diagnostics + untyped stable‑slice keys), `resources/STATUS-M-TS-parity-matrix.md` (dev diagnostics + story/climate notes), `../issues/CIV-36-story-parity.md`, `../issues/CIV-38-dev-diagnostics.md`, `../issues/CIV-39-config-surface-alignment.md`.
 
 ## Acceptance Criteria
 
@@ -96,11 +96,11 @@ Related PRD: `resources/PRD-plate-generation.md`
 - Config hygiene & context wiring:
   - [ ] CIV-17: Config → manifest resolver (`../issues/CIV-17-config-manifest-resolver.md`)
   - [ ] CIV-18: Call-site fixes for climate/biomes (`../issues/CIV-18-callsite-fixes.md`)
-  - [ ] LOCAL-TBD: Foundation/mountains wiring into `WorldModel` (`../issues/LOCAL-TBD-worldmodel-mountains-wiring.md`)
+  - [ ] CIV-37: Foundation/mountains wiring into `WorldModel` (`../issues/CIV-37-worldmodel-mountains-wiring.md`)
 - Foundation pipeline & diagnostics:
-  - [ ] LOCAL-M2-DEV-DIAGNOSTICS: Dev diagnostics and executor logging (`../issues/LOCAL-M2-dev-diagnostics.md`).
+  - [ ] CIV-38: Dev diagnostics and executor logging (`../issues/CIV-38-dev-diagnostics.md`).
 - Stable‑slice config correctness:
-  - [ ] LOCAL‑M2‑CONFIG‑SURFACE‑ALIGNMENT: Align schema/docs for stable‑slice story‑rainfall/orogeny knobs (`../issues/LOCAL-M2-config-surface-alignment.md`).
+  - [ ] CIV-39: Align schema/docs for stable‑slice story‑rainfall/orogeny knobs (`../issues/CIV-39-config-surface-alignment.md`).
 - Narrative parity:
   - [ ] CIV-36: Minimal story parity (`../issues/CIV-36-story-parity.md`)
 

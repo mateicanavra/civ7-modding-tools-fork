@@ -2,7 +2,7 @@
 id: CIV-33
 title: "[M2] Align docs and status with config + foundation slice implementation"
 state: planned
-priority: 2
+priority: 4
 estimate: 2
 project: engine-refactor-v1
 milestone: M2-stable-engine-slice

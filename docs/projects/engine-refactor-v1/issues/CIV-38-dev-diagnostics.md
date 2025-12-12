@@ -1,8 +1,8 @@
 ---
-id: LOCAL-M2-DEV-DIAGNOSTICS
+id: CIV-38
 title: "[M2] Dev Diagnostics & Stage Executor Logging for Stable Slice"
 state: planned
-priority: 2
+priority: 1
 estimate: 2
 project: engine-refactor-v1
 milestone: M2-stable-engine-slice

@@ -12,7 +12,7 @@ parent: null
 children: []
 blocked_by: []
 blocked: []
-related_to: []
+related_to: [CIV-30, CIV-31]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
@@ -51,8 +51,6 @@ related_to: []
     - Start placement logs show successful assignment for most or all majors, with far fewer or no `FAILED TO PICK LOCATION` messages.
 
 ## Dependencies / Notes
-- Mirrors the Linear issue workflow:
-  - This doc should be renamed from `LOCAL-TBD` and updated with a real Linear `id` once the issue is created upstream.
 - Primary root causes to address first:
   - Misplaced mountains config (`overrides.mountains` instead of `overrides.foundation.mountains`) causing the mountains layer to run with defaults.
   - Missing `setConfigProvider` wiring for `WorldModel`, so plate and dynamics config from `foundation.*` never reaches the physics sim.

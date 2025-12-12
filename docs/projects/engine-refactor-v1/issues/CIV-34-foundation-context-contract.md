@@ -2,7 +2,7 @@
 id: CIV-34
 title: "[M2] Document FoundationContext contract and config → tunables → world-model flow"
 state: planned
-priority: 2
+priority: 3
 estimate: 3
 project: engine-refactor-v1
 milestone: M2-stable-engine-slice

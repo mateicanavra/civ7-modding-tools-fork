@@ -112,7 +112,7 @@ See `milestones/M2-stable-engine-slice.md` for detailed scope, dependency mappin
 
 - **Minimal story parity**
   - Restore margins/hotspots/rifts (± orogeny) via orchestrator story stages to re‑enable narrative‑aware consumers.
-  - See `issues/LOCAL-M2-story-parity.md` under parent `issues/CIV-21-story-tagging.md`.
+  - See `issues/CIV-36-story-parity.md` under parent `issues/CIV-21-story-tagging.md`.
 
 **Out of Scope (Milestone 2)**
 
