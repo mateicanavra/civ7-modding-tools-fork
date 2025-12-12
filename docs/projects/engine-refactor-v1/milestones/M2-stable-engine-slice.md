@@ -99,7 +99,7 @@ Related PRD: `resources/PRD-plate-generation.md`
   - [ ] LOCAL-TBD: Foundation/mountains wiring into `WorldModel` (`../issues/LOCAL-TBD-worldmodel-mountains-wiring.md`)
   - [ ] LOCAL‑M2‑TUNABLES‑FACADE‑DECISION (planned): Decide parity vs. deprecate JS‑era `CLIMATE_TUNABLES` / `FOUNDATION_TUNABLES` facades; update docs/snippets accordingly.
 - Foundation pipeline & diagnostics:
-  - [ ] CIV-24 (planned): Dev diagnostics and executor logging (no issue doc yet; stable‑slice config surface alignment tracked in Scope §5).
+  - [ ] LOCAL-M2-DEV-DIAGNOSTICS: Dev diagnostics and executor logging (`../issues/LOCAL-M2-dev-diagnostics.md`).
 - Stable‑slice config correctness:
   - [ ] LOCAL‑M2‑CONFIG‑SURFACE‑ALIGNMENT (planned): Align schema/docs for stable‑slice diagnostics + story‑rainfall knobs (see Scope §5).
 - Narrative parity:
