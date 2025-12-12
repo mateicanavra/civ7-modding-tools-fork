@@ -70,6 +70,12 @@ import {
 } from "./bootstrap/tunables.js";
 import { validateStageDrift } from "./bootstrap/resolved.js";
 import { getStoryTags, resetStoryTags } from "./story/tags.js";
+import { resetStoryOverlays } from "./story/overlays.js";
+import {
+  storyTagContinentalMargins,
+  storyTagHotspotTrails,
+  storyTagRiftValleys,
+} from "./story/tagging.js";
 import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/index.js";
 
 // Layer imports
@@ -722,8 +728,47 @@ export class MapOrchestrator {
     if (stageFlags.storySeed && ctx) {
       const stageResult = this.runStage("storySeed", () => {
         resetStoryTags();
+        resetStoryOverlays();
         console.log(`${prefix} Imprinting continental margins (active/passive)...`);
-        // Story tagging functions would be called here
+        const margins = storyTagContinentalMargins(ctx);
+
+        if (DEV.ENABLED) {
+          const activeCount = margins.active?.length ?? 0;
+          const passiveCount = margins.passive?.length ?? 0;
+          if (activeCount + passiveCount === 0) {
+            devWarn("[smoke] storySeed enabled but margins overlay is empty");
+          }
+        }
+      });
+      this.stageResults.push(stageResult);
+    }
+
+    // ========================================================================
+    // Stage: Story Hotspots (Hotspot Trails)
+    // ========================================================================
+    if (stageFlags.storyHotspots && ctx) {
+      const stageResult = this.runStage("storyHotspots", () => {
+        console.log(`${prefix} Imprinting hotspot trails...`);
+        const summary = storyTagHotspotTrails(ctx);
+
+        if (DEV.ENABLED && summary.points === 0) {
+          devWarn("[smoke] storyHotspots enabled but no hotspot points were emitted");
+        }
+      });
+      this.stageResults.push(stageResult);
+    }
+
+    // ========================================================================
+    // Stage: Story Rifts (Rift Valleys)
+    // ========================================================================
+    if (stageFlags.storyRifts && ctx) {
+      const stageResult = this.runStage("storyRifts", () => {
+        console.log(`${prefix} Imprinting rift valleys...`);
+        const summary = storyTagRiftValleys(ctx);
+
+        if (DEV.ENABLED && summary.lineTiles === 0) {
+          devWarn("[smoke] storyRifts enabled but no rift tiles were emitted");
+        }
       });
       this.stageResults.push(stageResult);
     }
