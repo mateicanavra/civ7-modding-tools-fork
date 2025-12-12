@@ -173,10 +173,10 @@ are equivalent.
 |---|---|---|---|
 | `foundation.policy.oceanSeparation` | **Internal alias** | `layers/landmass-utils.ts` | Used as fallback policy when no explicit/top-level policy passed. |
 
-### foundation.diagnostics (internal)
+### foundation.diagnostics (stable M2)
 
-Schema lists no explicit keys; TS reads **untyped** camelCase DevLogConfig keys from this block.
-See “Untyped but consumed keys” below.
+Schema models this block explicitly with camelCase DevLogConfig keys.
+`MapOrchestrator.generateMap()` consumes it to initialize DEV flags; see “foundation.diagnostics (dev flags)”.
 
 ### foundation nested layer blocks
 
@@ -406,8 +406,8 @@ All fields wired in `layers/placement.ts` and/or MapOrchestrator-derived contine
 
 | Field | Status | Notes |
 |---|---|---|
-| `diagnostics.logAscii` | **Unused / planned** | No TS stage reads this. ASCII output is controlled by `foundation.diagnostics` dev flags (untyped). |
-| `diagnostics.logHistograms` | **Unused / planned** | Histograms currently controlled by dev flags (untyped). |
+| `diagnostics.logAscii` | **Deprecated / no-op** | Unused in M2 stable slice. Use `foundation.diagnostics.*` (e.g., `logFoundationAscii`, `logLandmassAscii`). |
+| `diagnostics.logHistograms` | **Deprecated / no-op** | Unused in M2 stable slice. Use `foundation.diagnostics.foundationHistograms` or other stage-specific flags. |
 
 ## Untyped but consumed keys (not in schema)
 
