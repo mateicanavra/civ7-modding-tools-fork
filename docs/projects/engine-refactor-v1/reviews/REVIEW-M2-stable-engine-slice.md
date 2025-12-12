@@ -356,6 +356,10 @@ This is aligned with M2’s goal: a stable orchestrator-centric slice with a min
 1. Update `docs/system/TESTING.md` to accurately reflect the split (`pnpm test` for Vitest projects; `pnpm test:mapgen` for mapgen-core), and ensure CI runs both.  
 2. (Optional) Add a tiny semantic invariant or two to the foundation smoke test (NaN/bounds) to increase usefulness without expanding scope.
 
+**Update (2025‑12‑12)**  
+- `pnpm test` now runs both `pnpm test:vitest` and `pnpm test:mapgen`; `docs/system/TESTING.md` updated accordingly.  
+- Foundation smoke test now asserts key numeric buffers contain finite values (no NaNs/Infinity).
+
 ---
 
 ## CIV-37 – Wire Foundation Config into WorldModel and Mountains Layer
