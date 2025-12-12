@@ -1054,10 +1054,12 @@ export class MapOrchestrator {
     } catch (err) {
       const durationMs = nowMs() - t0;
       const errorMessage = err instanceof Error ? err.message : String(err);
-      console.error(`[MapOrchestrator][Stage:${name}] ${errorMessage}`, err);
-      devLogIf(
-        "LOG_TIMING",
-        `${basePrefix} [Stage] Failed ${name} (${durationMs.toFixed(2)}ms)`
+      const timingSuffix = DEV.ENABLED && DEV.LOG_TIMING
+        ? ` (${durationMs.toFixed(2)}ms)`
+        : "";
+      console.error(
+        `[MapOrchestrator][Stage:${name}] Failed${timingSuffix}: ${errorMessage}`,
+        err
       );
       return { stage: name, success: false, durationMs, error: errorMessage };
     }

@@ -2228,7 +2228,7 @@ export const FoundationConfigSchema = Type.Object(
     surface: Type.Optional(FoundationSurfaceConfigSchema),
     /** @internal Policy flags for foundation stage (engine plumbing). */
     policy: Type.Optional(FoundationPolicyConfigSchema),
-    /** @internal Diagnostics toggles for foundation stage (engine plumbing). */
+    /** Diagnostics toggles for stable-slice debugging (M2-supported). */
     diagnostics: Type.Optional(FoundationDiagnosticsConfigSchema),
     /** Ocean separation policy ensuring water channels between continents. */
     oceanSeparation: Type.Optional(OceanSeparationConfigSchema),
@@ -2340,7 +2340,10 @@ export const MapGenConfigSchema = Type.Object(
     oceanSeparation: Type.Optional(OceanSeparationConfigSchema),
     /** Late-stage placement: wonders, floodplains, starts. */
     placement: Type.Optional(PlacementConfigSchema),
-    /** Diagnostics toggles for debugging output. */
+    /**
+     * @deprecated Legacy top-level diagnostics toggles.
+     * These are no-op in the M2 stable slice; use foundation.diagnostics instead.
+     */
     diagnostics: Type.Optional(DiagnosticsConfigSchema),
   },
   { additionalProperties: true, default: {} }
