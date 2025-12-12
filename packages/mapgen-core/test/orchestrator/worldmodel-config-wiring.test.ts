@@ -3,7 +3,7 @@ import { bootstrap } from "../../src/bootstrap/entry.js";
 import { resetTunablesForTest } from "../../src/bootstrap/tunables.js";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
 import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js";
-import type { EngineAdapter } from "@civ7/adapter";
+import { createMockAdapter, type EngineAdapter } from "@civ7/adapter";
 
 describe("MapOrchestrator WorldModel config wiring", () => {
   let originalGameplayMap: unknown;
@@ -69,6 +69,10 @@ describe("MapOrchestrator WorldModel config wiring", () => {
       stageConfig: { foundation: true },
       overrides: {
         foundation: {
+          diagnostics: {
+            enabled: true,
+            logFoundationPlates: true,
+          },
           plates: {
             count: plateCount,
           },
@@ -90,5 +94,54 @@ describe("MapOrchestrator WorldModel config wiring", () => {
       seen.some((line) => line.includes(`[WorldModel] Config plates.count=${plateCount}`))
     ).toBe(true);
   });
-});
 
+  it("logs effective mountains config when LOG_MOUNTAINS is enabled", () => {
+    const seen: string[] = [];
+
+    originalConsoleLog = console.log;
+    console.log = (...args: unknown[]) => {
+      seen.push(args.map((v) => String(v)).join(" "));
+    };
+
+    const config = bootstrap({
+      stageConfig: { foundation: true, mountains: true },
+      overrides: {
+        foundation: {
+          diagnostics: {
+            enabled: true,
+            logMountains: true,
+          },
+          mountains: {
+            tectonicIntensity: 0.42,
+            mountainThreshold: 0.91,
+            hillThreshold: 0.37,
+            boundaryWeight: 0.8,
+            boundaryExponent: 1.9,
+          },
+        },
+      },
+    });
+
+    const adapter = createMockAdapter({
+      width: 24,
+      height: 16,
+      rng: () => 0,
+    });
+
+    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
+    const result = orchestrator.generateMap();
+    expect(result.success).toBe(true);
+
+    expect(
+      seen.some(
+        (line) =>
+          line.includes("[Mountains] thresholds") &&
+          line.includes("mountain=0.91") &&
+          line.includes("hill=0.37") &&
+          line.includes("tectonicIntensity=0.42") &&
+          line.includes("boundaryWeight=0.8") &&
+          line.includes("boundaryExponent=1.9")
+      )
+    ).toBe(true);
+  });
+});
