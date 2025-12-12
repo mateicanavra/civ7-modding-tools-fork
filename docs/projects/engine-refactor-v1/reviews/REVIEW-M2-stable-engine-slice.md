@@ -360,3 +360,8 @@ This task lands cleanly inside M2’s scope: it makes the current stable slice d
 1. Tighten public schema/docs around legacy top-level `diagnostics` to avoid suggesting it still works.  
 2. Add a parity check between `FoundationDiagnosticsConfigSchema` keys and the `DevLogConfig` mapping.  
 3. Reuse the `runStage()` prefix/timing pattern when M3 introduces step-level or executor-level logging.
+
+**Update (2025-12)**  
+- `MapGenConfigSchema.diagnostics` is now explicitly documented as legacy/no-op to discourage use in M2.  
+- Added a compile-time parity guard between `FoundationDiagnosticsConfigSchema` and `DevLogConfig` in `packages/mapgen-core/src/dev/diagnostics-parity.ts`.  
+- Stage failure logging now emits a single failure line (with optional timing suffix) even when `LOG_TIMING` is enabled.
