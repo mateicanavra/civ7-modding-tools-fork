@@ -10,7 +10,7 @@
       "cache": false
     },
     "dev": { "cache": false, "persistent": true },
-    "check": { "dependsOn": ["^check"], "outputs": [] },
+    "check": { "dependsOn": ["^build", "^check"], "outputs": [] },
     "lint": {},
     "test": { "dependsOn": ["^build"] },
     "clean": {}
