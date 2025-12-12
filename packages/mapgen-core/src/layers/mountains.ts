@@ -19,6 +19,7 @@ import type { EngineAdapter } from "@civ7/adapter";
 import type { MountainsConfig as BootstrapMountainsConfig } from "../bootstrap/types.js";
 import { writeHeightfield } from "../core/types.js";
 import { BOUNDARY_TYPE } from "../world/constants.js";
+import { devLogIf } from "../dev/index.js";
 
 // ============================================================================
 // Types
@@ -112,8 +113,9 @@ export function layerAddMountainsPhysics(
     hillUpliftWeight = 0.2,
   } = options;
 
-  console.log("[Mountains] Physics Config (Input):", JSON.stringify(options));
-  console.log(
+  devLogIf("LOG_MOUNTAINS", "[Mountains] Physics Config (Input):", JSON.stringify(options));
+  devLogIf(
+    "LOG_MOUNTAINS",
     "[Mountains] Physics Config (Effective):",
     JSON.stringify({
       tectonicIntensity,

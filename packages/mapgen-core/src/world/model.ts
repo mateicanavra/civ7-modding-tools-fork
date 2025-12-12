@@ -87,6 +87,14 @@ export function setConfigProvider(provider: () => WorldModelConfig): void {
   _configProvider = provider;
 }
 
+/**
+ * Test-only helper to clear the config provider.
+ * This keeps unit tests isolated without affecting runtime reset semantics.
+ */
+export function resetConfigProviderForTest(): void {
+  _configProvider = null;
+}
+
 function getConfig(): WorldModelConfig {
   if (_configProvider) {
     return _configProvider();
