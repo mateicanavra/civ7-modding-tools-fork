@@ -18,33 +18,19 @@ related_to: [CIV-34]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Extend `MapGenContext` with a typed `artifacts` container that separates intermediate pipeline data (`mesh`, `crust`, `plateGraph`, `tectonics`) from final output fields. This enables steps to declare and validate their dependencies cleanly.
+Extend `MapGenContext` with a typed `artifacts` container for intermediate pipeline data, enabling steps to declare and validate dependencies.
 
 ## Deliverables
 
-- [ ] **Artifacts container in `MapGenContext`** (`packages/mapgen-core/src/core/types.ts`)
-  - `artifacts: MapGenArtifacts` with optional typed properties
-  - Clear separation: `fields` (mutable output) vs `artifacts` (intermediate data)
-- [ ] **Foundation artifact type definitions**
-  - `RegionMesh` interface (sites, neighbors, areas, centroids)
-  - `CrustData` interface (type, age arrays)
-  - `PlateGraph` interface (cellToPlate, plates)
-  - `PlateRegion` interface (id, type, seedLocation, velocity, rotation)
-  - `TectonicData` interface (uplift, rift, shear, volcanism, fracture, cumulative)
-- [ ] **Type guards for artifact presence**
-  - `hasArtifact(ctx, key): boolean`
-  - `assertArtifact(ctx, key): asserts` (throws if missing)
-- [ ] **Export types from `core/index.ts`**
-- [ ] **Backward compatibility** with existing `ExtendedMapContext` consumers
+- [ ] **Artifacts container** — `MapGenContext.artifacts` with typed optional properties
+- [ ] **Foundation artifact types** — `RegionMesh`, `CrustData`, `PlateGraph`, `TectonicData` interfaces
+- [ ] **Type guards** — `hasArtifact()`, `assertArtifact()` helpers
 
 ## Acceptance Criteria
 
-- [ ] `MapGenContext.artifacts` is properly typed
-- [ ] All foundation artifact interfaces match [foundation.md](../../../system/libs/mapgen/foundation.md) spec
-- [ ] Type guards work correctly for artifact presence checks
-- [ ] Existing code using `ExtendedMapContext` compiles without changes
-- [ ] TypeScript compiles without errors
-- [ ] Types are exported and usable by step implementations
+- [ ] Artifacts container typed and exported
+- [ ] Existing `ExtendedMapContext` consumers unaffected
+- [ ] Build passes
 
 ## Testing / Verification
 

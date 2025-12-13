@@ -18,44 +18,19 @@ related_to: [CIV-33, CIV-40]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Update all M3-affected documentation to reflect implemented changes: architecture.md, foundation.md, config-wiring-status.md, and parity matrix. Close or defer remaining open items. Ensure docs match implementation.
+Update docs to match M3 implementation; close parity matrix gaps.
 
 ## Deliverables
 
-- [ ] **Update architecture.md**
-  - Config section reflects new shape
-  - Pipeline section documents MapGenStep, Registry, Executor
-  - Data products section documents all canonical products
-  - Step registration patterns documented
-- [ ] **Update foundation.md**
-  - FoundationContext contract matches implementation
-  - Artifact types documented
-  - Step integration documented
-- [ ] **Update config-wiring-status.md**
-  - All fields marked as wired/unused/deprecated
-  - New config shape reflected
-  - Product usage documented
-- [ ] **Update parity matrix**
-  - Story/corridor rows updated to Parity
-  - Remaining Missing rows addressed or deferred
-  - Intentional divergences documented
-  - Link issues for any remaining gaps
-- [ ] **Update CHANGELOG.md**
-  - M3 release notes
-  - Breaking changes documented
-  - Migration guide for config shape
-- [ ] **Archive superseded docs**
-  - Move outdated docs to `_archive/`
-  - Update links in remaining docs
+- [ ] **Architecture docs updated** — Pipeline, config, data products sections current
+- [ ] **Parity matrix cleanup** — Story/corridor rows marked Parity, remaining gaps deferred
+- [ ] **CHANGELOG entry** — M3 release notes with breaking changes
 
 ## Acceptance Criteria
 
-- [ ] architecture.md matches M3 implementation
-- [ ] foundation.md matches M3 implementation
-- [ ] config-wiring-status.md fully updated
-- [ ] No unexplained `Missing` rows in parity matrix for M3 scope
-- [ ] CHANGELOG has M3 section with breaking changes
-- [ ] All doc links valid (no broken references)
+- [ ] Docs match implementation
+- [ ] No unexplained Missing rows for M3 scope
+- [ ] All doc links valid
 
 ## Testing / Verification
 

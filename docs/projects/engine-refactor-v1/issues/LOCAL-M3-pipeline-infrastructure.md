@@ -18,42 +18,19 @@ related_to: []
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Establish the Task Graph foundation for M3: define `MapGenStep` interface, implement `StepRegistry`, and create `PipelineExecutor` with fail-fast dependency validation. This is the prerequisite for all pipeline-based work in M3.
+Establish the Task Graph foundation: `MapGenStep` interface, `StepRegistry`, and `PipelineExecutor` with fail-fast dependency validation.
 
 ## Deliverables
 
-- [ ] **`MapGenStep` interface** (`packages/mapgen-core/src/core/pipeline.ts`)
-  - `id: string` (e.g., `'core.mesh.voronoi'`)
-  - `phase: string` (e.g., `'foundation'`, `'morphology'`)
-  - `requires: string[]` (artifact keys this step needs)
-  - `provides: string[]` (artifact keys this step produces)
-  - `shouldRun(ctx: MapGenContext): boolean`
-  - `run(ctx: MapGenContext): void | Promise<void>`
-- [ ] **`StepConfig` type** for per-step configuration
-- [ ] **`StepResult` type** for step outputs and timing
-- [ ] **`StepRegistry` class**
-  - Map-based plugin system
-  - `register(step: MapGenStep): void`
-  - `get(id: string): MapGenStep | undefined`
-  - `getByPhase(phase: string): MapGenStep[]`
-  - Registration validation (no duplicate IDs)
-- [ ] **`PipelineExecutor` class**
-  - `run(context: MapGenContext, recipe: PipelineRecipe): Promise<void>`
-  - Dependency validation (requires present before step runs)
-  - `MissingDependencyError` for fail-fast behavior
-  - Step timing and logging integration
-- [ ] **Unit tests** for Registry and Executor
+- [ ] **Pipeline primitives module** — `MapGenStep` interface, `StepRegistry`, `PipelineExecutor` in `core/pipeline.ts`
+- [ ] **Fail-fast validation** — `MissingDependencyError` when requires not satisfied
+- [ ] **Unit tests** — Registry and Executor coverage
 
 ## Acceptance Criteria
 
-- [ ] `MapGenStep` interface exported from `core/index.ts`
-- [ ] `StepRegistry` allows registration and retrieval by ID and phase
-- [ ] Registration of duplicate step IDs throws an error
-- [ ] `PipelineExecutor` runs steps in recipe order
-- [ ] Missing dependency throws `MissingDependencyError` with actionable message
-- [ ] Step timing logged to dev diagnostics
-- [ ] TypeScript compiles without errors
-- [ ] Unit tests pass for registration, retrieval, execution, and error cases
+- [ ] Steps can be registered, retrieved by ID/phase, and executed in order
+- [ ] Missing dependency throws actionable error before step runs
+- [ ] Build and tests pass
 
 ## Testing / Verification
 

@@ -18,36 +18,19 @@ related_to: [CIV-37]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Implement Foundation as the first concrete Task Graph pilot: wrap existing `WorldModel` and plate generation as a `FoundationStep`, register it in the `StepRegistry`, and integrate the `PipelineExecutor` into `MapOrchestrator` for the foundation phase.
+Wrap existing foundation/plate generation as a `FoundationStep` and integrate `PipelineExecutor` into `MapOrchestrator` as the first pipeline pilot.
 
 ## Deliverables
 
-- [ ] **`FoundationStep` implementation** (`packages/mapgen-core/src/steps/foundation/`)
-  - Implements `MapGenStep` interface
-  - Wraps existing `WorldModel` + plate generation logic
-  - `requires: []` (no prior artifacts)
-  - `provides: ['foundation', 'heightfield']`
-  - Reads config from `context.config.foundation`
-- [ ] **Step registration**
-  - Register `FoundationStep` in global `StepRegistry`
-  - ID: `'core.foundation'`
-- [ ] **Orchestrator integration**
-  - `MapOrchestrator` calls `PipelineExecutor` for foundation phase
-  - Sync artifacts to legacy `WorldModel` for downstream stages
-  - Preserve backward compatibility with existing flow
-- [ ] **Legacy bridge**
-  - After pipeline runs, sync `context.artifacts.foundation` to `WorldModel` singleton
-  - Downstream legacy stages continue to work unmodified
-- [ ] **Smoke test** for foundation via pipeline
+- [ ] **FoundationStep** — Wraps WorldModel + plates, declares `provides: ['foundation', 'heightfield']`
+- [ ] **Orchestrator integration** — Run foundation via executor, sync to legacy WorldModel
+- [ ] **Smoke test** — Foundation runs through pipeline, existing tests pass
 
 ## Acceptance Criteria
 
-- [ ] `FoundationStep` runs via `PipelineExecutor`
-- [ ] `FoundationContext` produced and available in `context.artifacts`
-- [ ] Existing orchestrator tests pass (backward compatibility)
-- [ ] Legacy downstream stages (landmass, mountains, etc.) still receive data
-- [ ] Foundation diagnostics work as before
-- [ ] Build passes, smoke test passes
+- [ ] Foundation produces `FoundationContext` via pipeline
+- [ ] Legacy downstream stages unaffected
+- [ ] Build and existing tests pass
 
 ## Testing / Verification
 

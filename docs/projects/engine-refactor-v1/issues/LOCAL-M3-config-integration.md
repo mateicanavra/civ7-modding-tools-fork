@@ -18,41 +18,19 @@ related_to: [CIV-26, CIV-31]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Make validated `MapGenConfig` the single read path for all steps via `context.config`, and map domain-specific configs into canonical sub-schemas. This is Phase 2 of the config refactor PRD.
+Make `context.config` the single read path for all steps (Config PRD Phase 2).
 
 ## Deliverables
 
-- [ ] **Ensure `MapGenContext.config` is populated**
-  - `config: MapGenConfig` as required field on context
-  - Orchestrator populates at construction
-  - Executor validates config presence before running steps
-- [ ] **Step config consumption helper**
-  - `getStepConfig<T>(ctx, 'groupName'): T` helper function
-  - Type-safe access to config sub-groups
-  - Document convention in architecture.md
-- [ ] **Domain sub-schema mapping** (update `schema.ts`)
-  - Foundation: `config.foundation.plates`, `config.foundation.dynamics`
-  - Morphology: `config.mountains`, `config.volcanoes`, `config.landmass`
-  - Climate: `config.climate.baseline`, `config.climate.refine`
-  - Story: `config.story.hotspot`, `config.story.rifts`, `config.corridors`
-  - Placement: `config.placement.starts`, `config.placement.floodplains`
-- [ ] **Update major layers to read from context.config**
-  - `climate-engine.ts` → `context.config.climate`
-  - `mountains.ts` → `context.config.mountains`
-  - `volcanoes.ts` → `context.config.volcanoes`
-  - `biomes.ts` → `context.config.biomes`
-- [ ] **Documentation updates**
-  - Update architecture.md Config section
-  - Update config-wiring-status.md
+- [ ] **Context config requirement** — `MapGenContext.config` always populated, validated at boundary
+- [ ] **Config consumption helper** — `getStepConfig<T>(ctx, group)` for type-safe access
+- [ ] **Layer migration** — Major layers read `context.config` instead of tunables
 
 ## Acceptance Criteria
 
-- [ ] All contexts have validated `config` property
-- [ ] `getStepConfig` helper works for all domain groups
-- [ ] Major layers read config via context, not globals
-- [ ] No new global config stores introduced
-- [ ] Backward compatibility maintained (existing map scripts work)
-- [ ] Build passes, existing tests pass
+- [ ] Steps read config via context, not globals
+- [ ] Existing map scripts unaffected
+- [ ] Build and tests pass
 
 ## Testing / Verification
 

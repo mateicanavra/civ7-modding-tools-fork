@@ -18,32 +18,19 @@ related_to: [CIV-31]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Retire `bootstrap/tunables.ts` facades (`FOUNDATION_CFG`, `CLIMATE_CFG`) once all consumers have migrated to `context.config`. Reduce tunables to minimal compatibility shim or delete entirely.
+Remove `FOUNDATION_CFG`/`CLIMATE_CFG` facades, reduce tunables.ts to minimal shim.
 
 ## Deliverables
 
-- [ ] **Verify all consumers migrated**
-  - Confirm no layer files import FOUNDATION_CFG
-  - Confirm no layer files import CLIMATE_CFG
-  - Confirm no external consumers depend on facades
-- [ ] **Reduce tunables.ts to minimal shim**
-  - Keep only: `STAGE_MANIFEST`, `stageEnabled()`
-  - Remove: `FOUNDATION_CFG`, `CLIMATE_CFG` exports
-  - Remove: `FOUNDATION_PLATES`, `FOUNDATION_DYNAMICS`, etc.
-  - Target: < 100 LOC
-- [ ] **Update or remove related exports**
-  - `bootstrap/types.ts` - remove TunablesSnapshot if unused
-  - `bootstrap/index.ts` - update exports
-- [ ] **Add deprecation notices** for any remaining shims
-- [ ] **Document changes in CHANGELOG**
+- [ ] **Facade removal** — Delete FOUNDATION_CFG, CLIMATE_CFG exports
+- [ ] **Minimal shim** — tunables.ts < 100 LOC (keep only STAGE_MANIFEST, stageEnabled)
+- [ ] **CHANGELOG entry** — Document breaking change and migration
 
 ## Acceptance Criteria
 
-- [ ] No FOUNDATION_CFG/CLIMATE_CFG imports in layer code
-- [ ] tunables.ts reduced to < 100 LOC
-- [ ] All existing tests pass
-- [ ] No external consumers broken (or documented breaking change)
-- [ ] CHANGELOG updated with migration notes
+- [ ] No facade imports in layer code
+- [ ] Build and tests pass
+- [ ] Breaking change documented
 
 ## Testing / Verification
 

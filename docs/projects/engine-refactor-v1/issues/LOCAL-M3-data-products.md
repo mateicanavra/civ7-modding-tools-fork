@@ -18,40 +18,19 @@ related_to: [CIV-34]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Formalize and standardize data product shapes (`Heightfield`, `ClimateField`, `StoryOverlays`, `RiverFlowData`), ensure legacy wrappers publish through these products, and make downstream stages consume products rather than ad-hoc globals.
+Standardize data product shapes and make downstream stages consume products rather than globals.
 
 ## Deliverables
 
-- [ ] **Heightfield as canonical product**
-  - Finalize `HeightfieldBuffer` interface (elevation, terrain, landMask)
-  - Published after morphology step
-  - Downstream stages consume via `context.artifacts.heightfield`
-- [ ] **ClimateField as canonical product**
-  - Finalize `ClimateFieldBuffer` interface (rainfall, humidity grids)
-  - Published after climate step
-  - Climate consumers read `ClimateField` not `GameplayMap`
-- [ ] **StoryOverlays as canonical product**
-  - All overlay keys populated: MARGINS, CORRIDORS_PRE, CORRIDORS_POST, SWATCHES, OROGENY, PALEO
-  - Consumers use `getStoryOverlay()` API
-  - Legacy `StoryTags` reduced to compat layer
-- [ ] **RiverFlowData product** (new)
-  - Interface for river graph/masks
-  - Published by hydrology step
-  - Available for paleo/corridor post steps
-- [ ] **Update downstream consumers**
-  - `biomes.ts` reads ClimateField
-  - `features.ts` reads ClimateField + StoryOverlays
-  - `placement.ts` reads Heightfield + StoryOverlays
-- [ ] **Update config-wiring-status.md** to reflect product usage
+- [ ] **Product interfaces finalized** — Heightfield, ClimateField, StoryOverlays, RiverFlowData
+- [ ] **Legacy wrappers publish products** — Each step populates its declared `provides`
+- [ ] **Consumer migration** — Biomes/features/placement read products not GameplayMap
 
 ## Acceptance Criteria
 
-- [ ] All products have finalized, documented interfaces
-- [ ] Legacy wrappers publish to artifacts after execution
-- [ ] No direct `GameplayMap` reads in modernized stages
-- [ ] No direct `StoryTags` reads in new step code
-- [ ] Products validated at step boundaries (via requires/provides)
-- [ ] Build passes, integration test passes
+- [ ] Products published and consumed through artifacts
+- [ ] No direct GameplayMap/StoryTags reads in modernized code
+- [ ] Build and integration tests pass
 
 ## Testing / Verification
 

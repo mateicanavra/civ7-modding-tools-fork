@@ -18,30 +18,19 @@ related_to: [CIV-31]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Audit all consumers of `FOUNDATION_CFG`, `CLIMATE_CFG`, and other tunables facades, then migrate high-priority consumers to read from `context.config` directly. This prepares for tunables retirement in Phase D.
+Audit tunables consumers and migrate high-priority layers to `context.config`.
 
 ## Deliverables
 
-- [ ] **Tunables consumer audit** (document in this issue)
-  - List all files importing from `bootstrap/tunables.ts`
-  - Categorize: can migrate / legacy-only / needs discussion
-  - Identify any consumers that must stay for backward compat
-- [ ] **Migrate high-priority consumers**
-  - `layers/climate-engine.ts` (CLIMATE_CFG → context.config.climate)
-  - `layers/mountains.ts` (FOUNDATION_CFG.mountains → context.config.mountains)
-  - `layers/volcanoes.ts` (FOUNDATION_CFG.volcanoes → context.config.volcanoes)
-  - `layers/biomes.ts` (FOUNDATION_CFG.biomes → context.config.biomes)
-  - `layers/features.ts` (featuresDensity → context.config.featuresDensity)
-- [ ] **Update tests** for migrated consumers
-- [ ] **Mark legacy-only facades** with deprecation comments
+- [ ] **Consumer audit** — Categorized list of all tunables imports
+- [ ] **High-priority migration** — climate-engine, mountains, volcanoes, biomes off tunables
+- [ ] **Deprecation markers** — Legacy facades marked for removal
 
 ## Acceptance Criteria
 
-- [ ] Audit document complete with categorized consumer list
-- [ ] High-priority layers no longer import FOUNDATION_CFG/CLIMATE_CFG
-- [ ] All existing tests pass after migration
-- [ ] Deprecation comments added to facade exports
-- [ ] Migration plan documented for remaining consumers
+- [ ] Major layers read from context.config
+- [ ] Tests pass after migration
+- [ ] Migration plan for remaining consumers documented
 
 ## Testing / Verification
 

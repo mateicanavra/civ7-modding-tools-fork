@@ -18,35 +18,20 @@ related_to: [CIV-21, LOCAL-M3-LEGACY-WRAPPERS]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Complete the story port by implementing the remaining legacy narrative layers and corridors, then migrating story logic to the Task Graph as `MapGenStep`s with canonical `StoryOverlays` products. This lands in M3 alongside pipeline refactoring and config evolution.
-
-Parent issue: `CIV-21-story-tagging.md`.
+Complete story port (corridors, swatches, paleo) and wrap as `MapGenStep`s with canonical `StoryOverlays` products.
 
 ## Deliverables
 
-- [ ] **Port remaining `story/tagging` passes**
-  - Orogeny belts + windward/lee caches (if not done in M2).
-  - Climate swatches (macro swatch overlay + soft edges).
-  - Paleo hydrology overlays (deltas/oxbows/fossil channels).
-- [ ] **Port `story/corridors.ts`**
-  - Pre‑islands corridor tagging.
-  - Post‑rivers corridor tagging.
-  - Corridor kind/style/attribute metadata.
-- [ ] **Canonicalize overlays**
-  - Publish all narrative outputs through `StoryOverlays` as authoritative products.
-  - Reduce direct `StoryTags` mutation to a compatibility layer or retire it where possible.
-- [ ] **Wrap story system as steps**
-  - Implement `MapGenStep` wrappers for story stages once `PipelineExecutor` exists.
-  - Declare `requires`/`provides` and phase alignment per architecture.
-- [ ] **Behavior checks**
-  - Add step‑level or integration tests for corridors/swatches/paleo once the pipeline is in place.
+- [ ] **Remaining story passes** — Orogeny, swatches, paleo hydrology
+- [ ] **Corridors port** — Pre-islands and post-rivers corridor tagging
+- [ ] **Story steps** — Wrap as MapGenSteps with `requires`/`provides`
+- [ ] **Integration tests** — Verify overlays populated when enabled
 
 ## Acceptance Criteria
 
-- [ ] TS equivalents exist for all legacy story passes and corridors.
-- [ ] Corridors/swatches/paleo overlays are populated when stages enabled.
-- [ ] Story logic runs as steps under the Task Graph with explicit contracts.
-- [ ] Downstream consumers use `StoryOverlays`/`ClimateField` rather than ad‑hoc reads.
+- [ ] All legacy story/corridor behavior ported
+- [ ] Story runs as pipeline steps
+- [ ] Downstream consumers use StoryOverlays
 
 ## Out of Scope
 

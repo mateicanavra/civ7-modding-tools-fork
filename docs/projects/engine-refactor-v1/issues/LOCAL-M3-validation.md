@@ -18,38 +18,19 @@ related_to: [CIV-23]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Implement runtime enforcement of `requires`/`provides` contracts in `PipelineExecutor` and `StageManifest`. Ensure steps fail fast with actionable errors when dependencies are missing, and add dev-mode dependency graph visualization.
+Runtime enforcement of `requires`/`provides` contracts with fail-fast errors and dev-mode visualization.
 
 ## Deliverables
 
-- [ ] **Requires validation in PipelineExecutor**
-  - Before each step: validate all `requires` keys present in artifacts
-  - `MissingDependencyError` with step ID, missing key, and suggestion
-  - Validate at runtime, not just static analysis
-- [ ] **Provides validation in PipelineExecutor**
-  - After each step: validate all `provides` keys are now in artifacts
-  - Warning (not error) if step claims to provide but doesn't
-  - Track which step produced each artifact for debugging
-- [ ] **Cycle detection**
-  - Detect circular dependencies in recipe
-  - Error before execution if cycle found
-- [ ] **StageManifest integration**
-  - `stageManifest.stages[].requires` actually enforced
-  - `stageManifest.stages[].provides` tracked
-  - Deprecation warnings for unused provides
-- [ ] **Dev-mode dependency graph**
-  - ASCII visualization of step dependencies
-  - Optional JSON export for tooling
-  - Enabled via `diagnostics.logDependencyGraph`
+- [ ] **Dependency enforcement** — Validate requires before, provides after each step
+- [ ] **Cycle detection** — Error before execution if circular dependency
+- [ ] **Dev visualization** — ASCII dependency graph via diagnostics flag
 
 ## Acceptance Criteria
 
-- [ ] Missing requires throws `MissingDependencyError` with actionable message
-- [ ] Unprovided provides logs warning (not error)
-- [ ] Circular dependencies detected and reported before execution
-- [ ] Dependency graph visualization works in dev mode
-- [ ] All existing tests pass
-- [ ] Performance impact negligible (< 1ms overhead)
+- [ ] Missing dependency throws actionable error
+- [ ] Cycles detected before execution
+- [ ] Build and tests pass
 
 ## Testing / Verification
 

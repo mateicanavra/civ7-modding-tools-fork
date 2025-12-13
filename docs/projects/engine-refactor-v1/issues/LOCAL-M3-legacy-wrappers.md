@@ -18,41 +18,19 @@ related_to: [CIV-19, CIV-20]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Wrap all remaining legacy phases as `MapGenStep` implementations to enable full Task Graph orchestration. Each wrapper calls existing layer functions while declaring explicit `requires`/`provides` contracts. Internals remain unchanged initially ("wrapper only" strategy).
+Wrap remaining legacy phases as `MapGenStep`s for full Task Graph orchestration ("wrapper only" — internals unchanged).
 
 ## Deliverables
 
-- [ ] **LegacyMorphologyStep** (`steps/legacy/morphology.ts`)
-  - Wraps: `landmassPlates`, `coastlines`, `islands`, `mountains`, `volcanoes`
-  - `requires: ['foundation']`
-  - `provides: ['heightfield', 'shoreMask']`
-- [ ] **LegacyHydrologyStep** (`steps/legacy/hydrology.ts`)
-  - Wraps: `lakes`, `rivers`
-  - `requires: ['foundation', 'heightfield']`
-  - `provides: ['hydrology', 'riverFlow']`
-- [ ] **LegacyClimateStep** (`steps/legacy/climate.ts`)
-  - Wraps: `climateBaseline`, `climateRefine`
-  - `requires: ['heightfield', 'hydrology']`
-  - `provides: ['climateField']`
-- [ ] **LegacyBiomesStep** (`steps/legacy/biomes.ts`)
-  - Wraps: `biomes`, `features`
-  - `requires: ['heightfield', 'climateField']`
-  - `provides: ['biomeField', 'featureField']`
-- [ ] **LegacyPlacementStep** (`steps/legacy/placement.ts`)
-  - Wraps: `placement`
-  - `requires: ['heightfield', 'biomeField']`
-  - `provides: ['playerStarts', 'resources', 'discoveries']`
-- [ ] **Register all steps** in StepRegistry
-- [ ] **Update MapOrchestrator** to use pipeline for all phases
+- [ ] **5 legacy wrapper steps** — Morphology, Hydrology, Climate, Biomes, Placement
+- [ ] **Orchestrator migration** — Full map generation via `PipelineExecutor`
+- [ ] **Integration test** — End-to-end pipeline produces valid map
 
 ## Acceptance Criteria
 
-- [ ] All legacy wrapper steps implement `MapGenStep` interface
-- [ ] Each step declares accurate `requires`/`provides`
-- [ ] Full map generation runs via `PipelineExecutor`
-- [ ] Existing behavior preserved (no regressions)
-- [ ] Step timing visible in diagnostics
-- [ ] Build passes, all existing tests pass
+- [ ] All phases run as steps with declared `requires`/`provides`
+- [ ] Existing behavior preserved
+- [ ] Build and tests pass
 
 ## Testing / Verification
 

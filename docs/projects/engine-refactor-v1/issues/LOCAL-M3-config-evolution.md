@@ -18,44 +18,19 @@ related_to: [CIV-26]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Reshape `MapGenConfig` from legacy nested patterns to step/phase-aligned sections, introduce compatibility adapters for old config shapes, and document migration path for existing Swooper map scripts. This is Phase 3 of the config refactor PRD.
+Flatten config to step/phase-aligned shape with backward-compat adapter (Config PRD Phase 3).
 
 ## Deliverables
 
-- [ ] **Design new config shape** (document before implementation)
-  - Flatten: `foundation.mountains` → `mountains`
-  - Step/phase-aligned groups:
-    - `plates`, `landmass`, `mountains`, `volcanoes`
-    - `climate`, `rivers`, `humidity`
-    - `story`, `corridors`, `overlays`
-    - `placement`, `diagnostics`
-  - Document rationale in schema comments
-- [ ] **Implement config shape migration**
-  - Old-shape adapter for backward compat
-  - `parseConfig()` handles both old and new shapes
-  - Console warnings for deprecated config paths
-  - Version marker for config shape detection
-- [ ] **Update all config consumers**
-  - Steps/layers read new shape via `context.config`
-  - Remove legacy nested path lookups
-  - Update tests for new shape
-- [ ] **Update map script entries**
-  - Document new config format
-  - Provide migration examples
-  - Keep old format working with warnings
-- [ ] **Documentation**
-  - Update architecture.md Config section
-  - Update JSON schema export
-  - Migration guide for mod authors
+- [ ] **New config shape** — Flat, step-aligned groups (`plates`, `landmass`, `climate`, etc.)
+- [ ] **Backward-compat adapter** — Old nested shape works with deprecation warnings
+- [ ] **Migration guide** — Documentation for mod authors
 
 ## Acceptance Criteria
 
-- [ ] New config shape documented and implemented
-- [ ] Old config shapes still work with deprecation warnings
-- [ ] All steps/layers use new shape internally
-- [ ] Existing Swooper map scripts continue to work
-- [ ] JSON schema reflects new shape
-- [ ] Build passes, all tests pass
+- [ ] New shape implemented, old shape still works
+- [ ] Existing map scripts unaffected
+- [ ] Build and tests pass
 
 ## Testing / Verification
 
