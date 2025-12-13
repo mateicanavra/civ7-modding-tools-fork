@@ -10,9 +10,9 @@ assignees: []
 labels: [Improvement, Story, Architecture]
 parent: CIV-21
 children: []
-blocked_by: [CIV-36]
-blocked: []
-related_to: [CIV-21]
+blocked_by: [CIV-36, LOCAL-M3-PIPELINE]
+blocked: [LOCAL-M3-DATA-PRODUCTS]
+related_to: [CIV-21, LOCAL-M3-LEGACY-WRAPPERS]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
@@ -53,10 +53,24 @@ Parent issue: `CIV-21-story-tagging.md`.
 - Re‑tuning narrative parameters beyond parity checks.
 - New story motifs not present in the JS archive.
 
+## Testing / Verification
+
+```bash
+pnpm -C packages/mapgen-core test
+pnpm -C packages/mapgen-core run check-types
+```
+
+- Unit tests for each story tagging pass
+- Integration test: corridors populated when enabled
+- Verify StoryOverlays contain expected data
+- Manual verification in game with story stages enabled
+
 ## Dependencies / Notes
 
-- Depends on minimal parity landing in M2 (`CIV-36`).
-- Must coordinate with pipeline primitives and config shape evolution in M3.
+- **Blocked by:** [CIV-36](CIV-36-story-parity.md) (M2 minimal parity), [LOCAL-M3-PIPELINE](LOCAL-M3-pipeline-infrastructure.md) (for step wrapping)
+- **Blocks:** [LOCAL-M3-DATA-PRODUCTS](LOCAL-M3-data-products.md) (story overlays are products)
+- **Related to:** [CIV-21](CIV-21-story-tagging.md) (parent), [LOCAL-M3-LEGACY-WRAPPERS](LOCAL-M3-legacy-wrappers.md) (parallel track)
+- **Reference:** [parity matrix](../resources/STATUS-M-TS-parity-matrix.md) §1.3–1.4
 
 ---
 
