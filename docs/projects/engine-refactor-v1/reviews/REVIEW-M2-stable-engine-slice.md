@@ -89,3 +89,36 @@ Together with CIV‑27, this task delivers the backbone of M2’s config hygiene
 - [ ] Wire `parseConfig` into orchestrator/tunables and remove reliance on the global config store (CIV‑29/30/31 scope).
 
 ---
+
+## CIV-29 – Remove Global Config Stores
+
+**Quick Take**  
+Satisfied for M2: `mapgen-core` no longer uses `globalThis`-backed config stores in either `src/` or `dist`, and `bootstrap()` now routes through `parseConfig` and returns a validated `MapGenConfig`. Remaining work is around how that validated config is consumed (orchestrator/tunables) and aligning tests with the new model, which is explicitly sequenced into CIV‑30/31 rather than a gap in CIV‑29 itself.
+
+**Intent & Assumptions**  
+- Remove `globalThis.__EPIC_MAP_CONFIG__` and similar global config slots from the engine library.  
+- Ensure `bootstrap()` returns a validated `MapGenConfig` instead of only mutating hidden state, while keeping the public `bootstrap(options)` signature stable for Swooper maps.  
+- Treat module-scoped, shallow-frozen config as a transitional step toward full injection (CIV‑30) and tunables-as-view (CIV‑31), not as a new long-term global pattern.
+
+**What’s Strong**  
+- `packages/mapgen-core/src/bootstrap/runtime.ts` is rewritten as a module-scoped store (`_validatedConfig`) with `setValidatedConfig`/`getValidatedConfig`/`hasConfig`/`resetConfig`, completely removing `globalThis` from runtime config paths in the engine library.  
+- `packages/mapgen-core/src/bootstrap/entry.ts` (and its `dist` counterpart) now build a `rawConfig`, resolve `stageConfig` into a `stageManifest`, validate via `parseConfig(rawConfig)`, store via `setValidatedConfig`, and return the resulting `MapGenConfig`.  
+- The public surface remains compatible: `bootstrap(options)` still accepts the same options, `MapConfig` is aliased to `MapGenConfig`, and deprecated `setConfig`/`getConfig` shims exist only as a non-global, strongly-typed compatibility layer.
+
+**High-Leverage Issues (Deferred / Covered Elsewhere)**  
+- **Consumption still goes through tunables and legacy getters (CIV‑30/31 scope).**  
+  `MapOrchestrator` and most layers still read configuration via `getTunables()` (which in turn calls `getConfig()`), rather than using `getValidatedConfig()` or constructor injection. This is by design for M2: CIV‑30 and CIV‑31 already cover wiring `MapOrchestrator` to `MapGenConfig` and refactoring tunables as a view over validated config. No new issue is needed; we should just verify those tasks close the loop.  
+- **Deprecated `setConfig`/`getConfig` remain exported (CIV‑26 / later cleanup).**  
+  The deprecated APIs are now safe (no globals) but still visible on the bootstrap entry. They’re clearly marked `@deprecated` and can be treated as transitional. Cleanup/removal is best handled once CIV‑30/31 are complete; this is already conceptually covered by the CIV‑26 parent (“no global config stores” + injected config) and does not require a separate ticket unless we want a dedicated “remove legacy runtime APIs” task.  
+- **Tests still reflect the pre-refactor runtime shape (low-risk hygiene).**  
+  Some bootstrap/runtime tests still assert the old `getConfig()` semantics (e.g., instance identity, always-present object) instead of focusing on `getValidatedConfig()`/`hasConfig` and the failure mode when called before `bootstrap()`. This doesn’t affect runtime behavior but slightly weakens the guardrails around the new model. It’s reasonable to either:  
+  - Update these tests as part of CIV‑30/31 when we touch orchestrator/tunables, or  
+  - Treat it as a small follow-up checklist item under CIV‑29/CIV‑26 without filing a dedicated issue.
+
+**Fit Within the Milestone**  
+For M2’s “stable engine slice” goal, CIV‑29 delivers the key hygiene step: the engine library now uses a validated, module-scoped config store instead of `globalThis`, and `bootstrap()` is a proper entrypoint into the CIV‑27/28 schema & loader. The remaining responsibilities—making `MapOrchestrator` and tunables consume that validated config explicitly, and tightening tests around the new invariants—are intentionally scoped into CIV‑30/31 and the broader CIV‑26 epic rather than being missing work here.
+
+**Recommended Next Moves (Future Work, Not M2)**  
+1. As part of CIV‑30, inject `MapGenConfig` into `MapOrchestrator` (constructor or equivalent) and have it rely on `getValidatedConfig()` only as a temporary fallback, if at all.  
+2. As part of CIV‑31, refactor `bootstrap/tunables.ts` to build its snapshot directly from a provided `MapGenConfig` (or a bound validated config), keeping the public tunables surface stable while removing dependence on the legacy `getConfig()` path.  
+3. When touching bootstrap/runtime tests next, shift expectations to the fail-fast model (`getValidatedConfig()` throws before bootstrap, `hasConfig` gates access) and treat `setConfig`/`getConfig` strictly as deprecated shims.

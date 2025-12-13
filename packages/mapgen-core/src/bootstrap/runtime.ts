@@ -1,44 +1,37 @@
 /**
  * Runtime Config Store
  *
- * Minimal runtime config store for per-map inline configuration.
- * Uses lazy initialization to avoid crashes when globals unavailable.
+ * Module-scoped config store for per-map configuration.
+ * Stores validated MapGenConfig after bootstrap.
  *
- * Usage (in a map entry file):
- *   import { setConfig } from "./runtime.js";
- *   setConfig({
- *     landmass: { ... },
- *     foundation: { ... },
- *   });
+ * Design notes:
+ * - Config is stored module-scoped (not globalThis) for deterministic behavior
+ * - getValidatedConfig() throws if called before bootstrap() to catch init bugs
+ * - Config is frozen to prevent accidental mutation
  *
  * Usage (in the orchestrator/generator):
- *   import { getConfig, resetConfig } from "./runtime.js";
+ *   import { getValidatedConfig, resetConfig } from "./runtime.js";
  *   function generateMap() {
- *     resetConfig(); // Clear any stale config
- *     const cfg = getConfig();
+ *     const cfg = getValidatedConfig();
  *     // read cfg.toggles, cfg.landmass, etc.
  *   }
  */
 
-import type { MapConfig } from "./types.js";
+import type { MapGenConfig } from "../config/index.js";
+
+// Re-export MapConfig as alias for backwards compatibility
+export type { MapGenConfig as MapConfig } from "../config/index.js";
 
 // ============================================================================
-// Internal State
+// Internal State (module-scoped, not globalThis)
 // ============================================================================
 
-const GLOBAL_KEY = "__EPIC_MAP_CONFIG__";
-const EMPTY_FROZEN_OBJECT: Readonly<MapConfig> = Object.freeze({});
-
-/** Local fallback store in case globalThis access fails */
-let _localStore: Readonly<MapConfig> = EMPTY_FROZEN_OBJECT;
+/** Module-scoped config store. Null until bootstrap() is called. */
+let _validatedConfig: Readonly<MapGenConfig> | null = null;
 
 // ============================================================================
 // Helpers
 // ============================================================================
-
-function isObject(v: unknown): v is Record<string, unknown> {
-  return v != null && typeof v === "object";
-}
 
 function shallowFreeze<T extends object>(obj: T): Readonly<T> {
   try {
@@ -53,47 +46,81 @@ function shallowFreeze<T extends object>(obj: T): Readonly<T> {
 // ============================================================================
 
 /**
- * Store the per-map configuration for this run.
- * Accepts any plain object. Non-objects are coerced to an empty object.
+ * Store the validated per-map configuration.
+ * Called by bootstrap() after validation via parseConfig().
  * The stored object is shallow-frozen to prevent accidental mutation.
+ *
+ * @internal This should only be called by bootstrap(). Prefer using bootstrap() directly.
  */
-export function setConfig(config: Partial<MapConfig>): void {
-  const obj = isObject(config) ? config : {};
-  const frozen = shallowFreeze(obj) as Readonly<MapConfig>;
-
-  try {
-    // Use a single well-known global key so all modules can access the same config
-    (globalThis as Record<string, unknown>)[GLOBAL_KEY] = frozen;
-  } catch {
-    // In restricted environments, fall back to local static
-    _localStore = frozen;
-  }
+export function setValidatedConfig(config: MapGenConfig): void {
+  _validatedConfig = shallowFreeze(config);
 }
 
 /**
- * Retrieve the current per-map configuration.
- * Returns an empty frozen object if none was set.
+ * Retrieve the current validated config.
+ * Throws if config has not been initialized via bootstrap().
+ *
+ * @throws Error if called before bootstrap()
  */
-export function getConfig(): Readonly<MapConfig> {
-  try {
-    const v = (globalThis as Record<string, unknown>)[GLOBAL_KEY];
-    return isObject(v) ? (v as Readonly<MapConfig>) : EMPTY_FROZEN_OBJECT;
-  } catch {
-    return isObject(_localStore) ? _localStore : EMPTY_FROZEN_OBJECT;
+export function getValidatedConfig(): Readonly<MapGenConfig> {
+  if (_validatedConfig === null) {
+    throw new Error(
+      "Config not initialized. Call bootstrap() before accessing config."
+    );
   }
+  return _validatedConfig;
 }
 
 /**
- * Reset the runtime config to empty state.
+ * Check if config has been initialized.
+ * Useful for conditional logic without throwing.
+ */
+export function hasConfig(): boolean {
+  return _validatedConfig !== null;
+}
+
+/**
+ * Reset the runtime config to uninitialized state.
  * Call this at the start of each generateMap() or in test beforeEach().
  */
 export function resetConfig(): void {
-  try {
-    (globalThis as Record<string, unknown>)[GLOBAL_KEY] = EMPTY_FROZEN_OBJECT;
-  } catch {
-    // Ignore
-  }
-  _localStore = EMPTY_FROZEN_OBJECT;
+  _validatedConfig = null;
 }
 
-export default { setConfig, getConfig, resetConfig };
+// ============================================================================
+// Backwards Compatibility (deprecated)
+// ============================================================================
+
+/**
+ * @deprecated Use setValidatedConfig() instead.
+ * Provided for backwards compatibility during migration.
+ */
+export function setConfig(config: Partial<MapGenConfig>): void {
+  // In the old API, partial configs were accepted.
+  // For backwards compat, we store as-is but warn in dev.
+  if (process.env.NODE_ENV === "development") {
+    console.warn(
+      "setConfig() is deprecated. Use bootstrap() which calls parseConfig() for validation."
+    );
+  }
+  _validatedConfig = shallowFreeze(config as MapGenConfig);
+}
+
+/**
+ * @deprecated Use getValidatedConfig() instead.
+ * Provided for backwards compatibility during migration.
+ * Unlike getValidatedConfig(), this returns empty object if not initialized.
+ */
+export function getConfig(): Readonly<MapGenConfig> {
+  return _validatedConfig ?? ({} as MapGenConfig);
+}
+
+export default {
+  setValidatedConfig,
+  getValidatedConfig,
+  hasConfig,
+  resetConfig,
+  // Deprecated aliases
+  setConfig,
+  getConfig,
+};

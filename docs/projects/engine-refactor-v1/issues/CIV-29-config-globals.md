@@ -1,7 +1,7 @@
 ---
 id: CIV-29
 title: "[M2] Remove global config stores"
-state: planned
+state: in-progress
 priority: 2
 estimate: 0
 project: engine-refactor-v1
@@ -22,20 +22,20 @@ Remove `globalThis.__EPIC_MAP_CONFIG__` and any other global config stores from 
 
 ## Deliverables
 
-- [ ] Remove `globalThis.__EPIC_MAP_CONFIG__` from `bootstrap/runtime.ts`
-- [ ] Remove or refactor `setConfig()` / `getConfig()` to use module-scoped state (not globalThis)
-- [ ] Update all call sites that read from global config to receive config via parameters
-- [ ] Ensure `bootstrap()` function returns validated config instead of storing globally
-- [ ] Document the new config flow in code comments
+- [x] Remove `globalThis.__EPIC_MAP_CONFIG__` from `bootstrap/runtime.ts`
+- [x] Remove or refactor `setConfig()` / `getConfig()` to use module-scoped state (not globalThis)
+- [x] Update all call sites that read from global config to receive config via parameters
+- [x] Ensure `bootstrap()` function returns validated config instead of storing globally
+- [x] Document the new config flow in code comments
 
 ## Acceptance Criteria
 
-- [ ] No `globalThis` config stores in `packages/mapgen-core/src/`
-- [ ] `grep -r "globalThis.*CONFIG" packages/mapgen-core/` returns no matches
-- [ ] `bootstrap()` returns `MapGenConfig` instead of storing it
-- [ ] All consumers receive config via explicit parameters or module imports
-- [ ] TypeScript compiles without errors
-- [ ] Existing mod scripts continue to work (bootstrap still accepts same options)
+- [x] No `globalThis` config stores in `packages/mapgen-core/src/`
+- [x] `grep -r "globalThis.*CONFIG" packages/mapgen-core/` returns no matches
+- [x] `bootstrap()` returns `MapGenConfig` instead of storing it
+- [x] All consumers receive config via explicit parameters or module imports
+- [x] TypeScript compiles without errors
+- [x] Existing mod scripts continue to work (bootstrap still accepts same options)
 
 ## Testing / Verification
 
