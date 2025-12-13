@@ -183,16 +183,15 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
 - **What lands:** corridors/swatches/paleo + canonical `StoryOverlays` publication + story stages running as steps with explicit contracts.
 - **Merge safety:** safest as **mergeable as a unit into `main`**. This can be layered safely if all new behavior is gated behind stage enablement until the full story remainder is complete.
 
-**Stack 4 — Biomes/Features Adapter + Inputs (issue TBD; CIV-19 decision)**
-- **Concept / parent issue (TBD):** `[M3] Biomes & Features Adapter (consume canonical products)`
-- **Decision point:** `CIV-19` currently lives in `_archive`; decide whether to unarchive/reuse that ID or mint a new M3 issue that replaces it.
+**Stack 4 — Biomes/Features Step Wrapper + Product Consumption (issue TBD)**
+- **Concept / parent issue (TBD):** `[M3] Biomes & Features step wrapper (consume canonical products)`
+- **Note:** adapter-boundary biomes/features wiring landed in M1 (`CIV-19`, archived). This M3 work is about Task Graph step-wrapping + consuming canonical products, not re-doing adapter integration.
 - **What lands:** biomes/features run as a step wrapper and consume `ClimateField`/`StoryOverlays`/river product (no new algorithms).
 - **Merge safety:** intended to be **mergeable as a unit into `main`**. Avoid landing “half migrated” consumers (e.g., biomes moved but features still hard-coded globals) unless protected by compatibility shims.
 
-**Stack 5 — Placement Adapter + Map Size Awareness (issues TBD; CIV-20/CIV-22 decision)**
-- **Concept / parent issue (TBD):** `[M3] Placement Adapter (consume canonical products)`
-- **Concept / parent issue (TBD):** `[M3] Restore Map Size Awareness`
-- **Decision point:** `CIV-20` and `CIV-22` currently live in `_archive`; decide whether to unarchive/reuse those IDs or mint new M3 issues that replace them.
+**Stack 5 — Placement Step Wrapper + Product Consumption (issue TBD)**
+- **Concept / parent issue (TBD):** `[M3] Placement step wrapper (consume canonical products)`
+- **Note:** placement adapter integration (`CIV-20`, archived) and map-size awareness (`CIV-22`, archived) landed in M1. This M3 work is about Task Graph step-wrapping + consuming canonical products, not redoing those fixes.
 - **Merge safety:** safest as **mergeable as a unit into `main`** (placement is highly cross-cutting and tends to expose subtle dependencies on upstream artifacts).
 
 ### Phase C — Config evolution + adapter-boundary cleanup (ship-ready M3)
@@ -232,13 +231,16 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
 > These mappings are tentative and may be adjusted when the milestone is scheduled.
 
 - Migration of remaining legacy story/climate/biome/placement code into steps:
-  - CIV-19: Biomes & features adapter (currently archived; decision needed) (`../issues/_archive/CIV-19-biomes-features-adapter.md`)
-  - CIV-20: Placement adapter (currently archived; decision needed) (`../issues/_archive/CIV-20-placement-adapter.md`)
+  - **TBD:** `[M3] Biomes & Features step wrapper (consume canonical products)` (new issue to mint; do not reuse `CIV-19`)
+  - **TBD:** `[M3] Placement step wrapper (consume canonical products)` (new issue to mint; do not reuse `CIV-20`/`CIV-22`)
   - CIV-21: Full story port parent (`../issues/CIV-21-story-tagging.md`)
     - Remaining M3 portion: `LOCAL-M3-STORY-SYSTEM` (`../issues/LOCAL-M3-story-system.md`)
-  - CIV-22: Map size awareness (currently archived; decision needed) (`../issues/_archive/CIV-22-map-size-awareness.md`)
 - Data product unlocks:
   - `LOCAL-M3-HYDROLOGY-PRODUCTS` (`../issues/LOCAL-M3-hydrology-products.md`)
+- Prerequisites already landed (M1):
+  - `CIV-19` biomes/features adapter integration (`../issues/_archive/CIV-19-biomes-features-adapter.md`)
+  - `CIV-20` placement adapter integration (`../issues/_archive/CIV-20-placement-adapter.md`)
+  - `CIV-22` restore map-size awareness (`../issues/_archive/CIV-22-map-size-awareness.md`)
 - Any new issues spawned from the parity matrix or config refactor PRD that touch multiple phases.
 
 These may be split or reassigned across milestones as we refine the execution plan.
