@@ -1,27 +1,44 @@
 /**
  * Bootstrap Tunables Tests
  *
- * Tests for getTunables/resetTunables/rebind/stageEnabled functions.
+ * Tests for getTunables/resetTunables/stageEnabled functions.
+ *
+ * Note: These tests use the canonical flow: bootstrap() or bindTunables() to
+ * set up config, then getTunables() to read tunables.
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
-import { setConfig, resetConfig } from "../../src/bootstrap/runtime.js";
+import { parseConfig } from "../../src/config/index.js";
+import type { MapGenConfig } from "../../src/config/index.js";
 import {
   getTunables,
   resetTunables,
-  rebind,
+  resetTunablesForTest,
+  bindTunables,
   stageEnabled,
   TUNABLES,
 } from "../../src/bootstrap/tunables.js";
 
+/**
+ * Helper to create a minimal valid MapGenConfig from partial overrides.
+ * Uses parseConfig to apply defaults and validate.
+ */
+function createConfig(overrides: Partial<MapGenConfig> = {}): MapGenConfig {
+  return parseConfig(overrides);
+}
+
 describe("bootstrap/tunables", () => {
   beforeEach(() => {
-    resetConfig();
-    resetTunables();
+    resetTunablesForTest(); // Use full reset for test isolation
   });
 
   describe("getTunables", () => {
-    it("returns default tunables without config", () => {
+    it("throws if called before bindTunables", () => {
+      expect(() => getTunables()).toThrow("Tunables not initialized");
+    });
+
+    it("returns tunables after bindTunables with default config", () => {
+      bindTunables(createConfig());
       const tunables = getTunables();
 
       expect(tunables).toBeDefined();
@@ -34,12 +51,14 @@ describe("bootstrap/tunables", () => {
     });
 
     it("returns cached value on repeated calls", () => {
+      bindTunables(createConfig());
       const tunables1 = getTunables();
       const tunables2 = getTunables();
       expect(tunables1).toBe(tunables2);
     });
 
     it("includes default foundation plates config", () => {
+      bindTunables(createConfig());
       const tunables = getTunables();
 
       expect(tunables.FOUNDATION_PLATES).toBeDefined();
@@ -51,6 +70,7 @@ describe("bootstrap/tunables", () => {
     });
 
     it("includes default foundation dynamics config", () => {
+      bindTunables(createConfig());
       const tunables = getTunables();
 
       expect(tunables.FOUNDATION_DYNAMICS).toBeDefined();
@@ -59,6 +79,7 @@ describe("bootstrap/tunables", () => {
     });
 
     it("includes default landmass config", () => {
+      bindTunables(createConfig());
       const tunables = getTunables();
 
       expect(tunables.LANDMASS_CFG).toBeDefined();
@@ -68,8 +89,7 @@ describe("bootstrap/tunables", () => {
 
   describe("config overrides", () => {
     it("respects toggle overrides", () => {
-      setConfig({ toggles: { STORY_ENABLE_HOTSPOTS: false } });
-      rebind();
+      bindTunables(createConfig({ toggles: { STORY_ENABLE_HOTSPOTS: false } }));
 
       const tunables = getTunables();
       expect(tunables.STORY_ENABLE_HOTSPOTS).toBe(false);
@@ -77,8 +97,7 @@ describe("bootstrap/tunables", () => {
     });
 
     it("merges foundation plates config", () => {
-      setConfig({ foundation: { plates: { count: 12 } } });
-      rebind();
+      bindTunables(createConfig({ foundation: { plates: { count: 12 } } }));
 
       const tunables = getTunables();
       expect(tunables.FOUNDATION_PLATES.count).toBe(12);
@@ -86,14 +105,15 @@ describe("bootstrap/tunables", () => {
     });
 
     it("merges foundation dynamics config", () => {
-      setConfig({
-        foundation: {
-          dynamics: {
-            mantle: { bumps: 6 },
+      bindTunables(
+        createConfig({
+          foundation: {
+            dynamics: {
+              mantle: { bumps: 6 },
+            },
           },
-        },
-      });
-      rebind();
+        })
+      );
 
       const tunables = getTunables();
       expect(tunables.FOUNDATION_DYNAMICS.mantle?.bumps).toBe(6);
@@ -101,8 +121,7 @@ describe("bootstrap/tunables", () => {
     });
 
     it("merges landmass config", () => {
-      setConfig({ landmass: { baseWaterPercent: 75 } });
-      rebind();
+      bindTunables(createConfig({ landmass: { baseWaterPercent: 75 } }));
 
       const tunables = getTunables();
       expect(tunables.LANDMASS_CFG.baseWaterPercent).toBe(75);
@@ -110,77 +129,76 @@ describe("bootstrap/tunables", () => {
   });
 
   describe("resetTunables", () => {
-    it("clears the cached tunables", () => {
+    it("clears the cached tunables but keeps bound config", () => {
+      bindTunables(createConfig());
       const tunables1 = getTunables();
       resetTunables();
       const tunables2 = getTunables();
 
+      // Should get a fresh instance (not cached)
       expect(tunables1).not.toBe(tunables2);
+      // But values should be the same since config is still bound
+      expect(tunables2.FOUNDATION_PLATES.count).toBe(8);
     });
 
-    it("allows new config to take effect", () => {
-      getTunables(); // Cache with defaults
+    it("allows rebinding new config after reset", () => {
+      bindTunables(createConfig({ foundation: { plates: { count: 10 } } }));
+      getTunables(); // Cache with old config
 
-      setConfig({ toggles: { STORY_ENABLE_PALEO: false } });
-      resetTunables();
-
-      const tunables = getTunables();
-      expect(tunables.STORY_ENABLE_PALEO).toBe(false);
-    });
-  });
-
-  describe("rebind", () => {
-    it("refreshes tunables from current config", () => {
-      getTunables(); // Cache with defaults
-
-      setConfig({ foundation: { plates: { count: 16 } } });
-      rebind();
+      // Bind new config and reset cache
+      bindTunables(createConfig({ foundation: { plates: { count: 16 } } }));
 
       const tunables = getTunables();
       expect(tunables.FOUNDATION_PLATES.count).toBe(16);
     });
+  });
 
-    it("returns fresh instance after rebind", () => {
-      const tunables1 = getTunables();
-      rebind();
-      const tunables2 = getTunables();
+  describe("resetTunablesForTest", () => {
+    it("clears both cache and bound config", () => {
+      bindTunables(createConfig());
+      getTunables(); // Ensure cached
 
-      // After rebind, should be the same (rebind caches)
-      expect(tunables2).toBeDefined();
+      resetTunablesForTest();
+
+      // Should throw because bound config was cleared
+      expect(() => getTunables()).toThrow("Tunables not initialized");
     });
   });
 
   describe("stageEnabled", () => {
     it("returns false for unknown stages", () => {
+      bindTunables(createConfig());
       expect(stageEnabled("unknown_stage")).toBe(false);
     });
 
     it("returns true for enabled stages in manifest", () => {
-      setConfig({
-        stageManifest: {
-          order: ["foundation", "climate"],
-          stages: {
-            foundation: { enabled: true },
-            climate: { enabled: true },
+      bindTunables(
+        createConfig({
+          stageManifest: {
+            order: ["foundation", "climate"],
+            stages: {
+              foundation: { enabled: true },
+              climate: { enabled: true },
+            },
           },
-        },
-      });
-      rebind();
+        })
+      );
 
       expect(stageEnabled("foundation")).toBe(true);
       expect(stageEnabled("climate")).toBe(true);
     });
 
     it("returns false for disabled stages in manifest", () => {
-      setConfig({
-        stageManifest: {
-          order: ["foundation"],
-          stages: {
-            foundation: { enabled: false },
+      bindTunables(
+        createConfig({
+          stageManifest: {
+            order: ["foundation"],
+            stages: {
+              foundation: { enabled: false },
+            },
           },
-        },
-      });
-      rebind();
+        })
+      );
 
       expect(stageEnabled("foundation")).toBe(false);
     });
@@ -188,27 +206,31 @@ describe("bootstrap/tunables", () => {
 
   describe("TUNABLES proxy object", () => {
     it("provides live access to current tunables", () => {
+      bindTunables(createConfig());
       expect(TUNABLES.STORY_ENABLE_HOTSPOTS).toBe(true);
 
-      setConfig({ toggles: { STORY_ENABLE_HOTSPOTS: false } });
-      rebind();
-
+      bindTunables(createConfig({ toggles: { STORY_ENABLE_HOTSPOTS: false } }));
       expect(TUNABLES.STORY_ENABLE_HOTSPOTS).toBe(false);
     });
 
-    it("reflects reset state", () => {
-      setConfig({ toggles: { STORY_ENABLE_RIFTS: false } });
-      rebind();
+    it("reflects reset state after resetTunablesForTest", () => {
+      bindTunables(createConfig({ toggles: { STORY_ENABLE_RIFTS: false } }));
       expect(TUNABLES.STORY_ENABLE_RIFTS).toBe(false);
 
-      resetConfig();
-      resetTunables();
-      expect(TUNABLES.STORY_ENABLE_RIFTS).toBe(true);
+      resetTunablesForTest();
+
+      // TUNABLES proxy will throw when accessed without bound config
+      expect(() => TUNABLES.STORY_ENABLE_RIFTS).toThrow("Tunables not initialized");
     });
   });
 
   describe("isolation", () => {
     it("does not leak state between tests", () => {
+      // After beforeEach reset, should throw
+      expect(() => getTunables()).toThrow("Tunables not initialized");
+
+      // Bind config for this test
+      bindTunables(createConfig());
       const tunables = getTunables();
       expect(tunables.STORY_ENABLE_HOTSPOTS).toBe(true);
       expect(tunables.FOUNDATION_PLATES.count).toBe(8);
