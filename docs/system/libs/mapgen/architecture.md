@@ -1,6 +1,22 @@
 # Map Generation Engine Architecture
 
-> This document describes the **target** architecture for the MAPS engine. The current implementation is converging toward this design; some details (such as the generic Pipeline Executor and full step registry) may be introduced incrementally across milestones.
+> This document describes the **target** architecture for the MAPS engine.
+
+## Status (Target vs Current)
+
+This page intentionally mixes:
+
+- **Target architecture (canonical):** the Task Graph / `MapGenStep` / `StepRegistry` direction we are steering toward.
+- **Current implementation (post‑M2, transient):** the orchestrator‑centric stable slice used today while M3/M4 land.
+
+When you need “what’s actually wired right now,” prefer the project snapshot docs:
+
+- `docs/projects/engine-refactor-v1/status.md`
+- `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md`
+- `docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md`
+- `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`
+
+**Important:** `PipelineExecutor` / the generic step registry are **target**, not universally present in the current codebase yet.
 
 ## 1. Core Philosophy
 

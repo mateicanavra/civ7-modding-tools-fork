@@ -27,7 +27,7 @@ Milestone and issue docs remain canonical for scheduled/active scope; entries he
 - **Full MapGen architecture documentation sweep (post Task Graph / canonical products)** [Review by: late M3 / early M4]
   - **Context:** System docs at `docs/system/libs/mapgen/*.md` vs implementation once `PipelineExecutor` / `MapGenStep` / `StepRegistry` and canonical products stabilize.
   - **Type:** backlog
-  - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `climate.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `LOCAL-M3-SYSTEM-DOCS-TARGET-VS-CURRENT` (which only adds framing + minimal current-state pointers).
+  - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `climate.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `CIV-40` (which only adds framing + minimal current-state pointers).
   - **Next check:** after Task Graph + step execution is implemented and key products (`FoundationContext`, `ClimateField`, `StoryOverlays`) are stabilized.
 
 - **Modern story orogeny layer (windward/lee amplification)** [Review by: early M3+]

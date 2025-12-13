@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M3-SYSTEM-DOCS-TARGET-VS-CURRENT
+id: CIV-40
 title: "[M3] Clarify MapGen system docs: Target vs Current (post-M2)"
 state: planned
 priority: 4
