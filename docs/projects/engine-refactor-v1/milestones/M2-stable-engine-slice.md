@@ -8,7 +8,7 @@
 
 ## Summary
 
-Establish a minimal but production-ready slice of the new engine architecture: validated configuration and a modern foundation/plate stack wired into Swooper Maps with strong diagnostics, using the current `MapOrchestrator`-centric flow. Downstream phases (climate, overlays, biomes, placement) remain mostly legacy in this milestone.
+Establish a minimal but production-ready slice of the new engine architecture: validated configuration and a modern foundation/plate stack wired into Swooper Maps with strong diagnostics, using the current `MapOrchestrator`-centric flow. Downstream phases (climate, overlays, biomes, placement) remain mostly legacy in this milestone, **except for minimal story parity** needed to stabilize narrative‑aware consumers.
 
 This milestone corresponds to **Milestone 2** in `PROJECT-engine-refactor-v1.md`.
 
@@ -17,6 +17,7 @@ This milestone corresponds to **Milestone 2** in `PROJECT-engine-refactor-v1.md`
 - Introduce a single, validated `MapGenConfig` schema and fail-fast configuration loading.
 - Wire the existing `MapOrchestrator` and context/tunables flow to consume validated config instead of globals.
 - Run the **foundation / plate generation** stack through this orchestrated slice and bridge its outputs into legacy downstream stages.
+- Restore **minimal story parity** (margins + hotspots + rifts, optional orogeny) via orchestrator story stages so climate/biomes/features regain narrative signals.
 - Preserve existing map behavior as much as possible while enabling new diagnostics and determinism.
 
 ## Scope
@@ -61,10 +62,19 @@ Related PRD: `resources/PRD-plate-generation.md`
 - Add basic stage-level logging (start/finish of stages, durations, error reporting).
 - Optionally, add minimal smoke checks for foundation outputs (e.g., non-empty plate graphs, sane uplift distributions).
 
+### 4. Minimal Story Parity (Narrative Seed)
+
+- Port and wire the minimal story tagging subset from the JS archive:
+  - Continental margins (active/passive shelves) + margins overlay publication.
+  - Hotspot trails and rift valleys (optional early orogeny belts if low‑risk).
+- Run these through the existing story stages in `MapOrchestrator` without introducing pipeline primitives yet.
+- Add a small smoke check or warning when story stages are enabled but produce empty tag sets.
+
 ## Acceptance Criteria
 
 - Engine can execute the `foundation` slice via the `MapOrchestrator` using validated config.
 - Foundation data products (mesh, crust, plate graph, tectonics / `FoundationContext`) are populated and consumed by existing morphology stages via the legacy bridge.
+- When story stages are enabled, minimal story tags/overlays (margins/hotspots/rifts) are populated and visible to downstream consumers.
 - Existing Swooper Maps entries still generate valid maps (no “null script” regressions) after this milestone.
 - Diagnostics clearly reflect the foundation data and stage flow.
 
@@ -78,6 +88,8 @@ Related PRD: `resources/PRD-plate-generation.md`
 - Foundation pipeline & diagnostics:
   - [ ] LOCAL-TBD: foundation stage parent and step issues (`../issues/LOCAL-TBD-foundation-stage-parent.md`, step 1–5 issues)
   - [ ] CIV-24: Dev diagnostics and executor logging (`../issues/CIV-24-dev-diagnostics.md`)
+- Narrative parity:
+  - [ ] LOCAL-M2-STORY-PARITY: Minimal story parity (`../issues/LOCAL-M2-story-parity.md`)
 
 These may be split or reassigned across milestones as we refine the execution plan.
 

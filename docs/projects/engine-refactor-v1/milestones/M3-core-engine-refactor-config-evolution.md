@@ -69,6 +69,8 @@ Related PRD: `resources/PRD-pipeline-refactor.md`
 - Make `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` the authoritative sources for downstream logic.
 - Reduce or eliminate ad-hoc reads from `GameplayMap` and `StoryTags` in modernized stages.
 
+**Story system note:** Minimal story parity (margins/hotspots/rifts ± orogeny) is restored in M2 via orchestrator stages. M3 owns the **remaining** story system (corridors, swatches, paleo, canonical overlay products) and the migration of story logic into Task Graph steps.
+
 Related system docs:
 
 - `../../system/libs/mapgen/architecture.md`
@@ -98,7 +100,8 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
 - Migration of remaining legacy story/climate/biome/placement code into steps:
   - CIV-19: Biomes & features adapter (`../issues/CIV-19-biomes-features-adapter.md`)
   - CIV-20: Placement adapter (`../issues/CIV-20-placement-adapter.md`)
-  - CIV-21: Story tagging & overlays (`../issues/CIV-21-story-tagging.md`)
+  - CIV-21: Full story port parent (`../issues/CIV-21-story-tagging.md`)
+    - Remaining M3 portion: `LOCAL-M3-STORY-SYSTEM` (`../issues/LOCAL-M3-story-system.md`)
   - CIV-22: Map size awareness (`../issues/CIV-22-map-size-awareness.md`)
 - Any new issues spawned from the parity matrix or config refactor PRD that touch multiple phases.
 

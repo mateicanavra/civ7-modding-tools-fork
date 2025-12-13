@@ -39,6 +39,7 @@ Detractions / Open Questions:
 
 Detractions / Open Questions:
 - `hydrateMarginsStoryTags` has no TS caller today; no TS stage publishes a margins overlay. In JS, `storyTagContinentalMargins` used this to back-fill margin tags. TS currently has a **dead overlay pipe**.
+- Planned to be revived by minimal story parity in M2 (`LOCAL-M2-STORY-PARITY`), with full overlay canonicalization in M3 (`LOCAL-M3-STORY-SYSTEM`).
 
 ---
 
@@ -46,7 +47,7 @@ Detractions / Open Questions:
 
 | JS Module | TS Equivalent | Status | Notes |
 |----------|---------------|--------|-------|
-| `story/tagging.js` | **None** (expected: `packages/mapgen-core/src/story/tagging.ts`) | Missing (major behavior gap) | JS implements the core climate story: `storyTagHotspotTrails`, `storyTagRiftValleys`, `storyTagOrogenyBelts`, `storyTagContinentalMargins`, `storyTagClimateSwatches`, `storyTagPaleoHydrology` plus an `OrogenyCache`. These functions populate `StoryTags`, publish overlays, and drive rainfall via `writeClimateField`/`syncClimateField` and `applyClimateSwatches`. There is no TS implementation; only data structures and downstream consumers exist. |
+| `story/tagging.js` | **None** (expected: `packages/mapgen-core/src/story/tagging.ts`) | Missing (planned split across M2/M3) | JS implements the core climate story: `storyTagHotspotTrails`, `storyTagRiftValleys`, `storyTagOrogenyBelts`, `storyTagContinentalMargins`, `storyTagClimateSwatches`, `storyTagPaleoHydrology` plus an `OrogenyCache`. These functions populate `StoryTags`, publish overlays, and drive rainfall via `writeClimateField`/`syncClimateField` and `applyClimateSwatches`. TS implementation is tracked under parent `CIV-21` with children `LOCAL-M2-STORY-PARITY` and `LOCAL-M3-STORY-SYSTEM`. |
 
 Detractions / Open Questions:
 - **Missing parity:** None of the following exist in TS:
@@ -55,7 +56,7 @@ Detractions / Open Questions:
   - Orogeny belts and caches used by climate refinement.
   - Continental margins tagging + margins overlay publication.
   - Climate swatches and paleo passes that adjust rainfall around story structures.
-- **Orchestration gap:** `MapOrchestrator` only has a stub `storySeed` stage that calls `resetStoryTags()`; there is nowhere to plug a `storyTag*` implementation yet.
+- **Orchestration gap (today):** `MapOrchestrator` only has a stub `storySeed` stage that calls `resetStoryTags()`. Minimal tagging will be wired into existing story stages in M2 (`LOCAL-M2-STORY-PARITY`), with remaining stages migrated into Task Graph steps in M3 (`LOCAL-M3-STORY-SYSTEM`).
 
 ---
 
@@ -82,6 +83,7 @@ Detractions / Open Questions:
 - The TS stage manifest advertises a rich story pipeline that is **not implemented**, which is misleading for config and callers. We should either:
   - Implement the missing stages and wire them to TS `story/tagging` / `story/corridors`, or
   - Hide/disable these stages until the implementations exist.
+- Minimal story stages are explicitly scoped for M2 (orchestrator‑centric parity), while corridors/swatches/paleo and step wrapping are scoped for M3 under `CIV-21` children.
 
 ---
 

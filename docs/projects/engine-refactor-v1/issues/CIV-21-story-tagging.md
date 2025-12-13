@@ -1,6 +1,6 @@
 ---
 id: CIV-21
-title: "[M-TS-P0] Reactivate Minimal Story Tagging"
+title: "Port Full Story Tagging, Corridors, and Overlays"
 state: planned
 priority: 2
 estimate: 0
@@ -9,7 +9,7 @@ milestone: M3-core-engine-refactor-config-evolution
 assignees: []
 labels: [bug]
 parent: CIV-14
-children: []
+children: [LOCAL-M2-STORY-PARITY, LOCAL-M3-STORY-SYSTEM]
 blocked_by: [CIV-18]
 blocked: [CIV-23]
 related_to: [CIV-10]
@@ -18,9 +18,11 @@ related_to: [CIV-10]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Port a minimal subset of story tagging from JS to populate `StoryTags` with continental margins, hotspots, and rifts — the foundational tags that climate, biomes, and features depend on.
+Port the complete legacy story system from JS into TypeScript: minimal tagging parity, remaining narrative overlays (orogeny, swatches, paleo), and strategic corridors, with clear orchestration and overlay publication so downstream climate/biomes/features regain narrative signals.
 
-> **Note:** This issue was originally scoped as P0 remediation under the M1 TypeScript migration (CIV-14). It is now part of Milestone M3, where story tagging will be implemented against the stabilized pipeline and config shapes.
+> **Note:** This issue was originally scoped as P0 remediation under the M1 TypeScript migration (CIV-14). It now represents the full story porting program, split into two canonical child issues:
+> - `LOCAL-M2-story-parity.md` (minimal parity in M2)
+> - `LOCAL-M3-story-system.md` (remaining system in M3)
 
 ## Problem
 
@@ -35,218 +37,62 @@ The TypeScript migration created `story/tags.ts` with type definitions, but `sto
 
 **Result:** All story-aware code paths are no-ops, producing bland, uniform maps.
 
-### What We Need (Minimal Set)
+### What We Need (Complete Set)
 
-Not the full story system, just the foundation:
-1. **Continental margins** — active vs passive edges, subduction zones
-2. **Hotspots** — volcanic activity centers
-3. **Rifts** — divergent boundaries, potential lakes/seas
+The JS archive implements a layered “history in terrain” system. Full parity requires porting:
+1. **Continental margins** — active vs passive shelves, subduction indicators
+2. **Hotspot trails** — volcanic chains and paradise/volcanic sub-tags
+3. **Rift valleys** — rift lines and rift shoulders
+4. **Orogeny belts** — belt tagging + windward/lee caches used by climate
+5. **Climate swatches** — macro swatch overlays with soft edges
+6. **Paleo hydrology motifs** — elevation-aware paleo wetness overlays
+7. **Strategic corridors** — pre‑islands and post‑rivers corridor tagging with kind/style metadata
 
-These feed into climate moisture patterns, biome special cases, and feature placement.
+These feed rainfall refinement, biome biasing, feature placement, and strategic “lanes” in later layers.
 
 ## Deliverables
 
-- [ ] **Port minimal `story/tagging.ts`:**
-  - `imaprintMargins(ctx)` — classify plate boundaries as active/passive
-  - `seedHotspots(ctx)` — place volcanic hotspot tags based on plate stress
-  - `seedRifts(ctx)` — place rift tags at divergent boundaries
-- [ ] **Wire into orchestrator:**
-  - Call tagging functions in `storySeed` or `story*` stages
-  - Ensure `StoryTags` is populated before climate/biomes/features run
-- [ ] **Verify downstream consumption:**
-  - Climate reads margin tags for moisture adjustments
-  - Biomes reads hotspot tags for volcanic rules
-  - Features reads rift tags for geological placement
-- [ ] **Add smoke tests:**
-  - After story stages, assert `StoryTags` contains non-empty margin/hotspot/rift data
+This parent issue tracks the *complete* story port. Delivery is split across child issues:
+
+- [ ] **M2 minimal parity (child: `LOCAL-M2-STORY-PARITY`)**
+  - Port and wire continental margins, hotspot trails, rift valleys (optional orogeny belts).
+  - Publish corresponding overlays and re-enable story‑aware consumers.
+- [ ] **M3 remaining system (child: `LOCAL-M3-STORY-SYSTEM`)**
+  - Port corridors, climate swatches, paleo hydrology, and any deferred orogeny work.
+  - Canonicalize `StoryOverlays` as a data product and wrap story logic into steps once the pipeline executor exists.
+
+Legacy references:
+- `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/tagging.js`
+- `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/corridors.js`
 
 ## Acceptance Criteria
 
-- [ ] `story/tagging.ts` exists with minimal porting
-- [ ] `StoryTags` populated after story stages execute
-- [ ] Margin tags present (active/passive classification)
-- [ ] Hotspot tags present (based on tectonic stress)
-- [ ] Rift tags present (at divergent boundaries)
-- [ ] Climate/biomes/features can read these tags
-- [ ] Build passes, tests pass
+Parent completion requires both children to be complete:
+
+- [ ] Minimal story parity landed in M2 (`LOCAL-M2-STORY-PARITY` complete).
+- [ ] Remaining story system landed in M3 (`LOCAL-M3-STORY-SYSTEM` complete).
+- [ ] Story stages/steps populate `StoryTags` and publish overlays before consumers run.
+- [ ] Climate/biomes/features/corridor consumers regain narrative behavior.
+- [ ] Build passes, tests pass.
 
 ## Testing / Verification
 
-```typescript
-// Test: story tagging populates StoryTags
-test("story stages populate margin tags", () => {
-  const ctx = createMockContext();
-  setupFoundationWithPlates(ctx);
-
-  runStoryStages(ctx);
-
-  expect(ctx.overlays.has("margins")).toBe(true);
-  const margins = ctx.overlays.get("margins");
-  expect(margins.active.length).toBeGreaterThan(0);
-});
-
-// Test: climate uses margin tags
-test("climate reads margin tags for moisture", () => {
-  const ctx = createMockContext();
-  populateStoryTags(ctx);  // Mock story data
-
-  applyClimate(ctx);
-
-  // Active margins should have moisture bonus
-  const activeMarginIdx = findActiveMarginCell(ctx);
-  expect(ctx.fields.rainfall[activeMarginIdx]).toBeGreaterThan(baseRainfall);
-});
-```
-
-```bash
-# Build verification
-pnpm -C packages/mapgen-core build
-
-# Run story tests
-pnpm -C packages/mapgen-core test --grep "story|margin|hotspot|rift"
-```
+See the child issues for concrete test cases. At a high level:
+- M2 child adds smoke checks for non‑empty margins/hotspots/rifts when enabled.
+- M3 child adds corridor/swatches/paleo behavior checks and step‑level tests after pipeline refactor.
 
 ## Dependencies / Notes
 
 - **Blocked by**: Config resolver + call-site fixes (Stack 2)
 - **Blocks**: Integration tests (story enables meaningful downstream behavior)
 - **Related to**: CIV-10 (original story migration, incomplete)
-- **Scope**: Minimal port, not full story system (full system is P1)
-
-### What's NOT In Scope
-
-- Full corridor algorithms (sea lanes, mountain passes)
-- Paleo-geological history
-- Named story overlays for specific terrain features
-- Story-driven placement (cities, resources)
-
-These are deferred to P1 once the pipeline is stable.
+- **Scope**: Full story system, split across M2/M3 children.
 
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Details (Local Only)
 
-### Minimal Story Functions
-
-```typescript
-// story/tagging.ts
-
-import type { ExtendedMapContext, FoundationContext } from "../core/types.js";
-import { BOUNDARY_TYPE } from "../world/constants.js";
-
-export function imprintMargins(ctx: ExtendedMapContext): void {
-  const { foundation, dimensions } = ctx;
-  const { plates } = foundation;
-  const { width, height } = dimensions;
-
-  const activeMargins: number[] = [];
-  const passiveMargins: number[] = [];
-
-  for (let i = 0; i < width * height; i++) {
-    const boundaryType = plates.boundaryType[i];
-    const closeness = plates.boundaryCloseness[i];
-
-    // Only tag cells near plate boundaries
-    if (closeness < 10) continue;
-
-    if (boundaryType === BOUNDARY_TYPE.CONVERGENT ||
-        boundaryType === BOUNDARY_TYPE.SUBDUCTION) {
-      activeMargins.push(i);
-    } else if (boundaryType === BOUNDARY_TYPE.DIVERGENT ||
-               boundaryType === BOUNDARY_TYPE.TRANSFORM) {
-      passiveMargins.push(i);
-    }
-  }
-
-  ctx.overlays.set("margins", {
-    key: "margins",
-    kind: "continental-margins",
-    version: 1,
-    width,
-    height,
-    active: activeMargins,
-    passive: passiveMargins,
-    summary: {
-      activeCount: activeMargins.length,
-      passiveCount: passiveMargins.length,
-    },
-  });
-}
-
-export function seedHotspots(ctx: ExtendedMapContext): void {
-  const { foundation, dimensions, rng } = ctx;
-  const { plates } = foundation;
-  const { width, height } = dimensions;
-
-  const hotspots: number[] = [];
-  const threshold = 200;  // High tectonic stress threshold
-
-  for (let i = 0; i < width * height; i++) {
-    const stress = plates.tectonicStress[i];
-    if (stress > threshold) {
-      // Probability based on stress intensity
-      if (Math.random() < stress / 255) {
-        hotspots.push(i);
-      }
-    }
-  }
-
-  ctx.overlays.set("hotspots", {
-    key: "hotspots",
-    kind: "volcanic-hotspots",
-    version: 1,
-    width,
-    height,
-    active: hotspots,
-    summary: { count: hotspots.length },
-  });
-}
-
-export function seedRifts(ctx: ExtendedMapContext): void {
-  const { foundation, dimensions } = ctx;
-  const { plates } = foundation;
-  const { width, height } = dimensions;
-
-  const rifts: number[] = [];
-
-  for (let i = 0; i < width * height; i++) {
-    const riftPotential = plates.riftPotential[i];
-    if (riftPotential > 100) {
-      rifts.push(i);
-    }
-  }
-
-  ctx.overlays.set("rifts", {
-    key: "rifts",
-    kind: "tectonic-rifts",
-    version: 1,
-    width,
-    height,
-    active: rifts,
-    summary: { count: rifts.length },
-  });
-}
-```
-
-### Orchestrator Integration
-
-```typescript
-// MapOrchestrator.ts - in story stage
-if (stageEnabled("storySeed")) {
-  console.log("Starting: storySeed");
-  imprintMargins(ctx);
-  seedHotspots(ctx);
-  seedRifts(ctx);
-  console.log("Finished: storySeed");
-}
-```
-
-### Quick Navigation
-
-- [TL;DR](#tldr)
-- [Problem](#problem)
-- [Deliverables](#deliverables)
-- [Acceptance Criteria](#acceptance-criteria)
-- [Testing / Verification](#testing--verification)
-- [Dependencies / Notes](#dependencies--notes)
+Implementation is tracked in the children:
+- M2 minimal parity is implemented in orchestrator story stages.
+- M3 remaining system is implemented as steps after pipeline refactor.

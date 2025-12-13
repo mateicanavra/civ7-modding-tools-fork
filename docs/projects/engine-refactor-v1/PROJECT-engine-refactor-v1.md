@@ -108,10 +108,15 @@ See `milestones/M2-stable-engine-slice.md` for detailed scope, dependency mappin
   - Ensure `[Foundation]` diagnostics are wired to the orchestrated foundation slice (seed/plate/dynamics/surface logs, ASCII maps, histograms).
   - Add basic stage-level logging around the foundation slice (start/finish, duration, errors).
 
+- **Minimal story parity**
+  - Restore margins/hotspots/rifts (± orogeny) via orchestrator story stages to re‑enable narrative‑aware consumers.
+  - See `issues/LOCAL-M2-story-parity.md` under parent `issues/CIV-21-story-tagging.md`.
+
 **Out of Scope (Milestone 2)**
 
 - Full config shape evolution or tunables retirement.
 - Refactoring non-foundation phases (climate, overlays, biomes, placement) into first-class pipeline steps.
+- Full story system modernization (corridors, swatches, paleo, canonical overlays, step wrapping).
 - Comprehensive test suite or manifest validator (those land in Milestone 4, with some groundwork here).
 
 **Exit Criteria**
