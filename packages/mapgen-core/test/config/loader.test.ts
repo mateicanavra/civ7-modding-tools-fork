@@ -1,13 +1,14 @@
 import { describe, it, expect } from "bun:test";
 
+// Import from the config entrypoint to validate the exported surface
 import {
   getDefaultConfig,
   getJsonSchema,
   getPublicJsonSchema,
+  INTERNAL_METADATA_KEY,
   parseConfig,
   safeParseConfig,
-} from "../../src/config/loader.js";
-import { INTERNAL_METADATA_KEY } from "../../src/config/schema.js";
+} from "../../src/config/index.js";
 
 describe("config/loader", () => {
   it("returns defaults for empty input", () => {
