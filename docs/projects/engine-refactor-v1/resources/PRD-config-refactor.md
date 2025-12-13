@@ -13,6 +13,8 @@ The goal is to move from the current multi-layer, global, tunables-driven config
 2. Then align config usage with the new **Task Graph / Foundation pipeline**.
 3. Finally reshape the external config surface and mod entrypoints to match the long-term architecture (flat, recipe-friendly, per-step config).
 
+**Status (M2):** Phase 1 (“config hygiene”) is now implemented: configs are validated via `parseConfig()` and injected into the orchestrator (no `globalThis.__EPIC_MAP_CONFIG__`). Remaining phases in this PRD describe the *future* shape evolution and pipeline integration work (M3+).
+
 ---
 
 ## 2. Problem Statement
@@ -28,7 +30,7 @@ The current configuration system (as described in `SPIKE-config-refactor-design.
    - Defaults repeated in types, tunables, and layer functions (e.g., `buildMountainOptions()` plus inline defaults inside `layerAddMountainsPhysics()`).
 
 3. **Global state & bootstrap coupling**
-   - Config stored and merged via globals (`globalThis.__EPIC_MAP_CONFIG__`) and bootstrap helpers.
+   - Pre-M2: Config stored and merged via globals (`globalThis.__EPIC_MAP_CONFIG__`) and bootstrap helpers.
    - This conflicts with the pipeline architecture, which expects explicit `MapGenContext.config` injected at the boundary.
 
 4. **Weak runtime validation**

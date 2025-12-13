@@ -131,7 +131,7 @@ Detractions / Open Questions:
 
 | JS Module | TS Equivalent | Status | Notes |
 |----------|---------------|--------|-------|
-| `bootstrap/runtime.js` | `packages/mapgen-core/src/bootstrap/runtime.ts` | Parity (TS+ evolution) | TS keeps the same global-key runtime store (`__EPIC_MAP_CONFIG__`) with shallow-frozen per-map config, but adds `resetConfig()` and strong `MapConfig` typing. Behavior is equivalent for `setConfig`/`getConfig`, with better testability. |
+| `bootstrap/runtime.js` | `packages/mapgen-core/src/bootstrap/runtime.ts` | Removed (M2) | TS no longer keeps a global runtime store (`__EPIC_MAP_CONFIG__`). `runtime.ts` is now a type re-export only; config is injected via `bootstrap()`/`parseConfig()` and bound to tunables via `bindTunables()`. |
 
 ---
 
@@ -139,7 +139,7 @@ Detractions / Open Questions:
 
 | JS Module | TS Equivalent | Status | Notes |
 |----------|---------------|--------|-------|
-| `bootstrap/entry.js` | `packages/mapgen-core/src/bootstrap/entry.ts` | Parity (TS+ evolution) | TS `bootstrap()` composes `presets` + `overrides` + `stageConfig` and stores them via `setConfig`, like JS. It additionally resolves `stageConfig` into a concrete `stageManifest` and validates overrides against it, then rebinds tunables. This is a superset of the JS helper. |
+| `bootstrap/entry.js` | `packages/mapgen-core/src/bootstrap/entry.ts` | Evolved (M2) | TS `bootstrap()` composes `presets` + `overrides` + `stageConfig`, resolves a `stageManifest`, validates overrides, then returns a validated `MapGenConfig` (`parseConfig`) and binds tunables (`bindTunables`). Callers pass the validated config explicitly to `MapOrchestrator`. |
 
 Detractions / Open Questions:
 - None obvious; the main decision is how mod-level entries discover TS presets (see 5.7).

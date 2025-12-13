@@ -46,7 +46,7 @@ This document is the **directional project brief** for **MAPS Engine Refactor v1
 - **Narrative overlays:** ⏳ Not modernized. Margin overlays exist, but other story passes still mutate `StoryTags` directly and do not publish immutable overlays.
 - **Biomes/features/placement:** ⏳ Legacy read paths (`GameplayMap` + `StoryTags`). No overlay/`ClimateField` consumption yet.
 - **Manifest enforcement:** ⏳ Manifest describes `requires`/`provides`, but no runtime validator for data products; legacy shims still allow silent drift.
-- **Tests/verification:** ⏳ No automated smoke for the orchestrator/context; verification is manual via diagnostics.
+- **Tests/verification:** ⚠️ Partial. There is basic automated coverage for the stable slice (orchestrator integration + foundation smoke); broader validation remains manual and will be expanded in Milestone 4.
 - **TypeScript migration:** ⚠️ Largely complete for core engine and Swooper Maps entrypoints, but some shims/edge modules remain and need cleanup and tests (see `milestones/M1-TS-typescript-migration.md`).
 
 ## 4. Milestone Plan

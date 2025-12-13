@@ -6,13 +6,14 @@
 - Deterministic `PlateSeedManager` + `FoundationContext` exported and asserted; `foundation.*` config unified and legacy `worldModel` overrides warned away.
 - Heightfield buffers in `MapContext`; landmass, coasts, mountains, volcanoes, lakes, and climate baseline/refine write through staging helpers.
 - `[Foundation]` diagnostics cover seed/plate/dynamics/surface plus ASCII/histograms.
+- Basic automated coverage for the stable slice: orchestrator integration + foundation smoke tests in `packages/mapgen-core/test/orchestrator/*`.
 
 ## Gaps / In Progress
 - Climate consumers still read `GameplayMap` instead of `ClimateField`; river flow data not exposed as a product.
 - Narrative overlays are still largely unported: minimal parity (margins/hotspots/rifts ± orogeny) is now scoped for M2 (`CIV-36`), while corridors/swatches/paleo and canonical overlay products remain M3 work (`LOCAL-M3-STORY-SYSTEM`).
 - Biomes/features/placement read legacy fields and do not require overlays or `ClimateField` inputs.
 - No manifest/data-product validator; stages can still run without declared inputs beyond manual assertions.
-- No automated smoke tests for orchestrator/context; verification is manual via diagnostics.
+- Test coverage is still thin outside the stable slice; most verification remains manual via diagnostics.
 
 ## Ready Next
 1. Restore minimal story parity (margins/hotspots/rifts ± orogeny) via orchestrator stages so narrative‑aware consumers react again (M2).
@@ -27,4 +28,4 @@
 
 ## Testing & Observability
 - Existing: `[Foundation]` logs, stage gating warnings, ASCII diagnostics (landmass, relief, rainfall, biomes), histograms.
-- Needed: Vitest smoke for orchestrator using stub adapter and presets; assertions that `FoundationContext`/`Heightfield`/`ClimateField`/`StoryOverlays` are present before stages execute.
+- Needed: Expand Vitest coverage beyond the stable slice; add invariant checks for `FoundationContext`/`Heightfield`/`ClimateField`/`StoryOverlays` at stage boundaries.

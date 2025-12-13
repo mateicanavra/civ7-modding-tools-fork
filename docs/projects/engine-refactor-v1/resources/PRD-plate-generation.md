@@ -68,7 +68,8 @@ Implementers should refer to `foundation.md` for the specific math behind Lloyd 
 *   Implement `TectonicEngine` (Vector Physics with Material-Aware Interactions).
 
 ### Phase 3: Integration
-*   Wire the strategies into the `MapOrchestrator` via the new `StepRegistry`.
+*   Wire the strategies into the current `MapOrchestrator`-centric stable slice (M2).
+*   (Later, M3+) Wrap these strategies as `MapGenStep`s and register them via `StepRegistry` / `PipelineExecutor` once pipeline primitives exist.
 *   Implement the "Legacy Bridge" to sync the new `context.artifacts` to the old `WorldModel` singleton (to keep downstream morphology scripts working).
 
 ---
