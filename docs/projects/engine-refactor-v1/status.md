@@ -9,7 +9,7 @@
 
 ## Gaps / In Progress
 - Climate consumers still read `GameplayMap` instead of `ClimateField`; river flow data not exposed as a product.
-- Narrative overlays are still largely unported: minimal parity (margins/hotspots/rifts ± orogeny) is now scoped for M2 (`LOCAL-M2-STORY-PARITY`), while corridors/swatches/paleo and canonical overlay products remain M3 work (`LOCAL-M3-STORY-SYSTEM`).
+- Narrative overlays are still largely unported: minimal parity (margins/hotspots/rifts ± orogeny) is now scoped for M2 (`CIV-36`), while corridors/swatches/paleo and canonical overlay products remain M3 work (`LOCAL-M3-STORY-SYSTEM`).
 - Biomes/features/placement read legacy fields and do not require overlays or `ClimateField` inputs.
 - No manifest/data-product validator; stages can still run without declared inputs beyond manual assertions.
 - No automated smoke tests for orchestrator/context; verification is manual via diagnostics.

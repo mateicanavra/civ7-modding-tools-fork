@@ -10,7 +10,7 @@ assignees: []
 labels: [Improvement, Story, Architecture]
 parent: CIV-21
 children: []
-blocked_by: [LOCAL-M2-STORY-PARITY]
+blocked_by: [CIV-36]
 blocked: []
 related_to: [CIV-21]
 ---
@@ -55,7 +55,7 @@ Parent issue: `CIV-21-story-tagging.md`.
 
 ## Dependencies / Notes
 
-- Depends on minimal parity landing in M2 (`LOCAL-M2-STORY-PARITY`).
+- Depends on minimal parity landing in M2 (`CIV-36`).
 - Must coordinate with pipeline primitives and config shape evolution in M3.
 
 ---

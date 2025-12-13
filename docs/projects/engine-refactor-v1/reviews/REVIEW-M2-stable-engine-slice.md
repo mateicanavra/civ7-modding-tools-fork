@@ -10,12 +10,16 @@ reviewer: AI agent (Codex CLI)
 
 M2 is effectively concluded as a **“config + foundation slice is stable, documented, and test-backed”** milestone, implemented on the current `MapOrchestrator`-centric architecture. It **does not** include a fully generic `PipelineExecutor` / `MapGenStep` / `StepRegistry`; those pipeline primitives are now explicitly planned for early M3+ on top of the stabilized data products.
 
+**Milestone boundary note:** M2 owns config parity/wiring and behavioral correctness for the **current stable slice** (foundation + minimal story + diagnostics) where those configs are meaningful today and unlikely to change under the Task Graph design. Config/behavior work that depends on `MapGenStep`/`PipelineExecutor` or canonical data‑product boundaries is deferred to M3 to avoid double‑refactoring.
+
 Before calling M2 fully done, we will land a small, concrete cleanup/stabilization batch:
 
 - **Docs alignment**
   - Update M2 docs and relevant issue files so they accurately describe the real flow: `bootstrap() → MapGenConfig → tunables → MapOrchestrator → FoundationContext`.
   - Remove or clearly mark as “future” any remaining references to `globalThis.__EPIC_MAP_CONFIG__` and the old global-config pattern.
   - Soften or relocate language that assumes a currently implemented generic `PipelineExecutor` / `MapGenStep` / `StepRegistry`, making clear that these land in M3+.
+- **Stable‑slice config surface**
+  - Align schema/docs with stable‑slice keys already meaningful in M2 (foundation diagnostics flags, story‑driven rainfall knobs) and decide parity vs. deprecate for any diagnostics aliases.
 - **Contract stabilization**
   - Make the `FoundationContext` contract explicit: what it guarantees to downstream consumers and which data products exist at the end of the M2 slice (captured in `resources/CONTRACT-foundation-context.md` as a working contract doc).
   - Clarify the role of tunables as a derived, read-only view over `MapGenConfig`, not a primary config store.

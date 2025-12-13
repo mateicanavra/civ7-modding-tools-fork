@@ -1,8 +1,8 @@
 ---
-id: LOCAL-M2-STORY-PARITY
+id: CIV-36
 title: "[M2] Minimal Story Parity (Margins, Hotspots, Rifts)"
 state: planned
-priority: 2
+priority: 1
 estimate: 2
 project: engine-refactor-v1
 milestone: M2-stable-engine-slice
@@ -11,7 +11,7 @@ labels: [Improvement, Story, Architecture]
 parent: CIV-21
 children: []
 blocked_by: [CIV-18]
-blocked: []
+blocked: [CIV-39]
 related_to: [CIV-21]
 ---
 

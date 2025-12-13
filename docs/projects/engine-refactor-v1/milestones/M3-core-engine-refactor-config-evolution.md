@@ -5,12 +5,18 @@
 **Owner:** Engineering  
 
 > Note: Scope and exact issue mapping for this milestone may be revisited as we get closer to implementation. Treat this doc as a living plan that should be updated once work starts.
+>
+> **Backlog state (draft):** This milestone is not yet fully grouped into formal issues. The “Draft Task Backlog” stubs below are rough M3 candidates only.
+> - Each stub must be triaged before work starts to decide whether to create a real issue, change scope, or intentionally skip/deprecate parity.
+> - Do not treat the stubs as committed scope until they are promoted into issue docs and scheduled.
 
 ## Summary
 
 Extend the task-graph architecture from the foundation slice to the full engine, while reshaping configuration to match the long-term design. This milestone is where most of the **core refactoring** happens (beyond the initial slice): pipeline-izing legacy phases, solidifying data products, and evolving `MapGenConfig`.
 
 This milestone corresponds to **Milestone 3** in `PROJECT-engine-refactor-v1.md`.
+
+**Milestone boundary note:** M3 owns config/behavior work that is tightly coupled to Task Graph primitives (`MapGenStep`, `PipelineExecutor`, `requires/provides`) and canonical data products, where wiring early would risk double‑refactoring. Stable‑slice config correctness that is meaningful in the current orchestrator flow (foundation + minimal story + diagnostics) is handled in M2.
 
 ## Objectives
 
@@ -85,6 +91,50 @@ The JS-to-TS parity documents remain the canonical source of remaining behaviora
 - `resources/STATUS-M-TS-typescript-migration-parity-notes.md`
 
 As part of M3 (and, where appropriate, M4), we may break specific `Missing` and `Detraction / Open` rows from these docs into concrete issues targeting the relevant clusters (story/overlays, biomes/features, placement, etc.). The parity docs should stay canonical; issues should link back to them rather than duplicating the full matrix.
+
+### Draft Task Backlog (Not Yet Issues)
+
+> Rough candidate tasks to be reviewed and promoted into real issues (or explicitly deprecated) when M3 is scheduled.
+
+- **Pipeline generalization beyond foundation**
+  - What/why: Extend `MapGenStep`/`PipelineExecutor` from the stabilized foundation slice to legacy clusters (morphology, hydrology/climate, overlays, biomes, placement), initially via wrapper steps, to unlock full Task Graph orchestration.
+  - Open questions: How far do we go with “wrapper only” vs. internal refactors per cluster in M3? Which clusters must be fully native to hit M3 acceptance vs. can stay legacy‑wrapped?
+  - Sources: `resources/PRD-pipeline-refactor.md`, `../../system/libs/mapgen/architecture.md`, pipeline skeleton issues `../issues/LOCAL-TBD-foundation-step-1-pipeline.md` through step‑5.
+
+- **Config integration into `MapGenContext` (Phase 2)**
+  - What/why: Make validated `MapGenConfig` the single read path for all steps via context, and map legacy groupings into canonical sub‑schemas.
+  - Open questions: Which legacy groups should be preserved via adapters vs. removed outright? Any config groups that should be deprecated instead of parity?
+  - Sources: `resources/PRD-config-refactor.md` (Phase 2), `resources/config-wiring-status.md`, `resources/PRD-plate-generation.md`.
+
+- **Config shape evolution + tunables retirement (Phase 3)**
+  - What/why: Reshape config to step/phase‑aligned sections, introduce compatibility shims where needed, and retire most legacy tunables as primary config stores.
+  - Open questions: What minimal tunables surface remains for Swooper compatibility? What’s the cutover/migration plan for existing map entries?
+  - Sources: `resources/PRD-config-refactor.md` (Phase 3), `resources/config-wiring-status.md`, `packages/mapgen-core/src/config/schema.ts` comments.
+
+- **Presets/recipes and canonical BASE_CONFIG**
+  - What/why: Make the `presets` field real by defining a canonical base config + recipe resolution model; enable named presets to supply per‑stage overrides coherently.
+  - Open questions: Do we want full parity with legacy preset semantics, or simplify/deprecate the field? Where should resolution live (bootstrap vs. pipeline pre‑step)?
+  - Sources: `resources/PRD-config-refactor.md`, `resources/config-wiring-status.md` (`presets` currently unused).
+
+- **Canonical data products across clusters**
+  - What/why: Formalize and standardize product shapes (`Heightfield`, `ClimateField`, `StoryOverlays`, plus any hydrology/biome products), and ensure legacy wrappers read/write through these products.
+  - Open questions: Which products must be finalized in M3 vs. deferred to M4? Any products we should intentionally redesign rather than parity?
+  - Sources: `PROJECT-engine-refactor-v1.md` topology, `resources/PRD-pipeline-refactor.md`, `../../system/libs/mapgen/foundation.md`, `resources/STATUS-M-TS-parity-matrix.md`.
+
+- **Collapse the adapter boundary**
+  - What/why: Extend `EngineAdapter` to cover map‑init responsibilities and delete the internal `OrchestratorAdapter` so implementation matches `architecture.md`.
+  - Open questions: Any Civ7‑specific init behaviors that should stay outside the engine boundary? What’s the minimum API to support non‑Civ7 adapters later?
+  - Sources: `../../system/libs/mapgen/architecture.md`, adapter boundary note in `M2-stable-engine-slice.md`.
+
+- **StageManifest dependency semantics**
+  - What/why: Start using `requires`/`provides` meaningfully on steps and ensure stage ordering/dependency graphs are validated at least in dev mode.
+  - Open questions: Is runtime enforcement owned by late M3 or M4? Do we keep `requires/provides` parity with legacy stage toggles or rethink dependencies?
+  - Sources: `resources/PRD-pipeline-refactor.md`, `resources/config-wiring-status.md` (`requires/provides` currently unused), M4 validation scope in `M4-tests-validation-cleanup.md`.
+
+- **Config parity “keep vs. deprecate” decisions**
+  - What/why: Resolve remaining config wiring gaps that affect behavior or diagnostics, and explicitly decide parity vs. deprecation for dead/legacy fields.
+  - Open questions: Decide on remaining dead/legacy fields beyond the M2 stable slice (e.g., `foundation.seed.*`, `oceanSeparation.respectSeaLanes`, other `Missing` rows in `config-wiring-status.md`). Stable‑slice diagnostics + story‑rainfall surface alignment is owned by M2.
+  - Sources: `resources/config-wiring-status.md`, `resources/PRD-config-refactor.md`, M2 outcomes in `M2-stable-engine-slice.md`.
 
 ## Acceptance Criteria
 

@@ -48,7 +48,9 @@
       "mcp__ide__getDiagnostics",
       "Bash(npm info:*)",
       "Read(//private/tmp/**)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "mcp__linear-personal__get_project",
+      "mcp__linear-personal__search_documentation"
     ],
     "deny": [],
     "ask": []

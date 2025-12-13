@@ -39,7 +39,7 @@ Detractions / Open Questions:
 
 Detractions / Open Questions:
 - `hydrateMarginsStoryTags` has no TS caller today; no TS stage publishes a margins overlay. In JS, `storyTagContinentalMargins` used this to back-fill margin tags. TS currently has a **dead overlay pipe**.
-- Planned to be revived by minimal story parity in M2 (`LOCAL-M2-STORY-PARITY`), with full overlay canonicalization in M3 (`LOCAL-M3-STORY-SYSTEM`).
+- Planned to be revived by minimal story parity in M2 (`CIV-36`), with full overlay canonicalization in M3 (`LOCAL-M3-STORY-SYSTEM`).
 
 ---
 
@@ -47,7 +47,7 @@ Detractions / Open Questions:
 
 | JS Module | TS Equivalent | Status | Notes |
 |----------|---------------|--------|-------|
-| `story/tagging.js` | **None** (expected: `packages/mapgen-core/src/story/tagging.ts`) | Missing (planned split across M2/M3) | JS implements the core climate story: `storyTagHotspotTrails`, `storyTagRiftValleys`, `storyTagOrogenyBelts`, `storyTagContinentalMargins`, `storyTagClimateSwatches`, `storyTagPaleoHydrology` plus an `OrogenyCache`. These functions populate `StoryTags`, publish overlays, and drive rainfall via `writeClimateField`/`syncClimateField` and `applyClimateSwatches`. TS implementation is tracked under parent `CIV-21` with children `LOCAL-M2-STORY-PARITY` and `LOCAL-M3-STORY-SYSTEM`. |
+| `story/tagging.js` | **None** (expected: `packages/mapgen-core/src/story/tagging.ts`) | Missing (planned split across M2/M3) | JS implements the core climate story: `storyTagHotspotTrails`, `storyTagRiftValleys`, `storyTagOrogenyBelts`, `storyTagContinentalMargins`, `storyTagClimateSwatches`, `storyTagPaleoHydrology` plus an `OrogenyCache`. These functions populate `StoryTags`, publish overlays, and drive rainfall via `writeClimateField`/`syncClimateField` and `applyClimateSwatches`. TS implementation is tracked under parent `CIV-21` with children `CIV-36` and `LOCAL-M3-STORY-SYSTEM`. |
 
 Detractions / Open Questions:
 - **Missing parity:** None of the following exist in TS:
@@ -56,7 +56,7 @@ Detractions / Open Questions:
   - Orogeny belts and caches used by climate refinement.
   - Continental margins tagging + margins overlay publication.
   - Climate swatches and paleo passes that adjust rainfall around story structures.
-- **Orchestration gap (today):** `MapOrchestrator` only has a stub `storySeed` stage that calls `resetStoryTags()`. Minimal tagging will be wired into existing story stages in M2 (`LOCAL-M2-STORY-PARITY`), with remaining stages migrated into Task Graph steps in M3 (`LOCAL-M3-STORY-SYSTEM`).
+- **Orchestration gap (today):** `MapOrchestrator` only has a stub `storySeed` stage that calls `resetStoryTags()`. Minimal tagging will be wired into existing story stages in M2 (`CIV-36`), with remaining stages migrated into Task Graph steps in M3 (`LOCAL-M3-STORY-SYSTEM`).
 
 ---
 
@@ -162,11 +162,11 @@ Detractions / Open Questions:
 
 | JS Module | TS Equivalent | Status | Notes |
 |----------|---------------|--------|-------|
-| `bootstrap/climate-tunables.js` | **None** (callers use `bootstrap/tunables.ts`) | Detraction / Open | JS exposed a climate-focused facade (`CLIMATE_TUNABLES`, `CLIMATE_DRIVERS`, `MOISTURE_ADJUSTMENTS`, `STORY_TUNABLES`). TS expects layers to read `CLIMATE_CFG` (and story sub-blocks) directly from tunables. |
-| `bootstrap/foundation-tunables.js` | **None** (callers use `bootstrap/tunables.ts`) | Detraction / Open | JS had a dedicated `FOUNDATION_TUNABLES` view; TS uses `FOUNDATION_CFG`, `FOUNDATION_PLATES`, etc., directly. |
+| `bootstrap/climate-tunables.js` | **None** (callers use `bootstrap/tunables.ts`) | Parity (intentional drop) | JS exposed a climate-focused facade (`CLIMATE_TUNABLES`, `CLIMATE_DRIVERS`, `MOISTURE_ADJUSTMENTS`, `STORY_TUNABLES`). TS intentionally does **not** reintroduce these facades; layers should read `CLIMATE_CFG` (and story sub-blocks) and `CLIMATE.*` helpers directly from tunables. |
+| `bootstrap/foundation-tunables.js` | **None** (callers use `bootstrap/tunables.ts`) | Parity (intentional drop) | JS had a dedicated `FOUNDATION_TUNABLES` view; TS intentionally uses `FOUNDATION_CFG`, `FOUNDATION_PLATES`, etc., directly without a facade. |
 
 Detractions / Open Questions:
-- These look like intentional simplifications, but they break JS-era import ergonomics. We should either reintroduce typed facades, or mark them as intentionally dropped and update docs/snippets.
+- Resolved: JS-era tunables facades are intentionally not ported. TS code should use core tunables blocks and helpers directly; no follow‑up parity work is planned for these facades.
 
 ---
 
