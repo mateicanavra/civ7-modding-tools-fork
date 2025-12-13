@@ -564,3 +564,32 @@ This is the right kind of “stabilize the consumer boundary” work for M2: it 
 **Recommended Next Moves (Future Work, Not M2)**  
 1. Promote the binding portion of the contract into `docs/system/libs/mapgen/` once the `FoundationContext` shape stabilizes across early M3 steps.  
 2. Add one small integration check that asserts the contract’s invariants (tensor lengths, nullability rules) across a couple of canonical seeds.
+
+---
+
+## CIV-40 – Clarify MapGen System Docs: Target vs Current (post‑M2)
+
+**Quick Take**  
+Mostly satisfied. The canonical MapGen system docs now clearly distinguish **Target** architecture from **Current (post‑M2)** reality, which reduces ongoing confusion while M3/M4 land. The remaining gaps are minor but worth tightening to avoid readers misinterpreting “target step pipeline” text as already implemented.
+
+**Intent & Assumptions**  
+- Add prominent “Target vs Current” framing to `docs/system/libs/mapgen/{architecture,foundation,climate}.md`.  
+- Keep “Current” guidance short and link-heavy; avoid a full reconciliation against fast-moving M3 details.
+
+**What’s Strong**  
+- `docs/system/libs/mapgen/architecture.md` adds an explicit Status block and clearly warns that `PipelineExecutor` / `MapGenStep` / `StepRegistry` are **target**, not universally present today.  
+- `docs/system/libs/mapgen/foundation.md` includes a concise “Current implementation (post‑M2)” section and points directly to the binding M2 contract and project snapshot docs.  
+- The change improves milestone sequencing hygiene without rewriting the target architecture docs to mirror current code line-by-line.
+
+**High-Leverage Issues**  
+- **`docs/system/libs/mapgen/climate.md` “Current implementation (post‑M2)” section doesn’t link to the M2 contract doc.**  
+  The task’s acceptance criteria call out linking to the M2 contract + project snapshot docs; climate currently links to snapshots but not `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`. Direction: add that link (or a climate-specific contract if/when it exists) so “what’s wired today” has a single canonical reference path.  
+- **Climate doc mixes “current” and “target step pipeline” language in a way that can be misread.**  
+  Even with the banner, sections like “The Pipeline … MapGenSteps” and the RFC-style implementation plan are easy to skim as “already wired.” Direction: add explicit “Target pipeline (future)” headings (or move RFC content under a clearly labeled future section) to prevent accidental over-trust by agents and new contributors.
+
+**Fit Within the Milestone**  
+This is a good post‑M2 enabling cleanup: it aligns the canonical system docs with M2’s explicit boundary (“orchestrator-centric stable slice now; step/task graph later”) and reduces the chance of future work accidentally assuming M3 primitives already exist.
+
+**Recommended Next Moves (Follow-up)**  
+1. Tighten `docs/system/libs/mapgen/climate.md` current-section links and add more explicit “Target vs Current” sectioning around the step-pipeline/RFC content.  
+2. Consider mirroring the `architecture.md` “Important: target-only primitives” warning inside `climate.md` where it first introduces `MapGenStep`s.
