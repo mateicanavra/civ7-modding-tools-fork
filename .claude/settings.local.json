@@ -36,7 +36,10 @@
       "mcp__linear-personal__create_issue",
       "Bash(./scripts/lint-adapter-boundary.sh:*)",
       "mcp__linear-personal__create_comment",
-      "WebSearch"
+      "WebSearch",
+      "Bash(mcp__linear-personal__list_teams)",
+      "Bash(claude mcp list:*)",
+      "Bash(linear --help:*)"
     ],
     "deny": [],
     "ask": []
