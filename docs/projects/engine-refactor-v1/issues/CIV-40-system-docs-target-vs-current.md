@@ -40,11 +40,11 @@ Add an explicit “Target vs Current implementation” framing to the canonical 
 
 ## Acceptance Criteria
 
-- [ ] `docs/system/libs/mapgen/architecture.md` clearly labels “Target” vs “Current” guidance and points readers to project docs for post‑M2 reality where appropriate.
-- [ ] `docs/system/libs/mapgen/foundation.md` includes a clear “Current implementation (post‑M2)” subsection and links to the M2 contract + project snapshot docs.
-- [ ] `docs/system/libs/mapgen/climate.md` includes a clear “Current implementation (post‑M2)” subsection and links to the M2 contract + project snapshot docs.
-- [ ] The added “Current” sections are short, scoped, and explicitly described as transient.
-- [ ] The target architecture sections remain canonical and are not rewritten to mirror current code line-by-line.
+- [x] `docs/system/libs/mapgen/architecture.md` clearly labels “Target” vs “Current” guidance and points readers to project docs for post‑M2 reality where appropriate.
+- [x] `docs/system/libs/mapgen/foundation.md` includes a clear “Current implementation (post‑M2)” subsection and links to the M2 contract + project snapshot docs.
+- [x] `docs/system/libs/mapgen/climate.md` includes a clear “Current implementation (post‑M2)” subsection and links to the M2 contract + project snapshot docs.
+- [x] The added “Current” sections are short, scoped, and explicitly described as transient.
+- [x] The target architecture sections remain canonical and are not rewritten to mirror current code line-by-line.
 
 ## Out of Scope
 
