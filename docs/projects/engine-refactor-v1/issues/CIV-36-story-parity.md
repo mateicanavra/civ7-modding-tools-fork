@@ -24,26 +24,27 @@ Parent issue: `CIV-21-story-tagging.md`.
 
 ## Deliverables
 
-- [ ] **Port minimal `story/tagging.ts` subset**
+- [x] **Port minimal `story/tagging.ts` subset**
   - Continental margins tagging (active/passive shelves) and publish a margins overlay.
   - Hotspot trail tagging with core sub-tags (`hotspot`, `hotspotParadise`, `hotspotVolcanic`).
   - Rift line + shoulder tagging.
   - Optional: basic orogeny belts if it is low‑risk in the orchestrator slice.
-- [ ] **Wire into `MapOrchestrator`**
+    - **Decision (2025‑12‑12, M2 / CIV‑36 discussion):** **deferred**. Orogeny belts are not ported in this M2 slice because they require additional cross‑stage plumbing (an `OrogenyCache`, a `storyOrogeny` stage, and passing that cache into story‑aware climate/swatches). We will revisit once the remaining story stages (swatches/corridors) are in view; tracked in project triage/backlog.
+- [x] **Wire into `MapOrchestrator`**
   - Call minimal tagging in `storySeed` / `storyHotspots` / `storyRifts` stages without changing ordering.
   - Ensure story tags/overlays exist before climate/biomes/features run.
-- [ ] **Minimal validation**
+- [x] **Minimal validation**
   - When story stages are enabled, emit a warning or assert if the corresponding tag sets remain empty.
-- [ ] **Smoke checks**
+- [x] **Smoke checks**
   - Add one orchestrator/story smoke test that asserts non‑empty margins/hotspots/rifts on a typical map when enabled.
 
 ## Acceptance Criteria
 
-- [ ] TS `story/tagging.ts` exists and implements margins/hotspots/rifts (± orogeny).
-- [ ] `StoryTags` are populated after story stages execute.
-- [ ] Margins overlay is published and `hydrateMarginsStoryTags` is exercised.
-- [ ] Downstream climate/biomes/features regain story‑aware branches.
-- [ ] Build passes; smoke checks pass.
+- [x] TS `story/tagging.ts` exists and implements margins/hotspots/rifts. Orogeny belts are explicitly deferred out of M2 (see Deliverables note).
+- [x] `StoryTags` are populated after story stages execute.
+- [x] Margins overlay is published and `hydrateMarginsStoryTags` is exercised.
+- [x] Downstream climate/biomes/features regain story‑aware branches.
+- [x] Build passes; smoke checks pass.
 
 ## Out of Scope
 
@@ -58,6 +59,9 @@ These land under `LOCAL-M3-story-system.md`.
 
 - Depends on config/call‑site stability (CIV‑18).
 - This is an orchestrator‑centric port intended to be wrapped as steps in M3.
+- Follow‑ups:
+  - Globals coupling retirement and step‑style wrapping are tracked in `LOCAL-M3-story-system.md`.
+  - Distribution/overlay regression harness is tracked in project backlog (`docs/projects/engine-refactor-v1/triage.md`).
 
 ---
 

@@ -365,3 +365,42 @@ This task lands cleanly inside M2’s scope: it makes the current stable slice d
 - `MapGenConfigSchema.diagnostics` is now explicitly documented as legacy/no-op to discourage use in M2.  
 - Added a compile-time parity guard between `FoundationDiagnosticsConfigSchema` and `DevLogConfig` in `packages/mapgen-core/src/dev/diagnostics-parity.ts`.  
 - Stage failure logging now emits a single failure line (with optional timing suffix) even when `LOG_TIMING` is enabled.
+
+---
+
+## CIV-36 – Minimal Story Parity (Margins, Hotspots, Rifts)
+
+**Quick Take**  
+Mostly satisfied for M2. The TS port of minimal story tagging (margins, hotspot trails, rift valleys) is now present, wired into the stable-slice orchestrator in the correct order, and backed by a deterministic smoke test. Remaining gaps are about purity/forward-compat and optional parity (orogeny), not current behavior.
+
+**Intent & Assumptions**  
+- Restore the minimum narrative signals needed for downstream parity by porting continental margins, hotspot trails, and rift valleys into TS and running them in `MapOrchestrator` before climate/biomes/features.  
+- Keep behavior close to legacy JS while avoiding pipeline refactors; accept “good enough” heuristics so long as StoryTags/overlays are non-empty and consumer branches re‑engage.  
+- Treat orogeny belts as optional for M2 unless low-risk to add.
+
+**What’s Strong**  
+- `packages/mapgen-core/src/story/tagging.ts` cleanly ports the three required passes and publishes a margins overlay while hydrating `StoryTags.activeMargin/passiveShelf`.  
+- Orchestrator wiring in `storySeed → storyHotspots → storyRifts` preserves legacy ordering and guarantees tags exist before downstream stages.  
+- Rift tagging prefers foundation tensors when available and falls back safely to a legacy random march when foundation is off, preventing silent no‑ops.  
+- Smoke validation is lightweight and consistent with other stable-slice checks, and `packages/mapgen-core/test/orchestrator/story-parity.smoke.test.ts` pins non‑empty tags under deterministic RNG.
+
+**High-Leverage Issues**  
+- **Tagging still depends on global tunables/state, making M3 step‑migration harder.**  
+  The port reads config via `getTunables()` and mutates global `getStoryTags()`. That’s fine for M2, but it increases coupling and future refactor cost. For M3, prefer passing `{ config, tags }` explicitly (or a thin “step-like” wrapper) so the logic can move into `MapGenStep`s without re‑plumbing globals.  
+- **Margins/Hotspots/Rifts heuristics are intentionally simplified; parity risk remains unmeasured.**  
+  The row‑scan margins quota and sparse hotspot/rift marches should re‑activate story‑aware branches, but may diverge from legacy distributions on unusual coastlines or map sizes. A small visual/metric regression check (or golden smoke snapshots) would help confirm “minimum parity” beyond non‑emptiness.  
+- **Optional orogeny belts remain absent.**  
+  Not a blocker for M2 per scope, but if climate or biome parity still depends on orogeny in practice, this should be an explicit early‑M3 follow‑up rather than rediscovered later.
+
+**Fit Within the Milestone**  
+This task is a good M2 compromise: it restores story‑driven consumer behavior on the existing orchestrator slice without pulling pipeline/step abstractions forward. The remaining coupling reflects deliberate sequencing for M3 rather than a miss here.
+
+**Recommended Next Moves (Future Work, Not M2)**  
+1. Introduce a thin step‑style interface for story tagging so globals can be retired during M3 migration.  
+2. Add a minimal regression harness that checks distributions/overlays on a few canonical seeds, not just non‑empty tags.  
+3. Decide explicitly whether orogeny belts are still required for downstream parity and schedule the port if so.
+
+**Update (2025‑12)**  
+- **Globals coupling:** acknowledged; tracked under `docs/projects/engine-refactor-v1/issues/LOCAL-M3-story-system.md` as part of step/task‑graph migration (no M2 change required).  
+- **Regression harness:** added to project backlog in `docs/projects/engine-refactor-v1/triage.md` (“Add minimal story parity regression harness”).  
+- **Orogeny belts:** explicitly deferred out of M2 in `docs/projects/engine-refactor-v1/issues/CIV-36-story-parity.md` and `docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md`; backlog entry exists in `docs/projects/engine-refactor-v1/triage.md`.

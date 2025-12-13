@@ -36,3 +36,13 @@ export {
   type MarginStoryTags,
   type HydrateMarginsOptions,
 } from "./overlays.js";
+
+// Re-export minimal tagging subset
+export {
+  storyTagContinentalMargins,
+  storyTagHotspotTrails,
+  storyTagRiftValleys,
+  type ContinentalMarginsOptions,
+  type HotspotTrailsSummary,
+  type RiftValleysSummary,
+} from "./tagging.js";
