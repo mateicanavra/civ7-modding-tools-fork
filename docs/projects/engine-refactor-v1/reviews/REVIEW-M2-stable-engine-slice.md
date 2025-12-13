@@ -507,6 +507,36 @@ This task is a good M2 compromise: it restores story‑driven consumer behavior 
 
 ---
 
+## CIV-33 – Align M2 Project Docs with Implemented Config + Foundation Slice
+
+**Quick Take**  
+Yes for M2. The project-level milestone, brief, and status snapshot now consistently describe the actual post‑M2 flow (`bootstrap() → validated MapGenConfig → tunables → MapOrchestrator → FoundationContext`) and explicitly defer generic pipeline primitives (`PipelineExecutor` / `MapGenStep` / `StepRegistry`) to M3+.
+
+**Intent & Assumptions**  
+- Align `docs/projects/engine-refactor-v1/` docs to describe the orchestrator-centric M2 slice, not the target Task Graph architecture.  
+- Ensure legacy global-config patterns are not described as current behavior.  
+- Treat system docs (`docs/system/libs/mapgen/*`) as canonical *target* architecture and avoid turning them into temporal status logs.
+
+**What’s Strong**  
+- `docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md` cleanly frames the milestone boundary around the current `MapOrchestrator` slice and calls out pipeline primitives as deferred work.  
+- `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md` and `docs/projects/engine-refactor-v1/status.md` match that framing, placing `PipelineExecutor`/steps/registry under M3+ “Ready Next” work.  
+- Remaining mentions of `globalThis.__EPIC_MAP_CONFIG__` in project docs/issues are framed as historical or “removed,” rather than implying it is still used today.
+
+**High-Leverage Issues**  
+- **Milestone doc still reads “Status: Planned”.**  
+  The content reads like an executed milestone definition and post‑mortem boundary note; leaving the status as Planned is confusing for readers using these docs as the system of record. Direction: either update the milestone status to reflect reality, or add a clear “this doc is a living plan; M2 is now complete” callout. (Follow-up)  
+- **Some historical `__EPIC_MAP_CONFIG__` mentions remain outside project docs.**  
+  Example: `docs/system/mods/swooper-maps/architecture.md` still mentions the global config store. This is not a CIV‑33 blocker (scope is project docs/issues), but it’s a predictable source of confusion until CIV‑40’s “Target vs Current” framing is consistently applied. (Follow-up)
+
+**Fit Within the Milestone**  
+This is high‑leverage “close the loop” work for M2: it prevents the docs from promising M3 architecture early and keeps the stable slice definition aligned with what is actually shipped today.
+
+**Recommended Next Moves (Future Work, Not M2)**  
+1. As part of CIV‑40, add explicit “Current (post‑M2)” pointers/banners in system docs where they currently read like an implementation guide.  
+2. Add a lightweight docs checklist (or `rg`-based guard) to prevent reintroducing “pipeline primitives already wired” language into M2 status/brief docs.
+
+---
+
 ## CIV-34 – FoundationContext Contract + Config → Tunables → World-Model Flow Doc
 
 **Quick Take**  

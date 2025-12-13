@@ -121,7 +121,7 @@ These may be split or reassigned across milestones as we refine the execution pl
   - **Final M2 cleanup/stabilization batch (to land before calling the milestone fully done):**
   - **Docs alignment**
     - Update M2 docs and issue files so they accurately describe the current flow: `bootstrap() → validated MapGenConfig → tunables → MapOrchestrator → FoundationContext`, and remove or soften wording that assumes an already-implemented `PipelineExecutor` / `MapGenStep` / `StepRegistry`.
-    - Remove or clearly mark as “future” any remaining references to `globalThis.__EPIC_MAP_CONFIG__` and the old global config pattern.
+    - Treat `globalThis.__EPIC_MAP_CONFIG__` as historical (removed); avoid reintroducing it in docs and clearly label any mentions as “pre-M2”.
   - **Contract stabilization**
     - Make the `FoundationContext` contract explicit: what it guarantees to downstream consumers, and which data products exist at the end of the M2 slice (see `resources/CONTRACT-foundation-context.md` as the working contract doc).
     - Clarify the role of tunables as a view over validated `MapGenConfig` (derived/read-only perspective) rather than a primary config store.
