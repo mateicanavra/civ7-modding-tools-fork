@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@civ7/types": "workspace:*",
+    "esbuild": "^0.27.0",
     "tsup": "^8.3.0",
     "typescript": "^5.9.2"
   }
