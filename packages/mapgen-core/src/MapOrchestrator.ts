@@ -19,16 +19,24 @@
  * - Stages are enabled/disabled via configuration
  *
  * Usage (in mod entry point):
- *   import { MapOrchestrator } from '@swooper/mapgen-core';
- *   import { CivEngineAdapter } from '@civ7/adapter';
+ *   import { bootstrap, MapOrchestrator } from '@swooper/mapgen-core';
  *
- *   const orchestrator = new MapOrchestrator();
- *   engine.on('RequestMapInitData', () => orchestrator.requestMapData());
- *   engine.on('GenerateMap', () => orchestrator.generateMap());
+ *   engine.on('RequestMapInitData', () => {
+ *     const config = bootstrap({});
+ *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
+ *     orchestrator.requestMapData();
+ *   });
+ *
+ *   engine.on('GenerateMap', () => {
+ *     const config = bootstrap({ overrides: { ... } });
+ *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
+ *     orchestrator.generateMap();
+ *   });
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
 import { Civ7Adapter, createCiv7Adapter } from "@civ7/adapter/civ7";
+import type { MapGenConfig } from "./config/index.js";
 import type {
   LandmassConfig,
   MountainsConfig,
@@ -55,7 +63,13 @@ import {
   HILL_TERRAIN,
   NAVIGABLE_RIVER_TERRAIN,
 } from "./core/terrain-constants.js";
-import { getTunables, resetTunables, stageEnabled } from "./bootstrap/tunables.js";
+import {
+  getTunables,
+  resetTunables,
+  stageEnabled,
+  rebind as rebindTunables,
+} from "./bootstrap/tunables.js";
+import { setValidatedConfig, hasConfig } from "./bootstrap/runtime.js";
 import { validateStageDrift } from "./bootstrap/resolved.js";
 import { resetStoryTags } from "./story/tags.js";
 import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/index.js";
@@ -368,16 +382,57 @@ function resolveOrchestratorAdapter(): OrchestratorAdapter {
 
 /**
  * Central orchestrator for the map generation pipeline.
+ *
+ * Constructor accepts validated MapGenConfig as first parameter.
+ * This enables explicit dependency injection and fail-fast validation.
+ *
+ * Usage:
+ *   const config = bootstrap(options);
+ *   const orchestrator = new MapOrchestrator(config, { logPrefix: "[MOD]" });
+ *   orchestrator.generateMap();
  */
 export class MapOrchestrator {
-  private config: OrchestratorConfig;
+  /** Validated map generation config (injected via constructor) */
+  private readonly mapGenConfig: MapGenConfig;
+  /** Orchestrator options (adapter, logging, etc.) */
+  private options: OrchestratorConfig;
   private adapter: OrchestratorAdapter;
   private stageResults: StageResult[] = [];
   private worldModelConfigBound = false;
 
-  constructor(config: OrchestratorConfig = {}) {
-    this.config = config;
+  /**
+   * Create a new MapOrchestrator with validated config.
+   *
+   * @param config - Validated MapGenConfig from bootstrap()
+   * @param options - Orchestrator options (adapter, logPrefix, etc.)
+   * @throws Error if config is not provided or invalid
+   */
+  constructor(config: MapGenConfig, options: OrchestratorConfig = {}) {
+    // Fail-fast: config is required
+    if (!config || typeof config !== "object") {
+      throw new Error(
+        "MapOrchestrator requires validated MapGenConfig. " +
+          "Call bootstrap() first and pass the returned config."
+      );
+    }
+
+    this.mapGenConfig = config;
+    this.options = options;
     this.adapter = resolveOrchestratorAdapter();
+
+    // Store config in module-scoped state for backwards compatibility
+    // with tunables system (which reads from getValidatedConfig())
+    // This ensures getTunables() returns values derived from this config.
+    setValidatedConfig(config);
+    rebindTunables();
+  }
+
+  /**
+   * Get the validated MapGenConfig.
+   * Exposed for downstream stages that need direct config access.
+   */
+  getMapGenConfig(): Readonly<MapGenConfig> {
+    return this.mapGenConfig;
   }
 
   /**
@@ -390,7 +445,7 @@ export class MapOrchestrator {
    * For testing, use `config.mapSizeDefaults` to bypass game settings.
    */
   requestMapData(initParams?: Partial<MapInitParams>): void {
-    const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
+    const prefix = this.options.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} === RequestMapInitData ===`);
 
     // Get map size and info: use config defaults if provided (for testing),
@@ -398,10 +453,10 @@ export class MapOrchestrator {
     let mapSizeId: number;
     let mapInfo: MapInfo | null;
 
-    if (this.config.mapSizeDefaults) {
+    if (this.options.mapSizeDefaults) {
       // Testing mode: use provided defaults
-      mapSizeId = this.config.mapSizeDefaults.mapSizeId ?? 0;
-      mapInfo = this.config.mapSizeDefaults.mapInfo ?? null;
+      mapSizeId = this.options.mapSizeDefaults.mapSizeId ?? 0;
+      mapInfo = this.options.mapSizeDefaults.mapInfo ?? null;
       console.log(`${prefix} Using test mapSizeDefaults`);
     } else {
       // Production mode: query game settings
@@ -448,7 +503,7 @@ export class MapOrchestrator {
    * Runs the full generation pipeline.
    */
   generateMap(): GenerationResult {
-    const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
+    const prefix = this.options.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} === GenerateMap ===`);
 
     this.stageResults = [];
@@ -965,7 +1020,7 @@ export class MapOrchestrator {
     ctx: ExtendedMapContext,
     tunables: ReturnType<typeof getTunables>
   ): FoundationContext | null {
-    const prefix = this.config.logPrefix || "[SWOOPER_MOD]";
+    const prefix = this.options.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} Initializing foundation...`);
 
     // Ensure WorldModel pulls configuration from foundation tunables
@@ -1019,13 +1074,13 @@ export class MapOrchestrator {
 
   private createLayerAdapter(width: number, height: number): EngineAdapter {
     // Priority 1: Use pre-built adapter if provided
-    if (this.config.adapter) {
-      return this.config.adapter;
+    if (this.options.adapter) {
+      return this.options.adapter;
     }
 
     // Priority 2: Use custom factory if provided
-    if (this.config.createAdapter) {
-      return this.config.createAdapter(width, height);
+    if (this.options.createAdapter) {
+      return this.options.createAdapter(width, height);
     }
 
     // Priority 3: Default to Civ7Adapter from @civ7/adapter

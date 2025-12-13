@@ -41,7 +41,8 @@
       "Bash(claude mcp list:*)",
       "Bash(linear --help:*)",
       "Bash(pnpm -C packages/mapgen-core run check-types:*)",
-      "Bash(pnpm deploy:mods)"
+      "Bash(pnpm deploy:mods)",
+      "Bash(pnpm test:*)"
     ],
     "deny": [],
     "ask": []

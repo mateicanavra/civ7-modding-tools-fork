@@ -12,6 +12,7 @@
 
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
+import { getDefaultConfig } from "../../src/config/index.js";
 
 describe("MapOrchestrator.requestMapData", () => {
   // Capture SetMapInitData calls via engine.call spy
@@ -44,7 +45,7 @@ describe("MapOrchestrator.requestMapData", () => {
 
   describe("with mapSizeDefaults config", () => {
     it("should use dimensions from mapSizeDefaults.mapInfo", () => {
-      const orchestrator = new MapOrchestrator({
+      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: {
@@ -73,7 +74,7 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should use standard fallbacks when mapInfo is null", () => {
-      const orchestrator = new MapOrchestrator({
+      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         mapSizeDefaults: {
           mapSizeId: -1,
           mapInfo: undefined,
@@ -98,7 +99,7 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should use partial mapInfo with fallbacks for missing fields", () => {
-      const orchestrator = new MapOrchestrator({
+      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: {
@@ -127,7 +128,7 @@ describe("MapOrchestrator.requestMapData", () => {
 
   describe("with initParams overrides", () => {
     it("should allow explicit dimension overrides via initParams", () => {
-      const orchestrator = new MapOrchestrator({
+      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: {
@@ -160,7 +161,7 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should allow explicit latitude overrides via initParams", () => {
-      const orchestrator = new MapOrchestrator({
+      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: {
@@ -192,7 +193,7 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should allow wrapX/wrapY overrides via initParams", () => {
-      const orchestrator = new MapOrchestrator({
+      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: { GridWidth: 84, GridHeight: 54 },
@@ -217,7 +218,7 @@ describe("MapOrchestrator.requestMapData", () => {
 
   describe("default wrapX/wrapY behavior", () => {
     it("should default to wrapX=true, wrapY=false", () => {
-      const orchestrator = new MapOrchestrator({
+      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: { GridWidth: 84, GridHeight: 54 },
@@ -239,7 +240,7 @@ describe("MapOrchestrator.requestMapData", () => {
 
   describe("different map sizes", () => {
     it("should respect large map dimensions from mapInfo", () => {
-      const orchestrator = new MapOrchestrator({
+      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         mapSizeDefaults: {
           mapSizeId: 2, // Simulating MAPSIZE_LARGE
           mapInfo: {
@@ -267,7 +268,7 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should respect small map dimensions from mapInfo", () => {
-      const orchestrator = new MapOrchestrator({
+      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         mapSizeDefaults: {
           mapSizeId: 0, // Simulating MAPSIZE_SMALL
           mapInfo: {
