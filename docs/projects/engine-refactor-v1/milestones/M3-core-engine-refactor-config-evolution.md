@@ -142,6 +142,84 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
   - Open questions: Decide on remaining dead/legacy fields beyond the M2 stable slice (e.g., `foundation.seed.*`, `oceanSeparation.respectSeaLanes`, other `Missing` rows in `config-wiring-status.md`). Stable‑slice diagnostics + story‑rainfall surface alignment is owned by M2.
   - Sources: `resources/config-wiring-status.md`, `resources/PRD-config-refactor.md`, M2 outcomes in `M2-stable-engine-slice.md`.
 
+## Sequencing & Parallelization Plan (Phases + Graphite Stacks)
+
+> This section proposes an implementation sequencing plan (phases + stacks). It does not change this milestone’s scope; it describes one recommended way to land M3 safely while keeping `main` buildable and map generation coherent.
+>
+> **Phases** are planning/story units (not new Linear artifacts). **Stacks** describe how we expect to ship via Graphite stacked PRs (see `docs/process/GRAPHITE.md`).
+
+### Phase A — Task Graph MVP becomes “the way to run” (wrap-only)
+
+**Goal:** Establish the Task Graph plumbing and a “standard pipeline entry” that can run steps end-to-end, without changing generation algorithms.
+
+**Exit criteria (what’s true when done):**
+- A `PipelineExecutor` + `StepRegistry` + `MapGenStep` contract exists and is used in at least one real engine entry path.
+- A “standard pipeline recipe” exists (even if it maps to wrapper steps) and produces a coherent map.
+- Wrapper steps can be introduced incrementally without breaking `main`.
+
+**Stack 1 — Task Graph Core + Standard Pipeline Entry (TBD issue to mint)**
+- **Concept / parent issue (TBD):** `[M3] Task Graph MVP (MapGenStep/StepRegistry/PipelineExecutor + standard pipeline entry)`
+- **What lands:** executor/registry/step interface + minimal dependency checks + step wrappers scaffold + a safe “standard pipeline” entry path.
+- **Merge safety:** intended to be **mergeable as a unit into `main`**. Individual PR layers are also merge-safe if they do not flip the default execution path until the final layer of the stack.
+- **Risk controls:** keep the current orchestrator path as the fallback while the executor path is being introduced; switch defaults only when the standard pipeline recipe is complete and validated.
+
+### Phase B — Product spine + consumer migration (still wrap-first)
+
+**Goal:** Make canonical products real for downstream consumers (rainfall, rivers, overlays), then migrate consumers off implicit globals/`GameplayMap` reads.
+
+**Exit criteria:**
+- `ClimateField` is treated as the authoritative rainfall/moisture surface for consumers.
+- A minimal “river data product” exists and can be required by steps.
+- Remaining story system outputs are published via `StoryOverlays` and run as steps (wrapping/porting as needed).
+- Biomes/features and placement are wired as steps and consume canonical products (even if internal logic remains adapter/legacy).
+
+**Stack 2 — Hydrology Productization + Consumer Migration**
+- **Parent issue:** `LOCAL-M3-HYDROLOGY-PRODUCTS` (`../issues/LOCAL-M3-hydrology-products.md`)
+- **What lands:** publish river summary product + make `ClimateField` canonical for consumers + wrap-first hydrology/climate step boundary that provides these products.
+- **Merge safety:** intended to be **mergeable as a unit into `main`**. If split into multiple PRs, preserve compatibility during the transition (publish products first; migrate consumers incrementally with temporary dual-read shims where necessary).
+
+**Stack 3 — Story System Remainder as Steps + Canonical Overlays**
+- **Parent issue:** `LOCAL-M3-STORY-SYSTEM` (`../issues/LOCAL-M3-story-system.md`)
+- **What lands:** corridors/swatches/paleo + canonical `StoryOverlays` publication + story stages running as steps with explicit contracts.
+- **Merge safety:** safest as **mergeable as a unit into `main`**. This can be layered safely if all new behavior is gated behind stage enablement until the full story remainder is complete.
+
+**Stack 4 — Biomes/Features Adapter + Inputs (issue TBD; CIV-19 decision)**
+- **Concept / parent issue (TBD):** `[M3] Biomes & Features Adapter (consume canonical products)`
+- **Decision point:** `CIV-19` currently lives in `_archive`; decide whether to unarchive/reuse that ID or mint a new M3 issue that replaces it.
+- **What lands:** biomes/features run as a step wrapper and consume `ClimateField`/`StoryOverlays`/river product (no new algorithms).
+- **Merge safety:** intended to be **mergeable as a unit into `main`**. Avoid landing “half migrated” consumers (e.g., biomes moved but features still hard-coded globals) unless protected by compatibility shims.
+
+**Stack 5 — Placement Adapter + Map Size Awareness (issues TBD; CIV-20/CIV-22 decision)**
+- **Concept / parent issue (TBD):** `[M3] Placement Adapter (consume canonical products)`
+- **Concept / parent issue (TBD):** `[M3] Restore Map Size Awareness`
+- **Decision point:** `CIV-20` and `CIV-22` currently live in `_archive`; decide whether to unarchive/reuse those IDs or mint new M3 issues that replace them.
+- **Merge safety:** safest as **mergeable as a unit into `main`** (placement is highly cross-cutting and tends to expose subtle dependencies on upstream artifacts).
+
+### Phase C — Config evolution + adapter-boundary cleanup (ship-ready M3)
+
+**Goal:** Align configuration and engine boundaries with the Task Graph architecture without destabilizing gameplay, using explicit compatibility shims where needed.
+
+**Exit criteria:**
+- `MapGenConfig` is step/phase-aligned and consistently read via context (or a clear per-step config convention).
+- Presets/recipes resolution is defined (or intentionally deprecated), with a canonical base config model.
+- Tunables are retired or reduced to an explicit compatibility layer (no hidden global config).
+- Adapter boundary matches documented architecture (or the remaining mismatch is explicitly deferred).
+
+**Stack 6 — Config Phase 2/3 + Presets/Recipes + Tunables Retirement (TBD issue to mint)**
+- **Concept / parent issue (TBD):** `[M3] Config evolution (Phase 2/3) + presets/recipes + tunables retirement`
+- **What lands:** config-in-context convention + shape evolution + compatibility adapters + tunables reduction.
+- **Merge safety:** can be **mergeable into `main` in layers** if (and only if) compatibility adapters preserve existing config shapes until the final cutover. If the adapters are not ready, treat this as a “merge at end of stack” unit.
+
+**Stack 7 — Collapse Adapter Boundary (TBD issue to mint)**
+- **Concept / parent issue (TBD):** `[M3] Collapse EngineAdapter/OrchestratorAdapter boundary`
+- **What lands:** expand `EngineAdapter` to cover map-init responsibilities and delete `OrchestratorAdapter` so implementation matches `architecture.md`.
+- **Merge safety:** safest as **mergeable as a unit into `main`** late in the milestone (high coupling and hard to partially migrate safely).
+
+### Merge Strategy (answering “one big stack?”)
+
+- **Preferred (if disciplined):** multiple mergeable Graphite stacks (1–7) are viable if we consistently use compatibility shims and keep every intermediate merge runnable and coherent (publish products before migrating consumers; gate new behavior behind stage enablement until complete; avoid partial “consumer moved but producer not” states).
+- **Fallback (safer under uncertainty):** run M3 as **one primary long-running Graphite stack**, using “Stack 1–7” as conceptual sub-stacks for planning/review, and merge only once each phase (or the full milestone) is stable end-to-end.
+
 ## Acceptance Criteria
 
 - Major engine phases are represented as pipeline steps with clear dependency contracts.
@@ -154,11 +232,11 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
 > These mappings are tentative and may be adjusted when the milestone is scheduled.
 
 - Migration of remaining legacy story/climate/biome/placement code into steps:
-  - CIV-19: Biomes & features adapter (`../issues/CIV-19-biomes-features-adapter.md`)
-  - CIV-20: Placement adapter (`../issues/CIV-20-placement-adapter.md`)
+  - CIV-19: Biomes & features adapter (currently archived; decision needed) (`../issues/_archive/CIV-19-biomes-features-adapter.md`)
+  - CIV-20: Placement adapter (currently archived; decision needed) (`../issues/_archive/CIV-20-placement-adapter.md`)
   - CIV-21: Full story port parent (`../issues/CIV-21-story-tagging.md`)
     - Remaining M3 portion: `LOCAL-M3-STORY-SYSTEM` (`../issues/LOCAL-M3-story-system.md`)
-  - CIV-22: Map size awareness (`../issues/CIV-22-map-size-awareness.md`)
+  - CIV-22: Map size awareness (currently archived; decision needed) (`../issues/_archive/CIV-22-map-size-awareness.md`)
 - Data product unlocks:
   - `LOCAL-M3-HYDROLOGY-PRODUCTS` (`../issues/LOCAL-M3-hydrology-products.md`)
 - Any new issues spawned from the parity matrix or config refactor PRD that touch multiple phases.
