@@ -78,13 +78,13 @@ Below is a full pipeline proposal that:
 
 **Trade‑off:** We postpone groundwater/aquifers beyond a simple soil‑moisture bucket.
 
-**Rationale:** Your climate doc already scopes hydrology refinement to basin filling → flow routing → river generation, with optional erosion. The research doc's hydrology abstraction gives a minimal, correct graph formulation (depression filling + steepest descent + flux accumulation).
+**Rationale:** Your hydrology/climate doc already scopes hydrology refinement to basin filling → flow routing → river generation, with optional erosion. The research doc's hydrology abstraction gives a minimal, correct graph formulation (depression filling + steepest descent + flux accumulation).
 
 ---
 
 ## Required architecture reconciliation: update the Context "API" once, then stop touching it
 
-Right now, your **architecture.md** context artifact list includes mesh/plateGraph/tectonics and riverGraph. But **foundation.md** clearly defines a `crust` artifact and treats it as foundational input for downstream reasoning. And **climate.md** explicitly proposes formalizing a `climate` artifact container.
+Right now, your **architecture.md** context artifact list includes mesh/plateGraph/tectonics and riverGraph. But **foundation.md** clearly defines a `crust` artifact and treats it as foundational input for downstream reasoning. And **hydrology.md** explicitly proposes formalizing a `climate` artifact container.
 
 So: do one deliberate "types expansion" now (core/types.ts), then build everything as steps. My proposed artifact containers:
 

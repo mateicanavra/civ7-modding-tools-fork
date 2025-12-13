@@ -23,6 +23,7 @@ This milestone corresponds to **Milestone 3** in `PROJECT-engine-refactor-v1.md`
 - Make all major stages (foundation, morphology, hydrology/climate, narrative overlays, biomes, placement) run as pipeline steps with explicit `requires`/`provides`.
 - Evolve `MapGenConfig` from the Phase 1 “hygiene” shape into a step-aligned, phase-aware configuration surface.
 - Establish `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` as canonical data products across the engine.
+- **Scope guardrail:** M3 is wrap‑first. Do not introduce new geomorphology/hydrology algorithms (e.g., stream power erosion, ocean currents, cryosphere, pedology); preserve current map quality by wrapping existing/engine behavior first.
 
 ## Scope
 
@@ -37,6 +38,7 @@ This milestone corresponds to **Milestone 3** in `PROJECT-engine-refactor-v1.md`
   - Introducing the generic pipeline primitives (`MapGenStep`, `StepRegistry`, `PipelineExecutor`) on top of the stabilized data products.
   - Driving **Phase 2 & 3** of the config refactor (config integration + shape evolution).
   - Generalizing the pipeline from the foundation slice to all major clusters (morphology, hydrology/climate, overlays, biomes, placement).
+  - **Morphology posture:** wrap-first in M3; selective sub-step replacement is an explicit post‑M3 pathway once products + tests stabilize.
   - Promoting the shared data products (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) to canonical status across the engine.
 - Detailed behavior and requirements remain in the feature PRDs:
   - Config: `resources/PRD-config-refactor.md` (Phase 2 & 3).
@@ -60,6 +62,7 @@ Related PRD: `resources/PRD-config-refactor.md` (Phase 2 & 3)
 
 - Wrap legacy hydrology, climate, narrative overlays, biomes, and placement logic as `MapGenStep`s:
   - e.g., `LegacyHydrologyStep`, `LegacyClimateStep`, `LegacyBiomesStep`, `LegacyPlacementStep`.
+- **Hydrology intent (M3):** treat hydrology as a wrapper over engine river modeling plus existing TS climate layers; the unlock is productization (publish river flow/summary data) and migration of consumers off `GameplayMap` toward `ClimateField`/overlays.
 - Gradually refactor internal logic to:
   - Consume `MapGenContext` artifacts (`Heightfield`, `ClimateField`, `StoryOverlays`).
   - Avoid direct `WorldModel` access in new/modernized code.
@@ -81,7 +84,10 @@ Related system docs:
 
 - `../../system/libs/mapgen/architecture.md`
 - `../../system/libs/mapgen/foundation.md`
-- `../../system/libs/mapgen/design.md`
+- `../../system/libs/mapgen/morphology.md`
+- `../../system/libs/mapgen/hydrology.md`
+- `../../system/libs/mapgen/ecology.md`
+- `../../system/libs/mapgen/narrative.md`
 
 ### Parity Matrix & Follow-Up Issues
 
@@ -153,6 +159,8 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
   - CIV-21: Full story port parent (`../issues/CIV-21-story-tagging.md`)
     - Remaining M3 portion: `LOCAL-M3-STORY-SYSTEM` (`../issues/LOCAL-M3-story-system.md`)
   - CIV-22: Map size awareness (`../issues/CIV-22-map-size-awareness.md`)
+- Data product unlocks:
+  - `LOCAL-M3-HYDROLOGY-PRODUCTS` (`../issues/LOCAL-M3-hydrology-products.md`)
 - Any new issues spawned from the parity matrix or config refactor PRD that touch multiple phases.
 
 These may be split or reassigned across milestones as we refine the execution plan.

@@ -1,6 +1,6 @@
 # Ecology Stage Architecture
 
-> **Target vs Current:** This doc describes the target Ecology design (M3+). Current implementations typically mix biome classification, resource placement, and feature generation into a single monolithic pass.
+> **Status:** Target (post‑M3). M3 is wrap‑first: legacy/engine behavior is wrapped to preserve map quality; the algorithms described here are not required for M3.
 
 ## 1. Overview
 

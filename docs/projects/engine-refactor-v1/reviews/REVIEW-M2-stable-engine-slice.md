@@ -582,7 +582,7 @@ Mostly satisfied. The canonical MapGen system docs now clearly distinguish **Tar
 - The change improves milestone sequencing hygiene without rewriting the target architecture docs to mirror current code line-by-line.
 
 **High-Leverage Issues**  
-- **`docs/system/libs/mapgen/climate.md` “Current implementation (post‑M2)” section doesn’t link to the M2 contract doc.**  
+- **`docs/system/libs/mapgen/hydrology.md` “Current implementation (post‑M2)” section doesn’t link to the M2 contract doc.**  
   The task’s acceptance criteria call out linking to the M2 contract + project snapshot docs; climate currently links to snapshots but not `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`. Direction: add that link (or a climate-specific contract if/when it exists) so “what’s wired today” has a single canonical reference path.  
 - **Climate doc mixes “current” and “target step pipeline” language in a way that can be misread.**  
   Even with the banner, sections like “The Pipeline … MapGenSteps” and the RFC-style implementation plan are easy to skim as “already wired.” Direction: add explicit “Target pipeline (future)” headings (or move RFC content under a clearly labeled future section) to prevent accidental over-trust by agents and new contributors.
@@ -591,5 +591,5 @@ Mostly satisfied. The canonical MapGen system docs now clearly distinguish **Tar
 This is a good post‑M2 enabling cleanup: it aligns the canonical system docs with M2’s explicit boundary (“orchestrator-centric stable slice now; step/task graph later”) and reduces the chance of future work accidentally assuming M3 primitives already exist.
 
 **Recommended Next Moves (Follow-up)**  
-1. Tighten `docs/system/libs/mapgen/climate.md` current-section links and add more explicit “Target vs Current” sectioning around the step-pipeline/RFC content.  
-2. Consider mirroring the `architecture.md` “Important: target-only primitives” warning inside `climate.md` where it first introduces `MapGenStep`s.
+1. Tighten `docs/system/libs/mapgen/hydrology.md` current-section links and add more explicit “Target vs Current” sectioning around the step-pipeline/RFC content.  
+2. Consider mirroring the `architecture.md` “Important: target-only primitives” warning inside `hydrology.md` where it first introduces `MapGenStep`s.

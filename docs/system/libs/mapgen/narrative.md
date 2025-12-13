@@ -1,6 +1,6 @@
 # Narrative & Story System Architecture
 
-> **Target vs Current:** This doc describes the target Narrative design (M3+). Current implementations rely on ad-hoc "Story Tags" and scattered logic. This document unifies them into a coherent **Cross-Cutting Subsystem**.
+> **Status:** Target (post‑M3). M3 is wrap‑first: legacy/engine behavior is wrapped to preserve map quality; the algorithms described here are not required for M3.
 
 ## 1. Overview
 

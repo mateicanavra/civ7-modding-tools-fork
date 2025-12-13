@@ -1,139 +1,94 @@
-interface OceanArtifacts {
-  /**
-   * Vector field representing ocean current direction and intensity.
-   * Derived from Wind + Coriolis + Coastline deflection.
-   */
-  currentVectors: Vector2[];
+# Hydrology & Climate Stage Architecture
 
-  /**
-   * Sea Surface Temperature (Celsius).
-   * Advected by currents; drives evaporation and coastal warming/cooling.
-   */
-  sst: Float32Array;
+> **Status:** Target (post‑M3). M3 is wrap‑first: hydrology/climate runs as wrapper steps to preserve map quality; the sub-step breakdown and optional extensions below are not required for M3.
 
-  /**
-   * 0.0 - 1.0 fraction of sea ice coverage.
-   * Derived from SST + Salinity.
-   */
-  seaIce: Float32Array;
-}
+## 1. Overview
 
+The **Hydrology & Climate** phase turns landform + latitude into gameplay‑relevant fields and signals:
+
+- **`ClimateField`** (authoritative rainfall/moisture + temperature bands for consumers)
+- **River / lake signals** that downstream systems can use without reaching into `GameplayMap`
+
+This is intentionally **gameplay‑oriented** (fast, deterministic, tunable). It is not a goal to build a full simulation.
+
+## 2. Current Implementation (post‑M2)
+
+Today’s stable slice is orchestrator‑centric; climate logic exists in TypeScript layers, while Civ7 river generation remains **engine-owned** (via the adapter).
+
+When you need “what is wired right now,” prefer:
+
+- `docs/projects/engine-refactor-v1/status.md`
+- `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md`
+- `docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md`
+- `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`
+
+**M3 note:** M3 will likely wrap the existing climate implementation as a step first; splitting into the finer-grained sub-steps below is a post‑M3 refactor.
+
+## 3. Target Data Model
+
+### 3.1. Inputs (Read-Only)
+
+- `FoundationContext` / `Heightfield` (elevation, terrain mask, slopes)
+- Latitude / basic planetary constants (if modeled)
+- Narrative overlays that influence rainfall (where applicable)
+
+### 3.2. Canonical Products
+
+**`ClimateField`** should be the canonical read path for rainfall/moisture by downstream systems (overlays, biomes, placement). Temperature is included where it is needed for ecology/ice/biomes.
+
+### 3.3. Artifact Containers (Target)
+
+The target architecture can optionally carry intermediate artifacts for future steps. These are not M3 commitments.
+
+```ts
 interface ClimateArtifacts {
-  /**
-   * Vector field representing prevailing wind direction.
-   * Used for rain shadows and sailing mechanics.
-   */
-  windVectors: Vector2[];
+  /** Prevailing wind direction/intensity (coarse; gameplay-oriented). */
+  windVectors?: Vector2[];
 
-  /**
-   * Surface Air Temperature (Celsius).
-   * Derived from Latitude + Elevation + Albedo + Ocean influence.
-   */
-  temperatureMap: Float32Array;
+  /** Temperature field used by ecology/ice gating (coarse bands are acceptable). */
+  temperatureMap?: Float32Array;
 
-  /**
-   * Absolute moisture content (mm/year equivalent).
-   * Before quantization into gameplay bands.
-   */
-  moistureMap: Float32Array;
+  /** Moisture/rainfall field prior to gameplay quantization. */
+  moistureMap?: Float32Array;
 }
 
 interface HydrologyArtifacts {
-  /**
-   * The network of river segments and flow directions.
-   */
-  riverGraph: RiverGraph;
+  /** Minimal river summary for consumers; shape is intentionally flexible. */
+  rivers?: unknown;
 
-  /**
-   * Mask identifying cells that are lakes (filled depressions).
-   */
-  lakeMask: Uint8Array;
+  /** Optional lake mask for consumers/diagnostics. */
+  lakeMask?: Uint8Array;
 }
 ```
 
-### 2.3. Outputs (Mutable Fields)
-*   `context.fields.rainfall`: Quantized integer levels (0-255) mapping to game concepts (Arid, Semi-Arid, Wet).
-*   `context.fields.features`: Updates Ice features based on Cryosphere logic.
+### 3.4. Optional Extensions (post‑M3, gameplay‑justified only)
 
----
+If we have clear gameplay need and a regression harness, we can add richer artifacts behind the same product spine:
 
-## 3. The Pipeline
+- Ocean heat transport / currents (to influence coastal temperature/rainfall)
+- Cryosphere feedback (ice/albedo loops)
+- Pedology/soil inputs (owned by Ecology)
 
-The Hydrology phase is a coupled system simulation executed as a sequence of steps.
+## 4. Target Pipeline Shape
 
-### 3.1. Step 1: Global Circulation (`hydrology.climate.circulation`)
-**Goal:** Establish the planetary baseline.
-*   **Logic:**
-    *   **Insolation:** Calculate base temperature from Latitude and Axial Tilt.
-    *   **Wind:** Generate Hadley/Ferrel/Polar cell wind vectors.
-*   **Result:** Baseline `temperatureMap` and `windVectors`.
+### 4.1. M3 (Wrap‑First) Boundary
 
-### 3.2. Step 2: Oceanography (`hydrology.ocean.simulate`)
-**Goal:** Move heat around the oceans.
-*   **Logic:**
-    1.  **Basins:** Identify connected ocean regions.
-    2.  **Currents:** Construct vector field: $V_{current} = w_1 V_{wind} + w_2 V_{gyre} + w_3 V_{coast}$.
-    3.  **SST:** Advect temperature using the current field (warm water moves poleward, cold water moves equatorward).
-    4.  **Ice:** Threshold SST to create `seaIce`.
+- `LegacyClimateStep` (wrapper around existing TS climate layers; publishes `ClimateField`)
+- `LegacyHydrologyStep` (wrapper around engine river modeling + any existing TS helpers; publishes river summary product)
 
-### 3.3. Step 3: Regional Weather (`hydrology.climate.regional`)
-**Goal:** Apply specific weather phenomena.
-*   **Pattern:** **Strategy Pattern** (Swatches).
-*   **Strategies:**
-    *   `TradeWinds`: Moisture transport.
-    *   `Monsoon`: Seasonal pressure-differential moisture.
-    *   `Continental`: Inland drying effects.
-*   **Result:** Modifies `moistureMap` and `windVectors`.
+### 4.2. Post‑M3 (Selective Refinement)
 
-### 3.4. Step 4: Orographic Effect (`hydrology.climate.orographic`)
-**Goal:** Simulate interaction between wind and terrain.
-*   **Logic:**
-    1.  Sample `windVectors`.
-    2.  Check upwind neighbors for `elevation` > current cell.
-    3.  **Windward:** Increase moisture (Adiabatic cooling).
-    4.  **Leeward:** Decrease moisture (Rain Shadow).
+Once products and tests stabilize, the wrapper can be decomposed into explicit steps, for example:
 
-### 3.5. Step 5: Cryosphere Feedback (`hydrology.cryosphere.feedback`)
-**Goal:** Simulate the Ice-Albedo feedback loop.
-*   **Logic:**
-    1.  **Snow/Ice:** If `temperature` < Threshold, set Albedo high.
-    2.  **Feedback:** Recalculate Temperature with new Albedo (1 iteration).
-    3.  **Result:** Sharpens ice caps and allows for "Ice Age" tipping points.
+- `hydrology.climate.baseline` (latitude/elevation baseline)
+- `hydrology.climate.refine` (orographic/rain‑shadow adjustments, narrative swatches)
+- `hydrology.surface.lakes` (depression filling / lake masks, if needed)
+- `hydrology.surface.rivers` (product publication and any non-engine summaries)
 
-### 3.6. Step 6: Surface Hydrology (`hydrology.surface.refine`)
-**Goal:** Route water and define rivers.
-*   **Logic:**
-    1.  **Depression Filling:** Identify and fill local minima to form lakes.
-    2.  **Flow Routing:** Calculate Steepest Descent for every cell.
-    3.  **River Generation:** Accumulate flux; edges exceeding a threshold become Rivers.
+## 5. Configuration (Target)
 
----
+Hydrology/climate should be controlled via `MapGenConfig` in a gameplay‑tunable way. Exact shapes live in the validated schema; this doc only describes intent:
 
-## 4. Configuration
-
-Controlled by the `hydrology` slice of `MapGenConfig`.
-
-```typescript
-interface HydrologyConfig {
-  /** Planetary Physics */
-  planet: {
-    axialTilt: number; // Degrees
-    solarConstant: number; // Base temperature scalar
-  };
-
-  /** Ocean settings */
-  ocean: {
-    currentStrength: number; // How much wind drives currents
-    heatTransport: number; // How much currents move heat
-    freezingPoint: number; // Temp at which sea ice forms
-  };
-
-  /** Climate tuning */
-  climate: {
-    moistureBias: number; // Global wet/dry slider
-    rainShadowStrength: number;
-    swatches: Array<WeatherSwatchConfig>;
-  };
-}
-```
-</file_content>
+- Global wet/dry bias and rain‑shadow strength (high leverage)
+- Optional narrative “swatches” / regional overrides (story-driven)
+- Diagnostics toggles (to inspect outputs during refactors)

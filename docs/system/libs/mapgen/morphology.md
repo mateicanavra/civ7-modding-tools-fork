@@ -1,6 +1,6 @@
 # Morphology Stage Architecture
 
-> **Target vs Current:** This doc describes the target Morphology design (M3+). Current implementations may still rely on legacy noise-based erosion or direct heightmap manipulation.
+> **Status:** Target (post‑M3). M3 is wrap‑first: legacy/engine behavior is wrapped to preserve map quality; the algorithms described here are not required for M3.
 
 ## 1. Overview
 
