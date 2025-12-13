@@ -1,9 +1,8 @@
-import { Compile } from "typebox/compile";
+// Ensure environments without Web TextEncoder (e.g., Civ7 embedded V8) have a compatible implementation.
+import "../polyfills/text-encoder";
 import { Value } from "typebox/value";
 
 import { MapGenConfigSchema, INTERNAL_METADATA_KEY, type MapGenConfig } from "./schema";
-
-const compiled = Compile(MapGenConfigSchema);
 
 export interface ParseResult {
   success: boolean;
@@ -20,10 +19,17 @@ function buildConfig(input: unknown): MapGenConfig {
 }
 
 function formatErrors(cleaned: MapGenConfig): { path: string; message: string }[] {
-  return compiled.Errors(cleaned).map((err) => ({
-    path: err.instancePath || "/",
-    message: err.message,
-  }));
+  const formattedErrors: Array<{ path: string; message: string }> = [];
+
+  for (const err of Value.Errors(MapGenConfigSchema, cleaned)) {
+    const path = (err as { path?: string; instancePath?: string }).path ?? (err as { instancePath?: string }).instancePath;
+    formattedErrors.push({
+      path: path && path.length > 0 ? path : "/",
+      message: err.message,
+    });
+  }
+
+  return formattedErrors;
 }
 
 /**
@@ -32,8 +38,8 @@ function formatErrors(cleaned: MapGenConfig): { path: string; message: string }[
 export function parseConfig(input: unknown): MapGenConfig {
   const cleaned = buildConfig(input);
 
-  if (!compiled.Check(cleaned)) {
-    const errors = formatErrors(cleaned);
+  const errors = formatErrors(cleaned);
+  if (errors.length > 0) {
     const messages = errors.map((e) => `${e.path}: ${e.message}`).join("; ");
     const error = new Error(`Invalid MapGenConfig: ${messages}`);
     (error as Error & { errors?: typeof errors }).errors = errors;

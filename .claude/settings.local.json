@@ -44,7 +44,11 @@
       "Bash(pnpm deploy:mods)",
       "Bash(pnpm test:*)",
       "mcp__linear-personal__list_projects",
-      "Bash(pnpm -C packages/mapgen-core test)"
+      "Bash(pnpm -C packages/mapgen-core test)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npm info:*)",
+      "Read(//private/tmp/**)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

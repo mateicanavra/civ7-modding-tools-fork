@@ -10,6 +10,9 @@
 
 /// <reference types="@civ7/types" />
 
+// Ensure Civ7's V8 runtime has a TextEncoder implementation before dependencies initialize.
+import "@swooper/mapgen-core/polyfills/text-encoder";
+
 // Import base-standard Continents to handle actual map generation
 // This is kept external by tsup and resolved at runtime by Civ7
 import "/base-standard/maps/continents.js";

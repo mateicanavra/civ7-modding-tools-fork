@@ -10,6 +10,7 @@
 
 /// <reference types="@civ7/types" />
 
+import "@swooper/mapgen-core/polyfills/text-encoder";
 import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
 import type { BootstrapConfig, BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
 
@@ -73,30 +74,30 @@ function buildConfig(plateCount: number): BootstrapConfig {
       },
       landmass: {
         crustMode: "area",
-        baseWaterPercent: 43, // More ocean for distinct continents
-        waterScalar: -1.5,
+        baseWaterPercent: 53, // More ocean for distinct continents
+        waterScalar: 1,
         boundaryBias: 0.1, // Slight bias towards boundaries for interest
         boundaryShareTarget: 0.4,
         tectonics: {
-          boundaryArcWeight: 0.35, // Balanced
-          interiorNoiseWeight: 0.6, // Balanced
+          boundaryArcWeight: 0.23, // Balanced
+          interiorNoiseWeight: 0.77, // Balanced
         },
       },
       margins: {
         activeFraction: 0.35,
         passiveFraction: 0.2,
-        minSegmentLength: 15,
+        minSegmentLength: 13,
       },
       coastlines: {
         plateBias: {
-          threshold: 0.35,
+          threshold: 0.15,
           power: 1.3,
-          convergent: 1.25,
-          transform: 0.75,
+          convergent: 3.0,
+          transform: 0.2,
           divergent: 0.5,
-          interior: 0.2,
-          bayWeight: 0.5,
-          bayNoiseBonus: 0.5,
+          interior: 0.35,
+          bayWeight: 0.75,
+          bayNoiseBonus: 0.1,
           fjordWeight: 0.8,
         },
       },
@@ -107,12 +108,12 @@ function buildConfig(plateCount: number): BootstrapConfig {
           // Balanced physics settings for plate-driven terrain
           tectonicIntensity: 0.5, // Full intensity for proper mountain formation
           mountainThreshold: 0.7, // Slightly lowered for reliable mountain generation
-          hillThreshold: 0.25, // Much lower - hill scores are inherently smaller than mountain scores
+          hillThreshold: 0.35, // Much lower - hill scores are inherently smaller than mountain scores
           upliftWeight: 0.37, // Standard uplift contribution
-          fractalWeight: 0.635, // Standard fractal noise
-          riftDepth: 0.2,
+          fractalWeight: 0.735, // Standard fractal noise
+          riftDepth: 1,
           boundaryWeight: 1.0, // Standard boundary weight
-          boundaryExponent: 2.37, // Standard falloff
+          boundaryExponent: 1.77, // Standard falloff
           interiorPenaltyWeight: 0.0, // Disabled as per mountains.ts defaults
           convergenceBonus: 0.4,
           transformPenalty: 0.6,
@@ -128,11 +129,11 @@ function buildConfig(plateCount: number): BootstrapConfig {
           minSpacing: 4,
           boundaryThreshold: 0.3,
           boundaryWeight: 1.2,
-          convergentMultiplier: 2.5,
+          convergentMultiplier: 1.47,
           transformMultiplier: 0.8,
           divergentMultiplier: 0.3,
           hotspotWeight: 0.4,
-          shieldPenalty: 0.5,
+          shieldPenalty: 0.2,
           randomJitter: 0.1,
           minVolcanoes: 5,
           maxVolcanoes: 25,
@@ -152,25 +153,25 @@ function buildConfig(plateCount: number): BootstrapConfig {
           mantle: {
             bumps: 3,
             amplitude: 1.0,
-            scale: 1.0,
+            scale: 1,
           },
           directionality: {
             cohesion: 0.2,
             primaryAxes: {
               plateAxisDeg: 127,
               windBiasDeg: 0,
-              currentBiasDeg: 90,
+              currentBiasDeg: 67,
             },
             interplay: {
-              windsFollowPlates: 0.3,
-              currentsFollowWinds: 0.5,
+              windsFollowPlates: 0.4,
+              currentsFollowWinds: 0.6,
             },
             hemispheres: {
               southernFlip: true,
             },
             variability: {
               angleJitterDeg: 15,
-              magnitudeVariance: 0.3,
+              magnitudeVariance: 0.5,
             },
           },
         },
@@ -200,8 +201,8 @@ function buildConfig(plateCount: number): BootstrapConfig {
       climate: {
         baseline: {
           blend: {
-            baseWeight: 0.5,
-            bandWeight: 0.5,
+            baseWeight: 0.8,
+            bandWeight: 0.2,
           },
           bands: {
             // Standard Earth-like distribution
@@ -219,19 +220,19 @@ function buildConfig(plateCount: number): BootstrapConfig {
             hi2Bonus: 20,
           },
           coastal: {
-            coastalLandBonus: 10,
-            shallowAdjBonus: 5,
+            coastalLandBonus: 45,
+            shallowAdjBonus: 25,
           },
           noise: {
-            baseSpanSmall: 3,
-            spanLargeScaleFactor: 1.0,
+            baseSpanSmall: 5,
+            spanLargeScaleFactor: 1.25,
           },
         },
         refine: {
           waterGradient: {
             radius: 5,
-            perRingBonus: 2,
-            lowlandBonus: 5,
+            perRingBonus: 3,
+            lowlandBonus: 7,
           },
           orographic: {
             steps: 4,
@@ -270,7 +271,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
       },
       biomes: {
         tundra: {
-          latMin: 60,
+          latMin: 47,
           elevMin: 400,
           rainMax: 60,
         },

@@ -358,6 +358,8 @@ export const LandmassConfigSchema = Type.Object(
      * Multiplier applied after baseWaterPercent (typically 0.75-1.25).
      * Clamped to 0.25-1.75 so nudging water for huge/tiny maps cannot wipe out land entirely.
      * @default 1
+     * @min 0.25
+     * @max 1.75
      */
     waterScalar: Type.Optional(
       Type.Number({
