@@ -10,9 +10,9 @@ assignees: []
 labels: [Improvement, Story, Architecture]
 parent: CIV-21
 children: []
-blocked_by: [CIV-36]
-blocked: []
-related_to: [CIV-21]
+blocked_by: [CIV-36, LOCAL-M3-TASK-GRAPH-MVP]
+blocked: [LOCAL-M3-BIOMES-FEATURES-WRAPPER]
+related_to: [CIV-21, LOCAL-M3-HYDROLOGY-PRODUCTS]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
@@ -33,7 +33,8 @@ Parent issue: `CIV-21-story-tagging.md`.
   - Post‑rivers corridor tagging.
   - Corridor kind/style/attribute metadata.
 - [ ] **Canonicalize overlays**
-  - Publish all narrative outputs through `StoryOverlays` as authoritative products.
+  - Publish all narrative outputs through `StoryOverlays` as the **canonical data product**.
+  - `StoryOverlays` becomes the authoritative source for downstream consumers (biomes, features, placement).
   - Reduce direct `StoryTags` mutation to a compatibility layer or retire it where possible.
 - [ ] **Wrap story system as steps**
   - Implement `MapGenStep` wrappers for story stages once `PipelineExecutor` exists.
@@ -43,20 +44,30 @@ Parent issue: `CIV-21-story-tagging.md`.
 
 ## Acceptance Criteria
 
-- [ ] TS equivalents exist for all legacy story passes and corridors.
-- [ ] Corridors/swatches/paleo overlays are populated when stages enabled.
-- [ ] Story logic runs as steps under the Task Graph with explicit contracts.
-- [ ] Downstream consumers use `StoryOverlays`/`ClimateField` rather than ad‑hoc reads.
+- [ ] TS equivalents exist for all legacy story passes and corridors
+- [ ] Corridors/swatches/paleo overlays are populated when stages enabled
+- [ ] Story logic runs as steps under the Task Graph with explicit contracts
+- [ ] Downstream consumers use `StoryOverlays`/`ClimateField` rather than ad‑hoc reads
+- [ ] Story steps declare `requires`/`provides` and run via `PipelineExecutor`
+- [ ] Steps fail fast if required products are missing (runtime gating enforced)
 
 ## Out of Scope
 
 - Re‑tuning narrative parameters beyond parity checks.
 - New story motifs not present in the JS archive.
 
-## Dependencies / Notes
+## Dependencies & Relationships
 
-- Depends on minimal parity landing in M2 (`CIV-36`).
-- Must coordinate with pipeline primitives and config shape evolution in M3.
+**Depends on:**
+- `CIV-36` (M2): Minimal story parity must land first
+- `LOCAL-M3-TASK-GRAPH-MVP` (Stack 1): Pipeline primitives must exist before wrapping story stages
+
+**Blocks:**
+- `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (Stack 4): Biomes/features consume `StoryOverlays` product
+
+**Related:**
+- `CIV-21`: Parent issue for full story port
+- `LOCAL-M3-HYDROLOGY-PRODUCTS` (Stack 2): Story overlays may consume river/climate products
 
 ---
 

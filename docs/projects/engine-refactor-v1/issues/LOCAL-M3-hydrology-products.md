@@ -10,9 +10,9 @@ assignees: []
 labels: [Improvement, Hydrology, Architecture]
 parent: null
 children: []
-blocked_by: []
-blocked: []
-related_to: []
+blocked_by: [LOCAL-M3-TASK-GRAPH-MVP]
+blocked: [LOCAL-M3-BIOMES-FEATURES-WRAPPER]
+related_to: [LOCAL-M3-STORY-SYSTEM]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
@@ -36,14 +36,27 @@ Make hydrology/climate outputs consumable as **canonical data products**: `Clima
 
 ## Acceptance Criteria
 
-- [ ] No new/modernized consumer reads rainfall directly from `GameplayMap` once the step pipeline is in place.
-- [ ] River summary data is available as an explicit product and can be required by steps via `requires`/`provides`.
-- [ ] The map quality and overall river behavior remains consistent (wrap-first; no algorithm swap in M3).
+- [ ] No new/modernized consumer reads rainfall directly from `GameplayMap` once the step pipeline is in place
+- [ ] River summary data is available as an explicit product and can be required by steps via `requires`/`provides`
+- [ ] The map quality and overall river behavior remains consistent (wrap-first; no algorithm swap in M3)
+- [ ] Hydrology wrapper step declares `requires`/`provides` and runs via `PipelineExecutor`
+- [ ] Steps fail fast if required products are missing (runtime gating enforced)
 
 ## Out of Scope
 
 - Replacing Civ7 river generation or implementing new hydrology algorithms (stream power erosion, ocean currents, cryosphere feedback, pedology).
 - Retuning rainfall/rivers beyond parity checks needed to validate product consumers.
+
+## Dependencies & Relationships
+
+**Depends on:**
+- `LOCAL-M3-TASK-GRAPH-MVP` (Stack 1): Pipeline primitives must exist before wrapping hydrology
+
+**Blocks:**
+- `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (Stack 4): Biomes/features consume `ClimateField` product
+
+**Related:**
+- `LOCAL-M3-STORY-SYSTEM` (Stack 3): Story overlays may consume river/climate products
 
 ## Links
 
