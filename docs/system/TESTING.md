@@ -1,6 +1,6 @@
 # Testing
 
-This repository uses [Vitest](https://vitest.dev/) for unit tests across all workspaces.
+This repository uses [Vitest](https://vitest.dev/) for unit tests across most workspaces, and [Bun](https://bun.sh/) (`bun test`) for `@swooper/mapgen-core`.
 
 ## Running all tests
 
@@ -8,7 +8,22 @@ This repository uses [Vitest](https://vitest.dev/) for unit tests across all wor
 pnpm test
 ```
 
-Executes `vitest` across all configured projects defined in `vitest.config.ts`.
+Runs:
+
+- `vitest` across all configured projects in `vitest.config.ts`
+- `bun test` for `@swooper/mapgen-core`
+
+To run only the Vitest projects:
+
+```bash
+pnpm test:vitest
+```
+
+To run only the mapgen-core Bun tests:
+
+```bash
+pnpm test:mapgen
+```
 
 ## Visualizing test runs
 

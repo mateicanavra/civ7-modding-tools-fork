@@ -328,6 +328,40 @@ The following items are **not in scope for this lane** but represent the next lo
 
 ---
 
+## CIV-35 – Add `MapOrchestrator.generateMap` Smoke Test for Config + Foundation Slice
+
+**Quick Take**  
+Mostly satisfied for M2. There is now an end-to-end `MapOrchestrator.generateMap()` smoke test that runs the foundation slice with a stub adapter and validated config and asserts that key foundation data products are populated. The main gap is that this guardrail does **not** run under the repo’s default `pnpm test` (Vitest) pipeline, so it’s easy to miss in CI unless `pnpm test:mapgen` is run explicitly.
+
+**Intent & Assumptions**  
+- Add a narrow “foundation slice still works” safety net over the M2 stable slice: config → tunables → orchestrator → foundation data products.  
+- Run without the real Civ7 runtime by using a stub `EngineAdapter` and stubbing the orchestrator’s globals-backed adapter surface (`GameplayMap`, `GameInfo`, etc.).  
+- Keep assertions smoke-level (presence + basic well-formedness), not behavioral parity.
+
+**What’s Strong**  
+- `packages/mapgen-core/test/orchestrator/foundation.smoke.test.ts` exercises `generateMap()` with `bootstrap({ stageConfig: { foundation: true } })` and `createMockAdapter()`, and asserts: stage completion + `WorldModel` initialization + non-trivial plate data.  
+- Tests explicitly reset tunables and config providers (`resetTunablesForTest()`, `resetConfigProviderForTest()`, `WorldModel.reset()`), which reduces flakiness from module state.  
+- `packages/mapgen-core/test/orchestrator/generateMap.integration.test.ts` is a good companion: it pins the canonical bootstrap→tunables→orchestrator flow and documents the “two adapters” reality clearly, including the required globals stubs for `resolveOrchestratorAdapter()`.
+
+**High-Leverage Issues**  
+- **Not covered by default `pnpm test` / documented test workflow.**  
+  Root `pnpm test` runs Vitest projects from `vitest.config.ts`, and `packages/mapgen-core` is not included. Meanwhile `@swooper/mapgen-core` runs `bun test`, and `docs/system/TESTING.md` still claims Vitest is used “across all workspaces.” Impact: this smoke test may not run in CI or local “standard” test flows, undermining its value. Direction: either (a) add a canonical CI/local command that runs both `pnpm test` and `pnpm test:mapgen`, or (b) bring mapgen-core under the Vitest umbrella (larger change).  
+- **Smoke assertions are mostly structural, not semantic.**  
+  Length checks and “>1 plate” are good regressions catchers, but they don’t flag NaNs/out-of-range values (e.g., invalid `boundaryCloseness` distributions). Direction (nice-to-have): add 1–2 low-cost invariants (no NaNs, min/max bounds) to improve signal without turning this into a full integration suite.
+
+**Fit Within the Milestone**  
+This is aligned with M2’s goal: a stable orchestrator-centric slice with a minimal regression net. The “does it run under our standard test command?” mismatch is more of a milestone-level workflow drift than a local implementation miss, but it directly affects whether this task delivers the intended safety benefit.
+
+**Recommended Next Moves (Future Work, Not M2)**  
+1. Update `docs/system/TESTING.md` to accurately reflect the split (`pnpm test` for Vitest projects; `pnpm test:mapgen` for mapgen-core), and ensure CI runs both.  
+2. (Optional) Add a tiny semantic invariant or two to the foundation smoke test (NaN/bounds) to increase usefulness without expanding scope.
+
+**Update (2025‑12‑12)**  
+- `pnpm test` now runs both `pnpm test:vitest` and `pnpm test:mapgen`; `docs/system/TESTING.md` updated accordingly.  
+- Foundation smoke test now asserts key numeric buffers contain finite values (no NaNs/Infinity).
+
+---
+
 ## CIV-37 – Wire Foundation Config into WorldModel and Mountains Layer
 
 **Quick Take**  

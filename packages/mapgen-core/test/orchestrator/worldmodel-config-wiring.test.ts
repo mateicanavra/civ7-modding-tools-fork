@@ -3,7 +3,7 @@ import { bootstrap } from "../../src/bootstrap/entry.js";
 import { resetTunablesForTest } from "../../src/bootstrap/tunables.js";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
 import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js";
-import { createMockAdapter, type EngineAdapter } from "@civ7/adapter";
+import { createMockAdapter } from "@civ7/adapter";
 
 describe("MapOrchestrator WorldModel config wiring", () => {
   let originalGameplayMap: unknown;
@@ -80,11 +80,11 @@ describe("MapOrchestrator WorldModel config wiring", () => {
       },
     });
 
-    const adapter = {
+    const adapter = createMockAdapter({
       width: 24,
       height: 16,
-      getRandomNumber: () => 0,
-    } as unknown as EngineAdapter;
+      rng: () => 0,
+    });
 
     const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
     const result = orchestrator.generateMap();
