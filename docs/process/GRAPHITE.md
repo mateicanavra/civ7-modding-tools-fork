@@ -110,7 +110,14 @@ gt sync && gt checkout main
 
 ### Build a stack in layers
 
-1. Make a focused change for the first layer and run `gt create -am "feat(scope): summary"`.
+1. Make a focused change for the first layer and create the branch + initial commit title:
+   ```bash
+   gt create -am "[LIN-123] feat(cli): add unzip progress output"
+   ```
+2. Immediately amend the commit to add a real body + footer references (keep the first line/title intact):
+   ```bash
+   gt modify -a
+   ```
 2. Repeat for each dependent layer (implementation → integration → tests → docs, etc.).
 3. Use `gt ls` to confirm the stack order and `gt co branch-name` to jump between layers.
 
@@ -144,13 +151,28 @@ Think of a stack as a river you step into when a parent issue spawns a chain of 
 
 **Let Graphite infer branch name from commit message:**
 ```bash
-gt create -am "feat(api): Add user fetching endpoint"
+gt create -am "[LIN-123] feat(api): add user fetching endpoint"
+gt modify -a
 # Creates branch: feat-api-add-user-fetching-endpoint
+```
+
+Commit message (example content for the amend):
+```text
+[LIN-123] feat(api): add user fetching endpoint
+
+Add a basic `GET /users` endpoint and keep the handler minimal so follow-up
+layers can focus on auth, pagination, and tests independently.
+
+References:
+- Project: Civ7 Modding Tools
+- Linear: LIN-123
+- Docs: docs/process/GRAPHITE.md
 ```
 
 **Specify branch name explicitly:**
 ```bash
-gt create -am "feat: Add API endpoint" my-custom-branch-name
+gt create -am "[LIN-123] feat(api): add API endpoint" my-custom-branch-name
+gt modify -a
 ```
 
 **Stage changes interactively:**
@@ -162,13 +184,15 @@ echo "code" >> file.js
 gt add file.js another.js
 
 # Create commit on new branch
-gt create -m "feat: Add feature"
+gt create -m "[LIN-123] feat(cli): add feature"
+gt modify -a
 ```
 
 **Use patch mode (select hunks):**
 ```bash
-gt create --patch --message "feat: Partial changes"
-# or alias: gt c -pm "feat: Partial changes"
+gt create --patch --message "[LIN-123] feat(cli): apply partial changes"
+gt modify -a
+# or alias: gt c -pm "[LIN-123] feat(cli): apply partial changes"
 ```
 
 ### Visualizing Your Stack
@@ -241,7 +265,8 @@ Use this when reviewers prefer seeing the delta before you squash.
 ```bash
 gt checkout <parent-branch>
 # edit files
-gt create --insert --all --message "feat(scope): describe layer"
+gt create --insert --all --message "[LIN-123] feat(cli): add missing layer"
+gt modify -a
 gt ss
 ```
 
@@ -250,9 +275,11 @@ gt ss
 gt checkout <large-branch>
 git reset HEAD~1        # keep changes staged
 gt add fileA.ts fileB.ts
-gt create -m "feat: Part 1"
+gt create -m "[LIN-123] feat(types): extract shared types"
+gt modify -a
 gt add remaining files
-gt create -m "feat: Part 2"
+gt create -m "[LIN-124] feat(cli): wire types into command flow"
+gt modify -a
 ```
 Delete the old branch after verifying the new stack order.
 
@@ -433,14 +460,18 @@ Each branch should represent a single, reviewable unit of work:
 
 ✅ **Good:**
 ```bash
-gt create -am "feat(service): Add FilterOperations service class"
-gt create -am "feat(registry): Wire service into registry"
-gt create -am "test: Add service tests"
+gt create -am "[ANVIL-29] feat(service): add FilterOperations service class"
+gt modify -a
+gt create -am "[ANVIL-30] feat(registry): wire service into registry"
+gt modify -a
+gt create -am "[ANVIL-31] test(service): add FilterOperations service tests"
+gt modify -a
 ```
 
 ❌ **Bad:**
 ```bash
-gt create -am "feat: Add service, update registry, add tests, fix bug"
+gt create -am "[ANVIL-29] feat(service): add service, wire registry, add tests, fix bug"
+gt modify -a
 ```
 
 ### Single Commit Per Branch (Recommended)
@@ -465,7 +496,8 @@ gt log
 
 **Use amend workflow:**
 ```bash
-gt create -am "feat: Initial implementation"
+gt create -am "[LIN-123] feat(cli): initial implementation"
+gt modify -a
 
 # Make more changes
 gt modify -a  # Amends instead of new commit
@@ -476,25 +508,55 @@ gt modify -a  # Amends again
 
 ### Conventional Commit Messages
 
-Follow Conventional Commits format (matches repo standards):
+Follow Conventional Commits format, with an optional ticket prefix when a trackable ID exists (Linear or other):
 
-```bash
-feat: Add new feature
-feat(scope): Add scoped feature
-fix: Fix bug in filter operations
-refactor: Restructure service layer
-test: Add tests for FilterOperations
-docs: Update API documentation
-chore: Update dependencies
+- Title: `[TICKET] type(scope): summary` (ticket prefix optional if no ID)
+- Scope: internal area of concern (package/app/subsystem), not the repo/project name
+- Body: explain intent + user-visible behavior and any operational/testing notes
+- Footer references: include the project/package being worked on and the ticket ID from the title (plus any other durable references)
+
+Example (with Linear ticket):
+
+```text
+[LIN-123] feat(cli): add unzip progress output
+
+Add a per-archive progress indicator and per-file counts so long extractions
+are easier to monitor.
+
+Notes:
+- Default output stays stable for scripts; progress is opt-in via `--progress`.
+
+References:
+- Project: @civ7/cli
+- Linear: LIN-123
+- Docs: docs/system/sdk/overview.md
 ```
 
-**Examples from Stage 6:**
-```bash
-gt create -am "feat(types): Define FilterOperations service interface"
-gt create -am "feat(service): Implement FilterOperations class"
-gt create -am "feat(registry): Add service to operations registry"
-gt create -am "refactor: Migrate useFilterOperations to service"
-gt create -am "test: Add FilterOperations service tests"
+Example (no ticket ID available):
+
+```text
+docs(process): clarify commit message examples
+
+Expand commit message docs so every example includes a body and footer
+references section.
+
+References:
+- Project: Civ7 Modding Tools
+- Docs: docs/process/GRAPHITE.md
+```
+
+Example (multi-layer work under one parent issue):
+
+```text
+[ANVIL-29] feat(service): add FilterOperations service class
+
+Extract FilterOperations into its own service class so callers can share logic
+without duplicating filtering primitives.
+
+References:
+- Project: Civ7 Modding Tools
+- Ticket: ANVIL-29
+- Docs: docs/process/GRAPHITE.md
 ```
 
 ### Descriptive Branch Names
@@ -502,13 +564,15 @@ gt create -am "test: Add FilterOperations service tests"
 Graphite auto-generates branch names from commit messages:
 
 ```bash
-gt create -am "feat(api): Add user authentication endpoint"
+gt create -am "[LIN-124] feat(api): add user authentication endpoint"
+gt modify -a
 # Creates: feat-api-add-user-authentication-endpoint
 ```
 
 **Override if needed:**
 ```bash
-gt create -am "feat: Complex feature" auth-service
+gt create -am "[LIN-124] feat(api): add authentication service" auth-service
+gt modify -a
 # Creates: auth-service
 ```
 
@@ -589,19 +653,23 @@ gt checkout main
 
 # Step 1: Add types (50 lines)
 # Edit types...
-gt create -am "feat(types): Add feature types"
+gt create -am "[LIN-123] feat(types): add feature types"
+gt modify -a
 
 # Step 2: Add helpers (100 lines)
 # Edit helpers...
-gt create -am "feat(utils): Add helper functions"
+gt create -am "[LIN-124] feat(utils): add helper functions"
+gt modify -a
 
 # Step 3: Add service (200 lines)
 # Edit service...
-gt create -am "feat(service): Implement feature service"
+gt create -am "[LIN-125] feat(service): implement feature service"
+gt modify -a
 
 # Step 4: Add UI integration (150 lines)
 # Edit components...
-gt create -am "feat(ui): Integrate feature in UI"
+gt create -am "[LIN-126] feat(ui): integrate feature in UI"
+gt modify -a
 
 # Submit entire stack
 gt ss
@@ -620,7 +688,8 @@ gt log short  # Note current branch
 
 # Create fix from main
 gt checkout main
-gt create -am "fix: Critical bug in auth flow"
+gt create -am "[LIN-200] fix(auth): fix critical bug in auth flow"
+gt modify -a
 gt submit
 
 # Return to your stack
@@ -637,8 +706,10 @@ gt sync  # Rebase stack on updated main
 **Solution:**
 ```bash
 # On laptop: Create and push stack
-gt create -am "feat: Part 1"
-gt create -am "feat: Part 2"
+gt create -am "[LIN-300] feat(cli): add env config loader"
+gt modify -a
+gt create -am "[LIN-301] feat(cli): validate env config"
+gt modify -a
 gt ss
 
 # On desktop: Pull the stack
@@ -646,7 +717,8 @@ gt get feat-part-2
 # Fetches both Part 2 and Part 1
 
 # Continue work
-gt create -am "feat: Part 3"
+gt create -am "[LIN-302] feat(cli): wire env config into commands"
+gt modify -a
 gt ss
 ```
 
@@ -848,10 +920,26 @@ gt create per-20-create-validated-env-config-module
 - Add initial commit when ready:
 
 ```bash
-git add -A && git commit -m "feat(scope): description of change"
+git add -A && git commit
 ```
 
-Commit message format: Conventional commits (`feat`, `fix`, `refactor`, `docs`, `test`, `chore`)
+Commit message format: Conventional Commits with an optional ticket prefix when a trackable ID exists (Linear or other).
+
+Example commit message:
+```text
+[PER-20] feat(config): add validated env config module
+
+Add schema-validated config loading so commands fail fast with actionable
+errors rather than cascading undefined behavior.
+
+Notes:
+- Keeps existing defaults; only rejects invalid overrides.
+
+References:
+- Project: Civ7 Modding Tools
+- Ticket: PER-20
+- Docs: docs/process/GRAPHITE.md
+```
 
 **Commit strategy on Graphite branches:**
 - **Create new commits** as you make progress - this keeps a record of your work
@@ -945,7 +1033,7 @@ Move to next task in sequence.
 |------|--------|---------|
 | Check stack | View current branches | `gt ls` |
 | Create branch | New branch (no commit) | `gt create <name>` |
-| New commit | Add commit to branch | `git add -A && git commit -m "msg"` |
+| New commit | Add commit to branch | `git add -A && git commit` |
 | Amend commit | Override existing commit | `gt modify -a` (use sparingly) |
 | Verify | Type check | `bun run check-types` |
 | Verify | Build | `bun run build` |
@@ -976,7 +1064,7 @@ Move to next task in sequence.
 gt ls                                    # Check stack
 gt create per-20-env-config-module       # Create branch
 # ... do work ...
-gt modify -a -m "feat(config): add env"  # Commit
+gt modify -a                             # Commit (write full message in editor)
 bun run check-types && bun run build     # Verify
 gt ss --draft                            # Submit as draft PR
 ```
@@ -1028,5 +1116,5 @@ gt create --insert new-branch-name
 ```bash
 git reset HEAD~1                    # Undo commit (keep changes)
 gt create correct-branch-name       # Create correct branch
-gt modify -a -m "commit message"    # Recommit
+gt modify -a                         # Recommit (write full message in editor)
 ```

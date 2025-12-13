@@ -16,7 +16,19 @@ Milestone and issue docs remain canonical for scheduled/active scope; entries he
 
 ## Triage (needs decision / research)
 
+- **Revisit `FoundationContext` contract doc structure & enforcement** [Review by: end of M3]
+  - **Context:** M2 stable-slice contract at `resources/CONTRACT-foundation-context.md` (CIV-34 follow-up).
+  - **Type:** triage
+  - **Notes:** Re-evaluate whether to split into (1) a crisp, binding contract doc and (2) a separate aspirations/planning doc; tighten semantics as more M3 consumers land; implement enforcement ideas outlined in the contract doc (tests/CI/mutation guards) when the interface stabilizes.
+  - **Next check:** after the first real M3 consumer steps ship (e.g., climate baseline) or at the end of M3.
+
 ## Backlog (definite, unsequenced)
+
+- **Full MapGen architecture documentation sweep (post Task Graph / canonical products)** [Review by: late M3 / early M4]
+  - **Context:** System docs at `docs/system/libs/mapgen/*.md` vs implementation once `PipelineExecutor` / `MapGenStep` / `StepRegistry` and canonical products stabilize.
+  - **Type:** backlog
+  - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `climate.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `LOCAL-M3-SYSTEM-DOCS-TARGET-VS-CURRENT` (which only adds framing + minimal current-state pointers).
+  - **Next check:** after Task Graph + step execution is implemented and key products (`FoundationContext`, `ClimateField`, `StoryOverlays`) are stabilized.
 
 - **Modern story orogeny layer (windward/lee amplification)** [Review by: early M3+]
   - **Context:** M2 / `CIV-36` minimal story parity deferred orogeny; `CIV-39` orogeny tunables promotion explicitly deferred in 2025‑12‑12 discussion.

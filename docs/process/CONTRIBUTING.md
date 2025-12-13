@@ -117,5 +117,30 @@ pnpm publish:all   # SDK then CLI
 git checkout -b feat/your-change
 # make changes
 pnpm test
-git commit -m "feat: concise description"
+git commit
 ```
+
+### Commit message conventions
+
+Use Conventional Commits with an optional ticket prefix when a trackable ID exists (Linear or other):
+
+```text
+[LIN-123] feat(cli): add unzip progress output
+
+Add a per-archive progress indicator and per-file counts so long extractions
+are easier to monitor.
+
+Notes:
+- Default output stays stable for scripts; progress is opt-in via `--progress`.
+
+References:
+- Project: @civ7/cli
+- Linear: LIN-123
+- Docs: docs/system/sdk/overview.md
+```
+
+Rules:
+- **Title:** `[TICKET] type(scope): summary` (ticket prefix optional if no ID).
+- **Scope:** internal area of concern (package/app/subsystem), not the repo/project name.
+- **Body:** explain intent + user-visible behavior and any operational/testing notes.
+- **Footer references:** include the project/package being worked on and the ticket ID from the title (plus any other durable references).

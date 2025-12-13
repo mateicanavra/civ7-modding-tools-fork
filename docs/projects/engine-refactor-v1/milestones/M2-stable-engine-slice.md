@@ -118,13 +118,13 @@ These may be split or reassigned across milestones as we refine the execution pl
   - For planning and reconciliation after CIV-26–CIV-31, M2 is now defined as: “Config + foundation slice is stable, documented, and test-backed,” using the current `MapOrchestrator`-centric architecture.
   - M2 explicitly does *not* deliver the full generic `PipelineExecutor` / `MapGenStep` / `StepRegistry` abstraction; that work is deferred to early M3+.
 
-- **Final M2 cleanup/stabilization batch (to land before calling the milestone fully done):**
+  - **Final M2 cleanup/stabilization batch (to land before calling the milestone fully done):**
   - **Docs alignment**
-    - Update M2 docs and issue files so they accurately describe the current flow: `bootstrap() → MapGenConfig → tunables → MapOrchestrator → FoundationContext`, and remove or soften wording that assumes an already-implemented `PipelineExecutor` / `MapGenStep` / `StepRegistry`.
+    - Update M2 docs and issue files so they accurately describe the current flow: `bootstrap() → validated MapGenConfig → tunables → MapOrchestrator → FoundationContext`, and remove or soften wording that assumes an already-implemented `PipelineExecutor` / `MapGenStep` / `StepRegistry`.
     - Remove or clearly mark as “future” any remaining references to `globalThis.__EPIC_MAP_CONFIG__` and the old global config pattern.
   - **Contract stabilization**
     - Make the `FoundationContext` contract explicit: what it guarantees to downstream consumers, and which data products exist at the end of the M2 slice (see `resources/CONTRACT-foundation-context.md` as the working contract doc).
-    - Clarify the role of tunables as a view over `MapGenConfig` (derived/read-only perspective) rather than a primary config store.
+    - Clarify the role of tunables as a view over validated `MapGenConfig` (derived/read-only perspective) rather than a primary config store.
   - **Tests**
     - Add at least one end-to-end `MapOrchestrator.generateMap` smoke test using a minimal/default `MapGenConfig` and a stub adapter, asserting that the foundation data products are populated and no stages regress.
 

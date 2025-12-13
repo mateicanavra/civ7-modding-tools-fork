@@ -1,44 +1,50 @@
 # CONTRACT: FoundationContext (M2 Slice)
 
-> Working draft — project-level contract only.  
-> This document tracks the **current and intended** `FoundationContext` contract for the M2 engine slice.  
-> Keep it in sync with the implementation as we evolve the engine. Once the contract is stable, we should
-> promote it into `docs/system/libs/mapgen` (and potentially clone the pattern for other data products).
+> Working draft — project-level contract.  
+> Sections 1–5 are **binding** for the M2 “stable slice”. Sections 6–7 are **non-binding** notes.
 
 ## 1. Purpose
 
-- Capture what the **M2 engine slice** guarantees about `FoundationContext` and the config→tunables→orchestrator flow.
-- Give M3+ work (pipeline, climate, story) a **single reference** instead of reverse-engineering behavior from code.
-- Provide a bridge between the **target architecture docs** and the **current MapOrchestrator-centric implementation**.
+- Define the consumer-facing contract for the `FoundationContext` data product emitted by the M2 `foundation` slice.
+- Make “M2 stable slice” dependencies explicit for M3+ work (climate, story overlays, hydrology, placement).
+- Provide a stable reference while the implementation refactors.
 
 Authoritative implementation references:
 
 - Types & factories: `packages/mapgen-core/src/core/types.ts`
   - `FoundationContext`, `FoundationConfigSnapshot`, `createFoundationContext`, `assertFoundationContext`, `hasFoundationContext`
 - Orchestration & world model: `packages/mapgen-core/src/MapOrchestrator.ts`
+- World semantics: `packages/mapgen-core/src/world/types.ts`, `packages/mapgen-core/src/world/model.ts`
 - Config & tunables flow: `packages/mapgen-core/src/bootstrap/entry.ts`, `packages/mapgen-core/src/bootstrap/tunables.ts`
 - Target architecture: `docs/system/libs/mapgen/architecture.md`, `docs/system/libs/mapgen/foundation.md`
 
 ## 2. Scope & Status
 
-- **Scope (M2):**
-  - Describe the **shape and semantics** of `FoundationContext` as emitted by the current `foundation` slice.
-  - Describe the **config → tunables → MapOrchestrator → FoundationContext → world model** flow at a high level.
-  - Define what downstream stages may **assume** once the foundation slice has completed successfully.
+- **Binding scope (M2):**
+  - What exists on `ctx.foundation` after a successful `foundation` stage.
+  - How to interpret the tensors (indexing, encodings, value ranges, stability expectations).
+  - The config → tunables → orchestrator wiring that feeds foundation.
+- **Explicitly out of scope:**
+  - Exact physics algorithms, numeric distributions, or parity targets.
+  - “Interesting map” guarantees (e.g., plate count > 1); this contract is about shape + semantics, not quality.
 - **Status:**
-  - This contract is **binding** for M2 and for any M3+ work that claims to build on the “M2 stable slice”.
-  - It may be **refined** as we discover gaps; when we make changes, we should update this doc alongside the code.
+  - Sections 1–5 are binding for the M2 “stable slice”.
+  - Sections 6–7 are non-binding design notes (planning + future enforcement ideas).
+  - Any change to binding guarantees should update this doc alongside the code.
 
 ## 3. Data Product: FoundationContext
 
-At the end of the `foundation` slice, the orchestrator must have:
+`FoundationContext` is the canonical foundation-physics snapshot exposed to downstream stages as `ctx.foundation`.
 
-- An `ExtendedMapContext` (`ctx`) whose:
-  - `ctx.dimensions` is a valid `MapDimensions` (width, height, size).
-  - `ctx.worldModel` is initialized and contains all plate/dynamics tensors used by `createFoundationContext`.
-  - `ctx.foundation` is a **non-null**, immutable `FoundationContext` snapshot created via `createFoundationContext`.
+At the end of the `foundation` stage (when enabled and successful):
+
+- `ctx.foundation` is non-null and produced via `createFoundationContext(...)`.
+- `ctx.foundation` only exists if required tensors are present and length-consistent (validation fails fast).
+- `ctx.dimensions` matches `ctx.foundation.dimensions` (same width/height/size).
 
 ### 3.1 Shape
+
+The authoritative type is `FoundationContext` in `packages/mapgen-core/src/core/types.ts`:
 
 ```ts
 interface FoundationContext {
@@ -51,57 +57,56 @@ interface FoundationContext {
 }
 ```
 
-- `dimensions`
-  - Width/height/size for the **foundation tensors**, derived from the map dimensions used by `WorldModel`.
-  - **Invariant:** `size === width * height` and matches the length of all plate/dynamics tensors.
-- `plateSeed`
-  - Snapshot from `PlateSeedManager`, if available.
-  - Used for diagnostics and deterministic reproduction of plate layouts.
-  - May be `null` in test harnesses or non-standard entrypoints; consumers *must* tolerate `null`.
-- `plates` (`FoundationPlateFields`)
-  - Each field is a 1D tensor of length `size`, representing per-tile plate state:
-    - `id`: plate ID per tile.
-    - `boundaryCloseness`: proximity to the nearest plate boundary.
-    - `boundaryType`: encoded interaction type at boundaries (convergent/divergent/transform).
-    - `tectonicStress`: aggregate boundary stress metric.
-    - `upliftPotential`: collision-driven uplift intensity.
-    - `riftPotential`: divergence-driven rift intensity.
-    - `shieldStability`: craton/plate interior stability measure.
-    - `movementU` / `movementV`: plate motion vectors.
-    - `rotation`: plate angular velocity.
-  - **Invariant:** All tensors are present, and `createFoundationContext` enforces exact length matches.
-- `dynamics` (`FoundationDynamicsFields`)
-  - Per-tile atmospheric/oceanic state:
-    - `windU` / `windV`: coarse wind vectors.
-    - `currentU` / `currentV`: ocean current vectors.
-    - `pressure`: scalar pressure field.
-  - **Invariant:** All tensors are present and sized to `dimensions.size`.
-- `diagnostics` (`FoundationDiagnosticsFields`)
-  - Currently:
-    - `boundaryTree`: optional structure used by diagnostics (ASCII, histograms, debug views).
-  - This is explicitly **non-stable** and may evolve; consumers outside diagnostics should not depend on its shape.
-- `config` (`FoundationConfigSnapshot`)
-  - Immutable snapshot of the configuration that informed the foundation run:
-    - `seed`, `plates`, `dynamics`, `surface`, `policy`, `diagnostics`.
-  - Each sub-object is frozen via `freezeConfigSnapshot` and intended for:
-    - Diagnostics and reproducibility.
-    - Future pipeline steps that want to introspect the config that produced the tensors, without mutating it.
+This contract focuses on semantics and invariants (next section) rather than duplicating the field list.
 
-### 3.2 Invariants & Usage Guarantees
+### 3.2 Binding Semantics & Invariants
 
-For the **M2 slice**, downstream stages may assume:
+- **Availability**
+  - `ctx.foundation` is `null` until the `foundation` stage runs.
+  - If the `foundation` stage is disabled, `ctx.foundation` remains `null`.
+  - After a successful run, `ctx.foundation` remains available for the rest of the generation pass.
 
-- `ctx.foundation` is **either**:
-  - `null` (before foundation runs or if the foundation stage is disabled), **or**
-  - A fully-populated `FoundationContext` that passed `createFoundationContext`’s validation.
-- Any stage that **requires** physics data must:
-  - Call `assertFoundationContext(ctx, stageName)` or an equivalent guard before reading plate/dynamics tensors.
-  - Treat a missing `FoundationContext` as a hard error (this is how we surface manifest/wiring issues).
-- New work in M3+ that depends on foundation physics (climate, story overlays, rivers, etc.) should:
-  - Read from `ctx.foundation` and derived buffers (`Heightfield`, `ClimateField`) rather than re-reading raw `WorldModel` tensors.
-  - Treat `FoundationContext` as the **canonical bridge** between the physics engine and downstream data products.
+- **Tile indexing**
+  - All tensors in `plates` and `dynamics` are per-tile 1D typed arrays in row-major order:
+    - `i = y * width + x` where `0 ≤ x < width`, `0 ≤ y < height`
+  - `dimensions.size === width * height`, and every tensor has `length === dimensions.size`.
 
-## 4. Config → Tunables → Orchestrator → FoundationContext → World Model
+- **Read-only snapshot**
+  - `FoundationContext` is treated as immutable after creation.
+  - The object graph is frozen, but the typed arrays are not deep-copied; **do not** mutate tensor contents.
+
+- **Plates (`ctx.foundation.plates`)**
+  - `id` (`Int16Array`): plate identifier per tile (opaque; stable within the run).
+  - `boundaryType` (`Uint8Array`): boundary interaction type using `BOUNDARY_TYPE` from `packages/mapgen-core/src/world/types.ts`:
+    - `none=0`, `convergent=1`, `divergent=2`, `transform=3`
+  - `boundaryCloseness`, `tectonicStress`, `upliftPotential`, `riftPotential`, `shieldStability` (`Uint8Array`, `0..255`):
+    - closeness/stress are higher near boundaries
+    - uplift is higher at convergent boundaries
+    - rift is higher at divergent boundaries
+    - shield stability is higher in plate interiors (inverse of stress)
+  - `movementU`, `movementV`, `rotation` (`Int8Array`, `-127..127`): relative motion/rotation proxies (units may evolve).
+
+- **Dynamics (`ctx.foundation.dynamics`)**
+  - `windU`, `windV`, `currentU`, `currentV` (`Int8Array`, `-127..127`): coarse vector components.
+    - In the current implementation, negative `U` indicates westward flow and positive `U` indicates eastward flow.
+  - `pressure` (`Uint8Array`, `0..255`): normalized mantle-pressure proxy (relative, unitless).
+
+- **Plate seed (`ctx.foundation.plateSeed`)**
+  - Optional (`null` allowed). When present, contains a `SeedSnapshot` suitable for reproducing plate layouts and diagnostic logging.
+
+- **Config snapshot (`ctx.foundation.config`)**
+  - Shallow-frozen snapshot of config inputs that informed the run (`seed`, `plates`, `dynamics`, `surface`, `policy`, `diagnostics`).
+  - Intended for reproducibility and diagnostics; treat as read-only.
+
+- **Diagnostics (`ctx.foundation.diagnostics`)**
+  - Debug-only surface; explicitly non-stable (shape may change).
+  - Currently includes `boundaryTree` (often `null`).
+
+- **Guard rails**
+  - Stages that require foundation physics must call `assertFoundationContext(ctx, stageName)` (or equivalent) before reading tensors.
+  - Treat missing `FoundationContext` as a wiring/manifest error, not a recoverable “no-op”.
+
+## 4. Config → Tunables → MapOrchestrator → WorldModel → FoundationContext
 
 This section summarizes the **M2-era flow** that leads to `FoundationContext`. It intentionally focuses on
 contracts, not internal implementation details.
@@ -125,23 +130,19 @@ contracts, not internal implementation details.
 - Tunables are a **derived, read-only view**:
   - They must not be mutated by callers.
   - Their backing `MapGenConfig` comes from the last successful `bootstrap()` / `bindTunables()` call.
-- Future work (M3+) should treat tunables as:
-  - A **compatibility layer** for legacy code.
-  - Not the primary long-term config surface for new pipeline steps.
 
 ### 4.2 Orchestrator & World Model Flow
 
 - `MapOrchestrator` is constructed with a **validated `MapGenConfig`** and optional adapter options.
 - When running the `foundation` stage, the orchestrator:
+  - Refreshes the tunables snapshot for the generation pass (`resetTunables()` → `getTunables()`).
   - Creates an `ExtendedMapContext` with:
     - Dimensions from the Civ7 adapter or test defaults.
-    - The same `MapGenConfig` instance passed into the constructor.
-  - Configures and runs `WorldModel` using tunables derived from that config.
+    - A lightweight runtime `ctx.config` object (currently: toggle flags) for legacy call sites.
+  - Configures and runs `WorldModel` using tunables derived from the **validated `MapGenConfig`** (bound via `bootstrap()` / `bindTunables()`).
   - After `WorldModel` finishes foundation physics, calls:
     - `createFoundationContext(WorldModel, { dimensions, config: foundationConfigSlice })`.
-  - Stores the resulting `FoundationContext` on:
-    - `ctx.foundation` (for downstream TS stages).
-    - `WorldModel` (for any remaining legacy consumers and diagnostics).
+  - Stores the resulting `FoundationContext` on `ctx.foundation` (for downstream TS stages and diagnostics).
 
 **M2 Contract for World Model & FoundationContext**
 
@@ -150,7 +151,7 @@ contracts, not internal implementation details.
   - Map dimensions are missing or invalid.
   - Any required tensor is missing or has the wrong length.
 - On success:
-  - `ctx.foundation` is immutable and remains valid for the rest of the generation run.
+  - `ctx.foundation` is treated as immutable and remains valid for the rest of the generation run.
   - Downstream stages must treat it as read-only and may rely on its tensors to be internally consistent.
 
 ## 5. How to Use This Contract (M3+ Work)
@@ -160,19 +161,26 @@ When implementing M3+ issues (pipeline generalization, climate, story overlays):
 - **Do reference this doc** when:
   - Deciding which `requires`/`provides` contracts to declare for steps that depend on foundation physics.
   - Designing new data products (e.g., `ClimateField`, `StoryOverlays`) that build on plate/dynamics tensors.
-- **Do not treat it as immutable**:
-  - If you need additional guarantees or fields from foundation, add them to the code **and** update this contract.
+- **Do treat it as a consumer boundary**:
+  - If you need additional guarantees or fields, update the code **and** update this contract in the same change.
   - If you discover mismatches between this doc and the implementation, treat that as a bug in the doc and fix it.
-- **Promotion path**:
-  - Once `FoundationContext` usage stabilizes across M3/M4, we should:
-    - Move this contract (possibly refined) into `docs/system/libs/mapgen` as canonical architecture.
-    - Optionally introduce similar contract docs for other data products (`Heightfield`, `ClimateField`, `StoryOverlays`).
+- **Do not depend on non-contract surfaces**:
+  - Avoid reading raw `WorldModel` state (or a singleton `WorldModel`) in new work; treat `ctx.foundation` as the stable interface.
+  - Do not depend on `ctx.foundation.diagnostics` shape outside diagnostics tooling.
+  - Do not treat tunables as the long-term config surface for new steps.
 
-## 6. Proposed Extensions (Non-Canonical, To Review)
+See Sections 6–7 for non-binding planning notes and future enforcement ideas.
 
-> The ideas in this section are **proposals**, not decided architecture.  
-> They exist to seed discussion and planning for M3/M4. It is explicitly okay to
-> revise or discard them as we learn more.
+## 6. Appendix: Future Extensions (Non-Binding)
+
+> Everything in this section is **non-binding**.  
+> It exists to seed discussion and planning for M3/M4 and may change or be deleted freely.
+
+### 6.0 Promotion Path (Non-Binding)
+
+- Once `FoundationContext` usage stabilizes across M3/M4, consider:
+  - Moving a refined version of this contract into `docs/system/libs/mapgen`.
+  - Splitting “contract” from “design sandbox” material if it becomes noisy for consumers.
 
 ### 6.1 Proposed Step Contracts on Top of FoundationContext
 
@@ -184,7 +192,7 @@ assuming `FoundationContext` remains the canonical physics snapshot.
     - `config.foundation` and related tunables (plates, dynamics, surface, diagnostics).
   - `provides`:
     - `FoundationContext` (as defined above).
-    - Populated `HeightfieldBuffer` (via `syncHeightfield`) and initial land mask.
+    - `HeightfieldBuffer` exists on `ctx.buffers.heightfield`, but it is populated later (via `syncHeightfield()` after terrain-modifying stages), not during foundation initialization.
 
 - **Proposed: Climate baseline step (M3)**
   - `requires`:
@@ -255,3 +263,13 @@ be confident that:
 
 Until then, treat this section as a **design sandbox**: useful for planning and coordination,
 but not authoritative.
+
+## 7. How This Could Be Enforced (Non-Binding)
+
+We do **not** enforce this contract yet. If/when we choose to enforce it, candidates include:
+
+- **Unit invariants:** tests for `createFoundationContext` failure modes (missing tensors, size mismatch) and success invariants (lengths, boundaryType enum range).
+- **Integration invariants:** run a minimal `MapOrchestrator` pass and assert `ctx.foundation` availability + invariants for typical map sizes.
+- **Determinism checks:** for fixed seeds/configs, compare `FoundationContext` tensors across runs to detect accidental drift.
+- **Mutation guards:** copy tensors into new typed arrays (true snapshot) and/or introduce readonly tensor wrappers to prevent accidental writes.
+- **CI + review gates:** require updating this doc when `FoundationContext` / `createFoundationContext` changes; consider linting against new code reading a global `WorldModel` instead of `ctx.foundation`.
