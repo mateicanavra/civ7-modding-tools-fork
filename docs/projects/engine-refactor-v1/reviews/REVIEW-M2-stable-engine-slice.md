@@ -325,3 +325,43 @@ The following items are **not in scope for this lane** but represent the next lo
   - Extend `EngineAdapter`/`Civ7Adapter` to cover map-size and map-init semantics.
   - Remove `OrchestratorAdapter` entirely so `MapOrchestrator` depends solely on `EngineAdapter` + `MapGenConfig`/`MapGenContext`.
 - This lane intentionally did **not** attempt to collapse the adapter boundary; it only removed the accidental conflation where `OrchestratorConfig.adapter` (typed as `EngineAdapter`) was being assigned to the `OrchestratorAdapter` field.
+
+---
+
+## CIV-38 – Dev Diagnostics & Stage Executor Logging for Stable Slice
+
+**Quick Take**  
+Mostly satisfied for M2, with minor clarity gaps. The stable-slice diagnostics surface is now canonicalized under `foundation.diagnostics`, DEV flags are initialized from that block during `generateMap()`, per-stage executor timing/logging is in place, and the legacy top-level `diagnostics.*` surface is explicitly deprecated/no-op. Remaining concerns are drift/confusion risks rather than functional blockers.
+
+**Intent & Assumptions**  
+- Make the M2 “stable slice” observable: promote and validate the existing dev diagnostics flags into schema, wire them into `MapOrchestrator.generateMap()`, and provide stage-level timing logs and consistent stage failure reporting.  
+- Treat `foundation.diagnostics` as the canonical M2 diagnostics block; retire or clearly deprecate the old top-level `diagnostics.*` surface.  
+- Assume “per-stage logs when diagnostics enabled” is satisfied via `foundation.diagnostics.logTiming` gating stage start/finish logs, per the issue’s implementation notes.
+
+**What’s Strong**  
+- `FoundationDiagnosticsConfigSchema` is explicit, camelCase, and documented as the stable M2 diagnostics surface, matching `DevLogConfig` and `initDevFlags()` mapping.  
+- `MapOrchestrator.generateMap()` resets DEV state, reads `FOUNDATION_CFG.diagnostics`, auto-enables diagnostics when any other flag is true, and initializes DEV flags for the pass.  
+- Stage executor logging is centralized in `runStage()`, emitting start/finish timings (when `logTiming` is enabled), capturing durations, and recording structured `stageResults` with consistent failure prefixes.  
+- Foundation diagnostics parity is preserved: summaries/ASCII/histograms/boundary metrics are reachable via DEV flags and no-op cleanly when disabled.  
+- Smoke warnings are lightweight and correctly scoped to obviously empty/degenerate outputs (plates, landmass windows, story tags).
+
+**High-Leverage Issues**  
+- **Legacy top-level `diagnostics` is still exposed as a normal config knob.**  
+  `DiagnosticsConfigSchema` is deprecated/no-op, but `MapGenConfigSchema` still exposes `diagnostics`. This is intentional for back-compat, but the property-level description doesn’t strongly discourage use. Consider marking the `diagnostics` property itself as legacy/no-op (or hiding it from the public schema) to reduce user confusion.  
+- **Manual schema↔DEV-flag sync is a drift risk.**  
+  `FoundationDiagnosticsConfigSchema` and `DevLogConfig` must be kept in lockstep by hand. A small parity guard (test or build-time assertion) would prevent silent divergence as new flags are added.  
+- **Stage failure logging can produce two lines when timing is enabled.**  
+  Failures log a `console.error` plus a timing “Failed …” line under `LOG_TIMING`. Not a blocker, but if log noise becomes an issue, consider collapsing to a single failure line.
+
+**Fit Within the Milestone**  
+This task lands cleanly inside M2’s scope: it makes the current stable slice debuggable without attempting step-level logging or deeper data-product validation. The remaining legacy exposure feels like an M2 sequencing compromise rather than a local miss.
+
+**Recommended Next Moves (Future Work, Not M2)**  
+1. Tighten public schema/docs around legacy top-level `diagnostics` to avoid suggesting it still works.  
+2. Add a parity check between `FoundationDiagnosticsConfigSchema` keys and the `DevLogConfig` mapping.  
+3. Reuse the `runStage()` prefix/timing pattern when M3 introduces step-level or executor-level logging.
+
+**Update (2025-12)**  
+- `MapGenConfigSchema.diagnostics` is now explicitly documented as legacy/no-op to discourage use in M2.  
+- Added a compile-time parity guard between `FoundationDiagnosticsConfigSchema` and `DevLogConfig` in `packages/mapgen-core/src/dev/diagnostics-parity.ts`.  
+- Stage failure logging now emits a single failure line (with optional timing suffix) even when `LOG_TIMING` is enabled.

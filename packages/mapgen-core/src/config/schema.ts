@@ -889,17 +889,123 @@ export const FoundationPolicyConfigSchema = Type.Object(
 );
 
 /**
- * Diagnostics and logging toggles for the foundation pipeline.
+ * Diagnostics and logging toggles for the stable-slice (M2) pipeline.
  *
- * @internal Engine debugging; prefer top-level diagnostics for general logging.
+ * This block is the canonical supported diagnostics surface for M2 and is
+ * consumed by MapOrchestrator via initDevFlags().
+ *
+ * Keys are camelCase and match DevLogConfig in dev/flags.ts.
  */
 export const FoundationDiagnosticsConfigSchema = Type.Object(
-  {},
+  {
+    /**
+     * Master diagnostics switch.
+     *
+     * If omitted, MapOrchestrator will auto-enable diagnostics when any other
+     * diagnostics flag is explicitly set to true.
+     */
+    enabled: Type.Optional(
+      Type.Boolean({
+        description:
+          "Master diagnostics switch. If omitted, diagnostics auto-enable when any other diagnostics flag is true.",
+      })
+    ),
+    /** Log per-stage timings and section durations. */
+    logTiming: Type.Optional(
+      Type.Boolean({ default: false, description: "Log per-stage timings and section durations." })
+    ),
+    /** Log foundation seed configuration. */
+    logFoundationSeed: Type.Optional(
+      Type.Boolean({ default: false, description: "Log foundation seed configuration." })
+    ),
+    /** Log foundation plates configuration. */
+    logFoundationPlates: Type.Optional(
+      Type.Boolean({ default: false, description: "Log foundation plates configuration." })
+    ),
+    /** Log foundation dynamics configuration. */
+    logFoundationDynamics: Type.Optional(
+      Type.Boolean({ default: false, description: "Log foundation dynamics configuration." })
+    ),
+    /** Log foundation surface configuration. */
+    logFoundationSurface: Type.Optional(
+      Type.Boolean({ default: false, description: "Log foundation surface configuration." })
+    ),
+    /** Print compact foundation summary. */
+    logFoundationSummary: Type.Optional(
+      Type.Boolean({ default: false, description: "Print compact foundation summary." })
+    ),
+    /** ASCII visualization of plate boundaries and masks. */
+    logFoundationAscii: Type.Optional(
+      Type.Boolean({
+        default: false,
+        description: "Emit ASCII visualizations for foundation plates and boundaries.",
+      })
+    ),
+    /** ASCII snapshot of land vs. ocean. */
+    logLandmassAscii: Type.Optional(
+      Type.Boolean({ default: false, description: "Emit ASCII snapshot of land vs. ocean." })
+    ),
+    /** Log landmass window bounding boxes. */
+    logLandmassWindows: Type.Optional(
+      Type.Boolean({ default: false, description: "Log landmass window bounding boxes." })
+    ),
+    /** ASCII visualization of terrain relief. */
+    logReliefAscii: Type.Optional(
+      Type.Boolean({ default: false, description: "Emit ASCII visualization of terrain relief." })
+    ),
+    /** ASCII heatmap for rainfall. */
+    logRainfallAscii: Type.Optional(
+      Type.Boolean({ default: false, description: "Emit ASCII heatmap for rainfall buckets." })
+    ),
+    /** Log rainfall min/max/avg statistics. */
+    logRainfallSummary: Type.Optional(
+      Type.Boolean({ default: false, description: "Log rainfall min/max/avg statistics." })
+    ),
+    /** ASCII biome classification overlay. */
+    logBiomeAscii: Type.Optional(
+      Type.Boolean({ default: false, description: "Emit ASCII biome classification overlay." })
+    ),
+    /** Log biome tile counts. */
+    logBiomeSummary: Type.Optional(
+      Type.Boolean({ default: false, description: "Log biome tile counts and distribution." })
+    ),
+    /** Log StoryTags summary counts. */
+    logStoryTags: Type.Optional(
+      Type.Boolean({ default: false, description: "Log StoryTags summary counts." })
+    ),
+    /** ASCII corridor overlay. */
+    logCorridorAscii: Type.Optional(
+      Type.Boolean({ default: false, description: "Emit ASCII corridor overlay." })
+    ),
+    /** Quantitative boundary coverage metrics. */
+    logBoundaryMetrics: Type.Optional(
+      Type.Boolean({ default: false, description: "Log boundary coverage metrics." })
+    ),
+    /** Detailed mountain placement summaries. */
+    logMountains: Type.Optional(
+      Type.Boolean({ default: false, description: "Log detailed mountain placement summaries." })
+    ),
+    /** Detailed volcano placement summaries. */
+    logVolcanoes: Type.Optional(
+      Type.Boolean({ default: false, description: "Log detailed volcano placement summaries." })
+    ),
+    /** Print histograms for uplift/rift distributions. */
+    foundationHistograms: Type.Optional(
+      Type.Boolean({
+        default: false,
+        description: "Print histograms for uplift/rift distributions.",
+      })
+    ),
+    /** Layer-specific counters and tile counts. */
+    layerCounts: Type.Optional(
+      Type.Boolean({ default: false, description: "Log layer-specific counters and tile counts." })
+    ),
+  },
   {
     additionalProperties: true,
     default: {},
-    description: "[internal] Foundation-specific diagnostics toggles.",
-    [INTERNAL_METADATA_KEY]: true,
+    description:
+      "Stable-slice diagnostics toggles consumed by MapOrchestrator. Keys match DevLogConfig and are camelCase.",
   }
 );
 
@@ -2122,7 +2228,7 @@ export const FoundationConfigSchema = Type.Object(
     surface: Type.Optional(FoundationSurfaceConfigSchema),
     /** @internal Policy flags for foundation stage (engine plumbing). */
     policy: Type.Optional(FoundationPolicyConfigSchema),
-    /** @internal Diagnostics toggles for foundation stage (engine plumbing). */
+    /** Diagnostics toggles for stable-slice debugging (M2-supported). */
     diagnostics: Type.Optional(FoundationDiagnosticsConfigSchema),
     /** Ocean separation policy ensuring water channels between continents. */
     oceanSeparation: Type.Optional(OceanSeparationConfigSchema),
@@ -2149,32 +2255,41 @@ export const FoundationConfigSchema = Type.Object(
 );
 
 /**
- * Diagnostics toggles shared by top-level map generation stages.
+ * Legacy top-level diagnostics toggles.
+ *
+ * These fields are currently unused by the stable-slice runtime and are kept
+ * only for backward compatibility. Use foundation.diagnostics instead.
  */
 export const DiagnosticsConfigSchema = Type.Object(
   {
     /**
-     * Emit ASCII map visualizations during generation.
-     * Useful for debugging terrain distribution in console logs.
-     * @default false
+     * @deprecated Unused in M2 stable slice. Use foundation.diagnostics.*.
      */
     logAscii: Type.Optional(
       Type.Boolean({
-        description: "Emit ASCII diagnostics for core stages such as foundation and landmass windows.",
+        description:
+          "[legacy/no-op] Unused in M2 stable slice. Use foundation.diagnostics.* for ASCII output.",
+        deprecated: true,
       })
     ),
     /**
-     * Log histogram summaries for terrain and climate distributions.
-     * Helps validate that thresholds produce expected ratios.
-     * @default false
+     * @deprecated Unused in M2 stable slice. Use foundation.diagnostics.*.
      */
     logHistograms: Type.Optional(
       Type.Boolean({
-        description: "Log histogram summaries for quick visual validation of distributions.",
+        description:
+          "[legacy/no-op] Unused in M2 stable slice. Use foundation.diagnostics.* for histogram output.",
+        deprecated: true,
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  {
+    additionalProperties: true,
+    default: {},
+    description:
+      "[legacy/no-op] Top-level diagnostics are deprecated in M2. Use foundation.diagnostics instead.",
+    deprecated: true,
+  }
 );
 
 /**
@@ -2225,7 +2340,10 @@ export const MapGenConfigSchema = Type.Object(
     oceanSeparation: Type.Optional(OceanSeparationConfigSchema),
     /** Late-stage placement: wonders, floodplains, starts. */
     placement: Type.Optional(PlacementConfigSchema),
-    /** Diagnostics toggles for debugging output. */
+    /**
+     * @deprecated Legacy top-level diagnostics toggles.
+     * These are no-op in the M2 stable slice; use foundation.diagnostics instead.
+     */
     diagnostics: Type.Optional(DiagnosticsConfigSchema),
   },
   { additionalProperties: true, default: {} }

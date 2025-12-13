@@ -69,7 +69,7 @@ import {
   stageEnabled,
 } from "./bootstrap/tunables.js";
 import { validateStageDrift } from "./bootstrap/resolved.js";
-import { resetStoryTags } from "./story/tags.js";
+import { getStoryTags, resetStoryTags } from "./story/tags.js";
 import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/index.js";
 
 // Layer imports
@@ -92,7 +92,9 @@ import { runPlacement } from "./layers/placement.js";
 import {
   DEV,
   initDevFlags,
-  timeSection,
+  resetDevFlags,
+  devLogIf,
+  devWarn,
   logFoundationSummary,
   logFoundationAscii,
   logLandmassAscii,
@@ -104,6 +106,7 @@ import {
   logFoundationHistograms,
   logBoundaryMetrics,
   logEngineSurfaceApisOnce,
+  type DevLogConfig,
   type FoundationPlates,
 } from "./dev/index.js";
 
@@ -212,23 +215,6 @@ function assertFoundationContext(
         `Ensure the "foundation" stage is enabled and runs before "${stageName}".`
     );
   }
-}
-
-// ============================================================================
-// Timing Utilities
-// ============================================================================
-
-/** Simple timing helper for stage execution (always logs, unlike DEV timing) */
-function stageTimeStart(label: string): { label: string; start: number } {
-  console.log(`[SWOOPER_MOD] Starting: ${label}`);
-  return { label, start: Date.now() };
-}
-
-/** End stage timing and return elapsed ms */
-function stageTimeEnd(timer: { label: string; start: number }): number {
-  const elapsed = Date.now() - timer.start;
-  console.log(`[SWOOPER_MOD] Completed: ${timer.label} (${elapsed}ms)`);
-  return elapsed;
 }
 
 // ============================================================================
@@ -518,17 +504,24 @@ export class MapOrchestrator {
     this.stageResults = [];
     const startPositions: number[] = [];
 
-    // Enable dev diagnostics so engine surface introspection and other DEV
-    // helpers can run during this generation pass.
-    // Load diagnostics flags from config (e.g. LOG_LANDMASS_ASCII)
-    const devTunables = getTunables();
-    const devFoundationCfg = devTunables.FOUNDATION_CFG || {};
-    const diagnostics = (devFoundationCfg.diagnostics || {}) as Record<string, unknown>;
-    initDevFlags({ ...diagnostics, enabled: true });
-
-    // Refresh configuration and world state
+    // Refresh configuration and tunables snapshot for this generation pass.
     resetTunables();
     const tunables = getTunables();
+
+    // Initialize DEV flags from stable-slice diagnostics config.
+    // Keys are camelCase and match DevLogConfig.
+    resetDevFlags();
+    const foundationCfg = tunables.FOUNDATION_CFG || {};
+    const rawDiagnostics = (foundationCfg.diagnostics || {}) as Record<string, unknown>;
+    const diagnosticsConfig = { ...rawDiagnostics } as DevLogConfig;
+    const hasTruthyFlag = Object.entries(diagnosticsConfig).some(
+      ([key, value]) => key !== "enabled" && value === true
+    );
+    if (diagnosticsConfig.enabled === undefined && hasTruthyFlag) {
+      diagnosticsConfig.enabled = true;
+    }
+    initDevFlags(diagnosticsConfig);
+
     console.log(`${prefix} Tunables rebound successfully`);
 
     // Reset WorldModel to ensure fresh state for this generation run
@@ -565,7 +558,6 @@ export class MapOrchestrator {
     console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
 
     // Get layer configurations from tunables
-    const foundationCfg = tunables.FOUNDATION_CFG || {};
     const landmassCfg = tunables.LANDMASS_CFG || {};
     const mountainsCfg = (foundationCfg.mountains || {}) as MountainsConfig;
     const volcanosCfg = (foundationCfg.volcanoes || {}) as VolcanoesConfig;
@@ -601,7 +593,10 @@ export class MapOrchestrator {
     // Initialize WorldModel and FoundationContext
     // Note: foundationContext stored for potential future use in story stages
     if (stageFlags.foundation && ctx) {
-      this.initializeFoundation(ctx, tunables);
+      const stageResult = this.runStage("foundation", () => {
+        this.initializeFoundation(ctx!, tunables);
+      });
+      this.stageResults.push(stageResult);
     }
 
     // Set up start sectors
@@ -656,6 +651,13 @@ export class MapOrchestrator {
 
         // Apply post-adjustments
         windows = applyLandmassPostAdjustments(windows, landmassCfg.geometry, iWidth, iHeight);
+
+        // Minimal smoke warning: plate-driven landmass should yield at least two windows.
+        if (DEV.ENABLED && windows.length < 2) {
+          devWarn(
+            `[smoke] landmassPlates produced ${windows.length} window(s); expected >= 2 for west/east continents.`
+          );
+        }
 
         // Update continent bounds from windows
         if (windows.length >= 2) {
@@ -754,7 +756,8 @@ export class MapOrchestrator {
         // Assert foundation is available - fail fast if not
         assertFoundationContext(ctx, "mountains");
 
-        console.log(
+        devLogIf(
+          "LOG_MOUNTAINS",
           `${prefix} [Mountains] thresholds ` +
             `mountain=${mountainOptions.mountainThreshold}, ` +
             `hill=${mountainOptions.hillThreshold}, ` +
@@ -956,6 +959,34 @@ export class MapOrchestrator {
       this.stageResults.push(stageResult);
     }
 
+    // Minimal smoke warning: enabled story stages should emit some tags.
+    const storyStagesEnabled =
+      stageFlags.storySeed ||
+      stageFlags.storyHotspots ||
+      stageFlags.storyRifts ||
+      stageFlags.storyOrogeny ||
+      stageFlags.storyCorridorsPre ||
+      stageFlags.storySwatches ||
+      stageFlags.storyCorridorsPost;
+    if (DEV.ENABLED && storyStagesEnabled) {
+      const tags = getStoryTags();
+      const tagTotal =
+        tags.hotspot.size +
+        tags.hotspotParadise.size +
+        tags.hotspotVolcanic.size +
+        tags.riftLine.size +
+        tags.riftShoulder.size +
+        tags.activeMargin.size +
+        tags.passiveShelf.size +
+        tags.corridorSeaLane.size +
+        tags.corridorIslandHop.size +
+        tags.corridorLandOpen.size +
+        tags.corridorRiverChain.size;
+      if (tagTotal === 0) {
+        devWarn("[smoke] story stages enabled but no story tags were emitted");
+      }
+    }
+
     console.log(`${prefix} === GenerateMap COMPLETE ===`);
 
     const success = this.stageResults.every((r) => r.success);
@@ -997,15 +1028,39 @@ export class MapOrchestrator {
   }
 
   private runStage(name: string, fn: () => void): StageResult {
-    const timer = stageTimeStart(name);
+    const basePrefix = this.options.logPrefix || "[SWOOPER_MOD]";
+    const nowMs = (): number => {
+      try {
+        if (typeof performance !== "undefined" && typeof performance.now === "function") {
+          return performance.now();
+        }
+      } catch {
+        // Fallback to Date.now()
+      }
+      return Date.now();
+    };
+
+    devLogIf("LOG_TIMING", `${basePrefix} [Stage] Starting ${name}`);
+    const t0 = nowMs();
+
     try {
       fn();
-      const durationMs = stageTimeEnd(timer);
+      const durationMs = nowMs() - t0;
+      devLogIf(
+        "LOG_TIMING",
+        `${basePrefix} [Stage] Completed ${name} (${durationMs.toFixed(2)}ms)`
+      );
       return { stage: name, success: true, durationMs };
     } catch (err) {
-      const durationMs = stageTimeEnd(timer);
+      const durationMs = nowMs() - t0;
       const errorMessage = err instanceof Error ? err.message : String(err);
-      console.error(`[MapOrchestrator] Stage "${name}" failed:`, err);
+      const timingSuffix = DEV.ENABLED && DEV.LOG_TIMING
+        ? ` (${durationMs.toFixed(2)}ms)`
+        : "";
+      console.error(
+        `[MapOrchestrator][Stage:${name}] Failed${timingSuffix}: ${errorMessage}`,
+        err
+      );
       return { stage: name, success: false, durationMs, error: errorMessage };
     }
   }
@@ -1028,57 +1083,67 @@ export class MapOrchestrator {
   private initializeFoundation(
     ctx: ExtendedMapContext,
     tunables: ReturnType<typeof getTunables>
-  ): FoundationContext | null {
+  ): FoundationContext {
     const prefix = this.options.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} Initializing foundation...`);
 
     // Ensure WorldModel pulls configuration from foundation tunables
     this.bindWorldModelConfigProvider();
-    try {
-      console.log(`${prefix} WorldModel.init() starting`);
-      if (!WorldModel.init()) {
-        throw new Error("WorldModel initialization failed");
-      }
-      console.log(`${prefix} WorldModel.init() succeeded`);
-      ctx.worldModel = WorldModel as unknown as WorldModelState;
-
-      const foundationCfg = tunables.FOUNDATION_CFG || {};
-      console.log(`${prefix} createFoundationContext() starting`);
-      const foundationContext = createFoundationContext(WorldModel as unknown as WorldModelState, {
-        dimensions: ctx.dimensions,
-        config: {
-          seed: (foundationCfg.seed || {}) as Record<string, unknown>,
-          plates: tunables.FOUNDATION_PLATES as Record<string, unknown>,
-          dynamics: tunables.FOUNDATION_DYNAMICS as Record<string, unknown>,
-          surface: (foundationCfg.surface || {}) as Record<string, unknown>,
-          policy: (foundationCfg.policy || {}) as Record<string, unknown>,
-          diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
-        },
-      });
-      console.log(`${prefix} createFoundationContext() succeeded`);
-      ctx.foundation = foundationContext;
-
-      console.log(`${prefix} Foundation context initialized`);
-
-      // Dev diagnostics for foundation
-      if (DEV.ENABLED && ctx.adapter) {
-        const plates: FoundationPlates = {
-          plateId: foundationContext.plates.id,
-          boundaryType: foundationContext.plates.boundaryType,
-          boundaryCloseness: foundationContext.plates.boundaryCloseness,
-          upliftPotential: foundationContext.plates.upliftPotential,
-          riftPotential: foundationContext.plates.riftPotential,
-        };
-        logFoundationSummary(ctx.adapter, ctx.dimensions.width, ctx.dimensions.height, plates);
-        logFoundationAscii(ctx.adapter, ctx.dimensions.width, ctx.dimensions.height, plates);
-        logFoundationHistograms(ctx.dimensions.width, ctx.dimensions.height, plates);
-      }
-
-      return foundationContext;
-    } catch (err) {
-      console.error(`${prefix} Failed to initialize foundation:`, err);
-      return null;
+    console.log(`${prefix} WorldModel.init() starting`);
+    if (!WorldModel.init()) {
+      throw new Error("WorldModel initialization failed");
     }
+    console.log(`${prefix} WorldModel.init() succeeded`);
+    ctx.worldModel = WorldModel as unknown as WorldModelState;
+
+    const foundationCfg = tunables.FOUNDATION_CFG || {};
+    console.log(`${prefix} createFoundationContext() starting`);
+    const foundationContext = createFoundationContext(WorldModel as unknown as WorldModelState, {
+      dimensions: ctx.dimensions,
+      config: {
+        seed: (foundationCfg.seed || {}) as Record<string, unknown>,
+        plates: tunables.FOUNDATION_PLATES as Record<string, unknown>,
+        dynamics: tunables.FOUNDATION_DYNAMICS as Record<string, unknown>,
+        surface: (foundationCfg.surface || {}) as Record<string, unknown>,
+        policy: (foundationCfg.policy || {}) as Record<string, unknown>,
+        diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
+      },
+    });
+    console.log(`${prefix} createFoundationContext() succeeded`);
+    ctx.foundation = foundationContext;
+
+    console.log(`${prefix} Foundation context initialized`);
+
+    // Dev diagnostics for foundation (gated by DEV flags internally)
+    if (DEV.ENABLED && ctx.adapter) {
+      const plates: FoundationPlates = {
+        plateId: foundationContext.plates.id,
+        boundaryType: foundationContext.plates.boundaryType,
+        boundaryCloseness: foundationContext.plates.boundaryCloseness,
+        upliftPotential: foundationContext.plates.upliftPotential,
+        riftPotential: foundationContext.plates.riftPotential,
+      };
+      logFoundationSummary(ctx.adapter, ctx.dimensions.width, ctx.dimensions.height, plates);
+      logFoundationAscii(ctx.adapter, ctx.dimensions.width, ctx.dimensions.height, plates);
+      logFoundationHistograms(ctx.dimensions.width, ctx.dimensions.height, plates);
+      logBoundaryMetrics(ctx.adapter, ctx.dimensions.width, ctx.dimensions.height, plates);
+
+      // Minimal smoke warning: foundation should produce at least one plate.
+      const plateId = foundationContext.plates.id;
+      if (!plateId || plateId.length === 0) {
+        devWarn("[smoke] foundation enabled but produced empty plate data");
+      } else {
+        const uniquePlates = new Set<number>();
+        for (let i = 0; i < plateId.length; i++) {
+          uniquePlates.add(plateId[i]);
+        }
+        if (uniquePlates.size === 0) {
+          devWarn("[smoke] foundation enabled but produced zero plates");
+        }
+      }
+    }
+
+    return foundationContext;
   }
 
   private createLayerAdapter(width: number, height: number): EngineAdapter {
