@@ -5,7 +5,7 @@
 - Voronoi-only landmass path with `foundation` + `landmassPlates` as default stages; legacy landmass stub removed.
 - Deterministic `PlateSeedManager` + `FoundationContext` exported and asserted; `foundation.*` config unified and legacy `worldModel` overrides warned away.
 - Heightfield buffers in `MapContext`; landmass, coasts, mountains, volcanoes, lakes, and climate baseline/refine write through staging helpers.
-- Margin overlays published via `StoryOverlays` and hydrated into `StoryTags`; `[Foundation]` diagnostics cover seed/plate/dynamics/surface plus ASCII/histograms.
+- `[Foundation]` diagnostics cover seed/plate/dynamics/surface plus ASCII/histograms.
 
 ## Gaps / In Progress
 - Climate consumers still read `GameplayMap` instead of `ClimateField`; river flow data not exposed as a product.
@@ -15,9 +15,9 @@
 - No automated smoke tests for orchestrator/context; verification is manual via diagnostics.
 
 ## Ready Next
-1. Finish Phase C: make `ClimateField` the canonical rainfall source; surface river flow/summary data for downstream overlays.
-2. Begin Phase D: refit story tagging to consume `FoundationContext`/`Heightfield`/`ClimateField` and publish overlays; retire direct `StoryTags` mutation.
-3. Add manifest/data-product validation to gate stages on declared `requires`/`provides`.
+1. Make `ClimateField` the canonical rainfall source and surface river flow/summary data for downstream overlays (Phase C / early M3).
+2. Begin refitting story tagging to consume `FoundationContext`/`Heightfield`/`ClimateField` and publish `StoryOverlays`; retire direct `StoryTags` mutation (Phase D / M3).
+3. Introduce `PipelineExecutor` / `MapGenStep` / `StepRegistry` on top of the stabilized data products, and add manifest/data-product validation to gate stages on declared `requires`/`provides` (late M3–M4).
 
 ## Spikes / Research
 - Overlay payload schema for corridors/hotspots/rifts/swatches (fields + summary for consumers).

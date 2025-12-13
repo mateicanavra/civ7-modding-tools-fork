@@ -37,6 +37,10 @@ mock.module("/base-standard/maps/discovery-generator.js", () => ({
 mock.module("/base-standard/maps/assign-advanced-start-region.js", () => ({
   assignAdvancedStartRegions: () => {},
 }));
+// Additional Civ7 adapter dependency
+mock.module("/base-standard/scripts/kd-tree.js", () => ({
+  VoronoiUtils: {},
+}));
 
 // Mock engine API
 (globalThis as any).engine = {

@@ -8,15 +8,15 @@
 
 ## Summary
 
-Establish a minimal but production-ready slice of the new engine architecture: validated configuration, task-graph pipeline, and modern foundation/plate stack, all wired into Swooper Maps with strong diagnostics. Downstream phases (climate, overlays, biomes, placement) remain mostly legacy in this milestone.
+Establish a minimal but production-ready slice of the new engine architecture: validated configuration and a modern foundation/plate stack wired into Swooper Maps with strong diagnostics, using the current `MapOrchestrator`-centric flow. Downstream phases (climate, overlays, biomes, placement) remain mostly legacy in this milestone.
 
 This milestone corresponds to **Milestone 2** in `PROJECT-engine-refactor-v1.md`.
 
 ## Objectives
 
 - Introduce a single, validated `MapGenConfig` schema and fail-fast configuration loading.
-- Implement the core task-graph infrastructure (`MapGenStep`, `StepRegistry`, `MapGenContext`, `PipelineExecutor`).
-- Run the **foundation / plate generation** stack through the new pipeline slice and bridge its outputs into legacy downstream stages.
+- Wire the existing `MapOrchestrator` and context/tunables flow to consume validated config instead of globals.
+- Run the **foundation / plate generation** stack through this orchestrated slice and bridge its outputs into legacy downstream stages.
 - Preserve existing map behavior as much as possible while enabling new diagnostics and determinism.
 
 ## Scope
@@ -25,14 +25,13 @@ This milestone corresponds to **Milestone 2** in `PROJECT-engine-refactor-v1.md`
 
 - This milestone executes:
   - **Config Refactor:** Phase 1 “Config Hygiene” from `resources/PRD-config-refactor.md`.
-  - **Pipeline Refactor:** The core plumbing slice from `resources/PRD-pipeline-refactor.md` needed to run the foundation cluster through the task graph.
   - **Plate Generation:** The initial implementation and integration of the foundation/plate stack from `resources/PRD-plate-generation.md`.
 - Work should land in this order:
   1. Implement config hygiene and fail-fast loading (`MapGenConfigSchema`, `parseConfig`, no globals).
-  2. Wire `MapGenContext` and the task-graph plumbing (`MapGenStep`, `StepRegistry`, `PipelineExecutor`) to use validated config.
-  3. Implement and integrate the foundation/plate steps as pipeline steps, with a legacy bridge into existing morphology.
+  2. Wire `bootstrap()` / tunables / `MapOrchestrator` to use validated config and drive the foundation slice.
+  3. Implement and integrate the foundation/plate stack behind the orchestrator and bridge its outputs into existing morphology.
   4. Layer on diagnostics and minimal smoke checks for foundation outputs.
-- Later phases from these PRDs (e.g., config shape evolution, downstream cluster migration into the pipeline) are intentionally out of scope here and are owned by later milestones (see `M3-core-engine-refactor-config-evolution.md` and `M4-tests-validation-cleanup.md`).
+- Later phases from these PRDs (e.g., config shape evolution, task-graph plumbing, downstream cluster migration into the pipeline) are intentionally out of scope here and are owned by later milestones (see `M3-core-engine-refactor-config-evolution.md` and `M4-tests-validation-cleanup.md`).
 
 ### 1. Config Hygiene (Phase 1)
 
@@ -44,46 +43,30 @@ This milestone corresponds to **Milestone 2** in `PROJECT-engine-refactor-v1.md`
 
 Related PRD: `resources/PRD-config-refactor.md` (Phase 1)
 
-### 2. Pipeline Core Plumbing (Phase 1)
-
-- Define and implement:
-  - `MapGenStep` interface.
-  - `StepRegistry` for registering steps by ID.
-  - `MapGenContext` structure (adapter, config, RNG, fields, artifacts).
-  - `PipelineExecutor` to run a JSON recipe and enforce `requires`/`provides` at runtime.
-- Adapt `MapOrchestrator` to:
-  - Construct `MapGenContext` once per generation.
-  - Run the `foundation` phase steps via `PipelineExecutor`.
-  - Bridge results into `WorldModel` where legacy layers still expect it.
-
-Related PRD: `resources/PRD-pipeline-refactor.md` (Phase 1)
-
-### 3. Foundation / Plate Generation Integration
+### 2. Foundation / Plate Generation Integration
 
 - Implement and/or finish:
   - `MeshBuilder` (Voronoi + Lloyd relaxation).
   - `CrustGenerator` (Craton seeding + noise).
   - `PlatePartitioner` (multi-source weighted flood fill).
   - `TectonicEngine` (vector physics + material-aware interactions).
-- Wrap these as `MapGenStep`s in the `foundation` phase and ensure they:
-  - Populate `context.artifacts.mesh`, `crust`, `plateGraph`, and `tectonics`.
-  - Export a `FoundationContext` snapshot for diagnostics and legacy consumers.
+- Ensure these components populate the foundation data products (mesh, crust, plate graph, tectonics) and export a `FoundationContext` snapshot for diagnostics and legacy consumers.
 - Ensure deterministic behavior and meet basic performance targets on typical map sizes.
 
 Related PRD: `resources/PRD-plate-generation.md`
 
-### 4. Diagnostics & Observability
+### 3. Diagnostics & Observability
 
-- Ensure existing `[Foundation]` diagnostics (seed/plate/dynamics/surface logs, ASCII maps, histograms) are wired to the new pipeline.
-- Add basic executor-level logging (start/finish of steps, durations, error reporting).
+- Ensure existing `[Foundation]` diagnostics (seed/plate/dynamics/surface logs, ASCII maps, histograms) are wired to the orchestrated foundation slice.
+- Add basic stage-level logging (start/finish of stages, durations, error reporting).
 - Optionally, add minimal smoke checks for foundation outputs (e.g., non-empty plate graphs, sane uplift distributions).
 
 ## Acceptance Criteria
 
-- Engine can execute the `foundation` pipeline slice via `PipelineExecutor` using validated config.
-- `MapGenContext.artifacts.mesh`, `crust`, `plateGraph`, and `tectonics` are populated and consumed by existing morphology stages via the legacy bridge.
+- Engine can execute the `foundation` slice via the `MapOrchestrator` using validated config.
+- Foundation data products (mesh, crust, plate graph, tectonics / `FoundationContext`) are populated and consumed by existing morphology stages via the legacy bridge.
 - Existing Swooper Maps entries still generate valid maps (no “null script” regressions) after this milestone.
-- Diagnostics clearly reflect the new pipeline flow and foundation data.
+- Diagnostics clearly reflect the foundation data and stage flow.
 
 ## Candidate Issues / Deliverables
 
@@ -97,3 +80,31 @@ Related PRD: `resources/PRD-plate-generation.md`
   - [ ] CIV-24: Dev diagnostics and executor logging (`../issues/CIV-24-dev-diagnostics.md`)
 
 These may be split or reassigned across milestones as we refine the execution plan.
+
+## Outcomes & Follow-Ups
+
+- **Reframed M2 outcome.**
+  - For planning and reconciliation after CIV-26–CIV-31, M2 is now defined as: “Config + foundation slice is stable, documented, and test-backed,” using the current `MapOrchestrator`-centric architecture.
+  - M2 explicitly does *not* deliver the full generic `PipelineExecutor` / `MapGenStep` / `StepRegistry` abstraction; that work is deferred to early M3+.
+
+- **Final M2 cleanup/stabilization batch (to land before calling the milestone fully done):**
+  - **Docs alignment**
+    - Update M2 docs and issue files so they accurately describe the current flow: `bootstrap() → MapGenConfig → tunables → MapOrchestrator → FoundationContext`, and remove or soften wording that assumes an already-implemented `PipelineExecutor` / `MapGenStep` / `StepRegistry`.
+    - Remove or clearly mark as “future” any remaining references to `globalThis.__EPIC_MAP_CONFIG__` and the old global config pattern.
+  - **Contract stabilization**
+    - Make the `FoundationContext` contract explicit: what it guarantees to downstream consumers, and which data products exist at the end of the M2 slice (see `resources/CONTRACT-foundation-context.md` as the working contract doc).
+    - Clarify the role of tunables as a view over `MapGenConfig` (derived/read-only perspective) rather than a primary config store.
+  - **Tests**
+    - Add at least one end-to-end `MapOrchestrator.generateMap` smoke test using a minimal/default `MapGenConfig` and a stub adapter, asserting that the foundation data products are populated and no stages regress.
+
+- **These items should become discrete M2 follow-up issues (to be created in Linear later), for example:**
+  - “Align M2 docs and status with the actual config/orchestrator implementation.”
+  - “Document the `FoundationContext` contract and config → tunables → world model flow.”
+  - “Add `MapOrchestrator.generateMap` smoke tests over the current slice.”
+
+- **M3+ direction (for later adjustment, *not* to implement in M2 yet), summarized for future self:**
+  - **M3 will own:**
+    - Introducing `PipelineExecutor` / `MapGenStep` / `StepRegistry` *on top of* the now-stable data products, rather than in parallel to them.
+    - Canonicalizing engine data products (`ClimateField`, river/hydrology products, `StoryOverlays`) and wiring stages to those products.
+  - **M4 will own:**
+    - Stronger contracts and validation around data products and `StageManifest` (requires/provides checking, integration tests, diagnostics).

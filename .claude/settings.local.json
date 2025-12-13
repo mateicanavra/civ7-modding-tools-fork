@@ -42,7 +42,9 @@
       "Bash(linear --help:*)",
       "Bash(pnpm -C packages/mapgen-core run check-types:*)",
       "Bash(pnpm deploy:mods)",
-      "Bash(pnpm test:*)"
+      "Bash(pnpm test:*)",
+      "mcp__linear-personal__list_projects",
+      "Bash(pnpm -C packages/mapgen-core test)"
     ],
     "deny": [],
     "ask": []
