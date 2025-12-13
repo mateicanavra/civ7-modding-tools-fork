@@ -72,7 +72,7 @@ These are the major “behavior gaps” vs the JS archive.
     - Use `FOUNDATION_DIRECTIONALITY` for oriented rift lines.
   - TS:
     - `bootstrap/tunables.ts` includes story-related config (e.g., `foundation.story`, `foundation.corridors`, `CLIMATE_CFG.story`) but there is no TS code that implements the actual tagging passes for those tunables.
-    - `climate-engine.ts` reads `CLIMATE_CFG.story.rainfall` and `FOUNDATION_CFG.story.orogeny`, but more advanced passes like swatches and paleo hydrology are not implemented as explicit “story stages” that operate on the climate buffer the way JS does.
+    - `climate-engine.ts` reads `CLIMATE_CFG.story.rainfall`; its orogeny windward/lee tunables are currently inert in M2 because no orogeny belts/step are produced. Orogeny will be reintroduced as a dedicated M3+ step/layer in the task‑graph pipeline (no legacy `OrogenyCache` port planned).
   - Net: story-related tunables have been given a nice config home but the logic that consumes them at the story-tagging level is not migrated. The climate refinement pass uses some story tags (`riftLine`, `hotspotParadise`, `hotspotVolcanic`) if present, but never gets them.
 
 - **Corridors system (sea lanes, island-hop, land corridors, river chains)**
@@ -208,7 +208,7 @@ To get to “migration finished” in the sense you describe (parity or explicit
 
   - **Story-aware climate passes (CIV‑18/19/21)**
     - Ensure that:
-      - `applyClimateSwatches` is explicitly invoked by a story stage, passing any `OrogenyCache` and context.
+      - `applyClimateSwatches` is explicitly invoked by a story stage, with any future orogeny artifacts supplied via `MapGenContext` (no legacy `OrogenyCache` port).
       - Paleo hydrology modifications use `writeClimateField`/`syncClimateField` consistently (as in JS), but within TS story stages.
       - All rainfall adjustments are clamped `[0, 200]` and pulled from `CLIMATE_CFG.story`.
     - Add a small integration test around `refineClimateEarthlike` + story tags, using the mock adapter + synthetic tags to confirm behavior.
