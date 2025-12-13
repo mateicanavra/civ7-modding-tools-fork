@@ -28,6 +28,7 @@ import type {
 import { BOUNDARY_TYPE } from "./types.js";
 import { computePlatesVoronoi, type ComputePlatesOptions } from "./plates.js";
 import { PlateSeedManager } from "./plate-seed.js";
+import { devLogIf } from "../dev/index.js";
 
 // ============================================================================
 // Internal State
@@ -85,6 +86,14 @@ let _configProvider: (() => WorldModelConfig) | null = null;
  */
 export function setConfigProvider(provider: () => WorldModelConfig): void {
   _configProvider = provider;
+}
+
+/**
+ * Test-only helper to clear the config provider.
+ * This keeps unit tests isolated without affecting runtime reset semantics.
+ */
+export function resetConfigProviderForTest(): void {
+  _configProvider = null;
 }
 
 function getConfig(): WorldModelConfig {
@@ -155,10 +164,26 @@ function computePlates(
     directionality: config.directionality ?? null,
   };
 
-  console.log(
+  devLogIf(
+    "LOG_FOUNDATION_PLATES",
     `[WorldModel] Config plates.count=${count}, relaxationSteps=${relaxationSteps}, ` +
       `convergenceMix=${convergenceMix}, rotationMultiple=${plateRotationMultiple}, ` +
-      `seedMode=${seedMode}, directionality.cohesion=${configSnapshot.directionality?.cohesion ?? "n/a"}`
+      `seedMode=${seedMode}, seedOffset=${seedOffset}, fixedSeed=${fixedSeed ?? "n/a"}`
+  );
+
+  const windCfg = config.dynamics?.wind;
+  const mantleCfg = config.dynamics?.mantle;
+  const directionalityCfg = configSnapshot.directionality;
+
+  devLogIf(
+    "LOG_FOUNDATION_DYNAMICS",
+    `[WorldModel] Config dynamics.wind jetStreaks=${windCfg?.jetStreaks ?? "n/a"}, ` +
+      `jetStrength=${windCfg?.jetStrength ?? "n/a"}, variance=${windCfg?.variance ?? "n/a"}; ` +
+      `mantle.bumps=${mantleCfg?.bumps ?? "n/a"}, amplitude=${mantleCfg?.amplitude ?? "n/a"}, ` +
+      `scale=${mantleCfg?.scale ?? "n/a"}; ` +
+      `directionality.cohesion=${directionalityCfg?.cohesion ?? "n/a"}, ` +
+      `plateAxisDeg=${directionalityCfg?.primaryAxes?.plateAxisDeg ?? "n/a"}, ` +
+      `windsFollowPlates=${directionalityCfg?.interplay?.windsFollowPlates ?? "n/a"}`
   );
 
   const { snapshot: seedBase, restore: restoreSeed } = PlateSeedManager.capture(

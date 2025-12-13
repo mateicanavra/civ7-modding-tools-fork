@@ -26,6 +26,7 @@ export {
 export {
   WorldModel,
   setConfigProvider,
+  resetConfigProviderForTest,
   type WorldModelConfig,
   type WorldModelInterface,
   type InitOptions,

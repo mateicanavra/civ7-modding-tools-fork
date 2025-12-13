@@ -328,6 +328,45 @@ The following items are **not in scope for this lane** but represent the next lo
 
 ---
 
+## CIV-37 – Wire Foundation Config into WorldModel and Mountains Layer
+
+**Quick Take**  
+Mostly satisfied for M2, with a notable “verification gap.” The core wiring is now correct (WorldModel reads `foundation.*` via a bound config provider; mountains consumes `foundation.mountains` via orchestrator wiring), and there is a lightweight unit test asserting the plate-count binding. However, the “less boundary saturation / starts no longer fail” part is not meaningfully test-backed, and the shipped Swooper config still includes multiple legacy/no-op landmass knobs that can mislead future tuning work.
+
+**Intent & Assumptions**  
+- Fix the two root causes called out in the issue: missing `WorldModel.setConfigProvider` binding and mountains config not flowing from the Swooper entry config into the TS mountains layer.  
+- Enable practical debugging: logs should make it obvious which plate/mountains knobs are being used at runtime.  
+- Treat “reduce boundary saturation and unblock start placement” as a behavioral target that should be validated via either (a) deterministic integration smoke tests, or (b) explicit manual verification notes captured in-repo.
+
+**What’s Strong**  
+- `packages/mapgen-core/src/MapOrchestrator.ts` binds `setConfigProvider()` exactly where it should: immediately before `WorldModel.init()`, and it resets WorldModel per-generation to avoid stale state.  
+- `packages/mapgen-core/src/world/model.ts` now fails fast when no provider is set, which prevents silently falling back to internal defaults (the original regression).  
+- Mountains consumption is clean and explicit: `MapOrchestrator` reads `foundationCfg.mountains`, builds a fully defaulted options object, and `layers/mountains.ts` logs both input and effective config when `LOG_MOUNTAINS` is enabled.  
+- A focused unit test exists: `packages/mapgen-core/test/orchestrator/worldmodel-config-wiring.test.ts` asserts that `foundation.plates.count` overrides are reflected in the `[WorldModel] Config …` log line.
+
+**High-Leverage Issues**  
+- **The Swooper entry config still includes “tuning knobs” that are currently no-op in the TS pipeline.**  
+  In `mods/mod-swooper-maps/src/swooper-desert-mountains.ts`, fields like `landmass.boundaryBias`, `landmass.boundaryShareTarget`, and `landmass.tectonics.{boundaryArcWeight,interiorNoiseWeight}` are present but are not consumed anywhere in `packages/mapgen-core/src` (they appear only in schema). This creates a high risk that future work “tunes” knobs that don’t affect output, and it undermines the issue’s stated goal of reducing boundary saturation. Direction: either remove these from the Swooper config, or explicitly replace them with the real TS-consumed knobs / metrics (and document the mapping).  
+- **Acceptance criteria around “key dynamics fields” aren’t directly observable at the WorldModel log boundary.**  
+  The new `[WorldModel] Config …` log line prints plate config (and a single directionality field), but it does not print wind/mantle dynamics values. If the goal is “trust but verify” for `foundation.dynamics`, add a small, gated log (or expand the existing log line) so the runtime evidence matches the acceptance checks.  
+- **Behavioral outcomes (basins, start placement success) are not pinned by tests.**  
+  The current unit test proves wiring for `plates.count` only. It doesn’t assert that mountains thresholds/intensity are applied, nor does it guard against regressions like “0/6 civs placed.” Direction: add one deterministic integration smoke test using a stub adapter that (a) checks `mountainThreshold/hillThreshold/tectonicIntensity` are read from config, and (b) asserts non-zero candidate starts (or at least that placement doesn’t catastrophically fail) for a canonical small map size.
+
+**Fit Within the Milestone**  
+This task is aligned with M2’s “stable orchestrator-centric slice” goals: it strengthens the config injection boundary and ensures foundation-derived products can reliably drive downstream layers (mountains, landmass, and story-aware consumers). The remaining gaps are mostly about validation and config-surface clarity, not the core wiring.
+
+**Recommended Next Moves (Future Work, Not M2)**  
+1. Remove or clearly mark legacy/no-op landmass knobs from the Swooper shipped config, and update the tuning guidance to reference only TS-consumed fields.  
+2. Add a small, explicit runtime log for `foundation.dynamics` (gated) so acceptance checks don’t rely on indirect inference.  
+3. Add a deterministic “starts don’t catastrophically fail” smoke test that runs the stable slice through `placement` with a stubbed adapter.
+
+**Update (2025‑12‑12)**  
+- Removed legacy/no-op landmass knobs from `mods/mod-swooper-maps/src/swooper-desert-mountains.ts`.  
+- `WorldModel` config logs are now gated under `foundation.diagnostics` and include wind/mantle/directionality fields (`LOG_FOUNDATION_PLATES`, `LOG_FOUNDATION_DYNAMICS`).  
+- Added a smoke-style wiring test that asserts the effective mountains thresholds/intensity log line when `LOG_MOUNTAINS` is enabled.
+
+---
+
 ## CIV-38 – Dev Diagnostics & Stage Executor Logging for Stable Slice
 
 **Quick Take**  
@@ -365,6 +404,33 @@ This task lands cleanly inside M2’s scope: it makes the current stable slice d
 - `MapGenConfigSchema.diagnostics` is now explicitly documented as legacy/no-op to discourage use in M2.  
 - Added a compile-time parity guard between `FoundationDiagnosticsConfigSchema` and `DevLogConfig` in `packages/mapgen-core/src/dev/diagnostics-parity.ts`.  
 - Stage failure logging now emits a single failure line (with optional timing suffix) even when `LOG_TIMING` is enabled.
+
+---
+
+## CIV-39 – Stable-Slice Story Rainfall Config Surface Alignment (Orogeny Deferred)
+
+**Quick Take**  
+Yes for M2. The config surface for the story-driven rainfall knobs that are already meaningful in the stable slice is now typed, defaulted, and consumed via `CLIMATE_CFG` without introducing new story climate behavior. Orogeny belts remain correctly treated as deferred (gated on an external cache that the stable slice does not provide).
+
+**Intent & Assumptions**  
+- Promote the already-used `climate.story.rainfall.*` knobs into schema/docs so the validated config matches runtime reads in `layers/climate-engine.ts`.  
+- Keep scope constrained to stable-slice reality: knobs that change output today, and no cache shims or new steps for orogeny belts in M2.
+
+**What’s Strong**  
+- `packages/mapgen-core/src/config/schema.ts` explicitly models `climate.story.rainfall` with defaults aligned to current stable-slice behavior.  
+- `packages/mapgen-core/src/bootstrap/tunables.ts` exposes `CLIMATE_CFG` as a frozen view over validated config (no extra shim layer).  
+- `packages/mapgen-core/src/layers/climate-engine.ts` reads these knobs in the right places (rift humidity boost and hotspot microclimates) while leaving orogeny belts gated on `STORY_ENABLE_OROGENY && orogenyCache != null`.
+
+**High-Leverage Issues**  
+- **Validation is permissive for “public mod API” knobs.**  
+  The stable-slice story rainfall knobs are now typed, but remain broadly permissive (e.g. extra keys and non-sensical numeric values can pass depending on schema settings). Direction: once M3 starts canonicalizing config surfaces, tighten numeric constraints and disallow unknown keys for stable public blocks like `climate.story.rainfall`.
+
+**Fit Within the Milestone**  
+This is exactly the sort of “config hygiene + wiring parity” task M2 should include: it closes the gap between “we read these knobs” and “we validate/document these knobs,” without pulling in M3’s task-graph or orogeny-cache architecture.
+
+**Recommended Next Moves (Future Work, Not M2)**  
+1. Tighten constraints for `climate.story.rainfall` once the stable public config surface is locked.  
+2. Add a small parseConfig→tunables smoke assertion that pins these defaults and overrides to prevent drift.
 
 ---
 

@@ -8,6 +8,7 @@
     "setup:corepack": "corepack enable && corepack prepare pnpm@10.10.0 --activate",
     "build": "turbo run build",
     "check": "turbo run check",
+    "check-types": "turbo run check",
     "dev:cli": "pnpm -F @mateicanavra/civ7-cli dev",
     "dev:sdk": "pnpm -F @mateicanavra/civ7-sdk dev",
     "dev:docs": "pnpm -F @civ7/docs dev",

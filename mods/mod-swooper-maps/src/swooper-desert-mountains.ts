@@ -18,9 +18,8 @@ import type { BootstrapConfig, BootstrapOptions } from "@swooper/mapgen-core/boo
 // Dynamic Plate Density Calculation
 // ============================================================================
 // Standard density target to ensure reasonable plate sizes.
-// 500 tiles per plate ensures plates are large enough to have distinct
-// interiors vs boundaries.
-const PLATE_DENSITY_TARGET = 160;
+// ~300 tiles per plate keeps plates large enough to have distinct interiors vs boundaries.
+const PLATE_DENSITY_TARGET = 300;
 const PLATE_COUNT_MIN = 9;
 const PLATE_COUNT_MAX = 27;
 
@@ -28,7 +27,7 @@ const PLATE_COUNT_MAX = 27;
  * Calculate optimal plate count for the given map dimensions.
  * @param width - Map width in tiles
  * @param height - Map height in tiles
- * @returns Plate count clamped to [4, 24]
+ * @returns Plate count clamped to [9, 27]
  */
 function calculatePlateCount(width: number, height: number): number {
   const totalTiles = width * height;
@@ -76,12 +75,9 @@ function buildConfig(plateCount: number): BootstrapConfig {
         crustMode: "area",
         baseWaterPercent: 53, // More ocean for distinct continents
         waterScalar: 1,
-        boundaryBias: 0.1, // Slight bias towards boundaries for interest
-        boundaryShareTarget: 0.4,
-        tectonics: {
-          boundaryArcWeight: 0.23, // Balanced
-          interiorNoiseWeight: 0.77, // Balanced
-        },
+        // NOTE (M2): The TS stable slice does not currently consume the legacy
+        // boundary/tectonics tuning knobs (boundaryBias, boundaryShareTarget, etc.).
+        // Tune boundary saturation via `foundation.plates` + `foundation.mountains` instead.
       },
       margins: {
         activeFraction: 0.35,
@@ -106,12 +102,12 @@ function buildConfig(plateCount: number): BootstrapConfig {
       foundation: {
         mountains: {
           // Balanced physics settings for plate-driven terrain
-          tectonicIntensity: 0.5, // Full intensity for proper mountain formation
-          mountainThreshold: 0.7, // Slightly lowered for reliable mountain generation
-          hillThreshold: 0.35, // Much lower - hill scores are inherently smaller than mountain scores
+          tectonicIntensity: 0.5, // Reduced intensity to preserve playable basins
+          mountainThreshold: 0.7, // Raise threshold to avoid over-mountainizing small maps
+          hillThreshold: 0.35, // Slightly raise hills threshold to preserve flats for starts
           upliftWeight: 0.37, // Standard uplift contribution
-          fractalWeight: 0.735, // Standard fractal noise
-          riftDepth: 1,
+          fractalWeight: 0.18, // Keep fractal contribution subtle (avoid blanket ruggedness)
+          riftDepth: 0.25,
           boundaryWeight: 1.0, // Standard boundary weight
           boundaryExponent: 1.77, // Standard falloff
           interiorPenaltyWeight: 0.0, // Disabled as per mountains.ts defaults

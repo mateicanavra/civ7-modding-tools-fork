@@ -1,13 +1,19 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
-import { WorldModel, setConfigProvider } from "../../src/world/model.js";
+import {
+  WorldModel,
+  setConfigProvider,
+  resetConfigProviderForTest,
+} from "../../src/world/model.js";
 
 describe("WorldModel config provider", () => {
   beforeEach(() => {
+    resetConfigProviderForTest();
     WorldModel.reset();
   });
 
   afterEach(() => {
     WorldModel.reset();
+    resetConfigProviderForTest();
   });
 
   it("fails fast when no provider is set", () => {
