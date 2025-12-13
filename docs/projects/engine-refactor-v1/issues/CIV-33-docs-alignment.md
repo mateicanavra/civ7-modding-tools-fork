@@ -31,10 +31,10 @@ Update M2 project docs and related issue files so they accurately describe the r
 
 ## Acceptance Criteria
 
-- [ ] `docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md` summary/scope/objectives describe the orchestrator-centric M2 slice and do not promise a fully generic `PipelineExecutor` in this milestone.
-- [ ] `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md` describes M2 as “config + foundation slice, documented, test-backed” and defers the task-graph primitives to M3.
-- [ ] `docs/projects/engine-refactor-v1/status.md` marks the config + foundation slice as done and lists pipeline primitives + ClimateField/StoryOverlays evolution under “Ready Next” / M3.
-- [ ] Any remaining references to `globalThis.__EPIC_MAP_CONFIG__` in project docs or engine-refactor issues are removed or clearly marked as historical/future.
+- [x] `docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md` summary/scope/objectives describe the orchestrator-centric M2 slice and do not promise a fully generic `PipelineExecutor` in this milestone.
+- [x] `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md` describes M2 as “config + foundation slice, documented, test-backed” and defers the task-graph primitives to M3.
+- [x] `docs/projects/engine-refactor-v1/status.md` marks the config + foundation slice as done and lists pipeline primitives + ClimateField/StoryOverlays evolution under “Ready Next” / M3.
+- [x] Any remaining references to `globalThis.__EPIC_MAP_CONFIG__` in project docs or engine-refactor issues are removed or clearly marked as historical/future.
 
 ## Testing / Verification
 
@@ -55,4 +55,3 @@ Update M2 project docs and related issue files so they accurately describe the r
 
 - Focus on project-level docs under `docs/projects/engine-refactor-v1/` plus the engine-refactor status snapshot.
 - Avoid over-describing current limitations in the system architecture docs; keep them focused on target shape with a light heads-up where needed.
-
