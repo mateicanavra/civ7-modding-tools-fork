@@ -4,6 +4,7 @@ export default defineConfig({
   entry: [
     "src/index.ts",
     "src/bootstrap/entry.ts",
+    "src/config/index.ts",
     "src/world/index.ts",
     "src/layers/index.ts",
   ],

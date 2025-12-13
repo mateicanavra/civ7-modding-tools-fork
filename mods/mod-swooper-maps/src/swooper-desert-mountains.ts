@@ -11,7 +11,7 @@
 /// <reference types="@civ7/types" />
 
 import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
-import type { BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
+import type { BootstrapConfig, BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
 
 // ============================================================================
 // Dynamic Plate Density Calculation
@@ -39,7 +39,7 @@ function calculatePlateCount(width: number, height: number): number {
  * Build the bootstrap configuration with dynamic plate count.
  * Uses standard, balanced defaults to ensure playability.
  */
-function buildConfig(plateCount: number): BootstrapOptions {
+function buildConfig(plateCount: number): BootstrapConfig {
   return {
     stageConfig: {
       foundation: true,
@@ -74,8 +74,7 @@ function buildConfig(plateCount: number): BootstrapOptions {
       landmass: {
         crustMode: "area",
         baseWaterPercent: 43, // More ocean for distinct continents
-        waterThumbOnScale: -1.5,
-        jitterAmpFracBase: 0.015,
+        waterScalar: -1.5,
         boundaryBias: 0.1, // Slight bias towards boundaries for interest
         boundaryShareTarget: 0.4,
         tectonics: {
@@ -142,8 +141,6 @@ function buildConfig(plateCount: number): BootstrapOptions {
           count: plateCount,
           convergenceMix: 0.65,
           relaxationSteps: 4, // Smoother cells
-          seedJitter: 21,
-          interiorSmooth: 15,
           plateRotationMultiple: 1.77,
         },
         dynamics: {
@@ -151,11 +148,6 @@ function buildConfig(plateCount: number): BootstrapOptions {
             jetStreaks: 3,
             jetStrength: 1.0,
             variance: 0.5,
-          },
-          currents: {
-            basinGyreCountMax: 3,
-            westernBoundaryBias: 1.2,
-            currentStrength: 1.0,
           },
           mantle: {
             bumps: 3,
@@ -183,10 +175,6 @@ function buildConfig(plateCount: number): BootstrapOptions {
           },
         },
         policy: {
-          windInfluence: 1.0,
-          currentHumidityBias: 0.5,
-          boundaryFjordBias: 0.8,
-          shelfReefBias: 0.5,
           oceanSeparation: {
             enabled: false, // Ensure oceans separate continents
             baseSeparationTiles: 3,
@@ -262,77 +250,9 @@ function buildConfig(plateCount: number): BootstrapOptions {
       },
       story: {
         hotspot: {
-          maxTrails: 5,
-          steps: 8,
-          stepLen: 2,
-          minDistFromLand: 4,
-          minTrailSeparation: 10,
           paradiseBias: 1,
           volcanicBias: 1,
           volcanicPeakChance: 0.3,
-        },
-        rift: {
-          maxRiftsPerMap: 2,
-          lineSteps: 15,
-          stepLen: 2,
-          shoulderWidth: 1,
-        },
-        orogeny: {
-          beltMaxPerContinent: 2,
-          beltMinLength: 10,
-          radius: 5,
-          windwardBoost: 15,
-          leeDrynessAmplifier: 1.5,
-        },
-        swatches: {
-          maxPerMap: 4,
-          forceAtLeastOne: false,
-          types: {
-            macroDesertBelt: {
-              weight: 10,
-              latitudeCenterDeg: 30,
-              halfWidthDeg: 10,
-              drynessDelta: 40,
-              bleedRadius: 5,
-            },
-            equatorialRainbelt: {
-              weight: 10,
-              latitudeCenterDeg: 0,
-              halfWidthDeg: 8,
-              wetnessDelta: 40,
-              bleedRadius: 5,
-            },
-            mountainForests: {
-              weight: 5,
-              coupleToOrogeny: true,
-              windwardBonus: 15,
-              leePenalty: 10,
-              bleedRadius: 3,
-            },
-            rainforestArchipelago: {
-              weight: 5,
-              islandBias: 1.2,
-              reefBias: 1.2,
-              wetnessDelta: 20,
-              bleedRadius: 3,
-            },
-          },
-        },
-        paleo: {
-          maxFossilChannels: 12,
-          fossilChannelLengthTiles: 12,
-          fossilChannelStep: 2,
-          fossilChannelHumidity: 10,
-          fossilChannelMinDistanceFromCurrentRivers: 4,
-          sizeScaling: {
-            lengthMulSqrt: 0.8,
-          },
-          elevationCarving: {
-            enableCanyonRim: true,
-            rimWidth: 3,
-            canyonDryBonus: 10,
-            bluffWetReduction: 5,
-          },
         },
       },
       microclimate: {

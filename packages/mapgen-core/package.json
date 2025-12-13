@@ -10,6 +10,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "import": "./dist/config/index.js"
+    },
     "./bootstrap": {
       "types": "./dist/bootstrap/entry.d.ts",
       "import": "./dist/bootstrap/entry.js"
@@ -29,8 +33,9 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
+    "@civ7/adapter": "workspace:*",
     "@civ7/types": "workspace:*",
-    "@civ7/adapter": "workspace:*"
+    "typebox": "^1.0.61"
   },
   "devDependencies": {
     "bun-types": "latest",

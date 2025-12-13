@@ -39,7 +39,9 @@
       "WebSearch",
       "Bash(mcp__linear-personal__list_teams)",
       "Bash(claude mcp list:*)",
-      "Bash(linear --help:*)"
+      "Bash(linear --help:*)",
+      "Bash(pnpm -C packages/mapgen-core run check-types:*)",
+      "Bash(pnpm deploy:mods)"
     ],
     "deny": [],
     "ask": []
