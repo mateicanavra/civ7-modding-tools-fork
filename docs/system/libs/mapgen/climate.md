@@ -1,5 +1,7 @@
 # Climate & Hydrology Stage Architecture
 
+> **Target vs Current (post‑M2):** This doc describes the target Climate/Hydrology design. The current M2 stable slice is orchestrator‑centric and is intentionally transient while M3 introduces step/task‑graph execution and canonical products.
+
 ## 1. Overview
 
 The **Climate & Hydrology Stage** follows the Foundation and Morphology phases. Its responsibility is to simulate the atmospheric and hydrological processes that determine the habitability of the map.
@@ -11,6 +13,17 @@ This stage transforms the physical board (Elevation, Landmasses) into a living w
 2.  **Regional Weather:** Apply localized weather systems (Monsoons, Trade Winds) via configurable "Swatches".
 3.  **Orographic Physics:** Simulate the interaction between wind and terrain to create rain shadows and moisture gradients.
 4.  **Hydrology:** Route water downhill to form rivers, lakes, and erosion patterns.
+
+### Current implementation (post‑M2)
+
+In the current stable slice, climate/hydrology behavior is executed via orchestrator stages and TS layers, not a fully generic `MapGenStep` registry yet.
+
+Source of truth for what is wired today:
+
+- `docs/projects/engine-refactor-v1/status.md`
+- `docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md`
+- `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md`
+- Relevant M2 story/climate config surfaces (e.g., `docs/projects/engine-refactor-v1/issues/CIV-39-config-surface-alignment.md`)
 
 ---
 
