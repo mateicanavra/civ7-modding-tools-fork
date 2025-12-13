@@ -9,7 +9,7 @@
 - Basic automated coverage for the stable slice: orchestrator integration + foundation smoke tests in `packages/mapgen-core/test/orchestrator/*`.
 
 ## Gaps / In Progress
-- Climate consumers still read `GameplayMap` instead of `ClimateField`; river flow data not exposed as a product.
+- Climate consumers still read `GameplayMap` instead of `ClimateField`; river flow/summary data is not exposed as a product (Civ7 river generation remains engine-owned and should be wrapped, not replaced, in M3).
 - Narrative overlays are still largely unported: minimal parity (margins/hotspots/rifts ± orogeny) is now scoped for M2 (`CIV-36`), while corridors/swatches/paleo and canonical overlay products remain M3 work (`LOCAL-M3-STORY-SYSTEM`).
 - Biomes/features/placement read legacy fields and do not require overlays or `ClimateField` inputs.
 - No manifest/data-product validator; stages can still run without declared inputs beyond manual assertions.
@@ -17,7 +17,7 @@
 
 ## Ready Next
 1. Restore minimal story parity (margins/hotspots/rifts ± orogeny) via orchestrator stages so narrative‑aware consumers react again (M2).
-2. Make `ClimateField` the canonical rainfall source and surface river flow/summary data for downstream overlays (Phase C / early M3).
+2. Make `ClimateField` the canonical rainfall source and publish surface river flow/summary data for downstream overlays (Phase C / early M3): `LOCAL-M3-HYDROLOGY-PRODUCTS` (`issues/LOCAL-M3-hydrology-products.md`).
 3. Complete remaining story system modernization (corridors, swatches, paleo, canonical overlays) and migrate story logic into steps after pipeline refactor (M3).
 4. Introduce `PipelineExecutor` / `MapGenStep` / `StepRegistry` on top of the stabilized data products, and add manifest/data-product validation to gate stages on declared `requires`/`provides` (late M3–M4).
 

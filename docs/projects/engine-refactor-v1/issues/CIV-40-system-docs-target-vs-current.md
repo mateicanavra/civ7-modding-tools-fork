@@ -25,12 +25,12 @@ Add an explicit “Target vs Current implementation” framing to the canonical 
 - Update the system docs:
   - `docs/system/libs/mapgen/architecture.md`
   - `docs/system/libs/mapgen/foundation.md`
-  - `docs/system/libs/mapgen/climate.md`
+  - `docs/system/libs/mapgen/hydrology.md`
 - Each doc has a prominent preamble/banner that:
   - States the doc contains both **Target** and **Current** guidance.
   - Makes clear **Target** is canonical long-term architecture.
   - Makes clear **Current (post‑M2)** is intentionally transient while M3/M4 land.
-- Add a short **Current implementation (M2)** subsection (or equivalent) to `foundation.md` and `climate.md` that:
+- Add a short **Current implementation (M2)** subsection (or equivalent) to `foundation.md` and `hydrology.md` that:
   - Points to the current source-of-truth for the M2 slice:
     - `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`
     - `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md`
@@ -42,7 +42,7 @@ Add an explicit “Target vs Current implementation” framing to the canonical 
 
 - [x] `docs/system/libs/mapgen/architecture.md` clearly labels “Target” vs “Current” guidance and points readers to project docs for post‑M2 reality where appropriate.
 - [x] `docs/system/libs/mapgen/foundation.md` includes a clear “Current implementation (post‑M2)” subsection and links to the M2 contract + project snapshot docs.
-- [x] `docs/system/libs/mapgen/climate.md` includes a clear “Current implementation (post‑M2)” subsection and links to the M2 contract + project snapshot docs.
+- [x] `docs/system/libs/mapgen/hydrology.md` includes a clear “Current implementation (post‑M2)” subsection and links to the M2 contract + project snapshot docs.
 - [x] The added “Current” sections are short, scoped, and explicitly described as transient.
 - [x] The target architecture sections remain canonical and are not rewritten to mirror current code line-by-line.
 
@@ -71,7 +71,7 @@ Add an explicit “Target vs Current implementation” framing to the canonical 
 ## Implementation Notes (Local Only)
 
 - Keep the “Current” sections extremely short and link-heavy; avoid embedding volatile details that will churn during M3.
-- Suggested structure for `foundation.md` / `climate.md`:
+- Suggested structure for `foundation.md` / `hydrology.md`:
   - `## Target Architecture` (existing content; canonical)
   - `## Current Implementation (post‑M2)` (new; transient; links to M2 contract/status)
   - `## Migration Notes` (optional; 2–4 bullets max; what will change in M3)

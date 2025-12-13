@@ -10,7 +10,7 @@ assignees: []
 labels: [testing]
 parent: CIV-14
 children: []
-blocked_by: [CIV-19, CIV-20, CIV-21, CIV-22]
+blocked_by: [CIV-21]
 blocked: []
 related_to: [CIV-8]
 ---

@@ -249,7 +249,10 @@ The milestones above converge on a target engine that follows the cluster topolo
   - `../../system/mods/swooper-maps/architecture.md`
   - `../../system/libs/mapgen/architecture.md`
   - `../../system/libs/mapgen/foundation.md`
-  - `../../system/libs/mapgen/design.md`
+  - `../../system/libs/mapgen/morphology.md`
+  - `../../system/libs/mapgen/hydrology.md`
+  - `../../system/libs/mapgen/ecology.md`
+  - `../../system/libs/mapgen/narrative.md`
 - **Code & diagnostics**
   - `mods/mod-swooper-maps/mod/maps/` (orchestrator, layers, bootstrap, world model).
   - `mods/mod-swooper-maps/mod/maps/bootstrap/dev.js` (diagnostics).

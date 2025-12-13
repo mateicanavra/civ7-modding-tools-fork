@@ -203,28 +203,28 @@ The TypeScript migration (CIV-1 through CIV-13) passed all compilation gates but
 
 ### Remediation Issues
 
-- [ ] [CIV-14: TypeScript Migration Remediation](../issues/CIV-14-typescript-migration-remediation.md) — Parent issue
+- [x] [CIV-14: TypeScript Migration Remediation](../issues/_archive/CIV-14-typescript-migration-remediation.md) — Parent issue
 
 #### Stack 1: Shape Fixes (P0-A.1)
-- [ ] [CIV-15: Fix Adapter Boundary & Orchestration Wiring](../issues/CIV-15-fix-adapter-boundary.md)
-- [ ] [CIV-16: Migrate Layers to FoundationContext Consumption](../issues/CIV-16-foundationcontext-consumption.md)
+- [x] [CIV-15: Fix Adapter Boundary & Orchestration Wiring](../issues/_archive/CIV-15-fix-adapter-boundary.md)
+- [x] [CIV-16: Migrate Layers to FoundationContext Consumption](../issues/_archive/CIV-16-foundationcontext-consumption.md)
 
 #### Stack 2: Enable Behavior (P0-A.2)
-- [ ] [CIV-17: Implement Config→Manifest Resolver](../issues/CIV-17-config-manifest-resolver.md)
-- [ ] [CIV-18: Fix Biomes & Climate Call-Sites](../issues/CIV-18-callsite-fixes.md)
+- [x] [CIV-17: Implement Config→Manifest Resolver](../issues/_archive/CIV-17-config-manifest-resolver.md)
+- [x] [CIV-18: Fix Biomes & Climate Call-Sites](../issues/_archive/CIV-18-callsite-fixes.md)
 
 #### Stack 3: Wire to Engine (P0-B)
-- [ ] [CIV-19: Biomes & Features Adapter Integration](../issues/CIV-19-biomes-features-adapter.md)
-- [ ] [CIV-20: Placement Adapter Integration](../issues/CIV-20-placement-adapter.md)
+- [x] [CIV-19: Biomes & Features Adapter Integration](../issues/_archive/CIV-19-biomes-features-adapter.md)
+- [x] [CIV-20: Placement Adapter Integration](../issues/_archive/CIV-20-placement-adapter.md)
 - [ ] [CIV-21: Reactivate Minimal Story Tagging](../issues/CIV-21-story-tagging.md)
-- [ ] [CIV-22: Restore Map-Size Awareness](../issues/CIV-22-map-size-awareness.md)
+- [x] [CIV-22: Restore Map-Size Awareness](../issues/_archive/CIV-22-map-size-awareness.md)
 
 #### Stack 4: Validation (P0-C)
 - [ ] [CIV-23: Integration & Behavior Tests](../issues/CIV-23-integration-tests.md)
 - Completes: [CIV-8: Validate End-to-End](../issues/CIV-8-validate-end-to-end.md)
 
 #### Cross-Cutting: Tooling
-- [ ] [CIV-24: Restore Dev Diagnostics & Stage Logging](../issues/CIV-24-dev-diagnostics.md)
+- [x] [CIV-24: Restore Dev Diagnostics & Stage Logging](../issues/_archive/CIV-24-dev-diagnostics.md)
 
 ### Remediation Stack Dependencies
 
