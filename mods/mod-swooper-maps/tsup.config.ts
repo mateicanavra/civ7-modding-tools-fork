@@ -36,8 +36,8 @@ export default defineConfig({
   // Bundle all dependencies into the output file
   bundle: true,
 
-  // Do NOT clear the directory - preserve existing JS files and XML
-  clean: false,
+  // Clear mod/maps between builds to avoid stale chunks.
+  clean: true,
 
   // CRITICAL: Keep /base-standard/... imports external
   // These are resolved at runtime by the Civ7 game engine
@@ -48,6 +48,7 @@ export default defineConfig({
 
   esbuildOptions(options) {
     // Shim TypeBox format registry so no Unicode-property regexes reach the game engine (built-in format validation disabled).
+    options.chunkNames = "engine-[hash]";
     options.alias = {
       "typebox/format": typeboxFormatShim,
     };
