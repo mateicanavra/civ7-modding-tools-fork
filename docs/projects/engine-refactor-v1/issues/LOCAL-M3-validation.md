@@ -20,6 +20,14 @@ related_to: [CIV-23]
 
 Runtime enforcement of `requires`/`provides` contracts with fail-fast errors and dev-mode visualization.
 
+## Context
+
+**System area:** `mapgen-core` pipeline executor (`core/pipeline.ts`)
+
+**Change:** Adds runtime checks to `PipelineExecutor`: before running a step, verify all `requires` keys exist in artifacts; after, verify `provides` keys were populated. Detects cycles in the step graph before execution.
+
+**Outcome:** Misconfigured pipelines fail immediately with clear errors ("Step X requires 'heightfield' but it was not provided"). Developers can visualize the dependency graph. Catches integration bugs that static types cannot.
+
 ## Deliverables
 
 - [ ] **Dependency enforcement** — Validate requires before, provides after each step

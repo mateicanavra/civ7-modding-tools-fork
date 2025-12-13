@@ -20,6 +20,14 @@ related_to: [CIV-21, LOCAL-M3-LEGACY-WRAPPERS]
 
 Complete story port (corridors, swatches, paleo) and wrap as `MapGenStep`s with canonical `StoryOverlays` products.
 
+## Context
+
+**System area:** `mapgen-core` story subsystem (`story/tagging.ts`, `story/corridors.ts`, `story/overlays.ts`)
+
+**Change:** Ports remaining narrative mechanics from legacy JS (strategic corridors, climate swatches, paleo hydrology) and exposes them as pipeline steps. Story outputs publish to the canonical `StoryOverlays` registry instead of direct `StoryTags` mutation.
+
+**Outcome:** Maps regain narrative richness (sea lanes, continent bridges, desert belts). Story-aware downstream stages (climate, biomes, features) get reliable overlay data. Story toggles work as step enable/disable rather than scattered boolean checks.
+
 ## Deliverables
 
 - [ ] **Remaining story passes** — Orogeny, swatches, paleo hydrology

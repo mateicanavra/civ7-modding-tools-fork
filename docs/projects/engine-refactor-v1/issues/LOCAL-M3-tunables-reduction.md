@@ -20,6 +20,14 @@ related_to: [CIV-31]
 
 Audit tunables consumers and migrate high-priority layers to `context.config`.
 
+## Context
+
+**System area:** `mapgen-core` layer implementations (`layers/*.ts`, `bootstrap/tunables.ts`)
+
+**Change:** Migrates ~10 layer files from importing `FOUNDATION_CFG`/`CLIMATE_CFG` globals to reading `context.config`. The tunables module shrinks as consumers move off its facades.
+
+**Outcome:** Layers become pure functions of context, enabling isolated testing and step-based execution. Removes hidden coupling between layers and bootstrap globals. Required before tunables retirement.
+
 ## Deliverables
 
 - [ ] **Consumer audit** — Categorized list of all tunables imports

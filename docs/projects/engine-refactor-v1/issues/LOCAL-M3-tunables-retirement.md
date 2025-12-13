@@ -20,6 +20,14 @@ related_to: [CIV-31]
 
 Remove `FOUNDATION_CFG`/`CLIMATE_CFG` facades, reduce tunables.ts to minimal shim.
 
+## Context
+
+**System area:** `mapgen-core` bootstrap layer (`bootstrap/tunables.ts`)
+
+**Change:** Deletes the ~400 LOC tunables module that exposes config as global constants. Retains only `stageEnabled()` and `STAGE_ORDER` for orchestrator compatibility. All config reads now go through `context.config`.
+
+**Outcome:** Eliminates a major source of hidden coupling. Config injection becomes the only path. Simplifies testing and enables running multiple map generations with different configs in the same process.
+
 ## Deliverables
 
 - [ ] **Facade removal** — Delete FOUNDATION_CFG, CLIMATE_CFG exports

@@ -20,6 +20,14 @@ related_to: [CIV-26]
 
 Flatten config to step/phase-aligned shape with backward-compat adapter (Config PRD Phase 3).
 
+## Context
+
+**System area:** `mapgen-core` configuration schema (`config/schema.ts`, `config/loader.ts`)
+
+**Change:** Restructures `MapGenConfig` from legacy nested form (`foundation.mountains`) to flat, phase-aligned groups (`mountains`, `climate.baseline`). Adds adapter layer that detects old shape and migrates with deprecation warnings.
+
+**Outcome:** Config structure mirrors pipeline phases, making it obvious which knobs affect which steps. Mod authors get clear deprecation path. Schema becomes self-documenting for the pipeline architecture.
+
 ## Deliverables
 
 - [ ] **New config shape** — Flat, step-aligned groups (`plates`, `landmass`, `climate`, etc.)

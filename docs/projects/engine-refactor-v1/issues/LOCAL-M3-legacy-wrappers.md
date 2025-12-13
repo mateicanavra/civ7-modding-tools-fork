@@ -20,6 +20,14 @@ related_to: [CIV-19, CIV-20]
 
 Wrap remaining legacy phases as `MapGenStep`s for full Task Graph orchestration ("wrapper only" — internals unchanged).
 
+## Context
+
+**System area:** `mapgen-core` orchestration layer (`MapOrchestrator.ts`, new `steps/legacy/*.ts`)
+
+**Change:** Wraps existing layer call sequences (landmass→coastlines→islands→mountains→volcanoes, etc.) as `MapGenStep` implementations. Each wrapper declares its `requires`/`provides` and delegates to existing functions. Orchestrator switches from direct calls to `PipelineExecutor`.
+
+**Outcome:** Full map generation runs through the Task Graph. Step boundaries become explicit. Enables per-step diagnostics, future parallelization, and incremental internal refactoring without orchestrator changes.
+
 ## Deliverables
 
 - [ ] **5 legacy wrapper steps** — Morphology, Hydrology, Climate, Biomes, Placement

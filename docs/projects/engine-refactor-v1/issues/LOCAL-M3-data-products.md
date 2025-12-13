@@ -20,6 +20,14 @@ related_to: [CIV-34]
 
 Standardize data product shapes and make downstream stages consume products rather than globals.
 
+## Context
+
+**System area:** `mapgen-core` data flow (`core/types.ts`, `layers/*.ts` consumers)
+
+**Change:** Formalizes intermediate data shapes (Heightfield, ClimateField, StoryOverlays, RiverFlow) as typed interfaces. Steps publish to `context.artifacts`; consumers read from artifacts instead of `GameplayMap` or `StoryTags` globals.
+
+**Outcome:** Data dependencies become explicit and validated. Decouples mapgen-core from Civ7 engine globals, improving testability and enabling headless generation. Products can be cached, serialized, or visualized for debugging.
+
 ## Deliverables
 
 - [ ] **Product interfaces finalized** — Heightfield, ClimateField, StoryOverlays, RiverFlowData

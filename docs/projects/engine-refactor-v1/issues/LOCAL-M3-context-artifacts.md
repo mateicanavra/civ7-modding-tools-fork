@@ -20,6 +20,14 @@ related_to: [CIV-34]
 
 Extend `MapGenContext` with a typed `artifacts` container for intermediate pipeline data, enabling steps to declare and validate dependencies.
 
+## Context
+
+**System area:** `mapgen-core` data model (`core/types.ts`)
+
+**Change:** Adds an `artifacts` map to `MapGenContext` that holds typed intermediate products (meshes, plate graphs, climate fields). Currently, intermediate data lives in scattered globals (`WorldModel`, `GameplayMap`) or is computed inline and discarded.
+
+**Outcome:** Pipeline steps can declare what they produce and consume via typed keys. Runtime validation catches missing dependencies early. Intermediate data becomes inspectable for diagnostics and testing without coupling to engine globals.
+
 ## Deliverables
 
 - [ ] **Artifacts container** — `MapGenContext.artifacts` with typed optional properties

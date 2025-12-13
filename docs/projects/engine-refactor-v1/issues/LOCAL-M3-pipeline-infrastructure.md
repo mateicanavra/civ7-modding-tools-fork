@@ -20,6 +20,14 @@ related_to: []
 
 Establish the Task Graph foundation: `MapGenStep` interface, `StepRegistry`, and `PipelineExecutor` with fail-fast dependency validation.
 
+## Context
+
+**System area:** `mapgen-core` orchestration layer (`core/pipeline.ts`, `MapOrchestrator.ts`)
+
+**Change:** Introduces a plugin architecture where generation stages become self-describing steps with explicit input/output contracts (`requires`/`provides`). Currently, `MapOrchestrator` calls layers directly in hard-coded order with implicit data flow through globals and context mutation.
+
+**Outcome:** Steps can be composed, reordered, and validated at runtime. Enables incremental migration of legacy stages, unlocks future features like step-level caching and parallel execution, and provides clear boundaries for testing.
+
 ## Deliverables
 
 - [ ] **Pipeline primitives module** — `MapGenStep` interface, `StepRegistry`, `PipelineExecutor` in `core/pipeline.ts`

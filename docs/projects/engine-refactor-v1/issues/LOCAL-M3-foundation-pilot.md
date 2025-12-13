@@ -20,6 +20,14 @@ related_to: [CIV-37]
 
 Wrap existing foundation/plate generation as a `FoundationStep` and integrate `PipelineExecutor` into `MapOrchestrator` as the first pipeline pilot.
 
+## Context
+
+**System area:** `mapgen-core` foundation phase (`MapOrchestrator.ts`, `world/model.ts`, new `steps/foundation/`)
+
+**Change:** Lifts the plate tectonics and foundation generation logic into the first `MapGenStep`. The orchestrator delegates to `PipelineExecutor` for this phase, then syncs artifacts back to `WorldModel` for downstream legacy stages.
+
+**Outcome:** Proves the pipeline architecture end-to-end without breaking existing behavior. Establishes the pattern for wrapping remaining stages. Foundation data becomes available as a typed artifact for downstream steps.
+
 ## Deliverables
 
 - [ ] **FoundationStep** — Wraps WorldModel + plates, declares `provides: ['foundation', 'heightfield']`

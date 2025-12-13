@@ -20,6 +20,14 @@ related_to: [CIV-26, CIV-31]
 
 Make `context.config` the single read path for all steps (Config PRD Phase 2).
 
+## Context
+
+**System area:** `mapgen-core` configuration flow (`core/types.ts`, `layers/*.ts`, `bootstrap/tunables.ts`)
+
+**Change:** Shifts config consumption from scattered `FOUNDATION_CFG`/`CLIMATE_CFG` imports to a single `context.config` property validated at the engine boundary. Layers read config through context rather than reaching into bootstrap globals.
+
+**Outcome:** Config becomes injectable and testable. Steps can run with different configs without global mutation. Prepares for config shape evolution by centralizing the read path.
+
 ## Deliverables
 
 - [ ] **Context config requirement** — `MapGenContext.config` always populated, validated at boundary

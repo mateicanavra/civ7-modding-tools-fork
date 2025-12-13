@@ -20,6 +20,14 @@ related_to: [CIV-33, CIV-40]
 
 Update docs to match M3 implementation; close parity matrix gaps.
 
+## Context
+
+**System area:** `docs/system/libs/mapgen/` and project tracking docs
+
+**Change:** Synchronizes architecture.md, foundation.md, and config-wiring-status.md with M3 implementation. Updates parity matrix to reflect story system completion. Adds CHANGELOG entry for breaking changes.
+
+**Outcome:** Documentation accurately describes the system for future contributors. Parity matrix becomes a reliable status source. Breaking changes are discoverable before upgrading.
+
 ## Deliverables
 
 - [ ] **Architecture docs updated** — Pipeline, config, data products sections current
