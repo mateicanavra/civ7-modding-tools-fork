@@ -18,7 +18,6 @@ describe("CIV-18: Call-site Fixes", () => {
         isWater: () => false,
         isMountain: () => false,
         // isCoastalLand intentionally omitted
-        // isAdjacentToShallowWater intentionally omitted
         isAdjacentToRivers: () => false,
         getRainfall: () => 50,
         setRainfall: () => {},
@@ -29,7 +28,6 @@ describe("CIV-18: Call-site Fixes", () => {
 
       // Type check: adapter should be valid without isCoastalLand
       expect(adapter.isCoastalLand).toBeUndefined();
-      expect(adapter.isAdjacentToShallowWater).toBeUndefined();
     });
 
     it("allows isCoastalLand to be provided when available", () => {
@@ -37,7 +35,6 @@ describe("CIV-18: Call-site Fixes", () => {
         isWater: () => false,
         isMountain: () => false,
         isCoastalLand: (x, y) => x === 0 && y === 0, // Only (0,0) is coastal
-        isAdjacentToShallowWater: () => true,
         isAdjacentToRivers: () => false,
         getRainfall: () => 50,
         setRainfall: () => {},
@@ -48,7 +45,6 @@ describe("CIV-18: Call-site Fixes", () => {
 
       expect(adapter.isCoastalLand?.(0, 0)).toBe(true);
       expect(adapter.isCoastalLand?.(1, 1)).toBe(false);
-      expect(adapter.isAdjacentToShallowWater?.(0, 0)).toBe(true);
     });
   });
 
@@ -113,69 +109,6 @@ describe("CIV-18: Call-site Fixes", () => {
         ? adapterWithoutMethod.isCoastalLand(0, 0)
         : localFallback();
       expect(resultWithoutMethod).toBe(false);
-    });
-
-    it("local isAdjacentToShallowWater helper works correctly (CIV-18 fix)", () => {
-      // CIV-18: Ad-hoc fallback helper for shallow water adjacency.
-      // A tile is "adjacent to shallow water" if it neighbors a water tile
-      // that has 2+ land neighbors (bay/lagoon pattern).
-      const width = 5;
-      const height = 5;
-      // Water at (1,1) surrounded by land on multiple sides (shallow bay)
-      // Water at (4,4) with only one land neighbor (deep water edge)
-      const waterGrid = new Set(["1,1", "4,4"]);
-
-      const isWater = (x: number, y: number): boolean =>
-        waterGrid.has(`${x},${y}`);
-
-      const inBounds = (x: number, y: number): boolean =>
-        x >= 0 && x < width && y >= 0 && y < height;
-
-      // Mirrors the CIV-18 fallback in climate-engine.ts
-      const isAdjacentToShallowWaterFallback = (
-        x: number,
-        y: number
-      ): boolean => {
-        if (isWater(x, y)) return false;
-        for (let dy = -1; dy <= 1; dy++) {
-          for (let dx = -1; dx <= 1; dx++) {
-            if (dx === 0 && dy === 0) continue;
-            const nx = x + dx;
-            const ny = y + dy;
-            if (!inBounds(nx, ny)) continue;
-            if (isWater(nx, ny)) {
-              let landNeighbors = 0;
-              for (let ddy = -1; ddy <= 1; ddy++) {
-                for (let ddx = -1; ddx <= 1; ddx++) {
-                  if (ddx === 0 && ddy === 0) continue;
-                  const nnx = nx + ddx;
-                  const nny = ny + ddy;
-                  if (!inBounds(nnx, nny)) continue;
-                  if (!isWater(nnx, nny)) landNeighbors++;
-                }
-              }
-              if (landNeighbors >= 2) return true;
-            }
-          }
-        }
-        return false;
-      };
-
-      // (0,0) is adjacent to water at (1,1) which has 8 land neighbors = shallow
-      expect(isAdjacentToShallowWaterFallback(0, 0)).toBe(true);
-      expect(isAdjacentToShallowWaterFallback(0, 1)).toBe(true);
-      expect(isAdjacentToShallowWaterFallback(1, 0)).toBe(true);
-      expect(isAdjacentToShallowWaterFallback(2, 2)).toBe(true);
-
-      // (1,1) is water itself, not land
-      expect(isAdjacentToShallowWaterFallback(1, 1)).toBe(false);
-
-      // (3,3) is adjacent to water at (4,4) but that water only has 3 land neighbors
-      // (corner of map, limited neighbors) - still >= 2, so true
-      expect(isAdjacentToShallowWaterFallback(3, 3)).toBe(true);
-
-      // (0,4) is not adjacent to any water
-      expect(isAdjacentToShallowWaterFallback(0, 4)).toBe(false);
     });
   });
 

@@ -221,11 +221,12 @@ function buildConfig(plateCount: number): BootstrapConfig {
           },
           coastal: {
             coastalLandBonus: 45,
-            shallowAdjBonus: 25,
+            spread: 4,
           },
           noise: {
             baseSpanSmall: 5,
             spanLargeScaleFactor: 1.25,
+            scale: 0.15,
           },
         },
         refine: {

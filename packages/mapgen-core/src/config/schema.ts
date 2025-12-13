@@ -1634,10 +1634,12 @@ export const ClimateBaselineCoastalSchema = Type.Object(
         description: "Bonus rainfall on coastal land tiles (rainfall units).",
       })
     ),
-    /** Bonus rainfall when adjacent to shallow water (rainfall units). */
-    shallowAdjBonus: Type.Optional(
+    /** How far inland the coastal bonus spreads (in tiles). Default: 4. */
+    spread: Type.Optional(
       Type.Number({
-        description: "Bonus rainfall when adjacent to shallow water (rainfall units).",
+        description: "How far inland the coastal bonus spreads (in tiles).",
+        default: 4,
+        minimum: 1,
       })
     ),
   },
@@ -1663,6 +1665,13 @@ export const ClimateBaselineNoiseSchema = Type.Object(
     spanLargeScaleFactor: Type.Optional(
       Type.Number({
         description: "Extra jitter span applied on larger maps (scalar via sqrt(area)).",
+      })
+    ),
+    /** Frequency scale for Perlin noise (lower = larger blobs). Default: 0.15. */
+    scale: Type.Optional(
+      Type.Number({
+        description: "Frequency scale for Perlin noise (lower = larger blobs).",
+        default: 0.15,
       })
     ),
   },
