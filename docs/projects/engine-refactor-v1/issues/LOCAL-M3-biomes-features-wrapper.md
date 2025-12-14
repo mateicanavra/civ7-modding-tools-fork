@@ -1,6 +1,6 @@
 ---
 id: LOCAL-M3-BIOMES-FEATURES-WRAPPER
-title: "[M3] Biomes & Features Step Wrapper (Consume Canonical Products)"
+title: "[M3] Biomes & Features Step Wrapper (Consume Canonical Artifacts)"
 state: planned
 priority: 2
 estimate: 3
@@ -18,20 +18,20 @@ related_to: []
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Wrap biomes + features as Task Graph steps that consume canonical climate/story products and publish stable outputs for placement, without changing generation algorithms.
+Wrap biomes + features as Task Graph steps that consume canonical climate/story **artifacts** and publish stable outputs for placement, without changing generation algorithms.
 
 ## Deliverables
 
 - [ ] Implement `LegacyBiomesStep` and `LegacyFeaturesStep` wrappers as `MapGenStep`s with explicit `requires/provides`.
 - [ ] Migrate rainfall/moisture reads to canonical `ClimateField` (avoid new direct `GameplayMap.getRainfall()` reads in modernized code paths).
-- [ ] Consume narrative signals via canonical overlays (`StoryOverlays`) or a derived compatibility layer (avoid introducing new global-story dependencies).
+- [ ] Consume narrative signals via canonical overlays (`StoryOverlays`); if any legacy reads require `StoryTags`, keep them strictly derived from overlays (tracked in `docs/projects/engine-refactor-v1/deferrals.md` DEF-002).
 
 ## Acceptance Criteria
 
 - [ ] Biomes/features stages run as steps via `PipelineExecutor` with explicit contracts
 - [ ] No direct `GameplayMap` reads for rainfall/moisture data in modernized code paths
 - [ ] Biome/feature distribution matches current orchestrator output (wrap-first; no algorithm changes)
-- [ ] Steps fail fast if required products (`climatefield`, `storyoverlays`) are missing
+- [ ] Steps fail fast if required dependency tags are missing (e.g., `artifact:climateField`, `artifact:storyOverlays`)
 - [ ] Both steps declare `requires`/`provides` that accurately reflect their dependencies
 
 ## Testing / Verification
@@ -42,16 +42,16 @@ Wrap biomes + features as Task Graph steps that consume canonical climate/story 
 ## Dependencies / Notes
 
 - **System area:** Ecology cluster (biomes/features) pipeline boundary + consumer reads.
-- **Change:** Wrap existing `layers/biomes.ts` + `layers/features.ts` behavior as steps and make them consume canonical products.
+- **Change:** Wrap existing `layers/biomes.ts` + `layers/features.ts` behavior as steps and make them consume canonical artifacts.
 - **Outcome:** Placement can depend on stable “biomes/features done” contracts; ecology becomes step-composable.
 - **Scope guardrail:** Wrap-first only; do not retune or change biome/feature algorithms in M3.
 - **Depends on:** `LOCAL-M3-TASK-GRAPH-MVP`, `LOCAL-M3-HYDROLOGY-PRODUCTS`, `LOCAL-M3-STORY-SYSTEM`.
 - **Blocks:** `LOCAL-M3-PLACEMENT-WRAPPER`.
-- **Historical:** `CIV-19` is archived and complete; this issue is step-wrapping + product consumption, not adapter wiring.
-- **Open questions (track here):**
-  - Contract keys: should `requires/provides` use `ClimateField`/`StoryOverlays`/`Biomes`/`Features` (recommended) vs lowercased keys? Must be consistent with the executor.
-  - Rivers: do biomes/features require an explicit river product beyond `EngineAdapter.isAdjacentToRivers()` and climate buffers?
-  - Heightfield: should this step declare `requires` on `Heightfield` (elevation/land mask) given some heuristics read elevation?
+- **Historical:** `CIV-19` is archived and complete; this issue is step-wrapping + artifact consumption, not adapter wiring.
+- **Locked decisions for M3 (remove ambiguity):**
+  - **Contract keys:** Standardize on prefixed dependency tags (`artifact:*`, `field:*`, `state:*`) per `docs/system/libs/mapgen/architecture.md`.
+  - **Rivers input:** Do not make direct `EngineAdapter.isAdjacentToRivers()` calls inside biomes/features in M3; consume `artifact:riverAdjacency` from `LOCAL-M3-HYDROLOGY-PRODUCTS`.
+  - **Heightfield dependency:** Declare `requires: [artifact:heightfield]` (or the equivalent heightfield/elevation artifact tag used by the spine) since biome/feature heuristics read elevation/land mask signals.
 
 ---
 

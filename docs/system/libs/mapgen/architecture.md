@@ -95,6 +95,8 @@ registry.register(new GridMeshStep());
 
 The map script is defined by a JSON recipe. This allows the UI to manipulate the pipeline without touching TypeScript.
 
+> Current (M3): execution order is still derived from legacy `STAGE_ORDER` + `stageManifest` enable/disable flags; arbitrary recipe composition is intentionally deferred (see `docs/projects/engine-refactor-v1/deferrals.md` DEF-004).
+
 ```json
 {
   "pipeline": [
@@ -201,7 +203,19 @@ export interface MapGenContext {
 ### 4.1. Fail Fast Policy
 We adopt a strict "Fail Fast" policy to prevent silent failures:
 *   **No Mock Adapters:** If the game engine adapter (`@civ7/adapter`) cannot be loaded, the system throws a critical error. We do not fallback to a "Null Adapter" in production.
-*   **Dependency Validation:** The Pipeline Executor validates that all `requires` are present in the `context.artifacts` before running a step. If missing, it throws `MissingDependencyError`.
+*   **Dependency Validation:** The Pipeline Executor validates that all `requires` are satisfied before running a step. If missing, it throws `MissingDependencyError`.
+
+#### Dependency Tags (`requires` / `provides`)
+
+`requires`/`provides` values are **dependency tags**: they are *not* limited to “in-memory artifacts”.
+
+In this codebase we use them for three distinct classes of guarantees:
+
+- **Artifacts (`artifact:*`)** — canonical in-memory data products published onto the context (examples: `artifact:foundation`, `artifact:heightfield`, `artifact:climateField`, `artifact:storyOverlays`).
+- **Fields (`field:*`)** — mutable canvas buffers on the context that represent “what the map looks like right now” (examples: `field:terrainType`, `field:elevation`, `field:rainfall`).
+- **Engine state (`state:*`)** — guarantees about **engine-surface effects** performed through the `EngineAdapter` (examples: `state:engine.riversModeled`, `state:engine.biomesApplied`, `state:engine.placementApplied`).
+
+This keeps M3 wrap-first steps honest: steps like placement can be contract-checked at runtime even when they primarily consume engine-surface state, while still allowing us to progressively migrate more information into explicit artifacts over time.
 
 ### 4.2. No Global State
 *   The legacy `WorldModel` singleton is **banned** in new code.
@@ -214,6 +228,8 @@ To support legacy scripts that haven't been refactored yet, the `MapOrchestrator
 3.  **Run Legacy:** Downstream legacy scripts execute, reading from the global `WorldModel`.
 
 This isolates the technical debt to the Orchestrator boundary and allows us to refactor stages one by one.
+
+This bridge is an intentional, time-bound compatibility tradeoff for Engine Refactor v1 (tracked in `docs/projects/engine-refactor-v1/deferrals.md` DEF-007).
 
 ---
 

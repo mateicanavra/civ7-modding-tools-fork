@@ -30,7 +30,7 @@ Complete Phase 2/3 of the config refactor: config is step-aligned, presets/recip
 ### Phase 3: Shape Evolution
 
 - [ ] Reshape `MapGenConfigSchema` to match phases/steps (per `resources/PRD-config-refactor.md`) and migrate in-repo callers/presets to the new shape.
-- [ ] Retire tunables as an engine surface for config (remove or reduce to an explicit, temporary compatibility shim only if intentionally kept).
+- [ ] Retire tunables as an engine surface for config (remove; if a compatibility shim must ship, track it explicitly in `docs/projects/engine-refactor-v1/deferrals.md`).
 
 ### Presets/Recipes
 
@@ -64,11 +64,12 @@ Complete Phase 2/3 of the config refactor: config is step-aligned, presets/recip
 - **Depends on:** `LOCAL-M3-TASK-GRAPH-MVP`, `LOCAL-M3-HYDROLOGY-PRODUCTS`, `LOCAL-M3-STORY-SYSTEM`, `LOCAL-M3-BIOMES-FEATURES-WRAPPER`, `LOCAL-M3-PLACEMENT-WRAPPER`.
 - **Blocks:** `LOCAL-M3-ADAPTER-COLLAPSE`.
 - **Historical:** `CIV-26` is M2 Phase 1; this issue is the M3 successor.
-- **Open questions (track here):**
-  - Cutover plan: update in-repo callers/presets so the new shape is the supported path at M3 ship.
-  - Preset semantics: parity vs simplification; where resolution lives (bootstrap vs pipeline pre-step).
-  - Phase 2 minimum: what is the minimal “config-in-context” mapping needed to unlock Phase 3 reshaping and tunables retirement without leaving hidden reads?
-  - Remaining dead fields: resolve `foundation.seed.*`, `oceanSeparation.respectSeaLanes`, and other `Missing` rows in `resources/config-wiring-status.md`.
+- **Locked decisions for M3 (remove ambiguity):**
+  - **Cutover posture:** Update in-repo callers/presets/recipes to the new config shape inside the M3 stack; do not carry legacy shapes forward as a supported path at M3 ship.
+  - **Preset semantics/location:** Preset resolution is a bootstrap concern (pre-step execution): start from a canonical base config, then apply named presets in-order as deterministic deep merges that result in a single validated `MapGenConfig` injected into the pipeline.
+  - **Phase 2 minimum (unblocks Phase 3):** Steps/orchestrator read config only from `context.config` (validated `MapGenConfig`); tunables are not used as a primary config path anywhere once this issue lands.
+- **Remaining decisions (track here):**
+  - Resolve and either wire or remove remaining dead/ambiguous fields (e.g., `foundation.seed.*`, `oceanSeparation.respectSeaLanes`) per `resources/config-wiring-status.md`.
 
 ---
 

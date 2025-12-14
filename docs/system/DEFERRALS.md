@@ -38,6 +38,12 @@ Each deferral follows this structure:
 
 ---
 
+## Project-scoped deferrals
+
+Some deferrals are intentionally scoped to a specific project/milestone (e.g., Engine Refactor v1) rather than the whole system. Keep those in the project’s deferrals doc:
+
+- Engine Refactor v1: `docs/projects/engine-refactor-v1/deferrals.md`
+
 ## Resolved Deferrals
 
 *Move resolved deferrals here with resolution notes.*

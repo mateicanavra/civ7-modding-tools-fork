@@ -1,6 +1,6 @@
 ---
 id: LOCAL-M3-HYDROLOGY-PRODUCTS
-title: "[M3] Hydrology Productization (ClimateField + River Data Products)"
+title: "[M3] Hydrology Productization (ClimateField + River Artifacts)"
 state: planned
 priority: 2
 estimate: 3
@@ -18,21 +18,21 @@ related_to: [LOCAL-M3-STORY-SYSTEM]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Make hydrology/climate outputs consumable as **canonical data products**: `ClimateField` becomes the authoritative rainfall source for downstream logic, and a minimal “river data product” is published for overlays/biomes/placement, without changing the underlying river generation behavior.
+Make hydrology/climate outputs consumable as **canonical artifacts (data products)**: `ClimateField` becomes the authoritative rainfall source for downstream logic, and a minimal river artifact is published for overlays/biomes/placement, without changing the underlying river generation behavior.
 
 ## Deliverables
 
 - [ ] Make `ClimateField` the canonical rainfall/moisture read surface for downstream consumers (stop direct `GameplayMap.getRainfall()` reads in modernized code paths).
-- [ ] Define and publish a minimal, stable river product suitable for consumers (overlays/biomes/placement) without changing river generation algorithms.
-- [ ] Establish a wrap-first hydrology/climate step boundary that provides these products (engine rivers + existing TS climate passes).
+- [ ] Define and publish a minimal, stable river artifact suitable for consumers (overlays/biomes/placement) without changing river generation algorithms.
+- [ ] Establish a wrap-first hydrology/climate step boundary that provides these artifacts (engine rivers + existing TS climate passes).
 
 ## Acceptance Criteria
 
 - [ ] No new/modernized consumer reads rainfall directly from `GameplayMap` once the step pipeline is in place
-- [ ] River summary data is available as an explicit product and can be required by steps via `requires`/`provides`
+- [ ] River summary data is available as an explicit artifact (e.g., `artifact:riverAdjacency`) and can be required by steps via `requires`/`provides`
 - [ ] The map quality and overall river behavior remains consistent (wrap-first; no algorithm swap in M3)
 - [ ] Hydrology wrapper step declares `requires`/`provides` and runs via `PipelineExecutor`
-- [ ] Steps fail fast if required products are missing (runtime gating enforced)
+- [ ] Steps fail fast if required dependency tags are missing (runtime gating enforced)
 
 ## Testing / Verification
 
@@ -41,17 +41,17 @@ Make hydrology/climate outputs consumable as **canonical data products**: `Clima
 
 ## Dependencies / Notes
 
-- **System area:** Hydrology/climate product spine and consumer reads.
-- **Change:** Publish canonical climate + river products (wrap-first) and migrate consumers to read those products instead of engine globals.
+- **System area:** Hydrology/climate artifact spine and consumer reads.
+- **Change:** Publish canonical climate + river artifacts (wrap-first) and migrate consumers to read those artifacts instead of engine globals.
 - **Outcome:** Downstream steps can declare `requires` on hydrology/climate outputs and remain testable/portable.
 - **Scope guardrail:** No new hydrology/geomorphology algorithms in M3; preserve map quality.
 - **Depends on:** `LOCAL-M3-TASK-GRAPH-MVP` (runtime gating + step execution).
 - **Blocks:** `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (biomes/features consume climate/river signals).
-- **Related:** `LOCAL-M3-STORY-SYSTEM` (story overlays may consume river/climate products).
-- **Open questions (track here):**
-  - River product shape: adjacency mask vs “near-river” score vs coarse “navigable river terrain” mask. The base `EngineAdapter` only exposes `isAdjacentToRivers()`.
-  - River product source: derived from adapter queries vs derived from terrain types after `modelRivers()` (see `NAVIGABLE_RIVER_TERRAIN` usage in `MapOrchestrator`).
-  - Step boundary: one combined “hydrology/climate” wrapper step vs separate `climateBaseline` / `rivers` / `climateRefine` steps (must preserve current stage order).
+- **Related:** `LOCAL-M3-STORY-SYSTEM` (story overlays may consume river/climate artifacts).
+- **Locked decisions for M3 (remove ambiguity):**
+  - **River artifact shape/source:** Publish `artifact:riverAdjacency` as a `Uint8Array` mask (0/1) computed once from `EngineAdapter.isAdjacentToRivers()` after engine rivers are modeled. Do **not** promise or model a full river graph in M3; `state:engine.riversModeled` remains the contract for “engine rivers exist on the surface” (tracked as `docs/projects/engine-refactor-v1/deferrals.md` DEF-005).
+  - **Step boundaries:** Keep wrapper steps aligned to the existing stage boundaries: `climateBaseline` → `rivers` → `climateRefine` (matching `STAGE_ORDER`). Any future split/merge refactors are post‑M3.
+  - **Post‑M3 optionality:** If a “navigable river terrain” distinction becomes necessary, add a second derived mask later; do not expand the river artifact beyond adjacency in M3.
 - **Links:**
   - Milestone: `../milestones/M3-core-engine-refactor-config-evolution.md`
   - Pipeline PRD: `../resources/PRD-pipeline-refactor.md`

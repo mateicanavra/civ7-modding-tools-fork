@@ -18,7 +18,7 @@ related_to: [CIV-21, LOCAL-M3-HYDROLOGY-PRODUCTS]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Complete the story port by implementing the remaining legacy narrative layers and corridors, then migrating story logic to the Task Graph as `MapGenStep`s with canonical `StoryOverlays` products. This lands in M3 alongside pipeline refactoring and config evolution.
+Complete the story port by implementing the remaining legacy narrative layers and corridors, then migrating story logic to the Task Graph as `MapGenStep`s with canonical `artifact:storyOverlays`. This lands in M3 alongside pipeline refactoring and config evolution.
 
 Parent issue: `CIV-21-story-tagging.md`.
 
@@ -35,7 +35,7 @@ Parent issue: `CIV-21-story-tagging.md`.
 - [ ] Story logic runs as steps under the Task Graph with explicit contracts
 - [ ] Downstream consumers use `StoryOverlays`/`ClimateField` rather than ad‑hoc reads
 - [ ] Story steps declare `requires`/`provides` and run via `PipelineExecutor`
-- [ ] Steps fail fast if required products are missing (runtime gating enforced)
+- [ ] Steps fail fast if required dependency tags are missing (runtime gating enforced)
 
 ## Testing / Verification
 
@@ -47,15 +47,15 @@ Parent issue: `CIV-21-story-tagging.md`.
 
 - **System area:** Story/narrative layers (`packages/mapgen-core/src/story/*`) and their pipeline boundaries.
 - **Change:** Implement the remaining legacy narrative passes and execute them as Task Graph steps; publish outputs as canonical overlays.
-- **Outcome:** Narrative signals become explicit products/contracts (`StoryOverlays`) for downstream consumers (biomes/features/placement).
+- **Outcome:** Narrative signals become explicit artifacts/contracts (`artifact:storyOverlays`) for downstream consumers (biomes/features/placement).
 - **Scope guardrail:** Preserve current story quality; no new story motifs or tuning-heavy rewrites in M3.
 - **Depends on:** `CIV-36` (M2 minimal story parity) and `LOCAL-M3-TASK-GRAPH-MVP` (runtime-gated step execution).
 - **Blocks:** `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (biomes/features consume narrative signals).
 - **Related:** `LOCAL-M3-HYDROLOGY-PRODUCTS` (corridor/swatches logic may consume climate/river signals).
-- **Open questions (track here):**
-  - Step boundaries: do we model story as multiple steps (`storySeed`/`storyHotspots`/`storyRifts`/`storyCorridorsPre`/`storySwatches`/`storyCorridorsPost`/`storyPaleo`) matching `STAGE_ORDER`, or collapse some into fewer steps?
-  - Compatibility: keep `StoryTags` as a derived compatibility layer (populated from overlays), or require consumers to read `StoryOverlays` directly in M3?
-  - Global overlay registry: `story/overlays.ts` currently supports a global fallback; decide whether to keep it through M3 and retire it post‑M3 (see triage entry).
+- **Locked decisions for M3 (remove ambiguity):**
+  - **Step boundaries:** Keep story aligned to existing stage boundaries (wrapper steps matching `STAGE_ORDER`), to preserve behavior and avoid a tuning-grade rewrite in M3.
+  - **Compatibility layer:** Keep `StoryTags` as a derived compatibility layer in M3 (populated from overlays) while consumers migrate; do not force all consumers to read overlays directly as a condition of landing M3 (tracked as `docs/projects/engine-refactor-v1/deferrals.md` DEF-002).
+  - **Global overlay registry:** Keep the global fallback through M3 for compatibility; retire it explicitly post‑M3 (tracked as `docs/projects/engine-refactor-v1/deferrals.md` DEF-003).
 - **Links:**
   - Parent: `CIV-21-story-tagging.md`
   - Milestone: `../milestones/M3-core-engine-refactor-config-evolution.md`
@@ -78,4 +78,4 @@ Parent issue: `CIV-21-story-tagging.md`.
 - Port from:
   - `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/tagging.js`
   - `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/corridors.js`
-- Decide whether `paleo` is its own step or folds into `swatches` / `climateRefine` boundaries.
+- M3 decision: implement `paleo` as part of the `storySwatches` stage/step (no new `storyPaleo` stage in `STAGE_ORDER` for M3).

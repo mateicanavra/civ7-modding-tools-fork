@@ -1,6 +1,6 @@
 ---
 id: LOCAL-M3-PLACEMENT-WRAPPER
-title: "[M3] Placement Step Wrapper (Consume Canonical Products)"
+title: "[M3] Placement Step Wrapper (Consume Canonical Artifacts)"
 state: planned
 priority: 2
 estimate: 3
@@ -30,7 +30,7 @@ Wrap placement as a Task Graph step with explicit, runtime-gated dependencies so
 
 - [ ] Placement stage runs as a step via `PipelineExecutor` with explicit contracts
 - [ ] All placement outputs (starts, wonders, floodplains) match current orchestrator behavior
-- [ ] Step fails fast if any required products are missing
+- [ ] Step fails fast if any required dependency tags are missing
 - [ ] No silent degradation of placement quality due to missing dependencies
 - [ ] Step declares `requires`/`provides` that accurately reflect its cross-cutting dependencies
 
@@ -48,10 +48,10 @@ Wrap placement as a Task Graph step with explicit, runtime-gated dependencies so
 - **Depends on:** `LOCAL-M3-BIOMES-FEATURES-WRAPPER`.
 - **Blocks:** `LOCAL-M3-CONFIG-EVOLUTION`.
 - **Historical:** `CIV-20` and `CIV-22` are archived/complete; do not redo adapter wiring or map-size awareness.
-- **Open questions (track here):**
-  - Contract keys: placement mostly consumes engine-surface state, not in-memory products; should `requires` include capability keys like `BiomesApplied`/`FeaturesApplied` vs product keys like `Biomes`/`Features`?
-  - Rivers: does placement need an explicit river product, or is “rivers have been modeled on the engine surface” sufficient?
-  - Placement inputs: decide whether to publish a canonical “placement inputs” product (see triage entry `docs/projects/engine-refactor-v1/triage.md`).
+- **Locked decisions for M3 (remove ambiguity):**
+  - **Contract keys:** Placement’s prerequisites are primarily engine-surface guarantees; model them as **state tags** (e.g., `state:engine.biomesApplied`, `state:engine.featuresApplied`, `state:engine.riversModeled`) rather than pretending placement consumes artifact-only inputs.
+  - **Rivers dependency:** In M3, “rivers modeled on the engine surface” (`state:engine.riversModeled`) is sufficient for placement; placement does not require a full in-memory river graph.
+  - **Post‑M3 optionality:** `artifact:placementInputs` is a post‑M3 candidate only (engine-less placement testing / refactors); not required to land M3 (tracked as `docs/projects/engine-refactor-v1/deferrals.md` DEF-006).
 
 ---
 

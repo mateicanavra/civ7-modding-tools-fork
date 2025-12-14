@@ -10,19 +10,24 @@
 
 ## Summary
 
-Extend the task-graph architecture from the foundation slice to the full engine, while reshaping configuration to match the long-term design. This milestone is where most of the **core refactoring** happens (beyond the initial slice): pipeline-izing legacy phases, solidifying data products, and evolving `MapGenConfig`.
+Extend the task-graph architecture from the foundation slice to the full engine, while reshaping configuration to match the long-term design. This milestone is where most of the **core refactoring** happens (beyond the initial slice): pipeline-izing legacy phases, solidifying canonical artifacts (data products), and evolving `MapGenConfig`.
 
 This milestone corresponds to **Milestone 3** in `PROJECT-engine-refactor-v1.md`.
 
-**Milestone boundary note:** M3 owns config/behavior work that is tightly coupled to Task Graph primitives (`MapGenStep`, `PipelineExecutor`, `requires/provides`) and canonical data products, where wiring early would risk double‑refactoring. Stable‑slice config correctness that is meaningful in the current orchestrator flow (foundation + minimal story + diagnostics) is handled in M2.
+**Milestone boundary note:** M3 owns config/behavior work that is tightly coupled to Task Graph primitives (`MapGenStep`, `PipelineExecutor`, `requires/provides`) and canonical artifacts (data products), where wiring early would risk double‑refactoring. Stable‑slice config correctness that is meaningful in the current orchestrator flow (foundation + minimal story + diagnostics) is handled in M2.
 
 ## Objectives
 
 - Make all major stages (foundation, morphology, hydrology/climate, narrative overlays, biomes, placement) run as pipeline steps with explicit `requires`/`provides`.
 - Enforce `requires`/`provides` at runtime (fail-fast gating), so contract violations cannot silently limp through generation.
 - Evolve `MapGenConfig` from the Phase 1 “hygiene” shape into a step-aligned, phase-aware configuration surface.
-- Establish `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` as canonical data products across the engine.
+- Establish `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` as canonical **artifacts** (data products) across the engine.
 - **Scope guardrail:** M3 is wrap‑first. Do not introduce new geomorphology/hydrology algorithms (e.g., stream power erosion, ocean currents, cryosphere, pedology); preserve current map quality by wrapping existing/engine behavior first.
+
+**Terminology (M3):**
+
+- **Artifacts vs “products”:** This milestone uses “canonical data product” and “canonical artifact” synonymously. Prefer “artifact” (matches `docs/system/libs/mapgen/architecture.md`).
+- **`requires`/`provides` values:** Treat these as dependency tags. Tags can refer to artifacts (`artifact:*`), fields (`field:*`), or engine-surface state guarantees (`state:*`) as described in `docs/system/libs/mapgen/architecture.md`.
 
 ## Scope
 
@@ -38,8 +43,8 @@ This milestone corresponds to **Milestone 3** in `PROJECT-engine-refactor-v1.md`
   - Making `requires`/`provides` meaningful and enforced (runtime gating) so step contracts are real, not aspirational.
   - Driving **Phase 2 & 3** of the config refactor (config integration + shape evolution).
   - Generalizing the pipeline from the foundation slice to all major clusters (morphology, hydrology/climate, overlays, biomes, placement).
-  - **Morphology posture:** wrap-first in M3; selective sub-step replacement is an explicit post‑M3 pathway once products + tests stabilize.
-  - Promoting the shared data products (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) to canonical status across the engine.
+  - **Morphology posture:** wrap-first in M3; selective sub-step replacement is an explicit post‑M3 pathway once artifacts + tests stabilize.
+  - Promoting the shared artifacts (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) to canonical status across the engine.
   - Collapsing the adapter boundary (`EngineAdapter` absorbs map-init; `OrchestratorAdapter` removed) to match the documented architecture.
 - Detailed behavior and requirements remain in the feature PRDs:
   - Config: `resources/PRD-config-refactor.md` (Phase 2 & 3).
@@ -131,7 +136,7 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
   - **Acceptance criteria:**
     - No new step code reads from `FOUNDATION_CFG`/`CLIMATE_CFG` directly; all reads go through `context.config`.
     - Step implementations can access their config via `context.config.<phase>` or a config helper.
-    - Tunables remain available but marked as deprecated/compatibility layer in docs.
+    - Tunables are not treated as a supported config surface; any remaining tunables reads are compatibility-only and time-bound (track in `docs/projects/engine-refactor-v1/deferrals.md` if they ship).
   - **Open questions:** What is the minimal Phase 2 mapping that enables Phase 3 shape evolution and tunables retirement without leaving hidden global reads?
   - **Sources:** `resources/PRD-config-refactor.md` (Phase 2), `resources/config-wiring-status.md`, `resources/PRD-plate-generation.md`.
 
@@ -145,7 +150,7 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
     - Updated docs and JSON Schema export reflecting the new shape.
   - **Acceptance criteria:**
     - All step config reads use the new phase-aligned shape via `context.config`.
-    - No internal code uses tunables as a primary config path (only deprecated compatibility, if any).
+    - No internal code uses tunables as a primary config path (only deprecated compatibility, if any; track in `docs/projects/engine-refactor-v1/deferrals.md` if it ships).
     - In-repo map scripts and presets work with the new config shape.
   - **Open questions:** What is the cutover plan for existing in-repo callers and presets/recipes so the new config shape is the supported path at M3 ship?
   - **Sources:** `resources/PRD-config-refactor.md` (Phase 3), `resources/config-wiring-status.md`, `packages/mapgen-core/src/config/schema.ts` comments.
@@ -165,18 +170,18 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
   - **Open questions:** Do we want full parity with legacy preset semantics, or simplify/deprecate the field? Where should resolution live (bootstrap vs. pipeline pre‑step)?
   - **Sources:** `resources/PRD-config-refactor.md`, `resources/config-wiring-status.md` (`presets` currently unused).
 
-- **Canonical data products across clusters**
-  - **Context / why:** The architecture defines canonical products (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) but current code has inconsistent read/write patterns (some via products, some via `GameplayMap`, some via globals). M3 formalizes these products so all steps read/write through explicit product contracts, enabling step composition and easier testing.
+- **Canonical artifacts across clusters**
+  - **Context / why:** The architecture defines canonical artifacts (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) but current code has inconsistent read/write patterns (some via artifacts, some via `GameplayMap`, some via globals). M3 formalizes these artifacts so all steps read/write through explicit artifact contracts, enabling step composition and easier testing.
   - **Relationship:** Foundation for all wrapper steps (Stacks 2–5). `FoundationContext` contract is established in M2; M3 extends to `ClimateField`, `StoryOverlays`, and hydrology products. Unblocks biomes/features/placement migration.
   - **Deliverables:**
     - Stable type definitions and contracts for `Heightfield`, `ClimateField`, `StoryOverlays`, and a minimal hydrology product (river summary).
-    - Product read/write helpers on `MapGenContext` (e.g., `context.products.climate`, `context.products.hydrology`).
-    - Legacy wrappers updated to populate products even if internals remain engine-owned.
-    - Documentation of product mutation rules (when products can be written, by which phases).
+    - Artifact read/write helpers on `MapGenContext` (e.g., `context.artifacts.climateField`, `context.artifacts.hydrology`).
+    - Legacy wrappers updated to populate artifacts even if internals remain engine-owned.
+    - Documentation of artifact mutation rules (when artifacts can be written, by which phases).
   - **Acceptance criteria:**
-    - Each product has a documented contract (shape, provenance, mutation rules).
-    - Wrapper steps declare which products they `require` and `provide`.
-    - No new/modernized consumer reads directly from `GameplayMap` for data available as a product.
+    - Each artifact has a documented contract (shape, provenance, mutation rules).
+    - Wrapper steps declare which dependency tags they `require` and `provide` (artifacts/fields/state tags as appropriate).
+    - No new/modernized consumer reads directly from `GameplayMap` for data available as an artifact.
   - **Open questions:** What is the minimal "canonical" contract for each product that is stable enough for step boundaries, without forcing deep algorithm rewrites?
   - **Sources:** `PROJECT-engine-refactor-v1.md` topology, `resources/PRD-pipeline-refactor.md`, `../../../system/libs/mapgen/foundation.md`, `resources/STATUS-M-TS-parity-matrix.md`.
 

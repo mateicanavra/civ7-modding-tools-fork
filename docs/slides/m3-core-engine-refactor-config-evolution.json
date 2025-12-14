@@ -1,0 +1,437 @@
+{
+  "id": "m3-core-engine-refactor-config-evolution",
+  "title": "M3: Core Engine Refactor & Config Shape Evolution",
+  "concepts": {
+    "plan": { "label": "Plan", "color": "blue" },
+    "contracts": { "label": "Contracts", "color": "purple" },
+    "artifacts": { "label": "Artifacts", "color": "green" },
+    "config": { "label": "Config", "color": "orange" },
+    "adapters": { "label": "Adapters", "color": "rose" },
+    "appendix": { "label": "Appendix", "color": "default" }
+  },
+  "slides": [
+    {
+      "order": 1,
+      "id": "m3-one-breath",
+      "concept": "plan",
+      "explanation": "M3 extends the M2 stable slice to the full engine by making the Task Graph architecture the default execution model and evolving configuration to match the long-term design—while staying wrap-first (no algorithm swaps).",
+      "blocks": [
+        {
+          "explanation": "**Milestone intent**\n- Extend task-graph architecture from stable slice to full engine\n- Make major stages run as pipeline steps with explicit contracts\n- Enforce contracts at runtime (fail-fast gating)\n- Evolve `MapGenConfig` toward a step/phase-aligned surface\n- Canonicalize shared artifacts across clusters (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`)\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+        },
+        {
+          "kpiGrid": {
+            "layout": "grid",
+            "items": [
+              { "label": "Scope posture", "value": "Wrap-first (no new algorithms)" },
+              { "label": "Runtime integrity", "value": "Fail-fast `requires`/`provides` gating" },
+              { "label": "Config direction", "value": "Step/phase-aligned `MapGenConfig`" },
+              { "label": "Shipping model", "value": "One long-running Graphite stack" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "id": "what-m3-is-isnt",
+      "concept": "plan",
+      "explanation": "Guardrails keep M3 focused on architecture + contracts + config, not map-quality experiments.",
+      "blocks": [
+        {
+          "table": {
+            "caption": "Guardrails from the milestone",
+            "rows": [
+              "In scope,Out of scope",
+              "Wrap existing phases as steps,New geomorphology or hydrology algorithms",
+              "Enforce step contracts at runtime,Quality-changing behavioral swaps",
+              "Canonicalize artifacts across engine,Deep rewrites before artifacts/tests stabilize"
+            ]
+          }
+        },
+        {
+          "explanation": "**Boundary note**\n- M3 owns config/behavior work tightly coupled to Task Graph primitives and canonical artifacts.\n- Stable-slice config correctness meaningful in the current orchestrator flow is handled in M2.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "id": "playbook-phases-stacks",
+      "concept": "plan",
+      "explanation": "Horizontal momentum: Phase A unlocks the executor; Phase B builds the artifact spine; Phase C finishes config and the engine boundary.",
+      "blocks": [
+        {
+          "diagram": {
+            "caption": "M3 sequencing (not dates): one stack, many conceptual sub-stacks",
+            "content": "flowchart LR\n  subgraph A[Phase A — Task Graph MVP]\n    S1[Stack 1: Pipeline core]\n  end\n\n  subgraph B[Phase B — Product spine + consumer migration]\n    S2[Stack 2: Hydrology products]\n    S3[Stack 3: Story steps + overlays]\n    S4[Stack 4: Biomes/Features wrappers]\n    S5[Stack 5: Placement wrapper]\n  end\n\n  subgraph C[Phase C — Ship-ready cleanup]\n    S6[Stack 6: Config evolution + presets]\n    S7[Stack 7: Adapter collapse]\n  end\n\n  S1 --> S2\n  S1 --> S3\n  S2 --> S4\n  S3 --> S4\n  S4 --> S5\n  S5 --> S6\n  S6 --> S7"
+          }
+        },
+        {
+          "layers": {
+            "layout": "stack",
+            "layers": [
+              {
+                "label": "Phase A",
+                "value": "Stack 1",
+                "description": "Task Graph MVP becomes the way to run (wrap-only)."
+              },
+              {
+                "label": "Phase B",
+                "value": "Stacks 2–5",
+                "description": "Product spine + consumer migration (still wrap-first)."
+              },
+              {
+                "label": "Phase C",
+                "value": "Stacks 6–7",
+                "description": "Config evolution + adapter boundary cleanup (ship-ready)."
+              }
+            ]
+          }
+        },
+        {
+          "explanation": "**Graphite execution decision (locked)**: M3 is developed as one long-running Graphite stack and merged to `main` at milestone completion.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "id": "stack-1-task-graph-mvp",
+      "concept": "contracts",
+      "explanation": "Stack 1 is the unlock: Step contract + registry + executor + runtime gating + a standard pipeline entry that can run end-to-end without changing algorithms.",
+      "blocks": [
+        {
+          "explanation": "**What Stack 1 lands (excerpted)**\n- `MapGenStep` contract (id/phase/requires/provides/shouldRun/run)\n- `StepRegistry` for registration + lookup\n- `PipelineExecutor` that iterates a recipe, validates `requires`, and executes\n- Runtime gating that throws on missing dependencies (fail-fast)\n- A standard pipeline recipe that wraps current orchestrator stages as steps\n- Parallel entry paths during transition (executor alongside orchestrator)\n\nSources: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/system/libs/mapgen/architecture.md`"
+        },
+        {
+          "diagram": {
+            "caption": "From recipe → steps → context (wrap-first transition)",
+            "content": "flowchart LR\n  Recipe[Standard pipeline recipe<br/>(code or JSON)] --> Exec[PipelineExecutor]\n  Exec --> Reg[StepRegistry]\n  Reg --> Step[MapGenStep<br/>(wrappers first)]\n  Step --> Ctx[MapGenContext<br/>(config + fields + artifacts)]\n  Ctx --> Adapter[EngineAdapter<br/>(engine-surface effects)]"
+          }
+        },
+        {
+          "codeBlock": {
+            "file": "docs/system/libs/mapgen/architecture.md",
+            "startLine": 55,
+            "endLine": 80,
+            "language": "typescript",
+            "code": "export interface MapGenStep {\n  /** Unique identifier for the registry (e.g., \"core.mesh.voronoi\") */\n  id: string;\n\n  /** The architectural phase this step belongs to */\n  phase: GenerationPhase;\n\n  /** Data required in the Context before this step can run */\n  requires: string[]; // e.g., [\"dimensions\"]\n\n  /** Data this step promises to add to the Context */\n  provides: string[]; // e.g., [\"mesh\"]\n\n  /**\n   * Optional dynamic check to skip this step based on context state.\n   * e.g. Skip river generation if map has no water.\n   */\n  shouldRun?: (context: MapGenContext, config: any) => boolean;\n\n  /**\n   * Execute the logic.\n   * @param context The shared blackboard (mutable).\n   * @param config Step-specific configuration from JSON.\n   */\n  run(context: MapGenContext, config: Record<string, unknown>): Promise<void>;\n}"
+          }
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "id": "dependency-contracts-tags",
+      "concept": "contracts",
+      "explanation": "M3 turns `requires`/`provides` into enforceable contracts: the executor fails fast instead of letting generation limp through.",
+      "blocks": [
+        {
+          "explanation": "**Why this matters**\n- Current legacy flow hides dependencies and can degrade silently.\n- M3 requires runtime dependency validation (fail fast on missing `requires`).\n\nSources: `docs/system/libs/mapgen/architecture.md`, `docs/projects/engine-refactor-v1/resources/PRD-pipeline-refactor.md`, `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+        },
+        {
+          "table": {
+            "caption": "Dependency tags (M3 terminology)",
+            "rows": [
+              "Tag class,Meaning,Examples",
+              "artifact:*,Canonical in-memory products,artifact:heightfield | artifact:climateField | artifact:storyOverlays",
+              "field:*,Canvas buffers (what map looks like),field:elevation | field:terrainType | field:rainfall",
+              "state:*,Engine-surface guarantees,state:engine.biomesApplied | state:engine.placementApplied"
+            ]
+          }
+        },
+        {
+          "codeBlock": {
+            "file": "docs/system/libs/mapgen/architecture.md",
+            "startLine": 40,
+            "endLine": 46,
+            "language": "typescript",
+            "code": "export type GenerationPhase =\n  | \"setup\"       // Infrastructure initialization\n  | \"foundation\"  // Tectonic plates, basic physics\n  | \"morphology\"  // Elevation, landmass shape\n  | \"hydrology\"   // Rivers, lakes, moisture\n  | \"ecology\"     // Biomes, features, resources\n  | \"placement\";  // Civilizations, units"
+          }
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "id": "phase-b-artifact-spine",
+      "concept": "artifacts",
+      "explanation": "Phase B makes canonical artifacts real and migrates consumers to them (still wrap-first).",
+      "blocks": [
+        {
+          "layers": {
+            "layout": "stack",
+            "layers": [
+              {
+                "label": "FoundationContext",
+                "value": "artifact:foundation",
+                "description": "Shared foundation contract (seeded in M2; extended in M3)."
+              },
+              {
+                "label": "Heightfield",
+                "value": "artifact:heightfield",
+                "description": "Elevation/landform representation for downstream consumers."
+              },
+              {
+                "label": "ClimateField",
+                "value": "artifact:climateField",
+                "description": "Authoritative rainfall/moisture surface for consumers."
+              },
+              {
+                "label": "StoryOverlays",
+                "value": "artifact:storyOverlays",
+                "description": "Story tags/overlays published as a canonical product."
+              }
+            ]
+          }
+        },
+        {
+          "table": {
+            "caption": "Stacks 2–5: what gets published/consumed (wrap-first)",
+            "rows": [
+              "Stack,What lands,Consumes,Provides",
+              "2 Hydrology,ClimateField canonical + river summary,artifact:foundation,artifact:climateField + artifact:hydrology",
+              "3 Story remainder,Story stages as steps + overlays publication,artifact:climateField,artifact:storyOverlays",
+              "4 Biomes/Features wrappers,Consume canonical products,artifact:climateField + artifact:storyOverlays,state:engine.biomesApplied",
+              "5 Placement wrapper,Cross-cutting step consumes prior outputs,artifact:* + state:engine.biomesApplied,state:engine.placementApplied"
+            ]
+          }
+        },
+        {
+          "explanation": "**Wrap-first enforcement**\n- Wrapper steps call existing logic, but new/modernized reads should prefer artifacts over direct `GameplayMap` access when the data exists as an artifact.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "id": "phase-c-config-evolution",
+      "concept": "config",
+      "explanation": "Phase C completes the config story: steps read config via context, schema evolves toward step/phase alignment, presets become real, and tunables retire.",
+      "blocks": [
+        {
+          "table": {
+            "caption": "Config PRD Phases mapped to M3 Stack 6",
+            "rows": [
+              "PRD phase,Goal,M3 intent",
+              "Phase 2,Config in MapGenContext,Steps read via context.config (not tunables/globals)",
+              "Phase 3,Shape evolution,Top-level sections align to phases/steps; in-repo callers migrate"
+            ]
+          }
+        },
+        {
+          "codeBlock": {
+            "file": "packages/mapgen-core/src/config/schema.ts",
+            "startLine": 2360,
+            "endLine": 2372,
+            "language": "typescript",
+            "code": "export const MapGenConfigSchema = Type.Object(\n  {\n    /**\n     * List of preset names to apply in order before processing overrides.\n     * Presets are merged left-to-right, then user overrides are applied.\n     * @default []\n     */\n    presets: Type.Optional(\n      Type.Array(Type.String(), {\n        default: [],\n        description: \"List of preset names to apply in order before processing stage overrides.\",\n      })\n    ),"
+          }
+        },
+        {
+          "table": {
+            "caption": "Current gap to close (from wiring-status audit)",
+            "rows": [
+              "Field,Current status,Implication for M3",
+              "presets,Unused / planned,Define BASE_CONFIG + implement preset resolution",
+              "stageManifest.* requires/provides,Unused / planned,Executor gating makes contracts real"
+            ]
+          }
+        },
+        {
+          "explanation": "Note from the milestone: intermediate states may be non-backwards-compatible while the cutover is in flight, but the stack should remain runnable by updating in-tree callers/scripts as part of the milestone branch.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "id": "preset-resolution-model",
+      "concept": "config",
+      "explanation": "M3 must define and test the preset/recipe resolution model so the schema surface (`presets`) corresponds to real runtime behavior.",
+      "blocks": [
+        {
+          "diagram": {
+            "caption": "Resolution pipeline (behavior to define + test in M3)",
+            "content": "flowchart LR\n  Base[BASE_CONFIG<br/>(canonical baseline)] --> Presets[Apply presets<br/>(left-to-right merge)]\n  Presets --> Overrides[Apply user overrides]\n  Overrides --> Validate[Validate + default<br/>(parseConfig / schema)]\n  Validate --> Context[context.config<br/>(single source of truth)]"
+          }
+        },
+        {
+          "table": {
+            "caption": "Decisions M3 must make (from milestone open questions)",
+            "rows": [
+              "Decision,Options,Must be explicit in",
+              "Legacy preset semantics,Preserve | simplify | deprecate,Docs + tests",
+              "Where resolution lives,bootstrap | pipeline pre-step,Architecture + code"
+            ]
+          }
+        },
+        {
+          "explanation": "Sources: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/projects/engine-refactor-v1/resources/config-wiring-status.md`"
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "id": "stack-7-adapter-collapse",
+      "concept": "adapters",
+      "explanation": "Stack 7 collapses the dual adapter boundary into one `EngineAdapter`, aligning implementation with the target architecture.",
+      "blocks": [
+        {
+          "diagram": {
+            "caption": "Before vs after: one adapter boundary",
+            "content": "flowchart LR\n  subgraph Before[Before (transient)]\n    Orchestrator[MapOrchestrator] --> OA[OrchestratorAdapter<br/>(map-init concerns)]\n    Orchestrator --> Ctx[MapGenContext]\n    Ctx --> EA[EngineAdapter]\n  end\n\n  subgraph After[After (target)]\n    Entry[Pipeline entry / MapOrchestrator] --> Ctx2[MapGenContext]\n    Ctx2 --> EA2[EngineAdapter (expanded)<br/>(includes map-init responsibilities)]\n  end"
+          }
+        },
+        {
+          "table": {
+            "caption": "Stack 7 deliverables / acceptance (excerpt)",
+            "rows": [
+              "Deliverable,Acceptance signal",
+              "EngineAdapter covers map-init responsibilities,No OrchestratorAdapter references remain",
+              "Civ7Adapter implements expanded API,Map generation still initializes correctly",
+              "MapOrchestrator uses MapGenContext.adapter only,Implementation matches architecture.md"
+            ]
+          }
+        },
+        {
+          "explanation": "Sources: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/system/libs/mapgen/architecture.md`"
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "id": "risk-controls-branch-safety",
+      "concept": "plan",
+      "explanation": "M3 is risky because it’s cross-cutting; risk controls are explicitly part of the milestone plan.",
+      "blocks": [
+        {
+          "table": {
+            "caption": "Risk controls explicitly called out in M3",
+            "rows": [
+              "Risk control,What it protects,Where stated",
+              "Parallel entry paths during transition,Compare outputs and avoid dead-ends,Stack 1 acceptance criteria",
+              "Wrapper-first posture,Map quality stability,Objectives + scope guardrail",
+              "Fail-fast gating,No silent contract violations,Objectives + architecture.md",
+              "Late integration cuts (placement/adapter),Contain cross-cutting risk,Stack 5 and Stack 7 notes"
+            ]
+          }
+        },
+        {
+          "explanation": "Operational constraint: keep the long-running stack runnable end-to-end while it evolves.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "id": "definition-of-done",
+      "concept": "plan",
+      "explanation": "Use this checklist as the milestone verification rubric (not a claim of completion).",
+      "blocks": [
+        {
+          "objectivesDisplay": {
+            "layout": "default",
+            "objectives": [
+              {
+                "title": "Phases run as steps",
+                "keyResults": [
+                  { "category": "add", "text": "Major phases run as pipeline steps with explicit contracts" },
+                  { "category": "add", "text": "Standard pipeline recipe runs end-to-end and produces a coherent map" }
+                ]
+              },
+              {
+                "title": "Contracts are enforced",
+                "keyResults": [
+                  { "category": "add", "text": "Runtime gating throws on missing `requires` (fail-fast)" },
+                  { "category": "remove", "text": "Silent contract violations / limp-through generation" }
+                ]
+              },
+              {
+                "title": "Config matches architecture",
+                "keyResults": [
+                  { "category": "add", "text": "Steps read config via `context.config`" },
+                  { "category": "remove", "text": "Tunables as the primary config path" },
+                  { "category": "add", "text": "Preset resolution model is documented and tested" }
+                ]
+              },
+              {
+                "title": "Consumers use canonical products",
+                "keyResults": [
+                  { "category": "add", "text": "`ClimateField` and `StoryOverlays` are authoritative inputs for downstream steps" },
+                  { "category": "remove", "text": "Modernized consumers read directly from `GameplayMap` for artifact-available data" }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "explanation": "Source: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "id": "issue-map-snapshot",
+      "concept": "plan",
+      "explanation": "Issue grouping mirrors the Phase/Stack plan: mint and sequence so the unlock (Stack 1) lands first.",
+      "blocks": [
+        {
+          "table": {
+            "caption": "Draft parent issues (from the milestone Issue Map)",
+            "rows": [
+              "Stack,Filename,Title,Blocked by",
+              "1,LOCAL-M3-task-graph-mvp.md,Task Graph MVP: primitives + standard entry,—",
+              "2,LOCAL-M3-hydrology-products.md,Hydrology productization,Stack 1",
+              "3,LOCAL-M3-story-system.md,Story system modernization,Stack 1",
+              "4,LOCAL-M3-biomes-features-wrapper.md,Biomes & Features step wrapper,Stacks 1–3",
+              "5,LOCAL-M3-placement-wrapper.md,Placement step wrapper,Stack 4",
+              "6,LOCAL-M3-config-evolution.md,Config evolution (Phase 2/3) + tunables,Stacks 1–5",
+              "7,LOCAL-M3-adapter-collapse.md,Adapter boundary collapse,Stack 6"
+            ]
+          }
+        },
+        {
+          "explanation": "Recommended minting order (from the milestone): Stack 1 → Stacks 2–3 → Stack 4 → Stack 5 → Stack 6 → Stack 7.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "id": "appendix-schema-vs-wiring",
+      "concept": "appendix",
+      "explanation": "Evidence slide: the schema surface exists today, but some behaviors are explicitly marked as not wired yet.",
+      "blocks": [
+        {
+          "explanation": "Sources: `packages/mapgen-core/src/config/schema.ts`, `docs/projects/engine-refactor-v1/resources/config-wiring-status.md`"
+        },
+        {
+          "table": {
+            "caption": "Selected fields called out by wiring-status",
+            "rows": [
+              "Field,Status,Note",
+              "presets,Unused / planned,Schema field exists; bootstrap stores list but does not apply it",
+              "stageManifest.* requires/provides,Unused / planned,Accepted for forward-compat; dependency resolution not implemented yet"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "id": "appendix-canonical-stage-order",
+      "concept": "appendix",
+      "explanation": "Use the current TS stage order as the practical migration map for wrapper steps and contract tagging.",
+      "blocks": [
+        {
+          "explanation": "Canonical Stage Order (from `docs/projects/engine-refactor-v1/resources/config-wiring-status.md`):\n\n`foundation` → `landmassPlates` → `coastlines` → `storySeed` → `storyHotspots` → `storyRifts` → `storyOrogeny` → `storyCorridorsPre` → `islands` → `mountains` → `volcanoes` → `lakes` → `climateBaseline` → `storySwatches` → `rivers` → `storyCorridorsPost` → `climateRefine` → `biomes` → `features` → `placement`\n\nTreat this as “what wrappers must cover” until the Task Graph executor is fully adopted."
+        },
+        {
+          "table": {
+            "caption": "Canonical Stage Order (single-line reference)",
+            "rows": [
+              "Stage order (current TS),Notes",
+              "foundation → landmassPlates → coastlines → … → placement,Resolver-derived order; preserve behavior during wrap-first migration"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+
