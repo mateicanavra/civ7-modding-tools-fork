@@ -57,8 +57,9 @@ export function addDiverseFeatures(
   console.log("Adding diverse terrain features...");
 
   if (!ctx?.adapter) {
-    console.warn("addDiverseFeatures: No adapter available, skipping");
-    return;
+    throw new Error(
+      "addDiverseFeatures: MapContext adapter is required (legacy direct-engine fallback removed)."
+    );
   }
 
   const adapter = ctx.adapter;
@@ -99,7 +100,10 @@ export function addDiverseFeatures(
   };
 
   const climateField = getPublishedClimateField(ctx);
-  const rainfallField = climateField?.rainfall ?? null;
+  if (!climateField?.rainfall) {
+    throw new Error("addDiverseFeatures: Missing artifact:climateField rainfall field.");
+  }
+  const rainfallField = climateField.rainfall;
 
   const paradiseReefChance = featuresCfg?.paradiseReefChance ?? 18;
 
@@ -189,8 +193,7 @@ export function addDiverseFeatures(
 
       const biome = adapter.getBiomeType(x, y);
       const elevation = adapter.getElevation(x, y);
-      const rainfall =
-        rainfallField ? (rainfallField[y * iWidth + x] | 0) : adapter.getRainfall(x, y);
+      const rainfall = rainfallField[y * iWidth + x] | 0;
       const plat = Math.abs(adapter.getLatitude(x, y));
 
       // 3a) Volcanic vegetation near volcanic hotspot centers (radius 1)

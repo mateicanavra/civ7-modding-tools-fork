@@ -158,12 +158,12 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 2. **Rainfall canonicalization is incomplete across “modernized” logic**
    - `designateEnhancedBiomes()` / `addDiverseFeatures()` fall back to `adapter.getRainfall(...)` when `artifact:climateField` is not published (`packages/mapgen-core/src/layers/biomes.ts`, `packages/mapgen-core/src/layers/features.ts`).
    - Impact: The TaskGraph path should fail-fast before hitting the fallback (due to `requires: artifact:climateField`), but the fallback keeps legacy/non-pipeline calls able to silently diverge from the published artifact.
-   - Direction: Either remove the fallback (artifact-only) or make it explicitly legacy-only (clear guard + tests) so “canonical rainfall source” stays unambiguous.
+   - Direction: Remove the fallback (artifact-only) so “canonical rainfall source” stays unambiguous.
 
 3. **`ClimateField` exports `humidity` but it’s not synchronized from engine**
-   - `ClimateFieldBuffer` includes `humidity` (`packages/mapgen-core/src/core/types.ts`), but `syncClimateField()` only refreshes rainfall.
+   - `ClimateFieldBuffer` includes `humidity` (`packages/mapgen-core/src/core/types.ts`), but it is not produced/consumed yet.
    - Impact: A consumer can accidentally treat `humidity` as meaningful, creating subtle bugs.
-   - Direction: Either document `humidity` as “internal/unused placeholder” (and keep consumers off it) or remove it until it has a stable meaning/source.
+   - Direction: Document `humidity` as an M3 placeholder (and keep consumers off it) or remove it until it has a stable meaning/source.
 
 4. **River artifact is published but not yet used as the canonical read path**
    - `artifact:riverAdjacency` is published and validated, but ecology consumers still call `adapter.isAdjacentToRivers(...)` directly (`packages/mapgen-core/src/layers/biomes.ts`).
@@ -189,4 +189,6 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 
 - Tightened hydrology `requires` so `climateBaseline`/`rivers` require `artifact:heightfield`, and `climateRefine` requires `artifact:riverAdjacency` (fail-fast is now meaningful for misordered recipes).
 - Added `getPublishedRiverAdjacency()` and updated climate runtime to prefer the published river mask for `radius=1` adjacency checks when available.
-- Documented `ClimateField.humidity` as an M3 placeholder and clarified the legacy-only rainfall fallback behavior.
+- Removed rainfall fallbacks in modernized consumers and the climate runtime: `artifact:climateField` is now the only rainfall read path on the TaskGraph route (missing artifacts fail fast).
+- Updated stage dependencies so `biomes` requires `artifact:riverAdjacency` and `features` requires `artifact:climateField`, matching actual data reads.
+- Documented `ClimateField.humidity` as an M3 placeholder.

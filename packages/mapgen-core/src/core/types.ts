@@ -557,24 +557,8 @@ export function syncHeightfield(ctx: ExtendedMapContext): void {
 /**
  * Synchronize staged climate buffers from the current engine surface.
  */
-export function syncClimateField(ctx: ExtendedMapContext): void {
-  if (!ctx?.adapter) return;
-  const climate = ctx.buffers?.climate;
-  if (!climate) return;
-
-  const { width, height } = ctx.dimensions;
-
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const idxValue = y * width + x;
-      const rf = ctx.adapter.getRainfall(x, y);
-      if (Number.isFinite(rf)) {
-        const rfClamped = Math.max(0, Math.min(200, rf)) | 0;
-        climate.rainfall[idxValue] = rfClamped & 0xff;
-        if (ctx.fields?.rainfall) {
-          ctx.fields.rainfall[idxValue] = rfClamped & 0xff;
-        }
-      }
-    }
-  }
+export function syncClimateField(_ctx: ExtendedMapContext): never {
+  throw new Error(
+    "[MapContext] syncClimateField has been removed. Climate buffers are now canonical; seed rainfall via climate stages/artifacts instead of reading from the engine adapter."
+  );
 }

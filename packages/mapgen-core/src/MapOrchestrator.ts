@@ -50,7 +50,6 @@ import {
   createExtendedMapContext,
   createFoundationContext,
   syncHeightfield,
-  syncClimateField,
 } from "./core/types.js";
 import {
   addPlotTagsSimple,
@@ -947,7 +946,6 @@ export class MapOrchestrator {
         this.orchestratorAdapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
-        syncClimateField(ctx!);
         this.orchestratorAdapter.defineNamedRivers();
       });
       this.stageResults.push(stageResult);
@@ -1510,7 +1508,6 @@ export class MapOrchestrator {
         this.orchestratorAdapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx);
-        syncClimateField(ctx);
         this.orchestratorAdapter.defineNamedRivers();
 
         const riverAdjacency = computeRiverAdjacencyMask(ctx);

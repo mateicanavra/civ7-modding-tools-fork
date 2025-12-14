@@ -76,7 +76,8 @@ If we have clear gameplay need and a regression harness, we can add richer artif
 - `climateBaseline` + `climateRefine` (wrappers around existing TS climate layers; publish `artifact:climateField`)
 - `rivers` (wrapper around engine river modeling; publishes `artifact:riverAdjacency` as a `Uint8Array` 0/1 mask computed via `EngineAdapter.isAdjacentToRivers()` once `state:engine.riversModeled` is true)
 - `ClimateField.humidity` is currently a placeholder in M3 (not synchronized or consumed); do not treat it as meaningful until it has a defined source/contract.
-- Legacy/non-step call sites may still read rainfall via the adapter when `artifact:climateField` is not published; step-executed consumers should treat the artifact as canonical.
+- `artifact:climateField` is the canonical rainfall read path. Adapter rainfall reads and engine-seeding fallbacks have been removed from modernized code paths; missing hydrology artifacts should fail fast.
+- `syncClimateField()` is intentionally not available as a seeding mechanism anymore; initialize rainfall via the climate steps/artifacts instead of reading from the engine adapter.
 
 ### 4.2. Post‑M3 (Selective Refinement)
 

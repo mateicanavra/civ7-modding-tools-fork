@@ -25,7 +25,10 @@ import type { EngineAdapter } from "@civ7/adapter";
 import { ctxRandom } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
 import { getTunables } from "../bootstrap/tunables.js";
-import { getPublishedClimateField } from "../pipeline/artifacts.js";
+import {
+  getPublishedClimateField,
+  getPublishedRiverAdjacency,
+} from "../pipeline/artifacts.js";
 
 // ============================================================================
 // Types
@@ -138,8 +141,9 @@ export function designateEnhancedBiomes(
   console.log("Creating enhanced biome diversity (climate-aware)...");
 
   if (!ctx?.adapter) {
-    console.warn("designateEnhancedBiomes: No adapter available, skipping");
-    return;
+    throw new Error(
+      "designateEnhancedBiomes: MapContext adapter is required (legacy direct-engine fallback removed)."
+    );
   }
 
   const adapter = ctx.adapter;
@@ -210,7 +214,19 @@ export function designateEnhancedBiomes(
   };
 
   const climateField = getPublishedClimateField(ctx);
-  const rainfallField = climateField?.rainfall ?? null;
+  if (!climateField?.rainfall) {
+    throw new Error(
+      "designateEnhancedBiomes: Missing artifact:climateField rainfall field."
+    );
+  }
+  const rainfallField = climateField.rainfall;
+
+  const riverAdjacency = getPublishedRiverAdjacency(ctx);
+  if (!riverAdjacency) {
+    throw new Error(
+      "designateEnhancedBiomes: Missing artifact:riverAdjacency (required for river-valley biome bias)."
+    );
+  }
 
   for (let y = 0; y < iHeight; y++) {
     for (let x = 0; x < iWidth; x++) {
@@ -218,8 +234,8 @@ export function designateEnhancedBiomes(
 
       const lat = Math.abs(adapter.getLatitude(x, y));
       const elevation = adapter.getElevation(x, y);
-      const rainfall =
-        rainfallField ? (rainfallField[y * iWidth + x] | 0) : adapter.getRainfall(x, y);
+      const idxValue = y * iWidth + x;
+      const rainfall = rainfallField[idxValue] | 0;
 
       // Tundra restraint: require very high lat or extreme elevation and dryness
       if (
@@ -241,7 +257,7 @@ export function designateEnhancedBiomes(
 
       // Temperate/warm river valleys prefer grassland for playability
       if (
-        adapter.isAdjacentToRivers(x, y, 1) &&
+        riverAdjacency[idxValue] === 1 &&
         rainfall > RV_RAIN_MIN &&
         lat < RV_LAT_MAX
       ) {
