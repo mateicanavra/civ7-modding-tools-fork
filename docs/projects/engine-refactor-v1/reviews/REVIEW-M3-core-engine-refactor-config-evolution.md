@@ -108,3 +108,79 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 - `generateMapTaskGraph()` now records a structured failure entry in `stageResults` when the executor throws (uses `stepId` when available).
 - Added a regression test for the missing-`requires` path (`landmassPlates` enabled while `foundation` is disabled).
 - Aligned `StageDescriptorSchema` wording to reflect tag-only `requires`/`provides` in M3 and note the current trust model for `state:engine.*`.
+
+---
+
+## CIV-42 – Hydrology Productization (ClimateField + River Artifacts)
+
+**Reviewed:** 2025-12-14
+
+### Effort Estimate
+
+**Complexity:** Medium (3/4) — touches the orchestrator pipeline boundary, dependency spine, runtime gating, and consumer read paths; correctness depends on contracts staying aligned as later stacks land.
+**Parallelism:** Medium-High (3/4) — mostly independent, but the “consumer migration” aspect intersects with CIV-43/CIV-44 sequencing.
+**Score:** 6/16 — moderate uncertainty, moderate coordination.
+
+---
+
+### Quick Take
+
+**Mostly, with notable gaps:** The core deliverables land: `artifact:climateField` is published as the canonical rainfall surface, a minimal `artifact:riverAdjacency` mask is published from engine rivers, the hydrology stages run via `PipelineExecutor`, and provides verification is covered by focused tests. The remaining gaps are primarily **contract fidelity** (spine `requires`/`provides` under-specifies real dependencies) and **consumer migration completeness** (some “modernized” paths still call `adapter.getRainfall()` / `adapter.isAdjacentToRivers()` directly).
+
+---
+
+### Intent & Assumptions
+
+- “Productize hydrology” means downstream steps can depend on hydrology outputs via `artifact:*` tags, with runtime fail-fast gating.
+- Wrap-first in M3 implies no algorithm swaps: publish artifacts from existing TS climate passes + engine-owned rivers.
+- CIV-43/CIV-44 will continue migrating story/ecology consumers onto these artifacts.
+
+---
+
+### What’s Strong
+
+- **Clear product publication:** `packages/mapgen-core/src/pipeline/artifacts.ts` centralizes publication of `artifact:climateField` and `artifact:riverAdjacency`.
+- **Runtime contract enforcement improved:** `PipelineExecutor` verifies `artifact:climateField` / `artifact:riverAdjacency` provides post-step, preventing “declared-but-not-published” footguns.
+- **Minimal, stable river artifact:** `computeRiverAdjacencyMask()` produces the intended `Uint8Array` 0/1 mask (M3-appropriate shape).
+- **Consumer read migration started:** Biomes/features now prefer `ClimateField` via `getPublishedClimateField()` rather than engine rainfall.
+- **Docs updated in the right place:** `docs/system/libs/mapgen/hydrology.md` captures the M3 wrap-first boundary and artifact intent.
+- **Targeted tests:** `packages/mapgen-core/test/pipeline/artifacts.test.ts` covers satisfaction semantics and provides enforcement for the new artifacts.
+
+---
+
+### High-Leverage Issues
+
+1. **Spine `requires` does not reflect real dependencies (weakens “fail fast”)**
+   - Example: `rivers` requires only `artifact:foundation` (`packages/mapgen-core/src/pipeline/standard.ts`), but its correctness depends on the engine surface being in a post-terrain/heightfield state (and likely on earlier morphology/coastline outcomes).
+   - Impact: The executor can “successfully” run an invalid recipe ordering without tripping gating, undermining M3’s contract story.
+   - Direction: Tighten `M3_STAGE_DEPENDENCY_SPINE` for hydrology steps to require the minimal, true prerequisites (e.g. `artifact:heightfield` and/or the relevant `state:engine.*` tags).
+
+2. **Rainfall canonicalization is incomplete across “modernized” logic**
+   - `story/corridors.ts` still reads `ctx.adapter.getRainfall(...)` (`packages/mapgen-core/src/story/corridors.ts`), and biomes/features keep an engine fallback (`packages/mapgen-core/src/layers/biomes.ts`, `packages/mapgen-core/src/layers/features.ts`).
+   - Impact: Depending on stage enablement and future refactors, this can regress into silent dual-sourcing of rainfall (engine vs artifact) and make parity debugging harder.
+   - Direction: Decide whether CIV-42’s AC meant “all step-executed consumers” or “only ecology/placement”; then either migrate remaining step consumers to `artifact:climateField` or explicitly defer with a pointer to the owning issue (likely CIV-43).
+
+3. **`ClimateField` exports `humidity` but it’s not synchronized from engine**
+   - `ClimateFieldBuffer` includes `humidity` (`packages/mapgen-core/src/core/types.ts`), but `syncClimateField()` only refreshes rainfall.
+   - Impact: A consumer can accidentally treat `humidity` as meaningful, creating subtle bugs.
+   - Direction: Either document `humidity` as “internal/unused placeholder” (and keep consumers off it) or remove it until it has a stable meaning/source.
+
+4. **River artifact is published but not yet used as the canonical read path**
+   - `artifact:riverAdjacency` is published and validated, but ecology consumers still call `adapter.isAdjacentToRivers(...)` directly (`packages/mapgen-core/src/layers/biomes.ts`).
+   - Impact: Downstream steps won’t actually benefit from the artifact unless consumers switch over; also makes “wrap-first portability” less real.
+   - Direction: Treat this as an explicit dependency for CIV-44 (or document the handoff in CIV-42/CIV-44).
+
+---
+
+### Fit Within the Milestone
+
+- This is the right Stack 2 “product spine” work for Phase B: it establishes the artifacts CIV-44/45 need to become real step consumers.
+- The recurring risk pattern (also visible in later stacks) is **contracts lagging implementation reality**: if the dependency spine isn’t continuously tightened as consumers migrate, M3’s runtime gating will provide less protection than intended.
+
+---
+
+### Recommended Next Moves
+
+- **Required (to uphold AC intent):** Tighten hydrology stage `requires` in `packages/mapgen-core/src/pipeline/standard.ts` (and thus `resolveStageManifest()`) so “fail fast” is meaningful for misordered recipes.
+- **Nice-to-have:** Add a `getPublishedRiverAdjacency()` helper alongside `getPublishedClimateField()` to standardize consumption.
+- **Follow-up (likely CIV-43/CIV-44):** Complete rainfall/river migration for any step-executed consumers still calling engine reads; clarify ownership so CIV-42 doesn’t appear “done” while still leaving critical consumers behind.
