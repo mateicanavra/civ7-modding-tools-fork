@@ -54,27 +54,31 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 
 ### High-Leverage Issues
 
-1. **Code duplication between `execute()` and `executeAsync()`**
-   The two methods share ~95% logic. Consider extracting a shared `_runStep()` helper or using an async-first design with a sync wrapper.
-   *Impact:* Maintenance burden; easy to drift.
-   *Severity:* Low (cosmetic).
+1. **TaskGraph gating failures don’t surface well in `stageResults`**
+   `PipelineExecutor` correctly throws `MissingDependencyError` (and will throw for invalid tags), but `generateMapTaskGraph()` catches and returns `success: false` without turning that into a structured `StageResult` entry. This makes failures harder to triage, and weakens the “deterministic trace” story.
+   *Impact:* Debuggability/observability gap right where M3 is trying to tighten contracts.
 
-2. **Placeholder steps with `shouldRun: () => false`**
-   `storyOrogeny`, `storyCorridorsPre`, `storySwatches`, `storyCorridorsPost` are registered but always skipped. They satisfy the issue's "register wrap-first steps" requirement, but downstream issues must remember to flip them on.
-   *Impact:* Acceptable for M3 scope; just needs tracking.
+2. **No test for the `MissingDependencyError` path**
+   Current smoke coverage exercises only the happy path (`foundation`). A minimal test that enables `landmassPlates` but disables `foundation` would validate fail-fast gating end-to-end (and incidentally validate the above error surfacing once implemented).
+   *Impact:* Confidence gap; easy to regress as more steps land.
 
 3. **`provides` verification is partial**
-   Only `artifact:foundation`, `artifact:storyOverlays`, and `field:*` tags are verified post-run (lines 83–96 in `PipelineExecutor.ts`). `state:engine.*` tags are trusted because no context property exists to check them against. This is documented implicitly but not explicitly.
-   *Impact:* A step could declare `provides: ["state:engine.riversModeled"]` and not actually call the engine method. The executor won't catch it.
-   *Mitigation:* Acceptable for M3 (wrap-first); M4 should add engine-surface verification or explicit "trust markers."
+   Only `artifact:foundation`, `artifact:storyOverlays`, and `field:*` tags are verified post-run; `state:engine.*` tags are trusted because there’s nothing in context to validate them against.
+   *Impact:* A step can claim it “modeled rivers” without actually doing so and still satisfy downstream `requires`.
+   *Mitigation:* Acceptable for wrap-first M3, but the trust model should be explicit (doc or code).
 
-4. **`M3_STAGE_DEPENDENCY_SPINE` vs runtime registration mismatch risk**
-   The spine in `standard.ts` is the source of truth for `requires`/`provides`, but `generateMapTaskGraph()` pulls from `stageManifest.stages[stageName]` via `getStageDescriptor()`. If `resolveStageManifest()` doesn't correctly propagate spine data, contracts could diverge.
-   *Current state:* `resolveStageManifest()` does pull from `M3_STAGE_DEPENDENCY_SPINE` (lines 78–87 in `resolved.ts`), so this is correctly wired.
+4. **Placeholder story steps are registered but always skipped**
+   `storyOrogeny`, `storyCorridorsPre`, `storySwatches`, `storyCorridorsPost` use `shouldRun: () => false`. This satisfies the “register wrap-first steps” deliverable, but downstream issues must flip them on (and should ensure their contracts match the real implementations).
+   *Impact:* Low; just tracking/coordination.
 
-5. **No integration test for `MissingDependencyError` path**
-   The smoke test only runs the happy path. A test that disables `foundation` but enables `landmassPlates` would validate the fail-fast gating.
-   *Impact:* Low risk (code is straightforward), but would increase confidence.
+5. **Docs/schema mismatch risk: `requires` language vs runtime validator**
+   `StageDescriptorSchema` describes `requires` as potentially including “stage ids”, but runtime validation only accepts canonical dependency tags (and only those enumerated in `M3_DEPENDENCY_TAGS`).
+   *Impact:* Potential confusion for mod authors and future maintainers.
+
+6. **Code duplication between `execute()` and `executeAsync()`**
+   The two executor methods share most logic; this is low-risk now but will be annoying to evolve.
+   *Impact:* Maintenance burden; easy to drift.
+   *Severity:* Low (cosmetic).
 
 ---
 
@@ -92,8 +96,9 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 
 ### Recommended Next Moves
 
-- **Nice-to-have (post-merge):** Add a unit test for `MissingDependencyError` gating.
+- **Required (for M3 usability):** When `PipelineExecutor` throws (e.g., `MissingDependencyError`), surface a structured failure entry in `stageResults` (step id + message) instead of returning an empty trace.
+- **Nice-to-have (post-merge):** Add a test for `MissingDependencyError` gating (enable `landmassPlates` but disable `foundation`).
+- **Nice-to-have (post-merge):** Align `StageDescriptorSchema` wording with the canonical tag-only contract (or explicitly document stage-id dependencies as unsupported in M3).
 - **Nice-to-have (post-merge):** Deduplicate `execute()`/`executeAsync()` logic.
 - **Follow-up (M4):** Add verification for `state:engine.*` tags or document the trust model explicitly.
 - **Follow-up (CIV-42+):** Flip placeholder steps to real implementations as their issues land.
-
