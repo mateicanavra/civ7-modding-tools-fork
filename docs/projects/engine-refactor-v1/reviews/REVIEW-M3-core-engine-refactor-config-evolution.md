@@ -189,6 +189,7 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 
 - Tightened hydrology `requires` so `climateBaseline`/`rivers` require `artifact:heightfield`, and `climateRefine` requires `artifact:riverAdjacency` (fail-fast is now meaningful for misordered recipes).
 - Added `getPublishedRiverAdjacency()` and updated climate runtime to prefer the published river mask for `radius=1` adjacency checks when available.
-- Removed rainfall fallbacks in modernized consumers and the climate runtime: `artifact:climateField` is now the only rainfall read path on the TaskGraph route (missing artifacts fail fast).
+- Removed rainfall fallbacks in modernized consumers and the climate runtime: `artifact:climateField` is now the only rainfall read path (missing artifacts fail fast).
 - Updated stage dependencies so `biomes` requires `artifact:riverAdjacency` and `features` requires `artifact:climateField`, matching actual data reads.
 - Documented `ClimateField.humidity` as an M3 placeholder.
+- Ensured the legacy `generateMap()` entry path publishes `artifact:climateField` / `artifact:riverAdjacency` so artifact-only consumers behave consistently even when TaskGraph is disabled.

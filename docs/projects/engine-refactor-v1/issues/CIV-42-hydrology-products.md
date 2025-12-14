@@ -52,11 +52,11 @@ Make hydrology/climate outputs consumable as **canonical artifacts (data product
 - **Locked decisions for M3 (remove ambiguity):**
   - **River artifact shape/source:** Publish `artifact:riverAdjacency` as a `Uint8Array` mask (0/1) computed once from `EngineAdapter.isAdjacentToRivers()` after engine rivers are modeled. Do **not** promise or model a full river graph in M3; `state:engine.riversModeled` remains the contract for “engine rivers exist on the surface” (tracked as `docs/projects/engine-refactor-v1/deferrals.md` DEF-005).
   - **Step boundaries:** Keep wrapper steps aligned to the existing stage boundaries: `climateBaseline` → `rivers` → `climateRefine` (matching `STAGE_ORDER`). Any future split/merge refactors are post‑M3.
-  - **No fallbacks:** There is no legacy/adapter fallback for rainfall or river adjacency reads in modernized code paths. Canonical consumers must read `artifact:climateField` / `artifact:riverAdjacency`, and stages should fail fast if those artifacts are missing.
+  - **No fallbacks:** There is no legacy/adapter fallback for rainfall or river adjacency reads in modernized code paths. Canonical consumers must read `artifact:climateField` / `artifact:riverAdjacency`, and stages should fail fast if those artifacts are missing (for both TaskGraph and legacy `generateMap()` entry paths).
   - **Post‑M3 optionality:** If a “navigable river terrain” distinction becomes necessary, add a second derived mask later; do not expand the river artifact beyond adjacency in M3.
-- **Links:**
-  - Milestone: `../milestones/M3-core-engine-refactor-config-evolution.md`
-  - Pipeline PRD: `../resources/PRD-pipeline-refactor.md`
+  - **Links:**
+    - Milestone: `../milestones/M3-core-engine-refactor-config-evolution.md`
+    - Pipeline PRD: `../resources/PRD-pipeline-refactor.md`
   - Target system docs: `../../../system/libs/mapgen/hydrology.md`, `../../../system/libs/mapgen/ecology.md`
   - Code references: `packages/mapgen-core/src/MapOrchestrator.ts` (rivers/climate stages), `packages/mapgen-core/src/pipeline/artifacts.ts` (`publishClimateFieldArtifact`, `getPublishedClimateField`, `getPublishedRiverAdjacency`), `packages/mapgen-core/src/core/types.ts` (`ClimateFieldBuffer`, `writeClimateField`)
 
