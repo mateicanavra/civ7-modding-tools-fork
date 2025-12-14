@@ -24,18 +24,18 @@ Parent issue: `CIV-21-story-tagging.md`.
 
 ## Deliverables
 
-- [ ] Port remaining legacy story passes: corridors, swatches, paleo (and any remaining in-slice orogeny work if still missing).
-- [ ] Publish narrative outputs via canonical `StoryOverlays` (downstream consumers read overlays, not ad-hoc globals).
-- [ ] Wrap story stages as `MapGenStep`s with explicit `requires/provides` and runtime-gated execution.
+- [x] Port remaining legacy story passes: corridors, swatches, paleo (and any remaining in-slice orogeny work if still missing).
+- [x] Publish narrative outputs via canonical `StoryOverlays` (downstream consumers read overlays, not ad-hoc globals).
+- [x] Wrap story stages as `MapGenStep`s with explicit `requires/provides` and runtime-gated execution.
 
 ## Acceptance Criteria
 
-- [ ] TS equivalents exist for all legacy story passes and corridors
-- [ ] Corridors/swatches/paleo overlays are populated when stages enabled
-- [ ] Story logic runs as steps under the Task Graph with explicit contracts
+- [x] TS equivalents exist for all legacy story passes and corridors
+- [x] Corridors/swatches/paleo overlays are populated when stages enabled
+- [x] Story logic runs as steps under the Task Graph with explicit contracts
 - [ ] Downstream consumers use `StoryOverlays`/`ClimateField` rather than ad‑hoc reads
-- [ ] Story steps declare `requires`/`provides` and run via `PipelineExecutor`
-- [ ] Steps fail fast if required dependency tags are missing (runtime gating enforced)
+- [x] Story steps declare `requires`/`provides` and run via `PipelineExecutor`
+- [x] Steps fail fast if required dependency tags are missing (runtime gating enforced)
 
 ## Testing / Verification
 

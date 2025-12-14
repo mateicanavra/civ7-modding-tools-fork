@@ -46,3 +46,22 @@ export {
   type HotspotTrailsSummary,
   type RiftValleysSummary,
 } from "./tagging.js";
+
+export {
+  getOrogenyCache,
+  resetOrogenyCache,
+  clearOrogenyCache,
+  storyTagOrogenyBelts,
+  type OrogenyCacheInstance,
+  type OrogenySummary,
+} from "./orogeny.js";
+
+export {
+  resetCorridorStyleCache,
+  storyTagStrategicCorridors,
+  type CorridorStage,
+} from "./corridors.js";
+
+export { storyTagClimateSwatches, storyTagClimatePaleo } from "./swatches.js";
+
+export { storyTagPaleoHydrology, type PaleoSummary } from "./paleo.js";
