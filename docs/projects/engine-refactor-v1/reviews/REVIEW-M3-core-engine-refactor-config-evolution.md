@@ -102,3 +102,9 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 - **Nice-to-have (post-merge):** Deduplicate `execute()`/`executeAsync()` logic.
 - **Follow-up (M4):** Add verification for `state:engine.*` tags or document the trust model explicitly.
 - **Follow-up (CIV-42+):** Flip placeholder steps to real implementations as their issues land.
+
+### Update
+
+- `generateMapTaskGraph()` now records a structured failure entry in `stageResults` when the executor throws (uses `stepId` when available).
+- Added a regression test for the missing-`requires` path (`landmassPlates` enabled while `foundation` is disabled).
+- Aligned `StageDescriptorSchema` wording to reflect tag-only `requires`/`provides` in M3 and note the current trust model for `state:engine.*`.

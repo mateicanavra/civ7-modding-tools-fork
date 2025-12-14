@@ -82,14 +82,14 @@ export const StageDescriptorSchema = Type.Object(
       Type.Array(Type.String(), {
         default: [],
         description:
-          "Dependency tags that must be satisfied before this stage executes (e.g., stage ids, artifact tags, or engine-state tags).",
+          "Canonical dependency tags that must be satisfied before this stage executes (artifact:*, field:*, state:engine.*). Stage-id dependencies are not supported in M3; use tags only.",
       })
     ),
     provides: Type.Optional(
       Type.Array(Type.String(), {
         default: [],
         description:
-          "Dependency tags this stage makes available to dependents (data artifacts, fields, and/or engine-state guarantees).",
+          "Dependency tags this stage makes available to dependents (data artifacts, fields, and/or engine-state guarantees). Note: state:engine.* tags are treated as trusted assertions in M3 and are not runtime-verified.",
       })
     ),
     legacyToggles: Type.Optional(

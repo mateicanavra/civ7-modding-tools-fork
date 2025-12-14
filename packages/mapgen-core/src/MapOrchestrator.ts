@@ -81,6 +81,8 @@ import {
   PipelineExecutor,
   StepRegistry,
   M3_STANDARD_STAGE_PHASE,
+  MissingDependencyError,
+  UnsatisfiedProvidesError,
 } from "./pipeline/index.js";
 
 // Layer imports
@@ -1589,6 +1591,11 @@ export class MapOrchestrator {
     for (const stepId of recipe) {
       if (!registry.has(stepId)) {
         console.error(`${prefix} Missing registered step for "${stepId}"`);
+        this.stageResults.push({
+          stage: stepId,
+          success: false,
+          error: `Missing registered step for "${stepId}"`,
+        });
         return { success: false, stageResults: this.stageResults, startPositions };
       }
     }
@@ -1603,6 +1610,15 @@ export class MapOrchestrator {
       }));
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
+      const failedStepId =
+        err instanceof MissingDependencyError || err instanceof UnsatisfiedProvidesError
+          ? err.stepId
+          : null;
+      this.stageResults.push({
+        stage: failedStepId ?? "taskGraph",
+        success: false,
+        error: message,
+      });
       console.error(`${prefix} TaskGraph execution failed: ${message}`, err);
       return { success: false, stageResults: this.stageResults, startPositions };
     }

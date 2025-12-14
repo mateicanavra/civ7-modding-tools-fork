@@ -74,6 +74,13 @@ Implement Task Graph primitives (`MapGenStep`, `StepRegistry`, `PipelineExecutor
 - `packages/mapgen-core/src/pipeline/` (new: executor + registry + step types; location TBD but keep cohesive)
 - `packages/mapgen-core/src/MapOrchestrator.ts` (modify: add executor entry path during transition)
 
+### Review Loop Notes (M3 Aggregate Review)
+
+- `generateMapTaskGraph()` surfaces executor throws as a structured `stageResults` entry (uses `stepId` when available).
+- Added a regression test for missing `requires` (enable `landmassPlates` while `foundation` is disabled).
+- Aligned `StageDescriptorSchema` wording with the canonical tag-only contract; documented the current trust model for `state:engine.*` tags.
+- Deferred (post-merge): deduplicate `PipelineExecutor.execute()` / `executeAsync()` logic; add runtime verification for `state:engine.*` tags (tracked as M4 follow-up in the M3 review).
+
 ### Design Notes
 
 - Prefer aligning with existing concepts:

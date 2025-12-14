@@ -80,5 +80,31 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
       result.stageResults.some((stage) => stage.stage === "foundation" && stage.success)
     ).toBe(true);
   });
-});
 
+  it("surfaces a MissingDependencyError as a structured stageResult entry", () => {
+    const adapter = createMockAdapter({
+      width,
+      height,
+      rng: () => 0,
+    });
+
+    const config = bootstrap({ stageConfig: { foundation: false, landmassPlates: true } });
+    const orchestrator = new MapOrchestrator(config, {
+      adapter,
+      logPrefix: "[TEST]",
+      useTaskGraph: true,
+    });
+    const result = orchestrator.generateMap();
+
+    expect(result.success).toBe(false);
+    expect(
+      result.stageResults.some(
+        (stage) =>
+          stage.stage === "landmassPlates" &&
+          stage.success === false &&
+          typeof stage.error === "string" &&
+          stage.error.includes("Missing dependency")
+      )
+    ).toBe(true);
+  });
+});
