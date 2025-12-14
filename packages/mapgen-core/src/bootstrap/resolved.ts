@@ -15,6 +15,7 @@
  */
 
 import type { StageManifest, StageDescriptor } from "./types.js";
+import { M3_STAGE_DEPENDENCY_SPINE } from "../pipeline/standard.js";
 
 // ============================================================================
 // Canonical Stage Order
@@ -31,6 +32,7 @@ export const STAGE_ORDER: readonly string[] = Object.freeze([
   "storySeed",
   "storyHotspots",
   "storyRifts",
+  "ruggedCoasts",
   "storyOrogeny",
   "storyCorridorsPre",
   "islands",
@@ -73,8 +75,15 @@ export function resolveStageManifest(
 
   for (let i = 0; i < STAGE_ORDER.length; i++) {
     const stageName = STAGE_ORDER[i];
+    const spine = M3_STAGE_DEPENDENCY_SPINE[stageName];
+    const enabled =
+      stageName === "ruggedCoasts"
+        ? config.ruggedCoasts === true || config.coastlines === true
+        : config[stageName] === true;
     stages[stageName] = {
-      enabled: config[stageName] === true,
+      enabled,
+      requires: spine?.requires ? [...spine.requires] : [],
+      provides: spine?.provides ? [...spine.provides] : [],
     };
   }
 

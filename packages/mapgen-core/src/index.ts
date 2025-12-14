@@ -43,5 +43,8 @@ export {
   type GenerationResult,
 } from "./MapOrchestrator.js";
 
+// Re-export pipeline primitives (M3 Task Graph MVP)
+export * from "./pipeline/index.js";
+
 // Package version
 export const VERSION = "0.1.0";

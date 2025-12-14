@@ -22,22 +22,22 @@ Implement Task Graph primitives (`MapGenStep`, `StepRegistry`, `PipelineExecutor
 
 ## Deliverables
 
-- [ ] Define `MapGenStep` contract (id/phase/requires/provides + run hooks) aligned with `docs/system/libs/mapgen/architecture.md`.
-- [ ] Implement `StepRegistry` (register/lookup steps by id; supports a “standard recipe”).
-- [ ] Implement `PipelineExecutor` (execute recipe; runtime gate `requires/provides`; deterministic logs/trace).
-- [ ] Define canonical dependency tags (the “spine”) used by `requires/provides` in M3, with explicit namespaces:
+- [x] Define `MapGenStep` contract (id/phase/requires/provides + run hooks) aligned with `docs/system/libs/mapgen/architecture.md`.
+- [x] Implement `StepRegistry` (register/lookup steps by id; supports a “standard recipe”).
+- [x] Implement `PipelineExecutor` (execute recipe; runtime gate `requires/provides`; deterministic logs/trace).
+- [x] Define canonical dependency tags (the “spine”) used by `requires/provides` in M3, with explicit namespaces:
   - `artifact:*` for canonical in-memory artifacts (e.g., `artifact:foundation`, `artifact:heightfield`, `artifact:climateField`, `artifact:storyOverlays`, `artifact:riverAdjacency`)
   - `field:*` for mutable canvas buffers when needed (e.g., `field:terrainType`, `field:elevation`)
   - `state:*` for engine-surface guarantees (e.g., `state:engine.riversModeled`, `state:engine.biomesApplied`, `state:engine.placementApplied`)
-- [ ] Register wrap-first steps for the current stage order (foundation → placement) using existing stage implementations so the executor can run an end-to-end mapgen without algorithm changes.
-- [ ] Add a standard pipeline entry that runs mapgen via the executor (keep the current orchestrator entry available during migration).
+- [x] Register wrap-first steps for the current stage order (foundation → placement) using existing stage implementations so the executor can run an end-to-end mapgen without algorithm changes.
+- [x] Add a standard pipeline entry that runs mapgen via the executor (keep the current orchestrator entry available during migration).
 
 ## Acceptance Criteria
 
-- [ ] The executor can run a “standard recipe” and produce a coherent map end-to-end (wrap-first; no algorithm changes).
-- [ ] Missing `requires` fails fast at runtime with a clear error (e.g., `MissingDependencyError`).
-- [ ] `requires/provides` keys are standardized and used consistently across subsequent M3 issues.
-- [ ] The legacy orchestrator entry path remains runnable until the M3 stack lands.
+- [x] The executor can run a “standard recipe” and produce a coherent map end-to-end (wrap-first; no algorithm changes).
+- [x] Missing `requires` fails fast at runtime with a clear error (e.g., `MissingDependencyError`).
+- [x] `requires/provides` keys are standardized and used consistently across subsequent M3 issues.
+- [x] The legacy orchestrator entry path remains runnable until the M3 stack lands.
 
 ## Testing / Verification
 

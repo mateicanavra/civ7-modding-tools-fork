@@ -77,6 +77,11 @@ import {
   storyTagRiftValleys,
 } from "./story/tagging.js";
 import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/index.js";
+import {
+  PipelineExecutor,
+  StepRegistry,
+  M3_STANDARD_STAGE_PHASE,
+} from "./pipeline/index.js";
 
 // Layer imports
 import { createPlateDrivenLandmasses } from "./layers/landmass-plate.js";
@@ -184,6 +189,11 @@ export interface OrchestratorConfig {
    * When set, bypasses GameplayMap.getMapSize() and GameInfo.Maps.lookup().
    */
   mapSizeDefaults?: MapSizeDefaults;
+  /**
+   * Use the M3 Task Graph execution path (PipelineExecutor + StepRegistry).
+   * The legacy orchestrator path remains available for migration safety.
+   */
+  useTaskGraph?: boolean;
 }
 
 /** Stage execution result */
@@ -504,6 +514,10 @@ export class MapOrchestrator {
    * Runs the full generation pipeline.
    */
   generateMap(): GenerationResult {
+    if (this.options.useTaskGraph) {
+      return this.generateMapTaskGraph();
+    }
+
     const prefix = this.options.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} === GenerateMap ===`);
 
@@ -776,7 +790,7 @@ export class MapOrchestrator {
     // ========================================================================
     // Stage: Rugged Coastlines
     // ========================================================================
-    if (stageFlags.coastlines && ctx) {
+    if (stageFlags.ruggedCoasts && ctx) {
       const stageResult = this.runStage("ruggedCoasts", () => {
         addRuggedCoasts(iWidth, iHeight, ctx!);
       });
@@ -1038,6 +1052,595 @@ export class MapOrchestrator {
     return { success, stageResults: this.stageResults, startPositions };
   }
 
+  /**
+   * M3 Task Graph execution entry.
+   *
+   * Runs the same wrap-first stage implementations as generateMap(), but through
+   * PipelineExecutor with runtime requires/provides gating.
+   */
+  generateMapTaskGraph(): GenerationResult {
+    const prefix = this.options.logPrefix || "[SWOOPER_MOD]";
+    console.log(`${prefix} === GenerateMap (TaskGraph) ===`);
+
+    this.stageResults = [];
+    const startPositions: number[] = [];
+
+    // Refresh configuration and tunables snapshot for this generation pass.
+    resetTunables();
+    const tunables = getTunables();
+
+    // Initialize DEV flags from stable-slice diagnostics config.
+    resetDevFlags();
+    const foundationCfg = tunables.FOUNDATION_CFG || {};
+    const rawDiagnostics = (foundationCfg.diagnostics || {}) as Record<string, unknown>;
+    const diagnosticsConfig = { ...rawDiagnostics } as DevLogConfig;
+    const hasTruthyFlag = Object.entries(diagnosticsConfig).some(
+      ([key, value]) => key !== "enabled" && value === true
+    );
+    if (diagnosticsConfig.enabled === undefined && hasTruthyFlag) {
+      diagnosticsConfig.enabled = true;
+    }
+    initDevFlags(diagnosticsConfig);
+
+    console.log(`${prefix} Tunables rebound successfully`);
+
+    // Reset WorldModel to ensure fresh state for this generation run
+    WorldModel.reset();
+
+    // Get map dimensions
+    const iWidth = this.orchestratorAdapter.getGridWidth();
+    const iHeight = this.orchestratorAdapter.getGridHeight();
+    const uiMapSize = this.orchestratorAdapter.getMapSize();
+    const mapInfo = this.orchestratorAdapter.lookupMapInfo(uiMapSize);
+
+    if (!mapInfo) {
+      console.error(`${prefix} Failed to lookup map info`);
+      return { success: false, stageResults: this.stageResults, startPositions };
+    }
+
+    console.log(`${prefix} Map size: ${iWidth}x${iHeight}`);
+    console.log(
+      `${prefix} MapInfo summary: NumNaturalWonders=${mapInfo.NumNaturalWonders}, ` +
+        `LakeGenerationFrequency=${mapInfo.LakeGenerationFrequency}, ` +
+        `PlayersLandmass1=${mapInfo.PlayersLandmass1}, PlayersLandmass2=${mapInfo.PlayersLandmass2}`
+    );
+
+    // Dev: introspect engine surface APIs once per context (GameplayMap, TerrainBuilder)
+    logEngineSurfaceApisOnce();
+
+    // Stage configuration and logging
+    const stageFlags = this.resolveStageFlags();
+    const enabledStages = Object.entries(stageFlags)
+      .filter(([, enabled]) => enabled)
+      .map(([name]) => name)
+      .join(", ");
+    console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
+
+    // Get layer configurations from tunables
+    const landmassCfg = tunables.LANDMASS_CFG || {};
+    const mountainsCfg = (foundationCfg.mountains || {}) as MountainsConfig;
+    const volcanosCfg = (foundationCfg.volcanoes || {}) as VolcanoesConfig;
+
+    const mountainOptions = this.buildMountainOptions(mountainsCfg);
+    const volcanoOptions = this.buildVolcanoOptions(volcanosCfg);
+
+    // Create context with adapter
+    let ctx: ExtendedMapContext | null = null;
+    try {
+      const layerAdapter = this.createLayerAdapter(iWidth, iHeight);
+      ctx = createExtendedMapContext({ width: iWidth, height: iHeight }, layerAdapter, {
+        toggles: {
+          STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
+          STORY_ENABLE_RIFTS: stageFlags.storyRifts,
+          STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
+          STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
+          STORY_ENABLE_PALEO: false,
+          STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
+        },
+      });
+      console.log(`${prefix} MapContext created successfully`);
+    } catch (err) {
+      console.error(`${prefix} Failed to create context:`, err);
+      return { success: false, stageResults: this.stageResults, startPositions };
+    }
+
+    // Set up start sectors (placement consumes these)
+    const iNumPlayers1 = mapInfo.PlayersLandmass1 ?? 4;
+    const iNumPlayers2 = mapInfo.PlayersLandmass2 ?? 4;
+    const iStartSectorRows = mapInfo.StartSectorRows ?? 4;
+    const iStartSectorCols = mapInfo.StartSectorCols ?? 4;
+    const bHumanNearEquator = this.orchestratorAdapter.needHumanNearEquator();
+    const startSectors = this.orchestratorAdapter.chooseStartSectors(
+      iNumPlayers1,
+      iNumPlayers2,
+      iStartSectorRows,
+      iStartSectorCols,
+      bHumanNearEquator
+    );
+    console.log(`${prefix} Start sectors chosen successfully`);
+
+    // Mutable landmass bounds used by placement (wrap-first state)
+    let westContinent = this.createDefaultContinentBounds(iWidth, iHeight, "west");
+    let eastContinent = this.createDefaultContinentBounds(iWidth, iHeight, "east");
+
+    const registry = new StepRegistry<ExtendedMapContext>();
+    const stageManifest = tunables.STAGE_MANIFEST;
+
+    const getStageDescriptor = (
+      stageName: string
+    ): { requires: readonly string[]; provides: readonly string[] } => {
+      const desc = stageManifest.stages?.[stageName] ?? {};
+      const requires = Array.isArray(desc.requires) ? desc.requires : [];
+      const provides = Array.isArray(desc.provides) ? desc.provides : [];
+      return { requires, provides };
+    };
+
+    // Register wrap-first stage steps (stage id -> step id is 1:1 in M3).
+    registry.register({
+      id: "foundation",
+      phase: M3_STANDARD_STAGE_PHASE.foundation,
+      ...getStageDescriptor("foundation"),
+      shouldRun: () => stageFlags.foundation,
+      run: () => {
+        this.initializeFoundation(ctx!, tunables);
+      },
+    });
+
+    registry.register({
+      id: "landmassPlates",
+      phase: M3_STANDARD_STAGE_PHASE.landmassPlates,
+      ...getStageDescriptor("landmassPlates"),
+      shouldRun: () => stageFlags.landmassPlates,
+      run: () => {
+        assertFoundationContext(ctx, "landmassPlates");
+
+        const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
+          landmassCfg: landmassCfg as LandmassConfig,
+          geometry: landmassCfg.geometry,
+        });
+
+        if (!plateResult?.windows?.length) {
+          throw new Error("Plate-driven landmass generation failed (no windows)");
+        }
+
+        let windows = plateResult.windows.slice();
+
+        // Apply ocean separation
+        const separationResult = applyPlateAwareOceanSeparation({
+          width: iWidth,
+          height: iHeight,
+          windows,
+          landMask: plateResult.landMask,
+          context: ctx,
+          adapter: ctx.adapter,
+          crustMode: landmassCfg.crustMode,
+        });
+        windows = separationResult.windows;
+
+        // Apply post-adjustments
+        windows = applyLandmassPostAdjustments(windows, landmassCfg.geometry, iWidth, iHeight);
+
+        // Minimal smoke warning: plate-driven landmass should yield at least two windows.
+        if (DEV.ENABLED && windows.length < 2) {
+          devWarn(
+            `[smoke] landmassPlates produced ${windows.length} window(s); expected >= 2 for west/east continents.`
+          );
+        }
+
+        // Update continent bounds from windows
+        if (windows.length >= 2) {
+          const first = windows[0];
+          const last = windows[windows.length - 1];
+          if (first && last) {
+            westContinent = this.windowToContinentBounds(first, 0);
+            eastContinent = this.windowToContinentBounds(last, 1);
+          }
+        }
+
+        // Mark LandmassRegionId EARLY - this MUST happen before validateAndFixTerrain.
+        const westMarked = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
+        const eastMarked = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
+        console.log(
+          `[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`
+        );
+
+        // Validate and stamp continents
+        this.orchestratorAdapter.validateAndFixTerrain();
+        this.orchestratorAdapter.recalculateAreas();
+        this.orchestratorAdapter.stampContinents();
+
+        // Apply plot tags
+        const terrainBuilder: TerrainBuilderLike = {
+          setPlotTag: (x, y, tag) => {
+            if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setPlotTag) {
+              TerrainBuilder.setPlotTag(x, y, tag);
+            }
+          },
+          addPlotTag: (x, y, tag) => {
+            if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.addPlotTag) {
+              TerrainBuilder.addPlotTag(x, y, tag);
+            }
+          },
+        };
+        addPlotTagsSimple(iHeight, iWidth, eastContinent.west, ctx.adapter, terrainBuilder);
+
+        // Dev: log landmass visualization
+        if (DEV.ENABLED && ctx?.adapter) {
+          logLandmassAscii(ctx.adapter, iWidth, iHeight);
+        }
+      },
+    });
+
+    registry.register({
+      id: "coastlines",
+      phase: M3_STANDARD_STAGE_PHASE.coastlines,
+      ...getStageDescriptor("coastlines"),
+      shouldRun: () => stageFlags.coastlines,
+      run: () => {
+        this.orchestratorAdapter.expandCoasts(iWidth, iHeight);
+      },
+    });
+
+    registry.register({
+      id: "storySeed",
+      phase: M3_STANDARD_STAGE_PHASE.storySeed,
+      ...getStageDescriptor("storySeed"),
+      shouldRun: () => stageFlags.storySeed,
+      run: () => {
+        resetStoryTags();
+        resetStoryOverlays();
+        console.log(`${prefix} Imprinting continental margins (active/passive)...`);
+        const margins = storyTagContinentalMargins(ctx);
+
+        if (DEV.ENABLED) {
+          const activeCount = margins.active?.length ?? 0;
+          const passiveCount = margins.passive?.length ?? 0;
+          if (activeCount + passiveCount === 0) {
+            devWarn("[smoke] storySeed enabled but margins overlay is empty");
+          }
+        }
+      },
+    });
+
+    registry.register({
+      id: "storyHotspots",
+      phase: M3_STANDARD_STAGE_PHASE.storyHotspots,
+      ...getStageDescriptor("storyHotspots"),
+      shouldRun: () => stageFlags.storyHotspots,
+      run: () => {
+        console.log(`${prefix} Imprinting hotspot trails...`);
+        const summary = storyTagHotspotTrails(ctx);
+
+        if (DEV.ENABLED && summary.points === 0) {
+          devWarn("[smoke] storyHotspots enabled but no hotspot points were emitted");
+        }
+      },
+    });
+
+    registry.register({
+      id: "storyRifts",
+      phase: M3_STANDARD_STAGE_PHASE.storyRifts,
+      ...getStageDescriptor("storyRifts"),
+      shouldRun: () => stageFlags.storyRifts,
+      run: () => {
+        console.log(`${prefix} Imprinting rift valleys...`);
+        const summary = storyTagRiftValleys(ctx);
+
+        if (DEV.ENABLED && summary.lineTiles === 0) {
+          devWarn("[smoke] storyRifts enabled but no rift tiles were emitted");
+        }
+      },
+    });
+
+    registry.register({
+      id: "ruggedCoasts",
+      phase: M3_STANDARD_STAGE_PHASE.ruggedCoasts,
+      ...getStageDescriptor("ruggedCoasts"),
+      shouldRun: () => stageFlags.ruggedCoasts,
+      run: () => {
+        addRuggedCoasts(iWidth, iHeight, ctx);
+      },
+    });
+
+    // Placeholder steps for story stages not yet implemented in the stable slice.
+    registry.register({
+      id: "storyOrogeny",
+      phase: M3_STANDARD_STAGE_PHASE.storyOrogeny,
+      ...getStageDescriptor("storyOrogeny"),
+      shouldRun: () => false,
+      run: () => {},
+    });
+    registry.register({
+      id: "storyCorridorsPre",
+      phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPre,
+      ...getStageDescriptor("storyCorridorsPre"),
+      shouldRun: () => false,
+      run: () => {},
+    });
+
+    registry.register({
+      id: "islands",
+      phase: M3_STANDARD_STAGE_PHASE.islands,
+      ...getStageDescriptor("islands"),
+      shouldRun: () => stageFlags.islands,
+      run: () => {
+        addIslandChains(iWidth, iHeight, ctx);
+      },
+    });
+
+    registry.register({
+      id: "mountains",
+      phase: M3_STANDARD_STAGE_PHASE.mountains,
+      ...getStageDescriptor("mountains"),
+      shouldRun: () => stageFlags.mountains,
+      run: () => {
+        assertFoundationContext(ctx, "mountains");
+
+        devLogIf(
+          "LOG_MOUNTAINS",
+          `${prefix} [Mountains] thresholds ` +
+            `mountain=${mountainOptions.mountainThreshold}, ` +
+            `hill=${mountainOptions.hillThreshold}, ` +
+            `tectonicIntensity=${mountainOptions.tectonicIntensity}, ` +
+            `boundaryWeight=${mountainOptions.boundaryWeight}, ` +
+            `boundaryExponent=${mountainOptions.boundaryExponent}, ` +
+            `interiorPenaltyWeight=${mountainOptions.interiorPenaltyWeight}`
+        );
+
+        layerAddMountainsPhysics(ctx, mountainOptions);
+
+        // Dev: log mountain summary and relief
+        if (DEV.ENABLED && ctx?.adapter) {
+          logMountainSummary(ctx.adapter, iWidth, iHeight);
+          logReliefAscii(ctx.adapter, iWidth, iHeight);
+        }
+      },
+    });
+
+    registry.register({
+      id: "volcanoes",
+      phase: M3_STANDARD_STAGE_PHASE.volcanoes,
+      ...getStageDescriptor("volcanoes"),
+      shouldRun: () => stageFlags.volcanoes,
+      run: () => {
+        assertFoundationContext(ctx, "volcanoes");
+
+        layerAddVolcanoesPlateAware(ctx, volcanoOptions);
+
+        // Dev: log volcano summary
+        if (DEV.ENABLED && ctx?.adapter) {
+          const volcanoId = ctx.adapter.getFeatureTypeIndex?.("FEATURE_VOLCANO") ?? -1;
+          logVolcanoSummary(ctx.adapter, iWidth, iHeight, volcanoId);
+        }
+      },
+    });
+
+    registry.register({
+      id: "lakes",
+      phase: M3_STANDARD_STAGE_PHASE.lakes,
+      ...getStageDescriptor("lakes"),
+      shouldRun: () => stageFlags.lakes,
+      run: () => {
+        const iTilesPerLake = Math.max(10, (mapInfo.LakeGenerationFrequency ?? 5) * 2);
+        this.orchestratorAdapter.generateLakes(iWidth, iHeight, iTilesPerLake);
+        syncHeightfield(ctx);
+      },
+    });
+
+    registry.register({
+      id: "climateBaseline",
+      phase: M3_STANDARD_STAGE_PHASE.climateBaseline,
+      ...getStageDescriptor("climateBaseline"),
+      shouldRun: () => stageFlags.climateBaseline,
+      run: () => {
+        // Mirror legacy: build elevation and refresh landmass regions before climate.
+        this.orchestratorAdapter.recalculateAreas();
+        this.orchestratorAdapter.buildElevation();
+
+        const westRestamped = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
+        const eastRestamped = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
+        ctx.adapter.recalculateAreas();
+        ctx.adapter.stampContinents();
+        console.log(
+          `[landmass-plate] LandmassRegionId refreshed post-terrain: ${westRestamped} west (ID=${LANDMASS_REGION.WEST}), ${eastRestamped} east (ID=${LANDMASS_REGION.EAST})`
+        );
+
+        assertFoundationContext(ctx, "climateBaseline");
+        applyClimateBaseline(iWidth, iHeight, ctx);
+      },
+    });
+
+    registry.register({
+      id: "storySwatches",
+      phase: M3_STANDARD_STAGE_PHASE.storySwatches,
+      ...getStageDescriptor("storySwatches"),
+      shouldRun: () => false,
+      run: () => {},
+    });
+
+    registry.register({
+      id: "rivers",
+      phase: M3_STANDARD_STAGE_PHASE.rivers,
+      ...getStageDescriptor("rivers"),
+      shouldRun: () => stageFlags.rivers,
+      run: () => {
+        const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
+        const logStats = (label: string) => {
+          const w = iWidth;
+          const h = iHeight;
+          let flat = 0,
+            hill = 0,
+            mtn = 0,
+            water = 0;
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              if (ctx.adapter.isWater(x, y)) {
+                water++;
+                continue;
+              }
+              const t = ctx.adapter.getTerrainType(x, y);
+              if (t === MOUNTAIN_TERRAIN) mtn++;
+              else if (t === HILL_TERRAIN) hill++;
+              else flat++;
+            }
+          }
+          const total = w * h;
+          const land = Math.max(1, flat + hill + mtn);
+          console.log(
+            `[Rivers] ${label}: Land=${land} (${((land / total) * 100).toFixed(1)}%) ` +
+              `Mtn=${((mtn / land) * 100).toFixed(1)}% ` +
+              `Hill=${((hill / land) * 100).toFixed(1)}% ` +
+              `Flat=${((flat / land) * 100).toFixed(1)}%`
+          );
+        };
+
+        logStats("PRE-RIVERS");
+        this.orchestratorAdapter.modelRivers(5, 15, navigableRiverTerrain);
+        logStats("POST-MODELRIVERS");
+        this.orchestratorAdapter.validateAndFixTerrain();
+        logStats("POST-VALIDATE");
+        syncHeightfield(ctx);
+        syncClimateField(ctx);
+        this.orchestratorAdapter.defineNamedRivers();
+      },
+    });
+
+    registry.register({
+      id: "storyCorridorsPost",
+      phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPost,
+      ...getStageDescriptor("storyCorridorsPost"),
+      shouldRun: () => false,
+      run: () => {},
+    });
+
+    registry.register({
+      id: "climateRefine",
+      phase: M3_STANDARD_STAGE_PHASE.climateRefine,
+      ...getStageDescriptor("climateRefine"),
+      shouldRun: () => stageFlags.climateRefine,
+      run: () => {
+        assertFoundationContext(ctx, "climateRefine");
+        refineClimateEarthlike(iWidth, iHeight, ctx);
+
+        if (DEV.ENABLED && ctx?.adapter) {
+          logRainfallStats(ctx.adapter, iWidth, iHeight, "post-climate");
+        }
+      },
+    });
+
+    registry.register({
+      id: "biomes",
+      phase: M3_STANDARD_STAGE_PHASE.biomes,
+      ...getStageDescriptor("biomes"),
+      shouldRun: () => stageFlags.biomes,
+      run: () => {
+        designateEnhancedBiomes(iWidth, iHeight, ctx);
+
+        if (DEV.ENABLED && ctx?.adapter) {
+          logBiomeSummary(ctx.adapter, iWidth, iHeight);
+        }
+      },
+    });
+
+    registry.register({
+      id: "features",
+      phase: M3_STANDARD_STAGE_PHASE.features,
+      ...getStageDescriptor("features"),
+      shouldRun: () => stageFlags.features,
+      run: () => {
+        addDiverseFeatures(iWidth, iHeight, ctx);
+        this.orchestratorAdapter.validateAndFixTerrain();
+        syncHeightfield(ctx);
+        this.orchestratorAdapter.recalculateAreas();
+      },
+    });
+
+    registry.register({
+      id: "placement",
+      phase: M3_STANDARD_STAGE_PHASE.placement,
+      ...getStageDescriptor("placement"),
+      shouldRun: () => stageFlags.placement,
+      run: () => {
+        // Store water data before placement
+        this.orchestratorAdapter.storeWaterData();
+
+        const positions = runPlacement(ctx.adapter, iWidth, iHeight, {
+          mapInfo: mapInfo as { NumNaturalWonders?: number },
+          wondersPlusOne: true,
+          floodplains: { minLength: 4, maxLength: 10 },
+          starts: {
+            playersLandmass1: iNumPlayers1,
+            playersLandmass2: iNumPlayers2,
+            westContinent,
+            eastContinent,
+            startSectorRows: iStartSectorRows,
+            startSectorCols: iStartSectorCols,
+            startSectors,
+          },
+        });
+        startPositions.push(...positions);
+      },
+    });
+
+    const executor = new PipelineExecutor(registry, { logPrefix: `${prefix} [TaskGraph]` });
+    const recipe = registry.getStandardRecipe(stageManifest);
+
+    // Ensure all recipe steps are registered before starting.
+    for (const stepId of recipe) {
+      if (!registry.has(stepId)) {
+        console.error(`${prefix} Missing registered step for "${stepId}"`);
+        return { success: false, stageResults: this.stageResults, startPositions };
+      }
+    }
+
+    try {
+      const { stepResults } = executor.execute(ctx!, recipe);
+      this.stageResults = stepResults.map((r) => ({
+        stage: r.stepId,
+        success: r.success,
+        durationMs: r.durationMs,
+        error: r.error,
+      }));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`${prefix} TaskGraph execution failed: ${message}`, err);
+      return { success: false, stageResults: this.stageResults, startPositions };
+    }
+
+    // Minimal smoke warning: enabled story stages should emit some tags.
+    const storyStagesEnabled =
+      stageFlags.storySeed ||
+      stageFlags.storyHotspots ||
+      stageFlags.storyRifts ||
+      stageFlags.storyOrogeny ||
+      stageFlags.storyCorridorsPre ||
+      stageFlags.storySwatches ||
+      stageFlags.storyCorridorsPost;
+    if (DEV.ENABLED && storyStagesEnabled) {
+      const tags = getStoryTags();
+      const tagTotal =
+        tags.hotspot.size +
+        tags.hotspotParadise.size +
+        tags.hotspotVolcanic.size +
+        tags.riftLine.size +
+        tags.riftShoulder.size +
+        tags.activeMargin.size +
+        tags.passiveShelf.size +
+        tags.corridorSeaLane.size +
+        tags.corridorIslandHop.size +
+        tags.corridorLandOpen.size +
+        tags.corridorRiverChain.size;
+      if (tagTotal === 0) {
+        devWarn("[smoke] story stages enabled but no story tags were emitted");
+      }
+    }
+
+    console.log(`${prefix} === GenerateMap COMPLETE ===`);
+
+    const success = this.stageResults.every((r) => r.success);
+    return { success, stageResults: this.stageResults, startPositions };
+  }
+
   // ==========================================================================
   // Private Helpers
   // ==========================================================================
@@ -1050,6 +1653,7 @@ export class MapOrchestrator {
       storySeed: stageEnabled("storySeed"),
       storyHotspots: stageEnabled("storyHotspots"),
       storyRifts: stageEnabled("storyRifts"),
+      ruggedCoasts: stageEnabled("ruggedCoasts"),
       storyOrogeny: stageEnabled("storyOrogeny"),
       storyCorridorsPre: stageEnabled("storyCorridorsPre"),
       islands: stageEnabled("islands"),
