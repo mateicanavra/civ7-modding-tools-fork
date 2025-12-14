@@ -156,9 +156,9 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
    - Direction: Tighten `M3_STAGE_DEPENDENCY_SPINE` for hydrology steps to require the minimal, true prerequisites (e.g. `artifact:heightfield` and/or the relevant `state:engine.*` tags).
 
 2. **Rainfall canonicalization is incomplete across “modernized” logic**
-   - `story/corridors.ts` still reads `ctx.adapter.getRainfall(...)` (`packages/mapgen-core/src/story/corridors.ts`), and biomes/features keep an engine fallback (`packages/mapgen-core/src/layers/biomes.ts`, `packages/mapgen-core/src/layers/features.ts`).
-   - Impact: Depending on stage enablement and future refactors, this can regress into silent dual-sourcing of rainfall (engine vs artifact) and make parity debugging harder.
-   - Direction: Decide whether CIV-42’s AC meant “all step-executed consumers” or “only ecology/placement”; then either migrate remaining step consumers to `artifact:climateField` or explicitly defer with a pointer to the owning issue (likely CIV-43).
+   - `designateEnhancedBiomes()` / `addDiverseFeatures()` fall back to `adapter.getRainfall(...)` when `artifact:climateField` is not published (`packages/mapgen-core/src/layers/biomes.ts`, `packages/mapgen-core/src/layers/features.ts`).
+   - Impact: The TaskGraph path should fail-fast before hitting the fallback (due to `requires: artifact:climateField`), but the fallback keeps legacy/non-pipeline calls able to silently diverge from the published artifact.
+   - Direction: Either remove the fallback (artifact-only) or make it explicitly legacy-only (clear guard + tests) so “canonical rainfall source” stays unambiguous.
 
 3. **`ClimateField` exports `humidity` but it’s not synchronized from engine**
    - `ClimateFieldBuffer` includes `humidity` (`packages/mapgen-core/src/core/types.ts`), but `syncClimateField()` only refreshes rainfall.
