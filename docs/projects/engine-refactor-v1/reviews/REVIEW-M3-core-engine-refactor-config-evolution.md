@@ -108,6 +108,7 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 - `generateMapTaskGraph()` now records a structured failure entry in `stageResults` when the executor throws (uses `stepId` when available).
 - Added a regression test for the missing-`requires` path (`landmassPlates` enabled while `foundation` is disabled).
 - Aligned `StageDescriptorSchema` wording to reflect tag-only `requires`/`provides` in M3 and note the current trust model for `state:engine.*`.
+- CIV-43 implements the previously placeholder story steps (`storyOrogeny`, `storyCorridorsPre`, `storySwatches`, `storyCorridorsPost`) and gates them via `stageFlags` rather than `shouldRun: () => false`.
 
 ---
 

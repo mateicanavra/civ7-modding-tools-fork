@@ -33,7 +33,7 @@ Parent issue: `CIV-21-story-tagging.md`.
 - [x] TS equivalents exist for all legacy story passes and corridors
 - [x] Corridors/swatches/paleo overlays are populated when stages enabled
 - [x] Story logic runs as steps under the Task Graph with explicit contracts
-- [ ] Downstream consumers use `StoryOverlays`/`ClimateField` rather than ad‑hoc reads
+- [ ] Downstream consumers use `StoryOverlays`/`ClimateField` rather than ad‑hoc reads (deferred: DEF-002, tracked in CIV-44)
 - [x] Story steps declare `requires`/`provides` and run via `PipelineExecutor`
 - [x] Steps fail fast if required dependency tags are missing (runtime gating enforced)
 
