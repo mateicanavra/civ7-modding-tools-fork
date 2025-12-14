@@ -22,17 +22,17 @@ Make hydrology/climate outputs consumable as **canonical artifacts (data product
 
 ## Deliverables
 
-- [ ] Make `ClimateField` the canonical rainfall/moisture read surface for downstream consumers (stop direct `GameplayMap.getRainfall()` reads in modernized code paths).
-- [ ] Define and publish a minimal, stable river artifact suitable for consumers (overlays/biomes/placement) without changing river generation algorithms.
-- [ ] Establish a wrap-first hydrology/climate step boundary that provides these artifacts (engine rivers + existing TS climate passes).
+- [x] Make `ClimateField` the canonical rainfall/moisture read surface for downstream consumers (stop direct `GameplayMap.getRainfall()` reads in modernized code paths).
+- [x] Define and publish a minimal, stable river artifact suitable for consumers (overlays/biomes/placement) without changing river generation algorithms.
+- [x] Establish a wrap-first hydrology/climate step boundary that provides these artifacts (engine rivers + existing TS climate passes).
 
 ## Acceptance Criteria
 
-- [ ] No new/modernized consumer reads rainfall directly from `GameplayMap` once the step pipeline is in place
-- [ ] River summary data is available as an explicit artifact (e.g., `artifact:riverAdjacency`) and can be required by steps via `requires`/`provides`
-- [ ] The map quality and overall river behavior remains consistent (wrap-first; no algorithm swap in M3)
-- [ ] Hydrology wrapper step declares `requires`/`provides` and runs via `PipelineExecutor`
-- [ ] Steps fail fast if required dependency tags are missing (runtime gating enforced)
+- [x] No new/modernized consumer reads rainfall directly from `GameplayMap` once the step pipeline is in place
+- [x] River summary data is available as an explicit artifact (e.g., `artifact:riverAdjacency`) and can be required by steps via `requires`/`provides`
+- [x] The map quality and overall river behavior remains consistent (wrap-first; no algorithm swap in M3)
+- [x] Hydrology wrapper step declares `requires`/`provides` and runs via `PipelineExecutor`
+- [x] Steps fail fast if required dependency tags are missing (runtime gating enforced)
 
 ## Testing / Verification
 

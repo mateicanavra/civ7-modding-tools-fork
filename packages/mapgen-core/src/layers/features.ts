@@ -21,6 +21,7 @@ import { ctxRandom } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
 import { getTunables } from "../bootstrap/tunables.js";
 import { inBounds as boundsCheck } from "../core/index.js";
+import { getPublishedClimateField } from "../pipeline/artifacts.js";
 
 // ============================================================================
 // Types
@@ -96,6 +97,9 @@ export function addDiverseFeatures(
     }
     return adapter.getRandomNumber(max, label);
   };
+
+  const climateField = getPublishedClimateField(ctx);
+  const rainfallField = climateField?.rainfall ?? null;
 
   const paradiseReefChance = featuresCfg?.paradiseReefChance ?? 18;
 
@@ -185,7 +189,8 @@ export function addDiverseFeatures(
 
       const biome = adapter.getBiomeType(x, y);
       const elevation = adapter.getElevation(x, y);
-      const rainfall = adapter.getRainfall(x, y);
+      const rainfall =
+        rainfallField ? (rainfallField[y * iWidth + x] | 0) : adapter.getRainfall(x, y);
       const plat = Math.abs(adapter.getLatitude(x, y));
 
       // 3a) Volcanic vegetation near volcanic hotspot centers (radius 1)

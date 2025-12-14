@@ -84,7 +84,10 @@ export class PipelineExecutor<TContext extends ExtendedMapContext> {
           // Only verify tags that have concrete satisfaction checks.
           if (
             tag === "artifact:foundation" ||
+            tag === "artifact:heightfield" ||
+            tag === "artifact:climateField" ||
             tag === "artifact:storyOverlays" ||
+            tag === "artifact:riverAdjacency" ||
             tag.startsWith("field:")
           ) {
             return !isDependencyTagSatisfied(tag, context, satisfactionState);
@@ -160,7 +163,10 @@ export class PipelineExecutor<TContext extends ExtendedMapContext> {
         const missingProvides = step.provides.filter((tag) => {
           if (
             tag === "artifact:foundation" ||
+            tag === "artifact:heightfield" ||
+            tag === "artifact:climateField" ||
             tag === "artifact:storyOverlays" ||
+            tag === "artifact:riverAdjacency" ||
             tag.startsWith("field:")
           ) {
             return !isDependencyTagSatisfied(tag, context, satisfactionState);

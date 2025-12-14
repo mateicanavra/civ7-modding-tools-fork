@@ -91,7 +91,7 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
   },
   rivers: {
     requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
-    provides: [M3_DEPENDENCY_TAGS.state.riversModeled],
+    provides: [M3_DEPENDENCY_TAGS.state.riversModeled, M3_DEPENDENCY_TAGS.artifact.riverAdjacency],
   },
   storyCorridorsPost: {
     requires: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],

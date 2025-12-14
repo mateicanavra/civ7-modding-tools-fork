@@ -183,6 +183,11 @@ export interface ExtendedMapContext {
   metrics: GenerationMetrics;
   adapter: EngineAdapter;
   foundation: FoundationContext | null;
+  /**
+   * Published data products keyed by dependency tag (e.g. "artifact:climateField").
+   * Used by PipelineExecutor for runtime requires/provides gating.
+   */
+  artifacts: Map<string, unknown>;
   buffers: MapBuffers;
   overlays: StoryOverlayRegistry;
 }
@@ -239,6 +244,7 @@ export function createExtendedMapContext(
     },
     adapter,
     foundation: null,
+    artifacts: new Map(),
     buffers: {
       heightfield,
       climate,

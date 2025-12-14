@@ -25,6 +25,7 @@ import type { EngineAdapter } from "@civ7/adapter";
 import { ctxRandom } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
 import { getTunables } from "../bootstrap/tunables.js";
+import { getPublishedClimateField } from "../pipeline/artifacts.js";
 
 // ============================================================================
 // Types
@@ -208,13 +209,17 @@ export function designateEnhancedBiomes(
     return adapter.getRandomNumber(max, label);
   };
 
+  const climateField = getPublishedClimateField(ctx);
+  const rainfallField = climateField?.rainfall ?? null;
+
   for (let y = 0; y < iHeight; y++) {
     for (let x = 0; x < iWidth; x++) {
       if (adapter.isWater(x, y)) continue;
 
       const lat = Math.abs(adapter.getLatitude(x, y));
       const elevation = adapter.getElevation(x, y);
-      const rainfall = adapter.getRainfall(x, y);
+      const rainfall =
+        rainfallField ? (rainfallField[y * iWidth + x] | 0) : adapter.getRainfall(x, y);
 
       // Tundra restraint: require very high lat or extreme elevation and dryness
       if (

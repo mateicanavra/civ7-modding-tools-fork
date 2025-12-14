@@ -73,8 +73,8 @@ If we have clear gameplay need and a regression harness, we can add richer artif
 
 ### 4.1. M3 (Wrap‑First) Boundary
 
-- `LegacyClimateStep` (wrapper around existing TS climate layers; publishes `ClimateField`)
-- `LegacyHydrologyStep` (wrapper around engine river modeling + any existing TS helpers; publishes river summary product)
+- `climateBaseline` + `climateRefine` (wrappers around existing TS climate layers; publish `artifact:climateField`)
+- `rivers` (wrapper around engine river modeling; publishes `artifact:riverAdjacency` as a `Uint8Array` 0/1 mask computed via `EngineAdapter.isAdjacentToRivers()` once `state:engine.riversModeled` is true)
 
 ### 4.2. Post‑M3 (Selective Refinement)
 
