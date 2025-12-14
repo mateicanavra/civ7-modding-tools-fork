@@ -899,6 +899,7 @@ export class MapOrchestrator {
         assertFoundationContext(ctx, "climateBaseline");
 
         applyClimateBaseline(iWidth, iHeight, ctx);
+        publishClimateFieldArtifact(ctx!);
       });
       this.stageResults.push(stageResult);
     }
@@ -947,6 +948,8 @@ export class MapOrchestrator {
         logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
         this.orchestratorAdapter.defineNamedRivers();
+        const riverAdjacency = computeRiverAdjacencyMask(ctx!);
+        publishRiverAdjacencyArtifact(ctx!, riverAdjacency);
       });
       this.stageResults.push(stageResult);
     }
@@ -960,6 +963,7 @@ export class MapOrchestrator {
         assertFoundationContext(ctx, "climateRefine");
 
         refineClimateEarthlike(iWidth, iHeight, ctx);
+        publishClimateFieldArtifact(ctx!);
       });
       this.stageResults.push(stageResult);
 
