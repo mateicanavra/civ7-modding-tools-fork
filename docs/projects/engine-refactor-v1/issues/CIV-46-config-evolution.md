@@ -34,7 +34,7 @@ Complete Phase 2/3 of the config refactor: config is step-aligned, presets/recip
 
 ### Presets/Recipes
 
-- [ ] Implement preset resolution so `presets: [...]` is meaningful (bootstrap or pipeline pre-step), with a canonical baseline.
+- [x] Implement preset resolution so `presets: [...]` is meaningful (bootstrap or pipeline pre-step), with a canonical baseline.
 - [ ] Document/decide how legacy preset names map forward (keep/simplify/deprecate).
 
 ### Config Parity Decisions
