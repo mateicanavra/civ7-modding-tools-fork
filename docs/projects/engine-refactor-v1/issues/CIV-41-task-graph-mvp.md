@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M3-TASK-GRAPH-MVP
+id: CIV-41
 title: "[M3] Task Graph MVP: Pipeline Primitives + Standard Entry"
 state: planned
 priority: 1
@@ -11,7 +11,7 @@ labels: [Improvement, Architecture, Pipeline]
 parent: null
 children: []
 blocked_by: []
-blocked: [LOCAL-M3-HYDROLOGY-PRODUCTS, LOCAL-M3-STORY-SYSTEM, LOCAL-M3-BIOMES-FEATURES-WRAPPER, LOCAL-M3-PLACEMENT-WRAPPER, LOCAL-M3-CONFIG-EVOLUTION, LOCAL-M3-ADAPTER-COLLAPSE]
+blocked: [CIV-42, CIV-43, CIV-44, CIV-45, CIV-46, CIV-47]
 related_to: []
 ---
 

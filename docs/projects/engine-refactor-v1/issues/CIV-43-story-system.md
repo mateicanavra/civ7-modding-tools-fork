@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M3-STORY-SYSTEM
+id: CIV-43
 title: "[M3] Full Story System Modernization (Corridors, Swatches, Paleo, Steps)"
 state: planned
 priority: 2
@@ -10,9 +10,9 @@ assignees: []
 labels: [Improvement, Story, Architecture]
 parent: CIV-21
 children: []
-blocked_by: [CIV-36, LOCAL-M3-TASK-GRAPH-MVP]
-blocked: [LOCAL-M3-BIOMES-FEATURES-WRAPPER]
-related_to: [CIV-21, LOCAL-M3-HYDROLOGY-PRODUCTS]
+blocked_by: [CIV-36, CIV-41]
+blocked: [CIV-44]
+related_to: [CIV-21, CIV-42]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
@@ -49,9 +49,9 @@ Parent issue: `CIV-21-story-tagging.md`.
 - **Change:** Implement the remaining legacy narrative passes and execute them as Task Graph steps; publish outputs as canonical overlays.
 - **Outcome:** Narrative signals become explicit artifacts/contracts (`artifact:storyOverlays`) for downstream consumers (biomes/features/placement).
 - **Scope guardrail:** Preserve current story quality; no new story motifs or tuning-heavy rewrites in M3.
-- **Depends on:** `CIV-36` (M2 minimal story parity) and `LOCAL-M3-TASK-GRAPH-MVP` (runtime-gated step execution).
-- **Blocks:** `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (biomes/features consume narrative signals).
-- **Related:** `LOCAL-M3-HYDROLOGY-PRODUCTS` (corridor/swatches logic may consume climate/river signals).
+- **Depends on:** CIV-36 (M2 minimal story parity) and CIV-41 (runtime-gated step execution).
+- **Blocks:** CIV-44 (biomes/features consume narrative signals).
+- **Related:** CIV-42 (corridor/swatches logic may consume climate/river signals).
 - **Locked decisions for M3 (remove ambiguity):**
   - **Step boundaries:** Keep story aligned to existing stage boundaries (wrapper steps matching `STAGE_ORDER`), to preserve behavior and avoid a tuning-grade rewrite in M3.
   - **Compatibility layer:** Keep `StoryTags` as a derived compatibility layer in M3 (populated from overlays) while consumers migrate; do not force all consumers to read overlays directly as a condition of landing M3 (tracked as `docs/projects/engine-refactor-v1/deferrals.md` DEF-002).

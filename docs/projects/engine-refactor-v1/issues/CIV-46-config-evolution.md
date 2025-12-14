@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M3-CONFIG-EVOLUTION
+id: CIV-46
 title: "[M3] Config Evolution (Phase 2/3) + Presets/Recipes + Tunables Retirement"
 state: planned
 priority: 2
@@ -10,8 +10,8 @@ assignees: []
 labels: [Improvement, Config, Architecture]
 parent: null
 children: []
-blocked_by: [LOCAL-M3-TASK-GRAPH-MVP, LOCAL-M3-HYDROLOGY-PRODUCTS, LOCAL-M3-STORY-SYSTEM, LOCAL-M3-BIOMES-FEATURES-WRAPPER, LOCAL-M3-PLACEMENT-WRAPPER]
-blocked: [LOCAL-M3-ADAPTER-COLLAPSE]
+blocked_by: [CIV-41, CIV-42, CIV-43, CIV-44, CIV-45]
+blocked: [CIV-47]
 related_to: [CIV-26]
 ---
 
@@ -61,8 +61,8 @@ Complete Phase 2/3 of the config refactor: config is step-aligned, presets/recip
 - **Change:** Make validated `MapGenConfig` the only supported config surface for steps; implement presets; reshape schema; retire tunables.
 - **Outcome:** Config matches the Task Graph mental model; no hidden global config reads remain in M3.
 - **Scope guardrail:** No behavior retuning; config changes should not materially change map output (beyond required deprecations/removals).
-- **Depends on:** `LOCAL-M3-TASK-GRAPH-MVP`, `LOCAL-M3-HYDROLOGY-PRODUCTS`, `LOCAL-M3-STORY-SYSTEM`, `LOCAL-M3-BIOMES-FEATURES-WRAPPER`, `LOCAL-M3-PLACEMENT-WRAPPER`.
-- **Blocks:** `LOCAL-M3-ADAPTER-COLLAPSE`.
+- **Depends on:** CIV-41, CIV-42, CIV-43, CIV-44, CIV-45.
+- **Blocks:** CIV-47.
 - **Historical:** `CIV-26` is M2 Phase 1; this issue is the M3 successor.
 - **Locked decisions for M3 (remove ambiguity):**
   - **Cutover posture:** Update in-repo callers/presets/recipes to the new config shape inside the M3 stack; do not carry legacy shapes forward as a supported path at M3 ship.

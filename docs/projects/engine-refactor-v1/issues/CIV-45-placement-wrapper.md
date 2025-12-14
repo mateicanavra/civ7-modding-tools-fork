@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M3-PLACEMENT-WRAPPER
+id: CIV-45
 title: "[M3] Placement Step Wrapper (Consume Canonical Artifacts)"
 state: planned
 priority: 2
@@ -10,8 +10,8 @@ assignees: []
 labels: [Improvement, Placement, Architecture]
 parent: null
 children: []
-blocked_by: [LOCAL-M3-BIOMES-FEATURES-WRAPPER]
-blocked: [LOCAL-M3-CONFIG-EVOLUTION]
+blocked_by: [CIV-44]
+blocked: [CIV-46]
 related_to: []
 ---
 
@@ -45,8 +45,8 @@ Wrap placement as a Task Graph step with explicit, runtime-gated dependencies so
 - **Change:** Execute placement under the Task Graph with explicit dependency gating; migrate config reads off tunables as part of M3 config cutover.
 - **Outcome:** Placement becomes an explicit, contract-checked step in the standard pipeline, enabling composition without fragile implicit ordering.
 - **Scope guardrail:** Wrap-first only; preserve placement behavior and tuning.
-- **Depends on:** `LOCAL-M3-BIOMES-FEATURES-WRAPPER`.
-- **Blocks:** `LOCAL-M3-CONFIG-EVOLUTION`.
+- **Depends on:** CIV-44.
+- **Blocks:** CIV-46.
 - **Historical:** `CIV-20` and `CIV-22` are archived/complete; do not redo adapter wiring or map-size awareness.
 - **Locked decisions for M3 (remove ambiguity):**
   - **Contract keys:** Placement’s prerequisites are primarily engine-surface guarantees; model them as **state tags** (e.g., `state:engine.biomesApplied`, `state:engine.featuresApplied`, `state:engine.riversModeled`) rather than pretending placement consumes artifact-only inputs.

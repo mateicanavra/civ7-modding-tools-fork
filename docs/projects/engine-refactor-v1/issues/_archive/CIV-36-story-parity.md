@@ -53,14 +53,14 @@ Parent issue: `CIV-21-story-tagging.md`.
 - Canonical `StoryOverlays` product migration and `MapGenStep` wrapping.
 - Any pipeline executor / task‑graph changes.
 
-These land under `LOCAL-M3-story-system.md`.
+These land under CIV-43.
 
 ## Dependencies / Notes
 
 - Depends on config/call‑site stability (CIV‑18).
 - This is an orchestrator‑centric port intended to be wrapped as steps in M3.
 - Follow‑ups:
-  - Globals coupling retirement and step‑style wrapping are tracked in `LOCAL-M3-story-system.md`.
+  - Globals coupling retirement and step‑style wrapping are tracked in CIV-43.
   - Distribution/overlay regression harness is tracked in project backlog (`docs/projects/engine-refactor-v1/triage.md`).
 
 ---

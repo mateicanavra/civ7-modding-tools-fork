@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M3-ADAPTER-COLLAPSE
+id: CIV-47
 title: "[M3] Adapter Boundary Collapse (EngineAdapter absorbs OrchestratorAdapter)"
 state: planned
 priority: 3
@@ -10,7 +10,7 @@ assignees: []
 labels: [Improvement, Architecture, Adapter]
 parent: null
 children: []
-blocked_by: [LOCAL-M3-CONFIG-EVOLUTION]
+blocked_by: [CIV-46]
 blocked: []
 related_to: []
 ---
@@ -48,7 +48,7 @@ Collapse `MapOrchestrator`’s internal `OrchestratorAdapter` into the canonical
 - **Change:** Remove the internal `OrchestratorAdapter` layer inside `MapOrchestrator` and flow map-init/map-info operations through `EngineAdapter`.
 - **Outcome:** One adapter boundary, matching system docs; enables cleaner non-Civ7 adapters and test harnesses later.
 - **Scope guardrail:** Consolidation only; no behavior changes beyond moving calls behind the adapter boundary.
-- **Depends on:** `LOCAL-M3-CONFIG-EVOLUTION` (late-stage integration once pipeline + config are stable).
+- **Depends on:** CIV-46 (late-stage integration once pipeline + config are stable).
 - **Open questions (track here):**
   - Civ7-specific init behaviors: do any `engine.call("SetMapInitData", ...)` semantics need to stay “outside” the adapter boundary for lifecycle reasons?
   - Minimum API: what is the smallest additional surface on `EngineAdapter` that unblocks removal of `OrchestratorAdapter` without overfitting to Civ7?

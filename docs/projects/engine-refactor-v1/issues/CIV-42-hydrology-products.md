@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M3-HYDROLOGY-PRODUCTS
+id: CIV-42
 title: "[M3] Hydrology Productization (ClimateField + River Artifacts)"
 state: planned
 priority: 2
@@ -10,9 +10,9 @@ assignees: []
 labels: [Improvement, Hydrology, Architecture]
 parent: null
 children: []
-blocked_by: [LOCAL-M3-TASK-GRAPH-MVP]
-blocked: [LOCAL-M3-BIOMES-FEATURES-WRAPPER]
-related_to: [LOCAL-M3-STORY-SYSTEM]
+blocked_by: [CIV-41]
+blocked: [CIV-44]
+related_to: [CIV-43]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
@@ -45,9 +45,9 @@ Make hydrology/climate outputs consumable as **canonical artifacts (data product
 - **Change:** Publish canonical climate + river artifacts (wrap-first) and migrate consumers to read those artifacts instead of engine globals.
 - **Outcome:** Downstream steps can declare `requires` on hydrology/climate outputs and remain testable/portable.
 - **Scope guardrail:** No new hydrology/geomorphology algorithms in M3; preserve map quality.
-- **Depends on:** `LOCAL-M3-TASK-GRAPH-MVP` (runtime gating + step execution).
-- **Blocks:** `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (biomes/features consume climate/river signals).
-- **Related:** `LOCAL-M3-STORY-SYSTEM` (story overlays may consume river/climate artifacts).
+- **Depends on:** CIV-41 (runtime gating + step execution).
+- **Blocks:** CIV-44 (biomes/features consume climate/river signals).
+- **Related:** CIV-43 (story overlays may consume river/climate artifacts).
 - **Locked decisions for M3 (remove ambiguity):**
   - **River artifact shape/source:** Publish `artifact:riverAdjacency` as a `Uint8Array` mask (0/1) computed once from `EngineAdapter.isAdjacentToRivers()` after engine rivers are modeled. Do **not** promise or model a full river graph in M3; `state:engine.riversModeled` remains the contract for “engine rivers exist on the surface” (tracked as `docs/projects/engine-refactor-v1/deferrals.md` DEF-005).
   - **Step boundaries:** Keep wrapper steps aligned to the existing stage boundaries: `climateBaseline` → `rivers` → `climateRefine` (matching `STAGE_ORDER`). Any future split/merge refactors are post‑M3.

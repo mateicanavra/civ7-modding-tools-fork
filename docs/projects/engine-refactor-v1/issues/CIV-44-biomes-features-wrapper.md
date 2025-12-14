@@ -1,5 +1,5 @@
 ---
-id: LOCAL-M3-BIOMES-FEATURES-WRAPPER
+id: CIV-44
 title: "[M3] Biomes & Features Step Wrapper (Consume Canonical Artifacts)"
 state: planned
 priority: 2
@@ -10,8 +10,8 @@ assignees: []
 labels: [Improvement, Ecology, Architecture]
 parent: null
 children: []
-blocked_by: [LOCAL-M3-TASK-GRAPH-MVP, LOCAL-M3-HYDROLOGY-PRODUCTS, LOCAL-M3-STORY-SYSTEM]
-blocked: [LOCAL-M3-PLACEMENT-WRAPPER]
+blocked_by: [CIV-41, CIV-42, CIV-43]
+blocked: [CIV-45]
 related_to: []
 ---
 
@@ -45,12 +45,12 @@ Wrap biomes + features as Task Graph steps that consume canonical climate/story 
 - **Change:** Wrap existing `layers/biomes.ts` + `layers/features.ts` behavior as steps and make them consume canonical artifacts.
 - **Outcome:** Placement can depend on stable “biomes/features done” contracts; ecology becomes step-composable.
 - **Scope guardrail:** Wrap-first only; do not retune or change biome/feature algorithms in M3.
-- **Depends on:** `LOCAL-M3-TASK-GRAPH-MVP`, `LOCAL-M3-HYDROLOGY-PRODUCTS`, `LOCAL-M3-STORY-SYSTEM`.
-- **Blocks:** `LOCAL-M3-PLACEMENT-WRAPPER`.
+- **Depends on:** CIV-41, CIV-42, CIV-43.
+- **Blocks:** CIV-45.
 - **Historical:** `CIV-19` is archived and complete; this issue is step-wrapping + artifact consumption, not adapter wiring.
 - **Locked decisions for M3 (remove ambiguity):**
   - **Contract keys:** Standardize on prefixed dependency tags (`artifact:*`, `field:*`, `state:*`) per `docs/system/libs/mapgen/architecture.md`.
-  - **Rivers input:** Do not make direct `EngineAdapter.isAdjacentToRivers()` calls inside biomes/features in M3; consume `artifact:riverAdjacency` from `LOCAL-M3-HYDROLOGY-PRODUCTS`.
+  - **Rivers input:** Do not make direct `EngineAdapter.isAdjacentToRivers()` calls inside biomes/features in M3; consume `artifact:riverAdjacency` from CIV-42.
   - **Heightfield dependency:** Declare `requires: [artifact:heightfield]` (or the equivalent heightfield/elevation artifact tag used by the spine) since biome/feature heuristics read elevation/land mask signals.
 
 ---
