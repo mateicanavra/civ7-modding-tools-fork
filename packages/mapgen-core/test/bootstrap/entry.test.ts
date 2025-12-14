@@ -43,6 +43,17 @@ describe("bootstrap/entry", () => {
       expect(config.presets).toEqual(["classic", "temperate"]);
     });
 
+    it("applies preset config before overrides", () => {
+      const config = bootstrap({ presets: ["temperate"] });
+      expect(config.foundation?.dynamics?.directionality?.cohesion).toBe(0.6);
+
+      const overridden = bootstrap({
+        presets: ["temperate"],
+        overrides: { foundation: { dynamics: { directionality: { cohesion: 0.2 } } } },
+      });
+      expect(overridden.foundation?.dynamics?.directionality?.cohesion).toBe(0.2);
+    });
+
     it("returns config with overrides", () => {
       const config = bootstrap({
         overrides: {
@@ -82,16 +93,16 @@ describe("bootstrap/entry", () => {
 
     it("filters invalid preset values", () => {
       const config = bootstrap({
-        presets: ["valid", 123 as unknown as string, null as unknown as string, "another"],
+        presets: ["classic", 123 as unknown as string, null as unknown as string, "temperate"],
       });
-      expect(config.presets).toEqual(["valid", "another"]);
+      expect(config.presets).toEqual(["classic", "temperate"]);
     });
   });
 
   describe("resetBootstrap", () => {
     it("resets config and makes tunables inaccessible", () => {
       bootstrap({
-        presets: ["test"],
+        presets: ["classic"],
         overrides: { toggles: { STORY_ENABLE_HOTSPOTS: false } },
       });
 
@@ -102,10 +113,10 @@ describe("bootstrap/entry", () => {
     });
 
     it("allows fresh bootstrap after reset", () => {
-      bootstrap({ presets: ["first"] });
+      bootstrap({ presets: ["classic"] });
       resetBootstrap();
-      const config = bootstrap({ presets: ["second"] });
-      expect(config.presets).toEqual(["second"]);
+      const config = bootstrap({ presets: ["temperate"] });
+      expect(config.presets).toEqual(["temperate"]);
     });
 
     it("re-enables tunables access after fresh bootstrap", () => {
@@ -125,14 +136,14 @@ describe("bootstrap/entry", () => {
 
       // Bootstrap with overrides
       const config = bootstrap({
-        presets: ["continent"],
+        presets: ["classic"],
         overrides: {
           foundation: { plates: { count: 10 } },
           toggles: { STORY_ENABLE_OROGENY: false },
         },
       });
 
-      expect(config.presets).toEqual(["continent"]);
+      expect(config.presets).toEqual(["classic"]);
       expect(getTunables().FOUNDATION_PLATES.count).toBe(10);
       expect(getTunables().STORY_ENABLE_OROGENY).toBe(false);
 

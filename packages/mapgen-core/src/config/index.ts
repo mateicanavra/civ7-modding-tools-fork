@@ -120,3 +120,9 @@ export {
   getPublicJsonSchema,
   type ParseResult,
 } from "./loader.js";
+
+export {
+  applyPresets,
+  getPresetConfig,
+  type MapGenPresetName,
+} from "./presets.js";

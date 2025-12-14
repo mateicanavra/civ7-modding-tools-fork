@@ -21,6 +21,7 @@
 
 import type { MapGenConfig } from "../config/index.js";
 import { parseConfig } from "../config/index.js";
+import { applyPresets } from "../config/presets.js";
 import { bindTunables, resetTunablesForTest } from "./tunables.js";
 import { resolveStageManifest, validateOverrides } from "./resolved.js";
 
@@ -122,7 +123,12 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
 
   // Build raw config object (before validation)
   const rawConfig: Partial<MapGenConfig> = {};
-  if (presets) rawConfig.presets = presets;
+
+  if (presets) {
+    rawConfig.presets = presets;
+    const presetConfig = applyPresets({}, presets) as Partial<MapGenConfig>;
+    Object.assign(rawConfig, deepMerge(rawConfig as object, presetConfig as object));
+  }
   if (stageConfig) rawConfig.stageConfig = stageConfig;
 
   // Resolve stageConfig → stageManifest (bridges the "Config Air Gap")
