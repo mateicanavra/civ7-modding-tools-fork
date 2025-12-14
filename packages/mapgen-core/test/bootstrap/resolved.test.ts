@@ -20,6 +20,7 @@ import {
   validateStageDrift,
   resetDriftCheck,
 } from "../../src/bootstrap/entry.js";
+import { M3_DEPENDENCY_TAGS } from "../../src/pipeline/index.js";
 
 describe("bootstrap/resolved", () => {
   beforeEach(() => {
@@ -104,6 +105,28 @@ describe("bootstrap/resolved", () => {
       // All stages disabled
       expect(manifest.stages.foundation?.enabled).toBe(false);
       expect(manifest.stages.landmassPlates?.enabled).toBe(false);
+    });
+
+    it("wires hydrology prerequisites into the manifest", () => {
+      const manifest = resolveStageManifest({
+        foundation: true,
+        lakes: true,
+        climateBaseline: true,
+        rivers: true,
+        climateRefine: true,
+      });
+
+      expect(manifest.stages.climateBaseline?.requires).toContain(
+        M3_DEPENDENCY_TAGS.artifact.foundation
+      );
+      expect(manifest.stages.climateBaseline?.requires).toContain(
+        M3_DEPENDENCY_TAGS.artifact.heightfield
+      );
+
+      expect(manifest.stages.rivers?.requires).toContain(M3_DEPENDENCY_TAGS.artifact.heightfield);
+      expect(manifest.stages.climateRefine?.requires).toContain(
+        M3_DEPENDENCY_TAGS.artifact.riverAdjacency
+      );
     });
   });
 

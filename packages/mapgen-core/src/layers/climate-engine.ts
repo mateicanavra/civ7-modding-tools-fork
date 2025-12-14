@@ -13,6 +13,7 @@ import type {
 import { ctxRandom, writeClimateField, syncClimateField } from "../core/types.js";
 import type { FoundationContext } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
+import { M3_DEPENDENCY_TAGS } from "../pipeline/tags.js";
 import { getTunables } from "../bootstrap/tunables.js";
 import { clamp, inBounds as boundsCheck } from "../core/index.js";
 
@@ -64,6 +65,13 @@ export interface ClimateSwatchResult {
 function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
   if (ctx && ctx.adapter) {
     const engineAdapter = ctx.adapter;
+    const width = ctx.dimensions.width | 0;
+    const height = ctx.dimensions.height | 0;
+    const expectedSize = Math.max(0, width * height) | 0;
+    const riverAdjacency = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency);
+    const hasRiverAdjacencyArtifact =
+      riverAdjacency instanceof Uint8Array && riverAdjacency.length === expectedSize;
+    const idx = (x: number, y: number): number => y * width + x;
     return {
       isWater: (x, y) => engineAdapter.isWater(x, y),
       isMountain: (x, y) => engineAdapter.isMountain(x, y),
@@ -71,7 +79,12 @@ function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
       // These are not on the base EngineAdapter interface. By leaving them
       // undefined, the climate code's local fallbacks will execute instead of
       // receiving stubbed `() => false` values that block the fallback path.
-      isAdjacentToRivers: (x, y, radius) => engineAdapter.isAdjacentToRivers(x, y, radius),
+      isAdjacentToRivers: (x, y, radius) => {
+        if (hasRiverAdjacencyArtifact && radius === 1) {
+          return (riverAdjacency as Uint8Array)[idx(x, y)] === 1;
+        }
+        return engineAdapter.isAdjacentToRivers(x, y, radius);
+      },
       getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
       setRainfall: (x, y, rf) => engineAdapter.setRainfall(x, y, rf),
       getElevation: (x, y) => engineAdapter.getElevation(x, y),

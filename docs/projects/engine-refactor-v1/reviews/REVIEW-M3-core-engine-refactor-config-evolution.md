@@ -184,3 +184,9 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 - **Required (to uphold AC intent):** Tighten hydrology stage `requires` in `packages/mapgen-core/src/pipeline/standard.ts` (and thus `resolveStageManifest()`) so “fail fast” is meaningful for misordered recipes.
 - **Nice-to-have:** Add a `getPublishedRiverAdjacency()` helper alongside `getPublishedClimateField()` to standardize consumption.
 - **Follow-up (likely CIV-43/CIV-44):** Complete rainfall/river migration for any step-executed consumers still calling engine reads; clarify ownership so CIV-42 doesn’t appear “done” while still leaving critical consumers behind.
+
+### Follow-up (post-review)
+
+- Tightened hydrology `requires` so `climateBaseline`/`rivers` require `artifact:heightfield`, and `climateRefine` requires `artifact:riverAdjacency` (fail-fast is now meaningful for misordered recipes).
+- Added `getPublishedRiverAdjacency()` and updated climate runtime to prefer the published river mask for `radius=1` adjacency checks when available.
+- Documented `ClimateField.humidity` as an M3 placeholder and clarified the legacy-only rainfall fallback behavior.

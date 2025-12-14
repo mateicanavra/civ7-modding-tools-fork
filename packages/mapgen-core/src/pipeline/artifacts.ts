@@ -34,6 +34,14 @@ export function getPublishedClimateField(ctx: ExtendedMapContext): ClimateFieldB
   return candidate;
 }
 
+export function getPublishedRiverAdjacency(ctx: ExtendedMapContext): Uint8Array | null {
+  const value = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency);
+  if (!(value instanceof Uint8Array)) return null;
+  const expectedSize = ctx.dimensions.width * ctx.dimensions.height;
+  if (value.length !== expectedSize) return null;
+  return value;
+}
+
 export function computeRiverAdjacencyMask(
   ctx: ExtendedMapContext,
   radius = 1

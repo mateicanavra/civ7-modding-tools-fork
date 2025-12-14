@@ -48,6 +48,7 @@ Make hydrology/climate outputs consumable as **canonical artifacts (data product
 - **Depends on:** CIV-41 (runtime gating + step execution).
 - **Blocks:** CIV-44 (biomes/features consume climate/river signals).
 - **Related:** CIV-43 (story overlays may consume river/climate artifacts).
+- **Follow-up:** Full consumer migration onto `artifact:climateField` / `artifact:riverAdjacency` beyond hydrology is owned by CIV-43/CIV-44.
 - **Locked decisions for M3 (remove ambiguity):**
   - **River artifact shape/source:** Publish `artifact:riverAdjacency` as a `Uint8Array` mask (0/1) computed once from `EngineAdapter.isAdjacentToRivers()` after engine rivers are modeled. Do **not** promise or model a full river graph in M3; `state:engine.riversModeled` remains the contract for “engine rivers exist on the surface” (tracked as `docs/projects/engine-refactor-v1/deferrals.md` DEF-005).
   - **Step boundaries:** Keep wrapper steps aligned to the existing stage boundaries: `climateBaseline` → `rivers` → `climateRefine` (matching `STAGE_ORDER`). Any future split/merge refactors are post‑M3.
