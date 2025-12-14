@@ -22,17 +22,17 @@ Wrap biomes + features as Task Graph steps that consume canonical climate/story 
 
 ## Deliverables
 
-- [ ] Implement `LegacyBiomesStep` and `LegacyFeaturesStep` wrappers as `MapGenStep`s with explicit `requires/provides`.
-- [ ] Migrate rainfall/moisture reads to canonical `ClimateField` (avoid new direct `GameplayMap.getRainfall()` reads in modernized code paths).
+- [x] Implement `LegacyBiomesStep` and `LegacyFeaturesStep` wrappers as `MapGenStep`s with explicit `requires/provides`.
+- [x] Migrate rainfall/moisture reads to canonical `ClimateField` (avoid new direct `GameplayMap.getRainfall()` reads in modernized code paths).
 - [ ] Consume narrative signals via canonical overlays (`StoryOverlays`); if any legacy reads require `StoryTags`, keep them strictly derived from overlays (tracked in `docs/projects/engine-refactor-v1/deferrals.md` DEF-002).
 
 ## Acceptance Criteria
 
-- [ ] Biomes/features stages run as steps via `PipelineExecutor` with explicit contracts
-- [ ] No direct `GameplayMap` reads for rainfall/moisture data in modernized code paths
-- [ ] Biome/feature distribution matches current orchestrator output (wrap-first; no algorithm changes)
+- [x] Biomes/features stages run as steps via `PipelineExecutor` with explicit contracts
+- [x] No direct `GameplayMap` reads for rainfall/moisture data in modernized code paths
+- [x] Biome/feature distribution matches current orchestrator output (wrap-first; no algorithm changes)
 - [ ] Steps fail fast if required dependency tags are missing (e.g., `artifact:climateField`, `artifact:storyOverlays`)
-- [ ] Both steps declare `requires`/`provides` that accurately reflect their dependencies
+- [x] Both steps declare `requires`/`provides` that accurately reflect their dependencies
 
 ## Testing / Verification
 

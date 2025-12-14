@@ -108,6 +108,7 @@ import { applyClimateBaseline, refineClimateEarthlike } from "./layers/climate-e
 import { designateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures } from "./layers/features.js";
 import { runPlacement } from "./layers/placement.js";
+import { createLegacyBiomesStep, createLegacyFeaturesStep } from "./steps/index.js";
 
 // Dev diagnostics
 import {
@@ -1624,32 +1625,29 @@ export class MapOrchestrator {
       },
     });
 
-    registry.register({
-      id: "biomes",
-      phase: M3_STANDARD_STAGE_PHASE.biomes,
-      ...getStageDescriptor("biomes"),
-      shouldRun: () => stageFlags.biomes,
-      run: () => {
-        designateEnhancedBiomes(iWidth, iHeight, ctx);
+    registry.register(
+      createLegacyBiomesStep({
+        ...getStageDescriptor("biomes"),
+        shouldRun: () => stageFlags.biomes,
+        afterRun: () => {
+          if (DEV.ENABLED && ctx?.adapter) {
+            logBiomeSummary(ctx.adapter, iWidth, iHeight);
+          }
+        },
+      })
+    );
 
-        if (DEV.ENABLED && ctx?.adapter) {
-          logBiomeSummary(ctx.adapter, iWidth, iHeight);
-        }
-      },
-    });
-
-    registry.register({
-      id: "features",
-      phase: M3_STANDARD_STAGE_PHASE.features,
-      ...getStageDescriptor("features"),
-      shouldRun: () => stageFlags.features,
-      run: () => {
-        addDiverseFeatures(iWidth, iHeight, ctx);
-        this.orchestratorAdapter.validateAndFixTerrain();
-        syncHeightfield(ctx);
-        this.orchestratorAdapter.recalculateAreas();
-      },
-    });
+    registry.register(
+      createLegacyFeaturesStep({
+        ...getStageDescriptor("features"),
+        shouldRun: () => stageFlags.features,
+        afterRun: () => {
+          this.orchestratorAdapter.validateAndFixTerrain();
+          syncHeightfield(ctx);
+          this.orchestratorAdapter.recalculateAreas();
+        },
+      })
+    );
 
     registry.register({
       id: "placement",
