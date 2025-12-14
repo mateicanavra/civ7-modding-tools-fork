@@ -32,6 +32,18 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `hydrology.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `CIV-40` (which only adds framing + minimal current-state pointers).
   - **Next check:** after Task Graph + step execution is implemented and key products (`FoundationContext`, `ClimateField`, `StoryOverlays`) are stabilized.
 
+- **Runtime verification strategy for `state:engine.*` dependency tags** [Review by: early M4]
+  - **Context:** `CIV-41` Task Graph MVP; deferral at `docs/projects/engine-refactor-v1/deferrals.md` (DEF-008).
+  - **Type:** backlog
+  - **Notes:** Decide how to validate `state:engine.*` tags (adapter queries, step-owned invariants, or eliminating `state:*` in favor of canonical artifacts where feasible). Add runtime checks for the highest-risk tags once a strategy exists.
+  - **Next check:** when engine adapter invariants are available or when the first M3 consumer step depends critically on `state:engine.*` correctness.
+
+- **Deduplicate `PipelineExecutor.execute()` / `executeAsync()` execution loops** [Review by: early M4]
+  - **Context:** `CIV-41` Task Graph MVP review follow-up.
+  - **Type:** backlog
+  - **Notes:** Reduce duplicated control flow while preserving deterministic trace/log ordering and the existing error semantics (fail-fast for missing dependencies).
+  - **Next check:** once M3 executor behavior stabilizes and before adding more step phases that would multiply duplicated logic.
+
 - **Modern story orogeny layer (windward/lee amplification)** [Review by: early M3+]
   - **Context:** M2 / `CIV-36` minimal story parity deferred orogeny; `CIV-39` orogeny tunables promotion explicitly deferred in 2025‑12‑12 discussion.
   - **Type:** backlog
