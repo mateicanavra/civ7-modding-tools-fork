@@ -15,7 +15,7 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 ## Objectives
 
 - Add a basic but meaningful automated test suite around the orchestrator, pipeline, and critical steps.
-- Enforce `requires`/`provides` contracts at runtime via a manifest/data-product validator.
+- Harden and broaden runtime `requires`/`provides` enforcement via a manifest/data-product validator (M3 establishes baseline gating; M4 adds stronger coverage + tests).
 - Remove remaining JS shims and legacy fallbacks (null adapters, silent fallbacks) from the engine.
 
 ## Scope

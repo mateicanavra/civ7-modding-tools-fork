@@ -22,17 +22,9 @@ Make hydrology/climate outputs consumable as **canonical data products**: `Clima
 
 ## Deliverables
 
-- [ ] **Canonicalize `ClimateField` for consumers**
-  - Downstream stages (story overlays, biomes/features, placement) consume rainfall/moisture via `ClimateField` rather than `GameplayMap` reads.
-  - Any legacy reads are treated as compatibility-only and are gated behind the wrapper boundary.
-- [ ] **Publish a minimal river data product**
-  - Define and publish a stable product for “surface river flow / summary data” suitable for consumers (overlays, biome heuristics, placement constraints).
-  - Clarify where it lives (e.g., `MapGenContext.products.hydrology` vs `MapGenContext.artifacts.hydrology`) and its mutation rules.
-- [ ] **Wrap-first hydrology step boundary**
-  - Document/encode that “hydrology” in M3 is a wrapper over:
-    - Engine river modeling (Civ7 adapter), and
-    - Existing TS climate layers (baseline/refine).
-  - Ensure the wrapper publishes the canonical products even if internals remain legacy/engine-owned.
+- [ ] Make `ClimateField` the canonical rainfall/moisture read surface for downstream consumers (stop direct `GameplayMap.getRainfall()` reads in modernized code paths).
+- [ ] Define and publish a minimal, stable river product suitable for consumers (overlays/biomes/placement) without changing river generation algorithms.
+- [ ] Establish a wrap-first hydrology/climate step boundary that provides these products (engine rivers + existing TS climate passes).
 
 ## Acceptance Criteria
 
@@ -42,26 +34,38 @@ Make hydrology/climate outputs consumable as **canonical data products**: `Clima
 - [ ] Hydrology wrapper step declares `requires`/`provides` and runs via `PipelineExecutor`
 - [ ] Steps fail fast if required products are missing (runtime gating enforced)
 
-## Out of Scope
+## Testing / Verification
 
-- Replacing Civ7 river generation or implementing new hydrology algorithms (stream power erosion, ocean currents, cryosphere feedback, pedology).
-- Retuning rainfall/rivers beyond parity checks needed to validate product consumers.
+- `pnpm -C packages/mapgen-core check`
+- `pnpm test:mapgen`
 
-## Dependencies & Relationships
+## Dependencies / Notes
 
-**Depends on:**
-- `LOCAL-M3-TASK-GRAPH-MVP` (Stack 1): Pipeline primitives must exist before wrapping hydrology
+- **System area:** Hydrology/climate product spine and consumer reads.
+- **Change:** Publish canonical climate + river products (wrap-first) and migrate consumers to read those products instead of engine globals.
+- **Outcome:** Downstream steps can declare `requires` on hydrology/climate outputs and remain testable/portable.
+- **Scope guardrail:** No new hydrology/geomorphology algorithms in M3; preserve map quality.
+- **Depends on:** `LOCAL-M3-TASK-GRAPH-MVP` (runtime gating + step execution).
+- **Blocks:** `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (biomes/features consume climate/river signals).
+- **Related:** `LOCAL-M3-STORY-SYSTEM` (story overlays may consume river/climate products).
+- **Open questions (track here):**
+  - River product shape: adjacency mask vs “near-river” score vs coarse “navigable river terrain” mask. The base `EngineAdapter` only exposes `isAdjacentToRivers()`.
+  - River product source: derived from adapter queries vs derived from terrain types after `modelRivers()` (see `NAVIGABLE_RIVER_TERRAIN` usage in `MapOrchestrator`).
+  - Step boundary: one combined “hydrology/climate” wrapper step vs separate `climateBaseline` / `rivers` / `climateRefine` steps (must preserve current stage order).
+- **Links:**
+  - Milestone: `../milestones/M3-core-engine-refactor-config-evolution.md`
+  - Pipeline PRD: `../resources/PRD-pipeline-refactor.md`
+  - Target system docs: `../../../system/libs/mapgen/hydrology.md`, `../../../system/libs/mapgen/ecology.md`
+  - Code references: `packages/mapgen-core/src/MapOrchestrator.ts` (rivers stage), `packages/mapgen-core/src/core/types.ts` (`ClimateFieldBuffer`, `writeClimateField`, `syncClimateField`), `packages/civ7-adapter/src/types.ts` (`EngineAdapter`)
 
-**Blocks:**
-- `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (Stack 4): Biomes/features consume `ClimateField` product
+---
 
-**Related:**
-- `LOCAL-M3-STORY-SYSTEM` (Stack 3): Story overlays may consume river/climate products
+<!-- SECTION IMPLEMENTATION [NOSYNC] -->
+## Implementation Details (Local Only)
 
-## Links
-
-- Project snapshot: `../status.md`
-- Milestone: `../milestones/M3-core-engine-refactor-config-evolution.md`
-- Pipeline PRD: `../resources/PRD-pipeline-refactor.md`
-- Target system docs: `../../system/libs/mapgen/hydrology.md`, `../../system/libs/mapgen/ecology.md`
-
+### Quick Navigation
+- [TL;DR](#tldr)
+- [Deliverables](#deliverables)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Testing / Verification](#testing--verification)
+- [Dependencies / Notes](#dependencies--notes)

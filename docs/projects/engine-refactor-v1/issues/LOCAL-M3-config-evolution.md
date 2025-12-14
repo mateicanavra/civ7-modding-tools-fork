@@ -18,88 +18,28 @@ related_to: [CIV-26]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Complete the config story started in M2: steps read config via `context.config`, the schema is reshaped to match phases/steps, presets become real, and tunables are retired. This makes configuration intuitive for modders and consistent with the Task Graph model.
-
-## Context & Motivation
-
-M2 established config hygiene (validated schema, no globals), but config is still shaped around legacy groupings and read via tunables:
-
-- Config shape reflects legacy `foundation.xxx` nesting and tunables facades
-- Steps still read config via `FOUNDATION_CFG`/`CLIMATE_CFG` tunables snapshots
-- `presets` field exists in schema but is currently unused
-- Many config fields have ambiguous status (Legacy-only, Unused/planned, Partially wired)
-
-Phase C of M3 completes the config story:
-
-1. **Phase 2 (config-in-context):** Steps read config via `context.config`, not tunables
-2. **Phase 3 (shape evolution):** Schema reshaped to match phases/steps
-3. **Presets/recipes:** Named presets supply per-stage overrides
-4. **Tunables retirement:** No hidden global config
-
-## Capability Unlocks
-
-- Config surface is intuitive for mod authors—mirrors the generation phases
-- Steps can be configured independently via per-step config sections
-- Presets work as documented (not just a schema placeholder)
-- No hidden config reads via tunables or globals
+Complete Phase 2/3 of the config refactor: config is step-aligned, presets/recipes are real, and tunables are retired so all M3 steps read validated `MapGenConfig` via context.
 
 ## Deliverables
 
 ### Phase 2: Config-in-Context
 
-- [ ] **`MapGenContext.config` populated at pipeline start**
-  - Validated `MapGenConfig` available via `context.config`
-  - All step wrappers read config via `context.config`, not tunables
-
-- [ ] **Legacy tunables marked deprecated**
-  - `FOUNDATION_CFG`/`CLIMATE_CFG` marked as deprecated compatibility layer
-  - Deprecation warnings emitted when accessed directly
-
-- [ ] **Audit remaining tunables usage**
-  - Document which reads are compatibility-only
-  - Ensure no new code uses tunables as primary config path
+- [ ] Ensure the pipeline context carries validated `MapGenConfig` and step wrappers read config via `context.config`.
+- [ ] Identify and migrate remaining `getTunables()` reads in wrapped stages; prevent new primary config reads via tunables.
 
 ### Phase 3: Shape Evolution
 
-- [ ] **`MapGenConfigSchema` restructured**
-  - Top-level phase/step-aligned sections:
-    - `plates`, `landmass`, `mountains`, `volcanoes`
-    - `climate`, `rivers`, `humidity`
-    - `story`, `corridors`, `overlays`
-    - `placement`, `diagnostics`
-
-- [ ] **In-repo callers migrated**
-  - Map scripts updated to use new config shape
-  - Presets updated to new shape
-
-- [ ] **Tunables retired**
-  - `bootstrap/tunables.ts` removed or reduced to minimal compatibility shim
-
-- [ ] **Documentation updated**
-  - JSON Schema export reflects new shape
-  - Config docs updated
+- [ ] Reshape `MapGenConfigSchema` to match phases/steps (per `resources/PRD-config-refactor.md`) and migrate in-repo callers/presets to the new shape.
+- [ ] Retire tunables as an engine surface for config (remove or reduce to an explicit, temporary compatibility shim only if intentionally kept).
 
 ### Presets/Recipes
 
-- [ ] **Canonical `BASE_CONFIG` defined**
-  - Either in-repo constant or documented default derivation
-
-- [ ] **Preset resolution implemented**
-  - Bootstrap or pipeline pre-step applies named presets
-  - Presets can supply per-step config overrides
-
-- [ ] **Legacy presets decision documented**
-  - Explicit decision on `classic`, `temperate`, etc.
-  - Either preserved, simplified, or deprecated
+- [ ] Implement preset resolution so `presets: [...]` is meaningful (bootstrap or pipeline pre-step), with a canonical baseline.
+- [ ] Document/decide how legacy preset names map forward (keep/simplify/deprecate).
 
 ### Config Parity Decisions
 
-- [ ] **All `config-wiring-status.md` rows resolved**
-  - For each: keep-and-wire, deprecate-with-warning, or remove
-  - No ambiguous "Unused / planned" fields remain
-
-- [ ] **Deprecated fields emit warnings**
-  - Runtime warnings when deprecated config fields are used
+- [ ] Resolve remaining ambiguous config fields tracked in `resources/config-wiring-status.md` (keep-and-wire vs deprecate vs remove) and reflect decisions in schema + docs.
 
 ## Acceptance Criteria
 
@@ -109,44 +49,38 @@ Phase C of M3 completes the config story:
 - [ ] `config-wiring-status.md` has no ambiguous "Unused / planned" rows
 - [ ] In-repo map scripts work with the new config shape
 
-## Out of Scope
+## Testing / Verification
 
-- Per-step config schemas (global `MapGenConfig` schema only in M3)
-- UI/editor representation of config (beyond JSON schema export)
-- Config for features not yet implemented (post-M3)
+- `pnpm -C packages/mapgen-core check`
+- `pnpm test:mapgen`
+- Validate schema export (if applicable in this repo’s workflow) and sanity-check a few representative configs/presets used by Swooper maps.
 
-## Open Questions & Considerations
+## Dependencies / Notes
 
-- **Cutover plan:** What is the cutover plan for existing in-repo callers and presets/recipes so the new config shape is the supported path at M3 ship?
-- **Preset semantics:** Do we want full parity with legacy preset semantics, or simplify/deprecate the field?
-- **Resolution location:** Where should preset resolution live (bootstrap vs. pipeline pre-step)?
-- **Remaining dead fields:** Decide on remaining dead/legacy fields beyond the M2 stable slice (e.g., `foundation.seed.*`, `oceanSeparation.respectSeaLanes`, other `Missing` rows in `config-wiring-status.md`)
-
-## Dependencies & Relationships
-
-**Depends on:**
-- `LOCAL-M3-TASK-GRAPH-MVP` (Stack 1): Pipeline must exist for config-in-context
-- `LOCAL-M3-HYDROLOGY-PRODUCTS` (Stack 2): Step must be wrapped to migrate config reads
-- `LOCAL-M3-STORY-SYSTEM` (Stack 3): Step must be wrapped to migrate config reads
-- `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (Stack 4): Step must be wrapped to migrate config reads
-- `LOCAL-M3-PLACEMENT-WRAPPER` (Stack 5): Step must be wrapped to migrate config reads
-
-**Blocks:**
-- `LOCAL-M3-ADAPTER-COLLAPSE` (Stack 7): Adapter cleanup happens after config is stable
-
-**Historical context:**
-- `CIV-26` (M2): Config hygiene parent—Phase 1 complete; this is the M3 successor
-
-## Risk Controls
-
-- **Branch safety:** Intermediate states may be non-backwards-compatible while the cutover is in flight, but the stack should remain runnable by updating in-tree callers and scripts as part of the same milestone branch
-- **No generation changes:** Config evolution should not change map output
-- **Incremental migration:** Migrate callers as config shape evolves, not all at once at the end
+- **System area:** Config schema + bootstrap/config wiring + de-tunabling in `@swooper/mapgen-core`.
+- **Change:** Make validated `MapGenConfig` the only supported config surface for steps; implement presets; reshape schema; retire tunables.
+- **Outcome:** Config matches the Task Graph mental model; no hidden global config reads remain in M3.
+- **Scope guardrail:** No behavior retuning; config changes should not materially change map output (beyond required deprecations/removals).
+- **Depends on:** `LOCAL-M3-TASK-GRAPH-MVP`, `LOCAL-M3-HYDROLOGY-PRODUCTS`, `LOCAL-M3-STORY-SYSTEM`, `LOCAL-M3-BIOMES-FEATURES-WRAPPER`, `LOCAL-M3-PLACEMENT-WRAPPER`.
+- **Blocks:** `LOCAL-M3-ADAPTER-COLLAPSE`.
+- **Historical:** `CIV-26` is M2 Phase 1; this issue is the M3 successor.
+- **Open questions (track here):**
+  - Cutover plan: update in-repo callers/presets so the new shape is the supported path at M3 ship.
+  - Preset semantics: parity vs simplification; where resolution lives (bootstrap vs pipeline pre-step).
+  - Phase 2 minimum: what is the minimal “config-in-context” mapping needed to unlock Phase 3 reshaping and tunables retirement without leaving hidden reads?
+  - Remaining dead fields: resolve `foundation.seed.*`, `oceanSeparation.respectSeaLanes`, and other `Missing` rows in `resources/config-wiring-status.md`.
 
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
-## Implementation Notes (Local Only)
+## Implementation Details (Local Only)
+
+### Quick Navigation
+- [TL;DR](#tldr)
+- [Deliverables](#deliverables)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Testing / Verification](#testing--verification)
+- [Dependencies / Notes](#dependencies--notes)
 
 ### Key Files (Expected)
 

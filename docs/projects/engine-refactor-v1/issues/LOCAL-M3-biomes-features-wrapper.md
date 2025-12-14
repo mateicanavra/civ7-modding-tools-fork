@@ -18,52 +18,13 @@ related_to: []
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Wrap biomes and features stages as `MapGenStep`s that consume canonical data products (`ClimateField`, `StoryOverlays`, river product) rather than mixed reads from `GameplayMap`/globals. This completes the ecology cluster's migration to the Task Graph architecture without changing generation algorithms.
-
-## Context & Motivation
-
-Biomes and features stages currently run through the orchestrator and read climate/story data via mixed paths:
-
-- Some data via `GameplayMap` reads
-- Some via globals
-- Some via context
-
-This inconsistency makes dependencies implicit and testing difficult. To achieve the Task Graph architecture, these stages must become `MapGenStep`s that:
-
-- Declare their dependencies explicitly via `requires`
-- Consume canonical products (`ClimateField`, `StoryOverlays`, river product)
-- Publish their outputs via `provides` for downstream consumers
-
-**Important:** Adapter-boundary biomes/features wiring landed in M1 (`CIV-19`, archived). This M3 work is about Task Graph step-wrapping + consuming canonical products, not re-doing adapter integration.
-
-## Capability Unlocks
-
-- Biomes/features logic becomes testable in isolation with mock contexts
-- Dependencies are explicit and validated at runtime
-- Steps can be reordered or replaced by mods
-- Clear contract for what data biomes/features need and what they produce
+Wrap biomes + features as Task Graph steps that consume canonical climate/story products and publish stable outputs for placement, without changing generation algorithms.
 
 ## Deliverables
 
-- [ ] **`LegacyBiomesStep` wrapper**
-  - Implements `MapGenStep` interface
-  - Calls existing `designateEnhancedBiomes` logic
-  - Declares `requires: ["climatefield", "storyoverlays"]`
-  - Declares `provides: ["biomes"]`
-
-- [ ] **`LegacyFeaturesStep` wrapper**
-  - Implements `MapGenStep` interface
-  - Calls existing `addDiverseFeatures` logic
-  - Declares `requires: ["climatefield", "storyoverlays", "biomes"]`
-  - Declares `provides: ["features"]`
-
-- [ ] **Consumer migration: rainfall/moisture**
-  - Internal logic updated to read rainfall/moisture from `ClimateField` product
-  - No direct `GameplayMap` reads for climate data in modernized code paths
-
-- [ ] **Consumer migration: story tags**
-  - Internal logic updated to read story tags from `StoryOverlays` product
-  - No direct `StoryTags` reads in modernized code paths
+- [ ] Implement `LegacyBiomesStep` and `LegacyFeaturesStep` wrappers as `MapGenStep`s with explicit `requires/provides`.
+- [ ] Migrate rainfall/moisture reads to canonical `ClimateField` (avoid new direct `GameplayMap.getRainfall()` reads in modernized code paths).
+- [ ] Consume narrative signals via canonical overlays (`StoryOverlays`) or a derived compatibility layer (avoid introducing new global-story dependencies).
 
 ## Acceptance Criteria
 
@@ -73,47 +34,42 @@ This inconsistency makes dependencies implicit and testing difficult. To achieve
 - [ ] Steps fail fast if required products (`climatefield`, `storyoverlays`) are missing
 - [ ] Both steps declare `requires`/`provides` that accurately reflect their dependencies
 
-## Out of Scope
+## Testing / Verification
 
-- Changing biome/feature generation algorithms (wrap-first only)
-- Re-tuning biome/feature distribution parameters
-- New biome types or features not present in current implementation
+- `pnpm -C packages/mapgen-core check`
+- `pnpm test:mapgen`
 
-## Open Questions & Considerations
+## Dependencies / Notes
 
-- **River product consumption:** Do biomes/features need river summary data beyond what's in `ClimateField`? If so, add to `requires`.
-- **Heightfield consumption:** Should biomes/features declare `requires: ["heightfield"]` for elevation-based decisions, or is this already implicit via the current flow?
-
-## Dependencies & Relationships
-
-**Depends on:**
-- `LOCAL-M3-TASK-GRAPH-MVP` (Stack 1): Pipeline primitives must exist
-- `LOCAL-M3-HYDROLOGY-PRODUCTS` (Stack 2): `ClimateField` product must be canonical
-- `LOCAL-M3-STORY-SYSTEM` (Stack 3): `StoryOverlays` product must be canonical
-
-**Blocks:**
-- `LOCAL-M3-PLACEMENT-WRAPPER` (Stack 5): Placement consumes biomes/features products
-
-**Historical context:**
-- `CIV-19` (archived): Adapter-boundary biomes/features wiring (M1 complete)
-
-## Risk Controls
-
-- **Branch safety:** Ensure biomes/features behavior stays coherent while consumers move to canonical products
-- **No algorithm swaps:** Wrapper-first approach preserves current behavior
-- **Fallback:** Current orchestrator path remains available during transition
+- **System area:** Ecology cluster (biomes/features) pipeline boundary + consumer reads.
+- **Change:** Wrap existing `layers/biomes.ts` + `layers/features.ts` behavior as steps and make them consume canonical products.
+- **Outcome:** Placement can depend on stable “biomes/features done” contracts; ecology becomes step-composable.
+- **Scope guardrail:** Wrap-first only; do not retune or change biome/feature algorithms in M3.
+- **Depends on:** `LOCAL-M3-TASK-GRAPH-MVP`, `LOCAL-M3-HYDROLOGY-PRODUCTS`, `LOCAL-M3-STORY-SYSTEM`.
+- **Blocks:** `LOCAL-M3-PLACEMENT-WRAPPER`.
+- **Historical:** `CIV-19` is archived and complete; this issue is step-wrapping + product consumption, not adapter wiring.
+- **Open questions (track here):**
+  - Contract keys: should `requires/provides` use `ClimateField`/`StoryOverlays`/`Biomes`/`Features` (recommended) vs lowercased keys? Must be consistent with the executor.
+  - Rivers: do biomes/features require an explicit river product beyond `EngineAdapter.isAdjacentToRivers()` and climate buffers?
+  - Heightfield: should this step declare `requires` on `Heightfield` (elevation/land mask) given some heuristics read elevation?
 
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
-## Implementation Notes (Local Only)
+## Implementation Details (Local Only)
+
+### Quick Navigation
+- [TL;DR](#tldr)
+- [Deliverables](#deliverables)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Testing / Verification](#testing--verification)
+- [Dependencies / Notes](#dependencies--notes)
 
 ### Key Files (Expected)
 
-- `packages/mapgen-core/src/steps/legacy-biomes.ts` (new: wrapper step)
-- `packages/mapgen-core/src/steps/legacy-features.ts` (new: wrapper step)
-- `packages/mapgen-core/src/layers/biomes-enhanced.ts` (modify: consume ClimateField)
-- `packages/mapgen-core/src/layers/features-diverse.ts` (modify: consume StoryOverlays)
+- `packages/mapgen-core/src/steps/` (new: wrapper steps; exact location TBD)
+- `packages/mapgen-core/src/layers/biomes.ts` (modify: read rainfall from context buffers/fields when available)
+- `packages/mapgen-core/src/layers/features.ts` (modify: read rainfall from context buffers/fields when available)
 
 ### Design Notes
 

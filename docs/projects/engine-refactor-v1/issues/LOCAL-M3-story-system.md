@@ -24,23 +24,9 @@ Parent issue: `CIV-21-story-tagging.md`.
 
 ## Deliverables
 
-- [ ] **Port remaining `story/tagging` passes**
-  - Orogeny belts + windward/lee caches (if not done in M2).
-  - Climate swatches (macro swatch overlay + soft edges).
-  - Paleo hydrology overlays (deltas/oxbows/fossil channels).
-- [ ] **Port `story/corridors.ts`**
-  - Pre‑islands corridor tagging.
-  - Post‑rivers corridor tagging.
-  - Corridor kind/style/attribute metadata.
-- [ ] **Canonicalize overlays**
-  - Publish all narrative outputs through `StoryOverlays` as the **canonical data product**.
-  - `StoryOverlays` becomes the authoritative source for downstream consumers (biomes, features, placement).
-  - Reduce direct `StoryTags` mutation to a compatibility layer or retire it where possible.
-- [ ] **Wrap story system as steps**
-  - Implement `MapGenStep` wrappers for story stages once `PipelineExecutor` exists.
-  - Declare `requires`/`provides` and phase alignment per architecture.
-- [ ] **Behavior checks**
-  - Add step‑level or integration tests for corridors/swatches/paleo once the pipeline is in place.
+- [ ] Port remaining legacy story passes: corridors, swatches, paleo (and any remaining in-slice orogeny work if still missing).
+- [ ] Publish narrative outputs via canonical `StoryOverlays` (downstream consumers read overlays, not ad-hoc globals).
+- [ ] Wrap story stages as `MapGenStep`s with explicit `requires/provides` and runtime-gated execution.
 
 ## Acceptance Criteria
 
@@ -51,30 +37,45 @@ Parent issue: `CIV-21-story-tagging.md`.
 - [ ] Story steps declare `requires`/`provides` and run via `PipelineExecutor`
 - [ ] Steps fail fast if required products are missing (runtime gating enforced)
 
-## Out of Scope
+## Testing / Verification
 
-- Re‑tuning narrative parameters beyond parity checks.
-- New story motifs not present in the JS archive.
+- `pnpm -C packages/mapgen-core check`
+- `pnpm test:mapgen`
+- Spot-check overlays are non-empty for a few canonical seeds/sizes used in M2 smoke tests.
 
-## Dependencies & Relationships
+## Dependencies / Notes
 
-**Depends on:**
-- `CIV-36` (M2): Minimal story parity must land first
-- `LOCAL-M3-TASK-GRAPH-MVP` (Stack 1): Pipeline primitives must exist before wrapping story stages
-
-**Blocks:**
-- `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (Stack 4): Biomes/features consume `StoryOverlays` product
-
-**Related:**
-- `CIV-21`: Parent issue for full story port
-- `LOCAL-M3-HYDROLOGY-PRODUCTS` (Stack 2): Story overlays may consume river/climate products
+- **System area:** Story/narrative layers (`packages/mapgen-core/src/story/*`) and their pipeline boundaries.
+- **Change:** Implement the remaining legacy narrative passes and execute them as Task Graph steps; publish outputs as canonical overlays.
+- **Outcome:** Narrative signals become explicit products/contracts (`StoryOverlays`) for downstream consumers (biomes/features/placement).
+- **Scope guardrail:** Preserve current story quality; no new story motifs or tuning-heavy rewrites in M3.
+- **Depends on:** `CIV-36` (M2 minimal story parity) and `LOCAL-M3-TASK-GRAPH-MVP` (runtime-gated step execution).
+- **Blocks:** `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (biomes/features consume narrative signals).
+- **Related:** `LOCAL-M3-HYDROLOGY-PRODUCTS` (corridor/swatches logic may consume climate/river signals).
+- **Open questions (track here):**
+  - Step boundaries: do we model story as multiple steps (`storySeed`/`storyHotspots`/`storyRifts`/`storyCorridorsPre`/`storySwatches`/`storyCorridorsPost`/`storyPaleo`) matching `STAGE_ORDER`, or collapse some into fewer steps?
+  - Compatibility: keep `StoryTags` as a derived compatibility layer (populated from overlays), or require consumers to read `StoryOverlays` directly in M3?
+  - Global overlay registry: `story/overlays.ts` currently supports a global fallback; decide whether to keep it through M3 and retire it post‑M3 (see triage entry).
+- **Links:**
+  - Parent: `CIV-21-story-tagging.md`
+  - Milestone: `../milestones/M3-core-engine-refactor-config-evolution.md`
+  - JS sources: `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/tagging.js`, `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/corridors.js`
+  - Code references: `packages/mapgen-core/src/story/tagging.ts`, `packages/mapgen-core/src/story/overlays.ts`, `packages/mapgen-core/src/bootstrap/resolved.ts` (`STAGE_ORDER`)
 
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
-## Implementation Notes (Local Only)
+## Implementation Details (Local Only)
 
+### Quick Navigation
+- [TL;DR](#tldr)
+- [Deliverables](#deliverables)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Testing / Verification](#testing--verification)
+- [Dependencies / Notes](#dependencies--notes)
+
+### Notes
 - Port from:
   - `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/tagging.js`
   - `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/corridors.js`
-- Decide whether to introduce a dedicated `storyPaleo` stage or fold paleo into swatches/climate refinement steps.
+- Decide whether `paleo` is its own step or folds into `swatches` / `climateRefine` boundaries.

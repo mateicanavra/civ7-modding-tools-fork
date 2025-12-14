@@ -62,3 +62,15 @@ Milestone and issue docs remain canonical for scheduled/active scope; entries he
   - **Type:** backlog
   - **Notes:** Once hydrology/climate products are canonical, refactor ecology into explicit steps/products (pedology → biomes → resources/features) and retire legacy monolithic passes behind adapters.
   - **Next check:** after `LOCAL-M3-HYDROLOGY-PRODUCTS` lands and biomes/placement adapters exist.
+
+- **Placement inputs: decide whether to publish a canonical “placement inputs” product** [Review by: when minting the Placement Step Wrapper issue]
+  - **Context:** M3 placement step wrapper (Stack 5) + adapter boundary collapse (Stack 7).
+  - **Type:** triage
+  - **Notes:** Placement currently depends on precomputed inputs (start sectors, continent bounds, map-info derived defaults) that are assembled outside the placement function. Decide whether those remain internal to the placement step, or become a declared product/artifact (to keep `requires/provides` contracts honest and improve test isolation).
+  - **Next check:** when defining `requires`/`provides` for the placement step and writing its adapter-facing API surface.
+
+- **Retire global StoryOverlays fallback after story is fully step-owned** [Review by: after `LOCAL-M3-STORY-SYSTEM` lands]
+  - **Context:** `packages/mapgen-core/src/story/overlays.ts` maintains a global registry and optionally attaches to context.
+  - **Type:** backlog
+  - **Notes:** Once story overlays are consistently published/consumed via step execution and canonical products, consider removing the global registry fallback (or making it dev-only) so overlay reads are fully context-scoped and test-friendly.
+  - **Next check:** after story steps publish canonical overlays and consumers are migrated to read overlays via context.

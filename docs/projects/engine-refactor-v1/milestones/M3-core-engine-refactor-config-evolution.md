@@ -85,12 +85,12 @@ Related PRD: `resources/PRD-pipeline-refactor.md`
 
 Related system docs:
 
-- `../../system/libs/mapgen/architecture.md`
-- `../../system/libs/mapgen/foundation.md`
-- `../../system/libs/mapgen/morphology.md`
-- `../../system/libs/mapgen/hydrology.md`
-- `../../system/libs/mapgen/ecology.md`
-- `../../system/libs/mapgen/narrative.md`
+- `../../../system/libs/mapgen/architecture.md`
+- `../../../system/libs/mapgen/foundation.md`
+- `../../../system/libs/mapgen/morphology.md`
+- `../../../system/libs/mapgen/hydrology.md`
+- `../../../system/libs/mapgen/ecology.md`
+- `../../../system/libs/mapgen/narrative.md`
 
 ### Parity Matrix & Follow-Up Issues
 
@@ -118,7 +118,7 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
     - Steps declare `requires`/`provides` and the executor validates these before each step runs.
     - Both entry paths (new executor, legacy orchestrator) remain functional during transition.
   - **Open questions:** What is the minimal wrapper boundary per cluster that yields clean `requires`/`provides` and canonical product read/write paths without changing generation algorithms?
-  - **Sources:** `resources/PRD-pipeline-refactor.md`, `../../system/libs/mapgen/architecture.md`, pipeline skeleton issues `../issues/LOCAL-TBD-foundation-step-1-pipeline.md` through step‑5.
+  - **Sources:** `resources/PRD-pipeline-refactor.md`, `../../../system/libs/mapgen/architecture.md`, pipeline skeleton issues `../issues/LOCAL-TBD-foundation-step-1-pipeline.md` through step‑5.
 
 - **Config integration into `MapGenContext` (Phase 2)**
   - **Context / why:** M2 validates config at the boundary and injects it into the orchestrator, but steps still read config via tunables or ad-hoc paths. Phase 2 makes `MapGenContext.config` the single source of truth for all step reads, and maps legacy config groupings (e.g., `FOUNDATION_CFG`, `CLIMATE_CFG`) into canonical sub-schemas. This is prerequisite for Phase 3 shape evolution and ensures no hidden global reads persist.
@@ -178,7 +178,7 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
     - Wrapper steps declare which products they `require` and `provide`.
     - No new/modernized consumer reads directly from `GameplayMap` for data available as a product.
   - **Open questions:** What is the minimal "canonical" contract for each product that is stable enough for step boundaries, without forcing deep algorithm rewrites?
-  - **Sources:** `PROJECT-engine-refactor-v1.md` topology, `resources/PRD-pipeline-refactor.md`, `../../system/libs/mapgen/foundation.md`, `resources/STATUS-M-TS-parity-matrix.md`.
+  - **Sources:** `PROJECT-engine-refactor-v1.md` topology, `resources/PRD-pipeline-refactor.md`, `../../../system/libs/mapgen/foundation.md`, `resources/STATUS-M-TS-parity-matrix.md`.
 
 - **Collapse the adapter boundary**
   - **Context / why:** The current implementation has two adapter boundaries: `EngineAdapter` (in `MapGenContext`) and `OrchestratorAdapter` (internal to `MapOrchestrator` for map-init concerns). The target architecture has a single adapter boundary at `EngineAdapter`. Collapsing these reduces complexity and aligns implementation with `architecture.md`.
@@ -193,7 +193,7 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
     - `MapOrchestrator` (or the pipeline entry) has no internal adapter.
     - Implementation matches the single-adapter design in `architecture.md`.
   - **Open questions:** Any Civ7‑specific init behaviors that should stay outside the engine boundary? What's the minimum API to support non‑Civ7 adapters later?
-  - **Sources:** `../../system/libs/mapgen/architecture.md`, adapter boundary note in `M2-stable-engine-slice.md`.
+  - **Sources:** `../../../system/libs/mapgen/architecture.md`, adapter boundary note in `M2-stable-engine-slice.md`.
 
 - **StageManifest dependency semantics**
   - **Context / why:** The `requires`/`provides` fields exist in `StageManifest` but are currently unused (`config-wiring-status.md` notes them as planned). For the Task Graph to enforce contracts, these must be meaningful at runtime—steps that declare `requires: ["heightfield"]` should fail fast if `heightfield` is missing from context.
@@ -393,7 +393,7 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
 
 > Compact reference for creating M3 issue docs. All parent issues use `[M3]` prefix. Stack numbers correspond to the Sequencing section above.
 
-### Parent Issues to CREATE (new)
+### Draft Parent Issues (LOCAL; ready to mint in Linear)
 
 | Stack | Parent Issue Filename | Title | Blocked By | Blocks |
 |-------|----------------------|-------|------------|--------|
@@ -403,12 +403,12 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
 | 6 | `LOCAL-M3-config-evolution.md` | [M3] Config Evolution (Phase 2/3) + Tunables Retirement | Stacks 1–5 | Stack 7 |
 | 7 | `LOCAL-M3-adapter-collapse.md` | [M3] Adapter Boundary Collapse | Stack 6 | — |
 
-### Parent Issues that EXIST (update metadata only)
+### Draft Parent Issues that EXIST (LOCAL; ready to mint in Linear)
 
 | Stack | Existing Issue | Title | Updates Needed |
 |-------|---------------|-------|----------------|
-| 2 | `LOCAL-M3-hydrology-products.md` | [M3] Hydrology Productization | Add `blocked_by: [LOCAL-M3-task-graph-mvp]`; ensure AC references runtime gating |
-| 3 | `LOCAL-M3-story-system.md` | [M3] Story System Modernization | Add `blocked_by: [LOCAL-M3-task-graph-mvp]`; clarify StoryOverlays as canonical product |
+| 2 | `LOCAL-M3-hydrology-products.md` | [M3] Hydrology Productization | Ready (runtime gating + dependencies captured in draft) |
+| 3 | `LOCAL-M3-story-system.md` | [M3] Story System Modernization | Ready (parent/blocked_by + StoryOverlays emphasis captured in draft) |
 
 ### Historical / Parallel Issues (no changes)
 
@@ -443,7 +443,7 @@ As part of M3 (and, where appropriate, M4), we may break specific `Missing` and 
 ### Recommended Minting Order
 
 1. **Stack 1** — `LOCAL-M3-task-graph-mvp.md` (everything depends on this)
-2. **Stacks 2–3** — Update existing `LOCAL-M3-hydrology-products.md` and `LOCAL-M3-story-system.md` metadata
+2. **Stacks 2–3** — Review `LOCAL-M3-hydrology-products.md` and `LOCAL-M3-story-system.md` and mint to Linear
 3. **Stack 4** — `LOCAL-M3-biomes-features-wrapper.md`
 4. **Stack 5** — `LOCAL-M3-placement-wrapper.md`
 5. **Stack 6** — `LOCAL-M3-config-evolution.md`

@@ -18,47 +18,13 @@ related_to: []
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Wrap placement as a `MapGenStep` that consumes canonical data products from all prior phases (foundation, morphology, hydrology, ecology). This is the final generation phase and the most cross-cutting step in the pipeline—it touches biomes, features, rivers, terrain, and climate. Completing this wrapper finalizes Phase B of M3.
-
-## Context & Motivation
-
-Placement is the final generation phase, consuming outputs from all prior phases:
-
-- Foundation: terrain base, plate boundaries
-- Morphology: heightfield, mountains, coastlines
-- Hydrology: rivers, rainfall, moisture
-- Ecology: biomes, features
-
-Currently it runs through the orchestrator with mixed data reads from `GameplayMap`, globals, and partial context access. To complete the Task Graph migration, placement must become a `MapGenStep` that explicitly declares its cross-cutting dependencies and consumes canonical products.
-
-**Important:** Placement adapter integration (`CIV-20`, archived) and map-size awareness (`CIV-22`, archived) landed in M1. This M3 work is about Task Graph step-wrapping + consuming canonical products, not redoing those fixes.
-
-## Capability Unlocks
-
-- Placement logic becomes testable in isolation with mock contexts
-- All placement dependencies are explicit and validated at runtime
-- Clear visibility into what data placement consumes
-- Foundation for custom placement logic by mods
+Wrap placement as a Task Graph step with explicit, runtime-gated dependencies so the full pipeline can be executed end-to-end under `PipelineExecutor` (wrap-first; preserve current behavior).
 
 ## Deliverables
 
-- [ ] **`LegacyPlacementStep` wrapper**
-  - Implements `MapGenStep` interface
-  - Calls existing `runPlacement` logic
-  - Declares `requires: ["heightfield", "climatefield", "storyoverlays", "biomes", "features"]`
-  - Declares `provides: ["placement"]`
-
-- [ ] **Consumer migration: biomes/features**
-  - Internal logic updated to read biomes/features from canonical products
-  - No ad-hoc reads from intermediate state
-
-- [ ] **Consumer migration: terrain/elevation**
-  - Placement reads terrain/elevation via `Heightfield` product where applicable
-
-- [ ] **Preserve existing outputs (wrap-first)**
-  - Floodplains logic preserved
-  - Natural wonders logic preserved
-  - Start positions logic preserved
+- [ ] Implement `LegacyPlacementStep` wrapper as a `MapGenStep` that runs the existing placement pipeline (`runPlacement`) under the executor.
+- [ ] Declare a correct cross-cutting `requires/provides` contract for placement (dependency gating must reflect what placement assumes is already applied to the engine surface).
+- [ ] Preserve existing placement outputs (starts/wonders/floodplains/resources/discoveries) and map quality (no algorithm changes).
 
 ## Acceptance Criteria
 
@@ -68,46 +34,41 @@ Currently it runs through the orchestrator with mixed data reads from `GameplayM
 - [ ] No silent degradation of placement quality due to missing dependencies
 - [ ] Step declares `requires`/`provides` that accurately reflect its cross-cutting dependencies
 
-## Out of Scope
+## Testing / Verification
 
-- Changing placement algorithms (wrap-first only)
-- Re-tuning start position or natural wonder placement parameters
-- New placement features not present in current implementation
+- `pnpm -C packages/mapgen-core check`
+- `pnpm test:mapgen`
 
-## Open Questions & Considerations
+## Dependencies / Notes
 
-- **River product requirement:** Does placement need direct river data, or is it sufficient via biomes/features that already consumed hydrology?
-- **Cross-cutting dependency list:** Is `["heightfield", "climatefield", "storyoverlays", "biomes", "features"]` the complete set, or are there additional implicit dependencies?
-- **Adapter reads:** Which placement reads should remain adapter-boundary (engine-owned) vs. canonical product reads?
-
-## Dependencies & Relationships
-
-**Depends on:**
-- `LOCAL-M3-BIOMES-FEATURES-WRAPPER` (Stack 4): Must have biomes/features as canonical products
-
-**Blocks:**
-- `LOCAL-M3-CONFIG-EVOLUTION` (Stack 6): All step wrappers should be in place before config cutover
-
-**Historical context:**
-- `CIV-20` (archived): Placement adapter integration (M1 complete)
-- `CIV-22` (archived): Map-size awareness (M1 complete)
-
-## Risk Controls
-
-- **Branch safety:** Keep placement behavior stable while switching reads to canonical products
-- **Late-phase integration:** Placement is highly cross-cutting; treat this as a late-phase integration cut
-- **No algorithm swaps:** Wrapper-first approach preserves current behavior
-- **Fallback:** Current orchestrator path remains available during transition
+- **System area:** Late-stage placement pipeline (`packages/mapgen-core/src/layers/placement.ts`) and map-init inputs it consumes.
+- **Change:** Execute placement under the Task Graph with explicit dependency gating; migrate config reads off tunables as part of M3 config cutover.
+- **Outcome:** Placement becomes an explicit, contract-checked step in the standard pipeline, enabling composition without fragile implicit ordering.
+- **Scope guardrail:** Wrap-first only; preserve placement behavior and tuning.
+- **Depends on:** `LOCAL-M3-BIOMES-FEATURES-WRAPPER`.
+- **Blocks:** `LOCAL-M3-CONFIG-EVOLUTION`.
+- **Historical:** `CIV-20` and `CIV-22` are archived/complete; do not redo adapter wiring or map-size awareness.
+- **Open questions (track here):**
+  - Contract keys: placement mostly consumes engine-surface state, not in-memory products; should `requires` include capability keys like `BiomesApplied`/`FeaturesApplied` vs product keys like `Biomes`/`Features`?
+  - Rivers: does placement need an explicit river product, or is “rivers have been modeled on the engine surface” sufficient?
+  - Placement inputs: decide whether to publish a canonical “placement inputs” product (see triage entry `docs/projects/engine-refactor-v1/triage.md`).
 
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
-## Implementation Notes (Local Only)
+## Implementation Details (Local Only)
+
+### Quick Navigation
+- [TL;DR](#tldr)
+- [Deliverables](#deliverables)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Testing / Verification](#testing--verification)
+- [Dependencies / Notes](#dependencies--notes)
 
 ### Key Files (Expected)
 
-- `packages/mapgen-core/src/steps/legacy-placement.ts` (new: wrapper step)
-- `packages/mapgen-core/src/layers/placement.ts` (modify: consume canonical products)
+- `packages/mapgen-core/src/steps/` (new: wrapper step; exact location TBD)
+- `packages/mapgen-core/src/layers/placement.ts` (modify: move config reads off tunables; keep behavior stable)
 
 ### Design Notes
 
