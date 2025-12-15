@@ -347,3 +347,19 @@ Phase B’s stated goal is “canonical artifacts real for consumers.” CIV-44 
 - **Required (to meet CIV-44’s AC):** Update the declared step contracts for `biomes`/`features` (spine and/or manifest overrides) so `requires` matches reality (`artifact:storyOverlays`, `artifact:riverAdjacency`, `artifact:heightfield` / relevant `field:*`).
 - **Follow-up (DEF-002/003 correctness):** Enforce “StoryTags derived from overlays” (or explicitly document remaining exceptions) so biomes/features can stop depending on global mutable state.
 - **Nice-to-have:** Add a focused gating + parity test: run legacy vs TaskGraph for the ecology stages under a fixed seed/config and assert stable “done” contracts + basic invariants.
+
+---
+
+### Post-review Update (2025-12-15)
+
+The core gaps called out above are now addressed in the branch end state:
+
+- **Artifact consumption is strict:** `designateEnhancedBiomes()` and `addDiverseFeatures()` now require canonical artifacts (not engine reads) and throw if missing (`packages/mapgen-core/src/layers/biomes.ts`, `packages/mapgen-core/src/layers/features.ts`).
+- **Contracts match reality:** `M3_STAGE_DEPENDENCY_SPINE` declares `biomes`/`features` dependencies on `artifact:climateField`, `artifact:storyOverlays`, `artifact:heightfield` (and `artifact:riverAdjacency` for biomes), so `PipelineExecutor` gating is meaningful (`packages/mapgen-core/src/pipeline/standard.ts`).
+- **StoryTags is hydrated from overlays at the step boundary:** wrappers derive the legacy `StoryTags` view from overlays before running the layer logic (margins/rifts/corridors), aligning with DEF-002 intent (`packages/mapgen-core/src/steps/LegacyBiomesStep.ts`, `packages/mapgen-core/src/steps/LegacyFeaturesStep.ts`).
+
+**Verification:** `pnpm -C packages/mapgen-core check` and `pnpm test:mapgen` pass on this branch.
+
+**Remaining follow-ups:**
+- **Hotspot tag derivation:** `features` references `StoryTags.hotspotParadise` / `hotspotVolcanic`, but there’s no corresponding overlay hydration; clarify whether these are expected to be produced/consumed in M3 or should be removed/retired.
+- **Coverage:** No focused test asserts ecology-stage gating (e.g., `biomes` enabled without `climateBaseline` yields a `MissingDependencyError`) or wrap-first parity; add a small regression test if this remains a recurring failure mode in later stacks.
