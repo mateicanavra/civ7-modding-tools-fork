@@ -700,32 +700,32 @@ Update steps to import from `domain/**` instead of `layers/**` shims:
 
 **Hydrology:**
 
-- [ ] `pipeline/hydrology/ClimateBaselineStep.ts` → import from `domain/hydrology/climate/**`
-- [ ] `pipeline/hydrology/ClimateRefineStep.ts` → import from `domain/hydrology/climate/**`
+- [x] `pipeline/hydrology/ClimateBaselineStep.ts` → import from `domain/hydrology/climate/**`
+- [x] `pipeline/hydrology/ClimateRefineStep.ts` → import from `domain/hydrology/climate/**`
 
 **Morphology:**
 
-- [ ] `pipeline/morphology/LandmassStep.ts` → import from `domain/morphology/**`
-- [ ] `pipeline/morphology/CoastlinesStep.ts` → import from `domain/morphology/**`
-- [ ] `pipeline/morphology/RuggedCoastsStep.ts` → import from `domain/morphology/**`
-- [ ] `pipeline/morphology/IslandsStep.ts` → import from `domain/morphology/**`
-- [ ] `pipeline/morphology/MountainsStep.ts` → import from `domain/morphology/**`
-- [ ] `pipeline/morphology/VolcanoesStep.ts` → import from `domain/morphology/**`
+- [x] `pipeline/morphology/LandmassStep.ts` → import from `domain/morphology/**`
+- [x] `pipeline/morphology/CoastlinesStep.ts` → import from `domain/morphology/**`
+- [x] `pipeline/morphology/RuggedCoastsStep.ts` → import from `domain/morphology/**`
+- [x] `pipeline/morphology/IslandsStep.ts` → import from `domain/morphology/**`
+- [x] `pipeline/morphology/MountainsStep.ts` → import from `domain/morphology/**`
+- [x] `pipeline/morphology/VolcanoesStep.ts` → import from `domain/morphology/**`
 
 **Ecology:**
 
-- [ ] `pipeline/ecology/BiomesStep.ts` → import from `domain/ecology/**`
-- [ ] `pipeline/ecology/FeaturesStep.ts` → import from `domain/ecology/**`
+- [x] `pipeline/ecology/BiomesStep.ts` → import from `domain/ecology/**`
+- [x] `pipeline/ecology/FeaturesStep.ts` → import from `domain/ecology/**`
 
 **Placement:**
 
-- [ ] `pipeline/placement/PlacementStep.ts` → import from `domain/placement/**`
-- [ ] `pipeline/placement/LegacyPlacementStep.ts` → import from `domain/placement/**`
+- [x] `pipeline/placement/PlacementStep.ts` → import from `domain/placement/**`
+- [x] `pipeline/placement/LegacyPlacementStep.ts` → import from `domain/placement/**`
 
 **Narrative:**
 
-- [ ] `pipeline/narrative/*.ts` → import from `domain/narrative/**`
-- [ ] `pipeline/tags.ts` → import from `domain/narrative/**`
+- [x] `pipeline/narrative/*.ts` → import from `domain/narrative/**`
+- [x] `pipeline/tags.ts` → import from `domain/narrative/**`
 
 ### 4.2 Delete Legacy Re-Export Shims
 
@@ -733,50 +733,50 @@ Delete the following **only after all callsites are migrated**:
 
 **Layer algorithm shims:**
 
-- [ ] `packages/mapgen-core/src/layers/hydrology/climate.ts`
-- [ ] `packages/mapgen-core/src/layers/morphology/coastlines.ts`
-- [ ] `packages/mapgen-core/src/layers/morphology/islands.ts`
-- [ ] `packages/mapgen-core/src/layers/morphology/landmass-plate.ts`
-- [ ] `packages/mapgen-core/src/layers/morphology/landmass-utils.ts`
-- [ ] `packages/mapgen-core/src/layers/morphology/mountains.ts`
-- [ ] `packages/mapgen-core/src/layers/morphology/volcanoes.ts`
-- [ ] `packages/mapgen-core/src/layers/ecology/biomes.ts`
-- [ ] `packages/mapgen-core/src/layers/ecology/features.ts`
-- [ ] `packages/mapgen-core/src/layers/placement/placement.ts`
+- [x] `packages/mapgen-core/src/layers/hydrology/climate.ts`
+- [x] `packages/mapgen-core/src/layers/morphology/coastlines.ts`
+- [x] `packages/mapgen-core/src/layers/morphology/islands.ts`
+- [x] `packages/mapgen-core/src/layers/morphology/landmass-plate.ts`
+- [x] `packages/mapgen-core/src/layers/morphology/landmass-utils.ts`
+- [x] `packages/mapgen-core/src/layers/morphology/mountains.ts`
+- [x] `packages/mapgen-core/src/layers/morphology/volcanoes.ts`
+- [x] `packages/mapgen-core/src/layers/ecology/biomes.ts`
+- [x] `packages/mapgen-core/src/layers/ecology/features.ts`
+- [x] `packages/mapgen-core/src/layers/placement/placement.ts`
 
 **Top-level compatibility directories:**
 
-- [ ] `packages/mapgen-core/src/narrative/` (entire directory)
-- [ ] `packages/mapgen-core/src/story/` (entire directory)
+- [x] `packages/mapgen-core/src/narrative/` (entire directory)
+- [x] `packages/mapgen-core/src/story/` (entire directory)
 
 **Lib compatibility shim:**
 
-- [ ] `packages/mapgen-core/src/lib/noise.ts`
+- [x] `packages/mapgen-core/src/lib/noise.ts`
 
 ### 4.3 Update Public Exports
 
 Update `packages/mapgen-core/src/index.ts`:
 
-- [ ] Stop exporting `./story/index.ts`
-- [ ] Export narrative/public surfaces from canonical modules (`./domain/narrative/index.ts`)
-- [ ] Expose stable, modder-friendly entrypoints for composition:
+- [x] Stop exporting `./story/index.ts`
+- [x] Export narrative/public surfaces from canonical modules (`./domain/narrative/index.ts`)
+- [x] Expose stable, modder-friendly entrypoints for composition:
   - Pipeline composition types/helpers (`./pipeline/index.ts`)
   - Domain subsystem indices (`./domain/**/index.ts`)
   - `lib/**` indices (math/grid/rng/noise/collections)
-- [ ] Enforce "no deep imports" by ensuring anything "publicly usable" is re-exported from a subsystem `index.ts`
+- [x] Enforce "no deep imports" by ensuring anything "publicly usable" is re-exported from a subsystem `index.ts`
 
 ### 4.4 Move Step Wiring from `layers/**` → `pipeline/**`
 
-- [ ] Move `packages/mapgen-core/src/layers/standard-library.ts` → `packages/mapgen-core/src/pipeline/standard-library.ts`
-- [ ] Move phase directories:
-  - [ ] `layers/foundation/**` → `pipeline/foundation/**`
-  - [ ] `layers/morphology/**` → `pipeline/morphology/**`
-  - [ ] `layers/hydrology/**` → `pipeline/hydrology/**`
-  - [ ] `layers/ecology/**` → `pipeline/ecology/**`
-  - [ ] `layers/narrative/**` → `pipeline/narrative/**`
-  - [ ] `layers/placement/**` → `pipeline/placement/**`
-- [ ] Update `packages/mapgen-core/src/MapOrchestrator.ts` imports to reference `pipeline/standard-library.ts`
-- [ ] Delete `packages/mapgen-core/src/layers/**` once all callsites + registry wiring are updated
+- [x] Move `packages/mapgen-core/src/layers/standard-library.ts` → `packages/mapgen-core/src/pipeline/standard-library.ts`
+- [x] Move phase directories:
+  - [x] `layers/foundation/**` → `pipeline/foundation/**`
+  - [x] `layers/morphology/**` → `pipeline/morphology/**`
+  - [x] `layers/hydrology/**` → `pipeline/hydrology/**`
+  - [x] `layers/ecology/**` → `pipeline/ecology/**`
+  - [x] `layers/narrative/**` → `pipeline/narrative/**`
+  - [x] `layers/placement/**` → `pipeline/placement/**`
+- [x] Update `packages/mapgen-core/src/MapOrchestrator.ts` imports to reference `pipeline/standard-library.ts`
+- [x] Delete `packages/mapgen-core/src/layers/**` once all callsites + registry wiring are updated
 
 ---
 
