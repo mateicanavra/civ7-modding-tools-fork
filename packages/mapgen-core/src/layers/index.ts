@@ -14,6 +14,8 @@
 
 export const LAYERS_MODULE_VERSION = "0.3.0";
 
+export { registerStandardLibrary, type StandardLibraryRuntime } from "./standard-library.js";
+
 // ============================================================================
 // Landmass Layers
 // ============================================================================
@@ -28,7 +30,7 @@ export {
   type OceanSeparationEdgePolicy,
   type PlateAwareOceanSeparationParams,
   type PlateAwareOceanSeparationResult,
-} from "./landmass-utils.js";
+} from "./morphology/landmass-utils.js";
 
 export {
   createPlateDrivenLandmasses,
@@ -36,7 +38,7 @@ export {
   type TectonicsConfig,
   type CreateLandmassesOptions,
   type LandmassGenerationResult,
-} from "./landmass-plate.js";
+} from "./morphology/landmass-plate.js";
 
 // ============================================================================
 // Coastlines Layer
@@ -50,7 +52,7 @@ export {
   type CoastlineFjordConfig,
   type CorridorPolicy,
   type SeaCorridorPolicy,
-} from "./coastlines.js";
+} from "./morphology/coastlines.js";
 
 // ============================================================================
 // Islands Layer
@@ -61,19 +63,23 @@ export {
   type IslandsConfig,
   type HotspotTunables,
   type CorridorsConfig,
-} from "./islands.js";
+} from "./morphology/islands.js";
 
 // ============================================================================
 // Mountains Layer
 // ============================================================================
 
-export { layerAddMountainsPhysics, addMountainsCompat, type MountainsConfig } from "./mountains.js";
+export {
+  layerAddMountainsPhysics,
+  addMountainsCompat,
+  type MountainsConfig,
+} from "./morphology/mountains.js";
 
 // ============================================================================
 // Volcanoes Layer
 // ============================================================================
 
-export { layerAddVolcanoesPlateAware, type VolcanoesConfig } from "./volcanoes.js";
+export { layerAddVolcanoesPlateAware, type VolcanoesConfig } from "./morphology/volcanoes.js";
 
 // ============================================================================
 // Climate Layer
@@ -88,19 +94,23 @@ export {
   type ClimateAdapter,
   type OrogenyCache,
   type ClimateSwatchResult,
-} from "./climate-engine.js";
+} from "./hydrology/climate.js";
 
 // ============================================================================
 // Biomes Layer
 // ============================================================================
 
-export { designateEnhancedBiomes, type BiomeConfig } from "./biomes.js";
+export { designateEnhancedBiomes, type BiomeConfig } from "./ecology/biomes.js";
 
 // ============================================================================
 // Features Layer
 // ============================================================================
 
-export { addDiverseFeatures, type FeaturesConfig, type FeaturesDensityConfig } from "./features.js";
+export {
+  addDiverseFeatures,
+  type FeaturesConfig,
+  type FeaturesDensityConfig,
+} from "./ecology/features.js";
 
 // ============================================================================
 // Placement Layer
@@ -113,7 +123,7 @@ export {
   type ContinentBounds,
   type StartsConfig,
   type PlacementOptions,
-} from "./placement.js";
+} from "./placement/placement.js";
 
 // ============================================================================
 // Layer Stage Types

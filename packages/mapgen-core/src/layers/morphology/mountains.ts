@@ -14,12 +14,12 @@
  * - Backward compatible: Falls back to base game fractals if WorldModel disabled
  */
 
-import type { ExtendedMapContext } from "../core/types.js";
+import type { ExtendedMapContext } from "../../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
-import type { MountainsConfig as BootstrapMountainsConfig } from "../bootstrap/types.js";
-import { writeHeightfield } from "../core/types.js";
-import { BOUNDARY_TYPE } from "../world/constants.js";
-import { devLogIf } from "../dev/index.js";
+import type { MountainsConfig as BootstrapMountainsConfig } from "../../bootstrap/types.js";
+import { writeHeightfield } from "../../core/types.js";
+import { BOUNDARY_TYPE } from "../../world/constants.js";
+import { devLogIf } from "../../dev/index.js";
 
 // ============================================================================
 // Types
@@ -43,7 +43,7 @@ import {
   HILL_TERRAIN,
   COAST_TERRAIN,
   OCEAN_TERRAIN,
-} from "../core/terrain-constants.js";
+} from "../../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions

@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "../core/types.js";
-import { runPlacement, type PlacementOptions } from "../layers/placement.js";
+import { runPlacement, type PlacementOptions } from "../layers/placement/placement.js";
 import type { MapGenStep } from "../pipeline/types.js";
 
 export interface LegacyPlacementStepOptions {

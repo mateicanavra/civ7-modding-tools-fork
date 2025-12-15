@@ -5,15 +5,15 @@
  * plate-aware ocean separation logic.
  */
 
-import type { ExtendedMapContext } from "../core/types.js";
+import type { ExtendedMapContext } from "../../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
 import type {
   LandmassGeometryPost,
   LandmassGeometry,
   OceanSeparationConfig,
   OceanSeparationEdgePolicy,
-} from "../bootstrap/types.js";
-import { writeHeightfield } from "../core/types.js";
+} from "../../bootstrap/types.js";
+import { writeHeightfield } from "../../core/types.js";
 
 // ============================================================================
 // Types
@@ -85,7 +85,7 @@ const DEFAULT_OCEAN_SEPARATION: OceanSeparationPolicy = {
 };
 
 // Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
-import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../core/terrain-constants.js";
+import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions

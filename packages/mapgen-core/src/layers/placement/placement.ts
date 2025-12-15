@@ -44,8 +44,8 @@ import type {
   FloodplainsConfig,
   ContinentBounds,
   StartsConfig,
-} from "../bootstrap/types.js";
-import { DEV } from "../dev/index.js";
+} from "../../bootstrap/types.js";
+import { DEV } from "../../dev/index.js";
 
 // Terrain type constants - imported from shared module
 // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
@@ -53,7 +53,7 @@ import {
   MOUNTAIN_TERRAIN,
   HILL_TERRAIN,
   getTerrainSymbol,
-} from "../core/terrain-constants.js";
+} from "../../core/terrain-constants.js";
 
 // Re-export config types
 export type {
@@ -61,7 +61,7 @@ export type {
   FloodplainsConfig,
   ContinentBounds,
   StartsConfig,
-} from "../bootstrap/types.js";
+} from "../../bootstrap/types.js";
 
 // ============================================================================
 // Types

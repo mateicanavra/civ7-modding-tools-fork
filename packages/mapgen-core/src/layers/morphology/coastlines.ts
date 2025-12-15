@@ -6,7 +6,7 @@
  * fractal mask and conservative randomness to avoid chokepoint proliferation.
  */
 
-import type { ExtendedMapContext } from "../core/types.js";
+import type { ExtendedMapContext } from "../../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
 import type {
   CoastlinesConfig as BootstrapCoastlinesConfig,
@@ -15,10 +15,10 @@ import type {
   CoastlineFjordConfig as BootstrapCoastlineFjordConfig,
   SeaCorridorPolicy as BootstrapSeaCorridorPolicy,
   CorridorsConfig,
-} from "../bootstrap/types.js";
-import { ctxRandom, writeHeightfield } from "../core/types.js";
-import { BOUNDARY_TYPE } from "../world/constants.js";
-import { getStoryTags } from "../story/tags.js";
+} from "../../bootstrap/types.js";
+import { ctxRandom, writeHeightfield } from "../../core/types.js";
+import { BOUNDARY_TYPE } from "../../world/constants.js";
+import { getStoryTags } from "../../story/tags.js";
 
 // ============================================================================
 // Types
@@ -42,7 +42,7 @@ export type CorridorPolicy = CorridorsConfig;
 const HILL_FRACTAL = 1;
 
 // Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
-import { COAST_TERRAIN } from "../core/terrain-constants.js";
+import { COAST_TERRAIN } from "../../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions
