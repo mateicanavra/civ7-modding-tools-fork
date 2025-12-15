@@ -2,10 +2,10 @@
  * Bootstrap Entry Point
  *
  * Provides the main `bootstrap()` function that initializes map generation.
- * Config is validated via parseConfig() and bound to tunables.
+ * Config is composed (presets + overrides) and validated via parseConfig().
  *
  * Config Flow:
- *   bootstrap(options) → parseConfig(rawConfig) → bindTunables(config) → MapGenConfig
+ *   bootstrap(options) → applyPresets + overrides → parseConfig(rawConfig) → MapGenConfig
  *
  * Usage (in a map entry file):
  *   import { bootstrap } from "@swooper/mapgen-core/bootstrap";
@@ -22,7 +22,6 @@
 import type { MapGenConfig } from "../config/index.js";
 import { parseConfig } from "../config/index.js";
 import { applyPresets } from "../config/presets.js";
-import { bindTunables, resetTunablesForTest } from "./tunables.js";
 import { resolveStageManifest, validateOverrides } from "./resolved.js";
 
 // ============================================================================
@@ -132,7 +131,7 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
   if (stageConfig) rawConfig.stageConfig = stageConfig;
 
   // Resolve stageConfig → stageManifest (bridges the "Config Air Gap")
-  // This ensures stageEnabled() returns the correct values
+  // This ensures orchestrator stage gating reads the correct values.
   const manifest = resolveStageManifest(stageConfig);
   rawConfig.stageManifest = manifest;
 
@@ -150,21 +149,16 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
   // This uses the TypeBox schema to ensure type correctness
   const validatedConfig = parseConfig(rawConfig);
 
-  // Bind tunables to validated config
-  // This is the single binding point; getTunables() reads from this bound config.
-  bindTunables(validatedConfig);
-
   return validatedConfig;
 }
 
 /**
- * Reset all bootstrap state including bound config.
- * Use in test beforeEach() for complete isolation between tests.
+ * Reset any bootstrap-local state.
  *
- * Note: For production generateMap(), use resetTunables() instead which only clears the cache.
+ * Bootstrap is intended to be pure; this exists for backwards compatibility and tests.
  */
 export function resetBootstrap(): void {
-  resetTunablesForTest();
+  // no-op
 }
 
 
@@ -172,16 +166,8 @@ export function resetBootstrap(): void {
 export type { MapConfig } from "./runtime.js";
 export type { MapGenConfig } from "../config/index.js";
 export {
-  bindTunables,
-  buildTunablesFromConfig,
-  getTunables,
-  resetTunables,
-  resetTunablesForTest,
-  stageEnabled,
-  TUNABLES,
-} from "./tunables.js";
-export {
   STAGE_ORDER,
+  isStageEnabled,
   resolveStageManifest,
   validateOverrides,
   validateStageDrift,

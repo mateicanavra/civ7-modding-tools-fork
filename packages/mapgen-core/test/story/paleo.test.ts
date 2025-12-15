@@ -1,30 +1,12 @@
 import { describe, it, expect, beforeEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { parseConfig } from "../../src/config/index.js";
-import { bindTunables, resetTunablesForTest } from "../../src/bootstrap/tunables.js";
 import { createExtendedMapContext } from "../../src/core/types.js";
 import { storyTagPaleoHydrology } from "../../src/story/paleo.js";
 import { COAST_TERRAIN, FLAT_TERRAIN } from "../../src/core/terrain-constants.js";
 
 describe("story/paleo", () => {
-  beforeEach(() => {
-    resetTunablesForTest();
-    bindTunables(
-      parseConfig({
-        climate: {
-          story: {
-            paleo: {
-              maxDeltas: 1,
-              deltaFanRadius: 1,
-              deltaMarshChance: 0,
-              maxOxbows: 0,
-              maxFossilChannels: 0,
-            },
-          },
-        },
-      })
-    );
-  });
+  beforeEach(() => {});
 
   it("applies a delta rainfall fan on coastal river-adjacent tiles", () => {
     const width = 12;
@@ -45,7 +27,23 @@ describe("story/paleo", () => {
     // Treat everything as "adjacent to rivers" for this unit test.
     (adapter as any).isAdjacentToRivers = () => true;
 
-    const ctx = createExtendedMapContext({ width, height }, adapter, parseConfig({}));
+    const ctx = createExtendedMapContext(
+      { width, height },
+      adapter,
+      parseConfig({
+        climate: {
+          story: {
+            paleo: {
+              maxDeltas: 1,
+              deltaFanRadius: 1,
+              deltaMarshChance: 0,
+              maxOxbows: 0,
+              maxFossilChannels: 0,
+            },
+          },
+        },
+      })
+    );
     ctx.buffers?.climate?.rainfall?.fill(50);
     ctx.fields?.rainfall?.fill(50);
 

@@ -15,7 +15,6 @@ import type { ExtendedMapContext } from "../core/types.js";
 import type { StoryOverlaySnapshot } from "../core/types.js";
 import { clamp, inBounds, storyKey } from "../core/index.js";
 import { ctxRandom } from "../core/types.js";
-import { getTunables } from "../bootstrap/tunables.js";
 import { getStoryTags } from "./tags.js";
 import {
   STORY_OVERLAY_KEYS,
@@ -146,8 +145,7 @@ export function storyTagContinentalMargins(
   options: ContinentalMarginsOptions = {}
 ): StoryOverlaySnapshot {
   const { width, height } = getDims(ctx);
-  const tunables = getTunables();
-  const marginsCfg = (tunables.FOUNDATION_CFG as Record<string, unknown>)?.margins as
+  const marginsCfg = (ctx?.config as Record<string, unknown>)?.margins as
     | Record<string, number>
     | undefined;
 
@@ -271,8 +269,7 @@ export function storyTagHotspotTrails(
   ctx: ExtendedMapContext | null = null
 ): HotspotTrailsSummary {
   const { width, height } = getDims(ctx);
-  const tunables = getTunables();
-  const storyCfg = (tunables.FOUNDATION_CFG?.story || {}) as Record<string, unknown>;
+  const storyCfg = (ctx?.config?.story || {}) as Record<string, unknown>;
   const hotspotCfg = (storyCfg.hotspot || {}) as Record<string, number>;
 
   const areaHot = Math.max(1, width * height);
@@ -382,8 +379,7 @@ export function storyTagRiftValleys(
   ctx: ExtendedMapContext | null = null
 ): RiftValleysSummary {
   const { width, height } = getDims(ctx);
-  const tunables = getTunables();
-  const storyCfg = (tunables.FOUNDATION_CFG?.story || {}) as Record<string, unknown>;
+  const storyCfg = (ctx?.config?.story || {}) as Record<string, unknown>;
   const riftCfg = (storyCfg.rift || {}) as Record<string, number>;
 
   const areaRift = Math.max(1, width * height);
@@ -541,7 +537,7 @@ export function storyTagRiftValleys(
 
         function stepDirBias(tx: number, ty: number): number {
           try {
-            const DIR = (tunables.FOUNDATION_DIRECTIONALITY || {}) as Record<string, unknown>;
+            const DIR = (ctx?.config?.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
             const coh = clamp(Number(DIR.cohesion ?? 0), 0, 1);
             const interplay = (DIR.interplay || {}) as Record<string, number>;
             const follow = clamp(Number(interplay.riftsFollowPlates ?? 0), 0, 1) * coh;

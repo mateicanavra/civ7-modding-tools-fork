@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { parseConfig } from "../../src/config/index.js";
-import { bindTunables, resetTunablesForTest } from "../../src/bootstrap/tunables.js";
 import { createExtendedMapContext } from "../../src/core/types.js";
 import { OCEAN_TERRAIN } from "../../src/core/terrain-constants.js";
 import { resetStoryTags, getStoryTags } from "../../src/story/tags.js";
@@ -10,8 +9,6 @@ import { storyTagStrategicCorridors } from "../../src/story/corridors.js";
 
 describe("story/corridors", () => {
   beforeEach(() => {
-    resetTunablesForTest();
-    bindTunables(parseConfig({}));
     resetStoryTags();
     resetStoryOverlays();
   });

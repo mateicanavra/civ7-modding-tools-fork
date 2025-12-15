@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { bootstrap } from "../../src/bootstrap/entry.js";
-import { resetTunablesForTest } from "../../src/bootstrap/tunables.js";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
 import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js";
 import { createMockAdapter } from "@civ7/adapter";
@@ -11,7 +10,6 @@ describe("MapOrchestrator WorldModel config wiring", () => {
   let originalConsoleLog: typeof console.log;
 
   beforeEach(() => {
-    resetTunablesForTest();
     resetConfigProviderForTest();
     WorldModel.reset();
 
@@ -47,7 +45,6 @@ describe("MapOrchestrator WorldModel config wiring", () => {
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
 
-    resetTunablesForTest();
     resetConfigProviderForTest();
     WorldModel.reset();
 
@@ -56,7 +53,7 @@ describe("MapOrchestrator WorldModel config wiring", () => {
     }
   });
 
-  it("binds WorldModel config from foundation.plates (via tunables)", () => {
+  it("binds WorldModel config from foundation.plates", () => {
     const plateCount = 6;
     const seen: string[] = [];
 
@@ -111,13 +108,13 @@ describe("MapOrchestrator WorldModel config wiring", () => {
             enabled: true,
             logMountains: true,
           },
-          mountains: {
-            tectonicIntensity: 0.42,
-            mountainThreshold: 0.91,
-            hillThreshold: 0.37,
-            boundaryWeight: 0.8,
-            boundaryExponent: 1.9,
-          },
+        },
+        mountains: {
+          tectonicIntensity: 0.42,
+          mountainThreshold: 0.91,
+          hillThreshold: 0.37,
+          boundaryWeight: 0.8,
+          boundaryExponent: 1.9,
         },
       },
     });

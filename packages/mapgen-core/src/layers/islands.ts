@@ -24,7 +24,6 @@ import type {
 } from "../bootstrap/types.js";
 import { ctxRandom, writeHeightfield } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
-import { getTunables } from "../bootstrap/tunables.js";
 
 // ============================================================================
 // Types
@@ -76,10 +75,9 @@ export function addIslandChains(
     adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 5, 0);
   }
 
-  const tunables = getTunables();
-  const islandsCfg = (tunables.FOUNDATION_CFG?.islands as IslandsConfig) || {};
-  const storyTunables = (tunables.FOUNDATION_CFG?.story as { hotspot?: HotspotTunables }) || {};
-  const corridorsCfg = (tunables.FOUNDATION_CFG?.corridors as CorridorsConfig) || {};
+  const islandsCfg = (ctx?.config?.islands as IslandsConfig) || {};
+  const storyTunables = (ctx?.config?.story as { hotspot?: HotspotTunables }) || {};
+  const corridorsCfg = (ctx?.config?.corridors as CorridorsConfig) || {};
 
   const fracPct = (islandsCfg.fractalThresholdPercent ?? 90) | 0;
   const threshold = getFractalThreshold(adapter, fracPct);

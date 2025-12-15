@@ -13,7 +13,6 @@
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "../core/types.js";
 import { inBounds, storyKey } from "../core/index.js";
 import { ctxRandom } from "../core/types.js";
-import { getTunables } from "../bootstrap/tunables.js";
 import { COAST_TERRAIN } from "../core/terrain-constants.js";
 import { getStoryTags } from "./tags.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "./overlays.js";
@@ -321,7 +320,7 @@ function tagSeaLanes(ctx: ExtendedMapContext, corridorsCfg: Record<string, unkno
   const laneSpacing = Math.max(0, Number((cfg.laneSpacing as number) ?? 6) | 0);
   const requiredMinWidth = Math.max(1, Number((cfg.minChannelWidth as number) ?? 3) | 0);
 
-  const DIR = (getTunables().FOUNDATION_DIRECTIONALITY || {}) as Record<string, unknown>;
+  const DIR = (ctx?.config?.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
   const COH = Math.max(0, Math.min(1, Number((DIR.cohesion as number) ?? 0)));
   const primaryAxes = (DIR.primaryAxes || {}) as Record<string, number>;
   const interplay = (DIR.interplay || {}) as Record<string, number>;
@@ -625,7 +624,7 @@ function tagLandCorridorsFromRifts(ctx: ExtendedMapContext, corridorsCfg: Record
       else if (avgRain > 115) style = "grasslandBelt";
 
       try {
-        const DIR = (getTunables().FOUNDATION_DIRECTIONALITY || {}) as Record<string, unknown>;
+        const DIR = (ctx?.config?.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
         const cohesion = Math.max(0, Math.min(1, Number((DIR.cohesion as number) ?? 0)));
         if (cohesion > 0) {
           const axes = (DIR.primaryAxes || {}) as Record<string, number>;
@@ -795,8 +794,7 @@ function backfillCorridorKinds(ctx: ExtendedMapContext, corridorsCfg: Record<str
 }
 
 export function storyTagStrategicCorridors(ctx: ExtendedMapContext, stage: CorridorStage): StoryOverlaySnapshot {
-  const tunables = getTunables();
-  const corridorsCfg = (tunables.FOUNDATION_CFG?.corridors || {}) as Record<string, unknown>;
+  const corridorsCfg = (ctx.config.corridors || {}) as Record<string, unknown>;
 
   resetCorridorStyleCache();
 

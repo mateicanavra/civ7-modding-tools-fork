@@ -14,7 +14,6 @@ import type {
   OceanSeparationEdgePolicy,
 } from "../bootstrap/types.js";
 import { writeHeightfield } from "../core/types.js";
-import { getTunables } from "../bootstrap/tunables.js";
 
 // ============================================================================
 // Types
@@ -324,19 +323,25 @@ export function applyPlateAwareOceanSeparation(
       ? params.adapter
       : null;
 
-  const tunables = getTunables();
-  const foundationCfg = tunables.FOUNDATION_CFG as {
-    oceanSeparation?: OceanSeparationPolicy;
-    policy?: { oceanSeparation?: OceanSeparationPolicy; crustMode?: CrustMode };
-    crustMode?: CrustMode;
-    surface?: { crustMode?: CrustMode; landmass?: { crustMode?: CrustMode } };
-  };
+  const config = ctx?.config;
+  const foundationCfg = config?.foundation as
+    | {
+        policy?: { oceanSeparation?: OceanSeparationPolicy; crustMode?: CrustMode };
+        surface?: {
+          oceanSeparation?: OceanSeparationPolicy;
+          crustMode?: CrustMode;
+          landmass?: { crustMode?: CrustMode };
+        };
+      }
+    | undefined;
 
   // Prefer explicit policy passed at callsite, then foundation-level config.
   // Support both FOUNDATION_CFG.oceanSeparation and FOUNDATION_CFG.policy.oceanSeparation
   // to mirror the legacy WorldModel.policy.oceanSeparation wiring.
   const foundationPolicy =
-    foundationCfg?.oceanSeparation ?? foundationCfg?.policy?.oceanSeparation;
+    (config?.oceanSeparation as OceanSeparationPolicy | undefined) ??
+    foundationCfg?.surface?.oceanSeparation ??
+    foundationCfg?.policy?.oceanSeparation;
 
   const policy = params?.policy || foundationPolicy || DEFAULT_OCEAN_SEPARATION;
   const normalizedWindows = windows.map((win, idx) => normalizeWindow(win, idx, width, height));
@@ -382,7 +387,7 @@ export function applyPlateAwareOceanSeparation(
 
   const crustMode = normalizeCrustMode(
     params?.crustMode ??
-      foundationCfg?.crustMode ??
+      (config?.landmass as { crustMode?: CrustMode } | undefined)?.crustMode ??
       foundationCfg?.policy?.crustMode ??
       foundationCfg?.surface?.crustMode ??
       foundationCfg?.surface?.landmass?.crustMode

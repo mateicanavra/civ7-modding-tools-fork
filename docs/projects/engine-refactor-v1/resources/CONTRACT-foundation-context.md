@@ -15,7 +15,7 @@ Authoritative implementation references:
   - `FoundationContext`, `FoundationConfigSnapshot`, `createFoundationContext`, `assertFoundationContext`, `hasFoundationContext`
 - Orchestration & world model: `packages/mapgen-core/src/MapOrchestrator.ts`
 - World semantics: `packages/mapgen-core/src/world/types.ts`, `packages/mapgen-core/src/world/model.ts`
-- Config & tunables flow: `packages/mapgen-core/src/bootstrap/entry.ts`, `packages/mapgen-core/src/bootstrap/tunables.ts`
+- Config flow: `packages/mapgen-core/src/bootstrap/entry.ts`, `packages/mapgen-core/src/MapOrchestrator.ts`
 - Target architecture: `docs/system/libs/mapgen/architecture.md`, `docs/system/libs/mapgen/foundation.md`
 
 ## 2. Scope & Status
@@ -23,7 +23,7 @@ Authoritative implementation references:
 - **Binding scope (M2):**
   - What exists on `ctx.foundation` after a successful `foundation` stage.
   - How to interpret the tensors (indexing, encodings, value ranges, stability expectations).
-  - The config → tunables → orchestrator wiring that feeds foundation.
+  - The config → orchestrator wiring that feeds foundation.
 - **Explicitly out of scope:**
   - Exact physics algorithms, numeric distributions, or parity targets.
   - “Interesting map” guarantees (e.g., plate count > 1); this contract is about shape + semantics, not quality.
@@ -106,40 +106,32 @@ This contract focuses on semantics and invariants (next section) rather than dup
   - Stages that require foundation physics must call `assertFoundationContext(ctx, stageName)` (or equivalent) before reading tensors.
   - Treat missing `FoundationContext` as a wiring/manifest error, not a recoverable “no-op”.
 
-## 4. Config → Tunables → MapOrchestrator → WorldModel → FoundationContext
+## 4. Config → MapOrchestrator → WorldModel → FoundationContext
 
 This section summarizes the **M2-era flow** that leads to `FoundationContext`. It intentionally focuses on
 contracts, not internal implementation details.
 
-### 4.1 Config & Tunables Flow
+### 4.1 Config Flow
 
 - `bootstrap(options)` is the **single entrypoint** for building engine config:
   - Composes presets and overrides into a raw config.
   - Resolves `stageConfig` into a `stageManifest` (via `resolveStageManifest`).
   - Validates the combined object via `parseConfig(rawConfig)` to produce a `MapGenConfig`.
-  - Calls `bindTunables(validatedConfig)`, which:
-    - Stores the validated config.
-    - Invalidates the tunables cache.
-- `getTunables()` (and the `TUNABLES` facade) produces a **read-only view** over `MapGenConfig`:
-  - Shapes configuration into `TunablesSnapshot` (including `FOUNDATION_CFG`, `FOUNDATION_PLATES`, `FOUNDATION_DYNAMICS`).
-  - Does **not** apply new defaults; it assumes `parseConfig` has already done so.
-  - Is the only supported way for legacy layers to read config in M2.
+  - Returns the validated config to the caller.
 
-**M2 Contract for Tunables**
+**M3 Contract for Config**
 
-- Tunables are a **derived, read-only view**:
-  - They must not be mutated by callers.
-  - Their backing `MapGenConfig` comes from the last successful `bootstrap()` / `bindTunables()` call.
+- `MapOrchestrator` and all steps/layers read configuration from `ctx.config` (validated `MapGenConfig`).
+- There is no module-scoped tunables layer in M3.
 
 ### 4.2 Orchestrator & World Model Flow
 
 - `MapOrchestrator` is constructed with a **validated `MapGenConfig`** and optional adapter options.
 - When running the `foundation` stage, the orchestrator:
-  - Refreshes the tunables snapshot for the generation pass (`resetTunables()` → `getTunables()`).
   - Creates an `ExtendedMapContext` with:
     - Dimensions from the Civ7 adapter or test defaults.
-    - A lightweight runtime `ctx.config` object (currently: toggle flags) for legacy call sites.
-  - Configures and runs `WorldModel` using tunables derived from the **validated `MapGenConfig`** (bound via `bootstrap()` / `bindTunables()`).
+    - `ctx.config` set to the validated `MapGenConfig` (with effective toggles derived from stage enablement).
+  - Configures and runs `WorldModel` using the injected `MapGenConfig` (not a global/tunables surface).
   - After `WorldModel` finishes foundation physics, calls:
     - `createFoundationContext(WorldModel, { dimensions, config: foundationConfigSlice })`.
   - Stores the resulting `FoundationContext` on `ctx.foundation` (for downstream TS stages and diagnostics).
@@ -167,7 +159,7 @@ When implementing M3+ issues (pipeline generalization, climate, story overlays):
 - **Do not depend on non-contract surfaces**:
   - Avoid reading raw `WorldModel` state (or a singleton `WorldModel`) in new work; treat `ctx.foundation` as the stable interface.
   - Do not depend on `ctx.foundation.diagnostics` shape outside diagnostics tooling.
-  - Do not treat tunables as the long-term config surface for new steps.
+  - Do not reintroduce a tunables-style config facade; use `ctx.config` (validated `MapGenConfig`) instead.
 
 See Sections 6–7 for non-binding planning notes and future enforcement ideas.
 
@@ -189,7 +181,7 @@ assuming `FoundationContext` remains the canonical physics snapshot.
 
 - **Foundation slice (today, implicit via MapOrchestrator)**
   - `requires`:
-    - `config.foundation` and related tunables (plates, dynamics, surface, diagnostics).
+    - `config.foundation` (plates, dynamics, surface, diagnostics).
   - `provides`:
     - `FoundationContext` (as defined above).
     - `HeightfieldBuffer` exists on `ctx.buffers.heightfield`, but it is populated later (via `syncHeightfield()` after terrain-modifying stages), not during foundation initialization.

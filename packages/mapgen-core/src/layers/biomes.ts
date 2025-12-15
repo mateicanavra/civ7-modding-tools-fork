@@ -24,7 +24,6 @@ import type { ExtendedMapContext } from "../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
 import { ctxRandom } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
-import { getTunables } from "../bootstrap/tunables.js";
 import {
   getPublishedClimateField,
   getPublishedRiverAdjacency,
@@ -152,10 +151,9 @@ export function designateEnhancedBiomes(
   // Start with vanilla-consistent biomes via the real engine
   adapter.designateBiomes(iWidth, iHeight);
 
-  const tunables = getTunables();
-  const foundationCfg = tunables.FOUNDATION_CFG || {};
-  const biomesCfg = (foundationCfg.biomes || {}) as BiomeConfig;
-  const corridorPolicy = (foundationCfg.corridors || {}) as CorridorPolicy;
+  const config = ctx.config;
+  const biomesCfg = (config.biomes || {}) as BiomeConfig;
+  const corridorPolicy = (config.corridors || {}) as CorridorPolicy;
 
   const StoryTags = getStoryTags();
 
@@ -444,7 +442,7 @@ export function designateEnhancedBiomes(
       }
 
       // Climate Story: rift shoulder preference (narrow, moisture-aware)
-      if (tunables.STORY_ENABLE_RIFTS && StoryTags.riftShoulder.size > 0) {
+      if (config.toggles?.STORY_ENABLE_RIFTS && StoryTags.riftShoulder.size > 0) {
         const key = `${x},${y}`;
         if (StoryTags.riftShoulder.has(key)) {
           // Temperate/warm shoulders: prefer grassland when sufficiently moist

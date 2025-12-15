@@ -11,7 +11,6 @@
 
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "../core/types.js";
 import { inBounds, storyKey } from "../core/index.js";
-import { getTunables } from "../bootstrap/tunables.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "./overlays.js";
 
 export interface OrogenyCacheInstance {
@@ -90,8 +89,7 @@ export function storyTagOrogenyBelts(ctx: ExtendedMapContext | null = null): Sto
   const area = Math.max(1, width * height);
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
 
-  const tunables = getTunables();
-  const storyCfg = (tunables.FOUNDATION_CFG?.story || {}) as Record<string, unknown>;
+  const storyCfg = (ctx?.config?.story || {}) as Record<string, unknown>;
   const cfg = (storyCfg.orogeny || {}) as Record<string, number>;
 
   const baseRadius = Number.isFinite(cfg.radius) ? (cfg.radius | 0) : 2;

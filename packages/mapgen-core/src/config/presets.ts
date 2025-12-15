@@ -42,6 +42,11 @@ function deepMerge<T>(base: T, src: DeepPartial<T> | undefined): T {
   return out as T;
 }
 
+/**
+ * Supported preset names for M3.
+ *
+ * Legacy preset names from the archived JS mod (`classic`, `temperate`) are preserved 1:1.
+ */
 export type MapGenPresetName = "classic" | "temperate";
 
 const PRESETS: Readonly<Record<MapGenPresetName, DeepPartial<MapGenConfig>>> = Object.freeze({

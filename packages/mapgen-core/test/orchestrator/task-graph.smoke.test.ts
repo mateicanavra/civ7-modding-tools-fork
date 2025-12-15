@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap, MapOrchestrator } from "../../src/index.js";
-import { resetTunablesForTest } from "../../src/bootstrap/tunables.js";
 import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js";
 
 describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
@@ -12,7 +11,6 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
   let originalGameInfo: unknown;
 
   beforeEach(() => {
-    resetTunablesForTest();
     resetConfigProviderForTest();
     WorldModel.reset();
 
@@ -55,7 +53,6 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
 
-    resetTunablesForTest();
     resetConfigProviderForTest();
     WorldModel.reset();
   });

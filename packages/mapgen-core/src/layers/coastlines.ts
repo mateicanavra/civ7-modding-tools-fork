@@ -19,7 +19,6 @@ import type {
 import { ctxRandom, writeHeightfield } from "../core/types.js";
 import { BOUNDARY_TYPE } from "../world/constants.js";
 import { getStoryTags } from "../story/tags.js";
-import { getTunables } from "../bootstrap/tunables.js";
 
 // ============================================================================
 // Types
@@ -122,8 +121,7 @@ export function addRuggedCoasts(
   const boundaryType = foundation?.plates.boundaryType ?? null;
 
   // Configuration
-  const tunables = getTunables();
-  const cfg = (tunables.FOUNDATION_CFG?.coastlines as CoastlinesConfig) || {};
+  const cfg = (ctx?.config?.coastlines as CoastlinesConfig) || {};
   const cfgBay = cfg.bay || {};
   const cfgFjord = cfg.fjord || {};
 
@@ -158,7 +156,7 @@ export function addRuggedCoasts(
   };
 
   // Corridor policy
-  const corridorPolicy = (tunables.FOUNDATION_CFG?.corridors as CorridorPolicy) || {};
+  const corridorPolicy = (ctx?.config?.corridors as CorridorPolicy) || {};
   const seaPolicy = corridorPolicy.sea || {};
   const SEA_PROTECTION = seaPolicy.protection || "hard";
   const SOFT_MULT = Math.max(0, Math.min(1, seaPolicy.softChanceMultiplier ?? 0.5));

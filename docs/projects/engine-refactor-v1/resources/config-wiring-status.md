@@ -13,7 +13,7 @@ being in the schema (because many schemas allow `additionalProperties: true`).
 - **Partially wired**: read only in certain modes, or as a legacy alias to another field.
 - **Legacy-only**: used only in archived JS (`docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/**`)
   and has no effect in current TS pipeline.
-- **Unused / planned**: present in schema but not read in TS (and not meaningfully used anywhere else).
+- **Reserved / no-op**: present in schema but not currently read in TS.
 - **Untyped but consumed**: not in schema, but read by TS due to `additionalProperties: true`.
 - **Internal**: schema field marked `@internal`; not part of stable public mod API.
 
@@ -22,7 +22,7 @@ being in the schema (because many schemas allow `additionalProperties: true`).
 From `packages/mapgen-core/src/bootstrap/resolved.ts`:
 
 `foundation` → `landmassPlates` → `coastlines` → `storySeed` → `storyHotspots` → `storyRifts`
-→ `storyOrogeny` → `storyCorridorsPre` → `islands` → `mountains` → `volcanoes` → `lakes`
+→ `ruggedCoasts` → `storyOrogeny` → `storyCorridorsPre` → `islands` → `mountains` → `volcanoes` → `lakes`
 → `climateBaseline` → `storySwatches` → `rivers` → `storyCorridorsPost`
 → `climateRefine` → `biomes` → `features` → `placement`
 
@@ -30,28 +30,28 @@ From `packages/mapgen-core/src/bootstrap/resolved.ts`:
 
 | Field | Status | Consumed by | Notes |
 |---|---|---|---|
-| `presets` | **Unused / planned** | none in mapgen-core | `bootstrap/entry.ts` stores this list, but `parseConfig()` (`config/loader.ts`) does not apply presets. Upstream tooling must merge presets before calling `bootstrap()`/`parseConfig()`. |
+| `presets` | **Wired** | `bootstrap/entry.ts`, `config/presets.ts` | Applied in bootstrap before `parseConfig()`, then preserved in the validated config for introspection/debugging. |
 | `stageConfig.<stage>` | **Wired (internal)** | `bootstrap/entry.ts`, `bootstrap/resolved.ts` | Boolean enablement overrides; only stages in `STAGE_ORDER` are respected. Unknown keys are preserved but ignored. |
-| `stageManifest.order` | **Unused (internal)** | none | Always derived from `stageConfig`; not consulted by orchestrator. |
-| `stageManifest.stages.<stage>.enabled` | **Wired (internal)** | `bootstrap/tunables.ts#stageEnabled` | Stage is treated enabled unless `.enabled === false`. Resolver sets enabled based on `stageConfig`. |
-| `stageManifest.stages.<stage>.requires` | **Unused / planned (internal)** | none | Accepted for forward-compat; dependency resolution not implemented in TS yet. |
-| `stageManifest.stages.<stage>.provides` | **Unused / planned (internal)** | none | Same as above. |
-| `stageManifest.stages.<stage>.legacyToggles` | **Unused / planned (internal)** | none | Intended bridge from old `STORY_ENABLE_*` gating. |
-| `stageManifest.stages.<stage>.blockedBy` | **Unused / planned (internal)** | none | Not currently enforced. |
+| `stageManifest.order` | **Reserved / no-op (internal)** | none | Always derived from `stageConfig`; recipe order is driven by `pipeline/standard.ts` in M3. |
+| `stageManifest.stages.<stage>.enabled` | **Wired (internal)** | `MapOrchestrator.resolveStageFlags()` | Resolver sets enabled based on `stageConfig` (or derived defaults). |
+| `stageManifest.stages.<stage>.requires` | **Wired (internal)** | `MapOrchestrator.generateMapTaskGraph()` | Used as the step `requires` list (runtime gating via `PipelineExecutor`). |
+| `stageManifest.stages.<stage>.provides` | **Wired (internal)** | `MapOrchestrator.generateMapTaskGraph()` | Used as the step `provides` list (runtime gating via `PipelineExecutor`). |
+| `stageManifest.stages.<stage>.legacyToggles` | **Reserved / no-op (internal)** | none | Kept for forward-compat; not used in M3 gating. |
+| `stageManifest.stages.<stage>.blockedBy` | **Reserved / no-op (internal)** | none | Not currently enforced. |
 
 ### toggles (legacy STORY_ENABLE_*)
 
-These are validated and exposed through `tunables.STORY_ENABLE_*`, but only some are read in TS layers.
-`MapOrchestrator` also injects a **separate** toggle set into `MapContext` based on stage enablement, so
-for story stages stage flags are the real gating mechanism.
+These are validated and read from `MapGenContext.config.toggles`, but only some are read in TS layers.
+`MapOrchestrator` also derives an **effective** toggle set for the runtime `MapGenContext` based on stage
+enablement, so for story stages stage flags remain the real gating mechanism.
 
 | Toggle | Status | Consumed by | Notes |
 |---|---|---|---|
 | `STORY_ENABLE_HOTSPOTS` | **Wired** | `layers/features.ts` | Gates paradise reefs + volcanic vegetation embellishments. |
 | `STORY_ENABLE_RIFTS` | **Wired** | `layers/biomes.ts` | Gates rift-shoulder biome nudges. |
 | `STORY_ENABLE_OROGENY` | **Wired** | `layers/climate-engine.ts` (`climateRefine` pass E) | Gates windward/lee rainfall adjustments. |
-| `STORY_ENABLE_SWATCHES` | **Legacy-only / ignored in TS** | none | Story swatches stage is gated via `stageConfig/stageEnabled`; no TS layer reads this toggle. |
-| `STORY_ENABLE_PALEO` | **Legacy-only / ignored in TS** | none | TS has no paleo stage; `MapOrchestrator` forces this false in context. |
+| `STORY_ENABLE_SWATCHES` | **Legacy-only / ignored in TS** | none | Story swatches stage is gated via `stageConfig`/`stageManifest`; no TS layer reads this toggle. |
+| `STORY_ENABLE_PALEO` | **Legacy-only / ignored in TS** | none | TS has no paleo story stage in M3; no TS layer reads this toggle. |
 | `STORY_ENABLE_CORRIDORS` | **Legacy-only / ignored in TS** | none | Corridor stages are gated via stage enablement; no TS layer reads this toggle. |
 
 ## landmass (stage: `landmassPlates`)
@@ -97,7 +97,7 @@ for story stages stage flags are the real gating mechanism.
 | `oceanSeparation.maxPerRowDelta` | **Wired** | same | North–south smoothness cap. |
 | `oceanSeparation.minChannelWidth` | **Partially wired** | same | Only used when `crustMode === "area"`. |
 | `oceanSeparation.channelJitter` | **Partially wired** | same | Only used when `crustMode === "area"`. |
-| `oceanSeparation.respectSeaLanes` | **Unused / planned** | none | Present in schema, not read in TS. |
+| `oceanSeparation.respectSeaLanes` | **Reserved / no-op** | none | Present in schema, not read in TS. Sea-lane protection is handled via `corridors.sea.*` in M3. |
 | `oceanSeparation.edgeWest.enabled` | **Wired** | same | Edge override. |
 | `oceanSeparation.edgeWest.baseTiles` | **Wired** | same | Positive widens ocean; negative fills land. |
 | `oceanSeparation.edgeWest.boundaryClosenessMultiplier` | **Wired** | same | Boundary scaling at edge. |
@@ -108,17 +108,16 @@ for story stages stage flags are the real gating mechanism.
 
 Only plate/dynamics/directionality are fed into `WorldModel` via
 `MapOrchestrator.bindWorldModelConfigProvider()` and `world/model.ts`.
-Top-level layer blocks (`mountains`, `coastlines`, etc.) are merged into foundation by
-`bootstrap/tunables.ts::mergeTopLevelLayer`, so `foundation.<layer>` and top-level `<layer>`
-are equivalent.
+Top-level stage configs (`mountains`, `coastlines`, etc.) are read directly from their top-level
+blocks in `MapGenConfig` and are not merged into `foundation` in M3.
 
 ### foundation.seed
 
 | Field | Status | Consumed by | Notes |
 |---|---|---|---|
-| `foundation.seed.mode` | **Unused / planned** | none | Passed into `FoundationContext.config.seed` snapshot only; not used to seed TS RNG. |
-| `foundation.seed.fixedSeed` | **Unused / planned** | none | — |
-| `foundation.seed.offset` | **Unused / planned** | none | — |
+| `foundation.seed.mode` | **Reserved / no-op** | none | Captured into `FoundationContext.config.seed` snapshot only; not used to seed TS RNG. |
+| `foundation.seed.fixedSeed` | **Reserved / no-op** | none | Captured into `FoundationContext.config.seed` snapshot only; not used to seed TS RNG. |
+| `foundation.seed.offset` | **Reserved / no-op** | none | Captured into `FoundationContext.config.seed` snapshot only; not used to seed TS RNG. |
 | *(Actual plate seeding lives in `foundation.plates.seedMode/fixedSeed/seedOffset`.)* |
 
 ### foundation.plates
@@ -152,12 +151,12 @@ are equivalent.
 | `directionality.cohesion` | **Wired** | `world/plates.ts`, `climate-engine.ts` | Global alignment strength. |
 | `directionality.primaryAxes.plateAxisDeg` | **Wired** | `world/plates.ts`, `climate-engine.ts` | Preferred plate heading; also affects swatch weighting. |
 | `directionality.primaryAxes.windBiasDeg` | **Wired** | `climate-engine.ts::applyClimateSwatches` | Bias for zonal wind direction. |
-| `directionality.primaryAxes.currentBiasDeg` | **Unused / planned** | none | Ocean-current modeling not yet ported. |
+| `directionality.primaryAxes.currentBiasDeg` | **Reserved / no-op** | none | Ocean-current modeling not yet ported. |
 | `directionality.variability.angleJitterDeg` | **Wired** | `world/plates.ts` | Random angular deviation. |
 | `directionality.variability.magnitudeVariance` | **Wired** | `world/plates.ts` | Strength variance. |
-| `directionality.hemispheres.southernFlip` | **Unused / planned** | none | Hemispheric mirroring not implemented. |
+| `directionality.hemispheres.southernFlip` | **Reserved / no-op** | none | Hemispheric mirroring not implemented. |
 | `directionality.interplay.windsFollowPlates` | **Wired** | `climate-engine.ts::refineClimateEarthlike` | Increases rain-shadow scan steps when winds align with plates. |
-| `directionality.interplay.currentsFollowWinds` | **Unused / planned** | none | No TS current-field coupling yet. |
+| `directionality.interplay.currentsFollowWinds` | **Reserved / no-op** | none | No TS current-field coupling yet. |
 
 ### foundation.surface (internal)
 
@@ -180,14 +179,10 @@ Schema models this block explicitly with camelCase DevLogConfig keys.
 
 ### foundation nested layer blocks
 
-These are merged / read exactly like their top-level counterparts:
+Deprecated in M3. Configuration for non-foundation stages is read from the top-level blocks:
 
-`foundation.oceanSeparation`, `foundation.coastlines`, `foundation.islands`,
-`foundation.mountains`, `foundation.volcanoes`, `foundation.story`,
-`foundation.corridors`, `foundation.biomes`, `foundation.featuresDensity`,
-`foundation.placement`.
-
-See each group’s section for field-level wiring.
+`oceanSeparation`, `coastlines`, `islands`, `mountains`, `volcanoes`, `story`,
+`corridors`, `biomes`, `featuresDensity`, `placement`.
 
 ## coastlines (stage: `coastlines`)
 
@@ -332,13 +327,13 @@ All refine sub-fields except `pressure` are wired in `layers/climate-engine.ts::
 | `climate.refine.riverCorridor.highlandAdjacencyBonus` | **Wired** | Bonus by rivers in highlands. |
 | `climate.refine.lowBasin.radius` | **Wired** | Basin detection radius. |
 | `climate.refine.lowBasin.delta` | **Wired** | Basin humidity bonus. |
-| `climate.refine.pressure` | **Unused / planned** | Placeholder; not read in TS. |
+| `climate.refine.pressure` | **Reserved / no-op** | Placeholder; not read in TS. |
 
 ### climate.swatches
 
 | Field | Status | Notes |
 |---|---|---|
-| `climate.swatches` | **Unused / planned** | Schema placeholder. TS instead reads `climate.story.swatches` (untyped) for macro swatch logic. |
+| `climate.swatches` | **Wired** | `layers/climate-engine.ts::applyClimateSwatches` | Canonical macro swatch config surface (typed as UnknownRecord for now). Legacy alias: `climate.story.swatches`. |
 
 ### climate.story.rainfall
 

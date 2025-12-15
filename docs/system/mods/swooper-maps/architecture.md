@@ -2,7 +2,15 @@
 
 ## Overview
 
-This mod uses a sophisticated **3-tier configuration system** that allows multiple map variants to share a single codebase while having different behaviors through declarative configuration.
+This mod uses a **preset + overrides** configuration system that allows multiple map variants to share a single codebase while having different behaviors through declarative configuration.
+
+## Current TypeScript Architecture (M3)
+
+- Entry scripts call `bootstrap({ presets, overrides, stageConfig })` from `@swooper/mapgen-core/bootstrap` and receive a validated `MapGenConfig`.
+- `MapOrchestrator` is constructed with that validated config and creates a per-run `MapGenContext` carrying it at `context.config`.
+- Steps/layers read config from `context.config` (no global runtime config store, no `bootstrap/tunables` module).
+
+## Legacy JS Architecture (Archived)
 
 > **Operational note**  
 > Headless generation via an `InMemoryAdapter` proved impractical (the pipeline still depends on Civ VII engine globals such as `GameplayMap`, `TerrainBuilder`, `ResourceBuilder`, `FertilityBuilder`, `GameInfo`, etc.), so the stub adapter has been removed. For rapid iteration we instead rely on FireTuner-driven workflows to trigger map generation without restarting the client.

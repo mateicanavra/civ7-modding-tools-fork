@@ -9,7 +9,6 @@
 import type { ExtendedMapContext } from "../core/types.js";
 import { inBounds } from "../core/index.js";
 import { ctxRandom, writeClimateField } from "../core/types.js";
-import { getTunables } from "../bootstrap/tunables.js";
 
 export interface PaleoSummary {
   deltas: number;
@@ -69,8 +68,7 @@ function rand(ctx: ExtendedMapContext | null | undefined, max: number, label: st
  * Configuration is read from `CLIMATE_CFG.story.paleo` (untyped legacy shape).
  */
 export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): PaleoSummary {
-  const tunables = getTunables();
-  const climateCfg = (tunables.CLIMATE_CFG || {}) as Record<string, unknown>;
+  const climateCfg = (ctx?.config?.climate || {}) as Record<string, unknown>;
   const story = (climateCfg.story || {}) as Record<string, unknown>;
   const cfg = story.paleo as Record<string, unknown> | undefined;
 

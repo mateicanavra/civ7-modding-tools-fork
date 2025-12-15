@@ -2292,26 +2292,6 @@ export const FoundationConfigSchema = Type.Object(
     policy: Type.Optional(FoundationPolicyConfigSchema),
     /** Diagnostics toggles for stable-slice debugging (M2-supported). */
     diagnostics: Type.Optional(FoundationDiagnosticsConfigSchema),
-    /** Ocean separation policy ensuring water channels between continents. */
-    oceanSeparation: Type.Optional(OceanSeparationConfigSchema),
-    /** Coastline shaping, bays, and fjord settings. */
-    coastlines: Type.Optional(CoastlinesConfigSchema),
-    /** Island chain and archipelago generation. */
-    islands: Type.Optional(IslandsConfigSchema),
-    /** Mountain range generation from tectonic interactions. */
-    mountains: Type.Optional(MountainsConfigSchema),
-    /** Volcanic feature placement along boundaries and hotspots. */
-    volcanoes: Type.Optional(VolcanoesConfigSchema),
-    /** Story seed overlays: hotspots, rifts, orogeny events. */
-    story: Type.Optional(StoryConfigSchema),
-    /** Sea corridor policy for navigable channels. */
-    corridors: Type.Optional(CorridorsConfigSchema),
-    /** Biome threshold overrides for terrain assignment. */
-    biomes: Type.Optional(BiomeConfigSchema),
-    /** Vegetation and reef density multipliers. */
-    featuresDensity: Type.Optional(FeaturesDensityConfigSchema),
-    /** Late-stage placement: wonders, floodplains, starts. */
-    placement: Type.Optional(PlacementConfigSchema),
   },
   { additionalProperties: true, default: {} }
 );
@@ -2378,7 +2358,7 @@ export const MapGenConfigSchema = Type.Object(
     toggles: Type.Optional(TogglesSchema),
     /** Landmass geometry: water percent, tectonic bias, and post-processing. */
     landmass: Type.Optional(LandmassConfigSchema),
-    /** Foundation layer: plates, dynamics, and nested terrain configs. */
+    /** Foundation stage config: plates, dynamics, and internal policy/diagnostics. */
     foundation: Type.Optional(FoundationConfigSchema),
     /** Climate baseline and refinement settings for humidity. */
     climate: Type.Optional(ClimateConfigSchema),
