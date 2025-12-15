@@ -15,6 +15,7 @@ This is intentionally detailed: it is the checklist we’ll use to complete the 
 
 **Definition of “fully split”:**
 - Algorithms live in `packages/mapgen-core/src/domain/**` as small, single-purpose modules (types + focused functions).
+- Domain modules do **not** depend on `ExtendedMapContext` (or pipeline/step wiring). Steps own engine coupling; domain code accepts typed arrays + small “ports” (grid/rng/adapter/IO) and keeps heavy logic in pure kernels.
 - Shared helpers live in `packages/mapgen-core/src/lib/**` (math/grid/rng/noise/collections).
 - `packages/mapgen-core/src/layers/**` contains *only* Task Graph step wiring (no algorithm implementations, no algorithm re-export shims).
 - Legacy re-export surfaces are gone:
@@ -23,10 +24,34 @@ This is intentionally detailed: it is the checklist we’ll use to complete the 
   - `packages/mapgen-core/src/story/**`
   - `packages/mapgen-core/src/lib/noise.ts` (compat)
 - All in-repo callsites import canonical modules (no imports from deleted shims).
+- Import policy is enforced: no deep relative imports or deep internal module paths; pipeline/steps import only from stable index/barrel surfaces (and package subpath exports where appropriate).
 - Determinism parity is preserved:
   - RNG label strings are unchanged (treat them as part of the contract)
   - No extra RNG calls are introduced during extraction
   - Call order is preserved (especially where RNG is used)
+
+### 0.1 Locked Decisions (Capture These Before We Go Deeper)
+
+- **Hybrid domain architecture (accepted):**
+  - Steps own `ExtendedMapContext` + `EngineAdapter` interaction (sync/flush/state changes) and publish artifacts/tags.
+  - Domain algorithms do not import `ExtendedMapContext`; they consume typed arrays + small “ports” assembled by steps:
+    - `GridOps` (idx/bounds/wrap + neighbor iteration semantics)
+    - `Rng` (labeled determinism)
+    - narrow `*Adapter` interfaces (only what an algorithm truly needs from engine state)
+    - `*IO` ports for reads/writes (explicit commit points)
+  - Within a subsystem, structure code as: `types.ts` (contracts), `runtime.ts` (port construction helpers), orchestrators (call order + RNG labels), and pure kernels (array/scalar logic).
+- **Determinism contract (accepted):**
+  - RNG label strings + call order are treated as contract; extraction must not introduce extra RNG calls.
+  - RNG calls should live at orchestrator boundaries; kernels are deterministic unless explicitly passed a `rng` port.
+- **No deep import paths (accepted):**
+  - Pipeline/steps import only from stable index/barrel surfaces (e.g. `domain/hydrology/climate`), not deep module paths.
+  - Domain code may deep-import **only within the same subsystem**; cross-subsystem imports must go through subsystem indices to avoid tight coupling.
+- **Path aliasing + packaging (accepted):**
+  - Introduce a stable internal TS path alias for mapgen-core source imports (stop `../../../` churn).
+  - Use package subpath exports + index barrels to expose stable import surfaces (and keep deep internals private).
+- **Wrap + neighborhood semantics (accepted):**
+  - Do not “standardize” semantics during refactor; preserve current behavior per module.
+  - Encode semantics in helper names (square 3×3 vs hex odd-q, wrap-aware vs bounds-clamped) and require algorithms to choose explicitly.
 
 ---
 
@@ -692,6 +717,6 @@ Delete the following files/folders (or reduce them to explicit deprecations *tem
 
 ## 8) Open Decisions (Make These Explicit Before Deleting Facades)
 
-- **Domain purity level:** pure functions over arrays vs domain-with-runtime-interfaces (adapter/context passed in).
-- **Compatibility posture:** do we allow *any* deep import paths after this, or do we make the package surface explicit (only via `src/index.ts`)?
-- **Neighbor + wrap semantics:** do we standardize, or do we keep per-module semantics forever and encode them in helper names?
+- **Narrative/playability model:** decide whether narrative is a dedicated “final pass”, a conceptual plugin category injected into earlier phases, or a hybrid (and define explicit mutation budgets/invariants).
+- **Package surface:** decide what is public API vs internal-only once `story/**` + `narrative/**` shims are deleted (and document the intended modder import surfaces).
+- **Directory layout (optional):** decide whether to keep `layers/**` as the step-wiring home or merge it into `pipeline/**` (not required to complete the atomic split, but affects long-term discoverability).
