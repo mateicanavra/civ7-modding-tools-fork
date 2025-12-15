@@ -1,5 +1,5 @@
 /**
- * Story Swatches — macro climate swatches + optional paleo hydrology.
+ * Story Swatches — macro climate swatches.
  *
  * Operates on the canonical ClimateField buffer and publishes immutable overlay
  * snapshots describing what was applied.
