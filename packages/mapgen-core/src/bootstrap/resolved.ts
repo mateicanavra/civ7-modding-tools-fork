@@ -48,6 +48,7 @@ export const STAGE_ORDER = Object.freeze([
   "features",
   "placement",
 ] as const);
+Object.freeze(STAGE_ORDER);
 
 export type StageName = (typeof STAGE_ORDER)[number];
 export type StageConfig = Partial<Record<StageName, boolean>>;
