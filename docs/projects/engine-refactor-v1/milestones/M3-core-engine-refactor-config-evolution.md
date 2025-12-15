@@ -4,155 +4,107 @@
 **Status:** Planned  
 **Owner:** Engineering  
 
-> Note: Scope and exact issue mapping for this milestone may be revisited as we get closer to implementation. Treat this doc as a living plan that should be updated once work starts.
->
-> **Backlog state (draft):** This milestone is not yet fully grouped into formal issues. The “Draft Task Backlog” stubs below are rough M3 candidates only.
-> - Each stub must be triaged before work starts to decide whether to create a real issue, change scope, or intentionally skip/deprecate parity.
-> - Do not treat the stubs as committed scope until they are promoted into issue docs and scheduled.
+> Note: M3 scope is **locked** (see Objectives + Scope). This doc stays at the **milestone sequencing** level. Execution detail (deliverables, acceptance criteria, open questions) lives in the M3 issue docs and the project deferrals registry.
 
 ## Summary
 
-Extend the task-graph architecture from the foundation slice to the full engine, while reshaping configuration to match the long-term design. This milestone is where most of the **core refactoring** happens (beyond the initial slice): pipeline-izing legacy phases, solidifying data products, and evolving `MapGenConfig`.
-
-This milestone corresponds to **Milestone 3** in `PROJECT-engine-refactor-v1.md`.
-
-**Milestone boundary note:** M3 owns config/behavior work that is tightly coupled to Task Graph primitives (`MapGenStep`, `PipelineExecutor`, `requires/provides`) and canonical data products, where wiring early would risk double‑refactoring. Stable‑slice config correctness that is meaningful in the current orchestrator flow (foundation + minimal story + diagnostics) is handled in M2.
+Extend the stable orchestrator-centric slice from M2 into a composable, explicit pipeline: a Task Graph executor runs the full engine as steps with enforced `requires`/`provides`, while `MapGenConfig` evolves into its step-aligned “Phase 2/3” shape and legacy tunables are retired.
 
 ## Objectives
 
 - Make all major stages (foundation, morphology, hydrology/climate, narrative overlays, biomes, placement) run as pipeline steps with explicit `requires`/`provides`.
-- Evolve `MapGenConfig` from the Phase 1 “hygiene” shape into a step-aligned, phase-aware configuration surface.
-- Establish `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` as canonical data products across the engine.
+- Enforce `requires`/`provides` at runtime (fail-fast gating), so contract violations cannot silently limp through generation.
+- Evolve `MapGenConfig` from the Phase 1 “hygiene” shape into a step-aligned, phase-aware configuration surface (Phase 2/3), and retire tunables.
+- Establish `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` as canonical **artifacts** (data products) across the engine.
+- **Scope guardrail:** M3 is wrap‑first. Do not introduce new geomorphology/hydrology algorithms (e.g., stream power erosion, ocean currents, cryosphere, pedology); preserve current map quality by wrapping existing/engine behavior first.
+
+**Terminology (M3):**
+
+- **Artifacts vs “products”:** used synonymously; prefer “artifact” (matches `docs/system/libs/mapgen/architecture.md`).
+- **`requires`/`provides` tags:** may refer to artifacts (`artifact:*`), fields (`field:*`), or engine-surface state guarantees (`state:*`) as described in `docs/system/libs/mapgen/architecture.md`.
 
 ## Scope
 
-### Dependencies & Sequencing
+### In Scope (Locked)
 
-- This milestone assumes:
-  - **M1** has effectively completed the bulk of the TypeScript migration and package layout.
-  - **M2** has delivered:
-    - Phase 1 “Config Hygiene” from `resources/PRD-config-refactor.md`.
-    - A validated-config + foundation slice driven by `MapOrchestrator`, with the modern foundation/plate stack integrated behind it.
-- Within that baseline, M3 is responsible for:
-  - Introducing the generic pipeline primitives (`MapGenStep`, `StepRegistry`, `PipelineExecutor`) on top of the stabilized data products.
-  - Driving **Phase 2 & 3** of the config refactor (config integration + shape evolution).
-  - Generalizing the pipeline from the foundation slice to all major clusters (morphology, hydrology/climate, overlays, biomes, placement).
-  - Promoting the shared data products (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`) to canonical status across the engine.
-- Detailed behavior and requirements remain in the feature PRDs:
-  - Config: `resources/PRD-config-refactor.md` (Phase 2 & 3).
-  - Pipeline: `resources/PRD-pipeline-refactor.md`.
-  - Plates/foundation: `resources/PRD-plate-generation.md`.
+- Task Graph MVP becomes the execution model (`MapGenStep`, `StepRegistry`, `PipelineExecutor`, runtime `requires`/`provides` gating).
+- Wrap-first step boundaries for remaining clusters (morphology, hydrology/climate, story overlays, biomes/features, placement).
+- Productization where needed for consumer migration (notably `ClimateField` canonicalization + minimal river product).
+- Config evolution Phase 2/3 lands in the new, step-aligned form (tunables retired; no long-term carry-forward of legacy shapes).
+- Adapter boundary collapse (single adapter at `MapGenContext.adapter: EngineAdapter`).
 
-### 1. Config Integration & Shape Evolution
+### Out Of Scope (Explicit Non-Goals)
 
-- Ensure `MapGenContext` consistently carries `config: MapGenConfig` and that new steps read config via context rather than globals or tunables.
-- Map domain-specific configs (e.g., `PlateGenerationConfig`) into sub-schemas of `MapGenConfig`.
-- Flatten and rationalize config groups into step/phase-aligned sections such as:
-  - `plates`, `landmass`, `mountains`, `volcanoes`
-  - `climate`, `rivers`, `humidity`
-  - `story`, `corridors`, `overlays`
-  - `placement`, `diagnostics`
-- Provide adapters for older config shapes where needed to avoid breaking existing Swooper map scripts immediately.
+- New physics/simulation algorithms (stream power erosion, ocean currents, cryosphere, pedology).
+- Any additional “M4-style” hardening beyond the baseline runtime gating (e.g., exhaustive manifest validation, broad regression harness work).
 
-Related PRD: `resources/PRD-config-refactor.md` (Phase 2 & 3)
+### Canonical Sources (Use These For Detail)
 
-### 2. Pipeline Generalization
+- System architecture: `docs/system/libs/mapgen/architecture.md`
+- Pipeline PRD: `docs/projects/engine-refactor-v1/resources/PRD-pipeline-refactor.md`
+- Config PRD: `docs/projects/engine-refactor-v1/resources/PRD-config-refactor.md`
+- Parity tracker (remaining gap rows; issues should link back): `docs/projects/engine-refactor-v1/resources/STATUS-M-TS-parity-matrix.md`
+- Time-bound tradeoffs/compat shims (canonical): `docs/projects/engine-refactor-v1/deferrals.md`
 
-- Wrap legacy hydrology, climate, narrative overlays, biomes, and placement logic as `MapGenStep`s:
-  - e.g., `LegacyHydrologyStep`, `LegacyClimateStep`, `LegacyBiomesStep`, `LegacyPlacementStep`.
-- Gradually refactor internal logic to:
-  - Consume `MapGenContext` artifacts (`Heightfield`, `ClimateField`, `StoryOverlays`).
-  - Avoid direct `WorldModel` access in new/modernized code.
-- Enforce phase boundaries (`setup`, `foundation`, `morphology`, `hydrology`, `ecology`, `placement`) and explicit `requires`/`provides` metadata on steps.
+## Sequencing & Parallelization Plan (Conceptual)
 
-Related PRD: `resources/PRD-pipeline-refactor.md`
+> This is a planning/communication sequence; it does not redefine scope. See `docs/process/GRAPHITE.md` for stacked PR workflow.
+>
+> **Graphite execution decision (locked):** implement M3 as **one long-running Graphite stack** and merge to `main` at the end. “Stacks 1–7” below are conceptual groupings for issue-cutting and sequencing, not independent merge tracks.
 
-### 3. Data Products & Cluster Alignment
+```mermaid
+flowchart TD
+  A[Phase A: Task Graph MVP\nStack 1] --> B[Phase B: Product spine + wrappers\nStacks 2–5]
+  B --> C[Phase C: Config cutover + adapter collapse\nStacks 6–7]
+```
 
-- Solidify the topology described in `PROJECT-engine-refactor-v1.md`:
-  - Cluster stages by foundation, morphology, hydrology/climate, overlays, biomes/features, placement.
-  - Ensure clusters consume and produce the expected data products.
-- Make `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` the authoritative sources for downstream logic.
-- Reduce or eliminate ad-hoc reads from `GameplayMap` and `StoryTags` in modernized stages.
+### Phase A — Task Graph MVP becomes “the way to run” (wrap-only)
 
-**Story system note:** Minimal story parity (margins/hotspots/rifts ± orogeny) is restored in M2 via orchestrator stages. M3 owns the **remaining** story system (corridors, swatches, paleo, canonical overlay products) and the migration of story logic into Task Graph steps.
+- **Goal:** A standard pipeline entry can run steps end-to-end with runtime contract gating, without changing algorithms.
+- **Conceptual stacks:** Stack 1.
 
-Related system docs:
+### Phase B — Product spine + wrapper migration (still wrap-first)
 
-- `../../system/libs/mapgen/architecture.md`
-- `../../system/libs/mapgen/foundation.md`
-- `../../system/libs/mapgen/design.md`
+- **Goal:** Make canonical artifacts real for consumers (ClimateField, rivers, overlays), then wrap biomes/features and placement as steps consuming those artifacts (and explicit engine-surface `state:*` where unavoidable).
+- **Conceptual stacks:** Stacks 2–5.
 
-### Parity Matrix & Follow-Up Issues
+### Phase C — Config Phase 2/3 lands + adapter boundary collapses
 
-The JS-to-TS parity documents remain the canonical source of remaining behavioral gaps and intentional divergences:
+- **Goal:** Config lands in its step-aligned shape (tunables retired; presets/recipes aligned), then collapse to a single adapter boundary as the “final core architecture” step.
+- **Conceptual stacks:** Stacks 6–7.
 
-- `resources/STATUS-M-TS-parity-matrix.md`
-- `resources/STATUS-M-TS-typescript-migration-parity-notes.md`
+## Issue Map (Parent Issues / Workstreams)
 
-As part of M3 (and, where appropriate, M4), we may break specific `Missing` and `Detraction / Open` rows from these docs into concrete issues targeting the relevant clusters (story/overlays, biomes/features, placement, etc.). The parity docs should stay canonical; issues should link back to them rather than duplicating the full matrix.
+> These issue docs are the executable source of truth for M3. Linear IDs/titles may change; the workstreams are locked by scope above.
 
-### Draft Task Backlog (Not Yet Issues)
+| Stack | Issue | Summary | Depends On |
+|------:|-------|---------|------------|
+| 1 | [CIV-41](https://linear.app/mateic/issue/CIV-41) | Task Graph MVP + standard pipeline entry + runtime gating | — |
+| 2 | [CIV-42](https://linear.app/mateic/issue/CIV-42) | ClimateField canonicalization + minimal river product | 1 |
+| 3 | [CIV-43](https://linear.app/mateic/issue/CIV-43) | Story remainder as steps/products (StoryOverlays canonical; compat tracked in deferrals) | 1 |
+| 4 | [CIV-44](https://linear.app/mateic/issue/CIV-44) | Biomes/features step wrapper (consumes canonical artifacts) | 1,2,3 |
+| 5 | [CIV-45](https://linear.app/mateic/issue/CIV-45) | Placement step wrapper (consumes canonical artifacts; explicit `state:*` where needed) | 1,4 |
+| 6 | [CIV-46](https://linear.app/mateic/issue/CIV-46) | Config Phase 2/3 cutover + tunables retirement + presets/recipes alignment | 1–5 |
+| 7 | [CIV-47](https://linear.app/mateic/issue/CIV-47) | Collapse EngineAdapter/OrchestratorAdapter boundary | 6 |
 
-> Rough candidate tasks to be reviewed and promoted into real issues (or explicitly deprecated) when M3 is scheduled.
+### Notes
 
-- **Pipeline generalization beyond foundation**
-  - What/why: Extend `MapGenStep`/`PipelineExecutor` from the stabilized foundation slice to legacy clusters (morphology, hydrology/climate, overlays, biomes, placement), initially via wrapper steps, to unlock full Task Graph orchestration.
-  - Open questions: How far do we go with “wrapper only” vs. internal refactors per cluster in M3? Which clusters must be fully native to hit M3 acceptance vs. can stay legacy‑wrapped?
-  - Sources: `resources/PRD-pipeline-refactor.md`, `../../system/libs/mapgen/architecture.md`, pipeline skeleton issues `../issues/LOCAL-TBD-foundation-step-1-pipeline.md` through step‑5.
+- `_archive/CIV-19-*`, `_archive/CIV-20-*`, `_archive/CIV-22-*` are **completed M1 work** and must not be resurrected as M3 scope. M3’s wrappers are a different unit of work (Task Graph step boundaries), not the earlier adapter integration.
 
-- **Config integration into `MapGenContext` (Phase 2)**
-  - What/why: Make validated `MapGenConfig` the single read path for all steps via context, and map legacy groupings into canonical sub‑schemas.
-  - Open questions: Which legacy groups should be preserved via adapters vs. removed outright? Any config groups that should be deprecated instead of parity?
-  - Sources: `resources/PRD-config-refactor.md` (Phase 2), `resources/config-wiring-status.md`, `resources/PRD-plate-generation.md`.
+## Tradeoffs / Deferrals (Centralized)
 
-- **Config shape evolution + tunables retirement (Phase 3)**
-  - What/why: Reshape config to step/phase‑aligned sections, introduce compatibility shims where needed, and retire most legacy tunables as primary config stores.
-  - Open questions: What minimal tunables surface remains for Swooper compatibility? What’s the cutover/migration plan for existing map entries?
-  - Sources: `resources/PRD-config-refactor.md` (Phase 3), `resources/config-wiring-status.md`, `packages/mapgen-core/src/config/schema.ts` comments.
+Temporary bridges/compat behavior and their “until X, then remove” triggers are tracked in:
 
-- **Presets/recipes and canonical BASE_CONFIG**
-  - What/why: Make the `presets` field real by defining a canonical base config + recipe resolution model; enable named presets to supply per‑stage overrides coherently.
-  - Open questions: Do we want full parity with legacy preset semantics, or simplify/deprecate the field? Where should resolution live (bootstrap vs. pipeline pre‑step)?
-  - Sources: `resources/PRD-config-refactor.md`, `resources/config-wiring-status.md` (`presets` currently unused).
+- `docs/projects/engine-refactor-v1/deferrals.md`
 
-- **Canonical data products across clusters**
-  - What/why: Formalize and standardize product shapes (`Heightfield`, `ClimateField`, `StoryOverlays`, plus any hydrology/biome products), and ensure legacy wrappers read/write through these products.
-  - Open questions: Which products must be finalized in M3 vs. deferred to M4? Any products we should intentionally redesign rather than parity?
-  - Sources: `PROJECT-engine-refactor-v1.md` topology, `resources/PRD-pipeline-refactor.md`, `../../system/libs/mapgen/foundation.md`, `resources/STATUS-M-TS-parity-matrix.md`.
+M3 milestone/issue docs should link to the relevant `DEF-00X` entries rather than duplicating tradeoff text here.
 
-- **Collapse the adapter boundary**
-  - What/why: Extend `EngineAdapter` to cover map‑init responsibilities and delete the internal `OrchestratorAdapter` so implementation matches `architecture.md`.
-  - Open questions: Any Civ7‑specific init behaviors that should stay outside the engine boundary? What’s the minimum API to support non‑Civ7 adapters later?
-  - Sources: `../../system/libs/mapgen/architecture.md`, adapter boundary note in `M2-stable-engine-slice.md`.
+## Linear Issues (Minted)
 
-- **StageManifest dependency semantics**
-  - What/why: Start using `requires`/`provides` meaningfully on steps and ensure stage ordering/dependency graphs are validated at least in dev mode.
-  - Open questions: Is runtime enforcement owned by late M3 or M4? Do we keep `requires/provides` parity with legacy stage toggles or rethink dependencies?
-  - Sources: `resources/PRD-pipeline-refactor.md`, `resources/config-wiring-status.md` (`requires/provides` currently unused), M4 validation scope in `M4-tests-validation-cleanup.md`.
+All M3 issues are now live in Linear:
 
-- **Config parity “keep vs. deprecate” decisions**
-  - What/why: Resolve remaining config wiring gaps that affect behavior or diagnostics, and explicitly decide parity vs. deprecation for dead/legacy fields.
-  - Open questions: Decide on remaining dead/legacy fields beyond the M2 stable slice (e.g., `foundation.seed.*`, `oceanSeparation.respectSeaLanes`, other `Missing` rows in `config-wiring-status.md`). Stable‑slice diagnostics + story‑rainfall surface alignment is owned by M2.
-  - Sources: `resources/config-wiring-status.md`, `resources/PRD-config-refactor.md`, M2 outcomes in `M2-stable-engine-slice.md`.
-
-## Acceptance Criteria
-
-- Major engine phases are represented as pipeline steps with clear dependency contracts.
-- `MapGenConfig` reflects the engine’s phase/step structure and is used consistently via `MapGenContext`.
-- Legacy tunables are either retired or reduced to a small compatibility layer.
-- Downstream stages consume data products (e.g., `ClimateField`, `StoryOverlays`) rather than hard-coded globals.
-
-## Candidate Issues / Deliverables
-
-> These mappings are tentative and may be adjusted when the milestone is scheduled.
-
-- Migration of remaining legacy story/climate/biome/placement code into steps:
-  - CIV-19: Biomes & features adapter (`../issues/CIV-19-biomes-features-adapter.md`)
-  - CIV-20: Placement adapter (`../issues/CIV-20-placement-adapter.md`)
-  - CIV-21: Full story port parent (`../issues/CIV-21-story-tagging.md`)
-    - Remaining M3 portion: `LOCAL-M3-STORY-SYSTEM` (`../issues/LOCAL-M3-story-system.md`)
-  - CIV-22: Map size awareness (`../issues/CIV-22-map-size-awareness.md`)
-- Any new issues spawned from the parity matrix or config refactor PRD that touch multiple phases.
-
-These may be split or reassigned across milestones as we refine the execution plan.
+1. Stack 1: CIV-41
+2. Stacks 2–3: CIV-42, CIV-43
+3. Stacks 4–5: CIV-44, CIV-45
+4. Stack 6: CIV-46
+5. Stack 7: CIV-47

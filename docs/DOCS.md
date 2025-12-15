@@ -99,7 +99,8 @@ docs/system/
 
 - `ARCHITECTURE.md`, `TESTING.md`, `SECURITY.md` are canonical, evergreen for the system domain.
 - `ADR.md` documents significant architectural decisions that have been made.
-- `DEFERRALS.md` tracks intentionally deferred work with trigger conditions.
+- `DEFERRALS.md` tracks intentionally deferred work with trigger conditions at the **system** scope.
+- Project-scoped deferrals live alongside the project under `docs/projects/<project>/deferrals.md`.
 - Component-specific docs (backend/frontend/…) live under subdirectories, generally lowercase.
 
 ### 3.3 `process/` — Collaboration, Process & Workflows
@@ -281,6 +282,7 @@ For **evergreen** docs, decide if they are canonical or supporting:
 | System-wide standards       | `docs/system/`                    | ALL‑CAPS filename (canonical)|
 | Architecture decisions      | `docs/system/ADR.md`              | ALL‑CAPS filename           |
 | Deferred work/tech debt     | `docs/system/DEFERRALS.md`        | ALL‑CAPS filename           |
+| Project deferrals           | `docs/projects/<project>/deferrals.md` | lowercase               |
 | Process & workflow policies | `docs/process/`                   | ALL‑CAPS filename (canonical)|
 | Component/system details    | `docs/system/<area>/`             | lowercase (see note below)  |
 | Project work                | `docs/projects/<project>/`        | lowercase                   |

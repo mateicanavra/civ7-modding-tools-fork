@@ -3,6 +3,8 @@
 This doc captures unsequenced work and open questions discovered during the project.  
 Milestone and issue docs remain canonical for scheduled/active scope; entries here are reminders to revisit or place later.
 
+Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refactor-v1/deferrals.md` (keep them out of triage unless they need active research/decision work).
+
 **Entry format**
 - **Title**
   - **Context:** milestone + issue(s) or discussion timestamp/source.
@@ -27,7 +29,7 @@ Milestone and issue docs remain canonical for scheduled/active scope; entries he
 - **Full MapGen architecture documentation sweep (post Task Graph / canonical products)** [Review by: late M3 / early M4]
   - **Context:** System docs at `docs/system/libs/mapgen/*.md` vs implementation once `PipelineExecutor` / `MapGenStep` / `StepRegistry` and canonical products stabilize.
   - **Type:** backlog
-  - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `climate.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `CIV-40` (which only adds framing + minimal current-state pointers).
+  - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `hydrology.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `CIV-40` (which only adds framing + minimal current-state pointers).
   - **Next check:** after Task Graph + step execution is implemented and key products (`FoundationContext`, `ClimateField`, `StoryOverlays`) are stabilized.
 
 - **Modern story orogeny layer (windward/lee amplification)** [Review by: early M3+]
@@ -44,3 +46,21 @@ Milestone and issue docs remain canonical for scheduled/active scope; entries he
   - **Type:** backlog
   - **Notes:** Current smoke test only asserts non‑empty margins/hotspots/rifts. Add a light harness (metrics or golden snapshots on a few canonical seeds/sizes) to validate distributions and overlays don’t drift as M3 refactors land.
   - **Next check:** schedule alongside `LOCAL-M3-story-system` step migration or when story consumers report parity gaps.
+
+- **Post‑M3: Morphology selective replacement behind stable products + regression harness** [Review by: late M3 / early M4]
+  - **Context:** Morphology target doc `docs/system/libs/mapgen/morphology.md`; wrap‑first posture recorded in `milestones/M3-core-engine-refactor-config-evolution.md`.
+  - **Type:** backlog
+  - **Notes:** After the pipeline/products stabilize (and a basic regression harness exists), selectively replace high‑value morphology sub‑steps behind a stable product spine; avoid tuning-heavy algorithm swaps before consumers/tests can catch regressions.
+  - **Next check:** once `PipelineExecutor` + `Heightfield`/`ClimateField`/overlays are stable enough to support parity checks.
+
+- **Post‑M3: Hydrology modernization (optional oceanography/cryosphere) behind artifacts** [Review by: late M3+]
+  - **Context:** Hydrology target doc `docs/system/libs/mapgen/hydrology.md`; synthesis spike `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md`.
+  - **Type:** backlog
+  - **Notes:** Keep M3 wrap‑first (engine rivers + existing TS climate). Any oceanography/cryosphere work should land only once we have stable climate/hydrology products and a clear gameplay need.
+  - **Next check:** after consumers are migrated off `GameplayMap` and a river data product exists.
+
+- **Post‑M3: Ecology modernization (pedology/biomes/resources) behind ecology artifacts** [Review by: late M3+]
+  - **Context:** Ecology target doc `docs/system/libs/mapgen/ecology.md`.
+  - **Type:** backlog
+  - **Notes:** Once hydrology/climate products are canonical, refactor ecology into explicit steps/products (pedology → biomes → resources/features) and retire legacy monolithic passes behind adapters.
+  - **Next check:** after `LOCAL-M3-HYDROLOGY-PRODUCTS` lands and biomes/placement adapters exist.

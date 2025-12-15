@@ -63,12 +63,12 @@ function buildConfig(plateCount: number): BootstrapConfig {
       landmass: {
         crustMode: "area",
         // Earth-like ocean dominance (~70% water).
-        baseWaterPercent: 70,
+        baseWaterPercent: 63,
         waterScalar: 1,
         // Crust-first height tuning to preserve water even with broken boundary fields.
-        crustEdgeBlend: 0.55,
-        crustNoiseAmplitude: 0.06,
-        continentalHeight: 0.3,
+        crustEdgeBlend: 0.35,
+        crustNoiseAmplitude: 0.1,
+        continentalHeight: 0.4,
         oceanicHeight: -0.75,
         // Moderate margin bias: enough active coasts, plenty of passive shelves.
         boundaryBias: 0.2,
@@ -77,8 +77,8 @@ function buildConfig(plateCount: number): BootstrapConfig {
           // Favor coastal arcs (Andes/Ring of Fire) but keep thick interiors.
           boundaryArcWeight: 0.6,
           boundaryArcNoiseWeight: 0.35,
-          interiorNoiseWeight: 0.6,
-          fractalGrain: 3,
+          interiorNoiseWeight: 0.7,
+          fractalGrain: 5,
         },
       },
       margins: {
@@ -94,7 +94,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
           convergent: 1.4,
           transform: 0.4,
           divergent: -0.4,
-          interior: 0.1,
+          interior: 0.7,
           bayWeight: 0.4,
           bayNoiseBonus: 1.0,
           fjordWeight: 0.8,
@@ -137,7 +137,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
           maxVolcanoes: 30,
         },
         plates: {
-          count: plateCount,
+          count: 28,
           convergenceMix: 0.55,
           relaxationSteps: 5,
           plateRotationMultiple: 1.3,
@@ -167,7 +167,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
             hemispheres: {
               southernFlip: true,
               // Enable monsoon pass in climate swatches/refine (legacy keys not yet typed).
-              ...({ monsoonBias: 0.5, equatorBandDeg: 18 } as unknown as Record<string, number>),
+              ...({ monsoonBias: 0.82, equatorBandDeg: 18 } as unknown as Record<string, number>),
             },
             variability: {
               angleJitterDeg: 15,
@@ -233,7 +233,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
           waterGradient: {
             radius: 6,
             perRingBonus: 4,
-            lowlandBonus: 3,
+            lowlandBonus: 5,
           },
           orographic: {
             steps: 4,
@@ -321,7 +321,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
       },
       biomes: {
         tundra: {
-          latMin: 65,
+          latMin: 85,
           elevMin: 700,
           rainMax: 85,
         },
@@ -330,8 +330,8 @@ function buildConfig(plateCount: number): BootstrapConfig {
           rainMin: 100,
         },
         riverValleyGrassland: {
-          latMax: 55,
-          rainMin: 70,
+          latMax: 65,
+          rainMin: 80,
         },
         riftShoulder: {
           grasslandLatMax: 55,
@@ -342,9 +342,9 @@ function buildConfig(plateCount: number): BootstrapConfig {
       },
       featuresDensity: {
         rainforestExtraChance: 50,
-        forestExtraChance: 30,
-        taigaExtraChance: 32,
-        shelfReefMultiplier: 0.7,
+        forestExtraChance: 40,
+        taigaExtraChance: 20,
+        shelfReefMultiplier: 0.8,
       },
     },
   };

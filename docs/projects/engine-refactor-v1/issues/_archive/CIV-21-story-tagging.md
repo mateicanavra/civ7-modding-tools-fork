@@ -9,7 +9,7 @@ milestone: M3-core-engine-refactor-config-evolution
 assignees: []
 labels: [bug]
 parent: CIV-14
-children: [CIV-36, LOCAL-M3-STORY-SYSTEM]
+children: [CIV-36, CIV-43]
 blocked_by: [CIV-18]
 blocked: [CIV-23]
 related_to: [CIV-10]
@@ -22,7 +22,7 @@ Port the complete legacy story system from JS into TypeScript: minimal tagging p
 
 > **Note:** This issue was originally scoped as P0 remediation under the M1 TypeScript migration (CIV-14). It now represents the full story porting program, split into two canonical child issues:
 > - `CIV-36-story-parity.md` (minimal parity in M2)
-> - `LOCAL-M3-story-system.md` (remaining system in M3)
+> - CIV-43 (remaining system in M3)
 
 ## Problem
 
@@ -57,7 +57,7 @@ This parent issue tracks the *complete* story port. Delivery is split across chi
 - [ ] **M2 minimal parity (child: `CIV-36`)**
   - Port and wire continental margins, hotspot trails, rift valleys (optional orogeny belts).
   - Publish corresponding overlays and re-enable story‑aware consumers.
-- [ ] **M3 remaining system (child: `LOCAL-M3-STORY-SYSTEM`)**
+- [ ] **M3 remaining system (child: CIV-43)**
   - Port corridors, climate swatches, paleo hydrology, and any deferred orogeny work.
   - Canonicalize `StoryOverlays` as a data product and wrap story logic into steps once the pipeline executor exists.
 
@@ -70,7 +70,7 @@ Legacy references:
 Parent completion requires both children to be complete:
 
 - [ ] Minimal story parity landed in M2 (`CIV-36` complete).
-- [ ] Remaining story system landed in M3 (`LOCAL-M3-STORY-SYSTEM` complete).
+- [ ] Remaining story system landed in M3 (CIV-43 complete).
 - [ ] Story stages/steps populate `StoryTags` and publish overlays before consumers run.
 - [ ] Climate/biomes/features/corridor consumers regain narrative behavior.
 - [ ] Build passes, tests pass.

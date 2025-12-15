@@ -50,7 +50,8 @@
       "Read(//private/tmp/**)",
       "Bash(cat:*)",
       "mcp__linear-personal__get_project",
-      "mcp__linear-personal__search_documentation"
+      "mcp__linear-personal__search_documentation",
+      "mcp__linear-personal__list_issue_labels"
     ],
     "deny": [],
     "ask": []

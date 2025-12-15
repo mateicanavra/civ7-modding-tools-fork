@@ -81,13 +81,15 @@ export const StageDescriptorSchema = Type.Object(
     requires: Type.Optional(
       Type.Array(Type.String(), {
         default: [],
-        description: "Stage names that must run before this stage executes.",
+        description:
+          "Dependency tags that must be satisfied before this stage executes (e.g., stage ids, artifact tags, or engine-state tags).",
       })
     ),
     provides: Type.Optional(
       Type.Array(Type.String(), {
         default: [],
-        description: "Capabilities or data this stage makes available to dependents.",
+        description:
+          "Dependency tags this stage makes available to dependents (data artifacts, fields, and/or engine-state guarantees).",
       })
     ),
     legacyToggles: Type.Optional(

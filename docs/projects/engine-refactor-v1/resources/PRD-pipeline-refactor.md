@@ -24,12 +24,12 @@ The current `MapOrchestrator` suffers from several critical flaws:
 
 ## 3. Architecture: The Task Graph
 
-We will implement the architecture defined in [`docs/system/libs/mapgen/ARCHITECTURE.md`](../../../system/libs/mapgen/ARCHITECTURE.md).
+We will implement the architecture defined in [`docs/system/libs/mapgen/architecture.md`](../../../system/libs/mapgen/architecture.md).
 
 ### 3.1. Core Components
 
 1.  **MapGenStep (Interface):** The contract for all generation logic.
-    *   Must declare `requires` and `provides` (data dependencies).
+    *   Must declare `requires` and `provides` (dependency tags: data artifacts, fields, and/or engine-state guarantees).
     *   Must declare `phase` (architectural boundary).
     *   Must be stateless (except for configuration).
 2.  **StepRegistry:** A plugin system to register steps by ID (e.g., `core.mesh.voronoi`).
@@ -58,7 +58,7 @@ The engine will be driven by a JSON configuration object.
 *   **REQ-INF-1:** Define `MapGenStep` interface with `id`, `phase`, `requires`, `provides`, `shouldRun`, and `run`.
 *   **REQ-INF-2:** Implement `StepRegistry` to manage step instances.
 *   **REQ-INF-3:** Define `MapGenContext` with strict separation of `fields` (mutable output) and `artifacts` (immutable intermediate data).
-*   **REQ-INF-4:** Implement `PipelineExecutor` that validates dependencies (`requires` are present in `context`) before running each step.
+*   **REQ-INF-4:** Implement `PipelineExecutor` that validates dependencies (`requires` tags are satisfied in `context`) before running each step.
 
 ### 4.2. Integrity & Error Handling
 *   **REQ-ERR-1 (Fail Fast):** If a required dependency is missing from the Context, the Executor must throw a `MissingDependencyError` immediately.
