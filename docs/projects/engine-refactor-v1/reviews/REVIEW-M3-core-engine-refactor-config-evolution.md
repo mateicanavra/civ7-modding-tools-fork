@@ -525,3 +525,78 @@ The core gaps called out above are now addressed in the branch end state:
 - **Misconfiguration guardrails:** Added a runtime warning for unknown `stageConfig` keys in `resolveStageManifest()` and exported `StageName`/`StageConfig` types for stricter callsite typing.
 - **In-repo callers:** Removed the stray `storyPaleo` key from Swooper map entry configs (paleo is a toggle, not a stage in M3) and fixed the bootstrap unit test to use `climateBaseline`.
 - **Deferred:** Preset vs recipe semantics (canonical “standard recipe”) remains a follow-up; avoid expanding CIV-46 scope further.
+
+---
+
+## CIV-47 – [M3] Adapter Boundary Collapse (EngineAdapter absorbs OrchestratorAdapter)
+
+**Reviewed:** 2025-12-15 | **PR:** [#94](https://github.com/mateicanavra/civ7-modding-tools-fork/pull/94)
+
+### Effort Estimate
+
+**Complexity:** Medium (3/4) — cross-package API change (adapter + orchestrator + tests) where risk is subtle runtime coupling and type drift.
+**Parallelism:** Medium-high (3/4) — review can proceed independently once CIV-46’s config/plumbing is stable.
+**Score:** 9/16 — meaningful surface area, moderate coordination.
+
+---
+
+### Quick Take
+
+**Mostly, with notable gaps:** The adapter collapse is real (no `OrchestratorAdapter` remains in runtime code), and map-init/map-info responsibilities now flow through the single `EngineAdapter` boundary as intended. However, the branch currently fails `pnpm test:mapgen` on an immutability assertion for `STAGE_ORDER`, and there’s a type-level inconsistency around map-size IDs (`GameplayMap.getMapSize(): string` vs `EngineAdapter.getMapSizeId(): number`) that will confuse future adapter implementations.
+
+---
+
+### Intent & Assumptions
+
+- Collapse `MapOrchestrator`’s internal “map-init adapter” into the canonical `EngineAdapter` boundary.
+- Move map size/info lookup + `SetMapInitData` behind the adapter boundary (Civ7 + mock).
+- Keep behavior stable aside from moving calls behind the boundary.
+- Assume the canonical “single adapter” design is `docs/system/libs/mapgen/architecture.md`.
+
+---
+
+### What’s Strong
+
+- **Single boundary is enforced:** `MapOrchestrator` now depends only on `EngineAdapter` (no internal adapter types, no direct engine globals).
+- **API is testable:** `@civ7/adapter` gains explicit map-init/map-info surface (`getMapSizeId`, `lookupMapInfo`, `setMapInitData`), and `MockAdapter` records calls for assertions.
+- **Safety rails exist:** `scripts/lint-adapter-boundary.sh` continues to enforce `/base-standard/...` isolation (with a clearly scoped allowlist for the Bun test harness).
+- **Checks:** `pnpm -C packages/civ7-adapter check`, `pnpm -C packages/mapgen-core check`, and `pnpm lint:adapter-boundary` pass on this branch.
+
+---
+
+### High-Leverage Issues
+
+1. **`pnpm test:mapgen` currently fails on this branch**
+   - `bootstrap/resolved.test.ts` asserts `Object.isFrozen(STAGE_ORDER) === true`, but `STAGE_ORDER` is not runtime-frozen (`packages/mapgen-core/src/bootstrap/resolved.ts`).
+   - **Impact:** The stack is not green; this blocks merge confidence for CIV-47 and anything upstack.
+   - **Direction:** Either freeze `STAGE_ORDER` at definition-time or drop the immutability expectation (prefer freezing to keep “canonical order” truly canonical).
+
+2. **Map-size ID typing is internally inconsistent**
+   - `packages/civ7-types/index.d.ts` defines `GameplayMap.getMapSize(): string`, but `EngineAdapter.getMapSizeId()` is typed as `number` and `MockAdapterConfig.mapSizeId` follows suit.
+   - **Impact:** Future non-Civ7 adapters (and tests) will implement the “wrong” shape, and callsites may accidentally assume numeric semantics.
+   - **Direction:** Align on `string | number` (or a dedicated `MapSizeKey` type) across `@civ7/types`, `@civ7/adapter`, and orchestrator options.
+
+3. **“No OrchestratorAdapter references remain” is true for runtime code, not the entire repo**
+   - References still exist in slide/review artifacts (e.g., `docs/slides/m3-core-engine-refactor-config-evolution.*`, `docs/projects/engine-refactor-v1/reviews/REVIEW-M2-stable-engine-slice.md`).
+   - **Impact:** If the acceptance criterion is interpreted literally (“entire codebase”), it isn’t met; if it’s meant as “runtime code”, it should be clarified.
+   - **Direction:** Clarify the criterion or update slide content to frame OrchestratorAdapter as “Before (transient)” history (don’t erase useful historical review notes).
+
+4. **`@swooper/mapgen-core` remains hard to consume outside Civ7 without stubbing** (Follow-up)
+   - Importing `MapOrchestrator` eagerly pulls in `@civ7/adapter/civ7` (and its `/base-standard/...` module specifiers), requiring the Bun test harness mocks.
+   - **Impact:** Limits “pure TS library” ergonomics for non-Civ7 adapters and external tooling.
+   - **Direction:** Consider lazy-loading the Civ7 adapter or splitting engine-facing orchestration into a separate package in a later milestone (avoid re-scoping CIV-47 unless required).
+
+---
+
+### Fit Within the Milestone
+
+- This is the right sequencing after CIV-46: once config is validated and stage gating is explicit, collapsing the adapter boundary reduces “hidden Civ7 seams” and enables cleaner test harnesses and future non-Civ7 adapters.
+- The test failure suggests some milestone-level hygiene drift: stack PRs are being marked “done” without the full `pnpm test:mapgen` suite staying green.
+
+---
+
+### Recommended Next Moves
+
+- **Fix now:** Make `pnpm test:mapgen` green by addressing the `STAGE_ORDER` immutability expectation.
+- **Follow-up:** Normalize map-size key typing across `@civ7/types` ↔ `@civ7/adapter` ↔ orchestrator options.
+- **Follow-up:** Clarify whether “no OrchestratorAdapter references remain” applies to runtime code only or to the entire repo (docs/slides).
