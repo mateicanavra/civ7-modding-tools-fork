@@ -436,3 +436,14 @@ The core gaps called out above are now addressed in the branch end state:
 - **Follow-up:** Resolve `placement` config canonical location (merge vs deprecate) so mod-facing config does what the schema suggests.
 - **Nice-to-have:** De-dup `storeWaterData()` ownership to reduce drift risk.
 - **Nice-to-have:** Add a placement gating regression test.
+
+---
+
+### Post-review update (2025-12-15)
+
+- **Placement config resolution:** Placement now deep-merges top-level `config.placement` over `config.foundation.placement` so schema + behavior align (applies to both legacy and TaskGraph callsites).
+- **De-dup water data ownership:** Removed the pre-placement `storeWaterData()` calls in `MapOrchestrator`; `runPlacement()` remains the single owner.
+- **Tamed placement logs:** Gated terrain stats, ASCII map output, and `[START_DEBUG]` logs behind `DEV.ENABLED`.
+- **Coverage:** Added a focused gating regression test that asserts placement fails fast when `state:engine.featuresApplied` is missing.
+
+**Verification:** `pnpm -C packages/mapgen-core check`, `pnpm test:mapgen`.

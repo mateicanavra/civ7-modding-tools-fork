@@ -42,6 +42,7 @@ import type {
   MountainsConfig,
   VolcanoesConfig,
   ContinentBounds,
+  PlacementConfig,
 } from "./bootstrap/types.js";
 import type { ExtendedMapContext, FoundationContext } from "./core/types.js";
 import type { WorldModelState } from "./world/types.js";
@@ -135,6 +136,34 @@ import {
   type DevLogConfig,
   type FoundationPlates,
 } from "./dev/index.js";
+
+function deepMerge<T extends object>(base: T, override: Partial<T> | undefined): T {
+  if (!override || typeof override !== "object") {
+    return base;
+  }
+
+  const result = { ...base } as Record<string, unknown>;
+
+  for (const key of Object.keys(override)) {
+    const baseVal = (base as Record<string, unknown>)[key];
+    const overrideVal = (override as Record<string, unknown>)[key];
+
+    if (
+      baseVal &&
+      typeof baseVal === "object" &&
+      !Array.isArray(baseVal) &&
+      overrideVal &&
+      typeof overrideVal === "object" &&
+      !Array.isArray(overrideVal)
+    ) {
+      result[key] = deepMerge(baseVal as object, overrideVal as object);
+    } else if (overrideVal !== undefined) {
+      result[key] = overrideVal;
+    }
+  }
+
+  return result as T;
+}
 
 // ============================================================================
 // Types
@@ -1068,9 +1097,6 @@ export class MapOrchestrator {
       this.stageResults.push(stageResult);
     }
 
-    // Store water data before placement
-    this.orchestratorAdapter.storeWaterData();
-
     // ========================================================================
     // Stage: Placement
     // ========================================================================
@@ -1089,7 +1115,10 @@ export class MapOrchestrator {
             startSectorCols: iStartSectorCols,
             startSectors,
           },
-          placementConfig: ctx.config.foundation?.placement ?? {},
+          placementConfig: deepMerge<PlacementConfig>(
+            ctx.config.foundation?.placement ?? {},
+            ctx.config.placement
+          ),
         });
         startPositions.push(...positions);
       });
@@ -1671,10 +1700,6 @@ export class MapOrchestrator {
             startSectorCols: iStartSectorCols,
             startSectors,
           },
-        },
-        beforeRun: () => {
-          // Store water data before placement
-          this.orchestratorAdapter.storeWaterData();
         },
         afterRun: (_ctx, positions) => {
           startPositions.push(...positions);

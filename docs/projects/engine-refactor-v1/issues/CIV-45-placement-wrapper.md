@@ -75,3 +75,10 @@ Wrap placement as a Task Graph step with explicit, runtime-gated dependencies so
 - Most cross-cutting step in the pipeline—validate dependency list carefully
 - Start with wrapper, then incrementally migrate internal reads
 - Placement touches many subsystems—be thorough about identifying all implicit dependencies
+
+### Review Fixes
+
+- Placement config now respects top-level `placement` (deep-merged over `foundation.placement` for compatibility).
+- `storeWaterData()` is owned by `runPlacement()` (orchestrator no longer pre-calls it).
+- Placement ASCII + `[START_DEBUG]` logs gated behind `DEV.ENABLED`.
+- Added placement gating regression coverage in `packages/mapgen-core/test/pipeline/placement-gating.test.ts`.
