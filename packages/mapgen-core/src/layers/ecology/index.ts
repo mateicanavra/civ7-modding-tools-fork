@@ -2,8 +2,7 @@ import type { ExtendedMapContext } from "../../core/types.js";
 import { syncHeightfield } from "../../core/types.js";
 import { DEV, logBiomeSummary } from "../../dev/index.js";
 import type { StepRegistry } from "../../pipeline/index.js";
-import { createBiomesStep } from "./BiomesStep.js";
-import { createFeaturesStep } from "./FeaturesStep.js";
+import { createBiomesStep, createFeaturesStep } from "./steps/index.js";
 
 export interface EcologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };

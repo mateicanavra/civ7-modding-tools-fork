@@ -1,6 +1,6 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
-import { addRuggedCoasts } from "./coastlines.js";
+import type { ExtendedMapContext } from "../../../core/types.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../../pipeline/index.js";
+import { addRuggedCoasts } from "../coastlines.js";
 
 export interface RuggedCoastsStepOptions {
   requires: readonly string[];
@@ -23,4 +23,3 @@ export function createRuggedCoastsStep(
     },
   };
 }
-

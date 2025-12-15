@@ -1,6 +1,6 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { runPlacement, type PlacementOptions } from "./placement.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
+import type { ExtendedMapContext } from "../../../core/types.js";
+import { runPlacement, type PlacementOptions } from "../placement.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../../pipeline/index.js";
 
 export interface LegacyPlacementStepOptions {
   requires: readonly string[];

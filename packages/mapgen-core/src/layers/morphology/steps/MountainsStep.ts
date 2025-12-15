@@ -1,9 +1,9 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { assertFoundationContext } from "../../core/assertions.js";
-import { DEV, devLogIf, logMountainSummary, logReliefAscii } from "../../dev/index.js";
-import type { MountainsConfig } from "../../bootstrap/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
-import { layerAddMountainsPhysics } from "./mountains.js";
+import type { ExtendedMapContext } from "../../../core/types.js";
+import { assertFoundationContext } from "../../../core/assertions.js";
+import { DEV, devLogIf, logMountainSummary, logReliefAscii } from "../../../dev/index.js";
+import type { MountainsConfig } from "../../../bootstrap/types.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../../pipeline/index.js";
+import { layerAddMountainsPhysics } from "../mountains.js";
 
 export interface MountainsStepRuntime {
   logPrefix: string;
@@ -50,4 +50,3 @@ export function createMountainsStep(
     },
   };
 }
-

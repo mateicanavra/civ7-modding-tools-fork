@@ -1,5 +1,5 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
+import type { ExtendedMapContext } from "../../../core/types.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../../pipeline/index.js";
 
 export interface FoundationStepRuntime {
   runFoundation: (context: ExtendedMapContext) => void;
@@ -26,4 +26,3 @@ export function createFoundationStep(
     },
   };
 }
-

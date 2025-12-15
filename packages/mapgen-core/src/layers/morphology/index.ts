@@ -1,12 +1,14 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import type { ContinentBounds, LandmassConfig, MountainsConfig, VolcanoesConfig } from "../../bootstrap/types.js";
 import type { StepRegistry } from "../../pipeline/index.js";
-import { createCoastlinesStep } from "./CoastlinesStep.js";
-import { createIslandsStep } from "./IslandsStep.js";
-import { createLandmassPlatesStep } from "./LandmassStep.js";
-import { createMountainsStep } from "./MountainsStep.js";
-import { createRuggedCoastsStep } from "./RuggedCoastsStep.js";
-import { createVolcanoesStep } from "./VolcanoesStep.js";
+import {
+  createCoastlinesStep,
+  createIslandsStep,
+  createLandmassPlatesStep,
+  createMountainsStep,
+  createRuggedCoastsStep,
+  createVolcanoesStep,
+} from "./steps/index.js";
 
 export interface MorphologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
