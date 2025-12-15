@@ -1,0 +1,38 @@
+import type { ExtendedMapContext } from "../core/types.js";
+import { runPlacement, type PlacementOptions } from "../layers/placement.js";
+import type { MapGenStep } from "../pipeline/types.js";
+
+export interface LegacyPlacementStepOptions {
+  requires: readonly string[];
+  provides: readonly string[];
+  placementOptions: Omit<PlacementOptions, "placementConfig">;
+  shouldRun?: () => boolean;
+  beforeRun?: (context: ExtendedMapContext) => void;
+  afterRun?: (context: ExtendedMapContext, startPositions: number[]) => void;
+}
+
+export function createLegacyPlacementStep(
+  options: LegacyPlacementStepOptions
+): MapGenStep<ExtendedMapContext> {
+  return {
+    id: "placement",
+    phase: "placement",
+    requires: options.requires,
+    provides: options.provides,
+    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
+    run: (context) => {
+      options.beforeRun?.(context);
+
+      const placementConfig = context.config.foundation?.placement ?? {};
+      const { width, height } = context.dimensions;
+
+      const startPositions = runPlacement(context.adapter, width, height, {
+        ...options.placementOptions,
+        placementConfig,
+      });
+
+      options.afterRun?.(context, startPositions);
+    },
+  };
+}
+

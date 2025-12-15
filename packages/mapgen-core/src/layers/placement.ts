@@ -46,8 +46,6 @@ import type {
   StartsConfig,
 } from "../bootstrap/types.js";
 
-import { getTunables } from "../bootstrap/tunables.js";
-
 // Terrain type constants - imported from shared module
 // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
 import {
@@ -84,6 +82,8 @@ export interface PlacementOptions {
   floodplains?: FloodplainsConfig;
   /** Start placement inputs */
   starts?: StartsConfig;
+  /** Placement tuning snapshot (prefer config-derived source, not tunables). */
+  placementConfig?: PlacementConfig;
 }
 
 // ============================================================================
@@ -102,22 +102,6 @@ function resolveNaturalWonderCount(mapInfo: MapInfo | undefined, wondersPlusOne:
     return Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders);
   }
   return mapInfo.NumNaturalWonders;
-}
-
-/**
- * Get placement config from tunables, if available.
- */
-function getPlacementConfig(): PlacementConfig {
-  try {
-    const tunables = getTunables();
-    const foundationCfg = tunables.FOUNDATION_CFG;
-    if (foundationCfg && typeof foundationCfg === "object" && "placement" in foundationCfg) {
-      return (foundationCfg as { placement?: PlacementConfig }).placement || {};
-    }
-  } catch {
-    // Tunables not available
-  }
-  return {};
 }
 
 function logTerrainStats(
@@ -197,7 +181,7 @@ export function runPlacement(
   logTerrainStats(adapter, iWidth, iHeight, "Initial");
 
   const { mapInfo, wondersPlusOne, floodplains, starts } = options;
-  const placementCfg = getPlacementConfig();
+  const placementCfg = options.placementConfig ?? {};
   const startPositions: number[] = [];
 
   // =========================================================================

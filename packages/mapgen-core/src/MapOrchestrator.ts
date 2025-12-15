@@ -108,7 +108,11 @@ import { applyClimateBaseline, refineClimateEarthlike } from "./layers/climate-e
 import { designateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures } from "./layers/features.js";
 import { runPlacement } from "./layers/placement.js";
-import { createLegacyBiomesStep, createLegacyFeaturesStep } from "./steps/index.js";
+import {
+  createLegacyBiomesStep,
+  createLegacyFeaturesStep,
+  createLegacyPlacementStep,
+} from "./steps/index.js";
 
 // Dev diagnostics
 import {
@@ -1085,6 +1089,7 @@ export class MapOrchestrator {
             startSectorCols: iStartSectorCols,
             startSectors,
           },
+          placementConfig: ctx.config.foundation?.placement ?? {},
         });
         startPositions.push(...positions);
       });
@@ -1649,16 +1654,11 @@ export class MapOrchestrator {
       })
     );
 
-    registry.register({
-      id: "placement",
-      phase: M3_STANDARD_STAGE_PHASE.placement,
-      ...getStageDescriptor("placement"),
-      shouldRun: () => stageFlags.placement,
-      run: () => {
-        // Store water data before placement
-        this.orchestratorAdapter.storeWaterData();
-
-        const positions = runPlacement(ctx.adapter, iWidth, iHeight, {
+    registry.register(
+      createLegacyPlacementStep({
+        ...getStageDescriptor("placement"),
+        shouldRun: () => stageFlags.placement,
+        placementOptions: {
           mapInfo: mapInfo as { NumNaturalWonders?: number },
           wondersPlusOne: true,
           floodplains: { minLength: 4, maxLength: 10 },
@@ -1671,10 +1671,16 @@ export class MapOrchestrator {
             startSectorCols: iStartSectorCols,
             startSectors,
           },
-        });
-        startPositions.push(...positions);
-      },
-    });
+        },
+        beforeRun: () => {
+          // Store water data before placement
+          this.orchestratorAdapter.storeWaterData();
+        },
+        afterRun: (_ctx, positions) => {
+          startPositions.push(...positions);
+        },
+      })
+    );
 
     const executor = new PipelineExecutor(registry, { logPrefix: `${prefix} [TaskGraph]` });
     const recipe = registry.getStandardRecipe(stageManifest);
