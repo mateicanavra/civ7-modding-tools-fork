@@ -811,11 +811,16 @@ export function storyTagStrategicCorridors(ctx: ExtendedMapContext, stage: Corri
   }
 
   const tags = getStoryTags();
+  const seaLane = Array.from(tags.corridorSeaLane);
+  const islandHop = Array.from(tags.corridorIslandHop);
+  const landOpen = Array.from(tags.corridorLandOpen);
+  const riverChain = Array.from(tags.corridorRiverChain);
+
   const all = new Set<string>();
-  for (const k of tags.corridorSeaLane) all.add(k);
-  for (const k of tags.corridorIslandHop) all.add(k);
-  for (const k of tags.corridorLandOpen) all.add(k);
-  for (const k of tags.corridorRiverChain) all.add(k);
+  for (const k of seaLane) all.add(k);
+  for (const k of islandHop) all.add(k);
+  for (const k of landOpen) all.add(k);
+  for (const k of riverChain) all.add(k);
 
   const { width, height } = ctx.dimensions;
   return publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.CORRIDORS, {
@@ -826,12 +831,18 @@ export function storyTagStrategicCorridors(ctx: ExtendedMapContext, stage: Corri
     active: Array.from(all),
     summary: {
       stage,
-      seaLaneTiles: tags.corridorSeaLane.size,
-      islandHopTiles: tags.corridorIslandHop.size,
-      landOpenTiles: tags.corridorLandOpen.size,
-      riverChainTiles: tags.corridorRiverChain.size,
+      seaLane,
+      islandHop,
+      landOpen,
+      riverChain,
+      kindByTile: Object.fromEntries(tags.corridorKind),
+      styleByTile: Object.fromEntries(tags.corridorStyle),
+      attributesByTile: Object.fromEntries(tags.corridorAttributes),
+      seaLaneTiles: seaLane.length,
+      islandHopTiles: islandHop.length,
+      landOpenTiles: landOpen.length,
+      riverChainTiles: riverChain.length,
       totalTiles: all.size,
     },
   });
 }
-

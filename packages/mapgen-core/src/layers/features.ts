@@ -16,7 +16,6 @@
  */
 
 import type { ExtendedMapContext } from "../core/types.js";
-import type { EngineAdapter } from "@civ7/adapter";
 import { ctxRandom } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
 import { getTunables } from "../bootstrap/tunables.js";
@@ -79,6 +78,14 @@ export function addDiverseFeatures(
 
   const StoryTags = getStoryTags();
 
+  const climateField = getPublishedClimateField(ctx);
+  if (!climateField?.rainfall) {
+    throw new Error(
+      "addDiverseFeatures: Missing artifact:climateField rainfall field."
+    );
+  }
+  const rainfallField = climateField.rainfall;
+
   // Feature indices from the adapter
   const reefIndex = adapter.getFeatureTypeIndex("FEATURE_REEF");
   const rainforestIdx = adapter.getFeatureTypeIndex("FEATURE_RAINFOREST");
@@ -98,12 +105,6 @@ export function addDiverseFeatures(
     }
     return adapter.getRandomNumber(max, label);
   };
-
-  const climateField = getPublishedClimateField(ctx);
-  if (!climateField?.rainfall) {
-    throw new Error("addDiverseFeatures: Missing artifact:climateField rainfall field.");
-  }
-  const rainfallField = climateField.rainfall;
 
   const paradiseReefChance = featuresCfg?.paradiseReefChance ?? 18;
 

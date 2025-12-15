@@ -270,3 +270,96 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 - **Required:** Fix paleo’s MapContext path by removing `syncClimateField()` usage and ensure the ctx-path unit test remains valid.
 - **Required:** Tighten `M3_STAGE_DEPENDENCY_SPINE` for story corridor stages to reflect river/climate dependencies (so executor fail-fast is meaningful).
 - **Nice-to-have:** Add a gating regression test: enable `storyCorridorsPost` while disabling `rivers`/`climateBaseline` and assert a `MissingDependencyError`.
+
+---
+
+## CIV-44 – Biomes & Features Step Wrapper (Consume Canonical Artifacts)
+
+**Reviewed:** 2025-12-14 | **PR:** [#89](https://github.com/mateicanavra/civ7-modding-tools-fork/pull/89)
+
+### Effort Estimate
+
+**Complexity:** Medium (3/4) — crosses the ecology cluster + “canonical artifacts” boundary; easy to get contracts correct but behavior subtly wrong.
+**Parallelism:** Medium-High (3/4) — can be reviewed in isolation, but correctness depends on upstream artifact semantics (CIV-42/43).
+**Score:** 6/16 — moderate review scope; a few key touchpoints drive most risk.
+
+---
+
+### Quick Take
+
+**No:** Biomes/features do run as Task Graph steps, but they do **not** meaningfully “consume canonical artifacts” yet. The implementations still read rainfall and river adjacency via the engine adapter and consume narrative signals via the `StoryTags` singleton, while their declared `requires`/`provides` contracts do not reflect those dependencies. This misses several acceptance criteria that were central to Phase B.
+
+---
+
+### Intent & Assumptions
+
+- Wrap biomes + features as `MapGenStep`s executed via `PipelineExecutor` (wrap-first; no algorithm retuning).
+- Migrate rainfall/moisture reads to canonical `ClimateField` (vs adapter/engine reads).
+- Consume narrative signals via canonical story overlays (`artifact:storyOverlays`), with any `StoryTags` usage strictly derived from overlays (DEF-002).
+- Fail fast if dependencies are missing and keep `requires`/`provides` accurate for downstream placement (CIV-45).
+
+---
+
+### What’s Strong
+
+- **Step boundary exists:** `MapOrchestrator` registers `biomes` and `features` as Task Graph steps and executes them via `PipelineExecutor` (`packages/mapgen-core/src/MapOrchestrator.ts`).
+- **Canonical tag vocabulary is present:** `M3_DEPENDENCY_TAGS` includes the needed nouns (`artifact:climateField`, `artifact:storyOverlays`, `artifact:riverAdjacency`, `field:*`, `state:*`) even if not fully used yet (`packages/mapgen-core/src/pipeline/tags.ts`).
+- **Wrap-first preserved:** The biomes/features algorithms appear unchanged in this milestone end state (no recent edits in `packages/mapgen-core/src/layers/biomes.ts` / `packages/mapgen-core/src/layers/features.ts`).
+
+---
+
+### High-Leverage Issues
+
+1. **Canonical ClimateField consumption is “best-effort”, not contract-enforced**
+   - Biomes/features *do* prefer reading rainfall from `ctx.buffers.climate` when upstream stages are enabled (local `readRainfall()` helpers), but they still fall back to adapter reads when buffers are missing or mismatched (`packages/mapgen-core/src/layers/biomes.ts:131`, `packages/mapgen-core/src/layers/features.ts:51`).
+   - The step contracts don’t declare (or verify) `field:rainfall` or a concrete “ClimateField is populated” invariant, so the executor can’t fail-fast on “buffer missing” and will silently degrade to engine reads.
+   - **Why it matters:** This keeps the system runnable, but it weakens the milestone’s “artifact-first” composability story and increases the risk that CIV-47’s adapter collapse becomes behaviorally sensitive.
+
+2. **Narrative consumption is still via `StoryTags`, not overlays, and not strictly derived**
+   - Biomes/features consume `getStoryTags()` (`packages/mapgen-core/src/layers/biomes.ts`, `packages/mapgen-core/src/layers/features.ts`).
+   - Overlays currently cover a subset (`margins`, `corridors`) and include global fallback behavior (DEF-003), while `StoryTags` remain a mutable parallel source in multiple story passes (`packages/mapgen-core/src/story/overlays.ts`, `packages/mapgen-core/src/story/tags.ts`, `packages/mapgen-core/src/story/tagging.ts`).
+   - **Why it matters:** Consumers can silently depend on global ordering/state; it weakens the “artifact:storyOverlays” contract and makes fail-fast gating less meaningful.
+
+3. **Declared `requires`/`provides` don’t match actual dependencies (and `artifact:riverAdjacency` is stranded)**
+   - Default stage contracts come from `M3_STAGE_DEPENDENCY_SPINE` and currently declare:
+     - `biomes.requires = [artifact:climateField]` and
+     - `features.requires = [state:engine.biomesApplied]`
+     (`packages/mapgen-core/src/pipeline/standard.ts` via `packages/mapgen-core/src/bootstrap/resolved.ts`).
+   - But the implementations also depend on narrative tags and river adjacency (and on heightfield/climate buffers when present). In code, river adjacency is read from a scratch mask key (`riverAdjacency`) with an adapter fallback, which is *not* represented as `artifact:riverAdjacency` in the pipeline contracts (`packages/mapgen-core/src/layers/biomes.ts:167`, `packages/mapgen-core/src/pipeline/tags.ts`).
+   - **Why it matters:** The executor can’t fail fast on missing dependencies if they aren’t declared; downstream steps can run with subtly wrong inputs.
+   - **Why it matters:** The executor can’t fail fast on missing dependencies if they aren’t declared; downstream steps can run with subtly wrong inputs.
+
+4. **Testing doesn’t cover the acceptance criteria**
+   - There’s no test that asserts biomes/features fail fast when `artifact:climateField` / `artifact:storyOverlays` are missing, or that the outputs match the legacy orchestrator path (wrap-first parity).
+   - Existing tests touch signatures and stage-manifest wiring, not dataflow correctness (`packages/mapgen-core/test/layers/callsite-fixes.test.ts`, `packages/mapgen-core/test/bootstrap/resolved.test.ts`).
+
+---
+
+### Fit Within the Milestone
+
+Phase B’s stated goal is “canonical artifacts real for consumers.” CIV-44 currently lands the step boundary, but it does not complete the artifact-consumption cutover. This effectively pushes the hard part of CIV-44 forward into later stacks (especially CIV-46/47), increasing coupling and the risk that adapter collapse becomes a behavioral change instead of a mechanical boundary move.
+
+---
+
+### Recommended Next Moves
+
+- **Required (to meet CIV-44’s AC):** Make the existing “prefer context buffers” paths contract-enforced (and/or eliminate adapter fallbacks in modernized paths) so rainfall/elevation reads are truly artifact-first and fail-fast when required artifacts are absent.
+- **Required (to meet CIV-44’s AC):** Update the declared step contracts for `biomes`/`features` (spine and/or manifest overrides) so `requires` matches reality (`artifact:storyOverlays`, `artifact:riverAdjacency`, `artifact:heightfield` / relevant `field:*`).
+- **Follow-up (DEF-002/003 correctness):** Enforce “StoryTags derived from overlays” (or explicitly document remaining exceptions) so biomes/features can stop depending on global mutable state.
+- **Nice-to-have:** Add a focused gating + parity test: run legacy vs TaskGraph for the ecology stages under a fixed seed/config and assert stable “done” contracts + basic invariants.
+
+---
+
+### Post-review Update (2025-12-15)
+
+The core gaps called out above are now addressed in the branch end state:
+
+- **Artifact consumption is strict:** `designateEnhancedBiomes()` and `addDiverseFeatures()` now require canonical artifacts (not engine reads) and throw if missing (`packages/mapgen-core/src/layers/biomes.ts`, `packages/mapgen-core/src/layers/features.ts`).
+- **Contracts match reality:** `M3_STAGE_DEPENDENCY_SPINE` declares `biomes`/`features` dependencies on `artifact:climateField`, `artifact:storyOverlays`, `artifact:heightfield` (and `artifact:riverAdjacency` for biomes), so `PipelineExecutor` gating is meaningful (`packages/mapgen-core/src/pipeline/standard.ts`).
+- **StoryTags is hydrated from overlays at the step boundary:** wrappers derive the legacy `StoryTags` view from overlays before running the layer logic (margins/rifts/corridors), aligning with DEF-002 intent (`packages/mapgen-core/src/steps/LegacyBiomesStep.ts`, `packages/mapgen-core/src/steps/LegacyFeaturesStep.ts`).
+
+**Verification:** `pnpm -C packages/mapgen-core check` and `pnpm test:mapgen` pass on this branch.
+
+**Remaining follow-ups:**
+- **Hotspot tag derivation:** `features` references `StoryTags.hotspotParadise` / `hotspotVolcanic`, but there’s no corresponding overlay hydration; clarify whether these are expected to be produced/consumed in M3 or should be removed/retired.
+- **Coverage:** No focused test asserts ecology-stage gating (e.g., `biomes` enabled without `climateBaseline` yields a `MissingDependencyError`) or wrap-first parity; add a small regression test if this remains a recurring failure mode in later stacks.
