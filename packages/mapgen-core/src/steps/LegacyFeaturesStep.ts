@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "../core/types.js";
-import { addDiverseFeatures } from "../layers/features.js";
+import { addDiverseFeatures } from "../layers/ecology/features.js";
 import type { MapGenStep } from "../pipeline/types.js";
 import { getStoryOverlay, STORY_OVERLAY_KEYS, hydrateMarginsStoryTags } from "../story/index.js";
 import { getStoryTags } from "../story/tags.js";

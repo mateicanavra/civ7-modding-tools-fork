@@ -69,6 +69,7 @@ import {
   createFoundationContext,
   syncHeightfield,
 } from "./core/types.js";
+import { assertFoundationContext } from "./core/assertions.js";
 import {
   addPlotTagsSimple,
   markLandmassRegionId,
@@ -98,10 +99,10 @@ import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/in
 import {
   PipelineExecutor,
   StepRegistry,
-  M3_STANDARD_STAGE_PHASE,
   MissingDependencyError,
   UnsatisfiedProvidesError,
 } from "./pipeline/index.js";
+import { registerStandardLibrary } from "./layers/standard-library.js";
 import {
   computeRiverAdjacencyMask,
   publishClimateFieldArtifact,
@@ -109,26 +110,21 @@ import {
   publishRiverAdjacencyArtifact,
 } from "./pipeline/artifacts.js";
 
-// Layer imports
-import { createPlateDrivenLandmasses } from "./layers/landmass-plate.js";
+// Layer imports (legacy execution path)
+import { createPlateDrivenLandmasses } from "./layers/morphology/landmass-plate.js";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,
   type LandmassWindow,
-} from "./layers/landmass-utils.js";
-import { addRuggedCoasts } from "./layers/coastlines.js";
-import { addIslandChains } from "./layers/islands.js";
-import { layerAddMountainsPhysics } from "./layers/mountains.js";
-import { layerAddVolcanoesPlateAware } from "./layers/volcanoes.js";
-import { applyClimateBaseline, refineClimateEarthlike } from "./layers/climate-engine.js";
-import { designateEnhancedBiomes } from "./layers/biomes.js";
-import { addDiverseFeatures } from "./layers/features.js";
-import { runPlacement } from "./layers/placement.js";
-import {
-  createLegacyBiomesStep,
-  createLegacyFeaturesStep,
-  createLegacyPlacementStep,
-} from "./steps/index.js";
+} from "./layers/morphology/landmass-utils.js";
+import { addRuggedCoasts } from "./layers/morphology/coastlines.js";
+import { addIslandChains } from "./layers/morphology/islands.js";
+import { layerAddMountainsPhysics } from "./layers/morphology/mountains.js";
+import { layerAddVolcanoesPlateAware } from "./layers/morphology/volcanoes.js";
+import { applyClimateBaseline, refineClimateEarthlike } from "./layers/hydrology/climate.js";
+import { designateEnhancedBiomes } from "./layers/ecology/biomes.js";
+import { addDiverseFeatures } from "./layers/ecology/features.js";
+import { runPlacement } from "./layers/placement/placement.js";
 
 // Dev diagnostics
 import {
@@ -213,32 +209,6 @@ export interface GenerationResult {
   stageResults: StageResult[];
   startPositions: number[];
 }
-
-/**
- * Asserts that foundation context is available.
- * Throws an error if foundation is missing - this surfaces manifest/wiring issues
- * rather than silently degrading to fallback behavior.
- */
-function assertFoundationContext(
-  ctx: ExtendedMapContext | null,
-  stageName: string
-): asserts ctx is ExtendedMapContext & {
-  foundation: NonNullable<ExtendedMapContext["foundation"]>;
-} {
-  if (!ctx) {
-    throw new Error(`Stage "${stageName}" requires ExtendedMapContext but ctx is null`);
-  }
-  if (!ctx.foundation) {
-    throw new Error(
-      `Stage "${stageName}" requires FoundationContext but ctx.foundation is null. ` +
-        `Ensure the "foundation" stage is enabled and runs before "${stageName}".`
-    );
-  }
-}
-
-// ============================================================================
-// MapOrchestrator Class
-// ============================================================================
 
 /**
  * Central orchestrator for the map generation pipeline.
@@ -1106,8 +1076,8 @@ export class MapOrchestrator {
     console.log(`${prefix} Start sectors chosen successfully`);
 
     // Mutable landmass bounds used by placement (wrap-first state)
-    let westContinent = this.createDefaultContinentBounds(iWidth, iHeight, "west");
-    let eastContinent = this.createDefaultContinentBounds(iWidth, iHeight, "east");
+    const westContinent = this.createDefaultContinentBounds(iWidth, iHeight, "west");
+    const eastContinent = this.createDefaultContinentBounds(iWidth, iHeight, "east");
 
     const registry = new StepRegistry<ExtendedMapContext>();
     const stageManifest = config.stageManifest ?? { order: [], stages: {} };
@@ -1121,422 +1091,27 @@ export class MapOrchestrator {
       return { requires, provides };
     };
 
-    // Register wrap-first stage steps (stage id -> step id is 1:1 in M3).
-    registry.register({
-      id: "foundation",
-      phase: M3_STANDARD_STAGE_PHASE.foundation,
-      ...getStageDescriptor("foundation"),
-      shouldRun: () => stageFlags.foundation,
-      run: () => {
-        this.initializeFoundation(ctx!);
+    registerStandardLibrary(registry, config, {
+      getStageDescriptor,
+      stageFlags,
+      logPrefix: prefix,
+      runFoundation: (context) => {
+        this.initializeFoundation(context);
       },
+      landmassCfg: landmassCfg as LandmassConfig,
+      mountainOptions,
+      volcanoOptions,
+      mapInfo,
+      playersLandmass1: iNumPlayers1,
+      playersLandmass2: iNumPlayers2,
+      startSectorRows: iStartSectorRows,
+      startSectorCols: iStartSectorCols,
+      startSectors,
+      westContinent,
+      eastContinent,
+      placementStartsOverrides: ctx!.config.placement?.starts as Partial<StartsConfig> | undefined,
+      startPositions,
     });
-
-    registry.register({
-      id: "landmassPlates",
-      phase: M3_STANDARD_STAGE_PHASE.landmassPlates,
-      ...getStageDescriptor("landmassPlates"),
-      shouldRun: () => stageFlags.landmassPlates,
-      run: () => {
-        assertFoundationContext(ctx, "landmassPlates");
-
-        const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
-          landmassCfg: landmassCfg as LandmassConfig,
-          geometry: landmassCfg.geometry,
-        });
-
-        if (!plateResult?.windows?.length) {
-          throw new Error("Plate-driven landmass generation failed (no windows)");
-        }
-
-        let windows = plateResult.windows.slice();
-
-        // Apply ocean separation
-        const separationResult = applyPlateAwareOceanSeparation({
-          width: iWidth,
-          height: iHeight,
-          windows,
-          landMask: plateResult.landMask,
-          context: ctx,
-          adapter: ctx.adapter,
-          crustMode: landmassCfg.crustMode,
-        });
-        windows = separationResult.windows;
-
-        // Apply post-adjustments
-        windows = applyLandmassPostAdjustments(windows, landmassCfg.geometry, iWidth, iHeight);
-
-        // Minimal smoke warning: plate-driven landmass should yield at least two windows.
-        if (DEV.ENABLED && windows.length < 2) {
-          devWarn(
-            `[smoke] landmassPlates produced ${windows.length} window(s); expected >= 2 for west/east continents.`
-          );
-        }
-
-        // Update continent bounds from windows
-        if (windows.length >= 2) {
-          const first = windows[0];
-          const last = windows[windows.length - 1];
-          if (first && last) {
-            Object.assign(westContinent, this.windowToContinentBounds(first, 0));
-            Object.assign(eastContinent, this.windowToContinentBounds(last, 1));
-          }
-        }
-
-        // Mark LandmassRegionId EARLY - this MUST happen before validateAndFixTerrain.
-        const westMarked = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
-        const eastMarked = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
-        console.log(
-          `[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`
-        );
-
-        // Validate and stamp continents
-        ctx.adapter.validateAndFixTerrain();
-        ctx.adapter.recalculateAreas();
-        ctx.adapter.stampContinents();
-
-        // Apply plot tags
-        const terrainBuilder: TerrainBuilderLike = {
-          setPlotTag: (x, y, tag) => ctx.adapter.setPlotTag(x, y, tag),
-          addPlotTag: (x, y, tag) => ctx.adapter.addPlotTag(x, y, tag),
-        };
-        addPlotTagsSimple(iHeight, iWidth, eastContinent.west, ctx.adapter, terrainBuilder);
-
-        // Dev: log landmass visualization
-        if (DEV.ENABLED && ctx?.adapter) {
-          logLandmassAscii(ctx.adapter, iWidth, iHeight);
-        }
-      },
-    });
-
-    registry.register({
-      id: "coastlines",
-      phase: M3_STANDARD_STAGE_PHASE.coastlines,
-      ...getStageDescriptor("coastlines"),
-      shouldRun: () => stageFlags.coastlines,
-      run: () => {
-        ctx.adapter.expandCoasts(iWidth, iHeight);
-      },
-    });
-
-    registry.register({
-      id: "storySeed",
-      phase: M3_STANDARD_STAGE_PHASE.storySeed,
-      ...getStageDescriptor("storySeed"),
-      shouldRun: () => stageFlags.storySeed,
-      run: () => {
-        resetStoryTags();
-        resetStoryOverlays();
-        resetOrogenyCache();
-        resetCorridorStyleCache();
-        console.log(`${prefix} Imprinting continental margins (active/passive)...`);
-        const margins = storyTagContinentalMargins(ctx);
-
-        if (DEV.ENABLED) {
-          const activeCount = margins.active?.length ?? 0;
-          const passiveCount = margins.passive?.length ?? 0;
-          if (activeCount + passiveCount === 0) {
-            devWarn("[smoke] storySeed enabled but margins overlay is empty");
-          }
-        }
-      },
-    });
-
-    registry.register({
-      id: "storyHotspots",
-      phase: M3_STANDARD_STAGE_PHASE.storyHotspots,
-      ...getStageDescriptor("storyHotspots"),
-      shouldRun: () => stageFlags.storyHotspots,
-      run: () => {
-        console.log(`${prefix} Imprinting hotspot trails...`);
-        const summary = storyTagHotspotTrails(ctx);
-
-        if (DEV.ENABLED && summary.points === 0) {
-          devWarn("[smoke] storyHotspots enabled but no hotspot points were emitted");
-        }
-      },
-    });
-
-    registry.register({
-      id: "storyRifts",
-      phase: M3_STANDARD_STAGE_PHASE.storyRifts,
-      ...getStageDescriptor("storyRifts"),
-      shouldRun: () => stageFlags.storyRifts,
-      run: () => {
-        console.log(`${prefix} Imprinting rift valleys...`);
-        const summary = storyTagRiftValleys(ctx);
-
-        if (DEV.ENABLED && summary.lineTiles === 0) {
-          devWarn("[smoke] storyRifts enabled but no rift tiles were emitted");
-        }
-      },
-    });
-
-    registry.register({
-      id: "ruggedCoasts",
-      phase: M3_STANDARD_STAGE_PHASE.ruggedCoasts,
-      ...getStageDescriptor("ruggedCoasts"),
-      shouldRun: () => stageFlags.ruggedCoasts,
-      run: () => {
-        addRuggedCoasts(iWidth, iHeight, ctx);
-      },
-    });
-
-    registry.register({
-      id: "storyOrogeny",
-      phase: M3_STANDARD_STAGE_PHASE.storyOrogeny,
-      ...getStageDescriptor("storyOrogeny"),
-      shouldRun: () => stageFlags.storyOrogeny,
-      run: () => {
-        storyTagOrogenyBelts(ctx);
-      },
-    });
-    registry.register({
-      id: "storyCorridorsPre",
-      phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPre,
-      ...getStageDescriptor("storyCorridorsPre"),
-      shouldRun: () => stageFlags.storyCorridorsPre,
-      run: () => {
-        storyTagStrategicCorridors(ctx, "preIslands");
-      },
-    });
-
-    registry.register({
-      id: "islands",
-      phase: M3_STANDARD_STAGE_PHASE.islands,
-      ...getStageDescriptor("islands"),
-      shouldRun: () => stageFlags.islands,
-      run: () => {
-        addIslandChains(iWidth, iHeight, ctx);
-      },
-    });
-
-    registry.register({
-      id: "mountains",
-      phase: M3_STANDARD_STAGE_PHASE.mountains,
-      ...getStageDescriptor("mountains"),
-      shouldRun: () => stageFlags.mountains,
-      run: () => {
-        assertFoundationContext(ctx, "mountains");
-
-        devLogIf(
-          "LOG_MOUNTAINS",
-          `${prefix} [Mountains] thresholds ` +
-            `mountain=${mountainOptions.mountainThreshold}, ` +
-            `hill=${mountainOptions.hillThreshold}, ` +
-            `tectonicIntensity=${mountainOptions.tectonicIntensity}, ` +
-            `boundaryWeight=${mountainOptions.boundaryWeight}, ` +
-            `boundaryExponent=${mountainOptions.boundaryExponent}, ` +
-            `interiorPenaltyWeight=${mountainOptions.interiorPenaltyWeight}`
-        );
-
-        layerAddMountainsPhysics(ctx, mountainOptions);
-
-        // Dev: log mountain summary and relief
-        if (DEV.ENABLED && ctx?.adapter) {
-          logMountainSummary(ctx.adapter, iWidth, iHeight);
-          logReliefAscii(ctx.adapter, iWidth, iHeight);
-        }
-      },
-    });
-
-    registry.register({
-      id: "volcanoes",
-      phase: M3_STANDARD_STAGE_PHASE.volcanoes,
-      ...getStageDescriptor("volcanoes"),
-      shouldRun: () => stageFlags.volcanoes,
-      run: () => {
-        assertFoundationContext(ctx, "volcanoes");
-
-        layerAddVolcanoesPlateAware(ctx, volcanoOptions);
-
-        // Dev: log volcano summary
-        if (DEV.ENABLED && ctx?.adapter) {
-          const volcanoId = ctx.adapter.getFeatureTypeIndex?.("FEATURE_VOLCANO") ?? -1;
-          logVolcanoSummary(ctx.adapter, iWidth, iHeight, volcanoId);
-        }
-      },
-    });
-
-    registry.register({
-      id: "lakes",
-      phase: M3_STANDARD_STAGE_PHASE.lakes,
-      ...getStageDescriptor("lakes"),
-      shouldRun: () => stageFlags.lakes,
-      run: () => {
-        const iTilesPerLake = Math.max(10, (mapInfo.LakeGenerationFrequency ?? 5) * 2);
-        ctx.adapter.generateLakes(iWidth, iHeight, iTilesPerLake);
-        syncHeightfield(ctx);
-        publishHeightfieldArtifact(ctx);
-      },
-    });
-
-    registry.register({
-      id: "climateBaseline",
-      phase: M3_STANDARD_STAGE_PHASE.climateBaseline,
-      ...getStageDescriptor("climateBaseline"),
-      shouldRun: () => stageFlags.climateBaseline,
-      run: () => {
-        // Mirror legacy: build elevation and refresh landmass regions before climate.
-        ctx.adapter.recalculateAreas();
-        ctx.adapter.buildElevation();
-
-        const westRestamped = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
-        const eastRestamped = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
-        ctx.adapter.recalculateAreas();
-        ctx.adapter.stampContinents();
-        console.log(
-          `[landmass-plate] LandmassRegionId refreshed post-terrain: ${westRestamped} west (ID=${LANDMASS_REGION.WEST}), ${eastRestamped} east (ID=${LANDMASS_REGION.EAST})`
-        );
-
-        assertFoundationContext(ctx, "climateBaseline");
-        syncHeightfield(ctx);
-        publishHeightfieldArtifact(ctx);
-        applyClimateBaseline(iWidth, iHeight, ctx);
-        publishClimateFieldArtifact(ctx);
-      },
-    });
-
-    registry.register({
-      id: "storySwatches",
-      phase: M3_STANDARD_STAGE_PHASE.storySwatches,
-      ...getStageDescriptor("storySwatches"),
-      shouldRun: () => stageFlags.storySwatches,
-      run: () => {
-        storyTagClimateSwatches(ctx, { orogenyCache: getOrogenyCache() });
-        publishClimateFieldArtifact(ctx);
-      },
-    });
-
-    registry.register({
-      id: "rivers",
-      phase: M3_STANDARD_STAGE_PHASE.rivers,
-      ...getStageDescriptor("rivers"),
-      shouldRun: () => stageFlags.rivers,
-      run: () => {
-        const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
-        const logStats = (label: string) => {
-          const w = iWidth;
-          const h = iHeight;
-          let flat = 0,
-            hill = 0,
-            mtn = 0,
-            water = 0;
-          for (let y = 0; y < h; y++) {
-            for (let x = 0; x < w; x++) {
-              if (ctx.adapter.isWater(x, y)) {
-                water++;
-                continue;
-              }
-              const t = ctx.adapter.getTerrainType(x, y);
-              if (t === MOUNTAIN_TERRAIN) mtn++;
-              else if (t === HILL_TERRAIN) hill++;
-              else flat++;
-            }
-          }
-          const total = w * h;
-          const land = Math.max(1, flat + hill + mtn);
-          console.log(
-            `[Rivers] ${label}: Land=${land} (${((land / total) * 100).toFixed(1)}%) ` +
-              `Mtn=${((mtn / land) * 100).toFixed(1)}% ` +
-              `Hill=${((hill / land) * 100).toFixed(1)}% ` +
-              `Flat=${((flat / land) * 100).toFixed(1)}%`
-          );
-        };
-
-        logStats("PRE-RIVERS");
-        ctx.adapter.modelRivers(5, 15, navigableRiverTerrain);
-        logStats("POST-MODELRIVERS");
-        ctx.adapter.validateAndFixTerrain();
-        logStats("POST-VALIDATE");
-        syncHeightfield(ctx);
-        publishHeightfieldArtifact(ctx);
-        ctx.adapter.defineNamedRivers();
-        if (stageFlags.storySwatches && ctx.config.toggles?.STORY_ENABLE_PALEO) {
-          storyTagClimatePaleo(ctx);
-          publishClimateFieldArtifact(ctx);
-        }
-
-        const riverAdjacency = computeRiverAdjacencyMask(ctx);
-        publishRiverAdjacencyArtifact(ctx, riverAdjacency);
-      },
-    });
-
-    registry.register({
-      id: "storyCorridorsPost",
-      phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPost,
-      ...getStageDescriptor("storyCorridorsPost"),
-      shouldRun: () => stageFlags.storyCorridorsPost,
-      run: () => {
-        storyTagStrategicCorridors(ctx, "postRivers");
-      },
-    });
-
-    registry.register({
-      id: "climateRefine",
-      phase: M3_STANDARD_STAGE_PHASE.climateRefine,
-      ...getStageDescriptor("climateRefine"),
-      shouldRun: () => stageFlags.climateRefine,
-      run: () => {
-        assertFoundationContext(ctx, "climateRefine");
-        refineClimateEarthlike(iWidth, iHeight, ctx);
-        publishClimateFieldArtifact(ctx);
-
-        if (DEV.ENABLED && ctx?.adapter) {
-          logRainfallStats(ctx.adapter, iWidth, iHeight, "post-climate");
-        }
-      },
-    });
-
-    registry.register(
-      createLegacyBiomesStep({
-        ...getStageDescriptor("biomes"),
-        shouldRun: () => stageFlags.biomes,
-        afterRun: () => {
-          if (DEV.ENABLED && ctx?.adapter) {
-            logBiomeSummary(ctx.adapter, iWidth, iHeight);
-          }
-        },
-      })
-    );
-
-    registry.register(
-      createLegacyFeaturesStep({
-        ...getStageDescriptor("features"),
-        shouldRun: () => stageFlags.features,
-        afterRun: () => {
-          ctx.adapter.validateAndFixTerrain();
-          syncHeightfield(ctx);
-          ctx.adapter.recalculateAreas();
-        },
-      })
-    );
-
-    registry.register(
-      createLegacyPlacementStep({
-        ...getStageDescriptor("placement"),
-        shouldRun: () => stageFlags.placement,
-        placementOptions: {
-          mapInfo: mapInfo as { NumNaturalWonders?: number },
-          starts: this.buildPlacementStartsConfig(
-            {
-              playersLandmass1: iNumPlayers1,
-              playersLandmass2: iNumPlayers2,
-              westContinent,
-              eastContinent,
-              startSectorRows: iStartSectorRows,
-              startSectorCols: iStartSectorCols,
-              startSectors,
-            },
-            ctx!.config.placement?.starts
-          ),
-        },
-        afterRun: (_ctx, positions) => {
-          startPositions.push(...positions);
-        },
-      })
-    );
-
     const executor = new PipelineExecutor(registry, { logPrefix: `${prefix} [TaskGraph]` });
     const recipe = registry.getStandardRecipe(stageManifest);
 

@@ -15,15 +15,15 @@
  * - O(width × height) with constant-time local checks.
  */
 
-import type { ExtendedMapContext } from "../core/types.js";
+import type { ExtendedMapContext } from "../../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
 import type {
   IslandsConfig as BootstrapIslandsConfig,
   HotspotTunables as BootstrapHotspotTunables,
   CorridorsConfig as BootstrapCorridorsConfig,
-} from "../bootstrap/types.js";
-import { ctxRandom, writeHeightfield } from "../core/types.js";
-import { getStoryTags } from "../story/tags.js";
+} from "../../bootstrap/types.js";
+import { ctxRandom, writeHeightfield } from "../../core/types.js";
+import { getStoryTags } from "../../story/tags.js";
 
 // ============================================================================
 // Types
@@ -42,7 +42,7 @@ export type CorridorsConfig = BootstrapCorridorsConfig;
 const HILL_FRACTAL = 1;
 
 // Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
-import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "../core/terrain-constants.js";
+import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "../../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions

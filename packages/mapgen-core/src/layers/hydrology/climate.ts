@@ -3,17 +3,17 @@
  * narrative overlays operate against a single shared module.
  */
 
-import { PerlinNoise } from "../lib/noise.js";
-import type { ExtendedMapContext } from "../core/types.js";
+import { PerlinNoise } from "../../lib/noise.js";
+import type { ExtendedMapContext } from "../../core/types.js";
 import type {
   ClimateConfig as BootstrapClimateConfig,
   FoundationDirectionalityConfig,
-} from "../bootstrap/types.js";
-import { ctxRandom, writeClimateField } from "../core/types.js";
-import type { FoundationContext } from "../core/types.js";
-import { getStoryTags } from "../story/tags.js";
-import { M3_DEPENDENCY_TAGS } from "../pipeline/tags.js";
-import { clamp, inBounds as boundsCheck } from "../core/index.js";
+} from "../../bootstrap/types.js";
+import { ctxRandom, writeClimateField } from "../../core/types.js";
+import type { FoundationContext } from "../../core/types.js";
+import { getStoryTags } from "../../story/tags.js";
+import { M3_DEPENDENCY_TAGS } from "../../pipeline/tags.js";
+import { clamp, inBounds as boundsCheck } from "../../core/index.js";
 
 // ============================================================================
 // Types

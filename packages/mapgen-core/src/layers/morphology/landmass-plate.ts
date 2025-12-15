@@ -7,19 +7,19 @@
  * longer controls land existence.
  */
 
-import type { ExtendedMapContext } from "../core/types.js";
+import type { ExtendedMapContext } from "../../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
 import type {
   LandmassConfig as BootstrapLandmassConfig,
   LandmassTectonicsConfig,
   LandmassGeometry,
   LandmassGeometryPost,
-} from "../bootstrap/types.js";
-import { ctxRandom, writeHeightfield } from "../core/types.js";
-import { buildPlateTopology, type PlateGraph } from "../lib/plates/topology.js";
-import { assignCrustTypes, CrustType } from "../lib/plates/crust.js";
-import { generateBaseHeightfield } from "../lib/heightfield/base.js";
-import { computeSeaLevel } from "../lib/heightfield/sea-level.js";
+} from "../../bootstrap/types.js";
+import { ctxRandom, writeHeightfield } from "../../core/types.js";
+import { buildPlateTopology, type PlateGraph } from "../../lib/plates/topology.js";
+import { assignCrustTypes, CrustType } from "../../lib/plates/crust.js";
+import { generateBaseHeightfield } from "../../lib/heightfield/base.js";
+import { computeSeaLevel } from "../../lib/heightfield/sea-level.js";
 import type { LandmassWindow } from "./landmass-utils.js";
 
 // ============================================================================
@@ -79,7 +79,7 @@ const MIN_CLOSENESS_LIMIT = 150;
 const MAX_CLOSENESS_LIMIT = 255;
 
 // Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
-import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../core/terrain-constants.js";
+import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../../core/terrain-constants.js";
 
 // ============================================================================
 // ============================================================================
