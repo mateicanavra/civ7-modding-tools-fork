@@ -9,7 +9,7 @@ We will execute this by creating 6 Domain Modules.
 **Responsible for the physical board (Mesh, Plates, Physics).**
 
 - [x] **Create Directory:** `packages/mapgen-core/src/layers/foundation/`
-- **Create Step:** `FoundationStep.ts` (Wraps `initializeFoundation` logic from Orchestrator)
+- [x] **Create Step:** `FoundationStep.ts` (Wraps `initializeFoundation` logic from Orchestrator)
 - [x] **Create Entry:** `index.ts` (Exports `registerFoundationLayer`)
 
 ## 2. Morphology Domain (`packages/mapgen-core/src/layers/morphology/`)
@@ -22,27 +22,28 @@ We will execute this by creating 6 Domain Modules.
 
 - [x] **Move:** `packages/mapgen-core/src/layers/landmass-plate.ts` → `packages/mapgen-core/src/layers/morphology/landmass-plate.ts`
 - [x] **Move:** `packages/mapgen-core/src/layers/landmass-utils.ts` → `packages/mapgen-core/src/layers/morphology/landmass-utils.ts`
-- **Create Step:** `LandmassStep.ts` (Wraps `createPlateDrivenLandmasses`)
+- [x] **Create Step:** `LandmassStep.ts` (Wraps `createPlateDrivenLandmasses`)
 
 ### Coastlines
 
 - [x] **Move:** `packages/mapgen-core/src/layers/coastlines.ts` → `packages/mapgen-core/src/layers/morphology/coastlines.ts`
-- **Create Step:** `CoastlinesStep.ts` (Wraps `addRuggedCoasts`)
+- [x] **Create Step:** `CoastlinesStep.ts` (Wraps `expandCoasts`)
+- [x] **Create Step:** `RuggedCoastsStep.ts` (Wraps `addRuggedCoasts`)
 
 ### Islands
 
 - [x] **Move:** `packages/mapgen-core/src/layers/islands.ts` → `packages/mapgen-core/src/layers/morphology/islands.ts`
-- **Create Step:** `IslandsStep.ts` (Wraps `addIslandChains`)
+- [x] **Create Step:** `IslandsStep.ts` (Wraps `addIslandChains`)
 
 ### Mountains
 
 - [x] **Move:** `packages/mapgen-core/src/layers/mountains.ts` → `packages/mapgen-core/src/layers/morphology/mountains.ts`
-- **Create Step:** `MountainsStep.ts` (Wraps `layerAddMountainsPhysics`)
+- [x] **Create Step:** `MountainsStep.ts` (Wraps `layerAddMountainsPhysics`)
 
 ### Volcanoes
 
 - [x] **Move:** `packages/mapgen-core/src/layers/volcanoes.ts` → `packages/mapgen-core/src/layers/morphology/volcanoes.ts`
-- **Create Step:** `VolcanoesStep.ts` (Wraps `layerAddVolcanoesPlateAware`)
+- [x] **Create Step:** `VolcanoesStep.ts` (Wraps `layerAddVolcanoesPlateAware`)
 
 ### Entry Point
 
@@ -57,16 +58,16 @@ We will execute this by creating 6 Domain Modules.
 ### Climate
 
 - [x] **Move:** `packages/mapgen-core/src/layers/climate-engine.ts` → `packages/mapgen-core/src/layers/hydrology/climate.ts`
-- **Create Step:** `ClimateBaselineStep.ts` (Wraps `applyClimateBaseline`)
-- **Create Step:** `ClimateRefineStep.ts` (Wraps `refineClimateEarthlike`)
+- [x] **Create Step:** `ClimateBaselineStep.ts` (Wraps `applyClimateBaseline`)
+- [x] **Create Step:** `ClimateRefineStep.ts` (Wraps `refineClimateEarthlike`)
 
 ### Rivers
 
-- **Create Step:** `RiversStep.ts` (Extracts inline logic from Orchestrator: `modelRivers` + stats + adjacency)
+- [x] **Create Step:** `RiversStep.ts` (Extracts inline logic from Orchestrator: `modelRivers` + stats + adjacency)
 
 ### Lakes
 
-- **Create Step:** `LakesStep.ts` (Extracts inline logic from Orchestrator: `generateLakes`)
+- [x] **Create Step:** `LakesStep.ts` (Extracts inline logic from Orchestrator: `generateLakes`)
 
 ### Entry Point
 
@@ -81,12 +82,12 @@ We will execute this by creating 6 Domain Modules.
 ### Biomes
 
 - [x] **Move:** `packages/mapgen-core/src/layers/biomes.ts` → `packages/mapgen-core/src/layers/ecology/biomes.ts`
-- **Create Step:** `BiomesStep.ts` (Wraps `designateEnhancedBiomes`)
+- [x] **Create Step:** `BiomesStep.ts` (Wraps `designateEnhancedBiomes`)
 
 ### Features
 
 - [x] **Move:** `packages/mapgen-core/src/layers/features.ts` → `packages/mapgen-core/src/layers/ecology/features.ts`
-- **Create Step:** `FeaturesStep.ts` (Wraps `addDiverseFeatures`)
+- [x] **Create Step:** `FeaturesStep.ts` (Wraps `addDiverseFeatures`)
 
 ### Entry Point
 
@@ -100,21 +101,21 @@ We will execute this by creating 6 Domain Modules.
 
 ### Move Logic
 
-- `src/story/tagging.ts` → `tagging.ts`
-- `src/story/orogeny.ts` → `orogeny.ts`
-- `src/story/corridors.ts` → `corridors.ts`
-- `src/story/swatches.ts` → `swatches.ts`
-- `src/story/overlays.ts` → `overlays.ts`
-- `src/story/tags.ts` → `tags.ts`
+- [x] `src/story/tagging.ts` → `tagging.ts`
+- [x] `src/story/orogeny.ts` → `orogeny.ts`
+- [x] `src/story/corridors.ts` → `corridors.ts`
+- [x] `src/story/swatches.ts` → `swatches.ts`
+- [x] `src/story/overlays.ts` → `overlays.ts`
+- [x] `src/story/tags.ts` → `tags.ts`
 
 ### Create Steps
 
-- `StorySeedStep.ts`
-- `StoryHotspotsStep.ts`
-- `StoryRiftsStep.ts`
-- `StoryOrogenyStep.ts`
-- `StoryCorridorsStep.ts` (Handles both Pre/Post phases)
-- `StorySwatchesStep.ts`
+- [x] `StorySeedStep.ts`
+- [x] `StoryHotspotsStep.ts`
+- [x] `StoryRiftsStep.ts`
+- [x] `StoryOrogenyStep.ts`
+- [x] `StoryCorridorsStep.ts` (Handles both Pre/Post phases)
+- [x] `StorySwatchesStep.ts`
 
 ### Entry Point
 
@@ -126,7 +127,7 @@ We will execute this by creating 6 Domain Modules.
 
 - [x] **Create Directory:** `packages/mapgen-core/src/layers/placement/`
 - [x] **Move:** `packages/mapgen-core/src/layers/placement.ts` → `packages/mapgen-core/src/layers/placement/placement.ts`
-- **Create Step:** `PlacementStep.ts` (Wraps `runPlacement`)
+- [x] **Create Step:** `PlacementStep.ts` (Wraps `runPlacement`)
 - [x] **Create Entry:** `index.ts` (Exports `registerPlacementLayer`)
 
 ## 7. The Standard Library (`packages/mapgen-core/src/layers/index.ts`)
