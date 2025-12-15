@@ -518,3 +518,10 @@ The core gaps called out above are now addressed in the branch end state:
 - **Follow-up:** Update docs/examples to match the new “stages disabled by default” posture and remove lingering tunables/runtime-store explanations that no longer apply.
 - **Follow-up:** Add unknown-stage warnings (or stricter types) for `stageConfig` to prevent silent misconfigurations.
 - **Nice-to-have:** Document (or encode) a canonical “standard recipe” stageConfig so `presets` + “recipe” reads as a coherent mental model.
+
+### Post-review update (2025-12-15)
+
+- **Docs/examples:** Updated `bootstrap()` and `MapOrchestrator` examples to include a minimal runnable `stageConfig` and clarified that M3 stages default to disabled.
+- **Misconfiguration guardrails:** Added a runtime warning for unknown `stageConfig` keys in `resolveStageManifest()` and exported `StageName`/`StageConfig` types for stricter callsite typing.
+- **In-repo callers:** Removed the stray `storyPaleo` key from Swooper map entry configs (paleo is a toggle, not a stage in M3) and fixed the bootstrap unit test to use `climateBaseline`.
+- **Deferred:** Preset vs recipe semantics (canonical “standard recipe”) remains a follow-up; avoid expanding CIV-46 scope further.
