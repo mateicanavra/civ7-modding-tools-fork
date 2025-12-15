@@ -5,6 +5,19 @@ import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js
 import { createMockAdapter } from "@civ7/adapter";
 
 describe("MapOrchestrator WorldModel config wiring", () => {
+  const mapInfo = {
+    GridWidth: 24,
+    GridHeight: 16,
+    MinLatitude: -80,
+    MaxLatitude: 80,
+    NumNaturalWonders: 0,
+    LakeGenerationFrequency: 0,
+    PlayersLandmass1: 4,
+    PlayersLandmass2: 4,
+    StartSectorRows: 4,
+    StartSectorCols: 4,
+  };
+
   let originalGameplayMap: unknown;
   let originalGameInfo: unknown;
   let originalConsoleLog: typeof console.log;
@@ -25,18 +38,7 @@ describe("MapOrchestrator WorldModel config wiring", () => {
 
     (globalThis as Record<string, unknown>).GameInfo = {
       Maps: {
-        lookup: () => ({
-          GridWidth: 24,
-          GridHeight: 16,
-          MinLatitude: -80,
-          MaxLatitude: 80,
-          NumNaturalWonders: 0,
-          LakeGenerationFrequency: 0,
-          PlayersLandmass1: 4,
-          PlayersLandmass2: 4,
-          StartSectorRows: 4,
-          StartSectorCols: 4,
-        }),
+        lookup: () => mapInfo,
       },
     };
   });
@@ -80,6 +82,8 @@ describe("MapOrchestrator WorldModel config wiring", () => {
     const adapter = createMockAdapter({
       width: 24,
       height: 16,
+      mapSizeId: 1,
+      mapInfo,
       rng: () => 0,
     });
 
@@ -122,6 +126,8 @@ describe("MapOrchestrator WorldModel config wiring", () => {
     const adapter = createMockAdapter({
       width: 24,
       height: 16,
+      mapSizeId: 1,
+      mapInfo,
       rng: () => 0,
     });
 

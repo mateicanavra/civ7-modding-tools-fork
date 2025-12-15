@@ -10,42 +10,17 @@
  * @module test/orchestrator/requestMapData
  */
 
-import { describe, it, expect, beforeEach, afterEach } from "bun:test";
+import { describe, it, expect } from "bun:test";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
 import { getDefaultConfig } from "../../src/config/index.js";
+import { createMockAdapter } from "@civ7/adapter/mock";
 
 describe("MapOrchestrator.requestMapData", () => {
-  // Capture SetMapInitData calls via engine.call spy
-  let capturedInitData: unknown[] = [];
-  let originalEngine: typeof globalThis.engine | undefined;
-
-  beforeEach(() => {
-    capturedInitData = [];
-
-    // Save original engine reference
-    originalEngine = (globalThis as unknown as { engine?: typeof globalThis.engine }).engine;
-
-    // Create spy for engine.call("SetMapInitData", params)
-    (globalThis as unknown as { engine: { call: (name: string, params: unknown) => void } }).engine =
-      {
-        call: (name: string, params: unknown) => {
-          if (name === "SetMapInitData") {
-            capturedInitData.push(params);
-          }
-        },
-      };
-  });
-
-  afterEach(() => {
-    // Restore original engine
-    if (originalEngine !== undefined) {
-      (globalThis as unknown as { engine: typeof originalEngine }).engine = originalEngine;
-    }
-  });
-
   describe("with mapSizeDefaults config", () => {
     it("should use dimensions from mapSizeDefaults.mapInfo", () => {
+      const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+        adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: {
@@ -59,13 +34,8 @@ describe("MapOrchestrator.requestMapData", () => {
 
       orchestrator.requestMapData();
 
-      expect(capturedInitData.length).toBe(1);
-      const params = capturedInitData[0] as {
-        width: number;
-        height: number;
-        topLatitude: number;
-        bottomLatitude: number;
-      };
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
 
       expect(params.width).toBe(104);
       expect(params.height).toBe(64);
@@ -74,7 +44,9 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should use standard fallbacks when mapInfo is null", () => {
+      const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+        adapter,
         mapSizeDefaults: {
           mapSizeId: -1,
           mapInfo: undefined,
@@ -83,13 +55,8 @@ describe("MapOrchestrator.requestMapData", () => {
 
       orchestrator.requestMapData();
 
-      expect(capturedInitData.length).toBe(1);
-      const params = capturedInitData[0] as {
-        width: number;
-        height: number;
-        topLatitude: number;
-        bottomLatitude: number;
-      };
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
 
       // Should fall back to MAPSIZE_STANDARD defaults
       expect(params.width).toBe(84);
@@ -99,7 +66,9 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should use partial mapInfo with fallbacks for missing fields", () => {
+      const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+        adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: {
@@ -111,13 +80,8 @@ describe("MapOrchestrator.requestMapData", () => {
 
       orchestrator.requestMapData();
 
-      expect(capturedInitData.length).toBe(1);
-      const params = capturedInitData[0] as {
-        width: number;
-        height: number;
-        topLatitude: number;
-        bottomLatitude: number;
-      };
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
 
       expect(params.width).toBe(120); // From mapInfo
       expect(params.height).toBe(54); // Fallback
@@ -128,7 +92,9 @@ describe("MapOrchestrator.requestMapData", () => {
 
   describe("with initParams overrides", () => {
     it("should allow explicit dimension overrides via initParams", () => {
+      const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+        adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: {
@@ -146,13 +112,8 @@ describe("MapOrchestrator.requestMapData", () => {
         height: 100,
       });
 
-      expect(capturedInitData.length).toBe(1);
-      const params = capturedInitData[0] as {
-        width: number;
-        height: number;
-        topLatitude: number;
-        bottomLatitude: number;
-      };
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
 
       expect(params.width).toBe(200); // Override
       expect(params.height).toBe(100); // Override
@@ -161,7 +122,9 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should allow explicit latitude overrides via initParams", () => {
+      const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+        adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: {
@@ -178,13 +141,8 @@ describe("MapOrchestrator.requestMapData", () => {
         bottomLatitude: -90,
       });
 
-      expect(capturedInitData.length).toBe(1);
-      const params = capturedInitData[0] as {
-        width: number;
-        height: number;
-        topLatitude: number;
-        bottomLatitude: number;
-      };
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
 
       expect(params.width).toBe(84); // From mapInfo
       expect(params.height).toBe(54); // From mapInfo
@@ -193,7 +151,9 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should allow wrapX/wrapY overrides via initParams", () => {
+      const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+        adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: { GridWidth: 84, GridHeight: 54 },
@@ -205,11 +165,8 @@ describe("MapOrchestrator.requestMapData", () => {
         wrapY: true,
       });
 
-      expect(capturedInitData.length).toBe(1);
-      const params = capturedInitData[0] as {
-        wrapX: boolean;
-        wrapY: boolean;
-      };
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
 
       expect(params.wrapX).toBe(false);
       expect(params.wrapY).toBe(true);
@@ -218,7 +175,9 @@ describe("MapOrchestrator.requestMapData", () => {
 
   describe("default wrapX/wrapY behavior", () => {
     it("should default to wrapX=true, wrapY=false", () => {
+      const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+        adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: { GridWidth: 84, GridHeight: 54 },
@@ -227,11 +186,8 @@ describe("MapOrchestrator.requestMapData", () => {
 
       orchestrator.requestMapData();
 
-      expect(capturedInitData.length).toBe(1);
-      const params = capturedInitData[0] as {
-        wrapX: boolean;
-        wrapY: boolean;
-      };
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
 
       expect(params.wrapX).toBe(true);
       expect(params.wrapY).toBe(false);
@@ -240,7 +196,9 @@ describe("MapOrchestrator.requestMapData", () => {
 
   describe("different map sizes", () => {
     it("should respect large map dimensions from mapInfo", () => {
+      const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+        adapter,
         mapSizeDefaults: {
           mapSizeId: 2, // Simulating MAPSIZE_LARGE
           mapInfo: {
@@ -254,12 +212,8 @@ describe("MapOrchestrator.requestMapData", () => {
 
       orchestrator.requestMapData();
 
-      const params = capturedInitData[0] as {
-        width: number;
-        height: number;
-        topLatitude: number;
-        bottomLatitude: number;
-      };
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
 
       expect(params.width).toBe(104);
       expect(params.height).toBe(64);
@@ -268,7 +222,9 @@ describe("MapOrchestrator.requestMapData", () => {
     });
 
     it("should respect small map dimensions from mapInfo", () => {
+      const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+        adapter,
         mapSizeDefaults: {
           mapSizeId: 0, // Simulating MAPSIZE_SMALL
           mapInfo: {
@@ -282,12 +238,8 @@ describe("MapOrchestrator.requestMapData", () => {
 
       orchestrator.requestMapData();
 
-      const params = capturedInitData[0] as {
-        width: number;
-        height: number;
-        topLatitude: number;
-        bottomLatitude: number;
-      };
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
 
       expect(params.width).toBe(74);
       expect(params.height).toBe(46);

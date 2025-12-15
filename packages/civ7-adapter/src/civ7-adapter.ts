@@ -7,7 +7,7 @@
 
 /// <reference types="@civ7/types" />
 
-import type { EngineAdapter, FeatureData } from "./types.js";
+import type { EngineAdapter, FeatureData, MapInfo, MapInitParams } from "./types.js";
 
 // Import from /base-standard/... — these are external Civ7 runtime paths
 // resolved by the game's module loader, not TypeScript
@@ -36,6 +36,9 @@ import { needHumanNearEquator as civ7NeedHumanNearEquator } from "/base-standard
 import { generateDiscoveries as civ7GenerateDiscoveries } from "/base-standard/maps/discovery-generator.js";
 // @ts-ignore - resolved only at Civ7 runtime
 import { assignAdvancedStartRegions as civ7AssignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-start-region.js";
+// Elevation terrain generator (lakes/coasts)
+// @ts-ignore - resolved only at Civ7 runtime
+import { generateLakes as civ7GenerateLakes, expandCoasts as civ7ExpandCoasts } from "/base-standard/maps/elevation-terrain-generator.js";
 
 /**
  * Production adapter wrapping GameplayMap, TerrainBuilder, AreaBuilder, FractalBuilder
@@ -47,6 +50,21 @@ export class Civ7Adapter implements EngineAdapter {
   constructor(width: number, height: number) {
     this.width = width;
     this.height = height;
+  }
+
+  // === MAP INIT / MAP INFO ===
+
+  getMapSizeId(): number {
+    // GameplayMap.getMapSize() is the canonical map-size selection id from game settings.
+    return GameplayMap.getMapSize() as unknown as number;
+  }
+
+  lookupMapInfo(mapSizeId: number): MapInfo | null {
+    return GameInfo?.Maps?.lookup ? (GameInfo.Maps.lookup(mapSizeId) as unknown as MapInfo) : null;
+  }
+
+  setMapInitData(params: MapInitParams): void {
+    engine.call("SetMapInitData", params);
   }
 
   // === TERRAIN READS ===
@@ -171,6 +189,14 @@ export class Civ7Adapter implements EngineAdapter {
 
   storeWaterData(): void {
     TerrainBuilder.storeWaterData();
+  }
+
+  generateLakes(width: number, height: number, tilesPerLake: number): void {
+    civ7GenerateLakes(width, height, tilesPerLake);
+  }
+
+  expandCoasts(width: number, height: number): void {
+    civ7ExpandCoasts(width, height);
   }
 
   // === BIOMES ===

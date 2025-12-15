@@ -11,6 +11,10 @@ import { mock } from "bun:test";
 // Mock /base-standard/ modules that Civ7Adapter imports
 // These are Civ7 runtime paths that don't exist in test environment
 mock.module("/base-standard/maps/map-globals.js", () => ({}));
+mock.module("/base-standard/maps/elevation-terrain-generator.js", () => ({
+  expandCoasts: () => {},
+  generateLakes: () => {},
+}));
 mock.module("/base-standard/maps/feature-biome-generator.js", () => ({
   designateBiomes: () => {},
   addFeatures: () => {},
