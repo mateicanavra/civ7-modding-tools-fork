@@ -107,7 +107,7 @@ These decisions are finalized and should not be revisited during implementation.
   - Domain orchestrators + public types (`domain/**` via subsystem `index.ts`)
   - Shared utilities (`lib/**` via `index.ts`)
 - Use package subpath exports + TS path aliases so both in-repo and external consumers can import stable entrypoints (and never need `../../..`).
-- Atomic leaf files remain *implementation detail* unless re-exported from a subsystem index (no "deep imports" required).
+- Atomic leaf files remain _implementation detail_ unless re-exported from a subsystem index (no "deep imports" required).
 
 ### 4.8 Story/Playability Steps (Core Impact + Deferred Plugin Plan)
 
@@ -175,15 +175,15 @@ packages/mapgen-core/src/
       ClimateRefineStep.ts
       RiversStep.ts
       LakesStep.ts
-	    ecology/
-	      index.ts
-	      BiomesStep.ts
-	      FeaturesStep.ts
-	    narrative/                  # OPTIONAL: story/playability bundle (disabled by default; extracted to plugin packages later)
-	      index.ts
-	      StorySeedStep.ts
-	      StoryHotspotsStep.ts
-	      StoryRiftsStep.ts
+    ecology/
+      index.ts
+      BiomesStep.ts
+      FeaturesStep.ts
+    narrative/                  # OPTIONAL: story/playability bundle (disabled by default; extracted to plugin packages later)
+      index.ts
+      StorySeedStep.ts
+      StoryHotspotsStep.ts
+      StoryRiftsStep.ts
       StoryOrogenyStep.ts
       StoryCorridorsStep.ts
       StorySwatchesStep.ts
@@ -394,12 +394,12 @@ packages/mapgen-core/src/
 
 ### Primary Risks
 
-| Risk | Impact | Likelihood |
-|------|--------|------------|
-| **Determinism drift** — Changing RNG label strings, call order, or introducing extra RNG calls | High | Medium |
-| **Neighborhood semantics drift** — Some modules use square 3×3, others hex odd-q; unifying can change behavior | Medium | Medium |
-| **Wrap semantics drift** — Some logic clamps bounds, some wraps X; standardizing can change coastlines/corridors | Medium | Low |
-| **API break** — Removing re-export facades breaks deep import paths | Low | High (intentional) |
+| Risk                                                                                                             | Impact | Likelihood         |
+| ---------------------------------------------------------------------------------------------------------------- | ------ | ------------------ |
+| **Determinism drift** — Changing RNG label strings, call order, or introducing extra RNG calls                   | High   | Medium             |
+| **Neighborhood semantics drift** — Some modules use square 3×3, others hex odd-q; unifying can change behavior   | Medium | Medium             |
+| **Wrap semantics drift** — Some logic clamps bounds, some wraps X; standardizing can change coastlines/corridors | Medium | Low                |
+| **API break** — Removing re-export facades breaks deep import paths                                              | Low    | High (intentional) |
 
 ### Mitigations
 
@@ -467,17 +467,17 @@ These are intentionally **deferred** so the core domain/lib refactor can land wi
 
 Ordered phases for completing the refactor:
 
-| # | Milestone | Description |
-|---|-----------|-------------|
-| 1 | **Finish `lib/**` consolidation** | Replace remaining local helpers with canonical `lib/**` imports |
-| 2 | **Narrative atomization (deferred)** | Split corridors, tagging, orogeny, paleo into atomic modules (only needed once story/playability plugins are resumed) |
-| 3 | **Hydrology/Climate atomization** | Split baseline, swatches, refine into atomic modules |
-| 4 | **Morphology atomization** | Split landmass, coastlines, islands, mountains, volcanoes |
-| 5 | **Ecology atomization** | Split biomes nudges, features placement modules |
-| 6 | **Placement atomization** | Split wonders, floodplains, resources, starts, etc. |
-| 7 | **Delete legacy facades** | Remove `layers/**` shims, `narrative/**`, `story/**` |
-| 8 | **Move step wiring** | Relocate `layers/**` → `pipeline/**`, delete `layers/**` |
-| 9 | **Validation** | Ensure determinism parity, tests pass, build green |
+| #   | Milestone                            | Description                                                                                                           |
+| --- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Finish `lib/**` consolidation\*\*  | Replace remaining local helpers with canonical `lib/**` imports                                                       |
+| 2   | **Narrative atomization (deferred)** | Split corridors, tagging, orogeny, paleo into atomic modules (only needed once story/playability plugins are resumed) |
+| 3   | **Hydrology/Climate atomization**    | Split baseline, swatches, refine into atomic modules                                                                  |
+| 4   | **Morphology atomization**           | Split landmass, coastlines, islands, mountains, volcanoes                                                             |
+| 5   | **Ecology atomization**              | Split biomes nudges, features placement modules                                                                       |
+| 6   | **Placement atomization**            | Split wonders, floodplains, resources, starts, etc.                                                                   |
+| 7   | **Delete legacy facades**            | Remove `layers/**` shims, `narrative/**`, `story/**`                                                                  |
+| 8   | **Move step wiring**                 | Relocate `layers/**` → `pipeline/**`, delete `layers/**`                                                              |
+| 9   | **Validation**                       | Ensure determinism parity, tests pass, build green                                                                    |
 
 ---
 
@@ -501,11 +501,13 @@ Sources listed are the current monolithic implementations (mostly `domain/**/ind
 This work is intentionally **deferred** while story/playability is treated as optional (disabled by default) and slated for extraction into plugin packages.
 
 **Already split (canonical, keep as-is):**
+
 - [x] `packages/mapgen-core/src/domain/narrative/utils/*`
 - [x] `packages/mapgen-core/src/domain/narrative/tags/*`
 - [x] `packages/mapgen-core/src/domain/narrative/overlays/*`
 
 **From `domain/narrative/tagging/index.ts`:**
+
 - [ ] `tagging/types.ts`: `ContinentalMarginsOptions`, `HotspotTrailsSummary`, `RiftValleysSummary`
 - [ ] `tagging/margins.ts`: `storyTagContinentalMargins`
 - [ ] `tagging/hotspots.ts`: `storyTagHotspotTrails`
@@ -514,6 +516,7 @@ This work is intentionally **deferred** while story/playability is treated as op
 - [ ] Replace local helpers (`getDims`, `rand`, `isWaterAt`, adjacency/latitude helpers) with `domain/narrative/utils/*`
 
 **From `domain/narrative/corridors/index.ts`:**
+
 - [ ] `corridors/types.ts`: `CorridorStage`, `CorridorKind`, `CorridorStyle`, `Orient`
 - [ ] `corridors/style-cache.ts`: `fetchCorridorStylePrimitive`, `assignCorridorMetadata`, `resetCorridorStyleCache`
 - [ ] `corridors/runtime.ts`: `getDims`, `rand`, `isWaterAt`, `isCoastalLand`, `isAdjacentToShallowWater`, `isAdjacentToLand` (prefer: import from `domain/narrative/utils/*` and keep only corridor-specific glue here)
@@ -525,17 +528,20 @@ This work is intentionally **deferred** while story/playability is treated as op
 - [ ] `corridors/index.ts`: `storyTagStrategicCorridors` (orchestrator)
 
 **From `domain/narrative/orogeny/index.ts`:**
+
 - [ ] `orogeny/cache.ts`: `OrogenyCacheInstance`, `getOrogenyCache`, `resetOrogenyCache`, `clearOrogenyCache`
 - [ ] `orogeny/wind.ts`: `zonalWindStep` (+ any wind helper extraction)
 - [ ] `orogeny/belts.ts`: `storyTagOrogenyBelts` (+ any scanning helpers)
 - [ ] `orogeny/index.ts`: re-exports
 
 **From `domain/narrative/paleo/index.ts`:**
+
 - [ ] `paleo/rainfall-artifacts.ts`: `storyTagPaleoHydrology`, `PaleoSummary`, plus extracted helpers (read/write rainfall, clamps, coastal checks)
 - [ ] `paleo/index.ts`: re-exports
 - [ ] Replace local helpers (`getDims`, `rand`, `isWaterAt`, `isCoastalLand`) with `domain/narrative/utils/*`
 
 **From `domain/narrative/swatches.ts`:**
+
 - [ ] Decide ownership boundary:
   - Keep as `domain/narrative/swatches.ts` (story overlay projection), or
   - Fold into `domain/hydrology/climate/swatches/*` (single owner for "swatch" logic)
@@ -555,6 +561,7 @@ This work is intentionally **deferred** while story/playability is treated as op
   - perlin noise seed/span logic
 
 **Swatches (from `applyClimateSwatches`):**
+
 - [ ] `climate/swatches/types.ts`: normalized swatch config shapes + selection result types
 - [ ] `climate/swatches/chooser.ts`: `chooseSwatchTypeWeighted` (preserve directionality adjustments)
 - [ ] `climate/swatches/macro-desert-belt.ts`
@@ -566,6 +573,7 @@ This work is intentionally **deferred** while story/playability is treated as op
 - [ ] `climate/swatches/index.ts`: `applyClimateSwatches` (orchestrates chooser + swatch handlers)
 
 **Refine (from `refineClimateEarthlike`):**
+
 - [ ] `climate/refine/water-gradient.ts` (Pass A)
 - [ ] `climate/refine/orographic-shadow.ts` (Pass B)
 - [ ] `climate/refine/river-corridor.ts` (Pass C)
@@ -691,10 +699,12 @@ This work is intentionally **deferred** while story/playability is treated as op
 Update steps to import from `domain/**` instead of `layers/**` shims:
 
 **Hydrology:**
+
 - [ ] `pipeline/hydrology/ClimateBaselineStep.ts` → import from `domain/hydrology/climate/**`
 - [ ] `pipeline/hydrology/ClimateRefineStep.ts` → import from `domain/hydrology/climate/**`
 
 **Morphology:**
+
 - [ ] `pipeline/morphology/LandmassStep.ts` → import from `domain/morphology/**`
 - [ ] `pipeline/morphology/CoastlinesStep.ts` → import from `domain/morphology/**`
 - [ ] `pipeline/morphology/RuggedCoastsStep.ts` → import from `domain/morphology/**`
@@ -703,14 +713,17 @@ Update steps to import from `domain/**` instead of `layers/**` shims:
 - [ ] `pipeline/morphology/VolcanoesStep.ts` → import from `domain/morphology/**`
 
 **Ecology:**
+
 - [ ] `pipeline/ecology/BiomesStep.ts` → import from `domain/ecology/**`
 - [ ] `pipeline/ecology/FeaturesStep.ts` → import from `domain/ecology/**`
 
 **Placement:**
+
 - [ ] `pipeline/placement/PlacementStep.ts` → import from `domain/placement/**`
 - [ ] `pipeline/placement/LegacyPlacementStep.ts` → import from `domain/placement/**`
 
 **Narrative:**
+
 - [ ] `pipeline/narrative/*.ts` → import from `domain/narrative/**`
 - [ ] `pipeline/tags.ts` → import from `domain/narrative/**`
 
@@ -719,6 +732,7 @@ Update steps to import from `domain/**` instead of `layers/**` shims:
 Delete the following **only after all callsites are migrated**:
 
 **Layer algorithm shims:**
+
 - [ ] `packages/mapgen-core/src/layers/hydrology/climate.ts`
 - [ ] `packages/mapgen-core/src/layers/morphology/coastlines.ts`
 - [ ] `packages/mapgen-core/src/layers/morphology/islands.ts`
@@ -731,10 +745,12 @@ Delete the following **only after all callsites are migrated**:
 - [ ] `packages/mapgen-core/src/layers/placement/placement.ts`
 
 **Top-level compatibility directories:**
+
 - [ ] `packages/mapgen-core/src/narrative/` (entire directory)
 - [ ] `packages/mapgen-core/src/story/` (entire directory)
 
 **Lib compatibility shim:**
+
 - [ ] `packages/mapgen-core/src/lib/noise.ts`
 
 ### 4.3 Update Public Exports
