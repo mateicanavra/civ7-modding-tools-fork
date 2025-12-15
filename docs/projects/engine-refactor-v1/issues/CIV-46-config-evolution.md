@@ -24,30 +24,30 @@ Complete Phase 2/3 of the config refactor: config is step-aligned, presets/recip
 
 ### Phase 2: Config-in-Context
 
-- [ ] Ensure the pipeline context carries validated `MapGenConfig` and step wrappers read config via `context.config`.
-- [ ] Identify and migrate remaining `getTunables()` reads in wrapped stages; prevent new primary config reads via tunables.
+- [x] Ensure the pipeline context carries validated `MapGenConfig` and step wrappers read config via `context.config`.
+- [x] Identify and migrate remaining `getTunables()` reads in wrapped stages; prevent new primary config reads via tunables.
 
 ### Phase 3: Shape Evolution
 
-- [ ] Reshape `MapGenConfigSchema` to match phases/steps (per `resources/PRD-config-refactor.md`) and migrate in-repo callers/presets to the new shape.
-- [ ] Retire tunables as an engine surface for config (remove; if a compatibility shim must ship, track it explicitly in `docs/projects/engine-refactor-v1/deferrals.md`).
+- [x] Reshape `MapGenConfigSchema` to match phases/steps (per `resources/PRD-config-refactor.md`) and migrate in-repo callers/presets to the new shape.
+- [x] Retire tunables as an engine surface for config (remove; if a compatibility shim must ship, track it explicitly in `docs/projects/engine-refactor-v1/deferrals.md`).
 
 ### Presets/Recipes
 
 - [x] Implement preset resolution so `presets: [...]` is meaningful (bootstrap or pipeline pre-step), with a canonical baseline.
-- [ ] Document/decide how legacy preset names map forward (keep/simplify/deprecate).
+- [x] Document/decide how legacy preset names map forward (keep/simplify/deprecate).
 
 ### Config Parity Decisions
 
-- [ ] Resolve remaining ambiguous config fields tracked in `resources/config-wiring-status.md` (keep-and-wire vs deprecate vs remove) and reflect decisions in schema + docs.
+- [x] Resolve remaining ambiguous config fields tracked in `resources/config-wiring-status.md` (keep-and-wire vs deprecate vs remove) and reflect decisions in schema + docs.
 
 ## Acceptance Criteria
 
-- [ ] All steps read config via `context.config` with the new phase-aligned schema
-- [ ] No internal code uses tunables as a primary config path
-- [ ] Preset resolution works and is tested
-- [ ] `config-wiring-status.md` has no ambiguous "Unused / planned" rows
-- [ ] In-repo map scripts work with the new config shape
+- [x] All steps read config via `context.config` with the new phase-aligned schema
+- [x] No internal code uses tunables as a primary config path
+- [x] Preset resolution works and is tested
+- [x] `config-wiring-status.md` has no ambiguous "Unused / planned" rows
+- [x] In-repo map scripts work with the new config shape
 
 ## Testing / Verification
 
