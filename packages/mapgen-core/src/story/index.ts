@@ -33,8 +33,14 @@ export {
   finalizeStoryOverlay,
   getStoryOverlay,
   hydrateMarginsStoryTags,
+  hydrateRiftsStoryTags,
+  hydrateCorridorsStoryTags,
   type MarginStoryTags,
   type HydrateMarginsOptions,
+  type RiftStoryTags,
+  type HydrateRiftsOptions,
+  type CorridorStoryTags,
+  type HydrateCorridorsOptions,
 } from "./overlays.js";
 
 // Re-export minimal tagging subset

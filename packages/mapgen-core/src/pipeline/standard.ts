@@ -114,12 +114,19 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
   biomes: {
     requires: [
       M3_DEPENDENCY_TAGS.artifact.climateField,
+      M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+      M3_DEPENDENCY_TAGS.artifact.heightfield,
       M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
     ],
     provides: [M3_DEPENDENCY_TAGS.state.biomesApplied],
   },
   features: {
-    requires: [M3_DEPENDENCY_TAGS.state.biomesApplied, M3_DEPENDENCY_TAGS.artifact.climateField],
+    requires: [
+      M3_DEPENDENCY_TAGS.state.biomesApplied,
+      M3_DEPENDENCY_TAGS.artifact.climateField,
+      M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+      M3_DEPENDENCY_TAGS.artifact.heightfield,
+    ],
     provides: [M3_DEPENDENCY_TAGS.state.featuresApplied],
   },
   placement: {
