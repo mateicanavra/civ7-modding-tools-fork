@@ -5,14 +5,14 @@
 
 import { PerlinNoise } from "../lib/noise.js";
 import type { ExtendedMapContext } from "../core/types.js";
-import type { EngineAdapter } from "@civ7/adapter";
 import type {
   ClimateConfig as BootstrapClimateConfig,
   FoundationDirectionalityConfig,
 } from "../bootstrap/types.js";
-import { ctxRandom, writeClimateField, syncClimateField } from "../core/types.js";
+import { ctxRandom, writeClimateField } from "../core/types.js";
 import type { FoundationContext } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
+import { M3_DEPENDENCY_TAGS } from "../pipeline/tags.js";
 import { getTunables } from "../bootstrap/tunables.js";
 import { clamp, inBounds as boundsCheck } from "../core/index.js";
 
@@ -61,41 +61,46 @@ export interface ClimateSwatchResult {
 /**
  * Resolve an engine adapter for rainfall operations.
  */
-function resolveAdapter(ctx: ExtendedMapContext | null): ClimateAdapter {
-  if (ctx && ctx.adapter) {
-    const engineAdapter = ctx.adapter;
-    return {
-      isWater: (x, y) => engineAdapter.isWater(x, y),
-      isMountain: (x, y) => engineAdapter.isMountain(x, y),
-      // NOTE: isCoastalLand intentionally omitted.
-      // These are not on the base EngineAdapter interface. By leaving them
-      // undefined, the climate code's local fallbacks will execute instead of
-      // receiving stubbed `() => false` values that block the fallback path.
-      isAdjacentToRivers: (x, y, radius) => engineAdapter.isAdjacentToRivers(x, y, radius),
-      getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
-      setRainfall: (x, y, rf) => engineAdapter.setRainfall(x, y, rf),
-      getElevation: (x, y) => engineAdapter.getElevation(x, y),
-      getLatitude: (x, y) => engineAdapter.getLatitude(x, y),
-      getRandomNumber: (max, label) => engineAdapter.getRandomNumber(max, label),
-    } as ClimateAdapter;
+function resolveAdapter(ctx: ExtendedMapContext): ClimateAdapter {
+  if (!ctx?.adapter) {
+    throw new Error(
+      "ClimateEngine: MapContext adapter is required (legacy direct-engine fallback removed)."
+    );
   }
 
-  // Fallback: return dummy adapter that will throw on critical methods
-  // NOTE: isCoastalLand intentionally omitted
-  // to allow local neighborhood fallbacks to execute.
+  const engineAdapter = ctx.adapter;
+  const width = ctx.dimensions.width | 0;
+  const height = ctx.dimensions.height | 0;
+  const expectedSize = Math.max(0, width * height) | 0;
+  const riverAdjacency = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency);
+  const hasRiverAdjacencyArtifact =
+    riverAdjacency instanceof Uint8Array && riverAdjacency.length === expectedSize;
+  const idx = (x: number, y: number): number => y * width + x;
   return {
-    isWater: () => {
-      throw new Error("ClimateEngine: No adapter available");
+    isWater: (x, y) => engineAdapter.isWater(x, y),
+    isMountain: (x, y) => engineAdapter.isMountain(x, y),
+    // NOTE: isCoastalLand intentionally omitted.
+    // These are not on the base EngineAdapter interface. By leaving them
+    // undefined, the climate code's local fallbacks will execute instead of
+    // receiving stubbed `() => false` values that block the fallback path.
+    isAdjacentToRivers: (x, y, radius) => {
+      if (radius !== 1) {
+        throw new Error(
+          "ClimateEngine: isAdjacentToRivers only supports radius=1 via artifact:riverAdjacency."
+        );
+      }
+      if (!hasRiverAdjacencyArtifact) {
+        throw new Error(
+          "ClimateEngine: Missing artifact:riverAdjacency (required for climate refinement)."
+        );
+      }
+      return (riverAdjacency as Uint8Array)[idx(x, y)] === 1;
     },
-    isMountain: () => {
-      throw new Error("ClimateEngine: No adapter available");
-    },
-    isAdjacentToRivers: () => false,
-    getRainfall: () => 0,
-    setRainfall: () => {},
-    getElevation: () => 0,
-    getLatitude: () => 0,
-    getRandomNumber: (max) => Math.floor(Math.random() * max),
+    getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
+    setRainfall: (x, y, rf) => engineAdapter.setRainfall(x, y, rf),
+    getElevation: (x, y) => engineAdapter.getElevation(x, y),
+    getLatitude: (x, y) => engineAdapter.getLatitude(x, y),
+    getRandomNumber: (max, label) => engineAdapter.getRandomNumber(max, label),
   } as ClimateAdapter;
 }
 
@@ -107,31 +112,35 @@ function createClimateRuntime(
   height: number,
   ctx: ExtendedMapContext | null
 ): ClimateRuntime {
+  if (!ctx) {
+    throw new Error(
+      "ClimateEngine: MapContext is required (legacy direct-engine fallback removed)."
+    );
+  }
+
   const adapter = resolveAdapter(ctx);
-  const rainfallBuf = ctx?.buffers?.climate?.rainfall || null;
+  const climate = ctx.buffers?.climate;
+  const rainfallBuf = climate?.rainfall || null;
+  const expectedSize = Math.max(0, (width | 0) * (height | 0)) | 0;
+  if (!(rainfallBuf instanceof Uint8Array) || rainfallBuf.length !== expectedSize) {
+    throw new Error(
+      `ClimateEngine: Missing or invalid climate rainfall buffer (expected ${expectedSize}).`
+    );
+  }
+
   const idx = (x: number, y: number): number => y * width + x;
 
   const readRainfall = (x: number, y: number): number => {
-    if (ctx && rainfallBuf) {
-      return rainfallBuf[idx(x, y)] | 0;
-    }
-    return adapter.getRainfall(x, y);
+    return rainfallBuf[idx(x, y)] | 0;
   };
 
   const writeRainfall = (x: number, y: number, rainfall: number): void => {
     const clamped = clamp(rainfall, 0, 200);
-    if (ctx) {
-      writeClimateField(ctx, x, y, { rainfall: clamped });
-    } else {
-      adapter.setRainfall(x, y, clamped);
-    }
+    writeClimateField(ctx, x, y, { rainfall: clamped });
   };
 
   const rand = (max: number, label: string): number => {
-    if (ctx) {
-      return ctxRandom(ctx, label || "ClimateRand", max);
-    }
-    return adapter.getRandomNumber(max, label || "ClimateRand");
+    return ctxRandom(ctx, label || "ClimateRand", max);
   };
 
   return {
@@ -345,14 +354,17 @@ export function applyClimateBaseline(
   ctx: ExtendedMapContext | null = null
 ): void {
   console.log("Building enhanced rainfall patterns...");
-
-  // Sync climate field from engine state
-  if (ctx) {
-    syncClimateField(ctx);
+  if (!ctx) {
+    throw new Error(
+      "ClimateEngine: applyClimateBaseline requires MapContext (legacy direct-engine fallback removed)."
+    );
   }
 
   const runtime = createClimateRuntime(width, height, ctx);
   const { adapter, readRainfall, writeRainfall, rand } = runtime;
+
+  ctx.buffers.climate.rainfall.fill(0);
+  if (ctx.fields?.rainfall) ctx.fields.rainfall.fill(0);
 
   const tunables = getTunables();
   const climateCfg = tunables.CLIMATE_CFG || {};
@@ -448,6 +460,11 @@ export function applyClimateSwatches(
   ctx: ExtendedMapContext | null = null,
   options: { orogenyCache?: OrogenyCache } = {}
 ): ClimateSwatchResult {
+  if (!ctx) {
+    throw new Error(
+      "ClimateEngine: applyClimateSwatches requires MapContext (legacy direct-engine fallback removed)."
+    );
+  }
   const tunables = getTunables();
   const climateCfg = tunables.CLIMATE_CFG || {};
   const storyMoisture = (climateCfg as Record<string, unknown>).story as
@@ -459,10 +476,6 @@ export function applyClimateSwatches(
 
   const area = Math.max(1, width * height);
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
-
-  if (ctx) {
-    syncClimateField(ctx);
-  }
 
   const runtime = createClimateRuntime(width, height, ctx);
   const { adapter, readRainfall, writeRainfall, rand, idx } = runtime;
@@ -707,6 +720,11 @@ export function refineClimateEarthlike(
   ctx: ExtendedMapContext | null = null,
   options: { orogenyCache?: OrogenyCache } = {}
 ): void {
+  if (!ctx) {
+    throw new Error(
+      "ClimateEngine: refineClimateEarthlike requires MapContext (legacy direct-engine fallback removed)."
+    );
+  }
   const runtime = createClimateRuntime(width, height, ctx);
   const { adapter, readRainfall, writeRainfall } = runtime;
   const dynamics = ctx?.foundation?.dynamics;
@@ -725,7 +743,7 @@ export function refineClimateEarthlike(
   // Local bounds check with captured width/height
   const inBounds = (x: number, y: number): boolean => boundsCheck(x, y, width, height);
 
-  console.log(`[Climate Refinement] Using ${ctx ? "MapContext adapter" : "direct engine calls"}`);
+  console.log("[Climate Refinement] Using MapContext adapter");
 
   // Pass A: coastal and lake humidity gradient
   {

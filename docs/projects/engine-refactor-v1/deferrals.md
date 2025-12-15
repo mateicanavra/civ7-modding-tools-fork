@@ -124,6 +124,21 @@ Each deferral follows this structure:
 
 ---
 
+## DEF-009: Legacy Orchestrator Execution Path (Non-TaskGraph)
+
+**Deferred:** 2025-12-14  
+**Trigger:** When the TaskGraph executor path is the default for in-repo map generation (including `mods/mod-swooper-maps`) and the legacy `STAGE_ORDER`-driven execution can be removed without losing parity.  
+**Context:** In M3 we intentionally keep both execution modes wired in `MapOrchestrator.generateMap()` (`useTaskGraph` flag) to support incremental migration and stack-by-stack landing. Some in-repo consumers still run with `useTaskGraph: false`, so removing the legacy path now would block parallel work and destabilize integration.  
+**Scope:**
+- Migrate remaining in-repo callers to run via the TaskGraph executor path.
+- Delete the legacy non-TaskGraph branch in `MapOrchestrator.generateMap()` (while keeping the external `GenerateMap` entry surface stable).
+- Ensure artifact publication remains 1:1 across entry modes during the cutover (no hidden fallbacks).  
+**Impact:**
+- Two execution modes increase drift risk (behavior/config/contract mismatches) until cutover is complete.
+- Longer-lived legacy wiring can hide missing `requires/provides` declarations if callers never exercise the executor path.
+
+---
+
 ## Resolved Deferrals
 
 *Move resolved deferrals here with resolution notes.*

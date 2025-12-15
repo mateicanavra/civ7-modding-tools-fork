@@ -82,7 +82,7 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     provides: [M3_DEPENDENCY_TAGS.artifact.heightfield],
   },
   climateBaseline: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
+    requires: [M3_DEPENDENCY_TAGS.artifact.foundation, M3_DEPENDENCY_TAGS.artifact.heightfield],
     provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
   },
   storySwatches: {
@@ -90,23 +90,31 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
   },
   rivers: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
-    provides: [M3_DEPENDENCY_TAGS.state.riversModeled],
+    requires: [M3_DEPENDENCY_TAGS.artifact.foundation, M3_DEPENDENCY_TAGS.artifact.heightfield],
+    provides: [M3_DEPENDENCY_TAGS.state.riversModeled, M3_DEPENDENCY_TAGS.artifact.riverAdjacency],
   },
   storyCorridorsPost: {
     requires: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
     provides: [M3_DEPENDENCY_TAGS.artifact.storyOverlays],
   },
   climateRefine: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.foundation, M3_DEPENDENCY_TAGS.artifact.climateField],
+    requires: [
+      M3_DEPENDENCY_TAGS.artifact.foundation,
+      M3_DEPENDENCY_TAGS.artifact.heightfield,
+      M3_DEPENDENCY_TAGS.artifact.climateField,
+      M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
+    ],
     provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
   },
   biomes: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.climateField],
+    requires: [
+      M3_DEPENDENCY_TAGS.artifact.climateField,
+      M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
+    ],
     provides: [M3_DEPENDENCY_TAGS.state.biomesApplied],
   },
   features: {
-    requires: [M3_DEPENDENCY_TAGS.state.biomesApplied],
+    requires: [M3_DEPENDENCY_TAGS.state.biomesApplied, M3_DEPENDENCY_TAGS.artifact.climateField],
     provides: [M3_DEPENDENCY_TAGS.state.featuresApplied],
   },
   placement: {

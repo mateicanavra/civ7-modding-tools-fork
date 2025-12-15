@@ -22,17 +22,17 @@ Make hydrology/climate outputs consumable as **canonical artifacts (data product
 
 ## Deliverables
 
-- [ ] Make `ClimateField` the canonical rainfall/moisture read surface for downstream consumers (stop direct `GameplayMap.getRainfall()` reads in modernized code paths).
-- [ ] Define and publish a minimal, stable river artifact suitable for consumers (overlays/biomes/placement) without changing river generation algorithms.
-- [ ] Establish a wrap-first hydrology/climate step boundary that provides these artifacts (engine rivers + existing TS climate passes).
+- [x] Make `ClimateField` the canonical rainfall/moisture read surface for downstream consumers (stop direct `GameplayMap.getRainfall()` reads in modernized code paths).
+- [x] Define and publish a minimal, stable river artifact suitable for consumers (overlays/biomes/placement) without changing river generation algorithms.
+- [x] Establish a wrap-first hydrology/climate step boundary that provides these artifacts (engine rivers + existing TS climate passes).
 
 ## Acceptance Criteria
 
-- [ ] No new/modernized consumer reads rainfall directly from `GameplayMap` once the step pipeline is in place
-- [ ] River summary data is available as an explicit artifact (e.g., `artifact:riverAdjacency`) and can be required by steps via `requires`/`provides`
-- [ ] The map quality and overall river behavior remains consistent (wrap-first; no algorithm swap in M3)
-- [ ] Hydrology wrapper step declares `requires`/`provides` and runs via `PipelineExecutor`
-- [ ] Steps fail fast if required dependency tags are missing (runtime gating enforced)
+- [x] No new/modernized consumer reads rainfall directly from `GameplayMap` once the step pipeline is in place
+- [x] River summary data is available as an explicit artifact (e.g., `artifact:riverAdjacency`) and can be required by steps via `requires`/`provides`
+- [x] The map quality and overall river behavior remains consistent (wrap-first; no algorithm swap in M3)
+- [x] Hydrology wrapper step declares `requires`/`provides` and runs via `PipelineExecutor`
+- [x] Steps fail fast if required dependency tags are missing (runtime gating enforced)
 
 ## Testing / Verification
 
@@ -48,15 +48,17 @@ Make hydrology/climate outputs consumable as **canonical artifacts (data product
 - **Depends on:** CIV-41 (runtime gating + step execution).
 - **Blocks:** CIV-44 (biomes/features consume climate/river signals).
 - **Related:** CIV-43 (story overlays may consume river/climate artifacts).
+- **Follow-up:** Full consumer migration onto `artifact:climateField` / `artifact:riverAdjacency` beyond hydrology is owned by CIV-43/CIV-44.
 - **Locked decisions for M3 (remove ambiguity):**
   - **River artifact shape/source:** Publish `artifact:riverAdjacency` as a `Uint8Array` mask (0/1) computed once from `EngineAdapter.isAdjacentToRivers()` after engine rivers are modeled. Do **not** promise or model a full river graph in M3; `state:engine.riversModeled` remains the contract for “engine rivers exist on the surface” (tracked as `docs/projects/engine-refactor-v1/deferrals.md` DEF-005).
   - **Step boundaries:** Keep wrapper steps aligned to the existing stage boundaries: `climateBaseline` → `rivers` → `climateRefine` (matching `STAGE_ORDER`). Any future split/merge refactors are post‑M3.
+  - **No fallbacks:** There is no legacy/adapter fallback for rainfall or river adjacency reads in modernized code paths. Canonical consumers must read `artifact:climateField` / `artifact:riverAdjacency`, and stages should fail fast if those artifacts are missing (for both TaskGraph and legacy `generateMap()` entry paths).
   - **Post‑M3 optionality:** If a “navigable river terrain” distinction becomes necessary, add a second derived mask later; do not expand the river artifact beyond adjacency in M3.
-- **Links:**
-  - Milestone: `../milestones/M3-core-engine-refactor-config-evolution.md`
-  - Pipeline PRD: `../resources/PRD-pipeline-refactor.md`
+  - **Links:**
+    - Milestone: `../milestones/M3-core-engine-refactor-config-evolution.md`
+    - Pipeline PRD: `../resources/PRD-pipeline-refactor.md`
   - Target system docs: `../../../system/libs/mapgen/hydrology.md`, `../../../system/libs/mapgen/ecology.md`
-  - Code references: `packages/mapgen-core/src/MapOrchestrator.ts` (rivers stage), `packages/mapgen-core/src/core/types.ts` (`ClimateFieldBuffer`, `writeClimateField`, `syncClimateField`), `packages/civ7-adapter/src/types.ts` (`EngineAdapter`)
+  - Code references: `packages/mapgen-core/src/MapOrchestrator.ts` (rivers/climate stages), `packages/mapgen-core/src/pipeline/artifacts.ts` (`publishClimateFieldArtifact`, `getPublishedClimateField`, `getPublishedRiverAdjacency`), `packages/mapgen-core/src/core/types.ts` (`ClimateFieldBuffer`, `writeClimateField`)
 
 ---
 

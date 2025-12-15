@@ -65,13 +65,46 @@ export function isDependencyTagSatisfied(
   context: ExtendedMapContext,
   state: SatisfactionState
 ): boolean {
+  const expectedSize = context.dimensions.width * context.dimensions.height;
   switch (tag) {
     case M3_DEPENDENCY_TAGS.artifact.foundation:
       return !!context.foundation;
+    case M3_DEPENDENCY_TAGS.artifact.heightfield: {
+      const value = context.artifacts?.get(tag);
+      if (!value || typeof value !== "object") return false;
+      const candidate = value as {
+        elevation?: unknown;
+        terrain?: unknown;
+        landMask?: unknown;
+      };
+      return (
+        candidate.elevation instanceof Int16Array &&
+        candidate.terrain instanceof Uint8Array &&
+        candidate.landMask instanceof Uint8Array &&
+        candidate.elevation.length === expectedSize &&
+        candidate.terrain.length === expectedSize &&
+        candidate.landMask.length === expectedSize
+      );
+    }
+    case M3_DEPENDENCY_TAGS.artifact.climateField: {
+      const value = context.artifacts?.get(tag);
+      if (!value || typeof value !== "object") return false;
+      const candidate = value as { rainfall?: unknown; humidity?: unknown };
+      return (
+        candidate.rainfall instanceof Uint8Array &&
+        candidate.humidity instanceof Uint8Array &&
+        candidate.rainfall.length === expectedSize &&
+        candidate.humidity.length === expectedSize
+      );
+    }
     case M3_DEPENDENCY_TAGS.artifact.storyOverlays:
       return (
         (context.overlays?.size ?? 0) > 0 || getStoryOverlayRegistry().size > 0
       );
+    case M3_DEPENDENCY_TAGS.artifact.riverAdjacency: {
+      const value = context.artifacts?.get(tag);
+      return value instanceof Uint8Array && value.length === expectedSize;
+    }
     case M3_DEPENDENCY_TAGS.field.terrainType:
       return !!context.fields?.terrainType;
     case M3_DEPENDENCY_TAGS.field.elevation:

@@ -50,7 +50,6 @@ import {
   createExtendedMapContext,
   createFoundationContext,
   syncHeightfield,
-  syncClimateField,
 } from "./core/types.js";
 import {
   addPlotTagsSimple,
@@ -84,6 +83,12 @@ import {
   MissingDependencyError,
   UnsatisfiedProvidesError,
 } from "./pipeline/index.js";
+import {
+  computeRiverAdjacencyMask,
+  publishClimateFieldArtifact,
+  publishHeightfieldArtifact,
+  publishRiverAdjacencyArtifact,
+} from "./pipeline/artifacts.js";
 
 // Layer imports
 import { createPlateDrivenLandmasses } from "./layers/landmass-plate.js";
@@ -894,6 +899,7 @@ export class MapOrchestrator {
         assertFoundationContext(ctx, "climateBaseline");
 
         applyClimateBaseline(iWidth, iHeight, ctx);
+        publishClimateFieldArtifact(ctx!);
       });
       this.stageResults.push(stageResult);
     }
@@ -941,8 +947,9 @@ export class MapOrchestrator {
         this.orchestratorAdapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
-        syncClimateField(ctx!);
         this.orchestratorAdapter.defineNamedRivers();
+        const riverAdjacency = computeRiverAdjacencyMask(ctx!);
+        publishRiverAdjacencyArtifact(ctx!, riverAdjacency);
       });
       this.stageResults.push(stageResult);
     }
@@ -956,6 +963,7 @@ export class MapOrchestrator {
         assertFoundationContext(ctx, "climateRefine");
 
         refineClimateEarthlike(iWidth, iHeight, ctx);
+        publishClimateFieldArtifact(ctx!);
       });
       this.stageResults.push(stageResult);
 
@@ -1426,6 +1434,7 @@ export class MapOrchestrator {
         const iTilesPerLake = Math.max(10, (mapInfo.LakeGenerationFrequency ?? 5) * 2);
         this.orchestratorAdapter.generateLakes(iWidth, iHeight, iTilesPerLake);
         syncHeightfield(ctx);
+        publishHeightfieldArtifact(ctx);
       },
     });
 
@@ -1449,6 +1458,7 @@ export class MapOrchestrator {
 
         assertFoundationContext(ctx, "climateBaseline");
         applyClimateBaseline(iWidth, iHeight, ctx);
+        publishClimateFieldArtifact(ctx);
       },
     });
 
@@ -1502,8 +1512,10 @@ export class MapOrchestrator {
         this.orchestratorAdapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx);
-        syncClimateField(ctx);
         this.orchestratorAdapter.defineNamedRivers();
+
+        const riverAdjacency = computeRiverAdjacencyMask(ctx);
+        publishRiverAdjacencyArtifact(ctx, riverAdjacency);
       },
     });
 
@@ -1523,6 +1535,7 @@ export class MapOrchestrator {
       run: () => {
         assertFoundationContext(ctx, "climateRefine");
         refineClimateEarthlike(iWidth, iHeight, ctx);
+        publishClimateFieldArtifact(ctx);
 
         if (DEV.ENABLED && ctx?.adapter) {
           logRainfallStats(ctx.adapter, iWidth, iHeight, "post-climate");
