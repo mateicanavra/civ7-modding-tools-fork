@@ -1,13 +1,21 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { HILL_TERRAIN, MOUNTAIN_TERRAIN, NAVIGABLE_RIVER_TERRAIN } from "../../core/terrain-constants.js";
 import { syncHeightfield } from "../../core/types.js";
-import { computeRiverAdjacencyMask, publishHeightfieldArtifact, publishRiverAdjacencyArtifact } from "../../pipeline/artifacts.js";
+import {
+  computeRiverAdjacencyMask,
+  publishClimateFieldArtifact,
+  publishHeightfieldArtifact,
+  publishRiverAdjacencyArtifact,
+} from "../../pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
+import { storyTagClimatePaleo } from "../../story/swatches.js";
 
 export interface RiversStepOptions {
   requires: readonly string[];
   provides: readonly string[];
   shouldRun?: () => boolean;
+  shouldRunPaleo?: (context: ExtendedMapContext) => boolean;
+  logPrefix?: string;
 }
 
 export function createRiversStep(options: RiversStepOptions): MapGenStep<ExtendedMapContext> {
@@ -56,9 +64,14 @@ export function createRiversStep(options: RiversStepOptions): MapGenStep<Extende
       publishHeightfieldArtifact(context);
       context.adapter.defineNamedRivers();
 
+      if (options.shouldRunPaleo?.(context) === true) {
+        console.log(`${options.logPrefix ?? ""} Applying paleo hydrology (post-rivers)...`);
+        storyTagClimatePaleo(context);
+        publishClimateFieldArtifact(context);
+      }
+
       const riverAdjacency = computeRiverAdjacencyMask(context);
       publishRiverAdjacencyArtifact(context, riverAdjacency);
     },
   };
 }
-

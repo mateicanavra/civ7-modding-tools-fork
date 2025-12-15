@@ -46,6 +46,8 @@ export function registerHydrologyLayer(
     createRiversStep({
       ...runtime.getStageDescriptor("rivers"),
       shouldRun: () => stageFlags.rivers,
+      logPrefix: runtime.logPrefix,
+      shouldRunPaleo: (context) => stageFlags.storySwatches && context.config.toggles?.STORY_ENABLE_PALEO === true,
     })
   );
 
