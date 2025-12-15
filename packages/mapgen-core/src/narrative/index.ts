@@ -1,7 +1,8 @@
 /**
  * Narrative (Story) Domain
  *
- * Canonical implementation lives here. `src/story/**` is a compatibility facade.
+ * Canonical implementation lives under `src/domain/narrative/**`.
+ * `src/narrative/**` and `src/story/**` are compatibility facades.
  */
 
 export * from "./tags.js";
