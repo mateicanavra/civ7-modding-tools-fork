@@ -915,3 +915,58 @@ The recommended **foundation → derisk → sweep → cleanup** approach balance
 | E | E2: Move step wiring | E1 | — |
 
 **Total estimated issues:** 12 (could compress C1-C4 into 1-2 PRs if speed matters more than parallelization)
+
+---
+
+### 5.6 Task Assignment Guidance (Claude vs. Codex)
+
+Different tasks suit different execution styles. This section provides guidance on which AI assistant is best suited for each task based on their strengths.
+
+#### Strengths Profile
+
+| Assistant | Strengths |
+|-----------|-----------|
+| **Claude** | Parallel subagents, broad context, fast exploration, planning & decomposition, communication & iteration, quick targeted edits, verification scans |
+| **Codex** | Meticulous sustained attention, methodical step-by-step execution, deep single-problem focus, precise transformations (critical for determinism) |
+
+#### Recommended Assignment
+
+| Task | Best Fit | Rationale |
+|------|----------|-----------|
+| **A1: lib consolidation** | **Codex** | Meticulous find-and-replace across many files. Precision matters — one wrong import breaks things. Methodical sweep through each domain. |
+| **B1: Climate atomization** | **Codex** | Deep, complex (~18 files). Determinism-critical (RNG labels, call order). Requires sustained attention to extract swatches/refine correctly. |
+| **B2: Landmass atomization** | **Codex** | Deep, complex (~19 files). `ocean-separation/` is nested subsystem requiring careful extraction. Same determinism concerns. |
+| **C1-C4: Morphology sweep** | **Claude** | Simpler patterns, parallelizable. Can spawn 4 subagents to do Coastlines/Islands/Mountains/Volcanoes simultaneously. Patterns established by B1-B2. |
+| **D1-D2: Biomes + Features** | **Claude** | Follow patterns from B1's swatches/nudges. Parallelizable. Less complexity than Climate/Landmass. |
+| **D3: Placement** | **Codex** | Large (14 files), mechanical but needs precision. Benefits from methodical step-by-step extraction without shortcuts. |
+| **E1: Delete facades** | **Claude** | Cross-cutting verification — need to scan entire codebase to confirm all callsites migrated before deleting. Quick exploration strength. |
+| **E2: Move step wiring** | **Codex** | Methodical file moves + import updates. Benefits from meticulous attention to not miss any imports. |
+
+#### Summary by Assignee
+
+| Assignee | Tasks | Character of Work |
+|----------|-------|-------------------|
+| **Codex** | A1, B1, B2, D3, E2 | Deep, precise, determinism-critical. Long transformations requiring sustained attention. |
+| **Claude** | C1-C4, D1-D2, E1 | Parallelizable sweeps, pattern-following after Codex establishes patterns, cross-cutting verification. |
+| **Both** | Planning, review, validation | Claude plans and verifies; Codex executes deep work; Claude handles edge cases. |
+
+#### Sequencing Implication
+
+```
+Codex: A1 ──→ B1 ──→ B2 ──────────────────────→ D3 ──→ E2
+                      │                          │
+                      ▼                          │
+Claude:          [patterns established]          │
+                      │                          │
+                      ├──→ C1 (Coastlines) ──────┤
+                      ├──→ C2 (Islands) ─────────┤
+                      ├──→ C3 (Mountains) ───────┤
+                      ├──→ C4 (Volcanoes) ───────┤
+                      ├──→ D1 (Biomes) ──────────┤
+                      └──→ D2 (Features) ────────┘
+                                                 │
+                                                 ▼
+Claude:                                         E1 (verify facades ready)
+```
+
+Codex establishes patterns with the hardest work (A1, B1, B2). Claude parallelizes the simpler follow-on work (C1-C4, D1-D2). Codex finishes mechanical precision work (D3, E2). Claude handles cross-cutting verification (E1).
