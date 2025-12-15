@@ -17,7 +17,7 @@ This is intentionally detailed: it is the checklist we’ll use to complete the 
 - Algorithms live in `packages/mapgen-core/src/domain/**` as small, single-purpose modules (types + focused functions).
 - Domain modules do **not** depend on `ExtendedMapContext` (or pipeline/step wiring). Steps own engine coupling; domain code accepts typed arrays + small “ports” (grid/rng/adapter/IO) and keeps heavy logic in pure kernels.
 - Shared helpers live in `packages/mapgen-core/src/lib/**` (math/grid/rng/noise/collections).
-- `packages/mapgen-core/src/layers/**` contains *only* Task Graph step wiring (no algorithm implementations, no algorithm re-export shims).
+- Task Graph step wiring lives under `packages/mapgen-core/src/pipeline/**` (phase folders). `packages/mapgen-core/src/layers/**` is deleted in the end-state.
 - Legacy re-export surfaces are gone:
   - `packages/mapgen-core/src/layers/**` algorithm shim files (e.g. `layers/hydrology/climate.ts`)
   - `packages/mapgen-core/src/narrative/**`
@@ -52,14 +52,18 @@ This is intentionally detailed: it is the checklist we’ll use to complete the 
 - **Wrap + neighborhood semantics (accepted):**
   - Do not “standardize” semantics during refactor; preserve current behavior per module.
   - Encode semantics in helper names (square 3×3 vs hex odd-q, wrap-aware vs bounds-clamped) and require algorithms to choose explicitly.
+- **Step wiring location + shape (accepted):**
+  - Merge `src/layers/**` into `src/pipeline/**` and keep phase directories as the primary navigation (`pipeline/morphology`, `pipeline/hydrology`, etc.).
+  - Pipeline/step code is composition only (context/adapters/artifacts); no domain algorithms.
+  - Delete `src/layers/**` after callsites + orchestrator registration move to `pipeline/**`.
 
 ---
 
 ## 1) Status (What’s Already Landed)
 
 ### Phase 0 — Layout/registry wiring (done)
-- [x] Layer folders + step wrappers under `packages/mapgen-core/src/layers/**` (steps live under `layers/*/steps/*.ts`)
-- [x] `packages/mapgen-core/src/layers/standard-library.ts` (registers steps into the registry)
+- [x] Initial layer folders + step wrappers under `packages/mapgen-core/src/layers/**` (steps live under `layers/*/steps/*.ts`) — will move to `pipeline/**` per locked decision
+- [x] `packages/mapgen-core/src/layers/standard-library.ts` (registers steps into the registry) — will move to `pipeline/**` per locked decision
 - [x] `packages/mapgen-core/src/MapOrchestrator.ts` switched to Task Graph path calling `registerStandardLibrary(...)`
 
 ### Phase 1 — Domain/lib scaffolding + compatibility (done)
@@ -100,7 +104,10 @@ This is intentionally detailed: it is the checklist we’ll use to complete the 
    - split `domain/placement/index.ts` into wonders/floodplains/resources/starts/discoveries/etc.
 7. **Delete legacy facades** (after callsites are migrated):
    - remove `src/layers/**` algorithm shim files, `src/narrative/**`, `src/story/**`, and other compatibility exports.
-8. **Validation**:
+8. **Move step wiring to `pipeline/**` + delete `layers/**`** (after shim deletion and imports are clean):
+   - relocate step modules + `standard-library.ts` into `pipeline/**`
+   - update orchestrator/registry imports accordingly
+9. **Validation**:
    - ensure determinism parity (tests + seeds), and keep build/typecheck green throughout.
 
 ---
@@ -141,15 +148,21 @@ packages/mapgen-core/src/
   config/
   core/
   dev/
-  pipeline/
   world/
   polyfills/
   shims/
   steps/
 
-  layers/                       # wiring only
+  pipeline/                      # wiring + execution primitives
+    artifacts.ts
+    errors.ts
     index.ts
-    standard-library.ts
+    PipelineExecutor.ts
+    StepRegistry.ts
+    standard.ts
+    standard-library.ts          # registers step library
+    tags.ts
+    types.ts
     foundation/
       index.ts
       steps/
@@ -667,23 +680,23 @@ From `packages/mapgen-core/src/domain/placement/index.ts`:
 ### 7.1 Migrate step wiring imports (required before deleting `layers/**` shims)
 
 - [ ] Update hydrology steps to import from `domain/hydrology/climate/**` instead of `layers/hydrology/climate.ts`:
-  - `layers/hydrology/steps/ClimateBaselineStep.ts`
-  - `layers/hydrology/steps/ClimateRefineStep.ts`
+  - `pipeline/hydrology/steps/ClimateBaselineStep.ts` (currently `layers/hydrology/steps/ClimateBaselineStep.ts`)
+  - `pipeline/hydrology/steps/ClimateRefineStep.ts` (currently `layers/hydrology/steps/ClimateRefineStep.ts`)
 - [ ] Update morphology steps to import from `domain/morphology/**` instead of `layers/morphology/*.ts`:
-  - `layers/morphology/steps/LandmassStep.ts`
-  - `layers/morphology/steps/CoastlinesStep.ts`
-  - `layers/morphology/steps/RuggedCoastsStep.ts`
-  - `layers/morphology/steps/IslandsStep.ts`
-  - `layers/morphology/steps/MountainsStep.ts`
-  - `layers/morphology/steps/VolcanoesStep.ts`
+  - `pipeline/morphology/steps/LandmassStep.ts` (currently `layers/morphology/steps/LandmassStep.ts`)
+  - `pipeline/morphology/steps/CoastlinesStep.ts` (currently `layers/morphology/steps/CoastlinesStep.ts`)
+  - `pipeline/morphology/steps/RuggedCoastsStep.ts` (currently `layers/morphology/steps/RuggedCoastsStep.ts`)
+  - `pipeline/morphology/steps/IslandsStep.ts` (currently `layers/morphology/steps/IslandsStep.ts`)
+  - `pipeline/morphology/steps/MountainsStep.ts` (currently `layers/morphology/steps/MountainsStep.ts`)
+  - `pipeline/morphology/steps/VolcanoesStep.ts` (currently `layers/morphology/steps/VolcanoesStep.ts`)
 - [ ] Update ecology steps to import from `domain/ecology/**` instead of `layers/ecology/*.ts`:
-  - `layers/ecology/steps/BiomesStep.ts`
-  - `layers/ecology/steps/FeaturesStep.ts`
+  - `pipeline/ecology/steps/BiomesStep.ts` (currently `layers/ecology/steps/BiomesStep.ts`)
+  - `pipeline/ecology/steps/FeaturesStep.ts` (currently `layers/ecology/steps/FeaturesStep.ts`)
 - [ ] Update placement steps to import from `domain/placement/**` instead of `layers/placement/placement.ts`:
-  - `layers/placement/steps/PlacementStep.ts`
-  - `layers/placement/steps/LegacyPlacementStep.ts`
+  - `pipeline/placement/steps/PlacementStep.ts` (currently `layers/placement/steps/PlacementStep.ts`)
+  - `pipeline/placement/steps/LegacyPlacementStep.ts` (currently `layers/placement/steps/LegacyPlacementStep.ts`)
 - [ ] Update narrative steps and pipeline callsites to import from `domain/narrative/**` instead of `story/**`:
-  - `layers/narrative/*.ts`
+  - `pipeline/narrative/*.ts` (currently `layers/narrative/*.ts`)
   - `pipeline/tags.ts`
 
 ### 7.2 Delete legacy re-export shims (only after all callsites are migrated)
@@ -713,10 +726,22 @@ Delete the following files/folders (or reduce them to explicit deprecations *tem
   - export narrative/public surfaces from canonical modules (likely `./domain/narrative/index.ts`)
   - decide whether any domain modules are public API vs internal-only (and document the decision)
 
+### 7.4 Move step wiring from `layers/**` → `pipeline/**` (final layout)
+
+- [ ] Move `packages/mapgen-core/src/layers/standard-library.ts` → `packages/mapgen-core/src/pipeline/standard-library.ts`.
+- [ ] Move phase directories:
+  - `packages/mapgen-core/src/layers/foundation/**` → `packages/mapgen-core/src/pipeline/foundation/**`
+  - `packages/mapgen-core/src/layers/morphology/**` → `packages/mapgen-core/src/pipeline/morphology/**`
+  - `packages/mapgen-core/src/layers/hydrology/**` → `packages/mapgen-core/src/pipeline/hydrology/**`
+  - `packages/mapgen-core/src/layers/ecology/**` → `packages/mapgen-core/src/pipeline/ecology/**`
+  - `packages/mapgen-core/src/layers/narrative/**` → `packages/mapgen-core/src/pipeline/narrative/**`
+  - `packages/mapgen-core/src/layers/placement/**` → `packages/mapgen-core/src/pipeline/placement/**`
+- [ ] Update `packages/mapgen-core/src/MapOrchestrator.ts` and any imports to reference `pipeline/standard-library.ts` (and/or re-export from `pipeline/index.ts`).
+- [ ] Delete `packages/mapgen-core/src/layers/**` once all callsites + registry wiring are updated.
+
 ---
 
 ## 8) Open Decisions (Make These Explicit Before Deleting Facades)
 
 - **Narrative/playability model:** decide whether narrative is a dedicated “final pass”, a conceptual plugin category injected into earlier phases, or a hybrid (and define explicit mutation budgets/invariants).
 - **Package surface:** decide what is public API vs internal-only once `story/**` + `narrative/**` shims are deleted (and document the intended modder import surfaces).
-- **Directory layout (optional):** decide whether to keep `layers/**` as the step-wiring home or merge it into `pipeline/**` (not required to complete the atomic split, but affects long-term discoverability).
