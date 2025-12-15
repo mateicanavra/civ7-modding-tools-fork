@@ -196,9 +196,8 @@ describe("integration: bootstrap → tunables → orchestrator (stages disabled)
     orchestrator.generateMap();
 
     // Orchestrator operations should go through the stubbed globals
-    // (recalculateAreas, buildElevation, storeWaterData are always called)
+    // (recalculateAreas, buildElevation are always called)
     expect(calls.some((c) => c.method === "recalculateAreas")).toBe(true);
     expect(calls.some((c) => c.method === "buildElevation")).toBe(true);
-    expect(calls.some((c) => c.method === "storeWaterData")).toBe(true);
   });
 });

@@ -130,7 +130,11 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     provides: [M3_DEPENDENCY_TAGS.state.featuresApplied],
   },
   placement: {
-    requires: [M3_DEPENDENCY_TAGS.state.featuresApplied],
+    requires: [
+      M3_DEPENDENCY_TAGS.state.coastlinesApplied,
+      M3_DEPENDENCY_TAGS.state.riversModeled,
+      M3_DEPENDENCY_TAGS.state.featuresApplied,
+    ],
     provides: [M3_DEPENDENCY_TAGS.state.placementApplied],
   },
 });

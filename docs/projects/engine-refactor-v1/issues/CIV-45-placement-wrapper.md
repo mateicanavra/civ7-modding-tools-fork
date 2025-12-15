@@ -22,17 +22,17 @@ Wrap placement as a Task Graph step with explicit, runtime-gated dependencies so
 
 ## Deliverables
 
-- [ ] Implement `LegacyPlacementStep` wrapper as a `MapGenStep` that runs the existing placement pipeline (`runPlacement`) under the executor.
-- [ ] Declare a correct cross-cutting `requires/provides` contract for placement (dependency gating must reflect what placement assumes is already applied to the engine surface).
-- [ ] Preserve existing placement outputs (starts/wonders/floodplains/resources/discoveries) and map quality (no algorithm changes).
+- [x] Implement `LegacyPlacementStep` wrapper as a `MapGenStep` that runs the existing placement pipeline (`runPlacement`) under the executor.
+- [x] Declare a correct cross-cutting `requires/provides` contract for placement (dependency gating must reflect what placement assumes is already applied to the engine surface).
+- [x] Preserve existing placement outputs (starts/wonders/floodplains/resources/discoveries) and map quality (no algorithm changes).
 
 ## Acceptance Criteria
 
-- [ ] Placement stage runs as a step via `PipelineExecutor` with explicit contracts
-- [ ] All placement outputs (starts, wonders, floodplains) match current orchestrator behavior
-- [ ] Step fails fast if any required dependency tags are missing
-- [ ] No silent degradation of placement quality due to missing dependencies
-- [ ] Step declares `requires`/`provides` that accurately reflect its cross-cutting dependencies
+- [x] Placement stage runs as a step via `PipelineExecutor` with explicit contracts
+- [x] All placement outputs (starts, wonders, floodplains) match current orchestrator behavior
+- [x] Step fails fast if any required dependency tags are missing
+- [x] No silent degradation of placement quality due to missing dependencies
+- [x] Step declares `requires`/`provides` that accurately reflect its cross-cutting dependencies
 
 ## Testing / Verification
 
@@ -67,11 +67,18 @@ Wrap placement as a Task Graph step with explicit, runtime-gated dependencies so
 
 ### Key Files (Expected)
 
-- `packages/mapgen-core/src/steps/` (new: wrapper step; exact location TBD)
-- `packages/mapgen-core/src/layers/placement.ts` (modify: move config reads off tunables; keep behavior stable)
+- `packages/mapgen-core/src/steps/LegacyPlacementStep.ts` (new: wrapper step)
+- `packages/mapgen-core/src/layers/placement.ts` (modify: consume config snapshot from context)
 
 ### Design Notes
 
 - Most cross-cutting step in the pipeline—validate dependency list carefully
 - Start with wrapper, then incrementally migrate internal reads
 - Placement touches many subsystems—be thorough about identifying all implicit dependencies
+
+### Review Fixes
+
+- Placement config now respects top-level `placement` (deep-merged over `foundation.placement` for compatibility).
+- `storeWaterData()` is owned by `runPlacement()` (orchestrator no longer pre-calls it).
+- Placement ASCII + `[START_DEBUG]` logs gated behind `DEV.ENABLED`.
+- Added placement gating regression coverage in `packages/mapgen-core/test/pipeline/placement-gating.test.ts`.

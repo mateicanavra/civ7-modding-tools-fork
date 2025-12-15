@@ -138,6 +138,7 @@ export function buildTunablesFromConfig(config: MapGenConfig): TunablesSnapshot 
   mergeTopLevelLayer("story");
   mergeTopLevelLayer("corridors");
   mergeTopLevelLayer("oceanSeparation");
+  mergeTopLevelLayer("placement");
 
   // Read plates/dynamics/directionality from validated config
   // Defaults are applied by schema, so we just reshape here

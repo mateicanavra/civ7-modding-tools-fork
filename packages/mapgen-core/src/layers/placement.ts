@@ -45,8 +45,7 @@ import type {
   ContinentBounds,
   StartsConfig,
 } from "../bootstrap/types.js";
-
-import { getTunables } from "../bootstrap/tunables.js";
+import { DEV } from "../dev/index.js";
 
 // Terrain type constants - imported from shared module
 // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
@@ -84,6 +83,8 @@ export interface PlacementOptions {
   floodplains?: FloodplainsConfig;
   /** Start placement inputs */
   starts?: StartsConfig;
+  /** Placement tuning snapshot (prefer config-derived source, not tunables). */
+  placementConfig?: PlacementConfig;
 }
 
 // ============================================================================
@@ -104,28 +105,13 @@ function resolveNaturalWonderCount(mapInfo: MapInfo | undefined, wondersPlusOne:
   return mapInfo.NumNaturalWonders;
 }
 
-/**
- * Get placement config from tunables, if available.
- */
-function getPlacementConfig(): PlacementConfig {
-  try {
-    const tunables = getTunables();
-    const foundationCfg = tunables.FOUNDATION_CFG;
-    if (foundationCfg && typeof foundationCfg === "object" && "placement" in foundationCfg) {
-      return (foundationCfg as { placement?: PlacementConfig }).placement || {};
-    }
-  } catch {
-    // Tunables not available
-  }
-  return {};
-}
-
 function logTerrainStats(
   adapter: EngineAdapter,
   width: number,
   height: number,
   stage: string
 ): void {
+  if (!DEV.ENABLED) return;
   let flat = 0;
   let hill = 0;
   let mtn = 0;
@@ -156,6 +142,7 @@ function logTerrainStats(
 }
 
 function logAsciiMap(adapter: EngineAdapter, width: number, height: number): void {
+  if (!DEV.ENABLED) return;
   console.log("[Placement] Final Map ASCII:");
   // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
   // Using getTerrainSymbol() from terrain-constants for correct mapping
@@ -197,7 +184,7 @@ export function runPlacement(
   logTerrainStats(adapter, iWidth, iHeight, "Initial");
 
   const { mapInfo, wondersPlusOne, floodplains, starts } = options;
-  const placementCfg = getPlacementConfig();
+  const placementCfg = options.placementConfig ?? {};
   const startPositions: number[] = [];
 
   // =========================================================================
@@ -298,16 +285,18 @@ export function runPlacement(
 
       // DIAGNOSTIC LOGGING - Start placement parameters
       const totalPlayers = playersLandmass1 + playersLandmass2;
-      console.log(`[START_DEBUG] === Beginning Start Placement ===`);
-      console.log(
-        `[START_DEBUG] Players: ${totalPlayers} total (${playersLandmass1} landmass1, ${playersLandmass2} landmass2)`
-      );
-      console.log(
-        `[START_DEBUG] Continents: west=${JSON.stringify(westContinent)}, east=${JSON.stringify(eastContinent)}`
-      );
-      console.log(
-        `[START_DEBUG] Sectors: ${startSectorRows}x${startSectorCols} grid, ${startSectors.length} sectors chosen`
-      );
+      if (DEV.ENABLED) {
+        console.log(`[START_DEBUG] === Beginning Start Placement ===`);
+        console.log(
+          `[START_DEBUG] Players: ${totalPlayers} total (${playersLandmass1} landmass1, ${playersLandmass2} landmass2)`
+        );
+        console.log(
+          `[START_DEBUG] Continents: west=${JSON.stringify(westContinent)}, east=${JSON.stringify(eastContinent)}`
+        );
+        console.log(
+          `[START_DEBUG] Sectors: ${startSectorRows}x${startSectorCols} grid, ${startSectors.length} sectors chosen`
+        );
+      }
 
       const pos = adapter.assignStartPositions(
         playersLandmass1,
@@ -321,15 +310,17 @@ export function runPlacement(
 
       // DIAGNOSTIC LOGGING - Placement results
       const successCount = pos ? pos.filter((p) => p !== undefined && p >= 0).length : 0;
-      console.log(
-        `[START_DEBUG] Result: ${successCount}/${totalPlayers} civilizations placed successfully`
-      );
-      if (successCount < totalPlayers) {
+      if (DEV.ENABLED) {
         console.log(
-          `[START_DEBUG] WARNING: ${totalPlayers - successCount} civilizations failed to find valid start locations!`
+          `[START_DEBUG] Result: ${successCount}/${totalPlayers} civilizations placed successfully`
         );
+        if (successCount < totalPlayers) {
+          console.log(
+            `[START_DEBUG] WARNING: ${totalPlayers - successCount} civilizations failed to find valid start locations!`
+          );
+        }
+        console.log(`[START_DEBUG] === End Start Placement ===`);
       }
-      console.log(`[START_DEBUG] === End Start Placement ===`);
 
       if (Array.isArray(pos)) {
         startPositions.push(...pos);

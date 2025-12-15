@@ -42,6 +42,7 @@ import type {
   MountainsConfig,
   VolcanoesConfig,
   ContinentBounds,
+  PlacementConfig,
 } from "./bootstrap/types.js";
 import type { ExtendedMapContext, FoundationContext } from "./core/types.js";
 import type { WorldModelState } from "./world/types.js";
@@ -108,7 +109,11 @@ import { applyClimateBaseline, refineClimateEarthlike } from "./layers/climate-e
 import { designateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures } from "./layers/features.js";
 import { runPlacement } from "./layers/placement.js";
-import { createLegacyBiomesStep, createLegacyFeaturesStep } from "./steps/index.js";
+import {
+  createLegacyBiomesStep,
+  createLegacyFeaturesStep,
+  createLegacyPlacementStep,
+} from "./steps/index.js";
 
 // Dev diagnostics
 import {
@@ -131,6 +136,34 @@ import {
   type DevLogConfig,
   type FoundationPlates,
 } from "./dev/index.js";
+
+function deepMerge<T extends object>(base: T, override: Partial<T> | undefined): T {
+  if (!override || typeof override !== "object") {
+    return base;
+  }
+
+  const result = { ...base } as Record<string, unknown>;
+
+  for (const key of Object.keys(override)) {
+    const baseVal = (base as Record<string, unknown>)[key];
+    const overrideVal = (override as Record<string, unknown>)[key];
+
+    if (
+      baseVal &&
+      typeof baseVal === "object" &&
+      !Array.isArray(baseVal) &&
+      overrideVal &&
+      typeof overrideVal === "object" &&
+      !Array.isArray(overrideVal)
+    ) {
+      result[key] = deepMerge(baseVal as object, overrideVal as object);
+    } else if (overrideVal !== undefined) {
+      result[key] = overrideVal;
+    }
+  }
+
+  return result as T;
+}
 
 // ============================================================================
 // Types
@@ -1064,9 +1097,6 @@ export class MapOrchestrator {
       this.stageResults.push(stageResult);
     }
 
-    // Store water data before placement
-    this.orchestratorAdapter.storeWaterData();
-
     // ========================================================================
     // Stage: Placement
     // ========================================================================
@@ -1085,6 +1115,10 @@ export class MapOrchestrator {
             startSectorCols: iStartSectorCols,
             startSectors,
           },
+          placementConfig: deepMerge<PlacementConfig>(
+            ctx.config.foundation?.placement ?? {},
+            ctx.config.placement
+          ),
         });
         startPositions.push(...positions);
       });
@@ -1649,16 +1683,11 @@ export class MapOrchestrator {
       })
     );
 
-    registry.register({
-      id: "placement",
-      phase: M3_STANDARD_STAGE_PHASE.placement,
-      ...getStageDescriptor("placement"),
-      shouldRun: () => stageFlags.placement,
-      run: () => {
-        // Store water data before placement
-        this.orchestratorAdapter.storeWaterData();
-
-        const positions = runPlacement(ctx.adapter, iWidth, iHeight, {
+    registry.register(
+      createLegacyPlacementStep({
+        ...getStageDescriptor("placement"),
+        shouldRun: () => stageFlags.placement,
+        placementOptions: {
           mapInfo: mapInfo as { NumNaturalWonders?: number },
           wondersPlusOne: true,
           floodplains: { minLength: 4, maxLength: 10 },
@@ -1671,10 +1700,12 @@ export class MapOrchestrator {
             startSectorCols: iStartSectorCols,
             startSectors,
           },
-        });
-        startPositions.push(...positions);
-      },
-    });
+        },
+        afterRun: (_ctx, positions) => {
+          startPositions.push(...positions);
+        },
+      })
+    );
 
     const executor = new PipelineExecutor(registry, { logPrefix: `${prefix} [TaskGraph]` });
     const recipe = registry.getStandardRecipe(stageManifest);
