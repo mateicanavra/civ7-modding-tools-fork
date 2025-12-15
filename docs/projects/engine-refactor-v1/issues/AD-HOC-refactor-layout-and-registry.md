@@ -136,6 +136,7 @@ We will execute this by creating 6 Domain Modules.
 
 - [x] **Implement:** `packages/mapgen-core/src/layers/standard-library.ts` + export from `packages/mapgen-core/src/layers/index.ts`
 - [x] **Content:** Imports domain modules and exports `registerStandardLibrary(registry, config, runtime)`
+- [x] **Public API:** `packages/mapgen-core/src/layers/index.ts` re-exports `register*Layer` domain registrars for composable registries
 
 ## 8. The Cleanup (`MapOrchestrator.ts`)
 
