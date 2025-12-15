@@ -1350,6 +1350,8 @@ export class MapOrchestrator {
         );
 
         assertFoundationContext(ctx, "climateBaseline");
+        syncHeightfield(ctx);
+        publishHeightfieldArtifact(ctx);
         applyClimateBaseline(iWidth, iHeight, ctx);
         publishClimateFieldArtifact(ctx);
       },
@@ -1411,6 +1413,7 @@ export class MapOrchestrator {
         ctx.adapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx);
+        publishHeightfieldArtifact(ctx);
         ctx.adapter.defineNamedRivers();
 
         const riverAdjacency = computeRiverAdjacencyMask(ctx);
