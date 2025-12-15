@@ -15,6 +15,12 @@
 export const LAYERS_MODULE_VERSION = "0.3.0";
 
 export { registerStandardLibrary, type StandardLibraryRuntime } from "./standard-library.js";
+export { registerFoundationLayer, type FoundationLayerRuntime } from "./foundation/index.js";
+export { registerMorphologyLayer, type MorphologyLayerRuntime } from "./morphology/index.js";
+export { registerHydrologyLayer, type HydrologyLayerRuntime } from "./hydrology/index.js";
+export { registerNarrativeLayer, type NarrativeLayerRuntime } from "./narrative/index.js";
+export { registerEcologyLayer, type EcologyLayerRuntime } from "./ecology/index.js";
+export { registerPlacementLayer, type PlacementLayerRuntime } from "./placement/index.js";
 
 // ============================================================================
 // Landmass Layers

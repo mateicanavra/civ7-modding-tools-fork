@@ -20,7 +20,7 @@
  * - Advanced start region assignment
  *
  * Usage:
- *   import { runPlacement } from "./layers/placement.js";
+ *   import { runPlacement } from "@swooper/mapgen-core/layers";
  *   const startPositions = runPlacement(adapter, iWidth, iHeight, {
  *     mapInfo,
  *     wondersPlusOne: true, // default true
