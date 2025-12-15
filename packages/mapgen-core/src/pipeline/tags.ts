@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "../core/types.js";
-import { getStoryOverlayRegistry } from "../story/overlays.js";
+import { getStoryOverlayRegistry } from "../domain/narrative/overlays/index.js";
 import {
   InvalidDependencyTagError,
   UnknownDependencyTagError,

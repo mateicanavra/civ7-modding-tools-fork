@@ -1,8 +1,8 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { addDiverseFeatures } from "../../domain/ecology/features/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { STORY_OVERLAY_KEYS, getStoryOverlay, hydrateMarginsStoryTags } from "../../story/index.js";
-import { getStoryTags } from "../../story/tags.js";
+import { STORY_OVERLAY_KEYS, getStoryOverlay, hydrateMarginsStoryTags } from "../../domain/narrative/overlays/index.js";
+import { getStoryTags } from "../../domain/narrative/tags/index.js";
 
 export interface FeaturesStepOptions {
   requires: readonly string[];

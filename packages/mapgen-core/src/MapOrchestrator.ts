@@ -85,24 +85,24 @@ import {
   isStageEnabled,
   validateStageDrift,
 } from "./bootstrap/resolved.js";
-import { getStoryTags, resetStoryTags } from "./story/tags.js";
-import { resetStoryOverlays } from "./story/overlays.js";
+import { getStoryTags, resetStoryTags } from "./domain/narrative/tags/index.js";
+import { resetStoryOverlays } from "./domain/narrative/overlays/index.js";
 import {
   storyTagContinentalMargins,
   storyTagHotspotTrails,
   storyTagRiftValleys,
-} from "./story/tagging.js";
-import { getOrogenyCache, resetOrogenyCache, storyTagOrogenyBelts } from "./story/orogeny.js";
-import { resetCorridorStyleCache, storyTagStrategicCorridors } from "./story/corridors.js";
-import { storyTagClimatePaleo, storyTagClimateSwatches } from "./story/swatches.js";
+} from "./domain/narrative/tagging/index.js";
+import { getOrogenyCache, resetOrogenyCache, storyTagOrogenyBelts } from "./domain/narrative/orogeny/index.js";
+import { resetCorridorStyleCache, storyTagStrategicCorridors } from "./domain/narrative/corridors/index.js";
+import { storyTagClimatePaleo, storyTagClimateSwatches } from "./domain/narrative/swatches.js";
 import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/index.js";
 import {
   PipelineExecutor,
   StepRegistry,
   MissingDependencyError,
   UnsatisfiedProvidesError,
+  registerStandardLibrary,
 } from "./pipeline/index.js";
-import { registerStandardLibrary } from "./layers/standard-library.js";
 import {
   computeRiverAdjacencyMask,
   publishClimateFieldArtifact,
@@ -110,21 +110,21 @@ import {
   publishRiverAdjacencyArtifact,
 } from "./pipeline/artifacts.js";
 
-// Layer imports (legacy execution path)
-import { createPlateDrivenLandmasses } from "./layers/morphology/landmass-plate.js";
+// Domain imports (legacy execution path)
+import { createPlateDrivenLandmasses } from "./domain/morphology/landmass/index.js";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,
   type LandmassWindow,
-} from "./layers/morphology/landmass-utils.js";
-import { addRuggedCoasts } from "./layers/morphology/coastlines.js";
-import { addIslandChains } from "./layers/morphology/islands.js";
-import { layerAddMountainsPhysics } from "./layers/morphology/mountains.js";
-import { layerAddVolcanoesPlateAware } from "./layers/morphology/volcanoes.js";
-import { applyClimateBaseline, refineClimateEarthlike } from "./layers/hydrology/climate.js";
-import { designateEnhancedBiomes } from "./layers/ecology/biomes.js";
-import { addDiverseFeatures } from "./layers/ecology/features.js";
-import { runPlacement } from "./layers/placement/placement.js";
+} from "./domain/morphology/landmass/utils.js";
+import { addRuggedCoasts } from "./domain/morphology/coastlines/index.js";
+import { addIslandChains } from "./domain/morphology/islands/index.js";
+import { layerAddMountainsPhysics } from "./domain/morphology/mountains/index.js";
+import { layerAddVolcanoesPlateAware } from "./domain/morphology/volcanoes/index.js";
+import { applyClimateBaseline, refineClimateEarthlike } from "./domain/hydrology/climate/index.js";
+import { designateEnhancedBiomes } from "./domain/ecology/biomes/index.js";
+import { addDiverseFeatures } from "./domain/ecology/features/index.js";
+import { runPlacement } from "./domain/placement/index.js";
 
 // Dev diagnostics
 import {

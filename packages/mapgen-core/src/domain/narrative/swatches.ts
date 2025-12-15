@@ -6,8 +6,8 @@
  */
 
 import type { ExtendedMapContext } from "../../core/types.js";
-import { applyClimateSwatches } from "../../layers/hydrology/climate.js";
-import type { OrogenyCache } from "../../layers/hydrology/climate.js";
+import { applyClimateSwatches } from "../hydrology/climate/index.js";
+import type { OrogenyCache } from "../hydrology/climate/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "./overlays/index.js";
 import { storyTagPaleoHydrology } from "./paleo/index.js";
 

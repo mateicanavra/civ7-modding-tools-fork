@@ -6,8 +6,8 @@ import {
   getStoryOverlay,
   hydrateCorridorsStoryTags,
   hydrateRiftsStoryTags,
-} from "../../story/index.js";
-import { getStoryTags } from "../../story/tags.js";
+} from "../../domain/narrative/overlays/index.js";
+import { getStoryTags } from "../../domain/narrative/tags/index.js";
 
 export interface BiomesStepOptions {
   requires: readonly string[];

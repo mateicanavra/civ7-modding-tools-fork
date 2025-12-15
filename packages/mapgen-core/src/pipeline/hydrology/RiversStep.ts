@@ -8,7 +8,7 @@ import {
   publishRiverAdjacencyArtifact,
 } from "../artifacts.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { storyTagClimatePaleo } from "../../story/swatches.js";
+import { storyTagClimatePaleo } from "../../domain/narrative/swatches.js";
 
 export interface RiversStepOptions {
   requires: readonly string[];

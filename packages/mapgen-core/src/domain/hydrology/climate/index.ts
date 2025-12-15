@@ -11,7 +11,7 @@ import type {
 } from "../../../bootstrap/types.js";
 import { ctxRandom, writeClimateField } from "../../../core/types.js";
 import type { FoundationContext } from "../../../core/types.js";
-import { getStoryTags } from "../../../story/tags.js";
+import { getStoryTags } from "../../narrative/tags/index.js";
 import { M3_DEPENDENCY_TAGS } from "../../../pipeline/tags.js";
 import { clamp, inBounds as boundsCheck } from "../../../core/index.js";
 import { idx } from "../../../lib/grid/index.js";

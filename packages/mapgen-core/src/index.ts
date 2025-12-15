@@ -7,10 +7,9 @@
  * Architecture:
  * - bootstrap/: Configuration providers (lazy-loaded)
  * - world/: Voronoi tectonics, plate simulation
- * - layers/: Terrain generation stages (mountains, climate, etc.)
- * - narrative/: Canonical narrative tagging + overlays (cross-cutting)
+ * - pipeline/: Step wiring + task graph execution primitives
+ * - domain/: Mapgen algorithms + narrative tagging/overlays
  * - core/: Shared utilities and types
- * - story/: Compatibility facade for narrative (legacy import paths)
  */
 
 // Re-export core types from adapter
@@ -22,14 +21,11 @@ export { bootstrap } from "./bootstrap/entry.js";
 // Re-export world module
 export * from "./world/index.js";
 
-// Re-export layers module
-export * from "./layers/index.js";
+// Re-export domain algorithms + types
+export * from "./domain/index.js";
 
 // Re-export core utilities and types
 export * from "./core/index.js";
-
-// Re-export story module
-export * from "./story/index.js";
 
 // Re-export dev diagnostics module
 export * from "./dev/index.js";

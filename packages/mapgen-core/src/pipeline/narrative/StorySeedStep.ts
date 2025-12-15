@@ -1,11 +1,11 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { DEV, devWarn } from "../../dev/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { resetCorridorStyleCache } from "../../narrative/corridors.js";
-import { resetOrogenyCache } from "../../narrative/orogeny.js";
-import { resetStoryOverlays } from "../../narrative/overlays.js";
-import { storyTagContinentalMargins } from "../../narrative/tagging.js";
-import { resetStoryTags } from "../../narrative/tags.js";
+import { resetCorridorStyleCache } from "../../domain/narrative/corridors/index.js";
+import { resetOrogenyCache } from "../../domain/narrative/orogeny/index.js";
+import { resetStoryOverlays } from "../../domain/narrative/overlays/index.js";
+import { storyTagContinentalMargins } from "../../domain/narrative/tagging/index.js";
+import { resetStoryTags } from "../../domain/narrative/tags/index.js";
 
 export interface StorySeedStepRuntime {
   logPrefix: string;

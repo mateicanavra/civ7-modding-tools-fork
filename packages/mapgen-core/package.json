@@ -26,9 +26,53 @@
       "types": "./dist/world/index.d.ts",
       "import": "./dist/world/index.js"
     },
-    "./layers": {
-      "types": "./dist/layers/index.d.ts",
-      "import": "./dist/layers/index.js"
+    "./pipeline": {
+      "types": "./dist/pipeline/index.d.ts",
+      "import": "./dist/pipeline/index.js"
+    },
+    "./domain": {
+      "types": "./dist/domain/index.d.ts",
+      "import": "./dist/domain/index.js"
+    },
+    "./domain/morphology": {
+      "types": "./dist/domain/morphology/index.d.ts",
+      "import": "./dist/domain/morphology/index.js"
+    },
+    "./domain/hydrology": {
+      "types": "./dist/domain/hydrology/index.d.ts",
+      "import": "./dist/domain/hydrology/index.js"
+    },
+    "./domain/ecology": {
+      "types": "./dist/domain/ecology/index.d.ts",
+      "import": "./dist/domain/ecology/index.js"
+    },
+    "./domain/narrative": {
+      "types": "./dist/domain/narrative/index.d.ts",
+      "import": "./dist/domain/narrative/index.js"
+    },
+    "./domain/placement": {
+      "types": "./dist/domain/placement/index.d.ts",
+      "import": "./dist/domain/placement/index.js"
+    },
+    "./lib/math": {
+      "types": "./dist/lib/math/index.d.ts",
+      "import": "./dist/lib/math/index.js"
+    },
+    "./lib/grid": {
+      "types": "./dist/lib/grid/index.d.ts",
+      "import": "./dist/lib/grid/index.js"
+    },
+    "./lib/rng": {
+      "types": "./dist/lib/rng/index.d.ts",
+      "import": "./dist/lib/rng/index.js"
+    },
+    "./lib/noise": {
+      "types": "./dist/lib/noise/index.d.ts",
+      "import": "./dist/lib/noise/index.js"
+    },
+    "./lib/collections": {
+      "types": "./dist/lib/collections/index.d.ts",
+      "import": "./dist/lib/collections/index.js"
     }
   },
   "scripts": {

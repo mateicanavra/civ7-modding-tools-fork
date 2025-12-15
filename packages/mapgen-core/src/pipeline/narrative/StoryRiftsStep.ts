@@ -1,7 +1,7 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { DEV, devWarn } from "../../dev/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { storyTagRiftValleys } from "../../narrative/tagging.js";
+import { storyTagRiftValleys } from "../../domain/narrative/tagging/index.js";
 
 export interface StoryRiftsStepRuntime {
   logPrefix: string;

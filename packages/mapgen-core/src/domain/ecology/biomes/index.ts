@@ -23,7 +23,7 @@
 import type { ExtendedMapContext } from "../../../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
 import { ctxRandom } from "../../../core/types.js";
-import { getStoryTags } from "../../../story/tags.js";
+import { getStoryTags } from "../../narrative/tags/index.js";
 import {
   getPublishedClimateField,
   getPublishedRiverAdjacency,

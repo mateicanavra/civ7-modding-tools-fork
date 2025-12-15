@@ -1,8 +1,8 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { publishClimateFieldArtifact } from "../artifacts.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { getOrogenyCache } from "../../narrative/orogeny.js";
-import { storyTagClimateSwatches } from "../../narrative/swatches.js";
+import { getOrogenyCache } from "../../domain/narrative/orogeny/index.js";
+import { storyTagClimateSwatches } from "../../domain/narrative/swatches.js";
 
 export interface StorySwatchesStepOptions {
   requires: readonly string[];
