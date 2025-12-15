@@ -109,6 +109,21 @@ Each deferral follows this structure:
 
 ---
 
+## DEF-008: `state:engine.*` Dependency Tags Are Trusted (Not Runtime-Verified)
+
+**Deferred:** 2025-12-14  
+**Trigger:** When the engine adapter can reliably expose/verifiably report the relevant engine-side invariants (or when we stop depending on engine-surface state tags for gating).  
+**Context:** In M3, `PipelineExecutor` enforces `artifact:*` and `field:*` dependencies at runtime, but `state:engine.*` tags represent engine-surface guarantees that are not currently introspectable from the TS runtime. We intentionally treat these tags as trusted declarations to enable wrap-first steps without blocking on new adapter APIs.  
+**Scope:**
+- Define a verification strategy for `state:engine.*` dependencies (adapter queries, explicit step-owned checks, or replacing `state:*` tags with canonical artifacts where feasible).
+- Add a small set of runtime checks for the highest-risk `state:engine.*` tags once a strategy exists.
+- Document which `state:engine.*` tags are considered stable contracts vs transitional wiring.  
+**Impact:**
+- A misdeclared or stale `state:engine.*` dependency can bypass executor gating and fail later (or silently degrade output).
+- Contract correctness relies on discipline + review rather than runtime enforcement for this namespace in M3.
+
+---
+
 ## Resolved Deferrals
 
 *Move resolved deferrals here with resolution notes.*
