@@ -7,6 +7,18 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
   const width = 24;
   const height = 16;
   const size = width * height;
+  const mapInfo = {
+    GridWidth: width,
+    GridHeight: height,
+    MinLatitude: -80,
+    MaxLatitude: 80,
+    NumNaturalWonders: 0,
+    LakeGenerationFrequency: 0,
+    PlayersLandmass1: 4,
+    PlayersLandmass2: 4,
+    StartSectorRows: 4,
+    StartSectorCols: 4,
+  };
 
   let originalGameplayMap: unknown;
   let originalGameInfo: unknown;
@@ -34,18 +46,7 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
 
     (globalThis as Record<string, unknown>).GameInfo = {
       Maps: {
-        lookup: () => ({
-          GridWidth: width,
-          GridHeight: height,
-          MinLatitude: -80,
-          MaxLatitude: 80,
-          NumNaturalWonders: 0,
-          LakeGenerationFrequency: 0,
-          PlayersLandmass1: 4,
-          PlayersLandmass2: 4,
-          StartSectorRows: 4,
-          StartSectorCols: 4,
-        }),
+        lookup: () => mapInfo,
       },
     };
   });
@@ -62,6 +63,8 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
     const adapter = createMockAdapter({
       width,
       height,
+      mapSizeId: 1,
+      mapInfo,
       rng: () => 0,
     });
 

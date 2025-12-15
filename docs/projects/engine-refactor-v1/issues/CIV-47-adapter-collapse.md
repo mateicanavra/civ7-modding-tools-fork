@@ -1,7 +1,7 @@
 ---
 id: CIV-47
 title: "[M3] Adapter Boundary Collapse (EngineAdapter absorbs OrchestratorAdapter)"
-state: planned
+state: done
 priority: 3
 estimate: 2
 project: engine-refactor-v1
@@ -22,18 +22,18 @@ Collapse `MapOrchestrator`’s internal `OrchestratorAdapter` into the canonical
 
 ## Deliverables
 
-- [ ] Extend `EngineAdapter` to cover map-init + map-info responsibilities currently owned by `MapOrchestrator`’s internal `OrchestratorAdapter` (map size/dimensions lookup, `SetMapInitData`, map-info lookup).
-- [ ] Update `Civ7Adapter` to implement the extended API.
-- [ ] Refactor `MapOrchestrator` to use only `EngineAdapter` (remove internal `OrchestratorAdapter` and engine-global calls outside the adapter boundary).
-- [ ] Update docs as needed to match the single-adapter design.
+- [x] Extend `EngineAdapter` to cover map-init + map-info responsibilities currently owned by `MapOrchestrator`’s internal `OrchestratorAdapter` (map size/dimensions lookup, `SetMapInitData`, map-info lookup).
+- [x] Update `Civ7Adapter` to implement the extended API.
+- [x] Refactor `MapOrchestrator` to use only `EngineAdapter` (remove internal `OrchestratorAdapter` and engine-global calls outside the adapter boundary).
+- [x] Update docs as needed to match the single-adapter design.
 
 ## Acceptance Criteria
 
-- [ ] Only one adapter boundary exists: `MapGenContext.adapter: EngineAdapter`
-- [ ] `MapOrchestrator` and pipeline entry have no internal/secondary adapters
-- [ ] Implementation matches the single-adapter design in `architecture.md`
-- [ ] Adapter API is documented for potential extensibility
-- [ ] No references to `OrchestratorAdapter` remain in codebase
+- [x] Only one adapter boundary exists: `MapGenContext.adapter: EngineAdapter`
+- [x] `MapOrchestrator` and pipeline entry have no internal/secondary adapters
+- [x] Implementation matches the single-adapter design in `architecture.md`
+- [x] Adapter API is documented for potential extensibility
+- [x] No references to `OrchestratorAdapter` remain in codebase
 
 ## Testing / Verification
 

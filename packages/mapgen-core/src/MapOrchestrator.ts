@@ -49,8 +49,10 @@
  *   });
  */
 
-import type { EngineAdapter } from "@civ7/adapter";
+import type { EngineAdapter, MapInfo, MapInitParams } from "@civ7/adapter";
 import { Civ7Adapter, createCiv7Adapter } from "@civ7/adapter/civ7";
+
+export type { MapInfo, MapInitParams } from "@civ7/adapter";
 import type { MapGenConfig } from "./config/index.js";
 import type {
   LandmassConfig,
@@ -153,33 +155,6 @@ import {
 // Types
 // ============================================================================
 
-/** Map initialization parameters */
-export interface MapInitParams {
-  width: number;
-  height: number;
-  topLatitude?: number;
-  bottomLatitude?: number;
-  wrapX?: boolean;
-  wrapY?: boolean;
-}
-
-/** Map info from GameInfo.Maps lookup */
-export interface MapInfo {
-  // === Map Size Dimensions ===
-  GridWidth?: number;
-  GridHeight?: number;
-  MinLatitude?: number;
-  MaxLatitude?: number;
-  // === Game Setup Parameters ===
-  NumNaturalWonders?: number;
-  LakeGenerationFrequency?: number;
-  PlayersLandmass1?: number;
-  PlayersLandmass2?: number;
-  StartSectorRows?: number;
-  StartSectorCols?: number;
-  [key: string]: unknown;
-}
-
 /**
  * Map size defaults for testing (bypasses game settings).
  *
@@ -262,149 +237,6 @@ function assertFoundationContext(
 }
 
 // ============================================================================
-// Adapter Resolution
-// ============================================================================
-
-interface OrchestratorAdapter {
-  getGridWidth: () => number;
-  getGridHeight: () => number;
-  getMapSize: () => number;
-  lookupMapInfo: (mapSize: number) => MapInfo | null;
-  setMapInitData: (params: MapInitParams) => void;
-  isWater: (x: number, y: number) => boolean;
-  validateAndFixTerrain: () => void;
-  recalculateAreas: () => void;
-  stampContinents: () => void;
-  buildElevation: () => void;
-  modelRivers: (minLength: number, maxLength: number, navigableTerrain: number) => void;
-  defineNamedRivers: () => void;
-  storeWaterData: () => void;
-  generateLakes: (width: number, height: number, tilesPerLake: number) => void;
-  expandCoasts: (width: number, height: number) => void;
-  chooseStartSectors: (
-    players1: number,
-    players2: number,
-    rows: number,
-    cols: number,
-    humanNearEquator: boolean
-  ) => unknown[];
-  needHumanNearEquator: () => boolean;
-}
-
-function resolveOrchestratorAdapter(): OrchestratorAdapter {
-  // Use engine globals directly - orchestrator-specific operations
-  return {
-    getGridWidth: () => (typeof GameplayMap !== "undefined" ? GameplayMap.getGridWidth() : 0),
-    getGridHeight: () => (typeof GameplayMap !== "undefined" ? GameplayMap.getGridHeight() : 0),
-    getMapSize: () =>
-      typeof GameplayMap !== "undefined" ? (GameplayMap.getMapSize() as unknown as number) : 0,
-    lookupMapInfo: (mapSize: number) =>
-      typeof GameInfo !== "undefined" && GameInfo?.Maps?.lookup
-        ? GameInfo.Maps.lookup(mapSize)
-        : null,
-    setMapInitData: (params: MapInitParams) => {
-      if (typeof engine !== "undefined" && engine?.call) {
-        engine.call("SetMapInitData", params);
-      }
-    },
-    isWater: (x: number, y: number) =>
-      typeof GameplayMap !== "undefined" ? GameplayMap.isWater(x, y) : true,
-    validateAndFixTerrain: () => {
-      if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.validateAndFixTerrain) {
-        TerrainBuilder.validateAndFixTerrain();
-      }
-    },
-    recalculateAreas: () => {
-      if (typeof AreaBuilder !== "undefined" && AreaBuilder?.recalculateAreas) {
-        AreaBuilder.recalculateAreas();
-      }
-    },
-    stampContinents: () => {
-      if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.stampContinents) {
-        TerrainBuilder.stampContinents();
-      }
-    },
-    buildElevation: () => {
-      if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.buildElevation) {
-        TerrainBuilder.buildElevation();
-      }
-    },
-    modelRivers: (minLength: number, maxLength: number, navigableTerrain: number) => {
-      if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.modelRivers) {
-        TerrainBuilder.modelRivers(minLength, maxLength, navigableTerrain);
-      }
-    },
-    defineNamedRivers: () => {
-      if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.defineNamedRivers) {
-        TerrainBuilder.defineNamedRivers();
-      }
-    },
-    storeWaterData: () => {
-      if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.storeWaterData) {
-        TerrainBuilder.storeWaterData();
-      }
-    },
-    generateLakes: (width: number, height: number, tilesPerLake: number) => {
-      // Import dynamically to avoid circular deps
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const mod = require("/base-standard/maps/elevation-terrain-generator.js") as {
-          generateLakes?: (w: number, h: number, t: number) => void;
-        };
-        if (mod?.generateLakes) {
-          mod.generateLakes(width, height, tilesPerLake);
-        }
-      } catch {
-        console.log("[MapOrchestrator] generateLakes not available");
-      }
-    },
-    expandCoasts: (width: number, height: number) => {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const mod = require("/base-standard/maps/elevation-terrain-generator.js") as {
-          expandCoasts?: (w: number, h: number) => void;
-        };
-        if (mod?.expandCoasts) {
-          mod.expandCoasts(width, height);
-        }
-      } catch {
-        console.log("[MapOrchestrator] expandCoasts not available");
-      }
-    },
-    chooseStartSectors: (
-      players1: number,
-      players2: number,
-      rows: number,
-      cols: number,
-      humanNearEquator: boolean
-    ) => {
-      // Use Civ7Adapter with static imports instead of require()
-      try {
-        const civ7 = createCiv7Adapter();
-        if (typeof civ7.chooseStartSectors === "function") {
-          return civ7.chooseStartSectors(players1, players2, rows, cols, humanNearEquator);
-        }
-      } catch (err) {
-        console.log("[MapOrchestrator] chooseStartSectors not available:", err);
-      }
-      return [];
-    },
-    needHumanNearEquator: () => {
-      // Use Civ7Adapter with static imports instead of require()
-      try {
-        const civ7 = createCiv7Adapter();
-        if (typeof civ7.needHumanNearEquator === "function") {
-          return civ7.needHumanNearEquator();
-        }
-      } catch (err) {
-        console.log("[MapOrchestrator] needHumanNearEquator not available:", err);
-      }
-      return false;
-    },
-  };
-}
-
-// ============================================================================
 // MapOrchestrator Class
 // ============================================================================
 
@@ -424,13 +256,6 @@ export class MapOrchestrator {
   private readonly mapGenConfig: MapGenConfig;
   /** Orchestrator options (adapter, logging, etc.) */
   private options: OrchestratorConfig;
-  /**
-   * Orchestrator-specific adapter for Civ7 map-init operations.
-   * Handles: map size, MapInitData, GameplayMap/GameInfo globals,
-   * lake/coast stamping, continent operations.
-   * Always resolved from engine globals - NOT configurable via options.
-   */
-  private orchestratorAdapter: OrchestratorAdapter;
   private stageResults: StageResult[] = [];
   private worldModelConfigBound = false;
 
@@ -452,13 +277,6 @@ export class MapOrchestrator {
 
     this.mapGenConfig = config;
     this.options = options;
-
-    // OrchestratorAdapter is always resolved from engine globals.
-    // It handles Civ7-specific map-init operations (map size, SetMapInitData,
-    // GameplayMap/GameInfo, lake/coast stamping).
-    // NOTE: options.adapter (EngineAdapter) is used separately for layer operations
-    // via createLayerAdapter() - the two adapters serve different purposes.
-    this.orchestratorAdapter = resolveOrchestratorAdapter();
   }
 
   /**
@@ -473,7 +291,7 @@ export class MapOrchestrator {
    * Handle RequestMapInitData event.
    * Sets map dimensions and latitude parameters from game settings.
    *
-   * Flow: GameplayMap.getMapSize() → GameInfo.Maps.lookup() → extract dimensions
+   * Flow: adapter.getMapSizeId() → adapter.lookupMapInfo() → extract dimensions
    * This replaces the previous hard-coded 84×54 approach (CIV-22).
    *
    * For testing, use `config.mapSizeDefaults` to bypass game settings.
@@ -493,9 +311,10 @@ export class MapOrchestrator {
       mapInfo = this.options.mapSizeDefaults.mapInfo ?? null;
       console.log(`${prefix} Using test mapSizeDefaults`);
     } else {
-      // Production mode: query game settings
-      mapSizeId = this.orchestratorAdapter.getMapSize();
-      mapInfo = this.orchestratorAdapter.lookupMapInfo(mapSizeId);
+      // Production mode: query game settings via adapter boundary
+      const adapter = this.options.adapter ?? createCiv7Adapter();
+      mapSizeId = adapter.getMapSizeId();
+      mapInfo = adapter.lookupMapInfo(mapSizeId);
     }
 
     // Extract dimensions from MapInfo, with sensible fallbacks.
@@ -529,7 +348,8 @@ export class MapOrchestrator {
       `${prefix} Final latitude range: ${params.bottomLatitude} to ${params.topLatitude}`
     );
 
-    this.orchestratorAdapter.setMapInitData(params);
+    const adapter = this.options.adapter ?? createCiv7Adapter();
+    adapter.setMapInitData(params);
   }
 
   /**
@@ -566,11 +386,24 @@ export class MapOrchestrator {
     // This clears any stale plate/dynamics data from previous runs
     WorldModel.reset();
 
+    const mapInfoAdapter = this.options.adapter ?? createCiv7Adapter();
+
     // Get map dimensions
-    const iWidth = this.orchestratorAdapter.getGridWidth();
-    const iHeight = this.orchestratorAdapter.getGridHeight();
-    const uiMapSize = this.orchestratorAdapter.getMapSize();
-    const mapInfo = this.orchestratorAdapter.lookupMapInfo(uiMapSize);
+    const iWidth = mapInfoAdapter.width;
+    const iHeight = mapInfoAdapter.height;
+
+    // Get map size and info: use config defaults if provided (for testing),
+    // otherwise query game settings via adapter boundary
+    let uiMapSize: number;
+    let mapInfo: MapInfo | null;
+
+    if (this.options.mapSizeDefaults) {
+      uiMapSize = this.options.mapSizeDefaults.mapSizeId ?? 0;
+      mapInfo = this.options.mapSizeDefaults.mapInfo ?? null;
+    } else {
+      uiMapSize = mapInfoAdapter.getMapSizeId();
+      mapInfo = mapInfoAdapter.lookupMapInfo(uiMapSize);
+    }
 
     if (!mapInfo) {
       console.error(`${prefix} Failed to lookup map info`);
@@ -643,8 +476,8 @@ export class MapOrchestrator {
     const iNumPlayers2 = mapInfo.PlayersLandmass2 ?? 4;
     const iStartSectorRows = mapInfo.StartSectorRows ?? 4;
     const iStartSectorCols = mapInfo.StartSectorCols ?? 4;
-    const bHumanNearEquator = this.orchestratorAdapter.needHumanNearEquator();
-    const startSectors = this.orchestratorAdapter.chooseStartSectors(
+    const bHumanNearEquator = ctx.adapter.needHumanNearEquator();
+    const startSectors = ctx.adapter.chooseStartSectors(
       iNumPlayers1,
       iNumPlayers2,
       iStartSectorRows,
@@ -718,22 +551,14 @@ export class MapOrchestrator {
         );
 
         // Validate and stamp continents
-        this.orchestratorAdapter.validateAndFixTerrain();
-        this.orchestratorAdapter.recalculateAreas();
-        this.orchestratorAdapter.stampContinents();
+        ctx.adapter.validateAndFixTerrain();
+        ctx.adapter.recalculateAreas();
+        ctx.adapter.stampContinents();
 
         // Apply plot tags
         const terrainBuilder: TerrainBuilderLike = {
-          setPlotTag: (x, y, tag) => {
-            if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setPlotTag) {
-              TerrainBuilder.setPlotTag(x, y, tag);
-            }
-          },
-          addPlotTag: (x, y, tag) => {
-            if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.addPlotTag) {
-              TerrainBuilder.addPlotTag(x, y, tag);
-            }
-          },
+          setPlotTag: (x, y, tag) => ctx.adapter.setPlotTag(x, y, tag),
+          addPlotTag: (x, y, tag) => ctx.adapter.addPlotTag(x, y, tag),
         };
         addPlotTagsSimple(iHeight, iWidth, eastContinent.west, ctx.adapter, terrainBuilder);
       });
@@ -750,7 +575,7 @@ export class MapOrchestrator {
     // ========================================================================
     if (stageFlags.coastlines && ctx) {
       const stageResult = this.runStage("coastlines", () => {
-        this.orchestratorAdapter.expandCoasts(iWidth, iHeight);
+        ctx.adapter.expandCoasts(iWidth, iHeight);
       });
       this.stageResults.push(stageResult);
     }
@@ -906,15 +731,15 @@ export class MapOrchestrator {
     if (stageFlags.lakes && ctx) {
       const iTilesPerLake = Math.max(10, (mapInfo.LakeGenerationFrequency ?? 5) * 2);
       const stageResult = this.runStage("lakes", () => {
-        this.orchestratorAdapter.generateLakes(iWidth, iHeight, iTilesPerLake);
+        ctx.adapter.generateLakes(iWidth, iHeight, iTilesPerLake);
         syncHeightfield(ctx!);
       });
       this.stageResults.push(stageResult);
     }
 
     // Build elevation after terrain modifications
-    this.orchestratorAdapter.recalculateAreas();
-    this.orchestratorAdapter.buildElevation();
+    ctx!.adapter.recalculateAreas();
+    ctx!.adapter.buildElevation();
 
     // Refresh landmass regions after coast/rugged/island/lake/mountain changes so StartPositioner
     // sees the final land/water layout.
@@ -996,12 +821,12 @@ export class MapOrchestrator {
 
       const stageResult = this.runStage("rivers", () => {
         logStats("PRE-RIVERS");
-        this.orchestratorAdapter.modelRivers(5, 15, navigableRiverTerrain);
+        ctx.adapter.modelRivers(5, 15, navigableRiverTerrain);
         logStats("POST-MODELRIVERS");
-        this.orchestratorAdapter.validateAndFixTerrain();
+        ctx.adapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
-        this.orchestratorAdapter.defineNamedRivers();
+        ctx.adapter.defineNamedRivers();
         const riverAdjacency = computeRiverAdjacencyMask(ctx!);
         publishRiverAdjacencyArtifact(ctx!, riverAdjacency);
       });
@@ -1059,9 +884,9 @@ export class MapOrchestrator {
     if (stageFlags.features && ctx) {
       const stageResult = this.runStage("features", () => {
         addDiverseFeatures(iWidth, iHeight, ctx!);
-        this.orchestratorAdapter.validateAndFixTerrain();
+        ctx.adapter.validateAndFixTerrain();
         syncHeightfield(ctx!);
-        this.orchestratorAdapter.recalculateAreas();
+        ctx.adapter.recalculateAreas();
       });
       this.stageResults.push(stageResult);
     }
@@ -1155,11 +980,24 @@ export class MapOrchestrator {
     // Reset WorldModel to ensure fresh state for this generation run
     WorldModel.reset();
 
+    const mapInfoAdapter = this.options.adapter ?? createCiv7Adapter();
+
     // Get map dimensions
-    const iWidth = this.orchestratorAdapter.getGridWidth();
-    const iHeight = this.orchestratorAdapter.getGridHeight();
-    const uiMapSize = this.orchestratorAdapter.getMapSize();
-    const mapInfo = this.orchestratorAdapter.lookupMapInfo(uiMapSize);
+    const iWidth = mapInfoAdapter.width;
+    const iHeight = mapInfoAdapter.height;
+
+    // Get map size and info: use config defaults if provided (for testing),
+    // otherwise query game settings via adapter boundary
+    let uiMapSize: number;
+    let mapInfo: MapInfo | null;
+
+    if (this.options.mapSizeDefaults) {
+      uiMapSize = this.options.mapSizeDefaults.mapSizeId ?? 0;
+      mapInfo = this.options.mapSizeDefaults.mapInfo ?? null;
+    } else {
+      uiMapSize = mapInfoAdapter.getMapSizeId();
+      mapInfo = mapInfoAdapter.lookupMapInfo(uiMapSize);
+    }
 
     if (!mapInfo) {
       console.error(`${prefix} Failed to lookup map info`);
@@ -1218,8 +1056,8 @@ export class MapOrchestrator {
     const iNumPlayers2 = mapInfo.PlayersLandmass2 ?? 4;
     const iStartSectorRows = mapInfo.StartSectorRows ?? 4;
     const iStartSectorCols = mapInfo.StartSectorCols ?? 4;
-    const bHumanNearEquator = this.orchestratorAdapter.needHumanNearEquator();
-    const startSectors = this.orchestratorAdapter.chooseStartSectors(
+    const bHumanNearEquator = ctx!.adapter.needHumanNearEquator();
+    const startSectors = ctx!.adapter.chooseStartSectors(
       iNumPlayers1,
       iNumPlayers2,
       iStartSectorRows,
@@ -1314,22 +1152,14 @@ export class MapOrchestrator {
         );
 
         // Validate and stamp continents
-        this.orchestratorAdapter.validateAndFixTerrain();
-        this.orchestratorAdapter.recalculateAreas();
-        this.orchestratorAdapter.stampContinents();
+        ctx.adapter.validateAndFixTerrain();
+        ctx.adapter.recalculateAreas();
+        ctx.adapter.stampContinents();
 
         // Apply plot tags
         const terrainBuilder: TerrainBuilderLike = {
-          setPlotTag: (x, y, tag) => {
-            if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setPlotTag) {
-              TerrainBuilder.setPlotTag(x, y, tag);
-            }
-          },
-          addPlotTag: (x, y, tag) => {
-            if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.addPlotTag) {
-              TerrainBuilder.addPlotTag(x, y, tag);
-            }
-          },
+          setPlotTag: (x, y, tag) => ctx.adapter.setPlotTag(x, y, tag),
+          addPlotTag: (x, y, tag) => ctx.adapter.addPlotTag(x, y, tag),
         };
         addPlotTagsSimple(iHeight, iWidth, eastContinent.west, ctx.adapter, terrainBuilder);
 
@@ -1346,7 +1176,7 @@ export class MapOrchestrator {
       ...getStageDescriptor("coastlines"),
       shouldRun: () => stageFlags.coastlines,
       run: () => {
-        this.orchestratorAdapter.expandCoasts(iWidth, iHeight);
+        ctx.adapter.expandCoasts(iWidth, iHeight);
       },
     });
 
@@ -1496,7 +1326,7 @@ export class MapOrchestrator {
       shouldRun: () => stageFlags.lakes,
       run: () => {
         const iTilesPerLake = Math.max(10, (mapInfo.LakeGenerationFrequency ?? 5) * 2);
-        this.orchestratorAdapter.generateLakes(iWidth, iHeight, iTilesPerLake);
+        ctx.adapter.generateLakes(iWidth, iHeight, iTilesPerLake);
         syncHeightfield(ctx);
         publishHeightfieldArtifact(ctx);
       },
@@ -1509,8 +1339,8 @@ export class MapOrchestrator {
       shouldRun: () => stageFlags.climateBaseline,
       run: () => {
         // Mirror legacy: build elevation and refresh landmass regions before climate.
-        this.orchestratorAdapter.recalculateAreas();
-        this.orchestratorAdapter.buildElevation();
+        ctx.adapter.recalculateAreas();
+        ctx.adapter.buildElevation();
 
         const westRestamped = markLandmassRegionId(westContinent, LANDMASS_REGION.WEST, ctx.adapter);
         const eastRestamped = markLandmassRegionId(eastContinent, LANDMASS_REGION.EAST, ctx.adapter);
@@ -1577,12 +1407,12 @@ export class MapOrchestrator {
         };
 
         logStats("PRE-RIVERS");
-        this.orchestratorAdapter.modelRivers(5, 15, navigableRiverTerrain);
+        ctx.adapter.modelRivers(5, 15, navigableRiverTerrain);
         logStats("POST-MODELRIVERS");
-        this.orchestratorAdapter.validateAndFixTerrain();
+        ctx.adapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx);
-        this.orchestratorAdapter.defineNamedRivers();
+        ctx.adapter.defineNamedRivers();
 
         const riverAdjacency = computeRiverAdjacencyMask(ctx);
         publishRiverAdjacencyArtifact(ctx, riverAdjacency);
@@ -1632,9 +1462,9 @@ export class MapOrchestrator {
         ...getStageDescriptor("features"),
         shouldRun: () => stageFlags.features,
         afterRun: () => {
-          this.orchestratorAdapter.validateAndFixTerrain();
+          ctx.adapter.validateAndFixTerrain();
           syncHeightfield(ctx);
-          this.orchestratorAdapter.recalculateAreas();
+          ctx.adapter.recalculateAreas();
         },
       })
     );

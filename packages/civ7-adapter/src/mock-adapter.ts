@@ -5,7 +5,7 @@
  * in unit tests without the Civ7 game engine.
  */
 
-import type { EngineAdapter, FeatureData } from "./types.js";
+import type { EngineAdapter, FeatureData, MapInfo, MapInitParams } from "./types.js";
 
 /**
  * Configuration options for MockAdapter
@@ -38,6 +38,10 @@ export const DEFAULT_FEATURE_TYPES: Record<string, number> = {
 export interface MockAdapterConfig {
   width?: number;
   height?: number;
+  /** Map size selection id (Civ7: GameplayMap.getMapSize()) */
+  mapSizeId?: number;
+  /** Map info row (Civ7: GameInfo.Maps.lookup(mapSizeId)) */
+  mapInfo?: MapInfo | null;
   /** Default terrain type for all tiles */
   defaultTerrainType?: number;
   /** Default elevation for all tiles */
@@ -63,6 +67,9 @@ export class MockAdapter implements EngineAdapter {
   readonly width: number;
   readonly height: number;
 
+  private mapSizeId: number;
+  private mapInfo: MapInfo | null;
+
   private terrainTypes: Uint8Array;
   private elevations: Int16Array;
   private rainfall: Uint8Array;
@@ -78,11 +85,14 @@ export class MockAdapter implements EngineAdapter {
 
   /** Track calls for testing */
   readonly calls: {
+    setMapInitData: Array<MapInitParams>;
     designateBiomes: Array<{ width: number; height: number }>;
     addFeatures: Array<{ width: number; height: number }>;
     addNaturalWonders: Array<{ width: number; height: number; numWonders: number }>;
     generateSnow: Array<{ width: number; height: number }>;
     generateResources: Array<{ width: number; height: number }>;
+    generateLakes: Array<{ width: number; height: number; tilesPerLake: number }>;
+    expandCoasts: Array<{ width: number; height: number }>;
     assignStartPositions: Array<{
       playersLandmass1: number;
       playersLandmass2: number;
@@ -98,6 +108,8 @@ export class MockAdapter implements EngineAdapter {
   constructor(config: MockAdapterConfig = {}) {
     this.width = config.width ?? 128;
     this.height = config.height ?? 80;
+    this.mapSizeId = config.mapSizeId ?? 0;
+    this.mapInfo = config.mapInfo ?? null;
     const size = this.width * this.height;
 
     this.terrainTypes = new Uint8Array(size).fill(config.defaultTerrainType ?? 0);
@@ -113,11 +125,14 @@ export class MockAdapter implements EngineAdapter {
     this.biomeGlobals = config.biomeGlobals ?? { ...DEFAULT_BIOME_GLOBALS };
     this.featureTypes = config.featureTypes ?? { ...DEFAULT_FEATURE_TYPES };
     this.calls = {
+      setMapInitData: [],
       designateBiomes: [],
       addFeatures: [],
       addNaturalWonders: [],
       generateSnow: [],
       generateResources: [],
+      generateLakes: [],
+      expandCoasts: [],
       assignStartPositions: [],
       generateDiscoveries: [],
       assignAdvancedStartRegions: 0,
@@ -128,6 +143,20 @@ export class MockAdapter implements EngineAdapter {
 
   private idx(x: number, y: number): number {
     return y * this.width + x;
+  }
+
+  // === MAP INIT / MAP INFO ===
+
+  getMapSizeId(): number {
+    return this.mapSizeId;
+  }
+
+  lookupMapInfo(_mapSizeId: number): MapInfo | null {
+    return this.mapInfo;
+  }
+
+  setMapInitData(params: MapInitParams): void {
+    this.calls.setMapInitData.push({ ...params });
   }
 
   // === TERRAIN READS ===
@@ -252,6 +281,16 @@ export class MockAdapter implements EngineAdapter {
     // No-op in mock
   }
 
+  generateLakes(width: number, height: number, tilesPerLake: number): void {
+    this.calls.generateLakes.push({ width, height, tilesPerLake });
+    // Mock: no-op
+  }
+
+  expandCoasts(width: number, height: number): void {
+    this.calls.expandCoasts.push({ width, height });
+    // Mock: no-op
+  }
+
   // === BIOMES ===
 
   designateBiomes(width: number, height: number): void {
@@ -345,6 +384,21 @@ export class MockAdapter implements EngineAdapter {
     // Mock: no-op
   }
 
+  chooseStartSectors(
+    _players1: number,
+    _players2: number,
+    _rows: number,
+    _cols: number,
+    _humanNearEquator: boolean
+  ): unknown[] {
+    // Mock: empty; callers can supply custom behavior if they need it.
+    return [];
+  }
+
+  needHumanNearEquator(): boolean {
+    return false;
+  }
+
   // === MOCK-SPECIFIC HELPERS ===
 
   /** Set water mask for testing */
@@ -373,11 +427,16 @@ export class MockAdapter implements EngineAdapter {
     this.waterMask.fill(0);
     this.mountainMask.fill(0);
     this.landmassRegionIds.fill(0);
+    this.mapSizeId = config.mapSizeId ?? 0;
+    this.mapInfo = config.mapInfo ?? null;
+    this.calls.setMapInitData.length = 0;
     this.calls.designateBiomes.length = 0;
     this.calls.addFeatures.length = 0;
     this.calls.addNaturalWonders.length = 0;
     this.calls.generateSnow.length = 0;
     this.calls.generateResources.length = 0;
+    this.calls.generateLakes.length = 0;
+    this.calls.expandCoasts.length = 0;
     this.calls.assignStartPositions.length = 0;
     this.calls.generateDiscoveries.length = 0;
     this.calls.assignAdvancedStartRegions = 0;

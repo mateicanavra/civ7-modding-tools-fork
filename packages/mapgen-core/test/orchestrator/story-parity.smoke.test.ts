@@ -14,6 +14,21 @@ describe("smoke: minimal story parity (margins, hotspots, rifts)", () => {
     // Deterministic RNG for stable assertions.
     let seed = 1 >>> 0;
     const adapter = createMockAdapter({
+      width: 128,
+      height: 80,
+      mapSizeId: 1,
+      mapInfo: {
+        GridWidth: 128,
+        GridHeight: 80,
+        MinLatitude: -80,
+        MaxLatitude: 80,
+        NumNaturalWonders: 0,
+        LakeGenerationFrequency: 0,
+        PlayersLandmass1: 4,
+        PlayersLandmass2: 4,
+        StartSectorRows: 4,
+        StartSectorCols: 4,
+      },
       rng: (max) => {
         seed = (seed * 1664525 + 1013904223) >>> 0;
         return max > 0 ? seed % max : 0;
