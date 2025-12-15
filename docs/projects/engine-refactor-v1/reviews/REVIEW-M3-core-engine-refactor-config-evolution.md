@@ -194,3 +194,75 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 - Updated stage dependencies so `biomes` requires `artifact:riverAdjacency` and `features` requires `artifact:climateField`, matching actual data reads.
 - Documented `ClimateField.humidity` as an M3 placeholder.
 - Ensured the legacy `generateMap()` entry path publishes `artifact:climateField` / `artifact:riverAdjacency` so artifact-only consumers behave consistently even when TaskGraph is disabled.
+
+---
+
+## CIV-43 – Full Story System Modernization (Corridors, Swatches, Paleo, Steps)
+
+**Reviewed:** 2025-12-15
+
+### Effort Estimate
+
+**Complexity:** Medium-High (3/4) — touches story + hydrology integration, relies on correct stage manifest contracts, and includes global-singleton surfaces that can silently drift.
+**Parallelism:** Medium (2/4) — can be assessed in isolation, but gaps here block/complicate CIV-44’s consumer migration work.
+**Score:** 8/16 — cross-cutting surfaces, moderate coordination.
+
+---
+
+### Quick Take
+
+**Mostly, with notable gaps:** Corridors/swatches/orogeny ports exist, story stages are real `MapGenStep`s under the Task Graph, and overlays are published via `StoryOverlays`. The major gap is **paleo**: the MapContext path currently calls a removed `syncClimateField()` and will throw when `STORY_ENABLE_PALEO` is enabled.
+
+---
+
+### Intent & Assumptions
+
+- CIV-43 completes the story port (corridors/swatches/paleo) and publishes canonical narrative outputs (`artifact:storyOverlays`), while deferring downstream consumer migration to CIV-44 (DEF-002).
+- This review is grounded in the combined state on `CIV-43-full-story-system-modernization-corridors-swatches-paleo-steps`, which also includes CIV-42 hydrology artifact changes.
+
+---
+
+### What’s Strong
+
+- **Real step implementations:** Story placeholder stages are replaced with real steps (`packages/mapgen-core/src/MapOrchestrator.ts`).
+- **Canonical overlay snapshots:** `packages/mapgen-core/src/story/overlays.ts` publishes immutable snapshots into both the context and a global registry (M3 compatibility).
+- **Basic unit coverage:** Corridors/orogeny/overlays/paleo have focused tests under `packages/mapgen-core/test/story/*`.
+
+---
+
+### High-Leverage Issues
+
+1. **Paleo is currently broken in the MapContext pipeline**
+   - `packages/mapgen-core/src/story/paleo.ts` calls `syncClimateField(ctx)`, but `syncClimateField()` now throws (`packages/mapgen-core/src/core/types.ts`).
+   - Impact: `storySwatches` with `STORY_ENABLE_PALEO` enabled fails at runtime; the unit test `packages/mapgen-core/test/story/paleo.test.ts` currently exercises the ctx-path and will throw as written.
+   - Direction: Remove `syncClimateField()` usage and treat `ctx.buffers.climate` as canonical; keep the `ctx=null` legacy branch only if it’s still an intentional compatibility requirement.
+
+2. **Story corridor contracts under-specify true dependencies**
+   - `storyCorridorsPost` requires only `state:engine.coastlinesApplied` (`packages/mapgen-core/src/pipeline/standard.ts`), but its implementation uses river adjacency and rainfall (`packages/mapgen-core/src/story/corridors.ts`).
+   - Impact: Misconfigured stage manifests can run corridors without rivers/climate and silently diverge, weakening M3’s “fail fast” contract story and risking downstream ecology/placement consumers.
+   - Direction: Require at least `artifact:climateField` and `state:engine.riversModeled`/`artifact:riverAdjacency` for post-rivers corridors; consider also requiring `artifact:storyOverlays` to enforce reset/init ordering.
+
+3. **Global singleton fallback + conditional resets risks cross-run leakage**
+   - `artifact:storyOverlays` satisfaction accepts the global registry (`packages/mapgen-core/src/pipeline/tags.ts`), but `resetStoryTags()` / `resetStoryOverlays()` currently run only in the `storySeed` stage (`packages/mapgen-core/src/MapOrchestrator.ts`).
+   - Impact: Enabling a story stage without `storySeed` can accumulate stale tags/overlays across generations; hard-to-reproduce behavior and confusing “satisfied” dependency checks.
+   - Direction: Either hard-require `storySeed` (or `artifact:storyOverlays`) for all story stages, or reset story state at generation start when any story stage is enabled.
+
+4. **Scope overlap with CIV-44 (downstream impact)**
+   - This branch already makes ecology reads artifact-strict (`packages/mapgen-core/src/layers/biomes.ts`, `packages/mapgen-core/src/layers/features.ts`) and registers biomes/features as TaskGraph steps (`packages/mapgen-core/src/MapOrchestrator.ts`).
+   - Impact: CIV-44’s “wrap + consume canonical artifacts” scope is partially pre-satisfied here, but it also raises restack/merge conflict risk given CIV-44 is separately stacked on CIV-42.
+   - Direction: Clarify what remains for CIV-44 (likely `artifact:storyOverlays` consumption + StoryTags derivation) and ensure branch/stack sequencing reflects that to avoid duplicated effort.
+
+---
+
+### Fit Within the Milestone
+
+- This is directionally correct Stack work for M3: it turns story into explicit, testable pipeline stages and publishes canonical overlays.
+- The recurring milestone-level risk is **dependency contracts lagging implementation reality** (especially for story ↔ hydrology coupling), which undermines the executor’s gating guarantees.
+
+---
+
+### Recommended Next Moves
+
+- **Required:** Fix paleo’s MapContext path by removing `syncClimateField()` usage and ensure the ctx-path unit test remains valid.
+- **Required:** Tighten `M3_STAGE_DEPENDENCY_SPINE` for story corridor stages to reflect river/climate dependencies (so executor fail-fast is meaningful).
+- **Nice-to-have:** Add a gating regression test: enable `storyCorridorsPost` while disabling `rivers`/`climateBaseline` and assert a `MissingDependencyError`.
