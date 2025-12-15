@@ -56,6 +56,13 @@ This is intentionally detailed: it is the checklist we’ll use to complete the 
   - Merge `src/layers/**` into `src/pipeline/**` and keep phase directories as the primary navigation (`pipeline/morphology`, `pipeline/hydrology`, etc.).
   - Pipeline/step code is composition only (context/adapters/artifacts); no domain algorithms.
   - Delete `src/layers/**` after callsites + orchestrator registration move to `pipeline/**`.
+- **Modder-friendly surfaces (accepted):**
+  - Make the “high-level” building blocks importable without deep paths:
+    - pipeline composition (`pipeline/**`)
+    - domain orchestrators + public types (`domain/**` via subsystem `index.ts`)
+    - shared utilities (`lib/**` via `index.ts`)
+  - Use package subpath exports + TS path aliases so both in-repo and external consumers can import stable entrypoints (and never need `../../..`).
+  - Atomic leaf files remain *implementation detail* unless re-exported from a subsystem index (no “deep imports” required).
 
 ---
 
@@ -165,49 +172,37 @@ packages/mapgen-core/src/
     types.ts
     foundation/
       index.ts
-      steps/
-        FoundationStep.ts
-        index.ts
+      FoundationStep.ts
     morphology/
       index.ts
-      steps/
-        LandmassStep.ts
-        CoastlinesStep.ts
-        RuggedCoastsStep.ts
-        IslandsStep.ts
-        MountainsStep.ts
-        VolcanoesStep.ts
-        index.ts
+      LandmassStep.ts
+      CoastlinesStep.ts
+      RuggedCoastsStep.ts
+      IslandsStep.ts
+      MountainsStep.ts
+      VolcanoesStep.ts
     hydrology/
       index.ts
-      steps/
-        ClimateBaselineStep.ts
-        ClimateRefineStep.ts
-        RiversStep.ts
-        LakesStep.ts
-        index.ts
+      ClimateBaselineStep.ts
+      ClimateRefineStep.ts
+      RiversStep.ts
+      LakesStep.ts
     ecology/
       index.ts
-      steps/
-        BiomesStep.ts
-        FeaturesStep.ts
-        index.ts
+      BiomesStep.ts
+      FeaturesStep.ts
     narrative/
       index.ts
-      steps/
-        StorySeedStep.ts
-        StoryHotspotsStep.ts
-        StoryRiftsStep.ts
-        StoryOrogenyStep.ts
-        StoryCorridorsStep.ts
-        StorySwatchesStep.ts
-        index.ts
+      StorySeedStep.ts
+      StoryHotspotsStep.ts
+      StoryRiftsStep.ts
+      StoryOrogenyStep.ts
+      StoryCorridorsStep.ts
+      StorySwatchesStep.ts
     placement/
       index.ts
-      steps/
-        PlacementStep.ts
-        LegacyPlacementStep.ts
-        index.ts
+      PlacementStep.ts
+      LegacyPlacementStep.ts
 
   domain/                       # algorithms (atomized)
     morphology/
@@ -680,21 +675,21 @@ From `packages/mapgen-core/src/domain/placement/index.ts`:
 ### 7.1 Migrate step wiring imports (required before deleting `layers/**` shims)
 
 - [ ] Update hydrology steps to import from `domain/hydrology/climate/**` instead of `layers/hydrology/climate.ts`:
-  - `pipeline/hydrology/steps/ClimateBaselineStep.ts` (currently `layers/hydrology/steps/ClimateBaselineStep.ts`)
-  - `pipeline/hydrology/steps/ClimateRefineStep.ts` (currently `layers/hydrology/steps/ClimateRefineStep.ts`)
+  - `pipeline/hydrology/ClimateBaselineStep.ts` (currently `layers/hydrology/steps/ClimateBaselineStep.ts`)
+  - `pipeline/hydrology/ClimateRefineStep.ts` (currently `layers/hydrology/steps/ClimateRefineStep.ts`)
 - [ ] Update morphology steps to import from `domain/morphology/**` instead of `layers/morphology/*.ts`:
-  - `pipeline/morphology/steps/LandmassStep.ts` (currently `layers/morphology/steps/LandmassStep.ts`)
-  - `pipeline/morphology/steps/CoastlinesStep.ts` (currently `layers/morphology/steps/CoastlinesStep.ts`)
-  - `pipeline/morphology/steps/RuggedCoastsStep.ts` (currently `layers/morphology/steps/RuggedCoastsStep.ts`)
-  - `pipeline/morphology/steps/IslandsStep.ts` (currently `layers/morphology/steps/IslandsStep.ts`)
-  - `pipeline/morphology/steps/MountainsStep.ts` (currently `layers/morphology/steps/MountainsStep.ts`)
-  - `pipeline/morphology/steps/VolcanoesStep.ts` (currently `layers/morphology/steps/VolcanoesStep.ts`)
+  - `pipeline/morphology/LandmassStep.ts` (currently `layers/morphology/steps/LandmassStep.ts`)
+  - `pipeline/morphology/CoastlinesStep.ts` (currently `layers/morphology/steps/CoastlinesStep.ts`)
+  - `pipeline/morphology/RuggedCoastsStep.ts` (currently `layers/morphology/steps/RuggedCoastsStep.ts`)
+  - `pipeline/morphology/IslandsStep.ts` (currently `layers/morphology/steps/IslandsStep.ts`)
+  - `pipeline/morphology/MountainsStep.ts` (currently `layers/morphology/steps/MountainsStep.ts`)
+  - `pipeline/morphology/VolcanoesStep.ts` (currently `layers/morphology/steps/VolcanoesStep.ts`)
 - [ ] Update ecology steps to import from `domain/ecology/**` instead of `layers/ecology/*.ts`:
-  - `pipeline/ecology/steps/BiomesStep.ts` (currently `layers/ecology/steps/BiomesStep.ts`)
-  - `pipeline/ecology/steps/FeaturesStep.ts` (currently `layers/ecology/steps/FeaturesStep.ts`)
+  - `pipeline/ecology/BiomesStep.ts` (currently `layers/ecology/steps/BiomesStep.ts`)
+  - `pipeline/ecology/FeaturesStep.ts` (currently `layers/ecology/steps/FeaturesStep.ts`)
 - [ ] Update placement steps to import from `domain/placement/**` instead of `layers/placement/placement.ts`:
-  - `pipeline/placement/steps/PlacementStep.ts` (currently `layers/placement/steps/PlacementStep.ts`)
-  - `pipeline/placement/steps/LegacyPlacementStep.ts` (currently `layers/placement/steps/LegacyPlacementStep.ts`)
+  - `pipeline/placement/PlacementStep.ts` (currently `layers/placement/steps/PlacementStep.ts`)
+  - `pipeline/placement/LegacyPlacementStep.ts` (currently `layers/placement/steps/LegacyPlacementStep.ts`)
 - [ ] Update narrative steps and pipeline callsites to import from `domain/narrative/**` instead of `story/**`:
   - `pipeline/narrative/*.ts` (currently `layers/narrative/*.ts`)
   - `pipeline/tags.ts`
@@ -724,7 +719,11 @@ Delete the following files/folders (or reduce them to explicit deprecations *tem
 - [ ] Update `packages/mapgen-core/src/index.ts`:
   - stop exporting `./story/index.ts`
   - export narrative/public surfaces from canonical modules (likely `./domain/narrative/index.ts`)
-  - decide whether any domain modules are public API vs internal-only (and document the decision)
+  - expose stable, modder-friendly entrypoints for composition:
+    - pipeline composition types/helpers (`./pipeline/index.ts`)
+    - domain subsystem indices (`./domain/**/index.ts`)
+    - `lib/**` indices (math/grid/rng/noise/collections)
+  - enforce “no deep imports” by ensuring anything “publicly usable” is re-exported from a subsystem `index.ts` (so consumers never import leaf files directly)
 
 ### 7.4 Move step wiring from `layers/**` → `pipeline/**` (final layout)
 
@@ -744,4 +743,3 @@ Delete the following files/folders (or reduce them to explicit deprecations *tem
 ## 8) Open Decisions (Make These Explicit Before Deleting Facades)
 
 - **Narrative/playability model:** decide whether narrative is a dedicated “final pass”, a conceptual plugin category injected into earlier phases, or a hybrid (and define explicit mutation budgets/invariants).
-- **Package surface:** decide what is public API vs internal-only once `story/**` + `narrative/**` shims are deleted (and document the intended modder import surfaces).
