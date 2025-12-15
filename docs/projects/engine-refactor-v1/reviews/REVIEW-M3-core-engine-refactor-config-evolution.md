@@ -447,3 +447,74 @@ The core gaps called out above are now addressed in the branch end state:
 - **Coverage:** Added a focused gating regression test that asserts placement fails fast when `state:engine.featuresApplied` is missing.
 
 **Verification:** `pnpm -C packages/mapgen-core check`, `pnpm test:mapgen`.
+
+---
+
+## CIV-46 – Config Evolution (Phase 2/3) + Presets/Recipes + Tunables Retirement
+
+**Reviewed:** 2025-12-15 | **PR:** [#88](https://github.com/mateicanavra/civ7-modding-tools-fork/pull/88)
+
+### Effort Estimate
+
+**Complexity:** High (4/4) — large, cross-cutting config + orchestrator change where risk is silent behavior drift (defaults, gating, and docs).
+**Parallelism:** Medium (2/4) — depends on earlier M3 wrappers/contracts; review is straightforward once the full M3 stack is present.
+**Score:** 10/16 — broad surface area and coordination.
+
+---
+
+### Quick Take
+
+**Yes, with notable clarity gaps:** Tunables are fully retired, presets are real and tested, and the orchestrator/steps now consistently consume validated `context.config` aligned to the phase/stage schema. The remaining risk is developer ergonomics: defaults and docs currently make it easy to misconfigure stage gating or infer capabilities that don’t exist (yet).
+
+---
+
+### Intent & Assumptions
+
+- Finish the M3 config cutover: validated `MapGenConfig` is the single config surface for steps and layers.
+- Implement preset resolution (`presets: [...]`) as deterministic deep merges over a canonical baseline.
+- Reshape `MapGenConfigSchema` to be step/phase-aligned and update in-repo scripts to match.
+- Retire tunables (no legacy compatibility path shipped as “supported” for M3).
+
+---
+
+### What's Strong
+
+- **Real cutover, not a shim:** `packages/mapgen-core/src/bootstrap/tunables.ts` and its tests are removed; `getTunables()` callsites are gone.
+- **Config is now “in-context”:** Layers and step wrappers read from `ctx.config` (e.g., `packages/mapgen-core/src/layers/*.ts`, `packages/mapgen-core/src/steps/LegacyPlacementStep.ts`).
+- **Presets are implemented + validated:** Preset composition happens in bootstrap (`packages/mapgen-core/src/config/presets.ts`, `packages/mapgen-core/src/bootstrap/entry.ts`) and is covered by tests (`packages/mapgen-core/test/bootstrap/entry.test.ts`).
+- **Stage gating bridge is explicit:** `stageConfig → stageManifest` resolution is centralized and tested (`packages/mapgen-core/src/bootstrap/resolved.ts`, `packages/mapgen-core/test/bootstrap/resolved.test.ts`).
+- **Verification:** `pnpm -C packages/mapgen-core check` and `pnpm test:mapgen` pass on this branch.
+
+---
+
+### High-Leverage Issues
+
+1. **Docs/examples still imply “no stage config required”**
+   - `bootstrap()` docs and orchestrator examples omit `stageConfig`, but the M3 design here intentionally defaults to “all stages disabled unless enabled”.
+   - **Impact:** New callers can copy examples and get a no-op pipeline (or misinterpret why stages aren’t running).
+   - **Direction:** Update examples/docs to include a minimal `stageConfig` for the intended recipe, or explicitly call out “defaults to disabled stages” wherever `bootstrap({})` appears (e.g., `packages/mapgen-core/src/bootstrap/entry.ts`, `packages/mapgen-core/src/MapOrchestrator.ts`, and `docs/system/mods/swooper-maps/architecture.md`).
+
+2. **Silent `stageConfig` key drift encourages misconfiguration**
+   - `stageConfig` is effectively `Record<string, boolean>`, and unknown keys are silently ignored; in-repo callers already carry a stray key (`storyPaleo`) that does nothing (`mods/mod-swooper-maps/src/swooper-earthlike.ts`).
+   - **Impact:** False confidence and hard-to-debug configuration errors (especially for mod authors).
+   - **Direction:** Add a runtime warning for unknown `stageConfig` keys in `resolveStageManifest()`, and/or tighten typing by exporting a `StageName` union derived from `STAGE_ORDER`.
+
+3. **Preset semantics are under-specified vs “recipes” framing** (Nice-to-have)
+   - Presets currently express some toggles + a minimal `stageConfig` (foundation/plates) but do not map to a named, end-to-end “standard recipe”.
+   - **Impact:** “Preset” may be assumed to imply a runnable pipeline configuration; today it’s mostly parameter defaults.
+   - **Direction:** Document the intended separation (presets = parameter defaults; recipe/stageConfig = execution), or introduce a small “recipe” helper that emits canonical `stageConfig` sets (keep this as a follow-up; avoid re-scoping CIV-46).
+
+---
+
+### Fit Within the Milestone
+
+- This is the milestone’s “keystone” task: it makes the step-wrapper work from CIV-41–45 sustainable by removing hidden config plumbing and forcing all stages to consume the same validated config snapshot.
+- The explicit stage-manifest bridge aligns with the TaskGraph contract model and makes gating failures visible (good prerequisite for CIV-47 and later adapter-collapse work).
+
+---
+
+### Recommended Next Moves
+
+- **Follow-up:** Update docs/examples to match the new “stages disabled by default” posture and remove lingering tunables/runtime-store explanations that no longer apply.
+- **Follow-up:** Add unknown-stage warnings (or stricter types) for `stageConfig` to prevent silent misconfigurations.
+- **Nice-to-have:** Document (or encode) a canonical “standard recipe” stageConfig so `presets` + “recipe” reads as a coherent mental model.
