@@ -138,7 +138,7 @@ export function validateOverrides(
   // Check if any override keys match stage names
   for (const key of Object.keys(overrides)) {
     // Skip non-stage config keys
-    if (!STAGE_ORDER.includes(key)) {
+    if (!STAGE_ORDER.includes(key as StageName)) {
       continue;
     }
 
@@ -173,7 +173,7 @@ export function validateStageDrift(orchestratorStages: string[]): void {
 
   // Check for stages in orchestrator but not in resolver
   for (const stage of orchestratorStages) {
-    if (!resolverSet.has(stage)) {
+    if (!resolverSet.has(stage as StageName)) {
       console.warn(
         `[StageManifest] Orchestrator has stage "${stage}" not in STAGE_ORDER. ` +
           `Add it to bootstrap/resolved.ts to enable configuration.`
