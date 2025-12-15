@@ -776,11 +776,6 @@ export class MapOrchestrator {
         console.log(`${prefix} Applying story climate swatches...`);
         storyTagClimateSwatches(ctx!, { orogenyCache: getOrogenyCache() });
 
-        if (ctx?.config?.toggles?.STORY_ENABLE_PALEO) {
-          console.log(`${prefix} Applying paleo hydrology...`);
-          storyTagClimatePaleo(ctx!);
-        }
-
         publishClimateFieldArtifact(ctx!);
       });
       this.stageResults.push(stageResult);
@@ -830,6 +825,15 @@ export class MapOrchestrator {
         logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
         ctx.adapter.defineNamedRivers();
+
+        // Paleo hydrology depends on engine rivers being modeled; run it post-rivers so
+        // isAdjacentToRivers gating can have an effect.
+        if (stageFlags.storySwatches && ctx.config.toggles?.STORY_ENABLE_PALEO) {
+          console.log(`${prefix} Applying paleo hydrology (post-rivers)...`);
+          storyTagClimatePaleo(ctx);
+          publishClimateFieldArtifact(ctx);
+        }
+
         const riverAdjacency = computeRiverAdjacencyMask(ctx!);
         publishRiverAdjacencyArtifact(ctx!, riverAdjacency);
       });
@@ -1371,9 +1375,6 @@ export class MapOrchestrator {
       shouldRun: () => stageFlags.storySwatches,
       run: () => {
         storyTagClimateSwatches(ctx, { orogenyCache: getOrogenyCache() });
-        if (ctx?.config?.toggles?.STORY_ENABLE_PALEO) {
-          storyTagClimatePaleo(ctx);
-        }
         publishClimateFieldArtifact(ctx);
       },
     });
@@ -1422,6 +1423,10 @@ export class MapOrchestrator {
         syncHeightfield(ctx);
         publishHeightfieldArtifact(ctx);
         ctx.adapter.defineNamedRivers();
+        if (stageFlags.storySwatches && ctx.config.toggles?.STORY_ENABLE_PALEO) {
+          storyTagClimatePaleo(ctx);
+          publishClimateFieldArtifact(ctx);
+        }
 
         const riverAdjacency = computeRiverAdjacencyMask(ctx);
         publishRiverAdjacencyArtifact(ctx, riverAdjacency);
