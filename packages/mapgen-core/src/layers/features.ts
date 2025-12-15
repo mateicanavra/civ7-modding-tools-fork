@@ -106,12 +106,6 @@ export function addDiverseFeatures(
     return adapter.getRandomNumber(max, label);
   };
 
-  const climateField = getPublishedClimateField(ctx);
-  if (!climateField?.rainfall) {
-    throw new Error("addDiverseFeatures: Missing artifact:climateField rainfall field.");
-  }
-  const rainfallField = climateField.rainfall;
-
   const paradiseReefChance = featuresCfg?.paradiseReefChance ?? 18;
 
   // 2) Paradise reefs near hotspot paradise centers
