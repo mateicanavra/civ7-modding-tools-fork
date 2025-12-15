@@ -9,8 +9,8 @@
  * Uses lazy provider pattern for test isolation.
  */
 
-import type { ExtendedMapContext, StoryOverlaySnapshot } from "../../core/types.js";
-import { inBounds, storyKey } from "../../core/index.js";
+import type { ExtendedMapContext, StoryOverlaySnapshot } from "../core/types.js";
+import { inBounds, storyKey } from "../core/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "./overlays.js";
 
 export interface OrogenyCacheInstance {

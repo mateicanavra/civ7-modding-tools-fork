@@ -8,8 +8,9 @@
  * - bootstrap/: Configuration providers (lazy-loaded)
  * - world/: Voronoi tectonics, plate simulation
  * - layers/: Terrain generation stages (mountains, climate, etc.)
+ * - narrative/: Canonical narrative tagging + overlays (cross-cutting)
  * - core/: Shared utilities and types
- * - story/: Narrative tagging and overlay system
+ * - story/: Compatibility facade for narrative (legacy import paths)
  */
 
 // Re-export core types from adapter

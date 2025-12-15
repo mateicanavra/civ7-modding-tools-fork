@@ -10,10 +10,10 @@
  *   - corridorKind / corridorStyle / corridorAttributes metadata maps
  */
 
-import type { ExtendedMapContext, StoryOverlaySnapshot } from "../../core/types.js";
-import { inBounds, storyKey } from "../../core/index.js";
-import { ctxRandom } from "../../core/types.js";
-import { COAST_TERRAIN } from "../../core/terrain-constants.js";
+import type { ExtendedMapContext, StoryOverlaySnapshot } from "../core/types.js";
+import { inBounds, storyKey } from "../core/index.js";
+import { ctxRandom } from "../core/types.js";
+import { COAST_TERRAIN } from "../core/terrain-constants.js";
 import { getStoryTags } from "./tags.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "./overlays.js";
 

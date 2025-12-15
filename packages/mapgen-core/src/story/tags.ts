@@ -1,3 +1,2 @@
-export * from "../layers/narrative/tags.js";
-export { default } from "../layers/narrative/tags.js";
-
+export * from "../narrative/tags.js";
+export { default } from "../narrative/tags.js";
