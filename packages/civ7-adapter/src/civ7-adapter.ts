@@ -7,7 +7,7 @@
 
 /// <reference types="@civ7/types" />
 
-import type { EngineAdapter, FeatureData, MapInfo, MapInitParams } from "./types.js";
+import type { EngineAdapter, FeatureData, MapInfo, MapInitParams, MapSizeId } from "./types.js";
 
 // Import from /base-standard/... — these are external Civ7 runtime paths
 // resolved by the game's module loader, not TypeScript
@@ -54,13 +54,22 @@ export class Civ7Adapter implements EngineAdapter {
 
   // === MAP INIT / MAP INFO ===
 
-  getMapSizeId(): number {
+  getMapSizeId(): MapSizeId {
     // GameplayMap.getMapSize() is the canonical map-size selection id from game settings.
-    return GameplayMap.getMapSize() as unknown as number;
+    return GameplayMap.getMapSize();
   }
 
-  lookupMapInfo(mapSizeId: number): MapInfo | null {
-    return GameInfo?.Maps?.lookup ? (GameInfo.Maps.lookup(mapSizeId) as unknown as MapInfo) : null;
+  lookupMapInfo(mapSizeId: MapSizeId): MapInfo | null {
+    if (!GameInfo?.Maps?.lookup) return null;
+
+    const key: MapSizeId =
+      typeof mapSizeId === "string" && /^[0-9]+$/.test(mapSizeId) ? Number(mapSizeId) : mapSizeId;
+
+    const primary = GameInfo.Maps.lookup(key as any) as unknown;
+    const fallback =
+      key !== mapSizeId ? (GameInfo.Maps.lookup(mapSizeId as any) as unknown) : undefined;
+
+    return ((primary ?? fallback) as MapInfo | undefined) ?? null;
   }
 
   setMapInitData(params: MapInitParams): void {

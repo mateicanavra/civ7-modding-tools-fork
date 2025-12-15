@@ -600,3 +600,9 @@ The core gaps called out above are now addressed in the branch end state:
 - **Fix now:** Make `pnpm test:mapgen` green by addressing the `STAGE_ORDER` immutability expectation.
 - **Follow-up:** Normalize map-size key typing across `@civ7/types` ↔ `@civ7/adapter` ↔ orchestrator options.
 - **Follow-up:** Clarify whether “no OrchestratorAdapter references remain” applies to runtime code only or to the entire repo (docs/slides).
+
+### Post-review update (2025-12-15)
+
+- **Green tests:** `STAGE_ORDER` is now runtime-frozen so `pnpm test:mapgen` stays green.
+- **Type alignment:** Introduced `MapSizeId = string | number` in `@civ7/adapter` and updated Civ7 + mock adapters and orchestrator options accordingly.
+- **Acceptance clarity:** Updated CIV-47 acceptance criterion to scope “no OrchestratorAdapter references” to runtime code (`packages/**`) while preserving docs/slides as historical context.

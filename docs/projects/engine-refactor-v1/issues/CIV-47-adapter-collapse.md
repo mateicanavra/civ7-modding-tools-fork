@@ -33,7 +33,7 @@ Collapse `MapOrchestrator`’s internal `OrchestratorAdapter` into the canonical
 - [x] `MapOrchestrator` and pipeline entry have no internal/secondary adapters
 - [x] Implementation matches the single-adapter design in `architecture.md`
 - [x] Adapter API is documented for potential extensibility
-- [x] No references to `OrchestratorAdapter` remain in codebase
+- [x] No references to `OrchestratorAdapter` remain in runtime code (`packages/**`) — docs/slides may retain historical context
 
 ## Testing / Verification
 
