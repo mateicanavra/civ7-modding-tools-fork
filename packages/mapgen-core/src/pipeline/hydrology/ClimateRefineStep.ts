@@ -1,9 +1,9 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { assertFoundationContext } from "../../../core/assertions.js";
-import { DEV, logRainfallStats } from "../../../dev/index.js";
-import { publishClimateFieldArtifact } from "../../../pipeline/artifacts.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../../pipeline/index.js";
-import { refineClimateEarthlike } from "../climate.js";
+import type { ExtendedMapContext } from "../../core/types.js";
+import { assertFoundationContext } from "../../core/assertions.js";
+import { DEV, logRainfallStats } from "../../dev/index.js";
+import { publishClimateFieldArtifact } from "../artifacts.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
+import { refineClimateEarthlike } from "../../domain/hydrology/climate/index.js";
 
 export interface ClimateRefineStepOptions {
   requires: readonly string[];

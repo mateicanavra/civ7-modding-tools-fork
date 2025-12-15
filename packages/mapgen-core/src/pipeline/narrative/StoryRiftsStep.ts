@@ -1,6 +1,6 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { DEV, devWarn } from "../../dev/index.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
 import { storyTagRiftValleys } from "../../narrative/tagging.js";
 
 export interface StoryRiftsStepRuntime {
