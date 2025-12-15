@@ -2,13 +2,13 @@
  * Story Paleo Hydrology — subtle rainfall artifacts (deltas, oxbows, fossils).
  *
  * Ported from legacy storyTagPaleoHydrology, adapted to prefer:
- * - ctx.buffers.climate.rainfall via syncClimateField/writeClimateField
+ * - ctx.buffers.climate.rainfall via writeClimateField (climate buffers are canonical)
  * - EngineAdapter reads/writes (no direct engine calls when ctx provided)
  */
 
 import type { ExtendedMapContext } from "../core/types.js";
 import { inBounds } from "../core/index.js";
-import { ctxRandom, writeClimateField, syncClimateField } from "../core/types.js";
+import { ctxRandom, writeClimateField } from "../core/types.js";
 import { getTunables } from "../bootstrap/tunables.js";
 
 export interface PaleoSummary {
@@ -82,7 +82,11 @@ export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): P
   const area = Math.max(1, width * height);
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
 
-  if (ctx) syncClimateField(ctx);
+  if (ctx && !ctx.buffers?.climate?.rainfall) {
+    throw new Error(
+      "[Story] Paleo hydrology requires canonical climate buffers. Ensure climate stages run before storySwatches (and avoid engine rainfall reads)."
+    );
+  }
 
   const adapter = ctx?.adapter ?? null;
   const rainfallBuf = ctx?.buffers?.climate?.rainfall || null;

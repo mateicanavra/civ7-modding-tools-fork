@@ -620,6 +620,12 @@ export class MapOrchestrator {
       return { success: false, stageResults: this.stageResults, startPositions };
     }
 
+    // Reset story state once per generation to prevent cross-run leakage via globals.
+    resetStoryTags();
+    resetStoryOverlays();
+    resetOrogenyCache();
+    resetCorridorStyleCache();
+
     // Initialize WorldModel and FoundationContext
     // Note: foundationContext stored for potential future use in story stages
     if (stageFlags.foundation && ctx) {
@@ -943,6 +949,8 @@ export class MapOrchestrator {
           console.log(`${prefix} Applying paleo hydrology...`);
           storyTagClimatePaleo(ctx!);
         }
+
+        publishClimateFieldArtifact(ctx!);
       });
       this.stageResults.push(stageResult);
     }
@@ -1207,6 +1215,12 @@ export class MapOrchestrator {
       console.error(`${prefix} Failed to create context:`, err);
       return { success: false, stageResults: this.stageResults, startPositions };
     }
+
+    // Reset story state once per generation to prevent cross-run leakage via globals.
+    resetStoryTags();
+    resetStoryOverlays();
+    resetOrogenyCache();
+    resetCorridorStyleCache();
 
     // Set up start sectors (placement consumes these)
     const iNumPlayers1 = mapInfo.PlayersLandmass1 ?? 4;
@@ -1531,6 +1545,7 @@ export class MapOrchestrator {
         if (ctx?.config?.toggles?.STORY_ENABLE_PALEO) {
           storyTagClimatePaleo(ctx);
         }
+        publishClimateFieldArtifact(ctx);
       },
     });
 

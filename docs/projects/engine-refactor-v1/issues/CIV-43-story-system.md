@@ -79,3 +79,9 @@ Parent issue: `CIV-21-story-tagging.md`.
   - `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/tagging.js`
   - `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/corridors.js`
 - M3 decision: implement `paleo` as part of the `storySwatches` stage/step (no new `storyPaleo` stage in `STAGE_ORDER` for M3).
+
+### Review Follow-ups
+- Removed `syncClimateField()` usage from paleo; tests seed canonical climate buffers instead.
+- Ensured `storySwatches` republishes `artifact:climateField` after swatches/paleo mutations.
+- Tightened `storyCorridorsPost` dependency spine to require climate + river artifacts (fail-fast on misordered/disabled stages).
+- Reset story globals at generation start to prevent cross-run leakage when story stages are selectively enabled.

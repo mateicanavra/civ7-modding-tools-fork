@@ -46,10 +46,11 @@ describe("story/paleo", () => {
     (adapter as any).isAdjacentToRivers = () => true;
 
     const ctx = createExtendedMapContext({ width, height }, adapter, parseConfig({}));
+    ctx.buffers?.climate?.rainfall?.fill(50);
+    ctx.fields?.rainfall?.fill(50);
 
     const summary = storyTagPaleoHydrology(ctx);
     expect(summary.deltas).toBe(1);
     expect(adapter.getRainfall(1, 1)).toBeGreaterThan(50);
   });
 });
-

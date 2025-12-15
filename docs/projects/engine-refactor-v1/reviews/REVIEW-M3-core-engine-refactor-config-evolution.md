@@ -194,6 +194,10 @@ No scope creep or backward push detected. The issue's "locked decisions" (recipe
 - Updated stage dependencies so `biomes` requires `artifact:riverAdjacency` and `features` requires `artifact:climateField`, matching actual data reads.
 - Documented `ClimateField.humidity` as an M3 placeholder.
 - Ensured the legacy `generateMap()` entry path publishes `artifact:climateField` / `artifact:riverAdjacency` so artifact-only consumers behave consistently even when TaskGraph is disabled.
+- Fixed paleo MapContext path by removing the removed `syncClimateField()` call; paleo now requires canonical climate buffers (tests seed buffers explicitly).
+- Ensured `storySwatches` republishes `artifact:climateField` after swatches/paleo mutations (so `provides` matches runtime behavior).
+- Reset story globals at generation start to avoid cross-run overlay/tag leakage when story stages are selectively enabled.
+- Tightened `storyCorridorsPost` stage dependencies to require `artifact:climateField` + `artifact:riverAdjacency` (fail-fast is meaningful for misordered recipes).
 
 ---
 
