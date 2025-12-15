@@ -1,144 +1,115 @@
-# Comprehensive Refactoring Plan
+---
+id: AD-HOC-refactor-layout-and-registry
+title: "Refactor MapGen Layout + Registry"
+state: done
+priority: 2
+estimate: 8
+project: engine-refactor-v1
+milestone: POST-M3
+assignees: []
+labels: [Improvement, Architecture]
+parent: null
+children: []
+blocked_by: []
+blocked: []
+related_to: []
+---
 
-This plan aligns our codebase with the target architecture phases (**Foundation, Morphology, Hydrology, Ecology, Narrative**) and eliminates the "God Class" Orchestrator.
+<!-- SECTION SCOPE [SYNC] -->
+## TL;DR
 
-We will execute this by creating 6 Domain Modules.
+Align `@swooper/mapgen-core`’s layout with the target domain phases (foundation/morphology/hydrology/ecology/narrative/placement) and route TaskGraph execution through a standard-library registry to reduce `MapOrchestrator` coupling.
 
-## 1. Foundation Domain (`packages/mapgen-core/src/layers/foundation/`)
+## Deliverables
 
-**Responsible for the physical board (Mesh, Plates, Physics).**
+- [x] Domain modules under `packages/mapgen-core/src/layers/` with per-domain `register*Layer(...)` entrypoints.
+- [x] Standard library aggregator `registerStandardLibrary(...)` that registers all domain layers into a `StepRegistry`.
+- [x] TaskGraph execution path in `packages/mapgen-core/src/MapOrchestrator.ts` uses `registerStandardLibrary(...)`.
 
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/foundation/`
-- [x] **Create Step:** `FoundationStep.ts` (Wraps `initializeFoundation` logic from Orchestrator)
-- [x] **Create Entry:** `index.ts` (Exports `registerFoundationLayer`)
+## Acceptance Criteria
 
-## 2. Morphology Domain (`packages/mapgen-core/src/layers/morphology/`)
+- [x] TaskGraph stage registration is centralized in the standard library (not scattered across orchestrator code).
+- [x] Domain logic lives under `packages/mapgen-core/src/layers/<domain>/` with clear phase boundaries.
+- [x] `bun run check-types`, `bun run build`, and `pnpm test:mapgen` pass.
 
-**Responsible for the shape of the land (Landmass, Mountains, Coastlines).**
+## Testing / Verification
 
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/morphology/`
+- `bun run check-types`
+- `bun run build`
+- `pnpm test:mapgen`
 
-### Landmass
+## Dependencies / Notes
 
-- [x] **Move:** `packages/mapgen-core/src/layers/landmass-plate.ts` → `packages/mapgen-core/src/layers/morphology/landmass-plate.ts`
-- [x] **Move:** `packages/mapgen-core/src/layers/landmass-utils.ts` → `packages/mapgen-core/src/layers/morphology/landmass-utils.ts`
-- [x] **Create Step:** `LandmassStep.ts` (Wraps `createPlateDrivenLandmasses`)
+- This is tracked locally as an ad-hoc issue doc (no Linear issue).
 
-### Coastlines
+---
 
-- [x] **Move:** `packages/mapgen-core/src/layers/coastlines.ts` → `packages/mapgen-core/src/layers/morphology/coastlines.ts`
-- [x] **Create Step:** `CoastlinesStep.ts` (Wraps `expandCoasts`)
-- [x] **Create Step:** `RuggedCoastsStep.ts` (Wraps `addRuggedCoasts`)
+<!-- SECTION IMPLEMENTATION [NOSYNC] -->
+## Implementation Details (Local Only)
 
-### Islands
+### Checklist
 
-- [x] **Move:** `packages/mapgen-core/src/layers/islands.ts` → `packages/mapgen-core/src/layers/morphology/islands.ts`
-- [x] **Create Step:** `IslandsStep.ts` (Wraps `addIslandChains`)
+This checklist is a direct record of the refactor slices executed to reach the deliverables above.
 
-### Mountains
+#### 1. Foundation Domain (`packages/mapgen-core/src/layers/foundation/`)
 
-- [x] **Move:** `packages/mapgen-core/src/layers/mountains.ts` → `packages/mapgen-core/src/layers/morphology/mountains.ts`
-- [x] **Create Step:** `MountainsStep.ts` (Wraps `layerAddMountainsPhysics`)
+- [x] Create directory: `packages/mapgen-core/src/layers/foundation/`
+- [x] Create step: `FoundationStep.ts`
+- [x] Create entry: `index.ts` (exports `registerFoundationLayer`)
 
-### Volcanoes
+#### 2. Morphology Domain (`packages/mapgen-core/src/layers/morphology/`)
 
-- [x] **Move:** `packages/mapgen-core/src/layers/volcanoes.ts` → `packages/mapgen-core/src/layers/morphology/volcanoes.ts`
-- [x] **Create Step:** `VolcanoesStep.ts` (Wraps `layerAddVolcanoesPlateAware`)
+- [x] Create directory: `packages/mapgen-core/src/layers/morphology/`
+- [x] Move `packages/mapgen-core/src/layers/landmass-plate.ts` → `packages/mapgen-core/src/layers/morphology/landmass-plate.ts`
+- [x] Move `packages/mapgen-core/src/layers/landmass-utils.ts` → `packages/mapgen-core/src/layers/morphology/landmass-utils.ts`
+- [x] Create `LandmassStep.ts`
+- [x] Move `packages/mapgen-core/src/layers/coastlines.ts` → `packages/mapgen-core/src/layers/morphology/coastlines.ts`
+- [x] Create `CoastlinesStep.ts`
+- [x] Create `RuggedCoastsStep.ts`
+- [x] Move `packages/mapgen-core/src/layers/islands.ts` → `packages/mapgen-core/src/layers/morphology/islands.ts`
+- [x] Create `IslandsStep.ts`
+- [x] Move `packages/mapgen-core/src/layers/mountains.ts` → `packages/mapgen-core/src/layers/morphology/mountains.ts`
+- [x] Create `MountainsStep.ts`
+- [x] Move `packages/mapgen-core/src/layers/volcanoes.ts` → `packages/mapgen-core/src/layers/morphology/volcanoes.ts`
+- [x] Create `VolcanoesStep.ts`
+- [x] Create entry: `index.ts` (exports `registerMorphologyLayer`)
 
-### Entry Point
+#### 3. Hydrology Domain (`packages/mapgen-core/src/layers/hydrology/`)
 
-- [x] **Create Entry:** `index.ts` (Exports `registerMorphologyLayer`)
+- [x] Create directory: `packages/mapgen-core/src/layers/hydrology/`
+- [x] Move `packages/mapgen-core/src/layers/climate-engine.ts` → `packages/mapgen-core/src/layers/hydrology/climate.ts`
+- [x] Create `ClimateBaselineStep.ts`
+- [x] Create `ClimateRefineStep.ts`
+- [x] Create `RiversStep.ts`
+- [x] Create `LakesStep.ts`
+- [x] Create entry: `index.ts` (exports `registerHydrologyLayer`)
 
-## 3. Hydrology Domain (`packages/mapgen-core/src/layers/hydrology/`)
+#### 4. Ecology Domain (`packages/mapgen-core/src/layers/ecology/`)
 
-**Responsible for water and climate (Rivers, Lakes, Rainfall).**
+- [x] Create directory: `packages/mapgen-core/src/layers/ecology/`
+- [x] Move `packages/mapgen-core/src/layers/biomes.ts` → `packages/mapgen-core/src/layers/ecology/biomes.ts`
+- [x] Create `BiomesStep.ts`
+- [x] Move `packages/mapgen-core/src/layers/features.ts` → `packages/mapgen-core/src/layers/ecology/features.ts`
+- [x] Create `FeaturesStep.ts`
+- [x] Create entry: `index.ts` (exports `registerEcologyLayer`)
 
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/hydrology/`
+#### 5. Narrative Domain (`packages/mapgen-core/src/layers/narrative/`)
 
-### Climate
+- [x] Create directory: `packages/mapgen-core/src/layers/narrative/`
+- [x] Create steps (`StorySeedStep.ts`, `StoryHotspotsStep.ts`, `StoryRiftsStep.ts`, `StoryOrogenyStep.ts`, `StoryCorridorsStep.ts`, `StorySwatchesStep.ts`)
+- [x] Create entry: `index.ts` (exports `registerNarrativeLayer`)
 
-- [x] **Move:** `packages/mapgen-core/src/layers/climate-engine.ts` → `packages/mapgen-core/src/layers/hydrology/climate.ts`
-- [x] **Create Step:** `ClimateBaselineStep.ts` (Wraps `applyClimateBaseline`)
-- [x] **Create Step:** `ClimateRefineStep.ts` (Wraps `refineClimateEarthlike`)
+#### 6. Placement Domain (`packages/mapgen-core/src/layers/placement/`)
 
-### Rivers
+- [x] Create directory: `packages/mapgen-core/src/layers/placement/`
+- [x] Move `packages/mapgen-core/src/layers/placement.ts` → `packages/mapgen-core/src/layers/placement/placement.ts`
+- [x] Create `PlacementStep.ts`
+- [x] Create entry: `index.ts` (exports `registerPlacementLayer`)
 
-- [x] **Create Step:** `RiversStep.ts` (Extracts inline logic from Orchestrator: `modelRivers` + stats + adjacency)
+#### 7. Standard Library (`packages/mapgen-core/src/layers/index.ts`)
 
-### Lakes
+- [x] Implement `packages/mapgen-core/src/layers/standard-library.ts` and export via `packages/mapgen-core/src/layers/index.ts`
 
-- [x] **Create Step:** `LakesStep.ts` (Extracts inline logic from Orchestrator: `generateLakes`)
+#### 8. Cleanup (`packages/mapgen-core/src/MapOrchestrator.ts`)
 
-### Entry Point
-
-- [x] **Create Entry:** `index.ts` (Exports `registerHydrologyLayer`)
-
-## 4. Ecology Domain (`packages/mapgen-core/src/layers/ecology/`)
-
-**Responsible for life (Biomes, Features).**
-
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/ecology/`
-
-### Biomes
-
-- [x] **Move:** `packages/mapgen-core/src/layers/biomes.ts` → `packages/mapgen-core/src/layers/ecology/biomes.ts`
-- [x] **Create Step:** `BiomesStep.ts` (Wraps `designateEnhancedBiomes`)
-
-### Features
-
-- [x] **Move:** `packages/mapgen-core/src/layers/features.ts` → `packages/mapgen-core/src/layers/ecology/features.ts`
-- [x] **Create Step:** `FeaturesStep.ts` (Wraps `addDiverseFeatures`)
-
-### Entry Point
-
-- [x] **Create Entry:** `index.ts` (Exports `registerEcologyLayer`)
-
-## 5. Narrative Domain (`packages/mapgen-core/src/layers/narrative/`)
-
-**Responsible for story overlays and strategic tagging.**
-
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/narrative/`
-
-### Move Logic
-
-- [x] `src/story/tagging.ts` → `tagging.ts`
-- [x] `src/story/orogeny.ts` → `orogeny.ts`
-- [x] `src/story/corridors.ts` → `corridors.ts`
-- [x] `src/story/swatches.ts` → `swatches.ts`
-- [x] `src/story/overlays.ts` → `overlays.ts`
-- [x] `src/story/tags.ts` → `tags.ts`
-
-### Create Steps
-
-- [x] `StorySeedStep.ts`
-- [x] `StoryHotspotsStep.ts`
-- [x] `StoryRiftsStep.ts`
-- [x] `StoryOrogenyStep.ts`
-- [x] `StoryCorridorsStep.ts` (Handles both Pre/Post phases)
-- [x] `StorySwatchesStep.ts`
-
-### Entry Point
-
-- [x] **Create Entry:** `index.ts` (Exports `registerNarrativeLayer`)
-
-## 6. Placement Domain (`packages/mapgen-core/src/layers/placement/`)
-
-**Responsible for start positions and units.**
-
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/placement/`
-- [x] **Move:** `packages/mapgen-core/src/layers/placement.ts` → `packages/mapgen-core/src/layers/placement/placement.ts`
-- [x] **Create Step:** `PlacementStep.ts` (Wraps `runPlacement`)
-- [x] **Create Entry:** `index.ts` (Exports `registerPlacementLayer`)
-
-## 7. The Standard Library (`packages/mapgen-core/src/layers/index.ts`)
-
-**The Aggregator.**
-
-- [x] **Implement:** `packages/mapgen-core/src/layers/standard-library.ts` + export from `packages/mapgen-core/src/layers/index.ts`
-- [x] **Content:** Imports domain modules and exports `registerStandardLibrary(registry, config, runtime)`
-
-## 8. The Cleanup (`MapOrchestrator.ts`)
-
-**The Final Switch.**
-
-- [x] **Refactor:** `packages/mapgen-core/src/MapOrchestrator.ts` TaskGraph path calls `registerStandardLibrary(...)`
+- [x] TaskGraph path calls `registerStandardLibrary(...)`
