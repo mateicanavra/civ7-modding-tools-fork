@@ -746,6 +746,7 @@ export class MapOrchestrator {
       const stageResult = this.runStage("lakes", () => {
         ctx.adapter.generateLakes(iWidth, iHeight, iTilesPerLake);
         syncHeightfield(ctx!);
+        publishHeightfieldArtifact(ctx!);
       });
       this.stageResults.push(stageResult);
     }
@@ -772,6 +773,8 @@ export class MapOrchestrator {
         // Assert foundation is available - fail fast if not
         assertFoundationContext(ctx, "climateBaseline");
 
+        syncHeightfield(ctx);
+        publishHeightfieldArtifact(ctx);
         applyClimateBaseline(iWidth, iHeight, ctx);
         publishClimateFieldArtifact(ctx!);
       });

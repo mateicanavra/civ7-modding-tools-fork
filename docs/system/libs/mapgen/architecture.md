@@ -217,6 +217,20 @@ In this codebase we use them for three distinct classes of guarantees:
 
 This keeps M3 wrap-first steps honest: steps like placement can be contract-checked at runtime even when they primarily consume engine-surface state, while still allowing us to progressively migrate more information into explicit artifacts over time.
 
+##### `provides` Is Aggregated (Not Per-Step “Outputs”)
+
+The executor treats dependency tags as a monotonic “satisfied set”: once a tag is satisfied, it remains satisfied for the remainder of the run. This is the intended “aggregation” mechanism—downstream steps do **not** need to re-`provide` tags that were already provided upstream.
+
+As a rule:
+
+- A step should list a tag in `provides` only if it **materializes** that tag (publishes a concrete value onto the context) or intentionally **refreshes** it after mutation.
+- Consumer steps should not “re-provide” tags they merely read. If a step is not the publisher/refresher, it should just `require` the tag.
+
+For derived snapshot artifacts (notably `artifact:heightfield`), this means:
+
+- Publishing is explicit: call `syncHeightfield(ctx)` (populate buffers from the engine surface) and then `publishHeightfieldArtifact(ctx)` (store the snapshot under `ctx.artifacts`).
+- If a step claims `provides: ["artifact:heightfield"]`, it must actually perform that publication; TaskGraph will validate the postcondition.
+
 ### 4.2. No Global State
 *   The legacy `WorldModel` singleton is **banned** in new code.
 *   New steps must read/write strictly to `context.artifacts` or `context.fields`.
