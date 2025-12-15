@@ -72,6 +72,15 @@ describe("bootstrap/entry", () => {
       expect(config.stageConfig?.climateBaseline).toBe(false);
     });
 
+    it("resolves stageManifest from preset stageConfig", () => {
+      const config = bootstrap({ presets: ["classic"] });
+
+      expect(config.stageConfig?.foundation).toBe(true);
+      expect(config.stageConfig?.landmassPlates).toBe(true);
+      expect(config.stageManifest?.stages?.foundation?.enabled).toBe(true);
+      expect(config.stageManifest?.stages?.landmassPlates?.enabled).toBe(true);
+    });
+
     it("filters invalid preset values", () => {
       const config = bootstrap({
         presets: ["classic", 123 as unknown as string, null as unknown as string, "temperate"],
