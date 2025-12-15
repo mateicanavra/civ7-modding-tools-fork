@@ -14,6 +14,7 @@ import type {
   OceanSeparationEdgePolicy,
 } from "../../../bootstrap/types.js";
 import { writeHeightfield } from "../../../core/types.js";
+import { clampInt } from "../../../lib/math/index.js";
 
 // ============================================================================
 // Types
@@ -90,12 +91,6 @@ import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../../../core/terrain-constants.js"
 // ============================================================================
 // Helper Functions
 // ============================================================================
-
-function clampInt(value: number, min: number, max: number): number {
-  if (value < min) return min;
-  if (value > max) return max;
-  return value;
-}
 
 type CrustMode = "legacy" | "area";
 

@@ -3,7 +3,7 @@
  * narrative overlays operate against a single shared module.
  */
 
-import { PerlinNoise } from "../../../lib/noise.js";
+import { PerlinNoise } from "../../../lib/noise/index.js";
 import type { ExtendedMapContext } from "../../../core/types.js";
 import type {
   ClimateConfig as BootstrapClimateConfig,
@@ -14,6 +14,7 @@ import type { FoundationContext } from "../../../core/types.js";
 import { getStoryTags } from "../../../story/tags.js";
 import { M3_DEPENDENCY_TAGS } from "../../../pipeline/tags.js";
 import { clamp, inBounds as boundsCheck } from "../../../core/index.js";
+import { idx } from "../../../lib/grid/index.js";
 
 // ============================================================================
 // Types
@@ -74,7 +75,6 @@ function resolveAdapter(ctx: ExtendedMapContext): ClimateAdapter {
   const riverAdjacency = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency);
   const hasRiverAdjacencyArtifact =
     riverAdjacency instanceof Uint8Array && riverAdjacency.length === expectedSize;
-  const idx = (x: number, y: number): number => y * width + x;
   return {
     isWater: (x, y) => engineAdapter.isWater(x, y),
     isMountain: (x, y) => engineAdapter.isMountain(x, y),
@@ -93,7 +93,7 @@ function resolveAdapter(ctx: ExtendedMapContext): ClimateAdapter {
           "ClimateEngine: Missing artifact:riverAdjacency (required for climate refinement)."
         );
       }
-      return (riverAdjacency as Uint8Array)[idx(x, y)] === 1;
+      return (riverAdjacency as Uint8Array)[idx(x, y, width)] === 1;
     },
     getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
     setRainfall: (x, y, rf) => engineAdapter.setRainfall(x, y, rf),
@@ -127,10 +127,10 @@ function createClimateRuntime(
     );
   }
 
-  const idx = (x: number, y: number): number => y * width + x;
+  const idxAt = (x: number, y: number): number => idx(x, y, width);
 
   const readRainfall = (x: number, y: number): number => {
-    return rainfallBuf[idx(x, y)] | 0;
+    return rainfallBuf[idxAt(x, y)] | 0;
   };
 
   const writeRainfall = (x: number, y: number, rainfall: number): void => {
@@ -147,7 +147,7 @@ function createClimateRuntime(
     readRainfall,
     writeRainfall,
     rand,
-    idx,
+    idx: idxAt,
   };
 }
 
@@ -668,7 +668,7 @@ export function applyClimateSwatches(
           if (isWater(x, y)) continue;
           if (!isCoastalLand(x, y)) continue;
 
-          const i = idx(x, y);
+          const i = idx(x, y, width);
           const u = dynamics.windU[i] | 0;
           const v = dynamics.windV[i] | 0;
           let ux = 0;

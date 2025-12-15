@@ -18,6 +18,8 @@ import type { EngineAdapter, FeatureData } from "@civ7/adapter";
 import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "../../../bootstrap/types.js";
 import { writeHeightfield } from "../../../core/types.js";
 import { BOUNDARY_TYPE } from "../../../world/constants.js";
+import { idx } from "../../../lib/grid/index.js";
+import { clamp } from "../../../lib/math/index.js";
 
 // ============================================================================
 // Types
@@ -51,19 +53,6 @@ import { MOUNTAIN_TERRAIN, VOLCANO_FEATURE } from "../../../core/terrain-constan
 // ============================================================================
 // Helper Functions
 // ============================================================================
-
-function idx(x: number, y: number, width: number): number {
-  return y * width + x;
-}
-
-function clamp(value: number, min: number, max: number): number {
-  if (typeof max === "number" && max >= min) {
-    if (value < min) return min;
-    if (value > max) return max;
-    return value;
-  }
-  return Math.max(value, min);
-}
 
 function isTooCloseToExisting(
   x: number,
