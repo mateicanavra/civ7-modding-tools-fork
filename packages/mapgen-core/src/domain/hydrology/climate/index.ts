@@ -668,7 +668,7 @@ export function applyClimateSwatches(
           if (isWater(x, y)) continue;
           if (!isCoastalLand(x, y)) continue;
 
-          const i = idx(x, y, width);
+          const i = idx(x, y);
           const u = dynamics.windU[i] | 0;
           const v = dynamics.windV[i] | 0;
           let ux = 0;
