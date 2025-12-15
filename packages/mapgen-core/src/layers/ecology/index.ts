@@ -1,8 +1,9 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { syncHeightfield } from "../../core/types.js";
 import { DEV, logBiomeSummary } from "../../dev/index.js";
-import { M3_STANDARD_STAGE_PHASE, type StepRegistry } from "../../pipeline/index.js";
-import { createLegacyBiomesStep, createLegacyFeaturesStep } from "../../steps/index.js";
+import type { StepRegistry } from "../../pipeline/index.js";
+import { createBiomesStep } from "./BiomesStep.js";
+import { createFeaturesStep } from "./FeaturesStep.js";
 
 export interface EcologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
@@ -16,7 +17,7 @@ export function registerEcologyLayer(
   const stageFlags = runtime.stageFlags;
 
   registry.register(
-    createLegacyBiomesStep({
+    createBiomesStep({
       ...runtime.getStageDescriptor("biomes"),
       shouldRun: () => stageFlags.biomes,
       afterRun: (context) => {
@@ -29,7 +30,7 @@ export function registerEcologyLayer(
   );
 
   registry.register(
-    createLegacyFeaturesStep({
+    createFeaturesStep({
       ...runtime.getStageDescriptor("features"),
       shouldRun: () => stageFlags.features,
       afterRun: (context) => {
@@ -40,4 +41,3 @@ export function registerEcologyLayer(
     })
   );
 }
-

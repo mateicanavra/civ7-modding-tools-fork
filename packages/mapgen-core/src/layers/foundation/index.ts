@@ -1,5 +1,6 @@
 import type { ExtendedMapContext } from "../../core/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep, type StepRegistry } from "../../pipeline/index.js";
+import type { StepRegistry } from "../../pipeline/index.js";
+import { createFoundationStep } from "./FoundationStep.js";
 
 export interface FoundationLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
@@ -11,16 +12,13 @@ export function registerFoundationLayer(
   registry: StepRegistry<ExtendedMapContext>,
   runtime: FoundationLayerRuntime
 ): void {
-  const step: MapGenStep<ExtendedMapContext> = {
-    id: "foundation",
-    phase: M3_STANDARD_STAGE_PHASE.foundation,
-    ...runtime.getStageDescriptor("foundation"),
-    shouldRun: () => runtime.stageFlags.foundation,
-    run: (context) => {
-      runtime.runFoundation(context);
-    },
-  };
-
-  registry.register(step);
+  registry.register(
+    createFoundationStep(
+      { runFoundation: runtime.runFoundation },
+      {
+        ...runtime.getStageDescriptor("foundation"),
+        shouldRun: () => runtime.stageFlags.foundation,
+      }
+    )
+  );
 }
-

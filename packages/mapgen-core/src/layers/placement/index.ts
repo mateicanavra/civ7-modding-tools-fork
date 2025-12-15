@@ -2,7 +2,7 @@ import type { ExtendedMapContext } from "../../core/types.js";
 import type { ContinentBounds, StartsConfig } from "../../bootstrap/types.js";
 import type { MapInfo } from "@civ7/adapter";
 import type { StepRegistry } from "../../pipeline/index.js";
-import { createLegacyPlacementStep } from "../../steps/index.js";
+import { createPlacementStep } from "./PlacementStep.js";
 
 export interface PlacementLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
@@ -38,16 +38,16 @@ export function registerPlacementLayer(
       : baseStarts;
 
   registry.register(
-    createLegacyPlacementStep({
-      ...runtime.getStageDescriptor("placement"),
-      shouldRun: () => runtime.stageFlags.placement,
-      placementOptions: {
-        mapInfo: runtime.mapInfo as { NumNaturalWonders?: number },
+    createPlacementStep(
+      {
+        mapInfo: runtime.mapInfo,
         starts,
+        startPositions: runtime.startPositions,
       },
-      afterRun: (_ctx, positions) => {
-        runtime.startPositions.push(...positions);
-      },
-    })
+      {
+        ...runtime.getStageDescriptor("placement"),
+        shouldRun: () => runtime.stageFlags.placement,
+      }
+    )
   );
 }
