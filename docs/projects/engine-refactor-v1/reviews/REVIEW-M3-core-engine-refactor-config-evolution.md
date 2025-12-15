@@ -363,3 +363,76 @@ The core gaps called out above are now addressed in the branch end state:
 **Remaining follow-ups:**
 - **Hotspot tag derivation:** `features` references `StoryTags.hotspotParadise` / `hotspotVolcanic`, but there’s no corresponding overlay hydration; clarify whether these are expected to be produced/consumed in M3 or should be removed/retired.
 - **Coverage:** No focused test asserts ecology-stage gating (e.g., `biomes` enabled without `climateBaseline` yields a `MissingDependencyError`) or wrap-first parity; add a small regression test if this remains a recurring failure mode in later stacks.
+
+---
+
+## CIV-45 – Placement Step Wrapper (Consume Canonical Artifacts)
+
+**Reviewed:** 2025-12-15 | **PR:** [#93](https://github.com/mateicanavra/civ7-modding-tools-fork/pull/93)
+
+### Effort Estimate
+
+**Complexity:** Medium (3/4) — cross-cutting “late pipeline” stage where correctness is mostly contracts + config handoff.
+**Parallelism:** High (4/4) — reviewable in isolation once CIV-44 is in; minimal upstream coupling.
+**Score:** 6/16 — moderate surface area but clear intent.
+
+---
+
+### Quick Take
+
+**Yes:** Placement is now an explicit `MapGenStep` executed via `PipelineExecutor`, with a concrete `requires`/`provides` contract that prevents running placement without upstream engine-surface prerequisites. The wrapper routes placement tuning through the validated config snapshot (`context.config.foundation.placement`) and preserves the existing placement algorithm by delegating to `runPlacement()`.
+
+---
+
+### Intent & Assumptions
+
+- Wrap placement as a TaskGraph step (wrap-first; no retuning).
+- Make placement’s prerequisites explicit via `state:engine.*` tags, so misconfigured manifests fail fast.
+- Use config-derived placement tuning (not legacy tunables) as part of the M3 config cutover.
+
+---
+
+### What's Strong
+
+- **Clear step boundary:** `createLegacyPlacementStep()` isolates config binding and orchestration hooks (`beforeRun` / `afterRun`) (`packages/mapgen-core/src/steps/LegacyPlacementStep.ts`).
+- **Meaningful gating:** Placement requires `state:engine.coastlinesApplied`, `state:engine.riversModeled`, and `state:engine.featuresApplied`, so it won’t run in “half-built” worlds (`packages/mapgen-core/src/pipeline/standard.ts`).
+- **Single implementation reused:** Both legacy and TaskGraph orchestrator paths route through the same `runPlacement()` callsite, reducing drift risk (`packages/mapgen-core/src/MapOrchestrator.ts`).
+- **Verification:** `pnpm -C packages/mapgen-core check` and `pnpm test:mapgen` pass on this branch.
+
+---
+
+### High-Leverage Issues
+
+1. **Config location ambiguity for `placement`**
+   - Code reads `context.config.foundation.placement`, but `MapGenConfigSchema` also exposes top-level `placement` and `buildTunablesFromConfig()` does not currently merge top-level `placement` into `foundation` (unlike other layer blocks).
+   - **Impact:** Mod authors can specify `placement` at the top level and see no effect; docs/schema risk drifting from behavior.
+   - **Direction:** Either merge top-level `placement` into `foundation.placement` (like `mountains`, `story`, etc.) or explicitly deprecate top-level `placement` in schema/docs.
+
+2. **Duplicate `storeWaterData()` invocation**
+   - `MapOrchestrator` calls `storeWaterData()` before placement, but `runPlacement()` also calls it internally (`packages/mapgen-core/src/MapOrchestrator.ts`, `packages/mapgen-core/src/layers/placement.ts`).
+   - **Impact:** At best redundant work; at worst, subtle ordering/side-effect drift between legacy vs step-wrapped callsites.
+   - **Direction:** Make one layer responsible (prefer: keep it inside `runPlacement()` and remove the pre-call), or gate via an adapter “already computed” check.
+
+3. **Unconditionally noisy debug logging in `runPlacement()`** (Nice-to-have)
+   - `runPlacement()` prints large logs (including ASCII maps + start debug stats) regardless of diagnostics flags (`packages/mapgen-core/src/layers/placement.ts`).
+   - **Impact:** Harder-to-read logs and potential perf cost in repeated runs/tests.
+   - **Direction:** Gate behind `foundation.diagnostics` / `DEV.ENABLED` or a dedicated placement diagnostics toggle.
+
+4. **No placement-specific gating regression test** (Nice-to-have)
+   - Current tests validate generic executor gating, but not that `placement` fails fast when `features` is disabled / prerequisites missing.
+   - **Direction:** Add a small test enabling `placement` while disabling `features` and assert a `MissingDependencyError` for `state:engine.featuresApplied`.
+
+---
+
+### Fit Within the Milestone
+
+- Correct sequencing after CIV-44: makes the pipeline end-to-end runnable under the executor and forces placement to be “contract-honest”.
+- Reinforces the milestone approach: late-stage systems should be guarded by explicit state tags rather than implicit orchestrator ordering (supports CIV-46’s config evolution and future adapter-collapse work).
+
+---
+
+### Recommended Next Moves
+
+- **Follow-up:** Resolve `placement` config canonical location (merge vs deprecate) so mod-facing config does what the schema suggests.
+- **Nice-to-have:** De-dup `storeWaterData()` ownership to reduce drift risk.
+- **Nice-to-have:** Add a placement gating regression test.
