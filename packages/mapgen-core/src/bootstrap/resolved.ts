@@ -25,7 +25,7 @@ import { M3_STAGE_DEPENDENCY_SPINE } from "../pipeline/standard.js";
  * Canonical stage execution order.
  * Derived from MapOrchestrator.resolveStageFlags() execution sequence.
  */
-export const STAGE_ORDER = [
+export const STAGE_ORDER = Object.freeze([
   "foundation",
   "landmassPlates",
   "coastlines",
@@ -47,7 +47,7 @@ export const STAGE_ORDER = [
   "biomes",
   "features",
   "placement",
-] as const;
+] as const);
 
 export type StageName = (typeof STAGE_ORDER)[number];
 export type StageConfig = Partial<Record<StageName, boolean>>;

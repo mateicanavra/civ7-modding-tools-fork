@@ -21,6 +21,7 @@ export type {
   FeatureData,
   MapDimensions,
   MapInitParams,
+  MapSizeId,
   MapInfo,
   MapContext,
   ContinentBounds,

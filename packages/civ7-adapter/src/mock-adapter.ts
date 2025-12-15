@@ -5,7 +5,7 @@
  * in unit tests without the Civ7 game engine.
  */
 
-import type { EngineAdapter, FeatureData, MapInfo, MapInitParams } from "./types.js";
+import type { EngineAdapter, FeatureData, MapInfo, MapInitParams, MapSizeId } from "./types.js";
 
 /**
  * Configuration options for MockAdapter
@@ -39,7 +39,7 @@ export interface MockAdapterConfig {
   width?: number;
   height?: number;
   /** Map size selection id (Civ7: GameplayMap.getMapSize()) */
-  mapSizeId?: number;
+  mapSizeId?: MapSizeId;
   /** Map info row (Civ7: GameInfo.Maps.lookup(mapSizeId)) */
   mapInfo?: MapInfo | null;
   /** Default terrain type for all tiles */
@@ -67,7 +67,7 @@ export class MockAdapter implements EngineAdapter {
   readonly width: number;
   readonly height: number;
 
-  private mapSizeId: number;
+  private mapSizeId: MapSizeId;
   private mapInfo: MapInfo | null;
 
   private terrainTypes: Uint8Array;
@@ -147,11 +147,11 @@ export class MockAdapter implements EngineAdapter {
 
   // === MAP INIT / MAP INFO ===
 
-  getMapSizeId(): number {
+  getMapSizeId(): MapSizeId {
     return this.mapSizeId;
   }
 
-  lookupMapInfo(_mapSizeId: number): MapInfo | null {
+  lookupMapInfo(_mapSizeId: MapSizeId): MapInfo | null {
     return this.mapInfo;
   }
 

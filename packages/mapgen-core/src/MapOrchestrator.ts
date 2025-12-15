@@ -49,7 +49,7 @@
  *   });
  */
 
-import type { EngineAdapter, MapInfo, MapInitParams } from "@civ7/adapter";
+import type { EngineAdapter, MapInfo, MapInitParams, MapSizeId } from "@civ7/adapter";
 import { Civ7Adapter, createCiv7Adapter } from "@civ7/adapter/civ7";
 
 export type { MapInfo, MapInitParams } from "@civ7/adapter";
@@ -164,11 +164,10 @@ import {
  */
 export interface MapSizeDefaults {
   /**
-   * Numeric map size ID as returned by GameplayMap.getMapSize().
+   * Map size selection key as returned by GameplayMap.getMapSize().
    * Used for logging only; the actual dimensions come from mapInfo.
-   * Example values: 0 (small), 1 (standard), 2 (large), etc.
    */
-  mapSizeId?: number;
+  mapSizeId?: MapSizeId;
   /** Map info to use for dimension/latitude lookups */
   mapInfo?: MapInfo;
 }
@@ -302,7 +301,7 @@ export class MapOrchestrator {
 
     // Get map size and info: use config defaults if provided (for testing),
     // otherwise query game settings
-    let mapSizeId: number;
+    let mapSizeId: MapSizeId;
     let mapInfo: MapInfo | null;
 
     if (this.options.mapSizeDefaults) {
@@ -394,7 +393,7 @@ export class MapOrchestrator {
 
     // Get map size and info: use config defaults if provided (for testing),
     // otherwise query game settings via adapter boundary
-    let uiMapSize: number;
+    let uiMapSize: MapSizeId;
     let mapInfo: MapInfo | null;
 
     if (this.options.mapSizeDefaults) {
@@ -988,7 +987,7 @@ export class MapOrchestrator {
 
     // Get map size and info: use config defaults if provided (for testing),
     // otherwise query game settings via adapter boundary
-    let uiMapSize: number;
+    let uiMapSize: MapSizeId;
     let mapInfo: MapInfo | null;
 
     if (this.options.mapSizeDefaults) {

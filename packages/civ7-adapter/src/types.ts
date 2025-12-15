@@ -39,6 +39,14 @@ export interface MapInitParams {
 }
 
 /**
+ * Map size selection key as returned by Civ7's `GameplayMap.getMapSize()`.
+ *
+ * Civ7 type declarations currently surface this as a `string`, but some codepaths
+ * treat it as a numeric ID. For adapter extensibility, the boundary accepts both.
+ */
+export type MapSizeId = string | number;
+
+/**
  * Map info row returned by Civ7's `GameInfo.Maps.lookup(mapSizeId)`.
  *
  * Note: Civ7 fields are PascalCase; values may be missing in tests and should be
@@ -81,13 +89,13 @@ export interface EngineAdapter {
    *
    * For non-Civ7 adapters, this can return a stable sentinel.
    */
-  getMapSizeId(): number;
+  getMapSizeId(): MapSizeId;
 
   /**
    * Lookup the Civ7 map info row for the given `mapSizeId`
    * (Civ7: `GameInfo.Maps.lookup(mapSizeId)`).
    */
-  lookupMapInfo(mapSizeId: number): MapInfo | null;
+  lookupMapInfo(mapSizeId: MapSizeId): MapInfo | null;
 
   /**
    * Apply map initialization parameters (Civ7: `engine.call("SetMapInitData", ...)`).
