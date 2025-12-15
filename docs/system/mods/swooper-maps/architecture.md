@@ -9,6 +9,31 @@ This mod uses a **preset + overrides** configuration system that allows multiple
 - Entry scripts call `bootstrap({ presets, overrides, stageConfig })` from `@swooper/mapgen-core/bootstrap` and receive a validated `MapGenConfig`.
 - `MapOrchestrator` is constructed with that validated config and creates a per-run `MapGenContext` carrying it at `context.config`.
 - Steps/layers read config from `context.config` (no global runtime config store, no `bootstrap/tunables` module).
+- In M3, stages default to disabled; pass an explicit `stageConfig` for the recipe you want to run.
+
+Example (minimal runnable pipeline):
+```ts
+import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
+
+const config = bootstrap({
+  presets: ["classic"],
+  stageConfig: {
+    foundation: true,
+    landmassPlates: true,
+    coastlines: true,
+    mountains: true,
+    volcanoes: true,
+    climateBaseline: true,
+    rivers: true,
+    climateRefine: true,
+    biomes: true,
+    features: true,
+    placement: true,
+  },
+});
+
+new MapOrchestrator(config).generateMap();
+```
 
 ## Legacy JS Architecture (Archived)
 
@@ -80,6 +105,8 @@ These are the files CIV VII actually loads. Each represents a different map vari
 ```javascript
 import { bootstrap } from "./bootstrap/entry.js";
 bootstrap({
+    // Note: for the current TypeScript/M3 architecture, stages default to disabled;
+    // include an explicit stageConfig (or use a preset that sets one) to run stages.
     presets: ["classic"],           // or ["temperate"], etc.
     overrides: { /* optional */ }   // variant-specific tweaks
 });
@@ -198,8 +225,8 @@ Our approach (works):
 Can swap presets/overrides without changing code:
 ```javascript
 // Test with different configs
-bootstrap({ presets: ["test-minimal"] });
-bootstrap({ overrides: { landmass: { baseWaterPercent: 80 } } });
+bootstrap({ presets: ["test-minimal"], stageConfig: { foundation: true } });
+bootstrap({ stageConfig: { foundation: true }, overrides: { landmass: { baseWaterPercent: 80 } } });
 ```
 
 ---
@@ -292,6 +319,7 @@ cfg.landmass.baseWaterPercent = 80;  // ❌ Frozen!
 **Solution**: Set overrides in entry file instead:
 ```javascript
 bootstrap({
+    stageConfig: { foundation: true }, // include stageConfig for the intended recipe
     overrides: {
         landmass: { baseWaterPercent: 80 }
     }
@@ -307,6 +335,7 @@ bootstrap({
    import { bootstrap } from "./bootstrap/entry.js";
    bootstrap({
        presets: ["classic"],
+       stageConfig: { foundation: true }, // include stageConfig for the intended recipe
        overrides: {
            climate: {
                baseline: { /* arid settings */ }
