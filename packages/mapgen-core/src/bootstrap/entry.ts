@@ -11,6 +11,19 @@
  *   import { bootstrap } from "@swooper/mapgen-core/bootstrap";
  *   const config = bootstrap({
  *     presets: ["classic", "temperate"],
+ *     stageConfig: {
+ *       foundation: true,
+ *       landmassPlates: true,
+ *       coastlines: true,
+ *       mountains: true,
+ *       volcanoes: true,
+ *       climateBaseline: true,
+ *       rivers: true,
+ *       climateRefine: true,
+ *       biomes: true,
+ *       features: true,
+ *       placement: true,
+ *     },
  *     overrides: {
  *       foundation: { plates: { count: 12 } },
  *     },
@@ -22,7 +35,7 @@
 import type { MapGenConfig } from "../config/index.js";
 import { parseConfig } from "../config/index.js";
 import { applyPresets } from "../config/presets.js";
-import { resolveStageManifest, validateOverrides } from "./resolved.js";
+import { resolveStageManifest, validateOverrides, type StageConfig } from "./resolved.js";
 
 // ============================================================================
 // Types
@@ -34,7 +47,7 @@ export interface BootstrapOptions {
   /** Inline overrides applied last (highest precedence) */
   overrides?: Partial<MapGenConfig>;
   /** Stage metadata indicating which stages provide config overrides */
-  stageConfig?: Record<string, boolean>;
+  stageConfig?: StageConfig;
 }
 
 export interface BootstrapConfig extends BootstrapOptions {
@@ -165,6 +178,7 @@ export function resetBootstrap(): void {
 // Re-export types and functions for convenience
 export type { MapConfig } from "./runtime.js";
 export type { MapGenConfig } from "../config/index.js";
+export type { StageConfig, StageName } from "./resolved.js";
 export {
   STAGE_ORDER,
   isStageEnabled,

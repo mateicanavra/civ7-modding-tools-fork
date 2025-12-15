@@ -22,13 +22,28 @@
  *   import { bootstrap, MapOrchestrator } from '@swooper/mapgen-core';
  *
  *   engine.on('RequestMapInitData', () => {
- *     const config = bootstrap({});
+ *     const config = bootstrap({ stageConfig: { foundation: true } });
  *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
  *     orchestrator.requestMapData();
  *   });
  *
  *   engine.on('GenerateMap', () => {
- *     const config = bootstrap({ overrides: { ... } });
+ *     const config = bootstrap({
+ *       stageConfig: {
+ *         foundation: true,
+ *         landmassPlates: true,
+ *         coastlines: true,
+ *         mountains: true,
+ *         volcanoes: true,
+ *         climateBaseline: true,
+ *         rivers: true,
+ *         climateRefine: true,
+ *         biomes: true,
+ *         features: true,
+ *         placement: true,
+ *       },
+ *       overrides: { ... },
+ *     });
  *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
  *     orchestrator.generateMap();
  *   });

@@ -50,7 +50,6 @@ function buildConfig(plateCount: number): BootstrapConfig {
       storyRifts: true,
       storyOrogeny: true,
       storyCorridorsPre: true,
-      storyPaleo: true,
       storySwatches: true,
       mountains: true,
       volcanoes: true,

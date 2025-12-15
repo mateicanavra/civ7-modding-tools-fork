@@ -65,11 +65,11 @@ describe("bootstrap/entry", () => {
       const config = bootstrap({
         stageConfig: {
           foundation: true,
-          climate: false,
+          climateBaseline: false,
         },
       });
       expect(config.stageConfig?.foundation).toBe(true);
-      expect(config.stageConfig?.climate).toBe(false);
+      expect(config.stageConfig?.climateBaseline).toBe(false);
     });
 
     it("filters invalid preset values", () => {

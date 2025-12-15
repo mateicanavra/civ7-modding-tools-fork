@@ -25,7 +25,7 @@ import { M3_STAGE_DEPENDENCY_SPINE } from "../pipeline/standard.js";
  * Canonical stage execution order.
  * Derived from MapOrchestrator.resolveStageFlags() execution sequence.
  */
-export const STAGE_ORDER: readonly string[] = Object.freeze([
+export const STAGE_ORDER = [
   "foundation",
   "landmassPlates",
   "coastlines",
@@ -47,7 +47,10 @@ export const STAGE_ORDER: readonly string[] = Object.freeze([
   "biomes",
   "features",
   "placement",
-]);
+] as const;
+
+export type StageName = (typeof STAGE_ORDER)[number];
+export type StageConfig = Partial<Record<StageName, boolean>>;
 
 // ============================================================================
 // Resolver
@@ -68,10 +71,19 @@ export const STAGE_ORDER: readonly string[] = Object.freeze([
  * ```
  */
 export function resolveStageManifest(
-  stageConfig: Record<string, boolean> | undefined
+  stageConfig: StageConfig | Record<string, boolean> | undefined
 ): StageManifest {
   const config = stageConfig || {};
   const stages: Record<string, StageDescriptor> = {};
+
+  const unknownKeys = Object.keys(config).filter(
+    (key) => !STAGE_ORDER.includes(key as StageName)
+  );
+  if (unknownKeys.length > 0) {
+    console.warn(
+      `[StageManifest] Ignoring unknown stageConfig keys: ${unknownKeys.join(", ")}`
+    );
+  }
 
   for (let i = 0; i < STAGE_ORDER.length; i++) {
     const stageName = STAGE_ORDER[i];
