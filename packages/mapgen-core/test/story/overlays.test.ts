@@ -24,7 +24,12 @@ describe("story/overlays", () => {
   describe("STORY_OVERLAY_KEYS", () => {
     it("has expected keys", () => {
       expect(STORY_OVERLAY_KEYS.MARGINS).toBe("margins");
+      expect(STORY_OVERLAY_KEYS.HOTSPOTS).toBe("hotspots");
+      expect(STORY_OVERLAY_KEYS.RIFTS).toBe("rifts");
+      expect(STORY_OVERLAY_KEYS.OROGENY).toBe("orogeny");
       expect(STORY_OVERLAY_KEYS.CORRIDORS).toBe("corridors");
+      expect(STORY_OVERLAY_KEYS.SWATCHES).toBe("swatches");
+      expect(STORY_OVERLAY_KEYS.PALEO).toBe("paleo");
     });
   });
 

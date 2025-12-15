@@ -7,6 +7,7 @@ import {
   StepRegistry,
   M3_DEPENDENCY_TAGS,
 } from "../../src/pipeline/index.js";
+import { M3_STAGE_DEPENDENCY_SPINE } from "../../src/pipeline/standard.js";
 import { isDependencyTagSatisfied } from "../../src/pipeline/tags.js";
 import {
   computeRiverAdjacencyMask,
@@ -15,6 +16,16 @@ import {
 } from "../../src/pipeline/artifacts.js";
 
 describe("pipeline artifacts", () => {
+  it("includes climate/river prerequisites for storyCorridorsPost in the standard dependency spine", () => {
+    expect(M3_STAGE_DEPENDENCY_SPINE.storyCorridorsPost.requires).toEqual(
+      expect.arrayContaining([
+        M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+        M3_DEPENDENCY_TAGS.artifact.climateField,
+        M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
+      ])
+    );
+  });
+
   it("treats artifact:climateField as unsatisfied until published", () => {
     const adapter = createMockAdapter({ width: 4, height: 3, rng: () => 0 });
     const ctx = createExtendedMapContext(

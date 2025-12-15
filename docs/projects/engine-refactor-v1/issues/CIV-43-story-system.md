@@ -24,18 +24,18 @@ Parent issue: `CIV-21-story-tagging.md`.
 
 ## Deliverables
 
-- [ ] Port remaining legacy story passes: corridors, swatches, paleo (and any remaining in-slice orogeny work if still missing).
-- [ ] Publish narrative outputs via canonical `StoryOverlays` (downstream consumers read overlays, not ad-hoc globals).
-- [ ] Wrap story stages as `MapGenStep`s with explicit `requires/provides` and runtime-gated execution.
+- [x] Port remaining legacy story passes: corridors, swatches, paleo (and any remaining in-slice orogeny work if still missing).
+- [x] Publish narrative outputs via canonical `StoryOverlays` (downstream consumers read overlays, not ad-hoc globals).
+- [x] Wrap story stages as `MapGenStep`s with explicit `requires/provides` and runtime-gated execution.
 
 ## Acceptance Criteria
 
-- [ ] TS equivalents exist for all legacy story passes and corridors
-- [ ] Corridors/swatches/paleo overlays are populated when stages enabled
-- [ ] Story logic runs as steps under the Task Graph with explicit contracts
-- [ ] Downstream consumers use `StoryOverlays`/`ClimateField` rather than ad‑hoc reads
-- [ ] Story steps declare `requires`/`provides` and run via `PipelineExecutor`
-- [ ] Steps fail fast if required dependency tags are missing (runtime gating enforced)
+- [x] TS equivalents exist for all legacy story passes and corridors
+- [x] Corridors/swatches/paleo overlays are populated when stages enabled
+- [x] Story logic runs as steps under the Task Graph with explicit contracts
+- [ ] Downstream consumers use `StoryOverlays`/`ClimateField` rather than ad‑hoc reads (deferred: DEF-002, tracked in CIV-44)
+- [x] Story steps declare `requires`/`provides` and run via `PipelineExecutor`
+- [x] Steps fail fast if required dependency tags are missing (runtime gating enforced)
 
 ## Testing / Verification
 
@@ -79,3 +79,9 @@ Parent issue: `CIV-21-story-tagging.md`.
   - `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/tagging.js`
   - `docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/story/corridors.js`
 - M3 decision: implement `paleo` as part of the `storySwatches` stage/step (no new `storyPaleo` stage in `STAGE_ORDER` for M3).
+
+### Review Follow-ups
+- Removed `syncClimateField()` usage from paleo; tests seed canonical climate buffers instead.
+- Ensured `storySwatches` republishes `artifact:climateField` after swatches/paleo mutations.
+- Tightened `storyCorridorsPost` dependency spine to require climate + river artifacts (fail-fast on misordered/disabled stages).
+- Reset story globals at generation start to prevent cross-run leakage when story stages are selectively enabled.

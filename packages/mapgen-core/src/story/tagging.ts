@@ -356,7 +356,18 @@ export function storyTagHotspotTrails(
     if (taggedThisTrail > 0) trailsMade++;
   }
 
-  return { trails: trailsMade, points: totalPoints };
+  const summary = { trails: trailsMade, points: totalPoints };
+
+  publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.HOTSPOTS, {
+    kind: STORY_OVERLAY_KEYS.HOTSPOTS,
+    version: 1,
+    width,
+    height,
+    active: Array.from(StoryTags.hotspot),
+    summary: { trails: summary.trails, points: summary.points },
+  });
+
+  return summary;
 }
 
 // ============================================================================
@@ -589,12 +600,29 @@ export function storyTagRiftValleys(
       if (riftsMade >= maxRiftsPerMap) break;
     }
 
-    return {
+    const summary: RiftValleysSummary = {
       rifts: riftsMade,
       lineTiles: lineCount,
       shoulderTiles: shoulderCount,
       kind: "foundation",
     };
+
+    publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.RIFTS, {
+      kind: STORY_OVERLAY_KEYS.RIFTS,
+      version: 1,
+      width,
+      height,
+      active: Array.from(StoryTags.riftLine),
+      passive: Array.from(StoryTags.riftShoulder),
+      summary: {
+        rifts: summary.rifts,
+        lineTiles: summary.lineTiles,
+        shoulderTiles: summary.shoulderTiles,
+        kind: summary.kind,
+      },
+    });
+
+    return summary;
   }
 
   // Legacy random marching fallback.
@@ -685,12 +713,29 @@ export function storyTagRiftValleys(
     if (placedAny) riftsMade++;
   }
 
-  return {
+  const summary: RiftValleysSummary = {
     rifts: riftsMade,
     lineTiles: lineCount,
     shoulderTiles: shoulderCount,
     kind: "legacy",
   };
+
+  publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.RIFTS, {
+    kind: STORY_OVERLAY_KEYS.RIFTS,
+    version: 1,
+    width,
+    height,
+    active: Array.from(StoryTags.riftLine),
+    passive: Array.from(StoryTags.riftShoulder),
+    summary: {
+      rifts: summary.rifts,
+      lineTiles: summary.lineTiles,
+      shoulderTiles: summary.shoulderTiles,
+      kind: summary.kind,
+    },
+  });
+
+  return summary;
 }
 
 // ============================================================================

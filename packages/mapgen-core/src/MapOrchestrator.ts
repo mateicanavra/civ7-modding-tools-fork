@@ -75,6 +75,9 @@ import {
   storyTagHotspotTrails,
   storyTagRiftValleys,
 } from "./story/tagging.js";
+import { getOrogenyCache, resetOrogenyCache, storyTagOrogenyBelts } from "./story/orogeny.js";
+import { resetCorridorStyleCache, storyTagStrategicCorridors } from "./story/corridors.js";
+import { storyTagClimatePaleo, storyTagClimateSwatches } from "./story/swatches.js";
 import { WorldModel, setConfigProvider, type WorldModelConfig } from "./world/index.js";
 import {
   PipelineExecutor,
@@ -607,7 +610,7 @@ export class MapOrchestrator {
           STORY_ENABLE_RIFTS: stageFlags.storyRifts,
           STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
           STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
-          STORY_ENABLE_PALEO: false,
+          STORY_ENABLE_PALEO: tunables.STORY_ENABLE_PALEO,
           STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
         },
       });
@@ -616,6 +619,12 @@ export class MapOrchestrator {
       console.error(`${prefix} Failed to create context:`, err);
       return { success: false, stageResults: this.stageResults, startPositions };
     }
+
+    // Reset story state once per generation to prevent cross-run leakage via globals.
+    resetStoryTags();
+    resetStoryOverlays();
+    resetOrogenyCache();
+    resetCorridorStyleCache();
 
     // Initialize WorldModel and FoundationContext
     // Note: foundationContext stored for potential future use in story stages
@@ -750,6 +759,8 @@ export class MapOrchestrator {
       const stageResult = this.runStage("storySeed", () => {
         resetStoryTags();
         resetStoryOverlays();
+        resetOrogenyCache();
+        resetCorridorStyleCache();
         console.log(`${prefix} Imprinting continental margins (active/passive)...`);
         const margins = storyTagContinentalMargins(ctx);
 
@@ -800,6 +811,28 @@ export class MapOrchestrator {
     if (stageFlags.ruggedCoasts && ctx) {
       const stageResult = this.runStage("ruggedCoasts", () => {
         addRuggedCoasts(iWidth, iHeight, ctx!);
+      });
+      this.stageResults.push(stageResult);
+    }
+
+    // ========================================================================
+    // Stage: Story Orogeny (Orogeny Belts)
+    // ========================================================================
+    if (stageFlags.storyOrogeny && ctx) {
+      const stageResult = this.runStage("storyOrogeny", () => {
+        console.log(`${prefix} Imprinting orogeny belts...`);
+        storyTagOrogenyBelts(ctx!);
+      });
+      this.stageResults.push(stageResult);
+    }
+
+    // ========================================================================
+    // Stage: Story Corridors (Pre-Islands)
+    // ========================================================================
+    if (stageFlags.storyCorridorsPre && ctx) {
+      const stageResult = this.runStage("storyCorridorsPre", () => {
+        console.log(`${prefix} Tagging strategic corridors (pre-islands)...`);
+        storyTagStrategicCorridors(ctx!, "preIslands");
       });
       this.stageResults.push(stageResult);
     }
@@ -905,6 +938,24 @@ export class MapOrchestrator {
     }
 
     // ========================================================================
+    // Stage: Story Swatches (Macro Climate + Paleo)
+    // ========================================================================
+    if (stageFlags.storySwatches && ctx) {
+      const stageResult = this.runStage("storySwatches", () => {
+        console.log(`${prefix} Applying story climate swatches...`);
+        storyTagClimateSwatches(ctx!, { orogenyCache: getOrogenyCache() });
+
+        if (ctx?.config?.toggles?.STORY_ENABLE_PALEO) {
+          console.log(`${prefix} Applying paleo hydrology...`);
+          storyTagClimatePaleo(ctx!);
+        }
+
+        publishClimateFieldArtifact(ctx!);
+      });
+      this.stageResults.push(stageResult);
+    }
+
+    // ========================================================================
     // Stage: Rivers
     // ========================================================================
     if (stageFlags.rivers && ctx) {
@@ -950,6 +1001,17 @@ export class MapOrchestrator {
         this.orchestratorAdapter.defineNamedRivers();
         const riverAdjacency = computeRiverAdjacencyMask(ctx!);
         publishRiverAdjacencyArtifact(ctx!, riverAdjacency);
+      });
+      this.stageResults.push(stageResult);
+    }
+
+    // ========================================================================
+    // Stage: Story Corridors (Post-Rivers)
+    // ========================================================================
+    if (stageFlags.storyCorridorsPost && ctx) {
+      const stageResult = this.runStage("storyCorridorsPost", () => {
+        console.log(`${prefix} Tagging strategic corridors (post-rivers)...`);
+        storyTagStrategicCorridors(ctx!, "postRivers");
       });
       this.stageResults.push(stageResult);
     }
@@ -1144,7 +1206,7 @@ export class MapOrchestrator {
           STORY_ENABLE_RIFTS: stageFlags.storyRifts,
           STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
           STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
-          STORY_ENABLE_PALEO: false,
+          STORY_ENABLE_PALEO: tunables.STORY_ENABLE_PALEO,
           STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
         },
       });
@@ -1153,6 +1215,12 @@ export class MapOrchestrator {
       console.error(`${prefix} Failed to create context:`, err);
       return { success: false, stageResults: this.stageResults, startPositions };
     }
+
+    // Reset story state once per generation to prevent cross-run leakage via globals.
+    resetStoryTags();
+    resetStoryOverlays();
+    resetOrogenyCache();
+    resetCorridorStyleCache();
 
     // Set up start sectors (placement consumes these)
     const iNumPlayers1 = mapInfo.PlayersLandmass1 ?? 4;
@@ -1299,6 +1367,8 @@ export class MapOrchestrator {
       run: () => {
         resetStoryTags();
         resetStoryOverlays();
+        resetOrogenyCache();
+        resetCorridorStyleCache();
         console.log(`${prefix} Imprinting continental margins (active/passive)...`);
         const margins = storyTagContinentalMargins(ctx);
 
@@ -1352,20 +1422,23 @@ export class MapOrchestrator {
       },
     });
 
-    // Placeholder steps for story stages not yet implemented in the stable slice.
     registry.register({
       id: "storyOrogeny",
       phase: M3_STANDARD_STAGE_PHASE.storyOrogeny,
       ...getStageDescriptor("storyOrogeny"),
-      shouldRun: () => false,
-      run: () => {},
+      shouldRun: () => stageFlags.storyOrogeny,
+      run: () => {
+        storyTagOrogenyBelts(ctx);
+      },
     });
     registry.register({
       id: "storyCorridorsPre",
       phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPre,
       ...getStageDescriptor("storyCorridorsPre"),
-      shouldRun: () => false,
-      run: () => {},
+      shouldRun: () => stageFlags.storyCorridorsPre,
+      run: () => {
+        storyTagStrategicCorridors(ctx, "preIslands");
+      },
     });
 
     registry.register({
@@ -1466,8 +1539,14 @@ export class MapOrchestrator {
       id: "storySwatches",
       phase: M3_STANDARD_STAGE_PHASE.storySwatches,
       ...getStageDescriptor("storySwatches"),
-      shouldRun: () => false,
-      run: () => {},
+      shouldRun: () => stageFlags.storySwatches,
+      run: () => {
+        storyTagClimateSwatches(ctx, { orogenyCache: getOrogenyCache() });
+        if (ctx?.config?.toggles?.STORY_ENABLE_PALEO) {
+          storyTagClimatePaleo(ctx);
+        }
+        publishClimateFieldArtifact(ctx);
+      },
     });
 
     registry.register({
@@ -1523,8 +1602,10 @@ export class MapOrchestrator {
       id: "storyCorridorsPost",
       phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPost,
       ...getStageDescriptor("storyCorridorsPost"),
-      shouldRun: () => false,
-      run: () => {},
+      shouldRun: () => stageFlags.storyCorridorsPost,
+      run: () => {
+        storyTagStrategicCorridors(ctx, "postRivers");
+      },
     });
 
     registry.register({
