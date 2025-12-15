@@ -10,28 +10,9 @@ export * from "./types.js";
 export * from "./plot-tags.js";
 export * from "./terrain-constants.js";
 
-// ============================================================================
-// Coordinate Utilities
-// ============================================================================
-
-/**
- * Calculate linear index from (x, y) coordinates
- */
-export function idx(x: number, y: number, width: number): number {
-  return y * width + x;
-}
-
-/**
- * Check if coordinates are within bounds
- */
-export function inBounds(
-  x: number,
-  y: number,
-  width: number,
-  height: number
-): boolean {
-  return x >= 0 && x < width && y >= 0 && y < height;
-}
+export { idx, xyFromIndex } from "../lib/grid/indexing.js";
+export { inBounds } from "../lib/grid/bounds.js";
+export { wrapX } from "../lib/grid/wrap.js";
 
 /**
  * Produce a stable string key for a tile coordinate.
@@ -49,30 +30,8 @@ export function parseStoryKey(key: string): { x: number; y: number } {
   return { x, y };
 }
 
-// ============================================================================
-// Math Utilities
-// ============================================================================
-
-/**
- * Clamp a value between min and max
- */
-export function clamp(value: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, value));
-}
-
-/**
- * Linear interpolation between two values
- */
-export function lerp(a: number, b: number, t: number): number {
-  return a + (b - a) * t;
-}
-
-/**
- * Wrap x coordinate for cylindrical maps
- */
-export function wrapX(x: number, width: number): number {
-  return ((x % width) + width) % width;
-}
+export { clamp, clamp01, clampInt, clampPct } from "../lib/math/clamp.js";
+export { lerp } from "../lib/math/lerp.js";
 
 /**
  * Fill a typed array buffer with a value

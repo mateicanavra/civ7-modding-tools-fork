@@ -7,6 +7,8 @@
 
 import type { RngFunction } from "../../world/types.js";
 import type { PlateGraph } from "./topology.js";
+import { pickRandom } from "../rng/pick.js";
+import { rollUnit } from "../rng/unit.js";
 
 export enum CrustType {
   OCEANIC = 0,
@@ -27,18 +29,6 @@ const MIN_SEED_AREA = 20;
 function clamp01(value: number): number {
   if (!Number.isFinite(value)) return 0;
   return Math.min(1, Math.max(0, value));
-}
-
-function rollUnit(rng: RngFunction, label: string): number {
-  const scale = 1_000_000;
-  const roll = rng(scale, label);
-  return (roll % scale) / scale;
-}
-
-function pickRandom<T>(items: T[], rng: RngFunction, label: string): T | null {
-  if (!items.length) return null;
-  const index = rng(items.length, label) % items.length;
-  return items[index] ?? null;
 }
 
 /**
