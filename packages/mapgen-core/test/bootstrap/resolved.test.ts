@@ -131,6 +131,48 @@ describe("bootstrap/resolved", () => {
         M3_DEPENDENCY_TAGS.artifact.riverAdjacency
       );
     });
+
+    it("does not require story overlays for core stages", () => {
+      const manifest = resolveStageManifest({
+        foundation: true,
+        landmassPlates: true,
+        coastlines: true,
+        mountains: true,
+        volcanoes: true,
+        climateBaseline: true,
+        rivers: true,
+        climateRefine: true,
+        biomes: true,
+        features: true,
+        placement: true,
+      });
+
+      expect(manifest.stages.biomes?.requires).not.toContain(
+        M3_DEPENDENCY_TAGS.artifact.storyOverlays
+      );
+      expect(manifest.stages.features?.requires).not.toContain(
+        M3_DEPENDENCY_TAGS.artifact.storyOverlays
+      );
+    });
+
+    it("does not require story overlays for swatches/corridors stages", () => {
+      const manifest = resolveStageManifest({
+        foundation: true,
+        landmassPlates: true,
+        coastlines: true,
+        climateBaseline: true,
+        storySwatches: true,
+        rivers: true,
+        storyCorridorsPost: true,
+      });
+
+      expect(manifest.stages.storySwatches?.requires).not.toContain(
+        M3_DEPENDENCY_TAGS.artifact.storyOverlays
+      );
+      expect(manifest.stages.storyCorridorsPost?.requires).not.toContain(
+        M3_DEPENDENCY_TAGS.artifact.storyOverlays
+      );
+    });
   });
 
   describe("isStageEnabled integration", () => {
