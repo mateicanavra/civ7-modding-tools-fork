@@ -6,6 +6,18 @@ import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js
 describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
   const width = 24;
   const height = 16;
+  const mapInfo = {
+    GridWidth: width,
+    GridHeight: height,
+    MinLatitude: -80,
+    MaxLatitude: 80,
+    NumNaturalWonders: 0,
+    LakeGenerationFrequency: 0,
+    PlayersLandmass1: 4,
+    PlayersLandmass2: 4,
+    StartSectorRows: 4,
+    StartSectorCols: 4,
+  };
 
   let originalGameplayMap: unknown;
   let originalGameInfo: unknown;
@@ -33,18 +45,7 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
 
     (globalThis as Record<string, unknown>).GameInfo = {
       Maps: {
-        lookup: () => ({
-          GridWidth: width,
-          GridHeight: height,
-          MinLatitude: -80,
-          MaxLatitude: 80,
-          NumNaturalWonders: 0,
-          LakeGenerationFrequency: 0,
-          PlayersLandmass1: 4,
-          PlayersLandmass2: 4,
-          StartSectorRows: 4,
-          StartSectorCols: 4,
-        }),
+        lookup: () => mapInfo,
       },
     };
   });
@@ -61,6 +62,8 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
     const adapter = createMockAdapter({
       width,
       height,
+      mapSizeId: 1,
+      mapInfo,
       rng: () => 0,
     });
 
@@ -82,6 +85,8 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
     const adapter = createMockAdapter({
       width,
       height,
+      mapSizeId: 1,
+      mapInfo,
       rng: () => 0,
     });
 

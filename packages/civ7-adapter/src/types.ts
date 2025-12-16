@@ -25,6 +25,50 @@ export interface MapDimensions {
 }
 
 /**
+ * Map initialization parameters for Civ7's `SetMapInitData` engine call.
+ *
+ * These values establish the grid + latitude bounds for map generation.
+ */
+export interface MapInitParams {
+  width: number;
+  height: number;
+  topLatitude?: number;
+  bottomLatitude?: number;
+  wrapX?: boolean;
+  wrapY?: boolean;
+}
+
+/**
+ * Map size selection key as returned by Civ7's `GameplayMap.getMapSize()`.
+ *
+ * Civ7 type declarations currently surface this as a `string`, but some codepaths
+ * treat it as a numeric ID. For adapter extensibility, the boundary accepts both.
+ */
+export type MapSizeId = string | number;
+
+/**
+ * Map info row returned by Civ7's `GameInfo.Maps.lookup(mapSizeId)`.
+ *
+ * Note: Civ7 fields are PascalCase; values may be missing in tests and should be
+ * treated as optional by consumers.
+ */
+export interface MapInfo {
+  // === Map Size Dimensions ===
+  GridWidth?: number;
+  GridHeight?: number;
+  MinLatitude?: number;
+  MaxLatitude?: number;
+  // === Game Setup Parameters ===
+  NumNaturalWonders?: number;
+  LakeGenerationFrequency?: number;
+  PlayersLandmass1?: number;
+  PlayersLandmass2?: number;
+  StartSectorRows?: number;
+  StartSectorCols?: number;
+  [key: string]: unknown;
+}
+
+/**
  * EngineAdapter - abstraction for all engine/surface interactions
  *
  * All terrain/feature reads and writes MUST go through this interface.
@@ -37,6 +81,26 @@ export interface EngineAdapter {
   readonly width: number;
   /** Map height */
   readonly height: number;
+
+  // === MAP INIT / MAP INFO ===
+
+  /**
+   * Get the current map size selection ID (Civ7: `GameplayMap.getMapSize()`).
+   *
+   * For non-Civ7 adapters, this can return a stable sentinel.
+   */
+  getMapSizeId(): MapSizeId;
+
+  /**
+   * Lookup the Civ7 map info row for the given `mapSizeId`
+   * (Civ7: `GameInfo.Maps.lookup(mapSizeId)`).
+   */
+  lookupMapInfo(mapSizeId: MapSizeId): MapInfo | null;
+
+  /**
+   * Apply map initialization parameters (Civ7: `engine.call("SetMapInitData", ...)`).
+   */
+  setMapInitData(params: MapInitParams): void;
 
   // === TERRAIN READS ===
 
@@ -131,6 +195,12 @@ export interface EngineAdapter {
 
   /** Store water data */
   storeWaterData(): void;
+
+  /** Generate lakes (wraps Civ7 base-standard elevation terrain generator) */
+  generateLakes(width: number, height: number, tilesPerLake: number): void;
+
+  /** Expand coasts (wraps Civ7 base-standard elevation terrain generator) */
+  expandCoasts(width: number, height: number): void;
 
   // === BIOMES ===
 
@@ -239,7 +309,7 @@ export interface EngineAdapter {
    * Choose start sectors for players
    * Wraps /base-standard/maps/assign-starting-plots.js chooseStartSectors()
    */
-  chooseStartSectors?(
+  chooseStartSectors(
     players1: number,
     players2: number,
     rows: number,
@@ -251,7 +321,7 @@ export interface EngineAdapter {
    * Check if human player should start near equator
    * Wraps /base-standard/maps/map-utilities.js needHumanNearEquator()
    */
-  needHumanNearEquator?(): boolean;
+  needHumanNearEquator(): boolean;
 }
 
 /**
