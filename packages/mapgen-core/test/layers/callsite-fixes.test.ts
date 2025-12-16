@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from "bun:test";
-import type { ClimateAdapter } from "../../src/layers/hydrology/climate.js";
+import type { ClimateAdapter } from "../../src/domain/hydrology/climate/index.js";
 
 describe("CIV-18: Call-site Fixes", () => {
   describe("ClimateAdapter interface", () => {
@@ -116,7 +116,7 @@ describe("CIV-18: Call-site Fixes", () => {
     it("designateEnhancedBiomes accepts optional ctx parameter", async () => {
       // Import the function to verify its signature
       const { designateEnhancedBiomes } = await import(
-        "../../src/layers/ecology/biomes.js"
+        "../../src/domain/ecology/biomes/index.js"
       );
 
       // Function should exist and be callable

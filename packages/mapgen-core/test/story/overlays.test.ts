@@ -13,7 +13,7 @@ import {
   finalizeStoryOverlay,
   getStoryOverlay,
   hydrateMarginsStoryTags,
-} from "../../src/story/overlays.js";
+} from "../../src/domain/narrative/overlays/index.js";
 import type { StoryOverlaySnapshot } from "../../src/core/types.js";
 
 describe("story/overlays", () => {

@@ -3,9 +3,13 @@ import { createMockAdapter } from "@civ7/adapter";
 import { parseConfig } from "../../src/config/index.js";
 import { createExtendedMapContext } from "../../src/core/types.js";
 import { OCEAN_TERRAIN } from "../../src/core/terrain-constants.js";
-import { resetStoryTags, getStoryTags } from "../../src/story/tags.js";
-import { resetStoryOverlays, getStoryOverlay, STORY_OVERLAY_KEYS } from "../../src/story/overlays.js";
-import { storyTagStrategicCorridors } from "../../src/story/corridors.js";
+import { resetStoryTags, getStoryTags } from "../../src/domain/narrative/tags/index.js";
+import {
+  resetStoryOverlays,
+  getStoryOverlay,
+  STORY_OVERLAY_KEYS,
+} from "../../src/domain/narrative/overlays/index.js";
+import { storyTagStrategicCorridors } from "../../src/domain/narrative/corridors/index.js";
 
 describe("story/corridors", () => {
   beforeEach(() => {

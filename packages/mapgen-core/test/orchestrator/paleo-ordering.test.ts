@@ -1,8 +1,12 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap, MapOrchestrator } from "../../src/index.js";
-import { resetStoryOverlays, getStoryOverlayRegistry, STORY_OVERLAY_KEYS } from "../../src/story/overlays.js";
-import { resetStoryTags } from "../../src/story/tags.js";
+import {
+  resetStoryOverlays,
+  getStoryOverlayRegistry,
+  STORY_OVERLAY_KEYS,
+} from "../../src/domain/narrative/overlays/index.js";
+import { resetStoryTags } from "../../src/domain/narrative/tags/index.js";
 
 describe("orchestrator: paleo hydrology runs post-rivers", () => {
   const width = 12;
