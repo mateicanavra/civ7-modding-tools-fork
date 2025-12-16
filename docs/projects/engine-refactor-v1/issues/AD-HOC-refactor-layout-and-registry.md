@@ -1,145 +1,779 @@
-# Comprehensive Refactoring Plan
+# Mapgen-Core Domain/Lib Atomic Split
 
-This plan aligns our codebase with the target architecture phases (**Foundation, Morphology, Hydrology, Ecology, Narrative**) and eliminates the "God Class" Orchestrator.
+> **Status:** In Progress
+> **Scope:** `packages/mapgen-core/src/`
+> **Outcome:** Fully atomized domain modules, consolidated shared library, deleted legacy facades
 
-We will execute this by creating 6 Domain Modules.
+---
 
-## 1. Foundation Domain (`packages/mapgen-core/src/layers/foundation/`)
+# Part A: Context & Design
 
-**Responsible for the physical board (Mesh, Plates, Physics).**
+## 1. Summary
 
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/foundation/`
-- [x] **Create Step:** `FoundationStep.ts` (Wraps `initializeFoundation` logic from Orchestrator)
-- [x] **Create Entry:** `index.ts` (Exports `registerFoundationLayer`)
+This refactor completes the internal restructuring of `mapgen-core` by splitting monolithic algorithm scripts into atomic, single-purpose modules under `domain/**`, consolidating shared helpers into `lib/**`, and deleting all legacy re-export facades.
 
-## 2. Morphology Domain (`packages/mapgen-core/src/layers/morphology/`)
+**Current state:** Algorithms live in large `domain/**/index.ts` files with inline helpers; legacy shims in `layers/**`, `narrative/**`, and `story/**` re-export these for compatibility; step wiring lives under `layers/**`.
 
-**Responsible for the shape of the land (Landmass, Mountains, Coastlines).**
+**Target state:** Small, focused modules in `domain/**`; shared utilities in `lib/**`; step wiring in `pipeline/**`; no legacy facades; clean import policy enforced.
 
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/morphology/`
+---
 
-### Landmass
+## 2. Problem Statement
 
-- [x] **Move:** `packages/mapgen-core/src/layers/landmass-plate.ts` → `packages/mapgen-core/src/layers/morphology/landmass-plate.ts`
-- [x] **Move:** `packages/mapgen-core/src/layers/landmass-utils.ts` → `packages/mapgen-core/src/layers/morphology/landmass-utils.ts`
-- [x] **Create Step:** `LandmassStep.ts` (Wraps `createPlateDrivenLandmasses`)
+### Why this refactor is needed
 
-### Coastlines
+1. **Monolithic algorithm files** — Current `domain/**/index.ts` files contain 500-1500 lines mixing types, helpers, and orchestration logic, making them hard to navigate, test, and extend.
 
-- [x] **Move:** `packages/mapgen-core/src/layers/coastlines.ts` → `packages/mapgen-core/src/layers/morphology/coastlines.ts`
-- [x] **Create Step:** `CoastlinesStep.ts` (Wraps `expandCoasts`)
-- [x] **Create Step:** `RuggedCoastsStep.ts` (Wraps `addRuggedCoasts`)
+2. **Duplicate helpers** — Functions like `clamp`, `idx`, `normalizeFractal`, and neighbor iteration are duplicated across modules with subtle semantic differences.
 
-### Islands
+3. **Legacy re-export sprawl** — Compatibility shims in `layers/**`, `narrative/**`, and `story/**` create multiple import paths to the same code, confusing consumers and bloating the public API.
 
-- [x] **Move:** `packages/mapgen-core/src/layers/islands.ts` → `packages/mapgen-core/src/layers/morphology/islands.ts`
-- [x] **Create Step:** `IslandsStep.ts` (Wraps `addIslandChains`)
+4. **Unclear import policy** — Deep relative imports (`../../../`) are fragile; no enforcement of stable entrypoints.
 
-### Mountains
+5. **Step wiring location** — Steps live under `layers/**` but should live under `pipeline/**` alongside execution primitives.
 
-- [x] **Move:** `packages/mapgen-core/src/layers/mountains.ts` → `packages/mapgen-core/src/layers/morphology/mountains.ts`
-- [x] **Create Step:** `MountainsStep.ts` (Wraps `layerAddMountainsPhysics`)
+### Pain points
 
-### Volcanoes
+- Adding a new algorithm requires touching multiple files and understanding implicit coupling.
+- Refactoring shared logic risks determinism drift (RNG call order, label strings).
+- External consumers (modders) have no clear "public API" — they guess at import paths.
 
-- [x] **Move:** `packages/mapgen-core/src/layers/volcanoes.ts` → `packages/mapgen-core/src/layers/morphology/volcanoes.ts`
-- [x] **Create Step:** `VolcanoesStep.ts` (Wraps `layerAddVolcanoesPlateAware`)
+---
 
-### Entry Point
+## 3. Goals & Non-Goals
 
-- [x] **Create Entry:** `index.ts` (Exports `registerMorphologyLayer`)
+### Goals
 
-## 3. Hydrology Domain (`packages/mapgen-core/src/layers/hydrology/`)
+- **Atomize domain modules** — Each algorithm becomes a small, single-purpose file with explicit types and minimal dependencies.
+- **Consolidate shared utilities** — One canonical location for math, grid, rng, noise, and collection helpers.
+- **Delete legacy facades** — Remove all re-export shims once callsites migrate.
+- **Enforce import policy** — Stable index/barrel surfaces; no deep imports across subsystems.
+- **Preserve determinism** — RNG label strings and call order are treated as contract.
+- **Enable modder-friendly composition** — High-level building blocks importable without deep paths.
 
-**Responsible for water and climate (Rivers, Lakes, Rainfall).**
+### Non-Goals
 
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/hydrology/`
+- **Changing algorithm behavior** — This is a structural refactor, not a functional change.
+- **Unifying neighborhood/wrap semantics** — Preserve per-module semantics; do not "fix" during extraction.
+- **Adding new features** — No new algorithms, steps, or capabilities.
+- **Optimizing performance** — No algorithmic changes for speed.
 
-### Climate
+---
 
-- [x] **Move:** `packages/mapgen-core/src/layers/climate-engine.ts` → `packages/mapgen-core/src/layers/hydrology/climate.ts`
-- [x] **Create Step:** `ClimateBaselineStep.ts` (Wraps `applyClimateBaseline`)
-- [x] **Create Step:** `ClimateRefineStep.ts` (Wraps `refineClimateEarthlike`)
+## 4. Architectural Decisions (Locked)
 
-### Rivers
+These decisions are finalized and should not be revisited during implementation.
 
-- [x] **Create Step:** `RiversStep.ts` (Extracts inline logic from Orchestrator: `modelRivers` + stats + adjacency)
+### 4.1 Hybrid Domain Architecture
 
-### Lakes
+- **Steps own engine coupling** — Steps own `ExtendedMapContext` + `EngineAdapter` interaction (sync/flush/state changes) and publish artifacts/tags.
+- **Domain algorithms are decoupled** — Domain code does not import `ExtendedMapContext`; it consumes typed arrays + small "ports" assembled by steps:
+  - `GridOps` (idx/bounds/wrap + neighbor iteration semantics)
+  - `Rng` (labeled determinism)
+  - Narrow `*Adapter` interfaces (only what an algorithm truly needs from engine state)
+  - `*IO` ports for reads/writes (explicit commit points)
+- **Internal subsystem structure** — Within a subsystem: `types.ts` (contracts), `runtime.ts` (port construction helpers), orchestrators (call order + RNG labels), and pure kernels (array/scalar logic).
 
-- [x] **Create Step:** `LakesStep.ts` (Extracts inline logic from Orchestrator: `generateLakes`)
+### 4.2 Determinism Contract
 
-### Entry Point
+- RNG label strings + call order are treated as contract; extraction must not introduce extra RNG calls.
+- RNG calls should live at orchestrator boundaries; kernels are deterministic unless explicitly passed a `rng` port.
 
-- [x] **Create Entry:** `index.ts` (Exports `registerHydrologyLayer`)
+### 4.3 Import Policy
 
-## 4. Ecology Domain (`packages/mapgen-core/src/layers/ecology/`)
+- Pipeline/steps import only from stable index/barrel surfaces (e.g., `domain/hydrology/climate`), not deep module paths.
+- Domain code may deep-import **only within the same subsystem**; cross-subsystem imports must go through subsystem indices to avoid tight coupling.
 
-**Responsible for life (Biomes, Features).**
+### 4.4 Path Aliasing & Packaging
 
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/ecology/`
+- Introduce a stable internal TS path alias for mapgen-core source imports (stop `../../../` churn).
+- Use package subpath exports + index barrels to expose stable import surfaces (and keep deep internals private).
 
-### Biomes
+### 4.5 Wrap & Neighborhood Semantics
 
-- [x] **Move:** `packages/mapgen-core/src/layers/biomes.ts` → `packages/mapgen-core/src/layers/ecology/biomes.ts`
-- [x] **Create Step:** `BiomesStep.ts` (Wraps `designateEnhancedBiomes`)
+- Do not "standardize" semantics during refactor; preserve current behavior per module.
+- Encode semantics in helper names (square 3×3 vs hex odd-q, wrap-aware vs bounds-clamped) and require algorithms to choose explicitly.
 
-### Features
+### 4.6 Step Wiring Location
 
-- [x] **Move:** `packages/mapgen-core/src/layers/features.ts` → `packages/mapgen-core/src/layers/ecology/features.ts`
-- [x] **Create Step:** `FeaturesStep.ts` (Wraps `addDiverseFeatures`)
+- Merge `src/layers/**` into `src/pipeline/**` and keep phase directories as the primary navigation (`pipeline/morphology`, `pipeline/hydrology`, etc.).
+- Pipeline/step code is composition only (context/adapters/artifacts); no domain algorithms.
+- Delete `src/layers/**` after callsites + orchestrator registration move to `pipeline/**`.
 
-### Entry Point
+### 4.7 Modder-Friendly Surfaces
 
-- [x] **Create Entry:** `index.ts` (Exports `registerEcologyLayer`)
+- Make the "high-level" building blocks importable without deep paths:
+  - Pipeline composition (`pipeline/**`)
+  - Domain orchestrators + public types (`domain/**` via subsystem `index.ts`)
+  - Shared utilities (`lib/**` via `index.ts`)
+- Use package subpath exports + TS path aliases so both in-repo and external consumers can import stable entrypoints (and never need `../../..`).
+- Atomic leaf files remain _implementation detail_ unless re-exported from a subsystem index (no "deep imports" required).
 
-## 5. Narrative Domain (`packages/mapgen-core/src/layers/narrative/`)
+### 4.8 Story/Playability Steps (Core Impact + Deferred Plugin Plan)
 
-**Responsible for story overlays and strategic tagging.**
+**Core impact (locked):**
 
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/narrative/`
+- **Core pipeline must run without stories** — The standard pipeline must be runnable with all story stages disabled; no story step is required for correctness.
+- **Story data is optional input** — Core steps must not require story-only artifacts/tags (especially `artifact:storyOverlays`) to run. Any story influence must be additive/optional and default to a no-op when overlays/tags are absent.
+- **Story globals are reset outside story steps** — Reset global story state once per generation at the orchestrator/executor boundary (e.g., `resetStoryTags/resetStoryOverlays/resetOrogenyCache/resetCorridorStyleCache`), not via a story stage that might be disabled.
+- **No new phases** — Keep story/playability work scheduled into existing phases (`morphology/hydrology/ecology/placement`) when enabled; avoid introducing a separate `narrative` phase.
+- **If it’s required, it’s not “story”** — Any “story” behavior deemed foundational must be reclassified into the owning core subsystem/phase as a normal step (renamed accordingly), not kept behind an optional story bundle.
 
-### Move Logic
+**Draft (deferred): story steps as future plugins (packages)**
 
-- [x] `src/story/tagging.ts` → `tagging.ts`
-- [x] `src/story/orogeny.ts` → `orogeny.ts`
-- [x] `src/story/corridors.ts` → `corridors.ts`
-- [x] `src/story/swatches.ts` → `swatches.ts`
-- [x] `src/story/overlays.ts` → `overlays.ts`
-- [x] `src/story/tags.ts` → `tags.ts`
+- **Goal** — Treat story/playability as an opt-in bundle implemented as one or more packages (initially just our existing Story steps), rather than hard-wired core pipeline stages.
+- **Minimal hook to keep now (so we can extract later):**
+  - **External registration hook**: a stable plugin entrypoint shape that can register steps into the `StepRegistry` (e.g., `registerSteps(registry, env)`).
+  - **Stage/recipe patching**: a standard way for a plugin to enable/disable stages and/or insert steps into the standard recipe (exact mechanism deferred; see Open Questions).
+  - **Optional override policy**: a deliberate, explicit mechanism to allow replacing an existing step id (not “accidentally last-write-wins”) — gated behind config/flags.
+- **Migration intent** — Once the hook exists, move `Story*Step` wiring + the remaining story domain atomization into plugin package(s) and remove them from the standard core library by default.
 
-### Create Steps
+---
 
-- [x] `StorySeedStep.ts`
-- [x] `StoryHotspotsStep.ts`
-- [x] `StoryRiftsStep.ts`
-- [x] `StoryOrogenyStep.ts`
-- [x] `StoryCorridorsStep.ts` (Handles both Pre/Post phases)
-- [x] `StorySwatchesStep.ts`
+## 5. Target End-State
 
-### Entry Point
+This is the final `packages/mapgen-core/src/` layout once the refactor is complete.
 
-- [x] **Create Entry:** `index.ts` (Exports `registerNarrativeLayer`)
+```text
+packages/mapgen-core/src/
+  index.ts
+  MapOrchestrator.ts
 
-## 6. Placement Domain (`packages/mapgen-core/src/layers/placement/`)
+  bootstrap/
+  config/
+  core/
+  dev/
+  world/
+  polyfills/
+  shims/
+  steps/
 
-**Responsible for start positions and units.**
+  pipeline/                      # wiring + execution primitives
+    artifacts.ts
+    errors.ts
+    index.ts
+    PipelineExecutor.ts
+    StepRegistry.ts
+    standard.ts
+    standard-library.ts          # registers step library
+    tags.ts
+    types.ts
+    foundation/
+      index.ts
+      FoundationStep.ts
+    morphology/
+      index.ts
+      LandmassStep.ts
+      CoastlinesStep.ts
+      RuggedCoastsStep.ts
+      IslandsStep.ts
+      MountainsStep.ts
+      VolcanoesStep.ts
+    hydrology/
+      index.ts
+      ClimateBaselineStep.ts
+      ClimateRefineStep.ts
+      RiversStep.ts
+      LakesStep.ts
+    ecology/
+      index.ts
+      BiomesStep.ts
+      FeaturesStep.ts
+    narrative/                  # OPTIONAL: story/playability bundle (disabled by default; extracted to plugin packages later)
+      index.ts
+      StorySeedStep.ts
+      StoryHotspotsStep.ts
+      StoryRiftsStep.ts
+      StoryOrogenyStep.ts
+      StoryCorridorsStep.ts
+      StorySwatchesStep.ts
+    placement/
+      index.ts
+      PlacementStep.ts
+      LegacyPlacementStep.ts
 
-- [x] **Create Directory:** `packages/mapgen-core/src/layers/placement/`
-- [x] **Move:** `packages/mapgen-core/src/layers/placement.ts` → `packages/mapgen-core/src/layers/placement/placement.ts`
-- [x] **Create Step:** `PlacementStep.ts` (Wraps `runPlacement`)
-- [x] **Create Entry:** `index.ts` (Exports `registerPlacementLayer`)
+  domain/                       # algorithms (atomized)
+    morphology/
+      landmass/
+        index.ts
+        types.ts
+        crust-mode.ts
+        water-target.ts
+        crust-first-landmask.ts
+        terrain-apply.ts
+        plate-stats.ts
+        windows.ts
+        diagnostics.ts
+        ocean-separation/
+          index.ts
+          types.ts
+          policy.ts
+          row-state.ts
+          carve.ts
+          fill.ts
+          apply.ts
+        post-adjustments.ts
+      coastlines/
+        index.ts
+        types.ts
+        plate-bias.ts
+        adjacency.ts
+        corridor-policy.ts
+        rugged-coasts.ts
+      islands/
+        index.ts
+        types.ts
+        adjacency.ts
+        fractal-threshold.ts
+        placement.ts
+      mountains/
+        index.ts
+        types.ts
+        scoring.ts
+        selection.ts
+        apply.ts
+      volcanoes/
+        index.ts
+        types.ts
+        scoring.ts
+        selection.ts
+        apply.ts
 
-## 7. The Standard Library (`packages/mapgen-core/src/layers/index.ts`)
+    hydrology/
+      climate/
+        index.ts
+        types.ts
+        runtime.ts
+        distance-to-water.ts
+        orographic-shadow.ts
+        baseline.ts
+        swatches/
+          index.ts
+          types.ts
+          chooser.ts
+          macro-desert-belt.ts
+          equatorial-rainbelt.ts
+          rainforest-archipelago.ts
+          mountain-forests.ts
+          great-plains.ts
+          monsoon-bias.ts
+        refine/
+          index.ts
+          types.ts
+          water-gradient.ts
+          orographic-shadow.ts
+          river-corridor.ts
+          rift-humidity.ts
+          orogeny-belts.ts
+          hotspot-microclimates.ts
 
-**The Aggregator.**
+    ecology/
+      biomes/
+        index.ts
+        types.ts
+        globals.ts
+        coastal.ts
+        nudges/
+          tundra-restraint.ts
+          tropical-coast.ts
+          river-valley.ts
+          corridor-bias.ts
+          corridor-edge-hints.ts
+          rift-shoulder.ts
+      features/
+        index.ts
+        types.ts
+        indices.ts
+        place-feature.ts
+        paradise-reefs.ts
+        shelf-reefs.ts
+        volcanic-vegetation.ts
+        density-tweaks.ts
 
-- [x] **Implement:** `packages/mapgen-core/src/layers/standard-library.ts` + export from `packages/mapgen-core/src/layers/index.ts`
-- [x] **Content:** Imports domain modules and exports `registerStandardLibrary(registry, config, runtime)`
-- [x] **Public API:** `packages/mapgen-core/src/layers/index.ts` re-exports `register*Layer` domain registrars for composable registries
+    narrative/
+      index.ts
+      utils/
+        dims.ts
+        rng.ts
+        water.ts
+        adjacency.ts
+        latitude.ts
+      tagging/
+        index.ts
+        types.ts
+        margins.ts
+        hotspots.ts
+        rifts.ts
+      corridors/
+        index.ts
+        types.ts
+        style-cache.ts
+        runtime.ts
+        sea-lanes.ts
+        island-hop.ts
+        land-corridors.ts
+        river-chains.ts
+        backfill.ts
+      orogeny/
+        index.ts
+        cache.ts
+        wind.ts
+        belts.ts
+      paleo/
+        index.ts
+        rainfall-artifacts.ts
+      overlays/
+        index.ts
+        keys.ts
+        registry.ts
+        normalize.ts
+        hydrate-margins.ts
+        hydrate-rifts.ts
+        hydrate-corridors.ts
+      tags/
+        index.ts
+        instance.ts
+        ops.ts
+      swatches.ts
 
-## 8. The Cleanup (`MapOrchestrator.ts`)
+    placement/
+      index.ts
+      types.ts
+      wonders.ts
+      floodplains.ts
+      terrain-validation.ts
+      areas.ts
+      water-data.ts
+      snow.ts
+      resources.ts
+      starts.ts
+      discoveries.ts
+      fertility.ts
+      advanced-start.ts
+      diagnostics.ts
 
-**The Final Switch.**
+  lib/                          # shared utilities
+    math/
+      clamp.ts
+      lerp.ts
+      index.ts
+    rng/
+      unit.ts
+      pick.ts
+      weighted-choice.ts
+      index.ts
+    grid/
+      bounds.ts
+      wrap.ts
+      indexing.ts
+      neighborhood/
+        square-3x3.ts
+        hex-oddq.ts
+      distance/
+        bfs.ts
+      index.ts
+    noise/
+      perlin.ts
+      fractal.ts
+      index.ts
+    collections/
+      freeze-clone.ts
+      record.ts
+      index.ts
+    heightfield/               # existing, keep
+      base.ts
+      sea-level.ts
+    plates/                    # existing, keep
+      crust.ts
+      topology.ts
+```
 
-- [x] **Refactor:** `packages/mapgen-core/src/MapOrchestrator.ts` TaskGraph path calls `registerStandardLibrary(...)`
+---
+
+## 6. Risks & Mitigations
+
+### Primary Risks
+
+| Risk                                                                                                             | Impact | Likelihood         |
+| ---------------------------------------------------------------------------------------------------------------- | ------ | ------------------ |
+| **Determinism drift** — Changing RNG label strings, call order, or introducing extra RNG calls                   | High   | Medium             |
+| **Neighborhood semantics drift** — Some modules use square 3×3, others hex odd-q; unifying can change behavior   | Medium | Medium             |
+| **Wrap semantics drift** — Some logic clamps bounds, some wraps X; standardizing can change coastlines/corridors | Medium | Low                |
+| **API break** — Removing re-export facades breaks deep import paths                                              | Low    | High (intentional) |
+
+### Mitigations
+
+- **Preserve semantics per module** — Create utilities that mirror existing behavior (`forEachNeighbor3x3`, `forEachHexNeighborOddQ`, etc.) rather than "unifying."
+- **Keep old exports via `index.ts`** — Re-export from subsystem indices until callsites migrate.
+- **Remove facades only after migration** — Repo-wide import migration + verification pass before deletion.
+- **Run tests frequently** — Prefer parity/determinism coverage over unit tests for everything.
+
+---
+
+## 7. Validation Strategy
+
+- Run `mapgen-core` tests frequently; prefer parity/determinism coverage over "unit tests for everything."
+- Add targeted unit tests only when extraction introduces new shared helpers (especially RNG, distance transforms, neighborhood iteration).
+- Treat RNG label strings as part of the public contract for determinism during refactor.
+
+---
+
+## 8. Open Questions
+
+These are intentionally **deferred** so the core domain/lib refactor can land without waiting on a full mod/plugin system design.
+
+**Playability/plugins (draft)**
+
+- **Plugin loading surface:** Where do plugins enter the orchestrator? (CLI config? map script recipe? hard-coded for in-repo packages?)
+- **Recipe/stage patch format:** Do we patch `StageManifest.order`, use `insert before/after`, or introduce stable “anchors”?
+- **Dependency tags:** Do plugins get their own tag namespace/registry, or do we keep strict canonical tags and require story/playability to reuse them?
+- **Override policy:** Do we support step replacement at all? If yes: explicit `overwrite`/`force` only, or last-write-wins? How is it gated?
+- **Ownership boundary:** Do story/playability packages own their own `domain/**` code, or do they reuse `domain/narrative/**` from mapgen-core?
+- **Bundling decision:** One “story” package vs multiple playability packages (corridors, swatches, etc.), and how they are enabled as a group.
+
+---
+
+# Part B: Implementation Manifest
+
+## 1. Status Snapshot
+
+### Phase 0 — Layout/Registry Wiring (Complete)
+
+- [x] Initial layer folders + step wrappers under `packages/mapgen-core/src/layers/**` (steps live under `layers/*/steps/*.ts`) — will move to `pipeline/**` per locked decision
+- [x] `packages/mapgen-core/src/layers/standard-library.ts` (registers steps into the registry) — will move to `pipeline/**` per locked decision
+- [x] `packages/mapgen-core/src/MapOrchestrator.ts` switched to Task Graph path calling `registerStandardLibrary(...)`
+
+### Phase 1 — Domain/Lib Scaffolding + Compatibility (Complete)
+
+- [x] Introduce shared `packages/mapgen-core/src/lib/**` utilities:
+  - [x] `lib/math/` (`clamp`, `clamp01`, `clampInt`, `clampPct`, `lerp`)
+  - [x] `lib/grid/` (`idx`, `xyFromIndex`, `inBounds`, `wrapX`, neighborhood helpers, `distanceTransform`)
+  - [x] `lib/rng/` (`rollUnit`, `pickRandom`, `weightedChoice`)
+  - [x] `lib/noise/` (`PerlinNoise`, `normalizeFractal`)
+  - [x] `lib/collections/` (`freezeClone`, `asRecord`, `asStringArray`)
+- [x] Introduce `packages/mapgen-core/src/domain/**` and copy monolithic scripts into domain (behavior-preserving):
+  - [x] `domain/morphology/**` (landmass/coastlines/islands/mountains/volcanoes)
+  - [x] `domain/hydrology/climate/index.ts`
+  - [x] `domain/ecology/**` (biomes/features)
+  - [x] `domain/placement/index.ts`
+  - [x] `domain/narrative/**` (partial atomization: overlays/tags/utils)
+- [x] Keep compatibility facades (temporary):
+  - [x] `packages/mapgen-core/src/layers/**` algorithm shim files re-export domain equivalents
+  - [x] `packages/mapgen-core/src/narrative/**` and `packages/mapgen-core/src/story/**` re-export narrative domain
+
+---
+
+## 2. Milestone Roadmap
+
+Ordered phases for completing the refactor:
+
+| #   | Milestone                            | Description                                                                                                           |
+| --- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Finish `lib/**` consolidation\*\*  | Replace remaining local helpers with canonical `lib/**` imports                                                       |
+| 2   | **Narrative atomization (deferred)** | Split corridors, tagging, orogeny, paleo into atomic modules (only needed once story/playability plugins are resumed) |
+| 3   | **Hydrology/Climate atomization**    | Split baseline, swatches, refine into atomic modules                                                                  |
+| 4   | **Morphology atomization**           | Split landmass, coastlines, islands, mountains, volcanoes                                                             |
+| 5   | **Ecology atomization**              | Split biomes nudges, features placement modules                                                                       |
+| 6   | **Placement atomization**            | Split wonders, floodplains, resources, starts, etc.                                                                   |
+| 7   | **Delete legacy facades**            | Remove `layers/**` shims, `narrative/**`, `story/**`                                                                  |
+| 8   | **Move step wiring**                 | Relocate `layers/**` → `pipeline/**`, delete `layers/**`                                                              |
+| 9   | **Validation**                       | Ensure determinism parity, tests pass, build green                                                                    |
+
+---
+
+## 3. Atomic Work Manifest
+
+Each bullet is a **target file** and the **symbols it should own** once fully split.
+Sources listed are the current monolithic implementations (mostly `domain/**/index.ts` today).
+
+### 3.1 Shared `lib/**` Consolidation
+
+- [ ] Replace local duplicates with canonical helpers:
+  - `clamp*` → `packages/mapgen-core/src/lib/math/clamp.ts`
+  - `idx/xyFromIndex` → `packages/mapgen-core/src/lib/grid/indexing.ts`
+  - `normalizeFractal` → `packages/mapgen-core/src/lib/noise/fractal.ts`
+  - square neighbor scans → `packages/mapgen-core/src/lib/grid/neighborhood/square-3x3.ts`
+  - hex neighbors (wrap-aware) → `packages/mapgen-core/src/lib/grid/neighborhood/hex-oddq.ts`
+- [ ] Delete compatibility shim `packages/mapgen-core/src/lib/noise.ts` after imports migrate to `lib/noise/index.ts`.
+
+### 3.2 Narrative Domain Atomization
+
+This work is intentionally **deferred** while story/playability is treated as optional (disabled by default) and slated for extraction into plugin packages.
+
+**Already split (canonical, keep as-is):**
+
+- [x] `packages/mapgen-core/src/domain/narrative/utils/*`
+- [x] `packages/mapgen-core/src/domain/narrative/tags/*`
+- [x] `packages/mapgen-core/src/domain/narrative/overlays/*`
+
+**From `domain/narrative/tagging/index.ts`:**
+
+- [ ] `tagging/types.ts`: `ContinentalMarginsOptions`, `HotspotTrailsSummary`, `RiftValleysSummary`
+- [ ] `tagging/margins.ts`: `storyTagContinentalMargins`
+- [ ] `tagging/hotspots.ts`: `storyTagHotspotTrails`
+- [ ] `tagging/rifts.ts`: `storyTagRiftValleys`
+- [ ] `tagging/index.ts`: re-export the above
+- [ ] Replace local helpers (`getDims`, `rand`, `isWaterAt`, adjacency/latitude helpers) with `domain/narrative/utils/*`
+
+**From `domain/narrative/corridors/index.ts`:**
+
+- [ ] `corridors/types.ts`: `CorridorStage`, `CorridorKind`, `CorridorStyle`, `Orient`
+- [ ] `corridors/style-cache.ts`: `fetchCorridorStylePrimitive`, `assignCorridorMetadata`, `resetCorridorStyleCache`
+- [ ] `corridors/runtime.ts`: `getDims`, `rand`, `isWaterAt`, `isCoastalLand`, `isAdjacentToShallowWater`, `isAdjacentToLand` (prefer: import from `domain/narrative/utils/*` and keep only corridor-specific glue here)
+- [ ] `corridors/sea-lanes.ts`: `hasPerpWidth`, `longestWaterRunColumn`, `longestWaterRunRow`, `longestWaterRunDiagSum`, `longestWaterRunDiagDiff`, `tagSeaLanes`
+- [ ] `corridors/island-hop.ts`: `tagIslandHopFromHotspots`
+- [ ] `corridors/land-corridors.ts`: `tagLandCorridorsFromRifts`
+- [ ] `corridors/river-chains.ts`: `tagRiverChainsPostRivers`
+- [ ] `corridors/backfill.ts`: `backfillCorridorKinds`
+- [ ] `corridors/index.ts`: `storyTagStrategicCorridors` (orchestrator)
+
+**From `domain/narrative/orogeny/index.ts`:**
+
+- [ ] `orogeny/cache.ts`: `OrogenyCacheInstance`, `getOrogenyCache`, `resetOrogenyCache`, `clearOrogenyCache`
+- [ ] `orogeny/wind.ts`: `zonalWindStep` (+ any wind helper extraction)
+- [ ] `orogeny/belts.ts`: `storyTagOrogenyBelts` (+ any scanning helpers)
+- [ ] `orogeny/index.ts`: re-exports
+
+**From `domain/narrative/paleo/index.ts`:**
+
+- [ ] `paleo/rainfall-artifacts.ts`: `storyTagPaleoHydrology`, `PaleoSummary`, plus extracted helpers (read/write rainfall, clamps, coastal checks)
+- [ ] `paleo/index.ts`: re-exports
+- [ ] Replace local helpers (`getDims`, `rand`, `isWaterAt`, `isCoastalLand`) with `domain/narrative/utils/*`
+
+**From `domain/narrative/swatches.ts`:**
+
+- [ ] Decide ownership boundary:
+  - Keep as `domain/narrative/swatches.ts` (story overlay projection), or
+  - Fold into `domain/hydrology/climate/swatches/*` (single owner for "swatch" logic)
+
+### 3.3 Hydrology Domain Atomization — Climate
+
+**From `domain/hydrology/climate/index.ts`:**
+
+- [ ] `climate/types.ts`: `ClimateConfig`, `ClimateRuntime`, `ClimateAdapter`, `OrogenyCache`, `ClimateSwatchResult`
+- [ ] `climate/runtime.ts`: `resolveAdapter`, `createClimateRuntime`
+- [ ] `climate/distance-to-water.ts`: `distanceToNearestWater` (preserve current overload behavior: full-map `Int16Array` and local-radius variant; optionally reuse `lib/grid/distance/bfs.ts` when semantics match)
+- [ ] `climate/orographic-shadow.ts`: `hasUpwindBarrier`, `hasUpwindBarrierWM`
+- [ ] `climate/baseline.ts`: `applyClimateBaseline` + extracted named helpers:
+  - latitude band computation
+  - coastal bonus application (distance-to-water driven)
+  - elevation/orographic bonus application
+  - perlin noise seed/span logic
+
+**Swatches (from `applyClimateSwatches`):**
+
+- [ ] `climate/swatches/types.ts`: normalized swatch config shapes + selection result types
+- [ ] `climate/swatches/chooser.ts`: `chooseSwatchTypeWeighted` (preserve directionality adjustments)
+- [ ] `climate/swatches/macro-desert-belt.ts`
+- [ ] `climate/swatches/equatorial-rainbelt.ts`
+- [ ] `climate/swatches/rainforest-archipelago.ts`
+- [ ] `climate/swatches/mountain-forests.ts`
+- [ ] `climate/swatches/great-plains.ts`
+- [ ] `climate/swatches/monsoon-bias.ts`: the "Monsoon bias pass" currently inside `applyClimateSwatches`
+- [ ] `climate/swatches/index.ts`: `applyClimateSwatches` (orchestrates chooser + swatch handlers)
+
+**Refine (from `refineClimateEarthlike`):**
+
+- [ ] `climate/refine/water-gradient.ts` (Pass A)
+- [ ] `climate/refine/orographic-shadow.ts` (Pass B)
+- [ ] `climate/refine/river-corridor.ts` (Pass C)
+- [ ] `climate/refine/rift-humidity.ts` (Pass D)
+- [ ] `climate/refine/orogeny-belts.ts` (Pass E)
+- [ ] `climate/refine/hotspot-microclimates.ts` (Pass F)
+- [ ] `climate/refine/index.ts`: `refineClimateEarthlike` (orchestrates passes; keep RNG usage stable)
+
+- [ ] `climate/index.ts`: re-export `baseline`, `swatches`, `refine`, and public types as the stable climate API
+
+### 3.4 Morphology Domain Atomization
+
+**From `domain/morphology/landmass/index.ts`:**
+
+- [ ] `landmass/types.ts`: `LandmassConfig`, `TectonicsConfig`, `GeometryConfig`, `GeometryPostConfig`, `CreateLandmassesOptions`, `LandmassGenerationResult`, `PlateStats`, `CrustSummary`, `AreaCrustResult`, `CrustFirstResult`
+- [ ] `landmass/crust-mode.ts`: `CrustMode`, `normalizeCrustMode`
+- [ ] `landmass/water-target.ts`: `computeTargetLandTiles` (extract from inline water coverage calculation)
+- [ ] `landmass/crust-first-landmask.ts`: `computeClosenessLimit`, `summarizeCrustTypes`, `assignCrustTypesByArea`, `tryCrustFirstLandmask`
+- [ ] `landmass/terrain-apply.ts`: `applyLandmaskToTerrain` (extract terrain stamping + heightfield writes)
+- [ ] `landmass/plate-stats.ts`: `computePlateStatsFromLandMask` (extract the plate stats block)
+- [ ] `landmass/windows.ts`: `windowsFromPlateStats`, `windowFromPlateStat`, clamp/min-width logic
+- [ ] `landmass/diagnostics.ts`: extract `[landmass-plate]` logging into named functions
+- [ ] `landmass/index.ts`: `createPlateDrivenLandmasses` becomes orchestrator calling the above pieces
+
+**From `domain/morphology/landmass/utils.ts` (ocean separation + post adjustments):**
+
+- [ ] `landmass/ocean-separation/types.ts`: `LandmassWindow`, `OceanSeparationPolicy`, `PlateAwareOceanSeparationParams`, `PlateAwareOceanSeparationResult`, internal `RowState`
+- [ ] `landmass/ocean-separation/policy.ts`: default policy values + normalization helpers
+- [ ] `landmass/ocean-separation/row-state.ts`: `normalizeWindow`, `createRowState`, `aggregateRowState`
+- [ ] `landmass/ocean-separation/carve.ts`: `carveOceanFromEast`, `carveOceanFromWest` (extract from the row loop)
+- [ ] `landmass/ocean-separation/fill.ts`: `fillLandFromWest`, `fillLandFromEast` (extract from the row loop)
+- [ ] `landmass/ocean-separation/apply.ts`: `applyPlateAwareOceanSeparation` (orchestrates row-state + carve/fill)
+- [ ] `landmass/ocean-separation/index.ts`: re-export the public surface for ocean separation
+- [ ] `landmass/post-adjustments.ts`: `applyLandmassPostAdjustments`
+- [ ] `landmass/utils.ts`: delete once split is complete (or keep as temporary re-export facade only during migration)
+
+**From `domain/morphology/coastlines/index.ts`:**
+
+- [ ] `coastlines/types.ts`: `CoastlinesConfig`, `CoastlinePlateBiasConfig`, `CoastlineBayConfig`, `CoastlineFjordConfig`, `SeaCorridorPolicy`, `CorridorPolicy`
+- [ ] `coastlines/plate-bias.ts`: `computePlateBias`
+- [ ] `coastlines/adjacency.ts`: coastal/adjacency helpers extracted from inline scans
+- [ ] `coastlines/corridor-policy.ts`: corridor-edge attribute scanning + "sea lane protection" policy helpers
+- [ ] `coastlines/rugged-coasts.ts`: `addRuggedCoasts` (main), calling the above
+- [ ] `coastlines/index.ts`: re-export stable API
+
+**From `domain/morphology/islands/index.ts`:**
+
+- [ ] `islands/types.ts`: `IslandsConfig`, `HotspotTunables`, `CorridorsConfig`
+- [ ] `islands/fractal-threshold.ts`: `getFractalThreshold`
+- [ ] `islands/adjacency.ts`: `isAdjacentToLandSquare`/lane proximity helpers (preserve current semantics)
+- [ ] `islands/placement.ts`: `addIslandChains` (main)
+- [ ] `islands/index.ts`: re-export stable API
+
+**From `domain/morphology/mountains/index.ts`:**
+
+- [ ] `mountains/types.ts`: `MountainsConfig`
+- [ ] `mountains/scoring.ts`: `computePlateBasedScores`, `computeFractalOnlyScores`, `applyRiftDepressions`
+- [ ] `mountains/selection.ts`: `createIsWaterTile`, `selectTilesAboveThreshold`
+- [ ] `mountains/apply.ts`: `layerAddMountainsPhysics`, `addMountainsCompat`
+- [ ] Replace local `idx` + `normalizeFractal` with `lib/grid/indexing.idx` and `lib/noise/fractal.normalizeFractal`
+- [ ] `mountains/index.ts`: re-export stable API
+
+**From `domain/morphology/volcanoes/index.ts`:**
+
+- [ ] `volcanoes/types.ts`: `VolcanoesConfig`, `VolcanoCandidate`, `PlacedVolcano`
+- [ ] `volcanoes/scoring.ts`: candidate weighting computation
+- [ ] `volcanoes/selection.ts`: `isTooCloseToExisting`, selection loop
+- [ ] `volcanoes/apply.ts`: `layerAddVolcanoesPlateAware`
+- [ ] Replace local `idx` + `clamp` with `lib/grid/indexing.idx` and `lib/math/clamp`
+- [ ] `volcanoes/index.ts`: re-export stable API
+
+### 3.5 Ecology Domain Atomization
+
+**From `domain/ecology/biomes/index.ts`:**
+
+- [ ] `biomes/types.ts`: `BiomeConfig`, `CorridorPolicy`, `BiomeGlobals`
+- [ ] `biomes/globals.ts`: `resolveBiomeGlobals`
+- [ ] `biomes/coastal.ts`: `isCoastalLand` (preserve current neighbor semantics; do not "fix" without a deliberate decision)
+- [ ] `biomes/nudges/tundra-restraint.ts`: extract tundra restraint pass
+- [ ] `biomes/nudges/tropical-coast.ts`: extract tropical coast bias pass
+- [ ] `biomes/nudges/river-valley.ts`: extract river-valley grassland bias pass
+- [ ] `biomes/nudges/corridor-bias.ts`: extract corridor-biome bias pass (land + river chains)
+- [ ] `biomes/nudges/corridor-edge-hints.ts`: extract corridor-edge hint bias pass
+- [ ] `biomes/nudges/rift-shoulder.ts`: extract rift shoulder bias pass
+- [ ] `biomes/index.ts`: `designateEnhancedBiomes` becomes orchestrator calling nudges in a stable order
+
+**From `domain/ecology/features/index.ts`:**
+
+- [ ] `features/types.ts`: `FeaturesConfig`, `FeaturesDensityConfig`
+- [ ] `features/indices.ts`: resolve feature indices (reef, forest, taiga, etc) + `NO_FEATURE`
+- [ ] `features/place-feature.ts`: `tryPlaceFeature` helper (wrap `canHaveFeature` + `setFeatureType`)
+- [ ] `features/paradise-reefs.ts`: hotspot paradise reef placement loop
+- [ ] `features/shelf-reefs.ts`: passive shelf reef placement loop
+- [ ] `features/volcanic-vegetation.ts`: near-volcanic vegetation logic
+- [ ] `features/density-tweaks.ts`: rainforest/forest/taiga density tweaks
+- [ ] `features/index.ts`: `addDiverseFeatures` orchestrates the above
+
+### 3.6 Placement Domain Atomization
+
+**From `domain/placement/index.ts`:**
+
+- [ ] `placement/types.ts`: `PlacementOptions`, `MapInfo` (internal), and config type re-exports (`PlacementConfig`, `FloodplainsConfig`, `ContinentBounds`, `StartsConfig`)
+- [ ] `placement/diagnostics.ts`: `logTerrainStats`, `logAsciiMap` (or move to `src/dev/**` if preferred)
+- [ ] `placement/wonders.ts`: `resolveNaturalWonderCount`, `applyNaturalWonders`
+- [ ] `placement/floodplains.ts`: `applyFloodplains`
+- [ ] `placement/terrain-validation.ts`: `validateAndFixTerrain`
+- [ ] `placement/areas.ts`: `recalculateAreas`
+- [ ] `placement/water-data.ts`: `storeWaterData`
+- [ ] `placement/snow.ts`: `generateSnow`
+- [ ] `placement/resources.ts`: `generateResources`
+- [ ] `placement/starts.ts`: `applyStartPositions` (wraps adapter.assignStartPositions + logging)
+- [ ] `placement/discoveries.ts`: `applyDiscoveries`
+- [ ] `placement/fertility.ts`: `applyFertilityRecalc`
+- [ ] `placement/advanced-start.ts`: `applyAdvancedStartRegions`
+- [ ] `placement/index.ts`: `runPlacement` orchestrator calling modules in the vanilla order; remove default export once consumers migrate (or keep temporarily behind an explicit deprecation window)
+
+---
+
+## 4. Migration Checklists
+
+### 4.1 Migrate Step Wiring Imports
+
+Update steps to import from `domain/**` instead of `layers/**` shims:
+
+**Hydrology:**
+
+- [ ] `pipeline/hydrology/ClimateBaselineStep.ts` → import from `domain/hydrology/climate/**`
+- [ ] `pipeline/hydrology/ClimateRefineStep.ts` → import from `domain/hydrology/climate/**`
+
+**Morphology:**
+
+- [ ] `pipeline/morphology/LandmassStep.ts` → import from `domain/morphology/**`
+- [ ] `pipeline/morphology/CoastlinesStep.ts` → import from `domain/morphology/**`
+- [ ] `pipeline/morphology/RuggedCoastsStep.ts` → import from `domain/morphology/**`
+- [ ] `pipeline/morphology/IslandsStep.ts` → import from `domain/morphology/**`
+- [ ] `pipeline/morphology/MountainsStep.ts` → import from `domain/morphology/**`
+- [ ] `pipeline/morphology/VolcanoesStep.ts` → import from `domain/morphology/**`
+
+**Ecology:**
+
+- [ ] `pipeline/ecology/BiomesStep.ts` → import from `domain/ecology/**`
+- [ ] `pipeline/ecology/FeaturesStep.ts` → import from `domain/ecology/**`
+
+**Placement:**
+
+- [ ] `pipeline/placement/PlacementStep.ts` → import from `domain/placement/**`
+- [ ] `pipeline/placement/LegacyPlacementStep.ts` → import from `domain/placement/**`
+
+**Narrative:**
+
+- [ ] `pipeline/narrative/*.ts` → import from `domain/narrative/**`
+- [ ] `pipeline/tags.ts` → import from `domain/narrative/**`
+
+### 4.2 Delete Legacy Re-Export Shims
+
+Delete the following **only after all callsites are migrated**:
+
+**Layer algorithm shims:**
+
+- [ ] `packages/mapgen-core/src/layers/hydrology/climate.ts`
+- [ ] `packages/mapgen-core/src/layers/morphology/coastlines.ts`
+- [ ] `packages/mapgen-core/src/layers/morphology/islands.ts`
+- [ ] `packages/mapgen-core/src/layers/morphology/landmass-plate.ts`
+- [ ] `packages/mapgen-core/src/layers/morphology/landmass-utils.ts`
+- [ ] `packages/mapgen-core/src/layers/morphology/mountains.ts`
+- [ ] `packages/mapgen-core/src/layers/morphology/volcanoes.ts`
+- [ ] `packages/mapgen-core/src/layers/ecology/biomes.ts`
+- [ ] `packages/mapgen-core/src/layers/ecology/features.ts`
+- [ ] `packages/mapgen-core/src/layers/placement/placement.ts`
+
+**Top-level compatibility directories:**
+
+- [ ] `packages/mapgen-core/src/narrative/` (entire directory)
+- [ ] `packages/mapgen-core/src/story/` (entire directory)
+
+**Lib compatibility shim:**
+
+- [ ] `packages/mapgen-core/src/lib/noise.ts`
+
+### 4.3 Update Public Exports
+
+Update `packages/mapgen-core/src/index.ts`:
+
+- [ ] Stop exporting `./story/index.ts`
+- [ ] Export narrative/public surfaces from canonical modules (`./domain/narrative/index.ts`)
+- [ ] Expose stable, modder-friendly entrypoints for composition:
+  - Pipeline composition types/helpers (`./pipeline/index.ts`)
+  - Domain subsystem indices (`./domain/**/index.ts`)
+  - `lib/**` indices (math/grid/rng/noise/collections)
+- [ ] Enforce "no deep imports" by ensuring anything "publicly usable" is re-exported from a subsystem `index.ts`
+
+### 4.4 Move Step Wiring from `layers/**` → `pipeline/**`
+
+- [ ] Move `packages/mapgen-core/src/layers/standard-library.ts` → `packages/mapgen-core/src/pipeline/standard-library.ts`
+- [ ] Move phase directories:
+  - [ ] `layers/foundation/**` → `pipeline/foundation/**`
+  - [ ] `layers/morphology/**` → `pipeline/morphology/**`
+  - [ ] `layers/hydrology/**` → `pipeline/hydrology/**`
+  - [ ] `layers/ecology/**` → `pipeline/ecology/**`
+  - [ ] `layers/narrative/**` → `pipeline/narrative/**`
+  - [ ] `layers/placement/**` → `pipeline/placement/**`
+- [ ] Update `packages/mapgen-core/src/MapOrchestrator.ts` imports to reference `pipeline/standard-library.ts`
+- [ ] Delete `packages/mapgen-core/src/layers/**` once all callsites + registry wiring are updated
