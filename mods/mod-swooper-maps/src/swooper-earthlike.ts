@@ -178,8 +178,8 @@ function buildConfig(): BootstrapConfig {
       climate: {
         baseline: {
           blend: {
-            baseWeight: 0.55,
-            bandWeight: 0.25,
+            baseWeight: 0,
+            bandWeight: 1,
           },
           bands: {
             deg0to10: 125,
@@ -297,7 +297,7 @@ function buildConfig(): BootstrapConfig {
       },
       biomes: {
         tundra: {
-          latMin: 85,
+          latMin: 65,
           elevMin: 700,
           rainMax: 85,
         },

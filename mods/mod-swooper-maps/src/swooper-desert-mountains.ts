@@ -164,8 +164,8 @@ function buildConfig(): BootstrapConfig {
       climate: {
         baseline: {
           blend: {
-            baseWeight: 0.8,
-            bandWeight: 0.2,
+            baseWeight: 0,
+            bandWeight: 1,
           },
           bands: {
             // Standard Earth-like distribution
