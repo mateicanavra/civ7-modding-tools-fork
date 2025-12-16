@@ -33,8 +33,8 @@ Two orchestration paths exist today:
 
 - Branching entrypoint: `packages/mapgen-core/src/MapOrchestrator.ts` (`generateMap()` checks `options.useTaskGraph`).
 - Legacy inline story stages live in the legacy runner:
-  - `storySeed`, `storyHotspots`, `storyRifts`, `storyOrogeny`, `storyCorridorsPre` (`packages/mapgen-core/src/MapOrchestrator.ts:553-636`)
-  - `storySwatches` + paleo-in-rivers + `storyCorridorsPost` (`packages/mapgen-core/src/MapOrchestrator.ts:741-823`)
+  - `storySeed`, `storyHotspots`, `storyRifts`, `storyOrogeny`, `storyCorridorsPre` (`packages/mapgen-core/src/MapOrchestrator.ts`, legacy inline runner)
+  - `storySwatches` + paleo-in-rivers + `storyCorridorsPost` (`packages/mapgen-core/src/MapOrchestrator.ts`, legacy inline runner)
 - Equivalent pipeline story steps exist:
   - `packages/mapgen-core/src/pipeline/narrative/*`
   - Example parity: `StorySeedStep` resets story state and runs `storyTagContinentalMargins`, matching the legacy stage body (`packages/mapgen-core/src/pipeline/narrative/StorySeedStep.ts:20-46`).
@@ -45,7 +45,7 @@ The modularization work reduced "two story implementations" drift, but it increa
 
 - The M4 design locks the invariant: **reset story globals once per generation at the orchestrator boundary**, not inside story stages that can be disabled (`docs/projects/engine-refactor-v1/issues/CIV-M4-ADHOC-modularize.md`, "Story/Playability Steps").
 - TaskGraph implements that invariant: `generateMapTaskGraph()` resets story globals once per run before executing the recipe (`packages/mapgen-core/src/MapOrchestrator.ts`, `generateMapTaskGraph()`).
-- Legacy path still resets primarily inside the `storySeed` stage (and other story stages), so disabling `storySeed` can re-introduce cross-run leakage and violate the intended "story is optional" contract (`packages/mapgen-core/src/MapOrchestrator.ts`, legacy inline runner).
+- Legacy path also resets story globals at the orchestrator boundary today (before stages), but it still carries the same core drift risk: a second orchestration implementation can diverge in stage order, artifact publication, and contract semantics over time (`packages/mapgen-core/src/MapOrchestrator.ts`, legacy inline runner vs TaskGraph).
 
 ---
 
@@ -201,6 +201,8 @@ Each group is a self-contained unit of work with explicit scope, rationale, and 
 
 **Theme**: Prepare all in-repo consumers before removing the path they currently use. This is pure migration with no deletions—we're making TaskGraph the de facto path before making it the only path.
 
+Note: this is intentionally temporary—Group 2 deletes `useTaskGraph` entirely, after which these per-consumer flags are removed.
+
 **Session scope**: 1 session (small, focused changes)
 
 **Depends on**: None
@@ -215,7 +217,7 @@ Each group is a self-contained unit of work with explicit scope, rationale, and 
 
 - [ ] All mods explicitly use `useTaskGraph: true`
 - [ ] All orchestrator tests use TaskGraph path
-- [ ] `pnpm test` passes
+- [ ] `pnpm test:mapgen` passes
 - [ ] Mods load without error
 
 ---
@@ -232,7 +234,7 @@ Each group is a self-contained unit of work with explicit scope, rationale, and 
 
 - [ ] `OrchestratorConfig.useTaskGraph` option (`packages/mapgen-core/src/MapOrchestrator.ts`)
 - [ ] `generateMap()` branch that selects between two orchestrators (`packages/mapgen-core/src/MapOrchestrator.ts`)
-- [ ] Legacy inline stage runner blocks inside `generateMap()` (including inline story stages at lines ~553-636, ~741-823)
+- [ ] Legacy inline stage runner blocks inside `generateMap()` (including inline story stages)
 
 ### Migrations
 
@@ -245,7 +247,7 @@ Each group is a self-contained unit of work with explicit scope, rationale, and 
 - [ ] `generateMap()` has no branching logic—it always uses TaskGraph
 - [ ] `useTaskGraph` option does not exist in types or implementation
 - [ ] No inline stage runner code remains in `MapOrchestrator.ts`
-- [ ] `pnpm test` passes
+- [ ] `pnpm test:mapgen` passes
 - [ ] Mods load without error
 
 ---
@@ -286,8 +288,8 @@ Migrate each downstream toggle consumer to a canonical signal:
 - [ ] No `STORY_ENABLE_*` fields in config schema or presets
 - [ ] No toggle-derivation code in `MapOrchestrator`
 - [ ] All downstream consumers use canonical signals (tags, config presence, or stage flags)
-- [ ] `pnpm run check-types` passes (no type errors from removed fields)
-- [ ] `pnpm test` passes
+- [ ] `pnpm -C packages/mapgen-core check` passes (no type errors from removed fields)
+- [ ] `pnpm test:mapgen` passes
 - [ ] Mods load without error
 
 ---
@@ -317,8 +319,8 @@ Migrate each downstream toggle consumer to a canonical signal:
 - [ ] No `LegacyPlacementStep.ts` file
 - [ ] No legacy bootstrap input shapes
 - [ ] Docs don't reference removed surfaces
-- [ ] `pnpm run check-types` passes
-- [ ] `pnpm test` passes
+- [ ] `pnpm -C packages/mapgen-core check` passes
+- [ ] `pnpm test:mapgen` passes
 
 ---
 
@@ -357,8 +359,8 @@ Before starting this group, decide:
 - [ ] No module-level story singletons required for correctness
 - [ ] All cross-stage story data is carried via context artifacts/overlays
 - [ ] Disabling story stages cannot cause stale global state leakage
-- [ ] `pnpm run check-types` passes
-- [ ] `pnpm test` passes
+- [ ] `pnpm -C packages/mapgen-core check` passes
+- [ ] `pnpm test:mapgen` passes
 - [ ] Smoke tests pass with story stages enabled and disabled
 
 ---
