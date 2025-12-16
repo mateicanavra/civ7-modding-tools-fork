@@ -109,7 +109,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
       },
     });
 
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]", useTaskGraph: true });
+    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
     const result = orchestrator.generateMap();
     expect(result.success).toBe(true);
     expect(readPaleoDeltas()).toBe(1);
@@ -163,7 +163,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
       },
     });
 
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]", useTaskGraph: true });
+    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
     const result = orchestrator.generateMap();
     expect(result.success).toBe(true);
     expect(readPaleoDeltas()).toBe(1);

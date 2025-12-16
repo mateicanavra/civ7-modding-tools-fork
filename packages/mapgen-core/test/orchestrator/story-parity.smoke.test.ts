@@ -76,7 +76,6 @@ describe("smoke: minimal story parity (margins, hotspots, rifts)", () => {
     const orchestrator = new MapOrchestrator(config, {
       adapter,
       logPrefix: "[TEST]",
-      useTaskGraph: true,
     });
 
     orchestrator.generateMap();

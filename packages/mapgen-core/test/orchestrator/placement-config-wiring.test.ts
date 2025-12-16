@@ -55,7 +55,7 @@ describe("placement config wiring", () => {
       },
     });
 
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]", useTaskGraph: true });
+    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
     const result = orchestrator.generateMap();
 
     expect(result.success).toBe(true);

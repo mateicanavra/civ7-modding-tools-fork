@@ -71,7 +71,6 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
     const orchestrator = new MapOrchestrator(config, {
       adapter,
       logPrefix: "[TEST]",
-      useTaskGraph: true,
     });
     const result = orchestrator.generateMap();
 
@@ -94,7 +93,6 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
     const orchestrator = new MapOrchestrator(config, {
       adapter,
       logPrefix: "[TEST]",
-      useTaskGraph: true,
     });
     const result = orchestrator.generateMap();
 
