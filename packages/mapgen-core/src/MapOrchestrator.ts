@@ -165,8 +165,13 @@ export interface MapSizeDefaults {
    * Used for logging only; the actual dimensions come from mapInfo.
    */
   mapSizeId?: MapSizeId;
-  /** Map info to use for dimension/latitude lookups */
-  mapInfo?: MapInfo;
+  /**
+   * Map info to use for dimension/latitude lookups.
+   *
+   * Required: test harnesses must provide concrete dimensions/latitudes rather
+   * than relying on in-engine defaults.
+   */
+  mapInfo: MapInfo;
 }
 
 /** Orchestrator configuration */
@@ -186,6 +191,7 @@ export interface OrchestratorConfig {
   /**
    * Override map size defaults for testing.
    * When set, bypasses GameplayMap.getMapSize() and GameInfo.Maps.lookup().
+   * Test harnesses must provide concrete dimensions/latitudes via `mapInfo`.
    */
   mapSizeDefaults?: MapSizeDefaults;
   /**
@@ -264,13 +270,13 @@ export class MapOrchestrator {
    * Flow: adapter.getMapSizeId() → adapter.lookupMapInfo() → extract dimensions
    * This replaces the previous hard-coded 84×54 approach (CIV-22).
    *
-   * For testing, use `config.mapSizeDefaults` to bypass game settings.
+   * For testing, use `options.mapSizeDefaults` to bypass game settings.
    */
   requestMapData(initParams?: Partial<MapInitParams>): void {
     const prefix = this.options.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} === RequestMapInitData ===`);
 
-    // Get map size and info: use config defaults if provided (for testing),
+    // Get map size and info: use provided defaults (for testing),
     // otherwise query game settings
     let mapSizeId: MapSizeId;
     let mapInfo: MapInfo | null;
@@ -278,7 +284,7 @@ export class MapOrchestrator {
     if (this.options.mapSizeDefaults) {
       // Testing mode: use provided defaults
       mapSizeId = this.options.mapSizeDefaults.mapSizeId ?? 0;
-      mapInfo = this.options.mapSizeDefaults.mapInfo ?? null;
+      mapInfo = this.options.mapSizeDefaults.mapInfo;
       console.log(`${prefix} Using test mapSizeDefaults`);
     } else {
       // Production mode: query game settings via adapter boundary
@@ -287,28 +293,40 @@ export class MapOrchestrator {
       mapInfo = adapter.lookupMapInfo(mapSizeId);
     }
 
-    // Extract dimensions from MapInfo, with sensible fallbacks.
-    // Fallback values intentionally mirror Civ7's MAPSIZE_STANDARD defaults:
-    //   - 84×54 grid dimensions
-    //   - ±80° latitude bounds
-    // These are used when GameInfo.Maps.lookup() fails or returns incomplete data.
-    // If Civ7's base map defaults change, these should be updated to match.
-    const gameWidth = mapInfo?.GridWidth ?? 84;
-    const gameHeight = mapInfo?.GridHeight ?? 54;
-    const gameMaxLat = mapInfo?.MaxLatitude ?? 80;
-    const gameMinLat = mapInfo?.MinLatitude ?? -80;
+    if (!mapInfo) {
+      throw new Error(
+        `${prefix} Failed to resolve mapInfo for mapSizeId=${String(mapSizeId)}. ` +
+          `In tests, provide options.mapSizeDefaults.mapInfo; in-engine, ensure GameInfo.Maps.lookup is available.`
+      );
+    }
+
+    const resolvedWidth = initParams?.width ?? mapInfo.GridWidth;
+    const resolvedHeight = initParams?.height ?? mapInfo.GridHeight;
+    const resolvedTopLatitude = initParams?.topLatitude ?? mapInfo.MaxLatitude;
+    const resolvedBottomLatitude = initParams?.bottomLatitude ?? mapInfo.MinLatitude;
+
+    if (resolvedWidth == null || resolvedHeight == null) {
+      throw new Error(
+        `${prefix} Missing map dimensions. Provide initParams.width/height or include GridWidth/GridHeight in mapInfo.`
+      );
+    }
+    if (resolvedTopLatitude == null || resolvedBottomLatitude == null) {
+      throw new Error(
+        `${prefix} Missing map latitude bounds. Provide initParams.topLatitude/bottomLatitude or include MaxLatitude/MinLatitude in mapInfo.`
+      );
+    }
 
     console.log(`${prefix} Map size ID: ${mapSizeId}`);
     console.log(
-      `${prefix} MapInfo: GridWidth=${gameWidth}, GridHeight=${gameHeight}, Lat=[${gameMinLat}, ${gameMaxLat}]`
+      `${prefix} MapInfo: GridWidth=${resolvedWidth}, GridHeight=${resolvedHeight}, Lat=[${resolvedBottomLatitude}, ${resolvedTopLatitude}]`
     );
 
     // Build params: explicit overrides take precedence over game settings
     const params: MapInitParams = {
-      width: initParams?.width ?? gameWidth,
-      height: initParams?.height ?? gameHeight,
-      topLatitude: initParams?.topLatitude ?? gameMaxLat,
-      bottomLatitude: initParams?.bottomLatitude ?? gameMinLat,
+      width: resolvedWidth,
+      height: resolvedHeight,
+      topLatitude: resolvedTopLatitude,
+      bottomLatitude: resolvedBottomLatitude,
       wrapX: initParams?.wrapX ?? true,
       wrapY: initParams?.wrapY ?? false,
     };
@@ -367,31 +385,19 @@ export class MapOrchestrator {
     let uiMapSize: MapSizeId;
     let mapInfo: MapInfo | null;
 
-    const usingMapSizeDefaults = Boolean(this.options.mapSizeDefaults);
+    const mapSizeDefaults = this.options.mapSizeDefaults;
 
-    if (usingMapSizeDefaults) {
-      uiMapSize = this.options.mapSizeDefaults.mapSizeId ?? 0;
-      mapInfo = this.options.mapSizeDefaults.mapInfo ?? null;
+    if (mapSizeDefaults) {
+      uiMapSize = mapSizeDefaults.mapSizeId ?? 0;
+      mapInfo = mapSizeDefaults.mapInfo;
     } else {
       uiMapSize = mapInfoAdapter.getMapSizeId();
       mapInfo = mapInfoAdapter.lookupMapInfo(uiMapSize);
     }
 
     if (!mapInfo) {
-      if (usingMapSizeDefaults) {
-        console.warn(
-          `${prefix} mapSizeDefaults missing mapInfo; using fallback 84x54/±80° defaults`
-        );
-        mapInfo = {
-          GridWidth: iWidth || 84,
-          GridHeight: iHeight || 54,
-          MaxLatitude: 80,
-          MinLatitude: -80,
-        };
-        } else {
-          console.error(`${prefix} Failed to lookup map info`);
-          return { success: false, stageResults: this.stageResults, startPositions };
-        }
+      console.error(`${prefix} Failed to lookup map info`);
+      return { success: false, stageResults: this.stageResults, startPositions };
     }
 
     console.log(`${prefix} Map size: ${iWidth}x${iHeight}`);
@@ -986,31 +992,19 @@ export class MapOrchestrator {
     let uiMapSize: MapSizeId;
     let mapInfo: MapInfo | null;
 
-    const usingMapSizeDefaults = Boolean(this.options.mapSizeDefaults);
+    const mapSizeDefaults = this.options.mapSizeDefaults;
 
-    if (usingMapSizeDefaults) {
-      uiMapSize = this.options.mapSizeDefaults.mapSizeId ?? 0;
-      mapInfo = this.options.mapSizeDefaults.mapInfo ?? null;
+    if (mapSizeDefaults) {
+      uiMapSize = mapSizeDefaults.mapSizeId ?? 0;
+      mapInfo = mapSizeDefaults.mapInfo;
     } else {
       uiMapSize = mapInfoAdapter.getMapSizeId();
       mapInfo = mapInfoAdapter.lookupMapInfo(uiMapSize);
     }
 
     if (!mapInfo) {
-      if (usingMapSizeDefaults) {
-        console.warn(
-          `${prefix} mapSizeDefaults missing mapInfo; using fallback 84x54/±80° defaults`
-        );
-        mapInfo = {
-          GridWidth: iWidth || 84,
-          GridHeight: iHeight || 54,
-          MaxLatitude: 80,
-          MinLatitude: -80,
-        };
-      } else {
       console.error(`${prefix} Failed to lookup map info`);
       return { success: false, stageResults: this.stageResults, startPositions };
-    }
     }
 
     console.log(`${prefix} Map size: ${iWidth}x${iHeight}`);

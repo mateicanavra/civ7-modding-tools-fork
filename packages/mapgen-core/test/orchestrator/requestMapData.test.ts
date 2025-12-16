@@ -5,7 +5,6 @@
  * 1. Derived from game settings (GameInfo.Maps.lookup)
  * 2. Overrideable via mapSizeDefaults config (for testing)
  * 3. Overrideable via initParams (explicit overrides)
- * 4. Fall back to standard defaults when game info unavailable
  *
  * @module test/orchestrator/requestMapData
  */
@@ -43,29 +42,22 @@ describe("MapOrchestrator.requestMapData", () => {
       expect(params.bottomLatitude).toBe(-85);
     });
 
-    it("should use standard fallbacks when mapInfo is null", () => {
+    it("should throw when mapInfo is missing", () => {
       const adapter = createMockAdapter();
-      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
-        adapter,
-        mapSizeDefaults: {
-          mapSizeId: -1,
-          mapInfo: undefined,
-        },
-      });
-
-      orchestrator.requestMapData();
-
-      expect(adapter.calls.setMapInitData.length).toBe(1);
-      const params = adapter.calls.setMapInitData[0]!;
-
-      // Should fall back to MAPSIZE_STANDARD defaults
-      expect(params.width).toBe(84);
-      expect(params.height).toBe(54);
-      expect(params.topLatitude).toBe(80);
-      expect(params.bottomLatitude).toBe(-80);
+      expect(() => {
+        new MapOrchestrator(getDefaultConfig(), {
+          adapter,
+          mapSizeDefaults: {
+            mapSizeId: -1,
+            // @ts-expect-error - intentionally invalid test input
+            mapInfo: undefined,
+          },
+        }).requestMapData();
+      }).toThrow();
+      expect(adapter.calls.setMapInitData.length).toBe(0);
     });
 
-    it("should use partial mapInfo with fallbacks for missing fields", () => {
+    it("should throw when mapInfo is missing required fields", () => {
       const adapter = createMockAdapter();
       const orchestrator = new MapOrchestrator(getDefaultConfig(), {
         adapter,
@@ -78,15 +70,8 @@ describe("MapOrchestrator.requestMapData", () => {
         },
       });
 
-      orchestrator.requestMapData();
-
-      expect(adapter.calls.setMapInitData.length).toBe(1);
-      const params = adapter.calls.setMapInitData[0]!;
-
-      expect(params.width).toBe(120); // From mapInfo
-      expect(params.height).toBe(54); // Fallback
-      expect(params.topLatitude).toBe(80); // Fallback
-      expect(params.bottomLatitude).toBe(-80); // Fallback
+      expect(() => orchestrator.requestMapData()).toThrow();
+      expect(adapter.calls.setMapInitData.length).toBe(0);
     });
   });
 
@@ -156,7 +141,7 @@ describe("MapOrchestrator.requestMapData", () => {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
-          mapInfo: { GridWidth: 84, GridHeight: 54 },
+          mapInfo: { GridWidth: 84, GridHeight: 54, MinLatitude: -80, MaxLatitude: 80 },
         },
       });
 
@@ -180,7 +165,7 @@ describe("MapOrchestrator.requestMapData", () => {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
-          mapInfo: { GridWidth: 84, GridHeight: 54 },
+          mapInfo: { GridWidth: 84, GridHeight: 54, MinLatitude: -80, MaxLatitude: 80 },
         },
       });
 
