@@ -50,7 +50,6 @@ function buildConfig(plateCount: number): BootstrapConfig {
       storyRifts: true,
       storyOrogeny: true,
       storyCorridorsPre: true,
-      storyPaleo: true,
       storySwatches: true,
       mountains: true,
       volcanoes: true,
@@ -77,7 +76,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
         waterScalar: 1,
         // NOTE (M2): The TS stable slice does not currently consume the legacy
         // boundary/tectonics tuning knobs (boundaryBias, boundaryShareTarget, etc.).
-        // Tune boundary saturation via `foundation.plates` + `foundation.mountains` instead.
+        // Tune boundary saturation via `foundation.plates` + `mountains` instead.
       },
       margins: {
         activeFraction: 0.35,
@@ -97,43 +96,41 @@ function buildConfig(plateCount: number): BootstrapConfig {
           fjordWeight: 0.8,
         },
       },
-      // Configuration moved inside foundation to ensure it is picked up correctly
-      // by the orchestrator without relying on complex merging logic.
+      mountains: {
+        // Balanced physics settings for plate-driven terrain
+        tectonicIntensity: 0.5, // Reduced intensity to preserve playable basins
+        mountainThreshold: 0.7, // Raise threshold to avoid over-mountainizing small maps
+        hillThreshold: 0.35, // Slightly raise hills threshold to preserve flats for starts
+        upliftWeight: 0.37, // Standard uplift contribution
+        fractalWeight: 0.18, // Keep fractal contribution subtle (avoid blanket ruggedness)
+        riftDepth: 0.25,
+        boundaryWeight: 1.0, // Standard boundary weight
+        boundaryExponent: 1.77, // Standard falloff
+        interiorPenaltyWeight: 0.0, // Disabled as per mountains.ts defaults
+        convergenceBonus: 0.4,
+        transformPenalty: 0.6,
+        riftPenalty: 1.0,
+        hillBoundaryWeight: 0.35,
+        hillRiftBonus: 0.25,
+        hillConvergentFoothill: 0.35,
+        hillInteriorFalloff: 0.1,
+        hillUpliftWeight: 0.2,
+      },
+      volcanoes: {
+        baseDensity: 0.008,
+        minSpacing: 4,
+        boundaryThreshold: 0.3,
+        boundaryWeight: 1.2,
+        convergentMultiplier: 1.47,
+        transformMultiplier: 0.8,
+        divergentMultiplier: 0.3,
+        hotspotWeight: 0.4,
+        shieldPenalty: 0.2,
+        randomJitter: 0.1,
+        minVolcanoes: 5,
+        maxVolcanoes: 25,
+      },
       foundation: {
-        mountains: {
-          // Balanced physics settings for plate-driven terrain
-          tectonicIntensity: 0.5, // Reduced intensity to preserve playable basins
-          mountainThreshold: 0.7, // Raise threshold to avoid over-mountainizing small maps
-          hillThreshold: 0.35, // Slightly raise hills threshold to preserve flats for starts
-          upliftWeight: 0.37, // Standard uplift contribution
-          fractalWeight: 0.18, // Keep fractal contribution subtle (avoid blanket ruggedness)
-          riftDepth: 0.25,
-          boundaryWeight: 1.0, // Standard boundary weight
-          boundaryExponent: 1.77, // Standard falloff
-          interiorPenaltyWeight: 0.0, // Disabled as per mountains.ts defaults
-          convergenceBonus: 0.4,
-          transformPenalty: 0.6,
-          riftPenalty: 1.0,
-          hillBoundaryWeight: 0.35,
-          hillRiftBonus: 0.25,
-          hillConvergentFoothill: 0.35,
-          hillInteriorFalloff: 0.1,
-          hillUpliftWeight: 0.2,
-        },
-        volcanoes: {
-          baseDensity: 0.008,
-          minSpacing: 4,
-          boundaryThreshold: 0.3,
-          boundaryWeight: 1.2,
-          convergentMultiplier: 1.47,
-          transformMultiplier: 0.8,
-          divergentMultiplier: 0.3,
-          hotspotWeight: 0.4,
-          shieldPenalty: 0.2,
-          randomJitter: 0.1,
-          minVolcanoes: 5,
-          maxVolcanoes: 25,
-        },
         plates: {
           count: plateCount,
           convergenceMix: 0.65,

@@ -1,16 +1,14 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { bootstrap } from "../../src/bootstrap/entry.js";
-import { resetTunablesForTest } from "../../src/bootstrap/tunables.js";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
 import type { EngineAdapter } from "@civ7/adapter";
 
 /**
- * Minimal integration to pin the canonical config → tunables → orchestrator path.
+ * Minimal integration to pin the canonical config → orchestrator path.
  *
- * We disable all stage execution via stageManifest to avoid engine dependencies
+ * We disable all stage execution via stageConfig to avoid layer dependencies
  * and supply a no-op adapter. The goal is to verify that generateMap() can run
- * end-to-end with schema-defaulted config and bound tunables, not to exercise
- * the full layer pipeline.
+ * end-to-end with schema-defaulted config, not to exercise the full layer pipeline.
  *
  * ## Adapter Architecture
  *
@@ -27,7 +25,7 @@ import type { EngineAdapter } from "@civ7/adapter";
  * (GameplayMap, GameInfo, engine.call, TerrainBuilder, AreaBuilder) that
  * `resolveOrchestratorAdapter()` reads from.
  */
-describe("integration: bootstrap → tunables → orchestrator (stages disabled)", () => {
+describe("integration: bootstrap → orchestrator (stages disabled)", () => {
   const calls: Array<{ method: string; args: unknown[] }> = [];
 
   // EngineAdapter mock for layer operations (terrain, biomes, features, WorldModel)
@@ -103,7 +101,6 @@ describe("integration: bootstrap → tunables → orchestrator (stages disabled)
 
   beforeEach(() => {
     calls.length = 0;
-    resetTunablesForTest();
 
     // Save original globals
     originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
@@ -149,8 +146,6 @@ describe("integration: bootstrap → tunables → orchestrator (stages disabled)
   });
 
   afterEach(() => {
-    resetTunablesForTest();
-
     // Restore original globals
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
@@ -161,8 +156,8 @@ describe("integration: bootstrap → tunables → orchestrator (stages disabled)
 
   it("runs generateMap with schema defaults and no stage execution", () => {
     const config = bootstrap({
-      // Disable all stages so we only exercise the config/tunables/orchestrator wiring.
-      stageManifest: { order: [], stages: {} },
+      // Disable all stages so we only exercise orchestrator scaffolding.
+      stageConfig: {},
     });
 
     const orchestrator = new MapOrchestrator(config, {
@@ -184,7 +179,7 @@ describe("integration: bootstrap → tunables → orchestrator (stages disabled)
 
   it("calls orchestrator adapter methods for map-init operations", () => {
     const config = bootstrap({
-      stageManifest: { order: [], stages: {} },
+      stageConfig: {},
     });
 
     const orchestrator = new MapOrchestrator(config, {

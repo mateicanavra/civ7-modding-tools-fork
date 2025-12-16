@@ -22,13 +22,28 @@
  *   import { bootstrap, MapOrchestrator } from '@swooper/mapgen-core';
  *
  *   engine.on('RequestMapInitData', () => {
- *     const config = bootstrap({});
+ *     const config = bootstrap({ stageConfig: { foundation: true } });
  *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
  *     orchestrator.requestMapData();
  *   });
  *
  *   engine.on('GenerateMap', () => {
- *     const config = bootstrap({ overrides: { ... } });
+ *     const config = bootstrap({
+ *       stageConfig: {
+ *         foundation: true,
+ *         landmassPlates: true,
+ *         coastlines: true,
+ *         mountains: true,
+ *         volcanoes: true,
+ *         climateBaseline: true,
+ *         rivers: true,
+ *         climateRefine: true,
+ *         biomes: true,
+ *         features: true,
+ *         placement: true,
+ *       },
+ *       overrides: { ... },
+ *     });
  *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
  *     orchestrator.generateMap();
  *   });
@@ -42,7 +57,6 @@ import type {
   MountainsConfig,
   VolcanoesConfig,
   ContinentBounds,
-  PlacementConfig,
 } from "./bootstrap/types.js";
 import type { ExtendedMapContext, FoundationContext } from "./core/types.js";
 import type { WorldModelState } from "./world/types.js";
@@ -64,11 +78,9 @@ import {
   NAVIGABLE_RIVER_TERRAIN,
 } from "./core/terrain-constants.js";
 import {
-  getTunables,
-  resetTunables,
-  stageEnabled,
-} from "./bootstrap/tunables.js";
-import { validateStageDrift } from "./bootstrap/resolved.js";
+  isStageEnabled,
+  validateStageDrift,
+} from "./bootstrap/resolved.js";
 import { getStoryTags, resetStoryTags } from "./story/tags.js";
 import { resetStoryOverlays } from "./story/overlays.js";
 import {
@@ -136,34 +148,6 @@ import {
   type DevLogConfig,
   type FoundationPlates,
 } from "./dev/index.js";
-
-function deepMerge<T extends object>(base: T, override: Partial<T> | undefined): T {
-  if (!override || typeof override !== "object") {
-    return base;
-  }
-
-  const result = { ...base } as Record<string, unknown>;
-
-  for (const key of Object.keys(override)) {
-    const baseVal = (base as Record<string, unknown>)[key];
-    const overrideVal = (override as Record<string, unknown>)[key];
-
-    if (
-      baseVal &&
-      typeof baseVal === "object" &&
-      !Array.isArray(baseVal) &&
-      overrideVal &&
-      typeof overrideVal === "object" &&
-      !Array.isArray(overrideVal)
-    ) {
-      result[key] = deepMerge(baseVal as object, overrideVal as object);
-    } else if (overrideVal !== undefined) {
-      result[key] = overrideVal;
-    }
-  }
-
-  return result as T;
-}
 
 // ============================================================================
 // Types
@@ -475,11 +459,6 @@ export class MapOrchestrator {
     // NOTE: options.adapter (EngineAdapter) is used separately for layer operations
     // via createLayerAdapter() - the two adapters serve different purposes.
     this.orchestratorAdapter = resolveOrchestratorAdapter();
-
-    // Note: Tunables must already be bound before constructing MapOrchestrator.
-    // The expected flow is: bootstrap(options) → config → new MapOrchestrator(config)
-    // bootstrap() calls bindTunables() internally, so getTunables() will work.
-    // If tunables are not bound, getTunables() will throw (fail-fast).
   }
 
   /**
@@ -568,15 +547,12 @@ export class MapOrchestrator {
     this.stageResults = [];
     const startPositions: number[] = [];
 
-    // Refresh configuration and tunables snapshot for this generation pass.
-    resetTunables();
-    const tunables = getTunables();
+    const config = this.mapGenConfig;
 
     // Initialize DEV flags from stable-slice diagnostics config.
     // Keys are camelCase and match DevLogConfig.
     resetDevFlags();
-    const foundationCfg = tunables.FOUNDATION_CFG || {};
-    const rawDiagnostics = (foundationCfg.diagnostics || {}) as Record<string, unknown>;
+    const rawDiagnostics = (config.foundation?.diagnostics || {}) as Record<string, unknown>;
     const diagnosticsConfig = { ...rawDiagnostics } as DevLogConfig;
     const hasTruthyFlag = Object.entries(diagnosticsConfig).some(
       ([key, value]) => key !== "enabled" && value === true
@@ -585,8 +561,6 @@ export class MapOrchestrator {
       diagnosticsConfig.enabled = true;
     }
     initDevFlags(diagnosticsConfig);
-
-    console.log(`${prefix} Tunables rebound successfully`);
 
     // Reset WorldModel to ensure fresh state for this generation run
     // This clears any stale plate/dynamics data from previous runs
@@ -621,10 +595,10 @@ export class MapOrchestrator {
       .join(", ");
     console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
 
-    // Get layer configurations from tunables
-    const landmassCfg = tunables.LANDMASS_CFG || {};
-    const mountainsCfg = (foundationCfg.mountains || {}) as MountainsConfig;
-    const volcanosCfg = (foundationCfg.volcanoes || {}) as VolcanoesConfig;
+    // Layer configuration
+    const landmassCfg = config.landmass ?? {};
+    const mountainsCfg = (config.mountains ?? {}) as MountainsConfig;
+    const volcanosCfg = (config.volcanoes ?? {}) as VolcanoesConfig;
 
     // Build mountain options
     const mountainOptions = this.buildMountainOptions(mountainsCfg);
@@ -638,16 +612,11 @@ export class MapOrchestrator {
     try {
       // Create adapter for layer operations
       const layerAdapter = this.createLayerAdapter(iWidth, iHeight);
-      ctx = createExtendedMapContext({ width: iWidth, height: iHeight }, layerAdapter, {
-        toggles: {
-          STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
-          STORY_ENABLE_RIFTS: stageFlags.storyRifts,
-          STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
-          STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
-          STORY_ENABLE_PALEO: tunables.STORY_ENABLE_PALEO,
-          STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
-        },
-      });
+      ctx = createExtendedMapContext(
+        { width: iWidth, height: iHeight },
+        layerAdapter,
+        this.buildContextConfig(stageFlags)
+      );
       console.log(`${prefix} MapContext created successfully`);
     } catch (err) {
       console.error(`${prefix} Failed to create context:`, err);
@@ -664,7 +633,7 @@ export class MapOrchestrator {
     // Note: foundationContext stored for potential future use in story stages
     if (stageFlags.foundation && ctx) {
       const stageResult = this.runStage("foundation", () => {
-        this.initializeFoundation(ctx!, tunables);
+        this.initializeFoundation(ctx!);
       });
       this.stageResults.push(stageResult);
     }
@@ -1111,14 +1080,11 @@ export class MapOrchestrator {
             playersLandmass2: iNumPlayers2,
             westContinent,
             eastContinent,
-            startSectorRows: iStartSectorRows,
-            startSectorCols: iStartSectorCols,
-            startSectors,
-          },
-          placementConfig: deepMerge<PlacementConfig>(
-            ctx.config.foundation?.placement ?? {},
-            ctx.config.placement
-          ),
+          startSectorRows: iStartSectorRows,
+          startSectorCols: iStartSectorCols,
+          startSectors,
+        },
+          placementConfig: ctx.config.placement ?? {},
         });
         startPositions.push(...positions);
       });
@@ -1172,14 +1138,11 @@ export class MapOrchestrator {
     this.stageResults = [];
     const startPositions: number[] = [];
 
-    // Refresh configuration and tunables snapshot for this generation pass.
-    resetTunables();
-    const tunables = getTunables();
+    const config = this.mapGenConfig;
 
     // Initialize DEV flags from stable-slice diagnostics config.
     resetDevFlags();
-    const foundationCfg = tunables.FOUNDATION_CFG || {};
-    const rawDiagnostics = (foundationCfg.diagnostics || {}) as Record<string, unknown>;
+    const rawDiagnostics = (config.foundation?.diagnostics || {}) as Record<string, unknown>;
     const diagnosticsConfig = { ...rawDiagnostics } as DevLogConfig;
     const hasTruthyFlag = Object.entries(diagnosticsConfig).some(
       ([key, value]) => key !== "enabled" && value === true
@@ -1188,8 +1151,6 @@ export class MapOrchestrator {
       diagnosticsConfig.enabled = true;
     }
     initDevFlags(diagnosticsConfig);
-
-    console.log(`${prefix} Tunables rebound successfully`);
 
     // Reset WorldModel to ensure fresh state for this generation run
     WorldModel.reset();
@@ -1223,10 +1184,10 @@ export class MapOrchestrator {
       .join(", ");
     console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
 
-    // Get layer configurations from tunables
-    const landmassCfg = tunables.LANDMASS_CFG || {};
-    const mountainsCfg = (foundationCfg.mountains || {}) as MountainsConfig;
-    const volcanosCfg = (foundationCfg.volcanoes || {}) as VolcanoesConfig;
+    // Layer configuration
+    const landmassCfg = config.landmass ?? {};
+    const mountainsCfg = (config.mountains ?? {}) as MountainsConfig;
+    const volcanosCfg = (config.volcanoes ?? {}) as VolcanoesConfig;
 
     const mountainOptions = this.buildMountainOptions(mountainsCfg);
     const volcanoOptions = this.buildVolcanoOptions(volcanosCfg);
@@ -1235,16 +1196,11 @@ export class MapOrchestrator {
     let ctx: ExtendedMapContext | null = null;
     try {
       const layerAdapter = this.createLayerAdapter(iWidth, iHeight);
-      ctx = createExtendedMapContext({ width: iWidth, height: iHeight }, layerAdapter, {
-        toggles: {
-          STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
-          STORY_ENABLE_RIFTS: stageFlags.storyRifts,
-          STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
-          STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
-          STORY_ENABLE_PALEO: tunables.STORY_ENABLE_PALEO,
-          STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
-        },
-      });
+      ctx = createExtendedMapContext(
+        { width: iWidth, height: iHeight },
+        layerAdapter,
+        this.buildContextConfig(stageFlags)
+      );
       console.log(`${prefix} MapContext created successfully`);
     } catch (err) {
       console.error(`${prefix} Failed to create context:`, err);
@@ -1277,7 +1233,7 @@ export class MapOrchestrator {
     let eastContinent = this.createDefaultContinentBounds(iWidth, iHeight, "east");
 
     const registry = new StepRegistry<ExtendedMapContext>();
-    const stageManifest = tunables.STAGE_MANIFEST;
+    const stageManifest = config.stageManifest ?? { order: [], stages: {} };
 
     const getStageDescriptor = (
       stageName: string
@@ -1295,7 +1251,7 @@ export class MapOrchestrator {
       ...getStageDescriptor("foundation"),
       shouldRun: () => stageFlags.foundation,
       run: () => {
-        this.initializeFoundation(ctx!, tunables);
+        this.initializeFoundation(ctx!);
       },
     });
 
@@ -1784,29 +1740,48 @@ export class MapOrchestrator {
   // Private Helpers
   // ==========================================================================
 
+  private buildContextConfig(stageFlags: Record<string, boolean>): MapGenConfig {
+    const base = this.mapGenConfig;
+    const baseToggles = (base.toggles ?? {}) as Record<string, unknown>;
+    const paleo = (base.toggles as { STORY_ENABLE_PALEO?: boolean } | undefined)?.STORY_ENABLE_PALEO;
+
+    return {
+      ...base,
+      toggles: {
+        ...baseToggles,
+        STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
+        STORY_ENABLE_RIFTS: stageFlags.storyRifts,
+        STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
+        STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
+        STORY_ENABLE_PALEO: paleo ?? true,
+        STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
+      },
+    };
+  }
+
   private resolveStageFlags(): Record<string, boolean> {
     const flags = {
-      foundation: stageEnabled("foundation"),
-      landmassPlates: stageEnabled("landmassPlates"),
-      coastlines: stageEnabled("coastlines"),
-      storySeed: stageEnabled("storySeed"),
-      storyHotspots: stageEnabled("storyHotspots"),
-      storyRifts: stageEnabled("storyRifts"),
-      ruggedCoasts: stageEnabled("ruggedCoasts"),
-      storyOrogeny: stageEnabled("storyOrogeny"),
-      storyCorridorsPre: stageEnabled("storyCorridorsPre"),
-      islands: stageEnabled("islands"),
-      mountains: stageEnabled("mountains"),
-      volcanoes: stageEnabled("volcanoes"),
-      lakes: stageEnabled("lakes"),
-      climateBaseline: stageEnabled("climateBaseline"),
-      storySwatches: stageEnabled("storySwatches"),
-      rivers: stageEnabled("rivers"),
-      storyCorridorsPost: stageEnabled("storyCorridorsPost"),
-      climateRefine: stageEnabled("climateRefine"),
-      biomes: stageEnabled("biomes"),
-      features: stageEnabled("features"),
-      placement: stageEnabled("placement"),
+      foundation: isStageEnabled(this.mapGenConfig.stageManifest, "foundation"),
+      landmassPlates: isStageEnabled(this.mapGenConfig.stageManifest, "landmassPlates"),
+      coastlines: isStageEnabled(this.mapGenConfig.stageManifest, "coastlines"),
+      storySeed: isStageEnabled(this.mapGenConfig.stageManifest, "storySeed"),
+      storyHotspots: isStageEnabled(this.mapGenConfig.stageManifest, "storyHotspots"),
+      storyRifts: isStageEnabled(this.mapGenConfig.stageManifest, "storyRifts"),
+      ruggedCoasts: isStageEnabled(this.mapGenConfig.stageManifest, "ruggedCoasts"),
+      storyOrogeny: isStageEnabled(this.mapGenConfig.stageManifest, "storyOrogeny"),
+      storyCorridorsPre: isStageEnabled(this.mapGenConfig.stageManifest, "storyCorridorsPre"),
+      islands: isStageEnabled(this.mapGenConfig.stageManifest, "islands"),
+      mountains: isStageEnabled(this.mapGenConfig.stageManifest, "mountains"),
+      volcanoes: isStageEnabled(this.mapGenConfig.stageManifest, "volcanoes"),
+      lakes: isStageEnabled(this.mapGenConfig.stageManifest, "lakes"),
+      climateBaseline: isStageEnabled(this.mapGenConfig.stageManifest, "climateBaseline"),
+      storySwatches: isStageEnabled(this.mapGenConfig.stageManifest, "storySwatches"),
+      rivers: isStageEnabled(this.mapGenConfig.stageManifest, "rivers"),
+      storyCorridorsPost: isStageEnabled(this.mapGenConfig.stageManifest, "storyCorridorsPost"),
+      climateRefine: isStageEnabled(this.mapGenConfig.stageManifest, "climateRefine"),
+      biomes: isStageEnabled(this.mapGenConfig.stageManifest, "biomes"),
+      features: isStageEnabled(this.mapGenConfig.stageManifest, "features"),
+      placement: isStageEnabled(this.mapGenConfig.stageManifest, "placement"),
     };
 
     // Validate resolver/orchestrator stage alignment (runs once per session)
@@ -1857,25 +1832,23 @@ export class MapOrchestrator {
     if (this.worldModelConfigBound) return;
 
     setConfigProvider((): WorldModelConfig => {
-      const tunables = getTunables();
+      const foundationCfg = this.mapGenConfig.foundation ?? {};
       return {
-        plates: tunables.FOUNDATION_PLATES,
-        dynamics: tunables.FOUNDATION_DYNAMICS,
-        directionality: tunables.FOUNDATION_DIRECTIONALITY,
+        plates: (foundationCfg.plates ?? {}) as WorldModelConfig["plates"],
+        dynamics: (foundationCfg.dynamics ?? {}) as WorldModelConfig["dynamics"],
+        directionality: (foundationCfg.dynamics?.directionality ??
+          {}) as WorldModelConfig["directionality"],
       };
     });
 
     this.worldModelConfigBound = true;
   }
 
-  private initializeFoundation(
-    ctx: ExtendedMapContext,
-    tunables: ReturnType<typeof getTunables>
-  ): FoundationContext {
+  private initializeFoundation(ctx: ExtendedMapContext): FoundationContext {
     const prefix = this.options.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} Initializing foundation...`);
 
-    // Ensure WorldModel pulls configuration from foundation tunables
+    // Ensure WorldModel pulls configuration from injected config.
     this.bindWorldModelConfigProvider();
     console.log(`${prefix} WorldModel.init() starting`);
     if (!WorldModel.init()) {
@@ -1884,14 +1857,14 @@ export class MapOrchestrator {
     console.log(`${prefix} WorldModel.init() succeeded`);
     ctx.worldModel = WorldModel as unknown as WorldModelState;
 
-    const foundationCfg = tunables.FOUNDATION_CFG || {};
+    const foundationCfg = ctx.config.foundation ?? {};
     console.log(`${prefix} createFoundationContext() starting`);
     const foundationContext = createFoundationContext(WorldModel as unknown as WorldModelState, {
       dimensions: ctx.dimensions,
       config: {
         seed: (foundationCfg.seed || {}) as Record<string, unknown>,
-        plates: tunables.FOUNDATION_PLATES as Record<string, unknown>,
-        dynamics: tunables.FOUNDATION_DYNAMICS as Record<string, unknown>,
+        plates: (foundationCfg.plates || {}) as Record<string, unknown>,
+        dynamics: (foundationCfg.dynamics || {}) as Record<string, unknown>,
         surface: (foundationCfg.surface || {}) as Record<string, unknown>,
         policy: (foundationCfg.policy || {}) as Record<string, unknown>,
         diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,

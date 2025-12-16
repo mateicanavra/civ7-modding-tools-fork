@@ -16,7 +16,6 @@ import type {
   LandmassGeometryPost,
 } from "../bootstrap/types.js";
 import { ctxRandom, writeHeightfield } from "../core/types.js";
-import { getTunables } from "../bootstrap/tunables.js";
 import { buildPlateTopology, type PlateGraph } from "../lib/plates/topology.js";
 import { assignCrustTypes, CrustType } from "../lib/plates/crust.js";
 import { generateBaseHeightfield } from "../lib/heightfield/base.js";
@@ -374,10 +373,9 @@ export function createPlateDrivenLandmasses(
     return null;
   }
 
-  const tunables = getTunables();
   // Cast to our local LandmassConfig which includes extended properties
   const landmassCfg: LandmassConfig = (options.landmassCfg ||
-    (tunables.LANDMASS_CFG as unknown as LandmassConfig) ||
+    (ctx?.config?.landmass as unknown as LandmassConfig) ||
     {}) as LandmassConfig;
 
   const geomCfg: GeometryConfig = options.geometry || {};
@@ -399,7 +397,7 @@ export function createPlateDrivenLandmasses(
     Math.min(totalTiles - 1, Math.round(totalTiles * (1 - waterPct / 100)))
   );
 
-  const foundationCfg = tunables.FOUNDATION_CFG as {
+  const foundationCfg = (ctx?.config?.foundation ?? {}) as {
     crustMode?: CrustMode;
     surface?: { crustMode?: CrustMode; landmass?: { crustMode?: CrustMode } };
   };

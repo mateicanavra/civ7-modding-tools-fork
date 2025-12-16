@@ -18,7 +18,6 @@
 import type { ExtendedMapContext } from "../core/types.js";
 import { ctxRandom } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
-import { getTunables } from "../bootstrap/tunables.js";
 import { inBounds as boundsCheck } from "../core/index.js";
 import { getPublishedClimateField } from "../pipeline/artifacts.js";
 
@@ -70,11 +69,11 @@ export function addDiverseFeatures(
   // 1) Base-standard features (vanilla-compatible baseline) via the real engine
   adapter.addFeatures(iWidth, iHeight);
 
-  const tunables = getTunables();
-  const foundationCfg = tunables.FOUNDATION_CFG || {};
-  const storyTunables = (foundationCfg.story || {}) as { features?: FeaturesConfig };
+  const config = ctx.config;
+  const toggles = config.toggles || {};
+  const storyTunables = (config.story || {}) as { features?: FeaturesConfig };
   const featuresCfg = storyTunables.features || {};
-  const densityCfg = (foundationCfg.featuresDensity || {}) as FeaturesDensityConfig;
+  const densityCfg = (config.featuresDensity || {}) as FeaturesDensityConfig;
 
   const StoryTags = getStoryTags();
 
@@ -110,7 +109,7 @@ export function addDiverseFeatures(
 
   // 2) Paradise reefs near hotspot paradise centers
   if (
-    tunables.STORY_ENABLE_HOTSPOTS &&
+    toggles.STORY_ENABLE_HOTSPOTS &&
     reefIndex !== -1 &&
     StoryTags.hotspotParadise.size > 0 &&
     paradiseReefChance > 0
@@ -198,7 +197,7 @@ export function addDiverseFeatures(
       const plat = Math.abs(adapter.getLatitude(x, y));
 
       // 3a) Volcanic vegetation near volcanic hotspot centers (radius 1)
-      if (tunables.STORY_ENABLE_HOTSPOTS && StoryTags.hotspotVolcanic.size > 0) {
+      if (toggles.STORY_ENABLE_HOTSPOTS && StoryTags.hotspotVolcanic.size > 0) {
         let nearVolcanic = false;
 
         for (let vdy = -1; vdy <= 1 && !nearVolcanic; vdy++) {

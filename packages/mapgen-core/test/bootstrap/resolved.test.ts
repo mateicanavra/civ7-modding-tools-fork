@@ -4,8 +4,8 @@
  * Tests for the Config Air Gap fix: stageConfig -> stageManifest resolution.
  *
  * Key acceptance criteria:
- * - stageEnabled("foundation") returns true when stageConfig.foundation = true
- * - stageEnabled("landmassPlates") returns true when stageConfig.landmassPlates = true
+ * - isStageEnabled(manifest, "foundation") returns true when stageConfig.foundation = true
+ * - isStageEnabled(manifest, "landmassPlates") returns true when stageConfig.landmassPlates = true
  * - Disabled stages return false
  */
 
@@ -13,8 +13,8 @@ import { describe, it, expect, beforeEach, spyOn } from "bun:test";
 import {
   bootstrap,
   resetBootstrap,
-  stageEnabled,
   STAGE_ORDER,
+  isStageEnabled,
   resolveStageManifest,
   validateOverrides,
   validateStageDrift,
@@ -130,9 +130,9 @@ describe("bootstrap/resolved", () => {
     });
   });
 
-  describe("stageEnabled integration", () => {
+  describe("isStageEnabled integration", () => {
     it("returns true for enabled stages after bootstrap", () => {
-      bootstrap({
+      const config = bootstrap({
         stageConfig: {
           foundation: true,
           landmassPlates: true,
@@ -140,13 +140,13 @@ describe("bootstrap/resolved", () => {
         },
       });
 
-      expect(stageEnabled("foundation")).toBe(true);
-      expect(stageEnabled("landmassPlates")).toBe(true);
-      expect(stageEnabled("coastlines")).toBe(true);
+      expect(isStageEnabled(config.stageManifest, "foundation")).toBe(true);
+      expect(isStageEnabled(config.stageManifest, "landmassPlates")).toBe(true);
+      expect(isStageEnabled(config.stageManifest, "coastlines")).toBe(true);
     });
 
     it("returns false for disabled stages after bootstrap", () => {
-      bootstrap({
+      const config = bootstrap({
         stageConfig: {
           foundation: true,
           landmassPlates: true,
@@ -154,19 +154,19 @@ describe("bootstrap/resolved", () => {
       });
 
       // Not enabled in stageConfig
-      expect(stageEnabled("biomes")).toBe(false);
-      expect(stageEnabled("features")).toBe(false);
-      expect(stageEnabled("placement")).toBe(false);
+      expect(isStageEnabled(config.stageManifest, "biomes")).toBe(false);
+      expect(isStageEnabled(config.stageManifest, "features")).toBe(false);
+      expect(isStageEnabled(config.stageManifest, "placement")).toBe(false);
     });
 
     it("returns false for unknown stages", () => {
-      bootstrap({
+      const config = bootstrap({
         stageConfig: {
           foundation: true,
         },
       });
 
-      expect(stageEnabled("nonexistent")).toBe(false);
+      expect(isStageEnabled(config.stageManifest, "nonexistent")).toBe(false);
     });
 
     it("populates stageManifest in config after bootstrap", () => {
@@ -247,7 +247,7 @@ describe("bootstrap/resolved", () => {
   describe("full integration: Config Air Gap fix", () => {
     it("stageConfig enables stages via manifest (acceptance test)", () => {
       // This is the key acceptance test from the issue spec
-      bootstrap({
+      const config = bootstrap({
         stageConfig: {
           foundation: true,
           landmassPlates: true,
@@ -255,36 +255,34 @@ describe("bootstrap/resolved", () => {
         },
       });
 
-      expect(stageEnabled("foundation")).toBe(true);
-      expect(stageEnabled("landmassPlates")).toBe(true);
-      expect(stageEnabled("coastlines")).toBe(true);
-      expect(stageEnabled("biomes")).toBe(false); // Not enabled
+      expect(isStageEnabled(config.stageManifest, "foundation")).toBe(true);
+      expect(isStageEnabled(config.stageManifest, "landmassPlates")).toBe(true);
+      expect(isStageEnabled(config.stageManifest, "coastlines")).toBe(true);
+      expect(isStageEnabled(config.stageManifest, "biomes")).toBe(false); // Not enabled
     });
 
     it("all stages disabled when no stageConfig provided", () => {
-      bootstrap({});
+      const config = bootstrap({});
 
       // Without stageConfig, all stages should be disabled
-      expect(stageEnabled("foundation")).toBe(false);
-      expect(stageEnabled("landmassPlates")).toBe(false);
+      expect(isStageEnabled(config.stageManifest, "foundation")).toBe(false);
+      expect(isStageEnabled(config.stageManifest, "landmassPlates")).toBe(false);
     });
 
     it("stages remain correct after resetBootstrap", () => {
-      bootstrap({
+      const first = bootstrap({
         stageConfig: { foundation: true },
       });
-      expect(stageEnabled("foundation")).toBe(true);
+      expect(isStageEnabled(first.stageManifest, "foundation")).toBe(true);
 
       resetBootstrap();
-      // After reset, stageEnabled throws because tunables are not bound (fail-fast)
-      expect(() => stageEnabled("foundation")).toThrow("Tunables not initialized");
 
       // Bootstrap again with different config
-      bootstrap({
+      const next = bootstrap({
         stageConfig: { biomes: true },
       });
-      expect(stageEnabled("foundation")).toBe(false);
-      expect(stageEnabled("biomes")).toBe(true);
+      expect(isStageEnabled(next.stageManifest, "foundation")).toBe(false);
+      expect(isStageEnabled(next.stageManifest, "biomes")).toBe(true);
     });
   });
 

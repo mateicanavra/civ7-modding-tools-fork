@@ -13,7 +13,6 @@ import { ctxRandom, writeClimateField } from "../core/types.js";
 import type { FoundationContext } from "../core/types.js";
 import { getStoryTags } from "../story/tags.js";
 import { M3_DEPENDENCY_TAGS } from "../pipeline/tags.js";
-import { getTunables } from "../bootstrap/tunables.js";
 import { clamp, inBounds as boundsCheck } from "../core/index.js";
 
 // ============================================================================
@@ -366,8 +365,7 @@ export function applyClimateBaseline(
   ctx.buffers.climate.rainfall.fill(0);
   if (ctx.fields?.rainfall) ctx.fields.rainfall.fill(0);
 
-  const tunables = getTunables();
-  const climateCfg = tunables.CLIMATE_CFG || {};
+  const climateCfg = ctx.config.climate || {};
   const baselineCfg = climateCfg.baseline || {};
   const bands = (baselineCfg.bands || {}) as Record<string, number>;
   const blend = (baselineCfg.blend || {}) as Record<string, number>;
@@ -465,12 +463,13 @@ export function applyClimateSwatches(
       "ClimateEngine: applyClimateSwatches requires MapContext (legacy direct-engine fallback removed)."
     );
   }
-  const tunables = getTunables();
-  const climateCfg = tunables.CLIMATE_CFG || {};
+  const climateCfg = ctx.config.climate || {};
   const storyMoisture = (climateCfg as Record<string, unknown>).story as
     | Record<string, unknown>
     | undefined;
-  const cfg = storyMoisture?.swatches as Record<string, unknown> | undefined;
+  const cfg =
+    ((climateCfg as Record<string, unknown>).swatches as Record<string, unknown> | undefined) ??
+    (storyMoisture?.swatches as Record<string, unknown> | undefined);
 
   if (!cfg) return { applied: false, kind: "missing-config" };
 
@@ -511,7 +510,7 @@ export function applyClimateSwatches(
 
   // Apply directionality adjustments
   try {
-    const DIR = tunables.FOUNDATION_DIRECTIONALITY || {};
+    const DIR = (ctx.config.foundation?.dynamics?.directionality || {}) as FoundationDirectionalityConfig;
     const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
     if (COH > 0) {
       const windDeg = (DIR?.primaryAxes?.windBiasDeg ?? 0) | 0;
@@ -647,7 +646,7 @@ export function applyClimateSwatches(
 
   // Monsoon bias pass
   try {
-    const DIR = tunables.FOUNDATION_DIRECTIONALITY || {};
+    const DIR = (ctx.config.foundation?.dynamics?.directionality || {}) as FoundationDirectionalityConfig;
     const hemispheres = (DIR as Record<string, unknown>).hemispheres as
       | Record<string, number>
       | undefined;
@@ -729,8 +728,7 @@ export function refineClimateEarthlike(
   const { adapter, readRainfall, writeRainfall } = runtime;
   const dynamics = ctx?.foundation?.dynamics;
 
-  const tunables = getTunables();
-  const climateCfg = tunables.CLIMATE_CFG || {};
+  const climateCfg = ctx.config.climate || {};
   const refineCfg = climateCfg.refine || {};
   const storyMoisture = (climateCfg as Record<string, unknown>).story as
     | Record<string, unknown>
@@ -778,7 +776,7 @@ export function refineClimateEarthlike(
         let steps = baseSteps;
 
         try {
-          const DIR = tunables.FOUNDATION_DIRECTIONALITY || {};
+          const DIR = (ctx.config.foundation?.dynamics?.directionality || {}) as FoundationDirectionalityConfig;
           const coh = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
           const interplay = (DIR as Record<string, unknown>).interplay as
             | Record<string, number>
@@ -890,10 +888,10 @@ export function refineClimateEarthlike(
 
   // Pass E: Orogeny belts (windward/lee)
   {
-    const storyTunables = (tunables.FOUNDATION_CFG?.story || {}) as Record<string, unknown>;
+    const storyTunables = (ctx.config.story || {}) as Record<string, unknown>;
     const orogenyTunables = (storyTunables.orogeny || {}) as Record<string, number>;
 
-    if (tunables.STORY_ENABLE_OROGENY && orogenyCache !== null) {
+    if (ctx.config.toggles?.STORY_ENABLE_OROGENY && orogenyCache !== null) {
       const windwardSet = orogenyCache.windward;
       const leeSet = orogenyCache.lee;
       const hasWindward = (windwardSet?.size ?? 0) > 0;
