@@ -40,15 +40,6 @@ function buildConfig(): BootstrapConfig {
       placement: true,
     },
     overrides: {
-      toggles: {
-        // Enable standard story features for variety
-        STORY_ENABLE_HOTSPOTS: true,
-        STORY_ENABLE_RIFTS: true,
-        STORY_ENABLE_OROGENY: true,
-        STORY_ENABLE_SWATCHES: true,
-        STORY_ENABLE_PALEO: true,
-        STORY_ENABLE_CORRIDORS: true,
-      },
       landmass: {
         crustMode: "area",
         baseWaterPercent: 53, // More ocean for distinct continents

@@ -52,7 +52,6 @@ export {
   StageManifestSchema,
   StartsConfigSchema,
   StoryConfigSchema,
-  TogglesSchema,
   VolcanoesConfigSchema,
 } from "./schema.js";
 
@@ -108,7 +107,6 @@ export type {
   StageManifest,
   StartsConfig,
   StoryConfig,
-  Toggles,
   VolcanoesConfig,
 } from "./schema.js";
 

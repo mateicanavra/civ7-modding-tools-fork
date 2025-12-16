@@ -45,7 +45,6 @@ import type {
   StageManifest,
   StartsConfig,
   StoryConfig,
-  Toggles,
   VolcanoesConfig,
 } from "../config/index.js";
 
@@ -90,7 +89,6 @@ export type {
   StageManifest,
   StartsConfig,
   StoryConfig,
-  Toggles,
   VolcanoesConfig,
 };
 

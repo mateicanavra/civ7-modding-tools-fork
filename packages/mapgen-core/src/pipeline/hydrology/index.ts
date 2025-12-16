@@ -49,7 +49,7 @@ export function registerHydrologyLayer(
       ...runtime.getStageDescriptor("rivers"),
       shouldRun: () => stageFlags.rivers,
       logPrefix: runtime.logPrefix,
-      shouldRunPaleo: (context) => stageFlags.storySwatches && context.config.toggles?.STORY_ENABLE_PALEO === true,
+      shouldRunPaleo: (context) => stageFlags.storySwatches && context.config.climate?.story?.paleo != null,
     })
   );
 

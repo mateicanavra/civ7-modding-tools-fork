@@ -67,7 +67,7 @@ export const StageConfigSchema = Type.Record(Type.String(), Type.Boolean(), {
 
 /**
  * Descriptor for a stage in the orchestrated manifest.
- * Captures dependencies, provided tags, and legacy toggle aliases.
+ * Captures dependencies and provided tags.
  *
  * @internal Engine plumbing for stage resolution; not part of the public mod API.
  */
@@ -90,12 +90,6 @@ export const StageDescriptorSchema = Type.Object(
         default: [],
         description:
           "Dependency tags this stage makes available to dependents (data artifacts, fields, and/or engine-state guarantees). Note: state:engine.* tags are treated as trusted assertions in M3 and are not runtime-verified.",
-      })
-    ),
-    legacyToggles: Type.Optional(
-      Type.Array(Type.String(), {
-        default: [],
-        description: "Legacy boolean toggles that map to this stage for backward compatibility.",
       })
     ),
     blockedBy: Type.Optional(
@@ -128,81 +122,6 @@ export const StageManifestSchema = Type.Object(
     description: "[internal] Stage manifest for orchestrated pipeline execution.",
     [INTERNAL_METADATA_KEY]: true,
   }
-);
-
-/**
- * High-level toggles that mirror the legacy STORY_ENABLE_* flags.
- */
-export const TogglesSchema = Type.Object(
-  {
-    /**
-     * Whether volcanic/paradise hotspots are allowed to generate story overlays.
-     * When enabled, creates Hawaii-style island chains and lush paradise archipelagos.
-     * @default true
-     */
-    STORY_ENABLE_HOTSPOTS: Type.Optional(
-      Type.Boolean({
-        default: true,
-        description: "Whether volcanic/paradise hotspots are allowed to generate story overlays.",
-      })
-    ),
-    /**
-     * Whether continental rift valleys and shoulders should be created.
-     * Produces East-African-style rift features with elevated shoulders and lowland troughs.
-     * @default true
-     */
-    STORY_ENABLE_RIFTS: Type.Optional(
-      Type.Boolean({
-        default: true,
-        description: "Whether continental rift valleys and shoulders should be created.",
-      })
-    ),
-    /**
-     * Controls whether orogenic mountain belts are simulated along convergent margins.
-     * Creates Andes/Himalayas-style ranges where plates collide.
-     * @default true
-     */
-    STORY_ENABLE_OROGENY: Type.Optional(
-      Type.Boolean({
-        default: true,
-        description: "Controls whether orogenic mountain belts are simulated along convergent margins.",
-      })
-    ),
-    /**
-     * Enables macro swatch overrides that recolor large climate regions.
-     * Creates coherent biome patches (e.g., Sahara-sized deserts or Amazon-style rainforests).
-     * @default true
-     */
-    STORY_ENABLE_SWATCHES: Type.Optional(
-      Type.Boolean({
-        default: true,
-        description: "Enables macro swatch overrides that recolor large climate regions.",
-      })
-    ),
-    /**
-     * Enables paleo-hydrology artifacts such as fossil channels and oxbows.
-     * Adds dry riverbeds and ancient lake basins for terrain variety.
-     * @default true
-     */
-    STORY_ENABLE_PALEO: Type.Optional(
-      Type.Boolean({
-        default: true,
-        description: "Enables paleo-hydrology artifacts such as fossil channels and oxbows.",
-      })
-    ),
-    /**
-     * Controls whether strategic corridor protection is applied.
-     * Preserves navigable sea lanes and land bridges for gameplay connectivity.
-     * @default true
-     */
-    STORY_ENABLE_CORRIDORS: Type.Optional(
-      Type.Boolean({
-        default: true,
-        description: "Controls whether strategic corridor protection is applied.",
-      })
-    ),
-  },
-  { additionalProperties: true, default: {} }
 );
 
 /**
@@ -2354,8 +2273,6 @@ export const MapGenConfigSchema = Type.Object(
     stageConfig: Type.Optional(StageConfigSchema),
     /** @internal Custom stage manifest for advanced pipelines (engine plumbing). */
     stageManifest: Type.Optional(StageManifestSchema),
-    /** Feature toggles controlling story events and generation features. */
-    toggles: Type.Optional(TogglesSchema),
     /** Landmass geometry: water percent, tectonic bias, and post-processing. */
     landmass: Type.Optional(LandmassConfigSchema),
     /** Foundation stage config: plates, dynamics, and internal policy/diagnostics. */
@@ -2394,7 +2311,6 @@ export const MapGenConfigSchema = Type.Object(
 export type StageConfig = Static<typeof StageConfigSchema>;
 export type StageDescriptor = Static<typeof StageDescriptorSchema>;
 export type StageManifest = Static<typeof StageManifestSchema>;
-export type Toggles = Static<typeof TogglesSchema>;
 export type LandmassTectonicsConfig = Static<typeof LandmassTectonicsConfigSchema>;
 export type LandmassGeometryPost = Static<typeof LandmassGeometryPostSchema>;
 export type LandmassGeometry = Static<typeof LandmassGeometrySchema>;

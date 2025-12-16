@@ -394,7 +394,7 @@ export class MapOrchestrator {
       ctx = createExtendedMapContext(
         { width: iWidth, height: iHeight },
         layerAdapter,
-        this.buildContextConfig(stageFlags)
+        config
       );
       console.log(`${prefix} MapContext created successfully`);
     } catch (err) {
@@ -536,25 +536,6 @@ export class MapOrchestrator {
   // ==========================================================================
   // Private Helpers
   // ==========================================================================
-
-  private buildContextConfig(stageFlags: Record<string, boolean>): MapGenConfig {
-    const base = this.mapGenConfig;
-    const baseToggles = (base.toggles ?? {}) as Record<string, unknown>;
-    const paleo = (base.toggles as { STORY_ENABLE_PALEO?: boolean } | undefined)?.STORY_ENABLE_PALEO;
-
-    return {
-      ...base,
-      toggles: {
-        ...baseToggles,
-        STORY_ENABLE_HOTSPOTS: stageFlags.storyHotspots,
-        STORY_ENABLE_RIFTS: stageFlags.storyRifts,
-        STORY_ENABLE_OROGENY: stageFlags.storyOrogeny,
-        STORY_ENABLE_SWATCHES: stageFlags.storySwatches,
-        STORY_ENABLE_PALEO: paleo ?? true,
-        STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
-      },
-    };
-  }
 
   private buildPlacementStartsConfig(
     baseStarts: StartsConfig,

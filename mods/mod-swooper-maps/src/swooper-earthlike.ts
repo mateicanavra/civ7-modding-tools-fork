@@ -36,14 +36,6 @@ function buildConfig(): BootstrapConfig {
       placement: true,
     },
     overrides: {
-      toggles: {
-        STORY_ENABLE_HOTSPOTS: true,
-        STORY_ENABLE_RIFTS: true,
-        STORY_ENABLE_OROGENY: true,
-        STORY_ENABLE_SWATCHES: true,
-        STORY_ENABLE_PALEO: true,
-        STORY_ENABLE_CORRIDORS: true,
-      },
       landmass: {
         crustMode: "area",
         // Earth-like ocean dominance (~70% water).

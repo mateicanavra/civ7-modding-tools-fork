@@ -271,7 +271,7 @@ describe("bootstrap/resolved", () => {
       validateOverrides(
         {
           landmass: { baseWaterPercent: 40 },
-          toggles: { STORY_ENABLE_HOTSPOTS: false },
+          story: { hotspot: { maxTrails: 1 } },
         },
         manifest
       );

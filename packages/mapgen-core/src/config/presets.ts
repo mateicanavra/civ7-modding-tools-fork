@@ -55,14 +55,6 @@ const PRESETS: Readonly<Record<MapGenPresetName, DeepPartial<MapGenConfig>>> = O
       foundation: true,
       landmassPlates: true,
     },
-    toggles: {
-      STORY_ENABLE_HOTSPOTS: true,
-      STORY_ENABLE_RIFTS: true,
-      STORY_ENABLE_OROGENY: true,
-      STORY_ENABLE_SWATCHES: true,
-      STORY_ENABLE_PALEO: true,
-      STORY_ENABLE_CORRIDORS: true,
-    },
     foundation: {
       diagnostics: {
         enabled: false,
@@ -76,14 +68,6 @@ const PRESETS: Readonly<Record<MapGenPresetName, DeepPartial<MapGenConfig>>> = O
     stageConfig: {
       foundation: true,
       landmassPlates: true,
-    },
-    toggles: {
-      STORY_ENABLE_HOTSPOTS: true,
-      STORY_ENABLE_RIFTS: true,
-      STORY_ENABLE_OROGENY: true,
-      STORY_ENABLE_SWATCHES: true,
-      STORY_ENABLE_PALEO: true,
-      STORY_ENABLE_CORRIDORS: true,
     },
     foundation: {
       dynamics: {
