@@ -20,6 +20,7 @@ import { buildPlateTopology, type PlateGraph } from "../../../lib/plates/topolog
 import { assignCrustTypes, CrustType } from "../../../lib/plates/crust.js";
 import { generateBaseHeightfield } from "../../../lib/heightfield/base.js";
 import { computeSeaLevel } from "../../../lib/heightfield/sea-level.js";
+import { clampInt, clampPct } from "../../../lib/math/index.js";
 import type { LandmassWindow } from "./utils.js";
 
 // ============================================================================
@@ -90,25 +91,6 @@ type CrustMode = "legacy" | "area";
 
 function normalizeCrustMode(mode: unknown): CrustMode {
   return mode === "area" ? "area" : "legacy";
-}
-
-function clampInt(value: number, min: number, max: number): number {
-  if (!Number.isFinite(value)) return min;
-  if (value < min) return min;
-  if (value > max) return max;
-  return value;
-}
-
-function clampPct(value: number, min: number, max: number, fallback: number): number {
-  if (!Number.isFinite(value)) return fallback;
-  return Math.max(min, Math.min(max, value));
-}
-
-function clamp01(value: number | undefined, fallback: number = 0): number {
-  if (value === undefined || !Number.isFinite(value)) return fallback;
-  if (value < 0) return 0;
-  if (value > 1) return 1;
-  return value;
 }
 
 function computeClosenessLimit(postCfg: GeometryPostConfig | undefined): number {
@@ -231,16 +213,19 @@ function tryCrustFirstLandmask(
   const plateCount = maxPlateId + 1;
   if (plateCount <= 0) return null;
 
-  const continentalFraction = clamp01(
+  const computedDefault = targetLandTiles / size;
+  const continentalFraction = clampPct(
     (landmassCfg.continentalFraction as number) ??
       (landmassCfg.crustContinentalFraction as number) ??
-      targetLandTiles / size,
-    targetLandTiles / size
+      computedDefault,
+    0,
+    1,
+    computedDefault
   );
-  const clusteringBias = clamp01((landmassCfg.crustClusteringBias as number) ?? 0.7, 0.7);
-  const microcontinentChance = clamp01((landmassCfg.microcontinentChance as number) ?? 0.04, 0.04);
-  const edgeBlend = clamp01((landmassCfg.crustEdgeBlend as number) ?? 0.45, 0.45);
-  const noiseAmplitude = clamp01((landmassCfg.crustNoiseAmplitude as number) ?? 0.08, 0.08);
+  const clusteringBias = clampPct((landmassCfg.crustClusteringBias as number) ?? NaN, 0, 1, 0.7);
+  const microcontinentChance = clampPct((landmassCfg.microcontinentChance as number) ?? NaN, 0, 1, 0.04);
+  const edgeBlend = clampPct((landmassCfg.crustEdgeBlend as number) ?? NaN, 0, 1, 0.45);
+  const noiseAmplitude = clampPct((landmassCfg.crustNoiseAmplitude as number) ?? NaN, 0, 1, 0.08);
   const continentalHeight = Number.isFinite(landmassCfg.continentalHeight)
     ? (landmassCfg.continentalHeight as number)
     : 0.32;

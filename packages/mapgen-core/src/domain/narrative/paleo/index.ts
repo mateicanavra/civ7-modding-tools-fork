@@ -9,6 +9,8 @@
 import type { ExtendedMapContext } from "../../../core/types.js";
 import { inBounds } from "../../../core/index.js";
 import { ctxRandom, writeClimateField } from "../../../core/types.js";
+import { idx } from "../../../lib/grid/index.js";
+import { clamp } from "../../../lib/math/index.js";
 
 export interface PaleoSummary {
   deltas: number;
@@ -22,10 +24,6 @@ function getDims(ctx: ExtendedMapContext | null | undefined): { width: number; h
   const width = typeof GameplayMap !== "undefined" ? GameplayMap.getGridWidth() : 0;
   const height = typeof GameplayMap !== "undefined" ? GameplayMap.getGridHeight() : 0;
   return { width, height };
-}
-
-function clamp(v: number, lo: number, hi: number): number {
-  return v < lo ? lo : v > hi ? hi : v;
 }
 
 function isWaterAt(ctx: ExtendedMapContext | null | undefined, x: number, y: number): boolean {
@@ -88,10 +86,9 @@ export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): P
 
   const adapter = ctx?.adapter ?? null;
   const rainfallBuf = ctx?.buffers?.climate?.rainfall || null;
-  const idx = (x: number, y: number): number => y * width + x;
 
   const readRainfall = (x: number, y: number): number => {
-    if (ctx && rainfallBuf) return rainfallBuf[idx(x, y)] | 0;
+    if (ctx && rainfallBuf) return rainfallBuf[idx(x, y, width)] | 0;
     return GameplayMap?.getRainfall?.(x, y) ?? 0;
   };
 

@@ -14,6 +14,7 @@
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "../../../core/types.js";
 import { clamp, inBounds, storyKey } from "../../../core/index.js";
 import { ctxRandom } from "../../../core/types.js";
+import { idx } from "../../../lib/grid/index.js";
 import { getStoryTags } from "../tags/index.js";
 import {
   STORY_OVERLAY_KEYS,
@@ -410,8 +411,6 @@ export function storyTagRiftValleys(
     plates.boundaryType &&
     plates.boundaryCloseness;
 
-  const idx = (x: number, y: number): number => y * width + x;
-
   if (useFoundation && plates) {
     const RP = plates.riftPotential;
     const BT = plates.boundaryType; // 2 = divergent
@@ -430,7 +429,7 @@ export function storyTagRiftValleys(
         if (latDegAt(y) > 70) continue;
         for (let x = 1; x < width - 1; x++) {
           if (isWaterAt(ctx, x, y)) continue;
-          const i = idx(x, y);
+          const i = idx(x, y, width);
           if (BT[i] !== 2 || BC[i] <= 32 || RP[i] < thr) continue;
 
           const v = RP[i];
@@ -438,7 +437,7 @@ export function storyTagRiftValleys(
           for (let dy = -1; dy <= 1 && isPeak; dy++) {
             for (let dx = -1; dx <= 1; dx++) {
               if (dx === 0 && dy === 0) continue;
-              if (RP[idx(x + dx, y + dy)] > v) {
+              if (RP[idx(x + dx, y + dy, width)] > v) {
                 isPeak = false;
                 break;
               }
@@ -509,7 +508,7 @@ export function storyTagRiftValleys(
             const nx = x + dx;
             const ny = y + dy;
             if (!inBounds(nx, ny, width, height) || isWaterAt(ctx, nx, ny)) continue;
-            const p = RP[idx(nx, ny)];
+            const p = RP[idx(nx, ny, width)];
             if (p > best) {
               best = p;
               bdx = dx;
@@ -568,7 +567,7 @@ export function storyTagRiftValleys(
             const cx = x + tx * stepLen;
             const cy = y + ty * stepLen;
             if (!inBounds(cx, cy, width, height) || isWaterAt(ctx, cx, cy)) continue;
-            const p = RP[idx(cx, cy)];
+            const p = RP[idx(cx, cy, width)];
             const align =
               tx === sdx && ty === sdy ? 16 : tx === -sdx && ty === -sdy ? -12 : 0;
             const score = p + align + stepDirBias(tx, ty);
@@ -582,7 +581,7 @@ export function storyTagRiftValleys(
           }
         }
 
-        const ii = inBounds(nx, ny, width, height) ? idx(nx, ny) : -1;
+        const ii = inBounds(nx, ny, width, height) ? idx(nx, ny, width) : -1;
         if (ii < 0 || BT[ii] !== 2 || BC[ii] <= 16 || RP[ii] < 64) break;
 
         x = nx;

@@ -19,6 +19,7 @@ import type {
 import { ctxRandom, writeHeightfield } from "../../../core/types.js";
 import { BOUNDARY_TYPE } from "../../../world/constants.js";
 import { getStoryTags } from "../../../story/tags.js";
+import { clamp } from "../../../lib/math/index.js";
 
 // ============================================================================
 // Types
@@ -47,12 +48,6 @@ import { COAST_TERRAIN } from "../../../core/terrain-constants.js";
 // ============================================================================
 // Helper Functions
 // ============================================================================
-
-function clamp(v: number, lo: number, hi: number): number {
-  if (v < lo) return lo;
-  if (v > hi) return hi;
-  return v;
-}
 
 function computePlateBias(
   closenessNorm: number | null | undefined,

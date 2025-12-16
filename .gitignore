@@ -58,3 +58,4 @@ Thumbs.db
 .ai/*
 !.ai/archive/
 !.ai/archive/**
+.claude/settings.local.json
