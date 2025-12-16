@@ -11,7 +11,7 @@
 /// <reference types="@civ7/types" />
 
 import "@swooper/mapgen-core/polyfills/text-encoder";
-import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
+import { bootstrap, MapOrchestrator, OrchestratorConfig } from "@swooper/mapgen-core";
 import type { BootstrapConfig } from "@swooper/mapgen-core/bootstrap";
 
 // ============================================================================
@@ -74,9 +74,9 @@ function buildConfig(plateCount: number): BootstrapConfig {
         boundaryShareTarget: 0.2,
         tectonics: {
           // Favor coastal arcs (Andes/Ring of Fire) but keep thick interiors.
-          boundaryArcWeight: 0.6,
+          boundaryArcWeight: 0.37,
           boundaryArcNoiseWeight: 0.35,
-          interiorNoiseWeight: 0.7,
+          interiorNoiseWeight: 0.75,
           fractalGrain: 5,
         },
       },
@@ -94,23 +94,23 @@ function buildConfig(plateCount: number): BootstrapConfig {
           transform: 0.4,
           divergent: -0.4,
           interior: 0.7,
-          bayWeight: 0.4,
-          bayNoiseBonus: 1.0,
+          bayWeight: 0.8,
+          bayNoiseBonus: 0.5,
           fjordWeight: 0.8,
         },
       },
       mountains: {
         // Earth-like prevalence: a few major ranges, not wall-to-wall mountains.
-        tectonicIntensity: 0.85,
+        tectonicIntensity: 0.65,
         mountainThreshold: 0.6,
         hillThreshold: 0.32,
         upliftWeight: 0.35,
-        fractalWeight: 0.18,
+        fractalWeight: 0.37,
         riftDepth: 0.25,
-        boundaryWeight: 1.0,
+        boundaryWeight: 0.7,
         boundaryExponent: 1.6,
         interiorPenaltyWeight: 0.0,
-        convergenceBonus: 0.9,
+        convergenceBonus: 0.77,
         transformPenalty: 0.6,
         riftPenalty: 1.0,
         hillBoundaryWeight: 0.35,
@@ -136,7 +136,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
       },
       foundation: {
         plates: {
-          count: 28,
+          count: 32,
           convergenceMix: 0.55,
           relaxationSteps: 5,
           plateRotationMultiple: 1.3,
@@ -155,9 +155,9 @@ function buildConfig(plateCount: number): BootstrapConfig {
           directionality: {
             cohesion: 0.15,
             primaryAxes: {
-              plateAxisDeg: 0,
-              windBiasDeg: 0,
-              currentBiasDeg: 0,
+              plateAxisDeg: 12,
+              windBiasDeg: 12,
+              currentBiasDeg: 12,
             },
             interplay: {
               windsFollowPlates: 0.3,
@@ -202,7 +202,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
         baseline: {
           blend: {
             baseWeight: 0.55,
-            bandWeight: 0.45,
+            bandWeight: 0.25,
           },
           bands: {
             deg0to10: 125,
@@ -349,7 +349,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
   };
 }
 
-const orchestratorOptions = { logPrefix: "[SWOOPER_MOD]" };
+const orchestratorOptions: OrchestratorConfig = { logPrefix: "[SWOOPER_MOD]", useTaskGraph: true };
 
 engine.on("RequestMapInitData", () => {
   const defaultConfig = bootstrap({});
