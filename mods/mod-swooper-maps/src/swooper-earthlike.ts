@@ -297,7 +297,7 @@ function buildConfig(): BootstrapConfig {
       },
       biomes: {
         tundra: {
-          latMin: 65,
+          latMin: 73,
           elevMin: 700,
           rainMax: 85,
         },
