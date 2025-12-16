@@ -20,14 +20,14 @@
  * - O(width × height) with simple local checks.
  */
 
-import type { ExtendedMapContext } from "../core/types.js";
+import type { ExtendedMapContext } from "../../core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
-import { ctxRandom } from "../core/types.js";
-import { getStoryTags } from "../story/tags.js";
+import { ctxRandom } from "../../core/types.js";
+import { getStoryTags } from "../../story/tags.js";
 import {
   getPublishedClimateField,
   getPublishedRiverAdjacency,
-} from "../pipeline/artifacts.js";
+} from "../../pipeline/artifacts.js";
 
 // ============================================================================
 // Types

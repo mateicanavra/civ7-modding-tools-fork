@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "../core/types.js";
-import { designateEnhancedBiomes } from "../layers/biomes.js";
+import { designateEnhancedBiomes } from "../layers/ecology/biomes.js";
 import type { MapGenStep } from "../pipeline/types.js";
 import { getStoryOverlay, STORY_OVERLAY_KEYS, hydrateCorridorsStoryTags, hydrateRiftsStoryTags } from "../story/index.js";
 import { getStoryTags } from "../story/tags.js";

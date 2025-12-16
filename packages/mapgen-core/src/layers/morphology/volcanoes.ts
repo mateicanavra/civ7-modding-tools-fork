@@ -13,11 +13,11 @@
  *   gracefully degrades (no placement rather than crash).
  */
 
-import type { ExtendedMapContext } from "../core/types.js";
+import type { ExtendedMapContext } from "../../core/types.js";
 import type { EngineAdapter, FeatureData } from "@civ7/adapter";
-import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "../bootstrap/types.js";
-import { writeHeightfield } from "../core/types.js";
-import { BOUNDARY_TYPE } from "../world/constants.js";
+import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "../../bootstrap/types.js";
+import { writeHeightfield } from "../../core/types.js";
+import { BOUNDARY_TYPE } from "../../world/constants.js";
 
 // ============================================================================
 // Types
@@ -46,7 +46,7 @@ interface PlacedVolcano {
 // ============================================================================
 
 // Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
-import { MOUNTAIN_TERRAIN, VOLCANO_FEATURE } from "../core/terrain-constants.js";
+import { MOUNTAIN_TERRAIN, VOLCANO_FEATURE } from "../../core/terrain-constants.js";
 
 // ============================================================================
 // Helper Functions
