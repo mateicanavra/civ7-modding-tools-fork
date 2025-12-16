@@ -14,7 +14,7 @@ export function applyOrogenyBeltsRefinement(
   const storyTunables = (ctx.config.story || {}) as Record<string, unknown>;
   const orogenyTunables = (storyTunables.orogeny || {}) as Record<string, number>;
 
-  if (ctx.config.toggles?.STORY_ENABLE_OROGENY && orogenyCache !== null) {
+  if (orogenyCache !== null) {
     const windwardSet = orogenyCache.windward;
     const leeSet = orogenyCache.lee;
     const hasWindward = (windwardSet?.size ?? 0) > 0;
@@ -44,4 +44,3 @@ export function applyOrogenyBeltsRefinement(
     }
   }
 }
-

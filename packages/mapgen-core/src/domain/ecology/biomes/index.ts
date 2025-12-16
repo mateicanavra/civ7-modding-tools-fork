@@ -176,7 +176,7 @@ export function designateEnhancedBiomes(
         riverBiasStrength: RIVER_BIAS_STRENGTH,
       });
 
-      if (config.toggles?.STORY_ENABLE_RIFTS && StoryTags.riftShoulder.size > 0) {
+      if (StoryTags.riftShoulder.size > 0) {
         applyRiftShoulderBias(adapter, globals, x, y, lat, rainfall, StoryTags, {
           grasslandLatMax: RS_GRASS_LAT_MAX,
           grasslandRainMin: RS_GRASS_RAIN_MIN,

@@ -59,7 +59,6 @@ export function addDiverseFeatures(
   adapter.addFeatures(iWidth, iHeight);
 
   const config = ctx.config;
-  const toggles = config.toggles || {};
   const storyTunables = (config.story || {}) as { features?: FeaturesConfig };
   const featuresCfg = storyTunables.features || {};
   const densityCfg = (config.featuresDensity || {}) as FeaturesDensityConfig;
@@ -90,7 +89,6 @@ export function addDiverseFeatures(
 
   // 2) Paradise reefs near hotspot paradise centers
   if (
-    toggles.STORY_ENABLE_HOTSPOTS &&
     reefIndex !== -1 &&
     StoryTags.hotspotParadise.size > 0 &&
     paradiseReefChance > 0
@@ -155,7 +153,6 @@ export function addDiverseFeatures(
           inBounds,
           getRandom,
           hotspotVolcanic: StoryTags.hotspotVolcanic,
-          togglesEnabled: !!toggles.STORY_ENABLE_HOTSPOTS,
           forestIdx,
           taigaIdx,
           volcanicForestChance,

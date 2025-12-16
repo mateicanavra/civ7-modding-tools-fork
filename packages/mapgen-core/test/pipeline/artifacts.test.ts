@@ -34,7 +34,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      { toggles: {} } as unknown as MapConfig
+      {} as unknown as MapConfig
     );
 
     expect(
@@ -57,7 +57,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      { toggles: {} } as unknown as MapConfig
+      {} as unknown as MapConfig
     );
 
     const registry = new StepRegistry<typeof ctx>();
@@ -84,7 +84,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      { toggles: {} } as unknown as MapConfig
+      {} as unknown as MapConfig
     );
 
     const registry = new StepRegistry<typeof ctx>();

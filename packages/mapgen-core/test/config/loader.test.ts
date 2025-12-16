@@ -43,7 +43,7 @@ describe("config/loader", () => {
   it("getDefaultConfig returns a validated defaulted config", () => {
     const cfg = getDefaultConfig();
     expect(cfg.foundation?.plates?.count).toBe(8);
-    expect(cfg.toggles?.STORY_ENABLE_HOTSPOTS).toBe(true);
+    expect(cfg.stageManifest).toBeDefined();
   });
 });
 
@@ -77,7 +77,7 @@ describe("config/loader public schema guard", () => {
     expect(properties.landmass).toBeDefined();
     expect(properties.climate).toBeDefined();
     expect(properties.mountains).toBeDefined();
-    expect(properties.toggles).toBeDefined();
+    expect(properties.toggles).toBeUndefined();
 
     // Verify landmass has nested properties intact
     const landmass = properties.landmass as Record<string, unknown>;

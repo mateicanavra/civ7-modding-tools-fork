@@ -8,7 +8,6 @@ export function applyVolcanicVegetationAtTile(params: {
   inBounds: (x: number, y: number) => boolean;
   getRandom: (label: string, max: number) => number;
   hotspotVolcanic: Set<string>;
-  togglesEnabled: boolean;
   forestIdx: number;
   taigaIdx: number;
   volcanicForestChance: number;
@@ -28,7 +27,6 @@ export function applyVolcanicVegetationAtTile(params: {
     inBounds,
     getRandom,
     hotspotVolcanic,
-    togglesEnabled,
     forestIdx,
     taigaIdx,
     volcanicForestChance,
@@ -42,7 +40,7 @@ export function applyVolcanicVegetationAtTile(params: {
     tundraBiome,
   } = params;
 
-  if (!togglesEnabled || hotspotVolcanic.size === 0) return false;
+  if (hotspotVolcanic.size === 0) return false;
 
   let nearVolcanic = false;
   for (let vdy = -1; vdy <= 1 && !nearVolcanic; vdy++) {
@@ -74,4 +72,3 @@ export function applyVolcanicVegetationAtTile(params: {
 
   return false;
 }
-
