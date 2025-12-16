@@ -29,6 +29,24 @@ Investigate the current “story drift” risk in `@swooper/mapgen-core`, and de
 
 **Feasible, and high-leverage to do now.** With story logic now modularized and shared across the pipeline steps + domain modules, the dominant drift vector is keeping multiple orchestration paths and legacy compatibility surfaces alive. Given that we control consumers, it’s practical to remove the legacy orchestrator path and the legacy story toggle surface in the same stack, while explicitly deferring only true behavior-mode selectors (e.g. `"legacy" | "area"` algorithm modes).
 
+## Decisions captured from discussion (new baseline)
+
+We’re aligned on a pragmatic “canonical path now, refactor details later” approach:
+
+- **Canonical execution**: TaskGraph is the only supported orchestration path; legacy `generateMap()` inline runner is removed.
+- **Canonical enablement**:
+  - Stage enablement is driven only by `stageManifest` (resolved from `stageConfig` via `bootstrap()`).
+  - The legacy story toggle surface (`config.toggles.STORY_ENABLE_*`) is removed entirely; we are not optimizing for internal toggling right now.
+- **Paleo gating**: paleo runs whenever its config exists (no independent toggle). Concretely: if `climate.story.paleo` is present, we attempt to apply paleo effects (and it naturally no-ops when config is missing).
+- **Validation bar (for deleting legacy)**: prioritize “loads + no obviously missing major stage” over visual parity; existing step-level validation + smoke checks are sufficient for this removal pass.
+- **Story globals**:
+  - We accept keeping **StoryTags and related caches global temporarily** to keep scope bounded while we delete legacy orchestration + toggles.
+  - We explicitly intend to **gut globals by the end**, aligning all consumers on context-owned artifacts/overlays (and/or a context-owned story state object). This is the “last thing we do” in this initiative, after the legacy fork is gone.
+
+Rationale (short):
+
+- Eliminating the orchestration fork + legacy config surfaces removes the primary structural source of drift and sharply reduces ongoing migration overhead.
+
 ## Evidence (current state)
 
 ### 1) Two orchestration paths exist today (drift is structurally inevitable)
@@ -111,8 +129,10 @@ End-state vision:
 - **Single enablement surface**: stage enablement is expressed only via `stageConfig/stageManifest` (resolved by `bootstrap()`), not via legacy story toggle mirrors.
 - **Story optionality is structural**:
   - Disabling story stages never re-introduces state leakage (globals reset per run at the orchestrator boundary).
-  - Downstream steps that “benefit from story” use the presence/absence of story artifacts/tags as their primary signal, not an independent legacy toggle surface.
+  - Downstream steps that “benefit from story” use the presence/absence of story artifacts/tags/config as their primary signal, not an independent legacy toggle surface.
+- **Paleo has no legacy switch**: paleo is driven by config presence (e.g. `climate.story.paleo`), not `STORY_ENABLE_PALEO`.
 - **No legacy shims in the public API**: remove `createLegacy*Step` aliases and legacy bootstrap config shapes that only exist for historical callers.
+- **End-state story state is context-owned** (after the final step in this initiative): no module-level narrative registries/caches are required for correctness; all cross-stage “story” data is carried via context artifacts/overlays (or a context-owned story state object) and referenced explicitly by consumers.
 
 ## What we plan to delete (non-exhaustive)
 
@@ -135,21 +155,25 @@ End-state vision:
 
 1) Migrate all in-repo callsites and tests to a single orchestration path (TaskGraph-only).
 2) Make `generateMap()` TaskGraph-only; remove `OrchestratorConfig.useTaskGraph`; delete the legacy inline stage runner blocks.
-3) Remove legacy story toggle surface (`config.toggles.STORY_ENABLE_*`) and migrate gating to canonical signals:
-   - stage enablement (`stageManifest`) and/or
-   - artifact/tag presence (story overlays/tags), depending on the subsystem.
+3) Remove legacy story toggle surface (`config.toggles.STORY_ENABLE_*`) and migrate any remaining gating to canonical signals:
+   - stage enablement (`stageManifest`)
+   - config presence (notably: paleo runs iff its config exists; no independent toggle)
+   - artifact/tag presence where applicable (story overlays/tags), depending on the subsystem.
 4) Remove other legacy shims:
    - `createLegacy*Step` exports and `LegacyPlacementStep` (after migrating the tests that rely on them),
    - unused schema metadata like `StageDescriptorSchema.legacyToggles` (or finish the mapping and then immediately remove it once all callers are migrated—prefer removal).
 5) Align presets and docs with the new contract (presets should not set legacy story toggles; docs should not describe legacy control surfaces).
-6) Validation strategy:
-   - Keep a small set of orchestrator smoke tests that assert intended optional-story behavior (story tags when enabled; no story effects when disabled; paleo ordering).
+6) Validation strategy (intentionally lightweight for this pass):
+   - Focus on “loads + no obviously missing major stage”; rely on existing step-level validation and a small number of orchestrator smokes.
+7) Last step (end-state alignment): remove story module-level globals and align consumers on context-owned data:
+   - remove global overlay registry fallback / dependency satisfaction based on global registry size
+   - migrate global StoryTags and related caches to a context-owned representation (artifact or explicit `ctx.story.*`)
 
 ## Risks, trade-offs, regressions
 
 - **Internal breakage** is expected: any internal mod/config relying on legacy behavior must be migrated in lockstep.
 - **Config semantic ambiguity** is the biggest footgun: presets and runtime toggle-derivation currently send mixed signals.
-- **Paleo gating is the main nuance**: it’s currently controlled by both stage enablement and a legacy toggle; removing legacy toggles forces a decision about the replacement signal.
+- **Global story state remains a drift risk until the last step**: as long as tags/overlays/caches can be read from module-level singletons, we can still accidentally couple stages or satisfy dependencies via stale global state.
 - **Hidden consumers** are the only meaningful external risk; if the repo is not yet published for modders, this is likely low.
 
 ## Explicit deferrals (behavior modes we should not remove in this stack)
@@ -168,8 +192,16 @@ Other legacy surfaces noticed (not behavior modes):
 
 - Deprecated top-level diagnostics toggles are still present in config schema as “[legacy/no-op]” (`packages/mapgen-core/src/config/schema.ts`, `DiagnosticsConfigSchema`). If the goal is “no legacy config surface at all”, these can likely be removed in the same initiative, but they are not directly tied to story drift.
 
-## Open decisions
+## Open decisions (remaining)
 
-1) Should `generateMap()` remain the stable entrypoint (TaskGraph-only), or should we require an explicit “pipeline” entrypoint to make the breaking change obvious?
-2) For paleo specifically: do we still need an independent “paleo enabled” switch, or is “paleo config present + storySwatches enabled” the canonical gate?
-   - If an independent switch is still needed, prefer a non-legacy config surface (e.g. `climate.story.paleo.enabled`) rather than retaining `STORY_ENABLE_PALEO`.
+Resolved:
+
+- We will keep `generateMap()` as the stable entrypoint but make it TaskGraph-only.
+- Paleo runs whenever its config exists; no independent enablement switch is retained.
+
+Remaining (affects the “last step” scope):
+
+1) What is the canonical context-owned representation for story tags and caches?
+   - Option A: an explicit `artifact:storyTags` / `artifact:storyState` value published by story steps and consumed by later steps.
+   - Option B: a typed `ctx.story.*` object (parallel to `ctx.overlays` / `ctx.artifacts`) owned by the context factory.
+2) For overlays specifically: should the pipeline consider overlays an artifact only when `ctx.overlays.size > 0`, or do we want a stable “overlay registry exists but empty” representation that still satisfies dependency tags without relying on a global fallback?
