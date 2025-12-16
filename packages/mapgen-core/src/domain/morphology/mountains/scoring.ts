@@ -68,7 +68,7 @@ export function computePlateBasedScores(
   }
 
   const boundaryGate = 0.35;
-  const falloffExponent = options.boundaryExponent || 2.5;
+  const falloffExponent = options.boundaryExponent;
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -169,4 +169,3 @@ export function applyRiftDepressions(
     }
   }
 }
-

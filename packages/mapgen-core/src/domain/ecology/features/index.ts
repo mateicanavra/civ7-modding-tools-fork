@@ -107,19 +107,18 @@ export function addDiverseFeatures(
   // 2b) Reefs along passive shelves (margin-aware, modest chance)
   if (reefIndex !== -1 && StoryTags.passiveShelf && StoryTags.passiveShelf.size > 0) {
     const shelfMult = densityCfg?.shelfReefMultiplier ?? 0.6;
-    const shelfReefChance = Math.max(
-      1,
-      Math.min(100, Math.floor(paradiseReefChance * shelfMult))
-    );
-    applyShelfReefs({
-      adapter,
-      reefIndex,
-      NO_FEATURE,
-      inBounds,
-      getRandom,
-      shelfReefChance,
-      passiveShelf: StoryTags.passiveShelf,
-    });
+    const shelfReefChance = Math.max(0, Math.min(100, Math.floor(paradiseReefChance * shelfMult)));
+    if (shelfReefChance > 0) {
+      applyShelfReefs({
+        adapter,
+        reefIndex,
+        NO_FEATURE,
+        inBounds,
+        getRandom,
+        shelfReefChance,
+        passiveShelf: StoryTags.passiveShelf,
+      });
+    }
   }
 
   // 3) Per-tile post-pass for gentle density tweaks and volcanic vegetation
