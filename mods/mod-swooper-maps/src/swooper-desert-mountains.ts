@@ -14,32 +14,11 @@ import "@swooper/mapgen-core/polyfills/text-encoder";
 import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
 import type { BootstrapConfig, BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
 
-// ============================================================================
-// Dynamic Plate Density Calculation
-// ============================================================================
-// Standard density target to ensure reasonable plate sizes.
-// ~300 tiles per plate keeps plates large enough to have distinct interiors vs boundaries.
-const PLATE_DENSITY_TARGET = 300;
-const PLATE_COUNT_MIN = 9;
-const PLATE_COUNT_MAX = 27;
-
 /**
- * Calculate optimal plate count for the given map dimensions.
- * @param width - Map width in tiles
- * @param height - Map height in tiles
- * @returns Plate count clamped to [9, 27]
- */
-function calculatePlateCount(width: number, height: number): number {
-  const totalTiles = width * height;
-  const calculated = Math.floor(totalTiles / PLATE_DENSITY_TARGET);
-  return Math.max(PLATE_COUNT_MIN, Math.min(PLATE_COUNT_MAX, calculated));
-}
-
-/**
- * Build the bootstrap configuration with dynamic plate count.
+ * Build the bootstrap configuration.
  * Uses standard, balanced defaults to ensure playability.
  */
-function buildConfig(plateCount: number): BootstrapConfig {
+function buildConfig(): BootstrapConfig {
   return {
     stageConfig: {
       foundation: true,
@@ -132,7 +111,7 @@ function buildConfig(plateCount: number): BootstrapConfig {
       },
       foundation: {
         plates: {
-          count: plateCount,
+          count: 15,
           convergenceMix: 0.65,
           relaxationSteps: 4, // Smoother cells
           plateRotationMultiple: 1.77,
@@ -307,24 +286,9 @@ engine.on("RequestMapInitData", () => {
 });
 
 // GenerateMap: Bootstrap with full config, then run generation
-// CRITICAL: Config happens INSIDE GenerateMap event to read actual player-selected dimensions.
 engine.on("GenerateMap", () => {
-  // 1. Get runtime dimensions (finalized by engine at this point)
-  const width = GameplayMap.getGridWidth();
-  const height = GameplayMap.getGridHeight();
-  const totalTiles = width * height;
+  const config = bootstrap(buildConfig());
 
-  // 2. Calculate dynamic plate count (1 plate per 500 tiles)
-  const plateCount = calculatePlateCount(width, height);
-
-  console.log(
-    `[SWOOPER_MOD] Dynamic Config: ${width}x${height} (${totalTiles} tiles) -> ${plateCount} plates`
-  );
-
-  // 3. Bootstrap with full configuration, get validated config
-  const config = bootstrap(buildConfig(plateCount));
-
-  // 4. Create orchestrator with validated config and run generation
   const orchestrator = new MapOrchestrator(config, orchestratorOptions);
   orchestrator.generateMap();
 });
