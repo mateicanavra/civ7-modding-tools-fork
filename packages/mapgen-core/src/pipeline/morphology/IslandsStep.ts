@@ -1,6 +1,6 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../../pipeline/index.js";
-import { addIslandChains } from "../islands.js";
+import type { ExtendedMapContext } from "../../core/types.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
+import { addIslandChains } from "../../domain/morphology/islands/index.js";
 
 export interface IslandsStepOptions {
   requires: readonly string[];

@@ -1,14 +1,14 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { HILL_TERRAIN, MOUNTAIN_TERRAIN, NAVIGABLE_RIVER_TERRAIN } from "../../../core/terrain-constants.js";
-import { syncHeightfield } from "../../../core/types.js";
+import type { ExtendedMapContext } from "../../core/types.js";
+import { HILL_TERRAIN, MOUNTAIN_TERRAIN, NAVIGABLE_RIVER_TERRAIN } from "../../core/terrain-constants.js";
+import { syncHeightfield } from "../../core/types.js";
 import {
   computeRiverAdjacencyMask,
   publishClimateFieldArtifact,
   publishHeightfieldArtifact,
   publishRiverAdjacencyArtifact,
-} from "../../../pipeline/artifacts.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../../pipeline/index.js";
-import { storyTagClimatePaleo } from "../../../story/swatches.js";
+} from "../artifacts.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
+import { storyTagClimatePaleo } from "../../story/swatches.js";
 
 export interface RiversStepOptions {
   requires: readonly string[];

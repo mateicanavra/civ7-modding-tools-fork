@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "../../core/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
 import { storyTagOrogenyBelts } from "../../narrative/orogeny.js";
 
 export interface StoryOrogenyStepOptions {
