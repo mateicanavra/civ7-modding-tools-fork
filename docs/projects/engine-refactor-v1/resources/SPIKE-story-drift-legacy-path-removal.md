@@ -191,116 +191,190 @@ Also: `StageDescriptorSchema` includes `legacyToggles` metadata (`packages/mapge
 
 ---
 
-# Part B: Implementation Manifest
+# Part B: Implementation Groups
 
-## 1. Deletion Manifest
+Each group is a self-contained unit of work with explicit scope, rationale, and completion criteria. Groups are sequential—complete one before starting the next.
 
-### 1.1 Orchestration Switch + Duplicate Runner
+---
+
+## Group 1: Migrate Consumers to TaskGraph
+
+**Theme**: Prepare all in-repo consumers before removing the path they currently use. This is pure migration with no deletions—we're making TaskGraph the de facto path before making it the only path.
+
+**Session scope**: 1 session (small, focused changes)
+
+**Depends on**: None
+
+### Migrations
+
+- [ ] `mods/mod-swooper-maps/src/swooper-desert-mountains.ts` — add `useTaskGraph: true`
+- [ ] `packages/mapgen-core/test/orchestrator/story-parity.smoke.test.ts` — update to TaskGraph path
+- [ ] Audit other orchestrator tests calling `generateMap()` without `useTaskGraph` and update
+
+### Done when
+
+- [ ] All mods explicitly use `useTaskGraph: true`
+- [ ] All orchestrator tests use TaskGraph path
+- [ ] `pnpm test` passes
+- [ ] Mods load without error
+
+---
+
+## Group 2: Remove Legacy Orchestration Fork
+
+**Theme**: Make TaskGraph the only execution path. Now that all consumers are on TaskGraph, we can safely delete the fork and the legacy inline runner. This is the core structural change that eliminates the "two orchestrators" drift.
+
+**Session scope**: 1 session (surgical deletion in one file)
+
+**Depends on**: Group 1
+
+### Deletions
 
 - [ ] `OrchestratorConfig.useTaskGraph` option (`packages/mapgen-core/src/MapOrchestrator.ts`)
 - [ ] `generateMap()` branch that selects between two orchestrators (`packages/mapgen-core/src/MapOrchestrator.ts`)
-- [ ] Legacy inline stage runner blocks inside `generateMap()` (including inline story stages)
+- [ ] Legacy inline stage runner blocks inside `generateMap()` (including inline story stages at lines ~553-636, ~741-823)
 
-### 1.2 Legacy Story Toggle Surface
+### Migrations
 
-- [ ] `config.toggles.STORY_ENABLE_*` from config schema (`packages/mapgen-core/src/config/schema.ts`)
-- [ ] `config.toggles.STORY_ENABLE_*` from presets (`packages/mapgen-core/src/config/presets.ts`)
-- [ ] Toggle-derivation bridge in `MapOrchestrator.buildContextConfig()` (`packages/mapgen-core/src/MapOrchestrator.ts`)
-- [ ] Downstream toggle-based gating in non-story code paths:
-  - [ ] `packages/mapgen-core/src/domain/ecology/features/index.ts` (`STORY_ENABLE_HOTSPOTS`)
-  - [ ] `packages/mapgen-core/src/domain/ecology/biomes/index.ts` (`STORY_ENABLE_RIFTS`)
-  - [ ] `packages/mapgen-core/src/domain/hydrology/climate/refine/orogeny-belts.ts` (`STORY_ENABLE_OROGENY`)
-  - [ ] `packages/mapgen-core/src/pipeline/hydrology/index.ts` (paleo toggle)
-
-### 1.3 Dead / Half-Migrated Metadata
-
-- [ ] `StageDescriptorSchema.legacyToggles` (`packages/mapgen-core/src/config/schema.ts`)
-
-### 1.4 Legacy Shims / Re-export Surfaces
-
-- [ ] `packages/mapgen-core/src/steps/*` legacy step aliases (`createLegacyBiomesStep`, `createLegacyFeaturesStep`, `createLegacyPlacementStep`)
-- [ ] `packages/mapgen-core/src/pipeline/placement/LegacyPlacementStep.ts`
-- [ ] Tests using legacy placement step (`packages/mapgen-core/test/orchestrator/placement-config-wiring.test.ts`)
-
-### 1.5 Legacy Bootstrap Input Shapes
-
-- [ ] `BootstrapConfig.stages` legacy interface (`packages/mapgen-core/src/bootstrap/entry.ts`)
-
----
-
-## 2. Phase Roadmap
-
-| Phase | Description | Dependencies |
-|-------|-------------|--------------|
-| **Phase 1** | Migrate all in-repo callsites and tests to TaskGraph-only | None |
-| **Phase 2** | Make `generateMap()` TaskGraph-only; remove `useTaskGraph`; delete legacy inline runner | Phase 1 |
-| **Phase 3** | Remove legacy story toggle surface; migrate gating to canonical signals | Phase 2 |
-| **Phase 4** | Remove legacy shims (`createLegacy*Step`, `LegacyPlacementStep`, dead metadata) | Phase 3 |
-| **Phase 5** | Align presets and docs with new contract | Phase 4 |
-| **Phase 6** | Validation pass (smoke tests, step-level validation) | Phase 5 |
-| **Phase 7** | Remove story module-level globals; migrate to context-owned data | Phase 6 |
-
----
-
-## 3. Migration Checklists
-
-### 3.1 Mods Migration
-
-- [ ] `mods/mod-swooper-maps/src/swooper-desert-mountains.ts` — add `useTaskGraph: true` (or remove option once default)
-- [ ] `mods/mod-swooper-maps/src/swooper-earthlike.ts` — already enabled; remove explicit `useTaskGraph` once default
+- [ ] `mods/mod-swooper-maps/src/swooper-earthlike.ts` — remove now-unnecessary `useTaskGraph: true` (it's the only path)
+- [ ] `mods/mod-swooper-maps/src/swooper-desert-mountains.ts` — remove `useTaskGraph: true`
 - [ ] Regenerate built artifacts under `mods/mod-swooper-maps/mod/maps/*.js`
 
-### 3.2 Tests Migration
+### Done when
 
-- [ ] `packages/mapgen-core/test/orchestrator/story-parity.smoke.test.ts` — update to TaskGraph path
-- [ ] `packages/mapgen-core/test/orchestrator/placement-config-wiring.test.ts` — migrate off `LegacyPlacementStep`
-- [ ] Audit other orchestrator tests calling `generateMap()` without `useTaskGraph`
+- [ ] `generateMap()` has no branching logic—it always uses TaskGraph
+- [ ] `useTaskGraph` option does not exist in types or implementation
+- [ ] No inline stage runner code remains in `MapOrchestrator.ts`
+- [ ] `pnpm test` passes
+- [ ] Mods load without error
 
-### 3.3 Docs Migration
+---
 
-- [ ] `docs/system/mods/swooper-maps/architecture.md` — remove legacy control surface references
+## Group 3: Remove Legacy Toggle Surface
 
-### 3.4 Downstream Gating Migration
+**Theme**: Single source of truth for stage enablement. The `stageManifest` (resolved from `stageConfig` via `bootstrap()`) is the canonical representation of what stages run. The legacy `config.toggles.STORY_ENABLE_*` surface duplicates this and causes semantic ambiguity. This group removes the toggle surface and migrates downstream consumers to canonical signals.
 
-For each downstream toggle consumer, migrate to one of:
+**Session scope**: 1-2 sessions (touches multiple domain files; migration requires understanding each consumer's intent)
+
+**Depends on**: Group 2
+
+### Deletions
+
+- [ ] `config.toggles.STORY_ENABLE_*` fields from `TogglesSchema` (`packages/mapgen-core/src/config/schema.ts`)
+- [ ] `config.toggles.STORY_ENABLE_*` assignments from presets (`packages/mapgen-core/src/config/presets.ts`)
+- [ ] Toggle-derivation bridge in `MapOrchestrator.buildContextConfig()` (`packages/mapgen-core/src/MapOrchestrator.ts`)
+- [ ] `StageDescriptorSchema.legacyToggles` dead metadata (`packages/mapgen-core/src/config/schema.ts`)
+
+### Migrations
+
+Migrate each downstream toggle consumer to a canonical signal:
+
+| File | Current Toggle | Migration Strategy |
+|------|----------------|-------------------|
+| `packages/mapgen-core/src/domain/ecology/features/index.ts` | `STORY_ENABLE_HOTSPOTS` | Check story tag sets (already partially done) |
+| `packages/mapgen-core/src/domain/ecology/biomes/index.ts` | `STORY_ENABLE_RIFTS` | Check story tag sets |
+| `packages/mapgen-core/src/domain/hydrology/climate/refine/orogeny-belts.ts` | `STORY_ENABLE_OROGENY` | Check story tag sets or stage flag |
+| `packages/mapgen-core/src/pipeline/hydrology/index.ts` | Paleo toggle | Check `climate.story.paleo` config presence |
+
+**Migration strategies** (choose per-consumer):
 - **Stage enablement**: check `stageManifest` or stage flags
 - **Config presence**: check if relevant config section exists (e.g. `climate.story.paleo`)
 - **Artifact/tag presence**: check story overlays/tags directly
 
-| File | Current Toggle | Migration Strategy |
-|------|----------------|-------------------|
-| `domain/ecology/features/index.ts` | `STORY_ENABLE_HOTSPOTS` | Check story tag sets (already partially done) |
-| `domain/ecology/biomes/index.ts` | `STORY_ENABLE_RIFTS` | Check story tag sets |
-| `domain/hydrology/climate/refine/orogeny-belts.ts` | `STORY_ENABLE_OROGENY` | Check story tag sets or stage flag |
-| `pipeline/hydrology/index.ts` | Paleo toggle | Check `climate.story.paleo` config presence |
+### Done when
+
+- [ ] No `STORY_ENABLE_*` fields in config schema or presets
+- [ ] No toggle-derivation code in `MapOrchestrator`
+- [ ] All downstream consumers use canonical signals (tags, config presence, or stage flags)
+- [ ] `pnpm run check-types` passes (no type errors from removed fields)
+- [ ] `pnpm test` passes
+- [ ] Mods load without error
 
 ---
 
-## 4. Validation Checklist
+## Group 4: Remove Legacy Shims & Cleanup
 
-**Bar**: "loads + no obviously missing major stage" (not visual parity)
+**Theme**: Remove compatibility surfaces that exist only for historical callers. With the orchestration fork gone and toggles removed, these shims serve no purpose. This group also updates docs to reflect the new contract.
 
-- [ ] All mods load without error
-- [ ] All orchestrator tests pass
-- [ ] No major stage missing from output (spot-check map generation)
-- [ ] Existing step-level validation passes
-- [ ] Smoke tests pass
+**Session scope**: 1 session (straightforward deletions + doc updates)
+
+**Depends on**: Group 3
+
+### Deletions
+
+- [ ] `packages/mapgen-core/src/steps/*` legacy step aliases (`createLegacyBiomesStep`, `createLegacyFeaturesStep`, `createLegacyPlacementStep`)
+- [ ] `packages/mapgen-core/src/pipeline/placement/LegacyPlacementStep.ts`
+- [ ] `BootstrapConfig.stages` legacy interface (`packages/mapgen-core/src/bootstrap/entry.ts`)
+
+### Migrations
+
+- [ ] `packages/mapgen-core/test/orchestrator/placement-config-wiring.test.ts` — migrate off `LegacyPlacementStep` to standard `createPlacementStep`
+- [ ] `docs/system/mods/swooper-maps/architecture.md` — remove legacy control surface references
+
+### Done when
+
+- [ ] No `createLegacy*Step` exports
+- [ ] No `LegacyPlacementStep.ts` file
+- [ ] No legacy bootstrap input shapes
+- [ ] Docs don't reference removed surfaces
+- [ ] `pnpm run check-types` passes
+- [ ] `pnpm test` passes
 
 ---
 
-## 5. Implementation Notes
+## Group 5: Story State to Context-Owned
 
-### 5.1 Why TaskGraph Has Stronger Guardrails
+**Theme**: Explicit data flow with no hidden global state. This is the final architectural cleanup—story tags, caches, and overlays become context-owned artifacts rather than module-level singletons. This eliminates the last category of "invisible coupling" between stages.
+
+**Session scope**: 1-2 sessions (requires design decision on representation; larger refactor)
+
+**Depends on**: Group 4 + resolving open questions (see Part A §9.2)
+
+### Prerequisite: Resolve Open Questions
+
+Before starting this group, decide:
+
+1. **Context-owned representation for story tags/caches**:
+   - Option A: explicit `artifact:storyTags` / `artifact:storyState` published by story steps
+   - Option B: typed `ctx.story.*` object (parallel to `ctx.overlays` / `ctx.artifacts`)
+
+2. **Overlay registry semantics**: should pipeline check `ctx.overlays.size > 0` or use a stable "exists but empty" representation?
+
+### Deletions
+
+- [ ] Global overlay registry fallback / dependency satisfaction based on global registry size
+- [ ] Module-level StoryTags singleton
+- [ ] Module-level story caches (identify specific files during implementation)
+
+### Migrations
+
+- [ ] Story steps publish tags/state as context artifact (per chosen representation)
+- [ ] All story tag consumers read from context instead of global
+- [ ] All overlay consumers read from context instead of global fallback
+
+### Done when
+
+- [ ] No module-level story singletons required for correctness
+- [ ] All cross-stage story data is carried via context artifacts/overlays
+- [ ] Disabling story stages cannot cause stale global state leakage
+- [ ] `pnpm run check-types` passes
+- [ ] `pnpm test` passes
+- [ ] Smoke tests pass with story stages enabled and disabled
+
+---
+
+## Reference Notes
+
+### Why TaskGraph Has Stronger Guardrails
 
 - Keeping multiple orchestrators guarantees drift: any change to stage order, resets, artifacts, or "story optionality" must be implemented twice.
 - With story now modularized and shared across pipeline wiring + domain components, the dominant remaining drift is configuration and orchestration, not the story algorithms themselves.
 - TaskGraph has stronger guardrails (requires/provides validation) and matches the M4 invariant "reset story globals outside story steps".
 
-### 5.2 End-State Story Globals Migration (Phase 7)
+### Group 5 Context: Story Globals Migration
 
-This is the "last thing we do" in this initiative:
+Group 5 is the "last thing we do" in this initiative. The details are captured in Group 5 above, but the core insight is:
 
-- Remove global overlay registry fallback / dependency satisfaction based on global registry size
-- Migrate global StoryTags and related caches to a context-owned representation (artifact or explicit `ctx.story.*`)
-
-This depends on resolving the open questions in Section 9.2.
+- Global story singletons (tags, caches, overlay registry) allow invisible coupling between stages
+- Context-owned representation makes data flow explicit and prevents stale state leakage
+- This depends on resolving the open questions in Part A §9.2 before implementation begins
