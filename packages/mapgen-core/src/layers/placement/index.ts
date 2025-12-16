@@ -2,7 +2,7 @@ import type { ExtendedMapContext } from "../../core/types.js";
 import type { ContinentBounds, StartsConfig } from "../../bootstrap/types.js";
 import type { MapInfo } from "@civ7/adapter";
 import type { StepRegistry } from "../../pipeline/index.js";
-import { createPlacementStep } from "./PlacementStep.js";
+import { createPlacementStep } from "./steps/index.js";
 
 export interface PlacementLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };

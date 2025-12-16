@@ -1,9 +1,9 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { assertFoundationContext } from "../../core/assertions.js";
-import { DEV, logVolcanoSummary } from "../../dev/index.js";
-import type { VolcanoesConfig } from "../../bootstrap/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
-import { layerAddVolcanoesPlateAware } from "./volcanoes.js";
+import type { ExtendedMapContext } from "../../../core/types.js";
+import { assertFoundationContext } from "../../../core/assertions.js";
+import { DEV, logVolcanoSummary } from "../../../dev/index.js";
+import type { VolcanoesConfig } from "../../../bootstrap/types.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../../pipeline/index.js";
+import { layerAddVolcanoesPlateAware } from "../volcanoes.js";
 
 export interface VolcanoesStepRuntime {
   volcanoOptions: VolcanoesConfig;
@@ -38,4 +38,3 @@ export function createVolcanoesStep(
     },
   };
 }
-

@@ -1,7 +1,7 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { syncHeightfield } from "../../core/types.js";
-import { publishHeightfieldArtifact } from "../../pipeline/artifacts.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
+import type { ExtendedMapContext } from "../../../core/types.js";
+import { syncHeightfield } from "../../../core/types.js";
+import { publishHeightfieldArtifact } from "../../../pipeline/artifacts.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../../pipeline/index.js";
 import type { MapInfo } from "@civ7/adapter";
 
 export interface LakesStepRuntime {
@@ -33,4 +33,3 @@ export function createLakesStep(
     },
   };
 }
-

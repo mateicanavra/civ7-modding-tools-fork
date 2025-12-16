@@ -1,1 +1,1 @@
-export * from "../layers/placement/LegacyPlacementStep.js";
+export * from "../layers/placement/steps/LegacyPlacementStep.js";

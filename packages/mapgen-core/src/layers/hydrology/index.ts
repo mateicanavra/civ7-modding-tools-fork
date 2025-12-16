@@ -2,10 +2,12 @@ import type { ExtendedMapContext } from "../../core/types.js";
 import type { ContinentBounds } from "../../bootstrap/types.js";
 import type { MapInfo } from "@civ7/adapter";
 import type { StepRegistry } from "../../pipeline/index.js";
-import { createClimateBaselineStep } from "./ClimateBaselineStep.js";
-import { createClimateRefineStep } from "./ClimateRefineStep.js";
-import { createLakesStep } from "./LakesStep.js";
-import { createRiversStep } from "./RiversStep.js";
+import {
+  createClimateBaselineStep,
+  createClimateRefineStep,
+  createLakesStep,
+  createRiversStep,
+} from "./steps/index.js";
 
 export interface HydrologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };

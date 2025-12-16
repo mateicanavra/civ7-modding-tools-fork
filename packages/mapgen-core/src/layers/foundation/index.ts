@@ -1,6 +1,6 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import type { StepRegistry } from "../../pipeline/index.js";
-import { createFoundationStep } from "./FoundationStep.js";
+import { createFoundationStep } from "./steps/index.js";
 
 export interface FoundationLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
