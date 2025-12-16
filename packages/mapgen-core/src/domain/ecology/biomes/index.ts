@@ -21,113 +21,22 @@
  */
 
 import type { ExtendedMapContext } from "../../../core/types.js";
-import type { EngineAdapter } from "@civ7/adapter";
 import { ctxRandom } from "../../../core/types.js";
 import { getStoryTags } from "../../narrative/tags/index.js";
 import {
   getPublishedClimateField,
   getPublishedRiverAdjacency,
 } from "../../../pipeline/artifacts.js";
+import type { BiomeConfig, CorridorPolicy } from "./types.js";
+import { resolveBiomeGlobals } from "./globals.js";
+import { applyTundraRestraint } from "./nudges/tundra-restraint.js";
+import { applyTropicalCoastBias } from "./nudges/tropical-coast.js";
+import { applyRiverValleyGrasslandBias } from "./nudges/river-valley.js";
+import { applyCorridorKindBiomeBias, applyCorridorTileBias } from "./nudges/corridor-bias.js";
+import { applyCorridorEdgeHints } from "./nudges/corridor-edge-hints.js";
+import { applyRiftShoulderBias } from "./nudges/rift-shoulder.js";
 
-// ============================================================================
-// Types
-// ============================================================================
-
-export interface BiomeConfig {
-  tundra?: {
-    latMin?: number;
-    elevMin?: number;
-    rainMax?: number;
-  };
-  tropicalCoast?: {
-    latMax?: number;
-    rainMin?: number;
-  };
-  riverValleyGrassland?: {
-    latMax?: number;
-    rainMin?: number;
-  };
-  riftShoulder?: {
-    grasslandLatMax?: number;
-    grasslandRainMin?: number;
-    tropicalLatMax?: number;
-    tropicalRainMin?: number;
-  };
-}
-
-export interface CorridorPolicy {
-  land?: {
-    biomesBiasStrength?: number;
-  };
-  river?: {
-    biomesBiasStrength?: number;
-  };
-}
-
-/**
- * Biome global indices resolved from the adapter
- */
-interface BiomeGlobals {
-  tundra: number;
-  tropical: number;
-  grassland: number;
-  plains: number;
-  desert: number;
-  snow: number;
-}
-
-/**
- * Resolve biome globals from the engine adapter
- */
-function resolveBiomeGlobals(adapter: EngineAdapter): BiomeGlobals {
-  return {
-    tundra: adapter.getBiomeGlobal("tundra"),
-    tropical: adapter.getBiomeGlobal("tropical"),
-    grassland: adapter.getBiomeGlobal("grassland"),
-    plains: adapter.getBiomeGlobal("plains"),
-    desert: adapter.getBiomeGlobal("desert"),
-    snow: adapter.getBiomeGlobal("snow"),
-  };
-}
-
-// ============================================================================
-// Helper Functions
-// ============================================================================
-
-/**
- * Check if a tile is coastal land (land adjacent to water)
- * Local implementation since this isn't always on the base adapter
- */
-function isCoastalLand(
-  adapter: EngineAdapter,
-  x: number,
-  y: number,
-  width: number,
-  height: number
-): boolean {
-  if (adapter.isWater(x, y)) return false;
-
-  // Check all 6 hex neighbors
-  const neighbors = [
-    [x - 1, y],
-    [x + 1, y],
-    [x, y - 1],
-    [x, y + 1],
-    [x - 1, y - 1],
-    [x + 1, y + 1],
-  ];
-
-  for (const [nx, ny] of neighbors) {
-    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-      if (adapter.isWater(nx, ny)) return true;
-    }
-  }
-  return false;
-}
-
-// ============================================================================
-// Main Function
-// ============================================================================
+export type { BiomeConfig, BiomeGlobals, CorridorPolicy } from "./types.js";
 
 /**
  * Enhanced biome designation with gentle, readable nudges.
@@ -235,224 +144,45 @@ export function designateEnhancedBiomes(
       const idxValue = y * iWidth + x;
       const rainfall = rainfallField[idxValue] | 0;
 
-      // Tundra restraint: require very high lat or extreme elevation and dryness
       if (
-        (lat > TUNDRA_LAT_MIN || elevation > TUNDRA_ELEV_MIN) &&
-        rainfall < TUNDRA_RAIN_MAX
+        applyTundraRestraint(adapter, globals, x, y, lat, elevation, rainfall, {
+          latMin: TUNDRA_LAT_MIN,
+          elevMin: TUNDRA_ELEV_MIN,
+          rainMax: TUNDRA_RAIN_MAX,
+        })
       ) {
-        adapter.setBiomeType(x, y, globals.tundra);
-        continue; // lock this decision; skip other nudges
+        continue;
       }
 
-      // Wet, warm coasts near the equator tend tropical
-      if (
-        lat < TCOAST_LAT_MAX &&
-        isCoastalLand(adapter, x, y, iWidth, iHeight) &&
-        rainfall > TCOAST_RAIN_MIN
-      ) {
-        adapter.setBiomeType(x, y, globals.tropical);
-      }
+      applyTropicalCoastBias(adapter, globals, x, y, iWidth, iHeight, lat, rainfall, {
+        latMax: TCOAST_LAT_MAX,
+        rainMin: TCOAST_RAIN_MIN,
+      });
 
-      // Temperate/warm river valleys prefer grassland for playability
-      if (
-        riverAdjacency[idxValue] === 1 &&
-        rainfall > RV_RAIN_MIN &&
-        lat < RV_LAT_MAX
-      ) {
-        adapter.setBiomeType(x, y, globals.grassland);
-      }
+      applyRiverValleyGrasslandBias(adapter, globals, x, y, iWidth, riverAdjacency, lat, rainfall, {
+        latMax: RV_LAT_MAX,
+        rainMin: RV_RAIN_MIN,
+      });
 
-      // Strategic Corridors: land-open corridor tiles gently bias to grassland
-      if (
-        StoryTags.corridorLandOpen &&
-        StoryTags.corridorLandOpen.has(`${x},${y}`)
-      ) {
-        if (
-          rainfall > 80 &&
-          lat < 55 &&
-          getRandom("Corridor Land-Open Biome", 100) <
-            Math.round(LAND_BIAS_STRENGTH * 100)
-        ) {
-          adapter.setBiomeType(x, y, globals.grassland);
-        }
-      }
+      applyCorridorTileBias(adapter, globals, x, y, lat, rainfall, StoryTags, getRandom, {
+        landBiasStrength: LAND_BIAS_STRENGTH,
+        riverBiasStrength: RIVER_BIAS_STRENGTH,
+      });
 
-      // Strategic Corridors: river-chain tiles gently bias to grassland
-      if (
-        StoryTags.corridorRiverChain &&
-        StoryTags.corridorRiverChain.has(`${x},${y}`)
-      ) {
-        if (
-          rainfall > 75 &&
-          lat < 55 &&
-          getRandom("Corridor River-Chain Biome", 100) <
-            Math.round(RIVER_BIAS_STRENGTH * 100)
-        ) {
-          adapter.setBiomeType(x, y, globals.grassland);
-        }
-      }
+      applyCorridorEdgeHints(adapter, globals, x, y, iWidth, lat, rainfall, StoryTags, getRandom);
 
-      // Edge hints near land/river corridors
-      {
-        if (
-          !(
-            StoryTags.corridorLandOpen?.has?.(`${x},${y}`) ||
-            StoryTags.corridorRiverChain?.has?.(`${x},${y}`)
-          )
-        ) {
-          let edgeAttr: { edge?: Record<string, number> } | null = null;
+      applyCorridorKindBiomeBias(adapter, globals, x, y, lat, elevation, rainfall, StoryTags, getRandom, {
+        landBiasStrength: LAND_BIAS_STRENGTH,
+        riverBiasStrength: RIVER_BIAS_STRENGTH,
+      });
 
-          for (let ddy = -1; ddy <= 1 && !edgeAttr; ddy++) {
-            for (let ddx = -1; ddx <= 1; ddx++) {
-              if (ddx === 0 && ddy === 0) continue;
-              const nx = x + ddx;
-              const ny = y + ddy;
-              const nk = `${nx},${ny}`;
-
-              if (!StoryTags) continue;
-              if (
-                StoryTags.corridorLandOpen?.has?.(nk) ||
-                StoryTags.corridorRiverChain?.has?.(nk)
-              ) {
-                const attr = StoryTags.corridorAttributes?.get?.(nk) as
-                  | { edge?: Record<string, number> }
-                  | undefined;
-                if (attr && attr.edge) edgeAttr = attr;
-              }
-            }
-          }
-
-          if (edgeAttr && edgeAttr.edge) {
-            const edgeCfg = edgeAttr.edge;
-
-            // Forest rim: bias toward forest-friendly biomes when moist
-            const forestRimChance = Math.max(
-              0,
-              Math.min(1, edgeCfg.forestRimChance ?? 0)
-            );
-            if (
-              forestRimChance > 0 &&
-              rainfall > 90 &&
-              getRandom("Corr Forest Rim", 100) <
-                Math.round(forestRimChance * 100)
-            ) {
-              const target =
-                lat < 22 && rainfall > 110
-                  ? globals.tropical
-                  : globals.grassland;
-              adapter.setBiomeType(x, y, target);
-            }
-
-            // Hill/mountain rim: suggest drier, relief-friendly biomes
-            const hillRimChance = Math.max(
-              0,
-              Math.min(1, edgeCfg.hillRimChance ?? 0)
-            );
-            const mountainRimChance = Math.max(
-              0,
-              Math.min(1, edgeCfg.mountainRimChance ?? 0)
-            );
-            const escarpmentChance = Math.max(
-              0,
-              Math.min(1, edgeCfg.escarpmentChance ?? 0)
-            );
-            const reliefChance = Math.max(
-              0,
-              Math.min(1, hillRimChance + mountainRimChance + escarpmentChance)
-            );
-
-            if (
-              reliefChance > 0 &&
-              getRandom("Corr Relief Rim", 100) < Math.round(reliefChance * 100)
-            ) {
-              const elev = adapter.getElevation(x, y);
-              const target =
-                (lat > 62 || elev > 800) && rainfall < 95
-                  ? globals.tundra
-                  : globals.plains;
-              adapter.setBiomeType(x, y, target);
-            }
-          }
-        }
-      }
-
-      // Strategic Corridors: kind/style biome bias (very gentle; policy-scaled)
-      {
-        const cKey = `${x},${y}`;
-        const attr = StoryTags.corridorAttributes?.get?.(cKey) as
-          | { kind?: string; biomes?: Record<string, number> }
-          | undefined;
-        const cKind =
-          attr?.kind || (StoryTags.corridorKind && StoryTags.corridorKind.get(cKey));
-        const biomesCfgCorridor = attr?.biomes;
-
-        if ((cKind === "land" || cKind === "river") && biomesCfgCorridor) {
-          const strength =
-            cKind === "land" ? LAND_BIAS_STRENGTH : RIVER_BIAS_STRENGTH;
-
-          if (
-            strength > 0 &&
-            getRandom("Corridor Kind Bias", 100) < Math.round(strength * 100)
-          ) {
-            const entries = Object.keys(biomesCfgCorridor);
-            let totalW = 0;
-            for (const k of entries) totalW += Math.max(0, biomesCfgCorridor[k] || 0);
-
-            if (totalW > 0) {
-              let roll = getRandom("Corridor Kind Pick", totalW);
-              let chosen = entries[0];
-
-              for (const k of entries) {
-                const w = Math.max(0, biomesCfgCorridor[k] || 0);
-                if (roll < w) {
-                  chosen = k;
-                  break;
-                }
-                roll -= w;
-              }
-
-              let target: number | null = null;
-              if (chosen === "desert") target = globals.desert;
-              else if (chosen === "plains") target = globals.plains;
-              else if (chosen === "grassland") target = globals.grassland;
-              else if (chosen === "tropical") target = globals.tropical;
-              else if (chosen === "tundra") target = globals.tundra;
-              else if (chosen === "snow") target = globals.snow;
-
-              if (target != null) {
-                // Light sanity gates to avoid extreme mismatches
-                let ok = true;
-                if (target === globals.desert && rainfall > 110) ok = false;
-                if (target === globals.tropical && !(lat < 25 && rainfall > 95))
-                  ok = false;
-                if (
-                  target === globals.tundra &&
-                  !(lat > 60 || elevation > 800)
-                )
-                  ok = false;
-                if (target === globals.snow && !(lat > 70 || elevation > 900))
-                  ok = false;
-                if (ok) {
-                  adapter.setBiomeType(x, y, target);
-                }
-              }
-            }
-          }
-        }
-      }
-
-      // Climate Story: rift shoulder preference (narrow, moisture-aware)
       if (config.toggles?.STORY_ENABLE_RIFTS && StoryTags.riftShoulder.size > 0) {
-        const key = `${x},${y}`;
-        if (StoryTags.riftShoulder.has(key)) {
-          // Temperate/warm shoulders: prefer grassland when sufficiently moist
-          if (lat < RS_GRASS_LAT_MAX && rainfall > RS_GRASS_RAIN_MIN) {
-            adapter.setBiomeType(x, y, globals.grassland);
-          } else if (lat < RS_TROP_LAT_MAX && rainfall > RS_TROP_RAIN_MIN) {
-            // In very warm & wet shoulders, allow tropical bias
-            adapter.setBiomeType(x, y, globals.tropical);
-          }
-        }
+        applyRiftShoulderBias(adapter, globals, x, y, lat, rainfall, StoryTags, {
+          grasslandLatMax: RS_GRASS_LAT_MAX,
+          grasslandRainMin: RS_GRASS_RAIN_MIN,
+          tropicalLatMax: RS_TROP_LAT_MAX,
+          tropicalRainMin: RS_TROP_RAIN_MIN,
+        });
       }
     }
   }

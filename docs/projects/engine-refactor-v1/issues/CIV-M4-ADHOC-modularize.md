@@ -649,27 +649,27 @@ This work is intentionally **deferred** while story/playability is treated as op
 
 **From `domain/ecology/biomes/index.ts`:**
 
-- [ ] `biomes/types.ts`: `BiomeConfig`, `CorridorPolicy`, `BiomeGlobals`
-- [ ] `biomes/globals.ts`: `resolveBiomeGlobals`
-- [ ] `biomes/coastal.ts`: `isCoastalLand` (preserve current neighbor semantics; do not "fix" without a deliberate decision)
-- [ ] `biomes/nudges/tundra-restraint.ts`: extract tundra restraint pass
-- [ ] `biomes/nudges/tropical-coast.ts`: extract tropical coast bias pass
-- [ ] `biomes/nudges/river-valley.ts`: extract river-valley grassland bias pass
-- [ ] `biomes/nudges/corridor-bias.ts`: extract corridor-biome bias pass (land + river chains)
-- [ ] `biomes/nudges/corridor-edge-hints.ts`: extract corridor-edge hint bias pass
-- [ ] `biomes/nudges/rift-shoulder.ts`: extract rift shoulder bias pass
-- [ ] `biomes/index.ts`: `designateEnhancedBiomes` becomes orchestrator calling nudges in a stable order
+- [x] `biomes/types.ts`: `BiomeConfig`, `CorridorPolicy`, `BiomeGlobals`
+- [x] `biomes/globals.ts`: `resolveBiomeGlobals`
+- [x] `biomes/coastal.ts`: `isCoastalLand` (preserve current neighbor semantics; do not "fix" without a deliberate decision)
+- [x] `biomes/nudges/tundra-restraint.ts`: extract tundra restraint pass
+- [x] `biomes/nudges/tropical-coast.ts`: extract tropical coast bias pass
+- [x] `biomes/nudges/river-valley.ts`: extract river-valley grassland bias pass
+- [x] `biomes/nudges/corridor-bias.ts`: extract corridor-biome bias pass (land + river chains)
+- [x] `biomes/nudges/corridor-edge-hints.ts`: extract corridor-edge hint bias pass
+- [x] `biomes/nudges/rift-shoulder.ts`: extract rift shoulder bias pass
+- [x] `biomes/index.ts`: `designateEnhancedBiomes` becomes orchestrator calling nudges in a stable order
 
 **From `domain/ecology/features/index.ts`:**
 
-- [ ] `features/types.ts`: `FeaturesConfig`, `FeaturesDensityConfig`
-- [ ] `features/indices.ts`: resolve feature indices (reef, forest, taiga, etc) + `NO_FEATURE`
-- [ ] `features/place-feature.ts`: `tryPlaceFeature` helper (wrap `canHaveFeature` + `setFeatureType`)
-- [ ] `features/paradise-reefs.ts`: hotspot paradise reef placement loop
-- [ ] `features/shelf-reefs.ts`: passive shelf reef placement loop
-- [ ] `features/volcanic-vegetation.ts`: near-volcanic vegetation logic
-- [ ] `features/density-tweaks.ts`: rainforest/forest/taiga density tweaks
-- [ ] `features/index.ts`: `addDiverseFeatures` orchestrates the above
+- [x] `features/types.ts`: `FeaturesConfig`, `FeaturesDensityConfig`
+- [x] `features/indices.ts`: resolve feature indices (reef, forest, taiga, etc) + `NO_FEATURE`
+- [x] `features/place-feature.ts`: `tryPlaceFeature` helper (wrap `canHaveFeature` + `setFeatureType`)
+- [x] `features/paradise-reefs.ts`: hotspot paradise reef placement loop
+- [x] `features/shelf-reefs.ts`: passive shelf reef placement loop
+- [x] `features/volcanic-vegetation.ts`: near-volcanic vegetation logic
+- [x] `features/density-tweaks.ts`: rainforest/forest/taiga density tweaks
+- [x] `features/index.ts`: `addDiverseFeatures` orchestrates the above
 
 ### 3.6 Placement Domain Atomization
 
