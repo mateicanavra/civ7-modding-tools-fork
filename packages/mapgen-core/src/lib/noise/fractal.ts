@@ -6,8 +6,8 @@
  * - Negative values are clamped to 0 to avoid wrapping artifacts
  */
 export function normalizeFractal(raw: number): number {
-  let val = raw | 0;
-  if (val < 0) val = 0;
+  const val = Math.trunc(raw);
+  if (val <= 0) return 0;
 
   if (val > 65535) {
     return (val >>> 24) / 255;
