@@ -9,12 +9,12 @@ import {
 import { DEV, devWarn, logLandmassAscii } from "../../dev/index.js";
 import type { ContinentBounds, LandmassConfig } from "../../bootstrap/types.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { createPlateDrivenLandmasses } from "../../domain/morphology/landmass/index.js";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,
+  createPlateDrivenLandmasses,
   type LandmassWindow,
-} from "../../domain/morphology/landmass/utils.js";
+} from "../../domain/morphology/landmass/index.js";
 
 export interface LandmassStepRuntime {
   landmassCfg: LandmassConfig;

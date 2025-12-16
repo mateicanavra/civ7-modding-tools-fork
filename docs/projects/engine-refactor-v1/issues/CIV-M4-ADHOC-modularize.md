@@ -588,62 +588,62 @@ This work is intentionally **deferred** while story/playability is treated as op
 
 **From `domain/morphology/landmass/index.ts`:**
 
-- [ ] `landmass/types.ts`: `LandmassConfig`, `TectonicsConfig`, `GeometryConfig`, `GeometryPostConfig`, `CreateLandmassesOptions`, `LandmassGenerationResult`, `PlateStats`, `CrustSummary`, `AreaCrustResult`, `CrustFirstResult`
-- [ ] `landmass/crust-mode.ts`: `CrustMode`, `normalizeCrustMode`
-- [ ] `landmass/water-target.ts`: `computeTargetLandTiles` (extract from inline water coverage calculation)
-- [ ] `landmass/crust-first-landmask.ts`: `computeClosenessLimit`, `summarizeCrustTypes`, `assignCrustTypesByArea`, `tryCrustFirstLandmask`
-- [ ] `landmass/terrain-apply.ts`: `applyLandmaskToTerrain` (extract terrain stamping + heightfield writes)
-- [ ] `landmass/plate-stats.ts`: `computePlateStatsFromLandMask` (extract the plate stats block)
-- [ ] `landmass/windows.ts`: `windowsFromPlateStats`, `windowFromPlateStat`, clamp/min-width logic
-- [ ] `landmass/diagnostics.ts`: extract `[landmass-plate]` logging into named functions
-- [ ] `landmass/index.ts`: `createPlateDrivenLandmasses` becomes orchestrator calling the above pieces
+- [x] `landmass/types.ts`: `LandmassConfig`, `TectonicsConfig`, `GeometryConfig`, `GeometryPostConfig`, `CreateLandmassesOptions`, `LandmassGenerationResult`, `PlateStats`, `CrustSummary`, `AreaCrustResult`, `CrustFirstResult`
+- [x] `landmass/crust-mode.ts`: `CrustMode`, `normalizeCrustMode`
+- [x] `landmass/water-target.ts`: `computeTargetLandTiles` (extract from inline water coverage calculation)
+- [x] `landmass/crust-first-landmask.ts`: `computeClosenessLimit`, `summarizeCrustTypes`, `assignCrustTypesByArea`, `tryCrustFirstLandmask`
+- [x] `landmass/terrain-apply.ts`: `applyLandmaskToTerrain` (extract terrain stamping + heightfield writes)
+- [x] `landmass/plate-stats.ts`: `computePlateStatsFromLandMask` (extract the plate stats block)
+- [x] `landmass/windows.ts`: `windowsFromPlateStats`, `windowFromPlateStat`, clamp/min-width logic
+- [x] `landmass/diagnostics.ts`: extract `[landmass-plate]` logging into named functions
+- [x] `landmass/index.ts`: `createPlateDrivenLandmasses` becomes orchestrator calling the above pieces
 
 **From `domain/morphology/landmass/utils.ts` (ocean separation + post adjustments):**
 
-- [ ] `landmass/ocean-separation/types.ts`: `LandmassWindow`, `OceanSeparationPolicy`, `PlateAwareOceanSeparationParams`, `PlateAwareOceanSeparationResult`, internal `RowState`
-- [ ] `landmass/ocean-separation/policy.ts`: default policy values + normalization helpers
-- [ ] `landmass/ocean-separation/row-state.ts`: `normalizeWindow`, `createRowState`, `aggregateRowState`
-- [ ] `landmass/ocean-separation/carve.ts`: `carveOceanFromEast`, `carveOceanFromWest` (extract from the row loop)
-- [ ] `landmass/ocean-separation/fill.ts`: `fillLandFromWest`, `fillLandFromEast` (extract from the row loop)
-- [ ] `landmass/ocean-separation/apply.ts`: `applyPlateAwareOceanSeparation` (orchestrates row-state + carve/fill)
-- [ ] `landmass/ocean-separation/index.ts`: re-export the public surface for ocean separation
-- [ ] `landmass/post-adjustments.ts`: `applyLandmassPostAdjustments`
-- [ ] `landmass/utils.ts`: delete once split is complete (or keep as temporary re-export facade only during migration)
+- [x] `landmass/ocean-separation/types.ts`: `LandmassWindow`, `OceanSeparationPolicy`, `PlateAwareOceanSeparationParams`, `PlateAwareOceanSeparationResult`, internal `RowState`
+- [x] `landmass/ocean-separation/policy.ts`: default policy values + normalization helpers
+- [x] `landmass/ocean-separation/row-state.ts`: `normalizeWindow`, `createRowState`, `aggregateRowState`
+- [x] `landmass/ocean-separation/carve.ts`: `carveOceanFromEast`, `carveOceanFromWest` (extract from the row loop)
+- [x] `landmass/ocean-separation/fill.ts`: `fillLandFromWest`, `fillLandFromEast` (extract from the row loop)
+- [x] `landmass/ocean-separation/apply.ts`: `applyPlateAwareOceanSeparation` (orchestrates row-state + carve/fill)
+- [x] `landmass/ocean-separation/index.ts`: re-export the public surface for ocean separation
+- [x] `landmass/post-adjustments.ts`: `applyLandmassPostAdjustments`
+- [x] `landmass/utils.ts`: delete once split is complete (or keep as temporary re-export facade only during migration)
 
 **From `domain/morphology/coastlines/index.ts`:**
 
-- [ ] `coastlines/types.ts`: `CoastlinesConfig`, `CoastlinePlateBiasConfig`, `CoastlineBayConfig`, `CoastlineFjordConfig`, `SeaCorridorPolicy`, `CorridorPolicy`
-- [ ] `coastlines/plate-bias.ts`: `computePlateBias`
-- [ ] `coastlines/adjacency.ts`: coastal/adjacency helpers extracted from inline scans
-- [ ] `coastlines/corridor-policy.ts`: corridor-edge attribute scanning + "sea lane protection" policy helpers
-- [ ] `coastlines/rugged-coasts.ts`: `addRuggedCoasts` (main), calling the above
-- [ ] `coastlines/index.ts`: re-export stable API
+- [x] `coastlines/types.ts`: `CoastlinesConfig`, `CoastlinePlateBiasConfig`, `CoastlineBayConfig`, `CoastlineFjordConfig`, `SeaCorridorPolicy`, `CorridorPolicy`
+- [x] `coastlines/plate-bias.ts`: `computePlateBias`
+- [x] `coastlines/adjacency.ts`: coastal/adjacency helpers extracted from inline scans
+- [x] `coastlines/corridor-policy.ts`: corridor-edge attribute scanning + "sea lane protection" policy helpers
+- [x] `coastlines/rugged-coasts.ts`: `addRuggedCoasts` (main), calling the above
+- [x] `coastlines/index.ts`: re-export stable API
 
 **From `domain/morphology/islands/index.ts`:**
 
-- [ ] `islands/types.ts`: `IslandsConfig`, `HotspotTunables`, `CorridorsConfig`
-- [ ] `islands/fractal-threshold.ts`: `getFractalThreshold`
-- [ ] `islands/adjacency.ts`: `isAdjacentToLandSquare`/lane proximity helpers (preserve current semantics)
-- [ ] `islands/placement.ts`: `addIslandChains` (main)
-- [ ] `islands/index.ts`: re-export stable API
+- [x] `islands/types.ts`: `IslandsConfig`, `HotspotTunables`, `CorridorsConfig`
+- [x] `islands/fractal-threshold.ts`: `getFractalThreshold`
+- [x] `islands/adjacency.ts`: `isAdjacentToLandSquare`/lane proximity helpers (preserve current semantics)
+- [x] `islands/placement.ts`: `addIslandChains` (main)
+- [x] `islands/index.ts`: re-export stable API
 
 **From `domain/morphology/mountains/index.ts`:**
 
-- [ ] `mountains/types.ts`: `MountainsConfig`
-- [ ] `mountains/scoring.ts`: `computePlateBasedScores`, `computeFractalOnlyScores`, `applyRiftDepressions`
-- [ ] `mountains/selection.ts`: `createIsWaterTile`, `selectTilesAboveThreshold`
-- [ ] `mountains/apply.ts`: `layerAddMountainsPhysics`, `addMountainsCompat`
-- [ ] Replace local `idx` + `normalizeFractal` with `lib/grid/indexing.idx` and `lib/noise/fractal.normalizeFractal`
-- [ ] `mountains/index.ts`: re-export stable API
+- [x] `mountains/types.ts`: `MountainsConfig`
+- [x] `mountains/scoring.ts`: `computePlateBasedScores`, `computeFractalOnlyScores`, `applyRiftDepressions`
+- [x] `mountains/selection.ts`: `createIsWaterTile`, `selectTilesAboveThreshold`
+- [x] `mountains/apply.ts`: `layerAddMountainsPhysics`, `addMountainsCompat`
+- [x] Replace local `idx` + `normalizeFractal` with `lib/grid/indexing.idx` and `lib/noise/fractal.normalizeFractal`
+- [x] `mountains/index.ts`: re-export stable API
 
 **From `domain/morphology/volcanoes/index.ts`:**
 
-- [ ] `volcanoes/types.ts`: `VolcanoesConfig`, `VolcanoCandidate`, `PlacedVolcano`
-- [ ] `volcanoes/scoring.ts`: candidate weighting computation
-- [ ] `volcanoes/selection.ts`: `isTooCloseToExisting`, selection loop
-- [ ] `volcanoes/apply.ts`: `layerAddVolcanoesPlateAware`
-- [ ] Replace local `idx` + `clamp` with `lib/grid/indexing.idx` and `lib/math/clamp`
-- [ ] `volcanoes/index.ts`: re-export stable API
+- [x] `volcanoes/types.ts`: `VolcanoesConfig`, `VolcanoCandidate`, `PlacedVolcano`
+- [x] `volcanoes/scoring.ts`: candidate weighting computation
+- [x] `volcanoes/selection.ts`: `isTooCloseToExisting`, selection loop
+- [x] `volcanoes/apply.ts`: `layerAddVolcanoesPlateAware`
+- [x] Replace local `idx` + `clamp` with `lib/grid/indexing.idx` and `lib/math/clamp`
+- [x] `volcanoes/index.ts`: re-export stable API
 
 ### 3.5 Ecology Domain Atomization
 

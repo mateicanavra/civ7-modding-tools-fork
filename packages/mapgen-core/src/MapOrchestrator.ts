@@ -111,12 +111,12 @@ import {
 } from "./pipeline/artifacts.js";
 
 // Domain imports (legacy execution path)
-import { createPlateDrivenLandmasses } from "./domain/morphology/landmass/index.js";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,
+  createPlateDrivenLandmasses,
   type LandmassWindow,
-} from "./domain/morphology/landmass/utils.js";
+} from "./domain/morphology/landmass/index.js";
 import { addRuggedCoasts } from "./domain/morphology/coastlines/index.js";
 import { addIslandChains } from "./domain/morphology/islands/index.js";
 import { layerAddMountainsPhysics } from "./domain/morphology/mountains/index.js";
