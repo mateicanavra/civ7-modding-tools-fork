@@ -777,3 +777,196 @@ Update `packages/mapgen-core/src/index.ts`:
   - [ ] `layers/placement/**` → `pipeline/placement/**`
 - [ ] Update `packages/mapgen-core/src/MapOrchestrator.ts` imports to reference `pipeline/standard-library.ts`
 - [ ] Delete `packages/mapgen-core/src/layers/**` once all callsites + registry wiring are updated
+
+---
+
+## 5. Implementation Phases
+
+This section provides a recommended ordering for the work, balancing risk mitigation, parallelization potential, and incremental value delivery.
+
+### 5.1 Breakdown Strategy
+
+The phasing follows a **foundation → derisk → sweep → cleanup** approach based on these axes:
+
+| Axis | Description | Implication |
+|------|-------------|-------------|
+| **Foundation-first** | `lib/**` consolidation is prerequisite for clean atomization | Do this first; every subsequent PR benefits from stable imports |
+| **Risk-first** | Climate and Landmass are the most complex domains (~18 and ~19 files respectively) | Tackle early to expose structural issues before committing to patterns |
+| **Quick wins** | Volcanoes, Mountains, Islands, Coastlines are straightforward (~4-5 files each) | Can parallelize; builds momentum |
+| **Dependency unlocking** | Facade deletion and step wiring move are blocked until atomization completes | These are "cap" phases that close out the refactor |
+| **Parallelization** | Morphology subdomains and Ecology subdomains are independent of each other | Can be worked in parallel if multiple contributors available |
+
+### 5.2 Phase Overview
+
+```
+Phase A: Foundation
+    └─ A1: lib/** consolidation + noise shim deletion
+
+Phase B: Derisk Complex Domains
+    ├─ B1: Climate atomization (types → baseline → swatches/* → refine/*)
+    └─ B2: Landmass atomization (types → ocean-separation/* → orchestrator)
+
+Phase C: Morphology Sweep (parallelizable)
+    ├─ C1: Coastlines
+    ├─ C2: Islands
+    ├─ C3: Mountains
+    └─ C4: Volcanoes
+
+Phase D: Ecology + Placement
+    ├─ D1: Biomes (types → globals → coastal → nudges/*)
+    ├─ D2: Features
+    └─ D3: Placement
+
+Phase E: Cleanup
+    ├─ E1: Delete legacy facades (layers/**, narrative/**, story/**)
+    └─ E2: Move step wiring (layers/** → pipeline/**)
+```
+
+### 5.3 Phase Details
+
+#### Phase A: Foundation
+
+| Issue | Scope | Rationale |
+|-------|-------|-----------|
+| **A1: `lib/**` consolidation** | Replace all local `clamp*`, `idx`, `normalizeFractal`, neighbor helpers with canonical `lib/**` imports; delete `lib/noise.ts` shim | Foundation work. Every subsequent PR benefits from stable imports. Small, testable, low-risk. |
+
+**Definition of done:** No domain code defines its own `clamp`, `idx`, or neighbor iteration. All imports go through `lib/**` indices.
+
+---
+
+#### Phase B: Derisk Complex Domains
+
+| Issue | Scope | Est. Files | Rationale |
+|-------|-------|------------|-----------|
+| **B1: Climate atomization** | `types.ts`, `runtime.ts`, `distance-to-water.ts`, `orographic-shadow.ts`, `baseline.ts`, `swatches/*` (7 files), `refine/*` (7 files), `index.ts` | ~18 | Most complex domain. Establishes patterns for types/runtime/orchestrator split. If this works cleanly, the rest will too. |
+| **B2: Landmass atomization** | `types.ts`, `crust-mode.ts`, `water-target.ts`, `crust-first-landmask.ts`, `terrain-apply.ts`, `plate-stats.ts`, `windows.ts`, `diagnostics.ts`, `ocean-separation/*` (7 files), `post-adjustments.ts`, `index.ts` | ~19 | Second most complex. `ocean-separation/` is a self-contained subsystem. Validates nested folder pattern. |
+
+**Definition of done:** Each domain's `index.ts` re-exports the stable public API. Tests pass. Determinism parity confirmed.
+
+---
+
+#### Phase C: Morphology Sweep
+
+These can be done in parallel or serial. Each is a standalone PR.
+
+| Issue | Scope | Est. Files | Notes |
+|-------|-------|------------|-------|
+| **C1: Coastlines** | types, plate-bias, adjacency, corridor-policy, rugged-coasts, index | 6 | Depends on B2 completing (may use landmass types) |
+| **C2: Islands** | types, fractal-threshold, adjacency, placement, index | 5 | Independent |
+| **C3: Mountains** | types, scoring, selection, apply, index | 5 | Independent |
+| **C4: Volcanoes** | types, scoring, selection, apply, index | 5 | Independent |
+
+**Definition of done:** Each subdomain has its own `types.ts` and `index.ts`. No cross-imports except through indices.
+
+---
+
+#### Phase D: Ecology + Placement
+
+| Issue | Scope | Est. Files | Notes |
+|-------|-------|------------|-------|
+| **D1: Biomes** | types, globals, coastal, nudges/* (6 files), index | 9 | `nudges/` pattern mirrors `swatches/` |
+| **D2: Features** | types, indices, place-feature, paradise-reefs, shelf-reefs, volcanic-vegetation, density-tweaks, index | 8 | Straightforward extraction |
+| **D3: Placement** | types, diagnostics, wonders, floodplains, terrain-validation, areas, water-data, snow, resources, starts, discoveries, fertility, advanced-start, index | 14 | Large but mechanical |
+
+**Definition of done:** Domain code imports only from `lib/**` and same-subsystem modules. Steps import from domain `index.ts`.
+
+---
+
+#### Phase E: Cleanup
+
+| Issue | Scope | Rationale |
+|-------|-------|-----------|
+| **E1: Delete legacy facades** | Remove `layers/hydrology/climate.ts`, `layers/morphology/*.ts`, `layers/ecology/*.ts`, `layers/placement/placement.ts`, `narrative/**`, `story/**`, `lib/noise.ts` | Can only happen after all atomization is complete and step imports are migrated |
+| **E2: Move step wiring** | `layers/standard-library.ts` → `pipeline/standard-library.ts`; move all `layers/*/steps/*.ts` → `pipeline/*/`; delete `layers/**` | Final structural change. Makes the target layout real. |
+
+**Definition of done:** `src/layers/` directory no longer exists. All step wiring lives under `pipeline/**`.
+
+---
+
+### 5.4 Alternative Orderings Considered
+
+| Option | Approach | Pros | Cons |
+|--------|----------|------|------|
+| **Quick wins first** | `A1 → C1-C4 → D1-D2 → B1-B2 → D3 → E1-E2` | Builds momentum, gets PRs merged early | If patterns need adjustment, we'd retrofit already-merged work |
+| **Breadth-first** | All `types.ts` files → All `index.ts` orchestrators → All internal modules | Establishes consistent patterns across domains | No domain is "done" until the end; harder to validate incrementally |
+| **Vertical slices** | `(B1 + delete climate shim) → (B2 + delete landmass shims) → ...` | Each phase leaves codebase cleaner; validates deletion immediately | More complex PRs; harder to review |
+
+The recommended **foundation → derisk → sweep → cleanup** approach balances these tradeoffs by:
+1. Stabilizing shared imports first (A1)
+2. Learning from the hardest cases early (B1-B2)
+3. Enabling parallel work on simpler domains (C1-C4, D1-D3)
+4. Deferring cleanup until all atomization is validated (E1-E2)
+
+### 5.5 Issue Summary
+
+| Phase | Issue | Dependencies | Parallelizable |
+|-------|-------|--------------|----------------|
+| A | A1: lib consolidation | None | — |
+| B | B1: Climate | A1 | With B2 |
+| B | B2: Landmass | A1 | With B1 |
+| C | C1: Coastlines | B2 | With C2-C4 |
+| C | C2: Islands | A1 | With C1, C3-C4 |
+| C | C3: Mountains | A1 | With C1-C2, C4 |
+| C | C4: Volcanoes | A1 | With C1-C3 |
+| D | D1: Biomes | A1 | With D2-D3 |
+| D | D2: Features | A1 | With D1, D3 |
+| D | D3: Placement | A1 | With D1-D2 |
+| E | E1: Delete facades | B1, B2, C1-C4, D1-D3 | With E2 |
+| E | E2: Move step wiring | E1 | — |
+
+**Total estimated issues:** 12 (could compress C1-C4 into 1-2 PRs if speed matters more than parallelization)
+
+---
+
+### 5.6 Task Assignment Guidance (Claude vs. Codex)
+
+Different tasks suit different execution styles. This section provides guidance on which AI assistant is best suited for each task based on their strengths.
+
+#### Strengths Profile
+
+| Assistant | Strengths |
+|-----------|-----------|
+| **Claude** | Parallel subagents, broad context, fast exploration, planning & decomposition, communication & iteration, quick targeted edits, verification scans |
+| **Codex** | Meticulous sustained attention, methodical step-by-step execution, deep single-problem focus, precise transformations (critical for determinism) |
+
+#### Recommended Assignment
+
+| Task | Best Fit | Rationale |
+|------|----------|-----------|
+| **A1: lib consolidation** | **Codex** | Meticulous find-and-replace across many files. Precision matters — one wrong import breaks things. Methodical sweep through each domain. |
+| **B1: Climate atomization** | **Codex** | Deep, complex (~18 files). Determinism-critical (RNG labels, call order). Requires sustained attention to extract swatches/refine correctly. |
+| **B2: Landmass atomization** | **Codex** | Deep, complex (~19 files). `ocean-separation/` is nested subsystem requiring careful extraction. Same determinism concerns. |
+| **C1-C4: Morphology sweep** | **Claude** | Simpler patterns, parallelizable. Can spawn 4 subagents to do Coastlines/Islands/Mountains/Volcanoes simultaneously. Patterns established by B1-B2. |
+| **D1-D2: Biomes + Features** | **Claude** | Follow patterns from B1's swatches/nudges. Parallelizable. Less complexity than Climate/Landmass. |
+| **D3: Placement** | **Codex** | Large (14 files), mechanical but needs precision. Benefits from methodical step-by-step extraction without shortcuts. |
+| **E1: Delete facades** | **Claude** | Cross-cutting verification — need to scan entire codebase to confirm all callsites migrated before deleting. Quick exploration strength. |
+| **E2: Move step wiring** | **Codex** | Methodical file moves + import updates. Benefits from meticulous attention to not miss any imports. |
+
+#### Summary by Assignee
+
+| Assignee | Tasks | Character of Work |
+|----------|-------|-------------------|
+| **Codex** | A1, B1, B2, D3, E2 | Deep, precise, determinism-critical. Long transformations requiring sustained attention. |
+| **Claude** | C1-C4, D1-D2, E1 | Parallelizable sweeps, pattern-following after Codex establishes patterns, cross-cutting verification. |
+| **Both** | Planning, review, validation | Claude plans and verifies; Codex executes deep work; Claude handles edge cases. |
+
+#### Sequencing Implication
+
+```
+Codex: A1 ──→ B1 ──→ B2 ──────────────────────→ D3 ──→ E2
+                      │                          │
+                      ▼                          │
+Claude:          [patterns established]          │
+                      │                          │
+                      ├──→ C1 (Coastlines) ──────┤
+                      ├──→ C2 (Islands) ─────────┤
+                      ├──→ C3 (Mountains) ───────┤
+                      ├──→ C4 (Volcanoes) ───────┤
+                      ├──→ D1 (Biomes) ──────────┤
+                      └──→ D2 (Features) ────────┘
+                                                 │
+                                                 ▼
+Claude:                                         E1 (verify facades ready)
+```
+
+Codex establishes patterns with the hardest work (A1, B1, B2). Claude parallelizes the simpler follow-on work (C1-C4, D1-D2). Codex finishes mechanical precision work (D3, E2). Claude handles cross-cutting verification (E1).

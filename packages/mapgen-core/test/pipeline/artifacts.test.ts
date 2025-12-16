@@ -19,10 +19,13 @@ describe("pipeline artifacts", () => {
   it("includes climate/river prerequisites for storyCorridorsPost in the standard dependency spine", () => {
     expect(M3_STAGE_DEPENDENCY_SPINE.storyCorridorsPost.requires).toEqual(
       expect.arrayContaining([
-        M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+        M3_DEPENDENCY_TAGS.state.coastlinesApplied,
         M3_DEPENDENCY_TAGS.artifact.climateField,
         M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
       ])
+    );
+    expect(M3_STAGE_DEPENDENCY_SPINE.storyCorridorsPost.requires).not.toContain(
+      M3_DEPENDENCY_TAGS.artifact.storyOverlays
     );
   });
 
