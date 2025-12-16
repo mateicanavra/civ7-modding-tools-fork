@@ -381,11 +381,8 @@ export class MapOrchestrator {
 
     // Layer configuration
     const landmassCfg = config.landmass ?? {};
-    const mountainsCfg = (config.mountains ?? {}) as MountainsConfig;
-    const volcanosCfg = (config.volcanoes ?? {}) as VolcanoesConfig;
-
-    const mountainOptions = this.buildMountainOptions(mountainsCfg);
-    const volcanoOptions = this.buildVolcanoOptions(volcanosCfg);
+    const mountainOptions = (config.mountains ?? {}) as MountainsConfig;
+    const volcanoOptions = (config.volcanoes ?? {}) as VolcanoesConfig;
 
     // Create context with adapter
     let ctx: ExtendedMapContext | null = null;
@@ -402,11 +399,11 @@ export class MapOrchestrator {
       return { success: false, stageResults: this.stageResults, startPositions };
     }
 
-    // Reset story state once per generation to prevent cross-run leakage via globals.
-    resetStoryTags();
-    resetStoryOverlays();
-    resetOrogenyCache();
-    resetCorridorStyleCache();
+    // Reset story state once per generation to prevent cross-run leakage.
+    resetStoryTags(ctx);
+    resetStoryOverlays(ctx);
+    resetOrogenyCache(ctx);
+    resetCorridorStyleCache(ctx);
 
     // Set up start sectors (placement consumes these)
     const iNumPlayers1 = mapInfo.PlayersLandmass1 ?? 4;
@@ -509,7 +506,7 @@ export class MapOrchestrator {
       stageFlags.storySwatches ||
       stageFlags.storyCorridorsPost;
     if (DEV.ENABLED && storyStagesEnabled) {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
       const tagTotal =
         tags.hotspot.size +
         tags.hotspotParadise.size +
@@ -735,48 +732,6 @@ export class MapOrchestrator {
     };
   }
 
-  private buildMountainOptions(config: MountainsConfig): MountainsConfig {
-    return {
-      tectonicIntensity: config.tectonicIntensity ?? 1.0,
-      // Defaults are aligned with the crust-first collision-only formulation in
-      // layers/mountains.ts. If callers supply overrides, those values will be
-      // used instead.
-      mountainThreshold: config.mountainThreshold ?? 0.58,
-      hillThreshold: config.hillThreshold ?? 0.32,
-      upliftWeight: config.upliftWeight ?? 0.35,
-      fractalWeight: config.fractalWeight ?? 0.15,
-      riftDepth: config.riftDepth ?? 0.2,
-      boundaryWeight: config.boundaryWeight ?? 1.0,
-      boundaryExponent: config.boundaryExponent ?? 1.6,
-      interiorPenaltyWeight: config.interiorPenaltyWeight ?? 0.0,
-      convergenceBonus: config.convergenceBonus ?? 1.0,
-      transformPenalty: config.transformPenalty ?? 0.6,
-      riftPenalty: config.riftPenalty ?? 1.0,
-      hillBoundaryWeight: config.hillBoundaryWeight ?? 0.35,
-      hillRiftBonus: config.hillRiftBonus ?? 0.25,
-      hillConvergentFoothill: config.hillConvergentFoothill ?? 0.35,
-      hillInteriorFalloff: config.hillInteriorFalloff ?? 0.1,
-      hillUpliftWeight: config.hillUpliftWeight ?? 0.2,
-    };
-  }
-
-  private buildVolcanoOptions(config: VolcanoesConfig): VolcanoesConfig {
-    return {
-      enabled: config.enabled ?? true,
-      baseDensity: config.baseDensity ?? 1 / 170,
-      minSpacing: config.minSpacing ?? 3,
-      boundaryThreshold: config.boundaryThreshold ?? 0.35,
-      boundaryWeight: config.boundaryWeight ?? 1.2,
-      convergentMultiplier: config.convergentMultiplier ?? 2.4,
-      transformMultiplier: config.transformMultiplier ?? 1.1,
-      divergentMultiplier: config.divergentMultiplier ?? 0.35,
-      hotspotWeight: config.hotspotWeight ?? 0.12,
-      shieldPenalty: config.shieldPenalty ?? 0.6,
-      randomJitter: config.randomJitter ?? 0.08,
-      minVolcanoes: config.minVolcanoes ?? 5,
-      maxVolcanoes: config.maxVolcanoes ?? 40,
-    };
-  }
 }
 
 // ============================================================================

@@ -36,7 +36,7 @@ export function storyTagRiftValleys(
   const stepLen = Math.max(1, baseStepLen | 0);
   const shoulderWidth = (baseShoulderWidth | 0) + (sqrtRift > 1.5 ? 1 : 0);
 
-  const StoryTags = getStoryTags();
+  const StoryTags = getStoryTags(ctx);
 
   const foundation = ctx?.foundation;
   const plates = foundation?.plates;

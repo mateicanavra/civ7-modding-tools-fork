@@ -59,7 +59,7 @@ export function addRuggedCoasts(iWidth: number, iHeight: number, ctx?: ExtendedM
 
   const { protection: SEA_PROTECTION, softChanceMultiplier: SOFT_MULT } = resolveSeaCorridorPolicy(ctx);
 
-  const StoryTags = getStoryTags();
+  const StoryTags = getStoryTags(ctx);
 
   const applyTerrain = (x: number, y: number, terrain: number, isLand: boolean): void => {
     if (ctx) {

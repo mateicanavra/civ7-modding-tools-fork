@@ -1,12 +1,24 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap, MapOrchestrator } from "../../src/index.js";
+import { bootstrap } from "../../src/index.js";
+import type { ExtendedMapContext } from "../../src/core/types.js";
+import { createExtendedMapContext, createFoundationContext } from "../../src/core/types.js";
 import {
-  resetStoryOverlays,
-  getStoryOverlayRegistry,
+  PipelineExecutor,
+  StepRegistry,
+  registerFoundationLayer,
+  registerHydrologyLayer,
+  registerNarrativeLayer,
+} from "../../src/pipeline/index.js";
+import {
+  getStoryOverlay,
   STORY_OVERLAY_KEYS,
 } from "../../src/domain/narrative/overlays/index.js";
-import { resetStoryTags } from "../../src/domain/narrative/tags/index.js";
+import {
+  resetConfigProviderForTest,
+  setConfigProvider,
+  WorldModel,
+} from "../../src/world/model.js";
 
 describe("orchestrator: paleo hydrology runs post-rivers", () => {
   const width = 12;
@@ -28,8 +40,8 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
   let originalGameInfo: unknown;
 
   beforeEach(() => {
-    resetStoryTags();
-    resetStoryOverlays();
+    resetConfigProviderForTest();
+    WorldModel.reset();
 
     originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
     originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
@@ -58,15 +70,92 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
   afterEach(() => {
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
+
+    resetConfigProviderForTest();
+    WorldModel.reset();
   });
 
-  function readPaleoDeltas(): number {
-    const overlay = getStoryOverlayRegistry().get(STORY_OVERLAY_KEYS.PALEO);
-    const summary = (overlay as { summary?: { deltas?: number } } | undefined)?.summary;
-    return (summary?.deltas ?? 0) | 0;
+  function runRecipe(config: ReturnType<typeof bootstrap>, adapter: ReturnType<typeof createMockAdapter>) {
+    const ctx = createExtendedMapContext({ width, height }, adapter, config);
+    const stageManifest = config.stageManifest!;
+
+    const stageFlags: Record<string, boolean> = {};
+    for (const stage of stageManifest.order ?? []) {
+      stageFlags[stage] = stageManifest.stages?.[stage]?.enabled !== false;
+    }
+
+    const getStageDescriptor = (stageId: string) => {
+      const desc = stageManifest.stages?.[stageId] ?? {};
+      const requires = Array.isArray(desc.requires) ? desc.requires : [];
+      const provides = Array.isArray(desc.provides) ? desc.provides : [];
+      return { requires, provides };
+    };
+
+    const registry = new StepRegistry<ExtendedMapContext>();
+
+    registerFoundationLayer(registry, {
+      getStageDescriptor,
+      stageFlags,
+      runFoundation: (context) => {
+        setConfigProvider(() => {
+          const foundationCfg = context.config.foundation ?? {};
+          return {
+            plates: (foundationCfg.plates ?? {}) as Record<string, unknown>,
+            dynamics: (foundationCfg.dynamics ?? {}) as Record<string, unknown>,
+            directionality: (foundationCfg.dynamics?.directionality ?? {}) as Record<string, unknown>,
+          };
+        });
+
+        const ok = WorldModel.init({ width, height });
+        if (!ok) {
+          throw new Error("WorldModel initialization failed");
+        }
+
+        context.worldModel = WorldModel as unknown as ExtendedMapContext["worldModel"];
+
+        const foundationCfg = context.config.foundation ?? {};
+        context.foundation = createFoundationContext(WorldModel as any, {
+          dimensions: context.dimensions,
+          config: {
+            seed: (foundationCfg.seed || {}) as Record<string, unknown>,
+            plates: (foundationCfg.plates || {}) as Record<string, unknown>,
+            dynamics: (foundationCfg.dynamics || {}) as Record<string, unknown>,
+            surface: (foundationCfg.surface || {}) as Record<string, unknown>,
+            policy: (foundationCfg.policy || {}) as Record<string, unknown>,
+            diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
+          },
+        });
+      },
+    });
+
+    registerNarrativeLayer(registry, { getStageDescriptor, stageFlags, logPrefix: "[TEST]" });
+
+    const westContinent = { west: 0, east: Math.floor(width / 2), south: 0, north: height - 1, continent: 0 };
+    const eastContinent = {
+      west: Math.floor(width / 2),
+      east: width - 1,
+      south: 0,
+      north: height - 1,
+      continent: 1,
+    };
+
+    registerHydrologyLayer(registry, {
+      getStageDescriptor,
+      stageFlags,
+      logPrefix: "[TEST]",
+      mapInfo,
+      westContinent,
+      eastContinent,
+    });
+
+    const executor = new PipelineExecutor(registry, { logPrefix: "[TEST]" });
+    const recipe = registry.getStandardRecipe(stageManifest);
+    const { stepResults } = executor.execute(ctx, recipe);
+
+    return { ctx, stepResults };
   }
 
-  it("legacy generateMap runs paleo after modelRivers", () => {
+  it("runs paleo after modelRivers", () => {
     const adapter = createMockAdapter({
       width,
       height,
@@ -109,63 +198,11 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
       },
     });
 
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
-    const result = orchestrator.generateMap();
-    expect(result.success).toBe(true);
-    expect(readPaleoDeltas()).toBe(1);
-  });
+    const { ctx, stepResults } = runRecipe(config, adapter);
+    expect(stepResults.every((r) => r.success)).toBe(true);
 
-  it("TaskGraph runs paleo after modelRivers", () => {
-    const adapter = createMockAdapter({
-      width,
-      height,
-      mapSizeId: 1,
-      mapInfo,
-    });
-
-    for (let x = 0; x < width; x++) {
-      (adapter as any).setWater(x, 0, true);
-    }
-
-    let modeled = false;
-    const originalModelRivers = adapter.modelRivers.bind(adapter);
-    (adapter as any).modelRivers = (...args: unknown[]) => {
-      modeled = true;
-      return originalModelRivers(...(args as [number, number, number]));
-    };
-    (adapter as any).isAdjacentToRivers = () => modeled;
-
-    const stageManifest = {
-      order: ["foundation", "climateBaseline", "storySwatches", "rivers"],
-      stages: {
-        foundation: { enabled: true, requires: [], provides: [] },
-        climateBaseline: { enabled: true, requires: [], provides: [] },
-        storySwatches: { enabled: true, requires: [], provides: [] },
-        rivers: { enabled: true, requires: [], provides: [] },
-      },
-    };
-
-    const config = bootstrap({
-      stageConfig: {},
-      overrides: {
-        stageManifest,
-        climate: {
-          story: {
-            paleo: {
-              maxDeltas: 1,
-              deltaFanRadius: 1,
-              deltaMarshChance: 0,
-              maxOxbows: 0,
-              maxFossilChannels: 0,
-            },
-          },
-        },
-      },
-    });
-
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
-    const result = orchestrator.generateMap();
-    expect(result.success).toBe(true);
-    expect(readPaleoDeltas()).toBe(1);
+    const overlay = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.PALEO);
+    const deltas = (overlay?.summary as { deltas?: number } | undefined)?.deltas ?? 0;
+    expect(deltas).toBe(1);
   });
 });

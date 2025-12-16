@@ -1,20 +1,25 @@
+import type { ExtendedMapContext } from "../../../core/types.js";
 import type { StoryTagsInstance, TagSet } from "./instance.js";
 import { createStoryTags } from "./instance.js";
 
-let _cache: StoryTagsInstance | null = null;
+const STORY_TAGS_ARTIFACT_KEY = "story:tags";
 
-export function getStoryTags(): StoryTagsInstance {
-  if (_cache) return _cache;
-  _cache = createStoryTags();
-  return _cache;
+export function getStoryTags(ctx: ExtendedMapContext | null | undefined): StoryTagsInstance {
+  if (!ctx) return createStoryTags();
+  const existing = ctx.artifacts?.get(STORY_TAGS_ARTIFACT_KEY) as StoryTagsInstance | undefined;
+  if (existing) return existing;
+  const created = createStoryTags();
+  ctx.artifacts?.set(STORY_TAGS_ARTIFACT_KEY, created);
+  return created;
 }
 
-export function resetStoryTags(): void {
-  _cache = null;
+export function resetStoryTags(ctx: ExtendedMapContext | null | undefined): void {
+  if (!ctx) return;
+  ctx.artifacts?.set(STORY_TAGS_ARTIFACT_KEY, createStoryTags());
 }
 
-export function clearStoryTags(): void {
-  const tags = getStoryTags();
+export function clearStoryTags(ctx: ExtendedMapContext | null | undefined): void {
+  const tags = getStoryTags(ctx);
 
   tags.hotspot.clear();
   tags.hotspotParadise.clear();
@@ -63,4 +68,3 @@ export default {
   removeTag,
   getTagCoordinates,
 };
-

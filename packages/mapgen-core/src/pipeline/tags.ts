@@ -1,5 +1,4 @@
 import type { ExtendedMapContext } from "../core/types.js";
-import { getStoryOverlayRegistry } from "../domain/narrative/overlays/index.js";
 import {
   InvalidDependencyTagError,
   UnknownDependencyTagError,
@@ -98,9 +97,7 @@ export function isDependencyTagSatisfied(
       );
     }
     case M3_DEPENDENCY_TAGS.artifact.storyOverlays:
-      return (
-        (context.overlays?.size ?? 0) > 0 || getStoryOverlayRegistry().size > 0
-      );
+      return (context.overlays?.size ?? 0) > 0;
     case M3_DEPENDENCY_TAGS.artifact.riverAdjacency: {
       const value = context.artifacts?.get(tag);
       return value instanceof Uint8Array && value.length === expectedSize;

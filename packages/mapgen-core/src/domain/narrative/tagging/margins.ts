@@ -125,7 +125,7 @@ export function storyTagContinentalMargins(
     : finalizeStoryOverlay(STORY_OVERLAY_KEYS.MARGINS, overlay);
 
   if (options.hydrateStoryTags !== false) {
-    hydrateMarginsStoryTags(snapshot, getStoryTags());
+    hydrateMarginsStoryTags(snapshot, getStoryTags(ctx));
   }
 
   return snapshot;

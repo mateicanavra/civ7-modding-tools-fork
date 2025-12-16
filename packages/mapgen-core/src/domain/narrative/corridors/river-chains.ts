@@ -18,7 +18,7 @@ export function tagRiverChainsPostRivers(ctx: ExtendedMapContext, corridorsCfg: 
 
   if (maxChains === 0) return;
 
-  const tags = getStoryTags();
+  const tags = getStoryTags(ctx);
   let chains = 0;
   let tries = 0;
 
@@ -78,7 +78,7 @@ export function tagRiverChainsPostRivers(ctx: ExtendedMapContext, corridorsCfg: 
     if (pathKeys.length >= minTiles && endOK) {
       for (const kk of pathKeys) {
         tags.corridorRiverChain.add(kk);
-        assignCorridorMetadata(corridorsCfg, kk, "river", "riverChain");
+        assignCorridorMetadata(ctx, corridorsCfg, kk, "river", "riverChain");
       }
       chains++;
     }

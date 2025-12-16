@@ -1,15 +1,11 @@
-import { describe, it, expect, beforeEach } from "bun:test";
+import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap, MapOrchestrator, narrative } from "../../src/index.js";
-import { resetStoryTags } from "../../src/domain/narrative/tags/index.js";
-import { resetStoryOverlays } from "../../src/domain/narrative/overlays/index.js";
+import { bootstrap } from "../../src/index.js";
+import { createExtendedMapContext } from "../../src/core/types.js";
+import { getStoryTags } from "../../src/domain/narrative/tags/index.js";
+import { storyTagContinentalMargins, storyTagHotspotTrails, storyTagRiftValleys } from "../../src/domain/narrative/tagging/index.js";
 
 describe("smoke: minimal story parity (margins, hotspots, rifts)", () => {
-  beforeEach(() => {
-    resetStoryTags();
-    resetStoryOverlays();
-  });
-
   it("emits non-empty story tags when enabled", () => {
     // Deterministic RNG for stable assertions.
     let seed = 1 >>> 0;
@@ -44,11 +40,6 @@ describe("smoke: minimal story parity (margins, hotspots, rifts)", () => {
     }
 
     const config = bootstrap({
-      stageConfig: {
-        storySeed: true,
-        storyHotspots: true,
-        storyRifts: true,
-      },
       overrides: {
         margins: {
           activeFraction: 0.3,
@@ -73,14 +64,12 @@ describe("smoke: minimal story parity (margins, hotspots, rifts)", () => {
       },
     });
 
-    const orchestrator = new MapOrchestrator(config, {
-      adapter,
-      logPrefix: "[TEST]",
-    });
+    const ctx = createExtendedMapContext({ width: 128, height: 80 }, adapter, config);
+    storyTagContinentalMargins(ctx);
+    storyTagHotspotTrails(ctx);
+    storyTagRiftValleys(ctx);
 
-    orchestrator.generateMap();
-
-    const tags = narrative.getStoryTags();
+    const tags = getStoryTags(ctx);
     expect(tags.activeMargin.size + tags.passiveShelf.size).toBeGreaterThan(0);
     expect(tags.hotspot.size).toBeGreaterThan(0);
     expect(tags.riftLine.size).toBeGreaterThan(0);

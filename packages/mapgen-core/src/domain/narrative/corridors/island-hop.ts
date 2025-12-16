@@ -13,7 +13,7 @@ export function tagIslandHopFromHotspots(ctx: ExtendedMapContext, corridorsCfg: 
   if (maxArcs === 0) return;
 
   const { width, height } = getDims(ctx);
-  const tags = getStoryTags();
+  const tags = getStoryTags(ctx);
   const keys = Array.from(tags.hotspot);
   if (!keys.length) return;
 
@@ -38,7 +38,7 @@ export function tagIslandHopFromHotspots(ctx: ExtendedMapContext, corridorsCfg: 
         if (!ctx.adapter.isWater(nx, ny)) continue;
         const kk = storyKey(nx, ny);
         tags.corridorIslandHop.add(kk);
-        assignCorridorMetadata(corridorsCfg, kk, "islandHop", "archipelago");
+        assignCorridorMetadata(ctx, corridorsCfg, kk, "islandHop", "archipelago");
       }
     }
   }

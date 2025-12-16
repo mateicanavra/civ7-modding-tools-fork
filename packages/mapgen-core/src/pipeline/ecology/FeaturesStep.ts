@@ -19,7 +19,10 @@ export function createFeaturesStep(options: FeaturesStepOptions): MapGenStep<Ext
     provides: options.provides,
     shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
-      hydrateMarginsStoryTags(getStoryOverlay(context, STORY_OVERLAY_KEYS.MARGINS), getStoryTags());
+      hydrateMarginsStoryTags(
+        getStoryOverlay(context, STORY_OVERLAY_KEYS.MARGINS),
+        getStoryTags(context)
+      );
 
       const { width, height } = context.dimensions;
       addDiverseFeatures(width, height, context);

@@ -310,7 +310,7 @@ export function tagSeaLanes(ctx: ExtendedMapContext, corridorsCfg: Record<string
   };
 
   let lanes = 0;
-  const tags = getStoryTags();
+  const tags = getStoryTags(ctx);
   for (const c of candidates) {
     if (lanes >= maxLanes) break;
     if (!spaced(c.orient, c.index)) continue;
@@ -323,7 +323,7 @@ export function tagSeaLanes(ctx: ExtendedMapContext, corridorsCfg: Record<string
         const kk = storyKey(x, y);
         tags.corridorSeaLane.add(kk);
         const style = isAdjacentToLand(ctx, x, y, 2, width, height) ? "coastal" : "ocean";
-        assignCorridorMetadata(corridorsCfg, kk, "sea", style);
+        assignCorridorMetadata(ctx, corridorsCfg, kk, "sea", style);
       }
     } else if (c.orient === "row") {
       const y = c.index;
@@ -332,7 +332,7 @@ export function tagSeaLanes(ctx: ExtendedMapContext, corridorsCfg: Record<string
         const kk = storyKey(x, y);
         tags.corridorSeaLane.add(kk);
         const style = isAdjacentToLand(ctx, x, y, 2, width, height) ? "coastal" : "ocean";
-        assignCorridorMetadata(corridorsCfg, kk, "sea", style);
+        assignCorridorMetadata(ctx, corridorsCfg, kk, "sea", style);
       }
     } else if (c.orient === "diagNE") {
       const k = c.index;
@@ -343,7 +343,7 @@ export function tagSeaLanes(ctx: ExtendedMapContext, corridorsCfg: Record<string
         const kk = storyKey(x, y);
         tags.corridorSeaLane.add(kk);
         const style = isAdjacentToLand(ctx, x, y, 2, width, height) ? "coastal" : "ocean";
-        assignCorridorMetadata(corridorsCfg, kk, "sea", style);
+        assignCorridorMetadata(ctx, corridorsCfg, kk, "sea", style);
       }
     } else if (c.orient === "diagNW") {
       const d = c.index;
@@ -354,7 +354,7 @@ export function tagSeaLanes(ctx: ExtendedMapContext, corridorsCfg: Record<string
         const kk = storyKey(x, y);
         tags.corridorSeaLane.add(kk);
         const style = isAdjacentToLand(ctx, x, y, 2, width, height) ? "coastal" : "ocean";
-        assignCorridorMetadata(corridorsCfg, kk, "sea", style);
+        assignCorridorMetadata(ctx, corridorsCfg, kk, "sea", style);
       }
     }
 

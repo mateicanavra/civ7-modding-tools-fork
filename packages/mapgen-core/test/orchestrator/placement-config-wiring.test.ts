@@ -1,9 +1,10 @@
-import { describe, it, expect } from "bun:test";
+import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "../../src/bootstrap/entry.js";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
 import { createExtendedMapContext } from "../../src/core/types.js";
 import { createPlacementStep } from "../../src/pipeline/placement/steps.js";
+import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js";
 
 describe("placement config wiring", () => {
   const width = 24;
@@ -20,6 +21,45 @@ describe("placement config wiring", () => {
     StartSectorRows: 4,
     StartSectorCols: 4,
   };
+
+  let originalGameplayMap: unknown;
+  let originalGameInfo: unknown;
+
+  beforeEach(() => {
+    resetConfigProviderForTest();
+    WorldModel.reset();
+
+    originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
+    originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
+
+    (globalThis as Record<string, unknown>).GameplayMap = {
+      getGridWidth: () => width,
+      getGridHeight: () => height,
+      getMapSize: () => 1,
+      getIndexFromXY: (x: number, y: number) => y * width + x,
+      getLocationFromIndex: (index: number) => ({
+        x: index % width,
+        y: Math.floor(index / width),
+      }),
+      getPlotLatitude: () => 0,
+      getRandomSeed: () => 12345,
+      isWater: () => false,
+    };
+
+    (globalThis as Record<string, unknown>).GameInfo = {
+      Maps: {
+        lookup: () => mapInfo,
+      },
+    };
+  });
+
+  afterEach(() => {
+    (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
+    (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
+
+    resetConfigProviderForTest();
+    WorldModel.reset();
+  });
 
   it("PlacementStep honors ctx.config.placement overrides", () => {
     const adapter = createMockAdapter({ width, height, mapSizeId: 1, mapInfo, rng: () => 0 });
@@ -56,22 +96,19 @@ describe("placement config wiring", () => {
     expect(calls.addFloodplains[0]).toEqual({ minLength: 1, maxLength: 2 });
   });
 
-  it("MapOrchestrator.generateMap does not hardcode placement defaults over config", () => {
+  it("MapOrchestrator.generateMap does not run placement without prerequisites", () => {
     const adapter = createMockAdapter({ width, height, mapSizeId: 1, mapInfo, rng: () => 0 });
     const config = bootstrap({
       stageConfig: { placement: true },
-      overrides: {
-        placement: { wondersPlusOne: false, floodplains: { minLength: 1, maxLength: 2 } },
-      },
     });
 
     const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
     const result = orchestrator.generateMap();
 
-    expect(result.success).toBe(true);
+    expect(result.success).toBe(false);
 
     const calls = (adapter as unknown as { calls: any }).calls;
-    expect(calls.addNaturalWonders[0]?.numWonders).toBe(0);
-    expect(calls.addFloodplains[0]).toEqual({ minLength: 1, maxLength: 2 });
+    expect(calls.addNaturalWonders.length).toBe(0);
+    expect(calls.addFloodplains.length).toBe(0);
   });
 });

@@ -24,7 +24,7 @@ export function createBiomesStep(options: BiomesStepOptions): MapGenStep<Extende
     provides: options.provides,
     shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
-      const storyTags = getStoryTags();
+      const storyTags = getStoryTags(context);
       hydrateCorridorsStoryTags(getStoryOverlay(context, STORY_OVERLAY_KEYS.CORRIDORS), storyTags);
       hydrateRiftsStoryTags(getStoryOverlay(context, STORY_OVERLAY_KEYS.RIFTS), storyTags);
 

@@ -1,11 +1,7 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { DEV, devWarn } from "../../dev/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { resetCorridorStyleCache } from "../../domain/narrative/corridors/index.js";
-import { resetOrogenyCache } from "../../domain/narrative/orogeny/index.js";
-import { resetStoryOverlays } from "../../domain/narrative/overlays/index.js";
 import { storyTagContinentalMargins } from "../../domain/narrative/tagging/index.js";
-import { resetStoryTags } from "../../domain/narrative/tags/index.js";
 
 export interface StorySeedStepRuntime {
   logPrefix: string;
@@ -28,10 +24,6 @@ export function createStorySeedStep(
     provides: options.provides,
     shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
-      resetStoryTags();
-      resetStoryOverlays();
-      resetOrogenyCache();
-      resetCorridorStyleCache();
       console.log(`${runtime.logPrefix} Imprinting continental margins (active/passive)...`);
       const margins = storyTagContinentalMargins(context);
 

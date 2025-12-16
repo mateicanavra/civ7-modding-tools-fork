@@ -63,7 +63,7 @@ export function addDiverseFeatures(
   const featuresCfg = storyTunables.features || {};
   const densityCfg = (config.featuresDensity || {}) as FeaturesDensityConfig;
 
-  const StoryTags = getStoryTags();
+  const StoryTags = getStoryTags(ctx);
 
   const climateField = getPublishedClimateField(ctx);
   if (!climateField?.rainfall) {
@@ -109,7 +109,7 @@ export function addDiverseFeatures(
     const shelfMult = densityCfg?.shelfReefMultiplier ?? 0.6;
     const shelfReefChance = Math.max(
       1,
-      Math.min(100, Math.floor((paradiseReefChance || 18) * shelfMult))
+      Math.min(100, Math.floor(paradiseReefChance * shelfMult))
     );
     applyShelfReefs({
       adapter,

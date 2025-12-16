@@ -1,24 +1,12 @@
 import type { StoryOverlaySnapshot, StoryOverlayRegistry } from "../../../core/types.js";
 import { normalizeOverlay } from "./normalize.js";
 
-let _registry: StoryOverlayRegistry | null = null;
-
-function getRegistry(): StoryOverlayRegistry {
-  if (_registry) return _registry;
-  _registry = new Map();
-  return _registry;
-}
-
-export function resetStoryOverlays(): void {
-  _registry = null;
-}
-
-export function getStoryOverlayRegistry(): ReadonlyMap<string, StoryOverlaySnapshot> {
-  return getRegistry();
-}
-
 interface OverlayContext {
   overlays?: StoryOverlayRegistry;
+}
+
+export function resetStoryOverlays(ctx: OverlayContext | null | undefined): void {
+  ctx?.overlays?.clear?.();
 }
 
 export function publishStoryOverlay(
@@ -27,7 +15,6 @@ export function publishStoryOverlay(
   overlay: Partial<StoryOverlaySnapshot>
 ): StoryOverlaySnapshot {
   const snapshot = normalizeOverlay(key, overlay);
-  getRegistry().set(key, snapshot);
 
   if (ctx && typeof ctx === "object") {
     if (!ctx.overlays || typeof ctx.overlays.set !== "function") {
@@ -51,6 +38,5 @@ export function getStoryOverlay(
     const local = ctx.overlays.get(key);
     if (local) return local;
   }
-  return getRegistry().get(key) || null;
+  return null;
 }
-

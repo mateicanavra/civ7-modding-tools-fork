@@ -1,5 +1,5 @@
 export { STORY_OVERLAY_KEYS, type StoryOverlayKey } from "./keys.js";
-export { resetStoryOverlays, getStoryOverlayRegistry, publishStoryOverlay, finalizeStoryOverlay, getStoryOverlay } from "./registry.js";
+export { resetStoryOverlays, publishStoryOverlay, finalizeStoryOverlay, getStoryOverlay } from "./registry.js";
 
 export { hydrateMarginsStoryTags } from "./hydrate-margins.js";
 export type { MarginStoryTags, HydrateMarginsOptions } from "./hydrate-margins.js";
@@ -13,7 +13,6 @@ export type { CorridorStoryTags, HydrateCorridorsOptions } from "./hydrate-corri
 import { STORY_OVERLAY_KEYS } from "./keys.js";
 import {
   resetStoryOverlays,
-  getStoryOverlayRegistry,
   publishStoryOverlay,
   finalizeStoryOverlay,
   getStoryOverlay,
@@ -25,7 +24,6 @@ import { hydrateCorridorsStoryTags } from "./hydrate-corridors.js";
 export default {
   STORY_OVERLAY_KEYS,
   resetStoryOverlays,
-  getStoryOverlayRegistry,
   publishStoryOverlay,
   finalizeStoryOverlay,
   getStoryOverlay,
@@ -33,4 +31,3 @@ export default {
   hydrateRiftsStoryTags,
   hydrateCorridorsStoryTags,
 };
-

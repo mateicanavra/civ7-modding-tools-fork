@@ -36,7 +36,7 @@ export function refineClimateEarthlike(
   const storyRain = (storyMoisture?.rainfall || {}) as Record<string, number>;
   const orogenyCache = options?.orogenyCache || null;
 
-  const StoryTags: StoryTagsInstance = getStoryTags();
+  const StoryTags: StoryTagsInstance = getStoryTags(ctx);
 
   // Local bounds check with captured width/height
   const inBounds = (x: number, y: number): boolean => boundsCheck(x, y, width, height);
