@@ -3,7 +3,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "../../src/bootstrap/entry.js";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
 import { createExtendedMapContext } from "../../src/core/types.js";
-import { createLegacyPlacementStep } from "../../src/steps/LegacyPlacementStep.js";
+import { createPlacementStep } from "../../src/pipeline/placement/steps.js";
 
 describe("placement config wiring", () => {
   const width = 24;
@@ -21,7 +21,7 @@ describe("placement config wiring", () => {
     StartSectorCols: 4,
   };
 
-  it("LegacyPlacementStep honors ctx.config.placement overrides", () => {
+  it("PlacementStep honors ctx.config.placement overrides", () => {
     const adapter = createMockAdapter({ width, height, mapSizeId: 1, mapInfo, rng: () => 0 });
     const ctx = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
@@ -31,13 +31,23 @@ describe("placement config wiring", () => {
       } as unknown as Parameters<typeof createExtendedMapContext>[2]
     );
 
-    const step = createLegacyPlacementStep({
-      requires: [],
-      provides: [],
-      placementOptions: {
+    const startPositions: number[] = [];
+    const step = createPlacementStep(
+      {
         mapInfo,
+        starts: {
+          playersLandmass1: 0,
+          playersLandmass2: 0,
+          westContinent: { west: 0, east: 0, south: 0, north: 0 },
+          eastContinent: { west: 0, east: 0, south: 0, north: 0 },
+          startSectorRows: mapInfo.StartSectorRows ?? 0,
+          startSectorCols: mapInfo.StartSectorCols ?? 0,
+          startSectors: [],
+        },
+        startPositions,
       },
-    });
+      { requires: [], provides: [] }
+    );
 
     step.run(ctx);
 
