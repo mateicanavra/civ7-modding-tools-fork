@@ -51,15 +51,6 @@ export interface BootstrapOptions {
 }
 
 export interface BootstrapConfig extends BootstrapOptions {
-  /** Enable specific generation stages (legacy interface) */
-  stages?: {
-    foundation?: boolean;
-    mountains?: boolean;
-    climate?: boolean;
-    biomes?: boolean;
-    features?: boolean;
-    resources?: boolean;
-  };
 }
 
 // ============================================================================
