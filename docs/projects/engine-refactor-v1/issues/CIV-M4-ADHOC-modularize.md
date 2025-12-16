@@ -488,7 +488,7 @@ Sources listed are the current monolithic implementations (mostly `domain/**/ind
 
 ### 3.1 Shared `lib/**` Consolidation
 
-- [ ] Replace local duplicates with canonical helpers:
+- [x] Replace local duplicates with canonical helpers:
   - `clamp*` → `packages/mapgen-core/src/lib/math/clamp.ts`
   - `idx/xyFromIndex` → `packages/mapgen-core/src/lib/grid/indexing.ts`
   - `normalizeFractal` → `packages/mapgen-core/src/lib/noise/fractal.ts`

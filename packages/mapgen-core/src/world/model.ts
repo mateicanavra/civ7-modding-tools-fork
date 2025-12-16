@@ -29,6 +29,8 @@ import { BOUNDARY_TYPE } from "./types.js";
 import { computePlatesVoronoi, type ComputePlatesOptions } from "./plates.js";
 import { PlateSeedManager } from "./plate-seed.js";
 import { devLogIf } from "../dev/index.js";
+import { idx } from "../lib/grid/index.js";
+import { clampInt } from "../lib/math/index.js";
 
 // ============================================================================
 // Internal State
@@ -108,14 +110,6 @@ function getConfig(): WorldModelConfig {
 // ============================================================================
 // Utility Functions
 // ============================================================================
-
-function idx(x: number, y: number, width: number): number {
-  return y * width + x;
-}
-
-function clampInt(v: number, lo: number, hi: number): number {
-  return v < lo ? lo : v > hi ? hi : v | 0;
-}
 
 function toByte01(f: number): number {
   const v = Math.max(0, Math.min(1, f));
