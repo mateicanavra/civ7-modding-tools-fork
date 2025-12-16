@@ -145,7 +145,7 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
 
   // Resolve stageConfig → stageManifest (bridges the "Config Air Gap")
   // This ensures orchestrator stage gating reads the correct values.
-  const manifest = resolveStageManifest(stageConfig);
+  const manifest = resolveStageManifest(rawConfig.stageConfig as StageConfig | undefined);
   rawConfig.stageManifest = manifest;
 
   // Validate overrides against manifest (warn about targeting disabled stages)

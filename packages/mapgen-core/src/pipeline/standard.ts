@@ -82,8 +82,8 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     provides: [M3_DEPENDENCY_TAGS.artifact.heightfield],
   },
   climateBaseline: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.foundation, M3_DEPENDENCY_TAGS.artifact.heightfield],
-    provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
+    requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
+    provides: [M3_DEPENDENCY_TAGS.artifact.heightfield, M3_DEPENDENCY_TAGS.artifact.climateField],
   },
   storySwatches: {
     requires: [M3_DEPENDENCY_TAGS.artifact.storyOverlays, M3_DEPENDENCY_TAGS.artifact.climateField],
@@ -91,7 +91,11 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
   },
   rivers: {
     requires: [M3_DEPENDENCY_TAGS.artifact.foundation, M3_DEPENDENCY_TAGS.artifact.heightfield],
-    provides: [M3_DEPENDENCY_TAGS.state.riversModeled, M3_DEPENDENCY_TAGS.artifact.riverAdjacency],
+    provides: [
+      M3_DEPENDENCY_TAGS.state.riversModeled,
+      M3_DEPENDENCY_TAGS.artifact.heightfield,
+      M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
+    ],
   },
   storyCorridorsPost: {
     requires: [

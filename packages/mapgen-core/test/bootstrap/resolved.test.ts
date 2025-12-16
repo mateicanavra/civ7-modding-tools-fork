@@ -119,7 +119,10 @@ describe("bootstrap/resolved", () => {
       expect(manifest.stages.climateBaseline?.requires).toContain(
         M3_DEPENDENCY_TAGS.artifact.foundation
       );
-      expect(manifest.stages.climateBaseline?.requires).toContain(
+      expect(manifest.stages.climateBaseline?.requires).not.toContain(
+        M3_DEPENDENCY_TAGS.artifact.heightfield
+      );
+      expect(manifest.stages.climateBaseline?.provides).toContain(
         M3_DEPENDENCY_TAGS.artifact.heightfield
       );
 

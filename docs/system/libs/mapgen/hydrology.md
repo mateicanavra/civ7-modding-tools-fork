@@ -75,6 +75,8 @@ If we have clear gameplay need and a regression harness, we can add richer artif
 
 - `climateBaseline` + `climateRefine` (wrappers around existing TS climate layers; publish `artifact:climateField`)
 - `rivers` (wrapper around engine river modeling; publishes `artifact:riverAdjacency` as a `Uint8Array` 0/1 mask computed via `EngineAdapter.isAdjacentToRivers()` once `state:engine.riversModeled` is true)
+- `storySwatches` applies macro climate swatches **before** `rivers` so rainfall shaping can influence any engine-owned hydrology that depends on rainfall.
+- `STORY_ENABLE_PALEO` (paleo hydrology overlays) must run **after** `rivers` because placement is gated by `isAdjacentToRivers` and has no effect until engine rivers exist.
 - `ClimateField.humidity` is currently a placeholder in M3 (not synchronized or consumed); do not treat it as meaningful until it has a defined source/contract.
 - `artifact:climateField` is the canonical rainfall read path. Adapter rainfall reads and engine-seeding fallbacks have been removed from modernized code paths; missing hydrology artifacts should fail fast.
 - `generateMap()` (the default/legacy non-TaskGraph execution path) and the TaskGraph executor path both publish `artifact:climateField` / `artifact:riverAdjacency` so artifact-only consumers behave consistently regardless of execution mode.

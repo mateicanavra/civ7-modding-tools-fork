@@ -59,6 +59,7 @@ import type {
   MountainsConfig,
   VolcanoesConfig,
   ContinentBounds,
+  StartsConfig,
 } from "./bootstrap/types.js";
 import type { ExtendedMapContext, FoundationContext } from "./core/types.js";
 import type { WorldModelState } from "./world/types.js";
@@ -549,8 +550,8 @@ export class MapOrchestrator {
           const first = windows[0];
           const last = windows[windows.length - 1];
           if (first && last) {
-            westContinent = this.windowToContinentBounds(first, 0);
-            eastContinent = this.windowToContinentBounds(last, 1);
+            Object.assign(westContinent, this.windowToContinentBounds(first, 0));
+            Object.assign(eastContinent, this.windowToContinentBounds(last, 1));
           }
         }
 
@@ -746,6 +747,7 @@ export class MapOrchestrator {
       const stageResult = this.runStage("lakes", () => {
         ctx.adapter.generateLakes(iWidth, iHeight, iTilesPerLake);
         syncHeightfield(ctx!);
+        publishHeightfieldArtifact(ctx!);
       });
       this.stageResults.push(stageResult);
     }
@@ -772,6 +774,8 @@ export class MapOrchestrator {
         // Assert foundation is available - fail fast if not
         assertFoundationContext(ctx, "climateBaseline");
 
+        syncHeightfield(ctx);
+        publishHeightfieldArtifact(ctx);
         applyClimateBaseline(iWidth, iHeight, ctx);
         publishClimateFieldArtifact(ctx!);
       });
@@ -785,11 +789,6 @@ export class MapOrchestrator {
       const stageResult = this.runStage("storySwatches", () => {
         console.log(`${prefix} Applying story climate swatches...`);
         storyTagClimateSwatches(ctx!, { orogenyCache: getOrogenyCache() });
-
-        if (ctx?.config?.toggles?.STORY_ENABLE_PALEO) {
-          console.log(`${prefix} Applying paleo hydrology...`);
-          storyTagClimatePaleo(ctx!);
-        }
 
         publishClimateFieldArtifact(ctx!);
       });
@@ -839,7 +838,17 @@ export class MapOrchestrator {
         ctx.adapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
+        publishHeightfieldArtifact(ctx!);
         ctx.adapter.defineNamedRivers();
+
+        // Paleo hydrology depends on engine rivers being modeled; run it post-rivers so
+        // isAdjacentToRivers gating can have an effect.
+        if (stageFlags.storySwatches && ctx.config.toggles?.STORY_ENABLE_PALEO) {
+          console.log(`${prefix} Applying paleo hydrology (post-rivers)...`);
+          storyTagClimatePaleo(ctx);
+          publishClimateFieldArtifact(ctx);
+        }
+
         const riverAdjacency = computeRiverAdjacencyMask(ctx!);
         publishRiverAdjacencyArtifact(ctx!, riverAdjacency);
       });
@@ -909,20 +918,23 @@ export class MapOrchestrator {
     // ========================================================================
     if (stageFlags.placement && ctx) {
       const stageResult = this.runStage("placement", () => {
-        const positions = runPlacement(ctx.adapter, iWidth, iHeight, {
-          mapInfo: mapInfo as { NumNaturalWonders?: number },
-          wondersPlusOne: true,
-          floodplains: { minLength: 4, maxLength: 10 },
-          starts: {
+        const placementConfig = ctx.config.placement ?? {};
+        const starts = this.buildPlacementStartsConfig(
+          {
             playersLandmass1: iNumPlayers1,
             playersLandmass2: iNumPlayers2,
             westContinent,
             eastContinent,
-          startSectorRows: iStartSectorRows,
-          startSectorCols: iStartSectorCols,
-          startSectors,
-        },
-          placementConfig: ctx.config.placement ?? {},
+            startSectorRows: iStartSectorRows,
+            startSectorCols: iStartSectorCols,
+            startSectors,
+          },
+          placementConfig.starts
+        );
+        const positions = runPlacement(ctx.adapter, iWidth, iHeight, {
+          mapInfo: mapInfo as { NumNaturalWonders?: number },
+          starts,
+          placementConfig,
         });
         startPositions.push(...positions);
       });
@@ -1166,8 +1178,8 @@ export class MapOrchestrator {
           const first = windows[0];
           const last = windows[windows.length - 1];
           if (first && last) {
-            westContinent = this.windowToContinentBounds(first, 0);
-            eastContinent = this.windowToContinentBounds(last, 1);
+            Object.assign(westContinent, this.windowToContinentBounds(first, 0));
+            Object.assign(eastContinent, this.windowToContinentBounds(last, 1));
           }
         }
 
@@ -1378,6 +1390,8 @@ export class MapOrchestrator {
         );
 
         assertFoundationContext(ctx, "climateBaseline");
+        syncHeightfield(ctx);
+        publishHeightfieldArtifact(ctx);
         applyClimateBaseline(iWidth, iHeight, ctx);
         publishClimateFieldArtifact(ctx);
       },
@@ -1390,9 +1404,6 @@ export class MapOrchestrator {
       shouldRun: () => stageFlags.storySwatches,
       run: () => {
         storyTagClimateSwatches(ctx, { orogenyCache: getOrogenyCache() });
-        if (ctx?.config?.toggles?.STORY_ENABLE_PALEO) {
-          storyTagClimatePaleo(ctx);
-        }
         publishClimateFieldArtifact(ctx);
       },
     });
@@ -1439,7 +1450,12 @@ export class MapOrchestrator {
         ctx.adapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx);
+        publishHeightfieldArtifact(ctx);
         ctx.adapter.defineNamedRivers();
+        if (stageFlags.storySwatches && ctx.config.toggles?.STORY_ENABLE_PALEO) {
+          storyTagClimatePaleo(ctx);
+          publishClimateFieldArtifact(ctx);
+        }
 
         const riverAdjacency = computeRiverAdjacencyMask(ctx);
         publishRiverAdjacencyArtifact(ctx, riverAdjacency);
@@ -1502,17 +1518,18 @@ export class MapOrchestrator {
         shouldRun: () => stageFlags.placement,
         placementOptions: {
           mapInfo: mapInfo as { NumNaturalWonders?: number },
-          wondersPlusOne: true,
-          floodplains: { minLength: 4, maxLength: 10 },
-          starts: {
-            playersLandmass1: iNumPlayers1,
-            playersLandmass2: iNumPlayers2,
-            westContinent,
-            eastContinent,
-            startSectorRows: iStartSectorRows,
-            startSectorCols: iStartSectorCols,
-            startSectors,
-          },
+          starts: this.buildPlacementStartsConfig(
+            {
+              playersLandmass1: iNumPlayers1,
+              playersLandmass2: iNumPlayers2,
+              westContinent,
+              eastContinent,
+              startSectorRows: iStartSectorRows,
+              startSectorCols: iStartSectorCols,
+              startSectors,
+            },
+            ctx!.config.placement?.starts
+          ),
         },
         afterRun: (_ctx, positions) => {
           startPositions.push(...positions);
@@ -1614,6 +1631,14 @@ export class MapOrchestrator {
         STORY_ENABLE_CORRIDORS: stageFlags.storyCorridorsPre || stageFlags.storyCorridorsPost,
       },
     };
+  }
+
+  private buildPlacementStartsConfig(
+    baseStarts: StartsConfig,
+    overrides: Partial<StartsConfig> | undefined
+  ): StartsConfig {
+    if (!overrides || typeof overrides !== "object") return baseStarts;
+    return { ...baseStarts, ...overrides };
   }
 
   private resolveStageFlags(): Record<string, boolean> {
