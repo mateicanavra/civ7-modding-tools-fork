@@ -498,7 +498,7 @@ Sources listed are the current monolithic implementations (mostly `domain/**/ind
 
 ### 3.2 Narrative Domain Atomization
 
-This work is intentionally **deferred** while story/playability is treated as optional (disabled by default) and slated for extraction into plugin packages.
+Story/playability remains optional (disabled by default) and is still intended to be extractable into plugin packages, but the narrative domain is atomized here to keep algorithm surfaces modular.
 
 **Already split (canonical, keep as-is):**
 
@@ -508,43 +508,41 @@ This work is intentionally **deferred** while story/playability is treated as op
 
 **From `domain/narrative/tagging/index.ts`:**
 
-- [ ] `tagging/types.ts`: `ContinentalMarginsOptions`, `HotspotTrailsSummary`, `RiftValleysSummary`
-- [ ] `tagging/margins.ts`: `storyTagContinentalMargins`
-- [ ] `tagging/hotspots.ts`: `storyTagHotspotTrails`
-- [ ] `tagging/rifts.ts`: `storyTagRiftValleys`
-- [ ] `tagging/index.ts`: re-export the above
-- [ ] Replace local helpers (`getDims`, `rand`, `isWaterAt`, adjacency/latitude helpers) with `domain/narrative/utils/*`
+- [x] `tagging/types.ts`: `ContinentalMarginsOptions`, `HotspotTrailsSummary`, `RiftValleysSummary`
+- [x] `tagging/margins.ts`: `storyTagContinentalMargins`
+- [x] `tagging/hotspots.ts`: `storyTagHotspotTrails`
+- [x] `tagging/rifts.ts`: `storyTagRiftValleys`
+- [x] `tagging/index.ts`: re-export the above
+- [x] Replace local helpers (`getDims`, `rand`, `isWaterAt`, adjacency/latitude helpers) with `domain/narrative/utils/*`
 
 **From `domain/narrative/corridors/index.ts`:**
 
-- [ ] `corridors/types.ts`: `CorridorStage`, `CorridorKind`, `CorridorStyle`, `Orient`
-- [ ] `corridors/style-cache.ts`: `fetchCorridorStylePrimitive`, `assignCorridorMetadata`, `resetCorridorStyleCache`
-- [ ] `corridors/runtime.ts`: `getDims`, `rand`, `isWaterAt`, `isCoastalLand`, `isAdjacentToShallowWater`, `isAdjacentToLand` (prefer: import from `domain/narrative/utils/*` and keep only corridor-specific glue here)
-- [ ] `corridors/sea-lanes.ts`: `hasPerpWidth`, `longestWaterRunColumn`, `longestWaterRunRow`, `longestWaterRunDiagSum`, `longestWaterRunDiagDiff`, `tagSeaLanes`
-- [ ] `corridors/island-hop.ts`: `tagIslandHopFromHotspots`
-- [ ] `corridors/land-corridors.ts`: `tagLandCorridorsFromRifts`
-- [ ] `corridors/river-chains.ts`: `tagRiverChainsPostRivers`
-- [ ] `corridors/backfill.ts`: `backfillCorridorKinds`
-- [ ] `corridors/index.ts`: `storyTagStrategicCorridors` (orchestrator)
+- [x] `corridors/types.ts`: `CorridorStage`, `CorridorKind`, `CorridorStyle`, `Orient`
+- [x] `corridors/style-cache.ts`: `fetchCorridorStylePrimitive`, `assignCorridorMetadata`, `resetCorridorStyleCache`
+- [x] `corridors/runtime.ts`: `getDims`, `rand`, `isWaterAt`, `isCoastalLand`, `isAdjacentToShallowWater`, `isAdjacentToLand` (prefer: import from `domain/narrative/utils/*` and keep only corridor-specific glue here)
+- [x] `corridors/sea-lanes.ts`: `hasPerpWidth`, `longestWaterRunColumn`, `longestWaterRunRow`, `longestWaterRunDiagSum`, `longestWaterRunDiagDiff`, `tagSeaLanes`
+- [x] `corridors/island-hop.ts`: `tagIslandHopFromHotspots`
+- [x] `corridors/land-corridors.ts`: `tagLandCorridorsFromRifts`
+- [x] `corridors/river-chains.ts`: `tagRiverChainsPostRivers`
+- [x] `corridors/backfill.ts`: `backfillCorridorKinds`
+- [x] `corridors/index.ts`: `storyTagStrategicCorridors` (orchestrator)
 
 **From `domain/narrative/orogeny/index.ts`:**
 
-- [ ] `orogeny/cache.ts`: `OrogenyCacheInstance`, `getOrogenyCache`, `resetOrogenyCache`, `clearOrogenyCache`
-- [ ] `orogeny/wind.ts`: `zonalWindStep` (+ any wind helper extraction)
-- [ ] `orogeny/belts.ts`: `storyTagOrogenyBelts` (+ any scanning helpers)
-- [ ] `orogeny/index.ts`: re-exports
+- [x] `orogeny/cache.ts`: `OrogenyCacheInstance`, `getOrogenyCache`, `resetOrogenyCache`, `clearOrogenyCache`
+- [x] `orogeny/wind.ts`: `zonalWindStep` (+ any wind helper extraction)
+- [x] `orogeny/belts.ts`: `storyTagOrogenyBelts` (+ any scanning helpers)
+- [x] `orogeny/index.ts`: re-exports
 
 **From `domain/narrative/paleo/index.ts`:**
 
-- [ ] `paleo/rainfall-artifacts.ts`: `storyTagPaleoHydrology`, `PaleoSummary`, plus extracted helpers (read/write rainfall, clamps, coastal checks)
-- [ ] `paleo/index.ts`: re-exports
-- [ ] Replace local helpers (`getDims`, `rand`, `isWaterAt`, `isCoastalLand`) with `domain/narrative/utils/*`
+- [x] `paleo/rainfall-artifacts.ts`: `storyTagPaleoHydrology`, `PaleoSummary`, plus extracted helpers (read/write rainfall, clamps, coastal checks)
+- [x] `paleo/index.ts`: re-exports
+- [x] Replace local helpers (`getDims`, `rand`, `isWaterAt`, `isCoastalLand`) with `domain/narrative/utils/*`
 
 **From `domain/narrative/swatches.ts`:**
 
-- [ ] Decide ownership boundary:
-  - Keep as `domain/narrative/swatches.ts` (story overlay projection), or
-  - Fold into `domain/hydrology/climate/swatches/*` (single owner for "swatch" logic)
+- [x] Decide ownership boundary (keep as `domain/narrative/swatches.ts` story overlay projection; swatch algorithms remain in `domain/hydrology/climate/swatches/*`)
 
 ### 3.3 Hydrology Domain Atomization — Climate
 

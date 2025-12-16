@@ -34,7 +34,10 @@ The current plate generation system has several critical flaws:
     *   Resolve interaction type based on Crust Type (Cont-Cont Collision vs. Ocean-Cont Subduction vs. Ocean-Ocean).
     *   Output `volcanism` and `fracture` tensors derived from subduction zones and shear.
     *   Support **Iterative Accumulation** (Eras) via a `cumulativeUplift` buffer.
-*   **REQ-FND-5 (Output):** The stage must populate `context.artifacts` with `RegionMesh`, `CrustData`, `PlateGraph`, and `TectonicData`. The `FoundationContext` serves as the Legacy Bridge snapshot for downstream compatibility.
+*   **REQ-FND-5 (Output / Delivery Contract):** The stage must publish its data products in a way compatible with the hybrid pipeline:
+    *   **Canonical consumer contract:** `ctx.foundation` must be set to a `FoundationContext` snapshot and must satisfy the dependency tag `artifact:foundation` (the M2/M3 consumer boundary for “foundation physics”).
+    *   **Intermediate foundation artifacts:** `RegionMesh`, `CrustData`, `PlateGraph`, and `TectonicData` must be published via `ctx.artifacts` as tagged data products (rather than a bespoke nested object). Adopt dependency-tag keys (for example `artifact:regionMesh`, `artifact:crustData`, `artifact:plateGraph`, `artifact:tectonicData`) so future steps can declare `requires`/`provides` against them.
+    *   **Step structure:** The Mesh/Crust/Partition/Physics sequence may be implemented as one composite `foundation` step or as multiple `MapGenStep`s, but the *published contracts* above must be satisfied at the end of the Foundation stage.
 
 ### 3.2. Non-Functional Requirements
 *   **REQ-PERF-1:** Mesh generation (4000 cells) must complete in under 100ms on standard hardware.
@@ -49,6 +52,7 @@ The architectural design, data models, and algorithms for this stage are defined
 
 *   **Canonical Design:** [`docs/system/libs/mapgen/foundation.md`](../../../system/libs/mapgen/foundation.md)
 *   **Architecture:** [`docs/system/libs/mapgen/architecture.md`](../../../system/libs/mapgen/architecture.md)
+*   **Binding Contract (M2 Slice):** [`docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`](./CONTRACT-foundation-context.md)
 
 Implementers should refer to `foundation.md` for the specific math behind Lloyd Relaxation, Weighted Flood Fill, and Vector Collision.
 
@@ -69,8 +73,8 @@ Implementers should refer to `foundation.md` for the specific math behind Lloyd 
 
 ### Phase 3: Integration
 *   Wire the strategies into the current `MapOrchestrator`-centric stable slice (M2).
-*   (Later, M3+) Wrap these strategies as `MapGenStep`s and register them via `StepRegistry` / `PipelineExecutor` once pipeline primitives exist.
-*   Implement the "Legacy Bridge" to sync the new `context.artifacts` to the old `WorldModel` singleton (to keep downstream morphology scripts working).
+*   Wrap the strategies as `MapGenStep`s and register them via `StepRegistry` / `PipelineExecutor` (hybrid architecture). Use dependency tags for `requires`/`provides` wiring and publish the artifacts described in **REQ-FND-5**.
+*   Implement the "Legacy Bridge" as an explicit projection from the Foundation outputs (`ctx.foundation` + tagged artifacts) into any legacy consumer surface that still expects `WorldModel`-style data. Avoid making downstream stages depend on a `WorldModel` singleton as their primary interface.
 
 ---
 
@@ -86,7 +90,7 @@ Implementers should refer to `foundation.md` for the specific math behind Lloyd 
     *   Ocean-Continent Convergence → Medium Uplift, High Volcanism (Andes/Subduction)
     *   Ocean-Ocean Convergence → Low Uplift, Island Arcs (Japan)
 *   **Iterative Simulation (Eras):** The Foundation stage can be run in multiple passes to simulate geologic history. Each era accumulates uplift into `cumulativeUplift`, allowing ancient mountain ranges to be represented alongside modern tectonics.
-*   **Legacy Bridge:** The `MapOrchestrator` must explicitly copy `context.artifacts.tectonics` arrays into the `WorldModel` singleton after the Foundation stage runs. This is a temporary measure to avoid refactoring the entire Morphology layer in this PR.
+*   **Legacy Bridge:** Treat `ctx.foundation` (and tagged artifacts) as the canonical Foundation outputs. If legacy morphology code still depends on `WorldModel`-shaped data, provide an explicit bridge/shim to project from the Foundation outputs into that shape, rather than having downstream stages read global singleton state.
 *   **Performance:** Default cell count should be **4000**. This provides sufficient resolution for a "Large" map (approx 10k hexes) while keeping Voronoi generation time negligible (~10ms).
 
 ---
