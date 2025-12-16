@@ -34,7 +34,7 @@ export function storyTagHotspotTrails(
     Math.round(baseSteps * (0.9 + 0.4 * sqrtHot))
   );
 
-  const StoryTags = getStoryTags();
+  const StoryTags = getStoryTags(ctx);
 
   function farFromExisting(x: number, y: number): boolean {
     for (const key of StoryTags.hotspot) {

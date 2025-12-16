@@ -1,24 +1,17 @@
-import { describe, it, expect, beforeEach } from "bun:test";
+import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { parseConfig } from "../../src/config/index.js";
 import { createExtendedMapContext } from "../../src/core/types.js";
 import {
-  resetStoryOverlays,
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
 } from "../../src/domain/narrative/overlays/index.js";
 import {
-  resetOrogenyCache,
   getOrogenyCache,
   storyTagOrogenyBelts,
 } from "../../src/domain/narrative/orogeny/index.js";
 
 describe("story/orogeny", () => {
-  beforeEach(() => {
-    resetStoryOverlays();
-    resetOrogenyCache();
-  });
-
   it("tags legacy orogeny belts from mountain density and publishes an overlay", () => {
     const width = 30;
     const height = 20;
@@ -39,7 +32,7 @@ describe("story/orogeny", () => {
 
     storyTagOrogenyBelts(ctx);
 
-    const cache = getOrogenyCache();
+    const cache = getOrogenyCache(ctx);
     expect(cache.belts.size).toBeGreaterThan(0);
     expect(cache.windward.size).toBeGreaterThan(0);
     expect(cache.lee.size).toBeGreaterThan(0);

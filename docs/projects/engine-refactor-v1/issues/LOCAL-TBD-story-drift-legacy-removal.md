@@ -22,23 +22,23 @@ Remove the legacy orchestrator path and legacy `STORY_ENABLE_*` toggle surface f
 
 ## Deliverables
 
-- [ ] **Group 1**: Migrate all in-repo consumers (mods, tests) to `useTaskGraph: true`
-- [ ] **Group 2**: Remove legacy orchestration fork—`generateMap()` becomes TaskGraph-only
-- [ ] **Group 3**: Remove `config.toggles.STORY_ENABLE_*` surface; migrate downstream to canonical signals
-- [ ] **Group 4**: Remove legacy shims (`createLegacy*Step`, `LegacyPlacementStep`, legacy bootstrap shapes) and update docs
-- [ ] **Group 5**: Move story state (tags, caches, overlays) to context-owned artifacts (requires design decision)
+- [x] **Group 1**: Migrate all in-repo consumers (mods, tests) to `useTaskGraph: true`
+- [x] **Group 2**: Remove legacy orchestration fork—`generateMap()` becomes TaskGraph-only
+- [x] **Group 3**: Remove `config.toggles.STORY_ENABLE_*` surface; migrate downstream to canonical signals
+- [x] **Group 4**: Remove legacy shims (`createLegacy*Step`, `LegacyPlacementStep`, legacy bootstrap shapes) and update docs
+- [x] **Group 5**: Move story state (tags, caches, overlays) to context-owned artifacts (requires design decision)
 
 ## Acceptance Criteria
 
-- [ ] `generateMap()` has no branching logic—TaskGraph is the only path
-- [ ] `OrchestratorConfig.useTaskGraph` option does not exist
-- [ ] No `STORY_ENABLE_*` fields in config schema or presets
-- [ ] All downstream toggle consumers use canonical signals (tags, config presence, stage flags)
-- [ ] No `createLegacy*Step` exports or `LegacyPlacementStep.ts`
-- [ ] No legacy bootstrap input shapes
-- [ ] (Group 5) No module-level story singletons required for correctness
-- [ ] `pnpm -C packages/mapgen-core check` passes
-- [ ] `pnpm test:mapgen` passes
+- [x] `generateMap()` has no branching logic—TaskGraph is the only path
+- [x] `OrchestratorConfig.useTaskGraph` option does not exist
+- [x] No `STORY_ENABLE_*` fields in config schema or presets
+- [x] All downstream toggle consumers use canonical signals (tags, config presence, stage flags)
+- [x] No `createLegacy*Step` exports or `LegacyPlacementStep.ts`
+- [x] No legacy bootstrap input shapes
+- [x] (Group 5) No module-level story singletons required for correctness
+- [x] `pnpm -C packages/mapgen-core check` passes
+- [x] `pnpm test:mapgen` passes
 - [ ] Mods load without error
 
 ## Testing / Verification

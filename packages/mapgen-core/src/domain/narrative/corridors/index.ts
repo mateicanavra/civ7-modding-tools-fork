@@ -28,7 +28,7 @@ export { resetCorridorStyleCache } from "./style-cache.js";
 export function storyTagStrategicCorridors(ctx: ExtendedMapContext, stage: CorridorStage): StoryOverlaySnapshot {
   const corridorsCfg = (ctx.config.corridors || {}) as Record<string, unknown>;
 
-  resetCorridorStyleCache();
+  resetCorridorStyleCache(ctx);
 
   if (stage === "preIslands") {
     tagSeaLanes(ctx, corridorsCfg);
@@ -40,7 +40,7 @@ export function storyTagStrategicCorridors(ctx: ExtendedMapContext, stage: Corri
     backfillCorridorKinds(ctx, corridorsCfg);
   }
 
-  const tags = getStoryTags();
+  const tags = getStoryTags(ctx);
   const seaLane = Array.from(tags.corridorSeaLane);
   const islandHop = Array.from(tags.corridorIslandHop);
   const landOpen = Array.from(tags.corridorLandOpen);

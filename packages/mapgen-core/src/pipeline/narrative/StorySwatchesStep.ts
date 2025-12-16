@@ -20,7 +20,7 @@ export function createStorySwatchesStep(
     provides: options.provides,
     shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
-      storyTagClimateSwatches(context, { orogenyCache: getOrogenyCache() });
+      storyTagClimateSwatches(context, { orogenyCache: getOrogenyCache(context) });
       publishClimateFieldArtifact(context);
     },
   };

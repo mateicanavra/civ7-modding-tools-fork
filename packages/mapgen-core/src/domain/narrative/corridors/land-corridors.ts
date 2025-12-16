@@ -10,7 +10,7 @@ export function tagLandCorridorsFromRifts(ctx: ExtendedMapContext, corridorsCfg:
   if (!cfg.useRiftShoulders) return;
 
   const { width, height } = getDims(ctx);
-  const tags = getStoryTags();
+  const tags = getStoryTags(ctx);
 
   const maxCorridors = Math.max(0, Number((cfg.maxCorridors as number) ?? 2) | 0);
   const minRun = Math.max(12, Number((cfg.minRunLength as number) ?? 24) | 0);
@@ -114,7 +114,7 @@ export function tagLandCorridorsFromRifts(ctx: ExtendedMapContext, corridorsCfg:
         if (ctx.adapter.isWater(cx, y)) continue;
         const kk = storyKey(cx, y);
         tags.corridorLandOpen.add(kk);
-        assignCorridorMetadata(corridorsCfg, kk, "land", style);
+        assignCorridorMetadata(ctx, corridorsCfg, kk, "land", style);
       }
 
       usedRows.push(y);

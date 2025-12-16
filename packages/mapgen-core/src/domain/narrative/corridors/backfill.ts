@@ -7,7 +7,7 @@ import { getDims, isAdjacentToShallowWater } from "./runtime.js";
 
 export function backfillCorridorKinds(ctx: ExtendedMapContext, corridorsCfg: Record<string, unknown>): void {
   const { width, height } = getDims(ctx);
-  const tags = getStoryTags();
+  const tags = getStoryTags(ctx);
 
   for (const key of tags.corridorSeaLane) {
     const kind = (tags.corridorKind.get(key) as CorridorKind) || "sea";
@@ -16,24 +16,24 @@ export function backfillCorridorKinds(ctx: ExtendedMapContext, corridorsCfg: Rec
       const [sx, sy] = key.split(",").map(Number);
       style = isAdjacentToShallowWater(ctx, sx, sy, width, height) ? "coastal" : "ocean";
     }
-    assignCorridorMetadata(corridorsCfg, key, kind, style);
+    assignCorridorMetadata(ctx, corridorsCfg, key, kind, style);
   }
 
   for (const key of tags.corridorIslandHop) {
     const kind = (tags.corridorKind.get(key) as CorridorKind) || "islandHop";
     const style = tags.corridorStyle.get(key) || "archipelago";
-    assignCorridorMetadata(corridorsCfg, key, kind, style);
+    assignCorridorMetadata(ctx, corridorsCfg, key, kind, style);
   }
 
   for (const key of tags.corridorLandOpen) {
     const kind = (tags.corridorKind.get(key) as CorridorKind) || "land";
     const style = tags.corridorStyle.get(key) || "plainsBelt";
-    assignCorridorMetadata(corridorsCfg, key, kind, style);
+    assignCorridorMetadata(ctx, corridorsCfg, key, kind, style);
   }
 
   for (const key of tags.corridorRiverChain) {
     const kind = (tags.corridorKind.get(key) as CorridorKind) || "river";
     const style = tags.corridorStyle.get(key) || "riverChain";
-    assignCorridorMetadata(corridorsCfg, key, kind, style);
+    assignCorridorMetadata(ctx, corridorsCfg, key, kind, style);
   }
 }

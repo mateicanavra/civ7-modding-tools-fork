@@ -8,7 +8,6 @@ import { describe, it, expect, beforeEach } from "bun:test";
 import {
   STORY_OVERLAY_KEYS,
   resetStoryOverlays,
-  getStoryOverlayRegistry,
   publishStoryOverlay,
   finalizeStoryOverlay,
   getStoryOverlay,
@@ -17,8 +16,11 @@ import {
 import type { StoryOverlaySnapshot } from "../../src/core/types.js";
 
 describe("story/overlays", () => {
+  let ctx: { overlays?: Map<string, StoryOverlaySnapshot> };
+
   beforeEach(() => {
-    resetStoryOverlays();
+    ctx = { overlays: new Map() };
+    resetStoryOverlays(ctx);
   });
 
   describe("STORY_OVERLAY_KEYS", () => {
@@ -34,19 +36,19 @@ describe("story/overlays", () => {
   });
 
   describe("resetStoryOverlays", () => {
-    it("clears the registry", () => {
-      publishStoryOverlay(null, "test", { width: 10, height: 10 });
-      expect(getStoryOverlayRegistry().size).toBe(1);
+    it("clears the context overlays map", () => {
+      publishStoryOverlay(ctx, "test", { width: 10, height: 10 });
+      expect(ctx.overlays?.size).toBe(1);
 
-      resetStoryOverlays();
+      resetStoryOverlays(ctx);
 
-      expect(getStoryOverlayRegistry().size).toBe(0);
+      expect(ctx.overlays?.size).toBe(0);
     });
   });
 
   describe("publishStoryOverlay", () => {
-    it("publishes an overlay to the registry", () => {
-      const snapshot = publishStoryOverlay(null, "test", {
+    it("publishes an overlay to the provided context", () => {
+      const snapshot = publishStoryOverlay(ctx, "test", {
         width: 100,
         height: 80,
         active: ["1,1", "2,2"],
@@ -59,8 +61,7 @@ describe("story/overlays", () => {
       expect(snapshot.active).toEqual(["1,1", "2,2"]);
       expect(snapshot.passive).toEqual(["3,3"]);
 
-      const fromRegistry = getStoryOverlayRegistry().get("test");
-      expect(fromRegistry).toBe(snapshot);
+      expect(ctx.overlays?.get("test")).toBe(snapshot);
     });
 
     it("attaches overlay to context when provided", () => {
@@ -120,9 +121,6 @@ describe("story/overlays", () => {
 
       expect(snapshot.key).toBe("test");
       expect(snapshot.width).toBe(100);
-
-      // Not in registry
-      expect(getStoryOverlayRegistry().has("test")).toBe(false);
     });
 
     it("normalizes the same as publishStoryOverlay", () => {
@@ -147,26 +145,9 @@ describe("story/overlays", () => {
       expect(result).toBe(snapshot);
     });
 
-    it("falls back to global registry", () => {
+    it("does not persist overlays without a context", () => {
       publishStoryOverlay(null, "global", { width: 100 });
-
-      const result = getStoryOverlay(null, "global");
-
-      expect(result?.width).toBe(100);
-    });
-
-    it("prefers context over global registry", () => {
-      publishStoryOverlay(null, "test", { width: 100 });
-      const localSnapshot = finalizeStoryOverlay("test", { width: 50 });
-      const ctx = {
-        overlays: new Map<string, StoryOverlaySnapshot>([
-          ["test", localSnapshot],
-        ]),
-      };
-
-      const result = getStoryOverlay(ctx, "test");
-
-      expect(result?.width).toBe(50);
+      expect(getStoryOverlay(null, "global")).toBeNull();
     });
 
     it("returns null for missing overlay", () => {
@@ -251,7 +232,7 @@ describe("story/overlays", () => {
 
   describe("isolation", () => {
     it("does not leak state between tests", () => {
-      expect(getStoryOverlayRegistry().size).toBe(0);
+      expect(ctx.overlays?.size).toBe(0);
     });
   });
 });

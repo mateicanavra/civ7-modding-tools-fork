@@ -5,6 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
+import type { ExtendedMapContext } from "../../src/core/types.js";
 import {
   getStoryTags,
   resetStoryTags,
@@ -16,13 +17,16 @@ import {
 } from "../../src/domain/narrative/tags/index.js";
 
 describe("story/tags", () => {
+  let ctx: ExtendedMapContext;
+
   beforeEach(() => {
-    resetStoryTags();
+    ctx = { artifacts: new Map() } as unknown as ExtendedMapContext;
+    resetStoryTags(ctx);
   });
 
   describe("getStoryTags", () => {
     it("returns a StoryTags instance", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
 
       expect(tags).toBeDefined();
       expect(tags.hotspot).toBeInstanceOf(Set);
@@ -31,14 +35,14 @@ describe("story/tags", () => {
     });
 
     it("returns cached instance on repeated calls", () => {
-      const tags1 = getStoryTags();
-      const tags2 = getStoryTags();
+      const tags1 = getStoryTags(ctx);
+      const tags2 = getStoryTags(ctx);
 
       expect(tags1).toBe(tags2);
     });
 
     it("has all expected tag sets", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
 
       // Hotspot tags
       expect(tags.hotspot).toBeDefined();
@@ -66,7 +70,7 @@ describe("story/tags", () => {
     });
 
     it("starts with empty sets", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
 
       expect(tags.hotspot.size).toBe(0);
       expect(tags.riftLine.size).toBe(0);
@@ -77,21 +81,21 @@ describe("story/tags", () => {
 
   describe("resetStoryTags", () => {
     it("creates a new instance after reset", () => {
-      const tags1 = getStoryTags();
-      resetStoryTags();
-      const tags2 = getStoryTags();
+      const tags1 = getStoryTags(ctx);
+      resetStoryTags(ctx);
+      const tags2 = getStoryTags(ctx);
 
       expect(tags1).not.toBe(tags2);
     });
 
     it("clears all data after reset", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
       tags.hotspot.add("5,10");
       tags.riftLine.add("20,30");
       expect(tags.hotspot.size).toBe(1);
 
-      resetStoryTags();
-      const newTags = getStoryTags();
+      resetStoryTags(ctx);
+      const newTags = getStoryTags(ctx);
 
       expect(newTags.hotspot.size).toBe(0);
       expect(newTags.riftLine.size).toBe(0);
@@ -100,15 +104,15 @@ describe("story/tags", () => {
 
   describe("clearStoryTags", () => {
     it("clears all tag sets without resetting instance", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
       tags.hotspot.add("5,10");
       tags.riftLine.add("20,30");
       tags.corridorKind.set("1,2", "sea");
 
-      clearStoryTags();
+      clearStoryTags(ctx);
 
       // Same instance
-      expect(getStoryTags()).toBe(tags);
+      expect(getStoryTags(ctx)).toBe(tags);
 
       // But all cleared
       expect(tags.hotspot.size).toBe(0);
@@ -117,7 +121,7 @@ describe("story/tags", () => {
     });
 
     it("clears all tag types", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
 
       // Add data to all
       tags.hotspot.add("1,1");
@@ -135,7 +139,7 @@ describe("story/tags", () => {
       tags.corridorStyle.set("13,13", "test");
       tags.corridorAttributes.set("14,14", { foo: "bar" });
 
-      clearStoryTags();
+      clearStoryTags(ctx);
 
       expect(tags.hotspot.size).toBe(0);
       expect(tags.hotspotParadise.size).toBe(0);
@@ -156,14 +160,14 @@ describe("story/tags", () => {
 
   describe("hasTag", () => {
     it("returns true when tag exists", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
       tags.hotspot.add("5,10");
 
       expect(hasTag(tags.hotspot, 5, 10)).toBe(true);
     });
 
     it("returns false when tag does not exist", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
 
       expect(hasTag(tags.hotspot, 5, 10)).toBe(false);
     });
@@ -171,7 +175,7 @@ describe("story/tags", () => {
 
   describe("addTag", () => {
     it("adds a tag to the set", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
 
       addTag(tags.hotspot, 5, 10);
 
@@ -180,7 +184,7 @@ describe("story/tags", () => {
     });
 
     it("does not duplicate tags", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
 
       addTag(tags.hotspot, 5, 10);
       addTag(tags.hotspot, 5, 10);
@@ -191,7 +195,7 @@ describe("story/tags", () => {
 
   describe("removeTag", () => {
     it("removes a tag from the set", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
       addTag(tags.hotspot, 5, 10);
 
       const result = removeTag(tags.hotspot, 5, 10);
@@ -201,7 +205,7 @@ describe("story/tags", () => {
     });
 
     it("returns false when tag does not exist", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
 
       const result = removeTag(tags.hotspot, 5, 10);
 
@@ -211,7 +215,7 @@ describe("story/tags", () => {
 
   describe("getTagCoordinates", () => {
     it("returns empty array for empty set", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
 
       const coords = getTagCoordinates(tags.hotspot);
 
@@ -219,7 +223,7 @@ describe("story/tags", () => {
     });
 
     it("returns all coordinates from set", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
       addTag(tags.hotspot, 5, 10);
       addTag(tags.hotspot, 20, 30);
       addTag(tags.hotspot, 0, 0);
@@ -235,7 +239,7 @@ describe("story/tags", () => {
 
   describe("isolation", () => {
     it("does not leak state between tests", () => {
-      const tags = getStoryTags();
+      const tags = getStoryTags(ctx);
       expect(tags.hotspot.size).toBe(0);
       expect(tags.riftLine.size).toBe(0);
     });

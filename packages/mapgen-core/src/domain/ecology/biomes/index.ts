@@ -64,7 +64,7 @@ export function designateEnhancedBiomes(
   const biomesCfg = (config.biomes || {}) as BiomeConfig;
   const corridorPolicy = (config.corridors || {}) as CorridorPolicy;
 
-  const StoryTags = getStoryTags();
+  const StoryTags = getStoryTags(ctx);
 
   // Apply small, climate-aware preferences
   const _tundra = biomesCfg.tundra || {};

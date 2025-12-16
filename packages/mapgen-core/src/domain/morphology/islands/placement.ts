@@ -29,7 +29,7 @@ export function addIslandChains(iWidth: number, iHeight: number, ctx?: ExtendedM
     Math.min(100, Math.round((storyTunables.hotspot?.volcanicPeakChance ?? 0.33) * 100) + 10)
   );
 
-  const StoryTags = getStoryTags();
+  const StoryTags = getStoryTags(ctx);
 
   const applyTerrain = (tileX: number, tileY: number, terrain: number, isLand: boolean): void => {
     if (ctx) {

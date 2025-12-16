@@ -1916,6 +1916,8 @@ export const ClimateStorySchema = Type.Object(
   {
     /** Story-driven rainfall modifiers keyed off narrative tags. */
     rainfall: Type.Optional(ClimateStoryRainfallSchema),
+    /** Optional paleo hydrology artifacts configuration (deltas, oxbows, fossil channels). */
+    paleo: Type.Optional(UnknownRecord),
   },
   { additionalProperties: true, default: {} }
 );

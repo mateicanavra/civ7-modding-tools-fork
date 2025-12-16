@@ -30,7 +30,7 @@ export interface OrogenySummary {
  * Always publishes a `storyOverlays` snapshot (even if empty) for Task Graph contracts.
  */
 export function storyTagOrogenyBelts(ctx: ExtendedMapContext | null = null): StoryOverlaySnapshot {
-  const cache = getOrogenyCache();
+  const cache = getOrogenyCache(ctx);
   cache.belts.clear();
   cache.windward.clear();
   cache.lee.clear();
