@@ -334,7 +334,7 @@ function buildConfig(): BootstrapConfig {
   };
 }
 
-const orchestratorOptions: OrchestratorConfig = { logPrefix: "[SWOOPER_MOD]", useTaskGraph: true };
+const orchestratorOptions: OrchestratorConfig = { logPrefix: "[SWOOPER_MOD]" };
 
 engine.on("RequestMapInitData", () => {
   const defaultConfig = bootstrap({});

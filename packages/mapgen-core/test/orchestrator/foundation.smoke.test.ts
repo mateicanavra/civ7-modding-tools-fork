@@ -69,11 +69,7 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
     });
 
     const config = bootstrap({ stageConfig: { foundation: true } });
-    const orchestrator = new MapOrchestrator(config, {
-      adapter,
-      logPrefix: "[TEST]",
-      useTaskGraph: true,
-    });
+    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
     const result = orchestrator.generateMap();
 
     expect(result.success).toBe(true);
