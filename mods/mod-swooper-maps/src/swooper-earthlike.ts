@@ -18,7 +18,7 @@ function buildConfig(): BootstrapConfig {
   return {
     stageConfig: {
       foundation: true,
-      landmassPlates: true,
+      landmassPlates: true, 
       coastlines: true,
       storySeed: true,
       storyHotspots: true,
