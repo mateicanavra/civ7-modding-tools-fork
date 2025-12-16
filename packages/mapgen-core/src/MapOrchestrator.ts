@@ -838,6 +838,7 @@ export class MapOrchestrator {
         ctx.adapter.validateAndFixTerrain();
         logStats("POST-VALIDATE");
         syncHeightfield(ctx!);
+        publishHeightfieldArtifact(ctx!);
         ctx.adapter.defineNamedRivers();
 
         // Paleo hydrology depends on engine rivers being modeled; run it post-rivers so
