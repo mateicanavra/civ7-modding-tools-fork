@@ -396,7 +396,9 @@ export class MapOrchestrator {
     let uiMapSize: MapSizeId;
     let mapInfo: MapInfo | null;
 
-    if (this.options.mapSizeDefaults) {
+    const usingMapSizeDefaults = Boolean(this.options.mapSizeDefaults);
+
+    if (usingMapSizeDefaults) {
       uiMapSize = this.options.mapSizeDefaults.mapSizeId ?? 0;
       mapInfo = this.options.mapSizeDefaults.mapInfo ?? null;
     } else {
@@ -405,8 +407,20 @@ export class MapOrchestrator {
     }
 
     if (!mapInfo) {
-      console.error(`${prefix} Failed to lookup map info`);
-      return { success: false, stageResults: this.stageResults, startPositions };
+      if (usingMapSizeDefaults) {
+        console.warn(
+          `${prefix} mapSizeDefaults missing mapInfo; using fallback 84x54/±80° defaults`
+        );
+        mapInfo = {
+          GridWidth: iWidth || 84,
+          GridHeight: iHeight || 54,
+          MaxLatitude: 80,
+          MinLatitude: -80,
+        };
+        } else {
+          console.error(`${prefix} Failed to lookup map info`);
+          return { success: false, stageResults: this.stageResults, startPositions };
+        }
     }
 
     console.log(`${prefix} Map size: ${iWidth}x${iHeight}`);
@@ -990,7 +1004,9 @@ export class MapOrchestrator {
     let uiMapSize: MapSizeId;
     let mapInfo: MapInfo | null;
 
-    if (this.options.mapSizeDefaults) {
+    const usingMapSizeDefaults = Boolean(this.options.mapSizeDefaults);
+
+    if (usingMapSizeDefaults) {
       uiMapSize = this.options.mapSizeDefaults.mapSizeId ?? 0;
       mapInfo = this.options.mapSizeDefaults.mapInfo ?? null;
     } else {
@@ -999,8 +1015,20 @@ export class MapOrchestrator {
     }
 
     if (!mapInfo) {
+      if (usingMapSizeDefaults) {
+        console.warn(
+          `${prefix} mapSizeDefaults missing mapInfo; using fallback 84x54/±80° defaults`
+        );
+        mapInfo = {
+          GridWidth: iWidth || 84,
+          GridHeight: iHeight || 54,
+          MaxLatitude: 80,
+          MinLatitude: -80,
+        };
+      } else {
       console.error(`${prefix} Failed to lookup map info`);
       return { success: false, stageResults: this.stageResults, startPositions };
+    }
     }
 
     console.log(`${prefix} Map size: ${iWidth}x${iHeight}`);
