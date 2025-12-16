@@ -675,20 +675,20 @@ This work is intentionally **deferred** while story/playability is treated as op
 
 **From `domain/placement/index.ts`:**
 
-- [ ] `placement/types.ts`: `PlacementOptions`, `MapInfo` (internal), and config type re-exports (`PlacementConfig`, `FloodplainsConfig`, `ContinentBounds`, `StartsConfig`)
-- [ ] `placement/diagnostics.ts`: `logTerrainStats`, `logAsciiMap` (or move to `src/dev/**` if preferred)
-- [ ] `placement/wonders.ts`: `resolveNaturalWonderCount`, `applyNaturalWonders`
-- [ ] `placement/floodplains.ts`: `applyFloodplains`
-- [ ] `placement/terrain-validation.ts`: `validateAndFixTerrain`
-- [ ] `placement/areas.ts`: `recalculateAreas`
-- [ ] `placement/water-data.ts`: `storeWaterData`
-- [ ] `placement/snow.ts`: `generateSnow`
-- [ ] `placement/resources.ts`: `generateResources`
-- [ ] `placement/starts.ts`: `applyStartPositions` (wraps adapter.assignStartPositions + logging)
-- [ ] `placement/discoveries.ts`: `applyDiscoveries`
-- [ ] `placement/fertility.ts`: `applyFertilityRecalc`
-- [ ] `placement/advanced-start.ts`: `applyAdvancedStartRegions`
-- [ ] `placement/index.ts`: `runPlacement` orchestrator calling modules in the vanilla order; remove default export once consumers migrate (or keep temporarily behind an explicit deprecation window)
+- [x] `placement/types.ts`: `PlacementOptions`, `MapInfo` (internal), and config type re-exports (`PlacementConfig`, `FloodplainsConfig`, `ContinentBounds`, `StartsConfig`)
+- [x] `placement/diagnostics.ts`: `logTerrainStats`, `logAsciiMap` (or move to `src/dev/**` if preferred)
+- [x] `placement/wonders.ts`: `resolveNaturalWonderCount`, `applyNaturalWonders`
+- [x] `placement/floodplains.ts`: `applyFloodplains`
+- [x] `placement/terrain-validation.ts`: `validateAndFixTerrain`
+- [x] `placement/areas.ts`: `recalculateAreas`
+- [x] `placement/water-data.ts`: `storeWaterData`
+- [x] `placement/snow.ts`: `generateSnow`
+- [x] `placement/resources.ts`: `generateResources`
+- [x] `placement/starts.ts`: `applyStartPositions` (wraps adapter.assignStartPositions + logging)
+- [x] `placement/discoveries.ts`: `applyDiscoveries`
+- [x] `placement/fertility.ts`: `applyFertilityRecalc`
+- [x] `placement/advanced-start.ts`: `applyAdvancedStartRegions`
+- [x] `placement/index.ts`: `runPlacement` orchestrator calling modules in the vanilla order; remove default export once consumers migrate (or keep temporarily behind an explicit deprecation window)
 
 ---
 

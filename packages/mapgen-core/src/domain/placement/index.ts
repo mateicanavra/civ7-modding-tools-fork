@@ -39,124 +39,28 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import type {
-  PlacementConfig,
-  FloodplainsConfig,
-  ContinentBounds,
-  StartsConfig,
-} from "../../bootstrap/types.js";
-import { DEV } from "../../dev/index.js";
+import type { FloodplainsConfig, PlacementOptions } from "./types.js";
+import { logAsciiMap, logTerrainStats } from "./diagnostics.js";
+import { applyNaturalWonders } from "./wonders.js";
+import { applyFloodplains } from "./floodplains.js";
+import { validateAndFixTerrain } from "./terrain-validation.js";
+import { recalculateAreas } from "./areas.js";
+import { storeWaterData } from "./water-data.js";
+import { generateSnow } from "./snow.js";
+import { generateResources } from "./resources.js";
+import { applyStartPositions } from "./starts.js";
+import { applyDiscoveries } from "./discoveries.js";
+import { applyFertilityRecalc } from "./fertility.js";
+import { applyAdvancedStartRegions } from "./advanced-start.js";
 
-// Terrain type constants - imported from shared module
-// CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
-import {
-  MOUNTAIN_TERRAIN,
-  HILL_TERRAIN,
-  getTerrainSymbol,
-} from "../../core/terrain-constants.js";
-
-// Re-export config types
 export type {
-  PlacementConfig,
-  FloodplainsConfig,
   ContinentBounds,
+  FloodplainsConfig,
+  MapInfo,
+  PlacementConfig,
+  PlacementOptions,
   StartsConfig,
-} from "../../bootstrap/types.js";
-
-// ============================================================================
-// Types
-// ============================================================================
-
-/** Map info from GameInfo.Maps lookup */
-interface MapInfo {
-  NumNaturalWonders?: number;
-  [key: string]: unknown;
-}
-
-/** Options for runPlacement */
-export interface PlacementOptions {
-  /** GameInfo.Maps row (used to derive defaults) */
-  mapInfo?: MapInfo;
-  /** Whether to add +1 to map default wonders */
-  wondersPlusOne?: boolean;
-  /** Floodplains config (defaults: {minLength: 4, maxLength: 10}) */
-  floodplains?: FloodplainsConfig;
-  /** Start placement inputs */
-  starts?: StartsConfig;
-  /** Placement tuning snapshot (prefer config-derived source, not tunables). */
-  placementConfig?: PlacementConfig;
-}
-
-// ============================================================================
-// Helper Functions
-// ============================================================================
-
-/**
- * Compute the number of natural wonders to place.
- * Default behavior mirrors the main script: +1 vs map defaults (but never below default).
- */
-function resolveNaturalWonderCount(mapInfo: MapInfo | undefined, wondersPlusOne: boolean): number {
-  if (!mapInfo || typeof mapInfo.NumNaturalWonders !== "number") {
-    return 1;
-  }
-  if (wondersPlusOne) {
-    return Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders);
-  }
-  return mapInfo.NumNaturalWonders;
-}
-
-function logTerrainStats(
-  adapter: EngineAdapter,
-  width: number,
-  height: number,
-  stage: string
-): void {
-  if (!DEV.ENABLED) return;
-  let flat = 0;
-  let hill = 0;
-  let mtn = 0;
-  let water = 0;
-  const total = width * height;
-
-  // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      if (adapter.isWater(x, y)) {
-        water++;
-        continue;
-      }
-      const t = adapter.getTerrainType(x, y);
-      if (t === MOUNTAIN_TERRAIN) mtn++;
-      else if (t === HILL_TERRAIN) hill++;
-      else flat++;
-    }
-  }
-
-  const land = Math.max(1, flat + hill + mtn);
-  console.log(`[Placement] Stats (${stage}):`);
-  console.log(`  Water: ${((water / total) * 100).toFixed(1)}%`);
-  console.log(`  Land:  ${((land / total) * 100).toFixed(1)}% (${land} tiles)`);
-  console.log(`    Mtn:  ${((mtn / land) * 100).toFixed(1)}%`);
-  console.log(`    Hill: ${((hill / land) * 100).toFixed(1)}%`);
-  console.log(`    Flat: ${((flat / land) * 100).toFixed(1)}%`);
-}
-
-function logAsciiMap(adapter: EngineAdapter, width: number, height: number): void {
-  if (!DEV.ENABLED) return;
-  console.log("[Placement] Final Map ASCII:");
-  // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
-  // Using getTerrainSymbol() from terrain-constants for correct mapping
-
-  for (let y = height - 1; y >= 0; y--) {
-    let row = "";
-    if (y % 2 !== 0) row += " ";
-    for (let x = 0; x < width; x++) {
-      const t = adapter.getTerrainType(x, y);
-      row += getTerrainSymbol(t) + " ";
-    }
-    console.log(row);
-  }
-}
+} from "./types.js";
 
 // ============================================================================
 // ============================================================================
@@ -206,8 +110,7 @@ export function runPlacement(
         : typeof placementCfg.wondersPlusOne === "boolean"
           ? placementCfg.wondersPlusOne
           : true;
-    const wonders = resolveNaturalWonderCount(mapInfo, useWondersPlusOne);
-    adapter.addNaturalWonders(iWidth, iHeight, wonders);
+    applyNaturalWonders(adapter, iWidth, iHeight, mapInfo, useWondersPlusOne);
   } catch (err) {
     console.log("[Placement] addNaturalWonders failed:", err);
   }
@@ -215,16 +118,14 @@ export function runPlacement(
   // 2) Floodplains
   try {
     const floodplainsCfg = floodplains || placementCfg.floodplains || {};
-    const minLen = typeof floodplainsCfg.minLength === "number" ? floodplainsCfg.minLength : 4;
-    const maxLen = typeof floodplainsCfg.maxLength === "number" ? floodplainsCfg.maxLength : 10;
-    adapter.addFloodplains(minLen, maxLen);
+    applyFloodplains(adapter, floodplainsCfg as FloodplainsConfig);
   } catch (err) {
     console.log("[Placement] addFloodplains failed:", err);
   }
 
   // 3) Validate and fix terrain (matches vanilla order before recalculateAreas)
   try {
-    adapter.validateAndFixTerrain();
+    validateAndFixTerrain(adapter);
     console.log("[Placement] Terrain validated successfully");
     logTerrainStats(adapter, iWidth, iHeight, "After validateAndFixTerrain");
   } catch (err) {
@@ -233,7 +134,7 @@ export function runPlacement(
 
   // 4) Area recalculation (after terrain validation)
   try {
-    adapter.recalculateAreas();
+    recalculateAreas(adapter);
     console.log("[Placement] Areas recalculated successfully");
   } catch (err) {
     console.log("[Placement] AreaBuilder.recalculateAreas failed:", err);
@@ -243,7 +144,7 @@ export function runPlacement(
   // This must happen BEFORE generateSnow and generateResources per vanilla order.
   // Without this, the StartPositioner may not have valid water data for scoring.
   try {
-    adapter.storeWaterData();
+    storeWaterData(adapter);
     console.log("[Placement] Water data stored successfully");
   } catch (err) {
     console.log("[Placement] storeWaterData failed:", err);
@@ -251,14 +152,14 @@ export function runPlacement(
 
   // 6) Snow (after water data is stored)
   try {
-    adapter.generateSnow(iWidth, iHeight);
+    generateSnow(adapter, iWidth, iHeight);
   } catch (err) {
     console.log("[Placement] generateSnow failed:", err);
   }
 
   // 7) Resources (after snow, before start positions)
   try {
-    adapter.generateResources(iWidth, iHeight);
+    generateResources(adapter, iWidth, iHeight);
   } catch (err) {
     console.log("[Placement] generateResources failed:", err);
   }
@@ -273,64 +174,16 @@ export function runPlacement(
     if (!starts) {
       console.log("[Placement] Start placement skipped (no starts config provided).");
     } else {
-      const {
-        playersLandmass1,
-        playersLandmass2,
-        westContinent,
-        eastContinent,
-        startSectorRows,
-        startSectorCols,
-        startSectors,
-      } = starts;
+      const pos = applyStartPositions(adapter, starts);
+      startPositions.push(...pos);
 
-      // DIAGNOSTIC LOGGING - Start placement parameters
-      const totalPlayers = playersLandmass1 + playersLandmass2;
-      if (DEV.ENABLED) {
-        console.log(`[START_DEBUG] === Beginning Start Placement ===`);
-        console.log(
-          `[START_DEBUG] Players: ${totalPlayers} total (${playersLandmass1} landmass1, ${playersLandmass2} landmass2)`
-        );
-        console.log(
-          `[START_DEBUG] Continents: west=${JSON.stringify(westContinent)}, east=${JSON.stringify(eastContinent)}`
-        );
-        console.log(
-          `[START_DEBUG] Sectors: ${startSectorRows}x${startSectorCols} grid, ${startSectors.length} sectors chosen`
-        );
-      }
+      const totalPlayers = starts.playersLandmass1 + starts.playersLandmass2;
+      const successCount = pos.filter((p) => p !== undefined && p >= 0).length;
 
-      const pos = adapter.assignStartPositions(
-        playersLandmass1,
-        playersLandmass2,
-        westContinent,
-        eastContinent,
-        startSectorRows,
-        startSectorCols,
-        startSectors as number[]
-      );
-
-      // DIAGNOSTIC LOGGING - Placement results
-      const successCount = pos ? pos.filter((p) => p !== undefined && p >= 0).length : 0;
-      if (DEV.ENABLED) {
-        console.log(
-          `[START_DEBUG] Result: ${successCount}/${totalPlayers} civilizations placed successfully`
-        );
-        if (successCount < totalPlayers) {
-          console.log(
-            `[START_DEBUG] WARNING: ${totalPlayers - successCount} civilizations failed to find valid start locations!`
-          );
-        }
-        console.log(`[START_DEBUG] === End Start Placement ===`);
-      }
-
-      if (Array.isArray(pos)) {
-        startPositions.push(...pos);
-      }
       if (successCount === totalPlayers) {
         console.log("[Placement] Start positions assigned successfully");
       } else {
-        console.log(
-          `[Placement] Start positions assignment incomplete: ${totalPlayers - successCount} failures`
-        );
+        console.log(`[Placement] Start positions assignment incomplete: ${totalPlayers - successCount} failures`);
       }
     }
   } catch (err) {
@@ -339,7 +192,7 @@ export function runPlacement(
 
   // 9) Discoveries (post-starts to seed exploration)
   try {
-    adapter.generateDiscoveries(iWidth, iHeight, startPositions);
+    applyDiscoveries(adapter, iWidth, iHeight, startPositions);
     console.log("[Placement] Discoveries generated successfully");
   } catch (err) {
     console.log("[Placement] generateDiscoveries failed:", err);
@@ -348,7 +201,7 @@ export function runPlacement(
   // 10) Fertility recalculation (AFTER starts, matching vanilla order)
   // Must be after features are added per vanilla comment
   try {
-    adapter.recalculateFertility();
+    applyFertilityRecalc(adapter);
     console.log("[Placement] Fertility recalculated successfully");
   } catch (err) {
     console.log("[Placement] FertilityBuilder.recalculate failed:", err);
@@ -356,7 +209,7 @@ export function runPlacement(
 
   // 11) Advanced Start regions
   try {
-    adapter.assignAdvancedStartRegions();
+    applyAdvancedStartRegions(adapter);
   } catch (err) {
     console.log("[Placement] assignAdvancedStartRegions failed:", err);
   }
