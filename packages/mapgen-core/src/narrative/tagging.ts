@@ -11,10 +11,10 @@
  * foundation tensors are unavailable, rifts fall back to a legacy random march.
  */
 
-import type { ExtendedMapContext } from "../../core/types.js";
-import type { StoryOverlaySnapshot } from "../../core/types.js";
-import { clamp, inBounds, storyKey } from "../../core/index.js";
-import { ctxRandom } from "../../core/types.js";
+import type { ExtendedMapContext } from "../core/types.js";
+import type { StoryOverlaySnapshot } from "../core/types.js";
+import { clamp, inBounds, storyKey } from "../core/index.js";
+import { ctxRandom } from "../core/types.js";
 import { getStoryTags } from "./tags.js";
 import {
   STORY_OVERLAY_KEYS,

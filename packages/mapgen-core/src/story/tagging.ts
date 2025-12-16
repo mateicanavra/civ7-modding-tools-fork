@@ -1,2 +1,1 @@
-export * from "../layers/narrative/tagging.js";
-
+export * from "../narrative/tagging.js";

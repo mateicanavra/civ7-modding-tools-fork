@@ -1,11 +1,11 @@
 /**
- * Story Module — Narrative tagging and overlay system
+ * Story Module — Compatibility facade for the Narrative domain
  *
  * This module provides:
  * - StoryTags: Sparse registry for narrative motifs (hotspots, rifts, corridors)
  * - Overlays: Immutable snapshots of tagging results
  *
- * All functions use lazy provider pattern for test isolation.
+ * Canonical implementation lives under `src/narrative/**`; this module preserves legacy import paths.
  */
 
 // Re-export tags module

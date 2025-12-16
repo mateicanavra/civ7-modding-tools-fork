@@ -8,7 +8,7 @@
  * Uses lazy provider pattern for test isolation.
  */
 
-import type { StoryOverlaySnapshot, StoryOverlayRegistry } from "../../core/types.js";
+import type { StoryOverlaySnapshot, StoryOverlayRegistry } from "../core/types.js";
 import type { StoryTagsInstance } from "./tags.js";
 
 // ============================================================================

@@ -1,2 +1,1 @@
-export * from "../layers/narrative/corridors.js";
-
+export * from "../narrative/corridors.js";

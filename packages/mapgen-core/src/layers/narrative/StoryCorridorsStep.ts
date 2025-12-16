@@ -1,6 +1,6 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../../pipeline/index.js";
-import { storyTagStrategicCorridors } from "../../story/corridors.js";
+import { storyTagStrategicCorridors } from "../../narrative/corridors.js";
 
 export interface StoryCorridorsStepOptions {
   requires: readonly string[];
@@ -37,4 +37,3 @@ export function createStoryCorridorsPostStep(
     },
   };
 }
-

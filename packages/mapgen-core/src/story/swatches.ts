@@ -1,2 +1,1 @@
-export * from "../layers/narrative/swatches.js";
-
+export * from "../narrative/swatches.js";

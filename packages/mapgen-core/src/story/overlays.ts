@@ -1,2 +1,1 @@
-export * from "../layers/narrative/overlays.js";
-
+export * from "../narrative/overlays.js";
