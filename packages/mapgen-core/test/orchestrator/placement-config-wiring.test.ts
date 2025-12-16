@@ -55,7 +55,7 @@ describe("placement config wiring", () => {
       },
     });
 
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
+    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]", useTaskGraph: true });
     const result = orchestrator.generateMap();
 
     expect(result.success).toBe(true);
@@ -65,4 +65,3 @@ describe("placement config wiring", () => {
     expect(calls.addFloodplains[0]).toEqual({ minLength: 1, maxLength: 2 });
   });
 });
-

@@ -274,7 +274,7 @@ function buildConfig(): BootstrapConfig {
 }
 
 // Orchestrator options (shared between requestMapData and generateMap)
-const orchestratorOptions = { logPrefix: "[SWOOPER_MOD]" };
+const orchestratorOptions = { logPrefix: "[SWOOPER_MOD]", useTaskGraph: true };
 
 // Wire engine events to orchestrator methods
 // RequestMapInitData: Bootstrap with defaults to set up map dimensions
