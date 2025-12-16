@@ -2,8 +2,16 @@ import { describe, it, expect, beforeEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { parseConfig } from "../../src/config/index.js";
 import { createExtendedMapContext } from "../../src/core/types.js";
-import { resetStoryOverlays, getStoryOverlay, STORY_OVERLAY_KEYS } from "../../src/story/overlays.js";
-import { resetOrogenyCache, getOrogenyCache, storyTagOrogenyBelts } from "../../src/story/orogeny.js";
+import {
+  resetStoryOverlays,
+  getStoryOverlay,
+  STORY_OVERLAY_KEYS,
+} from "../../src/domain/narrative/overlays/index.js";
+import {
+  resetOrogenyCache,
+  getOrogenyCache,
+  storyTagOrogenyBelts,
+} from "../../src/domain/narrative/orogeny/index.js";
 
 describe("story/orogeny", () => {
   beforeEach(() => {

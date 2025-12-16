@@ -13,7 +13,7 @@ import {
   addTag,
   removeTag,
   getTagCoordinates,
-} from "../../src/story/tags.js";
+} from "../../src/domain/narrative/tags/index.js";
 
 describe("story/tags", () => {
   beforeEach(() => {

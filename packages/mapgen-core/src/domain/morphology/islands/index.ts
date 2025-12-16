@@ -23,7 +23,7 @@ import type {
   CorridorsConfig as BootstrapCorridorsConfig,
 } from "../../../bootstrap/types.js";
 import { ctxRandom, writeHeightfield } from "../../../core/types.js";
-import { getStoryTags } from "../../../story/tags.js";
+import { getStoryTags } from "../../narrative/tags/index.js";
 
 // ============================================================================
 // Types

@@ -23,6 +23,16 @@ import { computeSeaLevel } from "../../../lib/heightfield/sea-level.js";
 import { clampInt, clampPct } from "../../../lib/math/index.js";
 import type { LandmassWindow } from "./utils.js";
 
+export {
+  applyLandmassPostAdjustments,
+  applyPlateAwareOceanSeparation,
+  type OceanSeparationPolicy,
+  type OceanSeparationEdgePolicy,
+  type PlateAwareOceanSeparationParams,
+  type PlateAwareOceanSeparationResult,
+  type LandmassWindow,
+} from "./utils.js";
+
 // ============================================================================
 // Types
 // ============================================================================

@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap, MapOrchestrator, getStoryTags } from "../../src/index.js";
-import { resetStoryTags } from "../../src/story/tags.js";
-import { resetStoryOverlays } from "../../src/story/overlays.js";
+import { resetStoryTags } from "../../src/domain/narrative/tags/index.js";
+import { resetStoryOverlays } from "../../src/domain/narrative/overlays/index.js";
 
 describe("smoke: minimal story parity (margins, hotspots, rifts)", () => {
   beforeEach(() => {

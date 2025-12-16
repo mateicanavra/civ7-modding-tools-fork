@@ -17,7 +17,7 @@
 
 import type { ExtendedMapContext } from "../../../core/types.js";
 import { ctxRandom } from "../../../core/types.js";
-import { getStoryTags } from "../../../story/tags.js";
+import { getStoryTags } from "../../narrative/tags/index.js";
 import { inBounds as boundsCheck } from "../../../core/index.js";
 import { getPublishedClimateField } from "../../../pipeline/artifacts.js";
 
