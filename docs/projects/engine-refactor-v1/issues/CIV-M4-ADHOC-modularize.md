@@ -494,7 +494,7 @@ Sources listed are the current monolithic implementations (mostly `domain/**/ind
   - `normalizeFractal` → `packages/mapgen-core/src/lib/noise/fractal.ts`
   - square neighbor scans → `packages/mapgen-core/src/lib/grid/neighborhood/square-3x3.ts`
   - hex neighbors (wrap-aware) → `packages/mapgen-core/src/lib/grid/neighborhood/hex-oddq.ts`
-- [ ] Delete compatibility shim `packages/mapgen-core/src/lib/noise.ts` after imports migrate to `lib/noise/index.ts`.
+- [x] Delete compatibility shim `packages/mapgen-core/src/lib/noise.ts` after imports migrate to `lib/noise/index.ts`.
 
 ### 3.2 Narrative Domain Atomization
 
@@ -550,11 +550,11 @@ This work is intentionally **deferred** while story/playability is treated as op
 
 **From `domain/hydrology/climate/index.ts`:**
 
-- [ ] `climate/types.ts`: `ClimateConfig`, `ClimateRuntime`, `ClimateAdapter`, `OrogenyCache`, `ClimateSwatchResult`
-- [ ] `climate/runtime.ts`: `resolveAdapter`, `createClimateRuntime`
-- [ ] `climate/distance-to-water.ts`: `distanceToNearestWater` (preserve current overload behavior: full-map `Int16Array` and local-radius variant; optionally reuse `lib/grid/distance/bfs.ts` when semantics match)
-- [ ] `climate/orographic-shadow.ts`: `hasUpwindBarrier`, `hasUpwindBarrierWM`
-- [ ] `climate/baseline.ts`: `applyClimateBaseline` + extracted named helpers:
+- [x] `climate/types.ts`: `ClimateConfig`, `ClimateRuntime`, `ClimateAdapter`, `OrogenyCache`, `ClimateSwatchResult`
+- [x] `climate/runtime.ts`: `resolveAdapter`, `createClimateRuntime`
+- [x] `climate/distance-to-water.ts`: `distanceToNearestWater` (preserve current overload behavior: full-map `Int16Array` and local-radius variant; optionally reuse `lib/grid/distance/bfs.ts` when semantics match)
+- [x] `climate/orographic-shadow.ts`: `hasUpwindBarrier`, `hasUpwindBarrierWM`
+- [x] `climate/baseline.ts`: `applyClimateBaseline` + extracted named helpers:
   - latitude band computation
   - coastal bonus application (distance-to-water driven)
   - elevation/orographic bonus application
@@ -562,27 +562,27 @@ This work is intentionally **deferred** while story/playability is treated as op
 
 **Swatches (from `applyClimateSwatches`):**
 
-- [ ] `climate/swatches/types.ts`: normalized swatch config shapes + selection result types
-- [ ] `climate/swatches/chooser.ts`: `chooseSwatchTypeWeighted` (preserve directionality adjustments)
-- [ ] `climate/swatches/macro-desert-belt.ts`
-- [ ] `climate/swatches/equatorial-rainbelt.ts`
-- [ ] `climate/swatches/rainforest-archipelago.ts`
-- [ ] `climate/swatches/mountain-forests.ts`
-- [ ] `climate/swatches/great-plains.ts`
-- [ ] `climate/swatches/monsoon-bias.ts`: the "Monsoon bias pass" currently inside `applyClimateSwatches`
-- [ ] `climate/swatches/index.ts`: `applyClimateSwatches` (orchestrates chooser + swatch handlers)
+- [x] `climate/swatches/types.ts`: normalized swatch config shapes + selection result types
+- [x] `climate/swatches/chooser.ts`: `chooseSwatchTypeWeighted` (preserve directionality adjustments)
+- [x] `climate/swatches/macro-desert-belt.ts`
+- [x] `climate/swatches/equatorial-rainbelt.ts`
+- [x] `climate/swatches/rainforest-archipelago.ts`
+- [x] `climate/swatches/mountain-forests.ts`
+- [x] `climate/swatches/great-plains.ts`
+- [x] `climate/swatches/monsoon-bias.ts`: the "Monsoon bias pass" currently inside `applyClimateSwatches`
+- [x] `climate/swatches/index.ts`: `applyClimateSwatches` (orchestrates chooser + swatch handlers)
 
 **Refine (from `refineClimateEarthlike`):**
 
-- [ ] `climate/refine/water-gradient.ts` (Pass A)
-- [ ] `climate/refine/orographic-shadow.ts` (Pass B)
-- [ ] `climate/refine/river-corridor.ts` (Pass C)
-- [ ] `climate/refine/rift-humidity.ts` (Pass D)
-- [ ] `climate/refine/orogeny-belts.ts` (Pass E)
-- [ ] `climate/refine/hotspot-microclimates.ts` (Pass F)
-- [ ] `climate/refine/index.ts`: `refineClimateEarthlike` (orchestrates passes; keep RNG usage stable)
+- [x] `climate/refine/water-gradient.ts` (Pass A)
+- [x] `climate/refine/orographic-shadow.ts` (Pass B)
+- [x] `climate/refine/river-corridor.ts` (Pass C)
+- [x] `climate/refine/rift-humidity.ts` (Pass D)
+- [x] `climate/refine/orogeny-belts.ts` (Pass E)
+- [x] `climate/refine/hotspot-microclimates.ts` (Pass F)
+- [x] `climate/refine/index.ts`: `refineClimateEarthlike` (orchestrates passes; keep RNG usage stable)
 
-- [ ] `climate/index.ts`: re-export `baseline`, `swatches`, `refine`, and public types as the stable climate API
+- [x] `climate/index.ts`: re-export `baseline`, `swatches`, `refine`, and public types as the stable climate API
 
 ### 3.4 Morphology Domain Atomization
 
