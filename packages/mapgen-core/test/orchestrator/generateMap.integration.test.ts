@@ -40,6 +40,7 @@ describe("integration: bootstrap → orchestrator (stages disabled)", () => {
     const orchestrator = new MapOrchestrator(config, {
       adapter,
       logPrefix: "[TEST]",
+      useTaskGraph: true,
     });
 
     const result = orchestrator.generateMap();

@@ -87,7 +87,7 @@ describe("MapOrchestrator WorldModel config wiring", () => {
       rng: () => 0,
     });
 
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
+    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]", useTaskGraph: true });
     const result = orchestrator.generateMap();
     expect(result.success).toBe(true);
 
@@ -131,7 +131,7 @@ describe("MapOrchestrator WorldModel config wiring", () => {
       rng: () => 0,
     });
 
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
+    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]", useTaskGraph: true });
     const result = orchestrator.generateMap();
     expect(result.success).toBe(true);
 
