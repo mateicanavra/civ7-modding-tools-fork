@@ -39,7 +39,7 @@ function buildConfig(): BootstrapConfig {
       landmass: {
         crustMode: "area",
         // Earth-like ocean dominance (~70% water).
-        baseWaterPercent: 63,
+        baseWaterPercent: 68,
         waterScalar: 1,
         // Crust-first height tuning to preserve water even with broken boundary fields.
         crustEdgeBlend: 0.35,
@@ -70,7 +70,7 @@ function buildConfig(): BootstrapConfig {
           convergent: 1.4,
           transform: 0.4,
           divergent: -0.4,
-          interior: 0.7,
+          interior: 0.4,
           bayWeight: 0.8,
           bayNoiseBonus: 0.5,
           fjordWeight: 0.8,
@@ -178,8 +178,8 @@ function buildConfig(): BootstrapConfig {
       climate: {
         baseline: {
           blend: {
-            baseWeight: 0.55,
-            bandWeight: 0.25,
+            baseWeight: 0,
+            bandWeight: 1,
           },
           bands: {
             deg0to10: 125,
@@ -297,7 +297,7 @@ function buildConfig(): BootstrapConfig {
       },
       biomes: {
         tundra: {
-          latMin: 85,
+          latMin: 80,
           elevMin: 700,
           rainMax: 85,
         },
