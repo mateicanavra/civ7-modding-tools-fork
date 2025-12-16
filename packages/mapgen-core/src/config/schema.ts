@@ -575,18 +575,21 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
           plateAxisDeg: Type.Optional(
             Type.Number({
               description: "Preferred plate motion heading in degrees (0° = east).",
+              default: 0,
             })
           ),
           /** Bias for prevailing wind direction relative to zonal flow (degrees). */
           windBiasDeg: Type.Optional(
             Type.Number({
               description: "Bias for prevailing wind direction relative to zonal flow (degrees).",
+              default: 0,
             })
           ),
           /** Bias for major ocean gyre rotation (degrees). */
           currentBiasDeg: Type.Optional(
             Type.Number({
               description: "Bias for major ocean gyre rotation (degrees).",
+              default: 0,
             })
           ),
         },
@@ -601,12 +604,14 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
           angleJitterDeg: Type.Optional(
             Type.Number({
               description: "Random angular deviation applied to preferred axes (degrees).",
+              default: 0,
             })
           ),
           /** Variance multiplier controlling how strongly directionality is enforced across the map. */
           magnitudeVariance: Type.Optional(
             Type.Number({
               description: "Variance multiplier controlling how strongly directionality is enforced across the map.",
+              default: 0,
             })
           ),
         },
@@ -621,6 +626,32 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
           southernFlip: Type.Optional(
             Type.Boolean({
               description: "Flip directionality in the southern hemisphere for Coriolis-style mirroring.",
+              default: false,
+            })
+          ),
+          /**
+           * Band around the equator treated as neutral for hemisphere-driven adjustments (degrees).
+           * @default 12
+           */
+          equatorBandDeg: Type.Optional(
+            Type.Number({
+              description:
+                "Band around the equator treated as neutral for hemisphere-driven adjustments (degrees).",
+              default: 12,
+              minimum: 0,
+              maximum: 45,
+            })
+          ),
+          /**
+           * Strength of monsoon hemisphere bias (0..1).
+           * @default 0
+           */
+          monsoonBias: Type.Optional(
+            Type.Number({
+              description: "Strength of monsoon hemisphere bias (0..1).",
+              default: 0,
+              minimum: 0,
+              maximum: 1,
             })
           ),
         },
@@ -635,12 +666,27 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
           windsFollowPlates: Type.Optional(
             Type.Number({
               description: "How strongly prevailing winds align with plate motion (0..1).",
+              default: 0,
+              minimum: 0,
+              maximum: 1,
             })
           ),
           /** How strongly ocean currents align with wind direction (0..1). */
           currentsFollowWinds: Type.Optional(
             Type.Number({
               description: "How strongly ocean currents align with wind direction (0..1).",
+              default: 0,
+              minimum: 0,
+              maximum: 1,
+            })
+          ),
+          /** How strongly rift valley lines follow plate directionality (0..1). */
+          riftsFollowPlates: Type.Optional(
+            Type.Number({
+              description: "How strongly rift valley lines follow plate directionality (0..1).",
+              default: 0,
+              minimum: 0,
+              maximum: 1,
             })
           ),
         },
@@ -1178,12 +1224,14 @@ export const IslandsConfigSchema = Type.Object(
     fractalThresholdPercent: Type.Optional(
       Type.Number({
         description: "Noise cutoff for island seeds (percent). Higher values mean fewer, larger island groups.",
+        default: 90,
       })
     ),
     /** Minimum spacing from continental landmasses (tiles) to prevent coastal clutter. */
     minDistFromLandRadius: Type.Optional(
       Type.Number({
         description: "Minimum spacing from continental landmasses (tiles) to prevent coastal clutter.",
+        default: 2,
       })
     ),
     /**
@@ -1193,12 +1241,14 @@ export const IslandsConfigSchema = Type.Object(
     baseIslandDenNearActive: Type.Optional(
       Type.Number({
         description: "Island frequency near active margins; lower denominators spawn more volcanic arcs like Japan.",
+        default: 5,
       })
     ),
     /** Island frequency away from active margins; controls passive-shelf archipelagos. */
     baseIslandDenElse: Type.Optional(
       Type.Number({
         description: "Island frequency away from active margins; controls passive-shelf archipelagos.",
+        default: 7,
       })
     ),
     /**
@@ -1208,12 +1258,14 @@ export const IslandsConfigSchema = Type.Object(
     hotspotSeedDenom: Type.Optional(
       Type.Number({
         description: "Island seed frequency along hotspot trails; smaller values create Hawaii-style chains.",
+        default: 2,
       })
     ),
     /** Maximum tiles per island cluster to cap archipelago size (tiles). */
     clusterMax: Type.Optional(
       Type.Number({
         description: "Maximum tiles per island cluster to cap archipelago size (tiles).",
+        default: 3,
       })
     ),
   },
@@ -1232,102 +1284,119 @@ export const MountainsConfigSchema = Type.Object(
     tectonicIntensity: Type.Optional(
       Type.Number({
         description: "Global scale for tectonic effects; primary dial for overall mountain prevalence.",
+        default: 1.0,
       })
     ),
     /** Score threshold for promoting a tile to a mountain; lower values allow more peaks. */
     mountainThreshold: Type.Optional(
       Type.Number({
         description: "Score threshold for promoting a tile to a mountain; lower values allow more peaks.",
+        default: 0.58,
       })
     ),
     /** Score threshold for assigning hills; lower values increase hill coverage. */
     hillThreshold: Type.Optional(
       Type.Number({
         description: "Score threshold for assigning hills; lower values increase hill coverage.",
+        default: 0.32,
       })
     ),
     /** Weight applied to uplift potential; keeps mountains aligned with convergent zones. */
     upliftWeight: Type.Optional(
       Type.Number({
         description: "Weight applied to uplift potential; keeps mountains aligned with convergent zones.",
+        default: 0.35,
       })
     ),
     /** Weight applied to fractal noise to introduce natural variation in ranges. */
     fractalWeight: Type.Optional(
       Type.Number({
         description: "Weight applied to fractal noise to introduce natural variation in ranges.",
+        default: 0.15,
       })
     ),
     /** Depression severity along divergent boundaries (0..1); higher values carve deeper rifts. */
     riftDepth: Type.Optional(
       Type.Number({
         description: "Depression severity along divergent boundaries (0..1); higher values carve deeper rifts.",
+        default: 0.2,
       })
     ),
     /** Additional weight from plate-boundary closeness that pulls mountains toward margins. */
     boundaryWeight: Type.Optional(
       Type.Number({
         description: "Additional weight from plate-boundary closeness that pulls mountains toward margins.",
+        default: 1.0,
       })
     ),
     /** Exponent controlling how quickly boundary influence decays with distance (>=0.25). */
     boundaryExponent: Type.Optional(
       Type.Number({
         description: "Exponent controlling how quickly boundary influence decays with distance (>=0.25).",
+        default: 1.6,
       })
     ),
     /** Penalty applied to deep interior tiles to keep high terrain near tectonic action. */
     interiorPenaltyWeight: Type.Optional(
       Type.Number({
         description: "Penalty applied to deep interior tiles to keep high terrain near tectonic action.",
+        default: 0.0,
       })
     ),
     /** Extra additive weight for convergent tiles, creating dominant orogeny ridges. */
     convergenceBonus: Type.Optional(
       Type.Number({
         description: "Extra additive weight for convergent tiles, creating dominant orogeny ridges.",
+        default: 1.0,
       })
     ),
     /** Penalty multiplier for transform boundaries to soften shearing ridges. */
     transformPenalty: Type.Optional(
       Type.Number({
         description: "Penalty multiplier for transform boundaries to soften shearing ridges.",
+        default: 0.6,
       })
     ),
     /** Penalty multiplier applied along divergent boundaries before riftDepth is carved. */
     riftPenalty: Type.Optional(
       Type.Number({
         description: "Penalty multiplier applied along divergent boundaries before riftDepth is carved.",
+        default: 1.0,
       })
     ),
     /** Hill weight contributed by boundary closeness, forming foothill skirts near margins. */
     hillBoundaryWeight: Type.Optional(
       Type.Number({
         description: "Hill weight contributed by boundary closeness, forming foothill skirts near margins.",
+        default: 0.35,
       })
     ),
     /** Hill bonus added beside rift valleys, creating uplifted shoulders. */
     hillRiftBonus: Type.Optional(
       Type.Number({
         description: "Hill bonus added beside rift valleys, creating uplifted shoulders.",
+        default: 0.25,
       })
     ),
     /** Extra foothill weight on convergent tiles to smooth transitions into mountain ranges. */
     hillConvergentFoothill: Type.Optional(
       Type.Number({
         description: "Extra foothill weight on convergent tiles to smooth transitions into mountain ranges.",
+        default: 0.35,
       })
     ),
     /** Penalty for hills deep inside plates; higher values keep hills near tectonic features. */
     hillInteriorFalloff: Type.Optional(
       Type.Number({
         description: "Penalty for hills deep inside plates; higher values keep hills near tectonic features.",
+        default: 0.1,
       })
     ),
     /** Residual uplift contribution applied to hills so basins and foothills stay balanced. */
     hillUpliftWeight: Type.Optional(
       Type.Number({
         description: "Residual uplift contribution applied to hills so basins and foothills stay balanced.",
+        default: 0.2,
       })
     ),
   },
@@ -1343,78 +1412,91 @@ export const VolcanoesConfigSchema = Type.Object(
     enabled: Type.Optional(
       Type.Boolean({
         description: "Master toggle for volcano placement.",
+        default: true,
       })
     ),
     /** Baseline volcanoes per land tile; higher density spawns more vents overall. */
     baseDensity: Type.Optional(
       Type.Number({
         description: "Baseline volcanoes per land tile; higher density spawns more vents overall.",
+        default: 1 / 170,
       })
     ),
     /** Minimum Euclidean distance between volcanoes in tiles to avoid clusters merging. */
     minSpacing: Type.Optional(
       Type.Number({
         description: "Minimum Euclidean distance between volcanoes in tiles to avoid clusters merging.",
+        default: 3,
       })
     ),
     /** Plate-boundary closeness threshold (0..1) for treating a tile as margin-adjacent. */
     boundaryThreshold: Type.Optional(
       Type.Number({
         description: "Plate-boundary closeness threshold (0..1) for treating a tile as margin-adjacent.",
+        default: 0.35,
       })
     ),
     /** Base weight applied to tiles within the boundary band, biasing arcs over interiors. */
     boundaryWeight: Type.Optional(
       Type.Number({
         description: "Base weight applied to tiles within the boundary band, biasing arcs over interiors.",
+        default: 1.2,
       })
     ),
     /** Weight multiplier for convergent boundaries; raises classic arc volcano density. */
     convergentMultiplier: Type.Optional(
       Type.Number({
         description: "Weight multiplier for convergent boundaries; raises classic arc volcano density.",
+        default: 2.4,
       })
     ),
     /** Weight multiplier for transform boundaries; typically lower to avoid shear volcanism. */
     transformMultiplier: Type.Optional(
       Type.Number({
         description: "Weight multiplier for transform boundaries; typically lower to avoid shear volcanism.",
+        default: 1.1,
       })
     ),
     /** Weight multiplier for divergent boundaries; keep small to prevent rift volcanism dominating. */
     divergentMultiplier: Type.Optional(
       Type.Number({
         description: "Weight multiplier for divergent boundaries; keep small to prevent rift volcanism dominating.",
+        default: 0.35,
       })
     ),
     /** Weight contribution for interior hotspots; increases inland/shield volcano presence. */
     hotspotWeight: Type.Optional(
       Type.Number({
         description: "Weight contribution for interior hotspots; increases inland/shield volcano presence.",
+        default: 0.12,
       })
     ),
     /** Penalty applied using shield stability; higher values suppress volcanoes on ancient cratons. */
     shieldPenalty: Type.Optional(
       Type.Number({
         description: "Penalty applied using shield stability; higher values suppress volcanoes on ancient cratons.",
+        default: 0.6,
       })
     ),
     /** Random additive jitter per tile to break up deterministic patterns. */
     randomJitter: Type.Optional(
       Type.Number({
         description: "Random additive jitter per tile to break up deterministic patterns.",
+        default: 0.08,
       })
     ),
     /** Minimum volcano count target to guarantee a few vents even on sparse maps. */
     minVolcanoes: Type.Optional(
       Type.Number({
         description: "Minimum volcano count target to guarantee a few vents even on sparse maps.",
+        default: 5,
       })
     ),
     /** Maximum volcano count cap; set <=0 to disable the cap and allow density-driven totals. */
     maxVolcanoes: Type.Optional(
       Type.Number({
         description: "Maximum volcano count cap; set <=0 to disable the cap and allow density-driven totals.",
+        default: 40,
       })
     ),
   },
@@ -1426,22 +1508,82 @@ export const VolcanoesConfigSchema = Type.Object(
  */
 export const HotspotTunablesSchema = Type.Object(
   {
+    /**
+     * Maximum hotspot trails to seed, before map-size scaling.
+     * @default 12
+     */
+    maxTrails: Type.Optional(
+      Type.Number({
+        description: "Maximum hotspot trails to seed (pre-scaling).",
+        default: 12,
+        minimum: 0,
+      })
+    ),
+    /**
+     * Steps per trail (pre-scaling).
+     * @default 15
+     */
+    steps: Type.Optional(
+      Type.Number({
+        description: "Steps per hotspot trail (pre-scaling).",
+        default: 15,
+        minimum: 1,
+      })
+    ),
+    /**
+     * Step length in tiles.
+     * @default 2
+     */
+    stepLen: Type.Optional(
+      Type.Number({
+        description: "Step length in tiles for hotspot trails.",
+        default: 2,
+        minimum: 1,
+      })
+    ),
+    /**
+     * Minimum Manhattan distance from land for trail points.
+     * @default 5
+     */
+    minDistFromLand: Type.Optional(
+      Type.Number({
+        description: "Minimum Manhattan distance from land for hotspot trail points (tiles).",
+        default: 5,
+        minimum: 0,
+      })
+    ),
+    /**
+     * Minimum Manhattan separation between seeded trails.
+     * @default 12
+     */
+    minTrailSeparation: Type.Optional(
+      Type.Number({
+        description: "Minimum Manhattan separation between seeded hotspot trails (tiles).",
+        default: 12,
+        minimum: 1,
+      })
+    ),
     /** Bias applied to paradise hotspots when selecting overlays (unitless multiplier). */
     paradiseBias: Type.Optional(
       Type.Number({
         description: "Bias applied to paradise hotspots when selecting overlays (unitless multiplier).",
+        default: 2,
       })
     ),
     /** Bias applied to volcanic hotspots when selecting overlays (unitless multiplier). */
     volcanicBias: Type.Optional(
       Type.Number({
         description: "Bias applied to volcanic hotspots when selecting overlays (unitless multiplier).",
+        default: 1,
       })
     ),
     /** Chance that a volcanic hotspot contains a high peak suitable for story placement (0..1). */
     volcanicPeakChance: Type.Optional(
       Type.Number({
         description: "Chance that a volcanic hotspot contains a high peak suitable for story placement (0..1).",
+        default: 0.33,
+        minimum: 0,
+        maximum: 1,
       })
     ),
   },
@@ -1453,22 +1595,96 @@ export const HotspotTunablesSchema = Type.Object(
  */
 export const FeaturesConfigSchema = Type.Object(
   {
-    /** Extra coral reef probability near paradise islands (0..1 expressed as a fraction). */
+    /** Extra coral reef probability near paradise islands (percent 0..100). */
     paradiseReefChance: Type.Optional(
       Type.Number({
-        description: "Extra coral reef probability near paradise islands (0..1 expressed as a fraction).",
+        description: "Extra coral reef probability near paradise islands (percent 0..100).",
+        default: 18,
+        minimum: 0,
+        maximum: 100,
       })
     ),
-    /** Extra temperate forest chance on volcanic slopes in warm climates (0..1 fraction). */
+    /** Extra temperate forest chance on volcanic slopes in warm climates (percent 0..100). */
     volcanicForestChance: Type.Optional(
       Type.Number({
-        description: "Extra temperate forest chance on volcanic slopes in warm climates (0..1 fraction).",
+        description: "Extra temperate forest chance on volcanic slopes in warm climates (percent 0..100).",
+        default: 22,
+        minimum: 0,
+        maximum: 100,
       })
     ),
-    /** Extra coniferous forest chance on volcano-adjacent tiles in cold climates (0..1 fraction). */
+    /** Extra coniferous forest chance on volcano-adjacent tiles in cold climates (percent 0..100). */
     volcanicTaigaChance: Type.Optional(
       Type.Number({
-        description: "Extra coniferous forest chance on volcano-adjacent tiles in cold climates (0..1 fraction).",
+        description: "Extra coniferous forest chance on volcano-adjacent tiles in cold climates (percent 0..100).",
+        default: 25,
+        minimum: 0,
+        maximum: 100,
+      })
+    ),
+  },
+  { additionalProperties: true, default: {} }
+);
+
+/**
+ * Story orogeny belt tunables affecting windward/lee rainfall refinement.
+ */
+export const OrogenyTunablesSchema = Type.Object(
+  {
+    /** Rainfall boost applied on windward belts (rainfall units). */
+    windwardBoost: Type.Optional(
+      Type.Number({
+        description: "Rainfall boost applied on windward orogeny belts (rainfall units).",
+        default: 5,
+      })
+    ),
+    /** Multiplier applied to lee-side drying (>= 1.0). */
+    leeDrynessAmplifier: Type.Optional(
+      Type.Number({
+        description: "Multiplier applied to lee-side drying (>= 1.0).",
+        default: 1.2,
+        minimum: 1,
+      })
+    ),
+  },
+  { additionalProperties: true, default: {} }
+);
+
+/**
+ * Story rift valley tagging tunables.
+ */
+export const RiftTunablesSchema = Type.Object(
+  {
+    /** Maximum rift valleys per map (pre-scaling). */
+    maxRiftsPerMap: Type.Optional(
+      Type.Number({
+        description: "Maximum rift valleys per map (pre-scaling).",
+        default: 3,
+        minimum: 0,
+      })
+    ),
+    /** Steps along each rift line (pre-scaling). */
+    lineSteps: Type.Optional(
+      Type.Number({
+        description: "Steps along each rift line (pre-scaling).",
+        default: 18,
+        minimum: 1,
+      })
+    ),
+    /** Step length for rift marching (tiles). */
+    stepLen: Type.Optional(
+      Type.Number({
+        description: "Step length for rift marching (tiles).",
+        default: 2,
+        minimum: 1,
+      })
+    ),
+    /** Shoulder width around rift lines (tiles). */
+    shoulderWidth: Type.Optional(
+      Type.Number({
+        description: "Shoulder width around rift lines (tiles).",
+        default: 1,
+        minimum: 0,
       })
     ),
   },
@@ -1482,6 +1698,10 @@ export const StoryConfigSchema = Type.Object(
   {
     /** Hotspot tuning for volcanic/paradise overlays. */
     hotspot: Type.Optional(HotspotTunablesSchema),
+    /** Rift valley tagging knobs. */
+    rift: Type.Optional(RiftTunablesSchema),
+    /** Orogeny belt climate modifiers. */
+    orogeny: Type.Optional(OrogenyTunablesSchema),
     /** Localized feature bonuses around story elements. */
     features: Type.Optional(FeaturesConfigSchema),
   },
@@ -1501,18 +1721,201 @@ export const SeaCorridorPolicySchema = Type.Object(
     protection: Type.Optional(
       Type.Union([Type.Literal("hard"), Type.Literal("soft")], {
         description: "Hard protection blocks edits in corridors; soft allows limited carving with penalties.",
+        default: "hard",
       })
     ),
     /** Probability multiplier applied when protection is soft to keep lanes mostly open. */
     softChanceMultiplier: Type.Optional(
       Type.Number({
         description: "Probability multiplier applied when protection is soft to keep lanes mostly open.",
+        default: 0.5,
+        minimum: 0,
+        maximum: 1,
       })
     ),
     /** Radius in tiles to avoid placing blocking features inside a sea corridor. */
     avoidRadius: Type.Optional(
       Type.Number({
         description: "Radius in tiles to avoid placing blocking features inside a sea corridor.",
+        default: 2,
+        minimum: 0,
+      })
+    ),
+    /** Maximum sea lanes to tag (pre-directionality bias). */
+    maxLanes: Type.Optional(
+      Type.Number({
+        description: "Maximum sea lanes to tag (integer).",
+        default: 3,
+        minimum: 0,
+      })
+    ),
+    /** Scan stride in tiles when searching for candidate lanes. */
+    scanStride: Type.Optional(
+      Type.Number({
+        description: "Scan stride in tiles when searching for candidate lanes (integer).",
+        default: 6,
+        minimum: 1,
+      })
+    ),
+    /** Minimum run length fraction relative to map dimension (0..1). */
+    minLengthFrac: Type.Optional(
+      Type.Number({
+        description: "Minimum run length fraction relative to map dimension (0..1).",
+        default: 0.7,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
+    /** Whether diagonal lanes are eligible during tagging. */
+    preferDiagonals: Type.Optional(
+      Type.Boolean({
+        description: "Whether diagonal lanes are eligible during tagging.",
+        default: false,
+      })
+    ),
+    /** Minimum spacing between accepted lanes (tiles). */
+    laneSpacing: Type.Optional(
+      Type.Number({
+        description: "Minimum spacing between accepted lanes (tiles).",
+        default: 6,
+        minimum: 0,
+      })
+    ),
+    /** Minimum required channel width for a tile to be considered part of a lane (tiles). */
+    minChannelWidth: Type.Optional(
+      Type.Number({
+        description: "Minimum required channel width for a tile to be considered part of a lane (tiles).",
+        default: 3,
+        minimum: 1,
+      })
+    ),
+  },
+  { additionalProperties: true, default: {} }
+);
+
+export const IslandHopCorridorConfigSchema = Type.Object(
+  {
+    /** Whether island-hop corridors should be tagged from hotspots. */
+    useHotspots: Type.Optional(
+      Type.Boolean({
+        description: "Whether island-hop corridors should be tagged from hotspots.",
+        default: true,
+      })
+    ),
+    /** Maximum hotspot arcs to tag (integer). */
+    maxArcs: Type.Optional(
+      Type.Number({
+        description: "Maximum hotspot arcs to tag (integer).",
+        default: 2,
+        minimum: 0,
+      })
+    ),
+  },
+  { additionalProperties: true, default: {} }
+);
+
+export const LandCorridorConfigSchema = Type.Object(
+  {
+    /** Strength of biome biasing near land corridors (0..1). */
+    biomesBiasStrength: Type.Optional(
+      Type.Number({
+        description: "Strength of biome biasing near land corridors (0..1).",
+        default: 0.6,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
+    /** Whether rift shoulders should seed land corridors. */
+    useRiftShoulders: Type.Optional(
+      Type.Boolean({
+        description: "Whether rift shoulders should seed land corridors.",
+        default: true,
+      })
+    ),
+    /** Maximum land corridors to tag (integer). */
+    maxCorridors: Type.Optional(
+      Type.Number({
+        description: "Maximum land corridors to tag (integer).",
+        default: 2,
+        minimum: 0,
+      })
+    ),
+    /** Minimum contiguous run length required to tag a corridor (tiles). */
+    minRunLength: Type.Optional(
+      Type.Number({
+        description: "Minimum contiguous run length required to tag a corridor (tiles).",
+        default: 24,
+        minimum: 0,
+      })
+    ),
+    /** Minimum spacing between corridors (rows). */
+    spacing: Type.Optional(
+      Type.Number({
+        description: "Minimum spacing between corridors (rows).",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+  },
+  { additionalProperties: true, default: {} }
+);
+
+export const RiverCorridorConfigSchema = Type.Object(
+  {
+    /** Strength of biome biasing near river corridors (0..1). */
+    biomesBiasStrength: Type.Optional(
+      Type.Number({
+        description: "Strength of biome biasing near river corridors (0..1).",
+        default: 0.5,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
+    /** Maximum river chains to tag (integer). */
+    maxChains: Type.Optional(
+      Type.Number({
+        description: "Maximum river chains to tag (integer).",
+        default: 2,
+        minimum: 0,
+      })
+    ),
+    /** Maximum path-walk steps for a chain (integer). */
+    maxSteps: Type.Optional(
+      Type.Number({
+        description: "Maximum path-walk steps for a chain (integer).",
+        default: 80,
+        minimum: 0,
+      })
+    ),
+    /** Prefer lowland steps below this elevation (meters). */
+    preferLowlandBelow: Type.Optional(
+      Type.Number({
+        description: "Prefer lowland steps below this elevation (meters).",
+        default: 300,
+        minimum: 0,
+      })
+    ),
+    /** Radius for coast-seed river adjacency checks (tiles). */
+    coastSeedRadius: Type.Optional(
+      Type.Number({
+        description: "Radius for coast-seed river adjacency checks (tiles).",
+        default: 2,
+        minimum: 1,
+      })
+    ),
+    /** Minimum tagged tiles required to accept a chain (tiles). */
+    minTiles: Type.Optional(
+      Type.Number({
+        description: "Minimum tagged tiles required to accept a chain (tiles).",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+    /** Whether the chain must end near a coast or shallow water. */
+    mustEndNearCoast: Type.Optional(
+      Type.Boolean({
+        description: "Whether the chain must end near a coast or shallow water.",
+        default: false,
       })
     ),
   },
@@ -1526,6 +1929,12 @@ export const CorridorsConfigSchema = Type.Object(
   {
     /** Sea corridor protection policy for naval passage. */
     sea: Type.Optional(SeaCorridorPolicySchema),
+    /** Land corridor tagging policy (rift-driven). */
+    land: Type.Optional(LandCorridorConfigSchema),
+    /** River corridor tagging policy (post-rivers). */
+    river: Type.Optional(RiverCorridorConfigSchema),
+    /** Island-hop corridor tagging policy (hotspot-driven). */
+    islandHop: Type.Optional(IslandHopCorridorConfigSchema),
   },
   { additionalProperties: true, default: {} }
 );
@@ -1737,18 +2146,21 @@ export const ClimateRefineWaterGradientSchema = Type.Object(
     radius: Type.Optional(
       Type.Number({
         description: "How far inland to measure water proximity (typically 8-15 tiles).",
+        default: 5,
       })
     ),
     /** Humidity per tile closer to water; creates coastal-to-interior gradient (typically 1-3 units/tile). */
     perRingBonus: Type.Optional(
       Type.Number({
         description: "Humidity per tile closer to water; creates coastal-to-interior gradient (typically 1-3 units/tile).",
+        default: 5,
       })
     ),
     /** Extra humidity in low-elevation areas near water (typically 5-12 units). */
     lowlandBonus: Type.Optional(
       Type.Number({
         description: "Extra humidity in low-elevation areas near water (typically 5-12 units).",
+        default: 3,
       })
     ),
   },
@@ -1768,18 +2180,21 @@ export const ClimateRefineOrographicSchema = Type.Object(
     steps: Type.Optional(
       Type.Number({
         description: "How far upwind to scan for blocking mountains (typically 4-8 tiles).",
+        default: 4,
       })
     ),
     /** Base rainfall loss in rain shadow (typically 8-20 units). */
     reductionBase: Type.Optional(
       Type.Number({
         description: "Base rainfall loss in rain shadow (typically 8-20 units).",
+        default: 8,
       })
     ),
     /** Extra drying per tile closer to mountain barrier (typically 1-3 units/tile). */
     reductionPerStep: Type.Optional(
       Type.Number({
         description: "Extra drying per tile closer to mountain barrier (typically 1-3 units/tile).",
+        default: 6,
       })
     ),
   },
@@ -1799,12 +2214,14 @@ export const ClimateRefineRiverCorridorSchema = Type.Object(
     lowlandAdjacencyBonus: Type.Optional(
       Type.Number({
         description: "Humidity bonus next to rivers in lowlands (typically 8-18 units).",
+        default: 14,
       })
     ),
     /** Humidity bonus next to rivers in highlands; less than lowlands (typically 3-8 units). */
     highlandAdjacencyBonus: Type.Optional(
       Type.Number({
         description: "Humidity bonus next to rivers in highlands; less than lowlands (typically 3-8 units).",
+        default: 10,
       })
     ),
   },
@@ -1824,12 +2241,14 @@ export const ClimateRefineLowBasinSchema = Type.Object(
     radius: Type.Optional(
       Type.Number({
         description: "Search radius to detect if a lowland is surrounded by higher ground (typically 3-6 tiles).",
+        default: 2,
       })
     ),
     /** Humidity bonus in enclosed lowland basins like oases (typically 10-25 units). */
     delta: Type.Optional(
       Type.Number({
         description: "Humidity bonus in enclosed lowland basins like oases (typically 10-25 units).",
+        default: 6,
       })
     ),
   },
@@ -1912,12 +2331,159 @@ export const ClimateStoryRainfallSchema = Type.Object(
   { additionalProperties: true, default: {} }
 );
 
+export const ClimateStoryPaleoSizeScalingSchema = Type.Object(
+  {
+    /**
+     * Length multiplier applied with sqrt(mapArea) scaling.
+     * @default 0
+     */
+    lengthMulSqrt: Type.Optional(
+      Type.Number({
+        description: "Length multiplier applied with sqrt(mapArea) scaling.",
+        default: 0,
+      })
+    ),
+  },
+  { additionalProperties: true, default: {} }
+);
+
+export const ClimateStoryPaleoElevationCarvingSchema = Type.Object(
+  {
+    /** Whether canyon rims should be enabled when carving paleo artifacts. */
+    enableCanyonRim: Type.Optional(
+      Type.Boolean({
+        description: "Whether canyon rims should be enabled when carving paleo artifacts.",
+        default: true,
+      })
+    ),
+    /** Rim width in tiles. */
+    rimWidth: Type.Optional(
+      Type.Number({
+        description: "Rim width in tiles.",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+    /** Extra drying bonus applied inside canyons. */
+    canyonDryBonus: Type.Optional(
+      Type.Number({
+        description: "Extra drying bonus applied inside canyons.",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+  },
+  { additionalProperties: true, default: {} }
+);
+
+export const ClimateStoryPaleoSchema = Type.Object(
+  {
+    /** Maximum deltas to apply (0 disables). */
+    maxDeltas: Type.Optional(
+      Type.Number({
+        description: "Maximum deltas to apply (0 disables).",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+    /** Delta fan radius in tiles. */
+    deltaFanRadius: Type.Optional(
+      Type.Number({
+        description: "Delta fan radius in tiles.",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+    /** Chance of marshy delta tiles (0..1). */
+    deltaMarshChance: Type.Optional(
+      Type.Number({
+        description: "Chance of marshy delta tiles (0..1).",
+        default: 0.35,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
+    /** Maximum oxbows to apply (0 disables). */
+    maxOxbows: Type.Optional(
+      Type.Number({
+        description: "Maximum oxbows to apply (0 disables).",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+    /** Elevation ceiling for oxbow placement (meters). */
+    oxbowElevationMax: Type.Optional(
+      Type.Number({
+        description: "Elevation ceiling for oxbow placement (meters).",
+        default: 280,
+        minimum: 0,
+      })
+    ),
+    /** Maximum fossil channels to apply (0 disables). */
+    maxFossilChannels: Type.Optional(
+      Type.Number({
+        description: "Maximum fossil channels to apply (0 disables).",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+    /** Fossil channel length (tiles). */
+    fossilChannelLengthTiles: Type.Optional(
+      Type.Number({
+        description: "Fossil channel length (tiles).",
+        default: 6,
+        minimum: 0,
+      })
+    ),
+    /** Fossil channel step length (tiles). */
+    fossilChannelStep: Type.Optional(
+      Type.Number({
+        description: "Fossil channel step length (tiles).",
+        default: 1,
+        minimum: 1,
+      })
+    ),
+    /** Target humidity for fossil channels. */
+    fossilChannelHumidity: Type.Optional(
+      Type.Number({
+        description: "Target humidity for fossil channels (rainfall units).",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+    /** Minimum distance from current rivers (tiles). */
+    fossilChannelMinDistanceFromCurrentRivers: Type.Optional(
+      Type.Number({
+        description: "Minimum distance from current rivers (tiles).",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+    /** Wetness reduction applied when carving bluffs (rainfall units). */
+    bluffWetReduction: Type.Optional(
+      Type.Number({
+        description: "Wetness reduction applied when carving bluffs (rainfall units).",
+        default: 0,
+        minimum: 0,
+      })
+    ),
+    /** Map-size scaling multipliers for paleo artifacts. */
+    sizeScaling: Type.Optional(ClimateStoryPaleoSizeScalingSchema),
+    /** Elevation carving knobs for canyons/bluffs. */
+    elevationCarving: Type.Optional(ClimateStoryPaleoElevationCarvingSchema),
+  },
+  { additionalProperties: true }
+);
+
 export const ClimateStorySchema = Type.Object(
   {
     /** Story-driven rainfall modifiers keyed off narrative tags. */
     rainfall: Type.Optional(ClimateStoryRainfallSchema),
-    /** Optional paleo hydrology artifacts configuration (deltas, oxbows, fossil channels). */
-    paleo: Type.Optional(UnknownRecord),
+    /**
+     * Optional paleo-hydrology artifacts (deltas, oxbows, fossil channels).
+     * This block is intentionally not defaulted-in so the paleo pass can be disabled by omission.
+     */
+    paleo: Type.Optional(ClimateStoryPaleoSchema),
   },
   { additionalProperties: true, default: {} }
 );
@@ -2052,11 +2618,12 @@ export const FeaturesDensityConfigSchema = Type.Object(
      * Coral reef density multiplier on passive continental shelves.
      * - Values > 1 increase reef prevalence along shelf edges
      * - Values < 1 reduce reef spawning
-     * @default 1.0
+     * @default 0.6
      */
     shelfReefMultiplier: Type.Optional(
       Type.Number({
         description: "Coral reef density multiplier on passive continental shelves (scalar).",
+        default: 0.6,
       })
     ),
     /**
@@ -2067,6 +2634,7 @@ export const FeaturesDensityConfigSchema = Type.Object(
     rainforestExtraChance: Type.Optional(
       Type.Number({
         description: "Bonus jungle/rainforest probability in wet tropics (0..1 fraction or percent).",
+        default: 55,
       })
     ),
     /**
@@ -2077,6 +2645,7 @@ export const FeaturesDensityConfigSchema = Type.Object(
     forestExtraChance: Type.Optional(
       Type.Number({
         description: "Bonus temperate forest probability in moderate rainfall zones (0..1 fraction or percent).",
+        default: 30,
       })
     ),
     /**
@@ -2087,6 +2656,7 @@ export const FeaturesDensityConfigSchema = Type.Object(
     taigaExtraChance: Type.Optional(
       Type.Number({
         description: "Bonus coniferous forest probability in cold regions (0..1 fraction or percent).",
+        default: 35,
       })
     ),
   },
@@ -2337,9 +2907,14 @@ export type IslandsConfig = Static<typeof IslandsConfigSchema>;
 export type MountainsConfig = Static<typeof MountainsConfigSchema>;
 export type VolcanoesConfig = Static<typeof VolcanoesConfigSchema>;
 export type HotspotTunables = Static<typeof HotspotTunablesSchema>;
+export type RiftTunables = Static<typeof RiftTunablesSchema>;
+export type OrogenyTunables = Static<typeof OrogenyTunablesSchema>;
 export type FeaturesConfig = Static<typeof FeaturesConfigSchema>;
 export type StoryConfig = Static<typeof StoryConfigSchema>;
 export type SeaCorridorPolicy = Static<typeof SeaCorridorPolicySchema>;
+export type LandCorridorConfig = Static<typeof LandCorridorConfigSchema>;
+export type RiverCorridorConfig = Static<typeof RiverCorridorConfigSchema>;
+export type IslandHopCorridorConfig = Static<typeof IslandHopCorridorConfigSchema>;
 export type CorridorsConfig = Static<typeof CorridorsConfigSchema>;
 export type ClimateBaselineBands = Static<typeof ClimateBaselineBandsSchema>;
 export type ClimateBaselineBlend = Static<typeof ClimateBaselineBlendSchema>;
@@ -2352,6 +2927,9 @@ export type ClimateRefineOrographic = Static<typeof ClimateRefineOrographicSchem
 export type ClimateRefineRiverCorridor = Static<typeof ClimateRefineRiverCorridorSchema>;
 export type ClimateRefineLowBasin = Static<typeof ClimateRefineLowBasinSchema>;
 export type ClimateRefine = Static<typeof ClimateRefineSchema>;
+export type ClimateStoryPaleoSizeScaling = Static<typeof ClimateStoryPaleoSizeScalingSchema>;
+export type ClimateStoryPaleoElevationCarving = Static<typeof ClimateStoryPaleoElevationCarvingSchema>;
+export type ClimateStoryPaleo = Static<typeof ClimateStoryPaleoSchema>;
 export type ClimateConfig = Static<typeof ClimateConfigSchema>;
 export type BiomeConfig = Static<typeof BiomeConfigSchema>;
 export type FeaturesDensityConfig = Static<typeof FeaturesDensityConfigSchema>;

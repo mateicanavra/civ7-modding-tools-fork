@@ -5,7 +5,7 @@ export function computeTargetLandTiles(
   tileCount: number,
   landmassCfg: LandmassConfig
 ): { waterPct: number; targetLandTiles: number } {
-  const baseWaterPct = clampPct(landmassCfg.baseWaterPercent ?? 64, 0, 100, 64);
+  const baseWaterPct = clampPct(landmassCfg.baseWaterPercent ?? 60, 0, 100, 60);
   const waterScalar =
     clampPct(
       Number.isFinite(landmassCfg.waterScalar) ? landmassCfg.waterScalar! * 100 : 100,
@@ -22,4 +22,3 @@ export function computeTargetLandTiles(
 
   return { waterPct, targetLandTiles };
 }
-
