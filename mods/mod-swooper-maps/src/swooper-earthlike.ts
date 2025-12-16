@@ -14,22 +14,7 @@ import "@swooper/mapgen-core/polyfills/text-encoder";
 import { bootstrap, MapOrchestrator, OrchestratorConfig } from "@swooper/mapgen-core";
 import type { BootstrapConfig } from "@swooper/mapgen-core/bootstrap";
 
-// ============================================================================
-// Dynamic Plate Density Calculation
-// ============================================================================
-// Moderate plate density to keep oceanic crust present while tectonics are unstable.
-// Tuned so huge maps land around ~16–22 plates.
-const PLATE_DENSITY_TARGET = 150;
-const PLATE_COUNT_MIN = 13;
-const PLATE_COUNT_MAX = 32;
-
-function calculatePlateCount(width: number, height: number): number {
-  const totalTiles = width * height;
-  const calculated = Math.floor(totalTiles / PLATE_DENSITY_TARGET);
-  return Math.max(PLATE_COUNT_MIN, Math.min(PLATE_COUNT_MAX, calculated));
-}
-
-function buildConfig(plateCount: number): BootstrapConfig {
+function buildConfig(): BootstrapConfig {
   return {
     stageConfig: {
       foundation: true,
@@ -358,17 +343,7 @@ engine.on("RequestMapInitData", () => {
 });
 
 engine.on("GenerateMap", () => {
-  const width = GameplayMap.getGridWidth();
-  const height = GameplayMap.getGridHeight();
-  const totalTiles = width * height;
-
-  const plateCount = calculatePlateCount(width, height);
-
-  console.log(
-    `[SWOOPER_MOD] Earthlike Dynamic Config: ${width}x${height} (${totalTiles} tiles) -> ${plateCount} plates`
-  );
-
-  const config = bootstrap(buildConfig(plateCount));
+  const config = bootstrap(buildConfig());
   const orchestrator = new MapOrchestrator(config, orchestratorOptions);
   orchestrator.generateMap();
 });
