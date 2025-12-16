@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap, MapOrchestrator, getStoryTags } from "../../src/index.js";
+import { bootstrap, MapOrchestrator, narrative } from "../../src/index.js";
 import { resetStoryTags } from "../../src/domain/narrative/tags/index.js";
 import { resetStoryOverlays } from "../../src/domain/narrative/overlays/index.js";
 
@@ -80,7 +80,7 @@ describe("smoke: minimal story parity (margins, hotspots, rifts)", () => {
 
     orchestrator.generateMap();
 
-    const tags = getStoryTags();
+    const tags = narrative.getStoryTags();
     expect(tags.activeMargin.size + tags.passiveShelf.size).toBeGreaterThan(0);
     expect(tags.hotspot.size).toBeGreaterThan(0);
     expect(tags.riftLine.size).toBeGreaterThan(0);
