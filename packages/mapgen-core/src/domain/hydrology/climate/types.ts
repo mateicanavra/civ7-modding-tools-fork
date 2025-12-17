@@ -23,10 +23,8 @@ export interface ClimateAdapter {
   getRandomNumber: (max: number, label: string) => number;
 }
 
-export interface OrogenyCache {
-  windward?: Set<string>;
-  lee?: Set<string>;
-}
+// OrogenyCache is now defined in morphology/mountains - re-export for compatibility
+export type { OrogenyCache } from "../../morphology/mountains/index.js";
 
 export interface ClimateSwatchResult {
   applied: boolean;

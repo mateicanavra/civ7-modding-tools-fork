@@ -1,7 +1,7 @@
 import type { ExtendedMapContext } from "../../core/types.js";
 import { publishClimateFieldArtifact } from "../artifacts.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { getOrogenyCache } from "../../domain/narrative/orogeny/index.js";
+import { getOrogenyCompatCache } from "../../domain/morphology/mountains/index.js";
 import { storyTagClimateSwatches } from "../../domain/narrative/swatches.js";
 
 export interface StorySwatchesStepOptions {
@@ -20,7 +20,7 @@ export function createStorySwatchesStep(
     provides: options.provides,
     shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
-      storyTagClimateSwatches(context, { orogenyCache: getOrogenyCache(context) });
+      storyTagClimateSwatches(context, { orogenyCache: getOrogenyCompatCache(context) });
       publishClimateFieldArtifact(context);
     },
   };

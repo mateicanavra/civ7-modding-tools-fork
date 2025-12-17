@@ -20,7 +20,7 @@ import { tagSeaLanes } from "./sea-lanes.js";
 import { tagIslandHopChains } from "./IslandHopStrategy.js";
 import { tagLandCorridorsFromRifts } from "./land-corridors.js";
 import { tagRiverChainsPostRivers } from "./river-chains.js";
-import { tagMountainPasses } from "./MountainPassStrategy.js";
+import { tagMountainPasses } from "../../morphology/mountains/index.js";
 import { backfillCorridorKinds } from "./backfill.js";
 
 export type { CorridorStage } from "./types.js";
