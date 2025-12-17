@@ -20,6 +20,7 @@ import { tagSeaLanes } from "./sea-lanes.js";
 import { tagIslandHopChains } from "./IslandHopStrategy.js";
 import { tagLandCorridorsFromRifts } from "./land-corridors.js";
 import { tagRiverChainsPostRivers } from "./river-chains.js";
+import { tagMountainPasses } from "./MountainPassStrategy.js";
 import { backfillCorridorKinds } from "./backfill.js";
 
 export type { CorridorStage } from "./types.js";
@@ -37,6 +38,7 @@ export function storyTagStrategicCorridors(ctx: ExtendedMapContext, stage: Corri
     backfillCorridorKinds(ctx, corridorsCfg);
   } else if (stage === "postRivers") {
     tagRiverChainsPostRivers(ctx, corridorsCfg);
+    tagMountainPasses(ctx, corridorsCfg);
     backfillCorridorKinds(ctx, corridorsCfg);
   }
 
