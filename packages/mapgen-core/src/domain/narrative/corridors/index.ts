@@ -17,9 +17,10 @@ import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "../overlays/index.js";
 import type { CorridorStage } from "./types.js";
 import { resetCorridorStyleCache } from "./style-cache.js";
 import { tagSeaLanes } from "./sea-lanes.js";
-import { tagIslandHopFromHotspots } from "./island-hop.js";
+import { tagIslandHopChains } from "./IslandHopStrategy.js";
 import { tagLandCorridorsFromRifts } from "./land-corridors.js";
 import { tagRiverChainsPostRivers } from "./river-chains.js";
+import { tagMountainPasses } from "../../morphology/mountains/index.js";
 import { backfillCorridorKinds } from "./backfill.js";
 
 export type { CorridorStage } from "./types.js";
@@ -32,11 +33,12 @@ export function storyTagStrategicCorridors(ctx: ExtendedMapContext, stage: Corri
 
   if (stage === "preIslands") {
     tagSeaLanes(ctx, corridorsCfg);
-    tagIslandHopFromHotspots(ctx, corridorsCfg);
+    tagIslandHopChains(ctx, corridorsCfg);
     tagLandCorridorsFromRifts(ctx, corridorsCfg);
     backfillCorridorKinds(ctx, corridorsCfg);
   } else if (stage === "postRivers") {
     tagRiverChainsPostRivers(ctx, corridorsCfg);
+    tagMountainPasses(ctx, corridorsCfg);
     backfillCorridorKinds(ctx, corridorsCfg);
   }
 
