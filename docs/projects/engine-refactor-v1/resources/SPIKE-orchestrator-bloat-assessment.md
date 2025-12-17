@@ -1,0 +1,222 @@
+# SPIKE: MapOrchestrator Bloat Assessment (M3) + WorldModel Cut Plan
+
+## 0. Why this SPIKE exists
+
+`packages/mapgen-core/src/MapOrchestrator.ts` is currently the “bridge boundary” between:
+
+- **Target architecture:** step-owned computation using `context.artifacts` / `context.fields` (no global state).
+- **Current implementation reality:** an orchestrator-centric stable slice that still wires legacy contracts.
+
+This SPIKE answers two questions:
+
+1. Is `MapOrchestrator` “cluttered” in a way that should be moved into steps/domain/lib now?
+2. What is the cleanest **WorldModel → Foundation** migration plan that unblocks foundation work while preserving the current consumer boundary?
+
+---
+
+## 1. Architectural baseline (target vs current)
+
+### 1.1 Target: no globals, artifacts/fields as the blackboard
+
+Per target architecture:
+
+- The legacy `WorldModel` singleton is **banned** in new code.
+- New steps must read/write strictly to `context.artifacts` or `context.fields`.
+- Orchestrator may temporarily act as a bridge by syncing legacy state for legacy consumers.
+
+See:
+- `docs/system/libs/mapgen/architecture.md:234` (No Global State)
+- `docs/system/libs/mapgen/architecture.md:238` (Bridge Strategy)
+
+### 1.2 Current: M3 wrap-first + FoundationContext bridge
+
+Today’s M2/M3 stable slice publishes a **read-only `FoundationContext` snapshot** for downstream consumers (instead of the target multi-artifact foundation model).
+
+See:
+- `docs/system/libs/mapgen/foundation.md:17` (current slice is orchestrator-centric)
+- `packages/mapgen-core/src/MapOrchestrator.ts:630` (`initializeFoundation()` sets `ctx.foundation`)
+- `packages/mapgen-core/src/pipeline/tags.ts:69` (`artifact:foundation` is satisfied by `ctx.foundation != null`)
+
+---
+
+## 2. MapOrchestrator assessment: real bloat vs structural coupling
+
+### 2.1 There is some real “bloat” (hygiene)
+
+`MapOrchestrator` contains obvious “cleanupable” items (dead imports, unused helpers, etc.). These are worthwhile but not the core architecture issue.
+
+### 2.2 The bigger issue is structural: a hidden runtime blackboard
+
+The orchestrator currently injects a large “runtime bundle” into `registerStandardLibrary(...)`, and steps communicate through that runtime rather than publishing explicit artifacts/fields.
+
+This is a structural mismatch with target architecture:
+
+- It obscures step contracts (data provenance is not `ctx.artifacts` / `ctx.fields`).
+- It encourages cross-step mutation (e.g., “mutable landmass bounds” for placement).
+- It duplicates enablement logic (stage gating is partially in the recipe and partially in `shouldRun()`).
+
+Key example wiring:
+- `packages/mapgen-core/src/MapOrchestrator.ts:439` (`registerStandardLibrary(registry, config, { ... })`)
+
+### 2.3 WorldModel is currently a generator, not just a sink
+
+Today, `MapOrchestrator.initializeFoundation()` initializes `WorldModel`, then snapshots it into `FoundationContext`:
+
+- `packages/mapgen-core/src/MapOrchestrator.ts:634` binds config provider + calls `WorldModel.init()`
+- `packages/mapgen-core/src/core/types.ts:391` creates the `FoundationContext` snapshot from a `WorldModelState`
+
+This makes foundation work feel “blocked by orchestrator”: the foundation producer lives behind a singleton plus orchestrator wiring.
+
+---
+
+## 3. Decision: WorldModel cut plan (LOCKED)
+
+We are locking in a “fast cut” plan that avoids maintaining multiple algorithmic code paths.
+
+### 3.0 Scope and commitments (to avoid stochastic execution)
+
+This SPIKE contains both (a) **locked decisions** and (b) **deferred questions**. To keep execution deterministic:
+
+- **Committed in Phase A (this effort):** only the WorldModel → Foundation producer cut, while keeping `ctx.foundation` as the compatibility boundary.
+- **Explicitly not committed here:** orchestrator hygiene cleanups, recipe/enablement restructuring, and the full “graph + multi-artifact foundation” target refactor.
+
+### 3.1 The plan
+
+**Phase A (now): move computation into foundation (step-owned), keep compatibility snapshot**
+
+- Move all “WorldModel math/logic” into the **Foundation stage implementation** (step-owned modules).
+- Keep publishing **`ctx.foundation: FoundationContext`** as the stable consumer boundary (satisfies `artifact:foundation`).
+- Deprecate `WorldModel` as a *generator*; stop calling `WorldModel.init()` from the orchestrator.
+
+**Phase B (later, tracked by foundation PRD): migrate to target artifacts/graphs**
+
+- Replace the monolithic `FoundationContext` dependency with proper foundation artifacts:
+  - `context.artifacts.mesh`
+  - `context.artifacts.crust`
+  - `context.artifacts.plateGraph`
+  - `context.artifacts.tectonics`
+- Migrate consumers off `ctx.foundation` to those artifacts. Any “rasterized views” that consumers still need MUST become explicit artifacts with named contracts (exact set + ownership is a Phase B decision).
+
+This work is explicitly tracked separately (canonical PRD: `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md`).
+
+**Phase A acceptance criteria (explicit)**
+
+- `MapOrchestrator.initializeFoundation()` no longer calls `WorldModel.init()` (or any equivalent producer path).
+- The Foundation stage becomes the **only** canonical producer of foundation signals (even if the internal code is still “tile-ish” for now).
+- `ctx.foundation` continues to be populated and satisfies `artifact:foundation` exactly as today (types/shape; value parity is not a deliverable unless separately gated).
+- Any existing internal consumers that still read `WorldModel` MUST be migrated to read `ctx.foundation` as part of Phase A, so we do not keep a second producer/sink path alive.
+
+### 3.2 Explicitly “not finished” / intentional transitional state
+
+In Phase A we will **intentionally leave the system in a transitional state**:
+
+- `ctx.foundation` remains the primary contract even though it does not match the target “multi-artifact / graph-based” foundation model.
+- The purpose of Phase A is to **move ownership** (math and sequencing) into foundation steps without forcing immediate downstream churn.
+- This MUST be revisited and changed when the separate Foundation Stage PRD work begins.
+
+**WorldModel status after Phase A (intentionally incomplete)**
+- `WorldModel` is no longer initialized or used as a producer by the orchestrator.
+- `WorldModel` MUST NOT be used as a compatibility sink in Phase A; any remaining readers must migrate to `ctx.foundation` instead of keeping dual pathways alive.
+- No new code may read from `WorldModel`; modern steps read from `ctx.foundation` / artifacts/fields only.
+
+**Non-goals for this SPIKE / Phase A**
+- No attempt to model mesh/crust/plateGraph/tectonics as canonical graph artifacts yet.
+- No attempt to “perfect” the types expansion; we preserve the current `FoundationContext` contract.
+
+### 3.3 Why this avoids “two code paths”
+
+The key is: we do **not** keep `WorldModel` producing the canonical signals in parallel with a new foundation pipeline.
+
+Instead:
+
+- Foundation step-owned code is the **single producer**.
+- `FoundationContext` is a derived/serialized compatibility view until consumers migrate.
+
+This is consistent with the bridge strategy: concentrate debt at the orchestrator boundary, then delete it.
+
+---
+
+## 4. RNG / determinism implications (important boundary condition)
+
+### 4.1 What RNG does “TerrainBuilder.getRandomNumber” represent?
+
+In Civ7 runtime, `TerrainBuilder.getRandomNumber(max, label)` is an engine-provided RNG entrypoint (native/engine surface).
+
+In-repo evidence:
+
+- `packages/civ7-adapter/src/civ7-adapter.ts:155` implements `EngineAdapter.getRandomNumber` by calling `TerrainBuilder.getRandomNumber`.
+- `packages/mapgen-core/src/core/types.ts:261` defines `ctxRandom(ctx, label, max)` which calls `ctx.adapter.getRandomNumber(...)` and tracks label call counts.
+
+So: **our current “ctx RNG” is the engine RNG via the adapter**. `ctx.rng` is currently bookkeeping (`callCounts`), not an independent PRNG stream.
+
+### 4.2 Is the same RNG used elsewhere?
+
+Yes. A large portion of modernized TS code already uses `adapter.getRandomNumber(...)` (and therefore `TerrainBuilder.getRandomNumber`) directly or via `ctxRandom(...)`.
+
+Examples:
+- `packages/mapgen-core/src/domain/morphology/volcanoes/apply.ts:99`
+- `packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts:79`
+- `packages/mapgen-core/src/domain/ecology/biomes/index.ts:120`
+- `packages/mapgen-core/src/domain/ecology/features/index.ts:85`
+- `packages/mapgen-core/src/domain/hydrology/climate/runtime.ts:49`
+
+### 4.3 WorldModel’s current behavior
+
+WorldModel currently selects a default RNG:
+
+- Prefers `TerrainBuilder.getRandomNumber` if present.
+- Falls back to `Math.random` otherwise.
+
+See: `packages/mapgen-core/src/world/model.ts:457`
+
+### 4.4 Risk: stray `Math.random` usage in “world” code
+
+Some world/plate code still uses `Math.random` directly in places that may affect determinism or parity if the engine’s JS `Math.random` is not seeded/stable.
+
+Example: `packages/mapgen-core/src/world/plates.ts:714` uses `Math.random()` while building plate regions.
+
+**Phase A RNG contract (explicit)**
+
+- Any code moved into the Foundation stage in Phase A MUST source randomness from `ctx.adapter.getRandomNumber(...)` (preferably via `ctxRandom(...)` for labeling/bookkeeping) and MUST NOT call `Math.random`.
+- Phase A does **not** promise output parity; it promises architectural ownership movement. If parity becomes a hard requirement, Phase A must be gated by an explicit parity plan (labels, call order stability, and any necessary golden tests).
+
+### 4.5 We attempted to confirm engine-side semantics from extracted civ resources
+
+We searched `.civ7/outputs/resources/Base/modules` for `TerrainBuilder` / `getRandomNumber` references and did not find any. This strongly suggests `TerrainBuilder` is a native surface (not implemented in shipped JS modules) and its semantics must be treated as “engine contract”, not something we can inspect in extracted JS.
+
+---
+
+## 5. Practical next steps (deterministic execution order)
+
+### Phase A (committed)
+
+- Create a step-owned foundation implementation that produces a `FoundationContext` snapshot without reading `WorldModel`.
+- Update `MapOrchestrator.initializeFoundation()` to call that implementation and stop calling `WorldModel.init()`.
+- Keep `ctx.foundation` populated exactly as today (types/shape); do not broaden downstream API surface in this effort.
+- Migrate any remaining `WorldModel` readers to `ctx.foundation` so Phase A does not preserve a dual pathway.
+
+### Follow-ups (explicitly NOT part of Phase A)
+
+- Orchestrator hygiene: dead imports/helpers removal and local code cleanup.
+- Enablement correctness: remove redundant stage gating where the recipe already filters by `stageManifest` (avoid two sources of truth).
+- Foundation Stage PRD (Phase B): introduce canonical graph artifacts (`mesh`, `crust`, `plateGraph`, `tectonics`) and migrate consumers; replace the `FoundationContext` dependency with explicit artifacts.
+
+---
+
+## 6. Deferred questions / stubs (explicitly NOT blockers for Phase A)
+
+### 6.1 Parity contract for RNG (only if parity becomes a deliverable)
+
+**Question:** Is output parity required for the WorldModel cut and/or foundation refactor, or are small deltas acceptable?
+
+**Default assumption for Phase A:** small deltas are acceptable; do not block Phase A on parity.
+
+### 6.2 “What replaces FoundationContext?” (target alignment)
+
+**Question:** What is the canonical post-refactor foundation API surface?
+
+**Stub (to be decided in Phase B / PRD):**
+
+- Define the canonical artifact set (graphs and any canonical raster artifacts), and define which layers own rasterization (foundation vs consumer vs dedicated adapter/bridge step).
+
+This is part of the separate Foundation Stage PRD effort.
