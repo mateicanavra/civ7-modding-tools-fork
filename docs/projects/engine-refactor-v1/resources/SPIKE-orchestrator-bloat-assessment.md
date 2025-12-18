@@ -77,7 +77,7 @@ We are locking in a “fast cut” plan that avoids maintaining multiple algorit
 
 This SPIKE contains both (a) **locked decisions** and (b) **deferred questions**. To keep execution deterministic:
 
-- **Committed in Phase A (this effort):** only the WorldModel → Foundation producer cut, while keeping `ctx.foundation` as the compatibility boundary.
+- **Committed in Phase A (this effort):** (1) standardize RNG on the adapter surface (no `Math.random`, no direct `TerrainBuilder` usage in mapgen-core) and (2) the WorldModel → Foundation producer cut, while keeping `ctx.foundation` as the compatibility boundary.
 - **Explicitly not committed here:** orchestrator hygiene cleanups, recipe/enablement restructuring, and the full “graph + multi-artifact foundation” target refactor.
 
 ### 3.1 The plan
@@ -169,18 +169,34 @@ WorldModel currently selects a default RNG:
 
 See: `packages/mapgen-core/src/world/model.ts:457`
 
+This fallback is legacy behavior and is incompatible with the locked RNG standardization decision below; it must be removed by requiring an injected adapter-backed RNG in any remaining WorldModel code.
+
 ### 4.4 Risk: stray `Math.random` usage in “world” code
 
 Some world/plate code still uses `Math.random` directly in places that may affect determinism or parity if the engine’s JS `Math.random` is not seeded/stable.
 
 Example: `packages/mapgen-core/src/world/plates.ts:714` uses `Math.random()` while building plate regions.
 
+### 4.5 Decision: standardize RNG on EngineAdapter (LOCKED)
+
+We will standardize all mapgen randomness on the Civ7 adapter RNG surface:
+
+- `packages/civ7-adapter/src/civ7-adapter.ts` is the **only** place allowed to call `TerrainBuilder.getRandomNumber(...)`.
+- `packages/mapgen-core/**` MUST NOT call `TerrainBuilder.*` directly.
+- `packages/mapgen-core/**` MUST NOT call `Math.random()` (anywhere).
+
+**Approved RNG APIs (the only allowed call sites)**
+
+- Step/domain code uses `ctxRandom(ctx, label, max)` (`packages/mapgen-core/src/core/types.ts:261`).
+- Adapter boundary code MAY ONLY call `ctx.adapter.getRandomNumber(max, label)` directly when a `GenerationContext` is not available; otherwise it MUST use `ctxRandom(...)`.
+- Pure functions that cannot accept `ctx` accept an injected `rngNextInt(max, label)` function (wired from `ctxRandom` at the boundary).
+
 **Phase A RNG contract (explicit)**
 
-- Any code moved into the Foundation stage in Phase A MUST source randomness from `ctx.adapter.getRandomNumber(...)` (preferably via `ctxRandom(...)` for labeling/bookkeeping) and MUST NOT call `Math.random`.
+- Any code moved into the Foundation stage in Phase A MUST use the approved RNG APIs above and MUST NOT call `Math.random`.
 - Phase A does **not** promise output parity; it promises architectural ownership movement. If parity becomes a hard requirement, Phase A must be gated by an explicit parity plan (labels, call order stability, and any necessary golden tests).
 
-### 4.5 We attempted to confirm engine-side semantics from extracted civ resources
+### 4.6 We attempted to confirm engine-side semantics from extracted civ resources
 
 We searched `.civ7/outputs/resources/Base/modules` for `TerrainBuilder` / `getRandomNumber` references and did not find any. This strongly suggests `TerrainBuilder` is a native surface (not implemented in shipped JS modules) and its semantics must be treated as “engine contract”, not something we can inspect in extracted JS.
 
@@ -190,6 +206,7 @@ We searched `.civ7/outputs/resources/Base/modules` for `TerrainBuilder` / `getRa
 
 ### Phase A (committed)
 
+- RNG standardization: eliminate `Math.random()` usage in `packages/mapgen-core/**` and remove any `TerrainBuilder.*` usage outside `packages/civ7-adapter/**`.
 - Create a step-owned foundation implementation that produces a `FoundationContext` snapshot without reading `WorldModel`.
 - Update `MapOrchestrator.initializeFoundation()` to call that implementation and stop calling `WorldModel.init()`.
 - Keep `ctx.foundation` populated exactly as today (types/shape); do not broaden downstream API surface in this effort.
