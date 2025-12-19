@@ -1,3 +1,4 @@
+
 /**
  * Story Orogeny — Mountain belt tagging and windward/lee cache.
  *
@@ -15,7 +16,7 @@ import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "../overlays/index.js";
 import { getDims } from "../utils/dims.js";
 import { isWaterAt } from "../utils/water.js";
 
-import { getOrogenyCache } from "./cache.js";
+import { getOrogenyCache, type OrogenyCacheInstance } from "./cache.js";
 import { zonalWindStep } from "./wind.js";
 
 export interface OrogenySummary {
@@ -37,8 +38,11 @@ export function storyTagOrogenyBelts(ctx: ExtendedMapContext | null = null): Sto
 
   const { width, height } = getDims(ctx);
   const area = Math.max(1, width * height);
+  
+  // Dynamic scaling based on map size
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
-
+  
+  // Configuration
   const storyCfg = (ctx?.config?.story || {}) as Record<string, unknown>;
   const cfg = (storyCfg.orogeny || {}) as Record<string, number>;
 
@@ -47,125 +51,22 @@ export function storyTagOrogenyBelts(ctx: ExtendedMapContext | null = null): Sto
   const beltMinLength = Number.isFinite(cfg.beltMinLength) ? (cfg.beltMinLength | 0) : 30;
   const minLenSoft = Math.max(10, Math.round(beltMinLength * (0.9 + 0.4 * sqrtScale)));
 
+  // Strategy Selection
   let kind: OrogenySummary["kind"] = "legacy";
 
   if (ctx?.foundation?.plates && ctx?.foundation?.dynamics) {
     kind = "foundation";
-
-    const U = ctx.foundation.plates.upliftPotential;
-    const S = ctx.foundation.plates.tectonicStress;
-    const BT = ctx.foundation.plates.boundaryType;
-    const BC = ctx.foundation.plates.boundaryCloseness;
-
-    let thr = 180;
-    let attempts = 0;
-    while (attempts++ < 5) {
-      cache.belts.clear();
-      for (let y = 1; y < height - 1; y++) {
-        for (let x = 1; x < width - 1; x++) {
-          if (isWaterAt(ctx, x, y)) continue;
-          const i = y * width + x;
-          if (BT[i] !== 1 || BC[i] < 48) continue;
-          const metric = Math.round(0.7 * U[i] + 0.3 * S[i]);
-          if (metric < thr) continue;
-
-          let dense = 0;
-          for (let dy = -1; dy <= 1; dy++) {
-            for (let dx = -1; dx <= 1; dx++) {
-              if (dx === 0 && dy === 0) continue;
-              const j = (y + dy) * width + (x + dx);
-              if (j < 0 || j >= width * height) continue;
-              const m2 = Math.round(0.7 * U[j] + 0.3 * S[j]);
-              if (m2 >= thr) dense++;
-            }
-          }
-          if (dense >= 2) cache.belts.add(storyKey(x, y));
-        }
-      }
-      if (cache.belts.size >= minLenSoft || thr <= 128) break;
-      thr -= 12;
-    }
-
-    const windU = ctx.foundation.dynamics.windU;
-    const windV = ctx.foundation.dynamics.windV;
-    const windStepXY = (x: number, y: number): { dx: number; dy: number } => {
-      try {
-        const i = y * width + x;
-        const u = windU[i] | 0;
-        const v = windV[i] | 0;
-        if (Math.abs(u) >= Math.abs(v)) return { dx: u === 0 ? 0 : u > 0 ? 1 : -1, dy: 0 };
-        return { dx: 0, dy: v === 0 ? 0 : v > 0 ? 1 : -1 };
-      } catch {
-        return zonalWindStep(ctx, x, y);
-      }
-    };
-
-    if (cache.belts.size >= minLenSoft) {
-      for (const key of cache.belts) {
-        const [sx, sy] = key.split(",").map(Number);
-        const { dx, dy } = windStepXY(sx, sy);
-        const upwindX = -dx;
-        const upwindY = -dy;
-        const downX = dx;
-        const downY = dy;
-        for (let r = 1; r <= radius; r++) {
-          const wx = sx + upwindX * r;
-          const wy = sy + upwindY * r;
-          const lx = sx + downX * r;
-          const ly = sy + downY * r;
-          if (inBounds(wx, wy, width, height) && !isWaterAt(ctx, wx, wy)) cache.windward.add(storyKey(wx, wy));
-          if (inBounds(lx, ly, width, height) && !isWaterAt(ctx, lx, ly)) cache.lee.add(storyKey(lx, ly));
-        }
-      }
-    } else {
-      cache.belts.clear();
-    }
+    runFoundationPass(ctx, cache, width, height, minLenSoft);
   } else {
-    const isHighElev = (x: number, y: number): boolean => {
-      if (!inBounds(x, y, width, height)) return false;
-      try {
-        if (ctx?.adapter?.isMountain?.(x, y)) return true;
-      } catch {
-        // ignore
-      }
-      const elev = ctx?.adapter?.getElevation?.(x, y) ?? GameplayMap?.getElevation?.(x, y) ?? 0;
-      return elev >= 500;
-    };
+    runLegacyPass(ctx, cache, width, height);
+  }
 
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        if (!isHighElev(x, y)) continue;
-        let hi = 0;
-        for (let dy = -1; dy <= 1; dy++) {
-          for (let dx = -1; dx <= 1; dx++) {
-            if (dx === 0 && dy === 0) continue;
-            if (isHighElev(x + dx, y + dy)) hi++;
-          }
-        }
-        if (hi >= 2) cache.belts.add(storyKey(x, y));
-      }
-    }
-
-    if (cache.belts.size >= minLenSoft) {
-      for (const key of cache.belts) {
-        const [x, y] = key.split(",").map(Number);
-        const { dx, dy } = zonalWindStep(ctx, x, y);
-        const upwindX = -dx;
-        const upwindY = -dy;
-        const downX = dx;
-        const downY = dy;
-        for (let r = 1; r <= radius; r++) {
-          const wx = x + upwindX * r;
-          const wy = y + upwindY * r;
-          const lx = x + downX * r;
-          const ly = y + downY * r;
-          if (inBounds(wx, wy, width, height) && !isWaterAt(ctx, wx, wy)) cache.windward.add(storyKey(wx, wy));
-          if (inBounds(lx, ly, width, height) && !isWaterAt(ctx, lx, ly)) cache.lee.add(storyKey(lx, ly));
-        }
-      }
-    } else {
-      cache.belts.clear();
-    }
+  // Common Windward/Lee Tagging
+  if (cache.belts.size >= minLenSoft) {
+    tagWindwardLee(ctx, cache, width, height, radius);
+  } else {
+    // If belts are too small/fragmented, discard them to avoid noise
+    cache.belts.clear();
   }
 
   return publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.OROGENY, {
@@ -182,4 +83,189 @@ export function storyTagOrogenyBelts(ctx: ExtendedMapContext | null = null): Sto
       kind,
     },
   });
+}
+
+// ============================================================================
+// Strategies
+// ============================================================================
+
+/**
+ * Identifies mountain belts using Plate Tectonics data (Uplift + Stress).
+ * Iteratively relaxes the threshold until enough belts are found or limit reached.
+ */
+function runFoundationPass(
+  ctx: ExtendedMapContext,
+  cache: OrogenyCacheInstance,
+  width: number,
+  height: number,
+  minLenSoft: number
+): void {
+  if (!ctx.foundation) return;
+
+  const { upliftPotential: U, tectonicStress: S, boundaryType: BT, boundaryCloseness: BC } = ctx.foundation.plates;
+  
+  let thr = 180;
+  let attempts = 0;
+  const maxAttempts = 5;
+
+  while (attempts++ < maxAttempts) {
+    cache.belts.clear();
+
+    // Inner loop: 1-pixel margin to avoid boundary checks
+    for (let y = 1; y < height - 1; y++) {
+      for (let x = 1; x < width - 1; x++) {
+        if (isWaterAt(ctx, x, y)) continue;
+
+        const i = y * width + x;
+        
+        // Filter: Must be Convergent Boundary (1) and reasonably close
+        if (BT[i] !== 1 || BC[i] < 48) continue;
+
+        // Metric: Weighted blend of Uplift and Stress
+        const metric = Math.round(0.7 * U[i] + 0.3 * S[i]);
+        if (metric < thr) continue;
+
+        // Density Check: Must have at least 2 neighbors exceeding threshold
+        let dense = 0;
+        // 3x3 neighborhood check
+        neighbor_loop: for (let dy = -1; dy <= 1; dy++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            if (dx === 0 && dy === 0) continue;
+            
+            const j = (y + dy) * width + (x + dx);
+            const m2 = Math.round(0.7 * U[j] + 0.3 * S[j]);
+            
+            if (m2 >= thr) {
+              dense++;
+              if (dense >= 2) break neighbor_loop; // Optimization: Fail fast
+            }
+          }
+        }
+
+        if (dense >= 2) {
+          cache.belts.add(storyKey(x, y));
+        }
+      }
+    }
+
+    // Exit condition: Found enough belts or threshold is too low
+    if (cache.belts.size >= minLenSoft || thr <= 128) break;
+    thr -= 12;
+  }
+}
+
+/**
+ * Identifies mountain belts using simple Elevation heuristics.
+ * Used when foundation data is missing (e.g., imported maps).
+ */
+function runLegacyPass(
+  ctx: ExtendedMapContext | null,
+  cache: OrogenyCacheInstance,
+  width: number,
+  height: number
+): void {
+  const isHighElev = (x: number, y: number): boolean => {
+    if (!inBounds(x, y, width, height)) return false;
+    // Prefer adapter check if available
+    try {
+      if (ctx?.adapter?.isMountain?.(x, y)) return true;
+    } catch { /* ignore */ }
+    
+    // Fallback to raw elevation
+    const elev = ctx?.adapter?.getElevation?.(x, y) ?? (typeof GameplayMap !== "undefined" ? GameplayMap.getElevation(x, y) : 0);
+    return elev >= 500;
+  };
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (!isHighElev(x, y)) continue;
+
+      let dense = 0;
+      neighbor_loop: for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          if (dx === 0 && dy === 0) continue;
+          if (isHighElev(x + dx, y + dy)) {
+            dense++;
+            if (dense >= 2) break neighbor_loop;
+          }
+        }
+      }
+
+      if (dense >= 2) {
+        cache.belts.add(storyKey(x, y));
+      }
+    }
+  }
+}
+
+/**
+ * Casts "Windward" (wet) and "Lee" (dry) shadows from identified belts.
+ */
+function tagWindwardLee(
+  ctx: ExtendedMapContext | null,
+  cache: OrogenyCacheInstance,
+  width: number,
+  height: number,
+  radius: number
+): void {
+  // Pre-fetch dynamics arrays if available to avoid repeated lookups
+  const dynamics = ctx?.foundation?.dynamics;
+  const windU = dynamics?.windU;
+  const windV = dynamics?.windV;
+
+  for (const key of cache.belts) {
+    const [sx, sy] = key.split(",").map(Number);
+    
+    // Determine prevailing wind direction at this location
+    const { dx, dy } = getWindStep(ctx, sx, sy, width, windU, windV);
+    
+    const upwindX = -dx;
+    const upwindY = -dy;
+    const downX = dx;
+    const downY = dy;
+
+    for (let r = 1; r <= radius; r++) {
+      // Windward (Upwind side)
+      const wx = sx + upwindX * r;
+      const wy = sy + upwindY * r;
+      if (inBounds(wx, wy, width, height) && !isWaterAt(ctx, wx, wy)) {
+        cache.windward.add(storyKey(wx, wy));
+      }
+
+      // Lee (Downwind side)
+      const lx = sx + downX * r;
+      const ly = sy + downY * r;
+      if (inBounds(lx, ly, width, height) && !isWaterAt(ctx, lx, ly)) {
+        cache.lee.add(storyKey(lx, ly));
+      }
+    }
+  }
+}
+
+/**
+ * Helper to determine wind direction vector (dx, dy).
+ * Prioritizes Foundation dynamics, falls back to Zonal approximation.
+ */
+function getWindStep(
+  ctx: ExtendedMapContext | null,
+  x: number,
+  y: number,
+  width: number,
+  windU?: Int8Array,
+  windV?: Int8Array
+): { dx: number; dy: number } {
+  if (windU && windV) {
+    const i = y * width + x;
+    // Safety check for array bounds
+    if (i >= 0 && i < windU.length) {
+      const u = windU[i];
+      const v = windV[i];
+      if (Math.abs(u) >= Math.abs(v)) {
+        return { dx: u === 0 ? 0 : u > 0 ? 1 : -1, dy: 0 };
+      } else {
+        return { dx: 0, dy: v === 0 ? 0 : v > 0 ? 1 : -1 };
+      }
+    }
+  }
+  return zonalWindStep(ctx, x, y);
 }

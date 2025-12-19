@@ -37,7 +37,7 @@ This document is the **directional project brief** for **MAPS Engine Refactor v1
 
 - Designing a new in-game UX for map configuration (beyond what the schema enables).
 - Implementing every possible storytelling overlay or preset; focus is engine capability and stability.
-- Supporting non-standard engine embeddings beyond Civ7 + QuickJS.
+- Supporting non-standard engine embeddings beyond Civ7 (embedded V8).
 
 ## 3. Current Status (Snapshot)
 

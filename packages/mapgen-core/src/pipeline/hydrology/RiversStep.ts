@@ -3,6 +3,11 @@ import { HILL_TERRAIN, MOUNTAIN_TERRAIN, NAVIGABLE_RIVER_TERRAIN } from "../../c
 import { syncHeightfield } from "../../core/types.js";
 import {
   computeRiverAdjacencyMask,
+  /** Why are these all standalone functions? Shouldn't they be methods on ExtendedMapContext or similar?
+   *  Or at least grouped into a hydrology utility module?
+   *  Could we just have a publishArtifact function that takes the context and artifact type as parameters?
+   *  Maybe it MapContext.publishArtifact(artifactType, data)?
+  */
   publishClimateFieldArtifact,
   publishHeightfieldArtifact,
   publishRiverAdjacencyArtifact,
@@ -14,7 +19,7 @@ export interface RiversStepOptions {
   requires: readonly string[];
   provides: readonly string[];
   shouldRun?: () => boolean;
-  shouldRunPaleo?: (context: ExtendedMapContext) => boolean;
+  shouldRunPaleo?: (context: ExtendedMapContext) => boolean;  // ? Why is this here? Why is paleo unique? It should be treated the same as any other step.
   logPrefix?: string;
 }
 
