@@ -170,6 +170,14 @@ M4 is defined as “Tests, Validation & Cleanup” in `docs/projects/engine-refa
      - Delete/replace empty placeholder spike file.
    - Unblocks: Final doc hygiene pass.
 
+## Decision Log
+
+### Decision Frame 1: Canonical Target Architecture Source
+
+- **Decision:** Treat the in-progress target architecture draft (maintained outside this thread) as the working canonical source for checkpoint analysis and planning. Treat `docs/system/libs/mapgen/architecture.md` as legacy to be replaced or merged into the draft once it stabilizes. Treat project-local drafts as staging/feeder docs, not authoritative.
+- **Assumptions:** The draft will be promoted into system docs once it is sufficiently stable; `architecture.md` will be superseded rather than co-exist as a competing authority.
+- **Risks / Provisional Notes:** This is provisional and may change as the draft resolves open questions. Any downstream decisions that require finalized spec details should be flagged as risk or blocked until the draft stabilizes.
+
 ## Recommended Actions
 
 ### Immediate
