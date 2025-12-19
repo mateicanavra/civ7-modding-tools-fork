@@ -94,6 +94,7 @@ function runFoundationPass(
   height: number,
   minLenSoft: number
 ): void {
+  assertFoundationContext(ctx, "storyOrogeny");
   const { upliftPotential: U, tectonicStress: S, boundaryType: BT, boundaryCloseness: BC } = ctx.foundation.plates;
   
   let thr = 180;

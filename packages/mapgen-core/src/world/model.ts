@@ -320,8 +320,8 @@ function computePressure(width: number, height: number, rng: RngFunction): void 
 function computeWinds(
   width: number,
   height: number,
-  getLatitude?: (x: number, y: number) => number,
-  rng: RngFunction
+  rng: RngFunction,
+  getLatitude?: (x: number, y: number) => number
 ): void {
   const U = _state.windU;
   const V = _state.windV;
@@ -592,7 +592,7 @@ export const WorldModel: WorldModelInterface = {
     console.log("[WorldModel] computePressure succeeded");
 
     console.log("[WorldModel] computeWinds starting");
-    computeWinds(width, height, options.getLatitude, rng);
+    computeWinds(width, height, rng, options.getLatitude);
     console.log("[WorldModel] computeWinds succeeded");
 
     console.log("[WorldModel] computeCurrents starting");

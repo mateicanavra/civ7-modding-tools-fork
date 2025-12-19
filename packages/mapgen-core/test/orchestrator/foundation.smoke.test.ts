@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap, MapOrchestrator } from "../../src/index.js";
-import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js";
+import { bootstrap } from "../../src/index.js";
+import { createExtendedMapContext } from "../../src/core/types.js";
+import { runFoundationStage } from "../../src/pipeline/foundation/producer.js";
 
 describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
   const width = 24;
@@ -24,9 +25,6 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
   let originalGameInfo: unknown;
 
   beforeEach(() => {
-    resetConfigProviderForTest();
-    WorldModel.reset();
-
     originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
     originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
 
@@ -54,12 +52,9 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
   afterEach(() => {
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
-
-    resetConfigProviderForTest();
-    WorldModel.reset();
   });
 
-  it("populates foundation WorldModel fields via generateMap()", () => {
+  it("populates foundation tensors via foundation stage", () => {
     const adapter = createMockAdapter({
       width,
       height,
@@ -69,30 +64,21 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
     });
 
     const config = bootstrap({ stageConfig: { foundation: true } });
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
-    const result = orchestrator.generateMap();
+    const ctx = createExtendedMapContext({ width, height }, adapter, config);
+    const foundation = runFoundationStage(ctx);
 
-    expect(result.success).toBe(true);
-    expect(result.stageResults.some((stage) => stage.stage === "foundation" && stage.success)).toBe(
-      true
-    );
-
-    expect(WorldModel.initialized).toBe(true);
-    expect(WorldModel.width).toBe(width);
-    expect(WorldModel.height).toBe(height);
-
-    expect(WorldModel.plateId?.length).toBe(size);
-    expect(WorldModel.boundaryCloseness?.length).toBe(size);
-    expect(WorldModel.boundaryType?.length).toBe(size);
-    expect(WorldModel.upliftPotential?.length).toBe(size);
-    expect(WorldModel.riftPotential?.length).toBe(size);
-    expect(WorldModel.windU?.length).toBe(size);
-    expect(WorldModel.windV?.length).toBe(size);
-    expect(WorldModel.currentU?.length).toBe(size);
-    expect(WorldModel.currentV?.length).toBe(size);
-    expect(WorldModel.pressure?.length).toBe(size);
-    expect(WorldModel.plateSeed?.width).toBe(width);
-    expect(WorldModel.plateSeed?.height).toBe(height);
+    expect(foundation.plates.id?.length).toBe(size);
+    expect(foundation.plates.boundaryCloseness?.length).toBe(size);
+    expect(foundation.plates.boundaryType?.length).toBe(size);
+    expect(foundation.plates.upliftPotential?.length).toBe(size);
+    expect(foundation.plates.riftPotential?.length).toBe(size);
+    expect(foundation.dynamics.windU?.length).toBe(size);
+    expect(foundation.dynamics.windV?.length).toBe(size);
+    expect(foundation.dynamics.currentU?.length).toBe(size);
+    expect(foundation.dynamics.currentV?.length).toBe(size);
+    expect(foundation.dynamics.pressure?.length).toBe(size);
+    expect(foundation.plateSeed?.width).toBe(width);
+    expect(foundation.plateSeed?.height).toBe(height);
 
     const expectFiniteNumbers = (label: string, values: ArrayLike<number> | null | undefined) => {
       expect(values).not.toBeNull();
@@ -103,16 +89,16 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
       }
     };
 
-    expectFiniteNumbers("boundaryCloseness", WorldModel.boundaryCloseness);
-    expectFiniteNumbers("upliftPotential", WorldModel.upliftPotential);
-    expectFiniteNumbers("riftPotential", WorldModel.riftPotential);
-    expectFiniteNumbers("windU", WorldModel.windU);
-    expectFiniteNumbers("windV", WorldModel.windV);
-    expectFiniteNumbers("currentU", WorldModel.currentU);
-    expectFiniteNumbers("currentV", WorldModel.currentV);
-    expectFiniteNumbers("pressure", WorldModel.pressure);
+    expectFiniteNumbers("boundaryCloseness", foundation.plates.boundaryCloseness);
+    expectFiniteNumbers("upliftPotential", foundation.plates.upliftPotential);
+    expectFiniteNumbers("riftPotential", foundation.plates.riftPotential);
+    expectFiniteNumbers("windU", foundation.dynamics.windU);
+    expectFiniteNumbers("windV", foundation.dynamics.windV);
+    expectFiniteNumbers("currentU", foundation.dynamics.currentU);
+    expectFiniteNumbers("currentV", foundation.dynamics.currentV);
+    expectFiniteNumbers("pressure", foundation.dynamics.pressure);
 
-    const plateId = WorldModel.plateId;
+    const plateId = foundation.plates.id;
     expect(plateId).not.toBeNull();
     const uniquePlates = new Set<number>();
     for (let i = 0; i < plateId!.length; i++) {

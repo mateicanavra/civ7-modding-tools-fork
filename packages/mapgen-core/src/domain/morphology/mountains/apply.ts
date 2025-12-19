@@ -152,8 +152,9 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
 }
 
 export function addMountainsCompat(width: number, height: number, ctx?: ExtendedMapContext | null): void {
-  assertFoundationContext(ctx ?? null, "mountains");
-  layerAddMountainsPhysics(ctx, {
+  const context = ctx ?? null;
+  assertFoundationContext(context, "mountains");
+  layerAddMountainsPhysics(context, {
     tectonicIntensity: 1.0,
     mountainThreshold: 0.45,
     hillThreshold: 0.25,

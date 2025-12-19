@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "../../src/index.js";
 import type { ExtendedMapContext } from "../../src/core/types.js";
-import { createExtendedMapContext, createFoundationContext, ctxRandom } from "../../src/core/types.js";
+import { createExtendedMapContext } from "../../src/core/types.js";
 import {
   PipelineExecutor,
   StepRegistry,
@@ -10,15 +10,11 @@ import {
   registerHydrologyLayer,
   registerNarrativeLayer,
 } from "../../src/pipeline/index.js";
+import { runFoundationStage } from "../../src/pipeline/foundation/producer.js";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
 } from "../../src/domain/narrative/overlays/index.js";
-import {
-  resetConfigProviderForTest,
-  setConfigProvider,
-  WorldModel,
-} from "../../src/world/model.js";
 
 describe("orchestrator: paleo hydrology runs post-rivers", () => {
   const width = 12;
@@ -40,9 +36,6 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
   let originalGameInfo: unknown;
 
   beforeEach(() => {
-    resetConfigProviderForTest();
-    WorldModel.reset();
-
     originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
     originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
 
@@ -70,9 +63,6 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
   afterEach(() => {
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
-
-    resetConfigProviderForTest();
-    WorldModel.reset();
   });
 
   function runRecipe(config: ReturnType<typeof bootstrap>, adapter: ReturnType<typeof createMockAdapter>) {
@@ -97,35 +87,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
       getStageDescriptor,
       stageFlags,
       runFoundation: (context) => {
-        setConfigProvider(() => {
-          const foundationCfg = context.config.foundation;
-          return {
-            plates: (foundationCfg.plates ?? {}) as Record<string, unknown>,
-            dynamics: foundationCfg.dynamics as Record<string, unknown>,
-            directionality: (foundationCfg.dynamics?.directionality ?? {}) as Record<string, unknown>,
-          };
-        });
-
-        const rng = (max: number, label = "WorldModel") => ctxRandom(context, label, max);
-        const ok = WorldModel.init({ width, height, rng });
-        if (!ok) {
-          throw new Error("WorldModel initialization failed");
-        }
-
-        context.worldModel = WorldModel as unknown as ExtendedMapContext["worldModel"];
-
-        const foundationCfg = context.config.foundation;
-        context.foundation = createFoundationContext(WorldModel as any, {
-          dimensions: context.dimensions,
-          config: {
-            seed: (foundationCfg.seed || {}) as Record<string, unknown>,
-            plates: (foundationCfg.plates || {}) as Record<string, unknown>,
-            dynamics: foundationCfg.dynamics as Record<string, unknown>,
-            surface: (foundationCfg.surface || {}) as Record<string, unknown>,
-            policy: (foundationCfg.policy || {}) as Record<string, unknown>,
-            diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
-          },
-        });
+        runFoundationStage(context);
       },
     });
 

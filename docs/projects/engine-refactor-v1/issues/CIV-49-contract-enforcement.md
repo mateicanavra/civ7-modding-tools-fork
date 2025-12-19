@@ -29,11 +29,11 @@ Enforce `ctx.foundation` presence and required fields at stage boundaries; remov
 
 ## Acceptance Criteria
 
-- [ ] No code-level fallbacks for missing `ctx.foundation` or `foundation.dynamics` in `packages/mapgen-core/**`.
-- [ ] `foundation.dynamics` always present via schema defaults or required fields.
-- [ ] `ctx.foundation` publish path validates array presence and expected sizes.
-- [ ] Tests that relied on implicit fallbacks updated to expect failure when `ctx.foundation`/`dynamics` is missing.
-- [ ] Focused validation test exists that fails on missing/incorrectly sized foundation tensors.
+- [x] No code-level fallbacks for missing `ctx.foundation` or `foundation.dynamics` in `packages/mapgen-core/**`.
+- [x] `foundation.dynamics` always present via schema defaults or required fields.
+- [x] `ctx.foundation` publish path validates array presence and expected sizes.
+- [x] Tests that relied on implicit fallbacks updated to expect failure when `ctx.foundation`/`dynamics` is missing.
+- [x] Focused validation test exists that fails on missing/incorrectly sized foundation tensors.
 
 ## Testing / Verification
 

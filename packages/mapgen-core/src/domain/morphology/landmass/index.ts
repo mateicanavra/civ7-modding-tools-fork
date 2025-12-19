@@ -65,7 +65,7 @@ export {
  * @param height - Map height
  * @param ctx - ExtendedMapContext for adapter-based operations
  * @param options - Optional configuration overrides
- * @returns Landmass generation result or null if WorldModel unavailable
+ * @returns Landmass generation result (throws if foundation is unavailable)
  */
 export function createPlateDrivenLandmasses(
   width: number,

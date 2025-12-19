@@ -1,10 +1,9 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { bootstrap } from "../../src/bootstrap/entry.js";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
-import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js";
 import { createMockAdapter } from "@civ7/adapter";
 
-describe("MapOrchestrator WorldModel config wiring", () => {
+describe("MapOrchestrator foundation config wiring", () => {
   const mapInfo = {
     GridWidth: 24,
     GridHeight: 16,
@@ -23,9 +22,6 @@ describe("MapOrchestrator WorldModel config wiring", () => {
   let originalConsoleLog: typeof console.log;
 
   beforeEach(() => {
-    resetConfigProviderForTest();
-    WorldModel.reset();
-
     originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
     originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
 
@@ -47,15 +43,12 @@ describe("MapOrchestrator WorldModel config wiring", () => {
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
 
-    resetConfigProviderForTest();
-    WorldModel.reset();
-
     if (originalConsoleLog) {
       console.log = originalConsoleLog;
     }
   });
 
-  it("binds WorldModel config from foundation.plates", () => {
+  it("logs foundation plate config from foundation.plates", () => {
     const plateCount = 6;
     const seen: string[] = [];
 
@@ -92,7 +85,7 @@ describe("MapOrchestrator WorldModel config wiring", () => {
     expect(result.success).toBe(true);
 
     expect(
-      seen.some((line) => line.includes(`[WorldModel] Config plates.count=${plateCount}`))
+      seen.some((line) => line.includes(`[Foundation] Config plates.count=${plateCount}`))
     ).toBe(true);
   });
 

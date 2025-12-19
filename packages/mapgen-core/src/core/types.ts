@@ -3,7 +3,7 @@
  *
  * Purpose:
  * - Define the seam between pure logic and engine coupling
- * - MapContext holds all data dependencies for passes (fields, worldModel, rng, config)
+ * - MapContext holds all data dependencies for passes (fields, rng, config)
  * - EngineAdapter abstracts read/write operations (enables testing, replay, diffing)
  *
  * Invariants:
@@ -13,7 +13,7 @@
  */
 
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
-import type { WorldModelState, SeedSnapshot } from "../world/types.js";
+import type { SeedSnapshot } from "../world/types.js";
 import type { MapConfig } from "../bootstrap/types.js";
 
 // ============================================================================
@@ -99,7 +99,7 @@ export interface FoundationConfigSnapshot {
 }
 
 /**
- * Plate-centric tensors emitted by the WorldModel.
+ * Plate-centric tensors emitted by the foundation stage.
  */
 export interface FoundationPlateFields {
   id: Int16Array;
@@ -115,7 +115,7 @@ export interface FoundationPlateFields {
 }
 
 /**
- * Atmospheric and oceanic tensors emitted by the WorldModel.
+ * Atmospheric and oceanic tensors emitted by the foundation stage.
  */
 export interface FoundationDynamicsFields {
   windU: Int8Array;
@@ -134,7 +134,7 @@ export interface FoundationDiagnosticsFields {
 
 /**
  * Immutable data product emitted by the foundation stage.
- * Downstream stages rely on this instead of touching WorldModel directly.
+ * Downstream stages rely on this snapshot for tectonic and dynamics data.
  */
 export interface FoundationContext {
   dimensions: Readonly<{ width: number; height: number; size: number }>;
@@ -177,7 +177,6 @@ export interface GenerationMetrics {
 export interface ExtendedMapContext {
   dimensions: MapDimensions;
   fields: MapFields;
-  worldModel: WorldModelState | null;
   rng: RNGState;
   config: MapConfig;
   metrics: GenerationMetrics;
@@ -231,7 +230,6 @@ export function createExtendedMapContext(
       featureType: new Int16Array(size),
       terrainType: new Uint8Array(size),
     },
-    worldModel: null,
     rng: {
       callCounts: new Map(),
       seed: null,
@@ -436,15 +434,25 @@ export interface CreateFoundationContextOptions {
 }
 
 /**
- * Create an immutable FoundationContext snapshot from the active WorldModel state.
+ * Source tensors used to build the foundation context snapshot.
+ */
+export interface FoundationContextSource {
+  plateSeed: Readonly<SeedSnapshot> | null;
+  plates: FoundationPlateFields;
+  dynamics: FoundationDynamicsFields;
+  diagnostics?: FoundationDiagnosticsFields;
+}
+
+/**
+ * Create an immutable FoundationContext snapshot from foundation tensors.
  */
 export function createFoundationContext(
-  worldModel: WorldModelState,
+  source: FoundationContextSource,
   options: CreateFoundationContextOptions
 ): FoundationContext {
-  if (!worldModel?.initialized) {
+  if (!source?.plates || !source?.dynamics) {
     throw new Error(
-      "[FoundationContext] WorldModel is not initialized or disabled."
+      "[FoundationContext] Foundation tensors are required to build the context."
     );
   }
   if (!options?.dimensions) {
@@ -461,57 +469,57 @@ export function createFoundationContext(
     throw new Error("[FoundationContext] Invalid map dimensions.");
   }
 
-  const plateId = ensureTensor("plateId", worldModel.plateId, size);
+  const plateId = ensureTensor("plateId", source.plates.id, size);
   const boundaryCloseness = ensureTensor(
     "boundaryCloseness",
-    worldModel.boundaryCloseness,
+    source.plates.boundaryCloseness,
     size
   );
   const boundaryType = ensureTensor(
     "boundaryType",
-    worldModel.boundaryType,
+    source.plates.boundaryType,
     size
   );
   const tectonicStress = ensureTensor(
     "tectonicStress",
-    worldModel.tectonicStress,
+    source.plates.tectonicStress,
     size
   );
   const upliftPotential = ensureTensor(
     "upliftPotential",
-    worldModel.upliftPotential,
+    source.plates.upliftPotential,
     size
   );
   const riftPotential = ensureTensor(
     "riftPotential",
-    worldModel.riftPotential,
+    source.plates.riftPotential,
     size
   );
   const shieldStability = ensureTensor(
     "shieldStability",
-    worldModel.shieldStability,
+    source.plates.shieldStability,
     size
   );
   const plateMovementU = ensureTensor(
     "plateMovementU",
-    worldModel.plateMovementU,
+    source.plates.movementU,
     size
   );
   const plateMovementV = ensureTensor(
     "plateMovementV",
-    worldModel.plateMovementV,
+    source.plates.movementV,
     size
   );
   const plateRotation = ensureTensor(
     "plateRotation",
-    worldModel.plateRotation,
+    source.plates.rotation,
     size
   );
-  const windU = ensureTensor("windU", worldModel.windU, size);
-  const windV = ensureTensor("windV", worldModel.windV, size);
-  const currentU = ensureTensor("currentU", worldModel.currentU, size);
-  const currentV = ensureTensor("currentV", worldModel.currentV, size);
-  const pressure = ensureTensor("pressure", worldModel.pressure, size);
+  const windU = ensureTensor("windU", source.dynamics.windU, size);
+  const windV = ensureTensor("windV", source.dynamics.windV, size);
+  const currentU = ensureTensor("currentU", source.dynamics.currentU, size);
+  const currentV = ensureTensor("currentV", source.dynamics.currentV, size);
+  const pressure = ensureTensor("pressure", source.dynamics.pressure, size);
 
   const configInput = options.config || {};
   const configSnapshot: FoundationConfigSnapshot = {
@@ -525,7 +533,7 @@ export function createFoundationContext(
 
   return Object.freeze({
     dimensions: Object.freeze({ width, height, size }),
-    plateSeed: worldModel.plateSeed || null,
+    plateSeed: source.plateSeed || null,
     plates: Object.freeze({
       id: plateId,
       boundaryCloseness,
@@ -540,7 +548,7 @@ export function createFoundationContext(
     }),
     dynamics: Object.freeze({ windU, windV, currentU, currentV, pressure }),
     diagnostics: Object.freeze({
-      boundaryTree: worldModel.boundaryTree || null,
+      boundaryTree: source.diagnostics?.boundaryTree ?? null,
     }),
     config: Object.freeze(configSnapshot),
   });
