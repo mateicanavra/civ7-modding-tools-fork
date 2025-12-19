@@ -5,8 +5,8 @@ import { createExtendedMapContext } from "../../src/core/types.js";
 import { getStoryTags } from "../../src/domain/narrative/tags/index.js";
 import { storyTagContinentalMargins, storyTagHotspotTrails, storyTagRiftValleys } from "../../src/domain/narrative/tagging/index.js";
 
-describe("smoke: minimal story parity (margins, hotspots, rifts)", () => {
-  it("emits non-empty story tags when enabled", () => {
+describe("smoke: minimal story parity (margins, hotspots)", () => {
+  it("emits non-empty story tags for margins/hotspots and fails fast for rifts without foundation", () => {
     // Deterministic RNG for stable assertions.
     let seed = 1 >>> 0;
     const adapter = createMockAdapter({
@@ -67,12 +67,10 @@ describe("smoke: minimal story parity (margins, hotspots, rifts)", () => {
     const ctx = createExtendedMapContext({ width: 128, height: 80 }, adapter, config);
     storyTagContinentalMargins(ctx);
     storyTagHotspotTrails(ctx);
-    storyTagRiftValleys(ctx);
+    expect(() => storyTagRiftValleys(ctx)).toThrow("FoundationContext");
 
     const tags = getStoryTags(ctx);
     expect(tags.activeMargin.size + tags.passiveShelf.size).toBeGreaterThan(0);
     expect(tags.hotspot.size).toBeGreaterThan(0);
-    expect(tags.riftLine.size).toBeGreaterThan(0);
-    expect(tags.riftShoulder.size).toBeGreaterThan(0);
   });
 });

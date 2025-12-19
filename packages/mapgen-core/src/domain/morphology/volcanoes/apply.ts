@@ -1,6 +1,7 @@
 import type { FeatureData } from "@civ7/adapter";
 import type { ExtendedMapContext } from "../../../core/types.js";
-import { writeHeightfield } from "../../../core/types.js";
+import { assertFoundationContext } from "../../../core/assertions.js";
+import { ctxRandom, writeHeightfield } from "../../../core/types.js";
 import { idx } from "../../../lib/grid/index.js";
 import { clamp } from "../../../lib/math/index.js";
 import { MOUNTAIN_TERRAIN, VOLCANO_FEATURE } from "../../../core/terrain-constants.js";
@@ -12,6 +13,7 @@ export function layerAddVolcanoesPlateAware(
   ctx: ExtendedMapContext,
   options: Partial<VolcanoesConfig> = {}
 ): void {
+  assertFoundationContext(ctx, "volcanoes");
   const {
     enabled = true,
     baseDensity = 1 / 170,
@@ -36,15 +38,10 @@ export function layerAddVolcanoesPlateAware(
   if (!width || !height || !adapter) return;
   if (!enabled) return;
 
-  const foundation = ctx?.foundation;
-  if (!foundation) return;
-
-  const { plates } = foundation;
+  const { plates } = ctx.foundation;
   const boundaryCloseness = plates.boundaryCloseness;
   const boundaryType = plates.boundaryType;
   const shieldStability = plates.shieldStability;
-
-  if (!boundaryCloseness || !boundaryType) return;
 
   let landTiles = 0;
   for (let y = 0; y < height; y++) {
@@ -96,7 +93,7 @@ export function layerAddVolcanoesPlateAware(
       }
 
       if (jitter > 0) {
-        const randomScale = adapter.getRandomNumber(1000, "VolcanoJitter") / 1000;
+        const randomScale = ctxRandom(ctx, "VolcanoJitter", 1000) / 1000;
         weight += randomScale * jitter;
       }
 
@@ -126,4 +123,3 @@ export function layerAddVolcanoesPlateAware(
     placed.push({ x: candidate.x, y: candidate.y });
   }
 }
-

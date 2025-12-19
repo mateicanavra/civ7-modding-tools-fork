@@ -17,10 +17,6 @@ describe("Test Infrastructure", () => {
     expect(GameInfo.Maps.lookup("MAPSIZE_HUGE")).toBeDefined();
   });
 
-  it("should have TerrainBuilder mocks available", () => {
-    expect(TerrainBuilder).toBeDefined();
-    expect(typeof TerrainBuilder.getRandomNumber).toBe("function");
-  });
 });
 
 describe("MockAdapter", () => {

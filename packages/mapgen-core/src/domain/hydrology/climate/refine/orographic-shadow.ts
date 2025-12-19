@@ -1,7 +1,7 @@
 import type { FoundationDirectionalityConfig } from "../../../../bootstrap/types.js";
 import type { ExtendedMapContext, FoundationContext } from "../../../../core/types.js";
 import type { ClimateRuntime } from "../types.js";
-import { hasUpwindBarrier, hasUpwindBarrierWM } from "../orographic-shadow.js";
+import { hasUpwindBarrierWM } from "../orographic-shadow.js";
 
 export function applyOrographicShadowRefinement(
   width: number,
@@ -9,7 +9,7 @@ export function applyOrographicShadowRefinement(
   ctx: ExtendedMapContext,
   runtime: ClimateRuntime,
   refineCfg: Record<string, unknown>,
-  dynamics: FoundationContext["dynamics"] | null
+  dynamics: FoundationContext["dynamics"]
 ): void {
   const { adapter, readRainfall, writeRainfall } = runtime;
   const orographic = (refineCfg.orographic || {}) as Record<string, number>;
@@ -34,16 +34,7 @@ export function applyOrographicShadowRefinement(
         steps = baseSteps;
       }
 
-      let barrier = 0;
-      const dynamicsEnabled = dynamics && dynamics.windU && dynamics.windV;
-      if (dynamicsEnabled) {
-        barrier = hasUpwindBarrierWM(x, y, steps, adapter, width, height, dynamics);
-      } else {
-        const lat = Math.abs(adapter.getLatitude(x, y));
-        const dx = lat < 30 || lat >= 60 ? -1 : 1;
-        const dy = 0;
-        barrier = hasUpwindBarrier(x, y, dx, dy, steps, adapter, width, height);
-      }
+      const barrier = hasUpwindBarrierWM(x, y, steps, adapter, width, height, dynamics);
 
       if (barrier) {
         const rf = readRainfall(x, y);
@@ -54,4 +45,3 @@ export function applyOrographicShadowRefinement(
     }
   }
 }
-

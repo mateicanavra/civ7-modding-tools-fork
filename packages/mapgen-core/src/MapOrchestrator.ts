@@ -64,7 +64,7 @@ import type {
 import type { ExtendedMapContext, FoundationContext } from "./core/types.js";
 import type { WorldModelState } from "./world/types.js";
 
-import { createExtendedMapContext, createFoundationContext } from "./core/types.js";
+import { createExtendedMapContext, createFoundationContext, ctxRandom, validateFoundationContext } from "./core/types.js";
 import {
   isStageEnabled,
   validateStageDrift,
@@ -615,10 +615,10 @@ export class MapOrchestrator {
     if (this.worldModelConfigBound) return;
 
     setConfigProvider((): WorldModelConfig => {
-      const foundationCfg = this.mapGenConfig.foundation ?? {};
+      const foundationCfg = this.mapGenConfig.foundation;
       return {
         plates: (foundationCfg.plates ?? {}) as WorldModelConfig["plates"],
-        dynamics: (foundationCfg.dynamics ?? {}) as WorldModelConfig["dynamics"],
+        dynamics: foundationCfg.dynamics as WorldModelConfig["dynamics"],
         directionality: (foundationCfg.dynamics?.directionality ??
           {}) as WorldModelConfig["directionality"],
       };
@@ -633,21 +633,30 @@ export class MapOrchestrator {
 
     // Ensure WorldModel pulls configuration from injected config.
     this.bindWorldModelConfigProvider();
+    const rng = (max: number, label = "WorldModel") => ctxRandom(ctx, label, max);
     console.log(`${prefix} WorldModel.init() starting`);
-    if (!WorldModel.init()) {
+    if (
+      !WorldModel.init({
+        width: ctx.dimensions.width,
+        height: ctx.dimensions.height,
+        rng,
+        isWater: (x, y) => ctx.adapter.isWater(x, y),
+        getLatitude: (x, y) => ctx.adapter.getLatitude(x, y),
+      })
+    ) {
       throw new Error("WorldModel initialization failed");
     }
     console.log(`${prefix} WorldModel.init() succeeded`);
     ctx.worldModel = WorldModel as unknown as WorldModelState;
 
-    const foundationCfg = ctx.config.foundation ?? {};
+    const foundationCfg = ctx.config.foundation;
     console.log(`${prefix} createFoundationContext() starting`);
     const foundationContext = createFoundationContext(WorldModel as unknown as WorldModelState, {
       dimensions: ctx.dimensions,
       config: {
         seed: (foundationCfg.seed || {}) as Record<string, unknown>,
         plates: (foundationCfg.plates || {}) as Record<string, unknown>,
-        dynamics: (foundationCfg.dynamics || {}) as Record<string, unknown>,
+        dynamics: foundationCfg.dynamics as Record<string, unknown>,
         surface: (foundationCfg.surface || {}) as Record<string, unknown>,
         policy: (foundationCfg.policy || {}) as Record<string, unknown>,
         diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
@@ -655,6 +664,7 @@ export class MapOrchestrator {
     });
     console.log(`${prefix} createFoundationContext() succeeded`);
     ctx.foundation = foundationContext;
+    validateFoundationContext(foundationContext, ctx.dimensions);
 
     console.log(`${prefix} Foundation context initialized`);
 

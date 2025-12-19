@@ -1,5 +1,6 @@
 import type { ExtendedMapContext } from "../../../core/types.js";
 import { ctxRandom, writeHeightfield } from "../../../core/types.js";
+import { assertFoundationContext } from "../../../core/assertions.js";
 import { getStoryTags } from "../../narrative/tags/index.js";
 import { clamp } from "../../../lib/math/index.js";
 import { forEachNeighbor3x3 } from "../../../lib/grid/neighborhood/square-3x3.js";
@@ -16,8 +17,9 @@ import type { CoastlinePlateBiasConfig, CoastlinesConfig } from "./types.js";
 
 const HILL_FRACTAL = 1;
 
-export function addRuggedCoasts(iWidth: number, iHeight: number, ctx?: ExtendedMapContext | null): void {
-  const adapter = ctx?.adapter;
+export function addRuggedCoasts(iWidth: number, iHeight: number, ctx: ExtendedMapContext): void {
+  assertFoundationContext(ctx, "coastlines");
+  const adapter = ctx.adapter;
 
   const area = Math.max(1, iWidth * iHeight);
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
@@ -26,9 +28,7 @@ export function addRuggedCoasts(iWidth: number, iHeight: number, ctx?: ExtendedM
     adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 4, 0);
   }
 
-  const foundation = ctx?.foundation;
-  const boundaryCloseness = foundation?.plates.boundaryCloseness ?? null;
-  const boundaryType = foundation?.plates.boundaryType ?? null;
+  const { boundaryCloseness, boundaryType } = ctx.foundation.plates;
 
   const cfg = (ctx?.config?.coastlines as CoastlinesConfig) || {};
   const cfgBay = cfg.bay || {};
@@ -62,11 +62,7 @@ export function addRuggedCoasts(iWidth: number, iHeight: number, ctx?: ExtendedM
   const StoryTags = getStoryTags(ctx);
 
   const applyTerrain = (x: number, y: number, terrain: number, isLand: boolean): void => {
-    if (ctx) {
-      writeHeightfield(ctx, x, y, { terrain, isLand });
-    } else if (adapter) {
-      adapter.setTerrainType(x, y, terrain);
-    }
+    writeHeightfield(ctx, x, y, { terrain, isLand });
   };
 
   const isWater = (x: number, y: number): boolean => {
@@ -74,11 +70,7 @@ export function addRuggedCoasts(iWidth: number, iHeight: number, ctx?: ExtendedM
     return true;
   };
 
-  const getRandom = (label: string, max: number): number => {
-    if (ctx) return ctxRandom(ctx, label, max);
-    if (adapter) return adapter.getRandomNumber(max, label);
-    return Math.floor(Math.random() * max);
-  };
+  const getRandom = (label: string, max: number): number => ctxRandom(ctx, label, max);
 
   const getFractalHeight = (x: number, y: number): number => {
     if (adapter?.getFractalHeight) return adapter.getFractalHeight(HILL_FRACTAL, x, y);
@@ -97,11 +89,11 @@ export function addRuggedCoasts(iWidth: number, iHeight: number, ctx?: ExtendedM
         const h = getFractalHeight(x, y);
 
         const i = y * iWidth + x;
-        const closenessByte = boundaryCloseness ? boundaryCloseness[i] | 0 : 0;
+        const closenessByte = boundaryCloseness[i] | 0;
         const closenessNorm = closenessByte / 255;
-        const bType = boundaryType ? boundaryType[i] | 0 : BOUNDARY_TYPE.none;
+        const bType = boundaryType[i] | 0;
         const nearBoundary = closenessNorm >= plateBiasCfg.threshold;
-        const plateBiasValue = boundaryCloseness ? computePlateBias(closenessNorm, bType, plateBiasCfg) : 0;
+        const plateBiasValue = computePlateBias(closenessNorm, bType, plateBiasCfg);
 
         const isActive = StoryTags.activeMargin?.has(tileKey) || nearBoundary;
         const noiseGateBonus = plateBiasValue > 0 ? Math.round(plateBiasValue * plateBiasCfg.bayNoiseBonus) : 0;
@@ -132,11 +124,11 @@ export function addRuggedCoasts(iWidth: number, iHeight: number, ctx?: ExtendedM
       if (isWater(x, y)) {
         if (isAdjacentToLand(x, y, iWidth, iHeight, isWater, 1)) {
           const i = y * iWidth + x;
-          const closenessByte = boundaryCloseness ? boundaryCloseness[i] | 0 : 0;
+          const closenessByte = boundaryCloseness[i] | 0;
           const closenessNorm = closenessByte / 255;
-          const bType = boundaryType ? boundaryType[i] | 0 : BOUNDARY_TYPE.none;
+          const bType = boundaryType[i] | 0;
           const nearBoundary = closenessNorm >= plateBiasCfg.threshold;
-          const plateBiasValue = boundaryCloseness ? computePlateBias(closenessNorm, bType, plateBiasCfg) : 0;
+          const plateBiasValue = computePlateBias(closenessNorm, bType, plateBiasCfg);
 
           let nearActive = nearBoundary;
           let nearPassive = false;

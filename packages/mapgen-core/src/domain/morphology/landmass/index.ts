@@ -8,6 +8,7 @@
  */
 
 import type { ExtendedMapContext } from "../../../core/types.js";
+import { assertFoundationContext } from "../../../core/assertions.js";
 import type {
   CreateLandmassesOptions,
   GeometryConfig,
@@ -62,37 +63,40 @@ export {
  *
  * @param width - Map width
  * @param height - Map height
- * @param ctx - Optional ExtendedMapContext for adapter-based operations
+ * @param ctx - ExtendedMapContext for adapter-based operations
  * @param options - Optional configuration overrides
  * @returns Landmass generation result or null if WorldModel unavailable
  */
 export function createPlateDrivenLandmasses(
   width: number,
   height: number,
-  ctx?: ExtendedMapContext | null,
+  ctx: ExtendedMapContext,
   options: CreateLandmassesOptions = {}
 ): LandmassGenerationResult | null {
-  // Require foundation context for plate data
-  const foundation = ctx?.foundation;
-  if (!foundation) {
-    return null;
+  assertFoundationContext(ctx, "landmassPlates");
+  const { width: ctxWidth, height: ctxHeight } = ctx.dimensions;
+  if (ctxWidth !== width || ctxHeight !== height) {
+    throw new Error(
+      `[Landmass] Dimensions mismatch (expected ${width}x${height}, received ${ctxWidth}x${ctxHeight}).`
+    );
   }
 
+  const foundation = ctx.foundation;
   const { plates } = foundation;
-  const closeness = plates.boundaryCloseness || null;
+  const closeness = plates.boundaryCloseness;
   const plateIds = plates.id;
-
-  if (!plateIds) {
-    return null;
-  }
 
   const size = width * height;
   if (plateIds.length !== size) {
-    return null;
+    throw new Error(
+      `[Landmass] plateId tensor length mismatch (expected ${size}, received ${plateIds.length}).`
+    );
   }
 
-  if (closeness && closeness.length !== size) {
-    return null;
+  if (closeness.length !== size) {
+    throw new Error(
+      `[Landmass] boundaryCloseness tensor length mismatch (expected ${size}, received ${closeness.length}).`
+    );
   }
 
   // Cast to our local LandmassConfig which includes extended properties
@@ -105,7 +109,7 @@ export function createPlateDrivenLandmasses(
 
   const { waterPct, targetLandTiles } = computeTargetLandTiles(size, landmassCfg);
 
-  const foundationCfg = (ctx?.config?.foundation ?? {}) as {
+  const foundationCfg = ctx.config.foundation as {
     crustMode?: CrustMode;
     surface?: { crustMode?: CrustMode; landmass?: { crustMode?: CrustMode } };
   };

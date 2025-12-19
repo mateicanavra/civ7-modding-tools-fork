@@ -2,7 +2,7 @@
  * Engine surface introspection helpers.
  *
  * These utilities dump the available methods on Civ7 global objects like
- * GameplayMap and TerrainBuilder. Useful for validating the actual runtime
+ * GameplayMap and TerrainBuilder APIs. Useful for validating the actual runtime
  * API surface during engine integration and migrations.
  *
  * All helpers are no-op when DEV.ENABLED is false.

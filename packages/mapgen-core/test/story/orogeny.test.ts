@@ -7,12 +7,11 @@ import {
   STORY_OVERLAY_KEYS,
 } from "../../src/domain/narrative/overlays/index.js";
 import {
-  getOrogenyCache,
   storyTagOrogenyBelts,
 } from "../../src/domain/narrative/orogeny/index.js";
 
 describe("story/orogeny", () => {
-  it("tags legacy orogeny belts from mountain density and publishes an overlay", () => {
+  it("fails fast when foundation context is missing", () => {
     const width = 30;
     const height = 20;
     const adapter = createMockAdapter({ width, height });
@@ -30,15 +29,9 @@ describe("story/orogeny", () => {
       parseConfig({ story: { orogeny: { beltMinLength: 12 } } })
     );
 
-    storyTagOrogenyBelts(ctx);
-
-    const cache = getOrogenyCache(ctx);
-    expect(cache.belts.size).toBeGreaterThan(0);
-    expect(cache.windward.size).toBeGreaterThan(0);
-    expect(cache.lee.size).toBeGreaterThan(0);
+    expect(() => storyTagOrogenyBelts(ctx)).toThrow("FoundationContext");
 
     const overlay = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.OROGENY);
-    expect(overlay).not.toBeNull();
-    expect(overlay?.key).toBe(STORY_OVERLAY_KEYS.OROGENY);
+    expect(overlay).toBeNull();
   });
 });

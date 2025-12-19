@@ -1,12 +1,14 @@
 import type { ExtendedMapContext } from "../../../core/types.js";
+import { assertFoundationContext } from "../../../core/assertions.js";
 import { writeHeightfield } from "../../../core/types.js";
 import { devLogIf } from "../../../dev/index.js";
 import type { MountainsConfig } from "./types.js";
 import { createIsWaterTile, selectTilesAboveThreshold } from "./selection.js";
-import { applyRiftDepressions, computeFractalOnlyScores, computePlateBasedScores, HILL_FRACTAL, MOUNTAIN_FRACTAL } from "./scoring.js";
+import { applyRiftDepressions, computePlateBasedScores, HILL_FRACTAL, MOUNTAIN_FRACTAL } from "./scoring.js";
 import { MOUNTAIN_TERRAIN, HILL_TERRAIN, COAST_TERRAIN, OCEAN_TERRAIN } from "../../../core/terrain-constants.js";
 
 export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Partial<MountainsConfig> = {}): void {
+  assertFoundationContext(ctx, "mountains");
   const {
     tectonicIntensity = 1.0,
     mountainThreshold = 0.58,
@@ -72,8 +74,7 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
     writeHeightfield(ctx, x, y, { terrain, isLand });
   };
 
-  const foundation = ctx?.foundation;
-  const foundationEnabled = !!foundation;
+  const foundation = ctx.foundation;
 
   const grainAmount = 5;
   const iFlags = 0;
@@ -94,35 +95,31 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
   const scores = new Float32Array(size);
   const hillScores = new Float32Array(size);
 
-  if (foundationEnabled && foundation) {
-    computePlateBasedScores(
-      ctx,
-      scores,
-      hillScores,
-      {
-        upliftWeight: scaledUpliftWeight,
-        fractalWeight,
-        boundaryWeight: scaledBoundaryWeight,
-        boundaryExponent,
-        interiorPenaltyWeight,
-        convergenceBonus: scaledConvergenceBonus,
-        transformPenalty,
-        riftPenalty,
-        hillBoundaryWeight: scaledHillBoundaryWeight,
-        hillRiftBonus,
-        hillConvergentFoothill: scaledHillConvergentFoothill,
-        hillInteriorFalloff,
-        hillUpliftWeight,
-      },
-      isWater,
-      adapter,
-      foundation
-    );
-  } else {
-    computeFractalOnlyScores(ctx, scores, hillScores, adapter);
-  }
+  computePlateBasedScores(
+    ctx,
+    scores,
+    hillScores,
+    {
+      upliftWeight: scaledUpliftWeight,
+      fractalWeight,
+      boundaryWeight: scaledBoundaryWeight,
+      boundaryExponent,
+      interiorPenaltyWeight,
+      convergenceBonus: scaledConvergenceBonus,
+      transformPenalty,
+      riftPenalty,
+      hillBoundaryWeight: scaledHillBoundaryWeight,
+      hillRiftBonus,
+      hillConvergentFoothill: scaledHillConvergentFoothill,
+      hillInteriorFalloff,
+      hillUpliftWeight,
+    },
+    isWater,
+    adapter,
+    foundation
+  );
 
-  if (foundationEnabled && foundation && riftDepth > 0) {
+  if (riftDepth > 0) {
     applyRiftDepressions(ctx, scores, hillScores, riftDepth, foundation);
   }
 
@@ -155,14 +152,12 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
 }
 
 export function addMountainsCompat(width: number, height: number, ctx?: ExtendedMapContext | null): void {
-  if (!ctx) return;
-  const foundationEnabled = !!ctx.foundation;
+  assertFoundationContext(ctx ?? null, "mountains");
   layerAddMountainsPhysics(ctx, {
     tectonicIntensity: 1.0,
     mountainThreshold: 0.45,
     hillThreshold: 0.25,
-    upliftWeight: foundationEnabled ? 0.75 : 0,
-    fractalWeight: foundationEnabled ? 0.25 : 1.0,
+    upliftWeight: 0.75,
+    fractalWeight: 0.25,
   });
 }
-

@@ -24,8 +24,12 @@ export interface PaleoSummary {
   kind: "applied" | "missing-config";
 }
 
-export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): PaleoSummary {
-  const climateCfg = (ctx?.config?.climate || {}) as Record<string, unknown>;
+export function storyTagPaleoHydrology(ctx: ExtendedMapContext): PaleoSummary {
+  if (!ctx || !ctx.adapter) {
+    throw new Error("[Story] Paleo hydrology requires MapContext adapter.");
+  }
+
+  const climateCfg = (ctx.config?.climate || {}) as Record<string, unknown>;
   const story = (climateCfg.story || {}) as Record<string, unknown>;
   const cfg = story.paleo as Record<string, unknown> | undefined;
 
@@ -37,27 +41,26 @@ export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): P
   const area = Math.max(1, width * height);
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
 
-  if (ctx && !ctx.buffers?.climate?.rainfall) {
+  if (!ctx.buffers?.climate?.rainfall) {
     throw new Error(
       "[Story] Paleo hydrology requires canonical climate buffers. Ensure climate stages run before storySwatches (and avoid engine rainfall reads)."
     );
   }
 
-  const adapter = ctx?.adapter ?? null;
-  const rainfallBuf = ctx?.buffers?.climate?.rainfall || null;
+  const adapter = ctx.adapter;
+  const rainfallBuf = ctx.buffers.climate.rainfall;
+
+  if (!adapter.isAdjacentToRivers) {
+    throw new Error("[Story] Paleo hydrology requires adapter.isAdjacentToRivers.");
+  }
 
   const readRainfall = (x: number, y: number): number => {
-    if (ctx && rainfallBuf) return rainfallBuf[idx(x, y, width)] | 0;
-    return GameplayMap?.getRainfall?.(x, y) ?? 0;
+    return rainfallBuf[idx(x, y, width)] | 0;
   };
 
   const writeRainfall = (x: number, y: number, rainfall: number): void => {
     const clamped = clamp(rainfall, 0, 200);
-    if (ctx) {
-      writeClimateField(ctx, x, y, { rainfall: clamped });
-    } else if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.setRainfall) {
-      TerrainBuilder.setRainfall(x, y, clamped);
-    }
+    writeClimateField(ctx, x, y, { rainfall: clamped });
   };
 
   const maxDeltas = Math.max(0, Number((cfg.maxDeltas as number) ?? 0) | 0);
@@ -75,10 +78,8 @@ export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): P
     for (let y = 1; y < height - 1 && deltas < maxDeltas; y++) {
       for (let x = 1; x < width - 1 && deltas < maxDeltas; x++) {
         if (!isCoastalLand(ctx, x, y, width, height)) continue;
-        if (!(adapter?.isAdjacentToRivers ? adapter.isAdjacentToRivers(x, y, 1) : GameplayMap?.isAdjacentToRivers?.(x, y, 1))) {
-          continue;
-        }
-        const elev = adapter?.getElevation ? adapter.getElevation(x, y) : (GameplayMap?.getElevation?.(x, y) ?? 0);
+        if (!adapter.isAdjacentToRivers(x, y, 1)) continue;
+        const elev = adapter.getElevation(x, y);
         if (elev > 300) continue;
 
         for (let dy = -deltaFanRadius; dy <= deltaFanRadius; dy++) {
@@ -107,11 +108,9 @@ export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): P
       if (!inBounds(x, y, width, height)) continue;
       if (isWaterAt(ctx, x, y)) continue;
 
-      const elev = adapter?.getElevation ? adapter.getElevation(x, y) : (GameplayMap?.getElevation?.(x, y) ?? 0);
+      const elev = adapter.getElevation(x, y);
       if (elev > oxbowElevationMax) continue;
-      if (!(adapter?.isAdjacentToRivers ? adapter.isAdjacentToRivers(x, y, 1) : GameplayMap?.isAdjacentToRivers?.(x, y, 1))) {
-        continue;
-      }
+      if (!adapter.isAdjacentToRivers(x, y, 1)) continue;
 
       const rf = readRainfall(x, y);
       writeRainfall(x, y, rf + 8);
@@ -141,11 +140,9 @@ export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): P
       const sy = rand(ctx, "FossilY", height);
       if (!inBounds(sx, sy, width, height)) continue;
       if (isWaterAt(ctx, sx, sy)) continue;
-      const startElev = adapter?.getElevation ? adapter.getElevation(sx, sy) : (GameplayMap?.getElevation?.(sx, sy) ?? 0);
+      const startElev = adapter.getElevation(sx, sy);
       if (startElev > 320) continue;
-      if (adapter?.isAdjacentToRivers?.(sx, sy, minDistFromRivers) ?? GameplayMap?.isAdjacentToRivers?.(sx, sy, minDistFromRivers)) {
-        continue;
-      }
+      if (adapter.isAdjacentToRivers(sx, sy, minDistFromRivers)) continue;
 
       let x = sx;
       let y = sy;
@@ -168,8 +165,8 @@ export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): P
                 const nx = x + rx;
                 const ny = y + ry;
                 if (!inBounds(nx, ny, width, height) || isWaterAt(ctx, nx, ny)) continue;
-                const e0 = adapter?.getElevation ? adapter.getElevation(x, y) : (GameplayMap?.getElevation?.(x, y) ?? 0);
-                const e1 = adapter?.getElevation ? adapter.getElevation(nx, ny) : (GameplayMap?.getElevation?.(nx, ny) ?? 0);
+                const e0 = adapter.getElevation(x, y);
+                const e1 = adapter.getElevation(nx, ny);
                 if (e1 > e0 + 15) {
                   const rfn = clamp(readRainfall(nx, ny) - bluffWetReduction, 0, 200);
                   writeRainfall(nx, ny, rfn);
@@ -181,7 +178,7 @@ export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): P
 
         let bestNX = x;
         let bestNY = y;
-        let bestElev = adapter?.getElevation ? adapter.getElevation(x, y) : (GameplayMap?.getElevation?.(x, y) ?? 0);
+        let bestElev = adapter.getElevation(x, y);
         for (let dy = -1; dy <= 1; dy++) {
           for (let dx = -1; dx <= 1; dx++) {
             if (dx === 0 && dy === 0) continue;
@@ -189,7 +186,7 @@ export function storyTagPaleoHydrology(ctx: ExtendedMapContext | null = null): P
             const nx = x + dx;
             const ny = y + dy;
             if (!inBounds(nx, ny, width, height)) continue;
-            const elev = adapter?.getElevation ? adapter.getElevation(nx, ny) : (GameplayMap?.getElevation?.(nx, ny) ?? 0);
+            const elev = adapter.getElevation(nx, ny);
             if (elev < bestElev) {
               bestElev = elev;
               bestNX = nx;

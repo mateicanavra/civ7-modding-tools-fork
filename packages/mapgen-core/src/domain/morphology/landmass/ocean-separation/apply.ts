@@ -1,4 +1,5 @@
 import { writeHeightfield } from "../../../../core/types.js";
+import { assertFoundationContext } from "../../../../core/assertions.js";
 import { clampInt } from "../../../../lib/math/index.js";
 import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../../../../core/terrain-constants.js";
 import type { LandmassWindow } from "../types.js";
@@ -51,13 +52,14 @@ export function applyPlateAwareOceanSeparation(
   const policy = params?.policy || foundationPolicy || DEFAULT_OCEAN_SEPARATION;
   const normalizedWindows: LandmassWindow[] = windows.map((win, idx) => normalizeWindow(win, idx, width, height));
 
-  const foundation = ctx?.foundation;
-  if (!policy || !policy.enabled || !foundation) {
+  if (!policy || !policy.enabled) {
     return {
       windows: normalizedWindows,
       landMask: params?.landMask ?? undefined,
     };
   }
+
+  assertFoundationContext(ctx ?? null, "oceanSeparation");
 
   const landMask =
     params?.landMask instanceof Uint8Array && params.landMask.length === width * height

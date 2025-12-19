@@ -1,4 +1,5 @@
-import type { ExtendedMapContext, FoundationContext } from "../../../../core/types.js";
+import type { ExtendedMapContext } from "../../../../core/types.js";
+import { assertFoundationContext } from "../../../../core/assertions.js";
 import { inBounds as boundsCheck } from "../../../../lib/grid/bounds.js";
 import type { StoryTagsInstance } from "../../../narrative/tags/instance.js";
 import { getStoryTags } from "../../../narrative/tags/index.js";
@@ -25,8 +26,9 @@ export function refineClimateEarthlike(
       "ClimateEngine: refineClimateEarthlike requires MapContext (legacy direct-engine fallback removed)."
     );
   }
+  assertFoundationContext(ctx, "climateRefine");
   const runtime = createClimateRuntime(width, height, ctx);
-  const dynamics = ctx?.foundation?.dynamics as FoundationContext["dynamics"] | undefined;
+  const { dynamics } = ctx.foundation;
 
   const climateCfg = ctx.config.climate || {};
   const refineCfg = climateCfg.refine || {};
@@ -53,7 +55,7 @@ export function refineClimateEarthlike(
     ctx,
     runtime,
     refineCfg as Record<string, unknown>,
-    (dynamics || null) as FoundationContext["dynamics"] | null
+    dynamics
   );
 
   // Pass C: river corridor greening and basin humidity

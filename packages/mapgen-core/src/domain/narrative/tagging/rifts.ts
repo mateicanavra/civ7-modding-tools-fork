@@ -1,18 +1,17 @@
 import type { ExtendedMapContext } from "../../../core/types.js";
 import { clamp, inBounds, storyKey } from "../../../core/index.js";
+import { assertFoundationContext } from "../../../core/assertions.js";
 import { idx } from "../../../lib/grid/index.js";
 import { getStoryTags } from "../tags/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "../overlays/index.js";
 import { getDims } from "../utils/dims.js";
 import { latitudeAbsDeg } from "../utils/latitude.js";
-import { rand } from "../utils/rng.js";
 import { isWaterAt } from "../utils/water.js";
 
 import type { RiftValleysSummary } from "./types.js";
 
-export function storyTagRiftValleys(
-  ctx: ExtendedMapContext | null = null
-): RiftValleysSummary {
+export function storyTagRiftValleys(ctx: ExtendedMapContext): RiftValleysSummary {
+  assertFoundationContext(ctx, "storyRifts");
   const { width, height } = getDims(ctx);
   const storyCfg = (ctx?.config?.story || {}) as Record<string, unknown>;
   const riftCfg = (storyCfg.rift || {}) as Record<string, number>;
@@ -38,269 +37,119 @@ export function storyTagRiftValleys(
 
   const StoryTags = getStoryTags(ctx);
 
-  const foundation = ctx?.foundation;
-  const plates = foundation?.plates;
-  const useFoundation =
-    !!plates &&
-    plates.riftPotential &&
-    plates.boundaryType &&
-    plates.boundaryCloseness;
+  const plates = ctx.foundation.plates;
+  const RP = plates.riftPotential;
+  const BT = plates.boundaryType; // 2 = divergent
+  const BC = plates.boundaryCloseness;
 
-  if (useFoundation && plates) {
-    const RP = plates.riftPotential;
-    const BT = plates.boundaryType; // 2 = divergent
-    const BC = plates.boundaryCloseness;
+  const latDegAt = (y: number): number => latitudeAbsDeg(ctx, 0, y, height);
 
-    const latDegAt = (y: number): number => latitudeAbsDeg(ctx, 0, y, height);
+  // Find sparse local maxima on divergent boundaries over land.
+  const seeds: Array<{ x: number; y: number; v: number }> = [];
+  let thr = 192;
+  let attempts = 0;
 
-    // Find sparse local maxima on divergent boundaries over land.
-    const seeds: Array<{ x: number; y: number; v: number }> = [];
-    let thr = 192;
-    let attempts = 0;
-
-    while (attempts++ < 6) {
-      seeds.length = 0;
-      for (let y = 1; y < height - 1; y++) {
-        if (latDegAt(y) > 70) continue;
-        for (let x = 1; x < width - 1; x++) {
-          if (isWaterAt(ctx, x, y)) continue;
-          const i = idx(x, y, width);
-          if (BT[i] !== 2 || BC[i] <= 32 || RP[i] < thr) continue;
-
-          const v = RP[i];
-          let isPeak = true;
-          for (let dy = -1; dy <= 1 && isPeak; dy++) {
-            for (let dx = -1; dx <= 1; dx++) {
-              if (dx === 0 && dy === 0) continue;
-              if (RP[idx(x + dx, y + dy, width)] > v) {
-                isPeak = false;
-                break;
-              }
-            }
-          }
-          if (isPeak) seeds.push({ x, y, v });
-        }
-      }
-      if (seeds.length >= maxRiftsPerMap * 2 || thr <= 112) break;
-      thr -= 16;
-    }
-
-    seeds.sort((a, b) => b.v - a.v);
-
-    const chosen: Array<{ x: number; y: number; v: number }> = [];
-    const minSeedSep = Math.round(sqrtRift > 1.5 ? 18 : 14);
-
-    for (const s of seeds) {
-      if (chosen.length >= maxRiftsPerMap) break;
-      const farEnough = chosen.every(
-        (c) => Math.abs(c.x - s.x) + Math.abs(c.y - s.y) >= minSeedSep
-      );
-      if (farEnough) chosen.push(s);
-    }
-
-    let riftsMade = 0;
-    let lineCount = 0;
-    let shoulderCount = 0;
-
-    function tagShoulders(x: number, y: number, sdx: number, sdy: number): void {
-      for (let off = 1; off <= shoulderWidth; off++) {
-        const px = x + -sdy * off;
-        const py = y + sdx * off;
-        const qx = x + sdy * off;
-        const qy = y + -sdx * off;
-
-        if (inBounds(px, py, width, height) && !isWaterAt(ctx, px, py)) {
-          const pk = storyKey(px, py);
-          if (!StoryTags.riftShoulder.has(pk)) {
-            StoryTags.riftShoulder.add(pk);
-            shoulderCount++;
-          }
-        }
-        if (inBounds(qx, qy, width, height) && !isWaterAt(ctx, qx, qy)) {
-          const qk = storyKey(qx, qy);
-          if (!StoryTags.riftShoulder.has(qk)) {
-            StoryTags.riftShoulder.add(qk);
-            shoulderCount++;
-          }
-        }
-      }
-    }
-
-    for (const seed of chosen) {
-      let x = seed.x;
-      let y = seed.y;
+  while (attempts++ < 6) {
+    seeds.length = 0;
+    for (let y = 1; y < height - 1; y++) {
       if (latDegAt(y) > 70) continue;
+      for (let x = 1; x < width - 1; x++) {
+        if (isWaterAt(ctx, x, y)) continue;
+        const i = idx(x, y, width);
+        if (BT[i] !== 2 || BC[i] <= 32 || RP[i] < thr) continue;
 
-      let sdx = 1;
-      let sdy = 0;
-      {
-        let best = -1;
-        let bdx = 1;
-        let bdy = 0;
-        for (let dy = -1; dy <= 1; dy++) {
+        const v = RP[i];
+        let isPeak = true;
+        for (let dy = -1; dy <= 1 && isPeak; dy++) {
           for (let dx = -1; dx <= 1; dx++) {
             if (dx === 0 && dy === 0) continue;
-            const nx = x + dx;
-            const ny = y + dy;
-            if (!inBounds(nx, ny, width, height) || isWaterAt(ctx, nx, ny)) continue;
-            const p = RP[idx(nx, ny, width)];
-            if (p > best) {
-              best = p;
-              bdx = dx;
-              bdy = dy;
+            if (RP[idx(x + dx, y + dy, width)] > v) {
+              isPeak = false;
+              break;
             }
           }
         }
-        sdx = bdx;
-        sdy = bdy;
+        if (isPeak) seeds.push({ x, y, v });
       }
-
-      let placedAny = false;
-
-      for (let s = 0; s < lineSteps; s++) {
-        if (!inBounds(x, y, width, height) || isWaterAt(ctx, x, y) || latDegAt(y) > 70) break;
-
-        const k = storyKey(x, y);
-        if (!StoryTags.riftLine.has(k)) {
-          StoryTags.riftLine.add(k);
-          lineCount++;
-        }
-        placedAny = true;
-        tagShoulders(x, y, sdx, sdy);
-
-        function stepDirBias(tx: number, ty: number): number {
-          try {
-            const DIR = (ctx?.config?.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
-            const coh = clamp(Number(DIR.cohesion ?? 0), 0, 1);
-            const interplay = (DIR.interplay || {}) as Record<string, number>;
-            const follow = clamp(Number(interplay.riftsFollowPlates ?? 0), 0, 1) * coh;
-            if (follow <= 0) return 0;
-            const primaryAxes = (DIR.primaryAxes || {}) as Record<string, number>;
-            const deg = (primaryAxes.plateAxisDeg ?? 0) | 0;
-            const rad = (deg * Math.PI) / 180;
-            const ax = Math.cos(rad);
-            const ay = Math.sin(rad);
-            const vlen = Math.max(1, Math.hypot(tx, ty));
-            const vx = tx / vlen;
-            const vy = ty / vlen;
-            const dot = ax * vx + ay * vy;
-            return Math.round(10 * follow * dot);
-          } catch {
-            return 0;
-          }
-        }
-
-        let bestScore = -1;
-        let ndx = sdx;
-        let ndy = sdy;
-        let nx = x;
-        let ny = y;
-
-        for (let ty = -1; ty <= 1; ty++) {
-          for (let tx = -1; tx <= 1; tx++) {
-            if (tx === 0 && ty === 0) continue;
-            const cx = x + tx * stepLen;
-            const cy = y + ty * stepLen;
-            if (!inBounds(cx, cy, width, height) || isWaterAt(ctx, cx, cy)) continue;
-            const p = RP[idx(cx, cy, width)];
-            const align =
-              tx === sdx && ty === sdy ? 16 : tx === -sdx && ty === -sdy ? -12 : 0;
-            const score = p + align + stepDirBias(tx, ty);
-            if (score > bestScore) {
-              bestScore = score;
-              ndx = tx;
-              ndy = ty;
-              nx = cx;
-              ny = cy;
-            }
-          }
-        }
-
-        const ii = inBounds(nx, ny, width, height) ? idx(nx, ny, width) : -1;
-        if (ii < 0 || BT[ii] !== 2 || BC[ii] <= 16 || RP[ii] < 64) break;
-
-        x = nx;
-        y = ny;
-        sdx = ndx;
-        sdy = ndy;
-      }
-
-      if (placedAny) riftsMade++;
-      if (riftsMade >= maxRiftsPerMap) break;
     }
-
-    const summary: RiftValleysSummary = {
-      rifts: riftsMade,
-      lineTiles: lineCount,
-      shoulderTiles: shoulderCount,
-      kind: "foundation",
-    };
-
-    publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.RIFTS, {
-      kind: STORY_OVERLAY_KEYS.RIFTS,
-      version: 1,
-      width,
-      height,
-      active: Array.from(StoryTags.riftLine),
-      passive: Array.from(StoryTags.riftShoulder),
-      summary: {
-        rifts: summary.rifts,
-        lineTiles: summary.lineTiles,
-        shoulderTiles: summary.shoulderTiles,
-        kind: summary.kind,
-      },
-    });
-
-    return summary;
+    if (seeds.length >= maxRiftsPerMap * 2 || thr <= 112) break;
+    thr -= 16;
   }
 
-  // Legacy random marching fallback.
-  const dirsNS: Array<[number, number]> = [
-    [0, 1],
-    [0, -1],
-    [1, 1],
-    [-1, -1],
-  ];
-  const dirsEW: Array<[number, number]> = [
-    [1, 0],
-    [-1, 0],
-    [1, 1],
-    [-1, -1],
-  ];
+  seeds.sort((a, b) => b.v - a.v);
+
+  const chosen: Array<{ x: number; y: number; v: number }> = [];
+  const minSeedSep = Math.round(sqrtRift > 1.5 ? 18 : 14);
+
+  for (const s of seeds) {
+    if (chosen.length >= maxRiftsPerMap) break;
+    const farEnough = chosen.every(
+      (c) => Math.abs(c.x - s.x) + Math.abs(c.y - s.y) >= minSeedSep
+    );
+    if (farEnough) chosen.push(s);
+  }
 
   let riftsMade = 0;
   let lineCount = 0;
   let shoulderCount = 0;
-  let tries = 0;
 
-  while (riftsMade < maxRiftsPerMap && tries < 300) {
-    tries++;
-    const sx = rand(ctx, "RiftSeedX", width);
-    const sy = rand(ctx, "RiftSeedY", height);
+  function tagShoulders(x: number, y: number, sdx: number, sdy: number): void {
+    for (let off = 1; off <= shoulderWidth; off++) {
+      const px = x + -sdy * off;
+      const py = y + sdx * off;
+      const qx = x + sdy * off;
+      const qy = y + -sdx * off;
 
-    if (!inBounds(sx, sy, width, height)) continue;
-    if (isWaterAt(ctx, sx, sy)) continue;
-    if (latitudeAbsDeg(ctx, sx, sy, height) > 70) continue;
+      if (inBounds(px, py, width, height) && !isWaterAt(ctx, px, py)) {
+        const pk = storyKey(px, py);
+        if (!StoryTags.riftShoulder.has(pk)) {
+          StoryTags.riftShoulder.add(pk);
+          shoulderCount++;
+        }
+      }
+      if (inBounds(qx, qy, width, height) && !isWaterAt(ctx, qx, qy)) {
+        const qk = storyKey(qx, qy);
+        if (!StoryTags.riftShoulder.has(qk)) {
+          StoryTags.riftShoulder.add(qk);
+          shoulderCount++;
+        }
+      }
+    }
+  }
 
-    const elev = ctx?.adapter?.getElevation ? ctx.adapter.getElevation(sx, sy) : 0;
-    if (elev > 500) continue;
+  for (const seed of chosen) {
+    let x = seed.x;
+    let y = seed.y;
+    if (latDegAt(y) > 70) continue;
 
-    const useNS = rand(ctx, "RiftAxis", 2) === 0;
-    let dir = useNS
-      ? dirsNS[rand(ctx, "RiftDirNS", dirsNS.length)]
-      : dirsEW[rand(ctx, "RiftDirEW", dirsEW.length)];
+    let sdx = 1;
+    let sdy = 0;
+    {
+      let best = -1;
+      let bdx = 1;
+      let bdy = 0;
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          if (dx === 0 && dy === 0) continue;
+          const nx = x + dx;
+          const ny = y + dy;
+          if (!inBounds(nx, ny, width, height) || isWaterAt(ctx, nx, ny)) continue;
+          const p = RP[idx(nx, ny, width)];
+          if (p > best) {
+            best = p;
+            bdx = dx;
+            bdy = dy;
+          }
+        }
+      }
+      sdx = bdx;
+      sdy = bdy;
+    }
 
-    let [dx, dy] = dir;
-    let x = sx;
-    let y = sy;
     let placedAny = false;
 
     for (let s = 0; s < lineSteps; s++) {
-      x += dx * stepLen;
-      y += dy * stepLen;
-
-      if (!inBounds(x, y, width, height)) break;
-      if (isWaterAt(ctx, x, y)) continue;
+      if (!inBounds(x, y, width, height) || isWaterAt(ctx, x, y) || latDegAt(y) > 70) break;
 
       const k = storyKey(x, y);
       if (!StoryTags.riftLine.has(k)) {
@@ -308,45 +157,74 @@ export function storyTagRiftValleys(
         lineCount++;
       }
       placedAny = true;
+      tagShoulders(x, y, sdx, sdy);
 
-      for (let off = 1; off <= shoulderWidth; off++) {
-        const px = x + -dy * off;
-        const py = y + dx * off;
-        const qx = x + dy * off;
-        const qy = y + -dx * off;
-
-        if (inBounds(px, py, width, height) && !isWaterAt(ctx, px, py)) {
-          const pk = storyKey(px, py);
-          if (!StoryTags.riftShoulder.has(pk)) {
-            StoryTags.riftShoulder.add(pk);
-            shoulderCount++;
-          }
+      function stepDirBias(tx: number, ty: number): number {
+        try {
+          const DIR = (ctx?.config?.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
+          const coh = clamp(Number(DIR.cohesion ?? 0), 0, 1);
+          const interplay = (DIR.interplay || {}) as Record<string, number>;
+          const follow = clamp(Number(interplay.riftsFollowPlates ?? 0), 0, 1) * coh;
+          if (follow <= 0) return 0;
+          const primaryAxes = (DIR.primaryAxes || {}) as Record<string, number>;
+          const deg = (primaryAxes.plateAxisDeg ?? 0) | 0;
+          const rad = (deg * Math.PI) / 180;
+          const ax = Math.cos(rad);
+          const ay = Math.sin(rad);
+          const vlen = Math.max(1, Math.hypot(tx, ty));
+          const vx = tx / vlen;
+          const vy = ty / vlen;
+          const dot = ax * vx + ay * vy;
+          return Math.round(10 * follow * dot);
+        } catch {
+          return 0;
         }
-        if (inBounds(qx, qy, width, height) && !isWaterAt(ctx, qx, qy)) {
-          const qk = storyKey(qx, qy);
-          if (!StoryTags.riftShoulder.has(qk)) {
-            StoryTags.riftShoulder.add(qk);
-            shoulderCount++;
+      }
+
+      let bestScore = -1;
+      let ndx = sdx;
+      let ndy = sdy;
+      let nx = x;
+      let ny = y;
+
+      for (let ty = -1; ty <= 1; ty++) {
+        for (let tx = -1; tx <= 1; tx++) {
+          if (tx === 0 && ty === 0) continue;
+          const cx = x + tx * stepLen;
+          const cy = y + ty * stepLen;
+          if (!inBounds(cx, cy, width, height) || isWaterAt(ctx, cx, cy)) continue;
+          const p = RP[idx(cx, cy, width)];
+          const align =
+            tx === sdx && ty === sdy ? 16 : tx === -sdx && ty === -sdy ? -12 : 0;
+          const score = p + align + stepDirBias(tx, ty);
+          if (score > bestScore) {
+            bestScore = score;
+            ndx = tx;
+            ndy = ty;
+            nx = cx;
+            ny = cy;
           }
         }
       }
 
-      if (rand(ctx, "RiftBend", 6) === 0) {
-        dir = useNS
-          ? dirsNS[rand(ctx, "RiftDirNS2", dirsNS.length)]
-          : dirsEW[rand(ctx, "RiftDirEW2", dirsEW.length)];
-        [dx, dy] = dir;
-      }
+      const ii = inBounds(nx, ny, width, height) ? idx(nx, ny, width) : -1;
+      if (ii < 0 || BT[ii] !== 2 || BC[ii] <= 16 || RP[ii] < 64) break;
+
+      x = nx;
+      y = ny;
+      sdx = ndx;
+      sdy = ndy;
     }
 
     if (placedAny) riftsMade++;
+    if (riftsMade >= maxRiftsPerMap) break;
   }
 
   const summary: RiftValleysSummary = {
     rifts: riftsMade,
     lineTiles: lineCount,
     shoulderTiles: shoulderCount,
-    kind: "legacy",
+    kind: "foundation",
   };
 
   publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.RIFTS, {

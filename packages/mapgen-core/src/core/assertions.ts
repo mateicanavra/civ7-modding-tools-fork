@@ -1,4 +1,5 @@
 import type { ExtendedMapContext } from "./types.js";
+import { validateFoundationContext } from "./types.js";
 
 /**
  * Asserts that foundation context is available.
@@ -20,5 +21,6 @@ export function assertFoundationContext(
         `Ensure the "foundation" stage is enabled and runs before "${stageName}".`
     );
   }
-}
 
+  validateFoundationContext(ctx.foundation, ctx.dimensions);
+}

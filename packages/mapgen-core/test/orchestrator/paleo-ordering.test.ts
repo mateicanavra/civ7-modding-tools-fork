@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "../../src/index.js";
 import type { ExtendedMapContext } from "../../src/core/types.js";
-import { createExtendedMapContext, createFoundationContext } from "../../src/core/types.js";
+import { createExtendedMapContext, createFoundationContext, ctxRandom } from "../../src/core/types.js";
 import {
   PipelineExecutor,
   StepRegistry,
@@ -98,28 +98,29 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
       stageFlags,
       runFoundation: (context) => {
         setConfigProvider(() => {
-          const foundationCfg = context.config.foundation ?? {};
+          const foundationCfg = context.config.foundation;
           return {
             plates: (foundationCfg.plates ?? {}) as Record<string, unknown>,
-            dynamics: (foundationCfg.dynamics ?? {}) as Record<string, unknown>,
+            dynamics: foundationCfg.dynamics as Record<string, unknown>,
             directionality: (foundationCfg.dynamics?.directionality ?? {}) as Record<string, unknown>,
           };
         });
 
-        const ok = WorldModel.init({ width, height });
+        const rng = (max: number, label = "WorldModel") => ctxRandom(context, label, max);
+        const ok = WorldModel.init({ width, height, rng });
         if (!ok) {
           throw new Error("WorldModel initialization failed");
         }
 
         context.worldModel = WorldModel as unknown as ExtendedMapContext["worldModel"];
 
-        const foundationCfg = context.config.foundation ?? {};
+        const foundationCfg = context.config.foundation;
         context.foundation = createFoundationContext(WorldModel as any, {
           dimensions: context.dimensions,
           config: {
             seed: (foundationCfg.seed || {}) as Record<string, unknown>,
             plates: (foundationCfg.plates || {}) as Record<string, unknown>,
-            dynamics: (foundationCfg.dynamics || {}) as Record<string, unknown>,
+            dynamics: foundationCfg.dynamics as Record<string, unknown>,
             surface: (foundationCfg.surface || {}) as Record<string, unknown>,
             policy: (foundationCfg.policy || {}) as Record<string, unknown>,
             diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,

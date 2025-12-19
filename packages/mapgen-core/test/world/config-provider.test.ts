@@ -17,7 +17,8 @@ describe("WorldModel config provider", () => {
   });
 
   it("fails fast when no provider is set", () => {
-    expect(() => WorldModel.init({ width: 4, height: 4 })).toThrow(
+    const rng = (max: number) => (max > 0 ? 0 : 0);
+    expect(() => WorldModel.init({ width: 4, height: 4, rng })).toThrow(
       /configuration provider not set/i
     );
   });
@@ -39,7 +40,8 @@ describe("WorldModel config provider", () => {
       directionality: { cohesion: 0 },
     }));
 
-    const ok = WorldModel.init({ width: 4, height: 4 });
+    const rng = (max: number) => (max > 0 ? 0 : 0);
+    const ok = WorldModel.init({ width: 4, height: 4, rng });
     expect(ok).toBe(true);
   });
 });
