@@ -1,6 +1,6 @@
 ---
-id: LOCAL-TBD
-title: "[M4] WorldModel Producer Cut (Phase A)"
+id: CIV-48
+title: "[M4] Move Foundation Production into Steps & Clean Boundaries"
 state: planned
 priority: 2
 estimate: 5
@@ -9,7 +9,7 @@ milestone: null
 assignees: []
 labels: [Improvement, Architecture, Technical Debt]
 parent: null
-children: [LOCAL-TBD-A1, LOCAL-TBD-A2, LOCAL-TBD-A3, LOCAL-TBD-A4]
+children: [CIV-49, CIV-50, CIV-51, CIV-52]
 blocked_by: []
 blocked: []
 related_to: []
@@ -34,10 +34,10 @@ Move foundation signal production from the `WorldModel` singleton into step-owne
 - Engine access in mapgen-core must go through the adapter boundary.
 
 **Sub-Issues:**
-- [LOCAL-TBD-A1](LOCAL-TBD-A1-contract-enforcement.md): Contract Enforcement & Fail-Fast Gating
-- [LOCAL-TBD-A2](LOCAL-TBD-A2-rng-standardization.md): RNG Standardization
-- [LOCAL-TBD-A3](LOCAL-TBD-A3-adapter-boundary-cleanup.md): Adapter Boundary Cleanup (TerrainBuilder Removal)
-- [LOCAL-TBD-A4](LOCAL-TBD-A4-worldmodel-producer-cutover.md): WorldModel Producer Cutover
+- [CIV-49](CIV-49-contract-enforcement.md): Contract Enforcement & Fail-Fast Gating
+- [CIV-50](CIV-50-rng-standardization.md): RNG Standardization
+- [CIV-51](CIV-51-adapter-boundary-cleanup.md): Adapter Boundary Cleanup (TerrainBuilder Removal)
+- [CIV-52](CIV-52-worldmodel-producer-cutover.md): WorldModel Producer Cutover
 
 ## Acceptance Criteria
 
@@ -120,7 +120,7 @@ After all four land:
 
 ### FoundationContext Consumers (Cross-Cutting Reference)
 
-These consumers depend on `ctx.foundation` and must continue to work after Phase A. Full list maintained in [LOCAL-TBD-A4](LOCAL-TBD-A4-worldmodel-producer-cutover.md).
+These consumers depend on `ctx.foundation` and must continue to work after Phase A. Full list maintained in [CIV-52](CIV-52-worldmodel-producer-cutover.md).
 
 Key implication: `ctx.foundation` must preserve both plates tensors and `dynamics` (windU/windV/current/pressure).
 

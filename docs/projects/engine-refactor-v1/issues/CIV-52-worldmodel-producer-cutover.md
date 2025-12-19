@@ -1,6 +1,6 @@
 ---
-id: LOCAL-TBD-A4
-title: "[M4] WorldModel Producer Cutover"
+id: CIV-52
+title: "[M4] Replace WorldModel Producer with Step-Owned Code"
 state: planned
 priority: 2
 estimate: 2
@@ -8,9 +8,9 @@ project: engine-refactor-v1
 milestone: null
 assignees: []
 labels: [Improvement, Architecture, Technical Debt]
-parent: LOCAL-TBD
+parent: CIV-48
 children: []
-blocked_by: [LOCAL-TBD-A1, LOCAL-TBD-A2, LOCAL-TBD-A3]
+blocked_by: [CIV-49, CIV-50, CIV-51]
 blocked: []
 related_to: []
 ---
@@ -50,8 +50,8 @@ Move producer logic into the foundation stage; stop calling `WorldModel.init()`;
 - **Why last:** Depends on explicit contracts (A1), standardized RNG (A2), and clean adapter boundaries (A3).
 - **Outcome:** Global singleton removed from the production path; foundation ownership moves into steps; orchestrator becomes a thinner boundary.
 - **Scope guardrail:** Do not keep `WorldModel` as a compatibility sink; do not leave dual producer paths in place.
-- **Blocked by:** [LOCAL-TBD-A1](LOCAL-TBD-A1-contract-enforcement.md), [LOCAL-TBD-A2](LOCAL-TBD-A2-rng-standardization.md), [LOCAL-TBD-A3](LOCAL-TBD-A3-adapter-boundary-cleanup.md)
-- **Parent:** [WorldModel Producer Cut (Phase A)](LOCAL-TBD-worldmodel-cut-phase-a.md)
+- **Blocked by:** [CIV-49](CIV-49-contract-enforcement.md), [CIV-50](CIV-50-rng-standardization.md), [CIV-51](CIV-51-adapter-boundary-cleanup.md)
+- **Parent:** [CIV-48: WorldModel Producer Cut (Phase A)](CIV-48-worldmodel-cut-phase-a.md)
 
 ---
 

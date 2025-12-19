@@ -1,6 +1,6 @@
 ---
-id: LOCAL-TBD-A3
-title: "[M4] Adapter Boundary Cleanup (TerrainBuilder Removal)"
+id: CIV-51
+title: "[M4] Remove Direct TerrainBuilder Calls from mapgen-core"
 state: planned
 priority: 2
 estimate: 1
@@ -8,10 +8,10 @@ project: engine-refactor-v1
 milestone: null
 assignees: []
 labels: [Improvement, Architecture, Adapter]
-parent: LOCAL-TBD
+parent: CIV-48
 children: []
-blocked_by: [LOCAL-TBD-A1, LOCAL-TBD-A2]
-blocked: [LOCAL-TBD-A4]
+blocked_by: [CIV-49, CIV-50]
+blocked: [CIV-52]
 related_to: []
 ---
 
@@ -48,8 +48,8 @@ Remove all direct `TerrainBuilder.*` usage in `packages/mapgen-core/**`; route r
 - **Why third:** Cleans engine boundary before the producer cutover; removes hidden globals.
 - **Outcome:** Engine boundary is explicit and auditable; mapgen-core no longer depends on engine globals.
 - **Scope guardrail:** Do not keep any direct `TerrainBuilder` usage in mapgen-core; do not re-architect rainfall generation here (deferred to DEF-010).
-- **Blocked by:** [LOCAL-TBD-A1](LOCAL-TBD-A1-contract-enforcement.md) (Contract Enforcement), [LOCAL-TBD-A2](LOCAL-TBD-A2-rng-standardization.md) (RNG Standardization)
-- **Parent:** [WorldModel Producer Cut (Phase A)](LOCAL-TBD-worldmodel-cut-phase-a.md)
+- **Blocked by:** [CIV-49](CIV-49-contract-enforcement.md) (Contract Enforcement), [CIV-50](CIV-50-rng-standardization.md) (RNG Standardization)
+- **Parent:** [CIV-48: WorldModel Producer Cut (Phase A)](CIV-48-worldmodel-cut-phase-a.md)
 - **Related deferral:** [DEF-010: Rainfall Generation Ownership](../deferrals.md#def-010-rainfall-generation-ownership-engine-vs-ts)
 
 ---

@@ -1,6 +1,6 @@
 ---
-id: LOCAL-TBD-A2
-title: "[M4] RNG Standardization"
+id: CIV-50
+title: "[M4] Route All RNG Through Adapter Boundary"
 state: planned
 priority: 2
 estimate: 2
@@ -8,10 +8,10 @@ project: engine-refactor-v1
 milestone: null
 assignees: []
 labels: [Improvement, Architecture]
-parent: LOCAL-TBD
+parent: CIV-48
 children: []
-blocked_by: [LOCAL-TBD-A1]
-blocked: [LOCAL-TBD-A4]
+blocked_by: [CIV-49]
+blocked: [CIV-52]
 related_to: []
 ---
 
@@ -48,8 +48,8 @@ Eliminate `Math.random()` usage in `packages/mapgen-core/**`; route all randomne
 - **Why second:** Stabilizes randomness semantics before moving producer logic; reduces churn during later refactors.
 - **Outcome:** RNG boundary becomes explicit and testable; adapter is the single source of randomness; hidden nondeterminism is removed.
 - **Scope guardrail:** Do not introduce alternate RNG providers or new fallbacks; do not use `Math.random` in tests to bypass adapter RNG.
-- **Blocked by:** [LOCAL-TBD-A1](LOCAL-TBD-A1-contract-enforcement.md) (Contract Enforcement)
-- **Parent:** [WorldModel Producer Cut (Phase A)](LOCAL-TBD-worldmodel-cut-phase-a.md)
+- **Blocked by:** [CIV-49](CIV-49-contract-enforcement.md) (Contract Enforcement)
+- **Parent:** [CIV-48: WorldModel Producer Cut (Phase A)](CIV-48-worldmodel-cut-phase-a.md)
 
 ---
 

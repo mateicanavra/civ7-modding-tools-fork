@@ -1,6 +1,6 @@
 ---
-id: LOCAL-TBD-A1
-title: "[M4] Contract Enforcement & Fail-Fast Gating"
+id: CIV-49
+title: "[M4] Enforce Foundation Contracts with Fail-Fast Validation"
 state: planned
 priority: 2
 estimate: 1
@@ -8,10 +8,10 @@ project: engine-refactor-v1
 milestone: null
 assignees: []
 labels: [Improvement, Architecture]
-parent: LOCAL-TBD
+parent: CIV-48
 children: []
 blocked_by: []
-blocked: [LOCAL-TBD-A2, LOCAL-TBD-A3, LOCAL-TBD-A4]
+blocked: [CIV-50, CIV-51, CIV-52]
 related_to: []
 ---
 
@@ -47,7 +47,7 @@ Enforce `ctx.foundation` presence and required fields at stage boundaries; remov
 - **Why first:** Establishes the contract we will preserve during the cutover; surfaces missing data early; prevents hidden behavior changes.
 - **Outcome:** Foundation contract is explicit and enforced; downstream stages either receive guaranteed data or fail fast at the boundary.
 - **Scope guardrail:** Do not add new code-level defaults or hidden fallbacks; do not defer validation to downstream stages only (enforce at publish).
-- **Parent:** [WorldModel Producer Cut (Phase A)](LOCAL-TBD-worldmodel-cut-phase-a.md)
+- **Parent:** [CIV-48: WorldModel Producer Cut (Phase A)](CIV-48-worldmodel-cut-phase-a.md)
 
 ---
 
