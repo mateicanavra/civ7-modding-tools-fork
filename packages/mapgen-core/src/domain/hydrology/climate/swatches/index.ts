@@ -25,13 +25,7 @@ export function applyClimateSwatches(
       "ClimateEngine: applyClimateSwatches requires MapContext (legacy direct-engine fallback removed)."
     );
   }
-  const climateCfg = ctx.config.climate || {};
-  const storyMoisture = (climateCfg as Record<string, unknown>).story as
-    | Record<string, unknown>
-    | undefined;
-  const cfg =
-    ((climateCfg as Record<string, unknown>).swatches as Record<string, unknown> | undefined) ??
-    (storyMoisture?.swatches as Record<string, unknown> | undefined);
+  const cfg = ctx.config.climate?.swatches;
 
   if (!cfg) return { applied: false, kind: "missing-config" };
 

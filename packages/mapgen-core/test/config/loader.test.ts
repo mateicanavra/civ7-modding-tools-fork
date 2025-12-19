@@ -32,6 +32,25 @@ describe("config/loader", () => {
     ).toThrow("Invalid MapGenConfig");
   });
 
+  it("throws on unknown top-level keys", () => {
+    expect(() =>
+      parseConfig({
+        notARealTopLevelKey: true,
+      })
+    ).toThrow("Invalid MapGenConfig");
+  });
+
+  it("throws on unknown nested keys", () => {
+    expect(() =>
+      parseConfig({
+        landmass: {
+          baseWaterPercent: 60,
+          typoedKey: 123,
+        },
+      })
+    ).toThrow("Invalid MapGenConfig");
+  });
+
   it("safeParse reports errors instead of throwing", () => {
     const result = safeParseConfig({ foundation: { plates: { count: "bad" } } });
 
@@ -154,6 +173,32 @@ describe("config/loader typed climate schemas", () => {
     expect(cfg.climate?.refine?.orographic?.steps).toBe(5);
     expect(cfg.climate?.refine?.riverCorridor?.lowlandAdjacencyBonus).toBe(12);
     expect(cfg.climate?.refine?.lowBasin?.delta).toBe(20);
+  });
+
+  it("rejects legacy climate.story.swatches config location", () => {
+    expect(() =>
+      parseConfig({
+        climate: {
+          story: {
+            swatches: {
+              types: {
+                macroDesertBelt: { weight: 1 },
+              },
+            },
+          },
+        },
+      })
+    ).toThrow("Invalid MapGenConfig");
+  });
+
+  it("accepts experimental extensions bag", () => {
+    const cfg = parseConfig({
+      extensions: {
+        somePlugin: { hello: "world" },
+      },
+    });
+
+    expect((cfg.extensions as any).somePlugin.hello).toBe("world");
   });
 
   it("rejects invalid climate blend weight (out of range)", () => {

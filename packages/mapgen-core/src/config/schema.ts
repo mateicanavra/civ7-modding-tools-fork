@@ -50,7 +50,7 @@ export const ContinentBoundsSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true }
+  { additionalProperties: false }
 );
 
 /**
@@ -98,7 +98,7 @@ export const StageDescriptorSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {}, [INTERNAL_METADATA_KEY]: true }
+  { additionalProperties: false, default: {}, [INTERNAL_METADATA_KEY]: true }
 );
 
 /**
@@ -118,6 +118,7 @@ export const StageManifestSchema = Type.Object(
     }),
   },
   {
+    additionalProperties: false,
     default: {},
     description: "[internal] Stage manifest for orchestrated pipeline execution.",
     [INTERNAL_METADATA_KEY]: true,
@@ -171,7 +172,7 @@ export const LandmassTectonicsConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -228,7 +229,7 @@ export const LandmassGeometryPostSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -238,7 +239,7 @@ export const LandmassGeometrySchema = Type.Object(
   {
     post: Type.Optional(LandmassGeometryPostSchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -420,7 +421,7 @@ export const LandmassConfigSchema = Type.Object(
     /** Geometry post-processing adjustments. */
     geometry: Type.Optional(LandmassGeometrySchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -457,7 +458,7 @@ export const FoundationSeedConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -546,7 +547,7 @@ export const FoundationPlatesConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -593,7 +594,7 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
     /** Variability settings for directional jitter. */
@@ -615,7 +616,7 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
     /** Hemisphere-specific settings for Coriolis effects. */
@@ -655,7 +656,7 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
     /** Coupling between plates, winds, and currents. */
@@ -690,11 +691,11 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -746,7 +747,7 @@ export const FoundationDynamicsConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
     /** Atmospheric wind configuration for rainfall patterns. */
@@ -791,13 +792,13 @@ export const FoundationDynamicsConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
     /** Directionality controls for plates, winds, and currents alignment. */
     directionality: Type.Optional(FoundationDirectionalityConfigSchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -808,7 +809,7 @@ export const FoundationDynamicsConfigSchema = Type.Object(
 export const FoundationOceanSeparationConfigSchema = Type.Object(
   {},
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "[internal] Foundation-level ocean separation alias; prefer top-level oceanSeparation.",
     [INTERNAL_METADATA_KEY]: true,
@@ -831,7 +832,7 @@ export const FoundationSurfaceConfigSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "[internal] Surface targets derived from foundation; prefer top-level landmass/oceanSeparation.",
     [INTERNAL_METADATA_KEY]: true,
@@ -848,7 +849,7 @@ export const FoundationPolicyConfigSchema = Type.Object(
     oceanSeparation: Type.Optional(FoundationOceanSeparationConfigSchema),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "[internal] Policy multipliers for downstream stages.",
     [INTERNAL_METADATA_KEY]: true,
@@ -969,7 +970,7 @@ export const FoundationDiagnosticsConfigSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description:
       "Stable-slice diagnostics toggles consumed by MapOrchestrator. Keys match DevLogConfig and are camelCase.",
@@ -1006,7 +1007,7 @@ export const OceanSeparationEdgePolicySchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1071,7 +1072,7 @@ export const OceanSeparationConfigSchema = Type.Object(
     /** East edge-specific override policy. */
     edgeEast: Type.Optional(OceanSeparationEdgePolicySchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1137,7 +1138,7 @@ export const CoastlinePlateBiasConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1164,7 +1165,7 @@ export const CoastlineBayConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1191,7 +1192,7 @@ export const CoastlineFjordConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1212,7 +1213,7 @@ export const CoastlinesConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1269,7 +1270,7 @@ export const IslandsConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1400,7 +1401,7 @@ export const MountainsConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1500,7 +1501,7 @@ export const VolcanoesConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1587,7 +1588,7 @@ export const HotspotTunablesSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1623,7 +1624,7 @@ export const FeaturesConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1631,6 +1632,23 @@ export const FeaturesConfigSchema = Type.Object(
  */
 export const OrogenyTunablesSchema = Type.Object(
   {
+    /** Search radius (tiles) for windward/lee tagging around detected belts. */
+    radius: Type.Optional(
+      Type.Number({
+        description: "Search radius (tiles) for windward/lee tagging around detected belts.",
+        default: 2,
+        minimum: 0,
+      })
+    ),
+    /** Minimum belt size floor before windward/lee tagging is applied (tiles). */
+    beltMinLength: Type.Optional(
+      Type.Number({
+        description:
+          "Minimum belt size floor before windward/lee tagging is applied (tiles). Larger maps auto-scale this upward.",
+        default: 30,
+        minimum: 0,
+      })
+    ),
     /** Rainfall boost applied on windward belts (rainfall units). */
     windwardBoost: Type.Optional(
       Type.Number({
@@ -1647,7 +1665,7 @@ export const OrogenyTunablesSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1688,7 +1706,45 @@ export const RiftTunablesSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
+);
+
+/**
+ * Continental margin tagging parameters.
+ *
+ * Used by storyTagContinentalMargins() to decide how much coastline is tagged
+ * as active vs passive margins.
+ */
+export const ContinentalMarginsConfigSchema = Type.Object(
+  {
+    /** Fraction of coastal tiles to tag as active margins (0..1). */
+    activeFraction: Type.Optional(
+      Type.Number({
+        description: "Fraction of coastal tiles to tag as active margins (0..1).",
+        default: 0.25,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
+    /** Fraction of coastal tiles to tag as passive shelves (0..1). */
+    passiveFraction: Type.Optional(
+      Type.Number({
+        description: "Fraction of coastal tiles to tag as passive shelves (0..1).",
+        default: 0.25,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
+    /** Minimum contiguous coastline segment length to consider (tiles). */
+    minSegmentLength: Type.Optional(
+      Type.Number({
+        description: "Minimum contiguous coastline segment length to consider (tiles).",
+        default: 12,
+        minimum: 0,
+      })
+    ),
+  },
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1705,7 +1761,7 @@ export const StoryConfigSchema = Type.Object(
     /** Localized feature bonuses around story elements. */
     features: Type.Optional(FeaturesConfigSchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1790,7 +1846,7 @@ export const SeaCorridorPolicySchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 export const IslandHopCorridorConfigSchema = Type.Object(
@@ -1811,7 +1867,7 @@ export const IslandHopCorridorConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 export const LandCorridorConfigSchema = Type.Object(
@@ -1857,7 +1913,7 @@ export const LandCorridorConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 export const RiverCorridorConfigSchema = Type.Object(
@@ -1919,7 +1975,7 @@ export const RiverCorridorConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -1936,7 +1992,7 @@ export const CorridorsConfigSchema = Type.Object(
     /** Island-hop corridor tagging policy (hotspot-driven). */
     islandHop: Type.Optional(IslandHopCorridorConfigSchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -1987,7 +2043,7 @@ export const ClimateBaselineBandsSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "Rainfall targets by latitude zone.",
   }
@@ -2016,7 +2072,7 @@ export const ClimateBaselineBlendSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "Blend weights for rainfall mixing.",
   }
@@ -2053,7 +2109,7 @@ export const ClimateBaselineOrographicSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "Orographic lift rainfall bonuses by elevation.",
   }
@@ -2080,7 +2136,7 @@ export const ClimateBaselineCoastalSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "Coastal proximity rainfall bonuses.",
   }
@@ -2112,7 +2168,7 @@ export const ClimateBaselineNoiseSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "Rainfall noise parameters for variation.",
   }
@@ -2134,7 +2190,7 @@ export const ClimateBaselineSchema = Type.Object(
     /** Rainfall noise/jitter parameters. */
     noise: Type.Optional(ClimateBaselineNoiseSchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -2165,7 +2221,7 @@ export const ClimateRefineWaterGradientSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "Water proximity gradient settings.",
   }
@@ -2199,7 +2255,7 @@ export const ClimateRefineOrographicSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "Rain shadow simulation settings.",
   }
@@ -2226,7 +2282,7 @@ export const ClimateRefineRiverCorridorSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "River corridor humidity settings.",
   }
@@ -2253,7 +2309,7 @@ export const ClimateRefineLowBasinSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description: "Enclosed basin humidity settings.",
   }
@@ -2275,7 +2331,7 @@ export const ClimateRefineSchema = Type.Object(
     /** Pressure system effects (untyped placeholder). */
     pressure: Type.Optional(UnknownRecord),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -2328,7 +2384,7 @@ export const ClimateStoryRainfallSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 export const ClimateStoryPaleoSizeScalingSchema = Type.Object(
@@ -2344,7 +2400,7 @@ export const ClimateStoryPaleoSizeScalingSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 export const ClimateStoryPaleoElevationCarvingSchema = Type.Object(
@@ -2373,7 +2429,7 @@ export const ClimateStoryPaleoElevationCarvingSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 export const ClimateStoryPaleoSchema = Type.Object(
@@ -2472,7 +2528,7 @@ export const ClimateStoryPaleoSchema = Type.Object(
     /** Elevation carving knobs for canyons/bluffs. */
     elevationCarving: Type.Optional(ClimateStoryPaleoElevationCarvingSchema),
   },
-  { additionalProperties: true }
+  { additionalProperties: false }
 );
 
 export const ClimateStorySchema = Type.Object(
@@ -2485,7 +2541,7 @@ export const ClimateStorySchema = Type.Object(
      */
     paleo: Type.Optional(ClimateStoryPaleoSchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 export const ClimateConfigSchema = Type.Object(
@@ -2499,7 +2555,7 @@ export const ClimateConfigSchema = Type.Object(
     /** Swatch overrides for macro climate regions (untyped placeholder). */
     swatches: Type.Optional(UnknownRecord),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -2530,7 +2586,7 @@ export const BiomeConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
     /** Tropical coast biome thresholds. */
@@ -2550,7 +2606,7 @@ export const BiomeConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
     /** River valley grassland biome thresholds. */
@@ -2570,7 +2626,7 @@ export const BiomeConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
     /** Rift shoulder biome thresholds (along divergent boundaries). */
@@ -2602,11 +2658,11 @@ export const BiomeConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: true, default: {} }
+        { additionalProperties: false, default: {} }
       )
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -2660,7 +2716,7 @@ export const FeaturesDensityConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -2689,7 +2745,7 @@ export const FloodplainsConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -2740,7 +2796,7 @@ export const StartsConfigSchema = Type.Object(
       description: "Explicit start sector descriptors passed directly to placement logic.",
     }),
   },
-  { additionalProperties: true }
+  { additionalProperties: false }
 );
 
 /**
@@ -2763,7 +2819,7 @@ export const PlacementConfigSchema = Type.Object(
     /** Player start placement configuration (required fields when provided). */
     starts: Type.Optional(StartsConfigSchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -2784,7 +2840,7 @@ export const FoundationConfigSchema = Type.Object(
     /** Diagnostics toggles for stable-slice debugging (M2-supported). */
     diagnostics: Type.Optional(FoundationDiagnosticsConfigSchema),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -2817,7 +2873,7 @@ export const DiagnosticsConfigSchema = Type.Object(
     ),
   },
   {
-    additionalProperties: true,
+    additionalProperties: false,
     default: {},
     description:
       "[legacy/no-op] Top-level diagnostics are deprecated in M2. Use foundation.diagnostics instead.",
@@ -2863,6 +2919,8 @@ export const MapGenConfigSchema = Type.Object(
     biomes: Type.Optional(BiomeConfigSchema),
     /** Vegetation and reef density multipliers. */
     featuresDensity: Type.Optional(FeaturesDensityConfigSchema),
+    /** Continental margin tagging parameters (active/passive coastline fractions). */
+    margins: Type.Optional(ContinentalMarginsConfigSchema),
     /** Story seed overlays: hotspots, rifts, orogeny. */
     story: Type.Optional(StoryConfigSchema),
     /** Sea corridor policy for navigable channels. */
@@ -2876,8 +2934,15 @@ export const MapGenConfigSchema = Type.Object(
      * These are no-op in the M2 stable slice; use foundation.diagnostics instead.
      */
     diagnostics: Type.Optional(DiagnosticsConfigSchema),
+    /**
+     * Escape hatch for experimental or plugin-owned knobs that are not yet
+     * modeled in the public schema.
+     *
+     * Core mapgen steps should not read this directly; plugin steps may.
+     */
+    extensions: Type.Optional(UnknownRecord),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: false, default: {} }
 );
 
 export type StageConfig = Static<typeof StageConfigSchema>;
@@ -2909,6 +2974,7 @@ export type VolcanoesConfig = Static<typeof VolcanoesConfigSchema>;
 export type HotspotTunables = Static<typeof HotspotTunablesSchema>;
 export type RiftTunables = Static<typeof RiftTunablesSchema>;
 export type OrogenyTunables = Static<typeof OrogenyTunablesSchema>;
+export type ContinentalMarginsConfig = Static<typeof ContinentalMarginsConfigSchema>;
 export type FeaturesConfig = Static<typeof FeaturesConfigSchema>;
 export type StoryConfig = Static<typeof StoryConfigSchema>;
 export type SeaCorridorPolicy = Static<typeof SeaCorridorPolicySchema>;
@@ -2937,4 +3003,4 @@ export type FloodplainsConfig = Static<typeof FloodplainsConfigSchema>;
 export type StartsConfig = Static<typeof StartsConfigSchema>;
 export type PlacementConfig = Static<typeof PlacementConfigSchema>;
 export type DiagnosticsConfig = Static<typeof DiagnosticsConfigSchema>;
-export type MapGenConfig = Static<typeof MapGenConfigSchema> & Record<string, unknown>;
+export type MapGenConfig = Static<typeof MapGenConfigSchema>;
