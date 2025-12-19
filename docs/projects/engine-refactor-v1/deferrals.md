@@ -128,7 +128,7 @@ Each deferral follows this structure:
 
 **Deferred:** 2025-12-14  
 **Trigger:** When the TaskGraph executor path is the default for in-repo map generation (including `mods/mod-swooper-maps`) and the legacy `STAGE_ORDER`-driven execution can be removed without losing parity.  
-**Context:** In M3 we intentionally keep both execution modes wired in `MapOrchestrator.generateMap()` (`useTaskGraph` flag) to support incremental migration and stack-by-stack landing. Some in-repo consumers still run with `useTaskGraph: false`, so removing the legacy path now would block parallel work and destabilize integration.  
+**Context:** In M3 we intentionally kept a legacy non-TaskGraph branch in `MapOrchestrator.generateMap()` behind the `useTaskGraph` flag to support incremental migration and stack-by-stack landing. Some in-repo consumers still ran with `useTaskGraph: false`, so removing the legacy path immediately would have blocked parallel work and destabilized integration.  
 **Scope:**
 - Migrate remaining in-repo callers to run via the TaskGraph executor path.
 - Delete the legacy non-TaskGraph branch in `MapOrchestrator.generateMap()` (while keeping the external `GenerateMap` entry surface stable).
@@ -136,6 +136,97 @@ Each deferral follows this structure:
 **Impact:**
 - Two execution modes increase drift risk (behavior/config/contract mismatches) until cutover is complete.
 - Longer-lived legacy wiring can hide missing `requires/provides` declarations if callers never exercise the executor path.
+- Note: Likely already satisfied post-M2; `MapOrchestrator.generateMap()` now directly calls `generateMapTaskGraph()` and `OrchestratorConfig` has no `useTaskGraph`. `rg` finds no `useTaskGraph` in code/mods; re-verify before treating this as active work.
+
+---
+
+## DEF-010: Rainfall Generation Ownership (Engine vs. TS)
+
+**Deferred:** 2025-12-18  
+**Trigger:** When the climate pipeline artifacts are stable and we need engine-less rainfall testing or broader engine decoupling.  
+**Context:** Phase A fixes the adapter boundary for rainfall writes, but rainfall generation still relies on engine-side state. We want to reclaim rainfall generation into TS-owned artifacts once the foundation/climate contracts are settled.  
+**Scope:**
+- Define a canonical rainfall artifact (or field) in the pipeline and publish it from climate steps.
+- Route engine writes through a dedicated adapter publish step instead of direct reads/writes during generation.
+- Remove reliance on `GameplayMap` / `TerrainBuilder` as the source of truth for rainfall values.  
+**Impact:**
+- Until this lands, rainfall is effectively engine-owned, limiting offline testing and keeping a hidden coupling to engine state.
+- Boundary correctness improves now, but full decoupling is intentionally deferred.
+
+---
+
+## DEF-011: Behavior-Mode Selectors ("legacy" vs. "area")
+
+**Deferred:** 2025-12-18  
+**Trigger:** When parity matrices stabilize and we no longer need to compare "legacy" vs. "area" behavior, or when we decide a single canonical mode and delete the other.  
+**Context:** The orchestration cleanup spike explicitly defers removing behavior-mode selectors because they represent distinct algorithm semantics, not just compatibility surfaces.  
+**Scope:**
+- Audit all `"legacy" | "area"` selectors in config schema and domain modules (e.g., landmask/crust).
+- Decide the canonical mode (or rename if both must remain).
+- Update presets, docs, and tests to reflect the chosen contract.  
+**Impact:**
+- Extra modes increase maintenance and allow drift between algorithms.
+- Consumers must keep mental context about which mode is active.
+
+---
+
+## DEF-012: Story State to Context-Owned Artifacts (Remove Globals)
+
+**Deferred:** 2025-12-18  
+**Trigger:** After legacy orchestration + toggle removal is complete and the open questions on story-state representation and overlay registry semantics are resolved.  
+**Context:** The spike accepts keeping StoryTags and related story caches/global registries temporarily while removing the legacy orchestration fork and toggle surface; the intended end-state is context-owned story data.  
+**Scope:**
+- Choose a canonical context-owned representation (`artifact:storyState`/`artifact:storyTags` or `ctx.story.*`).
+- Publish story tags/state from story steps and migrate all consumers to read from context.
+- Remove module-level StoryTags singletons and story caches.
+- Eliminate global overlay registry fallback once context-owned artifacts are authoritative.  
+**Impact:**
+- Global story state remains a drift and coupling risk until removed.
+- Tests and execution order can still be influenced by hidden global state.
+
+---
+
+## DEF-013: MapOrchestrator Hygiene + Enablement Consolidation
+
+**Deferred:** 2025-12-18  
+**Trigger:** After Phase A foundation cut/RNG standardization, when we can safely refactor orchestrator structure without destabilizing pipeline execution.  
+**Context:** The MapOrchestrator bloat assessment explicitly deferred cleanup work and enablement/recipe restructuring to keep Phase A deterministic and focused on the WorldModel cut.  
+**Scope:**
+- Remove dead imports/helpers and local cleanup in `MapOrchestrator`.
+- Consolidate enablement gating to a single source of truth (avoid redundant stage gating split between recipe/manifest and `shouldRun()` paths).  
+**Impact:**
+- Orchestrator remains cluttered, and duplicated enablement logic can mask incorrect stage wiring or drift.
+
+---
+
+## DEF-014: Foundation Graph Artifacts (Replace `FoundationContext`)
+
+**Deferred:** 2025-12-18  
+**Trigger:** When Phase B / foundation PRD work begins and consumers are ready to migrate off `ctx.foundation`.  
+**Context:** The orchestrator bloat assessment explicitly defers the target multi-artifact foundation model; Phase A keeps the `FoundationContext` snapshot as the compatibility boundary.  
+**Scope:**
+- Define the canonical foundation artifact set (mesh, crust, plateGraph, tectonics, and any required raster artifacts).
+- Migrate consumers from `ctx.foundation` to explicit artifacts/fields with named contracts.
+- Revisit plate/physics algorithm replacement to the mesh/crust/plateGraph/tectonics design.
+- Decide whether `dynamics` remains a concept and how its data is represented post-migration.  
+**Impact:**
+- `FoundationContext` remains a monolithic compatibility surface.
+- Target graph artifacts and algorithm replacements are deferred, limiting foundation-level refactors.
+
+---
+
+## DEF-015: RNG Parity Contract (Call Ordering / Labels)
+
+**Deferred:** 2025-12-18  
+**Trigger:** If exact output parity becomes a hard requirement for the foundation refactor or WorldModel cut.  
+**Context:** The MapOrchestrator bloat assessment explicitly defers parity alignment; Phase A allows deltas while standardizing RNG boundaries.  
+**Scope:**
+- Decide whether parity is required and define success criteria.
+- Align RNG call ordering/labels across the pipeline if parity is mandated.
+- Add parity-focused tests/goldens only after criteria are set.  
+**Impact:**
+- Small output deltas are acceptable in Phase A; parity is not guaranteed.
+- Without a parity plan, comparisons may be noisy or subjective.
 
 ---
 
