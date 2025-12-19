@@ -139,6 +139,52 @@ Each deferral follows this structure:
 
 ---
 
+## DEF-010: Rainfall Generation Ownership (Engine vs. TS)
+
+**Deferred:** 2025-12-18  
+**Trigger:** When the climate pipeline artifacts are stable and we need engine-less rainfall testing or broader engine decoupling.  
+**Context:** Phase A fixes the adapter boundary for rainfall writes, but rainfall generation still relies on engine-side state. We want to reclaim rainfall generation into TS-owned artifacts once the foundation/climate contracts are settled.  
+**Scope:**
+- Define a canonical rainfall artifact (or field) in the pipeline and publish it from climate steps.
+- Route engine writes through a dedicated adapter publish step instead of direct reads/writes during generation.
+- Remove reliance on `GameplayMap` / `TerrainBuilder` as the source of truth for rainfall values.  
+**Impact:**
+- Until this lands, rainfall is effectively engine-owned, limiting offline testing and keeping a hidden coupling to engine state.
+- Boundary correctness improves now, but full decoupling is intentionally deferred.
+
+---
+
+## DEF-011: Behavior-Mode Selectors ("legacy" vs. "area")
+
+**Deferred:** 2025-12-18  
+**Trigger:** When parity matrices stabilize and we no longer need to compare "legacy" vs. "area" behavior, or when we decide a single canonical mode and delete the other.  
+**Context:** The orchestration cleanup spike explicitly defers removing behavior-mode selectors because they represent distinct algorithm semantics, not just compatibility surfaces.  
+**Scope:**
+- Audit all `"legacy" | "area"` selectors in config schema and domain modules (e.g., landmask/crust).
+- Decide the canonical mode (or rename if both must remain).
+- Update presets, docs, and tests to reflect the chosen contract.  
+**Impact:**
+- Extra modes increase maintenance and allow drift between algorithms.
+- Consumers must keep mental context about which mode is active.
+
+---
+
+## DEF-012: Story State to Context-Owned Artifacts (Remove Globals)
+
+**Deferred:** 2025-12-18  
+**Trigger:** After legacy orchestration + toggle removal is complete and the open questions on story-state representation and overlay registry semantics are resolved.  
+**Context:** The spike accepts keeping StoryTags and related story caches/global registries temporarily while removing the legacy orchestration fork and toggle surface; the intended end-state is context-owned story data.  
+**Scope:**
+- Choose a canonical context-owned representation (`artifact:storyState`/`artifact:storyTags` or `ctx.story.*`).
+- Publish story tags/state from story steps and migrate all consumers to read from context.
+- Remove module-level StoryTags singletons and story caches.
+- Eliminate global overlay registry fallback once context-owned artifacts are authoritative.  
+**Impact:**
+- Global story state remains a drift and coupling risk until removed.
+- Tests and execution order can still be influenced by hidden global state.
+
+---
+
 ## Resolved Deferrals
 
 *Move resolved deferrals here with resolution notes.*

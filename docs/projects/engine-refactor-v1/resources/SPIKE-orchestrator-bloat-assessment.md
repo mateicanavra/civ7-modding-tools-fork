@@ -204,13 +204,27 @@ We searched `.civ7/outputs/resources/Base/modules` for `TerrainBuilder` / `getRa
 
 ## 5. Practical next steps (deterministic execution order)
 
-### Phase A (committed)
+### 5.1 Phase A slices (locked sequence + rationale)
 
-- RNG standardization: eliminate `Math.random()` usage in `packages/mapgen-core/**` and remove any `TerrainBuilder.*` usage outside `packages/civ7-adapter/**`.
-- Create a step-owned foundation implementation that produces a `FoundationContext` snapshot without reading `WorldModel`.
-- Update `MapOrchestrator.initializeFoundation()` to call that implementation and stop calling `WorldModel.init()`.
-- Keep `ctx.foundation` populated exactly as today (types/shape); do not broaden downstream API surface in this effort.
-- Migrate any remaining `WorldModel` readers to `ctx.foundation` so Phase A does not preserve a dual pathway.
+**Slice 1: Contract enforcement + fail-fast gating**
+- **Work:** Enforce `ctx.foundation` presence and required fields at stage boundaries; remove silent fallbacks; ensure `foundation.dynamics` is always present via schema defaults or required fields; add fail-fast validation on publish (array presence/size, non-null).
+- **Why first:** Establishes the contract we will preserve during the cutover and surfaces missing data early; prevents hidden behavior changes from being masked by fallbacks.
+- **Dependencies:** None; this sets the baseline for all later slices.
+
+**Slice 2: RNG standardization**
+- **Work:** Eliminate `Math.random()` usage in `packages/mapgen-core/**`; route all randomness through `ctxRandom` / `ctx.adapter.getRandomNumber`; update tests to stub adapter RNG.
+- **Why second:** Stabilizes randomness semantics before moving producer logic; reduces churn and nondeterminism during later refactors.
+- **Dependencies:** Requires the adapter RNG contract; should be completed before producer cutover to avoid dual RNG migrations.
+
+**Slice 3: Adapter boundary cleanup (TerrainBuilder removal)**
+- **Work:** Remove all direct `TerrainBuilder.*` usage in `packages/mapgen-core/**`; route rainfall writes through `ctx.adapter.setRainfall`; keep behavior intact.
+- **Why third:** Cleans engine boundary before the producer cutover; removes hidden globals so the new foundation implementation can operate through the adapter surface only.
+- **Dependencies:** Relies on adapter APIs being available; pairs naturally after RNG standardization.
+
+**Slice 4: WorldModel producer cutover**
+- **Work:** Move producer logic into the foundation stage; stop calling `WorldModel.init()`; remove `ctx.worldModel`; update tests to assert `ctx.foundation` outputs; migrate remaining `WorldModel` readers.
+- **Why last:** Depends on explicit contracts, standardized RNG, and clean adapter boundaries to avoid hidden optionality; minimizes the number of moving parts during the cut.
+- **Dependencies:** Slices 1–3 should land first.
 
 ### Follow-ups (explicitly NOT part of Phase A)
 
@@ -263,6 +277,13 @@ This section is a repo-grounded checklist of remaining work inputs for Phase A e
 **Non-mapgen-core usage:**
 - No non-mapgen-core packages reference `WorldModel` in code (docs only).
 
+**Impact + decisions (Phase A readiness):**
+- **Integration impact:** `WorldModel` still acts as the producer for `ctx.foundation`, and tests assert `WorldModel` state/logs. This keeps a hidden producer path alive and forces downstream reasoning about a global singleton.
+- **Decision (single path):** Remove `ctx.worldModel` from `MapGenContext` and eliminate `WorldModel` as a producer or compatibility sink. After Phase A, any reference to `WorldModel` in runtime code is a bug, not a fallback.
+- **Low-risk work now:** Move the producer logic into a step-owned foundation implementation that builds `ctx.foundation` directly; update tests to assert `ctx.foundation` outputs rather than `WorldModel` state.
+- **Contract-level move:** Preserve the existing `FoundationContext` shape/fields and publish it from the new foundation code; behavior may shift, but contract parity is required.
+- **Explicitly deferred:** Replacing the underlying plate/physics algorithms with the mesh/crust/plateGraph/tectonics design (Phase B / PRD).
+
 ### 7.2 FoundationContext consumers (runtime)
 
 **Morphology:**
@@ -282,6 +303,13 @@ This section is a repo-grounded checklist of remaining work inputs for Phase A e
 
 **Implication for Phase A:** `ctx.foundation` must preserve both plates tensors and `dynamics` (windU/windV/current/pressure) to avoid silent behavior changes in climate/story passes.
 
+**Impact + decisions (Phase A readiness):**
+- **Integration impact:** Morphology, narrative, and climate stages assume plate tensors and `dynamics` are present. Missing `dynamics` changes outputs via silent fallback.
+- **Decision (single path):** Enforce `ctx.foundation` presence and required fields at stage boundaries; remove silent fallbacks. Defaults must live in schema/contract, not in code.
+- **Low-risk work now:** Add fail-fast validation when publishing `ctx.foundation` (e.g., non-null arrays, expected sizes); update any consumer-side fallbacks to hard errors when `foundation` or `dynamics` are missing.
+- **Contract-level move (selected path):** Treat `FoundationContext` as the authoritative compatibility product for Phase A; guarantee `dynamics` by ensuring `foundation.dynamics` is always present via schema defaults or required fields (no implicit fallback).
+- **Explicitly deferred:** Any change to the `FoundationContext` shape or removal of `dynamics` as a concept (Phase B / PRD decision).
+
 ### 7.3 RNG standardization: remaining direct `Math.random` call sites
 
 **Runtime code:**
@@ -296,6 +324,13 @@ This section is a repo-grounded checklist of remaining work inputs for Phase A e
 - `packages/mapgen-core/test/setup.ts` (mock `TerrainBuilder.getRandomNumber` uses `Math.random`)
 - `packages/mapgen-core/test/layers/callsite-fixes.test.ts` (mock RNG uses `Math.random`)
 
+**Impact + decisions (Phase A readiness):**
+- **Integration impact:** `Math.random` and direct `TerrainBuilder` usage break the adapter boundary and can defeat determinism. Tests also encode this leakage.
+- **Decision (single path):** Standardize on the adapter RNG (`ctx.adapter.getRandomNumber` via `ctxRandom`). No `Math.random` anywhere in `mapgen-core`.
+- **Low-risk work now:** Mechanical replacement of `Math.random`/fallback RNGs with `ctxRandom` or injected `rngNextInt` (wired from `ctxRandom`); update tests to stub adapter RNG.
+- **Contract-level move:** Pure domain helpers accept an injected `rngNextInt(max, label)` so they remain context-free while still using the same RNG stream.
+- **Explicitly deferred:** Any attempt to preserve exact output parity by aligning RNG call ordering/labels across the pipeline (only required if parity becomes a hard requirement).
+
 ### 7.4 TerrainBuilder usage in mapgen-core (outside adapter)
 
 **Runtime code (global access):**
@@ -308,3 +343,10 @@ This section is a repo-grounded checklist of remaining work inputs for Phase A e
 - `packages/mapgen-core/src/dev/introspection.ts` (logs TerrainBuilder API surface; no direct mutations)
 
 **Implication for Phase A:** RNG standardization requires removing all direct `TerrainBuilder.*` usage from `packages/mapgen-core/**` or routing it through the adapter boundary.
+
+**Impact + decisions (Phase A readiness):**
+- **Integration impact:** Direct `TerrainBuilder` calls bypass the adapter boundary and lock us to engine globals; this is inconsistent with the target architecture and complicates testing.
+- **Decision (single path):** All engine writes/reads in `mapgen-core` go through the adapter. Direct `TerrainBuilder` usage is removed, not hidden.
+- **Low-risk work now:** Route rainfall writes in `domain/narrative/paleo/rainfall-artifacts.ts` through `ctx.adapter.setRainfall` (adapter already exposes `setRainfall`); keep behavior intact.
+- **Contract-level move:** Keep rainfall generation logic but correct the boundary by threading the adapter/ctx into the runtime helper.
+- **Explicitly deferred:** Re-architect rainfall generation to be fully engine-independent (tracked as a deferral in `docs/projects/engine-refactor-v1/deferrals.md` under DEF-010).
