@@ -237,3 +237,74 @@ We searched `.civ7/outputs/resources/Base/modules` for `TerrainBuilder` / `getRa
 - Define the canonical artifact set (graphs and any canonical raster artifacts), and define which layers own rasterization (foundation vs consumer vs dedicated adapter/bridge step).
 
 This is part of the separate Foundation Stage PRD effort.
+
+---
+
+## 7. Readiness inventory (repo scan results)
+
+This section is a repo-grounded checklist of remaining work inputs for Phase A execution planning. It is intentionally factual and does not propose solutions.
+
+### 7.1 WorldModel usage (code + tests)
+
+**Runtime code (direct usage / production path):**
+- `packages/mapgen-core/src/MapOrchestrator.ts`: resets and initializes `WorldModel`, binds config provider, assigns `ctx.worldModel`, and builds `ctx.foundation` via `createFoundationContext(...)`.
+- `packages/mapgen-core/src/core/types.ts`: `createFoundationContext(...)` reads `WorldModelState` arrays and throws if not initialized.
+- `packages/mapgen-core/src/world/model.ts`: `WorldModel` singleton implementation and RNG selection.
+- `packages/mapgen-core/src/world/plates.ts`: plate generation helpers used by `WorldModel`.
+
+**Tests that assert WorldModel state or behavior:**
+- `packages/mapgen-core/test/orchestrator/foundation.smoke.test.ts`
+- `packages/mapgen-core/test/orchestrator/paleo-ordering.test.ts`
+- `packages/mapgen-core/test/orchestrator/task-graph.smoke.test.ts`
+- `packages/mapgen-core/test/orchestrator/worldmodel-config-wiring.test.ts`
+- `packages/mapgen-core/test/orchestrator/placement-config-wiring.test.ts`
+- `packages/mapgen-core/test/world/config-provider.test.ts`
+
+**Non-mapgen-core usage:**
+- No non-mapgen-core packages reference `WorldModel` in code (docs only).
+
+### 7.2 FoundationContext consumers (runtime)
+
+**Morphology:**
+- `packages/mapgen-core/src/domain/morphology/landmass/index.ts` (requires `ctx.foundation`, plate-derived landmass shaping)
+- `packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/apply.ts` (reads `foundation.plates.boundaryCloseness`)
+- `packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts` (reads `boundaryCloseness`/`boundaryType`)
+- `packages/mapgen-core/src/domain/morphology/mountains/apply.ts` (plate-based scoring + rift depressions)
+- `packages/mapgen-core/src/domain/morphology/volcanoes/apply.ts` (plate-driven placement)
+
+**Narrative:**
+- `packages/mapgen-core/src/domain/narrative/orogeny/belts.ts` (requires `foundation.plates` and `foundation.dynamics` for windward/lee tagging)
+
+**Climate / Hydrology (dynamics):**
+- `packages/mapgen-core/src/domain/hydrology/climate/swatches/monsoon-bias.ts` (windU/windV)
+- `packages/mapgen-core/src/domain/hydrology/climate/refine/orographic-shadow.ts` (windU/windV)
+- `packages/mapgen-core/src/domain/hydrology/climate/orographic-shadow.ts` (windU/windV)
+
+**Implication for Phase A:** `ctx.foundation` must preserve both plates tensors and `dynamics` (windU/windV/current/pressure) to avoid silent behavior changes in climate/story passes.
+
+### 7.3 RNG standardization: remaining direct `Math.random` call sites
+
+**Runtime code:**
+- `packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts` (fallback in `getRandom`)
+- `packages/mapgen-core/src/domain/morphology/islands/placement.ts` (fallback in `getRandom`)
+- `packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts` (fallback RNG for crust assignment/noise)
+- `packages/mapgen-core/src/domain/narrative/utils/rng.ts` (fallback to `Math.random`)
+- `packages/mapgen-core/src/world/plates.ts` (fallback RNG and direct `Math.random()` vector)
+- `packages/mapgen-core/src/world/model.ts` (fallback RNG to `Math.random`)
+
+**Tests:**
+- `packages/mapgen-core/test/setup.ts` (mock `TerrainBuilder.getRandomNumber` uses `Math.random`)
+- `packages/mapgen-core/test/layers/callsite-fixes.test.ts` (mock RNG uses `Math.random`)
+
+### 7.4 TerrainBuilder usage in mapgen-core (outside adapter)
+
+**Runtime code (global access):**
+- `packages/mapgen-core/src/world/model.ts` (selects `TerrainBuilder.getRandomNumber` as RNG)
+- `packages/mapgen-core/src/world/plates.ts` (uses `globalThis.TerrainBuilder.getRandomNumber` in RNG fallback)
+- `packages/mapgen-core/src/domain/narrative/utils/rng.ts` (direct `TerrainBuilder.getRandomNumber`)
+- `packages/mapgen-core/src/domain/narrative/paleo/rainfall-artifacts.ts` (direct `TerrainBuilder.setRainfall`)
+
+**Non-runtime / tooling:**
+- `packages/mapgen-core/src/dev/introspection.ts` (logs TerrainBuilder API surface; no direct mutations)
+
+**Implication for Phase A:** RNG standardization requires removing all direct `TerrainBuilder.*` usage from `packages/mapgen-core/**` or routing it through the adapter boundary.
