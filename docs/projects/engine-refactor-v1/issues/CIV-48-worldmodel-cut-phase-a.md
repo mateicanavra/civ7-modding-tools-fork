@@ -48,7 +48,7 @@ Move foundation signal production from the `WorldModel` singleton into step-owne
 - [x] `rg "Math\\.random"` returns no hits in `packages/mapgen-core/**`.
 - [x] `rg "TerrainBuilder\\."` returns no runtime hits in `packages/mapgen-core/**`.
 - [x] `ctx.worldModel` is removed from `MapGenContext`.
-- [ ] All tests pass with the new producer path.
+- [x] All tests pass with the new producer path.
 
 ## Testing / Verification
 

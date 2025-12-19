@@ -33,7 +33,7 @@ Remove all direct `TerrainBuilder.*` usage in `packages/mapgen-core/**`; route r
 - [x] `rg "TerrainBuilder\\." packages/mapgen-core` returns no runtime hits.
 - [x] Rainfall writes go through `ctx.adapter.setRainfall`.
 - [x] Tests stub adapter methods instead of `globalThis.TerrainBuilder`.
-- [ ] Behavior remains intact (no functional changes beyond boundary enforcement).
+- [x] Behavior remains intact (no functional changes beyond boundary enforcement).
 
 ## Testing / Verification
 

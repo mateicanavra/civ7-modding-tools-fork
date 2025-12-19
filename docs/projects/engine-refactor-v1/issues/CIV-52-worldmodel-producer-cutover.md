@@ -35,7 +35,7 @@ Move producer logic into the foundation stage; stop calling `WorldModel.init()`;
 - [x] Tests that asserted `WorldModel` now assert `ctx.foundation`.
 - [x] Foundation is produced by step-owned code; no dual producer/sink path remains.
 - [x] `ctx.foundation` continues to populate and satisfy `artifact:foundation` (types/shape preserved).
-- [ ] All tests pass with the new producer path.
+- [x] All tests pass with the new producer path.
 
 ## Testing / Verification
 
