@@ -107,7 +107,7 @@ function computePlates(
   }
 
   if (!plateData) {
-    throw new Error(\"[Foundation] Plate generation failed.\");
+    throw new Error("[Foundation] Plate generation failed.");
   }
 
   const meta = plateData.meta;

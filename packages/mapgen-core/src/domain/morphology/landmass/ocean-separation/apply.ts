@@ -28,11 +28,8 @@ export function applyPlateAwareOceanSeparation(
     };
   }
 
-  const ctx = params?.context ?? null;
-  const adapter =
-    params?.adapter && typeof params.adapter.setTerrainType === "function" ? params.adapter : null;
-
-  const config = ctx?.config;
+  const context = params?.context ?? null;
+  const config = context?.config;
   const foundationCfg = config?.foundation as
     | {
         policy?: { oceanSeparation?: OceanSeparationPolicy; crustMode?: unknown };
@@ -59,14 +56,14 @@ export function applyPlateAwareOceanSeparation(
     };
   }
 
-  assertFoundationContext(ctx ?? null, "oceanSeparation");
+  assertFoundationContext(context, "oceanSeparation");
 
   const landMask =
     params?.landMask instanceof Uint8Array && params.landMask.length === width * height
       ? params.landMask
       : null;
 
-  const heightfield = ctx?.buffers?.heightfield;
+  const heightfield = context.buffers?.heightfield;
 
   const setTerrain = (x: number, y: number, terrain: number, isLand: boolean): void => {
     if (x < 0 || x >= width || y < 0 || y >= height) return;
@@ -76,11 +73,7 @@ export function applyPlateAwareOceanSeparation(
       landMask[idx] = isLand ? 1 : 0;
     }
 
-    if (ctx) {
-      writeHeightfield(ctx, x, y, { terrain, isLand });
-    } else if (adapter) {
-      adapter.setTerrainType(x, y, terrain);
-    }
+    writeHeightfield(context, x, y, { terrain, isLand });
 
     if (heightfield && !landMask) {
       heightfield.landMask[idx] = isLand ? 1 : 0;
@@ -143,7 +136,7 @@ export function applyPlateAwareOceanSeparation(
 
     const normalized = rowStates.map((state) => aggregateRowState(state, width, height));
 
-    if (ctx && landMask && heightfield?.landMask) {
+    if (context && landMask && heightfield?.landMask) {
       heightfield.landMask.set(landMask);
     }
 
@@ -153,6 +146,7 @@ export function applyPlateAwareOceanSeparation(
     };
   }
 
+  const foundation = context.foundation;
   const closeness = foundation.plates.boundaryCloseness;
   if (!closeness || closeness.length !== width * height) {
     return {
@@ -246,8 +240,8 @@ export function applyPlateAwareOceanSeparation(
 
   const normalized = rowStates.map((state) => aggregateRowState(state, width, height));
 
-  if (ctx && landMask && ctx.buffers?.heightfield?.landMask) {
-    ctx.buffers.heightfield.landMask.set(landMask);
+  if (context && landMask && context.buffers?.heightfield?.landMask) {
+    context.buffers.heightfield.landMask.set(landMask);
   }
 
   return {
