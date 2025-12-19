@@ -124,6 +124,52 @@ M4 is defined as “Tests, Validation & Cleanup” in `docs/projects/engine-refa
 - Should the terrain/feature verification doc live with the mod (likely) or stay as a project resource? (`docs/projects/engine-refactor-v1/resources/SPIKE-mapgen-terrain-feature-verification.md`).
 - Do you want to keep multiple foundation-stage spikes, or consolidate into `docs/system/libs/mapgen/foundation.md` + `docs/system/libs/mapgen/architecture.md` and archive the rest?
 
+## Decision Tree / Sequence
+
+1. **Canonical Target Architecture Source**
+   - Decisions: Where is the authoritative spec? Resolve the missing `docs/system/libs/mapgen/design.md` vs `architecture.md` vs other sources; pick the canonical doc(s).
+   - Unblocks: Every later clarification and doc consolidation (prevents rework/duplication).
+2. **Core Architecture Clarifications (data + boundaries)**
+   - Decisions:
+     - Artifact storage model (structured object vs tag-keyed map + validation).
+     - Adapter responsibilities for engine globals (what is allowed at the boundary).
+     - WorldModel status (fully excise vs transitional).
+   - Unblocks: Recipe/config model, validation rules, and what should be treated as “legacy cleanup” in M4.
+3. **Pipeline & Validation Clarifications**
+   - Decisions:
+     - Recipe/config merge model (per-step config + schema + validation location).
+     - Dependency-driven scheduling expectations vs static ordering.
+     - Validation scope for `state:engine.*` and artifact contracts.
+   - Unblocks: M4 scope definition (tests vs enforcement), and cleanup targets.
+4. **Domain Contract Clarifications**
+   - Decisions:
+     - Humidity contract (source/consumer expectations).
+     - Story overlay budget threshold (from ADR).
+   - Unblocks: Whether to add/adjust work items in M4 (tests, enforcement, or deferrals).
+5. **Milestone Re-baseline (M4 scope & sequencing)**
+   - Decisions:
+     - What remains for M4 after clarifications?
+     - Which issues are obsolete/complete/need re-scoping?
+     - Are any “cleanup” items actually architectural work that needs explicit scope?
+   - Unblocks: Precise doc cleanup actions and what to archive vs keep active.
+6. **Doc Cleanup — Architecture-Dependent Items**
+   - Decisions:
+     - Foundation-stage spikes consolidation into system docs vs keep multiple spikes.
+     - Promote `CONTRACT-foundation-context.md` once stable.
+     - Consolidate system mapgen research spikes into synthesis (if architecture is settled).
+   - Unblocks: Archiving plan for spikes and research docs.
+7. **Doc Cleanup — Scope/Boundary Items**
+   - Decisions:
+     - Bun migration in/out of project scope.
+     - Terrain/feature verification doc location (project vs mod).
+   - Unblocks: Move/archiving of those spikes and related TODOs.
+8. **Doc Cleanup — Low-dependency Housekeeping**
+   - Decisions:
+     - Archive M1 parity trackers if truly complete.
+     - Normalize slide locations or archive.
+     - Delete/replace empty placeholder spike file.
+   - Unblocks: Final doc hygiene pass.
+
 ## Recommended Actions
 
 ### Immediate
