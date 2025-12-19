@@ -92,6 +92,38 @@ M4 is defined as “Tests, Validation & Cleanup” in `docs/projects/engine-refa
 - Deferrals on legacy TaskGraph path and global StoryTags/Overlays are likely stale (`docs/projects/engine-refactor-v1/deferrals.md`, `packages/mapgen-core/src/MapOrchestrator.ts`, `packages/mapgen-core/src/domain/narrative/tags/ops.ts`, `packages/mapgen-core/src/domain/narrative/overlays/registry.ts`).
 - M4 milestone doc still points to archived or completed items without a current issue map (`docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`).
 
+## Inventory Snapshot
+
+### Overview
+
+- `docs/projects/engine-refactor-v1/` contains 104 files (milestones, reviews, issues, resources, status/triage/deferrals, checkpoints).
+- Project spikes: 11 under `docs/projects/engine-refactor-v1/resources/`.
+- System mapgen research spikes: 4 under `docs/system/libs/mapgen/research/`.
+
+### Spike Cleanup Recommendations (Project)
+
+- Keep active (implementation-adjacent): `docs/projects/engine-refactor-v1/resources/SPIKE-orchestrator-bloat-assessment.md`, `docs/projects/engine-refactor-v1/resources/SPIKE-story-drift-legacy-path-removal.md`, `docs/projects/engine-refactor-v1/resources/SPIKE-story-config-typing.md`.
+- Move to system/process tooling (not project scope): `docs/projects/engine-refactor-v1/resources/SPIKE-bun-migration-feasibility.md`, `docs/projects/engine-refactor-v1/resources/SPIKE-ruler-global-and-repo-rules.md`.
+- Fold into system mapgen docs or research (then archive): `docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-design-physics.md`, `docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-architecture-review.md`.
+- Archive as historical snapshot: `docs/projects/engine-refactor-v1/resources/SPIKE-mapgen-docs-inventory-pre-refactor.md`.
+- Empty placeholder: `docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-architecture-review-alt.md` (delete or replace; needs your call).
+
+### Non-Spike Project Doc Cleanup Candidates
+
+- Consider archiving M1 parity trackers if M1 is truly complete: `docs/projects/engine-refactor-v1/resources/STATUS-M-TS-parity-matrix.md`, `docs/projects/engine-refactor-v1/resources/STATUS-M-TS-typescript-migration-parity-notes.md`.
+- Normalize slide location: `docs/slides/m3-core-engine-refactor-config-evolution.json` and `docs/slides/m3-core-engine-refactor-config-evolution.outline.md` should move into `docs/projects/engine-refactor-v1/resources/slides/` or be archived.
+- Promote when stable: `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` should likely move into `docs/system/libs/mapgen/` once the contract stops changing.
+
+### System Mapgen Research Spikes (Possible Consolidation)
+
+- Keep only the synthesis doc as the canonical research summary, archive the rest if you want to reduce drift: `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md` plus the three other research spikes.
+
+### Ambiguities / Decisions Needed
+
+- Is Bun migration in scope for this project, or should it be moved/archived? (`docs/projects/engine-refactor-v1/resources/SPIKE-bun-migration-feasibility.md`).
+- Should the terrain/feature verification doc live with the mod (likely) or stay as a project resource? (`docs/projects/engine-refactor-v1/resources/SPIKE-mapgen-terrain-feature-verification.md`).
+- Do you want to keep multiple foundation-stage spikes, or consolidate into `docs/system/libs/mapgen/foundation.md` + `docs/system/libs/mapgen/architecture.md` and archive the rest?
+
 ## Recommended Actions
 
 ### Immediate
