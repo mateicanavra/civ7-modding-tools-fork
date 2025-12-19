@@ -210,21 +210,60 @@ We searched `.civ7/outputs/resources/Base/modules` for `TerrainBuilder` / `getRa
 - **Work:** Enforce `ctx.foundation` presence and required fields at stage boundaries; remove silent fallbacks; ensure `foundation.dynamics` is always present via schema defaults or required fields; add fail-fast validation on publish (array presence/size, non-null).
 - **Why first:** Establishes the contract we will preserve during the cutover and surfaces missing data early; prevents hidden behavior changes from being masked by fallbacks.
 - **Dependencies:** None; this sets the baseline for all later slices.
+- **Contract enforcement details:** Apply schema-level defaults/requirements for `foundation.dynamics` (no code fallbacks). Add runtime validation at `ctx.foundation` publish time (orchestrator/producer boundary) for presence, non-null arrays, and expected dimensions (plates + dynamics tensors match map sizes).
+- **Done checks (mechanical):**
+  - No code-level fallbacks for missing `ctx.foundation` or `foundation.dynamics`.
+  - `foundation.dynamics` is always present via schema defaults or required fields (no implicit creation in runtime code).
+  - `ctx.foundation` publish path validates array presence and expected sizes.
+- **Done checks (contextual):** Foundation contract is explicit and enforced; downstream stages either receive guaranteed data or fail fast at the boundary.
+- **Test expectations:** Update any tests that relied on implicit fallbacks to expect failures when `ctx.foundation`/`dynamics` is missing; add/adjust a targeted test that asserts `ctx.foundation` validation fails on missing/incorrectly sized tensors.
+- **Do not:** Add hidden defaults in code; keep silent fallbacks; enforce contracts only in downstream stages (enforce at the producer boundary).
+- **Expected impact / what changes:** Clear, enforceable foundation contract; missing data surfaces immediately; downstream behavior becomes deterministic w.r.t. contract presence.
+- **Why it matters / unblocks:** Establishes the stable contract needed before RNG cleanup and producer cutover; avoids ambiguous failures later.
 
 **Slice 2: RNG standardization**
 - **Work:** Eliminate `Math.random()` usage in `packages/mapgen-core/**`; route all randomness through `ctxRandom` / `ctx.adapter.getRandomNumber`; update tests to stub adapter RNG.
 - **Why second:** Stabilizes randomness semantics before moving producer logic; reduces churn and nondeterminism during later refactors.
 - **Dependencies:** Requires the adapter RNG contract; should be completed before producer cutover to avoid dual RNG migrations.
+- **Contract enforcement details:** RNG is only accessed through `ctxRandom` or injected `rngNextInt` wired from `ctxRandom`; adapter is the single engine RNG surface.
+- **Done checks (mechanical):**
+  - `rg "Math\\.random"` returns no hits in `packages/mapgen-core/**`.
+  - `rg "TerrainBuilder\\.getRandomNumber"` returns no hits in `packages/mapgen-core/**`.
+  - All RNG call sites use `ctxRandom` or injected `rngNextInt`.
+- **Done checks (contextual):** All randomness flows through the adapter boundary; determinism and call labeling are centralized.
+- **Test expectations:** Update test RNG stubs in `packages/mapgen-core/test/**` to stub adapter RNG; ensure RNG-dependent tests still pass without `Math.random` fallbacks.
+- **Do not:** Introduce alternate RNG providers or new fallbacks; call `Math.random` in tests to bypass adapter RNG; add multiple RNG streams without a decision.
+- **Expected impact / what changes:** RNG boundary becomes explicit and testable; adapter becomes the single source of randomness; removes hidden nondeterminism.
+- **Why it matters / unblocks:** Prevents RNG semantics drift during the producer cutover; simplifies auditing and future parity efforts.
 
 **Slice 3: Adapter boundary cleanup (TerrainBuilder removal)**
 - **Work:** Remove all direct `TerrainBuilder.*` usage in `packages/mapgen-core/**`; route rainfall writes through `ctx.adapter.setRainfall`; keep behavior intact.
 - **Why third:** Cleans engine boundary before the producer cutover; removes hidden globals so the new foundation implementation can operate through the adapter surface only.
 - **Dependencies:** Relies on adapter APIs being available; pairs naturally after RNG standardization.
+- **Contract enforcement details:** All engine reads/writes in mapgen-core are accessed via adapter methods; `TerrainBuilder` is only used inside `packages/civ7-adapter/**`.
+- **Done checks (mechanical):**
+  - `rg "TerrainBuilder\\." packages/mapgen-core` returns no runtime hits.
+  - Rainfall writes in `domain/narrative/paleo/rainfall-artifacts.ts` go through `ctx.adapter.setRainfall`.
+- **Done checks (contextual):** Engine boundary is explicit; mapgen-core has no implicit access to engine globals.
+- **Test expectations:** Update any tests that referenced `globalThis.TerrainBuilder` to stub adapter methods instead; no new tests required beyond boundary coverage.
+- **Do not:** Keep any direct `TerrainBuilder` usage in mapgen-core; create adapter bypasses for convenience; re-architect rainfall generation here (deferred).
+- **Expected impact / what changes:** Clear engine boundary; adapter is the only bridge to engine state; global coupling is reduced.
+- **Why it matters / unblocks:** Makes the producer cutover possible without leaking engine globals; keeps future engine decoupling feasible.
 
 **Slice 4: WorldModel producer cutover**
 - **Work:** Move producer logic into the foundation stage; stop calling `WorldModel.init()`; remove `ctx.worldModel`; update tests to assert `ctx.foundation` outputs; migrate remaining `WorldModel` readers.
 - **Why last:** Depends on explicit contracts, standardized RNG, and clean adapter boundaries to avoid hidden optionality; minimizes the number of moving parts during the cut.
 - **Dependencies:** Slices 1–3 should land first.
+- **Contract enforcement details:** `ctx.foundation` is the only published foundation product; `WorldModel` is not initialized, not published, and not used as a sink.
+- **Done checks (mechanical):**
+  - `MapOrchestrator.initializeFoundation()` no longer calls `WorldModel.init()`.
+  - `ctx.worldModel` is removed from `MapGenContext` and any runtime code references.
+  - Tests in `packages/mapgen-core/test/orchestrator/*` that asserted `WorldModel` now assert `ctx.foundation`.
+- **Done checks (contextual):** Foundation is produced by step-owned code; no dual producer/sink path remains.
+- **Test expectations:** Update listed WorldModel tests to assert `ctx.foundation`; add/adjust a focused test that fails if `WorldModel` is referenced during the foundation stage.
+- **Do not:** Keep `WorldModel` as a compatibility sink; leave dual paths in place; add hidden fallbacks back to `WorldModel`.
+- **Expected impact / what changes:** Removes global singleton from the production path; foundation ownership moves into steps; orchestrator becomes a thinner boundary.
+- **Why it matters / unblocks:** Clears the way for Phase B artifact refactor without carrying a legacy producer path.
 
 ### Follow-ups (explicitly NOT part of Phase A)
 
