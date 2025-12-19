@@ -204,7 +204,7 @@ function computeWinds(
   width: number,
   height: number,
   config: FoundationConfig,
-  getLatitude: ((x: number, y: number) => number) | undefined,
+  getLatitude: (x: number, y: number) => number,
   rng: RngFunction
 ): { windU: Int8Array; windV: Int8Array } {
   const size = width * height;
@@ -216,19 +216,7 @@ function computeWinds(
   const jetStrength = windCfg.jetStrength!;
   const variance = windCfg.variance!;
 
-  const getLat =
-    getLatitude ||
-    ((x: number, y: number) => {
-      const global = globalThis as Record<string, unknown>;
-      if (
-        global.GameplayMap &&
-        typeof (global.GameplayMap as Record<string, unknown>).getPlotLatitude === "function"
-      ) {
-        return (global.GameplayMap as { getPlotLatitude: (x: number, y: number) => number })
-          .getPlotLatitude(x, y);
-      }
-      return ((y / height) * 180 - 90) * -1;
-    });
+  const getLat = getLatitude;
 
   // Build jet streak latitude centers
   const streakLats: number[] = [];
@@ -272,42 +260,15 @@ function computeWinds(
 function computeCurrents(
   width: number,
   height: number,
-  isWater: ((x: number, y: number) => boolean) | undefined,
-  getLatitude: ((x: number, y: number) => number) | undefined
+  isWater: (x: number, y: number) => boolean,
+  getLatitude: (x: number, y: number) => number
 ): { currentU: Int8Array; currentV: Int8Array } {
   const size = width * height;
   const currentU = new Int8Array(size);
   const currentV = new Int8Array(size);
 
-  const checkWater =
-    isWater ||
-    ((x: number, y: number) => {
-      const global = globalThis as Record<string, unknown>;
-      if (
-        global.GameplayMap &&
-        typeof (global.GameplayMap as Record<string, unknown>).isWater === "function"
-      ) {
-        return (global.GameplayMap as { isWater: (x: number, y: number) => boolean }).isWater(
-          x,
-          y
-        );
-      }
-      return false;
-    });
-
-  const getLat =
-    getLatitude ||
-    ((x: number, y: number) => {
-      const global = globalThis as Record<string, unknown>;
-      if (
-        global.GameplayMap &&
-        typeof (global.GameplayMap as Record<string, unknown>).getPlotLatitude === "function"
-      ) {
-        return (global.GameplayMap as { getPlotLatitude: (x: number, y: number) => number })
-          .getPlotLatitude(x, y);
-      }
-      return ((y / height) * 180 - 90) * -1;
-    });
+  const checkWater = isWater;
+  const getLat = getLatitude;
 
   for (let y = 0; y < height; y++) {
     const latDeg = Math.abs(getLat(0, y));
@@ -343,8 +304,8 @@ function computeDynamics(
   height: number,
   config: FoundationConfig,
   rng: RngFunction,
-  getLatitude?: (x: number, y: number) => number,
-  isWater?: (x: number, y: number) => boolean
+  getLatitude: (x: number, y: number) => number,
+  isWater: (x: number, y: number) => boolean
 ): DynamicsFieldsResult {
   const pressure = computePressure(width, height, config, rng);
   const { windU, windV } = computeWinds(width, height, config, getLatitude, rng);
@@ -366,7 +327,18 @@ export function buildFoundationContext(
   }
 
   const foundationCfg = context.config.foundation;
-  const rng = requireRng((max: number, label = "Foundation") => ctxRandom(context, label, max), "buildFoundationContext");
+  const rng = requireRng(
+    (max: number, label = "Foundation") => ctxRandom(context, label, max),
+    "buildFoundationContext"
+  );
+  const { adapter } = context;
+
+  if (typeof adapter.getLatitude !== "function") {
+    throw new Error("[Foundation] Adapter missing getLatitude.");
+  }
+  if (typeof adapter.isWater !== "function") {
+    throw new Error("[Foundation] Adapter missing isWater.");
+  }
 
   const plateResult = computePlates(width, height, foundationCfg, rng);
   const dynamicsResult = computeDynamics(
@@ -374,8 +346,8 @@ export function buildFoundationContext(
     height,
     foundationCfg,
     rng,
-    (x, y) => context.adapter.getLatitude(x, y),
-    (x, y) => context.adapter.isWater(x, y)
+    (x, y) => adapter.getLatitude(x, y),
+    (x, y) => adapter.isWater(x, y)
   );
 
   const foundationContext = createFoundationContext(

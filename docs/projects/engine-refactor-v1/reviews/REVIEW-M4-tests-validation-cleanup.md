@@ -21,3 +21,4 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Strengths:** Step-owned foundation producer (`pipeline/foundation/producer.ts`), WorldModel producer removed from `MapOrchestrator`, `ctx.worldModel` removed from context, RNG/TerrainBuilder cleanup with validation and tests (foundation smoke + config wiring).
 - **Gaps:** Foundation producer still falls back to `globalThis.GameplayMap` for latitude/water in `computeWinds`/`computeCurrents`, violating the adapter-only boundary and “no silent fallbacks” guardrail.
 - **Follow-up:** Remove GameplayMap fallbacks and fail fast when adapter hooks are missing (or pass adapter-only functions explicitly).
+- **Update (2025-12-19):** Removed GameplayMap fallbacks for foundation winds/currents and added adapter presence checks at the producer boundary.
