@@ -33,11 +33,11 @@ Move foundation signal production from the `WorldModel` singleton into step-owne
 - No dual paths; do not keep `WorldModel` as a compatibility sink.
 - Engine access in mapgen-core must go through the adapter boundary.
 
-**Sub-Issues (to be created):**
-- LOCAL-TBD-A1: Contract Enforcement & Fail-Fast Gating
-- LOCAL-TBD-A2: RNG Standardization
-- LOCAL-TBD-A3: Adapter Boundary Cleanup (TerrainBuilder Removal)
-- LOCAL-TBD-A4: WorldModel Producer Cutover
+**Sub-Issues:**
+- [LOCAL-TBD-A1](LOCAL-TBD-A1-contract-enforcement.md): Contract Enforcement & Fail-Fast Gating
+- [LOCAL-TBD-A2](LOCAL-TBD-A2-rng-standardization.md): RNG Standardization
+- [LOCAL-TBD-A3](LOCAL-TBD-A3-adapter-boundary-cleanup.md): Adapter Boundary Cleanup (TerrainBuilder Removal)
+- [LOCAL-TBD-A4](LOCAL-TBD-A4-worldmodel-producer-cutover.md): WorldModel Producer Cutover
 
 ## Acceptance Criteria
 
@@ -91,151 +91,38 @@ Phase A moves ownership (math and sequencing) into foundation steps without forc
 
 ### Explicitly Not Committed (Phase A)
 
-- Orchestrator hygiene cleanups (dead imports/helpers removal).
+- Orchestrator hygiene cleanups (dead imports/helpers removal) — see DEF-013.
 - Recipe/enablement restructuring.
-- Full "graph + multi-artifact foundation" target refactor (Phase B).
-- Output parity guarantees (small deltas acceptable).
+- Full "graph + multi-artifact foundation" target refactor (Phase B) — see DEF-014.
+- Output parity guarantees (small deltas acceptable) — see DEF-015.
 
-### Sub-Issue Breakdown
+### Sub-Issue Sequencing
 
-#### Slice 1: Contract Enforcement & Fail-Fast Gating (LOCAL-TBD-A1)
+The four slices must land in order due to layered dependencies:
 
-**Work:** Enforce `ctx.foundation` presence and required fields at stage boundaries; remove silent fallbacks; ensure `foundation.dynamics` is always present via schema defaults or required fields; add fail-fast validation on publish.
+1. **A1 (Contract Enforcement)** lands first — establishes the contract we will preserve during the cutover; surfaces missing data early; prevents hidden behavior changes.
+2. **A2 (RNG Standardization)** and **A3 (Adapter Boundary Cleanup)** can proceed in parallel after A1 — both stabilize boundaries before the producer cutover.
+3. **A4 (WorldModel Producer Cutover)** lands last — depends on explicit contracts (A1), standardized RNG (A2), and clean adapter boundaries (A3).
 
-**Why first:** Establishes the contract we will preserve during the cutover; surfaces missing data early; prevents hidden behavior changes.
+### Integration Notes
 
-**Contract enforcement details:**
-- Use schema defaults or required fields for `foundation.dynamics` (no runtime creation).
-- Validate `ctx.foundation` at publish time (producer boundary): non-null arrays and expected dimensions for plates + dynamics tensors.
+All four sub-issues must land for Phase A to be complete. Partial landing creates intermediate states that are harder to reason about:
 
-**Done checks (mechanical):**
-- No code-level fallbacks for missing `ctx.foundation` or `foundation.dynamics`.
-- `foundation.dynamics` always present via schema defaults or required fields.
-- `ctx.foundation` publish path validates array presence and expected sizes.
+- **A1 alone:** Contract is enforced but `WorldModel` still produces; tests may start failing if fallbacks were previously masking issues.
+- **A2 + A3 without A4:** Boundaries are clean but `WorldModel` is still the producer; dual paths remain.
+- **A4 without A1/A2/A3:** Producer moves but contract isn't enforced and boundaries aren't clean; likely to introduce subtle bugs.
 
-**Done checks (contextual):** Foundation contract is explicit and enforced; downstream stages either receive guaranteed data or fail fast at the boundary.
+After all four land:
+- `ctx.foundation` is the single source of truth for foundation signals.
+- No dual producer/sink paths remain.
+- Adapter is the single engine boundary.
+- System is ready for Phase B artifact refactor.
 
-**Test expectations:**
-- Update any tests that relied on implicit fallbacks to expect failure when `ctx.foundation`/`dynamics` is missing.
-- Add/adjust a focused validation test that fails on missing/incorrectly sized foundation tensors.
+### FoundationContext Consumers (Cross-Cutting Reference)
 
-**Do not:**
-- Add new code-level defaults or hidden fallbacks.
-- Defer validation to downstream stages only (enforce at publish).
+These consumers depend on `ctx.foundation` and must continue to work after Phase A. Full list maintained in [LOCAL-TBD-A4](LOCAL-TBD-A4-worldmodel-producer-cutover.md).
 
-**Expected impact / what changes:** Foundation contract becomes explicit and enforceable; missing data surfaces immediately; downstream behavior is deterministic w.r.t. contract presence.
-
-#### Slice 2: RNG Standardization (LOCAL-TBD-A2)
-
-**Work:** Eliminate `Math.random()` usage in `packages/mapgen-core/**`; route all randomness through `ctxRandom` / `ctx.adapter.getRandomNumber`; update tests to stub adapter RNG.
-
-**Why second:** Stabilizes randomness semantics before moving producer logic; reduces churn during later refactors.
-
-**Contract enforcement details:** RNG is only accessed through `ctxRandom` or injected `rngNextInt` wired from `ctxRandom`; adapter is the single RNG surface.
-
-**Done checks (mechanical):**
-- `rg "Math\\.random"` returns no hits in `packages/mapgen-core/**`.
-- `rg "TerrainBuilder\\.getRandomNumber"` returns no hits in `packages/mapgen-core/**`.
-- All RNG call sites use `ctxRandom` or injected `rngNextInt`.
-
-**Done checks (contextual):** All randomness flows through the adapter boundary; determinism and call labeling are centralized.
-
-**Known call sites:**
-- `domain/morphology/coastlines/rugged-coasts.ts` (fallback in `getRandom`)
-- `domain/morphology/islands/placement.ts` (fallback in `getRandom`)
-- `domain/morphology/landmass/crust-first-landmask.ts` (fallback RNG)
-- `domain/narrative/utils/rng.ts` (fallback to `Math.random`)
-- `world/plates.ts` (fallback RNG and direct `Math.random()`)
-- `world/model.ts` (fallback RNG to `Math.random`)
-- Test files: `test/setup.ts`, `test/layers/callsite-fixes.test.ts`
-
-**Test expectations:**
-- Update test RNG stubs to use adapter RNG (no `Math.random` fallback).
-- Ensure RNG-dependent tests pass with adapter-based RNG only.
-
-**Do not:**
-- Introduce alternate RNG providers or new fallbacks.
-- Use `Math.random` in tests to bypass adapter RNG.
-
-**Expected impact / what changes:** RNG boundary becomes explicit and testable; adapter is the single source of randomness; hidden nondeterminism is removed.
-
-#### Slice 3: Adapter Boundary Cleanup (LOCAL-TBD-A3)
-
-**Work:** Remove all direct `TerrainBuilder.*` usage in `packages/mapgen-core/**`; route rainfall writes through `ctx.adapter.setRainfall`; keep behavior intact.
-
-**Why third:** Cleans engine boundary before the producer cutover; removes hidden globals.
-
-**Contract enforcement details:** All engine reads/writes in mapgen-core are accessed via adapter methods; `TerrainBuilder` is used only inside `packages/civ7-adapter/**`.
-
-**Done checks (mechanical):**
-- `rg "TerrainBuilder\\." packages/mapgen-core` returns no runtime hits.
-- Rainfall writes go through `ctx.adapter.setRainfall`.
-
-**Done checks (contextual):** Engine boundary is explicit; mapgen-core has no implicit access to engine globals.
-
-**Known call sites:**
-- `world/model.ts` (selects `TerrainBuilder.getRandomNumber` as RNG)
-- `world/plates.ts` (`globalThis.TerrainBuilder.getRandomNumber`)
-- `domain/narrative/utils/rng.ts` (direct `TerrainBuilder.getRandomNumber`)
-- `domain/narrative/paleo/rainfall-artifacts.ts` (direct `TerrainBuilder.setRainfall`)
-
-**Test expectations:**
-- Update tests that referenced `globalThis.TerrainBuilder` to stub adapter methods instead.
-
-**Do not:**
-- Keep any direct `TerrainBuilder` usage in mapgen-core.
-- Re-architect rainfall generation here (deferred).
-
-**Expected impact / what changes:** Engine boundary is explicit and auditable; mapgen-core no longer depends on engine globals.
-
-#### Slice 4: WorldModel Producer Cutover (LOCAL-TBD-A4)
-
-**Work:** Move producer logic into the foundation stage; stop calling `WorldModel.init()`; remove `ctx.worldModel`; update tests to assert `ctx.foundation` outputs; migrate remaining `WorldModel` readers.
-
-**Why last:** Depends on explicit contracts, standardized RNG, and clean adapter boundaries.
-
-**Contract enforcement details:** `ctx.foundation` is the only published foundation product; `WorldModel` is not initialized, not published, and not used as a sink.
-
-**Done checks (mechanical):**
-- `MapOrchestrator.initializeFoundation()` no longer calls `WorldModel.init()`.
-- `ctx.worldModel` removed from `MapGenContext`.
-- Tests that asserted `WorldModel` now assert `ctx.foundation`.
-
-**Done checks (contextual):** Foundation is produced by step-owned code; no dual producer/sink path remains.
-
-**WorldModel usage to migrate:**
-- Runtime: `MapOrchestrator.ts`, `core/types.ts`, `world/model.ts`, `world/plates.ts`
-- Tests: `foundation.smoke.test.ts`, `paleo-ordering.test.ts`, `task-graph.smoke.test.ts`, `worldmodel-config-wiring.test.ts`, `placement-config-wiring.test.ts`, `world/config-provider.test.ts`
-
-**Test expectations:**
-- Update WorldModel tests to assert `ctx.foundation` and fail if `WorldModel` is referenced.
-
-**Do not:**
-- Keep `WorldModel` as a compatibility sink.
-- Leave dual producer paths in place.
-
-**Expected impact / what changes:** Global singleton removed from the production path; foundation ownership moves into steps; orchestrator becomes a thinner boundary.
-
-### FoundationContext Consumers (Must Preserve)
-
-These consumers depend on `ctx.foundation` and must continue to work after the cutover:
-
-**Morphology:**
-- `domain/morphology/landmass/index.ts`
-- `domain/morphology/landmass/ocean-separation/apply.ts`
-- `domain/morphology/coastlines/rugged-coasts.ts`
-- `domain/morphology/mountains/apply.ts`
-- `domain/morphology/volcanoes/apply.ts`
-
-**Narrative:**
-- `domain/narrative/orogeny/belts.ts`
-
-**Climate/Hydrology (dynamics):**
-- `domain/hydrology/climate/swatches/monsoon-bias.ts`
-- `domain/hydrology/climate/refine/orographic-shadow.ts`
-- `domain/hydrology/climate/orographic-shadow.ts`
-
-**Implication:** `ctx.foundation` must preserve both plates tensors and `dynamics` (windU/windV/current/pressure).
+Key implication: `ctx.foundation` must preserve both plates tensors and `dynamics` (windU/windV/current/pressure).
 
 ### Quick Navigation
 - [TL;DR](#tldr)
