@@ -3,8 +3,7 @@
  * Story Orogeny — Mountain belt tagging and windward/lee cache.
  *
  * Ports legacy story/orogeny logic into a MapContext-friendly implementation:
- * - Uses FoundationContext tensors when available
- * - Falls back to a conservative elevation-density heuristic otherwise
+ * - Uses FoundationContext tensors
  * - Publishes an immutable overlay snapshot for Task Graph contracts
  *
  * Uses lazy provider pattern for test isolation.
@@ -12,12 +11,12 @@
 
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "../../../core/types.js";
 import { inBounds, storyKey } from "../../../core/index.js";
+import { assertFoundationContext } from "../../../core/assertions.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "../overlays/index.js";
 import { getDims } from "../utils/dims.js";
 import { isWaterAt } from "../utils/water.js";
 
 import { getOrogenyCache, type OrogenyCacheInstance } from "./cache.js";
-import { zonalWindStep } from "./wind.js";
 
 export interface OrogenySummary {
   belts: number;
@@ -30,7 +29,8 @@ export interface OrogenySummary {
  * Tag orogeny belts and populate an in-memory OrogenyCache for climate swatches.
  * Always publishes a `storyOverlays` snapshot (even if empty) for Task Graph contracts.
  */
-export function storyTagOrogenyBelts(ctx: ExtendedMapContext | null = null): StoryOverlaySnapshot {
+export function storyTagOrogenyBelts(ctx: ExtendedMapContext): StoryOverlaySnapshot {
+  assertFoundationContext(ctx, "storyOrogeny");
   const cache = getOrogenyCache(ctx);
   cache.belts.clear();
   cache.windward.clear();
@@ -51,19 +51,13 @@ export function storyTagOrogenyBelts(ctx: ExtendedMapContext | null = null): Sto
   const beltMinLength = Number.isFinite(cfg.beltMinLength) ? (cfg.beltMinLength | 0) : 30;
   const minLenSoft = Math.max(10, Math.round(beltMinLength * (0.9 + 0.4 * sqrtScale)));
 
-  // Strategy Selection
-  let kind: OrogenySummary["kind"] = "legacy";
-
-  if (ctx?.foundation?.plates && ctx?.foundation?.dynamics) {
-    kind = "foundation";
-    runFoundationPass(ctx, cache, width, height, minLenSoft);
-  } else {
-    runLegacyPass(ctx, cache, width, height);
-  }
+  const kind: OrogenySummary["kind"] = "foundation";
+  runFoundationPass(ctx, cache, width, height, minLenSoft);
 
   // Common Windward/Lee Tagging
   if (cache.belts.size >= minLenSoft) {
-    tagWindwardLee(ctx, cache, width, height, radius);
+    const { windU, windV } = ctx.foundation.dynamics;
+    tagWindwardLee(ctx, cache, width, height, radius, windU, windV);
   } else {
     // If belts are too small/fragmented, discard them to avoid noise
     cache.belts.clear();
@@ -100,8 +94,6 @@ function runFoundationPass(
   height: number,
   minLenSoft: number
 ): void {
-  if (!ctx.foundation) return;
-
   const { upliftPotential: U, tectonicStress: S, boundaryType: BT, boundaryCloseness: BC } = ctx.foundation.plates;
   
   let thr = 180;
@@ -155,69 +147,22 @@ function runFoundationPass(
 }
 
 /**
- * Identifies mountain belts using simple Elevation heuristics.
- * Used when foundation data is missing (e.g., imported maps).
- */
-function runLegacyPass(
-  ctx: ExtendedMapContext | null,
-  cache: OrogenyCacheInstance,
-  width: number,
-  height: number
-): void {
-  const isHighElev = (x: number, y: number): boolean => {
-    if (!inBounds(x, y, width, height)) return false;
-    // Prefer adapter check if available
-    try {
-      if (ctx?.adapter?.isMountain?.(x, y)) return true;
-    } catch { /* ignore */ }
-    
-    // Fallback to raw elevation
-    const elev = ctx?.adapter?.getElevation?.(x, y) ?? (typeof GameplayMap !== "undefined" ? GameplayMap.getElevation(x, y) : 0);
-    return elev >= 500;
-  };
-
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      if (!isHighElev(x, y)) continue;
-
-      let dense = 0;
-      neighbor_loop: for (let dy = -1; dy <= 1; dy++) {
-        for (let dx = -1; dx <= 1; dx++) {
-          if (dx === 0 && dy === 0) continue;
-          if (isHighElev(x + dx, y + dy)) {
-            dense++;
-            if (dense >= 2) break neighbor_loop;
-          }
-        }
-      }
-
-      if (dense >= 2) {
-        cache.belts.add(storyKey(x, y));
-      }
-    }
-  }
-}
-
-/**
  * Casts "Windward" (wet) and "Lee" (dry) shadows from identified belts.
  */
 function tagWindwardLee(
-  ctx: ExtendedMapContext | null,
+  ctx: ExtendedMapContext,
   cache: OrogenyCacheInstance,
   width: number,
   height: number,
-  radius: number
+  radius: number,
+  windU: Int8Array,
+  windV: Int8Array
 ): void {
-  // Pre-fetch dynamics arrays if available to avoid repeated lookups
-  const dynamics = ctx?.foundation?.dynamics;
-  const windU = dynamics?.windU;
-  const windV = dynamics?.windV;
-
   for (const key of cache.belts) {
     const [sx, sy] = key.split(",").map(Number);
     
     // Determine prevailing wind direction at this location
-    const { dx, dy } = getWindStep(ctx, sx, sy, width, windU, windV);
+    const { dx, dy } = getWindStep(sx, sy, width, windU, windV);
     
     const upwindX = -dx;
     const upwindY = -dy;
@@ -247,25 +192,20 @@ function tagWindwardLee(
  * Prioritizes Foundation dynamics, falls back to Zonal approximation.
  */
 function getWindStep(
-  ctx: ExtendedMapContext | null,
   x: number,
   y: number,
   width: number,
-  windU?: Int8Array,
-  windV?: Int8Array
+  windU: Int8Array,
+  windV: Int8Array
 ): { dx: number; dy: number } {
-  if (windU && windV) {
-    const i = y * width + x;
-    // Safety check for array bounds
-    if (i >= 0 && i < windU.length) {
-      const u = windU[i];
-      const v = windV[i];
-      if (Math.abs(u) >= Math.abs(v)) {
-        return { dx: u === 0 ? 0 : u > 0 ? 1 : -1, dy: 0 };
-      } else {
-        return { dx: 0, dy: v === 0 ? 0 : v > 0 ? 1 : -1 };
-      }
+  const i = y * width + x;
+  if (i >= 0 && i < windU.length) {
+    const u = windU[i];
+    const v = windV[i];
+    if (Math.abs(u) >= Math.abs(v)) {
+      return { dx: u === 0 ? 0 : u > 0 ? 1 : -1, dy: 0 };
     }
+    return { dx: 0, dy: v === 0 ? 0 : v > 0 ? 1 : -1 };
   }
-  return zonalWindStep(ctx, x, y);
+  return { dx: 0, dy: 0 };
 }

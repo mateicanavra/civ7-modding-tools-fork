@@ -9,7 +9,7 @@
  *   - Gentle density tweaks for rainforest/forest/taiga in appropriate biomes
  *
  * Guardrails
- * - Always validate placements via TerrainBuilder.canHaveFeature
+ * - Always validate placements via adapter canHaveFeature checks
  * - Resolve feature indices via lookups; skip if unavailable
  * - Keep probabilities conservative and local; never create chokepoints
  * - O(width × height); small neighborhood scans only
@@ -43,7 +43,7 @@ export function addDiverseFeatures(
 ): void {
   console.log("Adding diverse terrain features...");
 
-  if (!ctx?.adapter) {
+  if (!ctx || !ctx.adapter) {
     throw new Error(
       "addDiverseFeatures: MapContext adapter is required (legacy direct-engine fallback removed)."
     );
@@ -78,12 +78,7 @@ export function addDiverseFeatures(
   const g_TropicalBiome = adapter.getBiomeGlobal("tropical");
   const g_TundraBiome = adapter.getBiomeGlobal("tundra");
 
-  const getRandom = (label: string, max: number): number => {
-    if (ctx) {
-      return ctxRandom(ctx, label, max);
-    }
-    return adapter.getRandomNumber(max, label);
-  };
+  const getRandom = (label: string, max: number): number => ctxRandom(ctx, label, max);
 
   const paradiseReefChance = featuresCfg?.paradiseReefChance ?? 18;
 

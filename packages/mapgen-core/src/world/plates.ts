@@ -657,23 +657,11 @@ export function computePlatesVoronoi(
   // Use provided utilities or defaults
   const voronoiUtils = voronoiChoice.utils;
   const allowPlateDownsample = voronoiChoice.label === "fallback";
-  const rng: RngFunction =
-    options.rng ||
-    ((max, _label) => {
-      // Try to use game engine RNG
-      const global = globalThis as Record<string, unknown>;
-      if (
-        global.TerrainBuilder &&
-        typeof (global.TerrainBuilder as Record<string, unknown>).getRandomNumber === "function"
-      ) {
-        return (global.TerrainBuilder as { getRandomNumber: RngFunction }).getRandomNumber(
-          max,
-          _label
-        );
-      }
-      // Fallback to Math.random
-      return Math.floor(Math.random() * max);
-    });
+  if (!options.rng) {
+    throw new Error("[WorldModel] RNG not provided for plate generation.");
+  }
+  const rng: RngFunction = options.rng;
+  const rngUnit = (label: string): number => rng(1_000_000, label) / 1_000_000;
 
   const size = width * height;
 
@@ -717,7 +705,7 @@ export function computePlatesVoronoi(
         index,
         0,
         bbox.xr * bbox.yb,
-        { x: Math.random(), y: Math.random(), z: Math.random() },
+        { x: rngUnit("PlateColorX"), y: rngUnit("PlateColorY"), z: rngUnit("PlateColorZ") },
         rng
       );
       region.seedLocation = { x: cell.site.x, y: cell.site.y };

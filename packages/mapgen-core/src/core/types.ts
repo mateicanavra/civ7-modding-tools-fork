@@ -382,6 +382,54 @@ function ensureTensor<T extends { length: number }>(
   return tensor;
 }
 
+export function validateFoundationContext(
+  foundation: FoundationContext,
+  dimensions: MapDimensions
+): void {
+  if (!foundation) {
+    throw new Error("[FoundationContext] Missing foundation payload.");
+  }
+  if (!dimensions) {
+    throw new Error("[FoundationContext] Map dimensions are required to validate foundation.");
+  }
+
+  const width = dimensions.width | 0;
+  const height = dimensions.height | 0;
+  const size = Math.max(0, width * height) | 0;
+
+  if (size <= 0) {
+    throw new Error("[FoundationContext] Invalid map dimensions.");
+  }
+
+  if (
+    foundation.dimensions.width !== width ||
+    foundation.dimensions.height !== height ||
+    foundation.dimensions.size !== size
+  ) {
+    throw new Error(
+      "[FoundationContext] Dimension mismatch between context and foundation payload."
+    );
+  }
+
+  const { plates, dynamics } = foundation;
+
+  ensureTensor("plateId", plates.id, size);
+  ensureTensor("boundaryCloseness", plates.boundaryCloseness, size);
+  ensureTensor("boundaryType", plates.boundaryType, size);
+  ensureTensor("tectonicStress", plates.tectonicStress, size);
+  ensureTensor("upliftPotential", plates.upliftPotential, size);
+  ensureTensor("riftPotential", plates.riftPotential, size);
+  ensureTensor("shieldStability", plates.shieldStability, size);
+  ensureTensor("plateMovementU", plates.movementU, size);
+  ensureTensor("plateMovementV", plates.movementV, size);
+  ensureTensor("plateRotation", plates.rotation, size);
+  ensureTensor("windU", dynamics.windU, size);
+  ensureTensor("windV", dynamics.windV, size);
+  ensureTensor("currentU", dynamics.currentU, size);
+  ensureTensor("currentV", dynamics.currentV, size);
+  ensureTensor("pressure", dynamics.pressure, size);
+}
+
 export interface CreateFoundationContextOptions {
   dimensions: MapDimensions;
   config?: Partial<FoundationConfigSnapshot>;
@@ -516,6 +564,7 @@ export function assertFoundationContext(
   stage?: string
 ): FoundationContext {
   if (hasFoundationContext(ctx)) {
+    validateFoundationContext(ctx.foundation, ctx.dimensions);
     return ctx.foundation;
   }
   const message = stage

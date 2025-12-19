@@ -5,10 +5,8 @@ export function rand(ctx: ExtendedMapContext | null | undefined, label: string, 
   const m = Math.max(1, max | 0);
   const lab = label || "Rand";
 
-  if (ctx) return ctxRandom(ctx, lab, m);
-  if (typeof TerrainBuilder !== "undefined" && TerrainBuilder?.getRandomNumber) {
-    return TerrainBuilder.getRandomNumber(m, lab);
+  if (!ctx) {
+    throw new Error("Narrative RNG requires MapContext (legacy fallback removed).");
   }
-  return Math.floor(Math.random() * m);
+  return ctxRandom(ctx, lab, m);
 }
-

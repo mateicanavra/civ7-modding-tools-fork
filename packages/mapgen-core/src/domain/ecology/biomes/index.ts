@@ -48,7 +48,7 @@ export function designateEnhancedBiomes(
 ): void {
   console.log("Creating enhanced biome diversity (climate-aware)...");
 
-  if (!ctx?.adapter) {
+  if (!ctx || !ctx.adapter) {
     throw new Error(
       "designateEnhancedBiomes: MapContext adapter is required (legacy direct-engine fallback removed)."
     );
@@ -113,12 +113,7 @@ export function designateEnhancedBiomes(
     Math.min(1, corridorPolicy?.river?.biomesBiasStrength ?? 0.5)
   );
 
-  const getRandom = (label: string, max: number): number => {
-    if (ctx) {
-      return ctxRandom(ctx, label, max);
-    }
-    return adapter.getRandomNumber(max, label);
-  };
+  const getRandom = (label: string, max: number): number => ctxRandom(ctx, label, max);
 
   const climateField = getPublishedClimateField(ctx);
   if (!climateField?.rainfall) {

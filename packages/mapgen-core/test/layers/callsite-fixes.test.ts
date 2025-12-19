@@ -23,7 +23,7 @@ describe("CIV-18: Call-site Fixes", () => {
         setRainfall: () => {},
         getElevation: () => 100,
         getLatitude: () => 0,
-        getRandomNumber: (max) => Math.floor(Math.random() * max),
+        getRandomNumber: (max) => (max > 0 ? 0 : 0),
       };
 
       // Type check: adapter should be valid without isCoastalLand
@@ -40,7 +40,7 @@ describe("CIV-18: Call-site Fixes", () => {
         setRainfall: () => {},
         getElevation: () => 100,
         getLatitude: () => 0,
-        getRandomNumber: (max) => Math.floor(Math.random() * max),
+        getRandomNumber: (max) => (max > 0 ? 0 : 0),
       };
 
       expect(adapter.isCoastalLand?.(0, 0)).toBe(true);

@@ -88,7 +88,7 @@ export function tryCrustFirstLandmask(
   targetLandTiles: number,
   landmassCfg: LandmassConfig,
   crustMode: CrustMode,
-  ctx?: ExtendedMapContext | null
+  ctx: ExtendedMapContext
 ): CrustFirstResult | null {
   const size = width * height;
   if (plateIds.length !== size) return null;
@@ -127,11 +127,14 @@ export function tryCrustFirstLandmask(
   const graph = buildPlateTopology(plateIds, width, height, plateCount);
 
   const areaResult = mode === "area" ? assignCrustTypesByArea(graph, targetLandTiles) : null;
+  const rngNext = (max: number, label = "CrustRand"): number => ctxRandom(ctx, label, max);
+  const rngUnit = (label: string): number => rngNext(1_000_000, label) / 1_000_000;
+
   const crustTypes =
     areaResult?.crustTypes ||
     assignCrustTypes(
       graph,
-      ctx ? () => ctxRandom(ctx, "CrustType", 1_000_000) / 1_000_000 : Math.random,
+      rngNext,
       {
         continentalFraction,
         microcontinentChance,
@@ -142,8 +145,7 @@ export function tryCrustFirstLandmask(
   const noiseFn =
     noiseAmplitude === 0
       ? undefined
-      : (x: number, y: number) =>
-          ctx ? ctxRandom(ctx, "CrustNoise", 1_000_000) / 1_000_000 : Math.random();
+      : (_x: number, _y: number) => rngUnit("CrustNoise");
 
   const baseHeight = generateBaseHeightfield(plateIds, crustTypes, width, height, {
     continentalHeight,
@@ -205,4 +207,3 @@ export function tryCrustFirstLandmask(
     },
   };
 }
-

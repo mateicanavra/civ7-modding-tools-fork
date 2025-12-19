@@ -121,6 +121,13 @@ function toByte(v: number): number {
   return clampInt(Math.round(v), 0, 255);
 }
 
+function requireRng(rng: RngFunction | undefined, scope: string): RngFunction {
+  if (!rng) {
+    throw new Error(`[WorldModel] RNG not provided for ${scope}.`);
+  }
+  return rng;
+}
+
 // ============================================================================
 // Plate Computation
 // ============================================================================
@@ -130,9 +137,10 @@ function toByte(v: number): number {
 function computePlates(
   width: number,
   height: number,
-  options?: ComputePlatesOptions
+  options: ComputePlatesOptions
 ): void {
   const config = getConfig();
+  const rng = requireRng(options.rng, "computePlates");
   const platesCfg = config.plates || {};
 
   // Schema defaults and min/max constraints are enforced by parseConfig.
@@ -188,7 +196,7 @@ function computePlates(
 
   let plateData = null;
   try {
-    plateData = computePlatesVoronoi(width, height, configSnapshot, options);
+    plateData = computePlatesVoronoi(width, height, configSnapshot, { ...options, rng });
   } finally {
     if (typeof restoreSeed === "function") {
       try {
@@ -250,7 +258,7 @@ function computePlates(
 // Pressure Computation
 // ============================================================================
 
-function computePressure(width: number, height: number, rng?: RngFunction): void {
+function computePressure(width: number, height: number, rng: RngFunction): void {
   const size = width * height;
   const pressure = _state.pressure;
   if (!pressure) return;
@@ -263,7 +271,7 @@ function computePressure(width: number, height: number, rng?: RngFunction): void
   const scl = mantleCfg.scale!;
   const sigma = Math.max(4, Math.floor(Math.min(width, height) * scl));
 
-  const getRandom = rng || getDefaultRng();
+  const getRandom = rng;
 
   // Random bump centers
   const centers: Array<{ x: number; y: number; a: number }> = [];
@@ -313,7 +321,7 @@ function computeWinds(
   width: number,
   height: number,
   getLatitude?: (x: number, y: number) => number,
-  rng?: RngFunction
+  rng: RngFunction
 ): void {
   const U = _state.windU;
   const V = _state.windV;
@@ -326,7 +334,7 @@ function computeWinds(
   const jetStrength = windCfg.jetStrength!;
   const variance = windCfg.variance!;
 
-  const getRandom = rng || getDefaultRng();
+  const getRandom = rng;
   const getLat =
     getLatitude ||
     ((x: number, y: number) => {
@@ -451,23 +459,6 @@ function computeCurrents(
 }
 
 // ============================================================================
-// Default RNG Helper
-// ============================================================================
-
-function getDefaultRng(): RngFunction {
-  const global = globalThis as Record<string, unknown>;
-  if (global.TerrainBuilder) {
-    const tb = global.TerrainBuilder as Record<string, unknown>;
-    if (typeof tb.getRandomNumber === "function") {
-      console.log("[WorldModel] Using TerrainBuilder.getRandomNumber as RNG");
-      return (tb as { getRandomNumber: RngFunction }).getRandomNumber.bind(tb);
-    }
-  }
-  console.log("[WorldModel] Using Math.random as RNG");
-  return (max) => Math.floor(Math.random() * max);
-}
-
-// ============================================================================
 // WorldModel Public API
 // ============================================================================
 
@@ -584,17 +575,24 @@ export const WorldModel: WorldModelInterface = {
     _state.currentV = new Int8Array(size);
     _state.pressure = new Uint8Array(size);
 
+    const plateOptions: ComputePlatesOptions = {
+      ...(options.plateOptions ?? {}),
+      rng: options.plateOptions?.rng ?? options.rng,
+    };
+
     // Compute fields
     console.log("[WorldModel] computePlates starting");
-    computePlates(width, height, options.plateOptions);
+    computePlates(width, height, plateOptions);
     console.log("[WorldModel] computePlates succeeded");
 
+    const rng = requireRng(plateOptions.rng, "WorldModel.init");
+
     console.log("[WorldModel] computePressure starting");
-    computePressure(width, height, options.rng);
+    computePressure(width, height, rng);
     console.log("[WorldModel] computePressure succeeded");
 
     console.log("[WorldModel] computeWinds starting");
-    computeWinds(width, height, options.getLatitude, options.rng);
+    computeWinds(width, height, options.getLatitude, rng);
     console.log("[WorldModel] computeWinds succeeded");
 
     console.log("[WorldModel] computeCurrents starting");

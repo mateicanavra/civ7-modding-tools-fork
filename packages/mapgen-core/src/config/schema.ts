@@ -2776,7 +2776,7 @@ export const FoundationConfigSchema = Type.Object(
     /** Tectonic plate count and behavior settings. */
     plates: Type.Optional(FoundationPlatesConfigSchema),
     /** Wind, mantle convection, and directional coherence settings. */
-    dynamics: Type.Optional(FoundationDynamicsConfigSchema),
+    dynamics: FoundationDynamicsConfigSchema,
     /** @internal Surface mode configuration (engine plumbing). */
     surface: Type.Optional(FoundationSurfaceConfigSchema),
     /** @internal Policy flags for foundation stage (engine plumbing). */
@@ -2848,7 +2848,7 @@ export const MapGenConfigSchema = Type.Object(
     /** Landmass geometry: water percent, tectonic bias, and post-processing. */
     landmass: Type.Optional(LandmassConfigSchema),
     /** Foundation stage config: plates, dynamics, and internal policy/diagnostics. */
-    foundation: Type.Optional(FoundationConfigSchema),
+    foundation: FoundationConfigSchema,
     /** Climate baseline and refinement settings for humidity. */
     climate: Type.Optional(ClimateConfigSchema),
     /** Mountain generation thresholds and tectonic weights. */

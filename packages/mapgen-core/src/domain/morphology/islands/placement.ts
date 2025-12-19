@@ -8,8 +8,8 @@ import { isAdjacentToLand, isNearSeaLane, storyKey } from "./adjacency.js";
 
 const HILL_FRACTAL = 1;
 
-export function addIslandChains(iWidth: number, iHeight: number, ctx?: ExtendedMapContext | null): void {
-  const adapter = ctx?.adapter;
+export function addIslandChains(iWidth: number, iHeight: number, ctx: ExtendedMapContext): void {
+  const adapter = ctx.adapter;
 
   if (adapter?.createFractal) {
     adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 5, 0);
@@ -32,18 +32,10 @@ export function addIslandChains(iWidth: number, iHeight: number, ctx?: ExtendedM
   const StoryTags = getStoryTags(ctx);
 
   const applyTerrain = (tileX: number, tileY: number, terrain: number, isLand: boolean): void => {
-    if (ctx) {
-      writeHeightfield(ctx, tileX, tileY, { terrain, isLand });
-    } else if (adapter) {
-      adapter.setTerrainType(tileX, tileY, terrain);
-    }
+    writeHeightfield(ctx, tileX, tileY, { terrain, isLand });
   };
 
-  const getRandom = (label: string, max: number): number => {
-    if (ctx) return ctxRandom(ctx, label, max);
-    if (adapter) return adapter.getRandomNumber(max, label);
-    return Math.floor(Math.random() * max);
-  };
+  const getRandom = (label: string, max: number): number => ctxRandom(ctx, label, max);
 
   const getFractalHeight = (x: number, y: number): number => {
     if (adapter?.getFractalHeight) return adapter.getFractalHeight(HILL_FRACTAL, x, y);
