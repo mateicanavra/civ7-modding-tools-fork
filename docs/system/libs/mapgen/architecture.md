@@ -134,6 +134,7 @@ Key points:
   - Apply defaults and type coercions.
   - Validate incoming configs at the engine boundary (fail fast on invalid input).
   - Export JSON Schema for documentation and tooling.
+- The schema is **strict**: unknown keys are rejected. Experimental/plugin-owned knobs must live under `config.extensions` (or be modeled into the schema).
 - The engine entrypoint (e.g., `MapOrchestrator` or a pipeline runner) is responsible for:
   - Accepting raw config from the map script.
   - Validating it once at startup via the schema.

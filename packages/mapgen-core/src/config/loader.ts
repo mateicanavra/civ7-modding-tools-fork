@@ -10,18 +10,89 @@ export interface ParseResult {
   errors?: Array<{ path: string; message: string }>;
 }
 
-function buildConfig(input: unknown): MapGenConfig {
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+function findUnknownKeyErrors(
+  schema: unknown,
+  value: unknown,
+  path = ""
+): Array<{ path: string; message: string }> {
+  if (!isPlainObject(schema) || !isPlainObject(value)) return [];
+
+  // Union schemas: choose the branch that yields the fewest unknown keys.
+  const anyOf = Array.isArray(schema.anyOf) ? (schema.anyOf as unknown[]) : null;
+  const oneOf = Array.isArray(schema.oneOf) ? (schema.oneOf as unknown[]) : null;
+  const candidates = anyOf ?? oneOf;
+  if (candidates) {
+    let best: Array<{ path: string; message: string }> | null = null;
+    for (const candidate of candidates) {
+      const errs = findUnknownKeyErrors(candidate, value, path);
+      if (best == null || errs.length < best.length) best = errs;
+      if (best.length === 0) break;
+    }
+    return best ?? [];
+  }
+
+  // Object schemas with explicit properties: enforce strict keys.
+  const properties = isPlainObject(schema.properties) ? (schema.properties as Record<string, unknown>) : null;
+  const additionalProperties = schema.additionalProperties;
+
+  const errors: Array<{ path: string; message: string }> = [];
+
+  if (properties && additionalProperties === false) {
+    for (const key of Object.keys(value)) {
+      if (!(key in properties)) {
+        errors.push({
+          path: `${path}/${key}`,
+          message: "Unknown config key",
+        });
+        continue;
+      }
+      errors.push(...findUnknownKeyErrors(properties[key], value[key], `${path}/${key}`));
+    }
+    return errors;
+  }
+
+  // Record schemas are represented as patternProperties; keys are allowed, but
+  // their values may still be object-validated.
+  const patternProperties = isPlainObject(schema.patternProperties)
+    ? (schema.patternProperties as Record<string, unknown>)
+    : null;
+  if (patternProperties) {
+    const firstValueSchema = Object.values(patternProperties)[0];
+    for (const key of Object.keys(value)) {
+      errors.push(...findUnknownKeyErrors(firstValueSchema, value[key], `${path}/${key}`));
+    }
+    return errors;
+  }
+
+  // Array schemas: validate elements.
+  if (schema.type === "array" && schema.items && Array.isArray(value)) {
+    for (let i = 0; i < value.length; i++) {
+      errors.push(...findUnknownKeyErrors(schema.items, value[i], `${path}/${String(i)}`));
+    }
+    return errors;
+  }
+
+  return [];
+}
+
+function buildConfig(input: unknown): { converted: unknown; cleaned: MapGenConfig } {
   const cloned = Value.Clone(input ?? {});
   const defaulted = Value.Default(MapGenConfigSchema, cloned);
   const converted = Value.Convert(MapGenConfigSchema, defaulted);
   const cleaned = Value.Clean(MapGenConfigSchema, converted);
-  return cleaned as MapGenConfig;
+  return { converted, cleaned: cleaned as MapGenConfig };
 }
 
-function formatErrors(cleaned: MapGenConfig): { path: string; message: string }[] {
+function formatErrors(value: unknown): { path: string; message: string }[] {
   const formattedErrors: Array<{ path: string; message: string }> = [];
 
-  for (const err of Value.Errors(MapGenConfigSchema, cleaned)) {
+  for (const err of Value.Errors(MapGenConfigSchema, value)) {
     const path = (err as { path?: string; instancePath?: string }).path ?? (err as { instancePath?: string }).instancePath;
     formattedErrors.push({
       path: path && path.length > 0 ? path : "/",
@@ -36,9 +107,14 @@ function formatErrors(cleaned: MapGenConfig): { path: string; message: string }[
  * Parse and validate raw config, applying defaults and throwing on errors.
  */
 export function parseConfig(input: unknown): MapGenConfig {
-  const cleaned = buildConfig(input);
+  // Detect unknown keys against the raw input object before any coercion/cleaning.
+  const unknownKeyErrors = findUnknownKeyErrors(MapGenConfigSchema, input ?? {}, "");
 
-  const errors = formatErrors(cleaned);
+  const { converted, cleaned } = buildConfig(input);
+
+  // Validate before Value.Clean() so that unknown keys (additionalProperties)
+  // are not silently dropped.
+  const errors = [...unknownKeyErrors, ...formatErrors(converted)];
   if (errors.length > 0) {
     const messages = errors.map((e) => `${e.path}: ${e.message}`).join("; ");
     const error = new Error(`Invalid MapGenConfig: ${messages}`);
