@@ -16,6 +16,36 @@ Recalibration needed.
 
 M4 is defined as “Tests, Validation & Cleanup” in `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`, but the actual codebase already contains M3/M4-class changes (TaskGraph-only execution, artifact gating, foundation validation, modularization) while multiple docs still describe that work as planned or missing. This creates a real mismatch between the project’s stated scope and the current implementation state, which blocks confident sequencing. No tests were run as part of this checkpoint.
 
+## Target Architecture Gap Analysis
+
+**Checkpoint question:** What gaps remain between the target architecture and the current implementation?
+
+### Gaps (Target vs Current)
+
+- **Recipe-driven pipeline:** Target expects a JSON recipe with per-step config and ordering (`docs/system/libs/mapgen/architecture.md`), but current execution is fixed to `STAGE_ORDER` + `stageManifest` with no per-step config input (`packages/mapgen-core/src/bootstrap/resolved.ts`, `packages/mapgen-core/src/pipeline/StepRegistry.ts`).
+- **Dependency-driven scheduling:** Target implies dependency-based ordering within phases; current `PipelineExecutor` executes the static recipe without topological sorting (`packages/mapgen-core/src/pipeline/PipelineExecutor.ts`).
+- **Registry extensibility:** Target treats `StepRegistry` as a plugin system; current dependency tags are hard-whitelisted to M3 tags, blocking new artifact tags (e.g., `artifact:mesh`) and mod-provided tags (`packages/mapgen-core/src/pipeline/tags.ts`).
+- **Artifacts model:** Target uses structured artifacts (`context.artifacts.mesh|crust|plateGraph|tectonics`), while current artifacts are a string-keyed `Map` with only `heightfield`, `climateField`, and `riverAdjacency` plus a separate `foundation` field (`packages/mapgen-core/src/core/types.ts`, `packages/mapgen-core/src/pipeline/artifacts.ts`).
+- **Side-effect isolation:** Target wants steps to publish to context then commit at boundaries; current `writeHeightfield`/`writeClimateField` mirrors directly to engine surfaces and `syncHeightfield` reads back from engine (`packages/mapgen-core/src/core/types.ts`).
+- **Adapter boundary & globals:** Target forbids global state; current code still relies on engine globals (`GameInfo`, `PlotTags`, `LandmassRegion`, `GameplayMap`, `RandomImpl`, `VoronoiUtils`) in multiple paths (`packages/mapgen-core/src/core/terrain-constants.ts`, `packages/mapgen-core/src/core/plot-tags.ts`, `packages/mapgen-core/src/domain/narrative/utils/*`, `packages/mapgen-core/src/world/*`).
+- **Foundation sub-pipeline:** Target foundation uses mesh → crust → partition → physics with explicit artifacts and `d3-delaunay`; current foundation is a single step producing plate/dynamics tensors only, with global Voronoi fallback (`docs/system/libs/mapgen/foundation.md`, `packages/mapgen-core/src/pipeline/foundation/producer.ts`, `packages/mapgen-core/src/world/plates.ts`).
+- **Morphology pipeline:** Target morphology is a geomorphic erosion sub-pipeline; current morphology steps are wrap-first legacy terrain layers via adapter (`docs/system/libs/mapgen/morphology.md`, `packages/mapgen-core/src/pipeline/morphology/*`, `packages/mapgen-core/src/domain/morphology/*`).
+- **Hydrology/climate products:** Target calls for `ClimateField` as canonical and richer river/lake artifacts; current climate uses published rainfall buffers but still runs engine river modeling and keeps humidity as a placeholder buffer (`docs/system/libs/mapgen/hydrology.md`, `packages/mapgen-core/src/pipeline/hydrology/*.ts`, `packages/mapgen-core/src/domain/hydrology/climate/runtime.ts`).
+- **Ecology products:** Target expects pedology/resources artifacts and explicit product usage; current ecology still relies on engine base behavior with light nudges from climate/story tags (`docs/system/libs/mapgen/ecology.md`, `packages/mapgen-core/src/domain/ecology/*`).
+- **Narrative overlays:** Target expects a rich `story` artifact (regions/tags/corridors/history); current story uses StoryTags + overlays in a `Map` and still uses engine-global fallbacks in utilities (`docs/system/libs/mapgen/narrative.md`, `packages/mapgen-core/src/domain/narrative/*`).
+- **Stage topology mismatch:** Target topology in project docs includes `terrainAdjust`, `rainfallBaseline`, `humidity`, `finalize`, but current `STAGE_ORDER` does not (`docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md`, `packages/mapgen-core/src/bootstrap/resolved.ts`).
+- **Validation scope:** Target “fail fast” implies full dependency validation; current runtime checks only verify a subset of tags and trusts `state:engine.*` (`packages/mapgen-core/src/pipeline/PipelineExecutor.ts`, `packages/mapgen-core/src/pipeline/tags.ts`).
+
+### Ambiguities / Open Questions from Target Specs
+
+- **Recipe + config merge:** How should per-step recipe config integrate with `MapGenConfig` and its schema, and where does validation live? (`docs/system/libs/mapgen/architecture.md`)
+- **Artifact storage model:** Are artifacts a structured object (`context.artifacts.mesh`) or a tag-keyed map, and how do tags map to shape validation? (`docs/system/libs/mapgen/architecture.md`, `docs/system/libs/mapgen/foundation.md`)
+- **Adapter responsibility for globals:** The target forbids global state but does not spell out where engine-provided globals should be mediated (adapter surface expansion vs. shim layers). (`docs/system/libs/mapgen/architecture.md`)
+- **Humidity contract:** `ClimateField.humidity` is listed as placeholder without a defined source or consumer contract. (`docs/system/libs/mapgen/hydrology.md`)
+- **Story overlay budget:** ADR-001 calls for an overlay byte budget but leaves the threshold undefined. (`docs/system/libs/mapgen/adrs/adr-001-era-tagged-morphology.md`)
+- **WorldModel status:** Architecture bans `WorldModel`, but ADR-001 treats it as a constraint; clarify whether it remains a transitional dependency or is to be fully excised. (`docs/system/libs/mapgen/architecture.md`, `docs/system/libs/mapgen/adrs/adr-001-era-tagged-morphology.md`)
+- **Missing design doc:** `packages/mapgen-core/src/AGENTS.md` references `docs/system/libs/mapgen/design.md`, which does not exist. Clarify the canonical spec location. (`packages/mapgen-core/src/AGENTS.md`)
+
 ## Drift Analysis
 
 ### Scope Drift
