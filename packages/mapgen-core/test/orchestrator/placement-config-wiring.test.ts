@@ -4,7 +4,6 @@ import { bootstrap } from "../../src/bootstrap/entry.js";
 import { MapOrchestrator } from "../../src/MapOrchestrator.js";
 import { createExtendedMapContext } from "../../src/core/types.js";
 import { createPlacementStep } from "../../src/pipeline/placement/steps.js";
-import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js";
 
 describe("placement config wiring", () => {
   const width = 24;
@@ -26,9 +25,6 @@ describe("placement config wiring", () => {
   let originalGameInfo: unknown;
 
   beforeEach(() => {
-    resetConfigProviderForTest();
-    WorldModel.reset();
-
     originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
     originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
 
@@ -56,9 +52,6 @@ describe("placement config wiring", () => {
   afterEach(() => {
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
-
-    resetConfigProviderForTest();
-    WorldModel.reset();
   });
 
   it("PlacementStep honors ctx.config.placement overrides", () => {

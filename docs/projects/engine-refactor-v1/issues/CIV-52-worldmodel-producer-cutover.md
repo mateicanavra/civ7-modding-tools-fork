@@ -30,11 +30,11 @@ Move producer logic into the foundation stage; stop calling `WorldModel.init()`;
 
 ## Acceptance Criteria
 
-- [ ] `MapOrchestrator.initializeFoundation()` no longer calls `WorldModel.init()` or any equivalent producer path.
-- [ ] `ctx.worldModel` removed from `MapGenContext`.
-- [ ] Tests that asserted `WorldModel` now assert `ctx.foundation`.
-- [ ] Foundation is produced by step-owned code; no dual producer/sink path remains.
-- [ ] `ctx.foundation` continues to populate and satisfy `artifact:foundation` (types/shape preserved).
+- [x] `MapOrchestrator.initializeFoundation()` no longer calls `WorldModel.init()` or any equivalent producer path.
+- [x] `ctx.worldModel` removed from `MapGenContext`.
+- [x] Tests that asserted `WorldModel` now assert `ctx.foundation`.
+- [x] Foundation is produced by step-owned code; no dual producer/sink path remains.
+- [x] `ctx.foundation` continues to populate and satisfy `artifact:foundation` (types/shape preserved).
 - [ ] All tests pass with the new producer path.
 
 ## Testing / Verification

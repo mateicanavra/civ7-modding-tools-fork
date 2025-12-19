@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap, MapOrchestrator } from "../../src/index.js";
-import { resetConfigProviderForTest, WorldModel } from "../../src/world/model.js";
 
 describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
   const width = 24;
@@ -23,9 +22,6 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
   let originalGameInfo: unknown;
 
   beforeEach(() => {
-    resetConfigProviderForTest();
-    WorldModel.reset();
-
     originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
     originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
 
@@ -53,9 +49,6 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
   afterEach(() => {
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
-
-    resetConfigProviderForTest();
-    WorldModel.reset();
   });
 
   it("runs the foundation stage via PipelineExecutor", () => {

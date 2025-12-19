@@ -29,10 +29,10 @@ Eliminate `Math.random()` usage in `packages/mapgen-core/**`; route all randomne
 
 ## Acceptance Criteria
 
-- [ ] `rg "Math\\.random"` returns no hits in `packages/mapgen-core/**`.
-- [ ] `rg "TerrainBuilder\\.getRandomNumber"` returns no hits in `packages/mapgen-core/**`.
-- [ ] All RNG call sites use `ctxRandom` or injected `rngNextInt`.
-- [ ] Test RNG stubs use adapter RNG only.
+- [x] `rg "Math\\.random"` returns no hits in `packages/mapgen-core/**`.
+- [x] `rg "TerrainBuilder\\.getRandomNumber"` returns no hits in `packages/mapgen-core/**`.
+- [x] All RNG call sites use `ctxRandom` or injected `rngNextInt`.
+- [x] Test RNG stubs use adapter RNG only.
 - [ ] RNG-dependent tests pass with adapter-based RNG only.
 
 ## Testing / Verification

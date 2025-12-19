@@ -41,13 +41,13 @@ Move foundation signal production from the `WorldModel` singleton into step-owne
 
 ## Acceptance Criteria
 
-- [ ] `MapOrchestrator.initializeFoundation()` no longer calls `WorldModel.init()` or any equivalent producer path.
-- [ ] Foundation stage is the only canonical producer of foundation signals.
-- [ ] `ctx.foundation` continues to populate and satisfy `artifact:foundation` (types/shape preserved).
-- [ ] All internal consumers read from `ctx.foundation`, not `WorldModel`.
-- [ ] `rg "Math\\.random"` returns no hits in `packages/mapgen-core/**`.
-- [ ] `rg "TerrainBuilder\\."` returns no runtime hits in `packages/mapgen-core/**`.
-- [ ] `ctx.worldModel` is removed from `MapGenContext`.
+- [x] `MapOrchestrator.initializeFoundation()` no longer calls `WorldModel.init()` or any equivalent producer path.
+- [x] Foundation stage is the only canonical producer of foundation signals.
+- [x] `ctx.foundation` continues to populate and satisfy `artifact:foundation` (types/shape preserved).
+- [x] All internal consumers read from `ctx.foundation`, not `WorldModel`.
+- [x] `rg "Math\\.random"` returns no hits in `packages/mapgen-core/**`.
+- [x] `rg "TerrainBuilder\\."` returns no runtime hits in `packages/mapgen-core/**`.
+- [x] `ctx.worldModel` is removed from `MapGenContext`.
 - [ ] All tests pass with the new producer path.
 
 ## Testing / Verification

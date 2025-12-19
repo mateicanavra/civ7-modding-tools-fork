@@ -235,15 +235,10 @@ For derived snapshot artifacts (notably `artifact:heightfield`), this means:
 *   The legacy `WorldModel` singleton is **banned** in new code.
 *   New steps must read/write strictly to `context.artifacts` or `context.fields`.
 
-### 4.3. The Bridge Strategy
-To support legacy scripts that haven't been refactored yet, the `MapOrchestrator` acts as a bridge:
-1.  **Run Pipeline:** The new pipeline executes, populating `context.artifacts`.
-2.  **Sync Legacy:** The Orchestrator copies relevant data from `context.artifacts` into the global `WorldModel` singleton.
-3.  **Run Legacy:** Downstream legacy scripts execute, reading from the global `WorldModel`.
+### 4.3. Legacy Bridge Retired
+The temporary bridge that copied data into the global `WorldModel` has been removed. The foundation stage now produces `context.foundation`, and downstream steps consume that artifact directly.
 
-This isolates the technical debt to the Orchestrator boundary and allows us to refactor stages one by one.
-
-This bridge is an intentional, time-bound compatibility tradeoff for Engine Refactor v1 (tracked in `docs/projects/engine-refactor-v1/deferrals.md` DEF-007).
+Legacy support is still handled at the step boundary; we no longer synchronize to `WorldModel` in the runtime pipeline.
 
 ---
 
