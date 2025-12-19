@@ -128,7 +128,7 @@ Each deferral follows this structure:
 
 **Deferred:** 2025-12-14  
 **Trigger:** When the TaskGraph executor path is the default for in-repo map generation (including `mods/mod-swooper-maps`) and the legacy `STAGE_ORDER`-driven execution can be removed without losing parity.  
-**Context:** In M3 we intentionally keep both execution modes wired in `MapOrchestrator.generateMap()` (`useTaskGraph` flag) to support incremental migration and stack-by-stack landing. Some in-repo consumers still run with `useTaskGraph: false`, so removing the legacy path now would block parallel work and destabilize integration.  
+**Context:** In M3 we intentionally kept a legacy non-TaskGraph branch in `MapOrchestrator.generateMap()` behind the `useTaskGraph` flag to support incremental migration and stack-by-stack landing. Some in-repo consumers still ran with `useTaskGraph: false`, so removing the legacy path immediately would have blocked parallel work and destabilized integration.  
 **Scope:**
 - Migrate remaining in-repo callers to run via the TaskGraph executor path.
 - Delete the legacy non-TaskGraph branch in `MapOrchestrator.generateMap()` (while keeping the external `GenerateMap` entry surface stable).
@@ -136,6 +136,7 @@ Each deferral follows this structure:
 **Impact:**
 - Two execution modes increase drift risk (behavior/config/contract mismatches) until cutover is complete.
 - Longer-lived legacy wiring can hide missing `requires/provides` declarations if callers never exercise the executor path.
+- Note: Likely already satisfied post-M2; `MapOrchestrator.generateMap()` now directly calls `generateMapTaskGraph()` and `OrchestratorConfig` has no `useTaskGraph`. `rg` finds no `useTaskGraph` in code/mods; re-verify before treating this as active work.
 
 ---
 
@@ -182,6 +183,50 @@ Each deferral follows this structure:
 **Impact:**
 - Global story state remains a drift and coupling risk until removed.
 - Tests and execution order can still be influenced by hidden global state.
+
+---
+
+## DEF-013: MapOrchestrator Hygiene + Enablement Consolidation
+
+**Deferred:** 2025-12-18  
+**Trigger:** After Phase A foundation cut/RNG standardization, when we can safely refactor orchestrator structure without destabilizing pipeline execution.  
+**Context:** The MapOrchestrator bloat assessment explicitly deferred cleanup work and enablement/recipe restructuring to keep Phase A deterministic and focused on the WorldModel cut.  
+**Scope:**
+- Remove dead imports/helpers and local cleanup in `MapOrchestrator`.
+- Consolidate enablement gating to a single source of truth (avoid redundant stage gating split between recipe/manifest and `shouldRun()` paths).  
+**Impact:**
+- Orchestrator remains cluttered, and duplicated enablement logic can mask incorrect stage wiring or drift.
+
+---
+
+## DEF-014: Foundation Graph Artifacts (Replace `FoundationContext`)
+
+**Deferred:** 2025-12-18  
+**Trigger:** When Phase B / foundation PRD work begins and consumers are ready to migrate off `ctx.foundation`.  
+**Context:** The orchestrator bloat assessment explicitly defers the target multi-artifact foundation model; Phase A keeps the `FoundationContext` snapshot as the compatibility boundary.  
+**Scope:**
+- Define the canonical foundation artifact set (mesh, crust, plateGraph, tectonics, and any required raster artifacts).
+- Migrate consumers from `ctx.foundation` to explicit artifacts/fields with named contracts.
+- Revisit plate/physics algorithm replacement to the mesh/crust/plateGraph/tectonics design.
+- Decide whether `dynamics` remains a concept and how its data is represented post-migration.  
+**Impact:**
+- `FoundationContext` remains a monolithic compatibility surface.
+- Target graph artifacts and algorithm replacements are deferred, limiting foundation-level refactors.
+
+---
+
+## DEF-015: RNG Parity Contract (Call Ordering / Labels)
+
+**Deferred:** 2025-12-18  
+**Trigger:** If exact output parity becomes a hard requirement for the foundation refactor or WorldModel cut.  
+**Context:** The MapOrchestrator bloat assessment explicitly defers parity alignment; Phase A allows deltas while standardizing RNG boundaries.  
+**Scope:**
+- Decide whether parity is required and define success criteria.
+- Align RNG call ordering/labels across the pipeline if parity is mandated.
+- Add parity-focused tests/goldens only after criteria are set.  
+**Impact:**
+- Small output deltas are acceptable in Phase A; parity is not guaranteed.
+- Without a parity plan, comparisons may be noisy or subjective.
 
 ---
 
