@@ -144,7 +144,7 @@ Note: built artifacts under `mods/mod-swooper-maps/mod/maps/*.js` also contain l
 
 We have a canonical "what stages are enabled" representation (the resolved `stageManifest`), but legacy toggles still exist as an authored config surface and are consumed in domain logic.
 
-- Stage gating is derived from `stageManifest` (`packages/mapgen-core/src/MapOrchestrator.ts`, `resolveStageFlags()`).
+- Stage gating is derived from `stageManifest` and applied when deriving the recipe list (`packages/mapgen-core/src/pipeline/StepRegistry.ts#getStandardRecipe`).
 - `MapOrchestrator` derives and overwrites story-related toggles when constructing `context.config` (`packages/mapgen-core/src/MapOrchestrator.ts`, `buildContextConfig()`).
 - Downstream logic still reads `config.toggles.STORY_ENABLE_*` directly:
   - Features: `packages/mapgen-core/src/domain/ecology/features/index.ts` gates some effects via `STORY_ENABLE_HOTSPOTS` even though it also checks story tag sets.

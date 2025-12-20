@@ -53,7 +53,7 @@ This is a structural mismatch with target architecture:
 
 - It obscures step contracts (data provenance is not `ctx.artifacts` / `ctx.fields`).
 - It encourages cross-step mutation (e.g., “mutable landmass bounds” for placement).
-- It duplicates enablement logic (stage gating is partially in the recipe and partially in `shouldRun()`).
+- It historically duplicated enablement logic (stage gating split between the derived recipe list and `shouldRun()`); this is now resolved in-repo (CIV-53 / DEF-013).
 
 Key example wiring:
 - `packages/mapgen-core/src/MapOrchestrator.ts:439` (`registerStandardLibrary(registry, config, { ... })`)

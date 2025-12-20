@@ -2,6 +2,8 @@
 
 > **Status:** Target (post‑M3). M3 is wrap‑first: hydrology/climate runs as wrapper steps to preserve map quality; the sub-step breakdown and optional extensions below are not required for M3.
 
+> **Config note:** Some sections still reference legacy `MapGenConfig` slices. The current target drafts supersede that: boundary input is `RunRequest = { recipe, settings }`, and step-local knobs are validated per step (no global config mega-object). See `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`.
+
 ## 1. Overview
 
 The **Hydrology & Climate** phase turns landform + latitude into gameplay‑relevant fields and signals:

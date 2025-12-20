@@ -64,7 +64,7 @@ This refactor is broken down into 6 sequential steps (Sub-Issues). Each step mus
 
 ### Step 1: Core Pipeline Infrastructure
 **Goal:** Establish the "Skeleton" (Types & Registry).
-- Define `MapGenStep` interface with `phase`, `requires`, `provides`, `shouldRun`.
+- Define `MapGenStep` interface with `phase`, `requires`, `provides`.
 - Implement `StepRegistry` (simple Map-based plugin system).
 - Update `MapGenContext` to split `fields` (Canvas) vs `artifacts` (Intermediate).
 - Define `CrustData` interface with `type` and `age` arrays.

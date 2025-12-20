@@ -164,7 +164,7 @@ ordering in the target system?
 **Current mapping (today) vs target intent (what we mean when we say "recipe"):**
 - Today:
   - Ordering: `STAGE_ORDER` -> `StageManifest.order` -> "recipe" list (stage IDs).
-  - Enablement: `stageConfig`/`stageManifest` flags plus per-step guards (`shouldRun`) and other legacy gating (transitional only; removed in the target contract).
+  - Enablement: `stageConfig`/`stageManifest` flags (transitional bridge; in-repo `stageFlags`/`shouldRun()` gating is removed as of 2025-12-20).
   - Topology: mostly linear; dependency metadata is carried in a "dependency spine" derived from `M3_STAGE_DEPENDENCY_SPINE`, not owned exclusively by step code.
   - Registry: used, but assumes a standard ordered list built from `stageManifest.order`.
 - Target intent (greenfield):
@@ -439,40 +439,30 @@ into `ExecutionPlan`; steps have no `shouldRun` contract and there are no silent
 skips—only fail-fast validation/precondition errors.
 
 **Why this exists (how ambiguity was created):**
-- Phase A/M3 kept enablement split across multiple transitional surfaces:
-  - `stageConfig` → `stageManifest` → `StageFlags` (`packages/mapgen-core/src/orchestrator/stage-flags.ts`)
-  - `StageManifest.order` filtered by `enabled` becomes the “standard recipe”
-    (`packages/mapgen-core/src/pipeline/StepRegistry.ts#getStandardRecipe`)
-  - the executor *also* filters by `MapGenStep.shouldRun` at runtime
-    (`packages/mapgen-core/src/pipeline/PipelineExecutor.ts`)
-- Many registered steps are authored with `shouldRun: () => runtime.stageFlags.<id>`
-  (e.g. `packages/mapgen-core/src/pipeline/*/index.ts`), preserving legacy “stage enablement”
-  behavior even after recipe-like ordering exists.
+- Historically (Phase A/M3), enablement was split across multiple transitional surfaces:
+  - `stageConfig` → `stageManifest` (the “config air gap” bridge)
+  - derived “standard recipe” list from `StageManifest.order` filtered by enablement
+  - (previously) additional stage-driven gating via `stageFlags` + per-step `shouldRun()`
 - `DEF-013` explicitly deferred “enablement consolidation” to avoid destabilizing the Phase A worldmodel cut.
+- As of 2025-12-20, `stageFlags`/`shouldRun()` gating is removed in-repo (CIV-53 / DEF-013 resolved); enablement is single-sourced via the recipe list.
 
 **Why it matters (what stays hard until resolved):**
-- **Hidden skips break contract validation:** a step can be included/enabled by
-  the authored composition but skipped by `shouldRun`, so `requires/provides`
-  validation can’t be treated as complete.
-- **Reproducibility + introspection suffer:** “what ran” is not knowable from the
-  recipe alone; you must replay runtime state to know which steps executed.
-- **More indirection persists:** we keep `stageFlags` and stage-name plumbing
-  alive solely to support enablement, which blocks simplifying the orchestration
-  boundary and making the registry + recipe authoritative.
+- **Historically, hidden skips broke contract validation:** when enablement lived
+  partly in `shouldRun()`, `requires/provides` validation could not be treated as complete.
+- **Historically, reproducibility + introspection suffered:** “what ran” was not
+  knowable from the recipe list alone; runtime flags affected execution.
+- **Even after enablement consolidation, ordering is still bridged:** M3 still
+  routes through `stageConfig`/`stageManifest`/`STAGE_ORDER` (`DEF-004`), which keeps
+  extra plumbing in the orchestration boundary until the recipe cutover is complete.
 
 **Evidence (what we do today):**
-- Double gating exists:
-  - `StepRegistry#getStandardRecipe` filters by `StageManifest.stages[<id>].enabled`.
-  - `PipelineExecutor` filters again via `.filter(step.shouldRun ? step.shouldRun(ctx) : true)`.
-- Many “steps” are effectively stage wrappers with `shouldRun` mapped to stage flags:
-  - `packages/mapgen-core/src/pipeline/morphology/index.ts`
-  - `packages/mapgen-core/src/pipeline/narrative/index.ts`
-  - `packages/mapgen-core/src/pipeline/ecology/index.ts`
-  - `packages/mapgen-core/src/pipeline/placement/index.ts`
-- Some steps contain additional *internal* conditional behavior beyond stage enablement
-  (example: rivers paleo tagging):
-  - `packages/mapgen-core/src/pipeline/hydrology/RiversStep.ts` applies paleo
-    behavior conditionally (`shouldRunPaleo`) and can publish additional artifacts.
+- Recipe-list enablement is now single-sourced:
+  - `packages/mapgen-core/src/pipeline/StepRegistry.ts#getStandardRecipe` derives the ordered
+    step list from `StageManifest.order` filtered by stage enablement (`DEF-004` bridge).
+  - `packages/mapgen-core/src/pipeline/PipelineExecutor.ts` executes the provided list as-is
+    (no `shouldRun`, no silent skipping).
+- `MapGenStep` no longer includes `shouldRun`:
+  - `packages/mapgen-core/src/pipeline/types.ts`
 
 **Greenfield simplest (pure target):**
 - **Enablement is authored, not inferred:** the recipe (composition) is the only
@@ -530,12 +520,10 @@ skips—only fail-fast validation/precondition errors.
   - Phase 1 (bridge): generate `recipe.steps[]` from `stageManifest.order` and
     embed `enabled` per occurrence from `stageManifest.stages[<id>].enabled`.
   - Phase 2 (cutover): compile enablement into `ExecutionPlan` (plan contains only
-    enabled nodes) and remove `PipelineExecutor` filtering by `shouldRun`.
-  - Phase 3 (cleanup): delete `stageFlags` and stage-based enablement plumbing;
-    remove `shouldRun` as an enablement mechanism from the standard mod package.
-  - Ongoing refactor requirement: split/variant-ize steps with conditional
-    sub-effects that change outputs (e.g., rivers paleo tagging) so that behavior
-    is explicit in the plan rather than hidden inside `run()`.
+    enabled nodes) and remove any executor-level self-filtering.
+  - Phase 3 (cleanup): delete stage-based enablement plumbing and any step-level
+    enablement hooks.
+- In-repo status (2025-12-20): Phase 2–3 are complete (CIV-53 / DEF-013 resolved).
 
 ### 2.3 Foundation surface (discrete artifacts vs `FoundationContext`)
 
@@ -1147,7 +1135,7 @@ Assumptions to confirm:
 
 Assumptions to confirm:
 - Required diagnostics minimum (per-step metrics, artifact inspection).
-- Whether validation errors are fatal or optionally downgraded.
+- Validation errors are fatal (locked): no downgrade/suppression category.
 
 ---
 

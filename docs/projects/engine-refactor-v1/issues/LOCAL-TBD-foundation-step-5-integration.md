@@ -68,9 +68,7 @@ class PipelineExecutor {
     const sorted = this.topologicalSort(stepIds);
     for (const id of sorted) {
       const step = this.registry.get(id);
-      if (step.shouldRun(ctx)) {
-        step.run(ctx);
-      }
+      step.run(ctx);
     }
   }
 }
