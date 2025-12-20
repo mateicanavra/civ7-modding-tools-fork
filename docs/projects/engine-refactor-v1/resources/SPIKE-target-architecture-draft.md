@@ -106,7 +106,7 @@ flowchart LR
 
   %% Apply current statuses (keep updated as decisions are accepted)
   class ordering spine,accepted
-  class recipeSchema spine,proposed
+  class recipeSchema spine,accepted
   class enablement spine,accepted
   class registry spine,accepted
 
@@ -793,7 +793,7 @@ strict and mod/plugin-safe with fail-fast collision behavior?
 
 ### 2.9 Recipe schema (versioning + compatibility rules)
 
-**Status:** `proposed`
+**Status:** `accepted`
 
 **Decision (one sentence):** What is the V1 recipe schema shape and its
 versioning/compatibility policy, given our target separation:
@@ -970,12 +970,15 @@ Compatibility policy axes (independent of the version format):
     - recipes can be stored standalone, and
     - run invocations can embed recipes or reference a recipe by name/path (tooling-defined), without changing the core contract.
 
-**Tentative default (not yet accepted):**
-- Adopt **Option A** for V1: `schemaVersion: 1` (major integer), strict unknown keys at recipe/step level,
-  step-ID resolution via registry, and per-step `config` validated against step schema when available.
-- Reserve `future.*` containers (accepted but empty/ignored in V1) plus `extensions` for non-semantic experiments.
+**Accepted choice (final):**
+- Adopt **Option A** for V1: `schemaVersion: 1` (major integer).
+- Unknown keys are rejected (fail-fast) at recipe top-level and in step entries.
+- Step IDs are resolved via the registry; unknown IDs are errors.
+- Per-step `config` is validated against the step’s schema when available (TypeBox-based; no new validator library).
+  - If no schema exists yet, accept an open record as a transitional soft spot (explicitly tracked).
+- Reserve `future.*` containers (accepted by schema but must be empty in V1) plus `extensions` for non-semantic experiments.
 
-**SPEC impact (if/when accepted):**
+**SPEC impact (accepted):**
 - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
   - Update `1.2 Pipeline contract` to reference a versioned recipe schema and compilation to `ExecutionPlan`.
   - Add a short "V1 recipe structure (sketch)" subsection.

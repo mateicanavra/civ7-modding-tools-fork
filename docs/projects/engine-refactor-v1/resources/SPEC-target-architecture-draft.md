@@ -272,7 +272,7 @@ flowchart LR
 
   %% Apply current statuses (keep updated as decisions are accepted)
   class ordering spine,accepted
-  class recipeSchema spine,proposed
+  class recipeSchema spine,accepted
   class enablement spine,accepted
   class registry spine,accepted
 
@@ -295,7 +295,7 @@ flowchart LR
 | 3.6 | Climate ownership (`ClimateField` vs engine rainfall) | open | §2.6 |
 | 3.7 | Placement inputs (explicit artifact vs engine reads) | open | §2.7 |
 | 3.8 | Artifact registry (names + schema ownership + versioning) | accepted | §2.8 |
-| 3.9 | Recipe schema (versioning + compatibility rules) | proposed | §2.9 |
+| 3.9 | Recipe schema (versioning + compatibility rules) | accepted | §2.9 |
 | 3.10 | Observability (required diagnostics + validation behavior) | open | §2.10 |
 
 ---
