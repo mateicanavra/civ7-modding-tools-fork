@@ -400,7 +400,6 @@ import { compileExecutionPlan } from "@mapgen/core/compiler";
 import { noise2d } from "@mapgen/core/lib/noise";
 import { buildTerrainMask } from "@mod/lib/terrain";
 ```
-
 ### 7.2 `RegistryEntry` and `Registry` (single catalog, no clever names)
 
 Key DX goal: step files export a **single registry entry** that contains
