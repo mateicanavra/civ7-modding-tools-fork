@@ -1,0 +1,1169 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2025-12-20T08:22:03.325Z",
+  "includeNoisy": false,
+  "entryCount": 129,
+  "items": [
+    {
+      "id": "f74d0bd46fc070332990a90718528e6696629509951bd47f1d0caac9dc949aa2",
+      "filePath": "docs/_archive/LEGACY-mapgen-plan-plate-generation-refactor.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "e1d70db8fde9309b4f00c35ce3ebaea3b579d866cc2024b9ebb96911814ba9da",
+      "blockPreview": "## 6. Implementation Steps 1. **Seed Extraction** - ✅ Split seed logic out of `computePlatesVoronoi()` into `PlateSeedManager`. - ✅ Ensure `RandomImpl` state is"
+    },
+    {
+      "id": "24c81dd5b1883d00084c4516fe0c06c73276f07f0d0bd06fba137986a6fba081",
+      "filePath": "docs/DOCS.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "bedff9f28ea7e2bdb7029424f87cfc141d90b0403771104194207f1951f8a786",
+      "blockPreview": "- `ARCHITECTURE.md`, `TESTING.md`, `SECURITY.md` are canonical, evergreen for the system domain. - `ADR.md` documents significant architectural decisions that h"
+    },
+    {
+      "id": "5b2181d592c0bb5b6f07f9634150779960a029bdbf7c1ad652769c1777e448f3",
+      "filePath": "docs/DOCS.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "3a1e28b7c61893dd7a59192536f597ba179ce55299ecc65aeef3c25f3e7712d6",
+      "blockPreview": "- **lowercase** - Scoped or detailed docs, usually within a subdomain or project. - Examples: - `system/backend/overview.md`, `schemas.md`, `orchestration.md`. "
+    },
+    {
+      "id": "7e08d6793bf27c0181be677a22f64cf2eaa05aa356e4040936a8498cda48979c",
+      "filePath": "docs/DOCS.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "670622e908afee29086bc92a82e058387aaba2b75924763a86b68eaffe59d8b1",
+      "blockPreview": "- Each project folder holds time-bound context: - Specs, logs, issue docs, resources tied to that initiative. - Project docs are typically lowercased and can be"
+    },
+    {
+      "id": "b5a2068d749d0524b077e031f534a5b2aabd5cefab650730d9c3433ba5330e22",
+      "filePath": "docs/DOCS.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "as appropriate",
+      "blockHash": "14a8d0634113572f41098e55ca9384d57fcd64c6fd2e50d358e9d1ad0f3be4f4",
+      "blockPreview": "- Reusable scaffolds for new docs. - Copy these into `projects/`, `system/`, or `product/` as appropriate; do not edit them in place for project-specific work."
+    },
+    {
+      "id": "b6170a9dc434be070ada2d9e88a422ce78ecfb2bc43bad0f37ed53378653abb0",
+      "filePath": "docs/process/GRAPHITE.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "5bd69b92f3c20244cae115b333cda7f9eec48c9b4f34eda83246f45b4fd9a683",
+      "blockPreview": "### Branch Stack A \"stack\" is a series of branches where each branch builds on top of the previous one. The base of the stack is your trunk branch (typically `m"
+    },
+    {
+      "id": "2cd5bf2192ed6db84f7dfda8cfaf16cff0199729b5778f3e62e32ff68504aa4b",
+      "filePath": "docs/process/LINEAR.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "4e4a494ce4dfb1af3e306f506da643f6896f93b751d7f399082845fd2bf4b879",
+      "blockPreview": "**Milestone issues typically:** - Current milestone critical path: High (2) - Current milestone supporting work: Medium (3) - Future milestone prep: Medium (3) "
+    },
+    {
+      "id": "9cd07c776233ea864ab5b1cb7f36e92f270b6eeed2abf7d14611229622a9d0f5",
+      "filePath": "docs/process/LINEAR.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "50bca4d898724d626378bf7bd47c4c717fea0542774cde4196bc7c52371dbee2",
+      "blockPreview": "**Linear issues then link these layers together:** - Each issue should: - Reference its milestone (`milestone:` field in the YAML front matter and in Linear). -"
+    },
+    {
+      "id": "ddc1aacb02d9d2a8385f8186f007ca4b24e0a7b64f821b6d83c588dc1b568384",
+      "filePath": "docs/process/LINEAR.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "when appropriate",
+      "blockHash": "4086808fb8b78796d50e40529e09913e963234d79850838e7240316edd0a03bd",
+      "blockPreview": "**Don't over-label:** - ❌ Don't tag every M2 issue with \"M2\" (use `[M#]` prefix instead) - ❌ Don't create labels for temporary states - ❌ Don't use aspect label"
+    },
+    {
+      "id": "834e4822b3891af8a952be872eb0859ee2fea3c28a0b7e72f9adea66b129a7d7",
+      "filePath": "docs/projects/engine-refactor-v1/issues/_archive/CIV-33-docs-alignment.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "f510b3f35e31fd9f90f84e54e446695e7d9c634b91685018f55fdac3721823b3",
+      "blockPreview": "- Read through the updated M2 milestone, project brief, and status snapshot to ensure: - They all agree on the M2 definition and on where pipeline primitives la"
+    },
+    {
+      "id": "bb8028610adad904ee2662ed68f2bf5525a2d8a1dd9b6acf415d7d11ab5d2071",
+      "filePath": "docs/projects/engine-refactor-v1/issues/_archive/CIV-36-story-parity.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "1c8a7ae05e8fb87a83a0fef0f1031c0766f7c799c23aab0fbc92b7715b16becb",
+      "blockPreview": "Restore the minimum narrative signals needed for downstream parity by porting and wiring **continental margins**, **hotspot trails**, and **rift valleys** (opti"
+    },
+    {
+      "id": "5e2b7e7ed0eff15d1841e56c9f34616bab8ab18107510d5683ce939dc466f095",
+      "filePath": "docs/projects/engine-refactor-v1/issues/_archive/CIV-37-worldmodel-mountains-wiring.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "6bcd2cb0af2821fc4709b0b40418807e5ade8562d438d52c77eaa034fecefebe",
+      "blockPreview": "<!-- SECTION IMPLEMENTATION [NOSYNC] --> ## Implementation Details (Local Only) - Fix foundation/mountains wiring: - Move the `swooper-desert-mountains` mountai"
+    },
+    {
+      "id": "b884bedcfa0117c380d3d7ba33da65dede72dad58aae02f96f5665116430b245",
+      "filePath": "docs/projects/engine-refactor-v1/issues/_archive/CIV-37-worldmodel-mountains-wiring.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "if necessary",
+      "blockHash": "6bcd2cb0af2821fc4709b0b40418807e5ade8562d438d52c77eaa034fecefebe",
+      "blockPreview": "<!-- SECTION IMPLEMENTATION [NOSYNC] --> ## Implementation Details (Local Only) - Fix foundation/mountains wiring: - Move the `swooper-desert-mountains` mountai"
+    },
+    {
+      "id": "bcad221d24392cd18564b20d00044ab4144608c7348ecf119f0be86d38df4c70",
+      "filePath": "docs/projects/engine-refactor-v1/issues/_archive/CIV-37-worldmodel-mountains-wiring.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "43904e9f7d0713047958d48762fc605dcfe84c44fb6551fb11017d43c55e5da7",
+      "blockPreview": "## Dependencies / Notes - Primary root causes to address first: - Misplaced mountains config (`overrides.mountains` instead of `overrides.foundation.mountains`)"
+    },
+    {
+      "id": "d15a32a1cd64aad693ef783063333a0b44e66d6cee2a2a521eaee2f6d50d7dfb",
+      "filePath": "docs/projects/engine-refactor-v1/issues/_archive/CIV-40-system-docs-target-vs-current.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "where appropriate",
+      "blockHash": "8cc30b7bfcf268b710fe7e8093d0b9af60dfd9427a0ac7db7d571c45002b1519",
+      "blockPreview": "- [x] `docs/system/libs/mapgen/architecture.md` clearly labels “Target” vs “Current” guidance and points readers to project docs for post‑M2 reality where appro"
+    },
+    {
+      "id": "31b0c39efdfe945f92004745d1b19e2af9a4298e9b8969487b8d6b6f9d751a20",
+      "filePath": "docs/projects/engine-refactor-v1/issues/CIV-46-config-evolution.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "if applicable",
+      "blockHash": "2d2512545280c07e6227006efc394ec2142338df7c5d9bb7d12e536614f8b2b1",
+      "blockPreview": "- `pnpm -C packages/mapgen-core check` - `pnpm test:mapgen` - Validate schema export (if applicable in this repo’s workflow) and sanity-check a few representati"
+    },
+    {
+      "id": "4ccd566e2aba33c93ef6d5b0fc1305d9e96a1ee29eaecb2b86e7302d475c3615",
+      "filePath": "docs/projects/engine-refactor-v1/issues/CIV-47-adapter-collapse.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "as needed",
+      "blockHash": "710a8c997bad5cc939a01926391f4951744baa59569a12c6ab27542d9213cd2e",
+      "blockPreview": "- [x] Extend `EngineAdapter` to cover map-init + map-info responsibilities currently owned by `MapOrchestrator`’s internal `OrchestratorAdapter` (map size/dimen"
+    },
+    {
+      "id": "2d764bd3511ad894a76339a8d22bb837fc49d0d476b7dbb760b931edecfa89a9",
+      "filePath": "docs/projects/engine-refactor-v1/issues/CIV-M4-ADHOC-modularize.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "f729eb2a2d19fc39d9e302264999213ece7dbbdf5ea55adb80472e631aac94b7",
+      "blockPreview": "- [x] `climate/types.ts`: `ClimateConfig`, `ClimateRuntime`, `ClimateAdapter`, `OrogenyCache`, `ClimateSwatchResult` - [x] `climate/runtime.ts`: `resolveAdapter"
+    },
+    {
+      "id": "00c632f41a5fe39834283e6bfefe730d532ec07928802179ced784df5382a9b3",
+      "filePath": "docs/projects/engine-refactor-v1/issues/LOCAL-TBD-swooper-maps-mod-build.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "4f11bef05a8b5be550410e26e0b4e51d2efd714735640b184b180cc6b63c0b42",
+      "blockPreview": "6. **Migration & validation** - One-time steps: - Run the new `build-mod` once and diff generated XML + `.modinfo` against the current hand-authored versions. -"
+    },
+    {
+      "id": "57bebb6d3af49cd239845fb80f24f39ef4fb9196f4259d819b67731041a29f27",
+      "filePath": "docs/projects/engine-refactor-v1/issues/LOCAL-TBD-swooper-maps-mod-build.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "where appropriate",
+      "blockHash": "bb0b03da7aab657257d7545e0f092ed1156ba1c2726c703ae3e85cc181dd72d4",
+      "blockPreview": "5. **Wire into the build pipeline** - In `mods/mod-swooper-maps/package.json`: - Add: `\"build:config\": \"bunx tsx build-mod.ts\"` (or similar) to leverage Bun whe"
+    },
+    {
+      "id": "7c160e858167008430fc044f340b70624144615c53a0c06adcc958f16e2be566",
+      "filePath": "docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "attempt to",
+      "blockHash": "02c4b629d1c9ce374ddfa05476d848a431be2998eae643fa11604cff8d51db20",
+      "blockPreview": "- **Current state for M2 planning:** The architecture docs target a single adapter boundary at `MapGenContext.adapter: EngineAdapter`, but the current implement"
+    },
+    {
+      "id": "7dd5b8ac44a92b459479330a3019b232c0e1058d6fd4ac2c97c098f939c25988",
+      "filePath": "docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "ab867cd02dac7162f91e77dbe01cc7f0835d618636e3f16230646b2f2f9af184",
+      "blockPreview": "- Ensure existing `[Foundation]` diagnostics (seed/plate/dynamics/surface logs, ASCII maps, histograms) are wired to the orchestrated foundation slice. - Add ba"
+    },
+    {
+      "id": "267b066b33dc55c4e0fad9464df0a8af9e0aa8b3c7b71968cf863d88c6107660",
+      "filePath": "docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "dc6c0a04ade092f9472ab4446e16aacf348508d468236034c9029592bb5aa865",
+      "blockPreview": "- Implement a lightweight validator that: - Verifies all `requires` are present in `MapGenContext` before a step runs. - Ensures data products like `FoundationC"
+    },
+    {
+      "id": "20d10f0776c6b109410310f7ff304d635d7ca8d4066679f2a0d3e2477f5b6f3d",
+      "filePath": "docs/projects/engine-refactor-v1/resources/_archive/PLAN-migrate-to-ts-remediation.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "attempt to",
+      "blockHash": "d540198f4c21de2b6a4c829c63f07db2fec89890cc9ff09b8a9924a77e67f7d9",
+      "blockPreview": "Verify Execution: Run the mod. It should now actually attempt to generate terrain (even if that terrain is ugly because of missing Story Tags)."
+    },
+    {
+      "id": "540a219b61341dbb4c9452bcca7dfc9cdaa8061adc76d8d22b858d1ee1fa77af",
+      "filePath": "docs/projects/engine-refactor-v1/resources/PRD-config-refactor.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "as needed",
+      "blockHash": "c18efc034c4b6b33359782d31ac4d22c719deb5c48643919d14ea112fb67998d",
+      "blockPreview": "1. **Schema for current shape** - Define a `MapGenConfigSchema` that describes the current, effective config: - Preserve current nesting (including `foundation`"
+    },
+    {
+      "id": "688ceca0d2fc83bc14d621ba8f4ce5d095efb226c0f50ae16d25945eb4417c3b",
+      "filePath": "docs/projects/engine-refactor-v1/resources/PRD-pipeline-refactor.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "d39e36c6dc306c7f1669a46d84bdf2e10a1477eb986bb384f685cd3201d6af7a",
+      "blockPreview": "* **Risk:** Performance overhead of the generic Executor. * *Mitigation:* The overhead of a loop and a few map lookups is negligible compared to the heavy math "
+    },
+    {
+      "id": "1039d022b6fac8040ec09e57d80ce8e15e89dc42ee54154359597e0a1f36984c",
+      "filePath": "docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "b10520e23191ee3ffb11c0b51de65748e6aba495252805d76c8f5cb2afe73063",
+      "blockPreview": "- **Morphology:** mountains/volcanoes/landmass read plate tensors like `upliftPotential`, `riftPotential`, `boundaryType`, `boundaryCloseness`, `tectonicStress`"
+    },
+    {
+      "id": "b9772b4c55bfbac505790580689c7688aa0993122dfbbf199b5353004c7aba53",
+      "filePath": "docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "45ee5a9eebb01b1de323d4dfaeab2de3f049fa3c429dcb765d164ffe8effbda8",
+      "blockPreview": "- Today the `foundation` step calls `WorldModel.init()` and builds `ctx.foundation` via `createFoundationContext(WorldModel, ...)` (`packages/mapgen-core/src/Ma"
+    },
+    {
+      "id": "72d1e3112e3002f6aa3c39d1b65e5d28ad5d6cc1467704f0ef20730a04b9c6f6",
+      "filePath": "docs/projects/engine-refactor-v1/resources/slides/voronoi-plate-generation.outline.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "where appropriate",
+      "blockHash": "96e95cf59f88f6dbe555a8cebd74a61de9653c9dce9167d4d5e0d33f09c4f43a",
+      "blockPreview": "**Vertical depth:** Each slide uses multiple blocks to go from intuition → technical detail → code where appropriate."
+    },
+    {
+      "id": "fe82895d8b09fc62f083eb11f1a9eb20781ebe727b17829e15eee713c835079c",
+      "filePath": "docs/projects/engine-refactor-v1/resources/slides/voronoi-plate-generation.outline.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "1603109885d993abef47d23b1f47db911d338e9519ebea186c5d676df401cd60",
+      "blockPreview": "5. `explanation` - Directionality control: \"Beyond random plates, you can bias plate movement toward a preferred axis. This creates maps with coherent tectonic "
+    },
+    {
+      "id": "1ce999d7eece76b259433d4fe4c07219fd29b62e5e3bf01b6702ec928cfe38c2",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "62ebaffa9b4173b9eb436fb1e9af9b9105cf43d49b56baef59ea9dc32b9526ef",
+      "blockPreview": "Type safety note: - TypeScript can strongly type tag *shapes* (via TypeBox) and tag *kinds* (via `field:*` / `artifact:*` / `effect:*` template-literal `TagId`s"
+    },
+    {
+      "id": "1817787e4fbd74bc6a0c2bc39d138e5c1f85481e97ec7e5507351bd86e9c871b",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-bun-migration-feasibility.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "aim to",
+      "blockHash": "6cf1d9085c197d703b82d8145bea5f7ef47ca024aa67a2d2513882e6913f3bd6",
+      "blockPreview": "- The repo already has a Vitest multi-project configuration (`vitest.config.ts`) and a central “run everything” workflow. - Tests rely on Vitest-specific mockin"
+    },
+    {
+      "id": "56025f36c5144e3c02726ea257bfe3c639fdfd1a7327a5700d330467b43b4159",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-bun-migration-feasibility.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "98f8785e4a8dd68fc5a39cf2dda003baa63dfbafbd889de1c1c081ee8d963cc1",
+      "blockPreview": "Bun supports publishing and `.npmrc`, but the expected auth environment variable is typically `NPM_CONFIG_TOKEN` (per Bun docs for `bun publish`). This is solva"
+    },
+    {
+      "id": "6753f29f96390511d0dbd0c49bf15f0cb3311532843422735d3e7ba088ff1409",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-bun-migration-feasibility.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "where appropriate",
+      "blockHash": "2bcfc1aa705333fa1dd266353de994ff1f95367fae5548d4c4d5ffeed5bde14a",
+      "blockPreview": "1) Make Bun the only package manager contractually (no pnpm lockfile, no pnpm workspace file, no pnpm-root sentinel logic). 2) Keep the toolchain story coherent"
+    },
+    {
+      "id": "cec156738b9771d7bdd7e6c4bd7afeb313f40155c7d0861c656b7f54397b03bf",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-bun-migration-feasibility.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "if you want",
+      "blockHash": "62282320a39f743adf5f70e90b732a4c1a98c45fb1fb4eeb3c26121bc7d160b6",
+      "blockPreview": "- Replace `pnpm-workspace.yaml` scanning with Bun/Node-agnostic detection: - Prefer: traverse upward to the first `package.json` that declares `workspaces`. - A"
+    },
+    {
+      "id": "57d790a35f5a02860cb0f7bece5c6621cbec2b2c6dbe9b1d0493af2ca4461fdd",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-orchestrator-bloat-assessment.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "attempt to",
+      "blockHash": "3251fbafc0e70cc0a64c44a676ac0b5eb3c2a2b356f71818688aecb0a4528533",
+      "blockPreview": "**Non-goals for this SPIKE / Phase A** - No attempt to model mesh/crust/plateGraph/tectonics as canonical graph artifacts yet. - No attempt to “perfect” the typ"
+    },
+    {
+      "id": "707864e2339f6bd03bc112ff90cecbfb7e93c2f9dd4e3e9c761c192dcc65542d",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-orchestrator-bloat-assessment.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "attempt to",
+      "blockHash": "a87ef5be6a15fa5f734126563a4b268fe3ba0362ae3fc35241f5387de9ed1aea",
+      "blockPreview": "**Impact + decisions (Phase A readiness):** - **Integration impact:** `Math.random` and direct `TerrainBuilder` usage break the adapter boundary and can defeat "
+    },
+    {
+      "id": "102476d8ddc7decfa84969e852ec20f2a803b47218a20dae6f18baaca78e84c8",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-design-physics.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "2c9c89624fd7a70980e26746c950d9fcf95bb01fe1fda147071abea42c36ed34",
+      "blockPreview": "- **Density (ρ):** The mass per unit volume. Continental crust typically averages 2.7 g/cm³, while oceanic crust averages 3.0 g/cm³.³ - **Thickness (h):** The v"
+    },
+    {
+      "id": "2bf2e6e9b7663f793a72c1aabb0791d3538fe1961c605e9b38ee5b5d16dc3e3c",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-design-physics.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "7ac6998ca68ebe40d5ea45eec49e001fa531eaf7d2589a598911af7dceccec4a",
+      "blockPreview": "The query specifically asks if the relationship between land, water, and plates is modeled accurately. The current procedural standard often treats *“land”* and"
+    },
+    {
+      "id": "8d0f8acd2107ef1f50a273ed63a7d64167898dfdae7322dc0512b4fcd76b0173",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-design-physics.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "294013e0507cc33d141b75140b83997e3c196ae21cdaed5eed7acdf83df94bb1",
+      "blockPreview": "- **Erosion Logic:** As the simulation runs, erosion subtracts from the thickness of the top layer. If the Mesozoic Basalt wears away, the Paleozoic Limestone i"
+    },
+    {
+      "id": "addc8dba7b97ba16ac61b8d8ae5333ecaae02b7e7a118ae29f58fb8a12836d85",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-design-physics.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "eventually",
+      "blockHash": "2cc1ea0fe75bcd541b885f06f53a540669d56811d2167509f35e72089b575d9e",
+      "blockPreview": "- **Slab Pull:** This is the dominant force driving modern plate tectonics. It occurs at convergent boundaries where cold, dense oceanic lithosphere subducts in"
+    },
+    {
+      "id": "ae6ce2f080cafc38ae9c0525eb56a51a47d5c27580cdb8100512f1d635a7ba63",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-design-physics.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "eventually",
+      "blockHash": "0a0c6dfad7a18d9c4c402dfca3a107cd83e4090f4cced1055cd8ec1f8ea03c89",
+      "blockPreview": "- **Phase A: Rifting (Breakup):** Heat builds up under a large continent (Supercontinent). A rift forms, splitting the mesh connectivity. New oceanic crust node"
+    },
+    {
+      "id": "bb749ade288de8c7044a9468af9acfff4c8b12926be655717971081265c45ed8",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-design-physics.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "62b7f11cb3fb5c2e2cdfbcd07e32bdbd1f57215f404fb2eb8377f0fcd22f1625",
+      "blockPreview": "If the **simulation** omits cratons, it loses the logic for mineral distribution and mountain placement. Gold, diamonds (kimberlites), and platinum group elemen"
+    },
+    {
+      "id": "ef43b76a4adf3cde92939ba43d0f19ec80cc666a36f55e7c05b86d64a1fcfec0",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-pipeline-foundation-stage-design-physics.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "2cc1ea0fe75bcd541b885f06f53a540669d56811d2167509f35e72089b575d9e",
+      "blockPreview": "- **Slab Pull:** This is the dominant force driving modern plate tectonics. It occurs at convergent boundaries where cold, dense oceanic lithosphere subducts in"
+    },
+    {
+      "id": "04f820ed289d6b59968fc012da17e09577617fc97e12225756ac431bc3cece27",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-ruler-global-and-repo-rules.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "d2adb35eb48351586b128f1e47285eeefe1b9479b04de8fedd423884e656a2e4",
+      "blockPreview": "- keep managing global commands/prompts using your existing parity workflow - optionally consolidate them into a single canonical directory and sync/symlink int"
+    },
+    {
+      "id": "30228c4841572863eb44e048bd5a7952e5b6cedea5ea9786843fd6ece2295c7c",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-ruler-global-and-repo-rules.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "22fa51dea2ed9e36ec166ad1819d22c33d0051d2a38260110eac126d8c74f1ff",
+      "blockPreview": "- Ruler searches upward from the project root for a local `.ruler/` directory; the nearest one wins. - If no local `.ruler/` exists, it falls back to the global"
+    },
+    {
+      "id": "d7c52b7906ccaba89368aa6ca8857bf86f317da6402f02f659ce9f40655b5700",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-ruler-global-and-repo-rules.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "bab9df60aca093604b4c49868e91b24cf899b2a7f67a59f40f3ca35418df35fb",
+      "blockPreview": "are **not** something Ruler manages. Ruler’s closest adjacent feature is “skills”, which propagates a project’s `.ruler/skills/` to `.claude/skills/` (and optio"
+    },
+    {
+      "id": "f33359720d4079627f217f6085acc920d699148012fc317bc800b212b1003d1c",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-ruler-global-and-repo-rules.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "d3423d624baf1db804ed9af5178982eead79acf89c0ad063c03148b06579e582",
+      "blockPreview": "Important: introducing `.ruler/` in the repo means global `~/.config/ruler` rules will stop applying here; that’s usually fine if the repo’s own routers already"
+    },
+    {
+      "id": "c176c248a961f8bc8995c1e7354f5ba50e06613f8c731bf38d537665fc18fd5e",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-story-config-typing.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "c5ea3364b6416d951e5855aa70027c067f74b908a1efb4e90262b31c580e90c8",
+      "blockPreview": "Optionally, the loader can normalize `climate.story.swatches` → `climate.swatches` during conversion (preferred end-state), while still accepting both for a tra"
+    },
+    {
+      "id": "3cf54ab8ba00d33649180473e46dc0d9a373516d2fdfb3841c9fafa9284f1239",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-story-drift-legacy-path-removal.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "attempt to",
+      "blockHash": "fdeff0c7cbf21002872d97f4182e357e7fcb3b6a37c866a28f32685743d558dd",
+      "blockPreview": "| Decision | Detail | |----------|--------| | **Canonical execution** | TaskGraph is the only supported orchestration path; legacy `generateMap()` inline runner"
+    },
+    {
+      "id": "41a6c75e5a73742624795ef8b24dd1d5c67b3fd634ef78f18164432a50ffc3ba",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "829f70a6f8121c453730d4572c755c94208a35e499b8bdfe872e08999350d917",
+      "blockPreview": "**What \"manifest\" is for (conceptual):** - In the target, \"manifest\" should not be a public concept. It is the internal **compiled plan** produced by: - resolvi"
+    },
+    {
+      "id": "a4dc1ac861ec96f5ee345d1c7137ea35f6b478ea1212c8ad13ec73e97b4aea2f",
+      "filePath": "docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "3891116fd8ee9a2537713ed72c0f605fa960c90e9e4397d9515ede8e0aec5f25",
+      "blockPreview": "Assumptions to confirm: - Required diagnostics minimum (per-step metrics, artifact inspection). - Whether validation errors are fatal or optionally downgraded."
+    },
+    {
+      "id": "1a11768a3bc6cd68fdddb42fdcb43adf9f0f1bce1f0387075bc6f9bb4ae77429",
+      "filePath": "docs/projects/engine-refactor-v1/resources/STATUS-M-TS-typescript-migration-parity-notes.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "as needed",
+      "blockHash": "b8a7ee5898652745e6289b5b56aebcb501538a780fd153dc2cc453aa7cf9953a",
+      "blockPreview": "- **Corridors + overlays integration (CIV‑19/21 refinement)** - Map JS `CORRIDORS_CFG` into `FOUNDATION_CFG.corridors` (already supported by `tunables.ts`). - M"
+    },
+    {
+      "id": "0539c50214a3e9868f0301525ff6038ea801aa9a19f0d9bb092689d4e55771ce",
+      "filePath": "docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M-TS-typescript-migration.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "420293b3a579b06e2eed551b3939e1d77fa92a736956f385288f3de17fe78104",
+      "blockPreview": "- Expand or relax `Players` typing before heavy migration: - Either: - Add explicit members (`getAlive`, `getAliveIds`, `getAliveMajorIds`, `getEverAlive`, `len"
+    },
+    {
+      "id": "13874d184dae2c3e452d73f0bcdf888bf82556743c44a635662cc10448d679c1",
+      "filePath": "docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M-TS-typescript-migration.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "2f6cf1d0a8508b36e5ddaa620d0b2bc65e02b70c9dc550cb638ddc511d96a821",
+      "blockPreview": "- New TypeScript world module under `packages/mapgen-core/src/world`: - `model.ts` implements a `WorldModel` singleton backed by a typed `WorldModelState` (`typ"
+    },
+    {
+      "id": "5da055ea9e8832dc8dc7e35145d09c5e8f0dba5040605e8de6b2364e2327b434",
+      "filePath": "docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M-TS-typescript-migration.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "eventually",
+      "blockHash": "c66dcafccdeb909c0b57b086e74bf48ad8758b958f639bbe2ca54b4967850ecd",
+      "blockPreview": "- Legacy JS world files at the CIV‑5 point in history: - In commit `cdb1eb30` (CIV‑5 branch), the original JS files under `mods/mod-swooper-maps/mod/maps/world/"
+    },
+    {
+      "id": "95bc1ba374e67166c2cf16f023fc79e97042765422e46ebf9568edc03e902f01",
+      "filePath": "docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M-TS-typescript-migration.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "c367540e927801bed9d5a4dc6f44417e2f09afabae57c98ffdef4e010a57d7a7",
+      "blockPreview": "- Clarify and/or tighten Voronoi utility integration: - Decide whether the long‑term design is: - A fully independent TS Voronoi implementation (documented as s"
+    },
+    {
+      "id": "dbdbac3699a16cfb8e62659223b4bcbf658556e9da16fa1a69c5d45ba60f5c46",
+      "filePath": "docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M-TS-typescript-migration.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "as soon as",
+      "blockHash": "06edf34fa28532f808b95b718beb62711f686a8e1430de3f5de791fbb1017e3d",
+      "blockPreview": "- Gate A proves the end-to-end pipeline: - TS entrypoint compiles successfully with types from `@civ7/types`. - `tsup` produces a single ESM file with `/base-st"
+    },
+    {
+      "id": "207204bf9af8b1cfad76a8409987128b54fc1b58267e681d32309eaf26221c46",
+      "filePath": "docs/projects/engine-refactor-v1/reviews/REVIEW-M-TS-typescript-migration-remediation.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "eventually",
+      "blockHash": "e323d0e13174a91d52a63efa89c55f6b2dc30d07de4bc348c0033c0410e1f6e6",
+      "blockPreview": "**Suggested follow-up** - Under CIV-23 or a small follow-on task, add unit tests for `requestMapData()` that validate: - Dimensions/latitudes from `mapInfo`. - "
+    },
+    {
+      "id": "471dbbfdd67cd6b58588a2a0ac22cc6695b4354173fd057691ea662ea19ebfed",
+      "filePath": "docs/projects/engine-refactor-v1/reviews/REVIEW-M2-stable-engine-slice.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "attempt to",
+      "blockHash": "3ada3b9d9dbc1328ddcfab49905eb72e7a01e7c56fd3b0b9398c99c9cc82a921",
+      "blockPreview": "- We are still in a **transitional state** with two adapters. This is intentional tech debt, not an open-ended pattern. - A future dedicated issue will: - Exten"
+    },
+    {
+      "id": "cec6aca8aff2b47bc994265aeec84e2b90bb57691e27c29c3c6dae8b719dbb98",
+      "filePath": "docs/projects/engine-refactor-v1/reviews/REVIEW-M2-stable-engine-slice.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "where appropriate",
+      "blockHash": "c67d6193f7ddea8292c4ea9c787930fab9342cad6e4cc1389c56ef9d823c8d43",
+      "blockPreview": "- Tests have been updated to reflect this separation: - The integration test stubs the globals (`GameplayMap`, `GameInfo`, `engine.call`, `TerrainBuilder`, `Are"
+    },
+    {
+      "id": "3523b9041d4af084729d0f00d30c8fae8a1e2043fe4ea25e30643a67f8347de9",
+      "filePath": "docs/projects/engine-refactor-v1/triage.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "as needed",
+      "blockHash": "6440751c7c4025a93d8ad79d77b7024614c18c9a11ec5d8bef1883fd22dbc87b",
+      "blockPreview": "- **Full MapGen architecture documentation sweep (post Task Graph / canonical products)** [Review by: late M3 / early M4] - **Context:** System docs at `docs/sy"
+    },
+    {
+      "id": "0b330308851d47a1e91a4cbc0146942d80b2be1bfa8219f922106647f2f6a341",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-design-hotspot-trails-and-rift-valleys.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "9c30564e1e4110a99c40e7ea01334c9fa91896d7633238d399dbc3b517da9f04",
+      "blockPreview": "- After landmasses and coasts exist, before Climate Phase A: - Compute StoryTags for HOTSPOT_TRAIL and RIFT_LINE/SHOULDER. - In addIslandChains: - Read HOTSPOT_"
+    },
+    {
+      "id": "51a3f512e3e32281ed3521d7150ca393b6db8bbeb6fe99e254c8e052975f9dee",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-design-hotspot-trails-and-rift-valleys.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "when appropriate",
+      "blockHash": "9c30564e1e4110a99c40e7ea01334c9fa91896d7633238d399dbc3b517da9f04",
+      "blockPreview": "- After landmasses and coasts exist, before Climate Phase A: - Compute StoryTags for HOTSPOT_TRAIL and RIFT_LINE/SHOULDER. - In addIslandChains: - Read HOTSPOT_"
+    },
+    {
+      "id": "5b774c0b54b61d01610d5a4eecd6e196a2c6d33af87793a2c8c8aabb705658a9",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-design-hotspot-trails-and-rift-valleys.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "4dbc11a15dae2eca5387e789d1af74ef4042dc2e6e173d2d5da332e660516a4b",
+      "blockPreview": "4.5 Integration points - buildEnhancedRainfall (no change): - Keep baseline intact for band blending. - refineRainfallEarthlike (after rivers): - For tiles at d"
+    },
+    {
+      "id": "22c5ab29148a0525150a185a9f39d6ebd79c742812f25e56a7d10f2ac192660e",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-earth-forces-and-layer-contracts.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "508769c8cb98e510021eedf3d2aef81b865d3c3f4daa12ac330102f70a6239f1",
+      "blockPreview": "Phase C (Pressure & Optional Terrain/Style Coupling) - Compute mantle pressure; optionally bias hill density (very lightly). - Style selection for land corridor"
+    },
+    {
+      "id": "82a20fbe7aa487ffe7de19784ac2573b7e4a8fb1e8ab99471b4c130a1d5c10ae",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-earth-forces-and-layer-contracts.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "1f2acb56c470fe898ab63b8673db4fa253243ec529b35cdafaa784f751bda847",
+      "blockPreview": "9. Swatches + Paleo - storyTagClimateSwatches → one macro swatch with soft edges; optionally runs Paleo humidity overlays (deltas/oxbows/fossil channels)."
+    },
+    {
+      "id": "57d07a9438a7140ade03ab2b834c56c5ad2d68ddc1914b216b47a1c773391c91",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-layer-contracts.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "as needed",
+      "blockHash": "586e6e842c1e80e84add38dfc08b679645e239dc863f69b61607f1b345b4cdea",
+      "blockPreview": "Config Lifecycle and Entry Pattern (authoritative) - Single source of truth for reads: maps/config/resolved.js builds a frozen snapshot by composing: 1) default"
+    },
+    {
+      "id": "792af716b832c53571789564bde891a624a7c372e49a3451f72e2fb5966328e2",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-layer-contracts.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "d0539ae423d290cdc9dc13a6d7b4d3ff3a3aac8065106a80299a302ee12ff600",
+      "blockPreview": "- Guarantees and constraints - Order: applied inside the landmass layer during band boundary calculation, before coast expansion. - Complexity: linear over rows"
+    },
+    {
+      "id": "c6eb96164681a54b096b6825bb32ca358864d45b40245b72f9be604ecb31faea",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-layer-contracts.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "as needed",
+      "blockHash": "c35e2395d355ea76ee4a265df7c13959d36ecb6b3a3b041f6a8d89e0f25fc359",
+      "blockPreview": "- Behavior (landmass layer) - For each configured band pair and map row: - Sample `boundaryCloseness` at the mid-gap between the bands. - Compute `sep = baseSep"
+    },
+    {
+      "id": "fca95c069821373dd0d4c3b23c48e522e05ea4b96222b8e8ce12b241525447a3",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-layer-contracts.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "we plan to",
+      "blockHash": "231bd26fdd5a8d1ae25e62ae0956aa07f0a8b77dfee5239930da378c8f79726e",
+      "blockPreview": "To further evolve this design, we plan to break the generator into explicit layers/components that can be tuned or swapped independently:"
+    },
+    {
+      "id": "30b02566689dcf4f0a44c02c43f3f8ea4612bf22a45247fe04e41fa77be242a5",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-margins-narrative.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "where appropriate",
+      "blockHash": "6e7ee4b7281f9e3288b322e5f62f720f29f45bccdfaee68b58525e58f1e168ff",
+      "blockPreview": "1. **Foundations** build the Voronoi plate solution, apply the configured rotation/jitter rules, and emit a deterministic `FoundationContext`. The orchestrator "
+    },
+    {
+      "id": "10be40ca21b05e4483d7c515fd386f9e0e50c89b728a74175a352252678e97ec",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-plan-crust-first-morphology.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "af597e9929bc732be24def949d51ce0323884757d1db575fb85db494c72ceb36",
+      "blockPreview": "- Gradually move shared clamps, probes, and diagnostic helpers into `lib/util/`. - Simplify orchestrator files and update docs to reflect new composition style."
+    },
+    {
+      "id": "60a8dc10b74fa1233b8d5a34bada0a0f7b5648f3f073b22910e234651981a7cd",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-plan-crust-first-morphology.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "8a152ac1e679e34a9124a4746026ca76fd88ac706a9377f61065fd1f7423d4c9",
+      "blockPreview": "- Convergent: - Strong boost to `mountainScore` on land, modulated by fractal (peaks/saddles). - Hills form broader belts via `hillFavor`. - Divergent: - Strong"
+    },
+    {
+      "id": "8cba38c4b0bd1f0c1aa329650aed3d1ae0ab663cf71141f7a92d40982f07eb1d",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-plan-crust-first-morphology.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "ce082dc04c9be8d139325350894b5ae9590152a61cb79f8ddeb590991185cd00",
+      "blockPreview": "1. Seed a set of continental plates: - Sample `targetContinental = round(plateCount * continentalPlateFraction)`. - Optionally bias selection toward larger plat"
+    },
+    {
+      "id": "e26511f2f52bad9fc5d53d1b8dedd653d601b6fd6f862a617b762c8720f03088",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-plan-crust-first-morphology.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "9aecebe349e716fc29ff778d35445e849219c0859f9760745d3aecd7fa7307c8",
+      "blockPreview": "- `WorldModel.plateCrustType: Uint8Array` (per plate) - 0 = oceanic - 1 = continental - (optionally 2 = microcontinent/arc later) - `WorldModel.plateBaseElevati"
+    },
+    {
+      "id": "fa1695405c363e8bd94aaafba906ab27a425de69644e4e95f316eac898fb592b",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-plan-crust-first-morphology.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "687ca2c01075e730fad7f98183c04bf3dc77857080f8615b5214a4170c737fdf",
+      "blockPreview": "- Start from `baseElevation[i]` (continental vs oceanic) and apply **plate-scale fractal noise** before sea-level cut: - Use a dedicated fractal ID and 2–3 octa"
+    },
+    {
+      "id": "33c3b63d0d2604c4363b1e12e5b7f4a14e5c7ced716267ba7abfb24a2e1bf446",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-roadmap-additional-motifs.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "3e504507838c9e9d7c03ac6878ca961e5b4177580b46a07e212b998db1b6e25f",
+      "blockPreview": "Integration points - `addRuggedCoasts`: - Where `GLACIAL_COAST` is set, increase fjord probability modestly (sparse). - Terrain conversion: - Create a small num"
+    },
+    {
+      "id": "99edf096cb886239d56f7117a91b8922c620f35a9d06c689957dd8b8f9a4884d",
+      "filePath": "docs/system/libs/mapgen/_archive/LEGACY-mapgen-roadmap-additional-motifs.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "5ec0686febc30bbaf2a9b3a641a82613116a53cb612c9f363fd968902e828ae8",
+      "blockPreview": "Tagging and placement algorithm (post‑rivers) - Deltas: - Identify “major” rivers (by length or flow proxy) and their mouths. - Tag `DELTA_FAN` around 1–2 mouth"
+    },
+    {
+      "id": "2c1c8c774c1fda8294082ba189db7d79ce961c49fa91a9d5de7843ed68e6bd5e",
+      "filePath": "docs/system/libs/mapgen/hydrology.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "cd46694a248fc64a6da6108e8e24f71f16e5230b1a0627b5b755057c45161d09",
+      "blockPreview": "The target architecture can optionally carry intermediate artifacts for future steps. These are not M3 commitments."
+    },
+    {
+      "id": "5423cd2d1fd4b28fbcfc6106c043f52de93a5e4af2df873cd1e0d8520c00b3d4",
+      "filePath": "docs/system/libs/mapgen/hydrology.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "where applicable",
+      "blockHash": "a081ddd368a930aa76cc014f2eaece58a1fff79cdd128c83e31a7a1610f0d352",
+      "blockPreview": "- `FoundationContext` / `Heightfield` (elevation, terrain mask, slopes) - Latitude / basic planetary constants (if modeled) - Narrative overlays that influence "
+    },
+    {
+      "id": "046f2cc8157bedd346bf783391ce2b3163c610fc903d85f0a061beac876db205",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "if necessary",
+      "blockHash": "c6b66fb0bf1cd9820ffa9f4536ac1800ee7afd3a8e3999577719e363eaca14f9",
+      "blockPreview": "- **Isabella’s Bias:** The leader Isabella has a specific bias to spawn near Natural Wonders. The generator must check player selection before finalizing Wonder"
+    },
+    {
+      "id": "255794efa9523bfea5c3c1f18b15fb08e643fced507753b0ddc9f0cc606e6bc9",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "2efd01b9920d00ffd6d3664543d4e5e7ff07c4905e9fb0ddd1930e0605a327f6",
+      "blockPreview": "- **Gold/Silver:** Typically epithermal deposits associated with volcanic arcs and hydrothermal vents. *Game Logic:* High probability near Volcanoes, Mountains,"
+    },
+    {
+      "id": "8f103fc7c42ed6422f084dcd9ad15507f848ad7c111a1458202e9870a0d8b87f",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "6a754a375889a5dda600c5089d7c7b825ae49aa21d1ec60246e57834314907c8",
+      "blockPreview": "- **Flat Terrain:** The baseline elevation (0). This represents alluvial plains, basins, and lowlands. - **Rough Terrain:** Replaces the generic “Hills.” Repres"
+    },
+    {
+      "id": "ba29da72c720f52514ef09105f84163145033266220089b1cf9554e2756a21f7",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "f07f8c8a033191f3857f5177df77151cea03e48ac496e86b3f5a2393e6d87fe6",
+      "blockPreview": "1. **Drainage Basin Definition:** The Voronoi cells define the local gradient. Rain falls on tiles (determined by the climate model) and flows to the lowest adj"
+    },
+    {
+      "id": "0ccbc364ff8a2158900597100f31c8ff81d2bc9dd3ed0478a0a0d2da17c1a36b",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "f57917b0ad28b5af1c26e6b85133ea57814742127c634e76aa3077b3bbed1f51",
+      "blockPreview": "- Coastal/Ocean Influence on Biome: Usually accounted by climate. But note small islands might have their own quirks (poor species diversity, etc.), which we li"
+    },
+    {
+      "id": "1814d81fafe379206cfb576038270641faa04af987b71078975b771dd35a6cf1",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "96ffb19f4771fe76680bdc03c09be914940e3e35e55681c206ad2da757dfda40",
+      "blockPreview": "3. **Soil Depth and Fertility:** Compute a value for soil thickness or quality for each tile. This might be a continuous field or categorical (poor, moderate, r"
+    },
+    {
+      "id": "1b9ccb17b142ec35bf384c1d0dc4e4a46316b9bde91d2923f409f1a61dc98666",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "most of the time",
+      "blockHash": "9aecb75c3fe3d6eca2f7795f3ba70ceaf8674ac2cc5ca4cc891c016e5a93004b",
+      "blockPreview": "- **Lake Level / Dryness Threshold:** This could adjust how readily lakes form. A high setting might favor forming lakes in any slight depression (representing "
+    },
+    {
+      "id": "1ed1dd68d5ed31006935f43f67824e3b4ab42689a300e6f348c06de0e242c550",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "as soon as",
+      "blockHash": "9bba68c38f3021dd16a39b463dba3dfb6b0d0e736a592540b3b655f2f82fb3b5",
+      "blockPreview": "- Each time we precipitate, reduce the moisture in the air mass. So by the time air reaches interior of a continent, it may be dry (creating deserts). This will"
+    },
+    {
+      "id": "246eae2fb05e098f60d11bfe887b17acc010fee7d7327bd815d9013596988b98",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "in general",
+      "blockHash": "b15e397734fa7d2d306ac22aa5bb03a8ec53ba2ce799b5c27bdd5ea2f0dafa32",
+      "blockPreview": "- **Secondary Levers:** - **Rock Hardness Variability:** A parameter that increases or decreases the contrasts in rock resistance. High variability means some a"
+    },
+    {
+      "id": "2741d9da8fd4abbc1bff2d55caa6ff4a6d7bbc89b6bb9b70db560e253f31e3ca",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "ad57317720689f3a3dccc62b295dc9c90fd0904ad4c29067dc8bc0b3a83d0aa8",
+      "blockPreview": "4. **Resource Placement:** Now, using geological context: - **Coal:** Find areas that are currently land, were likely low-lying and vegetated for long periods. "
+    },
+    {
+      "id": "2b69c6ad2f8574e5e23500ef779cd7ea1db9d486ef751d2ebf73de6740e10440",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "a91b6f3cdfb2b40a0d000b36801bb5b7782bfe93ce244077d51d28ed350c10ef",
+      "blockPreview": "**Inputs & Outputs:** Inputs needed are the _precipitation map_ and _evaporation/climate info_ (we have temperature, which can inform evaporation rates), and th"
+    },
+    {
+      "id": "3dc8c1ec2c5bb38a840c95ee3b8c67ba3dd7454f99441b613ebc2ed536441805",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "bd84b45947cdae5ba9d9b00ef5794936db660ad449a2a2cfeee4f1daed591795",
+      "blockPreview": "- **Biodiversity and Edge Cases:** Earth has some biomes beyond the basic Whittaker diagram: - **Mangroves:** Tropical coastal wetlands where salt-tolerant tree"
+    },
+    {
+      "id": "596f50defab7d703ae2a1bb380dbaf46427ac3db8c49725d2fb955c2a518328b",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "cf7a263c294826beb20c43ad9321586c1a23bd6e2c5f0b9783b25fc3d70bcb06",
+      "blockPreview": "- **Primary Levers:** - **Resource Abundance:** A global scalar to increase or decrease the frequency of resource deposits. This is useful for gameplay tuning –"
+    },
+    {
+      "id": "5baa940b1daa11ec1cdb01214a8b7236b84e001edba7ccba4937c71468ffe352",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "6accafcb45e97065f73464455e52e06950231f26a96352205ac5fb8367a2af18",
+      "blockPreview": "4. **Sea Ice Coverage:** Based on SST and latitude, determine where sea ice forms. Typically, any ocean tile with SST at or below ~-1 to -2°C will be ice-covere"
+    },
+    {
+      "id": "6dfc9c193159fd5e8f38015cc0b8124297722535802c08bdf3d372a5faa5e4f4",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "34521550fb0e90cb9e1376ec059f40bb7355f700e2b306705fdb7a72bddbcc1e",
+      "blockPreview": "- **Geological Resources:** The distribution of resources like coal, oil, metals is tied to geological processes: - _Coal:_ Coal forms from ancient plant materi"
+    },
+    {
+      "id": "77ad48b77f23d6ed8c8e01c456e3c5996c81306b13f0ca815f9e84f75354c57d",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "a21fbfceac932a59ad30a80f874f41a2cc0c7f76ddfb3126e3350461474bd85f",
+      "blockPreview": "- **Biome Map:** Each tile labeled with a biome category (as discussed). - **Vegetation Cover Map:** Could be an associated map with information like fraction f"
+    },
+    {
+      "id": "7e86d2b4867f98866b45eab69dff81fa814f36be7aa9fa6bc26b9c49bbda29fd",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "eventually",
+      "blockHash": "f85350bf7953518e84b57cd4b2674f939a0899b34f73f27e5e2b95e17fcdc2cc",
+      "blockPreview": "- **Lakes:** Lakes form in depressions. They can be **exorheic** (with an outlet river) or **endorheic** (no outlet, water leaves only by evaporation). Lakes oc"
+    },
+    {
+      "id": "7e998c5237c94ffb337de9f92e782f2f649e14b62fe266d39d406b29b2c614a1",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "5666154c4378a169bdca0e319457d8db69f7320411354183fdcbc1356bbacf6a",
+      "blockPreview": "- **Albedo from vegetation and dust feedbacks:** Minor, but e.g. large deserts can increase albedo causing cooling and monsoon suppression. We did not simulate "
+    },
+    {
+      "id": "84d1fc29c30bd4d1b3a711f3f2b05194ab84fbf3806528b5eb7aa060869ed8ac",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "eventually",
+      "blockHash": "8459d36f0744b77c3473374d518e34524de567b421cba7dbaf816369eb48a0fc",
+      "blockPreview": "1. **Drainage Basin Delineation:** Analyze the heightmap to determine for each tile where its water will eventually go. Using the flow direction map from geomor"
+    },
+    {
+      "id": "86c8bf00d4390eb4a92a296b37a432080651d199a0a7da4675db94f8253ceb7c",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "77cddcd295bb80726fc89a745823a3aad2a4536dee2d13f95de076a599be8771",
+      "blockPreview": "8. **Integration with Terrain:** Optionally, adjust terrain slightly where rivers flow – perhaps carve the river valley a bit more or flatten the riverbed. But "
+    },
+    {
+      "id": "9080e4fc3e160d28411fa8cbb95516677dfef6235fdab8ba7266848f145e1c13",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "d5ab7878132263c3e05cd7f2a0ac7e535615fecfd358a219b5bd3f261d2f440a",
+      "blockPreview": "**Ocean Biochemistry and Currents Detail:** We created a believable pattern of ocean currents and SSTs, but we did not explicitly simulate phenomena like El Niñ"
+    },
+    {
+      "id": "a843794a20323f9b34742a3f2edcd460389049fb7fa27a81b49860238acde55f",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "eventually",
+      "blockHash": "0a530c114a91b3b75e64116b6b5c93a2f0cff5f6813244765f3e9b47d0855d53",
+      "blockPreview": "- **Endorheic vs Exorheic Basins:** Most drainage basins are _exorheic_, meaning rivers eventually reach the ocean (open drainage). Some are _endorheic_ (closed"
+    },
+    {
+      "id": "b18cea49b74f3058276b6ae8dab16f0959864280ff58d8f9a0e8092656c0cb1c",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "try to",
+      "blockHash": "5229eee869bfd2b09a5145dddd0cb1a3e52000cdacf4c0bb344387170a1b8334",
+      "blockPreview": "- Notably, we won't perfectly conserve mass of sediment, but we try to ensure overall volume is roughly preserved (or realistically reduced if some goes to sea)"
+    },
+    {
+      "id": "b2e5445133a2e2f837ad480467dc2c285d05e9c284d7223537741cf73eef12a0",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Timing",
+      "label": "Vague timing",
+      "phrase": "eventually",
+      "blockHash": "085e5f4a084cd1d617d474edc76421025ce71586fd9338a996225988534076ae",
+      "blockPreview": "**Real-World Domain:** Hydrology is the study of how water moves across the land surface – through rivers, lakes, groundwater, and eventually to the ocean. On E"
+    },
+    {
+      "id": "c4d393e949baa1f295585c0d386a3c904e29ad0d2f1c98eeffdb8cf1bcfaa37c",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "ad57317720689f3a3dccc62b295dc9c90fd0904ad4c29067dc8bc0b3a83d0aa8",
+      "blockPreview": "4. **Resource Placement:** Now, using geological context: - **Coal:** Find areas that are currently land, were likely low-lying and vegetated for long periods. "
+    },
+    {
+      "id": "dac7aa72fa8ddb95f8e8037e55de9fafd93ae3509f55dcea9adaeff9f1a8a1b4",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "we plan to",
+      "blockHash": "18c2a315864cf65243780d9e487f4cbeafb3016a5aced3aa05656f4820b886aa",
+      "blockPreview": "**The Levers (Parameters):** Since we plan to keep hydrology simple initially, we may not expose many levers here in the first pass. But some that could exist:"
+    },
+    {
+      "id": "eaf8a7074fb2fcdb44c5a331d45da6f74dff18f426293fc7a27f1c35770f47f4",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "34521550fb0e90cb9e1376ec059f40bb7355f700e2b306705fdb7a72bddbcc1e",
+      "blockPreview": "- **Geological Resources:** The distribution of resources like coal, oil, metals is tied to geological processes: - _Coal:_ Coal forms from ancient plant materi"
+    },
+    {
+      "id": "ecd2f7a0c4766eac7391b3bd84ae920dbd03a149d071afa4f30e8f3765babfee",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "0a530c114a91b3b75e64116b6b5c93a2f0cff5f6813244765f3e9b47d0855d53",
+      "blockPreview": "- **Endorheic vs Exorheic Basins:** Most drainage basins are _exorheic_, meaning rivers eventually reach the ocean (open drainage). Some are _endorheic_ (closed"
+    },
+    {
+      "id": "ede03439306a5da2515e68b60b259a948149064f95e1b240faf823704f623fc0",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md",
+      "category": "Commitment",
+      "label": "Weak commitment",
+      "phrase": "try to",
+      "blockHash": "1426f8933ec48a52d0b52af0c9bfff772b2d5f675ff15e0cedda4f46bce2d301",
+      "blockPreview": "- Ensuring numerical stability: tile-based routing can sometimes cause artifacts (like two big rivers merging and then the combined river seeming smaller if res"
+    },
+    {
+      "id": "0f681f64397fc9c923cc36b931ca5fae483f36e9c702cf4f2bbd73ea0ed613ec",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "f3c62359aadef1c6962f20beec123c7ad20655ebf09867aa5de666ed2dc35a58",
+      "blockPreview": "- **Fluvial (Hydraulic) Erosion:** This is the primary sculptor of landscapes. It involves the mechanical detachment and transport of bedrock and sediment by fl"
+    },
+    {
+      "id": "3235b219c258d1fe754fb35de3cf63eed55aeceb9bbfe44ab83d081abfd140a7",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "90ae7d49bd8f88fada45f661227d2eb933542d8a6e2874dc93c75f7e231f1712",
+      "blockPreview": "- **Soil Formation (Pedogenesis):** Soil is not random; it is described by the CLORPT equation: $Soil = f(Climate, Organisms, Relief, Parent Material, Time)$.31"
+    },
+    {
+      "id": "72562b3fbe6ba1b8fa0ee00fba20edf0901ecb9ea30730de44c41943b853acb2",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "53a6b2e3a57b52f90bb062236e40eaa404b7d12c24ce1c905a9ee48fb06732b8",
+      "blockPreview": "1. **Insolation Calculation:** Calculate solar energy input based on latitude and axial tilt. 2. **Temperature Base:** Determine baseline air temperature from i"
+    },
+    {
+      "id": "83227e1474450f671c32a60c07d2da9d84de4bdf985449b4d9b088c400040162",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "57f19dc00966fbb6f0f0c74d49f2aeb8bf1abfc8bc88ba50977d9827437b397e",
+      "blockPreview": "- **Wind-Driven Surface Currents (Gyres):** The friction of wind on the water surface, combined with the Coriolis effect, drives surface currents. In the open o"
+    },
+    {
+      "id": "878b53f0992f220dfcdea3aed71c2183fe558f3f5687c35c294ded8544228e9a",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "9c9c708c7ac329334811cbe15f3bed9d646677158b1d7ac3c6536abeeaa9a6e9",
+      "blockPreview": "- **Drainage Basins (Watersheds):** The fundamental unit of hydrology. It is the area of land where all precipitation collects and drains off into a common outl"
+    },
+    {
+      "id": "ac61f296eb2853a7fadf06897470bac0e5563363f60fea3966f23da8ad5bc667",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "f3c62359aadef1c6962f20beec123c7ad20655ebf09867aa5de666ed2dc35a58",
+      "blockPreview": "- **Fluvial (Hydraulic) Erosion:** This is the primary sculptor of landscapes. It involves the mechanical detachment and transport of bedrock and sediment by fl"
+    },
+    {
+      "id": "171bca528a9124258863b8f3f6100686d6df4fd745455a045839c1afff9d8560",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "generally",
+      "blockHash": "04088457984a32f9d3d3d6cac4675378ac9e8ddbb6a391a32b7b1e0bee936b19",
+      "blockPreview": "* Rainfall should correlate with windward mountains and decouple on leeward side; if not, your orographic step's upwind neighbor sampling is wrong. * SST gradie"
+    },
+    {
+      "id": "374bdacf22a4e4be3657be686177c50ba3b3ed2bdcf7608dc3a3089ec4fcf6c4",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "if you want",
+      "blockHash": "f2a959c6a2be2b2a65a299b7180e9e6f6d0fb0b172f9af1653574327cfd8673b",
+      "blockPreview": "If you want, I can also produce:"
+    },
+    {
+      "id": "8d0f0433fe2cf25cb7480dc375e554612e5fc968957261412f83e5046964b05a",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "60962ae8ee76e2d230875affb441c103a2f87ba9a55e12fbb7dfdc6ddfa6d36b",
+      "blockPreview": "* Already defined: `windVectors`, `moistureMap`, `debugLog` * Add: `temperatureMap` (Float32 or Int16 scaled), and optionally `precipitationFloat` (before quant"
+    },
+    {
+      "id": "904f593dd1808485fe11bd1bb64ea78cf7ee825d98ee6181ebc4cc18da8ed796",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "7c2f464d92a15e08b0dc2bed8cf48695ccce45e5e4958b01351a9615d1518d88",
+      "blockPreview": "* `fields.elevation` (playable). * `fields.terrain` land/ocean mask * `artifacts.morphology.sedimentDepth` (critical for soils/fertility). * `artifacts.morpholo"
+    },
+    {
+      "id": "b5e38477b12637064a5e5d22eadf8af0d4f8a46e759cfafe16c4365d8f3bd3e6",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "if you want",
+      "blockHash": "d65e2e936d2ba5101ee7b9199c1567ecd8ffd9c46a48de18f98976dbb8ded96e",
+      "blockPreview": "4. **Bathymetry availability** — Oceanography benefits from bathymetry as a hard dependency if you want shelf resources or deep‑water formation. Your current pi"
+    },
+    {
+      "id": "cf1b43491c3324c3d226344e45eef8b4ce34f432c43fec25e5aa0eb85f3dfae2",
+      "filePath": "docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "if you want",
+      "blockHash": "88e10267852cb76923b2741a54d17c6c361b0864287ddc304a88b7c323aa445f",
+      "blockPreview": "If you want a meaningful upgrade over plain Whittaker without adding complexity, do Holdridge‑lite: use an \"effective moisture\" proxy (precip − potential evapot"
+    },
+    {
+      "id": "6126335726ffdb0f3781d8f009014889d7faa9d2cba4a9d50237e12578e956a3",
+      "filePath": "docs/system/mods/swooper-maps/architecture.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "bd23dd59ec58bceef60ae0c04a601a3c68b4117666e06769933652072f943a37",
+      "blockPreview": "- **Config resolution**: O(1) - happens once per `generateMap()` call - **Preset merging**: O(N) where N = preset count (typically 1-2) - **Live binding updates"
+    },
+    {
+      "id": "b6601553846d17359180b596fe99e63a333a1b7033917ae13cdfdf9ca9b47d5c",
+      "filePath": "docs/system/mods/swooper-maps/vision.md",
+      "category": "Optionality",
+      "label": "Preference/optionality",
+      "phrase": "optionally",
+      "blockHash": "093d0bc3fd5a738e4a240afe86e3e95e6ce25d5ae5ef428d10e40d267df59093",
+      "blockPreview": "1. Initialize `orogeny[x, y] = 0`. 2. For every **convergent boundary cell**: - Set `orogeny[x, y] = baseConvergenceValue * convergenceStrength`. 3. Optionally "
+    },
+    {
+      "id": "5912b3edb01cb7eec77d4e402311052c84f751307db6550edbe92891b23627ff",
+      "filePath": "docs/system/sdk/overview.md",
+      "category": "Conditions",
+      "label": "Vague conditions",
+      "phrase": "if applicable",
+      "blockHash": "35a88b552eeba3bc97708b823b9f41d8acb86d9f15132ff4f5b5824bfd54f062",
+      "blockPreview": "4. **Bind Unique Elements (if applicable):** If creating unique units, buildings, etc., that replace or are specific to another element (like a Civilization), u"
+    },
+    {
+      "id": "69a210cc0b5893ecd998514c07420ffeb13a7f2df1de82e38e517ca7f15bb1de",
+      "filePath": "docs/system/sdk/overview.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "f5fa0d24298941c2f5ddfbb5f09c6da69f707446988970d4b77af130cf581d09",
+      "blockPreview": "### `src/builders/` * **`BaseBuilder.ts`:** The abstract foundation for all specific builders. * Provides common configuration logic (e.g., via a `fill` utility"
+    },
+    {
+      "id": "7984d53ab62460f8e067dcc7a6ace6322318154b67254e1ba9ac749d8c04444b",
+      "filePath": "docs/system/sdk/overview.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "f3bda477896634c8259be822108170e330d038a3f360e276ef151234beddc568",
+      "blockPreview": "### `src/files/` * **`BaseFile.ts`:** An abstract representation of a file to be generated as part of the mod. * Holds common properties: `path`, `name`, `conte"
+    },
+    {
+      "id": "93a2bb4f4795dcd63027c9b8580c971b4a14991493aaad2880bbcd34713173c3",
+      "filePath": "docs/system/sdk/overview.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "usually",
+      "blockHash": "a78ac2fdf1b69a9b72cca1e0ab3bcf8651e3af3b26a1145268058488ce3fc626",
+      "blockPreview": "### `src/nodes/` * **`BaseNode.ts`:** Represents a single data entry, usually mapping to an XML element like `<Row>` or `<InsertOrIgnore>`. * Handles automatic "
+    },
+    {
+      "id": "cfe52eba3f8dd1df29ebe8a70cbcb7fbcc5330bc1e19bbcf1aa577e0b755104c",
+      "filePath": "docs/system/sdk/overview.md",
+      "category": "Vagueness",
+      "label": "Vague frequency",
+      "phrase": "typically",
+      "blockHash": "697a204f8ddc93e1e26ba34c0ad5be88c1beaf7f939cde08ce9c47efc42b2145",
+      "blockPreview": "1. **Configuration:** The user interacts with Builder instances, setting properties or calling configuration methods (e.g., `civilizationBuilder.civilizationTyp"
+    }
+  ]
+}
