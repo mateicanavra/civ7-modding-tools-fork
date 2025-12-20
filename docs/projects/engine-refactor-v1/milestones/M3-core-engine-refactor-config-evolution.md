@@ -1,7 +1,7 @@
 # M3: Core Engine Refactor & Config Shape Evolution
 
 **Milestone ID:** `M3-core-engine-refactor-config-evolution`  
-**Status:** Planned  
+**Status:** Completed (2025-12-19)  
 **Owner:** Engineering  
 
 > Note: M3 scope is **locked** (see Objectives + Scope). This doc stays at the **milestone sequencing** level. Execution detail (deliverables, acceptance criteria, open questions) lives in the M3 issue docs and the project deferrals registry.
@@ -108,3 +108,10 @@ All M3 issues are now live in Linear:
 3. Stacks 4–5: CIV-44, CIV-45
 4. Stack 6: CIV-46
 5. Stack 7: CIV-47
+
+## Completion Notes (2025-12-19 Re-baseline)
+
+Implementation details and residual follow-ups are captured in:
+
+- `docs/projects/engine-refactor-v1/reviews/REVIEW-M3-core-engine-refactor-config-evolution.md`
+- `docs/projects/engine-refactor-v1/reviews/REVIEW-CIV-M4-ADHOC-modularize.md`

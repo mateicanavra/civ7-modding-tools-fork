@@ -1,22 +1,23 @@
 # M4: Tests, Validation & Cleanup
 
 **Milestone ID:** `M4-tests-validation-cleanup`  
-**Status:** Planned  
+**Status:** In progress (re-baselining 2025-12-19)  
 **Owner:** Engineering  
 
-> Note: Scope and exact issue mapping for this milestone may be revisited as we get closer to implementation. Treat this doc as a living plan that should be updated once work starts.
+> Note: This milestone is being re-baselined after M3 completion. The issue mapping below reflects the current code state and will be refined into issue docs.
 
 ## Summary
 
-Harden the MAPS engine with automated tests, manifest validation, and cleanup. This milestone closes remaining TypeScript migration carry-over work and removes legacy fallbacks, ensuring the engine is robust, observable, and maintainable.
+Harden the MAPS engine after M3's architectural landing: add focused test coverage, expand contract validation beyond the current artifact/field gating, and remove legacy globals and fallbacks that block the target architecture.
 
 This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`.
 
 ## Objectives
 
-- Add a basic but meaningful automated test suite around the orchestrator, pipeline, and critical steps.
-- Harden and broaden runtime `requires`/`provides` enforcement via a manifest/data-product validator (M3 establishes baseline gating; M4 adds stronger coverage + tests).
-- Remove remaining JS shims and legacy fallbacks (null adapters, silent fallbacks) from the engine.
+- Add a basic but meaningful automated test suite around the Task Graph pipeline and critical steps.
+- Extend runtime validation to cover `state:engine.*` dependencies (or replace them with verifiable artifacts/fields).
+- Remove remaining legacy globals, fallbacks, and compatibility shims that keep old data flows alive.
+- Close remaining TS migration and orchestrator hygiene cleanup that blocks the target architecture.
 
 ## Scope
 
@@ -27,49 +28,66 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
   - **M3** has generalized the pipeline and evolved `MapGenConfig` into its step/phase-aligned shape (see `M3-core-engine-refactor-config-evolution.md`).
 - Within that baseline, M4 focuses on:
   - Hardening the engine with tests and validation (leveraging the Task Graph and data products defined in `resources/PRD-pipeline-refactor.md` and `PROJECT-engine-refactor-v1.md`).
-  - Cleaning up remaining JS shims, legacy fallbacks, and loose typing, informed by the remediation/review docs.
+  - Removing remaining globals/fallbacks that prevent a fully context-owned, fail-fast pipeline.
+  - Cleaning up remaining JS shims and orchestrator hygiene, informed by the remediation/review docs.
 - Lower-level expectations for config behavior, pipeline contracts, and foundation outputs remain in:
   - `resources/PRD-config-refactor.md`
   - `resources/PRD-pipeline-refactor.md`
   - `resources/PRD-plate-generation.md`
 
+### Baseline (Current State)
+
+- Task Graph execution is the default path; the legacy `useTaskGraph` toggle is gone.
+- `PipelineExecutor` enforces `requires`/`provides` and validates core artifact/field tags at runtime.
+- RNG and adapter boundaries in `mapgen-core` are standardized (no `Math.random()` or direct `TerrainBuilder.*` usage).
+- Foundation production is step-owned; legacy globals still exist for compatibility (see deferrals).
+
 ### 1. Testing & Verification
 
 - Add Vitest smoke tests for:
-  - The orchestrator + pipeline running against a stub adapter and minimal presets.
-  - Foundation/plate generation steps, verifying determinism and basic invariants.
-  - Climate and overlay steps where feasible (e.g., rainfall ranges, overlay counts).
-- Introduce regression tests for one or more key Swooper presets to catch breaking changes.
+  - Task Graph pipeline execution against a stub adapter + minimal presets.
+  - Foundation, climate, and overlay steps with deterministic invariants.
+- Add regression tests for one or more key Swooper presets to catch breaking changes.
 
-### 2. Manifest & Data-Product Validation
+### 2. Validation & Contract Hardening
 
-- Implement a lightweight validator that:
-  - Verifies all `requires` are present in `MapGenContext` before a step runs.
-  - Ensures data products like `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` exist before consumers execute.
-- Wire validator checks into the pipeline executor in development/test modes (and optionally in production with sensible failure behavior).
+- Define and implement a verification strategy for `state:engine.*` dependencies (see `deferrals.md` DEF-008).
+- Add targeted runtime checks for the highest-risk `state:engine.*` tags or replace them with verifiable artifacts/fields.
 
-### 3. Cleanup & TS Migration Finish
+### 3. Legacy Cleanup & Hygiene
 
-- Remove any remaining JavaScript shims or mixed TS/JS files in the engine path.
-- Remove legacy fallbacks (e.g., “null” adapters or silent fallback Voronoi implementations).
-- Tighten type coverage where `any`/`unknown` is still used at key boundaries.
+- Remove remaining legacy globals and compatibility shims:
+  - StoryTags compatibility layer and overlay registry fallback.
+  - WorldModel bridge paths and direct `GameplayMap` reads in mapgen-core.
+- Complete remaining JS/TS cleanup in engine paths.
+- Consolidate enablement gating in `MapOrchestrator` (see DEF-013).
+
+### Out of Scope (Explicit)
+
+- New algorithm modernization (morphology/hydrology/ecology).
+- Recipe UI or externally composable pipeline definitions.
+- Rainfall ownership transfer or behavior-mode consolidation unless explicitly pulled in.
 
 ## Acceptance Criteria
 
 - Core engine paths are covered by smoke tests that run quickly in CI.
-- Manifest/data-product validation catches missing dependencies early and clearly.
-- TS migration is fully complete; engine code is consistently typed and free of JS stubs.
-- Legacy fallbacks are gone; failures manifest as explicit errors, not silent “empty map” behavior.
+- Targeted regression tests exist for at least one Swooper preset.
+- `state:engine.*` dependencies have a defined verification strategy with runtime checks for high-risk tags.
+- Legacy globals/fallbacks are removed or demoted to dev-only, and failures manifest as explicit errors.
+- Orchestrator enablement and cleanup work is complete.
 
 ## Candidate Issues / Deliverables
 
-> These mappings are tentative and may be adjusted when the milestone is scheduled.
+> These mappings reflect the re-baseline and will be refined into issue docs.
 
-- [ ] CIV-23: Integration & behavior tests (`../issues/CIV-23-integration-tests.md`)
+- [ ] CIV-23: Integration & behavior tests (re-scope for Task Graph + context artifacts) (`../issues/CIV-23-integration-tests.md`)
+- [ ] M4-VALIDATION: `state:engine.*` verification strategy + targeted checks (DEF-008) (issue doc TBD)
+- [ ] M4-LEGACY-CLEANUP: remove StoryTags/overlay registry fallback + WorldModel bridge + GameplayMap reads (DEF-002/003/007/012) (issue doc TBD)
+- [ ] M4-ORCHESTRATOR-HYGIENE: MapOrchestrator cleanup + enablement consolidation (DEF-013) (issue doc TBD)
 - [ ] CIV-9: Bun/pnpm bridge scripts (`../issues/CIV-9-bun-pnpm-bridge.md`) - optional tooling improvement
-- [ ] CIV-24: Dev diagnostics and validation (`../issues/CIV-24-dev-diagnostics.md`)
-- Any remaining remediation items from:
-  - `../reviews/M-TS-typescript-migration-remediation.md`
-  - `../reviews/M-TS-typescript-migration-remediation-review.md`
+
+Any remaining remediation items from:
+- `../reviews/M-TS-typescript-migration-remediation.md`
+- `../reviews/M-TS-typescript-migration-remediation-review.md`
 
 These may be split or reassigned across milestones as we refine the execution plan.
