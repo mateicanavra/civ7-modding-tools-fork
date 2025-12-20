@@ -34,7 +34,7 @@ This section describes the greenfield target with no legacy constraints.
 - No globals; all state is in `MapGenContext`.
 - Recipe is the single source of truth for step ordering (3.1 accepted) and enablement (3.2 accepted).
 - Artifacts, fields, and effects are explicit, typed, and versioned (3.8 accepted).
-- Engine boundary is adapter-only; engine state is not canonical (pending 3.5).
+- Engine boundary is adapter-only; engine is an I/O surface. Cross-step dependencies prefer reified `field:*` / `artifact:*` products, and engine-surface guarantees are modeled as verified, schedulable `effect:*` tags (`state:engine.*` is transitional only; 3.5 accepted).
 - Offline determinism is required; engine is optional.
 - The core engine is content-agnostic; pipeline content ships as **mods** that provide
   their own registry + recipes (the standard pipeline is just one mod).
@@ -84,7 +84,7 @@ via the recipe and carried in the compiled `ExecutionPlan` nodes.
 - `field:*` tags reference concrete buffers in `context.fields`.
 - `effect:*` tags reference externally meaningful changes/events emitted by steps.
 - Intended end-state: `state:*` tags are transitional only and not part of the
-  target contract (pending decision 3.5).
+  target contract (3.5 accepted).
 
 ### 1.5 Phase ownership (target surfaces)
 
@@ -276,7 +276,7 @@ flowchart LR
   class enablement spine,accepted
   class registry spine,accepted
 
-  class engineBoundary boundary,open
+  class engineBoundary boundary,accepted
   class observability boundary,open
 
   class foundation domain,open
@@ -291,7 +291,7 @@ flowchart LR
 | 3.2 | Enablement model (recipe-only; remove `shouldRun`) | accepted | §2.2 |
 | 3.3 | Foundation surface (discrete artifacts vs `FoundationContext`) | open | §2.3 |
 | 3.4 | Story model (overlays vs tags canonical) | open | §2.4 |
-| 3.5 | Engine boundary (`state:engine.*` transitional vs canonical) | open | §2.5 |
+| 3.5 | Engine boundary (adapter-only; reification-first; verified `effect:*`; `state:engine.*` transitional-only) | accepted | §2.5 |
 | 3.6 | Climate ownership (`ClimateField` vs engine rainfall) | open | §2.6 |
 | 3.7 | Placement inputs (explicit artifact vs engine reads) | open | §2.7 |
 | 3.8 | Artifact registry (names + schema ownership + versioning) | accepted | §2.8 |
