@@ -83,7 +83,7 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 - [ ] CIV-23: Integration & behavior tests (re-scope for Task Graph + context artifacts) (`../issues/CIV-23-integration-tests.md`)
 - [ ] M4-VALIDATION: `state:engine.*` verification strategy + targeted checks (DEF-008) (issue doc TBD)
 - [ ] M4-LEGACY-CLEANUP: remove StoryTags/overlay registry fallback + WorldModel bridge + GameplayMap reads (DEF-002/003/007/012) (issue doc TBD)
-- [ ] M4-ORCHESTRATOR-HYGIENE: MapOrchestrator cleanup + enablement consolidation (DEF-013) (issue doc TBD)
+- [ ] CIV-53: Orchestrator hygiene + enablement consolidation (DEF-013) (`../issues/CIV-53-def-013-enablement-consolidation.md`)
 - [ ] CIV-9: Bun/pnpm bridge scripts (`../issues/CIV-9-bun-pnpm-bridge.md`) - optional tooling improvement
 
 Any remaining remediation items from:
