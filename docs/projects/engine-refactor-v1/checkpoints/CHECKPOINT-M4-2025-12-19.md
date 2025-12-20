@@ -178,6 +178,18 @@ M4 is defined as “Tests, Validation & Cleanup” in `docs/projects/engine-refa
 - **Assumptions:** The draft will be promoted into system docs once it is sufficiently stable; `architecture.md` will be superseded rather than co-exist as a competing authority.
 - **Risks / Provisional Notes:** This is provisional and may change as the draft resolves open questions. Any downstream decisions that require finalized spec details should be flagged as risk or blocked until the draft stabilizes.
 
+### Decision Frame 2: Core Architecture Clarifications (partial)
+
+- **Artifact storage model:** Pending review of options and trade-offs; decision to be recorded after Frame 2 analysis.
+- **Adapter boundary (engine globals):**
+  - **Decision:** Single adapter boundary is mandatory; no engine globals may be accessed outside the adapter surface, and no transitional global fallbacks are permitted.
+  - **Assumptions:** The adapter will expose the required engine capabilities (e.g., terrain/feature/biome lookups, plot tags/landmass region IDs, RNG, Voronoi utilities, gameplay map queries).
+  - **Risks / Provisional Notes:** Current code still reads engine globals in multiple modules (e.g., `core/terrain-constants.ts`, `core/plot-tags.ts`, `world/plate-seed.ts`, `world/plates.ts`, `domain/narrative/utils/*`). M4 scope must include enforcing the adapter boundary and removing these direct global reads.
+- **WorldModel status:**
+  - **Decision:** WorldModel is fully excised. Any remaining references in code, tests, or docs are defects to be removed; foundation artifacts are the sole source of truth.
+  - **Assumptions:** Foundation outputs can fully replace any remaining WorldModel-derived reads.
+  - **Risks / Provisional Notes:** WorldModel still exists as a module and is referenced in docs/tests; cleanup will require updating or removing those references and aligning deferrals/PRDs.
+
 ## Recommended Actions
 
 ### Immediate
