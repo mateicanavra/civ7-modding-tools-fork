@@ -436,7 +436,7 @@ export type StepId = string;
 export type TagKind = "field" | "artifact" | "effect";
 export type Owner = { pkg: string; phase?: string };
 
-export type BaseTagDef = {
+export type BaseTag = {
   id: TagId;
   kind: TagKind;
   owner: Owner;
@@ -444,31 +444,31 @@ export type BaseTagDef = {
 };
 
 // Field tags: mutable canvases/buffers. Schema/demo are optional in V1.
-export type FieldTagDef<S extends TSchema | undefined = TSchema | undefined> =
-  BaseTagDef & {
+export type FieldTag<S extends TSchema | undefined = TSchema | undefined> =
+  BaseTag & {
     kind: "field";
     schema?: S;
     demo?: S extends TSchema ? Static<S> : unknown;
   };
 
 // Artifact tags: dataflow products. Schema + demo are required.
-export type ArtifactTagDef<S extends TSchema = TSchema> = BaseTagDef & {
+export type ArtifactTag<S extends TSchema = TSchema> = BaseTag & {
   kind: "artifact";
   schema: S;
   demo: Static<S>;
 };
 
 // Effect tags: externally meaningful changes/events. Schema/demo are optional.
-export type EffectTagDef<S extends TSchema | undefined = TSchema | undefined> =
-  BaseTagDef & {
+export type EffectTag<S extends TSchema | undefined = TSchema | undefined> =
+  BaseTag & {
     kind: "effect";
     schema?: S;
     demo?: S extends TSchema ? Static<S> : unknown;
   };
 
-export type TagDef = FieldTagDef | ArtifactTagDef | EffectTagDef;
+export type Tag = FieldTag | ArtifactTag | EffectTag;
 
-export type StepDef<C extends TSchema> = {
+export type Step<C extends TSchema> = {
   id: StepId;
   owner: Owner;
   configSchema: C;
@@ -478,15 +478,15 @@ export type StepDef<C extends TSchema> = {
 };
 
 export type RegistryEntry = Readonly<{
-  fields?: readonly FieldTagDef[];
-  artifacts?: readonly ArtifactTagDef[];
-  effects?: readonly EffectTagDef[];
-  step: StepDef<TSchema>;
+  fields?: readonly FieldTag[];
+  artifacts?: readonly ArtifactTag[];
+  effects?: readonly EffectTag[];
+  step: Step<TSchema>;
 }>;
 
 export type Registry = Readonly<{
-  tags: ReadonlyMap<TagId, TagDef>;
-  steps: ReadonlyMap<StepId, StepDef<TSchema>>;
+  tags: ReadonlyMap<TagId, Tag>;
+  steps: ReadonlyMap<StepId, Step<TSchema>>;
 }>;
 
 export function createRegistryEntry(entry: RegistryEntry): RegistryEntry {
@@ -494,29 +494,29 @@ export function createRegistryEntry(entry: RegistryEntry): RegistryEntry {
 }
 
 export function createRegistry<const Entries extends readonly RegistryEntry[]>(input: {
-  fields?: readonly FieldTagDef[];
-  artifacts?: readonly ArtifactTagDef[];
-  effects?: readonly EffectTagDef[];
+  fields?: readonly FieldTag[];
+  artifacts?: readonly ArtifactTag[];
+  effects?: readonly EffectTag[];
   entries: Entries;
 }): Registry {
-  const tags = new Map<TagId, TagDef>();
-  const steps = new Map<StepId, StepDef<TSchema>>();
+  const tags = new Map<TagId, Tag>();
+  const steps = new Map<StepId, Step<TSchema>>();
 
-  const addTag = (def: TagDef) => {
-    if (tags.has(def.id)) throw new Error(`Duplicate tag: ${def.id}`);
-    tags.set(def.id, def);
+  const addTag = (tag: Tag) => {
+    if (tags.has(tag.id)) throw new Error(`Duplicate tag: ${tag.id}`);
+    tags.set(tag.id, tag);
   };
 
-  for (const def of input.fields ?? []) addTag(def);
-  for (const def of input.artifacts ?? []) addTag(def);
-  for (const def of input.effects ?? []) addTag(def);
+  for (const tag of input.fields ?? []) addTag(tag);
+  for (const tag of input.artifacts ?? []) addTag(tag);
+  for (const tag of input.effects ?? []) addTag(tag);
 
   for (const entry of input.entries) {
-    for (const def of entry.fields ?? []) addTag(def);
-    for (const def of entry.artifacts ?? []) addTag(def);
-    for (const def of entry.effects ?? []) addTag(def);
+    for (const tag of entry.fields ?? []) addTag(tag);
+    for (const tag of entry.artifacts ?? []) addTag(tag);
+    for (const tag of entry.effects ?? []) addTag(tag);
     if (steps.has(entry.step.id)) throw new Error(`Duplicate step: ${entry.step.id}`);
-    steps.set(entry.step.id, entry.step as StepDef<TSchema>);
+    steps.set(entry.step.id, entry.step as Step<TSchema>);
   }
 
   // Fail-fast on unknown tag references (validated at build time so declaration
@@ -543,10 +543,10 @@ globally shared surfaces in one place.
 ```ts
 // packages/mapgen-core/src/mods/standard/registry/globals.ts
 import { Type } from "typebox";
-import type { ArtifactTagDef, FieldTagDef } from "../../../core/registry";
+import type { ArtifactTag, EffectTag, FieldTag } from "../../../core/registry";
 
 // Field surfaces (mutable canvases)
-export const FIELD_HEIGHTFIELD: FieldTagDef = {
+export const FIELD_HEIGHTFIELD: FieldTag = {
   id: "field:heightfield",
   kind: "field",
   owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
@@ -554,7 +554,7 @@ export const FIELD_HEIGHTFIELD: FieldTagDef = {
 };
 
 // Shared artifacts (dataflow products) that many steps depend on
-export const ARTIFACT_CLIMATE_FIELD: ArtifactTagDef = {
+export const ARTIFACT_CLIMATE_FIELD: ArtifactTag = {
   id: "artifact:climateField",
   kind: "artifact",
   owner: { pkg: "@swooper/mapgen-core", phase: "hydrology" },
@@ -568,6 +568,14 @@ export const ARTIFACT_CLIMATE_FIELD: ArtifactTagDef = {
   },
 };
 
+// Shared effects that multiple steps may emit/observe (no schema required in V1).
+export const EFFECT_ENGINE_HEIGHTFIELD_APPLIED: EffectTag = {
+  id: "effect:engine.heightfieldApplied",
+  kind: "effect",
+  owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
+  doc: "Heightfield was published/applied to the engine surface.",
+};
+
 export const GLOBAL_FIELDS = [
   FIELD_HEIGHTFIELD,
 ] as const;
@@ -576,7 +584,9 @@ export const GLOBAL_ARTIFACTS = [
   ARTIFACT_CLIMATE_FIELD,
 ] as const;
 
-export const GLOBAL_EFFECTS = [] as const;
+export const GLOBAL_EFFECTS = [
+  EFFECT_ENGINE_HEIGHTFIELD_APPLIED,
+] as const;
 ```
 
 ### 7.4 One step per file: export a `RegistryEntry` (one step + many fields/artifacts/effects)
@@ -590,7 +600,7 @@ Step files import the shared factory and declare:
 import { Type } from "typebox";
 import { createRegistryEntry } from "@mapgen/core/registry";
 import { buildTerrainMask } from "@mod/lib/terrain";
-import { FIELD_HEIGHTFIELD } from "../globals";
+import { EFFECT_ENGINE_HEIGHTFIELD_APPLIED, FIELD_HEIGHTFIELD } from "../globals";
 
 export default createRegistryEntry({
 	  artifacts: [
@@ -613,12 +623,13 @@ export default createRegistryEntry({
 	    owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
 	    configSchema: Type.Object({ roughness: Type.Number() }),
 	    requires: [FIELD_HEIGHTFIELD.id],
-	    provides: ["artifact:terrainMask"],
+	    provides: ["artifact:terrainMask", EFFECT_ENGINE_HEIGHTFIELD_APPLIED.id],
 	    run: async (ctx, config) => {
 	      const mask = buildTerrainMask(ctx, config);
       // 1) read from ctx.settings + step-local config
       // 2) write to field:heightfield
       // 3) publish artifact:terrainMask
+      // 4) emit effect:engine.heightfieldApplied if/when a publish step applies it
     },
   },
 });
