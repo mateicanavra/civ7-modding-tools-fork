@@ -63,6 +63,7 @@ Remove `stageFlags`/`shouldRun()` gating so **only** the recipe list controls wh
   - [Scope Guardrails (repeat)](#scope-guardrails-repeat)
   - [Primary Touchpoints (expected)](#primary-touchpoints-expected)
   - [Notes on “story enabled” checks](#notes-on-story-enabled-checks)
+  - [Verification Notes](#verification-notes)
 
 ### Scope Guardrails (repeat)
 - This issue does **not** remove `stageManifest` / `STAGE_ORDER` as inputs. That cutover is DEF-004 / recipe→ExecutionPlan work.
@@ -90,3 +91,7 @@ Remove `stageFlags`/`shouldRun()` gating so **only** the recipe list controls wh
   - `const storyEnabled = recipe.some((id) => id.startsWith(\"story\"));`
   - Use `storyEnabled` anywhere the old code used `stageFlags.story*`.
   - Do not add any new runtime enablement mechanism beyond “is the step in the recipe list?”.
+
+### Verification Notes
+- `pnpm -C packages/mapgen-core check` fails locally: missing `@civ7/adapter` module/types.
+- `pnpm test:mapgen` fails locally for the same missing adapter dependency.

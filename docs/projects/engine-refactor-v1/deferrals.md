@@ -144,21 +144,6 @@ Each deferral follows this structure:
 
 ---
 
-## DEF-013: MapOrchestrator Hygiene + Enablement Consolidation
-
-**Deferred:** 2025-12-18  
-**Trigger:** After Phase A foundation cut/RNG standardization, when we can safely refactor orchestrator structure without destabilizing pipeline execution.  
-**Context:** The MapOrchestrator bloat assessment explicitly deferred cleanup work and enablement/recipe restructuring to keep Phase A deterministic and focused on the WorldModel cut.  
-**Scope:**
-- Remove dead imports/helpers and local cleanup in `MapOrchestrator`.
-- Consolidate enablement gating to a single source of truth (avoid redundant stage gating split between recipe/manifest and `shouldRun()` paths).  
-**Impact:**
-- Orchestrator remains cluttered, and duplicated enablement logic can mask incorrect stage wiring or drift.
-- **Status (2025-12-20):** Enablement has since been **decided** (recipe-only; no `shouldRun` enablement, no silent skips). Current code still contains `shouldRun` filtering and stage-flag-based gating, so this deferral is now primarily *implementation work* to align runtime behavior with the locked decision.
-- **Trigger check (2025-12-20):** Phase A world-model cut appears complete and TaskGraph-only execution is already the default (no `useTaskGraph`), so this is safe to revisit as soon as sequencing allows.
-
----
-
 ## DEF-014: Foundation Graph Artifacts (Replace `FoundationContext`)
 
 **Deferred:** 2025-12-18  
@@ -258,5 +243,20 @@ Each deferral follows this structure:
 - Note: Likely already satisfied post-M2; `MapOrchestrator.generateMap()` now directly calls `generateMapTaskGraph()` and `OrchestratorConfig` has no `useTaskGraph`. `rg` finds no `useTaskGraph` in code/mods; re-verify before treating this as active work.
 **Resolution (2025-12-20):**
 - Verified: `MapOrchestrator.generateMap()` calls `generateMapTaskGraph()` unconditionally and `useTaskGraph` no longer exists in config/options (`rg -n useTaskGraph` returns no hits).
+
+---
+
+## DEF-013: MapOrchestrator Hygiene + Enablement Consolidation
+
+**Deferred:** 2025-12-18  
+**Trigger:** After Phase A foundation cut/RNG standardization, when we can safely refactor orchestrator structure without destabilizing pipeline execution.  
+**Context:** The MapOrchestrator bloat assessment explicitly deferred cleanup work and enablement/recipe restructuring to keep Phase A deterministic and focused on the WorldModel cut.  
+**Scope:**
+- Remove dead imports/helpers and local cleanup in `MapOrchestrator`.
+- Consolidate enablement gating to a single source of truth (avoid redundant stage gating split between recipe/manifest and `shouldRun()` paths).  
+**Impact:**
+- Orchestrator remains cluttered, and duplicated enablement logic can mask incorrect stage wiring or drift.
+**Resolution (2025-12-20):**
+- `stageFlags`/`shouldRun` gating removed; recipe list is the sole enablement source, and story enablement derives from the recipe list.
 
 ---
