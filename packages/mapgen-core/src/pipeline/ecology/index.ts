@@ -6,19 +6,15 @@ import { createBiomesStep, createFeaturesStep } from "@mapgen/pipeline/ecology/s
 
 export interface EcologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  stageFlags: Record<string, boolean>;
 }
 
 export function registerEcologyLayer(
   registry: StepRegistry<ExtendedMapContext>,
   runtime: EcologyLayerRuntime
 ): void {
-  const stageFlags = runtime.stageFlags;
-
   registry.register(
     createBiomesStep({
       ...runtime.getStageDescriptor("biomes"),
-      shouldRun: () => stageFlags.biomes,
       afterRun: (context) => {
         const { width, height } = context.dimensions;
         if (DEV.ENABLED && context?.adapter) {
@@ -31,7 +27,6 @@ export function registerEcologyLayer(
   registry.register(
     createFeaturesStep({
       ...runtime.getStageDescriptor("features"),
-      shouldRun: () => stageFlags.features,
       afterRun: (context) => {
         context.adapter.validateAndFixTerrain();
         syncHeightfield(context);

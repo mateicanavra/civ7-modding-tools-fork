@@ -12,7 +12,6 @@ export interface VolcanoesStepRuntime {
 export interface VolcanoesStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createVolcanoesStep(
@@ -24,7 +23,6 @@ export function createVolcanoesStep(
     phase: M3_STANDARD_STAGE_PHASE.volcanoes,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       assertFoundationContext(context, "volcanoes");
       const { width, height } = context.dimensions;

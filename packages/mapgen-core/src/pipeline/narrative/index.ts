@@ -9,7 +9,6 @@ import { createStorySwatchesStep } from "@mapgen/pipeline/narrative/StorySwatche
 
 export interface NarrativeLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  stageFlags: Record<string, boolean>;
   logPrefix: string;
 }
 
@@ -17,14 +16,11 @@ export function registerNarrativeLayer(
   registry: StepRegistry<ExtendedMapContext>,
   runtime: NarrativeLayerRuntime
 ): void {
-  const stageFlags = runtime.stageFlags;
-
   registry.register(
     createStorySeedStep(
       { logPrefix: runtime.logPrefix },
       {
         ...runtime.getStageDescriptor("storySeed"),
-        shouldRun: () => stageFlags.storySeed,
       }
     )
   );
@@ -34,7 +30,6 @@ export function registerNarrativeLayer(
       { logPrefix: runtime.logPrefix },
       {
         ...runtime.getStageDescriptor("storyHotspots"),
-        shouldRun: () => stageFlags.storyHotspots,
       }
     )
   );
@@ -44,7 +39,6 @@ export function registerNarrativeLayer(
       { logPrefix: runtime.logPrefix },
       {
         ...runtime.getStageDescriptor("storyRifts"),
-        shouldRun: () => stageFlags.storyRifts,
       }
     )
   );
@@ -52,28 +46,24 @@ export function registerNarrativeLayer(
   registry.register(
     createStoryOrogenyStep({
       ...runtime.getStageDescriptor("storyOrogeny"),
-      shouldRun: () => stageFlags.storyOrogeny,
     })
   );
 
   registry.register(
     createStoryCorridorsPreStep({
       ...runtime.getStageDescriptor("storyCorridorsPre"),
-      shouldRun: () => stageFlags.storyCorridorsPre,
     })
   );
 
   registry.register(
     createStorySwatchesStep({
       ...runtime.getStageDescriptor("storySwatches"),
-      shouldRun: () => stageFlags.storySwatches,
     })
   );
 
   registry.register(
     createStoryCorridorsPostStep({
       ...runtime.getStageDescriptor("storyCorridorsPost"),
-      shouldRun: () => stageFlags.storyCorridorsPost,
     })
   );
 }

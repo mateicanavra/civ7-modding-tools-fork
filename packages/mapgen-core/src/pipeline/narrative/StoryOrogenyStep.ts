@@ -5,7 +5,6 @@ import { storyTagOrogenyBelts } from "@mapgen/domain/narrative/orogeny/index.js"
 export interface StoryOrogenyStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createStoryOrogenyStep(
@@ -16,7 +15,6 @@ export function createStoryOrogenyStep(
     phase: M3_STANDARD_STAGE_PHASE.storyOrogeny,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       storyTagOrogenyBelts(context);
     },

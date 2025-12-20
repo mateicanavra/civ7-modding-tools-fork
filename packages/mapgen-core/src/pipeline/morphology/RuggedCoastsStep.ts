@@ -5,7 +5,6 @@ import { addRuggedCoasts } from "@mapgen/domain/morphology/coastlines/index.js";
 export interface RuggedCoastsStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createRuggedCoastsStep(
@@ -16,7 +15,6 @@ export function createRuggedCoastsStep(
     phase: M3_STANDARD_STAGE_PHASE.ruggedCoasts,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       const { width, height } = context.dimensions;
       addRuggedCoasts(width, height, context);

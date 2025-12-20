@@ -4,7 +4,6 @@ import { createFoundationStep } from "@mapgen/pipeline/foundation/steps.js";
 
 export interface FoundationLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  stageFlags: Record<string, boolean>;
   runFoundation: (context: ExtendedMapContext) => void;
 }
 
@@ -17,7 +16,6 @@ export function registerFoundationLayer(
       { runFoundation: runtime.runFoundation },
       {
         ...runtime.getStageDescriptor("foundation"),
-        shouldRun: () => runtime.stageFlags.foundation,
       }
     )
   );

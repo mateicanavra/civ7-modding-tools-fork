@@ -6,7 +6,6 @@ import { createPlacementStep } from "@mapgen/pipeline/placement/steps.js";
 
 export interface PlacementLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  stageFlags: Record<string, boolean>;
   mapInfo: MapInfo;
   playersLandmass1: number;
   playersLandmass2: number;
@@ -46,7 +45,6 @@ export function registerPlacementLayer(
       },
       {
         ...runtime.getStageDescriptor("placement"),
-        shouldRun: () => runtime.stageFlags.placement,
       }
     )
   );

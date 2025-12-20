@@ -7,7 +7,6 @@ import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 export interface FeaturesStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
   afterRun?: (context: ExtendedMapContext) => void;
 }
 
@@ -17,7 +16,6 @@ export function createFeaturesStep(options: FeaturesStepOptions): MapGenStep<Ext
     phase: M3_STANDARD_STAGE_PHASE.features,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       hydrateMarginsStoryTags(
         getStoryOverlay(context, STORY_OVERLAY_KEYS.MARGINS),

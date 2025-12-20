@@ -55,7 +55,7 @@ The engine will be driven by a JSON configuration object.
 ## 4. Requirements
 
 ### 4.1. Infrastructure
-*   **REQ-INF-1:** Define `MapGenStep` interface with `id`, `phase`, `requires`, `provides`, `shouldRun`, and `run`.
+*   **REQ-INF-1:** Define `MapGenStep` interface with `id`, `phase`, `requires`, `provides`, and `run`.
 *   **REQ-INF-2:** Implement `StepRegistry` to manage step instances.
 *   **REQ-INF-3:** Define `MapGenContext` with strict separation of `fields` (mutable output) and `artifacts` (immutable intermediate data).
 *   **REQ-INF-4:** Implement `PipelineExecutor` that validates dependencies (`requires` tags are satisfied in `context`) before running each step.

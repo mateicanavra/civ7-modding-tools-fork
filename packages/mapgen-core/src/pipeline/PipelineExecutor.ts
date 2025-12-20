@@ -47,9 +47,7 @@ export class PipelineExecutor<TContext extends ExtendedMapContext> {
     const satisfied = computeInitialSatisfiedTags(context);
     const satisfactionState = { satisfied };
 
-    const steps: MapGenStep<TContext>[] = recipe
-      .map((id) => this.registry.get(id))
-      .filter((step) => (step.shouldRun ? step.shouldRun(context) : true));
+    const steps: MapGenStep<TContext>[] = recipe.map((id) => this.registry.get(id));
 
     const total = steps.length;
 
@@ -132,9 +130,7 @@ export class PipelineExecutor<TContext extends ExtendedMapContext> {
     const satisfied = computeInitialSatisfiedTags(context);
     const satisfactionState = { satisfied };
 
-    const steps: MapGenStep<TContext>[] = recipe
-      .map((id) => this.registry.get(id))
-      .filter((step) => (step.shouldRun ? step.shouldRun(context) : true));
+    const steps: MapGenStep<TContext>[] = recipe.map((id) => this.registry.get(id));
 
     const total = steps.length;
 

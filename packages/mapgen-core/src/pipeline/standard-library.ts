@@ -18,9 +18,9 @@ import { registerPlacementLayer } from "@mapgen/pipeline/placement/index.js";
 
 export interface StandardLibraryRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  stageFlags: Record<string, boolean>;
   logPrefix: string;
   runFoundation: (context: ExtendedMapContext) => void;
+  storyEnabled: boolean;
   landmassCfg: LandmassConfig;
   mountainOptions: MountainsConfig;
   volcanoOptions: VolcanoesConfig;

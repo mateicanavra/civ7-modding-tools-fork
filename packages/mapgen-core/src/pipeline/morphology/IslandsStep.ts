@@ -5,7 +5,6 @@ import { addIslandChains } from "@mapgen/domain/morphology/islands/index.js";
 export interface IslandsStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createIslandsStep(options: IslandsStepOptions): MapGenStep<ExtendedMapContext> {
@@ -14,7 +13,6 @@ export function createIslandsStep(options: IslandsStepOptions): MapGenStep<Exten
     phase: M3_STANDARD_STAGE_PHASE.islands,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       const { width, height } = context.dimensions;
       addIslandChains(width, height, context);

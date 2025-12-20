@@ -31,7 +31,6 @@ import {
 } from "@mapgen/dev/index.js";
 
 import { createDefaultContinentBounds, createLayerAdapter } from "@mapgen/orchestrator/helpers.js";
-import { resolveStageFlags } from "@mapgen/orchestrator/stage-flags.js";
 import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/orchestrator/types.js";
 
 export interface TaskGraphRunnerOptions {
@@ -91,11 +90,10 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   logEngineSurfaceApisOnce();
 
-  const stageFlags = resolveStageFlags(config.stageManifest);
-  const enabledStages = Object.entries(stageFlags)
-    .filter(([, enabled]) => enabled)
-    .map(([name]) => name)
-    .join(", ");
+  const stageManifest = config.stageManifest ?? { order: [], stages: {} };
+  const registry = new StepRegistry<ExtendedMapContext>();
+  const recipe = registry.getStandardRecipe(stageManifest);
+  const enabledStages = recipe.join(", ");
   console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
 
   const landmassCfg = config.landmass ?? {};
@@ -135,8 +133,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   const westContinent = createDefaultContinentBounds(iWidth, iHeight, "west");
   const eastContinent = createDefaultContinentBounds(iWidth, iHeight, "east");
 
-  const registry = new StepRegistry<ExtendedMapContext>();
-  const stageManifest = config.stageManifest ?? { order: [], stages: {} };
+  const storyEnabled = recipe.some((id) => id.startsWith("story"));
 
   const getStageDescriptor = (
     stageName: string
@@ -149,11 +146,11 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   registerStandardLibrary(registry, config, {
     getStageDescriptor,
-    stageFlags,
     logPrefix: prefix,
     runFoundation: (context) => {
       options.initializeFoundation(context);
     },
+    storyEnabled,
     landmassCfg: landmassCfg as LandmassConfig,
     mountainOptions,
     volcanoOptions,
@@ -170,7 +167,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   });
 
   const executor = new PipelineExecutor(registry, { logPrefix: `${prefix} [TaskGraph]` });
-  const recipe = registry.getStandardRecipe(stageManifest);
 
   for (const stepId of recipe) {
     if (!registry.has(stepId)) {
@@ -209,15 +205,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
     return { success: false, stageResults, startPositions };
   }
 
-  const storyStagesEnabled =
-    stageFlags.storySeed ||
-    stageFlags.storyHotspots ||
-    stageFlags.storyRifts ||
-    stageFlags.storyOrogeny ||
-    stageFlags.storyCorridorsPre ||
-    stageFlags.storySwatches ||
-    stageFlags.storyCorridorsPost;
-  if (DEV.ENABLED && storyStagesEnabled) {
+  if (DEV.ENABLED && storyEnabled) {
     const tags = getStoryTags(ctx);
     const tagTotal =
       tags.hotspot.size +
@@ -241,4 +229,3 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   const success = stageResults.every((r) => r.success);
   return { success, stageResults, startPositions };
 }
-

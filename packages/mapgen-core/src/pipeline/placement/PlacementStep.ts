@@ -13,7 +13,6 @@ export interface PlacementStepRuntime {
 export interface PlacementStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createPlacementStep(
@@ -25,7 +24,6 @@ export function createPlacementStep(
     phase: M3_STANDARD_STAGE_PHASE.placement,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       const placementConfig = context.config.placement ?? {};
       const { width, height } = context.dimensions;
