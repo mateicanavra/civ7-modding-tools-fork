@@ -1,4 +1,4 @@
-import type { StoryOverlaySnapshot } from "../../../core/types.js";
+import type { StoryOverlaySnapshot } from "@mapgen/core/types.js";
 
 export interface MarginStoryTags {
   activeMargin?: Set<string>;

@@ -1,4 +1,4 @@
-import type { ClimateAdapter } from "./types.js";
+import type { ClimateAdapter } from "@mapgen/domain/hydrology/climate/types.js";
 
 export function distanceToNearestWater(
   width: number,

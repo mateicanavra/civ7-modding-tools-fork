@@ -1,4 +1,4 @@
-import type { CrustFirstResult } from "./types.js";
+import type { CrustFirstResult } from "@mapgen/domain/morphology/landmass/types.js";
 
 export const LANDMASS_LOG_PREFIX = "[landmass-plate]";
 

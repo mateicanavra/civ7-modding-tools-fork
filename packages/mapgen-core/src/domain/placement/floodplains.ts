@@ -1,5 +1,5 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import type { FloodplainsConfig } from "../../bootstrap/types.js";
+import type { FloodplainsConfig } from "@mapgen/bootstrap/types.js";
 
 export function applyFloodplains(adapter: EngineAdapter, cfg: FloodplainsConfig): void {
   const minLen = typeof cfg.minLength === "number" ? cfg.minLength : 4;

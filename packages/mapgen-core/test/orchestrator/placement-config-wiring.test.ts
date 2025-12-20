@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap } from "../../src/bootstrap/entry.js";
-import { MapOrchestrator } from "../../src/MapOrchestrator.js";
-import { createExtendedMapContext } from "../../src/core/types.js";
-import { createPlacementStep } from "../../src/pipeline/placement/steps.js";
+import { bootstrap } from "@mapgen/bootstrap/entry.js";
+import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { createPlacementStep } from "@mapgen/pipeline/placement/steps.js";
 
 describe("placement config wiring", () => {
   const width = 24;

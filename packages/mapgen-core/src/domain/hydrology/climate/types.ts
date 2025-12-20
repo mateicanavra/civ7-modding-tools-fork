@@ -1,4 +1,4 @@
-import type { ClimateConfig as BootstrapClimateConfig } from "../../../bootstrap/types.js";
+import type { ClimateConfig as BootstrapClimateConfig } from "@mapgen/bootstrap/types.js";
 
 export type ClimateConfig = BootstrapClimateConfig;
 

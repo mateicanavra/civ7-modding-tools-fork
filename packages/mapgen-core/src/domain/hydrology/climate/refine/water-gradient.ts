@@ -1,5 +1,5 @@
-import type { ClimateRuntime } from "../types.js";
-import { distanceToNearestWater } from "../distance-to-water.js";
+import type { ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
+import { distanceToNearestWater } from "@mapgen/domain/hydrology/climate/distance-to-water.js";
 
 export function applyWaterGradientRefinement(
   width: number,

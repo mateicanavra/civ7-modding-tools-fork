@@ -1,3 +1,3 @@
-export * from "./cache.js";
-export * from "./wind.js";
-export * from "./belts.js";
+export * from "@mapgen/domain/narrative/orogeny/cache.js";
+export * from "@mapgen/domain/narrative/orogeny/wind.js";
+export * from "@mapgen/domain/narrative/orogeny/belts.js";

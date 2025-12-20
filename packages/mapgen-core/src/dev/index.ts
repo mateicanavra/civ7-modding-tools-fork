@@ -2,7 +2,7 @@
  * Developer diagnostics module for map generation.
  *
  * Provides logging, timing, ASCII visualization, histograms, and summaries
- * for debugging world/foundation/climate/biomes behavior.
+ * for debugging foundation/climate/biomes behavior.
  *
  * All diagnostics are no-op when DEV.ENABLED is false.
  *
@@ -32,7 +32,7 @@ export {
   type DevFlags,
   type DevFlagKey,
   type DevLogConfig,
-} from "./flags.js";
+} from "@mapgen/dev/flags.js";
 
 // Logging
 export {
@@ -43,7 +43,7 @@ export {
   devError,
   devLogJson,
   devLogLines,
-} from "./logging.js";
+} from "@mapgen/dev/logging.js";
 
 // Timing
 export {
@@ -52,10 +52,10 @@ export {
   timeEnd,
   measureMs,
   type TimingToken,
-} from "./timing.js";
+} from "@mapgen/dev/timing.js";
 
 // Engine surface introspection
-export { logEngineSurfaceApisOnce } from "./introspection.js";
+export { logEngineSurfaceApisOnce } from "@mapgen/dev/introspection.js";
 
 // ASCII visualization
 export {
@@ -70,7 +70,7 @@ export {
   logBiomeAscii,
   type AsciiGridConfig,
   type AsciiCell,
-} from "./ascii.js";
+} from "@mapgen/dev/ascii.js";
 
 // Histograms
 export {
@@ -80,7 +80,7 @@ export {
   logRainfallStats,
   logFoundationHistograms,
   logBoundaryMetrics,
-} from "./histograms.js";
+} from "@mapgen/dev/histograms.js";
 
 // Summaries
 export {
@@ -92,7 +92,7 @@ export {
   logLandmassWindows,
   type FoundationPlates,
   type StoryTagsSummary,
-} from "./summaries.js";
+} from "@mapgen/dev/summaries.js";
 
 /** Module version */
 export const DEV_MODULE_VERSION = "1.0.0";

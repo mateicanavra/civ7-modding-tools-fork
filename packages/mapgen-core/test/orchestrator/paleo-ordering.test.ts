@@ -1,20 +1,20 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap } from "../../src/index.js";
-import type { ExtendedMapContext } from "../../src/core/types.js";
-import { createExtendedMapContext } from "../../src/core/types.js";
+import { bootstrap } from "@mapgen/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
 import {
   PipelineExecutor,
   StepRegistry,
   registerFoundationLayer,
   registerHydrologyLayer,
   registerNarrativeLayer,
-} from "../../src/pipeline/index.js";
-import { runFoundationStage } from "../../src/pipeline/foundation/producer.js";
+} from "@mapgen/pipeline/index.js";
+import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
-} from "../../src/domain/narrative/overlays/index.js";
+} from "@mapgen/domain/narrative/overlays/index.js";
 
 describe("orchestrator: paleo hydrology runs post-rivers", () => {
   const width = 12;

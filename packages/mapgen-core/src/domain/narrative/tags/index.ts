@@ -1,4 +1,4 @@
-export * from "./instance.js";
-export * from "./ops.js";
-export { default } from "./ops.js";
+export * from "@mapgen/domain/narrative/tags/instance.js";
+export * from "@mapgen/domain/narrative/tags/ops.js";
+export { default } from "@mapgen/domain/narrative/tags/ops.js";
 

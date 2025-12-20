@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { parseConfig } from "../../src/config/index.js";
-import { createExtendedMapContext } from "../../src/core/types.js";
-import { storyTagPaleoHydrology } from "../../src/domain/narrative/paleo/index.js";
-import { COAST_TERRAIN, FLAT_TERRAIN } from "../../src/core/terrain-constants.js";
+import { parseConfig } from "@mapgen/config/index.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { storyTagPaleoHydrology } from "@mapgen/domain/narrative/paleo/index.js";
+import { COAST_TERRAIN, FLAT_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 describe("story/paleo", () => {
   beforeEach(() => {});

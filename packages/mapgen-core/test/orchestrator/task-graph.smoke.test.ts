@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap, MapOrchestrator } from "../../src/index.js";
+import { bootstrap, MapOrchestrator } from "@mapgen/index.js";
 
 describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
   const width = 24;

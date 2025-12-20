@@ -10,8 +10,8 @@
  */
 
 import { describe, it, expect } from "bun:test";
-import { MapOrchestrator } from "../../src/MapOrchestrator.js";
-import { getDefaultConfig } from "../../src/config/index.js";
+import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
+import { getDefaultConfig } from "@mapgen/config/index.js";
 import { createMockAdapter } from "@civ7/adapter/mock";
 
 describe("MapOrchestrator.requestMapData", () => {

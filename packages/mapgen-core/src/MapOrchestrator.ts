@@ -53,18 +53,18 @@ import type { MapInfo, MapInitParams, MapSizeId } from "@civ7/adapter";
 import { createCiv7Adapter } from "@civ7/adapter/civ7";
 
 export type { MapInfo, MapInitParams } from "@civ7/adapter";
-import type { MapGenConfig } from "./config/index.js";
-import type { ExtendedMapContext, FoundationContext } from "./core/types.js";
-import { runFoundationStage } from "./pipeline/foundation/producer.js";
-import { runTaskGraphGeneration } from "./orchestrator/task-graph.js";
-import type { GenerationResult, OrchestratorConfig, StageResult } from "./orchestrator/types.js";
+import type { MapGenConfig } from "@mapgen/config/index.js";
+import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
+import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
+import { runTaskGraphGeneration } from "@mapgen/orchestrator/task-graph.js";
+import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/orchestrator/types.js";
 
 export type {
   GenerationResult,
   MapSizeDefaults,
   OrchestratorConfig,
   StageResult,
-} from "./orchestrator/types.js";
+} from "@mapgen/orchestrator/types.js";
 
 // Dev diagnostics
 import {
@@ -75,7 +75,7 @@ import {
   logFoundationHistograms,
   logBoundaryMetrics,
   type FoundationPlates,
-} from "./dev/index.js";
+} from "@mapgen/dev/index.js";
 
 // ============================================================================
 // Types

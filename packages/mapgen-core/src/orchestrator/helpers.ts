@@ -1,8 +1,8 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import { Civ7Adapter } from "@civ7/adapter/civ7";
 
-import type { ContinentBounds } from "../bootstrap/types.js";
-import type { OrchestratorConfig } from "./types.js";
+import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
+import type { OrchestratorConfig } from "@mapgen/orchestrator/types.js";
 
 export function createLayerAdapter(
   options: OrchestratorConfig,

@@ -9,7 +9,7 @@ import { describe, it, expect, beforeEach } from "bun:test";
 import {
   bootstrap,
   resetBootstrap,
-} from "../../src/bootstrap/entry.js";
+} from "@mapgen/bootstrap/entry.js";
 
 describe("bootstrap/entry", () => {
   beforeEach(() => {

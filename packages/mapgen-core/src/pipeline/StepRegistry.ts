@@ -1,7 +1,7 @@
-import type { StageManifest } from "../config/index.js";
-import { DuplicateStepError, UnknownStepError } from "./errors.js";
-import { validateDependencyTags } from "./tags.js";
-import type { MapGenStep } from "./types.js";
+import type { StageManifest } from "@mapgen/config/index.js";
+import { DuplicateStepError, UnknownStepError } from "@mapgen/pipeline/errors.js";
+import { validateDependencyTags } from "@mapgen/pipeline/tags.js";
+import type { MapGenStep } from "@mapgen/pipeline/types.js";
 
 export class StepRegistry<TContext> {
   private readonly steps = new Map<string, MapGenStep<TContext>>();

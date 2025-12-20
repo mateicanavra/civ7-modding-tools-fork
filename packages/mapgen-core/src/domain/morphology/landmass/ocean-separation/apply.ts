@@ -1,19 +1,19 @@
-import { writeHeightfield } from "../../../../core/types.js";
-import { assertFoundationContext } from "../../../../core/assertions.js";
-import { clampInt } from "../../../../lib/math/index.js";
-import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../../../../core/terrain-constants.js";
-import type { LandmassWindow } from "../types.js";
-import { normalizeCrustMode } from "../crust-mode.js";
+import { writeHeightfield } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { clampInt } from "@mapgen/lib/math/index.js";
+import { OCEAN_TERRAIN, FLAT_TERRAIN } from "@mapgen/core/terrain-constants.js";
+import type { LandmassWindow } from "@mapgen/domain/morphology/landmass/types.js";
+import { normalizeCrustMode } from "@mapgen/domain/morphology/landmass/crust-mode.js";
 import type {
   OceanSeparationPolicy,
   PlateAwareOceanSeparationParams,
   PlateAwareOceanSeparationResult,
   RowState,
-} from "./types.js";
-import { DEFAULT_OCEAN_SEPARATION } from "./policy.js";
-import { aggregateRowState, createRowState, normalizeWindow } from "./row-state.js";
-import { carveOceanFromEast, carveOceanFromWest } from "./carve.js";
-import { fillLandFromEast, fillLandFromWest } from "./fill.js";
+} from "@mapgen/domain/morphology/landmass/ocean-separation/types.js";
+import { DEFAULT_OCEAN_SEPARATION } from "@mapgen/domain/morphology/landmass/ocean-separation/policy.js";
+import { aggregateRowState, createRowState, normalizeWindow } from "@mapgen/domain/morphology/landmass/ocean-separation/row-state.js";
+import { carveOceanFromEast, carveOceanFromWest } from "@mapgen/domain/morphology/landmass/ocean-separation/carve.js";
+import { fillLandFromEast, fillLandFromWest } from "@mapgen/domain/morphology/landmass/ocean-separation/fill.js";
 
 export function applyPlateAwareOceanSeparation(
   params: PlateAwareOceanSeparationParams

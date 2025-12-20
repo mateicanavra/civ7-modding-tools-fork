@@ -6,11 +6,11 @@
  */
 
 import { describe, it, expect } from "bun:test";
-import { renderAsciiGrid } from "../../src/dev/index.js";
-import { assignCrustTypes, buildPlateTopology, CrustType } from "../../src/world/index.js";
-import { computePlatesVoronoi } from "../../src/world/index.js";
-import type { CrustConfig } from "../../src/world/index.js";
-import type { RngFunction } from "../../src/world/types.js";
+import { renderAsciiGrid } from "@mapgen/dev/index.js";
+import { computePlatesVoronoi } from "@mapgen/foundation/plates.js";
+import type { RngFunction } from "@mapgen/foundation/types.js";
+import { assignCrustTypes, type CrustConfig, CrustType } from "@mapgen/lib/plates/crust.js";
+import { buildPlateTopology } from "@mapgen/lib/plates/topology.js";
 
 function createDeterministicRng(seed = 1337): RngFunction {
   let state = seed >>> 0;

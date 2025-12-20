@@ -15,19 +15,19 @@
  * - O(width × height); small neighborhood scans only
  */
 
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { ctxRandom } from "../../../core/types.js";
-import { getStoryTags } from "../../narrative/tags/index.js";
-import { inBounds as boundsCheck } from "../../../core/index.js";
-import { getPublishedClimateField } from "../../../pipeline/artifacts.js";
-import type { FeaturesConfig, FeaturesDensityConfig } from "./types.js";
-import { resolveFeatureIndices } from "./indices.js";
-import { applyParadiseReefs } from "./paradise-reefs.js";
-import { applyShelfReefs } from "./shelf-reefs.js";
-import { applyVolcanicVegetationAtTile } from "./volcanic-vegetation.js";
-import { applyDensityTweaksAtTile } from "./density-tweaks.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { ctxRandom } from "@mapgen/core/types.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { inBounds as boundsCheck } from "@mapgen/core/index.js";
+import { getPublishedClimateField } from "@mapgen/pipeline/artifacts.js";
+import type { FeaturesConfig, FeaturesDensityConfig } from "@mapgen/domain/ecology/features/types.js";
+import { resolveFeatureIndices } from "@mapgen/domain/ecology/features/indices.js";
+import { applyParadiseReefs } from "@mapgen/domain/ecology/features/paradise-reefs.js";
+import { applyShelfReefs } from "@mapgen/domain/ecology/features/shelf-reefs.js";
+import { applyVolcanicVegetationAtTile } from "@mapgen/domain/ecology/features/volcanic-vegetation.js";
+import { applyDensityTweaksAtTile } from "@mapgen/domain/ecology/features/density-tweaks.js";
 
-export type { FeaturesConfig, FeaturesDensityConfig } from "./types.js";
+export type { FeaturesConfig, FeaturesDensityConfig } from "@mapgen/domain/ecology/features/types.js";
 
 // ============================================================================
 // Main Function

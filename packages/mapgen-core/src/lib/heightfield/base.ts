@@ -1,4 +1,4 @@
-import { CrustType } from "../plates/crust.js";
+import { CrustType } from "@mapgen/lib/plates/crust.js";
 
 export interface BaseHeightConfig {
   continentalHeight?: number;

@@ -1,17 +1,17 @@
-import type { ExtendedMapContext, StoryOverlaySnapshot } from "../../../core/types.js";
-import { storyKey } from "../../../core/index.js";
-import { getStoryTags } from "../tags/index.js";
+import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/types.js";
+import { storyKey } from "@mapgen/core/index.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import {
   STORY_OVERLAY_KEYS,
   finalizeStoryOverlay,
   publishStoryOverlay,
   hydrateMarginsStoryTags,
-} from "../overlays/index.js";
-import { isCoastalLand } from "../utils/adjacency.js";
-import { getDims } from "../utils/dims.js";
-import { rand } from "../utils/rng.js";
+} from "@mapgen/domain/narrative/overlays/index.js";
+import { isCoastalLand } from "@mapgen/domain/narrative/utils/adjacency.js";
+import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
+import { rand } from "@mapgen/domain/narrative/utils/rng.js";
 
-import type { ContinentalMarginsOptions } from "./types.js";
+import type { ContinentalMarginsOptions } from "@mapgen/domain/narrative/tagging/types.js";
 
 export function storyTagContinentalMargins(
   ctx: ExtendedMapContext | null = null,

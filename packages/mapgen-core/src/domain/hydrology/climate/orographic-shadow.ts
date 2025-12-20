@@ -1,5 +1,5 @@
-import type { FoundationContext } from "../../../core/types.js";
-import type { ClimateAdapter } from "./types.js";
+import type { FoundationContext } from "@mapgen/core/types.js";
+import type { ClimateAdapter } from "@mapgen/domain/hydrology/climate/types.js";
 
 /**
  * Upwind barrier utility (legacy helper).

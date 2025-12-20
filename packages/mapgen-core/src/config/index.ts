@@ -61,7 +61,7 @@ export {
   RiftTunablesSchema,
   StoryConfigSchema,
   VolcanoesConfigSchema,
-} from "./schema.js";
+} from "@mapgen/config/schema.js";
 
 export type {
   // Climate sub-types (typed replacements for UnknownRecord)
@@ -124,7 +124,7 @@ export type {
   RiftTunables,
   StoryConfig,
   VolcanoesConfig,
-} from "./schema.js";
+} from "@mapgen/config/schema.js";
 
 export {
   parseConfig,
@@ -133,10 +133,10 @@ export {
   getJsonSchema,
   getPublicJsonSchema,
   type ParseResult,
-} from "./loader.js";
+} from "@mapgen/config/loader.js";
 
 export {
   applyPresets,
   getPresetConfig,
   type MapGenPresetName,
-} from "./presets.js";
+} from "@mapgen/config/presets.js";

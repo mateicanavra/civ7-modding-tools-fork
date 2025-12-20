@@ -1,20 +1,20 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { assertFoundationContext } from "../../core/assertions.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import {
   addPlotTagsSimple,
   LANDMASS_REGION,
   markLandmassRegionId,
   type TerrainBuilderLike,
-} from "../../core/plot-tags.js";
-import { DEV, devWarn, logLandmassAscii } from "../../dev/index.js";
-import type { ContinentBounds, LandmassConfig } from "../../bootstrap/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
+} from "@mapgen/core/plot-tags.js";
+import { DEV, devWarn, logLandmassAscii } from "@mapgen/dev/index.js";
+import type { ContinentBounds, LandmassConfig } from "@mapgen/bootstrap/types.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,
   createPlateDrivenLandmasses,
   type LandmassWindow,
-} from "../../domain/morphology/landmass/index.js";
+} from "@mapgen/domain/morphology/landmass/index.js";
 
 export interface LandmassStepRuntime {
   landmassCfg: LandmassConfig;

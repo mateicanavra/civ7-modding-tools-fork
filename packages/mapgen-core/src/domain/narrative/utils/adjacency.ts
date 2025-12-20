@@ -1,7 +1,7 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { inBounds } from "../../../core/index.js";
-import { COAST_TERRAIN } from "../../../core/terrain-constants.js";
-import { isWaterAt } from "./water.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { inBounds } from "@mapgen/core/index.js";
+import { COAST_TERRAIN } from "@mapgen/core/terrain-constants.js";
+import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 export function isAdjacentToLand(
   ctx: ExtendedMapContext | null | undefined,

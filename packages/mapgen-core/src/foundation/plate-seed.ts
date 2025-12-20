@@ -16,7 +16,7 @@ import type {
   SeedSnapshot,
   SeedCaptureResult,
   RandomInterface,
-} from "./types.js";
+} from "@mapgen/foundation/types.js";
 
 // ============================================================================
 // Helpers

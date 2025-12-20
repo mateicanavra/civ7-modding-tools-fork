@@ -20,23 +20,23 @@
  * - O(width × height) with simple local checks.
  */
 
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { ctxRandom } from "../../../core/types.js";
-import { getStoryTags } from "../../narrative/tags/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { ctxRandom } from "@mapgen/core/types.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import {
   getPublishedClimateField,
   getPublishedRiverAdjacency,
-} from "../../../pipeline/artifacts.js";
-import type { BiomeConfig, CorridorPolicy } from "./types.js";
-import { resolveBiomeGlobals } from "./globals.js";
-import { applyTundraRestraint } from "./nudges/tundra-restraint.js";
-import { applyTropicalCoastBias } from "./nudges/tropical-coast.js";
-import { applyRiverValleyGrasslandBias } from "./nudges/river-valley.js";
-import { applyCorridorKindBiomeBias, applyCorridorTileBias } from "./nudges/corridor-bias.js";
-import { applyCorridorEdgeHints } from "./nudges/corridor-edge-hints.js";
-import { applyRiftShoulderBias } from "./nudges/rift-shoulder.js";
+} from "@mapgen/pipeline/artifacts.js";
+import type { BiomeConfig, CorridorPolicy } from "@mapgen/domain/ecology/biomes/types.js";
+import { resolveBiomeGlobals } from "@mapgen/domain/ecology/biomes/globals.js";
+import { applyTundraRestraint } from "@mapgen/domain/ecology/biomes/nudges/tundra-restraint.js";
+import { applyTropicalCoastBias } from "@mapgen/domain/ecology/biomes/nudges/tropical-coast.js";
+import { applyRiverValleyGrasslandBias } from "@mapgen/domain/ecology/biomes/nudges/river-valley.js";
+import { applyCorridorKindBiomeBias, applyCorridorTileBias } from "@mapgen/domain/ecology/biomes/nudges/corridor-bias.js";
+import { applyCorridorEdgeHints } from "@mapgen/domain/ecology/biomes/nudges/corridor-edge-hints.js";
+import { applyRiftShoulderBias } from "@mapgen/domain/ecology/biomes/nudges/rift-shoulder.js";
 
-export type { BiomeConfig, BiomeGlobals, CorridorPolicy } from "./types.js";
+export type { BiomeConfig, BiomeGlobals, CorridorPolicy } from "@mapgen/domain/ecology/biomes/types.js";
 
 /**
  * Enhanced biome designation with gentle, readable nudges.

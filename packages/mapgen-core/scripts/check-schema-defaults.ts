@@ -3,7 +3,7 @@ import path from "node:path";
 import ts from "typescript";
 import { Value } from "typebox/value";
 
-import { MapGenConfigSchema } from "../src/config/schema.ts";
+import { MapGenConfigSchema } from "@mapgen/config/schema.ts";
 
 type Primitive = string | number | boolean | null;
 

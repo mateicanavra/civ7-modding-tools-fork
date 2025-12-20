@@ -1,6 +1,6 @@
-import { clampInt } from "../../../../lib/math/index.js";
-import type { LandmassWindow } from "../types.js";
-import type { RowState } from "./types.js";
+import { clampInt } from "@mapgen/lib/math/index.js";
+import type { LandmassWindow } from "@mapgen/domain/morphology/landmass/types.js";
+import type { RowState } from "@mapgen/domain/morphology/landmass/ocean-separation/types.js";
 
 export function normalizeWindow(
   win: Partial<LandmassWindow> | null | undefined,

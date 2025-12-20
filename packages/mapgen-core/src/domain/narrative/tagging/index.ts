@@ -7,14 +7,14 @@
  * - Rift valleys (lines + shoulders)
  */
 
-export type { ContinentalMarginsOptions, HotspotTrailsSummary, RiftValleysSummary } from "./types.js";
-export { storyTagContinentalMargins } from "./margins.js";
-export { storyTagHotspotTrails } from "./hotspots.js";
-export { storyTagRiftValleys } from "./rifts.js";
+export type { ContinentalMarginsOptions, HotspotTrailsSummary, RiftValleysSummary } from "@mapgen/domain/narrative/tagging/types.js";
+export { storyTagContinentalMargins } from "@mapgen/domain/narrative/tagging/margins.js";
+export { storyTagHotspotTrails } from "@mapgen/domain/narrative/tagging/hotspots.js";
+export { storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/rifts.js";
 
-import { storyTagContinentalMargins } from "./margins.js";
-import { storyTagHotspotTrails } from "./hotspots.js";
-import { storyTagRiftValleys } from "./rifts.js";
+import { storyTagContinentalMargins } from "@mapgen/domain/narrative/tagging/margins.js";
+import { storyTagHotspotTrails } from "@mapgen/domain/narrative/tagging/hotspots.js";
+import { storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/rifts.js";
 
 export default {
   storyTagContinentalMargins,

@@ -1,4 +1,4 @@
-import type { ClimateRuntime } from "../types.js";
+import type { ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
 
 export function applyRiverCorridorRefinement(
   width: number,

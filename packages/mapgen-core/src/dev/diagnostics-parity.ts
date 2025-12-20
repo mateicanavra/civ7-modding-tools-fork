@@ -1,5 +1,5 @@
-import type { DevLogConfig } from "./flags.js";
-import type { FoundationDiagnosticsConfig } from "../config/index.js";
+import type { DevLogConfig } from "@mapgen/dev/flags.js";
+import type { FoundationDiagnosticsConfig } from "@mapgen/config/index.js";
 
 type KnownKeys<T> = {
   [K in keyof T]: string extends K

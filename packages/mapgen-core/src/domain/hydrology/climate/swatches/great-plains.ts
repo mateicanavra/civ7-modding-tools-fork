@@ -1,4 +1,4 @@
-import type { SwatchHelpers, SwatchRuntime, SwatchTypeConfig } from "./types.js";
+import type { SwatchHelpers, SwatchRuntime, SwatchTypeConfig } from "@mapgen/domain/hydrology/climate/swatches/types.js";
 
 export function applyGreatPlainsSwatch(
   width: number,

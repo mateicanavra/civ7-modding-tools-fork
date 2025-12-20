@@ -1,14 +1,14 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import type { ExtendedMapContext } from "../../src/core/types.js";
-import { createExtendedMapContext } from "../../src/core/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
 import {
   MissingDependencyError,
   M3_DEPENDENCY_TAGS,
   M3_STAGE_DEPENDENCY_SPINE,
   PipelineExecutor,
   StepRegistry,
-} from "../../src/pipeline/index.js";
+} from "@mapgen/pipeline/index.js";
 
 describe("placement step contracts", () => {
   it("fails fast when placement runs without featuresApplied", () => {

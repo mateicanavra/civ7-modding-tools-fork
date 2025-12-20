@@ -1,5 +1,5 @@
-import type { StoryOverlaySnapshot } from "../../../core/types.js";
-import { asRecord, asStringArray } from "../../../lib/collections/record.js";
+import type { StoryOverlaySnapshot } from "@mapgen/core/types.js";
+import { asRecord, asStringArray } from "@mapgen/lib/collections/record.js";
 
 export interface CorridorStoryTags {
   corridorSeaLane?: Set<string>;

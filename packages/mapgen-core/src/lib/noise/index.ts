@@ -1,3 +1,3 @@
-export * from "./perlin.js";
-export * from "./fractal.js";
+export * from "@mapgen/lib/noise/perlin.js";
+export * from "@mapgen/lib/noise/fractal.js";
 

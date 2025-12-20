@@ -16,4 +16,4 @@
  */
 
 // Re-export MapConfig as alias for backwards compatibility
-export type { MapGenConfig as MapConfig } from "../config/index.js";
+export type { MapGenConfig as MapConfig } from "@mapgen/config/index.js";

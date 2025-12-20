@@ -1,2 +1,2 @@
-export { createFoundationStep } from "./FoundationStep.js";
-export type { FoundationStepOptions, FoundationStepRuntime } from "./FoundationStep.js";
+export { createFoundationStep } from "@mapgen/pipeline/foundation/FoundationStep.js";
+export type { FoundationStepOptions, FoundationStepRuntime } from "@mapgen/pipeline/foundation/FoundationStep.js";

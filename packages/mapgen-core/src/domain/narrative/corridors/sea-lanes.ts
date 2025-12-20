@@ -1,10 +1,10 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { storyKey } from "../../../core/index.js";
-import { getStoryTags } from "../tags/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { storyKey } from "@mapgen/core/index.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
-import { assignCorridorMetadata } from "./style-cache.js";
-import type { Orient } from "./types.js";
-import { getDims, isAdjacentToLand } from "./runtime.js";
+import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
+import type { Orient } from "@mapgen/domain/narrative/corridors/types.js";
+import { getDims, isAdjacentToLand } from "@mapgen/domain/narrative/corridors/runtime.js";
 
 export function hasPerpWidth(
   ctx: ExtendedMapContext,

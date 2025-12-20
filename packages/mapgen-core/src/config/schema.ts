@@ -1274,7 +1274,7 @@ export const IslandsConfigSchema = Type.Object(
 );
 
 /**
- * Mountain and hill placement tuning driven by WorldModel physics.
+ * Mountain and hill placement tuning driven by foundation physics.
  */
 export const MountainsConfigSchema = Type.Object(
   {

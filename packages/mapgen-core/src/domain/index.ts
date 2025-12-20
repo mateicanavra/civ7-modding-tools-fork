@@ -1,5 +1,5 @@
-export * as morphology from "./morphology/index.js";
-export * as hydrology from "./hydrology/index.js";
-export * as ecology from "./ecology/index.js";
-export * as placement from "./placement/index.js";
-export * as narrative from "./narrative/index.js";
+export * as morphology from "@mapgen/domain/morphology/index.js";
+export * as hydrology from "@mapgen/domain/hydrology/index.js";
+export * as ecology from "@mapgen/domain/ecology/index.js";
+export * as placement from "@mapgen/domain/placement/index.js";
+export * as narrative from "@mapgen/domain/narrative/index.js";

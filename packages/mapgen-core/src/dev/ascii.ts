@@ -8,12 +8,12 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import { isDevEnabled, type DevFlagKey } from "./flags.js";
-import { devLog, devLogLines } from "./logging.js";
+import { isDevEnabled, type DevFlagKey } from "@mapgen/dev/flags.js";
+import { devLog, devLogLines } from "@mapgen/dev/logging.js";
 
 // Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
 // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
-import { HILL_TERRAIN } from "../core/terrain-constants.js";
+import { HILL_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 /**
  * Standard ASCII character sets for different visualizations.

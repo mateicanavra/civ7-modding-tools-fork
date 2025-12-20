@@ -32,10 +32,10 @@
 
 /// <reference types="@civ7/types" />
 
-import type { MapGenConfig } from "../config/index.js";
-import { parseConfig } from "../config/index.js";
-import { applyPresets } from "../config/presets.js";
-import { resolveStageManifest, validateOverrides, type StageConfig } from "./resolved.js";
+import type { MapGenConfig } from "@mapgen/config/index.js";
+import { parseConfig } from "@mapgen/config/index.js";
+import { applyPresets } from "@mapgen/config/presets.js";
+import { resolveStageManifest, validateOverrides, type StageConfig } from "@mapgen/bootstrap/resolved.js";
 
 // ============================================================================
 // Types
@@ -167,9 +167,9 @@ export function resetBootstrap(): void {
 
 
 // Re-export types and functions for convenience
-export type { MapConfig } from "./runtime.js";
-export type { MapGenConfig } from "../config/index.js";
-export type { StageConfig, StageName } from "./resolved.js";
+export type { MapConfig } from "@mapgen/bootstrap/runtime.js";
+export type { MapGenConfig } from "@mapgen/config/index.js";
+export type { StageConfig, StageName } from "@mapgen/bootstrap/resolved.js";
 export {
   STAGE_ORDER,
   isStageEnabled,
@@ -177,6 +177,6 @@ export {
   validateOverrides,
   validateStageDrift,
   resetDriftCheck,
-} from "./resolved.js";
+} from "@mapgen/bootstrap/resolved.js";
 
 export default { bootstrap, resetBootstrap };

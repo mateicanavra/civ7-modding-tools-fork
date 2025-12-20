@@ -1,8 +1,8 @@
-import { freezeClone } from "../../../lib/collections/freeze-clone.js";
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { getStoryTags } from "../tags/index.js";
+import { freezeClone } from "@mapgen/lib/collections/freeze-clone.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
-import type { CorridorKind, CorridorStyle } from "./types.js";
+import type { CorridorKind, CorridorStyle } from "@mapgen/domain/narrative/corridors/types.js";
 
 const STYLE_PRIMITIVE_CACHE_KEY = "story:corridorStyleCache";
 

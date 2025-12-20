@@ -1,19 +1,19 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { ctxRandom, writeHeightfield } from "../../../core/types.js";
-import { assertFoundationContext } from "../../../core/assertions.js";
-import { getStoryTags } from "../../narrative/tags/index.js";
-import { clamp } from "../../../lib/math/index.js";
-import { forEachNeighbor3x3 } from "../../../lib/grid/neighborhood/square-3x3.js";
-import { BOUNDARY_TYPE } from "../../../world/constants.js";
-import { COAST_TERRAIN } from "../../../core/terrain-constants.js";
-import { computePlateBias } from "./plate-bias.js";
-import { isAdjacentToLand, isCoastalLand } from "./adjacency.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { ctxRandom, writeHeightfield } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { clamp } from "@mapgen/lib/math/index.js";
+import { forEachNeighbor3x3 } from "@mapgen/lib/grid/neighborhood/square-3x3.js";
+import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
+import { COAST_TERRAIN } from "@mapgen/core/terrain-constants.js";
+import { computePlateBias } from "@mapgen/domain/morphology/coastlines/plate-bias.js";
+import { isAdjacentToLand, isCoastalLand } from "@mapgen/domain/morphology/coastlines/adjacency.js";
 import {
   findNeighborSeaLaneAttributes,
   findNeighborSeaLaneEdgeConfig,
   resolveSeaCorridorPolicy,
-} from "./corridor-policy.js";
-import type { CoastlinePlateBiasConfig, CoastlinesConfig } from "./types.js";
+} from "@mapgen/domain/morphology/coastlines/corridor-policy.js";
+import type { CoastlinePlateBiasConfig, CoastlinesConfig } from "@mapgen/domain/morphology/coastlines/types.js";
 
 const HILL_FRACTAL = 1;
 

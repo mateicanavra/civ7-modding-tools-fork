@@ -1,13 +1,13 @@
 import type { FeatureData } from "@civ7/adapter";
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { assertFoundationContext } from "../../../core/assertions.js";
-import { ctxRandom, writeHeightfield } from "../../../core/types.js";
-import { idx } from "../../../lib/grid/index.js";
-import { clamp } from "../../../lib/math/index.js";
-import { MOUNTAIN_TERRAIN, VOLCANO_FEATURE } from "../../../core/terrain-constants.js";
-import type { PlacedVolcano, VolcanoCandidate, VolcanoesConfig } from "./types.js";
-import { isTooCloseToExisting } from "./selection.js";
-import { scoreVolcanoWeight } from "./scoring.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { ctxRandom, writeHeightfield } from "@mapgen/core/types.js";
+import { idx } from "@mapgen/lib/grid/index.js";
+import { clamp } from "@mapgen/lib/math/index.js";
+import { MOUNTAIN_TERRAIN, VOLCANO_FEATURE } from "@mapgen/core/terrain-constants.js";
+import type { PlacedVolcano, VolcanoCandidate, VolcanoesConfig } from "@mapgen/domain/morphology/volcanoes/types.js";
+import { isTooCloseToExisting } from "@mapgen/domain/morphology/volcanoes/selection.js";
+import { scoreVolcanoWeight } from "@mapgen/domain/morphology/volcanoes/scoring.js";
 
 export function layerAddVolcanoesPlateAware(
   ctx: ExtendedMapContext,

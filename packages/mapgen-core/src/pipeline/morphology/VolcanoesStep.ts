@@ -1,9 +1,9 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { assertFoundationContext } from "../../core/assertions.js";
-import { DEV, logVolcanoSummary } from "../../dev/index.js";
-import type { VolcanoesConfig } from "../../bootstrap/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { layerAddVolcanoesPlateAware } from "../../domain/morphology/volcanoes/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { DEV, logVolcanoSummary } from "@mapgen/dev/index.js";
+import type { VolcanoesConfig } from "@mapgen/bootstrap/types.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { layerAddVolcanoesPlateAware } from "@mapgen/domain/morphology/volcanoes/index.js";
 
 export interface VolcanoesStepRuntime {
   volcanoOptions: VolcanoesConfig;

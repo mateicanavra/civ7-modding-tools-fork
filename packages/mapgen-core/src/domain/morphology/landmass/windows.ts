@@ -1,5 +1,5 @@
-import { clampInt } from "../../../lib/math/index.js";
-import type { GeometryPostConfig, LandmassWindow, PlateStats } from "./types.js";
+import { clampInt } from "@mapgen/lib/math/index.js";
+import type { GeometryPostConfig, LandmassWindow, PlateStats } from "@mapgen/domain/morphology/landmass/types.js";
 
 interface WindowWithMeta extends LandmassWindow {
   plateId: number;

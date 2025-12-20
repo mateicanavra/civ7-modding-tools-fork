@@ -1,16 +1,16 @@
-import type { ExtendedMapContext, FoundationContext } from "../../core/types.js";
-import { createFoundationContext, ctxRandom, validateFoundationContext } from "../../core/types.js";
-import type { FoundationConfig } from "../../bootstrap/types.js";
-import { devLogIf } from "../../dev/index.js";
-import { idx } from "../../lib/grid/index.js";
-import { clampInt } from "../../lib/math/index.js";
-import { PlateSeedManager } from "../../world/plate-seed.js";
-import { computePlatesVoronoi } from "../../world/plates.js";
+import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
+import { createFoundationContext, ctxRandom, validateFoundationContext } from "@mapgen/core/types.js";
+import type { FoundationConfig } from "@mapgen/bootstrap/types.js";
+import { devLogIf } from "@mapgen/dev/index.js";
+import { idx } from "@mapgen/lib/grid/index.js";
+import { clampInt } from "@mapgen/lib/math/index.js";
+import { PlateSeedManager } from "@mapgen/foundation/plate-seed.js";
+import { computePlatesVoronoi } from "@mapgen/foundation/plates.js";
 import type {
   PlateConfig,
   RngFunction,
   SeedSnapshot,
-} from "../../world/types.js";
+} from "@mapgen/foundation/types.js";
 
 interface PlateFieldsResult {
   plates: FoundationContext["plates"];

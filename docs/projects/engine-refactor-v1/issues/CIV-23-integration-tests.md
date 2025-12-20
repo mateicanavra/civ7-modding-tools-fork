@@ -185,52 +185,30 @@ describe("MapOrchestrator Integration", () => {
 });
 ```
 
-### WorldModel Lifecycle Tests
+### Foundation Producer Tests
 
 ```typescript
-// __tests__/world/lifecycle.test.ts
-import { describe, test, expect, beforeEach } from "bun:test";
-import { WorldModel } from "../../src/world/model.js";
+// __tests__/foundation/plates.test.ts
+import { describe, test, expect } from "bun:test";
+import { computePlatesVoronoi } from "../../src/foundation/plates.js";
+import type { PlateConfig } from "../../src/foundation/types.js";
 
-describe("WorldModel Lifecycle", () => {
-  beforeEach(() => {
-    WorldModel.reset();
+describe("Foundation plates", () => {
+  test("allocates arrays correctly", () => {
+    const rng = (max: number) => (max > 0 ? 0 : 0);
+    const config: PlateConfig = { count: 8 };
+    const result = computePlatesVoronoi(84, 54, config, { rng });
+
+    expect(result.plateId.length).toBe(84 * 54);
+    expect(result.boundaryType.length).toBe(84 * 54);
   });
 
-  test("init allocates arrays correctly", () => {
-    const rng = () => Math.random();
-    WorldModel.init(84, 54, rng);
+  test("config influences plate count", () => {
+    const rng = (max: number) => (max > 0 ? 0 : 0);
+    const config: PlateConfig = { count: 12 };
+    const result = computePlatesVoronoi(84, 54, config, { rng });
 
-    expect(WorldModel.initialized).toBe(true);
-    expect(WorldModel.plateId?.length).toBe(84 * 54);
-    expect(WorldModel.windU?.length).toBe(84 * 54);
-  });
-
-  test("reset clears state", () => {
-    const rng = () => Math.random();
-    WorldModel.init(84, 54, rng);
-    WorldModel.reset();
-
-    expect(WorldModel.initialized).toBe(false);
-    expect(WorldModel.plateId).toBeNull();
-  });
-
-  test("back-to-back init is deterministic", () => {
-    let seed = 12345;
-    const deterministicRng = () => {
-      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-      return seed / 0x7fffffff;
-    };
-
-    WorldModel.init(20, 20, deterministicRng);
-    const firstPlateId = [...WorldModel.plateId!];
-
-    seed = 12345;  // Reset seed
-    WorldModel.reset();
-    WorldModel.init(20, 20, deterministicRng);
-    const secondPlateId = [...WorldModel.plateId!];
-
-    expect(firstPlateId).toEqual(secondPlateId);
+    expect(result.plateRegions.length).toBe(12);
   });
 });
 ```

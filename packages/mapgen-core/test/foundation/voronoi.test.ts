@@ -7,8 +7,8 @@
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
-import { calculateVoronoiCells, computePlatesVoronoi } from "../../src/world/plates.js";
-import type { PlateConfig, RngFunction } from "../../src/world/types.js";
+import { calculateVoronoiCells, computePlatesVoronoi } from "@mapgen/foundation/plates.js";
+import type { PlateConfig, RngFunction } from "@mapgen/foundation/types.js";
 
 describe("Voronoi Plate Generation", () => {
   describe("calculateVoronoiCells", () => {

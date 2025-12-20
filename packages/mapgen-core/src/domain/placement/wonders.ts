@@ -1,5 +1,5 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import type { MapInfo } from "./types.js";
+import type { MapInfo } from "@mapgen/domain/placement/types.js";
 
 export function resolveNaturalWonderCount(mapInfo: MapInfo | undefined, wondersPlusOne: boolean): number {
   if (!mapInfo || typeof mapInfo.NumNaturalWonders !== "number") {

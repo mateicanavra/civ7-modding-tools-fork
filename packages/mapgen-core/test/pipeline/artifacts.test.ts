@@ -1,19 +1,19 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import type { MapConfig } from "../../src/bootstrap/types.js";
-import { createExtendedMapContext } from "../../src/core/types.js";
+import type { MapConfig } from "@mapgen/bootstrap/types.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
 import {
   PipelineExecutor,
   StepRegistry,
   M3_DEPENDENCY_TAGS,
-} from "../../src/pipeline/index.js";
-import { M3_STAGE_DEPENDENCY_SPINE } from "../../src/pipeline/standard.js";
-import { isDependencyTagSatisfied } from "../../src/pipeline/tags.js";
+} from "@mapgen/pipeline/index.js";
+import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
+import { isDependencyTagSatisfied } from "@mapgen/pipeline/tags.js";
 import {
   computeRiverAdjacencyMask,
   publishClimateFieldArtifact,
   publishRiverAdjacencyArtifact,
-} from "../../src/pipeline/artifacts.js";
+} from "@mapgen/pipeline/artifacts.js";
 
 describe("pipeline artifacts", () => {
   it("includes climate/river prerequisites for storyCorridorsPost in the standard dependency spine", () => {

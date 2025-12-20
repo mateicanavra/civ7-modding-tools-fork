@@ -1,6 +1,6 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { HILL_TERRAIN, MOUNTAIN_TERRAIN, NAVIGABLE_RIVER_TERRAIN } from "../../core/terrain-constants.js";
-import { syncHeightfield } from "../../core/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { HILL_TERRAIN, MOUNTAIN_TERRAIN, NAVIGABLE_RIVER_TERRAIN } from "@mapgen/core/terrain-constants.js";
+import { syncHeightfield } from "@mapgen/core/types.js";
 import {
   computeRiverAdjacencyMask,
   /** Why are these all standalone functions? Shouldn't they be methods on ExtendedMapContext or similar?
@@ -11,9 +11,9 @@ import {
   publishClimateFieldArtifact,
   publishHeightfieldArtifact,
   publishRiverAdjacencyArtifact,
-} from "../artifacts.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { storyTagClimatePaleo } from "../../domain/narrative/swatches.js";
+} from "@mapgen/pipeline/artifacts.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
 
 export interface RiversStepOptions {
   requires: readonly string[];

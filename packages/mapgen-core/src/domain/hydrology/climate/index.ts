@@ -3,9 +3,9 @@
  * narrative overlays operate against a single shared module.
  */
 
-import { applyClimateBaseline } from "./baseline.js";
-import { applyClimateSwatches } from "./swatches/index.js";
-import { refineClimateEarthlike } from "./refine/index.js";
+import { applyClimateBaseline } from "@mapgen/domain/hydrology/climate/baseline.js";
+import { applyClimateSwatches } from "@mapgen/domain/hydrology/climate/swatches/index.js";
+import { refineClimateEarthlike } from "@mapgen/domain/hydrology/climate/refine/index.js";
 
 export type {
   ClimateAdapter,
@@ -13,11 +13,11 @@ export type {
   ClimateRuntime,
   ClimateSwatchResult,
   OrogenyCache,
-} from "./types.js";
+} from "@mapgen/domain/hydrology/climate/types.js";
 
-export { applyClimateBaseline } from "./baseline.js";
-export { applyClimateSwatches } from "./swatches/index.js";
-export { refineClimateEarthlike } from "./refine/index.js";
+export { applyClimateBaseline } from "@mapgen/domain/hydrology/climate/baseline.js";
+export { applyClimateSwatches } from "@mapgen/domain/hydrology/climate/swatches/index.js";
+export { refineClimateEarthlike } from "@mapgen/domain/hydrology/climate/refine/index.js";
 
 export default {
   applyClimateBaseline,

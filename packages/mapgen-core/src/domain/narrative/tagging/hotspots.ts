@@ -1,13 +1,13 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { inBounds, storyKey } from "../../../core/index.js";
-import { getStoryTags } from "../tags/index.js";
-import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "../overlays/index.js";
-import { isAdjacentToLand } from "../utils/adjacency.js";
-import { getDims } from "../utils/dims.js";
-import { rand } from "../utils/rng.js";
-import { isWaterAt } from "../utils/water.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { inBounds, storyKey } from "@mapgen/core/index.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
+import { isAdjacentToLand } from "@mapgen/domain/narrative/utils/adjacency.js";
+import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
+import { rand } from "@mapgen/domain/narrative/utils/rng.js";
+import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
-import type { HotspotTrailsSummary } from "./types.js";
+import type { HotspotTrailsSummary } from "@mapgen/domain/narrative/tagging/types.js";
 
 export function storyTagHotspotTrails(
   ctx: ExtendedMapContext | null = null

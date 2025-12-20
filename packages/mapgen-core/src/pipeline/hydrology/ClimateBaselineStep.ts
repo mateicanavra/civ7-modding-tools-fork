@@ -1,11 +1,11 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { assertFoundationContext } from "../../core/assertions.js";
-import { LANDMASS_REGION, markLandmassRegionId } from "../../core/plot-tags.js";
-import { syncHeightfield } from "../../core/types.js";
-import type { ContinentBounds } from "../../bootstrap/types.js";
-import { publishClimateFieldArtifact, publishHeightfieldArtifact } from "../artifacts.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { applyClimateBaseline } from "../../domain/hydrology/climate/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { LANDMASS_REGION, markLandmassRegionId } from "@mapgen/core/plot-tags.js";
+import { syncHeightfield } from "@mapgen/core/types.js";
+import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
+import { publishClimateFieldArtifact, publishHeightfieldArtifact } from "@mapgen/pipeline/artifacts.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { applyClimateBaseline } from "@mapgen/domain/hydrology/climate/index.js";
 
 export interface ClimateBaselineStepRuntime {
   westContinent: ContinentBounds;

@@ -1,16 +1,16 @@
-import type { ExtendedMapContext } from "../../../../core/types.js";
-import { assertFoundationContext } from "../../../../core/assertions.js";
-import { inBounds as boundsCheck } from "../../../../lib/grid/bounds.js";
-import type { StoryTagsInstance } from "../../../narrative/tags/instance.js";
-import { getStoryTags } from "../../../narrative/tags/index.js";
-import type { OrogenyCache } from "../types.js";
-import { createClimateRuntime } from "../runtime.js";
-import { applyWaterGradientRefinement } from "./water-gradient.js";
-import { applyOrographicShadowRefinement } from "./orographic-shadow.js";
-import { applyRiverCorridorRefinement } from "./river-corridor.js";
-import { applyRiftHumidityRefinement } from "./rift-humidity.js";
-import { applyOrogenyBeltsRefinement } from "./orogeny-belts.js";
-import { applyHotspotMicroclimatesRefinement } from "./hotspot-microclimates.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { inBounds as boundsCheck } from "@mapgen/lib/grid/bounds.js";
+import type { StoryTagsInstance } from "@mapgen/domain/narrative/tags/instance.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
+import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
+import { applyWaterGradientRefinement } from "@mapgen/domain/hydrology/climate/refine/water-gradient.js";
+import { applyOrographicShadowRefinement } from "@mapgen/domain/hydrology/climate/refine/orographic-shadow.js";
+import { applyRiverCorridorRefinement } from "@mapgen/domain/hydrology/climate/refine/river-corridor.js";
+import { applyRiftHumidityRefinement } from "@mapgen/domain/hydrology/climate/refine/rift-humidity.js";
+import { applyOrogenyBeltsRefinement } from "@mapgen/domain/hydrology/climate/refine/orogeny-belts.js";
+import { applyHotspotMicroclimatesRefinement } from "@mapgen/domain/hydrology/climate/refine/hotspot-microclimates.js";
 
 /**
  * Earthlike rainfall refinements (post-rivers).

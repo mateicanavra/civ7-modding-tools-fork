@@ -1,6 +1,6 @@
 import { describe, it, expect } from "bun:test";
-import { validateFoundationContext } from "../../src/core/types.js";
-import type { FoundationContext } from "../../src/core/types.js";
+import { validateFoundationContext } from "@mapgen/core/types.js";
+import type { FoundationContext } from "@mapgen/core/types.js";
 
 function makeFoundationContext(width: number, height: number): FoundationContext {
   const size = width * height;

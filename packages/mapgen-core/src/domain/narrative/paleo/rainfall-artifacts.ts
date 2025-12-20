@@ -6,16 +6,16 @@
  * - EngineAdapter reads/writes (no direct engine calls when ctx provided)
  */
 
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { inBounds } from "../../../core/index.js";
-import { writeClimateField } from "../../../core/types.js";
-import { idx } from "../../../lib/grid/index.js";
-import { clamp } from "../../../lib/math/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { inBounds } from "@mapgen/core/index.js";
+import { writeClimateField } from "@mapgen/core/types.js";
+import { idx } from "@mapgen/lib/grid/index.js";
+import { clamp } from "@mapgen/lib/math/index.js";
 
-import { isCoastalLand } from "../utils/adjacency.js";
-import { getDims } from "../utils/dims.js";
-import { rand } from "../utils/rng.js";
-import { isWaterAt } from "../utils/water.js";
+import { isCoastalLand } from "@mapgen/domain/narrative/utils/adjacency.js";
+import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
+import { rand } from "@mapgen/domain/narrative/utils/rng.js";
+import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 export interface PaleoSummary {
   deltas: number;

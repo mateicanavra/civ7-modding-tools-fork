@@ -1,6 +1,6 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import type { StoryTagsInstance, TagSet } from "./instance.js";
-import { createStoryTags } from "./instance.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { StoryTagsInstance, TagSet } from "@mapgen/domain/narrative/tags/instance.js";
+import { createStoryTags } from "@mapgen/domain/narrative/tags/instance.js";
 
 const STORY_TAGS_ARTIFACT_KEY = "story:tags";
 

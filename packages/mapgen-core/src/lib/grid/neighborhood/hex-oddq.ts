@@ -1,4 +1,4 @@
-import { wrapX } from "../wrap.js";
+import { wrapX } from "@mapgen/lib/grid/wrap.js";
 
 const OFFSETS_ODD: readonly (readonly [number, number])[] = [
   [-1, 0],

@@ -7,8 +7,8 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import { isDevEnabled } from "./flags.js";
-import { devLog, devLogJson } from "./logging.js";
+import { isDevEnabled } from "@mapgen/dev/flags.js";
+import { devLog, devLogJson } from "@mapgen/dev/logging.js";
 
 /**
  * Foundation plates data structure.

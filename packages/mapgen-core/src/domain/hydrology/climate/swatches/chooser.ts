@@ -1,6 +1,6 @@
-import type { FoundationDirectionalityConfig } from "../../../../bootstrap/types.js";
-import type { ExtendedMapContext } from "../../../../core/types.js";
-import type { SwatchTypeEntry } from "./types.js";
+import type { FoundationDirectionalityConfig } from "@mapgen/bootstrap/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { SwatchTypeEntry } from "@mapgen/domain/hydrology/climate/swatches/types.js";
 
 export function chooseSwatchTypeWeighted(
   ctx: ExtendedMapContext,

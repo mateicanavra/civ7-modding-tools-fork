@@ -8,7 +8,7 @@ import {
   INTERNAL_METADATA_KEY,
   parseConfig,
   safeParseConfig,
-} from "../../src/config/index.js";
+} from "@mapgen/config/index.js";
 
 describe("config/loader", () => {
   it("returns defaults for empty input", () => {

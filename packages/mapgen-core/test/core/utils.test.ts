@@ -14,7 +14,7 @@ import {
   lerp,
   wrapX,
   fillBuffer,
-} from "../../src/core/index.js";
+} from "@mapgen/core/index.js";
 
 describe("core/utils", () => {
   describe("idx", () => {

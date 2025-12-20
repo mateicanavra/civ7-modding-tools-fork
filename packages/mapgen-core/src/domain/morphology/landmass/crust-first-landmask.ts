@@ -1,18 +1,18 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { ctxRandom } from "../../../core/types.js";
-import { buildPlateTopology, type PlateGraph } from "../../../lib/plates/topology.js";
-import { assignCrustTypes, CrustType } from "../../../lib/plates/crust.js";
-import { generateBaseHeightfield } from "../../../lib/heightfield/base.js";
-import { computeSeaLevel } from "../../../lib/heightfield/sea-level.js";
-import { clampInt, clampPct } from "../../../lib/math/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { ctxRandom } from "@mapgen/core/types.js";
+import { buildPlateTopology, type PlateGraph } from "@mapgen/lib/plates/topology.js";
+import { assignCrustTypes, CrustType } from "@mapgen/lib/plates/crust.js";
+import { generateBaseHeightfield } from "@mapgen/lib/heightfield/base.js";
+import { computeSeaLevel } from "@mapgen/lib/heightfield/sea-level.js";
+import { clampInt, clampPct } from "@mapgen/lib/math/index.js";
 import type {
   AreaCrustResult,
   CrustFirstResult,
   CrustSummary,
   GeometryPostConfig,
   LandmassConfig,
-} from "./types.js";
-import { normalizeCrustMode, type CrustMode } from "./crust-mode.js";
+} from "@mapgen/domain/morphology/landmass/types.js";
+import { normalizeCrustMode, type CrustMode } from "@mapgen/domain/morphology/landmass/crust-mode.js";
 
 const DEFAULT_CLOSENESS_LIMIT = 255;
 const CLOSENESS_STEP_PER_TILE = 8;

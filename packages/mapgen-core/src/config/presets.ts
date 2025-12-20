@@ -1,4 +1,4 @@
-import type { MapGenConfig } from "./schema.js";
+import type { MapGenConfig } from "@mapgen/config/schema.js";
 
 type DeepPartial<T> = T extends (...args: unknown[]) => unknown
   ? T

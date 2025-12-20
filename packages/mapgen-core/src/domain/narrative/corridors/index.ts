@@ -10,20 +10,20 @@
  *   - corridorKind / corridorStyle / corridorAttributes metadata maps
  */
 
-import type { ExtendedMapContext, StoryOverlaySnapshot } from "../../../core/types.js";
-import { getStoryTags } from "../tags/index.js";
-import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "../overlays/index.js";
+import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/types.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 
-import type { CorridorStage } from "./types.js";
-import { resetCorridorStyleCache } from "./style-cache.js";
-import { tagSeaLanes } from "./sea-lanes.js";
-import { tagIslandHopFromHotspots } from "./island-hop.js";
-import { tagLandCorridorsFromRifts } from "./land-corridors.js";
-import { tagRiverChainsPostRivers } from "./river-chains.js";
-import { backfillCorridorKinds } from "./backfill.js";
+import type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
+import { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/style-cache.js";
+import { tagSeaLanes } from "@mapgen/domain/narrative/corridors/sea-lanes.js";
+import { tagIslandHopFromHotspots } from "@mapgen/domain/narrative/corridors/island-hop.js";
+import { tagLandCorridorsFromRifts } from "@mapgen/domain/narrative/corridors/land-corridors.js";
+import { tagRiverChainsPostRivers } from "@mapgen/domain/narrative/corridors/river-chains.js";
+import { backfillCorridorKinds } from "@mapgen/domain/narrative/corridors/backfill.js";
 
-export type { CorridorStage } from "./types.js";
-export { resetCorridorStyleCache } from "./style-cache.js";
+export type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
+export { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/style-cache.js";
 
 export function storyTagStrategicCorridors(ctx: ExtendedMapContext, stage: CorridorStage): StoryOverlaySnapshot {
   const corridorsCfg = (ctx.config.corridors || {}) as Record<string, unknown>;

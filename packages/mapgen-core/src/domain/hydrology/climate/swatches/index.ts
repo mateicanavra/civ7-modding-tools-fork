@@ -1,15 +1,15 @@
-import type { ExtendedMapContext } from "../../../../core/types.js";
-import { clamp } from "../../../../lib/math/clamp.js";
-import type { ClimateSwatchResult, OrogenyCache } from "../types.js";
-import { createClimateRuntime } from "../runtime.js";
-import { chooseSwatchTypeWeighted } from "./chooser.js";
-import { applyMacroDesertBeltSwatch } from "./macro-desert-belt.js";
-import { applyEquatorialRainbeltSwatch } from "./equatorial-rainbelt.js";
-import { applyRainforestArchipelagoSwatch } from "./rainforest-archipelago.js";
-import { applyMountainForestsSwatch } from "./mountain-forests.js";
-import { applyGreatPlainsSwatch } from "./great-plains.js";
-import { applyMonsoonBiasPass } from "./monsoon-bias.js";
-import type { SwatchHelpers, SwatchRuntime, SwatchTypesConfig } from "./types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { clamp } from "@mapgen/lib/math/clamp.js";
+import type { ClimateSwatchResult, OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
+import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
+import { chooseSwatchTypeWeighted } from "@mapgen/domain/hydrology/climate/swatches/chooser.js";
+import { applyMacroDesertBeltSwatch } from "@mapgen/domain/hydrology/climate/swatches/macro-desert-belt.js";
+import { applyEquatorialRainbeltSwatch } from "@mapgen/domain/hydrology/climate/swatches/equatorial-rainbelt.js";
+import { applyRainforestArchipelagoSwatch } from "@mapgen/domain/hydrology/climate/swatches/rainforest-archipelago.js";
+import { applyMountainForestsSwatch } from "@mapgen/domain/hydrology/climate/swatches/mountain-forests.js";
+import { applyGreatPlainsSwatch } from "@mapgen/domain/hydrology/climate/swatches/great-plains.js";
+import { applyMonsoonBiasPass } from "@mapgen/domain/hydrology/climate/swatches/monsoon-bias.js";
+import type { SwatchHelpers, SwatchRuntime, SwatchTypesConfig } from "@mapgen/domain/hydrology/climate/swatches/types.js";
 
 /**
  * Apply macro climate swatches to the rainfall field.

@@ -1,3 +1,3 @@
-export type { MountainsConfig } from "./types.js";
-export { addMountainsCompat, layerAddMountainsPhysics } from "./apply.js";
-export { layerAddMountainsPhysics as default } from "./apply.js";
+export type { MountainsConfig } from "@mapgen/domain/morphology/mountains/types.js";
+export { addMountainsCompat, layerAddMountainsPhysics } from "@mapgen/domain/morphology/mountains/apply.js";
+export { layerAddMountainsPhysics as default } from "@mapgen/domain/morphology/mountains/apply.js";

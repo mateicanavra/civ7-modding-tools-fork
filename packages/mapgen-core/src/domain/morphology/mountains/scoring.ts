@@ -1,8 +1,8 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { BOUNDARY_TYPE } from "../../../world/constants.js";
-import { idx } from "../../../lib/grid/index.js";
-import { normalizeFractal } from "../../../lib/noise/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
+import { idx } from "@mapgen/lib/grid/index.js";
+import { normalizeFractal } from "@mapgen/lib/noise/index.js";
 
 export const MOUNTAIN_FRACTAL = 0;
 export const HILL_FRACTAL = 1;

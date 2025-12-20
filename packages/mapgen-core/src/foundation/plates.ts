@@ -4,7 +4,7 @@
  * Purpose:
  * - Generate tectonic plates using proper Voronoi diagrams
  * - Calculate physics-based plate boundaries with subduction and sliding
- * - Provide structured data for WorldModel to consume
+ * - Provide structured data for the foundation stage to consume
  *
  * Architecture:
  * - Pure TypeScript implementation with dependency injection for testability
@@ -26,8 +26,8 @@ import type {
   BoundaryStats,
   RngFunction,
   VoronoiUtilsInterface,
-} from "./types.js";
-import { BOUNDARY_TYPE } from "./types.js";
+} from "@mapgen/foundation/types.js";
+import { BOUNDARY_TYPE } from "@mapgen/foundation/types.js";
 
 // ============================================================================
 // Default Voronoi Implementation (for testing without game engine)
@@ -641,7 +641,7 @@ export function computePlatesVoronoi(
   const voronoiChoice = resolveVoronoiUtils(options);
   if (voronoiChoice.label !== "fallback" && !loggedInjectedVoronoi) {
     console.log(
-      `[WorldModel] Using ${voronoiChoice.label} Voronoi utilities (${width}x${height})`
+      `[Foundation] Using ${voronoiChoice.label} Voronoi utilities (${width}x${height})`
     );
     loggedInjectedVoronoi = true;
   }
@@ -658,7 +658,7 @@ export function computePlatesVoronoi(
   const voronoiUtils = voronoiChoice.utils;
   const allowPlateDownsample = voronoiChoice.label === "fallback";
   if (!options.rng) {
-    throw new Error("[WorldModel] RNG not provided for plate generation.");
+    throw new Error("[Foundation] RNG not provided for plate generation.");
   }
   const rng: RngFunction = options.rng;
   const rngUnit = (label: string): number => rng(1_000_000, label) / 1_000_000;
@@ -723,7 +723,7 @@ export function computePlatesVoronoi(
     );
 
     if (!plateRegions.length) {
-      throw new Error("[WorldModel] Plate generation returned zero plates");
+      throw new Error("[Foundation] Plate generation returned zero plates");
     }
 
     meta.seedLocations = plateRegions.map((region, id) => ({

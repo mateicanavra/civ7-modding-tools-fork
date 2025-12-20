@@ -1,8 +1,8 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { isAdjacentToLand, isAdjacentToShallowWater, isCoastalLand } from "../utils/adjacency.js";
-import { getDims } from "../utils/dims.js";
-import { rand as baseRand } from "../utils/rng.js";
-import { isWaterAt } from "../utils/water.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { isAdjacentToLand, isAdjacentToShallowWater, isCoastalLand } from "@mapgen/domain/narrative/utils/adjacency.js";
+import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
+import { rand as baseRand } from "@mapgen/domain/narrative/utils/rng.js";
+import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 export { getDims, isAdjacentToLand, isAdjacentToShallowWater, isCoastalLand, isWaterAt };
 

@@ -6,21 +6,21 @@ import type {
   MountainsConfig,
   VolcanoesConfig,
   StartsConfig,
-} from "../bootstrap/types.js";
-import type { MapGenConfig } from "../config/index.js";
-import type { ExtendedMapContext, FoundationContext } from "../core/types.js";
-import { createExtendedMapContext } from "../core/types.js";
-import { getStoryTags, resetStoryTags } from "../domain/narrative/tags/index.js";
-import { resetStoryOverlays } from "../domain/narrative/overlays/index.js";
-import { resetOrogenyCache } from "../domain/narrative/orogeny/index.js";
-import { resetCorridorStyleCache } from "../domain/narrative/corridors/index.js";
+} from "@mapgen/bootstrap/types.js";
+import type { MapGenConfig } from "@mapgen/config/index.js";
+import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { getStoryTags, resetStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { resetStoryOverlays } from "@mapgen/domain/narrative/overlays/index.js";
+import { resetOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
+import { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/index.js";
 import {
   MissingDependencyError,
   PipelineExecutor,
   StepRegistry,
   UnsatisfiedProvidesError,
   registerStandardLibrary,
-} from "../pipeline/index.js";
+} from "@mapgen/pipeline/index.js";
 import {
   DEV,
   devWarn,
@@ -28,11 +28,11 @@ import {
   logEngineSurfaceApisOnce,
   resetDevFlags,
   type DevLogConfig,
-} from "../dev/index.js";
+} from "@mapgen/dev/index.js";
 
-import { createDefaultContinentBounds, createLayerAdapter } from "./helpers.js";
-import { resolveStageFlags } from "./stage-flags.js";
-import type { GenerationResult, OrchestratorConfig, StageResult } from "./types.js";
+import { createDefaultContinentBounds, createLayerAdapter } from "@mapgen/orchestrator/helpers.js";
+import { resolveStageFlags } from "@mapgen/orchestrator/stage-flags.js";
+import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/orchestrator/types.js";
 
 export interface TaskGraphRunnerOptions {
   mapGenConfig: MapGenConfig;

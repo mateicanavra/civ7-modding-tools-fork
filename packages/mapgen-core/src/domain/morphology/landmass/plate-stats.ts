@@ -1,4 +1,4 @@
-import type { PlateStats } from "./types.js";
+import type { PlateStats } from "@mapgen/domain/morphology/landmass/types.js";
 
 export function computePlateStatsFromLandMask(
   width: number,

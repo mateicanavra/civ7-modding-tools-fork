@@ -1,5 +1,5 @@
-import type { StoryOverlaySnapshot, StoryOverlayRegistry } from "../../../core/types.js";
-import { normalizeOverlay } from "./normalize.js";
+import type { StoryOverlaySnapshot, StoryOverlayRegistry } from "@mapgen/core/types.js";
+import { normalizeOverlay } from "@mapgen/domain/narrative/overlays/normalize.js";
 
 interface OverlayContext {
   overlays?: StoryOverlayRegistry;

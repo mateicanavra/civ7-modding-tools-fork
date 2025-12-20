@@ -9,7 +9,7 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import { OCEAN_TERRAIN } from "./terrain-constants.js";
+import { OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 // ============================================================================
 // Plot Tag Constants

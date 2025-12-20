@@ -1,4 +1,4 @@
-import type { StoryOverlaySnapshot } from "../../../core/types.js";
+import type { StoryOverlaySnapshot } from "@mapgen/core/types.js";
 
 export function normalizeOverlay(key: string, overlay: Partial<StoryOverlaySnapshot>): StoryOverlaySnapshot {
   const base = overlay && typeof overlay === "object" ? overlay : {};

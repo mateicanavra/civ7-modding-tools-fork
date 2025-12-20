@@ -1,9 +1,9 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { ctxRandom, writeClimateField } from "../../../core/types.js";
-import { idx } from "../../../lib/grid/index.js";
-import { clamp } from "../../../lib/math/clamp.js";
-import { M3_DEPENDENCY_TAGS } from "../../../pipeline/tags.js";
-import type { ClimateAdapter, ClimateRuntime } from "./types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { ctxRandom, writeClimateField } from "@mapgen/core/types.js";
+import { idx } from "@mapgen/lib/grid/index.js";
+import { clamp } from "@mapgen/lib/math/clamp.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import type { ClimateAdapter, ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
 
 /**
  * Resolve an engine adapter for rainfall operations.

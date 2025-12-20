@@ -1,4 +1,4 @@
-import type { RngFn } from "./unit.js";
+import type { RngFn } from "@mapgen/lib/rng/unit.js";
 
 export function pickRandom<T>(items: readonly T[], rng: RngFn, label: string): T | null {
   if (!items.length) return null;

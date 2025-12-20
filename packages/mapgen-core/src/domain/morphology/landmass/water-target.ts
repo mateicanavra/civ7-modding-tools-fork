@@ -1,5 +1,5 @@
-import { clampPct } from "../../../lib/math/index.js";
-import type { LandmassConfig } from "./types.js";
+import { clampPct } from "@mapgen/lib/math/index.js";
+import type { LandmassConfig } from "@mapgen/domain/morphology/landmass/types.js";
 
 export function computeTargetLandTiles(
   tileCount: number,

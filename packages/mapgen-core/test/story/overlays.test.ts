@@ -12,8 +12,8 @@ import {
   finalizeStoryOverlay,
   getStoryOverlay,
   hydrateMarginsStoryTags,
-} from "../../src/domain/narrative/overlays/index.js";
-import type { StoryOverlaySnapshot } from "../../src/core/types.js";
+} from "@mapgen/domain/narrative/overlays/index.js";
+import type { StoryOverlaySnapshot } from "@mapgen/core/types.js";
 
 describe("story/overlays", () => {
   let ctx: { overlays?: Map<string, StoryOverlaySnapshot> };

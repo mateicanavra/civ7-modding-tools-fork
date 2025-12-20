@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
-import { bootstrap } from "../../src/bootstrap/entry.js";
-import { MapOrchestrator } from "../../src/MapOrchestrator.js";
+import { bootstrap } from "@mapgen/bootstrap/entry.js";
+import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
 import { createMockAdapter } from "@civ7/adapter";
 
 describe("MapOrchestrator foundation config wiring", () => {

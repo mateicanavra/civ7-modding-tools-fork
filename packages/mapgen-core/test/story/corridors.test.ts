@@ -1,14 +1,14 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { parseConfig } from "../../src/config/index.js";
-import { createExtendedMapContext } from "../../src/core/types.js";
-import { OCEAN_TERRAIN } from "../../src/core/terrain-constants.js";
-import { getStoryTags } from "../../src/domain/narrative/tags/index.js";
+import { parseConfig } from "@mapgen/config/index.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
-} from "../../src/domain/narrative/overlays/index.js";
-import { storyTagStrategicCorridors } from "../../src/domain/narrative/corridors/index.js";
+} from "@mapgen/domain/narrative/overlays/index.js";
+import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
 
 describe("story/corridors", () => {
   it("tags sea lanes and publishes a corridors overlay", () => {

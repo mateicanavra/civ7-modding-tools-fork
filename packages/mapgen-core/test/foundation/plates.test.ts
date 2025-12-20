@@ -5,8 +5,9 @@
  */
 
 import { describe, it, expect } from "bun:test";
-import { computePlatesVoronoi, BOUNDARY_TYPE } from "../../src/world/index.js";
-import type { PlateConfig, RngFunction } from "../../src/world/types.js";
+import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
+import { computePlatesVoronoi } from "@mapgen/foundation/plates.js";
+import type { PlateConfig, RngFunction } from "@mapgen/foundation/types.js";
 
 describe("Plate Boundary Calculations", () => {
   // Deterministic RNG for testing

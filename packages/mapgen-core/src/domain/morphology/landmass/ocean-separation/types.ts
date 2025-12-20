@@ -1,10 +1,10 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import type { ExtendedMapContext } from "../../../../core/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type {
   OceanSeparationConfig,
   OceanSeparationEdgePolicy,
-} from "../../../../bootstrap/types.js";
-import type { LandmassWindow } from "../types.js";
+} from "@mapgen/bootstrap/types.js";
+import type { LandmassWindow } from "@mapgen/domain/morphology/landmass/types.js";
 
 export type { LandmassWindow };
 export type OceanSeparationPolicy = OceanSeparationConfig;

@@ -1,6 +1,6 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import type { StartsConfig } from "../../bootstrap/types.js";
-import { DEV } from "../../dev/index.js";
+import type { StartsConfig } from "@mapgen/bootstrap/types.js";
+import { DEV } from "@mapgen/dev/index.js";
 
 export function applyStartPositions(adapter: EngineAdapter, starts: StartsConfig): number[] {
   const {

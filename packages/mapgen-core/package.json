@@ -22,10 +22,6 @@
       "types": "./dist/polyfills/text-encoder.d.ts",
       "import": "./dist/polyfills/text-encoder.js"
     },
-    "./world": {
-      "types": "./dist/world/index.d.ts",
-      "import": "./dist/world/index.js"
-    },
     "./pipeline": {
       "types": "./dist/pipeline/index.d.ts",
       "import": "./dist/pipeline/index.js"

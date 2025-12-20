@@ -1,6 +1,6 @@
-import { clamp } from "../../../../lib/math/clamp.js";
-import type { ExtendedMapContext } from "../../../../core/types.js";
-import type { ClimateRuntime, OrogenyCache } from "../types.js";
+import { clamp } from "@mapgen/lib/math/clamp.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { ClimateRuntime, OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
 
 export function applyOrogenyBeltsRefinement(
   width: number,

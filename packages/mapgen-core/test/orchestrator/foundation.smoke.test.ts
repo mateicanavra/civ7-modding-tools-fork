@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap } from "../../src/index.js";
-import { createExtendedMapContext } from "../../src/core/types.js";
-import { runFoundationStage } from "../../src/pipeline/foundation/producer.js";
+import { bootstrap } from "@mapgen/index.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
 
 describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
   const width = 24;
