@@ -1,5 +1,12 @@
 # SPEC: Target Architecture Draft (Canonical)
 
+> Agent disclaimer (WIP):
+>
+> - We have not yet added the deferrals into this SPEC / flow.
+> - We want to add deferrals specifically to avoid agents “finishing” this prematurely.
+> - Agents should make sure to implement/handle deferrals and not treat this as a completed end-to-end architecture yet.
+> - We have not yet “loaded the screen” in that sense — this deferral behavior is still missing.
+
 ## 0. Purpose
 
 Capture the canonical target architecture for MapGen. This document has two
@@ -25,7 +32,7 @@ This section describes the greenfield target with no legacy constraints.
 
 - Task Graph pipeline with explicit contracts between steps.
 - No globals; all state is in `MapGenContext`.
-- Recipe is the single source of truth for step ordering (pending 3.1) and enablement (3.2 accepted).
+- Recipe is the single source of truth for step ordering (3.1 accepted) and enablement (3.2 accepted).
 - Artifacts, fields, and effects are explicit, typed, and versioned (3.8 accepted).
 - Engine boundary is adapter-only; engine state is not canonical (pending 3.5).
 - Offline determinism is required; engine is optional.
@@ -223,12 +230,64 @@ artifacts.
 
 ## 4. Pending Decisions
 
-The following decisions are open or in progress. See the SPIKE for full decision
-packets with context, options, and rationale.
+The following decisions are tracked (open/proposed/accepted). See the SPIKE for
+full decision packets with context, options, and rationale.
+
+```mermaid
+flowchart LR
+  %% Category (stroke) colors
+  classDef spine stroke:#228be6,stroke-width:2px
+  classDef boundary stroke:#f08c00,stroke-width:2px
+  classDef domain stroke:#12b886,stroke-width:2px
+
+  %% Status (fill) colors
+  classDef accepted fill:#d3f9d8,color:#0b5345
+  classDef proposed fill:#fff3bf,color:#7f4f00
+  classDef open fill:#f1f3f5,color:#343a40
+
+  ordering["3.1 Ordering"]:::spine
+  recipeSchema["3.9 Recipe schema"]:::spine
+  enablement["3.2 Enablement"]:::spine
+  registry["3.8 Tag registry"]:::spine
+
+  engineBoundary["3.5 Engine boundary"]:::boundary
+  observability["3.10 Observability"]:::boundary
+
+  foundation["3.3 Foundation"]:::domain
+  story["3.4 Story model"]:::domain
+  climate["3.6 Climate ownership"]:::domain
+  placement["3.7 Placement inputs"]:::domain
+
+  ordering --> recipeSchema
+  recipeSchema --> enablement
+  recipeSchema --> registry
+  registry --> foundation
+  registry --> story
+  registry --> climate
+  registry --> placement
+  engineBoundary --> climate
+  engineBoundary --> placement
+  enablement --> observability
+  engineBoundary --> observability
+
+  %% Apply current statuses (keep updated as decisions are accepted)
+  class ordering spine,accepted
+  class recipeSchema spine,proposed
+  class enablement spine,accepted
+  class registry spine,accepted
+
+  class engineBoundary boundary,open
+  class observability boundary,open
+
+  class foundation domain,open
+  class story domain,open
+  class climate domain,open
+  class placement domain,open
+```
 
 | ID | Decision | Status | SPIKE section |
 | --- | --- | --- | --- |
-| 3.1 | Ordering source of truth (recipe vs manifest) | proposed | §2.1 |
+| 3.1 | Ordering source of truth (recipe vs manifest) | accepted | §2.1 |
 | 3.2 | Enablement model (recipe-only; remove `shouldRun`) | accepted | §2.2 |
 | 3.3 | Foundation surface (discrete artifacts vs `FoundationContext`) | open | §2.3 |
 | 3.4 | Story model (overlays vs tags canonical) | open | §2.4 |
