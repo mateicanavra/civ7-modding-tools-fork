@@ -66,12 +66,6 @@ export interface MapGenStep {
   provides: string[]; // e.g., ["mesh"]
 
   /**
-   * Optional dynamic check to skip this step based on context state.
-   * e.g. Skip river generation if map has no water.
-   */
-  shouldRun?: (context: MapGenContext, config: any) => boolean;
-
-  /**
    * Execute the logic.
    * @param context The shared blackboard (mutable).
    * @param config Step-specific configuration from JSON.
@@ -214,9 +208,34 @@ In this codebase we use them for three distinct classes of guarantees:
 
 - **Artifacts (`artifact:*`)** — canonical in-memory data products published onto the context (examples: `artifact:foundation`, `artifact:heightfield`, `artifact:climateField`, `artifact:storyOverlays`).
 - **Fields (`field:*`)** — mutable canvas buffers on the context that represent “what the map looks like right now” (examples: `field:terrainType`, `field:elevation`, `field:rainfall`).
-- **Engine state (`state:*`)** — guarantees about **engine-surface effects** performed through the `EngineAdapter` (examples: `state:engine.riversModeled`, `state:engine.biomesApplied`, `state:engine.placementApplied`).
+- **Effects (`effect:*`)** — guarantees about **engine-surface effects** performed through the `EngineAdapter` (examples: `effect:engine.riversModeled`, `effect:engine.biomesApplied`, `effect:engine.placementApplied`).
 
 This keeps M3 wrap-first steps honest: steps like placement can be contract-checked at runtime even when they primarily consume engine-surface state, while still allowing us to progressively migrate more information into explicit artifacts over time.
+
+> Current (M3): a transitional `state:engine.*` namespace exists for wrap-first steps (see `docs/projects/engine-refactor-v1/deferrals.md` DEF-008). The target contract is `effect:*` with runtime verification; `state:engine.*` is not a permanent namespace.
+
+##### Engine Boundary Policy (Accepted)
+
+The mapgen pipeline treats the Civ engine as an **I/O surface** behind `EngineAdapter`, not as the pipeline’s “memory”.
+
+**Hard rules**
+- **Adapter-only:** steps must not touch engine globals (e.g., `TerrainBuilder`, `GameplayMap`) directly; all engine reads/writes go through `context.adapter`.
+- **Fail-fast:** there is no “silent guard” category; missing prerequisites fail as validation errors (when knowable) or loud runtime failures that stop execution.
+- **Effects schedule:** `effect:*` tags are first-class dependency tags and participate in scheduling via `requires`/`provides`.
+
+**Reification-first (target best practice)**
+- **Pipeline state is canonical in `field:*` / `artifact:*`.** If a step reads engine state that is used beyond the step, it must publish the corresponding `field:*` / `artifact:*` onto the context (“reify”).
+- **Engine mutations must be reflected back.** If a step mutates the engine and later steps depend on those results, the step must either:
+  - compute/carry the authoritative data in TS first and publish to engine as a pure “publish” step, or
+  - run the engine mutation and then reify the relevant results back into `field:*` / `artifact:*` (often as a separate “reify” step).
+- **Downstream steps should depend on reified tags.** Cross-step dependencies should be expressed in terms of `field:*` / `artifact:*` wherever reasonable; `effect:*` encodes “engine effects happened” ordering and adapter capability/invariant constraints.
+
+**Verification (no “asserted but unverified” effects)**
+- Any `effect:*` tag used for scheduling must be runtime-verifiable (typically via `EngineAdapter` queries). A step that `provides effect:*` must be verifiable immediately after it runs (postcondition checks).
+
+**Escape hatch (rare, transitional)**
+- During migration, some steps may remain “engine-first” for correctness/parity (e.g., calling Civ scripts that compute results internally).
+- This is allowed only as a transitional posture: any engine-derived data needed later must still be reified into `field:*` / `artifact:*` as soon as practical, and schedulable effects must remain verifiable. The target standard library should not depend on opaque engine state as an implicit cross-step contract.
 
 ##### `provides` Is Aggregated (Not Per-Step “Outputs”)
 
