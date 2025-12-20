@@ -212,20 +212,20 @@ function buildConfig(): BootstrapConfig {
             delta: 10,
           },
         },
+        story: {
+          rainfall: {
+            riftBoost: 10,
+            riftRadius: 2,
+            paradiseDelta: 10,
+            volcanicDelta: 10,
+          },
+        },
       },
       story: {
         hotspot: {
           paradiseBias: 1,
           volcanicBias: 1,
           volcanicPeakChance: 0.3,
-        },
-      },
-      microclimate: {
-        rainfall: {
-          riftBoost: 10,
-          riftRadius: 2,
-          paradiseDelta: 10,
-          volcanicDelta: 10,
         },
         features: {
           paradiseReefChance: 25,
