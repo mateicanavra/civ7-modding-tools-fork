@@ -595,6 +595,9 @@ Status: `open`
 Context:
 - `DEF-008` treats `state:engine.*` dependency tags as trusted declarations
   because the adapter cannot yet verify them at runtime.
+- We have since accepted **effects as first-class tags** (`effect:*`) in the
+  canonical tag registry (see §2.8), which creates a plausible replacement
+  surface for “engine-side happened” signals.
 
 Why this is ambiguous:
 - Target docs imply artifacts/fields are canonical, but `state:*` tags act like
@@ -607,6 +610,16 @@ Why this is a problem:
 Simplest option:
 - Replace `state:engine.*` tags with explicit artifacts/fields or verify them
   via adapter queries.
+
+What’s *actually* still undecided (given accepted tag/effect decisions):
+- Whether “engine-side happened” signals should be modeled as:
+  - **(A)** explicit artifacts/fields (preferred when the data can be reified),
+  - **(B)** **effects** (`effect:engine.*`) as asserted step outputs used for
+    ordering/observability (and optionally verified), or
+  - **(C)** a retained `state:engine.*` namespace that is either transitional
+    only or fully verifiable via adapter APIs.
+- Whether any such signals are allowed to participate in **scheduling** (as
+  `requires/provides`) without an adapter-backed verification strategy.
 
 Why we might not simplify yet:
 - Adapter APIs do not yet expose all required invariants.

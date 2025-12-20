@@ -34,21 +34,7 @@ Each deferral follows this structure:
 **Impact:**
 - Temporary duplication of narrative representation (overlays + tags) with risk of semantic drift if not kept strictly derived.
 - Continued support surface for legacy semantics during M3.
-
----
-
-## DEF-003: Global StoryOverlays Registry Fallback
-
-**Deferred:** 2025-12-14  
-**Trigger:** After story overlays are published/consumed exclusively via pipeline context (no global reads), and story execution is fully step-owned.  
-**Context:** `StoryOverlays` currently has a global registry fallback to support legacy reads and transitional wiring. This is intentionally kept through M3 to avoid brittle cutovers while the Task Graph and story steps are stabilized.  
-**Scope:**
-- Keep the global fallback through M3 for compatibility.
-- Migrate callers to context-scoped overlays (`artifact:storyOverlays`).
-- Remove the global registry fallback (or make it dev-only) once consumers are migrated.  
-**Impact:**
-- Global state makes tests less isolated and can hide ordering/coupling problems.
-- Harder-to-reason-about execution if overlays can come from multiple sources.
+- **Status (2025-12-20):** StoryTags are already context-owned and (in tagging helpers) hydrated from overlays, but many domain layers still consume StoryTags directly; trigger not yet met.
 
 ---
 
@@ -63,6 +49,7 @@ Each deferral follows this structure:
 **Impact:**
 - Reduced pipeline composition flexibility in M3 (by design).
 - Requires explicit follow-up work to reach full recipe-driven composition.
+- **Status (2025-12-20):** Target architecture decisions now assume recipe-driven ordering/config, but current implementation is still `STAGE_ORDER` + `stageManifest` (see `packages/mapgen-core/src/bootstrap/resolved.ts` and `packages/mapgen-core/src/pipeline/StepRegistry.ts`). This deferral is therefore primarily an *implementation cutover* rather than an open design question.
 
 ---
 
@@ -94,21 +81,6 @@ Each deferral follows this structure:
 
 ---
 
-## DEF-007: WorldModel Legacy Bridge (Sync From Context Artifacts)
-
-**Deferred:** 2025-12-14  
-**Trigger:** When all in-repo legacy stages/consumers have migrated to read from `MapGenContext` (`artifact:*` / `field:*`), and the orchestrator no longer needs to sync state into the `WorldModel` singleton.  
-**Context:** The current engine still supports legacy layers that depend on the global `WorldModel`. During M3 we wrap legacy clusters and publish canonical artifacts, but we keep a bridge where the orchestrator copies selected artifacts/fields into `WorldModel` to preserve existing behavior while consumers migrate.  
-**Scope:**
-- Keep the bridge limited to the orchestrator boundary (no new `WorldModel` reads in modern code paths).
-- Migrate remaining legacy consumers to read from context artifacts/fields.
-- Remove the orchestrator sync and delete (or fully quarantine) `WorldModel` once no longer needed.  
-**Impact:**
-- Global state can hide ordering/coupling mistakes and makes tests less isolated.
-- Creates a second representation of some signals (context artifacts vs `WorldModel`) that must be kept in sync.
-
----
-
 ## DEF-008: `state:engine.*` Dependency Tags Are Trusted (Not Runtime-Verified)
 
 **Deferred:** 2025-12-14  
@@ -122,22 +94,6 @@ Each deferral follows this structure:
 **Impact:**
 - A misdeclared or stale `state:engine.*` dependency can bypass executor gating and fail later (or silently degrade output).
 - Contract correctness relies on discipline + review rather than runtime enforcement for this namespace in M3.
-
----
-
-## DEF-009: Legacy Orchestrator Execution Path (Non-TaskGraph)
-
-**Deferred:** 2025-12-14  
-**Trigger:** When the TaskGraph executor path is the default for in-repo map generation (including `mods/mod-swooper-maps`) and the legacy `STAGE_ORDER`-driven execution can be removed without losing parity.  
-**Context:** In M3 we intentionally kept a legacy non-TaskGraph branch in `MapOrchestrator.generateMap()` behind the `useTaskGraph` flag to support incremental migration and stack-by-stack landing. Some in-repo consumers still ran with `useTaskGraph: false`, so removing the legacy path immediately would have blocked parallel work and destabilized integration.  
-**Scope:**
-- Migrate remaining in-repo callers to run via the TaskGraph executor path.
-- Delete the legacy non-TaskGraph branch in `MapOrchestrator.generateMap()` (while keeping the external `GenerateMap` entry surface stable).
-- Ensure artifact publication remains 1:1 across entry modes during the cutover (no hidden fallbacks).  
-**Impact:**
-- Two execution modes increase drift risk (behavior/config/contract mismatches) until cutover is complete.
-- Longer-lived legacy wiring can hide missing `requires/provides` declarations if callers never exercise the executor path.
-- Note: Likely already satisfied post-M2; `MapOrchestrator.generateMap()` now directly calls `generateMapTaskGraph()` and `OrchestratorConfig` has no `useTaskGraph`. `rg` finds no `useTaskGraph` in code/mods; re-verify before treating this as active work.
 
 ---
 
@@ -174,16 +130,17 @@ Each deferral follows this structure:
 ## DEF-012: Story State to Context-Owned Artifacts (Remove Globals)
 
 **Deferred:** 2025-12-18  
-**Trigger:** After legacy orchestration + toggle removal is complete and the open questions on story-state representation and overlay registry semantics are resolved.  
-**Context:** The spike accepts keeping StoryTags and related story caches/global registries temporarily while removing the legacy orchestration fork and toggle surface; the intended end-state is context-owned story data.  
+**Trigger:** After legacy orchestration + toggle removal is complete and story-state representation is fully migrated away from StoryTags/caches.  
+**Context:** The intended end-state is context-owned story data. While StoryTags are now stored on context artifacts, many domain layers still consume StoryTags directly and several story subsystems still rely on module-level caches.  
 **Scope:**
-- Choose a canonical context-owned representation (`artifact:storyState`/`artifact:storyTags` or `ctx.story.*`).
-- Publish story tags/state from story steps and migrate all consumers to read from context.
-- Remove module-level StoryTags singletons and story caches.
-- Eliminate global overlay registry fallback once context-owned artifacts are authoritative.  
+- Choose a canonical context-owned representation (`artifact:storyState`/`artifact:storyTags` or `ctx.story.*`) and migrate consumers to it.
+- Remove StoryTags as a compatibility surface once no longer needed.
+- Remove module-level story caches (or make them explicitly keyed/scoped and safely reset by context) so story execution is purely context-driven.  
 **Impact:**
-- Global story state remains a drift and coupling risk until removed.
-- Tests and execution order can still be influenced by hidden global state.
+- Story behavior can still be influenced by hidden module-level state and caches.
+- Harder to reason about determinism and test isolation until story is fully context-driven.
+**Status (2025-12-20):**
+- StoryTags are context-owned (`ctx.artifacts`), and overlays are context-scoped (`ctx.overlays`), but story caches remain (e.g., `resetOrogenyCache`, `resetCorridorStyleCache`) and many callers still treat StoryTags as primary.
 
 ---
 
@@ -197,6 +154,8 @@ Each deferral follows this structure:
 - Consolidate enablement gating to a single source of truth (avoid redundant stage gating split between recipe/manifest and `shouldRun()` paths).  
 **Impact:**
 - Orchestrator remains cluttered, and duplicated enablement logic can mask incorrect stage wiring or drift.
+- **Status (2025-12-20):** Enablement has since been **decided** (recipe-only; no `shouldRun` enablement, no silent skips). Current code still contains `shouldRun` filtering and stage-flag-based gating, so this deferral is now primarily *implementation work* to align runtime behavior with the locked decision.
+- **Trigger check (2025-12-20):** Phase A world-model cut appears complete and TaskGraph-only execution is already the default (no `useTaskGraph`), so this is safe to revisit as soon as sequencing allows.
 
 ---
 
@@ -250,4 +209,54 @@ Each deferral follows this structure:
 
 ## Resolved Deferrals
 
-*Move resolved deferrals here with resolution notes.*
+## DEF-003: Global StoryOverlays Registry Fallback
+
+**Deferred:** 2025-12-14  
+**Trigger:** After story overlays are published/consumed exclusively via pipeline context (no global reads), and story execution is fully step-owned.  
+**Context:** `StoryOverlays` currently has a global registry fallback to support legacy reads and transitional wiring. This is intentionally kept through M3 to avoid brittle cutovers while the Task Graph and story steps are stabilized.  
+**Scope:**
+- Keep the global fallback through M3 for compatibility.
+- Migrate callers to context-scoped overlays (`artifact:storyOverlays`).
+- Remove the global registry fallback (or make it dev-only) once consumers are migrated.  
+**Impact:**
+- Global state makes tests less isolated and can hide ordering/coupling problems.
+- Harder-to-reason-about execution if overlays can come from multiple sources.
+**Resolution (2025-12-20):**
+- In current code, overlays are context-scoped only (`ctx.overlays`) with no module-level fallback; see `packages/mapgen-core/src/domain/narrative/overlays/registry.ts`.
+
+---
+
+## DEF-007: WorldModel Legacy Bridge (Sync From Context Artifacts)
+
+**Deferred:** 2025-12-14  
+**Trigger:** When all in-repo legacy stages/consumers have migrated to read from `MapGenContext` (`artifact:*` / `field:*`), and the orchestrator no longer needs to sync state into the `WorldModel` singleton.  
+**Context:** The current engine still supports legacy layers that depend on the global `WorldModel`. During M3 we wrap legacy clusters and publish canonical artifacts, but we keep a bridge where the orchestrator copies selected artifacts/fields into `WorldModel` to preserve existing behavior while consumers migrate.  
+**Scope:**
+- Keep the bridge limited to the orchestrator boundary (no new `WorldModel` reads in modern code paths).
+- Migrate remaining legacy consumers to read from context artifacts/fields.
+- Remove the orchestrator sync and delete (or fully quarantine) `WorldModel` once no longer needed.  
+**Impact:**
+- Global state can hide ordering/coupling mistakes and makes tests less isolated.
+- Creates a second representation of some signals (context artifacts vs `WorldModel`) that must be kept in sync.
+**Resolution (2025-12-20):**
+- No `WorldModel` references remain in TS sources (`rg -l WorldModel packages/mapgen-core/src` returns none). Generated artifacts may still include historical strings until rebuilt.
+
+---
+
+## DEF-009: Legacy Orchestrator Execution Path (Non-TaskGraph)
+
+**Deferred:** 2025-12-14  
+**Trigger:** When the TaskGraph executor path is the default for in-repo map generation (including `mods/mod-swooper-maps`) and the legacy `STAGE_ORDER`-driven execution can be removed without losing parity.  
+**Context:** In M3 we intentionally kept a legacy non-TaskGraph branch in `MapOrchestrator.generateMap()` behind the `useTaskGraph` flag to support incremental migration and stack-by-stack landing. Some in-repo consumers still ran with `useTaskGraph: false`, so removing the legacy path immediately would have blocked parallel work and destabilized integration.  
+**Scope:**
+- Migrate remaining in-repo callers to run via the TaskGraph executor path.
+- Delete the legacy non-TaskGraph branch in `MapOrchestrator.generateMap()` (while keeping the external `GenerateMap` entry surface stable).
+- Ensure artifact publication remains 1:1 across entry modes during the cutover (no hidden fallbacks).  
+**Impact:**
+- Two execution modes increase drift risk (behavior/config/contract mismatches) until cutover is complete.
+- Longer-lived legacy wiring can hide missing `requires/provides` declarations if callers never exercise the executor path.
+- Note: Likely already satisfied post-M2; `MapOrchestrator.generateMap()` now directly calls `generateMapTaskGraph()` and `OrchestratorConfig` has no `useTaskGraph`. `rg` finds no `useTaskGraph` in code/mods; re-verify before treating this as active work.
+**Resolution (2025-12-20):**
+- Verified: `MapOrchestrator.generateMap()` calls `generateMapTaskGraph()` unconditionally and `useTaskGraph` no longer exists in config/options (`rg -n useTaskGraph` returns no hits).
+
+---
