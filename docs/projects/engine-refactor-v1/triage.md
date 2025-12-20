@@ -32,11 +32,11 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `hydrology.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `CIV-40` (which only adds framing + minimal current-state pointers).
   - **Next check:** after Task Graph + step execution is implemented and key products (`FoundationContext`, `ClimateField`, `StoryOverlays`) are stabilized.
 
-- **Runtime verification strategy for `state:engine.*` dependency tags** [Review by: early M4]
+- **Migrate `state:engine.*` → verified `effect:*` + reification** [Review by: early M4]
   - **Context:** `CIV-41` Task Graph MVP; deferral at `docs/projects/engine-refactor-v1/deferrals.md` (DEF-008).
   - **Type:** backlog
-  - **Notes:** Decide how to validate `state:engine.*` tags (adapter queries, step-owned invariants, or eliminating `state:*` in favor of canonical artifacts where feasible). Add runtime checks for the highest-risk tags once a strategy exists.
-  - **Next check:** when engine adapter invariants are available or when the first M3 consumer step depends critically on `state:engine.*` correctness.
+  - **Notes:** Target policy is now clear: `state:engine.*` is transitional-only; engine-surface guarantees are modeled as schedulable `effect:*` tags that are runtime-verifiable (adapter queries / postcondition checks), and cross-step data dependencies should prefer reified `field:*` / `artifact:*` products. Remaining work is implementation: introduce effect verification hooks and migrate the highest-risk `state:engine.*` usages first (e.g., placement prerequisites).
+  - **Next check:** when effect verification hooks exist in the executor/registry, or when we begin the `state:engine.*` namespace removal workstream.
 
 - **Deduplicate `PipelineExecutor.execute()` / `executeAsync()` execution loops** [Review by: early M4]
   - **Context:** `CIV-41` Task Graph MVP review follow-up.
