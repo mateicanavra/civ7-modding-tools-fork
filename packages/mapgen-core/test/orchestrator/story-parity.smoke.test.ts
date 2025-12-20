@@ -1,9 +1,9 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap } from "../../src/index.js";
-import { createExtendedMapContext } from "../../src/core/types.js";
-import { getStoryTags } from "../../src/domain/narrative/tags/index.js";
-import { storyTagContinentalMargins, storyTagHotspotTrails, storyTagRiftValleys } from "../../src/domain/narrative/tagging/index.js";
+import { bootstrap } from "@mapgen/index.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { storyTagContinentalMargins, storyTagHotspotTrails, storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/index.js";
 
 describe("smoke: minimal story parity (margins, hotspots)", () => {
   it("emits non-empty story tags for margins/hotspots and fails fast for rifts without foundation", () => {

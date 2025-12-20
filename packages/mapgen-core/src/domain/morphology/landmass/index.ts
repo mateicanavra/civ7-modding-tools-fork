@@ -7,29 +7,29 @@
  * longer controls land existence.
  */
 
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { assertFoundationContext } from "../../../core/assertions.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import type {
   CreateLandmassesOptions,
   GeometryConfig,
   GeometryPostConfig,
   LandmassConfig,
   LandmassGenerationResult,
-} from "./types.js";
-import { normalizeCrustMode, type CrustMode } from "./crust-mode.js";
-import { computeTargetLandTiles } from "./water-target.js";
-import { computeClosenessLimit, tryCrustFirstLandmask } from "./crust-first-landmask.js";
-import { applyLandmaskToTerrain } from "./terrain-apply.js";
-import { computePlateStatsFromLandMask } from "./plate-stats.js";
-import { windowsFromPlateStats } from "./windows.js";
+} from "@mapgen/domain/morphology/landmass/types.js";
+import { normalizeCrustMode, type CrustMode } from "@mapgen/domain/morphology/landmass/crust-mode.js";
+import { computeTargetLandTiles } from "@mapgen/domain/morphology/landmass/water-target.js";
+import { computeClosenessLimit, tryCrustFirstLandmask } from "@mapgen/domain/morphology/landmass/crust-first-landmask.js";
+import { applyLandmaskToTerrain } from "@mapgen/domain/morphology/landmass/terrain-apply.js";
+import { computePlateStatsFromLandMask } from "@mapgen/domain/morphology/landmass/plate-stats.js";
+import { windowsFromPlateStats } from "@mapgen/domain/morphology/landmass/windows.js";
 import {
   logCrustFirstDiagnostics,
   logLandmassWindowsSummary,
   logNoWindowsGeneratedDiagnostics,
   LANDMASS_LOG_PREFIX,
-} from "./diagnostics.js";
+} from "@mapgen/domain/morphology/landmass/diagnostics.js";
 
-export type { LandmassTectonicsConfig, LandmassGeometry, LandmassGeometryPost } from "./types.js";
+export type { LandmassTectonicsConfig, LandmassGeometry, LandmassGeometryPost } from "@mapgen/domain/morphology/landmass/types.js";
 export type {
   AreaCrustResult,
   CrustFirstResult,
@@ -41,10 +41,10 @@ export type {
   LandmassGenerationResult,
   LandmassWindow,
   PlateStats,
-} from "./types.js";
-export { normalizeCrustMode, type CrustMode } from "./crust-mode.js";
+} from "@mapgen/domain/morphology/landmass/types.js";
+export { normalizeCrustMode, type CrustMode } from "@mapgen/domain/morphology/landmass/crust-mode.js";
 
-export { applyLandmassPostAdjustments } from "./post-adjustments.js";
+export { applyLandmassPostAdjustments } from "@mapgen/domain/morphology/landmass/post-adjustments.js";
 export {
   applyPlateAwareOceanSeparation,
   DEFAULT_OCEAN_SEPARATION,
@@ -52,7 +52,7 @@ export {
   type OceanSeparationPolicy,
   type PlateAwareOceanSeparationParams,
   type PlateAwareOceanSeparationResult,
-} from "./ocean-separation/index.js";
+} from "@mapgen/domain/morphology/landmass/ocean-separation/index.js";
 
 // ============================================================================
 // Main Function

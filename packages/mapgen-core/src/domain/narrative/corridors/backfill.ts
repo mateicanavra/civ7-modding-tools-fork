@@ -1,9 +1,9 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { getStoryTags } from "../tags/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
-import { assignCorridorMetadata } from "./style-cache.js";
-import type { CorridorKind } from "./types.js";
-import { getDims, isAdjacentToShallowWater } from "./runtime.js";
+import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
+import type { CorridorKind } from "@mapgen/domain/narrative/corridors/types.js";
+import { getDims, isAdjacentToShallowWater } from "@mapgen/domain/narrative/corridors/runtime.js";
 
 export function backfillCorridorKinds(ctx: ExtendedMapContext, corridorsCfg: Record<string, unknown>): void {
   const { width, height } = getDims(ctx);

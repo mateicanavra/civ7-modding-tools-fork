@@ -6,7 +6,7 @@
  * @module dev/timing
  */
 
-import { isDevEnabled } from "./flags.js";
+import { isDevEnabled } from "@mapgen/dev/flags.js";
 
 /** Token returned by timeStart for use with timeEnd */
 export interface TimingToken {

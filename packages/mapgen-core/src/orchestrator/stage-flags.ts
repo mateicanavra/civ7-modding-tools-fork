@@ -1,5 +1,5 @@
-import { isStageEnabled, validateStageDrift } from "../bootstrap/resolved.js";
-import type { MapGenConfig } from "../config/index.js";
+import { isStageEnabled, validateStageDrift } from "@mapgen/bootstrap/resolved.js";
+import type { MapGenConfig } from "@mapgen/config/index.js";
 
 export type StageFlags = Record<string, boolean>;
 

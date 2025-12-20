@@ -1,5 +1,10 @@
 # SPIKE: Target Architecture Draft (Working Notes)
 
+> Agent disclaimer (WIP):
+>
+> - The deferrals are not yet fully integrated into the target flow; do not treat this as complete.
+> - In particular, we have not yet “loaded the screen” in that sense — this deferral behavior is still missing.
+
 ## 0. Purpose
 
 This is the working canvas for resolving target architecture decisions. It
@@ -64,9 +69,15 @@ domain decisions then lock concrete artifact shapes.
 
 ```mermaid
 flowchart LR
-  classDef spine fill:#e7f5ff,stroke:#228be6,color:#114b8a
-  classDef boundary fill:#fff4e6,stroke:#f08c00,color:#7f4f00
-  classDef domain fill:#e6fcf5,stroke:#12b886,color:#0b5345
+  %% Category (stroke) colors
+  classDef spine stroke:#228be6,stroke-width:2px
+  classDef boundary stroke:#f08c00,stroke-width:2px
+  classDef domain stroke:#12b886,stroke-width:2px
+
+  %% Status (fill) colors
+  classDef accepted fill:#d3f9d8,color:#0b5345
+  classDef proposed fill:#fff3bf,color:#7f4f00
+  classDef open fill:#f1f3f5,color:#343a40
 
   ordering["Ordering source of truth"]:::spine
   recipeSchema["Recipe schema and versioning"]:::spine
@@ -92,6 +103,20 @@ flowchart LR
   engineBoundary --> placement
   enablement --> observability
   engineBoundary --> observability
+
+  %% Apply current statuses (keep updated as decisions are accepted)
+  class ordering spine,accepted
+  class recipeSchema spine,accepted
+  class enablement spine,accepted
+  class registry spine,accepted
+
+  class engineBoundary boundary,open
+  class observability boundary,open
+
+  class foundation domain,open
+  class story domain,open
+  class climate domain,open
+  class placement domain,open
 ```
 
 ### 2.0b Decision packet template
@@ -115,7 +140,7 @@ Decision packet:
 
 ### 2.1 Ordering source of truth (recipe-only vs `STAGE_ORDER` + manifest)
 
-**Status:** `proposed`
+**Status:** `accepted`
 
 **Decision (one sentence):** What is the single source of truth for pipeline
 ordering in the target system?
@@ -381,18 +406,17 @@ to revisit after we publish a mod-facing contract.
 - If we delay this decision too long, we risk building more tooling/docs around
   `stageManifest` that will later be thrown away.
 
-**What we need from discussion (to close this packet without prematurely doing `2.2/2.9`):**
-- **V1 baseline vs long-term:** V1 uses a linear recipe as the canonical baseline authoring shape; the schema preserves room for future DAG/partial-order authoring.
-- **Stage survival:** do we model "stage" as a first-class authoring bundle (a named expansion into steps), or treat it as legacy and author in steps only?
-- **Compiled plan:** do we explicitly name/define an internal compiled representation (`CompiledRecipe`/`ExecutionPlan`), or keep it as an implementation detail of validation?
-- **Default recipe + patching:** is "vanilla default recipe" enough for now, with recipe patch/extension tooling explicitly deferred (but designed for), or do we need patch semantics as part of v1?
+**Accepted choice (final):**
+- **Recipe is canonical:** the recipe is the single source of truth for ordering (and enablement via decision `2.2`).
+- **Default order is content, not engine:** "vanilla" ordering ships as the default recipe in the `standard` mod (not as `STAGE_ORDER`).
+- **Manifest is derived/transitional:** any `StageManifest`/`STAGE_ORDER` representation is an internal bridge only and must not become a mod-facing authoring contract.
+- **ExecutionPlan is authoritative:** compilation produces an `ExecutionPlan` from `RunRequest = { recipe, settings } + registry`; the executor runs the plan.
 
-**Tentative default (not yet accepted):**
-- Prefer **Option A** (recipe canonical; manifest derived) for target, and keep
-  `DEF-004` as the explicit transitional rationale until the recipe surface is
-  shipped.
+**Enforcement (guardrails for future work):**
+- No new target-facing docs, APIs, or tooling should treat `STAGE_ORDER`/`StageManifest` as canonical ordering sources.
+- Any remaining `STAGE_ORDER` call sites are explicitly transitional (see `DEF-004`) and should be deleted once parity is reached.
 
-**SPEC impact (if/when accepted):**
+**SPEC impact (accepted):**
 - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
   - `1.2 Pipeline contract` (ordering/enabling source of truth)
   - Add recipe schema summary and constraints (once `2.9` is also settled)
@@ -769,7 +793,7 @@ strict and mod/plugin-safe with fail-fast collision behavior?
 
 ### 2.9 Recipe schema (versioning + compatibility rules)
 
-**Status:** `proposed`
+**Status:** `accepted`
 
 **Decision (one sentence):** What is the V1 recipe schema shape and its
 versioning/compatibility policy, given our target separation:
@@ -946,12 +970,15 @@ Compatibility policy axes (independent of the version format):
     - recipes can be stored standalone, and
     - run invocations can embed recipes or reference a recipe by name/path (tooling-defined), without changing the core contract.
 
-**Tentative default (not yet accepted):**
-- Adopt **Option A** for V1: `schemaVersion: 1` (major integer), strict unknown keys at recipe/step level,
-  step-ID resolution via registry, and per-step `config` validated against step schema when available.
-- Reserve `future.*` containers (accepted but empty/ignored in V1) plus `extensions` for non-semantic experiments.
+**Accepted choice (final):**
+- Adopt **Option A** for V1: `schemaVersion: 1` (major integer).
+- Unknown keys are rejected (fail-fast) at recipe top-level and in step entries.
+- Step IDs are resolved via the registry; unknown IDs are errors.
+- Per-step `config` is validated against the step’s schema when available (TypeBox-based; no new validator library).
+  - If no schema exists yet, accept an open record as a transitional soft spot (explicitly tracked).
+- Reserve `future.*` containers (accepted by schema but must be empty in V1) plus `extensions` for non-semantic experiments.
 
-**SPEC impact (if/when accepted):**
+**SPEC impact (accepted):**
 - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
   - Update `1.2 Pipeline contract` to reference a versioned recipe schema and compilation to `ExecutionPlan`.
   - Add a short "V1 recipe structure (sketch)" subsection.

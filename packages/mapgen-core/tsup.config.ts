@@ -20,13 +20,13 @@ const typeboxFormatPlugin: Plugin = {
 };
 
 export default defineConfig({
+  tsconfig: "tsconfig.json",
   // Include polyfills first so downstream bundles pick them up before any imports that rely on them.
   entry: [
     "src/polyfills/text-encoder.ts",
     "src/index.ts",
     "src/bootstrap/entry.ts",
     "src/config/index.ts",
-    "src/world/index.ts",
     "src/pipeline/index.ts",
     "src/domain/index.ts",
     "src/domain/morphology/index.ts",

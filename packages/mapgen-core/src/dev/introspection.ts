@@ -8,8 +8,8 @@
  * All helpers are no-op when DEV.ENABLED is false.
  */
 
-import { DEV } from "./flags.js";
-import { devLogPrefixed } from "./logging.js";
+import { DEV } from "@mapgen/dev/flags.js";
+import { devLogPrefixed } from "@mapgen/dev/logging.js";
 
 /**
  * Collect a sorted list of own + prototype property names for an object.

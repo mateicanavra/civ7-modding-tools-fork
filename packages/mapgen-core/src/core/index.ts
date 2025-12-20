@@ -6,13 +6,13 @@
  */
 
 // Re-export types
-export * from "./types.js";
-export * from "./plot-tags.js";
-export * from "./terrain-constants.js";
+export * from "@mapgen/core/types.js";
+export * from "@mapgen/core/plot-tags.js";
+export * from "@mapgen/core/terrain-constants.js";
 
-export { idx, xyFromIndex } from "../lib/grid/indexing.js";
-export { inBounds } from "../lib/grid/bounds.js";
-export { wrapX } from "../lib/grid/wrap.js";
+export { idx, xyFromIndex } from "@mapgen/lib/grid/indexing.js";
+export { inBounds } from "@mapgen/lib/grid/bounds.js";
+export { wrapX } from "@mapgen/lib/grid/wrap.js";
 
 /**
  * Produce a stable string key for a tile coordinate.
@@ -30,8 +30,8 @@ export function parseStoryKey(key: string): { x: number; y: number } {
   return { x, y };
 }
 
-export { clamp, clamp01, clampInt, clampPct } from "../lib/math/clamp.js";
-export { lerp } from "../lib/math/lerp.js";
+export { clamp, clamp01, clampInt, clampPct } from "@mapgen/lib/math/clamp.js";
+export { lerp } from "@mapgen/lib/math/lerp.js";
 
 /**
  * Fill a typed array buffer with a value

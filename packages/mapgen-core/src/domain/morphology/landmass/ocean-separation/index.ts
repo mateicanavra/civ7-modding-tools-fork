@@ -3,7 +3,7 @@ export type {
   OceanSeparationEdgePolicy,
   PlateAwareOceanSeparationParams,
   PlateAwareOceanSeparationResult,
-} from "./types.js";
-export { DEFAULT_OCEAN_SEPARATION } from "./policy.js";
-export { applyPlateAwareOceanSeparation } from "./apply.js";
+} from "@mapgen/domain/morphology/landmass/ocean-separation/types.js";
+export { DEFAULT_OCEAN_SEPARATION } from "@mapgen/domain/morphology/landmass/ocean-separation/policy.js";
+export { applyPlateAwareOceanSeparation } from "@mapgen/domain/morphology/landmass/ocean-separation/apply.js";
 

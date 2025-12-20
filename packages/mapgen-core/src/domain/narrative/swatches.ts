@@ -5,11 +5,11 @@
  * snapshots describing what was applied.
  */
 
-import type { ExtendedMapContext } from "../../core/types.js";
-import { applyClimateSwatches } from "../hydrology/climate/index.js";
-import type { OrogenyCache } from "../hydrology/climate/index.js";
-import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "./overlays/index.js";
-import { storyTagPaleoHydrology } from "./paleo/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { applyClimateSwatches } from "@mapgen/domain/hydrology/climate/index.js";
+import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/index.js";
+import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
+import { storyTagPaleoHydrology } from "@mapgen/domain/narrative/paleo/index.js";
 
 
 export interface ClimateSwatchesSummary {

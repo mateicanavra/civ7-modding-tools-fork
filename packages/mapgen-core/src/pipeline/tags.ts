@@ -1,8 +1,8 @@
-import type { ExtendedMapContext } from "../core/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import {
   InvalidDependencyTagError,
   UnknownDependencyTagError,
-} from "./errors.js";
+} from "@mapgen/pipeline/errors.js";
 
 export const M3_DEPENDENCY_TAGS = {
   artifact: {

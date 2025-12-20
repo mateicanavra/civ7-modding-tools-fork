@@ -1,7 +1,7 @@
-import { PerlinNoise } from "../../../lib/noise/index.js";
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { distanceToNearestWater } from "./distance-to-water.js";
-import { createClimateRuntime } from "./runtime.js";
+import { PerlinNoise } from "@mapgen/lib/noise/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { distanceToNearestWater } from "@mapgen/domain/hydrology/climate/distance-to-water.js";
+import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 
 /**
  * Baseline rainfall generation (latitude bands + coastal/orographic modifiers).

@@ -1,6 +1,6 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import { DEV } from "../../dev/index.js";
-import { HILL_TERRAIN, MOUNTAIN_TERRAIN, getTerrainSymbol } from "../../core/terrain-constants.js";
+import { DEV } from "@mapgen/dev/index.js";
+import { HILL_TERRAIN, MOUNTAIN_TERRAIN, getTerrainSymbol } from "@mapgen/core/terrain-constants.js";
 
 export function logTerrainStats(adapter: EngineAdapter, width: number, height: number, stage: string): void {
   if (!DEV.ENABLED) return;

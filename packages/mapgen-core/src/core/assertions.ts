@@ -1,5 +1,5 @@
-import type { ExtendedMapContext } from "./types.js";
-import { validateFoundationContext } from "./types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { validateFoundationContext } from "@mapgen/core/types.js";
 
 /**
  * Asserts that foundation context is available.

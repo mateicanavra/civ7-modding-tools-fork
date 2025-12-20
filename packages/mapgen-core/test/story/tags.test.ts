@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
-import type { ExtendedMapContext } from "../../src/core/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import {
   getStoryTags,
   resetStoryTags,
@@ -14,7 +14,7 @@ import {
   addTag,
   removeTag,
   getTagCoordinates,
-} from "../../src/domain/narrative/tags/index.js";
+} from "@mapgen/domain/narrative/tags/index.js";
 
 describe("story/tags", () => {
   let ctx: ExtendedMapContext;

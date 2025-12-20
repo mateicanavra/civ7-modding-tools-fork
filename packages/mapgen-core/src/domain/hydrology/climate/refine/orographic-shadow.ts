@@ -1,7 +1,7 @@
-import type { FoundationDirectionalityConfig } from "../../../../bootstrap/types.js";
-import type { ExtendedMapContext, FoundationContext } from "../../../../core/types.js";
-import type { ClimateRuntime } from "../types.js";
-import { hasUpwindBarrierWM } from "../orographic-shadow.js";
+import type { FoundationDirectionalityConfig } from "@mapgen/bootstrap/types.js";
+import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
+import type { ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
+import { hasUpwindBarrierWM } from "@mapgen/domain/hydrology/climate/orographic-shadow.js";
 
 export function applyOrographicShadowRefinement(
   width: number,

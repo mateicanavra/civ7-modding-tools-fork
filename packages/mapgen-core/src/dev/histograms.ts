@@ -8,12 +8,12 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import { isDevEnabled } from "./flags.js";
-import { devLog, devLogJson } from "./logging.js";
+import { isDevEnabled } from "@mapgen/dev/flags.js";
+import { devLog, devLogJson } from "@mapgen/dev/logging.js";
 
 // Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
 // CORRECT terrain.xml order: 0:MOUNTAIN, 1:HILL, 2:FLAT, 3:COAST, 4:OCEAN
-import { HILL_TERRAIN } from "../core/terrain-constants.js";
+import { HILL_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 /**
  * Build a histogram from a value array.

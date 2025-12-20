@@ -1,5 +1,5 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import { tryPlaceFeature } from "./place-feature.js";
+import { tryPlaceFeature } from "@mapgen/domain/ecology/features/place-feature.js";
 
 export function applyParadiseReefs(params: {
   adapter: EngineAdapter;

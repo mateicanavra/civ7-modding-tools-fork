@@ -1,7 +1,7 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { EngineAdapter } from "@civ7/adapter";
-import { writeHeightfield } from "../../../core/types.js";
-import { OCEAN_TERRAIN, FLAT_TERRAIN } from "../../../core/terrain-constants.js";
+import { writeHeightfield } from "@mapgen/core/types.js";
+import { OCEAN_TERRAIN, FLAT_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 export function applyLandmaskToTerrain(
   width: number,

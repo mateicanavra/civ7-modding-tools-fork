@@ -1,6 +1,6 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import type { BiomeGlobals } from "../types.js";
-import { isCoastalLand } from "../coastal.js";
+import type { BiomeGlobals } from "@mapgen/domain/ecology/biomes/types.js";
+import { isCoastalLand } from "@mapgen/domain/ecology/biomes/coastal.js";
 
 export function applyTropicalCoastBias(
   adapter: EngineAdapter,

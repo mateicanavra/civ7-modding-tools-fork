@@ -1,1 +1,1 @@
-export * from "./rainfall-artifacts.js";
+export * from "@mapgen/domain/narrative/paleo/rainfall-artifacts.js";

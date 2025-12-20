@@ -13,8 +13,8 @@
  */
 
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
-import type { SeedSnapshot } from "../world/types.js";
-import type { MapConfig } from "../bootstrap/types.js";
+import type { SeedSnapshot } from "@mapgen/foundation/types.js";
+import type { MapConfig } from "@mapgen/bootstrap/types.js";
 
 // ============================================================================
 // Field Buffer Types

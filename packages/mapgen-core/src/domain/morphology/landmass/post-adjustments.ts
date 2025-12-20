@@ -1,5 +1,5 @@
-import { clampInt } from "../../../lib/math/index.js";
-import type { GeometryConfig, LandmassWindow } from "./types.js";
+import { clampInt } from "@mapgen/lib/math/index.js";
+import type { GeometryConfig, LandmassWindow } from "@mapgen/domain/morphology/landmass/types.js";
 
 export function applyLandmassPostAdjustments(
   windows: LandmassWindow[],

@@ -1,5 +1,5 @@
-import type { GenerationPhase } from "./types.js";
-import { M3_DEPENDENCY_TAGS } from "./tags.js";
+import type { GenerationPhase } from "@mapgen/pipeline/types.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
 
 export const M3_STANDARD_STAGE_PHASE: Readonly<Record<string, GenerationPhase>> =
   Object.freeze({

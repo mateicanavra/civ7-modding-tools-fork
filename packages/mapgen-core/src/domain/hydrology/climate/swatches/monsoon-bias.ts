@@ -1,8 +1,8 @@
-import { clamp } from "../../../../lib/math/clamp.js";
-import type { FoundationDirectionalityConfig } from "../../../../bootstrap/types.js";
-import type { ExtendedMapContext } from "../../../../core/types.js";
-import { assertFoundationContext } from "../../../../core/assertions.js";
-import type { SwatchHelpers, SwatchRuntime } from "./types.js";
+import { clamp } from "@mapgen/lib/math/clamp.js";
+import type { FoundationDirectionalityConfig } from "@mapgen/bootstrap/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import type { SwatchHelpers, SwatchRuntime } from "@mapgen/domain/hydrology/climate/swatches/types.js";
 
 export function applyMonsoonBiasPass(
   width: number,

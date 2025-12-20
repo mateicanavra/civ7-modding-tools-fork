@@ -1,11 +1,11 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import type { StepRegistry } from "../index.js";
-import { createStoryCorridorsPostStep, createStoryCorridorsPreStep } from "./StoryCorridorsStep.js";
-import { createStoryHotspotsStep } from "./StoryHotspotsStep.js";
-import { createStoryOrogenyStep } from "./StoryOrogenyStep.js";
-import { createStoryRiftsStep } from "./StoryRiftsStep.js";
-import { createStorySeedStep } from "./StorySeedStep.js";
-import { createStorySwatchesStep } from "./StorySwatchesStep.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { StepRegistry } from "@mapgen/pipeline/index.js";
+import { createStoryCorridorsPostStep, createStoryCorridorsPreStep } from "@mapgen/pipeline/narrative/StoryCorridorsStep.js";
+import { createStoryHotspotsStep } from "@mapgen/pipeline/narrative/StoryHotspotsStep.js";
+import { createStoryOrogenyStep } from "@mapgen/pipeline/narrative/StoryOrogenyStep.js";
+import { createStoryRiftsStep } from "@mapgen/pipeline/narrative/StoryRiftsStep.js";
+import { createStorySeedStep } from "@mapgen/pipeline/narrative/StorySeedStep.js";
+import { createStorySwatchesStep } from "@mapgen/pipeline/narrative/StorySwatchesStep.js";
 
 export interface NarrativeLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };

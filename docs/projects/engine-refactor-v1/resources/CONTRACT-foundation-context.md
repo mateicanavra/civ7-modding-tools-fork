@@ -13,8 +13,8 @@ Authoritative implementation references:
 
 - Types & factories: `packages/mapgen-core/src/core/types.ts`
   - `FoundationContext`, `FoundationConfigSnapshot`, `createFoundationContext`, `assertFoundationContext`, `hasFoundationContext`
-- Orchestration & world model: `packages/mapgen-core/src/MapOrchestrator.ts`
-- World semantics: `packages/mapgen-core/src/world/types.ts`, `packages/mapgen-core/src/world/model.ts`
+- Orchestration & foundation stage: `packages/mapgen-core/src/MapOrchestrator.ts`
+- Foundation semantics: `packages/mapgen-core/src/foundation/types.ts`, `packages/mapgen-core/src/foundation/plates.ts`
 - Config flow: `packages/mapgen-core/src/bootstrap/entry.ts`, `packages/mapgen-core/src/MapOrchestrator.ts`
 - Target architecture: `docs/system/libs/mapgen/architecture.md`, `docs/system/libs/mapgen/foundation.md`
 
@@ -77,7 +77,7 @@ This contract focuses on semantics and invariants (next section) rather than dup
 
 - **Plates (`ctx.foundation.plates`)**
   - `id` (`Int16Array`): plate identifier per tile (opaque; stable within the run).
-  - `boundaryType` (`Uint8Array`): boundary interaction type using `BOUNDARY_TYPE` from `packages/mapgen-core/src/world/types.ts`:
+  - `boundaryType` (`Uint8Array`): boundary interaction type using `BOUNDARY_TYPE` from `packages/mapgen-core/src/foundation/constants.ts`:
     - `none=0`, `convergent=1`, `divergent=2`, `transform=3`
   - `boundaryCloseness`, `tectonicStress`, `upliftPotential`, `riftPotential`, `shieldStability` (`Uint8Array`, `0..255`):
     - closeness/stress are higher near boundaries
@@ -106,7 +106,7 @@ This contract focuses on semantics and invariants (next section) rather than dup
   - Stages that require foundation physics must call `assertFoundationContext(ctx, stageName)` (or equivalent) before reading tensors.
   - Treat missing `FoundationContext` as a wiring/manifest error, not a recoverable “no-op”.
 
-## 4. Config → MapOrchestrator → WorldModel → FoundationContext
+## 4. Config → MapOrchestrator → Foundation Pipeline → FoundationContext
 
 This section summarizes the **M2-era flow** that leads to `FoundationContext`. It intentionally focuses on
 contracts, not internal implementation details.
@@ -124,19 +124,18 @@ contracts, not internal implementation details.
 - `MapOrchestrator` and all steps/layers read configuration from `ctx.config` (validated `MapGenConfig`).
 - There is no module-scoped tunables layer in M3.
 
-### 4.2 Orchestrator & World Model Flow
+### 4.2 Orchestrator & Foundation Flow
 
 - `MapOrchestrator` is constructed with a **validated `MapGenConfig`** and optional adapter options.
 - When running the `foundation` stage, the orchestrator:
   - Creates an `ExtendedMapContext` with:
     - Dimensions from the Civ7 adapter or test defaults.
     - `ctx.config` set to the validated `MapGenConfig` (with effective toggles derived from stage enablement).
-  - Configures and runs `WorldModel` using the injected `MapGenConfig` (not a global/tunables surface).
-  - After `WorldModel` finishes foundation physics, calls:
-    - `createFoundationContext(WorldModel, { dimensions, config: foundationConfigSlice })`.
+  - Runs foundation step-owned producers (plates + dynamics) using the injected `MapGenConfig`.
+  - Builds `FoundationContext` via `createFoundationContext(...)` from the produced tensors and config slice.
   - Stores the resulting `FoundationContext` on `ctx.foundation` (for downstream TS stages and diagnostics).
 
-**M2 Contract for World Model & FoundationContext**
+**M2 Contract for FoundationContext**
 
 - `createFoundationContext` **fails fast** if:
   - `WorldModel` is not initialized.

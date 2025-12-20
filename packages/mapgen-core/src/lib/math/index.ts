@@ -1,3 +1,3 @@
-export * from "./clamp.js";
-export * from "./lerp.js";
+export * from "@mapgen/lib/math/clamp.js";
+export * from "@mapgen/lib/math/lerp.js";
 

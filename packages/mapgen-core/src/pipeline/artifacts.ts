@@ -2,8 +2,8 @@ import type {
   ExtendedMapContext,
   ClimateFieldBuffer,
   HeightfieldBuffer,
-} from "../core/types.js";
-import { M3_DEPENDENCY_TAGS } from "./tags.js";
+} from "@mapgen/core/types.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
 
 export function publishHeightfieldArtifact(ctx: ExtendedMapContext): HeightfieldBuffer {
   const value = ctx.buffers.heightfield;

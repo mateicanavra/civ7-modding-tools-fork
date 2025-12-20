@@ -46,7 +46,7 @@ import type {
   StartsConfig,
   StoryConfig,
   VolcanoesConfig,
-} from "../config/index.js";
+} from "@mapgen/config/index.js";
 
 export type MapConfig = MapGenConfig;
 

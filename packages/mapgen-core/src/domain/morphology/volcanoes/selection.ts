@@ -1,4 +1,4 @@
-import type { PlacedVolcano } from "./types.js";
+import type { PlacedVolcano } from "@mapgen/domain/morphology/volcanoes/types.js";
 
 export function isTooCloseToExisting(
   x: number,

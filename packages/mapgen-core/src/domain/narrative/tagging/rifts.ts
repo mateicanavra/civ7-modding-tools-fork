@@ -1,14 +1,14 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { clamp, inBounds, storyKey } from "../../../core/index.js";
-import { assertFoundationContext } from "../../../core/assertions.js";
-import { idx } from "../../../lib/grid/index.js";
-import { getStoryTags } from "../tags/index.js";
-import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "../overlays/index.js";
-import { getDims } from "../utils/dims.js";
-import { latitudeAbsDeg } from "../utils/latitude.js";
-import { isWaterAt } from "../utils/water.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { clamp, inBounds, storyKey } from "@mapgen/core/index.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { idx } from "@mapgen/lib/grid/index.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
+import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
+import { latitudeAbsDeg } from "@mapgen/domain/narrative/utils/latitude.js";
+import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
-import type { RiftValleysSummary } from "./types.js";
+import type { RiftValleysSummary } from "@mapgen/domain/narrative/tagging/types.js";
 
 export function storyTagRiftValleys(ctx: ExtendedMapContext): RiftValleysSummary {
   assertFoundationContext(ctx, "storyRifts");

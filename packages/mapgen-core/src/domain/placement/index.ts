@@ -20,7 +20,7 @@
  * - Advanced start region assignment
  *
  * Usage:
- *   import { runPlacement } from "./domain/placement/index.js";
+ *   import { runPlacement } from "@mapgen/domain/placement/domain/placement/index.js";
  *   const startPositions = runPlacement(adapter, iWidth, iHeight, {
  *     mapInfo,
  *     wondersPlusOne: true, // default true
@@ -39,19 +39,19 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import type { FloodplainsConfig, PlacementOptions } from "./types.js";
-import { logAsciiMap, logTerrainStats } from "./diagnostics.js";
-import { applyNaturalWonders } from "./wonders.js";
-import { applyFloodplains } from "./floodplains.js";
-import { validateAndFixTerrain } from "./terrain-validation.js";
-import { recalculateAreas } from "./areas.js";
-import { storeWaterData } from "./water-data.js";
-import { generateSnow } from "./snow.js";
-import { generateResources } from "./resources.js";
-import { applyStartPositions } from "./starts.js";
-import { applyDiscoveries } from "./discoveries.js";
-import { applyFertilityRecalc } from "./fertility.js";
-import { applyAdvancedStartRegions } from "./advanced-start.js";
+import type { FloodplainsConfig, PlacementOptions } from "@mapgen/domain/placement/types.js";
+import { logAsciiMap, logTerrainStats } from "@mapgen/domain/placement/diagnostics.js";
+import { applyNaturalWonders } from "@mapgen/domain/placement/wonders.js";
+import { applyFloodplains } from "@mapgen/domain/placement/floodplains.js";
+import { validateAndFixTerrain } from "@mapgen/domain/placement/terrain-validation.js";
+import { recalculateAreas } from "@mapgen/domain/placement/areas.js";
+import { storeWaterData } from "@mapgen/domain/placement/water-data.js";
+import { generateSnow } from "@mapgen/domain/placement/snow.js";
+import { generateResources } from "@mapgen/domain/placement/resources.js";
+import { applyStartPositions } from "@mapgen/domain/placement/starts.js";
+import { applyDiscoveries } from "@mapgen/domain/placement/discoveries.js";
+import { applyFertilityRecalc } from "@mapgen/domain/placement/fertility.js";
+import { applyAdvancedStartRegions } from "@mapgen/domain/placement/advanced-start.js";
 
 export type {
   ContinentBounds,
@@ -60,7 +60,7 @@ export type {
   PlacementConfig,
   PlacementOptions,
   StartsConfig,
-} from "./types.js";
+} from "@mapgen/domain/placement/types.js";
 
 // ============================================================================
 // ============================================================================

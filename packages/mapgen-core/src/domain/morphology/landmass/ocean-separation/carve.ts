@@ -1,5 +1,5 @@
-import { clampInt } from "../../../../lib/math/index.js";
-import type { SetTerrainFn, RowState } from "./types.js";
+import { clampInt } from "@mapgen/lib/math/index.js";
+import type { SetTerrainFn, RowState } from "@mapgen/domain/morphology/landmass/ocean-separation/types.js";
 
 export function carveOceanFromEast(
   state: RowState,

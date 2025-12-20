@@ -1,4 +1,4 @@
-import { inBounds } from "../../../lib/grid/bounds.js";
+import { inBounds } from "@mapgen/lib/grid/bounds.js";
 
 export function storyKey(x: number, y: number): string {
   return `${x},${y}`;

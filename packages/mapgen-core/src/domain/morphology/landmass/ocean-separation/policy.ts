@@ -1,4 +1,4 @@
-import type { OceanSeparationPolicy } from "./types.js";
+import type { OceanSeparationPolicy } from "@mapgen/domain/morphology/landmass/ocean-separation/types.js";
 
 export const DEFAULT_OCEAN_SEPARATION: OceanSeparationPolicy = {
   enabled: true,

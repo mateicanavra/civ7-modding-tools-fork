@@ -1,8 +1,8 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import type { StartsConfig } from "../../bootstrap/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { StartsConfig } from "@mapgen/bootstrap/types.js";
 import type { MapInfo } from "@civ7/adapter";
-import { runPlacement } from "../../domain/placement/index.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
+import { runPlacement } from "@mapgen/domain/placement/index.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 
 export interface PlacementStepRuntime {
   mapInfo: MapInfo;

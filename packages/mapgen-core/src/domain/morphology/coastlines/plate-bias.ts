@@ -1,6 +1,6 @@
-import { BOUNDARY_TYPE } from "../../../world/constants.js";
-import { clamp } from "../../../lib/math/index.js";
-import type { CoastlinePlateBiasConfig } from "./types.js";
+import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
+import { clamp } from "@mapgen/lib/math/index.js";
+import type { CoastlinePlateBiasConfig } from "@mapgen/domain/morphology/coastlines/types.js";
 
 export function computePlateBias(
   closenessNorm: number | null | undefined,
@@ -32,4 +32,3 @@ export function computePlateBias(
 
   return weight;
 }
-

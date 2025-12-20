@@ -1,5 +1,5 @@
-import type { OrogenyCache } from "../types.js";
-import type { SwatchHelpers, SwatchRuntime, SwatchTypeConfig } from "./types.js";
+import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
+import type { SwatchHelpers, SwatchRuntime, SwatchTypeConfig } from "@mapgen/domain/hydrology/climate/swatches/types.js";
 
 export function applyMountainForestsSwatch(
   width: number,

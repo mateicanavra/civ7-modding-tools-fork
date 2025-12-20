@@ -1,9 +1,9 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { inBounds, storyKey } from "../../../core/index.js";
-import { getStoryTags } from "../tags/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { inBounds, storyKey } from "@mapgen/core/index.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
-import { assignCorridorMetadata } from "./style-cache.js";
-import { getDims, rand } from "./runtime.js";
+import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
+import { getDims, rand } from "@mapgen/domain/narrative/corridors/runtime.js";
 
 export function tagLandCorridorsFromRifts(ctx: ExtendedMapContext, corridorsCfg: Record<string, unknown>): void {
   const cfg = ((corridorsCfg.land || {}) as Record<string, unknown>) || {};

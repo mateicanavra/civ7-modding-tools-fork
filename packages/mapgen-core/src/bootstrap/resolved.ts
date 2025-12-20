@@ -14,8 +14,8 @@
  * creates a proper StageManifest from stageConfig booleans.
  */
 
-import type { StageManifest, StageDescriptor } from "./types.js";
-import { M3_STAGE_DEPENDENCY_SPINE } from "../pipeline/standard.js";
+import type { StageManifest, StageDescriptor } from "@mapgen/bootstrap/types.js";
+import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 
 // ============================================================================
 // Canonical Stage Order

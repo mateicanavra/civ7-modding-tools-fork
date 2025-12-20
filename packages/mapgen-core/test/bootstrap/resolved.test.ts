@@ -19,8 +19,8 @@ import {
   validateOverrides,
   validateStageDrift,
   resetDriftCheck,
-} from "../../src/bootstrap/entry.js";
-import { M3_DEPENDENCY_TAGS } from "../../src/pipeline/index.js";
+} from "@mapgen/bootstrap/entry.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/index.js";
 
 describe("bootstrap/resolved", () => {
   beforeEach(() => {

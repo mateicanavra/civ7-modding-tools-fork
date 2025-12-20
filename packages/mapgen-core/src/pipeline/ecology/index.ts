@@ -1,8 +1,8 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { syncHeightfield } from "../../core/types.js";
-import { DEV, logBiomeSummary } from "../../dev/index.js";
-import type { StepRegistry } from "../index.js";
-import { createBiomesStep, createFeaturesStep } from "./steps.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { syncHeightfield } from "@mapgen/core/types.js";
+import { DEV, logBiomeSummary } from "@mapgen/dev/index.js";
+import type { StepRegistry } from "@mapgen/pipeline/index.js";
+import { createBiomesStep, createFeaturesStep } from "@mapgen/pipeline/ecology/steps.js";
 
 export interface EcologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };

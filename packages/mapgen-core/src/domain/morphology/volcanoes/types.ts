@@ -1,4 +1,4 @@
-import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "../../../bootstrap/types.js";
+import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "@mapgen/bootstrap/types.js";
 
 export type VolcanoesConfig = BootstrapVolcanoesConfig;
 

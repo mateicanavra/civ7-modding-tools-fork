@@ -6,7 +6,6 @@
  *
  * Architecture:
  * - bootstrap/: Configuration providers (lazy-loaded)
- * - world/: Voronoi tectonics, plate simulation
  * - pipeline/: Step wiring + task graph execution primitives
  * - domain/: Mapgen algorithms + narrative tagging/overlays
  * - core/: Shared utilities and types
@@ -16,19 +15,16 @@
 export type { EngineAdapter, MapContext } from "@civ7/adapter";
 
 // Re-export bootstrap entry
-export { bootstrap } from "./bootstrap/entry.js";
-
-// Re-export world module
-export * from "./world/index.js";
+export { bootstrap } from "@mapgen/bootstrap/entry.js";
 
 // Re-export domain algorithms + types
-export * from "./domain/index.js";
+export * from "@mapgen/domain/index.js";
 
 // Re-export core utilities and types
-export * from "./core/index.js";
+export * from "@mapgen/core/index.js";
 
 // Re-export dev diagnostics module
-export * from "./dev/index.js";
+export * from "@mapgen/dev/index.js";
 
 // Re-export MapOrchestrator
 export {
@@ -38,10 +34,10 @@ export {
   type OrchestratorConfig,
   type StageResult,
   type GenerationResult,
-} from "./MapOrchestrator.js";
+} from "@mapgen/MapOrchestrator.js";
 
 // Re-export pipeline primitives (M3 Task Graph MVP)
-export * from "./pipeline/index.js";
+export * from "@mapgen/pipeline/index.js";
 
 // Package version
 export const VERSION = "0.1.0";

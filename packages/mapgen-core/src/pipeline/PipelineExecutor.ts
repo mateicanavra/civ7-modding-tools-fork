@@ -1,16 +1,16 @@
-import type { ExtendedMapContext } from "../core/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import {
   MissingDependencyError,
   UnsatisfiedProvidesError,
-} from "./errors.js";
+} from "@mapgen/pipeline/errors.js";
 import {
   computeInitialSatisfiedTags,
   isDependencyTagSatisfied,
   validateDependencyTags,
-} from "./tags.js";
-import type { MapGenStep } from "./types.js";
-import type { StepRegistry } from "./StepRegistry.js";
-import type { PipelineStepResult } from "./types.js";
+} from "@mapgen/pipeline/tags.js";
+import type { MapGenStep } from "@mapgen/pipeline/types.js";
+import type { StepRegistry } from "@mapgen/pipeline/StepRegistry.js";
+import type { PipelineStepResult } from "@mapgen/pipeline/types.js";
 
 export interface PipelineExecutorOptions {
   logPrefix?: string;

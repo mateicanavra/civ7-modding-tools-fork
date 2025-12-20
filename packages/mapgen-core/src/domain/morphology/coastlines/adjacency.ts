@@ -1,5 +1,5 @@
-import { inBounds } from "../../../lib/grid/bounds.js";
-import { someNeighbor3x3 } from "../../../lib/grid/neighborhood/square-3x3.js";
+import { inBounds } from "@mapgen/lib/grid/bounds.js";
+import { someNeighbor3x3 } from "@mapgen/lib/grid/neighborhood/square-3x3.js";
 
 export function isCoastalLand(
   x: number,

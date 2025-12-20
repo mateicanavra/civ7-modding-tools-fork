@@ -1,6 +1,6 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import type { CorridorPolicy } from "./types.js";
-import { forEachNeighbor3x3 } from "../../../lib/grid/neighborhood/square-3x3.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { CorridorPolicy } from "@mapgen/domain/morphology/coastlines/types.js";
+import { forEachNeighbor3x3 } from "@mapgen/lib/grid/neighborhood/square-3x3.js";
 
 export function resolveSeaCorridorPolicy(
   ctx: ExtendedMapContext | null | undefined

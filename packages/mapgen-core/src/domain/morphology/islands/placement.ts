@@ -1,10 +1,10 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { ctxRandom, writeHeightfield } from "../../../core/types.js";
-import { getStoryTags } from "../../narrative/tags/index.js";
-import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "../../../core/terrain-constants.js";
-import type { CorridorsConfig, HotspotTunables, IslandsConfig } from "./types.js";
-import { getFractalThreshold } from "./fractal-threshold.js";
-import { isAdjacentToLand, isNearSeaLane, storyKey } from "./adjacency.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { ctxRandom, writeHeightfield } from "@mapgen/core/types.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
+import type { CorridorsConfig, HotspotTunables, IslandsConfig } from "@mapgen/domain/morphology/islands/types.js";
+import { getFractalThreshold } from "@mapgen/domain/morphology/islands/fractal-threshold.js";
+import { isAdjacentToLand, isNearSeaLane, storyKey } from "@mapgen/domain/morphology/islands/adjacency.js";
 
 const HILL_FRACTAL = 1;
 

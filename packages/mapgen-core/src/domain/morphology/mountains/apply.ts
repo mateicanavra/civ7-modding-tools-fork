@@ -1,11 +1,11 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
-import { assertFoundationContext } from "../../../core/assertions.js";
-import { writeHeightfield } from "../../../core/types.js";
-import { devLogIf } from "../../../dev/index.js";
-import type { MountainsConfig } from "./types.js";
-import { createIsWaterTile, selectTilesAboveThreshold } from "./selection.js";
-import { applyRiftDepressions, computePlateBasedScores, HILL_FRACTAL, MOUNTAIN_FRACTAL } from "./scoring.js";
-import { MOUNTAIN_TERRAIN, HILL_TERRAIN, COAST_TERRAIN, OCEAN_TERRAIN } from "../../../core/terrain-constants.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { writeHeightfield } from "@mapgen/core/types.js";
+import { devLogIf } from "@mapgen/dev/index.js";
+import type { MountainsConfig } from "@mapgen/domain/morphology/mountains/types.js";
+import { createIsWaterTile, selectTilesAboveThreshold } from "@mapgen/domain/morphology/mountains/selection.js";
+import { applyRiftDepressions, computePlateBasedScores, HILL_FRACTAL, MOUNTAIN_FRACTAL } from "@mapgen/domain/morphology/mountains/scoring.js";
+import { MOUNTAIN_TERRAIN, HILL_TERRAIN, COAST_TERRAIN, OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Partial<MountainsConfig> = {}): void {
   assertFoundationContext(ctx, "mountains");

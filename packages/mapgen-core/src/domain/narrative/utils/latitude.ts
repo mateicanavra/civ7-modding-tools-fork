@@ -1,4 +1,4 @@
-import type { ExtendedMapContext } from "../../../core/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
 export function latitudeAbsDeg(
   ctx: ExtendedMapContext | null | undefined,

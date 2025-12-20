@@ -21,10 +21,10 @@ I’ll break it down by area, then suggest how to fix the plan-of-record gap.
     - Provides `STAGE_MANIFEST` and `stageEnabled()` using the resolved manifest (fixing the old “everything disabled” problem).
     - This is cleaner and more explicit than the JS version.
 
-- **WorldModel, plates, and foundation**
-  - `world/model.ts`, `world/plates.ts`, `world/plate-seed.ts`, `world/types.ts` are fully TS and use configuration injection via `setConfigProvider()` (`MapOrchestrator.bindWorldModelConfigProvider()`).
+- **Foundation plates and seed**
+  - `foundation/plates.ts`, `foundation/plate-seed.ts`, `foundation/types.ts` are fully TS and used by the foundation stage producers (no `WorldModel` singleton).
   - The Voronoi plate implementation is TS-native (`computePlatesVoronoi`) with deterministic `PlateSeedManager` and captured `plateSeed` snapshot; this matches and improves on the “Phase 1.5” JS description.
-  - `MapOrchestrator.initializeFoundation()` creates an immutable `FoundationContext` via `createFoundationContext` and stores it on `ctx.foundation` and `ctx.worldModel`, with dev diagnostics hooks (`logFoundationSummary`, ASCII, histograms). This corresponds to the “foundation snapshot” architecture described in docs and remediation.
+  - `MapOrchestrator.initializeFoundation()` builds an immutable `FoundationContext` via step-owned producers and stores it on `ctx.foundation`, with dev diagnostics hooks (`logFoundationSummary`, ASCII, histograms). This corresponds to the “foundation snapshot” architecture described in docs and remediation.
 
 - **Adapter boundary (partially realized)**
   - The placement, layer-level operations, and climate code use `EngineAdapter` from `@civ7/adapter` for engine-facing calls:
@@ -143,7 +143,7 @@ These are the major “behavior gaps” vs the JS archive.
   - Clarify which behaviors are *intentionally* dropped vs temporarily missing (e.g., “we are not bringing back paleo hydrology; we are keeping only hotspots+rift tags”).
   - Attach a concrete “TS parity achieved” checklist that lists each JS artifact and its TS equivalent (or deprecation decision).
 
-So your intuition is correct: the migration plan and remediation docs capture the architectural issues and high-level tasks, but they do not give you a clean, module-by-module parity map. The actual codebase has advanced in some areas (WorldModel, placement, tunables) and left others behind (story tagging, corridors, presets) without an updated, precise record.
+So your intuition is correct: the migration plan and remediation docs capture the architectural issues and high-level tasks, but they do not give you a clean, module-by-module parity map. The actual codebase has advanced in some areas (foundation plates, placement, tunables) and left others behind (story tagging, corridors, presets) without an updated, precise record.
 
 **4. Recommended “done” definition and updated migration plan**
 
@@ -154,7 +154,7 @@ To get to “migration finished” in the sense you describe (parity or explicit
     - Columns: JS module, TS equivalent, status (`ported`, `superseded`, `intentionally dropped`, `pending`), notes.
   - For example:
     - `layers/placement.js` → `packages/mapgen-core/src/layers/placement.ts` — `ported`, “adapterized, preserves vanilla order, uses foundation placement config”.
-    - `world/model.js` → `packages/mapgen-core/src/world/model.ts` — `ported`, “TS-native Voronoi, config provider via tunables”.
+    - `world/model.js` → removed (M4) — `superseded`, “foundation step producers own plates/dynamics now”.
     - `story/tagging.js` → `—` — `pending`, “story tagging not migrated; downstream layers expect StoryTags but never receive them”.
     - `story/corridors.js` → `—` — `pending`.
     - `bootstrap/presets/*.js` → `—` — `pending` or `intentionally dropped`, depending on decision.

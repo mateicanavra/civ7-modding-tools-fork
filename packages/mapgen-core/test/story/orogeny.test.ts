@@ -1,14 +1,14 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { parseConfig } from "../../src/config/index.js";
-import { createExtendedMapContext } from "../../src/core/types.js";
+import { parseConfig } from "@mapgen/config/index.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
-} from "../../src/domain/narrative/overlays/index.js";
+} from "@mapgen/domain/narrative/overlays/index.js";
 import {
   storyTagOrogenyBelts,
-} from "../../src/domain/narrative/orogeny/index.js";
+} from "@mapgen/domain/narrative/orogeny/index.js";
 
 describe("story/orogeny", () => {
   it("fails fast when foundation context is missing", () => {

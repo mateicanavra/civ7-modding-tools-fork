@@ -5,6 +5,6 @@ export type {
   CoastlinesConfig,
   CorridorPolicy,
   SeaCorridorPolicy,
-} from "./types.js";
-export { addRuggedCoasts } from "./rugged-coasts.js";
-export { addRuggedCoasts as default } from "./rugged-coasts.js";
+} from "@mapgen/domain/morphology/coastlines/types.js";
+export { addRuggedCoasts } from "@mapgen/domain/morphology/coastlines/rugged-coasts.js";
+export { addRuggedCoasts as default } from "@mapgen/domain/morphology/coastlines/rugged-coasts.js";

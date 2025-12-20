@@ -1,7 +1,7 @@
-export * from "./bounds.js";
-export * from "./wrap.js";
-export * from "./indexing.js";
-export * from "./neighborhood/square-3x3.js";
-export * from "./neighborhood/hex-oddq.js";
-export * from "./distance/bfs.js";
+export * from "@mapgen/lib/grid/bounds.js";
+export * from "@mapgen/lib/grid/wrap.js";
+export * from "@mapgen/lib/grid/indexing.js";
+export * from "@mapgen/lib/grid/neighborhood/square-3x3.js";
+export * from "@mapgen/lib/grid/neighborhood/hex-oddq.js";
+export * from "@mapgen/lib/grid/distance/bfs.js";
 

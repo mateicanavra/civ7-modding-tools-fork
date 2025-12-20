@@ -1,6 +1,6 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import type { ContinentBounds, LandmassConfig, MountainsConfig, VolcanoesConfig } from "../../bootstrap/types.js";
-import type { StepRegistry } from "../index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { ContinentBounds, LandmassConfig, MountainsConfig, VolcanoesConfig } from "@mapgen/bootstrap/types.js";
+import type { StepRegistry } from "@mapgen/pipeline/index.js";
 import {
   createCoastlinesStep,
   createIslandsStep,
@@ -8,7 +8,7 @@ import {
   createMountainsStep,
   createRuggedCoastsStep,
   createVolcanoesStep,
-} from "./steps.js";
+} from "@mapgen/pipeline/morphology/steps.js";
 
 export interface MorphologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };

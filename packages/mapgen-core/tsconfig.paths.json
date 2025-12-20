@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@mapgen": ["src/index.ts"],
+      "@mapgen/*": ["src/*"]
+    }
+  }
+}

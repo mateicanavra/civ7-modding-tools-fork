@@ -5,7 +5,7 @@ import type {
   CoastlineFjordConfig as BootstrapCoastlineFjordConfig,
   SeaCorridorPolicy as BootstrapSeaCorridorPolicy,
   CorridorsConfig,
-} from "../../../bootstrap/types.js";
+} from "@mapgen/bootstrap/types.js";
 
 export type CoastlinePlateBiasConfig = BootstrapCoastlinePlateBiasConfig;
 export type CoastlineBayConfig = BootstrapCoastlineBayConfig;

@@ -5,10 +5,10 @@
  * selection process. This is the first step of the crust-first pipeline.
  */
 
-import type { RngFunction } from "../../world/types.js";
-import type { PlateGraph } from "./topology.js";
-import { pickRandom } from "../rng/pick.js";
-import { rollUnit } from "../rng/unit.js";
+import type { RngFunction } from "@mapgen/foundation/types.js";
+import type { PlateGraph } from "@mapgen/lib/plates/topology.js";
+import { pickRandom } from "@mapgen/lib/rng/pick.js";
+import { rollUnit } from "@mapgen/lib/rng/unit.js";
 
 export enum CrustType {
   OCEANIC = 0,

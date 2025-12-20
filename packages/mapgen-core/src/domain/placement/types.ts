@@ -3,7 +3,7 @@ import type {
   FloodplainsConfig,
   ContinentBounds,
   StartsConfig,
-} from "../../bootstrap/types.js";
+} from "@mapgen/bootstrap/types.js";
 
 export type { PlacementConfig, FloodplainsConfig, ContinentBounds, StartsConfig };
 

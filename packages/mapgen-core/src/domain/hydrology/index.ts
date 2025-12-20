@@ -1,1 +1,1 @@
-export * from "./climate/index.js";
+export * from "@mapgen/domain/hydrology/climate/index.js";

@@ -1,6 +1,6 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
-import { storyTagStrategicCorridors } from "../../domain/narrative/corridors/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
 
 export interface StoryCorridorsStepOptions {
   requires: readonly string[];

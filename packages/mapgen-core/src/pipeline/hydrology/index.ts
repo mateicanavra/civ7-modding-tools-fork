@@ -1,13 +1,13 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import type { ContinentBounds } from "../../bootstrap/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
 import type { MapInfo } from "@civ7/adapter";
-import type { StepRegistry } from "../index.js";
+import type { StepRegistry } from "@mapgen/pipeline/index.js";
 import {
   createClimateBaselineStep,
   createClimateRefineStep,
   createLakesStep,
   createRiversStep,
-} from "./steps.js";
+} from "@mapgen/pipeline/hydrology/steps.js";
 
 export interface HydrologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };

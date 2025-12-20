@@ -1,5 +1,5 @@
-import type { StoryTagsInstance } from "../../../narrative/tags/instance.js";
-import type { ClimateRuntime } from "../types.js";
+import type { StoryTagsInstance } from "@mapgen/domain/narrative/tags/instance.js";
+import type { ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
 
 export function applyHotspotMicroclimatesRefinement(
   width: number,

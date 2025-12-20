@@ -1,13 +1,13 @@
-import type { ExtendedMapContext } from "../../core/types.js";
-import { designateEnhancedBiomes } from "../../domain/ecology/biomes/index.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "../index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { designateEnhancedBiomes } from "@mapgen/domain/ecology/biomes/index.js";
+import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import {
   STORY_OVERLAY_KEYS,
   getStoryOverlay,
   hydrateCorridorsStoryTags,
   hydrateRiftsStoryTags,
-} from "../../domain/narrative/overlays/index.js";
-import { getStoryTags } from "../../domain/narrative/tags/index.js";
+} from "@mapgen/domain/narrative/overlays/index.js";
+import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
 export interface BiomesStepOptions {
   requires: readonly string[];

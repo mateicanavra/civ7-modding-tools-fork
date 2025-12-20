@@ -2,7 +2,7 @@
 import "../polyfills/text-encoder";
 import { Value } from "typebox/value";
 
-import { MapGenConfigSchema, INTERNAL_METADATA_KEY, type MapGenConfig } from "./schema";
+import { MapGenConfigSchema, INTERNAL_METADATA_KEY, type MapGenConfig } from "@mapgen/config/schema";
 
 export interface ParseResult {
   success: boolean;

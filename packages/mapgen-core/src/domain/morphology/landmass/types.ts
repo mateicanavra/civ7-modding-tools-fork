@@ -3,7 +3,7 @@ import type {
   LandmassGeometry,
   LandmassGeometryPost,
   LandmassTectonicsConfig,
-} from "../../../bootstrap/types.js";
+} from "@mapgen/bootstrap/types.js";
 
 export type { LandmassTectonicsConfig, LandmassGeometry, LandmassGeometryPost };
 

@@ -6,7 +6,7 @@
  * @module dev/logging
  */
 
-import { DEV, isDevEnabled, type DevFlagKey } from "./flags.js";
+import { DEV, isDevEnabled, type DevFlagKey } from "@mapgen/dev/flags.js";
 
 /** Default log prefix */
 const LOG_PREFIX = "[DEV]";

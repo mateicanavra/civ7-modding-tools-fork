@@ -1,4 +1,4 @@
-import { inBounds } from "../bounds.js";
+import { inBounds } from "@mapgen/lib/grid/bounds.js";
 
 export interface DistanceTransformOptions {
   neighbors?: readonly (readonly [number, number])[];

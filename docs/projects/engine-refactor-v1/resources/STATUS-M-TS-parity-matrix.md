@@ -201,15 +201,15 @@ Detractions / Open Questions:
 
 ---
 
-## 6. World Model & Plates
+## 6. Foundation Plates
 
-### 6.1 World model core (`world/model`, `world/plate_seed`, `world/plates`)
+### 6.1 Foundation plate core (`foundation/plate-seed`, `foundation/plates`)
 
 | JS Module | TS Equivalent | Status | Notes |
 |----------|---------------|--------|-------|
-| `world/model.js` | `packages/mapgen-core/src/world/model.ts` | Parity (TS+ evolution) | TS preserves Voronoi-based plate fields, winds, currents, and pressure, but refactors into a pure TS module with an injected `WorldModelConfig` provider and explicit `InitOptions`. It no longer reads tunables directly; `MapOrchestrator` binds the provider via `setConfigProvider`. |
-| `world/plate_seed.js` | `packages/mapgen-core/src/world/plate-seed.ts` | Parity (TS+ evolution) | TS `PlateSeedManager` captures Civ RNG state (via `globalThis.RandomImpl`), applies `seedMode`/`fixedSeed`/`seedOffset`, and finalizes a frozen `SeedSnapshot`. Behavior matches JS, with broader support for numeric seed fields. |
-| `world/plates.js` | `packages/mapgen-core/src/world/plates.ts` | Parity (TS+ evolution, engine decoupling) | TS ports the Voronoi/kd-tree-based plate generation into pure TypeScript, with an injectable or fallback Voronoi implementation. Physics (boundary type, boundary closeness, uplift/rift/shield fields) and boundary stats are maintained. |
+| `world/model.js` | Removed (M4) | Removed | WorldModel producer path replaced by step-owned foundation producers feeding `FoundationContext`. |
+| `world/plate_seed.js` | `packages/mapgen-core/src/foundation/plate-seed.ts` | Parity (TS+ evolution) | TS `PlateSeedManager` captures Civ RNG state (via `globalThis.RandomImpl`), applies `seedMode`/`fixedSeed`/`seedOffset`, and finalizes a frozen `SeedSnapshot`. Behavior matches JS, with broader support for numeric seed fields. |
+| `world/plates.js` | `packages/mapgen-core/src/foundation/plates.ts` | Parity (TS+ evolution, engine decoupling) | TS ports the Voronoi/kd-tree-based plate generation into pure TypeScript, with an injectable or fallback Voronoi implementation. Physics (boundary type, boundary closeness, uplift/rift/shield fields) and boundary stats are maintained. |
 
 Detractions / Open Questions:
 - TS includes a fallback Voronoi implementation when Civ7’s `VoronoiUtils` is unavailable, which may slightly change plate layouts outside the game. We should decide whether this is acceptable or if we want to require engine Voronoi for “canonical” generation.

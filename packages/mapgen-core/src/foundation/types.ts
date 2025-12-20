@@ -1,7 +1,7 @@
 /**
- * World Module Types
+ * Foundation Module Types
  *
- * Type definitions for plate tectonics, Voronoi diagrams, and world simulation.
+ * Type definitions for plate tectonics, Voronoi diagrams, and foundation simulation.
  * These types allow the algorithms to be tested independently of the game engine.
  */
 
@@ -210,40 +210,6 @@ export interface SeedSnapshot {
 export interface SeedCaptureResult {
   snapshot: Readonly<SeedSnapshot>;
   restore: (() => void) | null;
-}
-
-// ============================================================================
-// WorldModel State Types
-// ============================================================================
-
-/** Complete WorldModel state */
-export interface WorldModelState {
-  initialized: boolean;
-  width: number;
-  height: number;
-
-  // Plates
-  plateId: Int16Array | null;
-  boundaryCloseness: Uint8Array | null;
-  boundaryType: Uint8Array | null;
-  tectonicStress: Uint8Array | null;
-  upliftPotential: Uint8Array | null;
-  riftPotential: Uint8Array | null;
-  shieldStability: Uint8Array | null;
-  plateMovementU: Int8Array | null;
-  plateMovementV: Int8Array | null;
-  plateRotation: Int8Array | null;
-
-  // Dynamics
-  windU: Int8Array | null;
-  windV: Int8Array | null;
-  currentU: Int8Array | null;
-  currentV: Int8Array | null;
-  pressure: Uint8Array | null;
-
-  // Diagnostics
-  boundaryTree: unknown | null;
-  plateSeed: Readonly<SeedSnapshot> | null;
 }
 
 // ============================================================================

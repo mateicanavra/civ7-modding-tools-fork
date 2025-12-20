@@ -9,14 +9,14 @@
  * Uses lazy provider pattern for test isolation.
  */
 
-import type { ExtendedMapContext, StoryOverlaySnapshot } from "../../../core/types.js";
-import { inBounds, storyKey } from "../../../core/index.js";
-import { assertFoundationContext } from "../../../core/assertions.js";
-import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "../overlays/index.js";
-import { getDims } from "../utils/dims.js";
-import { isWaterAt } from "../utils/water.js";
+import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/types.js";
+import { inBounds, storyKey } from "@mapgen/core/index.js";
+import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
+import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
+import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
-import { getOrogenyCache, type OrogenyCacheInstance } from "./cache.js";
+import { getOrogenyCache, type OrogenyCacheInstance } from "@mapgen/domain/narrative/orogeny/cache.js";
 
 export interface OrogenySummary {
   belts: number;
