@@ -11,7 +11,6 @@ export interface LakesStepRuntime {
 export interface LakesStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createLakesStep(
@@ -23,7 +22,6 @@ export function createLakesStep(
     phase: M3_STANDARD_STAGE_PHASE.lakes,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       const { width, height } = context.dimensions;
       const iTilesPerLake = Math.max(10, (runtime.mapInfo.LakeGenerationFrequency ?? 5) * 2);

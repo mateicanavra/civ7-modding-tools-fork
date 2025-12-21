@@ -68,9 +68,8 @@ export interface MapGenStep {
   /**
    * Execute the logic.
    * @param context The shared blackboard (mutable).
-   * @param config Step-specific configuration from JSON.
    */
-  run(context: MapGenContext, config: Record<string, unknown>): Promise<void>;
+  run(context: MapGenContext): void | Promise<void>;
 }
 ```
 

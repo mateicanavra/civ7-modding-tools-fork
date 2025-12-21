@@ -12,7 +12,6 @@ import {
 
 export interface MorphologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  stageFlags: Record<string, boolean>;
   logPrefix: string;
   landmassCfg: LandmassConfig;
   mountainOptions: MountainsConfig;
@@ -25,8 +24,6 @@ export function registerMorphologyLayer(
   registry: StepRegistry<ExtendedMapContext>,
   runtime: MorphologyLayerRuntime
 ): void {
-  const stageFlags = runtime.stageFlags;
-
   registry.register(
     createLandmassPlatesStep(
       {
@@ -36,7 +33,6 @@ export function registerMorphologyLayer(
       },
       {
         ...runtime.getStageDescriptor("landmassPlates"),
-        shouldRun: () => stageFlags.landmassPlates,
       }
     )
   );
@@ -44,21 +40,18 @@ export function registerMorphologyLayer(
   registry.register(
     createCoastlinesStep({
       ...runtime.getStageDescriptor("coastlines"),
-      shouldRun: () => stageFlags.coastlines,
     })
   );
 
   registry.register(
     createRuggedCoastsStep({
       ...runtime.getStageDescriptor("ruggedCoasts"),
-      shouldRun: () => stageFlags.ruggedCoasts,
     })
   );
 
   registry.register(
     createIslandsStep({
       ...runtime.getStageDescriptor("islands"),
-      shouldRun: () => stageFlags.islands,
     })
   );
 
@@ -67,7 +60,6 @@ export function registerMorphologyLayer(
       { logPrefix: runtime.logPrefix, mountainOptions: runtime.mountainOptions },
       {
         ...runtime.getStageDescriptor("mountains"),
-        shouldRun: () => stageFlags.mountains,
       }
     )
   );
@@ -77,7 +69,6 @@ export function registerMorphologyLayer(
       { volcanoOptions: runtime.volcanoOptions },
       {
         ...runtime.getStageDescriptor("volcanoes"),
-        shouldRun: () => stageFlags.volcanoes,
       }
     )
   );

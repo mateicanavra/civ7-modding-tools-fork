@@ -12,7 +12,6 @@ import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 export interface BiomesStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
   afterRun?: (context: ExtendedMapContext) => void;
 }
 
@@ -22,7 +21,6 @@ export function createBiomesStep(options: BiomesStepOptions): MapGenStep<Extende
     phase: M3_STANDARD_STAGE_PHASE.biomes,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       const storyTags = getStoryTags(context);
       hydrateCorridorsStoryTags(getStoryOverlay(context, STORY_OVERLAY_KEYS.CORRIDORS), storyTags);

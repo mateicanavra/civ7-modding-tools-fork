@@ -18,8 +18,7 @@ import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
 export interface RiversStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
-  shouldRunPaleo?: (context: ExtendedMapContext) => boolean;  // ? Why is this here? Why is paleo unique? It should be treated the same as any other step.
+  storyEnabled: boolean;
   logPrefix?: string;
 }
 
@@ -29,7 +28,6 @@ export function createRiversStep(options: RiversStepOptions): MapGenStep<Extende
     phase: M3_STANDARD_STAGE_PHASE.rivers,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
       const { width, height } = context.dimensions;
@@ -69,7 +67,7 @@ export function createRiversStep(options: RiversStepOptions): MapGenStep<Extende
       publishHeightfieldArtifact(context);
       context.adapter.defineNamedRivers();
 
-      if (options.shouldRunPaleo?.(context) === true) {
+      if (options.storyEnabled && context.config.climate?.story?.paleo != null) {
         console.log(`${options.logPrefix ?? ""} Applying paleo hydrology (post-rivers)...`);
         storyTagClimatePaleo(context);
         publishClimateFieldArtifact(context);

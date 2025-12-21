@@ -11,8 +11,8 @@ import {
 
 export interface HydrologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  stageFlags: Record<string, boolean>;
   logPrefix: string;
+  storyEnabled: boolean;
   mapInfo: MapInfo;
   westContinent: ContinentBounds;
   eastContinent: ContinentBounds;
@@ -22,14 +22,11 @@ export function registerHydrologyLayer(
   registry: StepRegistry<ExtendedMapContext>,
   runtime: HydrologyLayerRuntime
 ): void {
-  const stageFlags = runtime.stageFlags;
-
   registry.register(
     createLakesStep(
       { mapInfo: runtime.mapInfo },
       {
         ...runtime.getStageDescriptor("lakes"),
-        shouldRun: () => stageFlags.lakes,
       }
     )
   );
@@ -39,7 +36,6 @@ export function registerHydrologyLayer(
       { westContinent: runtime.westContinent, eastContinent: runtime.eastContinent },
       {
         ...runtime.getStageDescriptor("climateBaseline"),
-        shouldRun: () => stageFlags.climateBaseline,
       }
     )
   );
@@ -47,16 +43,14 @@ export function registerHydrologyLayer(
   registry.register(
     createRiversStep({
       ...runtime.getStageDescriptor("rivers"),
-      shouldRun: () => stageFlags.rivers,
       logPrefix: runtime.logPrefix,
-      shouldRunPaleo: (context) => stageFlags.storySwatches && context.config.climate?.story?.paleo != null,
+      storyEnabled: runtime.storyEnabled,
     })
   );
 
   registry.register(
     createClimateRefineStep({
       ...runtime.getStageDescriptor("climateRefine"),
-      shouldRun: () => stageFlags.climateRefine,
     })
   );
 }

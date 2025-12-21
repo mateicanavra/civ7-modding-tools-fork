@@ -8,7 +8,6 @@ import { refineClimateEarthlike } from "@mapgen/domain/hydrology/climate/index.j
 export interface ClimateRefineStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createClimateRefineStep(
@@ -19,7 +18,6 @@ export function createClimateRefineStep(
     phase: M3_STANDARD_STAGE_PHASE.climateRefine,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       assertFoundationContext(context, "climateRefine");
       const { width, height } = context.dimensions;

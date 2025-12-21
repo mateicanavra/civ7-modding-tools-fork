@@ -27,13 +27,13 @@ Remove `stageFlags`/`shouldRun()` gating so **only** the recipe list controls wh
 - Update DEF-013 status text to reflect completion (preserve original context; no progress logs).
 
 ## Acceptance Criteria
-- [ ] `packages/mapgen-core/src/pipeline/types.ts` no longer includes `shouldRun` on `MapGenStep`.
-- [ ] `packages/mapgen-core/src/pipeline/PipelineExecutor.ts` executes the provided recipe list without filtering/skipping.
-- [ ] No pipeline step/wrapper accepts or sets `shouldRun`.
-- [ ] `packages/mapgen-core/src/orchestrator/task-graph.ts` does not compute or use `stageFlags`.
-- [ ] `packages/mapgen-core/src/orchestrator/stage-flags.ts` is deleted and has no remaining imports/usages.
-- [ ] `packages/mapgen-core/src/pipeline/standard-library.ts` and phase registrars do not depend on `runtime.stageFlags`.
-- [ ] Enablement filtering happens only when deriving the recipe list (transitional): `StepRegistry.getStandardRecipe(stageManifest)`.
+- [x] `packages/mapgen-core/src/pipeline/types.ts` no longer includes `shouldRun` on `MapGenStep`.
+- [x] `packages/mapgen-core/src/pipeline/PipelineExecutor.ts` executes the provided recipe list without filtering/skipping.
+- [x] No pipeline step/wrapper accepts or sets `shouldRun`.
+- [x] `packages/mapgen-core/src/orchestrator/task-graph.ts` does not compute or use `stageFlags`.
+- [x] `packages/mapgen-core/src/orchestrator/stage-flags.ts` is deleted and has no remaining imports/usages.
+- [x] `packages/mapgen-core/src/pipeline/standard-library.ts` and phase registrars do not depend on `runtime.stageFlags`.
+- [x] Enablement filtering happens only when deriving the recipe list (transitional): `StepRegistry.getStandardRecipe(stageManifest)`.
 - [ ] Build/typecheck/tests pass.
 
 ## Testing / Verification
@@ -58,6 +58,12 @@ Remove `stageFlags`/`shouldRun()` gating so **only** the recipe list controls wh
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+- [Implementation Details (Local Only)](#implementation-details-local-only)
+  - [Quick Navigation](#quick-navigation)
+  - [Scope Guardrails (repeat)](#scope-guardrails-repeat)
+  - [Primary Touchpoints (expected)](#primary-touchpoints-expected)
+  - [Notes on “story enabled” checks](#notes-on-story-enabled-checks)
+  - [Verification Notes](#verification-notes)
 
 ### Scope Guardrails (repeat)
 - This issue does **not** remove `stageManifest` / `STAGE_ORDER` as inputs. That cutover is DEF-004 / recipe→ExecutionPlan work.
@@ -85,3 +91,7 @@ Remove `stageFlags`/`shouldRun()` gating so **only** the recipe list controls wh
   - `const storyEnabled = recipe.some((id) => id.startsWith(\"story\"));`
   - Use `storyEnabled` anywhere the old code used `stageFlags.story*`.
   - Do not add any new runtime enablement mechanism beyond “is the step in the recipe list?”.
+
+### Verification Notes
+- `pnpm -C packages/mapgen-core check` fails locally: missing `@civ7/adapter` module/types.
+- `pnpm test:mapgen` fails locally for the same missing adapter dependency.

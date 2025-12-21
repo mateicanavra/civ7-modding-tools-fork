@@ -10,7 +10,6 @@ export interface StoryHotspotsStepRuntime {
 export interface StoryHotspotsStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createStoryHotspotsStep(
@@ -22,7 +21,6 @@ export function createStoryHotspotsStep(
     phase: M3_STANDARD_STAGE_PHASE.storyHotspots,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       console.log(`${runtime.logPrefix} Imprinting hotspot trails...`);
       const summary = storyTagHotspotTrails(context);

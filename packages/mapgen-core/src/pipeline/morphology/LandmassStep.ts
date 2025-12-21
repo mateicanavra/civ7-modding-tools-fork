@@ -25,7 +25,6 @@ export interface LandmassStepRuntime {
 export interface LandmassStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 function windowToContinentBounds(window: LandmassWindow, continent: number): ContinentBounds {
@@ -55,7 +54,6 @@ export function createLandmassPlatesStep(
     phase: M3_STANDARD_STAGE_PHASE.landmassPlates,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       assertFoundationContext(context, "landmassPlates");
       const { width, height } = context.dimensions;

@@ -10,7 +10,6 @@ export interface StoryRiftsStepRuntime {
 export interface StoryRiftsStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createStoryRiftsStep(
@@ -22,7 +21,6 @@ export function createStoryRiftsStep(
     phase: M3_STANDARD_STAGE_PHASE.storyRifts,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       console.log(`${runtime.logPrefix} Imprinting rift valleys...`);
       const summary = storyTagRiftValleys(context);

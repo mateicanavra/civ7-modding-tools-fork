@@ -5,7 +5,6 @@ import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/i
 export interface StoryCorridorsStepOptions {
   requires: readonly string[];
   provides: readonly string[];
-  shouldRun?: () => boolean;
 }
 
 export function createStoryCorridorsPreStep(
@@ -16,7 +15,6 @@ export function createStoryCorridorsPreStep(
     phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPre,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       storyTagStrategicCorridors(context, "preIslands");
     },
@@ -31,7 +29,6 @@ export function createStoryCorridorsPostStep(
     phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPost,
     requires: options.requires,
     provides: options.provides,
-    shouldRun: options.shouldRun ? () => options.shouldRun?.() === true : undefined,
     run: (context) => {
       storyTagStrategicCorridors(context, "postRivers");
     },

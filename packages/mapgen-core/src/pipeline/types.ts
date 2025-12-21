@@ -15,7 +15,6 @@ export interface MapGenStep<TContext = ExtendedMapContext> {
   phase: GenerationPhase;
   requires: readonly DependencyTag[];
   provides: readonly DependencyTag[];
-  shouldRun?: (context: TContext) => boolean;
   run: (context: TContext) => void | Promise<void>;
 }
 

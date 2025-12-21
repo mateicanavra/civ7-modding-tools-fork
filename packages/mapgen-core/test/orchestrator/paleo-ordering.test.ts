@@ -68,11 +68,9 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
   function runRecipe(config: ReturnType<typeof bootstrap>, adapter: ReturnType<typeof createMockAdapter>) {
     const ctx = createExtendedMapContext({ width, height }, adapter, config);
     const stageManifest = config.stageManifest!;
-
-    const stageFlags: Record<string, boolean> = {};
-    for (const stage of stageManifest.order ?? []) {
-      stageFlags[stage] = stageManifest.stages?.[stage]?.enabled !== false;
-    }
+    const registry = new StepRegistry<ExtendedMapContext>();
+    const recipe = registry.getStandardRecipe(stageManifest);
+    const storyEnabled = recipe.some((id) => id.startsWith("story"));
 
     const getStageDescriptor = (stageId: string) => {
       const desc = stageManifest.stages?.[stageId] ?? {};
@@ -81,17 +79,14 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
       return { requires, provides };
     };
 
-    const registry = new StepRegistry<ExtendedMapContext>();
-
     registerFoundationLayer(registry, {
       getStageDescriptor,
-      stageFlags,
       runFoundation: (context) => {
         runFoundationStage(context);
       },
     });
 
-    registerNarrativeLayer(registry, { getStageDescriptor, stageFlags, logPrefix: "[TEST]" });
+    registerNarrativeLayer(registry, { getStageDescriptor, logPrefix: "[TEST]" });
 
     const westContinent = { west: 0, east: Math.floor(width / 2), south: 0, north: height - 1, continent: 0 };
     const eastContinent = {
@@ -104,15 +99,14 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
 
     registerHydrologyLayer(registry, {
       getStageDescriptor,
-      stageFlags,
       logPrefix: "[TEST]",
+      storyEnabled,
       mapInfo,
       westContinent,
       eastContinent,
     });
 
     const executor = new PipelineExecutor(registry, { logPrefix: "[TEST]" });
-    const recipe = registry.getStandardRecipe(stageManifest);
     const { stepResults } = executor.execute(ctx, recipe);
 
     return { ctx, stepResults };

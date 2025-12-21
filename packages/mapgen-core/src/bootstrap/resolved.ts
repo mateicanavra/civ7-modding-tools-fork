@@ -23,7 +23,7 @@ import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 
 /**
  * Canonical stage execution order.
- * Derived from MapOrchestrator.resolveStageFlags() execution sequence.
+ * Derived from the pipeline's M3 stage ordering.
  */
 export const STAGE_ORDER = Object.freeze([
   "foundation",
@@ -159,11 +159,11 @@ export function validateOverrides(
 let _driftChecked = false;
 
 /**
- * Validate that orchestrator stage flags match STAGE_ORDER.
- * Call this once from the orchestrator to detect drift between
- * the resolver's stage list and the orchestrator's stage flags.
+ * Validate that a provided stage list matches STAGE_ORDER.
+ * Call this once from orchestration entrypoints to detect drift between
+ * the resolver's stage list and the current stage order.
  *
- * @param orchestratorStages - Keys from resolveStageFlags() object
+ * @param orchestratorStages - Stage ids from the current order source
  */
 export function validateStageDrift(orchestratorStages: string[]): void {
   if (_driftChecked) return;
