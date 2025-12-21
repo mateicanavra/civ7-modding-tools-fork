@@ -101,6 +101,10 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 
 - Outcome: Engine-surface prerequisites are explicit `effect:*` tags that participate in scheduling and are verified via adapter-backed postconditions; cross-step data is reified into `field:*` / `artifact:*`.
 - Issue doc: `../issues/M4-EFFECTS-VERIFICATION.md`
+- Child issue docs:
+  - `../issues/LOCAL-TBD-M4-effects-verification-1-effect-tags.md`
+  - `../issues/LOCAL-TBD-M4-effects-verification-2-biomes-features.md`
+  - `../issues/LOCAL-TBD-M4-effects-verification-3-remove-state-engine.md`
 - Acceptance:
   - `state:engine.*` is removed from the target registry/contract surface (migration-only compatibility, if any, is isolated and explicit).
   - Highest-risk engine effects (biomes/features/placement) have verifiable `effect:*` tags and minimal postcondition checks.

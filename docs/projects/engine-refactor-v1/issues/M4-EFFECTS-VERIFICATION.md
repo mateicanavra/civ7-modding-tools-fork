@@ -9,7 +9,7 @@ milestone: M4-tests-validation-cleanup
 assignees: []
 labels: [Architecture, Validation]
 parent: null
-children: []
+children: [LOCAL-TBD-M4-EFFECTS-1, LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-EFFECTS-3]
 blocked_by: [M4-PIPELINE-CUTOVER]
 blocked: []
 related_to: [CIV-47]
@@ -102,4 +102,3 @@ This issue closes DEF-008.
 ### 6) Update DEF-008 status
 
 - Mark DEF-008 resolved when the target registry no longer exposes `state:engine.*` and the high-risk effects are verified.
-
