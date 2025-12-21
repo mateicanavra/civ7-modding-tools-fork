@@ -61,6 +61,16 @@ This section describes the greenfield target with no legacy constraints.
   executor runs (validated, defaults resolved, bundles expanded, topo-sorted).
 - Canonical DAG scheduling (when DAG authoring is introduced): compile to a deterministic schedule via stable topological sort (tie-break rule is a separate decision tracked in the SPIKE).
 
+Observability baseline (accepted; 3.10):
+- Required outputs (always-on; stable contract):
+  - A deterministic `runId` and a stable “plan fingerprint” derived from `settings + recipe + step IDs + config`.
+  - Structured compile-time errors (recipe schema, unknown IDs, invalid tags/config) and structured runtime failures (missing deps, `effect:*` verification failures, step precondition failures).
+  - `ExecutionPlan` must carry enough normalized data to explain scheduling (resolved node IDs + per-node `requires/provides` + resolved per-node config).
+- Optional (dev/tracing):
+  - Rich tracing and diagnostics are implemented as optional sinks fed by a shared event model.
+  - Tracing must be toggleable globally and per step occurrence; toggles must not change execution semantics.
+  - Steps own domain-specific richness (events/summaries) but emit through the shared foundation.
+
 V1 recipe structure (sketch):
 - Recipe is versioned via `schemaVersion`.
 - Recipe references runnable atoms by registry step `id`.
@@ -277,7 +287,7 @@ flowchart LR
   class registry spine,accepted
 
   class engineBoundary boundary,accepted
-  class observability boundary,open
+  class observability boundary,accepted
 
   class foundation domain,open
   class story domain,open
@@ -296,7 +306,7 @@ flowchart LR
 | 3.7 | Placement inputs (explicit artifact vs engine reads) | open | §2.7 |
 | 3.8 | Artifact registry (names + schema ownership + versioning) | accepted | §2.8 |
 | 3.9 | Recipe schema (versioning + compatibility rules) | accepted | §2.9 |
-| 3.10 | Observability (required diagnostics + validation behavior) | open | §2.10 |
+| 3.10 | Observability (required diagnostics + validation behavior) | accepted | §2.10 |
 
 ---
 

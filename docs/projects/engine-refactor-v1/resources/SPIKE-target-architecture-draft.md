@@ -111,7 +111,7 @@ flowchart LR
   class registry spine,accepted
 
   class engineBoundary boundary,accepted
-  class observability boundary,open
+  class observability boundary,accepted
 
   class foundation domain,open
   class story domain,open
@@ -1005,26 +1005,119 @@ Compatibility policy axes (independent of the version format):
 
 ### 2.10 Observability (required diagnostics and validation behavior)
 
-Status: `open`
+**Status:** `accepted`
 
-Context:
-- Executor validates `artifact:*` and `field:*` dependencies, but there is no
-  explicit target for metrics or artifact lineage tracing.
+**Decision (one sentence):** What observability and validation outputs are
+mandatory for `ExecutionPlan` compilation and plan execution, vs optional
+dev-only diagnostics?
 
-Why this is ambiguous:
-- It is not clear which validations are mandatory vs optional.
+**Why this exists (how ambiguity was created):**
+- The current hybrid system has:
+  - ad-hoc dev diagnostics (e.g., foundation diagnostics toggles and ASCII logs)
+  - some runtime dependency gating (`requires`/`provides`) in the executor
+  - but no explicit “target baseline” for what must be observable and stable.
+- As we remove legacy indirection (manifest/stage config/flags), we need to
+  ensure we don’t lose the ability to explain *what ran, why, and with what
+  inputs*.
 
-Why this is a problem:
-- Hard to debug pipeline issues and confirm contract adherence.
-- No clear baseline for when validation failures should block execution.
+**Why it matters (what stays hard until resolved):**
+- Debuggability: without a baseline, regressions become “black box” failures.
+- Contract enforcement: we cannot claim “fail-fast” if we don’t define where and
+  how failures surface (compile-time vs runtime) and what evidence we preserve.
+- Migration: removing legacy paths (e.g., manifest-driven execution) is risky
+  unless the new system exposes comparable (or better) introspection.
+- Mod authoring: a recipe/registry model needs predictable feedback when a mod
+  introduces missing tags, invalid config, or contradictory scheduling edges.
 
-Simplest option:
-- Minimal required validation (dependency presence + schema checks) with
-  optional tracing hooks.
+**Evidence (what exists today):**
+- Dev diagnostics surface (legacy/stable-slice) lives in config:
+  - `packages/mapgen-core/src/config/schema.ts` (`FoundationDiagnosticsConfigSchema`)
+  - `packages/mapgen-core/src/orchestrator/task-graph.ts` (`initDevFlags`)
+- Timing utilities exist (not formally “required”):
+  - `packages/mapgen-core/src/dev/timing.ts`
+- Some metrics exist on context/types:
+  - `packages/mapgen-core/src/core/types.ts` (`GenerationMetrics`)
+- Runtime dependency validation/gating exists:
+  - `packages/mapgen-core/src/pipeline/PipelineExecutor.ts`
+  - `packages/mapgen-core/src/pipeline/tags.ts` (`validateDependencyTags`, satisfied-tag derivation)
 
-Why we might not simplify yet:
-- Instrumentation adds complexity and may need to align with engine tooling.
-- Required diagnostics depend on how strict the final contracts are.
+**Greenfield simplest (from scratch):**
+- A required, stable “run report” and “plan report”:
+  - compilation validates and returns a structured report (or throws)
+  - execution emits structured events and a final summary (or throws)
+- Optional, pluggable tracing sinks (console, JSON, perf spans) that consume the
+  same structured events.
+
+**Options:**
+- **A) Minimal required baseline + optional sinks (recommended)**
+  - Required:
+    - Compile-time validation errors are structured and fail-fast:
+      - unknown step IDs, invalid recipe schema, unknown config keys, invalid
+        tag IDs, duplicate IDs, missing required tags that are knowable at
+        compile-time.
+    - Execution-time failures are structured and stop the run:
+      - missing runtime-only deps, adapter verification failure for `effect:*`,
+        step-level precondition failures.
+    - Required artifacts:
+      - `ExecutionPlan` contains: normalized recipe, resolved step references,
+        resolved per-occurrence config, and declared `requires/provides` per node.
+      - A deterministic `runId` and a stable “plan fingerprint” (hash) derived
+        from `settings + recipe + step IDs + config` (for correlating logs).
+  - Optional (dev):
+    - step timing, memory usage, artifact snapshots, ASCII maps, histograms.
+  - Pros: least coupling; stable contract; easy to grow.
+  - Cons: you don’t get rich traces “for free”; you must opt in via sinks.
+
+- **B) Rich required tracing and lineage (always-on)**
+  - Required:
+    - always produce per-step timing + requires/provides satisfaction deltas
+    - always capture artifact lineage metadata (producer step, version, size)
+  - Pros: great debugging; supports tooling out of the box.
+  - Cons: higher overhead; forces storage decisions; risks overcommitting to
+    early shapes while many domains are still migrating.
+
+- **C) Dev-config-driven required baseline (status quo-like)**
+  - Required behavior depends on `settings.diagnostics` / dev flags.
+  - Pros: familiar to current workflow.
+  - Cons: conflicts with “fail-fast” and “no silent behavior”; tends to drift
+    into “required but only sometimes,” which creates ambiguous contracts.
+
+**What blocks simplification (truly necessary vs legacy-only):**
+- **Legacy-only:** continuing to rely on `MapGenConfig`/stage diagnostics toggles
+  as the “canonical” surface (target is `RunRequest` + recipe/plan).
+- **Truly necessary:** we need at least a stable minimal event model to support
+  debugging when mods/recipes become first-class.
+- Tooling alignment: if we want to integrate with engine tooling later, we
+  should avoid hardcoding a single logging backend now.
+
+**Accepted choice:** **Option A** — define a small required baseline for compile
++ run (structured errors, runId/plan fingerprint, plan report), with optional
+tracing/diagnostics sinks.
+
+Additional constraints (accepted):
+- Rich tracing must be toggleable:
+  - Globally and per step occurrence (e.g., “enable tracing only for step X”).
+  - Toggles must not change execution semantics (observability-only).
+- Richness is step-owned:
+  - Steps may emit domain-specific diagnostic events/summaries, but they must do
+    so through a shared foundation (a common event model + sink interface).
+
+**SPEC impact (accepted):**
+- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+  - Add a short “Observability baseline” subsection under the pipeline contract
+    describing required compile/run outputs (runId, plan fingerprint, structured
+    error shape, and optional tracing sinks).
+
+**ADR stub:**
+- ADR-TBD: Observability baseline and validation behavior
+
+**Migration note (current hybrid -> target):**
+- Preserve existing dev diagnostics (foundation ASCII/histograms) as optional
+  sinks fed by the new structured run events (don’t bake diagnostics into the
+  step contract).
+- Replace ad-hoc logs in orchestrator paths with:
+  - compile-time plan report (when building `ExecutionPlan`)
+  - execution events + final summary (when running the plan)
 
 ---
 
