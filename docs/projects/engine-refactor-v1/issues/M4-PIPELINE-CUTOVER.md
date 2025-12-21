@@ -9,7 +9,7 @@ milestone: M4-tests-validation-cleanup
 assignees: []
 labels: [Architecture, Cleanup]
 parent: null
-children: []
+children: [LOCAL-TBD-M4-PIPELINE-1, LOCAL-TBD-M4-PIPELINE-2, LOCAL-TBD-M4-PIPELINE-3]
 blocked_by: []
 blocked: []
 related_to: [CIV-41, CIV-48, CIV-53]
@@ -109,4 +109,3 @@ This issue closes DEF-004 as an implementation cutover (not a design question).
 
 - Update DEF-004 status to “resolved” once `stageManifest`/`STAGE_ORDER` are no longer used as ordering inputs.
 - Ensure M4 milestone links to this issue doc.
-

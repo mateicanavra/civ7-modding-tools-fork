@@ -88,6 +88,10 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 
 - Outcome: Runtime input is `RunRequest = { recipe, settings }`, compiled into an `ExecutionPlan` that the executor runs (no `stageManifest`/`STAGE_ORDER` ordering input).
 - Issue doc: `../issues/M4-PIPELINE-CUTOVER.md`
+- Child issue docs:
+  - `../issues/LOCAL-TBD-M4-pipeline-cutover-1-runrequest.md`
+  - `../issues/LOCAL-TBD-M4-pipeline-cutover-2-default-recipe.md`
+  - `../issues/LOCAL-TBD-M4-pipeline-cutover-3-remove-legacy-ordering.md`
 - Acceptance:
   - The default “standard” mod exposes a recipe that fully defines step order + enablement.
   - `stageManifest` and `STAGE_ORDER` are not required to run the pipeline.
