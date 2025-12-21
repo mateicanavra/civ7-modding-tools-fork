@@ -113,6 +113,9 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 
 - Outcome: Placement consumes explicit, TS-canonical inputs and publishes a verified `effect:engine.placementApplied`; no implicit engine reads act as the cross-step dependency surface.
 - Issue doc: `../issues/M4-PLACEMENT-INPUTS.md`
+- Child issue docs:
+  - `../issues/LOCAL-TBD-M4-placement-inputs-1-define-artifact.md`
+  - `../issues/LOCAL-TBD-M4-placement-inputs-2-cutover.md`
 - Acceptance:
   - `artifact:placementInputs@v1` exists in the registry with a safe demo payload.
   - A derive step produces it from explicit prerequisites.
@@ -122,6 +125,9 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 
 - Outcome: Typed `artifact:narrative.*` products are the canonical playability surface; StoryTags are removed as a dependency surface and caches are context-owned or eliminated.
 - Issue doc: `../issues/M4-NARRATIVE-CLEANUP.md`
+- Child issue docs:
+  - `../issues/LOCAL-TBD-M4-narrative-cleanup-1-artifacts.md`
+  - `../issues/LOCAL-TBD-M4-narrative-cleanup-2-remove-storytags.md`
 - Acceptance:
   - All in-repo consumers read (directly or via derived query helpers) from `artifact:narrative.*`.
   - StoryTags is either deleted or fenced to explicit compatibility tooling with no consumer correctness dependency.
@@ -130,6 +136,9 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 
 - Outcome: We can compile, execute, and debug the pipeline confidently.
 - Issue doc: `../issues/M4-SAFETY-NET.md`
+- Child issue docs:
+  - `../issues/LOCAL-TBD-M4-safety-net-1-observability.md`
+  - `../issues/LOCAL-TBD-M4-safety-net-2-smoke-tests.md`
 - Acceptance:
   - Step tracing can be toggled per step on a shared foundation; run id + plan fingerprint are emitted.
   - CI runs a small suite of smoke tests (stub adapter) plus at least one regression-style preset test.

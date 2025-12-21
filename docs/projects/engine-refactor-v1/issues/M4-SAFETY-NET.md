@@ -9,7 +9,7 @@ milestone: M4-tests-validation-cleanup
 assignees: []
 labels: [Testing, Observability]
 parent: null
-children: []
+children: [LOCAL-TBD-M4-SAFETY-1, LOCAL-TBD-M4-SAFETY-2]
 blocked_by: [M4-PIPELINE-CUTOVER]
 blocked: []
 related_to: [CIV-23]
@@ -97,4 +97,3 @@ M4 is heavy on contract/cutover work. We need a stable way to:
 ### 3) Update CIV-23
 
 - Re-scope CIV-23 to match the new boundary and remove references to legacy orchestration inputs and WorldModel lifecycle.
-

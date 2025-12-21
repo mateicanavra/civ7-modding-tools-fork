@@ -9,7 +9,7 @@ milestone: M4-tests-validation-cleanup
 assignees: []
 labels: [Architecture, Narrative]
 parent: null
-children: []
+children: [LOCAL-TBD-M4-NARRATIVE-1, LOCAL-TBD-M4-NARRATIVE-2]
 blocked_by: [M4-PIPELINE-CUTOVER]
 blocked: []
 related_to: [CIV-43]
@@ -88,4 +88,3 @@ This issue closes DEF-002 and DEF-012.
 ### 5) Update deferrals
 
 - Mark DEF-002 and DEF-012 resolved when StoryTags/caches are no longer correctness dependencies.
-

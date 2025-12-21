@@ -9,7 +9,7 @@ milestone: M4-tests-validation-cleanup
 assignees: []
 labels: [Architecture, Placement]
 parent: null
-children: []
+children: [LOCAL-TBD-M4-PLACEMENT-1, LOCAL-TBD-M4-PLACEMENT-2]
 blocked_by: [M4-PIPELINE-CUTOVER]
 blocked: []
 related_to: []
@@ -89,4 +89,3 @@ This issue closes DEF-006.
 ### 5) Update DEF-006 status
 
 - Mark DEF-006 resolved when placement’s inputs contract is explicit and testable.
-
