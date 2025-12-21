@@ -562,11 +562,14 @@ skips—only fail-fast validation/precondition errors.
 - The exact *payload shapes* of foundation artifacts may evolve during Phase B;
   what is locked now is the **contract direction**: no monolithic “foundation
   blob” as the canonical dependency surface.
-- Storage layout is explicitly *not* the contract:
-  - In target, new work should not depend on `ctx.foundation.*` at all.
-  - It is acceptable to group the discrete artifacts under
-    `context.artifacts.foundation.*` (or similar) for authoring ergonomics, as
-    long as `requires`/`provides` remain explicit per `artifact:*` tag.
+- Storage layout is **decided** (not deferred):
+  - Target canonical storage is nested under `context.artifacts.foundation.*`
+    (e.g., `context.artifacts.foundation.plateGraph`).
+  - `requires`/`provides` remain explicit per `artifact:*` tag (e.g.,
+    `artifact:foundation.plateGraph`); storage grouping must not reintroduce a
+    “blob dependency”.
+  - New work must not depend on `ctx.foundation.*` at all; `ctx.foundation` is
+    compatibility-only wiring to be removed under `DEF-014`.
 
 **What remains (implementation, not a decision):**
 - Phase B migration plan (tracked by `DEF-014`):
