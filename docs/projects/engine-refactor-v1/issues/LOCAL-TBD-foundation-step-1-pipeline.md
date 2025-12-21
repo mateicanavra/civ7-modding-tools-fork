@@ -19,15 +19,18 @@ related_to: []
 ## TL;DR
 Establish the "Skeleton" for the new Foundation Pipeline: define the `MapGenStep` interface, implement the `StepRegistry`, and update `MapGenContext` to split `fields` (Canvas) vs `artifacts` (Intermediate data).
 
+Update (2025-12-20):
+- `MapGenStep` no longer includes `shouldRun` (enablement is recipe-only; CIV-53 / decision 3.2).
+
 ## Deliverables
-- `MapGenStep` interface in `packages/mapgen-core/src/core/pipeline.ts` with `phase`, `requires`, `provides`, `shouldRun`.
+- `MapGenStep` interface in `packages/mapgen-core/src/core/pipeline.ts` with `phase`, `requires`, `provides`.
 - `StepRegistry` implementation (simple Map-based plugin system) in the same file.
 - Updated `MapGenContext` in `packages/mapgen-core/src/core/types.ts` with the new `artifacts` container.
 - Type definitions for `RegionMesh`, `CrustData`, `PlateGraph`, and `TectonicData` (can be empty interfaces initially).
 - Unit tests for the Registry (registration, lookup, error handling).
 
 ## Acceptance Criteria
-- [ ] `MapGenStep` interface is defined with `phase`, `requires`, `provides`, and `shouldRun` properties.
+- [ ] `MapGenStep` interface is defined with `phase`, `requires`, and `provides` properties.
 - [ ] `StepRegistry` allows registering and retrieving steps by string ID.
 - [ ] `MapGenContext` includes `artifacts` object with optional `mesh`, `crust`, `plateGraph`, and `tectonics` properties.
 - [ ] `RegionMesh`, `CrustData`, `PlateGraph`, and `TectonicData` interfaces match the Foundation Stage Architecture spec.
@@ -109,7 +112,6 @@ interface MapGenStep {
   phase: string;        // e.g., 'foundation'
   requires: string[];   // Artifact keys this step needs
   provides: string[];   // Artifact keys this step produces
-  shouldRun(ctx: MapGenContext): boolean;
   run(ctx: MapGenContext): void | Promise<void>;
 }
 ```

@@ -2,6 +2,8 @@
 
 > **Target vs Current (post‑M2):** This doc describes the target Foundation design. The current M2 stable slice is an orchestrator‑centric bridge and is intentionally transient while M3 introduces step/task‑graph execution.
 
+> **Config note:** Some sections still reference legacy `MapGenConfig` slices. The current target drafts supersede that: boundary input is `RunRequest = { recipe, settings }`, and step-local knobs are validated per step (no global config mega-object). See `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`.
+
 ## 1. Overview
 
 The **Foundation Stage** is the first major phase of the map generation pipeline. Its responsibility is to construct the physical "board" (Mesh), the geological material (Crust), and the tectonic "pieces" (Plates) that drive all downstream morphology.

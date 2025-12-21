@@ -13,6 +13,8 @@ focused on fixing the TypeScript migration's "null script" behavior and restorin
 runtime correctness: CIV-15 (Adapter Boundary & Orchestrator), CIV-16 (FoundationContext
 consumption), and related follow-ups.
 
+> Update (2025-12-20): This review predates CIV-53/DEF-013. Any references to `stageFlags` / `resolveStageFlags()` / per-step `shouldRun()` are historical only; enablement is now single-sourced from the derived recipe list and `MapGenStep` no longer includes `shouldRun`.
+
 ## Testing Strategy Note
 
 During this remediation phase, we prioritize **shipping working fixes quickly** over

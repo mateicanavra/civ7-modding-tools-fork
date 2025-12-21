@@ -20,7 +20,7 @@ This is a "single place to point" for M4 planning and follow-up refactors.
 
 We are in a transitional M3/M4 slice:
 - Task Graph is in place and MapOrchestrator now runs it by default.
-- Stage enablement is still derived through multiple layers (`stageConfig` → `stageManifest` → `stageFlags` → `shouldRun()`), causing duplicated gating.
+- Stage enablement is derived from `stageConfig` → `stageManifest` and applied when deriving the recipe list (transitional; `DEF-004`).
 - Story data is still represented twice (tags + overlays) for compatibility; consumers re-hydrate tags from overlays.
 - Foundation output is still a monolithic `FoundationContext` snapshot (compatibility boundary), not the target multi-artifact foundation graph.
 - Engine-surface state (`state:engine.*`) is trusted rather than runtime-verified.
@@ -63,14 +63,11 @@ Doc hygiene ambiguity:
 From `docs/system/libs/mapgen/architecture.md`:
 - Pipeline is a Task Graph with phases: `setup`, `foundation`, `morphology`,
   `hydrology`, `ecology`, `placement`.
-- Steps implement `MapGenStep` (id, phase, requires, provides, shouldRun, run)
-  and are registered via `StepRegistry`.
-- Recipe (JSON) defines order; `MapGenConfig` defines parameters and is
-  schema-validated; unknown keys rejected; `config.extensions` for plugins.
+- Steps implement `MapGenStep` (id, phase, requires, provides, run) and are registered via `StepRegistry`.
+- Target drafting now treats `RunRequest = { recipe, settings }` as the boundary input (not `MapGenConfig`), with step-owned config schemas supplied via per-occurrence recipe config.
 - `MapGenContext` owns `fields` (mutable canvas) and `artifacts` (intermediate
   data); `EngineAdapter` is injected, no globals.
-- Dependency tags include `artifact:*`, `field:*`, and `state:*`; `provides`
-  are monotonic (no re-provide unless refreshing).
+- Dependency tags include `artifact:*`, `field:*`, and `effect:*` (schedulable); `state:engine.*` is transitional-only.
 - Fail-fast: no Null Adapter, dependency validation required.
 
 From phase docs (foundation/morphology/hydrology/ecology/narrative):
@@ -101,12 +98,10 @@ spread across project docs or implied, not canonical.
 
 ### 2.4 Target architecture gaps and unresolved components
 
-Explicit gaps / open questions in target docs:
-- No canonical recipe schema or versioning rules (order, overrides, per-step
-  config precedence, or resolution model).
-- No canonical artifact registry (names + shapes); `artifact:foundation`,
-  `context.artifacts.mesh`, `context.foundation`, and `FoundationContext`
-  are all referenced across docs.
+Explicit gaps / open questions in target docs (as of 2025-12-20):
+- Foundation surface is still `FoundationContext` as a compatibility snapshot; discrete foundation artifacts are not yet locked (3.3 open / DEF-014).
+- Story contract is still split (overlays + tags) for compatibility; canonical schema + lifecycle are not locked (3.4 open / DEF-002/DEF-012).
+- Climate ownership and placement inputs are still not locked (3.6/3.7 open / DEF-006/DEF-010).
 - `MapGenContext.fields` is not complete or consistent (no `resources`, `names`,
   or `placement` buffers defined in the architecture doc).
 - Step ID taxonomy is aspirational but not locked (e.g., `morphology.*`,
@@ -115,23 +110,18 @@ Explicit gaps / open questions in target docs:
   dedicated target docs or artifact contracts.
 - Narrative contract is described qualitatively, but no canonical schema for
   story overlays/tags or their lifecycle exists.
-- Engine boundary policy is not fully pinned: are `state:engine.*` tags
-  permanent, or are fields/artifacts the long-term canonical surface?
+- Engine boundary policy is now pinned in target drafts (adapter-only; reification-first; verified `effect:*`), but enforcement work remains (`state:engine.*` → `effect:*` migration; DEF-008).
 - Diagnostics/observability targets are not specified in the system docs
   (per-stage metrics, artifact inspection, or contract validation).
 
 ### 2.5 This-or-this ambiguities (legacy vs target vs shim)
 
 Flagging direct either/or choices that remain unresolved:
-- **Ordering:** recipe-driven pipeline **or** `STAGE_ORDER` + `stageManifest`
-  + `stageFlags` (both currently described).
-- **Enablement:** per-step `shouldRun()` gating **or** recipe-only enablement.
+- **Ordering cutover:** target recipe/ExecutionPlan ordering **or** continued M3 ordering via `STAGE_ORDER` + `stageManifest` (DEF-004).
 - **Foundation shape:** `FoundationContext` snapshot **or** discrete artifacts
   (`mesh`, `crust`, `plateGraph`, `tectonics`) as the canonical surface.
 - **Story model:** `StoryTags` **or** `artifact:storyOverlays` /
   `context.artifacts.story` (no single declared schema).
-- **Engine boundary:** `state:engine.*` tags as long-term contracts **or**
-  transitional wrappers while fields/artifacts become canonical.
 - **Climate ownership:** `ClimateField` as canonical rainfall **or**
   engine-surface rainfall as the real source of truth.
 - **Context shape:** `ctx.foundation` vs `context.artifacts.*` naming; fields
@@ -140,22 +130,18 @@ Flagging direct either/or choices that remain unresolved:
 ### 2.6 Decision log stubs (to promote into ADRs)
 
 Stub list only (to be expanded into ADRs with decision, rationale, and impact):
-- **ADR-TBD: Pipeline ordering source of truth** — recipe-driven order vs
-  `STAGE_ORDER` + `stageManifest`.
-- **ADR-TBD: Step enablement model** — `shouldRun()` gating vs recipe-only
-  enablement.
+- **ADR-TBD: Pipeline ordering source of truth** — accepted in target drafts (3.1); promote to ADR.
+- **ADR-TBD: Step enablement model** — accepted in target drafts (3.2); promote to ADR.
 - **ADR-TBD: Foundation artifact contract** — `FoundationContext` snapshot vs
   discrete artifacts (`mesh`, `crust`, `plateGraph`, `tectonics`).
 - **ADR-TBD: Story data model** — `StoryTags` vs `storyOverlays` /
   `context.artifacts.story` as the canonical surface.
-- **ADR-TBD: Engine boundary policy** — `state:engine.*` tags as long-term
-  contracts vs transitional wrapper only.
+- **ADR-TBD: Engine boundary policy** — accepted in target drafts (3.5); promote to ADR.
 - **ADR-TBD: Climate/Rainfall ownership** — `ClimateField` artifact as canonical
   vs engine-surface rainfall as source of truth.
 - **ADR-TBD: Context schema ownership** — explicit `fields`/`artifacts` registry
   vs implicit `ctx.*` usage in steps.
-- **ADR-TBD: Recipe schema versioning** — versioned schema + compatibility
-  rules vs ad-hoc migration per release.
+- **ADR-TBD: Recipe schema versioning** — accepted in target drafts (3.9); promote to ADR.
 
 ### 2.7 Do we have a full map of the current hybrid architecture?
 
@@ -174,8 +160,8 @@ documented as a whole. The diagram below is a best-effort map of the lynchpins.
 
 | Area | Target (canonical) | Current (M3/M4 slice) | Delta / Impact | Deferral / Blocker |
 | --- | --- | --- | --- | --- |
-| Orchestration boundary | Thin entrypoint; steps publish artifacts/fields; minimal runtime wiring | Orchestrator passes a large runtime bundle into `registerStandardLibrary()` and resets global story caches | Hidden cross-step coupling; step contracts obscured by runtime side-channel | DEF-013 (enablement + hygiene), DEF-012 (story state) |
-| Recipe / enablement | Mod/UI-facing recipe defines order + per-step config; single enablement source | `STAGE_ORDER` + `stageManifest` drives recipe; each step also has `shouldRun()` gated by stageFlags | Duplicate gating paths; drift risk; unclear source of truth | DEF-004, DEF-013 |
+| Orchestration boundary | Thin entrypoint; steps publish artifacts/fields; minimal runtime wiring | Orchestrator passes a large runtime bundle into `registerStandardLibrary()` and resets global story caches | Hidden cross-step coupling; step contracts obscured by runtime side-channel | DEF-012 (story state), DEF-004 (recipe cutover) |
+| Recipe / enablement | Mod/UI-facing recipe defines order + per-step config; single enablement source | `STAGE_ORDER` + `stageManifest` drives the derived recipe list (enablement filtering happens only when deriving the list; no `shouldRun`/stageFlags) | Still no mod-facing recipe authoring surface; ordering/enablement remain stage-boolean-driven (bridge) | DEF-004 |
 | Stage config plumbing | Direct recipe surface (no stageConfig air gap) | `stageConfig` booleans are resolved into `stageManifest` (bridge layer) | Added indirection; requires drift checks | M3 locked decision (CIV-41) |
 | Story outputs | Context-owned story artifact(s); no globals; consumers read overlays directly | StoryTags + overlays both exist; tags are produced and also hydrated from overlays in consumers | Duplicate representation; risk of semantic drift | DEF-002, DEF-003, DEF-012 |
 | Story registry | Context-scoped overlays only | Overlay registry has compatibility path (context map; no enforced single owner) | Global fallback risk and unclear ownership | DEF-003 |
@@ -235,7 +221,6 @@ flowchart TD
   taskGraph --> ctxCreate[createExtendedMapContext]:::infra
   ctxCreate --> ctx[ExtendedMapContext]:::infra
 
-  taskGraph --> stageFlags[resolveStageFlags]:::hybrid
   taskGraph --> manifestRef[config stageManifest]:::hybrid
 
   taskGraph --> runtimeBundle[StandardLibraryRuntime]:::hybrid
@@ -263,7 +248,6 @@ flowchart TD
   recipe --> executor[PipelineExecutor]:::infra
   executor --> steps[MapGenStep wrappers]:::infra
 
-  stageFlags -- shouldRun --> steps
   manifestRef -- requires/provides --> steps
   tags[M3_DEPENDENCY_TAGS]:::hybrid --> steps
   tags --> executor
@@ -476,9 +460,7 @@ flowchart TD
   StepRegistry --> Steps[MapGenStep wrappers]
 
   StageConfig --> StageManifest
-  StageManifest --> StageFlags
   StageManifest --> TaskGraph
-  StageFlags -->|shouldRun| Steps
 
   Steps --> Context[MapGenContext fields + artifacts]
   Steps --> EngineState[Engine surface state]
@@ -492,7 +474,6 @@ flowchart TD
 
   subgraph Compat_or_remove
     StageManifest
-    StageFlags
     RuntimeBundle
     StoryTags
     FoundationSnapshot
@@ -503,7 +484,7 @@ Target sketch (what this collapses toward):
 
 ```mermaid
 flowchart TD
-  Recipe[Recipe + MapGenConfig] --> Pipeline[PipelineExecutor]
+  RunRequest[RunRequest recipe + settings] --> Pipeline[PipelineExecutor]
   Pipeline --> Steps[MapGenSteps]
   Steps --> Context[Artifacts + Fields]
   Steps --> EngineState[Engine writes narrowed]
@@ -519,18 +500,16 @@ flowchart TD
 Chain:
 1. `bootstrap()` captures `stageConfig`
 2. `resolveStageManifest()` expands into `stageManifest` (with `STAGE_ORDER`)
-3. `resolveStageFlags()` reads `stageManifest` into `stageFlags`
-4. Steps have `shouldRun()` checks against `stageFlags`
+3. `StepRegistry.getStandardRecipe(stageManifest)` derives the recipe list by filtering `stageManifest.order` via stage enablement
 
 Symptoms:
-- Two gating mechanisms (`stageManifest` filtering + `shouldRun()`).
+- Enablement is still stage-boolean driven in M3 (`stageConfig` → `stageManifest`) rather than a mod-facing recipe authoring surface (DEF-004).
 - `validateStageDrift()` exists to warn about list drift.
 - Mod-facing config is still stage booleans, not a true recipe.
 
 Key refs:
 - `packages/mapgen-core/src/bootstrap/entry.ts`
 - `packages/mapgen-core/src/bootstrap/resolved.ts`
-- `packages/mapgen-core/src/orchestrator/stage-flags.ts`
 - `packages/mapgen-core/src/pipeline/StepRegistry.ts`
 - `docs/projects/engine-refactor-v1/issues/CIV-41-task-graph-mvp.md`
 - DEF-004, DEF-013
@@ -624,9 +603,8 @@ Key refs:
 These are the primary change levers that reduce indirection and move us to target architecture:
 
 1. **Enablement consolidation**  
-   Choose a single source of truth for enablement. Options:
-   - Derive recipe from `stageManifest` and remove per-step `shouldRun()`.
-   - Replace `stageManifest` with a recipe surface and simplify `stageConfig`.
+   Resolved in-repo (CIV-53 / DEF-013): recipe list is the sole enablement source; no `shouldRun`/stageFlags gating.
+   Next lever is the **ordering cutover**: replace `STAGE_ORDER` + `stageManifest` with a mod-facing recipe surface (DEF-004).
 
 2. **Story state consolidation**  
    Pick a canonical story artifact (`artifact:storyOverlays` or explicit `artifact:storyState`) and migrate consumers; retire StoryTags compatibility.

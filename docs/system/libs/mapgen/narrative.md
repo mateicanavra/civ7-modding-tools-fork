@@ -2,6 +2,8 @@
 
 > **Status:** Target (post‑M3). M3 is wrap‑first: legacy/engine behavior is wrapped to preserve map quality; the algorithms described here are not required for M3.
 
+> **Config note:** Some sections still reference legacy `MapGenConfig` slices. The current target drafts supersede that: boundary input is `RunRequest = { recipe, settings }`, and step-local knobs are validated per step (no global config mega-object). See `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`.
+
 ## 1. Overview
 
 The **Narrative System** is the "Soul" of the map generation engine. While the physical layers (Foundation, Morphology, Hydrology) determine *what* the world looks like, the Narrative system determines *why* it matters and *how* it feels.

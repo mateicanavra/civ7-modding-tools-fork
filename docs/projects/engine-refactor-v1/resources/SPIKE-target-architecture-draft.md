@@ -110,7 +110,7 @@ flowchart LR
   class enablement spine,accepted
   class registry spine,accepted
 
-  class engineBoundary boundary,open
+  class engineBoundary boundary,accepted
   class observability boundary,open
 
   class foundation domain,open
@@ -164,7 +164,7 @@ ordering in the target system?
 **Current mapping (today) vs target intent (what we mean when we say "recipe"):**
 - Today:
   - Ordering: `STAGE_ORDER` -> `StageManifest.order` -> "recipe" list (stage IDs).
-  - Enablement: `stageConfig`/`stageManifest` flags plus per-step guards (`shouldRun`) and other legacy gating (transitional only; removed in the target contract).
+  - Enablement: `stageConfig`/`stageManifest` flags (transitional bridge; in-repo `stageFlags`/`shouldRun()` gating is removed as of 2025-12-20).
   - Topology: mostly linear; dependency metadata is carried in a "dependency spine" derived from `M3_STAGE_DEPENDENCY_SPINE`, not owned exclusively by step code.
   - Registry: used, but assumes a standard ordered list built from `stageManifest.order`.
 - Target intent (greenfield):
@@ -439,40 +439,30 @@ into `ExecutionPlan`; steps have no `shouldRun` contract and there are no silent
 skips—only fail-fast validation/precondition errors.
 
 **Why this exists (how ambiguity was created):**
-- Phase A/M3 kept enablement split across multiple transitional surfaces:
-  - `stageConfig` → `stageManifest` → `StageFlags` (`packages/mapgen-core/src/orchestrator/stage-flags.ts`)
-  - `StageManifest.order` filtered by `enabled` becomes the “standard recipe”
-    (`packages/mapgen-core/src/pipeline/StepRegistry.ts#getStandardRecipe`)
-  - the executor *also* filters by `MapGenStep.shouldRun` at runtime
-    (`packages/mapgen-core/src/pipeline/PipelineExecutor.ts`)
-- Many registered steps are authored with `shouldRun: () => runtime.stageFlags.<id>`
-  (e.g. `packages/mapgen-core/src/pipeline/*/index.ts`), preserving legacy “stage enablement”
-  behavior even after recipe-like ordering exists.
+- Historically (Phase A/M3), enablement was split across multiple transitional surfaces:
+  - `stageConfig` → `stageManifest` (the “config air gap” bridge)
+  - derived “standard recipe” list from `StageManifest.order` filtered by enablement
+  - (previously) additional stage-driven gating via `stageFlags` + per-step `shouldRun()`
 - `DEF-013` explicitly deferred “enablement consolidation” to avoid destabilizing the Phase A worldmodel cut.
+- As of 2025-12-20, `stageFlags`/`shouldRun()` gating is removed in-repo (CIV-53 / DEF-013 resolved); enablement is single-sourced via the recipe list.
 
 **Why it matters (what stays hard until resolved):**
-- **Hidden skips break contract validation:** a step can be included/enabled by
-  the authored composition but skipped by `shouldRun`, so `requires/provides`
-  validation can’t be treated as complete.
-- **Reproducibility + introspection suffer:** “what ran” is not knowable from the
-  recipe alone; you must replay runtime state to know which steps executed.
-- **More indirection persists:** we keep `stageFlags` and stage-name plumbing
-  alive solely to support enablement, which blocks simplifying the orchestration
-  boundary and making the registry + recipe authoritative.
+- **Historically, hidden skips broke contract validation:** when enablement lived
+  partly in `shouldRun()`, `requires/provides` validation could not be treated as complete.
+- **Historically, reproducibility + introspection suffered:** “what ran” was not
+  knowable from the recipe list alone; runtime flags affected execution.
+- **Even after enablement consolidation, ordering is still bridged:** M3 still
+  routes through `stageConfig`/`stageManifest`/`STAGE_ORDER` (`DEF-004`), which keeps
+  extra plumbing in the orchestration boundary until the recipe cutover is complete.
 
 **Evidence (what we do today):**
-- Double gating exists:
-  - `StepRegistry#getStandardRecipe` filters by `StageManifest.stages[<id>].enabled`.
-  - `PipelineExecutor` filters again via `.filter(step.shouldRun ? step.shouldRun(ctx) : true)`.
-- Many “steps” are effectively stage wrappers with `shouldRun` mapped to stage flags:
-  - `packages/mapgen-core/src/pipeline/morphology/index.ts`
-  - `packages/mapgen-core/src/pipeline/narrative/index.ts`
-  - `packages/mapgen-core/src/pipeline/ecology/index.ts`
-  - `packages/mapgen-core/src/pipeline/placement/index.ts`
-- Some steps contain additional *internal* conditional behavior beyond stage enablement
-  (example: rivers paleo tagging):
-  - `packages/mapgen-core/src/pipeline/hydrology/RiversStep.ts` applies paleo
-    behavior conditionally (`shouldRunPaleo`) and can publish additional artifacts.
+- Recipe-list enablement is now single-sourced:
+  - `packages/mapgen-core/src/pipeline/StepRegistry.ts#getStandardRecipe` derives the ordered
+    step list from `StageManifest.order` filtered by stage enablement (`DEF-004` bridge).
+  - `packages/mapgen-core/src/pipeline/PipelineExecutor.ts` executes the provided list as-is
+    (no `shouldRun`, no silent skipping).
+- `MapGenStep` no longer includes `shouldRun`:
+  - `packages/mapgen-core/src/pipeline/types.ts`
 
 **Greenfield simplest (pure target):**
 - **Enablement is authored, not inferred:** the recipe (composition) is the only
@@ -530,12 +520,10 @@ skips—only fail-fast validation/precondition errors.
   - Phase 1 (bridge): generate `recipe.steps[]` from `stageManifest.order` and
     embed `enabled` per occurrence from `stageManifest.stages[<id>].enabled`.
   - Phase 2 (cutover): compile enablement into `ExecutionPlan` (plan contains only
-    enabled nodes) and remove `PipelineExecutor` filtering by `shouldRun`.
-  - Phase 3 (cleanup): delete `stageFlags` and stage-based enablement plumbing;
-    remove `shouldRun` as an enablement mechanism from the standard mod package.
-  - Ongoing refactor requirement: split/variant-ize steps with conditional
-    sub-effects that change outputs (e.g., rivers paleo tagging) so that behavior
-    is explicit in the plan rather than hidden inside `run()`.
+    enabled nodes) and remove any executor-level self-filtering.
+  - Phase 3 (cleanup): delete stage-based enablement plumbing and any step-level
+    enablement hooks.
+- In-repo status (2025-12-20): Phase 2–3 are complete (CIV-53 / DEF-013 resolved).
 
 ### 2.3 Foundation surface (discrete artifacts vs `FoundationContext`)
 
@@ -588,144 +576,51 @@ Why we might not simplify yet:
 - Legacy consumers still rely on `StoryTags` and global registry access.
 - The final schema for overlays/tags is not locked.
 
-### 2.5 Engine boundary (`state:engine.*` canonical vs transitional)
+### 2.5 Engine boundary (adapter-only; reification-first; verified `effect:*`)
 
-**Status:** `open`
+**Status:** `accepted`
 
-**Decision (one sentence):** What is the canonical engine boundary contract in
-the target system: which engine state signals (if any) may participate in
-dependency scheduling (`requires/provides`), how they are verified (if at all),
-and what replaces today’s trusted `state:engine.*` tags?
+**Decision (one sentence):** The Civ engine is an I/O surface behind
+`EngineAdapter`; cross-step dependencies must flow through reified `field:*` /
+`artifact:*` products and verified, schedulable `effect:*` tags (with
+`state:engine.*` treated as transitional-only wiring).
 
-**What is already settled (do not re-open in this packet):**
-- **Adapter-only boundary:** core pipeline code talks to the engine only through
-  `EngineAdapter` (no direct `GameplayMap`/`TerrainBuilder` calls in mapgen-core).
-  - Evidence: `docs/projects/engine-refactor-v1/issues/CIV-47-adapter-collapse.md`
-- **Canonical dependency language includes effects:** `effect:*` is a first-class
-  dependency tag namespace (registry-visible, collision-checked) alongside
-  `field:*` and `artifact:*` (decision `2.8` accepted).
-- **Fail-fast execution:** enablement is recipe-only and there are no silent
-  skips/guards (decision `2.2` accepted). Any engine precondition failures must
-  be loud runtime errors (never “skip”).
-
-**Why this exists (how ambiguity was created):**
-- M3 adopted dependency tags but kept a transitional engine state namespace:
-  - `packages/mapgen-core/src/pipeline/tags.ts` defines `state:engine.*` tags and
-    treats them as “satisfied” via an internal set (not verified).
-  - `packages/mapgen-core/src/config/schema.ts` documents `state:engine.*` as
-    trusted assertions (aligns with `DEF-008`).
-- Several steps use `state:engine.*` as scheduling dependencies for “engine-side
-  happened” signals (coastlines/biomes/features/placement), but those signals
-  are not reified as artifacts and are not adapter-verifiable today.
-  - Evidence: `packages/mapgen-core/src/pipeline/standard.ts` (`M3_STAGE_DEPENDENCY_SPINE`)
-
-**Why it matters (what stays hard until resolved):**
-- **Contract correctness:** if engine-side invariants are represented only as
-  “trusted” state tags, plan validation can succeed while the engine surface is
-  inconsistent (then downstream steps fail unpredictably).
-- **Engine-less determinism + testing:** we cannot define which steps are truly
-  engine-coupled vs engine-optional unless we have a clear policy for engine
-  reads/writes and for what “engine-side happened” means in the dependency language.
-- **Registry semantics:** `effect:*` exists as a namespace, but the policy for
-  whether effects can participate in scheduling (and under what constraints) is
-  not fully articulated; without this, `requires/provides` semantics remain muddy.
+**Accepted policy (enforceable rules):**
+- **Adapter-only:** steps must not touch engine globals directly; all reads/writes
+  go through `context.adapter` (CIV-47).
+- **Effects schedule:** `effect:*` is a first-class dependency namespace and is
+  valid in `requires`/`provides` as true scheduling edges (3.8).
+- **No unverified schedulable effects:** any `effect:*` used for scheduling must
+  be runtime-verifiable (typically adapter postcondition checks). There is no
+  “asserted but unverified” category for schedulable engine signals.
+- **Reification-first:** pipeline state is canonical in TS-owned `field:*` /
+  `artifact:*`. If a step reads engine state that later steps depend on, it must
+  publish (reify) the corresponding `field:*` / `artifact:*` onto the context.
+- **Engine mutations must be reflected back:** if a step mutates the engine and
+  later steps depend on the results, the step must either:
+  - compute/carry authoritative data in TS first and publish to engine (“publish step”), or
+  - mutate engine then reify the relevant results back into `field:*` / `artifact:*`
+    (often as a separate “reify step”).
+- **`state:engine.*` is transitional-only:** migrate to `effect:engine.*` +
+  reified products; do not enshrine `state:engine.*` as a permanent namespace
+  (aligns with `docs/projects/engine-refactor-v1/deferrals.md` DEF-008).
+- **Escape hatch (rare, transitional):** engine-first steps may remain during
+  migration for parity/correctness (e.g., Civ scripts), but must not introduce
+  implicit cross-step dependencies on opaque engine state. If any downstream
+  step depends on a value, that value must be reified.
 
 **Evidence (current code + docs):**
 - Transitional state tags and lack of verification:
-  - `packages/mapgen-core/src/pipeline/tags.ts` (`M3_DEPENDENCY_TAGS.state`,
-    `isDependencyTagSatisfied()` defaults to “trusted set” for `state:*`).
+  - `packages/mapgen-core/src/pipeline/tags.ts` (`state:engine.*` tags are trusted).
   - `docs/projects/engine-refactor-v1/deferrals.md` `DEF-008`.
-- Steps depend on engine-state tags for ordering:
-  - `packages/mapgen-core/src/pipeline/standard.ts` uses `state:engine.*` for
-    `requires/provides` across many steps.
-- M3 explicitly preserved some engine-state contracts:
-  - `docs/projects/engine-refactor-v1/issues/CIV-42-hydrology-products.md`
-    locks `state:engine.riversModeled` for “engine rivers exist on the surface”
-    in M3 (for adjacency mask derivation).
-- Target docs already imply a direction but stop short of locking policy:
-  - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
-    includes `effect:engine.*` examples and says “engine state is not canonical
-    (pending 3.5)”.
-
-**Greenfield simplest (pure target):**
-- Engine state is **never** a canonical dependency surface:
-  - if a downstream step needs data, that data is a `field:*`/`artifact:*`.
-  - if a downstream step needs to know an engine-side publish happened, that is
-    represented as an `effect:*` emitted by an explicit publish step.
-- Engine reads happen only through adapter APIs and are minimized:
-  - the canonical pipeline is artifact/field-driven,
-  - publish steps are the only place engine writes happen,
-  - any required engine reads are either reified into artifacts (preferred) or
-    become explicit hard runtime preconditions.
-
-**What is *actually* still open (the choices we need to make):**
-1) **Scheduling semantics for engine-side signals:**
-   - Are `effect:*` tags allowed in `requires/provides` as true scheduling edges,
-     or are they tooling/observability-only?
-2) **Verification posture for engine-side signals:**
-   - Do we require adapter-backed verification for any engine-side signal that
-     participates in scheduling, or do we allow “asserted effects” (unverified)
-     as long as failures are loud downstream?
-3) **Fate of `state:engine.*`:**
-   - Is `state:engine.*`:
-     - banned in the target (transitional-only, with a sunset plan), or
-     - kept as a permanent namespace with an adapter-verification requirement?
-
-**Options (target policy):**
-- **A) No `state:*` in target; engine publishes are `effect:*`; scheduling allowed; verification best-effort**
-  - Replace `state:engine.*` with `effect:engine.*` for “publish happened”.
-  - Effects may participate in scheduling when they represent an explicit publish step.
-  - Verification is adapter-backed only when it is cheap and reliable; otherwise
-    the effect is an asserted contract and downstream steps must fail loudly if
-    engine state is incompatible.
-  - Pros: aligns with “effects are first-class”; keeps engine coupling explicit;
-    avoids blocking on adapter API expansion.
-  - Cons: some scheduling edges are still not formally verified.
-- **B) No engine-state signals participate in scheduling; only artifacts/fields do**
-  - Eliminate `state:*` and treat `effect:*` as observability-only.
-  - Any step that currently relies on engine-side ordering must instead depend
-    on an artifact/field that reifies the needed state (or fail fast).
-  - Pros: strongest dataflow purity; maximizes engine-less determinism.
-  - Cons: forces large reification work (placement/climate/rivers) before we can
-    express current pipeline structure cleanly.
-- **C) Keep `state:engine.*` as a permanent namespace but require verification**
-  - Retain `state:engine.*` but make it adapter-verifiable and fail-fast.
-  - Pros: preserves the existing mental model; makes dependencies “real”.
-  - Cons: pushes complexity into adapter APIs; risks widening adapter surface or
-    encoding fragile invariants.
-
-**What blocks simplification (what is truly necessary vs legacy-only):**
-- Necessary (real constraints):
-  - Some steps are currently engine-effect driven (e.g., placement) and cannot
-    be fully reified to artifacts without additional design work (`DEF-006`).
-  - Some engine invariants are not introspectable today (verification gap).
-- Legacy/transitional:
-  - `state:engine.*` exists primarily to preserve stage-era ordering without
-    forcing immediate adapter expansion (`DEF-008`).
-
-**Tentative default (recommended for closure direction, not yet accepted):**
-- **Option A**: treat `state:engine.*` as transitional only; migrate to explicit
-  `effect:engine.*` emitted by publish steps; allow effects to participate in
-  scheduling; add adapter verification only where cheap/reliable.
-
-**SPEC impact (if/when accepted):**
-- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
-  - tighten “engine boundary is adapter-only” into explicit rules:
-    - no `state:engine.*` in target (or explicitly fenced transitional namespace),
-    - effect scheduling semantics (`effect:*` may/May not participate in `requires/provides`),
-    - verification posture (what must be verifiable vs asserted).
-- `docs/projects/engine-refactor-v1/deferrals.md`:
-  - update/close `DEF-008` once `state:engine.*` is replaced or verified.
-
-**ADR stub:**
-- ADR-TBD: Engine boundary policy (`state:engine.*` transitional vs canonical)
+- Current scheduling depends on engine-surface signals:
+  - `packages/mapgen-core/src/pipeline/standard.ts` uses `state:engine.*`.
 
 **Migration note (current hybrid -> target):**
-- Replace `state:engine.*` dependencies with `effect:engine.*` emitted by
-  explicit publish steps (one per engine publish boundary) and remove “trusted
-  assertions” from core tag satisfaction logic.
-- Add adapter verification only for selected high-risk publish effects (when
-  possible) and keep the rest as asserted contracts with loud downstream failures.
+- Replace `state:engine.*` scheduling edges with `effect:engine.*`.
+- Add executor support for verifying provided `effect:*` tags (postcondition checks).
+- Split “engine-first” clusters into explicit publish/reify steps wherever a
+  downstream dependency exists, so cross-step contracts remain dataflow-shaped.
 
 ### 2.6 Climate ownership (`ClimateField` vs engine rainfall)
 
@@ -1215,14 +1110,14 @@ Assumptions to confirm:
 - Whether narrative is a separate phase or cross-cutting overlays.
 - Placement inputs as explicit artifact vs direct field reads.
 
-**Engine boundary policy (draft):**
-- `state:engine.*` tags are transitional only, not canonical contracts.
-- Engine writes are adapter-driven from fields/artifacts, not read-back gates.
-- Validation hooks verify that required engine state matches artifacts if used.
+**Engine boundary policy (accepted):**
+- `state:engine.*` tags are transitional only; target uses verified `effect:*`.
+- `effect:*` participates in scheduling via `requires`/`provides` and is runtime-verifiable.
+- Reification-first: any engine-derived value that flows across steps is reified into `field:*` / `artifact:*`.
+- Engine reads/writes happen only through `EngineAdapter`; no direct engine globals.
 
 Assumptions to confirm:
-- Long-term policy for engine state verification (required vs optional).
-- Whether any engine-only surfaces remain canonical.
+- The minimal “effect verifier” surface (adapter queries + executor hook) and the first set of high-risk effects to verify (placement/biomes/features).
 
 **Story model (draft):**
 - Story overlays are the canonical surface; story tags are derived views.
@@ -1240,7 +1135,7 @@ Assumptions to confirm:
 
 Assumptions to confirm:
 - Required diagnostics minimum (per-step metrics, artifact inspection).
-- Whether validation errors are fatal or optionally downgraded.
+- Validation errors are fatal (locked): no downgrade/suppression category.
 
 ---
 
@@ -1252,7 +1147,7 @@ These will be promoted to `docs/system/ADR.md` as decisions are accepted.
 - ADR-TBD: Step enablement model (recipe-only; remove `shouldRun`).
 - ADR-TBD: Foundation contract (snapshot vs discrete artifacts).
 - ADR-TBD: Story data model (overlays vs tags).
-- ADR-TBD: Engine boundary policy (`state:engine.*` transitional vs canonical).
+- ADR-TBD: Engine boundary policy (adapter-only; reification-first; verified `effect:*`).
 - ADR-TBD: Climate ownership (`ClimateField` vs engine rainfall).
 - ADR-TBD: Placement inputs (artifact vs engine reads).
 - ADR-TBD: Artifact registry ownership and versioning.

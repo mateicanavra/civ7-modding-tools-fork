@@ -9,6 +9,10 @@ This page intentionally mixes:
 - **Target architecture (canonical):** the Task Graph / `MapGenStep` / `StepRegistry` direction we are steering toward.
 - **Current implementation (post‑M2, transient):** the orchestrator‑centric stable slice used today while M3/M4 land.
 
+Config note (important):
+- Some older sections still refer to a monolithic `MapGenConfig` object in `context.config`.
+- The current target drafts supersede that: boundary input is `RunRequest = { recipe, settings }`, and step-local knobs are validated per step (no global config mega-object). See `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`.
+
 When you need “what’s actually wired right now,” prefer the project snapshot docs:
 
 - `docs/projects/engine-refactor-v1/status.md`
@@ -105,9 +109,9 @@ The map script is defined by a JSON recipe. This allows the UI to manipulate the
 }
 ```
 
-### 2.5. Configuration Schema (MapGenConfig)
+### 2.5. Configuration Schema (Current: `MapGenConfig`; Target: step-owned config)
 
-In addition to the pipeline recipe, the engine is driven by a strongly-typed, runtime‑validated **configuration object**:
+Current (M3): in addition to the pipeline ordering inputs, the engine is driven by a strongly-typed, runtime‑validated **configuration object** (`MapGenConfig`) that is injected into the context:
 
 ```typescript
 export interface MapGenContext {
@@ -135,9 +139,11 @@ Key points:
 
 Relationship to the recipe:
 
-- `MapGenConfig` covers **parameters** (plate counts, landmass water %, mountains/volcano/climate tuning, diagnostics, etc.).
-- The recipe covers **which steps run and in what order** (and may provide per‑step overrides via the `config` field).
-- Steps read configuration either directly from `context.config` or from a combination of `context.config` and their recipe‑level `config`, depending on their design.
+- Current (M3): `MapGenConfig` covers **parameters** (plate counts, landmass water %, tuning, diagnostics, etc.) while ordering/enablement are still transitional (`STAGE_ORDER` + `stageManifest`; DEF-004).
+- Target: there is **no** `context.config` mega-object. Boundary input is:
+  - `RunRequest = { recipe, settings }`
+  - `settings` are narrow, per-run globals (seed + dimensions at minimum) at `context.settings`
+  - step-local knobs are validated per-step and supplied via per-occurrence recipe config
 
 ---
 

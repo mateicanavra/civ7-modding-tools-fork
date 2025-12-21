@@ -8,6 +8,8 @@ reviewer: AI agent (Codex CLI)
 
 # M3: Core Engine Refactor & Config Evolution — Aggregate Review (Running Log)
 
+> Update (2025-12-20): This review predates CIV-53/DEF-013. Any references to per-step `shouldRun()` or `stageFlags`-driven enablement are historical only; enablement is now single-sourced from the derived recipe list and `MapGenStep` no longer includes `shouldRun`.
+
 This running log captures task-level reviews for milestone M3. Entries focus on
 correctness, completeness, sequencing fit, and forward-looking risks.
 

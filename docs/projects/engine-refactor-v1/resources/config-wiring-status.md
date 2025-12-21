@@ -2,6 +2,10 @@
 
 Last audited: 2025-12-11 against `packages/mapgen-core/src`.
 
+Update (2025-12-20):
+- `stageFlags` / `resolveStageFlags()` no longer exist (CIV-53 / DEF-013).
+- Enablement is single-sourced from the derived recipe list (`StepRegistry.getStandardRecipe(stageManifest)`); there is no `shouldRun()` gating.
+
 This doc maps every field in `packages/mapgen-core/src/config/schema.ts` (the canonical `MapGenConfigSchema`)
 to where it is currently consumed in the TypeScript mapgen pipeline. It also calls out legacy-only knobs
 (still in schema but only used by archived JS), and “untyped but consumed” keys that are read despite not
@@ -33,7 +37,7 @@ From `packages/mapgen-core/src/bootstrap/resolved.ts`:
 | `presets` | **Wired** | `bootstrap/entry.ts`, `config/presets.ts` | Applied in bootstrap before `parseConfig()`, then preserved in the validated config for introspection/debugging. |
 | `stageConfig.<stage>` | **Wired (internal)** | `bootstrap/entry.ts`, `bootstrap/resolved.ts` | Boolean enablement overrides; only stages in `STAGE_ORDER` are respected. Unknown keys are preserved but ignored. |
 | `stageManifest.order` | **Reserved / no-op (internal)** | none | Always derived from `stageConfig`; recipe order is driven by `pipeline/standard.ts` in M3. |
-| `stageManifest.stages.<stage>.enabled` | **Wired (internal)** | `MapOrchestrator.resolveStageFlags()` | Resolver sets enabled based on `stageConfig` (or derived defaults). |
+| `stageManifest.stages.<stage>.enabled` | **Wired (internal)** | `bootstrap/resolved.ts`, `pipeline/StepRegistry.ts` | Derived from `stageConfig` defaults/overrides during manifest resolution; applied when deriving the recipe list (no `stageFlags`). |
 | `stageManifest.stages.<stage>.requires` | **Wired (internal)** | `MapOrchestrator.generateMapTaskGraph()` | Used as the step `requires` list (runtime gating via `PipelineExecutor`). |
 | `stageManifest.stages.<stage>.provides` | **Wired (internal)** | `MapOrchestrator.generateMapTaskGraph()` | Used as the step `provides` list (runtime gating via `PipelineExecutor`). |
 | `stageManifest.stages.<stage>.legacyToggles` | **Reserved / no-op (internal)** | none | Kept for forward-compat; not used in M3 gating. |
@@ -43,7 +47,7 @@ From `packages/mapgen-core/src/bootstrap/resolved.ts`:
 
 These are validated and read from `MapGenContext.config.toggles`, but only some are read in TS layers.
 `MapOrchestrator` also derives an **effective** toggle set for the runtime `MapGenContext` based on stage
-enablement, so for story stages stage flags remain the real gating mechanism.
+enablement, but stage gating is now derived from the recipe list (no `stageFlags`/`shouldRun()`; CIV-53).
 
 | Toggle | Status | Consumed by | Notes |
 |---|---|---|---|
