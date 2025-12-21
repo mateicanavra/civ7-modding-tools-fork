@@ -321,7 +321,7 @@ flowchart LR
 
   class foundation domain,accepted
   class story domain,accepted
-  class climate domain,open
+  class climate domain,accepted
   class placement domain,open
 ```
 
@@ -332,7 +332,7 @@ flowchart LR
 | 3.3 | Foundation surface (discrete artifacts vs `FoundationContext`) | accepted | §2.3 |
 | 3.4 | Narrative/playability model (typed narrative artifacts; no `StoryTags`) | accepted | §2.4 |
 | 3.5 | Engine boundary (adapter-only; reification-first; verified `effect:*`; `state:engine.*` transitional-only) | accepted | §2.5 |
-| 3.6 | Climate ownership (`ClimateField` vs engine rainfall) | open | §2.6 |
+| 3.6 | Climate ownership (`ClimateField` vs engine rainfall) | accepted | §2.6 |
 | 3.7 | Placement inputs (explicit artifact vs engine reads) | open | §2.7 |
 | 3.8 | Artifact registry (names + schema ownership + versioning) | accepted | §2.8 |
 | 3.9 | Recipe schema (versioning + compatibility rules) | accepted | §2.9 |

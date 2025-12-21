@@ -115,7 +115,7 @@ flowchart LR
 
   class foundation domain,accepted
   class story domain,accepted
-  class climate domain,open
+  class climate domain,accepted
   class placement domain,open
 ```
 
@@ -698,11 +698,12 @@ and no narrative globals outside the run context.
 
 ### 2.6 Climate ownership (`ClimateField` vs engine rainfall)
 
-Status: `open`
+**Status:** `accepted`
 
 Context:
-- `DEF-010` keeps rainfall generation engine-owned; Phase A only reworked the
-  adapter boundary for writes.
+- `DEF-010` tracks the remaining climate engine-coupling: some climate inputs
+  still rely on adapter reads (e.g., latitude/water/elevation), even though
+  rainfall/humidity buffers are TS-owned and published as `artifact:climateField`.
 
 Why this is ambiguous:
 - Docs say `ClimateField` is canonical, but generation still depends on engine
@@ -712,13 +713,30 @@ Why this is a problem:
 - Offline determinism and reproducibility are compromised.
 - Climate steps become harder to test and reason about outside the engine.
 
-Simplest option:
-- TS-owned climate artifacts are canonical; engine writes happen only in a
-  publish step from artifacts/fields.
+**Decision (one sentence):** `artifact:climateField` (and any derived `field:*`
+mirrors) is TS-owned and canonical; the engine is a publish surface via adapter
+writes, and any engine-only reads are allowed only through the adapter and must
+be reified if they become cross-step dependencies.
+
+**Accepted policy (enforceable rules):**
+- **TS-owned climate is canonical:** climate generation writes to TS buffers and
+  publishes `artifact:climateField` (and optional `field:*` mirrors).
+- **Engine writes are publish:** adapter writes (e.g., `setRainfall`) are treated
+  as publish effects, not the source-of-truth.
+- **Engine reads are allowed but fenced:** mods/steps may read engine-only signals
+  via `context.adapter` when necessary/desired, but must not rely on “read the
+  engine later” as an implicit cross-step dependency surface.
+- **Reify cross-step dependencies:** if a value read from (or mutated in) the
+  engine is needed by later steps, the producing step must reify it into
+  `field:*`/`artifact:*` and declare it in `provides` so downstream steps depend
+  on TS-canonical products.
 
 Why we might not simplify yet:
-- Climate pipeline contracts and parity expectations are not finalized.
-- Moving rainfall to TS implies new modeling work and tuning.
+- (Content) The exact minimal climate IO contract (e.g., latitude/water/elevation
+  inputs) is still evolving; this does not change the ownership rule above.
+- Some climate inputs may remain adapter-only during migration/parity work until
+  we fully reify them (e.g., `field:latitude`, TS landmask/isWater, heightfield
+  elevation).
 
 ### 2.7 Placement inputs (explicit artifact vs engine reads)
 
