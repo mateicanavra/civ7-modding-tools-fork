@@ -99,10 +99,17 @@ via the recipe and carried in the compiled `ExecutionPlan` nodes.
 ### 1.5 Phase ownership (target surfaces)
 
 The concrete list of canonical artifacts/fields is a target sketch and is
-finalized via ADRs (pending decisions 3.3–3.7).
+finalized via ADRs (pending decisions 3.4, 3.6, 3.7).
 
-- Foundation: intended `artifact:mesh`, `artifact:crust`, `artifact:plateGraph`,
-  `artifact:tectonics` (pending 3.3).
+- Foundation (3.3 accepted): the foundation surface is **discrete artifacts**
+  (not a monolithic `FoundationContext`). The initial canonical tag set is
+  expected to look like:
+  - `artifact:foundation.mesh`
+  - `artifact:foundation.crust`
+  - `artifact:foundation.plateGraph`
+  - `artifact:foundation.tectonics`
+  Payload shapes may evolve during Phase B without blocking the rest of this
+  architecture.
 - Morphology: intended `field:heightfield` plus `artifact:terrainMask`,
   `artifact:erosion`, `artifact:sediment`.
 - Hydrology: intended `artifact:climateField` (rainfall + temperature) and
@@ -289,7 +296,7 @@ flowchart LR
   class engineBoundary boundary,accepted
   class observability boundary,accepted
 
-  class foundation domain,open
+  class foundation domain,accepted
   class story domain,open
   class climate domain,open
   class placement domain,open
@@ -299,7 +306,7 @@ flowchart LR
 | --- | --- | --- | --- |
 | 3.1 | Ordering source of truth (recipe vs manifest) | accepted | §2.1 |
 | 3.2 | Enablement model (recipe-only; remove `shouldRun`) | accepted | §2.2 |
-| 3.3 | Foundation surface (discrete artifacts vs `FoundationContext`) | open | §2.3 |
+| 3.3 | Foundation surface (discrete artifacts vs `FoundationContext`) | accepted | §2.3 |
 | 3.4 | Story model (overlays vs tags canonical) | open | §2.4 |
 | 3.5 | Engine boundary (adapter-only; reification-first; verified `effect:*`; `state:engine.*` transitional-only) | accepted | §2.5 |
 | 3.6 | Climate ownership (`ClimateField` vs engine rainfall) | open | §2.6 |

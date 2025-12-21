@@ -113,7 +113,7 @@ flowchart LR
   class engineBoundary boundary,accepted
   class observability boundary,accepted
 
-  class foundation domain,open
+  class foundation domain,accepted
   class story domain,open
   class climate domain,open
   class placement domain,open
@@ -527,29 +527,59 @@ skips—only fail-fast validation/precondition errors.
 
 ### 2.3 Foundation surface (discrete artifacts vs `FoundationContext`)
 
-Status: `open`
+**Status:** `accepted`
 
-Context:
-- `DEF-014` keeps the `FoundationContext` snapshot as a compatibility surface.
-- `CONTRACT-foundation-context.md` is the active, precise contract.
+**Decision (one sentence):** Foundation outputs are published as discrete
+`artifact:*` products (not a monolithic `FoundationContext`); any
+`FoundationContext`-like object is a derived, migration-only compatibility view.
 
-Why this is ambiguous:
-- Target docs describe a graph of foundation artifacts, but current contracts
-  still route everything through a monolithic context object.
+**Context:**
+- `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` is
+  the binding M2 “stable slice” contract for `ctx.foundation` (compatibility
+  surface).
+- `docs/system/libs/mapgen/foundation.md` describes the intended target as
+  discrete foundation artifacts.
+- `DEF-014` defers the implementation cutover off `ctx.foundation` to Phase B,
+  but this *decision* is already locked.
 
-Why this is a problem:
-- The monolith hides dependency boundaries and blocks refactoring foundation
-  algorithms independently.
-- Consumers cannot migrate incrementally to smaller, typed artifacts.
+**Why this was ambiguous (how we got here):**
+- The project has both:
+  - a binding M2 contract centered on `FoundationContext`, and
+  - target docs that describe a graph of foundation artifacts.
+- Without an explicit “which is canonical” decision, downstream steps can drift
+  toward treating the monolith as permanent.
 
-Simplest option:
-- Publish discrete artifacts (`mesh`, `crust`, `plateGraph`, `tectonics`) as the
-  canonical surface and remove `ctx.foundation`.
+**Why this mattered:**
+- A monolith hides dependency boundaries and makes refactors coarse-grained.
+- Discrete artifacts are required to:
+  - make `requires`/`provides` meaningful for foundation-derived data
+  - allow incremental migration of consumers
+  - enable Phase B foundation algorithm replacement without a single “big-bang”
 
-Why we might not simplify yet:
-- Consumers still expect `FoundationContext`; migrating them requires a large
-  coordinated change.
-- The foundation algorithm replacement work is planned for Phase B.
+**Accepted choice: Option A — discrete artifacts are canonical**
+- Foundation publishes discrete `artifact:*` products as the contract surface.
+- `FoundationContext` is a derived compatibility view during migration only.
+- The exact *payload shapes* of foundation artifacts may evolve during Phase B;
+  what is locked now is the **contract direction**: no monolithic “foundation
+  blob” as the canonical dependency surface.
+
+**What remains (implementation, not a decision):**
+- Phase B migration plan (tracked by `DEF-014`):
+  - Define the initial canonical tag set (likely:
+    `artifact:foundation.mesh`, `artifact:foundation.crust`,
+    `artifact:foundation.plateGraph`, `artifact:foundation.tectonics`).
+  - Publish those artifacts onto `context.artifacts`.
+  - Update consumers to depend on the discrete artifacts.
+  - Remove `ctx.foundation` / `FoundationContext` once no longer needed.
+
+**SPEC impact (accepted):**
+- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+  - Mark decision 3.3 as accepted.
+  - Clarify that “foundation surface” is discrete artifacts; concrete payload
+    shapes remain domain-owned and may change without blocking the architecture.
+
+**ADR stub:**
+- ADR-TBD: Foundation surface (discrete artifacts; `FoundationContext` compat-only)
 
 ### 2.4 Story model (overlays canonical vs tags canonical)
 

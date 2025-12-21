@@ -149,6 +149,7 @@ Each deferral follows this structure:
 **Deferred:** 2025-12-18  
 **Trigger:** When Phase B / foundation PRD work begins and consumers are ready to migrate off `ctx.foundation`.  
 **Context:** The orchestrator bloat assessment explicitly defers the target multi-artifact foundation model; Phase A keeps the `FoundationContext` snapshot as the compatibility boundary.  
+**Decision status (locked):** The target foundation surface is **discrete** `artifact:*` products; any `FoundationContext`-like object is migration-only compatibility wiring. The remaining work is implementation + consumer migration (this deferral tracks that work).
 **Scope:**
 - Define the canonical foundation artifact set (mesh, crust, plateGraph, tectonics, and any required raster artifacts).
 - Migrate consumers from `ctx.foundation` to explicit artifacts/fields with named contracts.
