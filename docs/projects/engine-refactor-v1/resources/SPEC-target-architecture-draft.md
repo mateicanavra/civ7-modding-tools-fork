@@ -110,6 +110,9 @@ finalized via ADRs (pending decisions 3.4, 3.6, 3.7).
   - `artifact:foundation.tectonics`
   Payload shapes may evolve during Phase B without blocking the rest of this
   architecture.
+  - Storage layout is not part of the contract: it is acceptable to group the
+    discrete artifacts under `context.artifacts.foundation.*` (or similar) for
+    ergonomics, but new work must not depend on `ctx.foundation.*`.
 - Morphology: intended `field:heightfield` plus `artifact:terrainMask`,
   `artifact:erosion`, `artifact:sediment`.
 - Hydrology: intended `artifact:climateField` (rainfall + temperature) and
