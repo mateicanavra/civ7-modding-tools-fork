@@ -2,9 +2,10 @@
 
 Last audited: 2025-12-11 against `packages/mapgen-core/src`.
 
-Update (2025-12-20):
+Update (2025-12-21):
+- The accepted target boundary is `RunRequest = { recipe, settings }` compiled into an `ExecutionPlan` (no `MapGenConfig` mega-object).
+- `stageConfig` / `stageManifest` / `STAGE_ORDER` are **migration-only legacy surfaces** and must be deleted in M4 (`M4-PIPELINE-CUTOVER`, especially PIPELINE‑3). Do not add new dependencies on them.
 - `stageFlags` / `resolveStageFlags()` no longer exist (CIV-53 / DEF-013).
-- Enablement is single-sourced from the derived recipe list (`StepRegistry.getStandardRecipe(stageManifest)`); there is no `shouldRun()` gating.
 
 This doc maps every field in `packages/mapgen-core/src/config/schema.ts` (the canonical `MapGenConfigSchema`)
 to where it is currently consumed in the TypeScript mapgen pipeline. It also calls out legacy-only knobs
@@ -21,7 +22,7 @@ being in the schema (because many schemas allow `additionalProperties: true`).
 - **Untyped but consumed**: not in schema, but read by TS due to `additionalProperties: true`.
 - **Internal**: schema field marked `@internal`; not part of stable public mod API.
 
-## Canonical Stage Order
+## Legacy `STAGE_ORDER` (transitional)
 
 From `packages/mapgen-core/src/bootstrap/resolved.ts`:
 

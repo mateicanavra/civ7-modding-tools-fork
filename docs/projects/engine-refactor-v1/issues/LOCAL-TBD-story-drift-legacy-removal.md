@@ -18,7 +18,13 @@ related_to: [CIV-43]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Remove the legacy orchestrator path and legacy `STORY_ENABLE_*` toggle surface from `@swooper/mapgen-core`, making TaskGraph the sole execution path and `stageManifest` the single source of truth for stage enablement.
+> Status note (2025-12-21): This issue doc predates the accepted target decisions for recipe-only ordering/enablement. It is superseded by:
+> - `M4-PIPELINE-CUTOVER` (cuts the runtime boundary to `RunRequest` + recipe, deletes `stageManifest`/`STAGE_ORDER`/`stageConfig`)
+> - `M4-NARRATIVE-CLEANUP` (removes StoryTags/legacy story surfaces)
+>
+> Do not implement stageManifest-based enablement from this doc.
+
+Remove the legacy orchestrator path and legacy `STORY_ENABLE_*` toggle surface from `@swooper/mapgen-core`, making TaskGraph the sole execution path and recipe the single source of truth for ordering/enablement.
 
 ## Deliverables
 
@@ -46,18 +52,18 @@ Remove the legacy orchestrator path and legacy `STORY_ENABLE_*` toggle surface f
 - `pnpm -C packages/mapgen-core check` (type check)
 - `pnpm test:mapgen` (unit tests)
 - Load mods in-game and verify no regressions (smoke test)
-- Spot-check story stage enable/disable combinations
+- Spot-check story recipe enable/disable combinations (no stage manifest toggles)
 
 ## Dependencies / Notes
 
 - **System area:** MapOrchestrator, bootstrap, config schema, pipeline steps, story system
-- **Change:** Eliminate dual orchestration paths and legacy compatibility surfaces; consolidate on TaskGraph + stageManifest
+- **Change:** Eliminate dual orchestration paths and legacy compatibility surfaces; consolidate on TaskGraph + recipe/ExecutionPlan
 - **Outcome:** Single execution path, single enablement surface, reduced drift risk
 - **Rationale:** Modularization work (CIV-M4-ADHOC) reduced "two story implementations" drift, but keeping two orchestrators alive still creates structural drift risk. This removes the primary source.
 
 **Architectural decisions (locked):**
 - TaskGraph is the only supported orchestration path
-- Stage enablement is driven only by `stageManifest` (resolved via `bootstrap()`)
+- Enablement is authored in the recipe and compiled into the `ExecutionPlan` (no `shouldRun`, no `stageManifest` enablement).
 - Paleo runs whenever `climate.story.paleo` config is present (no independent toggle)
 - Story globals remain temporarily until Group 5 completes
 

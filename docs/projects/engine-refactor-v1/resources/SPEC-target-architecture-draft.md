@@ -1,11 +1,13 @@
 # SPEC: Target Architecture Draft (Canonical)
 
-> Agent disclaimer (WIP):
+> ~~Agent disclaimer (WIP):~~
 >
-> - We have not yet added the deferrals into this SPEC / flow.
-> - We want to add deferrals specifically to avoid agents “finishing” this prematurely.
-> - Agents should make sure to implement/handle deferrals and not treat this as a completed end-to-end architecture yet.
-> - We have not yet “loaded the screen” in that sense — this deferral behavior is still missing.
+> ~~- We have not yet added the deferrals into this SPEC / flow.~~
+> ~~- We want to add deferrals specifically to avoid agents “finishing” this prematurely.~~
+> ~~- Agents should make sure to implement/handle deferrals and not treat this as a completed end-to-end architecture yet.~~
+> ~~- We have not yet “loaded the screen” in that sense — this deferral behavior is still missing.~~
+>
+> **Update (2025-12-21, M4 planning):** Deferrals are tracked in `deferrals.md`; this SPEC is canonical for decisions, and the WIP disclaimer is superseded.
 
 ## 0. Purpose
 
@@ -42,6 +44,7 @@ This section describes the greenfield target with no legacy constraints.
 ### 1.2 Pipeline contract
 
 - Boundary input is `RunRequest = { recipe, settings }` (not a monolithic `MapGenConfig`).
+- Legacy stage-based ordering/config inputs (`stageManifest`, `STAGE_ORDER`, `stageConfig`) do not exist in the target runtime. They are migration-only legacy and must be deleted.
 - The engine runs **mod-provided content**: a mod package supplies the `registry`
   (steps + tags) and one or more recipes; the core engine does not embed a
   privileged pipeline.
@@ -98,8 +101,9 @@ via the recipe and carried in the compiled `ExecutionPlan` nodes.
 
 ### 1.5 Phase ownership (target surfaces)
 
-The concrete list of canonical artifacts/fields is a target sketch and is
-finalized via ADRs (pending decisions 3.4, 3.6, 3.7).
+~~The concrete list of canonical artifacts/fields is a target sketch and is
+finalized via ADRs (pending decisions 3.4, 3.6, 3.7).~~
+**Update (2025-12-21, M4 planning):** Decisions 3.4/3.6/3.7 are accepted; ADRs are optional post-M4. Implementation timing is governed by `deferrals.md`.
 
 - Foundation (3.3 accepted): the foundation surface is **discrete artifacts**
   (not a monolithic `FoundationContext`). The initial canonical tag set is
@@ -117,12 +121,14 @@ finalized via ADRs (pending decisions 3.4, 3.6, 3.7).
 - Morphology: intended `field:heightfield` plus `artifact:terrainMask`,
   `artifact:erosion`, `artifact:sediment`.
 - Hydrology: intended `artifact:climateField` (rainfall + temperature) and
-  `artifact:riverGraph` (pending 3.6).
+  ~~`artifact:riverGraph` (pending 3.6).~~
+  - **Update (2025-12-21, M4 planning):** `artifact:riverGraph` is deferred per DEF-005; canonical river product remains `artifact:riverAdjacency` until a later milestone.
 - Ecology: intended `artifact:soils`, `artifact:biomes`, `artifact:resources`,
   `artifact:features`.
 - Narrative/playability: intended typed narrative artifacts under
   `artifact:narrative.*` (3.4 accepted; concrete inventory is domain-owned).
-- Placement: intended explicit artifact inputs/outputs (pending 3.7).
+- Placement: intended explicit artifact inputs/outputs ~~(pending 3.7).~~
+  - **Update (2025-12-21, M4 planning):** Decision 3.7 is accepted; implementation is deferred per DEF-006 (`artifact:placementInputs@v1`).
 
 ### 1.6 Narrative / playability model (accepted)
 
