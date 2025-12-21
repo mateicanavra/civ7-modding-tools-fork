@@ -3,7 +3,7 @@ id: LOCAL-TBD-M4-NARRATIVE-1
 title: "[M4] Narrative cleanup (1/2): canonical artifact:narrative.* producers"
 state: planned
 priority: 3
-estimate: 2
+estimate: 4
 project: engine-refactor-v1
 milestone: M4-tests-validation-cleanup
 assignees: []
@@ -56,3 +56,23 @@ Define the canonical `artifact:narrative.*` set and ensure narrative steps publi
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: define the canonical `artifact:narrative.*@v1` inventory and map producers so implementation is mechanical.
+
+Deliverables:
+- A minimal inventory of narrative artifacts (IDs + short purpose + version).
+- Schema sketches for each artifact, including any required demo payloads.
+- A mapping of which narrative steps produce each artifact and which consumers require them.
+
+Where to look:
+- SPEC: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Narrative model, tag registry).
+- SPIKE: `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.4).
+- Code: `packages/mapgen-core/src/domain/narrative/**`, `packages/mapgen-core/src/pipeline/narrative/**`,
+  and any `artifact:storyOverlays` or StoryTags outputs.
+
+Constraints/notes:
+- Narrative artifacts must be typed, versioned, and optional via recipe composition.
+- No StoryTags surface in the target contract.
+- Do not implement code; return the inventory and mappings as markdown tables/lists.

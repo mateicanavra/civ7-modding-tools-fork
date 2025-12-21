@@ -97,3 +97,25 @@ M4 is heavy on contract/cutover work. We need a stable way to:
 ### 3) Update CIV-23
 
 - Re-scope CIV-23 to match the new boundary and remove references to legacy orchestration inputs and WorldModel lifecycle.
+
+## Prework Prompt (Agent Brief)
+
+Goal: confirm observability + smoke-test prework artifacts are complete and aligned before implementation.
+
+Deliverables:
+- A short readiness checklist pointing to the child prework artifacts for:
+  - Trace event model + plan fingerprint algorithm + hook points.
+  - Smoke-test matrix + stub adapter capability list + CIV-23 rescope notes.
+- A brief gap list if any acceptance criteria from the milestone are not covered by the test plan.
+
+Where to look:
+- Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-safety-net-1-observability.md`,
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-safety-net-2-smoke-tests.md`.
+- SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Observability),
+  `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.10).
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+
+Constraints/notes:
+- Tests use Bun and must be deterministic and engine-free.
+- Tracing must be optional and not alter execution when disabled.
+- Do not implement code; deliver only the checklist + gaps as notes.

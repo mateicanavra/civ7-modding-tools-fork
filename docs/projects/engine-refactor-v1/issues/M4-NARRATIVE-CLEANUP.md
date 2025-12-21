@@ -3,7 +3,7 @@ id: M4-NARRATIVE-CLEANUP
 title: "[M4] Narrative/playability cleanup: canonical artifact:narrative.*; remove StoryTags and caches"
 state: planned
 priority: 3
-estimate: 4
+estimate: 8
 project: engine-refactor-v1
 milestone: M4-tests-validation-cleanup
 assignees: []
@@ -88,3 +88,25 @@ This issue closes DEF-002 and DEF-012.
 ### 5) Update deferrals
 
 - Mark DEF-002 and DEF-012 resolved when StoryTags/caches are no longer correctness dependencies.
+
+## Prework Prompt (Agent Brief)
+
+Goal: confirm the narrative cleanup prework artifacts are complete and consistent before implementation.
+
+Deliverables:
+- A short readiness checklist pointing to the child prework artifacts for:
+  - Canonical `artifact:narrative.*@v1` inventory + schema sketches.
+  - StoryTags consumer map + narrative cache inventory.
+- A brief gap list if any narrative artifact is missing or if consumers outside narrative modules are unaccounted for.
+
+Where to look:
+- Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-narrative-cleanup-1-artifacts.md`,
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-narrative-cleanup-2-remove-storytags.md`.
+- SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Narrative model),
+  `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.4).
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+
+Constraints/notes:
+- Narrative is optional via recipe; `StoryTags` is not a canonical surface.
+- Caches must be context-owned or removed.
+- Do not implement code; deliver only the checklist + gaps as notes.

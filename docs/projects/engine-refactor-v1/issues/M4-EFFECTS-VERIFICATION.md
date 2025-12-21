@@ -102,3 +102,27 @@ This issue closes DEF-008.
 ### 6) Update DEF-008 status
 
 - Mark DEF-008 resolved when the target registry no longer exposes `state:engine.*` and the high-risk effects are verified.
+
+## Prework Prompt (Agent Brief)
+
+Goal: make sure the child prework artifacts for effects verification are complete and aligned before implementation.
+
+Deliverables:
+- A brief readiness checklist that points to the child prework artifacts for:
+  - Effect tag catalog + adapter postcondition surfaces.
+  - Biomes/features reification plan and consumer migration map.
+  - Inventory of remaining `state:engine.*` usages and their replacements.
+- A short gap list if any effect tag or reification target is missing, or if placement inputs introduce new dependencies.
+
+Where to look:
+- Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-effects-verification-1-effect-tags.md`,
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-effects-verification-2-biomes-features.md`,
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-effects-verification-3-remove-state-engine.md`.
+- SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (tags + effects),
+  `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.5, §2.8).
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+
+Constraints/notes:
+- `effect:*` must be verifiable; `state:engine.*` is transitional only.
+- Keep behavior stable; this is contract hardening, not algorithm changes.
+- Do not implement code; deliver only the checklist + gaps as notes.

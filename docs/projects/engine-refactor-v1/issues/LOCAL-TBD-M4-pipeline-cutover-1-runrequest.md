@@ -11,7 +11,7 @@ labels: [Architecture, Cleanup]
 parent: M4-PIPELINE-CUTOVER
 children: []
 blocked_by: []
-blocked: [LOCAL-TBD-M4-PIPELINE-2]
+blocked: [LOCAL-TBD-M4-PIPELINE-4]
 related_to: [CIV-41, CIV-48]
 ---
 
@@ -60,3 +60,24 @@ Introduce the target boundary types (`RunRequest`, `RecipeV1`) and a TypeBox-val
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: draft the boundary schemas and compile rules so implementation can be mechanical and consistent with SPEC/SPIKE.
+
+Deliverables:
+- A schema sketch for `RunRequest`, `RecipeV1`, and `ExecutionPlan` (fields, versioning, per-step config shape).
+- A compile/validation rules list (unknown step IDs fail, unknown keys fail, per-step config validated by TypeBox; note transitional behavior if a step lacks a schema).
+- A parity map from current `STAGE_ORDER`/`resolveStageManifest()` ordering to the proposed RecipeV1 steps, noting any special-case ordering (e.g., ruggedCoasts expansion) or enablement logic.
+
+Where to look:
+- SPEC: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Pipeline contract, Recipe sketch).
+- SPIKE: `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.1 ordering, §2.9 recipe schema).
+- Code: `packages/mapgen-core/src/bootstrap/entry.ts`, `packages/mapgen-core/src/bootstrap/resolved.ts`,
+  `packages/mapgen-core/src/pipeline/StepRegistry.ts`, `packages/mapgen-core/src/orchestrator/task-graph.ts`,
+  `packages/mapgen-core/src/config/schema.ts`.
+
+Constraints/notes:
+- V1 recipes are linear sequences; no DAG semantics yet.
+- Use existing TypeBox patterns; no new validation dependencies.
+- Do not implement code; return the artifacts as a markdown table/list in your response.

@@ -57,3 +57,23 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: build the final `state:engine.*` removal map so cleanup is mechanical and complete.
+
+Deliverables:
+- An inventory of all `state:engine.*` tags in steps, registry validation, and tests.
+- For each usage, the planned replacement (`effect:*`, `field:*`, or `artifact:*`) or explicit deletion.
+- A short cleanup checklist for removing `state:engine.*` from the registry/tag validation surface and standard pipeline.
+
+Where to look:
+- Search: `rg "state:engine" packages/mapgen-core/src packages/mapgen-core/test`.
+- Code: `packages/mapgen-core/src/pipeline/standard.ts`, `packages/mapgen-core/src/pipeline/tags.ts`,
+  `packages/mapgen-core/src/pipeline/PipelineExecutor.ts`.
+- Deferrals: `docs/projects/engine-refactor-v1/deferrals.md` (DEF-008).
+
+Constraints/notes:
+- No algorithm changes; this is cleanup only.
+- Coordinate with placement inputs so placement effects are already verified.
+- Do not implement code; return the inventory and checklist as markdown tables/lists.

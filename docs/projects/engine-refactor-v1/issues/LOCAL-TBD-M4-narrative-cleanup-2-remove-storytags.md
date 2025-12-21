@@ -3,7 +3,7 @@ id: LOCAL-TBD-M4-NARRATIVE-2
 title: "[M4] Narrative cleanup (2/2): remove StoryTags + caches and update consumers"
 state: planned
 priority: 3
-estimate: 2
+estimate: 4
 project: engine-refactor-v1
 milestone: M4-tests-validation-cleanup
 assignees: []
@@ -57,3 +57,26 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: enumerate every StoryTags consumer and narrative cache so migration is a mechanical, high-parallelism refactor.
+
+Deliverables:
+- A StoryTags consumer map: file -> specific tag usage -> replacement artifact/helper.
+- A narrative cache/global inventory with a recommendation (delete or make context-scoped).
+- A short list of cross-domain consumers that should get targeted smoke coverage.
+
+Where to look:
+- Search: `rg "StoryTags" packages/mapgen-core/src`.
+- Narrative caches/utilities: `packages/mapgen-core/src/domain/narrative/**`.
+- Likely consumers from milestones: `packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts`,
+  `packages/mapgen-core/src/domain/ecology/features/index.ts`,
+  `packages/mapgen-core/src/domain/hydrology/climate/refine/index.ts`.
+- SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Narrative),
+  `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.4).
+
+Constraints/notes:
+- Treat this as high-parallelism mechanical replacement once artifacts exist.
+- Do not introduce new StoryTags compatibility surfaces.
+- Do not implement code; return the map/inventory as markdown tables/lists.

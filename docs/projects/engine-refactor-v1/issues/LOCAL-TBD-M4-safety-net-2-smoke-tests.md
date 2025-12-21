@@ -57,3 +57,22 @@ Add compile/execute smoke tests against the standard recipe using a stub adapter
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: define the smoke-test plan and stub adapter requirements so tests can be added quickly and deterministically.
+
+Deliverables:
+- A smoke-test matrix: compile test + execute test, with minimal assertions (no stageManifest/STAGE_ORDER, effect verification failures are loud, StoryTags not required).
+- A stub adapter capability list needed to run the standard recipe.
+- A short CIV-23 rescope note aligned to the new RunRequest/ExecutionPlan boundary.
+
+Where to look:
+- Tests: `packages/mapgen-core/test/**`, `packages/mapgen-core/package.json` (Bun runner).
+- Legacy test references: `docs/projects/engine-refactor-v1/issues/CIV-23-integration-tests.md`.
+- Milestone acceptance notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+
+Constraints/notes:
+- Tests must be deterministic and engine-free.
+- Keep the suite light; focus on compile/execute smoke coverage.
+- Do not implement code; return the matrix and capability list as markdown tables/lists.

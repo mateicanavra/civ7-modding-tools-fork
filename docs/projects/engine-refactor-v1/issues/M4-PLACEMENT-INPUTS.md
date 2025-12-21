@@ -89,3 +89,25 @@ This issue closes DEF-006.
 ### 5) Update DEF-006 status
 
 - Mark DEF-006 resolved when placement’s inputs contract is explicit and testable.
+
+## Prework Prompt (Agent Brief)
+
+Goal: verify the placement-inputs prework artifacts are complete and aligned before implementation.
+
+Deliverables:
+- A short readiness checklist pointing to the child prework artifacts for:
+  - `artifact:placementInputs@v1` schema sketch + source mapping.
+  - Placement cutover checklist + effect verification hook plan.
+- A brief gap list if any placement input source is unclear or relies on implicit engine reads.
+
+Where to look:
+- Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-placement-inputs-1-define-artifact.md`,
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-placement-inputs-2-cutover.md`.
+- SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (placement artifact),
+  `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.7).
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+
+Constraints/notes:
+- Placement inputs must be explicit and TS-canonical; no implicit engine reads as dependency surface.
+- Placement effects must be verified (`effect:engine.placementApplied`).
+- Do not implement code; deliver only the checklist + gaps as notes.

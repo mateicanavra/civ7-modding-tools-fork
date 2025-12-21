@@ -56,3 +56,24 @@ Define `artifact:placementInputs@v1` with a safe demo payload and add a derive s
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: define the `artifact:placementInputs@v1` contract so cutover is a wiring change, not a discovery exercise.
+
+Deliverables:
+- A schema sketch for `placementInputs@v1` (fields + types) with a minimal safe demo payload.
+- A source map for each field: which upstream artifact/field/adapter read provides it today.
+- A list of any required upstream reification to make inputs TS-canonical.
+
+Where to look:
+- SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (placement artifact),
+  `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.7).
+- Placement: `packages/mapgen-core/src/pipeline/placement/**`.
+- Upstream dependencies in ecology/narrative: `packages/mapgen-core/src/pipeline/ecology/**`,
+  `packages/mapgen-core/src/pipeline/narrative/**`.
+
+Constraints/notes:
+- Keep this additive; no removal of legacy inputs in this issue.
+- Placement inputs must be explicit and TS-canonical; avoid DEF-010 scope creep.
+- Do not implement code; return the schema and mapping as markdown tables/lists.

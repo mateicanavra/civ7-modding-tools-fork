@@ -57,3 +57,24 @@ Introduce canonical `effect:*` tags for engine-surface mutations and add minimal
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: define the effect tag catalog and the minimal adapter postcondition surfaces needed for verification.
+
+Deliverables:
+- A catalog of `effect:*` tags for biomes, features, and placement (ID, owner, providing step).
+- A minimal adapter postcondition API sketch for verifying each effect (what query is needed, and where it would live).
+- A note on where these effects should be registered (registry entries vs global tags).
+
+Where to look:
+- SPEC: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Tag registry, Effects).
+- SPIKE: `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.5, §2.8).
+- Code: `packages/mapgen-core/src/pipeline/tags.ts`, `packages/mapgen-core/src/pipeline/PipelineExecutor.ts`,
+  `packages/mapgen-core/src/pipeline/ecology/**`, `packages/mapgen-core/src/pipeline/placement/**`.
+- Adapter types: search for `EngineAdapter` or adapter interfaces under `packages/mapgen-core/src/**` and `packages/civ7-adapter/**`.
+
+Constraints/notes:
+- Effects must be verifiable (no "asserted but unverified" scheduling edges).
+- Keep this additive; no scheduling changes in this prework.
+- Do not implement code; return the catalog and API sketch as a markdown table/list.

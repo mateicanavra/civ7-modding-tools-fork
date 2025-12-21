@@ -57,3 +57,23 @@ Update placement to consume `artifact:placementInputs@v1` exclusively and provid
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: produce the placement cutover checklist so the refactor is mechanical and verifiable.
+
+Deliverables:
+- A list of all placement input assembly sites and implicit engine reads that must be replaced by `placementInputs@v1`.
+- A mapping from each old input source to the new artifact field.
+- A plan for `effect:engine.placementApplied` verification (which adapter postcondition to call).
+- A list of tests to update/add for stub-adapter placement runs.
+
+Where to look:
+- Placement code: `packages/mapgen-core/src/pipeline/placement/**`.
+- Pipeline and effects: `packages/mapgen-core/src/pipeline/standard.ts`, `packages/mapgen-core/src/pipeline/PipelineExecutor.ts`.
+- Tests: `packages/mapgen-core/test/**`.
+
+Constraints/notes:
+- Keep behavior stable; this is contract/wiring only.
+- Remove any temporary compatibility shims once placement fully uses the artifact.
+- Do not implement code; return the checklist and mappings as markdown tables/lists.

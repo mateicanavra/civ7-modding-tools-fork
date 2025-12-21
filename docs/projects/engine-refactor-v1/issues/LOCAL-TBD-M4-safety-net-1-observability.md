@@ -56,3 +56,26 @@ Add the shared tracing foundation (run id, plan fingerprint, step timing) plus p
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: define the minimal trace model and plan fingerprint strategy required by the target observability baseline.
+
+Deliverables:
+- A trace event model (core fields: runId, plan fingerprint, step start/finish timing, optional step events).
+- A plan fingerprint algorithm spec (inputs, serialization order, hash choice).
+- A list of hook points to emit run start/end and step-level events (compiler/executor locations).
+- A sketch of per-step trace toggles (recipe/settings shape).
+
+Where to look:
+- SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Observability),
+  `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.10).
+- Existing diagnostics: `packages/mapgen-core/src/config/schema.ts`,
+  `packages/mapgen-core/src/orchestrator/task-graph.ts`,
+  `packages/mapgen-core/src/dev/timing.ts`,
+  `packages/mapgen-core/src/core/types.ts`.
+
+Constraints/notes:
+- Tracing must be optional and must not change execution when disabled.
+- The plan fingerprint must be deterministic across runs.
+- Do not implement code; return the model and hook list as markdown tables/lists.

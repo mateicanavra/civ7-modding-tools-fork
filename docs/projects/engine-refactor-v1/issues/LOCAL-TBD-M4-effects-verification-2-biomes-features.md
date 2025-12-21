@@ -60,3 +60,24 @@ Reify engine-derived biome/feature outputs into explicit fields and provide veri
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Prework Prompt (Agent Brief)
+
+Goal: map biomes/features reification so downstream migrations are mechanical and effect verification is minimal.
+
+Deliverables:
+- A reification plan: which `field:*` or `artifact:*` outputs biomes/features should publish (e.g., `field:biomes`, `field:features`, or more granular field names).
+- A consumer map: downstream steps that currently depend on engine reads and must switch to the reified fields/artifacts.
+- A minimal postcondition checklist for verifying `effect:engine.biomesApplied` and `effect:engine.featuresApplied`.
+
+Where to look:
+- Code: `packages/mapgen-core/src/pipeline/ecology/**`, `packages/mapgen-core/src/domain/ecology/**`,
+  `packages/mapgen-core/src/pipeline/standard.ts`.
+- Search for engine reads or `state:engine.*` usage tied to biomes/features.
+- SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (fields/effects),
+  `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.5).
+
+Constraints/notes:
+- Use reify-after-mutate; keep behavior stable.
+- Prefer minimal, adapter-friendly postconditions (avoid full-map scans).
+- Do not implement code; return the plan and maps as markdown tables/lists.
