@@ -120,15 +120,32 @@ finalized via ADRs (pending decisions 3.4, 3.6, 3.7).
   `artifact:riverGraph` (pending 3.6).
 - Ecology: intended `artifact:soils`, `artifact:biomes`, `artifact:resources`,
   `artifact:features`.
-- Narrative: intended `artifact:storyOverlays` (pending 3.4).
+- Narrative/playability: intended typed narrative artifacts under
+  `artifact:narrative.*` (3.4 accepted; concrete inventory is domain-owned).
 - Placement: intended explicit artifact inputs/outputs (pending 3.7).
 
-### 1.6 Story model
+### 1.6 Narrative / playability model (accepted)
 
-Proposed target (pending decision 3.4):
-- Story overlays are canonical.
-- Story tags are derived views (if needed for compatibility only).
-- No global story caches or registries.
+Narrative/playability is an **optional bundle of steps** (a recipe composition
+choice), not a privileged core pipeline phase.
+
+**Accepted target contract (3.4):**
+- Narrative/playability steps publish **typed, versioned, categorized narrative
+  artifacts** (examples: `artifact:narrative.corridors@v1`,
+  `artifact:narrative.regions@v1`, `artifact:narrative.motifs.*@v1`,
+  `artifact:narrative.heatmaps.*@v1`).
+- Downstream steps that need narrative semantics must `require` those artifacts
+  and must not re-derive the same semantics independently.
+- There is **no canonical `StoryTags` surface** in the target contract.
+  Any “tag-like” query convenience must be derived from narrative artifacts and
+  must be context-scoped (performance only; not a second representation).
+- There are **no narrative globals** outside a run context (no module-level
+  registries/caches). Any caching must be context-owned artifacts keyed to the
+  run.
+- “Optional” is enforced via recipes:
+  - A recipe may omit narrative/playability steps entirely and still be valid.
+  - If a recipe includes a narrative consumer, it must also include the
+    narrative publishers; compilation fails fast otherwise.
 
 ### 1.7 Observability
 
@@ -221,7 +238,9 @@ Type safety note:
 | `artifact:biomes` | ecology | Biome classification |
 | `artifact:resources` | ecology | Resource placement candidates |
 | `artifact:features` | ecology | Feature placement candidates |
-| `artifact:storyOverlays` | narrative | Story regions / corridors / tags |
+| `artifact:narrative.corridors@v1` | narrative | Strategic corridors / paths (typed) |
+| `artifact:narrative.regions@v1` | narrative | Named regions / partitions (typed) |
+| `artifact:narrative.motifs.*@v1` | narrative | Motif sets/heatmaps (typed, categorized) |
 | `artifact:placementOutputs` | placement | Final placement decisions |
 
 ### 3.2 Fields (engine-facing buffers)
@@ -275,7 +294,7 @@ flowchart LR
   observability["3.10 Observability"]:::boundary
 
   foundation["3.3 Foundation"]:::domain
-  story["3.4 Story model"]:::domain
+  story["3.4 Narrative/playability"]:::domain
   climate["3.6 Climate ownership"]:::domain
   placement["3.7 Placement inputs"]:::domain
 
@@ -301,7 +320,7 @@ flowchart LR
   class observability boundary,accepted
 
   class foundation domain,accepted
-  class story domain,open
+  class story domain,accepted
   class climate domain,open
   class placement domain,open
 ```
@@ -311,7 +330,7 @@ flowchart LR
 | 3.1 | Ordering source of truth (recipe vs manifest) | accepted | §2.1 |
 | 3.2 | Enablement model (recipe-only; remove `shouldRun`) | accepted | §2.2 |
 | 3.3 | Foundation surface (discrete artifacts vs `FoundationContext`) | accepted | §2.3 |
-| 3.4 | Story model (overlays vs tags canonical) | open | §2.4 |
+| 3.4 | Narrative/playability model (typed narrative artifacts; no `StoryTags`) | accepted | §2.4 |
 | 3.5 | Engine boundary (adapter-only; reification-first; verified `effect:*`; `state:engine.*` transitional-only) | accepted | §2.5 |
 | 3.6 | Climate ownership (`ClimateField` vs engine rainfall) | open | §2.6 |
 | 3.7 | Placement inputs (explicit artifact vs engine reads) | open | §2.7 |
@@ -736,4 +755,239 @@ const plan = compileExecutionPlan(runRequest, mod.registry);
 
 // run: executor runs the plan nodes; no `shouldRun`, no silent skips
 runExecutionPlan(plan);
+```
+
+### 7.9 Narrative/playability example (motif artifacts + injectors)
+
+This section illustrates the accepted narrative/playability model (3.4):
+
+- Narrative/playability is authored as normal steps.
+- Steps publish **typed narrative artifacts** (`artifact:narrative.*`) and other
+  steps consume them.
+- There is no `StoryTags` contract surface; any query helpers are derived from
+  the narrative artifacts and scoped to the run context.
+- “Optional” is recipe composition: include or omit the steps; do not rely on
+  “if present” behavior inside core steps.
+
+#### 7.9a End-to-end flow inside the standard mod (deriver + injector)
+
+Deriver step: compute a strategic corridor motif and publish it as a narrative artifact.
+
+```ts
+// packages/mapgen-core/src/mods/standard/registry/morphology/deriveCorridors.entry.ts
+import { Type } from "typebox";
+import { createRegistryEntry } from "@mapgen/core/registry";
+import { computeStrategicCorridors } from "@mod/lib/narrative/corridors";
+
+export default createRegistryEntry({
+  artifacts: [
+    {
+      id: "artifact:narrative.corridors@v1",
+      kind: "artifact",
+      owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
+      schema: Type.Object({
+        version: Type.Literal(1),
+        corridors: Type.Array(
+          Type.Object({
+            id: Type.String(),
+            kind: Type.Union([Type.Literal("landOpen"), Type.Literal("seaLane"), Type.Literal("riverChain")]),
+            cells: Type.Array(Type.String()), // "x,y" keys (sparse)
+          })
+        ),
+        summary: Type.Record(Type.String(), Type.Unknown()),
+      }),
+      demo: { version: 1, corridors: [], summary: {} },
+    },
+  ],
+  step: {
+    id: "standard.narrative.deriveCorridors",
+    owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
+    configSchema: Type.Object({
+      density: Type.Number({ default: 0.1 }),
+      maxCorridors: Type.Number({ default: 6 }),
+    }),
+    requires: [
+      "field:heightfield",
+      "artifact:climateField",
+      "artifact:riverAdjacency",
+    ],
+    provides: ["artifact:narrative.corridors@v1"],
+    run: (ctx, config) => {
+      const corridors = computeStrategicCorridors(ctx, config);
+      ctx.artifacts.set("artifact:narrative.corridors@v1", corridors);
+    },
+  },
+});
+```
+
+Injector step: consume the corridor motif to bias biomes or features in a strictly
+dataflow-shaped way (no re-derivation).
+
+```ts
+// packages/mapgen-core/src/mods/standard/registry/ecology/applyCorridorBiomeBias.entry.ts
+import { Type } from "typebox";
+import { createRegistryEntry } from "@mapgen/core/registry";
+import { applyCorridorBiasToBiomes } from "@mod/lib/narrative/injectors/biomes";
+
+export default createRegistryEntry({
+  step: {
+    id: "standard.ecology.applyCorridorBiomeBias",
+    owner: { pkg: "@swooper/mapgen-core", phase: "ecology" },
+    configSchema: Type.Object({
+      riverValleyFoodBias: Type.Number({ default: 1.15 }),
+      tundraRestraint: Type.Number({ default: 0.9 }),
+    }),
+    requires: [
+      "artifact:biomes",
+      "artifact:narrative.corridors@v1",
+    ],
+    provides: ["artifact:biomes"],
+    run: (ctx, config) => {
+      const corridors = ctx.artifacts.get("artifact:narrative.corridors@v1");
+      const biomes = ctx.artifacts.get("artifact:biomes");
+      ctx.artifacts.set("artifact:biomes", applyCorridorBiasToBiomes(biomes, corridors, config));
+    },
+  },
+});
+```
+
+Recipe composition is what makes narrative “optional” (include or omit the steps):
+
+```ts
+// packages/mapgen-core/src/mods/standard/recipes/default.ts (excerpt)
+export const defaultRecipe = {
+  schemaVersion: 1,
+  id: "standard.default",
+  steps: [
+    { id: "standard.morphology.buildHeightfield", enabled: true, config: {} },
+    { id: "standard.hydrology.buildClimateField", enabled: true, config: {} },
+    { id: "standard.hydrology.buildRiverAdjacency", enabled: true, config: {} },
+
+    // Narrative bundle (optional): omit both steps to run “no-story”.
+    { id: "standard.narrative.deriveCorridors", enabled: true, config: {} },
+    { id: "standard.ecology.applyCorridorBiomeBias", enabled: true, config: {} },
+
+    { id: "standard.ecology.designateBiomes", enabled: true, config: {} },
+    { id: "standard.ecology.designateFeatures", enabled: true, config: {} },
+    { id: "standard.placement.placeStarts", enabled: true, config: {} },
+  ],
+} as const;
+```
+
+#### 7.9b Mod authoring examples (light vs heavy)
+
+These examples intentionally avoid “automatic insertion” tooling (patching/DAG
+authoring is deferred). The mod author composes a recipe explicitly.
+
+**Light mod:** one injector step that biases features near rivers (no motif artifact).
+
+```ts
+// packages/my-playability-lite/mod.ts (conceptual)
+import { createRegistry, createRegistryEntry } from "@mapgen/core/registry";
+import type { Mod } from "@mapgen/core/mod";
+import standardBuildHeightfield from "@mapgen/core/mods/standard/registry/morphology/buildHeightfield.entry";
+import standardBuildRiverAdjacency from "@mapgen/core/mods/standard/registry/hydrology/buildRiverAdjacency.entry";
+import standardDesignateFeatures from "@mapgen/core/mods/standard/registry/ecology/designateFeatures.entry";
+import { Type } from "typebox";
+
+const biasFeaturesNearRivers = createRegistryEntry({
+  step: {
+    id: "playabilityLite.ecology.biasFeaturesNearRivers",
+    owner: { pkg: "@mods/playability-lite", phase: "ecology" },
+    configSchema: Type.Object({ riverBonus: Type.Number({ default: 1.2 }) }),
+    requires: ["artifact:riverAdjacency", "artifact:features"],
+    provides: ["artifact:features"],
+    run: (ctx, config) => {
+      // mutate the features candidate artifact in-memory (pure dataflow)
+      const adj = ctx.artifacts.get("artifact:riverAdjacency");
+      const features = ctx.artifacts.get("artifact:features");
+      ctx.artifacts.set("artifact:features", bumpRiverFeatures(features, adj, config));
+    },
+  },
+});
+
+export const mod: Mod = {
+  id: "@mods/playability-lite",
+  registry: createRegistry({ entries: [standardBuildHeightfield, standardBuildRiverAdjacency, standardDesignateFeatures, biasFeaturesNearRivers] }),
+  recipes: {
+    default: {
+      schemaVersion: 1,
+      id: "playabilityLite.default",
+      steps: [
+        { id: "standard.morphology.buildHeightfield", enabled: true, config: {} },
+        { id: "standard.hydrology.buildRiverAdjacency", enabled: true, config: {} },
+        { id: "standard.ecology.designateFeatures", enabled: true, config: {} },
+        { id: "playabilityLite.ecology.biasFeaturesNearRivers", enabled: true, config: { riverBonus: 1.3 } },
+      ],
+    },
+  },
+};
+```
+
+**Heavier mod:** publishes a motif artifact (mountain passes) and then injects it into placement.
+
+```ts
+// packages/my-mountain-corridors/mod.ts (conceptual)
+import { createRegistry, createRegistryEntry } from "@mapgen/core/registry";
+import type { Mod } from "@mapgen/core/mod";
+import standardBuildHeightfield from "@mapgen/core/mods/standard/registry/morphology/buildHeightfield.entry";
+import standardPlaceStarts from "@mapgen/core/mods/standard/registry/placement/placeStarts.entry";
+import { Type } from "typebox";
+
+const deriveMountainPasses = createRegistryEntry({
+  artifacts: [
+    {
+      id: "artifact:narrative.motifs.mountainPasses@v1",
+      kind: "artifact",
+      owner: { pkg: "@mods/mountain-corridors", phase: "morphology" },
+      schema: Type.Object({
+        version: Type.Literal(1),
+        passes: Type.Array(Type.Object({ cells: Type.Array(Type.String()), strength: Type.Number() })),
+      }),
+      demo: { version: 1, passes: [] },
+    },
+  ],
+  step: {
+    id: "mountainCorridors.narrative.deriveMountainPasses",
+    owner: { pkg: "@mods/mountain-corridors", phase: "morphology" },
+    configSchema: Type.Object({ maxPasses: Type.Number({ default: 12 }) }),
+    requires: ["field:heightfield"],
+    provides: ["artifact:narrative.motifs.mountainPasses@v1"],
+    run: (ctx, config) => {
+      ctx.artifacts.set("artifact:narrative.motifs.mountainPasses@v1", findMountainPasses(ctx, config));
+    },
+  },
+});
+
+const biasStartsByPassability = createRegistryEntry({
+  step: {
+    id: "mountainCorridors.placement.biasStartsByPassability",
+    owner: { pkg: "@mods/mountain-corridors", phase: "placement" },
+    configSchema: Type.Object({ corridorWeight: Type.Number({ default: 1.25 }) }),
+    requires: ["artifact:narrative.motifs.mountainPasses@v1"],
+    provides: ["artifact:placementOutputs"],
+    run: (ctx, config) => {
+      // placement consumes the motif as an explicit input (no hidden engine reads)
+      const passes = ctx.artifacts.get("artifact:narrative.motifs.mountainPasses@v1");
+      applyPlacementBias(ctx, passes, config);
+    },
+  },
+});
+
+export const mod: Mod = {
+  id: "@mods/mountain-corridors",
+  registry: createRegistry({ entries: [standardBuildHeightfield, standardPlaceStarts, deriveMountainPasses, biasStartsByPassability] }),
+  recipes: {
+    default: {
+      schemaVersion: 1,
+      id: "mountainCorridors.default",
+      steps: [
+        { id: "standard.morphology.buildHeightfield", enabled: true, config: {} },
+        { id: "mountainCorridors.narrative.deriveMountainPasses", enabled: true, config: {} },
+        { id: "standard.placement.placeStarts", enabled: true, config: {} },
+        { id: "mountainCorridors.placement.biasStartsByPassability", enabled: true, config: {} },
+      ],
+    },
+  },
+};
 ```

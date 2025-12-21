@@ -88,7 +88,7 @@ flowchart LR
   observability["Validation and observability baseline"]:::boundary
 
   foundation["Foundation surface contract"]:::domain
-  story["Story model contract"]:::domain
+  story["Narrative/playability model contract"]:::domain
   climate["Climate ownership"]:::domain
   placement["Placement inputs contract"]:::domain
 
@@ -114,7 +114,7 @@ flowchart LR
   class observability boundary,accepted
 
   class foundation domain,accepted
-  class story domain,open
+  class story domain,accepted
   class climate domain,open
   class placement domain,open
 ```
@@ -589,30 +589,66 @@ skips—only fail-fast validation/precondition errors.
 **ADR stub:**
 - ADR-TBD: Foundation surface (discrete artifacts; `FoundationContext` compat-only)
 
-### 2.4 Story model (overlays canonical vs tags canonical)
+### 2.4 Narrative/playability model (typed narrative artifacts; no `StoryTags`)
 
-Status: `open`
+**Status:** `accepted`
 
-Context:
-- `DEF-002` keeps `StoryTags` as a derived compatibility layer from overlays.
-- `DEF-003` keeps a global overlays registry fallback.
-- `DEF-012` defers finalizing story state as context-owned artifacts.
+**Decision (one sentence):** Narrative/playability is expressed as normal
+pipeline steps that publish **typed, versioned, categorized narrative
+artifacts** (`artifact:narrative.*`); there is no canonical `StoryTags` surface,
+and no narrative globals outside the run context.
 
-Why this is ambiguous:
-- Some docs treat overlays as canonical, yet tags are still consumed and
-  sometimes recomputed from overlays in callers.
+**Context (why this exists):**
+- We want “playability” semantics (corridors, rifts, chokepoints, regions,
+  labels, heatmaps) to be explicit, inspectable contracts that can be authored
+  by the standard mod and by external mods, without coupling core phases to
+  story heuristics.
+- Prior drafts used “StoryOverlays” + “StoryTags”. In practice, this created a
+  dual-source representation and repeated derivations across steps.
+- `docs/projects/engine-refactor-v1/issues/CIV-M4-ADHOC-modularize.md` §4.8
+  already locks the key boundary constraint: **core pipeline must run without
+  stories**, and story/playability work should schedule into existing phases,
+  not introduce a dedicated new phase.
 
-Why this is a problem:
-- Duplicate representations risk semantic drift and split ownership.
-- Global story caches break determinism and make ordering invisible.
+**What is locked (target direction, not content inventory):**
+- Narrative/playability steps **publish narrative artifacts** (examples:
+  `artifact:narrative.corridors@v1`, `artifact:narrative.regions@v1`,
+  `artifact:narrative.motifs.margins@v1`, `artifact:narrative.heatmaps.*@v1`).
+- Consumers (ecology/placement/climate refinements) depend on those artifacts
+  via `requires`/`provides`; they must not re-derive the same semantics.
+- “Optional” means **recipe-level composition**:
+  - Recipes may omit narrative/playability steps entirely and still be valid.
+  - If a recipe includes a narrative artifact consumer, it must also include
+    the publisher steps; compilation fails fast otherwise.
+- There are **no module-level globals/caches** for narrative state. Any
+  caching must be context-owned artifacts keyed to the run.
+- `StoryTags` is **not** a target contract surface. Any remaining tag-like
+  convenience views must be derived from narrative artifacts and explicitly
+  scoped to the context (performance-only; no new canonical representation).
 
-Simplest option:
-- Overlays are canonical; tags are derived views (or removed) and no globals
-  exist outside the context.
+**Why this mattered:**
+- Prevents semantic drift (“double deriving” motifs differently in multiple
+  consumers).
+- Makes narrative/playability mod-friendly without creating a privileged
+  in-core “story layer”.
+- Keeps the dependency graph honest: narrative products are explicit artifacts.
 
-Why we might not simplify yet:
-- Legacy consumers still rely on `StoryTags` and global registry access.
-- The final schema for overlays/tags is not locked.
+**Migration note (implementation follow-up, not a design question):**
+- Replace `artifact:storyOverlays` with explicit `artifact:narrative.*` products
+  (inventory is domain-owned and can evolve).
+- Remove StoryTags consumption from downstream logic; migrate consumers to
+  narrative artifacts (or derived, context-scoped query helpers).
+- Remove any remaining “global story registry” fallbacks and caches (or move
+  them into context-owned artifacts).
+  - Deferrals aligned: `DEF-002`, `DEF-012` (implementation cleanup only).
+
+**SPEC impact (accepted):**
+- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+  - Replace “`artifact:storyOverlays` narrative” with typed narrative artifacts.
+  - Explicitly state “no StoryTags” and “optional via recipe composition”.
+
+**ADR stub:**
+- ADR-TBD: Narrative/playability contract (typed narrative artifacts; no StoryTags)
 
 ### 2.5 Engine boundary (adapter-only; reification-first; verified `effect:*`)
 
@@ -1233,12 +1269,13 @@ Assumptions to confirm:
 - Morphology: heightfield + terrain masks; erosion/sediment artifacts.
 - Hydrology: `ClimateField` is canonical (rainfall + temperature).
 - Ecology: soils, biomes, resources, features derived from climate/morphology.
-- Narrative: story overlays/tags/regions/corridors as explicit artifacts.
+- Narrative/playability: typed narrative artifacts (`artifact:narrative.*`) as explicit products.
 - Placement: consumes artifacts, emits placement outputs without engine reads.
 
 Assumptions to confirm:
 - Exact artifact names and shapes per phase.
-- Whether narrative is a separate phase or cross-cutting overlays.
+- Whether narrative/playability steps are scheduled into morphology/hydrology/ecology/placement
+  or remain grouped under a “narrative” folder (no new runtime phase concept).
 - Placement inputs as explicit artifact vs direct field reads.
 
 **Engine boundary policy (accepted):**
@@ -1250,14 +1287,12 @@ Assumptions to confirm:
 Assumptions to confirm:
 - The minimal “effect verifier” surface (adapter queries + executor hook) and the first set of high-risk effects to verify (placement/biomes/features).
 
-**Story model (draft):**
-- Story overlays are the canonical surface; story tags are derived views.
-- Overlays live in `context.artifacts.story` (schema owned by narrative domain).
-- No global story registry; all overlays are context-scoped.
-
-Assumptions to confirm:
-- Final schema for overlays/tags and lifecycle across phases.
-- Whether tags remain as a compatibility-only export.
+**Narrative/playability model (accepted):**
+- Narrative/playability publishes typed, versioned narrative artifacts under `artifact:narrative.*`.
+- There is no canonical `StoryTags` surface; any query convenience is derived from narrative artifacts
+  and context-scoped (performance only).
+- “Optional” is recipe composition: omit the narrative bundle entirely, or include both publishers and
+  consumers; compilation fails fast on missing deps.
 
 **Validation and observability (draft):**
 - Pre-run validation: step deps + artifact/field schema checks.
@@ -1277,7 +1312,7 @@ These will be promoted to `docs/system/ADR.md` as decisions are accepted.
 - ADR-TBD: Ordering source of truth (recipe vs manifest).
 - ADR-TBD: Step enablement model (recipe-only; remove `shouldRun`).
 - ADR-TBD: Foundation contract (snapshot vs discrete artifacts).
-- ADR-TBD: Story data model (overlays vs tags).
+- ADR-TBD: Narrative/playability model (typed narrative artifacts; no `StoryTags`).
 - ADR-TBD: Engine boundary policy (adapter-only; reification-first; verified `effect:*`).
 - ADR-TBD: Climate ownership (`ClimateField` vs engine rainfall).
 - ADR-TBD: Placement inputs (artifact vs engine reads).

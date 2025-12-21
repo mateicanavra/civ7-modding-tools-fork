@@ -25,12 +25,12 @@ Each deferral follows this structure:
 ## DEF-002: StoryTags Compatibility Layer (Derived From StoryOverlays)
 
 **Deferred:** 2025-12-14  
-**Trigger:** After M3 story steps land and all in-repo consumers read `artifact:storyOverlays` (or an explicitly versioned overlay artifact) directly.  
-**Context:** During Milestone 3 story modernization we publish canonical overlays, but some legacy consumers still expect `StoryTags`. To avoid forcing an all-at-once consumer migration, `StoryTags` remains as a derived compatibility layer populated from overlays.  
+**Trigger:** After narrative/playability artifacts are published/consumed as explicit `artifact:narrative.*` products and no in-repo consumers require `StoryTags` for correctness.  
+**Context:** During Milestone 3 story modernization we introduced “overlays” + `StoryTags` to bridge legacy consumers. Target architecture decision 3.4 locks the end-state: **typed narrative artifacts are canonical and `StoryTags` is not a target contract surface**. This deferral exists only to sequence the cleanup safely.  
 **Scope:**
-- Keep `StoryTags` available as a derived view computed from overlays (not a parallel source of truth).
-- Migrate remaining in-repo consumers to read overlays directly.
-- Remove or demote `StoryTags` once no longer needed (ideally delete, otherwise dev-only).  
+- Keep `StoryTags` available only as a temporary compatibility surface.
+- Migrate consumers to `artifact:narrative.*` (or derived, context-scoped query helpers).
+- Remove `StoryTags` entirely once consumers are migrated.  
 **Impact:**
 - Temporary duplication of narrative representation (overlays + tags) with risk of semantic drift if not kept strictly derived.
 - Continued support surface for legacy semantics during M3.
@@ -130,11 +130,11 @@ Each deferral follows this structure:
 ## DEF-012: Story State to Context-Owned Artifacts (Remove Globals)
 
 **Deferred:** 2025-12-18  
-**Trigger:** After legacy orchestration + toggle removal is complete and story-state representation is fully migrated away from StoryTags/caches.  
-**Context:** The intended end-state is context-owned story data. While StoryTags are now stored on context artifacts, many domain layers still consume StoryTags directly and several story subsystems still rely on module-level caches.  
+**Trigger:** After narrative/playability state is fully represented as explicit `artifact:narrative.*` products and any remaining story caches are context-owned artifacts.  
+**Context:** Target architecture decision 3.4 locks the end-state: narrative/playability state is explicit artifacts and there are no module-level story globals/caches. This deferral tracks the remaining implementation cleanup (migrating consumers and removing caches) safely.  
 **Scope:**
-- Choose a canonical context-owned representation (`artifact:storyState`/`artifact:storyTags` or `ctx.story.*`) and migrate consumers to it.
-- Remove StoryTags as a compatibility surface once no longer needed.
+- Publish/consume narrative/playability state as `artifact:narrative.*` products (typed, versioned).
+- Remove StoryTags as a compatibility surface once no longer needed (see `DEF-002`).
 - Remove module-level story caches (or make them explicitly keyed/scoped and safely reset by context) so story execution is purely context-driven.  
 **Impact:**
 - Story behavior can still be influenced by hidden module-level state and caches.
@@ -202,7 +202,7 @@ Each deferral follows this structure:
 **Context:** `StoryOverlays` currently has a global registry fallback to support legacy reads and transitional wiring. This is intentionally kept through M3 to avoid brittle cutovers while the Task Graph and story steps are stabilized.  
 **Scope:**
 - Keep the global fallback through M3 for compatibility.
-- Migrate callers to context-scoped overlays (`artifact:storyOverlays`).
+- Migrate callers to context-scoped narrative state (target: explicit `artifact:narrative.*` products; legacy: `ctx.overlays` during transition).
 - Remove the global registry fallback (or make it dev-only) once consumers are migrated.  
 **Impact:**
 - Global state makes tests less isolated and can hide ordering/coupling problems.
