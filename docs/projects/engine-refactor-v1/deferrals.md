@@ -80,7 +80,7 @@ Each deferral follows this structure:
 **Impact:**
 - Placement contracts are less data-centric and more “engine state” centric in M3.
 - Harder to test placement purely in-memory without adapter/engine involvement.
- - **Status (2025-12-21):** The target contract (3.7) is accepted; remaining work is implementation cutover from the current engine-effect wiring to the explicit `artifact:placementInputs@v1` + verified `effect:*` model.
+- **Status (2025-12-21):** The target contract (3.7) is accepted; remaining work is implementation cutover from the current engine-effect wiring to the explicit `artifact:placementInputs@v1` + verified `effect:*` model.
 
 ---
 
