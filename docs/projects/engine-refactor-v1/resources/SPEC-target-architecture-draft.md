@@ -241,6 +241,7 @@ Type safety note:
 | `artifact:narrative.corridors@v1` | narrative | Strategic corridors / paths (typed) |
 | `artifact:narrative.regions@v1` | narrative | Named regions / partitions (typed) |
 | `artifact:narrative.motifs.*@v1` | narrative | Motif sets/heatmaps (typed, categorized) |
+| `artifact:placementInputs@v1` | placement | Resolved placement prerequisites (typed, TS-canonical) |
 | `artifact:placementOutputs` | placement | Final placement decisions |
 
 ### 3.2 Fields (engine-facing buffers)
@@ -322,7 +323,7 @@ flowchart LR
   class foundation domain,accepted
   class story domain,accepted
   class climate domain,accepted
-  class placement domain,open
+  class placement domain,accepted
 ```
 
 | ID | Decision | Status | SPIKE section |
@@ -333,7 +334,7 @@ flowchart LR
 | 3.4 | Narrative/playability model (typed narrative artifacts; no `StoryTags`) | accepted | §2.4 |
 | 3.5 | Engine boundary (adapter-only; reification-first; verified `effect:*`; `state:engine.*` transitional-only) | accepted | §2.5 |
 | 3.6 | Climate ownership (`ClimateField` vs engine rainfall) | accepted | §2.6 |
-| 3.7 | Placement inputs (explicit artifact vs engine reads) | open | §2.7 |
+| 3.7 | Placement inputs (explicit artifact vs engine reads) | accepted | §2.7 |
 | 3.8 | Artifact registry (names + schema ownership + versioning) | accepted | §2.8 |
 | 3.9 | Recipe schema (versioning + compatibility rules) | accepted | §2.9 |
 | 3.10 | Observability (required diagnostics + validation behavior) | accepted | §2.10 |

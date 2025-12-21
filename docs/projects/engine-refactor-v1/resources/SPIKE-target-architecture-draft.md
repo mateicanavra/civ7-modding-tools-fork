@@ -116,7 +116,7 @@ flowchart LR
   class foundation domain,accepted
   class story domain,accepted
   class climate domain,accepted
-  class placement domain,open
+  class placement domain,accepted
 ```
 
 ### 2.0b Decision packet template
@@ -740,26 +740,73 @@ Why we might not simplify yet:
 
 ### 2.7 Placement inputs (explicit artifact vs engine reads)
 
-Status: `open`
+**Status:** `accepted`
 
-Context:
-- `DEF-006` keeps placement as an engine-effect step without a canonical
-  `artifact:placementInputs`.
+**Decision (one sentence):** Placement consumes an explicit, TS-canonical
+`artifact:placementInputs@v1` (produced upstream and referenced via
+`requires/provides`); placement may still delegate writes/side-effects to the Civ
+engine via the adapter, but **must not** use implicit “read engine later” state
+as a cross-step dependency surface.
 
-Why this is ambiguous:
-- Target docs suggest data-driven placement inputs, but runtime still reads
-  engine state directly.
+**Context (why this exists):**
+- Placement currently assembles a mix of inputs (some TS-side, some engine-side)
+  and then performs engine-facing mutations (“apply placement”).
+- `DEF-006` deferred introducing a canonical `artifact:placementInputs` in M3 to
+  avoid blocking on a full placement-input contract design.
+- With 3.5 (engine boundary) accepted, any cross-step dependency must be
+  expressed via `field:*`/`artifact:*`/verified `effect:*`, not opaque engine
+  reads.
 
-Why this is a problem:
-- Placement is hard to test offline and hides dependency surfaces.
-- It increases coupling to engine state and ordering.
+**Why this matters (what stays hard until resolved):**
+- Placement is difficult to test and reason about if its prerequisites are
+  implicit engine reads.
+- Mods cannot compose placement reliably if “what placement needs” is not a
+  first-class artifact.
+- The executor cannot validate ordering if dependencies are not explicit tags.
 
-Simplest option:
-- Define and publish `artifact:placementInputs` and consume it in placement.
+**Greenfield simplest (pure target):**
+- Introduce a stable, versioned placement inputs artifact (`@v1`) that captures
+  the minimal set of information placement needs, entirely in TS memory.
+- Placement requires that artifact, and placement outputs (and engine-side
+  side-effects) are published explicitly via artifacts/fields/effects.
 
-Why we might not simplify yet:
-- Building a stable placement inputs artifact is a non-trivial design task.
-- Engine-first placement may still be required for parity or performance.
+**Accepted policy (enforceable rules):**
+- **Canonical input surface:** placement requires
+  `artifact:placementInputs@v1`; it is produced by an upstream “derive placement
+  inputs” step (or a small cluster of such steps).
+- **Adapter-only IO:** engine access is only via `ctx.runtime.adapter` (no direct
+  engine calls).
+- **Reification-first:** if any engine-derived value is needed cross-step, it
+  must be reified into `field:*`/`artifact:*` and declared in `provides`
+  (no implicit “read engine again later”).
+- **Engine writes remain allowed:** placement can still apply results to the
+  engine (e.g., via Civ scripts), but must publish a verified `effect:*` to make
+  the engine-side mutation schedulable and observable.
+- **No `state:engine.*` dependency surface:** `state:engine.*` remains
+  transitional-only wiring (aligns with DEF-008). Target placement contracts use
+  `artifact:*`/`field:*`/`effect:*`.
+
+**What is intentionally *not* decided here (content layer):**
+- The exact fields inside `PlacementInputs@v1` (and the exact set of placement
+  outputs) are domain/content decisions that can evolve independently of this
+  architectural contract. The architectural invariant is: **placement inputs are
+  explicit, TS-canonical, and schedulable via tags**.
+
+**Evidence (current code + docs):**
+- `DEF-006` keeps placement engine-effect driven in M3.
+- `packages/mapgen-core/src/pipeline/standard.ts` currently schedules placement
+  via engine-surface tags, not a canonical inputs artifact.
+
+**Migration note (current hybrid -> target):**
+- Add `artifact:placementInputs@v1` to the tag registry with a safe demo.
+- Introduce a `derivePlacementInputs` step that:
+  - `requires` the upstream physical/narrative prerequisites it needs
+  - produces `artifact:placementInputs@v1`
+  - reifies any engine-only reads into TS buffers if later steps depend on them
+- Update placement to:
+  - `requires: [\"artifact:placementInputs@v1\"]`
+  - publish `effect:engine.placementApplied` (verified) when it mutates engine
+  - publish any placement outputs as explicit artifacts/fields if needed
 
 ### 2.8 Artifact registry (canonical names + schema ownership + versioning)
 

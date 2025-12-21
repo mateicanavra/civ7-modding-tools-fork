@@ -67,17 +67,20 @@ Each deferral follows this structure:
 
 ---
 
-## DEF-006: Placement Inputs Artifact Deferred (Placement Remains Engine-Effect Driven)
+## DEF-006: Placement Inputs Artifact Implementation Deferred (M3 Placement Remains Engine-Effect Driven)
 
 **Deferred:** 2025-12-14  
-**Trigger:** When we need engine-less placement testing or want placement composition that depends on a stable, reusable “placement inputs” artifact.  
-**Context:** Placement currently consumes a mix of map-init inputs and engine-surface state, not a single in-memory “inputs” artifact. In M3 we keep placement as an engine-effect step with `state:*` dependency tags, and we do not force immediate publication of a canonical `artifact:placementInputs`.  
+**Trigger:** When we need engine-less placement testing, want placement composition that depends on a stable “placement inputs” artifact, or are ready to cut over M3 placement wiring to the accepted target contract.  
+**Context:** Placement currently consumes a mix of map-init inputs and engine-surface state, not a single TS-owned “inputs” artifact. In M3 we keep placement as an engine-effect step and avoid blocking on a full placement-input contract design. Target decision 3.7 is now accepted: placement consumes an explicit `artifact:placementInputs@v1` and does not rely on implicit engine reads as a cross-step dependency surface. This deferral remains only to sequence the implementation safely.  
 **Scope:**
-- Keep placement’s precomputed inputs assembled internally to the placement step in M3.
-- Consider publishing a canonical `artifact:placementInputs` later if it materially improves testability/composability.  
+- Add `artifact:placementInputs@v1` to the tag registry with a safe demo payload.
+- Introduce a `derivePlacementInputs` step (or small cluster) that produces `artifact:placementInputs@v1` from explicit prerequisites and reifies any engine-only reads that become cross-step dependencies.
+- Update placement to `requires: ["artifact:placementInputs@v1"]` and publish a verified `effect:engine.placementApplied` when it mutates the engine.
+- Remove `state:*` placement scheduling once `effect:*` + artifact prerequisites are in place (align with DEF-008).  
 **Impact:**
 - Placement contracts are less data-centric and more “engine state” centric in M3.
 - Harder to test placement purely in-memory without adapter/engine involvement.
+ - **Status (2025-12-21):** The target contract (3.7) is accepted; remaining work is implementation cutover from the current engine-effect wiring to the explicit `artifact:placementInputs@v1` + verified `effect:*` model.
 
 ---
 
