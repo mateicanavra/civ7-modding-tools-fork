@@ -87,6 +87,7 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 ### 1) M4-PIPELINE-CUTOVER: Recipe + ExecutionPlan as the only ordering surface (DEF-004) — **Estimate: 8**
 
 - Outcome: Runtime input is `RunRequest = { recipe, settings }`, compiled into an `ExecutionPlan` that the executor runs (no `stageManifest`/`STAGE_ORDER` ordering input).
+- Issue doc: `../issues/M4-PIPELINE-CUTOVER.md`
 - Acceptance:
   - The default “standard” mod exposes a recipe that fully defines step order + enablement.
   - `stageManifest` and `STAGE_ORDER` are not required to run the pipeline.
@@ -95,6 +96,7 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 ### 2) M4-EFFECTS-VERIFICATION: Replace `state:engine.*` with verifiable `effect:*` + reification (DEF-008) — **Estimate: 8**
 
 - Outcome: Engine-surface prerequisites are explicit `effect:*` tags that participate in scheduling and are verified via adapter-backed postconditions; cross-step data is reified into `field:*` / `artifact:*`.
+- Issue doc: `../issues/M4-EFFECTS-VERIFICATION.md`
 - Acceptance:
   - `state:engine.*` is removed from the target registry/contract surface (migration-only compatibility, if any, is isolated and explicit).
   - Highest-risk engine effects (biomes/features/placement) have verifiable `effect:*` tags and minimal postcondition checks.
@@ -102,6 +104,7 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 ### 3) M4-PLACEMENT-INPUTS: Cut placement over to `artifact:placementInputs@v1` (DEF-006) — **Estimate: 4**
 
 - Outcome: Placement consumes explicit, TS-canonical inputs and publishes a verified `effect:engine.placementApplied`; no implicit engine reads act as the cross-step dependency surface.
+- Issue doc: `../issues/M4-PLACEMENT-INPUTS.md`
 - Acceptance:
   - `artifact:placementInputs@v1` exists in the registry with a safe demo payload.
   - A derive step produces it from explicit prerequisites.
@@ -110,6 +113,7 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 ### 4) M4-NARRATIVE-CLEANUP: Narrative/playability artifacts become canonical; StoryTags/caches removed (DEF-002/DEF-012) — **Estimate: 4**
 
 - Outcome: Typed `artifact:narrative.*` products are the canonical playability surface; StoryTags are removed as a dependency surface and caches are context-owned or eliminated.
+- Issue doc: `../issues/M4-NARRATIVE-CLEANUP.md`
 - Acceptance:
   - All in-repo consumers read (directly or via derived query helpers) from `artifact:narrative.*`.
   - StoryTags is either deleted or fenced to explicit compatibility tooling with no consumer correctness dependency.
@@ -117,6 +121,7 @@ This milestone corresponds to **Milestone 4** in `PROJECT-engine-refactor-v1.md`
 ### 5) M4-SAFETY-NET: Observability baseline + CI tests (CIV-23 + CIV-55) — **Estimate: 4**
 
 - Outcome: We can compile, execute, and debug the pipeline confidently.
+- Issue doc: `../issues/M4-SAFETY-NET.md`
 - Acceptance:
   - Step tracing can be toggled per step on a shared foundation; run id + plan fingerprint are emitted.
   - CI runs a small suite of smoke tests (stub adapter) plus at least one regression-style preset test.
