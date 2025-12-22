@@ -1,6 +1,7 @@
 import { parseArgs } from "node:util";
 import { join } from "node:path";
 import { runOrchestrator } from "./orchestrator.js";
+import { runCommand } from "./shell.js";
 import type { OrchestratorConfig } from "./types.js";
 
 function usage(): string {
@@ -12,6 +13,7 @@ function usage(): string {
     "  -m, --milestone   Milestone ID to run (required)",
     "  -p, --project     Project ID to disambiguate milestones (optional)",
     "  -i, --issue       Issue ID to run (optional, defaults to first)",
+    "  -b, --base-branch Base branch to create issue worktrees from (default: current branch)",
     "  --logs-root       Override logs root (default: logs/orch)",
   ].join("\n");
 }
@@ -23,6 +25,7 @@ function parseCliArgs() {
       milestone: { type: "string", short: "m" },
       project: { type: "string", short: "p" },
       issue: { type: "string", short: "i" },
+      "base-branch": { type: "string", short: "b" },
       "logs-root": { type: "string" },
     },
   });
@@ -36,18 +39,33 @@ function parseCliArgs() {
     milestoneId: values.milestone,
     projectId: values.project,
     issueId: values.issue,
+    baseBranch: values["base-branch"],
     logsRoot: values["logs-root"],
   };
 }
 
+async function resolveBaseBranch(repoRoot: string, override?: string): Promise<string> {
+  if (override) {
+    return override;
+  }
+  const result = await runCommand("git", ["rev-parse", "--abbrev-ref", "HEAD"], { cwd: repoRoot });
+  const branch = result.exitCode === 0 ? result.stdout.trim() : "";
+  if (branch && branch !== "HEAD") {
+    return branch;
+  }
+  return "main";
+}
+
 async function main() {
-  const { milestoneId, issueId, projectId, logsRoot } = parseCliArgs();
+  const { milestoneId, issueId, projectId, logsRoot, baseBranch } = parseCliArgs();
   const repoRoot = process.cwd();
+  const resolvedBaseBranch = await resolveBaseBranch(repoRoot, baseBranch);
 
   const config: OrchestratorConfig = {
     repoRoot,
     logsRoot: logsRoot ?? join(repoRoot, "logs", "orch"),
     maxReviewCycles: 2,
+    baseBranch: resolvedBaseBranch,
   };
 
   await runOrchestrator(config, { milestoneId, projectId, issueId });

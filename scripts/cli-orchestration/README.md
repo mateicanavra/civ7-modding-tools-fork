@@ -26,9 +26,10 @@ bun run scripts/cli-orchestration/orchestrate.ts --milestone M1 --project cli-or
 - Worktree lifecycle is orchestrator-owned; the prompts must not create/remove worktrees.
 - Milestone docs must exist under `docs/projects/<project>/milestones/` for `milestoneDocPath` resolution.
 - Use `--project <projectId>` to disambiguate if multiple projects share the same milestone ID.
+- Issue worktrees are created from `--base-branch` (defaults to the current branch), so prompts can see the same repo state as the orchestrator.
 - Codex SDK defaults (v0):
   - Streaming: **on** (events are written to stdout as JSONL).
   - Auto-approve: **on** (`approvalPolicy: "never"`).
   - Sandbox: `workspace-write`, network access enabled.
-  - Additional writable dirs: git common dir (via `git rev-parse --git-common-dir`) and Graphite config (`$XDG_CONFIG_HOME/graphite` or `~/.config/graphite`) when present.
+  - Additional writable dirs: git common dir (via `git rev-parse --git-common-dir`), Graphite config (`$XDG_CONFIG_HOME/graphite` or `~/.config/graphite`), and Graphite data (`$XDG_DATA_HOME/graphite` or `~/.local/share/graphite`).
   - To change these defaults, edit the `startThread` options in `scripts/cli-orchestration/codex-sdk-runner.ts`.

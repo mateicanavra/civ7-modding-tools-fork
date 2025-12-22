@@ -1,5 +1,5 @@
 import { execFile } from "node:child_process";
-import { access, realpath } from "node:fs/promises";
+import { access, mkdir, realpath } from "node:fs/promises";
 import { homedir } from "node:os";
 import { isAbsolute, join, resolve } from "node:path";
 import { promisify } from "node:util";
@@ -31,6 +31,17 @@ async function resolveGraphiteConfigDir(): Promise<string | undefined> {
   }
 }
 
+async function resolveGraphiteDataDir(): Promise<string | undefined> {
+  const dataBase = process.env.XDG_DATA_HOME ?? join(homedir(), ".local", "share");
+  const graphiteDir = join(dataBase, "graphite");
+  try {
+    await mkdir(graphiteDir, { recursive: true });
+    return await realpath(graphiteDir);
+  } catch {
+    return undefined;
+  }
+}
+
 export async function buildAdditionalDirectories(cwd: string): Promise<string[]> {
   const directories: string[] = [];
   const gitCommonDir = await resolveGitCommonDir(cwd);
@@ -40,6 +51,10 @@ export async function buildAdditionalDirectories(cwd: string): Promise<string[]>
   const graphiteDir = await resolveGraphiteConfigDir();
   if (graphiteDir) {
     directories.push(graphiteDir);
+  }
+  const graphiteDataDir = await resolveGraphiteDataDir();
+  if (graphiteDataDir) {
+    directories.push(graphiteDataDir);
   }
   return directories;
 }

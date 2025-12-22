@@ -73,4 +73,5 @@ export interface OrchestratorConfig {
   repoRoot: string;
   logsRoot: string;
   maxReviewCycles: number;
+  baseBranch: string;
 }
