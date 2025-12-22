@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { CodexSdkRunner } from "./codex-sdk-runner.js";
-import { loadIssuesByMilestone, orderIssuesLinear } from "./issue-discovery.js";
+import { loadIssuesByMilestone, orderIssuesLinear, resolveMilestoneDoc } from "./issue-discovery.js";
 import { writeJson } from "./logging.js";
 import { renderPrompt } from "./prompt-renderer.js";
 import type { DevResult, IssueDoc, OrchestratorConfig } from "./types.js";
@@ -23,7 +23,10 @@ function selectIssue(issues: IssueDoc[], issueId?: string): IssueDoc {
 }
 
 export async function runOrchestrator(config: OrchestratorConfig, args: OrchestratorArgs) {
-  const issues = orderIssuesLinear(await loadIssuesByMilestone(config.repoRoot, args.milestoneId));
+  const milestone = await resolveMilestoneDoc(config.repoRoot, args.milestoneId);
+  const issues = orderIssuesLinear(
+    await loadIssuesByMilestone(config.repoRoot, args.milestoneId, milestone.project),
+  );
   if (issues.length === 0) {
     throw new Error(`No issues found for milestone ${args.milestoneId}.`);
   }
@@ -37,7 +40,7 @@ export async function runOrchestrator(config: OrchestratorConfig, args: Orchestr
       issueId: issue.id,
       issueDocPath: issue.path,
       milestoneId: args.milestoneId,
-      milestoneDocPath: "",
+      milestoneDocPath: milestone.path,
       branchName,
       worktreePath,
       maxReviewCycles: config.maxReviewCycles,

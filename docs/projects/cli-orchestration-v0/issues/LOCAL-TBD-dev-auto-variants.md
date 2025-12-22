@@ -37,6 +37,7 @@ related_to: []
 - **Contract:** `docs/projects/cli-orchestration-v0/resources/CONTRACT-dev-auto-and-runner.md`
 - **ADR:** `docs/projects/cli-orchestration-v0/resources/ADR-001-orchestration-v0.md`
 - **Scope guardrail:** No orchestrator implementation changes in this issue.
+- **Repo plugin source:** `plugins/dev/commands/` + `plugins/dev/skills/autonomous-development/` (sync via `~/.claude/plugins/local/plugins/meta/scripts/sync_to_codex.py`).
 
 ---
 
