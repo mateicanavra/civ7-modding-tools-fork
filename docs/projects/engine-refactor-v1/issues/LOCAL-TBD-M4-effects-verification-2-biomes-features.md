@@ -81,3 +81,8 @@ Constraints/notes:
 - Use reify-after-mutate; keep behavior stable.
 - Prefer minimal, adapter-friendly postconditions (avoid full-map scans).
 - Do not implement code; return the plan and maps as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-2-biomes-features-reification.md`
+- Includes: reify-after-mutate plan for `field:biomeId` + `field:featureType`, the (currently real) cross-step engine read that must switch to fields (features reading biomes), and a minimal sampled postcondition checklist for verifying `effect:engine.biomesApplied` / `effect:engine.featuresApplied`.
