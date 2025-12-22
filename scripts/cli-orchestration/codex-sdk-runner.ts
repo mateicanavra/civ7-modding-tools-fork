@@ -32,6 +32,9 @@ export class CodexSdkRunner implements Runner {
     try {
       const thread = this.codex.startThread({
         workingDirectory: input.cwd,
+        approvalPolicy: "on-request",
+        sandboxMode: "workspace-write",
+        networkAccessEnabled: true,
       });
 
       const outputSchema = await loadSchema(input.schemaPath);
@@ -39,7 +42,9 @@ export class CodexSdkRunner implements Runner {
 
       let finalMessage: string | undefined;
       for await (const event of events) {
-        logStream.write(`${JSON.stringify(event)}\n`);
+        const line = `${JSON.stringify(event)}\n`;
+        logStream.write(line);
+        process.stdout.write(line);
         if (event.type === "item.completed" && event.item.type === "agent_message") {
           finalMessage = event.item.text;
         }
