@@ -113,3 +113,8 @@ Constraints/notes:
 - Keep behavior stable; this is validation/verification wiring, not algorithm change.
 - `effect:*` must be schedulable and verifiable via the registry catalog.
 - Do not implement code; return the inventory and catalog plan as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-tag-registry-catalog-plan.md`
+- Includes: current validation/verification inventory (`pipeline/tags.ts`, `PipelineExecutor.ts`), a proposed registry-instantiated catalog seed table, and a replacement plan for validation/verification + demo payload validation placement.
