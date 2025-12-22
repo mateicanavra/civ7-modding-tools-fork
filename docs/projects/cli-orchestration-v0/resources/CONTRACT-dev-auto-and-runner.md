@@ -100,12 +100,10 @@ Prompt authors should treat this block as authoritative.
 
 #### `dev-auto-parallel` / `dev-auto-fix-review` (dev/fix phases)
 
-**Required fields:**
+**Required fields (schema strict; empty arrays allowed):**
 - `phase`: `"dev"` or `"fix"`
 - `status`: `"pass"` | `"failed"` | `"deferred"`
 - `issueId`, `milestoneId`, `branch`, `worktreePath`, `summary`
-
-**Optional fields (recommended):**
 - `testsRun`: array of `{ command, status, notes }` — `notes` is required (empty string allowed, but include context when available)
 - `docsUpdated`: string[] (paths)
 - `draftPrs`: string[] (urls)
