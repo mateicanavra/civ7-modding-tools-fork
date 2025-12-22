@@ -55,8 +55,8 @@ Goal: make the `state:engine.*` removal mechanical by enumerating every remainin
 | `state:engine.featuresApplied` | `effect:engine.featuresApplied` + `field:featureType` | Effects‑1/2 + Tag Registry Cutover | Features currently reads biomes via adapter; switch to field consumption once biomes reifies. |
 | `state:engine.placementApplied` | `effect:engine.placementApplied` (+ minimal placement outputs for verification) | Effects‑1 + Placement Inputs | Placement verification likely needs a TS-owned `artifact:placementOutputs@v1` or a dedicated adapter read surface. |
 | `state:engine.riversModeled` | **Prefer:** `artifact:riverAdjacency` | Pipeline dependency spine + tests | Rivers already publishes `artifact:riverAdjacency` (runtime-verifiable); this can replace the placement prereq without introducing a new effect verifier. |
-| `state:engine.coastlinesApplied` | `effect:engine.coastlinesApplied` (or a reified artifact if we define one) | Tag Registry Cutover + pipeline cutover | Coastlines is an engine-first mutation (`adapter.expandCoasts`). Verification likely needs a small adapter read (or a cheap invariant check) to avoid “asserted but unverified” behavior. |
-| `state:engine.landmassApplied` | `effect:engine.landmassApplied` (or a reified artifact if we define one) | Tag Registry Cutover + pipeline cutover | Landmass step marks LandmassRegionId / plot tags but adapter lacks read APIs; verification likely requires adapter read surface (see Engine Boundary Cleanup). |
+| `state:engine.coastlinesApplied` | `effect:engine.coastlinesApplied` (or a reified artifact if we define one) | Tag Registry Cutover + pipeline cutover | Coastlines is an engine-first mutation (`adapter.expandCoasts`). **Decision (ADR-ER1-021):** verify via cheap invariants using existing adapter reads (e.g., terrain-type deltas) + call evidence; do not add new read-back APIs in M4. |
+| `state:engine.landmassApplied` | `effect:engine.landmassApplied` (or a reified artifact if we define one) | Tag Registry Cutover + pipeline cutover | Landmass writes region IDs / plot tags but adapter is write-oriented. **Decision (ADR-ER1-021):** verify via call evidence + coarse invariants; defer adding read-back APIs (DEF-017) unless needed to reduce risk/flake. |
 
 ## Cleanup checklist (mechanical steps)
 
@@ -77,5 +77,4 @@ Goal: make the `state:engine.*` removal mechanical by enumerating every remainin
 
 - Effects‑2 must land first for biomes/features (`effect:*` verifiers + reified fields).
 - Placement inputs cutover must land first so placement doesn’t rely on a `state:*` edge with no verification story.
-- Engine Boundary Cleanup likely needs to supply any missing adapter read surfaces required to verify landmass/coastline effects (if those remain as effects rather than reified artifacts).
-
+- Engine Boundary Cleanup may supply read-back surfaces later if stronger verification is needed, but M4 explicitly prefers cheap invariants + call evidence and defers new read-back APIs (DEF-017).

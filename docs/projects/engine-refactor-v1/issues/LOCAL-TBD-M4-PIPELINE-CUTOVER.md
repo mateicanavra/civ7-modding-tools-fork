@@ -170,5 +170,5 @@ Readiness checklist (child prework artifacts):
 - [x] PIPELINE‑6 — dual-orchestration inventory + mapping + cleanup checklist:
   - `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-6-dual-orchestration-inventory.md`
 
-Notable gap / decision points to keep in mind during implementation:
-- Cross-cutting `foundation.dynamics.directionality` config is used by multiple non-foundation steps; PIPELINE‑2 will need a concrete strategy for supplying this once “per-step config comes from the recipe occurrence only”.
+Notable decision (resolved blocker):
+- Cross-cutting directionality policy is supplied via RunRequest `settings` (not duplicated per-step config); see `docs/projects/engine-refactor-v1/ADR.md` (ADR-ER1-019).

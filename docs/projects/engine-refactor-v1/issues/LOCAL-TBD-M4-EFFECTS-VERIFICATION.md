@@ -142,6 +142,6 @@ Readiness checklist (implementation should be mostly mechanical once these are d
 - Biomes/features can reify immediately after mutate into `field:biomeId` / `field:featureType` and switch the one real cross-step engine read (features reading biome state) to field reads.
 - `state:engine.*` removal map is complete across tags/standard spine/tests/schema strings/DEF‑008.
 
-Gap list / open decisions:
-- `effect:engine.placementApplied` verification: choose between a minimal TS-owned `artifact:placementOutputs@v1` (preferred for reification-first) vs extending the adapter with placement-read postconditions.
-- `state:engine.landmassApplied` / `state:engine.coastlinesApplied` replacements: if these remain schedulable, they need a verification story (likely via Engine Boundary Cleanup adapter read surfaces).
+Decision notes (resolved blockers):
+- `effect:engine.placementApplied` verification is locked: publish a minimal TS-owned `artifact:placementOutputs@v1` and verify via artifact shape/invariants (ADR-ER1-020).
+- `effect:engine.landmassApplied` / `effect:engine.coastlinesApplied` verification is locked: use cheap invariants + call evidence in M4; defer adapter read-back APIs (ADR-ER1-021; DEF-017).

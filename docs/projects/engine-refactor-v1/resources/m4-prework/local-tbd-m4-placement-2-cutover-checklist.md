@@ -52,7 +52,7 @@ Minimum viable options (align with Effects‑1 prework):
    - For MockAdapter, assert calls occurred (`adapter.calls.assignStartPositions`, `calls.generateResources`, etc).
    - For Civ adapter, add a minimal read surface (engine boundary) if we truly need engine-read verification.
 
-For M4 cutover, option (1) keeps “reification-first” and avoids hard engine-read dependencies.
+**Decision (ADR-ER1-020):** implement option (1) for M4 — publish `artifact:placementOutputs@v1` and verify `effect:engine.placementApplied` via the artifact. Treat option (2) as a follow-up path if stronger engine-state verification is needed (see DEF-017).
 
 ## 4) Tests to update/add
 
@@ -77,4 +77,3 @@ Suggested new test coverage (if needed):
    - read inputs exclusively from the artifact (no `ctx.config.placement` reads; no runtime-only start assembly)
 3) Add `effect:engine.placementApplied` provide + verifier hookup (Effects‑1 coordination).
 4) Remove any compatibility shims and update DEF‑006 once the target path is clean.
-

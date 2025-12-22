@@ -99,4 +99,4 @@ Constraints/notes:
 ## Prework Results / References
 
 - Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-2-step-config-matrix.md`
-- Includes: step-by-step config inventory matrix, schema reuse recommendations, and flagged ownership questions (notably cross-cutting `foundation.dynamics.directionality` usage).
+- Includes: step-by-step config inventory matrix, schema reuse recommendations, and the resolved directionality policy call (ADR-ER1-019).

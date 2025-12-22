@@ -23,13 +23,13 @@ Update placement to consume `artifact:placementInputs@v1` exclusively and provid
 ## Deliverables
 
 - Placement requires `artifact:placementInputs@v1` and stops assembling inputs internally.
-- Placement provides `effect:engine.placementApplied` with adapter-backed postcondition checks.
+- Placement provides `effect:engine.placementApplied` verified via a minimal `artifact:placementOutputs@v1` (ADR-ER1-020).
 - DEF-006 updated to “resolved” once the new contract is in place.
 
 ## Acceptance Criteria
 
 - Placement no longer reads implicit inputs from engine state; it consumes the artifact.
-- Placement provides a verified effect tag and fails fast on postcondition failures.
+- Placement provides a verified effect tag and fails fast on verifier failures (missing/invalid outputs, shape mismatches).
 - DEF-006 marked resolved with a brief pointer to the new artifact contract.
 
 ## Testing / Verification
@@ -42,7 +42,7 @@ Update placement to consume `artifact:placementInputs@v1` exclusively and provid
 - **Parent:** [LOCAL-TBD-M4-PLACEMENT-INPUTS](LOCAL-TBD-M4-PLACEMENT-INPUTS.md)
 - **Blocked by:** LOCAL-TBD-M4-PLACEMENT-1
 - **Related:** LOCAL-TBD-M4-EFFECTS-VERIFICATION (placement effect verification)
-- **Coordination:** Effect tag catalog + adapter postcondition surfaces come from LOCAL-TBD-M4-EFFECTS-1.
+- **Coordination:** Effect tag catalog + verifier wiring comes from LOCAL-TBD-M4-EFFECTS-1; placement verification uses `artifact:placementOutputs@v1` (ADR-ER1-020).
 
 ---
 
@@ -66,7 +66,7 @@ Goal: produce the placement cutover checklist so the refactor is mechanical and 
 Deliverables:
 - A list of all placement input assembly sites and implicit engine reads that must be replaced by `placementInputs@v1`.
 - A mapping from each old input source to the new artifact field.
-- A plan for `effect:engine.placementApplied` verification (which adapter postcondition to call).
+- A plan for `effect:engine.placementApplied` verification via a minimal `artifact:placementOutputs@v1` (schema + invariants; see ADR-ER1-020).
 - A list of tests to update/add for stub-adapter placement runs.
 
 Where to look:
@@ -82,4 +82,4 @@ Constraints/notes:
 ## Prework Results / References
 
 - Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-2-cutover-checklist.md`
-- Includes: placement input assembly inventory (task graph + placement layer + PlacementStep), a source→artifact mapping table, a minimal plan for `effect:engine.placementApplied` verification, and the concrete test files that will need updates during cutover.
+- Includes: placement input assembly inventory (task graph + placement layer + PlacementStep), a source→artifact mapping table, a minimal plan for `effect:engine.placementApplied` verification via `artifact:placementOutputs@v1` (ADR-ER1-020), and the concrete test files that will need updates during cutover.

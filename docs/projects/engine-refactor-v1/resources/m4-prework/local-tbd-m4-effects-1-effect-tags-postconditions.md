@@ -89,7 +89,7 @@ Minimum viable verification options (choose one; avoid “unverified” scheduli
    - Extend adapter with a minimal read needed for verification (e.g., a “placed wonders/resources count” query),
      implemented in Civ adapter via engine globals and in MockAdapter via tracked calls.
 
-For M4 scaffolding, option (1) keeps the engine boundary cleaner and aligns with “reification-first” while still allowing the placement step to delegate side-effects to the engine.
+**Decision (ADR-ER1-020):** choose option (1) for M4 — publish a minimal TS-owned `artifact:placementOutputs@v1` and verify `effect:engine.placementApplied` via the artifact (no new placement read-back APIs in M4).
 
 ## Where these should be registered
 
@@ -102,4 +102,3 @@ Register these as `effect:*` definitions in the same registry surface as other d
 - LOCAL‑TBD‑M4‑TAG‑REGISTRY‑CUTOVER: add `effect:*` as a first-class kind in the registry-instantiated catalog and wire verification hooks.
 - LOCAL‑TBD‑M4‑EFFECTS‑3: replace `state:engine.*` with these `effect:*` tags once verifiers exist.
 - LOCAL‑TBD‑M4‑PLACEMENT‑INPUTS: if we introduce `artifact:placementOutputs@v1` for verification, keep it minimal and versioned like placement inputs.
-

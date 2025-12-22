@@ -91,7 +91,7 @@ This issue closes DEF-006.
 
 ### 4) Publish a verified effect
 
-- Placement provides `effect:*` (e.g., `effect:engine.placementApplied`) with a postcondition check via adapter.
+- Placement provides `effect:*` (e.g., `effect:engine.placementApplied`) verified via a minimal TS-owned `artifact:placementOutputs@v1` (ADR-ER1-020).
 
 ### 5) Update DEF-006 status
 
@@ -132,5 +132,5 @@ Readiness checklist:
 - Coordinate with Effects‑1/Effects track so `effect:engine.placementApplied` is definable, schedulable in the registry, and has a verification story.
 
 Gap list / open decisions:
-- Verification strategy for `effect:engine.placementApplied` (outputs artifact vs adapter read surface) remains the main cross-cutting choice.
+- Verification strategy for `effect:engine.placementApplied` is locked: publish a minimal TS-owned `artifact:placementOutputs@v1` and verify via artifact shape/invariants (ADR-ER1-020).
 - Demo payload safety: decide whether demos should omit `starts` to avoid engine-dependent start placement paths (preferred for “won’t crash” demos).

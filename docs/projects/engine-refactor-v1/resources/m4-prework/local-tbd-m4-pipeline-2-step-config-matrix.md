@@ -45,10 +45,9 @@ No-config steps (parity-safe to keep empty per-step config):
 - `lakes` (engine mapInfo only)
 
 Cross-cutting config (ownership/design questions for per-step config plumbing):
-- `foundation.dynamics.directionality.*` is used by **multiple non-foundation steps** (rifts, sea-lanes/corridors, climate swatches/refine). PIPELINE-2 will need a decision on how this is supplied once “config must come from recipe occurrence only”:
-  - duplicate the needed directionality fields into each step’s recipe config, or
-  - treat directionality as part of global run `settings` (unlikely; not pure instance settings), or
-  - publish a typed “directionality policy” artifact from foundation and have consumers read that artifact instead of config.
+- `foundation.dynamics.directionality.*` is used by **multiple non-foundation steps** (rifts, sea-lanes/corridors, climate swatches/refine).
+  - **Decision (ADR-ER1-019):** treat the cross-cutting directionality policy as part of RunRequest `settings` (typed/shared), and migrate consumers to read from settings (not from other steps’ config and not from `ctx.config.foundation.*`).
+  - **Explicit non-goal for M4:** do not introduce a foundation-produced “directionality policy artifact” as a new cross-step dependency surface without a separate follow-up decision.
 - Landmass/ocean separation currently consult `foundation.surface` / `foundation.policy` aliases. If per-step config becomes authoritative, these aliases become legacy-only and should be removed (likely in PIPELINE-5 cleanup).
 
 ## Validation rules (recommended inventory outcome)
@@ -57,4 +56,3 @@ For PIPELINE-2 implementation:
 - Unknown keys should fail for recipe step entries and for step config objects when a schema exists (align with SPIKE §2.9 and PIPELINE-1 prework).
 - Defaults should be applied via TypeBox defaults where present (`Value.Default(schema, userConfig)`), with runtime fallbacks remaining only as transitional parity guards.
 - Steps that currently take runtime-injected config (`landmassPlates`, `mountains`, `volcanoes`, `placement`) should be migrated to consume **only** the per-occurrence recipe config (no hidden fallback to `ctx.config`).
-

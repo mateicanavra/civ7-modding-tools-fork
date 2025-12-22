@@ -84,4 +84,4 @@ Constraints/notes:
 ## Prework Results / References
 
 - Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-1-effect-tags-postconditions.md`
-- Includes: current `state:engine.*` usage + providing steps, a proposed `effect:*` seed catalog for biomes/features/placement, and a minimal postcondition verification sketch (including the open question for `effect:engine.placementApplied` verification).
+- Includes: current `state:engine.*` usage + providing steps, a proposed `effect:*` seed catalog for biomes/features/placement, and a minimal postcondition verification sketch (placement verification is locked in ADR-ER1-020).
