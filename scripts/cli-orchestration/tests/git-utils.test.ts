@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { execFile } from "node:child_process";
-import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
@@ -28,6 +28,24 @@ async function withTempRepo<T>(fn: (repoDir: string) => Promise<T>) {
     await runGit(baseDir, ["commit", "-m", "init"]);
     return await fn(baseDir);
   } finally {
+    await rm(baseDir, { recursive: true, force: true });
+  }
+}
+
+async function withTempGraphiteConfig<T>(fn: (configDir: string) => Promise<T>) {
+  const baseDir = await mkdtemp(join(tmpdir(), "orch-graphite-"));
+  const previousConfigHome = process.env.XDG_CONFIG_HOME;
+  process.env.XDG_CONFIG_HOME = baseDir;
+  const graphiteDir = join(baseDir, "graphite");
+  try {
+    await mkdir(graphiteDir, { recursive: true });
+    return await fn(graphiteDir);
+  } finally {
+    if (previousConfigHome) {
+      process.env.XDG_CONFIG_HOME = previousConfigHome;
+    } else {
+      delete process.env.XDG_CONFIG_HOME;
+    }
     await rm(baseDir, { recursive: true, force: true });
   }
 }
@@ -60,6 +78,16 @@ describe("git-utils", () => {
       const directories = await buildAdditionalDirectories(repoDir);
       const expected = await realpath(join(repoDir, ".git"));
       expect(directories).toContain(expected);
+    });
+  });
+
+  it("includes graphite config dir when present", async () => {
+    await withTempRepo(async (repoDir) => {
+      await withTempGraphiteConfig(async (graphiteDir) => {
+        const directories = await buildAdditionalDirectories(repoDir);
+        const expected = await realpath(graphiteDir);
+        expect(directories).toContain(expected);
+      });
     });
   });
 });
