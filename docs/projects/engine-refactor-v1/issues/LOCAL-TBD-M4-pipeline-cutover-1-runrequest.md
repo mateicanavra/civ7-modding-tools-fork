@@ -81,3 +81,8 @@ Constraints/notes:
 - V1 recipes are linear sequences; no DAG semantics yet.
 - Use existing TypeBox patterns; no new validation dependencies.
 - Do not implement code; return the artifacts as a markdown table/list in your response.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-1-runrequest-recipe-executionplan.md`
+- Includes: RunSettings/RunRequest/RecipeV1/ExecutionPlan schema sketches, compile/validation rules, and STAGE_ORDER parity map (including ruggedCoasts special-case enablement).
