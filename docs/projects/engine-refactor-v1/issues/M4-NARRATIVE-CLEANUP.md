@@ -1,16 +1,16 @@
 ---
-id: M4-NARRATIVE-CLEANUP
+id: LOCAL-TBD-M4-NARRATIVE-CLEANUP
 title: "[M4] Narrative/playability cleanup: canonical artifact:narrative.*; remove StoryTags and caches"
 state: planned
 priority: 3
 estimate: 8
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Narrative]
 parent: null
 children: [LOCAL-TBD-M4-NARRATIVE-1, LOCAL-TBD-M4-NARRATIVE-2]
-blocked_by: [M4-PIPELINE-CUTOVER]
+blocked_by: []
 blocked: []
 related_to: [CIV-43]
 ---
@@ -61,6 +61,11 @@ This issue closes DEF-002 and DEF-012.
   - compiles and runs narrative steps deterministically
   - validates no global cache leaks between runs
 
+## Dependencies / Notes
+
+- NARRATIVE-1 can start after the tag registry cutover (LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER).
+- NARRATIVE-2 should land after legacy ordering deletion (LOCAL-TBD-M4-PIPELINE-5) to avoid stage/manifest drift while migrating consumers.
+
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
@@ -110,3 +115,4 @@ Constraints/notes:
 - Narrative is optional via recipe; `StoryTags` is not a canonical surface.
 - Caches must be context-owned or removed.
 - Do not implement code; deliver only the checklist + gaps as notes.
+- Follow the milestone sequencing: producers after tag registry cutover; consumer migration after legacy ordering deletion.

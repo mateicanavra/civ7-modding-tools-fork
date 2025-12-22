@@ -1,16 +1,16 @@
 ---
-id: M4-EFFECTS-VERIFICATION
+id: LOCAL-TBD-M4-EFFECTS-VERIFICATION
 title: "[M4] Effects verification: replace state:engine.* with verified effect:* + reification"
 state: planned
 priority: 2
-estimate: 8
+estimate: 16
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Validation]
 parent: null
 children: [LOCAL-TBD-M4-EFFECTS-1, LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-EFFECTS-3]
-blocked_by: [M4-PIPELINE-CUTOVER]
+blocked_by: [LOCAL-TBD-M4-PIPELINE-CUTOVER, LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER]
 blocked: []
 related_to: [CIV-47]
 ---
@@ -34,6 +34,7 @@ This issue closes DEF-008.
 - Add adapter-backed postcondition checks for those effects (fail-fast).
 - Reify engine-derived values into fields/artifacts when they become cross-step dependencies.
 - Fence `state:engine.*` to migration-only compatibility (no new uses; remove from target registry surface).
+- Assumes the registry-instantiated tag catalog + validation from LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER (effects must be schedulable there).
 
 ### Out of scope
 
@@ -113,6 +114,7 @@ Deliverables:
   - Biomes/features reification plan and consumer migration map.
   - Inventory of remaining `state:engine.*` usages and their replacements.
 - A short gap list if any effect tag or reification target is missing, or if placement inputs introduce new dependencies.
+- A note on any dependency gaps related to the tag registry cutover (effect tags must be schedulable in the registry catalog).
 
 Where to look:
 - Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-effects-verification-1-effect-tags.md`,
@@ -126,3 +128,4 @@ Constraints/notes:
 - `effect:*` must be verifiable; `state:engine.*` is transitional only.
 - Keep behavior stable; this is contract hardening, not algorithm changes.
 - Do not implement code; deliver only the checklist + gaps as notes.
+- Coordinate with LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER for registry-driven validation and effect schedulability; do not duplicate that work here.

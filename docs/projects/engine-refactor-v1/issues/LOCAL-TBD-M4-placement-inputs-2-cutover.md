@@ -1,18 +1,18 @@
 ---
 id: LOCAL-TBD-M4-PLACEMENT-2
-title: "[M4] Placement inputs (2/2): cut placement over to artifact + verified effect"
+title: "[M4] Placement inputs: cut placement over to artifact + verified effect"
 state: planned
 priority: 2
-estimate: 2
+estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Placement]
-parent: M4-PLACEMENT-INPUTS
+parent: LOCAL-TBD-M4-PLACEMENT-INPUTS
 children: []
 blocked_by: [LOCAL-TBD-M4-PLACEMENT-1]
 blocked: []
-related_to: [M4-EFFECTS-VERIFICATION]
+related_to: [LOCAL-TBD-M4-EFFECTS-VERIFICATION]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
@@ -39,9 +39,10 @@ Update placement to consume `artifact:placementInputs@v1` exclusively and provid
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-PLACEMENT-INPUTS](M4-PLACEMENT-INPUTS.md)
+- **Parent:** [LOCAL-TBD-M4-PLACEMENT-INPUTS](M4-PLACEMENT-INPUTS.md)
 - **Blocked by:** LOCAL-TBD-M4-PLACEMENT-1
-- **Related:** M4-EFFECTS-VERIFICATION (placement effect verification)
+- **Related:** LOCAL-TBD-M4-EFFECTS-VERIFICATION (placement effect verification)
+- **Coordination:** Effect tag catalog + adapter postcondition surfaces come from LOCAL-TBD-M4-EFFECTS-1.
 
 ---
 

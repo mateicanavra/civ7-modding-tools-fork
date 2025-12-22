@@ -1,14 +1,14 @@
 ---
 id: LOCAL-TBD-M4-EFFECTS-2
-title: "[M4] Effects verification (2/3): biomes + features reify fields and verify effects"
+title: "[M4] Effects verification: biomes + features reify fields and verify effects"
 state: planned
 priority: 2
-estimate: 4
+estimate: 8
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Validation]
-parent: M4-EFFECTS-VERIFICATION
+parent: LOCAL-TBD-M4-EFFECTS-VERIFICATION
 children: []
 blocked_by: [LOCAL-TBD-M4-EFFECTS-1]
 blocked: [LOCAL-TBD-M4-EFFECTS-3]
@@ -39,7 +39,7 @@ Reify engine-derived biome/feature outputs into explicit fields and provide veri
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-EFFECTS-VERIFICATION](M4-EFFECTS-VERIFICATION.md)
+- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](M4-EFFECTS-VERIFICATION.md)
 - **Blocked by:** LOCAL-TBD-M4-EFFECTS-1
 - **Blocks:** LOCAL-TBD-M4-EFFECTS-3
 

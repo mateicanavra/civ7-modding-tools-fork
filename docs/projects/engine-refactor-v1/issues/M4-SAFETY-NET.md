@@ -1,16 +1,16 @@
 ---
-id: M4-SAFETY-NET
+id: LOCAL-TBD-M4-SAFETY-NET
 title: "[M4] Safety net: observability baseline + CI smoke tests"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Testing, Observability]
 parent: null
 children: [LOCAL-TBD-M4-SAFETY-1, LOCAL-TBD-M4-SAFETY-2]
-blocked_by: [M4-PIPELINE-CUTOVER]
+blocked_by: [LOCAL-TBD-M4-PIPELINE-1]
 blocked: []
 related_to: [CIV-23]
 ---
@@ -72,6 +72,11 @@ M4 is heavy on contract/cutover work. We need a stable way to:
 - `pnpm -C packages/mapgen-core test`
 - CI: ensure the new smoke tests run in the default pipeline.
 
+## Dependencies / Notes
+
+- Depends on LOCAL-TBD-M4-PIPELINE-1 (compiler/plan exists) for plan fingerprint + compile/execute smoke tests.
+- Observability should land early (with or right after PIPELINE-1) to support later cutovers.
+
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
@@ -119,3 +124,4 @@ Constraints/notes:
 - Tests use Bun and must be deterministic and engine-free.
 - Tracing must be optional and not alter execution when disabled.
 - Do not implement code; deliver only the checklist + gaps as notes.
+- Plan fingerprint must include recipe + settings + per-step config (stable serialization).

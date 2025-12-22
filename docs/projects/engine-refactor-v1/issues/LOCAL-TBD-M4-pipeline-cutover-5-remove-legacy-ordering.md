@@ -1,16 +1,16 @@
 ---
-id: LOCAL-TBD-M4-PIPELINE-3
-title: "[M4] Pipeline cutover (3/3): remove stageManifest/STAGE_ORDER + legacy enablement"
+id: LOCAL-TBD-M4-PIPELINE-5
+title: "[M4] Pipeline cutover: remove stageManifest/STAGE_ORDER + legacy enablement"
 state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Cleanup]
-parent: M4-PIPELINE-CUTOVER
+parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
 children: []
-blocked_by: [LOCAL-TBD-M4-PIPELINE-2]
+blocked_by: [LOCAL-TBD-M4-PIPELINE-4]
 blocked: []
 related_to: [CIV-41, CIV-48, CIV-53]
 ---
@@ -44,8 +44,8 @@ Delete legacy ordering/enablement inputs (`stageManifest`, `STAGE_ORDER`, `stage
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
-- **Blocked by:** LOCAL-TBD-M4-PIPELINE-2
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Blocked by:** LOCAL-TBD-M4-PIPELINE-4
 
 ---
 

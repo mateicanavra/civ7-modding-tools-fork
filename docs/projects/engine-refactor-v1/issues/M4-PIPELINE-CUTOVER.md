@@ -1,15 +1,15 @@
 ---
-id: M4-PIPELINE-CUTOVER
+id: LOCAL-TBD-M4-PIPELINE-CUTOVER
 title: "[M4] Pipeline cutover: RunRequest + Recipe → ExecutionPlan (remove stageManifest/STAGE_ORDER inputs)"
 state: planned
 priority: 1
-estimate: 8
+estimate: 16
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Cleanup]
 parent: null
-children: [LOCAL-TBD-M4-PIPELINE-1, LOCAL-TBD-M4-PIPELINE-4, LOCAL-TBD-M4-PIPELINE-2, LOCAL-TBD-M4-PIPELINE-3]
+children: [LOCAL-TBD-M4-PIPELINE-1, LOCAL-TBD-M4-PIPELINE-2, LOCAL-TBD-M4-PIPELINE-3, LOCAL-TBD-M4-PIPELINE-4, LOCAL-TBD-M4-PIPELINE-5, LOCAL-TBD-M4-PIPELINE-6]
 blocked_by: []
 blocked: []
 related_to: [CIV-41, CIV-48, CIV-53]
@@ -37,6 +37,7 @@ This issue closes DEF-004 as an implementation cutover (not a design question).
 - Provide a “standard” mod recipe that reproduces the current default run order.
   - Note: the standard pipeline must be packaged as a mod-style package + registry entries; it must not remain hard-wired in `pipeline/standard-library.ts`.
 - Remove preset resolution/composition (`bootstrap({ presets })`, `config/presets.ts`) so the only entry mode is explicit recipe + settings selection.
+- Remove the dual orchestration path (MapOrchestrator vs executor) once the plan cutover is in place.
 - Preserve a runnable end-to-end pipeline after this lands.
 
 ### Out of scope
@@ -55,6 +56,7 @@ This issue closes DEF-004 as an implementation cutover (not a design question).
 - `stageManifest` is deleted or no longer referenced by runtime compile/execute code paths.
 - `stageConfig` is deleted or no longer referenced by runtime compile/execute code paths.
 - The “standard” mod provides a default recipe that runs the full current pipeline successfully.
+- The legacy MapOrchestrator/dual orchestration path is removed or explicitly fenced so only the compiled plan path remains.
 - `pnpm -C packages/mapgen-core check` passes.
 
 ## Primary Touchpoints (Expected)
@@ -77,6 +79,8 @@ This issue closes DEF-004 as an implementation cutover (not a design question).
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Plan (Concrete)
+
+> Milestone note: PIPELINE-3 (standard mod packaging + loader/registry wiring) is separate from PIPELINE-4 (runtime cutover to RunRequest → ExecutionPlan). Keep deliverables separable.
 
 ### 1) Land the runtime boundary types
 
@@ -110,7 +114,11 @@ This issue closes DEF-004 as an implementation cutover (not a design question).
 - Delete preset resolution/composition (`bootstrap({ presets })`, `config/presets.ts`) and any preset-driven entrypoints.
 - Ensure no call sites depend on `stageManifest` as an input.
 
-### 6) Update docs + deferral status
+### 6) Remove dual orchestration path
+
+- Remove or fence legacy `MapOrchestrator`/dual entrypoints so only `RunRequest → ExecutionPlan → executor` remains.
+
+### 7) Update docs + deferral status
 
 - Update DEF-004 status to “resolved” once `stageManifest`/`STAGE_ORDER` are no longer used as ordering inputs.
 - Ensure M4 milestone links to this issue doc.
@@ -123,15 +131,19 @@ Deliverables:
 - A short readiness checklist that points to the child prework artifacts for:
   - RunRequest/RecipeV1/ExecutionPlan schema + compile rules.
   - Per-step config schema matrix and defaults.
+  - Standard mod packaging + loader/registry wiring touchpoints.
   - Default recipe mapping to current STAGE_ORDER/resolveStageManifest behavior.
   - Legacy ordering/enablement removal checklist.
+  - Dual-orchestration removal checklist (MapOrchestrator vs executor).
 - A brief gap list if any artifact is missing or contradicts another.
 
 Where to look:
 - Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-1-runrequest.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-4-step-config-schemas.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-2-default-recipe.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-3-remove-legacy-ordering.md`.
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-2-step-config-schemas.md`,
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-3-standard-mod-packaging.md`,
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-4-runtime-cutover.md`,
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-5-remove-legacy-ordering.md`,
+  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-6-remove-dual-orchestration.md`.
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Pipeline contract),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.1, §2.9).
 - Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
@@ -139,3 +151,4 @@ Where to look:
 Constraints/notes:
 - Do not invent new architecture decisions; align with accepted recipe-only ordering + enablement.
 - Do not implement code changes; deliver only the checklist + gaps as notes.
+- Keep packaging (PIPELINE-3) and runtime cutover (PIPELINE-4) artifacts distinct, per the M4 milestone split.

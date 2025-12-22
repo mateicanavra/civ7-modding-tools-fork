@@ -1,14 +1,14 @@
 ---
 id: LOCAL-TBD-M4-EFFECTS-1
-title: "[M4] Effects verification (1/3): define effect:* tags + adapter postcondition surfaces"
+title: "[M4] Effects verification: define effect:* tags + adapter postcondition surfaces"
 state: planned
 priority: 2
-estimate: 2
+estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Validation]
-parent: M4-EFFECTS-VERIFICATION
+parent: LOCAL-TBD-M4-EFFECTS-VERIFICATION
 children: []
 blocked_by: []
 blocked: [LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-EFFECTS-3]
@@ -39,9 +39,10 @@ Introduce canonical `effect:*` tags for engine-surface mutations and add minimal
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-EFFECTS-VERIFICATION](M4-EFFECTS-VERIFICATION.md)
+- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](M4-EFFECTS-VERIFICATION.md)
 - **Blocks:** LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-EFFECTS-3
 - **Related:** CIV-47 (adapter consolidation)
+- **Coordination:** Effect tags must be schedulable via the registry-instantiated catalog owned by LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER.
 
 ---
 
@@ -78,3 +79,4 @@ Constraints/notes:
 - Effects must be verifiable (no "asserted but unverified" scheduling edges).
 - Keep this additive; no scheduling changes in this prework.
 - Do not implement code; return the catalog and API sketch as a markdown table/list.
+- Coordinate with the tag registry cutover so effect tags land in the canonical registry surface.

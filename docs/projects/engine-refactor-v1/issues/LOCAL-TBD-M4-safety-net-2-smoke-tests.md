@@ -1,16 +1,16 @@
 ---
 id: LOCAL-TBD-M4-SAFETY-2
-title: "[M4] Safety net (2/2): CI smoke tests + CIV-23 re-scope"
+title: "[M4] Safety net: CI smoke tests + CIV-23 re-scope"
 state: planned
 priority: 2
 estimate: 2
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Testing]
-parent: M4-SAFETY-NET
+parent: LOCAL-TBD-M4-SAFETY-NET
 children: []
-blocked_by: [LOCAL-TBD-M4-SAFETY-1]
+blocked_by: [LOCAL-TBD-M4-SAFETY-1, LOCAL-TBD-M4-PIPELINE-1]
 blocked: []
 related_to: [CIV-23]
 ---
@@ -39,8 +39,8 @@ Add compile/execute smoke tests against the standard recipe using a stub adapter
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-SAFETY-NET](M4-SAFETY-NET.md)
-- **Blocked by:** LOCAL-TBD-M4-SAFETY-1
+- **Parent:** [LOCAL-TBD-M4-SAFETY-NET](M4-SAFETY-NET.md)
+- **Blocked by:** LOCAL-TBD-M4-SAFETY-1, LOCAL-TBD-M4-PIPELINE-1
 - **Related:** CIV-23
 
 ---
@@ -66,6 +66,7 @@ Deliverables:
 - A smoke-test matrix: compile test + execute test, with minimal assertions (no stageManifest/STAGE_ORDER, effect verification failures are loud, StoryTags not required).
 - A stub adapter capability list needed to run the standard recipe.
 - A short CIV-23 rescope note aligned to the new RunRequest/ExecutionPlan boundary.
+- A note on plan fingerprint coverage (recipe + settings + per-step config) to keep CI deterministic.
 
 Where to look:
 - Tests: `packages/mapgen-core/test/**`, `packages/mapgen-core/package.json` (Bun runner).

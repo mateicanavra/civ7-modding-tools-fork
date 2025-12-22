@@ -1,18 +1,18 @@
 ---
 id: LOCAL-TBD-M4-EFFECTS-3
-title: "[M4] Effects verification (3/3): remove state:engine surface + close DEF-008"
+title: "[M4] Effects verification: remove state:engine surface + close DEF-008"
 state: planned
 priority: 2
-estimate: 2
+estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Validation]
-parent: M4-EFFECTS-VERIFICATION
+parent: LOCAL-TBD-M4-EFFECTS-VERIFICATION
 children: []
-blocked_by: [LOCAL-TBD-M4-EFFECTS-2, M4-PLACEMENT-INPUTS]
+blocked_by: [LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-PLACEMENT-INPUTS]
 blocked: []
-related_to: [M4-PLACEMENT-INPUTS]
+related_to: [LOCAL-TBD-M4-PLACEMENT-INPUTS]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
@@ -39,9 +39,9 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-EFFECTS-VERIFICATION](M4-EFFECTS-VERIFICATION.md)
-- **Blocked by:** LOCAL-TBD-M4-EFFECTS-2, [M4-PLACEMENT-INPUTS](M4-PLACEMENT-INPUTS.md)
-- **Related:** M4-PLACEMENT-INPUTS (placement effect verification)
+- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](M4-EFFECTS-VERIFICATION.md)
+- **Blocked by:** LOCAL-TBD-M4-EFFECTS-2, [LOCAL-TBD-M4-PLACEMENT-INPUTS](M4-PLACEMENT-INPUTS.md)
+- **Related:** LOCAL-TBD-M4-PLACEMENT-INPUTS (placement effect verification)
 
 ---
 
@@ -49,7 +49,7 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 ## Implementation Details (Local Only)
 
 - Treat this as cleanup: do not change algorithms.
-- If any placement-related `state:engine.*` dependencies remain, defer to M4-PLACEMENT-INPUTS for the effect/reify replacement.
+- If any placement-related `state:engine.*` dependencies remain, defer to LOCAL-TBD-M4-PLACEMENT-INPUTS for the effect/reify replacement.
 
 ### Quick Navigation
 - [TL;DR](#tldr)

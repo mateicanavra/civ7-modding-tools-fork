@@ -1,16 +1,16 @@
 ---
-id: M4-PLACEMENT-INPUTS
+id: LOCAL-TBD-M4-PLACEMENT-INPUTS
 title: "[M4] Placement inputs: publish artifact:placementInputs@v1 and cut placement to consume it"
 state: planned
 priority: 2
-estimate: 4
+estimate: 8
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Placement]
 parent: null
 children: [LOCAL-TBD-M4-PLACEMENT-1, LOCAL-TBD-M4-PLACEMENT-2]
-blocked_by: [M4-PIPELINE-CUTOVER]
+blocked_by: [LOCAL-TBD-M4-PIPELINE-CUTOVER, LOCAL-TBD-M4-EFFECTS-1]
 blocked: []
 related_to: []
 ---
@@ -30,10 +30,11 @@ This issue closes DEF-006.
 
 ### In scope
 
-- Define `artifact:placementInputs@v1` (versioned) with a safe demo payload.
+- Define `artifact:placementInputs@v1` (versioned); demo payloads are optional (validate when present).
 - Add a derive step that produces `placementInputs@v1` from explicit prerequisites.
 - Update placement to require the inputs artifact and stop assembling/reading implicit inputs inside the placement step.
 - Provide a verified `effect:*` tag for placement (adapter-backed postcondition).
+- Coordinate with the effect tag catalog (LOCAL-TBD-M4-EFFECTS-1) so placement’s effect is schedulable and verifiable.
 
 ### Out of scope
 
@@ -42,7 +43,7 @@ This issue closes DEF-006.
 
 ## Acceptance Criteria
 
-- `artifact:placementInputs@v1` exists in the registry with a safe demo payload.
+- `artifact:placementInputs@v1` exists in the registry; demo payloads are optional (validate when present).
 - A derive step produces it from explicit prerequisites and publishes it in context artifacts.
 - Placement requires `artifact:placementInputs@v1` and no longer relies on `state:*` tags for ordering.
 - Placement provides `effect:*` (verified) describing application to the engine surface.
@@ -60,6 +61,12 @@ This issue closes DEF-006.
 - `pnpm -C packages/mapgen-core check`
 - Add/extend a smoke test that compiles and executes placement with a stub adapter and a demo `placementInputs@v1`.
 
+## Dependencies / Notes
+
+- This is Phase E work; it should land after the pipeline cutover phases (RunRequest/ExecutionPlan and legacy ordering deletion).
+- Placement effect verification depends on the effect tag catalog + adapter postcondition surfaces (LOCAL-TBD-M4-EFFECTS-1).
+- Placement inputs may require upstream reification; avoid DEF-010 scope creep in M4.
+
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
@@ -68,7 +75,7 @@ This issue closes DEF-006.
 ### 1) Define the inputs artifact
 
 - Specify `placementInputs@v1` fields to match what placement actually consumes today.
-- Include a minimal safe demo payload that does not crash downstream code.
+- If a demo payload is provided, keep it minimal and safe for downstream code.
 
 ### 2) Implement the derive step
 
@@ -111,3 +118,4 @@ Constraints/notes:
 - Placement inputs must be explicit and TS-canonical; no implicit engine reads as dependency surface.
 - Placement effects must be verified (`effect:engine.placementApplied`).
 - Do not implement code; deliver only the checklist + gaps as notes.
+- Coordinate with the effect tag catalog so placement’s effect is schedulable in the registry.

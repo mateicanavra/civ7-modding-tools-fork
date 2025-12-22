@@ -1,16 +1,16 @@
 ---
 id: LOCAL-TBD-M4-NARRATIVE-2
-title: "[M4] Narrative cleanup (2/2): remove StoryTags + caches and update consumers"
+title: "[M4] Narrative cleanup: remove StoryTags + caches and update consumers"
 state: planned
 priority: 3
 estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Narrative]
-parent: M4-NARRATIVE-CLEANUP
+parent: LOCAL-TBD-M4-NARRATIVE-CLEANUP
 children: []
-blocked_by: [LOCAL-TBD-M4-NARRATIVE-1]
+blocked_by: [LOCAL-TBD-M4-NARRATIVE-1, LOCAL-TBD-M4-PIPELINE-5]
 blocked: []
 related_to: [CIV-43]
 ---
@@ -40,8 +40,9 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-NARRATIVE-CLEANUP](M4-NARRATIVE-CLEANUP.md)
-- **Blocked by:** LOCAL-TBD-M4-NARRATIVE-1
+- **Parent:** [LOCAL-TBD-M4-NARRATIVE-CLEANUP](M4-NARRATIVE-CLEANUP.md)
+- **Blocked by:** LOCAL-TBD-M4-NARRATIVE-1, LOCAL-TBD-M4-PIPELINE-5
+- **Sequencing:** Land after legacy ordering deletion (LOCAL-TBD-M4-PIPELINE-5) to avoid stage/manifest drift while migrating consumers.
 
 ---
 
@@ -80,3 +81,4 @@ Constraints/notes:
 - Treat this as high-parallelism mechanical replacement once artifacts exist.
 - Do not introduce new StoryTags compatibility surfaces.
 - Do not implement code; return the map/inventory as markdown tables/lists.
+- Follow the milestone sequencing: land after legacy ordering deletion to keep the pipeline stable.

@@ -1,17 +1,17 @@
 ---
-id: LOCAL-TBD-M4-PIPELINE-2
-title: "[M4] Pipeline cutover (2/3): standard mod recipe + TaskGraph consumes ExecutionPlan"
+id: LOCAL-TBD-M4-PIPELINE-4
+title: "[M4] Pipeline cutover: standard mod recipe + runtime cutover to ExecutionPlan"
 state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Cleanup]
-parent: M4-PIPELINE-CUTOVER
+parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
 children: []
-blocked_by: [LOCAL-TBD-M4-PIPELINE-4]
-blocked: [LOCAL-TBD-M4-PIPELINE-3]
+blocked_by: [LOCAL-TBD-M4-PIPELINE-2, LOCAL-TBD-M4-PIPELINE-3]
+blocked: [LOCAL-TBD-M4-PIPELINE-5]
 related_to: [CIV-41, CIV-48]
 ---
 
@@ -30,7 +30,7 @@ Introduce the standard mod recipe (packaged as a mod-style package + registry en
 
 - Running the pipeline uses `RunRequest → ExecutionPlan` as the execution path.
 - The standard mod recipe is the canonical ordering source for the default run.
-- No runtime path consults `stageManifest` / `STAGE_ORDER` / `stageConfig` to change ordering or enablement (legacy removal happens in PIPELINE‑3).
+- No runtime path consults `stageManifest` / `STAGE_ORDER` / `stageConfig` to change ordering or enablement (legacy removal happens in PIPELINE‑5).
 - End-to-end run still succeeds (local mapgen invocation or the canonical in-repo consumer).
 
 ## Testing / Verification
@@ -40,9 +40,10 @@ Introduce the standard mod recipe (packaged as a mod-style package + registry en
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
-- **Blocked by:** LOCAL-TBD-M4-PIPELINE-4
-- **Blocks:** LOCAL-TBD-M4-PIPELINE-3
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Blocked by:** LOCAL-TBD-M4-PIPELINE-2, LOCAL-TBD-M4-PIPELINE-3
+- **Blocks:** LOCAL-TBD-M4-PIPELINE-5
+- **Milestone note:** Packaging + loader/registry wiring lives in PIPELINE-3. This issue assumes that packaging is in place and focuses on runtime cutover to `RunRequest → ExecutionPlan`.
 
 ---
 
@@ -50,7 +51,7 @@ Introduce the standard mod recipe (packaged as a mod-style package + registry en
 ## Implementation Details (Local Only)
 
 - Prefer keeping the standard recipe in a mod-local `recipes/` path within the standard mod package (registry + recipes), per the target spec.
-- Do not introduce new stage-based ordering/enablement hooks; PIPELINE‑3 deletes the remaining legacy inputs.
+- Do not introduce new stage-based ordering/enablement hooks; PIPELINE‑5 deletes the remaining legacy inputs.
 
 ### Quick Navigation
 - [TL;DR](#tldr)
@@ -67,6 +68,9 @@ Deliverables:
 - An ordered RecipeV1 `steps[]` list that reproduces the current default pipeline order.
 - A mapping from `STAGE_ORDER`/`resolveStageManifest()` to the recipe steps, including any stage->substep expansions or special-case ordering.
 - A list of any enablement rules or flags that must move into recipe entries (or be removed).
+- A short list of packaging/cutover touchpoints, split into:
+  - PIPELINE-3 (standard mod package + loader/registry wiring)
+  - PIPELINE-4 (runtime cutover to compiled ExecutionPlan)
 
 Where to look:
 - Ordering sources: `packages/mapgen-core/src/bootstrap/resolved.ts` (STAGE_ORDER, resolveStageManifest).
@@ -78,3 +82,4 @@ Constraints/notes:
 - Recipe-only ordering and enablement (no stageManifest/shouldRun in the output).
 - V1 recipes are linear; keep it simple and deterministic.
 - Do not implement code; return the mapping and recipe list as a markdown table/list.
+- Keep packaging vs runtime cutover artifacts clearly separated to match the milestone split.

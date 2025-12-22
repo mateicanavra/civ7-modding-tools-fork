@@ -1,17 +1,17 @@
 ---
-id: LOCAL-TBD-M4-PIPELINE-4
-title: "[M4] Pipeline cutover (2/4): per-step config schemas + executor plumbing"
+id: LOCAL-TBD-M4-PIPELINE-2
+title: "[M4] Pipeline cutover: per-step config schemas + executor plumbing"
 state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Cleanup]
-parent: M4-PIPELINE-CUTOVER
+parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
 children: []
 blocked_by: [LOCAL-TBD-M4-PIPELINE-1]
-blocked: [LOCAL-TBD-M4-PIPELINE-2]
+blocked: [LOCAL-TBD-M4-PIPELINE-4]
 related_to: [CIV-46]
 ---
 
@@ -40,7 +40,7 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
 
 - Changing step algorithms or tuning behavior.
 - Converting recipe authoring from linear → DAG.
-- Removing `stageManifest`/`STAGE_ORDER`/`stageConfig` call sites (handled by PIPELINE‑3).
+- Removing `stageManifest`/`STAGE_ORDER`/`stageConfig` call sites (handled by PIPELINE‑5).
 
 ## Acceptance Criteria
 
@@ -59,9 +59,9 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
 - **Blocked by:** LOCAL-TBD-M4-PIPELINE-1 (boundary + compiler skeleton exists)
-- **Blocks:** LOCAL-TBD-M4-PIPELINE-2 (cutover should not land with “config ignored” semantics)
+- **Blocks:** LOCAL-TBD-M4-PIPELINE-4 (runtime cutover should not land with “config ignored” semantics)
 
 ---
 

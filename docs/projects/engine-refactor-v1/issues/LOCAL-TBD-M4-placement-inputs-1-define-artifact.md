@@ -1,14 +1,14 @@
 ---
 id: LOCAL-TBD-M4-PLACEMENT-1
-title: "[M4] Placement inputs (1/2): define artifact:placementInputs@v1 + derive step"
+title: "[M4] Placement inputs: define artifact:placementInputs@v1 + derive step"
 state: planned
 priority: 2
-estimate: 2
+estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Placement]
-parent: M4-PLACEMENT-INPUTS
+parent: LOCAL-TBD-M4-PLACEMENT-INPUTS
 children: []
 blocked_by: []
 blocked: [LOCAL-TBD-M4-PLACEMENT-2]
@@ -18,17 +18,17 @@ related_to: []
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Define `artifact:placementInputs@v1` with a safe demo payload and add a derive step that produces it from explicit prerequisites.
+Define `artifact:placementInputs@v1` (demo payload optional) and add a derive step that produces it from explicit prerequisites.
 
 ## Deliverables
 
-- Versioned `artifact:placementInputs@v1` schema in the registry with a safe demo payload.
+- Versioned `artifact:placementInputs@v1` schema in the registry; demo payload is optional (validate when present).
 - A derive step that produces `placementInputs@v1` from explicit prerequisites and publishes it in context artifacts.
 - Standard recipe updated to include the derive step before placement.
 
 ## Acceptance Criteria
 
-- `artifact:placementInputs@v1` is registered with a demo payload that does not crash downstream placement.
+- `artifact:placementInputs@v1` is registered; if a demo payload is provided, it does not crash downstream placement.
 - The derive step runs in the standard pipeline and emits the artifact.
 - Downstream placement can read the artifact (without yet removing legacy paths).
 
@@ -39,7 +39,7 @@ Define `artifact:placementInputs@v1` with a safe demo payload and add a derive s
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-PLACEMENT-INPUTS](M4-PLACEMENT-INPUTS.md)
+- **Parent:** [LOCAL-TBD-M4-PLACEMENT-INPUTS](M4-PLACEMENT-INPUTS.md)
 - **Blocks:** LOCAL-TBD-M4-PLACEMENT-2
 
 ---
@@ -62,7 +62,7 @@ Define `artifact:placementInputs@v1` with a safe demo payload and add a derive s
 Goal: define the `artifact:placementInputs@v1` contract so cutover is a wiring change, not a discovery exercise.
 
 Deliverables:
-- A schema sketch for `placementInputs@v1` (fields + types) with a minimal safe demo payload.
+- A schema sketch for `placementInputs@v1` (fields + types) with an optional safe demo payload.
 - A source map for each field: which upstream artifact/field/adapter read provides it today.
 - A list of any required upstream reification to make inputs TS-canonical.
 

@@ -1,17 +1,17 @@
 ---
 id: LOCAL-TBD-M4-PIPELINE-1
-title: "[M4] Pipeline cutover (1/3): introduce RunRequest + RecipeV1 + ExecutionPlan compiler"
+title: "[M4] Pipeline cutover: introduce RunRequest + RecipeV1 + ExecutionPlan compiler"
 state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Architecture, Cleanup]
-parent: M4-PIPELINE-CUTOVER
+parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
 children: []
 blocked_by: []
-blocked: [LOCAL-TBD-M4-PIPELINE-4]
+blocked: [LOCAL-TBD-M4-PIPELINE-2]
 related_to: [CIV-41, CIV-48]
 ---
 
@@ -42,7 +42,7 @@ Introduce the target boundary types (`RunRequest`, `RecipeV1`) and a TypeBox-val
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
 - **Blocks:** LOCAL-TBD-M4-PIPELINE-2
 
 ---

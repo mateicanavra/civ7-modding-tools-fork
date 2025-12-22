@@ -1,16 +1,16 @@
 ---
 id: LOCAL-TBD-M4-SAFETY-1
-title: "[M4] Safety net (1/2): step-level tracing foundation"
+title: "[M4] Safety net: step-level tracing foundation"
 state: planned
 priority: 2
 estimate: 2
 project: engine-refactor-v1
-milestone: M4-tests-validation-cleanup
+milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
 assignees: []
 labels: [Observability]
-parent: M4-SAFETY-NET
+parent: LOCAL-TBD-M4-SAFETY-NET
 children: []
-blocked_by: []
+blocked_by: [LOCAL-TBD-M4-PIPELINE-1]
 blocked: [LOCAL-TBD-M4-SAFETY-2]
 related_to: []
 ---
@@ -39,8 +39,9 @@ Add the shared tracing foundation (run id, plan fingerprint, step timing) plus p
 
 ## Dependencies / Notes
 
-- **Parent:** [M4-SAFETY-NET](M4-SAFETY-NET.md)
+- **Parent:** [LOCAL-TBD-M4-SAFETY-NET](M4-SAFETY-NET.md)
 - **Blocks:** LOCAL-TBD-M4-SAFETY-2
+- **Blocked by:** LOCAL-TBD-M4-PIPELINE-1 (plan compiler/RunRequest boundary exists)
 
 ---
 
@@ -63,7 +64,7 @@ Goal: define the minimal trace model and plan fingerprint strategy required by t
 
 Deliverables:
 - A trace event model (core fields: runId, plan fingerprint, step start/finish timing, optional step events).
-- A plan fingerprint algorithm spec (inputs, serialization order, hash choice).
+- A plan fingerprint algorithm spec (inputs, serialization order, hash choice); must include recipe + settings + per-step config.
 - A list of hook points to emit run start/end and step-level events (compiler/executor locations).
 - A sketch of per-step trace toggles (recipe/settings shape).
 
