@@ -1,3 +1,20 @@
+---
+id: CIV-M4-ADHOC
+title: "[M4] Mapgen-Core Domain/Lib Atomic Split"
+state: in_progress
+priority: 3
+estimate: 8
+project: engine-refactor-v1
+milestone: M4
+assignees: [codex]
+labels: [Improvement, Architecture]
+parent: null
+children: []
+blocked_by: []
+blocked: []
+related_to: []
+---
+
 # Mapgen-Core Domain/Lib Atomic Split
 
 > **Status:** In Progress
