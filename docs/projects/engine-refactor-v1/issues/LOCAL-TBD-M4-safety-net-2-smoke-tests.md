@@ -82,3 +82,8 @@ Constraints/notes:
 - Tests must be deterministic and engine-free.
 - Keep the suite light; focus on compile/execute smoke coverage.
 - Do not implement code; return the matrix and capability list as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-safety-2-smoke-tests-matrix-and-civ23-rescope.md`
+- Includes: compile/execute smoke-test matrix + minimal assertions, stub adapter capability list (lean on `createMockAdapter`), plan fingerprint determinism guidance for CI, and a CIV-23 rescope note aligned to the new `RunRequest`/`ExecutionPlan` boundary.
