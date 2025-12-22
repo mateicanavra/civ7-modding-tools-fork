@@ -123,7 +123,8 @@ Each deferral follows this structure:
 **Scope:**
 - Audit all `"legacy" | "area"` selectors in config schema and domain modules (e.g., landmask/crust).
 - Decide the canonical mode (or rename if both must remain).
-- Update presets, docs, and tests to reflect the chosen contract.  
+- ~~Update presets, docs, and tests to reflect the chosen contract.~~  
+  **Update (2025-12-21, M4 planning):** Presets are removed; update recipe+settings selection docs/tests instead. See `milestones/M4-tests-validation-cleanup.md`.
 **Impact:**
 - Extra modes increase maintenance and allow drift between algorithms.
 - Consumers must keep mental context about which mode is active.

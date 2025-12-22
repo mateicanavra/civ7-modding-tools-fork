@@ -32,7 +32,8 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `hydrology.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `CIV-40` (which only adds framing + minimal current-state pointers).
   - **Next check:** after Task Graph + step execution is implemented and key products (`FoundationContext`, `ClimateField`, `StoryOverlays`) are stabilized.
 
-- **Migrate `state:engine.*` → verified `effect:*` + reification** [Review by: early M4]
+- **~~Migrate `state:engine.*` → verified `effect:*` + reification~~** [Review by: early M4]  
+  **Update (2025-12-21, M4 planning):** This work is now scheduled in M4 (effects verification + placement inputs). See `milestones/M4-tests-validation-cleanup.md`.
   - **Context:** `CIV-41` Task Graph MVP; deferral at `docs/projects/engine-refactor-v1/deferrals.md` (DEF-008).
   - **Type:** backlog
   - **Notes:** Target policy is now clear: `state:engine.*` is transitional-only; engine-surface guarantees are modeled as schedulable `effect:*` tags that are runtime-verifiable (adapter queries / postcondition checks), and cross-step data dependencies should prefer reified `field:*` / `artifact:*` products. Remaining work is implementation: introduce effect verification hooks and migrate the highest-risk `state:engine.*` usages first (e.g., placement prerequisites).
@@ -60,7 +61,7 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Next check:** schedule alongside `LOCAL-M3-story-system` step migration or when story consumers report parity gaps.
 
 - **Post‑M3: Morphology selective replacement behind stable products + regression harness** [Review by: late M3 / early M4]
-  - **Context:** Morphology target doc `docs/system/libs/mapgen/morphology.md`; wrap‑first posture recorded in `milestones/M3-core-engine-refactor-config-evolution.md`.
+  - **Context:** Morphology target doc `docs/system/libs/mapgen/morphology.md`; wrap‑first posture recorded in `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`.
   - **Type:** backlog
   - **Notes:** After the pipeline/products stabilize (and a basic regression harness exists), selectively replace high‑value morphology sub‑steps behind a stable product spine; avoid tuning-heavy algorithm swaps before consumers/tests can catch regressions.
   - **Next check:** once `PipelineExecutor` + `Heightfield`/`ClimateField`/overlays are stable enough to support parity checks.

@@ -34,7 +34,7 @@ This milestone corresponds to **Milestone 2** in `PROJECT-engine-refactor-v1.md`
   2. Wire `bootstrap()` / tunables / `MapOrchestrator` to use validated config and drive the foundation slice.
   3. Implement and integrate the foundation/plate stack behind the orchestrator and bridge its outputs into existing morphology.
   4. Layer on diagnostics and minimal smoke checks for foundation outputs.
-- Later phases from these PRDs (e.g., config shape evolution, task-graph plumbing, downstream cluster migration into the pipeline) are intentionally out of scope here and are owned by later milestones (see `M3-core-engine-refactor-config-evolution.md` and `M4-tests-validation-cleanup.md`).
+- Later phases from these PRDs (e.g., config shape evolution, task-graph plumbing, downstream cluster migration into the pipeline) are intentionally out of scope here and are owned by later milestones (see `../../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md` and `M4-tests-validation-cleanup.md`).
 
 ### 1. Config Hygiene (Phase 1)
 
