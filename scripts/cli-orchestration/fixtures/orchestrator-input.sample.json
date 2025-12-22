@@ -1,0 +1,7 @@
+{
+  "issueId": "LOCAL-TBD-TEST",
+  "issueDocPath": "/abs/path/to/issue.md",
+  "milestoneId": "M1",
+  "branchName": "sample-branch-name",
+  "worktreePath": "/abs/path/to/worktree"
+}
