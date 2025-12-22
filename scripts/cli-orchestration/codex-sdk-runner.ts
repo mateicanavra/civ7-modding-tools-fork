@@ -1,6 +1,7 @@
 import { createWriteStream, promises as fs } from "node:fs";
 import { dirname } from "node:path";
 import { Codex } from "@openai/codex-sdk";
+import { buildAdditionalDirectories } from "./git-utils.js";
 import type { Runner, RunnerInput, RunnerOutput } from "./runner.js";
 
 async function loadSchema(schemaPath?: string): Promise<unknown | undefined> {
@@ -30,11 +31,13 @@ export class CodexSdkRunner implements Runner {
     let exitCode = 0;
 
     try {
+      const additionalDirectories = await buildAdditionalDirectories(input.cwd);
       const thread = this.codex.startThread({
         workingDirectory: input.cwd,
         approvalPolicy: "never",
         sandboxMode: "workspace-write",
         networkAccessEnabled: true,
+        additionalDirectories: additionalDirectories.length ? additionalDirectories : undefined,
       });
 
       const outputSchema = await loadSchema(input.schemaPath);
