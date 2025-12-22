@@ -9,6 +9,7 @@ import { deriveBranchName, ensureWorktree, removeWorktree } from "./worktree.js"
 export interface OrchestratorArgs {
   milestoneId: string;
   issueId?: string;
+  projectId?: string;
 }
 
 function selectIssue(issues: IssueDoc[], issueId?: string): IssueDoc {
@@ -23,7 +24,7 @@ function selectIssue(issues: IssueDoc[], issueId?: string): IssueDoc {
 }
 
 export async function runOrchestrator(config: OrchestratorConfig, args: OrchestratorArgs) {
-  const milestone = await resolveMilestoneDoc(config.repoRoot, args.milestoneId);
+  const milestone = await resolveMilestoneDoc(config.repoRoot, args.milestoneId, args.projectId);
   const issues = orderIssuesLinear(
     await loadIssuesByMilestone(config.repoRoot, args.milestoneId, milestone.project),
   );
