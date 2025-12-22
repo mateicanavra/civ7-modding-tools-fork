@@ -119,3 +119,18 @@ Constraints/notes:
 - Placement effects must be verified (`effect:engine.placementApplied`).
 - Do not implement code; deliver only the checklist + gaps as notes.
 - Coordinate with the effect tag catalog so placement’s effect is schedulable in the registry.
+
+## Prework Results / References
+
+Child artifacts:
+- Placement‑1 (`LOCAL-TBD-M4-PLACEMENT-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-1-placementinputs-v1-contract.md`
+- Placement‑2 (`LOCAL-TBD-M4-PLACEMENT-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-2-cutover-checklist.md`
+
+Readiness checklist:
+- `artifact:placementInputs@v1` contract is sketched and maps directly to current runtime wiring (mapInfo + resolved starts + placement config); derive step should be able to publish it mechanically.
+- Cutover checklist enumerates every current placement input assembly site and the source→artifact mappings needed to remove implicit `ctx.config` and runtime-only closure inputs.
+- Coordinate with Effects‑1/Effects track so `effect:engine.placementApplied` is definable, schedulable in the registry, and has a verification story.
+
+Gap list / open decisions:
+- Verification strategy for `effect:engine.placementApplied` (outputs artifact vs adapter read surface) remains the main cross-cutting choice.
+- Demo payload safety: decide whether demos should omit `starts` to avoid engine-dependent start placement paths (preferred for “won’t crash” demos).
