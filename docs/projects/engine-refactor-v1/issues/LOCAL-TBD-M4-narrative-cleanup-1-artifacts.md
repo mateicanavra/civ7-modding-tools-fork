@@ -78,3 +78,8 @@ Constraints/notes:
 - No StoryTags surface in the target contract.
 - Do not implement code; return the inventory and mappings as markdown tables/lists.
 - Coordinate with the tag registry cutover so artifacts are registered in the canonical catalog.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-1-artifact-inventory.md`
+- Includes: a minimal `artifact:narrative.*@v1` inventory (IDs + purposes + schema sketches + demo guidance), a producer→artifact map from current story steps/overlays, and a consumer map highlighting where StoryTags/overlays are currently read (plus a notable hotspot tag-set drift to resolve during cutover).
