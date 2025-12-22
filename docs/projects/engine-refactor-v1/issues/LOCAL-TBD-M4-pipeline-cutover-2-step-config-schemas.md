@@ -95,3 +95,8 @@ Constraints/notes:
 - Keep this as inventory only; do not change code.
 - Per-step config must come from the recipe occurrence only (no new mega-config).
 - Use TypeBox conventions when sketching schemas.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-2-step-config-matrix.md`
+- Includes: step-by-step config inventory matrix, schema reuse recommendations, and flagged ownership questions (notably cross-cutting `foundation.dynamics.directionality` usage).
