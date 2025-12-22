@@ -106,7 +106,7 @@ Prompt authors should treat this block as authoritative.
 - `issueId`, `milestoneId`, `branch`, `worktreePath`, `summary`
 
 **Optional fields (recommended):**
-- `testsRun`: array of `{ command, status, notes }`
+- `testsRun`: array of `{ command, status, notes }` — `notes` is required (empty string allowed, but include context when available)
 - `docsUpdated`: string[] (paths)
 - `draftPrs`: string[] (urls)
 - `stackBranches`: string[]
