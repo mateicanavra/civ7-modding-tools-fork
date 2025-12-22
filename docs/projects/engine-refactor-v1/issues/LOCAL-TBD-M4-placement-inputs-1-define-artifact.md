@@ -77,3 +77,8 @@ Constraints/notes:
 - Keep this additive; no removal of legacy inputs in this issue.
 - Placement inputs must be explicit and TS-canonical; avoid DEF-010 scope creep.
 - Do not implement code; return the schema and mapping as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-1-placementinputs-v1-contract.md`
+- Includes: a minimal `PlacementInputs@v1` schema sketch (mirroring today’s runtime wiring), an optional safe demo payload approach, and a field-by-field source map (mapInfo, starts, continents, config) plus the required upstream reification point (post-landmass bounds resolution).
