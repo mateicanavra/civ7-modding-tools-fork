@@ -52,9 +52,15 @@ describe("worktree", () => {
       await runGit(repoDir, ["checkout", trunk]);
       await runGit(repoDir, ["checkout", "-b", "issue-branch"]);
 
-      await expect(ensureWorktree(repoDir, "issue-branch", "base")).rejects.toThrow(
-        /not based on base/,
-      );
+      await expect(ensureWorktree(repoDir, "issue-branch", "base")).rejects.toThrow(/not based on base/);
+
+      try {
+        await ensureWorktree(repoDir, "issue-branch", "base");
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        expect(message).not.toMatch(/rebase/i);
+        expect(message).toMatch(/gt move/);
+      }
     });
   });
 });

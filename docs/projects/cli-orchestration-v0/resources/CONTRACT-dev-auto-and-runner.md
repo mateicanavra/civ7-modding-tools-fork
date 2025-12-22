@@ -43,7 +43,7 @@ This document defines the **minimum viable contract** between the orchestrator a
 **Input contract (hard rules):**
 - The orchestrator sets `cwd` to `worktreePath` before invoking a command.
 - Commands **must not** infer branch/worktree from Linear or other sources.
-- If required inputs are missing or inconsistent with the current repo state, the command must emit a **structured failure result** (see Output Contract) and exit non-zero.
+- If required inputs are missing or inconsistent with the current repo state, the command must emit a **structured failure result** (see Output Contract) and exit non-zero. For review, use `status: "blocked"` because the review schema does not allow `"failed"`.
 
 **Input delivery format (v0):**
 - The orchestrator prepends a JSON context block to the prompt:
@@ -127,7 +127,8 @@ Prompt authors should treat this block as authoritative.
 
 **Preferred behavior:** emit a structured JSON result **even on failures**.
 
-- Use `status: "failed"` for unrecoverable phase errors (missing inputs, not in a git repo, not in expected worktree).
+- Use `status: "failed"` for unrecoverable **dev/fix** phase errors (missing inputs, not in a git repo, not in expected worktree).
+- For the **review** phase, use `status: "blocked"` with the failure details in `summary`, `issues`, and `requiredActions` because the review schema does not allow `"failed"`.
 - Use `status: "deferred"` for soft failures where work cannot proceed without human input (missing dependency, ambiguous requirements).
 - Only exit non-zero when the phase is truly unrecoverable. If possible, emit the JSON result **before** exiting non-zero.
 

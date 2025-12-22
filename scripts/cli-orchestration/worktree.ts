@@ -11,6 +11,36 @@ async function pathExists(path: string): Promise<boolean> {
   }
 }
 
+async function isGraphiteTracked(repoRoot: string, branchName: string): Promise<boolean> {
+  try {
+    const result = await runCommand("gt", ["log", "--classic", "--no-interactive", "--all"], { cwd: repoRoot });
+    if (result.exitCode !== 0) return false;
+    return result.stdout.includes(branchName);
+  } catch {
+    return false;
+  }
+}
+
+async function graphiteMoveOnto(
+  repoRoot: string,
+  branchName: string,
+  parentBranch: string,
+): Promise<{ ok: boolean; details?: string }> {
+  try {
+    const result = await runCommand(
+      "gt",
+      ["move", "--onto", parentBranch, "--source", branchName, "--no-interactive"],
+      { cwd: repoRoot },
+    );
+    if (result.exitCode !== 0) {
+      return { ok: false, details: result.stderr || result.stdout };
+    }
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, details: error instanceof Error ? error.message : String(error) };
+  }
+}
+
 async function branchExists(repoRoot: string, branchName: string): Promise<boolean> {
   const result = await runCommand(
     "git",
@@ -63,6 +93,16 @@ export async function ensureWorktree(
     }
     const parentOk = await isAncestor(repoRoot, parentBranch, branchName);
     if (!parentOk) {
+      const tracked = await isGraphiteTracked(repoRoot, branchName);
+      if (tracked) {
+        const moved = await graphiteMoveOnto(repoRoot, branchName, parentBranch);
+        if (moved.ok && (await isAncestor(repoRoot, parentBranch, branchName))) {
+          return worktreePath;
+        }
+        throw new Error(
+          `Existing branch ${branchName} is Graphite-tracked but is not based on ${parentBranch}. Failed to move it onto ${parentBranch} via Graphite: ${moved.details ?? "unknown error"}`,
+        );
+      }
       throw new Error(
         `Existing branch ${branchName} is not based on ${parentBranch}. Remove wt-${branchName} and re-run with --base-branch ${parentBranch}.`,
       );
@@ -74,9 +114,20 @@ export async function ensureWorktree(
   if (exists) {
     const parentOk = await isAncestor(repoRoot, parentBranch, branchName);
     if (!parentOk) {
-      throw new Error(
-        `Branch ${branchName} exists but is not based on ${parentBranch}. Rebase it or delete it before running the orchestrator.`,
-      );
+      const tracked = await isGraphiteTracked(repoRoot, branchName);
+      if (tracked) {
+        const moved = await graphiteMoveOnto(repoRoot, branchName, parentBranch);
+        const ok = moved.ok && (await isAncestor(repoRoot, parentBranch, branchName));
+        if (!ok) {
+          throw new Error(
+            `Branch ${branchName} is Graphite-tracked but is not based on ${parentBranch}. Failed to move it onto ${parentBranch} via Graphite: ${moved.details ?? "unknown error"}`,
+          );
+        }
+      } else {
+        throw new Error(
+          `Branch ${branchName} exists but is not based on ${parentBranch}. Delete it or rename it, or track it with Graphite and use gt move --onto ${parentBranch} --source ${branchName}.`,
+        );
+      }
     }
   }
   const args = exists

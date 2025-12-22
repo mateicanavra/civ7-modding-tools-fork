@@ -28,6 +28,7 @@ Full input: $ARGUMENTS
 - **Do not** infer branch/worktree from Linear or other sources.
 - **Do not** run sub-issue loops. The orchestrator controls iteration.
 - Review only; do not apply fixes in this phase.
+- If required inputs are missing or the environment is inconsistent, **still emit valid review JSON** with `status: "blocked"` and describe the issue in `summary`, `issues`, and `requiredActions`.
 
 ## Output contract (review phase)
 
@@ -50,16 +51,17 @@ The final assistant message must be **JSON only** matching this shape:
 }
 ```
 
-**All fields are required**. If a list is empty, return `[]`. For `issues[].evidence`, use `""` only when you truly have nothing to add; otherwise include concise pointers (file paths, commands, or reproduction notes).
+**All fields are required**. If a list is empty, return `[]`. `reviewDocPath` may be `""` when no review doc is written. For `issues[].evidence`, use `""` only when you truly have nothing to add; otherwise include concise pointers (file paths, commands, or reproduction notes). Use `"medium"` confidence by default.
 
-Use `status: "changes_required"` or `"blocked"` when appropriate.
+Valid statuses: `"pass"`, `"changes_required"`, or `"blocked"`.
 
 ---
 
 ## Workflow (auto-safe)
 
 1. **Parse ORCH_CONTEXT** and capture:
-   - `issueId`, `issueDocPath`, `milestoneId`, `branchName`, `worktreePath`.
+   - `issueId`, `issueDocPath`, `milestoneId`, `milestoneDocPath`, `branchName`, `worktreePath`, `maxReviewCycles`, `reviewCycle`.
+   - `priorFixSummary` (optional; present when a review follows a fix cycle).
 2. **Verify environment** (do not change worktree):
    ```bash
    pwd -P
@@ -67,7 +69,7 @@ Use `status: "changes_required"` or `"blocked"` when appropriate.
    git branch --show-current
    gt ls
    ```
-   - If `branchName` does not match current branch, emit `status: "failed"`.
+   - If `branchName` does not match current branch, emit `status: "blocked"` and include the mismatch in `summary`/`requiredActions`.
 3. **Review the work**:
    - Read the issue doc at `issueDocPath` and the relevant code/docs in this worktree.
    - Evaluate against acceptance criteria and contract constraints.
