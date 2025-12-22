@@ -14,9 +14,9 @@
 - [ ] Project ADR capturing v0 architectural decisions.
 - [ ] PRD describing v0 scope and non-goals.
 
-## Milestones
-- M1: Spec + contracts locked (ADR + PRD + contracts).
-- M2: v0 orchestrator thin slice (sequential issues, dev → review → fix).
+## Milestone M1 (v0.1 scope)
+- Lock ADR/PRD/contract for the orchestration loop.
+- Deliver the initial thin slice: sequential issue processing with a dev-only loop, runner abstraction, and logs.
 
 ## Links & References
 - PRD: `docs/projects/cli-orchestration-v0/resources/PRD-cli-orchestration-v0.md`
