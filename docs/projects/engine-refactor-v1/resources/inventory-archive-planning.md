@@ -6,9 +6,12 @@
 
 Classification key:
 - Canonical / active
+- Archived (in _archive/)
 - Log / ongoing
 - Candidate for archive
 - Mixed (needs a call)
+- Delete (decided; pending removal)
+- Deleted (removed)
 
 ## Inventory
 
@@ -32,7 +35,7 @@ Reviews and checkpoints:
 
 | Path | Description | Classification |
 | --- | --- | --- |
-| `docs/projects/engine-refactor-v1/checkpoints/CHECKPOINT-M4-2025-12-19.md` | Snapshot checkpoint for M4 planning. | Mixed (needs deeper look: delete vs archive+salvage) |
+| `docs/projects/engine-refactor-v1/checkpoints/CHECKPOINT-M4-2025-12-19.md` | Snapshot checkpoint for M4 planning. | Deleted (removed) |
 | `docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M4-tests-validation-cleanup.md` | Review notes for M4 milestone scope. | Archived (in _archive/; salvage check) |
 | `docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-CIV-M4-ADHOC-modularize.md` | Review notes for modularization work. | Archived (in _archive/; salvage check) |
 | `docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M2-stable-engine-slice.md` | Review notes for M2 milestone. | Archived (in _archive/) |
@@ -43,7 +46,7 @@ Decision status (reviews + checkpoint):
 - [ARCHIVED] `docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M-TS-typescript-migration-remediation.md`
 - [ARCHIVED] `docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M4-tests-validation-cleanup.md` (salvage: still-open risk/acceptance notes)
 - [ARCHIVED] `docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-CIV-M4-ADHOC-modularize.md` (salvage: modularization scope/risk notes)
-- [NEEDS DEEPER LOOK → ARCHIVE OR DELETE] `docs/projects/engine-refactor-v1/checkpoints/CHECKPOINT-M4-2025-12-19.md`
+- [DELETED] `docs/projects/engine-refactor-v1/checkpoints/CHECKPOINT-M4-2025-12-19.md`
 
 Resources (specs, PRDs, spikes, contracts, status):
 
@@ -74,6 +77,8 @@ Resources (specs, PRDs, spikes, contracts, status):
 | `docs/projects/engine-refactor-v1/resources/slides/_archive/voronoi-plate-generation.outline.md` | Slide outline for plate generation. | Archived (in _archive/) |
 | `docs/projects/engine-refactor-v1/resources/slides/_archive/earth-physics-systems-modeling.json` | Slide deck for earth physics systems. | Archived (in _archive/) |
 | `docs/projects/engine-refactor-v1/resources/slides/_archive/earth-physics-systems-modeling.outline.md` | Slide outline for earth physics systems. | Archived (in _archive/) |
+| `docs/projects/engine-refactor-v1/resources/slides/_archive/m3-core-engine-refactor-config-evolution.json` | Slide deck for M3 config evolution milestone. | Archived (in _archive/) |
+| `docs/projects/engine-refactor-v1/resources/slides/_archive/m3-core-engine-refactor-config-evolution.outline.md` | Slide outline for M3 config evolution milestone. | Archived (in _archive/) |
 
 Moved to temp project (repo-level spikes; not Engine-refactor v1 scope):
 - `docs/projects/temp/SPIKE-bun-migration-feasibility.md`
@@ -142,9 +147,7 @@ Swooper maps mod docs:
 | `docs/system/ARCHITECTURE.md` | System architecture overview; mentions mapgen. | Canonical / active |
 | `docs/system/TESTING.md` | Testing overview; references mapgen tests. | Canonical / active |
 | `docs/system/DEFERRALS.md` | System deferrals log; includes mapgen items. | Log / ongoing |
-| `docs/repomix-output_docs.xml` | Generated docs dump (contains mapgen refs). | Candidate for archive |
-| `docs/slides/m3-core-engine-refactor-config-evolution.json` | M3 slide deck (top-level). | Mixed (needs a call) |
-| `docs/slides/m3-core-engine-refactor-config-evolution.outline.md` | M3 slide outline (top-level). | Mixed (needs a call) |
+| `docs/repomix-output_docs.xml` | Generated docs dump (removed). | Deleted (removed) |
 
 ## Archive recommendations
 
@@ -168,7 +171,8 @@ Full archive (no salvage expected):
 - `docs/projects/engine-refactor-v1/milestones/_archive/M2-stable-engine-slice.md` (decided)
 - `docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M2-stable-engine-slice.md` (decided)
 - `docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M-TS-typescript-migration-remediation.md` (decided)
-- `docs/repomix-output_docs.xml` (generated output; no salvage expected if unused)
+- `docs/projects/engine-refactor-v1/resources/slides/_archive/m3-core-engine-refactor-config-evolution.json` (decided)
+- `docs/projects/engine-refactor-v1/resources/slides/_archive/m3-core-engine-refactor-config-evolution.outline.md` (decided)
 
 Archive + partial salvage:
 - `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-orchestrator-indirection-audit.md`
@@ -191,12 +195,6 @@ Archive + partial salvage:
   - Decision: archive after salvage check.
   - Salvage: concrete modularization scope details and any still-relevant risks.
   - Likely home: M4 pipeline or tag registry cutover issues.
-- `docs/slides/m3-core-engine-refactor-config-evolution.json`
-  - Salvage: any diagrams still referenced for M3 history.
-  - Likely home: `docs/_archive/projects/engine-refactor-v1/milestones/` or `docs/_archive/`.
-- `docs/slides/m3-core-engine-refactor-config-evolution.outline.md`
-  - Salvage: any outline notes still referenced for M3 history.
-  - Likely home: `docs/_archive/projects/engine-refactor-v1/milestones/` or `docs/_archive/`.
 - `docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md`
   - Salvage: feature inventory relevant to current mapgen docs.
   - Likely home: `docs/system/libs/mapgen/architecture.md` or `docs/system/libs/mapgen/ecology.md`.
@@ -210,14 +208,9 @@ Archive + partial salvage:
   - Salvage: synthesis framing if still referenced.
   - Likely home: `docs/system/libs/mapgen/architecture.md`.
 
-Needs deeper look (delete vs archive+salvage):
+Deleted (removed from repo):
 - `docs/projects/engine-refactor-v1/checkpoints/CHECKPOINT-M4-2025-12-19.md`
-  - If superseded/redundant: delete.
-  - If unique insights remain: archive and salvage any open checklist items into M4 Triage or `docs/projects/engine-refactor-v1/status.md`.
-
-Mixed (needs a call, but no archive recommendation yet):
-- `docs/slides/m3-core-engine-refactor-config-evolution.json` (depends on whether top-level slides are still referenced)
-- `docs/slides/m3-core-engine-refactor-config-evolution.outline.md` (depends on whether top-level slides are still referenced)
+- `docs/repomix-output_docs.xml`
 
 ## Clean-slate view (going into M4)
 
@@ -281,8 +274,9 @@ Archive list (proposed):
   - `docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md`
   - `docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md`
   - `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md`
-- Needs deeper look (delete vs archive+salvage):
+- Deleted (removed):
   - `docs/projects/engine-refactor-v1/checkpoints/CHECKPOINT-M4-2025-12-19.md`
+  - `docs/repomix-output_docs.xml`
 
 Notes:
 - Any doc marked "Mixed (needs a call)" should be reviewed for current use before archiving.

@@ -579,7 +579,7 @@ The core gaps called out above are now addressed in the branch end state:
    - **Direction:** Align on `string | number` (or a dedicated `MapSizeKey` type) across `@civ7/types`, `@civ7/adapter`, and orchestrator options.
 
 3. **“No OrchestratorAdapter references remain” is true for runtime code, not the entire repo**
-   - References still exist in slide/review artifacts (e.g., `docs/slides/m3-core-engine-refactor-config-evolution.*`, `docs/projects/engine-refactor-v1/reviews/REVIEW-M2-stable-engine-slice.md`).
+   - References still exist in slide/review artifacts (e.g., `docs/projects/engine-refactor-v1/resources/slides/_archive/m3-core-engine-refactor-config-evolution.*`, `docs/projects/engine-refactor-v1/reviews/REVIEW-M2-stable-engine-slice.md`).
    - **Impact:** If the acceptance criterion is interpreted literally (“entire codebase”), it isn’t met; if it’s meant as “runtime code”, it should be clarified.
    - **Direction:** Clarify the criterion or update slide content to frame OrchestratorAdapter as “Before (transient)” history (don’t erase useful historical review notes).
 
@@ -601,10 +601,10 @@ The core gaps called out above are now addressed in the branch end state:
 
 - **Fix now:** Make `pnpm test:mapgen` green by addressing the `STAGE_ORDER` immutability expectation.
 - **Follow-up:** Normalize map-size key typing across `@civ7/types` ↔ `@civ7/adapter` ↔ orchestrator options.
-- **Follow-up:** Clarify whether “no OrchestratorAdapter references remain” applies to runtime code only or to the entire repo (docs/slides).
+- **Follow-up:** Clarify whether “no OrchestratorAdapter references remain” applies to runtime code only or to the entire repo (docs reviews/slides).
 
 ### Post-review update (2025-12-15)
 
 - **Green tests:** `STAGE_ORDER` is now runtime-frozen so `pnpm test:mapgen` stays green.
 - **Type alignment:** Introduced `MapSizeId = string | number` in `@civ7/adapter` and updated Civ7 + mock adapters and orchestrator options accordingly.
-- **Acceptance clarity:** Updated CIV-47 acceptance criterion to scope “no OrchestratorAdapter references” to runtime code (`packages/**`) while preserving docs/slides as historical context.
+- **Acceptance clarity:** Updated CIV-47 acceptance criterion to scope “no OrchestratorAdapter references” to runtime code (`packages/**`) while preserving docs (reviews/slides) as historical context.
