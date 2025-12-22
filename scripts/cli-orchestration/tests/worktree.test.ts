@@ -59,6 +59,7 @@ describe("worktree", () => {
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         expect(message).not.toMatch(/rebase/i);
+        expect(message).not.toMatch(/delete/i);
         expect(message).toMatch(/gt move/);
       }
     });

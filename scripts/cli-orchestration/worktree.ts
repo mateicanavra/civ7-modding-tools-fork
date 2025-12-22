@@ -104,7 +104,14 @@ export async function ensureWorktree(
         );
       }
       throw new Error(
-        `Existing branch ${branchName} is not based on ${parentBranch}. Remove wt-${branchName} and re-run with --base-branch ${parentBranch}.`,
+        [
+          `Existing branch ${branchName} is not based on ${parentBranch}.`,
+          `This orchestrator will not rewrite untracked branches automatically.`,
+          `Choose one of:`,
+          `- Track the branch with Graphite, then use Graphite to re-parent it (e.g. \`gt move --onto ${parentBranch} --source ${branchName}\`).`,
+          `- Run the orchestrator with a different branch name for this issue (so the existing branch is left untouched).`,
+          `- If you intentionally want to discard the existing branch/worktree, do that manually and re-run.`,
+        ].join(" "),
       );
     }
     return worktreePath;
@@ -125,7 +132,14 @@ export async function ensureWorktree(
         }
       } else {
         throw new Error(
-          `Branch ${branchName} exists but is not based on ${parentBranch}. Delete it or rename it, or track it with Graphite and use gt move --onto ${parentBranch} --source ${branchName}.`,
+          [
+            `Branch ${branchName} exists but is not based on ${parentBranch}.`,
+            `This orchestrator will not rewrite untracked branches automatically.`,
+            `Choose one of:`,
+            `- Track the branch with Graphite, then use Graphite to re-parent it (e.g. \`gt move --onto ${parentBranch} --source ${branchName}\`).`,
+            `- Run the orchestrator with a different branch name for this issue (so the existing branch is left untouched).`,
+            `- If you intentionally want to discard the existing branch, do that manually and re-run.`,
+          ].join(" "),
         );
       }
     }
