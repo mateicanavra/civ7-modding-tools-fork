@@ -116,3 +116,18 @@ Constraints/notes:
 - Caches must be context-owned or removed.
 - Do not implement code; deliver only the checklist + gaps as notes.
 - Follow the milestone sequencing: producers after tag registry cutover; consumer migration after legacy ordering deletion.
+
+## Prework Results / References
+
+Child artifacts:
+- Narrative‑1 (`LOCAL-TBD-M4-NARRATIVE-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-1-artifact-inventory.md`
+- Narrative‑2 (`LOCAL-TBD-M4-NARRATIVE-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-2-storytags-consumer-and-cache-map.md`
+
+Readiness checklist:
+- Canonical narrative artifact set has a minimal v1 inventory (IDs + schema sketches + demo guidance) aligned to existing overlay kinds, so producers can publish artifacts mechanically.
+- StoryTags consumer map covers narrative producers and cross-domain consumers (morphology/ecology/climate), with explicit target artifacts/helpers for each.
+- Cache/global inventory is explicit (StoryTags, overlays, corridor/orogeny caches) and includes delete/derive/keep recommendations.
+
+Gap list / open decisions:
+- Hotspot categorization semantics: islands placement produces paradise/volcanic hotspot sets; decide whether to publish a single categorized artifact vs split artifacts.
+- Decide whether `ctx.overlays` remains as a compat-only derived view (debugging) or is removed entirely in the target path.
