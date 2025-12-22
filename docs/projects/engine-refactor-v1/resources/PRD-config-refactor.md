@@ -15,6 +15,12 @@ The goal is to move from the current multi-layer, global, tunables-driven config
 
 **Status (M2):** Phase 1 (“config hygiene”) is now implemented: configs are validated via `parseConfig()` and injected into the orchestrator (no `globalThis.__EPIC_MAP_CONFIG__`). Remaining phases in this PRD describe the *future* shape evolution and pipeline integration work (M3+).
 
+**Update (2025-12-22, M4 planning):**
+- Canonical runtime boundary is `RunRequest = { recipe, settings }` compiled to `ExecutionPlan` (see `SPEC-target-architecture-draft.md`).
+- Presets are removed; entry is explicit recipe + settings selection.
+- Legacy stage-based ordering/config surfaces (`stageManifest`, `STAGE_ORDER`, `stageConfig`, stage enablement toggles) are deletion-only and do not survive M4.
+- This PRD’s "MapGenConfig" should be read as the **validated run-settings schema** used as `RunRequest.settings` (not as a monolithic, pipeline-defining mega-object).
+
 ---
 
 ## 2. Problem Statement
@@ -48,7 +54,7 @@ These issues are already painful in the current orchestrator and will become **a
 ## 3. Goals
 
 1. **Single Source of Truth**
-   - Define `MapGenConfig` once, in one place, as the canonical schema for map configuration.
+   - Define a single validated run-settings schema (currently `MapGenConfig`) as the canonical schema for run parameters (`RunRequest.settings`).
    - Use this schema to generate both runtime validation and TypeScript types.
 
 2. **Runtime-validated, fail-fast config**
@@ -105,7 +111,8 @@ The engine will be driven by two related but distinct inputs:
    - Example: list of `{ step: "core.mesh.voronoi", config: { cellCount: 4000 } }`.
 
 In v1 of this refactor:
-- `MapGenConfig` remains the primary input for behavior.
+- ~~`MapGenConfig` remains the primary input for behavior.~~  
+  **Update (2025-12-22, M4 planning):** Behavior is defined by **recipe + per-step config**; `settings` are global run parameters validated at the boundary (`RunRequest.settings`). `MapGenConfig` is a settings schema, not the pipeline definition.
 - ~~The pipeline recipe may be implicit (standard pipeline) or partially derived from config.~~  
   **Update (2025-12-21, M4 planning):** The standard pipeline is an explicit mod package + recipe; it is not derived from config. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 - Later, we may expose recipes to map scripts and UIs; this PRD ensures the configuration model is ready for that future.
@@ -152,6 +159,7 @@ This choice is compatible with the Task Graph and Foundation PRDs:
    - Define a `MapGenConfigSchema` that describes the current, effective config:
      - Preserve current nesting (including `foundation` group and `FOUNDATION_CFG` structure) as needed to avoid breaking map scripts.
      - Include all fields currently consumed by tunables and layers (landmass, mountains, volcanoes, climate, story, corridors, placement, diagnostics/stage manifest).
+       **Update (2025-12-22, M4 planning):** Treat `STAGE_MANIFEST`/stage-manifest-derived config surfaces as legacy transitional artifacts; do not extend them as a target-facing contract. M4 deletes stage-based ordering/config inputs entirely.
    - Derive `MapGenConfig` type from the schema.
 
 2. **Single loader**
@@ -170,6 +178,7 @@ This choice is compatible with the Task Graph and Foundation PRDs:
      - It builds its snapshot from a `MapGenConfig` instance, not from loosely-typed config and globals.
      - It stops applying its own defaults where those defaults can be expressed in the schema.
    - Keep the **public tunables surface** (e.g., `FOUNDATION_CFG`, `CLIMATE_CFG`, `STAGE_MANIFEST`) as-is to avoid breaking existing layers in this phase.
+     **Update (2025-12-22, M4 planning):** `STAGE_MANIFEST` is deletion-only legacy and must not survive M4; it is not a stable long-term surface.
 
 5. **Fail-fast behavior**
    - Ensure `parseConfig` throws on invalid config (wrong types, out-of-range values, unknown keys not explicitly allowed).
@@ -251,9 +260,11 @@ This choice is compatible with the Task Graph and Foundation PRDs:
      - `bootstrap/tunables.ts` (or reduce it to a minimal compatibility shim).
      - Legacy tunables facades that are no longer needed.
 
-3. **Map script & preset updates**
-   - Update Swooper and other TS map scripts to provide config in the new shape.
-   - For backwards compatibility, provide a thin adapter that maps old-config shapes into the new schema for a transitional period (if needed).
+3. **Map script & entrypoint updates**
+   - ~~Update Swooper and other TS map scripts to provide config in the new shape.~~  
+     **Update (2025-12-22, M4 planning):** Script entrypoints select **recipe + settings** (no presets). If external config shape changes are required later, treat them as explicit, time-boxed migration work (not a runtime compatibility target).
+   - ~~For backwards compatibility, provide a thin adapter that maps old-config shapes into the new schema for a transitional period (if needed).~~  
+     **Update (2025-12-22, M4 planning):** Avoid runtime compatibility adapters as a target posture. Any import/migration tooling must be explicit and bounded; M4’s target runtime has no legacy/compat paths.
 
 4. **Documentation & tooling**
    - Update docs and examples to show the new config structure.
@@ -304,7 +315,7 @@ brief (`PROJECT-engine-refactor-v1.md`) and the milestone docs (for example,
 
 2. **Config vs recipe responsibility**
    - Which aspects belong in `MapGenConfig` (engine parameters) vs the pipeline recipe (step selection/order)?
-   - Initial guidance: MapGenConfig covers *parameters*; the recipe covers *which steps run* and *in what order*. This line may blur for some toggles (e.g., stage enable/disable).
+   - Initial guidance: run settings cover *parameters*; the recipe covers *which steps run* and *in what order*. Enablement is recipe-authored; there is no stage enable/disable surface in the target architecture.
 
 3. **Story/corridors config timing**
    - `SPIKE-config-refactor-design.md` and the parity matrix call out story/corridor config surfaces that currently have no TS implementation.
@@ -315,6 +326,6 @@ brief (`PROJECT-engine-refactor-v1.md`) and the milestone docs (for example,
 
 4. **Backward compatibility window**
    - How long do we support old config shapes via adapters once the new shape is in place?
-   - This should be decided in coordination with downstream mod authors and the broader engine roadmap.
+   - **Update (2025-12-22, M4 planning):** M4’s target runtime has no legacy/compat paths. If any shape migration is needed later, it should be explicit and time-boxed (tooling/import path), not a permanent runtime compatibility layer.
 
 These questions should be revisited after Phase 1 and Phase 2 are complete and the Task Graph / Foundation pipeline are running against `MapGenConfig`.
