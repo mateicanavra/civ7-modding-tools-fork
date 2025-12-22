@@ -114,7 +114,8 @@ contracts, not internal implementation details.
 ### 4.1 Config Flow
 
 - `bootstrap(options)` is the **single entrypoint** for building engine config:
-  - Composes presets and overrides into a raw config.
+  - ~~Composes presets and overrides into a raw config.~~  
+    **Update (2025-12-21, M4 planning):** Presets are removed; entry is recipe + settings selection. See `../milestones/M4-tests-validation-cleanup.md`.
   - Resolves `stageConfig` into a `stageManifest` (via `resolveStageManifest`).
   - Validates the combined object via `parseConfig(rawConfig)` to produce a `MapGenConfig`.
   - Returns the validated config to the caller.

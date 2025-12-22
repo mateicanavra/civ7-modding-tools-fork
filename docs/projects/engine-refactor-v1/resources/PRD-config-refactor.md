@@ -106,7 +106,8 @@ The engine will be driven by two related but distinct inputs:
 
 In v1 of this refactor:
 - `MapGenConfig` remains the primary input for behavior.
-- The pipeline recipe may be implicit (standard pipeline) or partially derived from config.
+- ~~The pipeline recipe may be implicit (standard pipeline) or partially derived from config.~~  
+  **Update (2025-12-21, M4 planning):** The standard pipeline is an explicit mod package + recipe; it is not derived from config. See `../milestones/M4-tests-validation-cleanup.md`.
 - Later, we may expose recipes to map scripts and UIs; this PRD ensures the configuration model is ready for that future.
 
 ### 5.2. Schema & Validation Technology
@@ -291,7 +292,7 @@ This sequencing balances:
 
 Milestone-level scheduling for these phases is maintained in the engine-level project
 brief (`PROJECT-engine-refactor-v1.md`) and the milestone docs (for example,
-`milestones/M2-stable-engine-slice.md` and `milestones/M3-core-engine-refactor-config-evolution.md`).
+`milestones/M2-stable-engine-slice.md` and `../../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`).
 
 ---
 

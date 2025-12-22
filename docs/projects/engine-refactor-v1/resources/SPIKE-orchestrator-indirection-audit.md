@@ -99,9 +99,12 @@ spread across project docs or implied, not canonical.
 ### 2.4 Target architecture gaps and unresolved components
 
 Explicit gaps / open questions in target docs (as of 2025-12-20):
-- Foundation surface is still `FoundationContext` as a compatibility snapshot; discrete foundation artifacts are not yet locked (3.3 open / DEF-014).
-- Story contract is still split (overlays + tags) for compatibility; canonical schema + lifecycle are not locked (3.4 open / DEF-002/DEF-012).
-- Climate ownership and placement inputs are still not locked (3.6/3.7 open / DEF-006/DEF-010).
+- ~~Foundation surface is still `FoundationContext` as a compatibility snapshot; discrete foundation artifacts are not yet locked (3.3 open / DEF-014).~~  
+  **Update (2025-12-21, M4 planning):** Decision 3.3 is accepted; discrete foundation artifacts are the target, and `FoundationContext` is migration-only. Implementation remains deferred (DEF-014). See `../milestones/M4-tests-validation-cleanup.md`.
+- ~~Story contract is still split (overlays + tags) for compatibility; canonical schema + lifecycle are not locked (3.4 open / DEF-002/DEF-012).~~  
+  **Update (2025-12-21, M4 planning):** Decision 3.4 is accepted; typed narrative artifacts are canonical and StoryTags are not. Cleanup is scheduled in M4. See `../milestones/M4-tests-validation-cleanup.md`.
+- ~~Climate ownership and placement inputs are still not locked (3.6/3.7 open / DEF-006/DEF-010).~~  
+  **Update (2025-12-21, M4 planning):** Decisions 3.6/3.7 are accepted. Placement inputs land in M4 (DEF-006); climate engine reification remains post-M4 (DEF-010). See `../milestones/M4-tests-validation-cleanup.md`.
 - `MapGenContext.fields` is not complete or consistent (no `resources`, `names`,
   or `placement` buffers defined in the architecture doc).
 - Step ID taxonomy is aspirational but not locked (e.g., `morphology.*`,
@@ -117,31 +120,29 @@ Explicit gaps / open questions in target docs (as of 2025-12-20):
 ### 2.5 This-or-this ambiguities (legacy vs target vs shim)
 
 Flagging direct either/or choices that remain unresolved:
-- **Ordering cutover:** target recipe/ExecutionPlan ordering **or** continued M3 ordering via `STAGE_ORDER` + `stageManifest` (DEF-004).
-- **Foundation shape:** `FoundationContext` snapshot **or** discrete artifacts
-  (`mesh`, `crust`, `plateGraph`, `tectonics`) as the canonical surface.
-- **Story model:** `StoryTags` **or** `artifact:storyOverlays` /
-  `context.artifacts.story` (no single declared schema).
-- **Climate ownership:** `ClimateField` as canonical rainfall **or**
-  engine-surface rainfall as the real source of truth.
+- **~~Ordering cutover:~~** ~~target recipe/ExecutionPlan ordering **or** continued M3 ordering via `STAGE_ORDER` + `stageManifest` (DEF-004).~~  
+  **Update (2025-12-21, M4 planning):** M4 commits to recipe + `ExecutionPlan`; `stageManifest`/`STAGE_ORDER` removal is required. See `../milestones/M4-tests-validation-cleanup.md`.
+- **~~Foundation shape:~~** ~~`FoundationContext` snapshot **or** discrete artifacts (`mesh`, `crust`, `plateGraph`, `tectonics`) as the canonical surface.~~  
+  **Update (2025-12-21, M4 planning):** Decision 3.3 is accepted; discrete artifacts are canonical; `FoundationContext` is migration-only (DEF-014). See `../milestones/M4-tests-validation-cleanup.md`.
+- **~~Story model:~~** ~~`StoryTags` **or** `artifact:storyOverlays` / `context.artifacts.story` (no single declared schema).~~  
+  **Update (2025-12-21, M4 planning):** Decision 3.4 is accepted; typed narrative artifacts are canonical and StoryTags are removed. See `../milestones/M4-tests-validation-cleanup.md`.
+- **~~Climate ownership:~~** ~~`ClimateField` as canonical rainfall **or** engine-surface rainfall as the real source of truth.~~  
+  **Update (2025-12-21, M4 planning):** Decision 3.6 is accepted; climate remains partially engine-coupled post-M4 (DEF-010). See `../milestones/M4-tests-validation-cleanup.md`.
 - **Context shape:** `ctx.foundation` vs `context.artifacts.*` naming; fields
   vs engine buffers for features/resources.
 
 ### 2.6 Decision log stubs (to promote into ADRs)
 
 Stub list only (to be expanded into ADRs with decision, rationale, and impact):
-- **ADR-TBD: Pipeline ordering source of truth** — accepted in target drafts (3.1); promote to ADR.
-- **ADR-TBD: Step enablement model** — accepted in target drafts (3.2); promote to ADR.
-- **ADR-TBD: Foundation artifact contract** — `FoundationContext` snapshot vs
-  discrete artifacts (`mesh`, `crust`, `plateGraph`, `tectonics`).
-- **ADR-TBD: Story data model** — `StoryTags` vs `storyOverlays` /
-  `context.artifacts.story` as the canonical surface.
-- **ADR-TBD: Engine boundary policy** — accepted in target drafts (3.5); promote to ADR.
-- **ADR-TBD: Climate/Rainfall ownership** — `ClimateField` artifact as canonical
-  vs engine-surface rainfall as source of truth.
-- **ADR-TBD: Context schema ownership** — explicit `fields`/`artifacts` registry
-  vs implicit `ctx.*` usage in steps.
-- **ADR-TBD: Recipe schema versioning** — accepted in target drafts (3.9); promote to ADR.
+**Update (2025-12-21, M4 planning):** Decisions are accepted in the SPEC and M4 plan; ADRs are optional post-M4. The stubs below are historical.
+- ~~ADR-TBD: Pipeline ordering source of truth — accepted in target drafts (3.1); promote to ADR.~~
+- ~~ADR-TBD: Step enablement model — accepted in target drafts (3.2); promote to ADR.~~
+- ~~ADR-TBD: Foundation artifact contract — `FoundationContext` snapshot vs discrete artifacts (`mesh`, `crust`, `plateGraph`, `tectonics`).~~
+- ~~ADR-TBD: Story data model — `StoryTags` vs `storyOverlays` / `context.artifacts.story` as the canonical surface.~~
+- ~~ADR-TBD: Engine boundary policy — accepted in target drafts (3.5); promote to ADR.~~
+- ~~ADR-TBD: Climate/Rainfall ownership — `ClimateField` artifact as canonical vs engine-surface rainfall as source of truth.~~
+- ~~ADR-TBD: Context schema ownership — explicit `fields`/`artifacts` registry vs implicit `ctx.*` usage in steps.~~
+- ~~ADR-TBD: Recipe schema versioning — accepted in target drafts (3.9); promote to ADR.~~
 
 ### 2.7 Do we have a full map of the current hybrid architecture?
 

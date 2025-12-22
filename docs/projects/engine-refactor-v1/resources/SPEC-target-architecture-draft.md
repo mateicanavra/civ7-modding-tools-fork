@@ -183,7 +183,8 @@ Concrete V1 deliverables:
 - Deterministic scheduling comes from authored linear order (no topo-sort semantics required in V1).
 - Registry is the canonical catalog; steps declare deps and config schemas.
 - Enablement is recipe-authored and compiled into the plan; no silent runtime skips.
-- Presets shape is explicitly deferred (recipe-only vs full `RunRequest`); the V1 contract supports either without changing `RunRequest` or `ExecutionPlan`.
+- ~~Presets shape is explicitly deferred (recipe-only vs full `RunRequest`); the V1 contract supports either without changing `RunRequest` or `ExecutionPlan`.~~
+  **Update (2025-12-21, M4 planning):** Presets are removed; entry is explicit recipe + settings selection, and any "preset" is treated as a named recipe (if used). See `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
 
 ### 2.2 What V1 explicitly defers
 
@@ -208,7 +209,7 @@ Any compromises or transitional constraints that apply only to V1:
 
 Each mod instantiates its own registry. This registry shape is the intended
 greenfield contract surface. Registry rules (canonical registration, schema
-ownership, required demos, and fail-fast collisions) are locked in decision 3.8;
+ownership, optional demos, and fail-fast collisions) are locked in decision 3.8;
 the concrete tag inventory still evolves alongside domain decisions. This
 section applies to both end-state and V1.
 
@@ -216,7 +217,7 @@ Rules (3.8 accepted):
 - Tags are only valid if they are registered in the mod’s instantiated registry.
 - No collisions: duplicate tag IDs and duplicate step IDs are hard errors.
 - Unknown tag references in `requires/provides` are hard errors.
-- `artifact:*` tags must include safe demo payloads (for introspection tooling).
+- Demo payloads are optional; if provided, they must be safe defaults and schema-valid.
 - `effect:*` tags are first-class and visible in the registry like artifacts/fields.
 
 Type safety note:
@@ -497,11 +498,11 @@ export type FieldTag<S extends TSchema | undefined = TSchema | undefined> =
     demo?: S extends TSchema ? Static<S> : unknown;
   };
 
-// Artifact tags: dataflow products. Schema + demo are required.
+// Artifact tags: dataflow products. Schema is required; demo is optional (recommended).
 export type ArtifactTag<S extends TSchema = TSchema> = BaseTag & {
   kind: "artifact";
   schema: S;
-  demo: Static<S>;
+  demo?: Static<S>;
 };
 
 // Effect tags: externally meaningful changes/events. Schema/demo are optional.
