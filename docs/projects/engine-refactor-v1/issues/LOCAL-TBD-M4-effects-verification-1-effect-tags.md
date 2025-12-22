@@ -81,7 +81,77 @@ Constraints/notes:
 - Do not implement code; return the catalog and API sketch as a markdown table/list.
 - Coordinate with the tag registry cutover so effect tags land in the canonical registry surface.
 
-## Prework Results / References
+## Pre-work
 
-- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-1-effect-tags-postconditions.md`
-- Includes: current `state:engine.*` usage + providing steps, a proposed `effect:*` seed catalog for biomes/features/placement, and a minimal postcondition verification sketch (placement verification is locked in ADR-ER1-020).
+Goal: define the `effect:*` tag surface for engine mutations and the minimal adapter postcondition queries needed for verification (without changing step scheduling in this issue).
+
+### 1) Current `state:engine.*` surface (what exists today)
+
+Source: `packages/mapgen-core/src/pipeline/standard.ts` (`M3_STAGE_DEPENDENCY_SPINE`).
+
+| Tag | Providing step(s) | Current verification | Notes |
+| --- | --- | --- | --- |
+| `state:engine.landmassApplied` | `landmassPlates` | None (trusted assertion) | Landmass step calls adapter; no postcondition check. |
+| `state:engine.coastlinesApplied` | `coastlines` | None | Coastlines step calls adapter; no postcondition check. |
+| `state:engine.riversModeled` | `rivers` | None | Rivers step calls adapter; no postcondition check. |
+| `state:engine.biomesApplied` | `biomes` | None | Biomes step calls adapter; no postcondition check. |
+| `state:engine.featuresApplied` | `features` | None | Features step calls adapter; no postcondition check. |
+| `state:engine.placementApplied` | `placement` | None | Placement step calls adapter; no postcondition check. |
+
+All `state:engine.*` are currently "trusted assertions": the executor adds them to the satisfied set after `step.run()` completes, with no adapter-backed verification.
+
+### 2) Proposed `effect:*` catalog (seed for M4)
+
+Goal: replace `state:engine.*` with **verified** `effect:*` tags. Each effect must have a postcondition that can be checked (via adapter or reified artifact).
+
+#### Biomes/features/placement effect tags
+
+| Effect tag | Providing step | Postcondition strategy | Notes |
+| --- | --- | --- | --- |
+| `effect:engine.biomesApplied` | `biomes` | Minimal adapter query: sample a few land tiles and confirm biomeId is set. Or: verify `field:biomeId` is published (reify-after-mutate). | Prefer sampled check + reified field. |
+| `effect:engine.featuresApplied` | `features` | Minimal adapter query: sample a few tiles and confirm featureType is set (or explicit "no feature"). Or: verify `field:featureType` is published. | Prefer sampled check + reified field. |
+| `effect:engine.placementApplied` | `placement` | **ADR-ER1-020 decision:** verify via `artifact:placementOutputs@v1` (minimal output artifact shape). No full-map scan; the artifact confirms required placement methods were called and returned successfully. | Placement is high-risk; use artifact-based verification. |
+
+#### Other `state:engine.*` candidates (lower priority for M4)
+
+| Current tag | Suggested effect tag | Postcondition strategy | Notes |
+| --- | --- | --- | --- |
+| `state:engine.landmassApplied` | `effect:engine.landmassApplied` | Sample or none (landmass is early; terrain mutation verification is lower-risk). | Could verify a few tiles are land vs ocean. |
+| `state:engine.coastlinesApplied` | `effect:engine.coastlinesApplied` | Sample or none. | Coastline expansion is engine-owned; minimal postcondition. |
+| `state:engine.riversModeled` | `effect:engine.riversModeled` | Sample: check that `artifact:riverAdjacency` is populated and/or a few river tiles exist. | Rivers step already publishes the adjacency artifact; could verify it's non-empty. |
+
+### 3) Adapter postcondition API (minimal surface)
+
+Goal: expose the minimal adapter surfaces needed to verify effects without full-map scans.
+
+#### Proposed additions to `EngineAdapter`
+
+```ts
+interface EngineAdapter {
+  // Existing surfaces...
+
+  // Biomes verification (sample-based)
+  sampleBiomeIds?(coords: Array<{ x: number; y: number }>): Array<number | undefined>;
+
+  // Features verification (sample-based)
+  sampleFeatureTypes?(coords: Array<{ x: number; y: number }>): Array<number | undefined>;
+
+  // Placement verification (artifact-based; see ADR-ER1-020)
+  // No adapter query needed; verification happens via artifact shape validation.
+}
+```
+
+Note: For M4, prefer **artifact-based verification** (placement) or **reify-after-mutate + field check** (biomes/features) over new adapter surfaces. Sample queries are fallback or optional debugging aids.
+
+### 4) Coordination notes
+
+- **Tag Registry cutover (LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER):** effect tags should be registered as first-class `effect:*` entries in the catalog (schedulable, verifiable).
+- **Effects Verification‑2 (biomes/features reification):** reify-after-mutate pattern handles biomes/features; this issue only scaffolds the tag + adapter surface.
+- **Placement Inputs (LOCAL-TBD-M4-PLACEMENT-INPUTS):** ADR-ER1-020 locks the placement verification strategy; this issue only registers `effect:engine.placementApplied` and points to the artifact-based verifier.
+
+### 5) Where to register (placement in registry entries)
+
+Recommended placement:
+- Define effect tags in `packages/mapgen-core/src/pipeline/tags.ts` or the new registry catalog once Tag Registry cutover lands.
+- Each step that provides an effect tag should import and declare it in its `provides` list.
+- Effect verification wiring should live in `PipelineExecutor` (or a dedicated verifier module) and be catalog-driven.

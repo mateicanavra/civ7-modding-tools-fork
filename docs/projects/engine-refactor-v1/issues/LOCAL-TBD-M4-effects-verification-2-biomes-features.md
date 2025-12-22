@@ -82,7 +82,100 @@ Constraints/notes:
 - Prefer minimal, adapter-friendly postconditions (avoid full-map scans).
 - Do not implement code; return the plan and maps as markdown tables/lists.
 
-## Prework Results / References
+## Pre-work
 
-- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-2-biomes-features-reification.md`
-- Includes: reify-after-mutate plan for `field:biomeId` + `field:featureType`, the (currently real) cross-step engine read that must switch to fields (features reading biomes), and a minimal sampled postcondition checklist for verifying `effect:engine.biomesApplied` / `effect:engine.featuresApplied`.
+Goal: define the reify-after-mutate pattern for biomes/features and enumerate the downstream consumers that must switch from engine reads to field reads.
+
+### Current state (what's true today)
+
+- `ExtendedMapContext` preallocates buffers for:
+  - `ctx.fields.biomeId: Uint8Array`
+  - `ctx.fields.featureType: Int16Array`
+  - (`packages/mapgen-core/src/core/types.ts`)
+- Biomes and features are **engine-first** today:
+  - Biomes: `designateEnhancedBiomes()` calls `adapter.designateBiomes(...)` and nudges via `setBiomeType(...)` (`packages/mapgen-core/src/domain/ecology/biomes/index.ts`).
+  - Features: `addDiverseFeatures()` calls `adapter.addFeatures(...)` and tweaks via `setFeatureType(...)` (`packages/mapgen-core/src/domain/ecology/features/index.ts`).
+- **Cross-step engine read exists today**:
+  - Features reads engine biome state via `adapter.getBiomeType(x, y)` to decide vegetation/density tweaks (`packages/mapgen-core/src/domain/ecology/features/index.ts`).
+  - This is the "implicit engine dependency" that reification is meant to eliminate.
+
+### Important caveat: current field tags are "always satisfied"
+
+In M3, `isDependencyTagSatisfied()` treats `field:*` as satisfied if the buffer exists (which is true from context creation), so `field:biomeId`/`field:featureType` cannot currently act as meaningful scheduling/validation edges.
+
+For M4, the executor/registry should treat field tags like published products:
+- A step "provides" `field:*`, and the executor marks it satisfied after the step runs (similar to `state:engine.*` today).
+- Optional: add lightweight verification that the buffer has been populated (e.g., sampled values are finite integers in range).
+
+### 1) Reification plan: biomes → `field:biomeId`
+
+Current behavior:
+- `BiomesStep` calls `adapter.designateBiomes(...)` to mutate engine state.
+- `field:biomeId` is preallocated in `ExtendedMapContext.fields` but **not populated** after biomes runs.
+- Downstream steps (notably `features`) read biome data via `adapter.getBiomeType(x, y)`.
+
+Target reify-after-mutate pattern:
+1. `BiomesStep` mutates engine via `adapter.designateBiomes(...)`.
+2. Immediately after, reify the result into `ctx.fields.biomeId`:
+   - iterate plots and call `ctx.fields.biomeId[idx] = adapter.getBiomeType(x, y)` (or use a bulk read if adapter supports it).
+3. Provide `effect:engine.biomesApplied` (verified via minimal postcondition; see below).
+4. Downstream steps (features, placement, etc.) consume `ctx.fields.biomeId` directly instead of calling `adapter.getBiomeType`.
+
+### 2) Reification plan: features → `field:featureType`
+
+Current behavior:
+- `FeaturesStep` calls `adapter.addFeatures(...)` and related methods to mutate engine state.
+- `field:featureType` is preallocated but not populated after features runs.
+- Downstream steps (placement) read feature data via `adapter.getFeatureType(x, y)`.
+
+Target reify-after-mutate pattern:
+1. `FeaturesStep` mutates engine via adapter feature methods.
+2. Immediately after, reify the result into `ctx.fields.featureType`:
+   - iterate plots and call `ctx.fields.featureType[idx] = adapter.getFeatureType(x, y)`.
+3. Provide `effect:engine.featuresApplied` (verified via minimal postcondition).
+4. Downstream steps consume `ctx.fields.featureType` instead of adapter reads.
+
+### 3) Consumer map: who reads biomes/features today?
+
+#### Biomes consumers (engine reads)
+
+| File | Usage | Migration |
+| --- | --- | --- |
+| `packages/mapgen-core/src/domain/ecology/features/index.ts` | Calls `adapter.getBiomeType(x, y)` to decide feature placement eligibility. | Switch to `ctx.fields.biomeId[idx]`. |
+| `packages/mapgen-core/src/pipeline/placement/PlacementStep.ts` | May read biomes for placement constraints (confirm in code). | Switch to `ctx.fields.biomeId` or `artifact:placementInputs@v1`. |
+
+#### Features consumers (engine reads)
+
+| File | Usage | Migration |
+| --- | --- | --- |
+| `packages/mapgen-core/src/pipeline/placement/PlacementStep.ts` | Reads `adapter.getFeatureType` for placement constraints. | Switch to `ctx.fields.featureType` or `artifact:placementInputs@v1`. |
+
+### 4) Minimal postcondition checklist (sampled verification)
+
+Goal: verify that biomes/features mutations actually occurred without full-map scans.
+
+#### `effect:engine.biomesApplied` verification
+
+Sampled postcondition (recommended):
+- Pick N random land tiles (e.g., N = 10).
+- For each, check that `ctx.fields.biomeId[idx] !== 0` (or a known "unset" value).
+- If all sampled tiles have a valid biome, pass.
+
+Alternative (stricter):
+- Verify that `ctx.fields.biomeId` has been written (non-zero count) for at least X% of land tiles.
+
+#### `effect:engine.featuresApplied` verification
+
+Sampled postcondition (recommended):
+- Pick N random tiles (land + coast).
+- For each, check that `ctx.fields.featureType[idx]` is set (even if "no feature" is a valid value).
+- The presence of the field is the verification; we don't require specific features.
+
+Alternative:
+- Verify that `ctx.fields.featureType` is non-empty or has been touched for at least some tiles.
+
+### 5) Coordination notes
+
+- **Effects Verification‑1:** provides the `effect:*` tag registration and adapter postcondition surface. This issue implements the reify-after-mutate pattern and wires the verification.
+- **Effects Verification‑3:** removes `state:engine.*` once biomes/features/placement all provide verified effects.
+- **Placement Inputs:** placement verification is artifact-based (ADR-ER1-020); biomes/features use sampled + field-based verification.

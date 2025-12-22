@@ -79,7 +79,91 @@ Constraints/notes:
 - Remove any temporary compatibility shims once placement fully uses the artifact.
 - Do not implement code; return the checklist and mappings as markdown tables/lists.
 
-## Prework Results / References
+## Pre-work
 
-- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-2-cutover-checklist.md`
-- Includes: placement input assembly inventory (task graph + placement layer + PlacementStep), a source→artifact mapping table, a minimal plan for `effect:engine.placementApplied` verification via `artifact:placementOutputs@v1` (ADR-ER1-020), and the concrete test files that will need updates during cutover.
+Goal: produce the placement cutover checklist so the refactor is mechanical and verifiable.
+
+### 1) Inventory: placement input assembly today
+
+#### Task graph assembly (`orchestrator/task-graph.ts`)
+
+| Input | How it's assembled | Notes |
+| --- | --- | --- |
+| `landmassCfg` | From `config.landmass` | Passed to landmass step; continental bounds derived after. |
+| `westBounds`, `eastBounds` | Computed inline from landmass results | Derived from `ctx.artifacts["continentalBounds"]` or similar. |
+| `starts` | From settings/engine | Passed directly to placement layer. |
+| `placementConfig` | From `ctx.config.placement` | Passed to `PlacementStep`. |
+
+#### Placement layer (`pipeline/placement/PlacementStep.ts`)
+
+| Input | How it's read | Notes |
+| --- | --- | --- |
+| `ctx.config.placement.*` | Direct reads from context config | Should switch to `artifact:placementInputs@v1`. |
+| `ctx.dimensions` | Direct reads from context | Already explicit; keep as-is or include in artifact. |
+| `adapter.*` | Engine reads for biomes/features/terrain | Should switch to `ctx.fields.*` after reification. |
+
+### 2) Source → artifact mapping
+
+| Current input | Source today | Artifact field | Notes |
+| --- | --- | --- | --- |
+| `westBounds`, `eastBounds` | Task graph inline | `artifact:placementInputs@v1.continents` | Requires upstream derive step. |
+| `starts` | Settings / engine | `artifact:placementInputs@v1.starts` | Settings passthrough. |
+| `placementConfig.*` | `ctx.config.placement` | `artifact:placementInputs@v1.placementConfig` | Config passthrough. |
+| `mapInfo.*` | `ctx.dimensions` / settings | `artifact:placementInputs@v1.mapInfo` | Settings passthrough. |
+| `adapter.getBiomeType` | Engine read | `ctx.fields.biomeId` (post-biomes reification) | Effects Verification cutover. |
+| `adapter.getFeatureType` | Engine read | `ctx.fields.featureType` (post-features reification) | Effects Verification cutover. |
+
+### 3) `effect:engine.placementApplied` verification (ADR-ER1-020)
+
+#### `artifact:placementOutputs@v1` schema (minimal)
+
+```ts
+type PlacementOutputsV1 = {
+  // Summary of what was placed
+  naturalWondersCount: number;
+  floodplainsCount: number;
+  snowTilesCount: number;
+  resourcesCount: number;
+  startsAssigned: number;
+  discoveriesCount: number;
+
+  // Optional: placement method call log (for debugging)
+  methodCalls?: Array<{ method: string; args?: unknown }>;
+};
+```
+
+#### Verification strategy
+
+1. After `PlacementStep.run()` completes, publish `artifact:placementOutputs@v1` with counts/summary.
+2. Effect verifier checks:
+   - Artifact is present.
+   - Counts are within expected ranges (e.g., `startsAssigned >= numPlayers`).
+3. Verification failures are loud (fail-fast with a clear error message).
+
+### 4) Tests to update during cutover
+
+| Test file | Current dependency | Cutover action |
+| --- | --- | --- |
+| `packages/mapgen-core/test/orchestrator/placement-config-wiring.test.ts` | Uses `stageConfig` and `MapOrchestrator` | Rewrite to use `RunRequest` + `artifact:placementInputs@v1`. |
+| `packages/mapgen-core/test/pipeline/placement-gating.test.ts` | Imports `M3_STAGE_DEPENDENCY_SPINE` | Update to expect `effect:engine.placementApplied` and verify via `artifact:placementOutputs@v1`. |
+| `packages/mapgen-core/test/orchestrator/worldmodel-config-wiring.test.ts` | Uses `stageConfig` | Rewrite to recipe-based enablement; verify placement artifact present. |
+
+### 5) Cutover checklist
+
+#### Artifact definition and derive step (PLACEMENT-1)
+
+- [ ] Define `artifact:placementInputs@v1` schema.
+- [ ] Create derive step that assembles and publishes the artifact.
+- [ ] Update standard recipe to include derive step before `placement`.
+
+#### Placement step cutover (PLACEMENT-2)
+
+- [ ] Update `PlacementStep` to require `artifact:placementInputs@v1`.
+- [ ] Remove internal input assembly (reads from artifact instead).
+- [ ] Publish `artifact:placementOutputs@v1` after placement completes.
+- [ ] Provide `effect:engine.placementApplied` (verified via output artifact).
+
+#### Tests and docs
+
+- [ ] Update tests listed above.
+- [ ] Mark DEF-006 as resolved in `docs/projects/engine-refactor-v1/deferrals.md`.
