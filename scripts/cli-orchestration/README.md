@@ -13,7 +13,7 @@ This folder hosts the v0 orchestration thin slice (single-issue dev loop). It is
 ## Manual invocation (v0)
 
 ```bash
-bun run scripts/cli-orchestration/orchestrate.ts --milestone M1 --issue LOCAL-TBD
+bun run scripts/cli-orchestration/orchestrate.ts --milestone M1 --project cli-orchestration-v0 --issue LOCAL-TBD
 ```
 
 ### What to look for
@@ -25,3 +25,4 @@ bun run scripts/cli-orchestration/orchestrate.ts --milestone M1 --issue LOCAL-TB
 
 - Worktree lifecycle is orchestrator-owned; the prompts must not create/remove worktrees.
 - Milestone docs must exist under `docs/projects/<project>/milestones/` for `milestoneDocPath` resolution.
+- Use `--project <projectId>` to disambiguate if multiple projects share the same milestone ID.

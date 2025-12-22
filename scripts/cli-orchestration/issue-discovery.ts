@@ -84,22 +84,41 @@ function matchesMilestoneId(fileName: string, milestoneId: string): boolean {
 export async function resolveMilestoneDoc(
   repoRoot: string,
   milestoneId: string,
+  projectId?: string,
 ): Promise<{ id: string; path: string; project: string }> {
   const docsRoot = join(repoRoot, "docs", "projects");
-  const milestonePaths = await findMilestoneDocs(docsRoot);
+  const searchRoot = projectId ? join(docsRoot, projectId) : docsRoot;
+  let milestonePaths: string[];
+  try {
+    milestonePaths = await findMilestoneDocs(searchRoot);
+  } catch (error) {
+    if (projectId && error instanceof Error && "code" in error) {
+      const errno = error as NodeJS.ErrnoException;
+      if (errno.code === "ENOENT") {
+        throw new Error(`Project ${projectId} not found under docs/projects.`);
+      }
+    }
+    throw error;
+  }
   const matches = milestonePaths.filter((path) => matchesMilestoneId(basename(path), milestoneId));
 
   if (matches.length === 0) {
-    throw new Error(`No milestone doc found for ${milestoneId}.`);
+    const scope = projectId ? ` in project ${projectId}` : "";
+    throw new Error(`No milestone doc found for ${milestoneId}${scope}.`);
   }
   if (matches.length > 1) {
-    throw new Error(`Multiple milestone docs found for ${milestoneId}: ${matches.join(", ")}`);
+    const guidance = projectId ? "" : " Pass --project to disambiguate.";
+    throw new Error(`Multiple milestone docs found for ${milestoneId}: ${matches.join(", ")}.${guidance}`);
   }
 
   const milestonePath = matches[0];
   const parts = relative(repoRoot, milestonePath).split(sep);
   if (parts.length < 5 || parts[0] !== "docs" || parts[1] !== "projects" || parts[3] !== "milestones") {
     throw new Error(`Milestone doc path ${milestonePath} is not under docs/projects/<project>/milestones.`);
+  }
+
+  if (projectId && parts[2] !== projectId) {
+    throw new Error(`Milestone ${milestoneId} is under project ${parts[2]}, not ${projectId}.`);
   }
 
   return { id: milestoneId, path: milestonePath, project: parts[2] };
