@@ -1,0 +1,21 @@
+{
+  "phase": "dev",
+  "status": "pass",
+  "issueId": "LOCAL-TBD-TEST-REVIEW",
+  "milestoneId": "M1",
+  "branch": "LOCAL-TBD-TEST-REVIEW-m1-orchestrator-test-fixture-review-fix-output-samples",
+  "worktreePath": "/abs/path/to/worktree",
+  "summary": "Fixtures updated and tests passing.",
+  "testsRun": [
+    {
+      "command": "bun test scripts/cli-orchestration/tests",
+      "status": "pass",
+      "notes": ""
+    }
+  ],
+  "docsUpdated": [],
+  "draftPrs": [],
+  "stackBranches": [],
+  "deferred": [],
+  "openQuestions": []
+}

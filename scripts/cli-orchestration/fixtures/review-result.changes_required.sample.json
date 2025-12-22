@@ -1,0 +1,21 @@
+{
+  "phase": "review",
+  "status": "changes_required",
+  "issueId": "LOCAL-TBD-TEST-REVIEW",
+  "milestoneId": "M1",
+  "branch": "LOCAL-TBD-TEST-REVIEW-m1-orchestrator-test-fixture-review-fix-output-samples",
+  "worktreePath": "/abs/path/to/worktree",
+  "summary": "Blocking issues found; fix required before merge.",
+  "issues": [
+    {
+      "severity": "high",
+      "title": "Schema fixture missing",
+      "details": "Required review fixture file is absent.",
+      "evidence": "scripts/cli-orchestration/fixtures/review-result.pass.sample.json"
+    }
+  ],
+  "requiredActions": ["Add the missing review fixture file."],
+  "followups": ["Confirm fixtures validate against schemas."],
+  "reviewDocPath": "docs/reviews/LOCAL-TBD-TEST-REVIEW.md",
+  "confidence": "high"
+}
