@@ -1,5 +1,5 @@
 import { promises as fs } from "node:fs";
-import { join } from "node:path";
+import { basename, join, relative, sep } from "node:path";
 import { parse as parseYaml } from "yaml";
 import type { IssueDoc } from "./types.js";
 
@@ -53,7 +53,63 @@ async function findIssueDocs(root: string): Promise<string[]> {
   return results;
 }
 
-export async function loadIssuesByMilestone(repoRoot: string, milestoneId: string): Promise<IssueDoc[]> {
+async function findMilestoneDocs(root: string): Promise<string[]> {
+  const results: string[] = [];
+  const entries = await fs.readdir(root, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const fullPath = join(root, entry.name);
+    if (entry.isDirectory()) {
+      if (entry.name === "milestones") {
+        const milestoneEntries = await fs.readdir(fullPath, { withFileTypes: true });
+        for (const milestoneEntry of milestoneEntries) {
+          if (milestoneEntry.isFile() && milestoneEntry.name.endsWith(".md")) {
+            results.push(join(fullPath, milestoneEntry.name));
+          }
+        }
+      } else {
+        results.push(...(await findMilestoneDocs(fullPath)));
+      }
+    }
+  }
+
+  return results;
+}
+
+function matchesMilestoneId(fileName: string, milestoneId: string): boolean {
+  const base = fileName.replace(/\.md$/i, "");
+  return base === milestoneId || base.startsWith(`${milestoneId}-`) || base.startsWith(`${milestoneId}_`);
+}
+
+export async function resolveMilestoneDoc(
+  repoRoot: string,
+  milestoneId: string,
+): Promise<{ id: string; path: string; project: string }> {
+  const docsRoot = join(repoRoot, "docs", "projects");
+  const milestonePaths = await findMilestoneDocs(docsRoot);
+  const matches = milestonePaths.filter((path) => matchesMilestoneId(basename(path), milestoneId));
+
+  if (matches.length === 0) {
+    throw new Error(`No milestone doc found for ${milestoneId}.`);
+  }
+  if (matches.length > 1) {
+    throw new Error(`Multiple milestone docs found for ${milestoneId}: ${matches.join(", ")}`);
+  }
+
+  const milestonePath = matches[0];
+  const parts = relative(repoRoot, milestonePath).split(sep);
+  if (parts.length < 5 || parts[0] !== "docs" || parts[1] !== "projects" || parts[3] !== "milestones") {
+    throw new Error(`Milestone doc path ${milestonePath} is not under docs/projects/<project>/milestones.`);
+  }
+
+  return { id: milestoneId, path: milestonePath, project: parts[2] };
+}
+
+export async function loadIssuesByMilestone(
+  repoRoot: string,
+  milestoneId: string,
+  projectId: string,
+): Promise<IssueDoc[]> {
   const docsRoot = join(repoRoot, "docs", "projects");
   const issuePaths = await findIssueDocs(docsRoot);
 
@@ -74,6 +130,10 @@ export async function loadIssuesByMilestone(repoRoot: string, milestoneId: strin
     };
 
     if (!issue.id || !issue.title || !issue.project) {
+      continue;
+    }
+
+    if (issue.project !== projectId) {
       continue;
     }
 

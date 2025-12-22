@@ -60,6 +60,7 @@ export interface IssueDoc {
 export interface MilestoneDoc {
   id: string;
   path: string;
+  project: string;
 }
 
 export interface IssuePlan {
