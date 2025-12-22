@@ -20,11 +20,11 @@ related_to: []
 - Implement the first thin slice of the Bun/TS orchestrator: runner abstraction, Codex SDK runner, issue discovery, and a single-issue dev-only loop with logging.
 
 ## Deliverables
-- Orchestrator scaffold with core types (`Runner`, `Phase`, `PhaseResult`, `IssuePlan`) and a CLI entrypoint stub.
-- Minimal Codex SDK runner that executes `dev-auto-parallel` and returns structured JSON per the contract.
-- Issue discovery that parses front matter under `docs/projects/**/issues/*.md` and builds a simple ordered list.
-- Single-issue dev loop that creates an orchestrator-owned worktree, runs the dev phase once, logs results, and tears down per contract.
-- Minimal logs and result persistence under `logs/orch/<milestone>/<issue>/...`.
+- [x] Orchestrator scaffold with core types (`Runner`, `Phase`, `PhaseResult`, `IssuePlan`) and a CLI entrypoint stub.
+- [x] Minimal Codex SDK runner that executes `dev-auto-parallel` and returns structured JSON per the contract.
+- [x] Issue discovery that parses front matter under `docs/projects/**/issues/*.md` and builds a simple ordered list.
+- [x] Single-issue dev loop that creates an orchestrator-owned worktree, runs the dev phase once, logs results, and tears down per contract.
+- [x] Minimal logs and result persistence under `logs/orch/<milestone>/<issue>/...`.
 
 ### Sub-issues (v0.1 thin slice)
 1. **Dev-auto prompt variants + autonomous-development skill**  
