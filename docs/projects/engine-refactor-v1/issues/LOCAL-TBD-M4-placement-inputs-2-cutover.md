@@ -78,3 +78,8 @@ Constraints/notes:
 - Keep behavior stable; this is contract/wiring only.
 - Remove any temporary compatibility shims once placement fully uses the artifact.
 - Do not implement code; return the checklist and mappings as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-2-cutover-checklist.md`
+- Includes: placement input assembly inventory (task graph + placement layer + PlacementStep), a source→artifact mapping table, a minimal plan for `effect:engine.placementApplied` verification, and the concrete test files that will need updates during cutover.
