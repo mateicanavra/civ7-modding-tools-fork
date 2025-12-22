@@ -128,6 +128,6 @@ Readiness checklist:
 - StoryTags consumer map covers narrative producers and cross-domain consumers (morphology/ecology/climate), with explicit target artifacts/helpers for each.
 - Cache/global inventory is explicit (StoryTags, overlays, corridor/orogeny caches) and includes delete/derive/keep recommendations.
 
-Gap list / open decisions:
-- Hotspot categorization semantics: islands placement produces paradise/volcanic hotspot sets; decide whether to publish a single categorized artifact vs split artifacts.
-- Decide whether `ctx.overlays` remains as a compat-only derived view (debugging) or is removed entirely in the target path.
+Decisions:
+- Hotspot categories live inside a single `artifact:narrative.motifs.hotspots@v1` (no split artifacts in v1) (ADR-ER1-024).
+- `ctx.overlays` remains a non-canonical derived debug/compat view; narrative artifacts are canonical dependency surfaces (ADR-ER1-025).

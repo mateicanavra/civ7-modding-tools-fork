@@ -23,7 +23,7 @@ This mirrors the *current* overlay kinds with a more explicit, registry-friendly
 | Artifact tag | Purpose | Shape sketch (JSON-friendly) | Demo payload (optional) |
 | --- | --- | --- | --- |
 | `artifact:narrative.motifs.margins@v1` | Active/passive margin motifs along coasts | `{ width,height, active: string[], passive: string[], summary: {...} }` | Empty arrays + zeroed summary. |
-| `artifact:narrative.motifs.hotspots@v1` | Hotspot trail motifs (used for island-hop corridor seeding) | `{ width,height, active: string[], summary: { trails:number, points:number } }` | Empty `active`, `trails:0`, `points:0`. |
+| `artifact:narrative.motifs.hotspots@v1` | Hotspot trail motifs (used for island-hop corridor seeding) | `{ width,height, active: string[], paradise: string[], volcanic: string[], summary: { trails:number, points:number } }` | Empty arrays + `trails:0`, `points:0`. |
 | `artifact:narrative.motifs.rifts@v1` | Rift line + shoulder motifs | `{ width,height, active: string[], passive: string[], summary: {...} }` | Empty arrays + zeroed summary. |
 | `artifact:narrative.motifs.orogeny@v1` | Orogeny belts + windward/lee tagging | `{ width,height, active: string[], passive: string[], summary: {...} }` | Empty arrays + zeroed summary. |
 | `artifact:narrative.corridors@v1` | Strategic corridor tiles + metadata maps | `{ width,height, active: string[], summary: { stage: \"preIslands\"|\"postRivers\", kindByTile: Record<string,string>, ... } }` | Empty arrays + empty maps. |
@@ -56,7 +56,5 @@ Current consumers via StoryTags/overlays (must migrate off StoryTags in NARRATIV
   - features step hydrates margins StoryTags (`pipeline/ecology/FeaturesStep.ts`) → should instead require `artifact:narrative.motifs.margins@v1` (or derived view).
 
 Potential surprise / drift to resolve during implementation:
-- `StoryTags.hotspotParadise` / `StoryTags.hotspotVolcanic` exist and are used by features, but no producer currently populates them (hotspots tagging populates `StoryTags.hotspot` only). This likely needs either:
-  - aligning producers/consumers to a single hotspot artifact, or
-  - splitting hotspots into categorized artifacts (paradise/volcanic) if that’s the intended semantics.
-
+- `StoryTags.hotspotParadise` / `StoryTags.hotspotVolcanic` exist and are used by features, but no producer currently populates them (hotspots tagging populates `StoryTags.hotspot` only).
+  - **Decision (ADR-ER1-024):** hotspot categories live inside the single `artifact:narrative.motifs.hotspots@v1` (no split artifacts); producers/consumers must align to that representation during the StoryTags cutover.

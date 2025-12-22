@@ -138,5 +138,5 @@ Readiness checklist:
 - Smoke-test matrix covers compile + execute, is engine-free (MockAdapter), and includes forward-looking assertions for `effect:*` verification loudness and StoryTags removal.
 - CIV‑23 rescope plan is captured so the legacy “WorldModel lifecycle” framing can be retired in favor of RunRequest/ExecutionPlan guardrails.
 
-Gap list / open decisions:
-- Confirm whether observability toggles (trace verbosity) should be excluded from the semantic plan fingerprint (recommended) vs included as “settings”.
+Decisions:
+- The semantic `planFingerprint` excludes observability toggles (trace enablement/verbosity/sinks). If needed, compute a separate trace-config fingerprint (ADR-ER1-022).

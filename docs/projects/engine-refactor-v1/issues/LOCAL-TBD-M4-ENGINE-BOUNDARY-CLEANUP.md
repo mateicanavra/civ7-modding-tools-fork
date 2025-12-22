@@ -72,7 +72,7 @@ The accepted engine-boundary policy disallows “read engine later” dependency
 
 ### 2) Define replacement surfaces
 
-- For each usage, decide: adapter-backed read, reified field/artifact, or explicit fencing.
+- For each usage, classify the replacement surface: adapter-backed read, reified field/artifact, or explicit fencing.
 
 ### 3) Implement removal/fencing
 

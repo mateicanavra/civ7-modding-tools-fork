@@ -384,6 +384,94 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 
 ---
 
+## ADR-ER1-022: Plan fingerprint excludes observability toggles (semantic fingerprint only)
+
+**Status:** Accepted
+**Date:** 2025-12-22
+**Context:** M4 adds step-level tracing and CI smoke tests. We need a deterministic `planFingerprint` to correlate runs and keep CI stable, but observability toggles (verbosity / sinks) must not change execution semantics or cause spurious “different plan” IDs.
+**Decision:**
+- The `planFingerprint` is a **semantic** fingerprint of:
+  - normalized recipe (ordered step occurrences),
+  - resolved per-occurrence config (after defaults),
+  - settings that affect semantics (seed + other cross-cutting policies like directionality).
+- Pure observability knobs (trace enablement/verbosity/sink selection) are **excluded** from `planFingerprint`.
+- If we need to correlate “same plan under different trace config,” use a separate optional `traceConfigFingerprint` (do not overload the semantic fingerprint).
+**Consequences:**
+- SAFETY-1/SAFETY-2 can rely on a stable `planFingerprint` in CI regardless of trace verbosity changes.
+- RunRequest `settings` should clearly separate “semantics” vs “observability” so fingerprinting stays unambiguous.
+**Sources:**
+- `issues/LOCAL-TBD-M4-SAFETY-NET.md` (plan fingerprint determinism + CI)
+- `resources/m4-prework/local-tbd-m4-safety-1-tracing-model-and-fingerprint.md` (explicit exclusions + algorithm sketch)
+- `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase A/C sequencing: observability early; CI gate post-cutover)
+
+## ADR-ER1-023: Placement demo payloads omit `starts` by default (engine-free “won’t crash” demos)
+
+**Status:** Accepted
+**Date:** 2025-12-22
+**Context:** M4 introduces typed tag registry demo payload validation and a TS-canonical `artifact:placementInputs@v1`. Placement “starts” involve engine-dependent adapter calls and can make minimal demos/tests brittle or non-engine-free.
+**Decision:**
+- Demo payloads and minimal engine-free tests that use `artifact:placementInputs@v1` should **omit `starts` by default**.
+- Placement must treat missing `starts` as “skip start placement” (preserve current behavior); this keeps demos “won’t crash” without requiring engine-backed start placement surfaces.
+- Engine-backed/integration tests may include `starts` when explicitly testing the start-placement path.
+**Consequences:**
+- Demo payload validation can stay strict without forcing engine-dependent start placement in all demos.
+- CI smoke tests remain engine-free; deeper placement-start correctness should be covered by targeted integration tests when needed.
+**Sources:**
+- `issues/LOCAL-TBD-M4-PLACEMENT-INPUTS.md` (demo payload safety note)
+- `resources/m4-prework/local-tbd-m4-placement-1-placementinputs-v1-contract.md` (safe demo payload guidance; `starts` optional)
+- `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase E placement contract work)
+
+## ADR-ER1-024: Hotspot categories live in a single narrative hotspots artifact (no split artifacts in v1)
+
+**Status:** Accepted
+**Date:** 2025-12-22
+**Context:** Consumers (notably features) expect “paradise” vs “volcanic” hotspot semantics, while current producers do not populate the categorized StoryTags surface consistently. M4’s narrative cutover makes `artifact:narrative.*` canonical and deletes StoryTags as a correctness dependency.
+**Decision:**
+- Publish hotspot outputs as a **single** canonical artifact: `artifact:narrative.motifs.hotspots@v1`.
+- Encode hotspot categories **within** that artifact (e.g., separate categorized tile sets/keys for `paradise` and `volcanic`), rather than splitting into multiple artifacts.
+- Consumers migrate to read hotspot categories from the hotspots artifact (not StoryTags).
+**Consequences:**
+- Reduces scheduling/tag surface area (one artifact dependency instead of multiple).
+- Requires aligning the hotspots producer and feature consumers to the artifact’s internal category representation during NARRATIVE-1/NARRATIVE-2.
+**Sources:**
+- `issues/LOCAL-TBD-M4-NARRATIVE-CLEANUP.md` (hotspot categorization gap)
+- `resources/m4-prework/local-tbd-m4-narrative-1-artifact-inventory.md` (producer/consumer map + hotspot drift note)
+- `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase F narrative producers/consumers sequencing)
+
+## ADR-ER1-025: `ctx.overlays` remains a non-canonical derived debug view (artifacts are canonical)
+
+**Status:** Accepted
+**Date:** 2025-12-22
+**Context:** M3 uses `ctx.overlays` and derived StoryTags as a transitional representation. M4’s target model treats narrative outputs as typed artifacts that participate in scheduling and validation like any other product.
+**Decision:**
+- Narrative artifacts (`artifact:narrative.*`) are the **canonical** dependency surfaces for narrative/playability.
+- `ctx.overlays` may remain as a **derived debug/compat view** (useful for diagnostics and transitional helpers), but it must not be required for correctness:
+  - consumers must depend on artifacts (or derived helpers operating on artifacts),
+  - overlays are not a scheduling surface and should not introduce hidden dependencies.
+**Consequences:**
+- Enables incremental migration away from overlays/StoryTags without deleting a useful debugging representation.
+- Any remaining overlay usage must be treated as debug/compat-only and should not gate pipeline correctness.
+**Sources:**
+- `issues/LOCAL-TBD-M4-NARRATIVE-CLEANUP.md` (overlays/StoryTags cleanup target)
+- `resources/m4-prework/local-tbd-m4-narrative-2-storytags-consumer-and-cache-map.md` (consumer/cache map)
+- `deferrals.md` (DEF-002 StoryTags compatibility; DEF-012 caches)
+
+## ADR-ER1-026: Landmass/ocean separation do not rely on `foundation.surface/policy` aliases (recipe config is authoritative)
+
+**Status:** Accepted
+**Date:** 2025-12-22
+**Context:** `landmassPlates` and ocean separation consult legacy `foundation.surface` / `foundation.policy` aliases in addition to dedicated config. With per-occurrence config and explicit settings, these aliases create hidden coupling and undermine “recipe is the source of truth.”
+**Decision:**
+- Landmass/ocean separation behavior is configured via explicit step config (`config.landmass`, `config.oceanSeparation`) and/or explicit RunRequest settings when cross-cutting.
+- `foundation.surface` / `foundation.policy` alias lookups are treated as legacy-only and should be removed from the default path during M4 cleanup (no continued aliasing in v1).
+**Consequences:**
+- PIPELINE-2 schema/plumbing work can treat landmass+ocean separation as normal per-step config owners.
+- PIPELINE-5 cleanup should delete residual alias reads so downstream behavior is “what recipe says,” not “what legacy aliases imply.”
+**Sources:**
+- `issues/LOCAL-TBD-M4-pipeline-cutover-2-step-config-schemas.md` (per-step config plumbing constraints)
+- `resources/m4-prework/local-tbd-m4-pipeline-2-step-config-matrix.md` (landmassPlates alias inventory + recommendation)
+- `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase B/D pipeline sequencing + “no legacy left” gate)
+
 ## Notes / Tentative Directions (not yet binding decisions)
 
 These are captured in the SPIKE as “direction” or “proposed” guidance but are not

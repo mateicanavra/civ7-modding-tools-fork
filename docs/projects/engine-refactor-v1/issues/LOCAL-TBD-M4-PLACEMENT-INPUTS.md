@@ -131,6 +131,6 @@ Readiness checklist:
 - Cutover checklist enumerates every current placement input assembly site and the source→artifact mappings needed to remove implicit `ctx.config` and runtime-only closure inputs.
 - Coordinate with Effects‑1/Effects track so `effect:engine.placementApplied` is definable, schedulable in the registry, and has a verification story.
 
-Gap list / open decisions:
-- Verification strategy for `effect:engine.placementApplied` is locked: publish a minimal TS-owned `artifact:placementOutputs@v1` and verify via artifact shape/invariants (ADR-ER1-020).
-- Demo payload safety: decide whether demos should omit `starts` to avoid engine-dependent start placement paths (preferred for “won’t crash” demos).
+Decisions:
+- `effect:engine.placementApplied` verification uses a minimal TS-owned `artifact:placementOutputs@v1` (ADR-ER1-020).
+- Demo payloads for `artifact:placementInputs@v1` omit `starts` by default (engine-free “won’t crash” demos); include `starts` only in explicit engine-backed/integration tests (ADR-ER1-023).

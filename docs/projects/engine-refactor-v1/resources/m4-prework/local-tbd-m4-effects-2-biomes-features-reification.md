@@ -25,7 +25,7 @@ Publish:
 
 Reify-after-mutate:
 - After `designateEnhancedBiomes(...)` completes, fill `ctx.fields.biomeId[idx] = adapter.getBiomeType(x, y)` for every tile.
-  - (If biome IDs exceed `Uint8`, adjust buffer type; prework does not decide the exact field element type.)
+  - Use the existing `Uint8Array` field; revisit only if we discover biome IDs outside `0..255`.
 
 ### 2) Features consumes the reified biome field, then publishes a feature field
 
@@ -78,4 +78,3 @@ Suggested checks:
   - `adapter.getFeatureType(x, y)` is a finite integer.
   - `ctx.fields.featureType[idx]` matches the adapter value.
 - Additionally, ensure there exists at least one sampled non-water tile where `featureType !== adapter.NO_FEATURE`.
-

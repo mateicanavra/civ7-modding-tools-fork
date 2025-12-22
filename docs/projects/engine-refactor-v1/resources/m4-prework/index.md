@@ -44,18 +44,19 @@ Each issue doc also has a `## Prework Results / References` section linking to t
 
 - `LOCAL-TBD-M4-ENGINE-BOUNDARY-CLEANUP`: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-engine-boundary-globals-inventory.md`
 
-## Key Decisions / Open Questions (Implementation-Relevant)
+## Key Decisions / Follow-ups (Implementation-Relevant)
 
 ### Locked decisions (2025-12-22)
 
 - Cross-cutting directionality policy (`foundation.dynamics.directionality`) is supplied via RunRequest `settings` (ADR-ER1-019).
 - `effect:engine.placementApplied` is verified via a minimal TS-owned `artifact:placementOutputs@v1` (ADR-ER1-020).
 - `effect:engine.landmassApplied` / `effect:engine.coastlinesApplied` use cheap invariants + call evidence; adapter read-back APIs are deferred (ADR-ER1-021; DEF-017).
+- Semantic `planFingerprint` excludes observability toggles (ADR-ER1-022).
+- Placement demo payloads omit `starts` by default for engine-free “won’t crash” demos (ADR-ER1-023).
+- Hotspot categories live in a single `artifact:narrative.motifs.hotspots@v1` (ADR-ER1-024).
+- `ctx.overlays` remains a non-canonical derived debug view; artifacts are canonical (ADR-ER1-025).
+- Landmass/ocean separation do not rely on `foundation.surface/policy` aliases (recipe config is authoritative) (ADR-ER1-026).
 
-### Remaining open questions (non-blocking)
+### Follow-ups (work items, not decisions)
 
-- Narrative hotspot categorization: paradise/volcanic hotspot sets are produced by islands placement; decide artifact shape (single categorized artifact vs split artifacts).
-- Plan fingerprint semantics: confirm whether pure observability toggles (trace verbosity) are excluded from the semantic fingerprint.
 - CIV‑23 rescope: the current doc is under `docs/projects/engine-refactor-v1/issues/_archive/CIV-23-integration-tests.md` and still references legacy `stageConfig`/WorldModel framing.
-- Demo payload safety for starts in placement demos (see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-PLACEMENT-INPUTS.md`).
-- `ctx.overlays` compat view: keep derived debug view vs remove entirely (see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-NARRATIVE-CLEANUP.md`).
