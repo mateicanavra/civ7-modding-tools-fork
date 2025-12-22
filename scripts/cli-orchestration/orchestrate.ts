@@ -1,6 +1,6 @@
 import { parseArgs } from "node:util";
 import { join } from "node:path";
-import { runOrchestrator } from "./orchestrator.js";
+import { formatIssuePlan, planOrchestration, runOrchestrator } from "./orchestrator.js";
 import { runCommand } from "./shell.js";
 import type { OrchestratorConfig } from "./types.js";
 
@@ -15,6 +15,7 @@ function usage(): string {
     "  -i, --issue       Issue ID to run (optional, defaults to first)",
     "  -b, --base-branch Base branch to create issue worktrees from (default: current branch)",
     "  --logs-root       Override logs root (default: logs/orch)",
+    "  --dry-run         Print planned issue order + worktree/branch and exit",
   ].join("\n");
 }
 
@@ -27,6 +28,7 @@ function parseCliArgs() {
       issue: { type: "string", short: "i" },
       "base-branch": { type: "string", short: "b" },
       "logs-root": { type: "string" },
+      "dry-run": { type: "boolean" },
     },
   });
 
@@ -41,6 +43,7 @@ function parseCliArgs() {
     issueId: values.issue,
     baseBranch: values["base-branch"],
     logsRoot: values["logs-root"],
+    dryRun: values["dry-run"] ?? false,
   };
 }
 
@@ -57,7 +60,7 @@ async function resolveBaseBranch(repoRoot: string, override?: string): Promise<s
 }
 
 async function main() {
-  const { milestoneId, issueId, projectId, logsRoot, baseBranch } = parseCliArgs();
+  const { milestoneId, issueId, projectId, logsRoot, baseBranch, dryRun } = parseCliArgs();
   const repoRoot = process.cwd();
   const resolvedBaseBranch = await resolveBaseBranch(repoRoot, baseBranch);
 
@@ -67,6 +70,12 @@ async function main() {
     maxReviewCycles: 2,
     baseBranch: resolvedBaseBranch,
   };
+
+  if (dryRun) {
+    const plan = await planOrchestration(config, { milestoneId, projectId, issueId });
+    console.log(formatIssuePlan(plan));
+    return;
+  }
 
   await runOrchestrator(config, { milestoneId, projectId, issueId });
 }

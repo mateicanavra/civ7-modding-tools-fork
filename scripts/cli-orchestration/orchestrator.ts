@@ -3,8 +3,8 @@ import { CodexSdkRunner } from "./codex-sdk-runner.js";
 import { loadIssuesByMilestone, orderIssuesLinear, resolveMilestoneDoc } from "./issue-discovery.js";
 import { writeJson } from "./logging.js";
 import { renderPrompt } from "./prompt-renderer.js";
-import type { DevResult, IssueDoc, OrchestratorConfig, ReviewResult } from "./types.js";
-import { deriveBranchName, ensureWorktree, removeWorktree } from "./worktree.js";
+import type { DevResult, IssueDoc, IssuePlan, MilestoneDoc, OrchestratorConfig, ReviewResult } from "./types.js";
+import { deriveBranchName, ensureWorktree, issueWorktreePath, removeWorktree } from "./worktree.js";
 
 export interface OrchestratorArgs {
   milestoneId: string;
@@ -23,10 +23,93 @@ function selectIssue(issues: IssueDoc[], issueId?: string): IssueDoc {
   return match;
 }
 
+function selectIssues(issues: IssueDoc[], issueId?: string): IssueDoc[] {
+  if (!issueId) {
+    return issues;
+  }
+  return [selectIssue(issues, issueId)];
+}
+
 interface PhaseRunResult<T> {
   result: T;
   logPath: string;
   stderrPath: string;
+}
+
+export interface OrchestratorPlan {
+  milestone: MilestoneDoc;
+  plan: IssuePlan[];
+}
+
+interface PlanDeps {
+  deriveBranchName: typeof deriveBranchName;
+  issueWorktreePath: typeof issueWorktreePath;
+  ensureWorktree?: typeof ensureWorktree;
+  removeWorktree?: typeof removeWorktree;
+}
+
+interface OrchestratorDeps {
+  ensureWorktree: typeof ensureWorktree;
+  removeWorktree: typeof removeWorktree;
+  deriveBranchName: typeof deriveBranchName;
+  issueWorktreePath: typeof issueWorktreePath;
+  createRunner: () => CodexSdkRunner;
+  renderPrompt: typeof renderPrompt;
+}
+
+const defaultDeps: OrchestratorDeps = {
+  ensureWorktree,
+  removeWorktree,
+  deriveBranchName,
+  issueWorktreePath,
+  createRunner: () => new CodexSdkRunner(),
+  renderPrompt,
+};
+
+async function resolveMilestoneIssues(
+  config: OrchestratorConfig,
+  args: OrchestratorArgs,
+): Promise<{ milestone: MilestoneDoc; issues: IssueDoc[] }> {
+  const milestone = await resolveMilestoneDoc(config.repoRoot, args.milestoneId, args.projectId);
+  const issues = orderIssuesLinear(
+    await loadIssuesByMilestone(config.repoRoot, args.milestoneId, milestone.project),
+  );
+  if (issues.length === 0) {
+    throw new Error(`No issues found for milestone ${args.milestoneId}.`);
+  }
+  return { milestone, issues };
+}
+
+export async function planOrchestration(
+  config: OrchestratorConfig,
+  args: OrchestratorArgs,
+  deps: PlanDeps = defaultDeps,
+): Promise<OrchestratorPlan> {
+  const { milestone, issues } = await resolveMilestoneIssues(config, args);
+  const selectedIssues = selectIssues(issues, args.issueId);
+  const plan = selectedIssues.map((issue) => {
+    const branchName = deps.deriveBranchName(issue.id, issue.title);
+    return {
+      issue,
+      branchName,
+      worktreePath: deps.issueWorktreePath(config.repoRoot, branchName),
+    };
+  });
+  return { milestone, plan };
+}
+
+export function formatIssuePlan(plan: OrchestratorPlan): string {
+  const lines = [
+    `plan: milestone=${plan.milestone.id} project=${plan.milestone.project}`,
+    `milestoneDoc: ${plan.milestone.path}`,
+  ];
+  plan.plan.forEach((entry, index) => {
+    lines.push(`${index + 1}. ${entry.issue.id}`);
+    lines.push(`  doc: ${entry.issue.path}`);
+    lines.push(`  branch: ${entry.branchName}`);
+    lines.push(`  worktree: ${entry.worktreePath}`);
+  });
+  return lines.join("\n");
 }
 
 async function runDevOrFixPhase(
@@ -92,20 +175,17 @@ async function runFixPhase(
   return { result: result.result, logPath, stderrPath };
 }
 
-export async function runOrchestrator(config: OrchestratorConfig, args: OrchestratorArgs) {
-  const milestone = await resolveMilestoneDoc(config.repoRoot, args.milestoneId, args.projectId);
-  const issues = orderIssuesLinear(
-    await loadIssuesByMilestone(config.repoRoot, args.milestoneId, milestone.project),
-  );
-  if (issues.length === 0) {
-    throw new Error(`No issues found for milestone ${args.milestoneId}.`);
-  }
-
+export async function runOrchestrator(
+  config: OrchestratorConfig,
+  args: OrchestratorArgs,
+  deps: OrchestratorDeps = defaultDeps,
+) {
+  const { milestone, issues } = await resolveMilestoneIssues(config, args);
   const issue = selectIssue(issues, args.issueId);
-  const branchName = deriveBranchName(issue.id, issue.title);
-  const worktreePath = await ensureWorktree(config.repoRoot, branchName, config.baseBranch);
+  const branchName = deps.deriveBranchName(issue.id, issue.title);
+  const worktreePath = await deps.ensureWorktree(config.repoRoot, branchName, config.baseBranch);
   const logRoot = join(config.logsRoot, args.milestoneId, issue.id);
-  const runner = new CodexSdkRunner();
+  const runner = deps.createRunner();
   const devSchemaPath = join(
     config.repoRoot,
     "scripts",
@@ -122,7 +202,7 @@ export async function runOrchestrator(config: OrchestratorConfig, args: Orchestr
   );
 
   try {
-    const prompt = await renderPrompt("dev-auto-parallel", {
+    const prompt = await deps.renderPrompt("dev-auto-parallel", {
       issueId: issue.id,
       issueDocPath: issue.path,
       milestoneId: args.milestoneId,
@@ -147,7 +227,7 @@ export async function runOrchestrator(config: OrchestratorConfig, args: Orchestr
 
     let priorFixSummary: string | undefined;
     for (let cycle = 1; cycle <= config.maxReviewCycles; cycle += 1) {
-      const reviewPrompt = await renderPrompt("dev-auto-review-linear", {
+      const reviewPrompt = await deps.renderPrompt("dev-auto-review-linear", {
         issueId: issue.id,
         issueDocPath: issue.path,
         milestoneId: args.milestoneId,
@@ -172,7 +252,7 @@ export async function runOrchestrator(config: OrchestratorConfig, args: Orchestr
         return reviewResult;
       }
 
-      const fixPrompt = await renderPrompt("dev-auto-fix-review", {
+      const fixPrompt = await deps.renderPrompt("dev-auto-fix-review", {
         issueId: issue.id,
         issueDocPath: issue.path,
         milestoneId: args.milestoneId,
@@ -201,6 +281,6 @@ export async function runOrchestrator(config: OrchestratorConfig, args: Orchestr
 
     return lastResult;
   } finally {
-    await removeWorktree(config.repoRoot, worktreePath);
+    await deps.removeWorktree(config.repoRoot, worktreePath);
   }
 }
