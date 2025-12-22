@@ -50,6 +50,23 @@ async function withTempGraphiteConfig<T>(fn: (configDir: string) => Promise<T>) 
   }
 }
 
+async function withTempGraphiteData<T>(fn: (dataDir: string) => Promise<T>) {
+  const baseDir = await mkdtemp(join(tmpdir(), "orch-graphite-data-"));
+  const previousDataHome = process.env.XDG_DATA_HOME;
+  process.env.XDG_DATA_HOME = baseDir;
+  const graphiteDir = join(baseDir, "graphite");
+  try {
+    return await fn(graphiteDir);
+  } finally {
+    if (previousDataHome) {
+      process.env.XDG_DATA_HOME = previousDataHome;
+    } else {
+      delete process.env.XDG_DATA_HOME;
+    }
+    await rm(baseDir, { recursive: true, force: true });
+  }
+}
+
 describe("git-utils", () => {
   it("resolves git common dir in a standard repo", async () => {
     await withTempRepo(async (repoDir) => {
@@ -84,6 +101,16 @@ describe("git-utils", () => {
   it("includes graphite config dir when present", async () => {
     await withTempRepo(async (repoDir) => {
       await withTempGraphiteConfig(async (graphiteDir) => {
+        const directories = await buildAdditionalDirectories(repoDir);
+        const expected = await realpath(graphiteDir);
+        expect(directories).toContain(expected);
+      });
+    });
+  });
+
+  it("includes graphite data dir (and creates it) when XDG_DATA_HOME is set", async () => {
+    await withTempRepo(async (repoDir) => {
+      await withTempGraphiteData(async (graphiteDir) => {
         const directories = await buildAdditionalDirectories(repoDir);
         const expected = await realpath(graphiteDir);
         expect(directories).toContain(expected);
