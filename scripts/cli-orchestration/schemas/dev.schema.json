@@ -23,7 +23,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["command", "status"],
+        "required": ["command", "status", "notes"],
         "properties": {
           "command": { "type": "string" },
           "status": { "type": "string", "enum": ["pass", "fail", "skipped"] },

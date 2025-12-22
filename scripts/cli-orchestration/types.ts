@@ -16,7 +16,7 @@ export interface PhaseBase {
 export interface TestRun {
   command: string;
   status: "pass" | "fail" | "skipped";
-  notes?: string;
+  notes: string;
 }
 
 export interface ReviewIssue {
