@@ -123,10 +123,13 @@ Mapgen research spikes:
 
 | Path | Description | Classification |
 | --- | --- | --- |
-| `docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md` | Feature inventory spike. | Mixed (needs a call) |
-| `docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md` | Earth physics modeling spike. | Mixed (needs a call) |
-| `docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md` | Alternate earth physics modeling spike. | Mixed (needs a call) |
-| `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md` | Synthesis spike for earth physics systems. | Mixed (needs a call) |
+| `docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md` | Feature inventory spike (defer decision; revisit post-M4). | Mixed (needs a call) |
+| `docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md` | Earth physics modeling spike (defer decision; revisit post-M4). | Mixed (needs a call) |
+| `docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md` | Alternate earth physics modeling spike (defer decision; revisit post-M4). | Mixed (needs a call) |
+| `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md` | Synthesis spike for earth physics systems (defer decision; revisit post-M4). | Mixed (needs a call) |
+
+Decision status (mapgen research spikes):
+- [PARKED] The four `docs/system/libs/mapgen/research/SPIKE-*.md` docs above are explicitly deferred for post-M4 review (likely archive + targeted salvage into canonical mapgen docs).
 
 Swooper maps mod docs:
 
