@@ -26,3 +26,8 @@ bun run scripts/cli-orchestration/orchestrate.ts --milestone M1 --project cli-or
 - Worktree lifecycle is orchestrator-owned; the prompts must not create/remove worktrees.
 - Milestone docs must exist under `docs/projects/<project>/milestones/` for `milestoneDocPath` resolution.
 - Use `--project <projectId>` to disambiguate if multiple projects share the same milestone ID.
+- Codex SDK defaults (v0):
+  - Streaming: **on** (events are written to stdout as JSONL).
+  - Auto-approve: **on** (`approvalPolicy: "never"`).
+  - Sandbox: `workspace-write`, network access enabled.
+  - To change these defaults, edit the `startThread` options in `scripts/cli-orchestration/codex-sdk-runner.ts`.

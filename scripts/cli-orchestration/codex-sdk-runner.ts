@@ -32,7 +32,7 @@ export class CodexSdkRunner implements Runner {
     try {
       const thread = this.codex.startThread({
         workingDirectory: input.cwd,
-        approvalPolicy: "on-request",
+        approvalPolicy: "never",
         sandboxMode: "workspace-write",
         networkAccessEnabled: true,
       });
