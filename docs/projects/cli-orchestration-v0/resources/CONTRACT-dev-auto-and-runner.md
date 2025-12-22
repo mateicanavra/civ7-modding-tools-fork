@@ -117,13 +117,11 @@ Prompt authors should treat this block as authoritative.
 - `phase`: `"review"`
 - `status`: `"pass"` | `"changes_required"` | `"blocked"`
 - `issueId`, `milestoneId`, `branch`, `worktreePath`, `summary`
-
-**Optional fields (recommended):**
-- `issues`: array of `{ severity, title, details, evidence }`
+- `issues`: array of `{ severity, title, details, evidence }` — `evidence` is required (empty string allowed, but include pointers when available)
 - `requiredActions`: string[]
 - `followups`: string[]
-- `reviewDocPath`: string
-- `confidence`: `"low"` | `"medium"` | `"high"`
+- `reviewDocPath`: string (empty string allowed if no doc is written in v0)
+- `confidence`: `"low"` | `"medium"` | `"high"` (use `"medium"` by default)
 
 ### D) Error / failure semantics
 

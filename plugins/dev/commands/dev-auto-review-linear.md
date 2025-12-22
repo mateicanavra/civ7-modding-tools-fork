@@ -42,13 +42,15 @@ The final assistant message must be **JSON only** matching this shape:
   "branch": "issue/ISSUE-123",
   "worktreePath": "/abs/path/to/worktree",
   "summary": "Short review summary",
-  "issues": [{"severity": "high", "title": "...", "details": "...", "evidence": "..."}],
+  "issues": [{"severity": "high", "title": "...", "details": "...", "evidence": ""}],
   "requiredActions": ["..."],
   "followups": ["..."],
   "reviewDocPath": "docs/...",
   "confidence": "medium"
 }
 ```
+
+**All fields are required**. If a list is empty, return `[]`. For `issues[].evidence`, use `""` only when you truly have nothing to add; otherwise include concise pointers (file paths, commands, or reproduction notes).
 
 Use `status: "changes_required"` or `"blocked"` when appropriate.
 
