@@ -125,3 +125,18 @@ Constraints/notes:
 - Tracing must be optional and not alter execution when disabled.
 - Do not implement code; deliver only the checklist + gaps as notes.
 - Plan fingerprint must include recipe + settings + per-step config (stable serialization).
+
+## Prework Results / References
+
+Child artifacts:
+- Safety‑1 (`LOCAL-TBD-M4-SAFETY-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-safety-1-tracing-model-and-fingerprint.md`
+- Safety‑2 (`LOCAL-TBD-M4-SAFETY-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-safety-2-smoke-tests-matrix-and-civ23-rescope.md`
+
+Readiness checklist:
+- Trace model + sink interface + hook points are defined and align to the accepted “minimal required baseline + optional sinks” strategy.
+- Plan fingerprint strategy is specified (canonical serialization + stable hash) and is suitable for CI determinism.
+- Smoke-test matrix covers compile + execute, is engine-free (MockAdapter), and includes forward-looking assertions for `effect:*` verification loudness and StoryTags removal.
+- CIV‑23 rescope plan is captured so the legacy “WorldModel lifecycle” framing can be retired in favor of RunRequest/ExecutionPlan guardrails.
+
+Gap list / open decisions:
+- Confirm whether observability toggles (trace verbosity) should be excluded from the semantic plan fingerprint (recommended) vs included as “settings”.
