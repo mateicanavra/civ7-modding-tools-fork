@@ -5,7 +5,7 @@ state: planned
 priority: 3
 estimate: 2
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [architecture, technical-debt]
 parent: null

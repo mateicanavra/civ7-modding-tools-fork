@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 0
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [testing]
 parent: CIV-14
