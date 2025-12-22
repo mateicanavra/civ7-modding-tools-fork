@@ -30,4 +30,5 @@ bun run scripts/cli-orchestration/orchestrate.ts --milestone M1 --project cli-or
   - Streaming: **on** (events are written to stdout as JSONL).
   - Auto-approve: **on** (`approvalPolicy: "never"`).
   - Sandbox: `workspace-write`, network access enabled.
+  - Additional writable dirs: git common dir (via `git rev-parse --git-common-dir`) and Graphite config (`$XDG_CONFIG_HOME/graphite` or `~/.config/graphite`) when present.
   - To change these defaults, edit the `startThread` options in `scripts/cli-orchestration/codex-sdk-runner.ts`.
