@@ -5,7 +5,7 @@ state: planned
 priority: 1
 estimate: 16
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Cleanup]
 parent: null
@@ -66,9 +66,10 @@ This issue closes DEF-004 as an implementation cutover (not a design question).
   - `packages/mapgen-core/src/pipeline/StepRegistry.ts` (remove `STAGE_ORDER` recipe derivation)
   - `packages/mapgen-core/src/bootstrap/entry.ts` (remove `stageConfig -> stageManifest` bridge)
   - `packages/mapgen-core/src/bootstrap/resolved.ts` (delete `STAGE_ORDER` + stage enablement helpers)
+  - `packages/mapgen-core/src/MapOrchestrator.ts` (legacy path removal/fencing)
 - Docs/spec alignment:
   - `docs/projects/engine-refactor-v1/deferrals.md` (DEF-004 status update)
-  - `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md` (link issue doc)
+  - `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md` (link issue doc)
 
 ## Testing / Verification
 
@@ -146,7 +147,7 @@ Where to look:
   `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-6-remove-dual-orchestration.md`.
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Pipeline contract),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.1, §2.9).
-- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 Constraints/notes:
 - Do not invent new architecture decisions; align with accepted recipe-only ordering + enablement.

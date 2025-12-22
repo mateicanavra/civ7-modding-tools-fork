@@ -5,7 +5,7 @@ state: planned
 priority: 3
 estimate: 8
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Narrative]
 parent: null
@@ -109,7 +109,7 @@ Where to look:
   `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-narrative-cleanup-2-remove-storytags.md`.
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Narrative model),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.4).
-- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 Constraints/notes:
 - Narrative is optional via recipe; `StoryTags` is not a canonical surface.

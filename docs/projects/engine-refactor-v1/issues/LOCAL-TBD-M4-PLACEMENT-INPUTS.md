@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 8
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Placement]
 parent: null
@@ -112,7 +112,7 @@ Where to look:
   `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-placement-inputs-2-cutover.md`.
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (placement artifact),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.7).
-- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 Constraints/notes:
 - Placement inputs must be explicit and TS-canonical; no implicit engine reads as dependency surface.

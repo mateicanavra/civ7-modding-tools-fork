@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Placement]
 parent: LOCAL-TBD-M4-PLACEMENT-INPUTS
@@ -39,7 +39,7 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PLACEMENT-INPUTS](M4-PLACEMENT-INPUTS.md)
+- **Parent:** [LOCAL-TBD-M4-PLACEMENT-INPUTS](LOCAL-TBD-M4-PLACEMENT-INPUTS.md)
 - **Blocks:** LOCAL-TBD-M4-PLACEMENT-2
 
 ---

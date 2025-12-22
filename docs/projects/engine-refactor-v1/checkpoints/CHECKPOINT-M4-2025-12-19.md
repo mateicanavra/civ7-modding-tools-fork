@@ -1,12 +1,12 @@
 ---
 id: CHECKPOINT-M4-2025-12-19
-milestone: M4-tests-validation-cleanup
-title: "Scope Checkpoint — M4 Tests, Validation & Cleanup"
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+title: "Scope Checkpoint — M4 Target Architecture Cutover & Legacy Cleanup"
 status: draft
 date: 2025-12-19
 ---
 
-# Scope Checkpoint — M4 Tests, Validation & Cleanup
+# Scope Checkpoint — M4 Target Architecture Cutover & Legacy Cleanup
 
 ## Verdict
 
@@ -14,7 +14,7 @@ Recalibration needed.
 
 ## Summary
 
-M4 is defined as “Tests, Validation & Cleanup” in `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`, but the actual codebase already contains M3/M4-class changes (TaskGraph-only execution, artifact gating, foundation validation, modularization) while multiple docs still describe that work as planned or missing. This creates a real mismatch between the project’s stated scope and the current implementation state, which blocks confident sequencing. No tests were run as part of this checkpoint.
+M4 is defined as “Target Architecture Cutover & Legacy Cleanup” in `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`, but the actual codebase already contains M3/M4-class changes (TaskGraph-only execution, artifact gating, foundation validation, modularization) while multiple docs still describe that work as planned or missing. This creates a real mismatch between the project’s stated scope and the current implementation state, which blocks confident sequencing. No tests were run as part of this checkpoint.
 
 ## Target Architecture Gap Analysis
 
@@ -50,7 +50,7 @@ M4 is defined as “Tests, Validation & Cleanup” in `docs/projects/engine-refa
 
 ### Scope Drift
 
-- **What:** Phase A foundation cutover and related M4 work appear complete in code, but issues are still marked planned with “done” checkboxes or missing milestone linkage (e.g., `docs/projects/engine-refactor-v1/issues/CIV-48-worldmodel-cut-phase-a.md`, `docs/projects/engine-refactor-v1/issues/CIV-49-contract-enforcement.md`, `docs/projects/engine-refactor-v1/issues/CIV-50-rng-standardization.md`). M4’s issue map still references archived CIV-24 (`docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`).
+- **What:** Phase A foundation cutover and related M4 work appear complete in code, but issues are still marked planned with “done” checkboxes or missing milestone linkage (e.g., `docs/projects/engine-refactor-v1/issues/CIV-48-worldmodel-cut-phase-a.md`, `docs/projects/engine-refactor-v1/issues/CIV-49-contract-enforcement.md`, `docs/projects/engine-refactor-v1/issues/CIV-50-rng-standardization.md`). M4’s issue map still references archived CIV-24 (`docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`).
 - **Impact:** M4 scope is no longer a reliable list of remaining work; planning decisions risk redoing already-landed work or missing actual gaps.
 - **Options:**
   - Re-baseline M4 by moving already-landed Phase A work into “completed” and updating issue states.
@@ -90,7 +90,7 @@ M4 is defined as “Tests, Validation & Cleanup” in `docs/projects/engine-refa
 
 - Status doc is out of sync with runtime gating and artifact usage (`docs/projects/engine-refactor-v1/status.md`).
 - Deferrals on legacy TaskGraph path and global StoryTags/Overlays are likely stale (`docs/projects/engine-refactor-v1/deferrals.md`, `packages/mapgen-core/src/MapOrchestrator.ts`, `packages/mapgen-core/src/domain/narrative/tags/ops.ts`, `packages/mapgen-core/src/domain/narrative/overlays/registry.ts`).
-- M4 milestone doc still points to archived or completed items without a current issue map (`docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`).
+- M4 milestone doc still points to archived or completed items without a current issue map (`docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`).
 
 ## Inventory Snapshot
 
@@ -208,7 +208,7 @@ M4 is defined as “Tests, Validation & Cleanup” in `docs/projects/engine-refa
 
 ## Evidence (Artifacts Reviewed)
 
-- Milestones: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`
+- Milestones: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`
 - Status / deferrals / triage: `docs/projects/engine-refactor-v1/status.md`, `docs/projects/engine-refactor-v1/deferrals.md`, `docs/projects/engine-refactor-v1/triage.md`
 - M4 issue docs: `docs/projects/engine-refactor-v1/issues/CIV-23-integration-tests.md`, `docs/projects/engine-refactor-v1/issues/CIV-48-worldmodel-cut-phase-a.md`, `docs/projects/engine-refactor-v1/issues/CIV-49-contract-enforcement.md`, `docs/projects/engine-refactor-v1/issues/CIV-50-rng-standardization.md`, `docs/projects/engine-refactor-v1/issues/CIV-M4-ADHOC-modularize.md`, `docs/projects/engine-refactor-v1/issues/CIV-9-bun-pnpm-bridge.md`
 - Reviews: `docs/projects/engine-refactor-v1/reviews/REVIEW-M3-core-engine-refactor-config-evolution.md`, `docs/projects/engine-refactor-v1/reviews/REVIEW-M4-tests-validation-cleanup.md`, `docs/projects/engine-refactor-v1/reviews/REVIEW-CIV-M4-ADHOC-modularize.md`

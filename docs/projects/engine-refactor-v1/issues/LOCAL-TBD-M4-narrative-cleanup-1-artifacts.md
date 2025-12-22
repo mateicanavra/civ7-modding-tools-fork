@@ -5,7 +5,7 @@ state: planned
 priority: 3
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Narrative]
 parent: LOCAL-TBD-M4-NARRATIVE-CLEANUP
@@ -39,7 +39,7 @@ Define the canonical `artifact:narrative.*` set and ensure narrative steps publi
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-NARRATIVE-CLEANUP](M4-NARRATIVE-CLEANUP.md)
+- **Parent:** [LOCAL-TBD-M4-NARRATIVE-CLEANUP](LOCAL-TBD-M4-NARRATIVE-CLEANUP.md)
 - **Blocks:** LOCAL-TBD-M4-NARRATIVE-2
 - **Sequencing:** Start after the tag registry cutover (LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER) so narrative artifacts are registered in the canonical catalog.
 

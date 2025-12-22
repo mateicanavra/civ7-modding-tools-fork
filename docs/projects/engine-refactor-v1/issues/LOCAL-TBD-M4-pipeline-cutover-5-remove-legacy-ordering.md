@@ -5,7 +5,7 @@ state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Cleanup]
 parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
@@ -44,7 +44,7 @@ Delete legacy ordering/enablement inputs (`stageManifest`, `STAGE_ORDER`, `stage
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
 - **Blocked by:** LOCAL-TBD-M4-PIPELINE-4
 
 ---
@@ -60,6 +60,12 @@ Delete legacy ordering/enablement inputs (`stageManifest`, `STAGE_ORDER`, `stage
   - `packages/mapgen-core/src/config/schema.ts` (remove `presets`/`stageConfig`/`stageManifest` plumbing surfaces)
   - `packages/mapgen-core/src/config/presets.ts` (delete if no longer referenced)
   - `packages/mapgen-core/test/bootstrap/entry.test.ts` (remove preset tests)
+- Ensure no runtime/test path still passes `stageFlags`/`shouldRun` (e.g., paleo ordering test expectations).
+- Tests likely touching ordering/enablement:
+  - `packages/mapgen-core/test/orchestrator/paleo-ordering.test.ts`
+  - `packages/mapgen-core/test/orchestrator/task-graph.smoke.test.ts`
+  - `packages/mapgen-core/test/orchestrator/placement-config-wiring.test.ts`
+  - `packages/mapgen-core/test/orchestrator/worldmodel-config-wiring.test.ts`
 - Confirm no legacy API callers remain before deleting.
 
 ### Quick Navigation
@@ -81,7 +87,7 @@ Deliverables:
 Where to look:
 - Code: `packages/mapgen-core/src/**` and `packages/mapgen-core/test/**` (use `rg` on the keywords above).
 - Docs: `docs/projects/engine-refactor-v1/**` for references to legacy ordering/enablement.
-- Breadcrumbs in `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+- Breadcrumbs in `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 Constraints/notes:
 - Treat this as a high-parallelism mechanical cleanup; do not change behavior or implement code.

@@ -184,7 +184,7 @@ Concrete V1 deliverables:
 - Registry is the canonical catalog; steps declare deps and config schemas.
 - Enablement is recipe-authored and compiled into the plan; no silent runtime skips.
 - ~~Presets shape is explicitly deferred (recipe-only vs full `RunRequest`); the V1 contract supports either without changing `RunRequest` or `ExecutionPlan`.~~
-  **Update (2025-12-21, M4 planning):** Presets are removed; entry is explicit recipe + settings selection, and any "preset" is treated as a named recipe (if used). See `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+  **Update (2025-12-21, M4 planning):** Presets are removed; entry is explicit recipe + settings selection, and any "preset" is treated as a named recipe (if used). See `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 ### 2.2 What V1 explicitly defers
 

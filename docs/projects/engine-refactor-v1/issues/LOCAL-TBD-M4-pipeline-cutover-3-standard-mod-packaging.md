@@ -5,7 +5,7 @@ state: planned
 priority: 1
 estimate: 0
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Cleanup]
 parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
@@ -40,7 +40,7 @@ Package the standard pipeline as a mod-style package and wire the loader/registr
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
 - **Blocked by:** LOCAL-TBD-M4-PIPELINE-2 (per-step config plumbing should exist before packaging recipe config)
 - **Blocks:** LOCAL-TBD-M4-PIPELINE-4
 - **Estimate:** TBD; use prework to refine.

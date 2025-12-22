@@ -5,7 +5,7 @@ state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Cleanup]
 parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
@@ -42,7 +42,7 @@ Introduce the target boundary types (`RunRequest`, `RecipeV1`) and a TypeBox-val
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
 - **Blocks:** LOCAL-TBD-M4-PIPELINE-2
 
 ---

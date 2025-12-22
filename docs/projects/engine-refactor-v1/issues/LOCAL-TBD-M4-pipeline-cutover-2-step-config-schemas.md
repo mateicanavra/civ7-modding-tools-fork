@@ -5,7 +5,7 @@ state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Cleanup]
 parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
@@ -59,7 +59,7 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
 - **Blocked by:** LOCAL-TBD-M4-PIPELINE-1 (boundary + compiler skeleton exists)
 - **Blocks:** LOCAL-TBD-M4-PIPELINE-4 (runtime cutover should not land with “config ignored” semantics)
 
@@ -72,6 +72,10 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
   - add config schema to the step definition type
   - thread resolved config through compiler → plan → executor
 - Do not introduce a second config mega-object; per-step config comes from the recipe occurrence only.
+- Current gap: `MapGenStep` in `packages/mapgen-core/src/pipeline/types.ts` has no config argument; `PipelineExecutor` runs steps without config.
+- Reference the existing config wiring status:
+  - `packages/mapgen-core/src/config/schema.ts`
+  - `docs/projects/engine-refactor-v1/resources/config-wiring-status.md`
 
 ## Prework Prompt (Agent Brief)
 

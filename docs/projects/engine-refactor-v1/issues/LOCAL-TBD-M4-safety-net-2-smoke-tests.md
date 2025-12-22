@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 2
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Testing]
 parent: LOCAL-TBD-M4-SAFETY-NET
@@ -39,7 +39,7 @@ Add compile/execute smoke tests against the standard recipe using a stub adapter
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-SAFETY-NET](M4-SAFETY-NET.md)
+- **Parent:** [LOCAL-TBD-M4-SAFETY-NET](LOCAL-TBD-M4-SAFETY-NET.md)
 - **Blocked by:** LOCAL-TBD-M4-SAFETY-1, LOCAL-TBD-M4-PIPELINE-1
 - **Related:** CIV-23
 
@@ -50,6 +50,11 @@ Add compile/execute smoke tests against the standard recipe using a stub adapter
 
 - Keep smoke tests light and deterministic; prefer stub adapter fixtures over real engine calls.
 - If CIV-23 becomes redundant, mark as superseded instead of duplicating work.
+- Test runner wiring: root `pnpm test:mapgen` → `pnpm -C packages/mapgen-core test` → `bun test` (`packages/mapgen-core/package.json`).
+- Smoke coverage should explicitly exercise:
+  - stageManifest/STAGE_ORDER removal paths
+  - `effect:*` verification failures are loud
+  - StoryTags removal / narrative artifacts are canonical
 
 ### Quick Navigation
 - [TL;DR](#tldr)
@@ -71,7 +76,7 @@ Deliverables:
 Where to look:
 - Tests: `packages/mapgen-core/test/**`, `packages/mapgen-core/package.json` (Bun runner).
 - Legacy test references: `docs/projects/engine-refactor-v1/issues/CIV-23-integration-tests.md`.
-- Milestone acceptance notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+- Milestone acceptance notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 Constraints/notes:
 - Tests must be deterministic and engine-free.

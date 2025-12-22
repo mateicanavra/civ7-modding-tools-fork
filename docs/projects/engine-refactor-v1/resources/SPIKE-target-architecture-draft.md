@@ -280,7 +280,7 @@ vs remains canonical (manifest, dependency spine, enablement flags).
 **Framing the core sub-questions (to separate ordering vs enablement):**
 - Static ordering (structure):
   - ~~Is the default "vanilla" pipeline defined as data (a default recipe in the standard mod) or code (`STAGE_ORDER`/registry)?~~  
-    **Update (2025-12-21, M4 planning):** The standard pipeline is a mod-style package + recipe; it is not hard-coded. See `../milestones/M4-tests-validation-cleanup.md`.
+    **Update (2025-12-21, M4 planning):** The standard pipeline is a mod-style package + recipe; it is not hard-coded. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
   - Does ordering mean strictly linear order, or can recipes be DAG-shaped?
   - What does a recipe list: step IDs, stage IDs, or named bundles of steps?
 - Dynamic enablement (execution):
@@ -1319,7 +1319,7 @@ Assumptions to confirm:
 Assumptions to confirm:
 - ~~Whether `STAGE_ORDER` and `stageManifest` are fully removed or retained as a
   compatibility/authoring layer.~~  
-  **Update (2025-12-21, M4 planning):** `STAGE_ORDER`/`stageManifest` are removed; recipe + `ExecutionPlan` is the only ordering/enablement surface. See `../milestones/M4-tests-validation-cleanup.md`.
+  **Update (2025-12-21, M4 planning):** `STAGE_ORDER`/`stageManifest` are removed; recipe + `ExecutionPlan` is the only ordering/enablement surface. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 - Whether "mutation" is modeled via explicit read/write sets or via versioned
   artifacts (important for mod insertion semantics).
 
@@ -1333,7 +1333,7 @@ Assumptions to confirm:
 - Canonical artifact registry (names + schemas) and ownership.
 - Which fields are canonical vs transient and how they map to engine buffers.
 - ~~Whether `FoundationContext` is removed in favor of discrete artifacts.~~  
-  **Update (2025-12-21, M4 planning):** Discrete foundation artifacts are canonical; `FoundationContext` is migration-only (DEF-014). See `../milestones/M4-tests-validation-cleanup.md`.
+  **Update (2025-12-21, M4 planning):** Discrete foundation artifacts are canonical; `FoundationContext` is migration-only (DEF-014). See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 **Phase ownership (draft surfaces):**
 - Foundation: `mesh`, `crust`, `plateGraph`, `tectonics` artifacts.

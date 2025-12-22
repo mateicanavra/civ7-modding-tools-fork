@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 8
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Validation]
 parent: null
@@ -107,7 +107,7 @@ Where to look:
 - Registry entries and artifacts: `packages/mapgen-core/src/pipeline/**` (search for `register` or tag definitions).
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Tag registry),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.5).
-- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 Constraints/notes:
 - Keep behavior stable; this is validation/verification wiring, not algorithm change.

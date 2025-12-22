@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Placement]
 parent: LOCAL-TBD-M4-PLACEMENT-INPUTS
@@ -39,7 +39,7 @@ Update placement to consume `artifact:placementInputs@v1` exclusively and provid
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PLACEMENT-INPUTS](M4-PLACEMENT-INPUTS.md)
+- **Parent:** [LOCAL-TBD-M4-PLACEMENT-INPUTS](LOCAL-TBD-M4-PLACEMENT-INPUTS.md)
 - **Blocked by:** LOCAL-TBD-M4-PLACEMENT-1
 - **Related:** LOCAL-TBD-M4-EFFECTS-VERIFICATION (placement effect verification)
 - **Coordination:** Effect tag catalog + adapter postcondition surfaces come from LOCAL-TBD-M4-EFFECTS-1.

@@ -5,7 +5,7 @@ state: planned
 priority: 3
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Narrative]
 parent: LOCAL-TBD-M4-NARRATIVE-CLEANUP
@@ -40,7 +40,7 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-NARRATIVE-CLEANUP](M4-NARRATIVE-CLEANUP.md)
+- **Parent:** [LOCAL-TBD-M4-NARRATIVE-CLEANUP](LOCAL-TBD-M4-NARRATIVE-CLEANUP.md)
 - **Blocked by:** LOCAL-TBD-M4-NARRATIVE-1, LOCAL-TBD-M4-PIPELINE-5
 - **Sequencing:** Land after legacy ordering deletion (LOCAL-TBD-M4-PIPELINE-5) to avoid stage/manifest drift while migrating consumers.
 
@@ -51,6 +51,11 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 
 - Prefer deleting StoryTags rather than maintaining compatibility shims.
 - If any cache must remain, make it context-scoped and cleared per run.
+- Known StoryTags consumers outside narrative modules to migrate:
+  - `packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts`
+  - `packages/mapgen-core/src/domain/ecology/features/index.ts`
+  - `packages/mapgen-core/src/domain/hydrology/climate/refine/index.ts`
+  - `packages/mapgen-core/src/domain/narrative/tags/*`
 
 ### Quick Navigation
 - [TL;DR](#tldr)

@@ -5,7 +5,7 @@ state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Cleanup]
 parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
@@ -40,7 +40,7 @@ Introduce the standard mod recipe (packaged as a mod-style package + registry en
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
 - **Blocked by:** LOCAL-TBD-M4-PIPELINE-2, LOCAL-TBD-M4-PIPELINE-3
 - **Blocks:** LOCAL-TBD-M4-PIPELINE-5
 - **Milestone note:** Packaging + loader/registry wiring lives in PIPELINE-3. This issue assumes that packaging is in place and focuses on runtime cutover to `RunRequest → ExecutionPlan`.
@@ -52,6 +52,10 @@ Introduce the standard mod recipe (packaged as a mod-style package + registry en
 
 - Prefer keeping the standard recipe in a mod-local `recipes/` path within the standard mod package (registry + recipes), per the target spec.
 - Do not introduce new stage-based ordering/enablement hooks; PIPELINE‑5 deletes the remaining legacy inputs.
+- Current runtime is MapGenConfig-centric and derives `recipe` from `stageManifest`; key touchpoints include:
+  - `packages/mapgen-core/src/bootstrap/entry.ts`
+  - `packages/mapgen-core/src/orchestrator/task-graph.ts`
+  - `packages/mapgen-core/src/MapOrchestrator.ts`
 
 ### Quick Navigation
 - [TL;DR](#tldr)

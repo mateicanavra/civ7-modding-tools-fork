@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Validation]
 parent: LOCAL-TBD-M4-EFFECTS-VERIFICATION
@@ -39,7 +39,7 @@ Introduce canonical `effect:*` tags for engine-surface mutations and add minimal
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](M4-EFFECTS-VERIFICATION.md)
+- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](LOCAL-TBD-M4-EFFECTS-VERIFICATION.md)
 - **Blocks:** LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-EFFECTS-3
 - **Related:** CIV-47 (adapter consolidation)
 - **Coordination:** Effect tags must be schedulable via the registry-instantiated catalog owned by LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER.

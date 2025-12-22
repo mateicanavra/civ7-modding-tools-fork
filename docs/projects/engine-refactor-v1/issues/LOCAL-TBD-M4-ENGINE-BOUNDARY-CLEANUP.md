@@ -5,7 +5,7 @@ state: planned
 priority: 3
 estimate: 8
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Cleanup]
 parent: null
@@ -93,7 +93,7 @@ Where to look:
 - Terrain constants: `packages/mapgen-core/src/core/terrain-constants.ts`.
 - Plot tags: `packages/mapgen-core/src/core/plot-tags.ts`.
 - Engine boundary policy: `docs/system/libs/mapgen/architecture.md`.
-- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 Constraints/notes:
 - No implicit engine-global dependency surfaces; failures must be explicit.

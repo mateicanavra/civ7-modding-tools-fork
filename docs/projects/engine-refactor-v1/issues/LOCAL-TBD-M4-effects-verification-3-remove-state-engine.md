@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Validation]
 parent: LOCAL-TBD-M4-EFFECTS-VERIFICATION
@@ -39,8 +39,8 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](M4-EFFECTS-VERIFICATION.md)
-- **Blocked by:** LOCAL-TBD-M4-EFFECTS-2, [LOCAL-TBD-M4-PLACEMENT-INPUTS](M4-PLACEMENT-INPUTS.md)
+- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](LOCAL-TBD-M4-EFFECTS-VERIFICATION.md)
+- **Blocked by:** LOCAL-TBD-M4-EFFECTS-2, [LOCAL-TBD-M4-PLACEMENT-INPUTS](LOCAL-TBD-M4-PLACEMENT-INPUTS.md)
 - **Related:** LOCAL-TBD-M4-PLACEMENT-INPUTS (placement effect verification)
 
 ---
@@ -50,6 +50,9 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 
 - Treat this as cleanup: do not change algorithms.
 - If any placement-related `state:engine.*` dependencies remain, defer to LOCAL-TBD-M4-PLACEMENT-INPUTS for the effect/reify replacement.
+- Current hotspots for `state:engine.*` include:
+  - `packages/mapgen-core/src/pipeline/standard.ts` (`M3_STAGE_DEPENDENCY_SPINE`)
+  - `packages/mapgen-core/src/pipeline/tags.ts` (legacy tag validation)
 
 ### Quick Navigation
 - [TL;DR](#tldr)

@@ -5,7 +5,7 @@ state: planned
 priority: 1
 estimate: 0
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Architecture, Cleanup]
 parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
@@ -39,7 +39,7 @@ Remove the dual orchestration path so the only supported runtime execution is `R
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](M4-PIPELINE-CUTOVER.md)
+- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
 - **Blocked by:** LOCAL-TBD-M4-PIPELINE-4
 - **Sequencing:** Land in Phase D alongside legacy ordering deletion (LOCAL-TBD-M4-PIPELINE-5).
 - **Estimate:** TBD; use prework to refine.
@@ -71,7 +71,7 @@ Deliverables:
 Where to look:
 - Orchestration code: `packages/mapgen-core/src/MapOrchestrator.ts`, `packages/mapgen-core/src/orchestrator/**`, `packages/mapgen-core/src/bootstrap/**`.
 - Consumers: `packages/cli/**`, `scripts/**`, `packages/mapgen-core/test/**`.
-- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-tests-validation-cleanup.md`.
+- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 Constraints/notes:
 - No new compatibility shims; deletion or explicit fencing only.

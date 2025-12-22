@@ -5,7 +5,7 @@ state: planned
 priority: 2
 estimate: 2
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TESTS-VALIDATION-CLEANUP
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
 assignees: []
 labels: [Observability]
 parent: LOCAL-TBD-M4-SAFETY-NET
@@ -39,7 +39,7 @@ Add the shared tracing foundation (run id, plan fingerprint, step timing) plus p
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-SAFETY-NET](M4-SAFETY-NET.md)
+- **Parent:** [LOCAL-TBD-M4-SAFETY-NET](LOCAL-TBD-M4-SAFETY-NET.md)
 - **Blocks:** LOCAL-TBD-M4-SAFETY-2
 - **Blocked by:** LOCAL-TBD-M4-PIPELINE-1 (plan compiler/RunRequest boundary exists)
 
@@ -50,6 +50,7 @@ Add the shared tracing foundation (run id, plan fingerprint, step timing) plus p
 
 - Keep tracing payloads small by default; richer events are opt-in per step.
 - Ensure trace sinks are pluggable for tests.
+- Plan fingerprint/runId determinism requires a stable serialization strategy for recipe + settings + per-step config; keep hashing consistent across runs.
 
 ### Quick Navigation
 - [TL;DR](#tldr)

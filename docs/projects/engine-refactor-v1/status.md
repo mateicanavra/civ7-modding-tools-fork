@@ -28,4 +28,4 @@
 ## Testing & Observability
 - Existing: `[Foundation]` logs, stage gating warnings, ASCII diagnostics (landmass, relief, rainfall, biomes), histograms.
 - ~~Needed: Expand Vitest coverage beyond the stable slice; add invariant checks for `FoundationContext`/`Heightfield`/`ClimateField`/`StoryOverlays` at stage boundaries.~~  
-  **Update (2025-12-21, M4 planning):** Mapgen-core tests run via Bun; M4 adds Bun smoke/regression tests and CI wiring (see `milestones/M4-tests-validation-cleanup.md`).
+  **Update (2025-12-21, M4 planning):** Mapgen-core tests run via Bun; M4 adds Bun smoke/regression tests and CI wiring (see `milestones/M4-target-architecture-cutover-legacy-cleanup.md`).
