@@ -8,7 +8,13 @@
     "milestoneId",
     "branch",
     "worktreePath",
-    "summary"
+    "summary",
+    "testsRun",
+    "docsUpdated",
+    "draftPrs",
+    "stackBranches",
+    "deferred",
+    "openQuestions"
   ],
   "properties": {
     "phase": { "type": "string", "enum": ["dev", "fix"] },

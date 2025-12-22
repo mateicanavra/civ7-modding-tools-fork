@@ -31,7 +31,7 @@ Full input: $ARGUMENTS
 
 ## Output contract (fix phase)
 
-The final assistant message must be **JSON only** matching this shape:
+The final assistant message must be **JSON only** matching this shape. **All fields are required**; if a list is empty, return `[]`. For `testsRun.notes`, use `""` only when you truly have nothing to add; otherwise include concise context.
 
 ```json
 {

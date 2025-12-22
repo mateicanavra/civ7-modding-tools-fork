@@ -29,12 +29,12 @@ export interface ReviewIssue {
 export interface DevResult extends PhaseBase {
   phase: "dev" | "fix";
   status: DevStatus;
-  testsRun?: TestRun[];
-  docsUpdated?: string[];
-  draftPrs?: string[];
-  stackBranches?: string[];
-  deferred?: string[];
-  openQuestions?: string[];
+  testsRun: TestRun[];
+  docsUpdated: string[];
+  draftPrs: string[];
+  stackBranches: string[];
+  deferred: string[];
+  openQuestions: string[];
 }
 
 export interface ReviewResult extends PhaseBase {
