@@ -20,10 +20,10 @@ related_to: []
 - Create autonomous `dev-auto-*` prompt variants and the shared `autonomous-development` skill so the orchestrator can run without interactive worktree logic.
 
 ## Deliverables
-- `dev-auto-parallel` prompt variant aligned to the contract (structured JSON, no worktree lifecycle).
-- `dev-auto-review-linear` prompt variant aligned to the contract (structured JSON, no worktree lifecycle).
-- `dev-auto-fix-review` prompt variant aligned to the contract (structured JSON, no worktree lifecycle).
-- `autonomous-development` skill that codifies auto-safe constraints (worktree rules, Graphite allowlist, structured output).
+- [x] `dev-auto-parallel` prompt variant aligned to the contract (structured JSON, no worktree lifecycle).
+- [x] `dev-auto-review-linear` prompt variant aligned to the contract (structured JSON, no worktree lifecycle).
+- [x] `dev-auto-fix-review` prompt variant aligned to the contract (structured JSON, no worktree lifecycle).
+- [x] `autonomous-development` skill that codifies auto-safe constraints (worktree rules, Graphite allowlist, structured output).
 
 ## Acceptance Criteria
 - All three `dev-auto-*` variants reference the contract and emit required structured JSON.
