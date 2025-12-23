@@ -22,14 +22,13 @@ Define the canonical `artifact:narrative.*` set and ensure narrative steps publi
 
 ## Deliverables
 
-- Typed, versioned `artifact:narrative.*` definitions registered (optional safe demos where useful for tooling/tests).
+- Typed, versioned `artifact:narrative.*` definitions registered.
 - Narrative steps updated to publish these artifacts and declare their dependencies explicitly.
 - Standard recipe updated to consume the new narrative artifacts where applicable.
 
 ## Acceptance Criteria
 
 - Narrative producers provide explicit `artifact:narrative.*` outputs (no implicit StoryTags dependency surface).
-- Artifacts are versioned; demo payloads are optional (recommended when useful for tooling/tests).
 - No behavior change beyond representation/wiring.
 
 ## Testing / Verification
@@ -64,7 +63,7 @@ Goal: define the canonical `artifact:narrative.*@v1` inventory and map producers
 
 Deliverables:
 - A minimal inventory of narrative artifacts (IDs + short purpose + version).
-- Schema sketches for each artifact, including any demo payloads we choose to provide (optional; recommended for tooling/tests).
+- Schema sketches for each artifact (conceptual shapes for humans; do not treat these as registry/TypeBox schemas in M4).
 - A mapping of which narrative steps produce each artifact and which consumers require them.
 
 Where to look:
@@ -101,12 +100,11 @@ These overlays are stored in `ctx.overlays` and (partially) hydrated into `Story
 
 | Artifact ID | Purpose | Producer step | Schema sketch | Demo guidance |
 | --- | --- | --- | --- | --- |
-| `artifact:narrative.corridors@v1` | Corridor metadata (sea lanes, land corridors, river corridors) | `storyCorridorsPre`, `storyCorridorsPost` | `{ seaLanes: Set<string>; landCorridors: Set<string>; riverCorridors: Set<string>; attributes: Map<string, CorridorAttrs> }` | Optional; empty sets/maps for demo. |
-| `artifact:narrative.motifs.margins@v1` | Continental margins tagging (active/passive shelf) | `storySeed` (margins tagging) | `{ activeMargin: Set<string>; passiveShelf: Set<string> }` | Optional; empty sets for demo. |
-| `artifact:narrative.motifs.hotspots@v1` | Hotspot trails | `storyHotspots` | `{ trails: Array<{ coords: Array<{ x: number; y: number }>; kind: string }> }` | Optional; empty array for demo. |
-| `artifact:narrative.motifs.rifts@v1` | Rift lines and shoulders | `storyRifts` | `{ riftLine: Set<string>; riftShoulder: Set<string> }` | Optional; empty sets for demo. |
-| `artifact:narrative.motifs.orogeny@v1` | Orogenic belt metadata | `storyOrogeny` | `{ belts: Array<{ coords: Array<{ x: number; y: number }>; windwardBoost: number; leeDrynessAmplifier: number }> }` | Optional; empty array for demo. |
-| `artifact:narrative.overlays@v1` (compat) | Story overlays snapshot (compat-only) | Multiple story steps | `Map<string, OverlayData>` | Keep as transitional; prefer explicit artifacts above. |
+| `artifact:narrative.corridors@v1` | Corridor metadata (sea lanes, land corridors, river corridors) | `storyCorridorsPre`, `storyCorridorsPost` | `{ seaLanes: Set<string>; landCorridors: Set<string>; riverCorridors: Set<string>; attributes: Map<string, CorridorAttrs> }` | **M4 decision:** omit demo payloads for narrative artifacts. |
+| `artifact:narrative.motifs.margins@v1` | Continental margins tagging (active/passive shelf) | `storySeed` (margins tagging) | `{ activeMargin: Set<string>; passiveShelf: Set<string> }` | Same as above. |
+| `artifact:narrative.motifs.hotspots@v1` | Hotspot trails (+ categorized sets; ADR-ER1-024) | `storyHotspots` (trails) + islands placement (categories) | `{ trails: Array<{ coords: Array<{ x: number; y: number }>; kind: string }>; paradise: Set<string>; volcanic: Set<string> }` | Same as above. |
+| `artifact:narrative.motifs.rifts@v1` | Rift lines and shoulders | `storyRifts` | `{ riftLine: Set<string>; riftShoulder: Set<string> }` | Same as above. |
+| `artifact:narrative.motifs.orogeny@v1` | Orogenic belt metadata | `storyOrogeny` | `{ belts: Array<{ coords: Array<{ x: number; y: number }>; windwardBoost: number; leeDrynessAmplifier: number }> }` | Same as above. |
 
 ### 2) Producer → artifact map (current story steps)
 
@@ -124,10 +122,10 @@ These overlays are stored in `ctx.overlays` and (partially) hydrated into `Story
 | File | StoryTags / overlay usage | Target artifact / helper |
 | --- | --- | --- |
 | `domain/ecology/biomes/index.ts` | Reads `StoryTags.corridor*`, `StoryTags.riftShoulder` | `artifact:narrative.corridors@v1`, `artifact:narrative.motifs.rifts@v1` |
-| `domain/ecology/features/index.ts` | Reads `StoryTags.passiveShelf`, `StoryTags.hotspotParadise/Volcanic` | `artifact:narrative.motifs.margins@v1`, `artifact:narrative.motifs.hotspots.classified@v1` (or derived) |
-| `domain/hydrology/climate/refine/*` | Reads `StoryTags.riftLine`, `StoryTags.hotspotParadise/Volcanic` | `artifact:narrative.motifs.rifts@v1`, hotspot artifacts |
+| `domain/ecology/features/index.ts` | Reads `StoryTags.passiveShelf`, `StoryTags.hotspotParadise/Volcanic` | `artifact:narrative.motifs.margins@v1`, `artifact:narrative.motifs.hotspots@v1` (categories inside; use derived query helpers, not new artifacts) |
+| `domain/hydrology/climate/refine/*` | Reads `StoryTags.riftLine`, `StoryTags.hotspotParadise/Volcanic` | `artifact:narrative.motifs.rifts@v1`, `artifact:narrative.motifs.hotspots@v1` (categories inside) |
 | `domain/morphology/coastlines/rugged-coasts.ts` | Reads `StoryTags.corridorSeaLane`, `StoryTags.activeMargin/passiveShelf` | `artifact:narrative.corridors@v1`, `artifact:narrative.motifs.margins@v1` |
-| `domain/morphology/islands/placement.ts` | Reads `StoryTags.hotspot`, `StoryTags.corridorSeaLane`, `StoryTags.activeMargin/passiveShelf`; **writes** `StoryTags.hotspotParadise/Volcanic` | Consume artifacts; publish `artifact:narrative.motifs.hotspots.classified@v1` |
+| `domain/morphology/islands/placement.ts` | Reads `StoryTags.hotspot`, `StoryTags.corridorSeaLane`, `StoryTags.activeMargin/passiveShelf`; **writes** `StoryTags.hotspotParadise/Volcanic` | Consume artifacts; publish hotspot categories into `artifact:narrative.motifs.hotspots@v1` (ADR-ER1-024; **M4 decision:** keep islands placement as the classifier) |
 
 ### 4) Hotspot classification note (tag-set drift)
 
@@ -141,6 +139,5 @@ This resolves the producer/consumer drift where narrative consumers expect hotsp
 
 ### 5) Demo payload guidance
 
-- Demo payloads are optional for narrative artifacts.
-- If provided, use empty sets/maps/arrays (safe for tooling/tests).
-- Validate shape at registry build time; do not validate content correctness.
+- **M4 decision:** omit demo payloads for narrative artifacts.
+- If you believe narrative artifact demos are required for tooling/tests, stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md` documenting which artifacts + why, then ask for confirmation before proceeding.

@@ -22,14 +22,14 @@ Reify engine-derived biome/feature outputs into explicit fields and provide veri
 
 ## Deliverables
 
-- `field:biomeId` and `field:featureType` (or existing equivalents) are produced by the biomes/features steps.
+- `field:biomeId` and `field:featureType` are produced by the biomes/features steps.
 - Biomes/features steps provide `effect:engine.biomesApplied` and `effect:engine.featuresApplied` with adapter-backed postcondition checks.
 - Downstream steps consume the reified fields instead of “read engine later” dependencies.
 
 ## Acceptance Criteria
 
 - Biomes/features steps no longer require/provide `state:engine.*` and instead provide verified `effect:*` tags plus reified `field:*` outputs.
-- Any downstream step that depends on engine-derived biome/feature data reads from `ctx.fields.*` (or equivalent) rather than adapter reads.
+- Any downstream step that depends on engine-derived biome/feature data reads from `ctx.fields.*` rather than adapter reads.
 - Failures in adapter-backed postconditions are loud (no silent skips).
 
 ## Testing / Verification
@@ -66,7 +66,7 @@ Reify engine-derived biome/feature outputs into explicit fields and provide veri
 Goal: map biomes/features reification so downstream migrations are mechanical and effect verification is minimal.
 
 Deliverables:
-- A reification plan: which `field:*` or `artifact:*` outputs biomes/features should publish (e.g., `field:biomes`, `field:features`, or more granular field names).
+- A reification plan: biomes publishes `field:biomeId`; features publishes `field:featureType` (do not introduce new field names for M4).
 - A consumer map: downstream steps that currently depend on engine reads and must switch to the reified fields/artifacts.
 - A minimal postcondition checklist for verifying `effect:engine.biomesApplied` and `effect:engine.featuresApplied`.
 
@@ -104,8 +104,10 @@ Goal: define the reify-after-mutate pattern for biomes/features and enumerate th
 In M3, `isDependencyTagSatisfied()` treats `field:*` as satisfied if the buffer exists (which is true from context creation), so `field:biomeId`/`field:featureType` cannot currently act as meaningful scheduling/validation edges.
 
 For M4, the executor/registry should treat field tags like published products:
+- (Locked by SPEC: dependency satisfaction semantics are `provides`-driven, not allocation-driven.)
 - A step "provides" `field:*`, and the executor marks it satisfied after the step runs (similar to `state:engine.*` today).
-- Optional: add lightweight verification that the buffer has been populated (e.g., sampled values are finite integers in range).
+- **M4 decision:** do not add value/meaning-based verification of `field:*` contents here (we don't have a stable notion of “unset”/“valid range” yet). Verification is structural only: the step must explicitly `provide` the field tags and execute the reify-after-mutate loop to completion.
+  - If you believe you must add semantic/value checks anyway, stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md` documenting the exact checks + expected failure modes, then ask for confirmation before proceeding.
 
 ### 1) Reification plan: biomes → `field:biomeId`
 
@@ -117,7 +119,7 @@ Current behavior:
 Target reify-after-mutate pattern:
 1. `BiomesStep` mutates engine via `adapter.designateBiomes(...)`.
 2. Immediately after, reify the result into `ctx.fields.biomeId`:
-   - iterate plots and call `ctx.fields.biomeId[idx] = adapter.getBiomeType(x, y)` (or use a bulk read if adapter supports it).
+   - iterate plots and call `ctx.fields.biomeId[idx] = adapter.getBiomeType(x, y)`.
 3. Provide `effect:engine.biomesApplied` (verified via minimal postcondition; see below).
 4. Downstream steps (features, placement, etc.) consume `ctx.fields.biomeId` directly instead of calling `adapter.getBiomeType`.
 
@@ -142,37 +144,26 @@ Target reify-after-mutate pattern:
 | File | Usage | Migration |
 | --- | --- | --- |
 | `packages/mapgen-core/src/domain/ecology/features/index.ts` | Calls `adapter.getBiomeType(x, y)` to decide feature placement eligibility. | Switch to `ctx.fields.biomeId[idx]`. |
-| `packages/mapgen-core/src/pipeline/placement/PlacementStep.ts` | May read biomes for placement constraints (confirm in code). | Switch to `ctx.fields.biomeId` or `artifact:placementInputs@v1`. |
 
 #### Features consumers (engine reads)
 
-| File | Usage | Migration |
-| --- | --- | --- |
-| `packages/mapgen-core/src/pipeline/placement/PlacementStep.ts` | Reads `adapter.getFeatureType` for placement constraints. | Switch to `ctx.fields.featureType` or `artifact:placementInputs@v1`. |
+No cross-step engine reads of features were found in the pipeline; keep the consumer sweep focused on biomes→features (the known engine-read edge) unless new evidence appears.
 
-### 4) Minimal postcondition checklist (sampled verification)
+### 4) Minimal postcondition checklist (M4 structural verification)
 
-Goal: verify that biomes/features mutations actually occurred without full-map scans.
+Goal: fail loudly on wiring mistakes without guessing domain semantics.
 
 #### `effect:engine.biomesApplied` verification
 
-Sampled postcondition (recommended):
-- Pick N random land tiles (e.g., N = 10).
-- For each, check that `ctx.fields.biomeId[idx] !== 0` (or a known "unset" value).
-- If all sampled tiles have a valid biome, pass.
-
-Alternative (stricter):
-- Verify that `ctx.fields.biomeId` has been written (non-zero count) for at least X% of land tiles.
+- Verify that:
+  - `field:biomeId` is explicitly `provided` by the biomes step, and
+  - the biomes step executes the reify-after-mutate loop to completion (writes the full buffer length for the run).
 
 #### `effect:engine.featuresApplied` verification
 
-Sampled postcondition (recommended):
-- Pick N random tiles (land + coast).
-- For each, check that `ctx.fields.featureType[idx]` is set (even if "no feature" is a valid value).
-- The presence of the field is the verification; we don't require specific features.
-
-Alternative:
-- Verify that `ctx.fields.featureType` is non-empty or has been touched for at least some tiles.
+- Verify that:
+  - `field:featureType` is explicitly `provided` by the features step, and
+  - the features step executes the reify-after-mutate loop to completion (writes the full buffer length for the run).
 
 ### 5) Coordination notes
 

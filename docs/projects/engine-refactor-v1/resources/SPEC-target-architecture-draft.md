@@ -98,6 +98,15 @@ via the recipe and carried in the compiled `ExecutionPlan` nodes.
 - `effect:*` tags reference externally meaningful changes/events emitted by steps.
 - Intended end-state: `state:*` tags are transitional only and not part of the
   target contract (3.5 accepted).
+- **Satisfaction semantics (accepted for M4):** dependency satisfaction is tracked
+  explicitly by execution state (`provides` plus an explicit initial set), **not**
+  inferred from storage allocation.
+  - `field:*` tags are **not** satisfied just because a buffer is preallocated;
+    a step that makes a field meaningful must `provide` it.
+  - **M4 decision:** no `field:*` tags are initially satisfied.
+    - If you believe a `field:*` tag must be in the initial satisfied set,
+      stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md`
+      documenting the tag + rationale, then ask for confirmation before proceeding.
 
 ### 1.5 Phase ownership (target surfaces)
 
@@ -118,6 +127,10 @@ finalized via ADRs (pending decisions 3.4, 3.6, 3.7).~~
     `context.artifacts.foundation.*` (e.g., `context.artifacts.foundation.mesh`),
     but dependencies are still expressed via `artifact:*` tags (no blob
     dependency). New work must not depend on `ctx.foundation.*`.
+  - Transition note (DEF-014): Phase A keeps the existing `FoundationContext`-like
+    backing object as compatibility wiring (internal only), but it must be surfaced via
+    `context.artifacts.foundation.*` (not `ctx.foundation`) and must have an
+    explicit deletion trigger.
 - Morphology: intended `field:heightfield` plus `artifact:terrainMask`,
   `artifact:erosion`, `artifact:sediment`.
 - Hydrology: intended `artifact:climateField` (rainfall + temperature) and
@@ -140,6 +153,10 @@ choice), not a privileged core pipeline phase.
   artifacts** (examples: `artifact:narrative.corridors@v1`,
   `artifact:narrative.regions@v1`, `artifact:narrative.motifs.*@v1`,
   `artifact:narrative.heatmaps.*@v1`).
+- Motif packaging decisions are treated as **target contract** decisions when
+  accepted (see `docs/projects/engine-refactor-v1/ADR.md`), e.g. **ADR-ER1-024:**
+  hotspot categories (paradise/volcanic) are encoded within
+  `artifact:narrative.motifs.hotspots@v1` (no split artifacts in v1).
 - Downstream steps that need narrative semantics must `require` those artifacts
   and must not re-derive the same semantics independently.
 - There is **no canonical `StoryTags` surface** in the target contract.

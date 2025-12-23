@@ -9,6 +9,8 @@
 > - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
 > - `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`
 > - `docs/projects/engine-refactor-v1/ADR.md`
+>
+> If you find yourself making a design/implementation decision based on this SPIKE (e.g., choosing between options below), **stop**: add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md` documenting the decision point + why, then ask for confirmation and update the SPEC/ADR before proceeding.
 
 > ~~Agent disclaimer (WIP):~~
 >

@@ -116,11 +116,11 @@ Search: `rg "state:engine" packages/mapgen-core/src packages/mapgen-core/test do
 
 | Current tag | Replacement | Verification strategy |
 | --- | --- | --- |
-| `state:engine.landmassApplied` | `effect:engine.landmassApplied` | Sampled or minimal (low-risk); or omit if landmass is implicit from `artifact:foundation`. |
-| `state:engine.coastlinesApplied` | `effect:engine.coastlinesApplied` | Sampled or minimal (engine-owned expansion). |
+| `state:engine.landmassApplied` | `effect:engine.landmassApplied` | **M4 decision:** keep the effect tag and verify minimally (e.g., assert the canonical foundation artifacts `artifact:foundation.*` exist for the run). Do not omit the effect tag. |
+| `state:engine.coastlinesApplied` | `effect:engine.coastlinesApplied` | **M4 decision:** minimal structural verification only (no sampling). Treat as verified when the step completes and post-step contract checks pass for its declared outputs; do not add additional semantic sampling in M4. |
 | `state:engine.riversModeled` | `effect:engine.riversModeled` | Verify `artifact:riverAdjacency` is non-empty. |
-| `state:engine.biomesApplied` | `effect:engine.biomesApplied` | Sampled + `field:biomeId` populated (reify-after-mutate). |
-| `state:engine.featuresApplied` | `effect:engine.featuresApplied` | Sampled + `field:featureType` populated. |
+| `state:engine.biomesApplied` | `effect:engine.biomesApplied` | Structural: `field:biomeId` is provided and the reify-after-mutate loop completes (see Effects Verification‑2). |
+| `state:engine.featuresApplied` | `effect:engine.featuresApplied` | Structural: `field:featureType` is provided and the reify-after-mutate loop completes (see Effects Verification‑2). |
 | `state:engine.placementApplied` | `effect:engine.placementApplied` | `artifact:placementOutputs@v1` shape validation (ADR-ER1-020). |
 
 ### 3) Cleanup checklist (mechanical removal)
@@ -128,7 +128,7 @@ Search: `rg "state:engine" packages/mapgen-core/src packages/mapgen-core/test do
 #### Tags / registry
 
 - [ ] Remove `state:engine.*` entries from `M3_DEPENDENCY_TAGS` and `M3_CANONICAL_DEPENDENCY_TAGS` in `pipeline/tags.ts`.
-- [ ] Update validation regex to reject `state:*` namespace (or remove the namespace entirely).
+- [ ] Update validation to reject the `state:*` namespace entirely (no transitional `state:*` acceptance in M4+).
 - [ ] Ensure all steps that previously provided `state:engine.*` now provide the corresponding `effect:*` tag.
 
 #### Standard dependency spine

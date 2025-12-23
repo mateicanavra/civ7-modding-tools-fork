@@ -99,7 +99,7 @@ Accepted baseline:
 ```ts
 type TraceEvent = {
   tsMs: number;             // monotonic if available; else Date.now
-  runId: string;            // deterministic (see fingerprint section) or stable UUID
+  runId: string;            // deterministic (see fingerprint section)
   planFingerprint: string;  // stable hash of the ExecutionPlan inputs
 
   kind:
@@ -131,7 +131,7 @@ interface TraceSink {
 ```
 
 Implementation note:
-- When tracing is disabled, provide a no-op sink (`emit() {}`) and/or gate `emit` calls behind toggles. This preserves "no behavior change when disabled."
+- **M4 decision:** always wire a sink; when tracing is disabled, the sink is a no-op (`emit() {}`). Per-step verbosity toggles gate **payload emission** (avoid building/allocating `data` when disabled) while preserving "no behavior change when disabled."
 
 ### 2) Plan fingerprint algorithm (deterministic spec)
 
@@ -148,7 +148,7 @@ Objective:
 #### Exclusions (should NOT affect fingerprint)
 
 - Pure observability toggles (trace enablement, verbosity), since they should not change execution semantics.
-  - If we want trace config to influence correlation IDs, create a separate `traceConfigFingerprint` rather than folding it into the plan fingerprint.
+  - **M4 decision:** trace config does not influence correlation IDs; do not add a `traceConfigFingerprint` in M4. If you believe it is required, stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md` documenting why + expected consumers, then ask for confirmation before proceeding.
 
 #### Canonical serialization
 
@@ -161,7 +161,7 @@ Use "canonical JSON":
 #### Hash choice
 
 - Use `sha256` (stable, widely available) over the canonical JSON string.
-- Output as lowercase hex or base64url (pick one and keep stable).
+- **M4 decision:** output as lowercase hex.
 
 Pseudo:
 ```ts
@@ -195,7 +195,7 @@ Suggested config shape (lives in RunRequest settings, not in MapGenConfig):
 ```ts
 type TraceConfig = {
   enabled: boolean;
-  steps?: Record<string, "off" | "basic" | "verbose">; // keyed by stepId (or nodeId)
+  steps?: Record<string, "off" | "basic" | "verbose">; // keyed by stepId
 };
 ```
 
