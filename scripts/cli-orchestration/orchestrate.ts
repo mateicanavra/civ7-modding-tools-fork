@@ -10,6 +10,7 @@ function usage(): string {
     "",
     "Options:",
     "  -m, --milestone   Milestone ID to run (required)",
+    "  -i, --issue       Issue ID to run (optional, defaults to first)",
     "  --logs-root       Override logs root (default: logs/orch)",
   ].join("\n");
 }
@@ -19,6 +20,7 @@ function parseCliArgs() {
     args: process.argv.slice(2),
     options: {
       milestone: { type: "string", short: "m" },
+      issue: { type: "string", short: "i" },
       "logs-root": { type: "string" },
     },
   });
@@ -30,12 +32,13 @@ function parseCliArgs() {
 
   return {
     milestoneId: values.milestone,
+    issueId: values.issue,
     logsRoot: values["logs-root"],
   };
 }
 
 async function main() {
-  const { milestoneId, logsRoot } = parseCliArgs();
+  const { milestoneId, issueId, logsRoot } = parseCliArgs();
   const repoRoot = process.cwd();
 
   const config: OrchestratorConfig = {
@@ -44,7 +47,7 @@ async function main() {
     maxReviewCycles: 2,
   };
 
-  await runOrchestrator(config, { milestoneId });
+  await runOrchestrator(config, { milestoneId, issueId });
 }
 
 main().catch((error) => {
