@@ -31,3 +31,13 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Gaps:** `normalizeStepConfig` treats `null` config as `{}`, so invalid `config: null` inputs bypass schema validation and are silently accepted.
 - **Follow-up:** Add an unknown-key rejection test (acceptance criteria) and a guard that rejects `null` configs instead of defaulting to `{}`.
 - **Update (2025-12-23):** Added null-config rejection guard in `normalizeStepConfig` and tests for unknown-key rejection and null config rejection (now fails at runRequest validation with `/config` path).
+
+
+## CIV-61 — [M4] Tag registry cutover: registry-instantiated catalog + validation (effect:* schedulable)
+
+**Reviewed:** 2025-12-23
+
+- **Intent:** Replace regex/allowlist validation + hard-coded executor verification with registry-driven catalog checks; make `effect:*` schedulable; validate demo payloads on registration.
+- **Strengths:** TagRegistry provides a canonical catalog; executor/registry now validate via registry; effect tags are included; demo payload validation fails fast with unit coverage.
+- **Gaps:** Satisfaction now requires explicit `provides`, so any partial runs that relied on pre-initialized fields/artifacts will now fail without explicit tags; no guardrails/tests for that behavior change.
+- **Follow-up:** Add targeted tests or docs for partial-pipeline behavior; consider reintroducing stricter tag-id validation at registry registration if canonical formats still matter.
