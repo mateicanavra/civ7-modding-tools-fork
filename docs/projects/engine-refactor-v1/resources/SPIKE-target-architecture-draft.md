@@ -1,5 +1,15 @@
 # SPIKE: Target Architecture Draft (Working Notes)
 
+> **Historical / rationale only.**
+>
+> This document contains rejected options, transitional migration notes, and scratch assumptions.
+> Do **not** treat it as canonical target architecture or contracts.
+>
+> **For M4 execution, canonical sources are:**
+> - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
+> - `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`
+> - `docs/projects/engine-refactor-v1/ADR.md`
+
 > ~~Agent disclaimer (WIP):~~
 >
 > ~~- The deferrals are not yet fully integrated into the target flow; do not treat this as complete.~~
@@ -257,6 +267,7 @@ vs remains canonical (manifest, dependency spine, enablement flags).
   - Artifact/field registry ownership/versioning (`2.8`).
 
 **Options (with tradeoffs):**
+*(Historical options; final decision is above in this packet. Do not treat these as live choices.)*
 - **A) Recipe canonical; DAG/partial-order; registry as catalog; plan derived (target)**:
   - Pro: one source of truth; enables mod/UI composition; aligns with docs.
   - Con: requires shipping a recipe schema + validation + migration tooling;
@@ -1192,6 +1203,7 @@ dev-only diagnostics?
   same structured events.
 
 **Options:**
+*(Historical options; final decision is above in this packet. Do not treat these as live choices.)*
 - **A) Minimal required baseline + optional sinks (recommended)**
   - Required:
     - Compile-time validation errors are structured and fail-fast:
@@ -1264,11 +1276,13 @@ Additional constraints (accepted):
 
 ---
 
-## 3. Interim notes
+## 3. Interim notes (historical scratchpad)
 
-This section is a scratch space for exploratory thinking that doesn't yet fit
-into a formal decision packet. Content here may be promoted to decision packets
-or discarded as decisions are made.
+This section is a **historical scratchpad / thinking out loud**.
+It may contain obsolete assumptions, superseded options, and open questions that
+are already decided elsewhere.
+
+Do **not** use this section as input for M4 design/implementation decisions.
 
 ### 3.1 Versioning: target direction vs scoped V1
 
@@ -1376,7 +1390,7 @@ Assumptions to confirm:
 
 ---
 
-## 4. Decision log stubs (ADR placeholders)
+### 3.3 Decision log stubs (ADR placeholders)
 
 ~~These will be promoted to `docs/system/ADR.md` as decisions are accepted.~~
 **Update (2025-12-21, M4 planning):** ADR promotion is post-M4; decisions are captured in the SPEC/M4 plan.
@@ -1394,7 +1408,7 @@ Assumptions to confirm:
 
 ---
 
-## 5. Next actions
+### 3.4 Next actions
 
 - ~~Confirm which decisions are required before finalizing the target docs.~~ **Update (2025-12-21, M4 planning):** Decisions are already captured in the SPEC/M4 plan.
 - ~~Convert accepted decisions into ADRs and update canonical docs.~~ **Update (2025-12-21, M4 planning):** ADR conversion is explicitly post-M4.
