@@ -93,28 +93,7 @@ M3 still relies on regex/allowlist tag validation and hard-coded verification li
 
 - Validate demo payload shapes when present; ensure failures are explicit.
 
-## Prework Prompt (Agent Brief)
-
-Goal: define the registry-driven tag catalog and validation/verification rules so implementation is mechanical.
-
-Deliverables:
-- An inventory of current tag validation rules (regex/allowlists) and executor verification lists.
-- A proposed registry-instantiated tag catalog table (tag ID, namespace, owner, demo payload shape if any).
-- A replacement plan for validation/verification (what moves from hard-coded lists to registry-driven rules).
-- A list of demo payload shapes and where they should be validated.
-
-Where to look:
-- Tag validation: `packages/mapgen-core/src/pipeline/tags.ts`.
-- Executor verification: `packages/mapgen-core/src/pipeline/PipelineExecutor.ts`.
-- Registry entries and artifacts: `packages/mapgen-core/src/pipeline/**` (search for `register` or tag definitions).
-- SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Tag registry),
-  `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.5).
-- Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
-
-Constraints/notes:
-- Keep behavior stable; this is validation/verification wiring, not algorithm change.
-- `effect:*` must be schedulable and verifiable via the registry catalog.
-- Do not implement code; return the inventory and catalog plan as markdown tables/lists.
+Pre-work Status: complete.
 
 ## Pre-work
 
@@ -229,3 +208,48 @@ Recommended placement:
 
 - Effects Verification (LOCAL‑TBD‑M4‑EFFECTS‑1) should own the authoritative `effect:*` tag list + adapter postcondition API surface. This prework only seeds candidate mappings from current `state:engine.*` ids.
 - PIPELINE cutover work should consume the registry-instantiated catalog for tag validation instead of `M3_CANONICAL_DEPENDENCY_TAGS`.
+
+## Implementation Decisions
+
+### 1) Allow transitional state tags in the registry
+
+Context: M3 steps still emit `state:engine.*` tags while `effect:*` is introduced.
+
+Options: reject `state:*` tags now; allow only `state:engine.*` as transitional.
+
+Choice: allow `state:engine.*` with `DependencyTagKind = "state"` and strict prefix validation.
+
+Rationale: keeps M3 compatibility while enforcing the new registry catalog.
+
+Risk: transitional tags could linger longer than intended if follow-up work slips.
+
+### 2) Require explicit provides for satisfaction
+
+Context: registry semantics treat satisfaction as explicit `provides`, not preallocation.
+
+Options: pre-satisfy fields at executor start; require explicit provides.
+
+Choice: start with an empty satisfied set and require tags to be provided before checks pass.
+
+Rationale: align with registry-driven validation and fail fast on missing provides.
+
+Risk: steps that relied on implicit satisfaction will now fail until updated.
+
+### 3) Preserve legacy foundation fallback
+
+Context: some code paths still read `ctx.foundation` instead of `ctx.artifacts`.
+
+Options: require `ctx.artifacts` only; allow `ctx.foundation` fallback.
+
+Choice: accept `ctx.artifacts.has("artifact:foundation")` or `ctx.foundation` until CIV-62 completes.
+
+Rationale: avoids breaking existing M3 usage during the cutover.
+
+Risk: legacy usage may persist unless explicitly removed in follow-up work.
+
+## Implementation Checklist
+
+- [x] Registry-driven validation/verification replaces allowlists.
+- [x] `effect:*` tags are first-class and schedulable.
+- [x] Demo payloads validate at registry registration.
+- [x] Tests updated for unknown tags + demo validation.

@@ -81,6 +81,7 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = unk
     nodes: Array<{ step: MapGenStep<TContext, TConfig>; config: TConfig; label: string }>
   ): { stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> } {
     const stepResults: PipelineStepResult[] = [];
+    const tagRegistry = this.registry.getTagRegistry();
     const satisfied = computeInitialSatisfiedTags(context);
     const satisfactionState = { satisfied };
 
@@ -89,11 +90,11 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = unk
     for (let index = 0; index < total; index++) {
       const node = nodes[index];
       const step = node.step;
-      validateDependencyTags(step.requires);
-      validateDependencyTags(step.provides);
+      validateDependencyTags(step.requires, tagRegistry);
+      validateDependencyTags(step.provides, tagRegistry);
 
       const missing = step.requires.filter(
-        (tag) => !isDependencyTagSatisfied(tag, context, satisfactionState)
+        (tag) => !isDependencyTagSatisfied(tag, context, satisfactionState, tagRegistry)
       );
       if (missing.length > 0) {
         throw new MissingDependencyError({
@@ -114,20 +115,9 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = unk
         }
         for (const tag of step.provides) satisfied.add(tag);
 
-        const missingProvides = step.provides.filter((tag) => {
-          // Only verify tags that have concrete satisfaction checks.
-          if (
-            tag === "artifact:foundation" ||
-            tag === "artifact:heightfield" ||
-            tag === "artifact:climateField" ||
-            tag === "artifact:storyOverlays" ||
-            tag === "artifact:riverAdjacency" ||
-            tag.startsWith("field:")
-          ) {
-            return !isDependencyTagSatisfied(tag, context, satisfactionState);
-          }
-          return false;
-        });
+        const missingProvides = step.provides.filter(
+          (tag) => !isDependencyTagSatisfied(tag, context, satisfactionState, tagRegistry)
+        );
         if (missingProvides.length > 0) {
           throw new UnsatisfiedProvidesError(step.id, missingProvides);
         }
@@ -190,6 +180,7 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = unk
     nodes: Array<{ step: MapGenStep<TContext, TConfig>; config: TConfig; label: string }>
   ): Promise<{ stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> }> {
     const stepResults: PipelineStepResult[] = [];
+    const tagRegistry = this.registry.getTagRegistry();
     const satisfied = computeInitialSatisfiedTags(context);
     const satisfactionState = { satisfied };
 
@@ -198,11 +189,11 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = unk
     for (let index = 0; index < total; index++) {
       const node = nodes[index];
       const step = node.step;
-      validateDependencyTags(step.requires);
-      validateDependencyTags(step.provides);
+      validateDependencyTags(step.requires, tagRegistry);
+      validateDependencyTags(step.provides, tagRegistry);
 
       const missing = step.requires.filter(
-        (tag) => !isDependencyTagSatisfied(tag, context, satisfactionState)
+        (tag) => !isDependencyTagSatisfied(tag, context, satisfactionState, tagRegistry)
       );
       if (missing.length > 0) {
         throw new MissingDependencyError({
@@ -218,19 +209,9 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = unk
         await step.run(context, node.config);
         for (const tag of step.provides) satisfied.add(tag);
 
-        const missingProvides = step.provides.filter((tag) => {
-          if (
-            tag === "artifact:foundation" ||
-            tag === "artifact:heightfield" ||
-            tag === "artifact:climateField" ||
-            tag === "artifact:storyOverlays" ||
-            tag === "artifact:riverAdjacency" ||
-            tag.startsWith("field:")
-          ) {
-            return !isDependencyTagSatisfied(tag, context, satisfactionState);
-          }
-          return false;
-        });
+        const missingProvides = step.provides.filter(
+          (tag) => !isDependencyTagSatisfied(tag, context, satisfactionState, tagRegistry)
+        );
         if (missingProvides.length > 0) {
           throw new UnsatisfiedProvidesError(step.id, missingProvides);
         }
