@@ -1,12 +1,7 @@
 import type { MapInfo, MapSizeId } from "@civ7/adapter";
 import { createCiv7Adapter } from "@civ7/adapter/civ7";
 
-import type {
-  LandmassConfig,
-  MountainsConfig,
-  VolcanoesConfig,
-  StartsConfig,
-} from "@mapgen/bootstrap/types.js";
+import type { StartsConfig } from "@mapgen/bootstrap/types.js";
 import type { MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
@@ -96,10 +91,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   const enabledStages = recipe.join(", ");
   console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
 
-  const landmassCfg = config.landmass ?? {};
-  const mountainOptions = (config.mountains ?? {}) as MountainsConfig;
-  const volcanoOptions = (config.volcanoes ?? {}) as VolcanoesConfig;
-
   let ctx: ExtendedMapContext | null = null;
   try {
     const layerAdapter = createLayerAdapter(options.orchestratorOptions, iWidth, iHeight);
@@ -151,9 +142,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
       options.initializeFoundation(context);
     },
     storyEnabled,
-    landmassCfg: landmassCfg as LandmassConfig,
-    mountainOptions,
-    volcanoOptions,
     mapInfo,
     playersLandmass1: iNumPlayers1,
     playersLandmass2: iNumPlayers2,

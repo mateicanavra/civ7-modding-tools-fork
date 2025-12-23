@@ -1,9 +1,13 @@
 import { describe, it, expect } from "bun:test";
 import { Type } from "typebox";
+import { createMockAdapter } from "@civ7/adapter";
+import type { MapConfig } from "@mapgen/bootstrap/types.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
 
 import {
   compileExecutionPlan,
   ExecutionPlanCompileError,
+  PipelineExecutor,
   StepRegistry,
 } from "@mapgen/pipeline/index.js";
 
@@ -28,7 +32,7 @@ describe("compileExecutionPlan", () => {
         },
         { additionalProperties: false }
       ),
-      run: () => {},
+      run: (_context, _config) => {},
     });
 
     const plan = compileExecutionPlan(
@@ -63,7 +67,7 @@ describe("compileExecutionPlan", () => {
       phase: "foundation",
       requires: [],
       provides: [],
-      run: () => {},
+      run: (_context, _config) => {},
     });
 
     const plan = compileExecutionPlan(
@@ -134,7 +138,7 @@ describe("compileExecutionPlan", () => {
         },
         { additionalProperties: false }
       ),
-      run: () => {},
+      run: (_context, _config) => {},
     });
 
     try {
@@ -179,5 +183,47 @@ describe("compileExecutionPlan", () => {
       const errors = (err as ExecutionPlanCompileError).errors;
       expect(errors[0].code).toBe("runRequest.invalid");
     }
+  });
+
+  it("passes resolved config into step.run", () => {
+    const registry = new StepRegistry<unknown>();
+    let observedConfig: unknown = null;
+    registry.register({
+      id: "alpha",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      configSchema: Type.Object(
+        {
+          value: Type.Number({ default: 7 }),
+        },
+        { additionalProperties: false }
+      ),
+      run: (_context, config) => {
+        observedConfig = config;
+      },
+    });
+
+    const plan = compileExecutionPlan(
+      {
+        recipe: {
+          schemaVersion: 1,
+          steps: [{ id: "alpha", config: {} }],
+        },
+        settings: baseSettings,
+      },
+      registry
+    );
+
+    const adapter = createMockAdapter({ width: 2, height: 2, rng: () => 0 });
+    const context = createExtendedMapContext(
+      { width: 2, height: 2 },
+      adapter,
+      {} as unknown as MapConfig
+    );
+    const executor = new PipelineExecutor(registry, { log: () => {} });
+    executor.executePlan(context, plan);
+
+    expect(observedConfig).toEqual({ value: 7 });
   });
 });

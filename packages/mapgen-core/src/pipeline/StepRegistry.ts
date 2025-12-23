@@ -2,11 +2,12 @@ import type { StageManifest } from "@mapgen/config/index.js";
 import { DuplicateStepError, UnknownStepError } from "@mapgen/pipeline/errors.js";
 import { validateDependencyTags } from "@mapgen/pipeline/tags.js";
 import type { MapGenStep } from "@mapgen/pipeline/types.js";
+import type { StepConfigView } from "@mapgen/pipeline/step-config.js";
 
-export class StepRegistry<TContext> {
-  private readonly steps = new Map<string, MapGenStep<TContext>>();
+export class StepRegistry<TContext, TConfig = StepConfigView> {
+  private readonly steps = new Map<string, MapGenStep<TContext, TConfig>>();
 
-  register(step: MapGenStep<TContext>): void {
+  register(step: MapGenStep<TContext, TConfig>): void {
     if (this.steps.has(step.id)) {
       throw new DuplicateStepError(step.id);
     }
@@ -15,7 +16,7 @@ export class StepRegistry<TContext> {
     this.steps.set(step.id, step);
   }
 
-  get(stepId: string): MapGenStep<TContext> {
+  get(stepId: string): MapGenStep<TContext, TConfig> {
     const step = this.steps.get(stepId);
     if (!step) throw new UnknownStepError(stepId);
     return step;
@@ -36,4 +37,3 @@ export class StepRegistry<TContext> {
     return order.filter(enabled);
   }
 }
-

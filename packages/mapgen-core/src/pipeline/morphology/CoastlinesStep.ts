@@ -1,5 +1,6 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { EmptyStepConfigSchema } from "@mapgen/pipeline/step-config.js";
 
 export interface CoastlinesStepOptions {
   requires: readonly string[];
@@ -12,7 +13,8 @@ export function createCoastlinesStep(options: CoastlinesStepOptions): MapGenStep
     phase: M3_STANDARD_STAGE_PHASE.coastlines,
     requires: options.requires,
     provides: options.provides,
-    run: (context) => {
+    configSchema: EmptyStepConfigSchema,
+    run: (context, _config) => {
       const { width, height } = context.dimensions;
       context.adapter.expandCoasts(width, height);
     },

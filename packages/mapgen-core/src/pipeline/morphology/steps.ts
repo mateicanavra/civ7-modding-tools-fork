@@ -14,4 +14,4 @@ export { createMountainsStep } from "@mapgen/pipeline/morphology/MountainsStep.j
 export type { MountainsStepOptions, MountainsStepRuntime } from "@mapgen/pipeline/morphology/MountainsStep.js";
 
 export { createVolcanoesStep } from "@mapgen/pipeline/morphology/VolcanoesStep.js";
-export type { VolcanoesStepOptions, VolcanoesStepRuntime } from "@mapgen/pipeline/morphology/VolcanoesStep.js";
+export type { VolcanoesStepOptions } from "@mapgen/pipeline/morphology/VolcanoesStep.js";

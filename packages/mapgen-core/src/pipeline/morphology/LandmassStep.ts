@@ -1,3 +1,4 @@
+import { Type } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import {
@@ -8,7 +9,9 @@ import {
 } from "@mapgen/core/plot-tags.js";
 import { DEV, devWarn, logLandmassAscii } from "@mapgen/dev/index.js";
 import type { ContinentBounds, LandmassConfig } from "@mapgen/bootstrap/types.js";
+import { LandmassConfigSchema } from "@mapgen/config/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { type StepConfigView, withStepConfig } from "@mapgen/pipeline/step-config.js";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,
@@ -17,7 +20,6 @@ import {
 } from "@mapgen/domain/morphology/landmass/index.js";
 
 export interface LandmassStepRuntime {
-  landmassCfg: LandmassConfig;
   westContinent: ContinentBounds;
   eastContinent: ContinentBounds;
 }
@@ -26,6 +28,13 @@ export interface LandmassStepOptions {
   requires: readonly string[];
   provides: readonly string[];
 }
+
+const LandmassStepConfigSchema = Type.Object(
+  {
+    landmass: LandmassConfigSchema,
+  },
+  { additionalProperties: false, default: { landmass: {} } }
+);
 
 function windowToContinentBounds(window: LandmassWindow, continent: number): ContinentBounds {
   return {
@@ -48,74 +57,78 @@ function assignContinentBounds(target: ContinentBounds, src: ContinentBounds): v
 export function createLandmassPlatesStep(
   runtime: LandmassStepRuntime,
   options: LandmassStepOptions
-): MapGenStep<ExtendedMapContext> {
+): MapGenStep<ExtendedMapContext, StepConfigView> {
   return {
     id: "landmassPlates",
     phase: M3_STANDARD_STAGE_PHASE.landmassPlates,
     requires: options.requires,
     provides: options.provides,
-    run: (context) => {
-      assertFoundationContext(context, "landmassPlates");
-      const { width, height } = context.dimensions;
+    configSchema: LandmassStepConfigSchema,
+    run: (context, config) => {
+      withStepConfig(context, config as StepConfigView, () => {
+        assertFoundationContext(context, "landmassPlates");
+        const { width, height } = context.dimensions;
+        const landmassCfg = (context.config.landmass ?? {}) as LandmassConfig;
 
-      const plateResult = createPlateDrivenLandmasses(width, height, context, {
-        landmassCfg: runtime.landmassCfg as LandmassConfig,
-        geometry: runtime.landmassCfg.geometry,
-      });
+        const plateResult = createPlateDrivenLandmasses(width, height, context, {
+          landmassCfg,
+          geometry: landmassCfg.geometry,
+        });
 
-      if (!plateResult?.windows?.length) {
-        throw new Error("Plate-driven landmass generation failed (no windows)");
-      }
-
-      let windows = plateResult.windows.slice();
-
-      const separationResult = applyPlateAwareOceanSeparation({
-        width,
-        height,
-        windows,
-        landMask: plateResult.landMask,
-        context,
-        adapter: context.adapter,
-        crustMode: runtime.landmassCfg.crustMode,
-      });
-      windows = separationResult.windows;
-
-      windows = applyLandmassPostAdjustments(windows, runtime.landmassCfg.geometry, width, height);
-
-      if (DEV.ENABLED && windows.length < 2) {
-        devWarn(
-          `[smoke] landmassPlates produced ${windows.length} window(s); expected >= 2 for west/east continents.`
-        );
-      }
-
-      if (windows.length >= 2) {
-        const first = windows[0];
-        const last = windows[windows.length - 1];
-        if (first && last) {
-          assignContinentBounds(runtime.westContinent, windowToContinentBounds(first, 0));
-          assignContinentBounds(runtime.eastContinent, windowToContinentBounds(last, 1));
+        if (!plateResult?.windows?.length) {
+          throw new Error("Plate-driven landmass generation failed (no windows)");
         }
-      }
 
-      const westMarked = markLandmassRegionId(runtime.westContinent, LANDMASS_REGION.WEST, context.adapter);
-      const eastMarked = markLandmassRegionId(runtime.eastContinent, LANDMASS_REGION.EAST, context.adapter);
-      console.log(
-        `[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`
-      );
+        let windows = plateResult.windows.slice();
 
-      context.adapter.validateAndFixTerrain();
-      context.adapter.recalculateAreas();
-      context.adapter.stampContinents();
+        const separationResult = applyPlateAwareOceanSeparation({
+          width,
+          height,
+          windows,
+          landMask: plateResult.landMask,
+          context,
+          adapter: context.adapter,
+          crustMode: landmassCfg.crustMode,
+        });
+        windows = separationResult.windows;
 
-      const terrainBuilder: TerrainBuilderLike = {
-        setPlotTag: (x, y, tag) => context.adapter.setPlotTag(x, y, tag),
-        addPlotTag: (x, y, tag) => context.adapter.addPlotTag(x, y, tag),
-      };
-      addPlotTagsSimple(height, width, runtime.eastContinent.west, context.adapter, terrainBuilder);
+        windows = applyLandmassPostAdjustments(windows, landmassCfg.geometry, width, height);
 
-      if (DEV.ENABLED && context?.adapter) {
-        logLandmassAscii(context.adapter, width, height);
-      }
+        if (DEV.ENABLED && windows.length < 2) {
+          devWarn(
+            `[smoke] landmassPlates produced ${windows.length} window(s); expected >= 2 for west/east continents.`
+          );
+        }
+
+        if (windows.length >= 2) {
+          const first = windows[0];
+          const last = windows[windows.length - 1];
+          if (first && last) {
+            assignContinentBounds(runtime.westContinent, windowToContinentBounds(first, 0));
+            assignContinentBounds(runtime.eastContinent, windowToContinentBounds(last, 1));
+          }
+        }
+
+        const westMarked = markLandmassRegionId(runtime.westContinent, LANDMASS_REGION.WEST, context.adapter);
+        const eastMarked = markLandmassRegionId(runtime.eastContinent, LANDMASS_REGION.EAST, context.adapter);
+        console.log(
+          `[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`
+        );
+
+        context.adapter.validateAndFixTerrain();
+        context.adapter.recalculateAreas();
+        context.adapter.stampContinents();
+
+        const terrainBuilder: TerrainBuilderLike = {
+          setPlotTag: (x, y, tag) => context.adapter.setPlotTag(x, y, tag),
+          addPlotTag: (x, y, tag) => context.adapter.addPlotTag(x, y, tag),
+        };
+        addPlotTagsSimple(height, width, runtime.eastContinent.west, context.adapter, terrainBuilder);
+
+        if (DEV.ENABLED && context?.adapter) {
+          logLandmassAscii(context.adapter, width, height);
+        }
+      });
     },
   };
 }
