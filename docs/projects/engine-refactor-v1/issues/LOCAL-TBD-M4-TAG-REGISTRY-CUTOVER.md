@@ -192,11 +192,10 @@ Note: many `field:*` buffers are preallocated today, but **tag satisfaction** is
 | `state:engine.placementApplied` | transitional (→ effect) | `M3_DEPENDENCY_TAGS.state.placementApplied` | unverified (satisfied-set) | Replace with `effect:*` in Effects Verification. | Candidate mapping: `effect:engine.placementApplied`. |
 
 Foundation tag note:
-- `artifact:foundation` (monolithic) is **not** part of the target contract; avoid registering it as canonical.
-- **M4 decision:** keep `artifact:foundation` only as an explicit **migration-only** alias (DEF-014) to preserve current M3 behavior while consumers migrate to `artifact:foundation.*`.
-  - Do not allow any new `requires`/`provides` usage of `artifact:foundation`.
-  - If you believe you must add new usage, stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md` documenting why, then ask for confirmation before proceeding.
-  - Remove the alias immediately once the last legacy usage is deleted.
+- **M4 contract:** register monolithic `artifact:foundation` as canonical and migrate all consumers to `ctx.artifacts.foundation` (remove `ctx.foundation` usage).
+  - Allow and prefer `artifact:foundation` in new `requires`/`provides` as part of the surface cutover (LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER).
+  - If you believe you must add new usage that **cannot** migrate to `ctx.artifacts.foundation`, stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md` documenting why, then ask for confirmation before proceeding.
+- **Post-M4 (DEF-014):** split the monolith into discrete `artifact:foundation.*` artifacts and remove the monolithic tag once consumers are migrated.
 
 #### Verification policy to move into the catalog (replacement plan)
 
