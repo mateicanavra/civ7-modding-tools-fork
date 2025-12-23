@@ -34,7 +34,7 @@ Define the canonical `artifact:narrative.*` set and ensure narrative steps publi
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- A narrative pipeline run compiles and executes using the new artifacts.
+- A narrative pipeline run compiles and executes using the new artifacts, and asserts `artifact:narrative.*@v1` outputs are present in `ctx.artifacts`.
 
 ## Dependencies / Notes
 

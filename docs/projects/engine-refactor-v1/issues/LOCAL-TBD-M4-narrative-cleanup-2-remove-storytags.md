@@ -37,7 +37,12 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 
 - `pnpm -C packages/mapgen-core check`
 - A smoke run validates narrative outputs without StoryTags/caches.
-- Targeted smoke coverage for migrated consumers (verify outputs, not just step execution).
+- Targeted smoke coverage for migrated consumers (verify outputs, not just step execution), at minimum:
+  - `domain/morphology/coastlines/rugged-coasts.ts`
+  - `domain/morphology/islands/placement.ts`
+  - `domain/hydrology/climate/refine/*`
+  - `domain/ecology/features/*`
+  - `domain/ecology/biomes/*`
 
 ## Dependencies / Notes
 

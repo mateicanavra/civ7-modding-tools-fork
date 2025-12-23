@@ -35,7 +35,7 @@ Reify engine-derived biome/feature outputs into explicit fields and provide veri
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- One smoke test covers a biomes/features pass with effect verification enabled.
+- One smoke test covers a biomes/features pass with effect verification enabled and asserts `field:biomeId`/`field:featureType` are provided and the effect verifiers pass.
 
 ## Dependencies / Notes
 

@@ -35,7 +35,9 @@ Add the shared tracing foundation (run id, plan fingerprint, step timing) plus p
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- A minimal test asserts trace output when toggles are enabled.
+- A minimal test enables tracing and asserts:
+  - `run.start`/`run.finish` events include `runId` + `planFingerprint`
+  - `step.start`/`step.finish` events are emitted for at least one step
 
 ## Dependencies / Notes
 

@@ -35,7 +35,7 @@ Update placement to consume `artifact:placementInputs@v1` exclusively and provid
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- A stub-adapter placement run passes using the new artifact inputs.
+- A stub-adapter placement run passes using the new artifact inputs and fails fast when `artifact:placementInputs@v1` is missing or invalid.
 
 ## Dependencies / Notes
 

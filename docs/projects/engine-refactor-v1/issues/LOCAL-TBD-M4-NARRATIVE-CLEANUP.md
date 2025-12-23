@@ -58,8 +58,8 @@ This issue closes DEF-002 and DEF-012.
 
 - `pnpm -C packages/mapgen-core check`
 - Add/extend at least one test that:
-  - compiles and runs narrative steps deterministically
-  - validates no global cache leaks between runs
+  - runs the narrative steps twice with the same RunRequest and asserts deterministic `artifact:narrative.*` outputs
+  - validates no cache leakage across runs (per-run caches reset or context-scoped)
 
 ## Dependencies / Notes
 

@@ -61,7 +61,7 @@ M3 still relies on regex/allowlist tag validation and hard-coded verification li
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- Add/extend a test that fails fast on invalid tags or demo payloads.
+- Add/extend a unit test that fails fast when a step references an unknown tag and when a demo payload fails schema validation.
 
 ## Dependencies / Notes
 

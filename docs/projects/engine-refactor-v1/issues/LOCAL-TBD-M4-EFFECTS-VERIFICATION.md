@@ -62,7 +62,7 @@ This issue closes DEF-008.
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- Add or extend one smoke test that exercises each newly-verified effect path under a stub adapter.
+- Add/extend smoke coverage that runs the standard recipe with a stub adapter and asserts each newly-verified `effect:*` path is (a) provided on success and (b) fails loudly when its verifier is forced to fail (e.g., missing reified field or placement output artifact).
 
 ---
 

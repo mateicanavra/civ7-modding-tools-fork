@@ -35,7 +35,7 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- Smoke test compiles and executes the standard recipe with the derive step present.
+- Smoke test compiles and executes the standard recipe with the derive step present and asserts `artifact:placementInputs@v1` is published in context artifacts.
 
 ## Dependencies / Notes
 

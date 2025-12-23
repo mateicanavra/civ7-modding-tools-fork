@@ -35,7 +35,7 @@ Introduce canonical `effect:*` tags for engine-surface mutations and add minimal
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- Any new adapter stubs compile and pass existing test suites.
+- Add/extend a unit test that registers the new `effect:*` tags in the catalog and asserts a failing postcondition surfaces as a clear error (use a stub adapter hook or a forced verifier failure).
 
 ## Dependencies / Notes
 

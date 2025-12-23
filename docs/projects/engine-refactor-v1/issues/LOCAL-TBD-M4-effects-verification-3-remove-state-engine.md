@@ -35,7 +35,7 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- A standard pipeline run succeeds without `state:engine.*` in the dependency graph.
+- A standard pipeline run succeeds and the compiled plan contains no `state:engine.*` tags (requires/provides or registry catalog).
 
 ## Dependencies / Notes
 

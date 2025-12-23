@@ -56,6 +56,7 @@ The accepted engine-boundary policy disallows “read engine later” dependency
 
 - `pnpm -C packages/mapgen-core check`
 - A smoke run validates no implicit engine-global reads remain on the default path.
+- Static guard: `rg -n "GameplayMap|GameInfo|PlotTags|LandmassRegion" packages/mapgen-core/src` only matches explicitly fenced dev/test code (or returns no matches).
 
 ## Dependencies / Notes
 
