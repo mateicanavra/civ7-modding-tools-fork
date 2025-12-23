@@ -20,6 +20,7 @@ dist/
 # CLI outputs
 out/**
 .civ7/**
+packages/cli/oclif.manifest.json
 
 # Docs build output (for Turbo outputs)
 apps/docs/dist/
