@@ -19,7 +19,6 @@ parent_issues:
 
 # M4: Target Architecture Cutover & Legacy Cleanup
 
-> Note: This milestone is being re-baselined after M3 completion. The issue mapping below reflects the current code state and will be refined into issue docs.
 
 ---
 
@@ -133,6 +132,8 @@ Lower-level expectations for config behavior, pipeline contracts, and foundation
 
 > This is the **execution plan** for M4 (unlock/leverage first; keep the repo runnable after each parent). It does **not** introduce new architecture decisions; it operationalizes the ones already accepted in SPEC/SPIKE.
 
+**Legend:** `mode: sequential` = must land before downstream work; `mode: parallel` = can run in parallel once prerequisites are met. `after_issues` indicates recommended sequencing; see **Cross-Issue Dependencies** for hard gates.
+
 #### Phase A — Safety + Boundary Scaffolding
 
 *Goal: unlock visibility and land the core boundary skeleton early.*
@@ -141,10 +142,13 @@ Lower-level expectations for config behavior, pipeline contracts, and foundation
 steps:
   - seq: A.1
     issue: CIV-55
+    mode: sequential
     description: Land boundary/compiler skeleton (RunRequest/RecipeV1/ExecutionPlan compiler scaffold).
 
   - seq: A.2
     issue: CIV-75
+    mode: parallel
+    after_issues: [CIV-55]
     description: Land observability early (step-level tracing foundation).
 ```
 
@@ -156,10 +160,14 @@ steps:
 steps:
   - seq: B.1
     issue: CIV-56
+    mode: parallel
+    after_issues: [CIV-55]
     description: Per-step config plumbing.
 
   - seq: B.2
     issue: CIV-61
+    mode: parallel
+    after_issues: [CIV-55]
     description: >
       Tag registry/validation cutover so: registry-instantiated tag catalog is canonical,
       effect:* is schedulable + verifiable, demo payloads are supported and validated when present.
@@ -173,16 +181,22 @@ steps:
 steps:
   - seq: C.1
     issue: CIV-57
+    mode: sequential
+    after_issues: [CIV-56]
     description: >
       Standard pipeline packaged as a mod-style package + loader/registry wiring
       (own integration touchpoints: CLI/scripts/consumers).
 
   - seq: C.2
     issue: CIV-58
+    mode: sequential
+    after_issues: [CIV-57, CIV-56]
     description: Runtime cutover to RunRequest → ExecutionPlan (TaskGraph consumes plan).
 
   - seq: C.3
     issue: CIV-76
+    mode: sequential
+    after_issues: [CIV-58, CIV-75]
     description: >
       Start smoke tests immediately after cutover (Bun smoke tests + CIV-23 re-scope).
       Treat this as the safety rail for legacy deletion.
@@ -196,68 +210,102 @@ steps:
 steps:
   - seq: D.1
     issue: CIV-59
+    mode: sequential
+    after_issues: [CIV-76]
     description: Delete legacy ordering/enablement/config inputs.
 
   - seq: D.2
     issue: CIV-60
+    mode: sequential
+    after_issues: [CIV-59]
     description: Remove the dual orchestration path.
 
   - seq: D.3
     issue: null
+    mode: sequential
+    after_issues: [CIV-60, CIV-76]
     description: >
       Re-run/confirm smoke tests pass post-deletion; treat this as the "M4 stays runnable" gate.
 ```
 
-#### Phase E — Engine-Surface Contracts
+#### Phase E — Foundation Surface Cutover
+
+*Goal: normalize artifact surfaces before effect verification expands.*
+
+```yaml
+steps:
+  - seq: E.1
+    issue: CIV-62
+    mode: sequential
+    after_issues: [CIV-61, CIV-76]
+    description: Remove ctx.foundation; foundation is a canonical artifact surface.
+```
+
+#### Phase F — Engine-Surface Contracts
 
 *Goal: harden effects + placement (hard knot).*
 
 ```yaml
 steps:
-  - seq: E.1
+  - seq: F.1
     issue: CIV-68
+    mode: sequential
+    after_issues: [CIV-62]
     description: Effect tag catalog + adapter postcondition surfaces.
 
-  - seq: E.2
+  - seq: F.2
     issue: CIV-69
+    mode: parallel
+    after_issues: [CIV-68]
     description: Biomes/features reification and verification.
 
-  - seq: E.3
+  - seq: F.3
     issue: CIV-71
+    mode: parallel
+    after_issues: [CIV-68]
     description: Define artifact:placementInputs@v1.
 
-  - seq: E.4
+  - seq: F.4
     issue: CIV-72
+    mode: sequential
+    after_issues: [CIV-71]
     description: Cut placement over to artifact.
 
-  - seq: E.5
+  - seq: F.5
     issue: CIV-70
+    mode: sequential
+    after_issues: [CIV-72]
     description: Remove state:engine.* (blocked by placement).
 ```
 
-#### Phase F — Narrative + Engine-Global Cleanup
+#### Phase G — Narrative + Engine-Global Cleanup
 
 *Goal: parallelizable cleanup after cutover is complete.*
 
 ```yaml
 steps:
-  - seq: F.1
+  - seq: G.1
     issue: CIV-73
+    mode: sequential
+    after_issues: [CIV-61, CIV-59]
     description: Narrative producers → start after Phase D (legacy deletion) and tag registry cutover.
 
-  - seq: F.2
+  - seq: G.2
     issue: CIV-67
+    mode: parallel
+    after_issues: [CIV-60]
     description: >
       Remove/fence GameplayMap reads, GameInfo module-load lookups,
       PlotTags/LandmassRegion globals as "dependency surfaces".
 
-  - seq: F.3
+  - seq: G.3
     issue: CIV-74
+    mode: sequential
+    after_issues: [CIV-73, CIV-59]
     description: >
       Narrative consumer migration/cache removal → should land after Phase D (legacy deletion)
       to avoid stage/manifest drift while migrating consumers.
 ```
-
 ---
 
 ### Parent Issues
@@ -660,108 +708,6 @@ related_issues:
 These may be split or reassigned across milestones as we refine the execution plan.
 
 ---
-
-### Triage (Draft)
-
-This triage is a **single list of the things that can still make M4 drift**, grouped to avoid duplication. Each item is labeled:
-
-```yaml
-triage_labels:
-  - label: "[MUST]"
-    meaning: Required to meet M4 "no legacy left"
-
-  - label: "[ISSUE]"
-    meaning: Agreed work that still needs a new issue or scope update
-
-  - label: "[NOTE]"
-    meaning: Clarifications/risks to document (no new issue yet)
-
-  - label: "[RESOLVED-DECISION]"
-    meaning: Decision made; align scope/docs
-```
-
----
-
-#### Pipeline Cutover Gaps (ordering, boundary, inputs)
-
-**[MUST][ISSUE]** Cut the runtime boundary to `RunRequest = { recipe, settings }` and compile to `ExecutionPlan` (executor runs the plan only).
-
-**[MUST][ISSUE]** Delete `stageManifest` / `STAGE_ORDER` / `stageConfig` as runtime ordering/enabling inputs. No compatibility shims survive M4 for these surfaces.
-
-**[NOTE]** This ambiguity kept recurring because DEF-004 originally deferred the recipe boundary and the milestone text wasn't fully rewritten after we accepted recipe-only ordering; treat these legacy inputs as deletion-only in M4.
-
-**[MUST][ISSUE]** Remove dual orchestration paths (`MapOrchestrator` vs executor); ensure only the compiled plan path is used and legacy entrypoints are deleted/fenced.
-
-**[MUST][ISSUE]** Add per-step config schema + executor plumbing so steps can accept typed recipe config (CIV-56).
-> This is the replacement for `stageConfig` as the source of step-local knobs (legacy removal is in CIV-59).
-
-**[MUST][ISSUE]** Extract the standard pipeline into a mod-style package + registry/loader wiring (CIV-57); remove hard-wired `standard-library` entrypoints.
-
-**[MUST][ISSUE]** Ensure no runtime/test path still passes `stageFlags`/`shouldRun`; recipe list remains the sole enablement source.
-
-**[RESOLVED-DECISION]** Presets are removed entirely. Canonical entry is recipe + settings selection; no preset resolution/composition remains in M4.
-
-**[MUST][ISSUE]** Delete preset resolution/composition and migrate any usages to explicit recipe+settings selection as the only entry mode (CIV-59).
-
----
-
-#### Registry + Tag Language Gaps (needed for effects + "no legacy left")
-
-**[MUST][ISSUE]** Replace the M3 fixed allowlist + regex tag validation and executor hard-coded "verified provides" list with the accepted canonical model:
-- registry-instantiated tag catalog (fields/artifacts/effects)
-- hard collision errors
-- optional demo payload validation
-- registry-driven verification
-- first-class schedulable `effect:*` namespace
-
-> **Ownership:** CIV-61 (new parent; Phase B).
-
----
-
-#### Effects + `state:engine.*` Cleanup (DEF-008)
-
-**[MUST][ISSUE]** Remove `state:engine.*` from the *standard pipeline* dependency surface entirely.
-> If M4 only replaces biomes/features/placement, landmass/coastlines/rivers still leave trusted, unverified scheduling edges → legacy remains.
-
----
-
-#### Narrative/Playability Cleanup (DEF-002 / DEF-012)
-
-**[MUST][ISSUE]** Replace `artifact:storyOverlays` + StoryTags as the canonical surface with typed `artifact:narrative.*` products, and migrate all in-repo consumers.
-
-**[MUST][ISSUE]** Remove module-level narrative caches/globals (or make them context-owned artifacts keyed to the run). Resetting caches at the orchestrator boundary is a smell to eliminate, not a stable target contract.
-
----
-
-#### Engine Boundary Gaps (adapter-only + reification-first)
-
-**[MUST][ISSUE]** Eliminate direct engine-global reads as dependency surfaces (or fence them behind adapter/runtime surfaces, with dev/test-only tooling isolated).
-
-> **Ownership:** CIV-67 (new parent; Phase F).
-
----
-
-#### Testing / Runner / Observability Alignment
-
-**[RESOLVED-DECISION]** Tests for `mapgen-core` use Bun's test runner (invoked via pnpm). Vitest migration, if any, is explicitly post-M4.
-
-**[MUST][ISSUE]** Smoke tests should compile + run the default recipe/plan under a stub adapter and cover the key cutover invariants.
-
-**[MUST][ISSUE]** Plan fingerprint/runId determinism needs an explicit, stable hash/serialization strategy for `settings + recipe + per-step config` so CI does not flake and traces can be correlated.
-> **Ownership:** CIV-66 (CIV-75).
-
----
-
-#### Risks / Potential Derailers
-
-**[NOTE]** Effect verification can balloon if postconditions are missing/expensive. Keep checks minimal and adapter-friendly; prefer "cheap invariants" over full-map scans.
-
-**[NOTE]** Narrative consumer migration can accidentally change outputs (StoryTags removal). Require targeted smoke coverage around the migrated consumers (not just "narrative steps ran").
-
-**[NOTE]** Placement inputs may still require some engine-only reads; if so, ensure those reads are reified immediately and treated as explicit prerequisites (no "read engine later" coupling).
-
----
-
 
 ## Part III: End-State Outcome
 
