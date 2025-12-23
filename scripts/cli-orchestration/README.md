@@ -16,10 +16,15 @@ This folder hosts the v0 orchestration thin slice (single-issue dev loop). It is
 bun run scripts/cli-orchestration/orchestrate.ts --milestone M1 --project cli-orchestration-v0 --issue LOCAL-TBD
 ```
 
+```bash
+bun run scripts/cli-orchestration/orchestrate.ts --milestone M1 --project cli-orchestration-v0 --dry-run
+```
+
 ### What to look for
 
 - Logs written under `logs/orch/<milestone>/<issue>/`.
 - A `dev-result.json` file containing the structured output from `dev-auto-parallel`.
+  - In `--dry-run` mode, the plan output includes issue IDs, doc paths, and derived worktree + branch names.
 
 ## Notes
 
