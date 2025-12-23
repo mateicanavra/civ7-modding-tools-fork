@@ -2,11 +2,13 @@ import { describe, it, expect } from "bun:test";
 import { bootstrap } from "@mapgen/bootstrap/entry.js";
 import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
 import { createMockAdapter } from "@civ7/adapter/mock";
+import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
+import { STANDARD_RECIPE_STEP_IDS } from "@mapgen/mods/standard/recipes/default.js";
 
 /**
  * Minimal integration to pin the canonical config → orchestrator path.
  *
- * We disable all stage execution via stageConfig to avoid layer dependencies
+ * We disable all stage execution via a recipe override to avoid layer dependencies
  * and supply a no-op adapter. The goal is to verify that generateMap() can run
  * end-to-end with schema-defaulted config, not to exercise the full layer pipeline.
  */
@@ -32,14 +34,16 @@ describe("integration: bootstrap → orchestrator (stages disabled)", () => {
       mapInfo,
     });
 
-    const config = bootstrap({
-      // Disable all stages so we only exercise orchestrator scaffolding.
-      stageConfig: {},
-    });
+    const config = bootstrap();
+    const recipeOverride: RecipeV1 = {
+      schemaVersion: 1,
+      steps: STANDARD_RECIPE_STEP_IDS.map((id) => ({ id, enabled: false })),
+    };
 
     const orchestrator = new MapOrchestrator(config, {
       adapter,
       logPrefix: "[TEST]",
+      recipeOverride,
     });
 
     const result = orchestrator.generateMap();

@@ -15,36 +15,31 @@
  * Architecture:
  * - Uses lazy bootstrap system for configuration
  * - Creates ExtendedMapContext with EngineAdapter
- * - Executes stage manifest in order, respecting requires/provides
- * - Stages are enabled/disabled via configuration
+ * - Compiles a RunRequest into an ExecutionPlan from a recipe
+ * - Stages are enabled/disabled via recipe step flags (not stageConfig)
  *
  * Usage (in mod entry point):
- *   import { bootstrap, MapOrchestrator } from '@swooper/mapgen-core';
+ *   import { bootstrap, MapOrchestrator, standardMod } from "@swooper/mapgen-core";
  *
  *   engine.on('RequestMapInitData', () => {
- *     const config = bootstrap({ stageConfig: { foundation: true } });
- *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
+ *     const config = bootstrap({ presets: ["classic"] });
+ *     const orchestrator = new MapOrchestrator(config, { logPrefix: "[MOD]" });
  *     orchestrator.requestMapData();
  *   });
  *
- *   engine.on('GenerateMap', () => {
- *     const config = bootstrap({
- *       stageConfig: {
- *         foundation: true,
- *         landmassPlates: true,
- *         coastlines: true,
- *         mountains: true,
- *         volcanoes: true,
- *         climateBaseline: true,
- *         rivers: true,
- *         climateRefine: true,
- *         biomes: true,
- *         features: true,
- *         placement: true,
- *       },
- *       overrides: { ... },
+ *   engine.on("GenerateMap", () => {
+ *     const config = bootstrap({ presets: ["classic"], overrides: { ... } });
+ *     const recipe = {
+ *       schemaVersion: 1,
+ *       steps: standardMod.recipes.default.steps.map((step) => ({
+ *         ...step,
+ *         enabled: step.id === "foundation" || step.id === "landmassPlates",
+ *       })),
+ *     };
+ *     const orchestrator = new MapOrchestrator(config, {
+ *       logPrefix: "[MOD]",
+ *       recipeOverride: recipe,
  *     });
- *     const orchestrator = new MapOrchestrator(config, { logPrefix: '[MOD]' });
  *     orchestrator.generateMap();
  *   });
  */

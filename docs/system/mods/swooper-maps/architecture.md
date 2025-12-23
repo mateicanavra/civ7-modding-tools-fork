@@ -4,35 +4,30 @@
 
 This mod uses a **preset + overrides** configuration system that allows multiple map variants to share a single codebase while having different behaviors through declarative configuration.
 
-## Current TypeScript Architecture (M3)
+## Current TypeScript Architecture (M4)
 
-- Entry scripts call `bootstrap({ presets, overrides, stageConfig })` from `@swooper/mapgen-core/bootstrap` and receive a validated `MapGenConfig`.
+- Entry scripts call `bootstrap({ presets, overrides })` from `@swooper/mapgen-core/bootstrap` and receive a validated `MapGenConfig`.
 - `MapOrchestrator` is constructed with that validated config and creates a per-run `MapGenContext` carrying it at `context.config`.
 - Steps/layers read config from `context.config` (no global runtime config store, no `bootstrap/tunables` module).
-- In M3, stages default to disabled; pass an explicit `stageConfig` for the recipe you want to run.
+- In M4, stage enablement is recipe-driven; `stageConfig` no longer disables steps.
 
 Example (minimal runnable pipeline):
 ```ts
-import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
+import { bootstrap, MapOrchestrator, standardMod } from "@swooper/mapgen-core";
 
 const config = bootstrap({
   presets: ["classic"],
-  stageConfig: {
-    foundation: true,
-    landmassPlates: true,
-    coastlines: true,
-    mountains: true,
-    volcanoes: true,
-    climateBaseline: true,
-    rivers: true,
-    climateRefine: true,
-    biomes: true,
-    features: true,
-    placement: true,
-  },
 });
 
-new MapOrchestrator(config).generateMap();
+const recipe = {
+  schemaVersion: 1,
+  steps: standardMod.recipes.default.steps.map((step) => ({
+    ...step,
+    enabled: step.id === "foundation" || step.id === "landmassPlates",
+  })),
+};
+
+new MapOrchestrator(config, { recipeOverride: recipe }).generateMap();
 ```
 
 ## Legacy JS Architecture (Archived)
@@ -105,8 +100,8 @@ These are the files CIV VII actually loads. Each represents a different map vari
 ```javascript
 import { bootstrap } from "./bootstrap/entry.js";
 bootstrap({
-    // Note: for the current TypeScript/M3 architecture, stages default to disabled;
-    // include an explicit stageConfig (or use a preset that sets one) to run stages.
+    // Note: for the current TypeScript/M4 architecture, stage enablement is recipe-driven;
+    // include a recipe override if you need a minimal or custom stage set.
     presets: ["classic"],           // or ["temperate"], etc.
     overrides: { /* optional */ }   // variant-specific tweaks
 });
