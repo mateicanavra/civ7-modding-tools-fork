@@ -1,17 +1,17 @@
 ---
-id: LOCAL-TBD-M4-EFFECTS-2
+id: CIV-69
 title: "[M4] Effects verification: biomes + features reify fields and verify effects"
 state: planned
 priority: 2
 estimate: 8
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Validation]
-parent: LOCAL-TBD-M4-EFFECTS-VERIFICATION
+parent: CIV-63
 children: []
-blocked_by: [LOCAL-TBD-M4-EFFECTS-1]
-blocked: [LOCAL-TBD-M4-EFFECTS-3]
+blocked_by: [CIV-68]
+blocked: [CIV-70]
 related_to: [CIV-47]
 ---
 

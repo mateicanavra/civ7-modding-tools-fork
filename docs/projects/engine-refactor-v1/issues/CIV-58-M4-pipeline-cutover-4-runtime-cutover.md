@@ -1,17 +1,17 @@
 ---
-id: LOCAL-TBD-M4-PIPELINE-4
+id: CIV-58
 title: "[M4] Pipeline cutover: standard mod recipe + runtime cutover to ExecutionPlan"
 state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Cleanup]
-parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
+parent: CIV-54
 children: []
-blocked_by: [LOCAL-TBD-M4-PIPELINE-2, LOCAL-TBD-M4-PIPELINE-3]
-blocked: [LOCAL-TBD-M4-PIPELINE-5]
+blocked_by: [CIV-56, CIV-57]
+blocked: [CIV-59]
 related_to: [CIV-41, CIV-48]
 ---
 

@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD-M4-PLACEMENT-2
+id: CIV-72
 title: "[M4] Placement inputs: cut placement over to artifact + verified effect"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Placement]
-parent: LOCAL-TBD-M4-PLACEMENT-INPUTS
+parent: CIV-64
 children: []
-blocked_by: [LOCAL-TBD-M4-PLACEMENT-1]
+blocked_by: [CIV-71]
 blocked: []
-related_to: [LOCAL-TBD-M4-EFFECTS-VERIFICATION]
+related_to: [CIV-63]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->

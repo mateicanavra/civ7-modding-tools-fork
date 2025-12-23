@@ -1,11 +1,11 @@
 ---
-id: LOCAL-TBD-M4-ENGINE-BOUNDARY-CLEANUP
+id: CIV-67
 title: "[M4] Engine boundary cleanup: remove engine-global dependency surfaces"
 state: planned
 priority: 3
 estimate: 8
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Cleanup]
 parent: null

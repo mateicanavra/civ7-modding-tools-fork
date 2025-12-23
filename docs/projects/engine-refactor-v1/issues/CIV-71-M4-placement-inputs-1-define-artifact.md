@@ -1,17 +1,17 @@
 ---
-id: LOCAL-TBD-M4-PLACEMENT-1
+id: CIV-71
 title: "[M4] Placement inputs: define artifact:placementInputs@v1 + derive step"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Placement]
-parent: LOCAL-TBD-M4-PLACEMENT-INPUTS
+parent: CIV-64
 children: []
 blocked_by: []
-blocked: [LOCAL-TBD-M4-PLACEMENT-2]
+blocked: [CIV-72]
 related_to: []
 ---
 

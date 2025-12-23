@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER
+id: CIV-62
 title: "[M4] Foundation surface cutover: `ctx.artifacts.foundation` + `artifact:foundation` (remove `ctx.foundation`)"
 state: planned
 priority: 2
 estimate: 6
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Foundation]
 parent: null
 children: []
-blocked_by: [LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER]
+blocked_by: [CIV-61]
 blocked: []
-related_to: [LOCAL-TBD-M4-SAFETY-NET]
+related_to: [CIV-66]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->

@@ -1,17 +1,17 @@
 ---
-id: LOCAL-TBD-M4-NARRATIVE-1
+id: CIV-73
 title: "[M4] Narrative cleanup: canonical artifact:narrative.* producers"
 state: planned
 priority: 3
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Narrative]
-parent: LOCAL-TBD-M4-NARRATIVE-CLEANUP
+parent: CIV-65
 children: []
 blocked_by: []
-blocked: [LOCAL-TBD-M4-NARRATIVE-2]
+blocked: [CIV-74]
 related_to: [CIV-43]
 ---
 

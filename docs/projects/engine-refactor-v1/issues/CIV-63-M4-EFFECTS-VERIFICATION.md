@@ -1,16 +1,16 @@
 ---
-id: LOCAL-TBD-M4-EFFECTS-VERIFICATION
+id: CIV-63
 title: "[M4] Effects verification: replace state:engine.* with verified effect:* + reification"
 state: planned
 priority: 2
 estimate: 16
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Validation]
 parent: null
-children: [LOCAL-TBD-M4-EFFECTS-1, LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-EFFECTS-3]
-blocked_by: [LOCAL-TBD-M4-PIPELINE-CUTOVER, LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER]
+children: [CIV-68, CIV-69, CIV-70]
+blocked_by: [CIV-54, CIV-61]
 blocked: []
 related_to: [CIV-47]
 ---

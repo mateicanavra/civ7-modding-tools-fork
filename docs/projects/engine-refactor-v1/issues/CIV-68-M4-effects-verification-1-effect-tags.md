@@ -1,17 +1,17 @@
 ---
-id: LOCAL-TBD-M4-EFFECTS-1
+id: CIV-68
 title: "[M4] Effects verification: define effect:* tags + adapter postcondition surfaces"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Validation]
-parent: LOCAL-TBD-M4-EFFECTS-VERIFICATION
+parent: CIV-63
 children: []
 blocked_by: []
-blocked: [LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-EFFECTS-3]
+blocked: [CIV-69, CIV-70]
 related_to: [CIV-47]
 ---
 

@@ -1,16 +1,16 @@
 ---
-id: LOCAL-TBD-M4-NARRATIVE-2
+id: CIV-74
 title: "[M4] Narrative cleanup: remove StoryTags + caches and update consumers"
 state: planned
 priority: 3
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Narrative]
-parent: LOCAL-TBD-M4-NARRATIVE-CLEANUP
+parent: CIV-65
 children: []
-blocked_by: [LOCAL-TBD-M4-NARRATIVE-1, LOCAL-TBD-M4-PIPELINE-5]
+blocked_by: [CIV-73, CIV-59]
 blocked: []
 related_to: [CIV-43]
 ---

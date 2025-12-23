@@ -1,16 +1,16 @@
 ---
-id: LOCAL-TBD-M4-SAFETY-NET
+id: CIV-66
 title: "[M4] Safety net: observability baseline + CI smoke tests"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Testing, Observability]
 parent: null
-children: [LOCAL-TBD-M4-SAFETY-1, LOCAL-TBD-M4-SAFETY-2]
-blocked_by: [LOCAL-TBD-M4-PIPELINE-1]
+children: [CIV-75, CIV-76]
+blocked_by: [CIV-55]
 blocked: []
 related_to: [CIV-23]
 ---

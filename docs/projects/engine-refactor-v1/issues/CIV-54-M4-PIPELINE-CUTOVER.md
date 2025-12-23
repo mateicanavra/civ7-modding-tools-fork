@@ -1,15 +1,15 @@
 ---
-id: LOCAL-TBD-M4-PIPELINE-CUTOVER
+id: CIV-54
 title: "[M4] Pipeline cutover: RunRequest + Recipe → ExecutionPlan (remove stageManifest/STAGE_ORDER inputs)"
 state: planned
 priority: 1
 estimate: 16
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Cleanup]
 parent: null
-children: [LOCAL-TBD-M4-PIPELINE-1, LOCAL-TBD-M4-PIPELINE-2, LOCAL-TBD-M4-PIPELINE-3, LOCAL-TBD-M4-PIPELINE-4, LOCAL-TBD-M4-PIPELINE-5, LOCAL-TBD-M4-PIPELINE-6]
+children: [CIV-55, CIV-56, CIV-57, CIV-58, CIV-59, CIV-60]
 blocked_by: []
 blocked: []
 related_to: [CIV-41, CIV-48, CIV-53]

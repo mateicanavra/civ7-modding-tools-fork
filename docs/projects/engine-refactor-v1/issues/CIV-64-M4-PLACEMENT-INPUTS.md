@@ -1,16 +1,16 @@
 ---
-id: LOCAL-TBD-M4-PLACEMENT-INPUTS
+id: CIV-64
 title: "[M4] Placement inputs: publish artifact:placementInputs@v1 and cut placement to consume it"
 state: planned
 priority: 2
 estimate: 8
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Placement]
 parent: null
-children: [LOCAL-TBD-M4-PLACEMENT-1, LOCAL-TBD-M4-PLACEMENT-2]
-blocked_by: [LOCAL-TBD-M4-PIPELINE-CUTOVER, LOCAL-TBD-M4-EFFECTS-1]
+children: [CIV-71, CIV-72]
+blocked_by: [CIV-54, CIV-68]
 blocked: []
 related_to: []
 ---

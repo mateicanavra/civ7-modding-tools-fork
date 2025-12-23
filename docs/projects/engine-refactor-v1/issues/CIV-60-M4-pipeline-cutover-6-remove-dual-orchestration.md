@@ -1,16 +1,16 @@
 ---
-id: LOCAL-TBD-M4-PIPELINE-6
+id: CIV-60
 title: "[M4] Pipeline cutover: remove dual orchestration path (MapOrchestrator vs executor)"
 state: planned
 priority: 1
 estimate: 0
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Cleanup]
-parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
+parent: CIV-54
 children: []
-blocked_by: [LOCAL-TBD-M4-PIPELINE-4]
+blocked_by: [CIV-58]
 blocked: []
 related_to: [CIV-41, CIV-48]
 ---

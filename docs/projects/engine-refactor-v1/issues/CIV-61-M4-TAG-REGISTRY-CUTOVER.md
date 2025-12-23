@@ -1,11 +1,11 @@
 ---
-id: LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER
+id: CIV-61
 title: "[M4] Tag registry cutover: registry-instantiated catalog + validation (effect:* schedulable)"
 state: planned
 priority: 2
 estimate: 8
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Validation]
 parent: null

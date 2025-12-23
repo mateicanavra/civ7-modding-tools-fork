@@ -1,15 +1,15 @@
 ---
-id: LOCAL-TBD-M4-NARRATIVE-CLEANUP
+id: CIV-65
 title: "[M4] Narrative/playability cleanup: canonical artifact:narrative.*; remove StoryTags and caches"
 state: planned
 priority: 3
 estimate: 8
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Narrative]
 parent: null
-children: [LOCAL-TBD-M4-NARRATIVE-1, LOCAL-TBD-M4-NARRATIVE-2]
+children: [CIV-73, CIV-74]
 blocked_by: []
 blocked: []
 related_to: [CIV-43]

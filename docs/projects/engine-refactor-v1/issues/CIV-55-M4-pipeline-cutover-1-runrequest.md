@@ -1,17 +1,17 @@
 ---
-id: LOCAL-TBD-M4-PIPELINE-1
+id: CIV-55
 title: "[M4] Pipeline cutover: introduce RunRequest + RecipeV1 + ExecutionPlan compiler"
 state: planned
 priority: 1
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Cleanup]
-parent: LOCAL-TBD-M4-PIPELINE-CUTOVER
+parent: CIV-54
 children: []
 blocked_by: []
-blocked: [LOCAL-TBD-M4-PIPELINE-2]
+blocked: [CIV-56]
 related_to: [CIV-41, CIV-48]
 ---
 

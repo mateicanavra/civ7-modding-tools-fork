@@ -1,17 +1,17 @@
 ---
-id: LOCAL-TBD-M4-SAFETY-1
+id: CIV-75
 title: "[M4] Safety net: step-level tracing foundation"
 state: planned
 priority: 2
 estimate: 2
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Observability]
-parent: LOCAL-TBD-M4-SAFETY-NET
+parent: CIV-66
 children: []
-blocked_by: [LOCAL-TBD-M4-PIPELINE-1]
-blocked: [LOCAL-TBD-M4-SAFETY-2]
+blocked_by: [CIV-55]
+blocked: [CIV-76]
 related_to: []
 ---
 

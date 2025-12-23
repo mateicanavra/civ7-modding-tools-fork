@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD-M4-EFFECTS-3
+id: CIV-70
 title: "[M4] Effects verification: remove state:engine surface + close DEF-008"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 assignees: []
 labels: [Architecture, Validation]
-parent: LOCAL-TBD-M4-EFFECTS-VERIFICATION
+parent: CIV-63
 children: []
-blocked_by: [LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-PLACEMENT-INPUTS]
+blocked_by: [CIV-69, CIV-64]
 blocked: []
-related_to: [LOCAL-TBD-M4-PLACEMENT-INPUTS]
+related_to: [CIV-64]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
