@@ -176,3 +176,19 @@ Concrete enablement rules observed today that require explicit handling:
   - compile an `ExecutionPlan`
   - execute the plan (no stageManifest-derived recipe list)
 - Ensure no runtime path consults `stageManifest` / `STAGE_ORDER` / `stageConfig` to alter ordering or enablement.
+
+## Implementation Decisions
+
+### RunRequest merges recipe config over MapGenConfig defaults
+- Context: Runtime constructs a `RunRequest` from the standard mod recipe while still deriving per-step config from `MapGenConfig`.
+- Options: Use `MapGenConfig` only, use recipe step config only, or merge the two.
+- Choice: Merge, with recipe step config overriding the derived defaults.
+- Rationale: Preserves existing defaults while allowing recipe-authored overrides.
+- Risk: Merge is shallow; deep override semantics may need a follow-up if recipes become richer.
+
+### Dependency descriptors sourced from the standard spine
+- Context: Runtime no longer consults `stageManifest`, but standard steps still need `requires`/`provides`.
+- Options: Keep `stageManifest` descriptors, hardcode empty dependencies, or use `M3_STAGE_DEPENDENCY_SPINE`.
+- Choice: Use `M3_STAGE_DEPENDENCY_SPINE`.
+- Rationale: Keeps dependency tags aligned with the canonical standard pipeline without legacy manifests.
+- Risk: Recipe-specific dependency changes will need explicit support later.
