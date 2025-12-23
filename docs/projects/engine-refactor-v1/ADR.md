@@ -135,22 +135,27 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - `resources/SPIKE-target-architecture-draft.md` (§2.8)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Triage “Registry + Tag Language Gaps”)
 
-## ADR-ER1-007: Foundation surface is discrete artifacts; `FoundationContext` is compat-only (DEF-014)
+## ADR-ER1-007: Foundation surface is artifact-based; M4 uses monolithic `artifact:foundation` (split deferred per DEF-014)
 
 **Status:** Accepted
 **Date:** 2025-12-21
-**Context:** M2 established a stable slice contract centered on `ctx.foundation`/`FoundationContext`, while target docs require explicit artifact boundaries; without a decision, consumers drift toward the monolith.
+**Update (2025-12-23):** M4 keeps the foundation payload monolithic but moves it onto the artifacts surface (`artifact:foundation` at `ctx.artifacts.foundation`) and removes `ctx.foundation`. The split into `artifact:foundation.*` sub-artifacts remains deferred (DEF-014).
+**Context:** M2 established a stable slice contract centered on `ctx.foundation`/`FoundationContext`, while the target architecture requires artifact-based contracts. M4 must align external surfaces without taking on the heavier “split foundation into many artifacts” refactor.
 **Decision:**
-- Foundation outputs are published as discrete `artifact:*` products (not a monolithic `FoundationContext`).
-- Any `FoundationContext`-like object is derived/migration-only compatibility wiring.
-- Storage layout is decided: canonical storage lives under `context.artifacts.foundation.*`, but dependencies are expressed via explicit `artifact:*` tags (no “blob dependency”).
+- **M4 contract:** foundation is a monolithic artifact:
+  - dependency tag: `artifact:foundation`
+  - canonical storage: `context.artifacts.foundation`
+  - `ctx.foundation` is removed as a top-level surface.
+- **Post-M4 end-state (DEF-014):** foundation is represented as discrete `artifact:foundation.*` products and the monolithic `artifact:foundation` dependency is removed once consumers migrate.
+- Storage layout is still decided: the foundation namespace lives under `context.artifacts.foundation` (M4 monolith examples: `.plates`, `.dynamics`; post-M4 split examples: `.mesh` and peers). M4 keeps the payload monolithic; the split into separately-tagged sub-artifacts is explicitly deferred.
 **Consequences:**
-- New work must not add dependencies on `ctx.foundation.*`.
-- The cutover off `ctx.foundation` is tracked as deferral `DEF-014` (migration timing), but the contract direction is locked.
+- New work must not add dependencies on `ctx.foundation.*` (disallowed surface).
+- In M4, new work that depends on foundation must depend on `artifact:foundation` (monolithic) via `ctx.artifacts`.
+- DEF-014 tracks the post-M4 split into discrete `artifact:foundation.*` artifacts and the follow-on consumer migration.
 **Sources:**
-- `resources/SPEC-target-architecture-draft.md` (1.4 foundation notes; decision 3.3)
-- `resources/SPIKE-target-architecture-draft.md` (§2.3)
-- `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Out of Scope list; Triage “Engine Boundary Gaps”/end-state outcomes)
+- `resources/SPEC-target-architecture-draft.md` (Context/dependency tags; foundation surface section)
+- `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope + parent issues)
+- `issues/LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER.md` (implementation ownership)
 
 ## ADR-ER1-008: Narrative/playability contract is typed narrative artifacts; no `StoryTags`; no narrative globals
 
@@ -246,7 +251,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Tests for `mapgen-core` use Bun’s test runner (invoked via pnpm) for M4; any Vitest migration is explicitly post-M4.
 - Explicit M4 exclusions (post-M4 work):
   - rainfall ownership transfer / climate prerequisite reification (`DEF-010`)
-  - foundation artifacts refactor cutover off `ctx.foundation` (`DEF-014`)
+  - foundation artifact split into discrete `artifact:foundation.*` products (`DEF-014`)
   - recipe UI / mod patch tooling beyond “pick a recipe and run it”
   - algorithm modernization work (morphology/hydrology/ecology)
 - Doc-only JS archives under `docs/**/_archive/*` are acceptable to keep; no M4 cleanup required.

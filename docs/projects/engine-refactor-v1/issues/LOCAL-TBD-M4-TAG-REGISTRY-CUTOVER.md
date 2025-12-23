@@ -142,7 +142,8 @@ Files:
 
 Current behavior:
 - Some tags have **concrete satisfaction checks**:
-  - `artifact:foundation` checks `context.foundation` (legacy; target is `ctx.artifacts.foundation.*` per SPEC 3.3 / DEF-014)
+  - `artifact:foundation` checks `context.foundation`
+    - **M4 target:** remove this special-case; `artifact:foundation` must be satisfied/verified via `ctx.artifacts` (see LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER).
   - `artifact:heightfield` checks `context.artifacts.get(tag)` shape (typed arrays)
   - `artifact:climateField` checks `context.artifacts.get(tag)` shape (typed arrays)
   - `artifact:storyOverlays` checks `context.overlays.size > 0`

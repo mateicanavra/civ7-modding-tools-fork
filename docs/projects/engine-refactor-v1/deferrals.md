@@ -148,19 +148,23 @@ Each deferral follows this structure:
 
 ---
 
-## DEF-014: Foundation Graph Artifacts (Replace `FoundationContext`)
+## DEF-014: Foundation Graph Artifacts (Split `artifact:foundation.*` sub-artifacts)
 
 **Deferred:** 2025-12-18  
-**Trigger:** After M4 lands the foundation **surface cutover** (no `ctx.foundation`; foundation is surfaced via `ctx.artifacts.foundation.*` + `artifact:foundation.*`), when Phase B / foundation PRD work begins and we can replace the Phase A compatibility backing with real foundation products.  
-**Context:** M4 is allowed to keep a `FoundationContext`-like snapshot as *internal* compatibility wiring, but the contract surface is already the discrete `artifact:foundation.*` set. This deferral tracks the post-M4 work to (a) define stable contracts/schemas and (b) remove the compatibility snapshot by replacing it with real producers.  
-**Decision status (locked):** The target foundation surface is **discrete** `artifact:foundation.*` products; any `FoundationContext`-like object is migration-only compatibility wiring and must be deleted once no longer needed.
+**Trigger:** After M4 lands the foundation **surface cutover** (monolithic `artifact:foundation` at `ctx.artifacts.foundation`, no `ctx.foundation`), when Phase B / foundation PRD work begins and consumers are ready to migrate to the discrete foundation artifact inventory.  
+**Context:** M4 intentionally keeps the foundation payload monolithic (as `artifact:foundation`) to align external surfaces with the target architecture without taking on the heavier “split into many artifacts” work. The accepted end-state is still discrete, named foundation artifacts; this deferral tracks the post-M4 split and the follow-on consumer migration.  
+**Decision status (locked):**
+- **M4 contract:** foundation is a monolithic artifact (`artifact:foundation`) stored at `ctx.artifacts.foundation`; `ctx.foundation` is removed (owned by `LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER`).
+- **Post-M4 end-state:** foundation is represented as **discrete** `artifact:foundation.*` products, and the monolithic `artifact:foundation` blob is removed once no longer needed.
 **Scope:**
-- Finalize/own the `artifact:foundation.*` contracts (schemas + invariants).
-- Replace any `FoundationContext`-backed compatibility wiring with real producers for the discrete artifacts.
+- Define the canonical discrete foundation artifact set (mesh, crust, plateGraph, tectonics, and any required raster artifacts).
+- Publish those discrete artifacts under `artifact:foundation.*` with explicit contracts.
+- Migrate consumers from the monolithic `artifact:foundation` / `ctx.artifacts.foundation` surface to the discrete artifacts/fields with named contracts.
+- Remove the monolithic `artifact:foundation` dependency once the discrete inventory is complete.
 - Revisit plate/physics algorithm replacement to the mesh/crust/plateGraph/tectonics design.
 - Decide whether `dynamics` remains a concept and how its data is represented post-migration.  
 **Impact:**
-- In M4, foundation artifacts may be backed by a monolithic compatibility snapshot, which can limit fine-grained verification/scheduling until Phase B replaces it.
+- Foundation dependencies remain coarse-grained in M4 (one blob artifact), which blocks fine-grained scheduling/verification until the split lands.
 - Target graph artifacts and algorithm replacements are deferred, limiting foundation-level refactors until Phase B.
 
 ---

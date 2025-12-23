@@ -92,6 +92,7 @@ Lower-level expectations for config behavior, pipeline contracts, and foundation
 - Remove remaining legacy globals and compatibility shims:
   - StoryTags compatibility layer (DEF-002) and remaining story caches (DEF-012).
   - WorldModel bridge paths and direct `GameplayMap` reads in mapgen-core.
+  - Foundation compatibility surface: remove `ctx.foundation`; foundation is addressed via `ctx.artifacts.foundation` / `artifact:foundation` (LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER).
 - Complete remaining JS/TS cleanup in engine paths.
 
 ### Out of Scope (Explicit)
@@ -334,7 +335,27 @@ closes: null
 
 ---
 
-#### 3. Effects Verification
+#### 3. Foundation Surface Cutover
+
+```yaml
+id: LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER
+title: "Remove ctx.foundation; foundation is monolithic artifact:foundation at ctx.artifacts.foundation"
+estimate: 6
+doc: ../issues/LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER.md
+closes: null
+```
+
+**Outcome:** Foundation is “just another artifact” on the target architecture surface: `artifact:foundation` is satisfied/verified via `ctx.artifacts`, and there is no top-level `ctx.foundation` surface.
+
+**Acceptance:**
+
+- `ctx.foundation` is removed from the context surface (types + runtime object); no in-repo consumer reads it.
+- `artifact:foundation` is satisfied/verified via `ctx.artifacts` (no `context.foundation` special-cases).
+- The foundation payload remains monolithic in M4; the split into `artifact:foundation.*` remains deferred per DEF-014.
+
+---
+
+#### 4. Effects Verification
 
 ```yaml
 id: LOCAL-TBD-M4-EFFECTS-VERIFICATION
@@ -370,7 +391,7 @@ children:
 
 ---
 
-#### 4. Placement Inputs
+#### 5. Placement Inputs
 
 ```yaml
 id: LOCAL-TBD-M4-PLACEMENT-INPUTS
@@ -403,7 +424,7 @@ children:
 
 ---
 
-#### 5. Narrative Cleanup
+#### 6. Narrative Cleanup
 
 ```yaml
 id: LOCAL-TBD-M4-NARRATIVE-CLEANUP
@@ -438,7 +459,7 @@ children:
 
 ---
 
-#### 6. Safety Net
+#### 7. Safety Net
 
 ```yaml
 id: LOCAL-TBD-M4-SAFETY-NET
@@ -474,7 +495,7 @@ children:
 
 ---
 
-#### 7. Engine Boundary Cleanup
+#### 8. Engine Boundary Cleanup
 
 ```yaml
 id: LOCAL-TBD-M4-ENGINE-BOUNDARY-CLEANUP
@@ -502,6 +523,12 @@ dependencies:
   - from: SAFETY-NET
     to: PIPELINE-1
     reason: Compiler/plan must exist for plan fingerprint + compile/execute smoke tests.
+
+  - from: TAG-REGISTRY-CUTOVER
+    to: FOUNDATION-SURFACE-CUTOVER
+    reason: >
+      Foundation must be a normal registered `artifact:*` dependency satisfied/verified via `ctx.artifacts`.
+      Tag registry cutover provides the registry-driven artifact verification path.
 
   - from: PIPELINE-4
     to: PIPELINE-2
@@ -548,6 +575,11 @@ estimates:
       Replace regex/allowlist validation with registry-instantiated tag catalog + verification;
       wire demo payload validation; make effect:* schedulable.
 
+  - parent: Foundation Surface Cutover
+    estimate: 6
+    complexity_notes: >
+      Mechanical but cross-cutting consumer migration; ensure no compatibility surface (`ctx.foundation`) survives M4.
+
   - parent: Effects Verification
     estimate: 16
     complexity_notes: >
@@ -579,7 +611,7 @@ estimates:
       dependency surfaces; keep failures explicit.
 ```
 
-**Revised total: 68** (vs 28 original, vs 64 if file-count-inflated).
+**Revised total: 74** (vs 28 original, vs 64 if file-count-inflated).
 
 ---
 
@@ -596,7 +628,7 @@ related_issues:
     notes: Overlaps with LOCAL-TBD-M4-PIPELINE-CUTOVER and may be merged into it.
 ```
 
-**Deferrals to close or advance in M4:** DEF-004, DEF-006, DEF-008, DEF-002, DEF-012.
+**Deferrals to close or advance in M4:** DEF-004, DEF-006, DEF-008, DEF-002, DEF-012; DEF-014 is advanced (surface cutover) but not closed (split deferred).
 
 **Remaining remediation items from:**
 

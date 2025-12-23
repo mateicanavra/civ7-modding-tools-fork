@@ -1,15 +1,16 @@
-# CONTRACT: FoundationContext (M2 Slice)
+# CONTRACT: `artifact:foundation` (Monolithic FoundationContext Payload)
 
-**Update (2025-12-22, M4 planning):** This document describes the **legacy M2 compatibility surface** (`ctx.foundation` / `FoundationContext`). The target architecture uses discrete `artifact:foundation.*` products and removes `ctx.foundation` entirely under DEF-014. Do not treat this as a future contract; do not add new dependencies on `ctx.foundation.*`.
+**Update (2025-12-23, M4 execution):** This document defines the M4 contract for the monolithic foundation artifact (`artifact:foundation`) stored at `ctx.artifacts.foundation`. `ctx.foundation` is legacy and must not exist by end of M4. The post-M4 split into discrete `artifact:foundation.*` products is deferred (DEF-014).
 
 > Working draft — project-level contract.  
-> Sections 1–5 are **binding** for the M2 “stable slice”. Sections 6–7 are **non-binding** notes.
+> Sections 1–5 are **binding** for the M4 monolithic `artifact:foundation` contract. Sections 6–7 are **non-binding** notes.
 
 ## 1. Purpose
 
-- Define the consumer-facing contract for the `FoundationContext` data product emitted by the M2 `foundation` slice (legacy compatibility surface).
-- Make “M2 stable slice” dependencies explicit for M3+ work (climate, story overlays, hydrology, placement).
-- Provide a stable reference while the implementation refactors.
+- Define the consumer-facing contract for the monolithic foundation payload (`artifact:foundation`) emitted by foundation producers.
+- Make M4 foundation dependencies explicit for downstream work (climate, story overlays, hydrology, placement).
+- Provide a stable reference while the implementation refactors and consumers migrate off legacy surfaces.
+- Clarify the post-M4 path: split into discrete `artifact:foundation.*` products (DEF-014).
 
 Authoritative implementation references:
 
@@ -22,30 +23,29 @@ Authoritative implementation references:
 
 ## 2. Scope & Status
 
-- **Binding scope (M2):**
-  - What exists on `ctx.foundation` after a successful `foundation` stage.
+- **Binding scope (M4):**
+  - What exists at `ctx.artifacts.foundation` (and under `artifact:foundation`) after a successful foundation provider run.
   - How to interpret the tensors (indexing, encodings, value ranges, stability expectations).
   - The config → orchestrator wiring that feeds foundation.
 - **Explicitly out of scope:**
   - Exact physics algorithms, numeric distributions, or parity targets.
   - “Interesting map” guarantees (e.g., plate count > 1); this contract is about shape + semantics, not quality.
 - **Status:**
-  - Sections 1–5 are binding for the M2 “stable slice”.
+  - Sections 1–5 are binding for the M4 monolithic `artifact:foundation` contract.
   - Sections 6–7 are non-binding design notes (planning + future enforcement ideas).
   - Any change to binding guarantees should update this doc alongside the code.
 
-**Update (2025-12-22, M4 planning):** This contract is not a target-architecture surface. `ctx.foundation` is compatibility-only during migration and must not survive M4.
-
 ## 3. Data Product: FoundationContext
 
-`FoundationContext` is the legacy (M2) foundation-physics snapshot exposed to downstream stages as `ctx.foundation`.
-**Update (2025-12-22, M4 planning):** In the target architecture, downstream consumers depend on discrete `artifact:foundation.*` products; `ctx.foundation` is removed under DEF-014.
+`FoundationContext` is the monolithic foundation-physics snapshot exposed to downstream consumers as the artifact `artifact:foundation`, stored at `ctx.artifacts.foundation` in M4.
+Post-M4, this monolith is split into discrete `artifact:foundation.*` products (deferred per DEF-014).
 
-At the end of the `foundation` stage (when enabled and successful):
+After a successful foundation provider run:
 
-- `ctx.foundation` is non-null and produced via `createFoundationContext(...)`.
-- `ctx.foundation` only exists if required tensors are present and length-consistent (validation fails fast).
-- `ctx.dimensions` matches `ctx.foundation.dimensions` (same width/height/size).
+- `ctx.artifacts.foundation` exists and is produced via `createFoundationContext(...)`.
+- Tag-based access (`ctx.artifacts.get("artifact:foundation")`) returns the same payload.
+- The artifact only exists if required tensors are present and length-consistent (validation fails fast).
+- `ctx.dimensions` matches `ctx.artifacts.foundation.dimensions` (same width/height/size).
 
 ### 3.1 Shape
 
@@ -67,9 +67,9 @@ This contract focuses on semantics and invariants (next section) rather than dup
 ### 3.2 Binding Semantics & Invariants
 
 - **Availability**
-  - `ctx.foundation` is `null` until the `foundation` stage runs.
-  - If the `foundation` stage is disabled, `ctx.foundation` remains `null`.
-  - After a successful run, `ctx.foundation` remains available for the rest of the generation pass.
+  - `ctx.artifacts.foundation` is absent until a foundation provider publishes `artifact:foundation`.
+  - If the recipe omits a foundation provider, the artifact remains absent.
+  - After a successful run, the artifact remains available for the rest of the generation pass.
 
 - **Tile indexing**
   - All tensors in `plates` and `dynamics` are per-tile 1D typed arrays in row-major order:
@@ -80,7 +80,7 @@ This contract focuses on semantics and invariants (next section) rather than dup
   - `FoundationContext` is treated as immutable after creation.
   - The object graph is frozen, but the typed arrays are not deep-copied; **do not** mutate tensor contents.
 
-- **Plates (`ctx.foundation.plates`)**
+- **Plates (`ctx.artifacts.foundation.plates`)**
   - `id` (`Int16Array`): plate identifier per tile (opaque; stable within the run).
   - `boundaryType` (`Uint8Array`): boundary interaction type using `BOUNDARY_TYPE` from `packages/mapgen-core/src/foundation/constants.ts`:
     - `none=0`, `convergent=1`, `divergent=2`, `transform=3`
@@ -91,25 +91,25 @@ This contract focuses on semantics and invariants (next section) rather than dup
     - shield stability is higher in plate interiors (inverse of stress)
   - `movementU`, `movementV`, `rotation` (`Int8Array`, `-127..127`): relative motion/rotation proxies (units may evolve).
 
-- **Dynamics (`ctx.foundation.dynamics`)**
+- **Dynamics (`ctx.artifacts.foundation.dynamics`)**
   - `windU`, `windV`, `currentU`, `currentV` (`Int8Array`, `-127..127`): coarse vector components.
     - In the current implementation, negative `U` indicates westward flow and positive `U` indicates eastward flow.
   - `pressure` (`Uint8Array`, `0..255`): normalized mantle-pressure proxy (relative, unitless).
 
-- **Plate seed (`ctx.foundation.plateSeed`)**
+- **Plate seed (`ctx.artifacts.foundation.plateSeed`)**
   - Optional (`null` allowed). When present, contains a `SeedSnapshot` suitable for reproducing plate layouts and diagnostic logging.
 
-- **Config snapshot (`ctx.foundation.config`)**
+- **Config snapshot (`ctx.artifacts.foundation.config`)**
   - Shallow-frozen snapshot of config inputs that informed the run (`seed`, `plates`, `dynamics`, `surface`, `policy`, `diagnostics`).
   - Intended for reproducibility and diagnostics; treat as read-only.
 
-- **Diagnostics (`ctx.foundation.diagnostics`)**
+- **Diagnostics (`ctx.artifacts.foundation.diagnostics`)**
   - Debug-only surface; explicitly non-stable (shape may change).
   - Currently includes `boundaryTree` (often `null`).
 
 - **Guard rails**
-  - Stages that require foundation physics must call `assertFoundationContext(ctx, stageName)` (or equivalent) before reading tensors.
-  - Treat missing `FoundationContext` as a wiring/manifest error, not a recoverable “no-op”.
+  - Steps that require foundation must declare `requires: ["artifact:foundation"]` and must fail fast if the artifact is missing.
+  - Treat missing `artifact:foundation` as a wiring/recipe error, not a recoverable “no-op”.
 
 ## 4. Config → MapOrchestrator → Foundation Pipeline → FoundationContext
 
@@ -140,16 +140,16 @@ contracts, not internal implementation details.
     - `ctx.config` set to the validated `MapGenConfig` (with effective toggles derived from stage enablement).
   - Runs foundation step-owned producers (plates + dynamics) using the injected `MapGenConfig`.
   - Builds `FoundationContext` via `createFoundationContext(...)` from the produced tensors and config slice.
-  - Stores the resulting `FoundationContext` on `ctx.foundation` (for downstream TS stages and diagnostics).
+  - Publishes the resulting payload to `ctx.artifacts.foundation` (satisfies `artifact:foundation` for downstream consumers and diagnostics).
 
-**M2 Contract for FoundationContext**
+**M4 Contract for `artifact:foundation`**
 
 - `createFoundationContext` **fails fast** if:
   - `WorldModel` is not initialized.
   - Map dimensions are missing or invalid.
   - Any required tensor is missing or has the wrong length.
 - On success:
-  - `ctx.foundation` is treated as immutable and remains valid for the rest of the generation run.
+  - `ctx.artifacts.foundation` is treated as immutable and remains valid for the rest of the generation run.
   - Downstream stages must treat it as read-only and may rely on its tensors to be internally consistent.
 
 ## 5. How to Use This Contract (M3+ Work)
@@ -159,16 +159,15 @@ When implementing M3+ issues (pipeline generalization, climate, story overlays):
 - **Do reference this doc** when:
   - Deciding which `requires`/`provides` contracts to declare for steps that depend on foundation physics.
   - Designing new data products (e.g., `ClimateField`, `StoryOverlays`) that build on plate/dynamics tensors.
-- **Do treat it as a legacy compatibility surface**:
-  - If you need additional guarantees for target work, prefer adding explicit `artifact:*` / `field:*` products per the target architecture rather than extending `FoundationContext`.
-  - If you discover mismatches between this doc and the current (legacy) implementation, fix the doc only to support migration/deletion work; do not evolve this into a new long-term contract.
+- **Do treat it as an M4 interim artifact contract**:
+  - Prefer publishing additional explicit `artifact:*` / `field:*` products rather than extending the monolithic payload.
+  - Do not “sneak in” new dependencies on legacy surfaces while migrating.
 - **Do not depend on non-contract surfaces**:
-  - ~~Avoid reading raw `WorldModel` state (or a singleton `WorldModel`) in new work; treat `ctx.foundation` as the stable interface.~~  
-    **Update (2025-12-22, M4 planning):** Avoid `WorldModel` and avoid adding new dependencies on `ctx.foundation`. Target work should depend on discrete `artifact:foundation.*` products; `ctx.foundation` is migration-only.
-  - Do not depend on `ctx.foundation.diagnostics` shape outside diagnostics tooling.
+  - Avoid reading raw `WorldModel` state (or a singleton `WorldModel`) in new work; depend on `artifact:foundation` (via `ctx.artifacts`) instead.
+  - Do not depend on `ctx.artifacts.foundation.diagnostics` shape outside diagnostics tooling.
   - Do not reintroduce a tunables-style config facade; use `ctx.config` (validated `MapGenConfig`) instead.
 
-**Update (2025-12-22, M4 planning):** Move consumers off `ctx.foundation` and onto discrete `artifact:foundation.*` products; do not extend compatibility shapes as target contracts.
+Post-M4 (DEF-014), migrate consumers from the monolithic `artifact:foundation` to discrete `artifact:foundation.*` products.
 
 See Sections 6–7 for non-binding planning notes and future enforcement ideas.
 
@@ -177,12 +176,12 @@ See Sections 6–7 for non-binding planning notes and future enforcement ideas.
 > Everything in this section is **non-binding**.  
 > It exists to seed discussion and planning for M3/M4 and may change or be deleted freely.
 
-**Update (2025-12-22, M4 planning):** This appendix predates the accepted target architecture decision to remove `ctx.foundation` (DEF-014). Treat the content below as historical notes only; target work should reference the SPEC/M4 plan and use artifact-based contracts.
+**Update (2025-12-23, M4 execution):** This appendix predates the accepted M4 decision to make the monolithic foundation payload an artifact (`artifact:foundation` at `ctx.artifacts.foundation`). Treat the content below as historical notes only.
 
 ### 6.0 Promotion Path (Non-Binding)
 
 - ~~Once `FoundationContext` usage stabilizes across M3/M4, consider…~~  
-  **Update (2025-12-22, M4 planning):** `FoundationContext` is removed in the target architecture; do not plan to promote it as a canonical surface.
+  **Update (2025-12-23, M4 execution):** The monolithic payload is an M4 interim contract only; do not plan to promote it as a long-term canonical surface. Post-M4, split into discrete `artifact:foundation.*` products (DEF-014).
 
 ### 6.1 Proposed Step Contracts on Top of FoundationContext (Historical; Superseded)
 
@@ -271,7 +270,7 @@ but not authoritative.
 We do **not** enforce this contract yet. If/when we choose to enforce it, candidates include:
 
 - **Unit invariants:** tests for `createFoundationContext` failure modes (missing tensors, size mismatch) and success invariants (lengths, boundaryType enum range).
-- **Integration invariants:** run a minimal `MapOrchestrator` pass and assert `ctx.foundation` availability + invariants for typical map sizes.
+- **Integration invariants:** run a minimal `MapOrchestrator` pass and assert `artifact:foundation` / `ctx.artifacts.foundation` availability + invariants for typical map sizes.
 - **Determinism checks:** for fixed seeds/configs, compare `FoundationContext` tensors across runs to detect accidental drift.
 - **Mutation guards:** copy tensors into new typed arrays (true snapshot) and/or introduce readonly tensor wrappers to prevent accidental writes.
-- **CI + review gates:** require updating this doc when `FoundationContext` / `createFoundationContext` changes; consider linting against new code reading a global `WorldModel` instead of `ctx.foundation`.
+- **CI + review gates:** require updating this doc when `FoundationContext` / `createFoundationContext` changes; consider linting against new code reading `ctx.foundation` or a global `WorldModel` instead of `artifact:foundation` via `ctx.artifacts`.
