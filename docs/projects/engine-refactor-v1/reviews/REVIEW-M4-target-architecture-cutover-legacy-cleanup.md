@@ -52,3 +52,13 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Strengths:** Trace session + sink abstraction; `PipelineExecutor` emits run/step timing events; deterministic fingerprint with canonicalization; basic test covers run/step events.
 - **Gaps:** Trace enablement semantics are ambiguous (`enabled` defaults false while runtime allows steps-only enablement), and step events use `nodeId = stepId`, so repeated steps can’t be disambiguated against `ExecutionPlan` nodes.
 - **Follow-up:** Align trace enablement contract (require `enabled` or drop the default) and emit plan node IDs once ExecutionPlan-based execution lands.
+
+
+## CIV-57 — [M4] Pipeline cutover: package standard pipeline as mod + loader/registry wiring
+
+**Reviewed:** 2025-12-23
+
+- **Intent:** Package the standard pipeline as a mod package and source the canonical default recipe from it (no runtime cutover yet).
+- **Strengths:** Standard mod package exists with registry + recipe; TaskGraph pulls default steps via the mod recipe; `STAGE_ORDER` derives from the mod recipe list to keep ordering single-sourced.
+- **Gaps:** Orchestrator tests still derive the recipe via `StepRegistry.getStandardRecipe(stageManifest)` instead of the standard mod recipe, so drift between `mods/standard` and stage-manifest ordering would be invisible.
+- **Follow-up:** Update orchestration tests to use `resolveDefaultRecipeStepIds` / `standardMod.recipes.default` as the recipe source and add a small assertion that the mod recipe is the canonical ordering list.
