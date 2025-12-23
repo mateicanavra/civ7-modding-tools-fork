@@ -59,4 +59,3 @@ Thumbs.db
 !.ai/archive/
 !.ai/archive/**
 .claude/settings.local.json
-logs/orch/

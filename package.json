@@ -89,9 +89,5 @@
       "puppeteer",
       "sharp"
     ]
-  },
-  "dependencies": {
-    "@openai/codex-sdk": "^0.77.0",
-    "yaml": "^2.8.2"
   }
 }
