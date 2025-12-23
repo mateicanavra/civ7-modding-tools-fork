@@ -14,8 +14,8 @@ import {
   PipelineExecutor,
   StepRegistry,
   UnsatisfiedProvidesError,
-  registerStandardLibrary,
   type ExecutionPlan,
+  type RecipeV1,
   type RunRequest,
 } from "@mapgen/pipeline/index.js";
 import {
@@ -27,7 +27,7 @@ import {
   type DevLogConfig,
 } from "@mapgen/dev/index.js";
 import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
-import { resolveDefaultRecipeStepIds } from "@mapgen/mods/standard/recipes/default.js";
+import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 
 import { createDefaultContinentBounds, createLayerAdapter } from "@mapgen/orchestrator/helpers.js";
 import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/orchestrator/types.js";
@@ -122,18 +122,27 @@ function buildStandardStepConfig(stepId: string, config: MapGenConfig): Record<s
 }
 
 function buildStandardRunRequest(
-  recipe: readonly string[],
+  recipe: RecipeV1,
   config: MapGenConfig,
   ctx: ExtendedMapContext,
   mapInfo: MapInfo
 ): RunRequest {
+  const steps = recipe.steps.map((step) => {
+    const stepConfig = buildStandardStepConfig(step.id, config);
+    const mergedConfig =
+      step.config && typeof step.config === "object"
+        ? { ...stepConfig, ...step.config }
+        : stepConfig;
+    return {
+      ...step,
+      config: mergedConfig,
+    };
+  });
+
   return {
     recipe: {
-      schemaVersion: 1,
-      steps: recipe.map((stepId) => ({
-        id: stepId,
-        config: buildStandardStepConfig(stepId, config),
-      })),
+      ...recipe,
+      steps,
     },
     settings: {
       seed: resolveRunSeed(config),
@@ -197,10 +206,10 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   logEngineSurfaceApisOnce();
 
-  const stageManifest = options.mapGenConfig.stageManifest ?? { order: [], stages: {} };
   const registry = new StepRegistry<ExtendedMapContext>();
-  const recipe = resolveDefaultRecipeStepIds(stageManifest);
-  const enabledStages = recipe.join(", ");
+  const standardRecipe = standardMod.recipes.default;
+  const enabledSteps = standardRecipe.steps.filter((step) => step.enabled ?? true);
+  const enabledStages = enabledSteps.map((step) => step.id).join(", ");
   console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
 
   let ctx: ExtendedMapContext | null = null;
@@ -236,12 +245,12 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   const westContinent = createDefaultContinentBounds(iWidth, iHeight, "west");
   const eastContinent = createDefaultContinentBounds(iWidth, iHeight, "east");
 
-  const storyEnabled = recipe.some((id) => id.startsWith("story"));
+  const storyEnabled = enabledSteps.some((step) => step.id.startsWith("story"));
 
   const getStageDescriptor = (
     stageName: string
   ): { requires: readonly string[]; provides: readonly string[] } => {
-    const desc = stageManifest.stages?.[stageName] ?? {};
+    const desc = M3_STAGE_DEPENDENCY_SPINE[stageName] ?? { requires: [], provides: [] };
     const requires = Array.isArray(desc.requires) ? desc.requires : [];
     const provides = Array.isArray(desc.provides) ? desc.provides : [];
     return { requires, provides };
@@ -267,7 +276,8 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   const executor = new PipelineExecutor(registry, { logPrefix: `${prefix} [TaskGraph]` });
 
-  for (const stepId of recipe) {
+  for (const step of enabledSteps) {
+    const stepId = step.id;
     if (!registry.has(stepId)) {
       console.error(`${prefix} Missing registered step for "${stepId}"`);
       stageResults.push({
@@ -281,7 +291,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   let plan: ExecutionPlan;
   try {
-    plan = compileExecutionPlan(buildStandardRunRequest(recipe, config, ctx, mapInfo), registry);
+    plan = compileExecutionPlan(buildStandardRunRequest(standardRecipe, config, ctx, mapInfo), registry);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     stageResults.push({
