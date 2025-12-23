@@ -42,5 +42,8 @@ export {
 // Re-export pipeline primitives (M3 Task Graph MVP)
 export * from "@mapgen/pipeline/index.js";
 
+// Re-export standard mod package
+export { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+
 // Package version
 export const VERSION = "0.1.0";

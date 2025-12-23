@@ -26,6 +26,8 @@ import {
   resetDevFlags,
   type DevLogConfig,
 } from "@mapgen/dev/index.js";
+import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import { resolveDefaultRecipeStepIds } from "@mapgen/mods/standard/recipes/default.js";
 
 import { createDefaultContinentBounds, createLayerAdapter } from "@mapgen/orchestrator/helpers.js";
 import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/orchestrator/types.js";
@@ -197,7 +199,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   const stageManifest = options.mapGenConfig.stageManifest ?? { order: [], stages: {} };
   const registry = new StepRegistry<ExtendedMapContext>();
-  const recipe = registry.getStandardRecipe(stageManifest);
+  const recipe = resolveDefaultRecipeStepIds(stageManifest);
   const enabledStages = recipe.join(", ");
   console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
 
@@ -245,7 +247,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
     return { requires, provides };
   };
 
-  registerStandardLibrary(registry, config, {
+  standardMod.registry.register(registry, config, {
     getStageDescriptor,
     logPrefix: prefix,
     runFoundation: (context, config) => {
