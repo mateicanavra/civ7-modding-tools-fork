@@ -251,6 +251,11 @@ The milestones above converge on a target engine that follows the cluster topolo
   - `resources/PRD-config-refactor.md`
   - `resources/PRD-pipeline-refactor.md`
   - `resources/PRD-plate-generation.md`
+  - `resources/PRD-target-task-graph-runtime.md`
+  - `resources/PRD-target-registry-and-tag-catalog.md`
+  - `resources/PRD-target-context-and-dependency-contract.md`
+  - `resources/PRD-target-narrative-and-playability.md`
+  - `resources/PRD-target-observability-and-validation.md`
 - **System docs**
   - `../../system/mods/swooper-maps/architecture.md`
   - `../../system/libs/mapgen/architecture.md`

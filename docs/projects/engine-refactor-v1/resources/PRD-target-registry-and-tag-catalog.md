@@ -1,0 +1,60 @@
+# PRD: Target Registry & Tag Catalog (Artifacts, Fields, Effects)
+
+## 1. Purpose
+
+Define the canonical registry contract and tag inventory for the target MapGen architecture. This PRD captures the mod-instantiated registry rules, tag types, and the end-state catalog of artifacts/fields/effects specified in `SPEC-target-architecture-draft.md` §1.5–§3.
+
+## 2. Scope
+
+**In scope**
+- Registry construction and validation rules (uniqueness, fail-fast collisions, unknown references).
+- Tag kinds (`field:*`, `artifact:*`, `effect:*`) and ownership metadata.
+- Canonical target tag inventory across phases (foundation → placement), including versioning expectations.
+
+**Out of scope**
+- Execution semantics and dependency satisfaction (see `PRD-target-context-and-dependency-contract.md`).
+- Recipe compilation/runtime behavior (see `PRD-target-task-graph-runtime.md`).
+- Narrative optionality/consumption patterns (see `PRD-target-narrative-and-playability.md`).
+
+## 3. Goals
+
+1) A single, mod-instantiated registry per mod that enumerates all tags and steps, with hard errors for duplicates or unknown references.  
+2) Typed, versioned artifact contracts and explicit field/effect tags to make dependencies visible and schedulable.  
+3) A canonical tag inventory covering foundation, morphology, hydrology, ecology, narrative/playability, and placement surfaces, aligned with accepted decisions (3.3–3.8).
+
+## 4. Requirements
+
+### 4.1 Registry Rules
+- **REQ-REG-1:** Each mod constructs exactly one registry containing all tags and steps. Registries enforce uniqueness for `tag.id` and `step.id`; duplicates fail registry creation.
+- **REQ-REG-2:** Steps must reference only registered tags in `requires/provides`; unknown IDs are compile-time errors.
+- **REQ-REG-3:** Tag definitions include `id`, `kind` (`field`/`artifact`/`effect`), `owner` (package + optional phase), and optional `schema`/`demo` payloads. Artifact tags require schemas; fields/effects may omit schemas in v1 but should declare them when stable.
+- **REQ-REG-4:** Effect tags are first-class citizens in the registry (visible alongside artifacts/fields) and participate in dependency validation.
+- **REQ-REG-5:** Demo payloads, when present, must be schema-valid and safe defaults.
+
+### 4.2 Canonical Tag Inventory (Target)
+- **Foundation artifacts:** `artifact:foundation.mesh`, `artifact:foundation.crust`, `artifact:foundation.plateGraph`, `artifact:foundation.tectonics`.
+- **Morphology:** `artifact:terrainMask`, `artifact:erosion`, `artifact:sediment`; `field:heightfield`.
+- **Hydrology:** `artifact:climateField`, `artifact:riverAdjacency`; `field:rainfall`, `field:temperature`.
+- **Ecology:** `artifact:soils`, `artifact:biomes`, `artifact:resources`, `artifact:features`; `field:biomes`, `field:features`.
+- **Narrative/playability:** `artifact:narrative.corridors@v1`, `artifact:narrative.regions@v1`, `artifact:narrative.motifs.*@v1`, `artifact:narrative.heatmaps.*@v1` (motif variants carry explicit versioning).
+- **Placement:** `artifact:placementInputs@v1`, `artifact:placementOutputs`.
+- **Effects:** `effect:engine.heightfieldApplied`, `effect:engine.featuresApplied`.
+- **Deferred inventory:** `artifact:riverGraph` remains deferred; `artifact:riverAdjacency` stays canonical until an accepted replacement lands.
+
+### 4.3 Versioning & Ownership
+- **REQ-REG-6:** Artifact IDs must encode versions where schema compatibility matters (`@v1`, `@v2`, ...). New versions are new tag IDs; backward-incompatible changes do not mutate existing IDs.
+- **REQ-REG-7:** Tag ownership is explicit (`owner.pkg` + optional `owner.phase`) and must reflect the mod/package that defines the tag, not the consumer.
+
+## 5. Success Criteria
+
+- Registry construction fails fast on duplicate tags/steps or unknown tag references in any step.
+- The standard mod registry enumerates the full canonical inventory above, with explicit versioning where specified.
+- Effect tags are visible in registry output and can be required/provided like artifacts/fields.
+- Future mods can extend the catalog by adding new tags/steps while still relying on the same validation rules.
+
+## 6. Dependencies & References
+
+- `SPEC-target-architecture-draft.md` §1.5 (phase ownership), §3 (registry rules and tag lists).  
+- `PRD-target-task-graph-runtime.md` (recipes reference registry IDs).  
+- `PRD-target-context-and-dependency-contract.md` (how tags map to context storage and satisfaction).  
+- `PRD-target-narrative-and-playability.md` (narrative artifact expectations).
