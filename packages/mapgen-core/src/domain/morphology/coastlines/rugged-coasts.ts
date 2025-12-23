@@ -13,11 +13,16 @@ import {
   findNeighborSeaLaneEdgeConfig,
   resolveSeaCorridorPolicy,
 } from "@mapgen/domain/morphology/coastlines/corridor-policy.js";
-import type { CoastlinePlateBiasConfig, CoastlinesConfig } from "@mapgen/domain/morphology/coastlines/types.js";
+import type { CoastlinePlateBiasConfig, CoastlinesConfig, CorridorPolicy } from "@mapgen/domain/morphology/coastlines/types.js";
 
 const HILL_FRACTAL = 1;
 
-export function addRuggedCoasts(iWidth: number, iHeight: number, ctx: ExtendedMapContext): void {
+export function addRuggedCoasts(
+  iWidth: number,
+  iHeight: number,
+  ctx: ExtendedMapContext,
+  config: { coastlines?: CoastlinesConfig; corridors?: CorridorPolicy } = {}
+): void {
   assertFoundationContext(ctx, "coastlines");
   const adapter = ctx.adapter;
 
@@ -30,7 +35,7 @@ export function addRuggedCoasts(iWidth: number, iHeight: number, ctx: ExtendedMa
 
   const { boundaryCloseness, boundaryType } = ctx.foundation.plates;
 
-  const cfg = (ctx?.config?.coastlines as CoastlinesConfig) || {};
+  const cfg = config.coastlines || {};
   const cfgBay = cfg.bay || {};
   const cfgFjord = cfg.fjord || {};
 
@@ -57,7 +62,7 @@ export function addRuggedCoasts(iWidth: number, iHeight: number, ctx: ExtendedMa
     fjordWeight: Math.max(0, Number.isFinite(plateBiasRaw.fjordWeight) ? plateBiasRaw.fjordWeight! : 0.8),
   };
 
-  const { protection: SEA_PROTECTION, softChanceMultiplier: SOFT_MULT } = resolveSeaCorridorPolicy(ctx);
+  const { protection: SEA_PROTECTION, softChanceMultiplier: SOFT_MULT } = resolveSeaCorridorPolicy(config.corridors);
 
   const StoryTags = getStoryTags(ctx);
 

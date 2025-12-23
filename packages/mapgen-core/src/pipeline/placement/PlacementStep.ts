@@ -1,15 +1,14 @@
-import { Type } from "typebox";
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { StartsConfig } from "@mapgen/bootstrap/types.js";
 import type { MapInfo } from "@civ7/adapter";
 import { runPlacement } from "@mapgen/domain/placement/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import { PlacementConfigSchema } from "@mapgen/config/index.js";
-import { type StepConfigView, withStepConfig } from "@mapgen/pipeline/step-config.js";
 
 export interface PlacementStepRuntime {
   mapInfo: MapInfo;
-  starts: StartsConfig;
+  baseStarts: StartsConfig;
   startPositions: number[];
 }
 
@@ -25,10 +24,12 @@ const PlacementStepConfigSchema = Type.Object(
   { additionalProperties: false, default: { placement: {} } }
 );
 
+type PlacementStepConfig = Static<typeof PlacementStepConfigSchema>;
+
 export function createPlacementStep(
   runtime: PlacementStepRuntime,
   options: PlacementStepOptions
-): MapGenStep<ExtendedMapContext, StepConfigView> {
+): MapGenStep<ExtendedMapContext, PlacementStepConfig> {
   return {
     id: "placement",
     phase: M3_STANDARD_STAGE_PHASE.placement,
@@ -36,18 +37,20 @@ export function createPlacementStep(
     provides: options.provides,
     configSchema: PlacementStepConfigSchema,
     run: (context, config) => {
-      withStepConfig(context, config as StepConfigView, () => {
-        const placementConfig = context.config.placement ?? {};
-        const { width, height } = context.dimensions;
+      const placementConfig = config.placement ?? {};
+      const starts =
+        placementConfig.starts && typeof placementConfig.starts === "object"
+          ? { ...runtime.baseStarts, ...placementConfig.starts }
+          : runtime.baseStarts;
+      const { width, height } = context.dimensions;
 
-        const startPositions = runPlacement(context.adapter, width, height, {
-          mapInfo: runtime.mapInfo as { NumNaturalWonders?: number },
-          starts: runtime.starts,
-          placementConfig,
-        });
-
-        runtime.startPositions.push(...startPositions);
+      const startPositions = runPlacement(context.adapter, width, height, {
+        mapInfo: runtime.mapInfo as { NumNaturalWonders?: number },
+        starts,
+        placementConfig,
       });
+
+      runtime.startPositions.push(...startPositions);
     },
   };
 }

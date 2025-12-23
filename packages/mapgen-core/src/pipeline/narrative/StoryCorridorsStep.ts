@@ -1,11 +1,10 @@
-import { Type } from "typebox";
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import {
   CorridorsConfigSchema,
   FoundationDirectionalityConfigSchema,
 } from "@mapgen/config/index.js";
-import { type StepConfigView, withStepConfig } from "@mapgen/pipeline/step-config.js";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
 
 export interface StoryCorridorsStepOptions {
@@ -31,9 +30,11 @@ const StoryCorridorsStepConfigSchema = Type.Object(
   { additionalProperties: false, default: { corridors: {}, foundation: {} } }
 );
 
+type StoryCorridorsStepConfig = Static<typeof StoryCorridorsStepConfigSchema>;
+
 export function createStoryCorridorsPreStep(
   options: StoryCorridorsStepOptions
-): MapGenStep<ExtendedMapContext, StepConfigView> {
+): MapGenStep<ExtendedMapContext, StoryCorridorsStepConfig> {
   return {
     id: "storyCorridorsPre",
     phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPre,
@@ -41,8 +42,9 @@ export function createStoryCorridorsPreStep(
     provides: options.provides,
     configSchema: StoryCorridorsStepConfigSchema,
     run: (context, config) => {
-      withStepConfig(context, config as StepConfigView, () => {
-        storyTagStrategicCorridors(context, "preIslands");
+      storyTagStrategicCorridors(context, "preIslands", {
+        corridors: config.corridors,
+        directionality: config.foundation?.dynamics?.directionality,
       });
     },
   };
@@ -50,7 +52,7 @@ export function createStoryCorridorsPreStep(
 
 export function createStoryCorridorsPostStep(
   options: StoryCorridorsStepOptions
-): MapGenStep<ExtendedMapContext, StepConfigView> {
+): MapGenStep<ExtendedMapContext, StoryCorridorsStepConfig> {
   return {
     id: "storyCorridorsPost",
     phase: M3_STANDARD_STAGE_PHASE.storyCorridorsPost,
@@ -58,8 +60,9 @@ export function createStoryCorridorsPostStep(
     provides: options.provides,
     configSchema: StoryCorridorsStepConfigSchema,
     run: (context, config) => {
-      withStepConfig(context, config as StepConfigView, () => {
-        storyTagStrategicCorridors(context, "postRivers");
+      storyTagStrategicCorridors(context, "postRivers", {
+        corridors: config.corridors,
+        directionality: config.foundation?.dynamics?.directionality,
       });
     },
   };

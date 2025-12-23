@@ -1,11 +1,10 @@
-import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { CorridorPolicy } from "@mapgen/domain/morphology/coastlines/types.js";
 import { forEachNeighbor3x3 } from "@mapgen/lib/grid/neighborhood/square-3x3.js";
 
 export function resolveSeaCorridorPolicy(
-  ctx: ExtendedMapContext | null | undefined
+  corridors: CorridorPolicy | null | undefined
 ): { protection: string; softChanceMultiplier: number } {
-  const corridorPolicy = (ctx?.config?.corridors as CorridorPolicy) || {};
+  const corridorPolicy = corridors || {};
   const seaPolicy = corridorPolicy.sea || {};
   const protection = seaPolicy.protection || "hard";
   const softChanceMultiplier = Math.max(0, Math.min(1, seaPolicy.softChanceMultiplier ?? 0.5));

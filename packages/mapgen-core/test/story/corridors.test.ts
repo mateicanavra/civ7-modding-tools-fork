@@ -17,9 +17,13 @@ describe("story/corridors", () => {
     const adapter = createMockAdapter({ width, height, defaultTerrainType: OCEAN_TERRAIN });
     (adapter as any).fillWater(true);
 
-    const ctx = createExtendedMapContext({ width, height }, adapter, parseConfig({}));
+    const config = parseConfig({});
+    const ctx = createExtendedMapContext({ width, height }, adapter, config);
 
-    storyTagStrategicCorridors(ctx, "preIslands");
+    storyTagStrategicCorridors(ctx, "preIslands", {
+      corridors: config.corridors,
+      directionality: config.foundation?.dynamics?.directionality,
+    });
 
     expect(getStoryTags(ctx).corridorSeaLane.size).toBeGreaterThan(0);
 

@@ -1,18 +1,17 @@
 import { clamp } from "@mapgen/lib/math/clamp.js";
-import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { ClimateRuntime, OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
+import type { StoryConfig } from "@mapgen/config/index.js";
 
 export function applyOrogenyBeltsRefinement(
   width: number,
   height: number,
-  ctx: ExtendedMapContext,
   runtime: ClimateRuntime,
-  orogenyCache: OrogenyCache | null
+  orogenyCache: OrogenyCache | null,
+  storyConfig: StoryConfig = {}
 ): void {
   const { adapter, readRainfall, writeRainfall } = runtime;
 
-  const storyTunables = (ctx.config.story || {}) as Record<string, unknown>;
-  const orogenyTunables = (storyTunables.orogeny || {}) as Record<string, number>;
+  const orogenyTunables = (storyConfig.orogeny || {}) as Record<string, number>;
 
   if (orogenyCache !== null) {
     const windwardSet = orogenyCache.windward;

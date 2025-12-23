@@ -1,6 +1,7 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { inBounds as boundsCheck } from "@mapgen/lib/grid/bounds.js";
+import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@mapgen/config/index.js";
 import type { StoryTagsInstance } from "@mapgen/domain/narrative/tags/instance.js";
 import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
@@ -19,7 +20,12 @@ export function refineClimateEarthlike(
   width: number,
   height: number,
   ctx: ExtendedMapContext | null = null,
-  options: { orogenyCache?: OrogenyCache } = {}
+  options: {
+    orogenyCache?: OrogenyCache;
+    climate?: ClimateConfig;
+    story?: StoryConfig;
+    directionality?: FoundationDirectionalityConfig;
+  } = {}
 ): void {
   if (!ctx) {
     throw new Error(
@@ -30,13 +36,15 @@ export function refineClimateEarthlike(
   const runtime = createClimateRuntime(width, height, ctx);
   const { dynamics } = ctx.foundation;
 
-  const climateCfg = ctx.config.climate || {};
+  const climateCfg = options.climate ?? {};
   const refineCfg = climateCfg.refine || {};
   const storyMoisture = (climateCfg as Record<string, unknown>).story as
     | Record<string, unknown>
     | undefined;
   const storyRain = (storyMoisture?.rainfall || {}) as Record<string, number>;
   const orogenyCache = options?.orogenyCache || null;
+  const storyCfg = options.story ?? {};
+  const directionality = options.directionality ?? null;
 
   const StoryTags: StoryTagsInstance = getStoryTags(ctx);
 
@@ -52,10 +60,10 @@ export function refineClimateEarthlike(
   applyOrographicShadowRefinement(
     width,
     height,
-    ctx,
     runtime,
     refineCfg as Record<string, unknown>,
-    dynamics
+    dynamics,
+    directionality
   );
 
   // Pass C: river corridor greening and basin humidity
@@ -71,7 +79,7 @@ export function refineClimateEarthlike(
   applyRiftHumidityRefinement(width, height, runtime, inBounds, StoryTags, storyRain);
 
   // Pass E: Orogeny belts (windward/lee)
-  applyOrogenyBeltsRefinement(width, height, ctx, runtime, orogenyCache);
+  applyOrogenyBeltsRefinement(width, height, runtime, orogenyCache, storyCfg);
 
   // Pass F: Hotspot island microclimates
   applyHotspotMicroclimatesRefinement(width, height, runtime, inBounds, StoryTags, storyRain);

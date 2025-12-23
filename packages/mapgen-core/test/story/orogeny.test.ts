@@ -23,13 +23,10 @@ describe("story/orogeny", () => {
       }
     }
 
-    const ctx = createExtendedMapContext(
-      { width, height },
-      adapter,
-      parseConfig({ story: { orogeny: { beltMinLength: 12 } } })
-    );
+    const config = parseConfig({ story: { orogeny: { beltMinLength: 12 } } });
+    const ctx = createExtendedMapContext({ width, height }, adapter, config);
 
-    expect(() => storyTagOrogenyBelts(ctx)).toThrow("FoundationContext");
+    expect(() => storyTagOrogenyBelts(ctx, config.story)).toThrow("FoundationContext");
 
     const overlay = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.OROGENY);
     expect(overlay).toBeNull();

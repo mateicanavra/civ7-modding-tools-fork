@@ -44,7 +44,8 @@ export type { BiomeConfig, BiomeGlobals, CorridorPolicy } from "@mapgen/domain/e
 export function designateEnhancedBiomes(
   iWidth: number,
   iHeight: number,
-  ctx?: ExtendedMapContext | null
+  ctx?: ExtendedMapContext | null,
+  config: { biomes?: BiomeConfig; corridors?: CorridorPolicy } = {}
 ): void {
   console.log("Creating enhanced biome diversity (climate-aware)...");
 
@@ -60,9 +61,8 @@ export function designateEnhancedBiomes(
   // Start with vanilla-consistent biomes via the real engine
   adapter.designateBiomes(iWidth, iHeight);
 
-  const config = ctx.config;
-  const biomesCfg = (config.biomes || {}) as BiomeConfig;
-  const corridorPolicy = (config.corridors || {}) as CorridorPolicy;
+  const biomesCfg = config.biomes || {};
+  const corridorPolicy = config.corridors || {};
 
   const StoryTags = getStoryTags(ctx);
 

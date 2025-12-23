@@ -1,4 +1,4 @@
-import { Type } from "typebox";
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import {
   HotspotTunablesSchema,
@@ -6,7 +6,6 @@ import {
   SeaCorridorPolicySchema,
 } from "@mapgen/config/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
-import { type StepConfigView, withStepConfig } from "@mapgen/pipeline/step-config.js";
 import { addIslandChains } from "@mapgen/domain/morphology/islands/index.js";
 
 export interface IslandsStepOptions {
@@ -33,7 +32,9 @@ const IslandsStepConfigSchema = Type.Object(
   { additionalProperties: false, default: { islands: {}, story: {}, corridors: {} } }
 );
 
-export function createIslandsStep(options: IslandsStepOptions): MapGenStep<ExtendedMapContext, StepConfigView> {
+type IslandsStepConfig = Static<typeof IslandsStepConfigSchema>;
+
+export function createIslandsStep(options: IslandsStepOptions): MapGenStep<ExtendedMapContext, IslandsStepConfig> {
   return {
     id: "islands",
     phase: M3_STANDARD_STAGE_PHASE.islands,
@@ -41,10 +42,8 @@ export function createIslandsStep(options: IslandsStepOptions): MapGenStep<Exten
     provides: options.provides,
     configSchema: IslandsStepConfigSchema,
     run: (context, config) => {
-      withStepConfig(context, config as StepConfigView, () => {
-        const { width, height } = context.dimensions;
-        addIslandChains(width, height, context);
-      });
+      const { width, height } = context.dimensions;
+      addIslandChains(width, height, context, config);
     },
   };
 }

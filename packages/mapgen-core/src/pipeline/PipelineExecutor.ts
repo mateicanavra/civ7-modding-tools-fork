@@ -11,7 +11,6 @@ import {
   isDependencyTagSatisfied,
   validateDependencyTags,
 } from "@mapgen/pipeline/tags.js";
-import type { StepConfigView } from "@mapgen/pipeline/step-config.js";
 import type { MapGenStep } from "@mapgen/pipeline/types.js";
 import type { StepRegistry } from "@mapgen/pipeline/StepRegistry.js";
 import type { PipelineStepResult } from "@mapgen/pipeline/types.js";
@@ -32,20 +31,19 @@ function nowMs(): number {
   return Date.now();
 }
 
-function buildConfigView(schema: TSchema | undefined, input: unknown): unknown {
+function resolveStepConfig(schema: TSchema | undefined): unknown {
   if (!schema) return {};
-  const cloned = Value.Clone(input ?? {});
-  const defaulted = Value.Default(schema, cloned);
+  const defaulted = Value.Default(schema, {});
   const converted = Value.Convert(schema, defaulted);
   return Value.Clean(schema, converted);
 }
 
-export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = StepConfigView> {
-  private readonly registry: StepRegistry<TContext, TConfig>;
+export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = unknown> {
+  private readonly registry: StepRegistry<TContext>;
   private readonly log: (message: string) => void;
   private readonly logPrefix: string;
 
-  constructor(registry: StepRegistry<TContext, TConfig>, options: PipelineExecutorOptions = {}) {
+  constructor(registry: StepRegistry<TContext>, options: PipelineExecutorOptions = {}) {
     this.registry = registry;
     this.log = options.log ?? console.log;
     this.logPrefix = options.logPrefix ?? "[PipelineExecutor]";
@@ -56,10 +54,10 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = Ste
     recipe: readonly string[]
   ): { stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> } {
     const nodes = recipe.map((id) => {
-      const step = this.registry.get(id);
+      const step = this.registry.get<TConfig>(id);
       return {
         step,
-        config: buildConfigView(step.configSchema, context.config) as TConfig,
+        config: resolveStepConfig(step.configSchema) as TConfig,
         label: id,
       };
     });
@@ -71,7 +69,7 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = Ste
     plan: ExecutionPlan
   ): { stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> } {
     const nodes = plan.nodes.map((node) => ({
-      step: this.registry.get(node.stepId),
+      step: this.registry.get<TConfig>(node.stepId),
       config: node.config as TConfig,
       label: node.nodeId ?? node.stepId,
     }));
@@ -165,10 +163,10 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = Ste
     recipe: readonly string[]
   ): Promise<{ stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> }> {
     const nodes = recipe.map((id) => {
-      const step = this.registry.get(id);
+      const step = this.registry.get<TConfig>(id);
       return {
         step,
-        config: buildConfigView(step.configSchema, context.config) as TConfig,
+        config: resolveStepConfig(step.configSchema) as TConfig,
         label: id,
       };
     });
@@ -180,7 +178,7 @@ export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = Ste
     plan: ExecutionPlan
   ): Promise<{ stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> }> {
     const nodes = plan.nodes.map((node) => ({
-      step: this.registry.get(node.stepId),
+      step: this.registry.get<TConfig>(node.stepId),
       config: node.config as TConfig,
       label: node.nodeId ?? node.stepId,
     }));

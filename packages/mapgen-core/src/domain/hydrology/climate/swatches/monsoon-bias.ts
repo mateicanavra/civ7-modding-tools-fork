@@ -9,12 +9,13 @@ export function applyMonsoonBiasPass(
   height: number,
   ctx: ExtendedMapContext,
   runtime: SwatchRuntime,
-  helpers: SwatchHelpers
+  helpers: SwatchHelpers,
+  directionality: FoundationDirectionalityConfig | null | undefined
 ): void {
   const { readRainfall, writeRainfall, idx } = runtime;
   const { inLocalBounds, isWater, isCoastalLand, signedLatitudeAt } = helpers;
   assertFoundationContext(ctx, "storySwatches");
-  const DIR = (ctx.config.foundation?.dynamics?.directionality || {}) as FoundationDirectionalityConfig;
+  const DIR = directionality || {};
   const hemispheres = (DIR as Record<string, unknown>).hemispheres as
     | Record<string, number>
     | undefined;

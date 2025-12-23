@@ -79,12 +79,12 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
 
 ## Implementation Decisions
 
-### Use per-step config as a partial MapGenConfig view (with context swap)
-- **Context:** Many step/domain functions read `ctx.config.*` directly; replacing all of them with explicit config parameters would be a large refactor in this slice.
-- **Options:** Refactor domain functions to accept step config explicitly, swap `ctx.config` to a per-step config view during execution, or keep legacy `ctx.config` fallback.
-- **Choice:** Swap `ctx.config` to the per-step config view during each step execution.
-- **Rationale:** Keeps algorithm code stable while ensuring each step only sees recipe-supplied config (plus schema defaults).
-- **Risk:** Temporary reliance on `ctx.config` shape; follow-on work must remove the swap and plumb configs directly.
+### Plumb explicit per-step config into step/domain call sites
+- **Context:** Many step/domain functions read `ctx.config.*` directly; per-step recipe config is now authoritative.
+- **Options:** Keep a context swap shim, keep `ctx.config` fallbacks, or pass explicit config arguments through steps and domain helpers.
+- **Choice:** Pass explicit config into step/run and domain helpers; remove the StepConfigView/context swap.
+- **Rationale:** Makes per-step config the single source of truth and avoids hidden legacy reads.
+- **Risk:** Requires touching many call sites; missed call sites will surface as runtime errors.
 
 ### Keep cross-cutting directionality inside step config (for now)
 - **Context:** ADR-ER1-019 targets directionality as `RunRequest.settings`, but the settings surface is not yet plumbed into runtime steps.
@@ -100,12 +100,12 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
 - **Rationale:** Aligns with “unknown keys fail” and keeps config surface explicit.
 - **Risk:** Requires recipe updates if someone previously relied on extra config keys.
 
-### Legacy executor derives per-step config from `context.config`
-- **Context:** The active TaskGraph runtime still drives `PipelineExecutor.execute(ctx, recipe)` without a `RunRequest` path.
+### Legacy executor uses schema defaults for bare recipes
+- **Context:** TaskGraph still drives `PipelineExecutor.execute(ctx, recipe)` without a `RunRequest` path.
 - **Options:** Use schema defaults only, read full `context.config`, or clean `context.config` against each step schema.
-- **Choice:** Clean `context.config` through each step’s schema before running legacy recipes.
-- **Rationale:** Preserves current behavior while ensuring steps only see schema-approved keys.
-- **Risk:** Legacy overrides outside the step schema are ignored; cutover still needed for `RunRequest` recipes.
+- **Choice:** Use schema defaults only for legacy recipe execution.
+- **Rationale:** Avoids hidden legacy config fallbacks while keeping the standard recipe runnable.
+- **Risk:** Legacy overrides outside recipe config are ignored until the `RunRequest` path is wired end-to-end.
 
 ## Prework Prompt (Agent Brief)
 
