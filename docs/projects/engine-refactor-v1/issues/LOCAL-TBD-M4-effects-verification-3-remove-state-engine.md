@@ -80,3 +80,8 @@ Constraints/notes:
 - No algorithm changes; this is cleanup only.
 - Coordinate with placement inputs so placement effects are already verified.
 - Do not implement code; return the inventory and checklist as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-3-state-engine-removal-map.md`
+- Includes: a full inventory of `state:engine.*` usage (tags, standard dependency spine, tests, schema docs, deferrals), a per-tag replacement map (`effect:*`/`field:*`/`artifact:*`), and a mechanical cleanup checklist to eliminate the namespace and close DEF-008.

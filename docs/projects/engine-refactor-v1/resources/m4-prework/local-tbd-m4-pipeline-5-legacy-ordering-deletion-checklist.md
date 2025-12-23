@@ -1,0 +1,77 @@
+# Prework — `LOCAL-TBD-M4-PIPELINE-5` (Delete legacy ordering/enablement surfaces)
+
+Goal: provide an exhaustive, mechanical deletion checklist for legacy ordering/enablement inputs so PIPELINE‑5 can be executed with high parallelism and low ambiguity.
+
+Keywords in scope:
+- `stageManifest`
+- `stageConfig`
+- `STAGE_ORDER`
+- `presets`
+- (`stageFlags`, `shouldRun`) — already absent in current codebase; confirm during removal.
+
+## 1) Code references (mapgen-core runtime)
+
+Files containing one or more keywords (from `rg -l stageManifest|stageConfig|STAGE_ORDER|presets`):
+
+| File | Keywords present | What it is | Intended outcome / replacement |
+| --- | --- | --- | --- |
+| `packages/mapgen-core/src/bootstrap/entry.ts` | `presets`, `stageConfig`, `stageManifest`, `STAGE_ORDER` (re-export) | Legacy bootstrap that composes `MapGenConfig` via presets/overrides and resolves stage config → stage manifest. | Delete preset + stage plumbing; runtime boundary becomes explicit `RunRequest = { recipe, settings }` and no `MapGenConfig` mega-object (PIPELINE‑4/5). |
+| `packages/mapgen-core/src/bootstrap/resolved.ts` | `STAGE_ORDER`, `stageConfig`, `stageManifest` | “Config air gap” bridge: defines canonical stage order and derives `StageManifest`. | Delete entirely once runtime is recipe-only (PIPELINE‑4) and legacy inputs are removed (PIPELINE‑5). |
+| `packages/mapgen-core/src/orchestrator/task-graph.ts` | `stageManifest` | TaskGraph runner currently reads `config.stageManifest` and derives a recipe from it. | Replace with `RunRequest → compileExecutionPlan → run plan` using standard mod recipe; do not consult stageManifest for ordering/enablement. |
+| `packages/mapgen-core/src/pipeline/StepRegistry.ts` | `STAGE_ORDER` (comment), `stageManifest` (type usage) | Contains `getStandardRecipe(stageManifest)` bridge for M3. | Delete `getStandardRecipe` and any `StageManifest` dependency once ordering is recipe-only. |
+| `packages/mapgen-core/src/config/schema.ts` | `presets`, `stageConfig`, `stageManifest` (schema fields) | `MapGenConfigSchema` includes internal stage plumbing and presets. | Remove stage plumbing + presets from schema (and any dependent types); replace with `RunSettings` + per-step config schemas (PIPELINE‑1/2). |
+| `packages/mapgen-core/src/config/presets.ts` | `stageConfig` | Legacy presets mapping (classic/temperate). | Delete; migrate to “named recipes” (tooling concern) or explicit recipe selection. |
+| `packages/mapgen-core/src/config/index.ts` | re-exports involving presets | Public config surface exporting preset helpers. | Remove preset exports; shrink surface accordingly. |
+| `packages/mapgen-core/src/MapOrchestrator.ts` | `stageConfig` (doc comment only) | Documentation/example still shows legacy bootstrap usage. | Update docs/comments to new boundary (`RunRequest`/recipe selection) or remove example if obsolete. |
+
+Sanity check:
+- `stageFlags` / `shouldRun` currently have **no matches** in `packages/mapgen-core/src/**` or `packages/mapgen-core/test/**` (confirm again before final deletion).
+
+## 2) Test references (mapgen-core)
+
+Files containing one or more keywords:
+
+| File | Keywords present | What it tests today | Intended outcome / replacement |
+| --- | --- | --- | --- |
+| `packages/mapgen-core/test/bootstrap/entry.test.ts` | `presets`, `stageConfig`, `stageManifest` | Bootstrap behavior: presets stored, stageConfig round-trips, manifest derived. | Replace with tests for the new boundary input parser/validator (RunRequest/settings) or delete if bootstrap is removed. |
+| `packages/mapgen-core/test/bootstrap/resolved.test.ts` | `STAGE_ORDER`, `stageConfig`, `stageManifest` | Stage manifest resolver + drift detection. | Delete once resolver is deleted; replacement tests should validate default recipe order and plan compilation (PIPELINE‑1/4). |
+| `packages/mapgen-core/test/config/loader.test.ts` | `stageManifest`, `stageConfig` | Public schema export behavior (xInternal filtering) includes/excludes internal stage plumbing fields. | Update to reflect new schema surface (no stage plumbing fields exist). |
+| `packages/mapgen-core/test/orchestrator/generateMap.integration.test.ts` | `stageConfig` | Integration test disables all stages via stageConfig. | Rewrite to use recipe selection/enablement instead (or omit recipe steps). |
+| `packages/mapgen-core/test/orchestrator/paleo-ordering.test.ts` | `stageManifest` | Asserts ordering derived from manifest and paleo pass placement. | Rewrite around recipe/plan ordering (RecipeV1 / ExecutionPlan nodes). |
+| `packages/mapgen-core/test/orchestrator/task-graph.smoke.test.ts` | `stageConfig` | Smoke tests for TaskGraph path using legacy stageConfig. | Rewrite to build a RunRequest with a recipe; avoid stageConfig entirely. |
+| `packages/mapgen-core/test/orchestrator/foundation.smoke.test.ts` | `stageConfig` | Smoke tests using legacy stageConfig minimal stages. | Rewrite to recipe-based enablement. |
+| `packages/mapgen-core/test/orchestrator/placement-config-wiring.test.ts` | `stageConfig` | Wiring tests gated by stageConfig. | Rewrite to recipe-based enablement (placement step present/absent). |
+| `packages/mapgen-core/test/orchestrator/worldmodel-config-wiring.test.ts` | `stageConfig` | Wiring tests gated by stageConfig. | Rewrite to recipe-based enablement. |
+
+## 3) Docs references (engine-refactor + mapgen docs)
+
+Files matching the keywords under `docs/projects/engine-refactor-v1/**` and `docs/system/libs/mapgen/**` include both active docs and historical archives.
+
+Recommended handling for PIPELINE‑5:
+
+### Active docs to update (ensure no “live” API guidance still mentions legacy surfaces)
+
+- `docs/projects/engine-refactor-v1/deferrals.md`
+  - Action: mark `DEF-004` resolved once `STAGE_ORDER`/`stageManifest` are fully removed.
+- `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`
+  - Action: ensure milestone still reflects that presets + stage plumbing are deleted in PIPELINE‑5.
+- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
+  - Action: keep “legacy stage inputs are migration-only” wording; remove any remaining implications that they are part of runtime contracts once deletion lands.
+- `docs/system/libs/mapgen/architecture.md`
+  - Action: remove/replace any “stageConfig/stageManifest” references once the runtime boundary is recipe-only.
+
+### M4 issue docs (expected to mention legacy surfaces as targets)
+
+These are expected to keep mentioning legacy surfaces as “things to delete”:
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-PIPELINE-CUTOVER.md`
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-5-remove-legacy-ordering.md`
+
+### Archives (no action required beyond awareness)
+
+Many archived issues/reviews/spikes reference stageConfig/stageManifest/presets as historical context:
+- `docs/projects/engine-refactor-v1/issues/_archive/**`
+- `docs/projects/engine-refactor-v1/resources/_archive/**`
+- `docs/system/libs/mapgen/_archive/**`
+
+These should not block the cleanup; treat them as historical snapshots.
+

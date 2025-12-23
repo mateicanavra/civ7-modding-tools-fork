@@ -37,6 +37,7 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 
 - `pnpm -C packages/mapgen-core check`
 - A test or smoke run validates narrative outputs without StoryTags/caches.
+- Targeted smoke coverage for migrated consumers (verify outputs, not just step execution).
 
 ## Dependencies / Notes
 
@@ -87,3 +88,8 @@ Constraints/notes:
 - Do not introduce new StoryTags compatibility surfaces.
 - Do not implement code; return the map/inventory as markdown tables/lists.
 - Follow the milestone sequencing: land after legacy ordering deletion to keep the pipeline stable.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-2-storytags-consumer-and-cache-map.md`
+- Includes: a file-by-file StoryTags consumer→replacement map (ecology/placement/climate/morphology + narrative producers), a narrative cache inventory with delete/derive/keep recommendations, and a short list of cross-domain consumers that warrant targeted smoke coverage during cutover.

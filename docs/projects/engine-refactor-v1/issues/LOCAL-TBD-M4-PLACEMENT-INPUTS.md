@@ -91,7 +91,7 @@ This issue closes DEF-006.
 
 ### 4) Publish a verified effect
 
-- Placement provides `effect:*` (e.g., `effect:engine.placementApplied`) with a postcondition check via adapter.
+- Placement provides `effect:*` (e.g., `effect:engine.placementApplied`) verified via a minimal TS-owned `artifact:placementOutputs@v1` (ADR-ER1-020).
 
 ### 5) Update DEF-006 status
 
@@ -119,3 +119,18 @@ Constraints/notes:
 - Placement effects must be verified (`effect:engine.placementApplied`).
 - Do not implement code; deliver only the checklist + gaps as notes.
 - Coordinate with the effect tag catalog so placement’s effect is schedulable in the registry.
+
+## Prework Results / References
+
+Child artifacts:
+- Placement‑1 (`LOCAL-TBD-M4-PLACEMENT-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-1-placementinputs-v1-contract.md`
+- Placement‑2 (`LOCAL-TBD-M4-PLACEMENT-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-2-cutover-checklist.md`
+
+Readiness checklist:
+- `artifact:placementInputs@v1` contract is sketched and maps directly to current runtime wiring (mapInfo + resolved starts + placement config); derive step should be able to publish it mechanically.
+- Cutover checklist enumerates every current placement input assembly site and the source→artifact mappings needed to remove implicit `ctx.config` and runtime-only closure inputs.
+- Coordinate with Effects‑1/Effects track so `effect:engine.placementApplied` is definable, schedulable in the registry, and has a verification story.
+
+Decisions:
+- `effect:engine.placementApplied` verification uses a minimal TS-owned `artifact:placementOutputs@v1` (ADR-ER1-020).
+- Demo payloads for `artifact:placementInputs@v1` omit `starts` by default (engine-free “won’t crash” demos); include `starts` only in explicit engine-backed/integration tests (ADR-ER1-023).

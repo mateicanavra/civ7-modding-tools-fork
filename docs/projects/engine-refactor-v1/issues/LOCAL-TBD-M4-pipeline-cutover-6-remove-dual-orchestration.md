@@ -77,3 +77,8 @@ Constraints/notes:
 - No new compatibility shims; deletion or explicit fencing only.
 - Keep behavior stable; this is a routing cleanup.
 - Do not implement code; return the inventory and checklist as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-6-dual-orchestration-inventory.md`
+- Includes: inventory of MapOrchestrator entrypoints + in-repo consumers (tests + Swooper mod), mapping to the RunRequest/ExecutionPlan path, and a mechanical cleanup checklist.

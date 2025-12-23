@@ -79,3 +79,8 @@ Constraints/notes:
 - Keep this packaging-only; do not change runtime execution or ordering logic.
 - The standard recipe must be mod-authored and registry-backed.
 - Do not implement code; return the inventory and wiring plan as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-3-standard-mod-packaging-plan.md`
+- Includes: consumer inventory (runtime + tests), proposed `mods/standard/**` layout aligned with SPEC, and a packaging-vs-runtime cutover checklist.

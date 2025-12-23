@@ -1,7 +1,7 @@
 # Slideshow Outline — M3 Core Engine Refactor & Config Shape Evolution
 
 - **Deck ID (kebab-case):** `m3-core-engine-refactor-config-evolution`
-- **Source topic:** `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`
+- **Source topic:** `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`
 - **Supporting sources (quoted / summarized in slides):**
   - `docs/system/libs/mapgen/architecture.md`
   - `docs/projects/engine-refactor-v1/resources/PRD-pipeline-refactor.md`

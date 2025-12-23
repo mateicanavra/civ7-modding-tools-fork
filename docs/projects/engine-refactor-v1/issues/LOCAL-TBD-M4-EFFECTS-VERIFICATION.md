@@ -129,3 +129,19 @@ Constraints/notes:
 - Keep behavior stable; this is contract hardening, not algorithm changes.
 - Do not implement code; deliver only the checklist + gaps as notes.
 - Coordinate with LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER for registry-driven validation and effect schedulability; do not duplicate that work here.
+
+## Prework Results / References
+
+Child artifacts:
+- Effects‑1 (`LOCAL-TBD-M4-EFFECTS-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-1-effect-tags-postconditions.md`
+- Effects‑2 (`LOCAL-TBD-M4-EFFECTS-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-2-biomes-features-reification.md`
+- Effects‑3 (`LOCAL-TBD-M4-EFFECTS-3`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-3-state-engine-removal-map.md`
+
+Readiness checklist (implementation should be mostly mechanical once these are decided):
+- Registry cutover supports `effect:*` as first-class schedulable tags and can attach verifiers (see LOCAL‑TBD‑M4‑TAG‑REGISTRY‑CUTOVER prework).
+- Biomes/features can reify immediately after mutate into `field:biomeId` / `field:featureType` and switch the one real cross-step engine read (features reading biome state) to field reads.
+- `state:engine.*` removal map is complete across tags/standard spine/tests/schema strings/DEF‑008.
+
+Decision notes (resolved blockers):
+- `effect:engine.placementApplied` verification is locked: publish a minimal TS-owned `artifact:placementOutputs@v1` and verify via artifact shape/invariants (ADR-ER1-020).
+- `effect:engine.landmassApplied` / `effect:engine.coastlinesApplied` verification is locked: use cheap invariants + call evidence in M4; defer adapter read-back APIs (ADR-ER1-021; DEF-017).

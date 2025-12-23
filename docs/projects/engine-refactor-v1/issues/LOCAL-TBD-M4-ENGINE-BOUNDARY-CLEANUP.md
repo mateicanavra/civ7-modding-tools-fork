@@ -72,7 +72,7 @@ The accepted engine-boundary policy disallows “read engine later” dependency
 
 ### 2) Define replacement surfaces
 
-- For each usage, decide: adapter-backed read, reified field/artifact, or explicit fencing.
+- For each usage, classify the replacement surface: adapter-backed read, reified field/artifact, or explicit fencing.
 
 ### 3) Implement removal/fencing
 
@@ -99,3 +99,8 @@ Constraints/notes:
 - No implicit engine-global dependency surfaces; failures must be explicit.
 - Keep behavior stable; this is boundary cleanup, not algorithm change.
 - Do not implement code; return the inventory and mapping as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-engine-boundary-globals-inventory.md`
+- Includes: inventory of `GameplayMap` fallbacks, module-load `GameInfo` lookups, and `PlotTags`/`LandmassRegion` globals (with dependency roles), plus a per-surface replacement proposal (adapter-backed reads/explicit inputs) and a shortlist of tests/docs that will need updates once globals are removed/fenced.

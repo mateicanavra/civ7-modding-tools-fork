@@ -87,3 +87,8 @@ Constraints/notes:
 - V1 recipes are linear; keep it simple and deterministic.
 - Do not implement code; return the mapping and recipe list as a markdown table/list.
 - Keep packaging vs runtime cutover artifacts clearly separated to match the milestone split.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-4-default-recipe-and-runtime-cutover.md`
+- Includes: default full-pipeline `RecipeV1.steps[]` list (M3 stage ids), notes on legacy enablement rules to eliminate (ruggedCoasts expansion, storyEnabled derivation, paleo toggle), and a packaging-vs-runtime touchpoint split.

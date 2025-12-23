@@ -116,3 +116,18 @@ Constraints/notes:
 - Caches must be context-owned or removed.
 - Do not implement code; deliver only the checklist + gaps as notes.
 - Follow the milestone sequencing: producers after tag registry cutover; consumer migration after legacy ordering deletion.
+
+## Prework Results / References
+
+Child artifacts:
+- Narrative‑1 (`LOCAL-TBD-M4-NARRATIVE-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-1-artifact-inventory.md`
+- Narrative‑2 (`LOCAL-TBD-M4-NARRATIVE-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-2-storytags-consumer-and-cache-map.md`
+
+Readiness checklist:
+- Canonical narrative artifact set has a minimal v1 inventory (IDs + schema sketches + demo guidance) aligned to existing overlay kinds, so producers can publish artifacts mechanically.
+- StoryTags consumer map covers narrative producers and cross-domain consumers (morphology/ecology/climate), with explicit target artifacts/helpers for each.
+- Cache/global inventory is explicit (StoryTags, overlays, corridor/orogeny caches) and includes delete/derive/keep recommendations.
+
+Decisions:
+- Hotspot categories live inside a single `artifact:narrative.motifs.hotspots@v1` (no split artifacts in v1) (ADR-ER1-024).
+- `ctx.overlays` remains a non-canonical derived debug/compat view; narrative artifacts are canonical dependency surfaces (ADR-ER1-025).

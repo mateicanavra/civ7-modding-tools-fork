@@ -153,3 +153,22 @@ Constraints/notes:
 - Do not invent new architecture decisions; align with accepted recipe-only ordering + enablement.
 - Do not implement code changes; deliver only the checklist + gaps as notes.
 - Keep packaging (PIPELINE-3) and runtime cutover (PIPELINE-4) artifacts distinct, per the M4 milestone split.
+
+## Prework Results / References
+
+Readiness checklist (child prework artifacts):
+- [x] PIPELINE‑1 — boundary schemas + compile rules + STAGE_ORDER parity map:
+  - `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-1-runrequest-recipe-executionplan.md`
+- [x] PIPELINE‑2 — per-step config inventory matrix + schema reuse guidance:
+  - `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-2-step-config-matrix.md`
+- [x] PIPELINE‑3 — standard mod packaging plan + consumer inventory + wiring touchpoints:
+  - `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-3-standard-mod-packaging-plan.md`
+- [x] PIPELINE‑4 — default full-pipeline RecipeV1 list + legacy enablement notes:
+  - `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-4-default-recipe-and-runtime-cutover.md`
+- [x] PIPELINE‑5 — legacy ordering/enablement deletion checklist (code/tests/docs):
+  - `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-5-legacy-ordering-deletion-checklist.md`
+- [x] PIPELINE‑6 — dual-orchestration inventory + mapping + cleanup checklist:
+  - `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-6-dual-orchestration-inventory.md`
+
+Notable decision (resolved blocker):
+- Cross-cutting directionality policy is supplied via RunRequest `settings` (not duplicated per-step config); see `docs/projects/engine-refactor-v1/ADR.md` (ADR-ER1-019).

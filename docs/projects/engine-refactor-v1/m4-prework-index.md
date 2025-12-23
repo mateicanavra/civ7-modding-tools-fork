@@ -2,6 +2,8 @@
 
 This index links all embedded "Prework Prompt (Agent Brief)" sections for M4 parents and child issues. Use it to pick prework tasks, decide ordering, and assign agents.
 
+Prework outputs (completed artifacts) live at: `docs/projects/engine-refactor-v1/resources/m4-prework/index.md`.
+
 Milestone note: PIPELINE-3 and PIPELINE-6 estimates remain TBD; treat their prework as scoping inputs for final estimates.
 
 ## Pipeline Cutover

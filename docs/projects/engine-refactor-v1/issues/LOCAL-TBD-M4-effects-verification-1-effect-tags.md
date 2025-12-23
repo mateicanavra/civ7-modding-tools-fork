@@ -80,3 +80,8 @@ Constraints/notes:
 - Keep this additive; no scheduling changes in this prework.
 - Do not implement code; return the catalog and API sketch as a markdown table/list.
 - Coordinate with the tag registry cutover so effect tags land in the canonical registry surface.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-1-effect-tags-postconditions.md`
+- Includes: current `state:engine.*` usage + providing steps, a proposed `effect:*` seed catalog for biomes/features/placement, and a minimal postcondition verification sketch (placement verification is locked in ADR-ER1-020).

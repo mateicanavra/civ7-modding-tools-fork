@@ -81,3 +81,8 @@ Constraints/notes:
 - Tracing must be optional and must not change execution when disabled.
 - The plan fingerprint must be deterministic across runs.
 - Do not implement code; return the model and hook list as markdown tables/lists.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-safety-1-tracing-model-and-fingerprint.md`
+- Includes: a minimal trace event model + sink interface, a deterministic plan fingerprint spec (canonical JSON + hash) with explicit inclusions/exclusions, concrete hook points for compiler/executor emission, and a suggested per-step trace toggle shape.

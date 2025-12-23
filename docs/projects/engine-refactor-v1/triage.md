@@ -18,6 +18,16 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Mapgen research spikes: decide keep vs archive+salvage** [Review by: post-M4]
+  - **Context:** Doc inventory/archive pass recorded at `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-inventory-archive-planning.md`.
+  - **Type:** triage
+  - **Notes:** These are intentionally left as-is for now; later, do a focused read to either (a) keep them as research references, or (b) archive them after salvaging only the timeless modeling concepts into canonical mapgen docs:
+    - `docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md`
+    - `docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md`
+    - `docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md`
+    - `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md`
+  - **Next check:** after M4 (or when updating `docs/system/libs/mapgen/*.md`).
+
 - **Revisit `FoundationContext` contract doc structure & enforcement** [Review by: end of M3]
   - **Context:** M2 stable-slice contract at `resources/CONTRACT-foundation-context.md` (CIV-34 follow-up).
   - **Type:** triage

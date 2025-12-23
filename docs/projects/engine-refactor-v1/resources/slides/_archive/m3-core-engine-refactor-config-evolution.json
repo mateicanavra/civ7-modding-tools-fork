@@ -17,7 +17,7 @@
       "explanation": "M3 extends the M2 stable slice to the full engine by making the Task Graph architecture the default execution model and evolving configuration to match the long-term design—while staying wrap-first (no algorithm swaps).",
       "blocks": [
         {
-          "explanation": "**Milestone intent**\n- Extend task-graph architecture from stable slice to full engine\n- Make major stages run as pipeline steps with explicit contracts\n- Enforce contracts at runtime (fail-fast gating)\n- Evolve `MapGenConfig` toward a step/phase-aligned surface\n- Canonicalize shared artifacts across clusters (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`)\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+          "explanation": "**Milestone intent**\n- Extend task-graph architecture from stable slice to full engine\n- Make major stages run as pipeline steps with explicit contracts\n- Enforce contracts at runtime (fail-fast gating)\n- Evolve `MapGenConfig` toward a step/phase-aligned surface\n- Canonicalize shared artifacts across clusters (`FoundationContext`, `Heightfield`, `ClimateField`, `StoryOverlays`)\n\nSource: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
         },
         {
           "kpiGrid": {
@@ -50,7 +50,7 @@
           }
         },
         {
-          "explanation": "**Boundary note**\n- M3 owns config/behavior work tightly coupled to Task Graph primitives and canonical artifacts.\n- Stable-slice config correctness meaningful in the current orchestrator flow is handled in M2.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+          "explanation": "**Boundary note**\n- M3 owns config/behavior work tightly coupled to Task Graph primitives and canonical artifacts.\n- Stable-slice config correctness meaningful in the current orchestrator flow is handled in M2.\n\nSource: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
         }
       ]
     },
@@ -89,7 +89,7 @@
           }
         },
         {
-          "explanation": "**Graphite execution decision (locked)**: M3 is developed as one long-running Graphite stack and merged to `main` at milestone completion.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+          "explanation": "**Graphite execution decision (locked)**: M3 is developed as one long-running Graphite stack and merged to `main` at milestone completion.\n\nSource: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
         }
       ]
     },
@@ -100,7 +100,7 @@
       "explanation": "Stack 1 is the unlock: Step contract + registry + executor + runtime gating + a standard pipeline entry that can run end-to-end without changing algorithms.",
       "blocks": [
         {
-          "explanation": "**What Stack 1 lands (excerpted)**\n- `MapGenStep` contract (id/phase/requires/provides/shouldRun/run)\n- `StepRegistry` for registration + lookup\n- `PipelineExecutor` that iterates a recipe, validates `requires`, and executes\n- Runtime gating that throws on missing dependencies (fail-fast)\n- A standard pipeline recipe that wraps current orchestrator stages as steps\n- Parallel entry paths during transition (executor alongside orchestrator)\n\nSources: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/system/libs/mapgen/architecture.md`"
+          "explanation": "**What Stack 1 lands (excerpted)**\n- `MapGenStep` contract (id/phase/requires/provides/shouldRun/run)\n- `StepRegistry` for registration + lookup\n- `PipelineExecutor` that iterates a recipe, validates `requires`, and executes\n- Runtime gating that throws on missing dependencies (fail-fast)\n- A standard pipeline recipe that wraps current orchestrator stages as steps\n- Parallel entry paths during transition (executor alongside orchestrator)\n\nSources: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/system/libs/mapgen/architecture.md`"
         },
         {
           "diagram": {
@@ -126,7 +126,7 @@
       "explanation": "M3 turns `requires`/`provides` into enforceable contracts: the executor fails fast instead of letting generation limp through.",
       "blocks": [
         {
-          "explanation": "**Why this matters**\n- Current legacy flow hides dependencies and can degrade silently.\n- M3 requires runtime dependency validation (fail fast on missing `requires`).\n\nSources: `docs/system/libs/mapgen/architecture.md`, `docs/projects/engine-refactor-v1/resources/PRD-pipeline-refactor.md`, `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+          "explanation": "**Why this matters**\n- Current legacy flow hides dependencies and can degrade silently.\n- M3 requires runtime dependency validation (fail fast on missing `requires`).\n\nSources: `docs/system/libs/mapgen/architecture.md`, `docs/projects/engine-refactor-v1/resources/PRD-pipeline-refactor.md`, `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
         },
         {
           "table": {
@@ -196,7 +196,7 @@
           }
         },
         {
-          "explanation": "**Wrap-first enforcement**\n- Wrapper steps call existing logic, but new/modernized reads should prefer artifacts over direct `GameplayMap` access when the data exists as an artifact.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+          "explanation": "**Wrap-first enforcement**\n- Wrapper steps call existing logic, but new/modernized reads should prefer artifacts over direct `GameplayMap` access when the data exists as an artifact.\n\nSource: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
         }
       ]
     },
@@ -236,7 +236,7 @@
           }
         },
         {
-          "explanation": "Note from the milestone: intermediate states may be non-backwards-compatible while the cutover is in flight, but the stack should remain runnable by updating in-tree callers/scripts as part of the milestone branch.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+          "explanation": "Note from the milestone: intermediate states may be non-backwards-compatible while the cutover is in flight, but the stack should remain runnable by updating in-tree callers/scripts as part of the milestone branch.\n\nSource: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
         }
       ]
     },
@@ -263,7 +263,7 @@
           }
         },
         {
-          "explanation": "Sources: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/projects/engine-refactor-v1/resources/config-wiring-status.md`"
+          "explanation": "Sources: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/projects/engine-refactor-v1/resources/config-wiring-status.md`"
         }
       ]
     },
@@ -291,7 +291,7 @@
           }
         },
         {
-          "explanation": "Sources: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/system/libs/mapgen/architecture.md`"
+          "explanation": "Sources: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`, `docs/system/libs/mapgen/architecture.md`"
         }
       ]
     },
@@ -314,7 +314,7 @@
           }
         },
         {
-          "explanation": "Operational constraint: keep the long-running stack runnable end-to-end while it evolves.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+          "explanation": "Operational constraint: keep the long-running stack runnable end-to-end while it evolves.\n\nSource: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
         }
       ]
     },
@@ -361,7 +361,7 @@
           }
         },
         {
-          "explanation": "Source: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+          "explanation": "Source: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
         }
       ]
     },
@@ -387,7 +387,7 @@
           }
         },
         {
-          "explanation": "Recommended minting order (from the milestone): Stack 1 → Stacks 2–3 → Stack 4 → Stack 5 → Stack 6 → Stack 7.\n\nSource: `docs/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
+          "explanation": "Recommended minting order (from the milestone): Stack 1 → Stacks 2–3 → Stack 4 → Stack 5 → Stack 6 → Stack 7.\n\nSource: `docs/_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`"
         }
       ]
     },

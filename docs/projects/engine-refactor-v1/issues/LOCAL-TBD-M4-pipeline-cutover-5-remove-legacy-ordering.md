@@ -92,3 +92,8 @@ Where to look:
 Constraints/notes:
 - Treat this as a high-parallelism mechanical cleanup; do not change behavior or implement code.
 - No compatibility shims should survive the final removal.
+
+## Prework Results / References
+
+- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-pipeline-5-legacy-ordering-deletion-checklist.md`
+- Includes: exhaustive file-level checklist for legacy ordering/enablement surfaces in code, tests, and docs (plus “already absent” confirmation for `stageFlags`/`shouldRun`).
