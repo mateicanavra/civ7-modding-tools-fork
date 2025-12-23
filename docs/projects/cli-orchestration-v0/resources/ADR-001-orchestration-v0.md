@@ -7,6 +7,7 @@
 **Decision:**
 - Build a custom Bun/TypeScript orchestration script as the v0 control plane.
 - Use the Codex TypeScript SDK as the default invocation/parsing layer, behind a runner abstraction so raw CLI can be swapped in later.
+- Standardize output schema authoring/validation via TypeBox (generate strict JSON Schemas + validate local results) to avoid drift and satisfy Codex JSON schema requirements (all object keys required; empty strings/arrays used for “no data”).
 - Introduce autonomous prompt variants: `dev-auto-parallel`, `dev-auto-review-linear`, `dev-auto-fix-review`.
   - These live as commands in the `dev` plugin and are synced into `~/.codex/prompts/`.
   - Add a dedicated `autonomous-development` skill to centralize the auto-safe contract (worktree rules, Graphite allowlist, structured outputs).

@@ -23,7 +23,7 @@ export interface ReviewIssue {
   severity: "low" | "medium" | "high";
   title: string;
   details: string;
-  evidence?: string;
+  evidence: string;
 }
 
 export interface DevResult extends PhaseBase {
@@ -40,11 +40,11 @@ export interface DevResult extends PhaseBase {
 export interface ReviewResult extends PhaseBase {
   phase: "review";
   status: ReviewStatus;
-  issues?: ReviewIssue[];
-  requiredActions?: string[];
-  followups?: string[];
-  reviewDocPath?: string;
-  confidence?: "low" | "medium" | "high";
+  issues: ReviewIssue[];
+  requiredActions: string[];
+  followups: string[];
+  reviewDocPath: string;
+  confidence: "low" | "medium" | "high";
 }
 
 export interface IssueDoc {
@@ -73,4 +73,5 @@ export interface OrchestratorConfig {
   repoRoot: string;
   logsRoot: string;
   maxReviewCycles: number;
+  baseBranch: string;
 }

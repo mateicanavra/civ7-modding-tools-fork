@@ -103,7 +103,7 @@ export async function runOrchestrator(config: OrchestratorConfig, args: Orchestr
 
   const issue = selectIssue(issues, args.issueId);
   const branchName = deriveBranchName(issue.id, issue.title);
-  const worktreePath = await ensureWorktree(config.repoRoot, branchName, "main");
+  const worktreePath = await ensureWorktree(config.repoRoot, branchName, config.baseBranch);
   const logRoot = join(config.logsRoot, args.milestoneId, issue.id);
   const runner = new CodexSdkRunner();
   const devSchemaPath = join(

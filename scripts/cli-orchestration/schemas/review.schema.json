@@ -8,7 +8,12 @@
     "milestoneId",
     "branch",
     "worktreePath",
-    "summary"
+    "summary",
+    "issues",
+    "requiredActions",
+    "followups",
+    "reviewDocPath",
+    "confidence"
   ],
   "properties": {
     "phase": { "type": "string", "enum": ["review"] },
@@ -23,7 +28,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["severity", "title", "details"],
+        "required": ["severity", "title", "details", "evidence"],
         "properties": {
           "severity": { "type": "string", "enum": ["low", "medium", "high"] },
           "title": { "type": "string" },
