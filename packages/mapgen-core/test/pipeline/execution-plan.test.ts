@@ -161,6 +161,86 @@ describe("compileExecutionPlan", () => {
     }
   });
 
+  it("fails on unknown per-step config keys", () => {
+    const registry = new StepRegistry<unknown>();
+    registry.register({
+      id: "alpha",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      configSchema: Type.Object(
+        {
+          value: Type.Number(),
+        },
+        { additionalProperties: false }
+      ),
+      run: (_context, _config) => {},
+    });
+
+    try {
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 1,
+            steps: [{ id: "alpha", config: { value: 3, extra: 9 } }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      );
+      throw new Error("Expected compile to fail for unknown config keys");
+    } catch (err) {
+      expect(err).toBeInstanceOf(ExecutionPlanCompileError);
+      const errors = (err as ExecutionPlanCompileError).errors;
+      expect(errors[0].code).toBe("step.config.invalid");
+      expect(
+        errors.some(
+          (error) =>
+            error.path === "/recipe/steps/0/config/extra" &&
+            error.message === "Unknown key"
+        )
+      ).toBe(true);
+    }
+  });
+
+  it("fails on null per-step config", () => {
+    const registry = new StepRegistry<unknown>();
+    registry.register({
+      id: "alpha",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      configSchema: Type.Object(
+        {
+          value: Type.Number(),
+        },
+        { additionalProperties: false }
+      ),
+      run: (_context, _config) => {},
+    });
+
+    try {
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 1,
+            steps: [{ id: "alpha", config: null }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      );
+      throw new Error("Expected compile to fail for null config");
+    } catch (err) {
+      expect(err).toBeInstanceOf(ExecutionPlanCompileError);
+      const errors = (err as ExecutionPlanCompileError).errors;
+      expect(errors[0].code).toBe("runRequest.invalid");
+      expect(
+        errors.some((error) => error.path.includes("/recipe/steps/0/config"))
+      ).toBe(true);
+    }
+  });
+
   it("fails on invalid run request shape", () => {
     const registry = new StepRegistry<unknown>();
 
