@@ -60,25 +60,7 @@ Package the standard pipeline as a mod-style package and wire the loader/registr
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-## Prework Prompt (Agent Brief)
-
-Goal: inventory the standard pipeline entrypoints and define the packaging + loader wiring plan so implementation is mechanical.
-
-Deliverables:
-- A map of all standard-pipeline entrypoints/consumers (CLI, scripts, tests, runtime entry paths) that currently import from `pipeline/standard-library.ts` or `pipeline/standard.ts`.
-- A proposed standard mod package layout (registry + recipes) and where it should live in the repo.
-- A list of loader/registry wiring touchpoints required to discover the standard mod package.
-- A cutover checklist separating packaging changes (this issue) from runtime boundary changes (PIPELINE-4).
-
-Where to look:
-- Standard pipeline sources: `packages/mapgen-core/src/pipeline/standard.ts`, `packages/mapgen-core/src/pipeline/standard-library.ts`.
-- Registry/loader wiring: `packages/mapgen-core/src/pipeline/StepRegistry.ts`, `packages/mapgen-core/src/bootstrap/entry.ts`, `packages/mapgen-core/src/bootstrap/resolved.ts`.
-- Consumers: `packages/cli/**`, `scripts/**`, and any test harnesses under `packages/mapgen-core/test/**`.
-
-Constraints/notes:
-- Keep this packaging-only; do not change runtime execution or ordering logic.
-- The standard recipe must be mod-authored and registry-backed.
-- Do not implement code; return the inventory and wiring plan as markdown tables/lists.
+Pre-work Status: complete.
 
 ## Pre-work
 
@@ -159,10 +141,10 @@ Later scope (PIPELINE‑4 and beyond):
 
 #### PIPELINE‑3 (packaging + loader wiring; no runtime cutover)
 
-- [ ] Create `packages/mapgen-core/src/mods/standard/**` scaffold (mod.ts, registry/, recipes/).
-- [ ] Author `recipes/default.ts` as a V1 recipe that matches current M3 stage ids/order (use PIPELINE‑1 parity map as the source of truth).
-- [ ] Provide a way to "load standard mod" in runtime entrypoints (TaskGraph) without importing `pipeline/standard-library.ts` in the entrypoint itself.
-- [ ] Update tests that currently assume `getStandardRecipe(stageManifest)` is the canonical ordering source:
+- [x] Create `packages/mapgen-core/src/mods/standard/**` scaffold (mod.ts, registry/, recipes/).
+- [x] Author `recipes/default.ts` as a V1 recipe that matches current M3 stage ids/order (use PIPELINE‑1 parity map as the source of truth).
+- [x] Provide a way to "load standard mod" in runtime entrypoints (TaskGraph) without importing `pipeline/standard-library.ts` in the entrypoint itself.
+- [x] Update tests that currently assume `getStandardRecipe(stageManifest)` is the canonical ordering source:
   - keep STAGE_ORDER tests (they still validate the legacy bridge until PIPELINE‑5),
   - add/adjust tests to assert default recipe is sourced from the standard mod package.
 
@@ -170,3 +152,29 @@ Later scope (PIPELINE‑4 and beyond):
 
 - [ ] Switch execution path to `RunRequest → ExecutionPlan` and run the mod's default recipe through the compiler/executor.
 - [ ] Ensure standard mod recipe can be selected/loaded by the boundary (CLI/tooling/engine entry).
+
+## Implementation Decisions
+
+### 1) Canonical stage order lives with the standard mod recipe
+
+Context: STAGE_ORDER was the default ordering source; the standard mod should now own the default recipe.
+
+Options: keep STAGE_ORDER as the canonical list; derive STAGE_ORDER from the standard mod recipe list.
+
+Choice: derive STAGE_ORDER from the standard mod recipe list to keep a single ordering source of truth.
+
+Rationale: avoids order drift while keeping stage-manifest plumbing intact until PIPELINE‑5.
+
+Risk: bootstrap now depends on standard mod content.
+
+### 2) Registry wiring wraps the existing standard library
+
+Context: packaging-only scope should not move algorithms or change runtime cutover behavior.
+
+Options: duplicate layer registration in the mod registry; reuse `registerStandardLibrary`.
+
+Choice: reuse `registerStandardLibrary` inside the mod registry wrapper.
+
+Rationale: keeps wiring mechanical and minimizes behavior change in PIPELINE‑3.
+
+Risk: standard-library remains an internal helper until PIPELINE‑5.

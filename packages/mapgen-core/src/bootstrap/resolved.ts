@@ -15,6 +15,7 @@
  */
 
 import type { StageManifest, StageDescriptor } from "@mapgen/bootstrap/types.js";
+import { STANDARD_RECIPE_STEP_IDS } from "@mapgen/mods/standard/recipes/default.js";
 import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 
 // ============================================================================
@@ -23,32 +24,11 @@ import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 
 /**
  * Canonical stage execution order.
- * Derived from the pipeline's M3 stage ordering.
+ * Derived from the standard mod's default recipe.
  */
 export const STAGE_ORDER = Object.freeze([
-  "foundation",
-  "landmassPlates",
-  "coastlines",
-  "storySeed",
-  "storyHotspots",
-  "storyRifts",
-  "ruggedCoasts",
-  "storyOrogeny",
-  "storyCorridorsPre",
-  "islands",
-  "mountains",
-  "volcanoes",
-  "lakes",
-  "climateBaseline",
-  "storySwatches",
-  "rivers",
-  "storyCorridorsPost",
-  "climateRefine",
-  "biomes",
-  "features",
-  "placement",
-] as const);
-Object.freeze(STAGE_ORDER);
+  ...STANDARD_RECIPE_STEP_IDS,
+]) as Readonly<typeof STANDARD_RECIPE_STEP_IDS>;
 
 export type StageName = (typeof STAGE_ORDER)[number];
 export type StageConfig = Partial<Record<StageName, boolean>>;
