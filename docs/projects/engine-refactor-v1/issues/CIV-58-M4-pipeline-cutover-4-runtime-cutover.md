@@ -192,3 +192,10 @@ Concrete enablement rules observed today that require explicit handling:
 - Choice: Use `M3_STAGE_DEPENDENCY_SPINE`.
 - Rationale: Keeps dependency tags aligned with the canonical standard pipeline without legacy manifests.
 - Risk: Recipe-specific dependency changes will need explicit support later.
+
+### Add recipeOverride for explicit enablement in MapOrchestrator
+- Context: With runtime cutover, `stageConfig` no longer disables steps; tests/docs need a way to run a minimal recipe through the canonical entrypoint.
+- Options: Always run the standard recipe, bypass MapOrchestrator in tests with a custom runner, or allow an explicit recipe override on `OrchestratorConfig`.
+- Choice: Add `recipeOverride` to `OrchestratorConfig` and thread it into TaskGraph execution.
+- Rationale: Keeps MapOrchestrator as the canonical entrypoint while allowing recipe-based enablement for tests/examples.
+- Risk: Exposes a new option that downstream consumers might use; ensure defaults remain standard and consider validation if custom recipes diverge.

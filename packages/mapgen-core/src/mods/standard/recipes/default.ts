@@ -1,3 +1,4 @@
+import type { StageManifest } from "@mapgen/config/index.js";
 import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
 
 export const STANDARD_RECIPE_STEP_IDS = [
@@ -29,3 +30,12 @@ export const defaultRecipe: RecipeV1 = {
   id: "core.standard",
   steps: STANDARD_RECIPE_STEP_IDS.map((id) => ({ id })),
 };
+
+export function resolveDefaultRecipeStepIds(
+  stageManifest: StageManifest | null | undefined
+): string[] {
+  if (!stageManifest?.stages) return [...STANDARD_RECIPE_STEP_IDS];
+  return STANDARD_RECIPE_STEP_IDS.filter(
+    (stepId) => stageManifest.stages?.[stepId]?.enabled !== false
+  );
+}

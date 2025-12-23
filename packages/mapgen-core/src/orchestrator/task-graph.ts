@@ -207,8 +207,8 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   logEngineSurfaceApisOnce();
 
   const registry = new StepRegistry<ExtendedMapContext>();
-  const standardRecipe = standardMod.recipes.default;
-  const enabledSteps = standardRecipe.steps.filter((step) => step.enabled ?? true);
+  const recipe = options.orchestratorOptions.recipeOverride ?? standardMod.recipes.default;
+  const enabledSteps = recipe.steps.filter((step) => step.enabled ?? true);
   const enabledStages = enabledSteps.map((step) => step.id).join(", ");
   console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
 
@@ -291,7 +291,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   let plan: ExecutionPlan;
   try {
-    plan = compileExecutionPlan(buildStandardRunRequest(standardRecipe, config, ctx, mapInfo), registry);
+    plan = compileExecutionPlan(buildStandardRunRequest(recipe, config, ctx, mapInfo), registry);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     stageResults.push({

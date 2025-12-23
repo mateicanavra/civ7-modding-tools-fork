@@ -1,4 +1,5 @@
 import type { EngineAdapter, MapInfo, MapSizeId } from "@civ7/adapter";
+import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
 
 /**
  * Map size defaults for testing (bypasses game settings).
@@ -42,6 +43,11 @@ export interface OrchestratorConfig {
    * Test harnesses must provide concrete dimensions/latitudes via `mapInfo`.
    */
   mapSizeDefaults?: MapSizeDefaults;
+  /**
+   * Override the default recipe used for execution.
+   * Useful for tests or custom runs that need explicit enablement.
+   */
+  recipeOverride?: RecipeV1;
 }
 
 /** Stage execution result */

@@ -61,6 +61,7 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Strengths:** TaskGraph now compiles and executes an ExecutionPlan from the standard recipe; dependency descriptors are sourced from the M3 spine; smoke tests updated for default recipe execution.
 - **Gaps:** Tests and docs still assume `stageConfig` disables stages (e.g., integration test); with runtime cutover, that assumption is now false and the test no longer validates its intended scenario.
 - **Follow-up:** Update MapOrchestrator docs/examples and the integration test to use recipe-based enablement (or an explicit minimal recipe); add a small guard/test to keep the standard recipe and dependency spine in sync.
+- **Update (2025-12-23):** MapOrchestrator docs/examples and the integration test now use recipe-based enablement, and a guard test enforces standard recipe ↔ dependency spine alignment.
 
 ## CIV-57 — [M4] Pipeline cutover: package standard pipeline as mod + loader/registry wiring
 

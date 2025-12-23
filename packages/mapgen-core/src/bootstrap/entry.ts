@@ -11,23 +11,12 @@
  *   import { bootstrap } from "@swooper/mapgen-core/bootstrap";
  *   const config = bootstrap({
  *     presets: ["classic", "temperate"],
- *     stageConfig: {
- *       foundation: true,
- *       landmassPlates: true,
- *       coastlines: true,
- *       mountains: true,
- *       volcanoes: true,
- *       climateBaseline: true,
- *       rivers: true,
- *       climateRefine: true,
- *       biomes: true,
- *       features: true,
- *       placement: true,
- *     },
  *     overrides: {
  *       foundation: { plates: { count: 12 } },
  *     },
  *   });
+ *
+ *   // Stage enablement is recipe-driven; see MapOrchestrator docs for examples.
  */
 
 /// <reference types="@civ7/types" />
