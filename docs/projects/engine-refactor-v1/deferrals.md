@@ -151,17 +151,17 @@ Each deferral follows this structure:
 ## DEF-014: Foundation Graph Artifacts (Replace `FoundationContext`)
 
 **Deferred:** 2025-12-18  
-**Trigger:** When Phase B / foundation PRD work begins and consumers are ready to migrate off `ctx.foundation`.  
-**Context:** The orchestrator bloat assessment explicitly defers the target multi-artifact foundation model; Phase A keeps the `FoundationContext` snapshot as the compatibility boundary.  
-**Decision status (locked):** The target foundation surface is **discrete** `artifact:*` products; any `FoundationContext`-like object is migration-only compatibility wiring. The remaining work is implementation + consumer migration (this deferral tracks that work).
+**Trigger:** After M4 lands the foundation **surface cutover** (no `ctx.foundation`; foundation is surfaced via `ctx.artifacts.foundation.*` + `artifact:foundation.*`), when Phase B / foundation PRD work begins and we can replace the Phase A compatibility backing with real foundation products.  
+**Context:** M4 is allowed to keep a `FoundationContext`-like snapshot as *internal* compatibility wiring, but the contract surface is already the discrete `artifact:foundation.*` set. This deferral tracks the post-M4 work to (a) define stable contracts/schemas and (b) remove the compatibility snapshot by replacing it with real producers.  
+**Decision status (locked):** The target foundation surface is **discrete** `artifact:foundation.*` products; any `FoundationContext`-like object is migration-only compatibility wiring and must be deleted once no longer needed.
 **Scope:**
-- Define the canonical foundation artifact set (mesh, crust, plateGraph, tectonics, and any required raster artifacts).
-- Migrate consumers from `ctx.foundation` to explicit artifacts/fields with named contracts.
+- Finalize/own the `artifact:foundation.*` contracts (schemas + invariants).
+- Replace any `FoundationContext`-backed compatibility wiring with real producers for the discrete artifacts.
 - Revisit plate/physics algorithm replacement to the mesh/crust/plateGraph/tectonics design.
 - Decide whether `dynamics` remains a concept and how its data is represented post-migration.  
 **Impact:**
-- `FoundationContext` remains a monolithic compatibility surface.
-- Target graph artifacts and algorithm replacements are deferred, limiting foundation-level refactors.
+- In M4, foundation artifacts may be backed by a monolithic compatibility snapshot, which can limit fine-grained verification/scheduling until Phase B replaces it.
+- Target graph artifacts and algorithm replacements are deferred, limiting foundation-level refactors until Phase B.
 
 ---
 
