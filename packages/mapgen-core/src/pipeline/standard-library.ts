@@ -1,11 +1,5 @@
 import type { MapInfo } from "@civ7/adapter";
-import type {
-  LandmassConfig,
-  MountainsConfig,
-  VolcanoesConfig,
-  ContinentBounds,
-  StartsConfig,
-} from "@mapgen/bootstrap/types.js";
+import type { ContinentBounds, StartsConfig } from "@mapgen/bootstrap/types.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { MapGenConfig } from "@mapgen/config/index.js";
 import type { StepRegistry } from "@mapgen/pipeline/index.js";
@@ -21,9 +15,6 @@ export interface StandardLibraryRuntime {
   logPrefix: string;
   runFoundation: (context: ExtendedMapContext) => void;
   storyEnabled: boolean;
-  landmassCfg: LandmassConfig;
-  mountainOptions: MountainsConfig;
-  volcanoOptions: VolcanoesConfig;
   mapInfo: MapInfo;
   playersLandmass1: number;
   playersLandmass2: number;

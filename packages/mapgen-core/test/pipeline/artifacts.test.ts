@@ -66,7 +66,7 @@ describe("pipeline artifacts", () => {
       phase: "hydrology",
       requires: [],
       provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
-      run: () => {},
+      run: (_context, _config) => {},
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
@@ -93,7 +93,7 @@ describe("pipeline artifacts", () => {
       phase: "hydrology",
       requires: [],
       provides: [M3_DEPENDENCY_TAGS.artifact.riverAdjacency],
-      run: () => {
+      run: (_context, _config) => {
         const mask = computeRiverAdjacencyMask(ctx);
         publishRiverAdjacencyArtifact(ctx, mask);
       },

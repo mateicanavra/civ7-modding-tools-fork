@@ -27,21 +27,21 @@ describe("placement step contracts", () => {
       phase: "morphology",
       requires: [],
       provides: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
-      run: () => {},
+      run: (_context, _config) => {},
     });
     registry.register({
       id: "rivers",
       phase: "hydrology",
       requires: [],
       provides: [M3_DEPENDENCY_TAGS.state.riversModeled],
-      run: () => {},
+      run: (_context, _config) => {},
     });
     registry.register({
       id: "placement",
       phase: "placement",
       requires: M3_STAGE_DEPENDENCY_SPINE.placement.requires,
       provides: M3_STAGE_DEPENDENCY_SPINE.placement.provides,
-      run: () => {},
+      run: (_context, _config) => {},
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
@@ -58,4 +58,3 @@ describe("placement step contracts", () => {
     }
   });
 });
-
