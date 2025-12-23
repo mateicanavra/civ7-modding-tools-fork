@@ -54,7 +54,7 @@ describe("placement config wiring", () => {
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
   });
 
-  it("PlacementStep honors ctx.config.placement overrides", () => {
+  it("PlacementStep honors explicit placement config", () => {
     const adapter = createMockAdapter({ width, height, mapSizeId: 1, mapInfo, rng: () => 0 });
     const ctx = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
@@ -63,6 +63,9 @@ describe("placement config wiring", () => {
         placement: { wondersPlusOne: false, floodplains: { minLength: 1, maxLength: 2 } },
       } as unknown as Parameters<typeof createExtendedMapContext>[2]
     );
+    const stepConfig = {
+      placement: { wondersPlusOne: false, floodplains: { minLength: 1, maxLength: 2 } },
+    };
 
     const startPositions: number[] = [];
     const step = createPlacementStep(
@@ -82,7 +85,7 @@ describe("placement config wiring", () => {
       { requires: [], provides: [] }
     );
 
-    step.run(ctx);
+    step.run(ctx, stepConfig);
 
     const calls = (adapter as unknown as { calls: any }).calls;
     expect(calls.addNaturalWonders[0]?.numWonders).toBe(0);

@@ -100,12 +100,12 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
 - **Rationale:** Aligns with “unknown keys fail” and keeps config surface explicit.
 - **Risk:** Requires recipe updates if someone previously relied on extra config keys.
 
-### Legacy executor uses schema defaults for bare recipes
-- **Context:** TaskGraph still drives `PipelineExecutor.execute(ctx, recipe)` without a `RunRequest` path.
-- **Options:** Use schema defaults only, read full `context.config`, or clean `context.config` against each step schema.
-- **Choice:** Use schema defaults only for legacy recipe execution.
-- **Rationale:** Avoids hidden legacy config fallbacks while keeping the standard recipe runnable.
-- **Risk:** Legacy overrides outside recipe config are ignored until the `RunRequest` path is wired end-to-end.
+### TaskGraph builds a standard RunRequest from MapGenConfig
+- **Context:** TaskGraph still needs a standard recipe path while per-step config becomes authoritative.
+- **Options:** Use schema defaults only, read full `context.config`, or compile a `RunRequest` from `MapGenConfig` slices per step.
+- **Choice:** Compile a standard `RunRequest` from `MapGenConfig` and execute via `executePlan`; keep `execute(...)` defaults-only for true bare recipes.
+- **Rationale:** Preserves existing override behavior while making per-step config explicit and validated.
+- **Risk:** Requires keeping the per-step config mapping in sync with step schemas.
 
 ## Prework Prompt (Agent Brief)
 

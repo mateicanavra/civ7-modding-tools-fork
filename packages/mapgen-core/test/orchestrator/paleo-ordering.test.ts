@@ -11,7 +11,6 @@ import {
   registerHydrologyLayer,
   registerNarrativeLayer,
 } from "@mapgen/pipeline/index.js";
-import { resolveDefaultRecipeStepIds } from "@mapgen/mods/standard/recipes/default.js";
 import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
 import {
   getStoryOverlay,
@@ -71,7 +70,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
     const ctx = createExtendedMapContext({ width, height }, adapter, config);
     const stageManifest = config.stageManifest!;
     const registry = new StepRegistry<ExtendedMapContext>();
-    const recipe = resolveDefaultRecipeStepIds(stageManifest);
+    const recipe = registry.getStandardRecipe(stageManifest);
     const storyEnabled = recipe.some((id) => id.startsWith("story"));
 
     const getStageDescriptor = (stageId: string) => {
@@ -111,7 +110,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
     const buildStepConfig = (stepId: string): Record<string, unknown> => {
       switch (stepId) {
         case "foundation":
-          return config.foundation;
+          return { foundation: config.foundation ?? {} };
         case "climateBaseline":
           return { climate: { baseline: config.climate?.baseline ?? {} } };
         case "storySwatches":
