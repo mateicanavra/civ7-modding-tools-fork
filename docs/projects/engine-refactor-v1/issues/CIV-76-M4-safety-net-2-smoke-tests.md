@@ -56,6 +56,12 @@ Add compile/execute smoke tests against the standard recipe using a stub adapter
   - `effect:*` verification failures are loud
   - StoryTags removal / narrative artifacts are canonical
 
+## Completion
+
+- [x] Compile smoke test for the standard recipe (ExecutionPlan).
+- [x] Execute smoke test with a stub adapter and basic invariants.
+- [x] CIV-23 re-scoped to the RunRequest/ExecutionPlan boundary.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)
