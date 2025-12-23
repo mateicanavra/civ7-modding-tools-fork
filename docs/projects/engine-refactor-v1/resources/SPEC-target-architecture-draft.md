@@ -1,11 +1,13 @@
 # SPEC: Target Architecture Draft (Canonical)
 
-> Agent disclaimer (WIP):
+> ~~Agent disclaimer (WIP):~~
 >
-> - We have not yet added the deferrals into this SPEC / flow.
-> - We want to add deferrals specifically to avoid agents “finishing” this prematurely.
-> - Agents should make sure to implement/handle deferrals and not treat this as a completed end-to-end architecture yet.
-> - We have not yet “loaded the screen” in that sense — this deferral behavior is still missing.
+> ~~- We have not yet added the deferrals into this SPEC / flow.~~
+> ~~- We want to add deferrals specifically to avoid agents “finishing” this prematurely.~~
+> ~~- Agents should make sure to implement/handle deferrals and not treat this as a completed end-to-end architecture yet.~~
+> ~~- We have not yet “loaded the screen” in that sense — this deferral behavior is still missing.~~
+>
+> **Update (2025-12-21, M4 planning):** Deferrals are tracked in `deferrals.md`; this SPEC is canonical for decisions, and the WIP disclaimer is superseded.
 
 ## 0. Purpose
 
@@ -42,6 +44,7 @@ This section describes the greenfield target with no legacy constraints.
 ### 1.2 Pipeline contract
 
 - Boundary input is `RunRequest = { recipe, settings }` (not a monolithic `MapGenConfig`).
+- Legacy stage-based ordering/config inputs (`stageManifest`, `STAGE_ORDER`, `stageConfig`) do not exist in the target runtime. They are migration-only legacy and must be deleted.
 - The engine runs **mod-provided content**: a mod package supplies the `registry`
   (steps + tags) and one or more recipes; the core engine does not embed a
   privileged pipeline.
@@ -98,8 +101,9 @@ via the recipe and carried in the compiled `ExecutionPlan` nodes.
 
 ### 1.5 Phase ownership (target surfaces)
 
-The concrete list of canonical artifacts/fields is a target sketch and is
-finalized via ADRs (pending decisions 3.4, 3.6, 3.7).
+~~The concrete list of canonical artifacts/fields is a target sketch and is
+finalized via ADRs (pending decisions 3.4, 3.6, 3.7).~~
+**Update (2025-12-21, M4 planning):** Decisions 3.4/3.6/3.7 are accepted; ADRs are optional post-M4. Implementation timing is governed by `deferrals.md`.
 
 - Foundation (3.3 accepted): the foundation surface is **discrete artifacts**
   (not a monolithic `FoundationContext`). The initial canonical tag set is
@@ -117,12 +121,14 @@ finalized via ADRs (pending decisions 3.4, 3.6, 3.7).
 - Morphology: intended `field:heightfield` plus `artifact:terrainMask`,
   `artifact:erosion`, `artifact:sediment`.
 - Hydrology: intended `artifact:climateField` (rainfall + temperature) and
-  `artifact:riverGraph` (pending 3.6).
+  ~~`artifact:riverGraph` (pending 3.6).~~
+  - **Update (2025-12-21, M4 planning):** `artifact:riverGraph` is deferred per DEF-005; canonical river product remains `artifact:riverAdjacency` until a later milestone.
 - Ecology: intended `artifact:soils`, `artifact:biomes`, `artifact:resources`,
   `artifact:features`.
 - Narrative/playability: intended typed narrative artifacts under
   `artifact:narrative.*` (3.4 accepted; concrete inventory is domain-owned).
-- Placement: intended explicit artifact inputs/outputs (pending 3.7).
+- Placement: intended explicit artifact inputs/outputs ~~(pending 3.7).~~
+  - **Update (2025-12-21, M4 planning):** Decision 3.7 is accepted; implementation is deferred per DEF-006 (`artifact:placementInputs@v1`).
 
 ### 1.6 Narrative / playability model (accepted)
 
@@ -177,7 +183,8 @@ Concrete V1 deliverables:
 - Deterministic scheduling comes from authored linear order (no topo-sort semantics required in V1).
 - Registry is the canonical catalog; steps declare deps and config schemas.
 - Enablement is recipe-authored and compiled into the plan; no silent runtime skips.
-- Presets shape is explicitly deferred (recipe-only vs full `RunRequest`); the V1 contract supports either without changing `RunRequest` or `ExecutionPlan`.
+- ~~Presets shape is explicitly deferred (recipe-only vs full `RunRequest`); the V1 contract supports either without changing `RunRequest` or `ExecutionPlan`.~~
+  **Update (2025-12-21, M4 planning):** Presets are removed; entry is explicit recipe + settings selection, and any "preset" is treated as a named recipe (if used). See `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 ### 2.2 What V1 explicitly defers
 
@@ -202,7 +209,7 @@ Any compromises or transitional constraints that apply only to V1:
 
 Each mod instantiates its own registry. This registry shape is the intended
 greenfield contract surface. Registry rules (canonical registration, schema
-ownership, required demos, and fail-fast collisions) are locked in decision 3.8;
+ownership, optional demos, and fail-fast collisions) are locked in decision 3.8;
 the concrete tag inventory still evolves alongside domain decisions. This
 section applies to both end-state and V1.
 
@@ -210,7 +217,7 @@ Rules (3.8 accepted):
 - Tags are only valid if they are registered in the mod’s instantiated registry.
 - No collisions: duplicate tag IDs and duplicate step IDs are hard errors.
 - Unknown tag references in `requires/provides` are hard errors.
-- `artifact:*` tags must include safe demo payloads (for introspection tooling).
+- Demo payloads are optional; if provided, they must be safe defaults and schema-valid.
 - `effect:*` tags are first-class and visible in the registry like artifacts/fields.
 
 Type safety note:
@@ -491,11 +498,11 @@ export type FieldTag<S extends TSchema | undefined = TSchema | undefined> =
     demo?: S extends TSchema ? Static<S> : unknown;
   };
 
-// Artifact tags: dataflow products. Schema + demo are required.
+// Artifact tags: dataflow products. Schema is required; demo is optional (recommended).
 export type ArtifactTag<S extends TSchema = TSchema> = BaseTag & {
   kind: "artifact";
   schema: S;
-  demo: Static<S>;
+  demo?: Static<S>;
 };
 
 // Effect tags: externally meaningful changes/events. Schema/demo are optional.

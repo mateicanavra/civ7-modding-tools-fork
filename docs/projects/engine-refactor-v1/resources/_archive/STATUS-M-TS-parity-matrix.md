@@ -142,7 +142,8 @@ Detractions / Open Questions:
 | `bootstrap/entry.js` | `packages/mapgen-core/src/bootstrap/entry.ts` | Evolved (M2) | TS `bootstrap()` composes `presets` + `overrides` + `stageConfig`, resolves a `stageManifest`, validates overrides, then returns a validated `MapGenConfig` (`parseConfig`) and binds tunables (`bindTunables`). Callers pass the validated config explicitly to `MapOrchestrator`. |
 
 Detractions / Open Questions:
-- None obvious; the main decision is how mod-level entries discover TS presets (see 5.7).
+- ~~None obvious; the main decision is how mod-level entries discover TS presets (see 5.7).~~  
+  **Update (2025-12-21, M4 planning):** Presets are removed; entry is recipe + settings selection. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 ---
 
@@ -154,7 +155,8 @@ Detractions / Open Questions:
 | `bootstrap/resolved.js` (BASE_CONFIG + presets + overrides + StageManifest normalization + `[StageManifest]`/`[Foundation]` warnings) | `packages/mapgen-core/src/bootstrap/resolved.ts` (canonical `STAGE_ORDER`, `resolveStageManifest`, `validateOverrides`, `validateStageDrift`) + `packages/mapgen-core/src/bootstrap/tunables.ts` (config merge for `foundation`, `landmass`, `climate` + `stageEnabled`) | Detraction / Open | TS no longer owns `BASE_CONFIG` or presets; it expects a `MapConfig` to be supplied by the mod/config layer. StageManifest handling is reduced to a minimal resolver; the richer dependency enforcement and foundation backfill warnings from JS are not present in this repo. |
 
 Detractions / Open Questions:
-- We should explicitly document where the TS equivalents of `BASE_CONFIG` and presets live, and whether we still want StageManifest dependency normalization and `[Foundation]` warnings somewhere in the pipeline.
+- ~~We should explicitly document where the TS equivalents of `BASE_CONFIG` and presets live, and whether we still want StageManifest dependency normalization and `[Foundation]` warnings somewhere in the pipeline.~~  
+  **Update (2025-12-21, M4 planning):** Presets are removed; entry is recipe + settings selection. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 ---
 
@@ -194,10 +196,11 @@ Detractions / Open Questions:
 | JS Module | TS Equivalent | Status | Notes |
 |----------|---------------|--------|-------|
 | `bootstrap/defaults/base.js` | **None in `mapgen-core`** | Detraction / Open | JS provided a `BASE_CONFIG` default. TS has no built-in base config; `MapConfig` is expected from the mod/config layer. |
-| `bootstrap/presets/classic.js`, `bootstrap/presets/temperate.js` | **None in `mapgen-core`** | Detraction / Open | JS shipped named presets and a preset registry. TS still accepts `presets: [...]` but this repo does not define those presets. They must live elsewhere (or be considered missing). |
+| `bootstrap/presets/classic.js`, `bootstrap/presets/temperate.js` | **None in `mapgen-core`** | ~~Detraction / Open~~ | ~~JS shipped named presets and a preset registry. TS still accepts `presets: [...]` but this repo does not define those presets. They must live elsewhere (or be considered missing).~~<br>**Update (2025-12-21, M4 planning):** Presets are removed; entry is explicit recipe + settings selection. Named presets (if any) are treated as named recipes in mod packages. See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`. |
 
 Detractions / Open Questions:
-- We should decide where canonical TS presets live (and whether `classic`/`temperate` remain supported names).
+- ~~We should decide where canonical TS presets live (and whether `classic`/`temperate` remain supported names).~~  
+  **Update (2025-12-21, M4 planning):** Presets are removed; no preset registry is expected in `mapgen-core`. See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 ---
 
@@ -289,16 +292,18 @@ Based on the extended parity matrix above:
 - Most **physics, morphology, climate, biomes, features, placement, and world model** behavior has TS coverage with **parity or intentional evolution**.
 - The largest **known gaps** remain:
   - Story tagging and corridors (`story/tagging`, `story/corridors`) and their orchestration.
-  - Config/preset ownership (`BASE_CONFIG`, `classic`/`temperate` presets).
+  - ~~Config/preset ownership (`BASE_CONFIG`, `classic`/`temperate` presets).~~  
+    **Update (2025-12-21, M4 planning):** Presets are removed; entry is recipe + settings selection. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
   - Dev logging + climate/foundation facades wired through tunables.
 - Key **Detraction / Open** questions to resolve:
-  - Where do canonical TS presets/base config live, and how do entries discover them?
+  - ~~Where do canonical TS presets/base config live, and how do entries discover them?~~  
+    **Update (2025-12-21, M4 planning):** Presets are removed; entry is recipe + settings selection. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
   - Do we require engine Voronoi (`VoronoiUtils`) for canonical plates, or accept TS fallback for tools/tests?
   - Do we want new TS facades for climate/foundation/dev logging, or explicitly deprecate the JS-style ones?
 
 Once we agree on these classifications, we can:
 - Update the migration plan/milestone docs to reference this matrix as the canonical checklist.
-- File concrete tasks for the remaining `Missing` / `Detraction / Open` rows (especially story/corridors, presets, adapter parity, and any dev/climate config gaps).
+- File concrete tasks for the remaining `Missing` / `Detraction / Open` rows (especially story/corridors, adapter parity, and any dev/climate config gaps).
 
 ---
 

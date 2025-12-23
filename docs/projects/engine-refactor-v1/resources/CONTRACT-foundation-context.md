@@ -1,11 +1,13 @@
 # CONTRACT: FoundationContext (M2 Slice)
 
+**Update (2025-12-22, M4 planning):** This document describes the **legacy M2 compatibility surface** (`ctx.foundation` / `FoundationContext`). The target architecture uses discrete `artifact:foundation.*` products and removes `ctx.foundation` entirely under DEF-014. Do not treat this as a future contract; do not add new dependencies on `ctx.foundation.*`.
+
 > Working draft — project-level contract.  
 > Sections 1–5 are **binding** for the M2 “stable slice”. Sections 6–7 are **non-binding** notes.
 
 ## 1. Purpose
 
-- Define the consumer-facing contract for the `FoundationContext` data product emitted by the M2 `foundation` slice.
+- Define the consumer-facing contract for the `FoundationContext` data product emitted by the M2 `foundation` slice (legacy compatibility surface).
 - Make “M2 stable slice” dependencies explicit for M3+ work (climate, story overlays, hydrology, placement).
 - Provide a stable reference while the implementation refactors.
 
@@ -32,9 +34,12 @@ Authoritative implementation references:
   - Sections 6–7 are non-binding design notes (planning + future enforcement ideas).
   - Any change to binding guarantees should update this doc alongside the code.
 
+**Update (2025-12-22, M4 planning):** This contract is not a target-architecture surface. `ctx.foundation` is compatibility-only during migration and must not survive M4.
+
 ## 3. Data Product: FoundationContext
 
-`FoundationContext` is the canonical foundation-physics snapshot exposed to downstream stages as `ctx.foundation`.
+`FoundationContext` is the legacy (M2) foundation-physics snapshot exposed to downstream stages as `ctx.foundation`.
+**Update (2025-12-22, M4 planning):** In the target architecture, downstream consumers depend on discrete `artifact:foundation.*` products; `ctx.foundation` is removed under DEF-014.
 
 At the end of the `foundation` stage (when enabled and successful):
 
@@ -114,8 +119,10 @@ contracts, not internal implementation details.
 ### 4.1 Config Flow
 
 - `bootstrap(options)` is the **single entrypoint** for building engine config:
-  - Composes presets and overrides into a raw config.
-  - Resolves `stageConfig` into a `stageManifest` (via `resolveStageManifest`).
+  - ~~Composes presets and overrides into a raw config.~~  
+    **Update (2025-12-21, M4 planning):** Presets are removed; entry is recipe + settings selection. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
+  - ~~Resolves `stageConfig` into a `stageManifest` (via `resolveStageManifest`).~~  
+    **Update (2025-12-22, M4 planning):** Stage-based ordering/config inputs are deletion-only and do not survive M4; do not treat `stageManifest` as a target contract.
   - Validates the combined object via `parseConfig(rawConfig)` to produce a `MapGenConfig`.
   - Returns the validated config to the caller.
 
@@ -152,28 +159,32 @@ When implementing M3+ issues (pipeline generalization, climate, story overlays):
 - **Do reference this doc** when:
   - Deciding which `requires`/`provides` contracts to declare for steps that depend on foundation physics.
   - Designing new data products (e.g., `ClimateField`, `StoryOverlays`) that build on plate/dynamics tensors.
-- **Do treat it as a consumer boundary**:
-  - If you need additional guarantees or fields, update the code **and** update this contract in the same change.
-  - If you discover mismatches between this doc and the implementation, treat that as a bug in the doc and fix it.
+- **Do treat it as a legacy compatibility surface**:
+  - If you need additional guarantees for target work, prefer adding explicit `artifact:*` / `field:*` products per the target architecture rather than extending `FoundationContext`.
+  - If you discover mismatches between this doc and the current (legacy) implementation, fix the doc only to support migration/deletion work; do not evolve this into a new long-term contract.
 - **Do not depend on non-contract surfaces**:
-  - Avoid reading raw `WorldModel` state (or a singleton `WorldModel`) in new work; treat `ctx.foundation` as the stable interface.
+  - ~~Avoid reading raw `WorldModel` state (or a singleton `WorldModel`) in new work; treat `ctx.foundation` as the stable interface.~~  
+    **Update (2025-12-22, M4 planning):** Avoid `WorldModel` and avoid adding new dependencies on `ctx.foundation`. Target work should depend on discrete `artifact:foundation.*` products; `ctx.foundation` is migration-only.
   - Do not depend on `ctx.foundation.diagnostics` shape outside diagnostics tooling.
   - Do not reintroduce a tunables-style config facade; use `ctx.config` (validated `MapGenConfig`) instead.
 
+**Update (2025-12-22, M4 planning):** Move consumers off `ctx.foundation` and onto discrete `artifact:foundation.*` products; do not extend compatibility shapes as target contracts.
+
 See Sections 6–7 for non-binding planning notes and future enforcement ideas.
 
-## 6. Appendix: Future Extensions (Non-Binding)
+## 6. Appendix: Future Extensions (Non-Binding; Historical)
 
 > Everything in this section is **non-binding**.  
 > It exists to seed discussion and planning for M3/M4 and may change or be deleted freely.
 
+**Update (2025-12-22, M4 planning):** This appendix predates the accepted target architecture decision to remove `ctx.foundation` (DEF-014). Treat the content below as historical notes only; target work should reference the SPEC/M4 plan and use artifact-based contracts.
+
 ### 6.0 Promotion Path (Non-Binding)
 
-- Once `FoundationContext` usage stabilizes across M3/M4, consider:
-  - Moving a refined version of this contract into `docs/system/libs/mapgen`.
-  - Splitting “contract” from “design sandbox” material if it becomes noisy for consumers.
+- ~~Once `FoundationContext` usage stabilizes across M3/M4, consider…~~  
+  **Update (2025-12-22, M4 planning):** `FoundationContext` is removed in the target architecture; do not plan to promote it as a canonical surface.
 
-### 6.1 Proposed Step Contracts on Top of FoundationContext
+### 6.1 Proposed Step Contracts on Top of FoundationContext (Historical; Superseded)
 
 The following outlines **candidate** `requires`/`provides` contracts for future steps,
 assuming `FoundationContext` remains the canonical physics snapshot.
@@ -212,7 +223,7 @@ assuming `FoundationContext` remains the canonical physics snapshot.
 These contracts are intentionally high-level; exact field names and manifests should be defined in the
 actual M3/M4 issues and PRDs.
 
-### 6.2 Proposed Cross-Product Contracts
+### 6.2 Proposed Cross-Product Contracts (Historical; Superseded)
 
 As we introduce more data products, we may want lightweight “cross-product” contracts
 that describe how they relate to `FoundationContext`:

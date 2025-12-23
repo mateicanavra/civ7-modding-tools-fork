@@ -11,7 +11,8 @@ Swooper Maps is a large-scale procedural map generation mod for Civilization VII
 - Physics-based terrain generation using Voronoi plate tectonics.
 - Climate simulation with baseline, swatch, and refinement layers.
 - Narrative overlay system for geological storytelling.
-- Stage manifest-based orchestration and map presets.
+- ~~Stage manifest-based orchestration and map presets.~~  
+  **Update (2025-12-21, M4 planning):** Stage manifest/presets are legacy; target entry is recipe + settings (compiled to `ExecutionPlan`). See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 The current engine originated as a monolithic JavaScript script and has been partially migrated to TypeScript packages. We are in the middle of a multi-phase refactor that will:
 
@@ -125,13 +126,14 @@ See `milestones/M2-stable-engine-slice.md` for detailed scope, dependency mappin
 
 - Engine can run the `foundation` slice via `MapOrchestrator` using validated config.
 - Plate generation is powered by the new mesh–crust–partition–physics stack.
-- Existing Swooper Maps presets still generate valid maps via the legacy downstream stages.
+- ~~Existing Swooper Maps presets still generate valid maps via the legacy downstream stages.~~  
+  **Update (2025-12-21, M4 planning):** Presets are removed in M4; entry becomes explicit recipe + settings selection. See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 - Diagnostics clearly report foundation behavior and stage flow.
 
 ### 4.3 Milestone 3 — Core Engine Refactor & Config Shape Evolution
 
 **Status:** Planned  
-**Milestone doc:** `milestones/M3-core-engine-refactor-config-evolution.md`  
+**Milestone doc:** `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`  
 **Depends on:** Milestones 1–2
 
 **Intent**
@@ -139,7 +141,7 @@ See `milestones/M2-stable-engine-slice.md` for detailed scope, dependency mappin
 Extend the task-graph architecture and data-product model across the full engine, while reshaping configuration to match the long-term design. This is where most core refactoring happens, including introducing generic pipeline primitives on top of the stable M2 slice.
 
 **Scope**  
-See `milestones/M3-core-engine-refactor-config-evolution.md` for detailed scope and sequencing. At a high level, this milestone covers:
+See `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md` for detailed scope and sequencing. At a high level, this milestone covers:
 
 - **Config integration and evolution**
   - Embed `MapGenConfig` into `MapGenContext` consistently (`context.config`).
@@ -163,10 +165,10 @@ See `milestones/M3-core-engine-refactor-config-evolution.md` for detailed scope 
 - Config shape matches the step/phase architecture; tunables are either retired or reduced to a thin compatibility shim.
 - New data products are the canonical inputs for downstream logic; legacy flows are optional or removed.
 
-### 4.4 Milestone 4 — Tests, Validation & Cleanup
+### 4.4 Milestone 4 — Target Architecture Cutover & Legacy Cleanup
 
 **Status:** Planned  
-**Milestone doc:** `milestones/M4-tests-validation-cleanup.md`  
+**Milestone doc:** `milestones/M4-target-architecture-cutover-legacy-cleanup.md`  
 **Depends on:** Milestones 1–3
 
 **Intent**
@@ -174,12 +176,14 @@ See `milestones/M3-core-engine-refactor-config-evolution.md` for detailed scope 
 Harden the engine with automated tests, manifest validation, and cleanup. This milestone closes remaining TS migration carry-over work and removes legacy fallbacks.
 
 **Scope**  
-See `milestones/M4-tests-validation-cleanup.md` for detailed scope and sequencing. At a high level, this milestone covers:
+See `milestones/M4-target-architecture-cutover-legacy-cleanup.md` for detailed scope and sequencing. At a high level, this milestone covers:
 
 - **Testing**
-  - Add Vitest smoke tests for the orchestrator and pipeline using a stub adapter and representative presets.
+  - ~~Add Vitest smoke tests for the orchestrator and pipeline using a stub adapter and representative presets.~~  
+    **Update (2025-12-21, M4 planning):** M4 uses Bun smoke tests; inputs are explicit recipe + settings selection (no presets). See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
   - Add targeted tests for foundation, climate, overlays, and placement steps where feasible.
-  - Introduce regression tests for key map presets to guard against unintended changes.
+  - ~~Introduce regression tests for key map presets to guard against unintended changes.~~  
+    **Update (2025-12-21, M4 planning):** Regression tests are recipe+settings selections (no preset resolution). See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 - **Manifest & data-product validation**
   - Implement a lightweight validator that ensures `requires` inputs are present before a step runs.
@@ -229,18 +233,20 @@ The milestones above converge on a target engine that follows the cluster topolo
 
 ## 6. Risks & Mitigations
 
-- **Complex migration:** Proceed cluster-by-cluster and milestone-by-milestone; keep feature flags scoped to staging and preserve working presets at each step.
+- **Complex migration:** ~~Proceed cluster-by-cluster and milestone-by-milestone; keep feature flags scoped to staging and preserve working presets at each step.~~  
+  **Update (2025-12-21, M4 planning):** Preserve working recipe+settings selections (not presets) at each step. See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 - **Performance regressions:** Instrument buffer operations and pipeline timings; cache expensive computations (Voronoi, climate) for diagnostics where needed.
 - **Manifest drift:** Enforce manifests with data-product validation to prevent entropy; keep `requires`/`provides` definitions close to step implementations.
-- **Config churn:** Use adapters and clear deprecation periods when evolving config shapes; keep `MapGenConfig` as the single source of truth.
+- **Config churn:** ~~Use adapters and clear deprecation periods when evolving config shapes; keep `MapGenConfig` as the single source of truth.~~  
+  **Update (2025-12-21, M4 planning):** `RunRequest = { recipe, settings }` and compiled `ExecutionPlan` are the boundary/source of truth; legacy `MapGenConfig` is transitional only. See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 ## 7. Links & References
 
 - **Milestones**
   - `milestones/M1-TS-typescript-migration.md`
   - `milestones/M2-stable-engine-slice.md`
-  - `milestones/M3-core-engine-refactor-config-evolution.md`
-  - `milestones/M4-tests-validation-cleanup.md`
+  - `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`
+  - `milestones/M4-target-architecture-cutover-legacy-cleanup.md`
 - **Feature PRDs**
   - `resources/PRD-config-refactor.md`
   - `resources/PRD-pipeline-refactor.md`

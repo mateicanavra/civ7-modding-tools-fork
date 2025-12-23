@@ -1,9 +1,11 @@
 # SPIKE: Target Architecture Draft (Working Notes)
 
-> Agent disclaimer (WIP):
+> ~~Agent disclaimer (WIP):~~
 >
-> - The deferrals are not yet fully integrated into the target flow; do not treat this as complete.
-> - In particular, we have not yet “loaded the screen” in that sense — this deferral behavior is still missing.
+> ~~- The deferrals are not yet fully integrated into the target flow; do not treat this as complete.~~
+> ~~- In particular, we have not yet “loaded the screen” in that sense — this deferral behavior is still missing.~~
+>
+> **Update (2025-12-21, M4 planning):** Deferrals are tracked in `deferrals.md`; decisions are canonical in the SPEC, and this WIP disclaimer is superseded.
 
 ## 0. Purpose
 
@@ -277,7 +279,8 @@ vs remains canonical (manifest, dependency spine, enablement flags).
 
 **Framing the core sub-questions (to separate ordering vs enablement):**
 - Static ordering (structure):
-  - Is the default "vanilla" pipeline defined as data (a default recipe in the standard mod) or code (`STAGE_ORDER`/registry)?
+  - ~~Is the default "vanilla" pipeline defined as data (a default recipe in the standard mod) or code (`STAGE_ORDER`/registry)?~~  
+    **Update (2025-12-21, M4 planning):** The standard pipeline is a mod-style package + recipe; it is not hard-coded. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
   - Does ordering mean strictly linear order, or can recipes be DAG-shaped?
   - What does a recipe list: step IDs, stage IDs, or named bundles of steps?
 - Dynamic enablement (execution):
@@ -422,7 +425,7 @@ to revisit after we publish a mod-facing contract.
   - Add recipe schema summary and constraints (once `2.9` is also settled)
 
 **ADR stub:**
-- ADR-TBD: Pipeline ordering source of truth (recipe vs manifest)
+- ~~ADR-TBD: Pipeline ordering source of truth (recipe vs manifest)~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
 
 **Migration note (current hybrid -> target):**
 - Introduce a versioned recipe schema and a default recipe that matches the
@@ -512,7 +515,7 @@ skips—only fail-fast validation/precondition errors.
   - `2.1 What V1 includes` (explicitly: recipe enablement is authoritative)
 
 **ADR stub:**
-- ADR-TBD: Enablement model (recipe-only; no `shouldRun`)
+- ~~ADR-TBD: Enablement model (recipe-only; no `shouldRun`)~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
 
 **Migration note (current hybrid -> target):**
 - We want a clean cutover to a single enablement model (recipe → plan), but we
@@ -587,7 +590,7 @@ skips—only fail-fast validation/precondition errors.
     shapes remain domain-owned and may change without blocking the architecture.
 
 **ADR stub:**
-- ADR-TBD: Foundation surface (discrete artifacts; `FoundationContext` compat-only)
+- ~~ADR-TBD: Foundation surface (discrete artifacts; `FoundationContext` compat-only)~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
 
 ### 2.4 Narrative/playability model (typed narrative artifacts; no `StoryTags`)
 
@@ -648,7 +651,7 @@ and no narrative globals outside the run context.
   - Explicitly state “no StoryTags” and “optional via recipe composition”.
 
 **ADR stub:**
-- ADR-TBD: Narrative/playability contract (typed narrative artifacts; no StoryTags)
+- ~~ADR-TBD: Narrative/playability contract (typed narrative artifacts; no StoryTags)~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
 
 ### 2.5 Engine boundary (adapter-only; reification-first; verified `effect:*`)
 
@@ -889,9 +892,10 @@ strict and mod/plugin-safe with fail-fast collision behavior?
 - **Unknown tag references are hard errors**:
   - If a step `requires/provides` a tag not present in the registry, registry build
     (or plan compilation) fails fast.
-- **Artifacts require demos**:
-  - Every `artifact:*` tag must include a demo payload.
-  - Demo payloads must be safe defaults (non-crashing) for introspection tooling.
+- **Demo payloads are optional (recommended)**:
+  - Tags may include a demo payload for introspection/tooling and engine-free tests.
+  - If a demo payload is provided, it must conform to the tag schema (when present) and
+    must be a safe default (non-crashing).
 - **Effects are first-class**:
   - `effect:*` tags are declared and registered like `artifact:*` and `field:*`.
   - Effects represent externally meaningful changes/events and are visible in the
@@ -929,7 +933,7 @@ strict and mod/plugin-safe with fail-fast collision behavior?
   - `2.1 What V1 includes` (what subset of the registry is stabilized in V1)
 
 **ADR stub:**
-- ADR-TBD: Dependency tag registry (namespacing, ownership, versioning)
+- ~~ADR-TBD: Dependency tag registry (namespacing, ownership, versioning)~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
 
 **Migration note (current hybrid -> target):**
 - Phase 1: reframe `M3_DEPENDENCY_TAGS` + `validateDependencyTag()` as the seed
@@ -1090,7 +1094,7 @@ Compatibility policy axes (independent of the version format):
   - Artifact/field registry is not yet canonical (`2.8`), so we can't fully validate deps against it.
 - Legacy/transitional:
   - M3 ordering and enablement still run through `stageManifest`/`STAGE_ORDER` (`DEF-004`).
-  - Existing preset/override mechanics are centered on the legacy `MapGenConfig` mega-object, not `RunRequest`.
+  - Existing preset/override mechanics are centered on the legacy `MapGenConfig` mega-object, not `RunRequest` (M4 removes presets entirely; entry becomes explicit recipe + settings selection).
 
 **Resolved follow-ups (proposed answers; impacts V1 but does not require DAG tooling):**
 - **Presets shape (target + V1):**
@@ -1133,14 +1137,14 @@ Compatibility policy axes (independent of the version format):
   - Add a short "V1 recipe structure (sketch)" subsection.
 
 **ADR stub:**
-- ADR-TBD: Recipe schema (structure, versioning, and compatibility rules)
+- ~~ADR-TBD: Recipe schema (structure, versioning, and compatibility rules)~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
 
 **Migration note (current hybrid -> target):**
 - Introduce `RunRequest` / `MapGenRecipe` as a first-class boundary input alongside legacy config:
   - Phase 1: generate a recipe from `stageManifest.order` + stage enablement (bridge).
   - Phase 2: switch internal execution to compile `ExecutionPlan` from recipe + registry.
   - Phase 3: remove `STAGE_ORDER`/`stageManifest` as canonical ordering sources once parity/migrations are complete (closes `DEF-004`).
-- Keep preset/override flow in parallel initially; later decide whether presets produce recipes, settings, or full `RunRequest`s (separate decision/ADR).
+- Presets: do not keep a parallel preset/override pipeline. M4 deletes preset resolution/composition; “preset” is treated as choosing a named recipe + settings (tooling concern).
 
 ### 2.10 Observability (required diagnostics and validation behavior)
 
@@ -1248,7 +1252,7 @@ Additional constraints (accepted):
     error shape, and optional tracing sinks).
 
 **ADR stub:**
-- ADR-TBD: Observability baseline and validation behavior
+- ~~ADR-TBD: Observability baseline and validation behavior~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
 
 **Migration note (current hybrid -> target):**
 - Preserve existing dev diagnostics (foundation ASCII/histograms) as optional
@@ -1313,8 +1317,9 @@ Assumptions to confirm:
     which is what the executor actually runs.
 
 Assumptions to confirm:
-- Whether `STAGE_ORDER` and `stageManifest` are fully removed or retained as a
-  compatibility/authoring layer.
+- ~~Whether `STAGE_ORDER` and `stageManifest` are fully removed or retained as a
+  compatibility/authoring layer.~~  
+  **Update (2025-12-21, M4 planning):** `STAGE_ORDER`/`stageManifest` are removed; recipe + `ExecutionPlan` is the only ordering/enablement surface. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 - Whether "mutation" is modeled via explicit read/write sets or via versioned
   artifacts (important for mod insertion semantics).
 
@@ -1327,7 +1332,8 @@ Assumptions to confirm:
 Assumptions to confirm:
 - Canonical artifact registry (names + schemas) and ownership.
 - Which fields are canonical vs transient and how they map to engine buffers.
-- Whether `FoundationContext` is removed in favor of discrete artifacts.
+- ~~Whether `FoundationContext` is removed in favor of discrete artifacts.~~  
+  **Update (2025-12-21, M4 planning):** Discrete foundation artifacts are canonical; `FoundationContext` is migration-only (DEF-014). See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 **Phase ownership (draft surfaces):**
 - Foundation: `mesh`, `crust`, `plateGraph`, `tectonics` artifacts.
@@ -1372,24 +1378,25 @@ Assumptions to confirm:
 
 ## 4. Decision log stubs (ADR placeholders)
 
-These will be promoted to `docs/system/ADR.md` as decisions are accepted.
+~~These will be promoted to `docs/system/ADR.md` as decisions are accepted.~~
+**Update (2025-12-21, M4 planning):** ADR promotion is post-M4; decisions are captured in the SPEC/M4 plan.
 
-- ADR-TBD: Ordering source of truth (recipe vs manifest).
-- ADR-TBD: Step enablement model (recipe-only; remove `shouldRun`).
-- ADR-TBD: Foundation contract (snapshot vs discrete artifacts).
-- ADR-TBD: Narrative/playability model (typed narrative artifacts; no `StoryTags`).
-- ADR-TBD: Engine boundary policy (adapter-only; reification-first; verified `effect:*`).
-- ADR-TBD: Climate ownership (`ClimateField` vs engine rainfall).
-- ADR-TBD: Placement inputs (artifact vs engine reads).
-- ADR-TBD: Artifact registry ownership and versioning.
-- ADR-TBD: Recipe schema versioning and compatibility policy.
-- ADR-TBD: Validation and observability requirements.
+- ~~ADR-TBD: Ordering source of truth (recipe vs manifest).~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
+- ~~ADR-TBD: Step enablement model (recipe-only; remove `shouldRun`).~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
+- ~~ADR-TBD: Foundation contract (snapshot vs discrete artifacts).~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
+- ~~ADR-TBD: Narrative/playability model (typed narrative artifacts; no `StoryTags`).~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
+- ~~ADR-TBD: Engine boundary policy (adapter-only; reification-first; verified `effect:*`).~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
+- ~~ADR-TBD: Climate ownership (`ClimateField` vs engine rainfall).~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
+- ~~ADR-TBD: Placement inputs (artifact vs engine reads).~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
+- ~~ADR-TBD: Artifact registry ownership and versioning.~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
+- ~~ADR-TBD: Recipe schema versioning and compatibility policy.~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
+- ~~ADR-TBD: Validation and observability requirements.~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
 
 ---
 
 ## 5. Next actions
 
-- Confirm which decisions are required before finalizing the target docs.
-- Convert accepted decisions into ADRs and update canonical docs.
+- ~~Confirm which decisions are required before finalizing the target docs.~~ **Update (2025-12-21, M4 planning):** Decisions are already captured in the SPEC/M4 plan.
+- ~~Convert accepted decisions into ADRs and update canonical docs.~~ **Update (2025-12-21, M4 planning):** ADR conversion is explicitly post-M4.
 - Map each deferral in `docs/projects/engine-refactor-v1/deferrals.md` to a
   target contract decision and migration step.

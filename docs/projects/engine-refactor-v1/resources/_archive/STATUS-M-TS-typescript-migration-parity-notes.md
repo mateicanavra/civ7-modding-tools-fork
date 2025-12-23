@@ -120,6 +120,7 @@ These are the major “behavior gaps” vs the JS archive.
     - `bootstrap/entry.ts` and `resolved.ts` know about `presets` and `stageConfig`, but there’s no TS equivalent of `classic`/`temperate` preset modules.
     - `swooper-desert-mountains.ts` uses a fully inline config and no named presets.
   - Effect: preset-based configuration (named map styles) is not migrated. You have one TS entry (`desert-mountains`) with a specific configuration; the JS library of presets is only present in `_archive`.
+  - **Update (2025-12-21, M4 planning):** Presets are removed; entry is explicit recipe + settings selection. Any named presets are treated as named recipes (if used). See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 - **Story-aware climate swatches and paleo hydrology**
   - JS `story/tagging.js`:
@@ -157,7 +158,8 @@ To get to “migration finished” in the sense you describe (parity or explicit
     - `world/model.js` → removed (M4) — `superseded`, “foundation step producers own plates/dynamics now”.
     - `story/tagging.js` → `—` — `pending`, “story tagging not migrated; downstream layers expect StoryTags but never receive them”.
     - `story/corridors.js` → `—` — `pending`.
-    - `bootstrap/presets/*.js` → `—` — `pending` or `intentionally dropped`, depending on decision.
+    - ~~`bootstrap/presets/*.js` → `—` — `pending` or `intentionally dropped`, depending on decision.~~  
+      **Update (2025-12-21, M4 planning):** Presets are removed; treat any named variants as named recipes. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 - **Step 2: Decide what to keep vs drop**
   - For each “pending” row in that parity matrix, explicitly choose:
@@ -202,9 +204,11 @@ To get to “migration finished” in the sense you describe (parity or explicit
 
   - **Presets decision (CIV‑10/11/12/13)**
     - Either:
-      - Port `bootstrap/presets/classic.js` and `temperate.js` into TS under `mapgen-core/bootstrap/presets/*`, expose them via `MapConfig.presets`, and add one or two TS entries that use them; or
-      - Mark these presets in the parity matrix as “intentionally dropped” with a short rationale (e.g. “we only support the modern desert-mountains entry; older presets are archived for reference”).
-    - Update `M-TS` milestone and CIV issues to reflect the decision so future work doesn’t assume these presets must come back.
+      - ~~Port `bootstrap/presets/classic.js` and `temperate.js` into TS under `mapgen-core/bootstrap/presets/*`, expose them via `MapConfig.presets`, and add one or two TS entries that use them; or~~
+      - ~~Mark these presets in the parity matrix as “intentionally dropped” with a short rationale (e.g. “we only support the modern desert-mountains entry; older presets are archived for reference”).~~  
+        **Update (2025-12-21, M4 planning):** Presets are removed; do not reintroduce preset resolution. Treat named variants as named recipes. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
+    - ~~Update `M-TS` milestone and CIV issues to reflect the decision so future work doesn’t assume these presets must come back.~~  
+      **Update (2025-12-21, M4 planning):** Presets are removed; update docs to recipe+settings selection instead. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
   - **Story-aware climate passes (CIV‑18/19/21)**
     - Ensure that:
@@ -222,7 +226,8 @@ To get to “migration finished” in the sense you describe (parity or explicit
     - [ ] an explicit decision to drop/evolve it, recorded in `M-TS-parity-matrix.md`.
   - [ ] Story tags (hotspot, rift, orogeny belts, margins, corridors) are produced in TS and consumed by coasts/islands/climate/biomes/features.
   - [ ] `MapOrchestrator` uses adapters (no stray `GameplayMap`/`TerrainBuilder`/`require("/base-standard/...")` outside `@civ7/adapter`).
-  - [ ] At least one preset-based config is ported or explicitly dropped.
+  - [ ] ~~At least one preset-based config is ported or explicitly dropped.~~  
+    **Update (2025-12-21, M4 planning):** Presets are removed; ensure recipe+settings entries cover desired variants. See `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
   - [ ] End-to-end in-game validation (CIV‑8) documented with screenshots/logs confirming coastal shapes, mountains, rainfall belts, biomes, features, starts vs the JS baseline.
 
 At that point you can say: “Migration is fully done, and any differences from the JS version are intentional and documented.”

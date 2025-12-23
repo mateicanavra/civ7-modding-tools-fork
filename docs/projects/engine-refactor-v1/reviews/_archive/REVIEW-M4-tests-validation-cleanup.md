@@ -1,12 +1,12 @@
 ---
 id: M4-tests-validation-cleanup-review
-milestone: M4-tests-validation-cleanup
-title: "M4: Tests, Validation & Cleanup — Aggregate Review"
+milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+title: "M4: Target Architecture Cutover & Legacy Cleanup — Aggregate Review"
 status: draft
 reviewer: AI agent
 ---
 
-# M4: Tests, Validation & Cleanup — Aggregate Review (Running Log)
+# M4: Target Architecture Cutover & Legacy Cleanup — Aggregate Review (Running Log)
 
 This running log captures task-level reviews for milestone M4. Entries focus on
 correctness, completeness, sequencing fit, and forward-looking risks.
