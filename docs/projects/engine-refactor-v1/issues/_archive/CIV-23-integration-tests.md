@@ -1,6 +1,6 @@
 ---
 id: CIV-23
-title: "[M-TS-P0] Add Integration & Behavior Tests"
+title: "[M4] Integration & Behavior Tests (RunRequest/ExecutionPlan)"
 state: planned
 priority: 2
 estimate: 0
@@ -18,43 +18,30 @@ related_to: [CIV-8]
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Lock in guardrails with integration tests proving the pipeline actually works: orchestrator executes stages, WorldModel lifecycle is deterministic, and climate/biomes/features produce expected behavior.
+Lock in guardrails at the new boundary: `RunRequest → ExecutionPlan → PipelineExecutor`, using the standard recipe + MockAdapter to prove compile/execute succeed without the engine.
 
 > **Note:** Initially defined as P0 remediation under the M1 migration. With the engine architecture now evolving through M2/M3, this integration/behavior test sweep is tracked under M4 so we can lock in guardrails once the final engine shape and clusters are in place.
 
 ## Context
 
-After Stacks 1-3 complete the structural fixes and engine wiring, we need tests that would have caught the "null script" regression. These tests ensure:
+After the pipeline cutover, the stable boundary is `RunRequest → ExecutionPlan → PipelineExecutor`. These tests ensure:
 
-1. **Orchestrator actually runs stages** (not just returns without error)
-2. **WorldModel lifecycle is clean** (reset/init sequence is deterministic)
-3. **Layers produce expected outputs** (not just compile without errors)
+1. **RunRequest compiles into a valid ExecutionPlan** using the standard recipe + registry.
+2. **Execution completes with a stub adapter** (engine-free) and emits structured run/step results.
+3. **Domain outputs are sanity-checked** through lightweight artifact/field assertions (not full engine correctness).
 
 ## Deliverables
 
-### 1. Orchestrator Integration Test
+### 1. ExecutionPlan Integration Test
 
-- [ ] Create long-lived `MapOrchestrator + MockAdapter` integration test
-- [ ] Call `bootstrap({ stageConfig: { foundation: true, landmassPlates: true, ... } })`
-- [ ] Create `MapOrchestrator` with `MockAdapter`
-- [ ] Run `generateMap()`
+- [ ] Compile the standard recipe via `RunRequest → ExecutionPlan`
+- [ ] Execute the plan with `PipelineExecutor` + `MockAdapter`
 - [ ] Assert:
-  - Expected stages are enabled (via `stageEnabled()`)
-  - Stages actually execute (via call counts or output checks)
-  - At minimum: foundation, landmassPlates, coastlines, mountains, placement
+  - Plan node order matches the standard recipe
+  - All steps report success in `stepResults`
+  - Baseline artifacts/fields are populated (foundation, heightfield, climate)
 
-### 2. WorldModel Lifecycle Tests
-
-- [ ] `init()` with explicit width/height/RNG:
-  - Arrays allocated with correct size
-  - Plate fields populated (plateId, boundaryType, etc.)
-  - Dynamics fields populated (windU/V, currentU/V, pressure)
-- [ ] `reset()` clears state:
-  - Back-to-back `init()` calls produce deterministic results
-  - No state leakage between runs
-- [ ] `setConfigProvider` / `getConfig()` integration
-
-### 3. Targeted Behavior Tests
+### 2. Targeted Behavior Tests (optional follow-up)
 
 - [ ] **Climate tests:**
   - Latitude bands produce expected temperature gradient
@@ -72,13 +59,10 @@ After Stacks 1-3 complete the structural fixes and engine wiring, we need tests 
 
 ## Acceptance Criteria
 
-- [ ] Orchestrator integration test exists and passes
-- [ ] WorldModel lifecycle tests exist and pass
-- [ ] Climate behavior tests exist and pass
-- [ ] Biomes behavior tests exist and pass
-- [ ] Features behavior tests exist and pass
+- [ ] ExecutionPlan integration test exists and passes (standard recipe + MockAdapter)
+- [ ] At least one behavior test per climate/biomes/features exists and passes
 - [ ] All tests run in `pnpm -C packages/mapgen-core test`
-- [ ] Tests would fail if stage manifest wiring regresses
+- [ ] Tests fail if standard recipe ordering or plan compilation regresses
 
 ## Testing / Verification
 
@@ -121,66 +105,46 @@ Full behavioral correctness is validated in CIV-8's in-game verification.
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Details (Local Only)
 
-### Orchestrator Integration Test
+### ExecutionPlan Integration Test
 
 ```typescript
-// __tests__/integration/orchestrator.test.ts
-import { describe, test, expect, beforeEach } from "bun:test";
-import { bootstrap, resetBootstrap, stageEnabled } from "../../src/bootstrap/index.js";
-import { MapOrchestrator } from "../../src/MapOrchestrator.js";
-import { MockAdapter } from "@civ7/adapter/mock";
+// __tests__/integration/standard-execution-plan.test.ts
+import { describe, test, expect } from "bun:test";
+import { createMockAdapter } from "@civ7/adapter";
+import { bootstrap } from "@mapgen/index.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import {
+  compileExecutionPlan,
+  PipelineExecutor,
+  StepRegistry,
+} from "@mapgen/pipeline/index.js";
 
-describe("MapOrchestrator Integration", () => {
-  beforeEach(() => {
-    resetBootstrap();
-  });
+describe("ExecutionPlan integration", () => {
+  test("compiles + executes the standard recipe with MockAdapter", () => {
+    const adapter = createMockAdapter({ width: 24, height: 16, rng: () => 0 });
+    const config = bootstrap();
+    const registry = new StepRegistry();
+    standardMod.registry.register(registry, config, /* runtime */);
 
-  test("stages are enabled after bootstrap", () => {
-    bootstrap({
-      stageConfig: {
-        foundation: true,
-        landmassPlates: true,
-        coastlines: true,
-        mountains: true,
-      }
-    });
+    const plan = compileExecutionPlan(
+      {
+        recipe: standardMod.recipes.default,
+        settings: {
+          seed: 123,
+          dimensions: { width: 24, height: 16 },
+          latitudeBounds: { topLatitude: 80, bottomLatitude: -80 },
+          wrap: { wrapX: true, wrapY: false },
+        },
+      },
+      registry
+    );
 
-    expect(stageEnabled("foundation")).toBe(true);
-    expect(stageEnabled("landmassPlates")).toBe(true);
-    expect(stageEnabled("coastlines")).toBe(true);
-    expect(stageEnabled("mountains")).toBe(true);
-    expect(stageEnabled("biomes")).toBe(false);  // Not enabled
-  });
+    const ctx = createExtendedMapContext({ width: 24, height: 16 }, adapter, config);
+    const executor = new PipelineExecutor(registry, { log: () => {} });
+    const { stepResults } = executor.executePlan(ctx, plan);
 
-  test("generateMap executes enabled stages", () => {
-    bootstrap({
-      stageConfig: {
-        foundation: true,
-        landmassPlates: true,
-        coastlines: true,
-      }
-    });
-
-    const adapter = new MockAdapter();
-    const orchestrator = new MapOrchestrator({ adapter });
-
-    // Should not throw
-    orchestrator.generateMap();
-
-    // Verify adapter was called (stages executed)
-    expect(adapter.setTerrainType).toHaveBeenCalled();
-  });
-
-  test("context has foundation after generateMap", () => {
-    bootstrap({ stageConfig: { foundation: true } });
-
-    const adapter = new MockAdapter();
-    const orchestrator = new MapOrchestrator({ adapter });
-    const ctx = orchestrator.generateMap();
-
-    expect(ctx.foundation).toBeDefined();
-    expect(ctx.foundation.plates.id).toBeDefined();
-    expect(ctx.foundation.dynamics.windU).toBeDefined();
+    expect(stepResults.every((step) => step.success)).toBe(true);
   });
 });
 ```
