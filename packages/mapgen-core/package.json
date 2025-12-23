@@ -26,6 +26,10 @@
       "types": "./dist/pipeline/index.d.ts",
       "import": "./dist/pipeline/index.js"
     },
+    "./trace": {
+      "types": "./dist/trace/index.d.ts",
+      "import": "./dist/trace/index.js"
+    },
     "./domain": {
       "types": "./dist/domain/index.d.ts",
       "import": "./dist/domain/index.js"
