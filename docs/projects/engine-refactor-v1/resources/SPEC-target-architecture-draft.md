@@ -415,9 +415,9 @@ Standard mod package (content; treated like any other mod):
 - `packages/mapgen-core/src/mods/standard/recipes/default.ts` — default recipe (separate from registry)
 - `packages/mapgen-core/src/mods/standard/lib/**` — domain logic used by the mod’s steps
 
-Note: the top-level split (`core/`, `compiler/`, `runtime/`, `types/`, `mods/`) is
-intentional and minimal. It keeps the core entrypoints clear while leaving room to
-re-organize under a broader `pipeline/` domain if that becomes the clearer fit later.
+Note: the top-level split (`core/`, `pipeline/`, `runtime/`, `types/`, `mods/`) is
+intentional and minimal. It keeps the core entrypoints clear while grouping
+compiler/runtime surfaces under the current pipeline boundary.
 
 ```text
 packages/mapgen-core/src/
@@ -426,8 +426,8 @@ packages/mapgen-core/src/
 │  │  # RegistryEntry types + registry factory (core entrypoint for mod authors)
 │  └─ lib/
 │     └─ ... (shared utilities)
-├─ compiler/
-│  └─ compileExecutionPlan.ts
+├─ pipeline/
+│  └─ execution-plan.ts
 ├─ runtime/
 │  ├─ runExecutionPlan.ts
 │  └─ runtimeAdapters.ts
@@ -462,12 +462,12 @@ referenced via path alias rather than deep relative paths).
 Use path aliases for the **main surfaces only**:
 - mod-local `lib` (domain logic for the mod),
 - core `lib` (shared utilities),
-- the core package itself (registry/compiler/runtime entrypoints).
+- the core package itself (registry/pipeline/runtime entrypoints).
 
 ```ts
 // examples (alias names are placeholders; wire via tsconfig paths)
 import { createRegistryEntry } from "@mapgen/core/registry";
-import { compileExecutionPlan } from "@mapgen/core/compiler";
+import { compileExecutionPlan } from "@mapgen/pipeline";
 import { noise2d } from "@mapgen/core/lib/noise";
 import { buildTerrainMask } from "@mod/lib/terrain";
 ```
