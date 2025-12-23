@@ -88,7 +88,7 @@ flowchart LR
   observability["Validation and observability baseline"]:::boundary
 
   foundation["Foundation surface contract"]:::domain
-  story["Story model contract"]:::domain
+  story["Narrative/playability model contract"]:::domain
   climate["Climate ownership"]:::domain
   placement["Placement inputs contract"]:::domain
 
@@ -111,12 +111,12 @@ flowchart LR
   class registry spine,accepted
 
   class engineBoundary boundary,accepted
-  class observability boundary,open
+  class observability boundary,accepted
 
-  class foundation domain,open
-  class story domain,open
-  class climate domain,open
-  class placement domain,open
+  class foundation domain,accepted
+  class story domain,accepted
+  class climate domain,accepted
+  class placement domain,accepted
 ```
 
 ### 2.0b Decision packet template
@@ -527,54 +527,128 @@ skips—only fail-fast validation/precondition errors.
 
 ### 2.3 Foundation surface (discrete artifacts vs `FoundationContext`)
 
-Status: `open`
+**Status:** `accepted`
 
-Context:
-- `DEF-014` keeps the `FoundationContext` snapshot as a compatibility surface.
-- `CONTRACT-foundation-context.md` is the active, precise contract.
+**Decision (one sentence):** Foundation outputs are published as discrete
+`artifact:*` products (not a monolithic `FoundationContext`); any
+`FoundationContext`-like object is a derived, migration-only compatibility view.
 
-Why this is ambiguous:
-- Target docs describe a graph of foundation artifacts, but current contracts
-  still route everything through a monolithic context object.
+**Context:**
+- `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` is
+  the binding M2 “stable slice” contract for `ctx.foundation` (compatibility
+  surface).
+- `docs/system/libs/mapgen/foundation.md` describes the intended target as
+  discrete foundation artifacts.
+- `DEF-014` defers the implementation cutover off `ctx.foundation` to Phase B,
+  but this *decision* is already locked.
 
-Why this is a problem:
-- The monolith hides dependency boundaries and blocks refactoring foundation
-  algorithms independently.
-- Consumers cannot migrate incrementally to smaller, typed artifacts.
+**Why this was ambiguous (how we got here):**
+- The project has both:
+  - a binding M2 contract centered on `FoundationContext`, and
+  - target docs that describe a graph of foundation artifacts.
+- Without an explicit “which is canonical” decision, downstream steps can drift
+  toward treating the monolith as permanent.
 
-Simplest option:
-- Publish discrete artifacts (`mesh`, `crust`, `plateGraph`, `tectonics`) as the
-  canonical surface and remove `ctx.foundation`.
+**Why this mattered:**
+- A monolith hides dependency boundaries and makes refactors coarse-grained.
+- Discrete artifacts are required to:
+  - make `requires`/`provides` meaningful for foundation-derived data
+  - allow incremental migration of consumers
+  - enable Phase B foundation algorithm replacement without a single “big-bang”
 
-Why we might not simplify yet:
-- Consumers still expect `FoundationContext`; migrating them requires a large
-  coordinated change.
-- The foundation algorithm replacement work is planned for Phase B.
+**Accepted choice: Option A — discrete artifacts are canonical**
+- Foundation publishes discrete `artifact:*` products as the contract surface.
+- `FoundationContext` is a derived compatibility view during migration only.
+- The exact *payload shapes* of foundation artifacts may evolve during Phase B;
+  what is locked now is the **contract direction**: no monolithic “foundation
+  blob” as the canonical dependency surface.
+- Storage layout is **decided** (not deferred):
+  - Target canonical storage is nested under `context.artifacts.foundation.*`
+    (e.g., `context.artifacts.foundation.plateGraph`).
+  - `requires`/`provides` remain explicit per `artifact:*` tag (e.g.,
+    `artifact:foundation.plateGraph`); storage grouping must not reintroduce a
+    “blob dependency”.
+  - New work must not depend on `ctx.foundation.*` at all; `ctx.foundation` is
+    compatibility-only wiring to be removed under `DEF-014`.
 
-### 2.4 Story model (overlays canonical vs tags canonical)
+**What remains (implementation, not a decision):**
+- Phase B migration plan (tracked by `DEF-014`):
+  - Define the initial canonical tag set (likely:
+    `artifact:foundation.mesh`, `artifact:foundation.crust`,
+    `artifact:foundation.plateGraph`, `artifact:foundation.tectonics`).
+  - Publish those artifacts onto `context.artifacts`.
+  - Update consumers to depend on the discrete artifacts.
+  - Remove `ctx.foundation` / `FoundationContext` once no longer needed.
 
-Status: `open`
+**SPEC impact (accepted):**
+- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+  - Mark decision 3.3 as accepted.
+  - Clarify that “foundation surface” is discrete artifacts; concrete payload
+    shapes remain domain-owned and may change without blocking the architecture.
 
-Context:
-- `DEF-002` keeps `StoryTags` as a derived compatibility layer from overlays.
-- `DEF-003` keeps a global overlays registry fallback.
-- `DEF-012` defers finalizing story state as context-owned artifacts.
+**ADR stub:**
+- ADR-TBD: Foundation surface (discrete artifacts; `FoundationContext` compat-only)
 
-Why this is ambiguous:
-- Some docs treat overlays as canonical, yet tags are still consumed and
-  sometimes recomputed from overlays in callers.
+### 2.4 Narrative/playability model (typed narrative artifacts; no `StoryTags`)
 
-Why this is a problem:
-- Duplicate representations risk semantic drift and split ownership.
-- Global story caches break determinism and make ordering invisible.
+**Status:** `accepted`
 
-Simplest option:
-- Overlays are canonical; tags are derived views (or removed) and no globals
-  exist outside the context.
+**Decision (one sentence):** Narrative/playability is expressed as normal
+pipeline steps that publish **typed, versioned, categorized narrative
+artifacts** (`artifact:narrative.*`); there is no canonical `StoryTags` surface,
+and no narrative globals outside the run context.
 
-Why we might not simplify yet:
-- Legacy consumers still rely on `StoryTags` and global registry access.
-- The final schema for overlays/tags is not locked.
+**Context (why this exists):**
+- We want “playability” semantics (corridors, rifts, chokepoints, regions,
+  labels, heatmaps) to be explicit, inspectable contracts that can be authored
+  by the standard mod and by external mods, without coupling core phases to
+  story heuristics.
+- Prior drafts used “StoryOverlays” + “StoryTags”. In practice, this created a
+  dual-source representation and repeated derivations across steps.
+- `docs/projects/engine-refactor-v1/issues/CIV-M4-ADHOC-modularize.md` §4.8
+  already locks the key boundary constraint: **core pipeline must run without
+  stories**, and story/playability work should schedule into existing phases,
+  not introduce a dedicated new phase.
+
+**What is locked (target direction, not content inventory):**
+- Narrative/playability steps **publish narrative artifacts** (examples:
+  `artifact:narrative.corridors@v1`, `artifact:narrative.regions@v1`,
+  `artifact:narrative.motifs.margins@v1`, `artifact:narrative.heatmaps.*@v1`).
+- Consumers (ecology/placement/climate refinements) depend on those artifacts
+  via `requires`/`provides`; they must not re-derive the same semantics.
+- “Optional” means **recipe-level composition**:
+  - Recipes may omit narrative/playability steps entirely and still be valid.
+  - If a recipe includes a narrative artifact consumer, it must also include
+    the publisher steps; compilation fails fast otherwise.
+- There are **no module-level globals/caches** for narrative state. Any
+  caching must be context-owned artifacts keyed to the run.
+- `StoryTags` is **not** a target contract surface. Any remaining tag-like
+  convenience views must be derived from narrative artifacts and explicitly
+  scoped to the context (performance-only; no new canonical representation).
+
+**Why this mattered:**
+- Prevents semantic drift (“double deriving” motifs differently in multiple
+  consumers).
+- Makes narrative/playability mod-friendly without creating a privileged
+  in-core “story layer”.
+- Keeps the dependency graph honest: narrative products are explicit artifacts.
+
+**Migration note (implementation follow-up, not a design question):**
+- Replace `artifact:storyOverlays` with explicit `artifact:narrative.*` products
+  (inventory is domain-owned and can evolve).
+- Remove StoryTags consumption from downstream logic; migrate consumers to
+  narrative artifacts (or derived, context-scoped query helpers).
+- Remove any remaining “global story registry” fallbacks and caches (or move
+  them into context-owned artifacts).
+  - Deferrals aligned: `DEF-002`, `DEF-012` (implementation cleanup only).
+
+**SPEC impact (accepted):**
+- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+  - Replace “`artifact:storyOverlays` narrative” with typed narrative artifacts.
+  - Explicitly state “no StoryTags” and “optional via recipe composition”.
+
+**ADR stub:**
+- ADR-TBD: Narrative/playability contract (typed narrative artifacts; no StoryTags)
 
 ### 2.5 Engine boundary (adapter-only; reification-first; verified `effect:*`)
 
@@ -624,11 +698,12 @@ Why we might not simplify yet:
 
 ### 2.6 Climate ownership (`ClimateField` vs engine rainfall)
 
-Status: `open`
+**Status:** `accepted`
 
 Context:
-- `DEF-010` keeps rainfall generation engine-owned; Phase A only reworked the
-  adapter boundary for writes.
+- `DEF-010` tracks the remaining climate engine-coupling: some climate inputs
+  still rely on adapter reads (e.g., latitude/water/elevation), even though
+  rainfall/humidity buffers are TS-owned and published as `artifact:climateField`.
 
 Why this is ambiguous:
 - Docs say `ClimateField` is canonical, but generation still depends on engine
@@ -638,36 +713,100 @@ Why this is a problem:
 - Offline determinism and reproducibility are compromised.
 - Climate steps become harder to test and reason about outside the engine.
 
-Simplest option:
-- TS-owned climate artifacts are canonical; engine writes happen only in a
-  publish step from artifacts/fields.
+**Decision (one sentence):** `artifact:climateField` (and any derived `field:*`
+mirrors) is TS-owned and canonical; the engine is a publish surface via adapter
+writes, and any engine-only reads are allowed only through the adapter and must
+be reified if they become cross-step dependencies.
+
+**Accepted policy (enforceable rules):**
+- **TS-owned climate is canonical:** climate generation writes to TS buffers and
+  publishes `artifact:climateField` (and optional `field:*` mirrors).
+- **Engine writes are publish:** adapter writes (e.g., `setRainfall`) are treated
+  as publish effects, not the source-of-truth.
+- **Engine reads are allowed but fenced:** mods/steps may read engine-only signals
+  via `context.adapter` when necessary/desired, but must not rely on “read the
+  engine later” as an implicit cross-step dependency surface.
+- **Reify cross-step dependencies:** if a value read from (or mutated in) the
+  engine is needed by later steps, the producing step must reify it into
+  `field:*`/`artifact:*` and declare it in `provides` so downstream steps depend
+  on TS-canonical products.
 
 Why we might not simplify yet:
-- Climate pipeline contracts and parity expectations are not finalized.
-- Moving rainfall to TS implies new modeling work and tuning.
+- (Content) The exact minimal climate IO contract (e.g., latitude/water/elevation
+  inputs) is still evolving; this does not change the ownership rule above.
+- Some climate inputs may remain adapter-only during migration/parity work until
+  we fully reify them (e.g., `field:latitude`, TS landmask/isWater, heightfield
+  elevation).
 
 ### 2.7 Placement inputs (explicit artifact vs engine reads)
 
-Status: `open`
+**Status:** `accepted`
 
-Context:
-- `DEF-006` keeps placement as an engine-effect step without a canonical
-  `artifact:placementInputs`.
+**Decision (one sentence):** Placement consumes an explicit, TS-canonical
+`artifact:placementInputs@v1` (produced upstream and referenced via
+`requires/provides`); placement may still delegate writes/side-effects to the Civ
+engine via the adapter, but **must not** use implicit “read engine later” state
+as a cross-step dependency surface.
 
-Why this is ambiguous:
-- Target docs suggest data-driven placement inputs, but runtime still reads
-  engine state directly.
+**Context (why this exists):**
+- Placement currently assembles a mix of inputs (some TS-side, some engine-side)
+  and then performs engine-facing mutations (“apply placement”).
+- `DEF-006` deferred introducing a canonical `artifact:placementInputs` in M3 to
+  avoid blocking on a full placement-input contract design.
+- With 3.5 (engine boundary) accepted, any cross-step dependency must be
+  expressed via `field:*`/`artifact:*`/verified `effect:*`, not opaque engine
+  reads.
 
-Why this is a problem:
-- Placement is hard to test offline and hides dependency surfaces.
-- It increases coupling to engine state and ordering.
+**Why this matters (what stays hard until resolved):**
+- Placement is difficult to test and reason about if its prerequisites are
+  implicit engine reads.
+- Mods cannot compose placement reliably if “what placement needs” is not a
+  first-class artifact.
+- The executor cannot validate ordering if dependencies are not explicit tags.
 
-Simplest option:
-- Define and publish `artifact:placementInputs` and consume it in placement.
+**Greenfield simplest (pure target):**
+- Introduce a stable, versioned placement inputs artifact (`@v1`) that captures
+  the minimal set of information placement needs, entirely in TS memory.
+- Placement requires that artifact, and placement outputs (and engine-side
+  side-effects) are published explicitly via artifacts/fields/effects.
 
-Why we might not simplify yet:
-- Building a stable placement inputs artifact is a non-trivial design task.
-- Engine-first placement may still be required for parity or performance.
+**Accepted policy (enforceable rules):**
+- **Canonical input surface:** placement requires
+  `artifact:placementInputs@v1`; it is produced by an upstream “derive placement
+  inputs” step (or a small cluster of such steps).
+- **Adapter-only IO:** engine access is only via `ctx.runtime.adapter` (no direct
+  engine calls).
+- **Reification-first:** if any engine-derived value is needed cross-step, it
+  must be reified into `field:*`/`artifact:*` and declared in `provides`
+  (no implicit “read engine again later”).
+- **Engine writes remain allowed:** placement can still apply results to the
+  engine (e.g., via Civ scripts), but must publish a verified `effect:*` to make
+  the engine-side mutation schedulable and observable.
+- **No `state:engine.*` dependency surface:** `state:engine.*` remains
+  transitional-only wiring (aligns with DEF-008). Target placement contracts use
+  `artifact:*`/`field:*`/`effect:*`.
+
+**What is intentionally *not* decided here (content layer):**
+- The exact fields inside `PlacementInputs@v1` (and the exact set of placement
+  outputs) are domain/content decisions that can evolve independently of this
+  architectural contract. The architectural invariant is: **placement inputs are
+  explicit, TS-canonical, and schedulable via tags**.
+
+**Evidence (current code + docs):**
+- `DEF-006` keeps placement engine-effect driven in M3.
+- `packages/mapgen-core/src/pipeline/standard.ts` currently schedules placement
+  via engine-surface tags, not a canonical inputs artifact.
+
+**Migration note (current hybrid -> target):**
+- Add `artifact:placementInputs@v1` to the tag registry with a safe demo.
+- Introduce a `derivePlacementInputs` step that:
+  - `requires` the upstream physical/narrative prerequisites it needs
+  - produces `artifact:placementInputs@v1`
+  - reifies any engine-only reads into TS buffers if later steps depend on them
+- Update placement to:
+  - `requires: [\"artifact:placementInputs@v1\"]`
+  - publish `effect:engine.placementApplied` (verified) when it mutates engine
+  - publish any placement outputs as explicit artifacts/fields if needed
 
 ### 2.8 Artifact registry (canonical names + schema ownership + versioning)
 
@@ -1005,26 +1144,119 @@ Compatibility policy axes (independent of the version format):
 
 ### 2.10 Observability (required diagnostics and validation behavior)
 
-Status: `open`
+**Status:** `accepted`
 
-Context:
-- Executor validates `artifact:*` and `field:*` dependencies, but there is no
-  explicit target for metrics or artifact lineage tracing.
+**Decision (one sentence):** What observability and validation outputs are
+mandatory for `ExecutionPlan` compilation and plan execution, vs optional
+dev-only diagnostics?
 
-Why this is ambiguous:
-- It is not clear which validations are mandatory vs optional.
+**Why this exists (how ambiguity was created):**
+- The current hybrid system has:
+  - ad-hoc dev diagnostics (e.g., foundation diagnostics toggles and ASCII logs)
+  - some runtime dependency gating (`requires`/`provides`) in the executor
+  - but no explicit “target baseline” for what must be observable and stable.
+- As we remove legacy indirection (manifest/stage config/flags), we need to
+  ensure we don’t lose the ability to explain *what ran, why, and with what
+  inputs*.
 
-Why this is a problem:
-- Hard to debug pipeline issues and confirm contract adherence.
-- No clear baseline for when validation failures should block execution.
+**Why it matters (what stays hard until resolved):**
+- Debuggability: without a baseline, regressions become “black box” failures.
+- Contract enforcement: we cannot claim “fail-fast” if we don’t define where and
+  how failures surface (compile-time vs runtime) and what evidence we preserve.
+- Migration: removing legacy paths (e.g., manifest-driven execution) is risky
+  unless the new system exposes comparable (or better) introspection.
+- Mod authoring: a recipe/registry model needs predictable feedback when a mod
+  introduces missing tags, invalid config, or contradictory scheduling edges.
 
-Simplest option:
-- Minimal required validation (dependency presence + schema checks) with
-  optional tracing hooks.
+**Evidence (what exists today):**
+- Dev diagnostics surface (legacy/stable-slice) lives in config:
+  - `packages/mapgen-core/src/config/schema.ts` (`FoundationDiagnosticsConfigSchema`)
+  - `packages/mapgen-core/src/orchestrator/task-graph.ts` (`initDevFlags`)
+- Timing utilities exist (not formally “required”):
+  - `packages/mapgen-core/src/dev/timing.ts`
+- Some metrics exist on context/types:
+  - `packages/mapgen-core/src/core/types.ts` (`GenerationMetrics`)
+- Runtime dependency validation/gating exists:
+  - `packages/mapgen-core/src/pipeline/PipelineExecutor.ts`
+  - `packages/mapgen-core/src/pipeline/tags.ts` (`validateDependencyTags`, satisfied-tag derivation)
 
-Why we might not simplify yet:
-- Instrumentation adds complexity and may need to align with engine tooling.
-- Required diagnostics depend on how strict the final contracts are.
+**Greenfield simplest (from scratch):**
+- A required, stable “run report” and “plan report”:
+  - compilation validates and returns a structured report (or throws)
+  - execution emits structured events and a final summary (or throws)
+- Optional, pluggable tracing sinks (console, JSON, perf spans) that consume the
+  same structured events.
+
+**Options:**
+- **A) Minimal required baseline + optional sinks (recommended)**
+  - Required:
+    - Compile-time validation errors are structured and fail-fast:
+      - unknown step IDs, invalid recipe schema, unknown config keys, invalid
+        tag IDs, duplicate IDs, missing required tags that are knowable at
+        compile-time.
+    - Execution-time failures are structured and stop the run:
+      - missing runtime-only deps, adapter verification failure for `effect:*`,
+        step-level precondition failures.
+    - Required artifacts:
+      - `ExecutionPlan` contains: normalized recipe, resolved step references,
+        resolved per-occurrence config, and declared `requires/provides` per node.
+      - A deterministic `runId` and a stable “plan fingerprint” (hash) derived
+        from `settings + recipe + step IDs + config` (for correlating logs).
+  - Optional (dev):
+    - step timing, memory usage, artifact snapshots, ASCII maps, histograms.
+  - Pros: least coupling; stable contract; easy to grow.
+  - Cons: you don’t get rich traces “for free”; you must opt in via sinks.
+
+- **B) Rich required tracing and lineage (always-on)**
+  - Required:
+    - always produce per-step timing + requires/provides satisfaction deltas
+    - always capture artifact lineage metadata (producer step, version, size)
+  - Pros: great debugging; supports tooling out of the box.
+  - Cons: higher overhead; forces storage decisions; risks overcommitting to
+    early shapes while many domains are still migrating.
+
+- **C) Dev-config-driven required baseline (status quo-like)**
+  - Required behavior depends on `settings.diagnostics` / dev flags.
+  - Pros: familiar to current workflow.
+  - Cons: conflicts with “fail-fast” and “no silent behavior”; tends to drift
+    into “required but only sometimes,” which creates ambiguous contracts.
+
+**What blocks simplification (truly necessary vs legacy-only):**
+- **Legacy-only:** continuing to rely on `MapGenConfig`/stage diagnostics toggles
+  as the “canonical” surface (target is `RunRequest` + recipe/plan).
+- **Truly necessary:** we need at least a stable minimal event model to support
+  debugging when mods/recipes become first-class.
+- Tooling alignment: if we want to integrate with engine tooling later, we
+  should avoid hardcoding a single logging backend now.
+
+**Accepted choice:** **Option A** — define a small required baseline for compile
++ run (structured errors, runId/plan fingerprint, plan report), with optional
+tracing/diagnostics sinks.
+
+Additional constraints (accepted):
+- Rich tracing must be toggleable:
+  - Globally and per step occurrence (e.g., “enable tracing only for step X”).
+  - Toggles must not change execution semantics (observability-only).
+- Richness is step-owned:
+  - Steps may emit domain-specific diagnostic events/summaries, but they must do
+    so through a shared foundation (a common event model + sink interface).
+
+**SPEC impact (accepted):**
+- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+  - Add a short “Observability baseline” subsection under the pipeline contract
+    describing required compile/run outputs (runId, plan fingerprint, structured
+    error shape, and optional tracing sinks).
+
+**ADR stub:**
+- ADR-TBD: Observability baseline and validation behavior
+
+**Migration note (current hybrid -> target):**
+- Preserve existing dev diagnostics (foundation ASCII/histograms) as optional
+  sinks fed by the new structured run events (don’t bake diagnostics into the
+  step contract).
+- Replace ad-hoc logs in orchestrator paths with:
+  - compile-time plan report (when building `ExecutionPlan`)
+  - execution events + final summary (when running the plan)
 
 ---
 
@@ -1102,12 +1334,13 @@ Assumptions to confirm:
 - Morphology: heightfield + terrain masks; erosion/sediment artifacts.
 - Hydrology: `ClimateField` is canonical (rainfall + temperature).
 - Ecology: soils, biomes, resources, features derived from climate/morphology.
-- Narrative: story overlays/tags/regions/corridors as explicit artifacts.
+- Narrative/playability: typed narrative artifacts (`artifact:narrative.*`) as explicit products.
 - Placement: consumes artifacts, emits placement outputs without engine reads.
 
 Assumptions to confirm:
 - Exact artifact names and shapes per phase.
-- Whether narrative is a separate phase or cross-cutting overlays.
+- Whether narrative/playability steps are scheduled into morphology/hydrology/ecology/placement
+  or remain grouped under a “narrative” folder (no new runtime phase concept).
 - Placement inputs as explicit artifact vs direct field reads.
 
 **Engine boundary policy (accepted):**
@@ -1119,14 +1352,12 @@ Assumptions to confirm:
 Assumptions to confirm:
 - The minimal “effect verifier” surface (adapter queries + executor hook) and the first set of high-risk effects to verify (placement/biomes/features).
 
-**Story model (draft):**
-- Story overlays are the canonical surface; story tags are derived views.
-- Overlays live in `context.artifacts.story` (schema owned by narrative domain).
-- No global story registry; all overlays are context-scoped.
-
-Assumptions to confirm:
-- Final schema for overlays/tags and lifecycle across phases.
-- Whether tags remain as a compatibility-only export.
+**Narrative/playability model (accepted):**
+- Narrative/playability publishes typed, versioned narrative artifacts under `artifact:narrative.*`.
+- There is no canonical `StoryTags` surface; any query convenience is derived from narrative artifacts
+  and context-scoped (performance only).
+- “Optional” is recipe composition: omit the narrative bundle entirely, or include both publishers and
+  consumers; compilation fails fast on missing deps.
 
 **Validation and observability (draft):**
 - Pre-run validation: step deps + artifact/field schema checks.
@@ -1146,7 +1377,7 @@ These will be promoted to `docs/system/ADR.md` as decisions are accepted.
 - ADR-TBD: Ordering source of truth (recipe vs manifest).
 - ADR-TBD: Step enablement model (recipe-only; remove `shouldRun`).
 - ADR-TBD: Foundation contract (snapshot vs discrete artifacts).
-- ADR-TBD: Story data model (overlays vs tags).
+- ADR-TBD: Narrative/playability model (typed narrative artifacts; no `StoryTags`).
 - ADR-TBD: Engine boundary policy (adapter-only; reification-first; verified `effect:*`).
 - ADR-TBD: Climate ownership (`ClimateField` vs engine rainfall).
 - ADR-TBD: Placement inputs (artifact vs engine reads).

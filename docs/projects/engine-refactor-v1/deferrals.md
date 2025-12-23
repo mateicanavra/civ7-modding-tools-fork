@@ -25,12 +25,12 @@ Each deferral follows this structure:
 ## DEF-002: StoryTags Compatibility Layer (Derived From StoryOverlays)
 
 **Deferred:** 2025-12-14  
-**Trigger:** After M3 story steps land and all in-repo consumers read `artifact:storyOverlays` (or an explicitly versioned overlay artifact) directly.  
-**Context:** During Milestone 3 story modernization we publish canonical overlays, but some legacy consumers still expect `StoryTags`. To avoid forcing an all-at-once consumer migration, `StoryTags` remains as a derived compatibility layer populated from overlays.  
+**Trigger:** After narrative/playability artifacts are published/consumed as explicit `artifact:narrative.*` products and no in-repo consumers require `StoryTags` for correctness.  
+**Context:** During Milestone 3 story modernization we introduced “overlays” + `StoryTags` to bridge legacy consumers. Target architecture decision 3.4 locks the end-state: **typed narrative artifacts are canonical and `StoryTags` is not a target contract surface**. This deferral exists only to sequence the cleanup safely.  
 **Scope:**
-- Keep `StoryTags` available as a derived view computed from overlays (not a parallel source of truth).
-- Migrate remaining in-repo consumers to read overlays directly.
-- Remove or demote `StoryTags` once no longer needed (ideally delete, otherwise dev-only).  
+- Keep `StoryTags` available only as a temporary compatibility surface.
+- Migrate consumers to `artifact:narrative.*` (or derived, context-scoped query helpers).
+- Remove `StoryTags` entirely once consumers are migrated.  
 **Impact:**
 - Temporary duplication of narrative representation (overlays + tags) with risk of semantic drift if not kept strictly derived.
 - Continued support surface for legacy semantics during M3.
@@ -67,17 +67,20 @@ Each deferral follows this structure:
 
 ---
 
-## DEF-006: Placement Inputs Artifact Deferred (Placement Remains Engine-Effect Driven)
+## DEF-006: Placement Inputs Artifact Implementation Deferred (M3 Placement Remains Engine-Effect Driven)
 
 **Deferred:** 2025-12-14  
-**Trigger:** When we need engine-less placement testing or want placement composition that depends on a stable, reusable “placement inputs” artifact.  
-**Context:** Placement currently consumes a mix of map-init inputs and engine-surface state, not a single in-memory “inputs” artifact. In M3 we keep placement as an engine-effect step with `state:*` dependency tags, and we do not force immediate publication of a canonical `artifact:placementInputs`.  
+**Trigger:** When we need engine-less placement testing, want placement composition that depends on a stable “placement inputs” artifact, or are ready to cut over M3 placement wiring to the accepted target contract.  
+**Context:** Placement currently consumes a mix of map-init inputs and engine-surface state, not a single TS-owned “inputs” artifact. In M3 we keep placement as an engine-effect step and avoid blocking on a full placement-input contract design. Target decision 3.7 is now accepted: placement consumes an explicit `artifact:placementInputs@v1` and does not rely on implicit engine reads as a cross-step dependency surface. This deferral remains only to sequence the implementation safely.  
 **Scope:**
-- Keep placement’s precomputed inputs assembled internally to the placement step in M3.
-- Consider publishing a canonical `artifact:placementInputs` later if it materially improves testability/composability.  
+- Add `artifact:placementInputs@v1` to the tag registry with a safe demo payload.
+- Introduce a `derivePlacementInputs` step (or small cluster) that produces `artifact:placementInputs@v1` from explicit prerequisites and reifies any engine-only reads that become cross-step dependencies.
+- Update placement to `requires: ["artifact:placementInputs@v1"]` and publish a verified `effect:engine.placementApplied` when it mutates the engine.
+- Remove `state:*` placement scheduling once `effect:*` + artifact prerequisites are in place (align with DEF-008).  
 **Impact:**
 - Placement contracts are less data-centric and more “engine state” centric in M3.
 - Harder to test placement purely in-memory without adapter/engine involvement.
+- **Status (2025-12-21):** The target contract (3.7) is accepted; remaining work is implementation cutover from the current engine-effect wiring to the explicit `artifact:placementInputs@v1` + verified `effect:*` model.
 
 ---
 
@@ -101,14 +104,14 @@ Each deferral follows this structure:
 
 **Deferred:** 2025-12-18  
 **Trigger:** When the climate pipeline artifacts are stable and we need engine-less rainfall testing or broader engine decoupling.  
-**Context:** Phase A fixes the adapter boundary for rainfall writes, but rainfall generation still relies on engine-side state. We want to reclaim rainfall generation into TS-owned artifacts once the foundation/climate contracts are settled.  
+**Context:** Climate is moving toward TS-owned canonical products. `syncClimateField()` has been removed and climate steps already publish `artifact:climateField`; however, some climate inputs still rely on engine adapter reads (e.g., `getLatitude`, `isWater`, `getElevation`) and thus full engine-less climate runs remain deferred.  
 **Scope:**
-- Define a canonical rainfall artifact (or field) in the pipeline and publish it from climate steps.
-- Route engine writes through a dedicated adapter publish step instead of direct reads/writes during generation.
-- Remove reliance on `GameplayMap` / `TerrainBuilder` as the source of truth for rainfall values.  
+- Keep `artifact:climateField` as the canonical TS product and treat adapter writes as publish-only effects (not a source of truth).
+- Define and adopt explicit TS-owned prerequisites where feasible (e.g., `artifact:heightfield`, `field:latitude`, TS water/landmask) so climate generation no longer depends on engine-only reads.
+- When engine reads are unavoidable, ensure any cross-step dependency is reified into `field:*`/`artifact:*` with explicit `requires/provides` (no implicit “read engine later” edges).  
 **Impact:**
-- Until this lands, rainfall is effectively engine-owned, limiting offline testing and keeping a hidden coupling to engine state.
-- Boundary correctness improves now, but full decoupling is intentionally deferred.
+- Until this lands, climate remains partially engine-coupled via adapter reads, limiting offline testing and keeping hidden coupling to engine-derived signals.
+- Canonical ownership is still TS-first; this deferral tracks completing the reification of climate prerequisites and eliminating accidental engine-dependency surfaces.
 
 ---
 
@@ -130,11 +133,11 @@ Each deferral follows this structure:
 ## DEF-012: Story State to Context-Owned Artifacts (Remove Globals)
 
 **Deferred:** 2025-12-18  
-**Trigger:** After legacy orchestration + toggle removal is complete and story-state representation is fully migrated away from StoryTags/caches.  
-**Context:** The intended end-state is context-owned story data. While StoryTags are now stored on context artifacts, many domain layers still consume StoryTags directly and several story subsystems still rely on module-level caches.  
+**Trigger:** After narrative/playability state is fully represented as explicit `artifact:narrative.*` products and any remaining story caches are context-owned artifacts.  
+**Context:** Target architecture decision 3.4 locks the end-state: narrative/playability state is explicit artifacts and there are no module-level story globals/caches. This deferral tracks the remaining implementation cleanup (migrating consumers and removing caches) safely.  
 **Scope:**
-- Choose a canonical context-owned representation (`artifact:storyState`/`artifact:storyTags` or `ctx.story.*`) and migrate consumers to it.
-- Remove StoryTags as a compatibility surface once no longer needed.
+- Publish/consume narrative/playability state as `artifact:narrative.*` products (typed, versioned).
+- Remove StoryTags as a compatibility surface once no longer needed (see `DEF-002`).
 - Remove module-level story caches (or make them explicitly keyed/scoped and safely reset by context) so story execution is purely context-driven.  
 **Impact:**
 - Story behavior can still be influenced by hidden module-level state and caches.
@@ -149,6 +152,7 @@ Each deferral follows this structure:
 **Deferred:** 2025-12-18  
 **Trigger:** When Phase B / foundation PRD work begins and consumers are ready to migrate off `ctx.foundation`.  
 **Context:** The orchestrator bloat assessment explicitly defers the target multi-artifact foundation model; Phase A keeps the `FoundationContext` snapshot as the compatibility boundary.  
+**Decision status (locked):** The target foundation surface is **discrete** `artifact:*` products; any `FoundationContext`-like object is migration-only compatibility wiring. The remaining work is implementation + consumer migration (this deferral tracks that work).
 **Scope:**
 - Define the canonical foundation artifact set (mesh, crust, plateGraph, tectonics, and any required raster artifacts).
 - Migrate consumers from `ctx.foundation` to explicit artifacts/fields with named contracts.
@@ -201,7 +205,7 @@ Each deferral follows this structure:
 **Context:** `StoryOverlays` currently has a global registry fallback to support legacy reads and transitional wiring. This is intentionally kept through M3 to avoid brittle cutovers while the Task Graph and story steps are stabilized.  
 **Scope:**
 - Keep the global fallback through M3 for compatibility.
-- Migrate callers to context-scoped overlays (`artifact:storyOverlays`).
+- Migrate callers to context-scoped narrative state (target: explicit `artifact:narrative.*` products; legacy: `ctx.overlays` during transition).
 - Remove the global registry fallback (or make it dev-only) once consumers are migrated.  
 **Impact:**
 - Global state makes tests less isolated and can hide ordering/coupling problems.
