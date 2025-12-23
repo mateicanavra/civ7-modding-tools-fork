@@ -4,12 +4,14 @@ import { bootstrap } from "@mapgen/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import {
+  compileExecutionPlan,
   PipelineExecutor,
   StepRegistry,
   registerFoundationLayer,
   registerHydrologyLayer,
   registerNarrativeLayer,
 } from "@mapgen/pipeline/index.js";
+import { resolveDefaultRecipeStepIds } from "@mapgen/mods/standard/recipes/default.js";
 import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
 import {
   getStoryOverlay,
@@ -69,7 +71,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
     const ctx = createExtendedMapContext({ width, height }, adapter, config);
     const stageManifest = config.stageManifest!;
     const registry = new StepRegistry<ExtendedMapContext>();
-    const recipe = registry.getStandardRecipe(stageManifest);
+    const recipe = resolveDefaultRecipeStepIds(stageManifest);
     const storyEnabled = recipe.some((id) => id.startsWith("story"));
 
     const getStageDescriptor = (stageId: string) => {
@@ -82,7 +84,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
     registerFoundationLayer(registry, {
       getStageDescriptor,
       runFoundation: (context) => {
-        runFoundationStage(context);
+        runFoundationStage(context, config.foundation);
       },
     });
 
@@ -106,8 +108,45 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
       eastContinent,
     });
 
+    const buildStepConfig = (stepId: string): Record<string, unknown> => {
+      switch (stepId) {
+        case "foundation":
+          return config.foundation;
+        case "climateBaseline":
+          return { climate: { baseline: config.climate?.baseline ?? {} } };
+        case "storySwatches":
+          return {
+            climate: config.climate ?? {},
+            foundation: {
+              dynamics: { directionality: config.foundation?.dynamics?.directionality ?? {} },
+            },
+          };
+        case "rivers":
+          return { climate: { story: { paleo: config.climate?.story?.paleo ?? {} } } };
+        default:
+          return {};
+      }
+    };
+
+    const runRequest = {
+      recipe: {
+        schemaVersion: 1,
+        steps: recipe.map((stepId) => ({
+          id: stepId,
+          config: buildStepConfig(stepId),
+        })),
+      },
+      settings: {
+        seed: 123,
+        dimensions: { width, height },
+        latitudeBounds: { topLatitude: mapInfo.MaxLatitude, bottomLatitude: mapInfo.MinLatitude },
+        wrap: { wrapX: true, wrapY: false },
+      },
+    };
+
+    const plan = compileExecutionPlan(runRequest, registry);
     const executor = new PipelineExecutor(registry, { logPrefix: "[TEST]" });
-    const { stepResults } = executor.execute(ctx, recipe);
+    const { stepResults } = executor.executePlan(ctx, plan);
 
     return { ctx, stepResults };
   }

@@ -1,5 +1,6 @@
 import { PerlinNoise } from "@mapgen/lib/noise/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { ClimateConfig } from "@mapgen/config/index.js";
 import { distanceToNearestWater } from "@mapgen/domain/hydrology/climate/distance-to-water.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 
@@ -9,7 +10,8 @@ import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.j
 export function applyClimateBaseline(
   width: number,
   height: number,
-  ctx: ExtendedMapContext | null = null
+  ctx: ExtendedMapContext | null = null,
+  config: ClimateConfig = {}
 ): void {
   console.log("Building enhanced rainfall patterns...");
   if (!ctx) {
@@ -24,7 +26,7 @@ export function applyClimateBaseline(
   ctx.buffers.climate.rainfall.fill(0);
   if (ctx.fields?.rainfall) ctx.fields.rainfall.fill(0);
 
-  const climateCfg = ctx.config.climate || {};
+  const climateCfg = config;
   const baselineCfg = climateCfg.baseline || {};
   const bands = (baselineCfg.bands || {}) as Record<string, number>;
   const blend = (baselineCfg.blend || {}) as Record<string, number>;
@@ -107,4 +109,3 @@ export function applyClimateBaseline(
     }
   }
 }
-

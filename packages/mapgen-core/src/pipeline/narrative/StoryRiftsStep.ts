@@ -1,4 +1,4 @@
-import { Type } from "typebox";
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { DEV, devWarn } from "@mapgen/dev/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
@@ -6,7 +6,6 @@ import {
   FoundationDirectionalityConfigSchema,
   RiftTunablesSchema,
 } from "@mapgen/config/index.js";
-import { type StepConfigView, withStepConfig } from "@mapgen/pipeline/step-config.js";
 import { storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/index.js";
 
 export interface StoryRiftsStepRuntime {
@@ -41,10 +40,12 @@ const StoryRiftsStepConfigSchema = Type.Object(
   { additionalProperties: false, default: { story: {}, foundation: {} } }
 );
 
+type StoryRiftsStepConfig = Static<typeof StoryRiftsStepConfigSchema>;
+
 export function createStoryRiftsStep(
   runtime: StoryRiftsStepRuntime,
   options: StoryRiftsStepOptions
-): MapGenStep<ExtendedMapContext, StepConfigView> {
+): MapGenStep<ExtendedMapContext, StoryRiftsStepConfig> {
   return {
     id: "storyRifts",
     phase: M3_STANDARD_STAGE_PHASE.storyRifts,
@@ -52,13 +53,14 @@ export function createStoryRiftsStep(
     provides: options.provides,
     configSchema: StoryRiftsStepConfigSchema,
     run: (context, config) => {
-      withStepConfig(context, config as StepConfigView, () => {
-        console.log(`${runtime.logPrefix} Imprinting rift valleys...`);
-        const summary = storyTagRiftValleys(context);
-        if (DEV.ENABLED && summary.lineTiles === 0) {
-          devWarn("[smoke] storyRifts enabled but no rift tiles were emitted");
-        }
+      console.log(`${runtime.logPrefix} Imprinting rift valleys...`);
+      const summary = storyTagRiftValleys(context, {
+        story: config.story,
+        foundation: config.foundation,
       });
+      if (DEV.ENABLED && summary.lineTiles === 0) {
+        devWarn("[smoke] storyRifts enabled but no rift tiles were emitted");
+      }
     },
   };
 }

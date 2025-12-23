@@ -5,7 +5,6 @@ import { Type, type Static, type TSchema } from "typebox";
 import { Value } from "typebox/value";
 
 import type { StepRegistry } from "@mapgen/pipeline/StepRegistry.js";
-import type { StepConfigView } from "@mapgen/pipeline/step-config.js";
 import type { GenerationPhase, MapGenStep } from "@mapgen/pipeline/types.js";
 
 const UnknownRecord = Type.Record(Type.String(), Type.Unknown(), { default: {} });
@@ -264,7 +263,7 @@ function normalizeStepConfig(
 }
 
 function buildNodeConfig<TContext>(
-  step: MapGenStep<TContext, StepConfigView>,
+  step: MapGenStep<TContext, unknown>,
   recipeStep: RecipeStepV1,
   path: string
 ): { config: unknown; errors: ExecutionPlanCompileErrorItem[] } {
@@ -278,7 +277,7 @@ function buildNodeConfig<TContext>(
 
 export function compileExecutionPlan<TContext>(
   runRequest: RunRequest,
-  registry: StepRegistry<TContext, StepConfigView>
+  registry: StepRegistry<TContext>
 ): ExecutionPlan {
   const normalized = parseRunRequest(runRequest);
   const { recipe, settings } = normalized;

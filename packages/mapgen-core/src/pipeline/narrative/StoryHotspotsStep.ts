@@ -1,9 +1,8 @@
-import { Type } from "typebox";
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { DEV, devWarn } from "@mapgen/dev/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import { HotspotTunablesSchema } from "@mapgen/config/index.js";
-import { type StepConfigView, withStepConfig } from "@mapgen/pipeline/step-config.js";
 import { storyTagHotspotTrails } from "@mapgen/domain/narrative/tagging/index.js";
 
 export interface StoryHotspotsStepRuntime {
@@ -27,10 +26,12 @@ const StoryHotspotsStepConfigSchema = Type.Object(
   { additionalProperties: false, default: { story: {} } }
 );
 
+type StoryHotspotsStepConfig = Static<typeof StoryHotspotsStepConfigSchema>;
+
 export function createStoryHotspotsStep(
   runtime: StoryHotspotsStepRuntime,
   options: StoryHotspotsStepOptions
-): MapGenStep<ExtendedMapContext, StepConfigView> {
+): MapGenStep<ExtendedMapContext, StoryHotspotsStepConfig> {
   return {
     id: "storyHotspots",
     phase: M3_STANDARD_STAGE_PHASE.storyHotspots,
@@ -38,13 +39,11 @@ export function createStoryHotspotsStep(
     provides: options.provides,
     configSchema: StoryHotspotsStepConfigSchema,
     run: (context, config) => {
-      withStepConfig(context, config as StepConfigView, () => {
-        console.log(`${runtime.logPrefix} Imprinting hotspot trails...`);
-        const summary = storyTagHotspotTrails(context);
-        if (DEV.ENABLED && summary.points === 0) {
-          devWarn("[smoke] storyHotspots enabled but no hotspot points were emitted");
-        }
-      });
+      console.log(`${runtime.logPrefix} Imprinting hotspot trails...`);
+      const summary = storyTagHotspotTrails(context, config.story?.hotspot ?? {});
+      if (DEV.ENABLED && summary.points === 0) {
+        devWarn("[smoke] storyHotspots enabled but no hotspot points were emitted");
+      }
     },
   };
 }

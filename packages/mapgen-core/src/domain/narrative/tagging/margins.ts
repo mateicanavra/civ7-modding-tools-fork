@@ -12,15 +12,15 @@ import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
 import { rand } from "@mapgen/domain/narrative/utils/rng.js";
 
 import type { ContinentalMarginsOptions } from "@mapgen/domain/narrative/tagging/types.js";
+import type { ContinentalMarginsConfig } from "@mapgen/config/index.js";
 
 export function storyTagContinentalMargins(
   ctx: ExtendedMapContext | null = null,
+  config: ContinentalMarginsConfig = {},
   options: ContinentalMarginsOptions = {}
 ): StoryOverlaySnapshot {
   const { width, height } = getDims(ctx);
-  const marginsCfg = (ctx?.config as Record<string, unknown>)?.margins as
-    | Record<string, number>
-    | undefined;
+  const marginsCfg = config as Record<string, number>;
 
   const area = Math.max(1, width * height);
   const sqrt = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));

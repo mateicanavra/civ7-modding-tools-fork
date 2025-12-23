@@ -39,7 +39,8 @@ export type { FeaturesConfig, FeaturesDensityConfig } from "@mapgen/domain/ecolo
 export function addDiverseFeatures(
   iWidth: number,
   iHeight: number,
-  ctx?: ExtendedMapContext | null
+  ctx?: ExtendedMapContext | null,
+  config: { story?: { features?: FeaturesConfig }; featuresDensity?: FeaturesDensityConfig } = {}
 ): void {
   console.log("Adding diverse terrain features...");
 
@@ -58,10 +59,9 @@ export function addDiverseFeatures(
   // 1) Base-standard features (vanilla-compatible baseline) via the real engine
   adapter.addFeatures(iWidth, iHeight);
 
-  const config = ctx.config;
-  const storyTunables = (config.story || {}) as { features?: FeaturesConfig };
+  const storyTunables = config.story || {};
   const featuresCfg = storyTunables.features || {};
-  const densityCfg = (config.featuresDensity || {}) as FeaturesDensityConfig;
+  const densityCfg = config.featuresDensity || {};
 
   const StoryTags = getStoryTags(ctx);
 

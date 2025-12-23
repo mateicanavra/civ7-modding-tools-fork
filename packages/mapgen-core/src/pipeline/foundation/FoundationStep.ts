@@ -1,11 +1,10 @@
-import { Type } from "typebox";
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import { FoundationConfigSchema } from "@mapgen/config/index.js";
-import { type StepConfigView, withStepConfig } from "@mapgen/pipeline/step-config.js";
 
 export interface FoundationStepRuntime {
-  runFoundation: (context: ExtendedMapContext) => void;
+  runFoundation: (context: ExtendedMapContext, config: Static<typeof FoundationConfigSchema>) => void;
 }
 
 export interface FoundationStepOptions {
@@ -20,10 +19,12 @@ const FoundationStepConfigSchema = Type.Object(
   { additionalProperties: false, default: { foundation: {} } }
 );
 
+type FoundationStepConfig = Static<typeof FoundationStepConfigSchema>;
+
 export function createFoundationStep(
   runtime: FoundationStepRuntime,
   options: FoundationStepOptions
-): MapGenStep<ExtendedMapContext, StepConfigView> {
+): MapGenStep<ExtendedMapContext, FoundationStepConfig> {
   return {
     id: "foundation",
     phase: M3_STANDARD_STAGE_PHASE.foundation,
@@ -31,9 +32,7 @@ export function createFoundationStep(
     provides: options.provides,
     configSchema: FoundationStepConfigSchema,
     run: (context, config) => {
-      withStepConfig(context, config as StepConfigView, () => {
-        runtime.runFoundation(context);
-      });
+      runtime.runFoundation(context, config.foundation);
     },
   };
 }

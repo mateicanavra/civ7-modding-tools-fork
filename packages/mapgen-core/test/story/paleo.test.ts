@@ -27,27 +27,24 @@ describe("story/paleo", () => {
     // Treat everything as "adjacent to rivers" for this unit test.
     (adapter as any).isAdjacentToRivers = () => true;
 
-    const ctx = createExtendedMapContext(
-      { width, height },
-      adapter,
-      parseConfig({
-        climate: {
-          story: {
-            paleo: {
-              maxDeltas: 1,
-              deltaFanRadius: 1,
-              deltaMarshChance: 0,
-              maxOxbows: 0,
-              maxFossilChannels: 0,
-            },
+    const config = parseConfig({
+      climate: {
+        story: {
+          paleo: {
+            maxDeltas: 1,
+            deltaFanRadius: 1,
+            deltaMarshChance: 0,
+            maxOxbows: 0,
+            maxFossilChannels: 0,
           },
         },
-      })
-    );
+      },
+    });
+    const ctx = createExtendedMapContext({ width, height }, adapter, config);
     ctx.buffers?.climate?.rainfall?.fill(50);
     ctx.fields?.rainfall?.fill(50);
 
-    const summary = storyTagPaleoHydrology(ctx);
+    const summary = storyTagPaleoHydrology(ctx, config.climate);
     expect(summary.deltas).toBe(1);
     expect(adapter.getRainfall(1, 1)).toBeGreaterThan(50);
   });

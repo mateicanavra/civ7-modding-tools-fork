@@ -317,7 +317,8 @@ function computeDynamics(
 }
 
 export function buildFoundationContext(
-  context: ExtendedMapContext
+  context: ExtendedMapContext,
+  foundationConfig: FoundationConfig
 ): FoundationContext {
   const { width, height } = context.dimensions;
   const size = Math.max(0, width * height) | 0;
@@ -326,7 +327,7 @@ export function buildFoundationContext(
     throw new Error("[Foundation] Invalid map dimensions.");
   }
 
-  const foundationCfg = context.config.foundation;
+  const foundationCfg = foundationConfig;
   const rng = requireRng(
     (max: number, label = "Foundation") => ctxRandom(context, label, max),
     "buildFoundationContext"
@@ -374,8 +375,11 @@ export function buildFoundationContext(
   return foundationContext;
 }
 
-export function runFoundationStage(context: ExtendedMapContext): FoundationContext {
-  const foundationContext = buildFoundationContext(context);
+export function runFoundationStage(
+  context: ExtendedMapContext,
+  foundationConfig: FoundationConfig
+): FoundationContext {
+  const foundationContext = buildFoundationContext(context, foundationConfig);
   context.foundation = foundationContext;
   return foundationContext;
 }

@@ -7,6 +7,7 @@
  */
 
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { ClimateConfig } from "@mapgen/config/index.js";
 import { inBounds } from "@mapgen/core/index.js";
 import { writeClimateField } from "@mapgen/core/types.js";
 import { idx } from "@mapgen/lib/grid/index.js";
@@ -24,13 +25,15 @@ export interface PaleoSummary {
   kind: "applied" | "missing-config";
 }
 
-export function storyTagPaleoHydrology(ctx: ExtendedMapContext): PaleoSummary {
+export function storyTagPaleoHydrology(
+  ctx: ExtendedMapContext,
+  config: ClimateConfig = {}
+): PaleoSummary {
   if (!ctx || !ctx.adapter) {
     throw new Error("[Story] Paleo hydrology requires MapContext adapter.");
   }
 
-  const climateCfg = (ctx.config?.climate || {}) as Record<string, unknown>;
-  const story = (climateCfg.story || {}) as Record<string, unknown>;
+  const story = (config.story || {}) as Record<string, unknown>;
   const cfg = story.paleo as Record<string, unknown> | undefined;
 
   if (!cfg) {

@@ -100,25 +100,14 @@ export function createPlateDrivenLandmasses(
   }
 
   // Cast to our local LandmassConfig which includes extended properties
-  const landmassCfg: LandmassConfig = (options.landmassCfg ||
-    (ctx?.config?.landmass as unknown as LandmassConfig) ||
-    {}) as LandmassConfig;
+  const landmassCfg: LandmassConfig = (options.landmassCfg || {}) as LandmassConfig;
 
   const geomCfg: GeometryConfig = options.geometry || {};
   const postCfg: GeometryPostConfig = geomCfg.post || {};
 
   const { waterPct, targetLandTiles } = computeTargetLandTiles(size, landmassCfg);
 
-  const foundationCfg = ctx.config.foundation as {
-    crustMode?: CrustMode;
-    surface?: { crustMode?: CrustMode; landmass?: { crustMode?: CrustMode } };
-  };
-  const crustMode = normalizeCrustMode(
-    landmassCfg.crustMode ??
-      foundationCfg?.crustMode ??
-      foundationCfg?.surface?.crustMode ??
-      foundationCfg?.surface?.landmass?.crustMode
-  );
+  const crustMode = normalizeCrustMode(landmassCfg.crustMode);
 
   const closenessLimit = computeClosenessLimit(postCfg);
   const crustResult = tryCrustFirstLandmask(

@@ -1,4 +1,4 @@
-import { Type } from "typebox";
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { publishClimateFieldArtifact } from "@mapgen/pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
@@ -6,7 +6,6 @@ import {
   ClimateConfigSchema,
   FoundationDirectionalityConfigSchema,
 } from "@mapgen/config/index.js";
-import { type StepConfigView, withStepConfig } from "@mapgen/pipeline/step-config.js";
 import { getOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
 import { storyTagClimateSwatches } from "@mapgen/domain/narrative/swatches.js";
 
@@ -33,9 +32,11 @@ const StorySwatchesStepConfigSchema = Type.Object(
   { additionalProperties: false, default: { climate: {}, foundation: {} } }
 );
 
+type StorySwatchesStepConfig = Static<typeof StorySwatchesStepConfigSchema>;
+
 export function createStorySwatchesStep(
   options: StorySwatchesStepOptions
-): MapGenStep<ExtendedMapContext, StepConfigView> {
+): MapGenStep<ExtendedMapContext, StorySwatchesStepConfig> {
   return {
     id: "storySwatches",
     phase: M3_STANDARD_STAGE_PHASE.storySwatches,
@@ -43,10 +44,12 @@ export function createStorySwatchesStep(
     provides: options.provides,
     configSchema: StorySwatchesStepConfigSchema,
     run: (context, config) => {
-      withStepConfig(context, config as StepConfigView, () => {
-        storyTagClimateSwatches(context, { orogenyCache: getOrogenyCache(context) });
-        publishClimateFieldArtifact(context);
+      storyTagClimateSwatches(context, {
+        orogenyCache: getOrogenyCache(context),
+        climate: config.climate,
+        directionality: config.foundation?.dynamics?.directionality,
       });
+      publishClimateFieldArtifact(context);
     },
   };
 }

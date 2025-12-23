@@ -65,9 +65,11 @@ describe("smoke: minimal story parity (margins, hotspots)", () => {
     });
 
     const ctx = createExtendedMapContext({ width: 128, height: 80 }, adapter, config);
-    storyTagContinentalMargins(ctx);
-    storyTagHotspotTrails(ctx);
-    expect(() => storyTagRiftValleys(ctx)).toThrow("FoundationContext");
+    storyTagContinentalMargins(ctx, config.margins);
+    storyTagHotspotTrails(ctx, config.story?.hotspot);
+    expect(() => storyTagRiftValleys(ctx, { story: config.story, foundation: config.foundation })).toThrow(
+      "FoundationContext"
+    );
 
     const tags = getStoryTags(ctx);
     expect(tags.activeMargin.size + tags.passiveShelf.size).toBeGreaterThan(0);

@@ -8,16 +8,25 @@ import { isAdjacentToLand, isNearSeaLane, storyKey } from "@mapgen/domain/morpho
 
 const HILL_FRACTAL = 1;
 
-export function addIslandChains(iWidth: number, iHeight: number, ctx: ExtendedMapContext): void {
+export function addIslandChains(
+  iWidth: number,
+  iHeight: number,
+  ctx: ExtendedMapContext,
+  config: {
+    islands?: IslandsConfig;
+    story?: { hotspot?: HotspotTunables };
+    corridors?: CorridorsConfig;
+  } = {}
+): void {
   const adapter = ctx.adapter;
 
   if (adapter?.createFractal) {
     adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 5, 0);
   }
 
-  const islandsCfg = (ctx?.config?.islands as IslandsConfig) || {};
-  const storyTunables = (ctx?.config?.story as { hotspot?: HotspotTunables }) || {};
-  const corridorsCfg = (ctx?.config?.corridors as CorridorsConfig) || {};
+  const islandsCfg = config.islands || {};
+  const storyTunables = config.story || {};
+  const corridorsCfg = config.corridors || {};
 
   const fracPct = (islandsCfg.fractalThresholdPercent ?? 90) | 0;
   const threshold = getFractalThreshold(adapter, fracPct);

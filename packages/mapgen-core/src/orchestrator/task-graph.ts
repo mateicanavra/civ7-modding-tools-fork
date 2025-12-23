@@ -1,8 +1,7 @@
 import type { MapInfo, MapSizeId } from "@civ7/adapter";
 import { createCiv7Adapter } from "@civ7/adapter/civ7";
 
-import type { StartsConfig } from "@mapgen/bootstrap/types.js";
-import type { MapGenConfig } from "@mapgen/config/index.js";
+import type { FoundationConfig, MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { getStoryTags, resetStoryTags } from "@mapgen/domain/narrative/tags/index.js";
@@ -31,7 +30,7 @@ import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/
 export interface TaskGraphRunnerOptions {
   mapGenConfig: MapGenConfig;
   orchestratorOptions: OrchestratorConfig;
-  initializeFoundation: (ctx: ExtendedMapContext) => FoundationContext;
+  initializeFoundation: (ctx: ExtendedMapContext, config: FoundationConfig) => FoundationContext;
 }
 
 export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): GenerationResult {
@@ -40,7 +39,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   const stageResults: StageResult[] = [];
   const startPositions: number[] = [];
-
   const config = options.mapGenConfig;
 
   resetDevFlags();
@@ -85,7 +83,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   logEngineSurfaceApisOnce();
 
-  const stageManifest = config.stageManifest ?? { order: [], stages: {} };
+  const stageManifest = options.mapGenConfig.stageManifest ?? { order: [], stages: {} };
   const registry = new StepRegistry<ExtendedMapContext>();
   const recipe = registry.getStandardRecipe(stageManifest);
   const enabledStages = recipe.join(", ");
@@ -138,8 +136,8 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   registerStandardLibrary(registry, config, {
     getStageDescriptor,
     logPrefix: prefix,
-    runFoundation: (context) => {
-      options.initializeFoundation(context);
+    runFoundation: (context, config) => {
+      options.initializeFoundation(context, config);
     },
     storyEnabled,
     mapInfo,
@@ -150,7 +148,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
     startSectors,
     westContinent,
     eastContinent,
-    placementStartsOverrides: ctx.config.placement?.starts as Partial<StartsConfig> | undefined,
     startPositions,
   });
 

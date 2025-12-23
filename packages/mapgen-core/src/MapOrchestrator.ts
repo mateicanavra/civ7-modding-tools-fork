@@ -53,7 +53,7 @@ import type { MapInfo, MapInitParams, MapSizeId } from "@civ7/adapter";
 import { createCiv7Adapter } from "@civ7/adapter/civ7";
 
 export type { MapInfo, MapInitParams } from "@civ7/adapter";
-import type { MapGenConfig } from "@mapgen/config/index.js";
+import type { FoundationConfig, MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
 import { runTaskGraphGeneration } from "@mapgen/orchestrator/task-graph.js";
@@ -222,7 +222,7 @@ export class MapOrchestrator {
     const result = runTaskGraphGeneration({
       mapGenConfig: this.mapGenConfig,
       orchestratorOptions: this.options,
-      initializeFoundation: (ctx) => this.initializeFoundation(ctx),
+      initializeFoundation: (ctx, config) => this.initializeFoundation(ctx, config),
     });
     this.stageResults = result.stageResults;
     return result;
@@ -232,10 +232,13 @@ export class MapOrchestrator {
   // Private Helpers
   // ==========================================================================
 
-  private initializeFoundation(ctx: ExtendedMapContext): FoundationContext {
+  private initializeFoundation(
+    ctx: ExtendedMapContext,
+    config: FoundationConfig
+  ): FoundationContext {
     const prefix = this.options.logPrefix || "[SWOOPER_MOD]";
     console.log(`${prefix} Initializing foundation...`);
-    const foundationContext = runFoundationStage(ctx);
+    const foundationContext = runFoundationStage(ctx, config);
 
     console.log(`${prefix} Foundation context initialized`);
 

@@ -5,7 +5,11 @@ import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
 import { getDims, rand } from "@mapgen/domain/narrative/corridors/runtime.js";
 
-export function tagLandCorridorsFromRifts(ctx: ExtendedMapContext, corridorsCfg: Record<string, unknown>): void {
+export function tagLandCorridorsFromRifts(
+  ctx: ExtendedMapContext,
+  corridorsCfg: Record<string, unknown>,
+  directionality: Record<string, unknown> | null | undefined
+): void {
   const cfg = ((corridorsCfg.land || {}) as Record<string, unknown>) || {};
   if (!cfg.useRiftShoulders) return;
 
@@ -74,40 +78,36 @@ export function tagLandCorridorsFromRifts(ctx: ExtendedMapContext, corridorsCfg:
       else if (avgRain < 85 && latDeg < 35) style = "desertBelt";
       else if (avgRain > 115) style = "grasslandBelt";
 
-      try {
-        const DIR = (ctx?.config?.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
-        const cohesion = Math.max(0, Math.min(1, Number((DIR.cohesion as number) ?? 0)));
-        if (cohesion > 0) {
-          const axes = (DIR.primaryAxes || {}) as Record<string, number>;
-          const plateDeg = (axes.plateAxisDeg ?? 0) | 0;
-          const windDeg = (axes.windBiasDeg ?? 0) | 0;
-          const radP = (plateDeg * Math.PI) / 180;
-          const radW = (windDeg * Math.PI) / 180;
-          const PV = { x: Math.cos(radP), y: Math.sin(radP) };
-          const WV = { x: Math.cos(radW), y: Math.sin(radW) };
-          const L = { x: 1, y: 0 };
-          const alignPlate = Math.abs(PV.x * L.x + PV.y * L.y);
-          const alignWind = Math.abs(WV.x * L.x + WV.y * L.y);
-          const hiAlign = 0.75 * cohesion + 0.1;
-          const midAlign = 0.5 * cohesion + 0.1;
+      const DIR = (directionality || {}) as Record<string, unknown>;
+      const cohesion = Math.max(0, Math.min(1, Number((DIR.cohesion as number) ?? 0)));
+      if (cohesion > 0) {
+        const axes = (DIR.primaryAxes || {}) as Record<string, number>;
+        const plateDeg = (axes.plateAxisDeg ?? 0) | 0;
+        const windDeg = (axes.windBiasDeg ?? 0) | 0;
+        const radP = (plateDeg * Math.PI) / 180;
+        const radW = (windDeg * Math.PI) / 180;
+        const PV = { x: Math.cos(radP), y: Math.sin(radP) };
+        const WV = { x: Math.cos(radW), y: Math.sin(radW) };
+        const L = { x: 1, y: 0 };
+        const alignPlate = Math.abs(PV.x * L.x + PV.y * L.y);
+        const alignWind = Math.abs(WV.x * L.x + WV.y * L.y);
+        const hiAlign = 0.75 * cohesion + 0.1;
+        const midAlign = 0.5 * cohesion + 0.1;
 
-          if (alignPlate >= hiAlign) {
-            if (avgElev > 650 && reliefFrac < 0.28) style = "plateau";
-            else if (reliefFrac > 0.3 && avgRain < 100) style = "canyon";
-            else if (avgElev > 560 && reliefFrac < 0.35) style = "flatMtn";
-          } else if (alignPlate >= midAlign) {
-            if (avgElev > 600 && reliefFrac < 0.25) style = "plateau";
-          }
-
-          if (alignWind >= hiAlign) {
-            if (avgRain > 110 || (latDeg < 25 && avgRain > 100)) style = "grasslandBelt";
-            else if (avgRain < 90 && latDeg < 35) style = "desertBelt";
-          } else if (alignWind >= midAlign) {
-            if (avgRain > 120) style = "grasslandBelt";
-          }
+        if (alignPlate >= hiAlign) {
+          if (avgElev > 650 && reliefFrac < 0.28) style = "plateau";
+          else if (reliefFrac > 0.3 && avgRain < 100) style = "canyon";
+          else if (avgElev > 560 && reliefFrac < 0.35) style = "flatMtn";
+        } else if (alignPlate >= midAlign) {
+          if (avgElev > 600 && reliefFrac < 0.25) style = "plateau";
         }
-      } catch {
-        // keep baseline style
+
+        if (alignWind >= hiAlign) {
+          if (avgRain > 110 || (latDeg < 25 && avgRain > 100)) style = "grasslandBelt";
+          else if (avgRain < 90 && latDeg < 35) style = "desertBelt";
+        } else if (alignWind >= midAlign) {
+          if (avgRain > 120) style = "grasslandBelt";
+        }
       }
 
       for (let cx = start; cx <= end; cx++) {

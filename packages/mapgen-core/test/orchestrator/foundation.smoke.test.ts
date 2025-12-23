@@ -65,7 +65,7 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
 
     const config = bootstrap({ stageConfig: { foundation: true } });
     const ctx = createExtendedMapContext({ width, height }, adapter, config);
-    const foundation = runFoundationStage(ctx);
+    const foundation = runFoundationStage(ctx, config.foundation);
 
     expect(foundation.plates.id?.length).toBe(size);
     expect(foundation.plates.boundaryCloseness?.length).toBe(size);

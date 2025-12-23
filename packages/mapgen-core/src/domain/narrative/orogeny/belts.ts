@@ -10,6 +10,7 @@
  */
 
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/types.js";
+import type { StoryConfig } from "@mapgen/config/index.js";
 import { inBounds, storyKey } from "@mapgen/core/index.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
@@ -29,7 +30,10 @@ export interface OrogenySummary {
  * Tag orogeny belts and populate an in-memory OrogenyCache for climate swatches.
  * Always publishes a `storyOverlays` snapshot (even if empty) for Task Graph contracts.
  */
-export function storyTagOrogenyBelts(ctx: ExtendedMapContext): StoryOverlaySnapshot {
+export function storyTagOrogenyBelts(
+  ctx: ExtendedMapContext,
+  storyConfig: StoryConfig = {}
+): StoryOverlaySnapshot {
   assertFoundationContext(ctx, "storyOrogeny");
   const cache = getOrogenyCache(ctx);
   cache.belts.clear();
@@ -43,7 +47,7 @@ export function storyTagOrogenyBelts(ctx: ExtendedMapContext): StoryOverlaySnaps
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
   
   // Configuration
-  const storyCfg = (ctx?.config?.story || {}) as Record<string, unknown>;
+  const storyCfg = storyConfig as Record<string, unknown>;
   const cfg = (storyCfg.orogeny || {}) as Record<string, number>;
 
   const baseRadius = Number.isFinite(cfg.radius) ? (cfg.radius | 0) : 2;
