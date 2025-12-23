@@ -1,16 +1,39 @@
 import type { StageManifest } from "@mapgen/config/index.js";
 import { DuplicateStepError, UnknownStepError } from "@mapgen/pipeline/errors.js";
-import { validateDependencyTags } from "@mapgen/pipeline/tags.js";
+import {
+  createDefaultTagRegistry,
+  type DependencyTagDefinition,
+  type TagRegistry,
+  validateDependencyTags,
+} from "@mapgen/pipeline/tags.js";
 import type { MapGenStep } from "@mapgen/pipeline/types.js";
+
 export class StepRegistry<TContext> {
   private readonly steps = new Map<string, MapGenStep<TContext, unknown>>();
+  private readonly tags: TagRegistry;
+
+  constructor(options: { tags?: TagRegistry } = {}) {
+    this.tags = options.tags ?? createDefaultTagRegistry();
+  }
+
+  registerTag(definition: DependencyTagDefinition): void {
+    this.tags.registerTag(definition);
+  }
+
+  registerTags(definitions: readonly DependencyTagDefinition[]): void {
+    this.tags.registerTags(definitions);
+  }
+
+  getTagRegistry(): TagRegistry {
+    return this.tags;
+  }
 
   register<TConfig>(step: MapGenStep<TContext, TConfig>): void {
     if (this.steps.has(step.id)) {
       throw new DuplicateStepError(step.id);
     }
-    validateDependencyTags(step.requires);
-    validateDependencyTags(step.provides);
+    validateDependencyTags(step.requires, this.tags);
+    validateDependencyTags(step.provides, this.tags);
     this.steps.set(step.id, step as MapGenStep<TContext, unknown>);
   }
 

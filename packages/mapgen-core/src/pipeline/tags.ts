@@ -1,5 +1,7 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import {
+  DuplicateDependencyTagError,
+  InvalidDependencyTagDemoError,
   InvalidDependencyTagError,
   UnknownDependencyTagError,
 } from "@mapgen/pipeline/errors.js";
@@ -35,95 +37,260 @@ export const M3_CANONICAL_DEPENDENCY_TAGS: ReadonlySet<string> = new Set([
   ...Object.values(M3_DEPENDENCY_TAGS.state),
 ]);
 
-const ARTIFACT_RE = /^artifact:[a-z][A-Za-z0-9]*$/;
-const FIELD_RE = /^field:[a-z][A-Za-z0-9]*$/;
-const STATE_RE = /^state:engine\.[a-z][A-Za-z0-9]*$/;
+export const M4_EFFECT_TAGS = {
+  engine: {
+    landmassApplied: "effect:engine.landmassApplied",
+    coastlinesApplied: "effect:engine.coastlinesApplied",
+    riversModeled: "effect:engine.riversModeled",
+    biomesApplied: "effect:engine.biomesApplied",
+    featuresApplied: "effect:engine.featuresApplied",
+    placementApplied: "effect:engine.placementApplied",
+  },
+} as const;
 
-export function validateDependencyTag(tag: string): void {
-  if (typeof tag !== "string" || tag.length === 0) {
-    throw new InvalidDependencyTagError(String(tag));
-  }
-  if (!ARTIFACT_RE.test(tag) && !FIELD_RE.test(tag) && !STATE_RE.test(tag)) {
-    throw new InvalidDependencyTagError(tag);
-  }
-  if (!M3_CANONICAL_DEPENDENCY_TAGS.has(tag)) {
-    throw new UnknownDependencyTagError(tag);
-  }
-}
-
-export function validateDependencyTags(tags: readonly string[]): void {
-  for (const tag of tags) validateDependencyTag(tag);
-}
+export type DependencyTagKind = "artifact" | "field" | "effect" | "state";
 
 type SatisfactionState = {
   satisfied: ReadonlySet<string>;
 };
 
-export function isDependencyTagSatisfied(
-  tag: string,
-  context: ExtendedMapContext,
-  state: SatisfactionState
-): boolean {
-  const expectedSize = context.dimensions.width * context.dimensions.height;
-  switch (tag) {
-    case M3_DEPENDENCY_TAGS.artifact.foundation:
-      return !!context.foundation;
-    case M3_DEPENDENCY_TAGS.artifact.heightfield: {
-      const value = context.artifacts?.get(tag);
-      if (!value || typeof value !== "object") return false;
-      const candidate = value as {
-        elevation?: unknown;
-        terrain?: unknown;
-        landMask?: unknown;
-      };
-      return (
-        candidate.elevation instanceof Int16Array &&
-        candidate.terrain instanceof Uint8Array &&
-        candidate.landMask instanceof Uint8Array &&
-        candidate.elevation.length === expectedSize &&
-        candidate.terrain.length === expectedSize &&
-        candidate.landMask.length === expectedSize
-      );
+export interface DependencyTagDefinition {
+  id: string;
+  kind: DependencyTagKind;
+  satisfies?: (context: ExtendedMapContext, state: SatisfactionState) => boolean;
+  demo?: unknown;
+  validateDemo?: (demo: unknown) => boolean;
+}
+
+export class TagRegistry {
+  private readonly tags = new Map<string, DependencyTagDefinition>();
+
+  registerTag(definition: DependencyTagDefinition): void {
+    if (this.tags.has(definition.id)) {
+      throw new DuplicateDependencyTagError(definition.id);
     }
-    case M3_DEPENDENCY_TAGS.artifact.climateField: {
-      const value = context.artifacts?.get(tag);
-      if (!value || typeof value !== "object") return false;
-      const candidate = value as { rainfall?: unknown; humidity?: unknown };
-      return (
-        candidate.rainfall instanceof Uint8Array &&
-        candidate.humidity instanceof Uint8Array &&
-        candidate.rainfall.length === expectedSize &&
-        candidate.humidity.length === expectedSize
-      );
+    if (!isTagKindCompatible(definition.id, definition.kind)) {
+      throw new InvalidDependencyTagError(definition.id);
     }
-    case M3_DEPENDENCY_TAGS.artifact.storyOverlays:
-      return (context.overlays?.size ?? 0) > 0;
-    case M3_DEPENDENCY_TAGS.artifact.riverAdjacency: {
-      const value = context.artifacts?.get(tag);
-      return value instanceof Uint8Array && value.length === expectedSize;
+    if (definition.demo !== undefined) {
+      if (!definition.validateDemo || !definition.validateDemo(definition.demo)) {
+        throw new InvalidDependencyTagDemoError(definition.id);
+      }
     }
-    case M3_DEPENDENCY_TAGS.field.terrainType:
-      return !!context.fields?.terrainType;
-    case M3_DEPENDENCY_TAGS.field.elevation:
-      return !!context.fields?.elevation;
-    case M3_DEPENDENCY_TAGS.field.rainfall:
-      return !!context.fields?.rainfall;
-    case M3_DEPENDENCY_TAGS.field.biomeId:
-      return !!context.fields?.biomeId;
-    case M3_DEPENDENCY_TAGS.field.featureType:
-      return !!context.fields?.featureType;
-    default:
-      return state.satisfied.has(tag);
+    this.tags.set(definition.id, definition);
+  }
+
+  registerTags(definitions: readonly DependencyTagDefinition[]): void {
+    for (const definition of definitions) {
+      this.registerTag(definition);
+    }
+  }
+
+  get(tag: string): DependencyTagDefinition {
+    this.validateTag(tag);
+    return this.tags.get(tag) as DependencyTagDefinition;
+  }
+
+  has(tag: string): boolean {
+    return this.tags.has(tag);
+  }
+
+  validateTag(tag: string): void {
+    if (typeof tag !== "string" || tag.length === 0) {
+      throw new InvalidDependencyTagError(String(tag));
+    }
+    if (!this.tags.has(tag)) {
+      throw new UnknownDependencyTagError(tag);
+    }
+  }
+
+  validateTags(tags: readonly string[]): void {
+    for (const tag of tags) {
+      this.validateTag(tag);
+    }
   }
 }
 
-export function computeInitialSatisfiedTags(context: ExtendedMapContext): Set<string> {
-  const satisfied = new Set<string>();
-  // Fields are preallocated when the context is created.
-  if (context.fields?.terrainType) satisfied.add(M3_DEPENDENCY_TAGS.field.terrainType);
-  if (context.fields?.elevation) satisfied.add(M3_DEPENDENCY_TAGS.field.elevation);
-  if (context.fields?.rainfall) satisfied.add(M3_DEPENDENCY_TAGS.field.rainfall);
-  if (context.fields?.biomeId) satisfied.add(M3_DEPENDENCY_TAGS.field.biomeId);
-  if (context.fields?.featureType) satisfied.add(M3_DEPENDENCY_TAGS.field.featureType);
-  return satisfied;
+export function createDefaultTagRegistry(): TagRegistry {
+  const registry = new TagRegistry();
+  registry.registerTags(DEFAULT_TAG_DEFINITIONS);
+  return registry;
+}
+
+export function validateDependencyTag(tag: string, registry: TagRegistry): void {
+  registry.validateTag(tag);
+}
+
+export function validateDependencyTags(tags: readonly string[], registry: TagRegistry): void {
+  registry.validateTags(tags);
+}
+
+export function isDependencyTagSatisfied(
+  tag: string,
+  context: ExtendedMapContext,
+  state: SatisfactionState,
+  registry: TagRegistry
+): boolean {
+  const definition = registry.get(tag);
+  if (!state.satisfied.has(tag)) return false;
+  if (definition.satisfies) return definition.satisfies(context, state);
+  return true;
+}
+
+export function computeInitialSatisfiedTags(_context: ExtendedMapContext): Set<string> {
+  // Tags become satisfied only when explicitly provided.
+  return new Set<string>();
+}
+
+const DEFAULT_TAG_DEFINITIONS: DependencyTagDefinition[] = [
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.foundation,
+    kind: "artifact",
+    satisfies: (context) =>
+      context.artifacts.has(M3_DEPENDENCY_TAGS.artifact.foundation) || !!context.foundation,
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.heightfield,
+    kind: "artifact",
+    satisfies: (context) =>
+      isHeightfieldBuffer(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield),
+        getExpectedSize(context)
+      ),
+    demo: {
+      elevation: new Int16Array(0),
+      terrain: new Uint8Array(0),
+      landMask: new Uint8Array(0),
+    },
+    validateDemo: (demo) => isHeightfieldBuffer(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.climateField,
+    kind: "artifact",
+    satisfies: (context) =>
+      isClimateFieldBuffer(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.climateField),
+        getExpectedSize(context)
+      ),
+    demo: {
+      rainfall: new Uint8Array(0),
+      humidity: new Uint8Array(0),
+    },
+    validateDemo: (demo) => isClimateFieldBuffer(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+    kind: "artifact",
+    satisfies: (context) => (context.overlays?.size ?? 0) > 0,
+    demo: {},
+    validateDemo: (demo) => isPlainObject(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
+    kind: "artifact",
+    satisfies: (context) =>
+      isUint8Array(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency),
+        getExpectedSize(context)
+      ),
+    demo: new Uint8Array(0),
+    validateDemo: (demo) => isUint8Array(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.field.terrainType,
+    kind: "field",
+    satisfies: (context) =>
+      isUint8Array(context.fields?.terrainType, getExpectedSize(context)),
+    demo: new Uint8Array(0),
+    validateDemo: (demo) => isUint8Array(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.field.elevation,
+    kind: "field",
+    satisfies: (context) =>
+      isInt16Array(context.fields?.elevation, getExpectedSize(context)),
+    demo: new Int16Array(0),
+    validateDemo: (demo) => isInt16Array(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.field.rainfall,
+    kind: "field",
+    satisfies: (context) =>
+      isUint8Array(context.fields?.rainfall, getExpectedSize(context)),
+    demo: new Uint8Array(0),
+    validateDemo: (demo) => isUint8Array(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.field.biomeId,
+    kind: "field",
+    satisfies: (context) =>
+      isUint8Array(context.fields?.biomeId, getExpectedSize(context)),
+    demo: new Uint8Array(0),
+    validateDemo: (demo) => isUint8Array(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.field.featureType,
+    kind: "field",
+    satisfies: (context) =>
+      isInt16Array(context.fields?.featureType, getExpectedSize(context)),
+    demo: new Int16Array(0),
+    validateDemo: (demo) => isInt16Array(demo),
+  },
+  ...Object.values(M3_DEPENDENCY_TAGS.state).map((id) => ({
+    id,
+    kind: "state" as const,
+  })),
+  ...Object.values(M4_EFFECT_TAGS.engine).map((id) => ({
+    id,
+    kind: "effect" as const,
+  })),
+];
+
+function getExpectedSize(context: ExtendedMapContext): number {
+  return context.dimensions.width * context.dimensions.height;
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+function isUint8Array(value: unknown, expectedSize?: number): value is Uint8Array {
+  if (!(value instanceof Uint8Array)) return false;
+  if (expectedSize == null) return true;
+  return value.length === expectedSize;
+}
+
+function isInt16Array(value: unknown, expectedSize?: number): value is Int16Array {
+  if (!(value instanceof Int16Array)) return false;
+  if (expectedSize == null) return true;
+  return value.length === expectedSize;
+}
+
+function isHeightfieldBuffer(value: unknown, expectedSize?: number): boolean {
+  if (value == null || typeof value !== "object") return false;
+  const candidate = value as { elevation?: unknown; terrain?: unknown; landMask?: unknown };
+  return (
+    isInt16Array(candidate.elevation, expectedSize) &&
+    isUint8Array(candidate.terrain, expectedSize) &&
+    isUint8Array(candidate.landMask, expectedSize)
+  );
+}
+
+function isClimateFieldBuffer(value: unknown, expectedSize?: number): boolean {
+  if (value == null || typeof value !== "object") return false;
+  const candidate = value as { rainfall?: unknown; humidity?: unknown };
+  return (
+    isUint8Array(candidate.rainfall, expectedSize) &&
+    isUint8Array(candidate.humidity, expectedSize)
+  );
+}
+
+function isTagKindCompatible(id: string, kind: DependencyTagKind): boolean {
+  if (kind === "artifact") return id.startsWith("artifact:");
+  if (kind === "field") return id.startsWith("field:");
+  if (kind === "effect") return id.startsWith("effect:");
+  if (kind === "state") return id.startsWith("state:engine.");
+  return false;
 }

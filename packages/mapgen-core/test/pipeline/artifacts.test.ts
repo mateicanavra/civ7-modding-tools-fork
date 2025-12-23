@@ -36,11 +36,12 @@ describe("pipeline artifacts", () => {
       adapter,
       {} as unknown as MapConfig
     );
+    const tagRegistry = new StepRegistry<typeof ctx>().getTagRegistry();
 
     expect(
       isDependencyTagSatisfied(M3_DEPENDENCY_TAGS.artifact.climateField, ctx, {
         satisfied: new Set(),
-      })
+      }, tagRegistry)
     ).toBe(false);
 
     publishClimateFieldArtifact(ctx);
@@ -48,7 +49,7 @@ describe("pipeline artifacts", () => {
     expect(
       isDependencyTagSatisfied(M3_DEPENDENCY_TAGS.artifact.climateField, ctx, {
         satisfied: new Set([M3_DEPENDENCY_TAGS.artifact.climateField]),
-      })
+      }, tagRegistry)
     ).toBe(true);
   });
 
