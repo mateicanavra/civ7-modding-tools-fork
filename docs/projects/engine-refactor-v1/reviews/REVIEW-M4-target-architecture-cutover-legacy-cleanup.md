@@ -39,5 +39,6 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 
 - **Intent:** Replace regex/allowlist validation + hard-coded executor verification with registry-driven catalog checks; make `effect:*` schedulable; validate demo payloads on registration.
 - **Strengths:** TagRegistry provides a canonical catalog; executor/registry now validate via registry; effect tags are included; demo payload validation fails fast with unit coverage.
-- **Gaps:** Satisfaction now requires explicit `provides`, so any partial runs that relied on pre-initialized fields/artifacts will now fail without explicit tags; no guardrails/tests for that behavior change.
-- **Follow-up:** Add targeted tests or docs for partial-pipeline behavior; consider reintroducing stricter tag-id validation at registry registration if canonical formats still matter.
+- **Gaps:** Tag IDs are only validated by kind prefix; canonical format validation (if still desired) is not enforced at registration.
+- **Follow-up:** Consider reintroducing stricter tag-id validation at registry registration if canonical formats still matter.
+- **Update (2025-12-23):** Added a guardrail test that preallocated field buffers remain unsatisfied until explicitly provided.
