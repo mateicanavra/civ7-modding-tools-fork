@@ -10,7 +10,7 @@ assignees: []
 labels: [Architecture, Narrative]
 parent: CIV-65
 children: []
-blocked_by: [CIV-73, CIV-59]
+blocked_by: [CIV-73]
 blocked: []
 related_to: [CIV-43]
 ---
@@ -47,8 +47,8 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 ## Dependencies / Notes
 
 - **Parent:** [CIV-65](CIV-65-M4-NARRATIVE-CLEANUP.md)
-- **Blocked by:** CIV-73, CIV-59
-- **Sequencing:** Land after legacy ordering deletion (CIV-59) to avoid stage/manifest drift while migrating consumers.
+- **Blocked by:** CIV-73
+- **Sequencing:** Land after legacy ordering deletion (CIV-59) via the CIV-73 gate to avoid stage/manifest drift while migrating consumers.
 
 ---
 

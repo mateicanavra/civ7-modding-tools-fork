@@ -10,7 +10,7 @@ assignees: []
 labels: [Architecture, Cleanup]
 parent: null
 children: []
-blocked_by: []
+blocked_by: [CIV-60]
 blocked: []
 related_to: []
 ---
@@ -60,6 +60,7 @@ The accepted engine-boundary policy disallows “read engine later” dependency
 
 ## Dependencies / Notes
 
+- **Blocked by:** CIV-60 (legacy orchestration removal complete).
 - Phase F work; coordinate with narrative cleanup where paths overlap.
 
 ---

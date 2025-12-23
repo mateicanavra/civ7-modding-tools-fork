@@ -11,7 +11,7 @@ labels: [Architecture, Cleanup]
 parent: CIV-54
 children: []
 blocked_by: []
-blocked: [CIV-56]
+blocked: [CIV-56, CIV-61, CIV-66, CIV-75]
 related_to: [CIV-41, CIV-48]
 ---
 
@@ -43,7 +43,7 @@ Introduce the target boundary types (`RunRequest`, `RecipeV1`) and a TypeBox-val
 ## Dependencies / Notes
 
 - **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
-- **Blocks:** CIV-56
+- **Blocks:** CIV-56, CIV-61, CIV-66, CIV-75
 
 ---
 

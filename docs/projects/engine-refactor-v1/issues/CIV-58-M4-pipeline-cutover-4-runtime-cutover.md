@@ -11,7 +11,7 @@ labels: [Architecture, Cleanup]
 parent: CIV-54
 children: []
 blocked_by: [CIV-56, CIV-57]
-blocked: [CIV-59]
+blocked: [CIV-76]
 related_to: [CIV-41, CIV-48]
 ---
 
@@ -42,7 +42,7 @@ Introduce the standard mod recipe (packaged as a mod-style package + registry en
 
 - **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
 - **Blocked by:** CIV-56, CIV-57
-- **Blocks:** CIV-59
+- **Blocks:** CIV-76
 - **Milestone note:** Packaging + loader/registry wiring lives in PIPELINE-3. This issue assumes that packaging is in place and focuses on runtime cutover to `RunRequest → ExecutionPlan`.
 
 ---

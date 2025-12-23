@@ -11,7 +11,7 @@ labels: [Architecture, Placement]
 parent: CIV-64
 children: []
 blocked_by: [CIV-71]
-blocked: []
+blocked: [CIV-70]
 related_to: [CIV-63]
 ---
 

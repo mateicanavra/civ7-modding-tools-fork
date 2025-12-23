@@ -243,7 +243,7 @@ steps:
 steps:
   - seq: F.1
     issue: CIV-73
-    description: Narrative producers → can start after Phase B (tag registry cutover).
+    description: Narrative producers → start after Phase D (legacy deletion) and tag registry cutover.
 
   - seq: F.2
     issue: CIV-67
@@ -525,15 +525,29 @@ dependencies:
     to: CIV-75
     reason: Compiler/plan must exist for plan fingerprint + step-level tracing hooks.
 
+  - from: CIV-58
+    to: CIV-76
+    reason: Smoke tests should exercise the cutover boundary (RunRequest → ExecutionPlan).
+
   - from: CIV-75
     to: CIV-76
     reason: Smoke tests depend on observability plumbing and a stable plan fingerprint.
+
+  - from: CIV-76
+    to: CIV-59
+    reason: Legacy deletion is gated by green smoke tests.
 
   - from: CIV-61
     to: CIV-62
     reason: >
       Foundation must be a normal registered `artifact:*` dependency satisfied/verified via `ctx.artifacts`.
       Tag registry cutover provides the registry-driven artifact verification path.
+
+  - from: CIV-62
+    to: CIV-68
+    reason: >
+      Foundation surface cutover makes the artifact surface canonical; effects verification should land after
+      the contract surface is stabilized.
 
   - from: CIV-56
     to: CIV-58
@@ -547,11 +561,19 @@ dependencies:
       Effect tags + adapter postcondition surfaces must exist.
       Also depends on any upstream reification needed to build placementInputs@v1 deterministically.
 
+  - from: CIV-61
+    to: CIV-65
+    reason: Narrative artifacts must be registered in the canonical tag catalog.
+
   - from: CIV-59
     to: CIV-65
     reason: >
       Schedule after CIV-59 so failures are surfaced via recipe/plan validation
       (not via stage manifest drift). This is cross-phase work.
+
+  - from: CIV-60
+    to: CIV-67
+    reason: Engine-global cleanup should follow single-path orchestration (no legacy entrypoints).
 ```
 
 Dependency metadata policy (M4): `blocked_by` is the canonical sequencing source. Use `blocked` only for major gates; treat it as best-effort if it drifts.

@@ -10,8 +10,8 @@ assignees: []
 labels: [Architecture, Foundation]
 parent: null
 children: []
-blocked_by: [CIV-61]
-blocked: []
+blocked_by: [CIV-61, CIV-76]
+blocked: [CIV-68]
 related_to: [CIV-66]
 ---
 
@@ -59,7 +59,7 @@ M4’s north star is “inter-step surfaces match the target architecture.” A 
 
 ## Dependencies / Notes
 
-- **Blocked by:** Tag registry cutover must make `artifact:*` verification registry-driven (CIV-61).
+- **Blocked by:** CIV-61 (registry-driven `artifact:*` verification) and CIV-76 (smoke tests gate).
 - **Doc touchpoints to keep canonical after landing:**
   - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (foundation surface section)
   - `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` (monolithic payload contract, but on artifacts surface)

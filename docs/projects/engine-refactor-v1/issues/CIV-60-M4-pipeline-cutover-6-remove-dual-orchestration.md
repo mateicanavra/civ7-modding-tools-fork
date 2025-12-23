@@ -10,8 +10,8 @@ assignees: []
 labels: [Architecture, Cleanup]
 parent: CIV-54
 children: []
-blocked_by: [CIV-58]
-blocked: []
+blocked_by: [CIV-59]
+blocked: [CIV-67]
 related_to: [CIV-41, CIV-48]
 ---
 
@@ -40,7 +40,7 @@ Remove the dual orchestration path so the only supported runtime execution is `R
 ## Dependencies / Notes
 
 - **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
-- **Blocked by:** CIV-58
+- **Blocked by:** CIV-59
 - **Sequencing:** Land in Phase D alongside legacy ordering deletion (CIV-59).
 - **Estimate:** TBD; use prework to refine.
 

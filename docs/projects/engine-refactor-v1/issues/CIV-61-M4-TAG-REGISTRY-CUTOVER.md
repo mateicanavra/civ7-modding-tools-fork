@@ -10,8 +10,8 @@ assignees: []
 labels: [Architecture, Validation]
 parent: null
 children: []
-blocked_by: []
-blocked: []
+blocked_by: [CIV-55]
+blocked: [CIV-62, CIV-63, CIV-65, CIV-73]
 related_to: []
 ---
 
@@ -65,6 +65,8 @@ M3 still relies on regex/allowlist tag validation and hard-coded verification li
 
 ## Dependencies / Notes
 
+- **Blocked by:** CIV-55 (boundary/compiler scaffold).
+- **Blocks:** CIV-62, CIV-63, CIV-65, CIV-73 (canonical tag catalog required).
 - Phase B work; blocks effects verification and narrative producers that rely on the canonical tag catalog.
 
 ---

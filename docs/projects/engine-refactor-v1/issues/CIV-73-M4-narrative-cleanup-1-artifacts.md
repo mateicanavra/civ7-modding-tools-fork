@@ -10,7 +10,7 @@ assignees: []
 labels: [Architecture, Narrative]
 parent: CIV-65
 children: []
-blocked_by: []
+blocked_by: [CIV-59, CIV-61]
 blocked: [CIV-74]
 related_to: [CIV-43]
 ---
@@ -40,7 +40,8 @@ Define the canonical `artifact:narrative.*` set and ensure narrative steps publi
 
 - **Parent:** [CIV-65](CIV-65-M4-NARRATIVE-CLEANUP.md)
 - **Blocks:** CIV-74
-- **Sequencing:** Start after the tag registry cutover (CIV-61) so narrative artifacts are registered in the canonical catalog.
+- **Blocked by:** CIV-59, CIV-61
+- **Sequencing:** Start after the tag registry cutover (CIV-61) and legacy ordering deletion (CIV-59) so narrative artifacts are registered in the canonical catalog without stage/manifest drift.
 
 ---
 

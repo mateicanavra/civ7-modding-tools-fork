@@ -10,8 +10,8 @@ assignees: []
 labels: [Architecture, Cleanup]
 parent: CIV-54
 children: []
-blocked_by: [CIV-58]
-blocked: []
+blocked_by: [CIV-76]
+blocked: [CIV-60, CIV-65, CIV-73]
 related_to: [CIV-41, CIV-48, CIV-53]
 ---
 
@@ -45,7 +45,7 @@ Delete legacy ordering/enablement inputs (`stageManifest`, `STAGE_ORDER`, `stage
 ## Dependencies / Notes
 
 - **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
-- **Blocked by:** CIV-58
+- **Blocked by:** CIV-76 (smoke tests gate)
 
 ---
 

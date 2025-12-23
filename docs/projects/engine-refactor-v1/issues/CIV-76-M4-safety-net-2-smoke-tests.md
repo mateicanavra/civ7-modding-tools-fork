@@ -10,8 +10,8 @@ assignees: []
 labels: [Testing]
 parent: CIV-66
 children: []
-blocked_by: [CIV-75, CIV-55]
-blocked: []
+blocked_by: [CIV-75, CIV-58]
+blocked: [CIV-59, CIV-62]
 related_to: [CIV-23]
 ---
 
@@ -40,7 +40,7 @@ Add compile/execute smoke tests against the standard recipe using a stub adapter
 ## Dependencies / Notes
 
 - **Parent:** [CIV-66](CIV-66-M4-SAFETY-NET.md)
-- **Blocked by:** CIV-75, CIV-55
+- **Blocked by:** CIV-75, CIV-58
 - **Related:** CIV-23
 
 ---

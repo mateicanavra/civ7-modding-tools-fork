@@ -10,7 +10,7 @@ assignees: []
 labels: [Architecture, Narrative]
 parent: null
 children: [CIV-73, CIV-74]
-blocked_by: []
+blocked_by: [CIV-59, CIV-61]
 blocked: []
 related_to: [CIV-43]
 ---
@@ -63,8 +63,7 @@ This issue closes DEF-002 and DEF-012.
 
 ## Dependencies / Notes
 
-- NARRATIVE-1 can start after the tag registry cutover (CIV-61).
-- NARRATIVE-2 should land after legacy ordering deletion (CIV-59) to avoid stage/manifest drift while migrating consumers.
+- NARRATIVE-1 and NARRATIVE-2 start after the tag registry cutover (CIV-61) and legacy ordering deletion (CIV-59) to avoid stage/manifest drift while migrating consumers.
 
 ---
 

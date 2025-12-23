@@ -11,7 +11,7 @@ labels: [Architecture, Cleanup]
 parent: CIV-54
 children: []
 blocked_by: [CIV-55]
-blocked: [CIV-58]
+blocked: [CIV-57, CIV-58]
 related_to: [CIV-46]
 ---
 
@@ -61,7 +61,7 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
 
 - **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
 - **Blocked by:** CIV-55 (boundary + compiler skeleton exists)
-- **Blocks:** CIV-58 (runtime cutover should not land with “config ignored” semantics)
+- **Blocks:** CIV-57, CIV-58 (runtime cutover should not land with “config ignored” semantics)
 
 ---
 

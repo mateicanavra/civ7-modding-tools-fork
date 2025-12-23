@@ -10,7 +10,7 @@ assignees: []
 labels: [Architecture, Placement]
 parent: CIV-64
 children: []
-blocked_by: []
+blocked_by: [CIV-68]
 blocked: [CIV-72]
 related_to: []
 ---
@@ -40,6 +40,7 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 ## Dependencies / Notes
 
 - **Parent:** [CIV-64](CIV-64-M4-PLACEMENT-INPUTS.md)
+- **Blocked by:** CIV-68 (effect tags + postcondition surfaces exist)
 - **Blocks:** CIV-72
 
 ---

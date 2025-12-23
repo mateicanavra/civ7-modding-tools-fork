@@ -10,7 +10,7 @@ assignees: []
 labels: [Architecture, Validation]
 parent: CIV-63
 children: []
-blocked_by: [CIV-69, CIV-64]
+blocked_by: [CIV-69, CIV-72]
 blocked: []
 related_to: [CIV-64]
 ---
@@ -40,7 +40,7 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 ## Dependencies / Notes
 
 - **Parent:** [CIV-63](CIV-63-M4-EFFECTS-VERIFICATION.md)
-- **Blocked by:** CIV-69, [CIV-64](CIV-64-M4-PLACEMENT-INPUTS.md)
+- **Blocked by:** CIV-69, [CIV-72](CIV-72-M4-placement-inputs-2-cutover.md)
 - **Related:** CIV-64 (placement effect verification)
 
 ---

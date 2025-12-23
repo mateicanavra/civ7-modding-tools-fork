@@ -10,8 +10,8 @@ assignees: []
 labels: [Architecture, Validation]
 parent: CIV-63
 children: []
-blocked_by: []
-blocked: [CIV-69, CIV-70]
+blocked_by: [CIV-62]
+blocked: [CIV-64, CIV-69, CIV-71]
 related_to: [CIV-47]
 ---
 
@@ -40,7 +40,8 @@ Introduce canonical `effect:*` tags for engine-surface mutations and add minimal
 ## Dependencies / Notes
 
 - **Parent:** [CIV-63](CIV-63-M4-EFFECTS-VERIFICATION.md)
-- **Blocks:** CIV-69, CIV-70
+- **Blocked by:** CIV-62 (foundation surface cutover complete; registry catalog canonical).
+- **Blocks:** CIV-64, CIV-69, CIV-71
 - **Related:** CIV-47 (adapter consolidation)
 - **Coordination:** Effect tags must be schedulable via the registry-instantiated catalog owned by CIV-61.
 
