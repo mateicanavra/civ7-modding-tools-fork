@@ -1,146 +1,85 @@
-# Narrative & Story System Architecture
+# Narrative
 
-> **Status:** Target (post‑M3). M3 is wrap‑first: legacy/engine behavior is wrapped to preserve map quality; the algorithms described here are not required for M3.
+## Overview
 
-> **Config note:** Some sections still reference legacy `MapGenConfig` slices. The current target drafts supersede that: boundary input is `RunRequest = { recipe, settings }`, and step-local knobs are validated per step (no global config mega-object). See `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`.
+Narrative is the "soul" of map generation. While the physical layers determine *what* the world looks like, Narrative determines *why* it matters and *how* it feels.
 
-## 1. Overview
+Unlike other layers that have clear physical ownership, Narrative is a **cross-cutting concern**:
 
-The **Narrative System** is the "Soul" of the map generation engine. While the physical layers (Foundation, Morphology, Hydrology) determine *what* the world looks like, the Narrative system determines *why* it matters and *how* it feels.
+- It **observes** the evolving world and annotates it with meaning (regions, motifs, strategic cues).
+- It can **inject** bespoke features that intentionally deviate from pure physics (wonders, corridors, myths).
 
-Unlike other systems which map 1:1 to a pipeline phase, **Narrative is a Cross-Cutting Concern**. It runs *alongside* every phase, observing the physical generation and annotating it with meaning (Metadata), or injecting specific "Story Steps" to shape the world in non-random ways.
+### Core responsibilities
 
-### Core Responsibilities
-1.  **Region Identification:** Grouping tiles into named, meaningful areas (e.g., "The Atlas Mountains", "The Great Desert").
-2.  **Metadata Tagging:** Annotating cells with semantic tags (e.g., `RiftValley`, `OldWorld`, `Chokepoint`) for downstream logic.
-3.  **Narrative Injection:** Inserting specific features that defy pure physics (e.g., Natural Wonders, Strategic Corridors, "Atlantis" myths).
-4.  **Naming:** Generating coherent names for landmasses, oceans, and features based on their history.
+1. **Region identification:** Group tiles/cells into named, meaningful areas (mountain ranges, deserts, continents).
+2. **Semantic annotation:** Mark places with high-level meaning (rift zones, chokepoints, trade-wind belts).
+3. **Narrative injection:** Add specific features that enforce theme or gameplay beats.
+4. **Naming:** Generate coherent names for landmasses, oceans, and features based on their interpreted history.
 
----
-
-## 2. Data Model
-
-The Narrative system maintains the **Story Overlay**, a parallel data structure that grows as the map is built.
-
-### 2.1. Inputs (Read-Only)
-*   **All Physical Artifacts:** The Narrative system reads `mesh`, `tectonics`, `elevation`, `climate`, etc., to interpret the world.
-
-### 2.2. Artifacts (`context.artifacts.story`)
-The central repository for narrative data.
+## Conceptual products
 
 ```typescript
-interface StoryArtifacts {
+interface NarrativeProducts {
   /**
    * Named geographical regions.
    * Used for UI labels, text logs, and scoped logic.
    */
   regions: Array<{
     id: string;
-    type: 'continent' | 'ocean' | 'mountain_range' | 'desert' | 'valley';
+    type: "continent" | "ocean" | "mountain_range" | "desert" | "valley";
     name: string;
-    cells: Int32Array; // List of cell indices
+    cells: Int32Array;
     tags: Set<string>;
   }>;
 
   /**
-   * Per-cell semantic tags.
-   * A sparse map or bitmask allowing steps to query "Is this a Rift Valley?".
+   * Per-cell semantic annotations (sparse map or bitmask).
+   * Allows consumers to query “is this a rift zone?” without embedding domain heuristics everywhere.
    */
   tags: Map<number, Set<string>>;
 
   /**
    * Strategic paths or corridors identified during generation.
-   * e.g., "The only pass through the mountains".
+   * Example: “the only pass through the mountains”.
    */
   corridors: Array<Path>;
 
   /**
-   * The "History Log" of the world.
-   * Records major events (e.g., "Continent A collided with B in Era 1").
+   * A compact “history log” of the world.
+   * Records major interpreted events (e.g., collisions, rifting, regime changes).
    */
   history: Array<WorldEvent>;
 }
 ```
 
-### 2.3. Outputs (Mutable Fields)
-*   `context.fields.features`: Placing Natural Wonders.
-*   `context.fields.names`: (Future) Text labels for the UI.
+## Observer vs injector
 
----
+- **Observers** interpret existing physical signals and add semantic meaning (tags, regions, corridors, history entries).
+- **Injectors** deliberately modify the world when a motif or gameplay beat needs enforcement (fjords, canals, bespoke wonders).
 
-## 3. Integration Across the Pipeline
+Injectors should be used sparingly: prefer “wrap existing signals with meaning” over “rewrite the world” unless the motif is intentional and testable.
 
-The Narrative system integrates via two mechanisms: **Observers** (which tag data) and **Injectors** (which modify data).
+## Examples across layers
 
-### 3.1. Foundation Phase: The "Deep Time" Story
-*   **Concept:** Tectonics define the "Old World" vs. "New World".
-*   **Observer:** When plates collide, tag the boundary cells as `Orogeny` (Mountain Building). When plates separate, tag as `Rift`.
-*   **Artifact:** `regions` (Continents, Oceans).
-*   **Example:** "The Great Rift Valley" is identified here, even before it has water or vegetation.
+### Deep-time story (foundation signals)
 
-### 3.2. Morphology Phase: The "Landform" Story
-*   **Concept:** Erosion creates "Passes" and "Basins".
-*   **Observer:** Identify `Chokepoint` cells (narrow flat areas between mountains). Identify `EndorheicBasin` (sinks that don't drain to the ocean).
-*   **Injector:** **"Fjord Carver" Step**. A specific step that runs after erosion to artificially deepen coastal valleys in high latitudes, enforcing a "Viking" aesthetic.
+- Plate interactions can suggest “old world” vs “new world” divides.
+- Collision zones can be interpreted as mountain-building belts; separation as rift basins.
 
-### 3.3. Hydrology Phase: The "Climate" Story
-*   **Concept:** Weather isn't random; it follows patterns (Swatches).
-*   **Injector:** **Climate Swatches**. The `RegionalWeatherStep` *is* a narrative tool. It allows a designer to say "Place a Monsoon here" or "Make this continent dry."
-*   **Observer:** Tag regions as `RainShadow` or `TradeWindBelt`.
+### Landform story (morphology signals)
 
-### 3.4. Ecology Phase: The "Living" Story
-*   **Concept:** Unique biomes and wonders.
-*   **Injector:** **Natural Wonder Placement**. Uses `story.tags` to find perfect spots (e.g., "Place Mt. Kilimanjaro in a `Rift` near the `Equator`").
-*   **Injector:** **Legendary Resources**. "King Solomon's Mines" placed in a specific `MountainRange`.
+- Erosion patterns can imply passes, basins, chokepoints, and endorheic sinks.
+- Coastal/high-latitude conditions can justify fjord-like carving as a deliberate motif.
 
-### 3.5. Placement Phase: The "Human" Story
-*   **Concept:** Fairness vs. Flavor.
-*   **Consumer:** The Start Positioner reads `story.corridors` to ensure players aren't isolated. It reads `story.regions` to try and place Civs on their "home" continent types.
+### Climate story (hydrology/climate signals)
 
----
+- Macro climate patterns can be nudged by themed regional constraints (monsoon belts, rain shadows, trade-wind regimes).
 
-## 4. Extension Points
+### Living story (ecology signals)
 
-How do we add more narrative?
+- Unique biomes and wonders can be placed where physical + narrative signals agree (rift + equator; volcanic belt; fertile delta).
+- “Legendary resources” can be scoped to named regions or motifs to support flavor.
 
-### 4.1. Adding a New "Story" (e.g., "The Ring of Fire")
-1.  **Create a Step:** `TagRingOfFireStep`.
-2.  **Insert in Foundation:** Run after `tectonics.resolve`.
-3.  **Logic:** Iterate `tectonics.volcanism`. If high, tag cell as `RingOfFire`.
-4.  **Downstream:** In Ecology, a `VolcanicSoilStep` checks for the `RingOfFire` tag and boosts fertility.
+### Human story (placement signals)
 
-### 4.2. Adding a "Scripted Feature" (e.g., "The Canal")
-1.  **Create a Step:** `CarveCanalStep`.
-2.  **Insert in Morphology:** Run after `erosion`.
-3.  **Logic:** Find a narrow isthmus (1-2 cells wide) separating two large `Ocean` regions. Lower elevation to `SeaLevel`.
-
----
-
-## 5. Configuration
-
-Narrative configuration is often scattered, but can be centralized in `MapGenConfig.narrative` for global toggles.
-
-```typescript
-interface NarrativeConfig {
-  /**
-   * Named presets for world flavor.
-   * e.g., "Primordial" (more volcanoes), "Arid" (more deserts).
-   */
-  flavor: string;
-
-  /**
-   * Toggles for specific narrative injections.
-   */
-  features: {
-    naturalWonders: boolean;
-    namedRegions: boolean;
-    strategicChokepoints: boolean;
-  };
-
-  /**
-   * Rules for naming things.
-   * e.g., "Use Tolkienesque names".
-   */
-  naming: NamingRules;
-}
-```
+- Corridors and regions can be used to balance fairness (avoid isolation) while preserving strong thematic geography.

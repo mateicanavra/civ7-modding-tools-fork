@@ -1,49 +1,27 @@
-# Hydrology & Climate Stage Architecture
+# Hydrology & Climate
 
-> **Status:** Target (post‑M3). M3 is wrap‑first: hydrology/climate runs as wrapper steps to preserve map quality; the sub-step breakdown and optional extensions below are not required for M3.
+## Overview
 
-> **Config note:** Some sections still reference legacy `MapGenConfig` slices. The current target drafts supersede that: boundary input is `RunRequest = { recipe, settings }`, and step-local knobs are validated per step (no global config mega-object). See `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`.
+Hydrology & Climate turns landform + latitude into gameplay-relevant fields and signals.
 
-## 1. Overview
+- A canonical climate view (rainfall/moisture and temperature bands) for downstream consumers.
+- River/lake signals that can be consumed without relying on implicit engine state.
 
-The **Hydrology & Climate** phase turns landform + latitude into gameplay‑relevant fields and signals:
+This layer is intentionally **gameplay-oriented** (fast, deterministic, tunable). It is not a goal to build a full physical simulation.
 
-- **`ClimateField`** (authoritative rainfall/moisture + temperature bands for consumers)
-- **River / lake signals** that downstream systems can use without reaching into `GameplayMap`
+## Key products
 
-This is intentionally **gameplay‑oriented** (fast, deterministic, tunable). It is not a goal to build a full simulation.
+### Climate field
 
-## 2. Current Implementation (post‑M2)
+A climate field is the canonical read path for:
 
-Today’s stable slice is orchestrator‑centric; climate logic exists in TypeScript layers, while Civ7 river generation remains **engine-owned** (via the adapter).
+- Rainfall / moisture (authoritative for biomes, placement bias, narrative shaping).
+- Temperature (coarse bands are acceptable where gameplay needs them).
 
-When you need “what is wired right now,” prefer:
-
-- `docs/projects/engine-refactor-v1/status.md`
-- `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md`
-- `docs/projects/engine-refactor-v1/milestones/M2-stable-engine-slice.md`
-- `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`
-
-**M3 note:** M3 will likely wrap the existing climate implementation as a step first; splitting into the finer-grained sub-steps below is a post‑M3 refactor.
-
-## 3. Target Data Model
-
-### 3.1. Inputs (Read-Only)
-
-- `FoundationContext` / `Heightfield` (elevation, terrain mask, slopes)
-- Latitude / basic planetary constants (if modeled)
-- Narrative overlays that influence rainfall (where applicable)
-
-### 3.2. Canonical Products
-
-**`ClimateField`** should be the canonical read path for rainfall/moisture by downstream systems (overlays, biomes, placement). Temperature is included where it is needed for ecology/ice/biomes.
-
-### 3.3. Artifact Containers (Target)
-
-The target architecture can optionally carry intermediate artifacts for future steps. These are not M3 commitments.
+### Optional intermediate products
 
 ```ts
-interface ClimateArtifacts {
+interface ClimateProducts {
   /** Prevailing wind direction/intensity (coarse; gameplay-oriented). */
   windVectors?: Vector2[];
 
@@ -54,7 +32,7 @@ interface ClimateArtifacts {
   moistureMap?: Float32Array;
 }
 
-interface HydrologyArtifacts {
+interface HydrologyProducts {
   /** Minimal river summary for consumers; shape is intentionally flexible. */
   rivers?: unknown;
 
@@ -63,40 +41,18 @@ interface HydrologyArtifacts {
 }
 ```
 
-### 3.4. Optional Extensions (post‑M3, gameplay‑justified only)
+## Optional extensions (gameplay-justified only)
 
-If we have clear gameplay need and a regression harness, we can add richer artifacts behind the same product spine:
+If there is clear gameplay need and a regression harness, richer signals can be added behind the same product spine:
 
-- Ocean heat transport / currents (to influence coastal temperature/rainfall)
-- Cryosphere feedback (ice/albedo loops)
-- Pedology/soil inputs (owned by Ecology)
+- Ocean heat transport / currents (influence coastal temperature/rainfall).
+- Cryosphere feedback (ice/albedo loops).
+- Soil inputs (owned by Ecology).
 
-## 4. Target Pipeline Shape
+## Tuning parameters (conceptual)
 
-### 4.1. M3 (Wrap‑First) Boundary
+Hydrology/climate should remain gameplay-tunable, for example:
 
-- `climateBaseline` + `climateRefine` (wrappers around existing TS climate layers; publish `artifact:climateField`)
-- `rivers` (wrapper around engine river modeling; publishes `artifact:riverAdjacency` as a `Uint8Array` 0/1 mask computed via `EngineAdapter.isAdjacentToRivers()` once `state:engine.riversModeled` is true)
-- `storySwatches` applies macro climate swatches **before** `rivers` so rainfall shaping can influence any engine-owned hydrology that depends on rainfall.
-- `STORY_ENABLE_PALEO` (paleo hydrology overlays) must run **after** `rivers` because placement is gated by `isAdjacentToRivers` and has no effect until engine rivers exist.
-- `ClimateField.humidity` is currently a placeholder in M3 (not synchronized or consumed); do not treat it as meaningful until it has a defined source/contract.
-- `artifact:climateField` is the canonical rainfall read path. Adapter rainfall reads and engine-seeding fallbacks have been removed from modernized code paths; missing hydrology artifacts should fail fast.
-- `generateMap()` (the default/legacy non-TaskGraph execution path) and the TaskGraph executor path both publish `artifact:climateField` / `artifact:riverAdjacency` so artifact-only consumers behave consistently regardless of execution mode.
-- `syncClimateField()` is intentionally not available as a seeding mechanism anymore; initialize rainfall via the climate steps/artifacts instead of reading from the engine adapter.
-
-### 4.2. Post‑M3 (Selective Refinement)
-
-Once products and tests stabilize, the wrapper can be decomposed into explicit steps, for example:
-
-- `hydrology.climate.baseline` (latitude/elevation baseline)
-- `hydrology.climate.refine` (orographic/rain‑shadow adjustments, narrative swatches)
-- `hydrology.surface.lakes` (depression filling / lake masks, if needed)
-- `hydrology.surface.rivers` (product publication and any non-engine summaries)
-
-## 5. Configuration (Target)
-
-Hydrology/climate should be controlled via `MapGenConfig` in a gameplay‑tunable way. Exact shapes live in the validated schema; this doc only describes intent:
-
-- Global wet/dry bias and rain‑shadow strength (high leverage)
-- Optional narrative “swatches” / regional overrides (story-driven)
-- Diagnostics toggles (to inspect outputs during refactors)
+- Global wet/dry bias and rain-shadow strength (high leverage).
+- Optional regional overrides (designer/story-driven).
+- Diagnostics toggles to inspect intermediate fields during refactors.
