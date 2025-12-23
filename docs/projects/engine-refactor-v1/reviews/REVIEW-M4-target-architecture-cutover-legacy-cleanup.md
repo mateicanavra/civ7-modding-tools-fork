@@ -62,3 +62,4 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Strengths:** Standard mod package exists with registry + recipe; TaskGraph pulls default steps via the mod recipe; `STAGE_ORDER` derives from the mod recipe list to keep ordering single-sourced.
 - **Gaps:** Orchestrator tests still derive the recipe via `StepRegistry.getStandardRecipe(stageManifest)` instead of the standard mod recipe, so drift between `mods/standard` and stage-manifest ordering would be invisible.
 - **Follow-up:** Update orchestration tests to use `resolveDefaultRecipeStepIds` / `standardMod.recipes.default` as the recipe source and add a small assertion that the mod recipe is the canonical ordering list.
+- **Update (2025-12-23):** Orchestrator test now uses `resolveDefaultRecipeStepIds` and asserts the mod recipe remains the canonical ordering list.
