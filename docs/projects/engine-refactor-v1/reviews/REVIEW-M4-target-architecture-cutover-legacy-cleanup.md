@@ -30,3 +30,4 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Strengths:** Step definitions now carry schemas; compiler normalizes per-step config and surfaces structured errors; TaskGraph builds a standard RunRequest from MapGenConfig and executes via `executePlan`; unit tests cover schema validation and config propagation to `step.run`.
 - **Gaps:** `normalizeStepConfig` treats `null` config as `{}`, so invalid `config: null` inputs bypass schema validation and are silently accepted.
 - **Follow-up:** Add an unknown-key rejection test (acceptance criteria) and a guard that rejects `null` configs instead of defaulting to `{}`.
+- **Update (2025-12-23):** Added null-config rejection guard in `normalizeStepConfig` and tests for unknown-key rejection and null config rejection (now fails at runRequest validation with `/config` path).
