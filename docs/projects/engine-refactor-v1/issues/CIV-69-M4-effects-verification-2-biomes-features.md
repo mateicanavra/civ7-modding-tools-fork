@@ -39,9 +39,9 @@ Reify engine-derived biome/feature outputs into explicit fields and provide veri
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](LOCAL-TBD-M4-EFFECTS-VERIFICATION.md)
-- **Blocked by:** LOCAL-TBD-M4-EFFECTS-1
-- **Blocks:** LOCAL-TBD-M4-EFFECTS-3
+- **Parent:** [CIV-63](CIV-63-M4-EFFECTS-VERIFICATION.md)
+- **Blocked by:** CIV-68
+- **Blocks:** CIV-70
 
 ---
 

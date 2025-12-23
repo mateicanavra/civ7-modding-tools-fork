@@ -584,7 +584,7 @@ skips—only fail-fast validation/precondition errors.
   - New work must not depend on `ctx.foundation.*` at all; use `artifact:foundation` / `ctx.artifacts.foundation` in M4.
 
 **What remains (implementation, not a decision):**
-- M4 surface cutover (LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER):
+- M4 surface cutover (CIV-62):
   - Publish the monolithic payload as `artifact:foundation` at `ctx.artifacts.foundation`.
   - Delete `ctx.foundation` and migrate all consumers.
 - Phase B split plan (tracked by `DEF-014`):

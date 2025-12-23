@@ -39,8 +39,8 @@ Add compile/execute smoke tests against the standard recipe using a stub adapter
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-SAFETY-NET](LOCAL-TBD-M4-SAFETY-NET.md)
-- **Blocked by:** LOCAL-TBD-M4-SAFETY-1, LOCAL-TBD-M4-PIPELINE-1
+- **Parent:** [CIV-66](CIV-66-M4-SAFETY-NET.md)
+- **Blocked by:** CIV-75, CIV-55
 - **Related:** CIV-23
 
 ---

@@ -39,8 +39,8 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PLACEMENT-INPUTS](LOCAL-TBD-M4-PLACEMENT-INPUTS.md)
-- **Blocks:** LOCAL-TBD-M4-PLACEMENT-2
+- **Parent:** [CIV-64](CIV-64-M4-PLACEMENT-INPUTS.md)
+- **Blocks:** CIV-72
 
 ---
 

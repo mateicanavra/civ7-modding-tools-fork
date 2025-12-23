@@ -74,7 +74,7 @@ M4 is heavy on contract/cutover work. We need a stable way to:
 
 ## Dependencies / Notes
 
-- Depends on LOCAL-TBD-M4-PIPELINE-1 (compiler/plan exists) for plan fingerprint + compile/execute smoke tests.
+- Depends on CIV-55 (compiler/plan exists) for plan fingerprint + compile/execute smoke tests.
 - Observability should land immediately after PIPELINE-1 to support later cutovers.
 
 ---
@@ -114,8 +114,8 @@ Deliverables:
 - A brief gap list if any acceptance criteria from the milestone are not covered by the test plan.
 
 Where to look:
-- Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-safety-net-1-observability.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-safety-net-2-smoke-tests.md`.
+- Child issues: `docs/projects/engine-refactor-v1/issues/CIV-75-M4-safety-net-1-observability.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-76-M4-safety-net-2-smoke-tests.md`.
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Observability),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.10).
 - Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
@@ -129,8 +129,8 @@ Constraints/notes:
 ## Prework Results / References
 
 Child artifacts:
-- Safety‑1 (`LOCAL-TBD-M4-SAFETY-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-safety-1-tracing-model-and-fingerprint.md`
-- Safety‑2 (`LOCAL-TBD-M4-SAFETY-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-safety-2-smoke-tests-matrix-and-civ23-rescope.md`
+- Safety‑1 (`CIV-75`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-safety-1-tracing-model-and-fingerprint.md`
+- Safety‑2 (`CIV-76`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-safety-2-smoke-tests-matrix-and-civ23-rescope.md`
 
 Readiness checklist:
 - Trace model + sink interface + hook points are defined and align to the accepted “minimal required baseline + optional sinks” strategy.

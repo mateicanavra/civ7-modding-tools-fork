@@ -39,9 +39,9 @@ Remove the dual orchestration path so the only supported runtime execution is `R
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
-- **Blocked by:** LOCAL-TBD-M4-PIPELINE-4
-- **Sequencing:** Land in Phase D alongside legacy ordering deletion (LOCAL-TBD-M4-PIPELINE-5).
+- **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
+- **Blocked by:** CIV-58
+- **Sequencing:** Land in Phase D alongside legacy ordering deletion (CIV-59).
 - **Estimate:** TBD; use prework to refine.
 
 ---

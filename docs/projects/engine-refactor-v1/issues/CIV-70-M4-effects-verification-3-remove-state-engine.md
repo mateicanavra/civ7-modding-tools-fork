@@ -39,9 +39,9 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](LOCAL-TBD-M4-EFFECTS-VERIFICATION.md)
-- **Blocked by:** LOCAL-TBD-M4-EFFECTS-2, [LOCAL-TBD-M4-PLACEMENT-INPUTS](LOCAL-TBD-M4-PLACEMENT-INPUTS.md)
-- **Related:** LOCAL-TBD-M4-PLACEMENT-INPUTS (placement effect verification)
+- **Parent:** [CIV-63](CIV-63-M4-EFFECTS-VERIFICATION.md)
+- **Blocked by:** CIV-69, [CIV-64](CIV-64-M4-PLACEMENT-INPUTS.md)
+- **Related:** CIV-64 (placement effect verification)
 
 ---
 
@@ -49,7 +49,7 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 ## Implementation Details (Local Only)
 
 - Treat this as cleanup: do not change algorithms.
-- If any placement-related `state:engine.*` dependencies remain, defer to LOCAL-TBD-M4-PLACEMENT-INPUTS for the effect/reify replacement.
+- If any placement-related `state:engine.*` dependencies remain, defer to CIV-64 for the effect/reify replacement.
 - Current hotspots for `state:engine.*` include:
   - `packages/mapgen-core/src/pipeline/standard.ts` (`M3_STAGE_DEPENDENCY_SPINE`)
   - `packages/mapgen-core/src/pipeline/tags.ts` (legacy tag validation)

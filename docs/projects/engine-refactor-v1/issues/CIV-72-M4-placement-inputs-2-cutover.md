@@ -39,10 +39,10 @@ Update placement to consume `artifact:placementInputs@v1` exclusively and provid
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PLACEMENT-INPUTS](LOCAL-TBD-M4-PLACEMENT-INPUTS.md)
-- **Blocked by:** LOCAL-TBD-M4-PLACEMENT-1
-- **Related:** LOCAL-TBD-M4-EFFECTS-VERIFICATION (placement effect verification)
-- **Coordination:** Effect tag catalog + verifier wiring comes from LOCAL-TBD-M4-EFFECTS-1; placement verification uses `artifact:placementOutputs@v1` (ADR-ER1-020).
+- **Parent:** [CIV-64](CIV-64-M4-PLACEMENT-INPUTS.md)
+- **Blocked by:** CIV-71
+- **Related:** CIV-63 (placement effect verification)
+- **Coordination:** Effect tag catalog + verifier wiring comes from CIV-68; placement verification uses `artifact:placementOutputs@v1` (ADR-ER1-020).
 
 ---
 

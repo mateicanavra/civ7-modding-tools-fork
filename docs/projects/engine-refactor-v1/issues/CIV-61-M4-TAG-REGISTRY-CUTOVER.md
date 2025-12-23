@@ -143,7 +143,7 @@ Files:
 Current behavior:
 - Some tags have **concrete satisfaction checks**:
   - `artifact:foundation` checks `context.foundation`
-    - **M4 target:** remove this special-case; `artifact:foundation` must be satisfied/verified via `ctx.artifacts` (see LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER).
+    - **M4 target:** remove this special-case; `artifact:foundation` must be satisfied/verified via `ctx.artifacts` (see CIV-62).
   - `artifact:heightfield` checks `context.artifacts.get(tag)` shape (typed arrays)
   - `artifact:climateField` checks `context.artifacts.get(tag)` shape (typed arrays)
   - `artifact:storyOverlays` checks `context.overlays.size > 0`
@@ -193,7 +193,7 @@ Note: many `field:*` buffers are preallocated today, but **tag satisfaction** is
 
 Foundation tag note:
 - **M4 contract:** register monolithic `artifact:foundation` as canonical and migrate all consumers to `ctx.artifacts.foundation` (remove `ctx.foundation` usage).
-  - Allow and prefer `artifact:foundation` in new `requires`/`provides` as part of the surface cutover (LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER).
+  - Allow and prefer `artifact:foundation` in new `requires`/`provides` as part of the surface cutover (CIV-62).
   - If you believe you must add new usage that **cannot** migrate to `ctx.artifacts.foundation`, stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md` documenting why, then ask for confirmation before proceeding.
 - **Post-M4 (DEF-014):** split the monolith into discrete `artifact:foundation.*` artifacts and remove the monolithic tag once consumers are migrated.
 

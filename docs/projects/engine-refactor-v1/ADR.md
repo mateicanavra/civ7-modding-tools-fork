@@ -155,7 +155,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (Context/dependency tags; foundation surface section)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope + parent issues)
-- `issues/LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER.md` (implementation ownership)
+- `issues/CIV-62-M4-FOUNDATION-SURFACE-CUTOVER.md` (implementation ownership)
 
 ## ADR-ER1-008: Narrative/playability contract is typed narrative artifacts; no `StoryTags`; no narrative globals
 
@@ -405,7 +405,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - SAFETY-1/SAFETY-2 can rely on a stable `planFingerprint` in CI regardless of trace verbosity changes.
 - RunRequest `settings` should clearly separate “semantics” vs “observability” so fingerprinting stays unambiguous.
 **Sources:**
-- `issues/LOCAL-TBD-M4-SAFETY-NET.md` (plan fingerprint determinism + CI)
+- `issues/CIV-66-M4-SAFETY-NET.md` (plan fingerprint determinism + CI)
 - `resources/m4-prework/local-tbd-m4-safety-1-tracing-model-and-fingerprint.md` (explicit exclusions + algorithm sketch)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase A/C sequencing: observability early; CI gate post-cutover)
 
@@ -422,7 +422,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Demo payload validation can stay strict without forcing engine-dependent start placement in all demos.
 - CI smoke tests remain engine-free; deeper placement-start correctness should be covered by targeted integration tests when needed.
 **Sources:**
-- `issues/LOCAL-TBD-M4-PLACEMENT-INPUTS.md` (demo payload safety note)
+- `issues/CIV-64-M4-PLACEMENT-INPUTS.md` (demo payload safety note)
 - `resources/m4-prework/local-tbd-m4-placement-1-placementinputs-v1-contract.md` (safe demo payload guidance; `starts` optional)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase E placement contract work)
 
@@ -439,7 +439,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Reduces scheduling/tag surface area (one artifact dependency instead of multiple).
 - Requires aligning the hotspots producer and feature consumers to the artifact’s internal category representation during NARRATIVE-1/NARRATIVE-2.
 **Sources:**
-- `issues/LOCAL-TBD-M4-NARRATIVE-CLEANUP.md` (hotspot categorization gap)
+- `issues/CIV-65-M4-NARRATIVE-CLEANUP.md` (hotspot categorization gap)
 - `resources/m4-prework/local-tbd-m4-narrative-1-artifact-inventory.md` (producer/consumer map + hotspot drift note)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase F narrative producers/consumers sequencing)
 
@@ -457,7 +457,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Enables incremental migration away from overlays/StoryTags without deleting a useful debugging representation.
 - Any remaining overlay usage must be treated as debug/compat-only and should not gate pipeline correctness.
 **Sources:**
-- `issues/LOCAL-TBD-M4-NARRATIVE-CLEANUP.md` (overlays/StoryTags cleanup target)
+- `issues/CIV-65-M4-NARRATIVE-CLEANUP.md` (overlays/StoryTags cleanup target)
 - `resources/m4-prework/local-tbd-m4-narrative-2-storytags-consumer-and-cache-map.md` (consumer/cache map)
 - `deferrals.md` (DEF-002 StoryTags compatibility; DEF-012 caches)
 
@@ -473,7 +473,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - PIPELINE-2 schema/plumbing work can treat landmass+ocean separation as normal per-step config owners.
 - PIPELINE-5 cleanup should delete residual alias reads so downstream behavior is “what recipe says,” not “what legacy aliases imply.”
 **Sources:**
-- `issues/LOCAL-TBD-M4-pipeline-cutover-2-step-config-schemas.md` (per-step config plumbing constraints)
+- `issues/CIV-56-M4-pipeline-cutover-2-step-config-schemas.md` (per-step config plumbing constraints)
 - `resources/m4-prework/local-tbd-m4-pipeline-2-step-config-matrix.md` (landmassPlates alias inventory + recommendation)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase B/D pipeline sequencing + “no legacy left” gate)
 

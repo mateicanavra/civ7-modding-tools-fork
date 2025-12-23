@@ -41,9 +41,9 @@ Add the shared tracing foundation (run id, plan fingerprint, step timing) plus p
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-SAFETY-NET](LOCAL-TBD-M4-SAFETY-NET.md)
-- **Blocks:** LOCAL-TBD-M4-SAFETY-2
-- **Blocked by:** LOCAL-TBD-M4-PIPELINE-1 (plan compiler/RunRequest boundary exists)
+- **Parent:** [CIV-66](CIV-66-M4-SAFETY-NET.md)
+- **Blocks:** CIV-76
+- **Blocked by:** CIV-55 (plan compiler/RunRequest boundary exists)
 
 ---
 

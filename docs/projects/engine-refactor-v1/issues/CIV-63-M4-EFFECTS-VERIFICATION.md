@@ -34,7 +34,7 @@ This issue closes DEF-008.
 - Add adapter-backed postcondition checks for those effects (fail-fast).
 - Reify engine-derived values into fields/artifacts when they become cross-step dependencies.
 - Fence `state:engine.*` to migration-only compatibility (no new uses; remove from target registry surface).
-- Assumes the registry-instantiated tag catalog + validation from LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER (effects must be schedulable there).
+- Assumes the registry-instantiated tag catalog + validation from CIV-61 (effects must be schedulable there).
 
 ### Out of scope
 
@@ -117,9 +117,9 @@ Deliverables:
 - A note on any dependency gaps related to the tag registry cutover (effect tags must be schedulable in the registry catalog).
 
 Where to look:
-- Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-effects-verification-1-effect-tags.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-effects-verification-2-biomes-features.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-effects-verification-3-remove-state-engine.md`.
+- Child issues: `docs/projects/engine-refactor-v1/issues/CIV-68-M4-effects-verification-1-effect-tags.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-69-M4-effects-verification-2-biomes-features.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-70-M4-effects-verification-3-remove-state-engine.md`.
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (tags + effects),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.5, §2.8).
 - Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
@@ -128,14 +128,14 @@ Constraints/notes:
 - `effect:*` must be verifiable; `state:engine.*` is transitional only.
 - Keep behavior stable; this is contract hardening, not algorithm changes.
 - Do not implement code; deliver only the checklist + gaps as notes.
-- Coordinate with LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER for registry-driven validation and effect schedulability; do not duplicate that work here.
+- Coordinate with CIV-61 for registry-driven validation and effect schedulability; do not duplicate that work here.
 
 ## Prework Results / References
 
 Child artifacts:
-- Effects‑1 (`LOCAL-TBD-M4-EFFECTS-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-1-effect-tags-postconditions.md`
-- Effects‑2 (`LOCAL-TBD-M4-EFFECTS-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-2-biomes-features-reification.md`
-- Effects‑3 (`LOCAL-TBD-M4-EFFECTS-3`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-3-state-engine-removal-map.md`
+- Effects‑1 (`CIV-68`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-1-effect-tags-postconditions.md`
+- Effects‑2 (`CIV-69`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-2-biomes-features-reification.md`
+- Effects‑3 (`CIV-70`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-3-state-engine-removal-map.md`
 
 Readiness checklist (implementation should be mostly mechanical once these are decided):
 - Registry cutover supports `effect:*` as first-class schedulable tags and can attach verifiers (see LOCAL‑TBD‑M4‑TAG‑REGISTRY‑CUTOVER prework).

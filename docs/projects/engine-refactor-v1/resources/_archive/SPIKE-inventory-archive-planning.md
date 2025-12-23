@@ -183,13 +183,13 @@ Archive + partial salvage:
   - Likely home: M4 pipeline cutover issues or M4 milestone Triage.
 - `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-story-drift-legacy-path-removal.md`
   - Salvage: legacy toggle/shim callsites and removal checklist.
-  - Likely home: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-3-remove-legacy-ordering.md` or M4 Triage.
+  - Likely home: `docs/projects/engine-refactor-v1/issues/CIV-59-M4-pipeline-cutover-5-remove-legacy-ordering.md` or M4 Triage.
 - `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-orchestrator-bloat-assessment.md`
   - Salvage: RNG standardization policy and WorldModel cut acceptance criteria.
   - Likely home: engine-boundary cleanup work or foundation PRD follow-ups.
 - `docs/projects/engine-refactor-v1/resources/_archive/config-wiring-status.md`
   - Salvage: missing wiring items and ownership notes still relevant to PIPELINE-4.
-  - Likely home: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-4-step-config-schemas.md` or M4 Triage.
+  - Likely home: `docs/projects/engine-refactor-v1/issues/CIV-56-M4-pipeline-cutover-2-step-config-schemas.md` or M4 Triage.
 - `docs/projects/engine-refactor-v1/reviews/_archive/REVIEW-M4-tests-validation-cleanup.md`
   - Decision: archive after salvage check.
   - Salvage: any still-open risk or acceptance notes (if not already carried into M4).

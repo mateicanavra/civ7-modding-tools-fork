@@ -39,10 +39,10 @@ Introduce canonical `effect:*` tags for engine-surface mutations and add minimal
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-EFFECTS-VERIFICATION](LOCAL-TBD-M4-EFFECTS-VERIFICATION.md)
-- **Blocks:** LOCAL-TBD-M4-EFFECTS-2, LOCAL-TBD-M4-EFFECTS-3
+- **Parent:** [CIV-63](CIV-63-M4-EFFECTS-VERIFICATION.md)
+- **Blocks:** CIV-69, CIV-70
 - **Related:** CIV-47 (adapter consolidation)
-- **Coordination:** Effect tags must be schedulable via the registry-instantiated catalog owned by LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER.
+- **Coordination:** Effect tags must be schedulable via the registry-instantiated catalog owned by CIV-61.
 
 ---
 
@@ -145,9 +145,9 @@ Note: For M4, prefer **artifact-based verification** (placement) or **reify-afte
 
 ### 4) Coordination notes
 
-- **Tag Registry cutover (LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER):** effect tags should be registered as first-class `effect:*` entries in the catalog (schedulable, verifiable).
+- **Tag Registry cutover (CIV-61):** effect tags should be registered as first-class `effect:*` entries in the catalog (schedulable, verifiable).
 - **Effects Verification‑2 (biomes/features reification):** reify-after-mutate pattern handles biomes/features; this issue only scaffolds the tag + adapter surface.
-- **Placement Inputs (LOCAL-TBD-M4-PLACEMENT-INPUTS):** ADR-ER1-020 locks the placement verification strategy; this issue only registers `effect:engine.placementApplied` and points to the artifact-based verifier.
+- **Placement Inputs (CIV-64):** ADR-ER1-020 locks the placement verification strategy; this issue only registers `effect:engine.placementApplied` and points to the artifact-based verifier.
 
 ### 5) Where to register (placement in registry entries)
 

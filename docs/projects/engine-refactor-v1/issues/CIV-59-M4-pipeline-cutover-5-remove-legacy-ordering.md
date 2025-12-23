@@ -44,8 +44,8 @@ Delete legacy ordering/enablement inputs (`stageManifest`, `STAGE_ORDER`, `stage
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
-- **Blocked by:** LOCAL-TBD-M4-PIPELINE-4
+- **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
+- **Blocked by:** CIV-58
 
 ---
 
@@ -158,8 +158,8 @@ Recommended handling for PIPELINE‑5:
 #### M4 issue docs (expected to mention legacy surfaces as targets)
 
 These are expected to keep mentioning legacy surfaces as "things to delete":
-- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-PIPELINE-CUTOVER.md`
-- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-5-remove-legacy-ordering.md`
+- `docs/projects/engine-refactor-v1/issues/CIV-54-M4-PIPELINE-CUTOVER.md`
+- `docs/projects/engine-refactor-v1/issues/CIV-59-M4-pipeline-cutover-5-remove-legacy-ordering.md`
 
 #### Archives (no action required beyond awareness)
 

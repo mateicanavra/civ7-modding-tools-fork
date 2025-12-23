@@ -40,9 +40,9 @@ Package the standard pipeline as a mod-style package and wire the loader/registr
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
-- **Blocked by:** LOCAL-TBD-M4-PIPELINE-2 (per-step config plumbing should exist before packaging recipe config)
-- **Blocks:** LOCAL-TBD-M4-PIPELINE-4
+- **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
+- **Blocked by:** CIV-56 (per-step config plumbing should exist before packaging recipe config)
+- **Blocks:** CIV-58
 - **Estimate:** TBD; use prework to refine.
 
 ---

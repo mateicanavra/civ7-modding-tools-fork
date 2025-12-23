@@ -46,9 +46,9 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-NARRATIVE-CLEANUP](LOCAL-TBD-M4-NARRATIVE-CLEANUP.md)
-- **Blocked by:** LOCAL-TBD-M4-NARRATIVE-1, LOCAL-TBD-M4-PIPELINE-5
-- **Sequencing:** Land after legacy ordering deletion (LOCAL-TBD-M4-PIPELINE-5) to avoid stage/manifest drift while migrating consumers.
+- **Parent:** [CIV-65](CIV-65-M4-NARRATIVE-CLEANUP.md)
+- **Blocked by:** CIV-73, CIV-59
+- **Sequencing:** Land after legacy ordering deletion (CIV-59) to avoid stage/manifest drift while migrating consumers.
 
 ---
 

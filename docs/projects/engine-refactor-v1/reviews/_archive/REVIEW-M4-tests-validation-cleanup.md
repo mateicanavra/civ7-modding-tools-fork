@@ -1,6 +1,6 @@
 ---
 id: M4-tests-validation-cleanup-review
-milestone: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+milestone: M4
 title: "M4: Target Architecture Cutover & Legacy Cleanup — Aggregate Review"
 status: draft
 reviewer: AI agent

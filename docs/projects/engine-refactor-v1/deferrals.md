@@ -154,7 +154,7 @@ Each deferral follows this structure:
 **Trigger:** After M4 lands the foundation **surface cutover** (monolithic `artifact:foundation` at `ctx.artifacts.foundation`, no `ctx.foundation`), when Phase B / foundation PRD work begins and consumers are ready to migrate to the discrete foundation artifact inventory.  
 **Context:** M4 intentionally keeps the foundation payload monolithic (as `artifact:foundation`) to align external surfaces with the target architecture without taking on the heavier “split into many artifacts” work. The accepted end-state is still discrete, named foundation artifacts; this deferral tracks the post-M4 split and the follow-on consumer migration.  
 **Decision status (locked):**
-- **M4 contract:** foundation is a monolithic artifact (`artifact:foundation`) stored at `ctx.artifacts.foundation`; `ctx.foundation` is removed (owned by `LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER`).
+- **M4 contract:** foundation is a monolithic artifact (`artifact:foundation`) stored at `ctx.artifacts.foundation`; `ctx.foundation` is removed (owned by `CIV-62`).
 - **Post-M4 end-state:** foundation is represented as **discrete** `artifact:foundation.*` products, and the monolithic `artifact:foundation` blob is removed once no longer needed.
 **Scope:**
 - Define the canonical discrete foundation artifact set (mesh, crust, plateGraph, tectonics, and any required raster artifacts).

@@ -42,8 +42,8 @@ Introduce the target boundary types (`RunRequest`, `RecipeV1`) and a TypeBox-val
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
-- **Blocks:** LOCAL-TBD-M4-PIPELINE-2
+- **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
+- **Blocks:** CIV-56
 
 ---
 
@@ -164,7 +164,7 @@ Per-node sketch:
 | `provides` | `string[]` | yes | Resolved from the registry step. |
 | `config` | `unknown` | yes | Resolved per-node config after validation/defaulting. |
 
-Note: runId/plan fingerprint are owned by observability prework (see `LOCAL-TBD-M4-SAFETY-1`) but the plan must carry enough normalized data to compute a stable fingerprint (`settings + node ids + config`).
+Note: runId/plan fingerprint are owned by observability prework (see `CIV-75`) but the plan must carry enough normalized data to compute a stable fingerprint (`settings + node ids + config`).
 
 ### Compile + Validation Rules (V1)
 

@@ -34,7 +34,7 @@ This issue closes DEF-006.
 - Add a derive step that produces `placementInputs@v1` from explicit prerequisites.
 - Update placement to require the inputs artifact and stop assembling/reading implicit inputs inside the placement step.
 - Provide a verified `effect:*` tag for placement (adapter-backed postcondition).
-- Coordinate with the effect tag catalog (LOCAL-TBD-M4-EFFECTS-1) so placement’s effect is schedulable and verifiable.
+- Coordinate with the effect tag catalog (CIV-68) so placement’s effect is schedulable and verifiable.
 
 ### Out of scope
 
@@ -64,7 +64,7 @@ This issue closes DEF-006.
 ## Dependencies / Notes
 
 - This is Phase E work; it should land after the pipeline cutover phases (RunRequest/ExecutionPlan and legacy ordering deletion).
-- Placement effect verification depends on the effect tag catalog + adapter postcondition surfaces (LOCAL-TBD-M4-EFFECTS-1).
+- Placement effect verification depends on the effect tag catalog + adapter postcondition surfaces (CIV-68).
 - Placement inputs may require upstream reification; avoid DEF-010 scope creep in M4.
 
 ---
@@ -108,8 +108,8 @@ Deliverables:
 - A brief gap list if any placement input source is unclear or relies on implicit engine reads.
 
 Where to look:
-- Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-placement-inputs-1-define-artifact.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-placement-inputs-2-cutover.md`.
+- Child issues: `docs/projects/engine-refactor-v1/issues/CIV-71-M4-placement-inputs-1-define-artifact.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-72-M4-placement-inputs-2-cutover.md`.
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (placement artifact),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.7).
 - Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
@@ -123,8 +123,8 @@ Constraints/notes:
 ## Prework Results / References
 
 Child artifacts:
-- Placement‑1 (`LOCAL-TBD-M4-PLACEMENT-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-1-placementinputs-v1-contract.md`
-- Placement‑2 (`LOCAL-TBD-M4-PLACEMENT-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-2-cutover-checklist.md`
+- Placement‑1 (`CIV-71`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-1-placementinputs-v1-contract.md`
+- Placement‑2 (`CIV-72`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-2-cutover-checklist.md`
 
 Readiness checklist:
 - `artifact:placementInputs@v1` contract is sketched and maps directly to current runtime wiring (mapInfo + resolved starts + placement config); derive step should be able to publish it mechanically.

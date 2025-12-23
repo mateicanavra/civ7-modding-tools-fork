@@ -38,9 +38,9 @@ Define the canonical `artifact:narrative.*` set and ensure narrative steps publi
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-NARRATIVE-CLEANUP](LOCAL-TBD-M4-NARRATIVE-CLEANUP.md)
-- **Blocks:** LOCAL-TBD-M4-NARRATIVE-2
-- **Sequencing:** Start after the tag registry cutover (LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER) so narrative artifacts are registered in the canonical catalog.
+- **Parent:** [CIV-65](CIV-65-M4-NARRATIVE-CLEANUP.md)
+- **Blocks:** CIV-74
+- **Sequencing:** Start after the tag registry cutover (CIV-61) so narrative artifacts are registered in the canonical catalog.
 
 ---
 

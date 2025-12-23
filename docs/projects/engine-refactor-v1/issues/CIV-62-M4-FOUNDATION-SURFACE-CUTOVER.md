@@ -59,7 +59,7 @@ M4’s north star is “inter-step surfaces match the target architecture.” A 
 
 ## Dependencies / Notes
 
-- **Blocked by:** Tag registry cutover must make `artifact:*` verification registry-driven (LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER).
+- **Blocked by:** Tag registry cutover must make `artifact:*` verification registry-driven (CIV-61).
 - **Doc touchpoints to keep canonical after landing:**
   - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (foundation surface section)
   - `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` (monolithic payload contract, but on artifacts surface)

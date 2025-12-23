@@ -59,9 +59,9 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
-- **Blocked by:** LOCAL-TBD-M4-PIPELINE-1 (boundary + compiler skeleton exists)
-- **Blocks:** LOCAL-TBD-M4-PIPELINE-4 (runtime cutover should not land with “config ignored” semantics)
+- **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
+- **Blocked by:** CIV-55 (boundary + compiler skeleton exists)
+- **Blocks:** CIV-58 (runtime cutover should not land with “config ignored” semantics)
 
 ---
 

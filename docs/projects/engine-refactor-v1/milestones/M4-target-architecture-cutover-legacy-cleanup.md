@@ -1,19 +1,20 @@
 ---
-id: LOCAL-TBD-M4-TARGET-ARCH-CUTOVER
+id: M4
 title: "M4: Target Architecture Cutover & Legacy Cleanup"
 status: in_progress
 status_note: re-baselining 2025-12-19
 owner: Engineering
-estimate_total: 68
+estimate_total: 74
 project: engine-refactor-v1
 parent_issues:
-  - LOCAL-TBD-M4-PIPELINE-CUTOVER
-  - LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER
-  - LOCAL-TBD-M4-EFFECTS-VERIFICATION
-  - LOCAL-TBD-M4-PLACEMENT-INPUTS
-  - LOCAL-TBD-M4-NARRATIVE-CLEANUP
-  - LOCAL-TBD-M4-SAFETY-NET
-  - LOCAL-TBD-M4-ENGINE-BOUNDARY-CLEANUP
+  - CIV-54
+  - CIV-61
+  - CIV-62
+  - CIV-63
+  - CIV-64
+  - CIV-65
+  - CIV-66
+  - CIV-67
 ---
 
 # M4: Target Architecture Cutover & Legacy Cleanup
@@ -92,7 +93,7 @@ Lower-level expectations for config behavior, pipeline contracts, and foundation
 - Remove remaining legacy globals and compatibility shims:
   - StoryTags compatibility layer (DEF-002) and remaining story caches (DEF-012).
   - WorldModel bridge paths and direct `GameplayMap` reads in mapgen-core.
-  - Foundation compatibility surface: remove `ctx.foundation`; foundation is addressed via `ctx.artifacts.foundation` / `artifact:foundation` (LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER).
+  - Foundation compatibility surface: remove `ctx.foundation`; foundation is addressed via `ctx.artifacts.foundation` / `artifact:foundation` (CIV-62).
 - Complete remaining JS/TS cleanup in engine paths.
 
 ### Out of Scope (Explicit)
@@ -139,12 +140,12 @@ Lower-level expectations for config behavior, pipeline contracts, and foundation
 ```yaml
 steps:
   - seq: A.1
-    issue: LOCAL-TBD-M4-SAFETY-1
-    description: Land observability early (step-level tracing foundation).
+    issue: CIV-55
+    description: Land boundary/compiler skeleton (RunRequest/RecipeV1/ExecutionPlan compiler scaffold).
 
   - seq: A.2
-    issue: LOCAL-TBD-M4-PIPELINE-1
-    description: Land boundary/compiler skeleton (RunRequest/RecipeV1/ExecutionPlan compiler scaffold).
+    issue: CIV-75
+    description: Land observability early (step-level tracing foundation).
 ```
 
 #### Phase B — Config Plumbing + Tag Registry Cutover
@@ -154,11 +155,11 @@ steps:
 ```yaml
 steps:
   - seq: B.1
-    issue: LOCAL-TBD-M4-PIPELINE-2
+    issue: CIV-56
     description: Per-step config plumbing.
 
   - seq: B.2
-    issue: LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER
+    issue: CIV-61
     description: >
       Tag registry/validation cutover so: registry-instantiated tag catalog is canonical,
       effect:* is schedulable + verifiable, demo payloads are supported and validated when present.
@@ -171,17 +172,17 @@ steps:
 ```yaml
 steps:
   - seq: C.1
-    issue: LOCAL-TBD-M4-PIPELINE-3
+    issue: CIV-57
     description: >
       Standard pipeline packaged as a mod-style package + loader/registry wiring
       (own integration touchpoints: CLI/scripts/consumers).
 
   - seq: C.2
-    issue: LOCAL-TBD-M4-PIPELINE-4
+    issue: CIV-58
     description: Runtime cutover to RunRequest → ExecutionPlan (TaskGraph consumes plan).
 
   - seq: C.3
-    issue: LOCAL-TBD-M4-SAFETY-2
+    issue: CIV-76
     description: >
       Start smoke tests immediately after cutover (Bun smoke tests + CIV-23 re-scope).
       Treat this as the safety rail for legacy deletion.
@@ -194,11 +195,11 @@ steps:
 ```yaml
 steps:
   - seq: D.1
-    issue: LOCAL-TBD-M4-PIPELINE-5
+    issue: CIV-59
     description: Delete legacy ordering/enablement/config inputs.
 
   - seq: D.2
-    issue: LOCAL-TBD-M4-PIPELINE-6
+    issue: CIV-60
     description: Remove the dual orchestration path.
 
   - seq: D.3
@@ -214,23 +215,23 @@ steps:
 ```yaml
 steps:
   - seq: E.1
-    issue: LOCAL-TBD-M4-EFFECTS-1
+    issue: CIV-68
     description: Effect tag catalog + adapter postcondition surfaces.
 
   - seq: E.2
-    issue: LOCAL-TBD-M4-EFFECTS-2
+    issue: CIV-69
     description: Biomes/features reification and verification.
 
   - seq: E.3
-    issue: LOCAL-TBD-M4-PLACEMENT-1
+    issue: CIV-71
     description: Define artifact:placementInputs@v1.
 
   - seq: E.4
-    issue: LOCAL-TBD-M4-PLACEMENT-2
+    issue: CIV-72
     description: Cut placement over to artifact.
 
   - seq: E.5
-    issue: LOCAL-TBD-M4-EFFECTS-3
+    issue: CIV-70
     description: Remove state:engine.* (blocked by placement).
 ```
 
@@ -241,17 +242,17 @@ steps:
 ```yaml
 steps:
   - seq: F.1
-    issue: LOCAL-TBD-M4-NARRATIVE-1
+    issue: CIV-73
     description: Narrative producers → can start after Phase B (tag registry cutover).
 
   - seq: F.2
-    issue: LOCAL-TBD-M4-ENGINE-BOUNDARY-CLEANUP
+    issue: CIV-67
     description: >
       Remove/fence GameplayMap reads, GameInfo module-load lookups,
       PlotTags/LandmassRegion globals as "dependency surfaces".
 
   - seq: F.3
-    issue: LOCAL-TBD-M4-NARRATIVE-2
+    issue: CIV-74
     description: >
       Narrative consumer migration/cache removal → should land after Phase D (legacy deletion)
       to avoid stage/manifest drift while migrating consumers.
@@ -268,10 +269,10 @@ steps:
 #### 1. Pipeline Cutover
 
 ```yaml
-id: LOCAL-TBD-M4-PIPELINE-CUTOVER
+id: CIV-54
 title: "Recipe + ExecutionPlan as the only ordering surface"
 estimate: 16
-doc: ../issues/LOCAL-TBD-M4-PIPELINE-CUTOVER.md
+doc: ../issues/CIV-54-M4-PIPELINE-CUTOVER.md
 closes: DEF-004
 ```
 
@@ -281,28 +282,28 @@ closes: DEF-004
 
 ```yaml
 children:
-  - id: LOCAL-TBD-M4-PIPELINE-1
-    doc: ../issues/LOCAL-TBD-M4-pipeline-cutover-1-runrequest.md
+  - id: CIV-55
+    doc: ../issues/CIV-55-M4-pipeline-cutover-1-runrequest.md
     description: RunRequest/RecipeV1/ExecutionPlan compiler scaffold
 
-  - id: LOCAL-TBD-M4-PIPELINE-2
-    doc: ../issues/LOCAL-TBD-M4-pipeline-cutover-2-step-config-schemas.md
+  - id: CIV-56
+    doc: ../issues/CIV-56-M4-pipeline-cutover-2-step-config-schemas.md
     description: Per-step config schema + executor plumbing
 
-  - id: LOCAL-TBD-M4-PIPELINE-3
-    doc: ../issues/LOCAL-TBD-M4-pipeline-cutover-3-standard-mod-packaging.md
+  - id: CIV-57
+    doc: ../issues/CIV-57-M4-pipeline-cutover-3-standard-mod-packaging.md
     description: Standard mod packaging + loader/registry wiring
 
-  - id: LOCAL-TBD-M4-PIPELINE-4
-    doc: ../issues/LOCAL-TBD-M4-pipeline-cutover-4-runtime-cutover.md
+  - id: CIV-58
+    doc: ../issues/CIV-58-M4-pipeline-cutover-4-runtime-cutover.md
     description: Runtime cutover to RunRequest → ExecutionPlan
 
-  - id: LOCAL-TBD-M4-PIPELINE-5
-    doc: ../issues/LOCAL-TBD-M4-pipeline-cutover-5-remove-legacy-ordering.md
+  - id: CIV-59
+    doc: ../issues/CIV-59-M4-pipeline-cutover-5-remove-legacy-ordering.md
     description: Delete legacy ordering/enablement/config inputs
 
-  - id: LOCAL-TBD-M4-PIPELINE-6
-    doc: ../issues/LOCAL-TBD-M4-pipeline-cutover-6-remove-dual-orchestration.md
+  - id: CIV-60
+    doc: ../issues/CIV-60-M4-pipeline-cutover-6-remove-dual-orchestration.md
     description: Remove dual orchestration path
 ```
 
@@ -311,17 +312,17 @@ children:
 - The default "standard" mod exposes a recipe that fully defines step order + enablement.
 - `stageManifest` / `STAGE_ORDER` / `stageConfig` are deleted as runtime inputs; the pipeline is fully described by the mod recipe.
 - Any legacy enablement mechanisms (`stageFlags`, `shouldRun`) are deleted; no runtime/test path consults them.
-- Standard-mod import surface updates (CLI/scripts/other consumers) are owned by PIPELINE-3 (packaging + loader wiring).
+- Standard-mod import surface updates (CLI/scripts/other consumers) are owned by CIV-57 (packaging + loader wiring).
 
 ---
 
 #### 2. Tag Registry Cutover
 
 ```yaml
-id: LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER
+id: CIV-61
 title: "Registry-instantiated tag catalog + validation (effect:* schedulable)"
 estimate: 8
-doc: ../issues/LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER.md
+doc: ../issues/CIV-61-M4-TAG-REGISTRY-CUTOVER.md
 closes: null
 ```
 
@@ -338,10 +339,10 @@ closes: null
 #### 3. Foundation Surface Cutover
 
 ```yaml
-id: LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER
+id: CIV-62
 title: "Remove ctx.foundation; foundation is monolithic artifact:foundation at ctx.artifacts.foundation"
 estimate: 6
-doc: ../issues/LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER.md
+doc: ../issues/CIV-62-M4-FOUNDATION-SURFACE-CUTOVER.md
 closes: null
 ```
 
@@ -358,10 +359,10 @@ closes: null
 #### 4. Effects Verification
 
 ```yaml
-id: LOCAL-TBD-M4-EFFECTS-VERIFICATION
+id: CIV-63
 title: "Replace state:engine.* with verifiable effect:* + reification"
 estimate: 16
-doc: ../issues/LOCAL-TBD-M4-EFFECTS-VERIFICATION.md
+doc: ../issues/CIV-63-M4-EFFECTS-VERIFICATION.md
 closes: DEF-008
 ```
 
@@ -371,16 +372,16 @@ closes: DEF-008
 
 ```yaml
 children:
-  - id: LOCAL-TBD-M4-EFFECTS-1
-    doc: ../issues/LOCAL-TBD-M4-effects-verification-1-effect-tags.md
+  - id: CIV-68
+    doc: ../issues/CIV-68-M4-effects-verification-1-effect-tags.md
     description: Effect tag catalog + adapter postcondition surfaces
 
-  - id: LOCAL-TBD-M4-EFFECTS-2
-    doc: ../issues/LOCAL-TBD-M4-effects-verification-2-biomes-features.md
+  - id: CIV-69
+    doc: ../issues/CIV-69-M4-effects-verification-2-biomes-features.md
     description: Biomes/features reification and verification
 
-  - id: LOCAL-TBD-M4-EFFECTS-3
-    doc: ../issues/LOCAL-TBD-M4-effects-verification-3-remove-state-engine.md
+  - id: CIV-70
+    doc: ../issues/CIV-70-M4-effects-verification-3-remove-state-engine.md
     description: Remove state:engine.* from standard pipeline
 ```
 
@@ -394,10 +395,10 @@ children:
 #### 5. Placement Inputs
 
 ```yaml
-id: LOCAL-TBD-M4-PLACEMENT-INPUTS
+id: CIV-64
 title: "Cut placement over to artifact:placementInputs@v1"
 estimate: 8
-doc: ../issues/LOCAL-TBD-M4-PLACEMENT-INPUTS.md
+doc: ../issues/CIV-64-M4-PLACEMENT-INPUTS.md
 closes: DEF-006
 ```
 
@@ -407,12 +408,12 @@ closes: DEF-006
 
 ```yaml
 children:
-  - id: LOCAL-TBD-M4-PLACEMENT-1
-    doc: ../issues/LOCAL-TBD-M4-placement-inputs-1-define-artifact.md
+  - id: CIV-71
+    doc: ../issues/CIV-71-M4-placement-inputs-1-define-artifact.md
     description: Define artifact:placementInputs@v1
 
-  - id: LOCAL-TBD-M4-PLACEMENT-2
-    doc: ../issues/LOCAL-TBD-M4-placement-inputs-2-cutover.md
+  - id: CIV-72
+    doc: ../issues/CIV-72-M4-placement-inputs-2-cutover.md
     description: Cut placement consumers to artifact
 ```
 
@@ -427,10 +428,10 @@ children:
 #### 6. Narrative Cleanup
 
 ```yaml
-id: LOCAL-TBD-M4-NARRATIVE-CLEANUP
+id: CIV-65
 title: "Narrative/playability artifacts become canonical; StoryTags/caches removed"
 estimate: 8
-doc: ../issues/LOCAL-TBD-M4-NARRATIVE-CLEANUP.md
+doc: ../issues/CIV-65-M4-NARRATIVE-CLEANUP.md
 closes:
   - DEF-002
   - DEF-012
@@ -442,12 +443,12 @@ closes:
 
 ```yaml
 children:
-  - id: LOCAL-TBD-M4-NARRATIVE-1
-    doc: ../issues/LOCAL-TBD-M4-narrative-cleanup-1-artifacts.md
+  - id: CIV-73
+    doc: ../issues/CIV-73-M4-narrative-cleanup-1-artifacts.md
     description: Define narrative artifacts
 
-  - id: LOCAL-TBD-M4-NARRATIVE-2
-    doc: ../issues/LOCAL-TBD-M4-narrative-cleanup-2-remove-storytags.md
+  - id: CIV-74
+    doc: ../issues/CIV-74-M4-narrative-cleanup-2-remove-storytags.md
     description: Remove StoryTags as dependency surface
 ```
 
@@ -455,17 +456,17 @@ children:
 
 - All in-repo consumers read (directly or via derived query helpers) from `artifact:narrative.*`.
 - StoryTags is either deleted or fenced to explicit compatibility tooling with no consumer correctness dependency.
-- Sequencing: NARRATIVE-1 may start after tag registry cutover; NARRATIVE-2 should land after legacy deletion.
+- Sequencing: CIV-73 may start after CIV-61; CIV-74 should land after CIV-59.
 
 ---
 
 #### 7. Safety Net
 
 ```yaml
-id: LOCAL-TBD-M4-SAFETY-NET
+id: CIV-66
 title: "Observability baseline + CI tests"
 estimate: 4
-doc: ../issues/LOCAL-TBD-M4-SAFETY-NET.md
+doc: ../issues/CIV-66-M4-SAFETY-NET.md
 closes: null
 related:
   - CIV-23
@@ -478,12 +479,12 @@ related:
 
 ```yaml
 children:
-  - id: LOCAL-TBD-M4-SAFETY-1
-    doc: ../issues/LOCAL-TBD-M4-safety-net-1-observability.md
+  - id: CIV-75
+    doc: ../issues/CIV-75-M4-safety-net-1-observability.md
     description: Step tracing and observability baseline
 
-  - id: LOCAL-TBD-M4-SAFETY-2
-    doc: ../issues/LOCAL-TBD-M4-safety-net-2-smoke-tests.md
+  - id: CIV-76
+    doc: ../issues/CIV-76-M4-safety-net-2-smoke-tests.md
     description: Bun smoke tests + CIV-23 re-scope
 ```
 
@@ -498,10 +499,10 @@ children:
 #### 8. Engine Boundary Cleanup
 
 ```yaml
-id: LOCAL-TBD-M4-ENGINE-BOUNDARY-CLEANUP
+id: CIV-67
 title: "Remove engine-global dependency surfaces (GameplayMap/GameInfo/PlotTags)"
 estimate: 8
-doc: ../issues/LOCAL-TBD-M4-ENGINE-BOUNDARY-CLEANUP.md
+doc: ../issues/CIV-67-M4-ENGINE-BOUNDARY-CLEANUP.md
 closes: null
 ```
 
@@ -520,41 +521,40 @@ closes: null
 
 ```yaml
 dependencies:
-  - from: SAFETY-NET
-    to: PIPELINE-1
-    reason: Compiler/plan must exist for plan fingerprint + compile/execute smoke tests.
+  - from: CIV-55
+    to: CIV-75
+    reason: Compiler/plan must exist for plan fingerprint + step-level tracing hooks.
 
-  - from: TAG-REGISTRY-CUTOVER
-    to: FOUNDATION-SURFACE-CUTOVER
+  - from: CIV-75
+    to: CIV-76
+    reason: Smoke tests depend on observability plumbing and a stable plan fingerprint.
+
+  - from: CIV-61
+    to: CIV-62
     reason: >
       Foundation must be a normal registered `artifact:*` dependency satisfied/verified via `ctx.artifacts`.
       Tag registry cutover provides the registry-driven artifact verification path.
 
-  - from: PIPELINE-4
-    to: PIPELINE-2
+  - from: CIV-56
+    to: CIV-58
     reason: >
       Per-step config plumbing required so recipe config is validated and passed to steps
       (not just parsed and ignored).
 
-  - from: PLACEMENT-INPUTS
-    to: EFFECTS-1
+  - from: CIV-68
+    to: CIV-64
     reason: >
       Effect tags + adapter postcondition surfaces must exist.
       Also depends on any upstream reification needed to build placementInputs@v1 deterministically.
 
-  - from: NARRATIVE-CLEANUP
-    to: PIPELINE-5
+  - from: CIV-59
+    to: CIV-65
     reason: >
-      Schedule after PIPELINE-5 so failures are surfaced via recipe/plan validation
+      Schedule after CIV-59 so failures are surfaced via recipe/plan validation
       (not via stage manifest drift). This is cross-phase work.
-
-  - from: SAFETY-NET (observability baseline)
-    to: PIPELINE-1
-    reason: >
-      Should land early in M4 (alongside or immediately after PIPELINE-1) to enable parity
-      verification during cutover. Without tracing/smoke tests, "it still works" is unverifiable
-      for subsequent parents.
 ```
+
+Dependency metadata policy (M4): `blocked_by` is the canonical sequencing source. Use `blocked` only for major gates; treat it as best-effort if it drifts.
 
 ---
 
@@ -583,7 +583,7 @@ estimates:
   - parent: Effects Verification
     estimate: 16
     complexity_notes: >
-      Adapter postcondition query design (EFFECTS-1), registry-driven tag validation,
+      Adapter postcondition query design (CIV-68), registry-driven tag validation,
       first instance of reify pattern.
 
   - parent: Placement Inputs
@@ -625,7 +625,7 @@ related_issues:
 
   - id: CIV-53
     doc: ../issues/CIV-53-def-013-enablement-consolidation.md
-    notes: Overlaps with LOCAL-TBD-M4-PIPELINE-CUTOVER and may be merged into it.
+    notes: Overlaps with CIV-54 and may be merged into it.
 ```
 
 **Deferrals to close or advance in M4:** DEF-004, DEF-006, DEF-008, DEF-002, DEF-012; DEF-014 is advanced (surface cutover) but not closed (split deferred).
@@ -670,16 +670,16 @@ triage_labels:
 
 **[MUST][ISSUE]** Remove dual orchestration paths (`MapOrchestrator` vs executor); ensure only the compiled plan path is used and legacy entrypoints are deleted/fenced.
 
-**[MUST][ISSUE]** Add per-step config schema + executor plumbing so steps can accept typed recipe config (LOCAL-TBD-M4-PIPELINE-2).
-> This is the replacement for `stageConfig` as the source of step-local knobs (legacy removal is in PIPELINE-5).
+**[MUST][ISSUE]** Add per-step config schema + executor plumbing so steps can accept typed recipe config (CIV-56).
+> This is the replacement for `stageConfig` as the source of step-local knobs (legacy removal is in CIV-59).
 
-**[MUST][ISSUE]** Extract the standard pipeline into a mod-style package + registry/loader wiring (LOCAL-TBD-M4-PIPELINE-3); remove hard-wired `standard-library` entrypoints.
+**[MUST][ISSUE]** Extract the standard pipeline into a mod-style package + registry/loader wiring (CIV-57); remove hard-wired `standard-library` entrypoints.
 
 **[MUST][ISSUE]** Ensure no runtime/test path still passes `stageFlags`/`shouldRun`; recipe list remains the sole enablement source.
 
 **[RESOLVED-DECISION]** Presets are removed entirely. Canonical entry is recipe + settings selection; no preset resolution/composition remains in M4.
 
-**[MUST][ISSUE]** Delete preset resolution/composition and migrate any usages to explicit recipe+settings selection as the only entry mode (LOCAL-TBD-M4-PIPELINE-5).
+**[MUST][ISSUE]** Delete preset resolution/composition and migrate any usages to explicit recipe+settings selection as the only entry mode (CIV-59).
 
 ---
 
@@ -692,7 +692,7 @@ triage_labels:
 - registry-driven verification
 - first-class schedulable `effect:*` namespace
 
-> **Ownership:** LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER (new parent; Phase B).
+> **Ownership:** CIV-61 (new parent; Phase B).
 
 ---
 
@@ -715,7 +715,7 @@ triage_labels:
 
 **[MUST][ISSUE]** Eliminate direct engine-global reads as dependency surfaces (or fence them behind adapter/runtime surfaces, with dev/test-only tooling isolated).
 
-> **Ownership:** LOCAL-TBD-M4-ENGINE-BOUNDARY-CLEANUP (new parent; Phase F).
+> **Ownership:** CIV-67 (new parent; Phase F).
 
 ---
 
@@ -726,7 +726,7 @@ triage_labels:
 **[MUST][ISSUE]** Smoke tests should compile + run the default recipe/plan under a stub adapter and cover the key cutover invariants.
 
 **[MUST][ISSUE]** Plan fingerprint/runId determinism needs an explicit, stable hash/serialization strategy for `settings + recipe + per-step config` so CI does not flake and traces can be correlated.
-> **Ownership:** LOCAL-TBD-M4-SAFETY-NET (LOCAL-TBD-M4-SAFETY-1).
+> **Ownership:** CIV-66 (CIV-75).
 
 ---
 

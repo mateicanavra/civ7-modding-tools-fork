@@ -139,12 +139,12 @@ Deliverables:
 - A brief gap list if any artifact is missing or contradicts another.
 
 Where to look:
-- Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-1-runrequest.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-2-step-config-schemas.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-3-standard-mod-packaging.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-4-runtime-cutover.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-5-remove-legacy-ordering.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-pipeline-cutover-6-remove-dual-orchestration.md`.
+- Child issues: `docs/projects/engine-refactor-v1/issues/CIV-55-M4-pipeline-cutover-1-runrequest.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-56-M4-pipeline-cutover-2-step-config-schemas.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-57-M4-pipeline-cutover-3-standard-mod-packaging.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-58-M4-pipeline-cutover-4-runtime-cutover.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-59-M4-pipeline-cutover-5-remove-legacy-ordering.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-60-M4-pipeline-cutover-6-remove-dual-orchestration.md`.
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Pipeline contract),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.1, §2.9).
 - Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.

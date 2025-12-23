@@ -40,9 +40,9 @@ Introduce the standard mod recipe (packaged as a mod-style package + registry en
 
 ## Dependencies / Notes
 
-- **Parent:** [LOCAL-TBD-M4-PIPELINE-CUTOVER](LOCAL-TBD-M4-PIPELINE-CUTOVER.md)
-- **Blocked by:** LOCAL-TBD-M4-PIPELINE-2, LOCAL-TBD-M4-PIPELINE-3
-- **Blocks:** LOCAL-TBD-M4-PIPELINE-5
+- **Parent:** [CIV-54](CIV-54-M4-PIPELINE-CUTOVER.md)
+- **Blocked by:** CIV-56, CIV-57
+- **Blocks:** CIV-59
 - **Milestone note:** Packaging + loader/registry wiring lives in PIPELINE-3. This issue assumes that packaging is in place and focuses on runtime cutover to `RunRequest → ExecutionPlan`.
 
 ---

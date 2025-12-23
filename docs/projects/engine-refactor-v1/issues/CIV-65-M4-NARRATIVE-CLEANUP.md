@@ -63,8 +63,8 @@ This issue closes DEF-002 and DEF-012.
 
 ## Dependencies / Notes
 
-- NARRATIVE-1 can start after the tag registry cutover (LOCAL-TBD-M4-TAG-REGISTRY-CUTOVER).
-- NARRATIVE-2 should land after legacy ordering deletion (LOCAL-TBD-M4-PIPELINE-5) to avoid stage/manifest drift while migrating consumers.
+- NARRATIVE-1 can start after the tag registry cutover (CIV-61).
+- NARRATIVE-2 should land after legacy ordering deletion (CIV-59) to avoid stage/manifest drift while migrating consumers.
 
 ---
 
@@ -105,8 +105,8 @@ Deliverables:
 - A brief gap list if any narrative artifact is missing or if consumers outside narrative modules are unaccounted for.
 
 Where to look:
-- Child issues: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-narrative-cleanup-1-artifacts.md`,
-  `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M4-narrative-cleanup-2-remove-storytags.md`.
+- Child issues: `docs/projects/engine-refactor-v1/issues/CIV-73-M4-narrative-cleanup-1-artifacts.md`,
+  `docs/projects/engine-refactor-v1/issues/CIV-74-M4-narrative-cleanup-2-remove-storytags.md`.
 - SPEC/SPIKE: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Narrative model),
   `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.4).
 - Milestone notes: `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
@@ -120,8 +120,8 @@ Constraints/notes:
 ## Prework Results / References
 
 Child artifacts:
-- Narrative‑1 (`LOCAL-TBD-M4-NARRATIVE-1`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-1-artifact-inventory.md`
-- Narrative‑2 (`LOCAL-TBD-M4-NARRATIVE-2`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-2-storytags-consumer-and-cache-map.md`
+- Narrative‑1 (`CIV-73`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-1-artifact-inventory.md`
+- Narrative‑2 (`CIV-74`): `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-narrative-2-storytags-consumer-and-cache-map.md`
 
 Readiness checklist:
 - Canonical narrative artifact set has a minimal v1 inventory (IDs + schema sketches + demo guidance) aligned to existing overlay kinds, so producers can publish artifacts mechanically.
