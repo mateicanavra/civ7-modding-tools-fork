@@ -20,6 +20,7 @@
 
 ## Links & References
 - PRD: `docs/projects/cli-orchestration-v0/resources/PRD-cli-orchestration-v0.md`
+- PRD (target architecture): `docs/projects/cli-orchestration-v0/resources/PRD-cross-repo-orchestration-engine.md`
 - ADR: `docs/projects/cli-orchestration-v0/resources/ADR-001-orchestration-v0.md`
 - Contract: `docs/projects/cli-orchestration-v0/resources/CONTRACT-dev-auto-and-runner.md`
 - Spikes: `docs/projects/cli-orchestration-v0/spikes/`

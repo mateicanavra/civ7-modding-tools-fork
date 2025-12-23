@@ -15,8 +15,12 @@ This document defines the **minimum viable contract** between the orchestrator a
 - `dev-auto-fix-review` (fix phase)
 
 **Placement (v0 decision):**
-- Commands live in the existing **`dev` plugin** and are synced into `~/.codex/prompts/`.
-- The `autonomous-development` skill is the shared contract for auto-safe behavior (worktree rules, Graphite allowlist, structured outputs).
+- Source prompts live in the repo under `plugins/dev/commands/`:
+  - `plugins/dev/commands/dev-auto-parallel.md`
+  - `plugins/dev/commands/dev-auto-review-linear.md`
+  - `plugins/dev/commands/dev-auto-fix-review.md`
+- The `autonomous-development` skill lives at `plugins/dev/skills/autonomous-development/SKILL.md`.
+- Sync into `~/.codex/prompts/` and `~/.codex/skills/` via the `~/.claude/plugins/local/plugins/meta/scripts/sync_to_codex.py` workflow.
 
 ### A) Inputs (from the orchestrator)
 
@@ -96,13 +100,11 @@ Prompt authors should treat this block as authoritative.
 
 #### `dev-auto-parallel` / `dev-auto-fix-review` (dev/fix phases)
 
-**Required fields:**
+**Required fields (schema strict; empty arrays allowed):**
 - `phase`: `"dev"` or `"fix"`
 - `status`: `"pass"` | `"failed"` | `"deferred"`
 - `issueId`, `milestoneId`, `branch`, `worktreePath`, `summary`
-
-**Optional fields (recommended):**
-- `testsRun`: array of `{ command, status, notes }`
+- `testsRun`: array of `{ command, status, notes }` — `notes` is required (empty string allowed, but include context when available)
 - `docsUpdated`: string[] (paths)
 - `draftPrs`: string[] (urls)
 - `stackBranches`: string[]

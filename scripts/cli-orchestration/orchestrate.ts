@@ -6,10 +6,11 @@ import type { OrchestratorConfig } from "./types.js";
 function usage(): string {
   return [
     "Usage:",
-    "  bun run scripts/cli-orchestration/orchestrate.ts --milestone <ID>",
+    "  bun run scripts/cli-orchestration/orchestrate.ts --milestone <ID> [--project <ID>]",
     "",
     "Options:",
     "  -m, --milestone   Milestone ID to run (required)",
+    "  -p, --project     Project ID to disambiguate milestones (optional)",
     "  -i, --issue       Issue ID to run (optional, defaults to first)",
     "  --logs-root       Override logs root (default: logs/orch)",
   ].join("\n");
@@ -20,6 +21,7 @@ function parseCliArgs() {
     args: process.argv.slice(2),
     options: {
       milestone: { type: "string", short: "m" },
+      project: { type: "string", short: "p" },
       issue: { type: "string", short: "i" },
       "logs-root": { type: "string" },
     },
@@ -32,13 +34,14 @@ function parseCliArgs() {
 
   return {
     milestoneId: values.milestone,
+    projectId: values.project,
     issueId: values.issue,
     logsRoot: values["logs-root"],
   };
 }
 
 async function main() {
-  const { milestoneId, issueId, logsRoot } = parseCliArgs();
+  const { milestoneId, issueId, projectId, logsRoot } = parseCliArgs();
   const repoRoot = process.cwd();
 
   const config: OrchestratorConfig = {
@@ -47,7 +50,7 @@ async function main() {
     maxReviewCycles: 2,
   };
 
-  await runOrchestrator(config, { milestoneId, issueId });
+  await runOrchestrator(config, { milestoneId, projectId, issueId });
 }
 
 main().catch((error) => {

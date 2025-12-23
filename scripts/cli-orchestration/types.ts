@@ -16,7 +16,7 @@ export interface PhaseBase {
 export interface TestRun {
   command: string;
   status: "pass" | "fail" | "skipped";
-  notes?: string;
+  notes: string;
 }
 
 export interface ReviewIssue {
@@ -29,12 +29,12 @@ export interface ReviewIssue {
 export interface DevResult extends PhaseBase {
   phase: "dev" | "fix";
   status: DevStatus;
-  testsRun?: TestRun[];
-  docsUpdated?: string[];
-  draftPrs?: string[];
-  stackBranches?: string[];
-  deferred?: string[];
-  openQuestions?: string[];
+  testsRun: TestRun[];
+  docsUpdated: string[];
+  draftPrs: string[];
+  stackBranches: string[];
+  deferred: string[];
+  openQuestions: string[];
 }
 
 export interface ReviewResult extends PhaseBase {
@@ -60,6 +60,7 @@ export interface IssueDoc {
 export interface MilestoneDoc {
   id: string;
   path: string;
+  project: string;
 }
 
 export interface IssuePlan {

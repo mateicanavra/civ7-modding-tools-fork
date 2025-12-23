@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "phase",
+    "status",
+    "issueId",
+    "milestoneId",
+    "branch",
+    "worktreePath",
+    "summary"
+  ],
+  "properties": {
+    "phase": { "type": "string", "enum": ["review"] },
+    "status": { "type": "string", "enum": ["pass", "changes_required", "blocked"] },
+    "issueId": { "type": "string" },
+    "milestoneId": { "type": "string" },
+    "branch": { "type": "string" },
+    "worktreePath": { "type": "string" },
+    "summary": { "type": "string" },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["severity", "title", "details"],
+        "properties": {
+          "severity": { "type": "string", "enum": ["low", "medium", "high"] },
+          "title": { "type": "string" },
+          "details": { "type": "string" },
+          "evidence": { "type": "string" }
+        }
+      }
+    },
+    "requiredActions": { "type": "array", "items": { "type": "string" } },
+    "followups": { "type": "array", "items": { "type": "string" } },
+    "reviewDocPath": { "type": "string" },
+    "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+  }
+}

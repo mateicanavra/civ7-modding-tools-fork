@@ -8,7 +8,13 @@
     "milestoneId",
     "branch",
     "worktreePath",
-    "summary"
+    "summary",
+    "testsRun",
+    "docsUpdated",
+    "draftPrs",
+    "stackBranches",
+    "deferred",
+    "openQuestions"
   ],
   "properties": {
     "phase": { "type": "string", "enum": ["dev", "fix"] },
@@ -23,7 +29,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["command", "status"],
+        "required": ["command", "status", "notes"],
         "properties": {
           "command": { "type": "string" },
           "status": { "type": "string", "enum": ["pass", "fail", "skipped"] },
