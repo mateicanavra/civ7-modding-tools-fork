@@ -53,6 +53,14 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Gaps:** Trace enablement semantics are ambiguous (`enabled` defaults false while runtime allows steps-only enablement), and step events use `nodeId = stepId`, so repeated steps can’t be disambiguated against `ExecutionPlan` nodes.
 - **Follow-up:** Align trace enablement contract (require `enabled` or drop the default) and emit plan node IDs once ExecutionPlan-based execution lands.
 
+## CIV-58 — [M4] Pipeline cutover: standard mod recipe + runtime cutover to ExecutionPlan
+
+**Reviewed:** 2025-12-23
+
+- **Intent:** Switch runtime to `RunRequest → ExecutionPlan` using the standard mod recipe as the canonical ordering source; remove stageManifest/stageConfig ordering.
+- **Strengths:** TaskGraph now compiles and executes an ExecutionPlan from the standard recipe; dependency descriptors are sourced from the M3 spine; smoke tests updated for default recipe execution.
+- **Gaps:** Tests and docs still assume `stageConfig` disables stages (e.g., integration test); with runtime cutover, that assumption is now false and the test no longer validates its intended scenario.
+- **Follow-up:** Update MapOrchestrator docs/examples and the integration test to use recipe-based enablement (or an explicit minimal recipe); add a small guard/test to keep the standard recipe and dependency spine in sync.
 
 ## CIV-57 — [M4] Pipeline cutover: package standard pipeline as mod + loader/registry wiring
 
