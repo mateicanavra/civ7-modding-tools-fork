@@ -21,12 +21,12 @@ This PRD defines the requirements for the **Foundation (geology) sub-pipeline** 
 - **Publication contracts** for downstream consumers:
   - Canonical intermediate artifacts published to `ctx.artifacts` (keyed by dependency tags).
   - ~~Compatibility publication to `ctx.foundation` (satisfies `artifact:foundation`).~~  
-    **Update (2025-12-22, M4 planning):** `ctx.foundation` / `FoundationContext` is migration-only and removed under DEF-014. Canonical foundation outputs are discrete `artifact:foundation.*` products; new work must not depend on `ctx.foundation.*`. See `SPEC-target-architecture-draft.md` and `../milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
+    **Update (2025-12-23, M4 execution):** M4 keeps the payload monolithic but moves the surface: publish `artifact:foundation` at `ctx.artifacts.foundation` (no top-level `ctx.foundation`). The split into discrete `artifact:foundation.*` products is Phase B work deferred per DEF-014.
 
 ### Out of scope
 - Downstream morphology/hydrology/ecology algorithms (consumers of these outputs).
 - ~~Long-term decisions about replacing the *entire* `FoundationContext` shape; this PRD targets compatibility with the current consumer boundary while establishing canonical intermediate artifacts.~~  
-  **Update (2025-12-22, M4 planning):** The target architecture is decided: discrete `artifact:foundation.*` artifacts are canonical; any `FoundationContext` view is compatibility-only during migration and must not survive M4.
+  **Update (2025-12-23, M4 execution):** The target end-state is discrete `artifact:foundation.*`, but M4 explicitly does **not** do the split. M4 only moves the monolithic payload to the artifacts surface (`artifact:foundation` at `ctx.artifacts.foundation`) and removes `ctx.foundation`. The post-M4 split and migration are tracked by DEF-014.
 
 ---
 
@@ -59,7 +59,7 @@ This PRD defines the requirements for the **Foundation (geology) sub-pipeline** 
   Publication must use `ctx.artifacts.set(tag, value)` (see `packages/mapgen-core/src/core/types.ts`).
 
 - ~~REQ-FND-6 (Consumer boundary): Publish a `FoundationContext` snapshot to `ctx.foundation`, satisfying `artifact:foundation` as the M2/M3 consumer boundary.~~  
-  **Update (2025-12-22, M4 planning):** The target architecture does not keep `ctx.foundation` as a stable surface. If a derived compatibility view is required during migration, treat it as transitional and delete it by M4 (DEF-014). Canonical consumers depend on `artifact:foundation.*` artifacts only.
+  **Update (2025-12-23, M4 execution):** Publish the existing `FoundationContext` payload as the monolithic artifact `artifact:foundation` stored at `ctx.artifacts.foundation`. `ctx.foundation` is removed in M4. Post-M4, split into discrete `artifact:foundation.*` products (DEF-014) and delete the monolithic artifact when consumers migrate.
 
 ### 4.3 Functional (Step decomposition: canonical target architecture example)
 - **REQ-FND-7 (Separate steps):** The Foundation geology pipeline **must** be implemented as separate `MapGenStep`s (not a single composite `foundation` step).
@@ -86,7 +86,7 @@ This PRD defines the requirements for the **Foundation (geology) sub-pipeline** 
 
   Notes:
   - ~~`artifact:foundation` is satisfied by setting `ctx.foundation` (it is not stored in `ctx.artifacts` in the current hybrid pipeline).~~  
-    **Update (2025-12-22, M4 planning):** `ctx.foundation` is migration-only; canonical foundation outputs are discrete `artifact:foundation.*` artifacts.
+    **Update (2025-12-23, M4 execution):** In M4, `artifact:foundation` is satisfied by `ctx.artifacts.foundation` (monolithic). The discrete `artifact:foundation.*` inventory is Phase B work deferred per DEF-014.
   - The dependency-tag model is registry-driven in the target architecture; validation/plumbing for these tags belongs under the tag registry cutover work (see M4 milestone).
 
 ### 4.4 Non-functional
@@ -103,11 +103,11 @@ The canonical artifact shapes are described in `docs/system/libs/mapgen/foundati
 ### 5.1 Indexing model
 - `RegionMesh`, `CrustData`, `PlateGraph`, `TectonicData` are **per-mesh-cell** data products (indexed by mesh cell ID).
 - ~~`FoundationContext` (`ctx.foundation`) is a **per-tile** snapshot used by existing M2/M3 consumers.~~  
-  **Update (2025-12-22, M4 planning):** Any `FoundationContext`/`ctx.foundation` view is compatibility-only during migration and is removed under DEF-014. If consumers require tile-indexed products, publish them as explicit artifacts/fields rather than a monolithic compatibility object.
+  **Update (2025-12-23, M4 execution):** M4 keeps a per-tile `FoundationContext` payload, but it is accessed as the monolithic artifact `artifact:foundation` at `ctx.artifacts.foundation` (no `ctx.foundation`). Post-M4, consumers migrate to explicit foundation artifacts/fields and the monolith is removed (DEF-014).
 
 ### 5.2 Compatibility projection (mesh → tiles)
 - ~~`core.tectonics.standard` must publish `ctx.foundation` by projecting mesh-cell outputs to the tile grid in a deterministic way.~~  
-  **Update (2025-12-22, M4 planning):** The deterministic mesh→tile projection requirement still exists, but the output must be published as explicit artifacts/fields (not `ctx.foundation`) per the target architecture.
+  **Update (2025-12-23, M4 execution):** If foundation steps produce mesh/cell outputs before all consumers migrate, a deterministic mesh→tile projection may still be needed to populate the monolithic `artifact:foundation` payload (until DEF-014 lands). In the end-state, publish explicit artifacts/fields and delete the monolith.
 - The projection algorithm must be stable and reproducible; exact sampling (nearest-site, barycentric within Delaunay triangles, etc.) is an implementation choice, but must be documented in the implementation and remain deterministic.
 
 ---
@@ -126,7 +126,7 @@ This PRD’s primary “architecture alignment” requirement is that the Founda
     - run domain logic
     - publish artifacts to `ctx.artifacts`
     - ~~(final step) publish `ctx.foundation`~~  
-      **Update (2025-12-22, M4 planning):** Publish discrete `artifact:foundation.*` products only. Any derived compatibility view must be transient and deleted by M4.
+      **Update (2025-12-23, M4 execution):** M4 publishes the monolithic `artifact:foundation` payload at `ctx.artifacts.foundation` (no top-level `ctx.foundation`). Phase B (DEF-014) publishes discrete `artifact:foundation.*` products and deletes the monolith once consumers migrate.
 
 New foundation code must not depend on the global `WorldModel` singleton. Any remaining legacy bridging should live at the orchestrator boundary.
 
@@ -197,11 +197,12 @@ This appendix captures repo-grounded constraints, gaps, and decisions that must 
 
 ### A.3 Current “foundation” source of truth is still `WorldModel`
 
-- Today the `foundation` step calls `WorldModel.init()` and builds `ctx.foundation` via `createFoundationContext(WorldModel, ...)` (`packages/mapgen-core/src/MapOrchestrator.ts`).
-- Downstream steps largely consume `ctx.foundation` (not `ctx.worldModel`), but `ctx.foundation` itself is currently derived from `WorldModel`.
+- Today the `foundation` step calls `WorldModel.init()` and builds a `FoundationContext` payload via `createFoundationContext(WorldModel, ...)` (`packages/mapgen-core/src/MapOrchestrator.ts`), exposing it as `ctx.foundation`.
+  **Update (2025-12-23, M4 execution):** M4 moves this payload to the artifacts surface (`ctx.artifacts.foundation`, tag `artifact:foundation`) and deletes `ctx.foundation` (surface-only change; payload stays monolithic).
+- Downstream steps largely consume the foundation payload, but it is currently derived from `WorldModel`.
 - **Implication:** The target posture (foundation artifacts do not require `WorldModel` as a source of truth) requires an explicit cutover plan:
   - **Bridge plan:** publish `artifact:foundation.*` as authoritative, optionally derive a transient compatibility view for legacy consumers, and treat `WorldModel` as a compatibility sink only.
-  - **Or** keep `WorldModel` authoritative temporarily and treat the new artifacts as derived/diagnostic (acceptable only as a time-boxed migration step; delete by M4).
+  - **Or** keep `WorldModel` authoritative temporarily and treat the new discrete `artifact:foundation.*` products as derived/diagnostic (acceptable only as a time-boxed migration step; delete once Phase B completes).
 
 ### A.4 Downstream consumers depend on more than “plates”
 

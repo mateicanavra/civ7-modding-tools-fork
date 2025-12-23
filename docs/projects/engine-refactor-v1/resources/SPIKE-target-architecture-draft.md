@@ -545,18 +545,16 @@ skips—only fail-fast validation/precondition errors.
 
 **Status:** `accepted`
 
-**Decision (one sentence):** Foundation outputs are published as discrete
-`artifact:*` products (not a monolithic `FoundationContext`); any
-`FoundationContext`-like object is a derived, migration-only compatibility view.
+**Decision (one sentence):** M4 keeps the foundation payload monolithic, but on the artifacts surface: `artifact:foundation` stored at `ctx.artifacts.foundation` (no `ctx.foundation`). Post-M4, the end-state remains discrete `artifact:foundation.*` products (DEF-014).
 
 **Context:**
 - `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` is
-  the binding M2 “stable slice” contract for `ctx.foundation` (compatibility
-  surface).
+  the binding contract for the monolithic foundation payload (`artifact:foundation`
+  at `ctx.artifacts.foundation`).
 - `docs/system/libs/mapgen/foundation.md` describes the intended target as
   discrete foundation artifacts.
-- `DEF-014` defers the implementation cutover off `ctx.foundation` to Phase B,
-  but this *decision* is already locked.
+- `DEF-014` defers the post-M4 split into discrete foundation artifacts; M4 still
+  removes `ctx.foundation` as a top-level surface.
 
 **Why this was ambiguous (how we got here):**
 - The project has both:
@@ -572,35 +570,35 @@ skips—only fail-fast validation/precondition errors.
   - allow incremental migration of consumers
   - enable Phase B foundation algorithm replacement without a single “big-bang”
 
-**Accepted choice: Option A — discrete artifacts are canonical**
-- Foundation publishes discrete `artifact:*` products as the contract surface.
-- `FoundationContext` is a derived compatibility view during migration only.
-- The exact *payload shapes* of foundation artifacts may evolve during Phase B;
-  what is locked now is the **contract direction**: no monolithic “foundation
-  blob” as the canonical dependency surface.
+**Accepted choice (refined): end-state is discrete artifacts; M4 interim uses a monolithic artifact**
+- **End-state:** foundation publishes discrete `artifact:foundation.*` products as the contract surface.
+- **M4 interim:** foundation is published as a monolithic `artifact:foundation` payload at `ctx.artifacts.foundation`; `ctx.foundation` is removed.
+- The “no blob dependency” rule is an end-state goal; M4 allows the blob as a timeboxed compatibility measure to avoid taking on the full split in M4.
+- The exact *payload shapes* of the discrete foundation artifacts may evolve during Phase B; what is locked now is the contract direction and the M4 surface alignment.
 - Storage layout is **decided** (not deferred):
   - Target canonical storage is nested under `context.artifacts.foundation.*`
     (e.g., `context.artifacts.foundation.plateGraph`).
   - `requires`/`provides` remain explicit per `artifact:*` tag (e.g.,
     `artifact:foundation.plateGraph`); storage grouping must not reintroduce a
     “blob dependency”.
-  - New work must not depend on `ctx.foundation.*` at all; `ctx.foundation` is
-    compatibility-only wiring to be removed under `DEF-014`.
+  - New work must not depend on `ctx.foundation.*` at all; use `artifact:foundation` / `ctx.artifacts.foundation` in M4.
 
 **What remains (implementation, not a decision):**
-- Phase B migration plan (tracked by `DEF-014`):
+- M4 surface cutover (LOCAL-TBD-M4-FOUNDATION-SURFACE-CUTOVER):
+  - Publish the monolithic payload as `artifact:foundation` at `ctx.artifacts.foundation`.
+  - Delete `ctx.foundation` and migrate all consumers.
+- Phase B split plan (tracked by `DEF-014`):
   - Define the initial canonical tag set (likely:
     `artifact:foundation.mesh`, `artifact:foundation.crust`,
     `artifact:foundation.plateGraph`, `artifact:foundation.tectonics`).
   - Publish those artifacts onto `context.artifacts`.
   - Update consumers to depend on the discrete artifacts.
-  - Remove `ctx.foundation` / `FoundationContext` once no longer needed.
+  - Remove the monolithic `artifact:foundation` once no longer needed.
 
 **SPEC impact (accepted):**
 - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
   - Mark decision 3.3 as accepted.
-  - Clarify that “foundation surface” is discrete artifacts; concrete payload
-    shapes remain domain-owned and may change without blocking the architecture.
+  - Clarify the M4 interim surface (`artifact:foundation` at `ctx.artifacts.foundation`) and that the discrete `artifact:foundation.*` split is deferred per DEF-014.
 
 **ADR stub:**
 - ~~ADR-TBD: Foundation surface (discrete artifacts; `FoundationContext` compat-only)~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.

@@ -35,7 +35,7 @@
 - Salvage candidates:
   - WorldModel cut acceptance criteria (single producer in foundation; no orchestrator init path; consumers off WorldModel).
   - RNG standardization policy (adapter-based RNG only; no Math.random or direct TerrainBuilder usage in mapgen-core).
-  - Bridge strategy notes on keeping `ctx.foundation` as a compatibility boundary while moving computation into steps.
+  - Bridge strategy notes on the historical `ctx.foundation` compatibility boundary while moving computation into steps (M4 replaces this surface with `artifact:foundation` at `ctx.artifacts.foundation`).
 - Notes:
   - This is a shortlist of possible salvage candidates; not all of this needs to be carried forward.
 
