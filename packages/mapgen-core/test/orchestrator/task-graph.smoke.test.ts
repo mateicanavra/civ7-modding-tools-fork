@@ -3,11 +3,21 @@ import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap, MapOrchestrator } from "@mapgen/index.js";
 
 describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
-  const width = 24;
-  const height = 16;
-  const mapInfo = {
-    GridWidth: width,
-    GridHeight: height,
+  const standardMapInfo = {
+    GridWidth: 84,
+    GridHeight: 54,
+    MinLatitude: -80,
+    MaxLatitude: 80,
+    NumNaturalWonders: 0,
+    LakeGenerationFrequency: 0,
+    PlayersLandmass1: 4,
+    PlayersLandmass2: 4,
+    StartSectorRows: 4,
+    StartSectorCols: 4,
+  };
+  const smallMapInfo = {
+    GridWidth: 24,
+    GridHeight: 16,
     MinLatitude: -80,
     MaxLatitude: 80,
     NumNaturalWonders: 0,
@@ -24,7 +34,11 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
   beforeEach(() => {
     originalGameplayMap = (globalThis as Record<string, unknown>).GameplayMap;
     originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
+  });
 
+  const setEngineGlobals = (mapInfo: typeof standardMapInfo) => {
+    const width = mapInfo.GridWidth;
+    const height = mapInfo.GridHeight;
     (globalThis as Record<string, unknown>).GameplayMap = {
       getGridWidth: () => width,
       getGridHeight: () => height,
@@ -44,7 +58,7 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
         lookup: () => mapInfo,
       },
     };
-  });
+  };
 
   afterEach(() => {
     (globalThis as Record<string, unknown>).GameplayMap = originalGameplayMap;
@@ -52,15 +66,15 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
   });
 
   it("runs the foundation stage via PipelineExecutor", () => {
+    setEngineGlobals(standardMapInfo);
     const adapter = createMockAdapter({
-      width,
-      height,
+      width: standardMapInfo.GridWidth,
+      height: standardMapInfo.GridHeight,
       mapSizeId: 1,
-      mapInfo,
-      rng: () => 0,
+      mapInfo: standardMapInfo,
     });
 
-    const config = bootstrap({ stageConfig: { foundation: true } });
+    const config = bootstrap();
     const orchestrator = new MapOrchestrator(config, {
       adapter,
       logPrefix: "[TEST]",
@@ -73,16 +87,17 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
     ).toBe(true);
   });
 
-  it("surfaces a MissingDependencyError as a structured stageResult entry", () => {
+  it("surfaces stage failures as structured stageResult entries", () => {
+    setEngineGlobals(smallMapInfo);
     const adapter = createMockAdapter({
-      width,
-      height,
+      width: smallMapInfo.GridWidth,
+      height: smallMapInfo.GridHeight,
       mapSizeId: 1,
-      mapInfo,
+      mapInfo: smallMapInfo,
       rng: () => 0,
     });
 
-    const config = bootstrap({ stageConfig: { foundation: false, landmassPlates: true } });
+    const config = bootstrap();
     const orchestrator = new MapOrchestrator(config, {
       adapter,
       logPrefix: "[TEST]",
@@ -96,7 +111,7 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
           stage.stage === "landmassPlates" &&
           stage.success === false &&
           typeof stage.error === "string" &&
-          stage.error.includes("Missing dependency")
+          stage.error.includes("Plate-driven landmass generation failed")
       )
     ).toBe(true);
   });

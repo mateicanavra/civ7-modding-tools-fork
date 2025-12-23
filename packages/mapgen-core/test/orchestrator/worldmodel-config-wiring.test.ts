@@ -4,9 +4,11 @@ import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
 import { createMockAdapter } from "@civ7/adapter";
 
 describe("MapOrchestrator foundation config wiring", () => {
+  const width = 84;
+  const height = 54;
   const mapInfo = {
-    GridWidth: 24,
-    GridHeight: 16,
+    GridWidth: width,
+    GridHeight: height,
     MinLatitude: -80,
     MaxLatitude: 80,
     NumNaturalWonders: 0,
@@ -26,8 +28,8 @@ describe("MapOrchestrator foundation config wiring", () => {
     originalGameInfo = (globalThis as Record<string, unknown>).GameInfo;
 
     (globalThis as Record<string, unknown>).GameplayMap = {
-      getGridWidth: () => 24,
-      getGridHeight: () => 16,
+      getGridWidth: () => width,
+      getGridHeight: () => height,
       getMapSize: () => 1,
       isWater: () => false,
     };
@@ -73,11 +75,10 @@ describe("MapOrchestrator foundation config wiring", () => {
     });
 
     const adapter = createMockAdapter({
-      width: 24,
-      height: 16,
+      width,
+      height,
       mapSizeId: 1,
       mapInfo,
-      rng: () => 0,
     });
 
     const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
@@ -117,11 +118,10 @@ describe("MapOrchestrator foundation config wiring", () => {
     });
 
     const adapter = createMockAdapter({
-      width: 24,
-      height: 16,
+      width,
+      height,
       mapSizeId: 1,
       mapInfo,
-      rng: () => 0,
     });
 
     const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
