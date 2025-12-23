@@ -53,6 +53,28 @@ describe("pipeline artifacts", () => {
     ).toBe(true);
   });
 
+  it("treats preallocated field buffers as unsatisfied until provided", () => {
+    const adapter = createMockAdapter({ width: 4, height: 3, rng: () => 0 });
+    const ctx = createExtendedMapContext(
+      { width: 4, height: 3 },
+      adapter,
+      {} as unknown as MapConfig
+    );
+    const tagRegistry = new StepRegistry<typeof ctx>().getTagRegistry();
+
+    expect(
+      isDependencyTagSatisfied(M3_DEPENDENCY_TAGS.field.terrainType, ctx, {
+        satisfied: new Set(),
+      }, tagRegistry)
+    ).toBe(false);
+
+    expect(
+      isDependencyTagSatisfied(M3_DEPENDENCY_TAGS.field.terrainType, ctx, {
+        satisfied: new Set([M3_DEPENDENCY_TAGS.field.terrainType]),
+      }, tagRegistry)
+    ).toBe(true);
+  });
+
   it("fails provides when a step claims artifact:climateField but does not publish it", () => {
     const adapter = createMockAdapter({ width: 4, height: 3, rng: () => 0 });
     const ctx = createExtendedMapContext(
