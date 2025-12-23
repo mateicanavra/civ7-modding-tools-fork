@@ -1,6 +1,7 @@
 import { join } from "node:path";
 import { CodexSdkRunner } from "./codex-sdk-runner.js";
 import { loadIssuesByMilestone, orderIssuesLinear } from "./issue-discovery.js";
+import { writeJson } from "./logging.js";
 import { renderPrompt } from "./prompt-renderer.js";
 import type { DevResult, IssueDoc, OrchestratorConfig } from "./types.js";
 import { deriveBranchName, ensureWorktree, removeWorktree } from "./worktree.js";
@@ -53,6 +54,8 @@ export async function runOrchestrator(config: OrchestratorConfig, args: Orchestr
       logPath: join(logRoot, "dev.jsonl"),
       stderrPath: join(logRoot, "dev.stderr.log"),
     });
+
+    await writeJson(join(logRoot, "dev-result.json"), result.result);
 
     return result;
   } finally {
