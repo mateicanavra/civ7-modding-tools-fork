@@ -9,6 +9,30 @@ import type { GenerationPhase, MapGenStep } from "@mapgen/pipeline/types.js";
 
 const UnknownRecord = Type.Record(Type.String(), Type.Unknown(), { default: {} });
 
+export const TraceLevelSchema = Type.Union([
+  Type.Literal("off"),
+  Type.Literal("basic"),
+  Type.Literal("verbose"),
+]);
+
+export const TraceConfigSchema = Type.Object(
+  {
+    enabled: Type.Optional(
+      Type.Boolean({
+        default: false,
+        description: "Master tracing switch.",
+      })
+    ),
+    steps: Type.Optional(
+      Type.Record(Type.String(), TraceLevelSchema, {
+        default: {},
+        description: "Per-step trace verbosity (off/basic/verbose).",
+      })
+    ),
+  },
+  { additionalProperties: false, default: {} }
+);
+
 export const RunSettingsSchema = Type.Object(
   {
     seed: Type.Number(),
@@ -34,6 +58,7 @@ export const RunSettingsSchema = Type.Object(
       { additionalProperties: false }
     ),
     metadata: Type.Optional(UnknownRecord),
+    trace: Type.Optional(TraceConfigSchema),
   },
   { additionalProperties: false }
 );

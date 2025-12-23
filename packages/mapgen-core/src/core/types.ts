@@ -15,6 +15,8 @@
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
 import type { SeedSnapshot } from "@mapgen/foundation/types.js";
 import type { MapConfig } from "@mapgen/bootstrap/types.js";
+import type { TraceScope } from "@mapgen/trace/index.js";
+import { createNoopTraceScope } from "@mapgen/trace/index.js";
 
 // ============================================================================
 // Field Buffer Types
@@ -180,6 +182,7 @@ export interface ExtendedMapContext {
   rng: RNGState;
   config: MapConfig;
   metrics: GenerationMetrics;
+  trace: TraceScope;
   adapter: EngineAdapter;
   foundation: FoundationContext | null;
   /**
@@ -240,6 +243,7 @@ export function createExtendedMapContext(
       histograms: new Map(),
       warnings: [],
     },
+    trace: createNoopTraceScope(),
     adapter,
     foundation: null,
     artifacts: new Map(),

@@ -23,6 +23,11 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Type:** triage
   - **Notes:** CIV-56 keeps `foundation.dynamics.directionality` inside step config views to avoid expanding settings; we still need a dedicated settings surface and consumer migration away from `ctx.config.foundation.*`.
   - **Next check:** before PIPELINE-4 runtime cutover or when `RunSettings` expands.
+- **Observability runId + fingerprint derivation** [Source: CIV-75]
+  - **Context:** M4 observability baseline implementation for trace/run IDs.
+  - **Type:** triage
+  - **Notes:** Current implementation derives `runId` from the plan fingerprint and fingerprints `{settings (minus trace), nodes (stepId/nodeId/config)}` while excluding trace config + plan extensions. Revisit if extensions gain semantics or if runId must diverge from fingerprint.
+  - **Next check:** when adding semantic recipe extensions or requiring unique per-run IDs.
 
 - **Mapgen research spikes: decide keep vs archive+salvage** [Review by: post-M4]
   - **Context:** Doc inventory/archive pass recorded at `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-inventory-archive-planning.md`.
