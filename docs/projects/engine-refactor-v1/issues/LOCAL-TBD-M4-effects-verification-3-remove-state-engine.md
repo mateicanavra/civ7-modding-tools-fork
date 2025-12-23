@@ -35,7 +35,7 @@ Remove `state:engine.*` from the target registry/contract surface and update def
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- A standard pipeline run succeeds without `state:engine.*` in the dependency graph.
+- A standard pipeline run succeeds and the compiled plan contains no `state:engine.*` tags (requires/provides or registry catalog).
 
 ## Dependencies / Notes
 
@@ -81,7 +81,70 @@ Constraints/notes:
 - Coordinate with placement inputs so placement effects are already verified.
 - Do not implement code; return the inventory and checklist as markdown tables/lists.
 
-## Prework Results / References
+## Pre-work
 
-- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-effects-3-state-engine-removal-map.md`
-- Includes: a full inventory of `state:engine.*` usage (tags, standard dependency spine, tests, schema docs, deferrals), a per-tag replacement map (`effect:*`/`field:*`/`artifact:*`), and a mechanical cleanup checklist to eliminate the namespace and close DEF-008.
+Goal: enumerate every `state:engine.*` usage in code, tests, and docs, and provide a per-tag replacement map so removal is mechanical.
+
+### 1) Inventory: `state:engine.*` usage across the codebase
+
+Search: `rg "state:engine" packages/mapgen-core/src packages/mapgen-core/test docs/`
+
+#### Code (`packages/mapgen-core/src/**`)
+
+| File | Usage | Context |
+| --- | --- | --- |
+| `packages/mapgen-core/src/pipeline/tags.ts` | `M3_DEPENDENCY_TAGS.state.*` definitions | Defines the canonical `state:engine.*` tag strings. |
+| `packages/mapgen-core/src/pipeline/tags.ts` | `M3_CANONICAL_DEPENDENCY_TAGS` (set) | Includes `state:engine.*` in the allowlist. |
+| `packages/mapgen-core/src/pipeline/standard.ts` | `M3_STAGE_DEPENDENCY_SPINE` | Steps declare `provides: ["state:engine.*"]` for engine mutation assertions. |
+| `packages/mapgen-core/src/pipeline/PipelineExecutor.ts` | Executor satisfaction tracking | Adds `state:engine.*` to the satisfied set after `step.run()`; no verification. |
+
+#### Tests (`packages/mapgen-core/test/**`)
+
+| File | Usage | Context |
+| --- | --- | --- |
+| `packages/mapgen-core/test/pipeline/artifacts.test.ts` | Imports `M3_STAGE_DEPENDENCY_SPINE` | Tests dependency spine invariants; asserts `state:engine.*` presence. |
+| `packages/mapgen-core/test/pipeline/placement-gating.test.ts` | Imports `M3_STAGE_DEPENDENCY_SPINE` | Tests placement requires/provides; includes `state:engine.placementApplied`. |
+
+#### Docs (`docs/projects/engine-refactor-v1/**`)
+
+| File | Usage | Context |
+| --- | --- | --- |
+| `docs/projects/engine-refactor-v1/deferrals.md` | DEF-008 references `state:engine.*` as unverified | Deferral notes that `state:engine.*` is an assertion-only surface. |
+| `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` | Mentions `state:*` as legacy | SPEC notes that `state:*` is migration-only and should be replaced by `effect:*`. |
+
+### 2) Per-tag replacement map
+
+| Current tag | Replacement | Verification strategy |
+| --- | --- | --- |
+| `state:engine.landmassApplied` | `effect:engine.landmassApplied` | **M4 decision:** keep the effect tag and verify minimally (e.g., assert the canonical foundation artifacts `artifact:foundation.*` exist for the run). Do not omit the effect tag. |
+| `state:engine.coastlinesApplied` | `effect:engine.coastlinesApplied` | **M4 decision:** minimal structural verification only (no sampling). Treat as verified when the step completes and post-step contract checks pass for its declared outputs; do not add additional semantic sampling in M4. |
+| `state:engine.riversModeled` | `effect:engine.riversModeled` | Verify `artifact:riverAdjacency` is non-empty. |
+| `state:engine.biomesApplied` | `effect:engine.biomesApplied` | Structural: `field:biomeId` is provided and the reify-after-mutate loop completes (see Effects Verification‑2). |
+| `state:engine.featuresApplied` | `effect:engine.featuresApplied` | Structural: `field:featureType` is provided and the reify-after-mutate loop completes (see Effects Verification‑2). |
+| `state:engine.placementApplied` | `effect:engine.placementApplied` | `artifact:placementOutputs@v1` shape validation (ADR-ER1-020). |
+
+### 3) Cleanup checklist (mechanical removal)
+
+#### Tags / registry
+
+- [ ] Remove `state:engine.*` entries from `M3_DEPENDENCY_TAGS` and `M3_CANONICAL_DEPENDENCY_TAGS` in `pipeline/tags.ts`.
+- [ ] Update validation to reject the `state:*` namespace entirely (no transitional `state:*` acceptance in M4+).
+- [ ] Ensure all steps that previously provided `state:engine.*` now provide the corresponding `effect:*` tag.
+
+#### Standard dependency spine
+
+- [ ] Update `M3_STAGE_DEPENDENCY_SPINE` in `pipeline/standard.ts` to replace `state:engine.*` with `effect:*` entries.
+
+#### Executor verification
+
+- [ ] Update `PipelineExecutor` to verify `effect:*` tags via the registry-driven verification strategy (no longer "trusted assertion").
+
+#### Tests
+
+- [ ] Update `packages/mapgen-core/test/pipeline/artifacts.test.ts` to expect `effect:*` instead of `state:engine.*`.
+- [ ] Update `packages/mapgen-core/test/pipeline/placement-gating.test.ts` similarly.
+
+#### Docs
+
+- [ ] Update `docs/projects/engine-refactor-v1/deferrals.md` to mark DEF-008 as resolved with a pointer to the new `effect:*` surface.
+- [ ] Update SPEC if any language still implies `state:*` is part of the runtime contract.

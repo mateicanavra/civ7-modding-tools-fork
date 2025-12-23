@@ -56,13 +56,13 @@ M4 is heavy on contract/cutover work. We need a stable way to:
 - CI runs at least:
   - a compile smoke test
   - an execute smoke test with a stub adapter
-- CIV-23 is updated or superseded so it no longer references legacy orchestration inputs (stageConfig/WorldModel).
+- CIV-23 is updated so it no longer references legacy orchestration inputs (stageConfig/WorldModel).
 
 ## Primary Touchpoints (Expected)
 
 - Observability:
   - `packages/mapgen-core/src/*` (executor/orchestrator tracing hooks)
-  - `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (3.4 tracing decision)
+  - `docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md` (§2.10 observability)
 - Tests:
   - `packages/mapgen-core/*` test harness
   - `docs/projects/engine-refactor-v1/issues/CIV-23-integration-tests.md` (re-scope)
@@ -75,7 +75,7 @@ M4 is heavy on contract/cutover work. We need a stable way to:
 ## Dependencies / Notes
 
 - Depends on LOCAL-TBD-M4-PIPELINE-1 (compiler/plan exists) for plan fingerprint + compile/execute smoke tests.
-- Observability should land early (with or right after PIPELINE-1) to support later cutovers.
+- Observability should land immediately after PIPELINE-1 to support later cutovers.
 
 ---
 
@@ -139,4 +139,5 @@ Readiness checklist:
 - CIV‑23 rescope plan is captured so the legacy “WorldModel lifecycle” framing can be retired in favor of RunRequest/ExecutionPlan guardrails.
 
 Decisions:
-- The semantic `planFingerprint` excludes observability toggles (trace enablement/verbosity/sinks). If needed, compute a separate trace-config fingerprint (ADR-ER1-022).
+- The semantic `planFingerprint` excludes observability toggles (trace enablement/verbosity/sinks).
+- **M4 decision:** do not compute a separate trace-config fingerprint. If you believe it is required, stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md` documenting why + expected consumers, then ask for confirmation before proceeding (see ADR-ER1-022).

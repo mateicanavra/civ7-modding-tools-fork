@@ -99,7 +99,7 @@ Lower-level expectations for config behavior, pipeline contracts, and foundation
 - New algorithm modernization (morphology/hydrology/ecology).
 - Recipe UI (in-game) and mod recipe patching/insertion tooling (beyond "pick a recipe and run it").
 - Rainfall ownership transfer / climate prerequisite reification (DEF-010); engine adapter reads are acceptable in M4 unless explicitly pulled in.
-- Foundation artifacts refactor (DEF-014); keep `ctx.foundation` as a migration-only compatibility surface and avoid new dependencies in M4.
+- Foundation algorithm replacement / Phase B foundation PRD work (DEF-014); M4 only performs the **surface** cutover (remove `ctx.foundation`, expose foundation via `ctx.artifacts.foundation.*` + `artifact:foundation.*`) without changing foundation layer internals.
 - Doc-only JS archives under `docs/**/_archive/*`; acceptable to keep, no M4 cleanup required.
 
 ### Estimation Guidance for AI Agents

@@ -98,6 +98,15 @@ via the recipe and carried in the compiled `ExecutionPlan` nodes.
 - `effect:*` tags reference externally meaningful changes/events emitted by steps.
 - Intended end-state: `state:*` tags are transitional only and not part of the
   target contract (3.5 accepted).
+- **Satisfaction semantics (accepted for M4):** dependency satisfaction is tracked
+  explicitly by execution state (`provides` plus an explicit initial set), **not**
+  inferred from storage allocation.
+  - `field:*` tags are **not** satisfied just because a buffer is preallocated;
+    a step that makes a field meaningful must `provide` it.
+  - **M4 decision:** no `field:*` tags are initially satisfied.
+    - If you believe a `field:*` tag must be in the initial satisfied set,
+      stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md`
+      documenting the tag + rationale, then ask for confirmation before proceeding.
 
 ### 1.5 Phase ownership (target surfaces)
 
@@ -118,6 +127,10 @@ finalized via ADRs (pending decisions 3.4, 3.6, 3.7).~~
     `context.artifacts.foundation.*` (e.g., `context.artifacts.foundation.mesh`),
     but dependencies are still expressed via `artifact:*` tags (no blob
     dependency). New work must not depend on `ctx.foundation.*`.
+  - Transition note (DEF-014): Phase A keeps the existing `FoundationContext`-like
+    backing object as compatibility wiring (internal only), but it must be surfaced via
+    `context.artifacts.foundation.*` (not `ctx.foundation`) and must have an
+    explicit deletion trigger.
 - Morphology: intended `field:heightfield` plus `artifact:terrainMask`,
   `artifact:erosion`, `artifact:sediment`.
 - Hydrology: intended `artifact:climateField` (rainfall + temperature) and
@@ -128,7 +141,7 @@ finalized via ADRs (pending decisions 3.4, 3.6, 3.7).~~
 - Narrative/playability: intended typed narrative artifacts under
   `artifact:narrative.*` (3.4 accepted; concrete inventory is domain-owned).
 - Placement: intended explicit artifact inputs/outputs ~~(pending 3.7).~~
-  - **Update (2025-12-21, M4 planning):** Decision 3.7 is accepted; implementation is deferred per DEF-006 (`artifact:placementInputs@v1`).
+  - **Update (2025-12-21, M4 planning):** Decision 3.7 is accepted; M4 cuts over to the explicit `artifact:placementInputs@v1` contract (see DEF-006 and the M4 placement inputs issues).
 
 ### 1.6 Narrative / playability model (accepted)
 
@@ -140,6 +153,10 @@ choice), not a privileged core pipeline phase.
   artifacts** (examples: `artifact:narrative.corridors@v1`,
   `artifact:narrative.regions@v1`, `artifact:narrative.motifs.*@v1`,
   `artifact:narrative.heatmaps.*@v1`).
+- Motif packaging decisions are treated as **target contract** decisions when
+  accepted (see `docs/projects/engine-refactor-v1/ADR.md`), e.g. **ADR-ER1-024:**
+  hotspot categories (paradise/volcanic) are encoded within
+  `artifact:narrative.motifs.hotspots@v1` (no split artifacts in v1).
 - Downstream steps that need narrative semantics must `require` those artifacts
   and must not re-derive the same semantics independently.
 - There is **no canonical `StoryTags` surface** in the target contract.
@@ -232,15 +249,15 @@ Type safety note:
 
 | Tag | Owner phase | Purpose |
 | --- | --- | --- |
-| `artifact:mesh` | foundation | Voronoi mesh / region graph |
-| `artifact:crust` | foundation | Lithosphere material mask |
-| `artifact:plateGraph` | foundation | Plate partition + kinematics |
-| `artifact:tectonics` | foundation | Tectonic force tensors |
+| `artifact:foundation.mesh` | foundation | Voronoi mesh / region graph |
+| `artifact:foundation.crust` | foundation | Lithosphere material mask |
+| `artifact:foundation.plateGraph` | foundation | Plate partition + kinematics |
+| `artifact:foundation.tectonics` | foundation | Tectonic force tensors |
 | `artifact:terrainMask` | morphology | Land/water mask + terrain classes |
 | `artifact:erosion` | morphology | Erosion field or modifiers |
 | `artifact:sediment` | morphology | Sediment deposition map |
 | `artifact:climateField` | hydrology | Rainfall + temperature fields |
-| `artifact:riverGraph` | hydrology | River topology + flow |
+| `artifact:riverAdjacency` | hydrology | River adjacency mask (near-river queries) |
 | `artifact:soils` | ecology | Soil fertility / moisture |
 | `artifact:biomes` | ecology | Biome classification |
 | `artifact:resources` | ecology | Resource placement candidates |
@@ -250,6 +267,9 @@ Type safety note:
 | `artifact:narrative.motifs.*@v1` | narrative | Motif sets/heatmaps (typed, categorized) |
 | `artifact:placementInputs@v1` | placement | Resolved placement prerequisites (typed, TS-canonical) |
 | `artifact:placementOutputs` | placement | Final placement decisions |
+
+Deferred/future artifacts (not V1/M4):
+- `artifact:riverGraph` (DEF-005; `artifact:riverAdjacency` remains canonical for now)
 
 ### 3.2 Fields (engine-facing buffers)
 
@@ -377,6 +397,9 @@ the standard pipeline is represented as a mod package under `mods/standard`.
 - `Registry` is the canonical catalog of tags + steps
 - `ExecutionPlan` is compiled from `{ recipe, settings } + Registry` and is the only
   effective-run artifact the executor runs
+- `ctx.artifacts.get/set(tagId)` in this appendix is shorthand for “read/write the artifact
+  identified by this tag at its canonical storage location”; it does **not** override
+  the storage layout decision (e.g., foundation artifacts live under `ctx.artifacts.foundation.*` per §1.5).
 
 ### 7.1 Suggested file layout (core + mods)
 

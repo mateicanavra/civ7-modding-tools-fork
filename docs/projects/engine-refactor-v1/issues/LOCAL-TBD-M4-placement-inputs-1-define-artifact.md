@@ -35,7 +35,7 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 ## Testing / Verification
 
 - `pnpm -C packages/mapgen-core check`
-- Smoke test compiles and executes the standard recipe with the derive step present.
+- Smoke test compiles and executes the standard recipe with the derive step present and asserts `artifact:placementInputs@v1` is published in context artifacts.
 
 ## Dependencies / Notes
 
@@ -78,7 +78,93 @@ Constraints/notes:
 - Placement inputs must be explicit and TS-canonical; avoid DEF-010 scope creep.
 - Do not implement code; return the schema and mapping as markdown tables/lists.
 
-## Prework Results / References
+## Pre-work
 
-- Resource doc: `docs/projects/engine-refactor-v1/resources/m4-prework/local-tbd-m4-placement-1-placementinputs-v1-contract.md`
-- Includes: a minimal `PlacementInputs@v1` schema sketch (mirroring today’s runtime wiring), an optional safe demo payload approach, and a field-by-field source map (mapInfo, starts, continents, config) plus the required upstream reification point (post-landmass bounds resolution).
+Goal: define the `artifact:placementInputs@v1` contract so the cutover is a wiring change, not a discovery exercise.
+
+### 1) Schema sketch: `PlacementInputs@v1`
+
+Minimal V1 shape (mirroring today's runtime wiring in `orchestrator/task-graph.ts` → `PlacementStep`):
+
+```ts
+type PlacementInputsV1 = {
+  // Map metadata (from engine/mapInfo)
+  mapInfo: {
+    width: number;
+    height: number;
+    mapSizeId?: number;
+    numPlayers?: number;
+    numCityStates?: number;
+    // Add other mapInfo fields as needed (e.g., lakeFrequency).
+  };
+
+  // Start placement inputs
+  starts: Array<{
+    playerId: number;
+    leader?: string;
+    civ?: string;
+    // isHuman, etc. if needed.
+  }>;
+
+  // Continental assignment (from landmass bounds resolution)
+  continents: {
+    westBounds: { minX: number; maxX: number };
+    eastBounds: { minX: number; maxX: number };
+    // Or: westPlotSet, eastPlotSet (if needed for placement logic).
+  };
+
+  // Placement config (from config.placement)
+  placementConfig: {
+    // Natural wonders, resources, floodplains, discoveries, etc.
+    // Mirror the fields used by PlacementStep from ctx.config.placement.
+    naturalWonders?: { ... };
+    resources?: { ... };
+    // Keep this aligned with PlacementConfigSchema.
+  };
+};
+```
+
+Notes:
+- Keep V1 minimal: only include fields that `PlacementStep` actually reads today.
+- For "continents": the current wiring derives `westBounds`/`eastBounds` from landmass bounds resolution in `orchestrator/task-graph.ts`; include that here.
+- Demo payloads are optional; if provided they must be safe (non-crashing) for downstream placement.
+
+### 2) Source map: where each field comes from today
+
+| Field | Current source | Upstream producer | Notes |
+| --- | --- | --- | --- |
+| `mapInfo.width/height` | `ctx.dimensions` (or adapter/engine) | Foundation / context allocation | Already available in context. |
+| `mapInfo.mapSizeId` | `ctx.config.metadata?.mapSizeId` or engine | Foundation / settings | Settings-only; no upstream artifact. |
+| `mapInfo.numPlayers/numCityStates` | Engine-provided (mapInfo) | Settings / engine boundary | Settings-only. |
+| `starts` | Engine-provided or settings | Settings / engine boundary | Comes from host; not a step output. |
+| `continents.westBounds/eastBounds` | `orchestrator/task-graph.ts` (landmass bounds resolution) | Landmass step | Derived after `landmassPlates` runs; candidate for reification. |
+| `placementConfig.*` | `ctx.config.placement` | Recipe config / settings | Already available in context; may move to per-step config in PIPELINE-2. |
+
+### 3) Required upstream reification
+
+The only upstream data that requires explicit reification is **continental bounds**:
+- Today: `orchestrator/task-graph.ts` computes `westBounds`/`eastBounds` inline from landmass results.
+- Target: the derive step (or `landmassPlates` step itself) publishes `continents` as part of `artifact:placementInputs@v1` (or a separate `artifact:continentalBounds@v1` that `placementInputs@v1` references).
+
+Other fields (`mapInfo`, `starts`, `placementConfig`) are already available from settings/context and do not require new upstream steps.
+
+### 4) Demo payload guidance
+
+Goal: if a demo payload is provided for `artifact:placementInputs@v1`, it must be safe for downstream placement (no crashes, no invalid indices).
+
+Recommended approach:
+- Demo should include minimal valid data (e.g., `mapInfo` with small dimensions, empty `starts`, placeholder `continents`).
+- Do not include data that would cause placement to crash (e.g., invalid player IDs, out-of-bounds coords).
+- Mark demo payloads as optional in the schema; validate shape but not content correctness.
+
+### 5) Derive step placement (recipe wiring)
+
+The derive step should:
+1. Run after `landmassPlates` (to access continental bounds).
+2. Assemble `PlacementInputsV1` from:
+   - `ctx.dimensions` / settings for `mapInfo`
+   - Settings for `starts`
+   - Landmass results for `continents`
+   - Recipe/per-step config for `placementConfig`
+3. Publish `artifact:placementInputs@v1` in context artifacts.
+4. Standard recipe updated to include the derive step before `placement`.
