@@ -135,16 +135,12 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     requires: [
       M3_DEPENDENCY_TAGS.state.coastlinesApplied,
       M3_DEPENDENCY_TAGS.state.riversModeled,
-      M3_DEPENDENCY_TAGS.state.featuresApplied,
+      M4_EFFECT_TAGS.engine.featuresApplied,
     ],
     provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
   },
   placement: {
-    requires: [
-      M3_DEPENDENCY_TAGS.state.coastlinesApplied,
-      M3_DEPENDENCY_TAGS.state.riversModeled,
-      M4_EFFECT_TAGS.engine.featuresApplied,
-    ],
+    requires: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
     provides: [M3_DEPENDENCY_TAGS.state.placementApplied],
   },
 });

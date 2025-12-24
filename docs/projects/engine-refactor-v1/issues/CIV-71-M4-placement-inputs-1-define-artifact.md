@@ -30,7 +30,7 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 
 - `artifact:placementInputs@v1` is registered; if a demo payload is provided, it does not crash downstream placement.
 - The derive step runs in the standard pipeline and emits the artifact.
-- Downstream placement can read the artifact (without yet removing legacy paths).
+- Downstream placement requires `artifact:placementInputs@v1` and reads it directly.
 
 ## Testing / Verification
 
@@ -48,18 +48,18 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Details (Local Only)
 
-- Keep this additive; do not remove legacy placement inputs here.
+- Placement now requires `artifact:placementInputs@v1`; legacy paths are removed.
 - Use existing TypeBox patterns for the artifact schema.
 
 ## Implementation Decisions
 
-### Keep placement step requirements on state tags (not artifact-only) for now
+### Require placement inputs artifact for placement
 
-- Context: The issue calls for a new `artifact:placementInputs@v1` and derive step, but also says not to remove legacy paths yet.
-- Options: (1) Make placement require only `artifact:placementInputs@v1`. (2) Keep existing `state:*` requirements and let placement read the artifact when present.
-- Choice: Option 2 — placement still requires existing state tags; the artifact is produced and read in standard runs but not strictly required yet.
-- Rationale: Preserves legacy recipes that don’t include the derive step while still enabling artifact-backed placement in the standard pipeline.
-- Risk: Custom recipes that intentionally want artifact-only gating won’t be enforced until the placement requirements are tightened.
+- Context: With no legacy recipes, we can tighten the stage dependency spine and remove fallback reads.
+- Options: (1) Require `artifact:placementInputs@v1` in the spine and runtime. (2) Keep state-tag requirements with optional artifact usage.
+- Choice: Option 1 — placement now requires the artifact and reads only the published inputs.
+- Rationale: Enforces explicit placement inputs and prevents silent drift across stages.
+- Risk: Any recipe missing `derivePlacementInputs` will now fail dependency checks earlier.
 
 ### Quick Navigation
 - [TL;DR](#tldr)

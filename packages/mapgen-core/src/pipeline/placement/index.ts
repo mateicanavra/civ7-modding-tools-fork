@@ -44,8 +44,6 @@ export function registerPlacementLayer(
   registry.register(
     createPlacementStep(
       {
-        mapInfo: runtime.mapInfo,
-        baseStarts,
         startPositions: runtime.startPositions,
       },
       {
