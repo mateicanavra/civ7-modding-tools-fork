@@ -1,4 +1,3 @@
-import type { StageManifest } from "@mapgen/config/index.js";
 import { DuplicateStepError, UnknownStepError } from "@mapgen/pipeline/errors.js";
 import {
   createDefaultTagRegistry,
@@ -47,14 +46,4 @@ export class StepRegistry<TContext> {
     return this.steps.has(stepId);
   }
 
-  /**
-   * Standard recipe for M3: execute STAGE_ORDER filtered by the resolved stage manifest.
-   * The recipe IDs must match stage ids (1:1 mapping).
-   */
-  getStandardRecipe(stageManifest: Readonly<StageManifest>): string[] {
-    const order = Array.isArray(stageManifest.order) ? stageManifest.order : [];
-    const stages = stageManifest.stages ?? {};
-    const enabled = (id: string): boolean => stages[id]?.enabled !== false;
-    return order.filter(enabled);
-  }
 }

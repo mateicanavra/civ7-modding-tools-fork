@@ -6,10 +6,10 @@
  * config passing via bootstrap() → MapGenConfig.
  *
  * The config flow is now:
- *   bootstrap(options) → applyPresets + overrides → parseConfig(rawConfig) → MapGenConfig
+ *   bootstrap({ overrides }) → parseConfig(overrides) → MapGenConfig
  *
  * Legacy callers should update to:
- *   - Use bootstrap() to get a validated MapGenConfig
+ *   - Use bootstrap() (or parseConfig) to get a validated MapGenConfig
  *   - Pass that config explicitly to MapOrchestrator
  *
  * @see bootstrap/entry.ts for the canonical bootstrap function

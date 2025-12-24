@@ -14,7 +14,7 @@
 
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
 import type { SeedSnapshot } from "@mapgen/foundation/types.js";
-import type { MapConfig } from "@mapgen/bootstrap/types.js";
+import type { MapGenConfig } from "@mapgen/config/index.js";
 import type { TraceScope } from "@mapgen/trace/index.js";
 import { createNoopTraceScope } from "@mapgen/trace/index.js";
 
@@ -180,7 +180,7 @@ export interface ExtendedMapContext {
   dimensions: MapDimensions;
   fields: MapFields;
   rng: RNGState;
-  config: MapConfig;
+  config: MapGenConfig;
   metrics: GenerationMetrics;
   trace: TraceScope;
   adapter: EngineAdapter;
@@ -206,7 +206,7 @@ const EMPTY_FROZEN_OBJECT = Object.freeze({});
 export function createExtendedMapContext(
   dimensions: MapDimensions,
   adapter: EngineAdapter,
-  config: MapConfig
+  config: MapGenConfig
 ): ExtendedMapContext {
   const { width, height } = dimensions;
   const size = width * height;
@@ -580,8 +580,8 @@ export function assertFoundationContext(
     return ctx.foundation;
   }
   const message = stage
-    ? `[StageManifest] Stage "${stage}" requires FoundationContext but it is unavailable.`
-    : "[StageManifest] Required FoundationContext is unavailable.";
+    ? `[Pipeline] Step "${stage}" requires FoundationContext but it is unavailable.`
+    : "[Pipeline] Required FoundationContext is unavailable.";
   throw new Error(message);
 }
 

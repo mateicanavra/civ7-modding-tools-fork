@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { bootstrap } from "@mapgen/bootstrap/entry.js";
 import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
 import { createMockAdapter } from "@civ7/adapter";
+import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
 
 describe("MapOrchestrator foundation config wiring", () => {
   const width = 84;
@@ -60,7 +61,6 @@ describe("MapOrchestrator foundation config wiring", () => {
     };
 
     const config = bootstrap({
-      stageConfig: { foundation: true },
       overrides: {
         foundation: {
           diagnostics: {
@@ -73,6 +73,10 @@ describe("MapOrchestrator foundation config wiring", () => {
         },
       },
     });
+    const recipeOverride = {
+      ...standardMod.recipes.default,
+      steps: standardMod.recipes.default.steps.filter((step) => step.id === "foundation"),
+    };
 
     const adapter = createMockAdapter({
       width,
@@ -81,7 +85,11 @@ describe("MapOrchestrator foundation config wiring", () => {
       mapInfo,
     });
 
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
+    const orchestrator = new MapOrchestrator(config, {
+      adapter,
+      logPrefix: "[TEST]",
+      recipeOverride,
+    });
     const result = orchestrator.generateMap();
     expect(result.success).toBe(true);
 
@@ -99,7 +107,6 @@ describe("MapOrchestrator foundation config wiring", () => {
     };
 
     const config = bootstrap({
-      stageConfig: { foundation: true, mountains: true },
       overrides: {
         foundation: {
           diagnostics: {
@@ -116,6 +123,12 @@ describe("MapOrchestrator foundation config wiring", () => {
         },
       },
     });
+    const recipeOverride = {
+      ...standardMod.recipes.default,
+      steps: standardMod.recipes.default.steps.filter(
+        (step) => step.id === "foundation" || step.id === "mountains"
+      ),
+    };
 
     const adapter = createMockAdapter({
       width,
@@ -124,7 +137,11 @@ describe("MapOrchestrator foundation config wiring", () => {
       mapInfo,
     });
 
-    const orchestrator = new MapOrchestrator(config, { adapter, logPrefix: "[TEST]" });
+    const orchestrator = new MapOrchestrator(config, {
+      adapter,
+      logPrefix: "[TEST]",
+      recipeOverride,
+    });
     const result = orchestrator.generateMap();
     expect(result.success).toBe(true);
 

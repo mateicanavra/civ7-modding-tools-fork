@@ -2,21 +2,21 @@
 
 ## Overview
 
-This mod uses a **preset + overrides** configuration system that allows multiple map variants to share a single codebase while having different behaviors through declarative configuration.
+This mod uses **explicit overrides + recipe selection** so variants can share one codebase while choosing configuration and step enablement explicitly (no preset composition in the TS runtime).
 
 ## Current TypeScript Architecture (M4)
 
-- Entry scripts call `bootstrap({ presets, overrides })` from `@swooper/mapgen-core/bootstrap` and receive a validated `MapGenConfig`.
+- Entry scripts call `bootstrap({ overrides })` from `@swooper/mapgen-core/bootstrap` and receive a validated `MapGenConfig`.
 - `MapOrchestrator` is constructed with that validated config and creates a per-run `MapGenContext` carrying it at `context.config`.
 - Steps/layers read config from `context.config` (no global runtime config store, no `bootstrap/tunables` module).
-- In M4, stage enablement is recipe-driven; `stageConfig` no longer disables steps.
+- In M4, stage enablement is recipe-driven via the recipe step list.
 
 Example (minimal runnable pipeline):
 ```ts
 import { bootstrap, MapOrchestrator, standardMod } from "@swooper/mapgen-core";
 
 const config = bootstrap({
-  presets: ["classic"],
+  overrides: {},
 });
 
 const recipe = {
