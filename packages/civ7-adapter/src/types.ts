@@ -156,6 +156,14 @@ export interface EngineAdapter {
   /** Validate feature placement */
   canHaveFeature(x: number, y: number, featureType: number): boolean;
 
+  // === EFFECT VERIFICATION ===
+
+  /**
+   * Verify that an engine-surface effect has been applied.
+   * Used for effect:* postcondition checks (best-effort, adapter-owned).
+   */
+  verifyEffect(effectId: string): boolean;
+
   // === RANDOM NUMBER GENERATION ===
 
   /** Seeded RNG (0..max-1) */

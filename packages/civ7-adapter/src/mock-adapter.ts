@@ -35,6 +35,12 @@ export const DEFAULT_FEATURE_TYPES: Record<string, number> = {
   FEATURE_FLOODPLAINS: 6,
 };
 
+const EFFECT_IDS = {
+  biomesApplied: "effect:engine.biomesApplied",
+  featuresApplied: "effect:engine.featuresApplied",
+  placementApplied: "effect:engine.placementApplied",
+} as const;
+
 export interface MockAdapterConfig {
   width?: number;
   height?: number;
@@ -82,6 +88,7 @@ export class MockAdapter implements EngineAdapter {
   private rngFn: (max: number, label: string) => number;
   private biomeGlobals: Record<string, number>;
   private featureTypes: Record<string, number>;
+  private readonly effectEvidence = new Set<string>();
 
   /** Track calls for testing */
   readonly calls: {
@@ -139,6 +146,18 @@ export class MockAdapter implements EngineAdapter {
       addFloodplains: [],
       recalculateFertility: 0,
     };
+  }
+
+  private recordEffect(effectId: string): void {
+    this.effectEvidence.add(effectId);
+  }
+
+  private recordPlacementEffect(): void {
+    this.recordEffect(EFFECT_IDS.placementApplied);
+  }
+
+  verifyEffect(effectId: string): boolean {
+    return this.effectEvidence.has(effectId);
   }
 
   private idx(x: number, y: number): number {
@@ -225,6 +244,7 @@ export class MockAdapter implements EngineAdapter {
 
   setFeatureType(x: number, y: number, featureData: FeatureData): void {
     this.features[this.idx(x, y)] = featureData.Feature;
+    this.recordEffect(EFFECT_IDS.featuresApplied);
   }
 
   canHaveFeature(_x: number, _y: number, _featureType: number): boolean {
@@ -297,6 +317,7 @@ export class MockAdapter implements EngineAdapter {
     // Track call for testing
     this.calls.designateBiomes.push({ width, height });
     // Mock: no-op (biomes already initialized to default)
+    this.recordEffect(EFFECT_IDS.biomesApplied);
   }
 
   getBiomeGlobal(name: string): number {
@@ -305,6 +326,7 @@ export class MockAdapter implements EngineAdapter {
 
   setBiomeType(x: number, y: number, biomeId: number): void {
     this.biomes[this.idx(x, y)] = biomeId;
+    this.recordEffect(EFFECT_IDS.biomesApplied);
   }
 
   getBiomeType(x: number, y: number): number {
@@ -317,6 +339,7 @@ export class MockAdapter implements EngineAdapter {
     // Track call for testing
     this.calls.addFeatures.push({ width, height });
     // Mock: no-op (features already initialized to NO_FEATURE)
+    this.recordEffect(EFFECT_IDS.featuresApplied);
   }
 
   getFeatureTypeIndex(name: string): number {
@@ -332,16 +355,19 @@ export class MockAdapter implements EngineAdapter {
   addNaturalWonders(width: number, height: number, numWonders: number): void {
     this.calls.addNaturalWonders.push({ width, height, numWonders });
     // Mock: no-op
+    this.recordPlacementEffect();
   }
 
   generateSnow(width: number, height: number): void {
     this.calls.generateSnow.push({ width, height });
     // Mock: no-op
+    this.recordPlacementEffect();
   }
 
   generateResources(width: number, height: number): void {
     this.calls.generateResources.push({ width, height });
     // Mock: no-op
+    this.recordPlacementEffect();
   }
 
   assignStartPositions(
@@ -359,6 +385,7 @@ export class MockAdapter implements EngineAdapter {
       startSectorRows,
       startSectorCols,
     });
+    this.recordPlacementEffect();
     // Mock: return array of placeholder positions (one per player)
     const totalPlayers = playersLandmass1 + playersLandmass2;
     return Array.from({ length: totalPlayers }, (_, i) => i * 100);
@@ -367,21 +394,25 @@ export class MockAdapter implements EngineAdapter {
   generateDiscoveries(width: number, height: number, startPositions: number[]): void {
     this.calls.generateDiscoveries.push({ width, height, startPositions: [...startPositions] });
     // Mock: no-op
+    this.recordPlacementEffect();
   }
 
   assignAdvancedStartRegions(): void {
     this.calls.assignAdvancedStartRegions++;
     // Mock: no-op
+    this.recordPlacementEffect();
   }
 
   addFloodplains(minLength: number, maxLength: number): void {
     this.calls.addFloodplains.push({ minLength, maxLength });
     // Mock: no-op
+    this.recordPlacementEffect();
   }
 
   recalculateFertility(): void {
     this.calls.recalculateFertility++;
     // Mock: no-op
+    this.recordPlacementEffect();
   }
 
   chooseStartSectors(
@@ -442,6 +473,7 @@ export class MockAdapter implements EngineAdapter {
     this.calls.assignAdvancedStartRegions = 0;
     this.calls.addFloodplains.length = 0;
     this.calls.recalculateFertility = 0;
+    this.effectEvidence.clear();
   }
 
   /** Set biome type for testing */

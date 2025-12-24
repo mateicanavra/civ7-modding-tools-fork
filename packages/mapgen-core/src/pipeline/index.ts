@@ -21,7 +21,7 @@ export {
   TagRegistry,
   createDefaultTagRegistry,
 } from "@mapgen/pipeline/tags.js";
-export type { DependencyTagDefinition, DependencyTagKind } from "@mapgen/pipeline/tags.js";
+export type { DependencyTagDefinition, DependencyTagKind, TagOwner } from "@mapgen/pipeline/tags.js";
 export { StepRegistry } from "@mapgen/pipeline/StepRegistry.js";
 export { PipelineExecutor } from "@mapgen/pipeline/PipelineExecutor.js";
 export { M3_STANDARD_STAGE_PHASE, M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
