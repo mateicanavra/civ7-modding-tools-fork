@@ -788,7 +788,7 @@ export const FoundationPolicyConfigSchema = Type.Object(
  * Diagnostics and logging toggles for the stable-slice (M2) pipeline.
  *
  * This block is the canonical supported diagnostics surface for M2 and is
- * consumed by MapOrchestrator via initDevFlags().
+ * consumed by runTaskGraphGeneration via initDevFlags().
  *
  * Keys are camelCase and match DevLogConfig in dev/flags.ts.
  */
@@ -797,7 +797,7 @@ export const FoundationDiagnosticsConfigSchema = Type.Object(
     /**
      * Master diagnostics switch.
      *
-     * If omitted, MapOrchestrator will auto-enable diagnostics when any other
+     * If omitted, runTaskGraphGeneration will auto-enable diagnostics when any other
      * diagnostics flag is explicitly set to true.
      */
     enabled: Type.Optional(
@@ -901,7 +901,7 @@ export const FoundationDiagnosticsConfigSchema = Type.Object(
     additionalProperties: false,
     default: {},
     description:
-      "Stable-slice diagnostics toggles consumed by MapOrchestrator. Keys match DevLogConfig and are camelCase.",
+      "Stable-slice diagnostics toggles consumed by runTaskGraphGeneration. Keys match DevLogConfig and are camelCase.",
   }
 );
 

@@ -29,13 +29,14 @@ import {
 import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
 import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 
+import { runFoundationWithDiagnostics } from "@mapgen/orchestrator/foundation.js";
 import { createDefaultContinentBounds, createLayerAdapter } from "@mapgen/orchestrator/helpers.js";
 import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/orchestrator/types.js";
 
 export interface TaskGraphRunnerOptions {
   mapGenConfig: MapGenConfig;
   orchestratorOptions: OrchestratorConfig;
-  initializeFoundation: (ctx: ExtendedMapContext, config: FoundationConfig) => FoundationContext;
+  initializeFoundation?: (ctx: ExtendedMapContext, config: FoundationConfig) => FoundationContext;
 }
 
 function resolveRunSeed(config: MapGenConfig): number {
@@ -163,6 +164,10 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   const stageResults: StageResult[] = [];
   const startPositions: number[] = [];
   const config = options.mapGenConfig;
+  const initializeFoundation =
+    options.initializeFoundation ??
+    ((ctx: ExtendedMapContext, foundationConfig: FoundationConfig) =>
+      runFoundationWithDiagnostics(ctx, foundationConfig, { logPrefix: prefix }));
 
   resetDevFlags();
   const rawDiagnostics = (config.foundation?.diagnostics || {}) as Record<string, unknown>;
@@ -260,7 +265,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
     getStageDescriptor,
     logPrefix: prefix,
     runFoundation: (context, config) => {
-      options.initializeFoundation(context, config);
+      initializeFoundation(context, config);
     },
     storyEnabled,
     mapInfo,

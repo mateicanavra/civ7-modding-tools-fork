@@ -1,5 +1,5 @@
 /**
- * Tests for MapOrchestrator.requestMapData()
+ * Tests for applyMapInitData()
  *
  * Verifies that map dimensions and latitude bounds are:
  * 1. Derived from game settings (GameInfo.Maps.lookup)
@@ -10,15 +10,14 @@
  */
 
 import { describe, it, expect } from "bun:test";
-import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
-import { getDefaultConfig } from "@mapgen/config/index.js";
+import { applyMapInitData } from "@mapgen/index.js";
 import { createMockAdapter } from "@civ7/adapter/mock";
 
-describe("MapOrchestrator.requestMapData", () => {
+describe("applyMapInitData", () => {
   describe("with mapSizeDefaults config", () => {
     it("should use dimensions from mapSizeDefaults.mapInfo", () => {
       const adapter = createMockAdapter();
-      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+      const options = {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
@@ -29,9 +28,9 @@ describe("MapOrchestrator.requestMapData", () => {
             MaxLatitude: 85,
           },
         },
-      });
+      };
 
-      orchestrator.requestMapData();
+      applyMapInitData(options);
 
       expect(adapter.calls.setMapInitData.length).toBe(1);
       const params = adapter.calls.setMapInitData[0]!;
@@ -45,21 +44,21 @@ describe("MapOrchestrator.requestMapData", () => {
     it("should throw when mapInfo is missing", () => {
       const adapter = createMockAdapter();
       expect(() => {
-        new MapOrchestrator(getDefaultConfig(), {
+        applyMapInitData({
           adapter,
           mapSizeDefaults: {
             mapSizeId: -1,
             // @ts-expect-error - intentionally invalid test input
             mapInfo: undefined,
           },
-        }).requestMapData();
+        });
       }).toThrow();
       expect(adapter.calls.setMapInitData.length).toBe(0);
     });
 
     it("should throw when mapInfo is missing required fields", () => {
       const adapter = createMockAdapter();
-      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+      const options = {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
@@ -68,9 +67,9 @@ describe("MapOrchestrator.requestMapData", () => {
             // GridHeight, MinLatitude, MaxLatitude missing
           },
         },
-      });
+      };
 
-      expect(() => orchestrator.requestMapData()).toThrow();
+      expect(() => applyMapInitData(options)).toThrow();
       expect(adapter.calls.setMapInitData.length).toBe(0);
     });
   });
@@ -78,7 +77,7 @@ describe("MapOrchestrator.requestMapData", () => {
   describe("with initParams overrides", () => {
     it("should allow explicit dimension overrides via initParams", () => {
       const adapter = createMockAdapter();
-      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+      const options = {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
@@ -89,10 +88,10 @@ describe("MapOrchestrator.requestMapData", () => {
             MaxLatitude: 80,
           },
         },
-      });
+      };
 
       // Explicit overrides should take precedence
-      orchestrator.requestMapData({
+      applyMapInitData(options, {
         width: 200,
         height: 100,
       });
@@ -108,7 +107,7 @@ describe("MapOrchestrator.requestMapData", () => {
 
     it("should allow explicit latitude overrides via initParams", () => {
       const adapter = createMockAdapter();
-      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+      const options = {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
@@ -119,9 +118,9 @@ describe("MapOrchestrator.requestMapData", () => {
             MaxLatitude: 80,
           },
         },
-      });
+      };
 
-      orchestrator.requestMapData({
+      applyMapInitData(options, {
         topLatitude: 90,
         bottomLatitude: -90,
       });
@@ -137,15 +136,15 @@ describe("MapOrchestrator.requestMapData", () => {
 
     it("should allow wrapX/wrapY overrides via initParams", () => {
       const adapter = createMockAdapter();
-      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+      const options = {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: { GridWidth: 84, GridHeight: 54, MinLatitude: -80, MaxLatitude: 80 },
         },
-      });
+      };
 
-      orchestrator.requestMapData({
+      applyMapInitData(options, {
         wrapX: false,
         wrapY: true,
       });
@@ -161,15 +160,15 @@ describe("MapOrchestrator.requestMapData", () => {
   describe("default wrapX/wrapY behavior", () => {
     it("should default to wrapX=true, wrapY=false", () => {
       const adapter = createMockAdapter();
-      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+      const options = {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 1,
           mapInfo: { GridWidth: 84, GridHeight: 54, MinLatitude: -80, MaxLatitude: 80 },
         },
-      });
+      };
 
-      orchestrator.requestMapData();
+      applyMapInitData(options);
 
       expect(adapter.calls.setMapInitData.length).toBe(1);
       const params = adapter.calls.setMapInitData[0]!;
@@ -182,7 +181,7 @@ describe("MapOrchestrator.requestMapData", () => {
   describe("different map sizes", () => {
     it("should respect large map dimensions from mapInfo", () => {
       const adapter = createMockAdapter();
-      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+      const options = {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 2, // Simulating MAPSIZE_LARGE
@@ -193,9 +192,9 @@ describe("MapOrchestrator.requestMapData", () => {
             MaxLatitude: 85,
           },
         },
-      });
+      };
 
-      orchestrator.requestMapData();
+      applyMapInitData(options);
 
       expect(adapter.calls.setMapInitData.length).toBe(1);
       const params = adapter.calls.setMapInitData[0]!;
@@ -208,7 +207,7 @@ describe("MapOrchestrator.requestMapData", () => {
 
     it("should respect small map dimensions from mapInfo", () => {
       const adapter = createMockAdapter();
-      const orchestrator = new MapOrchestrator(getDefaultConfig(), {
+      const options = {
         adapter,
         mapSizeDefaults: {
           mapSizeId: 0, // Simulating MAPSIZE_SMALL
@@ -219,9 +218,9 @@ describe("MapOrchestrator.requestMapData", () => {
             MaxLatitude: 75,
           },
         },
-      });
+      };
 
-      orchestrator.requestMapData();
+      applyMapInitData(options);
 
       expect(adapter.calls.setMapInitData.length).toBe(1);
       const params = adapter.calls.setMapInitData[0]!;

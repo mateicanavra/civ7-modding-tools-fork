@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/bootstrap/entry.js";
-import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
+import { runTaskGraphGeneration } from "@mapgen/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
 import { createPlacementStep } from "@mapgen/pipeline/placement/steps.js";
@@ -93,7 +93,7 @@ describe("placement config wiring", () => {
     expect(calls.addFloodplains[0]).toEqual({ minLength: 1, maxLength: 2 });
   });
 
-  it("MapOrchestrator.generateMap does not run placement without prerequisites", () => {
+  it("runTaskGraphGeneration does not run placement without prerequisites", () => {
     const adapter = createMockAdapter({ width, height, mapSizeId: 1, mapInfo, rng: () => 0 });
     const config = bootstrap();
     const recipeOverride = {
@@ -101,12 +101,14 @@ describe("placement config wiring", () => {
       steps: standardMod.recipes.default.steps.filter((step) => step.id === "placement"),
     };
 
-    const orchestrator = new MapOrchestrator(config, {
-      adapter,
-      logPrefix: "[TEST]",
-      recipeOverride,
+    const result = runTaskGraphGeneration({
+      mapGenConfig: config,
+      orchestratorOptions: {
+        adapter,
+        logPrefix: "[TEST]",
+        recipeOverride,
+      },
     });
-    const result = orchestrator.generateMap();
 
     expect(result.success).toBe(false);
 

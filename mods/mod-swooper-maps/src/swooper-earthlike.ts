@@ -11,7 +11,12 @@
 /// <reference types="@civ7/types" />
 
 import "@swooper/mapgen-core/polyfills/text-encoder";
-import { bootstrap, MapOrchestrator, OrchestratorConfig } from "@swooper/mapgen-core";
+import {
+  applyMapInitData,
+  bootstrap,
+  runTaskGraphGeneration,
+  type OrchestratorConfig,
+} from "@swooper/mapgen-core";
 import type { BootstrapConfig } from "@swooper/mapgen-core/bootstrap";
 
 function buildConfig(): BootstrapConfig {
@@ -310,18 +315,15 @@ function buildConfig(): BootstrapConfig {
 const orchestratorOptions: OrchestratorConfig = { logPrefix: "[SWOOPER_MOD]" };
 
 engine.on("RequestMapInitData", () => {
-  const defaultConfig = bootstrap({});
-  const initOrchestrator = new MapOrchestrator(defaultConfig, orchestratorOptions);
-  initOrchestrator.requestMapData();
+  applyMapInitData(orchestratorOptions);
 });
 
 engine.on("GenerateMap", () => {
   const config = bootstrap(buildConfig());
-  const orchestrator = new MapOrchestrator(config, orchestratorOptions);
-  orchestrator.generateMap();
+  runTaskGraphGeneration({ mapGenConfig: config, orchestratorOptions });
 });
 
 console.log("[SWOOPER_MOD] ========================================");
 console.log("[SWOOPER_MOD] Swooper Earthlike (TypeScript Build) Loaded");
-console.log("[SWOOPER_MOD] Using MapOrchestrator from @swooper/mapgen-core");
+console.log("[SWOOPER_MOD] Using RunRequest → ExecutionPlan pipeline");
 console.log("[SWOOPER_MOD] ========================================");

@@ -10,7 +10,9 @@
  *
  * Legacy callers should update to:
  *   - Use bootstrap() (or parseConfig) to get a validated MapGenConfig
- *   - Pass that config explicitly to MapOrchestrator
+ *   - Build a RunRequest and execute via compileExecutionPlan + PipelineExecutor
+ *     (or use runTaskGraphGeneration for the standard recipe path)
+ *   - Use applyMapInitData for RequestMapInitData
  *
  * @see bootstrap/entry.ts for the canonical bootstrap function
  */
