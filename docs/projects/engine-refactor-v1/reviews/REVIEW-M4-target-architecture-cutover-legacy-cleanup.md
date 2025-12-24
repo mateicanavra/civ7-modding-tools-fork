@@ -146,3 +146,13 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Follow-up:** Either remove `placement` config schema from `placement` step (or make it an explicit error) to avoid silent misconfiguration; reconcile the CIV-71 issue doc prework constraints with the final implementation so future readers don’t treat it as a still-open constraint.
 - **Update (2025-12-24):** Placement step config now uses an empty schema (explicit error on step-level config); CIV-71 issue doc prework prompt flagged as historical to align with the early artifact-only cutover.
 - **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test test/pipeline/standard-smoke.test.ts` (pass).
+
+## CIV-72 — [M4] Placement inputs: cut placement over to artifact + verified effect
+
+**Reviewed:** 2025-12-24
+
+- **Intent:** Make placement consume `artifact:placementInputs@v1` exclusively and provide a verified `effect:engine.placementApplied` backed by a minimal `artifact:placementOutputs@v1` (ADR-ER1-020); mark `DEF-006` resolved.
+- **Strengths:** Placement now publishes `artifact:placementOutputs@v1` and `effect:engine.placementApplied` verification is artifact-backed (`isPlacementOutputSatisfied`) rather than call-evidence; dependency spine + standard recipe enforce the `derivePlacementInputs → placement` contract; tests cover missing placement inputs and missing/invalid placement outputs with loud failures; DEF-006 status updated to “resolved”.
+- **Gaps:** `artifact:placementOutputs@v1` counts are intentionally “best available” (mostly `0`), so it’s easy for future consumers to misread them as authoritative placement read-backs; there’s no explicit test that a step providing `artifact:placementInputs@v1` with an invalid payload fails via `UnsatisfiedProvidesError` (current tests focus on missing inputs + output verifier failures).
+- **Follow-up:** If `artifact:placementOutputs@v1` becomes a consumed product, document the “placeholder counts” contract explicitly (or add a v2 when real read-backs exist); add a small test for invalid `artifact:placementInputs@v1` publication to fully close the “missing or invalid” acceptance case.
+- **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test` (pass).
