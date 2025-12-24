@@ -103,3 +103,13 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Gaps:** Acceptance verification is not hermetic: `pnpm -C packages/mapgen-core check` requires a prior `pnpm -C packages/civ7-adapter build` (since `@civ7/adapter` types live in `dist/`); the canonical entrypoint name (`runTaskGraphGeneration`) is still “TaskGraph”-branded despite being plan-based, which may cause confusion.
 - **Follow-up:** Add a `precheck` hook (or equivalent) in `packages/mapgen-core` to build `@civ7/adapter` (or adjust adapter dev exports) so acceptance commands work from a fresh checkout; consider adding a plan-oriented alias name once the surface stabilizes.
 - **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test` (pass).
+
+## CIV-62 — [M4] Remove `ctx.foundation`; publish monolithic foundation as `artifact:foundation` at `ctx.artifacts.foundation`
+
+**Reviewed:** 2025-12-24
+
+- **Intent:** Eliminate the legacy top-level `ctx.foundation` surface while keeping the monolithic `FoundationContext` payload; publish/verify it via the artifacts surface (`ctx.artifacts.foundation` + `artifact:foundation`) and migrate all consumers.
+- **Strengths:** Introduces `ArtifactStore` (typed `Map` wrapper) to support both tag-driven access (`ctx.artifacts.get("artifact:foundation")`) and ergonomic property access (`ctx.artifacts.foundation`); updates `artifact:foundation` satisfaction to validate via the artifact store (no `ctx.foundation` special-casing); migrates all in-repo consumers to `assertFoundationContext()` on the new surface; contract doc updated to match M4.
+- **Gaps:** `ArtifactStore` hard-codes `"artifact:foundation"` separately from `pipeline/tags.ts`, so the tag string is duplicated (low risk, but a drift footgun if tags ever rename).
+- **Follow-up:** Consider centralizing `artifact:foundation` as a single constant in the “core contract” layer (or add a small invariant test asserting both constants stay equal).
+- **Verification:** `pnpm check` (pass); `pnpm test:mapgen` (pass, includes stub-adapter standard recipe smoke).
