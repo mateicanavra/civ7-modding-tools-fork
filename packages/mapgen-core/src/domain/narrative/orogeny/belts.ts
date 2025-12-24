@@ -13,6 +13,8 @@ import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/type
 import type { StoryConfig } from "@mapgen/config/index.js";
 import { inBounds, storyKey } from "@mapgen/core/index.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { buildNarrativeMotifsOrogenyV1 } from "@mapgen/domain/narrative/artifacts.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
@@ -67,7 +69,7 @@ export function storyTagOrogenyBelts(
     cache.belts.clear();
   }
 
-  return publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.OROGENY, {
+  const overlay = publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.OROGENY, {
     kind: STORY_OVERLAY_KEYS.OROGENY,
     version: 1,
     width,
@@ -81,6 +83,13 @@ export function storyTagOrogenyBelts(
       kind,
     },
   });
+
+  ctx.artifacts.set(
+    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
+    buildNarrativeMotifsOrogenyV1(cache)
+  );
+
+  return overlay;
 }
 
 // ============================================================================

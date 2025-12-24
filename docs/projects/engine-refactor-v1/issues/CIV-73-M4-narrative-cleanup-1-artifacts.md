@@ -22,9 +22,9 @@ Define the canonical `artifact:narrative.*` set and ensure narrative steps publi
 
 ## Deliverables
 
-- Typed, versioned `artifact:narrative.*` definitions registered.
-- Narrative steps updated to publish these artifacts and declare their dependencies explicitly.
-- Standard recipe updated to consume the new narrative artifacts where applicable.
+- [x] Typed, versioned `artifact:narrative.*` definitions registered.
+- [x] Narrative steps updated to publish these artifacts and declare their dependencies explicitly.
+- [x] Standard recipe updated to consume the new narrative artifacts where applicable.
 
 ## Acceptance Criteria
 
@@ -57,6 +57,29 @@ Define the canonical `artifact:narrative.*` set and ensure narrative steps publi
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Implementation Decisions
+
+### 1) Narrative artifact runtime shapes use Set/Map snapshots
+- Context: Schema sketches are conceptual; current narrative producers store memberships in StoryTags Sets/Maps.
+- Options: (a) Introduce new array/object schemas and derive them per step; (b) snapshot Sets/Maps into artifacts now.
+- Choice: Snapshot Sets/Maps into `artifact:narrative.*@v1` objects.
+- Rationale: Avoids new derivations and keeps M4 focused on wiring without behavior changes.
+- Risk: Future consumers may need explicit array shapes or derived views for serialization.
+
+### 2) Corridors artifact includes island-hop + metadata maps
+- Context: Corridors currently track sea, island-hop, land-open, river-chain plus kind/style/attributes maps.
+- Options: (a) Publish only sea/land/river and drop island-hop/metadata; (b) publish all existing corridor sets + maps.
+- Choice: Publish all corridor sets plus kind/style/attributes maps.
+- Rationale: Preserves existing semantics and avoids silent data loss during the cutover.
+- Risk: Later contract cleanup may need to consolidate or rename corridor facets.
+
+### 3) Hotspots artifact skips trail polylines in M4
+- Context: Hotspot generation tracks point sets but does not retain trail polylines.
+- Options: (a) Add trail tracking now; (b) publish point/category sets only in M4.
+- Choice: Publish point + category sets only; leave `trails` optional for future.
+- Rationale: Keeps changes mechanical and avoids new algorithmic state in M4.
+- Risk: Downstream consumers needing trail shapes must extend producers later.
 
 ## Prework Prompt (Agent Brief)
 
