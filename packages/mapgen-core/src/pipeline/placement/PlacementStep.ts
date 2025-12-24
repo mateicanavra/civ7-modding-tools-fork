@@ -1,9 +1,13 @@
 import { type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { runPlacement } from "@mapgen/domain/placement/index.js";
+import { resolveNaturalWonderCount } from "@mapgen/domain/placement/wonders.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import { EmptyStepConfigSchema } from "@mapgen/pipeline/step-config.js";
-import { getPublishedPlacementInputs } from "@mapgen/pipeline/artifacts.js";
+import {
+  getPublishedPlacementInputs,
+  publishPlacementOutputsArtifact,
+} from "@mapgen/pipeline/artifacts.js";
 
 export interface PlacementStepRuntime {
   startPositions: number[];
@@ -42,6 +46,21 @@ export function createPlacementStep(
       });
 
       runtime.startPositions.push(...startPositions);
+
+      const wondersPlusOne =
+        typeof placementConfig.wondersPlusOne === "boolean" ? placementConfig.wondersPlusOne : true;
+      const naturalWondersCount = resolveNaturalWonderCount(derivedInputs.mapInfo, wondersPlusOne);
+      const startsAssigned = startPositions.filter((pos) => Number.isFinite(pos) && pos >= 0)
+        .length;
+
+      publishPlacementOutputsArtifact(context, {
+        naturalWondersCount,
+        floodplainsCount: 0,
+        snowTilesCount: 0,
+        resourcesCount: 0,
+        startsAssigned,
+        discoveriesCount: 0,
+      });
     },
   };
 }

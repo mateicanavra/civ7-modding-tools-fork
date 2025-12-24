@@ -4,6 +4,7 @@ import { bootstrap } from "@mapgen/bootstrap/entry.js";
 import { runTaskGraphGeneration } from "@mapgen/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import { publishPlacementInputsArtifact } from "@mapgen/pipeline/artifacts.js";
 import { createPlacementStep } from "@mapgen/pipeline/placement/steps.js";
 
 describe("placement config wiring", () => {
@@ -68,23 +69,29 @@ describe("placement config wiring", () => {
       placement: { wondersPlusOne: false, floodplains: { minLength: 1, maxLength: 2 } },
     };
 
+    const starts = {
+      playersLandmass1: 0,
+      playersLandmass2: 0,
+      westContinent: { west: 0, east: 0, south: 0, north: 0 },
+      eastContinent: { west: 0, east: 0, south: 0, north: 0 },
+      startSectorRows: mapInfo.StartSectorRows ?? 0,
+      startSectorCols: mapInfo.StartSectorCols ?? 0,
+      startSectors: [],
+    };
+
     const startPositions: number[] = [];
     const step = createPlacementStep(
       {
-        mapInfo,
-        starts: {
-          playersLandmass1: 0,
-          playersLandmass2: 0,
-          westContinent: { west: 0, east: 0, south: 0, north: 0 },
-          eastContinent: { west: 0, east: 0, south: 0, north: 0 },
-          startSectorRows: mapInfo.StartSectorRows ?? 0,
-          startSectorCols: mapInfo.StartSectorCols ?? 0,
-          startSectors: [],
-        },
         startPositions,
       },
       { requires: [], provides: [] }
     );
+
+    publishPlacementInputsArtifact(ctx, {
+      mapInfo,
+      starts,
+      placementConfig: stepConfig.placement,
+    });
 
     step.run(ctx, stepConfig);
 
