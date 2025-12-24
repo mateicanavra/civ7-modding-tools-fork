@@ -61,6 +61,14 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 - Rationale: Enforces explicit placement inputs and prevents silent drift across stages.
 - Risk: Any recipe missing `derivePlacementInputs` will now fail dependency checks earlier.
 
+### Guard against placement config on the placement step
+
+- Context: Placement accepted a config schema but ignored config values, so recipes could set `placement` config with no effect.
+- Options: (1) Keep the schema (silent no-op). (2) Remove schema entirely. (3) Require an empty schema to error on any config.
+- Choice: Option 3 — use an empty schema so `placement` step config is rejected at compile time.
+- Rationale: Keeps the artifact-only contract and prevents silent misconfiguration.
+- Risk: Recipes with step-level placement config will now fail validation until moved into `artifact:placementInputs@v1`.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)
@@ -69,6 +77,8 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 - [Dependencies / Notes](#dependencies--notes)
 
 ## Prework Prompt (Agent Brief)
+
+Note: This prework prompt captures initial discovery guidance; implementation intentionally cut over to `artifact:placementInputs@v1` and removed legacy inputs (see Implementation Decisions).
 
 Goal: define the `artifact:placementInputs@v1` contract so cutover is a wiring change, not a discovery exercise.
 
@@ -85,7 +95,7 @@ Where to look:
   `packages/mapgen-core/src/pipeline/narrative/**`.
 
 Constraints/notes:
-- Keep this additive; no removal of legacy inputs in this issue.
+- Historical note: the original prompt requested additive-only work; the final implementation removed legacy inputs (see Implementation Decisions).
 - Placement inputs must be explicit and TS-canonical; avoid DEF-010 scope creep.
 - Do not implement code; return the schema and mapping as markdown tables/lists.
 
