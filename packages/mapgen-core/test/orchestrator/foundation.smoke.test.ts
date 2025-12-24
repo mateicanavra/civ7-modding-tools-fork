@@ -63,7 +63,7 @@ describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
       rng: () => 0,
     });
 
-    const config = bootstrap({ stageConfig: { foundation: true } });
+    const config = bootstrap();
     const ctx = createExtendedMapContext({ width, height }, adapter, config);
     const foundation = runFoundationStage(ctx, config.foundation);
 

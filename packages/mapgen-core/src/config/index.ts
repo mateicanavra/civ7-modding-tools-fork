@@ -54,9 +54,6 @@ export {
   PlacementConfigSchema,
   RiverCorridorConfigSchema,
   SeaCorridorPolicySchema,
-  StageConfigSchema,
-  StageDescriptorSchema,
-  StageManifestSchema,
   StartsConfigSchema,
   OrogenyTunablesSchema,
   RiftTunablesSchema,
@@ -118,9 +115,6 @@ export type {
   PlacementConfig,
   RiverCorridorConfig,
   SeaCorridorPolicy,
-  StageConfig,
-  StageDescriptor,
-  StageManifest,
   StartsConfig,
   OrogenyTunables,
   RiftTunables,
@@ -136,9 +130,3 @@ export {
   getPublicJsonSchema,
   type ParseResult,
 } from "@mapgen/config/loader.js";
-
-export {
-  applyPresets,
-  getPresetConfig,
-  type MapGenPresetName,
-} from "@mapgen/config/presets.js";

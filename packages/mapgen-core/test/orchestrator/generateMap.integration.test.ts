@@ -3,7 +3,7 @@ import { bootstrap } from "@mapgen/bootstrap/entry.js";
 import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
 import { createMockAdapter } from "@civ7/adapter/mock";
 import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
-import { STANDARD_RECIPE_STEP_IDS } from "@mapgen/mods/standard/recipes/default.js";
+import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
 
 /**
  * Minimal integration to pin the canonical config → orchestrator path.
@@ -36,8 +36,11 @@ describe("integration: bootstrap → orchestrator (stages disabled)", () => {
 
     const config = bootstrap();
     const recipeOverride: RecipeV1 = {
-      schemaVersion: 1,
-      steps: STANDARD_RECIPE_STEP_IDS.map((id) => ({ id, enabled: false })),
+      ...standardMod.recipes.default,
+      steps: standardMod.recipes.default.steps.map((step) => ({
+        ...step,
+        enabled: false,
+      })),
     };
 
     const orchestrator = new MapOrchestrator(config, {

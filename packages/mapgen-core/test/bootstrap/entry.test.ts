@@ -36,22 +36,6 @@ describe("bootstrap/entry", () => {
       expect(() => bootstrap({})).not.toThrow();
     });
 
-    it("returns config with presets", () => {
-      const config = bootstrap({ presets: ["classic", "temperate"] });
-      expect(config.presets).toEqual(["classic", "temperate"]);
-    });
-
-    it("applies preset config before overrides", () => {
-      const config = bootstrap({ presets: ["temperate"] });
-      expect(config.foundation?.dynamics?.directionality?.cohesion).toBe(0.6);
-
-      const overridden = bootstrap({
-        presets: ["temperate"],
-        overrides: { foundation: { dynamics: { directionality: { cohesion: 0.2 } } } },
-      });
-      expect(overridden.foundation?.dynamics?.directionality?.cohesion).toBe(0.2);
-    });
-
     it("returns config with overrides", () => {
       const config = bootstrap({
         overrides: {
@@ -61,40 +45,19 @@ describe("bootstrap/entry", () => {
       expect(config.foundation?.plates?.count).toBe(12);
     });
 
-    it("returns config with stageConfig", () => {
-      const config = bootstrap({
-        stageConfig: {
-          foundation: true,
-          climateBaseline: false,
-        },
-      });
-      expect(config.stageConfig?.foundation).toBe(true);
-      expect(config.stageConfig?.climateBaseline).toBe(false);
-    });
-
-    it("resolves stageManifest from preset stageConfig", () => {
-      const config = bootstrap({ presets: ["classic"] });
-
-      expect(config.stageConfig?.foundation).toBe(true);
-      expect(config.stageConfig?.landmassPlates).toBe(true);
-      expect(config.stageManifest?.stages?.foundation?.enabled).toBe(true);
-      expect(config.stageManifest?.stages?.landmassPlates?.enabled).toBe(true);
-    });
-
-    it("filters invalid preset values", () => {
-      const config = bootstrap({
-        presets: ["classic", 123 as unknown as string, null as unknown as string, "temperate"],
-      });
-      expect(config.presets).toEqual(["classic", "temperate"]);
+    it("rejects legacy preset options", () => {
+      expect(() =>
+        bootstrap({ presets: ["classic"] } as unknown as { presets: string[] })
+      ).toThrow("Invalid MapGenConfig");
     });
   });
 
   describe("resetBootstrap", () => {
     it("allows fresh bootstrap after reset", () => {
-      bootstrap({ presets: ["classic"] });
+      bootstrap();
       resetBootstrap();
-      const config = bootstrap({ presets: ["temperate"] });
-      expect(config.presets).toEqual(["temperate"]);
+      const config = bootstrap();
+      expect(config.foundation?.plates?.count).toBeDefined();
     });
   });
 });
