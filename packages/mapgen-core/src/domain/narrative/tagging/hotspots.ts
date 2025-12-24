@@ -11,7 +11,7 @@ import type { HotspotTrailsSummary } from "@mapgen/domain/narrative/tagging/type
 import type { HotspotTunables } from "@mapgen/config/index.js";
 
 export function storyTagHotspotTrails(
-  ctx: ExtendedMapContext | null = null,
+  ctx: ExtendedMapContext,
   config: HotspotTunables = {}
 ): HotspotTrailsSummary {
   const { width, height } = getDims(ctx);

@@ -15,7 +15,7 @@ import type { ContinentalMarginsOptions } from "@mapgen/domain/narrative/tagging
 import type { ContinentalMarginsConfig } from "@mapgen/config/index.js";
 
 export function storyTagContinentalMargins(
-  ctx: ExtendedMapContext | null = null,
+  ctx: ExtendedMapContext,
   config: ContinentalMarginsConfig = {},
   options: ContinentalMarginsOptions = {}
 ): StoryOverlaySnapshot {

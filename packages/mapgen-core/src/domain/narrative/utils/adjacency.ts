@@ -4,7 +4,7 @@ import { COAST_TERRAIN } from "@mapgen/core/terrain-constants.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 export function isAdjacentToLand(
-  ctx: ExtendedMapContext | null | undefined,
+  ctx: ExtendedMapContext,
   x: number,
   y: number,
   radius: number,
@@ -24,7 +24,7 @@ export function isAdjacentToLand(
 }
 
 export function isCoastalLand(
-  ctx: ExtendedMapContext | null | undefined,
+  ctx: ExtendedMapContext,
   x: number,
   y: number,
   width: number,
@@ -62,4 +62,3 @@ export function isAdjacentToShallowWater(
   }
   return false;
 }
-
