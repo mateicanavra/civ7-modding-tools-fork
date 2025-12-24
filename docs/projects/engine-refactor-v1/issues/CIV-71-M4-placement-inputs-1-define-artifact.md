@@ -75,6 +75,15 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+- [Implementation Decisions](#implementation-decisions)
+
+## Implementation Decisions
+
+1) **Early placement cutover to `artifact:placementInputs@v1`.**  
+   **Context:** The CIV-71 implementation requires `artifact:placementInputs@v1` and removes the legacy placement input path, even though the AC says “without yet removing legacy paths.”  
+   **Options:** (a) keep legacy path until CIV-72, (b) move the requirement change into CIV-72, (c) accept the early cutover here.  
+   **Choice:** Accept the early cutover in CIV-71 to enforce the contract immediately and avoid duplicating placement wiring changes in CIV-72 (which now focuses on outputs verification).  
+   **Risk:** Scope bump vs AC; stack reviewers should explicitly acknowledge the sequencing shift.
 
 ## Prework Prompt (Agent Brief)
 
