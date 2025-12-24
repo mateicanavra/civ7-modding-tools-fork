@@ -8,6 +8,7 @@
 /// <reference types="@civ7/types" />
 
 import type { EngineAdapter, FeatureData, MapInfo, MapInitParams, MapSizeId } from "./types.js";
+import { ENGINE_EFFECT_TAGS } from "./effects.js";
 
 // Import from /base-standard/... — these are external Civ7 runtime paths
 // resolved by the game's module loader, not TypeScript
@@ -40,12 +41,6 @@ import { assignAdvancedStartRegions as civ7AssignAdvancedStartRegions } from "/b
 // @ts-ignore - resolved only at Civ7 runtime
 import { generateLakes as civ7GenerateLakes, expandCoasts as civ7ExpandCoasts } from "/base-standard/maps/elevation-terrain-generator.js";
 
-const EFFECT_IDS = {
-  biomesApplied: "effect:engine.biomesApplied",
-  featuresApplied: "effect:engine.featuresApplied",
-  placementApplied: "effect:engine.placementApplied",
-} as const;
-
 /**
  * Production adapter wrapping GameplayMap, TerrainBuilder, AreaBuilder, FractalBuilder
  */
@@ -64,7 +59,7 @@ export class Civ7Adapter implements EngineAdapter {
   }
 
   private recordPlacementEffect(): void {
-    this.recordEffect(EFFECT_IDS.placementApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.placementApplied);
   }
 
   verifyEffect(effectId: string): boolean {
@@ -163,7 +158,7 @@ export class Civ7Adapter implements EngineAdapter {
 
   setFeatureType(x: number, y: number, featureData: FeatureData): void {
     TerrainBuilder.setFeatureType(x, y, featureData);
-    this.recordEffect(EFFECT_IDS.featuresApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.featuresApplied);
   }
 
   canHaveFeature(x: number, y: number, featureType: number): boolean {
@@ -232,7 +227,7 @@ export class Civ7Adapter implements EngineAdapter {
 
   designateBiomes(width: number, height: number): void {
     civ7DesignateBiomes(width, height);
-    this.recordEffect(EFFECT_IDS.biomesApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.biomesApplied);
   }
 
   getBiomeGlobal(name: string): number {
@@ -245,7 +240,7 @@ export class Civ7Adapter implements EngineAdapter {
 
   setBiomeType(x: number, y: number, biomeId: number): void {
     TerrainBuilder.setBiomeType(x, y, biomeId);
-    this.recordEffect(EFFECT_IDS.biomesApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.biomesApplied);
   }
 
   getBiomeType(x: number, y: number): number {
@@ -256,7 +251,7 @@ export class Civ7Adapter implements EngineAdapter {
 
   addFeatures(width: number, height: number): void {
     civ7AddFeatures(width, height);
-    this.recordEffect(EFFECT_IDS.featuresApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.featuresApplied);
   }
 
   getFeatureTypeIndex(name: string): number {
