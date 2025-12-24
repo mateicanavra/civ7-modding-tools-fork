@@ -29,15 +29,17 @@ export * from "@mapgen/dev/index.js";
 // Re-export tracing primitives
 export * from "@mapgen/trace/index.js";
 
-// Re-export MapOrchestrator
-export {
-  MapOrchestrator,
-  type MapInitParams,
-  type MapInfo,
-  type OrchestratorConfig,
-  type StageResult,
-  type GenerationResult,
-} from "@mapgen/MapOrchestrator.js";
+// Orchestration helpers (RunRequest → ExecutionPlan entry)
+export { applyMapInitData, resolveMapInitData } from "@mapgen/orchestrator/map-init.js";
+export { runTaskGraphGeneration } from "@mapgen/orchestrator/task-graph.js";
+export type {
+  GenerationResult,
+  MapInfo,
+  MapInitParams,
+  MapSizeDefaults,
+  OrchestratorConfig,
+  StageResult,
+} from "@mapgen/orchestrator/types.js";
 
 // Re-export pipeline primitives (M3 Task Graph MVP)
 export * from "@mapgen/pipeline/index.js";

@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { bootstrap } from "@mapgen/bootstrap/entry.js";
-import { MapOrchestrator } from "@mapgen/MapOrchestrator.js";
+import { runTaskGraphGeneration } from "@mapgen/index.js";
 import { createMockAdapter } from "@civ7/adapter";
 import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
 
-describe("MapOrchestrator foundation config wiring", () => {
+describe("TaskGraph foundation config wiring", () => {
   const width = 84;
   const height = 54;
   const mapInfo = {
@@ -85,12 +85,14 @@ describe("MapOrchestrator foundation config wiring", () => {
       mapInfo,
     });
 
-    const orchestrator = new MapOrchestrator(config, {
-      adapter,
-      logPrefix: "[TEST]",
-      recipeOverride,
+    const result = runTaskGraphGeneration({
+      mapGenConfig: config,
+      orchestratorOptions: {
+        adapter,
+        logPrefix: "[TEST]",
+        recipeOverride,
+      },
     });
-    const result = orchestrator.generateMap();
     expect(result.success).toBe(true);
 
     expect(
@@ -137,12 +139,14 @@ describe("MapOrchestrator foundation config wiring", () => {
       mapInfo,
     });
 
-    const orchestrator = new MapOrchestrator(config, {
-      adapter,
-      logPrefix: "[TEST]",
-      recipeOverride,
+    const result = runTaskGraphGeneration({
+      mapGenConfig: config,
+      orchestratorOptions: {
+        adapter,
+        logPrefix: "[TEST]",
+        recipeOverride,
+      },
     });
-    const result = orchestrator.generateMap();
     expect(result.success).toBe(true);
 
     expect(

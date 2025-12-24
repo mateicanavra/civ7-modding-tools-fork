@@ -7,17 +7,19 @@ This mod uses **explicit overrides + recipe selection** so variants can share on
 ## Current TypeScript Architecture (M4)
 
 - Entry scripts call `bootstrap({ overrides })` from `@swooper/mapgen-core/bootstrap` and receive a validated `MapGenConfig`.
-- Entry scripts select or derive a RecipeV1 (often from `standardMod`) and pass it via `recipeOverride`.
-- `MapOrchestrator` creates a per-run `MapGenContext` and executes the compiled `ExecutionPlan` for the recipe.
+- Entry scripts call `applyMapInitData` to resolve map settings and seed the adapter with init data.
+- Entry scripts select or derive a RecipeV1 (often from `standardMod`) and pass it via `runTaskGraphGeneration`.
 - Steps/layers read config from `context.config` (no global runtime config store, no `bootstrap/tunables` module).
 
 Example (minimal runnable pipeline):
 ```ts
-import { bootstrap, MapOrchestrator, standardMod } from "@swooper/mapgen-core";
+import { applyMapInitData, bootstrap, runTaskGraphGeneration, standardMod } from "@swooper/mapgen-core";
 
 const config = bootstrap({
   overrides: {},
 });
+
+applyMapInitData({ logPrefix: "[MOD]" });
 
 const recipe = {
   schemaVersion: 1,
@@ -27,7 +29,7 @@ const recipe = {
   })),
 };
 
-new MapOrchestrator(config, { recipeOverride: recipe }).generateMap();
+runTaskGraphGeneration({ mapGenConfig: config, orchestratorOptions: { recipeOverride: recipe } });
 ```
 
 ## Dependency Chain Visualization (M4)
@@ -41,12 +43,12 @@ new MapOrchestrator(config, { recipeOverride: recipe }).generateMap();
         ┌───────────▼──────────┐
         │ Entry File           │
         │ ├─ bootstrap()       │  ← Validates overrides
-        │ ├─ selects recipe    │  ← RecipeV1 source
-        │ └─ MapOrchestrator   │  ← Executes pipeline
+        │ ├─ applyMapInitData  │  ← Adapter seed
+        │ └─ runTaskGraphGen   │  ← Executes pipeline
         └───────────┬──────────┘
                     │
         ┌───────────▼──────────┐
-        │ MapOrchestrator      │
+        │ runTaskGraphGen      │
         │ ├─ compile plan      │  ← ExecutionPlan
         │ └─ execute plan       │  ← PipelineExecutor
         └───────────┬──────────┘
