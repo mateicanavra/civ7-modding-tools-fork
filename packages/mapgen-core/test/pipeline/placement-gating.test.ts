@@ -12,7 +12,7 @@ import {
 } from "@mapgen/pipeline/index.js";
 
 describe("placement step contracts", () => {
-  it("fails fast when placement runs without featuresApplied", () => {
+  it("fails fast when placement runs without placementInputs", () => {
     const width = 4;
     const height = 4;
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
@@ -54,8 +54,68 @@ describe("placement step contracts", () => {
       expect(err).toBeInstanceOf(MissingDependencyError);
       expect((err as MissingDependencyError).stepId).toBe("placement");
       expect((err as MissingDependencyError).missing).toEqual([
-        M4_EFFECT_TAGS.engine.featuresApplied,
+        M3_DEPENDENCY_TAGS.artifact.placementInputsV1,
       ]);
     }
+  });
+
+  it("fails fast when placement outputs are missing", () => {
+    const width = 4;
+    const height = 4;
+    const adapter = createMockAdapter({ width, height, rng: () => 0 });
+    const context = createExtendedMapContext(
+      { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
+      adapter,
+      {} as ExtendedMapContext["config"]
+    );
+
+    const registry = new StepRegistry<ExtendedMapContext>();
+    registry.register({
+      id: "placement",
+      phase: "placement",
+      requires: [],
+      provides: [M4_EFFECT_TAGS.engine.placementApplied],
+      run: (_context, _config) => {},
+    });
+
+    const executor = new PipelineExecutor(registry, { log: () => {} });
+    const { stepResults } = executor.execute(context, ["placement"]);
+
+    expect(stepResults).toHaveLength(1);
+    expect(stepResults[0]?.success).toBe(false);
+    expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
+    expect(stepResults[0]?.error).toContain(M4_EFFECT_TAGS.engine.placementApplied);
+  });
+
+  it("fails fast when placement outputs are invalid", () => {
+    const width = 4;
+    const height = 4;
+    const adapter = createMockAdapter({ width, height, rng: () => 0 });
+    const context = createExtendedMapContext(
+      { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
+      adapter,
+      {} as ExtendedMapContext["config"]
+    );
+
+    const registry = new StepRegistry<ExtendedMapContext>();
+    registry.register({
+      id: "placement",
+      phase: "placement",
+      requires: [],
+      provides: [M4_EFFECT_TAGS.engine.placementApplied],
+      run: (_context, _config) => {
+        _context.artifacts.set(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1, {
+          startsAssigned: 0,
+        });
+      },
+    });
+
+    const executor = new PipelineExecutor(registry, { log: () => {} });
+    const { stepResults } = executor.execute(context, ["placement"]);
+
+    expect(stepResults).toHaveLength(1);
+    expect(stepResults[0]?.success).toBe(false);
+    expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
+    expect(stepResults[0]?.error).toContain(M4_EFFECT_TAGS.engine.placementApplied);
   });
 });

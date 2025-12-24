@@ -158,12 +158,28 @@ type PlacementOutputsV1 = {
 
 #### Placement step cutover (PLACEMENT-2)
 
-- [ ] Update `PlacementStep` to require `artifact:placementInputs@v1`.
-- [ ] Remove internal input assembly (reads from artifact instead).
-- [ ] Publish `artifact:placementOutputs@v1` after placement completes.
-- [ ] Provide `effect:engine.placementApplied` (verified via output artifact).
+- [x] Update `PlacementStep` to require `artifact:placementInputs@v1`.
+- [x] Remove internal input assembly (reads from artifact instead).
+- [x] Publish `artifact:placementOutputs@v1` after placement completes.
+- [x] Provide `effect:engine.placementApplied` (verified via output artifact).
 
 #### Tests and docs
 
-- [ ] Update tests listed above.
-- [ ] Mark DEF-006 as resolved in `docs/projects/engine-refactor-v1/deferrals.md`.
+- [x] Update tests listed above.
+- [x] Mark DEF-006 as resolved in `docs/projects/engine-refactor-v1/deferrals.md`.
+
+## Implementation Decisions
+
+### Emit minimal placement outputs with best-available counts
+- **Context:** ADR-ER1-020 requires a placement outputs artifact, but the adapter exposes no read-back counts for most placement effects.
+- **Options:** Add new adapter read-back APIs now; derive counts from config/inputs and use zeros for unknowns; skip counts entirely.
+- **Choice:** Derive `naturalWondersCount` from config, compute `startsAssigned` from returned start positions, and set other counts to `0`.
+- **Rationale:** Keeps the artifact minimal and verifiable without expanding adapter surface area during M4.
+- **Risk:** Output counts (other than starts/natural wonders) may not reflect actual engine placement counts.
+
+### Verify start assignment count when placement inputs are available
+- **Context:** ADR-ER1-020 calls for lightweight invariants; placement inputs may be absent in demos.
+- **Options:** Require valid inputs to verify starts; skip the invariant when inputs are missing; avoid start-count checks entirely.
+- **Choice:** Enforce the start-count invariant only when `artifact:placementInputs@v1` validates; otherwise verify outputs by shape alone.
+- **Rationale:** Keeps verification strict for real runs without blocking demo payloads.
+- **Risk:** If inputs are missing unexpectedly, verification may pass with reduced scrutiny.

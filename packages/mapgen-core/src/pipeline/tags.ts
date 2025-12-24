@@ -1,6 +1,7 @@
 import { ENGINE_EFFECT_TAGS } from "@civ7/adapter";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { isPlacementInputsV1 } from "@mapgen/pipeline/placement/placement-inputs.js";
+import { isPlacementOutputsV1 } from "@mapgen/pipeline/placement/placement-outputs.js";
 import { FOUNDATION_ARTIFACT_TAG, validateFoundationContext } from "@mapgen/core/types.js";
 import type { GenerationPhase } from "@mapgen/pipeline/types.js";
 import {
@@ -18,6 +19,7 @@ export const M3_DEPENDENCY_TAGS = {
     storyOverlays: "artifact:storyOverlays",
     riverAdjacency: "artifact:riverAdjacency",
     placementInputsV1: "artifact:placementInputs@v1",
+    placementOutputsV1: "artifact:placementOutputs@v1",
   },
   field: {
     terrainType: "field:terrainType",
@@ -252,6 +254,21 @@ const DEFAULT_TAG_DEFINITIONS: DependencyTagDefinition[] = [
     validateDemo: (demo) => isPlacementInputsV1(demo),
   },
   {
+    id: M3_DEPENDENCY_TAGS.artifact.placementOutputsV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isPlacementOutputsV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1)),
+    demo: {
+      naturalWondersCount: 0,
+      floodplainsCount: 0,
+      snowTilesCount: 0,
+      resourcesCount: 0,
+      startsAssigned: 0,
+      discoveriesCount: 0,
+    },
+    validateDemo: (demo) => isPlacementOutputsV1(demo),
+  },
+  {
     id: M3_DEPENDENCY_TAGS.field.terrainType,
     kind: "field",
     satisfies: (context) =>
@@ -305,11 +322,40 @@ const DEFAULT_TAG_DEFINITIONS: DependencyTagDefinition[] = [
       definition.owner = owner;
     }
     if (VERIFIED_EFFECT_TAGS.has(id)) {
-      definition.satisfies = (context) => context.adapter.verifyEffect(id);
+      if (id === M4_EFFECT_TAGS.engine.placementApplied) {
+        definition.satisfies = (context) => isPlacementOutputSatisfied(context);
+      } else {
+        definition.satisfies = (context) => context.adapter.verifyEffect(id);
+      }
     }
     return definition;
   }),
 ];
+
+function isPlacementOutputSatisfied(context: ExtendedMapContext): boolean {
+  const outputs = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1);
+  if (!isPlacementOutputsV1(outputs)) return false;
+
+  const counts = [
+    outputs.naturalWondersCount,
+    outputs.floodplainsCount,
+    outputs.snowTilesCount,
+    outputs.resourcesCount,
+    outputs.startsAssigned,
+    outputs.discoveriesCount,
+  ];
+  if (!counts.every((value) => Number.isFinite(value) && value >= 0)) return false;
+  if (!Number.isInteger(outputs.startsAssigned)) return false;
+
+  const inputs = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementInputsV1);
+  if (isPlacementInputsV1(inputs)) {
+    const expectedPlayers =
+      (inputs.starts?.playersLandmass1 ?? 0) + (inputs.starts?.playersLandmass2 ?? 0);
+    if (expectedPlayers > 0 && outputs.startsAssigned < expectedPlayers) return false;
+  }
+
+  return true;
+}
 
 function isFoundationArtifactSatisfied(context: ExtendedMapContext): boolean {
   const value = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundation);
