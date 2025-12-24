@@ -81,3 +81,4 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Strengths:** New smoke coverage compiles and executes the standard recipe with a MockAdapter and asserts ordering + run completion; CIV-23 doc is reoriented to the ExecutionPlan boundary.
 - **Gaps:** CIV-23 still references legacy WorldModel/stageConfig in its testing guidance and helper snippet, which conflicts with the acceptance criteria to remove those references.
 - **Follow-up:** Remove the remaining WorldModel and `stageConfig` mentions from CIV-23 and replace with RunRequest/ExecutionPlan-oriented verification commands/snippets.
+- **Update (2025-12-23):** Removed legacy WorldModel/stageConfig references and added RunRequest/ExecutionPlan-oriented commands + default config helper in CIV-23.
