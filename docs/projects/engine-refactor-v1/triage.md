@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Placement inputs cutover landed early in CIV-71** [Source: CIV-71/CIV-72]
+  - **Context:** CIV-71 implementation now requires `artifact:placementInputs@v1` and removes legacy placement input wiring, even though the CIV-71 AC said additive-only. CIV-72 currently focuses on placement outputs verification.
+  - **Type:** triage
+  - **Notes:** Decide whether to accept the sequencing shift (CIV-71 does cutover + derive step, CIV-72 does outputs verification) or re-split to align with original ACs. If accepted, update CIV-71/CIV-72 scope expectations accordingly.
+  - **Next check:** before restacking/merging the placement inputs branches.
+
 - **Directionality settings migration (PIPELINE-2 follow-up)** [Source: CIV-56]
   - **Context:** M4 per-step config plumbing defers ADR-ER1-019 (directionality in `RunRequest.settings`).
   - **Type:** triage
