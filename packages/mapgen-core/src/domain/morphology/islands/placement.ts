@@ -1,10 +1,12 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { ctxRandom, writeHeightfield } from "@mapgen/core/types.js";
 import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { buildNarrativeMotifsHotspotsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
 import type { CorridorsConfig, HotspotTunables, IslandsConfig } from "@mapgen/domain/morphology/islands/types.js";
 import { getFractalThreshold } from "@mapgen/domain/morphology/islands/fractal-threshold.js";
 import { isAdjacentToLand, isNearSeaLane, storyKey } from "@mapgen/domain/morphology/islands/adjacency.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
 
 const HILL_FRACTAL = 1;
 
@@ -135,4 +137,9 @@ export function addIslandChains(
       }
     }
   }
+
+  ctx.artifacts.set(
+    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
+    buildNarrativeMotifsHotspotsV1(StoryTags)
+  );
 }

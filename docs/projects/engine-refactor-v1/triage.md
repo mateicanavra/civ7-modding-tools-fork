@@ -24,6 +24,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Mapgen-core helpers were renamed (`addPlotTagIds*`, `resolveLandmassIds`, `markLandmassId`) and adapter gained `getPlotTagId`/`getLandmassId`/`setLandmassId`. Downstream callers on older helper names must update.
   - **Next check:** before merging any branches that still reference the old helper names.
 
+- **Narrative artifacts use Set/Map snapshots in M4** [Source: CIV-73]
+  - **Context:** CIV-73 publishes `artifact:narrative.*@v1` using Set/Map snapshots that mirror StoryTags (corridor metadata retained; hotspot trails omitted).
+  - **Type:** triage
+  - **Notes:** Revisit contract shape/serialization before consumer cutover to avoid downstream assumptions.
+  - **Next check:** before CIV-74 consumer migration or any external artifact export.
+
 - **Placement inputs cutover landed early in CIV-71** [Source: CIV-71/CIV-72]
   - **Context:** CIV-71 implementation now requires `artifact:placementInputs@v1` and removes legacy placement input wiring, even though the CIV-71 AC said additive-only. CIV-72 currently focuses on placement outputs verification.
   - **Type:** triage
