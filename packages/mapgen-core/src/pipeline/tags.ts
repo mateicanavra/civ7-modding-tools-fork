@@ -1,5 +1,6 @@
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { FOUNDATION_ARTIFACT_TAG, validateFoundationContext } from "@mapgen/core/types.js";
+import type { GenerationPhase } from "@mapgen/pipeline/types.js";
 import {
   DuplicateDependencyTagError,
   InvalidDependencyTagDemoError,
@@ -49,15 +50,46 @@ export const M4_EFFECT_TAGS = {
   },
 } as const;
 
+const VERIFIED_EFFECT_TAGS = new Set<string>([
+  M4_EFFECT_TAGS.engine.biomesApplied,
+  M4_EFFECT_TAGS.engine.featuresApplied,
+  M4_EFFECT_TAGS.engine.placementApplied,
+]);
+
+const EFFECT_OWNERS: Record<string, TagOwner> = {
+  [M4_EFFECT_TAGS.engine.biomesApplied]: {
+    pkg: "@swooper/mapgen-core",
+    phase: "ecology",
+    stepId: "biomes",
+  },
+  [M4_EFFECT_TAGS.engine.featuresApplied]: {
+    pkg: "@swooper/mapgen-core",
+    phase: "ecology",
+    stepId: "features",
+  },
+  [M4_EFFECT_TAGS.engine.placementApplied]: {
+    pkg: "@swooper/mapgen-core",
+    phase: "placement",
+    stepId: "placement",
+  },
+};
+
 export type DependencyTagKind = "artifact" | "field" | "effect" | "state";
 
 type SatisfactionState = {
   satisfied: ReadonlySet<string>;
 };
 
+export interface TagOwner {
+  pkg: string;
+  phase: GenerationPhase;
+  stepId?: string;
+}
+
 export interface DependencyTagDefinition {
   id: string;
   kind: DependencyTagKind;
+  owner?: TagOwner;
   satisfies?: (context: ExtendedMapContext, state: SatisfactionState) => boolean;
   demo?: unknown;
   validateDemo?: (demo: unknown) => boolean;
@@ -240,10 +272,20 @@ const DEFAULT_TAG_DEFINITIONS: DependencyTagDefinition[] = [
     id,
     kind: "state" as const,
   })),
-  ...Object.values(M4_EFFECT_TAGS.engine).map((id) => ({
-    id,
-    kind: "effect" as const,
-  })),
+  ...Object.values(M4_EFFECT_TAGS.engine).map((id) => {
+    const definition: DependencyTagDefinition = {
+      id,
+      kind: "effect",
+    };
+    const owner = EFFECT_OWNERS[id];
+    if (owner) {
+      definition.owner = owner;
+    }
+    if (VERIFIED_EFFECT_TAGS.has(id)) {
+      definition.satisfies = (context) => context.adapter.verifyEffect(id);
+    }
+    return definition;
+  }),
 ];
 
 function isFoundationArtifactSatisfied(context: ExtendedMapContext): boolean {

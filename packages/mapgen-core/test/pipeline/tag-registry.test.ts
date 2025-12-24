@@ -1,7 +1,12 @@
 import { describe, expect, it } from "bun:test";
+import { createMockAdapter } from "@civ7/adapter";
+import type { MapConfig } from "@mapgen/bootstrap/types.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
 
 import {
   InvalidDependencyTagDemoError,
+  M4_EFFECT_TAGS,
+  PipelineExecutor,
   StepRegistry,
   TagRegistry,
   UnknownDependencyTagError,
@@ -33,5 +38,29 @@ describe("tag registry", () => {
         validateDemo: (demo) => typeof demo === "number",
       })
     ).toThrow(InvalidDependencyTagDemoError);
+  });
+
+  it("surfaces effect postcondition failures with the effect tag id", () => {
+    const adapter = createMockAdapter({ width: 2, height: 2 });
+    const ctx = createExtendedMapContext(
+      { width: 2, height: 2 },
+      adapter,
+      {} as unknown as MapConfig
+    );
+
+    const registry = new StepRegistry<typeof ctx>();
+    registry.register({
+      id: "biomes",
+      phase: "ecology",
+      requires: [],
+      provides: [M4_EFFECT_TAGS.engine.biomesApplied],
+      run: () => {},
+    });
+
+    const executor = new PipelineExecutor(registry, { log: () => {} });
+    const { stepResults } = executor.execute(ctx, ["biomes"]);
+
+    expect(stepResults[0]?.success).toBe(false);
+    expect(stepResults[0]?.error).toContain(M4_EFFECT_TAGS.engine.biomesApplied);
   });
 });
