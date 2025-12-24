@@ -33,6 +33,14 @@ export interface BootstrapOptions {
 export interface BootstrapConfig extends BootstrapOptions {
 }
 
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+const BOOTSTRAP_ALLOWED_KEYS = new Set(["overrides"]);
+
 // ============================================================================
 // Public API
 // ============================================================================
@@ -47,9 +55,18 @@ export interface BootstrapConfig extends BootstrapOptions {
  * @throws Error if config validation fails
  */
 export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
-  const overrides =
-    options && typeof options === "object" && options.overrides ? options.overrides : undefined;
-  return parseConfig(overrides ?? {});
+  if (!isPlainObject(options)) {
+    throw new Error("Invalid bootstrap options: expected an object.");
+  }
+
+  const unknownKeys = Object.keys(options).filter((key) => !BOOTSTRAP_ALLOWED_KEYS.has(key));
+  if (unknownKeys.length > 0) {
+    throw new Error(
+      `Invalid bootstrap options: unknown keys ${unknownKeys.map((key) => `"${key}"`).join(", ")}.`
+    );
+  }
+
+  return parseConfig(options.overrides ?? {});
 }
 
 /**

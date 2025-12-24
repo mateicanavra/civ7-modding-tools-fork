@@ -48,7 +48,7 @@ describe("bootstrap/entry", () => {
     it("rejects legacy preset options", () => {
       expect(() =>
         bootstrap({ presets: ["classic"] } as unknown as { presets: string[] })
-      ).toThrow("Invalid MapGenConfig");
+      ).toThrow("Invalid bootstrap options");
     });
   });
 
