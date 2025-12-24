@@ -68,6 +68,16 @@ M4’s north star is “inter-step surfaces match the target architecture.” A 
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
+## Implementation Decisions
+
+### 1) ArtifactStore wrapper to expose `ctx.artifacts.foundation`
+
+- **Context:** `ctx.artifacts` was a plain `Map<string, unknown>`, but the contract requires property access at `ctx.artifacts.foundation` while preserving tag-based lookups.
+- **Options:** Keep a plain `Map` and add helper accessors; replace `artifacts` with a plain object; wrap `Map` in a class with a typed getter/setter.
+- **Choice:** Introduce `ArtifactStore extends Map` with a `foundation` getter/setter keyed to `artifact:foundation`.
+- **Rationale:** Keeps existing `Map` semantics for tag verification while enabling the ergonomic `ctx.artifacts.foundation` surface.
+- **Risk:** Future typed artifact properties must be added carefully to avoid bloating the store or drifting from tag-driven access.
+
 ## Implementation Details (Local Only)
 
 ### Thin-slice sequence (recommended)

@@ -13,7 +13,7 @@ export function layerAddVolcanoesPlateAware(
   ctx: ExtendedMapContext,
   options: Partial<VolcanoesConfig> = {}
 ): void {
-  assertFoundationContext(ctx, "volcanoes");
+  const foundation = assertFoundationContext(ctx, "volcanoes");
   const {
     enabled = true,
     baseDensity = 1 / 170,
@@ -38,7 +38,7 @@ export function layerAddVolcanoesPlateAware(
   if (!width || !height || !adapter) return;
   if (!enabled) return;
 
-  const { plates } = ctx.foundation;
+  const { plates } = foundation;
   const boundaryCloseness = plates.boundaryCloseness;
   const boundaryType = plates.boundaryType;
   const shieldStability = plates.shieldStability;

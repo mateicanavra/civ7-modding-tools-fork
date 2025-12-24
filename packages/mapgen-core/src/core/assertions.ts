@@ -1,4 +1,4 @@
-import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { validateFoundationContext } from "@mapgen/core/types.js";
 
 /**
@@ -9,18 +9,18 @@ import { validateFoundationContext } from "@mapgen/core/types.js";
 export function assertFoundationContext(
   ctx: ExtendedMapContext | null,
   stageName: string
-): asserts ctx is ExtendedMapContext & {
-  foundation: NonNullable<ExtendedMapContext["foundation"]>;
-} {
+): FoundationContext {
   if (!ctx) {
     throw new Error(`Stage "${stageName}" requires ExtendedMapContext but ctx is null`);
   }
-  if (!ctx.foundation) {
+  const foundation = ctx.artifacts?.foundation;
+  if (!foundation) {
     throw new Error(
-      `Stage "${stageName}" requires FoundationContext but ctx.foundation is null. ` +
+      `Stage "${stageName}" requires FoundationContext but ctx.artifacts.foundation is null. ` +
         `Ensure the "foundation" stage is enabled and runs before "${stageName}".`
     );
   }
 
-  validateFoundationContext(ctx.foundation, ctx.dimensions);
+  validateFoundationContext(foundation, ctx.dimensions);
+  return foundation;
 }
