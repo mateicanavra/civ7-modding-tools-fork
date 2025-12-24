@@ -59,6 +59,40 @@ describe("placement step contracts", () => {
     }
   });
 
+  it("fails fast when placementInputs are published with an invalid payload", () => {
+    const width = 4;
+    const height = 4;
+    const adapter = createMockAdapter({ width, height, rng: () => 0 });
+    const context = createExtendedMapContext(
+      { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
+      adapter,
+      {} as ExtendedMapContext["config"]
+    );
+
+    const registry = new StepRegistry<ExtendedMapContext>();
+    registry.register({
+      id: "derivePlacementInputs",
+      phase: "placement",
+      requires: [],
+      provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
+      run: (_context, _config) => {
+        _context.artifacts.set(M3_DEPENDENCY_TAGS.artifact.placementInputsV1, {
+          mapInfo: {},
+          starts: {},
+          placementConfig: {},
+        });
+      },
+    });
+
+    const executor = new PipelineExecutor(registry, { log: () => {} });
+    const { stepResults } = executor.execute(context, ["derivePlacementInputs"]);
+
+    expect(stepResults).toHaveLength(1);
+    expect(stepResults[0]?.success).toBe(false);
+    expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
+    expect(stepResults[0]?.error).toContain(M3_DEPENDENCY_TAGS.artifact.placementInputsV1);
+  });
+
   it("fails fast when placement outputs are missing", () => {
     const width = 4;
     const height = 4;

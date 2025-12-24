@@ -362,6 +362,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - `effect:engine.placementApplied` verification is satisfied by validating that `artifact:placementOutputs@v1` exists and is schema-valid (plus lightweight invariants like expected `startPositions` shape/count when starts are provided).
 **Consequences:**
 - Introduces a new artifact contract to version/maintain; it should remain intentionally small and “verification-oriented.”
+- Output counts are best-effort placeholders; they should not be treated as authoritative engine read-backs.
 - Avoids new adapter read surfaces for placement verification in M4; if stronger verification is needed later, prefer adding it explicitly as a follow-up (see DEF-017 for the general “read-back surfaces for effect verification” deferral).
 **Sources:**
 - `resources/m4-prework/local-tbd-m4-effects-1-effect-tags-postconditions.md` (placement verification options; recommended option 1)
