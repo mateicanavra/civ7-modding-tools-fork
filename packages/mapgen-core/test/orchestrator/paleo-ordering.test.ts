@@ -3,9 +3,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import type { StageManifest } from "@mapgen/config/index.js";
 import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
-import { resolveDefaultRecipeStepIds } from "@mapgen/mods/standard/recipes/default.js";
 import {
   compileExecutionPlan,
   PipelineExecutor,
@@ -70,15 +68,17 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
     (globalThis as Record<string, unknown>).GameInfo = originalGameInfo;
   });
 
-  function runRecipe(config: ReturnType<typeof bootstrap>, adapter: ReturnType<typeof createMockAdapter>) {
+  function runRecipe(
+    config: ReturnType<typeof bootstrap>,
+    adapter: ReturnType<typeof createMockAdapter>,
+    enabledStepIds: Set<string>
+  ) {
     const ctx = createExtendedMapContext({ width, height }, adapter, config);
     const registry = new StepRegistry<ExtendedMapContext>();
-    const stageManifest = (config.stageManifest ?? { stages: {} }) as StageManifest;
-    const recipe = resolveDefaultRecipeStepIds(stageManifest);
-    const expectedRecipe = standardMod.recipes.default.steps
+    const recipe = standardMod.recipes.default.steps
       .map((step) => step.id)
-      .filter((stepId) => stageManifest.stages?.[stepId]?.enabled !== false);
-    expect(recipe).toEqual(expectedRecipe);
+      .filter((stepId) => enabledStepIds.has(stepId));
+    expect(recipe).toHaveLength(enabledStepIds.size);
     const storyEnabled = recipe.some((id) => id.startsWith("story"));
 
     const getStageDescriptor = (stageId: string) => {
@@ -180,12 +180,6 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
     (adapter as any).isAdjacentToRivers = () => modeled;
 
     const config = bootstrap({
-      stageConfig: {
-        foundation: true,
-        climateBaseline: true,
-        storySwatches: true,
-        rivers: true,
-      },
       overrides: {
         climate: {
           story: {
@@ -200,8 +194,9 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
         },
       },
     });
+    const enabledStepIds = new Set(["foundation", "climateBaseline", "storySwatches", "rivers"]);
 
-    const { ctx, stepResults } = runRecipe(config, adapter);
+    const { ctx, stepResults } = runRecipe(config, adapter, enabledStepIds);
     expect(stepResults.every((r) => r.success)).toBe(true);
 
     const overlay = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.PALEO);
