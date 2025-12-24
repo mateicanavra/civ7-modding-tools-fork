@@ -5,12 +5,12 @@ import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
  * Map size defaults for testing (bypasses game settings).
  *
  * When provided via OrchestratorConfig.mapSizeDefaults, these values
- * bypass GameplayMap.getMapSize() and GameInfo.Maps.lookup() calls,
- * allowing tests to control map dimensions without engine globals.
+ * bypass adapter map-size lookups, allowing tests to control map dimensions
+ * without relying on engine globals.
  */
 export interface MapSizeDefaults {
   /**
-   * Map size selection key as returned by GameplayMap.getMapSize().
+   * Map size selection key as returned by adapter.getMapSizeId().
    * Used for logging only; the actual dimensions come from mapInfo.
    */
   mapSizeId?: MapSizeId;
@@ -39,7 +39,7 @@ export interface OrchestratorConfig {
   logPrefix?: string;
   /**
    * Override map size defaults for testing.
-   * When set, bypasses GameplayMap.getMapSize() and GameInfo.Maps.lookup().
+   * When set, bypasses adapter map-size lookups.
    * Test harnesses must provide concrete dimensions/latitudes via `mapInfo`.
    */
   mapSizeDefaults?: MapSizeDefaults;

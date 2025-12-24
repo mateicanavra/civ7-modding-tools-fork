@@ -13,6 +13,7 @@
  */
 
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
+import { initializeTerrainConstants } from "@mapgen/core/terrain-constants.js";
 import type { SeedSnapshot } from "@mapgen/foundation/types.js";
 import type { MapGenConfig } from "@mapgen/config/index.js";
 import type { TraceScope } from "@mapgen/trace/index.js";
@@ -225,6 +226,7 @@ export function createExtendedMapContext(
   adapter: EngineAdapter,
   config: MapGenConfig
 ): ExtendedMapContext {
+  initializeTerrainConstants(adapter);
   const { width, height } = dimensions;
   const size = width * height;
 

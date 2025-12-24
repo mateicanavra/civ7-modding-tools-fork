@@ -97,9 +97,8 @@ export function runPlacement(
   //   recalculateAreas → storeWaterData → generateSnow → generateResources →
   //   assignStartPositions → generateDiscoveries → FertilityBuilder.recalculate
   //
-  // IMPORTANT: LandmassRegionId is already set early in landmassPlates stage.
-  // PlotTags LANDMASS/WATER/EAST_LANDMASS/WEST_LANDMASS no longer exist in the engine.
-  // The vanilla algorithm now uses LandmassRegion IDs for filtering, not PlotTags.
+  // IMPORTANT: Region IDs are already set early in landmassPlates stage.
+  // The vanilla algorithm now filters by region IDs rather than plot tags.
   // =========================================================================
 
   // 1) Natural Wonders
@@ -164,9 +163,8 @@ export function runPlacement(
     console.log("[Placement] generateResources failed:", err);
   }
 
-  // NOTE: LandmassRegionId is already set early in landmassPlates stage.
-  // PlotTags (LANDMASS, WATER, EAST_LANDMASS, WEST_LANDMASS) no longer exist in Civ7.
-  // The vanilla StartPositioner.divideMapIntoMajorRegions() now uses LandmassRegion IDs.
+  // NOTE: Region IDs are already set early in landmassPlates stage.
+  // The vanilla StartPositioner.divideMapIntoMajorRegions() now uses region IDs.
   // Do NOT mark them again here - that causes inconsistency with the early marking.
 
   // 8) Start positions (vanilla-compatible)

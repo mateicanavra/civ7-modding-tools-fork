@@ -2,9 +2,9 @@ import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import {
-  addPlotTagsSimple,
-  LANDMASS_REGION,
-  markLandmassRegionId,
+  addPlotTagIdsSimple,
+  markLandmassId,
+  resolveLandmassIds,
   type TerrainBuilderLike,
 } from "@mapgen/core/plot-tags.js";
 import { DEV, devWarn, logLandmassAscii } from "@mapgen/dev/index.js";
@@ -112,10 +112,19 @@ export function createLandmassPlatesStep(
         }
       }
 
-      const westMarked = markLandmassRegionId(runtime.westContinent, LANDMASS_REGION.WEST, context.adapter);
-      const eastMarked = markLandmassRegionId(runtime.eastContinent, LANDMASS_REGION.EAST, context.adapter);
+      const landmassIds = resolveLandmassIds(context.adapter);
+      const westMarked = markLandmassId(
+        runtime.westContinent,
+        landmassIds.WEST,
+        context.adapter
+      );
+      const eastMarked = markLandmassId(
+        runtime.eastContinent,
+        landmassIds.EAST,
+        context.adapter
+      );
       console.log(
-        `[landmass-plate] LandmassRegionId marked: ${westMarked} west (ID=${LANDMASS_REGION.WEST}), ${eastMarked} east (ID=${LANDMASS_REGION.EAST})`
+        `[landmass-plate] Region IDs marked: ${westMarked} west (ID=${landmassIds.WEST}), ${eastMarked} east (ID=${landmassIds.EAST})`
       );
 
       context.adapter.validateAndFixTerrain();
@@ -126,7 +135,7 @@ export function createLandmassPlatesStep(
         setPlotTag: (x, y, tag) => context.adapter.setPlotTag(x, y, tag),
         addPlotTag: (x, y, tag) => context.adapter.addPlotTag(x, y, tag),
       };
-      addPlotTagsSimple(height, width, runtime.eastContinent.west, context.adapter, terrainBuilder);
+      addPlotTagIdsSimple(height, width, runtime.eastContinent.west, context.adapter, terrainBuilder);
 
       if (DEV.ENABLED && context?.adapter) {
         logLandmassAscii(context.adapter, width, height);

@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
-import { LANDMASS_REGION, markLandmassRegionId } from "@mapgen/core/plot-tags.js";
+import { markLandmassId, resolveLandmassIds } from "@mapgen/core/plot-tags.js";
 import { syncHeightfield } from "@mapgen/core/types.js";
 import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
 import { ClimateBaselineSchema } from "@mapgen/config/index.js";
@@ -45,16 +45,25 @@ export function createClimateBaselineStep(
     configSchema: ClimateBaselineStepConfigSchema,
     run: (context, config) => {
       const { width, height } = context.dimensions;
+      const landmassIds = resolveLandmassIds(context.adapter);
 
       context.adapter.recalculateAreas();
       context.adapter.buildElevation();
 
-      const westRestamped = markLandmassRegionId(runtime.westContinent, LANDMASS_REGION.WEST, context.adapter);
-      const eastRestamped = markLandmassRegionId(runtime.eastContinent, LANDMASS_REGION.EAST, context.adapter);
+      const westRestamped = markLandmassId(
+        runtime.westContinent,
+        landmassIds.WEST,
+        context.adapter
+      );
+      const eastRestamped = markLandmassId(
+        runtime.eastContinent,
+        landmassIds.EAST,
+        context.adapter
+      );
       context.adapter.recalculateAreas();
       context.adapter.stampContinents();
       console.log(
-        `[landmass-plate] LandmassRegionId refreshed post-terrain: ${westRestamped} west (ID=${LANDMASS_REGION.WEST}), ${eastRestamped} east (ID=${LANDMASS_REGION.EAST})`
+        `[landmass-plate] Region IDs refreshed post-terrain: ${westRestamped} west (ID=${landmassIds.WEST}), ${eastRestamped} east (ID=${landmassIds.EAST})`
       );
 
       assertFoundationContext(context, "climateBaseline");

@@ -69,6 +69,24 @@ export interface MapInfo {
 }
 
 /**
+ * Plot tag names exposed by the engine.
+ */
+export type PlotTagName =
+  | "NONE"
+  | "LANDMASS"
+  | "WATER"
+  | "EAST_LANDMASS"
+  | "WEST_LANDMASS"
+  | "EAST_WATER"
+  | "WEST_WATER"
+  | "ISLAND";
+
+/**
+ * Landmass region names exposed by the engine.
+ */
+export type LandmassIdName = "NONE" | "WEST" | "EAST" | "DEFAULT" | "ANY";
+
+/**
  * EngineAdapter - abstraction for all engine/surface interactions
  *
  * All terrain/feature reads and writes MUST go through this interface.
@@ -119,6 +137,13 @@ export interface EngineAdapter {
   /** Get terrain type ID */
   getTerrainType(x: number, y: number): number;
 
+  /**
+   * Resolve terrain type index by name
+   * @param name - Terrain type name (e.g., "TERRAIN_MOUNTAIN")
+   * @returns Terrain index or -1 if not found
+   */
+  getTerrainTypeIndex(name: string): number;
+
   /** Get rainfall (0..200) */
   getRainfall(x: number, y: number): number;
 
@@ -139,11 +164,28 @@ export interface EngineAdapter {
   /** Set landmass region ID for start position filtering */
   setLandmassRegionId(x: number, y: number, regionId: number): void;
 
+  /** Set landmass ID for start position filtering (alias of setLandmassRegionId) */
+  setLandmassId(x: number, y: number, regionId: number): void;
+
   /** Add a plot tag to a tile (used for start position filtering) */
   addPlotTag(x: number, y: number, plotTag: number): void;
 
   /** Set plot tag (replaces existing tags) */
   setPlotTag(x: number, y: number, plotTag: number): void;
+
+  /**
+   * Resolve plot tag ID by name
+   * @param name - Plot tag name (e.g., "LANDMASS")
+   * @returns Plot tag ID or -1 if not found
+   */
+  getPlotTagId(name: PlotTagName): number;
+
+  /**
+   * Resolve landmass region ID by name
+   * @param name - Landmass region name (e.g., "WEST")
+   * @returns Landmass region ID or -1 if not found
+   */
+  getLandmassId(name: LandmassIdName): number;
 
   // === FEATURE READS/WRITES ===
 

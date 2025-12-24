@@ -1,71 +1,45 @@
 /**
- * Plot Tags — Engine-aware plot tagging helpers
+ * Plot Tags — Adapter-aware plot tagging helpers
  *
- * Maintains plot tagging (land/water + east/west) using the engine's PlotTags enum.
- * Falls back to hardcoded values only in test environments where PlotTags is unavailable.
- *
- * IMPORTANT: The engine's PlotTags enum values must be used at runtime for compatibility
- * with vanilla start position algorithms that filter by these tags.
+ * Maintains plot tagging (land/water + east/west) using adapter-provided IDs.
+ * Fallback constants are provided for tests and non-engine contexts only.
  */
 
-import type { EngineAdapter } from "@civ7/adapter";
+import type { EngineAdapter, LandmassIdName, PlotTagName } from "@civ7/adapter";
 import { OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 // ============================================================================
-// Plot Tag Constants
+// Plot Tag Constants (fallbacks)
 // ============================================================================
 
 /**
- * Get plot tag value from engine's PlotTags global, with fallback for testing.
- *
- * The engine's PlotTags enum is the source of truth. Hardcoded fallbacks are
- * provided only for test environments where the engine globals aren't available.
- */
-function getPlotTagValue(name: string, fallback: number): number {
-  // Try to get from engine's PlotTags global
-  if (typeof PlotTags !== "undefined") {
-    const engineValue = (PlotTags as Record<string, number>)[`PLOT_TAG_${name}`];
-    if (typeof engineValue === "number") {
-      return engineValue;
-    }
-  }
-  // Fallback for testing environments
-  return fallback;
-}
-
-// One-time debug logging when first accessed
-let _plotTagsLogged = false;
-function logPlotTagsOnce(): void {
-  if (_plotTagsLogged) return;
-  _plotTagsLogged = true;
-
-  const hasPlotTags = typeof PlotTags !== "undefined";
-  console.log(`[PlotTags] Engine PlotTags available: ${hasPlotTags}`);
-  if (hasPlotTags) {
-    console.log(`[PlotTags] Keys: ${Object.keys(PlotTags).join(", ")}`);
-    console.log(`[PlotTags] PLOT_TAG_NONE=${(PlotTags as any).PLOT_TAG_NONE}, PLOT_TAG_LANDMASS=${(PlotTags as any).PLOT_TAG_LANDMASS}, PLOT_TAG_WATER=${(PlotTags as any).PLOT_TAG_WATER}`);
-    console.log(`[PlotTags] PLOT_TAG_EAST_LANDMASS=${(PlotTags as any).PLOT_TAG_EAST_LANDMASS}, PLOT_TAG_WEST_LANDMASS=${(PlotTags as any).PLOT_TAG_WEST_LANDMASS}`);
-  }
-}
-
-/**
- * Plot tag types - resolved at runtime from engine's PlotTags enum.
- *
- * CRITICAL: These values MUST match what the vanilla start position algorithm
- * uses when filtering tiles by PlotTags.PLOT_TAG_WEST_LANDMASS etc.
+ * Plot tag values used as fallbacks for tests.
  */
 export const PLOT_TAG = {
-  get NONE() { logPlotTagsOnce(); return getPlotTagValue("NONE", 0); },
-  get LANDMASS() { return getPlotTagValue("LANDMASS", 1); },
-  get WATER() { return getPlotTagValue("WATER", 2); },
-  get EAST_LANDMASS() { return getPlotTagValue("EAST_LANDMASS", 3); },
-  get WEST_LANDMASS() { return getPlotTagValue("WEST_LANDMASS", 4); },
-  get EAST_WATER() { return getPlotTagValue("EAST_WATER", 5); },
-  get WEST_WATER() { return getPlotTagValue("WEST_WATER", 6); },
-  get ISLAND() { return getPlotTagValue("ISLAND", 7); },
+  NONE: 0,
+  LANDMASS: 1,
+  WATER: 2,
+  EAST_LANDMASS: 3,
+  WEST_LANDMASS: 4,
+  EAST_WATER: 5,
+  WEST_WATER: 6,
+  ISLAND: 7,
 } as const;
 
 export type PlotTagType = number;
+
+export function resolvePlotTagIds(adapter: EngineAdapter): Record<PlotTagName, number> {
+  return {
+    NONE: adapter.getPlotTagId("NONE"),
+    LANDMASS: adapter.getPlotTagId("LANDMASS"),
+    WATER: adapter.getPlotTagId("WATER"),
+    EAST_LANDMASS: adapter.getPlotTagId("EAST_LANDMASS"),
+    WEST_LANDMASS: adapter.getPlotTagId("WEST_LANDMASS"),
+    EAST_WATER: adapter.getPlotTagId("EAST_WATER"),
+    WEST_WATER: adapter.getPlotTagId("WEST_WATER"),
+    ISLAND: adapter.getPlotTagId("ISLAND"),
+  };
+}
 
 // ============================================================================
 // Terrain Type Constants (for land/water detection)
@@ -80,9 +54,9 @@ export interface TerrainBuilderLike {
 }
 
 /**
- * Options for addPlotTags function
+ * Options for addPlotTagIds function
  */
-export interface AddPlotTagsOptions {
+export interface AddPlotTagIdsOptions {
   /** Ocean terrain index (typically 0) */
   oceanTerrain: number;
   /** Coast terrain index (typically 1) */
@@ -104,40 +78,41 @@ export interface AddPlotTagsOptions {
  * @param height - Map height in tiles
  * @param width - Map width in tiles
  * @param eastContinentLeftCol - Column separating west/east landmasses
- * @param adapter - Engine adapter for terrain queries
+ * @param adapter - Engine adapter for terrain queries + plot tag IDs
  * @param options - Terrain constants and builder interface
  */
-export function addPlotTags(
+export function addPlotTagIds(
   height: number,
   width: number,
   eastContinentLeftCol: number,
   adapter: EngineAdapter,
-  options: AddPlotTagsOptions
+  options: AddPlotTagIdsOptions
 ): void {
   const { oceanTerrain, coastTerrain, terrainBuilder } = options;
+  const plotTags = resolvePlotTagIds(adapter);
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       // Reset tags
-      terrainBuilder.setPlotTag(x, y, PLOT_TAG.NONE);
+      terrainBuilder.setPlotTag(x, y, plotTags.NONE);
 
       // Check if land (not ocean or coast)
       const terrain = adapter.getTerrainType(x, y);
       const isLand = terrain !== oceanTerrain && terrain !== coastTerrain;
 
       if (isLand) {
-        terrainBuilder.addPlotTag(x, y, PLOT_TAG.LANDMASS);
+        terrainBuilder.addPlotTag(x, y, plotTags.LANDMASS);
         if (x >= eastContinentLeftCol) {
-          terrainBuilder.addPlotTag(x, y, PLOT_TAG.EAST_LANDMASS);
+          terrainBuilder.addPlotTag(x, y, plotTags.EAST_LANDMASS);
         } else {
-          terrainBuilder.addPlotTag(x, y, PLOT_TAG.WEST_LANDMASS);
+          terrainBuilder.addPlotTag(x, y, plotTags.WEST_LANDMASS);
         }
       } else {
-        terrainBuilder.addPlotTag(x, y, PLOT_TAG.WATER);
+        terrainBuilder.addPlotTag(x, y, plotTags.WATER);
         if (x >= eastContinentLeftCol - 1) {
-          terrainBuilder.addPlotTag(x, y, PLOT_TAG.EAST_WATER);
+          terrainBuilder.addPlotTag(x, y, plotTags.EAST_WATER);
         } else {
-          terrainBuilder.addPlotTag(x, y, PLOT_TAG.WEST_WATER);
+          terrainBuilder.addPlotTag(x, y, plotTags.WEST_WATER);
         }
       }
     }
@@ -145,35 +120,37 @@ export function addPlotTags(
 }
 
 /**
- * Simplified addPlotTags that uses adapter's isWater method
+ * Simplified addPlotTagIds that uses adapter's isWater method
  * instead of terrain type checks.
  */
-export function addPlotTagsSimple(
+export function addPlotTagIdsSimple(
   height: number,
   width: number,
   eastContinentLeftCol: number,
   adapter: EngineAdapter,
   terrainBuilder: TerrainBuilderLike
 ): void {
+  const plotTags = resolvePlotTagIds(adapter);
+
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      terrainBuilder.setPlotTag(x, y, PLOT_TAG.NONE);
+      terrainBuilder.setPlotTag(x, y, plotTags.NONE);
 
       const isLand = !adapter.isWater(x, y);
 
       if (isLand) {
-        terrainBuilder.addPlotTag(x, y, PLOT_TAG.LANDMASS);
+        terrainBuilder.addPlotTag(x, y, plotTags.LANDMASS);
         if (x >= eastContinentLeftCol) {
-          terrainBuilder.addPlotTag(x, y, PLOT_TAG.EAST_LANDMASS);
+          terrainBuilder.addPlotTag(x, y, plotTags.EAST_LANDMASS);
         } else {
-          terrainBuilder.addPlotTag(x, y, PLOT_TAG.WEST_LANDMASS);
+          terrainBuilder.addPlotTag(x, y, plotTags.WEST_LANDMASS);
         }
       } else {
-        terrainBuilder.addPlotTag(x, y, PLOT_TAG.WATER);
+        terrainBuilder.addPlotTag(x, y, plotTags.WATER);
         if (x >= eastContinentLeftCol - 1) {
-          terrainBuilder.addPlotTag(x, y, PLOT_TAG.EAST_WATER);
+          terrainBuilder.addPlotTag(x, y, plotTags.EAST_WATER);
         } else {
-          terrainBuilder.addPlotTag(x, y, PLOT_TAG.WEST_WATER);
+          terrainBuilder.addPlotTag(x, y, plotTags.WEST_WATER);
         }
       }
     }
@@ -181,41 +158,32 @@ export function addPlotTagsSimple(
 }
 
 // ============================================================================
-// Landmass Region ID Functions
+// Landmass Region ID Helpers
 // ============================================================================
 
 /**
- * Get landmass region ID value from engine's LandmassRegion global.
- *
- * The engine's LandmassRegion enum is the source of truth. The StartPositioner
- * algorithm filters by these values when dividing the map into start regions.
+ * Landmass region values used as fallbacks for tests.
  */
-function getLandmassRegionValue(name: string, fallback: number): number {
-  if (typeof LandmassRegion !== "undefined") {
-    const engineValue = (LandmassRegion as Record<string, number>)[`LANDMASS_REGION_${name}`];
-    if (typeof engineValue === "number") {
-      return engineValue;
-    }
-  }
-  return fallback;
+export const LANDMASS_ID = {
+  NONE: 0,
+  WEST: 2,
+  EAST: 1,
+  DEFAULT: 0,
+  ANY: -1,
+} as const;
+
+export function resolveLandmassIds(adapter: EngineAdapter): Record<LandmassIdName, number> {
+  return {
+    NONE: adapter.getLandmassId("NONE"),
+    WEST: adapter.getLandmassId("WEST"),
+    EAST: adapter.getLandmassId("EAST"),
+    DEFAULT: adapter.getLandmassId("DEFAULT"),
+    ANY: adapter.getLandmassId("ANY"),
+  };
 }
 
 /**
- * Landmass region constants - resolved at runtime from engine's LandmassRegion enum.
- *
- * CRITICAL: These values MUST match what the vanilla StartPositioner algorithm
- * uses when filtering tiles via getLandmassRegionId().
- */
-export const LANDMASS_REGION = {
-  get NONE() { return getLandmassRegionValue("NONE", 0); },
-  get WEST() { return getLandmassRegionValue("WEST", 2); },
-  get EAST() { return getLandmassRegionValue("EAST", 1); },
-  get DEFAULT() { return getLandmassRegionValue("DEFAULT", 0); },
-  get ANY() { return getLandmassRegionValue("ANY", -1); },
-} as const;
-
-/**
- * Continent bounds interface for markLandmassRegionId
+ * Continent bounds interface for markLandmassId
  */
 export interface ContinentBoundsLike {
   west: number;
@@ -225,17 +193,17 @@ export interface ContinentBoundsLike {
 }
 
 /**
- * Mark all non-ocean tiles in a continent with a specific LandmassRegionId.
+ * Mark all non-ocean tiles in a continent with a specific region ID.
  *
  * This function MUST be called early in the map generation pipeline, BEFORE
  * validateAndFixTerrain/expandCoasts/recalculateAreas/stampContinents.
  * The vanilla StartPositioner.divideMapIntoMajorRegions() filters by this ID.
  *
  * @param continent - Bounds of the continent to mark
- * @param regionId - LandmassRegion ID to assign (use LANDMASS_REGION.WEST/EAST)
+ * @param regionId - Region ID to assign (use resolveLandmassIds(adapter).WEST/EAST)
  * @param adapter - Engine adapter for terrain queries
  */
-export function markLandmassRegionId(
+export function markLandmassId(
   continent: ContinentBoundsLike,
   regionId: number,
   adapter: EngineAdapter
@@ -247,7 +215,7 @@ export function markLandmassRegionId(
   for (let y = continent.south; y <= continent.north; y++) {
     for (let x = continent.west; x <= continent.east; x++) {
       if (adapter.getTerrainType(x, y) !== OCEAN_TERRAIN) {
-        adapter.setLandmassRegionId(x, y, regionId);
+        adapter.setLandmassId(x, y, regionId);
         markedCount++;
       }
     }

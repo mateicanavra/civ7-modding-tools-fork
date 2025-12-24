@@ -1,14 +1,10 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
 export function zonalWindStep(
-  ctx: ExtendedMapContext | null | undefined,
+  ctx: ExtendedMapContext,
   x: number,
   y: number
 ): { dx: number; dy: number } {
-  try {
-    const lat = Math.abs(ctx?.adapter?.getLatitude?.(x, y) ?? GameplayMap?.getPlotLatitude?.(x, y) ?? 0);
-    return { dx: lat < 30 || lat >= 60 ? -1 : 1, dy: 0 };
-  } catch {
-    return { dx: 1, dy: 0 };
-  }
+  const lat = Math.abs(ctx.adapter.getLatitude(x, y));
+  return { dx: lat < 30 || lat >= 60 ? -1 : 1, dy: 0 };
 }

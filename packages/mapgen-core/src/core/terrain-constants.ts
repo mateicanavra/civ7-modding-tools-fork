@@ -1,5 +1,5 @@
 /**
- * Terrain Constants — Dynamic lookup from GameInfo
+ * Terrain Constants — Adapter-initialized indices
  *
  * @packageDocumentation
  *
@@ -16,95 +16,147 @@
  * constants instead of hardcoding terrain indices.
  */
 
-/// <reference types="@civ7/types" />
+import type { EngineAdapter } from "@civ7/adapter";
 
 // ============================================================================
-// Dynamic Terrain Lookups (matches official map-globals.js pattern)
+// Defaults (used when adapter lookups are unavailable)
 // ============================================================================
 
-/**
- * Get terrain index by type name from GameInfo.
- * Returns undefined if not found (for graceful fallback).
- */
-function lookupTerrain(terrainType: string): number | undefined {
-  try {
-    const entry = GameInfo.Terrains.find((t) => t.TerrainType === terrainType);
-    return entry?.$index;
-  } catch {
-    return undefined;
-  }
+const DEFAULT_TERRAIN_INDICES = {
+  MOUNTAIN: 0,
+  HILL: 1,
+  FLAT: 2,
+  COAST: 3,
+  OCEAN: 4,
+  NAVIGABLE_RIVER: 5,
+} as const;
+
+const DEFAULT_BIOME_INDICES = {
+  TUNDRA: 0,
+  GRASSLAND: 1,
+  PLAINS: 2,
+  TROPICAL: 3,
+  DESERT: 4,
+  MARINE: 5,
+} as const;
+
+const DEFAULT_FEATURE_INDICES = {
+  VOLCANO: -1,
+} as const;
+
+let terrainConstantsInitialized = false;
+const terrainFallbackWarnings = new Set<string>();
+
+function warnFallback(label: string, fallback: number, value: number): void {
+  if (terrainFallbackWarnings.has(label)) return;
+  terrainFallbackWarnings.add(label);
+  console.warn(
+    `[terrain-constants] Using fallback for ${label} (${fallback}). Adapter returned ${value}.`
+  );
+}
+
+function resolveTerrainIndex(adapter: EngineAdapter, name: string, fallback: number): number {
+  const value = adapter.getTerrainTypeIndex(name);
+  if (Number.isFinite(value) && value >= 0) return value;
+  warnFallback(name, fallback, value);
+  return fallback;
+}
+
+function resolveBiomeIndex(adapter: EngineAdapter, name: string, fallback: number): number {
+  const value = adapter.getBiomeGlobal(name);
+  if (Number.isFinite(value) && value >= 0) return value;
+  warnFallback(name, fallback, value);
+  return fallback;
+}
+
+function resolveFeatureIndex(adapter: EngineAdapter, name: string, fallback: number): number {
+  const value = adapter.getFeatureTypeIndex(name);
+  if (Number.isFinite(value) && value >= 0) return value;
+  warnFallback(name, fallback, value);
+  return fallback;
+}
+
+// ============================================================================
+// Adapter Sync
+// ============================================================================
+
+export function initializeTerrainConstants(adapter: EngineAdapter): void {
+  if (terrainConstantsInitialized) return;
+  terrainConstantsInitialized = true;
+
+  MOUNTAIN_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_MOUNTAIN", DEFAULT_TERRAIN_INDICES.MOUNTAIN);
+  HILL_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_HILL", DEFAULT_TERRAIN_INDICES.HILL);
+  FLAT_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_FLAT", DEFAULT_TERRAIN_INDICES.FLAT);
+  COAST_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_COAST", DEFAULT_TERRAIN_INDICES.COAST);
+  OCEAN_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_OCEAN", DEFAULT_TERRAIN_INDICES.OCEAN);
+  NAVIGABLE_RIVER_TERRAIN = resolveTerrainIndex(
+    adapter,
+    "TERRAIN_NAVIGABLE_RIVER",
+    DEFAULT_TERRAIN_INDICES.NAVIGABLE_RIVER
+  );
+
+  TUNDRA_BIOME = resolveBiomeIndex(adapter, "tundra", DEFAULT_BIOME_INDICES.TUNDRA);
+  GRASSLAND_BIOME = resolveBiomeIndex(adapter, "grassland", DEFAULT_BIOME_INDICES.GRASSLAND);
+  PLAINS_BIOME = resolveBiomeIndex(adapter, "plains", DEFAULT_BIOME_INDICES.PLAINS);
+  TROPICAL_BIOME = resolveBiomeIndex(adapter, "tropical", DEFAULT_BIOME_INDICES.TROPICAL);
+  DESERT_BIOME = resolveBiomeIndex(adapter, "desert", DEFAULT_BIOME_INDICES.DESERT);
+  MARINE_BIOME = resolveBiomeIndex(adapter, "marine", DEFAULT_BIOME_INDICES.MARINE);
+
+  VOLCANO_FEATURE = resolveFeatureIndex(adapter, "FEATURE_VOLCANO", DEFAULT_FEATURE_INDICES.VOLCANO);
 }
 
 // ============================================================================
 // Terrain Type Constants
 // ============================================================================
-// These use dynamic lookup at module load time, with fallback to correct
-// hardcoded values from terrain.xml for safety.
+// These default to the canonical terrain.xml order; adapters may override them
+// via initializeTerrainConstants().
 
 /** TERRAIN_MOUNTAIN index (default: 0 per terrain.xml) */
-export const MOUNTAIN_TERRAIN: number = lookupTerrain("TERRAIN_MOUNTAIN") ?? 0;
+export let MOUNTAIN_TERRAIN: number = DEFAULT_TERRAIN_INDICES.MOUNTAIN;
 
 /** TERRAIN_HILL index (default: 1 per terrain.xml) */
-export const HILL_TERRAIN: number = lookupTerrain("TERRAIN_HILL") ?? 1;
+export let HILL_TERRAIN: number = DEFAULT_TERRAIN_INDICES.HILL;
 
 /** TERRAIN_FLAT index (default: 2 per terrain.xml) */
-export const FLAT_TERRAIN: number = lookupTerrain("TERRAIN_FLAT") ?? 2;
+export let FLAT_TERRAIN: number = DEFAULT_TERRAIN_INDICES.FLAT;
 
 /** TERRAIN_COAST index (default: 3 per terrain.xml) */
-export const COAST_TERRAIN: number = lookupTerrain("TERRAIN_COAST") ?? 3;
+export let COAST_TERRAIN: number = DEFAULT_TERRAIN_INDICES.COAST;
 
 /** TERRAIN_OCEAN index (default: 4 per terrain.xml) */
-export const OCEAN_TERRAIN: number = lookupTerrain("TERRAIN_OCEAN") ?? 4;
+export let OCEAN_TERRAIN: number = DEFAULT_TERRAIN_INDICES.OCEAN;
 
 /** TERRAIN_NAVIGABLE_RIVER index (default: 5 per terrain.xml) */
-export const NAVIGABLE_RIVER_TERRAIN: number = lookupTerrain("TERRAIN_NAVIGABLE_RIVER") ?? 5;
+export let NAVIGABLE_RIVER_TERRAIN: number = DEFAULT_TERRAIN_INDICES.NAVIGABLE_RIVER;
 
 // ============================================================================
-// Biome Type Constants (for completeness, matching map-globals.js)
+// Biome Type Constants (for completeness)
 // ============================================================================
-
-function lookupBiome(biomeType: string): number | undefined {
-  try {
-    const entry = GameInfo.Biomes.find((t) => t.BiomeType === biomeType);
-    return entry?.$index;
-  } catch {
-    return undefined;
-  }
-}
 
 /** BIOME_TUNDRA index */
-export const TUNDRA_BIOME: number = lookupBiome("BIOME_TUNDRA") ?? 0;
+export let TUNDRA_BIOME: number = DEFAULT_BIOME_INDICES.TUNDRA;
 
 /** BIOME_GRASSLAND index */
-export const GRASSLAND_BIOME: number = lookupBiome("BIOME_GRASSLAND") ?? 1;
+export let GRASSLAND_BIOME: number = DEFAULT_BIOME_INDICES.GRASSLAND;
 
 /** BIOME_PLAINS index */
-export const PLAINS_BIOME: number = lookupBiome("BIOME_PLAINS") ?? 2;
+export let PLAINS_BIOME: number = DEFAULT_BIOME_INDICES.PLAINS;
 
 /** BIOME_TROPICAL index */
-export const TROPICAL_BIOME: number = lookupBiome("BIOME_TROPICAL") ?? 3;
+export let TROPICAL_BIOME: number = DEFAULT_BIOME_INDICES.TROPICAL;
 
 /** BIOME_DESERT index */
-export const DESERT_BIOME: number = lookupBiome("BIOME_DESERT") ?? 4;
+export let DESERT_BIOME: number = DEFAULT_BIOME_INDICES.DESERT;
 
 /** BIOME_MARINE index */
-export const MARINE_BIOME: number = lookupBiome("BIOME_MARINE") ?? 5;
+export let MARINE_BIOME: number = DEFAULT_BIOME_INDICES.MARINE;
 
 // ============================================================================
 // Feature Type Constants
 // ============================================================================
 
-function lookupFeature(featureType: string): number | undefined {
-  try {
-    const entry = GameInfo.Features.find((t) => t.FeatureType === featureType);
-    return entry?.$index;
-  } catch {
-    return undefined;
-  }
-}
-
 /** FEATURE_VOLCANO index */
-export const VOLCANO_FEATURE: number = lookupFeature("FEATURE_VOLCANO") ?? -1;
+export let VOLCANO_FEATURE: number = DEFAULT_FEATURE_INDICES.VOLCANO;
 
 // ============================================================================
 // Utility Functions

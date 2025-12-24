@@ -39,8 +39,8 @@ The accepted engine-boundary policy disallows “read engine later” dependency
 
 ## Acceptance Criteria
 
-- `GameplayMap` fallbacks, module-load-time `GameInfo` lookups, and `PlotTags`/`LandmassRegion` globals are removed or explicitly fenced behind adapter/runtime surfaces (dev/test-only isolated where needed).
-- No new engine-global dependency surfaces are introduced; failures are explicit.
+- [x] `GameplayMap` fallbacks, module-load-time `GameInfo` lookups, and `PlotTags`/`LandmassRegion` globals are removed or explicitly fenced behind adapter/runtime surfaces (dev/test-only isolated where needed).
+- [x] No new engine-global dependency surfaces are introduced; failures are explicit.
 
 ## Primary Touchpoints (Expected)
 
@@ -179,3 +179,19 @@ Tests that currently mock globals (should be revisited once globals are removed/
 Docs/policy touchpoints:
 - `docs/system/libs/mapgen/architecture.md` (engine boundary policy; ensure it reflects "no engine globals" in default path)
 - `docs/projects/engine-refactor-v1/deferrals.md` (if any deferrals reference the legacy global surfaces)
+
+## Implementation Decisions
+
+### Initialize terrain constants from adapter at context creation
+- **Context:** Need to remove module-load engine lookups while keeping terrain/biome/feature indices aligned with runtime values.
+- **Options:** Hardcode constants only, resolve indices per call via adapter, or initialize once from adapter with fallback defaults.
+- **Choice:** Initialize once in `createExtendedMapContext` using adapter lookups with fallback defaults + warnings.
+- **Rationale:** Removes engine globals while preserving existing constant-based call sites and test defaults.
+- **Risk:** Constants are process-wide; if a different adapter runs later in the same process, values may be stale.
+
+### Rename plot tag/region helpers to avoid engine-global tokens in mapgen-core
+- **Context:** Static guard requires no PlotTags/LandmassRegion references in `packages/mapgen-core/src` while still routing through adapter IDs.
+- **Options:** Keep existing helper names and ignore the guard, keep names but hide globals, or rename helpers + add adapter ID methods.
+- **Choice:** Rename helpers (`addPlotTagIds*`, `resolveLandmassIds`, `markLandmassId`) and add adapter ID methods.
+- **Rationale:** Keeps mapgen-core free of engine-global tokens while keeping adapter-backed behavior explicit.
+- **Risk:** Helper API renames may require downstream callers to update.

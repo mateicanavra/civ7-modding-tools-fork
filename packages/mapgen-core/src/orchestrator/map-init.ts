@@ -21,7 +21,7 @@ function resolveMapInfo(
     if (!mapInfo) {
       throw new Error(
         `${prefix} Failed to resolve mapInfo for mapSizeId=${String(mapSizeId)}. ` +
-          `In tests, provide options.mapSizeDefaults.mapInfo; in-engine, ensure GameInfo.Maps.lookup is available.`
+          `In tests, provide options.mapSizeDefaults.mapInfo; in-engine, ensure adapter map-info lookup is available.`
       );
     }
     return { mapSizeId, mapInfo };
@@ -32,7 +32,7 @@ function resolveMapInfo(
   if (!mapInfo) {
     throw new Error(
       `${prefix} Failed to resolve mapInfo for mapSizeId=${String(mapSizeId)}. ` +
-        `In tests, provide options.mapSizeDefaults.mapInfo; in-engine, ensure GameInfo.Maps.lookup is available.`
+        `In tests, provide options.mapSizeDefaults.mapInfo; in-engine, ensure adapter map-info lookup is available.`
     );
   }
 

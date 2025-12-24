@@ -5,7 +5,15 @@
  * in unit tests without the Civ7 game engine.
  */
 
-import type { EngineAdapter, FeatureData, MapInfo, MapInitParams, MapSizeId } from "./types.js";
+import type {
+  EngineAdapter,
+  FeatureData,
+  LandmassIdName,
+  MapInfo,
+  MapInitParams,
+  MapSizeId,
+  PlotTagName,
+} from "./types.js";
 import { ENGINE_EFFECT_TAGS } from "./effects.js";
 
 /**
@@ -34,6 +42,44 @@ export const DEFAULT_FEATURE_TYPES: Record<string, number> = {
   FEATURE_MARSH: 4,
   FEATURE_OASIS: 5,
   FEATURE_FLOODPLAINS: 6,
+  FEATURE_VOLCANO: 7,
+};
+
+/**
+ * Default terrain type indices for testing
+ */
+export const DEFAULT_TERRAIN_TYPE_INDICES: Record<string, number> = {
+  TERRAIN_MOUNTAIN: 0,
+  TERRAIN_HILL: 1,
+  TERRAIN_FLAT: 2,
+  TERRAIN_COAST: 3,
+  TERRAIN_OCEAN: 4,
+  TERRAIN_NAVIGABLE_RIVER: 5,
+};
+
+/**
+ * Default plot tag values for testing
+ */
+export const DEFAULT_PLOT_TAGS: Record<PlotTagName, number> = {
+  NONE: 0,
+  LANDMASS: 1,
+  WATER: 2,
+  EAST_LANDMASS: 3,
+  WEST_LANDMASS: 4,
+  EAST_WATER: 5,
+  WEST_WATER: 6,
+  ISLAND: 7,
+};
+
+/**
+ * Default landmass region values for testing
+ */
+export const DEFAULT_LANDMASS_IDS: Record<LandmassIdName, number> = {
+  NONE: 0,
+  WEST: 2,
+  EAST: 1,
+  DEFAULT: 0,
+  ANY: -1,
 };
 
 export interface MockAdapterConfig {
@@ -59,6 +105,12 @@ export interface MockAdapterConfig {
   biomeGlobals?: Record<string, number>;
   /** Custom feature type indices (default: DEFAULT_FEATURE_TYPES) */
   featureTypes?: Record<string, number>;
+  /** Custom terrain type indices (default: DEFAULT_TERRAIN_TYPE_INDICES) */
+  terrainTypeIndices?: Record<string, number>;
+  /** Custom plot tag values (default: DEFAULT_PLOT_TAGS) */
+  plotTags?: Partial<Record<PlotTagName, number>>;
+  /** Custom landmass region values (default: DEFAULT_LANDMASS_IDS) */
+  landmassIds?: Partial<Record<LandmassIdName, number>>;
 }
 
 /**
@@ -83,6 +135,9 @@ export class MockAdapter implements EngineAdapter {
   private rngFn: (max: number, label: string) => number;
   private biomeGlobals: Record<string, number>;
   private featureTypes: Record<string, number>;
+  private terrainTypeIndices: Record<string, number>;
+  private plotTags: Record<PlotTagName, number>;
+  private landmassIds: Record<LandmassIdName, number>;
   private readonly effectEvidence = new Set<string>();
 
   /** Track calls for testing */
@@ -126,6 +181,9 @@ export class MockAdapter implements EngineAdapter {
     this.rngFn = config.rng ?? ((max) => Math.floor(Math.random() * max));
     this.biomeGlobals = config.biomeGlobals ?? { ...DEFAULT_BIOME_GLOBALS };
     this.featureTypes = config.featureTypes ?? { ...DEFAULT_FEATURE_TYPES };
+    this.terrainTypeIndices = config.terrainTypeIndices ?? { ...DEFAULT_TERRAIN_TYPE_INDICES };
+    this.plotTags = { ...DEFAULT_PLOT_TAGS, ...(config.plotTags ?? {}) };
+    this.landmassIds = { ...DEFAULT_LANDMASS_IDS, ...(config.landmassIds ?? {}) };
     this.calls = {
       setMapInitData: [],
       designateBiomes: [],
@@ -195,6 +253,10 @@ export class MockAdapter implements EngineAdapter {
     return this.terrainTypes[this.idx(x, y)];
   }
 
+  getTerrainTypeIndex(name: string): number {
+    return this.terrainTypeIndices[name] ?? -1;
+  }
+
   getRainfall(x: number, y: number): number {
     return this.rainfall[this.idx(x, y)];
   }
@@ -223,12 +285,24 @@ export class MockAdapter implements EngineAdapter {
     this.landmassRegionIds[this.idx(x, y)] = regionId;
   }
 
+  setLandmassId(x: number, y: number, regionId: number): void {
+    this.setLandmassRegionId(x, y, regionId);
+  }
+
   addPlotTag(_x: number, _y: number, _plotTag: number): void {
     // No-op in mock - plot tags are engine-specific
   }
 
   setPlotTag(_x: number, _y: number, _plotTag: number): void {
     // No-op in mock - plot tags are engine-specific
+  }
+
+  getPlotTagId(name: PlotTagName): number {
+    return this.plotTags[name] ?? -1;
+  }
+
+  getLandmassId(name: LandmassIdName): number {
+    return this.landmassIds[name] ?? -1;
   }
 
   // === FEATURE READS/WRITES ===
@@ -469,6 +543,9 @@ export class MockAdapter implements EngineAdapter {
     this.calls.addFloodplains.length = 0;
     this.calls.recalculateFertility = 0;
     this.effectEvidence.clear();
+    this.terrainTypeIndices = config.terrainTypeIndices ?? { ...DEFAULT_TERRAIN_TYPE_INDICES };
+    this.plotTags = { ...DEFAULT_PLOT_TAGS, ...(config.plotTags ?? {}) };
+    this.landmassIds = { ...DEFAULT_LANDMASS_IDS, ...(config.landmassIds ?? {}) };
   }
 
   /** Set biome type for testing */

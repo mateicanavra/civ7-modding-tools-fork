@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Plot tag/region helper renames + adapter ID methods** [Source: CIV-67]
+  - **Context:** CIV-67 engine-boundary cleanup removes engine-global tokens from mapgen-core and routes plot-tag/region IDs through new adapter methods.
+  - **Type:** triage
+  - **Notes:** Mapgen-core helpers were renamed (`addPlotTagIds*`, `resolveLandmassIds`, `markLandmassId`) and adapter gained `getPlotTagId`/`getLandmassId`/`setLandmassId`. Downstream callers on older helper names must update.
+  - **Next check:** before merging any branches that still reference the old helper names.
+
 - **Placement inputs cutover landed early in CIV-71** [Source: CIV-71/CIV-72]
   - **Context:** CIV-71 implementation now requires `artifact:placementInputs@v1` and removes legacy placement input wiring, even though the CIV-71 AC said additive-only. CIV-72 currently focuses on placement outputs verification.
   - **Type:** triage

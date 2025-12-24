@@ -7,7 +7,15 @@
 
 /// <reference types="@civ7/types" />
 
-import type { EngineAdapter, FeatureData, MapInfo, MapInitParams, MapSizeId } from "./types.js";
+import type {
+  EngineAdapter,
+  FeatureData,
+  LandmassIdName,
+  MapInfo,
+  MapInitParams,
+  MapSizeId,
+  PlotTagName,
+} from "./types.js";
 import { ENGINE_EFFECT_TAGS } from "./effects.js";
 
 // Import from /base-standard/... — these are external Civ7 runtime paths
@@ -116,6 +124,17 @@ export class Civ7Adapter implements EngineAdapter {
     return GameplayMap.getTerrainType(x, y);
   }
 
+  getTerrainTypeIndex(name: string): number {
+    const terrains = GameInfo?.Terrains;
+    if (!terrains) return -1;
+    const terrain = terrains.find((t) => t.TerrainType === name) as
+      | { Index?: number; $index?: number }
+      | undefined;
+    if (typeof terrain?.Index === "number") return terrain.Index;
+    if (typeof terrain?.$index === "number") return terrain.$index;
+    return -1;
+  }
+
   getRainfall(x: number, y: number): number {
     return GameplayMap.getRainfall(x, y);
   }
@@ -142,12 +161,38 @@ export class Civ7Adapter implements EngineAdapter {
     TerrainBuilder.setLandmassRegionId(x, y, regionId);
   }
 
+  setLandmassId(x: number, y: number, regionId: number): void {
+    this.setLandmassRegionId(x, y, regionId);
+  }
+
   addPlotTag(x: number, y: number, plotTag: number): void {
     TerrainBuilder.addPlotTag(x, y, plotTag);
   }
 
   setPlotTag(x: number, y: number, plotTag: number): void {
     TerrainBuilder.setPlotTag(x, y, plotTag);
+  }
+
+  getPlotTagId(name: PlotTagName): number {
+    if (typeof PlotTags === "undefined") {
+      throw new Error(`[Adapter] PlotTags global is unavailable (PLOT_TAG_${name}).`);
+    }
+    const value = (PlotTags as Record<string, number>)[`PLOT_TAG_${name}`];
+    if (typeof value !== "number") {
+      throw new Error(`[Adapter] PlotTags missing PLOT_TAG_${name}.`);
+    }
+    return value;
+  }
+
+  getLandmassId(name: LandmassIdName): number {
+    if (typeof LandmassRegion === "undefined") {
+      throw new Error(`[Adapter] LandmassRegion global is unavailable (LANDMASS_REGION_${name}).`);
+    }
+    const value = (LandmassRegion as Record<string, number>)[`LANDMASS_REGION_${name}`];
+    if (typeof value !== "number") {
+      throw new Error(`[Adapter] LandmassRegion missing LANDMASS_REGION_${name}.`);
+    }
+    return value;
   }
 
   // === FEATURE READS/WRITES ===
