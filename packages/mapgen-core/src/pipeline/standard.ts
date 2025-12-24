@@ -1,5 +1,5 @@
 import type { GenerationPhase } from "@mapgen/pipeline/types.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "@mapgen/pipeline/tags.js";
 
 export const M3_STANDARD_STAGE_PHASE: Readonly<Record<string, GenerationPhase>> =
   Object.freeze({
@@ -120,21 +120,21 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
       M3_DEPENDENCY_TAGS.artifact.heightfield,
       M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
     ],
-    provides: [M3_DEPENDENCY_TAGS.state.biomesApplied],
+    provides: [M3_DEPENDENCY_TAGS.field.biomeId, M4_EFFECT_TAGS.engine.biomesApplied],
   },
   features: {
     requires: [
-      M3_DEPENDENCY_TAGS.state.biomesApplied,
+      M3_DEPENDENCY_TAGS.field.biomeId,
       M3_DEPENDENCY_TAGS.artifact.climateField,
       M3_DEPENDENCY_TAGS.artifact.heightfield,
     ],
-    provides: [M3_DEPENDENCY_TAGS.state.featuresApplied],
+    provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
   },
   placement: {
     requires: [
       M3_DEPENDENCY_TAGS.state.coastlinesApplied,
       M3_DEPENDENCY_TAGS.state.riversModeled,
-      M3_DEPENDENCY_TAGS.state.featuresApplied,
+      M4_EFFECT_TAGS.engine.featuresApplied,
     ],
     provides: [M3_DEPENDENCY_TAGS.state.placementApplied],
   },

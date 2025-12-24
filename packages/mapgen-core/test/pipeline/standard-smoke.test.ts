@@ -9,6 +9,7 @@ import {
   compileExecutionPlan,
   computePlanFingerprint,
   createTraceSessionFromPlan,
+  M4_EFFECT_TAGS,
   PipelineExecutor,
   StepRegistry,
 } from "@mapgen/pipeline/index.js";
@@ -254,11 +255,21 @@ describe("smoke: standard recipe compile/execute", () => {
     const events: TraceEvent[] = [];
     const trace = createTraceSessionFromPlan(plan, { emit: (event) => events.push(event) });
     const executor = new PipelineExecutor(registry, { logPrefix: "[TEST]", log: () => {} });
-    const { stepResults } = executor.executePlan(ctx, plan, { trace });
+    const { stepResults, satisfied } = executor.executePlan(ctx, plan, { trace });
 
     expect(stepResults).toHaveLength(plan.nodes.length);
     expect(stepResults.every((result) => result.success)).toBe(true);
+    expect(satisfied.has(M4_EFFECT_TAGS.engine.biomesApplied)).toBe(true);
+    expect(satisfied.has(M4_EFFECT_TAGS.engine.featuresApplied)).toBe(true);
     expect(ctx.artifacts.foundation).toBeTruthy();
+    expect(ctx.fields.biomeId).toBeInstanceOf(Uint8Array);
+    expect(ctx.fields.featureType).toBeInstanceOf(Int16Array);
+
+    const sampleX = Math.floor(width / 3);
+    const sampleY = Math.floor(height / 3);
+    const sampleIdx = sampleY * width + sampleX;
+    expect(ctx.fields.biomeId?.[sampleIdx]).toBe(adapter.getBiomeType(sampleX, sampleY));
+    expect(ctx.fields.featureType?.[sampleIdx]).toBe(adapter.getFeatureType(sampleX, sampleY));
     expect(startPositions.length).toBeGreaterThan(0);
     expect(events.some((event) => event.kind === "run.finish" && event.success)).toBe(true);
   });
