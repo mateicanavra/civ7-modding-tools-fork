@@ -73,8 +73,8 @@ pnpm -C packages/mapgen-core test
 # Run integration tests specifically
 pnpm -C packages/mapgen-core test --grep "integration|orchestrator"
 
-# Run lifecycle tests
-pnpm -C packages/mapgen-core test --grep "WorldModel|lifecycle"
+# Run RunRequest/ExecutionPlan boundary tests
+pnpm -C packages/mapgen-core test --grep "RunRequest|ExecutionPlan"
 
 # Run behavior tests
 pnpm -C packages/mapgen-core test --grep "climate|biomes|features"
@@ -218,6 +218,7 @@ describe("Climate Behavior", () => {
 ```typescript
 // __tests__/helpers/mock-context.ts
 import { createExtendedMapContext } from "../../src/core/types.js";
+import { getDefaultConfig } from "../../src/config/index.js";
 import { MockAdapter } from "@civ7/adapter/mock";
 
 export function createMockContext(options: {
@@ -227,7 +228,7 @@ export function createMockContext(options: {
   const width = options.width ?? 84;
   const height = options.height ?? 54;
   const adapter = new MockAdapter();
-  const config = { stageConfig: {} };
+  const config = getDefaultConfig();
 
   return createExtendedMapContext({ width, height }, adapter, config);
 }
