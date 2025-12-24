@@ -1,8 +1,8 @@
-import { Type, type Static } from "typebox";
+import { type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { runPlacement } from "@mapgen/domain/placement/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
-import { PlacementConfigSchema } from "@mapgen/config/index.js";
+import { EmptyStepConfigSchema } from "@mapgen/pipeline/step-config.js";
 import { getPublishedPlacementInputs } from "@mapgen/pipeline/artifacts.js";
 
 export interface PlacementStepRuntime {
@@ -14,14 +14,7 @@ export interface PlacementStepOptions {
   provides: readonly string[];
 }
 
-const PlacementStepConfigSchema = Type.Object(
-  {
-    placement: PlacementConfigSchema,
-  },
-  { additionalProperties: false, default: { placement: {} } }
-);
-
-type PlacementStepConfig = Static<typeof PlacementStepConfigSchema>;
+type PlacementStepConfig = Static<typeof EmptyStepConfigSchema>;
 
 export function createPlacementStep(
   runtime: PlacementStepRuntime,
@@ -32,7 +25,7 @@ export function createPlacementStep(
     phase: M3_STANDARD_STAGE_PHASE.placement,
     requires: options.requires,
     provides: options.provides,
-    configSchema: PlacementStepConfigSchema,
+    configSchema: EmptyStepConfigSchema,
     run: (context, _config) => {
       const derivedInputs = getPublishedPlacementInputs(context);
       if (!derivedInputs) {
