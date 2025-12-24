@@ -1,4 +1,5 @@
-import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
+import { validateFoundationContext } from "@mapgen/core/types.js";
 import {
   DuplicateDependencyTagError,
   InvalidDependencyTagDemoError,
@@ -146,8 +147,7 @@ const DEFAULT_TAG_DEFINITIONS: DependencyTagDefinition[] = [
   {
     id: M3_DEPENDENCY_TAGS.artifact.foundation,
     kind: "artifact",
-    satisfies: (context) =>
-      context.artifacts.has(M3_DEPENDENCY_TAGS.artifact.foundation) || !!context.foundation,
+    satisfies: (context) => isFoundationArtifactSatisfied(context),
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.heightfield,
@@ -245,6 +245,17 @@ const DEFAULT_TAG_DEFINITIONS: DependencyTagDefinition[] = [
     kind: "effect" as const,
   })),
 ];
+
+function isFoundationArtifactSatisfied(context: ExtendedMapContext): boolean {
+  const value = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundation);
+  if (!value || typeof value !== "object") return false;
+  try {
+    validateFoundationContext(value as FoundationContext, context.dimensions);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 function getExpectedSize(context: ExtendedMapContext): number {
   return context.dimensions.width * context.dimensions.height;

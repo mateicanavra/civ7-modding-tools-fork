@@ -258,7 +258,7 @@ describe("smoke: standard recipe compile/execute", () => {
 
     expect(stepResults).toHaveLength(plan.nodes.length);
     expect(stepResults.every((result) => result.success)).toBe(true);
-    expect(ctx.foundation).toBeTruthy();
+    expect(ctx.artifacts.foundation).toBeTruthy();
     expect(startPositions.length).toBeGreaterThan(0);
     expect(events.some((event) => event.kind === "run.finish" && event.success)).toBe(true);
   });

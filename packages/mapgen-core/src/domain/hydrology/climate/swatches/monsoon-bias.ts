@@ -14,7 +14,7 @@ export function applyMonsoonBiasPass(
 ): void {
   const { readRainfall, writeRainfall, idx } = runtime;
   const { inLocalBounds, isWater, isCoastalLand, signedLatitudeAt } = helpers;
-  assertFoundationContext(ctx, "storySwatches");
+  const foundation = assertFoundationContext(ctx, "storySwatches");
   const DIR = directionality || {};
   const hemispheres = (DIR as Record<string, unknown>).hemispheres as
     | Record<string, number>
@@ -23,7 +23,7 @@ export function applyMonsoonBiasPass(
   const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
   const eqBand = Math.max(0, (hemispheres?.equatorBandDeg ?? 12) | 0);
 
-  const dynamics = ctx.foundation.dynamics;
+  const dynamics = foundation.dynamics;
   if (monsoonBias > 0 && COH > 0) {
     const baseDelta = Math.max(1, Math.round(3 * COH * monsoonBias));
 

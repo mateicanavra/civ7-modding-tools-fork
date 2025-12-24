@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
-import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { ArtifactStore, type ExtendedMapContext } from "@mapgen/core/types.js";
 import {
   getStoryTags,
   resetStoryTags,
@@ -20,7 +20,7 @@ describe("story/tags", () => {
   let ctx: ExtendedMapContext;
 
   beforeEach(() => {
-    ctx = { artifacts: new Map() } as unknown as ExtendedMapContext;
+    ctx = { artifacts: new ArtifactStore() } as unknown as ExtendedMapContext;
     resetStoryTags(ctx);
   });
 

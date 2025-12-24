@@ -23,7 +23,7 @@ export function addRuggedCoasts(
   ctx: ExtendedMapContext,
   config: { coastlines?: CoastlinesConfig; corridors?: CorridorPolicy } = {}
 ): void {
-  assertFoundationContext(ctx, "coastlines");
+  const foundation = assertFoundationContext(ctx, "coastlines");
   const adapter = ctx.adapter;
 
   const area = Math.max(1, iWidth * iHeight);
@@ -33,7 +33,7 @@ export function addRuggedCoasts(
     adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 4, 0);
   }
 
-  const { boundaryCloseness, boundaryType } = ctx.foundation.plates;
+  const { boundaryCloseness, boundaryType } = foundation.plates;
 
   const cfg = config.coastlines || {};
   const cfgBay = cfg.bay || {};

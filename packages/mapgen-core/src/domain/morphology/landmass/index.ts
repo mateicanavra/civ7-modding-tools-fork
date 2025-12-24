@@ -73,7 +73,7 @@ export function createPlateDrivenLandmasses(
   ctx: ExtendedMapContext,
   options: CreateLandmassesOptions = {}
 ): LandmassGenerationResult | null {
-  assertFoundationContext(ctx, "landmassPlates");
+  const foundation = assertFoundationContext(ctx, "landmassPlates");
   const { width: ctxWidth, height: ctxHeight } = ctx.dimensions;
   if (ctxWidth !== width || ctxHeight !== height) {
     throw new Error(
@@ -81,7 +81,6 @@ export function createPlateDrivenLandmasses(
     );
   }
 
-  const foundation = ctx.foundation;
   const { plates } = foundation;
   const closeness = plates.boundaryCloseness;
   const plateIds = plates.id;

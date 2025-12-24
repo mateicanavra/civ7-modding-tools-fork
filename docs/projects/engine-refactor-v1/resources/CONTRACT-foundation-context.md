@@ -16,9 +16,9 @@ Authoritative implementation references:
 
 - Types & factories: `packages/mapgen-core/src/core/types.ts`
   - `FoundationContext`, `FoundationConfigSnapshot`, `createFoundationContext`, `assertFoundationContext`, `hasFoundationContext`
-- Orchestration & foundation stage: `packages/mapgen-core/src/MapOrchestrator.ts`
+- Orchestration & foundation stage: `packages/mapgen-core/src/orchestrator/task-graph.ts`, `packages/mapgen-core/src/pipeline/foundation/producer.ts`
 - Foundation semantics: `packages/mapgen-core/src/foundation/types.ts`, `packages/mapgen-core/src/foundation/plates.ts`
-- Config flow: `packages/mapgen-core/src/bootstrap/entry.ts`, `packages/mapgen-core/src/MapOrchestrator.ts`
+- Config flow: `packages/mapgen-core/src/bootstrap/entry.ts`, `packages/mapgen-core/src/orchestrator/task-graph.ts`
 - Target architecture: `docs/system/libs/mapgen/architecture.md`, `docs/system/libs/mapgen/foundation.md`
 
 ## 2. Scope & Status
@@ -111,9 +111,9 @@ This contract focuses on semantics and invariants (next section) rather than dup
   - Steps that require foundation must declare `requires: ["artifact:foundation"]` and must fail fast if the artifact is missing.
   - Treat missing `artifact:foundation` as a wiring/recipe error, not a recoverable “no-op”.
 
-## 4. Config → MapOrchestrator → Foundation Pipeline → FoundationContext
+## 4. Config → Task Graph → Foundation Pipeline → FoundationContext
 
-This section summarizes the **M2-era flow** that leads to `FoundationContext`. It intentionally focuses on
+This section summarizes the **M4 Task Graph flow** that leads to `FoundationContext`. It intentionally focuses on
 contracts, not internal implementation details.
 
 ### 4.1 Config Flow
@@ -128,13 +128,13 @@ contracts, not internal implementation details.
 
 **M3 Contract for Config**
 
-- `MapOrchestrator` and all steps/layers read configuration from `ctx.config` (validated `MapGenConfig`).
+- Task Graph execution and all steps/layers read configuration from `ctx.config` (validated `MapGenConfig`).
 - There is no module-scoped tunables layer in M3.
 
-### 4.2 Orchestrator & Foundation Flow
+### 4.2 Task Graph & Foundation Flow
 
-- `MapOrchestrator` is constructed with a **validated `MapGenConfig`** and optional adapter options.
-- When running the `foundation` stage, the orchestrator:
+- The Task Graph runner is constructed with a **validated `MapGenConfig`** and adapter options.
+- When running the `foundation` step, the Task Graph runner:
   - Creates an `ExtendedMapContext` with:
     - Dimensions from the Civ7 adapter or test defaults.
     - `ctx.config` set to the validated `MapGenConfig` (with effective toggles derived from stage enablement).
@@ -145,7 +145,6 @@ contracts, not internal implementation details.
 **M4 Contract for `artifact:foundation`**
 
 - `createFoundationContext` **fails fast** if:
-  - `WorldModel` is not initialized.
   - Map dimensions are missing or invalid.
   - Any required tensor is missing or has the wrong length.
 - On success:
@@ -188,7 +187,7 @@ See Sections 6–7 for non-binding planning notes and future enforcement ideas.
 The following outlines **candidate** `requires`/`provides` contracts for future steps,
 assuming `FoundationContext` remains the canonical physics snapshot.
 
-- **Foundation slice (today, implicit via MapOrchestrator)**
+- **Foundation slice (today, implicit via Task Graph runner)**
   - `requires`:
     - `config.foundation` (plates, dynamics, surface, diagnostics).
   - `provides`:
@@ -270,7 +269,7 @@ but not authoritative.
 We do **not** enforce this contract yet. If/when we choose to enforce it, candidates include:
 
 - **Unit invariants:** tests for `createFoundationContext` failure modes (missing tensors, size mismatch) and success invariants (lengths, boundaryType enum range).
-- **Integration invariants:** run a minimal `MapOrchestrator` pass and assert `artifact:foundation` / `ctx.artifacts.foundation` availability + invariants for typical map sizes.
+- **Integration invariants:** run a minimal Task Graph pass and assert `artifact:foundation` / `ctx.artifacts.foundation` availability + invariants for typical map sizes.
 - **Determinism checks:** for fixed seeds/configs, compare `FoundationContext` tensors across runs to detect accidental drift.
 - **Mutation guards:** copy tensors into new typed arrays (true snapshot) and/or introduce readonly tensor wrappers to prevent accidental writes.
 - **CI + review gates:** require updating this doc when `FoundationContext` / `createFoundationContext` changes; consider linting against new code reading `ctx.foundation` or a global `WorldModel` instead of `artifact:foundation` via `ctx.artifacts`.

@@ -15,7 +15,7 @@ export function storyTagRiftValleys(
   ctx: ExtendedMapContext,
   config: { story?: StoryConfig; foundation?: { dynamics?: { directionality?: FoundationDirectionalityConfig } } } = {}
 ): RiftValleysSummary {
-  assertFoundationContext(ctx, "storyRifts");
+  const foundation = assertFoundationContext(ctx, "storyRifts");
   const { width, height } = getDims(ctx);
   const storyCfg = (config.story || {}) as Record<string, unknown>;
   const riftCfg = (storyCfg.rift || {}) as Record<string, number>;
@@ -42,7 +42,7 @@ export function storyTagRiftValleys(
 
   const StoryTags = getStoryTags(ctx);
 
-  const plates = ctx.foundation.plates;
+  const plates = foundation.plates;
   const RP = plates.riftPotential;
   const BT = plates.boundaryType; // 2 = divergent
   const BC = plates.boundaryCloseness;

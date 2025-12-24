@@ -8,7 +8,7 @@ import { applyRiftDepressions, computePlateBasedScores, HILL_FRACTAL, MOUNTAIN_F
 import { MOUNTAIN_TERRAIN, HILL_TERRAIN, COAST_TERRAIN, OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Partial<MountainsConfig> = {}): void {
-  assertFoundationContext(ctx, "mountains");
+  const foundation = assertFoundationContext(ctx, "mountains");
   const {
     tectonicIntensity = 1.0,
     mountainThreshold = 0.58,
@@ -73,8 +73,6 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
     const isLand = terrain !== COAST_TERRAIN && terrain !== OCEAN_TERRAIN;
     writeHeightfield(ctx, x, y, { terrain, isLand });
   };
-
-  const foundation = ctx.foundation;
 
   const grainAmount = 5;
   const iFlags = 0;
@@ -153,6 +151,9 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
 
 export function addMountainsCompat(width: number, height: number, ctx?: ExtendedMapContext | null): void {
   const context = ctx ?? null;
+  if (!context) {
+    throw new Error("[Mountains] MapContext is required to add mountains.");
+  }
   assertFoundationContext(context, "mountains");
   layerAddMountainsPhysics(context, {
     tectonicIntensity: 1.0,
