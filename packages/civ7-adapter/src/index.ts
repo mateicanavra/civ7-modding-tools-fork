@@ -26,6 +26,8 @@ export type {
   MapContext,
   ContinentBounds,
 } from "./types.js";
+export { ENGINE_EFFECT_TAGS } from "./effects.js";
+export type { EngineEffectTagId } from "./effects.js";
 
 // Re-export mock adapter (safe to import anywhere)
 export { MockAdapter, createMockAdapter } from "./mock-adapter.js";

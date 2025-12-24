@@ -6,6 +6,7 @@
  */
 
 import type { EngineAdapter, FeatureData, MapInfo, MapInitParams, MapSizeId } from "./types.js";
+import { ENGINE_EFFECT_TAGS } from "./effects.js";
 
 /**
  * Configuration options for MockAdapter
@@ -34,12 +35,6 @@ export const DEFAULT_FEATURE_TYPES: Record<string, number> = {
   FEATURE_OASIS: 5,
   FEATURE_FLOODPLAINS: 6,
 };
-
-const EFFECT_IDS = {
-  biomesApplied: "effect:engine.biomesApplied",
-  featuresApplied: "effect:engine.featuresApplied",
-  placementApplied: "effect:engine.placementApplied",
-} as const;
 
 export interface MockAdapterConfig {
   width?: number;
@@ -153,7 +148,7 @@ export class MockAdapter implements EngineAdapter {
   }
 
   private recordPlacementEffect(): void {
-    this.recordEffect(EFFECT_IDS.placementApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.placementApplied);
   }
 
   verifyEffect(effectId: string): boolean {
@@ -244,7 +239,7 @@ export class MockAdapter implements EngineAdapter {
 
   setFeatureType(x: number, y: number, featureData: FeatureData): void {
     this.features[this.idx(x, y)] = featureData.Feature;
-    this.recordEffect(EFFECT_IDS.featuresApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.featuresApplied);
   }
 
   canHaveFeature(_x: number, _y: number, _featureType: number): boolean {
@@ -317,7 +312,7 @@ export class MockAdapter implements EngineAdapter {
     // Track call for testing
     this.calls.designateBiomes.push({ width, height });
     // Mock: no-op (biomes already initialized to default)
-    this.recordEffect(EFFECT_IDS.biomesApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.biomesApplied);
   }
 
   getBiomeGlobal(name: string): number {
@@ -326,7 +321,7 @@ export class MockAdapter implements EngineAdapter {
 
   setBiomeType(x: number, y: number, biomeId: number): void {
     this.biomes[this.idx(x, y)] = biomeId;
-    this.recordEffect(EFFECT_IDS.biomesApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.biomesApplied);
   }
 
   getBiomeType(x: number, y: number): number {
@@ -339,7 +334,7 @@ export class MockAdapter implements EngineAdapter {
     // Track call for testing
     this.calls.addFeatures.push({ width, height });
     // Mock: no-op (features already initialized to NO_FEATURE)
-    this.recordEffect(EFFECT_IDS.featuresApplied);
+    this.recordEffect(ENGINE_EFFECT_TAGS.featuresApplied);
   }
 
   getFeatureTypeIndex(name: string): number {
