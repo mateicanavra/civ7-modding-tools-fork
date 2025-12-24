@@ -77,6 +77,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "precheck": "pnpm -C ../civ7-adapter build",
     "pretest": "pnpm -C ../civ7-adapter build",
     "test": "bun test",
     "check": "tsc --noEmit",
