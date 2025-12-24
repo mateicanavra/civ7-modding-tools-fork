@@ -51,6 +51,16 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 - Keep this additive; do not remove legacy placement inputs here.
 - Use existing TypeBox patterns for the artifact schema.
 
+## Implementation Decisions
+
+### Keep placement step requirements on state tags (not artifact-only) for now
+
+- Context: The issue calls for a new `artifact:placementInputs@v1` and derive step, but also says not to remove legacy paths yet.
+- Options: (1) Make placement require only `artifact:placementInputs@v1`. (2) Keep existing `state:*` requirements and let placement read the artifact when present.
+- Choice: Option 2 — placement still requires existing state tags; the artifact is produced and read in standard runs but not strictly required yet.
+- Rationale: Preserves legacy recipes that don’t include the derive step while still enabling artifact-backed placement in the standard pipeline.
+- Risk: Custom recipes that intentionally want artifact-only gating won’t be enforced until the placement requirements are tightened.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)

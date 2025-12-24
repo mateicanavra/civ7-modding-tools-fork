@@ -21,6 +21,7 @@ export const STANDARD_RECIPE_STEP_IDS = [
   "climateRefine",
   "biomes",
   "features",
+  "derivePlacementInputs",
   "placement",
 ] as const;
 

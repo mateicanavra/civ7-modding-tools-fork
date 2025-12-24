@@ -1,5 +1,6 @@
 import { ENGINE_EFFECT_TAGS } from "@civ7/adapter";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
+import { isPlacementInputsV1 } from "@mapgen/pipeline/placement/placement-inputs.js";
 import { FOUNDATION_ARTIFACT_TAG, validateFoundationContext } from "@mapgen/core/types.js";
 import type { GenerationPhase } from "@mapgen/pipeline/types.js";
 import {
@@ -16,6 +17,7 @@ export const M3_DEPENDENCY_TAGS = {
     climateField: "artifact:climateField",
     storyOverlays: "artifact:storyOverlays",
     riverAdjacency: "artifact:riverAdjacency",
+    placementInputsV1: "artifact:placementInputs@v1",
   },
   field: {
     terrainType: "field:terrainType",
@@ -228,6 +230,26 @@ const DEFAULT_TAG_DEFINITIONS: DependencyTagDefinition[] = [
       ),
     demo: new Uint8Array(0),
     validateDemo: (demo) => isUint8Array(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.placementInputsV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isPlacementInputsV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementInputsV1)),
+    demo: {
+      mapInfo: {},
+      starts: {
+        playersLandmass1: 0,
+        playersLandmass2: 0,
+        westContinent: { west: 0, east: 0, south: 0, north: 0 },
+        eastContinent: { west: 0, east: 0, south: 0, north: 0 },
+        startSectorRows: 1,
+        startSectorCols: 1,
+        startSectors: [],
+      },
+      placementConfig: {},
+    },
+    validateDemo: (demo) => isPlacementInputsV1(demo),
   },
   {
     id: M3_DEPENDENCY_TAGS.field.terrainType,
