@@ -25,6 +25,8 @@ export type {
   MapInfo,
   MapContext,
   ContinentBounds,
+  PlotTagName,
+  LandmassIdName,
 } from "./types.js";
 export { ENGINE_EFFECT_TAGS } from "./effects.js";
 export type { EngineEffectTagId } from "./effects.js";
