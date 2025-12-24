@@ -93,3 +93,13 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Follow-up:** Decide/enforce the legacy-options policy (reject unknown bootstrap keys vs ignore) and align `packages/mapgen-core/test/bootstrap/entry.test.ts`; fix or archive the stale Swooper Maps architecture doc; make mapgen tests build `packages/civ7-adapter` (or adjust adapter exports for dev) so `pnpm test:mapgen` works from a fresh checkout.
 - **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test` (fails 1 test: legacy preset rejection).
 - **Update (2025-12-24):** `bootstrap()` now rejects unknown options; Swooper Maps architecture doc aligns with recipe-only bootstrap; mapgen-core tests build `@civ7/adapter` via `pretest`, so `pnpm -C packages/mapgen-core test` works from a fresh checkout.
+
+## CIV-60 — [M4] Remove dual orchestration path
+
+**Reviewed:** 2025-12-24
+
+- **Intent:** Make `RunRequest → ExecutionPlan → PipelineExecutor` the only supported runtime path; fence/remove `MapOrchestrator` entrypoints; migrate mod scripts/tests/docs.
+- **Strengths:** `MapOrchestrator` is removed from the public export surface and fails fast if constructed; `applyMapInitData` cleanly replaces `requestMapData`; Swooper entry scripts and orchestrator tests run through `runTaskGraphGeneration`; Swooper architecture doc aligns with the M4 runtime boundary.
+- **Gaps:** Acceptance verification is not hermetic: `pnpm -C packages/mapgen-core check` requires a prior `pnpm -C packages/civ7-adapter build` (since `@civ7/adapter` types live in `dist/`); the canonical entrypoint name (`runTaskGraphGeneration`) is still “TaskGraph”-branded despite being plan-based, which may cause confusion.
+- **Follow-up:** Add a `precheck` hook (or equivalent) in `packages/mapgen-core` to build `@civ7/adapter` (or adjust adapter dev exports) so acceptance commands work from a fresh checkout; consider adding a plan-oriented alias name once the surface stabilizes.
+- **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test` (pass).
