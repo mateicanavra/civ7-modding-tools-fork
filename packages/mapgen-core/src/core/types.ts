@@ -147,7 +147,7 @@ export interface FoundationContext {
   config: Readonly<FoundationConfigSnapshot>;
 }
 
-const FOUNDATION_ARTIFACT_TAG = "artifact:foundation";
+export const FOUNDATION_ARTIFACT_TAG = "artifact:foundation";
 
 export class ArtifactStore extends Map<string, unknown> {
   get foundation(): FoundationContext | null {
