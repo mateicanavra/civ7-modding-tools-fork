@@ -178,3 +178,10 @@ These should not block the cleanup; treat them as historical snapshots.
 - **Choice:** Keep `bootstrap()` with `overrides` only.
 - **Rationale:** Minimizes churn while removing legacy ordering/enablement inputs; aligns with mod entrypoint guidance to stay small/declarative.
 - **Risk:** The name could imply legacy behavior; mitigated by updated docs/tests and rejecting legacy options at parse-time.
+
+### Build the adapter in mapgen-core pretest
+- **Context:** `pnpm -C packages/mapgen-core test` fails from a fresh checkout unless `@civ7/adapter` is built first.
+- **Options:** (1) add a `pretest` step in mapgen-core to build the adapter; (2) adjust adapter exports to load source for dev/test; (3) change only the root `test:mapgen` script.
+- **Choice:** Add a `pretest` in `@swooper/mapgen-core` that builds `@civ7/adapter`.
+- **Rationale:** Keeps `pnpm -C packages/mapgen-core test` self-contained without changing adapter packaging.
+- **Risk:** Slightly longer test startup due to an extra build step.
