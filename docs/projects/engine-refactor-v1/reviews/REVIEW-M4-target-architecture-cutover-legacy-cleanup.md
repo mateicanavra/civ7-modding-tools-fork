@@ -113,3 +113,13 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Gaps:** `ArtifactStore` hard-codes `"artifact:foundation"` separately from `pipeline/tags.ts`, so the tag string is duplicated (low risk, but a drift footgun if tags ever rename).
 - **Follow-up:** Consider centralizing `artifact:foundation` as a single constant in the “core contract” layer (or add a small invariant test asserting both constants stay equal).
 - **Verification:** `pnpm check` (pass); `pnpm test:mapgen` (pass, includes stub-adapter standard recipe smoke).
+
+## CIV-68 — [M4] Effects verification: define effect:* tags + adapter postcondition surfaces
+
+**Reviewed:** 2025-12-24
+
+- **Intent:** Add canonical `effect:*` tags for high-risk engine mutations and a minimal adapter-backed postcondition surface, without changing step scheduling yet.
+- **Strengths:** Adds ownership metadata for `effect:engine.{biomesApplied,featuresApplied,placementApplied}` and wires them to adapter-backed postcondition checks via `verifyEffect`; introduces `EngineAdapter.verifyEffect()` with call-evidence tracking in both `Civ7Adapter` and `MockAdapter` (including evidence reset); unit test asserts postcondition failures surface the effect tag id; DEF-008 status line updated to reflect the “verified tags exist, scheduling migration pending” state.
+- **Gaps:** Verification is intentionally “call-evidence” (not a true engine-state read-back), so it can produce false positives and should not be treated as correctness proof; `effect:*` ids are duplicated as raw strings in adapter + pipeline surfaces; correctness relies on per-run adapter instantiation (or an explicit reset contract) to avoid cross-run evidence leakage.
+- **Follow-up:** Consider a small contract guardrail that prevents adapter reuse across runs (or add an explicit `reset()`/run-scope mechanism); consider centralizing `effect:*` ids (or add an invariant test) to reduce drift risk once the surface stabilizes.
+- **Verification:** `pnpm -C packages/mapgen-core check` (pass); `pnpm -C packages/mapgen-core test` (pass, includes the new postcondition failure test).
