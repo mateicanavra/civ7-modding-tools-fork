@@ -13,6 +13,7 @@ import {
   PipelineExecutor,
   StepRegistry,
 } from "@mapgen/pipeline/index.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/index.js";
 import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
 import type { TraceEvent } from "@mapgen/trace/index.js";
@@ -134,6 +135,8 @@ describe("smoke: standard recipe compile/execute", () => {
           story: { features: config.story?.features ?? {} },
           featuresDensity: config.featuresDensity ?? {},
         };
+      case "derivePlacementInputs":
+        return { placement: config.placement ?? {} };
       case "placement":
         return { placement: config.placement ?? {} };
       default:
@@ -270,6 +273,7 @@ describe("smoke: standard recipe compile/execute", () => {
     const sampleIdx = sampleY * width + sampleX;
     expect(ctx.fields.biomeId?.[sampleIdx]).toBe(adapter.getBiomeType(sampleX, sampleY));
     expect(ctx.fields.featureType?.[sampleIdx]).toBe(adapter.getFeatureType(sampleX, sampleY));
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementInputsV1)).toBeTruthy();
     expect(startPositions.length).toBeGreaterThan(0);
     expect(events.some((event) => event.kind === "run.finish" && event.success)).toBe(true);
   });

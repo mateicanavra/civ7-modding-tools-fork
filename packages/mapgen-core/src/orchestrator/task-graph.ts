@@ -115,6 +115,8 @@ function buildStandardStepConfig(stepId: string, config: MapGenConfig): Record<s
         story: { features: config.story?.features ?? {} },
         featuresDensity: config.featuresDensity ?? {},
       };
+    case "derivePlacementInputs":
+      return { placement: config.placement ?? {} };
     case "placement":
       return { placement: config.placement ?? {} };
     default:

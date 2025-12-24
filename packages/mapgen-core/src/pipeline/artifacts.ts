@@ -3,6 +3,8 @@ import type {
   ClimateFieldBuffer,
   HeightfieldBuffer,
 } from "@mapgen/core/types.js";
+import type { PlacementInputsV1 } from "@mapgen/pipeline/placement/placement-inputs.js";
+import { isPlacementInputsV1 } from "@mapgen/pipeline/placement/placement-inputs.js";
 import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
 
 export function publishHeightfieldArtifact(ctx: ExtendedMapContext): HeightfieldBuffer {
@@ -25,6 +27,14 @@ export function publishRiverAdjacencyArtifact(
   return mask;
 }
 
+export function publishPlacementInputsArtifact(
+  ctx: ExtendedMapContext,
+  inputs: PlacementInputsV1
+): PlacementInputsV1 {
+  ctx.artifacts.set(M3_DEPENDENCY_TAGS.artifact.placementInputsV1, inputs);
+  return inputs;
+}
+
 export function getPublishedClimateField(ctx: ExtendedMapContext): ClimateFieldBuffer | null {
   const value = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.climateField);
   if (!value || typeof value !== "object") return null;
@@ -39,6 +49,12 @@ export function getPublishedRiverAdjacency(ctx: ExtendedMapContext): Uint8Array 
   if (!(value instanceof Uint8Array)) return null;
   const expectedSize = ctx.dimensions.width * ctx.dimensions.height;
   if (value.length !== expectedSize) return null;
+  return value;
+}
+
+export function getPublishedPlacementInputs(ctx: ExtendedMapContext): PlacementInputsV1 | null {
+  const value = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementInputsV1);
+  if (!isPlacementInputsV1(value)) return null;
   return value;
 }
 

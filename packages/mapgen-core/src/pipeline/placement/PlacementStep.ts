@@ -5,6 +5,7 @@ import type { MapInfo } from "@civ7/adapter";
 import { runPlacement } from "@mapgen/domain/placement/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import { PlacementConfigSchema } from "@mapgen/config/index.js";
+import { getPublishedPlacementInputs } from "@mapgen/pipeline/artifacts.js";
 
 export interface PlacementStepRuntime {
   mapInfo: MapInfo;
@@ -37,15 +38,17 @@ export function createPlacementStep(
     provides: options.provides,
     configSchema: PlacementStepConfigSchema,
     run: (context, config) => {
-      const placementConfig = config.placement ?? {};
+      const derivedInputs = getPublishedPlacementInputs(context);
+      const placementConfig = derivedInputs?.placementConfig ?? config.placement ?? {};
       const starts =
-        placementConfig.starts && typeof placementConfig.starts === "object"
+        derivedInputs?.starts ??
+        (placementConfig.starts && typeof placementConfig.starts === "object"
           ? { ...runtime.baseStarts, ...placementConfig.starts }
-          : runtime.baseStarts;
+          : runtime.baseStarts);
       const { width, height } = context.dimensions;
 
       const startPositions = runPlacement(context.adapter, width, height, {
-        mapInfo: runtime.mapInfo as { NumNaturalWonders?: number },
+        mapInfo: (derivedInputs?.mapInfo ?? runtime.mapInfo) as { NumNaturalWonders?: number },
         starts,
         placementConfig,
       });
