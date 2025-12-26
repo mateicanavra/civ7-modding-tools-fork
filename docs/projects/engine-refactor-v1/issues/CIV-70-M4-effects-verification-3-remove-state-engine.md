@@ -127,24 +127,40 @@ Search: `rg "state:engine" packages/mapgen-core/src packages/mapgen-core/test do
 
 #### Tags / registry
 
-- [ ] Remove `state:engine.*` entries from `M3_DEPENDENCY_TAGS` and `M3_CANONICAL_DEPENDENCY_TAGS` in `pipeline/tags.ts`.
-- [ ] Update validation to reject the `state:*` namespace entirely (no transitional `state:*` acceptance in M4+).
-- [ ] Ensure all steps that previously provided `state:engine.*` now provide the corresponding `effect:*` tag.
+- [x] Remove `state:engine.*` entries from `M3_DEPENDENCY_TAGS` and `M3_CANONICAL_DEPENDENCY_TAGS` in `pipeline/tags.ts`.
+- [x] Update validation to reject the `state:*` namespace entirely (no transitional `state:*` acceptance in M4+).
+- [x] Ensure all steps that previously provided `state:engine.*` now provide the corresponding `effect:*` tag.
 
 #### Standard dependency spine
 
-- [ ] Update `M3_STAGE_DEPENDENCY_SPINE` in `pipeline/standard.ts` to replace `state:engine.*` with `effect:*` entries.
+- [x] Update `M3_STAGE_DEPENDENCY_SPINE` in `pipeline/standard.ts` to replace `state:engine.*` with `effect:*` entries.
 
 #### Executor verification
 
-- [ ] Update `PipelineExecutor` to verify `effect:*` tags via the registry-driven verification strategy (no longer "trusted assertion").
+- [x] Update `PipelineExecutor` to verify `effect:*` tags via the registry-driven verification strategy (no longer "trusted assertion").
 
 #### Tests
 
-- [ ] Update `packages/mapgen-core/test/pipeline/artifacts.test.ts` to expect `effect:*` instead of `state:engine.*`.
-- [ ] Update `packages/mapgen-core/test/pipeline/placement-gating.test.ts` similarly.
+- [x] Update `packages/mapgen-core/test/pipeline/artifacts.test.ts` to expect `effect:*` instead of `state:engine.*`.
+- [x] Update `packages/mapgen-core/test/pipeline/placement-gating.test.ts` similarly.
 
 #### Docs
 
-- [ ] Update `docs/projects/engine-refactor-v1/deferrals.md` to mark DEF-008 as resolved with a pointer to the new `effect:*` surface.
-- [ ] Update SPEC if any language still implies `state:*` is part of the runtime contract.
+- [x] Update `docs/projects/engine-refactor-v1/deferrals.md` to mark DEF-008 as resolved with a pointer to the new `effect:*` surface.
+- [x] Update SPEC if any language still implies `state:*` is part of the runtime contract (already aligned; no change required).
+
+## Implementation Decisions
+
+### Remove the `state` tag kind from the registry surface
+- **Context:** The issue requires the target registry to reject `state:engine.*` tags; leaving the `state` kind would still allow registration.
+- **Options:** Keep `DependencyTagKind` + compatibility checks for `state:engine.*`, or remove the `state` kind entirely.
+- **Choice:** Remove the `state` kind from `DependencyTagKind` and the default registry surface.
+- **Rationale:** Enforces the target contract at the registry boundary and prevents accidental reintroduction of `state:engine.*` tags.
+- **Risk:** Any external integrations still using `state` tags will now fail fast at registration time.
+
+### Keep landmass/coastlines/rivers effect tags on minimal verification
+- **Context:** The prework map suggests minimal structural checks for `effect:engine.landmassApplied`, `effect:engine.coastlinesApplied`, and `effect:engine.riversModeled`.
+- **Options:** Add new verifiers now (adapter/readback or artifact-based), or keep current registry verifiers limited to biomes/features/placement.
+- **Choice:** Keep the existing verification surface (biomes/features/placement) and defer stronger checks to DEF-017.
+- **Rationale:** Avoids introducing new adapter dependencies or behavior changes while meeting the CIV-70 cleanup scope.
+- **Risk:** These effects remain “call-evidence” only, so deeper engine-state verification is still deferred.
