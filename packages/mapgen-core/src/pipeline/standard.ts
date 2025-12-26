@@ -36,50 +36,80 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
   },
   landmassPlates: {
     requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
-    provides: [M3_DEPENDENCY_TAGS.state.landmassApplied],
+    provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   },
   coastlines: {
-    requires: [M3_DEPENDENCY_TAGS.state.landmassApplied],
-    provides: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
+    requires: [M4_EFFECT_TAGS.engine.landmassApplied],
+    provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
   },
   storySeed: {
-    requires: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
-    provides: [M3_DEPENDENCY_TAGS.artifact.storyOverlays],
+    requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
+    provides: [
+      M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
+    ],
   },
   storyHotspots: {
-    requires: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
-    provides: [M3_DEPENDENCY_TAGS.artifact.storyOverlays],
+    requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
+    provides: [
+      M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
+    ],
   },
   storyRifts: {
-    requires: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
-    provides: [M3_DEPENDENCY_TAGS.artifact.storyOverlays],
+    requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
+    provides: [
+      M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
+    ],
   },
   ruggedCoasts: {
-    requires: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
-    provides: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
+    requires: [
+      M4_EFFECT_TAGS.engine.coastlinesApplied,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
+    ],
+    provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
   },
   storyOrogeny: {
-    requires: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
-    provides: [M3_DEPENDENCY_TAGS.artifact.storyOverlays],
+    requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
+    provides: [
+      M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
+    ],
   },
   storyCorridorsPre: {
-    requires: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
-    provides: [M3_DEPENDENCY_TAGS.artifact.storyOverlays],
+    requires: [
+      M4_EFFECT_TAGS.engine.coastlinesApplied,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
+    ],
+    provides: [
+      M3_DEPENDENCY_TAGS.artifact.storyOverlays,
+      M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
+    ],
   },
   islands: {
-    requires: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
-    provides: [M3_DEPENDENCY_TAGS.state.landmassApplied],
+    requires: [
+      M4_EFFECT_TAGS.engine.coastlinesApplied,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
+      M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
+    ],
+    provides: [
+      M4_EFFECT_TAGS.engine.landmassApplied,
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
+    ],
   },
   mountains: {
     requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
-    provides: [M3_DEPENDENCY_TAGS.state.landmassApplied],
+    provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   },
   volcanoes: {
     requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
-    provides: [M3_DEPENDENCY_TAGS.state.landmassApplied],
+    provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   },
   lakes: {
-    requires: [M3_DEPENDENCY_TAGS.state.landmassApplied],
+    requires: [M4_EFFECT_TAGS.engine.landmassApplied],
     provides: [M3_DEPENDENCY_TAGS.artifact.heightfield],
   },
   climateBaseline: {
@@ -93,14 +123,14 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
   rivers: {
     requires: [M3_DEPENDENCY_TAGS.artifact.foundation, M3_DEPENDENCY_TAGS.artifact.heightfield],
     provides: [
-      M3_DEPENDENCY_TAGS.state.riversModeled,
+      M4_EFFECT_TAGS.engine.riversModeled,
       M3_DEPENDENCY_TAGS.artifact.heightfield,
       M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
     ],
   },
   storyCorridorsPost: {
     requires: [
-      M3_DEPENDENCY_TAGS.state.coastlinesApplied,
+      M4_EFFECT_TAGS.engine.coastlinesApplied,
       M3_DEPENDENCY_TAGS.artifact.climateField,
       M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
     ],
@@ -133,8 +163,8 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
   },
   derivePlacementInputs: {
     requires: [
-      M3_DEPENDENCY_TAGS.state.coastlinesApplied,
-      M3_DEPENDENCY_TAGS.state.riversModeled,
+      M4_EFFECT_TAGS.engine.coastlinesApplied,
+      M4_EFFECT_TAGS.engine.riversModeled,
       M4_EFFECT_TAGS.engine.featuresApplied,
     ],
     provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
