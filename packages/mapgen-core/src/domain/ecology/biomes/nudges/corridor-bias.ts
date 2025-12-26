@@ -1,5 +1,6 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import type { BiomeGlobals } from "@mapgen/domain/ecology/biomes/types.js";
+import type { NarrativeCorridorsV1 } from "@mapgen/domain/narrative/artifacts.js";
 
 export function applyCorridorTileBias(
   adapter: EngineAdapter,
@@ -8,14 +9,11 @@ export function applyCorridorTileBias(
   y: number,
   latAbs: number,
   rainfall: number,
-  story: {
-    corridorLandOpen?: Set<string>;
-    corridorRiverChain?: Set<string>;
-  },
+  corridors: NarrativeCorridorsV1 | null | undefined,
   getRandom: (label: string, max: number) => number,
   cfg: { landBiasStrength: number; riverBiasStrength: number }
 ): void {
-  if (story.corridorLandOpen && story.corridorLandOpen.has(`${x},${y}`)) {
+  if (corridors?.landCorridors?.has(`${x},${y}`)) {
     if (
       rainfall > 80 &&
       latAbs < 55 &&
@@ -25,7 +23,7 @@ export function applyCorridorTileBias(
     }
   }
 
-  if (story.corridorRiverChain && story.corridorRiverChain.has(`${x},${y}`)) {
+  if (corridors?.riverCorridors?.has(`${x},${y}`)) {
     if (
       rainfall > 75 &&
       latAbs < 55 &&
@@ -44,18 +42,15 @@ export function applyCorridorKindBiomeBias(
   latAbs: number,
   elevation: number,
   rainfall: number,
-  story: {
-    corridorAttributes?: Map<string, unknown>;
-    corridorKind?: Map<string, unknown>;
-  },
+  corridors: NarrativeCorridorsV1 | null | undefined,
   getRandom: (label: string, max: number) => number,
   cfg: { landBiasStrength: number; riverBiasStrength: number }
 ): void {
   const cKey = `${x},${y}`;
-  const attr = story.corridorAttributes?.get?.(cKey) as
+  const attr = corridors?.attributesByTile?.get?.(cKey) as
     | { kind?: string; biomes?: Record<string, number> }
     | undefined;
-  const cKind = attr?.kind || (story.corridorKind && (story.corridorKind.get(cKey) as string | undefined));
+  const cKind = attr?.kind || (corridors?.kindByTile && (corridors.kindByTile.get(cKey) as string | undefined));
   const biomesCfgCorridor = attr?.biomes;
 
   if ((cKind === "land" || cKind === "river") && biomesCfgCorridor) {
@@ -99,4 +94,3 @@ export function applyCorridorKindBiomeBias(
     }
   }
 }
-

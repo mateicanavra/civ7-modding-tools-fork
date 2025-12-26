@@ -22,11 +22,11 @@
 
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { ctxRandom } from "@mapgen/core/types.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import {
   getPublishedClimateField,
   getPublishedRiverAdjacency,
 } from "@mapgen/pipeline/artifacts.js";
+import { getNarrativeCorridors, getNarrativeMotifsRifts } from "@mapgen/domain/narrative/queries.js";
 import type { BiomeConfig, CorridorPolicy } from "@mapgen/domain/ecology/biomes/types.js";
 import { resolveBiomeGlobals } from "@mapgen/domain/ecology/biomes/globals.js";
 import { applyTundraRestraint } from "@mapgen/domain/ecology/biomes/nudges/tundra-restraint.js";
@@ -63,8 +63,8 @@ export function designateEnhancedBiomes(
 
   const biomesCfg = config.biomes || {};
   const corridorPolicy = config.corridors || {};
-
-  const StoryTags = getStoryTags(ctx);
+  const corridors = getNarrativeCorridors(ctx);
+  const rifts = getNarrativeMotifsRifts(ctx);
 
   // Apply small, climate-aware preferences
   const _tundra = biomesCfg.tundra || {};
@@ -159,20 +159,20 @@ export function designateEnhancedBiomes(
         rainMin: RV_RAIN_MIN,
       });
 
-      applyCorridorTileBias(adapter, globals, x, y, lat, rainfall, StoryTags, getRandom, {
+      applyCorridorTileBias(adapter, globals, x, y, lat, rainfall, corridors, getRandom, {
         landBiasStrength: LAND_BIAS_STRENGTH,
         riverBiasStrength: RIVER_BIAS_STRENGTH,
       });
 
-      applyCorridorEdgeHints(adapter, globals, x, y, iWidth, lat, rainfall, StoryTags, getRandom);
+      applyCorridorEdgeHints(adapter, globals, x, y, iWidth, lat, rainfall, corridors, getRandom);
 
-      applyCorridorKindBiomeBias(adapter, globals, x, y, lat, elevation, rainfall, StoryTags, getRandom, {
+      applyCorridorKindBiomeBias(adapter, globals, x, y, lat, elevation, rainfall, corridors, getRandom, {
         landBiasStrength: LAND_BIAS_STRENGTH,
         riverBiasStrength: RIVER_BIAS_STRENGTH,
       });
 
-      if (StoryTags.riftShoulder.size > 0) {
-        applyRiftShoulderBias(adapter, globals, x, y, lat, rainfall, StoryTags, {
+      if (rifts?.riftShoulder && rifts.riftShoulder.size > 0) {
+        applyRiftShoulderBias(adapter, globals, x, y, lat, rainfall, rifts.riftShoulder, {
           grasslandLatMax: RS_GRASS_LAT_MAX,
           grasslandRainMin: RS_GRASS_RAIN_MIN,
           tropicalLatMax: RS_TROP_LAT_MAX,

@@ -29,9 +29,9 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 
 ## Acceptance Criteria
 
-- StoryTags is not required for correctness by any in-repo consumer.
-- Narrative caches do not leak across runs; any remaining caches are context-scoped and reset-safe.
-- DEF-002 and DEF-012 updated to resolved with pointers to the new artifact surface.
+- [x] StoryTags is not required for correctness by any in-repo consumer.
+- [x] Narrative caches do not leak across runs; any remaining caches are context-scoped and reset-safe.
+- [x] DEF-002 and DEF-012 updated to resolved with pointers to the new artifact surface.
 
 ## Testing / Verification
 
@@ -61,7 +61,16 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
   - `packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts`
   - `packages/mapgen-core/src/domain/ecology/features/index.ts`
   - `packages/mapgen-core/src/domain/hydrology/climate/refine/index.ts`
-  - `packages/mapgen-core/src/domain/narrative/tags/*`
+
+## Implementation Decisions
+
+### Missing narrative artifacts default to empty sets
+
+- **Context:** StoryTags previously existed as always-present empty sets; story steps can be toggled off in recipes.
+- **Options considered:** (1) throw when artifacts are missing; (2) treat missing artifacts as empty sets; (3) skip story-sensitive nudges entirely via feature gating.
+- **Decision:** Treat missing narrative artifacts as empty sets and no-op in consumers.
+- **Rationale:** Preserves legacy behavior and avoids runtime failures when story steps are disabled or omitted.
+- **Risk:** Missing producers may be masked if dependency wiring regresses; rely on pipeline dependency tags to enforce required artifacts.
 
 ### Quick Navigation
 - [TL;DR](#tldr)

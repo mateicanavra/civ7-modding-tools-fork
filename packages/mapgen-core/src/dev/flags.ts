@@ -26,7 +26,6 @@ export type DevFlagKey =
   | "LOG_RAINFALL_SUMMARY"
   | "LOG_BIOME_ASCII"
   | "LOG_BIOME_SUMMARY"
-  | "LOG_STORY_TAGS"
   | "LOG_CORRIDOR_ASCII"
   | "LOG_BOUNDARY_METRICS"
   | "LOG_MOUNTAINS"
@@ -68,8 +67,6 @@ export interface DevFlags extends Record<DevFlagKey, boolean> {
   LOG_BIOME_ASCII: boolean;
   /** Log biome tile counts */
   LOG_BIOME_SUMMARY: boolean;
-  /** Log StoryTags summary counts */
-  LOG_STORY_TAGS: boolean;
   /** ASCII corridor overlay */
   LOG_CORRIDOR_ASCII: boolean;
   /** Quantitative boundary coverage metrics */
@@ -103,7 +100,6 @@ export const DEV: DevFlags = {
   LOG_RAINFALL_SUMMARY: false,
   LOG_BIOME_ASCII: false,
   LOG_BIOME_SUMMARY: false,
-  LOG_STORY_TAGS: false,
   LOG_CORRIDOR_ASCII: false,
   LOG_BOUNDARY_METRICS: false,
   LOG_MOUNTAINS: false,
@@ -131,7 +127,6 @@ export interface DevLogConfig {
   logRainfallSummary?: boolean;
   logBiomeAscii?: boolean;
   logBiomeSummary?: boolean;
-  logStoryTags?: boolean;
   logCorridorAscii?: boolean;
   logBoundaryMetrics?: boolean;
   logMountains?: boolean;
@@ -163,7 +158,6 @@ export function initDevFlags(config?: DevLogConfig | null): void {
     logRainfallSummary: "LOG_RAINFALL_SUMMARY",
     logBiomeAscii: "LOG_BIOME_ASCII",
     logBiomeSummary: "LOG_BIOME_SUMMARY",
-    logStoryTags: "LOG_STORY_TAGS",
     logCorridorAscii: "LOG_CORRIDOR_ASCII",
     logBoundaryMetrics: "LOG_BOUNDARY_METRICS",
     logMountains: "LOG_MOUNTAINS",

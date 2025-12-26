@@ -1,5 +1,5 @@
 /**
- * Summary logging utilities for foundation, biomes, and story tags.
+ * Summary logging utilities for foundation, biomes, and placement.
  *
  * Provides compact diagnostic summaries for debugging map generation.
  *
@@ -160,51 +160,6 @@ export function logBiomeSummary(
   devLogJson("biome summary", {
     landTiles,
     biomes: summary,
-  });
-}
-
-/**
- * Story tags structure for logging.
- */
-export interface StoryTagsSummary {
-  hotspot?: Set<string>;
-  hotspotParadise?: Set<string>;
-  hotspotVolcanic?: Set<string>;
-  riftLine?: Set<string>;
-  riftShoulder?: Set<string>;
-  activeMargin?: Set<string>;
-  passiveShelf?: Set<string>;
-  corridorSeaLane?: Set<string>;
-  corridorIslandHop?: Set<string>;
-  corridorLandOpen?: Set<string>;
-  corridorRiverChain?: Set<string>;
-}
-
-/**
- * Log story tags summary (sizes of tag sets).
- */
-export function logStoryTagsSummary(storyTags: StoryTagsSummary | null): void {
-  if (!isDevEnabled("LOG_STORY_TAGS")) return;
-
-  if (!storyTags) {
-    devLog("[story] tags: Not available");
-    return;
-  }
-
-  const sizeOf = (set: Set<string> | undefined): number => set?.size ?? 0;
-
-  devLogJson("story tags", {
-    hotspot: sizeOf(storyTags.hotspot),
-    hotspotParadise: sizeOf(storyTags.hotspotParadise),
-    hotspotVolcanic: sizeOf(storyTags.hotspotVolcanic),
-    riftLine: sizeOf(storyTags.riftLine),
-    riftShoulder: sizeOf(storyTags.riftShoulder),
-    activeMargin: sizeOf(storyTags.activeMargin),
-    passiveShelf: sizeOf(storyTags.passiveShelf),
-    corridorSeaLane: sizeOf(storyTags.corridorSeaLane),
-    corridorIslandHop: sizeOf(storyTags.corridorIslandHop),
-    corridorLandOpen: sizeOf(storyTags.corridorLandOpen),
-    corridorRiverChain: sizeOf(storyTags.corridorRiverChain),
   });
 }
 

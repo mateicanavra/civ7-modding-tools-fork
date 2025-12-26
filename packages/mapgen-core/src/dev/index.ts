@@ -86,12 +86,10 @@ export {
 export {
   logFoundationSummary,
   logBiomeSummary,
-  logStoryTagsSummary,
   logMountainSummary,
   logVolcanoSummary,
   logLandmassWindows,
   type FoundationPlates,
-  type StoryTagsSummary,
 } from "@mapgen/dev/summaries.js";
 
 /** Module version */

@@ -8,11 +8,11 @@ export function applyRiftShoulderBias(
   y: number,
   latAbs: number,
   rainfall: number,
-  story: { riftShoulder: Set<string> },
+  riftShoulder: ReadonlySet<string> | null | undefined,
   cfg: { grasslandLatMax: number; grasslandRainMin: number; tropicalLatMax: number; tropicalRainMin: number }
 ): void {
   const key = `${x},${y}`;
-  if (!story.riftShoulder.has(key)) return;
+  if (!riftShoulder?.has(key)) return;
 
   if (latAbs < cfg.grasslandLatMax && rainfall > cfg.grasslandRainMin) {
     adapter.setBiomeType(x, y, globals.grassland);
@@ -20,4 +20,3 @@ export function applyRiftShoulderBias(
     adapter.setBiomeType(x, y, globals.tropical);
   }
 }
-

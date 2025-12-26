@@ -1,11 +1,16 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { inBounds, storyKey } from "@mapgen/core/index.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
 import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
+import type { CorridorState } from "@mapgen/domain/narrative/corridors/state.js";
 import { getDims, rand } from "@mapgen/domain/narrative/corridors/runtime.js";
 
-export function tagIslandHopFromHotspots(ctx: ExtendedMapContext, corridorsCfg: Record<string, unknown>): void {
+export function tagIslandHopFromHotspots(
+  ctx: ExtendedMapContext,
+  corridorsCfg: Record<string, unknown>,
+  hotspotPoints: ReadonlySet<string>,
+  state: CorridorState
+): void {
   const cfg = ((corridorsCfg.islandHop || {}) as Record<string, unknown>) || {};
   if (!cfg.useHotspots) return;
 
@@ -13,8 +18,7 @@ export function tagIslandHopFromHotspots(ctx: ExtendedMapContext, corridorsCfg: 
   if (maxArcs === 0) return;
 
   const { width, height } = getDims(ctx);
-  const tags = getStoryTags(ctx);
-  const keys = Array.from(tags.hotspot);
+  const keys = Array.from(hotspotPoints);
   if (!keys.length) return;
 
   const picked = new Set<string>();
@@ -37,8 +41,8 @@ export function tagIslandHopFromHotspots(ctx: ExtendedMapContext, corridorsCfg: 
         if (!inBounds(nx, ny, width, height)) continue;
         if (!ctx.adapter.isWater(nx, ny)) continue;
         const kk = storyKey(nx, ny);
-        tags.corridorIslandHop.add(kk);
-        assignCorridorMetadata(ctx, corridorsCfg, kk, "islandHop", "archipelago");
+        state.islandHops.add(kk);
+        assignCorridorMetadata(state, ctx, corridorsCfg, kk, "islandHop", "archipelago");
       }
     }
   }

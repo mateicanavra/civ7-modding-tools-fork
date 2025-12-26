@@ -2,7 +2,6 @@ import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { inBounds, storyKey } from "@mapgen/core/index.js";
 import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
 import { buildNarrativeMotifsHotspotsV1 } from "@mapgen/domain/narrative/artifacts.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { isAdjacentToLand } from "@mapgen/domain/narrative/utils/adjacency.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
@@ -37,10 +36,10 @@ export function storyTagHotspotTrails(
     Math.round(baseSteps * (0.9 + 0.4 * sqrtHot))
   );
 
-  const StoryTags = getStoryTags(ctx);
+  const hotspotPoints = new Set<string>();
 
   function farFromExisting(x: number, y: number): boolean {
-    for (const key of StoryTags.hotspot) {
+    for (const key of hotspotPoints) {
       const [sx, sy] = key.split(",").map(Number);
       const d = Math.abs(sx - x) + Math.abs(sy - y);
       if (d < minTrailSeparation) return false;
@@ -87,7 +86,7 @@ export function storyTagHotspotTrails(
       if (!isWaterAt(ctx, x, y)) continue;
       if (isAdjacentToLand(ctx, x, y, minDistFromLand, width, height)) continue;
 
-      StoryTags.hotspot.add(storyKey(x, y));
+      hotspotPoints.add(storyKey(x, y));
       taggedThisTrail++;
       totalPoints++;
 
@@ -107,14 +106,18 @@ export function storyTagHotspotTrails(
     version: 1,
     width,
     height,
-    active: Array.from(StoryTags.hotspot),
+    active: Array.from(hotspotPoints),
     summary: { trails: summary.trails, points: summary.points },
   });
 
   if (ctx) {
     ctx.artifacts.set(
       M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-      buildNarrativeMotifsHotspotsV1(StoryTags)
+      buildNarrativeMotifsHotspotsV1({
+        points: hotspotPoints,
+        paradise: new Set(),
+        volcanic: new Set(),
+      })
     );
   }
 

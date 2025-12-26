@@ -1,39 +1,42 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import type { CorridorState } from "@mapgen/domain/narrative/corridors/state.js";
 
 import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
 import type { CorridorKind } from "@mapgen/domain/narrative/corridors/types.js";
 import { getDims, isAdjacentToShallowWater } from "@mapgen/domain/narrative/corridors/runtime.js";
 
-export function backfillCorridorKinds(ctx: ExtendedMapContext, corridorsCfg: Record<string, unknown>): void {
+export function backfillCorridorKinds(
+  ctx: ExtendedMapContext,
+  corridorsCfg: Record<string, unknown>,
+  state: CorridorState
+): void {
   const { width, height } = getDims(ctx);
-  const tags = getStoryTags(ctx);
 
-  for (const key of tags.corridorSeaLane) {
-    const kind = (tags.corridorKind.get(key) as CorridorKind) || "sea";
-    let style = tags.corridorStyle.get(key);
+  for (const key of state.seaLanes) {
+    const kind = (state.kindByTile.get(key) as CorridorKind) || "sea";
+    let style = state.styleByTile.get(key);
     if (!style) {
       const [sx, sy] = key.split(",").map(Number);
       style = isAdjacentToShallowWater(ctx, sx, sy, width, height) ? "coastal" : "ocean";
     }
-    assignCorridorMetadata(ctx, corridorsCfg, key, kind, style);
+    assignCorridorMetadata(state, ctx, corridorsCfg, key, kind, style);
   }
 
-  for (const key of tags.corridorIslandHop) {
-    const kind = (tags.corridorKind.get(key) as CorridorKind) || "islandHop";
-    const style = tags.corridorStyle.get(key) || "archipelago";
-    assignCorridorMetadata(ctx, corridorsCfg, key, kind, style);
+  for (const key of state.islandHops) {
+    const kind = (state.kindByTile.get(key) as CorridorKind) || "islandHop";
+    const style = state.styleByTile.get(key) || "archipelago";
+    assignCorridorMetadata(state, ctx, corridorsCfg, key, kind, style);
   }
 
-  for (const key of tags.corridorLandOpen) {
-    const kind = (tags.corridorKind.get(key) as CorridorKind) || "land";
-    const style = tags.corridorStyle.get(key) || "plainsBelt";
-    assignCorridorMetadata(ctx, corridorsCfg, key, kind, style);
+  for (const key of state.landCorridors) {
+    const kind = (state.kindByTile.get(key) as CorridorKind) || "land";
+    const style = state.styleByTile.get(key) || "plainsBelt";
+    assignCorridorMetadata(state, ctx, corridorsCfg, key, kind, style);
   }
 
-  for (const key of tags.corridorRiverChain) {
-    const kind = (tags.corridorKind.get(key) as CorridorKind) || "river";
-    const style = tags.corridorStyle.get(key) || "riverChain";
-    assignCorridorMetadata(ctx, corridorsCfg, key, kind, style);
+  for (const key of state.riverCorridors) {
+    const kind = (state.kindByTile.get(key) as CorridorKind) || "river";
+    const style = state.styleByTile.get(key) || "riverChain";
+    assignCorridorMetadata(state, ctx, corridorsCfg, key, kind, style);
   }
 }

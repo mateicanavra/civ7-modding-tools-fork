@@ -4,10 +4,15 @@ import { createCiv7Adapter } from "@civ7/adapter/civ7";
 import type { FoundationConfig, MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { getStoryTags, resetStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { resetStoryOverlays } from "@mapgen/domain/narrative/overlays/index.js";
 import { resetOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
 import { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/index.js";
+import {
+  getNarrativeCorridors,
+  getNarrativeMotifsHotspots,
+  getNarrativeMotifsMargins,
+  getNarrativeMotifsRifts,
+} from "@mapgen/domain/narrative/queries.js";
 import {
   compileExecutionPlan,
   MissingDependencyError,
@@ -230,7 +235,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   }
 
   // Reset story state once per generation to prevent cross-run leakage.
-  resetStoryTags(ctx);
   resetStoryOverlays(ctx);
   resetOrogenyCache(ctx);
   resetCorridorStyleCache(ctx);
@@ -336,21 +340,25 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   }
 
   if (DEV.ENABLED && storyEnabled) {
-    const tags = getStoryTags(ctx);
+    const corridors = getNarrativeCorridors(ctx);
+    const margins = getNarrativeMotifsMargins(ctx);
+    const hotspots = getNarrativeMotifsHotspots(ctx);
+    const rifts = getNarrativeMotifsRifts(ctx);
+
     const tagTotal =
-      tags.hotspot.size +
-      tags.hotspotParadise.size +
-      tags.hotspotVolcanic.size +
-      tags.riftLine.size +
-      tags.riftShoulder.size +
-      tags.activeMargin.size +
-      tags.passiveShelf.size +
-      tags.corridorSeaLane.size +
-      tags.corridorIslandHop.size +
-      tags.corridorLandOpen.size +
-      tags.corridorRiverChain.size;
+      (hotspots?.points.size ?? 0) +
+      (hotspots?.paradise.size ?? 0) +
+      (hotspots?.volcanic.size ?? 0) +
+      (rifts?.riftLine.size ?? 0) +
+      (rifts?.riftShoulder.size ?? 0) +
+      (margins?.activeMargin.size ?? 0) +
+      (margins?.passiveShelf.size ?? 0) +
+      (corridors?.seaLanes.size ?? 0) +
+      (corridors?.islandHops.size ?? 0) +
+      (corridors?.landCorridors.size ?? 0) +
+      (corridors?.riverCorridors.size ?? 0);
     if (tagTotal === 0) {
-      devWarn("[smoke] story stages enabled but no story tags were emitted");
+      devWarn("[smoke] story stages enabled but no narrative artifacts were emitted");
     }
   }
 

@@ -1,11 +1,11 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { ctxRandom, writeHeightfield } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { clamp } from "@mapgen/lib/math/index.js";
 import { forEachNeighbor3x3 } from "@mapgen/lib/grid/neighborhood/square-3x3.js";
 import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
 import { COAST_TERRAIN } from "@mapgen/core/terrain-constants.js";
+import { getNarrativeCorridors, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
 import { computePlateBias } from "@mapgen/domain/morphology/coastlines/plate-bias.js";
 import { isAdjacentToLand, isCoastalLand } from "@mapgen/domain/morphology/coastlines/adjacency.js";
 import {
@@ -63,8 +63,12 @@ export function addRuggedCoasts(
   };
 
   const { protection: SEA_PROTECTION, softChanceMultiplier: SOFT_MULT } = resolveSeaCorridorPolicy(config.corridors);
-
-  const StoryTags = getStoryTags(ctx);
+  const emptySet = new Set<string>();
+  const corridors = getNarrativeCorridors(ctx);
+  const margins = getNarrativeMotifsMargins(ctx);
+  const seaLanes = corridors?.seaLanes ?? emptySet;
+  const activeMargin = margins?.activeMargin ?? emptySet;
+  const passiveShelf = margins?.passiveShelf ?? emptySet;
 
   const applyTerrain = (x: number, y: number, terrain: number, isLand: boolean): void => {
     writeHeightfield(ctx, x, y, { terrain, isLand });
@@ -85,7 +89,7 @@ export function addRuggedCoasts(
   for (let y = 1; y < iHeight - 1; y++) {
     for (let x = 1; x < iWidth - 1; x++) {
       const tileKey = `${x},${y}`;
-      const onSeaLane = StoryTags.corridorSeaLane?.has(tileKey) ?? false;
+      const onSeaLane = seaLanes.has(tileKey);
       const softMult = onSeaLane && SEA_PROTECTION === "soft" ? SOFT_MULT : 1;
 
       if (onSeaLane && SEA_PROTECTION === "hard") continue;
@@ -100,7 +104,7 @@ export function addRuggedCoasts(
         const nearBoundary = closenessNorm >= plateBiasCfg.threshold;
         const plateBiasValue = computePlateBias(closenessNorm, bType, plateBiasCfg);
 
-        const isActive = StoryTags.activeMargin?.has(tileKey) || nearBoundary;
+        const isActive = activeMargin.has(tileKey) || nearBoundary;
         const noiseGateBonus = plateBiasValue > 0 ? Math.round(plateBiasValue * plateBiasCfg.bayNoiseBonus) : 0;
         const noiseGate = 2 + bayNoiseExtra + (isActive ? 1 : 0) + noiseGateBonus;
         const bayRollDen = isActive ? bayRollDenActive : bayRollDenDefault;
@@ -111,7 +115,7 @@ export function addRuggedCoasts(
           bayRollDenUsed = Math.max(1, Math.round(bayRollDenUsed / scale));
         }
 
-        const laneAttr = findNeighborSeaLaneAttributes(x, y, iWidth, iHeight, StoryTags);
+        const laneAttr = findNeighborSeaLaneAttributes(x, y, iWidth, iHeight, corridors);
         if (laneAttr?.edge) {
           const edgeCfg = laneAttr.edge as Record<string, unknown>;
           const bayMult = Number.isFinite(edgeCfg.bayCarveMultiplier) ? (edgeCfg.bayCarveMultiplier as number) : 1;
@@ -140,8 +144,8 @@ export function addRuggedCoasts(
           forEachNeighbor3x3(x, y, iWidth, iHeight, (nx, ny) => {
             if (nearActive && nearPassive) return;
             const k = `${nx},${ny}`;
-            if (!nearActive && StoryTags.activeMargin?.has(k)) nearActive = true;
-            if (!nearPassive && StoryTags.passiveShelf?.has(k)) nearPassive = true;
+            if (!nearActive && activeMargin.has(k)) nearActive = true;
+            if (!nearPassive && passiveShelf.has(k)) nearPassive = true;
           });
 
           const denom = Math.max(
@@ -155,7 +159,7 @@ export function addRuggedCoasts(
             denomUsed = Math.max(1, Math.round(denomUsed / fjScale));
           }
 
-          const edgeCfg = findNeighborSeaLaneEdgeConfig(x, y, iWidth, iHeight, StoryTags);
+          const edgeCfg = findNeighborSeaLaneEdgeConfig(x, y, iWidth, iHeight, corridors);
           if (edgeCfg) {
             const fj = Number.isFinite(edgeCfg.fjordChance) ? (edgeCfg.fjordChance as number) : 0;
             const cliffs = Number.isFinite(edgeCfg.cliffsChance) ? (edgeCfg.cliffsChance as number) : 0;

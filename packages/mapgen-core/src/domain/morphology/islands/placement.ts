@@ -1,7 +1,11 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { ctxRandom, writeHeightfield } from "@mapgen/core/types.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { buildNarrativeMotifsHotspotsV1 } from "@mapgen/domain/narrative/artifacts.js";
+import {
+  getNarrativeCorridors,
+  getNarrativeMotifsHotspots,
+  getNarrativeMotifsMargins,
+} from "@mapgen/domain/narrative/queries.js";
 import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
 import type { CorridorsConfig, HotspotTunables, IslandsConfig } from "@mapgen/domain/morphology/islands/types.js";
 import { getFractalThreshold } from "@mapgen/domain/morphology/islands/fractal-threshold.js";
@@ -40,7 +44,16 @@ export function addIslandChains(
     Math.min(100, Math.round((storyTunables.hotspot?.volcanicPeakChance ?? 0.33) * 100) + 10)
   );
 
-  const StoryTags = getStoryTags(ctx);
+  const emptySet = new Set<string>();
+  const corridors = getNarrativeCorridors(ctx);
+  const margins = getNarrativeMotifsMargins(ctx);
+  const hotspots = getNarrativeMotifsHotspots(ctx);
+  const seaLanes = corridors?.seaLanes ?? emptySet;
+  const activeMargin = margins?.activeMargin ?? emptySet;
+  const passiveShelf = margins?.passiveShelf ?? emptySet;
+  const hotspotPoints = hotspots?.points ?? emptySet;
+  const paradise = new Set(hotspots?.paradise ?? []);
+  const volcanic = new Set(hotspots?.volcanic ?? []);
 
   const applyTerrain = (tileX: number, tileY: number, terrain: number, isLand: boolean): void => {
     writeHeightfield(ctx, tileX, tileY, { terrain, isLand });
@@ -66,10 +79,10 @@ export function addIslandChains(
       if (isAdjacentToLand(x, y, iWidth, iHeight, isWater, Math.max(0, minDist))) continue;
 
       const laneRadius = (corridorsCfg.sea?.avoidRadius ?? 2) | 0;
-      if (isNearSeaLane(x, y, laneRadius, StoryTags.corridorSeaLane)) continue;
+      if (isNearSeaLane(x, y, laneRadius, seaLanes)) continue;
 
       const v = getFractalHeight(x, y);
-      const isHotspot = StoryTags.hotspot.has(storyKey(x, y));
+      const isHotspot = hotspotPoints.has(storyKey(x, y));
 
       let nearActive = false;
       let nearPassive = false;
@@ -77,8 +90,8 @@ export function addIslandChains(
         for (let mx = -1; mx <= 1; mx++) {
           if (mx === 0 && my === 0) continue;
           const k = storyKey(x + mx, y + my);
-          if (!nearActive && StoryTags.activeMargin?.has(k)) nearActive = true;
-          if (!nearPassive && StoryTags.passiveShelf?.has(k)) nearPassive = true;
+          if (!nearActive && activeMargin.has(k)) nearActive = true;
+          if (!nearPassive && passiveShelf.has(k)) nearPassive = true;
         }
       }
 
@@ -115,9 +128,9 @@ export function addIslandChains(
 
       if (isHotspot) {
         if (classifyParadise) {
-          StoryTags.hotspotParadise.add(storyKey(x, y));
+          paradise.add(storyKey(x, y));
         } else {
-          StoryTags.hotspotVolcanic.add(storyKey(x, y));
+          volcanic.add(storyKey(x, y));
         }
       }
 
@@ -140,6 +153,11 @@ export function addIslandChains(
 
   ctx.artifacts.set(
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-    buildNarrativeMotifsHotspotsV1(StoryTags)
+    buildNarrativeMotifsHotspotsV1({
+      points: hotspotPoints,
+      paradise,
+      volcanic,
+      trails: hotspots?.trails,
+    })
   );
 }

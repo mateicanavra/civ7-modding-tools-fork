@@ -1,12 +1,11 @@
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/types.js";
 import { storyKey } from "@mapgen/core/index.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { buildNarrativeMotifsMarginsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import {
   STORY_OVERLAY_KEYS,
   finalizeStoryOverlay,
   publishStoryOverlay,
-  hydrateMarginsStoryTags,
 } from "@mapgen/domain/narrative/overlays/index.js";
 import { isCoastalLand } from "@mapgen/domain/narrative/utils/adjacency.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
@@ -125,17 +124,10 @@ export function storyTagContinentalMargins(
     ? publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.MARGINS, overlay)
     : finalizeStoryOverlay(STORY_OVERLAY_KEYS.MARGINS, overlay);
 
-  if (options.hydrateStoryTags !== false) {
-    hydrateMarginsStoryTags(snapshot, getStoryTags(ctx));
-  }
-
   if (ctx) {
     ctx.artifacts.set(
       M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
-      {
-        activeMargin: new Set(activeSet),
-        passiveShelf: new Set(passiveSet),
-      }
+      buildNarrativeMotifsMarginsV1({ activeMargin: activeSet, passiveShelf: passiveSet })
     );
   }
 

@@ -1,8 +1,8 @@
 import { freezeClone } from "@mapgen/lib/collections/freeze-clone.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
 import type { CorridorKind, CorridorStyle } from "@mapgen/domain/narrative/corridors/types.js";
+import type { CorridorState } from "@mapgen/domain/narrative/corridors/state.js";
 
 const STYLE_PRIMITIVE_CACHE_KEY = "story:corridorStyleCache";
 
@@ -49,6 +49,7 @@ export function fetchCorridorStylePrimitive(
 }
 
 export function assignCorridorMetadata(
+  state: CorridorState,
   ctx: ExtendedMapContext,
   corridorsCfg: Record<string, unknown>,
   key: string,
@@ -56,12 +57,11 @@ export function assignCorridorMetadata(
   style: CorridorStyle
 ): void {
   if (typeof key !== "string" || typeof kind !== "string" || typeof style !== "string") return;
-  const tags = getStoryTags(ctx);
-  tags.corridorKind.set(key, kind);
-  tags.corridorStyle.set(key, style);
+  state.kindByTile.set(key, kind);
+  state.styleByTile.set(key, style);
   const primitive = fetchCorridorStylePrimitive(ctx, corridorsCfg, kind, style);
-  if (primitive) tags.corridorAttributes.set(key, primitive);
-  else tags.corridorAttributes.delete(key);
+  if (primitive) state.attributesByTile.set(key, primitive);
+  else state.attributesByTile.delete(key);
 }
 
 export function resetCorridorStyleCache(ctx: ExtendedMapContext | null | undefined): void {
