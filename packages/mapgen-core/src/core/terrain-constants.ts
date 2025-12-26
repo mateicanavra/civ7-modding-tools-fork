@@ -44,7 +44,7 @@ const DEFAULT_FEATURE_INDICES = {
   VOLCANO: -1,
 } as const;
 
-let terrainConstantsInitialized = false;
+let initializedAdapter: EngineAdapter | null = null;
 const terrainFallbackWarnings = new Set<string>();
 
 function warnFallback(label: string, fallback: number, value: number): void {
@@ -81,8 +81,12 @@ function resolveFeatureIndex(adapter: EngineAdapter, name: string, fallback: num
 // ============================================================================
 
 export function initializeTerrainConstants(adapter: EngineAdapter): void {
-  if (terrainConstantsInitialized) return;
-  terrainConstantsInitialized = true;
+  if (initializedAdapter === adapter) return;
+  if (initializedAdapter && initializedAdapter !== adapter) {
+    console.warn("[terrain-constants] Reinitializing constants for new adapter instance.");
+  }
+  initializedAdapter = adapter;
+  terrainFallbackWarnings.clear();
 
   MOUNTAIN_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_MOUNTAIN", DEFAULT_TERRAIN_INDICES.MOUNTAIN);
   HILL_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_HILL", DEFAULT_TERRAIN_INDICES.HILL);
