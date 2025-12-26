@@ -163,4 +163,8 @@ Search: `rg "state:engine" packages/mapgen-core/src packages/mapgen-core/test do
 - **Options:** Add new verifiers now (adapter/readback or artifact-based), or keep current registry verifiers limited to biomes/features/placement.
 - **Choice:** Keep the existing verification surface (biomes/features/placement) and defer stronger checks to DEF-017.
 - **Rationale:** Avoids introducing new adapter dependencies or behavior changes while meeting the CIV-70 cleanup scope.
-- **Risk:** These effects remain “call-evidence” only, so deeper engine-state verification is still deferred.
+- **Risk:** These effects remain “call-evidence” only, so deeper engine-state verification is still deferred (tracked in DEF-017).
+
+## Deferred / Backlog
+
+- Standard pipeline run verification remains blocked by `/config/placement` unknown key in standard smoke tests (see CIV-73 review follow-up).

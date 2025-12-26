@@ -187,11 +187,11 @@ Each deferral follows this structure:
 
 ---
 
-## DEF-017: Adapter read-back surfaces for stronger `effect:*` verification (landmass/coastlines/placement)
+## DEF-017: Adapter read-back surfaces for stronger `effect:*` verification (landmass/coastlines/rivers/placement)
 
 **Deferred:** 2025-12-22
-**Trigger:** If “cheap invariants + call evidence” verifiers miss real wiring failures, are flaky in CI, or if we need stronger guarantees that match actual engine state (especially for `effect:engine.landmassApplied` / `effect:engine.coastlinesApplied`).
-**Context:** M4’s goal is “no asserted-but-unverified scheduling edges,” but expanding `EngineAdapter` with new read-back APIs (plot tags, landmass region IDs, coastline status, placement readbacks) increases engine-surface coupling and coordination risk. For M4, we prefer minimal verifiers using existing adapter reads and TS-owned artifacts (e.g., `artifact:placementOutputs@v1`).
+**Trigger:** If “cheap invariants + call evidence” verifiers miss real wiring failures, are flaky in CI, or if we need stronger guarantees that match actual engine state (especially for `effect:engine.landmassApplied` / `effect:engine.coastlinesApplied` / `effect:engine.riversModeled`).
+**Context:** M4’s goal is “no asserted-but-unverified scheduling edges,” but expanding `EngineAdapter` with new read-back APIs (plot tags, landmass region IDs, coastline status, river readbacks, placement readbacks) increases engine-surface coupling and coordination risk. For M4, we prefer minimal verifiers using existing adapter reads and TS-owned artifacts (e.g., `artifact:placementOutputs@v1`).
 **Scope:**
 - Design and add explicit adapter read-back APIs needed for robust verification (and implement them in both Civ adapter + MockAdapter).
 - Update `effect:*` verifiers to rely on read-back surfaces rather than call evidence where appropriate.
