@@ -124,11 +124,11 @@ These overlays are stored in `ctx.overlays` and (partially) hydrated into `Story
 
 | Artifact ID | Purpose | Producer step | Schema sketch | Demo guidance |
 | --- | --- | --- | --- | --- |
-| `artifact:narrative.corridors@v1` | Corridor metadata (sea lanes, land corridors, river corridors) | `storyCorridorsPre`, `storyCorridorsPost` | `{ seaLanes: Set<string>; landCorridors: Set<string>; riverCorridors: Set<string>; attributes: Map<string, CorridorAttrs> }` | **M4 decision:** omit demo payloads for narrative artifacts. |
+| `artifact:narrative.corridors@v1` | Corridor metadata (sea lanes, island hops, land corridors, river corridors) | `storyCorridorsPre`, `storyCorridorsPost` | `{ seaLanes: Set<string>; islandHops: Set<string>; landCorridors: Set<string>; riverCorridors: Set<string>; kindByTile: Map<string, CorridorKind>; styleByTile: Map<string, CorridorStyle>; attributesByTile: Map<string, NarrativeCorridorAttributes> }` | **M4 decision:** omit demo payloads for narrative artifacts. |
 | `artifact:narrative.motifs.margins@v1` | Continental margins tagging (active/passive shelf) | `storySeed` (margins tagging) | `{ activeMargin: Set<string>; passiveShelf: Set<string> }` | Same as above. |
-| `artifact:narrative.motifs.hotspots@v1` | Hotspot trails (+ categorized sets; ADR-ER1-024) | `storyHotspots` (trails) + islands placement (categories) | `{ trails: Array<{ coords: Array<{ x: number; y: number }>; kind: string }>; paradise: Set<string>; volcanic: Set<string> }` | Same as above. |
+| `artifact:narrative.motifs.hotspots@v1` | Hotspot points (+ categorized sets; ADR-ER1-024) | `storyHotspots` (points) + islands placement (categories) | `{ points: Set<string>; paradise: Set<string>; volcanic: Set<string>; trails?: Array<{ coords: Array<{ x: number; y: number }>; kind: string }> }` | Same as above. |
 | `artifact:narrative.motifs.rifts@v1` | Rift lines and shoulders | `storyRifts` | `{ riftLine: Set<string>; riftShoulder: Set<string> }` | Same as above. |
-| `artifact:narrative.motifs.orogeny@v1` | Orogenic belt metadata | `storyOrogeny` | `{ belts: Array<{ coords: Array<{ x: number; y: number }>; windwardBoost: number; leeDrynessAmplifier: number }> }` | Same as above. |
+| `artifact:narrative.motifs.orogeny@v1` | Orogenic belt metadata | `storyOrogeny` | `{ belts: Set<string>; windward: Set<string>; lee: Set<string> }` | Same as above. |
 
 ### 2) Producer → artifact map (current story steps)
 
