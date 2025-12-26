@@ -195,3 +195,14 @@ Docs/policy touchpoints:
 - **Choice:** Rename helpers (`addPlotTagIds*`, `resolveLandmassIds`, `markLandmassId`) and add adapter ID methods.
 - **Rationale:** Keeps mapgen-core free of engine-global tokens while keeping adapter-backed behavior explicit.
 - **Risk:** Helper API renames may require downstream callers to update.
+
+### Reinitialize terrain constants when adapter changes
+- **Context:** Review noted that process-wide caching can leave terrain indices stale if multiple adapters run in the same process.
+- **Options:** Keep one-time init, reinitialize per call, or reinitialize only when the adapter instance changes.
+- **Choice:** Reinitialize only when the adapter instance changes (skip when the same adapter is reused).
+- **Rationale:** Avoids cross-run staleness without repeating adapter lookups for the same instance.
+- **Risk:** If the same adapter instance mutates its index mappings, constants could still drift.
+
+## Needs Discussion
+
+- Decide whether terrain constant fallbacks should throw outside tests instead of warning + defaulting.
