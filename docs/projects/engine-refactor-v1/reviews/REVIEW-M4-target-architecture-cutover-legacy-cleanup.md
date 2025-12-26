@@ -189,6 +189,7 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Follow-up:** If the milestone policy is “no asserted-but-unverified scheduling edges,” either add cheap verifiers for the remaining `effect:engine.*` tags (artifact-backed where possible) or document them explicitly as intentionally unverified and keep the risk tracked (DEF-017 is already the right bucket for stronger adapter read-backs).
 - **Implementation Decisions:** 0 logged; 1 unlogged (which `effect:engine.*` tags are runtime-verified vs trusted).
 - **Verification:** `rg -n "state:engine" packages/mapgen-core/src packages/mapgen-core/test` (no hits); `pnpm -C packages/mapgen-core check` (pass); `pnpm -C packages/mapgen-core test test/pipeline/{tag-registry,placement-gating,artifacts}.test.ts` (pass); `pnpm -C packages/mapgen-core test test/pipeline/standard-smoke.test.ts` (fails: `/recipe/steps/21/config/placement` unknown key).
+- **Update (2025-12-26):** Logged the verification-scope decision in CIV-70 and expanded DEF-017 to include rivers; standard pipeline verification remains blocked by the placement config schema mismatch noted in CIV-73.
 
 ## Review Updates
 
