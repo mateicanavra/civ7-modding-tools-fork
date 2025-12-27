@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "narsil-code-intel": {
+      "command": "/Users/mateicanavra/.cargo/bin/narsil-mcp",
+      "args": [
+        "--repos", "/Users/mateicanavra/Documents/.nosync/DEV/civ7-modding-tools",
+        "--git",
+        "--call-graph",
+        "--persist",
+        "--watch"
+      ]
+    }
+  }
+}
