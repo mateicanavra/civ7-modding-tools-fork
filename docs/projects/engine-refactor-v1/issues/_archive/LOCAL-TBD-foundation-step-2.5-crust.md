@@ -42,7 +42,7 @@ Define the "Material" (Crust). Implement the `CrustGenerator` strategy to define
 ## Dependencies / Notes
 - **Blocked by:** LOCAL-TBD-2 (Mesh Generation Strategy) - requires `context.artifacts.mesh`.
 - **Blocked:** LOCAL-TBD-4 (Tectonic Physics Strategy) - physics needs crust type for material-aware interactions.
-- **Reference:** [Foundation Stage Architecture - Strategy 2: Crust Generation](../../../system/libs/mapgen/foundation.md#32-strategy-2-crust-generation)
+- **Reference:** [Foundation Stage Architecture - Strategy 2: Crust Generation](../../../../system/libs/mapgen/foundation.md#32-strategy-2-crust-generation)
 - **Key Insight:** Crust defines the "Anvil" that receives tectonic forces. A single plate can contain both ocean and continent (like the African Plate).
 
 ---
