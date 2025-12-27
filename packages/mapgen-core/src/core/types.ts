@@ -147,6 +147,24 @@ export interface FoundationContext {
   config: Readonly<FoundationConfigSnapshot>;
 }
 
+const FOUNDATION_ARTIFACT_TAG = "artifact:foundation";
+
+export class ArtifactStore extends Map<string, unknown> {
+  get foundation(): FoundationContext | null {
+    const value = this.get(FOUNDATION_ARTIFACT_TAG);
+    if (!value || typeof value !== "object") return null;
+    return value as FoundationContext;
+  }
+
+  set foundation(value: FoundationContext | null) {
+    if (!value) {
+      this.delete(FOUNDATION_ARTIFACT_TAG);
+      return;
+    }
+    this.set(FOUNDATION_ARTIFACT_TAG, value);
+  }
+}
+
 // ============================================================================
 // RNG and Metrics Types
 // ============================================================================
@@ -184,12 +202,11 @@ export interface ExtendedMapContext {
   metrics: GenerationMetrics;
   trace: TraceScope;
   adapter: EngineAdapter;
-  foundation: FoundationContext | null;
   /**
    * Published data products keyed by dependency tag (e.g. "artifact:climateField").
    * Used by PipelineExecutor for runtime requires/provides gating.
    */
-  artifacts: Map<string, unknown>;
+  artifacts: ArtifactStore;
   buffers: MapBuffers;
   overlays: StoryOverlayRegistry;
 }
@@ -245,8 +262,7 @@ export function createExtendedMapContext(
     },
     trace: createNoopTraceScope(),
     adapter,
-    foundation: null,
-    artifacts: new Map(),
+    artifacts: new ArtifactStore(),
     buffers: {
       heightfield,
       climate,
@@ -563,8 +579,8 @@ export function createFoundationContext(
  */
 export function hasFoundationContext(
   ctx: ExtendedMapContext
-): ctx is ExtendedMapContext & { foundation: FoundationContext } {
-  return !!(ctx && ctx.foundation && typeof ctx.foundation === "object");
+): ctx is ExtendedMapContext & { artifacts: ArtifactStore & { foundation: FoundationContext } } {
+  return !!(ctx && ctx.artifacts?.foundation && typeof ctx.artifacts.foundation === "object");
 }
 
 /**
@@ -575,9 +591,10 @@ export function assertFoundationContext(
   ctx: ExtendedMapContext,
   stage?: string
 ): FoundationContext {
-  if (hasFoundationContext(ctx)) {
-    validateFoundationContext(ctx.foundation, ctx.dimensions);
-    return ctx.foundation;
+  const foundation = ctx?.artifacts?.foundation;
+  if (foundation) {
+    validateFoundationContext(foundation, ctx.dimensions);
+    return foundation;
   }
   const message = stage
     ? `[Pipeline] Step "${stage}" requires FoundationContext but it is unavailable.`

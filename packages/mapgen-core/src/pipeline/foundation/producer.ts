@@ -380,6 +380,6 @@ export function runFoundationStage(
   foundationConfig: FoundationConfig
 ): FoundationContext {
   const foundationContext = buildFoundationContext(context, foundationConfig);
-  context.foundation = foundationContext;
+  context.artifacts.foundation = foundationContext;
   return foundationContext;
 }

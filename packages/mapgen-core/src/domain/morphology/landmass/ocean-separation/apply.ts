@@ -29,6 +29,9 @@ export function applyPlateAwareOceanSeparation(
   }
 
   const context = params?.context ?? null;
+  if (!context) {
+    throw new Error("[OceanSeparation] MapContext is required to apply separation.");
+  }
   const rawPolicy = params?.policy ?? null;
   const policy =
     rawPolicy && Object.prototype.hasOwnProperty.call(rawPolicy, "enabled")
@@ -43,7 +46,7 @@ export function applyPlateAwareOceanSeparation(
     };
   }
 
-  assertFoundationContext(context, "oceanSeparation");
+  const foundation = assertFoundationContext(context, "oceanSeparation");
 
   const landMask =
     params?.landMask instanceof Uint8Array && params.landMask.length === width * height
@@ -127,7 +130,6 @@ export function applyPlateAwareOceanSeparation(
     };
   }
 
-  const foundation = context.foundation;
   const closeness = foundation.plates.boundaryCloseness;
   if (!closeness || closeness.length !== width * height) {
     return {

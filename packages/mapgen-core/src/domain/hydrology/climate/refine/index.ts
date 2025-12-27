@@ -32,9 +32,9 @@ export function refineClimateEarthlike(
       "ClimateEngine: refineClimateEarthlike requires MapContext (legacy direct-engine fallback removed)."
     );
   }
-  assertFoundationContext(ctx, "climateRefine");
+  const foundation = assertFoundationContext(ctx, "climateRefine");
   const runtime = createClimateRuntime(width, height, ctx);
-  const { dynamics } = ctx.foundation;
+  const { dynamics } = foundation;
 
   const climateCfg = options.climate ?? {};
   const refineCfg = climateCfg.refine || {};
