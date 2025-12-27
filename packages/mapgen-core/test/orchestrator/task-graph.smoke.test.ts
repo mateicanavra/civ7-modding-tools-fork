@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { bootstrap, MapOrchestrator } from "@mapgen/index.js";
+import { bootstrap, runTaskGraphGeneration } from "@mapgen/index.js";
 
-describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
+describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
   const standardMapInfo = {
     GridWidth: 84,
     GridHeight: 54,
@@ -75,11 +75,10 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
     });
 
     const config = bootstrap();
-    const orchestrator = new MapOrchestrator(config, {
-      adapter,
-      logPrefix: "[TEST]",
+    const result = runTaskGraphGeneration({
+      mapGenConfig: config,
+      orchestratorOptions: { adapter, logPrefix: "[TEST]" },
     });
-    const result = orchestrator.generateMap();
 
     expect(result.success).toBe(true);
     expect(
@@ -98,11 +97,10 @@ describe("smoke: MapOrchestrator.generateMap TaskGraph entry", () => {
     });
 
     const config = bootstrap();
-    const orchestrator = new MapOrchestrator(config, {
-      adapter,
-      logPrefix: "[TEST]",
+    const result = runTaskGraphGeneration({
+      mapGenConfig: config,
+      orchestratorOptions: { adapter, logPrefix: "[TEST]" },
     });
-    const result = orchestrator.generateMap();
 
     expect(result.success).toBe(false);
     expect(

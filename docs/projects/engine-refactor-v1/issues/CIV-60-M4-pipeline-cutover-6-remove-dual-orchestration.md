@@ -133,8 +133,24 @@ Concrete mapping (conceptual):
 
 ### 5) Cleanup checklist (PIPELINE‑6 implementation guidance)
 
-- [ ] Remove `MapOrchestrator` from default/public exports (`packages/mapgen-core/src/index.ts`).
-- [ ] Delete or fence `MapOrchestrator.ts` (if kept for dev-only, make it non-default and throw loudly).
-- [ ] Update `mods/mod-swooper-maps/src/*` entry scripts to the RunRequest/ExecutionPlan path.
-- [ ] Update/replace all tests that construct `MapOrchestrator` to compile+run a plan instead.
-- [ ] Update docs that describe MapOrchestrator as canonical entry (at minimum `docs/system/mods/swooper-maps/architecture.md`).
+- [x] Remove `MapOrchestrator` from default/public exports (`packages/mapgen-core/src/index.ts`).
+- [x] Delete or fence `MapOrchestrator.ts` (if kept for dev-only, make it non-default and throw loudly).
+- [x] Update `mods/mod-swooper-maps/src/*` entry scripts to the RunRequest/ExecutionPlan path.
+- [x] Update/replace all tests that construct `MapOrchestrator` to compile+run a plan instead.
+- [x] Update docs that describe MapOrchestrator as canonical entry (at minimum `docs/system/mods/swooper-maps/architecture.md`).
+
+## Implementation Decisions
+
+### Fence legacy `MapOrchestrator` with a loud runtime error
+- **Context:** The issue requires removing the legacy entrypoint while keeping failures explicit if it is still invoked.
+- **Options:** (1) Delete `MapOrchestrator.ts` entirely; (2) keep it but throw immediately with guidance.
+- **Choice:** Keep the module and throw on construction with a clear migration message.
+- **Rationale:** Satisfies “fence legacy entrypoints” while providing explicit runtime feedback if any hidden call sites remain.
+- **Risk:** Any stale imports will fail fast at runtime; mitigated by updating in-repo call sites and tests.
+
+### Use `runTaskGraphGeneration` as the canonical run entrypoint
+- **Context:** The new single runtime path must be RunRequest → ExecutionPlan → executor.
+- **Options:** (1) Introduce a new wrapper API; (2) reuse `runTaskGraphGeneration`, which already compiles a RunRequest and executes a plan.
+- **Choice:** Reuse `runTaskGraphGeneration` and move tests/mods to call it directly.
+- **Rationale:** Minimizes new surface area while enforcing the plan-based path and removing `MapOrchestrator`.
+- **Risk:** Name still references “TaskGraph”; mitigated by documenting it as the canonical entrypoint in the Swooper architecture doc.

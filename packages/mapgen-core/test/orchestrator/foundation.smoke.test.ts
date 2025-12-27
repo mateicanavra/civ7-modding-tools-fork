@@ -4,7 +4,7 @@ import { bootstrap } from "@mapgen/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
 
-describe("smoke: MapOrchestrator.generateMap foundation slice", () => {
+describe("smoke: foundation slice", () => {
   const width = 24;
   const height = 16;
   const size = width * height;

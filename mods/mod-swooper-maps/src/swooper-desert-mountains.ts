@@ -5,13 +5,18 @@
  * This version uses a completely standard, balanced configuration to eliminate
  * extreme mountain generation and start failures.
  *
- * It uses the migrated MapOrchestrator from @swooper/mapgen-core.
+ * It uses the RunRequest → ExecutionPlan pipeline from @swooper/mapgen-core.
  */
 
 /// <reference types="@civ7/types" />
 
 import "@swooper/mapgen-core/polyfills/text-encoder";
-import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
+import {
+  applyMapInitData,
+  bootstrap,
+  runTaskGraphGeneration,
+  type OrchestratorConfig,
+} from "@swooper/mapgen-core";
 import type { BootstrapConfig } from "@swooper/mapgen-core/bootstrap";
 
 /**
@@ -246,27 +251,23 @@ function buildConfig(): BootstrapConfig {
 }
 
 // Orchestrator options (shared between requestMapData and generateMap)
-const orchestratorOptions = { logPrefix: "[SWOOPER_MOD]" };
+const orchestratorOptions: OrchestratorConfig = { logPrefix: "[SWOOPER_MOD]" };
 
 // Wire engine events to orchestrator methods
 // RequestMapInitData: Bootstrap with defaults to set up map dimensions
 // Note: requestMapData() doesn't need custom config - just sets dimensions
 engine.on("RequestMapInitData", () => {
-  const defaultConfig = bootstrap({});
-  const initOrchestrator = new MapOrchestrator(defaultConfig, orchestratorOptions);
-  initOrchestrator.requestMapData();
+  applyMapInitData(orchestratorOptions);
 });
 
 // GenerateMap: Bootstrap with full config, then run generation
 engine.on("GenerateMap", () => {
   const config = bootstrap(buildConfig());
-
-  const orchestrator = new MapOrchestrator(config, orchestratorOptions);
-  orchestrator.generateMap();
+  runTaskGraphGeneration({ mapGenConfig: config, orchestratorOptions });
 });
 
 // TypeScript build marker
 console.log("[SWOOPER_MOD] ========================================");
 console.log("[SWOOPER_MOD] Swooper Desert Mountains (TypeScript Build) Loaded");
-console.log("[SWOOPER_MOD] Using MapOrchestrator from @swooper/mapgen-core");
+console.log("[SWOOPER_MOD] Using RunRequest → ExecutionPlan pipeline");
 console.log("[SWOOPER_MOD] ========================================");
