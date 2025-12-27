@@ -48,7 +48,7 @@ Simulate the "Dynamics" (Forces via Intersection Model). Implement the `Tectonic
 - **Blocked by:** LOCAL-TBD-2.5 (Crust Generation) - requires `context.artifacts.crust` for material-aware interactions.
 - **Blocked by:** LOCAL-TBD-3 (Plate Partitioning Strategy) - requires `context.artifacts.plateGraph`.
 - **Blocked:** LOCAL-TBD-5 (Orchestrator Integration)
-- **Reference:** [Foundation Stage Architecture - Strategy 4: Tectonic Physics](../../../system/libs/mapgen/foundation.md#34-strategy-4-tectonic-physics)
+- **Reference:** [Foundation Stage Architecture - Strategy 4: Tectonic Physics](../../../../system/libs/mapgen/foundation.md#34-strategy-4-tectonic-physics)
 - **Key Insight:** Physics resolves forces by intersecting Kinematics (Plates) with Material (Crust). The same collision force produces different results on Continental vs. Oceanic crust.
 - **Performance:** Physics runs on graph edges (O(N)) instead of grid tiles (O(N^2)) for significant performance gains.
 

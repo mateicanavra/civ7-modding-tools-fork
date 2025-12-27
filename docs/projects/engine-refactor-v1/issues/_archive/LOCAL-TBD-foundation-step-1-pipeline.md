@@ -44,8 +44,8 @@ Update (2025-12-20):
 ## Dependencies / Notes
 - This is the foundational type work required before implementing specific strategies.
 - **Blocked:** LOCAL-TBD-2
-- **Reference:** [Foundation Stage Architecture](../../../system/libs/mapgen/foundation.md) for data model definitions.
-- **Reference:** [Architecture Spec](../../../system/libs/mapgen/architecture.md) for pipeline design.
+- **Reference:** [Foundation Stage Architecture](../../../../system/libs/mapgen/foundation.md) for data model definitions.
+- **Reference:** [Architecture Spec](../../../../system/libs/mapgen/architecture.md) for pipeline design.
 
 ---
 

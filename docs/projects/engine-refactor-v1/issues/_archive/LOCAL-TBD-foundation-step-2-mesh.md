@@ -43,7 +43,7 @@ Build the "Board" (Voronoi Mesh). Implement the `MeshBuilder` strategy using `d3
 - **Blocked by:** LOCAL-TBD-1 (Core Pipeline Infrastructure)
 - **Blocked:** LOCAL-TBD-3 (Plate Partitioning Strategy)
 - **Requires:** `d3-delaunay` (install: `pnpm add d3-delaunay && pnpm add -D @types/d3-delaunay`).
-- **Reference:** [Foundation Stage Architecture - Strategy 1: Mesh Generation](../../../system/libs/mapgen/foundation.md#31-strategy-1-mesh-generation)
+- **Reference:** [Foundation Stage Architecture - Strategy 1: Mesh Generation](../../../../system/libs/mapgen/foundation.md#31-strategy-1-mesh-generation)
 - **Library Decision:** We chose `d3-delaunay` over Civ7's `TypeScript-Voronoi` for 5-10x performance gains and active maintenance.
 - **WrapX:** Not needed initially. Civ7 defaults to `wrapX: 0`. Wrapping logic can be added later.
 
