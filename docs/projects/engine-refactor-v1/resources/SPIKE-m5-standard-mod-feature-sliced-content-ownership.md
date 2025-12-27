@@ -89,10 +89,16 @@ Generic primitives for building/running pipelines:
 - neutral utilities (math/grid/rng/noise) that are plausibly shared by multiple mods
 
 Concrete candidates to remain (or become) engine-owned:
-- `packages/mapgen-core/src/pipeline/**` (but remove standard/base coupling from types)
+- `packages/mapgen-core/src/pipeline/**` + `packages/mapgen-core/src/core/**` + `packages/mapgen-core/src/trace/**` (collapsed into a single `engine/**` surface; remove standard/base coupling from types)
 - a slimmed “engine types” surface to replace today’s base-coupled `core/types.ts`
 - `packages/mapgen-core/src/lib/**` (after stripping accidental base imports)
-- tracing (`packages/mapgen-core/src/trace/**`)
+
+RunRequest decision (remove ambiguity):
+- `RunRequest` is **engine-owned** and is the only boundary input shape (`{ recipe, settings }`, per SPEC 1.2).
+- Mods do **not** ship “RunRequest translators”. A mod ships:
+  - a registry population function (`register(registry, runtime?)`),
+  - one or more recipes (e.g. `default`),
+  - and any helper “presets” are expressed as recipe variants or small helper functions that return `RunRequest` but live outside the mod package (CLI/app layer), not in `mods/<id>/shared/*`.
 
 ### 4.2 Standard/base mod owns everything else
 
@@ -100,7 +106,6 @@ Mod-owned (content) surfaces move under `mods/standard/**`:
 - all step definitions and step config schemas
 - tag catalogs and artifact helpers/assertions
 - all “domain logic” implementing those steps (eliminate top-level `domain/`)
-- any base run-request building logic (if still needed for legacy entrypoints)
 - any base-biased orchestrator helpers (foundation initializer, narrative smoke checks, etc.)
 
 ## 5) Concrete target directory tree (proposal)
@@ -108,7 +113,7 @@ Mod-owned (content) surfaces move under `mods/standard/**`:
 This tree aims to satisfy:
 - SPEC: standard pipeline is a mod package (`mods/standard`)
 - Feature-sliced intent: standard mod is an app; each stage is a slice
-- No “pipeline” naming confusion inside the mod (core owns `pipeline/`)
+- No “pipeline” naming confusion inside the mod (core owns the engine runtime surface)
 
 ### 5.1 Core SDK target tree (engine-only)
 
@@ -116,59 +121,71 @@ This tree aims to satisfy:
 packages/mapgen-core/src/
 ├─ engine/
 │  ├─ index.ts                   # curated “SDK” surface for mod authors
-│  ├─ registry.ts                # createRegistry / entry types (SPEC §7.2 idea)
-│  ├─ tags.ts                    # tag kinds + validation rules (generic)
-│  ├─ types.ts                   # minimal engine context + shared runtime types
+│  ├─ types.ts                   # minimal engine context + shared runtime types (step contract lives here)
+│  ├─ errors.ts                  # compile/execute/registry errors (generic; stable codes)
+│  ├─ mod.ts                     # mod contract (register/recipes/runtime/config), no content
+│  ├─ registry/
+│     ├─ index.ts                # createRegistry/createRegistryEntry + public registry types
+│     ├─ StepRegistry.ts         # internal runtime store (not exported by engine/index.ts)
+│     └─ TagRegistry.ts          # internal runtime store (not exported by engine/index.ts)
+│  ├─ runtime/
+│     ├─ ExecutionPlan.ts        # RunRequest/ExecutionPlan + compileExecutionPlan()
+│     └─ PipelineExecutor.ts     # execute(ExecutionPlan, context, options)
+│  ├─ observability/
+│     ├─ index.ts                # observability public surface (fingerprint + trace)
+│     ├─ fingerprint.ts          # runId + plan fingerprint derivation (required outputs; SPEC 1.2)
+│     └─ trace.ts                # trace event model + sinks (toggleable; SPEC 1.2)
 │  └─ lib/
 │     ├─ grid/**                 # indexing, bounds, wrapping, neighborhood helpers
 │     ├─ math/**                 # clamp/lerp
 │     ├─ noise/**                # perlin/fractal
 │     ├─ rng/**                  # pick/weighted-choice/unit, etc.
-│     └─ geom/**                 # shared Point2D/bounds if needed
-├─ pipeline/
-│  ├─ StepRegistry.ts
-│  ├─ PipelineExecutor.ts
-│  ├─ execution-plan.ts          # RunRequest/ExecutionPlan schema + compiler
-│  ├─ errors.ts
-│  ├─ observability.ts
-│  └─ index.ts
-├─ trace/**
+│     └─ geom/**                 # geometry primitives (points, bounds, spans)
 └─ mods/
    └─ standard/                  # content (see next section)
 ```
 
 Notes:
-- “engine” is a rename/re-scope of today’s `core/` + pieces of `pipeline/`.
-- The key invariant is **no imports from `mods/standard/**` into `engine/**` or `pipeline/**`.
+- “engine” is a rename/re-scope of today’s `core/` + `pipeline/` + `trace/`.
+- The key invariant is **no imports from `mods/standard/**` into `engine/**`.
 - Any Civ7 runtime helpers (e.g. `createCiv7Adapter`) do *not* belong in engine if we treat the engine as pure; those should live in a Civ7 adapter package or in the mod that targets Civ7.
+
+Terminology (to avoid “engine vs pipeline vs registry” ambiguity):
+- “Registry” (engine) is the runtime data structure the engine compiles/executes against: `StepRegistry` + `TagRegistry`.
+- “Registry” (mod) is *not* a second runtime concept; `mods/<id>/stages/index.ts` is an explicit import list + a `register(registry)` function that populates the engine registry.
+- “Pipeline” is the behavior (`compileExecutionPlan` + `PipelineExecutor`), not a separate top-level folder; this proposal intentionally avoids an `src/pipeline/**` sibling of `src/engine/**`.
+
+Second-pass outcome (this review):
+- Keep `engine/` as the single conceptual home, but add light sub-grouping (`registry/`, `runtime/`, `observability/`) so “SDK surface” isn’t a flat pile of unrelated files.
+- Treat `StepRegistry`/`TagRegistry` as engine-internal implementation details; mod authors should mostly interact with `createRegistry` + `createRegistryEntry` (SPEC sketches this shape).
+- Treat `engine/index.ts` as the only supported public surface; subpath imports under `engine/**` are explicitly not part of the mod authoring contract.
+- Keep the engine module hierarchy fixed at this depth (`registry/`, `runtime/`, `observability/`, `lib/`) to preserve a predictable SDK layout.
 
 ### 5.2 Standard mod target tree (feature-sliced)
 
 ```text
 packages/mapgen-core/src/mods/standard/
 ├─ mod.ts
+├─ index.ts                      # stable exports for consumers (mod + stage barrels)
 ├─ recipes/
 │  └─ default.ts
-├─ registry/
-│  └─ index.ts                   # explicit STAGE_LIST / ENTRY_LIST (auditable)
 ├─ shared/
 │  ├─ runtime.ts                 # runtime inputs (MapInfo, continents, etc.) for this mod
 │  ├─ tags.ts                    # canonical tag IDs + tag definitions for this mod
-│  ├─ artifacts.ts               # mod-level artifact helpers (optional)
-│  └─ run-request.ts             # (optional) legacy config → RunRequest translation
+│  └─ artifacts.ts               # mod-level artifact definitions + helpers (cross-stage aggregation)
 └─ stages/
+   ├─ index.ts                   # mod registry entrypoint; explicit STAGE_LIST / ENTRY_LIST (auditable)
    ├─ foundation/
-   │  ├─ index.ts                # registers foundation tags + steps; exports schema/types
-   │  ├─ schema.ts
-   │  ├─ types.ts
-   │  ├─ artifacts.ts            # publish/assert foundation artifacts (mod-owned)
+   │  ├─ index.ts                # stage barrel + registerStage(registry)
+   │  ├─ model.ts                # stage schema + types (single canonical file)
+   │  ├─ artifacts.ts            # stage-owned artifact definitions + helpers
    │  ├─ steps/
    │  │  └─ foundation.ts
-   │  └─ lib/**                  # plate seed/gen/sim, voronoi utilities, etc.
+   │  └─ lib/                    # stage-local helpers and algorithms (empty allowed)
    ├─ morphology/
-   │  ├─ index.ts                # registers morphology steps (ENTRY_LIST)
-   │  ├─ schema.ts
-   │  ├─ types.ts
+   │  ├─ index.ts
+   │  ├─ model.ts
+   │  ├─ artifacts.ts
    │  ├─ steps/
    │  │  ├─ landmassPlates.ts
    │  │  ├─ coastlines.ts
@@ -176,31 +193,29 @@ packages/mapgen-core/src/mods/standard/
    │  │  ├─ islands.ts
    │  │  ├─ mountains.ts
    │  │  └─ volcanoes.ts
-   │  └─ lib/**                  # (ex-domain) landmass/coastlines/islands/mountains/volcanoes
+   │  └─ lib/
    ├─ hydrology/
    │  ├─ index.ts
-   │  ├─ schema.ts
-   │  ├─ types.ts
-   │  ├─ artifacts.ts            # climateField, riverAdjacency publish/read
+   │  ├─ model.ts
+   │  ├─ artifacts.ts
    │  ├─ steps/
    │  │  ├─ lakes.ts
    │  │  ├─ climateBaseline.ts
    │  │  ├─ rivers.ts
    │  │  └─ climateRefine.ts
-   │  └─ lib/**                  # climate algorithms, swatches, etc.
+   │  └─ lib/
    ├─ ecology/
    │  ├─ index.ts
-   │  ├─ schema.ts
-   │  ├─ types.ts
+   │  ├─ model.ts
+   │  ├─ artifacts.ts
    │  ├─ steps/
    │  │  ├─ biomes.ts
    │  │  └─ features.ts
-   │  └─ lib/**                  # biome/feature placement algorithms
+   │  └─ lib/
    ├─ narrative/
    │  ├─ index.ts
-   │  ├─ schema.ts
-   │  ├─ types.ts
-   │  ├─ artifacts.ts            # typed narrative artifacts + overlay registry helpers
+   │  ├─ model.ts
+   │  ├─ artifacts.ts
    │  ├─ steps/
    │  │  ├─ storySeed.ts
    │  │  ├─ storyHotspots.ts
@@ -209,21 +224,36 @@ packages/mapgen-core/src/mods/standard/
    │  │  ├─ storyCorridorsPre.ts
    │  │  ├─ storySwatches.ts
    │  │  └─ storyCorridorsPost.ts
-   │  └─ lib/**                  # tagging/corridors/orogeny/overlays (ex-domain)
+   │  └─ lib/
    └─ placement/
       ├─ index.ts
-      ├─ schema.ts
-      ├─ types.ts
-      ├─ artifacts.ts            # placementInputs/placementOutputs types + publish/read
+      ├─ model.ts
+      ├─ artifacts.ts
       ├─ steps/
       │  ├─ derivePlacementInputs.ts
       │  └─ placement.ts
-      └─ lib/**                  # placement algorithms + helpers
+      └─ lib/
 ```
 
 Notes:
 - This removes the current “base/pipeline/* + domain/*” split and replaces it with “stage slices own their own domain logic”.
-- `registry/index.ts` is where we keep the SPEC-required explicit import list, but the list is stage-level rather than step-level if desired (still explicit + auditable).
+- `stages/index.ts` is where we keep the SPEC-required explicit import list; this list is stage-level (`STAGE_LIST`), and each stage’s `index.ts` owns a step-level `ENTRY_LIST`.
+- Standardized mod shape (fixed structure):
+  - every stage has the same slice template: `index.ts`, `model.ts`, `artifacts.ts`, `steps/`, `lib/`.
+  - `shared/` always exists and is reserved for mod-global contracts and cross-stage aggregation (`runtime.ts`, `tags.ts`, `artifacts.ts`).
+- Why `stages/index.ts` is the “registry entrypoint”:
+  - it keeps stage slices and the explicit import list colocated (less top-level surface area than a separate `registry/` dir),
+  - it makes “registry wiring” feel like an app composing feature slices, not a second parallel tree.
+
+Barrels / export strategy (avoid opaque re-export ladders):
+- Mod boundary: `mods/standard/mod.ts` is the canonical mod contract entrypoint; `mods/standard/index.ts` is the only “consumer barrel”.
+- Stage boundary: `mods/standard/stages/<stage>/index.ts` is the only stage barrel; it re-exports the stage `model` and stage step factories/definitions.
+- No deep barrels: avoid `lib/index.ts`; prefer direct imports within the stage slice.
+
+Example import shapes this enables:
+- Whole mod (engine loads content): `import standardMod from "@swooper/mapgen-core/base"` (subpath export) or `import { standardMod } from "@swooper/mapgen-core/base"` (named).
+- Whole stage (for reuse/testing): `import * as morphology from "@swooper/mapgen-core/base/stages/morphology"`.
+- Single step (direct): `import { landmassPlates } from "@swooper/mapgen-core/base/stages/morphology/steps/landmassPlates"`.
 
 ## 6) Wiring simplification rules (how we avoid the current indirection)
 
@@ -235,18 +265,18 @@ Target: each step file exports its own `step` with explicit `requires/provides`,
 
 Outcome: delete/avoid:
 - stage descriptor maps (`getStageDescriptor`)
-- separate `steps.ts` vs `index.ts` per stage
+- separate “stage step list” files that duplicate what’s in `steps/*`
 
 ### Rule: stage `index.ts` is the single source of truth for that stage
 
 Each stage’s `index.ts` should:
 - export `ENTRY_LIST` (explicit list of this stage’s step modules)
 - export `register(registry, runtime)` that registers those entries
-- re-export stage types/schema as the stage’s public surface (optional)
+- re-export stage model (`model.ts`) as the stage’s public surface
 
 ### Rule: mod root composes stages explicitly but minimally
 
-`mods/standard/registry/index.ts`:
+`mods/standard/stages/index.ts`:
 - imports stage registrars
 - constructs the registry by applying each stage registrar (or concatenating their entries)
 - is the single auditable list of what’s “in” the mod, per the SPEC’s intent (`docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md:708`)
@@ -284,7 +314,7 @@ This keeps monorepo ergonomics while still enforcing the architecture boundary b
    - define a minimal `EngineContext` interface (artifacts/effects/trace) and have mods extend it.
 
 2) **Do we keep an engine-level “phase” concept?**  
-   Today `GenerationPhase` is a hard-coded union (`packages/mapgen-core/src/pipeline/types.ts:1`). If phases are mod-owned slices, phase should be optional metadata, not a required engine enum.
+   Today `GenerationPhase` is a hard-coded union (`packages/mapgen-core/src/pipeline/types.ts:1`). Target: engine requires `phase: string` on each step, but does not define a canonical phase enum.
 
 3) **What neutral utilities should be promoted to engine/lib?**  
    Some “base types” leak into shared libs (`packages/mapgen-core/src/lib/plates/crust.ts:1`). Decide which types move to engine/lib vs stay in mod.
@@ -293,4 +323,3 @@ This keeps monorepo ergonomics while still enforcing the architecture boundary b
    If core is pure, `packages/mapgen-core/src/orchestrator/**` should become either:
    - a Civ7-targeted runner package, or
    - mod-owned “runner” helpers for the standard mod.
-
