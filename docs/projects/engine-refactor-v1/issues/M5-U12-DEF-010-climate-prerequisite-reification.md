@@ -54,6 +54,11 @@ Eliminate hidden prerequisites that are satisfied only because some earlier step
 
 - Avoid turning “engine readbacks” into implicit globals; if we must read from adapter, make it explicit and testable.
 
+## Implementation Decisions
+
+- Climate readbacks for `isWater` / `getElevation` use `artifact:heightfield` (TS-owned) and fail fast if it is missing or invalid.
+- `getLatitude` remains adapter-based for now; shifting latitude semantics fully into `RunRequest.settings` is deferred until run settings are threaded into `ExtendedMapContext` (or otherwise made available to climate code without smuggling via config).
+
 ## Prework Findings (Complete)
 
 Goal: enumerate climate’s adapter reads and propose explicit TS-owned prerequisites (`artifact:*` / `field:*`) so climate correctness doesn’t depend on “engine state happens to be ready”.
