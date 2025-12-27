@@ -1,3 +1,4 @@
+import { ENGINE_EFFECT_TAGS } from "@civ7/adapter";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { FOUNDATION_ARTIFACT_TAG, validateFoundationContext } from "@mapgen/core/types.js";
 import type { GenerationPhase } from "@mapgen/pipeline/types.js";
@@ -44,9 +45,9 @@ export const M4_EFFECT_TAGS = {
     landmassApplied: "effect:engine.landmassApplied",
     coastlinesApplied: "effect:engine.coastlinesApplied",
     riversModeled: "effect:engine.riversModeled",
-    biomesApplied: "effect:engine.biomesApplied",
-    featuresApplied: "effect:engine.featuresApplied",
-    placementApplied: "effect:engine.placementApplied",
+    biomesApplied: ENGINE_EFFECT_TAGS.biomesApplied,
+    featuresApplied: ENGINE_EFFECT_TAGS.featuresApplied,
+    placementApplied: ENGINE_EFFECT_TAGS.placementApplied,
   },
 } as const;
 

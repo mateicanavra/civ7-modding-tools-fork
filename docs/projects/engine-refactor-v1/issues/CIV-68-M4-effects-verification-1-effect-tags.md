@@ -70,6 +70,11 @@ Introduce canonical `effect:*` tags for engine-surface mutations and add minimal
    **Rationale:** Minimal surface change, aligns with DEF-017 deferral, and provides explicit postcondition failures.  
    **Risk:** False positives if adapters are reused across runs without reset; mitigated by per-run adapter instantiation.
 
+## Review Updates
+
+- 2025-12-24: Centralized `effect:engine.*` ids via `ENGINE_EFFECT_TAGS` in `@civ7/adapter` so adapters + pipeline tags share the same constants.
+- 2025-12-24: Call-evidence limitations and adapter reuse risk are already tracked in Implementation Decision #1.
+
 ## Pre-work
 
 Goal: define the `effect:*` tag surface for engine mutations and the minimal adapter postcondition queries needed for verification (without changing step scheduling in this issue).
