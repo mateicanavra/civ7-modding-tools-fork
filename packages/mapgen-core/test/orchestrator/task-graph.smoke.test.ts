@@ -97,7 +97,6 @@ describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
 
     const config = bootstrap();
     const result = runTaskGraphGeneration({
-      mod: baseMod,
       mapGenConfig: config,
       orchestratorOptions: {
         adapter,
