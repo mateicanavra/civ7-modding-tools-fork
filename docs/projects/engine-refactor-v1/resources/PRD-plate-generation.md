@@ -1,40 +1,46 @@
-# PRD: Plate & Landmass Generation (Foundation: Mesh → Crust → Partition → Physics)
+# PRD: Plate & Tectonics Generation (Foundation: Mesh → Crust → Partition → Tectonics)
 
 ## 1. Overview
 
-This PRD defines the requirements for the **Foundation (geology) sub-pipeline** of the map generation engine. It is the canonical replacement for the legacy plate / crust / boundary system and is intended to be the canonical example of the target mapgen architecture: **small, single-purpose `MapGenStep`s** with explicit `requires`/`provides`, pure domain logic, and explicit publication to `MapGenContext`.
+This PRD defines the **desired Foundation (geology + kinematics) system** for MapGen: Voronoi-based plates, crust-first material modeling, plate partitioning, and tectonic force derivation. The **algorithms and physics** described here are the north star; the current tile-tensor implementation on the M5 branch tip is a transitional/legacy approximation and is *not* the target design.
+
+The work this PRD drives is: **deliver these algorithms inside the M4/M5 target architecture** (recipe → `ExecutionPlan` → executor, registry-validated tags, explicit artifacts) without reverting to the pre-M4 stage/manifest orchestration model.
 
 **Key Objectives**
 1. **Realism:** Produce organic continents and island chains via material-aware partitioning.
 2. **Physics-flavored causality:** Derive uplift / rift / shear from relative plate motion (not ad-hoc scoring).
 3. **Decoupling:** Separate kinematics (plates) from material (crust) to enable passive margins and realistic subduction/collision.
 4. **Determinism:** Deterministic outputs given seed + config; fail-fast on missing dependencies.
-5. **Architecture exemplar:** Foundation is decomposed into separate `MapGenStep`s and publishes intermediate artifacts via dependency-tag keys.
+5. **Architecture alignment:** Express the Foundation system in terms of the current M4/M5 contracts: recipe-authored ordering, tag-validated `requires/provides`, and versioned artifacts published via `ctx.artifacts`.
+
+### 1.1 Status (M5 baseline vs PRD target)
+
+- **Already true in M5:** Foundation publishes versioned, tile-indexed artifacts (`artifact:foundation.plates@v1`, `artifact:foundation.dynamics@v1`, etc.) and the pipeline runs under the recipe → `ExecutionPlan` model.
+- **Not yet true (this PRD’s core value):** The published tensors are not yet derived from the mesh/crust/partition/tectonics system described in `foundation.md`.
+- **This PRD’s posture:** Keep the artifact/contract model as the stable “new architecture” surface; upgrade the internal algorithms behind those artifacts to match the mesh-first design.
 
 ---
 
 ## 2. Scope (What This PRD Covers)
 
 ### In scope
-- **Geology model and artifacts** described in [`docs/system/libs/mapgen/foundation.md`](../../../system/libs/mapgen/foundation.md): mesh, crust, plate partitioning, and tectonic physics.
-- **Pipeline structure and boundaries** for implementing those strategies within `packages/mapgen-core` (domain vs lib vs pipeline steps).
-- **Publication contracts** for downstream consumers:
-  - Canonical intermediate artifacts published to `ctx.artifacts` (keyed by dependency tags).
-  - ~~Compatibility publication to `ctx.foundation` (satisfies `artifact:foundation`).~~  
-    **Update (2025-12-23, M4 execution):** M4 keeps the payload monolithic but moves the surface: publish `artifact:foundation` at `ctx.artifacts.foundation` (no top-level `ctx.foundation`). The split into discrete `artifact:foundation.*` products is Phase B work deferred per DEF-014.
+- **Foundation algorithms and data products** (mesh, crust, plate partitioning, tectonics) described in [`docs/system/libs/mapgen/foundation.md`](../../../system/libs/mapgen/foundation.md).
+- **Ownership boundary and dependencies**: what Foundation produces vs what downstream domains (especially Morphology) interpret.
+- **Artifact contracts**: how these data products are published and consumed using the M4/M5 tag/registry model (no stage manifests, no hidden globals).
 
 ### Out of scope
-- Downstream morphology/hydrology/ecology algorithms (consumers of these outputs).
-- ~~Long-term decisions about replacing the *entire* `FoundationContext` shape; this PRD targets compatibility with the current consumer boundary while establishing canonical intermediate artifacts.~~  
-  **Update (2025-12-23, M4 execution):** The target end-state is discrete `artifact:foundation.*`, but M4 explicitly does **not** do the split. M4 only moves the monolithic payload to the artifacts surface (`artifact:foundation` at `ctx.artifacts.foundation`) and removes `ctx.foundation`. The post-M4 split and migration are tracked by DEF-014.
+- Morphology’s interpretation of forces into **land–water decisions**, **elevation**, **coastlines**, and other “shape the surface” logic (consumers of Foundation outputs).
+- Hydrology, ecology, narrative, placement.
+- Engine adapter wiring and buffering details (that is an engine boundary concern; steps publish `field:*` / `effect:*` as needed).
 
 ---
 
 ## 3. Canonical References
 
-- **Canonical design + algorithms:** [`docs/system/libs/mapgen/foundation.md`](../../../system/libs/mapgen/foundation.md)
-- **Target engine architecture:** [`docs/system/libs/mapgen/architecture.md`](../../../system/libs/mapgen/architecture.md)
-- **Current consumer boundary (M2/M3 binding contract):** [`docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`](./CONTRACT-foundation-context.md)
+- **Canonical algorithms & data products:** [`docs/system/libs/mapgen/foundation.md`](../../../system/libs/mapgen/foundation.md)
+- **Domain layering overview:** [`docs/system/libs/mapgen/architecture.md`](../../../system/libs/mapgen/architecture.md)
+- **Target architecture (contracts + orchestration model):** [`docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`](./SPEC-target-architecture-draft.md)
+- **M5 cleanup context (post-M4 target posture):** [`docs/projects/engine-refactor-v1/spikes/2025-12-26-m5-clean-architecture-finalization-scope.md`](../spikes/2025-12-26-m5-clean-architecture-finalization-scope.md)
 
 ---
 
@@ -44,50 +50,83 @@ This PRD defines the requirements for the **Foundation (geology) sub-pipeline** 
 - **REQ-FND-1 (Mesh):** Generate a regularized Voronoi-based region mesh to act as the simulation board (Lloyd relaxation).
 - **REQ-FND-2 (Crust):** Generate a crust mask (`CrustData`) independent of plate boundaries; must support craton seeding and crust age.
 - **REQ-FND-3 (Partition):** Partition mesh cells into major/minor kinematic plates (not material plates), configurable counts, with material-aware weighting.
-- **REQ-FND-4 (Physics):** Compute tectonic boundary fields from relative plate velocity and crust type:
+- **REQ-FND-4 (Tectonics):** Compute tectonic boundary fields from relative plate velocity and crust type:
   - `upliftPotential` (convergence), `riftPotential` (divergence), `shearStress` (transform)
   - derived `volcanism` and `fracture`
   - support iterative accumulation (`cumulativeUplift`) to model eras
 
 ### 4.2 Functional (Publication / Contracts)
-- **REQ-FND-5 (Intermediate artifacts):** Publish the canonical foundation artifacts to `ctx.artifacts` keyed by dependency-tag strings:
-  - `artifact:foundation.mesh` → `RegionMesh`
-  - `artifact:foundation.crust` → `CrustData`
-  - `artifact:foundation.plateGraph` → `PlateGraph`
-  - `artifact:foundation.tectonics` → `TectonicData`
 
-  Publication must use `ctx.artifacts.set(tag, value)` (see `packages/mapgen-core/src/core/types.ts`).
+#### 4.2.1 Core Foundation outputs (tile-indexed; current M4/M5 contract surface)
 
-- ~~REQ-FND-6 (Consumer boundary): Publish a `FoundationContext` snapshot to `ctx.foundation`, satisfying `artifact:foundation` as the M2/M3 consumer boundary.~~  
-  **Update (2025-12-23, M4 execution):** Publish the existing `FoundationContext` payload as the monolithic artifact `artifact:foundation` stored at `ctx.artifacts.foundation`. `ctx.foundation` is removed in M4. Post-M4, split into discrete `artifact:foundation.*` products (DEF-014) and delete the monolithic artifact when consumers migrate.
+The stable M4/M5 contract for downstream consumers is a set of **versioned, tile-indexed** Foundation artifacts. These exist today; their internal algorithmic provenance is expected to change as the mesh-based PRD algorithms land.
 
-### 4.3 Functional (Step decomposition: canonical target architecture example)
-- **REQ-FND-7 (Separate steps):** The Foundation geology pipeline **must** be implemented as separate `MapGenStep`s (not a single composite `foundation` step).
+- **REQ-FND-5 (Foundation artifacts, v1):** Publish the following artifacts to `ctx.artifacts` (keyed by dependency-tag strings):
+  - `artifact:foundation.plates@v1` → tile-indexed plate + tectonic tensors (plate ID, boundary signals, stress, motion vectors)
+  - `artifact:foundation.dynamics@v1` → tile-indexed atmospheric/oceanic tensors (winds, currents, pressure)
+  - `artifact:foundation.seed@v1` → seed snapshot / provenance for determinism and debugging
+  - `artifact:foundation.diagnostics@v1` → diagnostics payload (debug-only; stable presence, flexible shape)
+  - `artifact:foundation.config@v1` → config snapshot that informed the foundation run
 
-  Canonical step set (IDs are canonical, strategies are swappable):
-  1. `core.mesh.voronoi` (phase `foundation`)
-  2. `core.crust.craton` (phase `foundation`)
-  3. `core.plates.weighted` (phase `foundation`)
-  4. `core.tectonics.standard` (phase `foundation`)
+These are set via `ctx.artifacts.set(tagId, value)` and read via `ctx.artifacts.get(tagId)`:
+- Tag IDs and artifact shapes live in `packages/mapgen-core/src/core/types.ts`.
+- Registry definitions and satisfaction checks live in `packages/mapgen-core/src/base/tags.ts`.
+- Consumer-facing assertions live in `packages/mapgen-core/src/core/assertions.ts`.
 
-  Canonical dependency-tag wiring:
-  - `core.mesh.voronoi`
-    - `requires: []`
-    - `provides: ["artifact:foundation.mesh"]`
-  - `core.crust.craton`
-    - `requires: ["artifact:foundation.mesh"]`
-    - `provides: ["artifact:foundation.crust"]`
-  - `core.plates.weighted`
-    - `requires: ["artifact:foundation.mesh", "artifact:foundation.crust"]`
-    - `provides: ["artifact:foundation.plateGraph"]`
-  - `core.tectonics.standard`
-    - `requires: ["artifact:foundation.mesh", "artifact:foundation.crust", "artifact:foundation.plateGraph"]`
-    - `provides: ["artifact:foundation.tectonics"]`
+#### 4.2.2 Canonical intermediate products (mesh-indexed; target additions that enable the PRD algorithms)
 
-  Notes:
-  - ~~`artifact:foundation` is satisfied by setting `ctx.foundation` (it is not stored in `ctx.artifacts` in the current hybrid pipeline).~~  
-    **Update (2025-12-23, M4 execution):** In M4, `artifact:foundation` is satisfied by `ctx.artifacts.foundation` (monolithic). The discrete `artifact:foundation.*` inventory is Phase B work deferred per DEF-014.
-  - The dependency-tag model is registry-driven in the target architecture; validation/plumbing for these tags belongs under the tag registry cutover work (see M4 milestone).
+The PRD algorithms are **mesh-first**. To make them first-class inside the new architecture (and to avoid hiding the mesh model inside opaque step internals), Foundation should publish a small set of intermediate artifacts.
+
+- **REQ-FND-6 (Mesh-first intermediate artifacts, v1):** Publish the following mesh-indexed artifacts to `ctx.artifacts`:
+  - `artifact:foundation.mesh@v1` → `RegionMesh`
+  - `artifact:foundation.crust@v1` → `CrustData`
+  - `artifact:foundation.plateGraph@v1` → `PlateGraph` (mesh-cell partition + plate kinematics)
+  - `artifact:foundation.tectonics@v1` → `TectonicData` (mesh-cell force fields)
+
+**Mapping note (contract-level):**
+- `artifact:foundation.plates@v1` is the **tile-grid projection** of the mesh-first outputs (`plateGraph@v1` + `tectonics@v1`) plus any additional tile-level derived tensors required by downstream stages.
+- Morphology should treat `artifact:foundation.plates@v1` (and optionally `artifact:foundation.crust@v1`) as its primary dependency surface, not reach into any legacy/global state.
+
+#### 4.2.3 Mesh → tile projection (deterministic and specified)
+
+- **REQ-FND-7 (Projection):** If mesh-indexed artifacts are produced, define and document the deterministic projection strategy used to emit tile-indexed Foundation tensors:
+  - Stable sampling rules (nearest-site, barycentric within Delaunay triangles, etc.)
+  - Invariants (determinism, bounds, wrap semantics)
+  - Which mesh signals map to which tile tensors (including any normalization/clamping)
+
+### 4.3 Functional (Step decomposition under the new architecture)
+
+This PRD treats “Foundation geology” as a **set of steps** whose ordering is authored in the recipe and compiled into the `ExecutionPlan`. There is no `stageManifest`, no `STAGE_ORDER`, and no stage-driven enablement in the target runtime.
+
+- **REQ-FND-8 (Decomposable steps):** The Foundation geology pipeline must be decomposable into separate `MapGenStep`s with explicit `requires/provides`.
+
+Canonical step set (IDs are canonical; strategies are swappable):
+1. `foundation.mesh.voronoi` (phase `foundation`)
+2. `foundation.crust.craton` (phase `foundation`)
+3. `foundation.plates.partition` (phase `foundation`)
+4. `foundation.tectonics.physics` (phase `foundation`)
+5. `foundation.project.tiles` (phase `foundation`) — publishes `artifact:foundation.plates@v1` (and any tile-grid tensors derived from the mesh-first model)
+
+Canonical dependency wiring:
+- `foundation.mesh.voronoi`
+  - `requires: []`
+  - `provides: ["artifact:foundation.mesh@v1"]`
+- `foundation.crust.craton`
+  - `requires: ["artifact:foundation.mesh@v1"]`
+  - `provides: ["artifact:foundation.crust@v1"]`
+- `foundation.plates.partition`
+  - `requires: ["artifact:foundation.mesh@v1", "artifact:foundation.crust@v1"]`
+  - `provides: ["artifact:foundation.plateGraph@v1"]`
+- `foundation.tectonics.physics`
+  - `requires: ["artifact:foundation.mesh@v1", "artifact:foundation.crust@v1", "artifact:foundation.plateGraph@v1"]`
+  - `provides: ["artifact:foundation.tectonics@v1"]`
+- `foundation.project.tiles`
+  - `requires: ["artifact:foundation.mesh@v1", "artifact:foundation.plateGraph@v1", "artifact:foundation.tectonics@v1"]`
+  - `provides: ["artifact:foundation.plates@v1"]`
+
+Notes:
+- A recipe may still choose to run a **composite** step (e.g. a single `foundation` step) during migration, but the contract obligation remains: publish the same artifacts and honor the same dependency language.
+- `artifact:foundation.dynamics@v1` may be produced by a dedicated step (e.g. `foundation.dynamics.atmosphere`) or by the composite foundation step; this PRD does not require dynamics to be coupled to the plate pipeline, only that the artifact contract is explicit and stable.
 
 ### 4.4 Non-functional
 - **REQ-PERF-1:** Mesh generation (≈4000 cells) completes within 100ms on standard hardware.
@@ -98,162 +137,114 @@ This PRD defines the requirements for the **Foundation (geology) sub-pipeline** 
 
 ## 5. Data Products (Canonical Artifacts)
 
-The canonical artifact shapes are described in `docs/system/libs/mapgen/foundation.md`. This PRD additionally constrains **where they live** and **how they’re published** (dependency-tag keyed artifacts).
+The canonical data product shapes are described in `docs/system/libs/mapgen/foundation.md`. This PRD constrains **how they are represented in the new architecture** and clarifies which products are cross-domain contracts vs internal intermediates.
 
 ### 5.1 Indexing model
-- `RegionMesh`, `CrustData`, `PlateGraph`, `TectonicData` are **per-mesh-cell** data products (indexed by mesh cell ID).
-- ~~`FoundationContext` (`ctx.foundation`) is a **per-tile** snapshot used by existing M2/M3 consumers.~~  
-  **Update (2025-12-23, M4 execution):** M4 keeps a per-tile `FoundationContext` payload, but it is accessed as the monolithic artifact `artifact:foundation` at `ctx.artifacts.foundation` (no `ctx.foundation`). Post-M4, consumers migrate to explicit foundation artifacts/fields and the monolith is removed (DEF-014).
+- `RegionMesh`, `CrustData`, `PlateGraph`, `TectonicData` are **mesh-cell indexed** intermediate products (simulation board space).
+- `artifact:foundation.plates@v1` and `artifact:foundation.dynamics@v1` are **tile indexed** cross-domain contracts (consumer space).
 
-### 5.2 Compatibility projection (mesh → tiles)
-- ~~`core.tectonics.standard` must publish `ctx.foundation` by projecting mesh-cell outputs to the tile grid in a deterministic way.~~  
-  **Update (2025-12-23, M4 execution):** If foundation steps produce mesh/cell outputs before all consumers migrate, a deterministic mesh→tile projection may still be needed to populate the monolithic `artifact:foundation` payload (until DEF-014 lands). In the end-state, publish explicit artifacts/fields and delete the monolith.
-- The projection algorithm must be stable and reproducible; exact sampling (nearest-site, barycentric within Delaunay triangles, etc.) is an implementation choice, but must be documented in the implementation and remain deterministic.
+### 5.2 Why we keep tile-indexed contracts
+
+Most downstream steps today (and likely for V1) operate in tile space. The PRD algorithms can remain mesh-first while still serving tile consumers via an explicit projection step. This avoids forcing a mesh-wide migration across Morphology/Hydrology/etc while still making the mesh model first-class and testable.
 
 ---
 
-## 6. Implementation Boundaries (Target Architecture Within `mapgen-core`)
+## 6. Ownership Boundaries (Foundation vs Morphology)
 
-This PRD’s primary “architecture alignment” requirement is that the Foundation system is implemented within the intended package boundaries:
+This PRD uses the “earth + physics in the most logical way” boundary:
 
-- **Domain logic (pure, deterministic):** `packages/mapgen-core/src/domain/foundation/**`
-  - Builders/strategies: mesh, crust, partition, tectonics.
-- **Shared helpers (reusable primitives):** `packages/mapgen-core/src/lib/**`
-  - math, geometry, graphs, sampling utilities.
-- **Pipeline steps (thin wrappers):** `packages/mapgen-core/src/pipeline/foundation/**`
-  - `MapGenStep` implementations that:
-    - validate inputs (types, sizes)
-    - run domain logic
-    - publish artifacts to `ctx.artifacts`
-    - ~~(final step) publish `ctx.foundation`~~  
-      **Update (2025-12-23, M4 execution):** M4 publishes the monolithic `artifact:foundation` payload at `ctx.artifacts.foundation` (no top-level `ctx.foundation`). Phase B (DEF-014) publishes discrete `artifact:foundation.*` products and deletes the monolith once consumers migrate.
+**Foundation owns**
+- The simulation board: mesh topology, adjacency, geometry, sampling/projection invariants.
+- Material substrate: crust type/age and other lithosphere signals that exist before surface shaping.
+- Kinematics: plate identities, velocities, rotations, boundary classification.
+- Physics tensors/fields: stress, uplift potential, rift potential, shear, volcanism/fracture drivers.
+- Dynamics tensors that are true “substrate signals” (winds/currents/pressure), published explicitly.
 
-New foundation code must not depend on the global `WorldModel` singleton. Any remaining legacy bridging should live at the orchestrator boundary.
+**Morphology owns**
+- Turning Foundation signals into **land/water decisions**, **coastlines**, and **playable elevation** (heightfield).
+- “Crust-first landmask” logic and ocean separation are morphology responsibilities: they interpret crust + tectonic fields; they are not the producer of those fields.
+
+This boundary should be treated as a requirement for any PRD updates and for future implementation work.
 
 ---
 
-## 7. Execution Plan (Concrete Work Items)
+## 7. Implementation Boundaries (Target Architecture Within `mapgen-core`)
 
-### Phase 1: Plumbing / Contracts
-- Add the new dependency tags to the canonical set (e.g. extend `packages/mapgen-core/src/pipeline/tags.ts`):
-  - `artifact:foundation.mesh`, `artifact:foundation.crust`, `artifact:foundation.plateGraph`, `artifact:foundation.tectonics`
-- ~~Extend the standard stage/phase mapping and dependency spine so the four foundation steps can be registered and executed in order (hybrid pipeline).~~  
-  **Update (2025-12-22, M4 planning):** Integrate via the standard mod’s default recipe compiled to `ExecutionPlan` (no stage-driven ordering/config).
-- Establish typed artifact helpers (optional but recommended) to centralize tag strings and casting.
+This PRD is architecture-facing: it describes what should exist when implemented inside the M4/M5 system, but it does not require a specific internal folder layout beyond the “core vs mod-owned” split.
 
-### Phase 2: Strategy implementations (domain)
+Within this repo today:
+- **Core pipeline/runtime (generic):** `packages/mapgen-core/src/core/**`, `packages/mapgen-core/src/pipeline/**`, `packages/mapgen-core/src/orchestrator/**`
+- **Base (standard) mod content (domain-owned):** `packages/mapgen-core/src/base/**`
+  - foundation steps and their domain helpers live here while the base mod is still colocated inside `mapgen-core` (see the M5 “pluginization” workstream).
+- **Shared helpers (reusable primitives):** `packages/mapgen-core/src/lib/**` (math, geometry, graphs, sampling utilities)
+
+Implementation posture requirements:
+- The mesh/crust/plates/tectonics algorithms should be expressed as **pure, deterministic domain functions** called by thin step wrappers.
+- Steps must not depend on hidden global singletons; any runtime-only shims must be explicit and treated as transitional.
+
+---
+
+## 8. Execution Plan (Concrete Work Items)
+
+This is intentionally phrased in terms of the M4/M5 architecture (registry + recipes + plan compilation), not legacy stages.
+
+### Phase 1: Contracts and tag inventory
+- Register the mesh-first intermediate artifact tags in the base mod registry (`artifact:foundation.mesh@v1`, `artifact:foundation.crust@v1`, `artifact:foundation.plateGraph@v1`, `artifact:foundation.tectonics@v1`).
+- Add satisfaction checks so `provides` is enforced (not “declaration-only”).
+- Define TypeBox schemas (or equivalent runtime validators) for the new artifacts and a minimal set of demo payloads for registry construction.
+
+### Phase 2: Algorithmic implementation (north star)
 - Implement the four strategies described in `foundation.md`:
-  - `MeshBuilder` (Voronoi + Lloyd)
-  - `CrustGenerator` (craton seeding + growth)
-  - `PlatePartitioner` (multi-source weighted flood fill)
-  - `TectonicEngine` (material-aware boundary physics + era accumulation)
+  - Voronoi mesh builder (Lloyd relaxation)
+  - Crust generator (craton seeding + growth + age)
+  - Plate partitioner (multi-source weighted flood fill; kinematics-first)
+  - Tectonic engine (material-aware boundary interaction + era accumulation)
 
-### Phase 3: Pipeline integration
-- Implement `MapGenStep` wrappers for the four canonical steps under `packages/mapgen-core/src/pipeline/foundation/**`.
-- ~~Wire the steps into the current hybrid execution shell (`StepRegistry` / `PipelineExecutor`) and ensure…~~  
-  **Update (2025-12-22, M4 planning):** Wire the steps into the mod registry + default recipe and run them via `RunRequest → ExecutionPlan` (single path). Ensure `artifact:foundation.*` products are present and validated. Do not add new long-lived compatibility surfaces.
+### Phase 3: Integration via recipe → `ExecutionPlan`
+- Provide `MapGenStep` wrappers for the canonical steps and wire them into the base mod registry.
+- Ensure the base mod default recipe runs the selected foundation steps (or the composite step during migration) and produces `artifact:foundation.plates@v1` / `artifact:foundation.dynamics@v1`.
+- Keep dependencies explicit: downstream consumers should depend on `artifact:foundation.*@v1` tags, not read implicit runtime services.
 
 ---
 
-## 8. Technical Notes (Canonical Choices)
+## 9. Technical Notes (Canonical Choices)
 
-- **Library selection:** Use `d3-delaunay` (Delaunator) for Voronoi/Delaunay computations.
-- **WrapX:** Horizontal wrapping is out of scope for v1 (bounded Voronoi first).
+- **Voronoi/Delaunay:** Use a Voronoi/Delaunay implementation suitable for the Civ7 runtime (e.g. `d3-delaunay`, or an equivalent adapter-backed implementation if bundling/runtime constraints require it). The PRD algorithmic intent is Voronoi mesh + Lloyd relaxation; the library is an implementation choice constrained by runtime reality.
+- **WrapX:** Horizontal wrapping strategy must be explicitly handled by the mesh/projection model; initial v1 can scope to bounded meshes if needed, but wrap semantics must be a planned extension (not an implicit global).
 - **Default resolution:** Target ~4000 mesh cells as the default “Large map” baseline.
 - **Eras:** Support multi-pass accumulation (`cumulativeUplift`) as the canonical hook for “geologic history.”
 
 ---
 
-## 9. Dependencies
+## 10. Dependencies
 
-- This PRD depends on configuration hygiene from [`PRD-config-refactor.md`](./PRD-config-refactor.md):
-  - Foundation parameters are modeled/validated in `MapGenConfig`.
-  - Foundation steps read configuration via `ctx.config` (not globals).
+- This PRD assumes the M4/M5 orchestration model is the only runtime path: recipe → `ExecutionPlan` → executor (see `SPEC-target-architecture-draft.md`).
+- This PRD assumes configuration is provided as explicit per-step config (recipe) plus global run settings (not legacy manifests/globals).
+- This PRD depends on the tag registry enforcing new artifact tags (registration + satisfaction checks) so `provides` is a real contract.
 
 ---
 
-## Appendix A: Implementation Alignment Findings (Needs Review Before Canonicalizing)
+## Appendix A: M5 Architecture Alignment Notes (Algorithms stay; scaffolding updates)
 
-This appendix captures repo-grounded constraints, gaps, and decisions that must be resolved to make this PRD truly canonical **for implementation inside the current hybrid TaskGraph shell**. The algorithms and approach in `foundation.md` remain the canonical target; the open items here are about **how we implement and integrate them** within `mapgen-core`.
+This appendix captures the architectural reframing required to implement the PRD algorithms inside the current system without regressing to pre-M4 orchestration.
 
-**Update (2025-12-22, M4 planning):** This appendix was written against the M3 hybrid stage-driven shell (`STAGE_ORDER`/`stageManifest`). M4 removes stage-based ordering/config inputs entirely; treat stage-based integration notes as historical context, and implement integration via `RunRequest → ExecutionPlan` (recipe + registry) per the SPEC/M4 milestone.
+### A.1 Artifact naming and versioning
 
-### A.1 Current hybrid pipeline constraints (stage ⇄ step identity)
+- The M5 codebase uses **versioned** artifact tags (e.g. `artifact:foundation.plates@v1`), and tags are registry-validated.
+- The foundation artifact inventory in the SPEC’s artifact table is conceptually correct (mesh/crust/plateGraph/tectonics exist as first-class artifacts), but tag IDs and versioning must follow the current registry conventions.
 
-- ~~Standard recipe is stage-driven and requires 1:1 IDs. `StepRegistry.getStandardRecipe()` returns `stageManifest.order` filtered by enablement…~~  
-  **Update (2025-12-22, M4 planning):** The target architecture uses recipe-authored step lists compiled to `ExecutionPlan`; there is no stage-driven "standard recipe" surface in the target.
-- ~~Stage enablement is only for known stages…~~  
-  **Update (2025-12-22, M4 planning):** Stage enablement and stage-config gating are removed in M4; enablement is recipe-authored.
-- ~~Implication: choose stage→substep expansion vs `STAGE_ORDER` churn…~~  
-  **Update (2025-12-22, M4 planning):** Foundation substeps are first-class recipe steps in the standard mod’s default recipe; no stage→substep expansion mechanism is a target requirement.
+### A.2 Current Foundation contract vs target algorithm provenance
 
-### A.2 Dependency-tag registry is strict (new artifacts require plumbing)
+- The existence of `artifact:foundation.plates@v1` does not imply the current plate algorithm is correct; it is a **consumer contract surface**.
+- The PRD algorithmic upgrade is expected to change how `foundation.plates@v1` is computed (mesh-first simulation + explicit projection), while preserving the tag contract and determinism.
 
-- Dependency tags are a closed set: unknown tags throw during step registration (`packages/mapgen-core/src/pipeline/tags.ts`).
-- The executor only verifies postconditions (`provides` → “is satisfied”) for a hardcoded subset of artifact tags and all `field:*` tags (`packages/mapgen-core/src/pipeline/PipelineExecutor.ts`).
-- **Implication:** Introducing `artifact:foundation.mesh`, `artifact:foundation.crust`, `artifact:foundation.plateGraph`, `artifact:foundation.tectonics` requires:
-  - Extending `M3_DEPENDENCY_TAGS` and `M3_CANONICAL_DEPENDENCY_TAGS`.
-  - Adding satisfaction checks for these new artifacts if we want “provides verification” (otherwise they’ll be treated as “satisfied by declaration only”, which weakens the contracts this PRD is trying to exemplify).
+### A.3 Type/name collisions to avoid
 
-### A.3 Current “foundation” source of truth is still `WorldModel`
+`PlateGraph` already exists in tile-space utilities. The mesh-space partition graph should use a disambiguating name (e.g. `RegionPlateGraph`) so APIs and docs do not blur tile vs mesh semantics.
 
-- Today the `foundation` step calls `WorldModel.init()` and builds a `FoundationContext` payload via `createFoundationContext(WorldModel, ...)` (`packages/mapgen-core/src/MapOrchestrator.ts`), exposing it as `ctx.foundation`.
-  **Update (2025-12-23, M4 execution):** M4 moves this payload to the artifacts surface (`ctx.artifacts.foundation`, tag `artifact:foundation`) and deletes `ctx.foundation` (surface-only change; payload stays monolithic).
-- Downstream steps largely consume the foundation payload, but it is currently derived from `WorldModel`.
-- **Implication:** The target posture (foundation artifacts do not require `WorldModel` as a source of truth) requires an explicit cutover plan:
-  - **Bridge plan:** publish `artifact:foundation.*` as authoritative, optionally derive a transient compatibility view for legacy consumers, and treat `WorldModel` as a compatibility sink only.
-  - **Or** keep `WorldModel` authoritative temporarily and treat the new discrete `artifact:foundation.*` products as derived/diagnostic (acceptable only as a time-boxed migration step; delete once Phase B completes).
+### A.4 Open decisions (blocking questions for implementation work)
 
-### A.4 Downstream consumers depend on more than “plates”
-
-The existing `FoundationContext` contract is already wired into multiple stages. Any foundation replacement must either preserve these fields or provide a deliberate compatibility mapping:
-
-- **Morphology:** mountains/volcanoes/landmass read plate tensors like `upliftPotential`, `riftPotential`, `boundaryType`, `boundaryCloseness`, `tectonicStress`, and `shieldStability` (`packages/mapgen-core/src/domain/morphology/mountains/scoring.ts`, `packages/mapgen-core/src/domain/morphology/volcanoes/apply.ts`, `packages/mapgen-core/src/domain/morphology/landmass/index.ts`).
-- **Climate:** several passes optionally read `ctx.foundation.dynamics.windU/windV` for wind-aware behavior (`packages/mapgen-core/src/domain/hydrology/climate/swatches/monsoon-bias.ts`, `packages/mapgen-core/src/domain/hydrology/climate/refine/orographic-shadow.ts`).
-- **Story overlays:** some story logic reads both plate tensors and dynamics (`packages/mapgen-core/src/domain/narrative/orogeny/belts.ts`).
-
-**Implication:** If the new foundation pipeline only produces plate/tectonic signals but drops dynamics, climate/story behavior may silently degrade to fallback heuristics (or change output materially).
-
-### A.5 Naming and type collisions already exist
-
-- `PlateGraph` is already a concrete type in `packages/mapgen-core/src/lib/plates/topology.ts` (plate adjacency derived from tile-indexed plate IDs), used by current landmass logic (`packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts`).
-- The canonical `foundation.md` “PlateGraph” is a **different** artifact (mesh-cell partition graph).
-
-**Implication:** The implementation must use disambiguating names (e.g., `TilePlateTopology` vs `RegionPlateGraph`, or similar) and keep module boundaries explicit to avoid semantic drift and confusing APIs.
-
-### A.6 Readiness assessment (what to land before “serious implementation”)
-
-The repo is close enough to start work, but a small set of enabling decisions/changes should land first to prevent thrash:
-
-1. ~~Decide and implement the “foundation expands into substeps” mechanism (or explicitly choose the `STAGE_ORDER` churn alternative).~~  
-   **Update (2025-12-22, M4 planning):** Not a target requirement; foundation substeps are explicit recipe steps (no stage-driven expansion).
-2. **Extend the dependency-tag canonical set** and add satisfaction checks for the new foundation artifacts.
-3. **Define mesh→tile projection** (if required): how mesh-cell artifacts map deterministically to tile-indexed consumer products, published as explicit artifacts/fields (not `FoundationContext`).
-4. **Decide how dynamics are handled** during the transition (preserve via existing model, replace, or explicitly scope out with a known output change), and publish the result as explicit artifacts/fields (not `FoundationContext`).
-5. **Define the bridge posture for `WorldModel`**: compatibility sink only vs retained source of truth.
-
-### A.7 Open decisions (must be answered to make this PRD implementable-canonical)
-
-1. ~~Stage integration: stage→substep expansion vs new stages in `STAGE_ORDER`.~~  
-   **Update (2025-12-22, M4 planning):** Not applicable in the target architecture; stage-driven integration is deleted in M4.
-2. ~~Artifact tag names: finalize canonical tag strings for intermediate artifacts.~~  
-   **Update (2025-12-22, M4 planning):** Canonical foundation artifact tags are `artifact:foundation.mesh|crust|plateGraph|tectonics` per the target architecture.
-3. **Mesh→tile projection algorithm:** Choose and document the deterministic sampling method (nearest-site, barycentric interpolation, etc.) and its invariants.
-4. **Dynamics contract:** Is a foundation dynamics product in-scope for this PRD’s foundation replacement, and if so what produces it (and how it is published as explicit artifacts/fields, not via `ctx.foundation`)?
-5. **Compatibility mapping for plate tensors:** How do `TectonicData` outputs map to the existing tensors (`tectonicStress`, `shieldStability`, movement vectors, etc.) consumed today?
-6. **Library/runtime constraints:** Confirm `d3-delaunay` feasibility in the actual Civ7 V8/bundling environment (or define the allowed alternative while keeping the algorithmic intent canonical).
-7. **Type naming:** Decide canonical names to avoid collisions with existing `PlateGraph` topology utilities.
-
-### A.8 Primary risks if we proceed without resolving A.7
-
-- **Architecture churn:** Implementing 4 steps without resolving artifact schemas/tag catalog + mesh→tile projection will force a later “rename/rekey” across docs, tests, and pipeline wiring.
-- **Contract weakness:** Adding artifact tags without satisfaction checks risks turning “provides” into unenforced declarations.
-- **Silent behavior changes:** Dropping/altering `ctx.foundation.dynamics` changes climate/story outputs via fallback heuristics.
-- **Scope explosion:** Refactoring `MapOrchestrator` at the same time as replacing foundation physics multiplies drift risk; keep orchestrator changes minimal until contracts/expansion are settled.
-
-### A.9 Orchestrator “hidden blackboard” drift (readiness / sequencing)
-
-- The current hybrid pipeline injects a `runFoundation` callback plus many cross-step inputs through `StandardLibraryRuntime`, which functions as a hidden blackboard rather than explicit `requires`/`provides` on `MapGenContext` (`packages/mapgen-core/src/pipeline/standard-library.ts`, `packages/mapgen-core/src/MapOrchestrator.ts`).
-- This increases the blast radius of a Foundation refactor: step decomposition is necessary but not sufficient if downstream steps still read/write via the runtime object instead of `ctx.artifacts` / `ctx.foundation`.
-- ~~Practical sequencing implication: land the stage→substep expansion…~~  
-  **Update (2025-12-22, M4 planning):** Land tag registry + plan compilation/execution + standard-mod packaging first, then iteratively shrink the runtime surface as each layer migrates to explicit artifacts (avoid a single mega-refactor that touches orchestrator + foundation physics + downstream consumers simultaneously).
+1. **Projection method:** Which deterministic sampling approach is canonical for mesh→tile projection, and what invariants must it satisfy?
+2. **Dynamics coupling:** Should dynamics be computed independently of plates (default) or partially derived from plate kinematics (optional refinement)?
+3. **Runtime constraints:** Confirm Voronoi library feasibility in the Civ7 bundling/runtime environment; if not feasible, define the allowed alternative while keeping Voronoi + relaxation intent.
+4. **Registry enforcement posture:** Ensure all new artifact tags have satisfaction checks so the executor can enforce `provides` postconditions.
