@@ -2,11 +2,9 @@ import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { M3_DEPENDENCY_TAGS, M3_STAGE_DEPENDENCY_SPINE, M4_EFFECT_TAGS, registerBaseTags } from "@mapgen/base/index.js";
 import {
   MissingDependencyError,
-  M3_DEPENDENCY_TAGS,
-  M3_STAGE_DEPENDENCY_SPINE,
-  M4_EFFECT_TAGS,
   PipelineExecutor,
   StepRegistry,
 } from "@mapgen/pipeline/index.js";
@@ -23,6 +21,7 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
+    registerBaseTags(registry);
     registry.register({
       id: "coastlines",
       phase: "morphology",
@@ -70,6 +69,7 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
+    registerBaseTags(registry);
     registry.register({
       id: "derivePlacementInputs",
       phase: "placement",
@@ -104,6 +104,7 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
+    registerBaseTags(registry);
     registry.register({
       id: "placement",
       phase: "placement",
@@ -132,6 +133,7 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
+    registerBaseTags(registry);
     registry.register({
       id: "placement",
       phase: "placement",

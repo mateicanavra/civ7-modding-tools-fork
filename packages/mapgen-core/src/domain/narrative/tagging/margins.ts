@@ -1,6 +1,6 @@
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/types.js";
 import { storyKey } from "@mapgen/core/index.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 import { buildNarrativeMotifsMarginsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import {
   STORY_OVERLAY_KEYS,

@@ -19,7 +19,7 @@ import {
   getNarrativeMotifsOrogeny,
   getNarrativeMotifsRifts,
 } from "@mapgen/domain/narrative/queries.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 
 describe("narrative/queries", () => {
   let ctx: ExtendedMapContext;

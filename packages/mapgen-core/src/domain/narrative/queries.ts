@@ -11,7 +11,7 @@ import {
   type NarrativeMotifsOrogenyV1,
   type NarrativeMotifsRiftsV1,
 } from "@mapgen/domain/narrative/artifacts.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 
 function getValidatedArtifact<T>(
   ctx: ExtendedMapContext | null | undefined,
