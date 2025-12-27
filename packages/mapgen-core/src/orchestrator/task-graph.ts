@@ -17,12 +17,14 @@ import {
   compileExecutionPlan,
   MissingDependencyError,
   PipelineExecutor,
+  type PipelineModV1,
   StepRegistry,
   UnsatisfiedProvidesError,
   type ExecutionPlan,
   type RecipeV1,
   type RunRequest,
 } from "@mapgen/pipeline/index.js";
+import type { StandardLibraryRuntime } from "@mapgen/pipeline/standard-library.js";
 import {
   DEV,
   devWarn,
@@ -31,7 +33,6 @@ import {
   resetDevFlags,
   type DevLogConfig,
 } from "@mapgen/dev/index.js";
-import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
 import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 
 import { runFoundationWithDiagnostics } from "@mapgen/orchestrator/foundation.js";
@@ -39,6 +40,7 @@ import { createDefaultContinentBounds, createLayerAdapter } from "@mapgen/orches
 import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/orchestrator/types.js";
 
 export interface TaskGraphRunnerOptions {
+  mod: PipelineModV1<ExtendedMapContext, MapGenConfig, StandardLibraryRuntime>;
   mapGenConfig: MapGenConfig;
   orchestratorOptions: OrchestratorConfig;
   initializeFoundation?: (ctx: ExtendedMapContext, config: FoundationConfig) => FoundationContext;
@@ -219,7 +221,14 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   logEngineSurfaceApisOnce();
 
   const registry = new StepRegistry<ExtendedMapContext>();
-  const recipe = options.orchestratorOptions.recipeOverride ?? standardMod.recipes.default;
+  const recipeOverride = options.orchestratorOptions.recipeOverride;
+  const defaultRecipe = options.mod.recipes?.default;
+  if (!recipeOverride && !defaultRecipe) {
+    throw new Error(
+      "runTaskGraphGeneration requires either orchestratorOptions.recipeOverride or mod.recipes.default"
+    );
+  }
+  const recipe = recipeOverride ?? defaultRecipe!;
   const enabledSteps = recipe.steps.filter((step) => step.enabled ?? true);
   const enabledStages = enabledSteps.map((step) => step.id).join(", ");
   console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
@@ -267,7 +276,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
     return { requires, provides };
   };
 
-  standardMod.registry.register(registry, config, {
+  options.mod.register(registry, config, {
     getStageDescriptor,
     logPrefix: prefix,
     runFoundation: (context, config) => {

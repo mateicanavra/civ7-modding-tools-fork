@@ -3,7 +3,7 @@ import { bootstrap } from "@mapgen/bootstrap/entry.js";
 import { runTaskGraphGeneration } from "@mapgen/index.js";
 import { createMockAdapter } from "@civ7/adapter/mock";
 import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
-import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import { baseDefaultRecipe, baseMod } from "@mapgen/base/index.js";
 
 /**
  * Minimal integration to pin the canonical config → execution plan path.
@@ -36,14 +36,15 @@ describe("integration: bootstrap → execution plan (stages disabled)", () => {
 
     const config = bootstrap();
     const recipeOverride: RecipeV1 = {
-      ...standardMod.recipes.default,
-      steps: standardMod.recipes.default.steps.map((step) => ({
+      ...baseDefaultRecipe,
+      steps: baseDefaultRecipe.steps.map((step) => ({
         ...step,
         enabled: false,
       })),
     };
 
     const result = runTaskGraphGeneration({
+      mod: baseMod,
       mapGenConfig: config,
       orchestratorOptions: {
         adapter,

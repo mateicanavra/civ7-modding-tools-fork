@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap, runTaskGraphGeneration } from "@mapgen/index.js";
+import { baseMod } from "@mapgen/base/index.js";
 
 describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
   const standardMapInfo = {
@@ -76,6 +77,7 @@ describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
 
     const config = bootstrap();
     const result = runTaskGraphGeneration({
+      mod: baseMod,
       mapGenConfig: config,
       orchestratorOptions: { adapter, logPrefix: "[TEST]" },
     });
@@ -98,6 +100,7 @@ describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
 
     const config = bootstrap();
     const result = runTaskGraphGeneration({
+      mod: baseMod,
       mapGenConfig: config,
       orchestratorOptions: { adapter, logPrefix: "[TEST]" },
     });

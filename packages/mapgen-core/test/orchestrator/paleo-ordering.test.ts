@@ -3,7 +3,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import { BASE_RECIPE_STEP_IDS } from "@mapgen/base/index.js";
 import {
   compileExecutionPlan,
   PipelineExecutor,
@@ -75,9 +75,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
   ) {
     const ctx = createExtendedMapContext({ width, height }, adapter, config);
     const registry = new StepRegistry<ExtendedMapContext>();
-    const recipe = standardMod.recipes.default.steps
-      .map((step) => step.id)
-      .filter((stepId) => enabledStepIds.has(stepId));
+    const recipe = BASE_RECIPE_STEP_IDS.filter((stepId) => enabledStepIds.has(stepId));
     expect(recipe).toHaveLength(enabledStepIds.size);
     const storyEnabled = recipe.some((id) => id.startsWith("story"));
 
