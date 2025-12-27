@@ -120,7 +120,7 @@ Target invariants:
 
 Concrete end-state layout:
 - `packages/mapgen-core` (generic engine)
-- `mods/mod-mapgen-standard` (standard mod/plugin: recipes + tags + step clusters)
+- `@swooper/mapgen-core/base` (base mod: recipes + tags + step clusters)
 - `packages/civ7-adapter` (engine integration + any civ-runtime-only readbacks)
 
 ### 4) Scoping queries for the consolidation PR

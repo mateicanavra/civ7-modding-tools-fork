@@ -3,7 +3,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import { baseDefaultRecipe, baseMod } from "@mapgen/base/index.js";
 import { createDefaultContinentBounds } from "@mapgen/orchestrator/helpers.js";
 import {
   compileExecutionPlan,
@@ -145,7 +145,7 @@ describe("smoke: standard recipe compile/execute", () => {
   };
 
   const buildRunRequest = (config: ReturnType<typeof bootstrap>) => {
-    const steps = standardMod.recipes.default.steps.map((step) => {
+    const steps = baseDefaultRecipe.steps.map((step) => {
       const stepConfig = buildStandardStepConfig(step.id, config);
       const mergedConfig =
         step.config && typeof step.config === "object"
@@ -158,7 +158,7 @@ describe("smoke: standard recipe compile/execute", () => {
     });
 
     return {
-      recipe: { ...standardMod.recipes.default, steps },
+      recipe: { ...baseDefaultRecipe, steps },
       settings: {
         seed: 123,
         dimensions: { width, height },
@@ -174,7 +174,7 @@ describe("smoke: standard recipe compile/execute", () => {
     config: ReturnType<typeof bootstrap>
   ) => {
     const registry = new StepRegistry<ExtendedMapContext>();
-    const recipeSteps = standardMod.recipes.default.steps.filter((step) => step.enabled ?? true);
+    const recipeSteps = baseDefaultRecipe.steps.filter((step) => step.enabled ?? true);
     const storyEnabled = recipeSteps.some((step) => step.id.startsWith("story"));
 
     const getStageDescriptor = (stageId: string) => {
@@ -198,7 +198,7 @@ describe("smoke: standard recipe compile/execute", () => {
     );
     const startPositions: number[] = [];
 
-    standardMod.registry.register(registry, config, {
+    baseMod.register(registry, config, {
       getStageDescriptor,
       logPrefix: "[TEST]",
       runFoundation: (context, foundationConfig) => {
@@ -233,11 +233,11 @@ describe("smoke: standard recipe compile/execute", () => {
     const runRequest = buildRunRequest(config);
     const plan = compileExecutionPlan(runRequest, registry);
 
-    const expectedSteps = standardMod.recipes.default.steps
+    const expectedSteps = baseDefaultRecipe.steps
       .filter((step) => step.enabled ?? true)
       .map((step) => step.id);
 
-    expect(plan.recipeId).toBe("core.standard");
+    expect(plan.recipeId).toBe("core.base");
     expect(plan.nodes.map((node) => node.stepId)).toEqual(expectedSteps);
     expect(computePlanFingerprint(plan)).toMatch(/^[a-f0-9]{64}$/);
   });

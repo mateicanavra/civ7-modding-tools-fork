@@ -3,7 +3,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/bootstrap/entry.js";
 import { runTaskGraphGeneration } from "@mapgen/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import { baseMod } from "@mapgen/base/index.js";
 import { publishPlacementInputsArtifact } from "@mapgen/pipeline/artifacts.js";
 import { createPlacementStep } from "@mapgen/pipeline/placement/steps.js";
 
@@ -103,12 +103,10 @@ describe("placement config wiring", () => {
   it("runTaskGraphGeneration does not run placement without prerequisites", () => {
     const adapter = createMockAdapter({ width, height, mapSizeId: 1, mapInfo, rng: () => 0 });
     const config = bootstrap();
-    const recipeOverride = {
-      ...standardMod.recipes.default,
-      steps: standardMod.recipes.default.steps.filter((step) => step.id === "placement"),
-    };
+    const recipeOverride = { schemaVersion: 1, id: "test.placement-only", steps: [{ id: "placement" }] };
 
     const result = runTaskGraphGeneration({
+      mod: baseMod,
       mapGenConfig: config,
       orchestratorOptions: {
         adapter,
