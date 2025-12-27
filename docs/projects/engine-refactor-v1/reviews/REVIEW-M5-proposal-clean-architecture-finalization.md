@@ -252,3 +252,23 @@ Climate runtime now consumes `artifact:heightfield` for water/elevation/mountain
 
 ### Cross-cutting Risks
 - None identified.
+
+## REVIEW m5-u13-def-017-strong-effect-verification
+
+### Quick Take
+Effect verification now uses adapter read-back for landmass/coastlines/rivers, MockAdapter simulates coast/river terrain updates, and tests cover the stronger verifier path.
+
+### High-Leverage Issues
+- `verifyEffect` now treats “no land or no water”, “no coast tiles”, and “no river adjacency” as failures; extreme configs (all-land/all-water, riverless) may now hard-fail even if the step ran, which is a behavioral shift from call-evidence verification.
+
+### Fix Now (Recommended)
+- Decide whether effect verification should tolerate zero-case outputs (based on config or step options) and either loosen the read-back checks or fall back to call evidence when zero output is valid.
+
+### Defer / Follow-up
+- If we keep strict verification, document the implicit invariant (“landmass/coastlines/rivers must produce at least one tile”) in the engine contract docs or config guardrails.
+
+### Needs Discussion
+- Are “no rivers” or “all land/all water” configurations considered invalid, or should effect verification allow them without failing the pipeline?
+
+### Cross-cutting Risks
+- Strong read-back verification can reject valid but extreme map configs, which could block custom recipes or debug runs.
