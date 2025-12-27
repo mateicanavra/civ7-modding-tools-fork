@@ -48,12 +48,12 @@ This proposal intentionally separates **catalog**, **local bundles**, and **glob
   - step definitions and tag definitions are registered here.
   - registry defines validity (no collisions; unknown IDs are errors) but has no ordering.
 - **Stage (mod mini-package):** “local cluster + default local order”.
-  - a stage exports its step modules and an ordered `ENTRY_LIST` (a recipe fragment).
+  - a stage exports its step modules and an ordered `ENTRY_LIST` (canonical stage-local order).
   - a stage registers its own steps/tags into the engine registry.
 - **Recipe (mod):** “global plan”.
   - the recipe is the only place that defines cross-stage order, selection, and toggles.
-  - the default recipe is authored as an explicit, linear list of step occurrences (SPEC §2.1 V1: deterministic scheduling comes from authored linear order).
-  - the standard mod’s default recipe interleaves steps from different stages (notably narrative); stage boundaries are not execution segments.
+  - the default recipe is authored as a **concatenation of stage entry lists** (SPEC §2.1 V1: deterministic scheduling comes from authored linear order).
+  - the recipe may apply a small number of explicit edits (enable/disable, insert, replace), but it does not re-specify the entire ordered list as raw step IDs.
 - **Mod (engine contract object):** “the deliverable package”.
   - the mod provides a `register(registry)` function and a `recipes` map.
   - the engine compiles and executes using `RunRequest` that references one of those recipes.
@@ -62,15 +62,17 @@ This matches SPEC intent:
 - “Recipe is the single source of truth for step ordering and enablement” (SPEC §1.1, §1.2).
 - “Vanilla ships as a standard mod package (registry + default recipe), not a privileged internal order” (SPEC §2.1).
 
-### Narrative is cross-cutting (even when it lives in `stages/narrative/`)
+### Narrative is cross-cutting (even when it lives under `stages/`)
 
 Narrative/playability is not a privileged pipeline phase; it is an **optional bundle of normal steps**
 selected and ordered by the recipe (SPEC §1.6; `PRD-target-narrative-and-playability.md`).
 
-In this layout, narrative still lives under `mods/standard/stages/narrative/**` for ownership and import ergonomics, but:
-- narrative steps can be interleaved across the global recipe alongside morphology/hydrology/ecology/placement steps
-- narrative steps publish typed narrative artifacts (`artifact:narrative.*`) that other steps consume explicitly
-- narrative “injectors” are ordinary downstream steps; the engine never treats narrative specially
+In the **stage-canonical ordering** model used by this SPIKE, narrative remains cross-cutting in *semantics* (its artifacts are consumed across stages), but its **execution placement** is expressed by splitting it into multiple narrative stage mini-packages aligned to where the steps run in the default pipeline:
+
+- `stages/narrative-morphology/**`: narrative publishers that run during morphology.
+- `stages/narrative-hydrology/**`: narrative publishers that run during hydrology.
+
+This keeps “recipe = mostly stage concatenation” simple, without introducing an engine-level stage concept or a complex patch DSL.
 
 ---
 
@@ -211,7 +213,15 @@ packages/mapgen-core/src/mods/standard/
    │  │  └─ *.ts
    │  └─ lib/
    │     └─ **/**
-   ├─ narrative/
+   ├─ narrative-morphology/
+   │  ├─ index.ts
+   │  ├─ model.ts
+   │  ├─ artifacts.ts
+   │  ├─ steps/
+   │  │  └─ *.ts
+   │  └─ lib/
+   │     └─ **/**
+   ├─ narrative-hydrology/
    │  ├─ index.ts
    │  ├─ model.ts
    │  ├─ artifacts.ts
@@ -244,8 +254,7 @@ packages/mapgen-core/src/mods/standard/
 
 **`mods/standard/recipes/default.ts` (the canonical cross-stage order and toggles)**
 - Defines the standard mod’s default recipe.
-- Is authored as an explicit, linear list of step occurrences (IDs + enabled flags + per-occurrence config).
-- Interleaves steps from multiple stages; stage ownership does not imply a contiguous execution block.
+- Is authored as a concatenation of stage `ENTRY_LIST`s, with minimal edits applied at the recipe layer (enable/disable, insert, replace).
 - Implements all enablement, toggles, and reroutes in the recipe layer (SPEC §1.2).
 
 **`mods/standard/shared/runtime.ts` (standard-mod runtime contract)**
@@ -300,7 +309,7 @@ Each `mods/standard/stages/<stage>/index.ts` exports exactly one `StageModule` v
 export interface StageModule {
   id: string; // stable stage id (package boundary); no engine semantics
   register(registry: Registry): void; // registers steps + tags
-  entries: readonly RecipeEntry[]; // stage-local canonical order (not necessarily a contiguous execution block)
+  entries: readonly RecipeEntry[]; // stage-local canonical order (intended to be used as a contiguous block in recipes)
 }
 ```
 
@@ -314,8 +323,8 @@ export type RecipeEntry = {
 ```
 
 Invariants:
-- `StageModule.entries` expresses only stage-local ordering; it has no scheduling semantics beyond “this list is in order”.
-- Recipes are always canonical. Stages exporting `entries` is an authoring convenience used by recipes; it does not replace the recipe as the source of truth (SPEC §1.2).
+- `StageModule.entries` is the canonical stage-local order. Steps live in the stage; stage-local order lives with the stage.
+- Recipes are still canonical for the full execution sequence and enablement. A recipe uses stages as building blocks rather than re-listing raw step IDs.
 
 Canonical stage file pattern (required):
 - `stages/<stage>/index.ts` defines `ENTRY_LIST` as the single source of truth for stage-local step order.
@@ -324,44 +333,30 @@ Canonical stage file pattern (required):
 ### 3.2 How ordering works (explicit story)
 
 - **Registry**: register all steps/tags (no ordering).
-- **Stage**: export `entries` (stage-local ordered fragment).
-- **Recipe**: is the single, global ordered list (V1); interleaving between stages is supported and used by the standard mod.
+- **Stage**: export `entries` (stage-local canonical order).
+- **Recipe**: concatenates stage entry lists to produce the single, global ordered list (V1), then applies minimal edits if needed.
 
-Example (conceptual) explicit default recipe ordering with narrative interleaving:
+Example (conceptual) default recipe authored as stage concatenation:
 
 ```ts
-// Note: stage modules own steps and provide stage-local ordering (`entries`), but V1 recipes
-// are authored explicitly to preserve deterministic scheduling and allow cross-stage interleaving.
+import { stage as foundation } from "../stages/foundation";
+import { stage as morphology } from "../stages/morphology";
+import { stage as narrativeMorphology } from "../stages/narrative-morphology";
+import { stage as hydrology } from "../stages/hydrology";
+import { stage as narrativeHydrology } from "../stages/narrative-hydrology";
+import { stage as ecology } from "../stages/ecology";
+import { stage as placement } from "../stages/placement";
 
 export const defaultRecipe: Recipe = {
   schemaVersion: 1,
   steps: [
-    { stepId: "standard.foundation.foundation" },
-    { stepId: "standard.morphology.landmassPlates" },
-    { stepId: "standard.morphology.coastlines" },
-
-    // Narrative producers that influence morphology.
-    { stepId: "standard.narrative.storySeed" },
-    { stepId: "standard.narrative.storyHotspots" },
-    { stepId: "standard.narrative.storyRifts" },
-
-    { stepId: "standard.morphology.ruggedCoasts" },
-    { stepId: "standard.narrative.storyOrogeny" },
-    { stepId: "standard.narrative.storyCorridorsPre" },
-    { stepId: "standard.morphology.islands" },
-
-    // Hydrology baseline, then narrative swatches, then rivers.
-    { stepId: "standard.hydrology.lakes" },
-    { stepId: "standard.hydrology.climateBaseline" },
-    { stepId: "standard.narrative.storySwatches" },
-    { stepId: "standard.hydrology.rivers" },
-    { stepId: "standard.narrative.storyCorridorsPost" },
-
-    // Downstream consumers.
-    { stepId: "standard.hydrology.climateRefine" },
-    { stepId: "standard.ecology.biomes" },
-    { stepId: "standard.ecology.features" },
-    { stepId: "standard.placement.placement" },
+    ...foundation.entries,
+    ...morphology.entries,
+    ...narrativeMorphology.entries,
+    ...hydrology.entries,
+    ...narrativeHydrology.entries,
+    ...ecology.entries,
+    ...placement.entries,
   ],
 };
 ```
@@ -372,6 +367,16 @@ If a recipe needs toggles/reroutes, the recipe transforms the step list:
 - insert additional entries at any position
 
 All of that remains in the recipe layer; the engine compiles/executes whatever recipe and registry describe.
+
+### 3.3 Where `requires` / `provides` live (no semantic regression)
+
+This structure does not change dependency semantics:
+
+- `requires` / `provides` remain properties on the **step definitions** (registered in the engine registry).
+- The recipe contributes only **an ordered list of step occurrences** (plus enablement/config).
+- The engine compiler validates dependency tags and step presence against the registry and authored order, producing an `ExecutionPlan`.
+
+In other words: stages/recipes decide ordering; steps decide contracts; the engine enforces them.
 
 ---
 
@@ -394,6 +399,8 @@ All of that remains in the recipe layer; the engine compiles/executes whatever r
   - `import { standardMod } from "@swooper/mapgen-core/base"`
 - Import a whole stage (reuse/test as a mini-package):
   - `import { stage as morphologyStage } from "@swooper/mapgen-core/base/stages/morphology"`
+- Import a narrative bundle aligned to pipeline placement:
+  - `import { stage as narrativeMorphology } from "@swooper/mapgen-core/base/stages/narrative-morphology"`
 - Import a single step directly (no extra barrels):
   - `import { landmassPlatesStep } from "@swooper/mapgen-core/base/stages/morphology/steps/landmassPlates"`
 
@@ -413,7 +420,7 @@ Engine is exposed as a single supported authoring surface via `engine/index.ts`.
 
 - **Mods are content; engine is content-agnostic** (SPEC §1.1, §1.2).
 - **Standard pipeline ships as a standard mod package** (SPEC §2.1).
-- **Recipe is the single source of truth for ordering and enablement** (SPEC §1.2).
+- **Recipe is the single source of truth for global ordering and enablement** (SPEC §1.2).
 - **Registry is explicit and fail-fast** (SPEC §3).
 - **Observability baseline includes runId/fingerprint and structured failures** (SPEC §1.2 observability baseline).
 
@@ -424,6 +431,8 @@ Engine is exposed as a single supported authoring surface via `engine/index.ts`.
   - empty directories/files are allowed, but the shape is invariant across stages and mods.
 - **Stage is a mod-layer authoring unit**:
   - a stage is a recipe fragment + registration function, not an engine runtime concept.
+- **Narrative stays mod-owned without stage interleaving rules**:
+  - narrative remains an optional bundle of steps (SPEC §1.6), but in the standard mod template it is expressed as multiple narrative stage mini-packages (`narrative-morphology`, `narrative-hydrology`) so the default recipe can remain “mostly stage concatenation”.
 - **RunRequest is strictly engine-owned**:
   - mods never ship RunRequest translators; “presets” are expressed as named recipes or app/CLI helpers.
 
