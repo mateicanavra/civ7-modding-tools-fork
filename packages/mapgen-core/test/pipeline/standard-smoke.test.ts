@@ -3,17 +3,15 @@ import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { baseDefaultRecipe, baseMod } from "@mapgen/base/index.js";
+import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS, baseDefaultRecipe, baseMod } from "@mapgen/base/index.js";
 import { createDefaultContinentBounds } from "@mapgen/orchestrator/helpers.js";
 import {
   compileExecutionPlan,
   computePlanFingerprint,
   createTraceSessionFromPlan,
-  M4_EFFECT_TAGS,
   PipelineExecutor,
   StepRegistry,
 } from "@mapgen/pipeline/index.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/index.js";
 import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
 import type { TraceEvent } from "@mapgen/trace/index.js";

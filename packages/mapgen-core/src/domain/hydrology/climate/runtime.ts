@@ -2,7 +2,7 @@ import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { ctxRandom, writeClimateField } from "@mapgen/core/types.js";
 import { idx } from "@mapgen/lib/grid/index.js";
 import { clamp } from "@mapgen/lib/math/clamp.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 import type { ClimateAdapter, ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
 
 /**
@@ -97,4 +97,3 @@ export function createClimateRuntime(
     idx: idxAt,
   };
 }
-

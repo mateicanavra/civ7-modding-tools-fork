@@ -4,7 +4,8 @@ import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { DEV, devLogIf, logMountainSummary, logReliefAscii } from "@mapgen/dev/index.js";
 import type { MountainsConfig } from "@mapgen/bootstrap/types.js";
 import { MountainsConfigSchema } from "@mapgen/config/index.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
+import type { MapGenStep } from "@mapgen/pipeline/index.js";
 import { layerAddMountainsPhysics } from "@mapgen/domain/morphology/mountains/index.js";
 
 export interface MountainsStepRuntime {
