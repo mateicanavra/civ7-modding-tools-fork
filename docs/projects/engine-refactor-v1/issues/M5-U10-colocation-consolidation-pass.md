@@ -72,5 +72,75 @@ Completion rule:
 
 ## Pre-work
 
-_TBD_
+Goal: identify the highest-value post-extraction layout fixes (fractal scattering + wiring-only indirection) and propose an end-state layout that remains stable after the M5 boundary work.
 
+### 1) “Fractal offender” inventory (high-signal clusters)
+
+#### A) Standard wiring split across many tiny modules
+
+Symptoms:
+- Standard stage phases + dependency spine live in `packages/mapgen-core/src/pipeline/standard.ts`.
+- Standard registration wiring lives in `packages/mapgen-core/src/pipeline/standard-library.ts`.
+- Per-domain layer registration is split across `packages/mapgen-core/src/pipeline/*/index.ts` + `steps.ts` + `*Step.ts`.
+
+Proposed colocation target:
+- After extraction (`M5-U02–U06`), co-locate:
+  - recipe definitions,
+  - stage descriptors (phases/spine),
+  - and registration wiring
+  inside the standard mod package entrypoint (single “standard mod” root), rather than leaving them scattered across `pipeline/*`.
+
+#### B) Tag ids + artifact shapes are split across unrelated folders
+
+Symptoms:
+- Standard tag ids and default tag catalog are defined in `packages/mapgen-core/src/pipeline/tags.ts`.
+- Artifact *shapes* / type guards live elsewhere:
+  - narrative motifs: `packages/mapgen-core/src/domain/narrative/artifacts.ts`
+  - placement inputs/outputs: `packages/mapgen-core/src/pipeline/placement/*`
+  - climate/heightfield artifacts are “published” via helpers in `packages/mapgen-core/src/pipeline/artifacts.ts`
+
+Proposed colocation target:
+- Standard mod owns the tag catalog; co-locate tag ids with the artifact/type modules they refer to (or provide a small “standard tag catalog” module that imports type guards from artifact modules and exports ids + satisfy checks together).
+
+#### C) Standard config wiring is embedded in the core entrypoint
+
+Symptoms:
+- `packages/mapgen-core/src/orchestrator/task-graph.ts` contains a large `buildStandardStepConfig(stepId, config)` switch.
+
+Proposed colocation target:
+- Move step-id → config wiring alongside the default recipe definition (standard mod), so the recipe and its config mapping evolve together.
+
+### 2) Wiring-only indirection targets worth consolidating
+
+High-value candidates (low risk, high readability payoff):
+- `packages/mapgen-core/src/pipeline/standard-library.ts` (pure wiring)
+- `packages/mapgen-core/src/pipeline/*/index.ts` + `packages/mapgen-core/src/pipeline/*/steps.ts` (mostly wiring/re-exports)
+- `packages/mapgen-core/src/pipeline/artifacts.ts` (standard-only “publication” glue; likely belongs with the standard mod’s artifact contracts)
+
+Executor-loop dedupe (follow-up mentioned in prior triage):
+- There are multiple “walk the steps and do X” loops in:
+  - `packages/mapgen-core/src/orchestrator/task-graph.ts` (enabled step validation + config wiring)
+  - `packages/mapgen-core/src/pipeline/PipelineExecutor.ts` (plan execution)
+After extraction, evaluate whether the enabled-step validation/config wiring can be consolidated into a single standard-mod helper rather than living inside the core orchestrator entrypoint.
+
+### 3) Proposed end-state layout (stable after extraction)
+
+Target invariants:
+- Core package contains generic pipeline engine primitives only (compile/execute/registry/tag infra).
+- Standard mod package owns:
+  - tags/recipes/stage descriptors
+  - step registration wiring
+  - step implementations + domain helpers
+  - standard config schemas/types
+- Civ runtime integration stays in the civ adapter package(s).
+
+Concrete “shape” suggestion (names TBD):
+- `packages/mapgen-core` (generic engine)
+- `packages/mapgen-standard` (standard mod/plugin: recipes + tags + step clusters)
+- `packages/civ7-adapter` (engine integration + any civ-runtime-only readbacks)
+
+### 4) Scoping queries for the consolidation PR
+
+- `rg -n \"standard-library|M3_STAGE_DEPENDENCY_SPINE|M3_STANDARD_STAGE_PHASE\" packages/`
+- `rg -n \"M3_DEPENDENCY_TAGS|M4_EFFECT_TAGS\" packages/`
+- `rg -n \"buildStandardStepConfig\\(\" packages/mapgen-core/src/orchestrator/task-graph.ts`
