@@ -1,7 +1,7 @@
 /**
  * Story Overlays Tests
  *
- * Tests for publishStoryOverlay, getStoryOverlay, hydrateMarginsStoryTags functions.
+ * Tests for publishStoryOverlay, getStoryOverlay, and overlay utilities.
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
@@ -11,7 +11,6 @@ import {
   publishStoryOverlay,
   finalizeStoryOverlay,
   getStoryOverlay,
-  hydrateMarginsStoryTags,
 } from "@mapgen/domain/narrative/overlays/index.js";
 import type { StoryOverlaySnapshot } from "@mapgen/core/types.js";
 
@@ -152,79 +151,6 @@ describe("story/overlays", () => {
 
     it("returns null for missing overlay", () => {
       const result = getStoryOverlay(null, "nonexistent");
-
-      expect(result).toBeNull();
-    });
-  });
-
-  describe("hydrateMarginsStoryTags", () => {
-    it("populates activeMargin and passiveShelf sets", () => {
-      const overlay = finalizeStoryOverlay("margins", {
-        active: ["1,1", "2,2"],
-        passive: ["3,3", "4,4"],
-      });
-      const storyTags = {
-        activeMargin: new Set<string>(),
-        passiveShelf: new Set<string>(),
-      };
-
-      hydrateMarginsStoryTags(overlay, storyTags);
-
-      expect(storyTags.activeMargin.has("1,1")).toBe(true);
-      expect(storyTags.activeMargin.has("2,2")).toBe(true);
-      expect(storyTags.passiveShelf.has("3,3")).toBe(true);
-      expect(storyTags.passiveShelf.has("4,4")).toBe(true);
-    });
-
-    it("clears existing data by default", () => {
-      const overlay = finalizeStoryOverlay("margins", {
-        active: ["new,1"],
-      });
-      const storyTags = {
-        activeMargin: new Set(["old,1", "old,2"]),
-        passiveShelf: new Set(["old,3"]),
-      };
-
-      hydrateMarginsStoryTags(overlay, storyTags);
-
-      expect(storyTags.activeMargin.size).toBe(1);
-      expect(storyTags.activeMargin.has("new,1")).toBe(true);
-      expect(storyTags.activeMargin.has("old,1")).toBe(false);
-      expect(storyTags.passiveShelf.size).toBe(0);
-    });
-
-    it("preserves existing data when clear=false", () => {
-      const overlay = finalizeStoryOverlay("margins", {
-        active: ["new,1"],
-      });
-      const storyTags = {
-        activeMargin: new Set(["old,1"]),
-        passiveShelf: new Set(["old,2"]),
-      };
-
-      hydrateMarginsStoryTags(overlay, storyTags, { clear: false });
-
-      expect(storyTags.activeMargin.has("old,1")).toBe(true);
-      expect(storyTags.activeMargin.has("new,1")).toBe(true);
-      expect(storyTags.passiveShelf.has("old,2")).toBe(true);
-    });
-
-    it("handles null overlay gracefully", () => {
-      const storyTags = {
-        activeMargin: new Set(["1,1"]),
-        passiveShelf: new Set<string>(),
-      };
-
-      const result = hydrateMarginsStoryTags(null, storyTags);
-
-      expect(result).toBe(storyTags);
-      expect(storyTags.activeMargin.has("1,1")).toBe(true);
-    });
-
-    it("handles null storyTags gracefully", () => {
-      const overlay = finalizeStoryOverlay("margins", { active: ["1,1"] });
-
-      const result = hydrateMarginsStoryTags(overlay, null);
 
       expect(result).toBeNull();
     });
