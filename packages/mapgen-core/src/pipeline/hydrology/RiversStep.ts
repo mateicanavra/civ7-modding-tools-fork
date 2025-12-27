@@ -1,3 +1,4 @@
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { HILL_TERRAIN, MOUNTAIN_TERRAIN, NAVIGABLE_RIVER_TERRAIN } from "@mapgen/core/terrain-constants.js";
 import { syncHeightfield } from "@mapgen/core/types.js";
@@ -13,6 +14,7 @@ import {
   publishRiverAdjacencyArtifact,
 } from "@mapgen/pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { ClimateStoryPaleoSchema } from "@mapgen/config/index.js";
 import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
 
 export interface RiversStepOptions {
@@ -22,13 +24,33 @@ export interface RiversStepOptions {
   logPrefix?: string;
 }
 
-export function createRiversStep(options: RiversStepOptions): MapGenStep<ExtendedMapContext> {
+const RiversStepConfigSchema = Type.Object(
+  {
+    climate: Type.Object(
+      {
+        story: Type.Object(
+          {
+            paleo: ClimateStoryPaleoSchema,
+          },
+          { additionalProperties: false, default: {} }
+        ),
+      },
+      { additionalProperties: false, default: {} }
+    ),
+  },
+  { additionalProperties: false, default: { climate: {} } }
+);
+
+type RiversStepConfig = Static<typeof RiversStepConfigSchema>;
+
+export function createRiversStep(options: RiversStepOptions): MapGenStep<ExtendedMapContext, RiversStepConfig> {
   return {
     id: "rivers",
     phase: M3_STANDARD_STAGE_PHASE.rivers,
     requires: options.requires,
     provides: options.provides,
-    run: (context) => {
+    configSchema: RiversStepConfigSchema,
+    run: (context, config) => {
       const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
       const { width, height } = context.dimensions;
       const logStats = (label: string) => {
@@ -67,9 +89,9 @@ export function createRiversStep(options: RiversStepOptions): MapGenStep<Extende
       publishHeightfieldArtifact(context);
       context.adapter.defineNamedRivers();
 
-      if (options.storyEnabled && context.config.climate?.story?.paleo != null) {
+      if (options.storyEnabled && config.climate?.story?.paleo != null) {
         console.log(`${options.logPrefix ?? ""} Applying paleo hydrology (post-rivers)...`);
-        storyTagClimatePaleo(context);
+        storyTagClimatePaleo(context, config.climate);
         publishClimateFieldArtifact(context);
       }
 

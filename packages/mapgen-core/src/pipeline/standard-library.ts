@@ -1,13 +1,7 @@
 import type { MapInfo } from "@civ7/adapter";
-import type {
-  LandmassConfig,
-  MountainsConfig,
-  VolcanoesConfig,
-  ContinentBounds,
-  StartsConfig,
-} from "@mapgen/bootstrap/types.js";
+import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import type { MapGenConfig } from "@mapgen/config/index.js";
+import type { FoundationConfig, MapGenConfig } from "@mapgen/config/index.js";
 import type { StepRegistry } from "@mapgen/pipeline/index.js";
 import { registerFoundationLayer } from "@mapgen/pipeline/foundation/index.js";
 import { registerMorphologyLayer } from "@mapgen/pipeline/morphology/index.js";
@@ -19,11 +13,8 @@ import { registerPlacementLayer } from "@mapgen/pipeline/placement/index.js";
 export interface StandardLibraryRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
   logPrefix: string;
-  runFoundation: (context: ExtendedMapContext) => void;
+  runFoundation: (context: ExtendedMapContext, config: FoundationConfig) => void;
   storyEnabled: boolean;
-  landmassCfg: LandmassConfig;
-  mountainOptions: MountainsConfig;
-  volcanoOptions: VolcanoesConfig;
   mapInfo: MapInfo;
   playersLandmass1: number;
   playersLandmass2: number;
@@ -32,7 +23,6 @@ export interface StandardLibraryRuntime {
   startSectors: unknown[];
   westContinent: ContinentBounds;
   eastContinent: ContinentBounds;
-  placementStartsOverrides?: Partial<StartsConfig>;
   startPositions: number[];
 }
 

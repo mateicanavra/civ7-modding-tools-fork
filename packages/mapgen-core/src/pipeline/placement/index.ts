@@ -14,7 +14,6 @@ export interface PlacementLayerRuntime {
   startSectors: unknown[];
   westContinent: ContinentBounds;
   eastContinent: ContinentBounds;
-  placementStartsOverrides?: Partial<StartsConfig>;
   startPositions: number[];
 }
 
@@ -31,16 +30,11 @@ export function registerPlacementLayer(
     startSectorCols: runtime.startSectorCols,
     startSectors: runtime.startSectors,
   };
-  const starts =
-    runtime.placementStartsOverrides && typeof runtime.placementStartsOverrides === "object"
-      ? { ...baseStarts, ...runtime.placementStartsOverrides }
-      : baseStarts;
-
   registry.register(
     createPlacementStep(
       {
         mapInfo: runtime.mapInfo,
-        starts,
+        baseStarts,
         startPositions: runtime.startPositions,
       },
       {

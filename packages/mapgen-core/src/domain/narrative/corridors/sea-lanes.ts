@@ -164,7 +164,11 @@ export function longestWaterRunDiagDiff(
   return { startY: bestStartY, endY: bestEndY, len: bestLen, axisLen: ye - ys + 1 };
 }
 
-export function tagSeaLanes(ctx: ExtendedMapContext, corridorsCfg: Record<string, unknown>): void {
+export function tagSeaLanes(
+  ctx: ExtendedMapContext,
+  corridorsCfg: Record<string, unknown>,
+  directionality: Record<string, unknown> | null | undefined
+): void {
   const cfg = ((corridorsCfg.sea || {}) as Record<string, unknown>) || {};
   const { width, height } = getDims(ctx);
 
@@ -175,7 +179,7 @@ export function tagSeaLanes(ctx: ExtendedMapContext, corridorsCfg: Record<string
   const laneSpacing = Math.max(0, Number((cfg.laneSpacing as number) ?? 6) | 0);
   const requiredMinWidth = Math.max(1, Number((cfg.minChannelWidth as number) ?? 3) | 0);
 
-  const DIR = (ctx?.config?.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
+  const DIR = (directionality || {}) as Record<string, unknown>;
   const COH = Math.max(0, Math.min(1, Number((DIR.cohesion as number) ?? 0)));
   const primaryAxes = (DIR.primaryAxes || {}) as Record<string, number>;
   const interplay = (DIR.interplay || {}) as Record<string, number>;

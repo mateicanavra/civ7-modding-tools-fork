@@ -1,5 +1,6 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { clamp } from "@mapgen/lib/math/clamp.js";
+import type { ClimateConfig, FoundationDirectionalityConfig } from "@mapgen/config/index.js";
 import type { ClimateSwatchResult, OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 import { chooseSwatchTypeWeighted } from "@mapgen/domain/hydrology/climate/swatches/chooser.js";
@@ -18,14 +19,18 @@ export function applyClimateSwatches(
   width: number,
   height: number,
   ctx: ExtendedMapContext | null = null,
-  options: { orogenyCache?: OrogenyCache } = {}
+  options: {
+    orogenyCache?: OrogenyCache;
+    climate?: ClimateConfig;
+    directionality?: FoundationDirectionalityConfig;
+  } = {}
 ): ClimateSwatchResult {
   if (!ctx) {
     throw new Error(
       "ClimateEngine: applyClimateSwatches requires MapContext (legacy direct-engine fallback removed)."
     );
   }
-  const cfg = ctx.config.climate?.swatches;
+  const cfg = options.climate?.swatches;
 
   if (!cfg) return { applied: false, kind: "missing-config" };
 
@@ -75,7 +80,7 @@ export function applyClimateSwatches(
     w: Math.max(0, (types[key].weight as number) | 0),
   }));
 
-  const chosenKey = chooseSwatchTypeWeighted(ctx, entries, rand);
+  const chosenKey = chooseSwatchTypeWeighted(entries, rand, options.directionality);
 
   const kind = chosenKey;
   const t = types[kind] || {};
@@ -96,7 +101,7 @@ export function applyClimateSwatches(
     applied = applyGreatPlainsSwatch(width, height, runtime, helpers, t, widthMul);
   }
 
-  applyMonsoonBiasPass(width, height, ctx, runtime, helpers);
+  applyMonsoonBiasPass(width, height, ctx, runtime, helpers, options.directionality);
 
   return { applied: applied > 0, kind, tiles: applied };
 }

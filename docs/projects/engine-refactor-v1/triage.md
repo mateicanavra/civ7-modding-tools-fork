@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Directionality settings migration (PIPELINE-2 follow-up)** [Source: CIV-56]
+  - **Context:** M4 per-step config plumbing defers ADR-ER1-019 (directionality in `RunRequest.settings`).
+  - **Type:** triage
+  - **Notes:** CIV-56 keeps `foundation.dynamics.directionality` inside step config views to avoid expanding settings; we still need a dedicated settings surface and consumer migration away from `ctx.config.foundation.*`.
+  - **Next check:** before PIPELINE-4 runtime cutover or when `RunSettings` expands.
+
 - **Mapgen research spikes: decide keep vs archive+salvage** [Review by: post-M4]
   - **Context:** Doc inventory/archive pass recorded at `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-inventory-archive-planning.md`.
   - **Type:** triage

@@ -1,8 +1,10 @@
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { LANDMASS_REGION, markLandmassRegionId } from "@mapgen/core/plot-tags.js";
 import { syncHeightfield } from "@mapgen/core/types.js";
 import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
+import { ClimateBaselineSchema } from "@mapgen/config/index.js";
 import { publishClimateFieldArtifact, publishHeightfieldArtifact } from "@mapgen/pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import { applyClimateBaseline } from "@mapgen/domain/hydrology/climate/index.js";
@@ -17,16 +19,31 @@ export interface ClimateBaselineStepOptions {
   provides: readonly string[];
 }
 
+const ClimateBaselineStepConfigSchema = Type.Object(
+  {
+    climate: Type.Object(
+      {
+        baseline: ClimateBaselineSchema,
+      },
+      { additionalProperties: false, default: {} }
+    ),
+  },
+  { additionalProperties: false, default: { climate: {} } }
+);
+
+type ClimateBaselineStepConfig = Static<typeof ClimateBaselineStepConfigSchema>;
+
 export function createClimateBaselineStep(
   runtime: ClimateBaselineStepRuntime,
   options: ClimateBaselineStepOptions
-): MapGenStep<ExtendedMapContext> {
+): MapGenStep<ExtendedMapContext, ClimateBaselineStepConfig> {
   return {
     id: "climateBaseline",
     phase: M3_STANDARD_STAGE_PHASE.climateBaseline,
     requires: options.requires,
     provides: options.provides,
-    run: (context) => {
+    configSchema: ClimateBaselineStepConfigSchema,
+    run: (context, config) => {
       const { width, height } = context.dimensions;
 
       context.adapter.recalculateAreas();
@@ -43,7 +60,7 @@ export function createClimateBaselineStep(
       assertFoundationContext(context, "climateBaseline");
       syncHeightfield(context);
       publishHeightfieldArtifact(context);
-      applyClimateBaseline(width, height, context);
+      applyClimateBaseline(width, height, context, config.climate);
       publishClimateFieldArtifact(context);
     },
   };

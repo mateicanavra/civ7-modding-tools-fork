@@ -13,6 +13,7 @@
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/types.js";
 import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
+import type { CorridorsConfig, FoundationDirectionalityConfig } from "@mapgen/config/index.js";
 
 import type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
 import { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/style-cache.js";
@@ -25,15 +26,20 @@ import { backfillCorridorKinds } from "@mapgen/domain/narrative/corridors/backfi
 export type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
 export { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/style-cache.js";
 
-export function storyTagStrategicCorridors(ctx: ExtendedMapContext, stage: CorridorStage): StoryOverlaySnapshot {
-  const corridorsCfg = (ctx.config.corridors || {}) as Record<string, unknown>;
+export function storyTagStrategicCorridors(
+  ctx: ExtendedMapContext,
+  stage: CorridorStage,
+  config: { corridors?: CorridorsConfig; directionality?: FoundationDirectionalityConfig } = {}
+): StoryOverlaySnapshot {
+  const corridorsCfg = (config.corridors || {}) as Record<string, unknown>;
+  const directionality = config.directionality;
 
   resetCorridorStyleCache(ctx);
 
   if (stage === "preIslands") {
-    tagSeaLanes(ctx, corridorsCfg);
+    tagSeaLanes(ctx, corridorsCfg, directionality);
     tagIslandHopFromHotspots(ctx, corridorsCfg);
-    tagLandCorridorsFromRifts(ctx, corridorsCfg);
+    tagLandCorridorsFromRifts(ctx, corridorsCfg, directionality);
     backfillCorridorKinds(ctx, corridorsCfg);
   } else if (stage === "postRivers") {
     tagRiverChainsPostRivers(ctx, corridorsCfg);

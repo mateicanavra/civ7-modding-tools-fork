@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import type { ContinentBounds, LandmassConfig, MountainsConfig, VolcanoesConfig } from "@mapgen/bootstrap/types.js";
+import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
 import type { StepRegistry } from "@mapgen/pipeline/index.js";
 import {
   createCoastlinesStep,
@@ -13,9 +13,6 @@ import {
 export interface MorphologyLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
   logPrefix: string;
-  landmassCfg: LandmassConfig;
-  mountainOptions: MountainsConfig;
-  volcanoOptions: VolcanoesConfig;
   westContinent: ContinentBounds;
   eastContinent: ContinentBounds;
 }
@@ -27,7 +24,6 @@ export function registerMorphologyLayer(
   registry.register(
     createLandmassPlatesStep(
       {
-        landmassCfg: runtime.landmassCfg,
         westContinent: runtime.westContinent,
         eastContinent: runtime.eastContinent,
       },
@@ -57,7 +53,7 @@ export function registerMorphologyLayer(
 
   registry.register(
     createMountainsStep(
-      { logPrefix: runtime.logPrefix, mountainOptions: runtime.mountainOptions },
+      { logPrefix: runtime.logPrefix },
       {
         ...runtime.getStageDescriptor("mountains"),
       }
@@ -65,11 +61,8 @@ export function registerMorphologyLayer(
   );
 
   registry.register(
-    createVolcanoesStep(
-      { volcanoOptions: runtime.volcanoOptions },
-      {
-        ...runtime.getStageDescriptor("volcanoes"),
-      }
-    )
+    createVolcanoesStep({
+      ...runtime.getStageDescriptor("volcanoes"),
+    })
   );
 }

@@ -77,6 +77,36 @@ We already accepted recipe-driven composition and `ExecutionPlan` as the sole co
   - `packages/mapgen-core/src/config/schema.ts`
   - `docs/projects/engine-refactor-v1/resources/config-wiring-status.md`
 
+## Implementation Decisions
+
+### Plumb explicit per-step config into step/domain call sites
+- **Context:** Many step/domain functions read `ctx.config.*` directly; per-step recipe config is now authoritative.
+- **Options:** Keep a context swap shim, keep `ctx.config` fallbacks, or pass explicit config arguments through steps and domain helpers.
+- **Choice:** Pass explicit config into step/run and domain helpers; remove the StepConfigView/context swap.
+- **Rationale:** Makes per-step config the single source of truth and avoids hidden legacy reads.
+- **Risk:** Requires touching many call sites; missed call sites will surface as runtime errors.
+
+### Keep cross-cutting directionality inside step config (for now)
+- **Context:** ADR-ER1-019 targets directionality as `RunRequest.settings`, but the settings surface is not yet plumbed into runtime steps.
+- **Options:** Extend `RunSettings` and migrate consumers now, duplicate directionality into each step config that needs it, or leave legacy `ctx.config.foundation.dynamics.directionality` reads untouched.
+- **Choice:** Include `foundation.dynamics.directionality` in the per-step config view for steps that need it.
+- **Rationale:** Enables per-step config validation without expanding settings in this slice.
+- **Risk:** Diverges from ADR-ER1-019; requires a follow-up migration to settings.
+
+### Enforce empty config for no-config steps
+- **Context:** Steps like `coastlines` and `lakes` should reject unknown config keys.
+- **Options:** Omit `configSchema`, define an empty schema, or accept arbitrary config objects.
+- **Choice:** Define `configSchema` as an empty object with `additionalProperties: false`.
+- **Rationale:** Aligns with “unknown keys fail” and keeps config surface explicit.
+- **Risk:** Requires recipe updates if someone previously relied on extra config keys.
+
+### TaskGraph builds a standard RunRequest from MapGenConfig
+- **Context:** TaskGraph still needs a standard recipe path while per-step config becomes authoritative.
+- **Options:** Use schema defaults only, read full `context.config`, or compile a `RunRequest` from `MapGenConfig` slices per step.
+- **Choice:** Compile a standard `RunRequest` from `MapGenConfig` and execute via `executePlan`; keep `execute(...)` defaults-only for true bare recipes.
+- **Rationale:** Preserves existing override behavior while making per-step config explicit and validated.
+- **Risk:** Requires keeping the per-step config mapping in sync with step schemas.
+
 ## Prework Prompt (Agent Brief)
 
 Goal: build a per-step config inventory so schema work is mechanical and consistent.

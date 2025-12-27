@@ -8,6 +8,7 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { applyClimateSwatches } from "@mapgen/domain/hydrology/climate/index.js";
 import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/index.js";
+import type { ClimateConfig, FoundationDirectionalityConfig } from "@mapgen/config/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { storyTagPaleoHydrology } from "@mapgen/domain/narrative/paleo/index.js";
 
@@ -20,12 +21,18 @@ export interface ClimateSwatchesSummary {
 
 export function storyTagClimateSwatches(
   ctx: ExtendedMapContext,
-  options: { orogenyCache?: OrogenyCache } = {}
+  options: {
+    orogenyCache?: OrogenyCache;
+    climate?: ClimateConfig;
+    directionality?: FoundationDirectionalityConfig;
+  } = {}
 ): ClimateSwatchesSummary {
   const { width, height } = ctx.dimensions;
 
   const result = applyClimateSwatches(width, height, ctx, {
     orogenyCache: options.orogenyCache,
+    climate: options.climate,
+    directionality: options.directionality,
   });
 
   publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.SWATCHES, {
@@ -43,9 +50,9 @@ export function storyTagClimateSwatches(
   return result;
 }
 
-export function storyTagClimatePaleo(ctx: ExtendedMapContext): void {
+export function storyTagClimatePaleo(ctx: ExtendedMapContext, climate: ClimateConfig = {}): void {
   const { width, height } = ctx.dimensions;
-  const summary = storyTagPaleoHydrology(ctx);
+  const summary = storyTagPaleoHydrology(ctx, climate);
 
   publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.PALEO, {
     kind: STORY_OVERLAY_KEYS.PALEO,

@@ -29,24 +29,11 @@ export function applyPlateAwareOceanSeparation(
   }
 
   const context = params?.context ?? null;
-  const config = context?.config;
-  const foundationCfg = config?.foundation as
-    | {
-        policy?: { oceanSeparation?: OceanSeparationPolicy; crustMode?: unknown };
-        surface?: {
-          oceanSeparation?: OceanSeparationPolicy;
-          crustMode?: unknown;
-          landmass?: { crustMode?: unknown };
-        };
-      }
-    | undefined;
-
-  const foundationPolicy =
-    (config?.oceanSeparation as OceanSeparationPolicy | undefined) ??
-    foundationCfg?.surface?.oceanSeparation ??
-    foundationCfg?.policy?.oceanSeparation;
-
-  const policy = params?.policy || foundationPolicy || DEFAULT_OCEAN_SEPARATION;
+  const rawPolicy = params?.policy ?? null;
+  const policy =
+    rawPolicy && Object.prototype.hasOwnProperty.call(rawPolicy, "enabled")
+      ? rawPolicy
+      : { ...DEFAULT_OCEAN_SEPARATION, ...(rawPolicy ?? {}) };
   const normalizedWindows: LandmassWindow[] = windows.map((win, idx) => normalizeWindow(win, idx, width, height));
 
   if (!policy || !policy.enabled) {
@@ -80,13 +67,7 @@ export function applyPlateAwareOceanSeparation(
     }
   };
 
-  const crustMode = normalizeCrustMode(
-    params?.crustMode ??
-      (config?.landmass as { crustMode?: unknown } | undefined)?.crustMode ??
-      foundationCfg?.policy?.crustMode ??
-      foundationCfg?.surface?.crustMode ??
-      foundationCfg?.surface?.landmass?.crustMode
-  );
+  const crustMode = normalizeCrustMode(params?.crustMode);
 
   if (crustMode === "area") {
     const minChannelWidth = Math.max(1, (policy.minChannelWidth ?? 3) | 0);

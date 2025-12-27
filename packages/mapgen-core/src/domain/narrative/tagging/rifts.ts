@@ -9,12 +9,17 @@ import { latitudeAbsDeg } from "@mapgen/domain/narrative/utils/latitude.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 import type { RiftValleysSummary } from "@mapgen/domain/narrative/tagging/types.js";
+import type { FoundationDirectionalityConfig, StoryConfig } from "@mapgen/config/index.js";
 
-export function storyTagRiftValleys(ctx: ExtendedMapContext): RiftValleysSummary {
+export function storyTagRiftValleys(
+  ctx: ExtendedMapContext,
+  config: { story?: StoryConfig; foundation?: { dynamics?: { directionality?: FoundationDirectionalityConfig } } } = {}
+): RiftValleysSummary {
   assertFoundationContext(ctx, "storyRifts");
   const { width, height } = getDims(ctx);
-  const storyCfg = (ctx?.config?.story || {}) as Record<string, unknown>;
+  const storyCfg = (config.story || {}) as Record<string, unknown>;
   const riftCfg = (storyCfg.rift || {}) as Record<string, number>;
+  const directionality = (config.foundation?.dynamics?.directionality || {}) as FoundationDirectionalityConfig;
 
   const areaRift = Math.max(1, width * height);
   const sqrtRift = Math.min(2.0, Math.max(0.6, Math.sqrt(areaRift / 10000)));
@@ -160,25 +165,21 @@ export function storyTagRiftValleys(ctx: ExtendedMapContext): RiftValleysSummary
       tagShoulders(x, y, sdx, sdy);
 
       function stepDirBias(tx: number, ty: number): number {
-        try {
-          const DIR = (ctx?.config?.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
-          const coh = clamp(Number(DIR.cohesion ?? 0), 0, 1);
-          const interplay = (DIR.interplay || {}) as Record<string, number>;
-          const follow = clamp(Number(interplay.riftsFollowPlates ?? 0), 0, 1) * coh;
-          if (follow <= 0) return 0;
-          const primaryAxes = (DIR.primaryAxes || {}) as Record<string, number>;
-          const deg = (primaryAxes.plateAxisDeg ?? 0) | 0;
-          const rad = (deg * Math.PI) / 180;
-          const ax = Math.cos(rad);
-          const ay = Math.sin(rad);
-          const vlen = Math.max(1, Math.hypot(tx, ty));
-          const vx = tx / vlen;
-          const vy = ty / vlen;
-          const dot = ax * vx + ay * vy;
-          return Math.round(10 * follow * dot);
-        } catch {
-          return 0;
-        }
+        const DIR = directionality as Record<string, unknown>;
+        const coh = clamp(Number(DIR.cohesion ?? 0), 0, 1);
+        const interplay = (DIR.interplay || {}) as Record<string, number>;
+        const follow = clamp(Number(interplay.riftsFollowPlates ?? 0), 0, 1) * coh;
+        if (follow <= 0) return 0;
+        const primaryAxes = (DIR.primaryAxes || {}) as Record<string, number>;
+        const deg = (primaryAxes.plateAxisDeg ?? 0) | 0;
+        const rad = (deg * Math.PI) / 180;
+        const ax = Math.cos(rad);
+        const ay = Math.sin(rad);
+        const vlen = Math.max(1, Math.hypot(tx, ty));
+        const vx = tx / vlen;
+        const vy = ty / vlen;
+        const dot = ax * vx + ay * vy;
+        return Math.round(10 * follow * dot);
       }
 
       let bestScore = -1;

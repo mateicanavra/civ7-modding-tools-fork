@@ -1,3 +1,4 @@
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import {
@@ -8,6 +9,7 @@ import {
 } from "@mapgen/core/plot-tags.js";
 import { DEV, devWarn, logLandmassAscii } from "@mapgen/dev/index.js";
 import type { ContinentBounds, LandmassConfig } from "@mapgen/bootstrap/types.js";
+import { LandmassConfigSchema, OceanSeparationConfigSchema } from "@mapgen/config/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import {
   applyLandmassPostAdjustments,
@@ -17,7 +19,6 @@ import {
 } from "@mapgen/domain/morphology/landmass/index.js";
 
 export interface LandmassStepRuntime {
-  landmassCfg: LandmassConfig;
   westContinent: ContinentBounds;
   eastContinent: ContinentBounds;
 }
@@ -26,6 +27,16 @@ export interface LandmassStepOptions {
   requires: readonly string[];
   provides: readonly string[];
 }
+
+const LandmassStepConfigSchema = Type.Object(
+  {
+    landmass: LandmassConfigSchema,
+    oceanSeparation: OceanSeparationConfigSchema,
+  },
+  { additionalProperties: false, default: { landmass: {}, oceanSeparation: {} } }
+);
+
+type LandmassStepConfig = Static<typeof LandmassStepConfigSchema>;
 
 function windowToContinentBounds(window: LandmassWindow, continent: number): ContinentBounds {
   return {
@@ -48,19 +59,22 @@ function assignContinentBounds(target: ContinentBounds, src: ContinentBounds): v
 export function createLandmassPlatesStep(
   runtime: LandmassStepRuntime,
   options: LandmassStepOptions
-): MapGenStep<ExtendedMapContext> {
+): MapGenStep<ExtendedMapContext, LandmassStepConfig> {
   return {
     id: "landmassPlates",
     phase: M3_STANDARD_STAGE_PHASE.landmassPlates,
     requires: options.requires,
     provides: options.provides,
-    run: (context) => {
+    configSchema: LandmassStepConfigSchema,
+    run: (context, config) => {
       assertFoundationContext(context, "landmassPlates");
       const { width, height } = context.dimensions;
+      const landmassCfg = (config.landmass ?? {}) as LandmassConfig;
+      const oceanSeparationCfg = config.oceanSeparation ?? {};
 
       const plateResult = createPlateDrivenLandmasses(width, height, context, {
-        landmassCfg: runtime.landmassCfg as LandmassConfig,
-        geometry: runtime.landmassCfg.geometry,
+        landmassCfg,
+        geometry: landmassCfg.geometry,
       });
 
       if (!plateResult?.windows?.length) {
@@ -76,11 +90,12 @@ export function createLandmassPlatesStep(
         landMask: plateResult.landMask,
         context,
         adapter: context.adapter,
-        crustMode: runtime.landmassCfg.crustMode,
+        crustMode: landmassCfg.crustMode,
+        policy: oceanSeparationCfg,
       });
       windows = separationResult.windows;
 
-      windows = applyLandmassPostAdjustments(windows, runtime.landmassCfg.geometry, width, height);
+      windows = applyLandmassPostAdjustments(windows, landmassCfg.geometry, width, height);
 
       if (DEV.ENABLED && windows.length < 2) {
         devWarn(

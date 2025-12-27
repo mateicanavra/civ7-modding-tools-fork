@@ -1,13 +1,7 @@
 import type { MapInfo, MapSizeId } from "@civ7/adapter";
 import { createCiv7Adapter } from "@civ7/adapter/civ7";
 
-import type {
-  LandmassConfig,
-  MountainsConfig,
-  VolcanoesConfig,
-  StartsConfig,
-} from "@mapgen/bootstrap/types.js";
-import type { MapGenConfig } from "@mapgen/config/index.js";
+import type { FoundationConfig, MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { getStoryTags, resetStoryTags } from "@mapgen/domain/narrative/tags/index.js";
@@ -15,11 +9,14 @@ import { resetStoryOverlays } from "@mapgen/domain/narrative/overlays/index.js";
 import { resetOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
 import { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/index.js";
 import {
+  compileExecutionPlan,
   MissingDependencyError,
   PipelineExecutor,
   StepRegistry,
   UnsatisfiedProvidesError,
   registerStandardLibrary,
+  type ExecutionPlan,
+  type RunRequest,
 } from "@mapgen/pipeline/index.js";
 import {
   DEV,
@@ -36,7 +33,116 @@ import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/
 export interface TaskGraphRunnerOptions {
   mapGenConfig: MapGenConfig;
   orchestratorOptions: OrchestratorConfig;
-  initializeFoundation: (ctx: ExtendedMapContext) => FoundationContext;
+  initializeFoundation: (ctx: ExtendedMapContext, config: FoundationConfig) => FoundationContext;
+}
+
+function resolveRunSeed(config: MapGenConfig): number {
+  const seedConfig = config.foundation?.seed;
+  if (seedConfig?.mode === "fixed" && typeof seedConfig.fixedSeed === "number") {
+    return Math.trunc(seedConfig.fixedSeed);
+  }
+  return 0;
+}
+
+function buildStandardStepConfig(stepId: string, config: MapGenConfig): Record<string, unknown> {
+  const directionality = config.foundation?.dynamics?.directionality ?? {};
+
+  switch (stepId) {
+    case "foundation":
+      return { foundation: config.foundation ?? {} };
+    case "landmassPlates":
+      return {
+        landmass: config.landmass ?? {},
+        oceanSeparation: config.oceanSeparation ?? {},
+      };
+    case "coastlines":
+    case "lakes":
+      return {};
+    case "ruggedCoasts":
+      return {
+        coastlines: config.coastlines ?? {},
+        corridors: config.corridors ?? {},
+      };
+    case "islands":
+      return {
+        islands: config.islands ?? {},
+        story: { hotspot: config.story?.hotspot ?? {} },
+        corridors: { sea: config.corridors?.sea ?? {} },
+      };
+    case "mountains":
+      return { mountains: config.mountains ?? {} };
+    case "volcanoes":
+      return { volcanoes: config.volcanoes ?? {} };
+    case "climateBaseline":
+      return { climate: { baseline: config.climate?.baseline ?? {} } };
+    case "rivers":
+      return { climate: { story: { paleo: config.climate?.story?.paleo ?? {} } } };
+    case "climateRefine":
+      return {
+        climate: config.climate ?? {},
+        story: { orogeny: config.story?.orogeny ?? {} },
+        foundation: { dynamics: { directionality } },
+      };
+    case "storySeed":
+      return { margins: config.margins ?? {} };
+    case "storyHotspots":
+      return { story: { hotspot: config.story?.hotspot ?? {} } };
+    case "storyRifts":
+      return {
+        story: { rift: config.story?.rift ?? {} },
+        foundation: { dynamics: { directionality } },
+      };
+    case "storyOrogeny":
+      return { story: { orogeny: config.story?.orogeny ?? {} } };
+    case "storyCorridorsPre":
+    case "storyCorridorsPost":
+      return {
+        corridors: config.corridors ?? {},
+        foundation: { dynamics: { directionality } },
+      };
+    case "storySwatches":
+      return {
+        climate: config.climate ?? {},
+        foundation: { dynamics: { directionality } },
+      };
+    case "biomes":
+      return { biomes: config.biomes ?? {}, corridors: config.corridors ?? {} };
+    case "features":
+      return {
+        story: { features: config.story?.features ?? {} },
+        featuresDensity: config.featuresDensity ?? {},
+      };
+    case "placement":
+      return { placement: config.placement ?? {} };
+    default:
+      return {};
+  }
+}
+
+function buildStandardRunRequest(
+  recipe: readonly string[],
+  config: MapGenConfig,
+  ctx: ExtendedMapContext,
+  mapInfo: MapInfo
+): RunRequest {
+  return {
+    recipe: {
+      schemaVersion: 1,
+      steps: recipe.map((stepId) => ({
+        id: stepId,
+        config: buildStandardStepConfig(stepId, config),
+      })),
+    },
+    settings: {
+      seed: resolveRunSeed(config),
+      dimensions: { width: ctx.dimensions.width, height: ctx.dimensions.height },
+      latitudeBounds: {
+        topLatitude: mapInfo.MaxLatitude ?? 90,
+        bottomLatitude: mapInfo.MinLatitude ?? -90,
+      },
+      wrap: { wrapX: true, wrapY: false },
+    },
+  };
 }
 
 export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): GenerationResult {
@@ -45,7 +151,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   const stageResults: StageResult[] = [];
   const startPositions: number[] = [];
-
   const config = options.mapGenConfig;
 
   resetDevFlags();
@@ -90,15 +195,11 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   logEngineSurfaceApisOnce();
 
-  const stageManifest = config.stageManifest ?? { order: [], stages: {} };
+  const stageManifest = options.mapGenConfig.stageManifest ?? { order: [], stages: {} };
   const registry = new StepRegistry<ExtendedMapContext>();
   const recipe = registry.getStandardRecipe(stageManifest);
   const enabledStages = recipe.join(", ");
   console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
-
-  const landmassCfg = config.landmass ?? {};
-  const mountainOptions = (config.mountains ?? {}) as MountainsConfig;
-  const volcanoOptions = (config.volcanoes ?? {}) as VolcanoesConfig;
 
   let ctx: ExtendedMapContext | null = null;
   try {
@@ -147,13 +248,10 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   registerStandardLibrary(registry, config, {
     getStageDescriptor,
     logPrefix: prefix,
-    runFoundation: (context) => {
-      options.initializeFoundation(context);
+    runFoundation: (context, config) => {
+      options.initializeFoundation(context, config);
     },
     storyEnabled,
-    landmassCfg: landmassCfg as LandmassConfig,
-    mountainOptions,
-    volcanoOptions,
     mapInfo,
     playersLandmass1: iNumPlayers1,
     playersLandmass2: iNumPlayers2,
@@ -162,7 +260,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
     startSectors,
     westContinent,
     eastContinent,
-    placementStartsOverrides: ctx.config.placement?.starts as Partial<StartsConfig> | undefined,
     startPositions,
   });
 
@@ -180,8 +277,22 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
     }
   }
 
+  let plan: ExecutionPlan;
   try {
-    const { stepResults } = executor.execute(ctx, recipe);
+    plan = compileExecutionPlan(buildStandardRunRequest(recipe, config, ctx, mapInfo), registry);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    stageResults.push({
+      stage: "taskGraph",
+      success: false,
+      error: message,
+    });
+    console.error(`${prefix} TaskGraph compile failed: ${message}`, err);
+    return { success: false, stageResults, startPositions };
+  }
+
+  try {
+    const { stepResults } = executor.executePlan(ctx, plan);
     stageResults.push(
       ...stepResults.map((r) => ({
         stage: r.stepId,

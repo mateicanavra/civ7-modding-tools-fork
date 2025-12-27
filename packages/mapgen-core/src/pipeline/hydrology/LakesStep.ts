@@ -3,6 +3,7 @@ import { syncHeightfield } from "@mapgen/core/types.js";
 import { publishHeightfieldArtifact } from "@mapgen/pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import type { MapInfo } from "@civ7/adapter";
+import { EmptyStepConfigSchema } from "@mapgen/pipeline/step-config.js";
 
 export interface LakesStepRuntime {
   mapInfo: MapInfo;
@@ -22,7 +23,8 @@ export function createLakesStep(
     phase: M3_STANDARD_STAGE_PHASE.lakes,
     requires: options.requires,
     provides: options.provides,
-    run: (context) => {
+    configSchema: EmptyStepConfigSchema,
+    run: (context, _config) => {
       const { width, height } = context.dimensions;
       const iTilesPerLake = Math.max(10, (runtime.mapInfo.LakeGenerationFrequency ?? 5) * 2);
       context.adapter.generateLakes(width, height, iTilesPerLake);

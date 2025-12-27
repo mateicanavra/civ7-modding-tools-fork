@@ -262,7 +262,7 @@ function normalizeStepConfig(
 }
 
 function buildNodeConfig<TContext>(
-  step: MapGenStep<TContext>,
+  step: MapGenStep<TContext, unknown>,
   recipeStep: RecipeStepV1,
   path: string
 ): { config: unknown; errors: ExecutionPlanCompileErrorItem[] } {

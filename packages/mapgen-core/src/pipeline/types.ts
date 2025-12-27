@@ -11,13 +11,13 @@ export type GenerationPhase =
 
 export type DependencyTag = string;
 
-export interface MapGenStep<TContext = ExtendedMapContext> {
+export interface MapGenStep<TContext = ExtendedMapContext, TConfig = unknown> {
   id: string;
   phase: GenerationPhase;
   requires: readonly DependencyTag[];
   provides: readonly DependencyTag[];
   configSchema?: TSchema;
-  run: (context: TContext) => void | Promise<void>;
+  run: (context: TContext, config: TConfig) => void | Promise<void>;
 }
 
 export interface PipelineStepResult {

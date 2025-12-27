@@ -1,4 +1,6 @@
+import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { CoastlinesConfigSchema, CorridorsConfigSchema } from "@mapgen/config/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import { addRuggedCoasts } from "@mapgen/domain/morphology/coastlines/index.js";
 
@@ -7,17 +9,28 @@ export interface RuggedCoastsStepOptions {
   provides: readonly string[];
 }
 
+const RuggedCoastsStepConfigSchema = Type.Object(
+  {
+    coastlines: CoastlinesConfigSchema,
+    corridors: CorridorsConfigSchema,
+  },
+  { additionalProperties: false, default: { coastlines: {}, corridors: {} } }
+);
+
+type RuggedCoastsStepConfig = Static<typeof RuggedCoastsStepConfigSchema>;
+
 export function createRuggedCoastsStep(
   options: RuggedCoastsStepOptions
-): MapGenStep<ExtendedMapContext> {
+): MapGenStep<ExtendedMapContext, RuggedCoastsStepConfig> {
   return {
     id: "ruggedCoasts",
     phase: M3_STANDARD_STAGE_PHASE.ruggedCoasts,
     requires: options.requires,
     provides: options.provides,
-    run: (context) => {
+    configSchema: RuggedCoastsStepConfigSchema,
+    run: (context, config) => {
       const { width, height } = context.dimensions;
-      addRuggedCoasts(width, height, context);
+      addRuggedCoasts(width, height, context, config);
     },
   };
 }
