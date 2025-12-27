@@ -148,22 +148,13 @@ export interface FoundationContext {
   config: Readonly<FoundationConfigSnapshot>;
 }
 
-export const FOUNDATION_ARTIFACT_TAG = "artifact:foundation";
+export const FOUNDATION_PLATES_ARTIFACT_TAG = "artifact:foundation.plates@v1";
+export const FOUNDATION_DYNAMICS_ARTIFACT_TAG = "artifact:foundation.dynamics@v1";
+export const FOUNDATION_SEED_ARTIFACT_TAG = "artifact:foundation.seed@v1";
+export const FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG = "artifact:foundation.diagnostics@v1";
+export const FOUNDATION_CONFIG_ARTIFACT_TAG = "artifact:foundation.config@v1";
 
 export class ArtifactStore extends Map<string, unknown> {
-  get foundation(): FoundationContext | null {
-    const value = this.get(FOUNDATION_ARTIFACT_TAG);
-    if (!value || typeof value !== "object") return null;
-    return value as FoundationContext;
-  }
-
-  set foundation(value: FoundationContext | null) {
-    if (!value) {
-      this.delete(FOUNDATION_ARTIFACT_TAG);
-      return;
-    }
-    this.set(FOUNDATION_ARTIFACT_TAG, value);
-  }
 }
 
 // ============================================================================
@@ -450,6 +441,83 @@ export function validateFoundationContext(
   ensureTensor("pressure", dynamics.pressure, size);
 }
 
+export function validateFoundationPlatesArtifact(
+  value: unknown,
+  dimensions: MapDimensions
+): asserts value is FoundationPlateFields {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation plates artifact payload.");
+  }
+  const plates = value as FoundationPlateFields;
+  const width = dimensions.width | 0;
+  const height = dimensions.height | 0;
+  const size = Math.max(0, width * height) | 0;
+
+  ensureTensor("plateId", plates.id, size);
+  ensureTensor("boundaryCloseness", plates.boundaryCloseness, size);
+  ensureTensor("boundaryType", plates.boundaryType, size);
+  ensureTensor("tectonicStress", plates.tectonicStress, size);
+  ensureTensor("upliftPotential", plates.upliftPotential, size);
+  ensureTensor("riftPotential", plates.riftPotential, size);
+  ensureTensor("shieldStability", plates.shieldStability, size);
+  ensureTensor("plateMovementU", plates.movementU, size);
+  ensureTensor("plateMovementV", plates.movementV, size);
+  ensureTensor("plateRotation", plates.rotation, size);
+}
+
+export function validateFoundationDynamicsArtifact(
+  value: unknown,
+  dimensions: MapDimensions
+): asserts value is FoundationDynamicsFields {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation dynamics artifact payload.");
+  }
+  const dynamics = value as FoundationDynamicsFields;
+  const width = dimensions.width | 0;
+  const height = dimensions.height | 0;
+  const size = Math.max(0, width * height) | 0;
+
+  ensureTensor("windU", dynamics.windU, size);
+  ensureTensor("windV", dynamics.windV, size);
+  ensureTensor("currentU", dynamics.currentU, size);
+  ensureTensor("currentV", dynamics.currentV, size);
+  ensureTensor("pressure", dynamics.pressure, size);
+}
+
+export function validateFoundationSeedArtifact(
+  value: unknown,
+  dimensions: MapDimensions
+): asserts value is SeedSnapshot {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation seed artifact payload.");
+  }
+  const seed = value as SeedSnapshot;
+  const width = dimensions.width | 0;
+  const height = dimensions.height | 0;
+  if ((seed.width | 0) !== width || (seed.height | 0) !== height) {
+    throw new Error(
+      `[FoundationArtifact] Seed snapshot dimensions mismatch (expected ${width}x${height}, received ${seed.width}x${seed.height}).`
+    );
+  }
+}
+
+export function validateFoundationDiagnosticsArtifact(value: unknown): asserts value is FoundationDiagnosticsFields {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation diagnostics artifact payload.");
+  }
+  // boundaryTree is intentionally untyped/optional (diagnostics-only).
+}
+
+export function validateFoundationConfigArtifact(value: unknown): asserts value is FoundationConfigSnapshot {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation config artifact payload.");
+  }
+  const snapshot = value as FoundationConfigSnapshot;
+  if (!snapshot.seed || !snapshot.plates || !snapshot.dynamics || !snapshot.surface || !snapshot.policy || !snapshot.diagnostics) {
+    throw new Error("[FoundationArtifact] Invalid foundation config snapshot payload.");
+  }
+}
+
 export interface CreateFoundationContextOptions {
   dimensions: MapDimensions;
   config?: Partial<FoundationConfigSnapshot>;
@@ -579,31 +647,6 @@ export function createFoundationContext(
 /**
  * Check whether the provided context already carries a FoundationContext.
  */
-export function hasFoundationContext(
-  ctx: ExtendedMapContext
-): ctx is ExtendedMapContext & { artifacts: ArtifactStore & { foundation: FoundationContext } } {
-  return !!(ctx && ctx.artifacts?.foundation && typeof ctx.artifacts.foundation === "object");
-}
-
-/**
- * Assert that a FoundationContext exists on the provided context.
- * Throws when absent so stages fail loudly instead of running with stale data.
- */
-export function assertFoundationContext(
-  ctx: ExtendedMapContext,
-  stage?: string
-): FoundationContext {
-  const foundation = ctx?.artifacts?.foundation;
-  if (foundation) {
-    validateFoundationContext(foundation, ctx.dimensions);
-    return foundation;
-  }
-  const message = stage
-    ? `[Pipeline] Step "${stage}" requires FoundationContext but it is unavailable.`
-    : "[Pipeline] Required FoundationContext is unavailable.";
-  throw new Error(message);
-}
-
 // ============================================================================
 // Sync Functions
 // ============================================================================

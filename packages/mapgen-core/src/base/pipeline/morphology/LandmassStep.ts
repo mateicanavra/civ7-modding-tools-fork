@@ -1,6 +1,6 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import {
   markLandmassId,
   resolveLandmassIds,
@@ -66,7 +66,7 @@ export function createLandmassPlatesStep(
     provides: options.provides,
     configSchema: LandmassStepConfigSchema,
     run: (context, config) => {
-      assertFoundationContext(context, "landmassPlates");
+      assertFoundationPlates(context, "landmassPlates");
       const { width, height } = context.dimensions;
       const landmassCfg = (config.landmass ?? {}) as LandmassConfig;
       const oceanSeparationCfg = config.oceanSeparation ?? {};

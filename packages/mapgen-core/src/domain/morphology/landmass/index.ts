@@ -8,7 +8,7 @@
  */
 
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import type {
   CreateLandmassesOptions,
   GeometryConfig,
@@ -71,7 +71,7 @@ export function createPlateDrivenLandmasses(
   ctx: ExtendedMapContext,
   options: CreateLandmassesOptions = {}
 ): LandmassGenerationResult | null {
-  const foundation = assertFoundationContext(ctx, "landmassPlates");
+  const plates = assertFoundationPlates(ctx, "landmassPlates");
   const { width: ctxWidth, height: ctxHeight } = ctx.dimensions;
   if (ctxWidth !== width || ctxHeight !== height) {
     throw new Error(
@@ -79,7 +79,6 @@ export function createPlateDrivenLandmasses(
     );
   }
 
-  const { plates } = foundation;
   const closeness = plates.boundaryCloseness;
   const plateIds = plates.id;
 

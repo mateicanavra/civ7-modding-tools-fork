@@ -1,6 +1,6 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { clamp, inBounds, storyKey } from "@mapgen/core/index.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import { idx } from "@mapgen/lib/grid/index.js";
 import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 import { buildNarrativeMotifsRiftsV1 } from "@mapgen/domain/narrative/artifacts.js";
@@ -16,7 +16,7 @@ export function storyTagRiftValleys(
   ctx: ExtendedMapContext,
   config: { story?: StoryConfig } = {}
 ): RiftValleysSummary {
-  const foundation = assertFoundationContext(ctx, "storyRifts");
+  const plates = assertFoundationPlates(ctx, "storyRifts");
   const { width, height } = getDims(ctx);
   const storyCfg = (config.story || {}) as Record<string, unknown>;
   const riftCfg = (storyCfg.rift || {}) as Record<string, number>;
@@ -44,7 +44,6 @@ export function storyTagRiftValleys(
   const riftLine = new Set<string>();
   const riftShoulder = new Set<string>();
 
-  const plates = foundation.plates;
   const RP = plates.riftPotential;
   const BT = plates.boundaryType; // 2 = divergent
   const BC = plates.boundaryCloseness;

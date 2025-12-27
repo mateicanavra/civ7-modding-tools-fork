@@ -5,10 +5,16 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
 > = Object.freeze({
   foundation: {
     requires: [],
-    provides: [M3_DEPENDENCY_TAGS.artifact.foundation],
+    provides: [
+      M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
+      M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
+      M3_DEPENDENCY_TAGS.artifact.foundationSeedV1,
+      M3_DEPENDENCY_TAGS.artifact.foundationDiagnosticsV1,
+      M3_DEPENDENCY_TAGS.artifact.foundationConfigV1,
+    ],
   },
   landmassPlates: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
+    requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
     provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   },
   coastlines: {
@@ -30,7 +36,10 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     ],
   },
   storyRifts: {
-    requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
+    requires: [
+      M4_EFFECT_TAGS.engine.coastlinesApplied,
+      M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
+    ],
     provides: [
       M3_DEPENDENCY_TAGS.artifact.storyOverlays,
       M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
@@ -39,12 +48,17 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
   ruggedCoasts: {
     requires: [
       M4_EFFECT_TAGS.engine.coastlinesApplied,
+      M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
       M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
     ],
     provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
   },
   storyOrogeny: {
-    requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
+    requires: [
+      M4_EFFECT_TAGS.engine.coastlinesApplied,
+      M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
+      M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
+    ],
     provides: [
       M3_DEPENDENCY_TAGS.artifact.storyOverlays,
       M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
@@ -74,11 +88,15 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     ],
   },
   mountains: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
+    requires: [
+      M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
+    ],
     provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   },
   volcanoes: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
+    requires: [
+      M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
+    ],
     provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   },
   lakes: {
@@ -86,15 +104,15 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     provides: [M3_DEPENDENCY_TAGS.artifact.heightfield],
   },
   climateBaseline: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.foundation],
+    requires: [],
     provides: [M3_DEPENDENCY_TAGS.artifact.heightfield, M3_DEPENDENCY_TAGS.artifact.climateField],
   },
   storySwatches: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.climateField],
+    requires: [M3_DEPENDENCY_TAGS.artifact.climateField, M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1],
     provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
   },
   rivers: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.foundation, M3_DEPENDENCY_TAGS.artifact.heightfield],
+    requires: [M3_DEPENDENCY_TAGS.artifact.heightfield],
     provides: [
       M4_EFFECT_TAGS.engine.riversModeled,
       M3_DEPENDENCY_TAGS.artifact.heightfield,
@@ -115,12 +133,12 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
   },
   climateRefine: {
     requires: [
-      M3_DEPENDENCY_TAGS.artifact.foundation,
       M3_DEPENDENCY_TAGS.artifact.heightfield,
       M3_DEPENDENCY_TAGS.artifact.climateField,
       M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
       M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
       M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
+      M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
     ],
     provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
   },
@@ -169,4 +187,3 @@ export function getStageDescriptor(
   const provides = Array.isArray(desc.provides) ? desc.provides : [];
   return { requires, provides };
 }
-

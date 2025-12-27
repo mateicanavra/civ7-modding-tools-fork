@@ -1,6 +1,5 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { DEV, logRainfallStats } from "@mapgen/dev/index.js";
 import { publishClimateFieldArtifact } from "@mapgen/base/pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
@@ -38,7 +37,6 @@ export function createClimateRefineStep(
     provides: options.provides,
     configSchema: ClimateRefineStepConfigSchema,
     run: (context, config) => {
-      assertFoundationContext(context, "climateRefine");
       const { width, height } = context.dimensions;
       refineClimateEarthlike(width, height, context, {
         climate: config.climate,

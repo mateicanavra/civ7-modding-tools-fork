@@ -1,5 +1,14 @@
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
-import { createFoundationContext, ctxRandom, validateFoundationContext } from "@mapgen/core/types.js";
+import {
+  FOUNDATION_CONFIG_ARTIFACT_TAG,
+  FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
+  FOUNDATION_DYNAMICS_ARTIFACT_TAG,
+  FOUNDATION_PLATES_ARTIFACT_TAG,
+  FOUNDATION_SEED_ARTIFACT_TAG,
+  createFoundationContext,
+  ctxRandom,
+  validateFoundationContext,
+} from "@mapgen/core/types.js";
 import type { FoundationConfig } from "@mapgen/bootstrap/types.js";
 import { devLogIf } from "@mapgen/dev/index.js";
 import { idx } from "@mapgen/lib/grid/index.js";
@@ -367,6 +376,15 @@ export function runFoundationStage(
   foundationConfig: FoundationConfig
 ): FoundationContext {
   const foundationContext = buildFoundationContext(context, foundationConfig);
-  context.artifacts.foundation = foundationContext;
+
+  context.artifacts.set(FOUNDATION_PLATES_ARTIFACT_TAG, foundationContext.plates);
+  context.artifacts.set(FOUNDATION_DYNAMICS_ARTIFACT_TAG, foundationContext.dynamics);
+  if (!foundationContext.plateSeed) {
+    throw new Error("[Foundation] Missing plate seed snapshot.");
+  }
+  context.artifacts.set(FOUNDATION_SEED_ARTIFACT_TAG, foundationContext.plateSeed);
+  context.artifacts.set(FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG, foundationContext.diagnostics);
+  context.artifacts.set(FOUNDATION_CONFIG_ARTIFACT_TAG, foundationContext.config);
+
   return foundationContext;
 }

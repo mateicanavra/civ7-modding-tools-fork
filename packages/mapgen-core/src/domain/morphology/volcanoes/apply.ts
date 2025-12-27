@@ -1,6 +1,6 @@
 import type { FeatureData } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import { ctxRandom, writeHeightfield } from "@mapgen/core/types.js";
 import { idx } from "@mapgen/lib/grid/index.js";
 import { clamp } from "@mapgen/lib/math/index.js";
@@ -13,7 +13,7 @@ export function layerAddVolcanoesPlateAware(
   ctx: ExtendedMapContext,
   options: Partial<VolcanoesConfig> = {}
 ): void {
-  const foundation = assertFoundationContext(ctx, "volcanoes");
+  const plates = assertFoundationPlates(ctx, "volcanoes");
   const {
     enabled = true,
     baseDensity = 1 / 170,
@@ -38,7 +38,6 @@ export function layerAddVolcanoesPlateAware(
   if (!width || !height || !adapter) return;
   if (!enabled) return;
 
-  const { plates } = foundation;
   const boundaryCloseness = plates.boundaryCloseness;
   const boundaryType = plates.boundaryType;
   const shieldStability = plates.shieldStability;
