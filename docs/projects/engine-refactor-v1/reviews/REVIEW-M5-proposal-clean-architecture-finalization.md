@@ -212,3 +212,23 @@ Foundation shims were removed and imports were updated to base-owned paths; the 
 
 ### Cross-cutting Risks
 - None identified.
+
+## REVIEW m5-u11-def-014-foundation-inventory
+
+### Quick Take
+Foundation now publishes discrete `artifact:foundation.*@v1` outputs with targeted assertions, but the canonical contract docs still describe the monolithic `artifact:foundation` surface.
+
+### High-Leverage Issues
+- `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` still defines the monolithic `artifact:foundation` contract and references `ctx.artifacts.foundation`, which no longer exists after the split.
+
+### Fix Now (Recommended)
+- Update or replace the contract doc to define the discrete `artifact:foundation.*@v1` contracts (plates/dynamics/seed/diagnostics/config) and remove monolith references.
+
+### Defer / Follow-up
+- After new contracts land, archive the monolithic contract doc (or mark it historical) to avoid future drift.
+
+### Needs Discussion
+- Do we want a single umbrella contract doc for the foundation inventory or separate per-artifact contracts?
+
+### Cross-cutting Risks
+- Documentation still points consumers/tooling at `artifact:foundation`, risking mismatched dependencies after this split.
