@@ -7,8 +7,8 @@ import {
   isNarrativeMotifsOrogenyV1,
   isNarrativeMotifsRiftsV1,
 } from "@mapgen/domain/narrative/artifacts.js";
-import { isPlacementInputsV1 } from "@mapgen/pipeline/placement/placement-inputs.js";
-import { isPlacementOutputsV1 } from "@mapgen/pipeline/placement/placement-outputs.js";
+import { isPlacementInputsV1 } from "@mapgen/base/pipeline/placement/placement-inputs.js";
+import { isPlacementOutputsV1 } from "@mapgen/base/pipeline/placement/placement-outputs.js";
 import { FOUNDATION_ARTIFACT_TAG, validateFoundationContext } from "@mapgen/core/types.js";
 import type { DependencyTagDefinition, TagOwner } from "@mapgen/pipeline/tags.js";
 
@@ -338,4 +338,3 @@ function isClimateFieldBuffer(value: unknown, expectedSize?: number): boolean {
   const candidate = value as { rainfall?: unknown; humidity?: unknown };
   return isUint8Array(candidate.rainfall, expectedSize) && isUint8Array(candidate.humidity, expectedSize);
 }
-
