@@ -78,6 +78,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Type:** triage
   - **Notes:** `packages/mapgen-core/src/domain/ecology/*` now imports `@mapgen/base/pipeline/artifacts`, creating a core-to-base dependency and tying domain logic to standard artifact IDs. Decide whether to move ecology domain into base or provide a core-owned artifact accessor.
   - **Next check:** before declaring the core domain reusable outside the base mod.
+
+- **Directionality source of truth is split** [Source: M5-U09 review]
+  - **Context:** M5-U09 schema split + settings migration.
+  - **Type:** triage
+  - **Notes:** `buildRunRequest` now sets `settings.directionality`, but steps still read `config.foundation.dynamics.directionality`, leaving the settings field unused and introducing a dual source-of-truth risk. Decide whether to wire settings or remove the settings mirror.
+  - **Next check:** before further settings migration or external tooling expects settings.directionality.
 - **Observability runId + fingerprint derivation** [Source: CIV-75]
   - **Context:** M4 observability baseline implementation for trace/run IDs.
   - **Type:** triage
