@@ -110,3 +110,25 @@ Morphology and hydrology steps now live under @mapgen/base with thin pipeline re
 
 ### Cross-cutting Risks
 - Core retains a standard-tag dependency via `pipeline/artifacts`, which undermines the "core is generic" contract.
+
+## REVIEW m5-u06-extract-standard-ecology-placement-narrative
+
+### Quick Take
+Ecology, placement, and narrative steps are now base-owned with thin pipeline re-exports, but effect ownership metadata and artifact helpers still reflect core ownership.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/base/tags.ts`: `EFFECT_OWNERS` still sets `pkg: "@swooper/mapgen-core"` for biomes/features/placement even though those steps now live in the base mod, so ownership metadata is out of date.
+- `packages/mapgen-core/src/base/pipeline/placement/DerivePlacementInputsStep.ts` + `PlacementStep.ts` still import `publishPlacement*Artifact` from `@mapgen/pipeline/artifacts`, keeping standard artifact publication helpers in core.
+
+### Fix Now (Recommended)
+- Update effect tag owners to reflect the base mod package (or explicitly document why core should own those effects) so verification/diagnostics do not misattribute ownership.
+- Move placement artifact publication helpers into a base-owned module (or add a base wrapper) and update step imports to avoid the core dependency.
+
+### Defer / Follow-up
+- If core is intentionally the owner-of-record for effect tags, capture that policy in the base tag docs so the mismatch is explicit.
+
+### Needs Discussion
+- Do we want effect ownership to track the package path (`@swooper/mapgen-core/base`) or a mod ID, and where should that be enforced?
+
+### Cross-cutting Risks
+- Ownership metadata drift between tags and step location could undermine effect verification or tooling expectations.
