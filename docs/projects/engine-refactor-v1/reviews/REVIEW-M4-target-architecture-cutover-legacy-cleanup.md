@@ -157,3 +157,40 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Follow-up:** If `artifact:placementOutputs@v1` becomes a consumed product, document the “placeholder counts” contract explicitly (or add a v2 when real read-backs exist); add a small test for invalid `artifact:placementInputs@v1` publication to fully close the “missing or invalid” acceptance case.
 - **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test` (pass).
 - **Update (2025-12-24):** Added invalid `artifact:placementInputs@v1` publication coverage and clarified placeholder output counts in ADR-ER1-020.
+
+## CIV-67 — [M4] Engine boundary cleanup: remove engine-global dependency surfaces
+
+**Reviewed:** 2025-12-26
+
+- **Intent:** Remove/fence engine-global dependency surfaces (`GameplayMap` fallbacks, module-load `GameInfo` lookups, `PlotTags`/`LandmassRegion` globals) so pipeline dependencies are explicit and fail-fast.
+- **Strengths:** Narrative utilities now require `ExtendedMapContext` and route reads through the adapter (`getDims`, `isWaterAt`, `zonalWindStep`); `terrain-constants` initializes indices via adapter during context creation (no module-load `GameInfo`); plot tag + landmass region IDs now come from adapter (`getPlotTagId`, `getLandmassId`) and mapgen-core no longer references `PlotTags`/`LandmassRegion` tokens.
+- **Gaps:** `initializeTerrainConstants()` caches process-wide and only initializes once, so multiple adapters in the same process can lead to stale indices; terrain constants fall back with a warning rather than failing hard, which could mask adapter misconfiguration in non-test runs.
+- **Follow-up:** Consider making terrain constants per-run (store on `ctx` or allow a reset) or at least assert adapter identity during init to avoid cross-run staleness; decide whether fallbacks should throw outside tests.
+- **Verification:** `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test test/smoke.test.ts`; `rg -n "GameplayMap|GameInfo|PlotTags|LandmassRegion" packages/mapgen-core/src` (matches only explicitly fenced dev code: `src/dev/introspection.ts`).
+
+## CIV-73 — [M4] Narrative cleanup: canonical artifact:narrative.* producers
+
+**Reviewed:** 2025-12-26
+
+- **Intent:** Define + register canonical `artifact:narrative.*@v1` outputs and ensure narrative producers publish them explicitly (no StoryTags dependency surface).
+- **Strengths:** Adds typed narrative artifact shapes + guards in `packages/mapgen-core/src/domain/narrative/artifacts.ts`; story producers publish `artifact:narrative.*@v1` into `ctx.artifacts`; TagRegistry registers the new artifact tags with satisfaction predicates; standard dependency spine declares consumers’ requirements on narrative artifacts.
+- **Gaps:** Verification is currently blocked: `pnpm -C packages/mapgen-core test` fails because TaskGraph/standard smoke compilation rejects `/config/placement` (placement step uses an empty config schema, but test/`runTaskGraphGeneration` still passes a `placement` key); issue doc’s schema sketches drift from implemented runtime shapes (corridors metadata, hotspots `points`, orogeny belts); `islands` mutates `artifact:narrative.motifs.hotspots@v1` but does not declare it in `M3_STAGE_DEPENDENCY_SPINE.islands.provides`, weakening “explicit producer” semantics.
+- **Follow-up:** Fix TaskGraph + smoke run request builders to avoid passing placement config to the `placement` step; align CIV-73 doc schema sketches with the chosen snapshot shapes; consider adding `M3_STAGE_DEPENDENCY_SPINE.islands.provides += narrativeMotifsHotspotsV1` (or otherwise make “hotspot categories are complete after islands” explicit).
+- **Implementation Decisions:** 3 logged (Set/Map snapshots, corridors metadata retention, omit hotspot trails); all align with implementation; main side-effect risk is future serialization/contract drift (already tracked in `docs/projects/engine-refactor-v1/triage.md`).
+- **Verification:** `pnpm -C packages/civ7-adapter build` (pass); `pnpm -C packages/mapgen-core check` (pass); `pnpm -C packages/mapgen-core test` (fails: placement config unknown key).
+
+## CIV-70 — [M4] Effects verification: remove state:engine surface + close DEF-008
+
+**Reviewed:** 2025-12-26
+
+- **Intent:** Remove `state:engine.*` from the target registry/contract surface and standard pipeline steps, replacing it with `effect:*` equivalents; mark DEF-008 resolved once the target surface is clean.
+- **Strengths:** `TagRegistry` no longer supports a `state` tag kind (`DependencyTagKind = "artifact" | "field" | "effect"` + strict prefix validation), and the standard dependency spine replaces `state:engine.*` edges with `M4_EFFECT_TAGS.engine.*` (see `packages/mapgen-core/src/pipeline/{tags,standard}.ts`); DEF-008 is marked resolved with an explicit note in `docs/projects/engine-refactor-v1/deferrals.md`.
+- **Gaps:** Some replacement `effect:engine.*` tags remain “provided = satisfied” (not runtime-verified) — notably `effect:engine.{landmassApplied,coastlinesApplied,riversModeled}` — so the underlying “asserted edge” risk still exists, just under a new namespace; standard plan compilation verification is currently blocked by an unrelated schema mismatch (`/config/placement` unknown key).
+- **Follow-up:** If the milestone policy is “no asserted-but-unverified scheduling edges,” either add cheap verifiers for the remaining `effect:engine.*` tags (artifact-backed where possible) or document them explicitly as intentionally unverified and keep the risk tracked (DEF-017 is already the right bucket for stronger adapter read-backs).
+- **Implementation Decisions:** 0 logged; 1 unlogged (which `effect:engine.*` tags are runtime-verified vs trusted).
+- **Verification:** `rg -n "state:engine" packages/mapgen-core/src packages/mapgen-core/test` (no hits); `pnpm -C packages/mapgen-core check` (pass); `pnpm -C packages/mapgen-core test test/pipeline/{tag-registry,placement-gating,artifacts}.test.ts` (pass); `pnpm -C packages/mapgen-core test test/pipeline/standard-smoke.test.ts` (fails: `/recipe/steps/21/config/placement` unknown key).
+- **Update (2025-12-26):** Logged the verification-scope decision in CIV-70 and expanded DEF-017 to include rivers; standard pipeline verification remains blocked by the placement config schema mismatch noted in CIV-73.
+
+## Review Updates
+
+- **Update (2025-12-26):** CIV-73 follow-up fixes applied: placement config stripped from run-request builders (`runTaskGraphGeneration` + standard smoke), `islands` now provides `artifact:narrative.motifs.hotspots@v1`, CIV-73 schema sketches aligned, `pnpm -C packages/mapgen-core test` passes.
