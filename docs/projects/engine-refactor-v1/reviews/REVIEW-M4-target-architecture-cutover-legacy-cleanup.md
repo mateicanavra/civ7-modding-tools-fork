@@ -61,6 +61,7 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Strengths:** TaskGraph now compiles and executes an ExecutionPlan from the standard recipe; dependency descriptors are sourced from the M3 spine; smoke tests updated for default recipe execution.
 - **Gaps:** Tests and docs still assume `stageConfig` disables stages (e.g., integration test); with runtime cutover, that assumption is now false and the test no longer validates its intended scenario.
 - **Follow-up:** Update MapOrchestrator docs/examples and the integration test to use recipe-based enablement (or an explicit minimal recipe); add a small guard/test to keep the standard recipe and dependency spine in sync.
+- **Update (2025-12-23):** MapOrchestrator docs/examples and the integration test now use recipe-based enablement, and a guard test enforces standard recipe ↔ dependency spine alignment.
 
 ## CIV-57 — [M4] Pipeline cutover: package standard pipeline as mod + loader/registry wiring
 
@@ -69,5 +70,5 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Intent:** Package the standard pipeline as a mod package and source the canonical default recipe from it (no runtime cutover yet).
 - **Strengths:** Standard mod package exists with registry + recipe; TaskGraph pulls default steps via the mod recipe; `STAGE_ORDER` derives from the mod recipe list to keep ordering single-sourced.
 - **Gaps:** Orchestrator tests still derive the recipe via `StepRegistry.getStandardRecipe(stageManifest)` instead of the standard mod recipe, so drift between `mods/standard` and stage-manifest ordering would be invisible.
-- **Follow-up:** Update orchestration tests to use `resolveDefaultRecipeStepIds` / `standardMod.recipes.default` as the recipe source and add a small assertion that the mod recipe is the canonical ordering list.
-- **Update (2025-12-23):** Orchestrator test now uses `resolveDefaultRecipeStepIds` and asserts the mod recipe remains the canonical ordering list.
+- **Follow-up:** Update orchestration tests to use `standardMod.recipes.default` as the recipe source and add a small assertion that the mod recipe is the canonical ordering list.
+- **Update (2025-12-23):** Orchestrator test now derives its recipe directly from `standardMod.recipes.default` (no stageManifest filtering) and asserts the selected steps stay aligned with the canonical ordering list.
