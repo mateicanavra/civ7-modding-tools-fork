@@ -180,4 +180,38 @@ describe("compileExecutionPlan", () => {
       expect(errors[0].code).toBe("runRequest.invalid");
     }
   });
+
+  it("rejects run request type coercion", () => {
+    const registry = new StepRegistry<unknown>();
+    registry.register({
+      id: "alpha",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      run: (_context, _config) => {},
+    });
+
+    try {
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 1,
+            steps: [{ id: "alpha" }],
+          },
+          settings: {
+            ...baseSettings,
+            seed: "123",
+            wrap: {
+              ...baseSettings.wrap,
+              wrapX: "false",
+            },
+          },
+        } as any,
+        registry
+      );
+      throw new Error("Expected compile to fail for invalid run request types");
+    } catch (err) {
+      expect(err).toBeInstanceOf(ExecutionPlanCompileError);
+    }
+  });
 });
