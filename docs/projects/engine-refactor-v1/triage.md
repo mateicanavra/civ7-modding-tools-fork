@@ -60,6 +60,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Type:** triage
   - **Notes:** With `crustMode` removed, landmass config knobs (continentalFraction/crustClusteringBias/microcontinentChance) and ocean separation policy knobs (bandPairs/baseSeparationTiles/boundaryClosenessMultiplier/edge policies) are still accepted in schema but ignored. Decide whether to remove or redefine them; otherwise configs silently no-op.
   - **Next check:** before merging remaining M5 cleanup branches or before a release that advertises the new config surface.
+
+- **Standard artifact publication helpers still core-owned** [Source: M5-U05 review]
+  - **Context:** M5-U05 morphology/hydrology extraction.
+  - **Type:** triage
+  - **Notes:** `packages/mapgen-core/src/pipeline/artifacts.ts` uses `M3_DEPENDENCY_TAGS` from `@mapgen/base` and is imported by base pipeline steps, leaving standard artifact knowledge in core. Decide whether to move it to base or redesign as a generic artifact API.
+  - **Next check:** before publishing M5 boundary as stable or before merging remaining extraction branches.
 - **Observability runId + fingerprint derivation** [Source: CIV-75]
   - **Context:** M4 observability baseline implementation for trace/run IDs.
   - **Type:** triage
