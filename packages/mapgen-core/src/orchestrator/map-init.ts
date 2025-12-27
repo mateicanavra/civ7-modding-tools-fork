@@ -12,8 +12,16 @@ export interface MapInitResolution {
 function resolveMapInfo(
   adapter: EngineAdapter,
   options: OrchestratorConfig,
-  prefix: string
+  prefix: string,
+  initParams?: Partial<MapInitParams>
 ): { mapSizeId: MapSizeId; mapInfo: MapInfo } {
+  const hasInitWidth = initParams?.width != null;
+  const hasInitHeight = initParams?.height != null;
+  const hasInitTopLat = initParams?.topLatitude != null;
+  const hasInitBottomLat = initParams?.bottomLatitude != null;
+  const hasCompleteInitParams =
+    hasInitWidth && hasInitHeight && hasInitTopLat && hasInitBottomLat;
+
   if (options.mapSizeDefaults) {
     const mapSizeId = options.mapSizeDefaults.mapSizeId ?? 0;
     const mapInfo = options.mapSizeDefaults.mapInfo;
@@ -25,6 +33,19 @@ function resolveMapInfo(
       );
     }
     return { mapSizeId, mapInfo };
+  }
+
+  if (hasCompleteInitParams) {
+    console.log(`${prefix} Using initParams for map initialization`);
+    return {
+      mapSizeId: "initParams",
+      mapInfo: {
+        GridWidth: initParams.width,
+        GridHeight: initParams.height,
+        MinLatitude: initParams.bottomLatitude,
+        MaxLatitude: initParams.topLatitude,
+      },
+    };
   }
 
   const mapSizeId = adapter.getMapSizeId();
@@ -47,7 +68,7 @@ function resolveMapInitDataWithAdapter(
   const prefix = options.logPrefix || "[SWOOPER_MOD]";
   console.log(`${prefix} === RequestMapInitData ===`);
 
-  const { mapSizeId, mapInfo } = resolveMapInfo(adapter, options, prefix);
+  const { mapSizeId, mapInfo } = resolveMapInfo(adapter, options, prefix, initParams);
 
   const resolvedWidth = initParams?.width ?? mapInfo.GridWidth;
   const resolvedHeight = initParams?.height ?? mapInfo.GridHeight;
