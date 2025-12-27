@@ -70,18 +70,70 @@ Monolithic artifact surface today:
 
 Downstream consumers (via `assertFoundationContext(...)`):
 
-| Consumer | Location | Fields used (high level) |
-| --- | --- | --- |
-| Landmass generation | `packages/mapgen-core/src/domain/morphology/landmass/index.ts` | `plates.id`, `plates.boundaryCloseness` |
-| Ocean separation | `packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/apply.ts` | `plates.boundaryCloseness` |
-| Rugged coasts | `packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts` | `plates.boundaryCloseness`, `plates.boundaryType` |
-| Mountains | `packages/mapgen-core/src/domain/morphology/mountains/apply.ts` + `pipeline/morphology/MountainsStep.ts` | `plates.upliftPotential`, `plates.boundaryType`, `plates.boundaryCloseness` (plus other plate tensors via helpers) |
-| Volcanoes | `packages/mapgen-core/src/domain/morphology/volcanoes/apply.ts` | `plates.boundaryCloseness`, `plates.boundaryType`, `plates.shieldStability` |
-| Story rifts | `packages/mapgen-core/src/domain/narrative/tagging/rifts.ts` | `plates.riftPotential`, `plates.boundaryType`, `plates.boundaryCloseness` |
-| Story orogeny belts | `packages/mapgen-core/src/domain/narrative/orogeny/belts.ts` | `plates.upliftPotential`, `plates.tectonicStress`, `plates.boundaryType`, `plates.boundaryCloseness`, plus `dynamics.windU/windV` |
-| Climate refine | `packages/mapgen-core/src/domain/hydrology/climate/refine/index.ts` | `dynamics.*` (wind/currents/pressure) |
-| Climate swatches monsoon bias | `packages/mapgen-core/src/domain/hydrology/climate/swatches/monsoon-bias.ts` | `dynamics.windU/windV` |
-| Pipeline step wrappers | `packages/mapgen-core/src/pipeline/*/*Step.ts` that call `assertFoundationContext(...)` | Primarily gating; then domain uses plates/dynamics as above |
+```yaml
+foundationArtifactConsumers:
+  - consumer: Landmass generation
+    location: packages/mapgen-core/src/domain/morphology/landmass/index.ts
+    fieldsUsed:
+      - plates.id
+      - plates.boundaryCloseness
+  - consumer: Ocean separation
+    location: packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/apply.ts
+    fieldsUsed:
+      - plates.boundaryCloseness
+  - consumer: Rugged coasts
+    location: packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts
+    fieldsUsed:
+      - plates.boundaryCloseness
+      - plates.boundaryType
+  - consumer: Mountains
+    location:
+      - packages/mapgen-core/src/domain/morphology/mountains/apply.ts
+      - packages/mapgen-core/src/pipeline/morphology/MountainsStep.ts
+    fieldsUsed:
+      - plates.upliftPotential
+      - plates.boundaryType
+      - plates.boundaryCloseness
+    notes: plus other plate tensors via helpers
+  - consumer: Volcanoes
+    location: packages/mapgen-core/src/domain/morphology/volcanoes/apply.ts
+    fieldsUsed:
+      - plates.boundaryCloseness
+      - plates.boundaryType
+      - plates.shieldStability
+  - consumer: Story rifts
+    location: packages/mapgen-core/src/domain/narrative/tagging/rifts.ts
+    fieldsUsed:
+      - plates.riftPotential
+      - plates.boundaryType
+      - plates.boundaryCloseness
+  - consumer: Story orogeny belts
+    location: packages/mapgen-core/src/domain/narrative/orogeny/belts.ts
+    fieldsUsed:
+      - plates.upliftPotential
+      - plates.tectonicStress
+      - plates.boundaryType
+      - plates.boundaryCloseness
+      - dynamics.windU
+      - dynamics.windV
+  - consumer: Climate refine
+    location: packages/mapgen-core/src/domain/hydrology/climate/refine/index.ts
+    fieldsUsed:
+      - dynamics.windU
+      - dynamics.windV
+      - dynamics.currentU
+      - dynamics.currentV
+      - dynamics.pressure
+  - consumer: Climate swatches monsoon bias
+    location: packages/mapgen-core/src/domain/hydrology/climate/swatches/monsoon-bias.ts
+    fieldsUsed:
+      - dynamics.windU
+      - dynamics.windV
+  - consumer: Pipeline step wrappers (gating)
+    locationPattern: packages/mapgen-core/src/pipeline/*/*Step.ts
+    fieldsUsed: []
+    notes: Primarily gating via assertFoundationContext(...); domain code uses plates/dynamics as listed above.
+```
 
 ### 2) Proposed discrete artifact inventory (`artifact:foundation.*`)
 

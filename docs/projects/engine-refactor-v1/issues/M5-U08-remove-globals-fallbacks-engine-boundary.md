@@ -63,19 +63,41 @@ Goal: enumerate remaining ambient/global patterns and propose explicit replaceme
 
 #### A) `globalThis` / ambient-global detection
 
-| Location | Pattern | Correctness-critical? | Notes |
-| --- | --- | --- | --- |
-| `packages/mapgen-core/src/foundation/plates.ts` | Reads `globalThis.VoronoiUtils` (via `adaptGlobalVoronoiUtils()`); also supports `setDefaultVoronoiUtils(...)` injection | Yes | Foundation output quality + determinism depends on the Voronoi implementation used; “global fallback” is an ambient dependency surface. |
-| `packages/mapgen-core/src/foundation/plate-seed.ts` | Reads `globalThis.RandomImpl` to capture/restore RNG state (`getRandomImpl()`) | Yes | Implicitly depends on engine-provided RNG impl; in non-engine contexts it becomes a silent no-op. |
-| `packages/mapgen-core/src/dev/introspection.ts` | Reads `globalThis` to introspect engine globals | No (dev-only) | Should remain dev-only and explicitly fenced. |
-| `packages/mapgen-core/src/polyfills/text-encoder.ts` | `typeof globalThis.TextEncoder === "undefined"` | No | This is an intentional runtime polyfill, not a “hidden dependency” for correctness. |
+```yaml
+ambientPatterns:
+  globalThisDetection:
+    - location: packages/mapgen-core/src/foundation/plates.ts
+      pattern: 'Reads globalThis.VoronoiUtils (via adaptGlobalVoronoiUtils()); supports setDefaultVoronoiUtils(...) injection'
+      correctnessCritical: true
+      notes: Foundation output quality + determinism depends on the Voronoi implementation used; global fallback is an ambient dependency surface.
+    - location: packages/mapgen-core/src/foundation/plate-seed.ts
+      pattern: 'Reads globalThis.RandomImpl to capture/restore RNG state (getRandomImpl())'
+      correctnessCritical: true
+      notes: Implicitly depends on engine-provided RNG impl; in non-engine contexts it becomes a silent no-op.
+    - location: packages/mapgen-core/src/dev/introspection.ts
+      pattern: Reads globalThis to introspect engine globals
+      correctnessCritical: false
+      notes: Dev-only; should remain explicitly fenced.
+    - location: packages/mapgen-core/src/polyfills/text-encoder.ts
+      pattern: 'typeof globalThis.TextEncoder === "undefined"'
+      correctnessCritical: false
+      notes: Intentional runtime polyfill; not a hidden dependency for correctness.
+```
 
 #### B) Module-level caches / process-wide hidden state
 
-| Location | Pattern | Correctness-critical? | Notes |
-| --- | --- | --- | --- |
-| `packages/mapgen-core/src/core/terrain-constants.ts` | Module-scoped cached constants + fallback warning set; reinitializes on adapter change | Yes | Terrain/biome/feature index mismatches are correctness issues; fallback+warning can mask real miswiring. |
-| `packages/mapgen-core/src/domain/narrative/overlays/index.ts` (and narrative caches) | In-memory registries/caches with explicit `reset*()` calls from `runTaskGraphGeneration` | Yes (clean-architecture invariant) | Reset discipline helps, but process‑wide caches are still a hidden dependency surface. M5 should make these run‑scoped (no module globals; no hot‑path `reset*()` calls). |
+```yaml
+ambientPatterns:
+  processWideState:
+    - location: packages/mapgen-core/src/core/terrain-constants.ts
+      pattern: Module-scoped cached constants + fallback warning set; reinitializes on adapter change
+      correctnessCritical: true
+      notes: Terrain/biome/feature index mismatches are correctness issues; fallback+warning can mask real miswiring.
+    - location: packages/mapgen-core/src/domain/narrative/overlays/index.ts
+      pattern: In-memory registries/caches with explicit reset*() calls from runTaskGraphGeneration
+      correctnessCritical: true
+      notes: Reset discipline helps, but process-wide caches are still a hidden dependency surface. M5 makes these run-scoped (no module globals; no hot-path reset*()).
+```
 
 ### 2) Replacement contracts (explicit wiring)
 

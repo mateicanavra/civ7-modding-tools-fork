@@ -63,30 +63,65 @@ Goal: enumerate what is truly “standard-owned” at the registration layer (ta
 
 #### Standard mod object + recipes
 
-| Module | What it owns today | Notes |
-| --- | --- | --- |
-| `packages/mapgen-core/src/mods/standard/mod.ts` | `standardMod` object (`id`, `registry`, `recipes.default`) | This is the “built-in standard mod” surface. |
-| `packages/mapgen-core/src/mods/standard/recipes/default.ts` | `defaultRecipe: RecipeV1` with `id: "core.standard"` | Standard recipe identity + ordering. |
-| `packages/mapgen-core/src/mods/standard/registry/index.ts` | `registry.register(...)` → `registerStandardLibrary(...)` | Binds “standard mod registry” to the standard library registration wiring. |
+```yaml
+standardModObjectAndRecipes:
+  - module: packages/mapgen-core/src/mods/standard/mod.ts
+    owns: "standardMod object (id, registry, recipes.default)"
+    notes: Built-in standard mod surface.
+  - module: packages/mapgen-core/src/mods/standard/recipes/default.ts
+    owns: 'defaultRecipe: RecipeV1 (id: "core.standard")'
+    notes: Standard recipe identity + ordering.
+  - module: packages/mapgen-core/src/mods/standard/registry/index.ts
+    owns: "registry.register(...) -> registerStandardLibrary(...)"
+    notes: Binds “standard mod registry” to the standard library registration wiring.
+```
 
 #### Standard registration wiring (layer registration)
 
-| Module | What it owns today | Notes |
-| --- | --- | --- |
-| `packages/mapgen-core/src/pipeline/standard-library.ts` | `registerStandardLibrary(...)` | Hard-codes that “standard == these layers”. Should move into the standard mod package. |
-| `packages/mapgen-core/src/pipeline/foundation/index.ts` (and `morphology/`, `hydrology/`, `narrative/`, `ecology/`, `placement/`) | `register*Layer(...)` wiring | These are “standard pipeline composition” modules; after extraction they should be mod-owned. |
+```yaml
+standardRegistrationWiring:
+  - module: packages/mapgen-core/src/pipeline/standard-library.ts
+    owns: registerStandardLibrary(...)
+    notes: Hard-codes that “standard == these layers”. Moves into the standard mod package.
+  - module: packages/mapgen-core/src/pipeline/foundation/index.ts
+    owns: registerFoundationLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/morphology/index.ts
+    owns: registerMorphologyLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/hydrology/index.ts
+    owns: registerHydrologyLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/narrative/index.ts
+    owns: registerNarrativeLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/ecology/index.ts
+    owns: registerEcologyLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/placement/index.ts
+    owns: registerPlacementLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+```
 
 #### Standard phases + dependency spine
 
-| Module | What it owns today | Notes |
-| --- | --- | --- |
-| `packages/mapgen-core/src/pipeline/standard.ts` | `M3_STANDARD_STAGE_PHASE` and `M3_STAGE_DEPENDENCY_SPINE` | Standard-stage naming, phases, and requires/provides descriptors are standard-owned concepts. |
+```yaml
+standardPhasesAndDependencySpine:
+  - module: packages/mapgen-core/src/pipeline/standard.ts
+    owns: M3_STANDARD_STAGE_PHASE + M3_STAGE_DEPENDENCY_SPINE
+    notes: Standard-stage naming/phases and requires/provides descriptors (standard-owned concepts).
+```
 
 #### Standard tags + effect definitions
 
-| Module | What it owns today | Notes |
-| --- | --- | --- |
-| `packages/mapgen-core/src/pipeline/tags.ts` | `M3_DEPENDENCY_TAGS` + `M4_EFFECT_TAGS` + `DEFAULT_TAG_DEFINITIONS` | Contains domain-specific tags (narrative motifs, placement artifacts, engine effects). Tag *infrastructure* (`TagRegistry`) can remain core, but the “default tag catalog” is standard-owned. |
+```yaml
+standardTagsAndEffects:
+  - module: packages/mapgen-core/src/pipeline/tags.ts
+    owns: M3_DEPENDENCY_TAGS + M4_EFFECT_TAGS + DEFAULT_TAG_DEFINITIONS
+    notes: |
+      Contains domain-specific tags (narrative motifs, placement artifacts, engine effects).
+      Tag infrastructure (TagRegistry) can remain core, but the default tag catalog is standard-owned and moves with the standard mod.
+```
 
 ### 2) Core → standard coupling edges to invert (direct + “looks core-ish”)
 

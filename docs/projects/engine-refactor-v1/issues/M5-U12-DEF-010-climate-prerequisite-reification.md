@@ -68,14 +68,34 @@ Primary climate modules with adapter reads:
 
 Observed adapter reads (from `rg "\\b(adapter\\.|ctx\\.adapter\\.)" packages/mapgen-core/src/domain/hydrology/climate`):
 
-| Adapter read | Where used | Replaceable with TS-owned product? |
-| --- | --- | --- |
-| `adapter.isWater(x,y)` | baseline + most refine passes | Yes → `artifact:heightfield` (`HeightfieldBuffer.landMask`) |
-| `adapter.getElevation(x,y)` | baseline + refine passes | Yes → `artifact:heightfield` (`HeightfieldBuffer.elevation`) |
-| `adapter.getLatitude(x,y)` / `getPlotLatitude` | baseline + orographic/shadow paths | Yes → compute from `RunRequest.settings.latitudeBounds` + `settings.dimensions` |
-| `adapter.isAdjacentToRivers(x,y,1)` | river corridor refinement | Mostly yes → `artifact:riverAdjacency` (already published) |
-| `adapter.isMountain(x,y)` | orographic shadow sampling | Yes → derive from `artifact:heightfield.terrain` + terrain constants (do not keep an adapter read) |
-| `adapter.isCoastalLand(x,y)` | swatches | Yes → derive from `landMask` adjacency + terrain/coast info |
+```yaml
+climateAdapterReads:
+  - read: adapter.isWater(x, y)
+    usedIn: baseline + most refine passes
+    replaceable: true
+    replacement: artifact:heightfield (HeightfieldBuffer.landMask)
+  - read: adapter.getElevation(x, y)
+    usedIn: baseline + refine passes
+    replaceable: true
+    replacement: artifact:heightfield (HeightfieldBuffer.elevation)
+  - read: adapter.getLatitude(x, y)
+    usedIn: baseline + orographic/shadow paths
+    replaceable: true
+    replacement: compute from RunRequest.settings.latitudeBounds + settings.dimensions
+    alsoObservedAs: getPlotLatitude(...)
+  - read: adapter.isAdjacentToRivers(x, y, 1)
+    usedIn: river corridor refinement
+    replaceable: mostly
+    replacement: artifact:riverAdjacency (already published)
+  - read: adapter.isMountain(x, y)
+    usedIn: orographic shadow sampling
+    replaceable: true
+    replacement: derive from artifact:heightfield.terrain + terrain constants (do not keep adapter read)
+  - read: adapter.isCoastalLand(x, y)
+    usedIn: swatches
+    replaceable: true
+    replacement: derive from landMask adjacency + terrain/coast info
+```
 
 ### 2) Proposed explicit prerequisites (products/contracts)
 
