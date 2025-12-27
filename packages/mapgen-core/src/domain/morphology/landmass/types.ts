@@ -57,7 +57,7 @@ export interface AreaCrustResult extends CrustSummary {
 }
 
 export interface CrustFirstResult {
-  mode: "legacy" | "area";
+  mode: "area";
   landMask: Uint8Array;
   landTiles: number;
   seaLevel: number;
@@ -70,7 +70,7 @@ export interface CrustFirstResult {
   targetLandTiles: number;
   baseHeightRange: { min: number; max: number };
   crustConfigApplied: {
-    mode: "legacy" | "area";
+    mode: "area";
     continentalFraction: number;
     clusteringBias: number;
     microcontinentChance: number;
@@ -80,4 +80,3 @@ export interface CrustFirstResult {
     oceanicHeight: number;
   };
 }
-
