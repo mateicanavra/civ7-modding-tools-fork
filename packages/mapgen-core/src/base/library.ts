@@ -6,9 +6,9 @@ import type { StepRegistry } from "@mapgen/pipeline/index.js";
 import { registerFoundationLayer } from "@mapgen/base/pipeline/foundation/index.js";
 import { registerMorphologyLayer } from "@mapgen/base/pipeline/morphology/index.js";
 import { registerHydrologyLayer } from "@mapgen/base/pipeline/hydrology/index.js";
-import { registerNarrativeLayer } from "@mapgen/pipeline/narrative/index.js";
-import { registerEcologyLayer } from "@mapgen/pipeline/ecology/index.js";
-import { registerPlacementLayer } from "@mapgen/pipeline/placement/index.js";
+import { registerNarrativeLayer } from "@mapgen/base/pipeline/narrative/index.js";
+import { registerEcologyLayer } from "@mapgen/base/pipeline/ecology/index.js";
+import { registerPlacementLayer } from "@mapgen/base/pipeline/placement/index.js";
 
 
 export interface BaseLibraryRuntime {
