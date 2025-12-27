@@ -53,6 +53,12 @@ Continue extraction of standard-domain behavior until core is structurally gener
 
 - Treat shared helpers skeptically: if it exists only because the standard pipeline needs it, it should probably move.
 
+## Implementation Decisions
+
+- Morphology + hydrology **pipeline step wrappers and layer registration** are moved under `@mapgen/base/pipeline/*` as base-mod-owned implementation.
+- `@mapgen/pipeline/morphology/*` and `@mapgen/pipeline/hydrology/*` remain as thin shims re-exporting the base implementations for transitional compatibility.
+- Morphology/hydrology domain algorithms remain under `@mapgen/domain/*` as reusable primitives (still content-agnostic and importable by non-base mods).
+
 ## Prework Findings (Complete)
 
 Goal: map morphology + hydrology clusters (steps + helpers) so extraction is mostly mechanical moves, with explicit callouts for the few cross-domain couplings.
