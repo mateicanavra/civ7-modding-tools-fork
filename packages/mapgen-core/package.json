@@ -73,6 +73,10 @@
     "./lib/collections": {
       "types": "./dist/lib/collections/index.d.ts",
       "import": "./dist/lib/collections/index.js"
+    },
+    "./base": {
+      "types": "./dist/base/index.d.ts",
+      "import": "./dist/base/index.js"
     }
   },
   "scripts": {
