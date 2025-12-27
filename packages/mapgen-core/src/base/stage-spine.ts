@@ -104,11 +104,15 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     provides: [M3_DEPENDENCY_TAGS.artifact.heightfield],
   },
   climateBaseline: {
-    requires: [],
+    requires: [M3_DEPENDENCY_TAGS.artifact.heightfield],
     provides: [M3_DEPENDENCY_TAGS.artifact.heightfield, M3_DEPENDENCY_TAGS.artifact.climateField],
   },
   storySwatches: {
-    requires: [M3_DEPENDENCY_TAGS.artifact.climateField, M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1],
+    requires: [
+      M3_DEPENDENCY_TAGS.artifact.heightfield,
+      M3_DEPENDENCY_TAGS.artifact.climateField,
+      M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
+    ],
     provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
   },
   rivers: {
