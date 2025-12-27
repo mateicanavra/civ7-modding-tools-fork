@@ -74,8 +74,6 @@ describe("smoke: standard recipe compile/execute", () => {
   };
 
   const buildStandardStepConfig = (stepId: string, config: ReturnType<typeof bootstrap>) => {
-    const directionality = config.foundation?.dynamics?.directionality ?? {};
-
     switch (stepId) {
       case "foundation":
         return { foundation: config.foundation ?? {} };
@@ -107,24 +105,20 @@ describe("smoke: standard recipe compile/execute", () => {
         return {
           climate: config.climate ?? {},
           story: { orogeny: config.story?.orogeny ?? {} },
-          foundation: { dynamics: { directionality } },
         };
       case "storySeed":
         return { margins: config.margins ?? {} };
       case "storyHotspots":
         return { story: { hotspot: config.story?.hotspot ?? {} } };
       case "storyRifts":
-        return {
-          story: { rift: config.story?.rift ?? {} },
-          foundation: { dynamics: { directionality } },
-        };
+        return { story: { rift: config.story?.rift ?? {} } };
       case "storyOrogeny":
         return { story: { orogeny: config.story?.orogeny ?? {} } };
       case "storyCorridorsPre":
       case "storyCorridorsPost":
-        return { corridors: config.corridors ?? {}, foundation: { dynamics: { directionality } } };
+        return { corridors: config.corridors ?? {} };
       case "storySwatches":
-        return { climate: config.climate ?? {}, foundation: { dynamics: { directionality } } };
+        return { climate: config.climate ?? {} };
       case "biomes":
         return { biomes: config.biomes ?? {}, corridors: config.corridors ?? {} };
       case "features":
@@ -161,6 +155,7 @@ describe("smoke: standard recipe compile/execute", () => {
         dimensions: { width, height },
         latitudeBounds: { topLatitude: mapInfo.MaxLatitude, bottomLatitude: mapInfo.MinLatitude },
         wrap: { wrapX: true, wrapY: false },
+        directionality: config.foundation?.dynamics?.directionality ?? {},
         trace: { enabled: true },
       },
     };
