@@ -13,8 +13,60 @@ import type {
   MapInitParams,
   MapSizeId,
   PlotTagName,
+  VoronoiBoundingBox,
+  VoronoiCell,
+  VoronoiDiagram,
+  VoronoiPoint2D,
+  VoronoiSite,
+  VoronoiUtils,
 } from "./types.js";
 import { ENGINE_EFFECT_TAGS } from "./effects.js";
+
+const DEFAULT_VORONOI_UTILS: VoronoiUtils = {
+  createRandomSites(count: number, width: number, height: number): VoronoiSite[] {
+    const sites: VoronoiSite[] = [];
+    for (let id = 0; id < count; id++) {
+      const seed1 = (id * 1664525 + 1013904223) >>> 0;
+      const seed2 = (seed1 * 1664525 + 1013904223) >>> 0;
+      const x = (seed1 % 10000) / 10000 * width;
+      const y = (seed2 % 10000) / 10000 * height;
+      sites.push({ x, y, voronoiId: id });
+    }
+    return sites;
+  },
+
+  computeVoronoi(
+    sites: VoronoiSite[],
+    _bbox: VoronoiBoundingBox,
+    relaxationSteps = 0
+  ): VoronoiDiagram {
+    let currentSites = [...sites];
+
+    for (let step = 0; step < relaxationSteps; step++) {
+      currentSites = currentSites.map((site, i) => ({
+        ...site,
+        voronoiId: i,
+      }));
+    }
+
+    const cells: VoronoiCell[] = currentSites.map((site) => ({
+      site,
+      halfedges: [],
+    }));
+
+    return { cells, edges: [], vertices: [] };
+  },
+
+  calculateCellArea(_cell: VoronoiCell): number {
+    return 100;
+  },
+
+  normalize(v: VoronoiPoint2D): VoronoiPoint2D {
+    const len = Math.sqrt(v.x * v.x + v.y * v.y);
+    if (len < 1e-10) return { x: 0, y: 0 };
+    return { x: v.x / len, y: v.y / len };
+  },
+};
 
 /**
  * Configuration options for MockAdapter
@@ -23,13 +75,13 @@ import { ENGINE_EFFECT_TAGS } from "./effects.js";
  * Default biome globals for testing
  */
 export const DEFAULT_BIOME_GLOBALS: Record<string, number> = {
-  desert: 0,
-  plains: 1,
-  grassland: 2,
-  tundra: 3,
-  tropical: 4,
-  snow: 5,
-  marine: 6,
+  BIOME_DESERT: 0,
+  BIOME_PLAINS: 1,
+  BIOME_GRASSLAND: 2,
+  BIOME_TUNDRA: 3,
+  BIOME_TROPICAL: 4,
+  BIOME_SNOW: 5,
+  BIOME_MARINE: 6,
 };
 
 /**
@@ -329,6 +381,10 @@ export class MockAdapter implements EngineAdapter {
 
   // === UTILITIES ===
 
+  getVoronoiUtils(): VoronoiUtils {
+    return DEFAULT_VORONOI_UTILS;
+  }
+
   validateAndFixTerrain(): void {
     // No-op in mock
   }
@@ -391,9 +447,10 @@ export class MockAdapter implements EngineAdapter {
   }
 
   getBiomeGlobal(name: string): number {
-    const normalized =
-      name.toUpperCase().startsWith("BIOME_") ? name.slice("BIOME_".length).toLowerCase() : name;
-    return this.biomeGlobals[normalized] ?? -1;
+    const biomeType = name.toUpperCase().startsWith("BIOME_")
+      ? name.toUpperCase()
+      : `BIOME_${name.toUpperCase()}`;
+    return this.biomeGlobals[biomeType] ?? -1;
   }
 
   setBiomeType(x: number, y: number, biomeId: number): void {

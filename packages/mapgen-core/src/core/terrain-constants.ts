@@ -45,35 +45,23 @@ const DEFAULT_FEATURE_INDICES = {
 } as const;
 
 let initializedAdapter: EngineAdapter | null = null;
-const terrainFallbackWarnings = new Set<string>();
 
-function warnFallback(label: string, fallback: number, value: number): void {
-  if (terrainFallbackWarnings.has(label)) return;
-  terrainFallbackWarnings.add(label);
-  console.log(
-    `[terrain-constants][warn] Using fallback for ${label} (${fallback}). Adapter returned ${value}.`
-  );
-}
-
-function resolveTerrainIndex(adapter: EngineAdapter, name: string, fallback: number): number {
+function requireTerrainIndex(adapter: EngineAdapter, name: string): number {
   const value = adapter.getTerrainTypeIndex(name);
   if (Number.isFinite(value) && value >= 0) return value;
-  warnFallback(name, fallback, value);
-  return fallback;
+  throw new Error(`[Adapter] Missing terrain index for ${name}.`);
 }
 
-function resolveBiomeIndex(adapter: EngineAdapter, name: string, fallback: number): number {
+function requireBiomeIndex(adapter: EngineAdapter, name: string): number {
   const value = adapter.getBiomeGlobal(name);
   if (Number.isFinite(value) && value >= 0) return value;
-  warnFallback(name, fallback, value);
-  return fallback;
+  throw new Error(`[Adapter] Missing biome index for ${name}.`);
 }
 
-function resolveFeatureIndex(adapter: EngineAdapter, name: string, fallback: number): number {
+function requireFeatureIndex(adapter: EngineAdapter, name: string): number {
   const value = adapter.getFeatureTypeIndex(name);
   if (Number.isFinite(value) && value >= 0) return value;
-  warnFallback(name, fallback, value);
-  return fallback;
+  throw new Error(`[Adapter] Missing feature index for ${name}.`);
 }
 
 // ============================================================================
@@ -82,31 +70,23 @@ function resolveFeatureIndex(adapter: EngineAdapter, name: string, fallback: num
 
 export function initializeTerrainConstants(adapter: EngineAdapter): void {
   if (initializedAdapter === adapter) return;
-  if (initializedAdapter && initializedAdapter !== adapter) {
-    console.log("[terrain-constants][warn] Reinitializing constants for new adapter instance.");
-  }
   initializedAdapter = adapter;
-  terrainFallbackWarnings.clear();
 
-  MOUNTAIN_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_MOUNTAIN", DEFAULT_TERRAIN_INDICES.MOUNTAIN);
-  HILL_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_HILL", DEFAULT_TERRAIN_INDICES.HILL);
-  FLAT_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_FLAT", DEFAULT_TERRAIN_INDICES.FLAT);
-  COAST_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_COAST", DEFAULT_TERRAIN_INDICES.COAST);
-  OCEAN_TERRAIN = resolveTerrainIndex(adapter, "TERRAIN_OCEAN", DEFAULT_TERRAIN_INDICES.OCEAN);
-  NAVIGABLE_RIVER_TERRAIN = resolveTerrainIndex(
-    adapter,
-    "TERRAIN_NAVIGABLE_RIVER",
-    DEFAULT_TERRAIN_INDICES.NAVIGABLE_RIVER
-  );
+  MOUNTAIN_TERRAIN = requireTerrainIndex(adapter, "TERRAIN_MOUNTAIN");
+  HILL_TERRAIN = requireTerrainIndex(adapter, "TERRAIN_HILL");
+  FLAT_TERRAIN = requireTerrainIndex(adapter, "TERRAIN_FLAT");
+  COAST_TERRAIN = requireTerrainIndex(adapter, "TERRAIN_COAST");
+  OCEAN_TERRAIN = requireTerrainIndex(adapter, "TERRAIN_OCEAN");
+  NAVIGABLE_RIVER_TERRAIN = requireTerrainIndex(adapter, "TERRAIN_NAVIGABLE_RIVER");
 
-  TUNDRA_BIOME = resolveBiomeIndex(adapter, "BIOME_TUNDRA", DEFAULT_BIOME_INDICES.TUNDRA);
-  GRASSLAND_BIOME = resolveBiomeIndex(adapter, "BIOME_GRASSLAND", DEFAULT_BIOME_INDICES.GRASSLAND);
-  PLAINS_BIOME = resolveBiomeIndex(adapter, "BIOME_PLAINS", DEFAULT_BIOME_INDICES.PLAINS);
-  TROPICAL_BIOME = resolveBiomeIndex(adapter, "BIOME_TROPICAL", DEFAULT_BIOME_INDICES.TROPICAL);
-  DESERT_BIOME = resolveBiomeIndex(adapter, "BIOME_DESERT", DEFAULT_BIOME_INDICES.DESERT);
-  MARINE_BIOME = resolveBiomeIndex(adapter, "BIOME_MARINE", DEFAULT_BIOME_INDICES.MARINE);
+  TUNDRA_BIOME = requireBiomeIndex(adapter, "BIOME_TUNDRA");
+  GRASSLAND_BIOME = requireBiomeIndex(adapter, "BIOME_GRASSLAND");
+  PLAINS_BIOME = requireBiomeIndex(adapter, "BIOME_PLAINS");
+  TROPICAL_BIOME = requireBiomeIndex(adapter, "BIOME_TROPICAL");
+  DESERT_BIOME = requireBiomeIndex(adapter, "BIOME_DESERT");
+  MARINE_BIOME = requireBiomeIndex(adapter, "BIOME_MARINE");
 
-  VOLCANO_FEATURE = resolveFeatureIndex(adapter, "FEATURE_VOLCANO", DEFAULT_FEATURE_INDICES.VOLCANO);
+  VOLCANO_FEATURE = requireFeatureIndex(adapter, "FEATURE_VOLCANO");
 }
 
 // ============================================================================

@@ -1,7 +1,7 @@
 /**
  * Plate Seed Manager Tests
  *
- * Tests deterministic seed generation and RNG state management.
+ * Tests deterministic seed snapshot generation.
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
@@ -32,6 +32,7 @@ describe("PlateSeedManager", () => {
 
       expect(snapshot.seedMode).toBe("fixed");
       expect(snapshot.fixedSeed).toBe(42);
+      expect(snapshot.seed).toBe(42);
     });
 
     it("should fall back to engine if fixed seed is missing", () => {
@@ -63,11 +64,10 @@ describe("PlateSeedManager", () => {
       }
     });
 
-    it("should return a restore function (may be null)", () => {
+    it("should not return a restore function", () => {
       const { restore } = PlateSeedManager.capture(80, 50, null);
 
-      // restore is null when RandomImpl is not available (test environment)
-      expect(restore === null || typeof restore === "function").toBe(true);
+      expect(restore).toBeNull();
     });
 
     it("should freeze the snapshot", () => {

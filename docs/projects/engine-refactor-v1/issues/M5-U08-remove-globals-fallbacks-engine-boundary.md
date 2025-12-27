@@ -145,3 +145,26 @@ Required cleanup once extraction stabilizes:
 - `rg -n \"\\bglobalThis\\b\" packages/mapgen-core/src`
 - `rg -n \"fallback\\b|\\bwarn\\b\" packages/mapgen-core/src/core/terrain-constants.ts`
 - `rg -n \"resetStoryOverlays|resetOrogenyCache|resetCorridorStyleCache\" packages/mapgen-core/src`
+
+## Implementation Decisions
+
+### Make Voronoi utilities an explicit adapter capability
+- **Context:** Foundation previously relied on `globalThis.VoronoiUtils` and a global injection path, which made correctness depend on ambient runtime state.
+- **Options:** (A) Keep global probing + “best effort” fallback, (B) require an explicit `EngineAdapter.getVoronoiUtils()` capability.
+- **Choice:** (B) require `getVoronoiUtils()`; remove global probing/injection.
+- **Rationale:** Aligns with the target architecture’s “boring engine boundary”: missing capabilities fail fast and wiring is explicit.
+- **Risk:** Any adapter implementation missing the new method will fail to compile/run until updated (intended breaking change).
+
+### Remove engine RNG probing from core (no `globalThis.RandomImpl`)
+- **Context:** Foundation seed management previously probed engine RNG globals and attempted to capture/restore RNG state.
+- **Options:** (A) Keep probing and “noop if absent”, (B) treat RNG as a run-scoped input (`ctx.rng`) and keep engine-only RNG details inside the Civ adapter layer.
+- **Choice:** (B) remove probing and treat TS RNG as the only deterministic source for domain logic.
+- **Rationale:** Prevents hidden engine coupling from leaking into algorithms and tests; aligns with “core has no ambient globals on hot paths”.
+- **Risk:** If any downstream behavior relied on engine RNG side effects, it will now require explicit adapter-side support.
+
+### Make story caches run-scoped (no reset discipline)
+- **Context:** The TaskGraph entrypoint reset story overlays and narrative caches each run to prevent cross-run leakage.
+- **Options:** (A) Keep process-wide caches + reset hooks, (B) make caches run-scoped via `ctx`-owned artifact/overlay stores and stop requiring reset calls.
+- **Choice:** (B) remove reset hooks from `runTaskGraphGeneration`; remove reset helpers for orogeny/corridor style cache.
+- **Rationale:** A “remember to reset” discipline is a hidden dependency surface; run-scoped state is boring by construction.
+- **Risk:** If any cache was accidentally still process-wide, this would surface as cross-test contamination; mitigated by keeping caches on `ctx` artifacts/overlays.

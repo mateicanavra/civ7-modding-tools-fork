@@ -20,7 +20,6 @@ import {
 } from "@mapgen/domain/narrative/queries.js";
 
 import type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
-import { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/style-cache.js";
 import { createCorridorState } from "@mapgen/domain/narrative/corridors/state.js";
 import { tagSeaLanes } from "@mapgen/domain/narrative/corridors/sea-lanes.js";
 import { tagIslandHopFromHotspots } from "@mapgen/domain/narrative/corridors/island-hop.js";
@@ -29,7 +28,6 @@ import { tagRiverChainsPostRivers } from "@mapgen/domain/narrative/corridors/riv
 import { backfillCorridorKinds } from "@mapgen/domain/narrative/corridors/backfill.js";
 
 export type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
-export { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/style-cache.js";
 
 export function storyTagStrategicCorridors(
   ctx: ExtendedMapContext,
@@ -43,7 +41,6 @@ export function storyTagStrategicCorridors(
   const hotspots = getNarrativeMotifsHotspots(ctx);
   const rifts = getNarrativeMotifsRifts(ctx);
 
-  resetCorridorStyleCache(ctx);
   const state = createCorridorState(existingCorridors);
 
   if (stage === "preIslands") {
@@ -76,26 +73,26 @@ export function storyTagStrategicCorridors(
   const { width, height } = ctx.dimensions;
   const overlay = publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.CORRIDORS, {
     kind: STORY_OVERLAY_KEYS.CORRIDORS,
-      version: 1,
-      width,
-      height,
-      active: Array.from(all),
-      summary: {
-        stage,
-        seaLane,
-        islandHop,
-        landOpen,
-        riverChain,
-        kindByTile: Object.fromEntries(state.kindByTile),
-        styleByTile: Object.fromEntries(state.styleByTile),
-        attributesByTile: Object.fromEntries(state.attributesByTile),
-        seaLaneTiles: seaLane.length,
-        islandHopTiles: islandHop.length,
-        landOpenTiles: landOpen.length,
-        riverChainTiles: riverChain.length,
-        totalTiles: all.size,
-      },
-    });
+    version: 1,
+    width,
+    height,
+    active: Array.from(all),
+    summary: {
+      stage,
+      seaLane,
+      islandHop,
+      landOpen,
+      riverChain,
+      kindByTile: Object.fromEntries(state.kindByTile),
+      styleByTile: Object.fromEntries(state.styleByTile),
+      attributesByTile: Object.fromEntries(state.attributesByTile),
+      seaLaneTiles: seaLane.length,
+      islandHopTiles: islandHop.length,
+      landOpenTiles: landOpen.length,
+      riverChainTiles: riverChain.length,
+      totalTiles: all.size,
+    },
+  });
 
   ctx.artifacts.set(
     M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
