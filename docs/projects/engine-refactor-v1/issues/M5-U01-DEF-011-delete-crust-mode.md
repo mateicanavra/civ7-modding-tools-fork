@@ -64,28 +64,51 @@ Goal: enumerate the full `crustMode` surface + every behavior fork it controls s
 
 #### Config schemas
 
-| Location | Surface | Notes |
-| --- | --- | --- |
-| `packages/mapgen-core/src/config/schema.ts` | `LandmassConfigSchema.crustMode` | Public config knob today; `default: "legacy"`. |
-| `packages/mapgen-core/src/config/schema.ts` | `FoundationSurfaceConfigSchema.crustMode` | Marked `[internal]` but still a schema-accepted alias for a crust-mode value. |
-| `packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/types.ts` | `PlateAwareOceanSeparationParams.crustMode?: "legacy" | "area"` | Plumbs the mode into ocean separation branching. |
-| `packages/mapgen-core/src/domain/morphology/landmass/crust-mode.ts` | `CrustMode` + `normalizeCrustMode()` | Normalization currently defaults unknown → `"legacy"`. |
+```yaml
+configSchemas:
+  - location: packages/mapgen-core/src/config/schema.ts
+    surface: LandmassConfigSchema.crustMode
+    notes: 'Public config knob today; default: "legacy".'
+  - location: packages/mapgen-core/src/config/schema.ts
+    surface: FoundationSurfaceConfigSchema.crustMode
+    notes: Marked "[internal]" but still a schema-accepted alias for a crust-mode value.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/types.ts
+    surface: 'PlateAwareOceanSeparationParams.crustMode?: "legacy" | "area"'
+    notes: Plumbs the mode into ocean separation branching.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/crust-mode.ts
+    surface: CrustMode + normalizeCrustMode()
+    notes: Normalization currently defaults unknown -> "legacy".
+```
 
 #### Runtime plumbing
 
-| Location | Usage | Notes |
-| --- | --- | --- |
-| `packages/mapgen-core/src/pipeline/morphology/LandmassStep.ts` | Passes `landmassCfg.crustMode` into `applyPlateAwareOceanSeparation({ crustMode })` | Primary step-level plumbing. |
-| `packages/mapgen-core/src/domain/morphology/landmass/index.ts` | `const crustMode = normalizeCrustMode(landmassCfg.crustMode)` | Mode gates landmask generation semantics. |
-| `packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts` | `mode === "area" ? assignCrustTypesByArea(...) : null` | Mode gates crust assignment + sea-level semantics. |
-| `packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/apply.ts` | `if (crustMode === "area") { ... } else { ... }` | Mode gates ocean-separation algorithm branch. |
+```yaml
+runtimePlumbing:
+  - location: packages/mapgen-core/src/pipeline/morphology/LandmassStep.ts
+    usage: 'Passes landmassCfg.crustMode into applyPlateAwareOceanSeparation({ crustMode })'
+    notes: Primary step-level plumbing.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/index.ts
+    usage: const crustMode = normalizeCrustMode(landmassCfg.crustMode)
+    notes: Mode gates landmask generation semantics.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts
+    usage: 'mode === "area" ? assignCrustTypesByArea(...) : null'
+    notes: Mode gates crust assignment + sea-level semantics.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/apply.ts
+    usage: 'if (crustMode === "area") { ... } else { ... }'
+    notes: Mode gates ocean-separation algorithm branch.
+```
 
 #### In-repo config consumers (mods)
 
-| Location | Usage | Notes |
-| --- | --- | --- |
-| `mods/mod-swooper-maps/src/swooper-earthlike.ts` | `crustMode: "area"` | In-repo external-ish consumer; will break once the key is rejected/removed. |
-| `mods/mod-swooper-maps/src/swooper-desert-mountains.ts` | `crustMode: "area"` | Same. |
+```yaml
+inRepoConfigConsumers:
+  - location: mods/mod-swooper-maps/src/swooper-earthlike.ts
+    usage: 'crustMode: "area"'
+    notes: In-repo external-ish consumer; will break once the key is rejected/removed.
+  - location: mods/mod-swooper-maps/src/swooper-desert-mountains.ts
+    usage: 'crustMode: "area"'
+    notes: Same.
+```
 
 ### 2) Inventory: behavior forks tied to `crustMode`
 

@@ -65,25 +65,71 @@ Goal: produce a deterministic “delete list” (exports + schema keys + shims) 
 
 #### A) Dead / legacy entrypoints + exports
 
-| Surface | Location | In-repo consumer check | External consumer risk | Notes / gating |
-| --- | --- | --- | --- | --- |
-| `MapOrchestrator` legacy class | `packages/mapgen-core/src/MapOrchestrator.ts` | `rg -n "\\bMapOrchestrator\\b" packages/mapgen-core/src` matches only the file itself | Medium | It already throws (“removed”) and is otherwise unused; deletion is a breaking change for any out-of-repo consumer still importing it. |
-| `addMountainsCompat` export | `packages/mapgen-core/src/domain/morphology/mountains/index.ts` + `apply.ts` | `rg -n "addMountainsCompat" packages/` matches only the export + docs/_archive | Low–medium | Appears to be a historical compat helper; no in-repo runtime use. |
+```yaml
+deletionsInventory:
+  deadEntrypointsAndExports:
+    - surface: MapOrchestrator legacy class
+      location: packages/mapgen-core/src/MapOrchestrator.ts
+      inRepoConsumerCheck: 'rg -n "\\bMapOrchestrator\\b" packages/mapgen-core/src matches only the file itself'
+      externalConsumerRisk: medium
+      notes: It already throws ("removed") and is otherwise unused; deletion is a breaking change for any out-of-repo consumer still importing it.
+    - surface: addMountainsCompat export
+      location:
+        - packages/mapgen-core/src/domain/morphology/mountains/index.ts
+        - packages/mapgen-core/src/domain/morphology/mountains/apply.ts
+      inRepoConsumerCheck: 'rg -n "addMountainsCompat" packages/ matches only the export + docs/_archive'
+      externalConsumerRisk: low-medium
+      notes: Appears to be a historical compat helper; no in-repo runtime use.
+```
 
 #### B) Back-compat-only type aliases / no-op APIs
 
-| Surface | Location | In-repo consumer check | External consumer risk | Notes / gating |
-| --- | --- | --- | --- | --- |
-| `MapConfig` alias of `MapGenConfig` | `packages/mapgen-core/src/bootstrap/runtime.ts` + `packages/mapgen-core/src/bootstrap/types.ts` | Used in tests (`packages/mapgen-core/test/pipeline/*.test.ts`) | Medium | Public type alias; remove once downstream is migrated to `MapGenConfig`. |
-| `resetBootstrap()` no-op | `packages/mapgen-core/src/bootstrap/entry.ts` | Used in `packages/mapgen-core/test/bootstrap/entry.test.ts` | Medium | Pure compat; safe to delete after updating tests and any docs. |
+```yaml
+deletionsInventory:
+  compatTypeAliasesAndNoops:
+    - surface: MapConfig alias of MapGenConfig
+      location:
+        - packages/mapgen-core/src/bootstrap/runtime.ts
+        - packages/mapgen-core/src/bootstrap/types.ts
+      inRepoConsumerCheck: packages/mapgen-core/test/pipeline/*.test.ts
+      externalConsumerRisk: medium
+      notes: Public type alias; remove once downstream is migrated to MapGenConfig.
+    - surface: resetBootstrap() no-op
+      location: packages/mapgen-core/src/bootstrap/entry.ts
+      inRepoConsumerCheck: packages/mapgen-core/test/bootstrap/entry.test.ts
+      externalConsumerRisk: medium
+      notes: Pure compat; safe to delete after updating tests and any docs.
+```
 
 #### C) Deprecated / legacy-only schema keys
 
-| Key(s) | Location | In-repo consumer check | External consumer risk | Notes / gating |
-| --- | --- | --- | --- | --- |
-| Top-level `diagnostics.*` (deprecated/no-op) | `packages/mapgen-core/src/config/schema.ts` (`DiagnosticsConfigSchema`) | `rg -n "\\.diagnostics\\b" packages/mapgen-core/src` shows runtime reads only from `foundation.diagnostics` | Medium | Schema-accepted legacy; remove it and make validation fail fast if it appears. |
-| Legacy landmass fallbacks (`crustContinentalFraction`, `crustClusteringBias`) | `packages/mapgen-core/src/config/schema.ts` + `packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts` | Still referenced by runtime as fallback reads | Medium | Not “dead” yet, but explicitly back-compat; can be deleted once configs are migrated. |
-| Internal/alias schemas that exist for plumbing | `packages/mapgen-core/src/config/schema.ts` (`FoundationSurfaceConfigSchema`, `FoundationPolicyConfigSchema`, `FoundationOceanSeparationConfigSchema`) | No obvious runtime consumers beyond config acceptance | Low–medium | Marked `[internal]`; good candidates for deletion once M5 extraction stabilizes and config ownership is clarified. |
+```yaml
+deletionsInventory:
+  deprecatedSchemaKeysAndAliases:
+    - key: diagnostics.*
+      location: packages/mapgen-core/src/config/schema.ts
+      schemaSymbol: DiagnosticsConfigSchema
+      inRepoConsumerCheck: 'rg -n "\\.diagnostics\\b" packages/mapgen-core/src shows runtime reads only from foundation.diagnostics'
+      externalConsumerRisk: medium
+      notes: Schema-accepted legacy; remove it and make validation fail fast if it appears.
+    - key:
+        - crustContinentalFraction
+        - crustClusteringBias
+      location:
+        - packages/mapgen-core/src/config/schema.ts
+        - packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts
+      inRepoConsumerCheck: still referenced by runtime as fallback reads
+      externalConsumerRisk: medium
+      notes: Explicitly back-compat; delete once configs are migrated.
+    - key:
+        - FoundationSurfaceConfigSchema
+        - FoundationPolicyConfigSchema
+        - FoundationOceanSeparationConfigSchema
+      location: packages/mapgen-core/src/config/schema.ts
+      inRepoConsumerCheck: no obvious runtime consumers beyond config acceptance
+      externalConsumerRisk: low-medium
+      notes: Marked "[internal]"; delete once M5 extraction stabilizes and schema ownership is clarified.
+```
 
 ### 2) Proposed “no legacy surface” rg checks (CI-friendly)
 
