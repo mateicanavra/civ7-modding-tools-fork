@@ -75,5 +75,47 @@ Completion rule:
 
 ## Pre-work
 
-_TBD_
+Goal: produce a deterministic “delete list” (exports + schema keys + shims) with consumer checks so implementation is mostly mechanical removal + guardrails.
 
+### 1) Deletions inventory (mapgen-core focus)
+
+#### A) Dead / legacy entrypoints + exports
+
+| Surface | Location | In-repo consumer check | External consumer risk | Notes / gating |
+| --- | --- | --- | --- | --- |
+| `MapOrchestrator` legacy class | `packages/mapgen-core/src/MapOrchestrator.ts` | `rg -n "\\bMapOrchestrator\\b" packages/mapgen-core/src` matches only the file itself | Medium | It already throws (“removed”) and is otherwise unused; deletion is a breaking change for any out-of-repo consumer still importing it. |
+| `addMountainsCompat` export | `packages/mapgen-core/src/domain/morphology/mountains/index.ts` + `apply.ts` | `rg -n "addMountainsCompat" packages/` matches only the export + docs/_archive | Low–medium | Appears to be a historical compat helper; no in-repo runtime use. |
+
+#### B) Back-compat-only type aliases / no-op APIs
+
+| Surface | Location | In-repo consumer check | External consumer risk | Notes / gating |
+| --- | --- | --- | --- | --- |
+| `MapConfig` alias of `MapGenConfig` | `packages/mapgen-core/src/bootstrap/runtime.ts` + `packages/mapgen-core/src/bootstrap/types.ts` | Used in tests (`packages/mapgen-core/test/pipeline/*.test.ts`) | Medium | Public type alias; remove once downstream is migrated to `MapGenConfig`. |
+| `resetBootstrap()` no-op | `packages/mapgen-core/src/bootstrap/entry.ts` | Used in `packages/mapgen-core/test/bootstrap/entry.test.ts` | Medium | Pure compat; safe to delete after updating tests and any docs. |
+
+#### C) Deprecated / legacy-only schema keys
+
+| Key(s) | Location | In-repo consumer check | External consumer risk | Notes / gating |
+| --- | --- | --- | --- | --- |
+| Top-level `diagnostics.*` (deprecated/no-op) | `packages/mapgen-core/src/config/schema.ts` (`DiagnosticsConfigSchema`) | `rg -n "\\.diagnostics\\b" packages/mapgen-core/src` shows runtime reads only from `foundation.diagnostics` | Medium | Schema-accepted legacy; should be removed or rejected loudly. |
+| Legacy landmass fallbacks (`crustContinentalFraction`, `crustClusteringBias`) | `packages/mapgen-core/src/config/schema.ts` + `packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts` | Still referenced by runtime as fallback reads | Medium | Not “dead” yet, but explicitly back-compat; can be deleted once configs are migrated. |
+| Internal/alias schemas that exist for plumbing | `packages/mapgen-core/src/config/schema.ts` (`FoundationSurfaceConfigSchema`, `FoundationPolicyConfigSchema`, `FoundationOceanSeparationConfigSchema`) | No obvious runtime consumers beyond config acceptance | Low–medium | Marked `[internal]`; good candidates for deletion once M5 extraction stabilizes and config ownership is clarified. |
+
+### 2) Proposed “no legacy surface” rg checks (CI-friendly)
+
+These are intended to be zero-hit in runtime sources once U07 is complete (tighten glob patterns during implementation):
+- Legacy entrypoints:
+  - `rg -n \"\\bMapOrchestrator\\b\" packages/ mods/`
+  - `rg -n \"\\bresetBootstrap\\b\" packages/ mods/`
+  - `rg -n \"\\bMapConfig\\b\" packages/ mods/` (after migration)
+- Legacy/compat helpers:
+  - `rg -n \"addMountainsCompat\" packages/`
+- Deprecated config surfaces:
+  - `rg -n \"\\bDiagnosticsConfigSchema\\b|\\bdiagnostics\\b\" packages/mapgen-core/src/config/schema.ts`
+  - `rg -n \"crustContinentalFraction|crustClusteringBias\" packages/`
+
+### 3) Notes on gating / coordination
+
+Where external consumer risk is non-trivial (public exports + config keys):
+- Prefer hard-delete with clear release notes rather than keeping compat parsing.
+- For in-repo consumers (tests + `mods/mod-swooper-maps`), do the migration in the same PR as the deletion.
