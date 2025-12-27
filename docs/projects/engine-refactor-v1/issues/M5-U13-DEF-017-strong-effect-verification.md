@@ -55,6 +55,12 @@ Make the effect contract story credible for the highest-risk effects. The end-st
 
 - Keep the API surface minimal; prefer a few robust reads over a wide “engine mirror.”
 
+## Implementation Decisions
+
+- Strong effect verification is implemented by expanding the verified `effect:*` set in the tag registry and delegating to `adapter.verifyEffect(effectId)` (no new adapter methods added for this unit).
+- `effect:engine.landmassApplied` is verified via “has land + has water” read-back; `effect:engine.coastlinesApplied` via presence of coast terrain; `effect:engine.riversModeled` via river adjacency / river presence.
+- Removed `mountains` / `volcanoes` from claiming `effect:engine.landmassApplied`; that tag is now treated as landmass-stage-owned and strongly verified.
+
 ## Prework Findings (Complete)
 
 Goal: define the minimal adapter read-back surface needed to make key `effect:*` tags verifiable (beyond “call evidence”), and map which effects should use read-back vs cheap invariants.

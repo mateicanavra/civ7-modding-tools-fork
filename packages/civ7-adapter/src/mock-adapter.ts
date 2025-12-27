@@ -185,6 +185,7 @@ export class MockAdapter implements EngineAdapter {
   private waterMask: Uint8Array;
   private mountainMask: Uint8Array;
   private landmassRegionIds: Uint8Array;
+  private riverMask: Uint8Array;
   private rngFn: (max: number, label: string) => number;
   private biomeGlobals: Record<string, number>;
   private featureTypes: Record<string, number>;
@@ -192,6 +193,9 @@ export class MockAdapter implements EngineAdapter {
   private plotTags: Record<PlotTagName, number>;
   private landmassIds: Record<LandmassIdName, number>;
   private readonly effectEvidence = new Set<string>();
+  private coastTerrainId: number;
+  private oceanTerrainId: number;
+  private mountainTerrainId: number;
 
   /** Track calls for testing */
   readonly calls: {
@@ -230,6 +234,7 @@ export class MockAdapter implements EngineAdapter {
     this.biomes = new Uint8Array(size).fill(config.defaultBiomeType ?? 0);
     this.waterMask = new Uint8Array(size);
     this.mountainMask = new Uint8Array(size);
+    this.riverMask = new Uint8Array(size);
     this.landmassRegionIds = new Uint8Array(size);
     this.rngFn = config.rng ?? ((max) => Math.floor(Math.random() * max));
     this.biomeGlobals = config.biomeGlobals ?? { ...DEFAULT_BIOME_GLOBALS };
@@ -237,6 +242,10 @@ export class MockAdapter implements EngineAdapter {
     this.terrainTypeIndices = config.terrainTypeIndices ?? { ...DEFAULT_TERRAIN_TYPE_INDICES };
     this.plotTags = { ...DEFAULT_PLOT_TAGS, ...(config.plotTags ?? {}) };
     this.landmassIds = { ...DEFAULT_LANDMASS_IDS, ...(config.landmassIds ?? {}) };
+
+    this.coastTerrainId = this.getTerrainTypeIndex("TERRAIN_COAST");
+    this.oceanTerrainId = this.getTerrainTypeIndex("TERRAIN_OCEAN");
+    this.mountainTerrainId = this.getTerrainTypeIndex("TERRAIN_MOUNTAIN");
     this.calls = {
       setMapInitData: [],
       designateBiomes: [],
@@ -263,6 +272,39 @@ export class MockAdapter implements EngineAdapter {
   }
 
   verifyEffect(effectId: string): boolean {
+    if (effectId === "effect:engine.landmassApplied") {
+      // Best-effort: landmass should create at least some land and some water.
+      let hasLand = false;
+      let hasWater = false;
+      const size = this.width * this.height;
+      for (let i = 0; i < size; i++) {
+        const isWater =
+          this.waterMask[i] === 1 ||
+          this.terrainTypes[i] === this.coastTerrainId ||
+          this.terrainTypes[i] === this.oceanTerrainId;
+        if (isWater) hasWater = true;
+        else hasLand = true;
+        if (hasLand && hasWater) return true;
+      }
+      return false;
+    }
+
+    if (effectId === "effect:engine.coastlinesApplied") {
+      const size = this.width * this.height;
+      for (let i = 0; i < size; i++) {
+        if (this.terrainTypes[i] === this.coastTerrainId) return true;
+      }
+      return false;
+    }
+
+    if (effectId === "effect:engine.riversModeled") {
+      const size = this.width * this.height;
+      for (let i = 0; i < size; i++) {
+        if (this.riverMask[i] === 1) return true;
+      }
+      return false;
+    }
+
     return this.effectEvidence.has(effectId);
   }
 
@@ -287,15 +329,30 @@ export class MockAdapter implements EngineAdapter {
   // === TERRAIN READS ===
 
   isWater(x: number, y: number): boolean {
-    return this.waterMask[this.idx(x, y)] === 1;
+    const i = this.idx(x, y);
+    if (this.waterMask[i] === 1) return true;
+    const terrain = this.terrainTypes[i];
+    return terrain === this.coastTerrainId || terrain === this.oceanTerrainId;
   }
 
   isMountain(x: number, y: number): boolean {
-    return this.mountainMask[this.idx(x, y)] === 1;
+    const i = this.idx(x, y);
+    if (this.mountainMask[i] === 1) return true;
+    return this.terrainTypes[i] === this.mountainTerrainId;
   }
 
-  isAdjacentToRivers(_x: number, _y: number, _radius = 1): boolean {
-    return false; // Mock: no rivers by default
+  isAdjacentToRivers(x: number, y: number, radius = 1): boolean {
+    const r = Math.max(0, radius | 0);
+    for (let dy = -r; dy <= r; dy++) {
+      const ny = y + dy;
+      if (ny < 0 || ny >= this.height) continue;
+      for (let dx = -r; dx <= r; dx++) {
+        const nx = x + dx;
+        if (nx < 0 || nx >= this.width) continue;
+        if (this.riverMask[this.idx(nx, ny)] === 1) return true;
+      }
+    }
+    return false;
   }
 
   getElevation(x: number, y: number): number {
@@ -416,7 +473,34 @@ export class MockAdapter implements EngineAdapter {
   }
 
   modelRivers(_minLength: number, _maxLength: number, _navigableTerrain: number): void {
-    // No-op in mock
+    this.riverMask.fill(0);
+
+    // Best-effort: ensure at least one river exists on land for effect verification.
+    let startX = -1;
+    let startY = -1;
+    for (let y = 0; y < this.height && startX < 0; y++) {
+      for (let x = 0; x < this.width; x++) {
+        if (!this.isWater(x, y)) {
+          startX = x;
+          startY = y;
+          break;
+        }
+      }
+    }
+
+    if (startX < 0) return;
+
+    const maxLen = Math.max(1, Math.min(this.height - startY, (_maxLength | 0) || this.height));
+    const minLen = Math.max(1, (_minLength | 0) || 1);
+    const length = Math.min(maxLen, minLen);
+
+    for (let dy = 0; dy < length; dy++) {
+      const y = startY + dy;
+      if (this.isWater(startX, y)) continue;
+      const i = this.idx(startX, y);
+      this.riverMask[i] = 1;
+      this.terrainTypes[i] = _navigableTerrain & 0xff;
+    }
   }
 
   defineNamedRivers(): void {
@@ -434,7 +518,29 @@ export class MockAdapter implements EngineAdapter {
 
   expandCoasts(width: number, height: number): void {
     this.calls.expandCoasts.push({ width, height });
-    // Mock: no-op
+
+    const coastTerrain = this.coastTerrainId;
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        if (!this.isWater(x, y)) continue;
+        let adjacentLand = false;
+        for (let dy = -1; dy <= 1 && !adjacentLand; dy++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            if (dx === 0 && dy === 0) continue;
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+            if (!this.isWater(nx, ny)) {
+              adjacentLand = true;
+              break;
+            }
+          }
+        }
+        if (adjacentLand) {
+          this.terrainTypes[this.idx(x, y)] = coastTerrain & 0xff;
+        }
+      }
+    }
   }
 
   // === BIOMES ===
@@ -586,6 +692,7 @@ export class MockAdapter implements EngineAdapter {
     this.biomes.fill(config.defaultBiomeType ?? 0);
     this.waterMask.fill(0);
     this.mountainMask.fill(0);
+    this.riverMask.fill(0);
     this.landmassRegionIds.fill(0);
     this.mapSizeId = config.mapSizeId ?? 0;
     this.mapInfo = config.mapInfo ?? null;
@@ -606,6 +713,10 @@ export class MockAdapter implements EngineAdapter {
     this.terrainTypeIndices = config.terrainTypeIndices ?? { ...DEFAULT_TERRAIN_TYPE_INDICES };
     this.plotTags = { ...DEFAULT_PLOT_TAGS, ...(config.plotTags ?? {}) };
     this.landmassIds = { ...DEFAULT_LANDMASS_IDS, ...(config.landmassIds ?? {}) };
+
+    this.coastTerrainId = this.getTerrainTypeIndex("TERRAIN_COAST");
+    this.oceanTerrainId = this.getTerrainTypeIndex("TERRAIN_OCEAN");
+    this.mountainTerrainId = this.getTerrainTypeIndex("TERRAIN_MOUNTAIN");
   }
 
   /** Set biome type for testing */
