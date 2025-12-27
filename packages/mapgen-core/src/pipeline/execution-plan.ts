@@ -216,9 +216,8 @@ function formatErrors(
 function buildValue(schema: TSchema, input: unknown): { converted: unknown; cleaned: unknown } {
   const cloned = Value.Clone(input ?? {});
   const defaulted = Value.Default(schema, cloned);
-  const converted = Value.Convert(schema, defaulted);
-  const cleaned = Value.Clean(schema, converted);
-  return { converted, cleaned };
+  const cleaned = Value.Clean(schema, defaulted);
+  return { converted: defaulted, cleaned };
 }
 
 function parseRunRequest(input: unknown): RunRequest {
