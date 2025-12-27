@@ -69,6 +69,42 @@ export class Civ7Adapter implements EngineAdapter {
   }
 
   verifyEffect(effectId: string): boolean {
+    if (effectId === "effect:engine.landmassApplied") {
+      let hasLand = false;
+      let hasWater = false;
+      const { width, height } = this;
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          if (this.isWater(x, y)) hasWater = true;
+          else hasLand = true;
+          if (hasLand && hasWater) return true;
+        }
+      }
+      return false;
+    }
+
+    if (effectId === "effect:engine.coastlinesApplied") {
+      const coastTerrain = this.getTerrainTypeIndex("TERRAIN_COAST");
+      if (coastTerrain < 0) return false;
+      const { width, height } = this;
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          if (this.getTerrainType(x, y) === coastTerrain) return true;
+        }
+      }
+      return false;
+    }
+
+    if (effectId === "effect:engine.riversModeled") {
+      const { width, height } = this;
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          if (this.isAdjacentToRivers(x, y, 1)) return true;
+        }
+      }
+      return false;
+    }
+
     return this.effectEvidence.has(effectId);
   }
 
