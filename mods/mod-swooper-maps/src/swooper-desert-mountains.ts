@@ -27,7 +27,6 @@ function buildConfig(): BootstrapConfig {
   return {
     overrides: {
       landmass: {
-        crustMode: "area",
         baseWaterPercent: 53, // More ocean for distinct continents
         waterScalar: 1,
       },

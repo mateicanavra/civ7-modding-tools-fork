@@ -86,7 +86,7 @@ describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
     ).toBe(true);
   });
 
-  it("surfaces stage failures as structured stageResult entries", () => {
+  it("runs landmass plates on small maps", () => {
     setEngineGlobals(smallMapInfo);
     const adapter = createMockAdapter({
       width: smallMapInfo.GridWidth,
@@ -102,14 +102,10 @@ describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
       orchestratorOptions: { adapter, logPrefix: "[TEST]" },
     });
 
-    expect(result.success).toBe(false);
+    expect(result.success).toBe(true);
     expect(
       result.stageResults.some(
-        (stage) =>
-          stage.stage === "landmassPlates" &&
-          stage.success === false &&
-          typeof stage.error === "string" &&
-          stage.error.includes("Plate-driven landmass generation failed")
+        (stage) => stage.stage === "landmassPlates" && stage.success === true
       )
     ).toBe(true);
   });

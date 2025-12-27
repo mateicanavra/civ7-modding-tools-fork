@@ -18,7 +18,6 @@ export interface PlateAwareOceanSeparationParams {
   context?: ExtendedMapContext | null;
   adapter?: Pick<EngineAdapter, "setTerrainType"> | null;
   policy?: OceanSeparationPolicy | null;
-  crustMode?: "legacy" | "area";
 }
 
 export interface PlateAwareOceanSeparationResult {

@@ -176,18 +176,6 @@ export const LandmassGeometrySchema = Type.Object(
 export const LandmassConfigSchema = Type.Object(
   {
     /**
-     * Legacy landmask mode selector.
-     * `'legacy'` preserves historical behavior; `'area'` uses area-weighted windows.
-     * @default "legacy"
-     */
-    crustMode: Type.Optional(
-      Type.Union([Type.Literal("legacy"), Type.Literal("area")], {
-        description:
-          "Legacy landmask mode selector: 'legacy' preserves historical behavior, 'area' uses area-weighted windows.",
-        default: "legacy",
-      })
-    ),
-    /**
      * Target global water coverage (0-100).
      * - 55-65 mimics Earth
      * - 70-75 drifts toward archipelago worlds
@@ -753,11 +741,6 @@ export const FoundationSurfaceConfigSchema = Type.Object(
   {
     landmass: Type.Optional(LandmassConfigSchema),
     oceanSeparation: Type.Optional(FoundationOceanSeparationConfigSchema),
-    crustMode: Type.Optional(
-      Type.Union([Type.Literal("legacy"), Type.Literal("area")], {
-        description: "Forwarded crust mode so surface consumers can mirror legacy vs. area-weighted behavior.",
-      })
-    ),
   },
   {
     additionalProperties: false,
