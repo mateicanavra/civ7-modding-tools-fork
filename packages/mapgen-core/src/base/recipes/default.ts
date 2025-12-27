@@ -1,6 +1,6 @@
 import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
 
-export const STANDARD_RECIPE_STEP_IDS = [
+export const BASE_RECIPE_STEP_IDS = [
   "foundation",
   "landmassPlates",
   "coastlines",
@@ -25,8 +25,9 @@ export const STANDARD_RECIPE_STEP_IDS = [
   "placement",
 ] as const;
 
-export const defaultRecipe: RecipeV1 = {
+export const baseDefaultRecipe: RecipeV1 = {
   schemaVersion: 1,
-  id: "core.standard",
-  steps: STANDARD_RECIPE_STEP_IDS.map((id) => ({ id })),
+  id: "core.base",
+  steps: BASE_RECIPE_STEP_IDS.map((id) => ({ id })),
 };
+

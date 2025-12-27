@@ -65,15 +65,12 @@ Goal: enumerate what is truly “standard-owned” at the registration layer (ta
 
 ```yaml
 standardModObjectAndRecipes:
-  - module: packages/mapgen-core/src/mods/standard/mod.ts
-    owns: "standardMod object (id, registry, recipes.default)"
-    notes: Built-in standard mod surface.
-  - module: packages/mapgen-core/src/mods/standard/recipes/default.ts
-    owns: 'defaultRecipe: RecipeV1 (id: "core.standard")'
-    notes: Standard recipe identity + ordering.
-  - module: packages/mapgen-core/src/mods/standard/registry/index.ts
-    owns: "registry.register(...) -> registerStandardLibrary(...)"
-    notes: Binds “standard mod registry” to the standard library registration wiring.
+  - module: packages/mapgen-core/src/base/mod.ts
+    owns: "baseMod object (id, register, recipes.default)"
+    notes: Base mod surface (imported explicitly via @swooper/mapgen-core/base).
+  - module: packages/mapgen-core/src/base/recipes/default.ts
+    owns: 'baseDefaultRecipe: RecipeV1 (id: "core.base")'
+    notes: Base recipe identity + ordering.
 ```
 
 #### Standard registration wiring (layer registration)
@@ -127,10 +124,11 @@ standardTagsAndEffects:
 
 Direct imports that encode “standard is built-in”:
 - `packages/mapgen-core/src/orchestrator/task-graph.ts` imports:
-  - `standardMod` (`@mapgen/mods/standard/mod.js`)
   - `M3_STAGE_DEPENDENCY_SPINE` (`@mapgen/pipeline/standard.js`)
-- `packages/mapgen-core/src/index.ts` re-exports `standardMod`.
 - `packages/mapgen-core/src/pipeline/index.ts` re-exports `M3_STANDARD_STAGE_PHASE` and `M3_STAGE_DEPENDENCY_SPINE` from `pipeline/standard.ts`.
+
+Note:
+- Post M5-U02, the base mod lives in `@swooper/mapgen-core/base` and is injected into core (no built-in import/re-export from `@swooper/mapgen-core`).
 
 Transitive / “fractal” couplings that will surface during extraction:
 - Step implementations are phase-stamped with `M3_STANDARD_STAGE_PHASE.*`:
