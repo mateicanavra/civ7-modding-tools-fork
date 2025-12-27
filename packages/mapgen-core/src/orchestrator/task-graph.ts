@@ -118,7 +118,7 @@ function buildStandardStepConfig(stepId: string, config: MapGenConfig): Record<s
     case "derivePlacementInputs":
       return { placement: config.placement ?? {} };
     case "placement":
-      return { placement: config.placement ?? {} };
+      return {};
     default:
       return {};
   }

@@ -138,7 +138,7 @@ describe("smoke: standard recipe compile/execute", () => {
       case "derivePlacementInputs":
         return { placement: config.placement ?? {} };
       case "placement":
-        return { placement: config.placement ?? {} };
+        return {};
       default:
         return {};
     }
