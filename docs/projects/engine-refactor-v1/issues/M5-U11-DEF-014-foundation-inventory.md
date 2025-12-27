@@ -55,6 +55,12 @@ Make foundation an explicit, schedulable, verifiable product surface. A single b
 
 - Keep the inventory contracts crisp; avoid reintroducing “blob as escape hatch.”
 
+## Implementation Decisions
+
+- Split inventory is a 1:1 projection of the existing `FoundationContext` fields into versioned `artifact:foundation.*@v1` tags (no new mesh/crust artifacts without a real in-scope consumer).
+- Keep `FoundationContext` + `createFoundationContext()` as an internal convenience for the foundation producer; downstream consumers must depend on the granular artifacts (via `assertFoundationPlates` / `assertFoundationDynamics` / etc).
+- Narrow domain APIs that only use plates to accept `FoundationPlateFields` instead of propagating a “blob-by-another-name” composite.
+
 ## Prework Findings (Complete)
 
 Goal: enumerate every consumer of the monolithic foundation artifact and propose a discrete `artifact:foundation.*` inventory that lets consumers depend on exactly what they need.

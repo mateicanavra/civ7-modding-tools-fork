@@ -1,6 +1,5 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { markLandmassId, resolveLandmassIds } from "@mapgen/core/plot-tags.js";
 import { syncHeightfield } from "@mapgen/core/types.js";
 import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
@@ -67,7 +66,6 @@ export function createClimateBaselineStep(
         `[landmass-plate] Region IDs refreshed post-terrain: ${westRestamped} west (ID=${landmassIds.WEST}), ${eastRestamped} east (ID=${landmassIds.EAST})`
       );
 
-      assertFoundationContext(context, "climateBaseline");
       syncHeightfield(context);
       publishHeightfieldArtifact(context);
       applyClimateBaseline(width, height, context, config.climate);

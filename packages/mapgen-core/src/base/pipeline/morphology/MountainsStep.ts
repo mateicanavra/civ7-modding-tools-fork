@@ -1,6 +1,6 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import { DEV, devLogIf, logMountainSummary, logReliefAscii } from "@mapgen/dev/index.js";
 import type { MountainsConfig } from "@mapgen/bootstrap/types.js";
 import { MountainsConfigSchema } from "@mapgen/config/index.js";
@@ -37,7 +37,7 @@ export function createMountainsStep(
     provides: options.provides,
     configSchema: MountainsStepConfigSchema,
     run: (context, config) => {
-      assertFoundationContext(context, "mountains");
+      assertFoundationPlates(context, "mountains");
       const { width, height } = context.dimensions;
       const mountainOptions = (config.mountains ?? {}) as MountainsConfig;
 
