@@ -1,15 +1,6 @@
-/**
- * PlateSeedManager — deterministic Voronoi physics seeding
- *
- * Responsibilities:
- * - Normalize plate seed config (mode, fixed seed, offsets).
- * - Capture the RNG state before plate generation, apply overrides,
- *   and provide a restoration callback so downstream systems share a single seed.
- * - Emit frozen snapshots for diagnostics (timestamp, RNG state, seed locations).
- *
- * This is a pure TypeScript port that works both in-game and in tests.
- */
+export { PlateSeedManager } from "@mapgen/base/foundation/plate-seed.js";
 
+<<<<<<<< HEAD:packages/mapgen-core/src/base/foundation/plate-seed.ts
 import type {
   PlateConfig,
   SeedSnapshot,
@@ -180,3 +171,5 @@ export const PlateSeedManager: PlateSeedManagerInterface = {
 };
 
 export default PlateSeedManager;
+========
+>>>>>>>> 1e5db401 (M5-U04: extract foundation pipeline into base mod):packages/mapgen-core/src/foundation/plate-seed.ts

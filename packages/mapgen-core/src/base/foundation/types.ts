@@ -1,10 +1,6 @@
-/**
- * Foundation Module Types
- *
- * Type definitions for plate tectonics, Voronoi diagrams, and foundation simulation.
- * These types allow the algorithms to be tested independently of the game engine.
- */
+export * from "@mapgen/base/foundation/types.js";
 
+<<<<<<<< HEAD:packages/mapgen-core/src/base/foundation/types.ts
 /// <reference types="@civ7/types" />
 
 // ============================================================================
@@ -230,3 +226,5 @@ export interface VoronoiUtilsInterface {
 
 /** RNG function type */
 export type RngFunction = (max: number, label?: string) => number;
+========
+>>>>>>>> 1e5db401 (M5-U04: extract foundation pipeline into base mod):packages/mapgen-core/src/foundation/types.ts

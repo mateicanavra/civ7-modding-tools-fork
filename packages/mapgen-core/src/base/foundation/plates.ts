@@ -1,17 +1,6 @@
-/**
- * Plate Tectonics Generation - Advanced Voronoi-based plate system
- *
- * Purpose:
- * - Generate tectonic plates using proper Voronoi diagrams
- * - Calculate physics-based plate boundaries with subduction and sliding
- * - Provide structured data for the foundation stage to consume
- *
- * Architecture:
- * - Pure TypeScript implementation with dependency injection for testability
- * - Fallback implementations work without game engine
- * - Returns typed arrays and boundary data structures
- */
+export { calculateVoronoiCells, computePlatesVoronoi } from "@mapgen/base/foundation/plates.js";
 
+<<<<<<<< HEAD:packages/mapgen-core/src/base/foundation/plates.ts
 import type {
   Point2D,
   VoronoiSite,
@@ -880,3 +869,5 @@ export function calculateVoronoiCells(options: {
 }
 
 export default { computePlatesVoronoi, calculateVoronoiCells };
+========
+>>>>>>>> 1e5db401 (M5-U04: extract foundation pipeline into base mod):packages/mapgen-core/src/foundation/plates.ts
