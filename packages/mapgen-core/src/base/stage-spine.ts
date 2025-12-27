@@ -91,13 +91,13 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     requires: [
       M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
     ],
-    provides: [M4_EFFECT_TAGS.engine.landmassApplied],
+    provides: [],
   },
   volcanoes: {
     requires: [
       M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
     ],
-    provides: [M4_EFFECT_TAGS.engine.landmassApplied],
+    provides: [],
   },
   lakes: {
     requires: [M4_EFFECT_TAGS.engine.landmassApplied],

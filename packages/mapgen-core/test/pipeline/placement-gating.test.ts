@@ -27,14 +27,23 @@ describe("placement step contracts", () => {
       phase: "morphology",
       requires: [],
       provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
-      run: (_context, _config) => {},
+      run: (ctx) => {
+        const ocean = ctx.adapter.getTerrainTypeIndex("TERRAIN_OCEAN");
+        for (let x = 0; x < width; x++) {
+          ctx.adapter.setTerrainType(x, 0, ocean);
+        }
+        ctx.adapter.expandCoasts(width, height);
+      },
     });
     registry.register({
       id: "rivers",
       phase: "hydrology",
       requires: [],
       provides: [M4_EFFECT_TAGS.engine.riversModeled],
-      run: (_context, _config) => {},
+      run: (ctx) => {
+        const riverTerrain = ctx.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER");
+        ctx.adapter.modelRivers(5, 15, riverTerrain);
+      },
     });
     registry.register({
       id: "placement",
