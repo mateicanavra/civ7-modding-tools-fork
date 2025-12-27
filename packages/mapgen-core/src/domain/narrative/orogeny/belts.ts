@@ -9,10 +9,10 @@
  * Uses lazy provider pattern for test isolation.
  */
 
-import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/types.js";
+import type { ExtendedMapContext, FoundationPlateFields, StoryOverlaySnapshot } from "@mapgen/core/types.js";
 import type { StoryConfig } from "@mapgen/config/index.js";
 import { inBounds, storyKey } from "@mapgen/core/index.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationDynamics, assertFoundationPlates } from "@mapgen/core/assertions.js";
 import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 import { buildNarrativeMotifsOrogenyV1 } from "@mapgen/domain/narrative/artifacts.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
@@ -36,7 +36,7 @@ export function storyTagOrogenyBelts(
   ctx: ExtendedMapContext,
   storyConfig: StoryConfig = {}
 ): StoryOverlaySnapshot {
-  const foundation = assertFoundationContext(ctx, "storyOrogeny");
+  const plates = assertFoundationPlates(ctx, "storyOrogeny");
   const cache = getOrogenyCache(ctx);
   cache.belts.clear();
   cache.windward.clear();
@@ -58,11 +58,11 @@ export function storyTagOrogenyBelts(
   const minLenSoft = Math.max(10, Math.round(beltMinLength * (0.9 + 0.4 * sqrtScale)));
 
   const kind: OrogenySummary["kind"] = "foundation";
-  runFoundationPass(ctx, cache, width, height, minLenSoft);
+  runFoundationPass(ctx, cache, width, height, minLenSoft, plates);
 
   // Common Windward/Lee Tagging
   if (cache.belts.size >= minLenSoft) {
-    const { windU, windV } = foundation.dynamics;
+    const { windU, windV } = assertFoundationDynamics(ctx, "storyOrogeny");
     tagWindwardLee(ctx, cache, width, height, radius, windU, windV);
   } else {
     // If belts are too small/fragmented, discard them to avoid noise
@@ -105,11 +105,10 @@ function runFoundationPass(
   cache: OrogenyCacheInstance,
   width: number,
   height: number,
-  minLenSoft: number
+  minLenSoft: number,
+  plates: FoundationPlateFields
 ): void {
-  const foundation = assertFoundationContext(ctx, "storyOrogeny");
-  const { upliftPotential: U, tectonicStress: S, boundaryType: BT, boundaryCloseness: BC } =
-    foundation.plates;
+  const { upliftPotential: U, tectonicStress: S, boundaryType: BT, boundaryCloseness: BC } = plates;
   
   let thr = 180;
   let attempts = 0;

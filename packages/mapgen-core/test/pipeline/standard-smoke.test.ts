@@ -256,7 +256,11 @@ describe("smoke: standard recipe compile/execute", () => {
     expect(stepResults.every((result) => result.success)).toBe(true);
     expect(satisfied.has(M4_EFFECT_TAGS.engine.biomesApplied)).toBe(true);
     expect(satisfied.has(M4_EFFECT_TAGS.engine.featuresApplied)).toBe(true);
-    expect(ctx.artifacts.foundation).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationSeedV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationDiagnosticsV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationConfigV1)).toBeTruthy();
     expect(ctx.fields.biomeId).toBeInstanceOf(Uint8Array);
     expect(ctx.fields.featureType).toBeInstanceOf(Int16Array);
 
