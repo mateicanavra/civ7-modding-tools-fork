@@ -2,10 +2,10 @@ import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import type { MapConfig } from "@mapgen/bootstrap/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { M4_EFFECT_TAGS, registerBaseTags } from "@mapgen/base/index.js";
 
 import {
   InvalidDependencyTagDemoError,
-  M4_EFFECT_TAGS,
   PipelineExecutor,
   StepRegistry,
   TagRegistry,
@@ -49,6 +49,7 @@ describe("tag registry", () => {
     );
 
     const registry = new StepRegistry<typeof ctx>();
+    registerBaseTags(registry);
     registry.register({
       id: "biomes",
       phase: "ecology",
