@@ -119,21 +119,19 @@ Triage follow-ups that *do* intersect with “super clean” end state (and are 
 
 The canonical unit definitions live as standalone issue docs under `docs/projects/engine-refactor-v1/issues/`. This milestone doc keeps only the index and the sequencing/grouping layer.
 
-| Unit | Summary |
-| --- | --- |
-| [M5-U01](../issues/M5-U01-DEF-011-delete-crust-mode.md) | DEF‑011: delete `crustMode` and the `"legacy"` behavior branch |
-| [M5-U02](../issues/M5-U02-standard-mod-boundary-skeleton.md) | Introduce the standard-mod package boundary skeleton + invariants |
-| [M5-U03](../issues/M5-U03-standard-registry-recipes-tags-extraction.md) | Move standard registry + recipes + tags into the standard mod |
-| [M5-U04](../issues/M5-U04-extract-standard-foundation-physics.md) | Extract foundation & physics steps + helpers into the standard mod |
-| [M5-U05](../issues/M5-U05-extract-standard-morphology-hydrology.md) | Extract morphology & hydrology steps + helpers into the standard mod |
-| [M5-U06](../issues/M5-U06-extract-standard-ecology-placement-narrative.md) | Extract ecology, placement, narrative steps + helpers into the standard mod |
-| [M5-U07](../issues/M5-U07-delete-compat-deprecation-surfaces.md) | Delete dead/compat/deprecation-only surfaces (“no dead code” true) |
-| [M5-U08](../issues/M5-U08-remove-globals-fallbacks-engine-boundary.md) | Remove ambient globals + silent fallbacks (boring engine boundary) |
-| [M5-U09](../issues/M5-U09-DEF-016-schema-ownership-split-settings.md) | DEF‑016 + follow-ups: schema ownership split + “settings” migration |
-| [M5-U10](../issues/M5-U10-colocation-consolidation-pass.md) | Colocation + consolidation pass (reduce wiring-only indirection) |
-| [M5-U11](../issues/M5-U11-DEF-014-foundation-inventory.md) | DEF‑014: foundation artifact inventory + consumer migration |
-| [M5-U12](../issues/M5-U12-DEF-010-climate-prerequisite-reification.md) | DEF‑010: climate prerequisite reification (no hidden engine-read prereqs) |
-| [M5-U13](../issues/M5-U13-DEF-017-strong-effect-verification.md) | DEF‑017: stronger `effect:*` verification via adapter read-back APIs + tests |
+- [M5-U01](../issues/M5-U01-DEF-011-delete-crust-mode.md) — DEF‑011: delete `crustMode` and the `"legacy"` behavior branch
+- [M5-U02](../issues/M5-U02-standard-mod-boundary-skeleton.md) — introduce the standard-mod package boundary skeleton + invariants
+- [M5-U03](../issues/M5-U03-standard-registry-recipes-tags-extraction.md) — move standard registry + recipes + tags into the standard mod
+- [M5-U04](../issues/M5-U04-extract-standard-foundation-physics.md) — extract foundation & physics steps + helpers into the standard mod
+- [M5-U05](../issues/M5-U05-extract-standard-morphology-hydrology.md) — extract morphology & hydrology steps + helpers into the standard mod
+- [M5-U06](../issues/M5-U06-extract-standard-ecology-placement-narrative.md) — extract ecology, placement, narrative steps + helpers into the standard mod
+- [M5-U07](../issues/M5-U07-delete-compat-deprecation-surfaces.md) — delete dead/compat/deprecation-only surfaces (“no dead code” true)
+- [M5-U08](../issues/M5-U08-remove-globals-fallbacks-engine-boundary.md) — remove ambient globals + silent fallbacks (boring engine boundary)
+- [M5-U09](../issues/M5-U09-DEF-016-schema-ownership-split-settings.md) — DEF‑016 + follow-ups: schema ownership split + “settings” migration
+- [M5-U10](../issues/M5-U10-colocation-consolidation-pass.md) — colocation + consolidation pass (reduce wiring-only indirection)
+- [M5-U11](../issues/M5-U11-DEF-014-foundation-inventory.md) — DEF‑014: foundation artifact inventory + consumer migration
+- [M5-U12](../issues/M5-U12-DEF-010-climate-prerequisite-reification.md) — DEF‑010: climate prerequisite reification (no hidden engine-read prereqs)
+- [M5-U13](../issues/M5-U13-DEF-017-strong-effect-verification.md) — DEF‑017: stronger `effect:*` verification via adapter read-back APIs + tests
 
 ## Sequencing (slices)
 
