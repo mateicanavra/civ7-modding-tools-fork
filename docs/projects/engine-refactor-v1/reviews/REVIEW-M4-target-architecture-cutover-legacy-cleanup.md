@@ -189,6 +189,16 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Implementation Decisions:** 0 logged; 1 unlogged (which `effect:engine.*` tags are runtime-verified vs trusted).
 - **Verification:** `rg -n "state:engine" packages/mapgen-core/src packages/mapgen-core/test` (no hits); `pnpm -C packages/mapgen-core check` (pass); `pnpm -C packages/mapgen-core test test/pipeline/{tag-registry,placement-gating,artifacts}.test.ts` (pass); `pnpm -C packages/mapgen-core test test/pipeline/standard-smoke.test.ts` (fails: `/recipe/steps/21/config/placement` unknown key).
 - **Update (2025-12-26):** Logged the verification-scope decision in CIV-70 and expanded DEF-017 to include rivers; standard pipeline verification remains blocked by the placement config schema mismatch noted in CIV-73.
+## CIV-74 — [M4] Narrative cleanup: remove StoryTags + caches and update consumers
+
+**Reviewed:** 2025-12-26
+
+- **Intent:** Remove StoryTags + overlay→tags hydration, migrate consumers to `artifact:narrative.*`, eliminate leak-prone narrative caches, and mark `DEF-002`/`DEF-012` resolved.
+- **Strengths:** `StoryTags` surface removed from `packages/mapgen-core/src` (no remaining references); consumers route reads through `packages/mapgen-core/src/domain/narrative/queries.ts` and default missing artifacts to empty sets; remaining caches are context-scoped and reset per generation (`resetStoryOverlays`, `resetOrogenyCache`, `resetCorridorStyleCache`); deferrals updated with concrete pointers to the new artifact/query surfaces.
+- **Gaps:** `pnpm -C packages/mapgen-core test` fails 4 tests that still depend on removed StoryTags / overlay hydration exports (`packages/mapgen-core/test/story/corridors.test.ts`, `packages/mapgen-core/test/story/tags.test.ts`, `packages/mapgen-core/test/story/overlays.test.ts`, `packages/mapgen-core/test/orchestrator/story-parity.smoke.test.ts`); the issue’s “missing narrative artifacts default to empty sets” decision is only partly realized—`M3_STAGE_DEPENDENCY_SPINE` still declares narrative artifacts as hard requirements, so recipes cannot trivially disable story steps without compile-time failures.
+- **Follow-up:** Rewrite/remove StoryTags-focused tests to validate `artifact:narrative.*` outputs + overlay registry invariants; clarify whether story stages are truly optional (and encode it in the dependency spine/recipes) or update the issue decision/docs to match “always-on story producers”.
+- **Implementation Decisions:** 1 logged (missing artifacts default to empty sets); honored in consumer code (`?? emptySet`), but conflicts with current dependency-spine semantics.
+- **Verification:** `pnpm -C packages/mapgen-core check` (pass); `pnpm -C packages/mapgen-core test test/pipeline/standard-smoke.test.ts` (pass); `pnpm -C packages/mapgen-core test` (fails: StoryTags/overlay-hydration tests still import removed modules/exports).
 ## Review Updates
 
 - **Update (2025-12-26):** CIV-73 follow-up fixes applied: placement config stripped from run-request builders (`runTaskGraphGeneration` + standard smoke), `islands` now provides `artifact:narrative.motifs.hotspots@v1`, CIV-73 schema sketches aligned, `pnpm -C packages/mapgen-core test` passes.
