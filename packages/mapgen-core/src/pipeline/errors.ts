@@ -40,6 +40,20 @@ export class UnknownDependencyTagError extends DependencyTagError {
   }
 }
 
+export class DuplicateDependencyTagError extends DependencyTagError {
+  constructor(tag: string) {
+    super(`Dependency tag "${tag}" is already registered.`);
+    this.name = "DuplicateDependencyTagError";
+  }
+}
+
+export class InvalidDependencyTagDemoError extends DependencyTagError {
+  constructor(tag: string) {
+    super(`Invalid demo payload for dependency tag "${tag}".`);
+    this.name = "InvalidDependencyTagDemoError";
+  }
+}
+
 export class MissingDependencyError extends Error {
   readonly stepId: string;
   readonly missing: readonly string[];
@@ -72,4 +86,3 @@ export class UnsatisfiedProvidesError extends Error {
     this.missingProvides = missingProvides;
   }
 }
-
