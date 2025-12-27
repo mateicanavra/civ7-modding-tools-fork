@@ -1,4 +1,4 @@
-import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
+import { BOUNDARY_TYPE } from "@mapgen/base/foundation/constants.js";
 import { clamp } from "@mapgen/lib/math/index.js";
 import type { CoastlinePlateBiasConfig } from "@mapgen/domain/morphology/coastlines/types.js";
 
