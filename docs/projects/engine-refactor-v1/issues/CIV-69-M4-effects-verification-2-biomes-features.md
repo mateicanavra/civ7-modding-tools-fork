@@ -170,3 +170,16 @@ Goal: fail loudly on wiring mistakes without guessing domain semantics.
 - **Effects Verification‑1:** provides the `effect:*` tag registration and adapter postcondition surface. This issue implements the reify-after-mutate pattern and wires the verification.
 - **Effects Verification‑3:** removes `state:engine.*` once biomes/features/placement all provide verified effects.
 - **Placement Inputs:** placement verification is artifact-based (ADR-ER1-020); biomes/features use sampled + field-based verification.
+
+## Implementation Decisions
+
+### Add a precheck hook for adapter build
+- **Context:** Review noted `pnpm -C packages/mapgen-core check` requires a manual `@civ7/adapter` build because types live in `dist/`.
+- **Options:** Add `precheck` to build the adapter, or adjust adapter dev exports to avoid `dist/` dependency.
+- **Choice:** Add a `precheck` hook to build `@civ7/adapter`.
+- **Rationale:** Smallest change, consistent with existing `pretest`, and keeps verification commands hermetic.
+- **Risk:** Adds a build step to `check`, increasing local run time.
+
+## Deferred / Backlog
+
+- Treat call-evidence effect verification as a wiring guardrail, not a correctness oracle; revisit with a stronger contract or guardrail when effect verification semantics mature.
