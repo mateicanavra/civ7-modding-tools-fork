@@ -57,6 +57,7 @@ export const RunSettingsSchema = Type.Object(
       },
       { additionalProperties: false }
     ),
+    directionality: Type.Optional(UnknownRecord),
     metadata: Type.Optional(UnknownRecord),
     trace: Type.Optional(TraceConfigSchema),
   },
