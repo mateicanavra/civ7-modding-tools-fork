@@ -18,6 +18,9 @@ The legacy crust-mode fork is fully removed and configs no longer accept `crustM
 - Restore a dedicated test that asserts stage failures surface as structured `stageResults` entries (keep the small-map success test if desired).
 - Decide whether to remove or hard-fail legacy-only landmass/ocean separation knobs now that the legacy path is deleted; otherwise document the no-op behavior.
 
+### Fix Status
+- Fixed at stack tip: missing-step stageResults test runs with `baseMod` (branch: `m5-fix-u01-stage-results`, PR: pending restack submission).
+
 ### Defer / Follow-up
 - If removal is too breaking, create a follow-up issue to deprecate and remove the now-no-op landmass/ocean separation knobs (schema + docs + release notes).
 
@@ -164,6 +167,9 @@ Global/fallback usage is largely removed (Voronoi utils via adapter, RNG globals
 ### Fix Now (Recommended)
 - Add an explicit guard (similar to `getLatitude`/`isWater`) or a helper that throws a clear error when `getVoronoiUtils` is missing.
 
+### Fix Status
+- Fixed at stack tip: `getVoronoiUtils` guard added in foundation producer (branch: `m5-fix-u08-voronoi-guard`, PR: pending restack submission).
+
 ### Defer / Follow-up
 - If we want TypeScript-only enforcement, document the runtime error behavior and upgrade requirements in adapter docs.
 
@@ -223,6 +229,9 @@ Foundation now publishes discrete `artifact:foundation.*@v1` outputs with target
 
 ### Fix Now (Recommended)
 - Update or replace the contract doc to define the discrete `artifact:foundation.*@v1` contracts (plates/dynamics/seed/diagnostics/config) and remove monolith references.
+
+### Fix Status
+- Fixed at stack tip: contract doc updated to discrete foundation artifacts (branch: `m5-fix-u11-foundation-contract`, PR: pending restack submission).
 
 ### Defer / Follow-up
 - After new contracts land, archive the monolithic contract doc (or mark it historical) to avoid future drift.
