@@ -246,7 +246,16 @@ function normalizeStepConfig(
   rawValue: unknown,
   path: string
 ): { value: unknown; errors: ExecutionPlanCompileErrorItem[] } {
-  const input = rawValue ?? {};
+  if (rawValue === null) {
+    const errors = formatErrors(schema, rawValue, path).map((err) => ({
+      code: "step.config.invalid" as const,
+      path: err.path,
+      message: err.message,
+    }));
+    return { value: rawValue, errors };
+  }
+
+  const input = rawValue === undefined ? {} : rawValue;
   const unknownKeyErrors = findUnknownKeyErrors(schema, input, path);
   const { converted, cleaned } = buildValue(schema, input);
   const errors = [
