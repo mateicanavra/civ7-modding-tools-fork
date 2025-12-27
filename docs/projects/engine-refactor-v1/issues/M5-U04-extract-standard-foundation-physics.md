@@ -55,6 +55,11 @@ Begin the real extraction of domain behavior. After this unit, core should still
 - Bias toward moving helpers with the steps; err on the side of “mod-owned” unless a module is clearly cross-domain and reusable.
 - Prefer a small number of stable “shared primitives” modules over many tiny indirections.
 
+## Implementation Decisions
+
+- Foundation step + producer + foundation algorithms are moved under `@mapgen/base/*` as base-mod-owned implementation.
+- `@mapgen/pipeline/foundation/*`, `@mapgen/foundation/*`, and `@mapgen/orchestrator/foundation` remain as thin shims re-exporting the base implementations for transitional compatibility.
+
 ## Prework Findings (Complete)
 
 Goal: map the foundation/physics cluster so the extraction is mostly “move files + fix imports”, with a small, explicit “shared primitives” remainder.
