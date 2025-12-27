@@ -42,6 +42,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** CIV-56 keeps `foundation.dynamics.directionality` inside step config views to avoid expanding settings; we still need a dedicated settings surface and consumer migration away from `ctx.config.foundation.*`.
   - **Update (2025-12-27):** Pulled into M5 scope as part of schema ownership + settings boundary cleanup; see `issues/M5-U09-DEF-016-schema-ownership-split-settings.md` (and `milestones/M5-proposal-clean-architecture-finalization.md` for sequencing).
   - **Next check:** before PIPELINE-4 runtime cutover or when `RunSettings` expands.
+
+- **Legacy landmass/ocean separation knobs now no-op post DEF-011** [Source: M5-U01 review]
+  - **Context:** M5-U01 (DEF-011).
+  - **Type:** triage
+  - **Notes:** With `crustMode` removed, landmass config knobs (continentalFraction/crustClusteringBias/microcontinentChance) and ocean separation policy knobs (bandPairs/baseSeparationTiles/boundaryClosenessMultiplier/edge policies) are still accepted in schema but ignored. Decide whether to remove or redefine them; otherwise configs silently no-op.
+  - **Next check:** before merging remaining M5 cleanup branches or before a release that advertises the new config surface.
 - **Observability runId + fingerprint derivation** [Source: CIV-75]
   - **Context:** M4 observability baseline implementation for trace/run IDs.
   - **Type:** triage
