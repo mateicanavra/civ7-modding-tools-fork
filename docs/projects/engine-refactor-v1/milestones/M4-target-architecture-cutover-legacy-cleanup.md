@@ -3,7 +3,7 @@ id: M4
 title: "M4: Target Architecture Cutover & Legacy Cleanup"
 status: in_progress
 status_note: re-baselining 2025-12-19
-owner: Engineering
+owner: Engineering 
 estimate_total: 74
 project: engine-refactor-v1
 parent_issues:
