@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/narrative/index.ts
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { StepRegistry } from "@mapgen/pipeline/index.js";
 import {
@@ -9,64 +10,8 @@ import { createStoryOrogenyStep } from "@mapgen/base/pipeline/narrative/StoryOro
 import { createStoryRiftsStep } from "@mapgen/base/pipeline/narrative/StoryRiftsStep.js";
 import { createStorySeedStep } from "@mapgen/base/pipeline/narrative/StorySeedStep.js";
 import { createStorySwatchesStep } from "@mapgen/base/pipeline/narrative/StorySwatchesStep.js";
+========
+export { registerNarrativeLayer } from "@mapgen/base/pipeline/narrative/index.js";
+export type { NarrativeLayerRuntime } from "@mapgen/base/pipeline/narrative/index.js";
+>>>>>>>> 8e597c31 (M5-U06: extract ecology/placement/narrative pipeline into base mod):packages/mapgen-core/src/pipeline/narrative/index.ts
 
-export interface NarrativeLayerRuntime {
-  getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  logPrefix: string;
-}
-
-export function registerNarrativeLayer(
-  registry: StepRegistry<ExtendedMapContext>,
-  runtime: NarrativeLayerRuntime
-): void {
-  registry.register(
-    createStorySeedStep(
-      { logPrefix: runtime.logPrefix },
-      {
-        ...runtime.getStageDescriptor("storySeed"),
-      }
-    )
-  );
-
-  registry.register(
-    createStoryHotspotsStep(
-      { logPrefix: runtime.logPrefix },
-      {
-        ...runtime.getStageDescriptor("storyHotspots"),
-      }
-    )
-  );
-
-  registry.register(
-    createStoryRiftsStep(
-      { logPrefix: runtime.logPrefix },
-      {
-        ...runtime.getStageDescriptor("storyRifts"),
-      }
-    )
-  );
-
-  registry.register(
-    createStoryOrogenyStep({
-      ...runtime.getStageDescriptor("storyOrogeny"),
-    })
-  );
-
-  registry.register(
-    createStoryCorridorsPreStep({
-      ...runtime.getStageDescriptor("storyCorridorsPre"),
-    })
-  );
-
-  registry.register(
-    createStorySwatchesStep({
-      ...runtime.getStageDescriptor("storySwatches"),
-    })
-  );
-
-  registry.register(
-    createStoryCorridorsPostStep({
-      ...runtime.getStageDescriptor("storyCorridorsPost"),
-    })
-  );
-}

@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/narrative/StoryRiftsStep.ts
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { DEV, devWarn } from "@mapgen/dev/index.js";
@@ -52,3 +53,6 @@ export function createStoryRiftsStep(
     },
   };
 }
+========
+export * from "@mapgen/base/pipeline/narrative/StoryRiftsStep.js";
+>>>>>>>> 8e597c31 (M5-U06: extract ecology/placement/narrative pipeline into base mod):packages/mapgen-core/src/pipeline/narrative/StoryRiftsStep.ts

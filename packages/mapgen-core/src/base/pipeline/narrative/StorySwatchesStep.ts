@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/narrative/StorySwatchesStep.ts
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { publishClimateFieldArtifact } from "@mapgen/base/pipeline/artifacts.js";
@@ -42,3 +43,6 @@ export function createStorySwatchesStep(
     },
   };
 }
+========
+export * from "@mapgen/base/pipeline/narrative/StorySwatchesStep.js";
+>>>>>>>> 8e597c31 (M5-U06: extract ecology/placement/narrative pipeline into base mod):packages/mapgen-core/src/pipeline/narrative/StorySwatchesStep.ts
