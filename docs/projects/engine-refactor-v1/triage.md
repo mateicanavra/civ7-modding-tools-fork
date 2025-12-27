@@ -43,6 +43,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Update (2025-12-27):** Pulled into M5 scope as part of schema ownership + settings boundary cleanup; see `issues/M5-U09-DEF-016-schema-ownership-split-settings.md` (and `milestones/M5-proposal-clean-architecture-finalization.md` for sequencing).
   - **Next check:** before PIPELINE-4 runtime cutover or when `RunSettings` expands.
 
+- **TaskGraph entrypoint + recipe ID breaking changes** [Source: M5-U02 review]
+  - **Context:** M5-U02 standard-mod boundary skeleton.
+  - **Type:** triage
+  - **Notes:** `runTaskGraphGeneration` now requires an injected mod, and base/standard IDs shifted to `core.base` from `core.standard`. Decide on compatibility (default mod / alias) and document migration for external consumers.
+  - **Next check:** before publishing a release or expecting external mods/tools to consume the new boundary.
+
 - **Legacy landmass/ocean separation knobs now no-op post DEF-011** [Source: M5-U01 review]
   - **Context:** M5-U01 (DEF-011).
   - **Type:** triage
