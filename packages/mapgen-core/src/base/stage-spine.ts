@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/stage-spine.ts
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "@mapgen/base/tags.js";
 
 export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
@@ -191,3 +192,8 @@ export function getStageDescriptor(
   const provides = Array.isArray(desc.provides) ? desc.provides : [];
   return { requires, provides };
 }
+========
+export { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
+export { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/base/stage-spine.js";
+
+>>>>>>>> 6496976f (M5-U03: move base tags/recipes/registry wiring into base mod):packages/mapgen-core/src/pipeline/standard.ts
