@@ -1,3 +1,4 @@
+import type { TSchema } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
 export type GenerationPhase =
@@ -15,6 +16,7 @@ export interface MapGenStep<TContext = ExtendedMapContext> {
   phase: GenerationPhase;
   requires: readonly DependencyTag[];
   provides: readonly DependencyTag[];
+  configSchema?: TSchema;
   run: (context: TContext) => void | Promise<void>;
 }
 

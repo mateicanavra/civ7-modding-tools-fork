@@ -54,6 +54,29 @@ Introduce the target boundary types (`RunRequest`, `RecipeV1`) and a TypeBox-val
 - Use existing TypeBox patterns in mapgen-core; do not introduce new validation deps.
 - Prefer to place compiler logic near existing TaskGraph/registry modules for later reuse.
 
+## Implementation Decisions
+
+### Place compiler/types in pipeline module
+- **Context:** SPEC suggests a future `core/compiler` layout, but this issue asks to keep changes additive and near TaskGraph/registry.
+- **Options:** `packages/mapgen-core/src/pipeline/execution-plan.ts`, new `core/compiler` module, or `orchestrator`-scoped helper.
+- **Choice:** Added `packages/mapgen-core/src/pipeline/execution-plan.ts` and exported via `packages/mapgen-core/src/pipeline/index.ts`.
+- **Rationale:** Aligns with issue guidance while minimizing reorg risk in a pre-cutover slice.
+- **Risk:** Future refactor may move or re-export these types from a `core/compiler` location.
+
+### Accept config when a step lacks configSchema
+- **Context:** SPIKE suggests a soft spot when steps have no schema, but a warning/reporting shape isn’t defined yet.
+- **Options:** Fail compilation if config is provided, accept and warn via a report channel, or accept silently as `Record<string, unknown>`.
+- **Choice:** Accept and carry through `config ?? {}` without warnings when `configSchema` is absent.
+- **Rationale:** Keeps the compiler usable before per-step schemas (PIPELINE-2) land, without inventing a new reporting surface.
+- **Risk:** Silent acceptance could mask invalid configs until schema coverage improves.
+
+### Use minimal V1 RunSettings schema from CIV-55
+- **Context:** Run settings shape is described in CIV-55/SPIKE as a minimal V1 subset, while `MapGenConfig` remains legacy.
+- **Options:** Reuse `MapGenConfig` as settings, define a minimal `RunSettings` schema, or defer validation entirely.
+- **Choice:** Implemented the minimal `RunSettings` schema (seed, dimensions, latitudeBounds, wrap, metadata).
+- **Rationale:** Matches the issue’s schema sketch and preserves a clean boundary type for cutover work.
+- **Risk:** Additional settings may be needed later; expect schema expansion in follow-on issues.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)
