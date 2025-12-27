@@ -70,3 +70,23 @@ Standard tags/recipes/spine are now base-mod owned and core no longer seeds defa
 
 ### Cross-cutting Risks
 - Standard-tag and stage-spine exports moving out of `@mapgen/pipeline` will break any external tooling that imports them without a migration path.
+
+## REVIEW m5-u04-extract-standard-foundation-physics
+
+### Quick Take
+Foundation steps/algorithms moved under `@mapgen/base`, but core still owns the foundation artifact contract (`FoundationContext`), which undercuts the “mod-owned foundation” boundary.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/base/pipeline/foundation/producer.ts` + `packages/mapgen-core/src/core/types.ts`: base foundation still depends on core-owned `FoundationContext`/`createFoundationContext`, so the foundation artifact contract remains core-owned despite the extraction goal.
+
+### Fix Now (Recommended)
+- Decide whether `FoundationContext`/artifact helpers move into `@mapgen/base` now (or explicitly mark as a temporary shim) so core no longer owns the foundation domain contract.
+
+### Defer / Follow-up
+- Align this extraction with M5-U11’s foundation inventory work to avoid moving the foundation contract twice.
+
+### Needs Discussion
+- Is `FoundationContext` considered a shared primitive (core-owned), or should it be treated as standard-mod ownership per the U04 decision?
+
+### Cross-cutting Risks
+- Leaving foundation artifacts in core makes the mod boundary look clean in wiring but not in ownership, which may complicate U11’s artifact split.
