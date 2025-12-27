@@ -15,7 +15,6 @@ import type {
   CoastlinePlateBiasConfig,
   CoastlinesConfig,
   CorridorsConfig,
-  DiagnosticsConfig,
   FeaturesConfig,
   FeaturesDensityConfig,
   FloodplainsConfig,
@@ -45,8 +44,6 @@ import type {
   VolcanoesConfig,
 } from "@mapgen/config/index.js";
 
-export type MapConfig = MapGenConfig;
-
 export type {
   BiomeConfig,
   ClimateBaseline,
@@ -57,7 +54,6 @@ export type {
   CoastlinePlateBiasConfig,
   CoastlinesConfig,
   CorridorsConfig,
-  DiagnosticsConfig,
   FeaturesConfig,
   FeaturesDensityConfig,
   FloodplainsConfig,

@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { BASE_RECIPE_STEP_IDS } from "@mapgen/base/index.js";
-import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
+import { BASE_RECIPE_STEP_IDS, M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/base/index.js";
 
 describe("standard recipe wiring", () => {
   it("covers every standard recipe step in the dependency spine", () => {

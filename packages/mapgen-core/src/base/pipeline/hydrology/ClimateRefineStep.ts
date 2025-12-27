@@ -2,7 +2,7 @@ import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { DEV, logRainfallStats } from "@mapgen/dev/index.js";
-import { publishClimateFieldArtifact } from "@mapgen/pipeline/artifacts.js";
+import { publishClimateFieldArtifact } from "@mapgen/base/pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/pipeline/index.js";
 import { ClimateConfigSchema, FoundationDirectionalityConfigSchema, OrogenyTunablesSchema } from "@mapgen/config/index.js";

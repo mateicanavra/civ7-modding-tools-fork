@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import type { MapConfig } from "@mapgen/bootstrap/types.js";
+import type { MapGenConfig } from "@mapgen/config/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { M4_EFFECT_TAGS, registerBaseTags } from "@mapgen/base/index.js";
 
@@ -45,7 +45,7 @@ describe("tag registry", () => {
     const ctx = createExtendedMapContext(
       { width: 2, height: 2 },
       adapter,
-      {} as unknown as MapConfig
+      {} as unknown as MapGenConfig
     );
 
     const registry = new StepRegistry<typeof ctx>();

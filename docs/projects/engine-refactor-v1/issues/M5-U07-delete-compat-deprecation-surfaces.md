@@ -57,6 +57,13 @@ Make the public surface truthful. If something exists only “just in case,” i
 - Prefer hard deletion + fast failure over “keep legacy behind a compat layer.”
 - Treat any remaining external consumers as a release-note/breaking-change problem, not a reason to keep shims indefinitely.
 
+## Implementation Decisions
+
+- Deleted legacy stub entrypoints and no-op compatibility hooks (`MapOrchestrator`, `resetBootstrap`, `MapConfig` alias).
+- Removed legacy top-level `diagnostics` config surface; only `foundation.diagnostics` remains supported.
+- Deleted shim exports for step/layer wiring under `@mapgen/pipeline/*`; base pipeline wiring now lives only under `@mapgen/base/*`.
+- Moved artifact publish/get helpers to `@mapgen/base/pipeline/artifacts` and updated all in-repo consumers.
+
 ## Prework Findings (Complete)
 
 Goal: produce a deterministic “delete list” (exports + schema keys + shims) with consumer checks so implementation is mostly mechanical removal + guardrails.
