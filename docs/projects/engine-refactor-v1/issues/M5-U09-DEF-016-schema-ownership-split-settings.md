@@ -135,3 +135,19 @@ Backward compatibility risk:
 Suggested sequencing:
 - Do the schema split after extraction (`M5-U02–U06`) so the new files land in their final owner packages.
 - Handle directionality boundary changes as an explicit, reviewed sub-slice (it affects multiple steps + the run-request builder).
+
+## Implementation Decisions
+
+### Split the schema monolith by domain (within the config package)
+- **Context:** `packages/mapgen-core/src/config/schema.ts` held every schema definition and made ownership/discovery noisy post-extraction.
+- **Options:** (A) Keep the monolith and rely on section comments, (B) split schemas into domain-focused modules with `schema.ts` as a barrel/assembly.
+- **Choice:** (B) split into `packages/mapgen-core/src/config/schema/*` and keep `schema.ts` as the public entrypoint and top-level assembly.
+- **Rationale:** Improves navigability without introducing a new schema registry or extra indirection layer.
+- **Risk:** Import ordering/cycles if domains start cross-importing heavily; mitigated by keeping modules mostly independent and centralizing final assembly in `schema.ts`.
+
+### Migrate directionality from step configs to run settings (remove duplication)
+- **Context:** Directionality was threaded into multiple step configs (`foundation.dynamics.directionality`) even though it is a run-level setting.
+- **Options:** (A) Keep per-step injection, (B) store directionality in `RunRequest.settings` and have steps read from `ctx.config.foundation.dynamics.directionality`.
+- **Choice:** (B) add `settings.directionality` and remove per-step injection; steps read directionality directly from `ctx.config`.
+- **Rationale:** Eliminates “same setting repeated across unrelated step configs” while keeping the true owner (foundation config) as the canonical source.
+- **Risk:** Any out-of-repo consumer expecting directionality inside those step configs will fail validation; intended tightening for the clean architecture end-state.
