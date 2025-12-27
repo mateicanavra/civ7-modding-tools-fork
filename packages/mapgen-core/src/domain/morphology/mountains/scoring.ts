@@ -1,5 +1,5 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
+import type { ExtendedMapContext, FoundationPlateFields } from "@mapgen/core/types.js";
 import { BOUNDARY_TYPE } from "@mapgen/base/foundation/constants.js";
 import { idx } from "@mapgen/lib/grid/index.js";
 import { normalizeFractal } from "@mapgen/lib/noise/index.js";
@@ -61,13 +61,12 @@ export function computePlateBasedScores(
   },
   isWaterCheck: (x: number, y: number) => boolean,
   adapter: EngineAdapter,
-  foundation: FoundationContext
+  plates: FoundationPlateFields
 ): void {
   const dims = ctx?.dimensions;
   const width = dims?.width ?? 0;
   const height = dims?.height ?? 0;
 
-  const { plates } = foundation;
   const upliftPotential = plates.upliftPotential;
   const boundaryType = plates.boundaryType;
   const boundaryCloseness = plates.boundaryCloseness;
@@ -187,12 +186,11 @@ export function applyRiftDepressions(
   scores: Float32Array,
   hillScores: Float32Array,
   riftDepth: number,
-  foundation: FoundationContext
+  plates: FoundationPlateFields
 ): void {
   const dims = ctx?.dimensions;
   const width = dims?.width ?? 0;
   const height = dims?.height ?? 0;
-  const { plates } = foundation;
   const riftPotential = plates.riftPotential;
   const boundaryType = plates.boundaryType;
 

@@ -1,7 +1,7 @@
 import { clamp } from "@mapgen/lib/math/clamp.js";
 import type { FoundationDirectionalityConfig } from "@mapgen/bootstrap/types.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationDynamics } from "@mapgen/core/assertions.js";
 import type { SwatchHelpers, SwatchRuntime } from "@mapgen/domain/hydrology/climate/swatches/types.js";
 
 export function applyMonsoonBiasPass(
@@ -14,7 +14,6 @@ export function applyMonsoonBiasPass(
 ): void {
   const { readRainfall, writeRainfall, idx } = runtime;
   const { inLocalBounds, isWater, isCoastalLand, signedLatitudeAt } = helpers;
-  const foundation = assertFoundationContext(ctx, "storySwatches");
   const DIR = directionality || {};
   const hemispheres = (DIR as Record<string, unknown>).hemispheres as
     | Record<string, number>
@@ -23,7 +22,7 @@ export function applyMonsoonBiasPass(
   const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
   const eqBand = Math.max(0, (hemispheres?.equatorBandDeg ?? 12) | 0);
 
-  const dynamics = foundation.dynamics;
+  const dynamics = assertFoundationDynamics(ctx, "storySwatches");
   if (monsoonBias > 0 && COH > 0) {
     const baseDelta = Math.max(1, Math.round(3 * COH * monsoonBias));
 
