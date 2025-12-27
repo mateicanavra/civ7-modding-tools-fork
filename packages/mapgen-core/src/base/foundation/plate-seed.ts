@@ -12,10 +12,8 @@
 
 import type {
   PlateConfig,
-  RngState,
   SeedSnapshot,
   SeedCaptureResult,
-  RandomInterface,
 } from "@mapgen/base/foundation/types.js";
 
 // ============================================================================
@@ -28,15 +26,6 @@ function safeTimestamp(): number | null {
   } catch {
     return null;
   }
-}
-
-function freezeRngState(state: RngState | null): Readonly<RngState> | null {
-  if (!state || typeof state !== "object") return null;
-  const clone: Record<string, unknown> = {};
-  for (const key of Object.keys(state)) {
-    clone[key] = state[key];
-  }
-  return Object.freeze(clone) as Readonly<RngState>;
 }
 
 interface NormalizedSeedConfig {
@@ -55,112 +44,12 @@ function normalizeSeedConfig(config: Partial<PlateConfig> | null): NormalizedSee
   return { seedMode, fixedSeed, seedOffset };
 }
 
-interface SeedControlResult {
-  restore: (() => void) | null;
-  seed: number | null;
-  rngState: Readonly<RngState> | null;
-}
-
-/**
- * Get the RandomImpl from the global scope if available.
- * Returns null in test environments without the engine.
- */
-function getRandomImpl(): RandomInterface | null {
-  try {
-    // In game environment, this would be available as a global or import
-    const global = globalThis as Record<string, unknown>;
-    if (global.RandomImpl && typeof global.RandomImpl === "object") {
-      return global.RandomImpl as RandomInterface;
-    }
-  } catch {
-    // Ignore
-  }
-  return null;
-}
-
-function applySeedControl(
-  seedMode: "engine" | "fixed",
-  fixedSeed: number | null,
-  seedOffset: number
-): SeedControlResult {
-  const RandomImpl = getRandomImpl();
-
-  if (
-    !RandomImpl ||
-    typeof RandomImpl.getState !== "function" ||
-    typeof RandomImpl.setState !== "function"
-  ) {
-    return { restore: null, seed: null, rngState: null };
-  }
-
-  let originalState: RngState | null = null;
-  try {
-    originalState = RandomImpl.getState();
-  } catch {
-    originalState = null;
-  }
-
-  if (!originalState || typeof originalState !== "object") {
-    return { restore: null, seed: null, rngState: null };
-  }
-
-  const hasFixed = seedMode === "fixed" && Number.isFinite(fixedSeed);
-  const offsetValue = Number.isFinite(seedOffset) ? Math.trunc(seedOffset) : 0;
-
-  let seedValue: number | null = null;
-
-  if (hasFixed) {
-    seedValue = Math.trunc(fixedSeed!);
-  } else {
-    const base = originalState.state;
-    if (typeof base === "bigint") {
-      seedValue = Number(base & 0xffffffffn);
-    } else if (typeof base === "number") {
-      seedValue = base >>> 0;
-    }
-  }
-
-  if (seedValue == null) {
-    const restore = () => {
-      try {
-        RandomImpl.setState(originalState!);
-      } catch {
-        /* no-op */
-      }
-    };
-    return { restore, seed: null, rngState: freezeRngState(originalState) };
-  }
-
-  seedValue = offsetValue ? (seedValue + offsetValue) >>> 0 : seedValue >>> 0;
-
-  let appliedState: RngState | null = null;
-  try {
-    if (typeof RandomImpl.seed === "function") {
-      RandomImpl.seed(seedValue >>> 0);
-      appliedState = RandomImpl.getState?.() ?? null;
-    } else {
-      const nextState = { ...originalState };
-      if (typeof nextState.state === "bigint") {
-        nextState.state = BigInt(seedValue >>> 0);
-      } else {
-        nextState.state = seedValue >>> 0;
-      }
-      RandomImpl.setState(nextState);
-      appliedState = nextState;
-    }
-  } catch {
-    appliedState = null;
-  }
-
-  const restore = () => {
-    try {
-      RandomImpl.setState(originalState!);
-    } catch {
-      /* no-op */
-    }
-  };
-
-  return { restore, seed: seedValue >>> 0, rngState: freezeRngState(appliedState) };
+function resolveSeedValue(seedMode: "engine" | "fixed", fixedSeed: number | null, seedOffset: number): number | null {
+  if (seedMode !== "fixed") return null;
+  if (!Number.isFinite(fixedSeed)) return null;
+  const base = Math.trunc(fixedSeed!);
+  const offset = Number.isFinite(seedOffset) ? Math.trunc(seedOffset) : 0;
+  return ((base + offset) >>> 0) | 0;
 }
 
 interface SiteInput {
@@ -225,7 +114,7 @@ export const PlateSeedManager: PlateSeedManagerInterface = {
   ): SeedCaptureResult {
     const seedCfg = normalizeSeedConfig(config);
     const timestamp = safeTimestamp();
-    const control = applySeedControl(seedCfg.seedMode, seedCfg.fixedSeed, seedCfg.seedOffset);
+    const seed = resolveSeedValue(seedCfg.seedMode, seedCfg.fixedSeed, seedCfg.seedOffset);
 
     const snapshot: SeedSnapshot = {
       width,
@@ -236,12 +125,11 @@ export const PlateSeedManager: PlateSeedManagerInterface = {
 
     if (seedCfg.fixedSeed != null) snapshot.fixedSeed = seedCfg.fixedSeed;
     if (timestamp != null) snapshot.timestamp = timestamp;
-    if (control.seed != null) snapshot.seed = control.seed;
-    if (control.rngState) snapshot.rngState = control.rngState;
+    if (seed != null) snapshot.seed = seed;
 
     return {
       snapshot: Object.freeze(snapshot),
-      restore: typeof control.restore === "function" ? control.restore : null,
+      restore: null,
     };
   },
 

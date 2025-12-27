@@ -7,10 +7,13 @@
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
+import { createMockAdapter } from "@civ7/adapter";
 import { calculateVoronoiCells, computePlatesVoronoi } from "@mapgen/foundation/plates.js";
 import type { PlateConfig, RngFunction } from "@mapgen/foundation/types.js";
 
 describe("Voronoi Plate Generation", () => {
+  const voronoiUtils = createMockAdapter({ width: 1, height: 1 }).getVoronoiUtils();
+
   describe("calculateVoronoiCells", () => {
     it("should generate the requested number of plates", () => {
       const plates = calculateVoronoiCells({ width: 80, height: 50, count: 12 });
@@ -73,6 +76,7 @@ describe("Voronoi Plate Generation", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       const expectedSize = 80 * 50;
@@ -92,6 +96,7 @@ describe("Voronoi Plate Generation", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       const actualPlateCount = result.plateRegions.length;
@@ -105,6 +110,7 @@ describe("Voronoi Plate Generation", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       // There should be some tiles with high boundary closeness
@@ -122,6 +128,7 @@ describe("Voronoi Plate Generation", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       // There should be some tiles with high shield stability (interior tiles)
@@ -139,6 +146,7 @@ describe("Voronoi Plate Generation", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       // May have fewer plates due to retry logic, but should have at least some
@@ -158,6 +166,7 @@ describe("Voronoi Plate Generation", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       expect(result.meta).toBeDefined();
