@@ -336,6 +336,9 @@ export function buildFoundationContext(
   if (typeof adapter.isWater !== "function") {
     throw new Error("[Foundation] Adapter missing isWater.");
   }
+  if (typeof adapter.getVoronoiUtils !== "function") {
+    throw new Error("[Foundation] Adapter missing getVoronoiUtils.");
+  }
 
   const plateResult = computePlates(width, height, foundationCfg, rng, adapter.getVoronoiUtils());
   const dynamicsResult = computeDynamics(
