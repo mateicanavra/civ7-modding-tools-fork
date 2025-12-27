@@ -86,6 +86,36 @@ describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
     ).toBe(true);
   });
 
+  it("reports missing step failures with stageResults entries", () => {
+    setEngineGlobals(standardMapInfo);
+    const adapter = createMockAdapter({
+      width: standardMapInfo.GridWidth,
+      height: standardMapInfo.GridHeight,
+      mapSizeId: 1,
+      mapInfo: standardMapInfo,
+    });
+
+    const config = bootstrap();
+    const result = runTaskGraphGeneration({
+      mod: baseMod,
+      mapGenConfig: config,
+      orchestratorOptions: {
+        adapter,
+        logPrefix: "[TEST]",
+        recipeOverride: {
+          schemaVersion: 1,
+          id: "test.missing-step",
+          steps: [{ id: "missingStep" }],
+        },
+      },
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.stageResults).toHaveLength(1);
+    expect(result.stageResults[0]?.stage).toBe("missingStep");
+    expect(result.stageResults[0]?.error).toContain("Missing registered step");
+  });
+
   it("runs landmass plates on small maps", () => {
     setEngineGlobals(smallMapInfo);
     const adapter = createMockAdapter({
