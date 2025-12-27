@@ -1,6 +1,6 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
-import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
+import { BOUNDARY_TYPE } from "@mapgen/base/foundation/constants.js";
 import { idx } from "@mapgen/lib/grid/index.js";
 import { normalizeFractal } from "@mapgen/lib/noise/index.js";
 

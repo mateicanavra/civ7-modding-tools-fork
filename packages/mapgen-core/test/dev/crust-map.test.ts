@@ -8,8 +8,8 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { renderAsciiGrid } from "@mapgen/dev/index.js";
-import { computePlatesVoronoi } from "@mapgen/foundation/plates.js";
-import type { RngFunction } from "@mapgen/foundation/types.js";
+import { computePlatesVoronoi } from "@mapgen/base/foundation/plates.js";
+import type { RngFunction } from "@mapgen/base/foundation/types.js";
 import { assignCrustTypes, type CrustConfig, CrustType } from "@mapgen/lib/plates/crust.js";
 import { buildPlateTopology } from "@mapgen/lib/plates/topology.js";
 

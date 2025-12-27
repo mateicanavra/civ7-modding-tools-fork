@@ -8,8 +8,8 @@
 
 import { describe, it, expect, beforeEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { calculateVoronoiCells, computePlatesVoronoi } from "@mapgen/foundation/plates.js";
-import type { PlateConfig, RngFunction } from "@mapgen/foundation/types.js";
+import { calculateVoronoiCells, computePlatesVoronoi } from "@mapgen/base/foundation/plates.js";
+import type { PlateConfig, RngFunction } from "@mapgen/base/foundation/types.js";
 
 describe("Voronoi Plate Generation", () => {
   const voronoiUtils = createMockAdapter({ width: 1, height: 1 }).getVoronoiUtils();
