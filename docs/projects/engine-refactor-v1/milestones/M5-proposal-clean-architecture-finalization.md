@@ -121,7 +121,7 @@ The canonical unit definitions live as standalone issue docs under `docs/project
 
 - [x] [M5-U01](../issues/M5-U01-DEF-011-delete-crust-mode.md) — DEF‑011: delete `crustMode` and the `"legacy"` behavior branch (branch: `m5-u01-def-011-delete-crust-mode`)
 - [x] [M5-U02](../issues/M5-U02-standard-mod-boundary-skeleton.md) — introduce the standard-mod package boundary skeleton + invariants (branch: `m5-u02-standard-mod-boundary-skeleton`, review: `m5-u02-review-standard-mod-boundary-skeleton`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/244)
-- [x] [M5-U03](../issues/M5-U03-standard-registry-recipes-tags-extraction.md) — move base registry + recipes + tags into the base mod (branch: `m5-u03-standard-registry-recipes-tags-extraction`)
+- [x] [M5-U03](../issues/M5-U03-standard-registry-recipes-tags-extraction.md) — move base registry + recipes + tags into the base mod (branch: `m5-u03-standard-registry-recipes-tags-extraction`, review: `m5-u03-review-standard-registry-recipes-tags-extraction`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/245)
 - [ ] [M5-U04](../issues/M5-U04-extract-standard-foundation-physics.md) — extract foundation & physics steps + helpers into the standard mod
 - [ ] [M5-U05](../issues/M5-U05-extract-standard-morphology-hydrology.md) — extract morphology & hydrology steps + helpers into the standard mod
 - [ ] [M5-U06](../issues/M5-U06-extract-standard-ecology-placement-narrative.md) — extract ecology, placement, narrative steps + helpers into the standard mod
