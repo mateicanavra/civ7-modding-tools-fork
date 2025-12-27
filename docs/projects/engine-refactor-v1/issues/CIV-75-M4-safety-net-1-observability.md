@@ -22,9 +22,9 @@ Add the shared tracing foundation (run id, plan fingerprint, step timing) plus p
 
 ## Deliverables
 
-- Run id + recipe/plan fingerprint emitted at pipeline start.
-- Step start/finish timing captured in a shared trace sink.
-- Per-step trace toggles (settings/recipe) so steps can emit rich events without code changes.
+- [x] Run id + recipe/plan fingerprint emitted at pipeline start.
+- [x] Step start/finish timing captured in a shared trace sink.
+- [x] Per-step trace toggles (settings/recipe) so steps can emit rich events without code changes.
 
 ## Acceptance Criteria
 
@@ -205,3 +205,26 @@ Rules:
 - `enabled: false` means no events are emitted (no-op sink).
 - `basic` enables start/finish timing only.
 - `verbose` allows `step.event` payloads (step-owned) to flow to sinks.
+
+## Implementation Decisions
+
+### Use plan fingerprint as the deterministic runId
+- **Context:** Spec requires both runId + plan fingerprint but leaves the runId derivation open.
+- **Options:** Separate hash over the same inputs; reuse plan fingerprint as runId.
+- **Choice:** Reuse the plan fingerprint as runId.
+- **Rationale:** Keeps determinism and avoids additional hashing surfaces in M4.
+- **Risk:** If future consumers expect runId to diverge from plan fingerprint, they will need a new field.
+
+### Fingerprint only normalized plan inputs (exclude trace + extensions)
+- **Context:** Spec lists settings/recipe/step ids/config but is silent on trace toggles and recipe extensions.
+- **Options:** Include all settings (including trace/metadata/extensions); exclude observability toggles + extensions.
+- **Choice:** Exclude trace config and plan extensions from the fingerprint payload.
+- **Rationale:** Observability toggles should not change execution semantics; extensions are opaque.
+- **Risk:** If extensions later become semantic, fingerprints will need to incorporate them.
+
+### Default step-level tracing to "basic" when enabled
+- **Context:** Per-step toggles are optional and could be omitted for most steps.
+- **Options:** Default to off; default to basic; default to verbose.
+- **Choice:** Default to basic.
+- **Rationale:** Preserves timing visibility without requiring per-step config.
+- **Risk:** Some runs may emit more events than expected if operators assume opt-in only.

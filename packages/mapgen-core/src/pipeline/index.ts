@@ -32,6 +32,8 @@ export {
   RecipeV1Schema,
   RunRequestSchema,
   RunSettingsSchema,
+  TraceConfigSchema,
+  TraceLevelSchema,
 } from "@mapgen/pipeline/execution-plan.js";
 export type {
   ExecutionPlan,
@@ -43,6 +45,12 @@ export type {
   RunRequest,
   RunSettings,
 } from "@mapgen/pipeline/execution-plan.js";
+
+export {
+  computePlanFingerprint,
+  createTraceSessionFromPlan,
+  deriveRunId,
+} from "@mapgen/pipeline/observability.js";
 
 export { registerStandardLibrary, type StandardLibraryRuntime } from "@mapgen/pipeline/standard-library.js";
 export { registerFoundationLayer, type FoundationLayerRuntime } from "@mapgen/pipeline/foundation/index.js";

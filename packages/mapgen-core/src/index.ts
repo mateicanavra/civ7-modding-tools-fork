@@ -26,6 +26,9 @@ export * from "@mapgen/core/index.js";
 // Re-export dev diagnostics module
 export * from "@mapgen/dev/index.js";
 
+// Re-export tracing primitives
+export * from "@mapgen/trace/index.js";
+
 // Re-export MapOrchestrator
 export {
   MapOrchestrator,

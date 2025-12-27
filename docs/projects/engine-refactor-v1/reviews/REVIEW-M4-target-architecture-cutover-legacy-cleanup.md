@@ -39,6 +39,16 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 
 - **Intent:** Replace regex/allowlist validation + hard-coded executor verification with registry-driven catalog checks; make `effect:*` schedulable; validate demo payloads on registration.
 - **Strengths:** TagRegistry provides a canonical catalog; executor/registry now validate via registry; effect tags are included; demo payload validation fails fast with unit coverage.
-- **Gaps:** Tag IDs are only validated by kind prefix; canonical format validation (if still desired) is not enforced at registration.
-- **Follow-up:** Consider reintroducing stricter tag-id validation at registry registration if canonical formats still matter.
+- **Gaps:** Satisfaction now requires explicit `provides`, so any partial runs that relied on pre-initialized fields/artifacts will now fail without explicit tags; tag IDs are only validated by kind prefix, so canonical format validation (if still desired) is not enforced at registration.
+- **Follow-up:** Add targeted tests or docs for partial-pipeline behavior; consider reintroducing stricter tag-id validation at registry registration if canonical formats still matter.
 - **Update (2025-12-23):** Added a guardrail test that preallocated field buffers remain unsatisfied until explicitly provided.
+
+
+## CIV-75 — [M4] Safety net: step-level tracing foundation
+
+**Reviewed:** 2025-12-23
+
+- **Intent:** Establish a trace event model + sink, runId/plan fingerprint, step timing, and per-step trace controls.
+- **Strengths:** Trace session + sink abstraction; `PipelineExecutor` emits run/step timing events; deterministic fingerprint with canonicalization; basic test covers run/step events.
+- **Gaps:** Trace enablement semantics are ambiguous (`enabled` defaults false while runtime allows steps-only enablement), and step events use `nodeId = stepId`, so repeated steps can’t be disambiguated against `ExecutionPlan` nodes.
+- **Follow-up:** Align trace enablement contract (require `enabled` or drop the default) and emit plan node IDs once ExecutionPlan-based execution lands.
