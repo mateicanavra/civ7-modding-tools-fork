@@ -3,7 +3,7 @@ import { ctxRandom, writeHeightfield } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { clamp } from "@mapgen/lib/math/index.js";
 import { forEachNeighbor3x3 } from "@mapgen/lib/grid/neighborhood/square-3x3.js";
-import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
+import { BOUNDARY_TYPE } from "@mapgen/base/foundation/constants.js";
 import { COAST_TERRAIN } from "@mapgen/core/terrain-constants.js";
 import { getNarrativeCorridors, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
 import { computePlateBias } from "@mapgen/domain/morphology/coastlines/plate-bias.js";

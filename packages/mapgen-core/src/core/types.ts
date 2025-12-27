@@ -14,7 +14,7 @@
 
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
 import { initializeTerrainConstants } from "@mapgen/core/terrain-constants.js";
-import type { SeedSnapshot } from "@mapgen/foundation/types.js";
+import type { SeedSnapshot } from "@mapgen/base/foundation/types.js";
 import type { MapGenConfig } from "@mapgen/config/index.js";
 import type { TraceScope } from "@mapgen/trace/index.js";
 import { createNoopTraceScope } from "@mapgen/trace/index.js";
