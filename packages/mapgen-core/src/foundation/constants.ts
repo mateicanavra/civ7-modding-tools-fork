@@ -1,8 +1,3 @@
-/**
- * Foundation Constants
- *
- * Shared constants for foundation simulation.
- */
+export { BOUNDARY_TYPE } from "@mapgen/base/foundation/constants.js";
+export type { BoundaryType, BoundaryTypeName } from "@mapgen/base/foundation/constants.js";
 
-// Re-export BOUNDARY_TYPE from types for convenience
-export { BOUNDARY_TYPE, type BoundaryType, type BoundaryTypeName } from "@mapgen/foundation/types.js";
