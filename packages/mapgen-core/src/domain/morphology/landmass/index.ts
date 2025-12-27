@@ -16,7 +16,6 @@ import type {
   LandmassConfig,
   LandmassGenerationResult,
 } from "@mapgen/domain/morphology/landmass/types.js";
-import { normalizeCrustMode, type CrustMode } from "@mapgen/domain/morphology/landmass/crust-mode.js";
 import { computeTargetLandTiles } from "@mapgen/domain/morphology/landmass/water-target.js";
 import { computeClosenessLimit, tryCrustFirstLandmask } from "@mapgen/domain/morphology/landmass/crust-first-landmask.js";
 import { applyLandmaskToTerrain } from "@mapgen/domain/morphology/landmass/terrain-apply.js";
@@ -42,7 +41,6 @@ export type {
   LandmassWindow,
   PlateStats,
 } from "@mapgen/domain/morphology/landmass/types.js";
-export { normalizeCrustMode, type CrustMode } from "@mapgen/domain/morphology/landmass/crust-mode.js";
 
 export { applyLandmassPostAdjustments } from "@mapgen/domain/morphology/landmass/post-adjustments.js";
 export {
@@ -106,8 +104,6 @@ export function createPlateDrivenLandmasses(
 
   const { waterPct, targetLandTiles } = computeTargetLandTiles(size, landmassCfg);
 
-  const crustMode = normalizeCrustMode(landmassCfg.crustMode);
-
   const closenessLimit = computeClosenessLimit(postCfg);
   const crustResult = tryCrustFirstLandmask(
     width,
@@ -117,7 +113,6 @@ export function createPlateDrivenLandmasses(
     closenessLimit,
     targetLandTiles,
     landmassCfg,
-    crustMode,
     ctx
   );
 

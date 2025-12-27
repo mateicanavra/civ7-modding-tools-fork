@@ -26,9 +26,9 @@ Make it impossible to accidentally “keep legacy alive” through configuration
 
 ## Deliverables
 
-- Remove `crustMode` from the config schema and any forwarding/plumbing layers.
-- Delete the `"legacy"` behavior branch in landmask/crust/ocean separation.
-- Update any tests/docs that assume the existence of the selector or the legacy behavior.
+- [x] Remove `crustMode` from the config schema and any forwarding/plumbing layers.
+- [x] Delete the `"legacy"` behavior branch in landmask/crust/ocean separation.
+- [x] Update any tests/docs that assume the existence of the selector or the legacy behavior.
 
 ## Acceptance Criteria
 
