@@ -44,7 +44,7 @@ Wire it up (The "Brain"). Refactor the `MapOrchestrator` to use **Constructor In
 ## Dependencies / Notes
 - **Blocked by:** All previous sub-issues (LOCAL-TBD-1 through LOCAL-TBD-4, including LOCAL-TBD-2.5).
 - This is the final step to make the refactor "live".
-- **Reference:** [Architecture Spec](../../../system/libs/mapgen/architecture.md) for pipeline orchestration details.
+- **Reference:** [Architecture Spec](../../../../system/libs/mapgen/architecture.md) for pipeline orchestration details.
 - **PRD Note:** The Legacy Bridge is a temporary measure to avoid refactoring the entire Morphology layer in this PR.
 - **New Tensors:** The bridge must now copy `volcanism`, `fracture`, and `cumulativeUplift` in addition to the original tensors.
 
