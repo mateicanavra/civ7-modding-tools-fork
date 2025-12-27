@@ -5,11 +5,14 @@
  */
 
 import { describe, it, expect } from "bun:test";
+import { createMockAdapter } from "@civ7/adapter";
 import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
 import { computePlatesVoronoi } from "@mapgen/foundation/plates.js";
 import type { PlateConfig, RngFunction } from "@mapgen/foundation/types.js";
 
 describe("Plate Boundary Calculations", () => {
+  const voronoiUtils = createMockAdapter({ width: 1, height: 1 }).getVoronoiUtils();
+
   // Deterministic RNG for testing
   function createDeterministicRng(seed = 12345): RngFunction {
     let state = seed;
@@ -24,6 +27,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       const validTypes = [
@@ -42,6 +46,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       let hasConvergent = false;
@@ -58,6 +63,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       let hasDivergent = false;
@@ -76,6 +82,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       // Count tiles at different closeness levels
@@ -98,6 +105,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       // For tiles with high boundary closeness, shield stability should be low
@@ -118,6 +126,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       // Find tiles with convergent boundaries and check uplift
@@ -135,6 +144,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       // Find tiles with divergent boundaries and check rift
@@ -152,6 +162,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       // Tectonic stress should equal boundary closeness
@@ -166,6 +177,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       for (let i = 0; i < result.plateMovementU.length; i++) {
@@ -182,6 +194,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       let hasMovement = false;
@@ -200,6 +213,7 @@ describe("Plate Boundary Calculations", () => {
       const config: PlateConfig = { count: 8 };
       const result = computePlatesVoronoi(80, 50, config, {
         rng: createDeterministicRng(),
+        voronoiUtils,
       });
 
       expect(result.meta?.boundaryStats).toBeDefined();

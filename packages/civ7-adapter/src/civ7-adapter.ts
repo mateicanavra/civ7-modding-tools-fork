@@ -15,6 +15,7 @@ import type {
   MapInitParams,
   MapSizeId,
   PlotTagName,
+  VoronoiUtils,
 } from "./types.js";
 import { ENGINE_EFFECT_TAGS } from "./effects.js";
 
@@ -24,9 +25,6 @@ import "/base-standard/maps/map-globals.js";
 // Load Voronoi/kd-tree utilities so global VoronoiUtils is available for plate generation
 // @ts-ignore - resolved only at Civ7 runtime
 import { VoronoiUtils as CivVoronoiUtils } from "/base-standard/scripts/kd-tree.js";
-// Ensure global exposure for mapgen-core's auto-detect
-(globalThis as Record<string, unknown>).VoronoiUtils =
-  (globalThis as Record<string, unknown>).VoronoiUtils || CivVoronoiUtils;
 // Vanilla Civ7 biomes/features live in feature-biome-generator.js
 // @ts-ignore - resolved only at Civ7 runtime
 import { designateBiomes as civ7DesignateBiomes, addFeatures as civ7AddFeatures } from "/base-standard/maps/feature-biome-generator.js";
@@ -217,6 +215,10 @@ export class Civ7Adapter implements EngineAdapter {
   }
 
   // === UTILITIES ===
+
+  getVoronoiUtils(): VoronoiUtils {
+    return CivVoronoiUtils as unknown as VoronoiUtils;
+  }
 
   validateAndFixTerrain(): void {
     TerrainBuilder.validateAndFixTerrain();

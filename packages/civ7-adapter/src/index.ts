@@ -27,6 +27,7 @@ export type {
   ContinentBounds,
   PlotTagName,
   LandmassIdName,
+  VoronoiUtils,
 } from "./types.js";
 export { ENGINE_EFFECT_TAGS } from "./effects.js";
 export type { EngineEffectTagId } from "./effects.js";
