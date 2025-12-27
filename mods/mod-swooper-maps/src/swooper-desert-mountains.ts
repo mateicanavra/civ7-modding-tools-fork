@@ -121,33 +121,33 @@ function buildConfig(): BootstrapConfig {
             },
           },
         },
-    },
-    oceanSeparation: {
-      enabled: false, // Ensure oceans separate continents
-      baseSeparationTiles: 3,
-      boundaryClosenessMultiplier: 0.9,
-      maxPerRowDelta: 10,
-      minChannelWidth: 3,
-      respectSeaLanes: true,
-      edgeWest: {
-        enabled: false,
-        baseTiles: 3,
-        boundaryClosenessMultiplier: 0.5,
-        maxPerRowDelta: 1,
       },
-      edgeEast: {
-        enabled: false,
-        baseTiles: 3,
-        boundaryClosenessMultiplier: 0.5,
-        maxPerRowDelta: 1,
+      oceanSeparation: {
+        enabled: false, // Ensure oceans separate continents
+        baseSeparationTiles: 3,
+        boundaryClosenessMultiplier: 0.9,
+        maxPerRowDelta: 10,
+        minChannelWidth: 3,
+        respectSeaLanes: true,
+        edgeWest: {
+          enabled: false,
+          baseTiles: 3,
+          boundaryClosenessMultiplier: 0.5,
+          maxPerRowDelta: 1,
+        },
+        edgeEast: {
+          enabled: false,
+          baseTiles: 3,
+          boundaryClosenessMultiplier: 0.5,
+          maxPerRowDelta: 1,
+        },
       },
-    },
       climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0,
-            bandWeight: 1,
-          },
+	        baseline: {
+	          blend: {
+	            baseWeight: 0,
+	            bandWeight: 1,
+	          },
           bands: {
             // Standard Earth-like distribution
             deg0to10: 80, // Wet tropics

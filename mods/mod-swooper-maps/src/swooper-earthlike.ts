@@ -117,55 +117,55 @@ function buildConfig(): BootstrapConfig {
           },
           directionality: {
             cohesion: 0.15,
-          primaryAxes: {
-            plateAxisDeg: 12,
-            windBiasDeg: 12,
-            currentBiasDeg: 12,
-          },
-          interplay: {
-            windsFollowPlates: 0.3,
-            currentsFollowWinds: 0.6,
-          },
-          hemispheres: {
-            southernFlip: true,
-            // Enable monsoon pass in climate swatches/refine.
-            monsoonBias: 0.82,
-            equatorBandDeg: 18,
-          },
-          variability: {
-            angleJitterDeg: 15,
-            magnitudeVariance: 0.4,
+            primaryAxes: {
+              plateAxisDeg: 12,
+              windBiasDeg: 12,
+              currentBiasDeg: 12,
+            },
+            interplay: {
+              windsFollowPlates: 0.3,
+              currentsFollowWinds: 0.6,
+            },
+            hemispheres: {
+              southernFlip: true,
+              // Enable monsoon pass in climate swatches/refine.
+              monsoonBias: 0.82,
+              equatorBandDeg: 18,
+            },
+            variability: {
+              angleJitterDeg: 15,
+              magnitudeVariance: 0.4,
+            },
           },
         },
       },
-    },
-    oceanSeparation: {
-      // Leave separation off; keep defaults earthlike if enabled later.
-      enabled: false,
-      baseSeparationTiles: 0,
-      boundaryClosenessMultiplier: 1.0,
-      maxPerRowDelta: 3,
-      minChannelWidth: 4,
-      respectSeaLanes: true,
-      edgeWest: {
+      oceanSeparation: {
+        // Leave separation off; keep defaults earthlike if enabled later.
         enabled: false,
-        baseTiles: 0,
+        baseSeparationTiles: 0,
         boundaryClosenessMultiplier: 1.0,
-        maxPerRowDelta: 2,
+        maxPerRowDelta: 3,
+        minChannelWidth: 4,
+        respectSeaLanes: true,
+        edgeWest: {
+          enabled: false,
+          baseTiles: 0,
+          boundaryClosenessMultiplier: 1.0,
+          maxPerRowDelta: 2,
+        },
+        edgeEast: {
+          enabled: false,
+          baseTiles: 0,
+          boundaryClosenessMultiplier: 1.0,
+          maxPerRowDelta: 2,
+        },
       },
-      edgeEast: {
-        enabled: false,
-        baseTiles: 0,
-        boundaryClosenessMultiplier: 1.0,
-        maxPerRowDelta: 2,
-      },
-    },
       climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0,
-            bandWeight: 1,
-          },
+	        baseline: {
+	          blend: {
+	            baseWeight: 0,
+	            bandWeight: 1,
+	          },
           bands: {
             deg0to10: 125,
             deg10to20: 105,
