@@ -72,5 +72,65 @@ Completion rule:
 
 ## Pre-work
 
-_TBD_
+Goal: enumerate climate’s adapter reads and propose explicit TS-owned prerequisites (`artifact:*` / `field:*`) so climate correctness doesn’t depend on “engine state happens to be ready”.
 
+### 1) Inventory: adapter reads used by climate generation
+
+Primary climate modules with adapter reads:
+- `packages/mapgen-core/src/domain/hydrology/climate/baseline.ts`
+- `packages/mapgen-core/src/domain/hydrology/climate/refine/*`
+- `packages/mapgen-core/src/domain/hydrology/climate/swatches/*`
+- `packages/mapgen-core/src/domain/hydrology/climate/orographic-shadow.ts`
+
+Observed adapter reads (from `rg "\\b(adapter\\.|ctx\\.adapter\\.)" packages/mapgen-core/src/domain/hydrology/climate`):
+
+| Adapter read | Where used | Replaceable with TS-owned product? |
+| --- | --- | --- |
+| `adapter.isWater(x,y)` | baseline + most refine passes | Yes → `artifact:heightfield` (`HeightfieldBuffer.landMask`) |
+| `adapter.getElevation(x,y)` | baseline + refine passes | Yes → `artifact:heightfield` (`HeightfieldBuffer.elevation`) |
+| `adapter.getLatitude(x,y)` / `getPlotLatitude` | baseline + orographic/shadow paths | Yes → compute from `RunRequest.settings.latitudeBounds` + `settings.dimensions` |
+| `adapter.isAdjacentToRivers(x,y,1)` | river corridor refinement | Mostly yes → `artifact:riverAdjacency` (already published) |
+| `adapter.isMountain(x,y)` | orographic shadow sampling (optional) | Yes → derive from `field:terrainType` or `artifact:heightfield.terrain` + terrain constants |
+| `adapter.isCoastalLand(x,y)` | swatches | Yes → derive from `landMask` adjacency + terrain/coast info |
+
+### 2) Proposed explicit prerequisites (products/contracts)
+
+Existing products that climate can depend on (already in the repo):
+- `artifact:heightfield` (published by hydrology steps; includes `terrain`, `elevation`, `landMask`)
+  - `packages/mapgen-core/src/pipeline/artifacts.ts#publishHeightfieldArtifact`
+  - Published by:
+    - `packages/mapgen-core/src/pipeline/hydrology/LakesStep.ts`
+    - `packages/mapgen-core/src/pipeline/hydrology/ClimateBaselineStep.ts`
+    - `packages/mapgen-core/src/pipeline/hydrology/RiversStep.ts`
+- `artifact:riverAdjacency` (published after rivers)
+  - `packages/mapgen-core/src/pipeline/hydrology/RiversStep.ts#publishRiverAdjacencyArtifact`
+- `artifact:climateField` (published during climate baseline/refine)
+
+Settings boundary already exists (should be the home for latitude semantics):
+- `RunRequest.settings.latitudeBounds` is constructed in `packages/mapgen-core/src/orchestrator/task-graph.ts`.
+
+### 3) Classification + recommended replacements
+
+Reify now (remove adapter reads in climate logic):
+- Water + elevation: consume `artifact:heightfield` instead of reading engine state directly.
+  - This aligns with the existing `syncHeightfield(ctx)` behavior (`packages/mapgen-core/src/core/types.ts`) which already materializes `terrain/elevation/landMask` into TS buffers.
+- Latitude: compute from settings (no engine readback required).
+  - Keep adapter latitude reads only as a civ-runtime debugging/validation tool if needed.
+- River adjacency: consume `artifact:riverAdjacency` (already required by some climate paths; see `packages/mapgen-core/src/domain/hydrology/climate/runtime.ts` warnings/errors).
+
+Potentially keep as adapter reads temporarily (if any gaps appear during implementation):
+- Anything that is not yet represented in TS buffers (e.g., if some step mutates engine terrain without updating buffers/artifacts).
+  - Use this as a signal to fix publication/wiring, not to keep permanent adapter reads.
+
+### 4) Pipeline implications (where products are produced/consumed)
+
+Current order (standard hydrology layer):
+- `lakes` → `climateBaseline` → `rivers` → `climateRefine`
+
+Explicit prerequisites implied by the replacement plan:
+- `climateBaseline` should require `artifact:heightfield` (or publish it first, then run baseline using TS-owned heightfield).
+- `climateRefine` should require:
+  - `artifact:heightfield`
+  - `artifact:riverAdjacency` (for river corridor refinement)
+  - `artifact:climateField` (baseline produced rainfall/humidity fields)
+  - `artifact:foundation.dynamics@v1` (once DEF‑014 split lands) for wind-driven refinement paths
