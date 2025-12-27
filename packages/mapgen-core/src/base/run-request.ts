@@ -12,8 +12,6 @@ function resolveRunSeed(config: MapGenConfig): number {
 }
 
 function buildStepConfig(stepId: string, config: MapGenConfig): Record<string, unknown> {
-  const directionality = config.foundation?.dynamics?.directionality ?? {};
-
   switch (stepId) {
     case "foundation":
       return { foundation: config.foundation ?? {} };
@@ -48,7 +46,6 @@ function buildStepConfig(stepId: string, config: MapGenConfig): Record<string, u
       return {
         climate: config.climate ?? {},
         story: { orogeny: config.story?.orogeny ?? {} },
-        foundation: { dynamics: { directionality } },
       };
     case "storySeed":
       return { margins: config.margins ?? {} };
@@ -57,7 +54,6 @@ function buildStepConfig(stepId: string, config: MapGenConfig): Record<string, u
     case "storyRifts":
       return {
         story: { rift: config.story?.rift ?? {} },
-        foundation: { dynamics: { directionality } },
       };
     case "storyOrogeny":
       return { story: { orogeny: config.story?.orogeny ?? {} } };
@@ -65,12 +61,10 @@ function buildStepConfig(stepId: string, config: MapGenConfig): Record<string, u
     case "storyCorridorsPost":
       return {
         corridors: config.corridors ?? {},
-        foundation: { dynamics: { directionality } },
       };
     case "storySwatches":
       return {
         climate: config.climate ?? {},
-        foundation: { dynamics: { directionality } },
       };
     case "biomes":
       return { biomes: config.biomes ?? {}, corridors: config.corridors ?? {} };
@@ -119,7 +113,7 @@ export function buildRunRequest(
         bottomLatitude: mapInfo.MinLatitude ?? -90,
       },
       wrap: { wrapX: true, wrapY: false },
+      directionality: config.foundation?.dynamics?.directionality ?? {},
     },
   };
 }
-

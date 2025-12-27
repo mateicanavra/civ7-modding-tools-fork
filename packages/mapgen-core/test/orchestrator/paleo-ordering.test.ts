@@ -120,12 +120,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
         case "climateBaseline":
           return { climate: { baseline: config.climate?.baseline ?? {} } };
         case "storySwatches":
-          return {
-            climate: config.climate ?? {},
-            foundation: {
-              dynamics: { directionality: config.foundation?.dynamics?.directionality ?? {} },
-            },
-          };
+          return { climate: config.climate ?? {} };
         case "rivers":
           return { climate: { story: { paleo: config.climate?.story?.paleo ?? {} } } };
         default:
@@ -146,6 +141,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
         dimensions: { width, height },
         latitudeBounds: { topLatitude: mapInfo.MaxLatitude, bottomLatitude: mapInfo.MinLatitude },
         wrap: { wrapX: true, wrapY: false },
+        directionality: config.foundation?.dynamics?.directionality ?? {},
       },
     };
 
