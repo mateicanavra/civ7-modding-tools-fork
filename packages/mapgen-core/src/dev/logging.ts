@@ -54,7 +54,7 @@ export function devLogPrefixed(prefix: string, ...args: unknown[]): void {
 export function devWarn(...args: unknown[]): void {
   if (!DEV.ENABLED) return;
   try {
-    console.warn(LOG_PREFIX, ...args);
+    console.log(`${LOG_PREFIX}[WARN]`, ...args);
   } catch {
     // Swallow errors in logging
   }
