@@ -28,7 +28,7 @@ Scope what remains to fully complete the mapgen refactor from the M4 tip: remove
 - `state:engine.*` is absent from mapgen-core runtime sources.
 - The standard smoke test passes under `MockAdapter` (standard recipe compiles/executes without schema failures).
 - The obvious legacy/compat surfaces (legacy stub entrypoints, back-compat type aliases, no-op reset hooks) have no in-repo runtime consumers beyond tests/archived docs.
-- The remaining open decision is not “should we keep legacy?” but a real semantics question (DEF‑011, `crustMode` selector).
+- DEF‑011 is locked (delete `crustMode`; delete the `"legacy"` branch; keep `"area"` as the canonical behavior path).
 
 Concrete spot checks used during investigation:
 
@@ -53,6 +53,7 @@ To reach the clean target, we need to invert that relationship:
 
 - `@swooper/mapgen-core` becomes a generic pipeline + shared primitives library (StepRegistry, TagRegistry, ExecutionPlan compiler, executor, tracing, shared math/grid/rng/noise utilities, etc.).
 - The standard pipeline becomes a mod/plugin that registers its own tags, steps, recipes, and domain helpers without the core package “knowing” about narrative/placement/ecology/etc.
+  - In this repo, that plugin should live as a workspace package under `mods/mod-mapgen-standard` (so “domain behavior lives in mods,” not in core).
 
 This is the workstream that makes the rest of the cleanup *real*, because it’s what removes the last structural reason for legacy shims and milestone-coded scaffolding to exist in core.
 

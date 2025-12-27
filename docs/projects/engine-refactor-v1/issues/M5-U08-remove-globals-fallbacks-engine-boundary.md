@@ -55,23 +55,93 @@ Make the engine boundary boring and predictable. Missing capabilities fail fast 
 - Prefer explicit “required adapter capabilities” over environment sniffing.
 - Keep civ-runtime-only integration in civ adapter packages, not in core.
 
-## Prework Prompt (Agent Brief)
+## Prework Findings (Complete)
 
-Goal: enumerate every remaining ambient pattern and propose its explicit replacement contract.
+Goal: enumerate remaining ambient/global patterns and propose explicit replacements that make missing capabilities fail fast (no “it works because globals exist”).
 
-Deliverables:
-- Inventory all remaining ambient patterns: `globalThis` detection, module-level caches, fallback defaults + warnings, implicit env detection.
-- For each: propose the explicit replacement contract (adapter-provided capability, context-provided wiring, or civ-runtime-only integration layer).
-- Identify which patterns are correctness-critical vs convenience-only (so we can prioritize deletions).
+### 1) Inventory: remaining ambient patterns (mapgen-core)
 
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
+#### A) `globalThis` / ambient-global detection
 
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
+```yaml
+ambientPatterns:
+  globalThisDetection:
+    - location: packages/mapgen-core/src/foundation/plates.ts
+      pattern: 'Reads globalThis.VoronoiUtils (via adaptGlobalVoronoiUtils()); supports setDefaultVoronoiUtils(...) injection'
+      correctnessCritical: true
+      notes: Foundation output quality + determinism depends on the Voronoi implementation used; global fallback is an ambient dependency surface.
+    - location: packages/mapgen-core/src/foundation/plate-seed.ts
+      pattern: 'Reads globalThis.RandomImpl to capture/restore RNG state (getRandomImpl())'
+      correctnessCritical: true
+      notes: Implicitly depends on engine-provided RNG impl; in non-engine contexts it becomes a silent no-op.
+    - location: packages/mapgen-core/src/dev/introspection.ts
+      pattern: Reads globalThis to introspect engine globals
+      correctnessCritical: false
+      notes: Dev-only; should remain explicitly fenced.
+    - location: packages/mapgen-core/src/polyfills/text-encoder.ts
+      pattern: 'typeof globalThis.TextEncoder === "undefined"'
+      correctnessCritical: false
+      notes: Intentional runtime polyfill; not a hidden dependency for correctness.
+```
 
-## Pre-work
+#### B) Module-level caches / process-wide hidden state
 
-_TBD_
+```yaml
+ambientPatterns:
+  processWideState:
+    - location: packages/mapgen-core/src/core/terrain-constants.ts
+      pattern: Module-scoped cached constants + fallback warning set; reinitializes on adapter change
+      correctnessCritical: true
+      notes: Terrain/biome/feature index mismatches are correctness issues; fallback+warning can mask real miswiring.
+    - location: packages/mapgen-core/src/domain/narrative/overlays/index.ts
+      pattern: In-memory registries/caches with explicit reset*() calls from runTaskGraphGeneration
+      correctnessCritical: true
+      notes: Reset discipline helps, but process-wide caches are still a hidden dependency surface. M5 makes these run-scoped (no module globals; no hot-path reset*()).
+```
 
+### 2) Replacement contracts (explicit wiring)
+
+#### A) Voronoi utilities (replace `globalThis.VoronoiUtils`)
+
+Decision (locked for M5): replace with an explicit adapter capability:
+- Extend `EngineAdapter` with `getVoronoiUtils(): VoronoiUtilsInterface` (or equivalent) and delete the `globalThis.VoronoiUtils` probing path.
+- `Civ7Adapter` returns the engine implementation; `MockAdapter` returns a deterministic pure‑TS implementation.
+
+Implementation rule of thumb:
+- In “standard pipeline” runs, Voronoi utils must be provided explicitly; missing capability should throw early in foundation (fail fast).
+- In unit tests, the MockAdapter (or test harness) provides a deterministic implementation explicitly.
+
+#### B) Seed control (replace `globalThis.RandomImpl` detection)
+
+Decision (locked for M5): delete engine-RNG probing from core:
+- `@swooper/mapgen-core` must not read `globalThis.RandomImpl` (or equivalent) for correctness.
+- Deterministic randomness for TS algorithms comes from the run context RNG (`ctx.rng`) seeded/configured explicitly.
+- Any engine-only RNG state management (if it still exists) is owned by the Civ adapter implementation, not by domain logic.
+
+#### C) Terrain constant initialization + fallbacks
+
+Replace “fallback + warn” with explicit adapter requirements:
+- Treat missing indices (`getTerrainTypeIndex`, `getBiomeGlobal`, `getFeatureTypeIndex`) as an adapter capability failure in production runs.
+- Keep a clearly scoped test-only fallback (e.g., MockAdapter sets explicit indices), but avoid module-level “silently accept mismatch” behavior.
+
+#### D) Narrative caches / reset hooks
+
+Decision (locked for M5): no process‑wide narrative caches in core:
+- Convert narrative caches to **run‑scoped** state owned by the standard mod (or explicitly published artifacts), so a run creates/owns its cache state instead of relying on module globals.
+- Delete `reset*()` calls from core entrypoints/hot paths; if a cache exists, it is instantiated per run (no “remember to reset” discipline).
+
+### 3) Prioritization (correctness vs convenience)
+
+Correctness-critical (should be addressed early):
+- Voronoi utils global detection (foundation correctness surface)
+- Seed control global detection (determinism surface)
+- Terrain constants fallback+warning (can hide adapter wiring errors)
+ 
+Required cleanup once extraction stabilizes:
+- Narrative caches / reset hooks (remove process‑wide state; make run‑scoped)
+
+### 4) Suggested scoping queries
+
+- `rg -n \"\\bglobalThis\\b\" packages/mapgen-core/src`
+- `rg -n \"fallback\\b|\\bwarn\\b\" packages/mapgen-core/src/core/terrain-constants.ts`
+- `rg -n \"resetStoryOverlays|resetOrogenyCache|resetCorridorStyleCache\" packages/mapgen-core/src`

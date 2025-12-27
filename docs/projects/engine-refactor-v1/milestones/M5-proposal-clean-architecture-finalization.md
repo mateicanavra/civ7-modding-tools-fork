@@ -29,6 +29,7 @@ What M4 does *not* buy us is the final package/ownership architecture. The large
 
 - Core packages are generic pipeline + patterns + shared primitives only. They do not embed standard-mod domain behavior.
 - The standard pipeline is a mod/plugin: it owns its steps, tag definitions, recipes, and domain helpers. Core doesn’t “know” narrative/morphology/ecology/placement exist.
+- In this repo, the standard plugin lives as a workspace package at `mods/mod-mapgen-standard` and is supplied to core via explicit injection (no built-in standard import in core).
 
 ### Engine boundary (boring on purpose)
 
@@ -118,25 +119,25 @@ Triage follow-ups that *do* intersect with “super clean” end state (and are 
 
 The canonical unit definitions live as standalone issue docs under `docs/projects/engine-refactor-v1/issues/`. This milestone doc keeps only the index and the sequencing/grouping layer.
 
-| Unit | Summary |
-| --- | --- |
-| [M5-U01](../issues/M5-U01-DEF-011-delete-crust-mode.md) | DEF‑011: delete `crustMode` and the `"legacy"` behavior branch |
-| [M5-U02](../issues/M5-U02-standard-mod-boundary-skeleton.md) | Introduce the standard-mod package boundary skeleton + invariants |
-| [M5-U03](../issues/M5-U03-standard-registry-recipes-tags-extraction.md) | Move standard registry + recipes + tags into the standard mod |
-| [M5-U04](../issues/M5-U04-extract-standard-foundation-physics.md) | Extract foundation & physics steps + helpers into the standard mod |
-| [M5-U05](../issues/M5-U05-extract-standard-morphology-hydrology.md) | Extract morphology & hydrology steps + helpers into the standard mod |
-| [M5-U06](../issues/M5-U06-extract-standard-ecology-placement-narrative.md) | Extract ecology, placement, narrative steps + helpers into the standard mod |
-| [M5-U07](../issues/M5-U07-delete-compat-deprecation-surfaces.md) | Delete dead/compat/deprecation-only surfaces (“no dead code” true) |
-| [M5-U08](../issues/M5-U08-remove-globals-fallbacks-engine-boundary.md) | Remove ambient globals + silent fallbacks (boring engine boundary) |
-| [M5-U09](../issues/M5-U09-DEF-016-schema-ownership-split-settings.md) | DEF‑016 + follow-ups: schema ownership split + “settings” migration |
-| [M5-U10](../issues/M5-U10-colocation-consolidation-pass.md) | Colocation + consolidation pass (reduce wiring-only indirection) |
-| [M5-U11](../issues/M5-U11-DEF-014-foundation-inventory.md) | DEF‑014: foundation artifact inventory + consumer migration |
-| [M5-U12](../issues/M5-U12-DEF-010-climate-prerequisite-reification.md) | DEF‑010: climate prerequisite reification (no hidden engine-read prereqs) |
-| [M5-U13](../issues/M5-U13-DEF-017-strong-effect-verification.md) | DEF‑017: stronger `effect:*` verification via adapter read-back APIs + tests |
+- [M5-U01](../issues/M5-U01-DEF-011-delete-crust-mode.md) — DEF‑011: delete `crustMode` and the `"legacy"` behavior branch
+- [M5-U02](../issues/M5-U02-standard-mod-boundary-skeleton.md) — introduce the standard-mod package boundary skeleton + invariants
+- [M5-U03](../issues/M5-U03-standard-registry-recipes-tags-extraction.md) — move standard registry + recipes + tags into the standard mod
+- [M5-U04](../issues/M5-U04-extract-standard-foundation-physics.md) — extract foundation & physics steps + helpers into the standard mod
+- [M5-U05](../issues/M5-U05-extract-standard-morphology-hydrology.md) — extract morphology & hydrology steps + helpers into the standard mod
+- [M5-U06](../issues/M5-U06-extract-standard-ecology-placement-narrative.md) — extract ecology, placement, narrative steps + helpers into the standard mod
+- [M5-U07](../issues/M5-U07-delete-compat-deprecation-surfaces.md) — delete dead/compat/deprecation-only surfaces (“no dead code” true)
+- [M5-U08](../issues/M5-U08-remove-globals-fallbacks-engine-boundary.md) — remove ambient globals + silent fallbacks (boring engine boundary)
+- [M5-U09](../issues/M5-U09-DEF-016-schema-ownership-split-settings.md) — DEF‑016 + follow-ups: schema ownership split + “settings” migration
+- [M5-U10](../issues/M5-U10-colocation-consolidation-pass.md) — colocation + consolidation pass (reduce wiring-only indirection)
+- [M5-U11](../issues/M5-U11-DEF-014-foundation-inventory.md) — DEF‑014: foundation artifact inventory + consumer migration
+- [M5-U12](../issues/M5-U12-DEF-010-climate-prerequisite-reification.md) — DEF‑010: climate prerequisite reification (no hidden engine-read prereqs)
+- [M5-U13](../issues/M5-U13-DEF-017-strong-effect-verification.md) — DEF‑017: stronger `effect:*` verification via adapter read-back APIs + tests
 
 ## Sequencing (slices)
 
 The units above are canonical; slices are the “how we land it” grouping. Some slices can run in parallel, but the mod‑boundary work should lead because it determines where everything belongs.
+
+Prework for the canonical units is complete and embedded directly in each unit doc (there are no remaining “prework prompt” sections to execute).
 
 ### Execution slices (recommended ordering)
 
@@ -191,49 +192,33 @@ steps:
 
 **Contains:** M5-U01.
 
-**Prework prompt:** Do the M5-U01 prework inventory (see issue doc), then write a short “migration note” stating what (if anything) outside this repo could still reference `crustMode` and how we’ll handle it (break + release note vs in-repo migration). Use the Narsil MCP server as needed so the prework answers almost all implementation questions. Once complete, delete this prompt to avoid confusing implementation agents.
-
 ### Slice 1 — Standard mod boundary skeleton + invariants
 
 **Contains:** M5-U02.
-
-**Prework prompt:** Do the M5-U02 prework mapping (see issue doc), then propose a minimal “mod discovery” contract that keeps core free of standard-domain imports while remaining usable by CLI/tests. Use the Narsil MCP server as needed so the prework answers almost all implementation questions. Once complete, delete this prompt to avoid confusing implementation agents.
 
 ### Slice 2 — Standard registry/recipes/tags extraction
 
 **Contains:** M5-U03.
 
-**Prework prompt:** Do the M5-U03 prework inventory (see issue doc) and specifically identify any tags/recipes that appear “core-ish” but are actually standard-domain concepts, so we don’t accidentally re-encode standard ownership inside core. Use the Narsil MCP server as needed so the prework answers almost all implementation questions. Once complete, delete this prompt to avoid confusing implementation agents.
-
 ### Slice 3 — Standard step + domain extraction (core becomes structurally generic)
 
 **Contains:** M5-U04, M5-U05, M5-U06.
-
-**Prework prompt:** For each cluster unit (U04/U05/U06), produce a dependency sketch and a proposed “what stays core vs what moves” decision list. Keep it biased toward moving domain helpers with the mod unless they are truly shared primitives. Use the Narsil MCP server as needed so the prework answers almost all implementation questions. Once complete, delete this prompt to avoid confusing implementation agents.
 
 ### Slice 4 — Dead/compat surface deletion
 
 **Contains:** M5-U07.
 
-**Prework prompt:** Produce the deletions inventory (U07; see issue doc) and then add one extra deliverable: a proposed set of “no legacy surface” `rg` checks we can wire into CI as a guardrail. Use the Narsil MCP server as needed so the prework answers almost all implementation questions. Once complete, delete this prompt to avoid confusing implementation agents.
-
 ### Slice 5 — Globals/fallback removal (boring engine boundary)
 
 **Contains:** M5-U08.
-
-**Prework prompt:** Produce the ambient-pattern inventory (U08; see issue doc) and include a recommendation for which patterns become adapter requirements vs context wiring vs civ-runtime-only code. Use the Narsil MCP server as needed so the prework answers almost all implementation questions. Once complete, delete this prompt to avoid confusing implementation agents.
 
 ### Slice 6 — Schema split + colocation/consolidation
 
 **Contains:** M5-U09, M5-U10.
 
-**Prework prompt:** Produce (a) the schema split mapping (U09; see issue doc), and (b) the top “fractal offender” colocation list (U10; see issue doc). The key output is a target layout that is stable *after* extraction, not a temporary halfway shape. Use the Narsil MCP server as needed so the prework answers almost all implementation questions. Once complete, delete this prompt to avoid confusing implementation agents.
-
 ### Slice 7 — Close remaining deferrals (foundation inventory, climate reification, stronger verification)
 
 **Contains:** M5-U11, M5-U12, M5-U13.
-
-**Prework prompt:** For each deferral unit, write a short design sketch (1–2 pages max) with: proposed new products/APIs, consumer migration plan, and the minimum test gates that make the refactor safe. Treat this as “issue prework” for implementation agents. Use the Narsil MCP server as needed so the prework answers almost all implementation questions. Once complete, delete this prompt to avoid confusing implementation agents.
 
 ## Validation gates / acceptance checks
 

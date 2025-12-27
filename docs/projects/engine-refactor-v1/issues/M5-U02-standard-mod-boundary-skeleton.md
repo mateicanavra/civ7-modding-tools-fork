@@ -54,23 +54,80 @@ Make the ownership boundary real: core is the generic pipeline engine, and the s
 - Do not “fake” the boundary by re-exporting from core; the point is to invert import ownership.
 - Bias toward the smallest possible entrypoint surface; avoid encoding standard-domain concepts in the core contract.
 
-## Prework Prompt (Agent Brief)
+## Prework Findings (Complete)
 
-Goal: define the minimal contract for “a mod registers a pipeline” and map the current wiring so implementation is straightforward.
+Goal: map the current “standard mod” wiring and propose the smallest contract that lets core compile/execute a pipeline without importing any standard-domain modules.
 
-Deliverables:
-- A map of the current mod loader + registry wiring (who calls what, and where standard registration currently happens).
-- A proposed minimal standard-mod entrypoint API (exports, registration hooks, discovery mechanism) that keeps core free of standard-domain imports.
-- A sketch of the simplest “hello pipeline” proof path (what gets registered, and how the executor is invoked).
+### 1) Current wiring (who calls what)
 
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
+Entry (in-repo consumer):
+- `mods/mod-swooper-maps/src/swooper-*.ts` imports `runTaskGraphGeneration` from `@swooper/mapgen-core` and calls it with `{ mapGenConfig, orchestratorOptions }`.
 
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
+Core entrypoint (standard-wired today):
+- `packages/mapgen-core/src/orchestrator/task-graph.ts`:
+  - Imports `standardMod` from `@mapgen/mods/standard/mod.js`.
+  - Selects recipe: `options.orchestratorOptions.recipeOverride ?? standardMod.recipes.default`.
+  - Registers steps by calling `standardMod.registry.register(registry, config, runtime)`.
+  - Compiles + executes: `compileExecutionPlan(buildStandardRunRequest(...), registry)` then `PipelineExecutor.executePlan(...)`.
 
-## Pre-work
+“Standard mod” modules (currently live inside core):
+- `packages/mapgen-core/src/mods/standard/mod.ts` exports `mod = { id, registry, recipes }`.
+- `packages/mapgen-core/src/mods/standard/registry/index.ts` implements `registry.register(...)` by calling `registerStandardLibrary(...)`.
+- `packages/mapgen-core/src/pipeline/standard-library.ts` registers the standard step layers:
+  - `registerFoundationLayer`
+  - `registerMorphologyLayer`
+  - `registerNarrativeLayer`
+  - `registerHydrologyLayer`
+  - `registerEcologyLayer`
+  - `registerPlacementLayer`
 
-_TBD_
+Standard stage descriptors (also core-owned today):
+- `packages/mapgen-core/src/pipeline/standard.ts` exports `M3_STAGE_DEPENDENCY_SPINE` (used by `runTaskGraphGeneration` to supply requires/provides).
 
+Export surface today:
+- `packages/mapgen-core/src/index.ts` re-exports `standardMod` (`@mapgen/mods/standard/mod.js`), reinforcing that “standard” is currently core-owned.
+
+### 2) Proposed minimal “standard mod” contract (core boundary)
+
+Design goal for the contract: core should be able to compile/execute a pipeline given a mod registration object, without importing any standard-domain modules.
+
+Minimal API shape (sufficient for the existing call sites):
+- `PipelineMod`:
+  - `id: string`
+  - `register(registry: StepRegistry<ExtendedMapContext>, runtime: unknown): void`
+  - `recipes?: Record<string, RecipeV1>`
+
+Discovery mechanism (locked for M5):
+- **Inversion via injection:** the core entrypoint requires an explicit `PipelineMod` object.
+  - There is no default/built-in standard mod inside core, and no `modOverride` escape hatch.
+- **Loader posture:** no dynamic loader is required for M5. Callers (CLI/tests/mods) import the mod module directly and pass the mod object into core.
+
+Pragmatic M5 “skeleton” target:
+- A new workspace package under `mods/mod-mapgen-standard/` (package name `mod-mapgen-standard`) that exports `standardMod` (a `PipelineMod`).
+- Core keeps only generic pipeline engine primitives; the standard mod package owns standard step registration + default recipe selection.
+
+### 3) “Hello pipeline” proof path (minimal end-to-end)
+
+Goal: prove the boundary by running a pipeline where core never imports standard modules.
+
+Suggested proof recipe:
+- Create a tiny mod package (or test-local mod object) that:
+  - registers a single step `hello` with a trivial `run` (no engine surface required) and a small `configSchema` (empty object).
+  - provides a tiny `RecipeV1` that contains only `hello`.
+- Invoke core pipeline entry directly in a test:
+  - build `RunRequest` for the mod’s recipe
+  - `compileExecutionPlan(runRequest, registry)`
+  - `PipelineExecutor.executePlan(ctx, plan)` under `MockAdapter`
+
+This verifies:
+- core’s compile/execute machinery works without any standard-domain imports
+- the mod boundary is “real” (registration + recipe selection can live outside core)
+
+### 4) Implementation touchpoints (for the eventual extraction)
+
+Files that currently encode “standard is core-owned” and must be inverted:
+- `packages/mapgen-core/src/orchestrator/task-graph.ts` (imports `standardMod`, builds standard step configs)
+- `packages/mapgen-core/src/pipeline/standard.ts` (standard dependency spine)
+- `packages/mapgen-core/src/pipeline/standard-library.ts` (standard step registration wiring)
+- `packages/mapgen-core/src/mods/standard/**` (standard mod module)
+- `packages/mapgen-core/src/index.ts` (re-export of standard mod)
