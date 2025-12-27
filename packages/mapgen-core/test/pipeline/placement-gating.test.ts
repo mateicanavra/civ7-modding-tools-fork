@@ -27,14 +27,14 @@ describe("placement step contracts", () => {
       id: "coastlines",
       phase: "morphology",
       requires: [],
-      provides: [M3_DEPENDENCY_TAGS.state.coastlinesApplied],
+      provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
       run: (_context, _config) => {},
     });
     registry.register({
       id: "rivers",
       phase: "hydrology",
       requires: [],
-      provides: [M3_DEPENDENCY_TAGS.state.riversModeled],
+      provides: [M4_EFFECT_TAGS.engine.riversModeled],
       run: (_context, _config) => {},
     });
     registry.register({

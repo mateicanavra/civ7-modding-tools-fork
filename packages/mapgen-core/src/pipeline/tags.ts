@@ -28,21 +28,7 @@ export const M3_DEPENDENCY_TAGS = {
     biomeId: "field:biomeId",
     featureType: "field:featureType",
   },
-  state: {
-    landmassApplied: "state:engine.landmassApplied",
-    coastlinesApplied: "state:engine.coastlinesApplied",
-    riversModeled: "state:engine.riversModeled",
-    biomesApplied: "state:engine.biomesApplied",
-    featuresApplied: "state:engine.featuresApplied",
-    placementApplied: "state:engine.placementApplied",
-  },
 } as const;
-
-export const M3_CANONICAL_DEPENDENCY_TAGS: ReadonlySet<string> = new Set([
-  ...Object.values(M3_DEPENDENCY_TAGS.artifact),
-  ...Object.values(M3_DEPENDENCY_TAGS.field),
-  ...Object.values(M3_DEPENDENCY_TAGS.state),
-]);
 
 export const M4_EFFECT_TAGS = {
   engine: {
@@ -54,6 +40,12 @@ export const M4_EFFECT_TAGS = {
     placementApplied: ENGINE_EFFECT_TAGS.placementApplied,
   },
 } as const;
+
+export const M3_CANONICAL_DEPENDENCY_TAGS: ReadonlySet<string> = new Set([
+  ...Object.values(M3_DEPENDENCY_TAGS.artifact),
+  ...Object.values(M3_DEPENDENCY_TAGS.field),
+  ...Object.values(M4_EFFECT_TAGS.engine),
+]);
 
 const VERIFIED_EFFECT_TAGS = new Set<string>([
   M4_EFFECT_TAGS.engine.biomesApplied,
@@ -79,7 +71,7 @@ const EFFECT_OWNERS: Record<string, TagOwner> = {
   },
 };
 
-export type DependencyTagKind = "artifact" | "field" | "effect" | "state";
+export type DependencyTagKind = "artifact" | "field" | "effect";
 
 type SatisfactionState = {
   satisfied: ReadonlySet<string>;
@@ -308,10 +300,6 @@ const DEFAULT_TAG_DEFINITIONS: DependencyTagDefinition[] = [
     demo: new Int16Array(0),
     validateDemo: (demo) => isInt16Array(demo),
   },
-  ...Object.values(M3_DEPENDENCY_TAGS.state).map((id) => ({
-    id,
-    kind: "state" as const,
-  })),
   ...Object.values(M4_EFFECT_TAGS.engine).map((id) => {
     const definition: DependencyTagDefinition = {
       id,
@@ -413,6 +401,5 @@ function isTagKindCompatible(id: string, kind: DependencyTagKind): boolean {
   if (kind === "artifact") return id.startsWith("artifact:");
   if (kind === "field") return id.startsWith("field:");
   if (kind === "effect") return id.startsWith("effect:");
-  if (kind === "state") return id.startsWith("state:engine.");
   return false;
 }

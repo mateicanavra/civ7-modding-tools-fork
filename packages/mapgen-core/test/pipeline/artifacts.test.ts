@@ -6,6 +6,7 @@ import {
   PipelineExecutor,
   StepRegistry,
   M3_DEPENDENCY_TAGS,
+  M4_EFFECT_TAGS,
 } from "@mapgen/pipeline/index.js";
 import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 import { isDependencyTagSatisfied } from "@mapgen/pipeline/tags.js";
@@ -19,7 +20,7 @@ describe("pipeline artifacts", () => {
   it("includes climate/river prerequisites for storyCorridorsPost in the standard dependency spine", () => {
     expect(M3_STAGE_DEPENDENCY_SPINE.storyCorridorsPost.requires).toEqual(
       expect.arrayContaining([
-        M3_DEPENDENCY_TAGS.state.coastlinesApplied,
+        M4_EFFECT_TAGS.engine.coastlinesApplied,
         M3_DEPENDENCY_TAGS.artifact.climateField,
         M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
       ])

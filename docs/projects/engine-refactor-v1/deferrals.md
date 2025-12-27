@@ -86,23 +86,6 @@ Each deferral follows this structure:
 
 ---
 
-## DEF-008: `state:engine.*` Dependency Tags Are Trusted (Not Runtime-Verified)
-
-**Deferred:** 2025-12-14  
-**Trigger:** When we migrate off `state:engine.*` to `effect:*` tags with runtime verification (or when the adapter exposes the necessary invariant queries to verify the current namespace).  
-**Context:** In M3, `PipelineExecutor` enforces `artifact:*` and `field:*` dependencies at runtime, but `state:engine.*` tags represent engine-surface guarantees that are not currently introspectable from the TS runtime. We intentionally treat these tags as trusted declarations to enable wrap-first steps without blocking on new adapter APIs. The accepted target policy is: `state:engine.*` is transitional-only; engine-surface guarantees should be modeled as `effect:*` tags that participate in scheduling and are runtime-verifiable, and cross-step data dependencies should prefer reified `field:*` / `artifact:*` products.  
-**Scope:**
-- Replace `state:engine.*` dependency tags with `effect:*` tags that are first-class schedulable tags.
-- Add runtime verification for provided `effect:*` tags (postcondition checks, typically via `EngineAdapter`).
-- Reify engine-derived data into `field:*` / `artifact:*` where downstream steps depend on it (avoid opaque engine-state coupling).
-- Delete/ban the `state:engine.*` namespace in the target contract; keep it only as a temporary compatibility surface during migration.  
-**Impact:**
-- A misdeclared or stale `state:engine.*` dependency can bypass executor gating and fail later (or silently degrade output).
-- Contract correctness relies on discipline + review rather than runtime enforcement for this namespace in M3.
-**Status (2025-12-23):** Effect tags for biomes/features/placement are registered with adapter-backed verification hooks (call-evidence only); migration to `effect:*` scheduling is still pending.
-
----
-
 ## DEF-010: Rainfall Generation Ownership (Engine vs. TS)
 
 **Deferred:** 2025-12-18  
@@ -220,6 +203,23 @@ Each deferral follows this structure:
 ---
 
 ## Resolved Deferrals
+
+## DEF-008: `state:engine.*` Dependency Tags Are Trusted (Not Runtime-Verified)
+
+**Deferred:** 2025-12-14  
+**Trigger:** When we migrate off `state:engine.*` to `effect:*` tags with runtime verification (or when the adapter exposes the necessary invariant queries to verify the current namespace).  
+**Context:** In M3, `PipelineExecutor` enforces `artifact:*` and `field:*` dependencies at runtime, but `state:engine.*` tags represent engine-surface guarantees that are not currently introspectable from the TS runtime. We intentionally treat these tags as trusted declarations to enable wrap-first steps without blocking on new adapter APIs. The accepted target policy is: `state:engine.*` is transitional-only; engine-surface guarantees should be modeled as `effect:*` tags that participate in scheduling and are runtime-verifiable, and cross-step data dependencies should prefer reified `field:*` / `artifact:*` products.  
+**Scope:**
+- Replace `state:engine.*` dependency tags with `effect:*` tags that are first-class schedulable tags.
+- Add runtime verification for provided `effect:*` tags (postcondition checks, typically via `EngineAdapter`).
+- Reify engine-derived data into `field:*` / `artifact:*` where downstream steps depend on it (avoid opaque engine-state coupling).
+- Delete/ban the `state:engine.*` namespace in the target contract; keep it only as a temporary compatibility surface during migration.  
+**Impact:**
+- A misdeclared or stale `state:engine.*` dependency can bypass executor gating and fail later (or silently degrade output).
+- Contract correctness relies on discipline + review rather than runtime enforcement for this namespace in M3.
+**Resolution (2025-12-26):** Standard pipeline steps now use `effect:*` tags, the tag registry no longer exposes the `state:engine.*` namespace, and DEF-008’s transitional surface is removed from the target contract.
+
+---
 
 ## DEF-003: Global StoryOverlays Registry Fallback
 
