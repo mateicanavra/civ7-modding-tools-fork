@@ -55,23 +55,7 @@ Begin the real extraction of domain behavior. After this unit, core should still
 - Bias toward moving helpers with the steps; err on the side of “mod-owned” unless a module is clearly cross-domain and reusable.
 - Prefer a small number of stable “shared primitives” modules over many tiny indirections.
 
-## Prework Prompt (Agent Brief)
-
-Goal: make the extraction safe by mapping dependencies and deciding what stays core vs what moves.
-
-Deliverables:
-- A dependency map for the foundation/physics step cluster.
-- A proposed “stays core” list (true shared primitives) vs “moves with mod” list (domain helpers).
-- A list of import edges that will need inversion or API reshaping to respect the boundary.
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: map the foundation/physics cluster so the extraction is mostly “move files + fix imports”, with a small, explicit “shared primitives” remainder.
 
@@ -130,11 +114,10 @@ Producer-to-core coupling:
   - `FoundationConfig` types from `@mapgen/bootstrap/types.js`
   - dev logging (`@mapgen/dev/index.js`)
 
-Boundary decision to make explicit during implementation:
-- whether `FoundationContext` lives in:
-  - core (as a reusable “shared primitive”), or
-  - the standard mod (as a standard-owned artifact contract), or
-  - a small “shared contracts” package consumed by both
+Boundary decision (locked for M5):
+- `FoundationContext` and the foundation artifact contracts are **standard‑mod owned**.
+- Core keeps only **generic** infrastructure (context creation helpers + the artifact store mechanism), not domain-level foundation types.
+  - `M5-U11` further reshapes the foundation artifact surface by splitting `artifact:foundation` into discrete `artifact:foundation.*` products (still standard‑mod owned).
 
 ### 4) Suggested “mechanical move” guardrails (search targets)
 

@@ -55,23 +55,7 @@ Core stops owning the standard pipeline’s identity. The standard mod owns its 
 - Treat this as “standard ownership lives with the mod.” If a tag/recipe is about domain semantics, it should not live in core.
 - Be careful not to accidentally re-encode standard ownership by leaving “default registry” helpers in core.
 
-## Prework Prompt (Agent Brief)
-
-Goal: identify everything that is truly “standard-owned” at the registration layer and enumerate the import inversions required.
-
-Deliverables:
-- An inventory of all standard-owned registry/tag/recipe modules.
-- A list of remaining “core depends on standard” import edges (direct and transitive) that must be inverted.
-- A short note flagging any modules that look “core-ish” but are actually standard-domain concepts (so they must move).
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: enumerate what is truly “standard-owned” at the registration layer (tags/recipes/registry/phase ids) and list the import edges that keep core coupled to standard today.
 
@@ -121,9 +105,8 @@ Transitive / “fractal” couplings that will surface during extraction:
   - Similar pattern exists in other narrative/placement artifacts writers.
 
 Implication for implementation (what must change when tags move):
-- Standard-domain code needs either:
-  - a mod-owned tag catalog module (imported only by standard mod code), or
-  - tag IDs passed in / imported from a “standard contract” package (owned by the standard mod, not by core).
+- Standard-domain code imports tag IDs (and satisfy helpers/type guards) from a standard‑mod‑owned tag catalog module.
+- Core retains only generic tag infrastructure (`TagRegistry` and friends); it does not ship a default/standard tag catalog.
 
 ### 3) “Core-ish but standard” callouts (easy to accidentally keep in core)
 

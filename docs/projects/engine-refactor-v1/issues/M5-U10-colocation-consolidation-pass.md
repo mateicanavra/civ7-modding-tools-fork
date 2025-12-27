@@ -54,23 +54,7 @@ Make the end-state layout unsurprising. Co-locate step code with the types/artif
 
 - Prefer co-locating “artifact definitions” with the step/domain that publishes them (unless they are intentionally cross-domain primitives).
 
-## Prework Prompt (Agent Brief)
-
-Goal: identify the highest-value layout cleanups so the consolidation pass is focused and doesn’t devolve into arbitrary reshuffling.
-
-Deliverables:
-- The top “fractal offender” inventory (types/artifacts/schemas split across many tiny files), with a proposed colocation target per cluster.
-- A small list of “wiring-only indirection” targets worth consolidating (including executor loop dedupe), with the rationale for each.
-- A proposed end-state layout that remains stable after extraction (not a temporary halfway shape).
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: identify the highest-value post-extraction layout fixes (fractal scattering + wiring-only indirection) and propose an end-state layout that remains stable after the M5 boundary work.
 
@@ -100,7 +84,7 @@ Symptoms:
   - climate/heightfield artifacts are “published” via helpers in `packages/mapgen-core/src/pipeline/artifacts.ts`
 
 Proposed colocation target:
-- Standard mod owns the tag catalog; co-locate tag ids with the artifact/type modules they refer to (or provide a small “standard tag catalog” module that imports type guards from artifact modules and exports ids + satisfy checks together).
+- Standard mod owns the tag catalog; implement a **single** standard‑mod tag catalog module (imports artifact type guards and exports ids + satisfy checks together) so tag ownership is centralized and discoverable.
 
 #### C) Standard config wiring is embedded in the core entrypoint
 
@@ -134,9 +118,9 @@ Target invariants:
   - standard config schemas/types
 - Civ runtime integration stays in the civ adapter package(s).
 
-Concrete “shape” suggestion (names TBD):
+Concrete end-state layout:
 - `packages/mapgen-core` (generic engine)
-- `packages/mapgen-standard` (standard mod/plugin: recipes + tags + step clusters)
+- `mods/mod-mapgen-standard` (standard mod/plugin: recipes + tags + step clusters)
 - `packages/civ7-adapter` (engine integration + any civ-runtime-only readbacks)
 
 ### 4) Scoping queries for the consolidation PR

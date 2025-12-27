@@ -54,23 +54,7 @@ Eliminate hidden prerequisites that are satisfied only because some earlier step
 
 - Avoid turning “engine readbacks” into implicit globals; if we must read from adapter, make it explicit and testable.
 
-## Prework Prompt (Agent Brief)
-
-Goal: map climate’s hidden prerequisites and propose the explicit products/contracts that replace them.
-
-Deliverables:
-- Inventory all adapter reads used by climate generation.
-- Classification per read: “can reify into TS product now” vs “must remain adapter read.”
-- Proposed artifact/field products needed to eliminate hidden dependencies, including where they are produced/consumed in the pipeline.
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: enumerate climate’s adapter reads and propose explicit TS-owned prerequisites (`artifact:*` / `field:*`) so climate correctness doesn’t depend on “engine state happens to be ready”.
 
@@ -90,7 +74,7 @@ Observed adapter reads (from `rg "\\b(adapter\\.|ctx\\.adapter\\.)" packages/map
 | `adapter.getElevation(x,y)` | baseline + refine passes | Yes → `artifact:heightfield` (`HeightfieldBuffer.elevation`) |
 | `adapter.getLatitude(x,y)` / `getPlotLatitude` | baseline + orographic/shadow paths | Yes → compute from `RunRequest.settings.latitudeBounds` + `settings.dimensions` |
 | `adapter.isAdjacentToRivers(x,y,1)` | river corridor refinement | Mostly yes → `artifact:riverAdjacency` (already published) |
-| `adapter.isMountain(x,y)` | orographic shadow sampling (optional) | Yes → derive from `field:terrainType` or `artifact:heightfield.terrain` + terrain constants |
+| `adapter.isMountain(x,y)` | orographic shadow sampling | Yes → derive from `artifact:heightfield.terrain` + terrain constants (do not keep an adapter read) |
 | `adapter.isCoastalLand(x,y)` | swatches | Yes → derive from `landMask` adjacency + terrain/coast info |
 
 ### 2) Proposed explicit prerequisites (products/contracts)
@@ -118,9 +102,8 @@ Reify now (remove adapter reads in climate logic):
   - Keep adapter latitude reads only as a civ-runtime debugging/validation tool if needed.
 - River adjacency: consume `artifact:riverAdjacency` (already required by some climate paths; see `packages/mapgen-core/src/domain/hydrology/climate/runtime.ts` warnings/errors).
 
-Potentially keep as adapter reads temporarily (if any gaps appear during implementation):
-- Anything that is not yet represented in TS buffers (e.g., if some step mutates engine terrain without updating buffers/artifacts).
-  - Use this as a signal to fix publication/wiring, not to keep permanent adapter reads.
+Contract rule (no hidden prereqs):
+- Do not keep adapter reads as “temporary” hidden prerequisites. If some step mutates engine terrain without updating TS buffers/artifacts, treat that as a contract bug and fix the publication/wiring rather than introducing a permanent adapter readback dependency.
 
 ### 4) Pipeline implications (where products are produced/consumed)
 
@@ -128,7 +111,7 @@ Current order (standard hydrology layer):
 - `lakes` → `climateBaseline` → `rivers` → `climateRefine`
 
 Explicit prerequisites implied by the replacement plan:
-- `climateBaseline` should require `artifact:heightfield` (or publish it first, then run baseline using TS-owned heightfield).
+- `climateBaseline` should require `artifact:heightfield` (published by `lakes` in the standard hydrology layer) and should not read engine elevation/water directly.
 - `climateRefine` should require:
   - `artifact:heightfield`
   - `artifact:riverAdjacency` (for river corridor refinement)

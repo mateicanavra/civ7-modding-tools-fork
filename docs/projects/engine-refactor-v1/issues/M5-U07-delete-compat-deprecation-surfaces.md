@@ -27,14 +27,14 @@ Make the public surface truthful. If something exists only “just in case,” i
 ## Deliverables
 
 - Delete legacy stub entrypoints, back-compat aliases/no-ops, and unused shims across mapgen packages.
-- Delete deprecated/no-op config keys from schemas (or reject loudly) so config does not accept legacy-only fields.
+- Delete deprecated/no-op config keys from schemas and make config validation fail fast (no silent ignore) so config does not accept legacy-only fields.
 - Audit package exports and tighten them so only real, supported surfaces remain.
 - Establish/refresh “no legacy surface” invariant checks (zero-hit checks) as guardrails.
 
 ## Acceptance Criteria
 
 - Dead exports/entrypoints are deleted (not merely deprecated).
-- Deprecated/no-op config keys are removed or rejected loudly; no “compat parse” in the target architecture.
+- Deprecated/no-op config keys are removed and rejected loudly; no “compat parse” in the target architecture.
 - Public exports are tightened (no compat-only exports remain).
 - “No legacy surface” invariants are true (zero hits in runtime sources).
 
@@ -57,23 +57,7 @@ Make the public surface truthful. If something exists only “just in case,” i
 - Prefer hard deletion + fast failure over “keep legacy behind a compat layer.”
 - Treat any remaining external consumers as a release-note/breaking-change problem, not a reason to keep shims indefinitely.
 
-## Prework Prompt (Agent Brief)
-
-Goal: produce a complete deletions inventory so implementation is a deterministic cleanup pass.
-
-Deliverables:
-- A deletions inventory for mapgen packages: dead exports, deprecated schema fields, unused shims, runtime-only compat modules.
-- For each item: (a) in-repo consumer check, (b) likelihood of external consumers, (c) whether removal must be gated by a coordinated change outside this repo.
-- A proposed set of “no legacy surface” `rg` checks that should be zero-hit by end of M5 (suitable for CI guardrails).
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths) to avoid missing transitive consumers. Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: produce a deterministic “delete list” (exports + schema keys + shims) with consumer checks so implementation is mostly mechanical removal + guardrails.
 
@@ -97,7 +81,7 @@ Goal: produce a deterministic “delete list” (exports + schema keys + shims) 
 
 | Key(s) | Location | In-repo consumer check | External consumer risk | Notes / gating |
 | --- | --- | --- | --- | --- |
-| Top-level `diagnostics.*` (deprecated/no-op) | `packages/mapgen-core/src/config/schema.ts` (`DiagnosticsConfigSchema`) | `rg -n "\\.diagnostics\\b" packages/mapgen-core/src` shows runtime reads only from `foundation.diagnostics` | Medium | Schema-accepted legacy; should be removed or rejected loudly. |
+| Top-level `diagnostics.*` (deprecated/no-op) | `packages/mapgen-core/src/config/schema.ts` (`DiagnosticsConfigSchema`) | `rg -n "\\.diagnostics\\b" packages/mapgen-core/src` shows runtime reads only from `foundation.diagnostics` | Medium | Schema-accepted legacy; remove it and make validation fail fast if it appears. |
 | Legacy landmass fallbacks (`crustContinentalFraction`, `crustClusteringBias`) | `packages/mapgen-core/src/config/schema.ts` + `packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts` | Still referenced by runtime as fallback reads | Medium | Not “dead” yet, but explicitly back-compat; can be deleted once configs are migrated. |
 | Internal/alias schemas that exist for plumbing | `packages/mapgen-core/src/config/schema.ts` (`FoundationSurfaceConfigSchema`, `FoundationPolicyConfigSchema`, `FoundationOceanSeparationConfigSchema`) | No obvious runtime consumers beyond config acceptance | Low–medium | Marked `[internal]`; good candidates for deletion once M5 extraction stabilizes and config ownership is clarified. |
 

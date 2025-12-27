@@ -54,23 +54,7 @@ Make the ownership boundary real: core is the generic pipeline engine, and the s
 - Do not “fake” the boundary by re-exporting from core; the point is to invert import ownership.
 - Bias toward the smallest possible entrypoint surface; avoid encoding standard-domain concepts in the core contract.
 
-## Prework Prompt (Agent Brief)
-
-Goal: define the minimal contract for “a mod registers a pipeline” and map the current wiring so implementation is straightforward.
-
-Deliverables:
-- A map of the current mod loader + registry wiring (who calls what, and where standard registration currently happens).
-- A proposed minimal standard-mod entrypoint API (exports, registration hooks, discovery mechanism) that keeps core free of standard-domain imports.
-- A sketch of the simplest “hello pipeline” proof path (what gets registered, and how the executor is invoked).
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: map the current “standard mod” wiring and propose the smallest contract that lets core compile/execute a pipeline without importing any standard-domain modules.
 
@@ -113,14 +97,13 @@ Minimal API shape (sufficient for the existing call sites):
   - `register(registry: StepRegistry<ExtendedMapContext>, runtime: unknown): void`
   - `recipes?: Record<string, RecipeV1>`
 
-Discovery mechanism options (pick one for implementation; both can coexist):
-1. **Inversion via injection (simplest):** `runTaskGraphGeneration(..., { mod })` or `orchestratorOptions.modOverride`.
-   - Core has no standard import edge; tests/CLI/mods pass a mod object.
-2. **Dynamic import by specifier (CLI convenience):** `loadPipelineMod(moduleSpecifier: string)` inside CLI/test harness.
-   - Keeps core generic; the “loader” lives in CLI/infra code.
+Discovery mechanism (locked for M5):
+- **Inversion via injection:** the core entrypoint requires an explicit `PipelineMod` object.
+  - There is no default/built-in standard mod inside core, and no `modOverride` escape hatch.
+- **Loader posture:** no dynamic loader is required for M5. Callers (CLI/tests/mods) import the mod module directly and pass the mod object into core.
 
 Pragmatic M5 “skeleton” target:
-- A new workspace package (name TBD; e.g. `packages/standard-mod` or `packages/mapgen-standard`) that exports `standardMod`.
+- A new workspace package under `mods/mod-mapgen-standard/` (package name `mod-mapgen-standard`) that exports `standardMod` (a `PipelineMod`).
 - Core keeps only generic pipeline engine primitives; the standard mod package owns standard step registration + default recipe selection.
 
 ### 3) “Hello pipeline” proof path (minimal end-to-end)

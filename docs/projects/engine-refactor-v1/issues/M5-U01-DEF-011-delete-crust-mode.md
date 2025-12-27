@@ -32,7 +32,7 @@ Make it impossible to accidentally “keep legacy alive” through configuration
 
 ## Acceptance Criteria
 
-- `crustMode` is not accepted by any schema or runtime parsing path.
+- `crustMode` is not accepted by any schema or runtime parsing path; configs that still supply it fail validation with a clear error.
 - No `"legacy"` branch remains on the runtime path for crust/landmask behavior.
 - Standard smoke test remains green under `MockAdapter`.
 - Docs no longer present `"legacy"` as a supported/valid configuration.
@@ -56,23 +56,7 @@ Make it impossible to accidentally “keep legacy alive” through configuration
 - Treat this as “delete the fork,” not “preserve both behind a different name.”
 - Prefer deleting wiring and updating callers over keeping “compat parsing” for removed keys.
 
-## Prework Prompt (Agent Brief)
-
-Goal: make implementation mechanical by enumerating the full `crustMode` surface and every behavior fork it controls.
-
-Deliverables:
-- A complete inventory of `crustMode` usage across config schema, parsing, defaults, and call sites.
-- A complete inventory of `"legacy"` vs `"area"` branches (and any other behavior forks that are implicitly tied to the selector).
-- A short note on what the default behavior is today, what tests/docs assume, and what will change once the fork is deleted.
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: enumerate the full `crustMode` surface + every behavior fork it controls so implementation is “delete the fork” (not rediscovery).
 
@@ -130,7 +114,7 @@ Default today:
 - `normalizeCrustMode()` normalizes unknown → `"legacy"`.
 
 Implication for DEF‑011:
-- If M5 deletes the fork and makes `"area"` canonical (per the M5 scope spike), this is a **semantic default change** for any consumer that relied on omitted/unknown `crustMode`.
+- M5 deletes the fork and makes `"area"` canonical; this is a **semantic default change** for any consumer that relied on omitted/unknown `crustMode`.
 - In-repo Swooper configs explicitly set `"area"` already, so the in-repo mod configs should remain behaviorally stable once the key is removed (they just need the key deleted from the config objects).
 
 ### 4) Guardrails (suggested zero-hit checks)

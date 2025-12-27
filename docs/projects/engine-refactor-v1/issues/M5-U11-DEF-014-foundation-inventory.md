@@ -35,7 +35,7 @@ Make foundation an explicit, schedulable, verifiable product surface. A single b
 
 - The discrete `artifact:foundation.*` set exists with clear contracts.
 - Consumers no longer require the monolithic foundation blob.
-- The monolithic artifact surface is deleted (or reduced to a derived transitional artifact only if temporarily unavoidable and time-bounded).
+- The monolithic `artifact:foundation` surface is deleted (no transitional blob remains at the end of this unit).
 
 ## Testing / Verification
 
@@ -55,23 +55,7 @@ Make foundation an explicit, schedulable, verifiable product surface. A single b
 
 - Keep the inventory contracts crisp; avoid reintroducing “blob as escape hatch.”
 
-## Prework Prompt (Agent Brief)
-
-Goal: make the split and migration safe by enumerating consumers and designing the discrete artifact inventory up front.
-
-Deliverables:
-- Inventory of all consumers of the monolithic foundation artifact (direct and transitive).
-- Proposed discrete artifact set, including contract notes for each artifact (required fields, versioning).
-- A sequencing plan for consumer migration (which consumers must migrate first) and any stop-the-world constraints.
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: enumerate every consumer of the monolithic foundation artifact and propose a discrete `artifact:foundation.*` inventory that lets consumers depend on exactly what they need.
 
@@ -101,21 +85,23 @@ Downstream consumers (via `assertFoundationContext(...)`):
 
 ### 2) Proposed discrete artifact inventory (`artifact:foundation.*`)
 
-Grounded in the current `FoundationContext` shape (`packages/mapgen-core/src/core/types.ts`):
+Grounded in the current `FoundationContext` shape (`packages/mapgen-core/src/core/types.ts`).
 
-Minimum viable split (matches current tensors):
+Canonical split (matches the existing `FoundationContext` fields 1:1):
 - `artifact:foundation.plates@v1`
   - `id`, `boundaryCloseness`, `boundaryType`, `tectonicStress`, `upliftPotential`, `riftPotential`, `shieldStability`, `movementU`, `movementV`, `rotation`
 - `artifact:foundation.dynamics@v1`
   - `windU`, `windV`, `currentU`, `currentV`, `pressure`
-- `artifact:foundation.seed@v1` (optional but useful for debugging/replay)
+- `artifact:foundation.seed@v1`
   - `plateSeed` (`SeedSnapshot`)
-- `artifact:foundation.diagnostics@v1` (optional; mostly dev)
+- `artifact:foundation.diagnostics@v1`
   - `boundaryTree` (currently `unknown | null`)
-- `artifact:foundation.config@v1` (optional)
+- `artifact:foundation.config@v1`
   - `config` snapshot currently stored on the foundation context
 
-Note: the deferral mentions mesh/crust/plate graph; those are not currently published as first-class artifacts. If needed, introduce additional artifacts only once consumers exist (avoid inventing new products without consumers).
+Scope boundary note:
+- DEF‑014 originally framed “mesh/crust/plateGraph/tectonics” as the conceptual end‑state, but the concrete implementation contract in this repo today is the `FoundationContext` snapshot above.
+- This unit closes DEF‑014 by splitting the **existing** `FoundationContext` into discrete artifacts and migrating consumers. We are not inventing new mesh/crust artifacts unless a real consumer exists in-scope for M5.
 
 ### 3) Sequencing plan for migration (consumer-first where possible)
 
@@ -123,7 +109,7 @@ Suggested safe migration path:
 1. Introduce new artifact tags + satisfaction checks (parallel to the monolith).
 2. Update foundation producer to publish:
    - `artifact:foundation.plates@v1`, `artifact:foundation.dynamics@v1`, etc.
-   - keep publishing `artifact:foundation` temporarily (time-bounded).
+   - keep publishing `artifact:foundation` only as a short-lived staging aid inside stacked PRs (must be removed before this unit completes).
 3. Update consumers to depend on the narrow artifacts:
    - replace `assertFoundationContext(...)` with targeted asserts:
      - `assertFoundationPlates(...)`
