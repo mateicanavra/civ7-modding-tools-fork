@@ -119,7 +119,7 @@ Triage follow-ups that *do* intersect with “super clean” end state (and are 
 
 The canonical unit definitions live as standalone issue docs under `docs/projects/engine-refactor-v1/issues/`. This milestone doc keeps only the index and the sequencing/grouping layer.
 
-- [x] [M5-U01](../issues/M5-U01-DEF-011-delete-crust-mode.md) — DEF‑011: delete `crustMode` and the `"legacy"` behavior branch (branch: `m5-u01-def-011-delete-crust-mode`)
+- [x] [M5-U01](../issues/M5-U01-DEF-011-delete-crust-mode.md) — DEF‑011: delete `crustMode` and the `"legacy"` behavior branch (branch: `m5-u01-def-011-delete-crust-mode`, review: `m5-u01-review-def-011-delete-crust-mode`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/243)
 - [ ] [M5-U02](../issues/M5-U02-standard-mod-boundary-skeleton.md) — introduce the standard-mod package boundary skeleton + invariants
 - [ ] [M5-U03](../issues/M5-U03-standard-registry-recipes-tags-extraction.md) — move standard registry + recipes + tags into the standard mod
 - [ ] [M5-U04](../issues/M5-U04-extract-standard-foundation-physics.md) — extract foundation & physics steps + helpers into the standard mod
