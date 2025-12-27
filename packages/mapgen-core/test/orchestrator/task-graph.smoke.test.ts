@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap, runTaskGraphGeneration } from "@mapgen/index.js";
+import { baseMod } from "@mapgen/base/index.js";
 
 describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
   const standardMapInfo = {
@@ -76,6 +77,7 @@ describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
 
     const config = bootstrap();
     const result = runTaskGraphGeneration({
+      mod: baseMod,
       mapGenConfig: config,
       orchestratorOptions: { adapter, logPrefix: "[TEST]" },
     });
@@ -86,7 +88,7 @@ describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
     ).toBe(true);
   });
 
-  it("surfaces stage failures as structured stageResult entries", () => {
+  it("runs landmass plates on small maps", () => {
     setEngineGlobals(smallMapInfo);
     const adapter = createMockAdapter({
       width: smallMapInfo.GridWidth,
@@ -98,18 +100,15 @@ describe("smoke: runTaskGraphGeneration TaskGraph entry", () => {
 
     const config = bootstrap();
     const result = runTaskGraphGeneration({
+      mod: baseMod,
       mapGenConfig: config,
       orchestratorOptions: { adapter, logPrefix: "[TEST]" },
     });
 
-    expect(result.success).toBe(false);
+    expect(result.success).toBe(true);
     expect(
       result.stageResults.some(
-        (stage) =>
-          stage.stage === "landmassPlates" &&
-          stage.success === false &&
-          typeof stage.error === "string" &&
-          stage.error.includes("Plate-driven landmass generation failed")
+        (stage) => stage.stage === "landmassPlates" && stage.success === true
       )
     ).toBe(true);
   });

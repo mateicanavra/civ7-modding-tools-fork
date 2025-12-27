@@ -4,6 +4,7 @@ export type {
   MapGenStep,
   PipelineStepResult,
 } from "@mapgen/pipeline/types.js";
+export type { PipelineModV1 } from "@mapgen/pipeline/mod.js";
 export {
   DuplicateStepError,
   UnknownStepError,
@@ -15,16 +16,15 @@ export {
   UnsatisfiedProvidesError,
 } from "@mapgen/pipeline/errors.js";
 export {
-  M3_DEPENDENCY_TAGS,
-  M3_CANONICAL_DEPENDENCY_TAGS,
-  M4_EFFECT_TAGS,
   TagRegistry,
-  createDefaultTagRegistry,
+  computeInitialSatisfiedTags,
+  isDependencyTagSatisfied,
+  validateDependencyTag,
+  validateDependencyTags,
 } from "@mapgen/pipeline/tags.js";
 export type { DependencyTagDefinition, DependencyTagKind, TagOwner } from "@mapgen/pipeline/tags.js";
 export { StepRegistry } from "@mapgen/pipeline/StepRegistry.js";
 export { PipelineExecutor } from "@mapgen/pipeline/PipelineExecutor.js";
-export { M3_STANDARD_STAGE_PHASE, M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 export {
   compileExecutionPlan,
   ExecutionPlanCompileError,
@@ -51,11 +51,3 @@ export {
   createTraceSessionFromPlan,
   deriveRunId,
 } from "@mapgen/pipeline/observability.js";
-
-export { registerStandardLibrary, type StandardLibraryRuntime } from "@mapgen/pipeline/standard-library.js";
-export { registerFoundationLayer, type FoundationLayerRuntime } from "@mapgen/pipeline/foundation/index.js";
-export { registerMorphologyLayer, type MorphologyLayerRuntime } from "@mapgen/pipeline/morphology/index.js";
-export { registerHydrologyLayer, type HydrologyLayerRuntime } from "@mapgen/pipeline/hydrology/index.js";
-export { registerNarrativeLayer, type NarrativeLayerRuntime } from "@mapgen/pipeline/narrative/index.js";
-export { registerEcologyLayer, type EcologyLayerRuntime } from "@mapgen/pipeline/ecology/index.js";
-export { registerPlacementLayer, type PlacementLayerRuntime } from "@mapgen/pipeline/placement/index.js";

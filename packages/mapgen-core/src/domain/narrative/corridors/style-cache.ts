@@ -63,8 +63,3 @@ export function assignCorridorMetadata(
   if (primitive) state.attributesByTile.set(key, primitive);
   else state.attributesByTile.delete(key);
 }
-
-export function resetCorridorStyleCache(ctx: ExtendedMapContext | null | undefined): void {
-  const cache = getStylePrimitiveCache(ctx);
-  cache?.clear();
-}

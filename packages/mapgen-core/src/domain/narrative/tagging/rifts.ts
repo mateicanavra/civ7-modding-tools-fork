@@ -1,8 +1,8 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { clamp, inBounds, storyKey } from "@mapgen/core/index.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import { idx } from "@mapgen/lib/grid/index.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 import { buildNarrativeMotifsRiftsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
@@ -10,17 +10,17 @@ import { latitudeAbsDeg } from "@mapgen/domain/narrative/utils/latitude.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 import type { RiftValleysSummary } from "@mapgen/domain/narrative/tagging/types.js";
-import type { FoundationDirectionalityConfig, StoryConfig } from "@mapgen/config/index.js";
+import type { StoryConfig } from "@mapgen/config/index.js";
 
 export function storyTagRiftValleys(
   ctx: ExtendedMapContext,
-  config: { story?: StoryConfig; foundation?: { dynamics?: { directionality?: FoundationDirectionalityConfig } } } = {}
+  config: { story?: StoryConfig } = {}
 ): RiftValleysSummary {
-  const foundation = assertFoundationContext(ctx, "storyRifts");
+  const plates = assertFoundationPlates(ctx, "storyRifts");
   const { width, height } = getDims(ctx);
   const storyCfg = (config.story || {}) as Record<string, unknown>;
   const riftCfg = (storyCfg.rift || {}) as Record<string, number>;
-  const directionality = (config.foundation?.dynamics?.directionality || {}) as FoundationDirectionalityConfig;
+  const directionality = (ctx.config.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
 
   const areaRift = Math.max(1, width * height);
   const sqrtRift = Math.min(2.0, Math.max(0.6, Math.sqrt(areaRift / 10000)));
@@ -44,7 +44,6 @@ export function storyTagRiftValleys(
   const riftLine = new Set<string>();
   const riftShoulder = new Set<string>();
 
-  const plates = foundation.plates;
   const RP = plates.riftPotential;
   const BT = plates.boundaryType; // 2 = divergent
   const BC = plates.boundaryCloseness;
@@ -167,12 +166,11 @@ export function storyTagRiftValleys(
       tagShoulders(x, y, sdx, sdy);
 
       function stepDirBias(tx: number, ty: number): number {
-        const DIR = directionality as Record<string, unknown>;
-        const coh = clamp(Number(DIR.cohesion ?? 0), 0, 1);
-        const interplay = (DIR.interplay || {}) as Record<string, number>;
+        const coh = clamp(Number(directionality.cohesion ?? 0), 0, 1);
+        const interplay = (directionality.interplay || {}) as Record<string, number>;
         const follow = clamp(Number(interplay.riftsFollowPlates ?? 0), 0, 1) * coh;
         if (follow <= 0) return 0;
-        const primaryAxes = (DIR.primaryAxes || {}) as Record<string, number>;
+        const primaryAxes = (directionality.primaryAxes || {}) as Record<string, number>;
         const deg = (primaryAxes.plateAxisDeg ?? 0) | 0;
         const rad = (deg * Math.PI) / 180;
         const ax = Math.cos(rad);

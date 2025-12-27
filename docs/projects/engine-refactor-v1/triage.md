@@ -42,6 +42,60 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** CIV-56 keeps `foundation.dynamics.directionality` inside step config views to avoid expanding settings; we still need a dedicated settings surface and consumer migration away from `ctx.config.foundation.*`.
   - **Update (2025-12-27):** Pulled into M5 scope as part of schema ownership + settings boundary cleanup; see `issues/M5-U09-DEF-016-schema-ownership-split-settings.md` (and `milestones/M5-proposal-clean-architecture-finalization.md` for sequencing).
   - **Next check:** before PIPELINE-4 runtime cutover or when `RunSettings` expands.
+
+- **Foundation artifact contract docs out of sync with DEF-014 split** [Source: M5-U11]
+  - **Context:** M5-U11 replaces monolithic `artifact:foundation` with discrete `artifact:foundation.*@v1` artifacts.
+  - **Type:** triage
+  - **Notes:** `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` still describes the monolithic contract; decide whether to replace it with a single inventory contract or add per-artifact contracts.
+  - **Next check:** before merging M5-U11 or shipping consumer guidance.
+
+- **TaskGraph entrypoint + recipe ID breaking changes** [Source: M5-U02 review]
+  - **Context:** M5-U02 standard-mod boundary skeleton.
+  - **Type:** triage
+  - **Notes:** `runTaskGraphGeneration` now requires an injected mod, and base/standard IDs shifted to `core.base` from `core.standard`. Decide on compatibility (default mod / alias) and document migration for external consumers.
+  - **Next check:** before publishing a release or expecting external mods/tools to consume the new boundary.
+
+- **Standard tag exports + default tag registry removal** [Source: M5-U03 review]
+  - **Context:** M5-U03 registry/recipes/tags extraction.
+  - **Type:** triage
+  - **Notes:** `@mapgen/pipeline` no longer exports standard tags/spine and `StepRegistry` no longer seeds default tags. External code must import from `@mapgen/base` and call `registerBaseTags`, or we provide a compatibility helper.
+  - **Next check:** before publishing a release or expecting third-party pipelines to compile against the new registry behavior.
+
+- **Strong effect verification vs zero-output configs** [Source: M5-U13 review]
+  - **Context:** M5-U13 adds read-back verification for `effect:engine.landmassApplied`, `effect:engine.coastlinesApplied`, and `effect:engine.riversModeled`.
+  - **Type:** triage
+  - **Notes:** Verifiers now fail when no land/water, no coast tiles, or no rivers exist. Decide whether extreme configs (all land/all water/riverless) are invalid or if verifiers should tolerate zero outputs via config-aware checks or evidence fallback.
+  - **Next check:** before shipping strict effect verification to users with custom recipes or extreme tuning.
+
+- **Legacy landmass/ocean separation knobs now no-op post DEF-011** [Source: M5-U01 review]
+  - **Context:** M5-U01 (DEF-011).
+  - **Type:** triage
+  - **Notes:** With `crustMode` removed, landmass config knobs (continentalFraction/crustClusteringBias/microcontinentChance) and ocean separation policy knobs (bandPairs/baseSeparationTiles/boundaryClosenessMultiplier/edge policies) are still accepted in schema but ignored. Decide whether to remove or redefine them; otherwise configs silently no-op.
+  - **Next check:** before merging remaining M5 cleanup branches or before a release that advertises the new config surface.
+
+- **Standard artifact publication helpers still core-owned** [Source: M5-U05 review]
+  - **Context:** M5-U05 morphology/hydrology extraction.
+  - **Type:** triage
+  - **Notes:** `packages/mapgen-core/src/pipeline/artifacts.ts` uses `M3_DEPENDENCY_TAGS` from `@mapgen/base` and is imported by base pipeline steps, leaving standard artifact knowledge in core. Decide whether to move it to base or redesign as a generic artifact API.
+  - **Next check:** before publishing M5 boundary as stable or before merging remaining extraction branches.
+
+- **Effect tag ownership metadata still points to core** [Source: M5-U06 review]
+  - **Context:** M5-U06 ecology/placement extraction.
+  - **Type:** triage
+  - **Notes:** `packages/mapgen-core/src/base/tags.ts` sets `EFFECT_OWNERS` to `pkg: "@swooper/mapgen-core"` for biomes/features/placement even though those steps now live in the base mod. Decide whether to update ownership to the base package or document the intent.
+  - **Next check:** before effect verification is made more strict or before a release that documents effect ownership.
+
+- **Ecology domain depends on base artifacts** [Source: M5-U07 review]
+  - **Context:** M5-U07 compat cleanup and artifact helper move.
+  - **Type:** triage
+  - **Notes:** `packages/mapgen-core/src/domain/ecology/*` now imports `@mapgen/base/pipeline/artifacts`, creating a core-to-base dependency and tying domain logic to standard artifact IDs. Decide whether to move ecology domain into base or provide a core-owned artifact accessor.
+  - **Next check:** before declaring the core domain reusable outside the base mod.
+
+- **Directionality source of truth is split** [Source: M5-U09 review]
+  - **Context:** M5-U09 schema split + settings migration.
+  - **Type:** triage
+  - **Notes:** `buildRunRequest` now sets `settings.directionality`, but steps still read `config.foundation.dynamics.directionality`, leaving the settings field unused and introducing a dual source-of-truth risk. Decide whether to wire settings or remove the settings mirror.
+  - **Next check:** before further settings migration or external tooling expects settings.directionality.
 - **Observability runId + fingerprint derivation** [Source: CIV-75]
   - **Context:** M4 observability baseline implementation for trace/run IDs.
   - **Type:** triage

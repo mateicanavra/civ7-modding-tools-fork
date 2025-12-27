@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
+import { runFoundationStage } from "@mapgen/base/pipeline/foundation/producer.js";
 
 describe("smoke: foundation slice", () => {
   const width = 24;

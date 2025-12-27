@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import { writeHeightfield } from "@mapgen/core/types.js";
 import { devLogIf } from "@mapgen/dev/index.js";
 import type { MountainsConfig } from "@mapgen/domain/morphology/mountains/types.js";
@@ -8,7 +8,7 @@ import { applyRiftDepressions, computePlateBasedScores, HILL_FRACTAL, MOUNTAIN_F
 import { MOUNTAIN_TERRAIN, HILL_TERRAIN, COAST_TERRAIN, OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Partial<MountainsConfig> = {}): void {
-  const foundation = assertFoundationContext(ctx, "mountains");
+  const plates = assertFoundationPlates(ctx, "mountains");
   const {
     tectonicIntensity = 1.0,
     mountainThreshold = 0.58,
@@ -114,11 +114,11 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
     },
     isWater,
     adapter,
-    foundation
+    plates
   );
 
   if (riftDepth > 0) {
-    applyRiftDepressions(ctx, scores, hillScores, riftDepth, foundation);
+    applyRiftDepressions(ctx, scores, hillScores, riftDepth, plates);
   }
 
   const selectionAdapter = { isWater };
@@ -147,19 +147,4 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
   console.log(`  Mountains: ${mtnCount} (${((mtnCount / total) * 100).toFixed(1)}%)`);
   console.log(`  Hills:     ${hillCount} (${((hillCount / total) * 100).toFixed(1)}%)`);
   console.log(`  Flat:      ${flatCount} (${((flatCount / total) * 100).toFixed(1)}%)`);
-}
-
-export function addMountainsCompat(width: number, height: number, ctx?: ExtendedMapContext | null): void {
-  const context = ctx ?? null;
-  if (!context) {
-    throw new Error("[Mountains] MapContext is required to add mountains.");
-  }
-  assertFoundationContext(context, "mountains");
-  layerAddMountainsPhysics(context, {
-    tectonicIntensity: 1.0,
-    mountainThreshold: 0.45,
-    hillThreshold: 0.25,
-    upliftWeight: 0.75,
-    fractalWeight: 0.25,
-  });
 }

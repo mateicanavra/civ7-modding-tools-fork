@@ -8,7 +8,7 @@
  */
 
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import type {
   CreateLandmassesOptions,
   GeometryConfig,
@@ -16,7 +16,6 @@ import type {
   LandmassConfig,
   LandmassGenerationResult,
 } from "@mapgen/domain/morphology/landmass/types.js";
-import { normalizeCrustMode, type CrustMode } from "@mapgen/domain/morphology/landmass/crust-mode.js";
 import { computeTargetLandTiles } from "@mapgen/domain/morphology/landmass/water-target.js";
 import { computeClosenessLimit, tryCrustFirstLandmask } from "@mapgen/domain/morphology/landmass/crust-first-landmask.js";
 import { applyLandmaskToTerrain } from "@mapgen/domain/morphology/landmass/terrain-apply.js";
@@ -42,7 +41,6 @@ export type {
   LandmassWindow,
   PlateStats,
 } from "@mapgen/domain/morphology/landmass/types.js";
-export { normalizeCrustMode, type CrustMode } from "@mapgen/domain/morphology/landmass/crust-mode.js";
 
 export { applyLandmassPostAdjustments } from "@mapgen/domain/morphology/landmass/post-adjustments.js";
 export {
@@ -73,7 +71,7 @@ export function createPlateDrivenLandmasses(
   ctx: ExtendedMapContext,
   options: CreateLandmassesOptions = {}
 ): LandmassGenerationResult | null {
-  const foundation = assertFoundationContext(ctx, "landmassPlates");
+  const plates = assertFoundationPlates(ctx, "landmassPlates");
   const { width: ctxWidth, height: ctxHeight } = ctx.dimensions;
   if (ctxWidth !== width || ctxHeight !== height) {
     throw new Error(
@@ -81,7 +79,6 @@ export function createPlateDrivenLandmasses(
     );
   }
 
-  const { plates } = foundation;
   const closeness = plates.boundaryCloseness;
   const plateIds = plates.id;
 
@@ -106,8 +103,6 @@ export function createPlateDrivenLandmasses(
 
   const { waterPct, targetLandTiles } = computeTargetLandTiles(size, landmassCfg);
 
-  const crustMode = normalizeCrustMode(landmassCfg.crustMode);
-
   const closenessLimit = computeClosenessLimit(postCfg);
   const crustResult = tryCrustFirstLandmask(
     width,
@@ -117,7 +112,6 @@ export function createPlateDrivenLandmasses(
     closenessLimit,
     targetLandTiles,
     landmassCfg,
-    crustMode,
     ctx
   );
 

@@ -1,8 +1,10 @@
 import { describe, it, expect } from "bun:test";
 import { Type } from "typebox";
 import { createMockAdapter } from "@civ7/adapter";
-import type { MapConfig } from "@mapgen/bootstrap/types.js";
+import type { MapGenConfig } from "@mapgen/config/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { registerBaseTags } from "@mapgen/base/index.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 
 import {
   compileExecutionPlan,
@@ -21,11 +23,12 @@ const baseSettings = {
 describe("compileExecutionPlan", () => {
   it("compiles a linear recipe into ordered plan nodes", () => {
     const registry = new StepRegistry<unknown>();
+    registerBaseTags(registry);
     registry.register({
       id: "alpha",
       phase: "foundation",
       requires: [],
-      provides: ["artifact:foundation"],
+      provides: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
       configSchema: Type.Object(
         {
           value: Type.Number({ default: 3 }),
@@ -57,7 +60,7 @@ describe("compileExecutionPlan", () => {
     expect(plan.nodes[0].phase).toBe("foundation");
     expect(plan.nodes[0].config).toEqual({ value: 3 });
     expect(plan.nodes[0].requires).toEqual([]);
-    expect(plan.nodes[0].provides).toEqual(["artifact:foundation"]);
+    expect(plan.nodes[0].provides).toEqual([M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1]);
   });
 
   it("omits disabled steps from the plan", () => {
@@ -333,7 +336,7 @@ describe("compileExecutionPlan", () => {
     const context = createExtendedMapContext(
       { width: 2, height: 2 },
       adapter,
-      {} as unknown as MapConfig
+      {} as unknown as MapGenConfig
     );
     const executor = new PipelineExecutor(registry, { log: () => {} });
     executor.executePlan(context, plan);

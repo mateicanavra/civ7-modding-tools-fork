@@ -15,6 +15,7 @@ import type {
   MapInitParams,
   MapSizeId,
   PlotTagName,
+  VoronoiUtils,
 } from "./types.js";
 import { ENGINE_EFFECT_TAGS } from "./effects.js";
 
@@ -24,9 +25,6 @@ import "/base-standard/maps/map-globals.js";
 // Load Voronoi/kd-tree utilities so global VoronoiUtils is available for plate generation
 // @ts-ignore - resolved only at Civ7 runtime
 import { VoronoiUtils as CivVoronoiUtils } from "/base-standard/scripts/kd-tree.js";
-// Ensure global exposure for mapgen-core's auto-detect
-(globalThis as Record<string, unknown>).VoronoiUtils =
-  (globalThis as Record<string, unknown>).VoronoiUtils || CivVoronoiUtils;
 // Vanilla Civ7 biomes/features live in feature-biome-generator.js
 // @ts-ignore - resolved only at Civ7 runtime
 import { designateBiomes as civ7DesignateBiomes, addFeatures as civ7AddFeatures } from "/base-standard/maps/feature-biome-generator.js";
@@ -71,6 +69,42 @@ export class Civ7Adapter implements EngineAdapter {
   }
 
   verifyEffect(effectId: string): boolean {
+    if (effectId === "effect:engine.landmassApplied") {
+      let hasLand = false;
+      let hasWater = false;
+      const { width, height } = this;
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          if (this.isWater(x, y)) hasWater = true;
+          else hasLand = true;
+          if (hasLand && hasWater) return true;
+        }
+      }
+      return false;
+    }
+
+    if (effectId === "effect:engine.coastlinesApplied") {
+      const coastTerrain = this.getTerrainTypeIndex("TERRAIN_COAST");
+      if (coastTerrain < 0) return false;
+      const { width, height } = this;
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          if (this.getTerrainType(x, y) === coastTerrain) return true;
+        }
+      }
+      return false;
+    }
+
+    if (effectId === "effect:engine.riversModeled") {
+      const { width, height } = this;
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          if (this.isAdjacentToRivers(x, y, 1)) return true;
+        }
+      }
+      return false;
+    }
+
     return this.effectEvidence.has(effectId);
   }
 
@@ -217,6 +251,10 @@ export class Civ7Adapter implements EngineAdapter {
   }
 
   // === UTILITIES ===
+
+  getVoronoiUtils(): VoronoiUtils {
+    return CivVoronoiUtils as unknown as VoronoiUtils;
+  }
 
   validateAndFixTerrain(): void {
     TerrainBuilder.validateAndFixTerrain();

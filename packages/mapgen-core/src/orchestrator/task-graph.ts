@@ -4,9 +4,8 @@ import { createCiv7Adapter } from "@civ7/adapter/civ7";
 import type { FoundationConfig, MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { resetStoryOverlays } from "@mapgen/domain/narrative/overlays/index.js";
-import { resetOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
-import { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/index.js";
+import type { BaseLibraryRuntime } from "@mapgen/base/index.js";
+import { buildRunRequest, getStageDescriptor } from "@mapgen/base/index.js";
 import {
   getNarrativeCorridors,
   getNarrativeMotifsHotspots,
@@ -17,6 +16,7 @@ import {
   compileExecutionPlan,
   MissingDependencyError,
   PipelineExecutor,
+  type PipelineModV1,
   StepRegistry,
   UnsatisfiedProvidesError,
   type ExecutionPlan,
@@ -31,137 +31,16 @@ import {
   resetDevFlags,
   type DevLogConfig,
 } from "@mapgen/dev/index.js";
-import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
-import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 
-import { runFoundationWithDiagnostics } from "@mapgen/orchestrator/foundation.js";
+import { runFoundationWithDiagnostics } from "@mapgen/base/orchestrator/foundation.js";
 import { createDefaultContinentBounds, createLayerAdapter } from "@mapgen/orchestrator/helpers.js";
 import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/orchestrator/types.js";
 
 export interface TaskGraphRunnerOptions {
+  mod: PipelineModV1<ExtendedMapContext, MapGenConfig, BaseLibraryRuntime>;
   mapGenConfig: MapGenConfig;
   orchestratorOptions: OrchestratorConfig;
   initializeFoundation?: (ctx: ExtendedMapContext, config: FoundationConfig) => FoundationContext;
-}
-
-function resolveRunSeed(config: MapGenConfig): number {
-  const seedConfig = config.foundation?.seed;
-  if (seedConfig?.mode === "fixed" && typeof seedConfig.fixedSeed === "number") {
-    return Math.trunc(seedConfig.fixedSeed);
-  }
-  return 0;
-}
-
-function buildStandardStepConfig(stepId: string, config: MapGenConfig): Record<string, unknown> {
-  const directionality = config.foundation?.dynamics?.directionality ?? {};
-
-  switch (stepId) {
-    case "foundation":
-      return { foundation: config.foundation ?? {} };
-    case "landmassPlates":
-      return {
-        landmass: config.landmass ?? {},
-        oceanSeparation: config.oceanSeparation ?? {},
-      };
-    case "coastlines":
-    case "lakes":
-      return {};
-    case "ruggedCoasts":
-      return {
-        coastlines: config.coastlines ?? {},
-        corridors: config.corridors ?? {},
-      };
-    case "islands":
-      return {
-        islands: config.islands ?? {},
-        story: { hotspot: config.story?.hotspot ?? {} },
-        corridors: { sea: config.corridors?.sea ?? {} },
-      };
-    case "mountains":
-      return { mountains: config.mountains ?? {} };
-    case "volcanoes":
-      return { volcanoes: config.volcanoes ?? {} };
-    case "climateBaseline":
-      return { climate: { baseline: config.climate?.baseline ?? {} } };
-    case "rivers":
-      return { climate: { story: { paleo: config.climate?.story?.paleo ?? {} } } };
-    case "climateRefine":
-      return {
-        climate: config.climate ?? {},
-        story: { orogeny: config.story?.orogeny ?? {} },
-        foundation: { dynamics: { directionality } },
-      };
-    case "storySeed":
-      return { margins: config.margins ?? {} };
-    case "storyHotspots":
-      return { story: { hotspot: config.story?.hotspot ?? {} } };
-    case "storyRifts":
-      return {
-        story: { rift: config.story?.rift ?? {} },
-        foundation: { dynamics: { directionality } },
-      };
-    case "storyOrogeny":
-      return { story: { orogeny: config.story?.orogeny ?? {} } };
-    case "storyCorridorsPre":
-    case "storyCorridorsPost":
-      return {
-        corridors: config.corridors ?? {},
-        foundation: { dynamics: { directionality } },
-      };
-    case "storySwatches":
-      return {
-        climate: config.climate ?? {},
-        foundation: { dynamics: { directionality } },
-      };
-    case "biomes":
-      return { biomes: config.biomes ?? {}, corridors: config.corridors ?? {} };
-    case "features":
-      return {
-        story: { features: config.story?.features ?? {} },
-        featuresDensity: config.featuresDensity ?? {},
-      };
-    case "derivePlacementInputs":
-      return { placement: config.placement ?? {} };
-    case "placement":
-      return {};
-    default:
-      return {};
-  }
-}
-
-function buildStandardRunRequest(
-  recipe: RecipeV1,
-  config: MapGenConfig,
-  ctx: ExtendedMapContext,
-  mapInfo: MapInfo
-): RunRequest {
-  const steps = recipe.steps.map((step) => {
-    const stepConfig = buildStandardStepConfig(step.id, config);
-    const mergedConfig =
-      step.config && typeof step.config === "object"
-        ? { ...stepConfig, ...step.config }
-        : stepConfig;
-    return {
-      ...step,
-      config: mergedConfig,
-    };
-  });
-
-  return {
-    recipe: {
-      ...recipe,
-      steps,
-    },
-    settings: {
-      seed: resolveRunSeed(config),
-      dimensions: { width: ctx.dimensions.width, height: ctx.dimensions.height },
-      latitudeBounds: {
-        topLatitude: mapInfo.MaxLatitude ?? 90,
-        bottomLatitude: mapInfo.MinLatitude ?? -90,
-      },
-      wrap: { wrapX: true, wrapY: false },
-    },
-  };
 }
 
 export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): GenerationResult {
@@ -219,7 +98,14 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
   logEngineSurfaceApisOnce();
 
   const registry = new StepRegistry<ExtendedMapContext>();
-  const recipe = options.orchestratorOptions.recipeOverride ?? standardMod.recipes.default;
+  const recipeOverride = options.orchestratorOptions.recipeOverride;
+  const defaultRecipe = options.mod.recipes?.default;
+  if (!recipeOverride && !defaultRecipe) {
+    throw new Error(
+      "runTaskGraphGeneration requires either orchestratorOptions.recipeOverride or mod.recipes.default"
+    );
+  }
+  const recipe = recipeOverride ?? defaultRecipe!;
   const enabledSteps = recipe.steps.filter((step) => step.enabled ?? true);
   const enabledStages = enabledSteps.map((step) => step.id).join(", ");
   console.log(`${prefix} Enabled stages: ${enabledStages || "(none)"}`);
@@ -233,11 +119,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
     console.error(`${prefix} Failed to create context:`, err);
     return { success: false, stageResults, startPositions };
   }
-
-  // Reset story state once per generation to prevent cross-run leakage.
-  resetStoryOverlays(ctx);
-  resetOrogenyCache(ctx);
-  resetCorridorStyleCache(ctx);
 
   const iNumPlayers1 = mapInfo.PlayersLandmass1 ?? 4;
   const iNumPlayers2 = mapInfo.PlayersLandmass2 ?? 4;
@@ -258,16 +139,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   const storyEnabled = enabledSteps.some((step) => step.id.startsWith("story"));
 
-  const getStageDescriptor = (
-    stageName: string
-  ): { requires: readonly string[]; provides: readonly string[] } => {
-    const desc = M3_STAGE_DEPENDENCY_SPINE[stageName] ?? { requires: [], provides: [] };
-    const requires = Array.isArray(desc.requires) ? desc.requires : [];
-    const provides = Array.isArray(desc.provides) ? desc.provides : [];
-    return { requires, provides };
-  };
-
-  standardMod.registry.register(registry, config, {
+  options.mod.register(registry, config, {
     getStageDescriptor,
     logPrefix: prefix,
     runFoundation: (context, config) => {
@@ -302,7 +174,7 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
 
   let plan: ExecutionPlan;
   try {
-    plan = compileExecutionPlan(buildStandardRunRequest(recipe, config, ctx, mapInfo), registry);
+    plan = compileExecutionPlan(buildRunRequest(recipe, config, ctx, mapInfo), registry);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     stageResults.push({

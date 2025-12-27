@@ -55,23 +55,102 @@ Core stops owning the standard pipeline’s identity. The standard mod owns its 
 - Treat this as “standard ownership lives with the mod.” If a tag/recipe is about domain semantics, it should not live in core.
 - Be careful not to accidentally re-encode standard ownership by leaving “default registry” helpers in core.
 
-## Prework Prompt (Agent Brief)
+## Implementation Decisions
 
-Goal: identify everything that is truly “standard-owned” at the registration layer and enumerate the import inversions required.
+- “Standard pipeline content” is implemented as the **base mod module**: `@swooper/mapgen-core/base`.
+- `StepRegistry` no longer instantiates any default tag catalog; tag registration is explicit and performed by the injected mod (`baseMod` registers `BASE_TAG_DEFINITIONS`).
+- Transitional shims remain at `@mapgen/pipeline/standard-library` and `@mapgen/pipeline/standard` as thin re-exports for compatibility, but the owned surfaces live under `@mapgen/base/*`.
 
-Deliverables:
-- An inventory of all standard-owned registry/tag/recipe modules.
-- A list of remaining “core depends on standard” import edges (direct and transitive) that must be inverted.
-- A short note flagging any modules that look “core-ish” but are actually standard-domain concepts (so they must move).
+## Prework Findings (Complete)
 
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
+Goal: enumerate what is truly “standard-owned” at the registration layer (tags/recipes/registry/phase ids) and list the import edges that keep core coupled to standard today.
 
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
+### 1) Inventory: standard-owned modules (current locations)
 
-## Pre-work
+#### Standard mod object + recipes
 
-_TBD_
+```yaml
+standardModObjectAndRecipes:
+  - module: packages/mapgen-core/src/base/mod.ts
+    owns: "baseMod object (id, register, recipes.default)"
+    notes: Base mod surface (imported explicitly via @swooper/mapgen-core/base).
+  - module: packages/mapgen-core/src/base/recipes/default.ts
+    owns: 'baseDefaultRecipe: RecipeV1 (id: "core.base")'
+    notes: Base recipe identity + ordering.
+```
 
+#### Standard registration wiring (layer registration)
+
+```yaml
+standardRegistrationWiring:
+  - module: packages/mapgen-core/src/pipeline/standard-library.ts
+    owns: registerStandardLibrary(...)
+    notes: Hard-codes that “standard == these layers”. Moves into the standard mod package.
+  - module: packages/mapgen-core/src/pipeline/foundation/index.ts
+    owns: registerFoundationLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/morphology/index.ts
+    owns: registerMorphologyLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/hydrology/index.ts
+    owns: registerHydrologyLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/narrative/index.ts
+    owns: registerNarrativeLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/ecology/index.ts
+    owns: registerEcologyLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+  - module: packages/mapgen-core/src/pipeline/placement/index.ts
+    owns: registerPlacementLayer(...) wiring
+    notes: Standard pipeline composition; after extraction it is mod-owned.
+```
+
+#### Standard phases + dependency spine
+
+```yaml
+standardPhasesAndDependencySpine:
+  - module: packages/mapgen-core/src/pipeline/standard.ts
+    owns: M3_STANDARD_STAGE_PHASE + M3_STAGE_DEPENDENCY_SPINE
+    notes: Standard-stage naming/phases and requires/provides descriptors (standard-owned concepts).
+```
+
+#### Standard tags + effect definitions
+
+```yaml
+standardTagsAndEffects:
+  - module: packages/mapgen-core/src/pipeline/tags.ts
+    owns: M3_DEPENDENCY_TAGS + M4_EFFECT_TAGS + DEFAULT_TAG_DEFINITIONS
+    notes: |
+      Contains domain-specific tags (narrative motifs, placement artifacts, engine effects).
+      Tag infrastructure (TagRegistry) can remain core, but the default tag catalog is standard-owned and moves with the standard mod.
+```
+
+### 2) Core → standard coupling edges to invert (direct + “looks core-ish”)
+
+Direct imports that encode “standard is built-in”:
+- `packages/mapgen-core/src/orchestrator/task-graph.ts` imports:
+  - `M3_STAGE_DEPENDENCY_SPINE` (`@mapgen/pipeline/standard.js`)
+- `packages/mapgen-core/src/pipeline/index.ts` re-exports `M3_STANDARD_STAGE_PHASE` and `M3_STAGE_DEPENDENCY_SPINE` from `pipeline/standard.ts`.
+
+Note:
+- Post M5-U02, the base mod lives in `@swooper/mapgen-core/base` and is injected into core (no built-in import/re-export from `@swooper/mapgen-core`).
+
+Transitive / “fractal” couplings that will surface during extraction:
+- Step implementations are phase-stamped with `M3_STANDARD_STAGE_PHASE.*`:
+  - All `packages/mapgen-core/src/pipeline/**/*Step.ts` imports `M3_STANDARD_STAGE_PHASE` (standard-owned once the boundary is real).
+- Domain code publishes standard-owned artifacts by importing standard tags:
+  - Example: `packages/mapgen-core/src/domain/narrative/orogeny/belts.ts` imports `M3_DEPENDENCY_TAGS` to publish `artifact:narrative.motifs.*@v1`.
+  - Similar pattern exists in other narrative/placement artifacts writers.
+
+Implication for implementation (what must change when tags move):
+- Standard-domain code imports tag IDs (and satisfy helpers/type guards) from a standard‑mod‑owned tag catalog module.
+- Core retains only generic tag infrastructure (`TagRegistry` and friends); it does not ship a default/standard tag catalog.
+
+### 3) “Core-ish but standard” callouts (easy to accidentally keep in core)
+
+These *look* like generic pipeline infra, but are standard ownership:
+- `packages/mapgen-core/src/pipeline/standard.ts` (stage names/phases/spine)
+- `packages/mapgen-core/src/pipeline/standard-library.ts` (register standard layers)
+- `packages/mapgen-core/src/pipeline/tags.ts` (default tag ids + standard artifact/effect catalog)
+- `packages/mapgen-core/src/orchestrator/task-graph.ts` `buildStandardStepConfig(...)` (step-id → config wiring is standard-specific)

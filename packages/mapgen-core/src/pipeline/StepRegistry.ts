@@ -1,8 +1,7 @@
 import { DuplicateStepError, UnknownStepError } from "@mapgen/pipeline/errors.js";
 import {
-  createDefaultTagRegistry,
+  TagRegistry,
   type DependencyTagDefinition,
-  type TagRegistry,
   validateDependencyTags,
 } from "@mapgen/pipeline/tags.js";
 import type { MapGenStep } from "@mapgen/pipeline/types.js";
@@ -12,7 +11,7 @@ export class StepRegistry<TContext> {
   private readonly tags: TagRegistry;
 
   constructor(options: { tags?: TagRegistry } = {}) {
-    this.tags = options.tags ?? createDefaultTagRegistry();
+    this.tags = options.tags ?? new TagRegistry();
   }
 
   registerTag(definition: DependencyTagDefinition): void {

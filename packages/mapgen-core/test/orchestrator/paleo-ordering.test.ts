@@ -2,18 +2,18 @@ import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import { createExtendedMapContext, syncHeightfield } from "@mapgen/core/types.js";
+import { M3_DEPENDENCY_TAGS, M3_STAGE_DEPENDENCY_SPINE, registerBaseTags } from "@mapgen/base/index.js";
 import {
   compileExecutionPlan,
   PipelineExecutor,
   StepRegistry,
-  registerFoundationLayer,
-  registerHydrologyLayer,
-  registerNarrativeLayer,
 } from "@mapgen/pipeline/index.js";
-import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
-import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
+import { registerFoundationLayer } from "@mapgen/base/pipeline/foundation/index.js";
+import { runFoundationStage } from "@mapgen/base/pipeline/foundation/producer.js";
+import { registerHydrologyLayer } from "@mapgen/base/pipeline/hydrology/index.js";
+import { registerNarrativeLayer } from "@mapgen/base/pipeline/narrative/index.js";
+import { publishHeightfieldArtifact } from "@mapgen/base/pipeline/artifacts.js";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
@@ -71,14 +71,11 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
   function runRecipe(
     config: ReturnType<typeof bootstrap>,
     adapter: ReturnType<typeof createMockAdapter>,
-    enabledStepIds: Set<string>
+    recipe: readonly string[]
   ) {
     const ctx = createExtendedMapContext({ width, height }, adapter, config);
     const registry = new StepRegistry<ExtendedMapContext>();
-    const recipe = standardMod.recipes.default.steps
-      .map((step) => step.id)
-      .filter((stepId) => enabledStepIds.has(stepId));
-    expect(recipe).toHaveLength(enabledStepIds.size);
+    registerBaseTags(registry);
     const storyEnabled = recipe.some((id) => id.startsWith("story"));
 
     const getStageDescriptor = (stageId: string) => {
@@ -115,19 +112,27 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
       eastContinent,
     });
 
+    registry.register({
+      id: "seedHeightfield",
+      phase: "hydrology",
+      requires: [],
+      provides: [M3_DEPENDENCY_TAGS.artifact.heightfield],
+      run: (context, _config) => {
+        syncHeightfield(context);
+        publishHeightfieldArtifact(context);
+      },
+    });
+
     const buildStepConfig = (stepId: string): Record<string, unknown> => {
       switch (stepId) {
         case "foundation":
           return { foundation: config.foundation ?? {} };
+        case "seedHeightfield":
+          return {};
         case "climateBaseline":
           return { climate: { baseline: config.climate?.baseline ?? {} } };
         case "storySwatches":
-          return {
-            climate: config.climate ?? {},
-            foundation: {
-              dynamics: { directionality: config.foundation?.dynamics?.directionality ?? {} },
-            },
-          };
+          return { climate: config.climate ?? {} };
         case "rivers":
           return { climate: { story: { paleo: config.climate?.story?.paleo ?? {} } } };
         default:
@@ -148,6 +153,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
         dimensions: { width, height },
         latitudeBounds: { topLatitude: mapInfo.MaxLatitude, bottomLatitude: mapInfo.MinLatitude },
         wrap: { wrapX: true, wrapY: false },
+        directionality: config.foundation?.dynamics?.directionality ?? {},
       },
     };
 
@@ -194,9 +200,9 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
         },
       },
     });
-    const enabledStepIds = new Set(["foundation", "climateBaseline", "storySwatches", "rivers"]);
+    const recipe = ["foundation", "seedHeightfield", "climateBaseline", "storySwatches", "rivers"] as const;
 
-    const { ctx, stepResults } = runRecipe(config, adapter, enabledStepIds);
+    const { ctx, stepResults } = runRecipe(config, adapter, recipe);
     expect(stepResults.every((r) => r.success)).toBe(true);
 
     const overlay = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.PALEO);

@@ -3,19 +3,16 @@ import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import { M3_DEPENDENCY_TAGS, M3_STAGE_DEPENDENCY_SPINE, M4_EFFECT_TAGS, baseDefaultRecipe, baseMod } from "@mapgen/base/index.js";
 import { createDefaultContinentBounds } from "@mapgen/orchestrator/helpers.js";
 import {
   compileExecutionPlan,
   computePlanFingerprint,
   createTraceSessionFromPlan,
-  M4_EFFECT_TAGS,
   PipelineExecutor,
   StepRegistry,
 } from "@mapgen/pipeline/index.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/index.js";
-import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
-import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
+import { runFoundationStage } from "@mapgen/base/pipeline/foundation/producer.js";
 import type { TraceEvent } from "@mapgen/trace/index.js";
 
 describe("smoke: standard recipe compile/execute", () => {
@@ -77,8 +74,6 @@ describe("smoke: standard recipe compile/execute", () => {
   };
 
   const buildStandardStepConfig = (stepId: string, config: ReturnType<typeof bootstrap>) => {
-    const directionality = config.foundation?.dynamics?.directionality ?? {};
-
     switch (stepId) {
       case "foundation":
         return { foundation: config.foundation ?? {} };
@@ -110,24 +105,20 @@ describe("smoke: standard recipe compile/execute", () => {
         return {
           climate: config.climate ?? {},
           story: { orogeny: config.story?.orogeny ?? {} },
-          foundation: { dynamics: { directionality } },
         };
       case "storySeed":
         return { margins: config.margins ?? {} };
       case "storyHotspots":
         return { story: { hotspot: config.story?.hotspot ?? {} } };
       case "storyRifts":
-        return {
-          story: { rift: config.story?.rift ?? {} },
-          foundation: { dynamics: { directionality } },
-        };
+        return { story: { rift: config.story?.rift ?? {} } };
       case "storyOrogeny":
         return { story: { orogeny: config.story?.orogeny ?? {} } };
       case "storyCorridorsPre":
       case "storyCorridorsPost":
-        return { corridors: config.corridors ?? {}, foundation: { dynamics: { directionality } } };
+        return { corridors: config.corridors ?? {} };
       case "storySwatches":
-        return { climate: config.climate ?? {}, foundation: { dynamics: { directionality } } };
+        return { climate: config.climate ?? {} };
       case "biomes":
         return { biomes: config.biomes ?? {}, corridors: config.corridors ?? {} };
       case "features":
@@ -145,7 +136,7 @@ describe("smoke: standard recipe compile/execute", () => {
   };
 
   const buildRunRequest = (config: ReturnType<typeof bootstrap>) => {
-    const steps = standardMod.recipes.default.steps.map((step) => {
+    const steps = baseDefaultRecipe.steps.map((step) => {
       const stepConfig = buildStandardStepConfig(step.id, config);
       const mergedConfig =
         step.config && typeof step.config === "object"
@@ -158,12 +149,13 @@ describe("smoke: standard recipe compile/execute", () => {
     });
 
     return {
-      recipe: { ...standardMod.recipes.default, steps },
+      recipe: { ...baseDefaultRecipe, steps },
       settings: {
         seed: 123,
         dimensions: { width, height },
         latitudeBounds: { topLatitude: mapInfo.MaxLatitude, bottomLatitude: mapInfo.MinLatitude },
         wrap: { wrapX: true, wrapY: false },
+        directionality: config.foundation?.dynamics?.directionality ?? {},
         trace: { enabled: true },
       },
     };
@@ -174,7 +166,7 @@ describe("smoke: standard recipe compile/execute", () => {
     config: ReturnType<typeof bootstrap>
   ) => {
     const registry = new StepRegistry<ExtendedMapContext>();
-    const recipeSteps = standardMod.recipes.default.steps.filter((step) => step.enabled ?? true);
+    const recipeSteps = baseDefaultRecipe.steps.filter((step) => step.enabled ?? true);
     const storyEnabled = recipeSteps.some((step) => step.id.startsWith("story"));
 
     const getStageDescriptor = (stageId: string) => {
@@ -198,7 +190,7 @@ describe("smoke: standard recipe compile/execute", () => {
     );
     const startPositions: number[] = [];
 
-    standardMod.registry.register(registry, config, {
+    baseMod.register(registry, config, {
       getStageDescriptor,
       logPrefix: "[TEST]",
       runFoundation: (context, foundationConfig) => {
@@ -233,11 +225,11 @@ describe("smoke: standard recipe compile/execute", () => {
     const runRequest = buildRunRequest(config);
     const plan = compileExecutionPlan(runRequest, registry);
 
-    const expectedSteps = standardMod.recipes.default.steps
+    const expectedSteps = baseDefaultRecipe.steps
       .filter((step) => step.enabled ?? true)
       .map((step) => step.id);
 
-    expect(plan.recipeId).toBe("core.standard");
+    expect(plan.recipeId).toBe("core.base");
     expect(plan.nodes.map((node) => node.stepId)).toEqual(expectedSteps);
     expect(computePlanFingerprint(plan)).toMatch(/^[a-f0-9]{64}$/);
   });
@@ -264,7 +256,11 @@ describe("smoke: standard recipe compile/execute", () => {
     expect(stepResults.every((result) => result.success)).toBe(true);
     expect(satisfied.has(M4_EFFECT_TAGS.engine.biomesApplied)).toBe(true);
     expect(satisfied.has(M4_EFFECT_TAGS.engine.featuresApplied)).toBe(true);
-    expect(ctx.artifacts.foundation).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationSeedV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationDiagnosticsV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationConfigV1)).toBeTruthy();
     expect(ctx.fields.biomeId).toBeInstanceOf(Uint8Array);
     expect(ctx.fields.featureType).toBeInstanceOf(Int16Array);
 

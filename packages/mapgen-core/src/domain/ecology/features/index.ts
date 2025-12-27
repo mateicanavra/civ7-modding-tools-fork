@@ -18,7 +18,7 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { ctxRandom } from "@mapgen/core/types.js";
 import { inBounds as boundsCheck } from "@mapgen/core/index.js";
-import { getPublishedClimateField } from "@mapgen/pipeline/artifacts.js";
+import { getPublishedClimateField } from "@mapgen/base/pipeline/artifacts.js";
 import { getNarrativeMotifsHotspots, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
 import type { FeaturesConfig, FeaturesDensityConfig } from "@mapgen/domain/ecology/features/types.js";
 import { resolveFeatureIndices } from "@mapgen/domain/ecology/features/indices.js";

@@ -2,11 +2,9 @@ import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { M3_DEPENDENCY_TAGS, M3_STAGE_DEPENDENCY_SPINE, M4_EFFECT_TAGS, registerBaseTags } from "@mapgen/base/index.js";
 import {
   MissingDependencyError,
-  M3_DEPENDENCY_TAGS,
-  M3_STAGE_DEPENDENCY_SPINE,
-  M4_EFFECT_TAGS,
   PipelineExecutor,
   StepRegistry,
 } from "@mapgen/pipeline/index.js";
@@ -23,19 +21,29 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
+    registerBaseTags(registry);
     registry.register({
       id: "coastlines",
       phase: "morphology",
       requires: [],
       provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
-      run: (_context, _config) => {},
+      run: (ctx) => {
+        const ocean = ctx.adapter.getTerrainTypeIndex("TERRAIN_OCEAN");
+        for (let x = 0; x < width; x++) {
+          ctx.adapter.setTerrainType(x, 0, ocean);
+        }
+        ctx.adapter.expandCoasts(width, height);
+      },
     });
     registry.register({
       id: "rivers",
       phase: "hydrology",
       requires: [],
       provides: [M4_EFFECT_TAGS.engine.riversModeled],
-      run: (_context, _config) => {},
+      run: (ctx) => {
+        const riverTerrain = ctx.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER");
+        ctx.adapter.modelRivers(5, 15, riverTerrain);
+      },
     });
     registry.register({
       id: "placement",
@@ -70,6 +78,7 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
+    registerBaseTags(registry);
     registry.register({
       id: "derivePlacementInputs",
       phase: "placement",
@@ -104,6 +113,7 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
+    registerBaseTags(registry);
     registry.register({
       id: "placement",
       phase: "placement",
@@ -132,6 +142,7 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
+    registerBaseTags(registry);
     registry.register({
       id: "placement",
       phase: "placement",

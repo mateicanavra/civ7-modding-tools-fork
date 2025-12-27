@@ -18,12 +18,12 @@ import {
   type OrchestratorConfig,
 } from "@swooper/mapgen-core";
 import type { BootstrapConfig } from "@swooper/mapgen-core/bootstrap";
+import { baseMod } from "@swooper/mapgen-core/base";
 
 function buildConfig(): BootstrapConfig {
   return {
     overrides: {
       landmass: {
-        crustMode: "area",
         // Earth-like ocean dominance (~70% water).
         baseWaterPercent: 68,
         waterScalar: 1,
@@ -316,7 +316,7 @@ engine.on("RequestMapInitData", (initParams) => {
 
 engine.on("GenerateMap", () => {
   const config = bootstrap(buildConfig());
-  runTaskGraphGeneration({ mapGenConfig: config, orchestratorOptions });
+  runTaskGraphGeneration({ mod: baseMod, mapGenConfig: config, orchestratorOptions });
 });
 
 console.log("[SWOOPER_MOD] ========================================");
