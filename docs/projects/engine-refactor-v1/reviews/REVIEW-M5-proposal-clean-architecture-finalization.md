@@ -172,3 +172,23 @@ Global/fallback usage is largely removed (Voronoi utils via adapter, RNG globals
 
 ### Cross-cutting Risks
 - None identified.
+
+## REVIEW m5-u09-def-016-schema-ownership-split-settings
+
+### Quick Take
+The schema split is clean and step configs no longer embed directionality, but the new `settings.directionality` field is currently unused, so the source of truth is ambiguous.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/base/run-request.ts` now sets `settings.directionality`, but step implementations read `context.config.foundation.dynamics.directionality`; nothing reads `settings.directionality`, so the new setting is dead and could drift from config.
+
+### Fix Now (Recommended)
+- Either wire steps to read directionality from `context.settings` (making the settings boundary real) or remove `settings.directionality` and keep foundation config as the single source of truth.
+
+### Defer / Follow-up
+- If the plan is to switch later, document the migration path and when config vs settings is authoritative.
+
+### Needs Discussion
+- Should directionality be a run setting (settings-owned) or remain foundation-owned config with no settings mirror?
+
+### Cross-cutting Risks
+- Directionality now has two potential sources of truth (config vs settings), which can confuse tooling or future adapters.
