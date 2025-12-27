@@ -27,6 +27,23 @@ const BiomesStepConfigSchema = Type.Object(
 
 type BiomesStepConfig = Static<typeof BiomesStepConfigSchema>;
 
+function reifyBiomeField(context: ExtendedMapContext): void {
+  const biomeIdField = context.fields?.biomeId;
+  if (!biomeIdField) {
+    throw new Error("BiomesStep: Missing field:biomeId buffer for reification.");
+  }
+
+  const { width, height } = context.dimensions;
+  const { adapter } = context;
+
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width;
+    for (let x = 0; x < width; x++) {
+      biomeIdField[rowOffset + x] = adapter.getBiomeType(x, y);
+    }
+  }
+}
+
 export function createBiomesStep(options: BiomesStepOptions): MapGenStep<ExtendedMapContext, BiomesStepConfig> {
   return {
     id: "biomes",
@@ -44,6 +61,7 @@ export function createBiomesStep(options: BiomesStepOptions): MapGenStep<Extende
         biomes: config.biomes,
         corridors: config.corridors,
       });
+      reifyBiomeField(context);
       options.afterRun?.(context);
     },
   };

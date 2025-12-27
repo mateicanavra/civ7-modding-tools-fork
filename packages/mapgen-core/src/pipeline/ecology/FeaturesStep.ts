@@ -30,6 +30,23 @@ const FeaturesStepConfigSchema = Type.Object(
 
 type FeaturesStepConfig = Static<typeof FeaturesStepConfigSchema>;
 
+function reifyFeatureField(context: ExtendedMapContext): void {
+  const featureTypeField = context.fields?.featureType;
+  if (!featureTypeField) {
+    throw new Error("FeaturesStep: Missing field:featureType buffer for reification.");
+  }
+
+  const { width, height } = context.dimensions;
+  const { adapter } = context;
+
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width;
+    for (let x = 0; x < width; x++) {
+      featureTypeField[rowOffset + x] = adapter.getFeatureType(x, y) | 0;
+    }
+  }
+}
+
 export function createFeaturesStep(options: FeaturesStepOptions): MapGenStep<ExtendedMapContext, FeaturesStepConfig> {
   return {
     id: "features",
@@ -48,6 +65,7 @@ export function createFeaturesStep(options: FeaturesStepOptions): MapGenStep<Ext
         story: config.story,
         featuresDensity: config.featuresDensity,
       });
+      reifyFeatureField(context);
       options.afterRun?.(context);
     },
   };

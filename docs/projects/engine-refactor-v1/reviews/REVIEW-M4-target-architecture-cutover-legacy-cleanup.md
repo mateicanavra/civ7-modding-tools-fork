@@ -124,3 +124,13 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Follow-up:** Consider a small contract guardrail that prevents adapter reuse across runs (or add an explicit `reset()`/run-scope mechanism); consider centralizing `effect:*` ids (or add an invariant test) to reduce drift risk once the surface stabilizes.
 - **Verification:** `pnpm -C packages/mapgen-core check` (pass); `pnpm -C packages/mapgen-core test` (pass, includes the new postcondition failure test).
 - **Update (2025-12-24):** Centralized `effect:engine.*` ids via `ENGINE_EFFECT_TAGS` in `@civ7/adapter` so adapters + pipeline tags share constants; adapter reuse guardrail remains a follow-up.
+
+## CIV-69 — [M4] Biomes/features reification and verification
+
+**Reviewed:** 2025-12-24
+
+- **Intent:** Reify engine-derived biome/feature outputs into explicit fields (`field:biomeId`, `field:featureType`), and gate downstream steps on verified `effect:engine.{biomesApplied,featuresApplied}` (adapter-backed postconditions).
+- **Strengths:** Biomes/features steps now reify fields immediately after engine mutation (`BiomesStep`/`FeaturesStep`); the prior cross-step engine read in features switches to `ctx.fields.biomeId`; standard dependency spine publishes the reified fields and effects; smoke test asserts both effect tags satisfy and sampled field values match engine reads.
+- **Gaps:** Effect postconditions remain “call-evidence” (wiring confidence, not correctness proof); `pnpm -C packages/mapgen-core check` still requires a prior `pnpm -C packages/civ7-adapter build` (types live in `dist/`), so the documented verification commands aren’t fully hermetic from a fresh checkout.
+- **Follow-up:** Add a `precheck` (or dev-export adjustment) so `pnpm -C packages/mapgen-core check` works without manual adapter builds; treat “call-evidence” effects as a guardrail for missed wiring, not a correctness oracle.
+- **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test test/pipeline/standard-smoke.test.ts` (pass).

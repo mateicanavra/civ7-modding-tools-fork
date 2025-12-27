@@ -72,6 +72,12 @@ export function addDiverseFeatures(
     );
   }
   const rainfallField = climateField.rainfall;
+  const biomeField = ctx.fields?.biomeId;
+  if (!biomeField) {
+    throw new Error(
+      "addDiverseFeatures: Missing field:biomeId (expected biomes reification)."
+    );
+  }
 
   const { reefIndex, rainforestIdx, forestIdx, taigaIdx, NO_FEATURE } = resolveFeatureIndices(adapter);
   const g_GrasslandBiome = adapter.getBiomeGlobal("grassland");
@@ -129,13 +135,15 @@ export function addDiverseFeatures(
   const taigaExtraChance = densityCfg?.taigaExtraChance ?? 35;
 
   for (let y = 0; y < iHeight; y++) {
+    const rowOffset = y * iWidth;
     for (let x = 0; x < iWidth; x++) {
+      const idxValue = rowOffset + x;
       if (adapter.isWater(x, y)) continue;
       if (adapter.getFeatureType(x, y) !== NO_FEATURE) continue;
 
-      const biome = adapter.getBiomeType(x, y);
       const elevation = adapter.getElevation(x, y);
-      const rainfall = rainfallField[y * iWidth + x] | 0;
+      const rainfall = rainfallField[idxValue] | 0;
+      const biome = biomeField[idxValue] | 0;
       const plat = Math.abs(adapter.getLatitude(x, y));
 
       // 3a) Volcanic vegetation near volcanic hotspot centers (radius 1)

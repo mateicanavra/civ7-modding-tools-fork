@@ -6,6 +6,7 @@ import {
   MissingDependencyError,
   M3_DEPENDENCY_TAGS,
   M3_STAGE_DEPENDENCY_SPINE,
+  M4_EFFECT_TAGS,
   PipelineExecutor,
   StepRegistry,
 } from "@mapgen/pipeline/index.js";
@@ -53,7 +54,7 @@ describe("placement step contracts", () => {
       expect(err).toBeInstanceOf(MissingDependencyError);
       expect((err as MissingDependencyError).stepId).toBe("placement");
       expect((err as MissingDependencyError).missing).toEqual([
-        M3_DEPENDENCY_TAGS.state.featuresApplied,
+        M4_EFFECT_TAGS.engine.featuresApplied,
       ]);
     }
   });
