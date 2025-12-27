@@ -178,7 +178,6 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Follow-up:** Fix TaskGraph + smoke run request builders to avoid passing placement config to the `placement` step; align CIV-73 doc schema sketches with the chosen snapshot shapes; consider adding `M3_STAGE_DEPENDENCY_SPINE.islands.provides += narrativeMotifsHotspotsV1` (or otherwise make “hotspot categories are complete after islands” explicit).
 - **Implementation Decisions:** 3 logged (Set/Map snapshots, corridors metadata retention, omit hotspot trails); all align with implementation; main side-effect risk is future serialization/contract drift (already tracked in `docs/projects/engine-refactor-v1/triage.md`).
 - **Verification:** `pnpm -C packages/civ7-adapter build` (pass); `pnpm -C packages/mapgen-core check` (pass); `pnpm -C packages/mapgen-core test` (fails: placement config unknown key).
-
 ## CIV-70 — [M4] Effects verification: remove state:engine surface + close DEF-008
 
 **Reviewed:** 2025-12-26
@@ -190,7 +189,6 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Implementation Decisions:** 0 logged; 1 unlogged (which `effect:engine.*` tags are runtime-verified vs trusted).
 - **Verification:** `rg -n "state:engine" packages/mapgen-core/src packages/mapgen-core/test` (no hits); `pnpm -C packages/mapgen-core check` (pass); `pnpm -C packages/mapgen-core test test/pipeline/{tag-registry,placement-gating,artifacts}.test.ts` (pass); `pnpm -C packages/mapgen-core test test/pipeline/standard-smoke.test.ts` (fails: `/recipe/steps/21/config/placement` unknown key).
 - **Update (2025-12-26):** Logged the verification-scope decision in CIV-70 and expanded DEF-017 to include rivers; standard pipeline verification remains blocked by the placement config schema mismatch noted in CIV-73.
-
 ## Review Updates
 
 - **Update (2025-12-26):** CIV-73 follow-up fixes applied: placement config stripped from run-request builders (`runTaskGraphGeneration` + standard smoke), `islands` now provides `artifact:narrative.motifs.hotspots@v1`, CIV-73 schema sketches aligned, `pnpm -C packages/mapgen-core test` passes.
