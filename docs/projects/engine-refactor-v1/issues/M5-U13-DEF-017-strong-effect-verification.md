@@ -55,23 +55,7 @@ Make the effect contract story credible for the highest-risk effects. The end-st
 
 - Keep the API surface minimal; prefer a few robust reads over a wide “engine mirror.”
 
-## Prework Prompt (Agent Brief)
-
-Goal: decide the minimal read-back API and verification strategy before implementation to avoid churn and adapter coupling surprises.
-
-Deliverables:
-- Proposed minimal adapter read-back API set for strong verification (landmass/coastlines/rivers/placement).
-- For each API: what it returns, how to implement in Civ adapter, and how to simulate meaningfully in `MockAdapter`.
-- A verifier mapping: which effects should use read-back vs “cheap invariants,” and why.
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: define the minimal adapter read-back surface needed to make key `effect:*` tags verifiable (beyond “call evidence”), and map which effects should use read-back vs cheap invariants.
 
@@ -106,11 +90,6 @@ Recommended minimal additions to `EngineAdapter`:
 - `getContinentType(x: number, y: number): number`
   - Civ: `GameplayMap.getContinentType(x, y)`
   - Mock: backed by a `continentType` buffer (can start as zeros; populated when `stampContinents()` is called)
-
-Optional “nice to have” (helps with landmass/tag verification if needed later):
-- `getPlotTag(x: number, y: number): number` and/or `hasPlotTag(x: number, y: number, tag: number): boolean`
-  - Civ: `GameplayMap.getPlotTag(...)` / `GameplayMap.hasPlotTag(...)`
-  - Mock: backed by a `plotTags` buffer
 
 ### 3) Verifier mapping (read-back vs cheap invariants)
 

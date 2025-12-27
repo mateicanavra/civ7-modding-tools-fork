@@ -55,23 +55,7 @@ Finish the extraction: after this unit, core should be structurally generic, and
 - Pay special attention to adapter-facing helpers; keep the boundary boring and explicit (avoid reintroducing ambient/global patterns).
 - Treat narrative artifacts/queries as standard-mod owned, not core owned, unless they are intentionally made generic primitives.
 
-## Prework Prompt (Agent Brief)
-
-Goal: map the dependency/ownership edges so the extraction is safe and complete.
-
-Deliverables:
-- A dependency map for ecology/placement/narrative step clusters.
-- A proposed “stays core” vs “moves with mod” decision list, with special attention to adapter-facing helpers and tag definitions.
-- A list of any runtime entrypoints or exports that still assume these domains are core-owned.
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: map ecology + placement + narrative clusters (steps + helpers) and flag the adapter-facing and tag/recipe couplings that must be handled explicitly when the standard mod boundary becomes real.
 

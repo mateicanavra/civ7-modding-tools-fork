@@ -53,23 +53,7 @@ Continue extraction of standard-domain behavior until core is structurally gener
 
 - Treat shared helpers skeptically: if it exists only because the standard pipeline needs it, it should probably move.
 
-## Prework Prompt (Agent Brief)
-
-Goal: map the cluster so extraction is mechanical and we don’t accidentally keep domain ownership in core.
-
-Deliverables:
-- A dependency map for morphology/hydrology steps and helpers.
-- A list of shared utility candidates vs domain helpers that must move with the mod.
-- A list of boundary reshapes required (imports, exports, shared-primitives API adjustments).
-
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
-
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
-
-## Pre-work
+## Prework Findings (Complete)
 
 Goal: map morphology + hydrology clusters (steps + helpers) so extraction is mostly mechanical moves, with explicit callouts for the few cross-domain couplings.
 
@@ -143,7 +127,8 @@ Likely stays in core as shared primitives:
 ### 4) Extraction risk notes (import edges to watch)
 
 Morphology ↔ narrative coupling:
-- If narrative moves later than morphology, rugged coast carving will need an intermediate API (or co-move those modules).
+- During extraction, **co-move** any narrative helpers that morphology directly imports (e.g. the narrative query helpers used by rugged coast carving) with the morphology cluster, rather than creating temporary cross-package APIs.
 
 Hydrology ↔ narrative coupling:
-- `storyTagClimatePaleo(...)` is called from hydrology; extraction ordering should either co-move the paleo helper or make it an optional hook owned by the standard mod.
+- Hydrology currently calls into narrative paleo/tagging helpers. For M5, this is **not** an optional hook: it is standard‑mod owned behavior.
+- During extraction, **co-move** the specific narrative helper(s) that hydrology imports alongside the hydrology cluster so we don’t invent a new “intermediate API surface” between packages.

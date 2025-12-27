@@ -51,19 +51,24 @@ Each deferral follows this structure:
 
 ---
 
-## DEF-011: Behavior-Mode Selectors ("legacy" vs. "area")
+## DEF-011: Delete `crustMode` and the legacy behavior branch ("legacy" vs. "area")
 
 **Deferred:** 2025-12-18  
-**Trigger:** When parity matrices stabilize and we no longer need to compare "legacy" vs. "area" behavior, or when we decide a single canonical mode and delete the other.  
-**Context:** The orchestration cleanup spike explicitly defers removing behavior-mode selectors because they represent distinct algorithm semantics, not just compatibility surfaces.  
+**Trigger:** M5: implement `M5-U01` (remove the knob; delete the `"legacy"` branch).  
+**Context:** We originally paused this because the selector looked like “two intentional algorithms” rather than a pure compatibility shim. Post‑M4 we’re explicitly choosing a single canonical behavior: the `"area"` semantics, and treating `"legacy"` as legacy-only.  
+**Decision status (locked):**
+- `crustMode` is removed from the config surface (no schema support, no compat parsing).
+- The `"legacy"` behavior branch is deleted.
+- `"area"` becomes the single canonical behavior path (no runtime selector).
+
 **Scope:**
-- Audit all `"legacy" | "area"` selectors in config schema and domain modules (e.g., landmask/crust).
-- Decide the canonical mode (or rename if both must remain).
-- ~~Update presets, docs, and tests to reflect the chosen contract.~~  
-  **Update (2025-12-21, M4 planning):** Presets are removed; update recipe+settings selection docs/tests instead. See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
+- Remove `crustMode` from all schema/typing/parsing surfaces (and make configs that still supply it fail validation with a clear error).
+- Delete the `"legacy"` branch in landmask/crust/ocean separation implementations and any associated legacy-only config fallbacks.
+- Update in-repo configs/tests/docs that still refer to `crustMode` or `"legacy"`.
+
 **Impact:**
-- Extra modes increase maintenance and allow drift between algorithms.
-- Consumers must keep mental context about which mode is active.
+- Breaking change for any out-of-repo config/consumer that still sets `crustMode` or expects `"legacy"` semantics; handled via coordinated migration + release notes, not via shims.
+- Removes an ongoing source of algorithm drift and maintenance burden.
 
 ---
 
