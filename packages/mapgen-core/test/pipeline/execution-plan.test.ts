@@ -1,7 +1,7 @@
 import { describe, it, expect } from "bun:test";
 import { Type } from "typebox";
 import { createMockAdapter } from "@civ7/adapter";
-import type { MapConfig } from "@mapgen/bootstrap/types.js";
+import type { MapGenConfig } from "@mapgen/config/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { registerBaseTags } from "@mapgen/base/index.js";
 
@@ -335,7 +335,7 @@ describe("compileExecutionPlan", () => {
     const context = createExtendedMapContext(
       { width: 2, height: 2 },
       adapter,
-      {} as unknown as MapConfig
+      {} as unknown as MapGenConfig
     );
     const executor = new PipelineExecutor(registry, { log: () => {} });
     executor.executePlan(context, plan);

@@ -51,10 +51,3 @@ export {
   createTraceSessionFromPlan,
   deriveRunId,
 } from "@mapgen/pipeline/observability.js";
-
-export { registerFoundationLayer, type FoundationLayerRuntime } from "@mapgen/pipeline/foundation/index.js";
-export { registerMorphologyLayer, type MorphologyLayerRuntime } from "@mapgen/pipeline/morphology/index.js";
-export { registerHydrologyLayer, type HydrologyLayerRuntime } from "@mapgen/pipeline/hydrology/index.js";
-export { registerNarrativeLayer, type NarrativeLayerRuntime } from "@mapgen/pipeline/narrative/index.js";
-export { registerEcologyLayer, type EcologyLayerRuntime } from "@mapgen/pipeline/ecology/index.js";
-export { registerPlacementLayer, type PlacementLayerRuntime } from "@mapgen/pipeline/placement/index.js";
