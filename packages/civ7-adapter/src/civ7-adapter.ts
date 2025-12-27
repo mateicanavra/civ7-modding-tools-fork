@@ -276,11 +276,20 @@ export class Civ7Adapter implements EngineAdapter {
   }
 
   getBiomeGlobal(name: string): number {
-    // Biome globals are exposed as g_<Name>Biome on globalThis
-    // e.g., g_TropicalBiome, g_GrasslandBiome, g_TundraBiome, etc.
-    const globalName = `g_${name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}Biome`;
-    const value = (globalThis as Record<string, unknown>)[globalName];
-    return typeof value === "number" ? value : -1;
+    const biomes = GameInfo?.Biomes;
+    if (!biomes) return -1;
+
+    const biomeType = name.toUpperCase().startsWith("BIOME_")
+      ? name.toUpperCase()
+      : `BIOME_${name.toUpperCase()}`;
+
+    const biome = biomes.find((b) => b.BiomeType === biomeType) as
+      | { Index?: number; $index?: number }
+      | undefined;
+
+    if (typeof biome?.Index === "number") return biome.Index;
+    if (typeof biome?.$index === "number") return biome.$index;
+    return -1;
   }
 
   setBiomeType(x: number, y: number, biomeId: number): void {
@@ -306,8 +315,13 @@ export class Civ7Adapter implements EngineAdapter {
     if (!features) return -1;
 
     // Use the find method from GameInfoTable interface
-    const feature = features.find((f) => f.FeatureType === name);
-    return feature?.Index ?? -1;
+    const feature = features.find((f) => f.FeatureType === name) as
+      | { Index?: number; $index?: number }
+      | null;
+
+    if (typeof feature?.Index === "number") return feature.Index;
+    if (typeof feature?.$index === "number") return feature.$index;
+    return -1;
   }
 
   get NO_FEATURE(): number {

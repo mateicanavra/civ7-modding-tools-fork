@@ -29,6 +29,7 @@ export const DEFAULT_BIOME_GLOBALS: Record<string, number> = {
   tundra: 3,
   tropical: 4,
   snow: 5,
+  marine: 6,
 };
 
 /**
@@ -390,7 +391,9 @@ export class MockAdapter implements EngineAdapter {
   }
 
   getBiomeGlobal(name: string): number {
-    return this.biomeGlobals[name] ?? -1;
+    const normalized =
+      name.toUpperCase().startsWith("BIOME_") ? name.slice("BIOME_".length).toLowerCase() : name;
+    return this.biomeGlobals[normalized] ?? -1;
   }
 
   setBiomeType(x: number, y: number, biomeId: number): void {
