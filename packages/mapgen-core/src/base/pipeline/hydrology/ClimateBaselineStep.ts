@@ -5,7 +5,7 @@ import { markLandmassId, resolveLandmassIds } from "@mapgen/core/plot-tags.js";
 import { syncHeightfield } from "@mapgen/core/types.js";
 import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
 import { ClimateBaselineSchema } from "@mapgen/config/index.js";
-import { publishClimateFieldArtifact, publishHeightfieldArtifact } from "@mapgen/pipeline/artifacts.js";
+import { publishClimateFieldArtifact, publishHeightfieldArtifact } from "@mapgen/base/pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/pipeline/index.js";
 import { applyClimateBaseline } from "@mapgen/domain/hydrology/climate/index.js";

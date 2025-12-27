@@ -4,15 +4,10 @@ import { HILL_TERRAIN, MOUNTAIN_TERRAIN, NAVIGABLE_RIVER_TERRAIN } from "@mapgen
 import { syncHeightfield } from "@mapgen/core/types.js";
 import {
   computeRiverAdjacencyMask,
-  /** Why are these all standalone functions? Shouldn't they be methods on ExtendedMapContext or similar?
-   *  Or at least grouped into a hydrology utility module?
-   *  Could we just have a publishArtifact function that takes the context and artifact type as parameters?
-   *  Maybe it MapContext.publishArtifact(artifactType, data)?
-  */
   publishClimateFieldArtifact,
   publishHeightfieldArtifact,
   publishRiverAdjacencyArtifact,
-} from "@mapgen/pipeline/artifacts.js";
+} from "@mapgen/base/pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/pipeline/index.js";
 import { ClimateStoryPaleoSchema } from "@mapgen/config/index.js";

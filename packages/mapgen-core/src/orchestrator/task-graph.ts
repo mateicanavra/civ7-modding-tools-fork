@@ -35,7 +35,7 @@ import {
   type DevLogConfig,
 } from "@mapgen/dev/index.js";
 
-import { runFoundationWithDiagnostics } from "@mapgen/orchestrator/foundation.js";
+import { runFoundationWithDiagnostics } from "@mapgen/base/orchestrator/foundation.js";
 import { createDefaultContinentBounds, createLayerAdapter } from "@mapgen/orchestrator/helpers.js";
 import type { GenerationResult, OrchestratorConfig, StageResult } from "@mapgen/orchestrator/types.js";
 

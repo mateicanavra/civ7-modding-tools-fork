@@ -3,10 +3,10 @@ import type {
   ClimateFieldBuffer,
   HeightfieldBuffer,
 } from "@mapgen/core/types.js";
-import type { PlacementInputsV1 } from "@mapgen/pipeline/placement/placement-inputs.js";
-import { isPlacementInputsV1 } from "@mapgen/pipeline/placement/placement-inputs.js";
-import type { PlacementOutputsV1 } from "@mapgen/pipeline/placement/placement-outputs.js";
-import { isPlacementOutputsV1 } from "@mapgen/pipeline/placement/placement-outputs.js";
+import type { PlacementInputsV1 } from "@mapgen/base/pipeline/placement/placement-inputs.js";
+import { isPlacementInputsV1 } from "@mapgen/base/pipeline/placement/placement-inputs.js";
+import type { PlacementOutputsV1 } from "@mapgen/base/pipeline/placement/placement-outputs.js";
+import { isPlacementOutputsV1 } from "@mapgen/base/pipeline/placement/placement-outputs.js";
 import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 
 export function publishHeightfieldArtifact(ctx: ExtendedMapContext): HeightfieldBuffer {

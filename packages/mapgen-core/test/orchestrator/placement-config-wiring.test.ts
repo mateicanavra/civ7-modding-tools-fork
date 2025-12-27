@@ -4,8 +4,8 @@ import { bootstrap } from "@mapgen/bootstrap/entry.js";
 import { runTaskGraphGeneration } from "@mapgen/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { baseMod } from "@mapgen/base/index.js";
-import { publishPlacementInputsArtifact } from "@mapgen/pipeline/artifacts.js";
-import { createPlacementStep } from "@mapgen/pipeline/placement/steps.js";
+import { publishPlacementInputsArtifact } from "@mapgen/base/pipeline/artifacts.js";
+import { createPlacementStep } from "@mapgen/base/pipeline/placement/steps.js";
 
 describe("placement config wiring", () => {
   const width = 24;
