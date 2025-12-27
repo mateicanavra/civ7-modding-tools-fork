@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/hydrology/index.ts
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
 import type { MapInfo } from "@civ7/adapter";
@@ -8,49 +9,8 @@ import {
   createLakesStep,
   createRiversStep,
 } from "@mapgen/base/pipeline/hydrology/steps.js";
+========
+export { registerHydrologyLayer } from "@mapgen/base/pipeline/hydrology/index.js";
+export type { HydrologyLayerRuntime } from "@mapgen/base/pipeline/hydrology/index.js";
+>>>>>>>> 1fab536d (M5-U05: extract morphology/hydrology pipeline into base mod):packages/mapgen-core/src/pipeline/hydrology/index.ts
 
-export interface HydrologyLayerRuntime {
-  getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  logPrefix: string;
-  storyEnabled: boolean;
-  mapInfo: MapInfo;
-  westContinent: ContinentBounds;
-  eastContinent: ContinentBounds;
-}
-
-export function registerHydrologyLayer(
-  registry: StepRegistry<ExtendedMapContext>,
-  runtime: HydrologyLayerRuntime
-): void {
-  registry.register(
-    createLakesStep(
-      { mapInfo: runtime.mapInfo },
-      {
-        ...runtime.getStageDescriptor("lakes"),
-      }
-    )
-  );
-
-  registry.register(
-    createClimateBaselineStep(
-      { westContinent: runtime.westContinent, eastContinent: runtime.eastContinent },
-      {
-        ...runtime.getStageDescriptor("climateBaseline"),
-      }
-    )
-  );
-
-  registry.register(
-    createRiversStep({
-      ...runtime.getStageDescriptor("rivers"),
-      logPrefix: runtime.logPrefix,
-      storyEnabled: runtime.storyEnabled,
-    })
-  );
-
-  registry.register(
-    createClimateRefineStep({
-      ...runtime.getStageDescriptor("climateRefine"),
-    })
-  );
-}

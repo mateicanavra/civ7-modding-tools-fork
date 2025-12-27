@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/morphology/LandmassStep.ts
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationPlates } from "@mapgen/core/assertions.js";
@@ -135,3 +136,8 @@ export function createLandmassPlatesStep(
     },
   };
 }
+========
+export { createLandmassPlatesStep } from "@mapgen/base/pipeline/morphology/LandmassStep.js";
+export type { LandmassStepOptions, LandmassStepRuntime } from "@mapgen/base/pipeline/morphology/LandmassStep.js";
+
+>>>>>>>> 1fab536d (M5-U05: extract morphology/hydrology pipeline into base mod):packages/mapgen-core/src/pipeline/morphology/LandmassStep.ts

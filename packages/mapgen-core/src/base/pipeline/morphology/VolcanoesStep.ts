@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/morphology/VolcanoesStep.ts
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationPlates } from "@mapgen/core/assertions.js";
@@ -45,3 +46,8 @@ export function createVolcanoesStep(
     },
   };
 }
+========
+export { createVolcanoesStep } from "@mapgen/base/pipeline/morphology/VolcanoesStep.js";
+export type { VolcanoesStepOptions } from "@mapgen/base/pipeline/morphology/VolcanoesStep.js";
+
+>>>>>>>> 1fab536d (M5-U05: extract morphology/hydrology pipeline into base mod):packages/mapgen-core/src/pipeline/morphology/VolcanoesStep.ts

@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/morphology/index.ts
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
 import type { StepRegistry } from "@mapgen/pipeline/index.js";
@@ -9,60 +10,8 @@ import {
   createRuggedCoastsStep,
   createVolcanoesStep,
 } from "@mapgen/base/pipeline/morphology/steps.js";
+========
+export { registerMorphologyLayer } from "@mapgen/base/pipeline/morphology/index.js";
+export type { MorphologyLayerRuntime } from "@mapgen/base/pipeline/morphology/index.js";
+>>>>>>>> 1fab536d (M5-U05: extract morphology/hydrology pipeline into base mod):packages/mapgen-core/src/pipeline/morphology/index.ts
 
-export interface MorphologyLayerRuntime {
-  getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
-  logPrefix: string;
-  westContinent: ContinentBounds;
-  eastContinent: ContinentBounds;
-}
-
-export function registerMorphologyLayer(
-  registry: StepRegistry<ExtendedMapContext>,
-  runtime: MorphologyLayerRuntime
-): void {
-  registry.register(
-    createLandmassPlatesStep(
-      {
-        westContinent: runtime.westContinent,
-        eastContinent: runtime.eastContinent,
-      },
-      {
-        ...runtime.getStageDescriptor("landmassPlates"),
-      }
-    )
-  );
-
-  registry.register(
-    createCoastlinesStep({
-      ...runtime.getStageDescriptor("coastlines"),
-    })
-  );
-
-  registry.register(
-    createRuggedCoastsStep({
-      ...runtime.getStageDescriptor("ruggedCoasts"),
-    })
-  );
-
-  registry.register(
-    createIslandsStep({
-      ...runtime.getStageDescriptor("islands"),
-    })
-  );
-
-  registry.register(
-    createMountainsStep(
-      { logPrefix: runtime.logPrefix },
-      {
-        ...runtime.getStageDescriptor("mountains"),
-      }
-    )
-  );
-
-  registry.register(
-    createVolcanoesStep({
-      ...runtime.getStageDescriptor("volcanoes"),
-    })
-  );
-}
