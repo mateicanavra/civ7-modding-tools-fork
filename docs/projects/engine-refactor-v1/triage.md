@@ -40,6 +40,7 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Context:** M4 per-step config plumbing defers ADR-ER1-019 (directionality in `RunRequest.settings`).
   - **Type:** triage
   - **Notes:** CIV-56 keeps `foundation.dynamics.directionality` inside step config views to avoid expanding settings; we still need a dedicated settings surface and consumer migration away from `ctx.config.foundation.*`.
+  - **Update (2025-12-27):** Pulled into M5 scope as part of schema ownership + settings boundary cleanup; see `issues/M5-U09-DEF-016-schema-ownership-split-settings.md` (and `milestones/M5-proposal-clean-architecture-finalization.md` for sequencing).
   - **Next check:** before PIPELINE-4 runtime cutover or when `RunSettings` expands.
 - **Observability runId + fingerprint derivation** [Source: CIV-75]
   - **Context:** M4 observability baseline implementation for trace/run IDs.
@@ -82,6 +83,7 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Context:** `CIV-41` Task Graph MVP review follow-up.
   - **Type:** backlog
   - **Notes:** Reduce duplicated control flow while preserving deterministic trace/log ordering and the existing error semantics (fail-fast for missing dependencies).
+  - **Update (2025-12-27):** Pulled into M5 scope as part of the colocation/consolidation pass; see `issues/M5-U10-colocation-consolidation-pass.md` (and `milestones/M5-proposal-clean-architecture-finalization.md` for sequencing).
   - **Next check:** once M3 executor behavior stabilizes and before adding more step phases that would multiply duplicated logic.
 
 - **Modern story orogeny layer (windward/lee amplification)** [Review by: early M3+]

@@ -22,39 +22,6 @@ Each deferral follows this structure:
 
 ## Active Deferrals
 
-## DEF-002: StoryTags Compatibility Layer (Derived From StoryOverlays)
-
-**Deferred:** 2025-12-14  
-**Trigger:** After narrative/playability artifacts are published/consumed as explicit `artifact:narrative.*` products and no in-repo consumers require `StoryTags` for correctness.  
-**Context:** During Milestone 3 story modernization we introduced “overlays” + `StoryTags` to bridge legacy consumers. Target architecture decision 3.4 locks the end-state: **typed narrative artifacts are canonical and `StoryTags` is not a target contract surface**. This deferral exists only to sequence the cleanup safely.  
-**Scope:**
-- Keep `StoryTags` available only as a temporary compatibility surface.
-- Migrate consumers to `artifact:narrative.*` (or derived, context-scoped query helpers).
-- Remove `StoryTags` entirely once consumers are migrated.  
-**Impact:**
-- Temporary duplication of narrative representation (overlays + tags) with risk of semantic drift if not kept strictly derived.
-- Continued support surface for legacy semantics during M3.
-- **Status (2025-12-20):** StoryTags are already context-owned and (in tagging helpers) hydrated from overlays, but many domain layers still consume StoryTags directly; trigger not yet met.
-- **Status (2025-12-26):** Resolved in CIV-74 by removing StoryTags and migrating consumers to `artifact:narrative.*` (see `packages/mapgen-core/src/domain/narrative/artifacts.ts` and `packages/mapgen-core/src/domain/narrative/queries.ts`).
-
----
-
-## DEF-004: Pipeline Recipe Target vs. M3 StageManifest/STAGE_ORDER
-
-**Deferred:** 2025-12-14  
-**Trigger:** When we intentionally ship a mod-/UI-facing recipe surface that supports reordering/selection beyond enabling/disabling standard stages.  
-**Context:** The target architecture describes a JSON “recipe” that defines step order and per-step overrides. In M3, we intentionally avoid exposing arbitrary recipe composition and instead derive execution order from the existing `STAGE_ORDER` plus `stageManifest` enable/disable flags to preserve behavior while proving the executor/registry model.  
-**Scope:**
-- Treat `STAGE_ORDER` + `stageManifest` as the M3 source of truth for pipeline sequencing.
-- Keep any future JSON recipe surface as a deliberate follow-up (not an accidental parallel pipeline definition).  
-**Impact:**
-- Reduced pipeline composition flexibility in M3 (by design).
-- Requires explicit follow-up work to reach full recipe-driven composition.
-- **Status (2025-12-20):** Target architecture decisions now assume recipe-driven ordering/config, but current implementation is still `STAGE_ORDER` + `stageManifest` (see `packages/mapgen-core/src/bootstrap/resolved.ts` and `packages/mapgen-core/src/pipeline/StepRegistry.ts`). This deferral is therefore primarily an *implementation cutover* rather than an open design question.
-- **Status (2025-12-22):** Resolved in PIPELINE‑5 (CIV‑59): `STAGE_ORDER`/`stageManifest`/`stageConfig` removed; recipe is the sole ordering + enablement source.
-
----
-
 ## DEF-005: River Graph Product Deferred (Adjacency Mask Only in M3)
 
 **Deferred:** 2025-12-14  
@@ -66,24 +33,6 @@ Each deferral follows this structure:
 **Impact:**
 - Consumers can reason about “near rivers” but not about river topology.
 - Some potential placements/features that require river paths are deferred.
-
----
-
-## DEF-006: Placement Inputs Artifact Implementation Deferred (M3 Placement Remains Engine-Effect Driven)
-
-**Deferred:** 2025-12-14  
-**Trigger:** When we need engine-less placement testing, want placement composition that depends on a stable “placement inputs” artifact, or are ready to cut over M3 placement wiring to the accepted target contract.  
-**Context:** Placement currently consumes a mix of map-init inputs and engine-surface state, not a single TS-owned “inputs” artifact. In M3 we keep placement as an engine-effect step and avoid blocking on a full placement-input contract design. Target decision 3.7 is now accepted: placement consumes an explicit `artifact:placementInputs@v1` and does not rely on implicit engine reads as a cross-step dependency surface. This deferral remains only to sequence the implementation safely.  
-**Scope:**
-- Add `artifact:placementInputs@v1` to the tag registry with a safe demo payload.
-- Introduce a `derivePlacementInputs` step (or small cluster) that produces `artifact:placementInputs@v1` from explicit prerequisites and reifies any engine-only reads that become cross-step dependencies.
-- Update placement to `requires: ["artifact:placementInputs@v1"]` and publish a verified `effect:engine.placementApplied` when it mutates the engine.
-- Remove `state:*` placement scheduling once `effect:*` + artifact prerequisites are in place (align with DEF-008).  
-**Impact:**
-- Placement contracts are less data-centric and more “engine state” centric in M3.
-- Harder to test placement purely in-memory without adapter/engine involvement.
-- **Status (2025-12-21):** The target contract (3.7) is accepted; remaining work is implementation cutover from the current engine-effect wiring to the explicit `artifact:placementInputs@v1` + verified `effect:*` model.
-- **Status (2025-12-24):** Resolved in CIV-72 by cutting placement to `artifact:placementInputs@v1` + `artifact:placementOutputs@v1` and verifying `effect:engine.placementApplied` via the outputs artifact (ADR-ER1-020).
 
 ---
 
@@ -115,24 +64,6 @@ Each deferral follows this structure:
 **Impact:**
 - Extra modes increase maintenance and allow drift between algorithms.
 - Consumers must keep mental context about which mode is active.
-
----
-
-## DEF-012: Story State to Context-Owned Artifacts (Remove Globals)
-
-**Deferred:** 2025-12-18  
-**Trigger:** After narrative/playability state is fully represented as explicit `artifact:narrative.*` products and any remaining story caches are context-owned artifacts.  
-**Context:** Target architecture decision 3.4 locks the end-state: narrative/playability state is explicit artifacts and there are no module-level story globals/caches. This deferral tracks the remaining implementation cleanup (migrating consumers and removing caches) safely.  
-**Scope:**
-- Publish/consume narrative/playability state as `artifact:narrative.*` products (typed, versioned).
-- Remove StoryTags as a compatibility surface once no longer needed (see `DEF-002`).
-- Remove module-level story caches (or make them explicitly keyed/scoped and safely reset by context) so story execution is purely context-driven.  
-**Impact:**
-- Story behavior can still be influenced by hidden module-level state and caches.
-- Harder to reason about determinism and test isolation until story is fully context-driven.
-**Status (2025-12-20):**
-- StoryTags are context-owned (`ctx.artifacts`), and overlays are context-scoped (`ctx.overlays`), but story caches remain (e.g., `resetOrogenyCache`, `resetCorridorStyleCache`) and many callers still treat StoryTags as primary.
-- **Status (2025-12-26):** Resolved in CIV-74: StoryTags removed, narrative consumers read `artifact:narrative.*`, and remaining caches are context-scoped + reset per run.
 
 ---
 
@@ -205,6 +136,75 @@ Each deferral follows this structure:
 ---
 
 ## Resolved Deferrals
+
+## DEF-002: StoryTags Compatibility Layer (Derived From StoryOverlays)
+
+**Deferred:** 2025-12-14  
+**Trigger:** After narrative/playability artifacts are published/consumed as explicit `artifact:narrative.*` products and no in-repo consumers require `StoryTags` for correctness.  
+**Context:** During Milestone 3 story modernization we introduced “overlays” + `StoryTags` to bridge legacy consumers. Target architecture decision 3.4 locks the end-state: **typed narrative artifacts are canonical and `StoryTags` is not a target contract surface**. This deferral exists only to sequence the cleanup safely.  
+**Scope:**
+- Keep `StoryTags` available only as a temporary compatibility surface.
+- Migrate consumers to `artifact:narrative.*` (or derived, context-scoped query helpers).
+- Remove `StoryTags` entirely once consumers are migrated.  
+**Impact:**
+- Temporary duplication of narrative representation (overlays + tags) with risk of semantic drift if not kept strictly derived.
+- Continued support surface for legacy semantics during M3.
+- **Status (2025-12-20):** StoryTags are already context-owned and (in tagging helpers) hydrated from overlays, but many domain layers still consume StoryTags directly; trigger not yet met.
+- **Status (2025-12-26):** Resolved in CIV-74 by removing StoryTags and migrating consumers to `artifact:narrative.*` (see `packages/mapgen-core/src/domain/narrative/artifacts.ts` and `packages/mapgen-core/src/domain/narrative/queries.ts`).
+
+---
+
+## DEF-004: Pipeline Recipe Target vs. M3 StageManifest/STAGE_ORDER
+
+**Deferred:** 2025-12-14  
+**Trigger:** When we intentionally ship a mod-/UI-facing recipe surface that supports reordering/selection beyond enabling/disabling standard stages.  
+**Context:** The target architecture describes a JSON “recipe” that defines step order and per-step overrides. In M3, we intentionally avoid exposing arbitrary recipe composition and instead derive execution order from the existing `STAGE_ORDER` plus `stageManifest` enable/disable flags to preserve behavior while proving the executor/registry model.  
+**Scope:**
+- Treat `STAGE_ORDER` + `stageManifest` as the M3 source of truth for pipeline sequencing.
+- Keep any future JSON recipe surface as a deliberate follow-up (not an accidental parallel pipeline definition).  
+**Impact:**
+- Reduced pipeline composition flexibility in M3 (by design).
+- Requires explicit follow-up work to reach full recipe-driven composition.
+- **Status (2025-12-20):** Target architecture decisions now assume recipe-driven ordering/config, but current implementation is still `STAGE_ORDER` + `stageManifest` (see `packages/mapgen-core/src/bootstrap/resolved.ts` and `packages/mapgen-core/src/pipeline/StepRegistry.ts`). This deferral is therefore primarily an *implementation cutover* rather than an open design question.
+- **Status (2025-12-22):** Resolved in PIPELINE‑5 (CIV‑59): `STAGE_ORDER`/`stageManifest`/`stageConfig` removed; recipe is the sole ordering + enablement source.
+
+---
+
+## DEF-006: Placement Inputs Artifact Implementation Deferred (M3 Placement Remains Engine-Effect Driven)
+
+**Deferred:** 2025-12-14  
+**Trigger:** When we need engine-less placement testing, want placement composition that depends on a stable “placement inputs” artifact, or are ready to cut over M3 placement wiring to the accepted target contract.  
+**Context:** Placement currently consumes a mix of map-init inputs and engine-surface state, not a single TS-owned “inputs” artifact. In M3 we keep placement as an engine-effect step and avoid blocking on a full placement-input contract design. Target decision 3.7 is now accepted: placement consumes an explicit `artifact:placementInputs@v1` and does not rely on implicit engine reads as a cross-step dependency surface. This deferral remains only to sequence the implementation safely.  
+**Scope:**
+- Add `artifact:placementInputs@v1` to the tag registry with a safe demo payload.
+- Introduce a `derivePlacementInputs` step (or small cluster) that produces `artifact:placementInputs@v1` from explicit prerequisites and reifies any engine-only reads that become cross-step dependencies.
+- Update placement to `requires: ["artifact:placementInputs@v1"]` and publish a verified `effect:engine.placementApplied` when it mutates the engine.
+- Remove `state:*` placement scheduling once `effect:*` + artifact prerequisites are in place (align with DEF-008).  
+**Impact:**
+- Placement contracts are less data-centric and more “engine state” centric in M3.
+- Harder to test placement purely in-memory without adapter/engine involvement.
+- **Status (2025-12-21):** The target contract (3.7) is accepted; remaining work is implementation cutover from the current engine-effect wiring to the explicit `artifact:placementInputs@v1` + verified `effect:*` model.
+- **Status (2025-12-24):** Resolved in CIV-72 by cutting placement to `artifact:placementInputs@v1` + `artifact:placementOutputs@v1` and verifying `effect:engine.placementApplied` via the outputs artifact (ADR-ER1-020).
+
+---
+
+## DEF-012: Story State to Context-Owned Artifacts (Remove Globals)
+
+**Deferred:** 2025-12-18  
+**Trigger:** After narrative/playability state is fully represented as explicit `artifact:narrative.*` products and any remaining story caches are context-owned artifacts.  
+**Context:** Target architecture decision 3.4 locks the end-state: narrative/playability state is explicit artifacts and there are no module-level story globals/caches. This deferral tracks the remaining implementation cleanup (migrating consumers and removing caches) safely.  
+**Scope:**
+- Publish/consume narrative/playability state as `artifact:narrative.*` products (typed, versioned).
+- Remove StoryTags as a compatibility surface once no longer needed (see `DEF-002`).
+- Remove module-level story caches (or make them explicitly keyed/scoped and safely reset by context) so story execution is purely context-driven.  
+**Impact:**
+- Story behavior can still be influenced by hidden module-level state and caches.
+- Harder to reason about determinism and test isolation until story is fully context-driven.
+**Status (2025-12-20):**
+- StoryTags are context-owned (`ctx.artifacts`), and overlays are context-scoped (`ctx.overlays`), but story caches remain (e.g., `resetOrogenyCache`, `resetCorridorStyleCache`) and many callers still treat StoryTags as primary.
+- **Status (2025-12-26):** Resolved in CIV-74: StoryTags removed, narrative consumers read `artifact:narrative.*`, and remaining caches are context-scoped + reset per run.
+
+---
 
 ## DEF-008: `state:engine.*` Dependency Tags Are Trusted (Not Runtime-Verified)
 
