@@ -192,3 +192,23 @@ The schema split is clean and step configs no longer embed directionality, but t
 
 ### Cross-cutting Risks
 - Directionality now has two potential sources of truth (config vs settings), which can confuse tooling or future adapters.
+
+## REVIEW m5-u10-colocation-consolidation-pass
+
+### Quick Take
+Foundation shims were removed and imports were updated to base-owned paths; the cleanup looks consistent and mechanical.
+
+### High-Leverage Issues
+- None found.
+
+### Fix Now (Recommended)
+- None.
+
+### Defer / Follow-up
+- None.
+
+### Needs Discussion
+- None.
+
+### Cross-cutting Risks
+- None identified.
