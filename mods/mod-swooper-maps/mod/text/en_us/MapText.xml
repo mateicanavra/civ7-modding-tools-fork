@@ -19,5 +19,17 @@
 		<Row Tag="LOC_MAP_SWOOPER_EARTHLIKE_DESCRIPTION">
 			<Text>An Earth-analogue world with vast oceans, a handful of major continents, and familiar climate belts. Expect wet equatorial jungles, dry subtropical deserts, temperate heartlands, and polar tundra shaped by plate-driven mountain arcs and broad passive coasts.</Text>
 		</Row>
+		<Row Tag="LOC_MAP_SHATTERED_RING_NAME">
+			<Text>The Shattered Ring</Text>
+		</Row>
+		<Row Tag="LOC_MAP_SHATTERED_RING_DESCRIPTION">
+			<Text>A world forever changed by an ancient cosmic impact. A vast crater sea dominates the center, ringed by towering mountains thrust up by the cataclysm. Volcanic islands dot the inner waters while fractured outer lands offer expansive frontiers. Three theaters of play: the protected inner sea for naval dominance, the ring mountains for defensive strongholds, and the outer lands for continental expansion.</Text>
+		</Row>
+		<Row Tag="LOC_MAP_SUNDERED_ARCHIPELAGO_NAME">
+			<Text>The Sundered Archipelago</Text>
+		</Row>
+		<Row Tag="LOC_MAP_SUNDERED_ARCHIPELAGO_DESCRIPTION">
+			<Text>A world shattered by ancient tectonic rifting into countless volcanic islands and shallow seas. Hundreds of islands form chains connected by coral reefs and strategic straits. Naval supremacy determines the fate of empires as civilizations island-hop toward dominance. Lush tropical paradises contrast with smoldering volcanic peaks, while narrow channels create natural choke points for trade and warfare.</Text>
+		</Row>
 	</EnglishText>
 </Database>
