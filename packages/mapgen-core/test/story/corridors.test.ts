@@ -3,7 +3,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { parseConfig } from "@mapgen/config/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { getNarrativeCorridors } from "@mapgen/domain/narrative/queries.js";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
@@ -25,7 +25,9 @@ describe("story/corridors", () => {
       directionality: config.foundation?.dynamics?.directionality,
     });
 
-    expect(getStoryTags(ctx).corridorSeaLane.size).toBeGreaterThan(0);
+    const corridors = getNarrativeCorridors(ctx);
+    expect(corridors).not.toBeNull();
+    expect(corridors?.seaLanes.size).toBeGreaterThan(0);
 
     const overlay = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.CORRIDORS);
     expect(overlay).not.toBeNull();

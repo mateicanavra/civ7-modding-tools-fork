@@ -72,6 +72,12 @@ Migrate consumers off StoryTags and remove module-level narrative caches so narr
 - **Rationale:** Preserves legacy behavior and avoids runtime failures when story steps are disabled or omitted.
 - **Risk:** Missing producers may be masked if dependency wiring regresses; rely on pipeline dependency tags to enforce required artifacts.
 
+## Needs discussion
+
+- **Are story producers optional or required?**
+  - **Location:** `packages/mapgen-core/src/pipeline/standard.ts` (`M3_STAGE_DEPENDENCY_SPINE` narrative artifacts) and `packages/mapgen-core/src/domain/narrative/queries.ts` (consumers default to empty sets).
+  - **Directions:** (1) relax narrative artifact requirements in the dependency spine/recipes to align with “missing artifacts default to empty sets”; (2) keep artifacts required and update the decision/docs to treat story steps as always-on; (3) add an explicit “story-optional” recipe variant with a separate dependency spine.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)

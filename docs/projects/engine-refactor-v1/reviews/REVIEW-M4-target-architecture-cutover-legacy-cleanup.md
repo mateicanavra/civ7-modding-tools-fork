@@ -192,3 +192,4 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 ## Review Updates
 
 - **Update (2025-12-26):** CIV-73 follow-up fixes applied: placement config stripped from run-request builders (`runTaskGraphGeneration` + standard smoke), `islands` now provides `artifact:narrative.motifs.hotspots@v1`, CIV-73 schema sketches aligned, `pnpm -C packages/mapgen-core test` passes.
+- **Update (2025-12-26):** CIV-74 follow-up fixes applied: StoryTags-dependent tests replaced with artifact/overlay coverage (`packages/mapgen-core/test/story/*`, `packages/mapgen-core/test/orchestrator/story-parity.smoke.test.ts`); open question logged on whether narrative artifacts are optional vs required in the dependency spine.

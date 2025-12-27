@@ -2,11 +2,11 @@ import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { getNarrativeMotifsHotspots, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
 import { storyTagContinentalMargins, storyTagHotspotTrails, storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/index.js";
 
 describe("smoke: minimal story parity (margins, hotspots)", () => {
-  it("emits non-empty story tags for margins/hotspots and fails fast for rifts without foundation", () => {
+  it("emits non-empty narrative motifs for margins/hotspots and fails fast for rifts without foundation", () => {
     // Deterministic RNG for stable assertions.
     let seed = 1 >>> 0;
     const adapter = createMockAdapter({
@@ -71,8 +71,12 @@ describe("smoke: minimal story parity (margins, hotspots)", () => {
       "FoundationContext"
     );
 
-    const tags = getStoryTags(ctx);
-    expect(tags.activeMargin.size + tags.passiveShelf.size).toBeGreaterThan(0);
-    expect(tags.hotspot.size).toBeGreaterThan(0);
+    const margins = getNarrativeMotifsMargins(ctx);
+    const hotspots = getNarrativeMotifsHotspots(ctx);
+
+    expect(margins).not.toBeNull();
+    expect((margins?.activeMargin.size ?? 0) + (margins?.passiveShelf.size ?? 0)).toBeGreaterThan(0);
+    expect(hotspots).not.toBeNull();
+    expect(hotspots?.points.size).toBeGreaterThan(0);
   });
 });
