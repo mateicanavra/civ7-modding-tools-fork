@@ -25,7 +25,7 @@ import { ctxRandom } from "@mapgen/core/types.js";
 import {
   getPublishedClimateField,
   getPublishedRiverAdjacency,
-} from "@mapgen/pipeline/artifacts.js";
+} from "@mapgen/base/pipeline/artifacts.js";
 import { getNarrativeCorridors, getNarrativeMotifsRifts } from "@mapgen/domain/narrative/queries.js";
 import type { BiomeConfig, CorridorPolicy } from "@mapgen/domain/ecology/biomes/types.js";
 import { resolveBiomeGlobals } from "@mapgen/domain/ecology/biomes/globals.js";

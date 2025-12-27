@@ -1,6 +1,6 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { syncHeightfield } from "@mapgen/core/types.js";
-import { publishHeightfieldArtifact } from "@mapgen/pipeline/artifacts.js";
+import { publishHeightfieldArtifact } from "@mapgen/base/pipeline/artifacts.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/pipeline/index.js";
 import type { MapInfo } from "@civ7/adapter";

@@ -8,7 +8,7 @@ import { EmptyStepConfigSchema } from "@mapgen/pipeline/step-config.js";
 import {
   getPublishedPlacementInputs,
   publishPlacementOutputsArtifact,
-} from "@mapgen/pipeline/artifacts.js";
+} from "@mapgen/base/pipeline/artifacts.js";
 
 export interface PlacementStepRuntime {
   startPositions: number[];

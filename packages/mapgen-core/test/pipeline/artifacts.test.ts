@@ -1,6 +1,6 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import type { MapConfig } from "@mapgen/bootstrap/types.js";
+import type { MapGenConfig } from "@mapgen/config/index.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { M3_DEPENDENCY_TAGS, M3_STAGE_DEPENDENCY_SPINE, M4_EFFECT_TAGS, registerBaseTags } from "@mapgen/base/index.js";
 import {
@@ -12,7 +12,7 @@ import {
   computeRiverAdjacencyMask,
   publishClimateFieldArtifact,
   publishRiverAdjacencyArtifact,
-} from "@mapgen/pipeline/artifacts.js";
+} from "@mapgen/base/pipeline/artifacts.js";
 
 describe("pipeline artifacts", () => {
   it("includes climate/river prerequisites for storyCorridorsPost in the standard dependency spine", () => {
@@ -33,7 +33,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as unknown as MapConfig
+      {} as unknown as MapGenConfig
     );
     const registry = new StepRegistry<typeof ctx>();
     registerBaseTags(registry);
@@ -59,7 +59,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as unknown as MapConfig
+      {} as unknown as MapGenConfig
     );
     const registry = new StepRegistry<typeof ctx>();
     registerBaseTags(registry);
@@ -83,7 +83,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as unknown as MapConfig
+      {} as unknown as MapGenConfig
     );
 
     const registry = new StepRegistry<typeof ctx>();
@@ -111,7 +111,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as unknown as MapConfig
+      {} as unknown as MapGenConfig
     );
 
     const registry = new StepRegistry<typeof ctx>();
