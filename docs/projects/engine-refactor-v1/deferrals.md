@@ -50,6 +50,7 @@ Each deferral follows this structure:
 - Reduced pipeline composition flexibility in M3 (by design).
 - Requires explicit follow-up work to reach full recipe-driven composition.
 - **Status (2025-12-20):** Target architecture decisions now assume recipe-driven ordering/config, but current implementation is still `STAGE_ORDER` + `stageManifest` (see `packages/mapgen-core/src/bootstrap/resolved.ts` and `packages/mapgen-core/src/pipeline/StepRegistry.ts`). This deferral is therefore primarily an *implementation cutover* rather than an open design question.
+- **Status (2025-12-22):** Resolved in PIPELINE‑5 (CIV‑59): `STAGE_ORDER`/`stageManifest`/`stageConfig` removed; recipe is the sole ordering + enablement source.
 
 ---
 

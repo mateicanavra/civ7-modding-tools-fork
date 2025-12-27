@@ -82,3 +82,13 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Gaps:** CIV-23 still references legacy WorldModel/stageConfig in its testing guidance and helper snippet, which conflicts with the acceptance criteria to remove those references.
 - **Follow-up:** Remove the remaining WorldModel and `stageConfig` mentions from CIV-23 and replace with RunRequest/ExecutionPlan-oriented verification commands/snippets.
 - **Update (2025-12-23):** Removed legacy WorldModel/stageConfig references and added RunRequest/ExecutionPlan-oriented commands + default config helper in CIV-23.
+
+## CIV-59 — [M4] Delete legacy ordering/enablement/config inputs
+
+**Reviewed:** 2025-12-24
+
+- **Intent:** Delete legacy ordering/enablement/config inputs (`stageManifest`, `STAGE_ORDER`, `stageConfig`, `stageFlags`, `shouldRun`) plus preset composition so runtime ordering/enablement is recipe-only.
+- **Strengths:** Removes `bootstrap/resolved.ts` and `config/presets.ts`; `bootstrap()` is now overrides-only; mod entrypoints drop `stageConfig`; tests migrate to recipeOverride-based enablement; `DEF-004` is marked resolved.
+- **Gaps:** `docs/system/mods/swooper-maps/architecture.md` is internally inconsistent and still instructs `bootstrap({ presets, stageConfig })` usage; `bootstrap({ presets })` is silently ignored and the "reject legacy presets" test fails; `pnpm -C packages/mapgen-core test` requires building `@civ7/adapter` first (not wired into `test:mapgen`).
+- **Follow-up:** Decide/enforce the legacy-options policy (reject unknown bootstrap keys vs ignore) and align `packages/mapgen-core/test/bootstrap/entry.test.ts`; fix or archive the stale Swooper Maps architecture doc; make mapgen tests build `packages/civ7-adapter` (or adjust adapter exports for dev) so `pnpm test:mapgen` works from a fresh checkout.
+- **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test` (fails 1 test: legacy preset rejection).

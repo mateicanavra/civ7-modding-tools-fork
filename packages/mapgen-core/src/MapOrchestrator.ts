@@ -13,22 +13,22 @@
  * - Provide typed interface for mod entry points
  *
  * Architecture:
- * - Uses lazy bootstrap system for configuration
+ * - Uses a validated MapGenConfig for configuration
  * - Creates ExtendedMapContext with EngineAdapter
  * - Compiles a RunRequest into an ExecutionPlan from a recipe
- * - Stages are enabled/disabled via recipe step flags (not stageConfig)
+ * - Stages are enabled/disabled via recipe step flags
  *
  * Usage (in mod entry point):
  *   import { bootstrap, MapOrchestrator, standardMod } from "@swooper/mapgen-core";
  *
  *   engine.on('RequestMapInitData', () => {
- *     const config = bootstrap({ presets: ["classic"] });
+ *     const config = bootstrap({});
  *     const orchestrator = new MapOrchestrator(config, { logPrefix: "[MOD]" });
  *     orchestrator.requestMapData();
  *   });
  *
  *   engine.on("GenerateMap", () => {
- *     const config = bootstrap({ presets: ["classic"], overrides: { ... } });
+ *     const config = bootstrap({ overrides: { ... } });
  *     const recipe = {
  *       schemaVersion: 1,
  *       steps: standardMod.recipes.default.steps.map((step) => ({
@@ -105,8 +105,8 @@ export class MapOrchestrator {
     // Fail-fast: config is required
     if (!config || typeof config !== "object") {
       throw new Error(
-        "MapOrchestrator requires validated MapGenConfig. " +
-          "Call bootstrap() first and pass the returned config."
+        "MapOrchestrator requires a validated MapGenConfig. " +
+          "Call bootstrap({ overrides }) or parseConfig() and pass the result."
       );
     }
 

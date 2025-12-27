@@ -54,78 +54,6 @@ export const ContinentBoundsSchema = Type.Object(
 );
 
 /**
- * Stage enablement overrides keyed by stage name.
- * Values are boolean switches consumed by the stage resolver.
- *
- * @internal Engine plumbing for stage resolution; not part of the public mod API.
- */
-export const StageConfigSchema = Type.Record(Type.String(), Type.Boolean(), {
-  default: {},
-  description: "[internal] Per-stage enablement overrides keyed by manifest stage id.",
-  [INTERNAL_METADATA_KEY]: true,
-});
-
-/**
- * Descriptor for a stage in the orchestrated manifest.
- * Captures dependencies and provided tags.
- *
- * @internal Engine plumbing for stage resolution; not part of the public mod API.
- */
-export const StageDescriptorSchema = Type.Object(
-  {
-    enabled: Type.Optional(
-      Type.Boolean({
-        description: "Explicit enable/disable switch applied before dependency resolution.",
-      })
-    ),
-    requires: Type.Optional(
-      Type.Array(Type.String(), {
-        default: [],
-        description:
-          "Canonical dependency tags that must be satisfied before this stage executes (artifact:*, field:*, effect:*, state:engine.* transitional). Stage-id dependencies are not supported in M3; use tags only.",
-      })
-    ),
-    provides: Type.Optional(
-      Type.Array(Type.String(), {
-        default: [],
-        description:
-          "Dependency tags this stage makes available to dependents (data artifacts, fields, effect guarantees). Note: state:engine.* tags are transitional in M4 and are not runtime-verified.",
-      })
-    ),
-    blockedBy: Type.Optional(
-      Type.String({
-        description: "Optional stage name that disables this stage when present.",
-      })
-    ),
-  },
-  { additionalProperties: false, default: {}, [INTERNAL_METADATA_KEY]: true }
-);
-
-/**
- * Ordered list of stages plus metadata consumed by the bootstrap resolver.
- *
- * @internal Engine plumbing for stage resolution; not part of the public mod API.
- */
-export const StageManifestSchema = Type.Object(
-  {
-    order: Type.Array(Type.String(), {
-      default: [],
-      description: "Execution order for stages after dependency expansion.",
-    }),
-    stages: Type.Record(Type.String(), StageDescriptorSchema, {
-      default: {},
-      description: "Descriptors keyed by stage id controlling gating and dependencies.",
-    }),
-  },
-  {
-    additionalProperties: false,
-    default: {},
-    description: "[internal] Stage manifest for orchestrated pipeline execution.",
-    [INTERNAL_METADATA_KEY]: true,
-  }
-);
-
-/**
  * Tectonic weighting used while scoring candidate land tiles.
  */
 export const LandmassTectonicsConfigSchema = Type.Object(
@@ -2886,21 +2814,6 @@ export const DiagnosticsConfigSchema = Type.Object(
  */
 export const MapGenConfigSchema = Type.Object(
   {
-    /**
-     * List of preset names to apply in order before processing overrides.
-     * Presets are merged left-to-right, then user overrides are applied.
-     * @default []
-     */
-    presets: Type.Optional(
-      Type.Array(Type.String(), {
-        default: [],
-        description: "List of preset names to apply in order before processing stage overrides.",
-      })
-    ),
-    /** @internal Stage enable/disable flags (engine plumbing). */
-    stageConfig: Type.Optional(StageConfigSchema),
-    /** @internal Custom stage manifest for advanced pipelines (engine plumbing). */
-    stageManifest: Type.Optional(StageManifestSchema),
     /** Landmass geometry: water percent, tectonic bias, and post-processing. */
     landmass: Type.Optional(LandmassConfigSchema),
     /** Foundation stage config: plates, dynamics, and internal policy/diagnostics. */
@@ -2945,9 +2858,6 @@ export const MapGenConfigSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export type StageConfig = Static<typeof StageConfigSchema>;
-export type StageDescriptor = Static<typeof StageDescriptorSchema>;
-export type StageManifest = Static<typeof StageManifestSchema>;
 export type LandmassTectonicsConfig = Static<typeof LandmassTectonicsConfigSchema>;
 export type LandmassGeometryPost = Static<typeof LandmassGeometryPostSchema>;
 export type LandmassGeometry = Static<typeof LandmassGeometrySchema>;

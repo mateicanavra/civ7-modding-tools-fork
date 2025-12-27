@@ -40,9 +40,6 @@ import type {
   OceanSeparationEdgePolicy,
   PlacementConfig,
   SeaCorridorPolicy,
-  StageConfig,
-  StageDescriptor,
-  StageManifest,
   StartsConfig,
   StoryConfig,
   VolcanoesConfig,
@@ -84,14 +81,9 @@ export type {
   OceanSeparationEdgePolicy,
   PlacementConfig,
   SeaCorridorPolicy,
-  StageConfig,
-  StageDescriptor,
-  StageManifest,
   StartsConfig,
   StoryConfig,
   VolcanoesConfig,
 };
 
 export type { ContinentBounds };
-
-export type StageName = string;

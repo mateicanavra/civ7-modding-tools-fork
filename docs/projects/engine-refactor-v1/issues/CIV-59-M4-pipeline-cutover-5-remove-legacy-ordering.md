@@ -169,3 +169,12 @@ Many archived issues/reviews/spikes reference stageConfig/stageManifest/presets 
 - `docs/system/libs/mapgen/_archive/**`
 
 These should not block the cleanup; treat them as historical snapshots.
+
+## Implementation Decisions
+
+### Keep `bootstrap()` as a thin parseConfig wrapper
+- **Context:** CIV‑59 removes presets/stageConfig/stageManifest, but MapOrchestrator and mod entrypoints still need a validated config entrypoint.
+- **Options:** (1) delete `bootstrap()` entirely and migrate all callers to `parseConfig`; (2) keep `bootstrap()` but drop legacy fields and forward to `parseConfig`.
+- **Choice:** Keep `bootstrap()` with `overrides` only.
+- **Rationale:** Minimizes churn while removing legacy ordering/enablement inputs; aligns with mod entrypoint guidance to stay small/declarative.
+- **Risk:** The name could imply legacy behavior; mitigated by updated docs/tests and rejecting legacy options at parse-time.

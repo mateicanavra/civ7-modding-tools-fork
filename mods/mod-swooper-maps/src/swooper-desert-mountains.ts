@@ -12,7 +12,7 @@
 
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import { bootstrap, MapOrchestrator } from "@swooper/mapgen-core";
-import type { BootstrapConfig, BootstrapOptions } from "@swooper/mapgen-core/bootstrap";
+import type { BootstrapConfig } from "@swooper/mapgen-core/bootstrap";
 
 /**
  * Build the bootstrap configuration.
@@ -20,25 +20,6 @@ import type { BootstrapConfig, BootstrapOptions } from "@swooper/mapgen-core/boo
  */
 function buildConfig(): BootstrapConfig {
   return {
-    stageConfig: {
-      foundation: true,
-      landmassPlates: true,
-      coastlines: true,
-      storySeed: true,
-      storyHotspots: true,
-      storyRifts: true,
-      storyOrogeny: true,
-      storyCorridorsPre: true,
-      storySwatches: true,
-      mountains: true,
-      volcanoes: true,
-      climateBaseline: true,
-      climateRefine: true,
-      biomes: true,
-      features: true,
-      rivers: true,
-      placement: true,
-    },
     overrides: {
       landmass: {
         crustMode: "area",

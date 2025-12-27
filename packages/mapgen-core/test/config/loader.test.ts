@@ -62,7 +62,6 @@ describe("config/loader", () => {
   it("getDefaultConfig returns a validated defaulted config", () => {
     const cfg = getDefaultConfig();
     expect(cfg.foundation?.plates?.count).toBe(8);
-    expect(cfg.stageManifest).toBeDefined();
   });
 });
 
@@ -71,12 +70,12 @@ describe("config/loader public schema guard", () => {
     const schema = getJsonSchema() as Record<string, unknown>;
     const properties = schema.properties as Record<string, unknown>;
 
-    // stageManifest should be present in full schema
-    expect(properties.stageManifest).toBeDefined();
-
-    // The stageManifest property should have the xInternal marker
-    const stageManifest = properties.stageManifest as Record<string, unknown>;
-    expect(stageManifest[INTERNAL_METADATA_KEY]).toBe(true);
+    // foundation.surface should be present in full schema
+    const foundation = properties.foundation as Record<string, unknown>;
+    const foundationProps = foundation?.properties as Record<string, unknown>;
+    const surface = foundationProps.surface as Record<string, unknown>;
+    expect(surface).toBeDefined();
+    expect(surface[INTERNAL_METADATA_KEY]).toBe(true);
   });
 
   it("getPublicJsonSchema excludes internal fields", () => {
@@ -84,8 +83,9 @@ describe("config/loader public schema guard", () => {
     const properties = schema.properties as Record<string, unknown>;
 
     // Internal fields should be removed
-    expect(properties.stageManifest).toBeUndefined();
-    expect(properties.stageConfig).toBeUndefined();
+    const foundation = properties.foundation as Record<string, unknown>;
+    const foundationProps = foundation?.properties as Record<string, unknown>;
+    expect(foundationProps?.surface).toBeUndefined();
   });
 
   it("getPublicJsonSchema preserves public fields", () => {
