@@ -61,6 +61,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** `@mapgen/pipeline` no longer exports standard tags/spine and `StepRegistry` no longer seeds default tags. External code must import from `@mapgen/base` and call `registerBaseTags`, or we provide a compatibility helper.
   - **Next check:** before publishing a release or expecting third-party pipelines to compile against the new registry behavior.
 
+- **Strong effect verification vs zero-output configs** [Source: M5-U13 review]
+  - **Context:** M5-U13 adds read-back verification for `effect:engine.landmassApplied`, `effect:engine.coastlinesApplied`, and `effect:engine.riversModeled`.
+  - **Type:** triage
+  - **Notes:** Verifiers now fail when no land/water, no coast tiles, or no rivers exist. Decide whether extreme configs (all land/all water/riverless) are invalid or if verifiers should tolerate zero outputs via config-aware checks or evidence fallback.
+  - **Next check:** before shipping strict effect verification to users with custom recipes or extreme tuning.
+
 - **Legacy landmass/ocean separation knobs now no-op post DEF-011** [Source: M5-U01 review]
   - **Context:** M5-U01 (DEF-011).
   - **Type:** triage
