@@ -1,9 +1,8 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { ctxRandom } from "@mapgen/core/types.js";
 import { buildPlateTopology, type PlateGraph } from "@mapgen/lib/plates/topology.js";
-import { assignCrustTypes, CrustType } from "@mapgen/lib/plates/crust.js";
+import { CrustType } from "@mapgen/lib/plates/crust.js";
 import { generateBaseHeightfield } from "@mapgen/lib/heightfield/base.js";
-import { computeSeaLevel } from "@mapgen/lib/heightfield/sea-level.js";
 import { clampInt, clampPct } from "@mapgen/lib/math/index.js";
 import type {
   AreaCrustResult,
@@ -12,7 +11,6 @@ import type {
   GeometryPostConfig,
   LandmassConfig,
 } from "@mapgen/domain/morphology/landmass/types.js";
-import { normalizeCrustMode, type CrustMode } from "@mapgen/domain/morphology/landmass/crust-mode.js";
 
 const DEFAULT_CLOSENESS_LIMIT = 255;
 const CLOSENESS_STEP_PER_TILE = 8;
@@ -87,7 +85,6 @@ export function tryCrustFirstLandmask(
   closenessLimit: number,
   targetLandTiles: number,
   landmassCfg: LandmassConfig,
-  crustMode: CrustMode,
   ctx: ExtendedMapContext
 ): CrustFirstResult | null {
   const size = width * height;
@@ -103,17 +100,6 @@ export function tryCrustFirstLandmask(
   const plateCount = maxPlateId + 1;
   if (plateCount <= 0) return null;
 
-  const computedDefault = targetLandTiles / size;
-  const continentalFraction = clampPct(
-    (landmassCfg.continentalFraction as number) ??
-      (landmassCfg.crustContinentalFraction as number) ??
-      computedDefault,
-    0,
-    1,
-    computedDefault
-  );
-  const clusteringBias = clampPct((landmassCfg.crustClusteringBias as number) ?? NaN, 0, 1, 0.7);
-  const microcontinentChance = clampPct((landmassCfg.microcontinentChance as number) ?? NaN, 0, 1, 0.04);
   const edgeBlend = clampPct((landmassCfg.crustEdgeBlend as number) ?? NaN, 0, 1, 0.45);
   const noiseAmplitude = clampPct((landmassCfg.crustNoiseAmplitude as number) ?? NaN, 0, 1, 0.08);
   const continentalHeight = Number.isFinite(landmassCfg.continentalHeight)
@@ -123,24 +109,14 @@ export function tryCrustFirstLandmask(
     ? (landmassCfg.oceanicHeight as number)
     : -0.55;
 
-  const mode = normalizeCrustMode(crustMode);
+  const mode = "area" as const;
   const graph = buildPlateTopology(plateIds, width, height, plateCount);
 
-  const areaResult = mode === "area" ? assignCrustTypesByArea(graph, targetLandTiles) : null;
+  const areaResult = assignCrustTypesByArea(graph, targetLandTiles);
   const rngNext = (max: number, label = "CrustRand"): number => ctxRandom(ctx, label, max);
   const rngUnit = (label: string): number => rngNext(1_000_000, label) / 1_000_000;
 
-  const crustTypes =
-    areaResult?.crustTypes ||
-    assignCrustTypes(
-      graph,
-      rngNext,
-      {
-        continentalFraction,
-        microcontinentChance,
-        clusteringBias,
-      }
-    );
+  const crustTypes = areaResult.crustTypes;
 
   const noiseFn =
     noiseAmplitude === 0
@@ -155,7 +131,7 @@ export function tryCrustFirstLandmask(
     noiseFn,
   });
 
-  const seaLevel = mode === "area" ? 0 : computeSeaLevel(baseHeight, targetLandTiles);
+  const seaLevel = 0;
   const landMask = new Uint8Array(size);
 
   let landTiles = 0;
@@ -178,9 +154,7 @@ export function tryCrustFirstLandmask(
   const summary = areaResult || summarizeCrustTypes(crustTypes, graph);
   const continentalPlates = summary.continentalPlateIds.length;
   const appliedContinentalFraction =
-    mode === "area"
-      ? summary.continentalArea / Math.max(1, summary.continentalArea + summary.oceanicArea)
-      : continentalFraction;
+    summary.continentalArea / Math.max(1, summary.continentalArea + summary.oceanicArea);
 
   return {
     mode,
@@ -198,8 +172,8 @@ export function tryCrustFirstLandmask(
     crustConfigApplied: {
       mode,
       continentalFraction: appliedContinentalFraction,
-      clusteringBias: mode === "area" ? 0 : clusteringBias,
-      microcontinentChance: mode === "area" ? 0 : microcontinentChance,
+      clusteringBias: 0,
+      microcontinentChance: 0,
       edgeBlend,
       noiseAmplitude,
       continentalHeight,

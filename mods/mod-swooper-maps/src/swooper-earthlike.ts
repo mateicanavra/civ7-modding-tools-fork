@@ -23,7 +23,6 @@ function buildConfig(): BootstrapConfig {
   return {
     overrides: {
       landmass: {
-        crustMode: "area",
         // Earth-like ocean dominance (~70% water).
         baseWaterPercent: 68,
         waterScalar: 1,
