@@ -13,6 +13,7 @@ import {
   registerHydrologyLayer,
   registerNarrativeLayer,
 } from "@mapgen/pipeline/index.js";
+import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
 import {
   getStoryOverlay,
@@ -70,7 +71,6 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
 
   function runRecipe(config: ReturnType<typeof bootstrap>, adapter: ReturnType<typeof createMockAdapter>) {
     const ctx = createExtendedMapContext({ width, height }, adapter, config);
-    const stageManifest = config.stageManifest!;
     const registry = new StepRegistry<ExtendedMapContext>();
     const recipe = resolveDefaultRecipeStepIds(stageManifest);
     const expectedRecipe = standardMod.recipes.default.steps
@@ -80,7 +80,7 @@ describe("orchestrator: paleo hydrology runs post-rivers", () => {
     const storyEnabled = recipe.some((id) => id.startsWith("story"));
 
     const getStageDescriptor = (stageId: string) => {
-      const desc = stageManifest.stages?.[stageId] ?? {};
+      const desc = M3_STAGE_DEPENDENCY_SPINE[stageId] ?? { requires: [], provides: [] };
       const requires = Array.isArray(desc.requires) ? desc.requires : [];
       const provides = Array.isArray(desc.provides) ? desc.provides : [];
       return { requires, provides };
