@@ -84,9 +84,9 @@ export function addDiverseFeatures(
   }
 
   const { reefIndex, rainforestIdx, forestIdx, taigaIdx, NO_FEATURE } = resolveFeatureIndices(adapter);
-  const g_GrasslandBiome = adapter.getBiomeGlobal("grassland");
-  const g_TropicalBiome = adapter.getBiomeGlobal("tropical");
-  const g_TundraBiome = adapter.getBiomeGlobal("tundra");
+  const g_GrasslandBiome = adapter.getBiomeGlobal("BIOME_GRASSLAND");
+  const g_TropicalBiome = adapter.getBiomeGlobal("BIOME_TROPICAL");
+  const g_TundraBiome = adapter.getBiomeGlobal("BIOME_TUNDRA");
 
   const getRandom = (label: string, max: number): number => ctxRandom(ctx, label, max);
 

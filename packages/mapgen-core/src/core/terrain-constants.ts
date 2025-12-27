@@ -99,12 +99,12 @@ export function initializeTerrainConstants(adapter: EngineAdapter): void {
     DEFAULT_TERRAIN_INDICES.NAVIGABLE_RIVER
   );
 
-  TUNDRA_BIOME = resolveBiomeIndex(adapter, "tundra", DEFAULT_BIOME_INDICES.TUNDRA);
-  GRASSLAND_BIOME = resolveBiomeIndex(adapter, "grassland", DEFAULT_BIOME_INDICES.GRASSLAND);
-  PLAINS_BIOME = resolveBiomeIndex(adapter, "plains", DEFAULT_BIOME_INDICES.PLAINS);
-  TROPICAL_BIOME = resolveBiomeIndex(adapter, "tropical", DEFAULT_BIOME_INDICES.TROPICAL);
-  DESERT_BIOME = resolveBiomeIndex(adapter, "desert", DEFAULT_BIOME_INDICES.DESERT);
-  MARINE_BIOME = resolveBiomeIndex(adapter, "marine", DEFAULT_BIOME_INDICES.MARINE);
+  TUNDRA_BIOME = resolveBiomeIndex(adapter, "BIOME_TUNDRA", DEFAULT_BIOME_INDICES.TUNDRA);
+  GRASSLAND_BIOME = resolveBiomeIndex(adapter, "BIOME_GRASSLAND", DEFAULT_BIOME_INDICES.GRASSLAND);
+  PLAINS_BIOME = resolveBiomeIndex(adapter, "BIOME_PLAINS", DEFAULT_BIOME_INDICES.PLAINS);
+  TROPICAL_BIOME = resolveBiomeIndex(adapter, "BIOME_TROPICAL", DEFAULT_BIOME_INDICES.TROPICAL);
+  DESERT_BIOME = resolveBiomeIndex(adapter, "BIOME_DESERT", DEFAULT_BIOME_INDICES.DESERT);
+  MARINE_BIOME = resolveBiomeIndex(adapter, "BIOME_MARINE", DEFAULT_BIOME_INDICES.MARINE);
 
   VOLCANO_FEATURE = resolveFeatureIndex(adapter, "FEATURE_VOLCANO", DEFAULT_FEATURE_INDICES.VOLCANO);
 }

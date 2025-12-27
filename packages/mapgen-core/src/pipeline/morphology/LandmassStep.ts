@@ -2,10 +2,8 @@ import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import {
-  addPlotTagIdsSimple,
   markLandmassId,
   resolveLandmassIds,
-  type TerrainBuilderLike,
 } from "@mapgen/core/plot-tags.js";
 import { DEV, devWarn, logLandmassAscii } from "@mapgen/dev/index.js";
 import type { ContinentBounds, LandmassConfig } from "@mapgen/bootstrap/types.js";
@@ -130,12 +128,6 @@ export function createLandmassPlatesStep(
       context.adapter.validateAndFixTerrain();
       context.adapter.recalculateAreas();
       context.adapter.stampContinents();
-
-      const terrainBuilder: TerrainBuilderLike = {
-        setPlotTag: (x, y, tag) => context.adapter.setPlotTag(x, y, tag),
-        addPlotTag: (x, y, tag) => context.adapter.addPlotTag(x, y, tag),
-      };
-      addPlotTagIdsSimple(height, width, runtime.eastContinent.west, context.adapter, terrainBuilder);
 
       if (DEV.ENABLED && context?.adapter) {
         logLandmassAscii(context.adapter, width, height);
