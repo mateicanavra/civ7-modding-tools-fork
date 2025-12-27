@@ -50,8 +50,8 @@ const terrainFallbackWarnings = new Set<string>();
 function warnFallback(label: string, fallback: number, value: number): void {
   if (terrainFallbackWarnings.has(label)) return;
   terrainFallbackWarnings.add(label);
-  console.warn(
-    `[terrain-constants] Using fallback for ${label} (${fallback}). Adapter returned ${value}.`
+  console.log(
+    `[terrain-constants][warn] Using fallback for ${label} (${fallback}). Adapter returned ${value}.`
   );
 }
 
@@ -83,7 +83,7 @@ function resolveFeatureIndex(adapter: EngineAdapter, name: string, fallback: num
 export function initializeTerrainConstants(adapter: EngineAdapter): void {
   if (initializedAdapter === adapter) return;
   if (initializedAdapter && initializedAdapter !== adapter) {
-    console.warn("[terrain-constants] Reinitializing constants for new adapter instance.");
+    console.log("[terrain-constants][warn] Reinitializing constants for new adapter instance.");
   }
   initializedAdapter = adapter;
   terrainFallbackWarnings.clear();
