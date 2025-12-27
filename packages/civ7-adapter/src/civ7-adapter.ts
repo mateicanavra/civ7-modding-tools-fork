@@ -40,16 +40,35 @@ import { assignAdvancedStartRegions as civ7AssignAdvancedStartRegions } from "/b
 // @ts-ignore - resolved only at Civ7 runtime
 import { generateLakes as civ7GenerateLakes, expandCoasts as civ7ExpandCoasts } from "/base-standard/maps/elevation-terrain-generator.js";
 
+const EFFECT_IDS = {
+  biomesApplied: "effect:engine.biomesApplied",
+  featuresApplied: "effect:engine.featuresApplied",
+  placementApplied: "effect:engine.placementApplied",
+} as const;
+
 /**
  * Production adapter wrapping GameplayMap, TerrainBuilder, AreaBuilder, FractalBuilder
  */
 export class Civ7Adapter implements EngineAdapter {
   readonly width: number;
   readonly height: number;
+  private readonly effectEvidence = new Set<string>();
 
   constructor(width: number, height: number) {
     this.width = width;
     this.height = height;
+  }
+
+  private recordEffect(effectId: string): void {
+    this.effectEvidence.add(effectId);
+  }
+
+  private recordPlacementEffect(): void {
+    this.recordEffect(EFFECT_IDS.placementApplied);
+  }
+
+  verifyEffect(effectId: string): boolean {
+    return this.effectEvidence.has(effectId);
   }
 
   // === MAP INIT / MAP INFO ===
@@ -144,6 +163,7 @@ export class Civ7Adapter implements EngineAdapter {
 
   setFeatureType(x: number, y: number, featureData: FeatureData): void {
     TerrainBuilder.setFeatureType(x, y, featureData);
+    this.recordEffect(EFFECT_IDS.featuresApplied);
   }
 
   canHaveFeature(x: number, y: number, featureType: number): boolean {
@@ -212,6 +232,7 @@ export class Civ7Adapter implements EngineAdapter {
 
   designateBiomes(width: number, height: number): void {
     civ7DesignateBiomes(width, height);
+    this.recordEffect(EFFECT_IDS.biomesApplied);
   }
 
   getBiomeGlobal(name: string): number {
@@ -224,6 +245,7 @@ export class Civ7Adapter implements EngineAdapter {
 
   setBiomeType(x: number, y: number, biomeId: number): void {
     TerrainBuilder.setBiomeType(x, y, biomeId);
+    this.recordEffect(EFFECT_IDS.biomesApplied);
   }
 
   getBiomeType(x: number, y: number): number {
@@ -234,6 +256,7 @@ export class Civ7Adapter implements EngineAdapter {
 
   addFeatures(width: number, height: number): void {
     civ7AddFeatures(width, height);
+    this.recordEffect(EFFECT_IDS.featuresApplied);
   }
 
   getFeatureTypeIndex(name: string): number {
@@ -259,14 +282,17 @@ export class Civ7Adapter implements EngineAdapter {
 
   addNaturalWonders(width: number, height: number, numWonders: number): void {
     civ7AddNaturalWonders(width, height, numWonders);
+    this.recordPlacementEffect();
   }
 
   generateSnow(width: number, height: number): void {
     civ7GenerateSnow(width, height);
+    this.recordPlacementEffect();
   }
 
   generateResources(width: number, height: number): void {
     civ7GenerateResources(width, height);
+    this.recordPlacementEffect();
   }
 
   assignStartPositions(
@@ -278,6 +304,7 @@ export class Civ7Adapter implements EngineAdapter {
     startSectorCols: number,
     startSectors: number[]
   ): number[] {
+    this.recordPlacementEffect();
     const result = civ7AssignStartPositions(
       playersLandmass1,
       playersLandmass2,
@@ -307,10 +334,12 @@ export class Civ7Adapter implements EngineAdapter {
 
   generateDiscoveries(width: number, height: number, startPositions: number[]): void {
     civ7GenerateDiscoveries(width, height, startPositions);
+    this.recordPlacementEffect();
   }
 
   assignAdvancedStartRegions(): void {
     civ7AssignAdvancedStartRegions();
+    this.recordPlacementEffect();
   }
 
   addFloodplains(minLength: number, maxLength: number): void {
@@ -319,6 +348,7 @@ export class Civ7Adapter implements EngineAdapter {
     if (typeof tb.addFloodplains === "function") {
       tb.addFloodplains(minLength, maxLength);
     }
+    this.recordPlacementEffect();
   }
 
   recalculateFertility(): void {
@@ -329,6 +359,7 @@ export class Civ7Adapter implements EngineAdapter {
     } else {
       console.log("[Civ7Adapter] FertilityBuilder not available - fertility will be calculated by engine defaults");
     }
+    this.recordPlacementEffect();
   }
 }
 

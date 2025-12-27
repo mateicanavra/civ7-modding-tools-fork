@@ -98,6 +98,7 @@ Each deferral follows this structure:
 **Impact:**
 - A misdeclared or stale `state:engine.*` dependency can bypass executor gating and fail later (or silently degrade output).
 - Contract correctness relies on discipline + review rather than runtime enforcement for this namespace in M3.
+**Status (2025-12-23):** Effect tags for biomes/features/placement are registered with adapter-backed verification hooks (call-evidence only); migration to `effect:*` scheduling is still pending.
 
 ---
 
