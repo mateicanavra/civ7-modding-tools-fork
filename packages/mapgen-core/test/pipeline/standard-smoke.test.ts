@@ -275,6 +275,11 @@ describe("smoke: standard recipe compile/execute", () => {
     expect(ctx.fields.featureType?.[sampleIdx]).toBe(adapter.getFeatureType(sampleX, sampleY));
     expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementInputsV1)).toBeTruthy();
     expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1)).toBeTruthy();
+    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1)).toBeTruthy();
     expect(startPositions.length).toBeGreaterThan(0);
     expect(events.some((event) => event.kind === "run.finish" && event.success)).toBe(true);
   });

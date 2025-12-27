@@ -2,6 +2,8 @@ import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { clamp, inBounds, storyKey } from "@mapgen/core/index.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { idx } from "@mapgen/lib/grid/index.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { buildNarrativeMotifsRiftsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
@@ -242,6 +244,11 @@ export function storyTagRiftValleys(
       kind: summary.kind,
     },
   });
+
+  ctx.artifacts.set(
+    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
+    buildNarrativeMotifsRiftsV1(StoryTags)
+  );
 
   return summary;
 }

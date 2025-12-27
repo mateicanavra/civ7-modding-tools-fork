@@ -1,5 +1,7 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { inBounds, storyKey } from "@mapgen/core/index.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { buildNarrativeMotifsHotspotsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { isAdjacentToLand } from "@mapgen/domain/narrative/utils/adjacency.js";
@@ -108,6 +110,13 @@ export function storyTagHotspotTrails(
     active: Array.from(StoryTags.hotspot),
     summary: { trails: summary.trails, points: summary.points },
   });
+
+  if (ctx) {
+    ctx.artifacts.set(
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
+      buildNarrativeMotifsHotspotsV1(StoryTags)
+    );
+  }
 
   return summary;
 }

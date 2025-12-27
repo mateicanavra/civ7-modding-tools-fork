@@ -14,6 +14,8 @@ import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/type
 import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import type { CorridorsConfig, FoundationDirectionalityConfig } from "@mapgen/config/index.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { buildNarrativeCorridorsV1 } from "@mapgen/domain/narrative/artifacts.js";
 
 import type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
 import { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/style-cache.js";
@@ -59,7 +61,7 @@ export function storyTagStrategicCorridors(
   for (const k of riverChain) all.add(k);
 
   const { width, height } = ctx.dimensions;
-  return publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.CORRIDORS, {
+  const overlay = publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.CORRIDORS, {
     kind: STORY_OVERLAY_KEYS.CORRIDORS,
     version: 1,
     width,
@@ -81,4 +83,11 @@ export function storyTagStrategicCorridors(
       totalTiles: all.size,
     },
   });
+
+  ctx.artifacts.set(
+    M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
+    buildNarrativeCorridorsV1(tags)
+  );
+
+  return overlay;
 }

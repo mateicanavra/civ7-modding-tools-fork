@@ -1,5 +1,12 @@
 import { ENGINE_EFFECT_TAGS } from "@civ7/adapter";
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
+import {
+  isNarrativeCorridorsV1,
+  isNarrativeMotifsHotspotsV1,
+  isNarrativeMotifsMarginsV1,
+  isNarrativeMotifsOrogenyV1,
+  isNarrativeMotifsRiftsV1,
+} from "@mapgen/domain/narrative/artifacts.js";
 import { isPlacementInputsV1 } from "@mapgen/pipeline/placement/placement-inputs.js";
 import { isPlacementOutputsV1 } from "@mapgen/pipeline/placement/placement-outputs.js";
 import { FOUNDATION_ARTIFACT_TAG, validateFoundationContext } from "@mapgen/core/types.js";
@@ -18,6 +25,11 @@ export const M3_DEPENDENCY_TAGS = {
     climateField: "artifact:climateField",
     storyOverlays: "artifact:storyOverlays",
     riverAdjacency: "artifact:riverAdjacency",
+    narrativeCorridorsV1: "artifact:narrative.corridors@v1",
+    narrativeMotifsMarginsV1: "artifact:narrative.motifs.margins@v1",
+    narrativeMotifsHotspotsV1: "artifact:narrative.motifs.hotspots@v1",
+    narrativeMotifsRiftsV1: "artifact:narrative.motifs.rifts@v1",
+    narrativeMotifsOrogenyV1: "artifact:narrative.motifs.orogeny@v1",
     placementInputsV1: "artifact:placementInputs@v1",
     placementOutputsV1: "artifact:placementOutputs@v1",
   },
@@ -213,6 +225,46 @@ const DEFAULT_TAG_DEFINITIONS: DependencyTagDefinition[] = [
     satisfies: (context) => (context.overlays?.size ?? 0) > 0,
     demo: {},
     validateDemo: (demo) => isPlainObject(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isNarrativeCorridorsV1(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1)
+      ),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isNarrativeMotifsMarginsV1(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1)
+      ),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isNarrativeMotifsHotspotsV1(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1)
+      ),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isNarrativeMotifsRiftsV1(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1)
+      ),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isNarrativeMotifsOrogenyV1(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1)
+      ),
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
