@@ -73,5 +73,63 @@ Completion rule:
 
 ## Pre-work
 
-_TBD_
+Goal: enumerate every consumer of the monolithic foundation artifact and propose a discrete `artifact:foundation.*` inventory that lets consumers depend on exactly what they need.
 
+### 1) Consumer inventory (monolithic `artifact:foundation`)
+
+Monolithic artifact surface today:
+- Tag id: `artifact:foundation` (`packages/mapgen-core/src/core/types.ts#FOUNDATION_ARTIFACT_TAG`)
+- Published by foundation producer:
+  - `packages/mapgen-core/src/pipeline/foundation/producer.ts` assigns `context.artifacts.foundation = foundationContext`
+- Gated via runtime assertions:
+  - `packages/mapgen-core/src/core/assertions.ts` → `assertFoundationContext(...)`
+
+Downstream consumers (via `assertFoundationContext(...)`):
+
+| Consumer | Location | Fields used (high level) |
+| --- | --- | --- |
+| Landmass generation | `packages/mapgen-core/src/domain/morphology/landmass/index.ts` | `plates.id`, `plates.boundaryCloseness` |
+| Ocean separation | `packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/apply.ts` | `plates.boundaryCloseness` |
+| Rugged coasts | `packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts` | `plates.boundaryCloseness`, `plates.boundaryType` |
+| Mountains | `packages/mapgen-core/src/domain/morphology/mountains/apply.ts` + `pipeline/morphology/MountainsStep.ts` | `plates.upliftPotential`, `plates.boundaryType`, `plates.boundaryCloseness` (plus other plate tensors via helpers) |
+| Volcanoes | `packages/mapgen-core/src/domain/morphology/volcanoes/apply.ts` | `plates.boundaryCloseness`, `plates.boundaryType`, `plates.shieldStability` |
+| Story rifts | `packages/mapgen-core/src/domain/narrative/tagging/rifts.ts` | `plates.riftPotential`, `plates.boundaryType`, `plates.boundaryCloseness` |
+| Story orogeny belts | `packages/mapgen-core/src/domain/narrative/orogeny/belts.ts` | `plates.upliftPotential`, `plates.tectonicStress`, `plates.boundaryType`, `plates.boundaryCloseness`, plus `dynamics.windU/windV` |
+| Climate refine | `packages/mapgen-core/src/domain/hydrology/climate/refine/index.ts` | `dynamics.*` (wind/currents/pressure) |
+| Climate swatches monsoon bias | `packages/mapgen-core/src/domain/hydrology/climate/swatches/monsoon-bias.ts` | `dynamics.windU/windV` |
+| Pipeline step wrappers | `packages/mapgen-core/src/pipeline/*/*Step.ts` that call `assertFoundationContext(...)` | Primarily gating; then domain uses plates/dynamics as above |
+
+### 2) Proposed discrete artifact inventory (`artifact:foundation.*`)
+
+Grounded in the current `FoundationContext` shape (`packages/mapgen-core/src/core/types.ts`):
+
+Minimum viable split (matches current tensors):
+- `artifact:foundation.plates@v1`
+  - `id`, `boundaryCloseness`, `boundaryType`, `tectonicStress`, `upliftPotential`, `riftPotential`, `shieldStability`, `movementU`, `movementV`, `rotation`
+- `artifact:foundation.dynamics@v1`
+  - `windU`, `windV`, `currentU`, `currentV`, `pressure`
+- `artifact:foundation.seed@v1` (optional but useful for debugging/replay)
+  - `plateSeed` (`SeedSnapshot`)
+- `artifact:foundation.diagnostics@v1` (optional; mostly dev)
+  - `boundaryTree` (currently `unknown | null`)
+- `artifact:foundation.config@v1` (optional)
+  - `config` snapshot currently stored on the foundation context
+
+Note: the deferral mentions mesh/crust/plate graph; those are not currently published as first-class artifacts. If needed, introduce additional artifacts only once consumers exist (avoid inventing new products without consumers).
+
+### 3) Sequencing plan for migration (consumer-first where possible)
+
+Suggested safe migration path:
+1. Introduce new artifact tags + satisfaction checks (parallel to the monolith).
+2. Update foundation producer to publish:
+   - `artifact:foundation.plates@v1`, `artifact:foundation.dynamics@v1`, etc.
+   - keep publishing `artifact:foundation` temporarily (time-bounded).
+3. Update consumers to depend on the narrow artifacts:
+   - replace `assertFoundationContext(...)` with targeted asserts:
+     - `assertFoundationPlates(...)`
+     - `assertFoundationDynamics(...)`
+4. Update the standard dependency spine to require/provide the new tags.
+5. Delete the monolithic `artifact:foundation` surface and any compat helpers.
+
+Stop-the-world constraints to call out:
+- Any step that declares `requires: ["artifact:foundation"]` (via the dependency spine) must be updated in lock-step with tag/producer changes, otherwise plan compilation/execution will fail.
