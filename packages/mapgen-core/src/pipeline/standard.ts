@@ -141,6 +141,9 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
   },
   placement: {
     requires: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
-    provides: [M3_DEPENDENCY_TAGS.state.placementApplied],
+    provides: [
+      M3_DEPENDENCY_TAGS.artifact.placementOutputsV1,
+      M4_EFFECT_TAGS.engine.placementApplied,
+    ],
   },
 });
