@@ -43,7 +43,30 @@ mock.module("/base-standard/maps/assign-advanced-start-region.js", () => ({
 }));
 // Additional Civ7 adapter dependency
 mock.module("/base-standard/scripts/kd-tree.js", () => ({
-  VoronoiUtils: {},
+  VoronoiUtils: {
+    createRandomSites: (count: number, width: number, height: number) => {
+      const sites: Array<{ x: number; y: number; voronoiId: number }> = [];
+      for (let id = 0; id < count; id++) {
+        const seed1 = (id * 1664525 + 1013904223) >>> 0;
+        const seed2 = (seed1 * 1664525 + 1013904223) >>> 0;
+        const x = (seed1 % 10000) / 10000 * width;
+        const y = (seed2 % 10000) / 10000 * height;
+        sites.push({ x, y, voronoiId: id });
+      }
+      return sites;
+    },
+    computeVoronoi: (sites: Array<{ x: number; y: number; voronoiId?: number }>) => ({
+      cells: sites.map((site) => ({ site, halfedges: [] })),
+      edges: [],
+      vertices: [],
+    }),
+    calculateCellArea: () => 100,
+    normalize: (v: { x: number; y: number }) => {
+      const len = Math.sqrt(v.x * v.x + v.y * v.y);
+      if (len < 1e-10) return { x: 0, y: 0 };
+      return { x: v.x / len, y: v.y / len };
+    },
+  },
 }));
 
 // Mock engine API

@@ -6,6 +6,7 @@
  */
 
 import { describe, it, expect } from "bun:test";
+import { createMockAdapter } from "@civ7/adapter";
 import { renderAsciiGrid } from "@mapgen/dev/index.js";
 import { computePlatesVoronoi } from "@mapgen/foundation/plates.js";
 import type { RngFunction } from "@mapgen/foundation/types.js";
@@ -28,8 +29,9 @@ describe("Crust map harness", () => {
 
     const plateRng = createDeterministicRng(42);
     const crustRng = createDeterministicRng(4242);
+    const voronoiUtils = createMockAdapter({ width: 1, height: 1 }).getVoronoiUtils();
 
-    const plates = computePlatesVoronoi(width, height, { count: 18 }, { rng: plateRng });
+    const plates = computePlatesVoronoi(width, height, { count: 18 }, { rng: plateRng, voronoiUtils });
     const graph = buildPlateTopology(plates.plateId, width, height, plates.plateRegions.length);
 
     const crustConfig: CrustConfig = {

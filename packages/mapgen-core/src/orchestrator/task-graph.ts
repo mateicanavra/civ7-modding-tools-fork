@@ -6,9 +6,6 @@ import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.j
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import type { BaseLibraryRuntime } from "@mapgen/base/index.js";
 import { buildRunRequest, getStageDescriptor } from "@mapgen/base/index.js";
-import { resetStoryOverlays } from "@mapgen/domain/narrative/overlays/index.js";
-import { resetOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
-import { resetCorridorStyleCache } from "@mapgen/domain/narrative/corridors/index.js";
 import {
   getNarrativeCorridors,
   getNarrativeMotifsHotspots,
@@ -122,11 +119,6 @@ export function runTaskGraphGeneration(options: TaskGraphRunnerOptions): Generat
     console.error(`${prefix} Failed to create context:`, err);
     return { success: false, stageResults, startPositions };
   }
-
-  // Reset story state once per generation to prevent cross-run leakage.
-  resetStoryOverlays(ctx);
-  resetOrogenyCache(ctx);
-  resetCorridorStyleCache(ctx);
 
   const iNumPlayers1 = mapInfo.PlayersLandmass1 ?? 4;
   const iNumPlayers2 = mapInfo.PlayersLandmass2 ?? 4;
