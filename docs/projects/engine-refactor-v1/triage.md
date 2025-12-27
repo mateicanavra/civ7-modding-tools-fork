@@ -43,6 +43,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Update (2025-12-27):** Pulled into M5 scope as part of schema ownership + settings boundary cleanup; see `issues/M5-U09-DEF-016-schema-ownership-split-settings.md` (and `milestones/M5-proposal-clean-architecture-finalization.md` for sequencing).
   - **Next check:** before PIPELINE-4 runtime cutover or when `RunSettings` expands.
 
+- **Foundation artifact contract docs out of sync with DEF-014 split** [Source: M5-U11]
+  - **Context:** M5-U11 replaces monolithic `artifact:foundation` with discrete `artifact:foundation.*@v1` artifacts.
+  - **Type:** triage
+  - **Notes:** `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` still describes the monolithic contract; decide whether to replace it with a single inventory contract or add per-artifact contracts.
+  - **Next check:** before merging M5-U11 or shipping consumer guidance.
+
 - **TaskGraph entrypoint + recipe ID breaking changes** [Source: M5-U02 review]
   - **Context:** M5-U02 standard-mod boundary skeleton.
   - **Type:** triage
