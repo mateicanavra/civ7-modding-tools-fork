@@ -18,21 +18,21 @@ related_to: []
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
 
-Move the remaining major standard-domain clusters (ecology, placement, narrative) out of core into the standard mod package so core has no structural reason to embed standard behavior.
+Move the remaining major standard-domain clusters (ecology, placement, narrative) out of core into the base mod (`@swooper/mapgen-core/base`) so core has no structural reason to embed base behavior.
 
 ## Goal
 
-Finish the extraction: after this unit, core should be structurally generic, and the standard pipeline should be mod-owned end-to-end (steps + helpers + registrations).
+Finish the extraction: after this unit, core should be structurally generic, and the base pipeline should be mod-owned end-to-end (steps + helpers + registrations).
 
 ## Deliverables
 
-- Move ecology/placement/narrative step implementations into the standard mod package.
+- Move ecology/placement/narrative step implementations into the base mod.
 - Move domain helpers with them (including any adapter-facing helpers or tag/recipe wiring that is standard-domain).
 - Leave only shared, cross-domain primitives in core.
 
 ## Acceptance Criteria
 
-- Ecology/placement/narrative steps execute from the standard mod package (not core).
+- Ecology/placement/narrative steps execute from the base mod (not core).
 - Core retains only generic primitives (no domain ownership).
 - Standard smoke test remains green under `MockAdapter`.
 
@@ -54,6 +54,12 @@ Finish the extraction: after this unit, core should be structurally generic, and
 
 - Pay special attention to adapter-facing helpers; keep the boundary boring and explicit (avoid reintroducing ambient/global patterns).
 - Treat narrative artifacts/queries as standard-mod owned, not core owned, unless they are intentionally made generic primitives.
+
+## Implementation Decisions
+
+- Ecology/placement/narrative **pipeline step wrappers, artifact definitions, and layer registration** are moved under `@mapgen/base/pipeline/*` as base-mod-owned implementation.
+- `@mapgen/pipeline/ecology/*`, `@mapgen/pipeline/placement/*`, and `@mapgen/pipeline/narrative/*` remain as thin shims re-exporting the base implementations for transitional compatibility.
+- Domain algorithms remain under `@mapgen/domain/*` as reusable primitives (still content-agnostic and importable by non-base mods).
 
 ## Prework Findings (Complete)
 
