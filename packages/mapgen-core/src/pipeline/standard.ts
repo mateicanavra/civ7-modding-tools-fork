@@ -23,6 +23,7 @@ export const M3_STANDARD_STAGE_PHASE: Readonly<Record<string, GenerationPhase>> 
     climateRefine: "hydrology",
     biomes: "ecology",
     features: "ecology",
+    derivePlacementInputs: "placement",
     placement: "placement",
   });
 
@@ -130,12 +131,16 @@ export const M3_STAGE_DEPENDENCY_SPINE: Readonly<
     ],
     provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
   },
-  placement: {
+  derivePlacementInputs: {
     requires: [
       M3_DEPENDENCY_TAGS.state.coastlinesApplied,
       M3_DEPENDENCY_TAGS.state.riversModeled,
       M4_EFFECT_TAGS.engine.featuresApplied,
     ],
+    provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
+  },
+  placement: {
+    requires: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
     provides: [M3_DEPENDENCY_TAGS.state.placementApplied],
   },
 });

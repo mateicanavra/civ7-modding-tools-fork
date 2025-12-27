@@ -135,3 +135,14 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Follow-up:** Add a `precheck` (or dev-export adjustment) so `pnpm -C packages/mapgen-core check` works without manual adapter builds; treat “call-evidence” effects as a guardrail for missed wiring, not a correctness oracle.
 - **Update (2025-12-24):** Added a `precheck` hook in `packages/mapgen-core` to build `@civ7/adapter` before `check`, keeping verification commands hermetic; call-evidence semantics remain a guardrail.
 - **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test test/pipeline/standard-smoke.test.ts` (pass).
+
+## CIV-71 — [M4] Define artifact:placementInputs@v1
+
+**Reviewed:** 2025-12-24
+
+- **Intent:** Introduce a versioned `artifact:placementInputs@v1` contract, derive+publish it in the standard pipeline, and switch placement to consume it.
+- **Strengths:** Tag registry entry includes satisfaction predicate + demo payload validation; derive step publishes a single canonical payload; standard recipe includes `derivePlacementInputs` immediately before `placement`; smoke test asserts artifact publication.
+- **Gaps:** `PlacementStep` still declares a `placement` config schema but ignores config entirely, so recipe authors can set `placement` config on the `placement` step and silently get no effect; Linear ticket text implies “read artifact without removing legacy”, while the local issue doc + code fully require the artifact (potential sequencing drift).
+- **Follow-up:** Either remove `placement` config schema from `placement` step (or make it an explicit error) to avoid silent misconfiguration; reconcile the CIV-71 issue doc prework constraints with the final implementation so future readers don’t treat it as a still-open constraint.
+- **Update (2025-12-24):** Placement step config now uses an empty schema (explicit error on step-level config); CIV-71 issue doc prework prompt flagged as historical to align with the early artifact-only cutover.
+- **Verification:** `pnpm -C packages/civ7-adapter build`; `pnpm -C packages/mapgen-core check`; `pnpm -C packages/mapgen-core test test/pipeline/standard-smoke.test.ts` (pass).

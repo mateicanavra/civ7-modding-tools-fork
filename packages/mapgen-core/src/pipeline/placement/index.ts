@@ -2,7 +2,7 @@ import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { ContinentBounds, StartsConfig } from "@mapgen/bootstrap/types.js";
 import type { MapInfo } from "@civ7/adapter";
 import type { StepRegistry } from "@mapgen/pipeline/index.js";
-import { createPlacementStep } from "@mapgen/pipeline/placement/steps.js";
+import { createDerivePlacementInputsStep, createPlacementStep } from "@mapgen/pipeline/placement/steps.js";
 
 export interface PlacementLayerRuntime {
   getStageDescriptor: (stageId: string) => { requires: readonly string[]; provides: readonly string[] };
@@ -31,10 +31,19 @@ export function registerPlacementLayer(
     startSectors: runtime.startSectors,
   };
   registry.register(
-    createPlacementStep(
+    createDerivePlacementInputsStep(
       {
         mapInfo: runtime.mapInfo,
         baseStarts,
+      },
+      {
+        ...runtime.getStageDescriptor("derivePlacementInputs"),
+      }
+    )
+  );
+  registry.register(
+    createPlacementStep(
+      {
         startPositions: runtime.startPositions,
       },
       {

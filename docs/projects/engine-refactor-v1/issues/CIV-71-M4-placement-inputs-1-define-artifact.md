@@ -30,7 +30,7 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 
 - `artifact:placementInputs@v1` is registered; if a demo payload is provided, it does not crash downstream placement.
 - The derive step runs in the standard pipeline and emits the artifact.
-- Downstream placement can read the artifact (without yet removing legacy paths).
+- Downstream placement requires `artifact:placementInputs@v1` and reads it directly.
 
 ## Testing / Verification
 
@@ -48,8 +48,18 @@ Define `artifact:placementInputs@v1` (demo payload optional) and add a derive st
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Details (Local Only)
 
-- Keep this additive; do not remove legacy placement inputs here.
+- Placement now requires `artifact:placementInputs@v1`; legacy paths are removed.
 - Use existing TypeBox patterns for the artifact schema.
+
+## Implementation Decisions
+
+### Require placement inputs artifact for placement
+
+- Context: With no legacy recipes, we can tighten the stage dependency spine and remove fallback reads.
+- Options: (1) Require `artifact:placementInputs@v1` in the spine and runtime. (2) Keep state-tag requirements with optional artifact usage.
+- Choice: Option 1 — placement now requires the artifact and reads only the published inputs.
+- Rationale: Enforces explicit placement inputs and prevents silent drift across stages.
+- Risk: Any recipe missing `derivePlacementInputs` will now fail dependency checks earlier.
 
 ### Quick Navigation
 - [TL;DR](#tldr)

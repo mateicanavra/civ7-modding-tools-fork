@@ -1,14 +1,11 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import type { StartsConfig } from "@mapgen/bootstrap/types.js";
-import type { MapInfo } from "@civ7/adapter";
 import { runPlacement } from "@mapgen/domain/placement/index.js";
 import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
 import { PlacementConfigSchema } from "@mapgen/config/index.js";
+import { getPublishedPlacementInputs } from "@mapgen/pipeline/artifacts.js";
 
 export interface PlacementStepRuntime {
-  mapInfo: MapInfo;
-  baseStarts: StartsConfig;
   startPositions: number[];
 }
 
@@ -36,16 +33,17 @@ export function createPlacementStep(
     requires: options.requires,
     provides: options.provides,
     configSchema: PlacementStepConfigSchema,
-    run: (context, config) => {
-      const placementConfig = config.placement ?? {};
-      const starts =
-        placementConfig.starts && typeof placementConfig.starts === "object"
-          ? { ...runtime.baseStarts, ...placementConfig.starts }
-          : runtime.baseStarts;
+    run: (context, _config) => {
+      const derivedInputs = getPublishedPlacementInputs(context);
+      if (!derivedInputs) {
+        throw new Error("Missing required artifact: placementInputs@v1");
+      }
+      const placementConfig = derivedInputs.placementConfig ?? {};
+      const starts = derivedInputs.starts;
       const { width, height } = context.dimensions;
 
       const startPositions = runPlacement(context.adapter, width, height, {
-        mapInfo: runtime.mapInfo as { NumNaturalWonders?: number },
+        mapInfo: derivedInputs.mapInfo as { NumNaturalWonders?: number },
         starts,
         placementConfig,
       });
