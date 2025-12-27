@@ -15,6 +15,15 @@ import {
 } from "@mapgen/base/pipeline/artifacts.js";
 
 describe("pipeline artifacts", () => {
+  it("requires artifact:heightfield for climate baseline and swatches", () => {
+    expect(M3_STAGE_DEPENDENCY_SPINE.climateBaseline.requires).toContain(
+      M3_DEPENDENCY_TAGS.artifact.heightfield
+    );
+    expect(M3_STAGE_DEPENDENCY_SPINE.storySwatches.requires).toContain(
+      M3_DEPENDENCY_TAGS.artifact.heightfield
+    );
+  });
+
   it("includes climate/river prerequisites for storyCorridorsPost in the standard dependency spine", () => {
     expect(M3_STAGE_DEPENDENCY_SPINE.storyCorridorsPost.requires).toEqual(
       expect.arrayContaining([

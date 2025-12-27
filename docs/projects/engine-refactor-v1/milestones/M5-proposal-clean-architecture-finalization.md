@@ -130,7 +130,7 @@ The canonical unit definitions live as standalone issue docs under `docs/project
 - [x] [M5-U09](../issues/M5-U09-DEF-016-schema-ownership-split-settings.md) — DEF‑016 + follow-ups: schema ownership split + “settings” migration (branch: `m5-u09-def-016-schema-ownership-split-settings`, review: `m5-u09-review-def-016-schema-ownership-split-settings`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/251)
 - [x] [M5-U10](../issues/M5-U10-colocation-consolidation-pass.md) — colocation + consolidation pass (reduce wiring-only indirection) (branch: `m5-u10-colocation-consolidation-pass`, review: `m5-u10-review-colocation-consolidation-pass`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/252)
 - [x] [M5-U11](../issues/M5-U11-DEF-014-foundation-inventory.md) — DEF‑014: foundation artifact inventory + consumer migration (branch: `m5-u11-def-014-foundation-inventory`, review: `m5-u11-review-def-014-foundation-inventory`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/253)
-- [ ] [M5-U12](../issues/M5-U12-DEF-010-climate-prerequisite-reification.md) — DEF‑010: climate prerequisite reification (no hidden engine-read prereqs)
+- [x] [M5-U12](../issues/M5-U12-DEF-010-climate-prerequisite-reification.md) — DEF‑010: climate prerequisite reification (no hidden engine-read prereqs) (branch: `m5-u12-def-010-climate-prerequisite-reification`)
 - [ ] [M5-U13](../issues/M5-U13-DEF-017-strong-effect-verification.md) — DEF‑017: stronger `effect:*` verification via adapter read-back APIs + tests
 
 ## Sequencing (slices)
