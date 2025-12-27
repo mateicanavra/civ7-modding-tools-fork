@@ -1,3 +1,9 @@
+---
+milestone: M5
+id: M5-review
+status: draft
+reviewer: AI agent
+---
 
 ## REVIEW m5-u01-def-011-delete-crust-mode
 
@@ -20,3 +26,25 @@ The legacy crust-mode fork is fully removed and configs no longer accept `crustM
 
 ### Cross-cutting Risks
 - Schema still accepts no-op legacy knobs, which conflicts with the "no dead code" M5 goal and may confuse downstream configs.
+
+## REVIEW m5-u02-standard-mod-boundary-skeleton
+
+### Quick Take
+The base-mod boundary is real (PipelineModV1 + @swooper/mapgen-core/base + hello-mod smoke), but the public entrypoint signature and IDs changed without a compatibility story.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/orchestrator/task-graph.ts`: `runTaskGraphGeneration` now requires an injected mod and throws if no default recipe; this is a breaking API change for external callers with no deprecation/compat path.
+- `packages/mapgen-core/src/base/mod.ts` + `packages/mapgen-core/src/base/recipes/default.ts`: mod/recipe IDs changed from `core.standard` to `core.base`, which can break any downstream tooling keyed on recipe IDs.
+
+### Fix Now (Recommended)
+- Add a compatibility path (e.g., default to `baseMod` when `mod` is omitted, or provide a deprecated wrapper) and document the breaking change if intentional.
+- Decide whether to alias `core.standard` to `core.base` (or document a hard migration) to avoid silent downstream breakage.
+
+### Defer / Follow-up
+- Document the PipelineModV1 contract in canonical docs once the base/standard split stabilizes.
+
+### Needs Discussion
+- Should `runTaskGraphGeneration` stay standard/base-specific (using `M3_STAGE_DEPENDENCY_SPINE`), or should the dependency spine be mod-owned as part of the contract?
+
+### Cross-cutting Risks
+- Public API + recipe-id churn at the mod boundary could break external consumers without a migration plan.
