@@ -72,3 +72,12 @@ correctness, completeness, sequencing fit, and forward-looking risks.
 - **Gaps:** Orchestrator tests still derive the recipe via `StepRegistry.getStandardRecipe(stageManifest)` instead of the standard mod recipe, so drift between `mods/standard` and stage-manifest ordering would be invisible.
 - **Follow-up:** Update orchestration tests to use `standardMod.recipes.default` as the recipe source and add a small assertion that the mod recipe is the canonical ordering list.
 - **Update (2025-12-23):** Orchestrator test now derives its recipe directly from `standardMod.recipes.default` (no stageManifest filtering) and asserts the selected steps stay aligned with the canonical ordering list.
+
+## CIV-76 — [M4] Safety net: CI smoke tests + CIV-23 re-scope
+
+**Reviewed:** 2025-12-23
+
+- **Intent:** Add compile/execute smoke tests for the standard recipe using a stub adapter and re-scope CIV-23 to the RunRequest/ExecutionPlan boundary.
+- **Strengths:** New smoke coverage compiles and executes the standard recipe with a MockAdapter and asserts ordering + run completion; CIV-23 doc is reoriented to the ExecutionPlan boundary.
+- **Gaps:** CIV-23 still references legacy WorldModel/stageConfig in its testing guidance and helper snippet, which conflicts with the acceptance criteria to remove those references.
+- **Follow-up:** Remove the remaining WorldModel and `stageConfig` mentions from CIV-23 and replace with RunRequest/ExecutionPlan-oriented verification commands/snippets.
