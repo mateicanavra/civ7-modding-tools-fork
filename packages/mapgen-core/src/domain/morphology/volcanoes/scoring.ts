@@ -1,4 +1,4 @@
-import { BOUNDARY_TYPE } from "@mapgen/foundation/constants.js";
+import { BOUNDARY_TYPE } from "@mapgen/base/foundation/constants.js";
 
 export function scoreVolcanoWeight(params: {
   closeness: number;
