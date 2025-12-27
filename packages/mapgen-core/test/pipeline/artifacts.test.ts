@@ -2,13 +2,11 @@ import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import type { MapConfig } from "@mapgen/bootstrap/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { M3_DEPENDENCY_TAGS, M3_STAGE_DEPENDENCY_SPINE, M4_EFFECT_TAGS, registerBaseTags } from "@mapgen/base/index.js";
 import {
   PipelineExecutor,
   StepRegistry,
-  M3_DEPENDENCY_TAGS,
-  M4_EFFECT_TAGS,
 } from "@mapgen/pipeline/index.js";
-import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
 import { isDependencyTagSatisfied } from "@mapgen/pipeline/tags.js";
 import {
   computeRiverAdjacencyMask,
@@ -37,7 +35,9 @@ describe("pipeline artifacts", () => {
       adapter,
       {} as unknown as MapConfig
     );
-    const tagRegistry = new StepRegistry<typeof ctx>().getTagRegistry();
+    const registry = new StepRegistry<typeof ctx>();
+    registerBaseTags(registry);
+    const tagRegistry = registry.getTagRegistry();
 
     expect(
       isDependencyTagSatisfied(M3_DEPENDENCY_TAGS.artifact.climateField, ctx, {
@@ -61,7 +61,9 @@ describe("pipeline artifacts", () => {
       adapter,
       {} as unknown as MapConfig
     );
-    const tagRegistry = new StepRegistry<typeof ctx>().getTagRegistry();
+    const registry = new StepRegistry<typeof ctx>();
+    registerBaseTags(registry);
+    const tagRegistry = registry.getTagRegistry();
 
     expect(
       isDependencyTagSatisfied(M3_DEPENDENCY_TAGS.field.terrainType, ctx, {
@@ -85,6 +87,7 @@ describe("pipeline artifacts", () => {
     );
 
     const registry = new StepRegistry<typeof ctx>();
+    registerBaseTags(registry);
     registry.register({
       id: "climateBaseline",
       phase: "hydrology",
@@ -112,6 +115,7 @@ describe("pipeline artifacts", () => {
     );
 
     const registry = new StepRegistry<typeof ctx>();
+    registerBaseTags(registry);
     registry.register({
       id: "rivers",
       phase: "hydrology",

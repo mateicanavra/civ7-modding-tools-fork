@@ -10,7 +10,7 @@ import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "@mapgen/core/terrain
 import type { CorridorsConfig, HotspotTunables, IslandsConfig } from "@mapgen/domain/morphology/islands/types.js";
 import { getFractalThreshold } from "@mapgen/domain/morphology/islands/fractal-threshold.js";
 import { isAdjacentToLand, isNearSeaLane, storyKey } from "@mapgen/domain/morphology/islands/adjacency.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 
 const HILL_FRACTAL = 1;
 

@@ -5,7 +5,8 @@ import {
   IslandsConfigSchema,
   SeaCorridorPolicySchema,
 } from "@mapgen/config/index.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
+import type { MapGenStep } from "@mapgen/pipeline/index.js";
 import { addIslandChains } from "@mapgen/domain/morphology/islands/index.js";
 
 export interface IslandsStepOptions {

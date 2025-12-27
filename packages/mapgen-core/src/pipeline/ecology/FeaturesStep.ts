@@ -1,7 +1,8 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { addDiverseFeatures } from "@mapgen/domain/ecology/features/index.js";
-import { M3_STANDARD_STAGE_PHASE, type MapGenStep } from "@mapgen/pipeline/index.js";
+import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
+import type { MapGenStep } from "@mapgen/pipeline/index.js";
 import {
   FeaturesConfigSchema,
   FeaturesDensityConfigSchema,
