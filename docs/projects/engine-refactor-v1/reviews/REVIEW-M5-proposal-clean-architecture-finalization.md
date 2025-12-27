@@ -132,3 +132,23 @@ Ecology, placement, and narrative steps are now base-owned with thin pipeline re
 
 ### Cross-cutting Risks
 - Ownership metadata drift between tags and step location could undermine effect verification or tooling expectations.
+
+## REVIEW m5-u07-delete-compat-deprecation-surfaces
+
+### Quick Take
+Legacy shims and compat surfaces are removed and artifact helpers are now base-owned, but the ecology domain now imports base artifacts directly, which reintroduces a core-to-base dependency.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/domain/ecology/biomes/index.ts` and `packages/mapgen-core/src/domain/ecology/features/index.ts` now import `@mapgen/base/pipeline/artifacts`, so core domain logic depends on the base mod and standard artifact tags.
+
+### Fix Now (Recommended)
+- Decide whether ecology domain should move into the base mod (if it is standard-specific) or reintroduce a core-owned artifact accessor so `@mapgen/domain` does not import base modules.
+
+### Defer / Follow-up
+- If the base dependency is intentional, document the exception in the domain ownership docs and add a follow-up to cleanly separate it later.
+
+### Needs Discussion
+- Are ecology domain modules intended to be reusable primitives (core-owned) or standard-mod specifics (base-owned)?
+
+### Cross-cutting Risks
+- Core domain now depends on base artifacts, weakening the "core is generic" boundary and complicating future non-base consumers.
