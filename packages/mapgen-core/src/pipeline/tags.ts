@@ -1,5 +1,5 @@
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
-import { validateFoundationContext } from "@mapgen/core/types.js";
+import { FOUNDATION_ARTIFACT_TAG, validateFoundationContext } from "@mapgen/core/types.js";
 import {
   DuplicateDependencyTagError,
   InvalidDependencyTagDemoError,
@@ -9,7 +9,7 @@ import {
 
 export const M3_DEPENDENCY_TAGS = {
   artifact: {
-    foundation: "artifact:foundation",
+    foundation: FOUNDATION_ARTIFACT_TAG,
     heightfield: "artifact:heightfield",
     climateField: "artifact:climateField",
     storyOverlays: "artifact:storyOverlays",

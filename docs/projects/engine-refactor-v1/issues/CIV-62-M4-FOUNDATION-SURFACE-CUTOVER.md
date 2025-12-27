@@ -78,6 +78,10 @@ M4’s north star is “inter-step surfaces match the target architecture.” A 
 - **Rationale:** Keeps existing `Map` semantics for tag verification while enabling the ergonomic `ctx.artifacts.foundation` surface.
 - **Risk:** Future typed artifact properties must be added carefully to avoid bloating the store or drifting from tag-driven access.
 
+## Review Updates
+
+- 2025-12-24: Centralized `artifact:foundation` via `FOUNDATION_ARTIFACT_TAG` to avoid tag drift between core artifacts and pipeline tags.
+
 ## Implementation Details (Local Only)
 
 ### Thin-slice sequence (recommended)
