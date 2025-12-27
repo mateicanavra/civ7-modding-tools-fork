@@ -75,6 +75,31 @@ describe("applyMapInitData", () => {
   });
 
   describe("with initParams overrides", () => {
+    it("should allow initParams-only usage without mapSizeDefaults", () => {
+      const adapter = createMockAdapter();
+
+      applyMapInitData(
+        { adapter },
+        {
+          width: 96,
+          height: 60,
+          topLatitude: 80,
+          bottomLatitude: -80,
+          wrapX: false,
+        }
+      );
+
+      expect(adapter.calls.setMapInitData.length).toBe(1);
+      const params = adapter.calls.setMapInitData[0]!;
+
+      expect(params.width).toBe(96);
+      expect(params.height).toBe(60);
+      expect(params.topLatitude).toBe(80);
+      expect(params.bottomLatitude).toBe(-80);
+      expect(params.wrapX).toBe(false);
+      expect(params.wrapY).toBe(false);
+    });
+
     it("should allow explicit dimension overrides via initParams", () => {
       const adapter = createMockAdapter();
       const options = {

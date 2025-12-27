@@ -30,9 +30,6 @@ function buildConfig(): BootstrapConfig {
         crustMode: "area",
         baseWaterPercent: 53, // More ocean for distinct continents
         waterScalar: 1,
-        // NOTE (M2): The TS stable slice does not currently consume the legacy
-        // boundary/tectonics tuning knobs (boundaryBias, boundaryShareTarget, etc.).
-        // Tune boundary saturation via `foundation.plates` + `mountains` instead.
       },
       margins: {
         activeFraction: 0.35,
@@ -124,29 +121,27 @@ function buildConfig(): BootstrapConfig {
             },
           },
         },
-        policy: {
-          oceanSeparation: {
-            enabled: false, // Ensure oceans separate continents
-            baseSeparationTiles: 3,
-            boundaryClosenessMultiplier: 0.9,
-            maxPerRowDelta: 10,
-            minChannelWidth: 3,
-            respectSeaLanes: true,
-            edgeWest: {
-              enabled: false,
-              baseTiles: 3,
-              boundaryClosenessMultiplier: 0.5,
-              maxPerRowDelta: 1,
-            },
-            edgeEast: {
-              enabled: false,
-              baseTiles: 3,
-              boundaryClosenessMultiplier: 0.5,
-              maxPerRowDelta: 1,
-            },
-          },
-        },
+    },
+    oceanSeparation: {
+      enabled: false, // Ensure oceans separate continents
+      baseSeparationTiles: 3,
+      boundaryClosenessMultiplier: 0.9,
+      maxPerRowDelta: 10,
+      minChannelWidth: 3,
+      respectSeaLanes: true,
+      edgeWest: {
+        enabled: false,
+        baseTiles: 3,
+        boundaryClosenessMultiplier: 0.5,
+        maxPerRowDelta: 1,
       },
+      edgeEast: {
+        enabled: false,
+        baseTiles: 3,
+        boundaryClosenessMultiplier: 0.5,
+        maxPerRowDelta: 1,
+      },
+    },
       climate: {
         baseline: {
           blend: {
@@ -256,8 +251,8 @@ const orchestratorOptions: OrchestratorConfig = { logPrefix: "[SWOOPER_MOD]" };
 // Wire engine events to orchestrator methods
 // RequestMapInitData: Bootstrap with defaults to set up map dimensions
 // Note: requestMapData() doesn't need custom config - just sets dimensions
-engine.on("RequestMapInitData", () => {
-  applyMapInitData(orchestratorOptions);
+engine.on("RequestMapInitData", (initParams) => {
+  applyMapInitData(orchestratorOptions, initParams);
 });
 
 // GenerateMap: Bootstrap with full config, then run generation
