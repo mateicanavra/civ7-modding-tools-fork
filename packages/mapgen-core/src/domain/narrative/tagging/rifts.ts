@@ -4,7 +4,6 @@ import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { idx } from "@mapgen/lib/grid/index.js";
 import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
 import { buildNarrativeMotifsRiftsV1 } from "@mapgen/domain/narrative/artifacts.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
 import { latitudeAbsDeg } from "@mapgen/domain/narrative/utils/latitude.js";
@@ -42,7 +41,8 @@ export function storyTagRiftValleys(
   const stepLen = Math.max(1, baseStepLen | 0);
   const shoulderWidth = (baseShoulderWidth | 0) + (sqrtRift > 1.5 ? 1 : 0);
 
-  const StoryTags = getStoryTags(ctx);
+  const riftLine = new Set<string>();
+  const riftShoulder = new Set<string>();
 
   const plates = foundation.plates;
   const RP = plates.riftPotential;
@@ -109,15 +109,15 @@ export function storyTagRiftValleys(
 
       if (inBounds(px, py, width, height) && !isWaterAt(ctx, px, py)) {
         const pk = storyKey(px, py);
-        if (!StoryTags.riftShoulder.has(pk)) {
-          StoryTags.riftShoulder.add(pk);
+        if (!riftShoulder.has(pk)) {
+          riftShoulder.add(pk);
           shoulderCount++;
         }
       }
       if (inBounds(qx, qy, width, height) && !isWaterAt(ctx, qx, qy)) {
         const qk = storyKey(qx, qy);
-        if (!StoryTags.riftShoulder.has(qk)) {
-          StoryTags.riftShoulder.add(qk);
+        if (!riftShoulder.has(qk)) {
+          riftShoulder.add(qk);
           shoulderCount++;
         }
       }
@@ -159,8 +159,8 @@ export function storyTagRiftValleys(
       if (!inBounds(x, y, width, height) || isWaterAt(ctx, x, y) || latDegAt(y) > 70) break;
 
       const k = storyKey(x, y);
-      if (!StoryTags.riftLine.has(k)) {
-        StoryTags.riftLine.add(k);
+      if (!riftLine.has(k)) {
+        riftLine.add(k);
         lineCount++;
       }
       placedAny = true;
@@ -235,8 +235,8 @@ export function storyTagRiftValleys(
     version: 1,
     width,
     height,
-    active: Array.from(StoryTags.riftLine),
-    passive: Array.from(StoryTags.riftShoulder),
+    active: Array.from(riftLine),
+    passive: Array.from(riftShoulder),
     summary: {
       rifts: summary.rifts,
       lineTiles: summary.lineTiles,
@@ -247,7 +247,7 @@ export function storyTagRiftValleys(
 
   ctx.artifacts.set(
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
-    buildNarrativeMotifsRiftsV1(StoryTags)
+    buildNarrativeMotifsRiftsV1({ riftLine, riftShoulder })
   );
 
   return summary;

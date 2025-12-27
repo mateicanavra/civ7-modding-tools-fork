@@ -1,4 +1,3 @@
-import type { StoryTagsInstance } from "@mapgen/domain/narrative/tags/instance.js";
 import type { ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
 
 export function applyRiftHumidityRefinement(
@@ -6,7 +5,7 @@ export function applyRiftHumidityRefinement(
   height: number,
   runtime: ClimateRuntime,
   inBounds: (x: number, y: number) => boolean,
-  StoryTags: StoryTagsInstance,
+  riftLine: ReadonlySet<string>,
   storyRain: Record<string, number>
 ): void {
   const { adapter, readRainfall, writeRainfall } = runtime;
@@ -14,7 +13,7 @@ export function applyRiftHumidityRefinement(
   const riftR = storyRain?.riftRadius ?? 2;
   const riftBoost = storyRain?.riftBoost ?? 8;
 
-  if (StoryTags.riftLine.size > 0 && riftR > 0 && riftBoost !== 0) {
+  if (riftLine.size > 0 && riftR > 0 && riftBoost !== 0) {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         if (adapter.isWater(x, y)) continue;
@@ -26,7 +25,7 @@ export function applyRiftHumidityRefinement(
             const nx = x + dx;
             const ny = y + dy;
             if (!inBounds(nx, ny)) continue;
-            if (StoryTags.riftLine.has(`${nx},${ny}`)) {
+            if (riftLine.has(`${nx},${ny}`)) {
               nearRift = true;
               break;
             }
@@ -44,4 +43,3 @@ export function applyRiftHumidityRefinement(
     }
   }
 }
-

@@ -35,6 +35,7 @@ Each deferral follows this structure:
 - Temporary duplication of narrative representation (overlays + tags) with risk of semantic drift if not kept strictly derived.
 - Continued support surface for legacy semantics during M3.
 - **Status (2025-12-20):** StoryTags are already context-owned and (in tagging helpers) hydrated from overlays, but many domain layers still consume StoryTags directly; trigger not yet met.
+- **Status (2025-12-26):** Resolved in CIV-74 by removing StoryTags and migrating consumers to `artifact:narrative.*` (see `packages/mapgen-core/src/domain/narrative/artifacts.ts` and `packages/mapgen-core/src/domain/narrative/queries.ts`).
 
 ---
 
@@ -131,6 +132,7 @@ Each deferral follows this structure:
 - Harder to reason about determinism and test isolation until story is fully context-driven.
 **Status (2025-12-20):**
 - StoryTags are context-owned (`ctx.artifacts`), and overlays are context-scoped (`ctx.overlays`), but story caches remain (e.g., `resetOrogenyCache`, `resetCorridorStyleCache`) and many callers still treat StoryTags as primary.
+- **Status (2025-12-26):** Resolved in CIV-74: StoryTags removed, narrative consumers read `artifact:narrative.*`, and remaining caches are context-scoped + reset per run.
 
 ---
 

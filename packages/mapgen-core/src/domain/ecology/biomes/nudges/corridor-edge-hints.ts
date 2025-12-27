@@ -1,5 +1,6 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import type { BiomeGlobals } from "@mapgen/domain/ecology/biomes/types.js";
+import type { NarrativeCorridorsV1 } from "@mapgen/domain/narrative/artifacts.js";
 
 export function applyCorridorEdgeHints(
   adapter: EngineAdapter,
@@ -9,14 +10,10 @@ export function applyCorridorEdgeHints(
   width: number,
   latAbs: number,
   rainfall: number,
-  story: {
-    corridorLandOpen?: { has?: (k: string) => boolean };
-    corridorRiverChain?: { has?: (k: string) => boolean };
-    corridorAttributes?: { get?: (k: string) => unknown };
-  },
+  corridors: NarrativeCorridorsV1 | null | undefined,
   getRandom: (label: string, max: number) => number
 ): void {
-  if (story.corridorLandOpen?.has?.(`${x},${y}`) || story.corridorRiverChain?.has?.(`${x},${y}`)) {
+  if (corridors?.landCorridors?.has(`${x},${y}`) || corridors?.riverCorridors?.has(`${x},${y}`)) {
     return;
   }
 
@@ -29,8 +26,8 @@ export function applyCorridorEdgeHints(
       const ny = y + ddy;
       const nk = `${nx},${ny}`;
 
-      if (story.corridorLandOpen?.has?.(nk) || story.corridorRiverChain?.has?.(nk)) {
-        const attr = story.corridorAttributes?.get?.(nk) as { edge?: Record<string, number> } | undefined;
+      if (corridors?.landCorridors?.has(nk) || corridors?.riverCorridors?.has(nk)) {
+        const attr = corridors?.attributesByTile?.get?.(nk) as { edge?: Record<string, number> } | undefined;
         if (attr && attr.edge) edgeAttr = attr;
       }
     }
@@ -56,4 +53,3 @@ export function applyCorridorEdgeHints(
     adapter.setBiomeType(x, y, target);
   }
 }
-

@@ -2,8 +2,7 @@ import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { assertFoundationContext } from "@mapgen/core/assertions.js";
 import { inBounds as boundsCheck } from "@mapgen/lib/grid/bounds.js";
 import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@mapgen/config/index.js";
-import type { StoryTagsInstance } from "@mapgen/domain/narrative/tags/instance.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
+import { getNarrativeMotifsHotspots, getNarrativeMotifsRifts } from "@mapgen/domain/narrative/queries.js";
 import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 import { applyWaterGradientRefinement } from "@mapgen/domain/hydrology/climate/refine/water-gradient.js";
@@ -45,8 +44,9 @@ export function refineClimateEarthlike(
   const orogenyCache = options?.orogenyCache || null;
   const storyCfg = options.story ?? {};
   const directionality = options.directionality ?? null;
-
-  const StoryTags: StoryTagsInstance = getStoryTags(ctx);
+  const emptySet = new Set<string>();
+  const rifts = getNarrativeMotifsRifts(ctx);
+  const hotspots = getNarrativeMotifsHotspots(ctx);
 
   // Local bounds check with captured width/height
   const inBounds = (x: number, y: number): boolean => boundsCheck(x, y, width, height);
@@ -76,11 +76,28 @@ export function refineClimateEarthlike(
   );
 
   // Pass D: Rift humidity boost
-  applyRiftHumidityRefinement(width, height, runtime, inBounds, StoryTags, storyRain);
+  applyRiftHumidityRefinement(
+    width,
+    height,
+    runtime,
+    inBounds,
+    rifts?.riftLine ?? emptySet,
+    storyRain
+  );
 
   // Pass E: Orogeny belts (windward/lee)
   applyOrogenyBeltsRefinement(width, height, runtime, orogenyCache, storyCfg);
 
   // Pass F: Hotspot island microclimates
-  applyHotspotMicroclimatesRefinement(width, height, runtime, inBounds, StoryTags, storyRain);
+  applyHotspotMicroclimatesRefinement(
+    width,
+    height,
+    runtime,
+    inBounds,
+    {
+      paradise: hotspots?.paradise ?? emptySet,
+      volcanic: hotspots?.volcanic ?? emptySet,
+    },
+    storyRain
+  );
 }

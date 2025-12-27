@@ -6,8 +6,6 @@ import {
   FeaturesConfigSchema,
   FeaturesDensityConfigSchema,
 } from "@mapgen/config/index.js";
-import { STORY_OVERLAY_KEYS, getStoryOverlay, hydrateMarginsStoryTags } from "@mapgen/domain/narrative/overlays/index.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
 export interface FeaturesStepOptions {
   requires: readonly string[];
@@ -55,11 +53,6 @@ export function createFeaturesStep(options: FeaturesStepOptions): MapGenStep<Ext
     provides: options.provides,
     configSchema: FeaturesStepConfigSchema,
     run: (context, config) => {
-      hydrateMarginsStoryTags(
-        getStoryOverlay(context, STORY_OVERLAY_KEYS.MARGINS),
-        getStoryTags(context)
-      );
-
       const { width, height } = context.dimensions;
       addDiverseFeatures(width, height, context, {
         story: config.story,

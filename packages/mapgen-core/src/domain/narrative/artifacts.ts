@@ -1,6 +1,5 @@
 import type { CorridorKind, CorridorStyle } from "@mapgen/domain/narrative/corridors/types.js";
 import type { OrogenyCacheInstance } from "@mapgen/domain/narrative/orogeny/cache.js";
-import type { StoryTagsInstance } from "@mapgen/domain/narrative/tags/instance.js";
 
 export type NarrativeCorridorAttributes = Readonly<Record<string, unknown>>;
 
@@ -37,37 +36,71 @@ export interface NarrativeMotifsOrogenyV1 {
   lee: Set<string>;
 }
 
-export function buildNarrativeCorridorsV1(tags: StoryTagsInstance): NarrativeCorridorsV1 {
+export interface NarrativeCorridorsSource {
+  seaLanes: Iterable<string>;
+  islandHops: Iterable<string>;
+  landCorridors: Iterable<string>;
+  riverCorridors: Iterable<string>;
+  kindByTile: Map<string, CorridorKind>;
+  styleByTile: Map<string, CorridorStyle>;
+  attributesByTile: Map<string, NarrativeCorridorAttributes>;
+}
+
+export interface NarrativeMotifsMarginsSource {
+  activeMargin: Iterable<string>;
+  passiveShelf: Iterable<string>;
+}
+
+export interface NarrativeMotifsHotspotsSource {
+  points: Iterable<string>;
+  paradise?: Iterable<string>;
+  volcanic?: Iterable<string>;
+  trails?: Array<{ coords: Array<{ x: number; y: number }>; kind: string }>;
+}
+
+export interface NarrativeMotifsRiftsSource {
+  riftLine: Iterable<string>;
+  riftShoulder: Iterable<string>;
+}
+
+export function buildNarrativeCorridorsV1(source: NarrativeCorridorsSource): NarrativeCorridorsV1 {
   return {
-    seaLanes: cloneSet(tags.corridorSeaLane),
-    islandHops: cloneSet(tags.corridorIslandHop),
-    landCorridors: cloneSet(tags.corridorLandOpen),
-    riverCorridors: cloneSet(tags.corridorRiverChain),
-    kindByTile: cloneCorridorKinds(tags.corridorKind),
-    styleByTile: cloneCorridorStyles(tags.corridorStyle),
-    attributesByTile: cloneMap(tags.corridorAttributes),
+    seaLanes: cloneSet(source.seaLanes),
+    islandHops: cloneSet(source.islandHops),
+    landCorridors: cloneSet(source.landCorridors),
+    riverCorridors: cloneSet(source.riverCorridors),
+    kindByTile: cloneCorridorKinds(source.kindByTile),
+    styleByTile: cloneCorridorStyles(source.styleByTile),
+    attributesByTile: cloneMap(source.attributesByTile),
   };
 }
 
-export function buildNarrativeMotifsMarginsV1(tags: StoryTagsInstance): NarrativeMotifsMarginsV1 {
+export function buildNarrativeMotifsMarginsV1(
+  source: NarrativeMotifsMarginsSource
+): NarrativeMotifsMarginsV1 {
   return {
-    activeMargin: cloneSet(tags.activeMargin),
-    passiveShelf: cloneSet(tags.passiveShelf),
+    activeMargin: cloneSet(source.activeMargin),
+    passiveShelf: cloneSet(source.passiveShelf),
   };
 }
 
-export function buildNarrativeMotifsHotspotsV1(tags: StoryTagsInstance): NarrativeMotifsHotspotsV1 {
+export function buildNarrativeMotifsHotspotsV1(
+  source: NarrativeMotifsHotspotsSource
+): NarrativeMotifsHotspotsV1 {
   return {
-    points: cloneSet(tags.hotspot),
-    paradise: cloneSet(tags.hotspotParadise),
-    volcanic: cloneSet(tags.hotspotVolcanic),
+    points: cloneSet(source.points),
+    paradise: cloneSet(source.paradise ?? []),
+    volcanic: cloneSet(source.volcanic ?? []),
+    trails: source.trails,
   };
 }
 
-export function buildNarrativeMotifsRiftsV1(tags: StoryTagsInstance): NarrativeMotifsRiftsV1 {
+export function buildNarrativeMotifsRiftsV1(
+  source: NarrativeMotifsRiftsSource
+): NarrativeMotifsRiftsV1 {
   return {
-    riftLine: cloneSet(tags.riftLine),
-    riftShoulder: cloneSet(tags.riftShoulder),
+    riftLine: cloneSet(source.riftLine),
+    riftShoulder: cloneSet(source.riftShoulder),
   };
 }
 
@@ -132,7 +165,7 @@ function cloneMap<K, V>(value: Map<K, V>): Map<K, V> {
   return new Map(value);
 }
 
-function cloneCorridorKinds(value: Map<string, string>): Map<string, CorridorKind> {
+function cloneCorridorKinds(value: Map<string, CorridorKind>): Map<string, CorridorKind> {
   const cloned = new Map<string, CorridorKind>();
   for (const [key, kind] of value.entries()) {
     cloned.set(key, kind as CorridorKind);
@@ -140,7 +173,7 @@ function cloneCorridorKinds(value: Map<string, string>): Map<string, CorridorKin
   return cloned;
 }
 
-function cloneCorridorStyles(value: Map<string, string>): Map<string, CorridorStyle> {
+function cloneCorridorStyles(value: Map<string, CorridorStyle>): Map<string, CorridorStyle> {
   const cloned = new Map<string, CorridorStyle>();
   for (const [key, style] of value.entries()) {
     cloned.set(key, style as CorridorStyle);

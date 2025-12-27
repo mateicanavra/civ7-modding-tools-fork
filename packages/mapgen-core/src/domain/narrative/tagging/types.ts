@@ -1,6 +1,5 @@
 export interface ContinentalMarginsOptions {
   publish?: boolean;
-  hydrateStoryTags?: boolean;
 }
 
 export interface HotspotTrailsSummary {

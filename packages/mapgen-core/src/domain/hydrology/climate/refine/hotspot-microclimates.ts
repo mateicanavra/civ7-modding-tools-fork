@@ -1,4 +1,3 @@
-import type { StoryTagsInstance } from "@mapgen/domain/narrative/tags/instance.js";
 import type { ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
 
 export function applyHotspotMicroclimatesRefinement(
@@ -6,7 +5,7 @@ export function applyHotspotMicroclimatesRefinement(
   height: number,
   runtime: ClimateRuntime,
   inBounds: (x: number, y: number) => boolean,
-  StoryTags: StoryTagsInstance,
+  hotspots: { paradise: ReadonlySet<string>; volcanic: ReadonlySet<string> },
   storyRain: Record<string, number>
 ): void {
   const { adapter, readRainfall, writeRainfall } = runtime;
@@ -14,8 +13,8 @@ export function applyHotspotMicroclimatesRefinement(
   const paradiseDelta = storyRain?.paradiseDelta ?? 6;
   const volcanicDelta = storyRain?.volcanicDelta ?? 8;
   const radius = 2;
-  const hasParadise = StoryTags.hotspotParadise.size > 0;
-  const hasVolcanic = StoryTags.hotspotVolcanic.size > 0;
+  const hasParadise = hotspots.paradise.size > 0;
+  const hasVolcanic = hotspots.volcanic.size > 0;
 
   if (hasParadise || hasVolcanic) {
     for (let y = 0; y < height; y++) {
@@ -32,9 +31,9 @@ export function applyHotspotMicroclimatesRefinement(
             const ny = y + dy;
             if (!inBounds(nx, ny)) continue;
             const key = `${nx},${ny}`;
-            if (!nearParadise && hasParadise && StoryTags.hotspotParadise.has(key))
+            if (!nearParadise && hasParadise && hotspots.paradise.has(key))
               nearParadise = true;
-            if (!nearVolcanic && hasVolcanic && StoryTags.hotspotVolcanic.has(key))
+            if (!nearVolcanic && hasVolcanic && hotspots.volcanic.has(key))
               nearVolcanic = true;
             if (nearParadise && nearVolcanic) break;
           }
@@ -51,4 +50,3 @@ export function applyHotspotMicroclimatesRefinement(
     }
   }
 }
-

@@ -17,9 +17,9 @@
 
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { ctxRandom } from "@mapgen/core/types.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { inBounds as boundsCheck } from "@mapgen/core/index.js";
 import { getPublishedClimateField } from "@mapgen/pipeline/artifacts.js";
+import { getNarrativeMotifsHotspots, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
 import type { FeaturesConfig, FeaturesDensityConfig } from "@mapgen/domain/ecology/features/types.js";
 import { resolveFeatureIndices } from "@mapgen/domain/ecology/features/indices.js";
 import { applyParadiseReefs } from "@mapgen/domain/ecology/features/paradise-reefs.js";
@@ -62,8 +62,12 @@ export function addDiverseFeatures(
   const storyTunables = config.story || {};
   const featuresCfg = storyTunables.features || {};
   const densityCfg = config.featuresDensity || {};
-
-  const StoryTags = getStoryTags(ctx);
+  const emptySet = new Set<string>();
+  const hotspots = getNarrativeMotifsHotspots(ctx);
+  const margins = getNarrativeMotifsMargins(ctx);
+  const hotspotParadise = hotspots?.paradise ?? emptySet;
+  const hotspotVolcanic = hotspots?.volcanic ?? emptySet;
+  const passiveShelf = margins?.passiveShelf ?? emptySet;
 
   const climateField = getPublishedClimateField(ctx);
   if (!climateField?.rainfall) {
@@ -91,7 +95,7 @@ export function addDiverseFeatures(
   // 2) Paradise reefs near hotspot paradise centers
   if (
     reefIndex !== -1 &&
-    StoryTags.hotspotParadise.size > 0 &&
+    hotspotParadise.size > 0 &&
     paradiseReefChance > 0
   ) {
     applyParadiseReefs({
@@ -101,12 +105,12 @@ export function addDiverseFeatures(
       inBounds,
       getRandom,
       paradiseReefChance,
-      hotspotParadise: StoryTags.hotspotParadise,
+      hotspotParadise,
     });
   }
 
   // 2b) Reefs along passive shelves (margin-aware, modest chance)
-  if (reefIndex !== -1 && StoryTags.passiveShelf && StoryTags.passiveShelf.size > 0) {
+  if (reefIndex !== -1 && passiveShelf.size > 0) {
     const shelfMult = densityCfg?.shelfReefMultiplier ?? 0.6;
     const shelfReefChance = Math.max(0, Math.min(100, Math.floor(paradiseReefChance * shelfMult)));
     if (shelfReefChance > 0) {
@@ -117,7 +121,7 @@ export function addDiverseFeatures(
         inBounds,
         getRandom,
         shelfReefChance,
-        passiveShelf: StoryTags.passiveShelf,
+        passiveShelf,
       });
     }
   }
@@ -154,7 +158,7 @@ export function addDiverseFeatures(
           y,
           inBounds,
           getRandom,
-          hotspotVolcanic: StoryTags.hotspotVolcanic,
+          hotspotVolcanic,
           forestIdx,
           taigaIdx,
           volcanicForestChance,

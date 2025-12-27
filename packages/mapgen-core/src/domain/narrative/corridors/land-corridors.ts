@@ -1,26 +1,27 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { inBounds, storyKey } from "@mapgen/core/index.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
 import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
+import type { CorridorState } from "@mapgen/domain/narrative/corridors/state.js";
 import { getDims, rand } from "@mapgen/domain/narrative/corridors/runtime.js";
 
 export function tagLandCorridorsFromRifts(
   ctx: ExtendedMapContext,
   corridorsCfg: Record<string, unknown>,
-  directionality: Record<string, unknown> | null | undefined
+  directionality: Record<string, unknown> | null | undefined,
+  riftShoulder: ReadonlySet<string>,
+  state: CorridorState
 ): void {
   const cfg = ((corridorsCfg.land || {}) as Record<string, unknown>) || {};
   if (!cfg.useRiftShoulders) return;
 
   const { width, height } = getDims(ctx);
-  const tags = getStoryTags(ctx);
 
   const maxCorridors = Math.max(0, Number((cfg.maxCorridors as number) ?? 2) | 0);
   const minRun = Math.max(12, Number((cfg.minRunLength as number) ?? 24) | 0);
   const spacing = Math.max(0, Number((cfg.spacing as number) ?? 0) | 0);
 
-  if (maxCorridors === 0 || tags.riftShoulder.size === 0) return;
+  if (maxCorridors === 0 || riftShoulder.size === 0) return;
 
   let corridors = 0;
   const usedRows: number[] = [];
@@ -28,10 +29,10 @@ export function tagLandCorridorsFromRifts(
   for (let y = 1; y < height - 1 && corridors < maxCorridors; y++) {
     let x = 1;
     while (x < width - 1 && corridors < maxCorridors) {
-      while (x < width - 1 && !tags.riftShoulder.has(storyKey(x, y))) x++;
+      while (x < width - 1 && !riftShoulder.has(storyKey(x, y))) x++;
       if (x >= width - 1) break;
       const start = x;
-      while (x < width - 1 && tags.riftShoulder.has(storyKey(x, y))) x++;
+      while (x < width - 1 && riftShoulder.has(storyKey(x, y))) x++;
       const end = x - 1;
       const len = end - start + 1;
       if (len < minRun) continue;
@@ -113,8 +114,8 @@ export function tagLandCorridorsFromRifts(
       for (let cx = start; cx <= end; cx++) {
         if (ctx.adapter.isWater(cx, y)) continue;
         const kk = storyKey(cx, y);
-        tags.corridorLandOpen.add(kk);
-        assignCorridorMetadata(ctx, corridorsCfg, kk, "land", style);
+        state.landCorridors.add(kk);
+        assignCorridorMetadata(state, ctx, corridorsCfg, kk, "land", style);
       }
 
       usedRows.push(y);

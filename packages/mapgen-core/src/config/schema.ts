@@ -865,10 +865,6 @@ export const FoundationDiagnosticsConfigSchema = Type.Object(
     logBiomeSummary: Type.Optional(
       Type.Boolean({ default: false, description: "Log biome tile counts and distribution." })
     ),
-    /** Log StoryTags summary counts. */
-    logStoryTags: Type.Optional(
-      Type.Boolean({ default: false, description: "Log StoryTags summary counts." })
-    ),
     /** ASCII corridor overlay. */
     logCorridorAscii: Type.Optional(
       Type.Boolean({ default: false, description: "Emit ASCII corridor overlay." })

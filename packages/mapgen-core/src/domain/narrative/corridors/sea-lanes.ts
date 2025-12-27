@@ -1,9 +1,8 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { storyKey } from "@mapgen/core/index.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
-
 import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
 import type { Orient } from "@mapgen/domain/narrative/corridors/types.js";
+import type { CorridorState } from "@mapgen/domain/narrative/corridors/state.js";
 import { getDims, isAdjacentToLand } from "@mapgen/domain/narrative/corridors/runtime.js";
 
 export function hasPerpWidth(
@@ -167,7 +166,8 @@ export function longestWaterRunDiagDiff(
 export function tagSeaLanes(
   ctx: ExtendedMapContext,
   corridorsCfg: Record<string, unknown>,
-  directionality: Record<string, unknown> | null | undefined
+  directionality: Record<string, unknown> | null | undefined,
+  state: CorridorState
 ): void {
   const cfg = ((corridorsCfg.sea || {}) as Record<string, unknown>) || {};
   const { width, height } = getDims(ctx);
@@ -314,7 +314,6 @@ export function tagSeaLanes(
   };
 
   let lanes = 0;
-  const tags = getStoryTags(ctx);
   for (const c of candidates) {
     if (lanes >= maxLanes) break;
     if (!spaced(c.orient, c.index)) continue;
@@ -325,18 +324,18 @@ export function tagSeaLanes(
       for (let y = c.start; y <= c.end; y++) {
         if (!ctx.adapter.isWater(x, y)) continue;
         const kk = storyKey(x, y);
-        tags.corridorSeaLane.add(kk);
+        state.seaLanes.add(kk);
         const style = isAdjacentToLand(ctx, x, y, 2, width, height) ? "coastal" : "ocean";
-        assignCorridorMetadata(ctx, corridorsCfg, kk, "sea", style);
+        assignCorridorMetadata(state, ctx, corridorsCfg, kk, "sea", style);
       }
     } else if (c.orient === "row") {
       const y = c.index;
       for (let x = c.start; x <= c.end; x++) {
         if (!ctx.adapter.isWater(x, y)) continue;
         const kk = storyKey(x, y);
-        tags.corridorSeaLane.add(kk);
+        state.seaLanes.add(kk);
         const style = isAdjacentToLand(ctx, x, y, 2, width, height) ? "coastal" : "ocean";
-        assignCorridorMetadata(ctx, corridorsCfg, kk, "sea", style);
+        assignCorridorMetadata(state, ctx, corridorsCfg, kk, "sea", style);
       }
     } else if (c.orient === "diagNE") {
       const k = c.index;
@@ -345,9 +344,9 @@ export function tagSeaLanes(
         if (x < 0 || x >= width || y < 0 || y >= height) continue;
         if (!ctx.adapter.isWater(x, y)) continue;
         const kk = storyKey(x, y);
-        tags.corridorSeaLane.add(kk);
+        state.seaLanes.add(kk);
         const style = isAdjacentToLand(ctx, x, y, 2, width, height) ? "coastal" : "ocean";
-        assignCorridorMetadata(ctx, corridorsCfg, kk, "sea", style);
+        assignCorridorMetadata(state, ctx, corridorsCfg, kk, "sea", style);
       }
     } else if (c.orient === "diagNW") {
       const d = c.index;
@@ -356,9 +355,9 @@ export function tagSeaLanes(
         if (x < 0 || x >= width || y < 0 || y >= height) continue;
         if (!ctx.adapter.isWater(x, y)) continue;
         const kk = storyKey(x, y);
-        tags.corridorSeaLane.add(kk);
+        state.seaLanes.add(kk);
         const style = isAdjacentToLand(ctx, x, y, 2, width, height) ? "coastal" : "ocean";
-        assignCorridorMetadata(ctx, corridorsCfg, kk, "sea", style);
+        assignCorridorMetadata(state, ctx, corridorsCfg, kk, "sea", style);
       }
     }
 

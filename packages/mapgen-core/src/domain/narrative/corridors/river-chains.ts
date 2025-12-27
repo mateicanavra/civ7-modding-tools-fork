@@ -1,11 +1,15 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { inBounds, storyKey } from "@mapgen/core/index.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 
 import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
+import type { CorridorState } from "@mapgen/domain/narrative/corridors/state.js";
 import { getDims, isAdjacentToShallowWater, isCoastalLand, rand } from "@mapgen/domain/narrative/corridors/runtime.js";
 
-export function tagRiverChainsPostRivers(ctx: ExtendedMapContext, corridorsCfg: Record<string, unknown>): void {
+export function tagRiverChainsPostRivers(
+  ctx: ExtendedMapContext,
+  corridorsCfg: Record<string, unknown>,
+  state: CorridorState
+): void {
   const cfg = ((corridorsCfg.river || {}) as Record<string, unknown>) || {};
   const { width, height } = getDims(ctx);
 
@@ -18,7 +22,6 @@ export function tagRiverChainsPostRivers(ctx: ExtendedMapContext, corridorsCfg: 
 
   if (maxChains === 0) return;
 
-  const tags = getStoryTags(ctx);
   let chains = 0;
   let tries = 0;
 
@@ -77,8 +80,8 @@ export function tagRiverChainsPostRivers(ctx: ExtendedMapContext, corridorsCfg: 
 
     if (pathKeys.length >= minTiles && endOK) {
       for (const kk of pathKeys) {
-        tags.corridorRiverChain.add(kk);
-        assignCorridorMetadata(ctx, corridorsCfg, kk, "river", "riverChain");
+        state.riverCorridors.add(kk);
+        assignCorridorMetadata(state, ctx, corridorsCfg, kk, "river", "riverChain");
       }
       chains++;
     }
