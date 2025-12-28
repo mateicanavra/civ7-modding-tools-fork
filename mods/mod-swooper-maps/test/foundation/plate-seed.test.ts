@@ -5,8 +5,8 @@
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
-import { PlateSeedManager } from "@mapgen/base/foundation/plate-seed.js";
-import type { PlateConfig, SeedSnapshot } from "@mapgen/base/foundation/types.js";
+import { PlateSeedManager } from "@mapgen/domain/foundation/plate-seed.js";
+import type { PlateConfig, SeedSnapshot } from "@mapgen/domain/foundation/types.js";
 
 describe("PlateSeedManager", () => {
   describe("capture", () => {

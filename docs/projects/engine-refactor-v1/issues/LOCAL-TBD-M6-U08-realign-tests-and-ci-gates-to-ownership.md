@@ -43,6 +43,22 @@ Move tests to match the new ownership boundaries and keep the CI gates aligned.
 - Re-home tests so engine coverage stays in `packages/mapgen-core` and content coverage moves to the mod.
 - Ensure at least one standard recipe smoke path compiles an `ExecutionPlan` and executes with a mock adapter.
 
+## Implementation Decisions
+
+### Move content tests into the mod package
+- **Context:** Legacy/base/orchestrator tests lived under `packages/mapgen-core/test/**` but now cover mod-owned domain logic.
+- **Options:** Keep tests in core with new stubs, move to `mods/mod-swooper-maps/test`, delete legacy-only tests.
+- **Choice:** Move domain/content tests into `mods/mod-swooper-maps/test` and delete orchestrator/bootstrap/config tests.
+- **Rationale:** Keeps engine tests content-agnostic and aligns ownership boundaries for CI gates.
+- **Risk:** Legacy orchestrator coverage is dropped; any regressions there will be caught only if legacy paths are still used.
+
+### Replace base tag fixtures in engine tests
+- **Context:** Engine tests previously depended on `@mapgen/base` tag catalogs, which are being removed.
+- **Options:** Keep importing base tags until U07, re-create local test tags, or hoist tags into engine fixtures.
+- **Choice:** Use local test tag definitions per test file.
+- **Rationale:** Avoids coupling engine tests to mod-owned content and lets base removal proceed cleanly.
+- **Risk:** Test tags may diverge from real content tags; mitigated by moving content-tag validation tests into the mod package.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)

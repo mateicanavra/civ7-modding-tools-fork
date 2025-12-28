@@ -1,67 +1,53 @@
 import { describe, expect, it } from "bun:test";
+import { Type } from "typebox";
 import { createMockAdapter } from "@civ7/adapter";
-import type { MapGenConfig } from "@mapgen/config/index.js";
-import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import {
-  compileExecutionPlan,
-  PipelineExecutor,
-  type PipelineModV1,
-  StepRegistry,
-} from "@mapgen/engine/index.js";
+import { createRecipe, createStage, createStep } from "@mapgen/authoring/index.js";
 
-describe("pipeline: hello mod compile/execute (no standard-domain imports)", () => {
-  it("compiles and executes a minimal mod registration", () => {
-    const registry = new StepRegistry<ExtendedMapContext>();
+const baseSettings = {
+  seed: 1,
+  dimensions: { width: 8, height: 6 },
+  latitudeBounds: { topLatitude: 90, bottomLatitude: -90 },
+  wrap: { wrapX: true, wrapY: false },
+};
 
-    const helloMod: PipelineModV1<ExtendedMapContext, MapGenConfig, void> = {
-      id: "test.hello",
-      recipes: {
-        default: {
-          schemaVersion: 1,
-          id: "test.hello",
-          steps: [{ id: "hello" }],
-        },
+describe("authoring: hello recipe compile/execute", () => {
+  it("compiles and executes a minimal recipe module", () => {
+    const helloStep = createStep({
+      id: "hello",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      schema: Type.Object({}, { additionalProperties: false }),
+      run: (context) => {
+        context.metrics.warnings.push("hello");
       },
-      register(target) {
-        target.register({
-          id: "hello",
-          phase: "foundation",
-          requires: [],
-          provides: [],
-          run(context) {
-            context.metrics.warnings.push("hello");
-          },
-        });
-      },
-    };
+    });
 
-    helloMod.register(registry, {} as MapGenConfig, undefined);
+    const helloStage = createStage({
+      id: "foundation",
+      steps: [helloStep],
+    });
 
-    const width = 8;
-    const height = 6;
-    const adapter = createMockAdapter({ width, height, mapSizeId: 1 });
-    const ctx = createExtendedMapContext({ width, height }, adapter, {} as MapGenConfig);
+    const recipe = createRecipe({
+      id: "hello",
+      namespace: "test",
+      tagDefinitions: [],
+      stages: [helloStage],
+    });
 
-    const plan = compileExecutionPlan(
-      {
-        recipe: helloMod.recipes!.default,
-        settings: {
-          seed: 1,
-          dimensions: { width, height },
-          latitudeBounds: { topLatitude: 90, bottomLatitude: -90 },
-          wrap: { wrapX: true, wrapY: false },
-        },
-      },
-      registry
+    const adapter = createMockAdapter({ width: 8, height: 6, mapSizeId: 1 });
+    const ctx = createExtendedMapContext(
+      { width: 8, height: 6 },
+      adapter,
+      {} as ReturnType<typeof createExtendedMapContext>["config"]
     );
 
-    const executor = new PipelineExecutor(registry, { logPrefix: "[TEST]" });
-    const { stepResults } = executor.executePlan(ctx, plan);
+    const plan = recipe.compile(baseSettings, { foundation: { hello: {} } });
+    expect(plan.nodes).toHaveLength(1);
+    expect(plan.nodes[0]?.stepId).toContain("hello");
 
-    expect(stepResults).toHaveLength(1);
-    expect(stepResults[0]?.success).toBe(true);
+    recipe.run(ctx, baseSettings, { foundation: { hello: {} } });
     expect(ctx.metrics.warnings).toContain("hello");
   });
 });
-

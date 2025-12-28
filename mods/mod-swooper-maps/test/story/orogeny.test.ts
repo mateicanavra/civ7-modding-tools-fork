@@ -1,7 +1,6 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { parseConfig } from "@mapgen/config/index.js";
-import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { createExtendedMapContext } from "@swooper/mapgen-core";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
@@ -23,8 +22,12 @@ describe("story/orogeny", () => {
       }
     }
 
-    const config = parseConfig({ story: { orogeny: { beltMinLength: 12 } } });
-    const ctx = createExtendedMapContext({ width, height }, adapter, config);
+    const config = { story: { orogeny: { beltMinLength: 12 } } };
+    const ctx = createExtendedMapContext(
+      { width, height },
+      adapter,
+      config as ReturnType<typeof createExtendedMapContext>["config"]
+    );
 
     expect(() => storyTagOrogenyBelts(ctx, config.story)).toThrow("foundation plates");
 
