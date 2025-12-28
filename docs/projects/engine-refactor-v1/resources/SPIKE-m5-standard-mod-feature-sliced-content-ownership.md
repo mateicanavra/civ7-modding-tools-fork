@@ -27,7 +27,7 @@ This aligns with the intended separation:
 These are the existing pieces we are re-homing:
 
 - **Standard mod content currently lives in** `packages/mapgen-core/src/base/**` (recipes, stages, tags, run-request mapping).
-- **Per-map config is already authored in the mod package** (`mods/mod-swooper-maps/src/*.ts`) via `bootstrap(...)` overrides.
+- **Per-map config is already authored in the mod package** (`mods/mod-swooper-maps/src/*.ts`) via `bootstrap(...)` overrides (legacy; to be replaced by explicit config objects).
 - **Step config mapping currently lives in** `packages/mapgen-core/src/base/run-request.ts` (`buildRunRequest(recipe, config, ctx, mapInfo)`).
 - **Maps already import the base mod** from `@swooper/mapgen-core/base` and pass `mapGenConfig` into `runTaskGraphGeneration`.
 
@@ -51,7 +51,7 @@ The engine is content-agnostic and owns only the generic pipeline runtime:
 The authoring SDK is the sole surface for mod authors. It is a thin wrapper around engine types:
 
 - **Defines authoring contracts and helpers** (e.g., `Stage`, `defineStage`, `defineRecipe`).
-- **Re-exports engine contracts** needed by mods (e.g., `Step` as an alias of `MapGenStep`, `Recipe`, `Registry`).
+- **Re-exports engine contracts** needed by mods (e.g., `Step` as a registry entry that includes step + tags, `Recipe`, `Registry`).
 - **Does not contain runtime logic** and is not used by the executor.
 
 ### Standard mod content (`mods/mod-swooper-maps/src/standard/**`) is pure content
@@ -144,8 +144,6 @@ mods/mod-swooper-maps/src/
 │  ├─ config/
 │  │  ├─ schema/**
 │  │  └─ index.ts
-│  ├─ bootstrap/
-│  │  └─ index.ts
 │  └─ run-request.ts
 ├─ swooper-earthlike.ts
 ├─ swooper-desert-mountains.ts
@@ -154,7 +152,7 @@ mods/mod-swooper-maps/src/
 
 Notes:
 - `standard/` contains **all standard content** that currently lives in `@swooper/mapgen-core/base`.
-- `config/` and `bootstrap/` move with the standard content (see §6).
+- `config/` moves with the standard content (see §6).
 - `run-request.ts` (config → per-step config mapping) moves with the standard content (see §6).
 - Map entrypoints remain small and declarative, per `mods/mod-swooper-maps/src/AGENTS.md`.
 
@@ -172,11 +170,30 @@ import type { Step, Registry } from "@swooper/mapgen-core/authoring";
 export interface Stage {
   id: string; // stable stage id (package boundary); no engine semantics
   steps: readonly Step[]; // canonical stage-local ordering (authoring-time)
-  register(registry: Registry): void; // registers steps + tags referenced by this stage
+  register(registry: Registry): void; // registers step entries (tags live with steps)
 }
 ```
 
-### 4.2 `defineStage` (the only required helper)
+**Step ownership of tags (SPEC §7.2):**
+- Each step file exports a **single registry entry** containing the step plus any tag definitions (fields/artifacts/effects).
+- Registry registration consumes those entries and registers both the step and its tags.
+- Global tags (shared fields/artifacts/effects) live in `standard/shared/tags.ts` and are registered once at the mod level.
+
+### 4.2 `defineStep` (entry helper)
+
+`authoring/index.ts` exports a thin helper for defining a step entry (step + tag definitions):
+
+```ts
+import type { RegistryEntry, Step } from "@swooper/mapgen-core/authoring";
+
+export function defineStep(input: RegistryEntry): Step {
+  // …implementation would be an identity helper
+  // that preserves types and validates shape in one place.
+  return input;
+}
+```
+
+### 4.3 `defineStage` (the only required helper)
 
 `authoring/stage.ts` provides a minimal helper that reduces manual wiring:
 
@@ -184,53 +201,45 @@ export interface Stage {
 export function defineStage(input: {
   id: string;
   steps: readonly Step[];
-  registerTags: (registry: Registry) => void;
 }): Stage {
   // …implementation would:
-  // - registerTags(registry)
   // - registry.register(step) for each step (deduped)
   // - return { id, steps, register }
   throw new Error("SPIKE: structure only");
 }
 ```
 
-### 4.3 `defineRecipe` (minimal composition)
+### 4.4 `defineRecipe` (minimal composition)
 
-`authoring/recipe.ts` provides a single helper to build a `Recipe` from an ordered list of steps.
-Config lives at the consumer/recipe level, not in stages.
+`authoring/recipe.ts` provides a single helper to build a structural `Recipe` from an ordered list of steps.
+Per-step config is supplied later (see §6), not at recipe authoring time.
 
 ```ts
-type RecipeStepInput =
-  | Step
-  | {
-      step: Step;
-      config?: Recipe["steps"][number]["config"];
-    };
-
 export function defineRecipe(input: {
   schemaVersion: number;
-  steps: readonly RecipeStepInput[];
+  steps: readonly Step[];
 }): Recipe {
   // …implementation would map step inputs to Recipe.steps entries
+  // without per-step config.
   throw new Error("SPIKE: structure only");
 }
 ```
 
-### 4.4 Ordering responsibilities (avoid drift)
+### 4.5 Ordering responsibilities (avoid drift)
 
 - **Stage** is canonical for *intra-stage order* (via `stage.steps`).
 - **Recipe** is canonical for *global order* (the final `Recipe.steps[]`).
 - The default recipe is authored by concatenating stage `steps` lists.
 - Interleaving is still possible by explicitly composing the list (no DSL required).
 
-There is no duplication of step IDs: recipes use step references (and optional config), not re-spelled IDs.
+There is no duplication of step IDs: recipes use step references, not re-spelled IDs.
 
-### 4.5 Where `requires` / `provides` live (no semantic regression)
+### 4.6 Where `requires` / `provides` live (no semantic regression)
 
 This structure does not change dependency semantics:
 
 - `requires` / `provides` remain properties on the **step definitions** (registered in the engine registry).
-- The recipe contributes only **an ordered list of step occurrences** (plus optional config).
+- The recipe contributes only **an ordered list of step occurrences**.
 - The engine compiler validates dependency tags and step presence against the registry and authored order, producing an `ExecutionPlan`.
 
 In other words: stages/recipes decide ordering; steps decide contracts; the engine enforces them.
@@ -243,33 +252,48 @@ In other words: stages/recipes decide ordering; steps decide contracts; the engi
 
 ```ts
 import { defineStage } from "@swooper/mapgen-core/authoring";
-import { registerMorphologyTags } from "./artifacts";
 import { landmassPlatesStep, coastlinesStep } from "./steps";
 
 export const stage = defineStage({
   id: "standard.morphology",
   steps: [landmassPlatesStep, coastlinesStep],
-  registerTags: registerMorphologyTags,
 });
 
 export { landmassPlatesStep, coastlinesStep };
 ```
 
-### 5.2 Step barrel example (explicit exports only)
+### 5.2 Step entry example (tags live with steps)
+
+```ts
+import { defineStep } from "@swooper/mapgen-core/authoring";
+import { continentMaskTag } from "../artifacts";
+
+export const landmassPlatesStep = defineStep({
+  step: {
+    id: "standard.morphology.landmassPlates",
+    phase: "morphology",
+    requires: [],
+    provides: ["artifact:terrain.continents"],
+    run(ctx, config) {
+      // ...
+    },
+  },
+  artifacts: [continentMaskTag],
+});
+```
+
+### 5.3 Step barrel example (explicit exports only)
 
 ```ts
 export { landmassPlatesStep } from "./landmassPlates";
 export { coastlinesStep } from "./coastlines";
 ```
 
-### 5.3 Recipe example (canonical global order)
+### 5.4 Recipe example (canonical global order)
 
 ```ts
 import { defineRecipe } from "@swooper/mapgen-core/authoring";
-
-import { stage as foundation } from "../stages/foundation";
-import { stage as morphology } from "../stages/morphology";
-import { stage as hydrology } from "../stages/hydrology";
+import { foundation, morphology, hydrology } from "../stages";
 
 export const defaultRecipe = defineRecipe({
   schemaVersion: 1,
@@ -281,23 +305,41 @@ export const defaultRecipe = defineRecipe({
 });
 ```
 
-### 5.4 Map entrypoint example (consumer config + recipe)
+### 5.5 Map entrypoint example (consumer config + recipe)
 
 ```ts
-import { bootstrap } from "./standard/bootstrap";
+import { buildRunRequest } from "./standard/run-request";
+import { defaultRecipe } from "./standard/recipes/default";
 import { standardMod } from "./standard";
 import { runTaskGraphGeneration } from "@swooper/mapgen-core";
 
-const config = bootstrap({ overrides: {/* per-map overrides */} });
+const settings = {
+  seed: 123,
+  width: 80,
+  height: 50,
+  diagnostics: {
+    trace: false,
+    emitPlan: false,
+  },
+  logging: {
+    prefix: "[SWOOPER_MOD]",
+  },
+};
+
+const config = {
+  // Full, explicit per-run config (no overrides).
+  // Step-level knobs are mapped inside buildRunRequest.
+};
+
+const runRequest = buildRunRequest({ recipe: defaultRecipe, settings, config });
 
 runTaskGraphGeneration({
   mod: standardMod,
-  mapGenConfig: config,
-  orchestratorOptions: { logPrefix: "[SWOOPER_MOD]" },
+  runRequest,
 });
 ```
 
-### 5.5 Narrative (exploratory; out of scope)
+### 5.6 Narrative (exploratory; out of scope)
 
 Narrative remains a normal stage slice structurally, but its cross-cutting placement is still recipe-driven.
 Any narrative interleaving examples are deferred to a dedicated narrative SPIKE and are not part of the required template.
@@ -312,12 +354,23 @@ Any narrative interleaving examples are deferred to a dedicated narrative SPIKE 
 
 **Concrete config (map entry)**
 - Lives in `mods/mod-swooper-maps/src/*.ts`.
-- Uses `bootstrap(...)` to build a `MapGenConfig` for the run.
+- Is a single explicit config object (no overrides).
 
 **Config → step config mapping**
 - Lives with the standard mod content (current `packages/mapgen-core/src/base/run-request.ts`).
 - Moves to `mods/mod-swooper-maps/src/standard/run-request.ts`.
-- Combines `Recipe` + `MapGenConfig` into a concrete `RunRequest` used by the engine.
+- Combines `Recipe` + explicit config into a concrete `RunRequest` used by the engine.
+
+**Settings (runtime options)**
+- `RunRequest.settings` is the canonical home for runtime options (seed, dimensions, tracing).
+- Expected shape (initial; fill out during implementation):
+  - `seed: number`
+  - `width: number`
+  - `height: number`
+  - `diagnostics?: { trace?: boolean; emitPlan?: boolean; }`
+  - `logging?: { prefix?: string; }`
+  - `// TODO: add any additional engine-level run settings required by runtime adapters`
+- Any additional settings fields should be modeled here (and are the only supported runtime options surface).
 
 This keeps the engine generic and keeps content-specific config logic co-located with content.
 
