@@ -1,7 +1,7 @@
 import { createStage } from "@swooper/mapgen-core/authoring";
-import { buildClimateField } from "./steps/index.js";
+import { climateBaseline, climateRefine, lakes, rivers } from "./steps/index.js";
 
 export default createStage({
   id: "hydrology",
-  steps: [buildClimateField],
+  steps: [lakes, climateBaseline, rivers, climateRefine],
 } as const);
