@@ -135,110 +135,62 @@ This milestone is a packaging + ownership re‑architecture, not an algorithm re
 
 ---
 
-## Canonical units of work (hierarchical; no issue docs yet)
+## Canonical units of work (issue doc index)
 
-These are the canonical “units” that later become local issue docs / Graphite layers.
+Each unit below links to a local issue doc. Parent issues are indexes; leaf issues carry the detailed implementation steps.
 
-### M6‑U01 — Promote runtime pipeline as `engine/**`
+### LOCAL-TBD-M6-U01 — Promote runtime pipeline as `engine/**`
+Issue doc: [LOCAL-TBD-M6-U01](../issues/LOCAL-TBD-M6-U01-promote-runtime-pipeline-as-engine-sdk-surface.md)
 
-**Outcome**
-- `packages/mapgen-core/src/engine/**` exists and is the canonical runtime surface.
-- `packages/mapgen-core/src/pipeline/**` is removed (or left as an internal, temporary re‑export only during the stack, then deleted before M6 completion).
+Move the runtime pipeline into the engine SDK surface and update imports/tests to match.
 
-**Key work**
-- Move/rename runtime modules (`StepRegistry`, `TagRegistry`, `compileExecutionPlan`, `PipelineExecutor`, errors/observability/types).
-- Update internal imports + exports map.
-- Update engine tests to import from `engine/**`.
+### LOCAL-TBD-M6-U02 — Authoring SDK v1 (parent)
+Issue doc: [LOCAL-TBD-M6-U02](../issues/LOCAL-TBD-M6-U02-ship-authoring-sdk-v1-factories.md)
 
-**Complexity × parallelism:** medium × high.
+Deliver the authoring SDK v1 surface (`createStep`, `createStage`, `createRecipe`) with registry plumbing hidden.
 
-### M6‑U02 — Authoring SDK v1 (factories + types; registry hidden)
+**Children**
+- [LOCAL-TBD-M6-U02-1](../issues/LOCAL-TBD-M6-U02-1-define-authoring-pojos-and-schema-requirements.md)
+- [LOCAL-TBD-M6-U02-2](../issues/LOCAL-TBD-M6-U02-2-implement-createrecipe-registry-plumbing-and-api-surface.md)
 
-**Outcome**
-- `packages/mapgen-core/src/authoring/**` exists with:
-  - `createStep`, `createStage`, `createRecipe`
-  - structural recipe vs config instance separation
-  - recipe-local tag definitions via `createRecipe({ tagDefinitions })`
-  - per-step schema required (even empty)
+### LOCAL-TBD-M6-U03 — Content package skeleton + exports (`mods/mod-swooper-maps`)
+Issue doc: [LOCAL-TBD-M6-U03](../issues/LOCAL-TBD-M6-U03-scaffold-standard-content-package-skeleton-and-exports.md)
 
-**Key work**
-- Define minimal authored `Step/Stage/RecipeModule` POJOs (as per SPIKE).
-- Implement `createRecipe` to:
-  - derive full step IDs from nesting (recipeId + stageId + stepId)
-  - build registry internally (StepRegistry + TagRegistry)
-  - expose `instantiate/compile/run` without exposing registry
+Establish the mod-owned content package skeleton and exports for standard recipes and domain libs.
 
-**Complexity × parallelism:** high × medium.
+### LOCAL-TBD-M6-U04 — Move domain libraries out of core (parent)
+Issue doc: [LOCAL-TBD-M6-U04](../issues/LOCAL-TBD-M6-U04-move-domain-libraries-into-standard-content-package.md)
 
-### M6‑U03 — Content package skeleton + exports (`mods/mod-swooper-maps`)
+Move all domain logic into the content package and remove core domain ownership.
 
-**Outcome**
-- `mods/mod-swooper-maps/src/mod.ts` exists and exports recipes.
-- `mods/mod-swooper-maps/src/recipes/standard/**` skeleton exists with required stage template:
-  - `stages/<stageId>/index.ts`
-  - `stages/<stageId>/steps/index.ts` (explicit named exports only; no `export *`)
-  - `stages/<stageId>/steps/*.ts` (one file per step)
-- `mods/mod-swooper-maps/src/domain/**` exists as the mod-local domain library root.
+**Children**
+- [LOCAL-TBD-M6-U04-1](../issues/LOCAL-TBD-M6-U04-1-relocate-domain-modules-to-mod-owned-libs.md)
+- [LOCAL-TBD-M6-U04-2](../issues/LOCAL-TBD-M6-U04-2-update-recipe-steps-to-use-mod-owned-domain-libs.md)
+- [LOCAL-TBD-M6-U04-3](../issues/LOCAL-TBD-M6-U04-3-remove-core-domain-exports-and-clean-import-edges.md)
 
-**Complexity × parallelism:** medium × high.
+### LOCAL-TBD-M6-U05 — Re-author standard recipe as a mini-package (parent)
+Issue doc: [LOCAL-TBD-M6-U05](../issues/LOCAL-TBD-M6-U05-re-author-standard-recipe-as-a-mini-package.md)
 
-### M6‑U04 — Move domain libraries out of core
+Rebuild the standard recipe as a mod-owned mini-package with stages/steps on disk.
 
-**Outcome**
-- `packages/mapgen-core/src/domain/**` no longer exists; equivalent pure logic lives under `mods/mod-swooper-maps/src/domain/**`.
-- All recipe-local steps import domain logic from the content package domain libs.
+**Children**
+- [LOCAL-TBD-M6-U05-1](../issues/LOCAL-TBD-M6-U05-1-translate-base-steps-into-recipe-local-stage-step-files.md)
+- [LOCAL-TBD-M6-U05-2](../issues/LOCAL-TBD-M6-U05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk.md)
 
-**Complexity × parallelism:** high × high (many moves; low conceptual complexity if kept mechanical).
+### LOCAL-TBD-M6-U06 — Rewrite maps as recipe instances
+Issue doc: [LOCAL-TBD-M6-U06](../issues/LOCAL-TBD-M6-U06-rewrite-maps-as-recipe-instances.md)
 
-### M6‑U05 — Re-author the “standard” recipe as a recipe mini-package
+Rewrite maps/presets to select a recipe and provide config instances at runtime.
 
-**Outcome**
-- `mods/mod-swooper-maps/src/recipes/standard/recipe.ts` is authored via the authoring SDK.
-- Steps are recipe-local wrappers; stages own steps on disk; recipe composes stages.
-- Narrative remains structurally a normal stage slice (no narrative redesign in M6).
+### LOCAL-TBD-M6-U07 — Delete legacy: base/bootstrap/config/orchestrator/task-graph
+Issue doc: [LOCAL-TBD-M6-U07](../issues/LOCAL-TBD-M6-U07-delete-legacy-base-bootstrap-config-orchestrator.md)
 
-**Key work**
-- Translate current `@swooper/mapgen-core/base` step implementations into recipe-local step files.
-- Replace old stage spine registration with explicit stage composition and step `requires/provides`.
-- Provide recipe-local tag definitions (`mods/mod-swooper-maps/src/recipes/standard/tags.ts`) and pass them into `createRecipe`.
+Remove legacy surfaces once the new engine/authoring/content boundaries are live.
 
-**Complexity × parallelism:** high × medium (some sequencing across phases, but mostly mechanical).
+### LOCAL-TBD-M6-U08 — Tests and CI gates aligned to ownership
+Issue doc: [LOCAL-TBD-M6-U08](../issues/LOCAL-TBD-M6-U08-realign-tests-and-ci-gates-to-ownership.md)
 
-### M6‑U06 — Rewrite maps as recipe instances (config instance lives in the map)
-
-**Outcome**
-- `mods/mod-swooper-maps/src/maps/**` exists.
-- Each map/preset:
-  - imports a recipe module (`standard`)
-  - builds settings (seed + dimensions)
-  - supplies a config **instance** (values)
-  - calls `recipe.run(ctx, settings, config)`
-
-**Complexity × parallelism:** medium × high.
-
-### M6‑U07 — Delete legacy: base/bootstrap/config/orchestrator/task-graph
-
-**Outcome**
-- Delete:
-  - `packages/mapgen-core/src/base/**`
-  - `packages/mapgen-core/src/bootstrap/**`
-  - `packages/mapgen-core/src/config/**`
-  - `packages/mapgen-core/src/orchestrator/task-graph.ts`
-  - `packages/mapgen-core/src/pipeline/mod.ts` + `PipelineModV1` contract
-- Remove `@swooper/mapgen-core/base` export surface.
-- Root `packages/mapgen-core/src/index.ts` no longer re-exports legacy modules.
-
-**Complexity × parallelism:** medium × high.
-
-### M6‑U08 — Tests and CI gates aligned to ownership
-
-**Outcome**
-- Engine tests cover engine/authoring only.
-- Content tests move to `mods/mod-swooper-maps/test/**` and validate:
-  - standard recipe compiles
-  - at least one end-to-end execution path is stable under mock adapter
-
-**Complexity × parallelism:** medium × medium.
+Move tests to match the new ownership boundaries and validate at least one recipe execution path.
 
 ---
 
@@ -250,36 +202,36 @@ The key principle: establish the new runtime + authoring surfaces first, then mo
 steps:
   - slice: 0
     mode: sequential
-    units: [M6-U01]
+    units: [LOCAL-TBD-M6-U01]
     description: Promote pipeline runtime to engine/** and update imports/tests.
 
   - slice: 1
     mode: sequential
-    units: [M6-U02]
+    units: [LOCAL-TBD-M6-U02]
     description: Authoring SDK v1 (factories + required schemas + recipe tagDefinitions).
 
   - slice: 2
     mode: parallel
     after_slices: [1]
-    units: [M6-U03, M6-U04]
+    units: [LOCAL-TBD-M6-U03, LOCAL-TBD-M6-U04]
     description: Establish content package skeleton and move domain libraries out of core.
 
   - slice: 3
     mode: sequential
     after_slices: [2]
-    units: [M6-U05]
+    units: [LOCAL-TBD-M6-U05]
     description: Re-author the standard recipe mini-package (stages/steps nested; narrative deferred).
 
   - slice: 4
     mode: parallel
     after_slices: [3]
-    units: [M6-U06, M6-U08]
+    units: [LOCAL-TBD-M6-U06, LOCAL-TBD-M6-U08]
     description: Rewrite maps as recipe instances + align tests to new ownership.
 
   - slice: 5
     mode: sequential
     after_slices: [4]
-    units: [M6-U07]
+    units: [LOCAL-TBD-M6-U07]
     description: Delete all legacy surfaces (base/bootstrap/config/task-graph) and ensure no dual path remains.
 ```
 
@@ -313,7 +265,7 @@ steps:
 
 ## Coverage map (SPIKE → M6)
 
-- SPIKE §1–2 (runtime contract + layering) → M6‑U01, M6‑U02
-- SPIKE §3–7 (content package shape + examples) → M6‑U03…M6‑U06
-- SPIKE §9 (file mapping) → all units (authoritative per‑file moves)
-- SPIKE §10 (pre-work) → M6‑U01/M6‑U06 (context split + runner seam)
+- SPIKE §1–2 (runtime contract + layering) → LOCAL-TBD-M6-U01, LOCAL-TBD-M6-U02
+- SPIKE §3–7 (content package shape + examples) → LOCAL-TBD-M6-U03 through LOCAL-TBD-M6-U06
+- SPIKE §9 (file mapping) → all units (authoritative per-file moves)
+- SPIKE §10 (pre-work) → LOCAL-TBD-M6-U01/LOCAL-TBD-M6-U06 (context split + runner seam)
