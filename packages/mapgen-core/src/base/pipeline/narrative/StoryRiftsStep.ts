@@ -4,7 +4,6 @@ import { DEV, devWarn } from "@mapgen/dev/index.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/pipeline/index.js";
 import {
-  FoundationDirectionalityConfigSchema,
   RiftTunablesSchema,
 } from "@mapgen/config/index.js";
 import { storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/index.js";
@@ -26,19 +25,8 @@ const StoryRiftsStepConfigSchema = Type.Object(
       },
       { additionalProperties: false, default: {} }
     ),
-    foundation: Type.Object(
-      {
-        dynamics: Type.Object(
-          {
-            directionality: FoundationDirectionalityConfigSchema,
-          },
-          { additionalProperties: false, default: {} }
-        ),
-      },
-      { additionalProperties: false, default: {} }
-    ),
   },
-  { additionalProperties: false, default: { story: {}, foundation: {} } }
+  { additionalProperties: false, default: { story: {} } }
 );
 
 type StoryRiftsStepConfig = Static<typeof StoryRiftsStepConfigSchema>;
@@ -57,7 +45,6 @@ export function createStoryRiftsStep(
       console.log(`${runtime.logPrefix} Imprinting rift valleys...`);
       const summary = storyTagRiftValleys(context, {
         story: config.story,
-        foundation: config.foundation,
       });
       if (DEV.ENABLED && summary.lineTiles === 0) {
         devWarn("[smoke] storyRifts enabled but no rift tiles were emitted");
