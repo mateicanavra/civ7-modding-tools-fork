@@ -66,6 +66,10 @@
       "types": "./dist/lib/grid/index.d.ts",
       "import": "./dist/lib/grid/index.js"
     },
+    "./lib/heightfield": {
+      "types": "./dist/lib/heightfield/index.d.ts",
+      "import": "./dist/lib/heightfield/index.js"
+    },
     "./lib/rng": {
       "types": "./dist/lib/rng/index.d.ts",
       "import": "./dist/lib/rng/index.js"
@@ -77,6 +81,10 @@
     "./lib/collections": {
       "types": "./dist/lib/collections/index.d.ts",
       "import": "./dist/lib/collections/index.js"
+    },
+    "./lib/plates": {
+      "types": "./dist/lib/plates/index.d.ts",
+      "import": "./dist/lib/plates/index.js"
     },
     "./base": {
       "types": "./dist/base/index.d.ts",

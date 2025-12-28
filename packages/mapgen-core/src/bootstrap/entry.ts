@@ -71,5 +71,6 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
 
 // Re-export types and functions for convenience
 export type { MapGenConfig } from "@mapgen/config/index.js";
+export type * from "@mapgen/bootstrap/types.js";
 
 export default { bootstrap };

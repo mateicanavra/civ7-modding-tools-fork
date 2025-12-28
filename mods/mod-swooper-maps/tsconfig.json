@@ -1,6 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@mapgen/domain": ["src/domain/index.ts"],
+      "@mapgen/domain/*": ["src/domain/*"]
+    },
     "outDir": "./mod/maps",
     "rootDir": "./src",
     "declaration": false,

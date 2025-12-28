@@ -42,6 +42,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Re-authoring the base recipe will change step IDs; update tags/tests and verify downstream tooling assumptions.
   - **Next check:** during M6 U05 (re-author standard recipe) before stabilizing authoring IDs.
 
+- **Expose lib/plates + lib/heightfield as public mapgen-core subpaths** [Source: LOCAL-TBD-M6-U04-1]
+  - **Context:** Domain libraries now depend on `lib/plates` and `lib/heightfield` utilities once moved into the mod package.
+  - **Type:** triage
+  - **Notes:** Confirm the expanded export surface is acceptable and update documentation/tests as needed.
+  - **Next check:** before publishing the mapgen-core package or declaring the content package boundary stable.
+
 - **Plot tag/region helper renames + adapter ID methods** [Source: CIV-67]
   - **Context:** CIV-67 engine-boundary cleanup removes engine-global tokens from mapgen-core and routes plot-tag/region IDs through new adapter methods.
   - **Type:** triage
