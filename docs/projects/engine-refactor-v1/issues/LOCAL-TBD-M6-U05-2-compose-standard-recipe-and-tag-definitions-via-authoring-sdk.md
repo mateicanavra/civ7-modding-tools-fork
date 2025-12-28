@@ -55,26 +55,6 @@ Compose the standard recipe and tag catalog via the authoring SDK.
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Prompts (run before implementation)
-
-#### P1) Tag catalog extraction inventory (base → recipe-local)
-- **Goal:** Build the exact tag list (ids + kind + satisfies/demo) that must be moved into `mods/mod-swooper-maps/src/recipes/standard/tags.ts`.
-- **Commands:**
-  - `rg -n "export const BASE_TAG_DEFINITIONS" -n packages/mapgen-core/src/base/tags.ts`
-  - `sed -n '1,220p' packages/mapgen-core/src/base/tags.ts`
-- **Output to capture:**
-  - A categorized list: `artifact:*`, `field:*`, `effect:*` (with counts).
-  - Which tags rely on `satisfies` and/or `validateDemo` (these must be preserved).
-
-#### P2) Recipe composition shape audit (stages → flattened recipe)
-- **Goal:** Decide how the new `recipe.ts` composes stages while remaining the only source of truth for `RunRequest.recipe.steps[]`.
-- **Commands:**
-  - `sed -n '1,200p' packages/mapgen-core/src/base/recipes/default.ts`
-  - `sed -n '1,120p' packages/mapgen-core/src/base/pipeline/*/steps.ts`
-- **Output to capture:**
-  - The authoritative ordering and where stage boundaries currently exist (if any).
-  - A proposed stage composition list for the new recipe mini-package.
-
 ### Prework Findings (Pending)
 #### P1) Tag catalog extraction inventory (base → recipe-local)
 - Tag inventory (from `packages/mapgen-core/src/base/tags.ts`):
