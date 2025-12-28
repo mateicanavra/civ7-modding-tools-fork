@@ -43,9 +43,9 @@ Replace the legacy "nearest-neighbor" plate generation with a robust, data-drive
 - **Visual Verification:** Use the CLI to dump the `foundation` context and verify plate shapes and boundary intensity via ASCII logs.
 
 ## Dependencies / Notes
-- **PRD:** [Plate & Landmass Generation](../resources/PRD-plate-generation.md)
-- **Architecture:** [Map Generation Architecture](../../../system/libs/mapgen/architecture.md)
-- **System Design:** [Foundation Stage Architecture](../../../system/libs/mapgen/foundation.md)
+- **PRD:** [Plate & Landmass Generation](../../resources/PRD-plate-generation.md)
+- **Architecture:** [Map Generation Architecture](../../../../system/libs/mapgen/architecture.md)
+- **System Design:** [Foundation Stage Architecture](../../../../system/libs/mapgen/foundation.md)
 
 **Sub-Issues:**
 - LOCAL-TBD-1: Establish Core Pipeline Infrastructure

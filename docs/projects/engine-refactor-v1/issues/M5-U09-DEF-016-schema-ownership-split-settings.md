@@ -54,23 +54,84 @@ Make config ownership and discoverability match step/domain ownership after extr
 
 - Prefer colocation that matches the final ownership boundary; avoid transient halfway schema layouts.
 
-## Prework Prompt (Agent Brief)
+## Prework Findings (Complete)
 
-Goal: produce the mapping so schema moves are mechanical and the settings boundary work is explicit.
+Goal: map the current schema monolith into domain-owned modules (post-extraction layout) and enumerate “settings-like” fields that should move to `RunRequest.settings` (starting with directionality).
 
-Deliverables:
-- Mapping from current schemas → proposed file ownership (domain/step).
-- A list of “settings-like” fields currently embedded in step configs (starting with directionality), with recommended target home.
-- A short note identifying any migration risks (config backward compatibility vs hard cut) that might affect sequencing.
+### 1) Schema split mapping (current → proposed ownership)
 
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
+Current monolith:
+- `packages/mapgen-core/src/config/schema.ts` exports all `*Schema` constants and assembles `MapGenConfigSchema`.
 
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
+Proposed domain-owned modules (file names illustrative; final location should match post-extraction package ownership from `M5-U02–U06`):
+- **Morphology schemas**
+  - `ContinentBoundsSchema`
+  - `Landmass*Schema` (`LandmassTectonicsConfigSchema`, `LandmassGeometry*Schema`, `LandmassConfigSchema`)
+  - `OceanSeparation*Schema`
+  - `Coastlines*Schema`
+  - `IslandsConfigSchema`
+  - `MountainsConfigSchema`
+  - `VolcanoesConfigSchema`
+- **Foundation schemas**
+  - `FoundationSeedConfigSchema`
+  - `FoundationPlatesConfigSchema`
+  - `FoundationDirectionalityConfigSchema`
+  - `FoundationDynamicsConfigSchema`
+  - `FoundationDiagnosticsConfigSchema`
+  - (evaluate `[internal]` aliases: `FoundationSurfaceConfigSchema`, `FoundationPolicyConfigSchema`, `FoundationOceanSeparationConfigSchema`)
+- **Narrative / story schemas**
+  - `HotspotTunablesSchema`
+  - `FeaturesConfigSchema` (story tunables for features)
+  - `OrogenyTunablesSchema`, `RiftTunablesSchema`
+  - `ContinentalMarginsConfigSchema`
+  - `StoryConfigSchema`
+  - `Corridors*Schema` (`SeaCorridorPolicySchema`, `IslandHopCorridorConfigSchema`, `LandCorridorConfigSchema`, `RiverCorridorConfigSchema`, `CorridorsConfigSchema`)
+- **Hydrology / climate schemas**
+  - `ClimateBaseline*Schema` + `ClimateBaselineSchema`
+  - `ClimateRefine*Schema` + `ClimateRefineSchema`
+  - `ClimateStory*Schema` + `ClimateStorySchema`
+  - `ClimateConfigSchema`
+- **Ecology schemas**
+  - `BiomeConfigSchema`
+  - `FeaturesDensityConfigSchema`
+- **Placement schemas**
+  - `FloodplainsConfigSchema`
+  - `StartsConfigSchema`
+  - `PlacementConfigSchema`
+- **Top-level assembly**
+  - `FoundationConfigSchema` (may move to foundation module)
+  - `DiagnosticsConfigSchema` (legacy/no-op; candidate for deletion in `M5-U07`)
+  - `MapGenConfigSchema` (final assembly “barrel” that imports domain-owned schemas)
 
-## Pre-work
+Mechanical extraction approach:
+- Split into per-domain files first, then keep a thin `schema.ts` barrel as the single public schema entrypoint for the standard mod.
+- Avoid introducing extra indirection layers (no “schema registry”); prefer direct imports from domain-owned modules.
 
-_TBD_
+### 2) “Settings-like” fields embedded in step configs (directionality)
 
+Directionality today:
+- Defined as part of foundation config: `FoundationDirectionalityConfigSchema` → `foundation.dynamics.directionality`.
+- Threaded into multiple step configs by the standard run-request builder:
+  - `packages/mapgen-core/src/orchestrator/task-graph.ts` injects `foundation.dynamics.directionality` into:
+    - `climateRefine`
+    - `storyRifts`
+    - `storyCorridorsPre` / `storyCorridorsPost`
+    - `storySwatches`
+- Step config schemas explicitly model the nested directionality block:
+  - `packages/mapgen-core/src/pipeline/hydrology/ClimateRefineStep.ts`
+  - `packages/mapgen-core/src/pipeline/narrative/StoryCorridorsStep.ts`
+  - `packages/mapgen-core/src/pipeline/narrative/StorySwatchesStep.ts`
+  - `packages/mapgen-core/src/pipeline/narrative/StoryRiftsStep.ts`
+
+Recommended target home:
+- Move directionality to `RunRequest.settings.directionality` (cross-cutting run-level setting).
+- Keep `foundation.dynamics.directionality` as “foundation internal config” only to the extent it truly affects foundation tensor production (plate generation + wind/currents), but stop duplicating it in unrelated step configs.
+
+### 3) Migration risks / sequencing notes
+
+Backward compatibility risk:
+- Moving directionality out of step configs and/or deleting legacy schema aliases is a breaking config-shape change for any mod configs outside this repo that rely on the old nesting.
+
+Suggested sequencing:
+- Do the schema split after extraction (`M5-U02–U06`) so the new files land in their final owner packages.
+- Handle directionality boundary changes as an explicit, reviewed sub-slice (it affects multiple steps + the run-request builder).

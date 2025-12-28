@@ -32,7 +32,7 @@ Make it impossible to accidentally “keep legacy alive” through configuration
 
 ## Acceptance Criteria
 
-- `crustMode` is not accepted by any schema or runtime parsing path.
+- `crustMode` is not accepted by any schema or runtime parsing path; configs that still supply it fail validation with a clear error.
 - No `"legacy"` branch remains on the runtime path for crust/landmask behavior.
 - Standard smoke test remains green under `MockAdapter`.
 - Docs no longer present `"legacy"` as a supported/valid configuration.
@@ -56,23 +56,92 @@ Make it impossible to accidentally “keep legacy alive” through configuration
 - Treat this as “delete the fork,” not “preserve both behind a different name.”
 - Prefer deleting wiring and updating callers over keeping “compat parsing” for removed keys.
 
-## Prework Prompt (Agent Brief)
+## Prework Findings (Complete)
 
-Goal: make implementation mechanical by enumerating the full `crustMode` surface and every behavior fork it controls.
+Goal: enumerate the full `crustMode` surface + every behavior fork it controls so implementation is “delete the fork” (not rediscovery).
 
-Deliverables:
-- A complete inventory of `crustMode` usage across config schema, parsing, defaults, and call sites.
-- A complete inventory of `"legacy"` vs `"area"` branches (and any other behavior forks that are implicitly tied to the selector).
-- A short note on what the default behavior is today, what tests/docs assume, and what will change once the fork is deleted.
+### 1) Inventory: config surface + call sites
 
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
+#### Config schemas
 
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
+```yaml
+configSchemas:
+  - location: packages/mapgen-core/src/config/schema.ts
+    surface: LandmassConfigSchema.crustMode
+    notes: 'Public config knob today; default: "legacy".'
+  - location: packages/mapgen-core/src/config/schema.ts
+    surface: FoundationSurfaceConfigSchema.crustMode
+    notes: Marked "[internal]" but still a schema-accepted alias for a crust-mode value.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/types.ts
+    surface: 'PlateAwareOceanSeparationParams.crustMode?: "legacy" | "area"'
+    notes: Plumbs the mode into ocean separation branching.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/crust-mode.ts
+    surface: CrustMode + normalizeCrustMode()
+    notes: Normalization currently defaults unknown -> "legacy".
+```
 
-## Pre-work
+#### Runtime plumbing
 
-_TBD_
+```yaml
+runtimePlumbing:
+  - location: packages/mapgen-core/src/pipeline/morphology/LandmassStep.ts
+    usage: 'Passes landmassCfg.crustMode into applyPlateAwareOceanSeparation({ crustMode })'
+    notes: Primary step-level plumbing.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/index.ts
+    usage: const crustMode = normalizeCrustMode(landmassCfg.crustMode)
+    notes: Mode gates landmask generation semantics.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts
+    usage: 'mode === "area" ? assignCrustTypesByArea(...) : null'
+    notes: Mode gates crust assignment + sea-level semantics.
+  - location: packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/apply.ts
+    usage: 'if (crustMode === "area") { ... } else { ... }'
+    notes: Mode gates ocean-separation algorithm branch.
+```
 
+#### In-repo config consumers (mods)
+
+```yaml
+inRepoConfigConsumers:
+  - location: mods/mod-swooper-maps/src/swooper-earthlike.ts
+    usage: 'crustMode: "area"'
+    notes: In-repo external-ish consumer; will break once the key is rejected/removed.
+  - location: mods/mod-swooper-maps/src/swooper-desert-mountains.ts
+    usage: 'crustMode: "area"'
+    notes: Same.
+```
+
+### 2) Inventory: behavior forks tied to `crustMode`
+
+#### A) Landmask / crust assignment forks
+
+Primary branch point:
+- `packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts`:
+  - `"area"`: uses `assignCrustTypesByArea(graph, targetLandTiles)` and sets `seaLevel = 0`.
+  - `"legacy"`: uses stochastic `assignCrustTypes(...)` and computes `seaLevel = computeSeaLevel(...)`.
+
+Secondary knobs implicitly “disabled” under `"area"`:
+- `packages/mapgen-core/src/domain/morphology/landmass/crust-first-landmask.ts` sets applied config values differently:
+  - `clusteringBias` and `microcontinentChance` become `0` when `mode === "area"`.
+
+#### B) Ocean separation forks
+
+Primary branch point:
+- `packages/mapgen-core/src/domain/morphology/landmass/ocean-separation/apply.ts`:
+  - `"area"`: uses the window-intersection/channel-carving path gated by `policy.minChannelWidth` + `policy.channelJitter`.
+  - `"legacy"`: uses boundary-closeness-based carving (`foundation.plates.boundaryCloseness`) and `policy.bandPairs`/edge policies.
+
+### 3) Default behavior today vs post-delete expectations
+
+Default today:
+- Schema default is `"legacy"` (`LandmassConfigSchema.crustMode`).
+- `normalizeCrustMode()` normalizes unknown → `"legacy"`.
+
+Implication for DEF‑011:
+- M5 deletes the fork and makes `"area"` canonical; this is a **semantic default change** for any consumer that relied on omitted/unknown `crustMode`.
+- In-repo Swooper configs explicitly set `"area"` already, so the in-repo mod configs should remain behaviorally stable once the key is removed (they just need the key deleted from the config objects).
+
+### 4) Guardrails (suggested zero-hit checks)
+
+Post-cutover, these should be zero-hit (or constrained to docs/tests as appropriate):
+- `rg -n "\\bcrustMode\\b" packages/ mods/`
+- `rg -n "\"legacy\"\\s*\\|\\s*\"area\"|normalizeCrustMode|CrustMode" packages/mapgen-core/src/domain/morphology/landmass`

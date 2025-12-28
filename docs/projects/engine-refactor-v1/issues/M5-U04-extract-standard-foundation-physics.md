@@ -55,23 +55,72 @@ Begin the real extraction of domain behavior. After this unit, core should still
 - Bias toward moving helpers with the steps; err on the side of “mod-owned” unless a module is clearly cross-domain and reusable.
 - Prefer a small number of stable “shared primitives” modules over many tiny indirections.
 
-## Prework Prompt (Agent Brief)
+## Prework Findings (Complete)
 
-Goal: make the extraction safe by mapping dependencies and deciding what stays core vs what moves.
+Goal: map the foundation/physics cluster so the extraction is mostly “move files + fix imports”, with a small, explicit “shared primitives” remainder.
 
-Deliverables:
-- A dependency map for the foundation/physics step cluster.
-- A proposed “stays core” list (true shared primitives) vs “moves with mod” list (domain helpers).
-- A list of import edges that will need inversion or API reshaping to respect the boundary.
+### 1) Dependency map (foundation/physics cluster)
 
-Method / tooling:
-- Use the Narsil MCP server for deep code intel as needed (symbol references, dependency graphs, call paths). Re-index before you start so findings match the tip you’re working from.
-- The prework output should answer almost all implementation questions; implementation agents should not have to rediscover basic call paths or hidden consumers.
+High-level call chain (standard pipeline path today):
+- `packages/mapgen-core/src/orchestrator/task-graph.ts`
+  - supplies `runFoundation` runtime hook → `runFoundationWithDiagnostics(...)`
+- `packages/mapgen-core/src/orchestrator/foundation.ts`
+  - calls `runFoundationStage(ctx, config)`
+- `packages/mapgen-core/src/pipeline/foundation/producer.ts`
+  - computes foundation tensors (plates + dynamics)
+  - builds the immutable `FoundationContext` snapshot via `createFoundationContext(...)`
+  - publishes it to the artifact store: `context.artifacts.foundation = foundationContext` (i.e. `artifact:foundation`)
 
-Completion rule:
-- Once the prework packet is written up, delete this “Prework Prompt” section entirely (leave only the prework findings) so implementation agents don’t misread it as remaining work.
+Primary implementation modules in the cluster:
+- Stage wrapper / producer:
+  - `packages/mapgen-core/src/pipeline/foundation/FoundationStep.ts`
+  - `packages/mapgen-core/src/pipeline/foundation/producer.ts`
+  - `packages/mapgen-core/src/orchestrator/foundation.ts`
+- Foundation algorithms + types:
+  - `packages/mapgen-core/src/foundation/plate-seed.ts`
+  - `packages/mapgen-core/src/foundation/plates.ts`
+  - `packages/mapgen-core/src/foundation/types.ts`
+  - `packages/mapgen-core/src/foundation/constants.ts`
+- Shared helpers currently used by foundation/physics:
+  - `packages/mapgen-core/src/core/types.ts` (context + `createFoundationContext` + `validateFoundationContext`)
+  - `packages/mapgen-core/src/lib/grid/**` + `packages/mapgen-core/src/lib/math/**`
 
-## Pre-work
+### 2) “Moves with mod” vs “stays core” (ownership sketch)
 
-_TBD_
+Moves with the standard mod (domain-owned):
+- `packages/mapgen-core/src/pipeline/foundation/**` (step wrappers + producer)
+- `packages/mapgen-core/src/orchestrator/foundation.ts` (diagnostics wrapper around running foundation)
+- `packages/mapgen-core/src/foundation/**` (plate generation + directionality + seed snapshots)
 
+Likely stays in core as shared primitives (used across domains, not foundation-specific):
+- `packages/mapgen-core/src/lib/**` utilities that are reused broadly (`grid`, `math`, etc.)
+- `packages/mapgen-core/src/core/types.ts` *infrastructure* pieces (context creation, artifact store, writers)
+
+Cross-issue overlap to watch:
+- `FoundationContext` / `artifact:foundation` is explicitly targeted for splitting in DEF‑014 (`M5-U11`).
+  - Short-term extraction can keep `FoundationContext` in a shared place, but avoid baking “monolithic foundation blob” deeper into new package boundaries.
+
+### 3) Import edges that will need reshaping during extraction
+
+Standard-owned imports inside “step wrappers”:
+- `packages/mapgen-core/src/pipeline/foundation/FoundationStep.ts` depends on:
+  - `FoundationConfigSchema` (`@mapgen/config/index.js`) and
+  - `M3_STANDARD_STAGE_PHASE` (`@mapgen/pipeline/index.js` → `pipeline/standard.ts`)
+  Both are standard-owned concepts post-boundary and should move alongside the standard mod.
+
+Producer-to-core coupling:
+- `packages/mapgen-core/src/pipeline/foundation/producer.ts` depends on:
+  - context helpers (`createFoundationContext`, `ctxRandom`, `validateFoundationContext`) in `packages/mapgen-core/src/core/types.ts`
+  - `FoundationConfig` types from `@mapgen/bootstrap/types.js`
+  - dev logging (`@mapgen/dev/index.js`)
+
+Boundary decision (locked for M5):
+- `FoundationContext` and the foundation artifact contracts are **standard‑mod owned**.
+- Core keeps only **generic** infrastructure (context creation helpers + the artifact store mechanism), not domain-level foundation types.
+  - `M5-U11` further reshapes the foundation artifact surface by splitting `artifact:foundation` into discrete `artifact:foundation.*` products (still standard‑mod owned).
+
+### 4) Suggested “mechanical move” guardrails (search targets)
+
+Useful scoping queries for the extraction PR:
+- `rg -n \"@mapgen/pipeline/foundation|runFoundationStage|createFoundationContext\" packages/`
+- `rg -n \"@mapgen/foundation/\" packages/`

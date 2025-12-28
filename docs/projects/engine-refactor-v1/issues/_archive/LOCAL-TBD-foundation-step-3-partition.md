@@ -42,7 +42,7 @@ Create the "Pieces" (Plates). Implement the `PlatePartitioner` strategy to group
 ## Dependencies / Notes
 - **Blocked by:** LOCAL-TBD-2 (Mesh Generation Strategy) - requires `context.artifacts.mesh`.
 - **Blocked:** LOCAL-TBD-4 (Tectonic Physics Strategy)
-- **Reference:** [Foundation Stage Architecture - Strategy 2: Plate Partitioning](../../../system/libs/mapgen/foundation.md#32-strategy-2-plate-partitioning)
+- **Reference:** [Foundation Stage Architecture - Strategy 2: Plate Partitioning](../../../../system/libs/mapgen/foundation.md#32-strategy-2-plate-partitioning)
 - **Note:** WrapX (horizontal map wrapping) is not needed for initial implementation. The mesh neighbors already define connectivity.
 
 ---
