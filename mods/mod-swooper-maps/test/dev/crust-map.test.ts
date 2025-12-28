@@ -10,8 +10,12 @@ import { createMockAdapter } from "@civ7/adapter";
 import { renderAsciiGrid } from "@swooper/mapgen-core";
 import { computePlatesVoronoi } from "@mapgen/domain/foundation/plates.js";
 import type { RngFunction } from "@mapgen/domain/foundation/types.js";
-import { assignCrustTypes, type CrustConfig, CrustType } from "@mapgen/lib/plates/crust.js";
-import { buildPlateTopology } from "@mapgen/lib/plates/topology.js";
+import {
+  assignCrustTypes,
+  buildPlateTopology,
+  type CrustConfig,
+  CrustType,
+} from "@swooper/mapgen-core/lib/plates";
 
 function createDeterministicRng(seed = 1337): RngFunction {
   let state = seed >>> 0;

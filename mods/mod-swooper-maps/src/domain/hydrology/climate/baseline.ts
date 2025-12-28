@@ -1,6 +1,6 @@
 import { PerlinNoise } from "@swooper/mapgen-core/lib/noise";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type { ClimateConfig } from "@swooper/mapgen-core/config";
+import type { ClimateConfig } from "@mapgen/config";
 import { distanceToNearestWater } from "@mapgen/domain/hydrology/climate/distance-to-water.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 

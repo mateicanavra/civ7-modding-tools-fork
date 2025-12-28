@@ -4,7 +4,7 @@ import { createStep } from "@swooper/mapgen-core/authoring";
 import {
   ClimateConfigSchema,
   FoundationDirectionalityConfigSchema,
-} from "@swooper/mapgen-core/config";
+} from "@mapgen/config";
 import { publishClimateFieldArtifact } from "../../../artifacts.js";
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 import { getOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";

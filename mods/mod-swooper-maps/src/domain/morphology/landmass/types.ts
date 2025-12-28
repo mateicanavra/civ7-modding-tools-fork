@@ -3,7 +3,7 @@ import type {
   LandmassGeometry,
   LandmassGeometryPost,
   LandmassTectonicsConfig,
-} from "@swooper/mapgen-core/bootstrap";
+} from "@mapgen/config";
 
 export type { LandmassTectonicsConfig, LandmassGeometry, LandmassGeometryPost };
 

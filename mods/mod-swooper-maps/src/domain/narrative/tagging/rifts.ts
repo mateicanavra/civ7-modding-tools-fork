@@ -10,7 +10,7 @@ import { latitudeAbsDeg } from "@mapgen/domain/narrative/utils/latitude.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 import type { RiftValleysSummary } from "@mapgen/domain/narrative/tagging/types.js";
-import type { StoryConfig } from "@swooper/mapgen-core/config";
+import type { MapGenConfig, StoryConfig } from "@mapgen/config";
 
 export function storyTagRiftValleys(
   ctx: ExtendedMapContext,
@@ -20,7 +20,9 @@ export function storyTagRiftValleys(
   const { width, height } = getDims(ctx);
   const storyCfg = (config.story || {}) as Record<string, unknown>;
   const riftCfg = (storyCfg.rift || {}) as Record<string, number>;
-  const directionality = (ctx.config.foundation?.dynamics?.directionality || {}) as Record<string, unknown>;
+  const runtimeConfig = ctx.config as MapGenConfig;
+  const directionality = (runtimeConfig.foundation?.dynamics?.directionality ||
+    {}) as Record<string, unknown>;
 
   const areaRift = Math.max(1, width * height);
   const sqrtRift = Math.min(2.0, Math.max(0.6, Math.sqrt(areaRift / 10000)));

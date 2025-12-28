@@ -189,6 +189,7 @@ Rewrite maps/presets to select a recipe and provide config instances at runtime.
 Issue doc: [LOCAL-TBD-M6-U07](../issues/LOCAL-TBD-M6-U07-delete-legacy-base-bootstrap-config-orchestrator.md)
 
 Remove legacy surfaces once the new engine/authoring/content boundaries are live.
+- [x] Done (branch: `m6-u07-delete-legacy-base-bootstrap-config-orchestrator`; PR: pending)
 
 ### LOCAL-TBD-M6-U08 — Tests and CI gates aligned to ownership
 Issue doc: [LOCAL-TBD-M6-U08](../issues/LOCAL-TBD-M6-U08-realign-tests-and-ci-gates-to-ownership.md)

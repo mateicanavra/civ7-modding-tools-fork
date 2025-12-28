@@ -10,7 +10,7 @@
 
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@swooper/mapgen-core";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
-import type { CorridorsConfig, FoundationDirectionalityConfig } from "@swooper/mapgen-core/config";
+import type { CorridorsConfig, FoundationDirectionalityConfig } from "@mapgen/config";
 import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";
 import { buildNarrativeCorridorsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import {

@@ -1,5 +1,5 @@
 import { clamp } from "@swooper/mapgen-core/lib/math";
-import type { FoundationDirectionalityConfig } from "@swooper/mapgen-core/bootstrap";
+import type { FoundationDirectionalityConfig } from "@mapgen/config";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { assertFoundationDynamics } from "@swooper/mapgen-core";
 import type { SwatchHelpers, SwatchRuntime } from "@mapgen/domain/hydrology/climate/swatches/types.js";

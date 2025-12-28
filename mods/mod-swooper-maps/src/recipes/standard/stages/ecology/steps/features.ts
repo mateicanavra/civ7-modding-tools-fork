@@ -1,14 +1,8 @@
 import { Type, type Static } from "typebox";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "@swooper/mapgen-core/config";
+import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "@mapgen/config";
 import { addDiverseFeatures } from "@mapgen/domain/ecology/features/index.js";
-import {
-  STORY_OVERLAY_KEYS,
-  getStoryOverlay,
-  hydrateMarginsStoryTags,
-} from "@mapgen/domain/narrative/overlays/index.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
 const FeaturesStepConfigSchema = Type.Object(
@@ -59,11 +53,6 @@ export default createStep({
   ],
   schema: FeaturesStepConfigSchema,
   run: (context: ExtendedMapContext, config: FeaturesStepConfig) => {
-    hydrateMarginsStoryTags(
-      getStoryOverlay(context, STORY_OVERLAY_KEYS.MARGINS),
-      getStoryTags(context)
-    );
-
     const { width, height } = context.dimensions;
     addDiverseFeatures(width, height, context, {
       story: config.story,

@@ -1,15 +1,8 @@
 import { Type, type Static } from "typebox";
 import { DEV, logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { BiomeConfigSchema, CorridorsConfigSchema } from "@swooper/mapgen-core/config";
+import { BiomeConfigSchema, CorridorsConfigSchema } from "@mapgen/config";
 import { designateEnhancedBiomes } from "@mapgen/domain/ecology/biomes/index.js";
-import {
-  STORY_OVERLAY_KEYS,
-  getStoryOverlay,
-  hydrateCorridorsStoryTags,
-  hydrateRiftsStoryTags,
-} from "@mapgen/domain/narrative/overlays/index.js";
-import { getStoryTags } from "@mapgen/domain/narrative/tags/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
 const BiomesStepConfigSchema = Type.Object(
@@ -55,10 +48,6 @@ export default createStep({
   ],
   schema: BiomesStepConfigSchema,
   run: (context: ExtendedMapContext, config: BiomesStepConfig) => {
-    const storyTags = getStoryTags(context);
-    hydrateCorridorsStoryTags(getStoryOverlay(context, STORY_OVERLAY_KEYS.CORRIDORS), storyTags);
-    hydrateRiftsStoryTags(getStoryOverlay(context, STORY_OVERLAY_KEYS.RIFTS), storyTags);
-
     const { width, height } = context.dimensions;
     designateEnhancedBiomes(width, height, context, {
       biomes: config.biomes,

@@ -12,7 +12,7 @@ import type { DependencyTagDefinition } from "@mapgen/engine/tags.js";
 import type { TraceSession } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
-export type Step<TContext = ExtendedMapContext, TConfig = unknown> = Readonly<{
+export type Step<TContext = ExtendedMapContext, TConfig = any> = Readonly<{
   id: string;
   phase: GenerationPhase;
   requires: readonly DependencyTag[];
@@ -24,7 +24,7 @@ export type Step<TContext = ExtendedMapContext, TConfig = unknown> = Readonly<{
 
 export type Stage<TContext = ExtendedMapContext> = Readonly<{
   id: string;
-  steps: readonly Step<TContext, unknown>[];
+  steps: readonly Step<TContext, any>[];
 }>;
 
 export type RecipeConfig = Readonly<Record<string, Readonly<Record<string, unknown>>>>;
@@ -78,5 +78,5 @@ export type RecipeModule<TContext = ExtendedMapContext> = {
   ) => void;
 };
 
-export type StepModule<TContext = ExtendedMapContext, TConfig = unknown> = Step<TContext, TConfig>;
+export type StepModule<TContext = ExtendedMapContext, TConfig = any> = Step<TContext, TConfig>;
 export type StageModule<TContext = ExtendedMapContext> = Stage<TContext>;

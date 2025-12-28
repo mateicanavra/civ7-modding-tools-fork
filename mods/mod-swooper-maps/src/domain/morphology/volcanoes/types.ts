@@ -1,4 +1,4 @@
-import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "@swooper/mapgen-core/bootstrap";
+import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "@mapgen/config";
 
 export type VolcanoesConfig = BootstrapVolcanoesConfig;
 
