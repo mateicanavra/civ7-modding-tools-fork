@@ -60,4 +60,26 @@ Update recipe steps and stages to import domain logic from the standard content 
   - A proposed target import path under `mods/mod-swooper-maps/src/domain/**` for each.
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here; this becomes the checklist for import rewrites during the step translation._
+#### P1) Base step → domain import map
+- `packages/mapgen-core/src/base/pipeline/morphology/LandmassStep.ts`
+  - `@mapgen/domain/morphology/landmass/index.js` → `mods/mod-swooper-maps/src/domain/morphology/landmass/index.ts`
+- `packages/mapgen-core/src/base/pipeline/morphology/MountainsStep.ts`
+  - `@mapgen/domain/morphology/mountains/index.js` → `mods/mod-swooper-maps/src/domain/morphology/mountains/index.ts`
+- `packages/mapgen-core/src/base/pipeline/morphology/VolcanoesStep.ts`
+  - `@mapgen/domain/morphology/volcanoes/index.js` → `mods/mod-swooper-maps/src/domain/morphology/volcanoes/index.ts`
+- `packages/mapgen-core/src/base/pipeline/hydrology/ClimateBaselineStep.ts`
+  - `@mapgen/domain/hydrology/climate/index.js` → `mods/mod-swooper-maps/src/domain/hydrology/climate/index.ts`
+- `packages/mapgen-core/src/base/pipeline/hydrology/ClimateRefineStep.ts`
+  - `@mapgen/domain/hydrology/climate/index.js` → `mods/mod-swooper-maps/src/domain/hydrology/climate/index.ts`
+- `packages/mapgen-core/src/base/pipeline/hydrology/RiversStep.ts`
+  - `@mapgen/domain/narrative/swatches.js` → `mods/mod-swooper-maps/src/domain/narrative/swatches.ts`
+- `packages/mapgen-core/src/base/pipeline/narrative/StoryCorridorsStep.ts`
+  - `@mapgen/domain/narrative/corridors/index.js` → `mods/mod-swooper-maps/src/domain/narrative/corridors/index.ts`
+- `packages/mapgen-core/src/base/pipeline/narrative/StoryRiftsStep.ts`
+  - `@mapgen/domain/narrative/tagging/index.js` → `mods/mod-swooper-maps/src/domain/narrative/tagging/index.ts`
+- `packages/mapgen-core/src/base/pipeline/narrative/StorySwatchesStep.ts`
+  - `@mapgen/domain/narrative/orogeny/index.js` → `mods/mod-swooper-maps/src/domain/narrative/orogeny/index.ts`
+  - `@mapgen/domain/narrative/swatches.js` → `mods/mod-swooper-maps/src/domain/narrative/swatches.ts`
+- `packages/mapgen-core/src/base/pipeline/placement/PlacementStep.ts`
+  - `@mapgen/domain/placement/index.js` → `mods/mod-swooper-maps/src/domain/placement/index.ts`
+  - `@mapgen/domain/placement/wonders.js` → `mods/mod-swooper-maps/src/domain/placement/wonders.ts`
