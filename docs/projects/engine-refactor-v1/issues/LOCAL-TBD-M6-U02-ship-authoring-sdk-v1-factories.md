@@ -52,9 +52,9 @@ Ship the authoring SDK v1 surface by completing the sequenced child issues.
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Confirm consumer cutover surface (who will import authoring)
-- Authoring consumers (external call sites that should migrate to `@swooper/mapgen-core/authoring`):
+- Authoring consumers (call sites that should migrate to `@swooper/mapgen-core/authoring`):
   - `mods/mod-swooper-maps/src/sundered-archipelago.ts` (uses `runTaskGraphGeneration`)
   - `mods/mod-swooper-maps/src/swooper-desert-mountains.ts` (uses `runTaskGraphGeneration`, `baseMod`)
   - `mods/mod-swooper-maps/src/swooper-earthlike.ts` (uses `runTaskGraphGeneration`, `baseMod`)
@@ -65,5 +65,5 @@ Ship the authoring SDK v1 surface by completing the sequenced child issues.
   - `packages/mapgen-core/test/orchestrator/placement-config-wiring.test.ts` (uses `runTaskGraphGeneration`, `baseMod`)
 - Engine consumers (should stay internal to engine/authoring SDK, not surfaced to mods):
   - `packages/mapgen-core/src/orchestrator/task-graph.ts` (direct `compileExecutionPlan`, `PipelineExecutor`, `StepRegistry`)
-  - Engine-facing tests under `packages/mapgen-core/test/pipeline/**` and `packages/mapgen-core/test/orchestrator/paleo-ordering.test.ts`
-- No other packages/CLI/plugins import these symbols outside `packages/mapgen-core` + `mods`.
+  - `packages/mapgen-core/test/pipeline/**` and `packages/mapgen-core/test/orchestrator/paleo-ordering.test.ts`
+- `runTaskGraphGeneration` is re-exported via `packages/mapgen-core/src/index.ts`, so authoring surface should be exposed through the main package entry (in addition to a subpath export).
