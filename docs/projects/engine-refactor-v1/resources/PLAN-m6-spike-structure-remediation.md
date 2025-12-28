@@ -149,6 +149,55 @@ mods/mod-swooper-maps/src/
 - Add invariants disallowing centralized tag/artifact catalogs and any mod-wide `config/**` module.
 - Update mapping notes for `base/tags.ts` and `base/pipeline/artifacts.ts` to land in step/stage local modules.
 
+## Sanity Check Findings (Current State and Impact)
+
+### Slice A: Core-owned tags/validators (to be moved to mod)
+
+**Current sources:**
+- `packages/mapgen-core/src/core/types.ts` defines:
+  - `FOUNDATION_*_ARTIFACT_TAG` constants
+  - `FoundationContext` types + `ArtifactStore`
+  - `validateFoundation*` helpers
+  - `createFoundationContext`
+  - `ExtendedMapContext` includes `config: MapConfig`
+- `packages/mapgen-core/src/core/assertions.ts` defines `assertFoundation*` helpers.
+
+**Current consumers (mod-owned):**
+- `mods/mod-swooper-maps/src/recipes/standard/tags.ts` imports `FOUNDATION_*` tags + `validateFoundation*`.
+- `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/producer.ts` calls `validateFoundationContext`.
+- `mods/mod-swooper-maps/src/domain/morphology/landmass/index.ts` uses `assertFoundationPlates`.
+- `mods/mod-swooper-maps/src/domain/morphology/coastlines/rugged-coasts.ts` uses `assertFoundationPlates`.
+- `mods/mod-swooper-maps/src/domain/morphology/mountains/apply.ts` uses `assertFoundationPlates`.
+- `mods/mod-swooper-maps/src/domain/morphology/volcanoes/apply.ts` uses `assertFoundationPlates`.
+- `mods/mod-swooper-maps/src/domain/narrative/orogeny/belts.ts` uses `assertFoundationPlates` + `assertFoundationDynamics`.
+- `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` uses `assertFoundationPlates`.
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/refine/index.ts` uses `assertFoundationDynamics`.
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/monsoon-bias.ts` uses `assertFoundationDynamics`.
+
+**Tests:**
+- `packages/mapgen-core/test/core/foundation-context.test.ts` imports `validateFoundationContext`.
+
+### Slice B: MapGenConfig aggregation (to be removed)
+
+**Centralized config surface:**
+- `mods/mod-swooper-maps/src/config/schema.ts` defines `MapGenConfigSchema` and exports all schema fragments.
+- `mods/mod-swooper-maps/src/config/index.ts` re-exports schema + types + loader.
+- `mods/mod-swooper-maps/src/config/loader.ts` owns parse/default/schema exports for `MapGenConfig`.
+- `mods/mod-swooper-maps/src/config/AGENTS.md` enforces centralization and must be removed.
+- `mods/mod-swooper-maps/tsconfig.json` maps `@mapgen/config` to `src/config/**`.
+
+**Runtime config mapping:**
+- `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` builds `StandardRecipeConfig` by mapping `MapGenConfig` keys into step configs.
+- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` casts `overrides` to `MapGenConfig` and stores it on `context.config`.
+- `mods/mod-swooper-maps/src/maps/*.ts` return `StandardRecipeOverrides` (`DeepPartial<MapGenConfig>`).
+
+**Direct `ctx.config` reads:**
+- `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` reads directionality from `ctx.config`.
+- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` reads directionality from `context.config`.
+
+**Step-level schemas already exist:**
+- Steps define schemas in-place under `mods/mod-swooper-maps/src/recipes/standard/stages/**/steps/*.ts` and currently import `@mapgen/config` fragments. These should be replaced with step-local or domain-shared fragments.
+
 ## Remediation Worklist
 
 <a id="r1"></a>
@@ -198,7 +247,13 @@ Deletes (after R1):
 
 Required callsite updates:
 - [ ] Replace imports of `@mapgen/config` / `@mapgen/config/*` across `mods/mod-swooper-maps/src/**` with step-local schemas/types or domain schema fragments.
-- [ ] Remove `MapGenConfig` usage from mod-owned runtime glue (`mods/mod-swooper-maps/src/maps/_runtime/**`).
+- [ ] Remove `MapGenConfig` usage from:
+  - `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts`
+  - `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`
+  - `mods/mod-swooper-maps/src/maps/*.ts`
+  - `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts`
+- [ ] Remove the `@mapgen/config` path aliases from `mods/mod-swooper-maps/tsconfig.json`.
 
 Grep gates:
 - [ ] `rg -n "MapGenConfig" mods/mod-swooper-maps/src` is 0 hits in the end-state.
@@ -208,7 +263,13 @@ Grep gates:
 ### R5: Engine context split; delete core module (refactor)
 
 - [ ] Extract engine-owned context + writers into `packages/mapgen-core/src/engine/context.ts` (no content-owned tags/validators).
-- [ ] Move content-owned tags/validators out of `packages/mapgen-core/src/core/types.ts` into mod-owned `mods/mod-swooper-maps/src/domain/**`.
+- [ ] Move content-owned items out of `packages/mapgen-core/src/core/types.ts` into mod-owned modules:
+  - `FOUNDATION_*_ARTIFACT_TAG` constants
+  - `FoundationContext` + `Foundation*` types
+  - `ArtifactStore`
+  - `validateFoundation*` helpers
+  - `createFoundationContext`
+- [ ] Re-home `assertFoundation*` helpers from `packages/mapgen-core/src/core/assertions.ts` into mod-owned `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/assertions.ts` and update callsites.
 - [ ] Update authoring SDK to reference the engine-owned context boundary (or become generic), so authoring does not import from a deleted `core/**` module.
 - [ ] Delete `packages/mapgen-core/src/core/index.ts` and remove any re-export of `@mapgen/core/*` from `packages/mapgen-core/src/index.ts`.
 
@@ -217,6 +278,9 @@ Grep gates:
 
 - [ ] Replace `mods/mod-swooper-maps/src/recipes/standard/tags.ts` with step- or stage-local tag definitions (or keep as a re-export-only barrel).
 - [ ] Replace `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` with step- or stage-local artifact helpers (or keep as a re-export-only barrel).
+- [ ] Retire centralized re-exports:
+  - `mods/mod-swooper-maps/src/domain/tags.ts`
+  - `mods/mod-swooper-maps/src/domain/artifacts.ts`
 - [ ] For each step, add local schema/types/tags/artifacts modules (`<stepId>.schema.ts`, `<stepId>.models.ts`, `<stepId>.tags.ts`, `<stepId>.artifacts.ts`) or consolidate into the step file if it remains readable.
 - [ ] Update `createRecipe` assembly to collect tag definitions from stage/step exports rather than from a centralized catalog.
 
@@ -230,6 +294,13 @@ Grep gates:
 
 - [ ] Remove `any` usage from authoring `Stage` typing by making stage/recipe generics sound over step tuples.
 - [ ] Ensure `RecipeConfigOf` inference remains correct without widening.
+
+<a id="r9"></a>
+### R9: Map overrides refactor (mechanical)
+
+- [ ] Replace `StandardRecipeOverrides` (`DeepPartial<MapGenConfig>`) with a step/stage-shaped override type (or direct `StandardRecipeConfig`).
+- [ ] Update `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` to accept the new override shape without a `MapGenConfig` aggregator.
+- [ ] Update `mods/mod-swooper-maps/src/maps/*.ts` to return the new override shape.
 
 ## Verification
 - `pnpm -C packages/mapgen-core test`
