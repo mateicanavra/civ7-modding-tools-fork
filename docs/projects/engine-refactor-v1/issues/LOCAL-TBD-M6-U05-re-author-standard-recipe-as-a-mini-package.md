@@ -64,4 +64,49 @@ Re-author the standard recipe as a mod-owned mini-package by completing the chil
   - The list of step implementation files that must be translated into recipe-local stage/steps folders.
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here; this becomes the authoritative “old → new” ordering checklist._
+#### P1) Standard recipe baseline inventory (order + step ids)
+- Current base recipe order (`packages/mapgen-core/src/base/recipes/default.ts`), no `instanceId` usage:
+  1) `foundation`
+  2) `landmassPlates`
+  3) `coastlines`
+  4) `storySeed`
+  5) `storyHotspots`
+  6) `storyRifts`
+  7) `ruggedCoasts`
+  8) `storyOrogeny`
+  9) `storyCorridorsPre`
+  10) `islands`
+  11) `mountains`
+  12) `volcanoes`
+  13) `lakes`
+  14) `climateBaseline`
+  15) `storySwatches`
+  16) `rivers`
+  17) `storyCorridorsPost`
+  18) `climateRefine`
+  19) `biomes`
+  20) `features`
+  21) `derivePlacementInputs`
+  22) `placement`
+- Step implementation files to translate (base pipeline):
+  - `packages/mapgen-core/src/base/pipeline/foundation/FoundationStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/morphology/LandmassStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/morphology/CoastlinesStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/narrative/StorySeedStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/narrative/StoryHotspotsStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/narrative/StoryRiftsStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/morphology/RuggedCoastsStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/narrative/StoryOrogenyStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/narrative/StoryCorridorsStep.ts` (splits into pre/post)
+  - `packages/mapgen-core/src/base/pipeline/morphology/IslandsStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/morphology/MountainsStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/morphology/VolcanoesStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/hydrology/LakesStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/hydrology/ClimateBaselineStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/narrative/StorySwatchesStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/hydrology/RiversStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/hydrology/ClimateRefineStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/ecology/BiomesStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/ecology/FeaturesStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/placement/DerivePlacementInputsStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/placement/PlacementStep.ts`
