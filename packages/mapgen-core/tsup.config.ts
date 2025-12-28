@@ -28,6 +28,7 @@ export default defineConfig({
     "src/bootstrap/entry.ts",
     "src/config/index.ts",
     "src/engine/index.ts",
+    "src/authoring/index.ts",
     "src/domain/index.ts",
     "src/domain/morphology/index.ts",
     "src/domain/hydrology/index.ts",
