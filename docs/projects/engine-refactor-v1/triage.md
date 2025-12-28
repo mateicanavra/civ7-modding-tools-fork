@@ -54,10 +54,10 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Revisit once all base steps have explicit schemas; at that point decide if engine contract should be tightened.
   - **Next check:** before declaring engine surface stable or before deprecating engine-only authoring calls.
 
-- **Authoring step config typing defaults widened to `any`** [Source: LOCAL-TBD-M6-U07]
-  - **Context:** Config ownership moved into the mod, and `Step`/`Stage` config defaults of `unknown` broke recipe step typing.
+- **Authoring step config defaults kept at `unknown` (bivariant runner for stages)** [Source: LOCAL-TBD-M6-U07]
+  - **Context:** Config ownership moved into the mod, and stages still need to accept steps with concrete config types.
   - **Type:** triage
-  - **Notes:** Defaults were relaxed to keep step config types usable without pervasive casting. Decide if/when to tighten generics or provide safer authoring helpers.
+  - **Notes:** `Step.run` uses a bivariant callback so `Stage` can hold `Step<..., unknown>` without widening defaults to `any`. Revisit if we want stricter variance or a dedicated authoring helper type.
   - **Next check:** before publishing the authoring SDK or documenting long-term typing guarantees.
 
 - **Recipe `instanceId` uniqueness enforced in authoring** [Source: LOCAL-TBD-M6-U02-1]
