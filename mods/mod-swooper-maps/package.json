@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@swooper/mapgen-core": "workspace:*",
-    "@civ7/adapter": "workspace:*"
+    "@civ7/adapter": "workspace:*",
+    "typebox": "^1.0.61"
   },
   "devDependencies": {
     "@civ7/types": "workspace:*",
