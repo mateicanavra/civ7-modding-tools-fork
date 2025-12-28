@@ -66,6 +66,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Type:** triage
   - **Notes:** `packages/mapgen-core/src/pipeline/artifacts.ts` uses `M3_DEPENDENCY_TAGS` from `@mapgen/base` and is imported by base pipeline steps, leaving standard artifact knowledge in core. Decide whether to move it to base or redesign as a generic artifact API.
   - **Next check:** before publishing M5 boundary as stable or before merging remaining extraction branches.
+
+- **Effect tag ownership metadata still points to core** [Source: M5-U06 review]
+  - **Context:** M5-U06 ecology/placement extraction.
+  - **Type:** triage
+  - **Notes:** `packages/mapgen-core/src/base/tags.ts` sets `EFFECT_OWNERS` to `pkg: "@swooper/mapgen-core"` for biomes/features/placement even though those steps now live in the base mod. Decide whether to update ownership to the base package or document the intent.
+  - **Next check:** before effect verification is made more strict or before a release that documents effect ownership.
 - **Observability runId + fingerprint derivation** [Source: CIV-75]
   - **Context:** M4 observability baseline implementation for trace/run IDs.
   - **Type:** triage
