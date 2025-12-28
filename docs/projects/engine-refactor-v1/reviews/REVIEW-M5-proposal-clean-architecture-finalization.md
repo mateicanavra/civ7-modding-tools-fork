@@ -48,3 +48,25 @@ The base-mod boundary is real (PipelineModV1 + @swooper/mapgen-core/base + hello
 
 ### Cross-cutting Risks
 - Public API + recipe-id churn at the mod boundary could break external consumers without a migration plan.
+
+## REVIEW m5-u03-standard-registry-recipes-tags-extraction
+
+### Quick Take
+Standard tags/recipes/spine are now base-mod owned and core no longer seeds default tags, but the change introduces new breaking surfaces for any caller that relied on pipeline exports or implicit tag registration.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/pipeline/StepRegistry.ts`: default tag registry is now empty; any external StepRegistry usage that registers steps with standard tags will throw unless it explicitly calls `registerBaseTags`.
+- `packages/mapgen-core/src/pipeline/index.ts`: removal of `M3_DEPENDENCY_TAGS`/`M4_EFFECT_TAGS`/`M3_STAGE_DEPENDENCY_SPINE` exports is a breaking change for downstream imports; only base/standard shims remain.
+
+### Fix Now (Recommended)
+- Add a short migration note or compatibility shim for StepRegistry usage (e.g., helper to create a registry pre-seeded with base tags).
+- Document the export move (`@mapgen/pipeline` → `@mapgen/base`) so external consumers don’t silently break.
+
+### Defer / Follow-up
+- Once steps are extracted (U04–U06), remove the temporary core → base coupling in step implementations.
+
+### Needs Discussion
+- Do we want a stable core-level helper for “standard tag registry” during the transition, or is explicit `registerBaseTags` required everywhere?
+
+### Cross-cutting Risks
+- Standard-tag and stage-spine exports moving out of `@mapgen/pipeline` will break any external tooling that imports them without a migration path.
