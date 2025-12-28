@@ -37,6 +37,8 @@ export default defineConfig({
     "src/domain/placement/index.ts",
     "src/lib/math/index.ts",
     "src/lib/grid/index.ts",
+    "src/lib/heightfield/index.ts",
+    "src/lib/plates/index.ts",
     "src/lib/rng/index.ts",
     "src/lib/noise/index.ts",
     "src/lib/collections/index.ts",
