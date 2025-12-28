@@ -89,3 +89,10 @@ Define the authored step, stage, and recipe module shapes with required schemas 
 - **Choice:** Option B — keep it recipe-only and enforce uniqueness in authoring.
 - **Rationale:** `instanceId` describes recipe occurrence, not the step definition, and validation belongs at authoring time.
 - **Risk:** Existing engine-only call sites could still emit duplicate `instanceId` values.
+
+### Define recipe modules as POJO inputs for U02-1
+- **Context:** SPIKE defines `RecipeModule` as a runtime API (instantiate/compile/run), but U02-1 only needs authored POJO shapes and validations.
+- **Options:** (A) define full runtime `RecipeModule` now, (B) define POJO recipe modules now and add runtime helpers in U02-2.
+- **Choice:** Option B — define POJO recipe modules (id/namespace/tagDefinitions/stages) and defer runtime helpers to U02-2.
+- **Rationale:** Keeps U02-1 scoped to authoring shapes/guards while leaving registry plumbing to U02-2.
+- **Risk:** `RecipeModule` type will expand in U02-2; downstream typing updates may be needed.
