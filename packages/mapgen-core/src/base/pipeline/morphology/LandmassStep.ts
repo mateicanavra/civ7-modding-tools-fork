@@ -16,7 +16,7 @@ import {
   applyPlateAwareOceanSeparation,
   createPlateDrivenLandmasses,
   type LandmassWindow,
-} from "@mapgen/domain/morphology/landmass/index.js";
+} from "@mapgen-content/morphology/landmass/index.js";
 
 export interface LandmassStepRuntime {
   westContinent: ContinentBounds;

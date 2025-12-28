@@ -7,8 +7,8 @@ import type { MapGenStep } from "@mapgen/engine/index.js";
 import {
   ClimateConfigSchema,
 } from "@mapgen/config/index.js";
-import { getOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
-import { storyTagClimateSwatches } from "@mapgen/domain/narrative/swatches.js";
+import { getOrogenyCache } from "@mapgen-content/narrative/orogeny/index.js";
+import { storyTagClimateSwatches } from "@mapgen-content/narrative/swatches.js";
 
 export interface StorySwatchesStepOptions {
   requires: readonly string[];

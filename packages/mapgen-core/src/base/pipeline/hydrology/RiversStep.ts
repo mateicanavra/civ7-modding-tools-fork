@@ -12,7 +12,7 @@ import {
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/engine/index.js";
 import { ClimateStoryPaleoSchema } from "@mapgen/config/index.js";
-import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
+import { storyTagClimatePaleo } from "@mapgen-content/narrative/swatches.js";
 ========
 export { createRiversStep } from "@mapgen/base/pipeline/hydrology/RiversStep.js";
 export type { RiversStepOptions } from "@mapgen/base/pipeline/hydrology/RiversStep.js";
