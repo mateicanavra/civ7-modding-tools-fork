@@ -232,3 +232,23 @@ Foundation now publishes discrete `artifact:foundation.*@v1` outputs with target
 
 ### Cross-cutting Risks
 - Documentation still points consumers/tooling at `artifact:foundation`, risking mismatched dependencies after this split.
+
+## REVIEW m5-u12-def-010-climate-prerequisite-reification
+
+### Quick Take
+Climate runtime now consumes `artifact:heightfield` for water/elevation/mountain reads, and the stage spine makes heightfield an explicit prerequisite for climate baseline and story swatches.
+
+### High-Leverage Issues
+- None found.
+
+### Fix Now (Recommended)
+- None.
+
+### Defer / Follow-up
+- None.
+
+### Needs Discussion
+- None.
+
+### Cross-cutting Risks
+- None identified.
