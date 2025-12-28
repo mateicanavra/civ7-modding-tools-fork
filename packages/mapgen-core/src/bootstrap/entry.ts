@@ -69,18 +69,7 @@ export function bootstrap(options: BootstrapConfig = {}): MapGenConfig {
   return parseConfig(options.overrides ?? {});
 }
 
-/**
- * Reset any bootstrap-local state.
- *
- * Bootstrap is intended to be pure; this exists for backwards compatibility and tests.
- */
-export function resetBootstrap(): void {
-  // no-op
-}
-
-
 // Re-export types and functions for convenience
-export type { MapConfig } from "@mapgen/bootstrap/runtime.js";
 export type { MapGenConfig } from "@mapgen/config/index.js";
 
-export default { bootstrap, resetBootstrap };
+export default { bootstrap };

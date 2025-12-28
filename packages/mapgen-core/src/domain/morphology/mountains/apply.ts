@@ -148,18 +148,3 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
   console.log(`  Hills:     ${hillCount} (${((hillCount / total) * 100).toFixed(1)}%)`);
   console.log(`  Flat:      ${flatCount} (${((flatCount / total) * 100).toFixed(1)}%)`);
 }
-
-export function addMountainsCompat(width: number, height: number, ctx?: ExtendedMapContext | null): void {
-  const context = ctx ?? null;
-  if (!context) {
-    throw new Error("[Mountains] MapContext is required to add mountains.");
-  }
-  assertFoundationContext(context, "mountains");
-  layerAddMountainsPhysics(context, {
-    tectonicIntensity: 1.0,
-    mountainThreshold: 0.45,
-    hillThreshold: 0.25,
-    upliftWeight: 0.75,
-    fractalWeight: 0.25,
-  });
-}

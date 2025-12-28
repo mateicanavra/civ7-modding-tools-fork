@@ -247,19 +247,11 @@ export const LandmassConfigSchema = Type.Object(
         maximum: 1,
       })
     ),
-    /** Legacy fallback for continentalFraction kept for backward compatibility. */
-    crustContinentalFraction: Type.Optional(
-      Type.Number({
-        description: "Legacy fallback for continentalFraction kept for backward compatibility.",
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
     /**
      * Bias that clusters continental plates together.
      * Higher values encourage supercontinents rather than scattered shards.
      */
-    crustClusteringBias: Type.Optional(
+    clusteringBias: Type.Optional(
       Type.Number({
         description:
           "Bias that clusters continental plates together; higher values encourage supercontinents rather than scattered shards.",
@@ -2751,44 +2743,6 @@ export const FoundationConfigSchema = Type.Object(
 );
 
 /**
- * Legacy top-level diagnostics toggles.
- *
- * These fields are currently unused by the stable-slice runtime and are kept
- * only for backward compatibility. Use foundation.diagnostics instead.
- */
-export const DiagnosticsConfigSchema = Type.Object(
-  {
-    /**
-     * @deprecated Unused in M2 stable slice. Use foundation.diagnostics.*.
-     */
-    logAscii: Type.Optional(
-      Type.Boolean({
-        description:
-          "[legacy/no-op] Unused in M2 stable slice. Use foundation.diagnostics.* for ASCII output.",
-        deprecated: true,
-      })
-    ),
-    /**
-     * @deprecated Unused in M2 stable slice. Use foundation.diagnostics.*.
-     */
-    logHistograms: Type.Optional(
-      Type.Boolean({
-        description:
-          "[legacy/no-op] Unused in M2 stable slice. Use foundation.diagnostics.* for histogram output.",
-        deprecated: true,
-      })
-    ),
-  },
-  {
-    additionalProperties: false,
-    default: {},
-    description:
-      "[legacy/no-op] Top-level diagnostics are deprecated in M2. Use foundation.diagnostics instead.",
-    deprecated: true,
-  }
-);
-
-/**
  * Canonical MapGen configuration schema exported by mapgen-core.
  */
 export const MapGenConfigSchema = Type.Object(
@@ -2821,11 +2775,6 @@ export const MapGenConfigSchema = Type.Object(
     oceanSeparation: Type.Optional(OceanSeparationConfigSchema),
     /** Late-stage placement: wonders, floodplains, starts. */
     placement: Type.Optional(PlacementConfigSchema),
-    /**
-     * @deprecated Legacy top-level diagnostics toggles.
-     * These are no-op in the M2 stable slice; use foundation.diagnostics instead.
-     */
-    diagnostics: Type.Optional(DiagnosticsConfigSchema),
     /**
      * Escape hatch for experimental or plugin-owned knobs that are not yet
      * modeled in the public schema.
@@ -2891,5 +2840,4 @@ export type FeaturesDensityConfig = Static<typeof FeaturesDensityConfigSchema>;
 export type FloodplainsConfig = Static<typeof FloodplainsConfigSchema>;
 export type StartsConfig = Static<typeof StartsConfigSchema>;
 export type PlacementConfig = Static<typeof PlacementConfigSchema>;
-export type DiagnosticsConfig = Static<typeof DiagnosticsConfigSchema>;
 export type MapGenConfig = Static<typeof MapGenConfigSchema>;

@@ -3,17 +3,16 @@ import { createMockAdapter } from "@civ7/adapter";
 import { bootstrap } from "@mapgen/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { BASE_RECIPE_STEP_IDS, registerBaseTags } from "@mapgen/base/index.js";
+import { BASE_RECIPE_STEP_IDS, M3_STAGE_DEPENDENCY_SPINE, registerBaseTags } from "@mapgen/base/index.js";
 import {
   compileExecutionPlan,
   PipelineExecutor,
   StepRegistry,
-  registerFoundationLayer,
-  registerHydrologyLayer,
-  registerNarrativeLayer,
 } from "@mapgen/pipeline/index.js";
-import { M3_STAGE_DEPENDENCY_SPINE } from "@mapgen/pipeline/standard.js";
-import { runFoundationStage } from "@mapgen/pipeline/foundation/producer.js";
+import { registerFoundationLayer } from "@mapgen/base/pipeline/foundation/index.js";
+import { runFoundationStage } from "@mapgen/base/pipeline/foundation/producer.js";
+import { registerHydrologyLayer } from "@mapgen/base/pipeline/hydrology/index.js";
+import { registerNarrativeLayer } from "@mapgen/base/pipeline/narrative/index.js";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
