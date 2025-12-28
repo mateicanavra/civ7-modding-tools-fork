@@ -72,4 +72,26 @@ Rewrite maps and presets to select a recipe and supply a config instance at runt
   - Any remaining legacy coupling to remove (e.g., references to `RecipeV1` overrides).
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here; include the definitive list of map entrypoints and the agreed `_runtime` helper surface._
+#### P1) Map inventory + config instance extraction checklist
+- Map entrypoints (top-level `src/*.ts`):
+  - `gate-a-continents.ts` (no `buildConfig`; wrapper only)
+  - `sundered-archipelago.ts`
+  - `swooper-desert-mountains.ts`
+  - `swooper-earthlike.ts`
+  - `shattered-ring.ts`
+- Config builder presence:
+  - `buildConfig()` exists in all maps except `gate-a-continents.ts`.
+  - All four `buildConfig()` functions use `overrides` with the same top-level keys:
+    - `landmass`, `margins`, `coastlines`, `mountains`, `volcanoes`, `foundation`, `climate`, `story`, `oceanSeparation`, `biomes`, `featuresDensity`
+- Orchestrator glue usage:
+  - `applyMapInitData` + `OrchestratorConfig` used in all four `buildConfig()`-based maps.
+  - `resolveMapInitData` is not used in current maps.
+
+#### P2) Runner glue extraction plan (mod-owned in M6)
+- From `packages/mapgen-core/src/orchestrator/map-init.ts`:
+  - `resolveMapInitData` and `applyMapInitData` can be copied into `mods/mod-swooper-maps/src/maps/_runtime/map-init.ts` with minimal edits.
+  - These functions handle map size defaults, init params, and adapter map-info lookup.
+- From `packages/mapgen-core/src/orchestrator/helpers.ts`:
+  - `createLayerAdapter` and `createDefaultContinentBounds` can be copied into `_runtime/helpers.ts` for map setup.
+- Legacy coupling to remove:
+  - Replace `runTaskGraphGeneration` calls with `recipe.compile` + `recipe.run` (or `compileExecutionPlan` + `PipelineExecutor.executePlan`) using the same settings derived from map init data.
