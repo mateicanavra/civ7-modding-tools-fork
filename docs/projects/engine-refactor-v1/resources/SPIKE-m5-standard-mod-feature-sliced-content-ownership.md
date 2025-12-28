@@ -38,6 +38,13 @@ It does not include migration steps or task breakdowns.
    - The concrete `RunRequest.recipe.steps[]` order is what the compiler uses.
    - Stages are an authoring convenience; they must not become a second source of truth.
 
+6. **Recipe is not a “map variant”.**
+   - A recipe defines **how** we generate a kind of map (the pipeline structure).
+   - A map is an **instance** of a recipe: it selects a recipe and provides a config object (values).
+   - Many different maps/presets can use the same recipe with different configs.
+     - Extremely different outcomes (e.g., “water world” vs “massive desert”) may be achievable via config alone, or may require a different recipe if the pipeline structure must change.
+   - This SPIKE does not bake “enable/disable stages” into config yet; leave room for it later without making it a requirement now.
+
 ---
 
 ## 1) Anchor in the existing runtime contract (what already exists)
@@ -97,7 +104,7 @@ Mod content packages:
 
 ---
 
-## 3) Mod content package structure (one recipe = one mini-package)
+## 3) Mod content package structure (many maps per recipe; one recipe = one mini-package)
 
 This is the canonical layout we want to converge on for `mods/mod-swooper-maps`:
 
@@ -106,9 +113,11 @@ Directory sketch (illustrative; not a file):
 mods/mod-swooper-maps/src/
 ├─ mod.ts
 ├─ maps/
+│  ├─ swooper-earthlike.ts
+│  ├─ swooper-desert-mountains.ts
 │  └─ *.ts
 ├─ recipes/
-│  ├─ earthlike/
+│  ├─ standard/
 │  │  ├─ recipe.ts
 │  │  ├─ stages/
 │  │  │  ├─ foundation/
@@ -126,14 +135,8 @@ mods/mod-swooper-maps/src/
 │  │  │     └─ steps/
 │  │  │        ├─ index.ts
 │  │  │        └─ *.ts
-│  └─ desertMountains/
-│     ├─ recipe.ts
-│     ├─ stages/
-│     │  └─ <stageId>/
-│     │     ├─ index.ts
-│     │     └─ steps/
-│     │        ├─ index.ts
-│     │        └─ *.ts
+│  └─ <recipeId>/
+│     └─ **/**
 └─ domain/
    └─ **/**
 ```
@@ -540,7 +543,7 @@ export function buildTerrainMask(_params: { roughness: number }): Uint8Array {
 
 ### 6.2 Steps (recipe-local wrappers over domain logic)
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/morphology/steps/buildHeightfield.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology/steps/buildHeightfield.ts` (whole file)
 ```ts
 import { Type } from "typebox";
 import { createStep } from "@swooper/mapgen-core/authoring";
@@ -565,7 +568,7 @@ export default createStep({
 });
 ```
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/hydrology/steps/buildClimateField.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology/steps/buildClimateField.ts` (whole file)
 ```ts
 import { Type } from "typebox";
 import { createStep } from "@swooper/mapgen-core/authoring";
@@ -589,19 +592,19 @@ export default createStep({
 
 ### 6.3 Stages (authoring-only ordering)
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/morphology/steps/index.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology/steps/index.ts` (whole file)
 ```ts
 export { default as buildHeightfield } from "./buildHeightfield";
 export type { BuildHeightfieldConfig } from "./buildHeightfield";
 ```
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/hydrology/steps/index.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology/steps/index.ts` (whole file)
 ```ts
 export { default as buildClimateField } from "./buildClimateField";
 export type { BuildClimateFieldConfig } from "./buildClimateField";
 ```
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/morphology/index.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology/index.ts` (whole file)
 ```ts
 import { createStage } from "@swooper/mapgen-core/authoring";
 import { buildHeightfield } from "./steps";
@@ -612,7 +615,7 @@ export default createStage({
 } as const);
 ```
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/hydrology/index.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology/index.ts` (whole file)
 ```ts
 import { createStage } from "@swooper/mapgen-core/authoring";
 import { buildClimateField } from "./steps";
@@ -625,7 +628,7 @@ export default createStage({
 
 ### 6.4 Recipe (canonical global order via stage composition)
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/recipe.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/standard/recipe.ts` (whole file)
 ```ts
 import { createRecipe } from "@swooper/mapgen-core/authoring";
 import type { RecipeConfigOf } from "@swooper/mapgen-core/authoring";
@@ -635,10 +638,10 @@ import hydrology from "./stages/hydrology";
 const NAMESPACE = "mod-swooper-maps";
 const stages = [morphology, hydrology] as const;
 
-export type EarthlikeRecipeConfig = RecipeConfigOf<typeof stages>;
+export type StandardRecipeConfig = RecipeConfigOf<typeof stages>;
 
 export default createRecipe({
-  id: "earthlike",
+  id: "standard",
   namespace: NAMESPACE,
   stages,
 } as const);
@@ -652,14 +655,14 @@ This is the key separation:
 
 File: `mods/mod-swooper-maps/src/maps/swooper-earthlike.ts` (excerpt; illustrative)
 ```ts
-import earthlike, { type EarthlikeRecipeConfig } from "../recipes/earthlike/recipe";
+import standard, { type StandardRecipeConfig } from "../recipes/standard/recipe";
 
 // RunSettings comes from map init + seed selection (details owned by the map runner / future publishing SDK).
 const settings = /* RunSettings */ {} as any;
 const ctx = /* MapGenContext */ {} as any;
 
 // Config instance is owned by the map (values), not by steps or the recipe definition.
-const config: EarthlikeRecipeConfig = {
+const config: StandardRecipeConfig = {
   morphology: {
     buildHeightfield: { roughness: 0.55 },
   },
@@ -668,8 +671,10 @@ const config: EarthlikeRecipeConfig = {
   },
 };
 
-earthlike.run(ctx, settings, config);
+standard.run(ctx, settings, config);
 ```
+
+Multiple maps/presets can import the same recipe module (e.g., `standard`) and supply different config instances to produce different outcomes.
 
 ---
 
@@ -677,11 +682,11 @@ earthlike.run(ctx, settings, config);
 
 File: `mods/mod-swooper-maps/src/mod.ts` (whole file)
 ```ts
-import earthlike from "./recipes/earthlike/recipe";
+import standard from "./recipes/standard/recipe";
 
 export const mod = {
   id: "mod-swooper-maps",
-  recipes: { earthlike },
+  recipes: { standard },
 } as const;
 ```
 
