@@ -68,4 +68,8 @@ Move all domain logic out of core into the standard content package via sequence
     - extract to engine-neutral `packages/mapgen-core/src/lib/**`.
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here and call out any domain modules that must be split/extracted rather than moved wholesale._
+#### P1) Domain move “purity audit” (what is truly domain?)
+- `packages/mapgen-core/src/domain` contains 129 `.ts` files.
+- No direct imports of `@mapgen/pipeline`, `@mapgen/orchestrator`, or `@swooper/mapgen-core` inside domain (clean separation).
+- Domain modules do use `EngineAdapter` types from `@civ7/adapter`, especially under `domain/placement/**`, `domain/ecology/**`, and `domain/morphology/**` (adapter-driven domain logic).
+- Recommendation: move the domain modules wholesale into `mods/mod-swooper-maps/src/domain/**`; no extraction to `packages/mapgen-core/src/lib/**` is required based on current imports. If we want adapter-free domain helpers later, do it as a follow-up refactor (not a prerequisite for the move).
