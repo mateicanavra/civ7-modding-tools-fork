@@ -13,21 +13,19 @@
 /// <reference types="@civ7/types" />
 
 import "@swooper/mapgen-core/polyfills/text-encoder";
-import {
-  applyMapInitData,
-  bootstrap,
-  runTaskGraphGeneration,
-  type OrchestratorConfig,
-} from "@swooper/mapgen-core";
-import type { BootstrapConfig } from "@swooper/mapgen-core/bootstrap";
+import standardRecipe from "../recipes/standard/recipe.js";
+import { applyMapInitData, resolveMapInitData } from "./_runtime/map-init.js";
+import { runStandardRecipe } from "./_runtime/run-standard.js";
+import type { MapInitResolution } from "./_runtime/map-init.js";
+import type { MapRuntimeOptions } from "./_runtime/types.js";
+import type { StandardRecipeOverrides } from "./_runtime/standard-config.js";
 
 /**
  * Build the Sundered Archipelago configuration.
  * Creates a fragmented world of volcanic island chains.
  */
-function buildConfig(): BootstrapConfig {
+function buildConfig(): StandardRecipeOverrides {
   return {
-    overrides: {
       landmass: {
         // Less water, but fragmented into islands not continents
         baseWaterPercent: 65,
@@ -326,19 +324,20 @@ function buildConfig(): BootstrapConfig {
         // Abundant coral reefs
         shelfReefMultiplier: 1.4,
       },
-    },
   };
 }
 
-const orchestratorOptions: OrchestratorConfig = { logPrefix: "[SUNDERED_ARCHIPELAGO]" };
+const runtimeOptions: MapRuntimeOptions = { logPrefix: "[SUNDERED_ARCHIPELAGO]" };
+let mapInitData: MapInitResolution | null = null;
 
 engine.on("RequestMapInitData", (initParams) => {
-  applyMapInitData(orchestratorOptions, initParams);
+  mapInitData = applyMapInitData(runtimeOptions, initParams);
 });
 
 engine.on("GenerateMap", () => {
-  const config = bootstrap(buildConfig());
-  runTaskGraphGeneration({ mapGenConfig: config, orchestratorOptions });
+  const overrides = buildConfig();
+  const init = mapInitData ?? resolveMapInitData(runtimeOptions);
+  runStandardRecipe({ recipe: standardRecipe, init, overrides, options: runtimeOptions });
 });
 
 console.log("[SUNDERED_ARCHIPELAGO] ========================================");

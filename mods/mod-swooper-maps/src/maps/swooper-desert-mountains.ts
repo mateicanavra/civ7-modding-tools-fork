@@ -11,22 +11,19 @@
 /// <reference types="@civ7/types" />
 
 import "@swooper/mapgen-core/polyfills/text-encoder";
-import {
-  applyMapInitData,
-  bootstrap,
-  runTaskGraphGeneration,
-  type OrchestratorConfig,
-} from "@swooper/mapgen-core";
-import type { BootstrapConfig } from "@swooper/mapgen-core/bootstrap";
-import { baseMod } from "@swooper/mapgen-core/base";
+import standardRecipe from "../recipes/standard/recipe.js";
+import { applyMapInitData, resolveMapInitData } from "./_runtime/map-init.js";
+import { runStandardRecipe } from "./_runtime/run-standard.js";
+import type { MapInitResolution } from "./_runtime/map-init.js";
+import type { MapRuntimeOptions } from "./_runtime/types.js";
+import type { StandardRecipeOverrides } from "./_runtime/standard-config.js";
 
 /**
- * Build the bootstrap configuration.
+ * Build the map overrides.
  * Uses standard, balanced defaults to ensure playability.
  */
-function buildConfig(): BootstrapConfig {
+function buildConfig(): StandardRecipeOverrides {
   return {
-    overrides: {
       landmass: {
         baseWaterPercent: 53, // More ocean for distinct continents
         waterScalar: 1,
@@ -241,24 +238,23 @@ function buildConfig(): BootstrapConfig {
         taigaExtraChance: 5,
         shelfReefMultiplier: 1.0,
       },
-    },
   };
 }
 
-// Orchestrator options (shared between requestMapData and generateMap)
-const orchestratorOptions: OrchestratorConfig = { logPrefix: "[SWOOPER_MOD]" };
+const runtimeOptions: MapRuntimeOptions = { logPrefix: "[SWOOPER_MOD]" };
+let mapInitData: MapInitResolution | null = null;
 
-// Wire engine events to orchestrator methods
-// RequestMapInitData: Bootstrap with defaults to set up map dimensions
-// Note: requestMapData() doesn't need custom config - just sets dimensions
+// Wire engine events to runtime helpers
+// RequestMapInitData: apply map dimensions before generation
 engine.on("RequestMapInitData", (initParams) => {
-  applyMapInitData(orchestratorOptions, initParams);
+  mapInitData = applyMapInitData(runtimeOptions, initParams);
 });
 
-// GenerateMap: Bootstrap with full config, then run generation
+// GenerateMap: build recipe config + execute through the engine contract
 engine.on("GenerateMap", () => {
-  const config = bootstrap(buildConfig());
-  runTaskGraphGeneration({ mod: baseMod, mapGenConfig: config, orchestratorOptions });
+  const overrides = buildConfig();
+  const init = mapInitData ?? resolveMapInitData(runtimeOptions);
+  runStandardRecipe({ recipe: standardRecipe, init, overrides, options: runtimeOptions });
 });
 
 // TypeScript build marker

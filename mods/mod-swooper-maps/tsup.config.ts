@@ -22,11 +22,11 @@ const typeboxFormatPlugin: Plugin = {
 export default defineConfig({
   // Entry points for mod maps
   entry: [
-    "src/gate-a-continents.ts",
-    "src/swooper-desert-mountains.ts",
-    "src/swooper-earthlike.ts",
-    "src/shattered-ring.ts",
-    "src/sundered-archipelago.ts",
+    "src/maps/gate-a-continents.ts",
+    "src/maps/swooper-desert-mountains.ts",
+    "src/maps/swooper-earthlike.ts",
+    "src/maps/shattered-ring.ts",
+    "src/maps/sundered-archipelago.ts",
   ],
 
   // Output directly to the structure the .modinfo expects
