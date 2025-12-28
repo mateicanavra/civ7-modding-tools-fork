@@ -3,6 +3,7 @@ import { Type } from "typebox";
 import { createMockAdapter } from "@civ7/adapter";
 import type { MapConfig } from "@mapgen/bootstrap/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { registerBaseTags } from "@mapgen/base/index.js";
 
 import {
   compileExecutionPlan,
@@ -21,6 +22,7 @@ const baseSettings = {
 describe("compileExecutionPlan", () => {
   it("compiles a linear recipe into ordered plan nodes", () => {
     const registry = new StepRegistry<unknown>();
+    registerBaseTags(registry);
     registry.register({
       id: "alpha",
       phase: "foundation",

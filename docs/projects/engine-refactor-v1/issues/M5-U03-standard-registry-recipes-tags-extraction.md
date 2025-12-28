@@ -55,6 +55,12 @@ Core stops owning the standard pipeline’s identity. The standard mod owns its 
 - Treat this as “standard ownership lives with the mod.” If a tag/recipe is about domain semantics, it should not live in core.
 - Be careful not to accidentally re-encode standard ownership by leaving “default registry” helpers in core.
 
+## Implementation Decisions
+
+- “Standard pipeline content” is implemented as the **base mod module**: `@swooper/mapgen-core/base`.
+- `StepRegistry` no longer instantiates any default tag catalog; tag registration is explicit and performed by the injected mod (`baseMod` registers `BASE_TAG_DEFINITIONS`).
+- Transitional shims remain at `@mapgen/pipeline/standard-library` and `@mapgen/pipeline/standard` as thin re-exports for compatibility, but the owned surfaces live under `@mapgen/base/*`.
+
 ## Prework Findings (Complete)
 
 Goal: enumerate what is truly “standard-owned” at the registration layer (tags/recipes/registry/phase ids) and list the import edges that keep core coupled to standard today.

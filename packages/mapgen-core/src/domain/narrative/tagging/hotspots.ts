@@ -1,6 +1,6 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { inBounds, storyKey } from "@mapgen/core/index.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 import { buildNarrativeMotifsHotspotsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { isAdjacentToLand } from "@mapgen/domain/narrative/utils/adjacency.js";

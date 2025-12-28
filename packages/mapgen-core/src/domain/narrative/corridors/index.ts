@@ -11,7 +11,7 @@
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@mapgen/core/types.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import type { CorridorsConfig, FoundationDirectionalityConfig } from "@mapgen/config/index.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/pipeline/tags.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
 import { buildNarrativeCorridorsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import {
   getNarrativeCorridors,
