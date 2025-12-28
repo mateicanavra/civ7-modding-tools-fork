@@ -23,6 +23,7 @@ It does not include migration steps or task breakdowns.
 2. **Everything else is recipe-owned.**
    - A recipe is a **mini-package**: it owns its stages, steps, and ordering.
    - Steps are not treated as globally reusable primitives; reuse happens by sharing domain logic.
+   - Every step defines a **config schema** (even if empty). Config **values** are supplied by the map that instantiates the recipe.
 
 3. **Stages remain a first-class authoring concept (not runtime).**
    - A stage is a named, ordered list of steps used to keep recipes readable.
@@ -182,7 +183,6 @@ import type { TSchema } from "typebox";
 
 import type {
   DependencyTag,
-  DependencyTagDefinition,
   ExecutionPlan,
   GenerationPhase,
   RecipeV1,
@@ -195,7 +195,8 @@ import type { ExtendedMapContext } from "@mapgen/core/types.js";
 // An authored step definition (recipe-local; owned by a recipe stage).
 // - Step-local config *values* do not live here.
 // - Config *schema* lives here; values are supplied by the map that instantiates the recipe.
-// - Tag definitions are typically inferred from tag ids (artifact:/field:/effect:), but can be overridden.
+// - Tag kinds/metadata are inferred from dependency tag ids (artifact:/field:/effect:) and can be overridden
+//   by the recipe-local tag catalog passed to `createRecipe({ tagDefinitions })`.
 export type Step<TContext = ExtendedMapContext, TConfig = unknown> = Readonly<{
   // Local id within the stage. Final runtime id is derived as:
   //   `${namespace?}.${recipeId}.${stageId}.${stepId}`
@@ -203,16 +204,14 @@ export type Step<TContext = ExtendedMapContext, TConfig = unknown> = Readonly<{
   phase: GenerationPhase;
   requires: readonly DependencyTag[];
   provides: readonly DependencyTag[];
-  schema?: TSchema;
+  // Required: every step must provide a schema (even if it's an empty object).
+  // This keeps “unknown config keys are errors” enforceable by the engine.
+  schema: TSchema;
   run: (context: TContext, config: TConfig) => void | Promise<void>;
 
   // Optional: allow multiple occurrences of the same step behavior by pinning a stable node id.
   // If omitted, instanceId defaults to the computed full step id.
   instanceId?: string;
-
-  // Advanced: explicit tag definitions (owner metadata, custom satisfiers, demos).
-  // When omitted, tag kind is inferred from id prefix.
-  tagDefinitions?: readonly DependencyTagDefinition[];
 }>;
 
 export type Stage<TContext = ExtendedMapContext> = {
@@ -323,7 +322,6 @@ type StepOccurrence<TContext> = {
   stepId: string;
   step: MapGenStep<TContext, unknown>;
   instanceId?: string;
-  tagDefinitions?: readonly DependencyTagDefinition[];
 };
 
 function inferTagKind(id: string): DependencyTagDefinition["kind"] {
@@ -372,7 +370,6 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
           run: authored.run as unknown as MapGenStep<TContext, unknown>["run"],
         },
         instanceId: authored.instanceId,
-        tagDefinitions: authored.tagDefinitions,
       });
     }
   }
@@ -381,7 +378,8 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
 }
 
 function collectTagDefinitions(
-  occurrences: readonly StepOccurrence<unknown>[]
+  occurrences: readonly StepOccurrence<unknown>[],
+  explicit: readonly DependencyTagDefinition[]
 ): DependencyTagDefinition[] {
   const defs = new Map<string, DependencyTagDefinition>();
 
@@ -394,21 +392,20 @@ function collectTagDefinitions(
     defs.set(id, { id, kind: inferTagKind(id) });
   }
 
-  // Explicit tag definitions (advanced) override inferred ones.
-  for (const occ of occurrences) {
-    for (const def of occ.tagDefinitions ?? []) {
-      defs.set(def.id, def);
-    }
+  // Explicit recipe-local tag definitions override inferred ones.
+  for (const def of explicit) {
+    defs.set(def.id, def);
   }
 
   return Array.from(defs.values());
 }
 
 function buildRegistry<TContext extends ExtendedMapContext>(
-  occurrences: readonly StepOccurrence<TContext>[]
+  occurrences: readonly StepOccurrence<TContext>[],
+  tagDefinitions: readonly DependencyTagDefinition[]
 ) {
   const tags = new TagRegistry();
-  tags.registerTags(collectTagDefinitions(occurrences));
+  tags.registerTags(collectTagDefinitions(occurrences, tagDefinitions));
 
   const registry = new StepRegistry<TContext>({ tags });
   for (const occ of occurrences) registry.register(occ.step);
@@ -429,6 +426,9 @@ function toStructuralRecipeV1(id: string, occurrences: readonly StepOccurrence<u
 export function createRecipe<TContext extends ExtendedMapContext>(input: {
   id: string;
   namespace?: string;
+  // Recipe-local tag catalog/definitions (may be empty, but always provided).
+  // This is the replacement for `base/tags.ts`.
+  tagDefinitions: readonly DependencyTagDefinition[];
   stages: readonly Stage<TContext>[];
 }): RecipeModule<TContext> {
   const occurrences = finalizeOccurrences({
@@ -436,7 +436,7 @@ export function createRecipe<TContext extends ExtendedMapContext>(input: {
     recipeId: input.id,
     stages: input.stages,
   });
-  const registry = buildRegistry(occurrences);
+  const registry = buildRegistry(occurrences, input.tagDefinitions);
   const recipe = toStructuralRecipeV1(input.id, occurrences);
 
   function instantiate(config?: RecipeConfig | null): RecipeV1 {
@@ -643,6 +643,7 @@ export type StandardRecipeConfig = RecipeConfigOf<typeof stages>;
 export default createRecipe({
   id: "standard",
   namespace: NAMESPACE,
+  tagDefinitions: [],
   stages,
 } as const);
 ```
@@ -1023,17 +1024,7 @@ New required content files (added; not currently present):
 - `packages/mapgen-core/src/engine/context.ts` (engine-owned context + writers; no `MapGenConfig`), and
 - mod-owned foundation/story artifact types + validators under `mods/mod-swooper-maps/src/domain/**`.
 
-2) **Per-step config schema enforcement**  
-SPEC 1.2 says unknown config keys are errors. Today, `compileExecutionPlan` only validates config when `step.configSchema` is present. Decide one (implementation task):
-- require all authored steps to provide a schema (even empty), or
-- make engine treat missing schema as `EmptyStepConfigSchema` (preferred for author DX).
-
-3) **Recipe-local tag definitions**  
-`TagRegistry` supports rich tag definitions (`owner`, `satisfies`, `demo`). The standard recipe currently centralizes those in `base/tags.ts`. We need a clean recipe-local replacement:
-- either pass `tagDefinitions` into `createRecipe(...)`, or
-- attach `tagDefinitions` to steps (more duplication risk).
-
-4) **Runner/publishing SDK extraction**  
+2) **Runner/publishing SDK extraction**  
 We mapped `orchestrator/**` to `runner/**` and deleted `task-graph.ts`, but we still need a minimal, non-legacy map runner story for:
 - resolving map init params,
 - building the engine context,
