@@ -72,4 +72,31 @@ Translate base mod step implementations into recipe-local stage and step files.
   - A list of steps missing `configSchema` today and a proposed empty schema to add during translation.
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here; include any steps that need special handling during translation._
+#### P1) Per-stage step inventory (files + exports + ids)
+- Foundation:
+  - File: `packages/mapgen-core/src/base/pipeline/foundation/FoundationStep.ts`
+  - Export: `createFoundationStep` (stage id: `foundation`)
+  - Barrel: `packages/mapgen-core/src/base/pipeline/foundation/steps.ts` (named re-exports)
+- Morphology:
+  - Files: `LandmassStep.ts`, `CoastlinesStep.ts`, `RuggedCoastsStep.ts`, `IslandsStep.ts`, `MountainsStep.ts`, `VolcanoesStep.ts`
+  - Exports: `createLandmassPlatesStep`, `createCoastlinesStep`, `createRuggedCoastsStep`, `createIslandsStep`, `createMountainsStep`, `createVolcanoesStep`
+  - Barrel: `packages/mapgen-core/src/base/pipeline/morphology/steps.ts`
+- Narrative (no `steps.ts` barrel today; exports are in stage index):
+  - Files: `StorySeedStep.ts`, `StoryHotspotsStep.ts`, `StoryRiftsStep.ts`, `StoryOrogenyStep.ts`, `StoryCorridorsStep.ts`, `StorySwatchesStep.ts`
+  - Exports: `createStorySeedStep`, `createStoryHotspotsStep`, `createStoryRiftsStep`, `createStoryOrogenyStep`, `createStoryCorridorsPreStep`, `createStoryCorridorsPostStep`, `createStorySwatchesStep`
+- Hydrology:
+  - Files: `ClimateBaselineStep.ts`, `LakesStep.ts`, `RiversStep.ts`, `ClimateRefineStep.ts`
+  - Exports: `createClimateBaselineStep`, `createLakesStep`, `createRiversStep`, `createClimateRefineStep`
+  - Barrel: `packages/mapgen-core/src/base/pipeline/hydrology/steps.ts`
+- Ecology:
+  - Files: `BiomesStep.ts`, `FeaturesStep.ts`
+  - Exports: `createBiomesStep`, `createFeaturesStep`
+  - Barrel: `packages/mapgen-core/src/base/pipeline/ecology/steps.ts`
+- Placement:
+  - Files: `DerivePlacementInputsStep.ts`, `PlacementStep.ts`
+  - Exports: `createDerivePlacementInputsStep`, `createPlacementStep`
+  - Barrel: `packages/mapgen-core/src/base/pipeline/placement/steps.ts`
+
+#### P2) Config schema presence audit (must be explicit everywhere)
+- All base step factories already define `configSchema` (many use `EmptyStepConfigSchema` for no-config steps).
+- Translation must preserve explicit schemas in every step file to satisfy authoring requirements.
