@@ -12,11 +12,6 @@ import type { DependencyTagDefinition } from "@mapgen/engine/tags.js";
 import type { TraceSession } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
-// Bivariant callback keeps heterogeneous step configs assignable in Stage without widening to any.
-type StepRunner<TContext, TConfig> = {
-  bivarianceHack: (context: TContext, config: TConfig) => void | Promise<void>;
-}["bivarianceHack"];
-
 export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
   readonly id: string;
   readonly phase: GenerationPhase;
@@ -24,12 +19,15 @@ export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
   readonly provides: readonly DependencyTag[];
   readonly schema: TSchema;
   readonly instanceId?: string;
-  run: StepRunner<TContext, TConfig>;
+  run: (context: TContext, config: TConfig) => void | Promise<void>;
 };
 
-export type Stage<TContext = ExtendedMapContext> = {
+export type Stage<
+  TContext = ExtendedMapContext,
+  TSteps extends readonly Step<TContext, any>[] = readonly Step<TContext, any>[],
+> = {
   readonly id: string;
-  readonly steps: readonly Step<TContext, unknown>[];
+  readonly steps: TSteps;
 };
 
 export type RecipeConfig = Readonly<Record<string, Readonly<Record<string, unknown>>>>;
@@ -41,15 +39,16 @@ type UnionToIntersection<T> = (T extends unknown ? (x: T) => void : never) exten
   : never;
 
 type StepConfigById<
-  TStage extends Stage<any>,
+  TStage extends Stage<any, readonly Step<any, any>[]>,
   TStepId extends string,
 > = Extract<TStage["steps"][number], { id: TStepId }> extends Step<any, infer TConfig>
   ? TConfig
   : unknown;
 
-export type RecipeConfigOf<TStages extends readonly Stage<any>[]> = UnionToIntersection<
+export type RecipeConfigOf<TStages extends readonly Stage<any, readonly Step<any, any>[]>[]> =
+  UnionToIntersection<
   TStages[number] extends infer TStage
-    ? TStage extends Stage<any>
+    ? TStage extends Stage<any, readonly Step<any, any>[]>
       ? Readonly<
           Record<
             TStage["id"],
@@ -62,26 +61,35 @@ export type RecipeConfigOf<TStages extends readonly Stage<any>[]> = UnionToInter
     : never
 >;
 
-export type RecipeDefinition<TContext = ExtendedMapContext> = Readonly<{
+export type RecipeDefinition<
+  TContext = ExtendedMapContext,
+  TStages extends readonly Stage<TContext, readonly Step<TContext, any>[]>[] = readonly Stage<
+    TContext,
+    readonly Step<TContext, any>[]
+  >[],
+> = Readonly<{
   id: string;
   namespace?: string;
   tagDefinitions: readonly DependencyTagDefinition<TContext>[];
-  stages: readonly Stage<TContext>[];
+  stages: TStages;
 }>;
 
-export type RecipeModule<TContext = ExtendedMapContext> = {
+export type RecipeModule<TContext = ExtendedMapContext, TConfig = RecipeConfig | null> = {
   readonly id: string;
   readonly recipe: RecipeV1;
-  instantiate: (config?: RecipeConfig | null) => RecipeV1;
-  runRequest: (settings: RunSettings, config?: RecipeConfig | null) => RunRequest;
-  compile: (settings: RunSettings, config?: RecipeConfig | null) => ExecutionPlan;
+  instantiate: (config?: TConfig) => RecipeV1;
+  runRequest: (settings: RunSettings, config?: TConfig) => RunRequest;
+  compile: (settings: RunSettings, config?: TConfig) => ExecutionPlan;
   run: (
     context: TContext,
     settings: RunSettings,
-    config?: RecipeConfig | null,
+    config?: TConfig,
     options?: { trace?: TraceSession | null; log?: (message: string) => void }
   ) => void;
 };
 
 export type StepModule<TContext = ExtendedMapContext, TConfig = unknown> = Step<TContext, TConfig>;
-export type StageModule<TContext = ExtendedMapContext> = Stage<TContext>;
+export type StageModule<
+  TContext = ExtendedMapContext,
+  TSteps extends readonly Step<TContext, any>[] = readonly Step<TContext, any>[],
+> = Stage<TContext, TSteps>;
