@@ -52,17 +52,6 @@ Re-author the standard recipe as a mod-owned mini-package by completing the chil
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Prompts (run before implementation)
-
-#### P1) Standard recipe baseline inventory (order + step ids)
-- **Goal:** Capture the current “standard” ordering from the base mod so the new recipe composes the same structure (purist cutover, but deterministic).
-- **Commands:**
-  - `sed -n '1,200p' packages/mapgen-core/src/base/recipes/default.ts`
-  - `find packages/mapgen-core/src/base/pipeline -maxdepth 2 -type f -name "*Step.ts" -print`
-- **Output to capture:**
-  - The ordered list of current step IDs (and any `instanceId` usage).
-  - The list of step implementation files that must be translated into recipe-local stage/steps folders.
-
 ### Prework Findings (Pending)
 #### P1) Standard recipe baseline inventory (order + step ids)
 - Current base recipe order (`packages/mapgen-core/src/base/recipes/default.ts`), no `instanceId` usage:
