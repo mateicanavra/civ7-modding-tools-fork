@@ -84,6 +84,7 @@ The standard mod is a “feature-sliced app” composed of stage mini-packages:
 
 ### 3.1 `@swooper/mapgen-core` (engine + authoring only)
 
+Directory sketch (illustrative; not a file):
 ```text
 packages/mapgen-core/src/
 ├─ engine/
@@ -114,6 +115,7 @@ packages/mapgen-core/src/
 
 ### 3.2 `mod-swooper-maps` (standard content + map entrypoints)
 
+Directory sketch (illustrative; not a file):
 ```text
 mods/mod-swooper-maps/src/
 ├─ standard/
@@ -164,6 +166,7 @@ Notes:
 
 Each `mods/mod-swooper-maps/src/standard/stages/<stage>/index.ts` exports exactly one `Stage` value:
 
+File: `packages/mapgen-core/src/authoring/stage.ts` (excerpt)
 ```ts
 import type { Step, Registry } from "@swooper/mapgen-core/authoring";
 
@@ -183,6 +186,7 @@ export interface Stage {
 
 `authoring/index.ts` exports a thin helper for defining a step entry (step + tag definitions):
 
+File: `packages/mapgen-core/src/authoring/index.ts` (excerpt)
 ```ts
 import type { RegistryEntry, Step } from "@swooper/mapgen-core/authoring";
 
@@ -197,6 +201,7 @@ export function defineStep(input: RegistryEntry): Step {
 
 `authoring/stage.ts` provides a minimal helper that reduces manual wiring:
 
+File: `packages/mapgen-core/src/authoring/stage.ts` (excerpt)
 ```ts
 export function defineStage(input: {
   id: string;
@@ -213,7 +218,10 @@ export function defineStage(input: {
 
 `authoring/recipe.ts` provides a single helper to build a structural `Recipe` from an ordered list of steps.
 Per-step config is supplied later (see §6), not at recipe authoring time.
+`buildRunRequest` materializes the concrete `RunRequest.recipe` (with per-step config)
+to match SPEC §1.2.
 
+File: `packages/mapgen-core/src/authoring/recipe.ts` (excerpt)
 ```ts
 export function defineRecipe(input: {
   schemaVersion: number;
@@ -233,6 +241,7 @@ export function defineRecipe(input: {
 - Interleaving is still possible by explicitly composing the list (no DSL required).
 
 There is no duplication of step IDs: recipes use step references, not re-spelled IDs.
+The concrete `RunRequest.recipe` preserves the same step order and adds per-step config.
 
 ### 4.6 Where `requires` / `provides` live (no semantic regression)
 
@@ -250,6 +259,7 @@ In other words: stages/recipes decide ordering; steps decide contracts; the engi
 
 ### 5.1 Stage example (non-narrative)
 
+File: `mods/mod-swooper-maps/src/standard/stages/morphology/index.ts` (full file sketch)
 ```ts
 import { defineStage } from "@swooper/mapgen-core/authoring";
 import { landmassPlatesStep, coastlinesStep } from "./steps";
@@ -264,6 +274,7 @@ export { landmassPlatesStep, coastlinesStep };
 
 ### 5.2 Step entry example (tags live with steps)
 
+File: `mods/mod-swooper-maps/src/standard/stages/morphology/steps/landmassPlates.ts` (full file sketch)
 ```ts
 import { defineStep } from "@swooper/mapgen-core/authoring";
 import { continentMaskTag } from "../artifacts";
@@ -284,6 +295,7 @@ export const landmassPlatesStep = defineStep({
 
 ### 5.3 Step barrel example (explicit exports only)
 
+File: `mods/mod-swooper-maps/src/standard/stages/morphology/steps/index.ts` (full file sketch)
 ```ts
 export { landmassPlatesStep } from "./landmassPlates";
 export { coastlinesStep } from "./coastlines";
@@ -291,6 +303,7 @@ export { coastlinesStep } from "./coastlines";
 
 ### 5.4 Recipe example (canonical global order)
 
+File: `mods/mod-swooper-maps/src/standard/recipes/default.ts` (full file sketch)
 ```ts
 import { defineRecipe } from "@swooper/mapgen-core/authoring";
 import { foundation, morphology, hydrology } from "../stages";
@@ -307,6 +320,7 @@ export const defaultRecipe = defineRecipe({
 
 ### 5.5 Map entrypoint example (consumer config + recipe)
 
+File: `mods/mod-swooper-maps/src/swooper-earthlike.ts` (full file sketch)
 ```ts
 import { buildRunRequest } from "./standard/run-request";
 import { defaultRecipe } from "./standard/recipes/default";
@@ -351,6 +365,7 @@ Any narrative interleaving examples are deferred to a dedicated narrative SPIKE 
 **Structural recipe (mod package)**
 - Lives in `mods/mod-swooper-maps/src/standard/recipes/*`.
 - Defines the default ordering only (no per-map overrides baked in).
+- This is a structural template; it is not the final `RunRequest.recipe` passed to the engine.
 
 **Concrete config (map entry)**
 - Lives in `mods/mod-swooper-maps/src/*.ts`.
@@ -359,7 +374,8 @@ Any narrative interleaving examples are deferred to a dedicated narrative SPIKE 
 **Config → step config mapping**
 - Lives with the standard mod content (current `packages/mapgen-core/src/base/run-request.ts`).
 - Moves to `mods/mod-swooper-maps/src/standard/run-request.ts`.
-- Combines `Recipe` + explicit config into a concrete `RunRequest` used by the engine.
+- Combines the structural recipe + explicit config into a **concrete** `RunRequest.recipe`
+  that includes per-step config, matching SPEC §1.2 (`RunRequest = { recipe, settings }`).
 
 **Settings (runtime options)**
 - `RunRequest.settings` is the canonical home for runtime options (seed, dimensions, tracing).
