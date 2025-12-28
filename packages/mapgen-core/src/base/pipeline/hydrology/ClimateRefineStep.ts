@@ -6,7 +6,7 @@ import { publishClimateFieldArtifact } from "@mapgen/base/pipeline/artifacts.js"
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/engine/index.js";
 import { ClimateConfigSchema, OrogenyTunablesSchema } from "@mapgen/config/index.js";
-import { refineClimateEarthlike } from "@mapgen/domain/hydrology/climate/index.js";
+import { refineClimateEarthlike } from "@mapgen-content/hydrology/climate/index.js";
 
 export interface ClimateRefineStepOptions {
   requires: readonly string[];

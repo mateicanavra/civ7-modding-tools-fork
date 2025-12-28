@@ -34,30 +34,6 @@
       "types": "./dist/trace/index.d.ts",
       "import": "./dist/trace/index.js"
     },
-    "./domain": {
-      "types": "./dist/domain/index.d.ts",
-      "import": "./dist/domain/index.js"
-    },
-    "./domain/morphology": {
-      "types": "./dist/domain/morphology/index.d.ts",
-      "import": "./dist/domain/morphology/index.js"
-    },
-    "./domain/hydrology": {
-      "types": "./dist/domain/hydrology/index.d.ts",
-      "import": "./dist/domain/hydrology/index.js"
-    },
-    "./domain/ecology": {
-      "types": "./dist/domain/ecology/index.d.ts",
-      "import": "./dist/domain/ecology/index.js"
-    },
-    "./domain/narrative": {
-      "types": "./dist/domain/narrative/index.d.ts",
-      "import": "./dist/domain/narrative/index.js"
-    },
-    "./domain/placement": {
-      "types": "./dist/domain/placement/index.d.ts",
-      "import": "./dist/domain/placement/index.js"
-    },
     "./lib/math": {
       "types": "./dist/lib/math/index.d.ts",
       "import": "./dist/lib/math/index.js"

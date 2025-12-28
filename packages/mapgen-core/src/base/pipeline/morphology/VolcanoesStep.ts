@@ -7,7 +7,7 @@ import type { VolcanoesConfig } from "@mapgen/bootstrap/types.js";
 import { VolcanoesConfigSchema } from "@mapgen/config/index.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/engine/index.js";
-import { layerAddVolcanoesPlateAware } from "@mapgen/domain/morphology/volcanoes/index.js";
+import { layerAddVolcanoesPlateAware } from "@mapgen-content/morphology/volcanoes/index.js";
 
 export interface VolcanoesStepOptions {
   requires: readonly string[];
