@@ -228,13 +228,9 @@ mods/mod-swooper-maps/
 End-state invariants:
 - No `mods/mod-swooper-maps/src/config/**` module. Config schema fragments live under `src/domain/config/schema/**` and step schemas are co-located with step modules.
 - No `packages/mapgen-core/src/core/**` module. Engine-owned context/helpers live under `src/engine/**`; content-owned artifacts/tags/validators live under the mod.
-<<<<<<< HEAD
 - No `packages/mapgen-core/src/config/**` or `packages/mapgen-core/src/bootstrap/**` modules. Config schemas live under `mods/mod-swooper-maps/src/domain/config/schema/**`; maps provide config instances directly.
 - No `packages/mapgen-core/src/base/**` or `packages/mapgen-core/src/pipeline/mod.ts`. Standard content lives entirely in `mods/mod-swooper-maps/src/recipes/**` + `mods/mod-swooper-maps/src/domain/**`.
 - `packages/mapgen-core/src/engine/context.ts` is the only engine-owned context surface; `MapGenConfig` is removed from core.
-=======
-
->>>>>>> 8d8f9a70 (docs: add spike target tree and remediation wiring)
 ---
 
 ## 4) Authoring SDK: minimal factories (`createStep`, `createStage`, `createRecipe`)
