@@ -168,7 +168,7 @@ Move all domain logic into the content package and remove core domain ownership.
 **Children**
 - [x] [LOCAL-TBD-M6-U04-1](../issues/LOCAL-TBD-M6-U04-1-relocate-domain-modules-to-mod-owned-libs.md) — Done (branch: `m6-u04-1-relocate-domain-modules-to-mod-owned-libs`; review: `m6-u04-1-review-relocate-domain-modules-to-mod-owned-libs`; PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/289)
 - [x] [LOCAL-TBD-M6-U04-2](../issues/LOCAL-TBD-M6-U04-2-update-recipe-steps-to-use-mod-owned-domain-libs.md) — Done (branch: `m6-u04-2-update-recipe-steps-to-use-mod-owned-domain-libs`; review: `m6-u04-2-review-update-recipe-steps-to-use-mod-owned-domain-libs`; PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/290)
-- [LOCAL-TBD-M6-U04-3](../issues/LOCAL-TBD-M6-U04-3-remove-core-domain-exports-and-clean-import-edges.md)
+- [x] [LOCAL-TBD-M6-U04-3](../issues/LOCAL-TBD-M6-U04-3-remove-core-domain-exports-and-clean-import-edges.md) — Done (branch: `m6-u04-3-remove-core-domain-exports-and-clean-import-edges`; PR: pending)
 
 ### LOCAL-TBD-M6-U05 — Re-author standard recipe as a mini-package (parent)
 Issue doc: [LOCAL-TBD-M6-U05](../issues/LOCAL-TBD-M6-U05-re-author-standard-recipe-as-a-mini-package.md)
