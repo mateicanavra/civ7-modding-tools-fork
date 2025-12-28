@@ -12,7 +12,7 @@ import {
   finalizeStoryOverlay,
   getStoryOverlay,
 } from "@mapgen/domain/narrative/overlays/index.js";
-import type { StoryOverlaySnapshot } from "@mapgen/core/types.js";
+import type { StoryOverlaySnapshot } from "@swooper/mapgen-core";
 
 describe("story/overlays", () => {
   let ctx: { overlays?: Map<string, StoryOverlaySnapshot> };
