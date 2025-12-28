@@ -48,6 +48,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Confirm the expanded export surface is acceptable and update documentation/tests as needed.
   - **Next check:** before publishing the mapgen-core package or declaring the content package boundary stable.
 
+- **Mapgen-core `@mapgen/domain` alias now points at the mod domain** [Source: LOCAL-TBD-M6-U04-2]
+  - **Context:** Base pipeline steps still live in mapgen-core but must resolve domain logic from `mods/mod-swooper-maps/src/domain`.
+  - **Type:** triage
+  - **Notes:** Alias redirect couples mapgen-core builds to the mod tree until steps move; verify packaging/story around releases.
+  - **Next check:** before removing core domain exports or publishing updated SDK packages.
+
 - **Plot tag/region helper renames + adapter ID methods** [Source: CIV-67]
   - **Context:** CIV-67 engine-boundary cleanup removes engine-global tokens from mapgen-core and routes plot-tag/region IDs through new adapter methods.
   - **Type:** triage
