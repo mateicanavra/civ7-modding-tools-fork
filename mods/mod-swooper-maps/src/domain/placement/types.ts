@@ -1,9 +1,5 @@
-import type {
-  PlacementConfig,
-  FloodplainsConfig,
-  ContinentBounds,
-  StartsConfig,
-} from "@swooper/mapgen-core/bootstrap";
+import type { ContinentBounds } from "@civ7/adapter";
+import type { PlacementConfig, FloodplainsConfig, StartsConfig } from "@mapgen/config";
 
 export type { PlacementConfig, FloodplainsConfig, ContinentBounds, StartsConfig };
 
@@ -19,4 +15,3 @@ export interface PlacementOptions {
   starts?: StartsConfig;
   placementConfig?: PlacementConfig;
 }
-

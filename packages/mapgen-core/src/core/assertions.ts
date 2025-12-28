@@ -4,6 +4,7 @@ import type {
   FoundationDiagnosticsFields,
   FoundationDynamicsFields,
   FoundationPlateFields,
+  SeedSnapshot,
 } from "@mapgen/core/types.js";
 import {
   FOUNDATION_CONFIG_ARTIFACT_TAG,
@@ -17,8 +18,6 @@ import {
   validateFoundationPlatesArtifact,
   validateFoundationSeedArtifact,
 } from "@mapgen/core/types.js";
-import type { SeedSnapshot } from "@mapgen/base/foundation/types.js";
-
 function requireContext(ctx: ExtendedMapContext | null, stageName: string): ExtendedMapContext {
   if (!ctx) {
     throw new Error(`Stage "${stageName}" requires ExtendedMapContext but ctx is null`);

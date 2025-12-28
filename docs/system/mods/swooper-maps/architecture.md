@@ -1,39 +1,27 @@
-# Map Generator Bootstrap Architecture
+# Map Generator Runtime Architecture
 
 ## Overview
 
 This mod uses **explicit overrides + recipe selection** so variants can share one codebase while choosing configuration and step enablement explicitly (no preset composition in the TS runtime).
 
-## Current TypeScript Architecture (M4)
+## Current TypeScript Architecture (M6)
 
-- Entry scripts call `bootstrap({ overrides })` from `@swooper/mapgen-core/bootstrap` and receive a validated `MapGenConfig`.
-- Entry scripts call `applyMapInitData` to resolve map settings and seed the adapter with init data.
-- Entry scripts select or derive a RecipeV1 (often from the injected `baseMod`) and pass it via `runTaskGraphGeneration`.
-- Steps/layers read config from `context.config` (no global runtime config store, no `bootstrap/tunables` module).
+- Entry scripts resolve map init data via `applyMapInitData` / `resolveMapInitData` in `src/maps/_runtime/map-init.ts`.
+- Entry scripts build run settings + recipe config (see `src/maps/_runtime/standard-config.ts`).
+- Entry scripts select a recipe (e.g., `standardRecipe`) and execute via `runStandardRecipe` (or `recipe.run` directly).
+- Steps read per-step config from the recipe config; runtime overrides (if any) live in `ExtendedMapContext.config`.
 
 Example (minimal runnable pipeline):
 ```ts
-import { baseMod } from "@swooper/mapgen-core/base";
-import { applyMapInitData, bootstrap, runTaskGraphGeneration } from "@swooper/mapgen-core";
+import standardRecipe from "./recipes/standard/recipe.js";
+import { applyMapInitData } from "./maps/_runtime/map-init.js";
+import { runStandardRecipe } from "./maps/_runtime/run-standard.js";
 
-const config = bootstrap({
-  overrides: {},
-});
-
-applyMapInitData({ logPrefix: "[MOD]" });
-
-const recipe = {
-  schemaVersion: 1,
-  steps: baseMod.recipes.default.steps.map((step) => ({
-    ...step,
-    enabled: step.id === "foundation" || step.id === "landmassPlates",
-  })),
-};
-
-runTaskGraphGeneration({ mod: baseMod, mapGenConfig: config, orchestratorOptions: { recipeOverride: recipe } });
+const init = applyMapInitData({ logPrefix: "[MOD]" });
+runStandardRecipe({ recipe: standardRecipe, init, overrides: {} });
 ```
 
-## Dependency Chain Visualization (M4)
+## Dependency Chain Visualization (M6)
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -43,20 +31,19 @@ runTaskGraphGeneration({ mod: baseMod, mapGenConfig: config, orchestratorOptions
                     │
         ┌───────────▼──────────┐
         │ Entry File           │
-        │ ├─ bootstrap()       │  ← Validates overrides
-        │ ├─ applyMapInitData  │  ← Adapter seed
-        │ └─ runTaskGraphGen   │  ← Executes pipeline
+        │ ├─ applyMapInitData  │  ← Adapter seed + init
+        │ └─ runStandardRecipe │  ← Executes recipe
         └───────────┬──────────┘
                     │
         ┌───────────▼──────────┐
-        │ runTaskGraphGen      │
+        │ recipe.run()         │
         │ ├─ compile plan      │  ← ExecutionPlan
-        │ └─ execute plan       │  ← PipelineExecutor
+        │ └─ execute plan      │  ← PipelineExecutor
         └───────────┬──────────┘
                     │
         ┌───────────▼──────────┐
         │ Step graph            │
-        │ └─ steps read config  │  ← context.config
+        │ └─ steps read config  │  ← recipe config + context.config overrides
         └──────────────────────┘
 ```
 

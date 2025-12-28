@@ -5,17 +5,14 @@
  * via `bun test` without the Civ7 game engine.
  *
  * Architecture:
- * - bootstrap/: Configuration providers (lazy-loaded)
  * - engine/: Step wiring + execution primitives
+ * - authoring/: Recipe/stage/step factories
  * - core/: Shared utilities and types
  * - content package: mod-owned domain libraries + recipes live in mods/mod-swooper-maps
  */
 
 // Re-export core types from adapter
 export type { EngineAdapter, MapContext } from "@civ7/adapter";
-
-// Re-export bootstrap entry
-export { bootstrap } from "@mapgen/bootstrap/entry.js";
 
 // Re-export core utilities and types
 export * from "@mapgen/core/index.js";
@@ -25,18 +22,6 @@ export * from "@mapgen/dev/index.js";
 
 // Re-export tracing primitives
 export * from "@mapgen/trace/index.js";
-
-// Orchestration helpers (RunRequest → ExecutionPlan entry)
-export { applyMapInitData, resolveMapInitData } from "@mapgen/orchestrator/map-init.js";
-export { runTaskGraphGeneration } from "@mapgen/orchestrator/task-graph.js";
-export type {
-  GenerationResult,
-  MapInfo,
-  MapInitParams,
-  MapSizeDefaults,
-  OrchestratorConfig,
-  StageResult,
-} from "@mapgen/orchestrator/types.js";
 
 // Re-export engine primitives (runtime SDK)
 export * from "@mapgen/engine/index.js";

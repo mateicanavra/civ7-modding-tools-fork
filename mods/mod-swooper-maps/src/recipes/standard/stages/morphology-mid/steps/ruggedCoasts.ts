@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { CoastlinesConfigSchema, CorridorsConfigSchema } from "@swooper/mapgen-core/config";
+import { CoastlinesConfigSchema, CorridorsConfigSchema } from "@mapgen/config";
 import { addRuggedCoasts } from "@mapgen/domain/morphology/coastlines/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 

@@ -5,7 +5,6 @@ export type {
   MapGenStep,
   PipelineStepResult,
 } from "@mapgen/engine/types.js";
-export type { PipelineModV1 } from "@mapgen/engine/mod.js";
 export {
   DuplicateStepError,
   UnknownStepError,

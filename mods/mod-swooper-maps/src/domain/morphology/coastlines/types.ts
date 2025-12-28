@@ -5,7 +5,7 @@ import type {
   CoastlineFjordConfig as BootstrapCoastlineFjordConfig,
   SeaCorridorPolicy as BootstrapSeaCorridorPolicy,
   CorridorsConfig,
-} from "@swooper/mapgen-core/bootstrap";
+} from "@mapgen/config";
 
 export type CoastlinePlateBiasConfig = BootstrapCoastlinePlateBiasConfig;
 export type CoastlineBayConfig = BootstrapCoastlineBayConfig;

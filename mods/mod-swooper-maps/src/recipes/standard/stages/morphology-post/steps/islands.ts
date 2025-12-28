@@ -5,7 +5,7 @@ import {
   HotspotTunablesSchema,
   IslandsConfigSchema,
   SeaCorridorPolicySchema,
-} from "@swooper/mapgen-core/config";
+} from "@mapgen/config";
 import { addIslandChains } from "@mapgen/domain/morphology/islands/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 

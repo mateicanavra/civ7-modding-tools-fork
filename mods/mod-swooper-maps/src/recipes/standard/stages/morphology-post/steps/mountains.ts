@@ -8,8 +8,8 @@ import {
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import type { MountainsConfig } from "@swooper/mapgen-core/config";
-import { MountainsConfigSchema } from "@swooper/mapgen-core/config";
+import type { MountainsConfig } from "@mapgen/config";
+import { MountainsConfigSchema } from "@mapgen/config";
 import { layerAddMountainsPhysics } from "@mapgen/domain/morphology/mountains/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
