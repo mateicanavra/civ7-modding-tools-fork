@@ -228,12 +228,5 @@ export interface VoronoiUtilsInterface {
   normalize(v: Point2D): Point2D;
 }
 
-/** Random implementation interface */
-export interface RandomInterface {
-  getState(): RngState | null;
-  setState(state: RngState): void;
-  seed?(value: number): void;
-}
-
 /** RNG function type */
 export type RngFunction = (max: number, label?: string) => number;

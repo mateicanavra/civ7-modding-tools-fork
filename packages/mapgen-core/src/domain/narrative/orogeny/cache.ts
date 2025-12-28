@@ -20,15 +20,3 @@ export function getOrogenyCache(ctx: ExtendedMapContext | null | undefined): Oro
   ctx.artifacts?.set(OROGENY_CACHE_ARTIFACT_KEY, created);
   return created;
 }
-
-export function resetOrogenyCache(ctx: ExtendedMapContext | null | undefined): void {
-  if (!ctx) return;
-  ctx.artifacts?.set(OROGENY_CACHE_ARTIFACT_KEY, createCache());
-}
-
-export function clearOrogenyCache(ctx: ExtendedMapContext | null | undefined): void {
-  const cache = getOrogenyCache(ctx);
-  cache.belts.clear();
-  cache.windward.clear();
-  cache.lee.clear();
-}

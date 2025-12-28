@@ -10,6 +10,7 @@ import type {
   PlateConfig,
   RngFunction,
   SeedSnapshot,
+  VoronoiUtilsInterface,
 } from "@mapgen/base/foundation/types.js";
 
 interface PlateFieldsResult {
@@ -59,7 +60,8 @@ function computePlates(
   width: number,
   height: number,
   config: FoundationConfig,
-  rng: RngFunction
+  rng: RngFunction,
+  voronoiUtils: VoronoiUtilsInterface
 ): PlateFieldsResult {
   const plateConfig = buildPlateConfig(config);
 
@@ -87,24 +89,9 @@ function computePlates(
       `windsFollowPlates=${directionalityCfg?.interplay?.windsFollowPlates ?? "n/a"}`
   );
 
-  const { snapshot: seedBase, restore: restoreSeed } = PlateSeedManager.capture(
-    width,
-    height,
-    plateConfig
-  );
-
+  const { snapshot: seedBase } = PlateSeedManager.capture(width, height, plateConfig);
   let plateData: ReturnType<typeof computePlatesVoronoi> | null = null;
-  try {
-    plateData = computePlatesVoronoi(width, height, plateConfig, { rng });
-  } finally {
-    if (typeof restoreSeed === "function") {
-      try {
-        restoreSeed();
-      } catch {
-        /* no-op */
-      }
-    }
-  }
+  plateData = computePlatesVoronoi(width, height, plateConfig, { rng, voronoiUtils });
 
   if (!plateData) {
     throw new Error("[Foundation] Plate generation failed.");
@@ -341,7 +328,7 @@ export function buildFoundationContext(
     throw new Error("[Foundation] Adapter missing isWater.");
   }
 
-  const plateResult = computePlates(width, height, foundationCfg, rng);
+  const plateResult = computePlates(width, height, foundationCfg, rng, adapter.getVoronoiUtils());
   const dynamicsResult = computeDynamics(
     width,
     height,

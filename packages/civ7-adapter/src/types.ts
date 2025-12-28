@@ -68,6 +68,53 @@ export interface MapInfo {
   [key: string]: unknown;
 }
 
+// ============================================================================
+// Voronoi Utilities (foundation dependency)
+// ============================================================================
+
+export interface VoronoiPoint2D {
+  x: number;
+  y: number;
+}
+
+export interface VoronoiSite extends VoronoiPoint2D {
+  voronoiId?: number;
+}
+
+export interface VoronoiHalfEdge {
+  getStartpoint(): VoronoiPoint2D;
+  getEndpoint(): VoronoiPoint2D;
+}
+
+export interface VoronoiCell {
+  site: VoronoiSite;
+  halfedges: VoronoiHalfEdge[];
+}
+
+export interface VoronoiDiagram {
+  cells: VoronoiCell[];
+  edges: unknown[];
+  vertices: VoronoiPoint2D[];
+}
+
+export interface VoronoiBoundingBox {
+  xl: number;
+  xr: number;
+  yt: number;
+  yb: number;
+}
+
+export interface VoronoiUtils {
+  createRandomSites(count: number, width: number, height: number): VoronoiSite[];
+  computeVoronoi(
+    sites: VoronoiSite[],
+    bbox: VoronoiBoundingBox,
+    relaxationSteps?: number
+  ): VoronoiDiagram;
+  calculateCellArea(cell: VoronoiCell): number;
+  normalize(v: VoronoiPoint2D): VoronoiPoint2D;
+}
+
 /**
  * Plot tag names exposed by the engine.
  */
@@ -212,6 +259,12 @@ export interface EngineAdapter {
   getRandomNumber(max: number, label: string): number;
 
   // === UTILITIES ===
+
+  /**
+   * Voronoi utilities used by foundation plate generation.
+   * Adapters must provide a deterministic implementation.
+   */
+  getVoronoiUtils(): VoronoiUtils;
 
   /** Run engine validation pass */
   validateAndFixTerrain(): void;

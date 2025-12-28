@@ -29,137 +29,13 @@ import type {
 } from "@mapgen/base/foundation/types.js";
 import { BOUNDARY_TYPE } from "@mapgen/base/foundation/types.js";
 
-// ============================================================================
-// Default Voronoi Implementation (for testing without game engine)
-// ============================================================================
-
-/**
- * Simple 2D Voronoi implementation using Fortune's algorithm approximation.
- * This provides a pure TypeScript fallback when game engine utilities aren't available.
- */
-const DefaultVoronoiUtils: VoronoiUtilsInterface = {
-  createRandomSites(count: number, width: number, height: number): VoronoiSite[] {
-    const sites: VoronoiSite[] = [];
-
-    // Generate exactly `count` sites with deterministic pseudo-random placement
-    for (let id = 0; id < count; id++) {
-      // Use deterministic formulas to spread sites across the map
-      // LCG-style mixing for reproducible positions
-      const seed1 = (id * 1664525 + 1013904223) >>> 0;
-      const seed2 = (seed1 * 1664525 + 1013904223) >>> 0;
-
-      const x = (seed1 % 10000) / 10000 * width;
-      const y = (seed2 % 10000) / 10000 * height;
-
-      sites.push({
-        x,
-        y,
-        voronoiId: id,
-      });
-    }
-    return sites;
-  },
-
-  computeVoronoi(
-    sites: VoronoiSite[],
-    bbox: BoundingBox,
-    relaxationSteps = 0
-  ): VoronoiDiagram {
-    // Simple implementation: create cells centered on sites
-    // For full Voronoi, a proper implementation would use Fortune's algorithm
-    let currentSites = [...sites];
-
-    // Lloyd relaxation: move sites to centroid of their cells
-    for (let step = 0; step < relaxationSteps; step++) {
-      currentSites = currentSites.map((site, i) => ({
-        ...site,
-        voronoiId: i,
-      }));
-    }
-
-    const cells: VoronoiCell[] = currentSites.map((site) => ({
-      site,
-      halfedges: [], // Simplified - not computing actual edges
-    }));
-
-    return {
-      cells,
-      edges: [],
-      vertices: [],
-    };
-  },
-
-  calculateCellArea(cell: VoronoiCell): number {
-    // Approximate area based on average distance to edges
-    // For proper implementation, would calculate polygon area from halfedges
-    return 100; // Placeholder
-  },
-
-  normalize(v: Point2D): Point2D {
-    const len = Math.sqrt(v.x * v.x + v.y * v.y);
-    if (len < 1e-10) return { x: 0, y: 0 };
-    return { x: v.x / len, y: v.y / len };
-  },
-};
-
-// Optional injected Voronoi implementation (e.g., Civ7 kd-tree utilities)
-let injectedVoronoiUtils: VoronoiUtilsInterface | null = null;
-let injectedVoronoiLabel: string | null = null;
-let loggedInjectedVoronoi = false;
-
-function adaptGlobalVoronoiUtils(): { utils: VoronoiUtilsInterface | null; label: string } {
-  const globalUtils = (globalThis as Record<string, unknown>).VoronoiUtils as
-    | Record<string, unknown>
-    | undefined;
-  if (globalUtils && typeof globalUtils.computeVoronoi === "function") {
-    return {
-      utils: {
-        createRandomSites: (count: number, width: number, height: number) =>
-          (globalUtils as { createRandomSites: VoronoiUtilsInterface["createRandomSites"] }).createRandomSites(
-            count,
-            width,
-            height
-          ),
-        computeVoronoi: (sites, bbox, relaxationSteps = 0) =>
-          (globalUtils as { computeVoronoi: VoronoiUtilsInterface["computeVoronoi"] }).computeVoronoi(
-            sites,
-            bbox,
-            relaxationSteps
-          ),
-        calculateCellArea: (cell) =>
-          (globalUtils as { calculateCellArea: VoronoiUtilsInterface["calculateCellArea"] }).calculateCellArea(cell),
-        normalize: (v) =>
-          (globalUtils as { normalize: VoronoiUtilsInterface["normalize"] }).normalize(v),
-      },
-      label: "global",
-    };
+function requireVoronoiUtils(options: ComputePlatesOptions): VoronoiUtilsInterface {
+  if (!options.voronoiUtils) {
+    throw new Error(
+      "[Foundation] Missing Voronoi utilities. Provide ComputePlatesOptions.voronoiUtils from adapter.getVoronoiUtils()."
+    );
   }
-  return { utils: null, label: "fallback" };
-}
-
-export function setDefaultVoronoiUtils(
-  utils: VoronoiUtilsInterface | null,
-  label = "external"
-): void {
-  injectedVoronoiUtils = utils;
-  injectedVoronoiLabel = utils ? label : null;
-  loggedInjectedVoronoi = false;
-}
-
-function resolveVoronoiUtils(
-  options: ComputePlatesOptions
-): { utils: VoronoiUtilsInterface; label: string } {
-  if (options.voronoiUtils) {
-    return { utils: options.voronoiUtils, label: "custom" };
-  }
-  const globalUtils = adaptGlobalVoronoiUtils();
-  if (globalUtils.utils) {
-    return { utils: globalUtils.utils, label: globalUtils.label };
-  }
-  if (injectedVoronoiUtils) {
-    return { utils: injectedVoronoiUtils, label: injectedVoronoiLabel ?? "injected" };
-  }
-  return { utils: DefaultVoronoiUtils, label: "fallback" };
+  return options.voronoiUtils;
 }
 
 // ============================================================================
@@ -623,10 +499,10 @@ function summarizeBoundaryCoverage(
 // ============================================================================
 
 export interface ComputePlatesOptions {
-  /** Override VoronoiUtils for testing */
-  voronoiUtils?: VoronoiUtilsInterface;
-  /** Override RNG for testing */
-  rng?: RngFunction;
+  /** Voronoi utilities (adapter-owned). */
+  voronoiUtils: VoronoiUtilsInterface;
+  /** Deterministic RNG for plate generation */
+  rng: RngFunction;
 }
 
 /**
@@ -636,15 +512,9 @@ export function computePlatesVoronoi(
   width: number,
   height: number,
   config: PlateConfig,
-  options: ComputePlatesOptions = {}
+  options: ComputePlatesOptions
 ): PlateGenerationResult {
-  const voronoiChoice = resolveVoronoiUtils(options);
-  if (voronoiChoice.label !== "fallback" && !loggedInjectedVoronoi) {
-    console.log(
-      `[Foundation] Using ${voronoiChoice.label} Voronoi utilities (${width}x${height})`
-    );
-    loggedInjectedVoronoi = true;
-  }
+  const voronoiUtils = requireVoronoiUtils(options);
 
   const {
     count = 8,
@@ -654,14 +524,32 @@ export function computePlatesVoronoi(
     directionality = null,
   } = config;
 
-  // Use provided utilities or defaults
-  const voronoiUtils = voronoiChoice.utils;
-  const allowPlateDownsample = voronoiChoice.label === "fallback";
-  if (!options.rng) {
-    throw new Error("[Foundation] RNG not provided for plate generation.");
-  }
+  const allowPlateDownsample = false;
   const rng: RngFunction = options.rng;
   const rngUnit = (label: string): number => rng(1_000_000, label) / 1_000_000;
+
+  const createDeterministicSites = (
+    count: number,
+    bbox: BoundingBox,
+    labelPrefix: string
+  ): VoronoiSite[] => {
+    const seedBase = (rng(0x7fffffff, `${labelPrefix}:seed`) | 0) >>> 0;
+    const sites: VoronoiSite[] = [];
+    const w = Math.max(1e-6, bbox.xr - bbox.xl);
+    const h = Math.max(1e-6, bbox.yb - bbox.yt);
+    for (let id = 0; id < count; id++) {
+      let seed = (seedBase + id * 1664525 + 1013904223) >>> 0;
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      const xUnit = seed / 2 ** 32;
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      const yUnit = seed / 2 ** 32;
+
+      const x = bbox.xl + xUnit * w;
+      const y = bbox.yt + yUnit * h;
+      sites.push({ x, y, voronoiId: id });
+    }
+    return sites;
+  };
 
   const size = width * height;
 
@@ -695,7 +583,7 @@ export function computePlatesVoronoi(
 
     // Create Voronoi diagram
     const bbox: BoundingBox = { xl: 0, xr: width, yt: 0, yb: height };
-    const sites = voronoiUtils.createRandomSites(plateCount, bbox.xr, bbox.yb);
+    const sites = createDeterministicSites(plateCount, bbox, "PlateSites");
     const diagram = voronoiUtils.computeVoronoi(sites, bbox, relaxationSteps);
 
     // Create PlateRegion instances
@@ -738,7 +626,7 @@ export function computePlatesVoronoi(
       Math.floor(width * height * cellDensity),
       plateCount
     );
-    const cellSites = voronoiUtils.createRandomSites(cellCount, bbox.xr, bbox.yb);
+    const cellSites = createDeterministicSites(cellCount, bbox, "RegionCellSites");
     const cellDiagram = voronoiUtils.computeVoronoi(cellSites, bbox, 2);
 
     const regionCells: RegionCell[] = cellDiagram.cells.map((cell, index) => ({
