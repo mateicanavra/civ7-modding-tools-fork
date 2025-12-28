@@ -62,5 +62,15 @@ Remove core domain modules and clean up remaining imports after the move.
   - All domain exports (and re-exports) that must be removed.
   - Any non-obvious internal references that would break once `src/domain/**` is deleted.
 
-### Prework Findings (Pending)
-_TODO (agent): append findings here and include the “expected zero-hit” grep queries for post-delete verification._
+### Prework Findings
+#### P1) Core domain export surface inventory
+- Direct domain re-export:
+  - `packages/mapgen-core/src/index.ts` → `export * from "@mapgen/domain/index.js";`
+- Core module references that will break once `src/domain/**` is removed:
+  - `packages/mapgen-core/src/orchestrator/task-graph.ts` imports `@mapgen/domain/narrative/queries.js`.
+  - `packages/mapgen-core/src/base/tags.ts` imports `@mapgen/domain/narrative/artifacts.js`.
+- Package export map currently exposes domain subpaths (from `packages/mapgen-core/package.json`):
+  - `"./domain"`, `"./domain/morphology"`, `"./domain/hydrology"`, `"./domain/ecology"`, `"./domain/narrative"`, `"./domain/placement"`
+- Post-delete verification queries (expected zero hits):
+  - `rg -n "@mapgen/domain" packages/mapgen-core/src -S`
+  - `rg -n "packages/mapgen-core/src/domain" -S`
