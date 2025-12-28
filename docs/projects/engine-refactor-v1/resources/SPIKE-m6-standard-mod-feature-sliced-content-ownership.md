@@ -228,6 +228,9 @@ mods/mod-swooper-maps/
 End-state invariants:
 - No `mods/mod-swooper-maps/src/config/**` module. Config schema fragments live under `src/domain/config/schema/**` and step schemas are co-located with step modules.
 - No `packages/mapgen-core/src/core/**` module. Engine-owned context/helpers live under `src/engine/**`; content-owned artifacts/tags/validators live under the mod.
+- No `packages/mapgen-core/src/config/**` or `packages/mapgen-core/src/bootstrap/**` modules. Config schemas live under `mods/mod-swooper-maps/src/domain/config/schema/**`; maps provide config instances directly.
+- No `packages/mapgen-core/src/base/**` or `packages/mapgen-core/src/pipeline/mod.ts`. Standard content lives entirely in `mods/mod-swooper-maps/src/recipes/**` + `mods/mod-swooper-maps/src/domain/**`.
+- `packages/mapgen-core/src/engine/context.ts` is the only engine-owned context surface; `MapGenConfig` is removed from core.
 
 ---
 
@@ -1057,16 +1060,16 @@ These are not part of the engine runtime contract (SPEC entry is `RunRequest`), 
 ```yaml
 moves:
   - current: "packages/mapgen-core/src/orchestrator/helpers.ts"
-    target: "packages/mapgen-core/src/runner/helpers.ts"
-    layer: "runner (future)"
-    notes: "Extract from engine/authoring; used by map entrypoints"
+    target: "mods/mod-swooper-maps/src/maps/_runtime/helpers.ts"
+    layer: "content (maps)"
+    notes: "Mod-owned runtime glue for map entrypoints"
   - current: "packages/mapgen-core/src/orchestrator/map-init.ts"
-    target: "packages/mapgen-core/src/runner/map-init.ts"
-    layer: "runner (future)"
-    notes: "Map init resolution/apply; belongs in publishing/runner SDK, not engine"
+    target: "mods/mod-swooper-maps/src/maps/_runtime/map-init.ts"
+    layer: "content (maps)"
+    notes: "Map init resolution/apply; mod-owned runtime glue"
   - current: "packages/mapgen-core/src/orchestrator/types.ts"
-    target: "packages/mapgen-core/src/runner/types.ts"
-    layer: "runner (future)"
+    target: "mods/mod-swooper-maps/src/maps/_runtime/types.ts"
+    layer: "content (maps)"
     notes: "Runner-only types (adapter creation, mapSizeDefaults, etc.)"
   - current: "packages/mapgen-core/src/orchestrator/task-graph.ts"
     target: "(delete)"
