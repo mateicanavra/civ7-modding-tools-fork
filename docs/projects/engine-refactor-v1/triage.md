@@ -18,6 +18,24 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Authoring schema enforcement stays in authoring layer (engine remains permissive)** [Source: LOCAL-TBD-M6-U02-1]
+  - **Context:** M6 authoring SDK contract work keeps `MapGenStep.configSchema` optional in engine runtime while authoring requires explicit schema.
+  - **Type:** triage
+  - **Notes:** Revisit once all base steps have explicit schemas; at that point decide if engine contract should be tightened.
+  - **Next check:** before declaring engine surface stable or before deprecating engine-only authoring calls.
+
+- **Recipe `instanceId` uniqueness enforced in authoring** [Source: LOCAL-TBD-M6-U02-1]
+  - **Context:** `compileExecutionPlan` does not check `instanceId` collisions; authoring validation will enforce uniqueness.
+  - **Type:** triage
+  - **Notes:** If engine-only call sites remain, decide whether to add engine-level guards or document the expectation.
+  - **Next check:** before publishing the authoring SDK or when external tooling uses engine runtime directly.
+
+- **Authoring step IDs standardized as `recipeId.stageId.stepId`** [Source: LOCAL-TBD-M6-U02-2]
+  - **Context:** M6 authoring SDK derives deterministic full IDs; base recipe currently uses single-segment step IDs.
+  - **Type:** triage
+  - **Notes:** Re-authoring the base recipe will change step IDs; update tags/tests and verify downstream tooling assumptions.
+  - **Next check:** during M6 U05 (re-author standard recipe) before stabilizing authoring IDs.
+
 - **Plot tag/region helper renames + adapter ID methods** [Source: CIV-67]
   - **Context:** CIV-67 engine-boundary cleanup removes engine-global tokens from mapgen-core and routes plot-tag/region IDs through new adapter methods.
   - **Type:** triage
