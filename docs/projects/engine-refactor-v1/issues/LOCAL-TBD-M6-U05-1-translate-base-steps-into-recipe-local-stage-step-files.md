@@ -80,3 +80,26 @@ Translate base mod step implementations into recipe-local stage and step files.
 #### P2) Config schema presence audit (must be explicit everywhere)
 - All base step factories already define `configSchema` (many use `EmptyStepConfigSchema` for no-config steps).
 - Translation must preserve explicit schemas in every step file to satisfy authoring requirements.
+
+## Implementation Decisions
+
+### Store standard runtime state per map context
+- **Context:** Steps share mutable state (west/east continents, mapInfo, start sectors, start positions) but authoring `createStep` has no runtime injection hook.
+- **Options:** (A) module-level singleton runtime, (B) publish artifacts for runtime data, (C) WeakMap keyed by `ExtendedMapContext`.
+- **Choice:** Option C — use a WeakMap runtime helper for per-context state.
+- **Rationale:** Keeps state scoped to a run without inventing new artifact tags or global singletons.
+- **Risk:** If a context is reused across runs, runtime values may persist longer than intended.
+
+### Derive mapInfo + start-sector defaults from adapter at runtime
+- **Context:** Legacy task graph precomputed mapInfo, players-per-landmass, and start sectors before registering steps.
+- **Options:** (A) pass mapInfo via recipe config/settings metadata, (B) compute from `EngineAdapter` per run.
+- **Choice:** Option B — compute via adapter lookup/chooseStartSectors inside runtime helper.
+- **Rationale:** Matches legacy behavior without expanding recipe config surface.
+- **Risk:** Adapter implementations must support lookup methods for tests; missing data falls back to defaults.
+
+### Inline ecology layer afterRun hooks into step implementations
+- **Context:** Legacy registry passed `afterRun` callbacks to biomes/features for logging and cleanup.
+- **Options:** (A) keep wrapper layer to inject hooks, (B) fold hooks into step run bodies.
+- **Choice:** Option B — fold hooks into step run bodies.
+- **Rationale:** Keeps steps self-contained and avoids recreating registry layer plumbing.
+- **Risk:** Ordering changes could be missed if future hooks are added in a different layer.
