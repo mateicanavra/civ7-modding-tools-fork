@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Standard recipe runtime stored per context** [Source: LOCAL-TBD-M6-U05-1]
+  - **Context:** Standard recipe steps need shared mutable state (continents, start sectors, mapInfo) without registry-layer runtime injection.
+  - **Type:** triage
+  - **Notes:** Implemented as a WeakMap keyed by `ExtendedMapContext` and initialized from adapter lookup/chooseStartSectors. Revisit if runs become concurrent or if mapInfo should be passed via settings metadata.
+  - **Next check:** before finalizing map/preset rewrites (M6 U06) or adding multi-run concurrency.
+
 - **Engine tag definitions/registry are generic over context** [Source: LOCAL-TBD-M6-U01]
   - **Context:** M6 engine cutover removes `ExtendedMapContext` from `engine/**` and introduces a minimal `EngineContext`.
   - **Type:** triage
