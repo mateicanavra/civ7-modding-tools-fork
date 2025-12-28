@@ -48,7 +48,7 @@ Update recipe steps and stages to import domain logic from the standard content 
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Base step → domain import map
 - `packages/mapgen-core/src/base/pipeline/morphology/LandmassStep.ts`
   - `@mapgen/domain/morphology/landmass/index.js` → `mods/mod-swooper-maps/src/domain/morphology/landmass/index.ts`

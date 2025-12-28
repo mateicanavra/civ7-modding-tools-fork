@@ -55,7 +55,7 @@ Implement `createRecipe` to build the registry internally and expose a registry-
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Registry assembly order + invariants
 - `StepRegistry.register` validates `requires`/`provides` tags immediately via `validateDependencyTags`, so tags must exist before step registration (`packages/mapgen-core/src/pipeline/StepRegistry.ts`).
 - `TagRegistry.registerTag` enforces `kind` prefix compatibility and validates `demo` payloads (`packages/mapgen-core/src/pipeline/tags.ts`).

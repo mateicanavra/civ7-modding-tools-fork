@@ -50,7 +50,7 @@ Rewrite maps and presets to select a recipe and supply a config instance at runt
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Map inventory + config instance extraction checklist
 - Map entrypoints (top-level `src/*.ts`):
   - `gate-a-continents.ts` (no `buildConfig`; wrapper only)

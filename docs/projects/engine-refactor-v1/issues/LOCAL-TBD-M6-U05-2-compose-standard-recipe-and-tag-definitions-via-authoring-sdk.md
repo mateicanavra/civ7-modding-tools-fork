@@ -55,7 +55,7 @@ Compose the standard recipe and tag catalog via the authoring SDK.
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Tag catalog extraction inventory (base → recipe-local)
 - Tag inventory (from `packages/mapgen-core/src/base/tags.ts`):
   - `artifact:*` (16):

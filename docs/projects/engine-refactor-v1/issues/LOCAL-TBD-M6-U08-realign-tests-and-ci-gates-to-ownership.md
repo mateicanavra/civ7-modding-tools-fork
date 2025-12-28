@@ -50,7 +50,7 @@ Move tests to match the new ownership boundaries and keep the CI gates aligned.
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Test harness inventory (what exists today)
 - `packages/mapgen-core`:
   - `test` script uses `bun test` (`packages/mapgen-core/package.json`).

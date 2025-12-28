@@ -51,7 +51,7 @@ Translate base mod step implementations into recipe-local stage and step files.
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Per-stage step inventory (files + exports + ids)
 - Foundation:
   - File: `packages/mapgen-core/src/base/pipeline/foundation/FoundationStep.ts`

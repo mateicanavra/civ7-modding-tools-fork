@@ -50,7 +50,7 @@ Move the runtime pipeline into `engine/**` and make it the canonical runtime SDK
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Runtime move surface + import manifest
 - Pipeline move list (`packages/mapgen-core/src/pipeline/**`):
   - `packages/mapgen-core/src/pipeline/PipelineExecutor.ts`

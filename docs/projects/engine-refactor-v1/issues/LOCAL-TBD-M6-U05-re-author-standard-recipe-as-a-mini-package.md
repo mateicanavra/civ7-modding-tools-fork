@@ -52,7 +52,7 @@ Re-author the standard recipe as a mod-owned mini-package by completing the chil
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Standard recipe baseline inventory (order + step ids)
 - Current base recipe order (`packages/mapgen-core/src/base/recipes/default.ts`), no `instanceId` usage:
   1) `foundation`

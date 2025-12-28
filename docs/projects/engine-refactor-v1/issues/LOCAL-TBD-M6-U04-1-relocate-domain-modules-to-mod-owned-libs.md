@@ -50,7 +50,7 @@ Move domain modules from core into `mods/mod-swooper-maps/src/domain/**` without
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Domain dependency edge audit (base tag imports must be removed)
 - Domain files importing `@mapgen/base/*` today:
   - `packages/mapgen-core/src/domain/narrative/queries.ts` (uses `M3_DEPENDENCY_TAGS`)

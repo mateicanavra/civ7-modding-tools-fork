@@ -54,7 +54,7 @@ Move all domain logic out of core into the standard content package via sequence
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Domain move “purity audit” (what is truly domain?)
 - `packages/mapgen-core/src/domain` contains 129 `.ts` files.
 - No direct imports of `@mapgen/pipeline`, `@mapgen/orchestrator`, or `@swooper/mapgen-core` inside domain (clean separation).

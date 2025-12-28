@@ -51,7 +51,7 @@ Remove legacy base/bootstrap/config/orchestrator surfaces after the new pipeline
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Legacy usage grep gates (define “expected zero hits”)
 - Current in-repo consumers of legacy surfaces:
   - Maps: `mods/mod-swooper-maps/src/*.ts` still call `runTaskGraphGeneration` and (some) `baseMod`.
