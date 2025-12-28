@@ -112,6 +112,13 @@ Compose the standard recipe and tag catalog via the authoring SDK.
 ### Split narrative into multiple stage modules to preserve legacy ordering
 - **Context:** Legacy order interleaves narrative and hydrology steps; a single narrative stage would reorder steps.
 - **Options:** (A) keep one narrative stage and accept reordering, (B) split narrative into multiple stage modules that preserve ordering.
-- **Choice:** Option B — split narrative into `narrative-pre`, `narrative-swatches`, and `narrative-post` stages.
+- **Choice:** Option B — split narrative into `narrative-pre`, `narrative-mid`, `narrative-swatches`, and `narrative-post` stages.
 - **Rationale:** Preserves existing behavior while keeping stage modules contiguous and composable.
 - **Risk:** Introduces additional stage IDs that must be reflected in any stage-based reporting or tooling.
+
+### Split morphology and narrative-pre into finer stages to match base step order
+- **Context:** Base step order interleaves narrative and morphology steps (storySeed → ruggedCoasts → storyOrogeny → islands).
+- **Options:** (A) keep coarse `morphology`/`narrative-pre` stages and accept reordered steps, (B) split morphology into pre/mid/post and add a `narrative-mid` stage for ordering.
+- **Choice:** Option B — add `morphology-pre`, `morphology-mid`, `morphology-post`, and `narrative-mid`.
+- **Rationale:** Preserves legacy step order while keeping stage modules contiguous for config mapping.
+- **Risk:** Further expands stage IDs that downstream tooling/configs must reference.
