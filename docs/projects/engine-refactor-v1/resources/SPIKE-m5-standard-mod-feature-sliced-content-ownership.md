@@ -39,9 +39,9 @@ The standard mod is a “feature-sliced app” composed of stage mini-packages:
 - **Stage modules are the primary authoring unit** for content authors:
   - a stage owns its **local default ordering** via its `steps` list (see §3).
   - a stage does not define global pipeline semantics; it is a packaging boundary + local defaults.
-- **Recipes are the only cross-stage sequencing and toggle surface**:
+- **Recipes are the only cross-stage sequencing surface**:
   - recipes are authored by composing stage `steps` lists (concatenate).
-  - narrative ordering/interleaving remains recipe-driven and is explicitly de-scoped from this refactor (see §1, §3.4).
+  - narrative ordering/interleaving remains recipe-driven and is explicitly de-scoped from this refactor (see §1, §4.4).
 - **`mod.ts` is a thin manifest**: it ties stage registration + recipes into an engine `PipelineMod`.
 
 ### Layering invariants (non-negotiable)
@@ -311,7 +311,7 @@ packages/mapgen-core/src/mods/standard/
   - stage `model`
   - stage step exports for consumers (via `./steps` barrel)
 
-**`mods/standard/stages/<stage>/steps/index.ts` (step barrel; explicit exports only)**
+**`mods/standard/stages/<stage>/steps/index.ts` (step barrel; required)**
 - Re-exports step modules using explicit named exports only.
 - `export *` is not allowed.
 - Step files must never import `../index.ts` or `./index.ts` (one-way dependency rule).
@@ -345,6 +345,7 @@ import type { MapGenStep, Recipe, Registry } from "@swooper/mapgen-core/authorin
 export interface StageStep {
   step: MapGenStep;
   config?: Recipe["steps"][number]["config"];
+  enabled?: boolean;
 }
 
 export interface StageModule {
@@ -390,7 +391,7 @@ export function defineRecipe(input: {
 
 This keeps authoring simple and avoids patch scripts in the core model.
 
-### 3.4 How ordering works (stage-local order + recipe global order)
+### 3.4 Ordering responsibilities (avoid drift)
 
 - **Stage** is canonical for *intra-stage order* (via `stage.steps`).
 - **Recipe** is canonical for *global order* (the final `Recipe.steps[]`).
@@ -404,72 +405,81 @@ There is no duplication of step IDs: recipes use `StageStep` objects (which refe
 This structure does not change dependency semantics:
 
 - `requires` / `provides` remain properties on the **step definitions** (registered in the engine registry).
-- The recipe contributes only **an ordered list of step occurrences** (plus config).
+- The recipe contributes only **an ordered list of step occurrences** (plus config/enabled).
 - The engine compiler validates dependency tags and step presence against the registry and authored order, producing an `ExecutionPlan`.
 
 In other words: stages/recipes decide ordering; steps decide contracts; the engine enforces them.
 
 ---
 
-## 4) Standard-mod authoring example (stage + recipe)
+## 4) Standard-mod authoring examples (stage + recipe)
 
-### 4.1 Stage example
+### 4.1 Stage example (non-narrative)
 
 ```ts
 import { defineStage } from "@swooper/mapgen-core/authoring";
-import { registerNarrativeTags } from "./artifacts";
-import { storySeedStep, storyOrogenyStep } from "./steps";
+import { registerMorphologyTags } from "./artifacts";
+import { landmassPlatesStep, coastlinesStep } from "./steps";
 
 export const stage = defineStage({
-  id: "standard.narrative",
+  id: "standard.morphology",
   steps: [
-    { step: storySeedStep },
-    { step: storyOrogenyStep },
+    { step: landmassPlatesStep },
+    { step: coastlinesStep },
   ],
-  registerTags: registerNarrativeTags,
+  registerTags: registerMorphologyTags,
 });
 
-export { storySeedStep, storyOrogenyStep };
+export { landmassPlatesStep, coastlinesStep };
 ```
 
-### 4.2 Step example (requires/provides remain on the step)
+### 4.2 Step barrel example (explicit exports only)
+
+```ts
+export { landmassPlatesStep } from "./landmassPlates";
+export { coastlinesStep } from "./coastlines";
+```
+
+### 4.3 Step example (requires/provides remain on the step)
 
 ```ts
 import type { MapGenStep } from "@swooper/mapgen-core/authoring";
-import { NarrativeTags } from "../artifacts";
+import { MorphologyTags } from "../artifacts";
 
-export const storyOrogenyStep: MapGenStep = {
-  id: "narrative.story-orogeny",
-  phase: "narrative",
-  requires: [NarrativeTags.storySeeded],
-  provides: [NarrativeTags.storyOrogeny],
+export const coastlinesStep: MapGenStep = {
+  id: "morphology.coastlines",
+  phase: "morphology",
+  requires: [MorphologyTags.landmassPlates],
+  provides: [MorphologyTags.coastlines],
   async run(context) {
     // ...
   },
 };
 ```
 
-### 4.3 Recipe example (canonical global order)
+### 4.4 Recipe example (canonical global order)
 
 ```ts
 import { defineRecipe } from "@swooper/mapgen-core/authoring";
 
 import { stage as foundation } from "../stages/foundation";
 import { stage as morphology } from "../stages/morphology";
-import { stage as narrative } from "../stages/narrative";
-
-import { storySeedStep } from "../stages/narrative/steps/storySeed";
+import { stage as hydrology } from "../stages/hydrology";
 
 export const defaultRecipe = defineRecipe({
   schemaVersion: 1,
   steps: [
     ...foundation.steps,
-    { step: storySeedStep }, // explicit interleave; narrative is still recipe-driven
     ...morphology.steps,
-    ...narrative.steps,
+    ...hydrology.steps,
   ],
 });
 ```
+
+### 4.5 Narrative (exploratory; out of scope)
+
+Narrative remains a normal stage slice structurally, but its cross-cutting placement is still recipe-driven.
+Any narrative interleaving examples are deferred to a dedicated narrative SPIKE and are not part of the required template.
 
 ---
 
@@ -481,7 +491,7 @@ export const defaultRecipe = defineRecipe({
 - **Authoring barrel:** `authoring/index.ts` is the only supported mod import path.
 - **Mod barrel:** `mods/standard/index.ts` is the consumer barrel for the standard mod.
 - **Stage barrel:** `mods/standard/stages/<stage>/index.ts` is the only stage barrel.
-- **Step barrel:** `mods/standard/stages/<stage>/steps/index.ts` with explicit named exports only.
+- **Step barrel:** `mods/standard/stages/<stage>/steps/index.ts` is required, explicit exports only.
 
 ### Disallowed barrels
 
@@ -528,6 +538,7 @@ This structure assumes the existing “standard mod as subpath export” packagi
   - mods = content
 - **Fixed on-disk template for stages** (file-based routing readiness):
   - every stage has the same required shape and exports a `StageModule`.
+  - `steps/index.ts` is required with explicit exports only.
   - empty directories/files are allowed, but the shape is invariant across stages and mods.
 - **Stage is a mod-authoring unit**:
   - a stage is a packaging boundary (registration + exports), not an engine runtime concept.
@@ -559,11 +570,18 @@ If the SPEC currently implies “stage manifests” as a runtime concept or sugg
 
 ## 8) Future ideas (explicitly out of scope for this SPIKE)
 
-These are intentionally deferred to avoid over-design in the core model:
+### 8.1 Codegen / file-based routing
 
-- **Recipe patch helpers** (`insertAfter`, `replaceStep`, `removeStep`):
-  - Useful for advanced composition but not required for the core authoring flow.
-- **Stage builder DSL** (`defineStage("morphology").step(...).build()`):
-  - Consider only if the minimal `defineStage` proves insufficient.
-- **Auto-discovery / codegen for steps** (file-based routing feel):
-  - Would require tooling or build-time integration and should be assessed separately.
+Auto-discovery is not part of this target design. Future options could include:
+- generating `steps/index.ts` or `stages/index.ts` from the filesystem
+- using bundler features (e.g., `import.meta.glob`) to auto-register steps
+
+Any auto-discovery must remain **opt-in** and produce **human-auditable outputs** (generated files committed or diffable).
+
+### 8.2 Recipe patch helpers
+
+List-edit helpers (`insertAfter`, `replaceStep`, `removeStep`) are explicitly deferred. They may be useful later but are not part of the core authoring model.
+
+### 8.3 Stage builder DSL
+
+A fluent builder (`defineStage("morphology").step(...).build()`) is out of scope for this SPIKE and should be evaluated only if the minimal `defineStage` proves insufficient.
