@@ -19,11 +19,11 @@ The engine is content-agnostic and owns only the generic pipeline runtime:
 - **RunRequest is engine-owned only** and is the sole boundary input shape: `RunRequest = { recipe, settings }` (SPEC §1.2, §2.1).
 - **No stage/authoring concepts exist in the engine** (they live in authoring only).
 
-### Authoring SDK (`packages/mapgen-core/src/authoring/**`) is ergonomic-only
+### Authoring SDK (`packages/mapgen-core/src/authoring/**`) is ergonomics-only
 
 The authoring SDK is the sole surface for mod authors. It is a thin wrapper around engine types:
 
-- **Defines authoring helpers and contracts** (e.g., `StageModule`, `defineStage`, recipe composition helpers).
+- **Defines authoring contracts and helpers** (e.g., `StageModule`, `defineStage`, `defineRecipe`).
 - **Re-exports engine contracts** needed by mods (e.g., `MapGenStep`, `Recipe`, `Registry`).
 - **Does not contain runtime logic** and is not used by the executor.
 
@@ -37,10 +37,10 @@ The standard mod is a “feature-sliced app” composed of stage mini-packages:
   - stage-local artifacts + helpers
   - stage-local domain logic (`lib/**`)
 - **Stage modules are the primary authoring unit** for content authors:
-  - a stage owns its **local default ordering** via its `entries` list (see §3).
+  - a stage owns its **local default ordering** via its `steps` list (see §3).
   - a stage does not define global pipeline semantics; it is a packaging boundary + local defaults.
 - **Recipes are the only cross-stage sequencing and toggle surface**:
-  - recipes are authored by composing stage `entries` (concatenate) plus a small number of explicit edits (insert/remove/replace).
+  - recipes are authored by composing stage `steps` lists (concatenate).
   - narrative ordering/interleaving remains recipe-driven and is explicitly de-scoped from this refactor (see §1, §3.4).
 - **`mod.ts` is a thin manifest**: it ties stage registration + recipes into an engine `PipelineMod`.
 
@@ -63,10 +63,10 @@ This proposal intentionally separates **catalog**, **local bundles**, and **glob
 - **Stage (mod mini-package):** “local cluster + content ownership (+ local defaults)”.
   - a stage exports its step modules (a mini-package boundary for reuse).
   - a stage registers its own steps/tags into the engine registry.
-  - a stage provides its **local default ordering** as `entries` (mod-owned; used as recipe fragments).
+  - a stage provides its **local default ordering** as a `steps` list (mod-owned; used as recipe fragments).
 - **Recipe (mod):** “global plan”.
-  - the recipe is the only place that defines cross-stage sequencing, selection, and toggles.
-  - the default recipe is authored by composing stage `entries` plus a small set of explicit edits (SPEC §2.1 V1 still compiles from a linear `steps[]` list).
+  - the recipe is the only place that defines cross-stage sequencing.
+  - the default recipe is authored by composing stage `steps` lists (SPEC §2.1 V1 still compiles from a linear `steps[]` list).
   - recipes may interleave steps from different stages; stage boundaries are packaging, not execution segments.
 - **Mod (engine contract object):** “the deliverable package”.
   - the mod provides a `register(registry)` function and a `recipes` map.
@@ -185,20 +185,19 @@ packages/mapgen-core/src/authoring/
 ```
 
 **`authoring/index.ts` (public authoring surface; only supported mod import path)**
-- Re-exports authoring helpers and contracts:
-  - `StageModule`, `StageEntry`, `defineStage`
-  - recipe composition helpers (`composeStages`, `toRecipeSteps`, `insertAfter`, `removeStep`, `replaceStep`, `disableStep`)
+- Re-exports authoring contracts and helpers:
+  - `StageModule`, `StageStep`, `defineStage`, `defineRecipe`
 - Re-exports required engine types for mod authors:
-  - `MapGenStep`, `Recipe`, `Registry`, tag types, `PipelineMod`
+  - `MapGenStep`, `Recipe`, `Registry`, `PipelineMod`, tag types
 - Does not embed runtime logic; it is a thin authoring layer.
 
-**`authoring/stage.ts` (stage authoring contract + helpers)**
-- Defines `StageEntry` and `StageModule`.
+**`authoring/stage.ts` (stage authoring contract + minimal helper)**
+- Defines `StageStep` and `StageModule`.
 - Provides `defineStage` to produce a `StageModule` with a generated `register`.
 
-**`authoring/recipe.ts` (recipe composition helpers)**
-- Provides pure list helpers for composing stage defaults and applying small edits.
-- Produces engine `Recipe.steps[]` occurrences without re-spelling every step ID.
+**`authoring/recipe.ts` (recipe construction helper)**
+- Provides `defineRecipe` for building a `Recipe` from an ordered list of stage steps.
+- No patching or list-editing helpers in the core authoring model.
 
 ### 2.3 Standard mod layout (feature-sliced content mod)
 
@@ -219,6 +218,7 @@ packages/mapgen-core/src/mods/standard/
    │  ├─ model.ts
    │  ├─ artifacts.ts
    │  ├─ steps/
+   │  │  ├─ index.ts
    │  │  └─ *.ts
    │  └─ lib/
    │     └─ **/**
@@ -227,6 +227,7 @@ packages/mapgen-core/src/mods/standard/
    │  ├─ model.ts
    │  ├─ artifacts.ts
    │  ├─ steps/
+   │  │  ├─ index.ts
    │  │  └─ *.ts
    │  └─ lib/
    │     └─ **/**
@@ -235,6 +236,7 @@ packages/mapgen-core/src/mods/standard/
    │  ├─ model.ts
    │  ├─ artifacts.ts
    │  ├─ steps/
+   │  │  ├─ index.ts
    │  │  └─ *.ts
    │  └─ lib/
    │     └─ **/**
@@ -243,6 +245,7 @@ packages/mapgen-core/src/mods/standard/
    │  ├─ model.ts
    │  ├─ artifacts.ts
    │  ├─ steps/
+   │  │  ├─ index.ts
    │  │  └─ *.ts
    │  └─ lib/
    │     └─ **/**
@@ -251,6 +254,7 @@ packages/mapgen-core/src/mods/standard/
    │  ├─ model.ts
    │  ├─ artifacts.ts
    │  ├─ steps/
+   │  │  ├─ index.ts
    │  │  └─ *.ts
    │  └─ lib/
    │     └─ **/**
@@ -259,6 +263,7 @@ packages/mapgen-core/src/mods/standard/
       ├─ model.ts
       ├─ artifacts.ts
       ├─ steps/
+      │  ├─ index.ts
       │  └─ *.ts
       └─ lib/
          └─ **/**
@@ -277,11 +282,10 @@ packages/mapgen-core/src/mods/standard/
   - recipes (as authoring/reuse inputs)
 - Does not re-export deep internal stage helpers; those remain addressable via direct file paths.
 
-**`mods/standard/recipes/default.ts` (the canonical cross-stage order and toggles)**
+**`mods/standard/recipes/default.ts` (the canonical cross-stage order)**
 - Defines the standard mod’s default recipe.
-- Is authored by composing stage-local canonical `entries` (concatenate) plus a small set of explicit edits (insert/remove/replace).
+- Is authored by composing stage-local `steps` lists (concatenate).
 - May interleave steps from different stages (especially narrative); stage boundaries do not imply contiguous execution.
-- Implements all enablement, toggles, and reroutes in the recipe layer (SPEC §1.2).
 
 **`mods/standard/shared/runtime.ts` (standard-mod runtime contract)**
 - Declares the runtime adapter surface that standard steps expect to exist.
@@ -305,7 +309,12 @@ packages/mapgen-core/src/mods/standard/
   - `stage: StageModule` (from the authoring SDK)
 - Re-exports:
   - stage `model`
-  - stage step exports for consumers
+  - stage step exports for consumers (via `./steps` barrel)
+
+**`mods/standard/stages/<stage>/steps/index.ts` (step barrel; explicit exports only)**
+- Re-exports step modules using explicit named exports only.
+- `export *` is not allowed.
+- Step files must never import `../index.ts` or `./index.ts` (one-way dependency rule).
 
 **`mods/standard/stages/<stage>/model.ts` (stage-local model)**
 - Defines stage-local schema + types shared by the stage’s steps.
@@ -322,7 +331,7 @@ packages/mapgen-core/src/mods/standard/
 
 ---
 
-## 3) Authoring SDK contracts (stage + recipe) and minimal ergonomics
+## 3) Authoring SDK contracts (minimal, authoring-first)
 
 Stage modules are an authoring abstraction that supports “little packages” without introducing an engine-level stage runtime concept.
 
@@ -333,100 +342,69 @@ Each `mods/standard/stages/<stage>/index.ts` exports exactly one `StageModule` v
 ```ts
 import type { MapGenStep, Recipe, Registry } from "@swooper/mapgen-core/authoring";
 
-export interface StageEntry {
+export interface StageStep {
   step: MapGenStep;
-  enabled?: boolean;
   config?: Recipe["steps"][number]["config"];
 }
 
 export interface StageModule {
   id: string; // stable stage id (package boundary); no engine semantics
-  entries: readonly StageEntry[]; // canonical stage-local default ordering (authoring-time)
+  steps: readonly StageStep[]; // canonical stage-local ordering (authoring-time)
   register(registry: Registry): void; // registers steps + tags referenced by this stage
 }
 ```
 
-### 3.2 Builder pattern evaluation (is a `StageBuilder` worth it?)
+### 3.2 `defineStage` (the only required helper)
 
-We evaluated a fluent/builder-style stage API (e.g. `stage.step(...).step(...).build()`) against a plain `StageModule` object + minimal helper.
-
-Relevant references reviewed:
-- Builder pattern overview: https://refactoring.guru/design-patterns/typescript
-- Builder in TypeScript examples: https://refactoring.guru/design-patterns/builder/typescript/example
-- Fluent interface tradeoffs: https://martinfowler.com/bliki/FluentInterface.html
-
-**What a builder could buy us**
-- A readable, DSL-like stage definition (`defineStage("morphology").step(...).step(...).build()`) that makes author intent (ordered list) obvious.
-- A place to centralize “construction rules” (automatic registration, deduping, consistent naming).
-
-**What it would cost**
-- Another abstraction surface area to learn and maintain.
-- More subtle debugging (method chaining + stateful builder) and potential over-design, especially if the “product” is just `{ id, entries, register }`.
-
-**Decision (for this SPIKE)**
-- Do **not** introduce a fluent `StageBuilder` as a required concept.
-- Standardize on a minimal helper that constructs a `StageModule` from an ordered `entries[]` list and generates `register()` automatically.
-
-Concretely, `authoring/stage.ts` should provide something like:
+`authoring/stage.ts` provides a minimal helper that reduces manual wiring:
 
 ```ts
 export function defineStage(input: {
   id: string;
-  entries: readonly StageEntry[];
+  steps: readonly StageStep[];
   registerTags: (registry: Registry) => void;
 }): StageModule {
   // …implementation would:
   // - registerTags(registry)
-  // - registry.register(entry.step) for each entry.step (deduped)
-  // - return { id, entries, register }
+  // - registry.register(step.step) for each step (deduped)
+  // - return { id, steps, register }
   throw new Error("SPIKE: structure only");
 }
 ```
 
-If a fluent DSL is ever added, it must be additive sugar over `defineStage` and must not change the `StageModule` contract.
+No builder DSL is part of the core authoring model.
 
-### 3.3 Recipe composition helpers (authoring-only)
+### 3.3 `defineRecipe` (minimal composition)
 
-The authoring SDK provides pure list helpers to reduce duplication while keeping the recipe canonical:
+`authoring/recipe.ts` provides a single helper to build a `Recipe` from ordered stage steps:
 
 ```ts
-export function composeStages(stages: readonly StageModule[]): readonly StageEntry[];
-export function toRecipeSteps(entries: readonly StageEntry[]): Recipe["steps"];
-
-export function insertAfter(
-  steps: Recipe["steps"],
-  afterStepId: string,
-  insertStepId: string,
-  config?: Recipe["steps"][number]["config"],
-): Recipe["steps"];
-
-export function removeStep(steps: Recipe["steps"], stepId: string): Recipe["steps"];
-export function replaceStep(
-  steps: Recipe["steps"],
-  fromStepId: string,
-  toStepId: string,
-): Recipe["steps"];
+export function defineRecipe(input: {
+  schemaVersion: number;
+  steps: readonly StageStep[];
+}): Recipe {
+  // …implementation would map step objects to Recipe.steps entries
+  throw new Error("SPIKE: structure only");
+}
 ```
 
-These helpers do not change runtime semantics: the compiler still consumes `Recipe.steps[]` and `Registry` only.
+This keeps authoring simple and avoids patch scripts in the core model.
 
-### 3.4 How ordering works (stage defaults + recipe glue)
+### 3.4 How ordering works (stage-local order + recipe global order)
 
-This keeps a low-rule authoring model while preserving SPEC runtime semantics:
+- **Stage** is canonical for *intra-stage order* (via `stage.steps`).
+- **Recipe** is canonical for *global order* (the final `Recipe.steps[]`).
+- The default recipe is authored by concatenating stage `steps` lists.
+- Interleaving is still possible by explicitly composing the list (no DSL required).
 
-- **Stage** is canonical for its *local default ordering* (via `entries[]`).
-- **Recipe** remains canonical for the *final compiled linear order* (`Recipe.steps[]`), but it is authored by:
-  1) concatenating stage `entries[]`, then
-  2) applying a small number of explicit edits (insert/remove/replace).
-
-`StageModule.entries` is authoring-time code that produces the recipe’s `steps[]`.
+There is no duplication of step IDs: recipes use `StageStep` objects (which reference steps) rather than re-spelling string IDs.
 
 ### 3.5 Where `requires` / `provides` live (no semantic regression)
 
 This structure does not change dependency semantics:
 
 - `requires` / `provides` remain properties on the **step definitions** (registered in the engine registry).
-- The recipe contributes only **an ordered list of step occurrences** (plus enablement/config).
+- The recipe contributes only **an ordered list of step occurrences** (plus config).
 - The engine compiler validates dependency tags and step presence against the registry and authored order, producing an `ExecutionPlan`.
 
 In other words: stages/recipes decide ordering; steps decide contracts; the engine enforces them.
@@ -440,12 +418,11 @@ In other words: stages/recipes decide ordering; steps decide contracts; the engi
 ```ts
 import { defineStage } from "@swooper/mapgen-core/authoring";
 import { registerNarrativeTags } from "./artifacts";
-import { storySeedStep } from "./steps/storySeed";
-import { storyOrogenyStep } from "./steps/storyOrogeny";
+import { storySeedStep, storyOrogenyStep } from "./steps";
 
 export const stage = defineStage({
   id: "standard.narrative",
-  entries: [
+  steps: [
     { step: storySeedStep },
     { step: storyOrogenyStep },
   ],
@@ -475,28 +452,23 @@ export const storyOrogenyStep: MapGenStep = {
 ### 4.3 Recipe example (canonical global order)
 
 ```ts
-import type { Recipe } from "@swooper/mapgen-core/authoring";
-import { composeStages, toRecipeSteps, insertAfter } from "@swooper/mapgen-core/authoring";
+import { defineRecipe } from "@swooper/mapgen-core/authoring";
 
 import { stage as foundation } from "../stages/foundation";
 import { stage as morphology } from "../stages/morphology";
-import { stage as hydrology } from "../stages/hydrology";
-import { stage as ecology } from "../stages/ecology";
 import { stage as narrative } from "../stages/narrative";
 
-import { coastlinesStep } from "../stages/morphology/steps/coastlines";
 import { storySeedStep } from "../stages/narrative/steps/storySeed";
 
-export const defaultRecipe: Recipe = {
+export const defaultRecipe = defineRecipe({
   schemaVersion: 1,
-  steps: (() => {
-    const base = composeStages([foundation, morphology, hydrology, ecology, narrative]);
-    const ordered = toRecipeSteps(base);
-
-    // Narrative remains recipe-driven and may be interleaved explicitly.
-    return insertAfter(ordered, coastlinesStep.id, storySeedStep.id);
-  })(),
-};
+  steps: [
+    ...foundation.steps,
+    { step: storySeedStep }, // explicit interleave; narrative is still recipe-driven
+    ...morphology.steps,
+    ...narrative.steps,
+  ],
+});
 ```
 
 ---
@@ -509,11 +481,13 @@ export const defaultRecipe: Recipe = {
 - **Authoring barrel:** `authoring/index.ts` is the only supported mod import path.
 - **Mod barrel:** `mods/standard/index.ts` is the consumer barrel for the standard mod.
 - **Stage barrel:** `mods/standard/stages/<stage>/index.ts` is the only stage barrel.
+- **Step barrel:** `mods/standard/stages/<stage>/steps/index.ts` with explicit named exports only.
 
 ### Disallowed barrels
 
 - No `lib/index.ts` barrels at any depth (avoid circular imports and opaque re-export ladders).
-- No “deep engine” subpath imports for mod authors (`engine/registry/StepRegistry`, etc.).
+- No `export *` from step barrels.
+- Step files must never import `../index.ts` or `./index.ts` (one-way dependency rule).
 
 ### Example imports (what this enables)
 
@@ -524,7 +498,7 @@ export const defaultRecipe: Recipe = {
 - Import a single step directly (no extra barrels):
   - `import { landmassPlatesStep } from "@swooper/mapgen-core/base/stages/morphology/steps/landmassPlates"`
 - Authoring helpers for mods:
-  - `import { defineStage, composeStages } from "@swooper/mapgen-core/authoring"`
+  - `import { defineStage, defineRecipe } from "@swooper/mapgen-core/authoring"`
 
 ### Packaging note (subpath exports)
 
@@ -557,8 +531,8 @@ This structure assumes the existing “standard mod as subpath export” packagi
   - empty directories/files are allowed, but the shape is invariant across stages and mods.
 - **Stage is a mod-authoring unit**:
   - a stage is a packaging boundary (registration + exports), not an engine runtime concept.
-- **Stage-local ordering defaults are stage-owned; recipe is glue**:
-  - the default recipe is authored by composing stage-owned `entries` plus small list edits (aligns with SPEC’s “recipe ordering” because the compiled `Recipe.steps[]` remains the canonical runtime input).
+- **Stage-local ordering defaults are stage-owned; recipe is global order**:
+  - the default recipe is authored by concatenating stage `steps` lists (aligns with SPEC’s “recipe ordering” because the compiled `Recipe.steps[]` remains the canonical runtime input).
 - **Narrative stays conservative and deferred**:
   - narrative remains an optional bundle of steps (SPEC §1.6) published/consumed via typed narrative artifacts, and narrative ordering/interleaving remains recipe-driven and is explicitly deferred to a dedicated narrative design SPIKE.
 - **RunRequest is strictly engine-owned**:
@@ -576,7 +550,20 @@ If the SPEC currently implies “stage manifests” as a runtime concept or sugg
 ## 7) Why this reduces friction (without new runtime abstractions)
 
 - A mod author adds a stage by creating one directory and exporting one `StageModule`; step ownership is co-located with domain logic.
-- Cross-stage order and toggles live in exactly one place: the recipe.
+- Cross-stage order lives in one place: the recipe, composed from stage lists.
 - `mod.ts` stays stable and boring; it becomes the least-touched file in normal development.
 - Stage importability is explicit and ergonomic: other mods can import a stage as a unit (mini-package boundary) without depending on a central “planner” map of every step.
 - Authoring ergonomics are centralized in `authoring/**` so mods do not recreate scaffolding.
+
+---
+
+## 8) Future ideas (explicitly out of scope for this SPIKE)
+
+These are intentionally deferred to avoid over-design in the core model:
+
+- **Recipe patch helpers** (`insertAfter`, `replaceStep`, `removeStep`):
+  - Useful for advanced composition but not required for the core authoring flow.
+- **Stage builder DSL** (`defineStage("morphology").step(...).build()`):
+  - Consider only if the minimal `defineStage` proves insufficient.
+- **Auto-discovery / codegen for steps** (file-based routing feel):
+  - Would require tooling or build-time integration and should be assessed separately.
