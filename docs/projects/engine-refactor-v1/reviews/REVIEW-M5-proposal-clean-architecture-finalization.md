@@ -90,3 +90,23 @@ Foundation steps/algorithms moved under `@mapgen/base`, but core still owns the 
 
 ### Cross-cutting Risks
 - Leaving foundation artifacts in core makes the mod boundary look clean in wiring but not in ownership, which may complicate U11’s artifact split.
+
+## REVIEW m5-u05-extract-standard-morphology-hydrology
+
+### Quick Take
+Morphology and hydrology steps now live under @mapgen/base with thin pipeline re-exports, but standard artifact publication helpers still live in core, so the boundary is not fully clean.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/pipeline/artifacts.ts` remains core-owned and uses `M3_DEPENDENCY_TAGS` from `@mapgen/base`; base pipeline steps still import it, so core still embeds standard artifact knowledge.
+
+### Fix Now (Recommended)
+- Move artifact publication helpers (publishHeightfieldArtifact, publishClimateFieldArtifact, publishRiverAdjacencyArtifact) into `@mapgen/base` (or a base-owned artifacts module) and update step imports; keep a deprecated re-export if needed.
+
+### Defer / Follow-up
+- If we cannot move it in M5, add an issue to relocate `pipeline/artifacts` and remove the core-to-base tag dependency.
+
+### Needs Discussion
+- Should artifact publication helpers be treated as core primitives (then decouple from M3 tags) or standard-mod helpers (then move to base)?
+
+### Cross-cutting Risks
+- Core retains a standard-tag dependency via `pipeline/artifacts`, which undermines the "core is generic" contract.
