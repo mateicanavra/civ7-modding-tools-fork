@@ -72,3 +72,12 @@ Update recipe steps and stages to import domain logic from the standard content 
 - `packages/mapgen-core/src/base/pipeline/placement/PlacementStep.ts`
   - `@mapgen/domain/placement/index.js` → `mods/mod-swooper-maps/src/domain/placement/index.ts`
   - `@mapgen/domain/placement/wonders.js` → `mods/mod-swooper-maps/src/domain/placement/wonders.ts`
+
+## Implementation Decisions
+
+### Route `@mapgen/domain/*` imports to the mod-owned domain via tsconfig paths
+- **Context:** Base pipeline step files are still in `packages/mapgen-core/src/base/**`, but domain logic now lives under `mods/mod-swooper-maps/src/domain/**`.
+- **Options:** (A) rewrite each step import to a mod-local path, (B) repoint the `@mapgen/domain/*` path alias to the mod domain.
+- **Choice:** Option B — update `packages/mapgen-core/tsconfig.paths.json` to map `@mapgen/domain/*` into the mod domain tree.
+- **Rationale:** Keeps step files untouched (avoids conflict-marked edits) while ensuring all `@mapgen/domain/*` usages resolve to mod-owned modules.
+- **Risk:** Mapgen-core builds will now resolve domain imports into the mod package until steps are moved; confirm this is acceptable before publishing.
