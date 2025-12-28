@@ -55,26 +55,18 @@ Define the authored step, stage, and recipe module shapes with required schemas 
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Findings (Pending)
+### Prework Findings
 #### P1) Engine contract audit: config schema + recipe config semantics
 - `MapGenStep.configSchema` is optional today (`packages/mapgen-core/src/pipeline/types.ts`).
 - `compileExecutionPlan` behavior when schema is missing:
   - `buildNodeConfig` returns `config: recipeStep.config ?? {}` with no validation (`packages/mapgen-core/src/pipeline/execution-plan.ts`).
   - When schema is present, it normalizes defaults + rejects unknown keys (`normalizeStepConfig`).
-- Base pipeline step definitions with explicit `configSchema` today:
-  - `packages/mapgen-core/src/base/pipeline/morphology/LandmassStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/morphology/MountainsStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/morphology/VolcanoesStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/hydrology/ClimateBaselineStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/hydrology/ClimateRefineStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/narrative/StoryCorridorsStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/narrative/StoryRiftsStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/narrative/StorySwatchesStep.ts`
-- Base steps lacking explicit `configSchema` (treat as missing for enforcement):
-  - `packages/mapgen-core/src/base/pipeline/hydrology/LakesStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/hydrology/RiversStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/placement/PlacementStep.ts`
-  - `packages/mapgen-core/src/base/pipeline/placement/DerivePlacementInputsStep.ts`
+- Base pipeline step definitions with explicit `configSchema` today (including `EmptyStepConfigSchema` for no-config steps):
+  - Foundation: `FoundationStep`, `LandmassStep`, `CoastlinesStep`, `RuggedCoastsStep`, `IslandsStep`, `MountainsStep`, `VolcanoesStep`
+  - Narrative: `StorySeedStep`, `StoryHotspotsStep`, `StoryRiftsStep`, `StoryOrogenyStep`, `StoryCorridorsStep` (pre/post), `StorySwatchesStep`
+  - Hydrology: `ClimateBaselineStep`, `RiversStep`, `LakesStep`, `ClimateRefineStep`
+  - Ecology/Placement: `BiomesStep`, `FeaturesStep`, `DerivePlacementInputsStep`, `PlacementStep`
+- Net: base pipeline already carries explicit config schemas, so authoring enforcement aligns with current base step practice.
 - Recommendation: enforce schema presence in authoring (`createStep` requires `configSchema`, allow `EmptyStepConfigSchema`), but keep engine runtime optional for backward compatibility until all base steps are updated.
 
 #### P2) `instanceId` semantics audit (multi-occurrence steps)
@@ -85,10 +77,10 @@ Define the authored step, stage, and recipe module shapes with required schemas 
 ## Implementation Decisions
 
 ### Enforce schemas in authoring, not engine runtime (for now)
-- **Context:** Engine runtime accepts missing `configSchema` and bypasses validation; several base steps omit schema today.
+- **Context:** Engine runtime accepts missing `configSchema` and bypasses validation; authoring wants to guarantee explicit schemas for clarity.
 - **Options:** (A) require schemas only in authoring, (B) tighten engine contract to require schemas everywhere.
 - **Choice:** Option A — authoring requires `configSchema`; engine runtime remains permissive until base steps are updated.
-- **Rationale:** Avoids breaking existing steps/tests while still enforcing authoring correctness.
+- **Rationale:** Avoids breaking engine-only call sites while still enforcing authoring correctness.
 - **Risk:** Engine-only code paths can still bypass schema enforcement if they avoid authoring APIs.
 
 ### Keep `instanceId` recipe-only and validate uniqueness
