@@ -16,6 +16,12 @@ export type StandardRuntime = {
   storyEnabled: boolean;
 };
 
+export type StandardRuntimeInit = {
+  logPrefix?: string;
+  mapInfo?: MapInfo;
+  storyEnabled?: boolean;
+};
+
 const runtimeByContext = new WeakMap<ExtendedMapContext, StandardRuntime>();
 
 function resolveMapInfo(adapter: EngineAdapter): MapInfo {
@@ -85,6 +91,31 @@ export function getStandardRuntime(context: ExtendedMapContext): StandardRuntime
   if (existing) return existing;
   const runtime = createRuntime(context);
   runtimeByContext.set(context, runtime);
+  return runtime;
+}
+
+export function initializeStandardRuntime(
+  context: ExtendedMapContext,
+  init: StandardRuntimeInit = {}
+): StandardRuntime {
+  const runtime = getStandardRuntime(context);
+  if (init.logPrefix) runtime.logPrefix = init.logPrefix;
+  if (init.storyEnabled !== undefined) runtime.storyEnabled = init.storyEnabled;
+  if (init.mapInfo) {
+    runtime.mapInfo = init.mapInfo;
+    runtime.playersLandmass1 = init.mapInfo.PlayersLandmass1 ?? runtime.playersLandmass1;
+    runtime.playersLandmass2 = init.mapInfo.PlayersLandmass2 ?? runtime.playersLandmass2;
+    runtime.startSectorRows = init.mapInfo.StartSectorRows ?? runtime.startSectorRows;
+    runtime.startSectorCols = init.mapInfo.StartSectorCols ?? runtime.startSectorCols;
+    const humanNearEquator = context.adapter.needHumanNearEquator();
+    runtime.startSectors = context.adapter.chooseStartSectors(
+      runtime.playersLandmass1,
+      runtime.playersLandmass2,
+      runtime.startSectorRows,
+      runtime.startSectorCols,
+      humanNearEquator
+    );
+  }
   return runtime;
 }
 
