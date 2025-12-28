@@ -50,18 +50,6 @@ Remove core domain modules and clean up remaining imports after the move.
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Prompts (run before implementation)
-
-#### P1) Core domain export surface inventory
-- **Goal:** Identify every export/import edge that exposes or references core domain so deletion is clean and complete.
-- **Commands:**
-  - `rg -n "export \\* from \\\"@mapgen/domain" packages/mapgen-core/src/index.ts -S`
-  - `rg -n "@mapgen/domain" packages/mapgen-core/src -S`
-  - `cat packages/mapgen-core/package.json`
-- **Output to capture:**
-  - All domain exports (and re-exports) that must be removed.
-  - Any non-obvious internal references that would break once `src/domain/**` is deleted.
-
 ### Prework Findings
 #### P1) Core domain export surface inventory
 - Direct domain re-export:
