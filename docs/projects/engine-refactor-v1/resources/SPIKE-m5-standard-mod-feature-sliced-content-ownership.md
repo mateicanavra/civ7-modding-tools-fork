@@ -26,6 +26,7 @@ It does not include migration steps or task breakdowns.
 
 3. **Stages remain a first-class authoring concept (not runtime).**
    - A stage is a named, ordered list of steps used to keep recipes readable.
+   - A stage is also the **ownership boundary** for its steps on disk.
    - The runtime does not “schedule stages”; the recipe flattens to an ordered step list.
 
 4. **Registry remains fundamental, but is fully hidden from authors.**
@@ -108,25 +109,36 @@ mods/mod-swooper-maps/src/
 │  ├─ earthlike/
 │  │  ├─ recipe.ts
 │  │  ├─ stages/
-│  │  │  ├─ foundation.ts
-│  │  │  ├─ morphology.ts
-│  │  │  └─ hydrology.ts
-│  │  └─ steps/
-│  │     ├─ buildHeightfield.ts
-│  │     ├─ deriveSlopes.ts
-│  │     └─ buildClimateField.ts
+│  │  │  ├─ foundation/
+│  │  │  │  ├─ index.ts
+│  │  │  │  └─ steps/
+│  │  │  │     ├─ index.ts
+│  │  │  │     └─ *.ts
+│  │  │  ├─ morphology/
+│  │  │  │  ├─ index.ts
+│  │  │  │  └─ steps/
+│  │  │  │     ├─ index.ts
+│  │  │  │     └─ *.ts
+│  │  │  └─ hydrology/
+│  │  │     ├─ index.ts
+│  │  │     └─ steps/
+│  │  │        ├─ index.ts
+│  │  │        └─ *.ts
 │  └─ desertMountains/
 │     ├─ recipe.ts
 │     ├─ stages/
-│     │  └─ *.ts
-│     └─ steps/
-│        └─ *.ts
+│     │  └─ <stageId>/
+│     │     ├─ index.ts
+│     │     └─ steps/
+│     │        ├─ index.ts
+│     │        └─ *.ts
 └─ domain/
    └─ **/**
 ```
 
 Rules:
 - **No shared `steps/` catalog at the mod root.** Steps live inside the recipe that owns them.
+- **Steps live under their stage** (`stages/<stageId>/steps/**`), so “what stage owns this step?” is structural, not conceptual.
 - If two recipes need similar behavior, share the logic in `domain/**` and keep step wrappers thin.
 - Domain libraries are **mod-owned**. The authoring SDK does not prescribe their internal layout.
 
@@ -161,10 +173,13 @@ export type { Step, Stage, RecipeModule } from "./types";
 
 File: `packages/mapgen-core/src/authoring/types.ts` (whole file; new)
 ```ts
+import type { TSchema } from "typebox";
+
 import type {
+  DependencyTag,
   DependencyTagDefinition,
   ExecutionPlan,
-  MapGenStep,
+  GenerationPhase,
   RecipeV1,
   RunRequest,
   RunSettings,
@@ -175,17 +190,23 @@ import type { ExtendedMapContext } from "@mapgen/core/types.js";
 // A recipe-local authored step occurrence.
 // - It carries a per-occurrence config blob (the recipe will embed it into RecipeV1).
 // - It may carry explicit tag definitions (advanced); most tags are derived from tag ids.
-export type Step<TContext = ExtendedMapContext, TConfig = unknown> = MapGenStep<
-  TContext,
-  TConfig
-> & {
-  readonly instanceId?: string;
+export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
+  // Local id within the stage. Final runtime id is derived as:
+  //   `${namespace?}.${recipeId}.${stageId}.${stepId}`
+  readonly id: string;
+  readonly requires: readonly DependencyTag[];
+  readonly provides: readonly DependencyTag[];
+  readonly configSchema?: TSchema;
   readonly config?: TConfig;
+  readonly run: (context: TContext, config: TConfig) => void | Promise<void>;
+
+  readonly instanceId?: string;
   readonly tagDefinitions?: readonly DependencyTagDefinition[];
 };
 
 export type Stage<TContext = ExtendedMapContext> = {
   readonly id: string;
+  readonly phase: GenerationPhase;
   readonly steps: readonly Step<TContext, unknown>[];
 };
 
@@ -237,6 +258,7 @@ import {
   TagRegistry,
   type DependencyTagDefinition,
   type ExecutionPlan,
+  type MapGenStep,
   type RecipeV1,
   type RunRequest,
   type RunSettings,
@@ -246,6 +268,13 @@ import type { TraceSession } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { RecipeModule, Stage, Step } from "./types";
 
+type StepOccurrence<TContext> = {
+  step: MapGenStep<TContext, unknown>;
+  config: unknown;
+  instanceId?: string;
+  tagDefinitions?: readonly DependencyTagDefinition[];
+};
+
 function inferTagKind(id: string): DependencyTagDefinition["kind"] {
   if (id.startsWith("artifact:")) return "artifact";
   if (id.startsWith("field:")) return "field";
@@ -253,21 +282,68 @@ function inferTagKind(id: string): DependencyTagDefinition["kind"] {
   throw new Error(`Invalid dependency tag "${id}" (expected artifact:/field:/effect:)`);
 }
 
-function collectTagDefinitions(steps: readonly Step[]): DependencyTagDefinition[] {
+function computeFullStepId(input: {
+  namespace?: string;
+  recipeId: string;
+  stageId: string;
+  stepId: string;
+}): string {
+  const base = input.namespace ? `${input.namespace}.${input.recipeId}` : input.recipeId;
+  return `${base}.${input.stageId}.${input.stepId}`;
+}
+
+function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
+  namespace?: string;
+  recipeId: string;
+  stages: readonly Stage<TContext>[];
+}): StepOccurrence<TContext>[] {
+  const out: StepOccurrence<TContext>[] = [];
+
+  for (const stage of input.stages) {
+    for (const authored of stage.steps) {
+      const fullId = computeFullStepId({
+        namespace: input.namespace,
+        recipeId: input.recipeId,
+        stageId: stage.id,
+        stepId: authored.id,
+      });
+
+      out.push({
+        step: {
+          id: fullId,
+          phase: stage.phase,
+          requires: authored.requires,
+          provides: authored.provides,
+          configSchema: authored.configSchema,
+          run: authored.run as unknown as MapGenStep<TContext, unknown>["run"],
+        },
+        config: authored.config ?? {},
+        instanceId: authored.instanceId,
+        tagDefinitions: authored.tagDefinitions,
+      });
+    }
+  }
+
+  return out;
+}
+
+function collectTagDefinitions(
+  occurrences: readonly StepOccurrence<unknown>[]
+): DependencyTagDefinition[] {
   const defs = new Map<string, DependencyTagDefinition>();
 
   const tagIds = new Set<string>();
-  for (const step of steps) {
-    for (const tag of step.requires) tagIds.add(tag);
-    for (const tag of step.provides) tagIds.add(tag);
+  for (const occ of occurrences) {
+    for (const tag of occ.step.requires) tagIds.add(tag);
+    for (const tag of occ.step.provides) tagIds.add(tag);
   }
   for (const id of tagIds) {
     defs.set(id, { id, kind: inferTagKind(id) });
   }
 
   // Explicit tag definitions (advanced) override inferred ones.
-  for (const step of steps) {
-    for (const def of step.tagDefinitions ?? []) {
+  for (const occ of occurrences) {
+    for (const def of occ.tagDefinitions ?? []) {
       defs.set(def.id, def);
     }
   }
@@ -275,34 +351,41 @@ function collectTagDefinitions(steps: readonly Step[]): DependencyTagDefinition[
   return Array.from(defs.values());
 }
 
-function buildRegistry<TContext extends ExtendedMapContext>(steps: readonly Step<TContext>[]) {
+function buildRegistry<TContext extends ExtendedMapContext>(
+  occurrences: readonly StepOccurrence<TContext>[]
+) {
   const tags = new TagRegistry();
-  tags.registerTags(collectTagDefinitions(steps));
+  tags.registerTags(collectTagDefinitions(occurrences));
 
   const registry = new StepRegistry<TContext>({ tags });
-  for (const step of steps) registry.register(step);
+  for (const occ of occurrences) registry.register(occ.step);
   return registry;
 }
 
-function toRecipeV1(id: string, steps: readonly Step[]): RecipeV1 {
+function toRecipeV1(id: string, occurrences: readonly StepOccurrence<unknown>[]): RecipeV1 {
   return {
     schemaVersion: 1,
     id,
-    steps: steps.map((step) => ({
-      id: step.id,
-      instanceId: step.instanceId,
-      config: step.config ?? {},
+    steps: occurrences.map((occ) => ({
+      id: occ.step.id,
+      instanceId: occ.instanceId,
+      config: occ.config,
     })),
   };
 }
 
 export function createRecipe<TContext extends ExtendedMapContext>(input: {
   id: string;
+  namespace?: string;
   stages: readonly Stage<TContext>[];
 }): RecipeModule<TContext> {
-  const orderedSteps = input.stages.flatMap((stage) => stage.steps);
-  const registry = buildRegistry(orderedSteps);
-  const recipe = toRecipeV1(input.id, orderedSteps);
+  const occurrences = finalizeOccurrences({
+    namespace: input.namespace,
+    recipeId: input.id,
+    stages: input.stages,
+  });
+  const registry = buildRegistry(occurrences);
+  const recipe = toRecipeV1(input.id, occurrences);
 
   function runRequest(settings: RunSettings): RunRequest {
     return { recipe, settings };
@@ -351,7 +434,9 @@ Notes:
 For every recipe:
 
 - Each step is a file exporting a single `createStep(...)` POJO.
-- Each stage is a file exporting a single `createStage(...)` POJO (ordered step list).
+- Each stage is a folder with:
+  - `stages/<stageId>/index.ts` exporting a single `createStage(...)` POJO (ordered step list), and
+  - `stages/<stageId>/steps/index.ts` exporting explicit named step exports.
 - The recipe is a file exporting a single `createRecipe(...)` POJO that composes stages.
 
 Directory sketch (illustrative; not a file):
@@ -359,10 +444,20 @@ Directory sketch (illustrative; not a file):
 mods/mod-swooper-maps/src/recipes/<recipeId>/
 ├─ recipe.ts
 ├─ stages/
-│  └─ <stageId>.ts
-└─ steps/
-   └─ <stepId>.ts
+│  └─ <stageId>/
+│     ├─ index.ts
+│     └─ steps/
+│        ├─ index.ts
+│        └─ <stepId>.ts
 ```
+
+Stage step barrel rules (required):
+- `stages/<stageId>/steps/index.ts` must use **explicit named exports only**:
+  - `export { buildHeightfield } from "./buildHeightfield";`
+  - No `export *`.
+- Dependency direction is strictly one-way:
+  - `stages/<stageId>/index.ts` may import from `./steps`.
+  - Step files must never import `../index.ts` or `./index.ts` to avoid cycles.
 
 ---
 
@@ -382,15 +477,14 @@ export function buildTerrainMask(_params: { roughness: number }): Uint8Array {
 
 ### 6.2 Steps (recipe-local wrappers over domain logic)
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/steps/buildHeightfield.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/morphology/steps/buildHeightfield.ts` (whole file)
 ```ts
 import { Type } from "typebox";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { buildTerrainMask } from "../../../domain/terrain/buildTerrainMask";
+import { buildTerrainMask } from "../../../../../domain/terrain/buildTerrainMask";
 
 export const buildHeightfield = createStep({
-  id: "earthlike.morphology.buildHeightfield",
-  phase: "morphology",
+  id: "buildHeightfield",
   requires: [],
   provides: ["artifact:terrainMask@v1"],
   configSchema: Type.Object(
@@ -406,14 +500,13 @@ export const buildHeightfield = createStep({
 });
 ```
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/steps/buildClimateField.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/hydrology/steps/buildClimateField.ts` (whole file)
 ```ts
 import { Type } from "typebox";
 import { createStep } from "@swooper/mapgen-core/authoring";
 
 export const buildClimateField = createStep({
-  id: "earthlike.hydrology.buildClimateField",
-  phase: "hydrology",
+  id: "buildClimateField",
   requires: ["artifact:terrainMask@v1"],
   provides: ["artifact:climateField@v1"],
   configSchema: Type.Object(
@@ -429,24 +522,36 @@ export const buildClimateField = createStep({
 
 ### 6.3 Stages (authoring-only ordering)
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/morphology.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/morphology/steps/index.ts` (whole file)
+```ts
+export { buildHeightfield } from "./buildHeightfield";
+```
+
+File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/hydrology/steps/index.ts` (whole file)
+```ts
+export { buildClimateField } from "./buildClimateField";
+```
+
+File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/morphology/index.ts` (whole file)
 ```ts
 import { createStage } from "@swooper/mapgen-core/authoring";
-import { buildHeightfield } from "../steps/buildHeightfield";
+import { buildHeightfield } from "./steps";
 
 export const morphology = createStage({
   id: "morphology",
+  phase: "morphology",
   steps: [buildHeightfield],
 } as const);
 ```
 
-File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/hydrology.ts` (whole file)
+File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/hydrology/index.ts` (whole file)
 ```ts
 import { createStage } from "@swooper/mapgen-core/authoring";
-import { buildClimateField } from "../steps/buildClimateField";
+import { buildClimateField } from "./steps";
 
 export const hydrology = createStage({
   id: "hydrology",
+  phase: "hydrology",
   steps: [buildClimateField],
 } as const);
 ```
@@ -459,8 +564,11 @@ import { createRecipe } from "@swooper/mapgen-core/authoring";
 import { morphology } from "./stages/morphology";
 import { hydrology } from "./stages/hydrology";
 
+const NAMESPACE = "mod-swooper-maps";
+
 export const earthlike = createRecipe({
   id: "earthlike",
+  namespace: NAMESPACE,
   stages: [morphology, hydrology],
 } as const);
 ```
