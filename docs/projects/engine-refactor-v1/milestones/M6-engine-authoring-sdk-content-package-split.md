@@ -166,7 +166,7 @@ Issue doc: [LOCAL-TBD-M6-U04](../issues/LOCAL-TBD-M6-U04-move-domain-libraries-i
 Move all domain logic into the content package and remove core domain ownership.
 
 **Children**
-- [LOCAL-TBD-M6-U04-1](../issues/LOCAL-TBD-M6-U04-1-relocate-domain-modules-to-mod-owned-libs.md)
+- [x] [LOCAL-TBD-M6-U04-1](../issues/LOCAL-TBD-M6-U04-1-relocate-domain-modules-to-mod-owned-libs.md) — Done (branch: `m6-u04-1-relocate-domain-modules-to-mod-owned-libs`; PR: pending)
 - [LOCAL-TBD-M6-U04-2](../issues/LOCAL-TBD-M6-U04-2-update-recipe-steps-to-use-mod-owned-domain-libs.md)
 - [LOCAL-TBD-M6-U04-3](../issues/LOCAL-TBD-M6-U04-3-remove-core-domain-exports-and-clean-import-edges.md)
 
