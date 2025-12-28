@@ -72,9 +72,9 @@ git mv packages/mapgen-core/test/core/foundation-context.test.ts mods/mod-swoope
 git mv packages/mapgen-core/test/core/utils.test.ts packages/mapgen-core/test/engine/context-utils.test.ts
 ```
 
-## Non-move gaps / required design work
+## Non-move gaps / implementation remediation
 
-These require more than file moves and should be handled as a separate, explicit change set.
+These are specified in the SPIKE and M6 issues, but they require refactors beyond file moves.
 
 - `packages/mapgen-core/src/core/types.ts` still mixes engine context and content-owned artifacts. SPIKE requires splitting into `packages/mapgen-core/src/engine/context.ts` plus mod-owned artifact types and validators under `mods/mod-swooper-maps/src/domain/**`.
 - `mods/mod-swooper-maps/src/config/index.ts` and `mods/mod-swooper-maps/src/config/loader.ts` still implement a monolithic `MapGenConfig` parser. SPIKE removes the global config module entirely in favor of step-local schemas and map-owned config objects.
