@@ -1,484 +1,490 @@
-# SPIKE: Standard Mod as a Feature-Sliced “App” (Everything Content is Mod-Owned)
+# SPIKE: Recipe-Local Mod Authoring (Domain Libraries + Recipe Mini-Packages)
 
-Primary references:
+Primary reference:
 - Canonical target: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
-- Boundary skeleton decision record: `docs/projects/engine-refactor-v1/issues/M5-U02-standard-mod-boundary-skeleton.md`
 
-This SPIKE is structural only: it defines ownership boundaries, directory layout, and contracts. It does not include migration steps or implementation tasks.
+This SPIKE is an end-to-end structural rebuild of the “standard mod content” story with a single goal: make authoring clean and obvious.
 
----
+It intentionally prioritizes:
+- **Recipe-local ownership** (clear boundaries, low indirection)
+- **Thin composition layers** (recipe → stages → steps)
+- **Reuse through mod-local domain libraries** (pure logic), not through shared step catalogs
 
-## 0) Key shift: standard content lives in the mod package, not the core SDK
-
-We are moving the **standard pipeline content** out of `@swooper/mapgen-core` and into the **Swooper Maps mod package** (`mods/mod-swooper-maps`).
-
-- `@swooper/mapgen-core` becomes **engine runtime + authoring SDK only**.
-- `mods/mod-swooper-maps` becomes the **canonical standard content package**.
-- Maps (entry scripts) import recipes/config from the mod package and run the engine with those concrete inputs.
-
-This aligns with the intended separation:
-- **Core SDK** = runtime/authoring surfaces only.
-- **Content/mods** = stages/steps/recipes/config.
+It does not include migration steps or task breakdowns.
 
 ---
 
-## 1) Current state signals (what exists today)
+## 0) Summary decisions (the model we are locking in)
 
-These are the existing pieces we are re-homing:
+1. **Shared domain logic lives in domain libraries (mod-owned).**
+   - Domain libraries are pure logic/utilities reused across a mod.
+   - The engine/authoring SDK does not prescribe their shape.
 
-- **Standard mod content currently lives in** `packages/mapgen-core/src/base/**` (recipes, stages, tags, run-request mapping).
-- **Per-map config is already authored in the mod package** (`mods/mod-swooper-maps/src/*.ts`) via `bootstrap(...)` overrides (legacy; to be replaced by explicit config objects).
-- **Step config mapping currently lives in** `packages/mapgen-core/src/base/run-request.ts` (`buildRunRequest(recipe, config, ctx, mapInfo)`).
-- **Maps already import the base mod** from `@swooper/mapgen-core/base` and pass `mapGenConfig` into `runTaskGraphGeneration`.
+2. **Everything else is recipe-owned.**
+   - A recipe is a **mini-package**: it owns its stages, steps, and ordering.
+   - Steps are not treated as globally reusable primitives; reuse happens by sharing domain logic.
 
-This SPIKE formalizes the direction those signals already point to: the “base mod” belongs in the mod package, not the core SDK.
+3. **Stages remain a first-class authoring concept (not runtime).**
+   - A stage is a named, ordered list of steps used to keep recipes readable.
+   - The runtime does not “schedule stages”; the recipe flattens to an ordered step list.
 
----
+4. **Registry remains fundamental, but is fully hidden from authors.**
+   - The engine still compiles and executes using `StepRegistry + TagRegistry`.
+   - The authoring SDK builds the registry internally from recipe-local steps.
+   - Mod authors never touch registry plumbing in the common path.
 
-## 2) Locked high-level architecture (engine runtime + authoring SDK + mods)
-
-### Engine SDK (`packages/mapgen-core/src/engine/**`) is runtime-only
-
-The engine is content-agnostic and owns only the generic pipeline runtime:
-
-- **One registry concept (engine-owned):** step registry + tag registry.
-- **One compile/execute model (engine-owned):** `RunRequest -> ExecutionPlan -> execution`.
-- **RunRequest is engine-owned only** and is the sole boundary input shape: `RunRequest = { recipe, settings }` (SPEC §1.2, §2.1).
-- **No stage/authoring concepts exist in the engine** (they live in authoring only).
-
-### Authoring SDK (`packages/mapgen-core/src/authoring/**`) is ergonomics-only
-
-The authoring SDK is the sole surface for mod authors. It is a thin wrapper around engine types:
-
-- **Defines authoring contracts and helpers** (e.g., `Stage`, `defineStage`, `defineRecipe`).
-- **Re-exports engine contracts** needed by mods (e.g., `Step` as a registry entry that includes step + tags, `Recipe`, `Registry`).
-- **Does not contain runtime logic** and is not used by the executor.
-
-### Standard mod content (`mods/mod-swooper-maps/src/standard/**`) is pure content
-
-The standard mod is a “feature-sliced app” composed of stage mini-packages:
-
-- **Stages are mini-packages** and own:
-  - step definitions
-  - stage-local model (schema + types)
-  - stage-local artifacts + helpers
-  - stage-local domain logic (`lib/**`)
-- **Stages are the primary authoring unit** for content authors:
-  - a stage owns its **local default ordering** via its `steps` list (see §4).
-  - a stage does not define global pipeline semantics; it is a packaging boundary + local defaults.
-- **Recipes are the only cross-stage sequencing surface**:
-  - recipes are authored by composing stage `steps` lists (concatenate).
-  - narrative ordering/interleaving remains recipe-driven and is explicitly de-scoped from this refactor (see §1, §5.5).
-- **`mod.ts` is a thin manifest**: it ties stage registration + recipes into the engine `PipelineMod`.
-
-### Layering invariants (non-negotiable)
-
-- `engine/**` never imports from `authoring/**` or `mods/**`.
-- `authoring/**` may import from `engine/index.ts` only.
-- `mods/**` import from `authoring/index.ts` only; mods do not import `engine/**` directly.
-- “Stage” is a mod-authoring concept; the engine has no first-class stage runtime concept.
+5. **Recipe is the canonical ordering artifact (per SPEC 1.2).**
+   - The concrete `RunRequest.recipe.steps[]` order is what the compiler uses.
+   - Stages are an authoring convenience; they must not become a second source of truth.
 
 ---
 
-## 3) Target package split and directory layouts
+## 1) Anchor in the existing runtime contract (what already exists)
 
-### 3.1 `@swooper/mapgen-core` (engine + authoring only)
+This SPIKE assumes (and is designed around) the current runtime surfaces:
 
-Directory sketch (illustrative; not a file):
-```text
-packages/mapgen-core/src/
-├─ engine/
-│  ├─ index.ts
-│  ├─ types.ts
-│  ├─ errors.ts
-│  ├─ mod.ts
-│  ├─ registry/
-│  │  ├─ index.ts
-│  │  ├─ StepRegistry.ts
-│  │  └─ TagRegistry.ts
-│  ├─ runtime/
-│  │  ├─ ExecutionPlan.ts
-│  │  └─ PipelineExecutor.ts
-│  ├─ observability/
-│  │  ├─ index.ts
-│  │  ├─ fingerprint.ts
-│  │  └─ trace.ts
-│  └─ lib/
-│     └─ **/**
-└─ authoring/
-   ├─ index.ts
-   ├─ stage.ts
-   └─ recipe.ts
-```
+- `StepRegistry` + `TagRegistry` (`packages/mapgen-core/src/pipeline/StepRegistry.ts`, `packages/mapgen-core/src/pipeline/tags.ts`)
+- `compileExecutionPlan(runRequest, registry)` (`packages/mapgen-core/src/pipeline/execution-plan.ts`)
+- `PipelineExecutor.executePlan(context, plan)` (`packages/mapgen-core/src/pipeline/PipelineExecutor.ts`)
 
-**Engine** remains runtime-only (no standard mod content). **Authoring** is the only mod-facing surface.
+Key invariants we keep (SPEC 1.2):
+- Boundary input is `RunRequest = { recipe, settings }`.
+- Recipes compile into an `ExecutionPlan` (derived) which is what the executor runs.
+- `requires` / `provides` remain strictly on steps; the engine validates and enforces them.
 
-### 3.2 `mod-swooper-maps` (standard content + map entrypoints)
+---
+
+## 2) Layering (engine runtime vs authoring ergonomics vs mod content)
+
+### 2.1 Engine SDK (runtime-only)
+
+Today this is effectively the existing `@swooper/mapgen-core/pipeline` surface.
+
+The “ideal state” packaging change is to **promote** that surface as the public runtime SDK
+(e.g., `@swooper/mapgen-core/engine`) without changing behavior.
+
+**Engine owns:**
+- `StepRegistry`, `TagRegistry`
+- `RunRequest`, `RecipeV1`, `RunSettings`
+- `compileExecutionPlan`, `ExecutionPlan`
+- `PipelineExecutor`
+- errors + observability primitives
+
+**Engine does not know about:**
+- stages
+- recipes-as-folders
+- authoring helpers
+- mod content layout
+
+### 2.2 Authoring SDK (ergonomics-only, thin factories)
+
+Authoring SDK is a layer that:
+- imports engine runtime primitives
+- provides **factory functions** for `step`, `stage`, `recipe`
+- hides registry compilation/plumbing
+
+Mod content packages depend on this authoring surface; they do not import engine primitives directly.
+
+To keep registry fully hidden, the authoring layer may also provide tiny “convenience runtime” helpers (e.g., `recipe.compile()` / `recipe.run()`), but these are strictly wrappers over engine compile/execute — not new semantics.
+
+### 2.3 Mod content package (pure content)
+
+Mod content packages:
+- contain domain libraries (pure logic)
+- contain recipe mini-packages (steps/stages/recipe composition)
+- export recipes (and optionally convenience “run” entrypoints)
+
+---
+
+## 3) Mod content package structure (one recipe = one mini-package)
+
+This is the canonical layout we want to converge on for `mods/mod-swooper-maps`:
 
 Directory sketch (illustrative; not a file):
 ```text
 mods/mod-swooper-maps/src/
-├─ standard/
-│  ├─ mod.ts
-│  ├─ index.ts
-│  ├─ recipes/
-│  │  └─ default.ts
-│  ├─ shared/
-│  │  ├─ runtime.ts
-│  │  ├─ tags.ts
-│  │  └─ artifacts.ts
-│  ├─ stages/
-│  │  ├─ index.ts
-│  │  ├─ foundation/
-│  │  │  ├─ index.ts
-│  │  │  ├─ model.ts
-│  │  │  ├─ artifacts.ts
-│  │  │  ├─ steps/
-│  │  │  │  ├─ index.ts
-│  │  │  │  └─ *.ts
-│  │  │  └─ lib/
-│  │  │     └─ **/**
-│  │  ├─ morphology/...
-│  │  ├─ hydrology/...
-│  │  ├─ ecology/...
-│  │  ├─ narrative/...
-│  │  └─ placement/...
-│  ├─ config/
-│  │  ├─ schema/**
-│  │  └─ index.ts
-│  └─ run-request.ts
-├─ swooper-earthlike.ts
-├─ swooper-desert-mountains.ts
-└─ gate-a-continents.ts
+├─ mod.ts
+├─ recipes/
+│  ├─ earthlike/
+│  │  ├─ recipe.ts
+│  │  ├─ stages/
+│  │  │  ├─ foundation.ts
+│  │  │  ├─ morphology.ts
+│  │  │  └─ hydrology.ts
+│  │  └─ steps/
+│  │     ├─ buildHeightfield.ts
+│  │     ├─ deriveSlopes.ts
+│  │     └─ buildClimateField.ts
+│  └─ desertMountains/
+│     ├─ recipe.ts
+│     ├─ stages/
+│     │  └─ *.ts
+│     └─ steps/
+│        └─ *.ts
+└─ domain/
+   └─ **/**
 ```
+
+Rules:
+- **No shared `steps/` catalog at the mod root.** Steps live inside the recipe that owns them.
+- If two recipes need similar behavior, share the logic in `domain/**` and keep step wrappers thin.
+- Domain libraries are **mod-owned**. The authoring SDK does not prescribe their internal layout.
+
+### 3.1 Registry vs recipe (how this stays SPEC-aligned)
+
+SPEC 1.2 says “mods ship registry + recipes”. In this model we satisfy that by packaging registry construction **inside each recipe module**:
+
+- `mods/mod-swooper-maps/src/mod.ts` exports recipes (and mod metadata), not a global registry.
+- Each `mods/mod-swooper-maps/src/recipes/<recipeId>/recipe.ts` builds a runtime `StepRegistry` internally from its recipe-local steps.
+- The **only** canonical ordering artifact remains `RunRequest.recipe.steps[]` (a `RecipeV1` list). Stages are authoring-only groupings that flatten into that single list.
+
+This keeps the engine contract intact while removing a mod-wide “catalog” folder that tends to become a grab bag.
+
+---
+
+## 4) Authoring SDK: minimal factories (`createStep`, `createStage`, `createRecipe`)
+
+The authoring surface is intentionally small and “POJO-first”.
+
+### 4.1 Public surface
+
+File: `packages/mapgen-core/src/authoring/index.ts` (whole file; new)
+```ts
+export { createStep } from "./step";
+export { createStage } from "./stage";
+export { createRecipe } from "./recipe";
+
+export type { Step, Stage, RecipeModule } from "./types";
+```
+
+### 4.2 Types (authoring-only)
+
+File: `packages/mapgen-core/src/authoring/types.ts` (whole file; new)
+```ts
+import type {
+  DependencyTagDefinition,
+  ExecutionPlan,
+  MapGenStep,
+  RecipeV1,
+  RunRequest,
+  RunSettings,
+} from "@mapgen/pipeline/index.js";
+import type { TraceSession } from "@mapgen/trace/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+
+// A recipe-local authored step occurrence.
+// - It carries a per-occurrence config blob (the recipe will embed it into RecipeV1).
+// - It may carry explicit tag definitions (advanced); most tags are derived from tag ids.
+export type Step<TContext = ExtendedMapContext, TConfig = unknown> = MapGenStep<
+  TContext,
+  TConfig
+> & {
+  readonly instanceId?: string;
+  readonly config?: TConfig;
+  readonly tagDefinitions?: readonly DependencyTagDefinition[];
+};
+
+export type Stage<TContext = ExtendedMapContext> = {
+  readonly id: string;
+  readonly steps: readonly Step<TContext, unknown>[];
+};
+
+// What the mod exports for a recipe.
+// Registry is intentionally not exposed.
+export type RecipeModule<TContext = ExtendedMapContext> = {
+  readonly id: string;
+  readonly recipe: RecipeV1;
+  runRequest: (settings: RunSettings) => RunRequest;
+  compile: (settings: RunSettings) => ExecutionPlan;
+  run: (
+    context: TContext,
+    settings: RunSettings,
+    options?: { trace?: TraceSession | null; log?: (message: string) => void }
+  ) => void;
+};
+```
+
+### 4.3 `createStep`
+
+File: `packages/mapgen-core/src/authoring/step.ts` (whole file; new)
+```ts
+import type { Step } from "./types";
+
+export function createStep<const TStep extends Step>(step: TStep): TStep {
+  return step;
+}
+```
+
+### 4.4 `createStage`
+
+File: `packages/mapgen-core/src/authoring/stage.ts` (whole file; new)
+```ts
+import type { Stage } from "./types";
+
+export function createStage<const TStage extends Stage>(stage: TStage): TStage {
+  return stage;
+}
+```
+
+### 4.5 `createRecipe` (builds registry internally; exposes only recipe/compile/run)
+
+File: `packages/mapgen-core/src/authoring/recipe.ts` (whole file; new)
+```ts
+import {
+  compileExecutionPlan,
+  PipelineExecutor,
+  StepRegistry,
+  TagRegistry,
+  type DependencyTagDefinition,
+  type ExecutionPlan,
+  type RecipeV1,
+  type RunRequest,
+  type RunSettings,
+} from "@mapgen/pipeline/index.js";
+
+import type { TraceSession } from "@mapgen/trace/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { RecipeModule, Stage, Step } from "./types";
+
+function inferTagKind(id: string): DependencyTagDefinition["kind"] {
+  if (id.startsWith("artifact:")) return "artifact";
+  if (id.startsWith("field:")) return "field";
+  if (id.startsWith("effect:")) return "effect";
+  throw new Error(`Invalid dependency tag "${id}" (expected artifact:/field:/effect:)`);
+}
+
+function collectTagDefinitions(steps: readonly Step[]): DependencyTagDefinition[] {
+  const defs = new Map<string, DependencyTagDefinition>();
+
+  const tagIds = new Set<string>();
+  for (const step of steps) {
+    for (const tag of step.requires) tagIds.add(tag);
+    for (const tag of step.provides) tagIds.add(tag);
+  }
+  for (const id of tagIds) {
+    defs.set(id, { id, kind: inferTagKind(id) });
+  }
+
+  // Explicit tag definitions (advanced) override inferred ones.
+  for (const step of steps) {
+    for (const def of step.tagDefinitions ?? []) {
+      defs.set(def.id, def);
+    }
+  }
+
+  return Array.from(defs.values());
+}
+
+function buildRegistry<TContext extends ExtendedMapContext>(steps: readonly Step<TContext>[]) {
+  const tags = new TagRegistry();
+  tags.registerTags(collectTagDefinitions(steps));
+
+  const registry = new StepRegistry<TContext>({ tags });
+  for (const step of steps) registry.register(step);
+  return registry;
+}
+
+function toRecipeV1(id: string, steps: readonly Step[]): RecipeV1 {
+  return {
+    schemaVersion: 1,
+    id,
+    steps: steps.map((step) => ({
+      id: step.id,
+      instanceId: step.instanceId,
+      config: step.config ?? {},
+    })),
+  };
+}
+
+export function createRecipe<TContext extends ExtendedMapContext>(input: {
+  id: string;
+  stages: readonly Stage<TContext>[];
+}): RecipeModule<TContext> {
+  const orderedSteps = input.stages.flatMap((stage) => stage.steps);
+  const registry = buildRegistry(orderedSteps);
+  const recipe = toRecipeV1(input.id, orderedSteps);
+
+  function runRequest(settings: RunSettings): RunRequest {
+    return { recipe, settings };
+  }
+
+  function compile(settings: RunSettings): ExecutionPlan {
+    return compileExecutionPlan(runRequest(settings), registry);
+  }
+
+  function run(
+    context: TContext,
+    settings: RunSettings,
+    options: { trace?: TraceSession | null; log?: (message: string) => void } = {}
+  ): void {
+    const plan = compile(settings);
+    const executor = new PipelineExecutor(registry, {
+      log: options.log,
+      logPrefix: `[recipe:${input.id}]`,
+    });
+    executor.executePlan(context, plan, { trace: options.trace ?? null });
+  }
+
+  return { id: input.id, recipe, runRequest, compile, run };
+}
+```
+
+### 4.6 Packaging overlay (ideal state)
+
+This SPIKE assumes the authoring SDK is exported as a stable surface from `@swooper/mapgen-core`.
+
+Concretely:
+- Add an export in `packages/mapgen-core/package.json` for `./authoring` (and optionally promote `./pipeline` as `./engine`).
+- Mod content packages (e.g., `mods/mod-swooper-maps`) import only from `@swooper/mapgen-core/authoring`.
+  - They do not import `@swooper/mapgen-core/pipeline` directly in the common path.
 
 Notes:
-- `standard/` contains **all standard content** that currently lives in `@swooper/mapgen-core/base`.
-- `config/` moves with the standard content (see §6).
-- `run-request.ts` (config → per-step config mapping) moves with the standard content (see §6).
-- Map entrypoints remain small and declarative, per `mods/mod-swooper-maps/src/AGENTS.md`.
+- Registry creation exists, but is **invisible** to mod authors and end users.
+- `requires`/`provides` remain on steps; engine semantics are unchanged.
+- Recipe output is a concrete `RecipeV1` (ordered `steps[]`); stages do not appear in runtime.
+- Field tags (`field:*`) are part of the target architecture, but runtime satisfaction seeding is an engine concern (e.g., via `computeInitialSatisfiedTags`). Until that exists, prefer `artifact:*` products for cross-step contracts.
 
 ---
 
-## 4) Authoring SDK (minimal; step, stage, recipe only)
+## 5) Recipe mini-package template (one file per step/stage/recipe)
 
-### 4.1 `Stage` (authoring contract; engine-agnostic)
+For every recipe:
 
-Each `mods/mod-swooper-maps/src/standard/stages/<stage>/index.ts` exports exactly one `Stage` value:
+- Each step is a file exporting a single `createStep(...)` POJO.
+- Each stage is a file exporting a single `createStage(...)` POJO (ordered step list).
+- The recipe is a file exporting a single `createRecipe(...)` POJO that composes stages.
 
-File: `packages/mapgen-core/src/authoring/stage.ts` (excerpt)
-```ts
-import type { Step, Registry } from "@swooper/mapgen-core/authoring";
-
-export interface Stage {
-  id: string; // stable stage id (package boundary); no engine semantics
-  steps: readonly Step[]; // canonical stage-local ordering (authoring-time)
-  register(registry: Registry): void; // registers step entries (tags live with steps)
-}
+Directory sketch (illustrative; not a file):
+```text
+mods/mod-swooper-maps/src/recipes/<recipeId>/
+├─ recipe.ts
+├─ stages/
+│  └─ <stageId>.ts
+└─ steps/
+   └─ <stepId>.ts
 ```
-
-**Step ownership of tags (SPEC §7.2):**
-- Each step file exports a **single registry entry** containing the step plus any tag definitions (fields/artifacts/effects).
-- Registry registration consumes those entries and registers both the step and its tags.
-- Global tags (shared fields/artifacts/effects) live in `standard/shared/tags.ts` and are registered once at the mod level.
-
-### 4.2 `defineStep` (entry helper)
-
-`authoring/index.ts` exports a thin helper for defining a step entry (step + tag definitions):
-
-File: `packages/mapgen-core/src/authoring/index.ts` (excerpt)
-```ts
-import type { RegistryEntry, Step } from "@swooper/mapgen-core/authoring";
-
-export function defineStep(input: RegistryEntry): Step {
-  // …implementation would be an identity helper
-  // that preserves types and validates shape in one place.
-  return input;
-}
-```
-
-### 4.3 `defineStage` (the only required helper)
-
-`authoring/stage.ts` provides a minimal helper that reduces manual wiring:
-
-File: `packages/mapgen-core/src/authoring/stage.ts` (excerpt)
-```ts
-export function defineStage(input: {
-  id: string;
-  steps: readonly Step[];
-}): Stage {
-  // …implementation would:
-  // - registry.register(step) for each step (deduped)
-  // - return { id, steps, register }
-  throw new Error("SPIKE: structure only");
-}
-```
-
-### 4.4 `defineRecipe` (minimal composition)
-
-`authoring/recipe.ts` provides a single helper to build a structural `Recipe` from an ordered list of steps.
-Per-step config is supplied later (see §6), not at recipe authoring time.
-`buildRunRequest` materializes the concrete `RunRequest.recipe` (with per-step config)
-to match SPEC §1.2.
-
-File: `packages/mapgen-core/src/authoring/recipe.ts` (excerpt)
-```ts
-export function defineRecipe(input: {
-  schemaVersion: number;
-  steps: readonly Step[];
-}): Recipe {
-  // …implementation would map step inputs to Recipe.steps entries
-  // without per-step config.
-  throw new Error("SPIKE: structure only");
-}
-```
-
-### 4.5 Ordering responsibilities (avoid drift)
-
-- **Stage** is canonical for *intra-stage order* (via `stage.steps`).
-- **Recipe** is canonical for *global order* (the final `Recipe.steps[]`).
-- The default recipe is authored by concatenating stage `steps` lists.
-- Interleaving is still possible by explicitly composing the list (no DSL required).
-
-There is no duplication of step IDs: recipes use step references, not re-spelled IDs.
-The concrete `RunRequest.recipe` preserves the same step order and adds per-step config.
-
-### 4.6 Where `requires` / `provides` live (no semantic regression)
-
-This structure does not change dependency semantics:
-
-- `requires` / `provides` remain properties on the **step definitions** (registered in the engine registry).
-- The recipe contributes only **an ordered list of step occurrences**.
-- The engine compiler validates dependency tags and step presence against the registry and authored order, producing an `ExecutionPlan`.
-
-In other words: stages/recipes decide ordering; steps decide contracts; the engine enforces them.
 
 ---
 
-## 5) Standard-mod authoring examples (mod package)
+## 6) Concrete example (non-narrative, linear)
 
-### 5.1 Stage example (non-narrative)
+This example deliberately avoids narrative; narrative is deferred (Section 8).
 
-File: `mods/mod-swooper-maps/src/standard/stages/morphology/index.ts` (full file sketch)
+### 6.1 Shared domain logic (pure)
+
+File: `mods/mod-swooper-maps/src/domain/terrain/buildTerrainMask.ts` (whole file)
 ```ts
-import { defineStage } from "@swooper/mapgen-core/authoring";
-import { landmassPlatesStep, coastlinesStep } from "./steps";
-
-export const stage = defineStage({
-  id: "standard.morphology",
-  steps: [landmassPlatesStep, coastlinesStep],
-});
-
-export { landmassPlatesStep, coastlinesStep };
+export function buildTerrainMask(_params: { roughness: number }): Uint8Array {
+  // Domain logic lives here (pure; reusable across recipes).
+  return new Uint8Array();
+}
 ```
 
-### 5.2 Step entry example (tags live with steps)
+### 6.2 Steps (recipe-local wrappers over domain logic)
 
-File: `mods/mod-swooper-maps/src/standard/stages/morphology/steps/landmassPlates.ts` (full file sketch)
+File: `mods/mod-swooper-maps/src/recipes/earthlike/steps/buildHeightfield.ts` (whole file)
 ```ts
-import { defineStep } from "@swooper/mapgen-core/authoring";
-import { continentMaskTag } from "../artifacts";
+import { Type } from "typebox";
+import { createStep } from "@swooper/mapgen-core/authoring";
+import { buildTerrainMask } from "../../../domain/terrain/buildTerrainMask";
 
-export const landmassPlatesStep = defineStep({
-  step: {
-    id: "standard.morphology.landmassPlates",
-    phase: "morphology",
-    requires: [],
-    provides: ["artifact:terrain.continents"],
-    run(ctx, config) {
-      // ...
-    },
+export const buildHeightfield = createStep({
+  id: "earthlike.morphology.buildHeightfield",
+  phase: "morphology",
+  requires: [],
+  provides: ["artifact:terrainMask@v1"],
+  configSchema: Type.Object(
+    { roughness: Type.Number({ default: 0.5 }) },
+    { additionalProperties: false }
+  ),
+  config: { roughness: 0.5 },
+  run: (ctx, config: { roughness: number }) => {
+    const mask = buildTerrainMask({ roughness: config.roughness });
+    // (Illustrative) publish artifact
+    ctx.artifacts.set("artifact:terrainMask@v1", mask);
   },
-  artifacts: [continentMaskTag],
 });
 ```
 
-### 5.3 Step barrel example (explicit exports only)
-
-File: `mods/mod-swooper-maps/src/standard/stages/morphology/steps/index.ts` (full file sketch)
+File: `mods/mod-swooper-maps/src/recipes/earthlike/steps/buildClimateField.ts` (whole file)
 ```ts
-export { landmassPlatesStep } from "./landmassPlates";
-export { coastlinesStep } from "./coastlines";
-```
+import { Type } from "typebox";
+import { createStep } from "@swooper/mapgen-core/authoring";
 
-### 5.4 Recipe example (canonical global order)
-
-File: `mods/mod-swooper-maps/src/standard/recipes/default.ts` (full file sketch)
-```ts
-import { defineRecipe } from "@swooper/mapgen-core/authoring";
-import { foundation, morphology, hydrology } from "../stages";
-
-export const defaultRecipe = defineRecipe({
-  schemaVersion: 1,
-  steps: [
-    ...foundation.steps,
-    ...morphology.steps,
-    ...hydrology.steps,
-  ],
-});
-```
-
-### 5.5 Map entrypoint example (consumer config + recipe)
-
-File: `mods/mod-swooper-maps/src/swooper-earthlike.ts` (full file sketch)
-```ts
-import { buildRunRequest } from "./standard/run-request";
-import { defaultRecipe } from "./standard/recipes/default";
-import { standardMod } from "./standard";
-import { runTaskGraphGeneration } from "@swooper/mapgen-core";
-
-const settings = {
-  seed: 123,
-  width: 80,
-  height: 50,
-  diagnostics: {
-    trace: false,
-    emitPlan: false,
+export const buildClimateField = createStep({
+  id: "earthlike.hydrology.buildClimateField",
+  phase: "hydrology",
+  requires: ["artifact:terrainMask@v1"],
+  provides: ["artifact:climateField@v1"],
+  configSchema: Type.Object(
+    { humidity: Type.Number({ default: 0.6 }) },
+    { additionalProperties: false }
+  ),
+  config: { humidity: 0.6 },
+  run: (_ctx, _config: { humidity: number }) => {
+    // Domain logic omitted; step remains thin.
   },
-  logging: {
-    prefix: "[SWOOPER_MOD]",
-  },
-};
-
-const config = {
-  // Full, explicit per-run config (no overrides).
-  // Step-level knobs are mapped inside buildRunRequest.
-};
-
-const runRequest = buildRunRequest({ recipe: defaultRecipe, settings, config });
-
-runTaskGraphGeneration({
-  mod: standardMod,
-  runRequest,
 });
 ```
 
-### 5.6 Narrative (exploratory; out of scope)
+### 6.3 Stages (authoring-only ordering)
 
-Narrative remains a normal stage slice structurally, but its cross-cutting placement is still recipe-driven.
-Any narrative interleaving examples are deferred to a dedicated narrative SPIKE and are not part of the required template.
+File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/morphology.ts` (whole file)
+```ts
+import { createStage } from "@swooper/mapgen-core/authoring";
+import { buildHeightfield } from "../steps/buildHeightfield";
 
----
+export const morphology = createStage({
+  id: "morphology",
+  steps: [buildHeightfield],
+} as const);
+```
 
-## 6) Config and recipe responsibilities (mod content vs map entry)
+File: `mods/mod-swooper-maps/src/recipes/earthlike/stages/hydrology.ts` (whole file)
+```ts
+import { createStage } from "@swooper/mapgen-core/authoring";
+import { buildClimateField } from "../steps/buildClimateField";
 
-**Structural recipe (mod package)**
-- Lives in `mods/mod-swooper-maps/src/standard/recipes/*`.
-- Defines the default ordering only (no per-map overrides baked in).
-- This is a structural template; it is not the final `RunRequest.recipe` passed to the engine.
+export const hydrology = createStage({
+  id: "hydrology",
+  steps: [buildClimateField],
+} as const);
+```
 
-**Concrete config (map entry)**
-- Lives in `mods/mod-swooper-maps/src/*.ts`.
-- Is a single explicit config object (no overrides).
+### 6.4 Recipe (canonical global order via stage composition)
 
-**Config → step config mapping**
-- Lives with the standard mod content (current `packages/mapgen-core/src/base/run-request.ts`).
-- Moves to `mods/mod-swooper-maps/src/standard/run-request.ts`.
-- Combines the structural recipe + explicit config into a **concrete** `RunRequest.recipe`
-  that includes per-step config, matching SPEC §1.2 (`RunRequest = { recipe, settings }`).
+File: `mods/mod-swooper-maps/src/recipes/earthlike/recipe.ts` (whole file)
+```ts
+import { createRecipe } from "@swooper/mapgen-core/authoring";
+import { morphology } from "./stages/morphology";
+import { hydrology } from "./stages/hydrology";
 
-**Settings (runtime options)**
-- `RunRequest.settings` is the canonical home for runtime options (seed, dimensions, tracing).
-- Expected shape (initial; fill out during implementation):
-  - `seed: number`
-  - `width: number`
-  - `height: number`
-  - `diagnostics?: { trace?: boolean; emitPlan?: boolean; }`
-  - `logging?: { prefix?: string; }`
-  - `// TODO: add any additional engine-level run settings required by runtime adapters`
-- Any additional settings fields should be modeled here (and are the only supported runtime options surface).
-
-This keeps the engine generic and keeps content-specific config logic co-located with content.
-
----
-
-## 7) Barrels and import ergonomics (fixed rules)
-
-### Allowed barrels
-
-- **Engine barrel:** `engine/index.ts` is the only supported runtime import path.
-- **Authoring barrel:** `authoring/index.ts` is the only supported mod import path.
-- **Standard mod barrel:** `mods/mod-swooper-maps/src/standard/index.ts` is the consumer barrel for the standard mod.
-- **Stage barrel:** `mods/mod-swooper-maps/src/standard/stages/<stage>/index.ts` is the only stage barrel.
-- **Step barrel:** `mods/mod-swooper-maps/src/standard/stages/<stage>/steps/index.ts` is required, explicit exports only.
-
-### Disallowed barrels
-
-- No `lib/index.ts` barrels at any depth (avoid circular imports and opaque re-export ladders).
-- No `export *` from step barrels.
-- Step files must never import `../index.ts` or `./index.ts` (one-way dependency rule).
+export const earthlike = createRecipe({
+  id: "earthlike",
+  stages: [morphology, hydrology],
+} as const);
+```
 
 ---
 
-## 8) Dependency direction and cycle avoidance
+## 7) Mod entrypoint (exports recipes; no shared step catalog)
 
-To avoid cycles:
+File: `mods/mod-swooper-maps/src/mod.ts` (whole file)
+```ts
+import { earthlike } from "./recipes/earthlike/recipe";
 
-- `@swooper/mapgen-core` never imports from `mods/mod-swooper-maps`.
-- `mods/mod-swooper-maps` imports:
-  - `@swooper/mapgen-core/authoring` for stage/recipe authoring
-  - `@swooper/mapgen-core` runtime entrypoints for execution
-- Map entrypoints import **only**:
-  - `standardMod` and recipes from `./standard`
-  - runtime entrypoints from `@swooper/mapgen-core`
-
-This direction keeps the graph acyclic and keeps the engine package reusable.
+export const mod = {
+  id: "mod-swooper-maps",
+  recipes: { earthlike },
+} as const;
+```
 
 ---
 
-## 9) SPEC alignment and deltas (explicit)
+## 8) Narrative (explicitly deferred)
 
-### Direct alignment with SPEC intent
+This model treats narrative the same way as any other content:
+- it can be a recipe-local stage with recipe-local steps, and
+- its cross-cutting nature is expressed only through artifacts + recipe placement.
 
-- **Mods are content; engine is content-agnostic** (SPEC §1.1, §1.2).
-- **Standard pipeline ships as a standard mod package** (SPEC §2.1).
-- **Recipe is the single source of truth for global ordering and enablement** (SPEC §1.2).
-- **Registry is explicit and fail-fast** (SPEC §3).
-- **Observability baseline includes runId/fingerprint and structured failures** (SPEC §1.2 observability baseline).
-
-### Sharpened/clarified points this SPIKE makes concrete
-
-- **Three-layer split is explicit:**
-  - engine = runtime
-  - authoring = ergonomics
-  - mods = content
-- **Standard mod content moves out of core** and lives in `mods/mod-swooper-maps/src/standard/**`.
-- **Fixed on-disk template for stages** (file-based routing readiness):
-  - every stage has the same required shape and exports a `Stage`.
-  - `steps/index.ts` is required with explicit exports only.
-  - empty directories/files are allowed, but the shape is invariant across stages and mods.
-- **Stage is a mod-authoring unit**:
-  - a stage is a packaging boundary (registration + exports), not an engine runtime concept.
-- **Stage-local ordering defaults are stage-owned; recipe is global order**:
-  - the default recipe is authored by concatenating stage `steps` lists (aligns with SPEC’s “recipe ordering” because the compiled `Recipe.steps[]` remains the canonical runtime input).
-- **Narrative stays conservative and deferred**:
-  - narrative remains an optional bundle of steps (SPEC §1.6) published/consumed via typed narrative artifacts, and narrative ordering/interleaving remains recipe-driven and is explicitly deferred to a dedicated narrative design SPIKE.
-- **RunRequest is engine-owned**:
-  - the type lives in the engine; content packages may ship helpers that *build* a RunRequest from recipe + config.
-
-### SPEC text likely to update (if we adopt this as canonical)
-
-If the SPEC currently implies the standard mod lives inside the engine package, it should be sharpened to:
-- state that standard content lives in the mod package
-- treat the engine as runtime-only
-- treat authoring as a separate surface consumed by mods
-
----
-
-## 10) Future ideas (explicitly out of scope for this SPIKE)
-
-### 10.1 Codegen / file-based routing
-
-Auto-discovery is not part of this target design. Future options could include:
-- generating `steps/index.ts` or `stages/index.ts` from the filesystem
-- using bundler features (e.g., `import.meta.glob`) to auto-register steps
-
-Any auto-discovery must remain **opt-in** and produce **human-auditable outputs** (generated files committed or diffable).
-
-### 10.2 Recipe patch helpers
-
-List-edit helpers (`insertAfter`, `replaceStep`, `removeStep`) are explicitly deferred. They may be useful later but are not part of the core authoring model.
-
-### 10.3 Stage builder DSL
-
-A fluent builder (`defineStage("morphology").step(...).build()`) is out of scope for this SPIKE and should be evaluated only if the minimal `defineStage` proves insufficient.
+We are **not** redesigning narrative structure in this refactor. Any deeper narrative architecture changes require a dedicated narrative SPIKE.
