@@ -5,7 +5,7 @@
  * selection process. This is the first step of the crust-first pipeline.
  */
 
-import type { RngFunction } from "@mapgen/foundation/types.js";
+import type { RngFunction } from "@mapgen/base/foundation/types.js";
 import type { PlateGraph } from "@mapgen/lib/plates/topology.js";
 import { pickRandom } from "@mapgen/lib/rng/pick.js";
 import { rollUnit } from "@mapgen/lib/rng/unit.js";

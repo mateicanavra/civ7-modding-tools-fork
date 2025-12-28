@@ -128,3 +128,12 @@ Concrete end-state layout:
 - `rg -n \"standard-library|M3_STAGE_DEPENDENCY_SPINE|M3_STANDARD_STAGE_PHASE\" packages/`
 - `rg -n \"M3_DEPENDENCY_TAGS|M4_EFFECT_TAGS\" packages/`
 - `rg -n \"buildStandardStepConfig\\(\" packages/mapgen-core/src/orchestrator/task-graph.ts`
+
+## Implementation Decisions
+
+### Remove `@mapgen/foundation/*` shim entrypoints
+- **Context:** We had multiple “foundation” concepts (foundation stage, foundation artifacts, and a `@mapgen/foundation/*` shim folder) which created navigability and ownership confusion post-extraction.
+- **Options:** (A) Keep `@mapgen/foundation/*` re-export shims, (B) delete the shim and require imports to come from the owning base mod (`@mapgen/base/foundation/*`).
+- **Choice:** (B) delete `packages/mapgen-core/src/foundation/*` and update imports to `@mapgen/base/foundation/*`.
+- **Rationale:** Makes ownership explicit and removes an unnecessary indirection layer; reduces “three different things named foundation” in the codebase.
+- **Risk:** Any internal imports still using `@mapgen/foundation/*` would break; mitigated by repo-wide import migration + tests.
