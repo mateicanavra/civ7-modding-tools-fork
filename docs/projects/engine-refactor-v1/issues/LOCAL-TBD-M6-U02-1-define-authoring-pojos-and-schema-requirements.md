@@ -55,29 +55,6 @@ Define the authored step, stage, and recipe module shapes with required schemas 
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Prompts (run before implementation)
-
-#### P1) Engine contract audit: config schema + recipe config semantics
-- **Goal:** Align authoring types with the engine runtime contract (especially around config schema enforcement and per-occurrence config handling).
-- **Commands:**
-  - `sed -n '1,260p' packages/mapgen-core/src/pipeline/types.ts`
-  - `sed -n '1,220p' packages/mapgen-core/src/pipeline/execution-plan.ts`
-  - `rg -n "configSchema\\?" packages/mapgen-core/src -S`
-- **Output to capture:**
-  - Whether engine `MapGenStep.configSchema` is currently optional and how defaults are applied.
-  - A list of existing step definitions (in base pipeline) that omit `configSchema` today.
-  - A recommended enforcement mechanism:
-    - authoring-only (authoring rejects missing schema but engine keeps optional), or
-    - tighten engine contract too (make `configSchema` required everywhere).
-
-#### P2) `instanceId` semantics audit (multi-occurrence steps)
-- **Goal:** Confirm how `RecipeStepV1.instanceId` flows into `ExecutionPlan.nodeId` and how uniqueness is enforced.
-- **Commands:**
-  - `rg -n "instanceId" packages/mapgen-core/src/pipeline -S`
-- **Output to capture:**
-  - The exact behavior of `compileExecutionPlan` for `instanceId` and collisions.
-  - Recommended authoring type surface (`Step.instanceId?` vs “recipe occurrence only”).
-
 ### Prework Findings (Pending)
 #### P1) Engine contract audit: config schema + recipe config semantics
 - `MapGenStep.configSchema` is optional today (`packages/mapgen-core/src/pipeline/types.ts`).
