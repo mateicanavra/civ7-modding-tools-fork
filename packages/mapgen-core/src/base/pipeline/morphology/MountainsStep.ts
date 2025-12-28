@@ -7,7 +7,7 @@ import type { MountainsConfig } from "@mapgen/bootstrap/types.js";
 import { MountainsConfigSchema } from "@mapgen/config/index.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/engine/index.js";
-import { layerAddMountainsPhysics } from "@mapgen/domain/morphology/mountains/index.js";
+import { layerAddMountainsPhysics } from "@mapgen-content/morphology/mountains/index.js";
 
 export interface MountainsStepRuntime {
   logPrefix: string;

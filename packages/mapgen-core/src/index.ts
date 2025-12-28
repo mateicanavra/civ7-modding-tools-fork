@@ -7,8 +7,8 @@
  * Architecture:
  * - bootstrap/: Configuration providers (lazy-loaded)
  * - engine/: Step wiring + execution primitives
- * - domain/: Mapgen algorithms + narrative tagging/overlays
  * - core/: Shared utilities and types
+ * - content package: mod-owned domain libraries + recipes live in mods/mod-swooper-maps
  */
 
 // Re-export core types from adapter
@@ -16,9 +16,6 @@ export type { EngineAdapter, MapContext } from "@civ7/adapter";
 
 // Re-export bootstrap entry
 export { bootstrap } from "@mapgen/bootstrap/entry.js";
-
-// Re-export domain algorithms + types
-export * from "@mapgen/domain/index.js";
 
 // Re-export core utilities and types
 export * from "@mapgen/core/index.js";

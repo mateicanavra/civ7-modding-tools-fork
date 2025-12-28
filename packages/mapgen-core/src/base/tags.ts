@@ -6,7 +6,7 @@ import {
   isNarrativeMotifsMarginsV1,
   isNarrativeMotifsOrogenyV1,
   isNarrativeMotifsRiftsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+} from "@mapgen-content/narrative/artifacts.js";
 import { isPlacementInputsV1 } from "@mapgen/base/pipeline/placement/placement-inputs.js";
 import { isPlacementOutputsV1 } from "@mapgen/base/pipeline/placement/placement-outputs.js";
 import {

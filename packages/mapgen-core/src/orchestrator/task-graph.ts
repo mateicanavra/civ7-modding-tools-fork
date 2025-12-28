@@ -11,7 +11,7 @@ import {
   getNarrativeMotifsHotspots,
   getNarrativeMotifsMargins,
   getNarrativeMotifsRifts,
-} from "@mapgen/domain/narrative/queries.js";
+} from "@mapgen-content/narrative/queries.js";
 import {
   compileExecutionPlan,
   MissingDependencyError,

@@ -7,7 +7,7 @@ import type { MapGenStep } from "@mapgen/engine/index.js";
 import {
   RiftTunablesSchema,
 } from "@mapgen/config/index.js";
-import { storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/index.js";
+import { storyTagRiftValleys } from "@mapgen-content/narrative/tagging/index.js";
 
 export interface StoryRiftsStepRuntime {
   logPrefix: string;

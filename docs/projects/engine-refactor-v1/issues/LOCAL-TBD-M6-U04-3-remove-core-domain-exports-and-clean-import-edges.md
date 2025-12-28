@@ -62,3 +62,19 @@ Remove core domain modules and clean up remaining imports after the move.
 - Post-delete verification queries (expected zero hits):
   - `rg -n "@mapgen/domain" packages/mapgen-core/src -S`
   - `rg -n "packages/mapgen-core/src/domain" -S`
+
+## Implementation Decisions
+
+### Introduce `@mapgen-content/*` for mod-owned domain imports
+- **Context:** Core code still needs domain helpers while `packages/mapgen-core/src/domain/**` is deleted.
+- **Options:** (A) depend on the mod package directly, (B) use an internal TS path alias to the mod domain.
+- **Choice:** Option B — add `@mapgen-content/*` mapping to the mod domain in `packages/mapgen-core/tsconfig.paths.json`.
+- **Rationale:** Avoids a circular workspace dependency between mapgen-core and mod-swooper-maps while keeping imports explicit.
+- **Risk:** Tooling must respect TS path aliases; verify bundling behavior before publishing.
+
+### Remove domain exports from mapgen-core package surfaces
+- **Context:** Core package should no longer expose domain APIs after the move.
+- **Options:** (A) keep temporary re-exports, (B) delete domain exports immediately.
+- **Choice:** Option B — remove domain exports from `packages/mapgen-core/src/index.ts` and `packages/mapgen-core/package.json`.
+- **Rationale:** Enforces the boundary that domain logic lives in the mod package.
+- **Risk:** Downstream imports relying on mapgen-core domain exports will break until migrated.

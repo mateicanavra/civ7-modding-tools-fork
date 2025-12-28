@@ -1,8 +1,8 @@
 <<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/placement/PlacementStep.ts
 import { type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { runPlacement } from "@mapgen/domain/placement/index.js";
-import { resolveNaturalWonderCount } from "@mapgen/domain/placement/wonders.js";
+import { runPlacement } from "@mapgen-content/placement/index.js";
+import { resolveNaturalWonderCount } from "@mapgen-content/placement/wonders.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
 import type { MapGenStep } from "@mapgen/engine/index.js";
 import { EmptyStepConfigSchema } from "@mapgen/engine/step-config.js";
