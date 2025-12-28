@@ -54,19 +54,6 @@ Move all domain logic out of core into the standard content package via sequence
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Prompts (run before implementation)
-
-#### P1) Domain move “purity audit” (what is truly domain?)
-- **Goal:** Confirm the move doesn’t accidentally pull engine/runtime concerns into the mod-owned domain library.
-- **Commands:**
-  - `find packages/mapgen-core/src/domain -type f -name "*.ts" | wc -l`
-  - `rg -n "@mapgen/pipeline|@mapgen/orchestrator|@swooper/mapgen-core" packages/mapgen-core/src/domain -S`
-  - `rg -n "EngineAdapter|TraceSession|RunSettings" packages/mapgen-core/src/domain -S`
-- **Output to capture:**
-  - A short list of “domain files that look runtime-ish” and a recommendation:
-    - move anyway (treat as mod-owned runtime glue), or
-    - extract to engine-neutral `packages/mapgen-core/src/lib/**`.
-
 ### Prework Findings (Pending)
 #### P1) Domain move “purity audit” (what is truly domain?)
 - `packages/mapgen-core/src/domain` contains 129 `.ts` files.
