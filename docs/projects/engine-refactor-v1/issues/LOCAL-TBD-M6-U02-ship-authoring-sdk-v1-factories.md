@@ -64,4 +64,17 @@ Ship the authoring SDK v1 surface by completing the sequenced child issues.
   - A short list of “engine consumers” that must remain internal (should end up only in authoring SDK + tests).
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here. If new consumers are discovered (CLI/plugins), link them and flag whether they are in-scope for M6._
+#### P1) Confirm consumer cutover surface (who will import authoring)
+- Authoring consumers (external call sites that should migrate to `@swooper/mapgen-core/authoring`):
+  - `mods/mod-swooper-maps/src/sundered-archipelago.ts` (uses `runTaskGraphGeneration`)
+  - `mods/mod-swooper-maps/src/swooper-desert-mountains.ts` (uses `runTaskGraphGeneration`, `baseMod`)
+  - `mods/mod-swooper-maps/src/swooper-earthlike.ts` (uses `runTaskGraphGeneration`, `baseMod`)
+  - `mods/mod-swooper-maps/src/shattered-ring.ts` (uses `runTaskGraphGeneration`)
+  - `packages/mapgen-core/test/orchestrator/task-graph.smoke.test.ts` (uses `runTaskGraphGeneration`, `baseMod`)
+  - `packages/mapgen-core/test/orchestrator/generateMap.integration.test.ts` (uses `runTaskGraphGeneration`, `baseMod`)
+  - `packages/mapgen-core/test/orchestrator/worldmodel-config-wiring.test.ts` (uses `runTaskGraphGeneration`, `baseMod`)
+  - `packages/mapgen-core/test/orchestrator/placement-config-wiring.test.ts` (uses `runTaskGraphGeneration`, `baseMod`)
+- Engine consumers (should stay internal to engine/authoring SDK, not surfaced to mods):
+  - `packages/mapgen-core/src/orchestrator/task-graph.ts` (direct `compileExecutionPlan`, `PipelineExecutor`, `StepRegistry`)
+  - Engine-facing tests under `packages/mapgen-core/test/pipeline/**` and `packages/mapgen-core/test/orchestrator/paleo-ordering.test.ts`
+- No other packages/CLI/plugins import these symbols outside `packages/mapgen-core` + `mods`.
