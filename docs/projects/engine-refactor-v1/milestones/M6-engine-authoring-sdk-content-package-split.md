@@ -298,13 +298,16 @@ steps:
 
 ---
 
-## Open questions (should not block drafting local issues, but must be resolved during implementation)
+## Resolved decisions (from open questions)
 
-1) **Where does the Civ7 “map runner” live long-term?**  
-M6 can keep minimal wiring inside `mods/mod-swooper-maps/src/maps/_runtime/**`, but a future “publishing SDK” likely becomes its own package. This milestone should not invent that package unless it is required to keep the repo runnable.
+1) **Civ7 “map runner” home (for M6)**  
+**Decision:** keep the Civ7 runner as **mod-owned runtime glue** in `mods/mod-swooper-maps/src/maps/_runtime/**` (thin wrapper that resolves map init + constructs settings + calls `recipe.run(...)`).  
+**Rationale:** best DX (one place to look; minimal indirection); keeps engine/authoring SDK Civ7‑agnostic. A future “publishing SDK” package can be extracted only when multiple mods need it.
 
-2) **Tag schema richness vs current `TagRegistry`**  
-`SPEC-target-architecture-draft.md` sketches richer tag schemas than the current runtime `TagRegistry` supports. M6 should not redesign tag typing unless it blocks the content cutover; track as a follow-up if needed.
+2) **Tag “schema richness” vs current `TagRegistry` (for M6)**  
+**Decision:** keep the existing runtime `TagRegistry` contract (IDs + kind prefix validation + optional `satisfies` + optional demo validation). Do **not** implement the richer “tag schemas as TypeBox” sketch from `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` Appendix §7 in M6.  
+**What “schema richness” means:** the SPEC appendix sketches per‑tag TypeBox schemas (e.g., `ArtifactTag.schema` required; `FieldTag.schema` optional) and richer tag metadata (`doc`, stronger `TagId` typing). The current runtime does not model per‑tag schemas; it validates by prefix, optional `satisfies`, and optional demo validators.  
+**Rationale:** M6 is a packaging/ownership cutover; adding per‑tag schemas is high churn for limited author‑experience gain right now. Revisit only if it becomes a blocker for validation/observability.
 
 ---
 
@@ -314,4 +317,3 @@ M6 can keep minimal wiring inside `mods/mod-swooper-maps/src/maps/_runtime/**`, 
 - SPIKE §3–7 (content package shape + examples) → M6‑U03…M6‑U06
 - SPIKE §9 (file mapping) → all units (authoritative per‑file moves)
 - SPIKE §10 (pre-work) → M6‑U01/M6‑U06 (context split + runner seam)
-

@@ -22,6 +22,36 @@ Each deferral follows this structure:
 
 ## Active Deferrals
 
+## DEF-018: Civ7 Runner Extraction (Mod-Owned in M6; SDK-Owned Later)
+
+**Deferred:** 2025-12-28  
+**Trigger:** When we have multiple mod content packages that need Civ7 entrypoints, or when we introduce a dedicated “publishing SDK” for running/publishing maps.  
+**Context:** M6’s goal is a purist split: engine runtime + authoring ergonomics + content packages. To maximize mod-author DX and avoid introducing new packages/indirection mid-cutover, M6 keeps the Civ7 runner as **mod-owned runtime glue** (maps call `recipe.run(...)` after resolving map init + settings). The “right” long-term home for generic Civ7 runner wiring is likely a shared SDK surface (most plausibly `packages/civ7-adapter` or a future publishing SDK), not duplicated in each mod.  
+**Scope:**
+- Extract Civ7 map-init resolution + adapter construction + run-settings assembly into a shared package surface (adapter- or publishing-SDK-owned).
+- Keep the engine/authoring SDK Civ7-agnostic (no Civ7 imports).
+- Provide a stable entrypoint for content packages so map files stay thin and consistent.
+- Ensure any extracted runner surfaces remain “pure runtime glue” (no recipe/content privileged behavior).  
+**Impact:**
+- In M6, the content package owns `src/maps/_runtime/**` runner glue; additional mods would duplicate similar code until extraction.
+- Runner policy (logging defaults, tracing wiring, adapter selection) stays mod-local until the shared runner surface exists.
+
+---
+
+## DEF-019: Per-Tag TypeBox Schemas (“Tag Schema Richness”)
+
+**Deferred:** 2025-12-28  
+**Trigger:** Only if we have a concrete need for tag-level shape validation/introspection that cannot be met by step-local schemas + runtime `satisfies` checks (e.g., strong runtime demos validation, auto-doc generation from tag schemas, or runtime-typed artifact store enforcement).  
+**Context:** The target architecture draft includes an illustrative appendix that sketches a richer tag model (per-tag TypeBox schemas, richer tag metadata, and registry-entry bundling). The current runtime (`packages/mapgen-core/src/pipeline/tags.ts`) treats tag definitions as runtime metadata (id/kind, optional `satisfies`, optional demo validation). For M6 we intentionally keep the simple runtime model, and we do not currently see a compelling reason to add per-tag schemas at all.  
+**Scope:**
+- If revisited, decide the minimal incremental tag typing that justifies the churn (likely *not* the full Appendix model).
+- Keep this as a dedicated milestone/ADR if it ever becomes necessary; do not “accidentally” creep it into unrelated packaging work.  
+**Impact:**
+- Tags remain prefix-validated identifiers; typed data contracts remain step-owned (via per-step config schema + artifact validators).
+- Less tag-level introspection “for free,” but significantly lower authoring and refactor complexity.
+
+---
+
 ## DEF-005: River Graph Product Deferred (Adjacency Mask Only in M3)
 
 **Deferred:** 2025-12-14  

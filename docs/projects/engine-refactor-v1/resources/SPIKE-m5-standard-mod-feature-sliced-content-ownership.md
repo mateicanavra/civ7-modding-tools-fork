@@ -197,6 +197,7 @@ import type { ExtendedMapContext } from "@mapgen/core/types.js";
 // - Config *schema* lives here; values are supplied by the map that instantiates the recipe.
 // - Tag kinds/metadata are inferred from dependency tag ids (artifact:/field:/effect:) and can be overridden
 //   by the recipe-local tag catalog passed to `createRecipe({ tagDefinitions })`.
+// - Tag definitions are runtime metadata only in this target (no per-tag TypeBox schemas in M6).
 export type Step<TContext = ExtendedMapContext, TConfig = unknown> = Readonly<{
   // Local id within the stage. Final runtime id is derived as:
   //   `${namespace?}.${recipeId}.${stageId}.${stepId}`
@@ -1024,9 +1025,11 @@ New required content files (added; not currently present):
 - `packages/mapgen-core/src/engine/context.ts` (engine-owned context + writers; no `MapGenConfig`), and
 - mod-owned foundation/story artifact types + validators under `mods/mod-swooper-maps/src/domain/**`.
 
-2) **Runner/publishing SDK extraction**  
-We mapped `orchestrator/**` to `runner/**` and deleted `task-graph.ts`, but we still need a minimal, non-legacy map runner story for:
-- resolving map init params,
-- building the engine context,
-- selecting a recipe + providing config,
-- calling `recipe.run(...)`.
+2) **Civ7 map runner (decision: mod-owned runtime glue)**  
+For M6, keep a minimal Civ7 runner in the content package under `mods/mod-swooper-maps/src/maps/_runtime/**`:
+- resolves map init params / map info,
+- constructs `RunSettings`,
+- builds the engine context (engine-owned; no monolithic `MapGenConfig`),
+- calls `recipe.run(...)` (authoring SDK wrapper over engine compile/execute).
+
+A future “publishing SDK” extraction is explicitly deferred; extract only if/when multiple mods need a shared Civ7 runner surface.
