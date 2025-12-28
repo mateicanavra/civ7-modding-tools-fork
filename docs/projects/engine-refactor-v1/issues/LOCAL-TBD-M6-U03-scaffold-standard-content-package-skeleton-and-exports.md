@@ -33,6 +33,7 @@ Create the standard content package skeleton under `mods/mod-swooper-maps` with 
 
 ## Testing / Verification
 - `pnpm -C mods/mod-swooper-maps test`
+- `pnpm -C mods/mod-swooper-maps check` (catch path/export mistakes in new skeleton)
 
 ## Dependencies / Notes
 - Blocked by: [LOCAL-TBD-M6-U02](./LOCAL-TBD-M6-U02-ship-authoring-sdk-v1-factories.md)
@@ -71,5 +72,20 @@ Create the standard content package skeleton under `mods/mod-swooper-maps` with 
 - **Output to capture:**
   - The “required stage template” (a short checklist) to copy into the content skeleton PR description.
 
-### Prework Findings (Pending)
-_TODO (agent): append findings here, including the exact `tsup` entry changes required._
+### Prework Findings
+#### P1) Content package build + entrypoint inventory
+- Current tsup entry list is five map files at `mods/mod-swooper-maps/src/*.ts`:
+  - `gate-a-continents.ts`, `swooper-desert-mountains.ts`, `swooper-earthlike.ts`, `shattered-ring.ts`, `sundered-archipelago.ts`
+- No other top-level TS entrypoints exist today (`find mods/mod-swooper-maps/src -maxdepth 1 -type f -name "*.ts"` only returns the five maps).
+- Required entry update after moving maps under `src/maps/**`:
+  - Replace each entry with `src/maps/<map-name>.ts`.
+  - Do not add `src/mod.ts` as an entry unless we need a standalone bundled output; the map entries will include it transitively when imported.
+
+#### P2) Stage skeleton enforcement checklist
+- From `docs/projects/engine-refactor-v1/resources/SPIKE-m5-standard-mod-feature-sliced-content-ownership.md`:
+  - Each step is a file exporting a single `createStep(...)` POJO (default export).
+  - Each stage is a folder with:
+    - `stages/<stageId>/index.ts` exporting a single `createStage(...)` POJO (ordered step list), and
+    - `stages/<stageId>/steps/index.ts` exporting explicit named step exports (no `export *`).
+  - Recipe file (`recipes/<recipeId>/recipe.ts`) exports a single `createRecipe(...)` POJO composing stages.
+  - Dependency direction: stage index may import from `./steps`; step files must not import `../index.ts` or `./index.ts` to avoid cycles.
