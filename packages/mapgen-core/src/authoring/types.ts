@@ -12,20 +12,25 @@ import type { DependencyTagDefinition } from "@mapgen/engine/tags.js";
 import type { TraceSession } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
-export type Step<TContext = ExtendedMapContext, TConfig = any> = Readonly<{
-  id: string;
-  phase: GenerationPhase;
-  requires: readonly DependencyTag[];
-  provides: readonly DependencyTag[];
-  schema: TSchema;
-  run: (context: TContext, config: TConfig) => void | Promise<void>;
-  instanceId?: string;
-}>;
+// Bivariant callback keeps heterogeneous step configs assignable in Stage without widening to any.
+type StepRunner<TContext, TConfig> = {
+  bivarianceHack: (context: TContext, config: TConfig) => void | Promise<void>;
+}["bivarianceHack"];
 
-export type Stage<TContext = ExtendedMapContext> = Readonly<{
-  id: string;
-  steps: readonly Step<TContext, any>[];
-}>;
+export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
+  readonly id: string;
+  readonly phase: GenerationPhase;
+  readonly requires: readonly DependencyTag[];
+  readonly provides: readonly DependencyTag[];
+  readonly schema: TSchema;
+  readonly instanceId?: string;
+  run: StepRunner<TContext, TConfig>;
+};
+
+export type Stage<TContext = ExtendedMapContext> = {
+  readonly id: string;
+  readonly steps: readonly Step<TContext, unknown>[];
+};
 
 export type RecipeConfig = Readonly<Record<string, Readonly<Record<string, unknown>>>>;
 
@@ -78,5 +83,5 @@ export type RecipeModule<TContext = ExtendedMapContext> = {
   ) => void;
 };
 
-export type StepModule<TContext = ExtendedMapContext, TConfig = any> = Step<TContext, TConfig>;
+export type StepModule<TContext = ExtendedMapContext, TConfig = unknown> = Step<TContext, TConfig>;
 export type StageModule<TContext = ExtendedMapContext> = Stage<TContext>;
