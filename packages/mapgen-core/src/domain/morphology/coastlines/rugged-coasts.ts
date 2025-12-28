@@ -1,6 +1,6 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { ctxRandom, writeHeightfield } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import { clamp } from "@mapgen/lib/math/index.js";
 import { forEachNeighbor3x3 } from "@mapgen/lib/grid/neighborhood/square-3x3.js";
 import { BOUNDARY_TYPE } from "@mapgen/base/foundation/constants.js";
@@ -23,7 +23,7 @@ export function addRuggedCoasts(
   ctx: ExtendedMapContext,
   config: { coastlines?: CoastlinesConfig; corridors?: CorridorPolicy } = {}
 ): void {
-  const foundation = assertFoundationContext(ctx, "coastlines");
+  const plates = assertFoundationPlates(ctx, "coastlines");
   const adapter = ctx.adapter;
 
   const area = Math.max(1, iWidth * iHeight);
@@ -33,7 +33,7 @@ export function addRuggedCoasts(
     adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 4, 0);
   }
 
-  const { boundaryCloseness, boundaryType } = foundation.plates;
+  const { boundaryCloseness, boundaryType } = plates;
 
   const cfg = config.coastlines || {};
   const cfgBay = cfg.bay || {};

@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationDynamics } from "@mapgen/core/assertions.js";
 import { inBounds as boundsCheck } from "@mapgen/lib/grid/bounds.js";
 import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@mapgen/config/index.js";
 import { getNarrativeMotifsHotspots, getNarrativeMotifsRifts } from "@mapgen/domain/narrative/queries.js";
@@ -31,9 +31,8 @@ export function refineClimateEarthlike(
       "ClimateEngine: refineClimateEarthlike requires MapContext (legacy direct-engine fallback removed)."
     );
   }
-  const foundation = assertFoundationContext(ctx, "climateRefine");
   const runtime = createClimateRuntime(width, height, ctx);
-  const { dynamics } = foundation;
+  const dynamics = assertFoundationDynamics(ctx, "climateRefine");
 
   const climateCfg = options.climate ?? {};
   const refineCfg = climateCfg.refine || {};

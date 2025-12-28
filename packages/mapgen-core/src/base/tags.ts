@@ -1,5 +1,5 @@
 import { ENGINE_EFFECT_TAGS } from "@civ7/adapter";
-import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import {
   isNarrativeCorridorsV1,
   isNarrativeMotifsHotspotsV1,
@@ -9,12 +9,27 @@ import {
 } from "@mapgen/domain/narrative/artifacts.js";
 import { isPlacementInputsV1 } from "@mapgen/base/pipeline/placement/placement-inputs.js";
 import { isPlacementOutputsV1 } from "@mapgen/base/pipeline/placement/placement-outputs.js";
-import { FOUNDATION_ARTIFACT_TAG, validateFoundationContext } from "@mapgen/core/types.js";
+import {
+  FOUNDATION_CONFIG_ARTIFACT_TAG,
+  FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
+  FOUNDATION_DYNAMICS_ARTIFACT_TAG,
+  FOUNDATION_PLATES_ARTIFACT_TAG,
+  FOUNDATION_SEED_ARTIFACT_TAG,
+  validateFoundationConfigArtifact,
+  validateFoundationDiagnosticsArtifact,
+  validateFoundationDynamicsArtifact,
+  validateFoundationPlatesArtifact,
+  validateFoundationSeedArtifact,
+} from "@mapgen/core/types.js";
 import type { DependencyTagDefinition, TagOwner } from "@mapgen/pipeline/tags.js";
 
 export const M3_DEPENDENCY_TAGS = {
   artifact: {
-    foundation: FOUNDATION_ARTIFACT_TAG,
+    foundationPlatesV1: FOUNDATION_PLATES_ARTIFACT_TAG,
+    foundationDynamicsV1: FOUNDATION_DYNAMICS_ARTIFACT_TAG,
+    foundationSeedV1: FOUNDATION_SEED_ARTIFACT_TAG,
+    foundationDiagnosticsV1: FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
+    foundationConfigV1: FOUNDATION_CONFIG_ARTIFACT_TAG,
     heightfield: "artifact:heightfield",
     climateField: "artifact:climateField",
     storyOverlays: "artifact:storyOverlays",
@@ -83,9 +98,29 @@ type SatisfactionState = {
 
 export const BASE_TAG_DEFINITIONS: readonly DependencyTagDefinition[] = [
   {
-    id: M3_DEPENDENCY_TAGS.artifact.foundation,
+    id: M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
     kind: "artifact",
-    satisfies: (context) => isFoundationArtifactSatisfied(context),
+    satisfies: (context) => isFoundationPlatesArtifactSatisfied(context),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
+    kind: "artifact",
+    satisfies: (context) => isFoundationDynamicsArtifactSatisfied(context),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.foundationSeedV1,
+    kind: "artifact",
+    satisfies: (context) => isFoundationSeedArtifactSatisfied(context),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.foundationDiagnosticsV1,
+    kind: "artifact",
+    satisfies: (context) => isFoundationDiagnosticsArtifactSatisfied(context),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.foundationConfigV1,
+    kind: "artifact",
+    satisfies: (context) => isFoundationConfigArtifactSatisfied(context),
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.heightfield,
@@ -290,11 +325,58 @@ function isPlacementOutputSatisfied(context: ExtendedMapContext, state: Satisfac
   return true;
 }
 
-function isFoundationArtifactSatisfied(context: ExtendedMapContext): boolean {
-  const value = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundation);
-  if (!value || typeof value !== "object") return false;
+function isFoundationPlatesArtifactSatisfied(context: ExtendedMapContext): boolean {
   try {
-    validateFoundationContext(value as FoundationContext, context.dimensions);
+    validateFoundationPlatesArtifact(
+      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1),
+      context.dimensions
+    );
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isFoundationDynamicsArtifactSatisfied(context: ExtendedMapContext): boolean {
+  try {
+    validateFoundationDynamicsArtifact(
+      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1),
+      context.dimensions
+    );
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isFoundationSeedArtifactSatisfied(context: ExtendedMapContext): boolean {
+  try {
+    validateFoundationSeedArtifact(
+      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationSeedV1),
+      context.dimensions
+    );
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isFoundationDiagnosticsArtifactSatisfied(context: ExtendedMapContext): boolean {
+  try {
+    validateFoundationDiagnosticsArtifact(
+      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationDiagnosticsV1)
+    );
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isFoundationConfigArtifactSatisfied(context: ExtendedMapContext): boolean {
+  try {
+    validateFoundationConfigArtifact(
+      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationConfigV1)
+    );
     return true;
   } catch {
     return false;

@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import { assertFoundationContext } from "@mapgen/core/assertions.js";
+import { assertFoundationPlates } from "@mapgen/core/assertions.js";
 import { writeHeightfield } from "@mapgen/core/types.js";
 import { devLogIf } from "@mapgen/dev/index.js";
 import type { MountainsConfig } from "@mapgen/domain/morphology/mountains/types.js";
@@ -8,7 +8,7 @@ import { applyRiftDepressions, computePlateBasedScores, HILL_FRACTAL, MOUNTAIN_F
 import { MOUNTAIN_TERRAIN, HILL_TERRAIN, COAST_TERRAIN, OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
 
 export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Partial<MountainsConfig> = {}): void {
-  const foundation = assertFoundationContext(ctx, "mountains");
+  const plates = assertFoundationPlates(ctx, "mountains");
   const {
     tectonicIntensity = 1.0,
     mountainThreshold = 0.58,
@@ -114,11 +114,11 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
     },
     isWater,
     adapter,
-    foundation
+    plates
   );
 
   if (riftDepth > 0) {
-    applyRiftDepressions(ctx, scores, hillScores, riftDepth, foundation);
+    applyRiftDepressions(ctx, scores, hillScores, riftDepth, plates);
   }
 
   const selectionAdapter = { isWater };
