@@ -50,27 +50,6 @@ Rewrite maps and presets to select a recipe and supply a config instance at runt
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Prompts (run before implementation)
-
-#### P1) Map inventory + config instance extraction checklist
-- **Goal:** Enumerate all current map entrypoints and the config values they set so we can re-home those values cleanly as recipe-instance configs.
-- **Commands:**
-  - `find mods/mod-swooper-maps/src -maxdepth 1 -type f -name "*.ts" -print`
-  - `rg -n "buildConfig\\(|overrides:" mods/mod-swooper-maps/src -S`
-  - `rg -n "applyMapInitData|resolveMapInitData|OrchestratorConfig" mods/mod-swooper-maps/src -S`
-- **Output to capture:**
-  - A list of map files and where their config object is constructed.
-  - A short “config key hotspots” summary (top-level keys like `landmass`, `mountains`, `climate`, etc.).
-
-#### P2) Runner glue extraction plan (mod-owned in M6)
-- **Goal:** Define the minimal `_runtime` helper set each map will use (map init + settings + calling recipe).
-- **Commands:**
-  - `sed -n '1,220p' packages/mapgen-core/src/orchestrator/map-init.ts`
-  - `sed -n '1,260p' packages/mapgen-core/src/orchestrator/helpers.ts`
-- **Output to capture:**
-  - Which functions can be copied/adapted into `mods/mod-swooper-maps/src/maps/_runtime/**` as pure glue.
-  - Any remaining legacy coupling to remove (e.g., references to `RecipeV1` overrides).
-
 ### Prework Findings (Pending)
 #### P1) Map inventory + config instance extraction checklist
 - Map entrypoints (top-level `src/*.ts`):
