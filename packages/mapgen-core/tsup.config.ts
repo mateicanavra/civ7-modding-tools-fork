@@ -39,6 +39,7 @@ export default defineConfig({
     "src/lib/rng/index.ts",
     "src/lib/noise/index.ts",
     "src/lib/collections/index.ts",
+    "src/base/index.ts",
   ],
   format: ["esm"],
   target: "esnext",

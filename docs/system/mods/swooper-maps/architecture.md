@@ -8,12 +8,13 @@ This mod uses **explicit overrides + recipe selection** so variants can share on
 
 - Entry scripts call `bootstrap({ overrides })` from `@swooper/mapgen-core/bootstrap` and receive a validated `MapGenConfig`.
 - Entry scripts call `applyMapInitData` to resolve map settings and seed the adapter with init data.
-- Entry scripts select or derive a RecipeV1 (often from `standardMod`) and pass it via `runTaskGraphGeneration`.
+- Entry scripts select or derive a RecipeV1 (often from the injected `baseMod`) and pass it via `runTaskGraphGeneration`.
 - Steps/layers read config from `context.config` (no global runtime config store, no `bootstrap/tunables` module).
 
 Example (minimal runnable pipeline):
 ```ts
-import { applyMapInitData, bootstrap, runTaskGraphGeneration, standardMod } from "@swooper/mapgen-core";
+import { baseMod } from "@swooper/mapgen-core/base";
+import { applyMapInitData, bootstrap, runTaskGraphGeneration } from "@swooper/mapgen-core";
 
 const config = bootstrap({
   overrides: {},
@@ -23,13 +24,13 @@ applyMapInitData({ logPrefix: "[MOD]" });
 
 const recipe = {
   schemaVersion: 1,
-  steps: standardMod.recipes.default.steps.map((step) => ({
+  steps: baseMod.recipes.default.steps.map((step) => ({
     ...step,
     enabled: step.id === "foundation" || step.id === "landmassPlates",
   })),
 };
 
-runTaskGraphGeneration({ mapGenConfig: config, orchestratorOptions: { recipeOverride: recipe } });
+runTaskGraphGeneration({ mod: baseMod, mapGenConfig: config, orchestratorOptions: { recipeOverride: recipe } });
 ```
 
 ## Dependency Chain Visualization (M4)

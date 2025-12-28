@@ -53,7 +53,7 @@ To reach the clean target, we need to invert that relationship:
 
 - `@swooper/mapgen-core` becomes a generic pipeline + shared primitives library (StepRegistry, TagRegistry, ExecutionPlan compiler, executor, tracing, shared math/grid/rng/noise utilities, etc.).
 - The standard pipeline becomes a mod/plugin that registers its own tags, steps, recipes, and domain helpers without the core package “knowing” about narrative/placement/ecology/etc.
-  - In this repo, that plugin should live as a workspace package under `mods/mod-mapgen-standard` (so “domain behavior lives in mods,” not in core).
+  - In this repo, that plugin should be importable as `@swooper/mapgen-core/base` (so “domain behavior lives in the base mod module,” not in core SDK).
 
 This is the workstream that makes the rest of the cleanup *real*, because it’s what removes the last structural reason for legacy shims and milestone-coded scaffolding to exist in core.
 

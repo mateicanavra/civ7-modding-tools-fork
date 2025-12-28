@@ -29,7 +29,7 @@ What M4 does *not* buy us is the final package/ownership architecture. The large
 
 - Core packages are generic pipeline + patterns + shared primitives only. They do not embed standard-mod domain behavior.
 - The standard pipeline is a mod/plugin: it owns its steps, tag definitions, recipes, and domain helpers. Core doesn’t “know” narrative/morphology/ecology/placement exist.
-- In this repo, the standard plugin lives as a workspace package at `mods/mod-mapgen-standard` and is supplied to core via explicit injection (no built-in standard import in core).
+- In this repo, the base pipeline mod is exported from `@swooper/mapgen-core/base` and is supplied to core via explicit injection (no built-in base import in core).
 
 ### Engine boundary (boring on purpose)
 
@@ -119,8 +119,8 @@ Triage follow-ups that *do* intersect with “super clean” end state (and are 
 
 The canonical unit definitions live as standalone issue docs under `docs/projects/engine-refactor-v1/issues/`. This milestone doc keeps only the index and the sequencing/grouping layer.
 
-- [x] [M5-U01](../issues/M5-U01-DEF-011-delete-crust-mode.md) — DEF‑011: delete `crustMode` and the `"legacy"` behavior branch (branch: `m5-u01-def-011-delete-crust-mode`, review: `m5-u01-review-def-011-delete-crust-mode`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/243)
-- [ ] [M5-U02](../issues/M5-U02-standard-mod-boundary-skeleton.md) — introduce the standard-mod package boundary skeleton + invariants
+- [x] [M5-U01](../issues/M5-U01-DEF-011-delete-crust-mode.md) — DEF‑011: delete `crustMode` and the `"legacy"` behavior branch (branch: `m5-u01-def-011-delete-crust-mode`)
+- [x] [M5-U02](../issues/M5-U02-standard-mod-boundary-skeleton.md) — introduce the standard-mod package boundary skeleton + invariants (branch: `m5-u02-standard-mod-boundary-skeleton`)
 - [ ] [M5-U03](../issues/M5-U03-standard-registry-recipes-tags-extraction.md) — move standard registry + recipes + tags into the standard mod
 - [ ] [M5-U04](../issues/M5-U04-extract-standard-foundation-physics.md) — extract foundation & physics steps + helpers into the standard mod
 - [ ] [M5-U05](../issues/M5-U05-extract-standard-morphology-hydrology.md) — extract morphology & hydrology steps + helpers into the standard mod

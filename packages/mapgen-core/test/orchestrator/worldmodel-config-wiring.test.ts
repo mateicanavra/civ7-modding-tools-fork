@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { bootstrap } from "@mapgen/bootstrap/entry.js";
 import { runTaskGraphGeneration } from "@mapgen/index.js";
 import { createMockAdapter } from "@civ7/adapter";
-import { mod as standardMod } from "@mapgen/mods/standard/mod.js";
+import { baseDefaultRecipe, baseMod } from "@mapgen/base/index.js";
 
 describe("TaskGraph foundation config wiring", () => {
   const width = 84;
@@ -74,8 +74,8 @@ describe("TaskGraph foundation config wiring", () => {
       },
     });
     const recipeOverride = {
-      ...standardMod.recipes.default,
-      steps: standardMod.recipes.default.steps.filter((step) => step.id === "foundation"),
+      ...baseDefaultRecipe,
+      steps: baseDefaultRecipe.steps.filter((step) => step.id === "foundation"),
     };
 
     const adapter = createMockAdapter({
@@ -86,6 +86,7 @@ describe("TaskGraph foundation config wiring", () => {
     });
 
     const result = runTaskGraphGeneration({
+      mod: baseMod,
       mapGenConfig: config,
       orchestratorOptions: {
         adapter,
@@ -126,8 +127,8 @@ describe("TaskGraph foundation config wiring", () => {
       },
     });
     const recipeOverride = {
-      ...standardMod.recipes.default,
-      steps: standardMod.recipes.default.steps.filter(
+      ...baseDefaultRecipe,
+      steps: baseDefaultRecipe.steps.filter(
         (step) => step.id === "foundation" || step.id === "mountains"
       ),
     };
@@ -140,6 +141,7 @@ describe("TaskGraph foundation config wiring", () => {
     });
 
     const result = runTaskGraphGeneration({
+      mod: baseMod,
       mapGenConfig: config,
       orchestratorOptions: {
         adapter,
