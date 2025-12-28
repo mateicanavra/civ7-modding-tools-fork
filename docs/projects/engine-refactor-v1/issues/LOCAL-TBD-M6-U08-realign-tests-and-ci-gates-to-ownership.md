@@ -73,4 +73,18 @@ Move tests to match the new ownership boundaries and keep the CI gates aligned.
   - The minimal smoke test shape to replicate post-cutover.
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here; include the chosen smoke test entrypoint and any CI gate updates required._
+#### P1) Test harness inventory (what exists today)
+- `packages/mapgen-core`:
+  - `test` script uses `bun test` (`packages/mapgen-core/package.json`).
+  - Existing tests include pipeline compile/execute (`test/pipeline/execution-plan.test.ts`, `test/pipeline/standard-smoke.test.ts`) and orchestrator smoke tests (which will be removed or migrated).
+- `mods/mod-swooper-maps`:
+  - No `test` script and no existing test files.
+  - Will need a new test runner entry (likely `bun test` to match mapgen-core) and a new test directory.
+
+#### P2) Existing mock adapter / smoke utilities inventory
+- Mock adapter lives in `@civ7/adapter` (`packages/civ7-adapter/src/mock-adapter.ts`) and is re-exported as `createMockAdapter` from `@civ7/adapter` or `@civ7/adapter/mock`.
+- Many mapgen-core tests already use `createMockAdapter` + `createExtendedMapContext` as the minimal harness.
+- Proposed smoke test shape for the mod package:
+  - Instantiate `createMockAdapter({ width, height, mapSizeId, mapInfo, rng })`.
+  - Build a minimal `RunSettings` + recipe config.
+  - `recipe.compile(...)` then `recipe.run(...)` (or `compileExecutionPlan` + `PipelineExecutor.executePlan`) and assert success.
