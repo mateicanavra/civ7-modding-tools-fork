@@ -4,7 +4,7 @@ import { createStep } from "@swooper/mapgen-core/authoring";
 import {
   CorridorsConfigSchema,
   FoundationDirectionalityConfigSchema,
-} from "@swooper/mapgen-core/config";
+} from "@mapgen/config";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 

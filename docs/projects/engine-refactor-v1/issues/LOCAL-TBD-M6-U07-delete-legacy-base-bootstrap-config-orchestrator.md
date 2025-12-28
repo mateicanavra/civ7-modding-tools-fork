@@ -44,6 +44,29 @@ Remove legacy base/bootstrap/config/orchestrator surfaces after the new pipeline
 - Remove base/bootstrap/config/orchestrator modules only after map entrypoints and tests have cut over.
 - Ensure `packages/mapgen-core/src/index.ts` and package exports drop legacy surfaces.
 
+## Implementation Decisions
+
+### Widen authoring step config typing defaults
+- **Context:** Moving config ownership into the mod caused authoring steps to be typed as `config: unknown`, breaking recipe step type-checks.
+- **Options:** Keep `unknown` and cast in each step, add per-step generics everywhere, or relax defaults in the authoring SDK.
+- **Choice:** Default `Step`/`Stage`/`StepModule` config generics to `any` and allow stages to accept `Step<..., any>`.
+- **Rationale:** Restores step typing without scattering casts and preserves `RecipeConfigOf` inference.
+- **Risk:** Weaker static type safety for step configs; invalid shapes may pass compile-time checks.
+
+### Drop storyRifts foundation override from recipe config
+- **Context:** `storyTagRiftValleys` reads directionality from `ctx.config`, but the recipe step schema carried a redundant foundation override.
+- **Options:** Expand `storyTagRiftValleys` to accept a foundation override, or rely on runtime config on the context.
+- **Choice:** Remove the foundation override from the step config and rely on `ctx.config`.
+- **Rationale:** Avoids duplicating foundation config surfaces in recipe steps.
+- **Risk:** Directionality can no longer be overridden per-run via the recipe config.
+
+### Make paleo climate config optional for rivers
+- **Context:** Standard recipe compilation without explicit config failed because `climate.story.paleo` was required.
+- **Options:** Require paleo config in every recipe config, or make it optional with defaults.
+- **Choice:** Mark `climate.story.paleo` optional in the rivers step schema.
+- **Rationale:** Allows `standardRecipe.compile()` to succeed with no explicit config.
+- **Risk:** Paleo hydrology tweaks are skipped unless explicitly configured.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)

@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { PlacementConfigSchema } from "@swooper/mapgen-core/config";
+import { PlacementConfigSchema } from "@mapgen/config";
 import { publishPlacementInputsArtifact } from "../../../artifacts.js";
 import { getBaseStarts, getStandardRuntime } from "../../../runtime.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";

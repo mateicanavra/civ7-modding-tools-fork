@@ -128,7 +128,10 @@ function buildRegistry<TContext extends ExtendedMapContext>(
   return registry;
 }
 
-function toStructuralRecipeV1(id: string, occurrences: readonly StepOccurrence<unknown>[]): RecipeV1 {
+function toStructuralRecipeV1<TContext>(
+  id: string,
+  occurrences: readonly StepOccurrence<TContext>[]
+): RecipeV1 {
   return {
     schemaVersion: 1,
     id,
@@ -160,7 +163,9 @@ export function createRecipe<TContext extends ExtendedMapContext>(
       steps: occurrences.map((occ) => ({
         id: occ.step.id,
         instanceId: occ.instanceId,
-        config: cfg ? cfg[occ.stageId]?.[occ.stepId] : undefined,
+        config: cfg
+          ? (cfg[occ.stageId]?.[occ.stepId] as Record<string, unknown> | undefined)
+          : undefined,
       })),
     };
   }

@@ -10,14 +10,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./config": {
-      "types": "./dist/config/index.d.ts",
-      "import": "./dist/config/index.js"
-    },
-    "./bootstrap": {
-      "types": "./dist/bootstrap/entry.d.ts",
-      "import": "./dist/bootstrap/entry.js"
-    },
     "./polyfills/text-encoder": {
       "types": "./dist/polyfills/text-encoder.d.ts",
       "import": "./dist/polyfills/text-encoder.js"
@@ -61,10 +53,6 @@
     "./lib/plates": {
       "types": "./dist/lib/plates/index.d.ts",
       "import": "./dist/lib/plates/index.js"
-    },
-    "./base": {
-      "types": "./dist/base/index.d.ts",
-      "import": "./dist/base/index.js"
     }
   },
   "scripts": {
@@ -72,8 +60,7 @@
     "precheck": "pnpm -C ../civ7-adapter build",
     "pretest": "pnpm -C ../civ7-adapter build",
     "test": "bun test",
-    "check": "tsc --noEmit",
-    "check:schema-defaults": "bun run ./scripts/check-schema-defaults.ts"
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@civ7/adapter": "workspace:*",

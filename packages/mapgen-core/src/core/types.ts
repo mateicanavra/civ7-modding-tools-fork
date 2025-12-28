@@ -14,8 +14,6 @@
 
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
 import { initializeTerrainConstants } from "@mapgen/core/terrain-constants.js";
-import type { SeedSnapshot } from "@mapgen/base/foundation/types.js";
-import type { MapGenConfig } from "@mapgen/config/index.js";
 import type { TraceScope } from "@mapgen/trace/index.js";
 import { createNoopTraceScope } from "@mapgen/trace/index.js";
 
@@ -88,6 +86,32 @@ export type StoryOverlayRegistry = Map<string, StoryOverlaySnapshot>;
 // ============================================================================
 // Foundation Context Types
 // ============================================================================
+
+/**
+ * RNG state snapshot (seed capture metadata).
+ */
+export interface SeedRngState {
+  state?: bigint | number;
+  inc?: bigint | number;
+  [key: string]: unknown;
+}
+
+/**
+ * Seed capture snapshot (foundation seed metadata).
+ */
+export interface SeedSnapshot {
+  width: number;
+  height: number;
+  seedMode: "engine" | "fixed";
+  seedOffset?: number;
+  fixedSeed?: number;
+  timestamp?: number;
+  seed?: number;
+  rngState?: Readonly<SeedRngState>;
+  config?: Readonly<Record<string, unknown>>;
+  seedLocations?: ReadonlyArray<{ id: number; x: number; y: number }>;
+  sites?: ReadonlyArray<{ id: number; x: number; y: number }>;
+}
 
 /**
  * Snapshot of configuration that informed the foundation run.
@@ -182,6 +206,8 @@ export interface GenerationMetrics {
 // Extended MapContext
 // ============================================================================
 
+export type MapConfig = Readonly<Record<string, unknown>>;
+
 /**
  * Extended MapContext with all generation state.
  * This extends the minimal MapContext from @civ7/adapter.
@@ -190,7 +216,7 @@ export interface ExtendedMapContext {
   dimensions: MapDimensions;
   fields: MapFields;
   rng: RNGState;
-  config: MapGenConfig;
+  config: MapConfig;
   metrics: GenerationMetrics;
   trace: TraceScope;
   adapter: EngineAdapter;
@@ -215,7 +241,7 @@ const EMPTY_FROZEN_OBJECT = Object.freeze({});
 export function createExtendedMapContext(
   dimensions: MapDimensions,
   adapter: EngineAdapter,
-  config: MapGenConfig
+  config: MapConfig
 ): ExtendedMapContext {
   initializeTerrainConstants(adapter);
   const { width, height } = dimensions;

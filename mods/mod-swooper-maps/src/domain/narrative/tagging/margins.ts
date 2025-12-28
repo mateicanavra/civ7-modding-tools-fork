@@ -12,7 +12,7 @@ import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
 import { rand } from "@mapgen/domain/narrative/utils/rng.js";
 
 import type { ContinentalMarginsOptions } from "@mapgen/domain/narrative/tagging/types.js";
-import type { ContinentalMarginsConfig } from "@swooper/mapgen-core/config";
+import type { ContinentalMarginsConfig } from "@mapgen/config";
 
 export function storyTagContinentalMargins(
   ctx: ExtendedMapContext,

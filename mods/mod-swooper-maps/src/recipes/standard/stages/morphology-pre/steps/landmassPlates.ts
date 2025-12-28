@@ -10,8 +10,8 @@ import {
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import type { LandmassConfig } from "@swooper/mapgen-core/config";
-import { LandmassConfigSchema, OceanSeparationConfigSchema } from "@swooper/mapgen-core/config";
+import type { LandmassConfig } from "@mapgen/config";
+import { LandmassConfigSchema, OceanSeparationConfigSchema } from "@mapgen/config";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,

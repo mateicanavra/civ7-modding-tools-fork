@@ -9,7 +9,7 @@ import { rand } from "@mapgen/domain/narrative/utils/rng.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 import type { HotspotTrailsSummary } from "@mapgen/domain/narrative/tagging/types.js";
-import type { HotspotTunables } from "@swooper/mapgen-core/config";
+import type { HotspotTunables } from "@mapgen/config";
 
 export function storyTagHotspotTrails(
   ctx: ExtendedMapContext,

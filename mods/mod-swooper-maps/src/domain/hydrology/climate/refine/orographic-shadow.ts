@@ -1,4 +1,4 @@
-import type { FoundationDirectionalityConfig } from "@swooper/mapgen-core/bootstrap";
+import type { FoundationDirectionalityConfig } from "@mapgen/config";
 import type { FoundationContext } from "@swooper/mapgen-core";
 import type { ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
 import { hasUpwindBarrierWM } from "@mapgen/domain/hydrology/climate/orographic-shadow.js";

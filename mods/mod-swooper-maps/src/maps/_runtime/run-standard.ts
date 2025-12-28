@@ -1,5 +1,5 @@
 import { createExtendedMapContext, type ExtendedMapContext } from "@swooper/mapgen-core";
-import type { MapGenConfig } from "@swooper/mapgen-core/config";
+import type { MapGenConfig } from "@mapgen/config";
 import type { RecipeModule } from "@swooper/mapgen-core/authoring";
 
 import { initializeStandardRuntime } from "../../recipes/standard/runtime.js";

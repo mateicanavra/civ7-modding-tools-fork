@@ -1,7 +1,7 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { assertFoundationDynamics } from "@swooper/mapgen-core";
 import { inBounds as boundsCheck } from "@swooper/mapgen-core/lib/grid";
-import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@swooper/mapgen-core/config";
+import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@mapgen/config";
 import { getNarrativeMotifsHotspots, getNarrativeMotifsRifts } from "@mapgen/domain/narrative/queries.js";
 import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";

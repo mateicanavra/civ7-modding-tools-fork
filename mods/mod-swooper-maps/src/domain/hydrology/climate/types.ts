@@ -1,4 +1,4 @@
-import type { ClimateConfig as BootstrapClimateConfig } from "@swooper/mapgen-core/bootstrap";
+import type { ClimateConfig as BootstrapClimateConfig } from "@mapgen/config";
 
 export type ClimateConfig = BootstrapClimateConfig;
 

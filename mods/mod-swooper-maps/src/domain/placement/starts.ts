@@ -1,5 +1,5 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import type { StartsConfig } from "@swooper/mapgen-core/bootstrap";
+import type { StartsConfig } from "@mapgen/config";
 import { DEV } from "@swooper/mapgen-core";
 
 export function applyStartPositions(adapter: EngineAdapter, starts: StartsConfig): number[] {
