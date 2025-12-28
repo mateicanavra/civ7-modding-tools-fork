@@ -1,4 +1,4 @@
-import type { StepModule } from "./types.js";
+import type { Step } from "./types.js";
 
 function assertSchema(value: unknown, stepId?: string): void {
   if (value == null) {
@@ -7,7 +7,7 @@ function assertSchema(value: unknown, stepId?: string): void {
   }
 }
 
-export function createStep<const TStep extends StepModule>(step: TStep): TStep {
+export function createStep<const TStep extends Step<any, any>>(step: TStep): TStep {
   assertSchema(step.schema, step.id);
   return step;
 }

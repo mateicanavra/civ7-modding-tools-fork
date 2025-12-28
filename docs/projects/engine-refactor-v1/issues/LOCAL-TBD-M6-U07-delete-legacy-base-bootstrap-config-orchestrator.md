@@ -46,12 +46,12 @@ Remove legacy base/bootstrap/config/orchestrator surfaces after the new pipeline
 
 ## Implementation Decisions
 
-### Keep authoring step config defaults at `unknown` (bivariant runner for stages)
-- **Context:** Authoring steps should default to `unknown` for config safety, but stages must still accept steps with concrete config types.
-- **Options:** Keep `any`, require per-step casts, or introduce a bivariant runner type to keep heterogenous steps assignable.
-- **Choice:** Restore `unknown` defaults for `Step`/`StepModule`, type stages as `Step<..., unknown>[]`, and make `run` bivariant.
-- **Rationale:** Avoids `any` while preserving stage composition without pervasive casts.
-- **Risk:** Bivariant callbacks can hide some config mismatches if misused.
+### Type stages/recipes over step tuples instead of using bivariant `run`
+- **Context:** Authoring steps should default to `unknown` for config safety, but stages still need to hold steps with concrete config types.
+- **Options:** Widen to `any`, keep a bivariant `run` callback, or make `Stage`/`RecipeDefinition` generic over the step tuple so variance stays sound.
+- **Choice:** Keep `unknown` defaults for `Step`/`StepModule`, make `Stage` generic over step tuples, and specialize `RecipeModule` over the inferred config type.
+- **Rationale:** Preserves type safety without `any` or bivariant hacks while keeping config inference for `RecipeConfigOf`.
+- **Risk:** Touches public authoring types and requires callers to annotate `RecipeModule` with config type when needed.
 
 ### Drop storyRifts foundation override from recipe config
 - **Context:** `storyTagRiftValleys` reads directionality from `ctx.config`, but the recipe step schema carried a redundant foundation override.
