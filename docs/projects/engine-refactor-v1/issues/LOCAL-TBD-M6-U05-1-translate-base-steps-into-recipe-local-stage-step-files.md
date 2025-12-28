@@ -51,26 +51,6 @@ Translate base mod step implementations into recipe-local stage and step files.
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Prompts (run before implementation)
-
-#### P1) Per-stage step inventory (files + exports + ids)
-- **Goal:** Generate a stage-by-stage list of step files and their exported step objects so translation is mechanical.
-- **Commands:**
-  - `find packages/mapgen-core/src/base/pipeline -maxdepth 2 -type f -name "*Step.ts" -print`
-  - `find packages/mapgen-core/src/base/pipeline -maxdepth 2 -type f -name "steps.ts" -print`
-  - `rg -n "export (const|function)" packages/mapgen-core/src/base/pipeline -S`
-- **Output to capture:**
-  - For each stage folder, list the step files and the exported step symbol names.
-  - Note any steps that currently share a single file or have unusual export patterns.
-
-#### P2) Config schema presence audit (must be explicit everywhere)
-- **Goal:** Ensure every translated step has an explicit config schema (even empty), matching the M6 authoring rule.
-- **Commands:**
-  - `rg -n "configSchema" packages/mapgen-core/src/base/pipeline -S`
-  - `rg -n "configSchema\\s*:\\s*Type\\." packages/mapgen-core/src/base/pipeline -S`
-- **Output to capture:**
-  - A list of steps missing `configSchema` today and a proposed empty schema to add during translation.
-
 ### Prework Findings (Pending)
 #### P1) Per-stage step inventory (files + exports + ids)
 - Foundation:
