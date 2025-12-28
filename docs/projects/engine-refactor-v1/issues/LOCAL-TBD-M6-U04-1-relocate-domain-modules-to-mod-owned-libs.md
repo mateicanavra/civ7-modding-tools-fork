@@ -62,4 +62,23 @@ Move domain modules from core into `mods/mod-swooper-maps/src/domain/**` without
   - For each, a proposed replacement import path (new recipe-local `tags.ts` or local constants).
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here and flag any cases where domain code currently “publishes artifacts” by importing tag IDs._
+#### P1) Domain dependency edge audit (base tag imports must be removed)
+- Domain files importing `@mapgen/base/*` today:
+  - `packages/mapgen-core/src/domain/narrative/queries.ts` (uses `M3_DEPENDENCY_TAGS`)
+  - `packages/mapgen-core/src/domain/narrative/corridors/index.ts` (uses `M3_DEPENDENCY_TAGS`)
+  - `packages/mapgen-core/src/domain/narrative/tagging/margins.ts` (uses `M3_DEPENDENCY_TAGS`)
+  - `packages/mapgen-core/src/domain/narrative/tagging/hotspots.ts` (uses `M3_DEPENDENCY_TAGS`)
+  - `packages/mapgen-core/src/domain/narrative/tagging/rifts.ts` (uses `M3_DEPENDENCY_TAGS`)
+  - `packages/mapgen-core/src/domain/narrative/orogeny/belts.ts` (uses `M3_DEPENDENCY_TAGS`)
+  - `packages/mapgen-core/src/domain/morphology/islands/placement.ts` (uses `M3_DEPENDENCY_TAGS`)
+  - `packages/mapgen-core/src/domain/hydrology/climate/runtime.ts` (uses `M3_DEPENDENCY_TAGS`)
+  - `packages/mapgen-core/src/domain/ecology/biomes/index.ts` (uses `@mapgen/base/pipeline/artifacts` accessors)
+  - `packages/mapgen-core/src/domain/ecology/features/index.ts` (uses `@mapgen/base/pipeline/artifacts` accessors)
+  - `packages/mapgen-core/src/domain/morphology/volcanoes/scoring.ts` (uses `@mapgen/base/foundation/constants` BOUNDARY_TYPE)
+  - `packages/mapgen-core/src/domain/morphology/mountains/scoring.ts` (uses `@mapgen/base/foundation/constants` BOUNDARY_TYPE)
+  - `packages/mapgen-core/src/domain/morphology/coastlines/plate-bias.ts` (uses `@mapgen/base/foundation/constants` BOUNDARY_TYPE)
+  - `packages/mapgen-core/src/domain/morphology/coastlines/rugged-coasts.ts` (uses `@mapgen/base/foundation/constants` BOUNDARY_TYPE)
+- Replacement guidance after move:
+  - Replace `@mapgen/base/tags` with a mod-owned `recipes/standard/tags.ts` (or `domain/tags.ts`) that re-exports the same tag IDs.
+  - Replace `@mapgen/base/pipeline/artifacts` accessors with mod-owned artifact helpers colocated with the recipe (`recipes/standard/artifacts.ts`) and re-export them to domain.
+  - Move `BOUNDARY_TYPE` into a mod-owned foundation constants module (e.g., `domain/foundation/constants.ts`) and update imports accordingly.
