@@ -72,6 +72,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Type:** triage
   - **Notes:** `packages/mapgen-core/src/base/tags.ts` sets `EFFECT_OWNERS` to `pkg: "@swooper/mapgen-core"` for biomes/features/placement even though those steps now live in the base mod. Decide whether to update ownership to the base package or document the intent.
   - **Next check:** before effect verification is made more strict or before a release that documents effect ownership.
+
+- **Ecology domain depends on base artifacts** [Source: M5-U07 review]
+  - **Context:** M5-U07 compat cleanup and artifact helper move.
+  - **Type:** triage
+  - **Notes:** `packages/mapgen-core/src/domain/ecology/*` now imports `@mapgen/base/pipeline/artifacts`, creating a core-to-base dependency and tying domain logic to standard artifact IDs. Decide whether to move ecology domain into base or provide a core-owned artifact accessor.
+  - **Next check:** before declaring the core domain reusable outside the base mod.
 - **Observability runId + fingerprint derivation** [Source: CIV-75]
   - **Context:** M4 observability baseline implementation for trace/run IDs.
   - **Type:** triage
