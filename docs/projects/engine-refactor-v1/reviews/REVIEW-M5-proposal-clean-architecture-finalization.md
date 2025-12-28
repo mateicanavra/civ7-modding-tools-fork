@@ -152,3 +152,23 @@ Legacy shims and compat surfaces are removed and artifact helpers are now base-o
 
 ### Cross-cutting Risks
 - Core domain now depends on base artifacts, weakening the "core is generic" boundary and complicating future non-base consumers.
+
+## REVIEW m5-u08-remove-globals-fallbacks-engine-boundary
+
+### Quick Take
+Global/fallback usage is largely removed (Voronoi utils via adapter, RNG globals gone, terrain constants now require adapter indices, narrative caches moved run-scoped), but one adapter capability still lacks an explicit guard.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/base/pipeline/foundation/producer.ts`: `adapter.getVoronoiUtils()` is called without an explicit capability check, so stale adapters will fail with a generic "is not a function" error rather than the clear missing-capability message promised in the AC.
+
+### Fix Now (Recommended)
+- Add an explicit guard (similar to `getLatitude`/`isWater`) or a helper that throws a clear error when `getVoronoiUtils` is missing.
+
+### Defer / Follow-up
+- If we want TypeScript-only enforcement, document the runtime error behavior and upgrade requirements in adapter docs.
+
+### Needs Discussion
+- Should adapter capability validation be centralized (one helper) rather than scattered checks?
+
+### Cross-cutting Risks
+- None identified.
