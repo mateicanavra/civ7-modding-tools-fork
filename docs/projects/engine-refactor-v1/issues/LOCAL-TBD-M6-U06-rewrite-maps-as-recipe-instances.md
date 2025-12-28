@@ -74,3 +74,26 @@ Rewrite maps and presets to select a recipe and supply a config instance at runt
   - `createLayerAdapter` and `createDefaultContinentBounds` can be copied into `_runtime/helpers.ts` for map setup.
 - Legacy coupling to remove:
   - Replace `runTaskGraphGeneration` calls with `recipe.compile` + `recipe.run` (or `compileExecutionPlan` + `PipelineExecutor.executePlan`) using the same settings derived from map init data.
+
+## Implementation Decisions
+
+### Build recipe config directly from overrides (no bootstrap parsing)
+- **Context:** Maps previously called `bootstrap()` to validate/expand overrides into `MapGenConfig`.
+- **Options:** (A) keep bootstrap/parseConfig to build `MapGenConfig` and then translate, (B) map overrides directly into recipe config and pass overrides into context without validation.
+- **Choice:** Option B — build recipe config directly from overrides and cast overrides into `ExtendedMapContext.config`.
+- **Rationale:** Avoids legacy bootstrap plumbing while aligning maps with the recipe instance model.
+- **Risk:** Defaults/validation from `parseConfig` are bypassed; missing defaults could surface at runtime if steps rely on them.
+
+### Cache map init resolution from RequestMapInitData
+- **Context:** Map init parameters arrive on `RequestMapInitData`, but generation happens later.
+- **Options:** (A) resolve map init data only during `GenerateMap`, (B) cache the resolution from `RequestMapInitData` and reuse it if available.
+- **Choice:** Option B — store `MapInitResolution` from `applyMapInitData` and fall back to `resolveMapInitData` if missing.
+- **Rationale:** Ensures settings/mapInfo are consistent with engine-provided init params while keeping a safe fallback.
+- **Risk:** If engine lifecycle changes, stale init data could be reused unintentionally.
+
+### Gate A map runs the standard recipe
+- **Context:** Gate A previously imported `/base-standard/maps/continents.js` to validate bundling.
+- **Options:** (A) keep the base-standard wrapper, (B) run the standard recipe like other maps.
+- **Choice:** Option B — run the standard recipe with empty overrides.
+- **Rationale:** Keeps all map entrypoints on the recipe-instance model for M6.
+- **Risk:** Gate A no longer validates the base-standard external import path.
