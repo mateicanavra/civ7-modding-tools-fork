@@ -88,3 +88,17 @@ Implement `createRecipe` to build the registry internally and expose a registry-
 - **Choice:** Option B — always derive `recipeId.stageId.stepId` for authored recipes.
 - **Rationale:** Guarantees deterministic, collision-free IDs and keeps authored modules self-describing.
 - **Risk:** Base recipe re-authoring will require coordinated updates to tags/tests and any downstream tooling that assumes legacy IDs.
+
+### Use `RecipeDefinition` as the authoring input shape
+- **Context:** U02-1 introduced authoring POJOs; `createRecipe` now needs a clear separation between inputs and runtime helpers.
+- **Options:** (A) keep the input typed as `RecipeModule`, (B) introduce `RecipeDefinition` input and return a runtime `RecipeModule`.
+- **Choice:** Option B — `createRecipe` accepts `RecipeDefinition` and returns `RecipeModule`.
+- **Rationale:** Keeps input modules POJO-first while allowing the runtime API to grow without mixing input/output concerns.
+- **Risk:** Call sites that typed against the earlier POJO-only `RecipeModule` will need an update to `RecipeDefinition`.
+
+### Infer tag definitions from step usage with explicit overrides
+- **Context:** Authoring allows `tagDefinitions` to be empty, but runtime registration requires a definition for every tag id.
+- **Options:** (A) require explicit tag definitions for every tag id, (B) infer from `requires`/`provides` and let explicit entries override.
+- **Choice:** Option B — infer tag definitions and merge explicit overrides.
+- **Rationale:** Keeps authoring lightweight while preserving the ability to attach metadata/satisfies hooks.
+- **Risk:** Incorrect tag prefixes surface as runtime authoring errors; explicit definitions can hide mismatches if they diverge from inferred kinds.
