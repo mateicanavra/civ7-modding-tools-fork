@@ -51,3 +51,25 @@ Create the standard content package skeleton under `mods/mod-swooper-maps` with 
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+### Prework Prompts (run before implementation)
+
+#### P1) Content package build + entrypoint inventory
+- **Goal:** Avoid breaking bundling by understanding how `mods/mod-swooper-maps` currently builds and which entrypoints are expected.
+- **Commands:**
+  - `cat mods/mod-swooper-maps/package.json`
+  - `cat mods/mod-swooper-maps/tsup.config.ts`
+  - `find mods/mod-swooper-maps/src -maxdepth 1 -type f -name "*.ts" -print`
+- **Output to capture:**
+  - Current build entry list and what it should become after moving maps to `src/maps/**`.
+  - Whether any other non-map TS entrypoints exist today (and whether they should remain).
+
+#### P2) Stage skeleton enforcement checklist
+- **Goal:** Ensure the scaffold matches the canonical template (barrels and dependency direction rules).
+- **Commands:**
+  - Review SPIKE sections on stage layout + barrels.
+- **Output to capture:**
+  - The “required stage template” (a short checklist) to copy into the content skeleton PR description.
+
+### Prework Findings (Pending)
+_TODO (agent): append findings here, including the exact `tsup` entry changes required._

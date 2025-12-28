@@ -51,3 +51,17 @@ Ship the authoring SDK v1 surface by completing the sequenced child issues.
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+### Prework Prompts (run before implementation)
+
+#### P1) Confirm consumer cutover surface (who will import authoring)
+- **Goal:** Establish the full set of call sites that will be migrated to import `@swooper/mapgen-core/authoring` so we can keep the authoring surface minimal and avoid accidental “engine leaks”.
+- **Commands:**
+  - `rg -n "runTaskGraphGeneration|baseMod|PipelineModV1|@swooper/mapgen-core/base" -S mods packages`
+  - `rg -n "compileExecutionPlan|PipelineExecutor|StepRegistry|TagRegistry" -S mods packages`
+- **Output to capture:**
+  - A short list of “authoring consumers” by package (maps, tests, any CLI/runner glue).
+  - A short list of “engine consumers” that must remain internal (should end up only in authoring SDK + tests).
+
+### Prework Findings (Pending)
+_TODO (agent): append findings here. If new consumers are discovered (CLI/plugins), link them and flag whether they are in-scope for M6._

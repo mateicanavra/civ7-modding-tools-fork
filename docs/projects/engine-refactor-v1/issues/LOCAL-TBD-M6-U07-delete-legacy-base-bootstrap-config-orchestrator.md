@@ -50,3 +50,26 @@ Remove legacy base/bootstrap/config/orchestrator surfaces after the new pipeline
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+### Prework Prompts (run before implementation)
+
+#### P1) Legacy usage grep gates (define “expected zero hits”)
+- **Goal:** Define the exact greps that must return zero before deletion is considered safe (prevents missing legacy edges).
+- **Commands:**
+  - `rg -n "runTaskGraphGeneration|PipelineModV1|baseMod|@swooper/mapgen-core/base" -S`
+  - `rg -n "@mapgen/bootstrap|@mapgen/config|@mapgen/orchestrator" -S`
+  - `rg -n "MapGenConfig" -S packages mods`
+- **Output to capture:**
+  - A list of “expected zero-hit” queries to copy into the final PR checklist.
+  - Any non-obvious consumers outside mods (CLI/plugins/tests) that must be cut over first.
+
+#### P2) Export map deletion checklist
+- **Goal:** Identify what must be removed from exports once legacy surfaces are deleted.
+- **Commands:**
+  - `cat packages/mapgen-core/package.json`
+  - `sed -n '1,260p' packages/mapgen-core/src/index.ts`
+- **Output to capture:**
+  - A list of export entries and re-exports to remove (base/bootstrap/config/orchestrator/pipeline compatibility).
+
+### Prework Findings (Pending)
+_TODO (agent): append findings here; include the final list of grep gates that must be clean._

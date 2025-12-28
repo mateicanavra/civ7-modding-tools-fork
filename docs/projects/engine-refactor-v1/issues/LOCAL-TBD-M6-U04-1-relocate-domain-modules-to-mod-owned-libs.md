@@ -49,3 +49,17 @@ Move domain modules from core into `mods/mod-swooper-maps/src/domain/**` without
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+### Prework Prompts (run before implementation)
+
+#### P1) Domain dependency edge audit (base tag imports must be removed)
+- **Goal:** Identify domain modules that currently import privileged base surfaces so we can remove those edges after moving (domain libs must not depend on `@mapgen/base/*`).
+- **Commands:**
+  - `rg -n "@mapgen/base" packages/mapgen-core/src/domain -S`
+  - `rg -n "M3_DEPENDENCY_TAGS|BASE_TAG_DEFINITIONS" packages/mapgen-core/src/domain -S`
+- **Output to capture:**
+  - A list of domain files that import base tags/surfaces.
+  - For each, a proposed replacement import path (new recipe-local `tags.ts` or local constants).
+
+### Prework Findings (Pending)
+_TODO (agent): append findings here and flag any cases where domain code currently “publishes artifacts” by importing tag IDs._

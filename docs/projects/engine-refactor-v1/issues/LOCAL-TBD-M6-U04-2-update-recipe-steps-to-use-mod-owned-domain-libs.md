@@ -47,3 +47,17 @@ Update recipe steps and stages to import domain logic from the standard content 
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+### Prework Prompts (run before implementation)
+
+#### P1) Base step → domain import map
+- **Goal:** Precompute which domain modules each base step uses so rewriting step files is straightforward and doesn’t miss helpers.
+- **Commands:**
+  - `rg -n "@mapgen/domain" packages/mapgen-core/src/base/pipeline -S`
+  - `rg -n "from \"@mapgen/domain" packages/mapgen-core/src/base/pipeline -S`
+- **Output to capture:**
+  - A list of base step files and the domain modules they import.
+  - A proposed target import path under `mods/mod-swooper-maps/src/domain/**` for each.
+
+### Prework Findings (Pending)
+_TODO (agent): append findings here; this becomes the checklist for import rewrites during the step translation._
