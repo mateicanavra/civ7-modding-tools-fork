@@ -6,9 +6,9 @@
 
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { BOUNDARY_TYPE } from "@mapgen/base/foundation/constants.js";
-import { computePlatesVoronoi } from "@mapgen/base/foundation/plates.js";
-import type { PlateConfig, RngFunction } from "@mapgen/base/foundation/types.js";
+import { BOUNDARY_TYPE } from "@mapgen/domain/foundation/constants.js";
+import { computePlatesVoronoi } from "@mapgen/domain/foundation/plates.js";
+import type { PlateConfig, RngFunction } from "@mapgen/domain/foundation/types.js";
 
 describe("Plate Boundary Calculations", () => {
   const voronoiUtils = createMockAdapter({ width: 1, height: 1 }).getVoronoiUtils();

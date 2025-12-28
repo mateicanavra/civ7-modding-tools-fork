@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Legacy orchestrator test coverage dropped** [Source: LOCAL-TBD-M6-U08]
+  - **Context:** Realigning tests to ownership removes `runTaskGraphGeneration`/bootstrap/config test suites.
+  - **Type:** triage
+  - **Notes:** Legacy path is scheduled for deletion in M6-U07; no CI coverage remains for orchestrator-only flows.
+  - **Next check:** after U07 removal or if legacy entrypoints must remain supported.
+
 - **Standard recipe runtime stored per context** [Source: LOCAL-TBD-M6-U05-1]
   - **Context:** Standard recipe steps need shared mutable state (continents, start sectors, mapInfo) without registry-layer runtime injection.
   - **Type:** triage

@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
-import { ArtifactStore, type ExtendedMapContext } from "@mapgen/core/types.js";
+import { ArtifactStore, type ExtendedMapContext } from "@swooper/mapgen-core";
 import {
   buildNarrativeCorridorsV1,
   buildNarrativeMotifsMarginsV1,
@@ -19,7 +19,7 @@ import {
   getNarrativeMotifsOrogeny,
   getNarrativeMotifsRifts,
 } from "@mapgen/domain/narrative/queries.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/base/tags.js";
+import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";
 
 describe("narrative/queries", () => {
   let ctx: ExtendedMapContext;

@@ -1,8 +1,6 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { parseConfig } from "@mapgen/config/index.js";
-import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { OCEAN_TERRAIN } from "@mapgen/core/terrain-constants.js";
+import { createExtendedMapContext, OCEAN_TERRAIN } from "@swooper/mapgen-core";
 import { getNarrativeCorridors } from "@mapgen/domain/narrative/queries.js";
 import {
   getStoryOverlay,
@@ -17,13 +15,13 @@ describe("story/corridors", () => {
     const adapter = createMockAdapter({ width, height, defaultTerrainType: OCEAN_TERRAIN });
     (adapter as any).fillWater(true);
 
-    const config = parseConfig({});
-    const ctx = createExtendedMapContext({ width, height }, adapter, config);
+    const ctx = createExtendedMapContext(
+      { width, height },
+      adapter,
+      {} as ReturnType<typeof createExtendedMapContext>["config"]
+    );
 
-    storyTagStrategicCorridors(ctx, "preIslands", {
-      corridors: config.corridors,
-      directionality: config.foundation?.dynamics?.directionality,
-    });
+    storyTagStrategicCorridors(ctx, "preIslands", { corridors: {}, directionality: {} });
 
     const corridors = getNarrativeCorridors(ctx);
     expect(corridors).not.toBeNull();

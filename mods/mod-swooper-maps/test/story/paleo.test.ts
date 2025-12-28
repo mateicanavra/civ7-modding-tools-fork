@@ -1,9 +1,11 @@
 import { describe, it, expect, beforeEach } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { parseConfig } from "@mapgen/config/index.js";
-import { createExtendedMapContext } from "@mapgen/core/types.js";
 import { storyTagPaleoHydrology } from "@mapgen/domain/narrative/paleo/index.js";
-import { COAST_TERRAIN, FLAT_TERRAIN } from "@mapgen/core/terrain-constants.js";
+import {
+  COAST_TERRAIN,
+  FLAT_TERRAIN,
+  createExtendedMapContext,
+} from "@swooper/mapgen-core";
 
 describe("story/paleo", () => {
   beforeEach(() => {});
@@ -27,7 +29,7 @@ describe("story/paleo", () => {
     // Treat everything as "adjacent to rivers" for this unit test.
     (adapter as any).isAdjacentToRivers = () => true;
 
-    const config = parseConfig({
+    const config = {
       climate: {
         story: {
           paleo: {
@@ -39,8 +41,12 @@ describe("story/paleo", () => {
           },
         },
       },
-    });
-    const ctx = createExtendedMapContext({ width, height }, adapter, config);
+    };
+    const ctx = createExtendedMapContext(
+      { width, height },
+      adapter,
+      config as ReturnType<typeof createExtendedMapContext>["config"]
+    );
     ctx.buffers?.climate?.rainfall?.fill(50);
     ctx.fields?.rainfall?.fill(50);
 
