@@ -88,7 +88,6 @@ export function createLandmassPlatesStep(
         landMask: plateResult.landMask,
         context,
         adapter: context.adapter,
-        crustMode: landmassCfg.crustMode,
         policy: oceanSeparationCfg,
       });
       windows = separationResult.windows;
