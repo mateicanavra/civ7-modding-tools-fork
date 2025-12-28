@@ -160,6 +160,75 @@ SPEC 1.2 says “mods ship registry + recipes”. In this model we satisfy that 
 
 This keeps the engine contract intact while removing a mod-wide “catalog” folder that tends to become a grab bag.
 
+### 3.2 Target directory structure (authoritative; collapsed view)
+
+The directory sketch above is illustrative. This section is the intended end-state structure for M6 (derived from the exhaustive mapping in Section 9).
+
+```text
+packages/mapgen-core/
+├─ src/
+│  ├─ engine/                        # runtime-only SDK
+│  │  ├─ PipelineExecutor.ts
+│  │  ├─ StepRegistry.ts
+│  │  ├─ errors.ts
+│  │  ├─ execution-plan.ts
+│  │  ├─ index.ts
+│  │  ├─ observability.ts
+│  │  ├─ plot-tags.ts                # moved out of core/**
+│  │  ├─ step-config.ts
+│  │  ├─ tags.ts
+│  │  ├─ terrain-constants.ts        # moved out of core/**
+│  │  ├─ types.ts
+│  │  └─ context.ts                  # extracted from core/types.ts (engine-owned context + writers)
+│  ├─ authoring/                     # ergonomics-only SDK (factories)
+│  ├─ dev/                           # dev-only diagnostics (not part of SDK surface)
+│  ├─ lib/                           # neutral utilities (engine-owned)
+│  ├─ polyfills/
+│  ├─ shims/
+│  ├─ trace/
+│  └─ index.ts                       # thin compatibility re-export; prefer /engine + /authoring
+└─ test/
+   ├─ engine/                        # engine tests (no content ownership)
+   └─ authoring/                     # authoring tests (no content ownership)
+
+mods/mod-swooper-maps/
+├─ src/
+│  ├─ mod.ts                         # exports recipes; no global registry surface
+│  ├─ maps/                          # map/preset entrypoints (config instances live here)
+│  │  ├─ *.ts
+│  │  └─ _runtime/                   # Civ7 runner glue (M6 keeps this mod-owned)
+│  │     ├─ helpers.ts
+│  │     ├─ map-init.ts
+│  │     ├─ run-standard.ts
+│  │     ├─ standard-config.ts
+│  │     ├─ types.ts
+│  │     └─ foundation-diagnostics.ts
+│  ├─ recipes/
+│  │  └─ standard/
+│  │     ├─ recipe.ts
+│  │     ├─ tags.ts
+│  │     └─ stages/
+│  │        ├─ <stageId>/
+│  │        │  ├─ index.ts
+│  │        │  └─ steps/
+│  │        │     ├─ index.ts
+│  │        │     └─ *.ts
+│  │        └─ **/**
+│  └─ domain/                        # pure logic (mod-owned)
+│     ├─ config/
+│     │  └─ schema/                  # schema fragments imported by step schemas
+│     │     ├─ index.ts
+│     │     ├─ common.ts
+│     │     └─ *.ts
+│     └─ **/**
+└─ test/                             # content tests
+   └─ **/**
+```
+
+End-state invariants:
+- No `mods/mod-swooper-maps/src/config/**` module. Config schema fragments live under `src/domain/config/schema/**` and step schemas are co-located with step modules.
+- No `packages/mapgen-core/src/core/**` module. Engine-owned context/helpers live under `src/engine/**`; content-owned artifacts/tags/validators live under the mod.
+
 ---
 
 ## 4) Authoring SDK: minimal factories (`createStep`, `createStage`, `createRecipe`)
