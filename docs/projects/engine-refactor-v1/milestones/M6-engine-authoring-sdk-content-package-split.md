@@ -143,6 +143,7 @@ Each unit below links to a local issue doc. Parent issues are indexes; leaf issu
 Issue doc: [LOCAL-TBD-M6-U01](../issues/LOCAL-TBD-M6-U01-promote-runtime-pipeline-as-engine-sdk-surface.md)
 
 Move the runtime pipeline into the engine SDK surface and update imports/tests to match.
+- [x] Done (branch: `m6-u01-promote-runtime-pipeline-as-engine-sdk-surface`; PR: pending)
 
 ### LOCAL-TBD-M6-U02 — Authoring SDK v1 (parent)
 Issue doc: [LOCAL-TBD-M6-U02](../issues/LOCAL-TBD-M6-U02-ship-authoring-sdk-v1-factories.md)

@@ -1,4 +1,4 @@
-import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
+import type { RecipeV1 } from "@mapgen/engine/execution-plan.js";
 
 export const BASE_RECIPE_STEP_IDS = [
   "foundation",

@@ -1,5 +1,5 @@
 import type { EngineAdapter, MapInfo, MapSizeId } from "@civ7/adapter";
-import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
+import type { RecipeV1 } from "@mapgen/engine/execution-plan.js";
 
 /**
  * Map size defaults for testing (bypasses game settings).

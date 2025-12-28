@@ -6,7 +6,7 @@
  *
  * Architecture:
  * - bootstrap/: Configuration providers (lazy-loaded)
- * - pipeline/: Step wiring + task graph execution primitives
+ * - engine/: Step wiring + execution primitives
  * - domain/: Mapgen algorithms + narrative tagging/overlays
  * - core/: Shared utilities and types
  */
@@ -41,8 +41,8 @@ export type {
   StageResult,
 } from "@mapgen/orchestrator/types.js";
 
-// Re-export pipeline primitives (M3 Task Graph MVP)
-export * from "@mapgen/pipeline/index.js";
+// Re-export engine primitives (runtime SDK)
+export * from "@mapgen/engine/index.js";
 
 // Package version
 export const VERSION = "0.1.0";

@@ -1,7 +1,7 @@
 <<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/morphology/index.ts
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
-import type { StepRegistry } from "@mapgen/pipeline/index.js";
+import type { StepRegistry } from "@mapgen/engine/index.js";
 import {
   createCoastlinesStep,
   createIslandsStep,

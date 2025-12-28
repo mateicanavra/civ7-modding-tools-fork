@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Engine tag definitions/registry are generic over context** [Source: LOCAL-TBD-M6-U01]
+  - **Context:** M6 engine cutover removes `ExtendedMapContext` from `engine/**` and introduces a minimal `EngineContext`.
+  - **Type:** triage
+  - **Notes:** `DependencyTagDefinition<TContext>` and `TagRegistry<TContext>` now accept contextual `satisfies` callbacks without binding engine to core. Watch for downstream typing changes (e.g., registries that assumed non-generic definitions).
+  - **Next check:** when authoring SDK and content package work begins wiring tag definitions outside mapgen-core.
+
 - **Authoring schema enforcement stays in authoring layer (engine remains permissive)** [Source: LOCAL-TBD-M6-U02-1]
   - **Context:** M6 authoring SDK contract work keeps `MapGenStep.configSchema` optional in engine runtime while authoring requires explicit schema.
   - **Type:** triage

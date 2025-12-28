@@ -2,7 +2,7 @@ import { describe, it, expect } from "bun:test";
 import { bootstrap } from "@mapgen/bootstrap/entry.js";
 import { runTaskGraphGeneration } from "@mapgen/index.js";
 import { createMockAdapter } from "@civ7/adapter/mock";
-import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
+import type { RecipeV1 } from "@mapgen/engine/execution-plan.js";
 import { baseDefaultRecipe, baseMod } from "@mapgen/base/index.js";
 
 /**

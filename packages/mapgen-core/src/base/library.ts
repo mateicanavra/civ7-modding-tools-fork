@@ -3,7 +3,7 @@ import type { MapInfo } from "@civ7/adapter";
 import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
 import type { FoundationConfig, MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import type { StepRegistry } from "@mapgen/pipeline/index.js";
+import type { StepRegistry } from "@mapgen/engine/index.js";
 import { registerFoundationLayer } from "@mapgen/base/pipeline/foundation/index.js";
 import { registerMorphologyLayer } from "@mapgen/base/pipeline/morphology/index.js";
 import { registerHydrologyLayer } from "@mapgen/base/pipeline/hydrology/index.js";
@@ -30,7 +30,7 @@ export interface BaseLibraryRuntime {
 ========
 import type { MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import type { StepRegistry } from "@mapgen/pipeline/index.js";
+import type { StepRegistry } from "@mapgen/engine/index.js";
 import { registerBaseLibrary, type BaseLibraryRuntime } from "@mapgen/base/library.js";
 
 export type StandardLibraryRuntime = BaseLibraryRuntime;

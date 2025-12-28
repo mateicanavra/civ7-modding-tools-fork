@@ -1,28 +1,28 @@
-import { DuplicateStepError, UnknownStepError } from "@mapgen/pipeline/errors.js";
+import { DuplicateStepError, UnknownStepError } from "@mapgen/engine/errors.js";
 import {
   TagRegistry,
   type DependencyTagDefinition,
   validateDependencyTags,
-} from "@mapgen/pipeline/tags.js";
-import type { MapGenStep } from "@mapgen/pipeline/types.js";
+} from "@mapgen/engine/tags.js";
+import type { MapGenStep } from "@mapgen/engine/types.js";
 
 export class StepRegistry<TContext> {
   private readonly steps = new Map<string, MapGenStep<TContext, unknown>>();
-  private readonly tags: TagRegistry;
+  private readonly tags: TagRegistry<TContext>;
 
-  constructor(options: { tags?: TagRegistry } = {}) {
-    this.tags = options.tags ?? new TagRegistry();
+  constructor(options: { tags?: TagRegistry<TContext> } = {}) {
+    this.tags = options.tags ?? new TagRegistry<TContext>();
   }
 
-  registerTag(definition: DependencyTagDefinition): void {
+  registerTag(definition: DependencyTagDefinition<TContext>): void {
     this.tags.registerTag(definition);
   }
 
-  registerTags(definitions: readonly DependencyTagDefinition[]): void {
+  registerTags(definitions: readonly DependencyTagDefinition<TContext>[]): void {
     this.tags.registerTags(definitions);
   }
 
-  getTagRegistry(): TagRegistry {
+  getTagRegistry(): TagRegistry<TContext> {
     return this.tags;
   }
 

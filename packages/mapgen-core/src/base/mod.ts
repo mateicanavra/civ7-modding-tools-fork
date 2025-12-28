@@ -1,6 +1,6 @@
 import type { MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import type { PipelineModV1, StepRegistry } from "@mapgen/pipeline/index.js";
+import type { PipelineModV1, StepRegistry } from "@mapgen/engine/index.js";
 
 import { baseDefaultRecipe } from "@mapgen/base/recipes/default.js";
 import type { BaseLibraryRuntime } from "@mapgen/base/library.js";

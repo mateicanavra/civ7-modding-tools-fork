@@ -130,3 +130,10 @@ Move the runtime pipeline into `engine/**` and make it the canonical runtime SDK
 - **Choice:** Option B — introduce `EngineContext` in `engine/types.ts` and make runtime generics extend it.
 - **Rationale:** Keeps `engine/**` independent of core content while preserving flexibility for base/domain layers to use `ExtendedMapContext`.
 - **Risk:** Requires updating generics and imports in engine runtime; missed updates could leave stray `@mapgen/core/types` imports.
+
+### Make tag definitions generic over context
+- **Context:** Base tag definitions use `ExtendedMapContext` in `satisfies` functions, which conflicts with a minimal engine-owned context type.
+- **Options:** (A) Keep `DependencyTagDefinition` bound to `EngineContext` and cast/ignore types, (B) make `DependencyTagDefinition`/`TagRegistry` generic on context and let base bind to `ExtendedMapContext`.
+- **Choice:** Option B — parameterize tag definitions/registry with `TContext`.
+- **Rationale:** Keeps engine surface minimal while preserving type-safe `satisfies` implementations in base code.
+- **Risk:** Broader generic surface on tag/registry APIs may require follow-on typing updates in downstream code.

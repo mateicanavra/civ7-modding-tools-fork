@@ -1,5 +1,9 @@
 import type { TSchema } from "typebox";
-import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { TraceScope } from "@mapgen/trace/index.js";
+
+export interface EngineContext {
+  trace: TraceScope;
+}
 
 export type GenerationPhase =
   | "setup"
@@ -11,7 +15,7 @@ export type GenerationPhase =
 
 export type DependencyTag = string;
 
-export interface MapGenStep<TContext = ExtendedMapContext, TConfig = unknown> {
+export interface MapGenStep<TContext = EngineContext, TConfig = unknown> {
   id: string;
   phase: GenerationPhase;
   requires: readonly DependencyTag[];

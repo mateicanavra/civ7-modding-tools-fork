@@ -8,7 +8,7 @@ import {
   StepRegistry,
   compileExecutionPlan,
   createTraceSessionFromPlan,
-} from "@mapgen/pipeline/index.js";
+} from "@mapgen/engine/index.js";
 import type { TraceEvent } from "@mapgen/trace/index.js";
 
 describe("pipeline tracing", () => {

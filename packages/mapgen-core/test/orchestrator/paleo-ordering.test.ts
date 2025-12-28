@@ -8,7 +8,7 @@ import {
   compileExecutionPlan,
   PipelineExecutor,
   StepRegistry,
-} from "@mapgen/pipeline/index.js";
+} from "@mapgen/engine/index.js";
 import { registerFoundationLayer } from "@mapgen/base/pipeline/foundation/index.js";
 import { runFoundationStage } from "@mapgen/base/pipeline/foundation/producer.js";
 import { registerHydrologyLayer } from "@mapgen/base/pipeline/hydrology/index.js";

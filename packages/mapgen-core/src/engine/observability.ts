@@ -1,4 +1,4 @@
-import type { ExecutionPlan, RunSettings } from "@mapgen/pipeline/execution-plan.js";
+import type { ExecutionPlan, RunSettings } from "@mapgen/engine/execution-plan.js";
 import type { TraceSink, TraceSession } from "@mapgen/trace/index.js";
 import { createTraceSession, sha256Hex, stableStringify } from "@mapgen/trace/index.js";
 

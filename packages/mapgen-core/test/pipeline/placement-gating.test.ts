@@ -7,7 +7,7 @@ import {
   MissingDependencyError,
   PipelineExecutor,
   StepRegistry,
-} from "@mapgen/pipeline/index.js";
+} from "@mapgen/engine/index.js";
 
 describe("placement step contracts", () => {
   it("fails fast when placement runs without placementInputs", () => {
