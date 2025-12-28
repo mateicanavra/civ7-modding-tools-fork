@@ -72,4 +72,21 @@ Remove legacy base/bootstrap/config/orchestrator surfaces after the new pipeline
   - A list of export entries and re-exports to remove (base/bootstrap/config/orchestrator/pipeline compatibility).
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here; include the final list of grep gates that must be clean._
+#### P1) Legacy usage grep gates (define “expected zero hits”)
+- Current in-repo consumers of legacy surfaces:
+  - Maps: `mods/mod-swooper-maps/src/*.ts` still call `runTaskGraphGeneration` and (some) `baseMod`.
+  - Core tests: `packages/mapgen-core/test/orchestrator/**`, `packages/mapgen-core/test/pipeline/**` reference `runTaskGraphGeneration`, `PipelineModV1`, and `baseMod`.
+  - Core runtime: `packages/mapgen-core/src/orchestrator/task-graph.ts` + `packages/mapgen-core/src/base/mod.ts` use `MapGenConfig` and `PipelineModV1`.
+  - Docs: `docs/system/mods/swooper-maps/architecture.md` and M5 review docs still reference baseMod + runTaskGraphGeneration.
+- Expected zero-hit gates (post-cutover):
+  - `rg -n "runTaskGraphGeneration|PipelineModV1|baseMod|@swooper/mapgen-core/base" -S`
+  - `rg -n "@mapgen/bootstrap|@mapgen/config|@mapgen/orchestrator" -S`
+  - `rg -n "MapGenConfig" -S packages mods`
+
+#### P2) Export map deletion checklist
+- `packages/mapgen-core/package.json` exports to remove:
+  - `"./base"`, `"./bootstrap"`, `"./config"`, and any legacy orchestrator surface if still exported.
+- `packages/mapgen-core/src/index.ts` re-exports to remove:
+  - `bootstrap`
+  - `applyMapInitData`, `resolveMapInitData`, `runTaskGraphGeneration`
+  - `@mapgen/orchestrator/types` and any `@mapgen/pipeline` compatibility surface tied to `PipelineModV1`
