@@ -31,6 +31,9 @@ Define the authored step, stage, and recipe module shapes with required schemas 
 
 ## Testing / Verification
 - `pnpm -C packages/mapgen-core test`
+- Add focused authoring tests:
+  - `createStep` rejects missing `configSchema` and accepts explicit empty schema.
+  - `createRecipe` rejects missing `tagDefinitions` and rejects duplicate `instanceId` within a recipe.
 
 ## Dependencies / Notes
 - Parent: [LOCAL-TBD-M6-U02](./LOCAL-TBD-M6-U02-ship-authoring-sdk-v1-factories.md)
@@ -76,4 +79,44 @@ Define the authored step, stage, and recipe module shapes with required schemas 
   - Recommended authoring type surface (`Step.instanceId?` vs “recipe occurrence only”).
 
 ### Prework Findings (Pending)
-_TODO (agent): append findings here and include any decisions that must be surfaced to `docs/projects/engine-refactor-v1/triage.md` if they affect multiple units._
+#### P1) Engine contract audit: config schema + recipe config semantics
+- `MapGenStep.configSchema` is optional today (`packages/mapgen-core/src/pipeline/types.ts`).
+- `compileExecutionPlan` behavior when schema is missing:
+  - `buildNodeConfig` returns `config: recipeStep.config ?? {}` with no validation (`packages/mapgen-core/src/pipeline/execution-plan.ts`).
+  - When schema is present, it normalizes defaults + rejects unknown keys (`normalizeStepConfig`).
+- Base pipeline step definitions with explicit `configSchema` today:
+  - `packages/mapgen-core/src/base/pipeline/morphology/LandmassStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/morphology/MountainsStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/morphology/VolcanoesStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/hydrology/ClimateBaselineStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/hydrology/ClimateRefineStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/narrative/StoryCorridorsStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/narrative/StoryRiftsStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/narrative/StorySwatchesStep.ts`
+- Base steps lacking explicit `configSchema` (treat as missing for enforcement):
+  - `packages/mapgen-core/src/base/pipeline/hydrology/LakesStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/hydrology/RiversStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/placement/PlacementStep.ts`
+  - `packages/mapgen-core/src/base/pipeline/placement/DerivePlacementInputsStep.ts`
+- Recommendation: enforce schema presence in authoring (`createStep` requires `configSchema`, allow `EmptyStepConfigSchema`), but keep engine runtime optional for backward compatibility until all base steps are updated.
+
+#### P2) `instanceId` semantics audit (multi-occurrence steps)
+- `compileExecutionPlan` uses `instanceId ?? step.id` to set `nodeId` (`packages/mapgen-core/src/pipeline/execution-plan.ts`).
+- No uniqueness check exists for `nodeId` collisions; duplicates are allowed and later steps may overwrite trace labels.
+- Recommended authoring surface: keep `instanceId` as a recipe occurrence field only (not on `StepModule`), and add authoring-time validation that recipe `instanceId` values are unique.
+
+## Implementation Decisions
+
+### Enforce schemas in authoring, not engine runtime (for now)
+- **Context:** Engine runtime accepts missing `configSchema` and bypasses validation; several base steps omit schema today.
+- **Options:** (A) require schemas only in authoring, (B) tighten engine contract to require schemas everywhere.
+- **Choice:** Option A — authoring requires `configSchema`; engine runtime remains permissive until base steps are updated.
+- **Rationale:** Avoids breaking existing steps/tests while still enforcing authoring correctness.
+- **Risk:** Engine-only code paths can still bypass schema enforcement if they avoid authoring APIs.
+
+### Keep `instanceId` recipe-only and validate uniqueness
+- **Context:** `instanceId` is only defined in recipe steps; engine does not check collisions.
+- **Options:** (A) expose `instanceId` on `StepModule`, (B) keep it recipe-only and validate in authoring.
+- **Choice:** Option B — keep it recipe-only and enforce uniqueness in authoring.
+- **Rationale:** `instanceId` describes recipe occurrence, not the step definition, and validation belongs at authoring time.
+- **Risk:** Existing engine-only call sites could still emit duplicate `instanceId` values.
