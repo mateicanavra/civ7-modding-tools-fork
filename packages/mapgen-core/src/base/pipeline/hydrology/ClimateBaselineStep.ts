@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/hydrology/ClimateBaselineStep.ts
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { markLandmassId, resolveLandmassIds } from "@mapgen/core/plot-tags.js";
@@ -73,3 +74,8 @@ export function createClimateBaselineStep(
     },
   };
 }
+========
+export { createClimateBaselineStep } from "@mapgen/base/pipeline/hydrology/ClimateBaselineStep.js";
+export type { ClimateBaselineStepOptions, ClimateBaselineStepRuntime } from "@mapgen/base/pipeline/hydrology/ClimateBaselineStep.js";
+
+>>>>>>>> 1fab536d (M5-U05: extract morphology/hydrology pipeline into base mod):packages/mapgen-core/src/pipeline/hydrology/ClimateBaselineStep.ts

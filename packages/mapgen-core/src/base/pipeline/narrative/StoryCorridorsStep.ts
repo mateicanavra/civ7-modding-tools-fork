@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/narrative/StoryCorridorsStep.ts
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
@@ -54,3 +55,6 @@ export function createStoryCorridorsPostStep(
     },
   };
 }
+========
+export * from "@mapgen/base/pipeline/narrative/StoryCorridorsStep.js";
+>>>>>>>> 8e597c31 (M5-U06: extract ecology/placement/narrative pipeline into base mod):packages/mapgen-core/src/pipeline/narrative/StoryCorridorsStep.ts

@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/foundation/producer.ts
 import type { ExtendedMapContext, FoundationContext } from "@mapgen/core/types.js";
 import {
   FOUNDATION_CONFIG_ARTIFACT_TAG,
@@ -391,3 +392,7 @@ export function runFoundationStage(
 
   return foundationContext;
 }
+========
+export { runFoundationStage } from "@mapgen/base/pipeline/foundation/producer.js";
+
+>>>>>>>> 1e5db401 (M5-U04: extract foundation pipeline into base mod):packages/mapgen-core/src/pipeline/foundation/producer.ts

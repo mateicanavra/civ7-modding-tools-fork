@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/library.ts
 import type { MapInfo } from "@civ7/adapter";
 import type { ContinentBounds } from "@mapgen/bootstrap/types.js";
 import type { FoundationConfig, MapGenConfig } from "@mapgen/config/index.js";
@@ -26,15 +27,18 @@ export interface BaseLibraryRuntime {
   eastContinent: ContinentBounds;
   startPositions: number[];
 }
+========
+import type { MapGenConfig } from "@mapgen/config/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { StepRegistry } from "@mapgen/pipeline/index.js";
+import { registerBaseLibrary, type BaseLibraryRuntime } from "@mapgen/base/library.js";
+
+export type StandardLibraryRuntime = BaseLibraryRuntime;
+>>>>>>>> 6496976f (M5-U03: move base tags/recipes/registry wiring into base mod):packages/mapgen-core/src/pipeline/standard-library.ts
 
 export function registerBaseLibrary(
   registry: StepRegistry<ExtendedMapContext>,
   runtime: BaseLibraryRuntime
 ): void {
-  registerFoundationLayer(registry, runtime);
-  registerMorphologyLayer(registry, runtime);
-  registerNarrativeLayer(registry, runtime);
-  registerHydrologyLayer(registry, runtime);
-  registerEcologyLayer(registry, runtime);
-  registerPlacementLayer(registry, runtime);
+  registerBaseLibrary(registry, runtime);
 }

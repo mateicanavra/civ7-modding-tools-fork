@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:packages/mapgen-core/src/base/pipeline/hydrology/ClimateRefineStep.ts
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { DEV, logRainfallStats } from "@mapgen/dev/index.js";
@@ -51,3 +52,8 @@ export function createClimateRefineStep(
     },
   };
 }
+========
+export { createClimateRefineStep } from "@mapgen/base/pipeline/hydrology/ClimateRefineStep.js";
+export type { ClimateRefineStepOptions } from "@mapgen/base/pipeline/hydrology/ClimateRefineStep.js";
+
+>>>>>>>> 1fab536d (M5-U05: extract morphology/hydrology pipeline into base mod):packages/mapgen-core/src/pipeline/hydrology/ClimateRefineStep.ts
