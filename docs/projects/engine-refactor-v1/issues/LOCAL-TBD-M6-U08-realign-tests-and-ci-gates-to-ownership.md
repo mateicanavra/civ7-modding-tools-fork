@@ -50,28 +50,6 @@ Move tests to match the new ownership boundaries and keep the CI gates aligned.
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
-### Prework Prompts (run before implementation)
-
-#### P1) Test harness inventory (what exists today)
-- **Goal:** Avoid inventing a new harness by enumerating the current test runner(s), file locations, and existing smoke utilities.
-- **Commands:**
-  - `cat packages/mapgen-core/package.json`
-  - `find packages/mapgen-core -maxdepth 3 -type f | rg "test|spec"`
-  - `cat mods/mod-swooper-maps/package.json`
-  - `find mods/mod-swooper-maps -maxdepth 4 -type f | rg "test|spec"`
-- **Output to capture:**
-  - The current test commands per package and which runner they use.
-  - The list of existing tests that exercise compile/execute (if any).
-
-#### P2) Existing mock adapter / smoke utilities inventory
-- **Goal:** Reuse the current `MockAdapter` path (or equivalent) for the M6 recipe smoke check.
-- **Commands:**
-  - `rg -n "MockAdapter" packages mods -S`
-  - `rg -n "createMock|mock-adapter" packages mods -S`
-- **Output to capture:**
-  - Where the mock adapter lives and how tests currently initialize a context/run.
-  - The minimal smoke test shape to replicate post-cutover.
-
 ### Prework Findings (Pending)
 #### P1) Test harness inventory (what exists today)
 - `packages/mapgen-core`:
