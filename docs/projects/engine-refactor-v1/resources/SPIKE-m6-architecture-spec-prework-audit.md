@@ -744,3 +744,39 @@ Locked names (no alternatives):
 - `ENGINE_EFFECT_TAGS` → `ENGINE_EFFECT_IDS`
 - `EngineEffectTagId` → `EngineEffectId`
 - `FOUNDATION_*_ARTIFACT_TAG` → `FOUNDATION_*_ARTIFACT_ID`
+
+---
+
+### Bucket C — Civ7 plot tags & “tag” terminology (locked)
+
+**Core problem:** “tag” is overloaded. After Buckets A/B, we need a clear rule for when “tag” is acceptable language, and when it is forbidden (because we mean pipeline dependencies).
+
+#### What exists today (M6 reality)
+
+**Civ7 plot tags (engine-native):**
+- `packages/mapgen-core/src/core/plot-tags.ts`
+  - Provides plot-tag helpers using adapter-resolved numeric IDs (`adapter.getPlotTagId("LANDMASS")`, etc.).
+  - Exposes fallback numeric constants (`PLOT_TAG`) for tests/non-engine contexts.
+  - Also includes landmass-region IDs (`LANDMASS_ID` / `resolveLandmassIds`) which are similar “engine numeric IDs” but *not* part of the dependency system.
+- Standard recipe steps already consume **landmass ID** helpers (e.g., `markLandmassId(...)`), not pipeline dependencies.
+
+**Pipeline dependencies (not plot tags):**
+- Dependency IDs/contracts (`artifact:*`, `field:*`, `effect:*`) are pipeline gating primitives and must not be called “tags” going forward (Buckets A/B lock `DependencyId` / `DependencyContract`).
+
+#### Locked rule (wording + naming)
+
+**Allowed uses of “tag”:**
+- **Civ7 plot tags** only, explicitly named as such:
+  - “plot tag”, “Civ7 plot tag”, `PLOT_TAG`, `PlotTagName`, `getPlotTagId`, etc.
+- **Map-surface tagging concepts** that literally “tag the map” (tile/plot/overlay annotation), but only with an explicit qualifier:
+  - “story tag”, “narrative tag”, “overlay tag”, “tile label”, etc.
+
+**Forbidden uses of “tag”:**
+- Any pipeline dependency system concept:
+  - Do not say “dependency tag”, “tag registry”, “tag definition” in docs or new APIs.
+  - Use **dependency** terminology exclusively: `DependencyId`, `DependencyContract`, `DependencyRegistry`, “requires/provides dependencies”, etc.
+
+**Naming guidance (to reduce drift):**
+- If you mean a pipeline gate: say “dependency” (ID/contract/registry).
+- If you mean a Civ7 engine plot/tile tag: say “plot tag” (or “tile tag” when describing semantics).
+- If you mean narrative classification on the map: avoid the bare word “tag”; prefer “annotation/label/marker” unless “story tag” is truly the clearest phrase.
