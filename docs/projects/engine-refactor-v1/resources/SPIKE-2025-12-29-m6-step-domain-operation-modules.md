@@ -13,7 +13,8 @@ These terms are used throughout this document with specific meanings. Several ar
 - Operations are the public contract that steps depend on; rules are implementation detail beneath operations.
 
 **Operation module**
-- A file that exports exactly one operation (often as the default export), enabling “one op per file” organization and easy `index.ts` aggregation into `ops.*`.
+- A module that exports exactly one operation (usually as the default export), enabling “one op per module” organization and easy `index.ts` aggregation into `ops.*`.
+- Most operation modules are single files; large operations can be promoted to a directory with `index.ts` as the module entrypoint.
 
 **Artifact**
 - A domain-defined data product published by steps for downstream consumption (e.g., a climate field, a corridor snapshot, a placement input bundle).
@@ -89,274 +90,564 @@ Domains are built to be:
 - **reusable**: can be invoked from any step that can supply the required inputs,
 - **co-located**: schemas, typed outputs (“artifacts”), and logic live together under the domain directory.
 
-### Domain responsibilities
+### What a domain contains (canonical structure)
 
-Domains expose step-callable entrypoints as **operations**. An operation:
+A domain is organized as a small module with an explicit public surface:
 
-- has a **kind** (`plan`, `compute`, `score`, `select`) for consistent mental model,
-- owns its **Inputs**, **ConfigSchema**, and **Result** types (per-operation, not per-domain),
-- exports a pure `run(inputs, config) -> result`.
+- `index.ts` aggregates exports (usually `ops`),
+- `ops/**` contains step-callable operation modules,
+- `rules/**` contains pure building blocks used by operations/variants (never step-callable),
+- optional `artifacts.ts` exports artifact shapes (schemas/types) and suggested names (keys are still step/recipe-owned).
 
-Domains may also contain internal:
+Canonical on-disk layout:
 
-- **rules** (smaller pure helpers used by ops),
-- **domain artifact shapes** (TypeBox schemas + keys for publishing), where publishing remains step-owned.
+```txt
+src/domain/<area>/<domain>/
+  index.ts
+  artifacts.ts                 # optional: shapes only (keys are recipe-owned)
+  ops/
+    <op>.ts                    # small op: one file
+    <op>/index.ts              # large op: promote to a folder
+    <op>/variants/*.ts         # optional: extracted variants (when they outgrow inline form)
+    <op>/rules/*.ts            # optional: op-local rules
+  rules/*.ts                   # optional: cross-op rules
+```
+
+Notes:
+- The unit of organization is an **operation module** (“one op per module”). Most ops can be single-file modules; complex ops can be promoted to a directory with `index.ts` as the op module.
+- Variants are typically defined **inline** inside the op module via `createOp({ variants: { ... } })` so they get full TypeScript inference without exporting types. Extract to `variants/*.ts` only if they get large.
+
+### Operations (the step-callable contract)
+
+An **operation** (aka “op”) is the stable unit that steps depend on. It:
+
+- has a **kind** (`plan`, `compute`, `score`, `select`) for shared mental model,
+- owns its `input`, `config`, and `output` schemas (per-operation, not per-domain),
+- exports a pure `run(input, config) -> output`.
+
+### Strategies / variants (optional, internal)
+
+When an operation can be implemented in multiple interchangeable ways, we model that as **variants** (or “strategies”) under the operation module:
+
+- each variant implements the same contract (`(input, cfg) -> output` or a narrowed internal contract),
+- the operation selects a variant (usually via a `variant` field in config),
+- steps do **not** import variants directly in the canonical pattern; they only select them via config.
+
+This keeps step imports small and keeps the op’s public contract stable even if internal implementations evolve.
+
+### Rules (optional, internal building blocks)
+
+**Rules** are small pure functions used to decompose complexity:
+
+- score terms (“plate boundary proximity contributes +X”),
+- constraints/predicates (“reject if too close to existing volcano”),
+- tiny transformations (“clamp rainfall to 0…N”).
+
+Rules may live:
+- in `domain/rules/**` when shared across operations, or
+- in `domain/ops/<op>/rules/**` when specific to one operation.
+
+Rules are internal by default: they should not leak into step-level imports or runtime concerns.
 
 ### Shared utilities vs domain logic
 
-- **generic utilities** (math, rng helpers, array ops) belong in shared libraries (e.g. `.../lib/**`).
-- **domain-specific semantics** belong in the domain (e.g. “what constitutes an orographic shadow”).
-- **runtime adapter helpers** (mapping symbolic kinds → engine IDs, applying overrides to the engine) belong in the step (or step-local libs).
+- **generic utilities** (math, rng helpers, array ops) belong in shared libraries (e.g. `packages/mapgen-core/src/lib/**`).
+- **domain-specific semantics** belong in the domain (e.g. “what constitutes a convergent boundary hotspot”).
+- **runtime adapter helpers** (mapping symbolic kinds → engine IDs, applying placements to the engine) belong in the step (or step-local libs).
 
-## 4) Step ↔ Domain Interaction
+### Step ↔ domain interaction model (3 phases)
 
-### Interaction model
+Steps and domains interact as a simple boundary:
 
-Steps and domains interact as a simple 3-phase boundary:
-
-1. **Build Inputs (step):** adapt runtime (adapter + artifacts/fields) into plain, typed inputs for a domain operation.
-2. **Compute (domain op):** run pure logic using operation config and inputs, returning a typed result.
+1. **Build Inputs (step):** adapt runtime (adapter + artifacts/fields) into plain, typed inputs.
+2. **Compute (domain op):** run pure logic using operation config + inputs, returning a typed result.
 3. **Apply/Publish (step):** apply results to runtime (engine writes, buffer writes) and publish artifacts/fields.
 
 An “apply” phase is not a round-trip back into the domain; it is the step using the domain’s return value to mutate runtime.
 
-### Diagram
-
 ```
           (runtime)                          (pure)                           (runtime)
 ┌─────────────────────────┐        ┌──────────────────────┐        ┌─────────────────────────┐
-│ Step.run(ctx, config)   │        │ domain/ops/*.ts      │        │ engine + artifacts      │
+│ Step.run(ctx, config)   │        │ domain/ops/**        │        │ engine + artifacts      │
 │                         │        │                      │        │                         │
 │ 1) build inputs         │  ───▶  │ op.run(inputs,cfg)   │  ───▶  │ 3) apply + publish      │
 │    from ctx+adapter     │        │ => result            │        │                         │
 └─────────────────────────┘        └──────────────────────┘        └─────────────────────────┘
 ```
 
-### Minimal helper: ergonomic inference, not a framework
+### Authoring primitives (minimal helpers, not a framework)
 
 Operations are plain exports, but a tiny helper improves inference and standardizes shape.
 
 ```ts
-// packages/mapgen-core/src/authoring/domain-op.ts
-import type { TSchema, Static } from "@sinclair/typebox";
+// packages/mapgen-core/src/authoring/op.ts
+import type { Static, TSchema } from "typebox";
 
 export type DomainOpKind = "plan" | "compute" | "score" | "select";
 
-export type DomainOp<S extends TSchema, Inputs, Result> = {
+export type OpVariant<Input, Config, Output> = (input: Input, config: Config) => Output;
+
+export type DomainOpDefinition<
+  InputSchema extends TSchema,
+  ConfigSchema extends TSchema,
+  OutputSchema extends TSchema,
+  Variants extends
+    | Record<
+        string,
+        OpVariant<Static<InputSchema>, Static<ConfigSchema>, Static<OutputSchema>>
+      >
+    | undefined = undefined
+> = {
   kind: DomainOpKind;
   id: string;
-  configSchema: S;
-  run: (inputs: Inputs, config: Static<S>) => Result;
+  input: InputSchema;
+  config: ConfigSchema;
+  output: OutputSchema;
+  variants?: Variants;
+  run: (
+    input: Static<InputSchema>,
+    config: Static<ConfigSchema>,
+    ctx: { variants: Variants }
+  ) => Static<OutputSchema>;
 };
 
-export function defineOp<S extends TSchema, Inputs, Result>(
-  op: DomainOp<S, Inputs, Result>
-): DomainOp<S, Inputs, Result> {
-  return op;
+export type DomainOp<
+  InputSchema extends TSchema,
+  ConfigSchema extends TSchema,
+  OutputSchema extends TSchema,
+  Variants extends
+    | Record<
+        string,
+        OpVariant<Static<InputSchema>, Static<ConfigSchema>, Static<OutputSchema>>
+      >
+    | undefined = undefined
+> = Omit<DomainOpDefinition<InputSchema, ConfigSchema, OutputSchema, Variants>, "run"> & {
+  run: (input: Static<InputSchema>, config: Static<ConfigSchema>) => Static<OutputSchema>;
+};
+
+export function createOp<
+  InputSchema extends TSchema,
+  ConfigSchema extends TSchema,
+  OutputSchema extends TSchema,
+  Variants extends
+    | Record<
+        string,
+        OpVariant<Static<InputSchema>, Static<ConfigSchema>, Static<OutputSchema>>
+      >
+    | undefined = undefined
+>(op: DomainOpDefinition<InputSchema, ConfigSchema, OutputSchema, Variants>): DomainOp<
+  InputSchema,
+  ConfigSchema,
+  OutputSchema,
+  Variants
+> {
+  return {
+    ...op,
+    run: (input, config) => op.run(input, config, { variants: op.variants as Variants }),
+  };
 }
 ```
 
 Recommended step-side import pattern:
 
 ```ts
-import * as climate from "@mapgen/domain/hydrology/climate";
+import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
 
-const result = climate.ops.baselineRainfall.run(inputs, config.baselineRainfall);
+const plan = volcanoes.ops.planVolcanoes.run(inputs, config.planVolcanoes);
 ```
 
-## 5) Concrete Pattern (End-to-End Example)
+### Step structure / step-local helpers (TBD)
 
-This example uses a hydrology/climate domain because it is “compute-heavy” (derived fields) and does not rely on overriding Civ engine behavior.
+Steps are the runtime boundary, so they often need a small amount of step-local “apply” logic. Two plausible layouts:
 
-### Domain layout (one operation per file)
+**Option A: directory step (index + helpers)**
 
 ```txt
-src/domain/hydrology/climate/
+src/recipes/<recipe>/stages/<stage>/steps/volcanoes/
+  index.ts          # default export createStep(...)
+  apply.ts          # step-local helper(s) with adapter/engine calls
+  inputs.ts         # step-local input builders (adapter → buffers)
+```
+
+**Option B: file step + sibling helper directory**
+
+```txt
+src/recipes/<recipe>/stages/<stage>/steps/
+  volcanoes.ts
+  volcanoes/
+    apply.ts
+    inputs.ts
+```
+
+We haven’t locked this down yet. Option A reads cleaner (everything for the step is in one folder). Option B keeps the existing “step is a file” convention but can look odd (a file + a same-named folder). Either way, the boundary rule stays the same: adapter/runtime calls live in the step layer, not in the domain.
+
+## 4) End-to-End Example (Volcano)
+
+This example is intentionally “pure-domain + side-effects-in-step”: the domain computes placements and the step applies them to the engine/runtime.
+
+### File layout
+
+```txt
+src/domain/morphology/volcanoes/
   index.ts
-  ops/
-    distance-to-water.ts
-    baseline-rainfall.ts
-  rules/
-    lat-bands.ts
-    coastal-bonus.ts
   artifacts.ts
+  ops/
+    compute-suitability.ts
+    plan-volcanoes/
+      index.ts
+      rules/
+        enforce-min-distance.ts
+        pick-weighted.ts
+
+src/recipes/standard/stages/morphology-post/steps/volcanoes/
+  index.ts
+  apply.ts
+  inputs.ts
 ```
 
-### Operation: compute distance-to-water
+### Domain: operation 1 — compute suitability (derived field)
 
 ```ts
-// src/domain/hydrology/climate/ops/distance-to-water.ts
-import { Type, type Static } from "typebox";
-import { defineOp } from "@swooper/mapgen-core/authoring/domain-op";
+// src/domain/morphology/volcanoes/ops/compute-suitability.ts
+import { Type } from "typebox";
+import { createOp } from "@swooper/mapgen-core/authoring";
 
-export type Inputs = {
-  width: number;
-  height: number;
-  isWater: Uint8Array; // 1=water, 0=land
-};
-
-export const ConfigSchema = Type.Object(
-  {
-    maxDistance: Type.Optional(Type.Number({ default: 12 })),
-  },
-  { additionalProperties: false, default: {} }
-);
-export type Config = Static<typeof ConfigSchema>;
-
-export type Result = {
-  dist: Uint8Array; // Manhattan-ish tile distance, clamped to maxDistance
-};
-
-export default defineOp({
+export default createOp({
   kind: "compute",
-  id: "hydrology/climate/distanceToWater",
-  configSchema: ConfigSchema,
-  run: (inputs, cfg): Result => {
+  id: "morphology/volcanoes/computeSuitability",
+  input: Type.Object(
+    {
+      width: Type.Integer({ minimum: 1 }),
+      height: Type.Integer({ minimum: 1 }),
+
+      // NOTE: These are typed-array buffers in practice. If we want stricter static typing,
+      // we can introduce an opaque schema helper (e.g., `t.uint8Array()`) in authoring.
+      isLand: Type.Any(),
+      plateBoundaryProximity: Type.Any(),
+      elevation: Type.Any(),
+    },
+    { additionalProperties: false }
+  ),
+  config: Type.Object(
+    {
+      wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
+      wElevation: Type.Optional(Type.Number({ default: 0.25 })),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+  output: Type.Object(
+    {
+      suitability: Type.Any(),
+    },
+    { additionalProperties: false }
+  ),
+  run: (inputs, cfg) => {
     const size = inputs.width * inputs.height;
-    const maxD = Number.isFinite(cfg.maxDistance) ? cfg.maxDistance! : 12;
-    const dist = new Uint8Array(size);
+    const suitability = new Float32Array(size);
 
-    // Placeholder: domain owns the algorithm, step owns no logic here.
-    // Implement with BFS/scanline/etc. as appropriate.
-    dist.fill(maxD);
-
-    return { dist };
-  },
-} as const);
-```
-
-### Operation: compute baseline rainfall (uses a domain rule + another op’s output)
-
-```ts
-// src/domain/hydrology/climate/ops/baseline-rainfall.ts
-import { Type, type Static } from "typebox";
-import { defineOp } from "@swooper/mapgen-core/authoring/domain-op";
-import { rainfallForLatitudeBand } from "../rules/lat-bands.js";
-
-export type Inputs = {
-  width: number;
-  height: number;
-  isWater: Uint8Array;
-  latAbs: Float32Array;     // degrees
-  elevation: Int16Array;    // meters
-  distToWater: Uint8Array;  // tiles
-  rng?: (label: string, max: number) => number;
-};
-
-export const ConfigSchema = Type.Object(
-  {
-    coastalBonus: Type.Optional(Type.Number({ default: 24 })),
-    coastalSpread: Type.Optional(Type.Number({ default: 4 })),
-  },
-  { additionalProperties: false, default: {} }
-);
-export type Config = Static<typeof ConfigSchema>;
-
-export type Result = {
-  rainfall: Uint16Array;
-};
-
-export default defineOp({
-  kind: "compute",
-  id: "hydrology/climate/baselineRainfall",
-  configSchema: ConfigSchema,
-  run: (inputs, cfg): Result => {
-    const size = inputs.width * inputs.height;
-    const rainfall = new Uint16Array(size);
-
-    const bonus = Number.isFinite(cfg.coastalBonus) ? cfg.coastalBonus! : 24;
-    const spread = Number.isFinite(cfg.coastalSpread) ? cfg.coastalSpread! : 4;
+    const wPlate = Number.isFinite(cfg.wPlateBoundary) ? cfg.wPlateBoundary! : 1.0;
+    const wElev = Number.isFinite(cfg.wElevation) ? cfg.wElevation! : 0.25;
 
     for (let i = 0; i < size; i++) {
-      if (inputs.isWater[i] === 1) continue;
-      const base = rainfallForLatitudeBand(inputs.latAbs[i]);
+      if (inputs.isLand[i] === 0) {
+        suitability[i] = 0;
+        continue;
+      }
 
-      const d = inputs.distToWater[i];
-      const coastal = d > 0 && d <= spread ? Math.round(bonus * (1 - (d - 1) / spread)) : 0;
-      rainfall[i] = Math.max(0, base + coastal);
+      const plate = inputs.plateBoundaryProximity[i] / 255;
+      const elev = Math.max(0, Math.min(1, inputs.elevation[i] / 4000));
+      suitability[i] = wPlate * plate + wElev * elev;
     }
 
-    return { rainfall };
+    return { suitability };
   },
 } as const);
 ```
 
-### Domain index: aggregate operations (manual, explicit)
+### Domain: operation 2 — plan volcano placements (variants + rules)
+
+This operation has interchangeable variants. The op stays stable; the internal variants can evolve.
 
 ```ts
-// src/domain/hydrology/climate/index.ts
-import distanceToWater from "./ops/distance-to-water.js";
-import baselineRainfall from "./ops/baseline-rainfall.js";
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
+import { Type } from "typebox";
+import { createOp } from "@swooper/mapgen-core/authoring";
+import { enforceMinDistance } from "./rules/enforce-min-distance.js";
+import { pickWeightedIndex } from "./rules/pick-weighted.js";
+
+export default createOp({
+  kind: "plan",
+  id: "morphology/volcanoes/planVolcanoes",
+  input: Type.Object(
+    {
+      width: Type.Integer({ minimum: 1 }),
+      height: Type.Integer({ minimum: 1 }),
+      suitability: Type.Any(),
+      rng01: Type.Any(),
+    },
+    { additionalProperties: false }
+  ),
+  config: Type.Object(
+    {
+      targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
+      minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
+      variant: Type.Optional(
+        Type.Union([Type.Literal("plateAware"), Type.Literal("hotspotClusters")], { default: "plateAware" })
+      ),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+  output: Type.Object(
+    {
+      placements: Type.Array(
+        Type.Object(
+          {
+            x: Type.Integer({ minimum: 0 }),
+            y: Type.Integer({ minimum: 0 }),
+            intensity: Type.Integer({ minimum: 0 }),
+          },
+          { additionalProperties: false }
+        )
+      ),
+    },
+    { additionalProperties: false }
+  ),
+  variants: {
+    plateAware: (inputs, cfg) => {
+      const target = cfg.targetCount ?? 12;
+      const minD = cfg.minDistance ?? 6;
+
+      const width = inputs.width;
+      const height = inputs.height;
+      const size = width * height;
+
+      const chosen: { x: number; y: number; intensity: number }[] = [];
+      const weights = new Float32Array(size);
+      for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
+
+      while (chosen.length < target) {
+        const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.pick"));
+        if (i < 0) break;
+
+        const x = i % width;
+        const y = (i / width) | 0;
+
+        if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
+          weights[i] = 0;
+          continue;
+        }
+
+        chosen.push({ x, y, intensity: 1 });
+        weights[i] = 0;
+      }
+
+      return { placements: chosen };
+    },
+    hotspotClusters: (inputs, cfg) => {
+      const target = cfg.targetCount ?? 12;
+      const minD = cfg.minDistance ?? 6;
+
+      const width = inputs.width;
+      const height = inputs.height;
+      const size = width * height;
+
+      const chosen: { x: number; y: number; intensity: number }[] = [];
+      const weights = new Float32Array(size);
+      for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
+
+      const seedCount = Math.min(3, target);
+      while (chosen.length < seedCount) {
+        const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.seed"));
+        if (i < 0) break;
+
+        const x = i % width;
+        const y = (i / width) | 0;
+        if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
+          weights[i] = 0;
+          continue;
+        }
+        chosen.push({ x, y, intensity: 2 });
+        weights[i] = 0;
+      }
+
+      while (chosen.length < target) {
+        const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.fill"));
+        if (i < 0) break;
+
+        const x = i % width;
+        const y = (i / width) | 0;
+        if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
+          weights[i] = 0;
+          continue;
+        }
+
+        chosen.push({ x, y, intensity: 1 });
+        weights[i] = 0;
+      }
+
+      return { placements: chosen };
+    },
+  } as const,
+  run: (inputs, cfg, { variants }) => {
+    const variantId = cfg.variant ?? "plateAware";
+    return variants[variantId](inputs, cfg);
+  },
+} as const);
+```
+
+### Domain: rules (small, pure building blocks)
+
+```ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/pick-weighted.ts
+export function pickWeightedIndex(
+  weights: Float32Array,
+  rng01: () => number
+): number {
+  let sum = 0;
+  for (let i = 0; i < weights.length; i++) sum += Math.max(0, weights[i]);
+  if (sum <= 0) return -1;
+
+  let r = Math.max(0, Math.min(0.999999, rng01())) * sum;
+  for (let i = 0; i < weights.length; i++) {
+    r -= Math.max(0, weights[i]);
+    if (r <= 0) return i;
+  }
+
+  return weights.length - 1;
+}
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/enforce-min-distance.ts
+export type Dims = { width: number; height: number };
+export type Point = { x: number; y: number };
+
+export function enforceMinDistance(
+  dims: Dims,
+  chosen: Point[],
+  candidate: Point,
+  minDistance: number
+): boolean {
+  if (minDistance <= 0) return true;
+
+  for (const p of chosen) {
+    const dx = p.x - candidate.x;
+    const dy = p.y - candidate.y;
+    if (dx * dx + dy * dy < minDistance * minDistance) return false;
+  }
+
+  return candidate.x >= 0 && candidate.y >= 0 && candidate.x < dims.width && candidate.y < dims.height;
+}
+```
+
+### Domain index (public surface)
+
+Steps import the domain module and only see `ops` (not rules/variants).
+
+```ts
+// src/domain/morphology/volcanoes/index.ts
+import computeSuitability from "./ops/compute-suitability.js";
+import planVolcanoes from "./ops/plan-volcanoes/index.js";
 
 export const ops = {
-  distanceToWater,
-  baselineRainfall,
+  computeSuitability,
+  planVolcanoes,
 } as const;
 ```
 
-### Step wiring: compose operations and publish outputs
+### Step: build inputs → call ops → apply/publish (runtime boundary)
+
+The step owns adapter/engine interaction and artifact publishing. The step never imports domain rules or variant modules.
 
 ```ts
-// src/recipes/standard/stages/hydrology/steps/climate-baseline.ts
+// src/recipes/standard/stages/morphology-post/steps/volcanoes/index.ts
 import { Type, type Static } from "typebox";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import * as climate from "@mapgen/domain/hydrology/climate";
+import { ctxRandom } from "@swooper/mapgen-core/core/types";
+import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
+import { buildVolcanoInputs } from "./inputs.js";
+import { applyVolcanoPlacements } from "./apply.js";
 
 const StepSchema = Type.Object(
   {
-    distanceToWater: climate.ops.distanceToWater.configSchema,
-    baselineRainfall: climate.ops.baselineRainfall.configSchema,
+    computeSuitability: volcanoes.ops.computeSuitability.config,
+    planVolcanoes: volcanoes.ops.planVolcanoes.config,
   },
-  { additionalProperties: false, default: { distanceToWater: {}, baselineRainfall: {} } }
+  { additionalProperties: false, default: { computeSuitability: {}, planVolcanoes: {} } }
 );
 type StepConfig = Static<typeof StepSchema>;
 
 export default createStep({
-  id: "climateBaseline",
-  phase: "hydrology",
+  id: "volcanoes",
+  phase: "morphology-post",
+  requires: ["artifact:plates", "field:elevation"],
+  provides: ["artifact:volcanoPlacements", "effect:volcanoesPlaced"],
   schema: StepSchema,
   run: (ctx, cfg: StepConfig) => {
-    const { width, height } = ctx.dimensions;
-    const size = width * height;
-    const adapter = ctx.adapter;
+    // 1) Build domain inputs from runtime
+    const inputs = buildVolcanoInputs(ctx);
 
-    // 1) Build op inputs (runtime → domain inputs)
-    const isWater = new Uint8Array(size);
-    const latAbs = new Float32Array(size);
-    const elevation = new Int16Array(size);
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const i = y * width + x;
-        isWater[i] = adapter.isWater(x, y) ? 1 : 0;
-        latAbs[i] = Math.abs(adapter.getLatitude(x, y));
-        elevation[i] = adapter.getElevation(x, y) | 0;
-      }
-    }
-
-    // 2) Compute (domain ops)
-    const { dist } = climate.ops.distanceToWater.run({ width, height, isWater }, cfg.distanceToWater);
-    const { rainfall } = climate.ops.baselineRainfall.run(
-      { width, height, isWater, latAbs, elevation, distToWater: dist },
-      cfg.baselineRainfall
+    // 2) Compute + plan (pure domain logic)
+    const { suitability } = volcanoes.ops.computeSuitability.run(inputs, cfg.computeSuitability);
+    const { placements } = volcanoes.ops.planVolcanoes.run(
+      {
+        width: inputs.width,
+        height: inputs.height,
+        suitability,
+        rng01: (label) => ctxRandom(ctx, label, 1_000_000) / 1_000_000,
+      },
+      cfg.planVolcanoes
     );
 
-    // 3) Apply/Publish (domain results → runtime)
-    ctx.buffers.climate.rainfall.set(rainfall);
-    // ctx.artifacts.set("artifact:climateField", { rainfall, ... }) // step-owned publish
+    // 3) Apply + publish (runtime side effects)
+    applyVolcanoPlacements(ctx.adapter, placements);
+    ctx.artifacts.set("artifact:volcanoPlacements", { placements });
   },
 } as const);
 ```
 
-### Why this example is representative
+```ts
+// src/recipes/standard/stages/morphology-post/steps/volcanoes/inputs.ts
+export function buildVolcanoInputs(ctx: {
+  dimensions: { width: number; height: number };
+  adapter: { isWater: (x: number, y: number) => boolean; getElevation: (x: number, y: number) => number };
+  artifacts: { get: (key: string) => unknown };
+}) {
+  const { width, height } = ctx.dimensions;
+  const size = width * height;
 
-- The domain owns the algorithms and config schemas.
-- The step owns runtime interaction and composition of multiple ops.
-- Multiple operations in one domain compose cleanly without codegen:
-  - each op is one file (default export),
-  - the domain `index.ts` aggregates them into `ops`,
-  - steps import `* as climate` and wire through `climate.ops.*`.
+  const isLand = new Uint8Array(size);
+  const elevation = new Int16Array(size);
 
-## 6) Open Questions / Design Decisions
+  // In practice this would come from an artifact produced by plate generation.
+  const plateBoundaryProximity = new Uint8Array(size);
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = y * width + x;
+      isLand[i] = ctx.adapter.isWater(x, y) ? 0 : 1;
+      elevation[i] = ctx.adapter.getElevation(x, y) | 0;
+      plateBoundaryProximity[i] = 0;
+    }
+  }
+
+  return { width, height, isLand, elevation, plateBoundaryProximity };
+}
+```
+
+```ts
+// src/recipes/standard/stages/morphology-post/steps/volcanoes/apply.ts
+export type VolcanoPlacement = { x: number; y: number; intensity: number };
+
+export function applyVolcanoPlacements(
+  adapter: { setVolcano: (x: number, y: number, intensity: number) => void },
+  placements: VolcanoPlacement[]
+) {
+  for (const p of placements) adapter.setVolcano(p.x, p.y, p.intensity);
+}
+```
+
+## 5) Open Questions / Design Decisions
 
 Each item below is an intentionally standalone decision packet. The goal is to make the downstream consequences explicit so we can converge without accidental drift.
 
@@ -389,7 +680,7 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-002: Config responsibility and defaults (where validation happens)
 
-**Context:** Ops expose `configSchema`, and steps use schemas for step config validation/defaulting.
+**Context:** Ops expose `config`, and steps use schemas for step config validation/defaulting.
 
 **Why this decision exists:** If config validation/defaulting happens inconsistently (sometimes in steps, sometimes in ops), behavior becomes hard to reason about and difficult to test.
 
@@ -435,9 +726,9 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 **Rationale / leaning:** Prefer **A** as the canonical contract for step-callable ops. If callbacks are needed, constrain them to tiny, explicitly named readonly interfaces and keep them pure.
 
-### DD-004: Artifact keys / dependency tags ownership (domain vs recipe)
+### DD-004: Artifact keys / dependency keys ownership (domain vs recipe)
 
-**Context:** Steps declare `requires`/`provides` (tags) and publish artifacts/fields for downstream steps. Domains may define artifact *shapes* (schemas/types) and sometimes want to “name” those artifacts.
+**Context:** Steps declare `requires`/`provides` via `DependencyKey`s and publish artifacts/fields for downstream steps. Domains may define artifact *shapes* (schemas/types) and sometimes want to “name” those artifacts.
 
 **Why this decision exists:** Stable pipeline wiring depends on consistent dependency identifiers. If both domains and recipes invent keys freely, the graph becomes fragile and hard to refactor.
 
@@ -447,10 +738,10 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 - Docs/tooling: can we render a contract of “what this op needs/produces” that is stable?
 
 **Options:**
-- **A) Recipe/tag-catalog owns keys (recommended):**
+- **A) Recipe dependency-catalog owns keys (recommended):**
   - Domains define artifact *schemas/types*.
-  - Recipe-level tag catalogs define the canonical string keys for `requires/provides`.
-  - Steps publish under tag-catalog keys.
+  - Recipe-level catalogs define the canonical string `DependencyKey`s for `requires/provides`.
+  - Steps publish under recipe-owned keys.
 - **B) Domain owns keys:** domains export canonical keys for their artifacts.
 - **C) Split by layer:** engine/runner-owned keys live centrally; content-owned keys live with the content domain.
 
@@ -463,7 +754,7 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-005: TypeBox import consistency (`typebox` vs `@sinclair/typebox`)
 
-**Context:** The spike currently mixes `import ... from "typebox"` and `import ... from "@sinclair/typebox"` in examples.
+**Context:** The repo currently imports TypeBox from `"typebox"`, while external docs/examples often use `"@sinclair/typebox"`. We should pick one canonical import path for authoring and enforce it consistently in docs and examples.
 
 **Why this decision exists:** Documentation should model the canonical import path used in the repo to avoid confusion and copy/paste drift for mod authors.
 
