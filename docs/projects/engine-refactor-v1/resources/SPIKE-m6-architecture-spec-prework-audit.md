@@ -175,10 +175,8 @@ Today, “settings” exists as a validated run input and as part of plan identi
 Minimal, concrete wiring to make ADR intent real (Option A):
 
 1) Add `settings: RunSettings` onto the runtime context type (e.g. `ExtendedMapContext.settings: RunSettings`).
-2) Attach the plan’s settings to the context once per run.
-   - Options (choose one in implementation):
-     - in `RecipeModule.run` before calling `executor.executePlan(context, plan, ...)`, or
-     - in `PipelineExecutor.executePlan` by setting `context.settings = plan.settings` before iterating steps.
+2) Attach the plan’s **normalized** settings to the context once per run in `createRecipe(...).run(...)` (authoring layer):
+   - Compile the plan, then set `context.settings = plan.settings`, then execute the plan.
 3) Steps read settings via `context.settings.*` (e.g. `context.settings.directionality`).
 
 This keeps `run(context, stepConfig)` intact and does not create a second “hidden” settings surface: the context field is simply the runtime attachment of the already-validated `RunRequest.settings`.
@@ -400,6 +398,11 @@ Initial classification (for SPEC promotion later):
 - `map-init.ts`, `helpers.ts`, `types.ts`: look like **reusable, canonical Civ7 runtime integration** and should move out of the mod into a shared runtime surface (core SDK or a dedicated runtime package).
 - `standard-config.ts`: conflicts with the “composed config SSOT” decision; should be removed/rewritten as part of remediation (no legacy mapping).
 - `run-standard.ts`: likely remains mod-owned but should become a thin wrapper around shared runtime helpers + the mod’s own recipe/runtime initialization.
+
+Recommendation to make this concrete for the SPEC:
+
+- Put Civ7 runtime helpers in `packages/mapgen-core/src/runtime/civ7/**` and export as `@swooper/mapgen-core/runtime/civ7`.
+- Re-export the stable entrypoints from `@swooper/mapgen-core/authoring` so mod authors can stay “authoring-first” for runtime glue as well.
 
 ## Remaining open decisions before editing the canonical SPEC
 
