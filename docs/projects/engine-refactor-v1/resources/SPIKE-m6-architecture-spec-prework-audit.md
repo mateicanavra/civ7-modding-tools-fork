@@ -678,13 +678,13 @@ Prompt:
 
 **Catalog/container renames:**
 - `M3_DEPENDENCY_TAGS` → `M3_DEPENDENCY_IDS`
-- `M4_EFFECT_TAGS` → `M4_EFFECT_IDS` (or `M4_ENGINE_EFFECT_IDS` if we want the `engine.*` scoping explicit in the name)
-- `M3_CANONICAL_DEPENDENCY_TAGS` → `M3_CANONICAL_DEPENDENCY_IDS`
-  - Note: today this set includes `M4_EFFECT_TAGS.engine.*` values too; it’s “standard recipe canonical IDs”, not purely “M3”.
+- `M4_EFFECT_TAGS` → `M4_EFFECT_IDS`
+- `M3_CANONICAL_DEPENDENCY_TAGS` → `STANDARD_CANONICAL_DEPENDENCY_IDS`
+  - Note: today this set includes `M4_EFFECT_TAGS.engine.*` values too; the “M3” prefix is misleading.
 
 **Contract list renames (explicitly aligned with Bucket A `DependencyContract`):**
 - `STANDARD_TAG_DEFINITIONS` → `STANDARD_DEPENDENCY_CONTRACTS`
-- `registerStandardTags(...)` → `registerStandardDependencies(...)` (or `registerStandardDependencyContracts(...)` if we want it explicit that this registers contracts)
+- `registerStandardTags(...)` → `registerStandardDependencyContracts(...)`
 
 **Adapter effect ID renames (effect IDs are dependency IDs of kind `effect`):**
 - `ENGINE_EFFECT_TAGS` → `ENGINE_EFFECT_IDS`
@@ -727,3 +727,20 @@ There are two materially different interpretations of “split by kind”:
 **Q: What would splitting naming by kind (ArtifactId/FieldId/EffectId) imply?**
 - K1 (kind-specific names for constants, keep `DependencyId` everywhere) is a **straightforward clarity win** and fits our “rename-first” goal.
 - K2 (add type-level `ArtifactId/FieldId/EffectId`) is **not rename-only**; it implies changing public authoring/engine types and would add non-trivial churn during M7 unless we explicitly choose to do a type-system hardening pass.
+
+#### Bucket B decision (locked)
+
+We will execute Bucket B as **K1 only**:
+- Rename catalogs/constants/contracts to **Id/Contract** terminology (no behavior changes).
+- Keep a **single dependency ID vocabulary**; effects remain `DependencyKind="effect"`, not a separate system.
+- Do **not** introduce type-level `ArtifactId/FieldId/EffectId` as part of the rename pass.
+
+Locked names (no alternatives):
+- `M3_DEPENDENCY_TAGS` → `M3_DEPENDENCY_IDS`
+- `M4_EFFECT_TAGS` → `M4_EFFECT_IDS`
+- `M3_CANONICAL_DEPENDENCY_TAGS` → `STANDARD_CANONICAL_DEPENDENCY_IDS`
+- `STANDARD_TAG_DEFINITIONS` → `STANDARD_DEPENDENCY_CONTRACTS`
+- `registerStandardTags(...)` → `registerStandardDependencyContracts(...)`
+- `ENGINE_EFFECT_TAGS` → `ENGINE_EFFECT_IDS`
+- `EngineEffectTagId` → `EngineEffectId`
+- `FOUNDATION_*_ARTIFACT_TAG` → `FOUNDATION_*_ARTIFACT_ID`
