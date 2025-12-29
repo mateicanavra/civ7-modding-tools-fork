@@ -604,3 +604,126 @@ Prompt:
    - Do not rename narrative ‘storyTag*’ functions yet
 
 5) Validate with the workspace’s standard checks (pnpm scripts).”
+
+---
+
+### Bucket B — Dependency ID catalogs & constants (M3/M4, adapter effect IDs, `*_ARTIFACT_TAG`)
+
+**Scope:** this bucket is about the *named constant vocabularies* that hold dependency IDs (and their associated contract arrays). It is not about the core dependency system types/registry (Bucket A), and not about Civ7 plot tags or narrative “tagging” (Buckets C/D).
+
+#### 1) Audit: what `M3_DEPENDENCY_TAGS` vs `M4_EFFECT_TAGS` are today (M6)
+
+**Where they live (SSOT today):**
+- `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
+  - `M3_DEPENDENCY_TAGS`: canonical **artifact** + **field** dependency IDs for the standard recipe.
+  - `M4_EFFECT_TAGS`: canonical **effect** dependency IDs (engine effects) for the standard recipe.
+  - `STANDARD_TAG_DEFINITIONS`: explicit dependency contracts (`DependencyTagDefinition<ExtendedMapContext>`) for artifacts/fields/effects used by the standard recipe.
+
+**How `M3_DEPENDENCY_TAGS` is structured:**
+- `artifact.*`
+  - Mix of:
+    - *Imported IDs from core*: `FOUNDATION_*_ARTIFACT_TAG` (from `@swooper/mapgen-core`)
+    - *Local literal IDs*: e.g. `artifact:heightfield`, `artifact:climateField`, `artifact:narrative.*@v1`, `artifact:placementInputs@v1`
+- `field.*`
+  - Local literal IDs: `field:terrainType`, `field:elevation`, etc.
+
+**How `M4_EFFECT_TAGS` is structured:**
+- `engine.*` effect IDs
+  - Mix of:
+    - *Local literal IDs*: `effect:engine.landmassApplied`, `effect:engine.coastlinesApplied`, `effect:engine.riversModeled`
+    - *Imported IDs from adapter*: `ENGINE_EFFECT_TAGS.{biomesApplied,featuresApplied,placementApplied}` (from `@civ7/adapter`)
+
+**Where they’re used (standard steps):**
+- Steps import these constants via `mods/mod-swooper-maps/src/recipes/standard/tags.ts` (typically `import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js"`).
+- `M3_DEPENDENCY_TAGS` is used broadly for artifact/field `requires`/`provides` across stages.
+- `M4_EFFECT_TAGS` is used broadly for effect `requires`/`provides` across stages (not just “placement”):
+  - Example: `coastlines` requires `effect:engine.landmassApplied`, provides `effect:engine.coastlinesApplied`.
+  - Example: `biomes` provides `effect:engine.biomesApplied` and also provides `field:biomeId`.
+  - Quick “where” summary (by stage):
+    - `M3_DEPENDENCY_TAGS`: ecology, foundation, hydrology-pre/core/post, morphology-pre/mid/post, narrative-pre/mid/post/swatches, placement
+    - `M4_EFFECT_TAGS`: ecology, hydrology-pre/core, morphology-pre/mid/post, narrative-pre/mid/post, placement
+
+**How they’re “registered” today (contracts):**
+- `STANDARD_TAG_DEFINITIONS` includes:
+  - Explicit contracts for all M3 artifacts/fields (shape checks against `context.artifacts` / `context.fields`).
+  - Auto-generated contracts for all M4 effect IDs (kind=`effect`), with verification behavior for a subset:
+    - Most verified effects use `context.adapter.verifyEffect(id)`.
+    - `placementApplied` adds an extra check: it’s only “satisfied” if the placement effect is recorded *and* `artifact:placementOutputs@v1` meets cheap invariants.
+
+**Notable alias/indirection:**
+- `mods/mod-swooper-maps/src/domain/tags.ts` currently re-exports `M3_DEPENDENCY_TAGS` from `recipes/standard/tags.ts` (domain importing recipe-scoped dependency IDs).
+
+#### 2) Consolidation check: do effects need a separate “system” from other dependency IDs?
+
+**Code reality (core):** the dependency system treats `effect:*` IDs exactly like `artifact:*` and `field:*` IDs.
+- `packages/mapgen-core/src/engine/tags.ts`:
+  - `DependencyTagKind` includes `"effect"`.
+  - Kind compatibility is purely prefix-based (`effect:`).
+  - Satisfaction is uniform: “ID must be in `state.satisfied`, then optionally run `definition.satisfies(...)`.”
+- `packages/mapgen-core/src/authoring/recipe.ts`:
+  - `inferTagKind` infers kind from prefix, including `effect:`.
+
+**Adapter reality:** effect verification lives in the adapter, but *still* flows through the same dependency contract mechanism.
+- `packages/civ7-adapter/src/effects.ts` exports `ENGINE_EFFECT_TAGS` (effect IDs).
+- `packages/civ7-adapter/src/civ7-adapter.ts` implements `verifyEffect(effectId)`:
+  - Some effects are verified by scanning map state (landmass/coastlines/rivers).
+  - Others are verified via recorded evidence (e.g., placement/features/biomes).
+- The standard recipe’s effect contracts delegate verification to `context.adapter.verifyEffect(id)` (plus one special-case invariant for placement outputs).
+
+**Conclusion (for naming/structure):**
+- There is **no technical reason** to keep “dependency IDs” and “effect IDs” as separate *kinds of things*; effects are simply `DependencyKind = "effect"`.
+- The only real reason to keep separate constants/modules is **human organization / ownership** (what vocabulary is “standard recipe”, what’s “engine adapter”, what’s “core”).
+
+#### 3) Bucket B rename candidates (aligned with Bucket A “Id/Contract” naming)
+
+**Catalog/container renames:**
+- `M3_DEPENDENCY_TAGS` → `M3_DEPENDENCY_IDS`
+- `M4_EFFECT_TAGS` → `M4_EFFECT_IDS` (or `M4_ENGINE_EFFECT_IDS` if we want the `engine.*` scoping explicit in the name)
+- `M3_CANONICAL_DEPENDENCY_TAGS` → `M3_CANONICAL_DEPENDENCY_IDS`
+  - Note: today this set includes `M4_EFFECT_TAGS.engine.*` values too; it’s “standard recipe canonical IDs”, not purely “M3”.
+
+**Contract list renames (explicitly aligned with Bucket A `DependencyContract`):**
+- `STANDARD_TAG_DEFINITIONS` → `STANDARD_DEPENDENCY_CONTRACTS`
+- `registerStandardTags(...)` → `registerStandardDependencies(...)` (or `registerStandardDependencyContracts(...)` if we want it explicit that this registers contracts)
+
+**Adapter effect ID renames (effect IDs are dependency IDs of kind `effect`):**
+- `ENGINE_EFFECT_TAGS` → `ENGINE_EFFECT_IDS`
+- `EngineEffectTagId` → `EngineEffectId`
+
+**Core artifact ID constants (these are artifact-kind dependency IDs):**
+- `FOUNDATION_PLATES_ARTIFACT_TAG` → `FOUNDATION_PLATES_ARTIFACT_ID`
+- `FOUNDATION_DYNAMICS_ARTIFACT_TAG` → `FOUNDATION_DYNAMICS_ARTIFACT_ID`
+- `FOUNDATION_SEED_ARTIFACT_TAG` → `FOUNDATION_SEED_ARTIFACT_ID`
+- `FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG` → `FOUNDATION_DIAGNOSTICS_ARTIFACT_ID`
+- `FOUNDATION_CONFIG_ARTIFACT_TAG` → `FOUNDATION_CONFIG_ARTIFACT_ID`
+
+#### 4) “Split by kind” naming analysis (ArtifactId / FieldId / EffectId)
+
+There are two materially different interpretations of “split by kind”:
+
+**Variant K1 (low-churn, mostly naming): keep a single `DependencyId` type, but use kind-specific names for constants where it helps.**
+- This is already what the code *reads like* at call sites because catalogs are nested by kind:
+  - `M3_DEPENDENCY_TAGS.artifact.*`, `M3_DEPENDENCY_TAGS.field.*`, `M4_EFFECT_TAGS.engine.*`
+- The rename candidates above already move in this direction (e.g., `*_ARTIFACT_TAG` → `*_ARTIFACT_ID`, `ENGINE_EFFECT_TAGS` → `ENGINE_EFFECT_IDS`).
+- **Upside:** better scanability (“this is clearly an artifact/effect ID”) without introducing new type-level machinery.
+- **Downside:** still no compile-time enforcement of “this string definitely has the `artifact:` prefix”, but in practice the nested namespaces do most of the readability work.
+
+**Variant K2 (higher-churn, type-level): introduce distinct TS types like `ArtifactId` / `FieldId` / `EffectId` in addition to `DependencyId`.**
+- This only pays off if we also thread those types through public APIs (e.g., `createStep`, `DependencyContract`, helpers), which is not a “rename-only” change.
+- **Upside:** stronger static semantics (harder to accidentally pass an `effect:` ID to an API that expects an artifact ID).
+- **Downside:** many call sites mix kinds in the same step (`requires` includes artifacts; `provides` includes a field *and* an effect), so the public surface tends to collapse back to “union of kinds” unless we significantly refactor types and authoring APIs.
+
+**M6 reality check:** current call sites already treat IDs as “one vocabulary with kind prefixes”; introducing K2 would be a deliberate, non-trivial type-system refactor, not a straightforward terminology cleanup.
+
+#### 5) Bucket B Q&A (explicit answers)
+
+**Q: Why are `M3_DEPENDENCY_TAGS` and `M4_EFFECT_TAGS` separate today? Is one legacy?**
+- Best explanation grounded in current code: the split is **organizational and historical**, not technical.
+  - “M3” groups artifact/field dependency IDs and their contracts.
+  - “M4” groups effect dependency IDs and their contracts/verification hooks (some sourced from the adapter, some local to the standard recipe).
+- Neither appears deprecated in M6; both are used by standard steps and by `STANDARD_TAG_DEFINITIONS`.
+- The *milestone naming* is what’s “legacy-ish”: `M3_CANONICAL_DEPENDENCY_TAGS` already includes `M4_EFFECT_TAGS` values, so the names no longer match the semantics cleanly.
+
+**Q: What would splitting naming by kind (ArtifactId/FieldId/EffectId) imply?**
+- K1 (kind-specific names for constants, keep `DependencyId` everywhere) is a **straightforward clarity win** and fits our “rename-first” goal.
+- K2 (add type-level `ArtifactId/FieldId/EffectId`) is **not rename-only**; it implies changing public authoring/engine types and would add non-trivial churn during M7 unless we explicitly choose to do a type-system hardening pass.
