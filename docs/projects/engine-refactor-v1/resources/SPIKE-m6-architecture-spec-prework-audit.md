@@ -565,3 +565,42 @@ Note: earlier draft terminology used `DependencyKey` / `DependencyDefinition`. U
 - `computeInitialSatisfiedTags(context)` → `computeInitialSatisfiedDependencyIds(context)` (**final**)
   - What it does today: returns an empty `Set<string>`; satisfaction begins empty and grows only via explicit `provides`.
   - Semantic decision: keep the hook, but the default semantics remain “nothing is pre-satisfied”; any future introduction of pre-satisfied dependency IDs is a behavior change and must be justified explicitly (not a casual convenience).
+
+#### Prework run prompt (later): Bucket A mechanical rename mapping + patch
+
+Use this prompt when we’re ready to execute the **mechanical** rename across code (no behavior changes). Do not run it until explicitly requested.
+
+Prompt:
+
+“Create a single, reviewable, mechanical-rename change that implements the locked Bucket A dependency terminology across the repo.
+
+1) Produce a **final mapping list** (old → new) for every public symbol in the pipeline dependency system (types/interfaces/classes/functions/errors) including:
+   - `DependencyTag` → `DependencyId`
+   - `DependencyTagKind` → `DependencyKind`
+   - `DependencyTagDefinition` → `DependencyContract`
+   - `TagOwner` → `DependencyOwner`
+   - `TagRegistry` → `DependencyRegistry`
+   - `validateDependencyTag(s)` → `validateDependencyId(s)`
+   - `isDependencyTagSatisfied` → `isDependencySatisfied`
+   - `computeInitialSatisfiedTags` → `computeInitialSatisfiedDependencyIds`
+   - `DependencyTagError` → `DependencyError`
+   - `InvalidDependencyTagError` → `InvalidDependencyIdError`
+   - `UnknownDependencyTagError` → `UnknownDependencyIdError`
+   - `DuplicateDependencyTagError` → `DuplicateDependencyIdError`
+   - `InvalidDependencyTagDemoError` → `InvalidDependencyDemoError`
+   - Rename `TagRegistry.registerTag(s)` to `DependencyRegistry.registerContract(s)` (and `registerTags` → `registerContracts`) while preserving behavior.
+
+2) Identify and list any **public re-export entrypoints** that need to change (e.g., `packages/mapgen-core/src/engine/index.ts`, root `index.ts`, `authoring` re-exports), and ensure exports remain coherent.
+
+3) Apply the mechanical rename across call sites in:
+   - `packages/mapgen-core`
+   - `mods/mod-swooper-maps`
+   - `packages/civ7-adapter` (only where it references the dependency system; do not rename Civ7 plot tags)
+
+4) Explicit non-goals:
+   - No ownership refactors (T0/T1/T2 remains unchanged)
+   - No runtime behavior changes
+   - Do not rename Civ7 plot tags (`PLOT_TAG`, `getPlotTagId`, `PlotTagName`)
+   - Do not rename narrative ‘storyTag*’ functions yet
+
+5) Validate with the workspace’s standard checks (pnpm scripts).”
