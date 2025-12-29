@@ -1,5 +1,45 @@
 # SPIKE: Step ↔ Domain Contracts via Operation Modules
 
+## 0) Vocabulary (Project Terms)
+
+These terms are used throughout this document with specific meanings. Several are intentionally more explicit than legacy wording (notably “tag”).
+
+**Rule**
+- A small, pure, domain-specific function implementing one heuristic/invariant (e.g., “apply coastal bonus”, “choose latitude band rainfall”).
+- Rules are internal building blocks; they are not step-callable contracts and should not reach into runtime context.
+
+**Operation** (aka “op”)
+- A step-callable, schema-backed domain entrypoint: `run(inputs, config) -> result`.
+- Operations are the public contract that steps depend on; rules are implementation detail beneath operations.
+
+**Operation module**
+- A file that exports exactly one operation (often as the default export), enabling “one op per file” organization and easy `index.ts` aggregation into `ops.*`.
+
+**Artifact**
+- A domain-defined data product published by steps for downstream consumption (e.g., a climate field, a corridor snapshot, a placement input bundle).
+- Important nuance: an `artifact:*` dependency indicates a *data-product dependency*, not necessarily “a value stored in `ctx.artifacts`”. Some artifacts are satisfied via other runtime state (e.g., overlay state) and a custom `satisfies(...)` check.
+
+**DependencyKey** (formerly “DependencyTag”)
+- The **string identifier** a step declares in `requires` / `provides` (must be prefixed by kind: `artifact:` / `field:` / `effect:`).
+- Example: `artifact:climateField`, `field:rainfall`, `effect:engine.riversModeled`.
+
+**DependencyDefinition / DependencyContract** (formerly “DependencyTagDefinition”)
+- Metadata and (optional) runtime enforcement for a `DependencyKey`: `{ id, kind, satisfies? , owner? , demo? }`.
+- Stored in a registry and used to validate keys and (optionally) determine whether a runtime state satisfies a dependency.
+
+**Registry** (`TagRegistry`, rename TBD)
+- The container that stores `DependencyDefinition`s and supports validation and satisfaction checks.
+- Naming is TBD: we intend to retire “tag” as the primary term for pipeline dependencies; `DependencyRegistry` is the likely replacement.
+
+**Key** (generic term; avoid when possible)
+- “Key” is overloaded. Prefer the specific term (`DependencyKey`, `Artifact key`, `Overlay key`, etc.) when writing contracts.
+
+**Tag** (overloaded; avoid for pipeline dependencies)
+- “Tag” is not the primary term for pipeline dependencies in this model (use `DependencyKey`).
+- It may still refer to unrelated concepts:
+  - **Civ7 plot tags**: numeric engine-level tile tags (`PLOT_TAG`, `adapter.getPlotTagId(...)`).
+  - **Story “tagging”**: domain-level overlay classification (not a pipeline dependency system).
+
 ## 1) Problem
 
 Map generation content needs a clean boundary between:
