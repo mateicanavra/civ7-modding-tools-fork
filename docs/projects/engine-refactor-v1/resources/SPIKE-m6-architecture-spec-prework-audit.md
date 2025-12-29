@@ -532,11 +532,9 @@ Note: earlier draft terminology used `DependencyKey` / `DependencyDefinition`. U
   - `DependencyTagKind` → `DependencyKind`
   - `DependencyTagDefinition` → `DependencyContract`
   - `TagOwner` → `DependencyOwner`
-- **Registry (still open; shortlist)**
-  - `DependencyRegistry` — clear symmetry with `StepRegistry`; implies lookup + validation behavior (**recommendation**).
-  - `DependencyManifest` — reads as a static data list; less clear that it enforces/validates.
-  - `DependencyStore` — vague; could imply “Map-like container” without semantics.
-  - (optional) `DependencyCatalog` — risks “god catalog” vibes; unclear about runtime behavior.
+- **Registry (decision: lock name now)**
+  - `TagRegistry` → `DependencyRegistry` (**final**)
+    - Rationale: mirrors `StepRegistry` (same role class name), communicates runtime lookup + validation semantics, and avoids the “static list” vibe of names like “manifest”.
 - **Satisfaction**
   - `isDependencyTagSatisfied` → `isDependencySatisfied`
     - Semantics: “given a dependency ID + registry + satisfaction state, is it satisfied for this context?”
@@ -545,20 +543,14 @@ Note: earlier draft terminology used `DependencyKey` / `DependencyDefinition`. U
 
 **Goal:** names should reveal whether we’re validating **dependency IDs** (known/well-formed/registered) vs validating **dependency contracts** (definition object correctness).
 
-- `validateDependencyTag(tag, registry)`
-  - **What it enforces today:** “`tag` is a non-empty string AND exists in the registry” (unknown IDs error). It does **not** validate a contract object shape; it validates an **ID against a registry**.
-  - Rename recommendation: `validateDependencyId(id, registry)`
-- `validateDependencyTags(tags, registry)`
-  - **What it enforces today:** same as above, but for a list.
-  - Rename recommendation: `validateDependencyIds(ids, registry)`
-- Contract validation
-  - **Where it happens today:** inside `TagRegistry.registerTag(definition)`:
-    - duplicate ID detection
-    - kind↔prefix compatibility (`artifact:`/`field:`/`effect:`)
-    - demo validation (if provided)
-  - Rename implication: we likely want a dedicated name for this *contract validation* behavior, e.g.:
-    - `validateDependencyContract(contract)` (semantic target name; may be implemented as a helper later), OR
-    - keep it embedded in `register…` but ensure the register method name reads as “register contract”.
+- `validateDependencyTag(tag, registry)` → `validateDependencyId(id, registry)` (**final**)
+  - What it enforces (decision: lock semantics now): “ID is a non-empty string AND is registered/known in the `DependencyRegistry`.”
+- `validateDependencyTags(tags, registry)` → `validateDependencyIds(ids, registry)` (**final**)
+  - Same semantics for lists.
+- Contract validation (decision: lock naming approach now)
+  - Rename `TagRegistry.registerTag(definition)` → `DependencyRegistry.registerContract(contract)` (**final**)
+  - Rename `TagRegistry.registerTags(definitions)` → `DependencyRegistry.registerContracts(contracts)` (**final**)
+  - Rationale: contract validation stays coupled to contract registration (duplicate ID, kind↔prefix compatibility, demo validation). We do not expose a separate `validateDependencyContract` function as part of the public surface unless/until a real call site needs it.
 
 #### Error type renames (updated to reflect preference)
 
@@ -568,13 +560,8 @@ Note: earlier draft terminology used `DependencyKey` / `DependencyDefinition`. U
 - `DuplicateDependencyTagError` → `DuplicateDependencyIdError`
 - `InvalidDependencyTagDemoError` → `InvalidDependencyDemoError`
 
-#### Open questions about behavior vs names (semantic follow-ups; do not rename blindly)
+#### “Initial satisfied” naming + semantics (decision: lock now)
 
-- **What exactly is “ID validation” meant to guarantee?**
-  - Today, `validateDependencyTag(s)` is “known ID in registry” + “non-empty string”.
-  - Prefix/kind validity is enforced when registering contracts (not when validating an ID), and in authoring we auto-synthesize contracts for all IDs observed in `requires/provides`.
-  - Follow-up question: do we want “validateDependencyId” to also enforce prefix format independent of the registry (pure string check), or keep it as “registry membership” only?
-- **Why is there a `computeInitialSatisfiedTags` at all?**
-  - Today it returns an empty set with the explicit comment “Tags become satisfied only when explicitly provided.”
-  - Follow-up question: should the system support “pre-satisfied dependencies” (e.g., engine invariants, adapter-provided effects), or should this be removed/kept purely for future extensibility?
-  - Naming implication: a better conceptual name would be `computeInitialSatisfiedDependencies`, but this should be coupled to a review of the intended semantics (not a purely mechanical rename).
+- `computeInitialSatisfiedTags(context)` → `computeInitialSatisfiedDependencyIds(context)` (**final**)
+  - What it does today: returns an empty `Set<string>`; satisfaction begins empty and grows only via explicit `provides`.
+  - Semantic decision: keep the hook, but the default semantics remain “nothing is pre-satisfied”; any future introduction of pre-satisfied dependency IDs is a behavior change and must be justified explicitly (not a casual convenience).
