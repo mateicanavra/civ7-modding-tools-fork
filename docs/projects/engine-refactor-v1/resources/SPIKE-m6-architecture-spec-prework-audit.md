@@ -232,8 +232,9 @@ This system uses “tag” to mean at least three unrelated things. Untangling t
    - Role: enforces postconditions (`satisfies`) and optionally carries `demo`/`owner` metadata.
    - Shape: ID + kind + optional engine-coupled satisfier.
    - Ownership: pipeline contract (allowed to be engine-aware).
-3. **ArtifactKey** — a `DependencyKey` of kind `artifact:`; also the key into `context.artifacts` (today: many `*_ARTIFACT_TAG` constants).
+3. **ArtifactKey** — a `DependencyKey` of kind `artifact:`; usually a key into `context.artifacts` (today: many `*_ARTIFACT_TAG` constants).
    - Role: names a published data product in the pipeline.
+   - Note: in M6, some `artifact:*` dependencies are satisfied via custom `satisfies(...)` logic against *other* context stores (e.g. story overlays), so “artifact” is best read as “data-product dependency”, not strictly “`context.artifacts` storage key”.
    - Ownership: pipeline contract; payload schemas/types may be domain-owned, but publication/verification is step/contract-owned.
 4. **FieldKey** — a `DependencyKey` of kind `field:` that asserts a specific buffer exists on `context.fields` (e.g. `field:rainfall`).
    - Role: integrity check for “this field is present/initialized”.
@@ -265,6 +266,26 @@ This system uses “tag” to mean at least three unrelated things. Untangling t
   - T2 (dedicated contracts layer): `contracts/dependencies/**` owns keys + definitions; domain stays pure → cleanest match to “domain is pure; steps own engine semantics”.
 
 Recommendation for SPEC terminology (once we promote): retire “tag” as the primary name for pipeline dependencies; keep “tag” only for Civ7 plot tags (and optionally as legacy code identifiers).
+
+### Audit: M6 dependency key coverage (standard recipe)
+
+This audit is here to de-risk T0/T1/T2 by making sure we’re not missing “implicit” dependency keys or relying on accidental behavior.
+
+**What’s true in M6 (standard recipe)**
+
+- **All step modules reference dependency keys via a single recipe-local catalog**, not via string literals.
+  - `mods/mod-swooper-maps/src/recipes/standard/tags.ts` exports `M3_DEPENDENCY_TAGS` + `M4_EFFECT_TAGS`.
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/**/steps/*.ts` import those and use `requires`/`provides` with them.
+  - There are **no** `"artifact:*"` / `"field:*"` / `"effect:*"` string literals in step modules today (only in `tags.ts`).
+- **The runtime does not require a fully explicit definition catalog** for dependency keys.
+  - `packages/mapgen-core/src/authoring/recipe.ts` synthesizes a default `DependencyTagDefinition` for every key mentioned in `requires`/`provides` (via prefix-based `inferTagKind(...)`) and then overlays the recipe’s explicit `tagDefinitions` as overrides.
+  - Practically: T1/T2 are primarily about “where does the canonical dependency language + metadata live?”, not about satisfying `TagRegistry` registration requirements.
+- **Kind inference is strict and prefix-based** (and is enforced twice).
+  - `inferTagKind(...)` rejects anything that isn’t `artifact:*` / `field:*` / `effect:*`.
+  - `TagRegistry.registerTag(...)` also enforces that the `kind` matches the ID prefix (`isTagKindCompatible(...)`).
+  - Effect keys imported from `@civ7/adapter` (`ENGINE_EFFECT_TAGS.*`) are already `effect:*`, so they participate cleanly in this model.
+- **Some dependency keys are declared but unused** (god-catalog pressure signal):
+  - `field:terrainType`, `field:elevation`, `field:rainfall` exist (and even have explicit definitions) in `mods/mod-swooper-maps/src/recipes/standard/tags.ts`, but are not referenced by any standard step’s `requires`/`provides` today.
 
 ### Composition patterns to choose from (2–3 viable standards)
 
