@@ -630,6 +630,12 @@ export default createStep({
   provides: ["artifact:volcanoPlacements", "effect:volcanoesPlaced"],
   schema: StepSchema,
   run: (ctx, cfg: StepConfig) => {
+    // 1) Build domain inputs from runtime
+    const inputs = buildVolcanoInputs(ctx);
+
+    // 2) Compute + plan (pure domain logic)
+    const { suitability } = volcanoes.ops.computeSuitability.run(inputs, cfg.computeSuitability);
+
     // Two equivalent authoring patterns for strategy-backed ops:
     //
     // 1) Use the default strategy (omit `strategy`):
@@ -639,12 +645,6 @@ export default createStep({
     //    cfg.planVolcanoes = { strategy: "hotspotClusters", config: { seedCount: 4, targetCount: 12, minDistance: 6 } }
     //
     // Both are runtime-validated (via `volcanoes.ops.planVolcanoes.config`) and type-checked via `Parameters<...run>[1]`.
-
-    // 1) Build domain inputs from runtime
-    const inputs = buildVolcanoInputs(ctx);
-
-    // 2) Compute + plan (pure domain logic)
-    const { suitability } = volcanoes.ops.computeSuitability.run(inputs, cfg.computeSuitability);
     const { placements } = volcanoes.ops.planVolcanoes.run(
       {
         width: inputs.width,
