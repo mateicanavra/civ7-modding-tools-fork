@@ -3,6 +3,17 @@
 This doc is a **scratch/workbook** for tightening the final target architecture SPEC.
 It is **not canonical**: use it to make decisions and then promote the settled declarations into `SPEC-target-architecture-draft.md`.
 
+## Hard decisions locked (treat as final)
+
+These are now **directives** for the next phase and must be reflected in the final SPEC (no branching, no compatibility story), except where explicitly marked “open”.
+
+1) **Config SSOT (final):** recipe config is composed + validated (step → stage → recipe). No `MapGenConfig`-shaped “global overrides” and no official `ctx.config` bag access.
+2) **Run settings access (final):** settings are a run-level input, and steps access them via **context-carried settings** (e.g. `context.settings`) without changing the step `run(context, config)` signature.
+3) **Tag ownership (open):** explore a “domain-owned tag language / contract modules” design; do not lock this in SPEC until explicitly confirmed.
+4) **Domain boundary (final):** domain modules are pure; steps own engine semantics (adapter/context/artifact publication).
+5) **Step module standard (final):** single-file step modules; ban `steps/index.ts` barrels; prefer decomposition into more steps over per-step directory forests.
+6) **Core public surface (final):** mod-facing API is authoring-first; mods must not import from `@swooper/mapgen-core/engine` (treat as a leak to clean up). Explicitly sanctioned `lib/*` imports must be listed in SPEC.
+
 ## Why this exists
 
 M6 landed the major wiring refactor (authoring SDK + plan compiler + executor + mod-owned content package), but the canonical SPEC drifted vs. what shipped. Before editing the SPEC, this SPIKE captures:
@@ -97,40 +108,80 @@ M6 effectively has **three “inputs”** in play:
   - This is called out as triage:
     - `docs/projects/engine-refactor-v1/triage.md` (“Map overrides mapped directly to recipe config … pass overrides into ExtendedMapContext.config”)
 
-### Your desired model (“composed config, no hand-maintained global shape”)
+### Target (final): composed + validated recipe config is the only config model
 
-Restated as a concrete target:
+Directive: the final SPEC must describe **only** this model.
 
-- Each step owns a config schema (TypeBox) and its derived TS type.
-- Stage config is a composition of step configs.
-- Recipe config is a composition of stage configs.
-- A map file authors **one config surface** for a chosen recipe (ideally validated and strongly typed).
-- There is no parallel, hand-maintained “global” config object that then gets mapped into step configs.
+- Each step owns a TypeBox config schema and derived TS type.
+- Each stage config is a composition of its steps’ configs.
+- Each recipe config is a composition of its stages’ configs.
+- A map file authors **one config surface** for a chosen recipe: `RecipeConfigOf<typeof stages>` (strongly typed) which is validated/defaulted at compile time.
+- `ExtendedMapContext.config` is not part of the target authoring/runtime model; any remaining reads are remediation targets.
 
-### Is this compatible with M6?
+Concrete grounding for the “validated/defaulted” claim:
 
-Mostly yes, with two important gaps:
+- Step config validation/defaulting already happens during plan compile via TypeBox, per step schema:
+  - `packages/mapgen-core/src/engine/execution-plan.ts` (`normalizeStepConfig`, `buildNodeConfig`)
 
-1) **Cross-cutting settings are not available to step `run()`** today even though plans contain `settings`.
-   - If directionality (and similar “settings”) must be accessed by steps/domain logic, we need a strategy:
-     - (a) pass `settings` via context (e.g., `context.settings`), or
-     - (b) thread needed settings into step configs (duplication), or
-     - (c) change the step `run` signature to accept settings (bigger surface change).
-2) **Map authoring would need to shift away from `MapGenConfig` overrides**.
-   - Today maps author `StandardRecipeOverrides` and rely on `buildStandardRecipeConfig` mapping.
+Explicit remediation targets implied by this decision:
 
-Minimal changes to make “composed config” viable without changing core surfaces:
-
-- Remove the remaining `ctx.config` reads by plumbing directionality through step config (or by storing settings into context in runtime glue).
+- Delete the “MapGenConfig overrides → recipe config mapping” mechanism:
+  - `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` (`StandardRecipeOverrides`, `buildStandardRecipeConfig`)
+- Eliminate the remaining “monolithic config bag” reads:
   - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts`
   - `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts`
-- Add a strict validation story for the recipe config surface (unknown stage/step keys), if we expect authored config to be the source of truth.
 
-Important constraint to acknowledge:
+Note: `mods/mod-swooper-maps/src/config/AGENTS.md` currently encodes a centralization rule for config ownership. The target architecture intentionally revises that rule to match composed SSOT; this must be explicit in the final SPEC when promoted.
 
-- The mod has an explicit router stating config shapes are centralized and step schemas shouldn’t invent parallel schemas:
-  - `mods/mod-swooper-maps/src/config/AGENTS.md`
-  - Any “step-owned schemas live with steps” direction would intentionally revise this local convention.
+## Run settings vs context vs config (ADR intent + minimal wiring)
+
+### ADR intent (in plain language)
+
+ADR-ER1-019 exists because “directionality” is:
+
+- cross-cutting (many steps want it),
+- semantically run-level (a policy/knob),
+- and becomes ambiguous if stored as “someone’s config” (forces duplication or hidden “read another step’s config” dependencies).
+
+So the decision is: **directionality is a `RunRequest.settings` concern** and steps consume it from **settings** (not from `ctx.config.foundation.*` and not from other steps’ config).
+
+- `docs/projects/engine-refactor-v1/ADR.md` (ADR-ER1-019)
+- The review record explicitly calls out the current drift and recommends `context.settings`:
+  - `docs/projects/engine-refactor-v1/reviews/REVIEW-M5-proposal-clean-architecture-finalization.md` (m5-u09-def-016 review)
+
+### What `RunSettings` does today (real code)
+
+- It is part of the run input boundary (`RunRequest = { recipe, settings }`) and is validated via TypeBox:
+  - `packages/mapgen-core/src/engine/execution-plan.ts` (`RunRequestSchema`, `RunSettingsSchema`)
+- It is embedded in the compiled plan for observability/fingerprinting:
+  - `packages/mapgen-core/src/engine/observability.ts` (`computePlanFingerprint` strips trace-only settings)
+- It is used to compile an `ExecutionPlan` in authoring (`recipe.compile(settings, config)`), but it is not available to steps at runtime:
+  - `packages/mapgen-core/src/authoring/recipe.ts` (`compile` + `run`)
+  - `packages/mapgen-core/src/engine/PipelineExecutor.ts` (`step.run(context, node.config)` only)
+
+### What `ExtendedMapContext` does today (real code)
+
+`ExtendedMapContext` is the mutable “world state” object passed through the pipeline:
+
+- carries dimensions, adapter, buffers/fields, artifacts store, overlays, metrics, trace scope, and a legacy `config` bag:
+  - `packages/mapgen-core/src/core/types.ts` (`ExtendedMapContext`, `createExtendedMapContext`)
+
+### Why this is still a real question even though “context holds the world”
+
+Today, “settings” exists as a validated run input and as part of plan identity, but it is **not attached to the runtime context**, so step code can’t read it even though it is conceptually “global for the run.” That gap is exactly why `ctx.config` reads survived (and why directionality was duplicated into step configs).
+
+### Target (final): context-carried settings, no step signature change
+
+Minimal, concrete wiring to make ADR intent real (Option A):
+
+1) Add `settings: RunSettings` onto the runtime context type (e.g. `ExtendedMapContext.settings: RunSettings`).
+2) Attach the plan’s settings to the context once per run.
+   - Options (choose one in implementation):
+     - in `RecipeModule.run` before calling `executor.executePlan(context, plan, ...)`, or
+     - in `PipelineExecutor.executePlan` by setting `context.settings = plan.settings` before iterating steps.
+3) Steps read settings via `context.settings.*` (e.g. `context.settings.directionality`).
+
+This keeps `run(context, stepConfig)` intact and does not create a second “hidden” settings surface: the context field is simply the runtime attachment of the already-validated `RunRequest.settings`.
 
 ## Tag definition composability (what the runtime actually needs)
 
@@ -181,6 +232,38 @@ Open question for the SPEC: do we want tag definition “ownership” to track:
 - the artifact contract module (independent of producers),
 - or “the recipe” as the owner of the whole contract language?
 
+### Proposed “tags live in domain (contract)” variants (open; bring back options)
+
+This idea already shows up implicitly today: several domain modules import `M3_DEPENDENCY_TAGS` via `@mapgen/domain/tags.js`, which is currently a recipe re-export:
+
+- `mods/mod-swooper-maps/src/domain/tags.ts` re-exports from `recipes/standard/tags.ts`
+
+If domain is “pure” in the target architecture, that shim must be removed. A domain-owned tag language module is a plausible replacement — but we must keep engine semantics (e.g. `satisfies(ctx)`) out of pure domain.
+
+Two code-shaped options to consider:
+
+**Option T1: Pure domain owns tag IDs + artifact payload schemas; recipe owns tag verifiers**
+
+- `domain/contracts/tags.ts` exports IDs (no context usage):
+
+  ```ts
+  export const TAG = {
+    artifact: { heightfield: "artifact:heightfield" },
+    effect: { landmassApplied: "effect:engine.landmassApplied" },
+  } as const;
+  ```
+
+- `recipes/standard/tags.ts` becomes “explicit definition overrides only” (owners/demos/satisfies), composed from per-stage modules if desired.
+
+**Option T2: A dedicated mod “contracts” layer owns both IDs and `DependencyTagDefinition`s (not `domain/`)**
+
+- Create `mods/mod-swooper-maps/src/contracts/tags/**` (or similar) for the pipeline contract language.
+- Keep `domain/**` pure operations only.
+- Steps import IDs from `contracts/tags` and declare `requires/provides` with those IDs.
+- Recipe imports the definition arrays from `contracts/tags` and passes them to `createRecipe({ tagDefinitions })`.
+
+Recommendation to validate next: **T1** if we want to keep “domain” strictly pure; **T2** if we want a first-class “contract” layer that is allowed to know about engine satisfaction (`satisfies`) and demo payloads.
+
 ## Domain vs step responsibilities (boundary audit)
 
 ### What “domain” contains today (in practice)
@@ -204,25 +287,15 @@ Open question for the SPEC: do we want tag definition “ownership” to track:
   - `mods/mod-swooper-maps/src/domain/tags.ts` re-exports `recipes/standard/tags.ts`
   - `mods/mod-swooper-maps/src/domain/artifacts.ts` re-exports `recipes/standard/artifacts.ts`
 
-### Boundary rules to consider enshrining (pick one, be consistent)
-
-**Rule set A (strict): “Domain is pure; steps own engine + pipeline semantics.”**
+### Target (final): “Domain is pure; steps own engine + pipeline semantics.”
 
 - Domain:
   - no `ExtendedMapContext`, no `ctx.adapter`, no `ctx.artifacts`, no `ctx.overlays`.
   - accepts plain data and returns plain data.
+  - may define operation-level TypeBox schemas and TS types for inputs/outputs.
 - Steps:
   - are the only place that mutates adapter state and publishes artifacts.
-- Consequence: significant refactors of `domain/ecology/*`, `domain/placement/*`, and narrative taggers.
-
-**Rule set B (pragmatic): “Domain can use adapter/context for algorithms; steps own pipeline semantics.”**
-
-- Domain:
-  - can call adapter/context, but must not publish dependency artifacts/tags or encode recipe ordering.
-  - returns computed artifacts/overlays so steps publish them.
-- Steps:
-  - own `requires/provides`, artifact publication, and any recipe-specific runtime glue.
-- Consequence: moderate refactors (mainly: stop domain from `ctx.artifacts.set` and remove recipe shims).
+- Consequence: refactors are required for current domain modules that read/publish artifacts or call adapter directly.
 
 Concrete “likely move/split” candidates under either rule set:
 
@@ -234,6 +307,27 @@ Concrete “likely move/split” candidates under either rule set:
   - `mods/mod-swooper-maps/src/domain/tags.ts`
   - `mods/mod-swooper-maps/src/domain/artifacts.ts`
 
+### Artifacts vs tags vs “just results” (clarify the semantics)
+
+Ground truth from core engine:
+
+- A **tag** is a string ID with a kind prefix (`artifact:` / `field:` / `effect:`).
+  - `packages/mapgen-core/src/engine/tags.ts`
+- A **tag definition** (`DependencyTagDefinition`) optionally provides:
+  - `satisfies(context, state)` (runtime verifier),
+  - `demo` + `validateDemo` (authoring/demo tooling),
+  - `owner` metadata.
+- An **artifact** is a *step-published value* stored in `context.artifacts` under an `artifact:*` tag key.
+  - `packages/mapgen-core/src/core/types.ts` (“Published data products keyed by dependency tag”)
+- “Satisfaction” is tracked separately: a tag becomes satisfied only when a step includes it in `provides` (executor adds it), and optional `satisfies(...)` checks then run.
+  - `packages/mapgen-core/src/engine/PipelineExecutor.ts` (adds `provides` to `satisfied`)
+  - `packages/mapgen-core/src/engine/tags.ts` (`isDependencyTagSatisfied`)
+
+Target alignment with the pure-domain boundary:
+
+- Domain operations return results (plain data) and never publish artifacts/tags.
+- Steps decide which returned results become artifacts (store them in `context.artifacts`) and which dependency tags they provide.
+
 ## Step module standard (what exists + options)
 
 ### Current pattern (M6)
@@ -243,24 +337,19 @@ Concrete “likely move/split” candidates under either rule set:
 - Stage modules import steps via `steps/index.ts` re-export barrels (overhead with low value):
   - Example: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/index.ts`
 
-### Uniform options to choose from
-
-**Option A (closest to current, lowest overhead): single-file steps, no step barrels**
+### Target (final): single-file steps, no step barrels
 
 - Keep step modules as-is.
 - Delete `stages/<stageId>/steps/index.ts`; import step modules directly from stage `index.ts`.
 - Primary win: remove pointless indirection without changing the step standard.
 
-**Option B: stage-owned contracts (schemas/types/tags) + thin step modules**
+### Largest-step survey (evidence for “single file + decomposition”)
 
-- Put shared stage contracts in `stages/<stageId>/contracts.ts`.
-- Step files import contract items; step files focus on orchestration.
-- Primary win: stage-level discoverability; risk: stage-level “catalog” growth.
+Top step module sizes in the standard recipe are modest today (largest is ~127 LOC), which supports a blanket “single-file steps” rule without an escape-valve directory standard:
 
-**Option C: per-step directories (model + impl)**
-
-- `steps/<stepId>/{model.ts, step.ts}` (or similar), uniform across steps.
-- Primary win: hard separation between contract vs runtime; risk: directory/barrel overhead and extra navigation cost.
+- `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/landmassPlates.ts` (~127)
+- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/steps/rivers.ts` (~99)
+- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/steps/climateBaseline.ts` (~70)
 
 ## Core SDK “public surface” audit (mod → core)
 
@@ -271,22 +360,49 @@ Observed import paths used by `mods/mod-swooper-maps/src/**`:
 - `@swooper/mapgen-core/lib/{math,grid,noise,plates,heightfield,collections}` (algorithm utilities)
 - `@swooper/mapgen-core/engine` (rare; used for `RunSettings` and tag definition types)
 
-Likely target import story to consider:
+### Target (final): authoring-first mod API; ban `/engine` imports
 
-- Mod authoring should mostly depend on `@swooper/mapgen-core/authoring` (+ `@swooper/mapgen-core` for `ExtendedMapContext` + core utilities).
-- Avoid direct `@swooper/mapgen-core/engine` imports by re-exporting needed shared types (e.g., `RunSettings`, `DependencyTagDefinition`) from the authoring surface.
+Observed import paths used by `mods/mod-swooper-maps/src/**` (counts from `rg`):
 
-## Decisions needed before touching the SPEC
+- `@swooper/mapgen-core` (118)
+- `@swooper/mapgen-core/authoring` (38)
+- `@swooper/mapgen-core/lib/math` (16), `@swooper/mapgen-core/lib/grid` (11), plus a small set of other `lib/*` subpaths
+- `@swooper/mapgen-core/engine` (2) — **leaks** (`RunSettings`, `DependencyTagDefinition`, `TagOwner`)
 
-1) **Config model**
-   - Keep MapGenConfig-shaped map authoring + mapping into recipe config, or move to authored recipe config as SSOT?
-   - If “composed config” wins: where do cross-cutting settings live (context vs step config vs new run signature)?
-2) **Tag definition composition**
-   - Keep recipe-wide catalog, split per stage, or contract-slice by kind?
-3) **Domain vs step boundary**
-   - Strict (pure domain) vs pragmatic (domain can use adapter, but not pipeline semantics)?
-4) **Step module standard**
-   - Confirm Option A (single-file steps; remove barrels) vs a more structured standard.
-5) **Core import surface**
-   - Do we want to make `authoring` the only “mod-facing” entrypoint (with a few explicitly-allowed lib subpaths)?
+Concrete target contract work implied by this decision:
 
+1) Re-export the minimal authoring-needed engine types from `@swooper/mapgen-core/authoring` so mods never need `/engine`:
+   - `RunSettings`
+   - `DependencyTagDefinition`
+   - `TagOwner`
+2) Explicitly list sanctioned `lib/*` imports in the SPEC (based on actual usage today):
+   - `@swooper/mapgen-core/lib/math`
+   - `@swooper/mapgen-core/lib/grid`
+   - `@swooper/mapgen-core/lib/noise`
+   - `@swooper/mapgen-core/lib/plates`
+   - `@swooper/mapgen-core/lib/heightfield`
+   - `@swooper/mapgen-core/lib/collections`
+
+Note: `packages/mapgen-core/src/index.ts` currently re-exports `@mapgen/engine/index.js` from the root package. The target import story should avoid making engine internals reachable via the root entrypoint; this is a core SDK layout/publishing decision to capture in the final SPEC.
+
+## Runtime-ish code living in the mod (Civ7 integration)
+
+Current standard mod runtime glue:
+
+- `mods/mod-swooper-maps/src/maps/_runtime/map-init.ts` (resolve/apply init data; uses Civ7 adapter creation)
+- `mods/mod-swooper-maps/src/maps/_runtime/helpers.ts` (adapter creation + default continent bounds helper)
+- `mods/mod-swooper-maps/src/maps/_runtime/types.ts` (options + init types)
+- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` (standard recipe runner)
+- `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` (settings builder + legacy overrides→config mapping)
+
+Initial classification (for SPEC promotion later):
+
+- `map-init.ts`, `helpers.ts`, `types.ts`: look like **reusable, canonical Civ7 runtime integration** and should move out of the mod into a shared runtime surface (core SDK or a dedicated runtime package).
+- `standard-config.ts`: conflicts with the “composed config SSOT” decision; should be removed/rewritten as part of remediation (no legacy mapping).
+- `run-standard.ts`: likely remains mod-owned but should become a thin wrapper around shared runtime helpers + the mod’s own recipe/runtime initialization.
+
+## Remaining open decisions before editing the canonical SPEC
+
+1) **Tag definition ownership + composition standard (open)**
+   - Decide whether tag IDs + contracts live under pure `domain/contracts/*` (T1) or a dedicated `contracts/*` layer (T2),
+     and whether recipe aggregates per-stage modules or uses a single recipe-wide contract module.
