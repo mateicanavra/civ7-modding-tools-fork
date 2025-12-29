@@ -495,3 +495,86 @@ Recommendation to make this concrete for the SPEC:
 1) **Tag definition ownership + composition standard (open)**
    - Decide whether tag IDs + contracts live under pure `domain/contracts/*` (T1) or a dedicated `contracts/*` layer (T2),
      and whether recipe aggregates per-stage modules or uses a single recipe-wide contract module.
+
+## Rename brief (SPIKE-only): pipeline dependency system terminology (Bucket A)
+
+### Bucket A: Pipeline dependency system (requires/provides gating)
+
+**What this “tag” system actually is:** a runtime-validated dependency graph for pipeline execution. Steps declare dependency **IDs** in `requires` / `provides`. At runtime, a registry holds optional **contracts** for those IDs (kind + optional satisfaction predicate + demos), and the executor gates step execution on “satisfied” dependencies.
+
+This section is a **terminology + rename workbook** only. No code renames yet.
+
+#### Current symbol inventory (today in code)
+
+- **Dependency IDs (the keys in `requires`/`provides`)**
+  - `DependencyTag` (alias `string`)
+  - `DependencyTagKind` (`"artifact" | "field" | "effect"`)
+- **Contracts (runtime metadata for an ID)**
+  - `DependencyTagDefinition` (fields: `id`, `kind`, optional `owner`, `satisfies`, `demo`, `validateDemo`)
+  - `TagOwner` (`pkg`, `phase`, optional `stepId`)
+- **Registry**
+  - `TagRegistry` (stores `DependencyTagDefinition` by `id`; validates known IDs; enforces kind↔prefix compatibility on registration)
+- **Key functions**
+  - `validateDependencyTag`, `validateDependencyTags`
+  - `isDependencyTagSatisfied`
+  - `computeInitialSatisfiedTags`
+- **Errors**
+  - `DependencyTagError`
+  - `InvalidDependencyTagError`, `UnknownDependencyTagError`, `DuplicateDependencyTagError`
+  - `InvalidDependencyTagDemoError`
+
+#### Rename candidates (updated to reflect current naming preference)
+
+Note: earlier draft terminology used `DependencyKey` / `DependencyDefinition`. Updated preference is **explicit “Id/Contract”** naming.
+
+- **Types / interfaces**
+  - `DependencyTag` → `DependencyId`
+  - `DependencyTagKind` → `DependencyKind`
+  - `DependencyTagDefinition` → `DependencyContract`
+  - `TagOwner` → `DependencyOwner`
+- **Registry (still open; shortlist)**
+  - `DependencyRegistry` — clear symmetry with `StepRegistry`; implies lookup + validation behavior (**recommendation**).
+  - `DependencyManifest` — reads as a static data list; less clear that it enforces/validates.
+  - `DependencyStore` — vague; could imply “Map-like container” without semantics.
+  - (optional) `DependencyCatalog` — risks “god catalog” vibes; unclear about runtime behavior.
+- **Satisfaction**
+  - `isDependencyTagSatisfied` → `isDependencySatisfied`
+    - Semantics: “given a dependency ID + registry + satisfaction state, is it satisfied for this context?”
+
+#### Validation & error naming (ID vs contract clarity)
+
+**Goal:** names should reveal whether we’re validating **dependency IDs** (known/well-formed/registered) vs validating **dependency contracts** (definition object correctness).
+
+- `validateDependencyTag(tag, registry)`
+  - **What it enforces today:** “`tag` is a non-empty string AND exists in the registry” (unknown IDs error). It does **not** validate a contract object shape; it validates an **ID against a registry**.
+  - Rename recommendation: `validateDependencyId(id, registry)`
+- `validateDependencyTags(tags, registry)`
+  - **What it enforces today:** same as above, but for a list.
+  - Rename recommendation: `validateDependencyIds(ids, registry)`
+- Contract validation
+  - **Where it happens today:** inside `TagRegistry.registerTag(definition)`:
+    - duplicate ID detection
+    - kind↔prefix compatibility (`artifact:`/`field:`/`effect:`)
+    - demo validation (if provided)
+  - Rename implication: we likely want a dedicated name for this *contract validation* behavior, e.g.:
+    - `validateDependencyContract(contract)` (semantic target name; may be implemented as a helper later), OR
+    - keep it embedded in `register…` but ensure the register method name reads as “register contract”.
+
+#### Error type renames (updated to reflect preference)
+
+- `DependencyTagError` → `DependencyError`
+- `InvalidDependencyTagError` → `InvalidDependencyIdError`
+- `UnknownDependencyTagError` → `UnknownDependencyIdError`
+- `DuplicateDependencyTagError` → `DuplicateDependencyIdError`
+- `InvalidDependencyTagDemoError` → `InvalidDependencyDemoError`
+
+#### Open questions about behavior vs names (semantic follow-ups; do not rename blindly)
+
+- **What exactly is “ID validation” meant to guarantee?**
+  - Today, `validateDependencyTag(s)` is “known ID in registry” + “non-empty string”.
+  - Prefix/kind validity is enforced when registering contracts (not when validating an ID), and in authoring we auto-synthesize contracts for all IDs observed in `requires/provides`.
+  - Follow-up question: do we want “validateDependencyId” to also enforce prefix format independent of the registry (pure string check), or keep it as “registry membership” only?
+- **Why is there a `computeInitialSatisfiedTags` at all?**
+  - Today it returns an empty set with the explicit comment “Tags become satisfied only when explicitly provided.”
+  - Follow-up question: should the system support “pre-satisfied dependencies” (e.g., engine invariants, adapter-provided effects), or should this be removed/kept purely for future extensibility?
+  - Naming implication: a better conceptual name would be `computeInitialSatisfiedDependencies`, but this should be coupled to a review of the intended semantics (not a purely mechanical rename).
