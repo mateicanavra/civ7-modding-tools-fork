@@ -152,6 +152,11 @@ How config behaves by case:
 - **Single strategy (n=1):** you can still model a strategy (useful if you expect future swap-outs). Set a `defaultStrategy` so callers can omit `strategy` and just provide `config`. If you *don’t* need a swappable implementation, skip the strategy layer and model the op as a single implementation with a plain op-level `config`.
 - **No strategies:** the operation itself is the implementation; its `config` is the only config.
 
+Compile-time behavior (edge cases):
+
+- **Op with no strategies:** `op.run(input, config)` expects the op’s plain config type; passing `{ strategy: "...", config: {...} }` is a TypeScript error (and would also fail runtime schema validation if `additionalProperties: false`).
+- **Op with exactly one strategy:** `op.run(input, config)` expects that strategy’s config selection shape. If `defaultStrategy` is set to the only strategy, `strategy` becomes optional; if it is not set, `strategy` is required (but can only be that one literal).
+
 If you need both **shared op-level config** and **strategy-specific config**, there are two common options:
 
 - **Option A (explicit nesting):** `config = { shared: <SharedConfig>, strategy: <StrategySelection> }`.
@@ -625,6 +630,16 @@ export default createStep({
   provides: ["artifact:volcanoPlacements", "effect:volcanoesPlaced"],
   schema: StepSchema,
   run: (ctx, cfg: StepConfig) => {
+    // Two equivalent authoring patterns for strategy-backed ops:
+    //
+    // 1) Use the default strategy (omit `strategy`):
+    //    cfg.planVolcanoes = { config: { targetCount: 12, minDistance: 6 } }
+    //
+    // 2) Explicitly select a non-default strategy:
+    //    cfg.planVolcanoes = { strategy: "hotspotClusters", config: { seedCount: 4, targetCount: 12, minDistance: 6 } }
+    //
+    // Both are runtime-validated (via `volcanoes.ops.planVolcanoes.config`) and type-checked via `Parameters<...run>[1]`.
+
     // 1) Build domain inputs from runtime
     const inputs = buildVolcanoInputs(ctx);
 
