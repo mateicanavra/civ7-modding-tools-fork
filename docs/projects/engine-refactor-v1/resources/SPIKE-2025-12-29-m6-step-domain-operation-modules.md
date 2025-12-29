@@ -316,3 +316,128 @@ export default createStep({
   - the domain `index.ts` aggregates them into `ops`,
   - steps import `* as climate` and wire through `climate.ops.*`.
 
+## 6) Open Questions / Design Decisions
+
+Each item below is an intentionally standalone decision packet. The goal is to make the downstream consequences explicit so we can converge without accidental drift.
+
+### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
+
+**Context:** The spike introduces `DomainOpKind = "plan" | "compute" | "score" | "select"` to make domain entrypoints easy to understand and to keep steps consistent in how they integrate domain logic.
+
+**Why this decision exists:** Without crisp semantics, “kinds” become decorative labels and teams re-interpret them, which defeats their purpose as a shared authoring language.
+
+**Meaningful impacts:**
+- Authoring ergonomics: does a modder know what a function returns and how to use it?
+- Step design: where do validation, application, publishing, and side effects live?
+- Tooling/docs: can we auto-render a stable contract and enforce consistency?
+
+**Options:**
+- **A) Strict semantics (recommended):**
+  - `plan`: produce *intents/edits/overrides* that a step applies to runtime.
+  - `compute`: produce *derived data artifacts/fields* with no side effects.
+  - `score`: produce *scores* (rankings) over candidates.
+  - `select`: produce *choices* (a subset/pick) from candidates/scores.
+- **B) Soft semantics (“kinds” are documentation only):** allow overlap; treat kinds as descriptive, not enforceable.
+- **C) Reduce kinds further:** collapse `score/select` into one (e.g., `score`) and keep just `plan`/`compute`.
+
+**Considerations:**
+- Strict semantics enables shared patterns and later tooling (validation, docs, scaffolding), but requires clearer discipline.
+- Soft semantics reduces up-front constraint but tends to drift into inconsistent step/domain responsibilities.
+- Fewer kinds are easier to teach; too many kinds can feel frameworky.
+
+**Rationale / leaning:** Prefer **A** with **minimal kinds** (keep 3–4 total). If `select` adds confusion, collapse into `score` (Option C) while keeping `plan` vs `compute` crisp.
+
+### DD-002: Config responsibility and defaults (where validation happens)
+
+**Context:** Ops expose `configSchema`, and steps use schemas for step config validation/defaulting.
+
+**Why this decision exists:** If config validation/defaulting happens inconsistently (sometimes in steps, sometimes in ops), behavior becomes hard to reason about and difficult to test.
+
+**Meaningful impacts:**
+- Determinism: do ops see fully defaulted config or partial/unknown config?
+- Runtime error quality: who produces error messages and at what boundary?
+- Reuse: can the same op be safely used by multiple steps/recipes?
+
+**Options:**
+- **A) Step-owned validation/defaulting (recommended):**
+  - Step validates and applies defaults once (schema-backed).
+  - Op assumes config is already valid and defaulted.
+- **B) Op-owned validation/defaulting:** op calls a validator/default applier internally.
+- **C) Hybrid:** step validates shape, op applies fine-grained defaults/normalization.
+
+**Considerations:**
+- Step-owned validation centralizes runtime-facing errors and keeps ops pure/simple; it also matches the “step is the boundary” model.
+- Op-owned validation can make ops more reusable outside steps, but risks duplicating error/reporting patterns and pulling runtime concerns into domain code.
+- Hybrid is sometimes useful for “derived defaults” (values dependent on map size), but should be explicit (e.g., a `normalizeConfig` helper) rather than implicit schema-defaulting.
+
+**Rationale / leaning:** Prefer **A**, with an explicit escape hatch: ops may export pure `normalizeConfig(config, inputs)` for derived/scale-aware defaults.
+
+### DD-003: Operation input shape (buffers only vs allowing function adapters)
+
+**Context:** The spike shows ops consuming arrays/buffers (e.g., `isWater: Uint8Array`), but it is possible to pass function-based “views” (e.g., `isWater(x,y)`).
+
+**Why this decision exists:** Input shape strongly affects performance, testability, portability, and the amount of step boilerplate required to adapt runtime state into domain inputs.
+
+**Meaningful impacts:**
+- Performance/memory: precomputing buffers costs memory but enables cache-friendly loops; function callbacks can add overhead.
+- Testability: buffers are easy to snapshot and fuzz; function-based views can hide state and make tests less explicit.
+- Step complexity: building buffers is boilerplate; passing a function is quicker but can leak runtime dependencies.
+
+**Options:**
+- **A) Buffers/POJOs only (recommended default):** op inputs are serializable-ish data (typed arrays, plain objects), no runtime callbacks.
+- **B) Allow callback views:** allow inputs to include readonly functions (e.g., `readElevation(x,y)`), with discipline to keep them pure.
+- **C) Two-tier model:** core ops take buffers; optional helper ops accept callback views and can be used when memory is constrained.
+
+**Considerations:**
+- Buffers-only makes ops easiest to test and reason about, and enables a shared “apply/compute per tile” style.
+- Callback views can be ergonomic for steps and avoid precomputing, but risk “domain code silently depends on engine behavior” unless the interface is intentionally minimal.
+- A two-tier model adds surface area; it can be justified if memory pressure is real in Civ7 runtime constraints.
+
+**Rationale / leaning:** Prefer **A** as the canonical contract for step-callable ops. If callbacks are needed, constrain them to tiny, explicitly named readonly interfaces and keep them pure.
+
+### DD-004: Artifact keys / dependency tags ownership (domain vs recipe)
+
+**Context:** Steps declare `requires`/`provides` (tags) and publish artifacts/fields for downstream steps. Domains may define artifact *shapes* (schemas/types) and sometimes want to “name” those artifacts.
+
+**Why this decision exists:** Stable pipeline wiring depends on consistent dependency identifiers. If both domains and recipes invent keys freely, the graph becomes fragile and hard to refactor.
+
+**Meaningful impacts:**
+- Pipeline correctness: can the recipe compiler enforce dependencies reliably?
+- Reuse/composability: can multiple recipes use the same domain op without key collisions?
+- Docs/tooling: can we render a contract of “what this op needs/produces” that is stable?
+
+**Options:**
+- **A) Recipe/tag-catalog owns keys (recommended):**
+  - Domains define artifact *schemas/types*.
+  - Recipe-level tag catalogs define the canonical string keys for `requires/provides`.
+  - Steps publish under tag-catalog keys.
+- **B) Domain owns keys:** domains export canonical keys for their artifacts.
+- **C) Split by layer:** engine/runner-owned keys live centrally; content-owned keys live with the content domain.
+
+**Considerations:**
+- Recipe-owned keys keep the execution graph explicit and avoid “hidden publications” inside domains; they also align with “steps are the boundary”.
+- Domain-owned keys improve portability (“use this domain and you know the key”), but can conflict when recipes want to alias/duplicate artifacts or publish multiple versions.
+- A split model can work if ownership boundaries are sharp (engine vs content), but must avoid reintroducing a global “registry” smell for artifacts.
+
+**Rationale / leaning:** Prefer **A**: domains own shapes, recipes own dependency identifiers. If a domain wants stable naming, encode it in type names and schema `kind/version`, not necessarily in global keys.
+
+### DD-005: TypeBox import consistency (`typebox` vs `@sinclair/typebox`)
+
+**Context:** The spike currently mixes `import ... from "typebox"` and `import ... from "@sinclair/typebox"` in examples.
+
+**Why this decision exists:** Documentation should model the canonical import path used in the repo to avoid confusion and copy/paste drift for mod authors.
+
+**Meaningful impacts:**
+- Authoring ergonomics: copy/paste correctness for modders.
+- Tooling: type resolution and consistent dependency management.
+- Repo conventions: aligning examples with actual package usage.
+
+**Options:**
+- **A) Standardize on one import path:** match the repo’s chosen dependency name and enforce in docs/examples.
+- **B) Allow both:** treat as equivalent and let examples vary.
+
+**Considerations:**
+- Standardization reduces cognitive overhead and avoids “why does this compile in one place but not another?”.
+- Allowing both is flexible but undermines the goal of a canonical spike.
+
+**Rationale / leaning:** Prefer **A**: align all examples with the repo’s canonical import style for TypeBox and its `Static`/`TSchema` types.
