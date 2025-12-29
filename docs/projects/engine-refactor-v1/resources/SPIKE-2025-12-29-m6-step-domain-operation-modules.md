@@ -164,6 +164,15 @@ If you need both **shared op-level config** and **strategy-specific config**, th
 
 This keeps step imports small and keeps the op’s public contract stable even if internal implementations evolve.
 
+#### Step config ergonomics: ops export canonical `config` + `defaultConfig`
+
+Steps should not have to re-author (or re-wrap) the canonical operation config shape. Each op exports:
+
+- `op.config`: the canonical TypeBox schema for that op’s config (including strategy selection shape when relevant)
+- `op.defaultConfig`: the canonical default value for that config (computed from schema defaults)
+
+Steps can then assemble their own step schema defaults without manually re-creating wrapper objects like `{ config: {} }` for strategy-backed ops.
+
 ### Rules (optional, internal building blocks)
 
 **Rules** are small pure functions used to decompose complexity:
@@ -615,7 +624,13 @@ const StepSchema = Type.Object(
     computeSuitability: volcanoes.ops.computeSuitability.config,
     planVolcanoes: volcanoes.ops.planVolcanoes.config,
   },
-  { additionalProperties: false, default: { computeSuitability: {}, planVolcanoes: { config: {} } } }
+  {
+    additionalProperties: false,
+    default: {
+      computeSuitability: volcanoes.ops.computeSuitability.defaultConfig,
+      planVolcanoes: volcanoes.ops.planVolcanoes.defaultConfig,
+    },
+  }
 );
 
 type StepConfig = {

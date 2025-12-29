@@ -1,4 +1,5 @@
 import { Type, type Static, type TSchema } from "typebox";
+import { Value } from "typebox/value";
 
 export type DomainOpKind = "plan" | "compute" | "score" | "select";
 
@@ -36,6 +37,9 @@ export type DomainOp<
   input: InputSchema;
   output: OutputSchema;
   config: ConfigSchema;
+  defaultConfig: Strategies extends Record<string, { config: TSchema }>
+    ? StrategySelection<NonNullable<Strategies>, DefaultStrategy>
+    : Static<ConfigSchema>;
   strategies?: Strategies;
   defaultStrategy?: DefaultStrategy;
   run: (
@@ -52,6 +56,12 @@ type OpDefinitionBase<InputSchema extends TSchema, OutputSchema extends TSchema>
   input: InputSchema;
   output: OutputSchema;
 }>;
+
+function buildDefaultConfigValue(schema: TSchema): unknown {
+  const defaulted = Value.Default(schema, {});
+  const converted = Value.Convert(schema, defaulted);
+  return Value.Clean(schema, converted);
+}
 
 export function createOp<
   InputSchema extends TSchema,
@@ -86,6 +96,17 @@ export function createOp(op: any): any {
       throw new Error(`createOp(${op.id}) received empty strategies`);
     }
 
+    const defaultStrategyId = defaultStrategy ?? ids[0]!;
+    const defaultInnerConfig = buildDefaultConfigValue(strategies[defaultStrategyId]!.config) as Record<
+      string,
+      unknown
+    >;
+
+    const defaultConfig =
+      defaultStrategy != null
+        ? { config: defaultInnerConfig }
+        : { strategy: defaultStrategyId, config: defaultInnerConfig };
+
     const configCases = ids.map((id) =>
       Type.Object(
         {
@@ -99,7 +120,10 @@ export function createOp(op: any): any {
       )
     );
 
-    const config = Type.Union(configCases as any, { additionalProperties: false });
+    const config = Type.Union(configCases as any, {
+      additionalProperties: false,
+      default: defaultConfig,
+    });
 
     return {
       kind: op.kind,
@@ -109,6 +133,7 @@ export function createOp(op: any): any {
       strategies: op.strategies,
       defaultStrategy: op.defaultStrategy,
       config,
+      defaultConfig,
       run: (input: any, cfg: any) => {
         const selectedId: string =
           (cfg && typeof cfg.strategy === "string" ? cfg.strategy : defaultStrategy) ?? ids[0]!;
@@ -119,6 +144,6 @@ export function createOp(op: any): any {
     };
   }
 
-  return op;
+  const defaultConfig = buildDefaultConfigValue(op.config ?? Type.Object({}, { default: {} }));
+  return { ...op, defaultConfig };
 }
-
