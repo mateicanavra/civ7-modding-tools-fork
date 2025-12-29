@@ -39,6 +39,7 @@ This document defines the canonical target architecture for MapGen in this repo:
   - `effect:*` — declares an externally meaningful engine change/capability guarantee
 - **Artifact (value)**: the actual data product stored in `context.artifacts` keyed by an `artifact:*` tag. Tags describe dependency edges; artifacts are the typed values that flow across those edges.
 - **Tag definition**: an optional registry entry (`DependencyTagDefinition`) that can attach postconditions (`satisfies`) and demo validation to a tag. Most tags only need an ID and kind; only a minority need custom `satisfies` logic.
+- **Step model module**: a step-owned contract module (`<stepId>.model.ts`) that bundles schema + types + tags (+ any step-owned artifact helpers) for a single step.
 
 ### 1.2 Pipeline contract
 
@@ -61,7 +62,7 @@ This document defines the canonical target architecture for MapGen in this repo:
 
 ### 1.3 Context shape
 
-- The engine-owned run context is `ExtendedMapContext` (exported from `@swooper/mapgen-core/engine`).
+- The engine-owned run context is `ExtendedMapContext` (exported from `@swooper/mapgen-core/core`).
 - The context contains only run-global state and runtime surfaces:
   - Adapter I/O surface (`EngineAdapter`)
   - Run settings (the validated `RunSettings` from the `RunRequest`)
@@ -128,25 +129,25 @@ This document defines the canonical target architecture for MapGen in this repo:
 ```text
 packages/mapgen-core/
 ├─ src/
-│  ├─ engine/                        # runtime-only SDK (content-agnostic)
-│  ├─ authoring/                     # ergonomics-only SDK (factories)
+│  ├─ engine/                        # orchestration runtime (compile + execute + registries)
+│  ├─ core/                          # engine-owned context + platform contracts
+│  ├─ authoring/                     # authoring ergonomics (factories)
 │  ├─ lib/                           # neutral utilities (engine-owned)
 │  ├─ trace/                         # tracing primitives
 │  ├─ dev/                           # diagnostics (not part of runtime contract)
 │  ├─ polyfills/
 │  ├─ shims/
-│  └─ index.ts                       # thin compatibility entrypoint
+│  └─ index.ts                       # package entrypoint
 └─ test/
    ├─ engine/
    └─ authoring/
 ```
 
 **Forbidden in the target core SDK:**
-- `packages/mapgen-core/src/core/**`
 - `packages/mapgen-core/src/config/**`
 - `packages/mapgen-core/src/bootstrap/**`
 - `packages/mapgen-core/src/base/**`
-- `packages/mapgen-core/src/pipeline/mod.ts`
+- any imports from `mods/**`
 
 ### 2.3 Standard content package (`mods/mod-swooper-maps`) target layout (collapsed)
 
@@ -164,10 +165,15 @@ mods/mod-swooper-maps/
 │  │     └─ stages/
 │  │        └─ <stageId>/
 │  │           ├─ index.ts
-│  │           ├─ shared/            # stage-scoped shared contracts (only when truly shared)
-│  │           └─ steps/             # step modules (each step owns its contract + implementation)
+│  │           ├─ steps/             # step modules (standardized contract + implementation pairing)
+│  │           │  ├─ index.ts
+│  │           │  ├─ <stepId>.model.ts
+│  │           │  └─ <stepId>.ts
+│  │           └─ *.ts               # stage-scoped helpers/contracts (optional)
 │  └─ domain/
-│     └─ **/**                       # pure logic + shared contracts (including shared config schemas when truly shared)
+│     ├─ config/
+│     │  └─ schema/**                # shared schema fragments only
+│     └─ **/**                       # domain logic + shared contracts (artifacts, tags, validators)
 └─ test/
    └─ **/**
 ```
@@ -178,30 +184,35 @@ mods/mod-swooper-maps/
 
 ### 2.4 Colocation and export rules (avoid centralized aggregators)
 
-**Step modules (`stages/<stageId>/steps/<stepId>/**`)**
-- The step module is the unit of ownership. It is responsible for its **contract** (schema + tags + artifacts) and its **implementation** (the `run` body).
-- Default shape is **one step = one module** (no forced multi-file split):
-  - keep the step contract colocated with the step
-  - split into additional files only when it materially improves readability (e.g., very large schemas or multi-variant artifact models)
-- If a step is split, it is split *within the step module directory* (do not create repo-wide catalog modules):
-  - `schema.ts` — config schema + derived config type
-  - `artifacts.ts` — artifact value types + type guards/validators + publish/get helpers
-  - `tags.ts` — tag ID constants + any `DependencyTagDefinition` entries with custom `satisfies` logic
+**Step modules (`stages/<stageId>/steps/<stepId>.*`)**
+- Steps are standardized as a 2-file module pair:
+  - `<stepId>.model.ts` — step-owned contract model: config schema + derived config type, step-local tag IDs/arrays, and step-owned artifact helpers/validators (only when the artifact is not domain-shared).
+  - `<stepId>.ts` — step definition: `createStep({ ... })` + `run` implementation, importing the contract model and domain logic.
+- The `.model.ts` file is the ownership surface for step contracts. The `.ts` file is orchestration only.
+- Canonical exports from `<stepId>.model.ts`:
+  - `schema` (TypeBox) + derived `Config` type
+  - `requires` / `provides` tag arrays
+  - optional `tagDefinitions` and artifact helper exports (publish/get/validators)
 
-**Stage shared modules (`stages/<stageId>/shared/**`)**
-- Stage shared modules exist only for items shared across multiple steps in that stage.
-- Prefer a single `shared/index.ts` (and optional `shared/schema.ts` / `shared/tags.ts` / `shared/artifacts.ts` only when necessary).
-- Stage-shared contracts must remain stage-scoped (do not accumulate cross-stage contracts).
+**Stage scope (`stages/<stageId>/**`)**
+- Stage-scoped helpers and contracts shared across multiple steps live at the stage root as explicit modules (e.g., `producer.ts`, `placement-inputs.ts`, `shared.model.ts`).
+- Stage files must remain stage-scoped and must not accumulate cross-stage contracts.
+
+**Domain scope (`src/domain/**`)**
+- Domain is the home for:
+  - domain algorithms
+  - domain data contracts (artifact value types + validators, shared tag IDs/definitions)
+  - shared config schema fragments (`domain/config/schema/**`) when used by more than one step
+- Domain modules may be used by a single step; reuse is not the criterion for domain placement. The criterion is recipe-independence and a clean separation between step orchestration and content logic.
+- Domain must not import from `recipes/**` or `maps/**`.
 
 **Barrels (`index.ts`)**
 - Barrels must be explicit, thin re-exports only (no side-effect registration, no hidden aggregation).
-- Recipe-level assembly (`recipe.ts`) is the only place that composes stages into a recipe module.
+- Recipe-level assembly (`recipe.ts` + `runtime.ts`) composes stages; it does not define cross-domain catalogs.
 
 **Schemas**
-- Step config schemas are step-owned.
-- Shared config schema fragments live with the *closest* real owner:
-  - stage scope when shared within a stage (`stages/<stageId>/shared/**`)
-  - domain scope when shared across stages/recipes (inside the owning `domain/**` module)
+- Step config schemas are step-owned (`<stepId>.model.ts`).
+- Shared schema fragments live in `domain/config/schema/**` and are imported by steps/domain; they do not define recipe-wide “mega schemas”.
 - Step schemas must not import from a centralized `@mapgen/config` module.
 
 ---
@@ -267,22 +278,26 @@ Effects:
 - The engine runtime surface is `src/engine/**` and is designed to be imported via:
   - `@swooper/mapgen-core/engine` (public)
   - `@swooper/mapgen-core/engine/*` (public subpaths)
-- Canonical module groupings:
-  - **Contracts** (step + tags): `types.ts`, `dependency-tags.ts`, `errors.ts`
-  - **Compilation** (run request → plan): `execution-plan.ts`, `schemas/**`
-  - **Execution** (plan → run): `pipeline-executor.ts`, `step-registry.ts`
-  - **Context** (engine-owned run context): `context/**`
-  - **Platform adapter helpers** (Civ7-facing helpers, not content): `adapter/**`
+- `src/engine/**` is kept cohesive as the orchestration runtime: plan compilation, registries, and execution live together.
+- Canonical orchestration modules (flat, discoverable):
+  - `ExecutionPlan.ts` — structural schemas + plan compilation (`compileExecutionPlan`)
+  - `PipelineExecutor.ts` — plan/recipe execution
+  - `StepRegistry.ts` — step registration and lookup
+  - `TagRegistry.ts` — dependency tag registry + satisfaction checks
+  - `errors.ts`, `types.ts`, `Observability.ts`, `index.ts`
 
 ### 4.3 Naming and organization conventions (core)
 
-- **File names are kebab-case** across `src/**`. There are no PascalCase filenames.
-- Class/type names use standard TypeScript casing; filenames remain kebab-case.
+- `src/engine/**` and `src/core/**` use consistent, intention-revealing names:
+  - `PascalCase.ts` for primary runtime primitives/modules (classes and named orchestration objects)
+  - `lowerCamelCase.ts` for factories/helpers (e.g., `createExtendedMapContext.ts`)
+  - `index.ts` for barrels; `types.ts` / `errors.ts` for type/error-only modules
+- Kebab-case filenames are forbidden within the orchestration/runtime surfaces (no `execution-plan.ts` alongside `PipelineExecutor.ts`).
 - `index.ts` files are thin, explicit re-export barrels only.
 
-### 4.4 Engine-owned context contract (`src/engine/context/**`)
+### 4.4 Core runtime contracts (`src/core/**`)
 
-- `ExtendedMapContext` is engine-owned and includes:
+- `src/core/context/**` owns `ExtendedMapContext` and includes:
   - `adapter: EngineAdapter`
   - `dimensions: MapDimensions`
   - `settings: RunSettings`
@@ -294,20 +309,22 @@ Effects:
   - a monolithic `config`/`MapGenConfig` mega-object
   - domain artifacts (foundation/narrative/placement payload types)
   - narrative registries/caches (those are mod-owned and/or artifacts)
+- `src/core/platform/**` owns Civ/platform-facing helper contracts (terrain constants, plot tagging helpers). These are engine-owned and content-agnostic.
 
-### 4.5 Engine schema modules (`src/engine/schemas/**`)
+### 4.5 Engine structural schemas (co-located)
 
-- Engine-owned schemas are limited to structural validation:
-  - `RunSettingsSchema` / `RunSettings`
-  - `RunRequestSchema` / `RunRequest`
-  - recipe structural schemas (`RecipeV1Schema`, `RecipeStepV1Schema`)
-  - `EmptyStepConfigSchema` for explicit “no config” steps
+- Engine-owned schemas are limited to structural validation and live with the orchestration module that consumes them:
+  - `src/engine/ExecutionPlan.ts` owns:
+    - `RunSettingsSchema` / `RunSettings`
+    - `RunRequestSchema` / `RunRequest`
+    - recipe structural schemas (`RecipeV1Schema`, `RecipeStepV1Schema`)
+  - `src/engine/StepConfig.ts` owns `EmptyStepConfigSchema` for explicit “no config” steps
 - Content package step schemas live with steps; the engine does not ship content schemas.
 
 ### 4.6 Core SDK entrypoint (`src/index.ts`)
 
 - `src/index.ts` is a compatibility entrypoint only:
-  - it may re-export `engine/**`, `authoring/**`, `lib/**`, `trace/**`, and `dev/**`
+  - it may re-export `engine/**`, `core/**`, `authoring/**`, `lib/**`, `trace/**`, and `dev/**`
   - it must not re-export any legacy “core content” surfaces
 
 ---
@@ -336,20 +353,22 @@ Effects:
 
 - Stage package layout:
   - `stages/<stageId>/index.ts` defines the stage via `createStage({ id, steps })`.
-  - `stages/<stageId>/steps/<stepId>/**` defines each step as a step module.
-  - `stages/<stageId>/shared/**` exists only for true stage-shared contracts.
+  - `stages/<stageId>/steps/` contains step modules (standardized contract + implementation pairing):
+    - `steps/index.ts` is the only barrel; it re-exports step modules explicitly.
+    - Each step is defined by `steps/<stepId>.model.ts` + `steps/<stepId>.ts`.
+  - Stage-scoped helpers/contracts (when shared across multiple steps) live at the stage root as explicit modules (e.g., `producer.ts`, `shared.model.ts`).
 - Step module invariants:
-  - The step module is the smallest unit that owns its config schema, tags, and artifacts.
-  - A step is not required to be split into many files; it may be a single `index.ts`.
-  - If split, the split stays within the step module directory (`schema.ts`, `artifacts.ts`, `tags.ts`) and does not create new centralized catalogs elsewhere.
+  - `<stepId>.model.ts` is the step’s contract surface (schema + types + tags + step-owned artifact helpers).
+  - `<stepId>.ts` is the step definition and `run` orchestration; it imports the model and domain logic.
+  - Steps do not introduce recipe-wide catalogs; shared contracts live at the closest real owner (stage root or domain).
 
 ### 5.4 Config ownership (no centralized config package)
 
 - Config values are owned by maps (`src/maps/**`).
-- Step config schemas are owned by steps (`src/recipes/**/steps/**`).
+- Step config schemas are owned by steps (`src/recipes/**/stages/**/steps/*.model.ts`).
 - Shared config schema fragments live with the closest owner:
-  - stage scope (`stages/<stageId>/shared/**`) when stage-local
-  - domain scope (inside the owning `src/domain/**` module) when cross-stage/cross-recipe
+  - stage scope (`stages/<stageId>/*.model.ts`) when stage-local
+  - domain scope (`src/domain/config/schema/**` and other domain modules) when cross-stage/cross-recipe
 - There is no mod-wide `src/config/**` module and no `@mapgen/config` path alias.
 
 ### 5.5 Tags, artifacts, and registration
@@ -381,7 +400,7 @@ Effects:
   - no “god files” that define multiple unrelated stages’ contracts
 - Colocation is the default:
   - step-owned contracts live with steps
-  - stage-shared contracts live in stage shared modules
+  - stage-shared contracts live in stage-scoped modules at the stage root
   - domain-shared contracts live with their owning domain library
 
 ---
@@ -408,6 +427,17 @@ packages/mapgen-core/
 │  │  ├─ stage.ts
 │  │  ├─ step.ts
 │  │  └─ types.ts
+│  ├─ core/
+│  │  ├─ index.ts
+│  │  ├─ context/
+│  │  │  ├─ index.ts
+│  │  │  ├─ types.ts
+│  │  │  ├─ createExtendedMapContext.ts
+│  │  │  └─ writers.ts
+│  │  └─ platform/
+│  │     ├─ index.ts
+│  │     ├─ PlotTags.ts
+│  │     └─ TerrainConstants.ts
 │  ├─ dev/
 │  │  ├─ ascii.ts
 │  │  ├─ flags.ts
@@ -419,31 +449,14 @@ packages/mapgen-core/
 │  │  └─ timing.ts
 │  ├─ engine/
 │  │  ├─ index.ts
-│  │  ├─ dependency-tags.ts
 │  │  ├─ errors.ts
-│  │  ├─ execution-plan.ts
-│  │  ├─ observability.ts
-│  │  ├─ pipeline-executor.ts
-│  │  ├─ step-registry.ts
 │  │  ├─ types.ts
-│  │  ├─ adapter/
-│  │  │  ├─ index.ts
-│  │  │  ├─ plot-tags.ts
-│  │  │  └─ terrain-constants.ts
-│  │  ├─ context/
-│  │  │  ├─ index.ts
-│  │  │  ├─ create-context.ts
-│  │  │  ├─ rng.ts
-│  │  │  ├─ sync.ts
-│  │  │  ├─ types.ts
-│  │  │  └─ writers.ts
-│  │  └─ schemas/
-│  │     ├─ index.ts
-│  │     ├─ empty-step-config.ts
-│  │     ├─ recipe-v1.ts
-│  │     ├─ run-request.ts
-│  │     ├─ run-settings.ts
-│  │     └─ trace.ts
+│  │  ├─ ExecutionPlan.ts
+│  │  ├─ Observability.ts
+│  │  ├─ PipelineExecutor.ts
+│  │  ├─ StepConfig.ts
+│  │  ├─ StepRegistry.ts
+│  │  └─ TagRegistry.ts
 │  ├─ lib/
 │  │  ├─ collections/
 │  │  │  ├─ freeze-clone.ts
@@ -532,6 +545,16 @@ mods/mod-swooper-maps/
 │  │     ├─ standard-config.ts
 │  │     └─ types.ts
 │  ├─ domain/
+│  │  ├─ config/
+│  │  │  └─ schema/
+│  │  │     ├─ index.ts
+│  │  │     ├─ common.ts
+│  │  │     ├─ ecology.ts
+│  │  │     ├─ foundation.ts
+│  │  │     ├─ hydrology.ts
+│  │  │     ├─ landmass.ts
+│  │  │     ├─ morphology.ts
+│  │  │     └─ narrative.ts
 │  │  ├─ ecology/
 │  │  │  ├─ index.ts
 │  │  │  ├─ biomes/
@@ -697,126 +720,103 @@ mods/mod-swooper-maps/
 │        └─ stages/
 │           ├─ ecology/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ biomes/
-│           │     │  └─ index.ts
-│           │     └─ features/
-│           │        └─ index.ts
+│           │     ├─ biomes.model.ts
+│           │     ├─ biomes.ts
+│           │     ├─ features.model.ts
+│           │     └─ features.ts
 │           ├─ foundation/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
+│           │  ├─ producer.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     └─ foundation/
-│           │        └─ index.ts
+│           │     ├─ foundation.model.ts
+│           │     └─ foundation.ts
 │           ├─ hydrology-core/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     └─ rivers/
-│           │        └─ index.ts
+│           │     ├─ rivers.model.ts
+│           │     └─ rivers.ts
 │           ├─ hydrology-post/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     └─ climateRefine/
-│           │        └─ index.ts
+│           │     ├─ climateRefine.model.ts
+│           │     └─ climateRefine.ts
 │           ├─ hydrology-pre/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ climateBaseline/
-│           │     │  └─ index.ts
-│           │     └─ lakes/
-│           │        └─ index.ts
+│           │     ├─ climateBaseline.model.ts
+│           │     ├─ climateBaseline.ts
+│           │     ├─ lakes.model.ts
+│           │     └─ lakes.ts
 │           ├─ morphology-mid/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     └─ ruggedCoasts/
-│           │        └─ index.ts
+│           │     ├─ ruggedCoasts.model.ts
+│           │     └─ ruggedCoasts.ts
 │           ├─ morphology-post/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ islands/
-│           │     │  └─ index.ts
-│           │     ├─ mountains/
-│           │     │  └─ index.ts
-│           │     └─ volcanoes/
-│           │        └─ index.ts
+│           │     ├─ islands.model.ts
+│           │     ├─ islands.ts
+│           │     ├─ mountains.model.ts
+│           │     ├─ mountains.ts
+│           │     ├─ volcanoes.model.ts
+│           │     └─ volcanoes.ts
 │           ├─ morphology-pre/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ coastlines/
-│           │     │  └─ index.ts
-│           │     └─ landmassPlates/
-│           │        └─ index.ts
+│           │     ├─ coastlines.model.ts
+│           │     ├─ coastlines.ts
+│           │     ├─ landmassPlates.model.ts
+│           │     └─ landmassPlates.ts
 │           ├─ narrative-mid/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ storyCorridorsPre/
-│           │     │  └─ index.ts
-│           │     └─ storyOrogeny/
-│           │        └─ index.ts
+│           │     ├─ storyCorridorsPre.model.ts
+│           │     ├─ storyCorridorsPre.ts
+│           │     ├─ storyOrogeny.model.ts
+│           │     └─ storyOrogeny.ts
 │           ├─ narrative-post/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     └─ storyCorridorsPost/
-│           │        └─ index.ts
+│           │     ├─ storyCorridorsPost.model.ts
+│           │     └─ storyCorridorsPost.ts
 │           ├─ narrative-pre/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ storyHotspots/
-│           │     │  └─ index.ts
-│           │     ├─ storyRifts/
-│           │     │  └─ index.ts
-│           │     └─ storySeed/
-│           │        └─ index.ts
+│           │     ├─ storyHotspots.model.ts
+│           │     ├─ storyHotspots.ts
+│           │     ├─ storyRifts.model.ts
+│           │     ├─ storyRifts.ts
+│           │     ├─ storySeed.model.ts
+│           │     └─ storySeed.ts
 │           ├─ narrative-swatches/
 │           │  ├─ index.ts
-│           │  ├─ shared/
-│           │  │  └─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     └─ storySwatches/
-│           │        └─ index.ts
+│           │     ├─ storySwatches.model.ts
+│           │     └─ storySwatches.ts
 │           └─ placement/
 │              ├─ index.ts
-│              ├─ shared/
-│              │  └─ index.ts
+│              ├─ placement-inputs.ts
+│              ├─ placement-outputs.ts
 │              └─ steps/
 │                 ├─ index.ts
-│                 ├─ derivePlacementInputs/
-│                 │  └─ index.ts
-│                 └─ placement/
-│                    └─ index.ts
+│                 ├─ derivePlacementInputs.model.ts
+│                 ├─ derivePlacementInputs.ts
+│                 ├─ placement.model.ts
+│                 └─ placement.ts
 └─ test/
    ├─ dev/
    │  └─ crust-map.test.ts
