@@ -12,6 +12,11 @@ These terms are used throughout this document with specific meanings. Several ar
 - A step-callable, schema-backed domain entrypoint: `run(inputs, config) -> result`.
 - Operations are the public contract that steps depend on; rules are implementation detail beneath operations.
 
+**Strategy** (formerly “variant”)
+- A swappable implementation of an operation that preserves the operation’s input/output contract.
+- Strategies are internal by default: steps select a strategy via config, but do not import strategy modules directly.
+- Strategies may have **strategy-specific config** (common when different algorithms need different knobs).
+
 **Operation module**
 - A module that exports exactly one operation (usually as the default export), enabling “one op per module” organization and easy `index.ts` aggregation into `ops.*`.
 - Most operation modules are single files; large operations can be promoted to a directory with `index.ts` as the module entrypoint.
@@ -96,7 +101,7 @@ A domain is organized as a small module with an explicit public surface:
 
 - `index.ts` aggregates exports (usually `ops`),
 - `ops/**` contains step-callable operation modules,
-- `rules/**` contains pure building blocks used by operations/variants (never step-callable),
+- `rules/**` contains pure building blocks used by operations/strategies (never step-callable),
 - optional `artifacts.ts` exports artifact shapes (schemas/types) and suggested names (keys are still step/recipe-owned).
 
 Canonical on-disk layout:
@@ -108,14 +113,14 @@ src/domain/<area>/<domain>/
   ops/
     <op>.ts                    # small op: one file
     <op>/index.ts              # large op: promote to a folder
-    <op>/variants/*.ts         # optional: extracted variants (when they outgrow inline form)
+    <op>/strategies/*.ts       # optional: extracted strategies (typically the default)
     <op>/rules/*.ts            # optional: op-local rules
   rules/*.ts                   # optional: cross-op rules
 ```
 
 Notes:
 - The unit of organization is an **operation module** (“one op per module”). Most ops can be single-file modules; complex ops can be promoted to a directory with `index.ts` as the op module.
-- Variants are typically defined **inline** inside the op module via `createOp({ variants: { ... } })` so they get full TypeScript inference without exporting types. Extract to `variants/*.ts` only if they get large.
+- Strategies are typically **extracted into their own modules** under `strategies/` because they contain real algorithmic code. Very small strategies can be inlined, but the canonical authoring pattern prefers separate files.
 
 ### Operations (the step-callable contract)
 
@@ -125,13 +130,32 @@ An **operation** (aka “op”) is the stable unit that steps depend on. It:
 - owns its `input`, `config`, and `output` schemas (per-operation, not per-domain),
 - exports a pure `run(input, config) -> output`.
 
-### Strategies / variants (optional, internal)
+### Strategies (optional, internal)
 
-When an operation can be implemented in multiple interchangeable ways, we model that as **variants** (or “strategies”) under the operation module:
+When an operation can be implemented in multiple interchangeable ways, we model that as **strategies** under the operation module:
 
-- each variant implements the same contract (`(input, cfg) -> output` or a narrowed internal contract),
-- the operation selects a variant (usually via a `variant` field in config),
-- steps do **not** import variants directly in the canonical pattern; they only select them via config.
+- each strategy preserves the same **input/output** contract,
+- each strategy may have its own config schema,
+- the operation selects a strategy via config,
+- steps do **not** import strategies directly; they only pass config to the op.
+
+#### Config semantics with strategies
+
+What must be shared vs what can vary:
+
+- **Required to be shared:** operation **input** and **output** schemas (the contract steps depend on).
+- **Allowed to vary:** the strategy’s algorithm and its **strategy-specific config**.
+
+How config behaves by case:
+
+- **Multiple strategies (n>1):** the operation’s `config` is a **strategy selection** wrapper (conceptually: `{ strategy: "...", config: {...} }`). Each strategy owns its own `config` schema. The operation dispatches to the selected strategy.
+- **Single strategy (n=1):** you can still model a strategy (useful if you expect future swap-outs). Set a `defaultStrategy` so callers can omit `strategy` and just provide `config`. If you *don’t* need a swappable implementation, skip the strategy layer and model the op as a single implementation with a plain op-level `config`.
+- **No strategies:** the operation itself is the implementation; its `config` is the only config.
+
+If you need both **shared op-level config** and **strategy-specific config**, there are two common options:
+
+- **Option A (explicit nesting):** `config = { shared: <SharedConfig>, strategy: <StrategySelection> }`.
+- **Option B (schema composition):** each strategy’s config schema is `SharedConfig ∩ StrategyConfig` (TypeBox `Type.Intersect([...])`).
 
 This keeps step imports small and keeps the op’s public contract stable even if internal implementations evolve.
 
@@ -181,71 +205,51 @@ Operations are plain exports, but a tiny helper improves inference and standardi
 
 ```ts
 // packages/mapgen-core/src/authoring/op.ts
-import type { Static, TSchema } from "typebox";
+import { Type, type Static, type TSchema } from "typebox";
 
 export type DomainOpKind = "plan" | "compute" | "score" | "select";
 
-export type OpVariant<Input, Config, Output> = (input: Input, config: Config) => Output;
+export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
+  config: ConfigSchema;
+  run: (input: Input, config: Static<ConfigSchema>) => Output;
+}>;
 
-export type DomainOpDefinition<
+export function createStrategy<ConfigSchema extends TSchema, Input, Output>(
+  strategy: OpStrategy<ConfigSchema, Input, Output>
+): OpStrategy<ConfigSchema, Input, Output> {
+  return strategy;
+}
+
+// createOp supports two shapes:
+// 1) single implementation: provide { config, run }
+export function createOp<
   InputSchema extends TSchema,
-  ConfigSchema extends TSchema,
   OutputSchema extends TSchema,
-  Variants extends
-    | Record<
-        string,
-        OpVariant<Static<InputSchema>, Static<ConfigSchema>, Static<OutputSchema>>
-      >
-    | undefined = undefined
-> = {
+  ConfigSchema extends TSchema
+>(op: {
   kind: DomainOpKind;
   id: string;
   input: InputSchema;
-  config: ConfigSchema;
   output: OutputSchema;
-  variants?: Variants;
-  run: (
-    input: Static<InputSchema>,
-    config: Static<ConfigSchema>,
-    ctx: { variants: Variants }
-  ) => Static<OutputSchema>;
-};
-
-export type DomainOp<
-  InputSchema extends TSchema,
-  ConfigSchema extends TSchema,
-  OutputSchema extends TSchema,
-  Variants extends
-    | Record<
-        string,
-        OpVariant<Static<InputSchema>, Static<ConfigSchema>, Static<OutputSchema>>
-      >
-    | undefined = undefined
-> = Omit<DomainOpDefinition<InputSchema, ConfigSchema, OutputSchema, Variants>, "run"> & {
+  config: ConfigSchema;
   run: (input: Static<InputSchema>, config: Static<ConfigSchema>) => Static<OutputSchema>;
-};
+}): unknown;
 
+// 2) strategies: provide { strategies, defaultStrategy? }
+// - each strategy owns its own config schema
+// - createOp derives an operation `config` schema and dispatches to the selected strategy at runtime
 export function createOp<
   InputSchema extends TSchema,
-  ConfigSchema extends TSchema,
   OutputSchema extends TSchema,
-  Variants extends
-    | Record<
-        string,
-        OpVariant<Static<InputSchema>, Static<ConfigSchema>, Static<OutputSchema>>
-      >
-    | undefined = undefined
->(op: DomainOpDefinition<InputSchema, ConfigSchema, OutputSchema, Variants>): DomainOp<
-  InputSchema,
-  ConfigSchema,
-  OutputSchema,
-  Variants
-> {
-  return {
-    ...op,
-    run: (input, config) => op.run(input, config, { variants: op.variants as Variants }),
-  };
-}
+  Strategies extends Record<string, OpStrategy<TSchema, Static<InputSchema>, Static<OutputSchema>>>
+>(op: {
+  kind: DomainOpKind;
+  id: string;
+  input: InputSchema;
+  output: OutputSchema;
+  strategies: Strategies;
+  defaultStrategy?: keyof Strategies & string;
+}): unknown;
 ```
 
 Recommended step-side import pattern:
@@ -295,6 +299,9 @@ src/domain/morphology/volcanoes/
     compute-suitability.ts
     plan-volcanoes/
       index.ts
+      strategies/
+        plate-aware.ts
+        hotspot-clusters.ts
       rules/
         enforce-min-distance.ts
         pick-weighted.ts
@@ -364,16 +371,16 @@ export default createOp({
 } as const);
 ```
 
-### Domain: operation 2 — plan volcano placements (variants + rules)
+### Domain: operation 2 — plan volcano placements (strategies + rules)
 
-This operation has interchangeable variants. The op stays stable; the internal variants can evolve.
+This operation has interchangeable strategies. The op stays stable; internal strategies can evolve independently.
 
 ```ts
 // src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
 import { Type } from "typebox";
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { enforceMinDistance } from "./rules/enforce-min-distance.js";
-import { pickWeightedIndex } from "./rules/pick-weighted.js";
+import plateAware from "./strategies/plate-aware.js";
+import hotspotClusters from "./strategies/hotspot-clusters.js";
 
 export default createOp({
   kind: "plan",
@@ -386,16 +393,6 @@ export default createOp({
       rng01: Type.Any(),
     },
     { additionalProperties: false }
-  ),
-  config: Type.Object(
-    {
-      targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
-      minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
-      variant: Type.Optional(
-        Type.Union([Type.Literal("plateAware"), Type.Literal("hotspotClusters")], { default: "plateAware" })
-      ),
-    },
-    { additionalProperties: false, default: {} }
   ),
   output: Type.Object(
     {
@@ -412,85 +409,125 @@ export default createOp({
     },
     { additionalProperties: false }
   ),
-  variants: {
-    plateAware: (inputs, cfg) => {
-      const target = cfg.targetCount ?? 12;
-      const minD = cfg.minDistance ?? 6;
-
-      const width = inputs.width;
-      const height = inputs.height;
-      const size = width * height;
-
-      const chosen: { x: number; y: number; intensity: number }[] = [];
-      const weights = new Float32Array(size);
-      for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
-
-      while (chosen.length < target) {
-        const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.pick"));
-        if (i < 0) break;
-
-        const x = i % width;
-        const y = (i / width) | 0;
-
-        if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
-          weights[i] = 0;
-          continue;
-        }
-
-        chosen.push({ x, y, intensity: 1 });
-        weights[i] = 0;
-      }
-
-      return { placements: chosen };
-    },
-    hotspotClusters: (inputs, cfg) => {
-      const target = cfg.targetCount ?? 12;
-      const minD = cfg.minDistance ?? 6;
-
-      const width = inputs.width;
-      const height = inputs.height;
-      const size = width * height;
-
-      const chosen: { x: number; y: number; intensity: number }[] = [];
-      const weights = new Float32Array(size);
-      for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
-
-      const seedCount = Math.min(3, target);
-      while (chosen.length < seedCount) {
-        const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.seed"));
-        if (i < 0) break;
-
-        const x = i % width;
-        const y = (i / width) | 0;
-        if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
-          weights[i] = 0;
-          continue;
-        }
-        chosen.push({ x, y, intensity: 2 });
-        weights[i] = 0;
-      }
-
-      while (chosen.length < target) {
-        const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.fill"));
-        if (i < 0) break;
-
-        const x = i % width;
-        const y = (i / width) | 0;
-        if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
-          weights[i] = 0;
-          continue;
-        }
-
-        chosen.push({ x, y, intensity: 1 });
-        weights[i] = 0;
-      }
-
-      return { placements: chosen };
-    },
+  strategies: {
+    plateAware,
+    hotspotClusters,
   } as const,
-  run: (inputs, cfg, { variants }) => {
-    const variantId = cfg.variant ?? "plateAware";
-    return variants[variantId](inputs, cfg);
+  defaultStrategy: "plateAware",
+} as const);
+```
+
+### Domain: strategies (separate modules with per-strategy config)
+
+Strategies live under `strategies/` so they can be “real code” without bloating the operation module.
+
+```ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/plate-aware.ts
+import { Type } from "typebox";
+import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { enforceMinDistance } from "../rules/enforce-min-distance.js";
+import { pickWeightedIndex } from "../rules/pick-weighted.js";
+
+export default createStrategy({
+  config: Type.Object(
+    {
+      targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
+      minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+  run: (inputs, cfg) => {
+    const target = cfg.targetCount ?? 12;
+    const minD = cfg.minDistance ?? 6;
+
+    const width = inputs.width;
+    const height = inputs.height;
+    const size = width * height;
+
+    const chosen: { x: number; y: number; intensity: number }[] = [];
+    const weights = new Float32Array(size);
+    for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
+
+    while (chosen.length < target) {
+      const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.pick"));
+      if (i < 0) break;
+
+      const x = i % width;
+      const y = (i / width) | 0;
+
+      if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
+        weights[i] = 0;
+        continue;
+      }
+
+      chosen.push({ x, y, intensity: 1 });
+      weights[i] = 0;
+    }
+
+    return { placements: chosen };
+  },
+} as const);
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/hotspot-clusters.ts
+import { Type } from "typebox";
+import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { enforceMinDistance } from "../rules/enforce-min-distance.js";
+import { pickWeightedIndex } from "../rules/pick-weighted.js";
+
+export default createStrategy({
+  config: Type.Object(
+    {
+      targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
+      minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
+      seedCount: Type.Optional(Type.Integer({ minimum: 1, default: 3 })),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+  run: (inputs, cfg) => {
+    const target = cfg.targetCount ?? 12;
+    const minD = cfg.minDistance ?? 6;
+
+    const width = inputs.width;
+    const height = inputs.height;
+    const size = width * height;
+
+    const chosen: { x: number; y: number; intensity: number }[] = [];
+    const weights = new Float32Array(size);
+    for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
+
+    const seedCount = Math.min(cfg.seedCount ?? 3, target);
+    while (chosen.length < seedCount) {
+      const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.seed"));
+      if (i < 0) break;
+
+      const x = i % width;
+      const y = (i / width) | 0;
+      if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
+        weights[i] = 0;
+        continue;
+      }
+      chosen.push({ x, y, intensity: 2 });
+      weights[i] = 0;
+    }
+
+    while (chosen.length < target) {
+      const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.fill"));
+      if (i < 0) break;
+
+      const x = i % width;
+      const y = (i / width) | 0;
+      if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
+        weights[i] = 0;
+        continue;
+      }
+
+      chosen.push({ x, y, intensity: 1 });
+      weights[i] = 0;
+    }
+
+    return { placements: chosen };
   },
 } as const);
 ```
@@ -542,7 +579,7 @@ export function enforceMinDistance(
 
 ### Domain index (public surface)
 
-Steps import the domain module and only see `ops` (not rules/variants).
+Steps import the domain module and only see `ops` (not rules/strategies).
 
 ```ts
 // src/domain/morphology/volcanoes/index.ts
@@ -557,11 +594,11 @@ export const ops = {
 
 ### Step: build inputs → call ops → apply/publish (runtime boundary)
 
-The step owns adapter/engine interaction and artifact publishing. The step never imports domain rules or variant modules.
+The step owns adapter/engine interaction and artifact publishing. The step never imports domain rules or strategy modules.
 
 ```ts
 // src/recipes/standard/stages/morphology-post/steps/volcanoes/index.ts
-import { Type, type Static } from "typebox";
+import { Type } from "typebox";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { ctxRandom } from "@swooper/mapgen-core/core/types";
 import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
@@ -573,9 +610,13 @@ const StepSchema = Type.Object(
     computeSuitability: volcanoes.ops.computeSuitability.config,
     planVolcanoes: volcanoes.ops.planVolcanoes.config,
   },
-  { additionalProperties: false, default: { computeSuitability: {}, planVolcanoes: {} } }
+  { additionalProperties: false, default: { computeSuitability: {}, planVolcanoes: { config: {} } } }
 );
-type StepConfig = Static<typeof StepSchema>;
+
+type StepConfig = {
+  computeSuitability: Parameters<typeof volcanoes.ops.computeSuitability.run>[1];
+  planVolcanoes: Parameters<typeof volcanoes.ops.planVolcanoes.run>[1];
+};
 
 export default createStep({
   id: "volcanoes",
