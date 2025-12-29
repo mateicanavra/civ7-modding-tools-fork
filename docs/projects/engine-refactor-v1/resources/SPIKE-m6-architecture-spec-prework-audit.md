@@ -201,6 +201,71 @@ This keeps `run(context, stepConfig)` intact and does not create a second “hid
   - a definition catalog (`STANDARD_TAG_DEFINITIONS`) that provides `satisfies` hooks for artifacts/fields/effects.
   - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
 
+### Terminology audit: “tag” is overloaded (disambiguate + possibly rename)
+
+This system uses “tag” to mean at least three unrelated things. Untangling the words makes the ownership decision (T0/T1/T2) clearer.
+
+**Where “tag” shows up today (what it actually means)**
+
+- **Pipeline dependency IDs** (strings): `DependencyTag` values in `requires`/`provides` (e.g. `artifact:*`, `field:*`, `effect:*`).
+  - `packages/mapgen-core/src/engine/types.ts`
+- **Pipeline dependency registry + runtime contracts**: `TagRegistry` + `DependencyTagDefinition` (`kind`, optional `satisfies(context, state)`, optional `demo`, optional `owner`).
+  - `packages/mapgen-core/src/engine/tags.ts`
+  - Used by the executor to validate missing/unsatisfied dependencies.
+    - `packages/mapgen-core/src/engine/PipelineExecutor.ts`
+- **“Artifact tags”** in core types are actually **artifact dependency IDs** used as `context.artifacts` keys (e.g. `FOUNDATION_*_ARTIFACT_TAG = "artifact:..."`).
+  - `packages/mapgen-core/src/core/types.ts`
+- **Effect “tags”** are really **engine effect IDs** (some come from `@civ7/adapter` as `ENGINE_EFFECT_TAGS.*`).
+  - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
+- **Civ7 plot tags** are a separate engine concept: numeric plot tag IDs set on tiles (`PLOT_TAG.*`, `PlotTagName`, `adapter.getPlotTagId(...)`).
+  - `packages/mapgen-core/src/core/plot-tags.ts`
+- **“Story tagging”** is narrative overlay classification (domain algorithms that pick tile-key sets and publish `StoryOverlaySnapshot` overlays). It is unrelated to pipeline dependency tags.
+  - `mods/mod-swooper-maps/src/domain/narrative/tagging/**`
+
+**Clean semantic buckets (distinct concepts currently shoved under “tag”)**
+
+1. **DependencyKey** — the string a step declares in `requires`/`provides` (today: `DependencyTag`).
+   - Role: drives scheduling/integrity checks in the executor.
+   - Shape: string with kind prefix (`artifact:` / `field:` / `effect:`).
+   - Ownership: pipeline contract (not pure domain, not Civ7 adapter).
+2. **DependencyDefinition** — the runtime-checkable contract for a `DependencyKey` (today: `DependencyTagDefinition` in a `TagRegistry`).
+   - Role: enforces postconditions (`satisfies`) and optionally carries `demo`/`owner` metadata.
+   - Shape: ID + kind + optional engine-coupled satisfier.
+   - Ownership: pipeline contract (allowed to be engine-aware).
+3. **ArtifactKey** — a `DependencyKey` of kind `artifact:`; also the key into `context.artifacts` (today: many `*_ARTIFACT_TAG` constants).
+   - Role: names a published data product in the pipeline.
+   - Ownership: pipeline contract; payload schemas/types may be domain-owned, but publication/verification is step/contract-owned.
+4. **FieldKey** — a `DependencyKey` of kind `field:` that asserts a specific buffer exists on `context.fields` (e.g. `field:rainfall`).
+   - Role: integrity check for “this field is present/initialized”.
+   - Ownership: pipeline contract; its relationship to `keyof MapFields` is core-owned.
+5. **EffectKey** — a `DependencyKey` of kind `effect:` that asserts some engine-side effect has been applied (verified via adapter).
+   - Role: integrity check for “engine state guarantees”.
+   - Ownership: adapter-integration contract (engine-aware).
+6. **PlotTagId** — numeric tile tags in Civ7 (unrelated to pipeline dependencies).
+   - Ownership: adapter/Civ7 integration.
+7. **StoryTileKey / overlay membership keys** — string tile coordinate keys (via `storyKey(x, y)`) stored in story overlays.
+   - Ownership: domain concepts (narrative overlays), not pipeline dependency contract language.
+
+**Proposed naming (SPEC-level terminology; no code changes yet)**
+
+- Prefer **“dependency”** over **“tag”** for the pipeline contract language:
+  - `DependencyTag` → **`DependencyKey`** (or `DependencyId`)
+  - `DependencyTagDefinition` → **`DependencyDefinition`** (or `DependencyContract`)
+  - `TagRegistry` → **`DependencyRegistry`** (optional; could keep “registry” but retire “tag” in docs)
+  - `tagDefinitions` (recipe authoring input) → **`dependencyDefinitions`**
+  - `*_ARTIFACT_TAG` constants → **`*_ARTIFACT_KEY`** / `*_ARTIFACT_ID`
+- Keep **“plot tag”** as a Civ7 term, but avoid using “tag” for pipeline dependencies in the canonical SPEC.
+- Treat “story tagging” in docs as **“story overlay classification”** (keep function names for now; just don’t conflate it with dependency tags).
+
+**How this reframes T0/T1/T2**
+
+- Under this naming, the ownership decision becomes: where do **`DependencyKey`** and **`DependencyDefinition`** live?
+  - T0 (recipe-root only): `recipes/standard/dependencies.ts` (keys + definitions) → simplest, highest god-catalog risk.
+  - T1 (domain/contracts own IDs): `domain/contracts/dependencies.ts` owns keys (+ payload schemas); recipe/stages own definitions → only works if domain never exports engine-coupled satisfiers.
+  - T2 (dedicated contracts layer): `contracts/dependencies/**` owns keys + definitions; domain stays pure → cleanest match to “domain is pure; steps own engine semantics”.
+
+Recommendation for SPEC terminology (once we promote): retire “tag” as the primary name for pipeline dependencies; keep “tag” only for Civ7 plot tags (and optionally as legacy code identifiers).
+
 ### Composition patterns to choose from (2–3 viable standards)
 
 **Pattern 1: Single recipe-wide `tags.ts` (today’s shape)**
