@@ -870,16 +870,20 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 - **Steps (schema + defaults)**: how step schemas reference `op.config`/`op.defaultConfig` and validate/default strategy selection.
 - **Migration/evolution story**: how config shape behaves if an op gains additional strategies over time.
 
-**Question:** What is the canonical config shape for strategy-backed operations, and how “explicit” should strategy selection be?
+**Decision (locked):** **Option B (default-friendly)** — when an operation declares a `defaultStrategy`, config may omit `strategy` and still be valid, while still allowing explicit override to a non-default strategy.
 
-**Why it matters / what it affects:** This is the primary authoring surface mod authors will touch. The shape determines whether strategy selection “falls out” naturally via a discriminated union, how much boilerplate authors write, and what happens when operations evolve from one strategy to multiple strategies.
+**Why it matters / what it affects:** This is the primary authoring surface mod authors will touch. It needs to (1) remain readable when the common/default strategy is used, and (2) still enable type-safe explicit strategy overrides with config narrowing.
 
 **Options:**
 - **A) Always explicit:** always require `{ strategy, config }` even if a default exists.
 - **B) Default-friendly (current pattern):** allow omitting `strategy` when a default strategy exists, while still permitting explicit override.
 - **C) Flatten for `n=1`:** if there is only one strategy, use just that config object; only multi-strategy ops use `{ strategy, config }`.
 
-**Recommendation:** Keep **B** as the default: it’s compact, still supports explicit selection, and aligns with the “choose strategy by string literal name” goal. Avoid **C** unless we are willing to own a migration story (shape changes when a second strategy is introduced).
+**Type-safety confirmation (authoring / autocomplete):** This remains type-safe in the “bubbled-up” recipe config as long as the recipe/step config type includes the operation config type (e.g., a step config property typed as `Static<typeof op.config>`). Because `strategy` is a string-literal discriminator (`"plateAware" | "hotspotClusters" | ...`), setting `strategy: "hotspotClusters"` narrows the `config` field to that strategy’s config object; omitting `strategy` narrows to the default strategy’s config object (the only union member that permits omission).
+
+**Notes / implications:**
+- Omitting `strategy` is only allowed when an op explicitly declares `defaultStrategy` (otherwise strategy selection remains explicit).
+- Avoid Option **C** unless we commit to a migration story: adding a second strategy later would otherwise change the config shape.
 
 ### DD-006: Recipe config authoring surface (remove global overrides, preserve type-safe strategy selection)
 
@@ -893,7 +897,7 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 **Question:** What is the authoring surface for modders: direct recipe config (composed from steps) or a curated “global-ish” authoring config that compiles into recipe config?
 
-**Why it matters / what it affects:** The capability we’re enabling (type-safe strategy selection via discriminated unions) only works if authors edit the real config shape that steps actually validate and execute. Any translation layer can erase unions, introduce drift, or reintroduce a global config smell.
+**Why it matters / what it affects:** The capability we’re enabling (type-safe strategy selection via discriminated unions, including the DD-005 default-friendly behavior) only works if authors edit the real config shape that steps actually validate and execute. Any translation layer can erase unions, introduce drift, or reintroduce a global config smell.
 
 **Options:**
 - **A) Author composed recipe config directly (preferred):** map files author the recipe’s composed config (or a deep partial), with minimal translation.
@@ -913,7 +917,7 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 **Question:** How much should step authors manually wire step schemas vs having a small helper derive schema/config shape from declared op usage?
 
-**Why it matters / what it affects:** Steps sit at the runtime boundary and must validate/default configuration. If authors have to repeatedly mirror operation configs by hand, step code gets noisy and can drift out of sync with the ops actually called (especially for strategy-backed ops where wrapper shapes/defaults matter).
+**Why it matters / what it affects:** Steps sit at the runtime boundary and must validate/default configuration. If authors have to repeatedly mirror operation configs by hand, step code gets noisy and can drift out of sync with the ops actually called (especially for strategy-backed ops where wrapper shapes/defaults matter, including DD-005’s “omit strategy when default exists” behavior).
 
 **Options:**
 - **A) Manual schema composition (baseline):** steps write `Type.Object(...)` and reference `op.config` / `op.defaultConfig` as needed.
