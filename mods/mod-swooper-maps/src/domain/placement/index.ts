@@ -63,19 +63,43 @@ export type {
   StartsConfig,
 } from "@mapgen/domain/placement/types.js";
 
+let loggedPlotTags = false;
+
+function logPlotTagKeysOnce(): void {
+  if (loggedPlotTags) return;
+  loggedPlotTags = true;
+  const tags = (globalThis as unknown as { PlotTags?: Record<string, number> }).PlotTags;
+  if (!tags || typeof tags !== "object") {
+    console.log("[Placement] PlotTags global not available.");
+    return;
+  }
+  const keys = Object.keys(tags).filter((key) => key.startsWith("PLOT_TAG_"));
+  console.log(`[Placement] PlotTags available: ${keys.join(", ")}`);
+}
+
 function applyPlotTags(
   adapter: EngineAdapter,
   width: number,
   height: number,
   eastBoundary: number
 ): void {
-  const tagNone = adapter.getPlotTagId("NONE");
-  const tagLandmass = adapter.getPlotTagId("LANDMASS");
-  const tagWater = adapter.getPlotTagId("WATER");
-  const tagEastLandmass = adapter.getPlotTagId("EAST_LANDMASS");
-  const tagWestLandmass = adapter.getPlotTagId("WEST_LANDMASS");
-  const tagEastWater = adapter.getPlotTagId("EAST_WATER");
-  const tagWestWater = adapter.getPlotTagId("WEST_WATER");
+  const safeTag = (name: Parameters<EngineAdapter["getPlotTagId"]>[0]): number | null => {
+    try {
+      return adapter.getPlotTagId(name);
+    } catch (err) {
+      console.log(`[Placement] Plot tag unavailable (${name}):`, err);
+      logPlotTagKeysOnce();
+      return null;
+    }
+  };
+
+  const tagNone = safeTag("NONE");
+  const tagLandmass = safeTag("LANDMASS");
+  const tagWater = safeTag("WATER");
+  const tagEastLandmass = safeTag("EAST_LANDMASS");
+  const tagWestLandmass = safeTag("WEST_LANDMASS");
+  const tagEastWater = safeTag("EAST_WATER");
+  const tagWestWater = safeTag("WEST_WATER");
 
   if (
     [
@@ -86,23 +110,35 @@ function applyPlotTags(
       tagWestLandmass,
       tagEastWater,
       tagWestWater,
-    ].some((tag) => tag < 0)
+    ].every((tag) => tag === null)
   ) {
-    console.log("[Placement] Plot tag IDs unavailable; skipping plot tag pass.");
+    console.log("[Placement] Plot tags unavailable; skipping plot tag pass.");
     return;
   }
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      adapter.setPlotTag(x, y, tagNone);
+      if (tagNone !== null) {
+        adapter.setPlotTag(x, y, tagNone);
+      }
       const terrain = adapter.getTerrainType(x, y);
       const isLand = terrain !== COAST_TERRAIN && terrain !== OCEAN_TERRAIN;
       if (isLand) {
-        adapter.addPlotTag(x, y, tagLandmass);
-        adapter.addPlotTag(x, y, x >= eastBoundary ? tagEastLandmass : tagWestLandmass);
+        if (tagLandmass !== null) {
+          adapter.addPlotTag(x, y, tagLandmass);
+        }
+        const landTag = x >= eastBoundary ? tagEastLandmass : tagWestLandmass;
+        if (landTag !== null) {
+          adapter.addPlotTag(x, y, landTag);
+        }
       } else {
-        adapter.addPlotTag(x, y, tagWater);
-        adapter.addPlotTag(x, y, x >= eastBoundary - 1 ? tagEastWater : tagWestWater);
+        if (tagWater !== null) {
+          adapter.addPlotTag(x, y, tagWater);
+        }
+        const waterTag = x >= eastBoundary - 1 ? tagEastWater : tagWestWater;
+        if (waterTag !== null) {
+          adapter.addPlotTag(x, y, waterTag);
+        }
       }
     }
   }
