@@ -718,7 +718,58 @@ export function applyVolcanoPlacements(
 }
 ```
 
-## 5) Open Questions / Design Decisions
+## 5) Recipe Config Requirements (Handoff)
+
+This section is a requirements handoff for the **recipe config** design conversation. It does not propose an implementation.
+
+### Problem we’re solving
+
+We currently have a “map global config” object that is edited in map files and then translated into the pipeline’s real config. This creates problems:
+
+- The map file config is **not the true execution config** (it’s a proxy/translation layer), which makes it harder to reason about what a step actually receives.
+- It blocks type-safe authoring for richer step contracts (notably strategy selection with per-strategy config).
+- It encourages cross-cutting reads from a shared global config, blurring the boundary between step config and runtime state.
+
+### Capability we want to enable
+
+Mod authors should be able to author recipe configuration **directly in map files** as a TypeScript object, with strong typing derived from the recipe’s steps.
+
+In particular, when a step (or a domain op used by the step) offers strategies, authors should be able to:
+
+- choose a strategy by **string literal name**, and
+- have the config type **narrow automatically** to the selected strategy’s config schema (via a discriminated union), and
+- continue authoring the rest of the recipe config with type safety.
+
+### High-level requirements for the recipe config system
+
+**R-001: Remove “map global config” authoring**
+- There must not be a single monolithic “map global config” object that is translated into recipe config.
+- The primary authoring surface is the **composed recipe config** for the selected recipe.
+
+**R-002: Config composes upwards from steps → recipe**
+- The recipe-level config shape must be composed from the stages/steps included in the recipe.
+- Step config schemas/types are the source of truth for what each step accepts.
+
+**R-003: Strategy selection must be type-safe at authoring time**
+- If a step exposes one or more strategies, authors must be able to select a strategy by name.
+- Selecting a strategy must narrow the config type to the correct strategy config shape (discriminated union).
+- This must work for “authored in TS map file” configs (compile-time type checking), independent of runtime validation.
+
+**R-004: Strategy selection must be runtime-validatable**
+- The strategy union config must also exist as a runtime schema so non-TS inputs (serialized config) can be validated/defaulted.
+- The runtime schema must reject unknown strategy ids and invalid strategy config shapes.
+
+**R-005: No forced re-authoring of canonical op config wrappers**
+- Where steps expose operation config (including strategy selection wrappers), authors should not need to recreate wrapper defaults or schema plumbing by hand.
+- Canonical config schemas/defaults should be importable and usable as-is (e.g., operation `config` and `defaultConfig`), even if steps choose to wrap/extend them for additional step-local options.
+
+### Boundary notes / non-goals for this document
+
+- This spike does **not** define the concrete authoring DSL for recipe config (e.g., `defineRecipeConfig(...)`, `satisfies ...`, JSON schema emission, etc.).
+- This spike does **not** define whether steps should always expose op configs 1:1 vs wrap them; it only requires that strategy selection remains expressible and type-safe in the recipe-level config shape.
+- This spike does **not** address migration from existing overrides/global config usage; it only states the target requirement.
+
+## 6) Open Questions / Design Decisions
 
 Each item below is an intentionally standalone decision packet. The goal is to make the downstream consequences explicit so we can converge without accidental drift.
 
