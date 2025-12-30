@@ -775,196 +775,109 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
-**Context:** The spike introduces `DomainOpKind = "plan" | "compute" | "score" | "select"` to make domain entrypoints easy to understand and to keep steps consistent in how they integrate domain logic.
+**Question:** Are `DomainOpKind` values strict semantics (a contract we teach and enforce) or just labels for documentation?
 
-**Why this decision exists:** Without crisp semantics, “kinds” become decorative labels and teams re-interpret them, which defeats their purpose as a shared authoring language.
-
-**Meaningful impacts:**
-- Authoring ergonomics: does a modder know what a function returns and how to use it?
-- Step design: where do validation, application, publishing, and side effects live?
-- Tooling/docs: can we auto-render a stable contract and enforce consistency?
+**Why it matters / what it affects:** The “kind” is part of the shared authoring vocabulary for domains and steps. If it is strict, it can keep responsibilities crisp (e.g., “plans are applied by steps”, “compute publishes artifacts”, etc.) and enable later tooling/docs. If it is soft, teams will re-interpret it and the vocabulary stops being a reliable guide for where work belongs (domain vs step).
 
 **Options:**
-- **A) Strict semantics (recommended):**
-  - `plan`: produce *intents/edits/overrides* that a step applies to runtime.
-  - `compute`: produce *derived data artifacts/fields* with no side effects.
-  - `score`: produce *scores* (rankings) over candidates.
-  - `select`: produce *choices* (a subset/pick) from candidates/scores.
-- **B) Soft semantics (“kinds” are documentation only):** allow overlap; treat kinds as descriptive, not enforceable.
-- **C) Reduce kinds further:** collapse `score/select` into one (e.g., `score`) and keep just `plan`/`compute`.
+- **A) Strict semantics (preferred):** treat kinds as a contract.
+  - `plan`: produces intents/edits/overrides that steps apply.
+  - `compute`: produces derived artifacts/fields (no side effects).
+  - `score`: produces scores/rankings over candidates.
+  - `select`: produces selections/choices from candidates/scores.
+- **B) Soft semantics:** kinds are descriptive only; overlap is allowed.
+- **C) Fewer kinds:** collapse `score`/`select` (e.g., keep `plan` + `compute` + `score`).
 
-**Considerations:**
-- Strict semantics enables shared patterns and later tooling (validation, docs, scaffolding), but requires clearer discipline.
-- Soft semantics reduces up-front constraint but tends to drift into inconsistent step/domain responsibilities.
-- Fewer kinds are easier to teach; too many kinds can feel frameworky.
-
-**Rationale / leaning:** Prefer **A** with **minimal kinds** (keep 3–4 total). If `select` adds confusion, collapse into `score` (Option C) while keeping `plan` vs `compute` crisp.
+**Recommendation:** Start with **A**, but keep the set small. If `select` doesn’t add real clarity, adopt **C** (collapse into `score`) while keeping the `plan` vs `compute` distinction crisp.
 
 ### DD-002: Derived defaults and config normalization (beyond schema defaults)
 
-**Context:** We now assume the boundary pattern:
+**Question:** Beyond plain schema defaults (via `op.config` + `op.defaultConfig`), where do we put “derived defaults” and “normalization” (clamping/rewriting config into canonical form)?
 
-- steps validate/default config using schemas,
-- ops stay pure and accept a typed config value,
-- ops export canonical `config` + `defaultConfig` so steps/recipes don’t re-author wrapper shapes.
-
-This resolves the “who applies schema defaults?” question for basic defaults. The open question is how we handle **derived defaults** (defaults that depend on inputs/map size) and **normalization** (clamping/rewriting config into a canonical form).
-
-**Why this decision exists:** Derived behavior is common in mapgen. If it is implicit or split across steps/ops inconsistently, it becomes hard to reason about, hard to test, and easy to drift.
-
-**Meaningful impacts:**
-- Determinism: do ops see fully resolved config values?
-- Authoring UX: do modders see “the real knobs”, or do defaults shift depending on map size without being explicit?
-- Testability: can we unit test normalization without running steps?
+**Why it matters / what it affects:** Mapgen frequently needs scale-aware behavior (“this threshold depends on map size”) and guardrails (“clamp this value”). If this logic is implicit or scattered, it becomes hard to reason about determinism, hard to test in isolation, and easy for different steps/domains to drift into inconsistent behavior.
 
 **Options:**
-- **A) Schema defaults only (baseline):** prefer TypeBox defaults + simple in-op fallbacks; avoid derived defaults.
-- **B) Explicit `normalizeConfig(input, cfg)` (recommended when needed):**
-  - Export a pure normalizer (from the op or step-local helper).
-  - Call it before `run(...)` (or call it inside `run(...)`, but keep it pure and testable).
-- **C) Derived values computed inside `run(...)`:** compute scaled thresholds from `(inputs, cfg)` without changing config.
+- **A) Schema defaults only (baseline):** rely on TypeBox defaults and minimal in-op fallbacks; avoid derived defaults.
+- **B) Explicit pure normalizer (escape hatch):** export `normalizeConfig(input, cfg)` (either from the op module or a step-local helper) and call it before `run(...)` (or inside `run(...)`, but keep it pure/testable).
+- **C) Derived values inside `run(...)`:** keep config stable; compute derived scalars from `(input, cfg)` within the algorithm.
 
-**Considerations:**
-- `normalizeConfig(...)` makes derived behavior explicit and re-usable across steps/recipes while keeping ops pure.
-- Computing derived values inside `run(...)` avoids extra surface area but can hide important scaling rules unless documented/tested.
-
-**Rationale / leaning:** Prefer **A** as the baseline, with **B** as the explicit escape hatch for derived defaults and normalization.
+**Recommendation:** Treat **A** as the default expectation. When derived/defaulting behavior is needed, prefer **B** because it makes scaling/normalization explicit and unit-testable without dragging runtime into the domain.
 
 ### DD-003: Operation input shape and schema expressiveness (buffers, views, typed arrays)
 
-**Context:** The spike models op inputs as buffers/typed arrays for determinism and testability, but TypeBox schemas cannot precisely express typed-array shapes out of the box. In examples we often use `Type.Any()` for `Uint8Array`/`Float32Array`.
+**Question:** What shapes are allowed for `op.input` / `op.output`, and how hard do we try to represent them in TypeBox schemas (especially for typed arrays)?
 
-**Why this decision exists:** Input shape strongly affects performance, testability, portability, and the amount of step boilerplate required to adapt runtime state into domain inputs.
-
-**Meaningful impacts:**
-- Performance/memory: precomputing buffers costs memory but enables cache-friendly loops; function callbacks can add overhead.
-- Testability: buffers are easy to snapshot and fuzz; function-based views can hide state and make tests less explicit.
-- Step complexity: building buffers is boilerplate; passing a function is quicker but can leak runtime dependencies.
-- Runtime validation quality: do we validate input types or treat inputs as unchecked?
+**Why it matters / what it affects:** Inputs are the main coupling point between runtime and domain. Buffer-based inputs (typed arrays/POJOs) are deterministic and easy to test, but require step-side extraction/precompute. Callback “views” can reduce boilerplate and memory, but risk domain logic implicitly depending on runtime state in ways that are harder to test and reason about. Separately, TypeBox can’t precisely encode typed-array shapes out of the box, so runtime validation and doc rendering may degrade to `Type.Any()` unless we add helpers.
 
 **Options:**
-- **A) Buffers/POJOs only (recommended default):** op inputs are serializable-ish data (typed arrays, plain objects), no runtime callbacks.
-- **B) Allow callback views:** allow inputs to include readonly functions (e.g., `readElevation(x,y)`), with discipline to keep them pure.
-- **C) Two-tier model:** core ops take buffers; optional helper ops accept callback views and can be used when memory is constrained.
-- **D) Minimal typed-array schema helpers (TBD):** add tiny helpers (e.g., `t.uint8Array()`) so `op.input`/`op.output` schemas can be more precise than `Type.Any()`.
+- **A) Buffers/POJOs only (preferred default):** inputs are plain data (typed arrays, plain objects), no runtime callbacks.
+- **B) Allow callback views:** inputs may include readonly functions (e.g., `readElevation(x,y)`), kept pure by convention.
+- **C) Two-tier model:** “core” ops take buffers; separate convenience ops accept callback views when memory pressure matters.
+- **D) Minimal typed-array schema helpers (TBD):** add tiny helpers so schemas are more informative than `Type.Any()` without introducing a big framework.
 
-**Considerations:**
-- Buffers-only makes ops easiest to test and reason about, and enables a shared “apply/compute per tile” style.
-- Callback views can be ergonomic for steps and avoid precomputing, but risk “domain code silently depends on engine behavior” unless the interface is intentionally minimal.
-- A two-tier model adds surface area; it can be justified if memory pressure is real in Civ7 runtime constraints.
-- Typed-array schema helpers improve documentation/runtime validation but add authoring surface area; keep them minimal.
-
-**Rationale / leaning:** Prefer **A** as the canonical contract for step-callable ops. If callbacks are needed, constrain them to tiny, explicitly named readonly interfaces and keep them pure.
+**Recommendation:** Default to **A** for step-callable ops (best determinism/testability). If we introduce callbacks, constrain them to tiny, explicitly named readonly interfaces. For schema expressiveness, consider **D** only if we concretely need better runtime validation/docs; keep it minimal.
 
 ### DD-004: Artifact keys / dependency keys ownership (domain vs recipe)
 
-**Context:** Steps declare `requires`/`provides` via `DependencyKey`s and publish artifacts/fields for downstream steps. Domains may define artifact *shapes* (schemas/types) and sometimes want to “name” those artifacts.
+**Question:** Who “owns” dependency identifiers (`DependencyKey`s): domains, recipes, or some split?
 
-**Why this decision exists:** Stable pipeline wiring depends on consistent dependency identifiers. If both domains and recipes invent keys freely, the graph becomes fragile and hard to refactor.
-
-**Meaningful impacts:**
-- Pipeline correctness: can the recipe compiler enforce dependencies reliably?
-- Reuse/composability: can multiple recipes use the same domain op without key collisions?
-- Docs/tooling: can we render a contract of “what this op needs/produces” that is stable?
+**Why it matters / what it affects:** Dependency identifiers are the glue of the recipe graph. If keys are invented ad hoc in multiple places, the dependency graph becomes fragile and refactors become painful. This decision also determines how portable a domain is across recipes and how much implicit wiring is hidden behind “magic” keys.
 
 **Options:**
-- **A) Recipe dependency-catalog owns keys (recommended):**
-  - Domains define artifact *schemas/types*.
-  - Recipe-level catalogs define the canonical string `DependencyKey`s for `requires/provides`.
-  - Steps publish under recipe-owned keys.
-- **B) Domain owns keys:** domains export canonical keys for their artifacts.
-- **C) Split by layer:** engine/runner-owned keys live centrally; content-owned keys live with the content domain.
+- **A) Recipe-owned keys (preferred):** domains define artifact shapes (schemas/types), recipes (or recipe-level catalogs) define the canonical string keys, and steps publish under recipe-owned keys.
+- **B) Domain-owned keys:** domains export canonical keys along with shapes.
+- **C) Split by layer:** engine/runner defines some core keys centrally; content domains define their own keys.
 
-**Considerations:**
-- Recipe-owned keys keep the execution graph explicit and avoid “hidden publications” inside domains; they also align with “steps are the boundary”.
-- Domain-owned keys improve portability (“use this domain and you know the key”), but can conflict when recipes want to alias/duplicate artifacts or publish multiple versions.
-- A split model can work if ownership boundaries are sharp (engine vs content), but must avoid reintroducing a global “registry” smell for artifacts.
-
-**Rationale / leaning:** Prefer **A**: domains own shapes, recipes own dependency identifiers. If a domain wants stable naming, encode it in type names and schema `kind/version`, not necessarily in global keys.
+**Recommendation:** Prefer **A**: domains own shapes; recipes own dependency identifiers. If a domain needs stable naming, encode it in type/schema metadata (e.g., `kind`/`version`) rather than forcing a global key into every recipe.
 
 ### DD-005: Strategy config encoding and ergonomics (wrapper shape, defaults, explicitness)
 
-**Context:** Strategy-backed ops use a discriminated union config shape (conceptually `{ strategy, config }`) so authors can select a strategy by string literal and get config narrowing. We also allow a default strategy where `strategy` can be omitted.
+**Question:** What is the canonical config shape for strategy-backed operations, and how “explicit” should strategy selection be?
 
-**Why this decision exists:** The config shape becomes part of the author-facing contract. Small ergonomic differences here (always explicit vs default-friendly) materially affect how approachable strategy-backed steps feel.
-
-**Meaningful impacts:**
-- Authoring ergonomics: do authors understand when/why to specify `strategy`?
-- Config readability: does config remain stable across one-strategy vs multi-strategy cases?
-- Runtime validation: can we default selection without surprising behavior?
-- Evolution: what happens when a second strategy is added later?
+**Why it matters / what it affects:** This is the primary authoring surface mod authors will touch. The shape determines whether strategy selection “falls out” naturally via a discriminated union, how much boilerplate authors write, and what happens when operations evolve from one strategy to multiple strategies.
 
 **Options:**
-- **A) Always explicit strategy:** always require `{ strategy, config }` even when a default exists.
-- **B) Default-friendly (current pattern):** allow omitting `strategy` when a default strategy exists (still allow explicit override).
-- **C) Flatten config for single-strategy ops:** when `n=1`, config becomes just that strategy’s config object; only multi-strategy ops use `{ strategy, config }`.
+- **A) Always explicit:** always require `{ strategy, config }` even if a default exists.
+- **B) Default-friendly (current pattern):** allow omitting `strategy` when a default strategy exists, while still permitting explicit override.
+- **C) Flatten for `n=1`:** if there is only one strategy, use just that config object; only multi-strategy ops use `{ strategy, config }`.
 
-**Considerations:**
-- Always-explicit reduces “invisible selection” but forces boilerplate everywhere.
-- Default-friendly keeps config compact and still permits explicit choice; it requires clear docs/examples so authors notice they *can* set `strategy`.
-- Flattening for `n=1` is ergonomic, but introduces a shape discontinuity if a second strategy is added later.
-
-**Rationale / leaning:** Prefer **B** with explicit examples and a convention that strategy ids are visible and documented. Avoid **C** unless we commit to a migration story when strategies grow.
+**Recommendation:** Keep **B** as the default: it’s compact, still supports explicit selection, and aligns with the “choose strategy by string literal name” goal. Avoid **C** unless we are willing to own a migration story (shape changes when a second strategy is introduced).
 
 ### DD-006: Recipe config authoring surface (remove global overrides, preserve type-safe strategy selection)
 
-**Context:** The target architecture removes the “map global config overrides” layer and makes the composed recipe config the primary authoring surface in map files.
+**Question:** What is the authoring surface for modders: direct recipe config (composed from steps) or a curated “global-ish” authoring config that compiles into recipe config?
 
-**Why this decision exists:** Strategy selection + per-strategy config narrowing only fully works for mod authors if they edit the real composed recipe config shape (step configs), not a proxy global config that gets translated.
-
-**Meaningful impacts:**
-- Mod author UX: where do they edit config, and how much do they need to know about stages/steps?
-- Type safety: do authors get string-literal strategy selection with union narrowing where they actually write config?
-- Runtime correctness: does the pipeline validate the same config that authors see?
+**Why it matters / what it affects:** The capability we’re enabling (type-safe strategy selection via discriminated unions) only works if authors edit the real config shape that steps actually validate and execute. Any translation layer can erase unions, introduce drift, or reintroduce a global config smell.
 
 **Options:**
-- **A) Map files author composed recipe config directly:** author the composed recipe config (or a deep partial) in TS and pass it through with minimal translation.
-- **B) Keep a curated “authoring config” surface:** a smaller curated shape that compiles into recipe config, but it must preserve strategy selection semantics for any step that exposes strategies.
-- **C) Keep global overrides (reject):** retain a global config and translate; this blocks the capability by construction.
+- **A) Author composed recipe config directly (preferred):** map files author the recipe’s composed config (or a deep partial), with minimal translation.
+- **B) Curated authoring config (optional sugar):** a smaller curated shape that compiles into recipe config, but it must preserve strategy unions and should be type-derived from the recipe config types.
+- **C) Keep global overrides (reject):** a monolithic map config translated into recipe config.
 
-**Considerations:**
-- Direct recipe config maximizes type safety and reduces translation drift, but exposes more of the pipeline structure to authors.
-- A curated authoring config can be friendlier, but only works if it is type-derived from the recipe config types (so it can’t silently erase strategy unions).
-
-**Rationale / leaning:** Prefer **A** as the long-term authoring model, with **B** as optional sugar only if it is type-derived and does not reintroduce a global config.
+**Recommendation:** Treat **A** as the target. If we later add **B**, it must be strictly type-derived and must not reintroduce a global config object that blocks strategy unions.
 
 ### DD-007: Step schema composition (manual wiring vs declarative op usage)
 
-**Context:** Steps must provide a runtime `schema` for validation/defaulting. Today, step authors often manually compose a `Type.Object({ ... })` that mirrors the ops they call (and/or step-local knobs), which can feel repetitive.
+**Question:** How much should step authors manually wire step schemas vs having a small helper derive schema/config shape from declared op usage?
 
-**Why this decision exists:** We want step code to stay small and readable. If the “step schema” becomes mechanical wiring, it increases cognitive load and makes strategy-backed ops easier to misconfigure.
-
-**Meaningful impacts:**
-- Authoring ergonomics: how much boilerplate does a step require to be “well-typed and well-validated”?
-- Drift risk: can the step schema get out of sync with the ops it actually calls?
-- Tooling: can we auto-render docs or generate config templates from step/op contracts?
+**Why it matters / what it affects:** Steps sit at the runtime boundary and must validate/default configuration. If authors have to repeatedly mirror operation configs by hand, step code gets noisy and can drift out of sync with the ops actually called (especially for strategy-backed ops where wrapper shapes/defaults matter).
 
 **Options:**
-- **A) Manual schema composition (baseline):** steps explicitly define `schema` with `Type.Object(...)` and reference `op.config` as needed.
-- **B) Declarative op usage in step definition:** steps declare the ops they use (e.g., `ops: { planVolcanoes: volcanoes.ops.planVolcanoes }`) and a helper derives `schema` + default config shape.
-- **C) External build-time composition:** a build tool/codegen scans steps and generates schemas/config templates (higher complexity).
+- **A) Manual schema composition (baseline):** steps write `Type.Object(...)` and reference `op.config` / `op.defaultConfig` as needed.
+- **B) Declarative op usage (small ergonomic helper):** steps declare which ops they use, and a helper derives the `schema` and/or default config shape for those ops.
+- **C) Build-time composition:** scan code and generate schemas/templates (more tooling).
 
-**Considerations:**
-- Manual is explicit but repetitive; it can also obscure the “real config surface” a step exposes.
-- Declarative op usage keeps authoring simple without introducing a heavy framework; it does require a slightly richer step authoring API.
-- Build-time composition is powerful but adds tooling and reduces “read the code to understand the contract” immediacy.
-
-**Rationale / leaning:** Start with **A** while designs settle; consider **B** as the minimal ergonomic upgrade once recipe config authoring is prioritized.
+**Recommendation:** Keep **A** for now while the model stabilizes, but plan for **B** as the first ergonomic upgrade once recipe-config authoring becomes the priority. Avoid **C** unless we hit a real scaling wall.
 
 ### DD-008: Pipeline dependency terminology migration (`DependencyTag` → `DependencyKey`)
 
-**Context:** This spike uses “DependencyKey” / “DependencyDefinition” terminology to avoid overloading “tag”, but the runtime code still uses legacy names (`DependencyTag`, `TagRegistry`, etc.).
+**Question:** Do we align runtime code vocabulary with the doc vocabulary (`DependencyKey`/`DependencyDefinition`) or keep legacy “tag” naming in code?
 
-**Why this decision exists:** Documentation and code drifting into different vocabularies makes the system harder to learn and increases the chance of ambiguous “tag” usage (pipeline deps vs Civ plot tags vs story tagging).
-
-**Meaningful impacts:**
-- API clarity: do mod authors learn one vocabulary consistently?
-- Migration cost: how disruptive is renaming across engine/types/public exports?
-- Compatibility: do we need aliases/deprecations to avoid breaking mods?
+**Why it matters / what it affects:** “Tag” is overloaded (pipeline dependencies vs Civ plot tags vs story overlay classification). If code and docs diverge, mod authors learn two vocabularies and the ambiguity comes back through everyday usage and APIs.
 
 **Options:**
-- **A) Keep legacy code names, update docs only:** least disruptive, but preserves ambiguity and creates doc/code mismatch.
-- **B) Rename in code with deprecations (recommended):** introduce new names (`DependencyKey`, `DependencyRegistry`) and keep legacy exports as deprecated aliases for a transition window.
-- **C) Rename in code without aliases:** cleanest long-term, but potentially breaking.
+- **A) Docs-only rename:** keep legacy code names; docs use the newer vocabulary.
+- **B) Code rename with deprecations (preferred):** introduce `DependencyKey`/`DependencyRegistry` and keep legacy exports as deprecated aliases for a transition period.
+- **C) Hard code rename:** rename without aliases (breaking).
 
-**Rationale / leaning:** Prefer **B** so docs, examples, and code converge without a hard break.
+**Recommendation:** Prefer **B** so docs, examples, and code converge without a hard break.
