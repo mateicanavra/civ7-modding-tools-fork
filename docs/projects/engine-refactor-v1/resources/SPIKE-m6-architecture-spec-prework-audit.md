@@ -13,6 +13,8 @@ These are now **directives** for the next phase and must be reflected in the fin
 4) **Domain boundary (final):** domain modules are pure; steps own engine semantics (adapter/context/artifact publication).
 5) **Step module standard (final):** single-file step modules; ban `steps/index.ts` barrels; prefer decomposition into more steps over per-step directory forests.
 6) **Core public surface (final):** mod-facing API is authoring-first; mods must not import from `@swooper/mapgen-core/engine` (treat as a leak to clean up). Explicitly sanctioned `lib/*` imports must be listed in SPEC.
+7) **Artifact immutability (final):** artifact values are immutable snapshots and this is **enforced**, not advisory.
+8) **Context naming (final):** rename `context.fields` → `context.buffers` and rename current `context.buffers` (work/staging buffers) → `context.staging`. Retire the term “fields” entirely.
 
 ## Why this exists
 
@@ -117,6 +119,50 @@ Directive: the final SPEC must describe **only** this model.
 - Each recipe config is a composition of its stages’ configs.
 - A map file authors **one config surface** for a chosen recipe: `RecipeConfigOf<typeof stages>` (strongly typed) which is validated/defaulted at compile time.
 - `ExtendedMapContext.config` is not part of the target authoring/runtime model; any remaining reads are remediation targets.
+
+## Artifact immutability (target, enforced)
+
+### Decision (locked)
+
+Artifact **values** are immutable snapshots: once published into the artifact store, they must not be mutated.
+
+This is an intentional design constraint (not just convention) and must be **enforced** by the publishing mechanism.
+
+### Enforcement rule (target)
+
+- Artifact publication must **deep-immobilize** the artifact value at publish time (freeze / deep-freeze semantics).
+- Artifact payloads are restricted to “snapshot-friendly” data:
+  - primitives, arrays, and plain objects (JSON-ish trees)
+  - `Readonly<Record<string, unknown>>`-style shapes and nested readonly collections
+- Disallowed as artifact payloads:
+  - typed arrays and other mutable buffers (`Uint8Array`, `Int16Array`, etc.)
+  - `Map`/`Set`
+  - class instances with mutable internal state
+  - functions
+- Large/mutable numeric state belongs in `context.buffers` / `context.staging`, not in artifacts.
+
+### Why this matters (non-optional semantics)
+
+- `requires/provides` only makes sense if “provided” means “stable snapshot exists now”.
+- Prevents action-at-a-distance: downstream steps cannot mutate upstream artifacts via shared references.
+- Supports replay/debug/diff by ensuring artifacts are stable by construction.
+
+## Context naming: `fields` → `buffers` (target)
+
+### Decision (locked)
+
+- Rename `context.fields` → `context.buffers` (this is the mutable world-state surface).
+- Rename the current `context.buffers` (heightfield/climate/scratch staging buffers) → `context.staging`.
+- Retire “fields” as a term in the runtime/authoring API: all “fields” are mutable buffers in practice.
+
+### Clarification (no dual meanings)
+
+- `context.buffers`: mutable world buffers (today’s `MapFields`: rainfall/elevation/biome/terrain/etc.)
+- `context.staging`: mutable work buffers used during generation (today’s `MapBuffers`: heightfield/climate/scratchMasks/etc.)
+
+### Implementation blast radius (for the later execution pass)
+
+- Rename touches core types (`ExtendedMapContext`, `createExtendedMapContext`) plus all mod steps and tag-contract `satisfies` checks referencing `context.fields` and `context.buffers`.
 
 Concrete grounding for the “validated/defaulted” claim:
 
