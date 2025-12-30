@@ -73,6 +73,8 @@ import {
 } from "@mapgen/config/schema/hydrology.js";
 import {
   BiomeConfigSchema,
+  BiomeThresholdsSchema,
+  NarrativePolicySchema,
   FeaturesDensityConfigSchema,
 } from "@mapgen/config/schema/ecology.js";
 import {
@@ -196,6 +198,8 @@ export type ClimateStoryPaleoElevationCarving = Static<typeof ClimateStoryPaleoE
 export type ClimateStoryPaleo = Static<typeof ClimateStoryPaleoSchema>;
 export type ClimateConfig = Static<typeof ClimateConfigSchema>;
 export type BiomeConfig = Static<typeof BiomeConfigSchema>;
+export type BiomeThresholds = Static<typeof BiomeThresholdsSchema>;
+export type NarrativePolicy = Static<typeof NarrativePolicySchema>;
 export type FeaturesDensityConfig = Static<typeof FeaturesDensityConfigSchema>;
 export type FloodplainsConfig = Static<typeof FloodplainsConfigSchema>;
 export type StartsConfig = Static<typeof StartsConfigSchema>;
