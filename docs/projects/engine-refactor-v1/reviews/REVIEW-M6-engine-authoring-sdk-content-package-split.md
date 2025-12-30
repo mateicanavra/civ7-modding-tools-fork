@@ -30,6 +30,7 @@ Re-review: no additional issues found.
 
 ### Quick Take
 Authoring POJO shapes and schema enforcement are in place with tests, but `instanceId` lives on `StepModule`, which conflicts with the stated intent to keep it recipe-occurrence-only.
+Re-review: no additional issues beyond the `instanceId` placement concern.
 
 ### High-Leverage Issues
 - `packages/mapgen-core/src/authoring/types.ts`: `StepModule` includes `instanceId`, so step definitions now carry occurrence identity; this diverges from the decision to keep `instanceId` recipe-only and can complicate reusing steps across recipes.
