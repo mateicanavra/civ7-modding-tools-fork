@@ -905,6 +905,8 @@ Conventions for this section:
 - **Recipe config (canonical artifact):** the concrete TypeScript object shape that the runtime/runner validates and executes. It is composed from the recipe’s stages/steps, and includes step-level config (including op strategy selection where applicable).
 - **Curated authoring config (canonical artifact):** an optional, *friendlier* TypeScript object shape intended for humans to edit, which is then translated/compiled into the canonical recipe config.
   - “Curated” here means: the shape can rename/re-group fields to be more ergonomic than the raw stage/step graph, but it must remain **per-recipe** (not global), and it must preserve **type-derived constraints** (not hand-maintained).
+- **Compiler function (canonical API):** a small function (e.g., `compileAuthoringConfig(recipe, authoring) -> recipeConfig`) that maps the curated authoring config into the canonical recipe config.
+  - Important nuance: Option B does *not* require a second runtime schema system. The runtime schema remains the recipe/step schemas; the curated authoring config can be “just types + a mapper”.
 - **Optional sugar (approach):** we still treat recipe config as the source of truth; the curated authoring config is a convenience surface that is not required to use the system.
 
 **Why it matters / what it affects:** The capability we’re enabling (type-safe strategy selection via discriminated unions, including the DD-005 default-friendly behavior) only works if authors edit the real config shape that steps actually validate and execute. Any translation layer can erase unions, introduce drift, or reintroduce a global config smell.
