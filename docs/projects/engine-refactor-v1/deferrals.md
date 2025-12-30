@@ -172,7 +172,7 @@ Each deferral follows this structure:
 
 ## Resolved Deferrals
 
-## DEF-002: StoryTags Compatibility Layer (Derived From StoryOverlays)
+## DEF-002: StoryTags Compatibility Layer (Derived From Narrative Story Entries)
 
 **Deferred:** 2025-12-14  
 **Trigger:** After narrative/playability state is published/consumed as explicit narrative **story entry artifacts** (`artifact:narrative.motifs.*.stories.*@vN`) and no in-repo consumers require `StoryTags` for correctness.  
@@ -258,11 +258,11 @@ Each deferral follows this structure:
 
 ---
 
-## DEF-003: Global StoryOverlays Registry Fallback
+## DEF-003: Global Legacy Overlay Registry Fallback
 
 **Deferred:** 2025-12-14  
 **Trigger:** After derived overlay snapshots are read exclusively via pipeline context (no global reads), and story execution is fully step-owned.  
-**Context:** `StoryOverlays` currently has a global registry fallback to support legacy reads and transitional wiring. This is intentionally kept through M3 to avoid brittle cutovers while the Task Graph and story steps are stabilized.  
+**Context:** `StoryOverlays` (legacy overlays registry / `ctx.overlays`) currently has a global registry fallback to support legacy reads and transitional wiring. This is intentionally kept through M3 to avoid brittle cutovers while the Task Graph and story steps are stabilized.  
 **Scope:**
 - Keep the global fallback through M3 for compatibility.
 - Migrate callers to context-scoped narrative state (target: narrative story entry artifacts; legacy/debug: derived snapshots in `ctx.overlays` during transition).

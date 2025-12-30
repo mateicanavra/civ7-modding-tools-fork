@@ -151,12 +151,12 @@ See `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refact
 
 - **Pipeline generalization**
   - Define and implement `MapGenStep`, `StepRegistry`, `MapGenContext` (including artifacts), and `PipelineExecutor` per the architecture docs.
-  - Wrap legacy hydrology, climate, narrative overlay, biome, and placement logic in `MapGenStep`s (e.g., `LegacyHydrologyStep`), then progressively refactor internals.
+  - Wrap legacy hydrology, climate, narrative, biome, and placement logic in `MapGenStep`s (e.g., `LegacyHydrologyStep`), then progressively refactor internals.
   - Enforce phase boundaries (`setup`, `foundation`, `morphology`, `hydrology`, `ecology`, `placement`), and ensure each step declares `requires`/`provides`.
-  - Remove direct `WorldModel` usage from new steps; `MapGenContext` + overlays become canonical.
+  - Remove direct `WorldModel` usage from new steps; `MapGenContext` artifacts/buffers become canonical, and narrative is expressed as explicit story entry artifacts (with derived views for inspection/debug).
 
 - **Data products and cluster alignment**
-  - Solidify `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` as the core data products.
+  - Solidify `FoundationContext`, `Heightfield`, `ClimateField`, and narrative story entries (typed story entry artifacts by motif; derived views for inspection/debug) as core data products.
   - Ensure clusters follow the target topology (see Section 5.1) and consume these products instead of ad-hoc globals.
 
 **Exit Criteria**
@@ -181,13 +181,13 @@ See `milestones/M4-target-architecture-cutover-legacy-cleanup.md` for detailed s
 - **Testing**
   - ~~Add Vitest smoke tests for the orchestrator and pipeline using a stub adapter and representative presets.~~  
     **Update (2025-12-21, M4 planning):** M4 uses Bun smoke tests; inputs are explicit recipe + settings selection (no presets). See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
-  - Add targeted tests for foundation, climate, overlays, and placement steps where feasible.
+  - Add targeted tests for foundation, climate, narrative, and placement steps where feasible.
   - ~~Introduce regression tests for key map presets to guard against unintended changes.~~  
     **Update (2025-12-21, M4 planning):** Regression tests are recipe+settings selections (no preset resolution). See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
 
 - **Manifest & data-product validation**
   - Implement a lightweight validator that ensures `requires` inputs are present before a step runs.
-  - Validate that data products like `FoundationContext`, `Heightfield`, `ClimateField`, and `StoryOverlays` exist before consumers execute.
+  - Validate that required data products (artifacts/buffers) exist before consumers execute, including narrative story entries when required by downstream steps.
 
 - **Cleanup & TS migration finish**
   - Remove remaining JS shims and deprecated paths.
