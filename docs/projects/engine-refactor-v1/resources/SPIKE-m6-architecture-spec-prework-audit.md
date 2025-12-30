@@ -14,7 +14,8 @@ These are now **directives** for the next phase and must be reflected in the fin
 5) **Step module standard (final):** single-file step modules; ban `steps/index.ts` barrels; prefer decomposition into more steps over per-step directory forests.
 6) **Core public surface (final):** mod-facing API is authoring-first; mods must not import from `@swooper/mapgen-core/engine` (treat as a leak to clean up). Explicitly sanctioned `lib/*` imports must be listed in SPEC.
 7) **Artifact immutability (final):** artifact values are immutable snapshots and this is **enforced**, not advisory.
-8) **Context naming (final):** rename `context.fields` → `context.buffers` and rename current `context.buffers` (work/staging buffers) → `context.staging`. Retire the term “fields” entirely.
+8) **Context naming (final):** rename `context.fields` → `context.buffers`. Retire the term “fields” entirely.
+9) **Buffers vs artifacts separation (final):** buffers are mutable run state; artifacts are immutable published snapshots. Do not publish buffers as artifacts to satisfy dependency gating.
 
 ## Why this exists
 
@@ -151,18 +152,97 @@ This is an intentional design constraint (not just convention) and must be **enf
 
 ### Decision (locked)
 
-- Rename `context.fields` → `context.buffers` (this is the mutable world-state surface).
-- Rename the current `context.buffers` (heightfield/climate/scratch staging buffers) → `context.staging`.
+- Rename `context.fields` → `context.buffers`.
 - Retire “fields” as a term in the runtime/authoring API: all “fields” are mutable buffers in practice.
-
-### Clarification (no dual meanings)
-
-- `context.buffers`: mutable world buffers (today’s `MapFields`: rainfall/elevation/biome/terrain/etc.)
-- `context.staging`: mutable work buffers used during generation (today’s `MapBuffers`: heightfield/climate/scratchMasks/etc.)
 
 ### Implementation blast radius (for the later execution pass)
 
-- Rename touches core types (`ExtendedMapContext`, `createExtendedMapContext`) plus all mod steps and tag-contract `satisfies` checks referencing `context.fields` and `context.buffers`.
+- Rename touches core types (`ExtendedMapContext`, `createExtendedMapContext`) plus all mod steps and tag-contract `satisfies` checks referencing `context.fields`.
+
+## Decision record: buffers vs artifacts separation (immutable artifacts; mutable buffers)
+
+### Decision (locked)
+
+We commit to a hard separation:
+
+- **Artifacts are immutable snapshots.**
+  - “Publish artifact” means “store an immutable value that downstream steps can rely on as stable”.
+- **Buffers are mutable run state.**
+  - Buffers are where generation writes evolving world state and intermediate working data (typed arrays, caches, staging tensors).
+- **Do not publish buffers as artifacts.**
+  - Using `context.artifacts` as a registry for typed-array buffers is a transitional misuse and is not allowed in the target.
+
+Canonical step context shape (for now):
+
+- `context.buffers` (mutable)
+- `context.artifacts` (mutable store of **immutable values**)
+- `context.settings` (immutable run settings)
+- `context.overlays` (TBD; separate design session)
+
+### Intent / architectural direction
+
+Make the system legible:
+
+- “Mutable world state” is clearly contained under buffers.
+- “Published results” are clearly contained under artifacts.
+- Dependency gating (“requires/provides”) must be able to refer to both **without forcing buffers through artifacts**.
+
+### Current state (M6 reality)
+
+M6 uses `context.artifacts` as the only general-purpose cross-step registry for dependency satisfaction. As a result:
+
+- “Artifact dependencies” are sometimes used as a proxy for “this buffer is ready”.
+  - Example: the standard recipe publishes heightfield/climate buffers into `context.artifacts` (e.g. “artifact:heightfield”, “artifact:climateField”) by storing references to typed arrays.
+- Foundation publishes large tensor buffers (`plates`, `dynamics`) into artifacts for downstream gating, even though they are typed arrays by nature.
+
+### Why current state exists (cutover/transition reasons)
+
+The dependency system has explicit dependency kinds (`artifact` / `field` / `effect`) and can validate satisfaction via `satisfies(context)`.
+
+However, there is no first-class “buffer readiness” dependency surface for intermediate/staging buffers. The artifact store became the default place to put “things steps want to depend on”, even when those things are mutable buffers.
+
+### Why this was a mistake (or, more precisely, a transitional hack)
+
+Publishing buffers as artifacts creates a semantic collision:
+
+- Artifacts are intended to be stable published products; buffers are intentionally mutable.
+- Buffer-as-artifact makes immutability enforcement either impossible or expensive (deep cloning typed arrays would be a semantic and performance shift).
+- It blurs boundaries and makes “what is safe to mutate?” unclear, increasing black-ice risk.
+
+### Target (what changes)
+
+In the target architecture:
+
+- **Buffers stay in `context.buffers`** and are satisfied/validated as buffers.
+- **Artifacts stay in `context.artifacts`** and are enforced-immutable snapshots.
+- Steps that currently “publish a buffer artifact” instead:
+  - **provide a buffer dependency** (readiness contract) and
+  - write/read the underlying data via `context.buffers`.
+
+This requires tightening an architectural seam in the dependency system:
+
+- The gating model must support “buffer readiness” dependencies that validate against `context.buffers` (sizes, presence, invariants) without copying the data into artifacts.
+
+### Problem this solves
+
+- Restores a clean mental model: mutable buffers vs immutable artifacts.
+- Makes artifact immutability enforcement feasible and meaningful.
+- Clarifies what the dependency system is actually gating: stable snapshots vs mutable state availability.
+
+### Boundaries (what this decision does NOT decide)
+
+- **Overlays**: whether overlays live as artifacts or a separate context surface is explicitly **TBD** and must be decided in a separate session.
+- The exact internal organization of buffers (world vs work vs staging) is not settled here; we only commit that they are all **buffers** and are mutable.
+
+### Open questions / follow-ups (explicit)
+
+- **Dependency gating detail (needs design):**
+  - Do we introduce a new dependency kind (e.g. `buffer:`) vs broaden/rename the existing `field:` kind?
+  - Where do buffer dependency contracts live and how are they inferred/declared?
+  - What are the canonical satisfiers for buffer readiness (presence + size + shape + version)?
+- **Buffer taxonomy (needs design):**
+  - Do we standardize a `context.buffers.<area>` hierarchy (e.g., `world`, `foundation`, `scratch`) or keep a flat structure?
+  - How do we represent “work buffers” vs “world buffers” without reintroducing confusing terminology?
 
 Concrete grounding for the “validated/defaulted” claim:
 
