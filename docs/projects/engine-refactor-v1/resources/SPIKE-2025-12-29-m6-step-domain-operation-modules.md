@@ -773,6 +773,10 @@ In particular, when a step (or a domain op used by the step) offers strategies, 
 
 Each item below is an intentionally standalone decision packet. The goal is to make the downstream consequences explicit so we can converge without accidental drift.
 
+Conventions for this section:
+- Each option calls out whether it introduces a **canonical artifact/API** (a “thing” with structure that exists in the system) vs a **convention/approach** (a way we use existing things).
+- If a term is synthesized here (not obviously canonical), it is defined inline in that decision packet before use.
+
 ### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
 **Impact / scale:** **Medium**
@@ -897,12 +901,94 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 **Question:** What is the authoring surface for modders: direct recipe config (composed from steps) or a curated “global-ish” authoring config that compiles into recipe config?
 
+**Definitions (used in this decision):**
+- **Recipe config (canonical artifact):** the concrete TypeScript object shape that the runtime/runner validates and executes. It is composed from the recipe’s stages/steps, and includes step-level config (including op strategy selection where applicable).
+- **Curated authoring config (canonical artifact):** an optional, *friendlier* TypeScript object shape intended for humans to edit, which is then translated/compiled into the canonical recipe config.
+  - “Curated” here means: the shape can rename/re-group fields to be more ergonomic than the raw stage/step graph, but it must remain **per-recipe** (not global), and it must preserve **type-derived constraints** (not hand-maintained).
+- **Optional sugar (approach):** we still treat recipe config as the source of truth; the curated authoring config is a convenience surface that is not required to use the system.
+
 **Why it matters / what it affects:** The capability we’re enabling (type-safe strategy selection via discriminated unions, including the DD-005 default-friendly behavior) only works if authors edit the real config shape that steps actually validate and execute. Any translation layer can erase unions, introduce drift, or reintroduce a global config smell.
 
 **Options:**
-- **A) Author composed recipe config directly (preferred):** map files author the recipe’s composed config (or a deep partial), with minimal translation.
-- **B) Curated authoring config (optional sugar):** a smaller curated shape that compiles into recipe config, but it must preserve strategy unions and should be type-derived from the recipe config types.
+- **A) Author composed recipe config directly (canonical artifact only):** map files author the recipe’s composed config (or a deep partial), with minimal translation.
+- **B) Curated authoring config (adds a canonical artifact + compiler):** introduce an optional curated authoring config shape plus a compiler that maps it into recipe config; the curated shape must preserve strategy unions and must be type-derived from the recipe config types (no hand-written parallel schema).
 - **C) Keep global overrides (reject):** a monolithic map config translated into recipe config.
+
+**Concrete examples (A vs B)**
+
+**A) Map file authors the canonical recipe config directly**
+
+This option introduces **no new artifact**: authors edit the same shape that the runtime consumes.
+
+```ts
+// maps/my-map.ts
+// (Illustrative types; the core idea is the shape is derived from the recipe’s steps.)
+import type { RecipeConfigOf } from "@swooper/mapgen-core/recipes"; // TBD API
+import { standardRecipe } from "../recipes/standard/index.js";
+
+type StandardRecipeConfig = RecipeConfigOf<typeof standardRecipe>;
+
+export const config = {
+  stages: {
+    morphologyPost: {
+      steps: {
+        volcanoes: {
+          // Step-local config, including any op config the step exposes.
+          planVolcanoes: {
+            // Default-friendly (DD-005): omit `strategy` when default exists.
+            config: { targetCount: 18 },
+          },
+        },
+      },
+    },
+  },
+} satisfies StandardRecipeConfig;
+
+export const configExplicit = {
+  stages: {
+    morphologyPost: {
+      steps: {
+        volcanoes: {
+          planVolcanoes: {
+            // Explicit override: strategy literal narrows the config type.
+            strategy: "hotspotClusters",
+            config: { seedCount: 4 },
+          },
+        },
+      },
+    },
+  },
+} satisfies StandardRecipeConfig;
+```
+
+**B) Map file authors a curated config shape, then compiles to recipe config**
+
+This option introduces a **new canonical artifact** (the curated authoring config type/shape) *and* a **compiler function** that maps the curated shape into the real recipe config. The “sugar” is optional because the runtime still ultimately consumes recipe config; this just gives humans a friendlier surface.
+
+```ts
+// maps/my-map.ts
+import type { AuthoringConfigOf } from "@swooper/mapgen-core/authoring-config"; // TBD API
+import { compileAuthoringConfig } from "@swooper/mapgen-core/authoring-config"; // TBD API
+import { standardRecipe } from "../recipes/standard/index.js";
+
+type StandardAuthoringConfig = AuthoringConfigOf<typeof standardRecipe>;
+
+// Curated shape example: avoid exposing stage/step graph directly.
+export const authoring = {
+  morphology: {
+    volcanoes: {
+      // Still uses a discriminated union; strategy narrowing still applies.
+      strategy: "hotspotClusters",
+      config: { seedCount: 4 },
+    },
+  },
+} satisfies StandardAuthoringConfig;
+
+// Canonical runtime input: recipe config.
+export const config = compileAuthoringConfig(standardRecipe, authoring);
+```
+
+**Hard requirement for B:** the curated type must be derived from the recipe config types in a way that preserves the discriminated union (so setting `strategy: "hotspotClusters"` still narrows the config fields). If B is implemented as a hand-authored parallel schema, it will drift and can easily erase union narrowing (which defeats the capability).
 
 **Recommendation:** Treat **A** as the target. If we later add **B**, it must be strictly type-derived and must not reintroduce a global config object that blocks strategy unions.
 
