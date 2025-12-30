@@ -52,6 +52,7 @@ import { applyStartPositions } from "@mapgen/domain/placement/starts.js";
 import { applyDiscoveries } from "@mapgen/domain/placement/discoveries.js";
 import { applyFertilityRecalc } from "@mapgen/domain/placement/fertility.js";
 import { applyAdvancedStartRegions } from "@mapgen/domain/placement/advanced-start.js";
+import { COAST_TERRAIN, OCEAN_TERRAIN } from "@swooper/mapgen-core";
 
 export type {
   ContinentBounds,
@@ -61,6 +62,51 @@ export type {
   PlacementOptions,
   StartsConfig,
 } from "@mapgen/domain/placement/types.js";
+
+function applyPlotTags(
+  adapter: EngineAdapter,
+  width: number,
+  height: number,
+  eastBoundary: number
+): void {
+  const tagNone = adapter.getPlotTagId("NONE");
+  const tagLandmass = adapter.getPlotTagId("LANDMASS");
+  const tagWater = adapter.getPlotTagId("WATER");
+  const tagEastLandmass = adapter.getPlotTagId("EAST_LANDMASS");
+  const tagWestLandmass = adapter.getPlotTagId("WEST_LANDMASS");
+  const tagEastWater = adapter.getPlotTagId("EAST_WATER");
+  const tagWestWater = adapter.getPlotTagId("WEST_WATER");
+
+  if (
+    [
+      tagNone,
+      tagLandmass,
+      tagWater,
+      tagEastLandmass,
+      tagWestLandmass,
+      tagEastWater,
+      tagWestWater,
+    ].some((tag) => tag < 0)
+  ) {
+    console.log("[Placement] Plot tag IDs unavailable; skipping plot tag pass.");
+    return;
+  }
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      adapter.setPlotTag(x, y, tagNone);
+      const terrain = adapter.getTerrainType(x, y);
+      const isLand = terrain !== COAST_TERRAIN && terrain !== OCEAN_TERRAIN;
+      if (isLand) {
+        adapter.addPlotTag(x, y, tagLandmass);
+        adapter.addPlotTag(x, y, x >= eastBoundary ? tagEastLandmass : tagWestLandmass);
+      } else {
+        adapter.addPlotTag(x, y, tagWater);
+        adapter.addPlotTag(x, y, x >= eastBoundary - 1 ? tagEastWater : tagWestWater);
+      }
+    }
+  }
+}
 
 // ============================================================================
 // ============================================================================
@@ -156,7 +202,15 @@ export function runPlacement(
     console.log("[Placement] generateSnow failed:", err);
   }
 
-  // 7) Resources (after snow, before start positions)
+  // 7) Plot tags (needed for resource/starts that rely on hemispheres)
+  try {
+    const eastBoundary = starts?.eastContinent?.west ?? Math.floor(iWidth / 2);
+    applyPlotTags(adapter, iWidth, iHeight, eastBoundary);
+  } catch (err) {
+    console.log("[Placement] applyPlotTags failed:", err);
+  }
+
+  // 8) Resources (after snow, before start positions)
   try {
     generateResources(adapter, iWidth, iHeight);
   } catch (err) {
@@ -167,7 +221,7 @@ export function runPlacement(
   // The vanilla StartPositioner.divideMapIntoMajorRegions() now uses region IDs.
   // Do NOT mark them again here - that causes inconsistency with the early marking.
 
-  // 8) Start positions (vanilla-compatible)
+  // 9) Start positions (vanilla-compatible)
   try {
     if (!starts) {
       console.log("[Placement] Start placement skipped (no starts config provided).");
@@ -188,7 +242,7 @@ export function runPlacement(
     console.log("[Placement] assignStartPositions failed:", err);
   }
 
-  // 9) Discoveries (post-starts to seed exploration)
+  // 10) Discoveries (post-starts to seed exploration)
   try {
     applyDiscoveries(adapter, iWidth, iHeight, startPositions);
     console.log("[Placement] Discoveries generated successfully");
@@ -196,7 +250,7 @@ export function runPlacement(
     console.log("[Placement] generateDiscoveries failed:", err);
   }
 
-  // 10) Fertility recalculation (AFTER starts, matching vanilla order)
+  // 11) Fertility recalculation (AFTER starts, matching vanilla order)
   // Must be after features are added per vanilla comment
   try {
     applyFertilityRecalc(adapter);
@@ -205,7 +259,7 @@ export function runPlacement(
     console.log("[Placement] FertilityBuilder.recalculate failed:", err);
   }
 
-  // 11) Advanced Start regions
+  // 12) Advanced Start regions
   try {
     applyAdvancedStartRegions(adapter);
   } catch (err) {
