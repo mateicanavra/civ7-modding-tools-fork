@@ -43,8 +43,7 @@ export default defineConfig({
   outDir: "mod/maps",
 
   format: ["esm"],
-  // Civ7's MapGeneration V8 is stricter than modern Node/V8; avoid newer syntax (class fields, ??, ?.).
-  target: "es2019",
+  target: "esnext",
 
   // Bundle all dependencies into the output file
   bundle: true,
@@ -66,7 +65,7 @@ export default defineConfig({
   esbuildOptions(options) {
     // Shim TypeBox format registry so no Unicode-property regexes reach the game engine (built-in format validation disabled).
     options.splitting = false;
-    options.target = "es2019";
+    options.target = "esnext";
     // If tsup auto-externalizes deps, ensure TypeBox is bundled (MapGeneration cannot resolve "typebox").
     options.external = (options.external ?? []).filter((id) => !id.startsWith("typebox"));
     options.alias = {
