@@ -26,6 +26,26 @@ Re-review: no additional issues found.
 ### Cross-cutting Risks
 - None noted.
 
+## REVIEW m6-u04-1-relocate-domain-modules-to-mod-owned-libs
+
+### Quick Take
+Domain modules are now mirrored under the mod-owned `src/domain/**` with tag/artifact shims and new lib exports, but the mod package still lacks a `test` script even though the acceptance criteria call for `pnpm -C mods/mod-swooper-maps test`.
+
+### High-Leverage Issues
+- `mods/mod-swooper-maps/package.json`: no `test` script, so the documented verification command fails.
+
+### Fix Now (Recommended)
+- Add a `test` script (even if it aliases `pnpm run check`) or update the issue doc to remove `pnpm -C mods/mod-swooper-maps test` until tests exist.
+
+### Defer / Follow-up
+- Add mod-level tests once domain migration stabilizes to keep U04 validation from relying on manual checks.
+
+### Needs Discussion
+- None noted.
+
+### Cross-cutting Risks
+- None noted.
+
 ## REVIEW m6-u02-1-define-authoring-pojos-and-schema-requirements
 
 ### Quick Take
