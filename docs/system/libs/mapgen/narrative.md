@@ -9,6 +9,10 @@ Unlike other layers that have clear physical ownership, Narrative is a **cross-c
 - It **observes** the evolving world and annotates it with meaning (regions, motifs, strategic cues).
 - It can **inject** bespoke features that intentionally deviate from pure physics (wonders, corridors, myths).
 
+**Target model (locked):**
+- Narrative **contributions** are the published primitives (immutable artifacts).
+- Narrative “views” (overlays/snapshots) are **derived on demand** from contributions (and, where relevant, current buffers) for inspection/debug/contracts; they are not published dependency surfaces.
+
 ### Core responsibilities
 
 1. **Region identification:** Group tiles/cells into named, meaningful areas (mountain ranges, deserts, continents).
@@ -28,15 +32,15 @@ interface NarrativeProducts {
     id: string;
     type: "continent" | "ocean" | "mountain_range" | "desert" | "valley";
     name: string;
-    cells: Int32Array;
-    tags: Set<string>;
+    cells: readonly number[];
+    annotations: readonly string[];
   }>;
 
   /**
    * Per-cell semantic annotations (sparse map or bitmask).
    * Allows consumers to query “is this a rift zone?” without embedding domain heuristics everywhere.
    */
-  tags: Map<number, Set<string>>;
+  annotationsByCellId: Readonly<Record<string, readonly string[]>>;
 
   /**
    * Strategic paths or corridors identified during generation.

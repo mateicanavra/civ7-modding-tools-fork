@@ -3,13 +3,13 @@
  *
  * Purpose:
  * - Define the seam between pure logic and engine coupling
- * - MapContext holds all data dependencies for passes (fields, rng, config)
+ * - MapContext holds all data dependencies for passes (buffers/fields, rng, config)
  * - EngineAdapter abstracts read/write operations (enables testing, replay, diffing)
  *
  * Invariants:
  * - Passes should ONLY access engine APIs via the adapter
  * - RNG calls should go through ctx.rng() for deterministic replay
- * - Context is immutable reference (but fields are mutable for performance)
+ * - Context is immutable reference (but buffers/fields are mutable for performance)
  */
 
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
@@ -65,7 +65,10 @@ export interface MapBuffers {
 // ============================================================================
 
 /**
- * Immutable snapshot describing a sparse narrative overlay.
+ * Derived snapshot describing a sparse narrative overlay (debug/inspection surface).
+ *
+ * This is not a canonical pipeline product: narrative contributions are the published primitives,
+ * and overlay snapshots are derived on demand from those contributions.
  */
 export interface StoryOverlaySnapshot {
   key: string;
@@ -79,7 +82,7 @@ export interface StoryOverlaySnapshot {
 }
 
 /**
- * Registry of immutable story overlays published during generation.
+ * Non-canonical registry of derived overlay snapshots (debug/compat only).
  */
 export type StoryOverlayRegistry = Map<string, StoryOverlaySnapshot>;
 

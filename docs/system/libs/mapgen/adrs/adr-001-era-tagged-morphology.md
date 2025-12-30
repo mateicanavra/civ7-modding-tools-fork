@@ -24,11 +24,11 @@ However, the refactor blueprint mandates a single immutable `FoundationContext` 
 
 ## Decision
 
-**Keep the single-pass physics pipeline. Do not rerun foundations/morphology in multiple loops.** Instead, derive era-like signals analytically from the existing physics snapshot and publish them as immutable overlays (e.g., `eraMorphology`) alongside margins.
+**Keep the single-pass physics pipeline. Do not rerun foundations/morphology in multiple loops.** Instead, derive era-like signals analytically from the existing physics snapshot and publish them as immutable narrative motif contributions (e.g., `eraMorphology`). Any narrative “overlay” snapshot is derived on demand from those contributions.
 
 ### Alternative Approach: Analytic Era Tag Overlay
 
-Introduce `ctx.overlays.ensure('eraMorphology')`, backed by a sparse record store alongside existing StoryTags:
+Publish `eraMorphology` as a **narrative motif contribution** (immutable artifact payload). Narrative “overlay” snapshots are derived on demand from these contributions; `ctx.overlays` must not be required for correctness.
 
 ```json
 {
@@ -52,7 +52,7 @@ Normalize to `0..1`, threshold by configurable densities, and emit sparse overla
 ### Benefits
 
 - Preserves single source of truth and determinism (`FoundationContext` + WorldModel) without extra plate solves
-- Narrative layers read sparse overlay records derived from physics tensors instead of mutating the heightfield again
+- Narrative layers read sparse motif contribution records derived from physics tensors instead of mutating the heightfield again
 - Performance remains bounded; morphology/physics run once
 - Tags reference the published configuration snapshot (`FoundationContext.config`), so provenance hashes trace exactly which knobs produced each overlay
 
@@ -63,9 +63,9 @@ Normalize to `0..1`, threshold by configurable densities, and emit sparse overla
 
 ### Next Steps
 
-1. Add an era overlay entry in `StoryOverlays`
+1. Add an era-morphology narrative motif contribution product (typed, versioned)
 2. Emit records during morphology using staged buffers/tensors
-3. Expose accessors for narrative/placement consumers
+3. Expose accessors for narrative/placement consumers (query contributions; derive views on demand)
 4. Cover with diagnostics (ASCII/histograms) for validation
 
 ## Implementation Details
@@ -88,12 +88,12 @@ Normalize to `0..1`, threshold by configurable densities, and emit sparse overla
 
 ### Usage in Narrative Overlays
 
-- **Query Path:** `storyTagRiftValleys`, `storyTagHotspotTrails`, and future overlays request `ctx.overlays.get('eraMorphology')`. They sort records descending by `eraIndex` and blend strengths with configurable decay.
+- **Query Path:** `storyTagRiftValleys`, `storyTagHotspotTrails`, and future narrative consumers read the `eraMorphology` contribution records and sort descending by `eraIndex`, blending strengths with configurable decay.
 - **Examples:**
   - Early-era scars increase probability of paleo river corridors and canyon discoveries
   - Active-era belts temper rainforest swatches and boost geothermal hotspots
   - Mixed-era tiles (scars + active) signal uplifted plateaus suitable for highland biomes
-- **Guardrails:** Overlays only adjust staged buffers (`writeClimateField`, `StoryTags`, placement metadata). Heightfield alterations remain in morphology stages.
+- **Guardrails:** Narrative consumers only adjust staged buffers (`writeClimateField`, placement metadata). Heightfield alterations remain in morphology stages.
 
 ### Acceptance Tests
 

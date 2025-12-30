@@ -177,7 +177,7 @@ Canonical step context shape (for now):
 - `context.buffers` (mutable)
 - `context.artifacts` (mutable store of **immutable values**)
 - `context.settings` (immutable run settings)
-- `context.overlays` (TBD; separate design session)
+- `context.overlays` (optional, non-canonical derived debug cache; never required for correctness)
 
 ### Intent / architectural direction
 
@@ -345,7 +345,7 @@ This system uses “tag” to mean at least three unrelated things. Untangling t
   - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
 - **Civ7 plot tags** are a separate engine concept: numeric plot tag IDs set on tiles (`PLOT_TAG.*`, `PlotTagName`, `adapter.getPlotTagId(...)`).
   - `packages/mapgen-core/src/core/plot-tags.ts`
-- **“Story tagging”** is narrative overlay classification (domain algorithms that pick tile-key sets and publish `StoryOverlaySnapshot` overlays). It is unrelated to pipeline dependency tags.
+- **“Story tagging”** is narrative overlay classification (domain algorithms that pick tile-key sets and, in M6, write `StoryOverlaySnapshot` snapshots into `ctx.overlays`; target: views are derived on demand from published contributions). It is unrelated to pipeline dependency tags.
   - `mods/mod-swooper-maps/src/domain/narrative/tagging/**`
 
 **Clean semantic buckets (distinct concepts currently shoved under “tag”)**
@@ -956,7 +956,8 @@ Locked names (no alternatives):
 
 **Where the outputs flow next (today):**
 - Narrative motif artifacts are read back via `mods/mod-swooper-maps/src/domain/narrative/queries.ts` (`getNarrativeMotifs*`), e.g. corridors consume rift/hotspot motifs.
-- Story overlays live in `ctx.overlays` for inspection/debug/contracts (separate from pipeline dependency gating).
+- M6 also writes `StoryOverlaySnapshot` into `ctx.overlays` for inspection/debug/contracts.
+  - **Target:** `ctx.overlays` is non-canonical; motif **contributions are the primitives**, and any narrative “views” are **derived on demand** from those primitives.
 
 #### Proposed semantic mapping: marker / overlay / annotation
 
@@ -964,21 +965,22 @@ Locked names (no alternatives):
 - Concrete representation today: a `storyKey` string (`"${x},${y}"`).
 - Appears today as: `Set<string>` in narrative artifacts, `active/passive: string[]` inside overlays.
 
-**Overlay (noun):** an immutable snapshot aggregating markers (and metadata) for inspection/debug/contracts.
-- Concrete representation today: `StoryOverlaySnapshot` published into `ctx.overlays` under a `STORY_OVERLAY_KEYS.*` key.
+**Overlay (noun):** a derived snapshot aggregating markers (and metadata) for inspection/debug/contracts.
+- Concrete representation today: `StoryOverlaySnapshot` (in M6, stored in `ctx.overlays` under a `STORY_OVERLAY_KEYS.*` key).
+- **Target:** overlays are not published products; overlay snapshots are *derived on demand* from motif contributions.
 
-**Annotate (verb):** “apply markings onto the map” (i.e. publish overlays / publish motif artifacts).
-- In target boundary terms, “annotate” is inherently **engine-facing** (writes to `ctx.overlays` / `ctx.artifacts`) and therefore should read as a **step-level verb**, not a domain-level verb.
+**Annotate (verb):** “apply narrative markings onto the map”.
+- In target boundary terms, “annotate” is inherently **engine-facing** (writes to `context.artifacts` and/or mutates `context.buffers`) and therefore should read as a **step-level verb**, not a domain-level verb.
 
 #### Clarify “derive” vs “annotate” (verb semantics)
 
 **What “derive” would mean here (pure):**
-- Compute marker sets / overlay payloads from inputs (fields/artifacts/config) **without writing** to `ctx`.
+- Compute marker sets / overlay payloads from inputs (`context.buffers`/`context.artifacts`/config) **without writing** to `ctx`.
 - In M6 code, most `storyTag*` bodies are already “derive + publish” interleaved; the “derive” part is the tile-set math and summary computation.
 
 **What “annotate” would mean here (side effect):**
-- Publish overlay snapshots (and/or motif artifacts) into context for downstream consumers (corridors, debugging, contracts).
-- In M6 code, this corresponds to calls like `publishStoryOverlay(...)` and `ctx.artifacts.set(...)`.
+- Publish **motif contributions** (artifacts) and/or apply changes to mutable world state (`context.buffers`).
+- In M6 code, this corresponds primarily to calls like `ctx.artifacts.set(...)` (and, as legacy debug behavior, `publishStoryOverlay(...)`).
 
 **Conclusion:** “derive” and “annotate” are not synonyms. If we want “domain is pure; steps own engine semantics” later, we should reserve:
 - `derive*` / `compute*` for domain operations (pure)
@@ -992,7 +994,7 @@ Locked names (no alternatives):
   - “overlay” = `StoryOverlaySnapshot` (inspectable snapshot)
 - Verbs:
   - `derive*` / `compute*` = pure computation (no `ctx` writes)
-  - `publish*` = side-effect boundary (writes to context/artifacts)
+  - `publish*` / `annotate*` = side-effect boundary (writes to `context.artifacts` / mutates `context.buffers`)
 - Legacy note (for later mechanical rename work): `storyTag*` functions should be renamed to `derive*` + `publish*` shapes where appropriate.
 
 #### Locked terminology firewall (extends Bucket C rule)
@@ -1001,35 +1003,31 @@ Locked names (no alternatives):
 - **Preferred narrative vocabulary (even when “story tag” is allowed):** “marker”, “overlay”, “annotation”.
 - **Forbidden “tag” usage:** pipeline dependency system (Buckets A/B).
 
-#### Decision (locked): overlay views are single-writer, last-write-wins (no merge semantics)
+#### Decision (locked): contributions are published primitives; views are derived on demand
 
-**Scope of this decision (precise):**
-- An **overlay view** is a consumer-facing **snapshot** (e.g., `StoryOverlaySnapshot`) representing some narrative/motif surface for inspection/debug/contracts.
-- This decision is about **overlay view write semantics**, not where overlay views are stored (artifact store vs a dedicated overlay registry remains open).
+**What is published (primitives):**
+- Steps publish **motif contributions** as immutable artifacts (per-story/per-producer intervention records).
+- These contributions are the only narrative data products that participate in `requires/provides` gating and correctness.
 
-**Publishing model (explicit, no black ice):**
-- **Single-writer, last-write-wins.**
-  - For a given overlay view (by overlay kind/key), there is exactly **one writer step** in a recipe.
-  - If multiple steps write/claim the same overlay view, that is a **design violation**; any “winner” outcome is incidental and treated as a bug to remediate.
-- **No merge semantics (by design).**
-  - No implicit merge between “existing overlay view” and “new overlay view”.
-  - No “smart merge”, no reconciliation layer, no multi-writer concurrency model at the storage layer.
-  - Any reconciliation happens inside the writer step (or other explicit downstream logic), not as a storage-layer feature.
-- **Composition pattern (how multiple stories still contribute):**
-  - Multiple computations can contribute via **intermediate published data products** (e.g., marker sets / motif contributions).
-  - The single overlay-writer step composes those inputs into the final overlay view snapshot.
+**What is not published (no persisted views):**
+- Narrative **views** (e.g., “corridors overlay”) are not published products and must not be treated as dependency surfaces.
+- There is no meaningful “`corridors view exists`” dependency in the target model; consumers depend on the specific contributions (or motif-level contribution availability once that gating story is designed).
+
+**How views work (explicit, no black ice):**
+- A view is a **derived snapshot** computed at point-of-use from contributions (and, where relevant, current buffers).
+- Derivation lives in code (domain/authoring), not as “store-level merge semantics”.
+- Any caching of derived views (including `ctx.overlays` / `StoryOverlaySnapshot`) is **non-canonical debug support only** and must never be required for correctness.
 
 **Relationship to prior decisions (consistency constraints):**
 - Buckets A/B: pipeline gating uses **dependency** terminology (`DependencyId` / `DependencyContract`), never “tags”.
 - Bucket C: “tag” remains reserved for Civ7 plot tags and explicitly-qualified map-surface language; narrative APIs should prefer marker/overlay nouns.
-- Bucket D naming: domain-side operations should read as `derive*`/`compute*`; publishing overlay views is step-owned side-effect work (`publish*`).
+- Bucket D naming: domain-side operations should read as `derive*`/`compute*`; publishing contributions is step-owned side-effect work (`publish*`).
 
 **Open design topic (explicitly out of scope for this decision):**
 - We may later want “merge-like” overlay collaboration (multiple contributors, partial updates, etc.).
-- If that becomes necessary, it requires a **separate design session** and is not implied by (or compatible with) the current single-writer, last-write-wins model.
+- If that becomes necessary, it requires a **separate design session** and is not implied by the current derived-view model (no store-level merge semantics).
 
-**Question to resolve (do not assume):**
-- Do we want the side-effect verb to stay **`publish*`** everywhere, or do we introduce **`annotate*`** as the mod-facing verb (while remaining single-writer, last-write-wins either way)?
+**Decision (locked):** keep `publish*` as the canonical side-effect verb for storing narrative contributions (artifacts). “Annotate” remains narrative vocabulary, but it is not the API verb for artifact publication.
 
 ---
 
@@ -1048,8 +1046,8 @@ Architecturally, narrative is **not a separate execution system**. It is a **mod
 
 - Steps still own sequencing and engine coupling: they decide when an intervention is produced and when it is applied.
 - Domain remains pure (per the locked boundary rule): narrative selection/scoring/derivation logic can live in domain modules as pure operations; steps orchestrate and publish.
-- Narrative outputs are **immutable published snapshots** (consistent with enforced artifact immutability). The container may accumulate many such snapshots over a run; the values themselves are immutable.
-- Overlays fit into narrative as **overlay views**: consumer-facing snapshots for inspection/debug/contracts. Overlay view write semantics are locked above (single-writer, last-write-wins; no merge semantics).
+- Narrative **contributions** are immutable published snapshots (consistent with enforced artifact immutability). The container may accumulate many such snapshots over a run; the values themselves are immutable.
+- Narrative “overlay”/“view” snapshots are **derived on demand** from contributions (and, where relevant, buffers). They are not published dependency surfaces.
 
 Net effect: narrative becomes a coherent, authorable layer that can be depended on, without collapsing back into “just another procedural step” or smuggling hidden merge semantics into the engine.
 
@@ -1070,9 +1068,9 @@ A key practical pressure: the hard part is not raw storage (we can store immutab
 - Buffers are mutable run state (`context.buffers`), and buffers must not be modeled as artifacts just to satisfy gating.
 - Domain is pure; steps own engine semantics.
 - Pipeline dependency terminology must not use generic “tag”; “tag” is reserved for Civ7 plot tags and explicitly-qualified map-surface semantics (story/narrative), not pipeline gating.
-- Overlay views are single-writer, last-write-wins; no overlay-layer merge semantics.
+- Narrative contributions are published primitives; views are derived on demand (no persisted view products).
 - Narrative motifs are a **first-class, mod-facing, data-first authoring surface** (a lens over published products, not a separate execution system).
-- Motif contributions are **multi-producer**: multiple steps may publish distinct motif contributions over time; the single-writer rule applies only to any single overlay view key, not to the motif as a whole.
+- Motif contributions are **multi-producer**: multiple steps may publish distinct motif contributions over time.
 
 ### Open questions / unresolved design decisions (explicit)
 1) **Narrative API packaging / runtime exposure**
@@ -1081,22 +1079,18 @@ A key practical pressure: the hard part is not raw storage (we can store immutab
   - an authoring surface (e.g., `@swooper/mapgen-core/authoring/narrative`) that reads/writes existing context stores?
 - If we choose a `context.narrative` facade: is it purely a typed query/publish façade over immutable motif contributions, or does it become a distinct runtime store with new semantics?
 
-2) **Overlay placement**
-- Where do overlay views live: `context.overlays`, `context.artifacts`, or behind a narrative facade?
-- If overlay views move to artifacts: how do we keep “overlay view” distinct from “motif contributions” (to avoid semantic drift back into “everything is an overlay”)?
-
-3) **Contribution identity and naming**
+2) **Contribution identity and naming**
 - What do we call the stored unit (“contribution” vs “entry” vs “record”), to avoid overloading “story”?
 - What IDs exist and what are they for: motif id vs contribution id vs producer id?
 
-4) **Discovery/query contract**
+3) **Discovery/query contract**
 - How does a consumer obtain “all contributions for motif X” in a typed way?
 - Do we standardize prefix conventions + helper utilities, or require an explicit per-motif index/manifest?
 
-5) **Requires/provides gating for motif-level availability**
+4) **Requires/provides gating for motif-level availability**
 - How does a step declare “I need corridors contributions to exist” (motif-level gating) vs “I need a specific contribution”?
 - Do we introduce motif-level dependencies (with `satisfies()` checks), index artifacts, or a narrative registry concept?
 
-6) **Consistency of interpretation**
+5) **Consistency of interpretation**
 - If multiple consumers “reduce at point-of-use”, how do we prevent semantic drift (different reductions meaning different “corridors”)?
 - Do we lock “one canonical reducer per motif” as a rule, and where does it live (domain operations vs authoring layer)?

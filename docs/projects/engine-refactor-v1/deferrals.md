@@ -236,7 +236,7 @@ Each deferral follows this structure:
 - Story behavior can still be influenced by hidden module-level state and caches.
 - Harder to reason about determinism and test isolation until story is fully context-driven.
 **Status (2025-12-20):**
-- StoryTags are context-owned (`ctx.artifacts`), and overlays are context-scoped (`ctx.overlays`), but story caches remain (e.g., `resetOrogenyCache`, `resetCorridorStyleCache`) and many callers still treat StoryTags as primary.
+- Narrative state is context-owned (`ctx.artifacts`) as explicit `artifact:narrative.*` products. M6 also writes derived debug overlay snapshots into `ctx.overlays`, but `ctx.overlays` must not be required for correctness. Story caches remain (e.g., `resetOrogenyCache`, `resetCorridorStyleCache`) and many callers still treat older story compatibility surfaces as primary.
 - **Status (2025-12-26):** Resolved in CIV-74: StoryTags removed, narrative consumers read `artifact:narrative.*`, and remaining caches are context-scoped + reset per run.
 
 ---
@@ -265,13 +265,13 @@ Each deferral follows this structure:
 **Context:** `StoryOverlays` currently has a global registry fallback to support legacy reads and transitional wiring. This is intentionally kept through M3 to avoid brittle cutovers while the Task Graph and story steps are stabilized.  
 **Scope:**
 - Keep the global fallback through M3 for compatibility.
-- Migrate callers to context-scoped narrative state (target: explicit `artifact:narrative.*` products; legacy: `ctx.overlays` during transition).
+- Migrate callers to context-scoped narrative state (target: explicit `artifact:narrative.*` products; legacy/debug: derived snapshots in `ctx.overlays` during transition).
 - Remove the global registry fallback (or make it dev-only) once consumers are migrated.  
 **Impact:**
 - Global state makes tests less isolated and can hide ordering/coupling problems.
 - Harder-to-reason-about execution if overlays can come from multiple sources.
 **Resolution (2025-12-20):**
-- In current code, overlays are context-scoped only (`ctx.overlays`) with no module-level fallback; see `packages/mapgen-core/src/domain/narrative/overlays/registry.ts`.
+- In current code, overlay snapshots are context-scoped only (`ctx.overlays`) with no module-level fallback; see `mods/mod-swooper-maps/src/domain/narrative/overlays/registry.ts`.
 
 ---
 
