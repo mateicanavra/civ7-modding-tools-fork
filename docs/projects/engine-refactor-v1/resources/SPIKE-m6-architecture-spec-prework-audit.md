@@ -1013,8 +1013,8 @@ Locked names (no alternatives):
   - If multiple steps write/claim the same overlay view, that is a **design violation**; any “winner” outcome is incidental and treated as a bug to remediate.
 - **No merge semantics (by design).**
   - No implicit merge between “existing overlay view” and “new overlay view”.
-  - No “smart merge”, no reconciliation layer, no multi-writer concurrency model at the artifact layer.
-  - Any reconciliation happens inside the writer step (or other explicit downstream logic), not as an artifact-store feature.
+  - No “smart merge”, no reconciliation layer, no multi-writer concurrency model at the storage layer.
+  - Any reconciliation happens inside the writer step (or other explicit downstream logic), not as a storage-layer feature.
 - **Composition pattern (how multiple stories still contribute):**
   - Multiple computations can contribute via **intermediate published data products** (e.g., marker sets / motif contributions).
   - The single overlay-writer step composes those inputs into the final overlay view snapshot.
@@ -1072,6 +1072,7 @@ A key practical pressure: the hard part is not raw storage (we can store immutab
 - Pipeline dependency terminology must not use generic “tag”; “tag” is reserved for Civ7 plot tags and explicitly-qualified map-surface semantics (story/narrative), not pipeline gating.
 - Overlay views are single-writer, last-write-wins; no overlay-layer merge semantics.
 - Narrative motifs are a **first-class, mod-facing, data-first authoring surface** (a lens over published products, not a separate execution system).
+- Motif contributions are **multi-producer**: multiple steps may publish distinct motif contributions over time; the single-writer rule applies only to any single overlay view key, not to the motif as a whole.
 
 ### Open questions / unresolved design decisions (explicit)
 1) **Narrative API packaging / runtime exposure**
