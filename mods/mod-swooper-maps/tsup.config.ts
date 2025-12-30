@@ -37,6 +37,8 @@ export default defineConfig({
 
   // Bundle all dependencies into the output file
   bundle: true,
+  // Avoid shared chunks: Civ7 MapGeneration script loader may not resolve mod-local relative imports.
+  splitting: false,
 
   // Clear mod/maps between builds to avoid stale chunks.
   clean: true,
@@ -50,7 +52,7 @@ export default defineConfig({
 
   esbuildOptions(options) {
     // Shim TypeBox format registry so no Unicode-property regexes reach the game engine (built-in format validation disabled).
-    options.chunkNames = "engine-[hash]";
+    options.splitting = false;
     options.alias = {
       "typebox/format": typeboxFormatShim,
     };
