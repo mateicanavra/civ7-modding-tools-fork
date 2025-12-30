@@ -158,7 +158,7 @@ Deliver the authoring SDK v1 surface (`createStep`, `createStage`, `createRecipe
 Issue doc: [LOCAL-TBD-M6-U03](../issues/LOCAL-TBD-M6-U03-scaffold-standard-content-package-skeleton-and-exports.md)
 
 Establish the mod-owned content package skeleton and exports for standard recipes and domain libs.
-- [x] Done (branch: `m6-u03-scaffold-standard-content-package-skeleton-and-exports`; review: `m6-u03-review-scaffold-standard-content-package-skeleton-and-exports`; PR: pending)
+- [x] Done (branch: `m6-u03-scaffold-standard-content-package-skeleton-and-exports`; review: `m6-u03-review-scaffold-standard-content-package-skeleton-and-exports`; PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/288)
 
 ### LOCAL-TBD-M6-U04 — Move domain libraries out of core (parent)
 Issue doc: [LOCAL-TBD-M6-U04](../issues/LOCAL-TBD-M6-U04-move-domain-libraries-into-standard-content-package.md)
