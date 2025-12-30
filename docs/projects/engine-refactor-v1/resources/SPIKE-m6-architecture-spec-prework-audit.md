@@ -860,21 +860,14 @@ Locked names (no alternatives):
 
 #### Candidate naming patterns (SPIKE-only; no code renames yet)
 
-**Option N1 (recommended): Marker/Overlay nouns; derive/build verbs (domain-pure friendly)**
+**Locked naming pattern:** Marker/Overlay nouns; derive/build vs publish verbs
 - Nouns:
-  - “marker” (tile membership) for `storyKey` strings
-  - “overlay” for `StoryOverlaySnapshot`
+  - “marker” = tile membership (today: `storyKey` strings)
+  - “overlay” = `StoryOverlaySnapshot` (inspectable snapshot)
 - Verbs:
-  - `derive*Markers(...)` returns marker sets + summary
-  - `build*Overlay(...)` / `finalize*Overlay(...)` returns `StoryOverlaySnapshot` data (pure)
-  - `publish*Overlay(...)` remains the side-effect boundary (step or “runtime glue”)
-- Example rename shapes (later mechanical pass):
-  - `storyTagRiftValleys` → `deriveRiftValleyMarkers` + `publishRiftValleysOverlay`
-  - `storyTagContinentalMargins` → `deriveContinentalMarginMarkers` + `publishMarginsOverlay`
-
-**Option N2: Keep “story tag” phrasing but constrain it hard (qualified map-surface semantics only)**
-- Keep `storyTag*` names, but treat them as legacy and *never* use “tag” unqualified elsewhere.
-- This is compatible with the Bucket C rule, but still risks “tag collision” in casual conversation (“tags” == dependencies vs narrative).
+  - `derive*` / `compute*` = pure computation (no `ctx` writes)
+  - `publish*` = side-effect boundary (writes to context/artifacts)
+- Legacy note (for later mechanical rename work): `storyTag*` functions should be renamed to `derive*` + `publish*` shapes where appropriate.
 
 #### Locked terminology firewall (extends Bucket C rule)
 
@@ -882,11 +875,33 @@ Locked names (no alternatives):
 - **Preferred narrative vocabulary (even when “story tag” is allowed):** “marker”, “overlay”, “annotation”.
 - **Forbidden “tag” usage:** pipeline dependency system (Buckets A/B).
 
-#### Bucket D recommendation (pending lock)
+#### Decision (locked): narrative overlays are artifacts (single-writer, last-write-wins)
 
-Adopt **Option N1** vocabulary in the target architecture + future renames:
-- “marker” = `storyKey` tile membership
-- “overlay” = `StoryOverlaySnapshot` / `STORY_OVERLAY_KEYS.*`
-- “derive/build” for pure narrative computation, “publish/annotate” at the step boundary
+**Target shape:**
+- Narrative overlays are **not** a special publishing channel. They are published as **artifacts** (i.e., dependency-gated data products in the artifact store).
+- There is **one overlay artifact per overlay kind/layer** (e.g., “margins overlay”, “rifts overlay”, “corridors overlay”), owned at the narrative layer/motif level (not “one overlay per story instance”).
+- The artifact ID naming convention is part of the dependency ID catalog work (Bucket B); this decision is about **publishing semantics and ownership**, not strings.
 
-Open question to settle before a rename pass: do we want the public “mod-facing” verb to be **publish** or **annotate** (both are step-level side-effect verbs; “annotate” is friendlier, “publish” is more literal to today’s API names).
+**Publishing model (explicit, no black ice):**
+- **Single-writer, last-write-wins.**
+  - For a given overlay artifact, there is exactly **one writer step** in a recipe.
+  - If multiple steps write/provide the same overlay artifact, that is a **design violation**; any “winner” outcome is incidental and treated as a bug to remediate.
+- **No merge semantics (by design).**
+  - No implicit merge between “existing overlay artifact” and “new overlay artifact”.
+  - No “smart merge”, no reconciliation layer, no multi-writer concurrency model at the artifact layer.
+  - Any reconciliation happens inside the writer step (or other explicit downstream logic), not as an artifact-store feature.
+- **Composition pattern (how multiple stories still contribute):**
+  - Multiple computations can contribute via **intermediate artifacts** (marker sets, motif artifacts, etc.).
+  - The single overlay-writer step composes those inputs into the final overlay artifact snapshot.
+
+**Relationship to prior decisions (consistency constraints):**
+- Buckets A/B: overlay artifacts participate in pipeline gating using **dependency** terminology (`DependencyId` / `DependencyContract`), never “tags”.
+- Bucket C: “tag” remains reserved for Civ7 plot tags and explicitly-qualified map-surface language; narrative APIs should prefer marker/overlay nouns.
+- Bucket D naming: domain-side operations should read as `derive*`/`compute*`; publishing overlay artifacts is step-owned side-effect work (`publish*`).
+
+**Open design topic (explicitly out of scope for this decision):**
+- We may later want “merge-like” overlay collaboration (multiple contributors, partial updates, etc.).
+- If that becomes necessary, it requires a **separate design session** and is not implied by (or compatible with) the current single-writer, last-write-wins model.
+
+**Question to resolve (do not assume):**
+- Do we want the side-effect verb to stay **`publish*`** everywhere, or do we introduce **`annotate*`** as the mod-facing verb (while remaining single-writer, last-write-wins either way)?
