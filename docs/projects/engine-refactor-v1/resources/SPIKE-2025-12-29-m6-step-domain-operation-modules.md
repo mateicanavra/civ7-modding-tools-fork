@@ -899,7 +899,7 @@ Conventions for this section:
 - **Step config contracts**: the ground-truth config shapes that runtime validation uses at execution time.
 - **Global-config legacy**: the “map global config overrides” pattern that sits above steps and can erase strategy unions by translating.
 
-**Question:** What is the authoring surface for modders: direct recipe config (composed from steps) or a curated “global-ish” authoring config that compiles into recipe config?
+**Question:** What is the authoring surface for modders: direct authoring of the canonical recipe config, or an additional curated authoring config that compiles into recipe config?
 
 **Definitions (used in this decision):**
 - **Recipe config (canonical artifact):** the concrete TypeScript object shape that the runtime/runner validates and executes. It is composed from the recipe’s stages/steps, and includes step-level config (including op strategy selection where applicable).
@@ -989,6 +989,14 @@ export const config = compileAuthoringConfig(standardRecipe, authoring);
 ```
 
 **Hard requirement for B:** the curated type must be derived from the recipe config types in a way that preserves the discriminated union (so setting `strategy: "hotspotClusters"` still narrows the config fields). If B is implemented as a hand-authored parallel schema, it will drift and can easily erase union narrowing (which defeats the capability).
+
+**Related concern (separate, but often conflated): step enable/disable**
+
+This decision is about the *shape authors edit*, not whether steps can be toggled.
+
+- The engine-level recipe schema already has a notion of per-step enable/disable (e.g., `RecipeStepV1.enabled` in `packages/mapgen-core/src/engine/execution-plan.ts`).
+- Both Option **A** and **B** can represent “enabled/disabled” as part of step configuration; the difference is whether the author sees the raw step graph (A) or a curated projection of it (B).
+- If we want “disable this step” to be a first-class authoring affordance, Option **B** can expose a clean flag at the curated path (e.g., `morphology.volcanoes.enabled = false`) and compile it into the canonical representation.
 
 **Recommendation:** Treat **A** as the target. If we later add **B**, it must be strictly type-derived and must not reintroduce a global config object that blocks strategy unions.
 
