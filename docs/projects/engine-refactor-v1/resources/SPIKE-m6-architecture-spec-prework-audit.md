@@ -1001,29 +1001,28 @@ Locked names (no alternatives):
 - **Preferred narrative vocabulary (even when “story tag” is allowed):** “marker”, “overlay”, “annotation”.
 - **Forbidden “tag” usage:** pipeline dependency system (Buckets A/B).
 
-#### Decision (locked): narrative overlays are artifacts (single-writer, last-write-wins)
+#### Decision (locked): overlay views are single-writer, last-write-wins (no merge semantics)
 
-**Target shape:**
-- Narrative overlays are **not** a special publishing channel. They are published as **artifacts** (i.e., dependency-gated data products in the artifact store).
-- There is **one overlay artifact per overlay kind/layer** (e.g., “margins overlay”, “rifts overlay”, “corridors overlay”), owned at the narrative layer/motif level (not “one overlay per story instance”).
-- The artifact ID naming convention is part of the dependency ID catalog work (Bucket B); this decision is about **publishing semantics and ownership**, not strings.
+**Scope of this decision (precise):**
+- An **overlay view** is a consumer-facing **snapshot** (e.g., `StoryOverlaySnapshot`) representing some narrative/motif surface for inspection/debug/contracts.
+- This decision is about **overlay view write semantics**, not where overlay views are stored (artifact store vs a dedicated overlay registry remains open).
 
 **Publishing model (explicit, no black ice):**
 - **Single-writer, last-write-wins.**
-  - For a given overlay artifact, there is exactly **one writer step** in a recipe.
-  - If multiple steps write/provide the same overlay artifact, that is a **design violation**; any “winner” outcome is incidental and treated as a bug to remediate.
+  - For a given overlay view (by overlay kind/key), there is exactly **one writer step** in a recipe.
+  - If multiple steps write/claim the same overlay view, that is a **design violation**; any “winner” outcome is incidental and treated as a bug to remediate.
 - **No merge semantics (by design).**
-  - No implicit merge between “existing overlay artifact” and “new overlay artifact”.
+  - No implicit merge between “existing overlay view” and “new overlay view”.
   - No “smart merge”, no reconciliation layer, no multi-writer concurrency model at the artifact layer.
   - Any reconciliation happens inside the writer step (or other explicit downstream logic), not as an artifact-store feature.
 - **Composition pattern (how multiple stories still contribute):**
-  - Multiple computations can contribute via **intermediate artifacts** (marker sets, motif artifacts, etc.).
-  - The single overlay-writer step composes those inputs into the final overlay artifact snapshot.
+  - Multiple computations can contribute via **intermediate published data products** (e.g., marker sets / motif contributions).
+  - The single overlay-writer step composes those inputs into the final overlay view snapshot.
 
 **Relationship to prior decisions (consistency constraints):**
-- Buckets A/B: overlay artifacts participate in pipeline gating using **dependency** terminology (`DependencyId` / `DependencyContract`), never “tags”.
+- Buckets A/B: pipeline gating uses **dependency** terminology (`DependencyId` / `DependencyContract`), never “tags”.
 - Bucket C: “tag” remains reserved for Civ7 plot tags and explicitly-qualified map-surface language; narrative APIs should prefer marker/overlay nouns.
-- Bucket D naming: domain-side operations should read as `derive*`/`compute*`; publishing overlay artifacts is step-owned side-effect work (`publish*`).
+- Bucket D naming: domain-side operations should read as `derive*`/`compute*`; publishing overlay views is step-owned side-effect work (`publish*`).
 
 **Open design topic (explicitly out of scope for this decision):**
 - We may later want “merge-like” overlay collaboration (multiple contributors, partial updates, etc.).
@@ -1031,3 +1030,69 @@ Locked names (no alternatives):
 
 **Question to resolve (do not assume):**
 - Do we want the side-effect verb to stay **`publish*`** everywhere, or do we introduce **`annotate*`** as the mod-facing verb (while remaining single-writer, last-write-wins either way)?
+
+---
+
+## Narrative Layer (Motifs + Overlays) — Current Synthesis
+
+### Purpose / problem space (conceptual)
+The narrative layer resolves the longstanding “how do we handle narratives?” problem by separating **world-generation rules** from **intentful interventions**.
+
+- The **pipeline** is the “rules world”: procedural mechanics that evolve world state (terrain, climate, hydrology, ecology). It defines *how* the universe works.
+- The **narrative layer** is the “intervention world”: deliberate, playability-driven nudges that shape *how the map feels* (movement corridors, strategic funnels, hotspot regions, crater-lake candidates, etc.) without requiring mod authors to rewrite the procedural laws.
+
+This matters because most gameplay-facing customization is better expressed as “put your thumb on the scale” (corridors, regions, playability signals) rather than as low-level algorithm rewrites. Narrative motifs give mod authors a stable, high-leverage authoring surface: publish and consume intervention signals that can influence multiple downstream stages while the core pipeline stays maintainable and coherent.
+
+### Architecture connection (concrete/technical)
+Architecturally, narrative is **not a separate execution system**. It is a **mod-facing lens** over published data products produced/consumed by steps, preserving explicit ordering via requires/provides.
+
+- Steps still own sequencing and engine coupling: they decide when an intervention is produced and when it is applied.
+- Domain remains pure (per the locked boundary rule): narrative selection/scoring/derivation logic can live in domain modules as pure operations; steps orchestrate and publish.
+- Narrative outputs are **immutable published snapshots** (consistent with enforced artifact immutability). The container may accumulate many such snapshots over a run; the values themselves are immutable.
+- Overlays fit into narrative as **overlay views**: consumer-facing snapshots for inspection/debug/contracts. Overlay view write semantics are locked above (single-writer, last-write-wins; no merge semantics).
+
+Net effect: narrative becomes a coherent, authorable layer that can be depended on, without collapsing back into “just another procedural step” or smuggling hidden merge semantics into the engine.
+
+### Emerging solution shape (what we’ve converged on so far)
+**Motifs** (e.g. corridors/regions/fertility) are the primary narrative organizing concept: stable categories of interventions that downstream consumers can treat as coherent concepts.
+
+Current direction:
+- Steps publish **immutable motif contributions** (per-story/per-producer intervention records) over time.
+- Other steps consume contributions at the point they need them and apply explicit logic (no store-level “winner” behavior required).
+- Narrative should be **mod-facing and data-first**: a typed, discoverable authoring surface that lets modders publish/query/reduce motif contributions without spelunking step internals.
+
+A key practical pressure: the hard part is not raw storage (we can store immutable items), it’s **DX and gating**:
+- Discovery/query: “give me all corridor contributions so far” needs a first-class typed query story (not ad-hoc `Map` spelunking).
+- Requires/provides: consumers often want “corridors exist” rather than “a specific contribution id exists”, pushing toward motif-level gating concepts.
+
+### Locked decisions that constrain narrative
+- Artifacts are immutable snapshots and immutability is enforced.
+- Buffers are mutable run state (`context.buffers`), and buffers must not be modeled as artifacts just to satisfy gating.
+- Domain is pure; steps own engine semantics.
+- Pipeline dependency terminology must not use generic “tag”; “tag” is reserved for Civ7 plot tags and explicitly-qualified map-surface semantics (story/narrative), not pipeline gating.
+- Overlay views are single-writer, last-write-wins; no overlay-layer merge semantics.
+
+### Open questions / unresolved design decisions (explicit)
+1) **Narrative API surface shape**
+- Do we introduce a first-class `context.narrative` facade/container (typed lens), or keep narrative purely as authoring helpers over existing stores?
+- If `context.narrative` exists: is it purely a query façade over immutable contributions, or does it become a real runtime store with additional semantics?
+
+2) **Overlay placement**
+- Where do overlay views live: `context.overlays`, `context.artifacts`, or behind a narrative facade?
+- If overlay views move to artifacts: how do we keep “overlay view” distinct from “motif contributions” (to avoid semantic drift back into “everything is an overlay”)?
+
+3) **Contribution identity and naming**
+- What do we call the stored unit (“contribution” vs “entry” vs “record”), to avoid overloading “story”?
+- What IDs exist and what are they for: motif id vs contribution id vs producer id?
+
+4) **Discovery/query contract**
+- How does a consumer obtain “all contributions for motif X” in a typed way?
+- Do we standardize prefix conventions + helper utilities, or require an explicit per-motif index/manifest?
+
+5) **Requires/provides gating for motif-level availability**
+- How does a step declare “I need corridors contributions to exist” (motif-level gating) vs “I need a specific contribution”?
+- Do we introduce motif-level dependencies (with `satisfies()` checks), index artifacts, or a narrative registry concept?
+
+6) **Consistency of interpretation**
+- If multiple consumers “reduce at point-of-use”, how do we prevent semantic drift (different reductions meaning different “corridors”)?
+- Do we lock “one canonical reducer per motif” as a rule, and where does it live (domain operations vs authoring layer)?
