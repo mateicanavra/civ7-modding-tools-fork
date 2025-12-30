@@ -122,7 +122,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 **Context:** M3 relied on a fixed allowlist/regex validation (`pipeline/tags.ts`) and executor hard-coded verification lists; this is not safe or extensible for mods.
 **Decision:**
 - Each mod instantiates a registry that is the canonical catalog for:
-  - tags (`artifact:*`, `field:*`, `effect:*`)
+  - tags (`artifact:*`, `buffer:*`, `effect:*`)
   - steps (and their config schemas)
 - Tags/steps are only valid if registered; unknown tag references are hard errors.
 - Duplicate tag IDs and duplicate step IDs are hard errors at registry build time.
@@ -157,13 +157,14 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope + parent issues)
 - `issues/CIV-62-M4-FOUNDATION-SURFACE-CUTOVER.md` (implementation ownership)
 
-## ADR-ER1-008: Narrative/playability contract is typed narrative artifacts; no `StoryTags`; no narrative globals
+## ADR-ER1-008: Narrative/playability contract is story entry artifacts by motif; views derived; no `StoryTags`; no narrative globals
 
 **Status:** Accepted
 **Date:** 2025-12-21
 **Context:** “StoryOverlays/StoryTags” created dual representations and repeated derivations; narrative must be optional and mod-friendly without becoming a privileged core phase.
 **Decision:**
-- Narrative/playability is expressed as normal steps that publish typed, versioned `artifact:narrative.*` products.
+- Narrative/playability is expressed as normal steps that publish typed, versioned **story entry artifacts** (`artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`).
+- Narrative views (including overlay snapshots) are derived on demand from story entries and are not published dependency surfaces.
 - There is no canonical `StoryTags` surface in the target.
 - Narrative is optional via recipe composition (a recipe may omit it; if it includes consumers it must include publishers).
 - No narrative globals/caches outside a run context; caching is context-owned artifacts keyed to the run.
@@ -181,7 +182,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 **Context:** Legacy paths relied on engine globals and trusted engine-state tags (`state:engine.*`) as schedulable edges without verification.
 **Decision:**
 - Civ engine is an I/O surface behind `EngineAdapter`; steps must not read engine globals directly.
-- Cross-step dependencies flow through reified TS-owned `field:*`/`artifact:*` products.
+- Cross-step dependencies flow through reified TS-owned `buffer:*`/`artifact:*` products.
 - `effect:*` is a first-class schedulable namespace; schedulable effects must be runtime-verifiable (adapter-backed postconditions).
 - `state:engine.*` is transitional-only wiring and must not be enshrined as a permanent namespace.
 **Consequences:**
@@ -198,7 +199,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 **Date:** 2025-12-21
 **Context:** Some climate prerequisites still rely on adapter reads (e.g., latitude/water/elevation), which complicates offline determinism and testability.
 **Decision:**
-- `artifact:climateField` (and any `field:*` mirrors) is TS-owned and canonical.
+- `buffer:climateField` (and any derived views) is TS-owned and canonical.
 - Engine writes are publish effects via adapter, not the source of truth.
 - Engine reads are allowed only through the adapter and must not become implicit cross-step dependency surfaces; reify if downstream depends.
 **Consequences:**
@@ -431,11 +432,11 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 
 **Status:** Accepted
 **Date:** 2025-12-22
-**Context:** Consumers (notably features) expect “paradise” vs “volcanic” hotspot semantics, while current producers do not populate the categorized StoryTags surface consistently. M4’s narrative cutover makes `artifact:narrative.*` canonical and deletes StoryTags as a correctness dependency.
+**Context:** Consumers (notably features) expect “paradise” vs “volcanic” hotspot semantics, while current producers do not populate the categorized StoryTags surface consistently. The target narrative model makes story entry artifacts canonical and deletes StoryTags as a correctness dependency.
 **Decision:**
-- Publish hotspot outputs as a **single** canonical artifact: `artifact:narrative.motifs.hotspots@v1`.
-- Encode hotspot categories **within** that artifact (e.g., separate categorized tile sets/keys for `paradise` and `volcanic`), rather than splitting into multiple artifacts.
-- Consumers migrate to read hotspot categories from the hotspots artifact (not StoryTags).
+- Publish hotspot outputs as a **single** canonical story entry artifact under the `hotspots` motif (`artifact:narrative.motifs.hotspots.stories.<storyId>@v1`).
+- Encode hotspot categories **within** that story entry payload (e.g., separate categorized tile sets/keys for `paradise` and `volcanic`), rather than splitting into multiple story entries.
+- Consumers migrate to read hotspot categories from the hotspots story entry (not StoryTags).
 **Consequences:**
 - Reduces scheduling/tag surface area (one artifact dependency instead of multiple).
 - Requires aligning the hotspots producer and feature consumers to the artifact’s internal category representation during NARRATIVE-1/NARRATIVE-2.
@@ -444,13 +445,13 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - `resources/m4-prework/local-tbd-m4-narrative-1-artifact-inventory.md` (producer/consumer map + hotspot drift note)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase F narrative producers/consumers sequencing)
 
-## ADR-ER1-025: `ctx.overlays` remains a non-canonical derived debug view (artifacts are canonical)
+## ADR-ER1-025: `ctx.overlays` remains a non-canonical derived debug view (story entry artifacts are canonical)
 
 **Status:** Accepted
 **Date:** 2025-12-22
-**Context:** M3 uses `ctx.overlays` and derived StoryTags as a transitional representation. M4’s target model treats narrative outputs as typed artifacts that participate in scheduling and validation like any other product.
+**Context:** M3 uses `ctx.overlays` and derived StoryTags as a transitional representation. The target model treats narrative story entries as typed artifacts that participate in scheduling and validation like any other product.
 **Decision:**
-- Narrative artifacts (`artifact:narrative.*`) are the **canonical** dependency surfaces for narrative/playability.
+- Narrative story entry artifacts (`artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`) are the **canonical** dependency surfaces for narrative/playability.
 - `ctx.overlays` may remain as a **derived debug/compat view** (useful for diagnostics and transitional helpers), but it must not be required for correctness:
   - consumers must depend on artifacts (or derived helpers operating on artifacts),
   - overlays are not a scheduling surface and should not introduce hidden dependencies.
@@ -484,6 +485,6 @@ These are captured in the SPIKE as “direction” or “proposed” guidance bu
 locked as accepted target decisions in the SPEC:
 
 - DAG/partial-order authoring: deterministic scheduling tie-break proposal (stable topo sort; recipe layout order; lexical `instanceId` fallback).
-- Mutation modeling direction: `field:*` mutable canvases vs `artifact:*` immutable/versioned products; richer read/write modeling would require an explicit follow-up decision.
+- Mutation modeling direction: `buffer:*` mutable canvases vs `artifact:*` immutable/versioned products; richer read/write modeling would require an explicit follow-up decision.
 - Mod placement model direction: dataflow correctness + named hook points; “script-based insertion” as tooling over the model.
 - `affects` / `affectedBy` as descriptive metadata only unless explicitly promoted via a schema major bump.

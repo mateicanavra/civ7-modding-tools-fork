@@ -73,8 +73,8 @@ Each deferral follows this structure:
 **Context:** Climate is moving toward TS-owned canonical products. `syncClimateField()` has been removed and climate steps already publish `artifact:climateField`; however, some climate inputs still rely on engine adapter reads (e.g., `getLatitude`, `isWater`, `getElevation`) and thus full engine-less climate runs remain deferred.  
 **Scope:**
 - Keep `artifact:climateField` as the canonical TS product and treat adapter writes as publish-only effects (not a source of truth).
-- Define and adopt explicit TS-owned prerequisites where feasible (e.g., `artifact:heightfield`, `field:latitude`, TS water/landmask) so climate generation no longer depends on engine-only reads.
-- When engine reads are unavoidable, ensure any cross-step dependency is reified into `field:*`/`artifact:*` with explicit `requires/provides` (no implicit “read engine later” edges).  
+- Define and adopt explicit TS-owned prerequisites where feasible (e.g., `buffer:heightfield`, `buffer:latitude`, TS water/landmask) so climate generation no longer depends on engine-only reads.
+- When engine reads are unavoidable, ensure any cross-step dependency is reified into `buffer:*`/`artifact:*` with explicit `requires/provides` (no implicit “read engine later” edges).  
 **Impact:**
 - Until this lands, climate remains partially engine-coupled via adapter reads, limiting offline testing and keeping hidden coupling to engine-derived signals.
 - Canonical ownership is still TS-first; this deferral tracks completing the reification of climate prerequisites and eliminating accidental engine-dependency surfaces.
@@ -175,17 +175,17 @@ Each deferral follows this structure:
 ## DEF-002: StoryTags Compatibility Layer (Derived From StoryOverlays)
 
 **Deferred:** 2025-12-14  
-**Trigger:** After narrative/playability artifacts are published/consumed as explicit `artifact:narrative.*` products and no in-repo consumers require `StoryTags` for correctness.  
-**Context:** During Milestone 3 story modernization we introduced “overlays” + `StoryTags` to bridge legacy consumers. Target architecture decision 3.4 locks the end-state: **typed narrative artifacts are canonical and `StoryTags` is not a target contract surface**. This deferral exists only to sequence the cleanup safely.  
+**Trigger:** After narrative/playability state is published/consumed as explicit narrative **story entry artifacts** (`artifact:narrative.motifs.*.stories.*@vN`) and no in-repo consumers require `StoryTags` for correctness.  
+**Context:** During Milestone 3 story modernization we introduced “overlays” + `StoryTags` to bridge legacy consumers. Target architecture decision 3.4 locks the end-state: **typed narrative story entries are canonical and `StoryTags` is not a target contract surface**. This deferral exists only to sequence the cleanup safely.  
 **Scope:**
 - Keep `StoryTags` available only as a temporary compatibility surface.
-- Migrate consumers to `artifact:narrative.*` (or derived, context-scoped query helpers).
+- Migrate consumers to narrative story entry artifacts (`artifact:narrative.motifs.*.stories.*@vN`) (or derived, context-scoped query helpers).
 - Remove `StoryTags` entirely once consumers are migrated.  
 **Impact:**
 - Temporary duplication of narrative representation (overlays + tags) with risk of semantic drift if not kept strictly derived.
 - Continued support surface for legacy semantics during M3.
 - **Status (2025-12-20):** StoryTags are already context-owned and (in tagging helpers) hydrated from overlays, but many domain layers still consume StoryTags directly; trigger not yet met.
-- **Status (2025-12-26):** Resolved in CIV-74 by removing StoryTags and migrating consumers to `artifact:narrative.*` (see `packages/mapgen-core/src/domain/narrative/artifacts.ts` and `packages/mapgen-core/src/domain/narrative/queries.ts`).
+- **Status (2025-12-26):** Resolved in CIV-74 by removing StoryTags and migrating consumers to explicit narrative artifacts (see `packages/mapgen-core/src/domain/narrative/artifacts.ts` and `packages/mapgen-core/src/domain/narrative/queries.ts`).
 
 ---
 
@@ -226,17 +226,17 @@ Each deferral follows this structure:
 ## DEF-012: Story State to Context-Owned Artifacts (Remove Globals)
 
 **Deferred:** 2025-12-18  
-**Trigger:** After narrative/playability state is fully represented as explicit `artifact:narrative.*` products and any remaining story caches are context-owned artifacts.  
+**Trigger:** After narrative/playability state is fully represented as explicit narrative story entry artifacts (`artifact:narrative.motifs.*.stories.*@vN`) and any remaining story caches are context-owned artifacts.  
 **Context:** Target architecture decision 3.4 locks the end-state: narrative/playability state is explicit artifacts and there are no module-level story globals/caches. This deferral tracks the remaining implementation cleanup (migrating consumers and removing caches) safely.  
 **Scope:**
-- Publish/consume narrative/playability state as `artifact:narrative.*` products (typed, versioned).
+- Publish/consume narrative/playability state as narrative story entry artifacts (`artifact:narrative.motifs.*.stories.*@vN`) (typed, versioned).
 - Remove StoryTags as a compatibility surface once no longer needed (see `DEF-002`).
 - Remove module-level story caches (or make them explicitly keyed/scoped and safely reset by context) so story execution is purely context-driven.  
 **Impact:**
 - Story behavior can still be influenced by hidden module-level state and caches.
 - Harder to reason about determinism and test isolation until story is fully context-driven.
 **Status (2025-12-20):**
-- Narrative state is context-owned (`ctx.artifacts`) as explicit `artifact:narrative.*` products. M6 also writes derived debug overlay snapshots into `ctx.overlays`, but `ctx.overlays` must not be required for correctness. Story caches remain (e.g., `resetOrogenyCache`, `resetCorridorStyleCache`) and many callers still treat older story compatibility surfaces as primary.
+- Narrative state is context-owned (`ctx.artifacts`) as explicit narrative story entry artifacts. M6 also writes derived debug overlay snapshots into `ctx.overlays`, but `ctx.overlays` must not be required for correctness. Story caches remain (e.g., `resetOrogenyCache`, `resetCorridorStyleCache`) and many callers still treat older story compatibility surfaces as primary.
 - **Status (2025-12-26):** Resolved in CIV-74: StoryTags removed, narrative consumers read `artifact:narrative.*`, and remaining caches are context-scoped + reset per run.
 
 ---
@@ -245,11 +245,11 @@ Each deferral follows this structure:
 
 **Deferred:** 2025-12-14  
 **Trigger:** When we migrate off `state:engine.*` to `effect:*` tags with runtime verification (or when the adapter exposes the necessary invariant queries to verify the current namespace).  
-**Context:** In M3, `PipelineExecutor` enforces `artifact:*` and `field:*` dependencies at runtime, but `state:engine.*` tags represent engine-surface guarantees that are not currently introspectable from the TS runtime. We intentionally treat these tags as trusted declarations to enable wrap-first steps without blocking on new adapter APIs. The accepted target policy is: `state:engine.*` is transitional-only; engine-surface guarantees should be modeled as `effect:*` tags that participate in scheduling and are runtime-verifiable, and cross-step data dependencies should prefer reified `field:*` / `artifact:*` products.  
+**Context:** In M3, `PipelineExecutor` enforces `artifact:*` and `buffer:*` dependencies at runtime, but `state:engine.*` tags represent engine-surface guarantees that are not currently introspectable from the TS runtime. We intentionally treat these tags as trusted declarations to enable wrap-first steps without blocking on new adapter APIs. The accepted target policy is: `state:engine.*` is transitional-only; engine-surface guarantees should be modeled as `effect:*` tags that participate in scheduling and are runtime-verifiable, and cross-step data dependencies should prefer reified `buffer:*` / `artifact:*` products.  
 **Scope:**
 - Replace `state:engine.*` dependency tags with `effect:*` tags that are first-class schedulable tags.
 - Add runtime verification for provided `effect:*` tags (postcondition checks, typically via `EngineAdapter`).
-- Reify engine-derived data into `field:*` / `artifact:*` where downstream steps depend on it (avoid opaque engine-state coupling).
+- Reify engine-derived data into `buffer:*` / `artifact:*` where downstream steps depend on it (avoid opaque engine-state coupling).
 - Delete/ban the `state:engine.*` namespace in the target contract; keep it only as a temporary compatibility surface during migration.  
 **Impact:**
 - A misdeclared or stale `state:engine.*` dependency can bypass executor gating and fail later (or silently degrade output).
@@ -261,11 +261,11 @@ Each deferral follows this structure:
 ## DEF-003: Global StoryOverlays Registry Fallback
 
 **Deferred:** 2025-12-14  
-**Trigger:** After story overlays are published/consumed exclusively via pipeline context (no global reads), and story execution is fully step-owned.  
+**Trigger:** After derived overlay snapshots are read exclusively via pipeline context (no global reads), and story execution is fully step-owned.  
 **Context:** `StoryOverlays` currently has a global registry fallback to support legacy reads and transitional wiring. This is intentionally kept through M3 to avoid brittle cutovers while the Task Graph and story steps are stabilized.  
 **Scope:**
 - Keep the global fallback through M3 for compatibility.
-- Migrate callers to context-scoped narrative state (target: explicit `artifact:narrative.*` products; legacy/debug: derived snapshots in `ctx.overlays` during transition).
+- Migrate callers to context-scoped narrative state (target: narrative story entry artifacts; legacy/debug: derived snapshots in `ctx.overlays` during transition).
 - Remove the global registry fallback (or make it dev-only) once consumers are migrated.  
 **Impact:**
 - Global state makes tests less isolated and can hide ordering/coupling problems.
@@ -278,11 +278,11 @@ Each deferral follows this structure:
 ## DEF-007: WorldModel Legacy Bridge (Sync From Context Artifacts)
 
 **Deferred:** 2025-12-14  
-**Trigger:** When all in-repo legacy stages/consumers have migrated to read from `MapGenContext` (`artifact:*` / `field:*`), and the orchestrator no longer needs to sync state into the `WorldModel` singleton.  
-**Context:** The current engine still supports legacy layers that depend on the global `WorldModel`. During M3 we wrap legacy clusters and publish canonical artifacts, but we keep a bridge where the orchestrator copies selected artifacts/fields into `WorldModel` to preserve existing behavior while consumers migrate.  
+**Trigger:** When all in-repo legacy stages/consumers have migrated to read from `MapGenContext` (`artifact:*` / `buffer:*`), and the orchestrator no longer needs to sync state into the `WorldModel` singleton.  
+**Context:** The current engine still supports legacy systems that depend on the global `WorldModel`. During M3 we wrap legacy clusters and publish canonical artifacts, but we keep a bridge where the orchestrator copies selected artifacts/buffers into `WorldModel` to preserve existing behavior while consumers migrate.  
 **Scope:**
 - Keep the bridge limited to the orchestrator boundary (no new `WorldModel` reads in modern code paths).
-- Migrate remaining legacy consumers to read from context artifacts/fields.
+- Migrate remaining legacy consumers to read from context artifacts/buffers.
 - Remove the orchestrator sync and delete (or fully quarantine) `WorldModel` once no longer needed.  
 **Impact:**
 - Global state can hide ordering/coupling mistakes and makes tests less isolated.

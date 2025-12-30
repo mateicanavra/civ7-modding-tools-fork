@@ -21,7 +21,7 @@ This document defines the canonical target architecture for MapGen in this repo:
 - The core SDK is **content-agnostic**: it provides runtime execution + authoring factories, but does not ship privileged pipeline content.
 - All pipeline content (steps, tags, artifacts, schema definitions, validators, domain logic) is **mod-owned**.
 - Pipeline composition is **recipe-authored** and **explicit** (no implicit stage manifests, no hidden enablement).
-- Cross-step dependencies are explicit dependency tags (`artifact:*`, `field:*`, `effect:*`) declared in `requires`/`provides`.
+- Cross-step dependencies are explicit dependency tags (`artifact:*`, `buffer:*`, `effect:*`) declared in `requires`/`provides`.
 - Step configuration is **validated per step occurrence**; there is no monolithic runtime config object.
 - Default authoring is **colocation**:
   - Step-owned: config schemas + config types, dependency tag IDs/definitions, artifact types/validators/publish-get helpers, and any step-local types.
@@ -35,9 +35,9 @@ This document defines the canonical target architecture for MapGen in this repo:
 - **Config type**: the TypeScript type derived from a config schema (`Static<typeof Schema>`). Types are compile-time; schemas are runtime.
 - **Dependency tag**: a string ID used for gating (`requires`/`provides`), with a stable prefix:
   - `artifact:*` — declares an intermediate data product
-  - `field:*` — declares a mutable engine-facing buffer
+  - `buffer:*` — declares a mutable engine-facing buffer
   - `effect:*` — declares an externally meaningful engine change/capability guarantee
-- **Artifact (value)**: the actual data product stored in `context.artifacts` keyed by an `artifact:*` tag. Tags describe dependency edges; artifacts are the typed values that flow across those edges.
+- **Artifact (value)**: an immutable snapshot stored in `context.artifacts` keyed by an `artifact:*` tag. Tags describe dependency edges; artifacts are the typed values that flow across those edges.
 - **Tag definition**: an optional registry entry (`DependencyTagDefinition`) that can attach postconditions (`satisfies`) and demo validation to a tag. Most tags only need an ID and kind; only a minority need custom `satisfies` logic.
 <<<<<<< HEAD
 - **Step contract module**: a step-owned contract bundle (schema + types + tags + any step-owned artifact helpers) for a single step. Implemented either as a single file or a small colocated module set (inside a step directory or via adjacent `<stepId>.*` files).
@@ -70,8 +70,8 @@ This document defines the canonical target architecture for MapGen in this repo:
 - The context contains only run-global state and runtime surfaces:
   - Adapter I/O surface (`EngineAdapter`)
   - Run settings (the validated `RunSettings` from the `RunRequest`)
-  - Mutable buffers/fields (engine-facing typed arrays)
-  - Artifact storage (immutable or effectively-immutable intermediates keyed by tag ID)
+  - Mutable buffers (engine-facing typed arrays)
+  - Artifact storage (immutable snapshots keyed by dependency ID; immutability is enforced)
   - Tracing/observability scope
 - Step-local config values do not live on the context; they are carried per node in the `ExecutionPlan`.
 - The context must not carry a monolithic `MapGenConfig` (or equivalent “mega-object”).
@@ -79,8 +79,8 @@ This document defines the canonical target architecture for MapGen in this repo:
 ### 1.4 Dependency tags
 
 - Tags are strings with stable prefixes:
-  - `artifact:*` — intermediate products (typically immutable snapshots)
-  - `field:*` — mutable engine-facing buffers
+  - `artifact:*` — intermediate products (immutable snapshots)
+  - `buffer:*` — mutable engine-facing buffers
   - `effect:*` — externally meaningful engine changes/capability guarantees
 - A mod instantiates a `TagRegistry` and registers all tags used by its steps.
 - Satisfaction is explicit:
@@ -102,9 +102,11 @@ This document defines the canonical target architecture for MapGen in this repo:
 
 ### 1.6 Narrative / playability model
 
-- Narrative/playability is expressed as **typed, versioned artifacts** published into the artifact store.
-- There is no canonical “StoryTags” global surface; any tag-like convenience is derived from artifacts and remains context-scoped.
-- Narrative state is context-scoped; there are no module-level narrative registries or caches.
+- Narrative/playability is expressed as **typed, versioned story entries** published into the artifact store.
+- Each story entry is classified under a **motif** (e.g. corridors/regions/hotspots), and consumers query story entries by motif.
+- Narrative **views** (including overlay snapshots) are **derived on demand** from story entries (and, where relevant, current buffers); views are not published dependency surfaces.
+- There is no canonical `StoryTags` global surface; any map-surface convenience remains **derived** and context-scoped.
+- Narrative correctness must not depend on module-level caches or registries.
 
 ### 1.7 Observability
 
@@ -239,7 +241,7 @@ mods/mod-swooper-maps/
 
 ---
 
-## 3. Tag Registry (Artifacts, Fields, Effects)
+## 3. Tag Registry (Artifacts, Buffers, Effects)
 
 ### 3.1 Registry invariants
 
@@ -256,24 +258,23 @@ Artifacts:
 - `artifact:foundation.seed@v1`
 - `artifact:foundation.diagnostics@v1`
 - `artifact:foundation.config@v1`
-- `artifact:heightfield`
-- `artifact:climateField`
 - `artifact:riverAdjacency`
-- `artifact:storyOverlays`
-- `artifact:narrative.corridors@v1`
-- `artifact:narrative.motifs.margins@v1`
-- `artifact:narrative.motifs.hotspots@v1`
-- `artifact:narrative.motifs.rifts@v1`
-- `artifact:narrative.motifs.orogeny@v1`
 - `artifact:placementInputs@v1`
 - `artifact:placementOutputs@v1`
 
-Fields:
-- `field:terrainType`
-- `field:elevation`
-- `field:rainfall`
-- `field:biomeId`
-- `field:featureType`
+Buffers:
+- `buffer:heightfield`
+- `buffer:climateField`
+- `buffer:terrainType`
+- `buffer:elevation`
+- `buffer:rainfall`
+- `buffer:biomeId`
+- `buffer:featureType`
+
+Narrative story entries (published primitives):
+- `artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`
+- Canonical motif IDs for the standard mod: `corridors`, `margins`, `hotspots`, `rifts`, `orogeny`
+- Steps and consumers must gate on the **specific story IDs** they require; there is no published “view exists” dependency.
 
 Effects:
 - `effect:engine.landmassApplied`
@@ -328,7 +329,7 @@ Effects:
   - `adapter: EngineAdapter`
   - `dimensions: MapDimensions`
   - `settings: RunSettings`
-  - `fields` / `buffers` (engine-facing typed arrays)
+  - `buffers` (engine-facing typed arrays)
   - `artifacts` (artifact store keyed by `artifact:*`)
   - `trace` (trace scope)
   - optional engine-owned metrics/diagnostics buffers (not content contracts)
@@ -691,11 +692,11 @@ mods/mod-swooper-maps/
 │  │  │  ├─ paleo/
 │  │  │  │  ├─ index.ts
 │  │  │  │  └─ rainfall-artifacts.ts
-│  │  │  ├─ overlays/
+│  │  │  ├─ views/
 │  │  │  │  ├─ index.ts
 │  │  │  │  ├─ keys.ts
 │  │  │  │  ├─ normalize.ts
-│  │  │  │  └─ registry.ts
+│  │  │  │  └─ derive.ts
 │  │  │  ├─ corridors/
 │  │  │  │  ├─ backfill.ts
 │  │  │  │  ├─ index.ts

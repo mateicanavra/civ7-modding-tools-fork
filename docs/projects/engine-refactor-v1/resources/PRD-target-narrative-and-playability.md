@@ -2,12 +2,12 @@
 
 ## 1. Purpose
 
-Define the end-state narrative/playability contract: typed narrative artifacts published by opt-in steps, consumed explicitly by downstream injectors/placement, and absent any global `StoryTags` surface. This PRD reflects accepted decisions in `SPEC-target-architecture-draft.md` §1.5–§1.6 for the target architecture (not the transitional M4 wiring).
+Define the end-state narrative/playability contract: typed narrative **story entries** published by opt-in steps, consumed explicitly by downstream injectors/placement, and absent any global `StoryTags` surface. This PRD reflects accepted decisions in `SPEC-target-architecture-draft.md` §1.5–§1.6 for the target architecture (not the transitional M4 wiring).
 
 ## 2. Scope
 
 **In scope**
-- Narrative artifact contract (`artifact:narrative.*@v1` family) and versioning.
+- Narrative story-entry contract (`artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`) and versioning.
 - Optionality via recipe composition and enablement rules.
 - Consumption patterns for downstream systems (biomes, features, placement).
 - Caching/state rules for narrative data.
@@ -20,27 +20,29 @@ Define the end-state narrative/playability contract: typed narrative artifacts p
 ## 3. Goals
 
 1) Narrative/playability is an optional bundle of steps expressed in recipes, not a privileged core phase.  
-2) Narrative semantics are reified as typed, versioned artifacts that downstream steps must depend on explicitly.  
+2) Narrative semantics are reified as typed, versioned **story entries** that downstream steps must depend on explicitly.  
 3) No global or module-level narrative caches/registries exist outside a run context.
 
 ## 4. Requirements
 
 ### 4.1 Artifact Contract
-- **REQ-NAR-1:** Narrative outputs are published as typed, versioned artifacts (e.g., `artifact:narrative.corridors@v1`, `artifact:narrative.regions@v1`, `artifact:narrative.motifs.*@v1`, `artifact:narrative.heatmaps.*@v1`). Motif packaging decisions follow accepted ADRs (for example, hotspot categories remain inside `artifact:narrative.motifs.hotspots@v1`).
-- **REQ-NAR-2:** There is no canonical `StoryTags` surface. Any query helpers are derived from the artifacts and scoped to the run context only.
-- **REQ-NAR-3:** Narrative artifacts must declare schemas and versions; backward-incompatible changes require new IDs.
+- **REQ-NAR-1:** Narrative outputs are published as typed, versioned **story entry artifacts**: `artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`.
+- **REQ-NAR-2:** Motif IDs are a mod-owned, centrally declared vocabulary. Story IDs are step-owned but must be registered; consumers must not “guess” story IDs.
+- **REQ-NAR-3:** Narrative views (including overlay snapshots) are derived on demand from story entries and are not published dependency surfaces.
+- **REQ-NAR-4:** There is no canonical `StoryTags` surface. Any query helpers are derived from story entries and scoped to the run context only.
+- **REQ-NAR-5:** Story entry artifacts must declare schemas and versions; backward-incompatible changes require new IDs.
 
 ### 4.2 Optionality & Composition
-- **REQ-NAR-4:** Recipes may omit narrative entirely; the pipeline remains valid without narrative steps.
-- **REQ-NAR-5:** If a recipe includes a narrative consumer (e.g., biome/feature/placement injectors), it must also include the corresponding narrative publishers. Compilation fails fast on missing publishers.
-- **REQ-NAR-6:** Enablement for narrative occurrences is authored in the recipe and compiled into the plan; executors do not auto-skip narrative consumers.
+- **REQ-NAR-6:** Recipes may omit narrative entirely; the pipeline remains valid without narrative steps.
+- **REQ-NAR-7:** If a recipe includes a narrative consumer (e.g., biome/feature/placement injectors), it must also include the corresponding narrative publishers. Compilation fails fast on missing dependencies.
+- **REQ-NAR-8:** Enablement for narrative occurrences is authored in the recipe and compiled into the plan; executors do not auto-skip narrative consumers.
 
 ### 4.3 Consumption & Downstream Contracts
-- **REQ-NAR-7:** Downstream steps that need narrative semantics must require the relevant narrative artifacts rather than re-deriving similar data.
-- **REQ-NAR-8:** Placement consumers rely on explicit narrative and placement input artifacts (`artifact:placementInputs@v1`) rather than engine reads or global flags.
+- **REQ-NAR-9:** Downstream steps that need narrative semantics must require the relevant story entry artifacts (and then derive any views they need at point-of-use).
+- **REQ-NAR-10:** Placement consumers rely on explicit narrative and placement input artifacts (`artifact:placementInputs@v1`) rather than engine reads or global flags.
 
 ### 4.4 State & Caching Rules
-- **REQ-NAR-9:** Narrative data is stored within `MapGenContext` artifacts. Any caching must be context-owned and keyed to the run; no module-level or cross-run caches are allowed.
+- **REQ-NAR-11:** Story entries are stored within `MapGenContext.artifacts`. Any caching of derived views must be context-owned and keyed to the run; no module-level or cross-run caches are allowed.
 
 ## 5. Success Criteria
 

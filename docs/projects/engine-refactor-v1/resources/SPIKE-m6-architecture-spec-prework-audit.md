@@ -237,7 +237,6 @@ This requires tightening an architectural seam in the dependency system:
 ### Open questions / follow-ups (explicit)
 
 - **Dependency gating detail (needs design):**
-  - Do we introduce a new dependency kind (e.g. `buffer:`) vs broaden/rename the existing `field:` kind?
   - Where do buffer dependency contracts live and how are they inferred/declared?
   - What are the canonical satisfiers for buffer readiness (presence + size + shape + version)?
 - **Buffer taxonomy (needs design):**
@@ -333,7 +332,7 @@ This system uses “tag” to mean at least three unrelated things. Untangling t
 
 **Where “tag” shows up today (what it actually means)**
 
-- **Pipeline dependency IDs** (strings): `DependencyTag` values in `requires`/`provides` (e.g. `artifact:*`, `field:*`, `effect:*`).
+- **Pipeline dependency IDs** (strings): `DependencyTag` values in `requires`/`provides` (e.g. `artifact:*`, `buffer:*` (today: `field:*`), `effect:*`).
   - `packages/mapgen-core/src/engine/types.ts`
 - **Pipeline dependency registry + runtime contracts**: `TagRegistry` + `DependencyTagDefinition` (`kind`, optional `satisfies(context, state)`, optional `demo`, optional `owner`).
   - `packages/mapgen-core/src/engine/tags.ts`
@@ -345,14 +344,14 @@ This system uses “tag” to mean at least three unrelated things. Untangling t
   - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
 - **Civ7 plot tags** are a separate engine concept: numeric plot tag IDs set on tiles (`PLOT_TAG.*`, `PlotTagName`, `adapter.getPlotTagId(...)`).
   - `packages/mapgen-core/src/core/plot-tags.ts`
-- **“Story tagging”** is narrative overlay classification (domain algorithms that pick tile-key sets and, in M6, write `StoryOverlaySnapshot` snapshots into `ctx.overlays`; target: views are derived on demand from published contributions). It is unrelated to pipeline dependency tags.
+- **“Story tagging”** is narrative overlay classification (domain algorithms that pick tile-key sets and, in M6, write `StoryOverlaySnapshot` snapshots into `ctx.overlays`; target: views are derived on demand from published story entries). It is unrelated to pipeline dependency tags.
   - `mods/mod-swooper-maps/src/domain/narrative/tagging/**`
 
 **Clean semantic buckets (distinct concepts currently shoved under “tag”)**
 
 1. **DependencyKey** — the string a step declares in `requires`/`provides` (today: `DependencyTag`).
    - Role: drives scheduling/integrity checks in the executor.
-   - Shape: string with kind prefix (`artifact:` / `field:` / `effect:`).
+   - Shape: string with kind prefix (`artifact:` / `buffer:` / `effect:`) (today: `field:` instead of `buffer:`).
    - Ownership: pipeline contract (not pure domain, not Civ7 adapter).
 2. **DependencyDefinition** — the runtime-checkable contract for a `DependencyKey` (today: `DependencyTagDefinition` in a `TagRegistry`).
    - Role: enforces postconditions (`satisfies`) and optionally carries `demo`/`owner` metadata.
@@ -362,9 +361,9 @@ This system uses “tag” to mean at least three unrelated things. Untangling t
    - Role: names a published data product in the pipeline.
    - Note: in M6, some `artifact:*` dependencies are satisfied via custom `satisfies(...)` logic against *other* context stores (e.g. story overlays), so “artifact” is best read as “data-product dependency”, not strictly “`context.artifacts` storage key”.
    - Ownership: pipeline contract; payload schemas/types may be domain-owned, but publication/verification is step/contract-owned.
-4. **FieldKey** — a `DependencyKey` of kind `field:` that asserts a specific buffer exists on `context.fields` (e.g. `field:rainfall`).
-   - Role: integrity check for “this field is present/initialized”.
-   - Ownership: pipeline contract; its relationship to `keyof MapFields` is core-owned.
+4. **BufferKey** — a `DependencyKey` of kind `buffer:` that asserts a specific buffer exists on `context.buffers` (e.g. `buffer:rainfall`).
+   - Role: integrity check for “this buffer is present/initialized”.
+   - Ownership: pipeline contract; its relationship to `keyof MapBuffers` is core-owned.
 5. **EffectKey** — a `DependencyKey` of kind `effect:` that asserts some engine-side effect has been applied (verified via adapter).
    - Role: integrity check for “engine state guarantees”.
    - Ownership: adapter-integration contract (engine-aware).
@@ -741,17 +740,17 @@ Prompt:
 
 **Where they live (SSOT today):**
 - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
-  - `M3_DEPENDENCY_TAGS`: canonical **artifact** + **field** dependency IDs for the standard recipe.
+  - `M3_DEPENDENCY_TAGS`: canonical **artifact** + **buffer** dependency IDs for the standard recipe (today: `field`).
   - `M4_EFFECT_TAGS`: canonical **effect** dependency IDs (engine effects) for the standard recipe.
-  - `STANDARD_TAG_DEFINITIONS`: explicit dependency contracts (`DependencyTagDefinition<ExtendedMapContext>`) for artifacts/fields/effects used by the standard recipe.
+  - `STANDARD_TAG_DEFINITIONS`: explicit dependency contracts (`DependencyTagDefinition<ExtendedMapContext>`) for artifacts/buffers/effects used by the standard recipe.
 
 **How `M3_DEPENDENCY_TAGS` is structured:**
 - `artifact.*`
   - Mix of:
     - *Imported IDs from core*: `FOUNDATION_*_ARTIFACT_TAG` (from `@swooper/mapgen-core`)
-    - *Local literal IDs*: e.g. `artifact:heightfield`, `artifact:climateField`, `artifact:narrative.*@v1`, `artifact:placementInputs@v1`
-- `field.*`
-  - Local literal IDs: `field:terrainType`, `field:elevation`, etc.
+    - *Local literal IDs*: e.g. `artifact:riverAdjacency`, `artifact:placementInputs@v1`, narrative story entries (`artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`)
+- `buffer.*` (today: `field.*`)
+  - Local literal IDs: `buffer:terrainType`, `buffer:elevation`, etc.
 
 **How `M4_EFFECT_TAGS` is structured:**
 - `engine.*` effect IDs
@@ -764,7 +763,7 @@ Prompt:
 - `M3_DEPENDENCY_TAGS` is used broadly for artifact/field `requires`/`provides` across stages.
 - `M4_EFFECT_TAGS` is used broadly for effect `requires`/`provides` across stages (not just “placement”):
   - Example: `coastlines` requires `effect:engine.landmassApplied`, provides `effect:engine.coastlinesApplied`.
-  - Example: `biomes` provides `effect:engine.biomesApplied` and also provides `field:biomeId`.
+  - Example: `biomes` provides `effect:engine.biomesApplied` and also provides `buffer:biomeId`.
   - Quick “where” summary (by stage):
     - `M3_DEPENDENCY_TAGS`: ecology, foundation, hydrology-pre/core/post, morphology-pre/mid/post, narrative-pre/mid/post/swatches, placement
     - `M4_EFFECT_TAGS`: ecology, hydrology-pre/core, morphology-pre/mid/post, narrative-pre/mid/post, placement
@@ -957,7 +956,7 @@ Locked names (no alternatives):
 **Where the outputs flow next (today):**
 - Narrative motif artifacts are read back via `mods/mod-swooper-maps/src/domain/narrative/queries.ts` (`getNarrativeMotifs*`), e.g. corridors consume rift/hotspot motifs.
 - M6 also writes `StoryOverlaySnapshot` into `ctx.overlays` for inspection/debug/contracts.
-  - **Target:** `ctx.overlays` is non-canonical; motif **contributions are the primitives**, and any narrative “views” are **derived on demand** from those primitives.
+  - **Target:** `ctx.overlays` is non-canonical; motif **story entries are the primitives**, and any narrative “views” are **derived on demand** from those primitives.
 
 #### Proposed semantic mapping: marker / overlay / annotation
 
@@ -967,7 +966,7 @@ Locked names (no alternatives):
 
 **Overlay (noun):** a derived snapshot aggregating markers (and metadata) for inspection/debug/contracts.
 - Concrete representation today: `StoryOverlaySnapshot` (in M6, stored in `ctx.overlays` under a `STORY_OVERLAY_KEYS.*` key).
-- **Target:** overlays are not published products; overlay snapshots are *derived on demand* from motif contributions.
+- **Target:** overlays are not published products; overlay snapshots are *derived on demand* from narrative story entries.
 
 **Annotate (verb):** “apply narrative markings onto the map”.
 - In target boundary terms, “annotate” is inherently **engine-facing** (writes to `context.artifacts` and/or mutates `context.buffers`) and therefore should read as a **step-level verb**, not a domain-level verb.
@@ -979,7 +978,7 @@ Locked names (no alternatives):
 - In M6 code, most `storyTag*` bodies are already “derive + publish” interleaved; the “derive” part is the tile-set math and summary computation.
 
 **What “annotate” would mean here (side effect):**
-- Publish **motif contributions** (artifacts) and/or apply changes to mutable world state (`context.buffers`).
+- Publish **story entries** (artifacts) and/or apply changes to mutable world state (`context.buffers`).
 - In M6 code, this corresponds primarily to calls like `ctx.artifacts.set(...)` (and, as legacy debug behavior, `publishStoryOverlay(...)`).
 
 **Conclusion:** “derive” and “annotate” are not synonyms. If we want “domain is pure; steps own engine semantics” later, we should reserve:
@@ -1003,51 +1002,51 @@ Locked names (no alternatives):
 - **Preferred narrative vocabulary (even when “story tag” is allowed):** “marker”, “overlay”, “annotation”.
 - **Forbidden “tag” usage:** pipeline dependency system (Buckets A/B).
 
-#### Decision (locked): contributions are published primitives; views are derived on demand
+#### Decision (locked): story entries are published primitives; views are derived on demand
 
 **What is published (primitives):**
-- Steps publish **motif contributions** as immutable artifacts (per-story/per-producer intervention records).
-- These contributions are the only narrative data products that participate in `requires/provides` gating and correctness.
+- Steps publish **story entries** as immutable artifacts (per-story/per-producer intervention records), classified under a motif.
+- These story entries are the only narrative data products that participate in `requires/provides` gating and correctness.
 
 **What is not published (no persisted views):**
 - Narrative **views** (e.g., “corridors overlay”) are not published products and must not be treated as dependency surfaces.
-- There is no meaningful “`corridors view exists`” dependency in the target model; consumers depend on the specific contributions (or motif-level contribution availability once that gating story is designed).
+- There is no meaningful “`corridors view exists`” dependency in the target model; consumers depend on the specific story entries (or motif-level story-entry availability once that gating story is designed).
 
 **How views work (explicit, no black ice):**
-- A view is a **derived snapshot** computed at point-of-use from contributions (and, where relevant, current buffers).
+- A view is a **derived snapshot** computed at point-of-use from story entries (and, where relevant, current buffers).
 - Derivation lives in code (domain/authoring), not as “store-level merge semantics”.
 - Any caching of derived views (including `ctx.overlays` / `StoryOverlaySnapshot`) is **non-canonical debug support only** and must never be required for correctness.
 
 **Relationship to prior decisions (consistency constraints):**
 - Buckets A/B: pipeline gating uses **dependency** terminology (`DependencyId` / `DependencyContract`), never “tags”.
 - Bucket C: “tag” remains reserved for Civ7 plot tags and explicitly-qualified map-surface language; narrative APIs should prefer marker/overlay nouns.
-- Bucket D naming: domain-side operations should read as `derive*`/`compute*`; publishing contributions is step-owned side-effect work (`publish*`).
+- Bucket D naming: domain-side operations should read as `derive*`/`compute*`; publishing story entries is step-owned side-effect work (`publish*`).
 
 **Open design topic (explicitly out of scope for this decision):**
 - We may later want “merge-like” overlay collaboration (multiple contributors, partial updates, etc.).
 - If that becomes necessary, it requires a **separate design session** and is not implied by the current derived-view model (no store-level merge semantics).
 
-**Decision (locked):** keep `publish*` as the canonical side-effect verb for storing narrative contributions (artifacts). “Annotate” remains narrative vocabulary, but it is not the API verb for artifact publication.
+**Decision (locked):** keep `publish*` as the canonical side-effect verb for storing narrative story entries (artifacts). “Annotate” remains narrative vocabulary, but it is not the API verb for artifact publication.
 
 ---
 
-## Narrative Layer (Motifs + Overlays) — Current Synthesis
+## Narrative System (Motifs + Views) — Current Synthesis
 
 ### Purpose / problem space (conceptual)
-The narrative layer resolves the longstanding “how do we handle narratives?” problem by separating **world-generation rules** from **intentful interventions**.
+The narrative system resolves the longstanding “how do we handle narratives?” problem by separating **world-generation rules** from **intentful interventions**.
 
 - The **pipeline** is the “rules world”: procedural mechanics that evolve world state (terrain, climate, hydrology, ecology). It defines *how* the universe works.
-- The **narrative layer** is the “intervention world”: deliberate, playability-driven nudges that shape *how the map feels* (movement corridors, strategic funnels, hotspot regions, crater-lake candidates, etc.) without requiring mod authors to rewrite the procedural laws.
+- The **narrative system** is the “intervention world”: deliberate, playability-driven nudges that shape *how the map feels* (movement corridors, strategic funnels, hotspot regions, crater-lake candidates, etc.) without requiring mod authors to rewrite the procedural laws.
 
-This matters because most gameplay-facing customization is better expressed as “put your thumb on the scale” (corridors, regions, playability signals) rather than as low-level algorithm rewrites. Narrative motifs give mod authors a stable, high-leverage authoring surface: publish and consume intervention signals that can influence multiple downstream stages while the core pipeline stays maintainable and coherent.
+This matters because most gameplay-facing customization is better expressed as “put your thumb on the scale” (corridors, regions, playability signals) rather than as low-level algorithm rewrites. Narrative motifs give mod authors a stable, high-leverage authoring surface: publish and consume story entries that can influence multiple downstream stages while the core pipeline stays maintainable and coherent.
 
 ### Architecture connection (concrete/technical)
-Architecturally, narrative is **not a separate execution system**. It is a **mod-facing lens** over published data products produced/consumed by steps, preserving explicit ordering via requires/provides.
+Architecturally, narrative is **not a separate execution system**. It is a **mod-facing lens** over published story entries produced/consumed by steps, preserving explicit ordering via requires/provides.
 
 - Steps still own sequencing and engine coupling: they decide when an intervention is produced and when it is applied.
 - Domain remains pure (per the locked boundary rule): narrative selection/scoring/derivation logic can live in domain modules as pure operations; steps orchestrate and publish.
-- Narrative **contributions** are immutable published snapshots (consistent with enforced artifact immutability). The container may accumulate many such snapshots over a run; the values themselves are immutable.
-- Narrative “overlay”/“view” snapshots are **derived on demand** from contributions (and, where relevant, buffers). They are not published dependency surfaces.
+- Narrative story entries are immutable published snapshots (consistent with enforced artifact immutability). The container may accumulate many such snapshots over a run; the values themselves are immutable.
+- Narrative “overlay”/“view” snapshots are **derived on demand** from story entries (and, where relevant, buffers). They are not published dependency surfaces.
 
 Net effect: narrative becomes a coherent, authorable layer that can be depended on, without collapsing back into “just another procedural step” or smuggling hidden merge semantics into the engine.
 
@@ -1055,42 +1054,34 @@ Net effect: narrative becomes a coherent, authorable layer that can be depended 
 **Motifs** (e.g. corridors/regions/fertility) are the primary narrative organizing concept: stable categories of interventions that downstream consumers can treat as coherent concepts.
 
 Current direction:
-- Steps publish **immutable motif contributions** (per-story/per-producer intervention records) over time.
-- Other steps consume contributions at the point they need them and apply explicit logic (no store-level “winner” behavior required).
-- Narrative should be **mod-facing and data-first**: a typed, discoverable authoring surface that lets modders publish/query/reduce motif contributions without spelunking step internals.
+- Steps publish **immutable story entries** (per-story/per-producer intervention records) over time, classified under motifs.
+- Other steps consume story entries at the point they need them and apply explicit logic (no store-level “winner” behavior required).
+- Narrative should be **mod-facing and data-first**: a typed, discoverable authoring surface that lets modders publish/query/reduce motif story entries without spelunking step internals.
 
 A key practical pressure: the hard part is not raw storage (we can store immutable items), it’s **DX and gating**:
-- Discovery/query: “give me all corridor contributions so far” needs a first-class typed query story (not ad-hoc `Map` spelunking).
-- Requires/provides: consumers often want “corridors exist” rather than “a specific contribution id exists”, pushing toward motif-level gating concepts.
+- Discovery/query: “give me all corridor story entries so far” needs a first-class typed query story (not ad-hoc `Map` spelunking).
+- Requires/provides: consumers gate on specific story entry IDs; “motif exists” is a query concern, not a dependency surface.
 
 ### Locked decisions that constrain narrative
 - Artifacts are immutable snapshots and immutability is enforced.
 - Buffers are mutable run state (`context.buffers`), and buffers must not be modeled as artifacts just to satisfy gating.
 - Domain is pure; steps own engine semantics.
 - Pipeline dependency terminology must not use generic “tag”; “tag” is reserved for Civ7 plot tags and explicitly-qualified map-surface semantics (story/narrative), not pipeline gating.
-- Narrative contributions are published primitives; views are derived on demand (no persisted view products).
+- Narrative story entries are published primitives; views are derived on demand (no persisted view products).
 - Narrative motifs are a **first-class, mod-facing, data-first authoring surface** (a lens over published products, not a separate execution system).
-- Motif contributions are **multi-producer**: multiple steps may publish distinct motif contributions over time.
+- Motif story entries are **multi-producer**: multiple steps may publish distinct story entries over time.
 
 ### Open questions / unresolved design decisions (explicit)
 1) **Narrative API packaging / runtime exposure**
 - Narrative is mod-facing (locked). Open: does the narrative lens live as:
   - a first-class `context.narrative` facade/container, or
   - an authoring surface (e.g., `@swooper/mapgen-core/authoring/narrative`) that reads/writes existing context stores?
-- If we choose a `context.narrative` facade: is it purely a typed query/publish façade over immutable motif contributions, or does it become a distinct runtime store with new semantics?
+- If we choose a `context.narrative` facade: is it purely a typed query/publish façade over immutable story entries, or does it become a distinct runtime store with new semantics?
 
-2) **Contribution identity and naming**
-- What do we call the stored unit (“contribution” vs “entry” vs “record”), to avoid overloading “story”?
-- What IDs exist and what are they for: motif id vs contribution id vs producer id?
-
-3) **Discovery/query contract**
-- How does a consumer obtain “all contributions for motif X” in a typed way?
+2) **Discovery/query contract**
+- How does a consumer obtain “all story entries for motif X” in a typed way?
 - Do we standardize prefix conventions + helper utilities, or require an explicit per-motif index/manifest?
 
-4) **Requires/provides gating for motif-level availability**
-- How does a step declare “I need corridors contributions to exist” (motif-level gating) vs “I need a specific contribution”?
-- Do we introduce motif-level dependencies (with `satisfies()` checks), index artifacts, or a narrative registry concept?
-
-5) **Consistency of interpretation**
+3) **Consistency of interpretation**
 - If multiple consumers “reduce at point-of-use”, how do we prevent semantic drift (different reductions meaning different “corridors”)?
 - Do we lock “one canonical reducer per motif” as a rule, and where does it live (domain operations vs authoring layer)?

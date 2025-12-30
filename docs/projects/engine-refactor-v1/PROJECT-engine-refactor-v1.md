@@ -211,8 +211,8 @@ The milestones above converge on a target engine that follows the cluster topolo
 | Foundations | `foundation`, `landmassPlates` | Engine seed, map dimensions, Civ Voronoi utilities | Plate seeds, plate tensors, initial landmask, `FoundationContext` |
 | Morphology | `coastlines`, `mountains`, `volcanoes`, `lakes`, `terrainAdjust` | `FoundationContext`, heightfield buffer | Final heightfield, shore mask, margin metadata |
 | Hydrology & Climate | `rivers`, `rainfallBaseline`, `climateRefine`, `humidity` | Heightfield, wind/currents, shore mask | Rainfall/humidity grids, water flow graph |
-| Narrative Overlays | `storySeed`, `storyHotspots`, `storyRifts`, `storyOrogeny`, `storyCorridors`, `storySwatches` | Heightfield, climate grids, plate tensors | Overlay layers (`corridors`, `hotspots`, `swatches`, etc.) |
-| Biomes & Features | `biomes`, `features` | Heightfield, climate grids, overlays | Final biomes/features, validation metrics |
+| Narrative (motifs) | `storySeed`, `storyHotspots`, `storyRifts`, `storyOrogeny`, `storyCorridors`, `storySwatches` | Heightfield, climate grids, plate tensors | Typed story entries by motif (derived views available for inspection/debug) |
+| Biomes & Features | `biomes`, `features` | Heightfield, climate grids, narrative story entries | Final biomes/features, validation metrics |
 | Placement & Finalization | `placement`, `finalize` | All prior fields | Player starts, resources, discoveries |
 
 ### 5.2 Data Products
@@ -220,13 +220,13 @@ The milestones above converge on a target engine that follows the cluster topolo
 - `FoundationContext`: immutable snapshot bundling plate IDs, boundary metadata, uplift/rift fields, wind/currents, shared seeds.
 - `Heightfield`: staged terrain buffer (elevation + terrain) flushed to the engine only at cluster boundaries.
 - `ClimateField`: rainfall/humidity/temperature arrays (read-only to consumers; authored by climate engine).
-- `StoryOverlays`: structured map of sparse overlays (corridors, hotspots, active/passive margins).
+- Narrative story entries: typed, versioned motif records; narrative views are derived snapshots for inspection/debug only.
 
 ### 5.3 Guiding Principles
 
 - **One source of truth:** Foundations (tectonics, climate primitives) originate from a single module and feed every downstream stage.
 - **Explicit data contracts:** Stages declare required inputs and emitted outputs.
-- **Physics before narrative:** Morphology and climate operate on the finished heightfield before story overlays/placement.
+- **Physics before narrative:** Morphology and climate operate on the finished heightfield before narrative story entry publication and placement.
 - **Determinism & observability:** Shared seeds and logging ensure reproducibility; diagnostics track data products instead of implicit state.
 - **No optional physics:** Physics stack is always on; legacy non-physics flows become opt-in extensions.
 - **Voronoi physics stack:** The Civ VII Voronoi + physics integration is canonical; “legacy” never reuses the Voronoi label.

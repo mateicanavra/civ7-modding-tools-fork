@@ -67,8 +67,8 @@ export interface MapBuffers {
 /**
  * Derived snapshot describing a sparse narrative overlay (debug/inspection surface).
  *
- * This is not a canonical pipeline product: narrative contributions are the published primitives,
- * and overlay snapshots are derived on demand from those contributions.
+ * This is not a canonical pipeline product: narrative story entries are the published primitives,
+ * and overlay snapshots are derived on demand from those story entries.
  */
 export interface StoryOverlaySnapshot {
   key: string;

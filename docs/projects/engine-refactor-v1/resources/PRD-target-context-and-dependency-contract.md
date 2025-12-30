@@ -1,4 +1,4 @@
-# PRD: Target Context & Dependency Contract (Fields, Artifacts, Satisfaction)
+# PRD: Target Context & Dependency Contract (Buffers, Artifacts, Satisfaction)
 
 ## 1. Purpose
 
@@ -7,7 +7,7 @@ Define the end-state `MapGenContext` shape, storage layout, and dependency satis
 ## 2. Scope
 
 **In scope**
-- Context ownership of fields, artifacts, settings, and runtime surface.
+- Context ownership of buffers, artifacts, settings, and runtime surface.
 - Storage layout for foundation artifacts (and prohibition on monolithic `FoundationContext` surfaces).
 - Dependency satisfaction rules (explicit `provides`/initial sets, no implicit satisfaction from allocation).
 
@@ -25,17 +25,17 @@ Define the end-state `MapGenContext` shape, storage layout, and dependency satis
 ## 4. Requirements
 
 ### 4.1 Context Shape & Ownership
-- **REQ-CTX-1:** `MapGenContext` owns four domains: `fields` (mutable buffers), `artifacts` (immutable/versioned intermediates), `settings` (validated run-wide inputs), and `runtime` (adapter I/O surface).
+- **REQ-CTX-1:** `MapGenContext` owns three canonical storage domains: `buffers` (mutable world state), `artifacts` (immutable, versioned snapshots; immutability is enforced), and `settings` (validated run-wide inputs). The context may also carry an engine adapter I/O surface, but it must not become a “hidden storage domain”.
 - **REQ-CTX-2:** Step-local config is not stored globally; it is carried per occurrence in the `ExecutionPlan`.
-- **REQ-CTX-3:** Engine/adapter interactions are surfaced via `runtime` and/or `effect:*` tags; engine usage is optional for offline determinism.
+- **REQ-CTX-3:** Engine/adapter interactions are surfaced via the adapter surface and/or `effect:*` dependencies; engine usage is optional for offline determinism.
 
 ### 4.2 Storage Layout
 - **REQ-CTX-4:** Foundation artifacts are stored discretely under `context.artifacts.foundation.*` (mesh, crust, plateGraph, tectonics). New work must not depend on `ctx.foundation` or other monolithic blobs.
-- **REQ-CTX-5:** Other artifacts/fields are stored under `context.artifacts.*` and `context.fields.*` keyed by their tags; tag IDs remain the dependency language (no blob dependencies).
+- **REQ-CTX-5:** Other artifacts/buffers are stored under `context.artifacts.*` and `context.buffers.*` keyed by their dependency IDs; dependency IDs remain the dependency language (no blob dependencies).
 
 ### 4.3 Dependency Satisfaction Semantics
 - **REQ-CTX-6:** Dependency satisfaction is tracked explicitly by execution state: a tag is satisfied only if it is in the initial satisfied set or was provided by a completed step occurrence.
-- **REQ-CTX-7:** Preallocated buffers do **not** satisfy `field:*` dependencies. For M4 baseline, no `field:*` tags are initially satisfied; future initial sets must be added deliberately with documented triggers.
+- **REQ-CTX-7:** Preallocated buffers do **not** satisfy `buffer:*` dependencies. By default, no `buffer:*` dependencies are initially satisfied; any initial sets must be added deliberately with documented triggers.
 - **REQ-CTX-8:** Missing dependencies at execution time are hard errors (fail fast). Runtime capability/precondition checks must be explicit (no silent skips).
 
 ## 5. Success Criteria
@@ -44,6 +44,10 @@ Define the end-state `MapGenContext` shape, storage layout, and dependency satis
 - Foundation consumers access discrete artifacts (`context.artifacts.foundation.mesh`, etc.), and no new dependency is expressed as `ctx.foundation`.
 - Execution tracks satisfied tags explicitly; a step that does not declare a `provides` cannot make a tag available.
 - Dependency validation failures surface as structured errors before step execution.
+
+## Open Questions
+
+- Artifact immutability enforcement details: how to normalize/copy non-freezable values (typed arrays, `Map`/`Set`) at publish time without changing artifact semantics.
 
 ## 6. Dependencies & References
 
