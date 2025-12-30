@@ -67,3 +67,23 @@ Re-review: no additional issues beyond the tag inference vs explicit catalog mis
 
 ### Cross-cutting Risks
 - Tag ownership/observability may be weaker than the target architecture if explicit tag catalogs become optional in practice.
+
+## REVIEW m6-u03-scaffold-standard-content-package-skeleton-and-exports
+
+### Quick Take
+Standard recipe skeleton and stage layout are in place and use the authoring SDK, but the mod package still lacks a `test` script even though the acceptance criteria call for `pnpm -C mods/mod-swooper-maps test`.
+
+### High-Leverage Issues
+- `mods/mod-swooper-maps/package.json`: no `test` script, so the documented verification command fails.
+
+### Fix Now (Recommended)
+- Add a `test` script (even a placeholder pointing to `pnpm run check`) or update the issue doc to remove `pnpm -C mods/mod-swooper-maps test` until tests exist.
+
+### Defer / Follow-up
+- Add real mod-level tests once step content is migrated to replace the placeholder steps.
+
+### Needs Discussion
+- None noted.
+
+### Cross-cutting Risks
+- None noted.
