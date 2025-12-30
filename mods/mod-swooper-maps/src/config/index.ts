@@ -16,6 +16,8 @@ export {
   ClimateStoryPaleoSizeScalingSchema,
   // Main schemas
   BiomeConfigSchema,
+  BiomeThresholdsSchema,
+  NarrativePolicySchema,
   ClimateBaselineSchema,
   ClimateConfigSchema,
   ClimateRefineSchema,
@@ -76,6 +78,8 @@ export type {
   ClimateStoryPaleoSizeScaling,
   // Main types
   BiomeConfig,
+  BiomeThresholds,
+  NarrativePolicy,
   ClimateBaseline,
   ClimateConfig,
   ClimateRefine,

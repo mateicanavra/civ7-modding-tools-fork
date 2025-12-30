@@ -1,16 +1,25 @@
 import { Type, type Static } from "typebox";
 import { DEV, logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { BiomeConfigSchema, CorridorsConfigSchema } from "@mapgen/config";
-import { designateEnhancedBiomes } from "@mapgen/domain/ecology/biomes/index.js";
+import { BiomeThresholdsSchema, NarrativePolicySchema } from "@mapgen/config";
+import { designateOwnedBiomes } from "@mapgen/domain/ecology/biomes/owned.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
+/**
+ * Biomes step configuration schema.
+ *
+ * Uses the owned biome classification model with:
+ * - thresholds: Climate→biome scoring parameters
+ * - narrative: Corridor/rift overlay strength
+ */
 const BiomesStepConfigSchema = Type.Object(
   {
-    biomes: BiomeConfigSchema,
-    corridors: CorridorsConfigSchema,
+    /** Biome classification thresholds (controls climate→biome mapping). */
+    thresholds: Type.Optional(BiomeThresholdsSchema),
+    /** Narrative overlay policy (corridor/rift strength). */
+    narrative: Type.Optional(NarrativePolicySchema),
   },
-  { additionalProperties: false, default: { biomes: {}, corridors: {} } }
+  { additionalProperties: false, default: {} }
 );
 
 type BiomesStepConfig = Static<typeof BiomesStepConfigSchema>;
@@ -49,10 +58,13 @@ export default createStep({
   schema: BiomesStepConfigSchema,
   run: (context: ExtendedMapContext, config: BiomesStepConfig) => {
     const { width, height } = context.dimensions;
-    designateEnhancedBiomes(width, height, context, {
-      biomes: config.biomes,
-      corridors: config.corridors,
+
+    // Use owned biome classification
+    designateOwnedBiomes(width, height, context, {
+      thresholds: config.thresholds,
+      narrative: config.narrative,
     });
+
     reifyBiomeField(context);
 
     if (DEV.ENABLED && context?.adapter) {

@@ -112,20 +112,28 @@ describe("CIV-18: Call-site Fixes", () => {
     });
   });
 
-  describe("biomes ctx parameter", () => {
-    it("designateEnhancedBiomes accepts optional ctx parameter", async () => {
-      // Import the function to verify its signature
-      const { designateEnhancedBiomes } = await import(
-        "@mapgen/domain/ecology/biomes/index.js"
+  describe("biomes module exports", () => {
+    it("exports computeBiome as a pure classification function", async () => {
+      // Import the pure classification function
+      const { computeBiome, BiomeId } = await import(
+        "@mapgen/domain/ecology/classification/index.js"
       );
 
       // Function should exist and be callable
-      expect(typeof designateEnhancedBiomes).toBe("function");
+      expect(typeof computeBiome).toBe("function");
 
-      // Verify it accepts 3 parameters (iWidth, iHeight, ctx?)
-      // The function.length property shows required parameters, not optional
-      // Since ctx is optional, length should be 2
-      expect(designateEnhancedBiomes.length).toBeLessThanOrEqual(3);
+      // Test it with a simple climate input
+      const biome = computeBiome({
+        latitude: 35,
+        elevation: 50,
+        rainfall: 80,
+        isCoastal: true,
+        riverAdjacent: false,
+      });
+
+      // Should return a valid BiomeId
+      expect(biome).toBeGreaterThanOrEqual(0);
+      expect(biome).toBeLessThanOrEqual(6);
     });
   });
 });
