@@ -15,6 +15,21 @@
 		</Criteria>
 	</ActionCriteria>
 	<ActionGroups>
+		<!-- Game scope: Make map scripts available to MapGeneration -->
+		<ActionGroup id="game-swooper-maps" scope="game" criteria="always">
+			<Actions>
+				<UpdateText>
+					<Item>text/en_us/MapText.xml</Item>
+				</UpdateText>
+				<ImportFiles>
+					<Item>maps/gate-a-continents.js</Item>
+					<Item>maps/shattered-ring.js</Item>
+					<Item>maps/sundered-archipelago.js</Item>
+					<Item>maps/swooper-desert-mountains.js</Item>
+					<Item>maps/swooper-earthlike.js</Item>
+				</ImportFiles>
+			</Actions>
+		</ActionGroup>
 		<!-- Shell scope: Register maps in UI -->
 		<ActionGroup id="shell-swooper-maps" scope="shell" criteria="always">
 			<Actions>
