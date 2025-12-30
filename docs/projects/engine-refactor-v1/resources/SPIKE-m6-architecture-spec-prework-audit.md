@@ -1071,11 +1071,14 @@ A key practical pressure: the hard part is not raw storage (we can store immutab
 - Domain is pure; steps own engine semantics.
 - Pipeline dependency terminology must not use generic “tag”; “tag” is reserved for Civ7 plot tags and explicitly-qualified map-surface semantics (story/narrative), not pipeline gating.
 - Overlay views are single-writer, last-write-wins; no overlay-layer merge semantics.
+- Narrative motifs are a **first-class, mod-facing, data-first authoring surface** (a lens over published products, not a separate execution system).
 
 ### Open questions / unresolved design decisions (explicit)
-1) **Narrative API surface shape**
-- Do we introduce a first-class `context.narrative` facade/container (typed lens), or keep narrative purely as authoring helpers over existing stores?
-- If `context.narrative` exists: is it purely a query façade over immutable contributions, or does it become a real runtime store with additional semantics?
+1) **Narrative API packaging / runtime exposure**
+- Narrative is mod-facing (locked). Open: does the narrative lens live as:
+  - a first-class `context.narrative` facade/container, or
+  - an authoring surface (e.g., `@swooper/mapgen-core/authoring/narrative`) that reads/writes existing context stores?
+- If we choose a `context.narrative` facade: is it purely a typed query/publish façade over immutable motif contributions, or does it become a distinct runtime store with new semantics?
 
 2) **Overlay placement**
 - Where do overlay views live: `context.overlays`, `context.artifacts`, or behind a narrative facade?
