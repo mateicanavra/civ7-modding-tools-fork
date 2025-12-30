@@ -773,10 +773,6 @@ In particular, when a step (or a domain op used by the step) offers strategies, 
 
 Each item below is an intentionally standalone decision packet. The goal is to make the downstream consequences explicit so we can converge without accidental drift.
 
-Conventions for this section:
-- Each option calls out whether it introduces a **canonical artifact/API** (a “thing” with structure that exists in the system) vs a **convention/approach** (a way we use existing things).
-- If a term is synthesized here (not obviously canonical), it is defined inline in that decision packet before use.
-
 ### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
 **Impact / scale:** **Medium**
@@ -996,12 +992,6 @@ This decision is about the *shape authors edit*, not whether steps can be toggle
 - If we want “disable this step” to be a first-class authoring affordance, Option **B** can expose a clean flag at the curated path (e.g., `morphology.volcanoes.enabled = false`) and compile it into the canonical representation.
 
 **Recommendation:** Treat **A** as the target. If we later add **B**, it must be strictly type-derived and must not reintroduce a global config object that blocks strategy unions.
-
-**Still-open questions (even if we pick B):**
-- **Instance mapping:** how do curated paths map to step instances when a recipe has multiple instances of the “same” step/op (or parameterized instances)?
-- **Omission semantics:** if a config subtree is absent, does that mean “use defaults”, “disabled”, or “not present in this recipe”? (This interacts with `enabled`, but is distinct.)
-- **Identity and naming:** what stable names/ids do authors use in the curated shape (step ids, friendly aliases, or recipe-defined names)?
-- **Derivation mechanism:** do we derive the curated config input shape purely via TS types, or do we need a small declarative recipe description to drive both typing and compilation?
 
 ### DD-007: Step schema composition (manual wiring vs declarative op usage)
 
