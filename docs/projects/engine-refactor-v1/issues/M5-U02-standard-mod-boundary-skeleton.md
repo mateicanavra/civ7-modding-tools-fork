@@ -43,7 +43,7 @@ Make the ownership boundary real: core is the generic pipeline engine, and the s
 
 ## Dependencies / Notes
 
-- **Paper trail:** target-architecture package boundary; see spike at `docs/projects/engine-refactor-v1/spikes/2025-12-26-m5-clean-architecture-finalization-scope.md`.
+- **Paper trail:** target-architecture package boundary; see spike at `docs/projects/engine-refactor-v1/resources/SPIKE-2025-12-26-m5-clean-architecture-finalization-scope.md`.
 - **Complexity × parallelism:** medium complexity, medium parallelism.
 
 ---

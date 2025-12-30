@@ -36,7 +36,7 @@ Rewrite maps and presets to select a recipe and supply a config instance at runt
 - Blocked by: [LOCAL-TBD-M6-U05](./LOCAL-TBD-M6-U05-re-author-standard-recipe-as-a-mini-package.md)
 
 ## Remediation (SPIKE alignment)
-- [ ] Align with [SPIKE (M6)](../resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md) by completing [R4](../plans/m6-spike-structure-remediation-plan.md#r4) and [R7](../plans/m6-spike-structure-remediation-plan.md#r7).
+- [ ] Align with [SPIKE (M6)](../resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md) by completing [R4](../resources/PLAN-m6-spike-structure-remediation.md#r4) and [R7](../resources/PLAN-m6-spike-structure-remediation.md#r7).
 
 ---
 

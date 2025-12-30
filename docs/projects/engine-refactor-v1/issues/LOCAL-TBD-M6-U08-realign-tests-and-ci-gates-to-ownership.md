@@ -37,7 +37,7 @@ Move tests to match the new ownership boundaries and keep the CI gates aligned.
 - Blocked by: [LOCAL-TBD-M6-U05](./LOCAL-TBD-M6-U05-re-author-standard-recipe-as-a-mini-package.md)
 
 ## Remediation (SPIKE alignment)
-- [ ] Align with [SPIKE (M6)](../resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md) by completing [R3](../plans/m6-spike-structure-remediation-plan.md#r3).
+- [ ] Align with [SPIKE (M6)](../resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md) by completing [R3](../resources/PLAN-m6-spike-structure-remediation.md#r3).
 
 ---
 
