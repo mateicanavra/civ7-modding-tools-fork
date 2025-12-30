@@ -987,7 +987,7 @@ export const config = compileConfig(standardRecipe, {
 
 This decision is about the *shape authors edit*, not whether steps can be toggled.
 
-- The engine-level recipe schema already has a notion of per-step enable/disable (e.g., `RecipeStepV1.enabled` in `packages/mapgen-core/src/engine/execution-plan.ts`).
+- The engine-level recipe schema already has a notion of per-step enable/disable (e.g., `RecipeStepV2.enabled` in `packages/mapgen-core/src/engine/execution-plan.ts`).
 - Both Option **A** and **B** can represent “enabled/disabled” as part of step configuration; the difference is whether the author sees the raw step graph (A) or a curated projection of it (B).
 - If we want “disable this step” to be a first-class authoring affordance, Option **B** can expose a clean flag at the curated path (e.g., `morphology.volcanoes.enabled = false`) and compile it into the canonical representation.
 

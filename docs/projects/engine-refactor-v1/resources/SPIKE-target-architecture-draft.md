@@ -379,12 +379,12 @@ vs remains canonical (manifest, dependency spine, enablement flags).
 This does not block V1 (linear baseline), but it is cheap to lock now and expensive
 to revisit after we publish a mod-facing contract.
 
-- **Deterministic scheduling (tie-break):**
-  - When we introduce DAG/partial-order authoring, we derive a deterministic linear schedule via a **stable topological sort**.
-  - Tie-break rule (in priority order):
-    1. explicit order constraints (edges) authored in the recipe,
-    2. the recipe's **layout order** (the authored `steps[]` list order, if present),
-    3. lexical order of `instanceId` as the final deterministic fallback.
+	- **Deterministic scheduling (tie-break):**
+	  - When we introduce DAG/partial-order authoring, we derive a deterministic linear schedule via a **stable topological sort**.
+	  - Tie-break rule (in priority order):
+	    1. explicit order constraints (edges) authored in the recipe,
+	    2. the recipe's **layout order** (the authored `steps[]` list order, if present),
+	    3. lexical order of `step id` as the final deterministic fallback.
 - **Mutation semantics (read/write direction):**
   - Scheduling semantics should remain grounded in **dataflow**:
     - `requires` ≈ reads, `provides` ≈ writes.
@@ -1009,30 +1009,19 @@ recipe (authored) → registry (catalog) → `ExecutionPlan` (compiled)?
     shared across steps (seed, dimensions, etc.), and step-local knobs are supplied
     via per-occurrence recipe config and carried into the compiled `ExecutionPlan`.
 
-**Proposed V1 recipe schema shape (baseline authoring is linear):**
+**Recipe schema v2 shape (baseline authoring is linear):**
 This is the minimum contract we can implement and validate while staying aligned
 with the long-term direction from `2.1` (DAG later; linear baseline now).
 
 Top-level:
 - `schemaVersion` (required): identifies the recipe schema version (see below).
 - `id` (optional): stable identifier for tooling, not semantics.
-- `metadata` (optional): labels/notes for humans/tooling (no scheduling semantics).
-- `steps` (required): ordered list (V1 canonical baseline authoring shape).
-- `future` (optional, V1 must be empty / ignored): reserved space for later DAG/mod features.
-- `extensions` (optional): open-ended vendor/plugin space (non-semantic in V1).
+- `steps` (required): ordered list (canonical baseline authoring shape).
 
 Step entry (per occurrence):
 - `id` (required): registry step ID (string).
-- `instanceId` (optional): unique occurrence ID if a step appears multiple times.
-  - Default: if absent, `instanceId = id` (V1 assumes no duplicates unless explicitly disambiguated).
 - `enabled` (optional, default true): explicit enablement in recipe (see `2.2` for full model).
 - `config` (optional): per-step config object validated by the step's own schema (when available).
-- `labels` (optional): tooling-only tags (no scheduling semantics in V1).
-
-Reserved future fields (intentionally non-blocking now):
-- `future.graph`: DAG edges/constraints (must be absent or empty in V1).
-- `future.modPlacement`: hooks/constraints descriptors (must be absent or empty in V1).
-- `future.affects`: descriptive or semantic metadata (must be absent or empty in V1).
 
 **How it references registry entries:**
 - Each step occurrence references a registry key (`id`).

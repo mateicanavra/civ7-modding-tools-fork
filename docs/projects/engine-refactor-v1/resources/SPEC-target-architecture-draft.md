@@ -345,7 +345,7 @@ Effects:
   - `src/engine/ExecutionPlan.ts` owns:
     - `RunSettingsSchema` / `RunSettings`
     - `RunRequestSchema` / `RunRequest`
-    - recipe structural schemas (`RecipeV1Schema`, `RecipeStepV1Schema`)
+    - recipe structural schemas (`RecipeV2Schema`, `RecipeStepV2Schema`)
   - `src/engine/StepConfig.ts` owns `EmptyStepConfigSchema` for explicit “no config” steps
 - Content package step schemas live with steps; the engine does not ship content schemas.
 

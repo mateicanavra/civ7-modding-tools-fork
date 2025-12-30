@@ -28,8 +28,8 @@ export { PipelineExecutor } from "@mapgen/engine/PipelineExecutor.js";
 export {
   compileExecutionPlan,
   ExecutionPlanCompileError,
-  RecipeStepV1Schema,
-  RecipeV1Schema,
+  RecipeStepV2Schema,
+  RecipeV2Schema,
   RunRequestSchema,
   RunSettingsSchema,
   TraceConfigSchema,
@@ -40,8 +40,8 @@ export type {
   ExecutionPlanCompileErrorCode,
   ExecutionPlanCompileErrorItem,
   ExecutionPlanNode,
-  RecipeStepV1,
-  RecipeV1,
+  RecipeStepV2,
+  RecipeV2,
   RunRequest,
   RunSettings,
 } from "@mapgen/engine/execution-plan.js";
