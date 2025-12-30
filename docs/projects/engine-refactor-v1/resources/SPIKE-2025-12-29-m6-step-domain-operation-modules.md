@@ -895,103 +895,43 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 - **Step config contracts**: the ground-truth config shapes that runtime validation uses at execution time.
 - **Global-config legacy**: the “map global config overrides” pattern that sits above steps and can erase strategy unions by translating.
 
-**Question:** What is the authoring surface for modders: direct authoring of the canonical recipe config, or an additional curated authoring config that compiles into recipe config?
+**Decision (locked):** Map files author **direct recipe config** (stageId → stepId → stepConfig) using `RecipeConfigOf<typeof stages>`. No separate curated/compiled authoring config surface is part of the target model in this spike.
 
-**Definitions (used in this decision):**
-- **Recipe config (canonical artifact):** the concrete TypeScript object shape that the runtime/runner validates and executes. It is composed from the recipe’s steps and includes step-level config (including op strategy selection where applicable).
-- **Curated config input (internal term, canonical artifact):** an optional, *friendlier* TypeScript object shape intended for humans to edit, which is then compiled into the canonical recipe config.
-  - “Curated” here means: the shape can rename/re-group fields to be more ergonomic than the raw step graph, but it must remain **per-recipe** (not global), and it must preserve **type-derived constraints** (not hand-maintained).
-  - Public API note: mod authors should only see “config”. This document uses “curated config input” only to avoid ambiguous “config vs config”.
-- **Compiler function (canonical API):** a small function (e.g., `compileConfig(recipe, config) -> recipeConfig`) that maps the curated config input into the canonical recipe config.
-  - Important nuance: Option B does *not* require a second runtime schema system. The runtime schema remains the recipe/step schemas; the curated config input can be “just types + a mapper”.
-- **Optional sugar (approach):** the canonical recipe config remains the source of truth; the curated config input is a convenience surface that is not required to use the system.
+**Why it matters / what it affects:** This keeps the authored surface minimal and fully type-derived from the recipe’s steps. It also preserves DD-005 strategy union narrowing at the exact place mod authors write config, without introducing a second authoring-only schema that could drift.
 
-**Why it matters / what it affects:** The capability we’re enabling (type-safe strategy selection via discriminated unions, including the DD-005 default-friendly behavior) only works if authors edit the real config shape that steps actually validate and execute. Any translation layer can erase unions, introduce drift, or reintroduce a global config smell.
-
-**Options:**
-- **A) Author composed recipe config directly (canonical artifact only):** map files author the recipe’s composed config (or a deep partial), with minimal translation.
-- **B) Curated authoring config (adds a canonical artifact + compiler):** introduce an optional curated authoring config shape plus a compiler that maps it into recipe config; the curated shape must preserve strategy unions and must be type-derived from the recipe config types (no hand-written parallel schema).
-- **C) Keep global overrides (reject):** a monolithic map config translated into recipe config.
-
-**Concrete examples (A vs B)**
-
-**A) Map file authors the canonical recipe config directly**
-
-This option introduces **no new artifact**: authors edit the same shape that the runtime consumes.
+**Concrete example (direct recipe config)**
 
 ```ts
 // maps/my-map.ts
-// (Illustrative types; the core idea is the shape is derived from the recipe’s steps.)
-import type { RecipeConfigOf } from "@swooper/mapgen-core/recipes"; // TBD API
-import { standardRecipe } from "../recipes/standard/index.js";
+import type { RecipeConfigOf } from "@swooper/mapgen-core/authoring"; // exported today
+import { stages } from "../recipes/standard/stages/index.js"; // recipe-local stages list
 
-type StandardRecipeConfig = RecipeConfigOf<typeof standardRecipe>;
+type StandardRecipeConfig = RecipeConfigOf<typeof stages>;
 
 export const config = {
-  stages: {
-    morphologyPost: {
-      steps: {
-        volcanoes: {
-          // Step-local config, including any op config the step exposes.
-          planVolcanoes: {
-            // Default-friendly (DD-005): omit `strategy` when default exists.
-            config: { targetCount: 18 },
-          },
-        },
+  morphologyPost: {
+    volcanoes: {
+      // Step-local config, including any op config the step exposes.
+      planVolcanoes: {
+        // Default-friendly (DD-005): omit `strategy` when default exists.
+        config: { targetCount: 18 },
       },
     },
   },
 } satisfies StandardRecipeConfig;
 
 export const configExplicit = {
-  stages: {
-    morphologyPost: {
-      steps: {
-        volcanoes: {
-          planVolcanoes: {
-            // Explicit override: strategy literal narrows the config type.
-            strategy: "hotspotClusters",
-            config: { seedCount: 4 },
-          },
-        },
+  morphologyPost: {
+    volcanoes: {
+      planVolcanoes: {
+        // Explicit override: strategy literal narrows the config type.
+        strategy: "hotspotClusters",
+        config: { seedCount: 4 },
       },
     },
   },
 } satisfies StandardRecipeConfig;
 ```
-
-**B) Map file authors “config” in a curated shape, then compiles to recipe config**
-
-This option introduces a **new canonical artifact** (the curated config input type/shape) *and* a **compiler function** that maps the curated shape into the real recipe config. The “sugar” is optional because the runtime still ultimately consumes recipe config; this just gives humans a friendlier surface.
-
-```ts
-// maps/my-map.ts
-import { compileConfig } from "@swooper/mapgen-core/config"; // TBD API
-import { standardRecipe } from "../recipes/standard/index.js";
-
-// Curated shape example: avoid exposing stage/step graph directly.
-export const config = compileConfig(standardRecipe, {
-  morphology: {
-    volcanoes: {
-      // Still uses a discriminated union; strategy narrowing still applies.
-      strategy: "hotspotClusters",
-      config: { seedCount: 4 },
-    },
-  },
-});
-```
-
-**Hard requirement for B:** the curated config input type must be derived from the recipe config types in a way that preserves the discriminated union (so setting `strategy: "hotspotClusters"` still narrows the config fields). If B is implemented as a hand-authored parallel schema, it will drift and can easily erase union narrowing (which defeats the capability).
-
-**Related concern (separate, but often conflated): step enable/disable**
-
-This decision is about the *shape authors edit*, not whether steps can be toggled.
-
-- The engine-level recipe schema already has a notion of per-step enable/disable (e.g., `RecipeStepV2.enabled` in `packages/mapgen-core/src/engine/execution-plan.ts`).
-- Both Option **A** and **B** can represent “enabled/disabled” as part of step configuration; the difference is whether the author sees the raw step graph (A) or a curated projection of it (B).
-- If we want “disable this step” to be a first-class authoring affordance, Option **B** can expose a clean flag at the curated path (e.g., `morphology.volcanoes.enabled = false`) and compile it into the canonical representation.
-
-**Recommendation:** Treat **A** as the target. If we later add **B**, it must be strictly type-derived and must not reintroduce a global config object that blocks strategy unions.
 
 ### DD-007: Step schema composition (manual wiring vs declarative op usage)
 
