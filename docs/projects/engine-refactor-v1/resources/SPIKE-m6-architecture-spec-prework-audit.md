@@ -780,3 +780,113 @@ Locked names (no alternatives):
 - If you mean a pipeline gate: say “dependency” (ID/contract/registry).
 - If you mean a Civ7 engine plot/tile tag: say “plot tag” (or “tile tag” when describing semantics).
 - If you mean narrative classification on the map: avoid the bare word “tag”; prefer “annotation/label/marker” unless “story tag” is truly the clearest phrase.
+
+---
+
+### Bucket D — Narrative “story tagging”: map-surface overlay vocabulary (prompt + recommendation)
+
+**Core problem:** narrative code currently uses “tag” as a verb (`storyTag*`), but pipeline dependencies also used “tag” historically. After Buckets A/B, we need narrative terminology that:
+- Is clearly **map-surface semantics** (tiles/plots/overlays), not pipeline gating.
+- Supports the target boundary “domain is pure; steps own engine semantics” (so “publish/write” is not a domain verb).
+- Matches what the code actually does today so the rename can be mechanical later.
+
+#### What exists today (M6 reality)
+
+**Tile identity primitive (today):**
+- `packages/mapgen-core/src/core/index.ts` exports `storyKey(x, y) => "${x},${y}"`.
+- Narrative code uses `Set<string>` of `storyKey` strings as its primary “marked tiles” representation.
+
+**Overlay representation (today):**
+- `packages/mapgen-core/src/core/types.ts` defines `StoryOverlaySnapshot` with `active?: readonly string[]`, `passive?: readonly string[]`, and `summary`.
+- `mods/mod-swooper-maps/src/domain/narrative/overlays/registry.ts` implements:
+  - `publishStoryOverlay(ctx, key, overlay)` → normalizes + writes into `ctx.overlays` (side effect)
+  - `finalizeStoryOverlay(key, overlay)` → normalizes only (pure)
+  - `resetStoryOverlays(ctx)` / `getStoryOverlay(ctx, key)`
+- `mods/mod-swooper-maps/src/domain/narrative/overlays/keys.ts` defines `STORY_OVERLAY_KEYS` (margins, rifts, hotspots, orogeny, corridors, swatches, paleo).
+
+**Narrative “tagging” functions (today):**
+- `mods/mod-swooper-maps/src/domain/narrative/tagging/*`:
+  - `storyTagContinentalMargins(ctx, config, { publish? })`:
+    - Reads: `ctx.dimensions`, coastal land via `isCoastalLand(ctx, ...)`, RNG `rand(ctx, ...)`.
+    - Produces: two tile sets (`activeSet`, `passiveSet`) and a `StoryOverlaySnapshot` (published or finalized).
+    - Also writes: `ctx.artifacts.set(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1, ...)`.
+  - `storyTagHotspotTrails(ctx, config)`:
+    - Reads: dims + water/adjacency checks + RNG.
+    - Produces: a tile set (`hotspotPoints`) + publishes overlay.
+    - Also writes: `ctx.artifacts.set(...narrativeMotifsHotspotsV1, ...)`.
+  - `storyTagRiftValleys(ctx, config)`:
+    - Reads: foundation plate artifacts (`assertFoundationPlates(ctx, ...)`), dims, water, and (today) `ctx.config` for directionality (legacy config model).
+    - Produces: two tile sets (`riftLine`, `riftShoulder`) + publishes overlay + returns summary.
+    - Also writes: `ctx.artifacts.set(...narrativeMotifsRiftsV1, ...)`.
+- Additional narrative “tagging” functions outside `tagging/**`:
+  - `mods/mod-swooper-maps/src/domain/narrative/orogeny/belts.ts` `storyTagOrogenyBelts(ctx, config)`:
+    - Produces: belt/windward/lee tile sets + publishes overlay + writes motifs artifact.
+    - Also populates an in-memory cache used by climate swatches.
+  - `mods/mod-swooper-maps/src/domain/narrative/corridors/index.ts` `storyTagStrategicCorridors(ctx, stage, config)`:
+    - Reads: prior narrative motif artifacts via `getNarrativeMotifsHotspots/getNarrativeMotifsRifts`.
+    - Produces: multiple corridor tile sets, plus `kindByTile/styleByTile/attributesByTile`, publishes overlay, writes corridors artifact.
+  - `mods/mod-swooper-maps/src/domain/narrative/swatches.ts` `storyTagClimateSwatches/storyTagClimatePaleo`:
+    - Produces: overlay summaries for applied climate/paleo deltas (publishes overlay; does not publish motif artifacts).
+
+**Where the outputs flow next (today):**
+- Narrative motif artifacts are read back via `mods/mod-swooper-maps/src/domain/narrative/queries.ts` (`getNarrativeMotifs*`), e.g. corridors consume rift/hotspot motifs.
+- Story overlays live in `ctx.overlays` for inspection/debug/contracts (separate from pipeline dependency gating).
+
+#### Proposed semantic mapping: marker / overlay / annotation
+
+**Marker (noun):** a *map-surface mark* on a tile.
+- Concrete representation today: a `storyKey` string (`"${x},${y}"`).
+- Appears today as: `Set<string>` in narrative artifacts, `active/passive: string[]` inside overlays.
+
+**Overlay (noun):** an immutable snapshot aggregating markers (and metadata) for inspection/debug/contracts.
+- Concrete representation today: `StoryOverlaySnapshot` published into `ctx.overlays` under a `STORY_OVERLAY_KEYS.*` key.
+
+**Annotate (verb):** “apply markings onto the map” (i.e. publish overlays / publish motif artifacts).
+- In target boundary terms, “annotate” is inherently **engine-facing** (writes to `ctx.overlays` / `ctx.artifacts`) and therefore should read as a **step-level verb**, not a domain-level verb.
+
+#### Clarify “derive” vs “annotate” (verb semantics)
+
+**What “derive” would mean here (pure):**
+- Compute marker sets / overlay payloads from inputs (fields/artifacts/config) **without writing** to `ctx`.
+- In M6 code, most `storyTag*` bodies are already “derive + publish” interleaved; the “derive” part is the tile-set math and summary computation.
+
+**What “annotate” would mean here (side effect):**
+- Publish overlay snapshots (and/or motif artifacts) into context for downstream consumers (corridors, debugging, contracts).
+- In M6 code, this corresponds to calls like `publishStoryOverlay(...)` and `ctx.artifacts.set(...)`.
+
+**Conclusion:** “derive” and “annotate” are not synonyms. If we want “domain is pure; steps own engine semantics” later, we should reserve:
+- `derive*` / `compute*` for domain operations (pure)
+- `publish*` / `annotate*` for step operations (side effects)
+
+#### Candidate naming patterns (SPIKE-only; no code renames yet)
+
+**Option N1 (recommended): Marker/Overlay nouns; derive/build verbs (domain-pure friendly)**
+- Nouns:
+  - “marker” (tile membership) for `storyKey` strings
+  - “overlay” for `StoryOverlaySnapshot`
+- Verbs:
+  - `derive*Markers(...)` returns marker sets + summary
+  - `build*Overlay(...)` / `finalize*Overlay(...)` returns `StoryOverlaySnapshot` data (pure)
+  - `publish*Overlay(...)` remains the side-effect boundary (step or “runtime glue”)
+- Example rename shapes (later mechanical pass):
+  - `storyTagRiftValleys` → `deriveRiftValleyMarkers` + `publishRiftValleysOverlay`
+  - `storyTagContinentalMargins` → `deriveContinentalMarginMarkers` + `publishMarginsOverlay`
+
+**Option N2: Keep “story tag” phrasing but constrain it hard (qualified map-surface semantics only)**
+- Keep `storyTag*` names, but treat them as legacy and *never* use “tag” unqualified elsewhere.
+- This is compatible with the Bucket C rule, but still risks “tag collision” in casual conversation (“tags” == dependencies vs narrative).
+
+#### Locked terminology firewall (extends Bucket C rule)
+
+- **Allowed “tag” usage:** only map-surface semantics, explicitly qualified (“plot tag”, “story tag”, “narrative tag”).
+- **Preferred narrative vocabulary (even when “story tag” is allowed):** “marker”, “overlay”, “annotation”.
+- **Forbidden “tag” usage:** pipeline dependency system (Buckets A/B).
+
+#### Bucket D recommendation (pending lock)
+
+Adopt **Option N1** vocabulary in the target architecture + future renames:
+- “marker” = `storyKey` tile membership
+- “overlay” = `StoryOverlaySnapshot` / `STORY_OVERLAY_KEYS.*`
+- “derive/build” for pure narrative computation, “publish/annotate” at the step boundary
+
+Open question to settle before a rename pass: do we want the public “mod-facing” verb to be **publish** or **annotate** (both are step-level side-effect verbs; “annotate” is friendlier, “publish” is more literal to today’s API names).
