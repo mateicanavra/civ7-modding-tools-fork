@@ -897,6 +897,8 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 **Decision (locked):** Map files author **direct recipe config** (stageId → stepId → stepConfig) using `RecipeConfigOf<typeof stages>`. No separate curated/compiled authoring config surface is part of the target model in this spike.
 
+**Additional invariant (locked):** Within a recipe, authored step ids are **globally unique across all stages** (no two stages may define a step with the same `stepId`). This keeps step identity unambiguous for future DAG authoring and supports optional authoring sugar that can address step configs by `stepId` alone without requiring a mapping table.
+
 **Why it matters / what it affects:** This keeps the authored surface minimal and fully type-derived from the recipe’s steps. It also preserves DD-005 strategy union narrowing at the exact place mod authors write config, without introducing a second authoring-only schema that could drift.
 
 **Concrete example (direct recipe config)**
