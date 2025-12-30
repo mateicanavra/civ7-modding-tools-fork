@@ -211,7 +211,7 @@ The milestones above converge on a target engine that follows the cluster topolo
 | Foundations | `foundation`, `landmassPlates` | Engine seed, map dimensions, Civ Voronoi utilities | Plate seeds, plate tensors, initial landmask, `FoundationContext` |
 | Morphology | `coastlines`, `mountains`, `volcanoes`, `lakes`, `terrainAdjust` | `FoundationContext`, heightfield buffer | Final heightfield, shore mask, margin metadata |
 | Hydrology & Climate | `rivers`, `rainfallBaseline`, `climateRefine`, `humidity` | Heightfield, wind/currents, shore mask | Rainfall/humidity grids, water flow graph |
-| Narrative (motifs) | `storySeed`, `storyHotspots`, `storyRifts`, `storyOrogeny`, `storyCorridors`, `storySwatches` | Heightfield, climate grids, plate tensors | Typed story entries by motif (derived views available for inspection/debug) |
+| Narrative | `storySeed`, `storyHotspots`, `storyRifts`, `storyOrogeny`, `storyCorridors`, `storySwatches` | Heightfield, climate grids, plate tensors | Typed story entries by motif (derived views available for inspection/debug) |
 | Biomes & Features | `biomes`, `features` | Heightfield, climate grids, narrative story entries | Final biomes/features, validation metrics |
 | Placement & Finalization | `placement`, `finalize` | All prior fields | Player starts, resources, discoveries |
 
