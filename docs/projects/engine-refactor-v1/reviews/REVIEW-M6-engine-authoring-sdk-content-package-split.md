@@ -9,6 +9,7 @@ reviewer: AI agent
 
 ### Quick Take
 Runtime pipeline is promoted to the engine surface with updated imports/tests and a minimal engine-owned context; acceptance criteria are met, with legacy exports left for later M6 cleanup.
+Re-review: no additional issues found.
 
 ### High-Leverage Issues
 - None noted.
