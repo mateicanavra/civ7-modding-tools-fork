@@ -51,6 +51,7 @@ Re-review: no additional issues beyond the `instanceId` placement concern.
 
 ### Quick Take
 `createRecipe` now builds registries internally, derives deterministic step IDs, and exposes compile/run helpers, but it silently infers tag definitions from step usage, which shifts the contract away from explicit tag ownership.
+Re-review: no additional issues beyond the tag inference vs explicit catalog mismatch.
 
 ### High-Leverage Issues
 - `packages/mapgen-core/src/authoring/recipe.ts`: tag definitions are inferred from `requires`/`provides`, so missing tags will never surface as errors even if the intent was to require explicit tag catalogs; this deviates from the acceptance criteria that mention missing tags causing compile errors.
