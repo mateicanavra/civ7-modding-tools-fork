@@ -775,9 +775,16 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
+**Impact / scale:** **Medium**
+
+**System surface / blast radius (components):**
+- **Domain operations (`DomainOpKind`)**: the labeled “kind” of an op (the public contract a step calls).
+- **Steps**: the runtime orchestrator that validates config, calls ops, and applies/publishes results.
+- **Docs/tooling**: any future scaffolding, contract rendering, or authoring UX that depends on “kind” meaning something consistent.
+
 **Question:** Are `DomainOpKind` values strict semantics (a contract we teach and enforce) or just labels for documentation?
 
-**Why it matters / what it affects:** The “kind” is part of the shared authoring vocabulary for domains and steps. If it is strict, it can keep responsibilities crisp (e.g., “plans are applied by steps”, “compute publishes artifacts”, etc.) and enable later tooling/docs. If it is soft, teams will re-interpret it and the vocabulary stops being a reliable guide for where work belongs (domain vs step).
+**Why it matters / what it affects:** “Kind” is the shared vocabulary that tells authors (and later tooling) how to treat the op’s output. If it is strict, it creates predictable step behavior (“plans are applied”, “compute results are published”) and keeps domain vs step responsibilities crisp. If it is soft, “kind” stops carrying reliable meaning and we drift back into ad-hoc orchestration and inconsistent contracts.
 
 **Options:**
 - **A) Strict semantics (preferred):** treat kinds as a contract.
@@ -792,9 +799,16 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-002: Derived defaults and config normalization (beyond schema defaults)
 
+**Impact / scale:** **Medium**
+
+**System surface / blast radius (components):**
+- **Operation config schema (`op.config`) + defaults (`op.defaultConfig`)**: the canonical runtime-validatable contract for op configuration.
+- **Steps (config boundary)**: where config is validated/defaulted before calling ops.
+- **Ops / step-local helpers**: where derived scaling rules and normalization logic would live if we make them explicit and testable.
+
 **Question:** Beyond plain schema defaults (via `op.config` + `op.defaultConfig`), where do we put “derived defaults” and “normalization” (clamping/rewriting config into canonical form)?
 
-**Why it matters / what it affects:** Mapgen frequently needs scale-aware behavior (“this threshold depends on map size”) and guardrails (“clamp this value”). If this logic is implicit or scattered, it becomes hard to reason about determinism, hard to test in isolation, and easy for different steps/domains to drift into inconsistent behavior.
+**Why it matters / what it affects:** Schema defaults cover “static” defaults, but mapgen also needs scale-aware behavior and guardrails. The question is where that logic lives so it is visible, deterministic, and testable without smuggling runtime into the domain. The answer affects whether step config remains a truthful “knobs surface” and whether ops consistently see already-normalized values.
 
 **Options:**
 - **A) Schema defaults only (baseline):** rely on TypeBox defaults and minimal in-op fallbacks; avoid derived defaults.
@@ -804,6 +818,14 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 **Recommendation:** Treat **A** as the default expectation. When derived/defaulting behavior is needed, prefer **B** because it makes scaling/normalization explicit and unit-testable without dragging runtime into the domain.
 
 ### DD-003: Operation input shape and schema expressiveness (buffers, views, typed arrays)
+
+**Impact / scale:** **High**
+
+**System surface / blast radius (components):**
+- **Step → domain boundary (inputs/outputs)**: how steps package runtime state into op inputs (and how results come back).
+- **Runtime performance/memory**: whether we precompute buffers, allocate typed arrays, or rely on callback views.
+- **Testing model**: whether ops can be tested with plain data fixtures vs requiring mock runtime readbacks.
+- **Runtime validation / docs**: whether TypeBox schemas can represent these inputs meaningfully or degrade to `Type.Any()`.
 
 **Question:** What shapes are allowed for `op.input` / `op.output`, and how hard do we try to represent them in TypeBox schemas (especially for typed arrays)?
 
@@ -819,6 +841,14 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-004: Artifact keys / dependency keys ownership (domain vs recipe)
 
+**Impact / scale:** **High**
+
+**System surface / blast radius (components):**
+- **Recipe compiler / pipeline graph**: the dependency graph is built from `requires`/`provides` keys and enforced for correctness.
+- **Steps (publication boundary)**: steps publish artifacts/fields/effects under keys and declare dependencies they need.
+- **Domains**: define artifact *shapes* (schemas/types), but should not silently publish or own pipeline wiring by default.
+- **Dependency registry**: stores definitions/contracts for dependency keys and optionally enforces satisfaction checks.
+
 **Question:** Who “owns” dependency identifiers (`DependencyKey`s): domains, recipes, or some split?
 
 **Why it matters / what it affects:** Dependency identifiers are the glue of the recipe graph. If keys are invented ad hoc in multiple places, the dependency graph becomes fragile and refactors become painful. This decision also determines how portable a domain is across recipes and how much implicit wiring is hidden behind “magic” keys.
@@ -831,6 +861,14 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 **Recommendation:** Prefer **A**: domains own shapes; recipes own dependency identifiers. If a domain needs stable naming, encode it in type/schema metadata (e.g., `kind`/`version`) rather than forcing a global key into every recipe.
 
 ### DD-005: Strategy config encoding and ergonomics (wrapper shape, defaults, explicitness)
+
+**Impact / scale:** **High**
+
+**System surface / blast radius (components):**
+- **Mod author config surface (TS map files / composed recipe config)**: where authors choose a strategy id and fill in the config shape that should narrow correctly.
+- **Operation authoring (`createOp` + strategies)**: how op authors publish a strategy-backed config schema and how defaults are computed.
+- **Steps (schema + defaults)**: how step schemas reference `op.config`/`op.defaultConfig` and validate/default strategy selection.
+- **Migration/evolution story**: how config shape behaves if an op gains additional strategies over time.
 
 **Question:** What is the canonical config shape for strategy-backed operations, and how “explicit” should strategy selection be?
 
@@ -845,6 +883,14 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-006: Recipe config authoring surface (remove global overrides, preserve type-safe strategy selection)
 
+**Impact / scale:** **High**
+
+**System surface / blast radius (components):**
+- **Map-file authoring**: where mod authors write the recipe configuration for a particular map/recipe.
+- **Recipe config composition**: the mechanism that composes step-level config schemas/types into a single recipe-level config shape.
+- **Step config contracts**: the ground-truth config shapes that runtime validation uses at execution time.
+- **Global-config legacy**: the “map global config overrides” pattern that sits above steps and can erase strategy unions by translating.
+
 **Question:** What is the authoring surface for modders: direct recipe config (composed from steps) or a curated “global-ish” authoring config that compiles into recipe config?
 
 **Why it matters / what it affects:** The capability we’re enabling (type-safe strategy selection via discriminated unions) only works if authors edit the real config shape that steps actually validate and execute. Any translation layer can erase unions, introduce drift, or reintroduce a global config smell.
@@ -858,6 +904,13 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-007: Step schema composition (manual wiring vs declarative op usage)
 
+**Impact / scale:** **Medium**
+
+**System surface / blast radius (components):**
+- **Step authoring ergonomics**: the amount of “schema plumbing” a step author writes vs focusing on orchestration logic.
+- **Runtime validation/defaulting**: step schemas are the runtime validators; drift here causes hard-to-debug mismatches.
+- **Op reuse**: whether steps can safely “just use” op schemas/defaults without re-authoring wrapper shapes.
+
 **Question:** How much should step authors manually wire step schemas vs having a small helper derive schema/config shape from declared op usage?
 
 **Why it matters / what it affects:** Steps sit at the runtime boundary and must validate/default configuration. If authors have to repeatedly mirror operation configs by hand, step code gets noisy and can drift out of sync with the ops actually called (especially for strategy-backed ops where wrapper shapes/defaults matter).
@@ -870,6 +923,13 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 **Recommendation:** Keep **A** for now while the model stabilizes, but plan for **B** as the first ergonomic upgrade once recipe-config authoring becomes the priority. Avoid **C** unless we hit a real scaling wall.
 
 ### DD-008: Pipeline dependency terminology migration (`DependencyTag` → `DependencyKey`)
+
+**Impact / scale:** **Medium**
+
+**System surface / blast radius (components):**
+- **Public vocabulary for mod authors**: the terms they learn and search for (docs + examples).
+- **Runtime types/exports**: the actual names in code (`DependencyTag`, `TagRegistry`, etc.) and any deprecation/alias strategy.
+- **Ambiguity reduction**: separating pipeline dependency keys from Civ plot tags and story overlay “tagging”.
 
 **Question:** Do we align runtime code vocabulary with the doc vocabulary (`DependencyKey`/`DependencyDefinition`) or keep legacy “tag” naming in code?
 
