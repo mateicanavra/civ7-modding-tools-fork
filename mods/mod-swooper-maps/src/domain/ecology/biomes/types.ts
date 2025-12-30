@@ -1,23 +1,9 @@
+import type { BiomeThresholds } from "../classification/types.js";
+import type { NarrativePolicy } from "../classification/overlay.js";
+
 export interface BiomeConfig {
-  tundra?: {
-    latMin?: number;
-    elevMin?: number;
-    rainMax?: number;
-  };
-  tropicalCoast?: {
-    latMax?: number;
-    rainMin?: number;
-  };
-  riverValleyGrassland?: {
-    latMax?: number;
-    rainMin?: number;
-  };
-  riftShoulder?: {
-    grasslandLatMax?: number;
-    grasslandRainMin?: number;
-    tropicalLatMax?: number;
-    tropicalRainMin?: number;
-  };
+  thresholds?: BiomeThresholds;
+  narrative?: Partial<NarrativePolicy>;
 }
 
 export interface CorridorPolicy {
@@ -37,4 +23,3 @@ export interface BiomeGlobals {
   desert: number;
   snow: number;
 }
-

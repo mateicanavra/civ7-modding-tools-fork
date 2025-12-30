@@ -275,24 +275,10 @@ function buildConfig(): StandardRecipeOverrides {
         },
       },
       biomes: {
-        tundra: {
-          latMin: 80,
-          elevMin: 700,
-          rainMax: 85,
-        },
-        tropicalCoast: {
-          latMax: 20,
-          rainMin: 100,
-        },
-        riverValleyGrassland: {
-          latMax: 65,
-          rainMin: 80,
-        },
-        riftShoulder: {
-          grasslandLatMax: 55,
-          grasslandRainMin: 70,
+        thresholds: {
+          tundraLatMin: 80,
           tropicalLatMax: 20,
-          tropicalRainMin: 100,
+          grasslandMoistureMin: 0.48,
         },
       },
       featuresDensity: {

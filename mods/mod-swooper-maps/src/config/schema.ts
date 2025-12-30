@@ -123,7 +123,7 @@ export const MapGenConfigSchema = Type.Object(
     coastlines: Type.Optional(CoastlinesConfigSchema),
     /** Island and archipelago generation. */
     islands: Type.Optional(IslandsConfigSchema),
-    /** Biome threshold overrides for terrain assignment. */
+    /** Biome classification thresholds and narrative overlay policy. */
     biomes: Type.Optional(BiomeConfigSchema),
     /** Vegetation and reef density multipliers. */
     featuresDensity: Type.Optional(FeaturesDensityConfigSchema),

@@ -117,7 +117,10 @@ export function buildStandardRecipeConfig(
       },
     },
     ecology: {
-      biomes: { biomes: overrides.biomes ?? {}, corridors: overrides.corridors ?? {} },
+      biomes: {
+        thresholds: overrides.biomes?.thresholds ?? {},
+        narrative: overrides.biomes?.narrative ?? {},
+      },
       features: {
         story: { features: overrides.story?.features ?? {} },
         featuresDensity: overrides.featuresDensity ?? {},
