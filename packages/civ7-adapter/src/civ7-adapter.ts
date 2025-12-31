@@ -383,7 +383,55 @@ export class Civ7Adapter implements EngineAdapter {
   }
 
   generateResources(width: number, height: number): void {
+    const mapType =
+      typeof Configuration !== "undefined" && typeof Configuration.getMapValue === "function"
+        ? Configuration.getMapValue("Name")
+        : "unknown";
+    const mapSizeId = this.getMapSizeId();
+    console.log(
+      `[Adapter] generateResources start: mapType=${mapType} mapSizeId=${mapSizeId} dims=${width}x${height}`
+    );
+
+    if (typeof GameplayMap !== "undefined" && typeof GameplayMap.getLandmassRegionId === "function") {
+      const landmassCounts = new Map<number, number>();
+      let invalidCount = 0;
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          const regionId = GameplayMap.getLandmassRegionId(x, y);
+          if (typeof regionId !== "number") {
+            invalidCount++;
+            continue;
+          }
+          landmassCounts.set(regionId, (landmassCounts.get(regionId) ?? 0) + 1);
+        }
+      }
+      const countsSummary = Array.from(landmassCounts.entries())
+        .sort((a, b) => a[0] - b[0])
+        .map(([id, count]) => `${id}:${count}`)
+        .join(", ");
+      const invalidSuffix = invalidCount > 0 ? ` (invalid:${invalidCount})` : "";
+      console.log(`[Adapter] landmassRegionId counts: ${countsSummary}${invalidSuffix}`);
+    } else {
+      console.log("[Adapter] GameplayMap.getLandmassRegionId unavailable.");
+    }
+
+    if (typeof LandmassRegion !== "undefined") {
+      const entries = [
+        "LANDMASS_REGION_WEST",
+        "LANDMASS_REGION_EAST",
+        "LANDMASS_REGION_DEFAULT",
+        "LANDMASS_REGION_ANY",
+        "LANDMASS_REGION_NONE",
+      ]
+        .filter((key) => key in LandmassRegion)
+        .map((key) => `${key}=${(LandmassRegion as Record<string, number>)[key]}`);
+      if (entries.length > 0) {
+        console.log(`[Adapter] LandmassRegion ids: ${entries.join(", ")}`);
+      }
+    }
+
     civ7GenerateResources(width, height);
+    console.log("[Adapter] generateResources end");
     this.recordPlacementEffect();
   }
 

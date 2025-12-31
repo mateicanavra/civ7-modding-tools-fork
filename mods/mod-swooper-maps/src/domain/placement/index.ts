@@ -159,7 +159,9 @@ export function runPlacement(
 
   // 7) Resources (after snow, before start positions)
   try {
+    console.log("[Placement] generateResources start");
     generateResources(adapter, iWidth, iHeight);
+    console.log("[Placement] generateResources end");
   } catch (err) {
     console.log("[Placement] generateResources failed:", err);
   }
