@@ -12,6 +12,7 @@ Runs:
 
 - `vitest` across all configured projects in `vitest.config.ts`
 - `bun test` for `@swooper/mapgen-core`
+- `bun test` for `mods/mod-swooper-maps`
 
 To run only the Vitest projects:
 
@@ -23,6 +24,12 @@ To run only the mapgen-core Bun tests:
 
 ```bash
 pnpm test:mapgen
+```
+
+To run only the mod tests:
+
+```bash
+pnpm -C mods/mod-swooper-maps test
 ```
 
 ## Visualizing test runs
