@@ -68,6 +68,30 @@ Domain imports now resolve to the mod via a tsconfig alias redirect, which keeps
 ### Cross-cutting Risks
 - Publishing mapgen-core before U04-3 may ship mod-owned domain code or fail outside the monorepo layout.
 
+## REVIEW m6-u04-3-remove-core-domain-exports-and-clean-import-edges
+
+### Quick Take
+Core domain files are removed and imports rerouted to `@mapgen-content`, but the base pipeline sources still contain unresolved merge markers and `tsup` still lists deleted domain entrypoints, so builds will fail as-is.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/base/pipeline/**`: multiple files contain conflict markers (e.g., `<<<<<<<< HEAD` in `packages/mapgen-core/src/base/pipeline/morphology/LandmassStep.ts`, plus similar markers in hydrology/narrative/placement indexes and steps), which makes the code invalid.
+- `packages/mapgen-core/tsup.config.ts`: still lists `src/domain/**` entry points after deleting those files, so `pnpm -C packages/mapgen-core build` will fail.
+- `mods/mod-swooper-maps/package.json`: no `test` script, so the documented verification command fails.
+
+### Fix Now (Recommended)
+- Resolve and remove the conflict markers in the base pipeline step files; pick the intended post-move versions and ensure they compile.
+- Drop the deleted `src/domain/**` entries from `packages/mapgen-core/tsup.config.ts` (or replace with the new intended entrypoints).
+- Add a `test` script (even if it aliases `pnpm run check`) or update the issue doc to remove `pnpm -C mods/mod-swooper-maps test` until tests exist.
+
+### Defer / Follow-up
+- Document the temporary `@mapgen-content` alias and remove it once base steps fully relocate into the mod package.
+
+### Needs Discussion
+- Is it acceptable for mapgen-core to depend on `@mapgen-content` (mod source) in the interim, or should we fast-track step relocation to avoid this coupling?
+
+### Cross-cutting Risks
+- Mapgen-core builds/publishing are currently fragile due to deleted entrypoints and alias coupling to the mod tree.
+
 ## REVIEW m6-u02-1-define-authoring-pojos-and-schema-requirements
 
 ### Quick Take
