@@ -24,6 +24,18 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Legacy path is scheduled for deletion in M6-U07; no CI coverage remains for orchestrator-only flows.
   - **Next check:** after U07 removal or if legacy entrypoints must remain supported.
 
+- **Biome symbol defaults must align with Civ7 base biomes** [Source: LOCAL-TBD-M7-U08]
+  - **Context:** Ecology classification uses a `snow` symbol, but Civ7 base resources expose only six biomes (tundra/grassland/plains/tropical/desert/marine).
+  - **Type:** triage
+  - **Notes:** Default bindings now map `snow` to `BIOME_TUNDRA` to avoid missing engine globals; revisit if a future Civ7 update adds BIOME_SNOW.
+  - **Next check:** after any Civ7 patch that changes biome definitions.
+
+- **Marine biome must be assigned explicitly for water tiles** [Source: LOCAL-TBD-M7-U08]
+  - **Context:** Base feature placement and gameplay queries expect `BIOME_MARINE` on water tiles; missing marine biomes can crash map generation.
+  - **Type:** triage
+  - **Notes:** Added explicit marine binding + water assignment in the biomes step to guarantee engine validity.
+  - **Next check:** if land/water mask generation changes or additional water terrain types are introduced.
+
 - **Standard recipe runtime stored per context** [Source: LOCAL-TBD-M6-U05-1]
   - **Context:** Standard recipe steps need shared mutable state (continents, start sectors, mapInfo) without registry-layer runtime injection.
   - **Type:** triage

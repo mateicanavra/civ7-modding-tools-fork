@@ -1,11 +1,11 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import { Type, type Static } from "typebox";
 
-import type { BiomeSymbol } from "./types.js";
+import { BIOME_SYMBOL_ORDER, type BiomeSymbol } from "./types.js";
 
 export const BiomeEngineBindingsSchema = Type.Object(
   {
-    snow: Type.Optional(Type.String({ default: "BIOME_SNOW" })),
+    snow: Type.Optional(Type.String({ default: "BIOME_TUNDRA" })),
     tundra: Type.Optional(Type.String({ default: "BIOME_TUNDRA" })),
     boreal: Type.Optional(Type.String({ default: "BIOME_TUNDRA" })),
     temperateDry: Type.Optional(Type.String({ default: "BIOME_PLAINS" })),
@@ -13,6 +13,7 @@ export const BiomeEngineBindingsSchema = Type.Object(
     tropicalSeasonal: Type.Optional(Type.String({ default: "BIOME_GRASSLAND" })),
     tropicalRainforest: Type.Optional(Type.String({ default: "BIOME_TROPICAL" })),
     desert: Type.Optional(Type.String({ default: "BIOME_DESERT" })),
+    marine: Type.Optional(Type.String({ default: "BIOME_MARINE" })),
   },
   { additionalProperties: false, default: {} }
 );
@@ -20,7 +21,7 @@ export const BiomeEngineBindingsSchema = Type.Object(
 export type BiomeEngineBindings = Static<typeof BiomeEngineBindingsSchema>;
 
 export const DEFAULT_ENGINE_BINDINGS: Record<BiomeSymbol, string> = Object.freeze({
-  snow: "BIOME_SNOW",
+  snow: "BIOME_TUNDRA",
   tundra: "BIOME_TUNDRA",
   boreal: "BIOME_TUNDRA",
   temperateDry: "BIOME_PLAINS",
@@ -30,21 +31,33 @@ export const DEFAULT_ENGINE_BINDINGS: Record<BiomeSymbol, string> = Object.freez
   desert: "BIOME_DESERT",
 });
 
+const DEFAULT_MARINE_BINDING = "BIOME_MARINE";
+
+export interface ResolvedEngineBiomeIds {
+  land: Record<BiomeSymbol, number>;
+  marine: number;
+}
+
 export function resolveEngineBiomeIds(
   adapter: EngineAdapter,
   bindings: BiomeEngineBindings = {}
-): Record<BiomeSymbol, number> {
+): ResolvedEngineBiomeIds {
   const resolved: Partial<Record<BiomeSymbol, number>> = {};
 
-  for (const [symbol, globalId] of Object.entries(DEFAULT_ENGINE_BINDINGS)) {
-    const castSymbol = symbol as BiomeSymbol;
-    const key = bindings[castSymbol] ?? globalId;
+  for (const symbol of BIOME_SYMBOL_ORDER) {
+    const key = bindings[symbol] ?? DEFAULT_ENGINE_BINDINGS[symbol];
     const resolvedId = adapter.getBiomeGlobal(key);
     if (typeof resolvedId !== "number" || Number.isNaN(resolvedId)) {
       throw new Error(`resolveEngineBiomeIds: missing biome global "${key}" for symbol "${symbol}"`);
     }
-    resolved[castSymbol] = resolvedId;
+    resolved[symbol] = resolvedId;
   }
 
-  return resolved as Record<BiomeSymbol, number>;
+  const marineKey = bindings.marine ?? DEFAULT_MARINE_BINDING;
+  const marineId = adapter.getBiomeGlobal(marineKey);
+  if (typeof marineId !== "number" || Number.isNaN(marineId)) {
+    throw new Error(`resolveEngineBiomeIds: missing biome global "${marineKey}" for marine`);
+  }
+
+  return { land: resolved as Record<BiomeSymbol, number>, marine: marineId };
 }

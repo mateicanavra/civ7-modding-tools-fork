@@ -27,7 +27,7 @@ Ecology turns the physical world (foundation + morphology + climate) into living
 
 1. **Pedology step (planned)** — build fields from bedrock/slope/sediment/climate, call `pedology.classify.run`, publish `artifact:ecology.soils@v1`.
 2. **Resource basins step (planned)** — require soils + tectonics/hydrology, call `resources.planBasins.run`, publish `artifact:ecology.resourceBasins@v1` for placement.
-3. **Biomes step (implemented)** — build rainfall/humidity/elevation/latitude + corridor/rift masks, call `classifyBiomes.run`, publish `artifact:ecology.biomeClassification@v1`, map symbols → engine biome IDs, set `field:biomeId`.
+3. **Biomes step (implemented)** — build rainfall/humidity/elevation/latitude + corridor/rift masks, call `classifyBiomes.run`, publish `artifact:ecology.biomeClassification@v1`, map symbols → engine biome IDs, set `field:biomeId` (water tiles explicitly assigned `BIOME_MARINE`).
 4. **Features step (partial)** — require biome classification (and later soils/hydrology/story overlays), gate embellishments using vegetation density and biases, write engine features + `field:featureType`.
 
 Config is always sourced from op exports (`classifyBiomes.config/defaultConfig`, future pedology/resources/feature configs). Engine binding schemas stay step-side (`BiomeBindingsSchema`).
