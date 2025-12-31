@@ -14,7 +14,7 @@
     "dev:docs": "pnpm -F @civ7/docs dev",
     "dev:playground": "pnpm -F @civ7/playground dev",
     "lint": "turbo run lint",
-    "test": "pnpm test:vitest && pnpm test:mapgen",
+    "test": "pnpm test:vitest && pnpm test:mapgen && pnpm -C mods/mod-swooper-maps test",
     "test:vitest": "vitest run",
     "test:ui": "vitest --ui",
     "clean": "turbo run clean",
