@@ -1,6 +1,18 @@
-# ADR-ER1-035: Config normalization and derived defaults (beyond schema defaults)
+---
+id: ADR-ER1-035
+title: "Config normalization and derived defaults (beyond schema defaults)"
+status: proposed
+date: 2025-12-30
+project: engine-refactor-v1
+risk: at_risk
+supersedes: []
+superseded_by: null
+sources:
+  - "SPEC-architecture-overview"
+  - "SPEC-pending-step-domain-operation-modules"
+---
 
-**Status:** Proposed
+# ADR-ER1-035: Config normalization and derived defaults (beyond schema defaults)
 
 ## Context
 
@@ -36,8 +48,3 @@ Schema defaults are necessary but often insufficient: some defaults are derived 
 - If a default depends on runtime state, it must be re-framed as:
   - an explicit input/setting, or
   - an explicit runtime-derived artifact/buffer dependency.
-
-## Sources
-
-- SPEC-architecture-overview
-- SPEC-pending-step-domain-operation-modules

@@ -1,6 +1,18 @@
-# ADR-ER1-031: Strategy config encoding (selection + defaults + explicitness)
+---
+id: ADR-ER1-031
+title: "Strategy config encoding (selection + defaults + explicitness)"
+status: proposed
+date: 2025-12-30
+project: engine-refactor-v1
+risk: at_risk
+supersedes: []
+superseded_by: null
+sources:
+  - "SPEC-architecture-overview"
+  - "SPEC-pending-step-domain-operation-modules"
+---
 
-**Status:** Proposed
+# ADR-ER1-031: Strategy config encoding (selection + defaults + explicitness)
 
 ## Context
 
@@ -36,8 +48,3 @@ Domain operations may offer multiple strategies. The authoring surface needs a c
   - config schemas for each strategy,
   - a normalization/defaulting path so the plan is explicit.
 - Step config schemas can compose operation strategy schemas without inventing custom shapes per step.
-
-## Sources
-
-- SPEC-architecture-overview
-- SPEC-pending-step-domain-operation-modules

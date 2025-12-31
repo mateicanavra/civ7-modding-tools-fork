@@ -1,6 +1,19 @@
-# ADR-ER1-027: Dependency terminology and registry naming
+---
+id: ADR-ER1-027
+title: "Dependency terminology and registry naming"
+status: proposed
+date: 2025-12-30
+project: engine-refactor-v1
+risk: at_risk
+supersedes: []
+superseded_by: null
+sources:
+  - "SPEC-architecture-overview"
+  - "SPEC-tag-registry"
+  - "SPEC-pending-step-domain-operation-modules"
+---
 
-**Status:** Proposed
+# ADR-ER1-027: Dependency terminology and registry naming
 
 ## Context
 
@@ -34,9 +47,3 @@ The pending step/domain-operation modules spec explicitly calls out the intent t
 - Canonical spec language should avoid “tag” when referring to pipeline dependency edges; reserve “tag” for other domains if needed.
 - When implementation catches up, code should converge on `DependencyRegistry` and `DependencyKeyDefinition` to match the spec.
 - Any transitional aliasing (old names) is an implementation concern, not a spec concern.
-
-## Sources
-
-- SPEC-architecture-overview
-- SPEC-tag-registry
-- SPEC-pending-step-domain-operation-modules

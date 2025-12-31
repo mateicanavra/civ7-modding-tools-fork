@@ -1,6 +1,17 @@
-# ADR-ER1-034: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
+---
+id: ADR-ER1-034
+title: "Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)"
+status: proposed
+date: 2025-12-30
+project: engine-refactor-v1
+risk: at_risk
+supersedes: []
+superseded_by: null
+sources:
+  - "SPEC-pending-step-domain-operation-modules"
+---
 
-**Status:** Proposed
+# ADR-ER1-034: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
 ## Context
 
@@ -32,7 +43,3 @@ The step/domain-operation module design introduces operation “kinds” such as
 
 - Operation contracts can remain stable and testable while still gaining a shared vocabulary for intent.
 - If enforcement becomes desirable, it can be added later as tooling/lint without changing operation signatures.
-
-## Sources
-
-- SPEC-pending-step-domain-operation-modules

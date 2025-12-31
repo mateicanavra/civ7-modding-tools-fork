@@ -1,6 +1,19 @@
-# ADR-ER1-032: Recipe config authoring surface (no global overrides)
+---
+id: ADR-ER1-032
+title: "Recipe config authoring surface (no global overrides)"
+status: proposed
+date: 2025-12-30
+project: engine-refactor-v1
+risk: at_risk
+supersedes: []
+superseded_by: null
+sources:
+  - "SPEC-architecture-overview"
+  - "SPEC-packaging-and-file-structure"
+  - "SPEC-pending-step-domain-operation-modules"
+---
 
-**Status:** Proposed
+# ADR-ER1-032: Recipe config authoring surface (no global overrides)
 
 ## Context
 
@@ -33,9 +46,3 @@ We need explicit rules for what the recipe may author, what is forbidden, and ho
 
 - Validation and observability can report config provenance at the plan-node level.
 - Domain operation modules should not depend on any implicit/global config merges; all config arrives explicitly.
-
-## Sources
-
-- SPEC-architecture-overview
-- SPEC-packaging-and-file-structure
-- SPEC-pending-step-domain-operation-modules

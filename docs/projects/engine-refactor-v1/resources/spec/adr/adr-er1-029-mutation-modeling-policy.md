@@ -1,6 +1,20 @@
-# ADR-ER1-029: Mutation modeling policy (`buffer:*` vs `artifact:*`)
+---
+id: ADR-ER1-029
+title: "Mutation modeling policy (`buffer:*` vs `artifact:*`)"
+status: proposed
+date: 2025-12-30
+project: engine-refactor-v1
+risk: at_risk
+supersedes: []
+superseded_by: null
+sources:
+  - "Engine Refactor v1 ADR register (ADR-ER1-###)"
+  - "SPEC-architecture-overview"
+  - "SPEC-tag-registry"
+  - "SPEC-pending-step-domain-operation-modules"
+---
 
-**Status:** Proposed
+# ADR-ER1-029: Mutation modeling policy (`buffer:*` vs `artifact:*`)
 
 ## Context
 
@@ -36,10 +50,3 @@ The project ADR register calls out this as a follow-up decision area (buffer mut
   - buffer existence/shape validation (allocation, length, element type invariants), and
   - artifact validation (schema validation, content invariants, demo payloads).
 - Operation/module design should treat “inputs” as value snapshots derived from buffers/artifacts, and treat writes as explicit buffer writes and/or artifact publication.
-
-## Sources
-
-- Engine Refactor v1 ADR register (ADR-ER1-###)
-- SPEC-architecture-overview
-- SPEC-tag-registry
-- SPEC-pending-step-domain-operation-modules

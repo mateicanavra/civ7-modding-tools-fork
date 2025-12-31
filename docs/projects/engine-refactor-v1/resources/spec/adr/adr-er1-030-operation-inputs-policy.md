@@ -1,6 +1,19 @@
-# ADR-ER1-030: Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy)
+---
+id: ADR-ER1-030
+title: "Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy)"
+status: proposed
+date: 2025-12-30
+project: engine-refactor-v1
+risk: at_risk
+supersedes: []
+superseded_by: null
+sources:
+  - "SPEC-architecture-overview"
+  - "SPEC-core-sdk"
+  - "SPEC-pending-step-domain-operation-modules"
+---
 
-**Status:** Proposed
+# ADR-ER1-030: Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy)
 
 ## Context
 
@@ -34,9 +47,3 @@ The step/domain-operation module design introduces a reusable “domain operatio
 - Domain libraries remain engine-agnostic and unit-test-friendly by default.
 - Performance-sensitive cases must be handled explicitly (e.g., by changing which buffers are materialized, or by introducing a deliberate “view surface” as a separate design—without silently changing the default contract).
 - Schema tooling may require small helpers later, but the target architecture does not depend on schema precision for typed arrays.
-
-## Sources
-
-- SPEC-architecture-overview
-- SPEC-core-sdk
-- SPEC-pending-step-domain-operation-modules

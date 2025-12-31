@@ -1,6 +1,20 @@
-# ADR-ER1-028: Dependency key ownership model
+---
+id: ADR-ER1-028
+title: "Dependency key ownership model"
+status: proposed
+date: 2025-12-30
+project: engine-refactor-v1
+risk: at_risk
+supersedes: []
+superseded_by: null
+sources:
+  - "SPEC-architecture-overview"
+  - "SPEC-packaging-and-file-structure"
+  - "SPEC-tag-registry"
+  - "SPEC-pending-step-domain-operation-modules"
+---
 
-**Status:** Proposed
+# ADR-ER1-028: Dependency key ownership model
 
 ## Context
 
@@ -34,10 +48,3 @@ We need a clear ownership rule for:
 - The standard content package is responsible for aggregating the dependency key definitions it owns (and any domain libraries it bundles) into the registry surface it exposes.
 - Tooling can still provide “authoring sugar”, but compiled artifacts must be explicit and validated against the registry.
 - The spec should describe dependency keys as part of contract ownership (step/stage/domain), not as recipe-root catalog content.
-
-## Sources
-
-- SPEC-architecture-overview
-- SPEC-packaging-and-file-structure
-- SPEC-tag-registry
-- SPEC-pending-step-domain-operation-modules

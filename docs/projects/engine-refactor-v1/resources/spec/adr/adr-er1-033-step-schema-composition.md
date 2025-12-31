@@ -1,6 +1,19 @@
-# ADR-ER1-033: Step schema composition (manual wiring vs declarative op usage)
+---
+id: ADR-ER1-033
+title: "Step schema composition (manual wiring vs declarative op usage)"
+status: proposed
+date: 2025-12-30
+project: engine-refactor-v1
+risk: at_risk
+supersedes: []
+superseded_by: null
+sources:
+  - "SPEC-architecture-overview"
+  - "SPEC-packaging-and-file-structure"
+  - "SPEC-pending-step-domain-operation-modules"
+---
 
-**Status:** Proposed
+# ADR-ER1-033: Step schema composition (manual wiring vs declarative op usage)
 
 ## Context
 
@@ -33,9 +46,3 @@ The step/domain-operation module design introduces reusable domain operations wi
 
 - Step contract modules remain the unit of review for contract changes.
 - Operation/module reuse remains possible without turning the step contract into an opaque generated artifact.
-
-## Sources
-
-- SPEC-architecture-overview
-- SPEC-packaging-and-file-structure
-- SPEC-pending-step-domain-operation-modules
