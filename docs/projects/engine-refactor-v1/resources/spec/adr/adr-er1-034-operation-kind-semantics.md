@@ -36,4 +36,4 @@ The step/domain-operation module design introduces operation “kinds” such as
 
 ## Sources
 
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`
+- SPEC-pending-step-domain-operation-modules

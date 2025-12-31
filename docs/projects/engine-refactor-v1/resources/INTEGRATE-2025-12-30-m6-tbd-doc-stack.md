@@ -10,7 +10,7 @@ It is intentionally lightweight: each entry captures **what conflicted**, **wher
 
 ### Step module standardization: “contract module” vs “model module”
 
-- **Context:** `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Terminology and colocation rules)
+- **Context:** SPEC-target-architecture-draft (terminology and colocation rules)
 - **Conflicting texts:**
   - **Variant A:** “Step contract module” as a flexible bundle (single file or colocated module set) with optional directory-based or `<stepId>.*` file splits.
   - **Variant B:** “Step model module” as a standardized `<stepId>.model.ts` contract file, paired with `<stepId>.ts` implementation.
@@ -25,7 +25,7 @@ It is intentionally lightweight: each entry captures **what conflicted**, **wher
 
 ### Dependency tag prefix: `field:*` vs `buffer:*` (and Recipe schema version)
 
-- **Context:** `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md` (4.6 Packaging overlay)
+- **Context:** SPIKE-m6-standard-mod-feature-sliced-content-ownership (archived) (packaging overlay)
 - **Conflicting texts:**
   - **Variant A:** `RecipeV1` + `buffer:*` terminology.
   - **Variant B:** `RecipeV2` + `field:*` terminology (explicitly cited as `523905b4`, `engine: lock recipe schema v2 (remove instanceId)`).
@@ -35,7 +35,7 @@ It is intentionally lightweight: each entry captures **what conflicted**, **wher
 
 ### Core naming conventions: kebab-case vs strict runtime surface naming
 
-- **Context:** `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Naming and organization conventions)
+- **Context:** SPEC-target-architecture-draft (naming and organization conventions)
 - **Conflicting texts:**
   - **Variant A:** “Prefer kebab-case for new files across `src/**`”, tolerate existing PascalCase.
   - **Variant B:** “Strict, intention-revealing names for `src/engine/**` + `src/core/**`”, explicitly forbidding kebab-case in runtime surfaces.

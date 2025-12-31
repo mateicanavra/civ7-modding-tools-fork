@@ -40,8 +40,7 @@ The project ADR register calls out this as a follow-up decision area (buffer mut
 
 ## Sources
 
-- `docs/projects/engine-refactor-v1/ADR.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-architecture-overview.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-tag-registry.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`
-
+- Engine Refactor v1 ADR register (ADR-ER1-###)
+- SPEC-architecture-overview
+- SPEC-tag-registry
+- SPEC-pending-step-domain-operation-modules

@@ -1,7 +1,7 @@
 # Spike (Drift): M6 Implementation vs Target Expectations
 
 This file is a curated extraction of **drift observations** (where current implementation diverges from intended/expected target direction) from:
-- `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-m6-architecture-spec-prework-audit.md`
+- SPIKE-m6-architecture-spec-prework-audit (archived)
 
 It intentionally omits target directives/design decisions (see `spike-target.md`).
 
@@ -23,7 +23,7 @@ It intentionally omits target directives/design decisions (see `spike-target.md`
 - The recipe config is **hand-mapped** from `MapGenConfig` into stage/step configs (`buildStandardRecipeConfig`).
 - `ExtendedMapContext.config` is **not validated/defaulted** on the standard runtime path; it’s just the overrides object cast to `MapGenConfig`.
   - This is called out as triage:
-    - `docs/projects/engine-refactor-v1/triage.md` (“Map overrides mapped directly to recipe config … pass overrides into ExtendedMapContext.config”)
+    - triage (“Map overrides mapped directly to recipe config … pass overrides into ExtendedMapContext.config”)
 
 
 
@@ -61,4 +61,3 @@ Publishing buffers as artifacts creates a semantic collision:
 
 
 - `@swooper/mapgen-core/engine` (2) — **leaks** (`RunSettings`, `DependencyTagDefinition`, `TagOwner`)
-

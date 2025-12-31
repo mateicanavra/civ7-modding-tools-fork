@@ -7,12 +7,12 @@
 - Implementation tasks should follow this plan; the SPIKE is reference-only.
 
 **Baseline references:**
-- `docs/projects/engine-refactor-v1/resources/spike/spike-target.md`
-- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U01-promote-runtime-pipeline-as-engine-sdk-surface.md`
-- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk.md`
-- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U06-rewrite-maps-as-recipe-instances.md`
-- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U07-delete-legacy-base-bootstrap-config-orchestrator.md`
-- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U08-realign-tests-and-ci-gates-to-ownership.md`
+- spike-target
+- Issue: LOCAL-TBD-M6-U01-promote-runtime-pipeline-as-engine-sdk-surface
+- Issue: LOCAL-TBD-M6-U05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk
+- Issue: LOCAL-TBD-M6-U06-rewrite-maps-as-recipe-instances
+- Issue: LOCAL-TBD-M6-U07-delete-legacy-base-bootstrap-config-orchestrator
+- Issue: LOCAL-TBD-M6-U08-realign-tests-and-ci-gates-to-ownership
 
 ## Decision Packets
 

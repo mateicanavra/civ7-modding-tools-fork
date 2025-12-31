@@ -23,7 +23,7 @@ Authoritative implementation references:
 - Types, tags, validators: `packages/mapgen-core/src/core/types.ts`
 - Assertions: `packages/mapgen-core/src/core/assertions.ts`
 - Foundation stage publisher: `packages/mapgen-core/src/base/pipeline/foundation/producer.ts`
-- Target architecture: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
+- Target architecture: SPEC-target-architecture-draft
 
 ## 2. Scope & Status
 

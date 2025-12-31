@@ -2,7 +2,7 @@
 
 This file consolidates **target/directive/design** material extracted from historical spikes.
 It is **not canonical**; use it as a manual reconciliation staging area against:
-- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
+- SPEC-target-architecture-draft
 
 Sources are grouped by original spike filename.
 
@@ -47,23 +47,23 @@ M6 landed the major wiring refactor (authoring SDK + plan compiler + executor + 
 ### Pipeline boundary and config intent (project ADRs)
 
 - **Boundary input is** `RunRequest = { recipe, settings }` (not a monolithic `MapGenConfig`).
-  - `docs/projects/engine-refactor-v1/ADR.md` (ADR-ER1-003)
+  - ADR register (ADR-ER1-003)
 - **Cross-cutting directionality belongs in `settings`**, not in `ctx.config.foundation.*` or duplicated across step configs.
-  - `docs/projects/engine-refactor-v1/ADR.md` (ADR-ER1-019)
+  - ADR register (ADR-ER1-019)
 
 ### Authoring decisions (issue decision records)
 
 - **Authoring enforces schemas** (`createStep` requires a schema); engine runtime remains permissive (for legacy call sites).
-  - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U02-1-define-authoring-pojos-and-schema-requirements.md`
+  - Issue: LOCAL-TBD-M6-U02-1-define-authoring-pojos-and-schema-requirements
 - **`instanceId` intended to be recipe-occurrence-only** (validate uniqueness in authoring).
-  - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U02-1-define-authoring-pojos-and-schema-requirements.md`
+  - Issue: LOCAL-TBD-M6-U02-1-define-authoring-pojos-and-schema-requirements
 - **Tag definitions are inferred from step usage with explicit overrides** (instead of requiring fully explicit catalogs for every tag).
-  - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U02-2-implement-createrecipe-registry-plumbing-and-api-surface.md`
+  - Issue: LOCAL-TBD-M6-U02-2-implement-createrecipe-registry-plumbing-and-api-surface
 
 ### Standard recipe tag catalog decision (M6 issue record)
 
 - Standard recipe owns a recipe-local `tags.ts` and passes it into `createRecipe({ tagDefinitions })`.
-  - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk.md`
+  - Issue: LOCAL-TBD-M6-U05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk
 
 
 
@@ -212,9 +212,9 @@ ADR-ER1-019 exists because “directionality” is:
 
 So the decision is: **directionality is a `RunRequest.settings` concern** and steps consume it from **settings** (not from `ctx.config.foundation.*` and not from other steps’ config).
 
-- `docs/projects/engine-refactor-v1/ADR.md` (ADR-ER1-019)
+- ADR register (ADR-ER1-019)
 - The review record explicitly calls out the current drift and recommends `context.settings`:
-  - `docs/projects/engine-refactor-v1/reviews/REVIEW-M5-proposal-clean-architecture-finalization.md` (m5-u09-def-016 review)
+  - REVIEW-M5-proposal-clean-architecture-finalization (m5-u09-def-016 review)
 
 
 
@@ -912,11 +912,11 @@ A key practical pressure: the hard part is not raw storage (we can store immutab
 > Do **not** treat it as canonical target architecture or contracts.
 >
 > **For M4 execution, canonical sources are:**
-> - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
-> - `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`
-> - `docs/projects/engine-refactor-v1/ADR.md`
+> - SPEC-target-architecture-draft
+> - M4-target-architecture-cutover-legacy-cleanup
+> - ADR register (ADR-ER1-###)
 >
-> If you find yourself making a design/implementation decision based on this SPIKE (e.g., choosing between options below), **stop**: add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md` documenting the decision point + why, then ask for confirmation and update the SPEC/ADR before proceeding.
+> If you find yourself making a design/implementation decision based on this SPIKE (e.g., choosing between options below), **stop**: add a triage entry documenting the decision point + why, then ask for confirmation and update the SPEC/ADR before proceeding.
 
 > ~~Agent disclaimer (WIP):~~
 >
@@ -932,28 +932,28 @@ accumulates exploratory thinking, decision rationale, and interim notes as we
 converge on the canonical target.
 
 The canonical target architecture lives in the companion doc:
-`docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
+SPEC-target-architecture-draft
 
 Related:
-- Indirection audit and current map: `docs/projects/engine-refactor-v1/resources/SPIKE-orchestrator-indirection-audit.md`
+- Indirection audit and current map: SPIKE-orchestrator-indirection-audit (archived)
 
 ---
 
 ## 1. Inputs and references
 
 Primary references (target intent, mixed with current state):
-- `docs/system/libs/mapgen/architecture.md`
-- `docs/system/libs/mapgen/foundation.md`
-- `docs/system/libs/mapgen/morphology.md`
-- `docs/system/libs/mapgen/hydrology.md`
-- `docs/system/libs/mapgen/ecology.md`
-- `docs/system/libs/mapgen/narrative.md`
+- system docs: mapgen architecture
+- system docs: mapgen foundation
+- system docs: mapgen morphology
+- system docs: mapgen hydrology
+- system docs: mapgen ecology
+- system docs: mapgen narrative
 
 Project references (contracts, deferrals, and transition state):
-- `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md`
-- `docs/projects/engine-refactor-v1/deferrals.md`
-- `docs/projects/engine-refactor-v1/status.md`
-- `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`
+- PROJECT-engine-refactor-v1
+- deferrals (DEF-###)
+- status
+- CONTRACT-foundation-context
 
 ---
 
@@ -1139,14 +1139,14 @@ vs remains canonical (manifest, dependency spine, enablement flags).
   `registry.getStandardRecipe(stageManifest)` and passes it to `PipelineExecutor`.
 - `packages/mapgen-core/src/config/schema.ts` marks `stageConfig` and
   `stageManifest` as `[internal]` plumbing (not mod-facing API).
-- `docs/system/libs/mapgen/architecture.md` describes recipe-driven composition,
+- system doc “mapgen architecture” describes recipe-driven composition,
   but explicitly notes "Current (M3): execution order is still derived from
   legacy `STAGE_ORDER` + `stageManifest`" (points to `DEF-004`).
-- `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md` proposes
+- PRD-plate-generation proposes
   a deterministic **stage→substep expansion** mechanism (keep `foundation` as a
   single stage in `STAGE_ORDER`, but expand into multiple substeps at runtime)
   explicitly because arbitrary recipe composition is deferred in M3.
-- `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md`
+- system research spike “SPIKE-synthesis-earth-physics-systems-swooper-engine”
   calls out "pipeline modding" use cases (insert erosion, reorder hydrology substeps),
   which are hard to express with `STAGE_ORDER` and push toward recipe-driven composition.
 
@@ -1339,7 +1339,7 @@ to revisit after we publish a mod-facing contract.
 - Any remaining `STAGE_ORDER` call sites are explicitly transitional (see `DEF-004`) and should be deleted once parity is reached.
 
 **SPEC impact (accepted):**
-- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+- SPEC-target-architecture-draft:
   - `1.2 Pipeline contract` (ordering/enabling source of truth)
   - Add recipe schema summary and constraints (once `2.9` is also settled)
 
@@ -1428,7 +1428,7 @@ skips—only fail-fast validation/precondition errors.
   steps/variants (not hidden within a single step run).
 
 **SPEC impact:**
-- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+- SPEC-target-architecture-draft:
   - `1.2 Pipeline contract` (enablement semantics; ban silent runtime skips)
   - `1.7 Observability` (required diagnostics; fail-fast error surfaces)
   - `2.1 What V1 includes` (explicitly: recipe enablement is authoritative)
@@ -1454,10 +1454,10 @@ skips—only fail-fast validation/precondition errors.
 **Decision (one sentence):** M4 keeps the foundation payload monolithic, but on the artifacts surface: `artifact:foundation` stored at `ctx.artifacts.foundation` (no `ctx.foundation`). Post-M4, the end-state remains discrete `artifact:foundation.*` products (DEF-014).
 
 **Context:**
-- `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` is
+- CONTRACT-foundation-context is
   the binding contract for the monolithic foundation payload (`artifact:foundation`
   at `ctx.artifacts.foundation`).
-- `docs/system/libs/mapgen/foundation.md` describes the intended target as
+- system doc “mapgen foundation” describes the intended target as
   discrete foundation artifacts.
 - `DEF-014` defers the post-M4 split into discrete foundation artifacts; M4 still
   removes `ctx.foundation` as a top-level surface.
@@ -1502,7 +1502,7 @@ skips—only fail-fast validation/precondition errors.
   - Remove the monolithic `artifact:foundation` once no longer needed.
 
 **SPEC impact (accepted):**
-- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+- SPEC-target-architecture-draft:
   - Mark decision 3.3 as accepted.
   - Clarify the M4 interim surface (`artifact:foundation` at `ctx.artifacts.foundation`) and that the discrete `artifact:foundation.*` split is deferred per DEF-014.
 
@@ -1526,7 +1526,7 @@ and no narrative globals outside the run context.
   story heuristics.
 - Prior drafts used “StoryOverlays” + “StoryTags”. In practice, this created a
   dual-source representation and repeated derivations across steps.
-- `docs/projects/engine-refactor-v1/issues/CIV-M4-ADHOC-modularize.md`
+- Issue: CIV-M4-ADHOC-modularize
   already locks the key boundary constraint: **core pipeline must run without
   stories**, and story/playability work should schedule into existing phases,
   not introduce a dedicated new phase.
@@ -1560,7 +1560,7 @@ and no narrative globals outside the run context.
   them into context-owned artifacts).
 
 **SPEC impact (accepted):**
-- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+- SPEC-target-architecture-draft:
   - Replace any “published overlay view” narrative with story entries + derived views.
   - Explicitly state “no StoryTags” and “optional via recipe composition”.
 
@@ -1594,7 +1594,7 @@ and no narrative globals outside the run context.
     (often as a separate “reify step”).
 - **`state:engine.*` is transitional-only:** migrate to `effect:engine.*` +
   reified products; do not enshrine `state:engine.*` as a permanent namespace
-  (aligns with `docs/projects/engine-refactor-v1/deferrals.md` DEF-008).
+  (aligns with deferrals DEF-008).
 - **Escape hatch (rare, transitional):** engine-first steps may remain during
   migration for parity/correctness (e.g., Civ scripts), but must not introduce
   implicit cross-step dependencies on opaque engine state. If any downstream
@@ -1603,7 +1603,7 @@ and no narrative globals outside the run context.
 **Evidence (current code + docs):**
 - Transitional state tags and lack of verification:
   - `packages/mapgen-core/src/pipeline/tags.ts` (`state:engine.*` tags are trusted).
-  - `docs/projects/engine-refactor-v1/deferrals.md` `DEF-008`.
+  - deferrals DEF-008.
 - Current scheduling depends on engine-surface signals:
   - `packages/mapgen-core/src/pipeline/standard.ts` uses `state:engine.*`.
 
@@ -1841,7 +1841,7 @@ strict and mod/plugin-safe with fail-fast collision behavior?
     transitional wiring with a sunset plan.
 
 **SPEC impact (now that it’s accepted):**
-- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+- SPEC-target-architecture-draft:
   - `1.4 Dependency tags` (which namespaces exist and what they mean)
   - `3. Tag Registry` (registry contract and ownership/versioning)
   - `2.1 What V1 includes` (what subset of the registry is stabilized in V1)
@@ -1901,7 +1901,7 @@ recipe (authored) → registry (catalog) → `ExecutionPlan` (compiled)?
   - `packages/mapgen-core/src/pipeline/StepRegistry.ts` defines "standard recipe for M3"
     as `stageManifest.order` filtered by enablement.
 - Deferral acknowledges the gap:
-  - `docs/projects/engine-refactor-v1/deferrals.md` `DEF-004` explicitly defers
+  - deferrals DEF-004 explicitly defers
     arbitrary recipe composition and keeps `STAGE_ORDER + stageManifest` as M3 truth.
 
 **Greenfield simplest (pure target):**
@@ -2035,7 +2035,7 @@ Compatibility policy axes (independent of the version format):
 - Reserve `future.*` containers (accepted by schema but must be empty in V1) plus `extensions` for non-semantic experiments.
 
 **SPEC impact (accepted):**
-- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+- SPEC-target-architecture-draft:
   - Update `1.2 Pipeline contract` to reference a versioned recipe schema and compilation to `ExecutionPlan`.
   - Add a short "V1 recipe structure (sketch)" subsection.
 
@@ -2150,7 +2150,7 @@ Additional constraints (accepted):
     so through a shared foundation (a common event model + sink interface).
 
 **SPEC impact (accepted):**
-- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
+- SPEC-target-architecture-draft:
   - Add a short “Observability baseline” subsection under the pipeline contract
     describing required compile/run outputs (runId, plan fingerprint, structured
     error shape, and optional tracing sinks).
@@ -2284,7 +2284,7 @@ Assumptions to confirm:
 
 ### 3.3 Decision log stubs (ADR placeholders)
 
-~~These will be promoted to `docs/system/ADR.md` as decisions are accepted.~~
+~~These will be promoted to the system ADR register as decisions are accepted.~~
 **Update (2025-12-21, M4 planning):** ADR promotion is post-M4; decisions are captured in the SPEC/M4 plan.
 
 - ~~ADR-TBD: Ordering source of truth (recipe vs manifest).~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
@@ -2304,8 +2304,7 @@ Assumptions to confirm:
 
 - ~~Confirm which decisions are required before finalizing the target docs.~~ **Update (2025-12-21, M4 planning):** Decisions are already captured in the SPEC/M4 plan.
 - ~~Convert accepted decisions into ADRs and update canonical docs.~~ **Update (2025-12-21, M4 planning):** ADR conversion is explicitly post-M4.
-- Map each deferral in `docs/projects/engine-refactor-v1/deferrals.md` to a
-  target contract decision and migration step.
+- Map each deferral in deferrals (DEF-###) to a target contract decision and migration step.
 
 
 ---
@@ -2317,7 +2316,7 @@ Assumptions to confirm:
 # SPIKE M6: Recipe-Local Mod Authoring (Domain Libraries + Recipe Mini-Packages)
 
 Primary reference:
-- Canonical target: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
+- Canonical target: SPEC-target-architecture-draft
 
 Milestone: M6
 

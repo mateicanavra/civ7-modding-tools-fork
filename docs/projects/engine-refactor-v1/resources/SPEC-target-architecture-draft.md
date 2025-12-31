@@ -1,21 +1,21 @@
 # SPEC: Target Architecture (Canonical)
 
-This document is the canonical entrypoint for the target architecture. The authoritative content is split into focused component files under `docs/projects/engine-refactor-v1/resources/spec/` to keep each subsystem reviewable without duplication.
+This document is the canonical entrypoint for the target architecture. The authoritative content is split into focused component docs in the adjacent `spec/` directory to keep each subsystem reviewable without duplication.
 
-## Canonical components
+## Canonical components (Doc IDs)
 
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-architecture-overview.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-packaging-and-file-structure.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-tag-registry.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-core-sdk.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-standard-content-package.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-global-invariants.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-appendix-target-trees.md`
+- SPEC-architecture-overview
+- SPEC-packaging-and-file-structure
+- SPEC-tag-registry
+- SPEC-core-sdk
+- SPEC-standard-content-package
+- SPEC-global-invariants
+- SPEC-appendix-target-trees
 
-## Pending-merge specs
+## Pending-merge specs (not canonical until merged)
 
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md` (not canonical until merged)
+- SPEC-pending-step-domain-operation-modules
 
 ## Decision log
 
-- `docs/projects/engine-refactor-v1/resources/spec/adr/ADR.md`
+- ADR log (spec-adjacent): see `spec/adr/ADR.md`

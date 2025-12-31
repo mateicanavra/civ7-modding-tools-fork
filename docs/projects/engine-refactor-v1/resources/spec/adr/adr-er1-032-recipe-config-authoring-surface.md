@@ -37,7 +37,6 @@ We need explicit rules for what the recipe may author, what is forbidden, and ho
 
 ## Sources
 
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-architecture-overview.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-packaging-and-file-structure.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`
-
+- SPEC-architecture-overview
+- SPEC-packaging-and-file-structure
+- SPEC-pending-step-domain-operation-modules

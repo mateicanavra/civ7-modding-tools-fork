@@ -38,7 +38,6 @@ The step/domain-operation module design introduces a reusable “domain operatio
 
 ## Sources
 
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-architecture-overview.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-core-sdk.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`
-
+- SPEC-architecture-overview
+- SPEC-core-sdk
+- SPEC-pending-step-domain-operation-modules

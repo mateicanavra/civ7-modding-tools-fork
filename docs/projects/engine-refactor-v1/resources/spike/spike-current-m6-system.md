@@ -1,7 +1,7 @@
 # Spike (Current): M6 System Ground Truth
 
 This file is a curated extraction of **ground truth** (current behavior / current system) from:
-- `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-m6-architecture-spec-prework-audit.md`
+- SPIKE-m6-architecture-spec-prework-audit (archived)
 
 It intentionally omits target directives/design decisions and drift analysis.
 
@@ -166,4 +166,3 @@ Current standard mod runtime glue:
 - `mods/mod-swooper-maps/src/maps/_runtime/types.ts` (options + init types)
 - `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` (standard recipe runner)
 - `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` (settings builder + legacy overrides→config mapping)
-

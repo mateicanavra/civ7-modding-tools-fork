@@ -40,6 +40,5 @@ Domain operations may offer multiple strategies. The authoring surface needs a c
 
 ## Sources
 
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-architecture-overview.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`
-
+- SPEC-architecture-overview
+- SPEC-pending-step-domain-operation-modules

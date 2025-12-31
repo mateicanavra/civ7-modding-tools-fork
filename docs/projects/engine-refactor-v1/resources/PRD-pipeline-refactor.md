@@ -30,7 +30,7 @@ The current `MapOrchestrator` suffers from several critical flaws:
 
 ## 3. Architecture: The Task Graph
 
-We will implement the architecture defined in [`docs/system/libs/mapgen/architecture.md`](../../../system/libs/mapgen/architecture.md).
+We will implement the architecture defined in the system doc “mapgen architecture”.
 
 ### 3.1. Core Components
 

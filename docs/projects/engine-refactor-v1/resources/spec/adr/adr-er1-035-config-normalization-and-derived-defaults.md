@@ -40,6 +40,5 @@ Schema defaults are necessary but often insufficient: some defaults are derived 
 
 ## Sources
 
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-architecture-overview.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`
-
+- SPEC-architecture-overview
+- SPEC-pending-step-domain-operation-modules

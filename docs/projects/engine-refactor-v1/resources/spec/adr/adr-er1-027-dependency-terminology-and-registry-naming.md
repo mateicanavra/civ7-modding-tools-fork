@@ -38,7 +38,6 @@ The pending step/domain-operation modules spec explicitly calls out the intent t
 
 ## Sources
 
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-architecture-overview.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-tag-registry.md`
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`
-
+- SPEC-architecture-overview
+- SPEC-tag-registry
+- SPEC-pending-step-domain-operation-modules
