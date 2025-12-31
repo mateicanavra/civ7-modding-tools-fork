@@ -194,7 +194,7 @@ Remove legacy surfaces once the new engine/authoring/content boundaries are live
 Issue doc: [LOCAL-TBD-M6-U08](../issues/LOCAL-TBD-M6-U08-realign-tests-and-ci-gates-to-ownership.md)
 
 Move tests to match the new ownership boundaries and validate at least one recipe execution path.
-- [x] Done (branch: `m6-u08-realign-tests-and-ci-gates-to-ownership`; PR: pending)
+- [x] Done (branch: `m6-u08-realign-tests-and-ci-gates-to-ownership`; review: `m6-u08-review-realign-tests-and-ci-gates-to-ownership`; PR: pending)
 
 ---
 
