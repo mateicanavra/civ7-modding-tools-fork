@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-Define the end-state narrative/playability contract: typed narrative **story entries** published by opt-in steps, consumed explicitly by downstream injectors/placement, and absent any global `StoryTags` surface. This PRD reflects accepted decisions in `SPEC-target-architecture-draft.md` §1.5–§1.6 for the target architecture (not the transitional M4 wiring).
+Define the end-state narrative/playability contract: typed narrative **story entries** published by opt-in steps, consumed explicitly by downstream injectors/placement, and absent any global `StoryTags` surface. This PRD reflects accepted decisions in `SPEC-target-architecture-draft.md` for the target architecture (not the transitional M4 wiring).
 
 ## 2. Scope
 
@@ -52,7 +52,7 @@ Define the end-state narrative/playability contract: typed narrative **story ent
 
 ## 6. Dependencies & References
 
-- `SPEC-target-architecture-draft.md` §1.5–§1.6.  
+- `SPEC-target-architecture-draft.md` (phase ownership and narrative model).  
 - `PRD-target-registry-and-tag-catalog.md` (artifact IDs and schemas).  
 - `PRD-target-context-and-dependency-contract.md` (context storage/caching rules).  
 - `PRD-target-task-graph-runtime.md` (recipe enablement/compilation).

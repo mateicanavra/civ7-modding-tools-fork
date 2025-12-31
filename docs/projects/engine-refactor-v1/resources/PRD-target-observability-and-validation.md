@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-Define the mandatory observability, validation, and failure semantics for the target MapGen architecture. This PRD captures the required outputs, validation behavior, and optional tracing model described in `SPEC-target-architecture-draft.md` §1.2 and §1.7.
+Define the mandatory observability, validation, and failure semantics for the target MapGen architecture. This PRD captures the required outputs, validation behavior, and optional tracing model described in `SPEC-target-architecture-draft.md`.
 
 ## 2. Scope
 
@@ -51,7 +51,7 @@ Define the mandatory observability, validation, and failure semantics for the ta
 
 ## 6. Dependencies & References
 
-- `SPEC-target-architecture-draft.md` §1.2 (observability baseline) and §1.7.  
+- `SPEC-target-architecture-draft.md` (observability baseline and validation semantics).  
 - `PRD-target-task-graph-runtime.md` (plan compilation/execution).  
 - `PRD-target-registry-and-tag-catalog.md` (metadata used for validation).  
 - `PRD-target-context-and-dependency-contract.md` (dependency semantics enforced at runtime).

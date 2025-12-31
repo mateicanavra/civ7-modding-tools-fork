@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-Define the end-state `MapGenContext` shape, storage layout, and dependency satisfaction semantics required by the target architecture. This PRD captures the decisions in `SPEC-target-architecture-draft.md` §1.3–§1.5 about how steps read/write state, how dependencies are validated, and how foundation storage is organized.
+Define the end-state `MapGenContext` shape, storage layout, and dependency satisfaction semantics required by the target architecture. This PRD captures the decisions in `SPEC-target-architecture-draft.md` about how steps read/write state, how dependencies are validated, and how foundation storage is organized.
 
 ## 2. Scope
 
@@ -51,6 +51,6 @@ Define the end-state `MapGenContext` shape, storage layout, and dependency satis
 
 ## 6. Dependencies & References
 
-- `SPEC-target-architecture-draft.md` §1.3–§1.5.  
+- `SPEC-target-architecture-draft.md` (context shape and dependency contract).  
 - `PRD-target-registry-and-tag-catalog.md` (tags that map into context storage).  
 - `PRD-target-task-graph-runtime.md` (executor enforces satisfaction rules).

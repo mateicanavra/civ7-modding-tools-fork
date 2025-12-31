@@ -1526,7 +1526,7 @@ and no narrative globals outside the run context.
   story heuristics.
 - Prior drafts used “StoryOverlays” + “StoryTags”. In practice, this created a
   dual-source representation and repeated derivations across steps.
-- `docs/projects/engine-refactor-v1/issues/CIV-M4-ADHOC-modularize.md` §4.8
+- `docs/projects/engine-refactor-v1/issues/CIV-M4-ADHOC-modularize.md`
   already locks the key boundary constraint: **core pipeline must run without
   stories**, and story/playability work should schedule into existing phases,
   not introduce a dedicated new phase.
@@ -2478,7 +2478,7 @@ This keeps the engine contract intact while removing a mod-wide “catalog” fo
 
 ### 3.2 Target directory structure (authoritative; collapsed view)
 
-The directory sketch above is illustrative. This section is the intended end-state structure for M6 (derived from the exhaustive mapping in Section 9).
+The directory sketch above is illustrative. This section is the intended end-state structure for M6 (derived from the exhaustive mapping).
 
 ```text
 packages/mapgen-core/
@@ -2912,7 +2912,7 @@ Stage step barrel rules (required):
 
 ## 6) Concrete example (non-narrative, linear)
 
-This example deliberately avoids narrative; narrative is deferred (Section 8).
+This example deliberately avoids narrative; narrative is deferred.
 
 ### 6.1 Shared domain logic (pure)
 
@@ -4026,4 +4026,3 @@ For M6, keep a minimal Civ7 runner in the content package under `mods/mod-swoope
 - calls `recipe.run(...)` (authoring SDK wrapper over engine compile/execute).
 
 A future “publishing SDK” extraction is explicitly deferred; extract only if/when multiple mods need a shared Civ7 runner surface.
-

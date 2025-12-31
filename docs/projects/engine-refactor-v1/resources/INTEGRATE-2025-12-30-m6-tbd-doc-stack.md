@@ -10,7 +10,7 @@ It is intentionally lightweight: each entry captures **what conflicted**, **wher
 
 ### Step module standardization: “contract module” vs “model module”
 
-- **Context:** `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Terminology + 2.4 Colocation rules)
+- **Context:** `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Terminology and colocation rules)
 - **Conflicting texts:**
   - **Variant A:** “Step contract module” as a flexible bundle (single file or colocated module set) with optional directory-based or `<stepId>.*` file splits.
   - **Variant B:** “Step model module” as a standardized `<stepId>.model.ts` contract file, paired with `<stepId>.ts` implementation.
@@ -35,7 +35,7 @@ It is intentionally lightweight: each entry captures **what conflicted**, **wher
 
 ### Core naming conventions: kebab-case vs strict runtime surface naming
 
-- **Context:** `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (4.3 Naming and organization conventions)
+- **Context:** `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (Naming and organization conventions)
 - **Conflicting texts:**
   - **Variant A:** “Prefer kebab-case for new files across `src/**`”, tolerate existing PascalCase.
   - **Variant B:** “Strict, intention-revealing names for `src/engine/**` + `src/core/**`”, explicitly forbidding kebab-case in runtime surfaces.

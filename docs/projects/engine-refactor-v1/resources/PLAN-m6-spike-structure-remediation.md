@@ -143,7 +143,7 @@ mods/mod-swooper-maps/src/
 
 ## Draft SPIKE Target-Architecture Edits (Reference)
 
-- Replace the mod content package tree in Section 3.2 with the colocated step/stage structure above.
+- Replace the mod content package tree with the colocated step/stage structure above.
 - Remove `recipes/<recipe>/tags.ts` and `recipes/<recipe>/artifacts.ts` as definition sources; allow re-export-only barrels if needed.
 - Clarify `domain/config/schema/**` as shared fragments only; step schemas remain step-owned.
 - Add invariants disallowing centralized tag/artifact catalogs and any mod-wide `config/**` module.

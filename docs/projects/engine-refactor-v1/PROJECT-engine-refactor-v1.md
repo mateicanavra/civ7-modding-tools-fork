@@ -157,7 +157,7 @@ See `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refact
 
 - **Data products and cluster alignment**
   - Solidify `FoundationContext`, `Heightfield`, `ClimateField`, and narrative story entries (typed story entry artifacts by motif; derived views for inspection/debug) as core data products.
-  - Ensure clusters follow the target topology (see Section 5.1) and consume these products instead of ad-hoc globals.
+  - Ensure clusters follow the target topology and consume these products instead of ad-hoc globals.
 
 **Exit Criteria**
 

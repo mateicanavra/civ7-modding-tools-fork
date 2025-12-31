@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-Define the end-state runtime boundary for MapGen: a deterministic Task Graph pipeline driven by `RunRequest = { recipe, settings }`, compiled into an `ExecutionPlan`, and executed without legacy ordering/enablement/config shims. This PRD captures the canonical runtime surface described in `SPEC-target-architecture-draft.md` §1.2 and related accepted decisions; it is explicitly about the desired final architecture (not the M4 slice).
+Define the end-state runtime boundary for MapGen: a deterministic Task Graph pipeline driven by `RunRequest = { recipe, settings }`, compiled into an `ExecutionPlan`, and executed without legacy ordering/enablement/config shims. This PRD captures the canonical runtime surface described in `SPEC-target-architecture-draft.md` and related accepted decisions; it is explicitly about the desired final architecture (not the M4 slice).
 
 ## 2. Scope
 
@@ -52,7 +52,7 @@ Define the end-state runtime boundary for MapGen: a deterministic Task Graph pip
 
 ## 6. Dependencies & References
 
-- `SPEC-target-architecture-draft.md` §1.2, §1.7 (runtime/observability), §3 (registry contract).  
+- `SPEC-target-architecture-draft.md` (runtime contract, observability baseline, registry contract).  
 - `PRD-target-registry-and-tag-catalog.md` (registry shape + canonical tags).  
 - `PRD-target-context-and-dependency-contract.md` (context ownership + satisfaction rules).  
 - `PRD-target-observability-and-validation.md` (required outputs and diagnostics).

@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-Define the canonical registry contract and tag inventory for the target MapGen architecture. This PRD captures the mod-instantiated registry rules, tag types, and the end-state catalog of artifacts/buffers/effects specified in `SPEC-target-architecture-draft.md` §1.5–§3.
+Define the canonical registry contract and tag inventory for the target MapGen architecture. This PRD captures the mod-instantiated registry rules, tag types, and the end-state catalog of artifacts/buffers/effects specified in `SPEC-target-architecture-draft.md`.
 
 ## 2. Scope
 
@@ -54,7 +54,7 @@ Define the canonical registry contract and tag inventory for the target MapGen a
 
 ## 6. Dependencies & References
 
-- `SPEC-target-architecture-draft.md` §1.5 (phase ownership), §3 (registry rules and tag lists).  
+- `SPEC-target-architecture-draft.md` (phase ownership, registry rules, and tag lists).  
 - `PRD-target-task-graph-runtime.md` (recipes reference registry IDs).  
 - `PRD-target-context-and-dependency-contract.md` (how tags map to context storage and satisfaction).  
 - `PRD-target-narrative-and-playability.md` (narrative artifact expectations).
