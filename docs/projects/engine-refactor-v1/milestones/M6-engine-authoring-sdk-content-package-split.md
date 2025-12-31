@@ -151,7 +151,7 @@ Issue doc: [LOCAL-TBD-M6-U02](../issues/LOCAL-TBD-M6-U02-ship-authoring-sdk-v1-f
 Deliver the authoring SDK v1 surface (`createStep`, `createStage`, `createRecipe`) with registry plumbing hidden.
 
 **Children**
-- [x] [LOCAL-TBD-M6-U02-1](../issues/LOCAL-TBD-M6-U02-1-define-authoring-pojos-and-schema-requirements.md) — Done (branch: `m6-u02-1-define-authoring-pojos-and-schema-requirements`; PR: pending)
+- [x] [LOCAL-TBD-M6-U02-1](../issues/LOCAL-TBD-M6-U02-1-define-authoring-pojos-and-schema-requirements.md) — Done (branch: `m6-u02-1-define-authoring-pojos-and-schema-requirements`; review: `m6-u02-1-review-define-authoring-pojos-and-schema-requirements`; PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/269)
 - [LOCAL-TBD-M6-U02-2](../issues/LOCAL-TBD-M6-U02-2-implement-createrecipe-registry-plumbing-and-api-surface.md)
 
 ### LOCAL-TBD-M6-U03 — Content package skeleton + exports (`mods/mod-swooper-maps`)
