@@ -121,6 +121,9 @@ importers:
       '@swooper/mapgen-core':
         specifier: workspace:*
         version: link:../../packages/mapgen-core
+      typebox:
+        specifier: ^1.0.61
+        version: 1.0.61
     devDependencies:
       '@civ7/types':
         specifier: workspace:*

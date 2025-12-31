@@ -70,3 +70,26 @@ Create the standard content package skeleton under `mods/mod-swooper-maps` with 
     - `stages/<stageId>/steps/index.ts` exporting explicit named step exports (no `export *`).
   - Recipe file (`recipes/<recipeId>/recipe.ts`) exports a single `createRecipe(...)` POJO composing stages.
   - Dependency direction: stage index may import from `./steps`; step files must not import `../index.ts` or `./index.ts` to avoid cycles.
+
+## Implementation Decisions
+
+### Scaffold all canonical stages with placeholder steps
+- **Context:** The skeleton needs a concrete stage/step layout but the real step inventory migrates later.
+- **Options:** (A) create empty stages with no step files, (B) create placeholder steps per stage to satisfy layout expectations.
+- **Choice:** Option B — add one placeholder step per stage and wire each stage to its step.
+- **Rationale:** Ensures the required `stages/<stageId>/steps/*.ts` layout exists and validates authoring imports without blocking later replacements.
+- **Risk:** Placeholder step IDs will be replaced during content migration; downstream references must not treat them as canonical.
+
+### Assign narrative placeholder steps to the morphology phase
+- **Context:** `GenerationPhase` does not include a dedicated `narrative` phase.
+- **Options:** (A) map narrative placeholders to `morphology`, (B) map to `hydrology`.
+- **Choice:** Option A — use `morphology` for narrative placeholders.
+- **Rationale:** Keeps placeholder steps valid against the current phase enum while narrative sequencing remains authoring-only.
+- **Risk:** If future phases diverge, the placeholder phase choice may need revisiting during real step migration.
+
+### Keep mod checks dependent on built mapgen-core exports
+- **Context:** `mods/mod-swooper-maps` imports `@swooper/mapgen-core/*`, but mapgen-core build outputs are missing due to unrelated merge conflicts.
+- **Options:** (A) add temporary TS path mappings to source files, (B) keep the check relying on published `dist` exports.
+- **Choice:** Option B — avoid source path fallbacks in the mod tsconfig.
+- **Rationale:** Keeps the mod contract aligned with the shippable package boundary and avoids bundling core sources into mod builds.
+- **Risk:** `pnpm -C mods/mod-swooper-maps check` remains blocked until mapgen-core conflicts are resolved and builds can run.
