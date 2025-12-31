@@ -5,7 +5,10 @@ export { createRecipe } from "./recipe.js";
 export type {
   RecipeConfig,
   RecipeConfigOf,
+  RecipeDefinition,
   RecipeModule,
+  Stage,
   StageModule,
+  Step,
   StepModule,
 } from "./types.js";
