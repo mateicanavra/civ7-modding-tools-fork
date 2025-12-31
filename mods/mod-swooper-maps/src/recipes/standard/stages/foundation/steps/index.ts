@@ -1,1 +1,1 @@
-export { default as buildFoundation } from "./buildFoundation.js";
+export { default as foundation } from "./foundation.js";

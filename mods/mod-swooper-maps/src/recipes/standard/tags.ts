@@ -1,3 +1,4 @@
+import { ENGINE_EFFECT_TAGS } from "@civ7/adapter";
 import {
   FOUNDATION_CONFIG_ARTIFACT_TAG,
   FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
@@ -31,5 +32,16 @@ export const M3_DEPENDENCY_TAGS = {
     rainfall: "field:rainfall",
     biomeId: "field:biomeId",
     featureType: "field:featureType",
+  },
+} as const;
+
+export const M4_EFFECT_TAGS = {
+  engine: {
+    landmassApplied: "effect:engine.landmassApplied",
+    coastlinesApplied: "effect:engine.coastlinesApplied",
+    riversModeled: "effect:engine.riversModeled",
+    biomesApplied: ENGINE_EFFECT_TAGS.biomesApplied,
+    featuresApplied: ENGINE_EFFECT_TAGS.featuresApplied,
+    placementApplied: ENGINE_EFFECT_TAGS.placementApplied,
   },
 } as const;
