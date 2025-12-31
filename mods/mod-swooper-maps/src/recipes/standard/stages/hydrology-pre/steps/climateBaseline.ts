@@ -6,7 +6,7 @@ import {
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { ClimateBaselineSchema } from "@swooper/mapgen-core/config";
+import { ClimateBaselineSchema } from "@mapgen/config";
 import {
   publishClimateFieldArtifact,
   publishHeightfieldArtifact,

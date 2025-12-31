@@ -1,4 +1,4 @@
-import type { MountainsConfig as BootstrapMountainsConfig } from "@swooper/mapgen-core/bootstrap";
+import type { MountainsConfig as BootstrapMountainsConfig } from "@mapgen/config";
 
 export type MountainsConfig = BootstrapMountainsConfig;
 

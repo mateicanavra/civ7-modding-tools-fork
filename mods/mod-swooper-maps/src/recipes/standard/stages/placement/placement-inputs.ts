@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import { Value } from "typebox/value";
 import type { MapInfo } from "@civ7/adapter";
-import { PlacementConfigSchema, StartsConfigSchema } from "@swooper/mapgen-core/config";
+import { PlacementConfigSchema, StartsConfigSchema } from "@mapgen/config";
 
 const MapInfoSchema = Type.Object(
   {

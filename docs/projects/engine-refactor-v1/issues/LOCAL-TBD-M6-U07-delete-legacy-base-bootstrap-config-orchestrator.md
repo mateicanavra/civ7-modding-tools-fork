@@ -44,6 +44,29 @@ Remove legacy base/bootstrap/config/orchestrator surfaces after the new pipeline
 - Remove base/bootstrap/config/orchestrator modules only after map entrypoints and tests have cut over.
 - Ensure `packages/mapgen-core/src/index.ts` and package exports drop legacy surfaces.
 
+## Implementation Decisions
+
+### Type stages/recipes over step tuples instead of using bivariant `run`
+- **Context:** Authoring steps should default to `unknown` for config safety, but stages still need to hold steps with concrete config types.
+- **Options:** Widen to `any`, keep a bivariant `run` callback, or make `Stage`/`RecipeDefinition` generic over the step tuple so variance stays sound.
+- **Choice:** Keep `unknown` defaults for `Step`/`StepModule`, make `Stage` generic over step tuples, and specialize `RecipeModule` over the inferred config type.
+- **Rationale:** Preserves type safety without `any` or bivariant hacks while keeping config inference for `RecipeConfigOf`.
+- **Risk:** Touches public authoring types and requires callers to annotate `RecipeModule` with config type when needed.
+
+### Drop storyRifts foundation override from recipe config
+- **Context:** `storyTagRiftValleys` reads directionality from `ctx.config`, but the recipe step schema carried a redundant foundation override.
+- **Options:** Expand `storyTagRiftValleys` to accept a foundation override, or rely on runtime config on the context.
+- **Choice:** Remove the foundation override from the step config and rely on `ctx.config`.
+- **Rationale:** Avoids duplicating foundation config surfaces in recipe steps.
+- **Risk:** Directionality can no longer be overridden per-run via the recipe config.
+
+### Make paleo climate config optional for rivers
+- **Context:** Standard recipe compilation without explicit config failed because `climate.story.paleo` was required.
+- **Options:** Require paleo config in every recipe config, or make it optional with defaults.
+- **Choice:** Mark `climate.story.paleo` optional in the rivers step schema.
+- **Rationale:** Allows `standardRecipe.compile()` to succeed with no explicit config.
+- **Risk:** Paleo hydrology tweaks are skipped unless explicitly configured.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)

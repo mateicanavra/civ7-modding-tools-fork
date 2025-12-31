@@ -12,7 +12,7 @@ import {
   idx,
   clampInt,
 } from "@swooper/mapgen-core";
-import type { FoundationConfig } from "@swooper/mapgen-core/config";
+import type { FoundationConfig } from "@mapgen/config";
 import { PlateSeedManager } from "@mapgen/domain/foundation/plate-seed.js";
 import { computePlatesVoronoi } from "@mapgen/domain/foundation/plates.js";
 import type {

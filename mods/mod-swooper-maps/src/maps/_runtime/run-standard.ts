@@ -1,8 +1,9 @@
 import { createExtendedMapContext, type ExtendedMapContext } from "@swooper/mapgen-core";
-import type { MapGenConfig } from "@swooper/mapgen-core/config";
+import type { MapGenConfig } from "@mapgen/config";
 import type { RecipeModule } from "@swooper/mapgen-core/authoring";
 
 import { initializeStandardRuntime } from "../../recipes/standard/runtime.js";
+import type { StandardRecipeConfig } from "../../recipes/standard/recipe.js";
 import type { MapInitResolution } from "./map-init.js";
 import { createLayerAdapter } from "./helpers.js";
 import type { MapRuntimeOptions } from "./types.js";
@@ -13,7 +14,7 @@ import {
 } from "./standard-config.js";
 
 type StandardRunOptions = {
-  recipe: RecipeModule<ExtendedMapContext>;
+  recipe: RecipeModule<ExtendedMapContext, StandardRecipeConfig | null>;
   init: MapInitResolution;
   overrides?: StandardRecipeOverrides;
   options?: MapRuntimeOptions;

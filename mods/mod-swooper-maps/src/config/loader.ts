@@ -1,5 +1,5 @@
 // Ensure environments without Web TextEncoder (e.g., Civ7 embedded V8) have a compatible implementation.
-import "../polyfills/text-encoder";
+import "@swooper/mapgen-core/polyfills/text-encoder";
 import { Value } from "typebox/value";
 
 import { MapGenConfigSchema, INTERNAL_METADATA_KEY, type MapGenConfig } from "@mapgen/config/schema";

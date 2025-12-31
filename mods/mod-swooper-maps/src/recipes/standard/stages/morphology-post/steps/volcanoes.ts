@@ -1,8 +1,8 @@
 import { Type, type Static } from "typebox";
 import { DEV, assertFoundationPlates, logVolcanoSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import type { VolcanoesConfig } from "@swooper/mapgen-core/config";
-import { VolcanoesConfigSchema } from "@swooper/mapgen-core/config";
+import type { VolcanoesConfig } from "@mapgen/config";
+import { VolcanoesConfigSchema } from "@mapgen/config";
 import { layerAddVolcanoesPlateAware } from "@mapgen/domain/morphology/volcanoes/index.js";
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 

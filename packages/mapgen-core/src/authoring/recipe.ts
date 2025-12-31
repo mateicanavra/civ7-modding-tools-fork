@@ -13,7 +13,16 @@ import {
 
 import type { TraceSession } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import type { RecipeConfig, RecipeDefinition, RecipeModule, Stage, Step } from "./types.js";
+import type {
+  RecipeConfig,
+  RecipeConfigOf,
+  RecipeDefinition,
+  RecipeModule,
+  Stage,
+  Step,
+} from "./types.js";
+
+type AnyStage<TContext> = Stage<TContext, readonly Step<TContext, any>[]>;
 
 type StepOccurrence<TContext> = {
   stageId: string;
@@ -28,7 +37,7 @@ function assertTagDefinitions(value: unknown): void {
   }
 }
 
-function assertUniqueInstanceIds<TContext>(stages: readonly Stage<TContext>[]): void {
+function assertUniqueInstanceIds<TContext>(stages: readonly AnyStage<TContext>[]): void {
   const seen = new Set<string>();
   for (const stage of stages) {
     for (const step of stage.steps) {
@@ -61,7 +70,7 @@ function computeFullStepId(input: {
 function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
   namespace?: string;
   recipeId: string;
-  stages: readonly Stage<TContext>[];
+  stages: readonly AnyStage<TContext>[];
 }): StepOccurrence<TContext>[] {
   const out: StepOccurrence<TContext>[] = [];
 
@@ -128,7 +137,10 @@ function buildRegistry<TContext extends ExtendedMapContext>(
   return registry;
 }
 
-function toStructuralRecipeV1(id: string, occurrences: readonly StepOccurrence<unknown>[]): RecipeV1 {
+function toStructuralRecipeV1<TContext>(
+  id: string,
+  occurrences: readonly StepOccurrence<TContext>[]
+): RecipeV1 {
   return {
     schemaVersion: 1,
     id,
@@ -139,9 +151,10 @@ function toStructuralRecipeV1(id: string, occurrences: readonly StepOccurrence<u
   };
 }
 
-export function createRecipe<TContext extends ExtendedMapContext>(
-  input: RecipeDefinition<TContext>
-): RecipeModule<TContext> {
+export function createRecipe<
+  TContext extends ExtendedMapContext,
+  const TStages extends readonly AnyStage<TContext>[],
+>(input: RecipeDefinition<TContext, TStages>): RecipeModule<TContext, RecipeConfigOf<TStages> | null> {
   assertTagDefinitions(input.tagDefinitions);
   assertUniqueInstanceIds(input.stages);
 
@@ -153,30 +166,32 @@ export function createRecipe<TContext extends ExtendedMapContext>(
   const registry = buildRegistry(occurrences, input.tagDefinitions);
   const recipe = toStructuralRecipeV1(input.id, occurrences);
 
-  function instantiate(config?: RecipeConfig | null): RecipeV1 {
-    const cfg = config ?? null;
+  function instantiate(config?: RecipeConfigOf<TStages> | null): RecipeV1 {
+    const cfg = (config ?? null) as RecipeConfig | null;
     return {
       ...recipe,
       steps: occurrences.map((occ) => ({
         id: occ.step.id,
         instanceId: occ.instanceId,
-        config: cfg ? cfg[occ.stageId]?.[occ.stepId] : undefined,
+        config: cfg
+          ? (cfg[occ.stageId]?.[occ.stepId] as Record<string, unknown> | undefined)
+          : undefined,
       })),
     };
   }
 
-  function runRequest(settings: RunSettings, config?: RecipeConfig | null): RunRequest {
+  function runRequest(settings: RunSettings, config?: RecipeConfigOf<TStages> | null): RunRequest {
     return { recipe: instantiate(config), settings };
   }
 
-  function compile(settings: RunSettings, config?: RecipeConfig | null): ExecutionPlan {
+  function compile(settings: RunSettings, config?: RecipeConfigOf<TStages> | null): ExecutionPlan {
     return compileExecutionPlan(runRequest(settings, config), registry);
   }
 
   function run(
     context: TContext,
     settings: RunSettings,
-    config?: RecipeConfig | null,
+    config?: RecipeConfigOf<TStages> | null,
     options: { trace?: TraceSession | null; log?: (message: string) => void } = {}
   ): void {
     const plan = compile(settings, config);

@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { OrogenyTunablesSchema } from "@swooper/mapgen-core/config";
+import { OrogenyTunablesSchema } from "@mapgen/config";
 import { storyTagOrogenyBelts } from "@mapgen/domain/narrative/orogeny/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 

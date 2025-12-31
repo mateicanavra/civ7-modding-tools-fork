@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import { DEV, devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { ContinentalMarginsConfigSchema } from "@swooper/mapgen-core/config";
+import { ContinentalMarginsConfigSchema } from "@mapgen/config";
 import { storyTagContinentalMargins } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";

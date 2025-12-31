@@ -10,7 +10,7 @@
  */
 
 import type { ExtendedMapContext, FoundationPlateFields, StoryOverlaySnapshot } from "@swooper/mapgen-core";
-import type { StoryConfig } from "@swooper/mapgen-core/config";
+import type { StoryConfig } from "@mapgen/config";
 import { inBounds, storyKey } from "@swooper/mapgen-core";
 import { assertFoundationDynamics, assertFoundationPlates } from "@swooper/mapgen-core";
 import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";

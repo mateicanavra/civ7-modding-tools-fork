@@ -1,6 +1,6 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { clamp } from "@swooper/mapgen-core/lib/math";
-import type { ClimateConfig, FoundationDirectionalityConfig } from "@swooper/mapgen-core/config";
+import type { ClimateConfig, FoundationDirectionalityConfig } from "@mapgen/config";
 import type { ClimateSwatchResult, OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 import { chooseSwatchTypeWeighted } from "@mapgen/domain/hydrology/climate/swatches/chooser.js";
