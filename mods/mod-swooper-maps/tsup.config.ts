@@ -6,6 +6,7 @@ import type { Plugin } from "esbuild";
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 // Reuse mapgen-core’s TypeBox format shim to avoid Unicode regexes in Civ7’s V8 (built-in format validation is disabled).
 const typeboxFormatShim = join(__dirname, "../../packages/mapgen-core/src/shims/typebox-format.ts");
+const typeboxGuardEmitShim = join(__dirname, "../../packages/mapgen-core/src/shims/typebox-guard-emit.ts");
 const typeboxFormatPlugin: Plugin = {
   name: "typebox-format-shim",
   setup(build) {
@@ -13,6 +14,15 @@ const typeboxFormatPlugin: Plugin = {
     build.onResolve({ filter: /format[/\\]index\.mjs$/ }, (args) => {
       if (args.importer.includes("/typebox/") || args.importer.includes("\\typebox\\")) {
         return { path: typeboxFormatShim };
+      }
+      return null;
+    });
+    build.onResolve({ filter: /(^|[/\\])emit\.mjs$/ }, (args) => {
+      if (
+        args.path.endsWith("emit.mjs") &&
+        (args.importer.includes("/typebox/build/guard/") || args.importer.includes("\\typebox\\build\\guard\\"))
+      ) {
+        return { path: typeboxGuardEmitShim };
       }
       return null;
     });
@@ -37,6 +47,10 @@ export default defineConfig({
 
   // Bundle all dependencies into the output file
   bundle: true,
+  // Avoid shared chunks: Civ7 MapGeneration script loader may not resolve mod-local relative imports.
+  splitting: false,
+  // Bundle node_modules deps too (Civ7 cannot resolve bare specifiers like "typebox" at runtime).
+  skipNodeModulesBundle: false,
 
   // Clear mod/maps between builds to avoid stale chunks.
   clean: true,
@@ -46,11 +60,14 @@ export default defineConfig({
   external: [/^\/base-standard\/.*/],
 
   // Force bundling of our workspace packages
-  noExternal: ["@swooper/mapgen-core", "@civ7/adapter"],
+  noExternal: ["@swooper/mapgen-core", "@civ7/adapter", "typebox"],
 
   esbuildOptions(options) {
     // Shim TypeBox format registry so no Unicode-property regexes reach the game engine (built-in format validation disabled).
-    options.chunkNames = "engine-[hash]";
+    options.splitting = false;
+    options.target = "esnext";
+    // If tsup auto-externalizes deps, ensure TypeBox is bundled (MapGeneration cannot resolve "typebox").
+    options.external = (options.external ?? []).filter((id) => !id.startsWith("typebox"));
     options.alias = {
       "typebox/format": typeboxFormatShim,
     };
