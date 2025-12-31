@@ -22,7 +22,7 @@ Prior implementations assumed a privileged “standard library” pipeline wired
 ## Decision
 
 - Pipeline content ships as **mods** that provide their own registry + recipes.
-- The standard pipeline is “just one mod” and must not be hard-coded in `pipeline/standard-library.ts`-style wiring.
+- The standard pipeline is “just one mod” and must not be hard-coded in a privileged, core-owned “standard library” entrypoint.
 
 ## Consequences
 

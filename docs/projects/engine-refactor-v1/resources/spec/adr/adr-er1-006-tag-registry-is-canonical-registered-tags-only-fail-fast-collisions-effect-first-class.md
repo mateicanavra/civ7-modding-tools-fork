@@ -17,7 +17,7 @@ sources:
 
 ## Context
 
-M3 relied on a fixed allowlist/regex validation (`pipeline/tags.ts`) and executor hard-coded verification lists; this is not safe or extensible for mods.
+M3 relied on a fixed allowlist/regex validation in a core-owned tag allowlist module and executor hard-coded verification lists; this is not safe or extensible for mods.
 
 ## Decision
 
