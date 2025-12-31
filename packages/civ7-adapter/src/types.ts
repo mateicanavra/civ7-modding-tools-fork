@@ -25,9 +25,18 @@ export interface MapDimensions {
 }
 
 /**
+ * Map size selection key as returned by Civ7's `GameplayMap.getMapSize()`.
+ *
+ * Civ7 type declarations currently surface this as a `string`, but some codepaths
+ * treat it as a numeric ID. For adapter extensibility, the boundary accepts both.
+ */
+export type MapSizeId = string | number;
+
+/**
  * Map initialization parameters for Civ7's `SetMapInitData` engine call.
  *
  * These values establish the grid + latitude bounds for map generation.
+ * Extra engine-provided fields (ex: mapSize) should be preserved when present.
  */
 export interface MapInitParams {
   width: number;
@@ -36,15 +45,9 @@ export interface MapInitParams {
   bottomLatitude?: number;
   wrapX?: boolean;
   wrapY?: boolean;
+  mapSize?: MapSizeId;
+  [key: string]: unknown;
 }
-
-/**
- * Map size selection key as returned by Civ7's `GameplayMap.getMapSize()`.
- *
- * Civ7 type declarations currently surface this as a `string`, but some codepaths
- * treat it as a numeric ID. For adapter extensibility, the boundary accepts both.
- */
-export type MapSizeId = string | number;
 
 /**
  * Map info row returned by Civ7's `GameInfo.Maps.lookup(mapSizeId)`.
