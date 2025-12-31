@@ -15,6 +15,7 @@ export {
   ClimateStoryPaleoSchema,
   ClimateStoryPaleoSizeScalingSchema,
   // Main schemas
+  BiomeBindingsSchema,
   BiomeConfigSchema,
   ClimateBaselineSchema,
   ClimateConfigSchema,
@@ -75,6 +76,7 @@ export type {
   ClimateStoryPaleoElevationCarving,
   ClimateStoryPaleoSizeScaling,
   // Main types
+  BiomeBindings,
   BiomeConfig,
   ClimateBaseline,
   ClimateConfig,

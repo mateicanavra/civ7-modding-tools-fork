@@ -3,6 +3,7 @@ import type {
   ExtendedMapContext,
   HeightfieldBuffer,
 } from "@swooper/mapgen-core";
+import { isBiomeClassificationArtifactV1, type BiomeClassificationArtifactV1 } from "@mapgen/domain/ecology/artifacts.js";
 import type { PlacementInputsV1 } from "./stages/placement/placement-inputs.js";
 import { isPlacementInputsV1 } from "./stages/placement/placement-inputs.js";
 import type { PlacementOutputsV1 } from "./stages/placement/placement-outputs.js";
@@ -27,6 +28,14 @@ export function publishRiverAdjacencyArtifact(
 ): Uint8Array {
   ctx.artifacts.set(M3_DEPENDENCY_TAGS.artifact.riverAdjacency, mask);
   return mask;
+}
+
+export function publishBiomeClassificationArtifact(
+  ctx: ExtendedMapContext,
+  artifact: BiomeClassificationArtifactV1
+): BiomeClassificationArtifactV1 {
+  ctx.artifacts.set(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1, artifact);
+  return artifact;
 }
 
 export function publishPlacementInputsArtifact(
@@ -59,6 +68,23 @@ export function getPublishedRiverAdjacency(ctx: ExtendedMapContext): Uint8Array 
   if (!(value instanceof Uint8Array)) return null;
   const expectedSize = ctx.dimensions.width * ctx.dimensions.height;
   if (value.length !== expectedSize) return null;
+  return value;
+}
+
+export function getPublishedBiomeClassification(
+  ctx: ExtendedMapContext
+): BiomeClassificationArtifactV1 | null {
+  const value = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1);
+  if (!isBiomeClassificationArtifactV1(value)) return null;
+  const expectedSize = ctx.dimensions.width * ctx.dimensions.height;
+  if (
+    value.width !== ctx.dimensions.width ||
+    value.height !== ctx.dimensions.height ||
+    value.biomeIndex.length !== expectedSize ||
+    value.vegetationDensity.length !== expectedSize
+  ) {
+    return null;
+  }
   return value;
 }
 

@@ -1,111 +1,19 @@
 import { Type } from "typebox";
 
+import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
+import { BiomeEngineBindingsSchema } from "@mapgen/domain/ecology/biome-bindings.js";
+
 /**
- * Biome nudge thresholds that fine-tune terrain assignment.
+ * Biome classification config (Holdridge/Whittaker-inspired).
+ * Sourced directly from the ecology domain operation to keep schema + logic colocated.
  */
-export const BiomeConfigSchema = Type.Object(
-  {
-    /** Tundra biome thresholds. */
-    tundra: Type.Optional(
-      Type.Object(
-        {
-          /** Minimum latitude for tundra to prevent low-latitude cold deserts (degrees). */
-          latMin: Type.Optional(
-            Type.Number({
-              description: "Minimum latitude for tundra to prevent low-latitude cold deserts (degrees).",
-            })
-          ),
-          /** Minimum elevation for tundra; lowlands below this stay as taiga or grassland. */
-          elevMin: Type.Optional(
-            Type.Number({
-              description: "Minimum elevation for tundra; lowlands below this stay as taiga or grassland.",
-            })
-          ),
-          /** Maximum rainfall tolerated before tundra flips to wetter biomes (rainfall units). */
-          rainMax: Type.Optional(
-            Type.Number({
-              description: "Maximum rainfall tolerated before tundra flips to wetter biomes (rainfall units).",
-            })
-          ),
-        },
-        { additionalProperties: false, default: {} }
-      )
-    ),
-    /** Tropical coast biome thresholds. */
-    tropicalCoast: Type.Optional(
-      Type.Object(
-        {
-          /** Latitude limit for tropical coasts; nearer the equator keeps coasts lush (degrees). */
-          latMax: Type.Optional(
-            Type.Number({
-              description: "Latitude limit for tropical coasts; nearer the equator keeps coasts lush (degrees).",
-            })
-          ),
-          /** Minimum rainfall needed to classify a warm coastline as tropical (rainfall units). */
-          rainMin: Type.Optional(
-            Type.Number({
-              description: "Minimum rainfall needed to classify a warm coastline as tropical (rainfall units).",
-            })
-          ),
-        },
-        { additionalProperties: false, default: {} }
-      )
-    ),
-    /** River valley grassland biome thresholds. */
-    riverValleyGrassland: Type.Optional(
-      Type.Object(
-        {
-          /** Latitude limit for temperate river grasslands; beyond this prefer taiga or tundra. */
-          latMax: Type.Optional(
-            Type.Number({
-              description: "Latitude limit for temperate river grasslands; beyond this prefer taiga or tundra.",
-            })
-          ),
-          /** Minimum humidity needed for river valley grasslands (rainfall units). */
-          rainMin: Type.Optional(
-            Type.Number({
-              description: "Minimum humidity needed for river valley grasslands (rainfall units).",
-            })
-          ),
-        },
-        { additionalProperties: false, default: {} }
-      )
-    ),
-    /** Rift shoulder biome thresholds (along divergent boundaries). */
-    riftShoulder: Type.Optional(
-      Type.Object(
-        {
-          /** Latitude ceiling for grassland on rift shoulders (degrees). */
-          grasslandLatMax: Type.Optional(
-            Type.Number({
-              description: "Latitude ceiling for grassland on rift shoulders (degrees).",
-            })
-          ),
-          /** Minimum rainfall for grassland shoulders along rifts (rainfall units). */
-          grasslandRainMin: Type.Optional(
-            Type.Number({
-              description: "Minimum rainfall for grassland shoulders along rifts (rainfall units).",
-            })
-          ),
-          /** Latitude ceiling for tropical rift shoulders (degrees). */
-          tropicalLatMax: Type.Optional(
-            Type.Number({
-              description: "Latitude ceiling for tropical rift shoulders (degrees).",
-            })
-          ),
-          /** Minimum rainfall for tropical vegetation on rift shoulders (rainfall units). */
-          tropicalRainMin: Type.Optional(
-            Type.Number({
-              description: "Minimum rainfall for tropical vegetation on rift shoulders (rainfall units).",
-            })
-          ),
-        },
-        { additionalProperties: false, default: {} }
-      )
-    ),
-  },
-  { additionalProperties: false, default: {} }
-);
+export const BiomeConfigSchema = classifyBiomes.config;
+
+/**
+ * Optional bindings from biome symbols -> engine biome globals.
+ * Allows mods to remap symbols without editing the operation config.
+ */
+export const BiomeBindingsSchema = BiomeEngineBindingsSchema;
 
 /**
  * Feature density controls for vegetation and reef prevalence.
@@ -160,7 +68,3 @@ export const FeaturesDensityConfigSchema = Type.Object(
   },
   { additionalProperties: false, default: {} }
 );
-
-/**
- * Floodplain generation along rivers.
- */

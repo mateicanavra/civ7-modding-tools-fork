@@ -9,8 +9,8 @@
     "start": "mint dev -p 6660 --no-open",
     
     "normalize": "bun run scripts/update-code-blocks.ts",
-    "check": "bunx typescript@5.9.2 -p tsconfig.json --noEmit",
-    "check:ts": "bunx typescript@5.9.2 -p tsconfig.json --noEmit",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "check:ts": "tsc -p tsconfig.json --noEmit",
     "check:links": "bun run scripts/broken-links-pages-only.ts",
     "validate": "bun run scripts/validate-docs.ts && bun run scripts/broken-links-pages-only.ts",
     "fix:duplicate-h1": "bun run scripts/remove-duplicate-h1.ts",

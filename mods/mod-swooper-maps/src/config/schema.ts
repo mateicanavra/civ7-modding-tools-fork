@@ -72,6 +72,7 @@ import {
   ClimateConfigSchema,
 } from "@mapgen/config/schema/hydrology.js";
 import {
+  BiomeBindingsSchema,
   BiomeConfigSchema,
   FeaturesDensityConfigSchema,
 } from "@mapgen/config/schema/ecology.js";
@@ -121,8 +122,10 @@ export const MapGenConfigSchema = Type.Object(
     coastlines: Type.Optional(CoastlinesConfigSchema),
     /** Island and archipelago generation. */
     islands: Type.Optional(IslandsConfigSchema),
-    /** Biome threshold overrides for terrain assignment. */
+    /** Biome classification thresholds and tunables. */
     biomes: Type.Optional(BiomeConfigSchema),
+    /** Optional bindings from biome symbols to engine biome globals. */
+    biomeBindings: Type.Optional(BiomeBindingsSchema),
     /** Vegetation and reef density multipliers. */
     featuresDensity: Type.Optional(FeaturesDensityConfigSchema),
     /** Continental margin tagging parameters (active/passive coastline fractions). */
@@ -196,6 +199,7 @@ export type ClimateStoryPaleoElevationCarving = Static<typeof ClimateStoryPaleoE
 export type ClimateStoryPaleo = Static<typeof ClimateStoryPaleoSchema>;
 export type ClimateConfig = Static<typeof ClimateConfigSchema>;
 export type BiomeConfig = Static<typeof BiomeConfigSchema>;
+export type BiomeBindings = Static<typeof BiomeBindingsSchema>;
 export type FeaturesDensityConfig = Static<typeof FeaturesDensityConfigSchema>;
 export type FloodplainsConfig = Static<typeof FloodplainsConfigSchema>;
 export type StartsConfig = Static<typeof StartsConfigSchema>;

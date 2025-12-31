@@ -19,6 +19,7 @@ import { runStandardRecipe } from "./_runtime/run-standard.js";
 import type { MapInitResolution } from "./_runtime/map-init.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import type { StandardRecipeOverrides } from "./_runtime/standard-config.js";
+import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
 
 /**
  * Build the Shattered Ring configuration.
@@ -294,24 +295,10 @@ function buildConfig(): StandardRecipeOverrides {
         },
       },
       biomes: {
-        tundra: {
-          latMin: 75,
-          elevMin: 650,
-          rainMax: 80,
-        },
-        tropicalCoast: {
-          latMax: 22,
-          rainMin: 95,
-        },
-        riverValleyGrassland: {
-          latMax: 60,
-          rainMin: 75,
-        },
-        riftShoulder: {
-          grasslandLatMax: 52,
-          grasslandRainMin: 65,
-          tropicalLatMax: 22,
-          tropicalRainMin: 95,
+        ...classifyBiomes.defaultConfig,
+        moisture: {
+          ...classifyBiomes.defaultConfig.moisture,
+          thresholds: [80, 95, 140, 200],
         },
       },
       featuresDensity: {

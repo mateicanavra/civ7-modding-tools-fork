@@ -64,7 +64,6 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
       return {
         step,
         config: resolveStepConfig(step.configSchema) as TConfig,
-        label: id,
       };
     });
     return this.executeNodes(context, nodes, options);
@@ -78,14 +77,13 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
     const nodes = plan.nodes.map((node) => ({
       step: this.registry.get<TConfig>(node.stepId),
       config: node.config as TConfig,
-      label: node.stepId,
     }));
     return this.executeNodes(context, nodes, options);
   }
 
   private executeNodes(
     context: TContext,
-    nodes: Array<{ step: MapGenStep<TContext, TConfig>; config: TConfig; label: string }>,
+    nodes: Array<{ step: MapGenStep<TContext, TConfig>; config: TConfig }>,
     options: PipelineExecutionOptions = {}
   ): { stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> } {
     const stepResults: PipelineStepResult[] = [];
@@ -117,11 +115,11 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
           });
         }
 
-        const stepMeta = { stepId: step.id, nodeId: node.label, phase: step.phase };
+        const stepMeta = { stepId: step.id, phase: step.phase };
         const previousTrace = context.trace;
         context.trace = trace.createStepScope(stepMeta);
 
-        this.log(`${this.logPrefix} [${index + 1}/${total}] start ${node.label}`);
+        this.log(`${this.logPrefix} [${index + 1}/${total}] start ${step.id}`);
         trace.emitStepStart(stepMeta);
         const t0 = nowMs();
         try {
@@ -142,7 +140,7 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
 
           const durationMs = nowMs() - t0;
           this.log(
-            `${this.logPrefix} [${index + 1}/${total}] ok ${node.label} (${durationMs.toFixed(
+            `${this.logPrefix} [${index + 1}/${total}] ok ${step.id} (${durationMs.toFixed(
               2
             )}ms)`
           );
@@ -152,7 +150,7 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
           const durationMs = nowMs() - t0;
           const errorMessage = err instanceof Error ? err.message : String(err);
           this.log(
-            `${this.logPrefix} [${index + 1}/${total}] fail ${node.label} (${durationMs.toFixed(
+            `${this.logPrefix} [${index + 1}/${total}] fail ${step.id} (${durationMs.toFixed(
               2
             )}ms): ${errorMessage}`
           );
@@ -197,7 +195,6 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
       return {
         step,
         config: resolveStepConfig(step.configSchema) as TConfig,
-        label: id,
       };
     });
     return this.executeNodesAsync(context, nodes, options);
@@ -211,14 +208,13 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
     const nodes = plan.nodes.map((node) => ({
       step: this.registry.get<TConfig>(node.stepId),
       config: node.config as TConfig,
-      label: node.stepId,
     }));
     return this.executeNodesAsync(context, nodes, options);
   }
 
   private async executeNodesAsync(
     context: TContext,
-    nodes: Array<{ step: MapGenStep<TContext, TConfig>; config: TConfig; label: string }>,
+    nodes: Array<{ step: MapGenStep<TContext, TConfig>; config: TConfig }>,
     options: PipelineExecutionOptions = {}
   ): Promise<{ stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> }> {
     const stepResults: PipelineStepResult[] = [];
@@ -250,11 +246,11 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
           });
         }
 
-        const stepMeta = { stepId: step.id, nodeId: node.label, phase: step.phase };
+        const stepMeta = { stepId: step.id, phase: step.phase };
         const previousTrace = context.trace;
         context.trace = trace.createStepScope(stepMeta);
 
-        this.log(`${this.logPrefix} [${index + 1}/${total}] start ${node.label}`);
+        this.log(`${this.logPrefix} [${index + 1}/${total}] start ${step.id}`);
         trace.emitStepStart(stepMeta);
         const t0 = nowMs();
         try {
@@ -270,7 +266,7 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
 
           const durationMs = nowMs() - t0;
           this.log(
-            `${this.logPrefix} [${index + 1}/${total}] ok ${node.label} (${durationMs.toFixed(
+            `${this.logPrefix} [${index + 1}/${total}] ok ${step.id} (${durationMs.toFixed(
               2
             )}ms)`
           );
@@ -280,7 +276,7 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
           const durationMs = nowMs() - t0;
           const errorMessage = err instanceof Error ? err.message : String(err);
           this.log(
-            `${this.logPrefix} [${index + 1}/${total}] fail ${node.label} (${durationMs.toFixed(
+            `${this.logPrefix} [${index + 1}/${total}] fail ${step.id} (${durationMs.toFixed(
               2
             )}ms): ${errorMessage}`
           );

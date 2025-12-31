@@ -25,7 +25,7 @@ describe("pipeline tracing", () => {
     const plan = compileExecutionPlan(
       {
         recipe: {
-          schemaVersion: 1,
+          schemaVersion: 2,
           steps: [{ id: "alpha" }],
         },
         settings: {
@@ -67,5 +67,7 @@ describe("pipeline tracing", () => {
     expect(runStart?.planFingerprint).toBe(runFinish?.planFingerprint);
     expect(stepStart?.runId).toBe(runStart?.runId);
     expect(stepFinish?.planFingerprint).toBe(runStart?.planFingerprint);
+    expect((stepStart as Record<string, unknown> | undefined)?.nodeId).toBeUndefined();
+    expect((stepFinish as Record<string, unknown> | undefined)?.nodeId).toBeUndefined();
   });
 });

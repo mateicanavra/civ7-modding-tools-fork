@@ -17,6 +17,7 @@ import { runStandardRecipe } from "./_runtime/run-standard.js";
 import type { MapInitResolution } from "./_runtime/map-init.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import type { StandardRecipeOverrides } from "./_runtime/standard-config.js";
+import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
 
 function buildConfig(): StandardRecipeOverrides {
   return {
@@ -275,24 +276,10 @@ function buildConfig(): StandardRecipeOverrides {
         },
       },
       biomes: {
-        tundra: {
-          latMin: 80,
-          elevMin: 700,
-          rainMax: 85,
-        },
-        tropicalCoast: {
-          latMax: 20,
-          rainMin: 100,
-        },
-        riverValleyGrassland: {
-          latMax: 65,
-          rainMin: 80,
-        },
-        riftShoulder: {
-          grasslandLatMax: 55,
-          grasslandRainMin: 70,
-          tropicalLatMax: 20,
-          tropicalRainMin: 100,
+        ...classifyBiomes.defaultConfig,
+        moisture: {
+          ...classifyBiomes.defaultConfig.moisture,
+          thresholds: [80, 100, 150, 200],
         },
       },
       featuresDensity: {

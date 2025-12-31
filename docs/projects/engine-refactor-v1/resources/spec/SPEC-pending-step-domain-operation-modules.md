@@ -87,6 +87,13 @@ A **step** is the smallest executable unit in a recipe graph. Its responsibiliti
 - cross-step global configuration registries,
 - ad-hoc “grab bag” utilities (shared utilities belong in shared libs).
 
+### Step identity (schema v2, no nodeId/instanceId)
+
+- Recipe schema is locked to **version 2**; legacy v1 shapes are deprecated. Compile/authoring must reject any other version.
+- Each step occurrence has a **single recipe-unique `step.id`** (authoring composes `namespace.recipe.stage.step` to guarantee uniqueness). Duplicate ids are invalid.
+- `instanceId`/`nodeId` are retired; execution plans, tracing, fingerprints, and trace config keys are all keyed by `stepId`.
+- Trace sinks no longer receive `nodeId`; per-step scopes use the same `stepId` that appears in the recipe and execution plan.
+
 ## 3) Domain Architecture
 
 ### What a domain is
@@ -978,3 +985,14 @@ export const configExplicit = {
 - **C) Hard code rename:** rename without aliases (breaking).
 
 **Recommendation:** Prefer **B** so docs, examples, and code converge without a hard break.
+
+## 7) Application: Ecology domain (biomes)
+
+Target integration decisions aligned to the recommendations above:
+
+- **Operation module:** `ecology/biomes/classify` is a `compute` op with colocated input/output/config schemas. Inputs are buffered data (`rainfall`, `humidity`, `elevation`, `latitude`, `landMask`, optional overlay masks); outputs are typed arrays (`biomeIndex`, `vegetationDensity`, `effectiveMoisture`, `surfaceTemperature`).
+- **Artifact + keys:** the recipe publishes the result under the recipe-owned key `artifact:ecology.biomeClassification@v1`. The domain owns the artifact shape (`BiomeClassificationArtifactV1`); steps own the key, satisfying DD-004.
+- **Step boundary:** the biomes step builds inputs from artifacts/adapters, calls `classifyBiomes.run(...)`, publishes the artifact, and applies results to the engine (mapping biome symbols → adapter globals via a step-local binding map). No domain code reaches into the adapter.
+- **Config colocation:** biome classification config and defaults live beside the op (`classifyBiomes.config`/`defaultConfig`). Step schema imports these directly (DD-005/007) and exposes an engine-binding config (`BiomeBindingsSchema`) rather than re-authoring wrappers.
+- **Kind semantics:** the op is declared as `compute` and only returns derived fields; the step performs the `plan/apply` work (DD-001).
+- **Future ops:** pedology (`ecology/soils/classify`) and resource basin generation will follow the same model: domain-owned schemas + outputs, recipe-owned keys (`artifact:ecology.soils@v1`, `artifact:ecology.resources@v1`), and steps that adapt/apply.
