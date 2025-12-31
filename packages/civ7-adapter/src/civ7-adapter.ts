@@ -392,12 +392,18 @@ export class Civ7Adapter implements EngineAdapter {
       `[Adapter] generateResources start: mapType=${mapType} mapSizeId=${mapSizeId} dims=${width}x${height}`
     );
 
-    if (typeof GameplayMap !== "undefined" && typeof GameplayMap.getLandmassRegionId === "function") {
+    const getLandmassRegionId = (
+      GameplayMap as unknown as {
+        getLandmassRegionId?: (x: number, y: number) => number;
+      }
+    )?.getLandmassRegionId;
+
+    if (typeof getLandmassRegionId === "function") {
       const landmassCounts = new Map<number, number>();
       let invalidCount = 0;
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-          const regionId = GameplayMap.getLandmassRegionId(x, y);
+          const regionId = getLandmassRegionId(x, y);
           if (typeof regionId !== "number") {
             invalidCount++;
             continue;
