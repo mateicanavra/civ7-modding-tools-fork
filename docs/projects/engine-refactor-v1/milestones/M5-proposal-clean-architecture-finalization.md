@@ -2,7 +2,7 @@
 
 **Status:** proposed  
 **Baseline snapshot:** `dbfde2bc` (post‑M4 landed, including CIV‑70/73/74 + review fixes)  
-**Spike (evidence + remaining design decisions):** `docs/projects/engine-refactor-v1/resources/SPIKE-2025-12-26-m5-clean-architecture-finalization-scope.md`
+**Spike (evidence + remaining design decisions):** `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-2025-12-26-m5-clean-architecture-finalization-scope.md`
 
 ## Executive summary
 

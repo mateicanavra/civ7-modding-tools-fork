@@ -4,7 +4,7 @@
 >
 > It summarizes **already-accepted** decisions that are canonically described in:
 > - `resources/SPEC-target-architecture-draft.md` (canonical decisions)
-> - `resources/SPIKE-target-architecture-draft.md` (decision packet rationale / history)
+> - `resources/_archive/SPIKE-target-architecture-draft.md` (decision packet rationale / history)
 > - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (milestone constraints + resolved calls)
 >
 > It does **not** introduce new decisions.
@@ -45,7 +45,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - The executor runs a compiled artifact (`ExecutionPlan`) derived from `{ recipe, settings } + registry`.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (1.1, 1.2, 2.1; decision 3.1)
-- `resources/SPIKE-target-architecture-draft.md` (§2.1)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.1)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope Areas §1; Triage “Pipeline Cutover Gaps”)
 
 ## ADR-ER1-002: Enablement is recipe-authored and compiled (no `shouldRun`, no silent skips)
@@ -62,7 +62,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Contract validation can treat `requires/provides` as complete given the plan.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (1.2; decision 3.2)
-- `resources/SPIKE-target-architecture-draft.md` (§2.2)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.2)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope Areas §1; Triage “Pipeline Cutover Gaps”)
 
 ## ADR-ER1-003: Pipeline boundary is `RunRequest = { recipe, settings }` compiled to `ExecutionPlan`
@@ -80,7 +80,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Per-step config plumbing (schema + validation + executor wiring) is required for the new boundary to be real (not “parsed but ignored”).
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (1.2 “Pipeline contract”; 1.3 “Context shape”; 2.1; decision 3.9)
-- `resources/SPIKE-target-architecture-draft.md` (§2.1, §2.9)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.1, §2.9)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope Areas §1; Triage “Pipeline Cutover Gaps”)
 
 ## ADR-ER1-004: The standard pipeline is packaged as a mod-style package (not hard-wired)
@@ -96,7 +96,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Any direct imports/entrypoints that treat “standard” as intrinsic must be removed or re-homed behind mod packaging.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (1.1, 1.2, 2.1; Appendix §7)
-- `resources/SPIKE-target-architecture-draft.md` (§2.1; Update note about standard pipeline packaging)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.1; Update note about standard pipeline packaging)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope Areas §1; Triage “Pipeline Cutover Gaps”)
 
 ## ADR-ER1-005: Presets are removed; canonical entry is explicit recipe + settings selection
@@ -112,7 +112,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - All preset resolution/composition paths are legacy and must not survive M4.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (Update note in V1 includes; decision 3.9)
-- `resources/SPIKE-target-architecture-draft.md` (§2.9 “Resolved follow-ups”)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.9 “Resolved follow-ups”)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Triage “Pipeline Cutover Gaps”)
 
 ## ADR-ER1-006: Tag registry is canonical (registered tags only; fail-fast collisions; `effect:*` first-class)
@@ -132,7 +132,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Replace allowlist/regex tag validation and any executor hard-coded “verified provides” lists with registry-driven validation/verification.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (3. Tag Registry; 3.8; decision 3.8)
-- `resources/SPIKE-target-architecture-draft.md` (§2.8)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.8)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Triage “Registry + Tag Language Gaps”)
 
 ## ADR-ER1-007: Foundation surface is artifact-based; M4 uses monolithic `artifact:foundation` (split deferred per DEF-014)
@@ -172,7 +172,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - StoryTags and module-level narrative caches/globals are legacy surfaces and must not survive M4.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (1.6; decision 3.4)
-- `resources/SPIKE-target-architecture-draft.md` (§2.4)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.4)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Triage “Narrative/Playability Cleanup”; end-state outcomes)
 
 ## ADR-ER1-009: Engine boundary is adapter-only + reification-first; `state:engine.*` is transitional-only; verified `effect:*` is schedulable
@@ -190,7 +190,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Eliminate direct engine-global reads as dependency surfaces; fence any remaining engine reads behind adapter/runtime surfaces and reify if cross-step.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (1.1, 1.4; decision 3.5)
-- `resources/SPIKE-target-architecture-draft.md` (§2.5)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.5)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope Areas §3/§4; Triage “Effects + state:engine.* Cleanup” and “Engine Boundary Gaps”)
 
 ## ADR-ER1-010: Climate ownership is TS-canonical `artifact:climateField` (engine reads fenced; DEF-010 is post-M4 reification)
@@ -206,7 +206,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - M4 may keep some adapter reads for climate inputs, but climate ownership is still TS-canonical; deeper reification is explicitly post-M4 (`DEF-010`).
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (1.4 hydrology notes; decision 3.6)
-- `resources/SPIKE-target-architecture-draft.md` (§2.6)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.6)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Out of Scope list)
 
 ## ADR-ER1-011: Placement consumes explicit `artifact:placementInputs@v1` (implementation deferred per DEF-006)
@@ -221,7 +221,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Implementation timing is deferred via `DEF-006`, but the contract direction is locked.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (1.4 placement note; decision 3.7)
-- `resources/SPIKE-target-architecture-draft.md` (§2.7)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.7)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope Areas §3; Triage “Placement inputs” notes)
 
 ## ADR-ER1-012: Observability baseline is required (runId + plan fingerprint + structured errors); rich tracing is optional and toggleable
@@ -240,7 +240,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - M4 must define and test a stable plan-fingerprint strategy to avoid CI flake and support trace correlation.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (Observability baseline; decision 3.10)
-- `resources/SPIKE-target-architecture-draft.md` (§2.10)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.10)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Triage “Testing / Runner / Observability Alignment”; end-state outcomes)
 
 ## ADR-ER1-013: M4 execution decisions (test runner + explicit exclusions)
@@ -276,7 +276,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - Tests and tooling must be able to compile/execute via a stub adapter with deterministic results.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (1.1 “Core principles”)
-- `resources/SPIKE-target-architecture-draft.md` (Interim notes; decision packets reinforce these principles)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (Interim notes; decision packets reinforce these principles)
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Scope Areas; end-state outcomes)
 
 ## ADR-ER1-015: Hydrology river product is `artifact:riverAdjacency` for now (DEF-005 defers `artifact:riverGraph`)
@@ -322,7 +322,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 - V1 work should avoid “locking in” ad-hoc extension shapes outside the reserved containers.
 **Sources:**
 - `resources/SPEC-target-architecture-draft.md` (2.2 What V1 explicitly defers)
-- `resources/SPIKE-target-architecture-draft.md` (§2.1, §2.9, §2.10)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.1, §2.9, §2.10)
 
 ## ADR-ER1-018: Decision promotion plan (post-M4)
 
@@ -351,7 +351,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 **Sources:**
 - `milestones/M4-target-architecture-cutover-legacy-cleanup.md` (Phase B.1 “Per-step config plumbing”; “settings are narrow per-run values”)
 - `resources/m4-prework/local-tbd-m4-pipeline-2-step-config-matrix.md` (cross-cutting directionality ownership note)
-- `resources/SPIKE-target-architecture-draft.md` (§2.9 per-occurrence config; settings boundary)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.9 per-occurrence config; settings boundary)
 
 ## ADR-ER1-020: `effect:engine.placementApplied` is verified via a minimal TS-owned `artifact:placementOutputs@v1`
 
@@ -368,7 +368,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 **Sources:**
 - `resources/m4-prework/local-tbd-m4-effects-1-effect-tags-postconditions.md` (placement verification options; recommended option 1)
 - `resources/m4-prework/local-tbd-m4-placement-2-cutover-checklist.md` (placement cutover verification plan)
-- `resources/SPIKE-target-architecture-draft.md` (§2.5 effects verification; §2.7 placement contract)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.5 effects verification; §2.7 placement contract)
 
 ## ADR-ER1-021: `effect:engine.landmassApplied` / `effect:engine.coastlinesApplied` are verified via cheap invariants + call evidence; adapter read-back APIs are deferred
 
@@ -387,7 +387,7 @@ Each entry follows the project’s ADR format (mirrors `docs/system/ADR.md`):
 **Sources:**
 - `resources/m4-prework/local-tbd-m4-effects-3-state-engine-removal-map.md` (replacement map + coordination notes)
 - `resources/m4-prework/local-tbd-m4-engine-boundary-globals-inventory.md` (engine boundary surfaces and adapter constraints)
-- `resources/SPIKE-target-architecture-draft.md` (§2.5 effects verification + boundary policy)
+- `resources/_archive/SPIKE-target-architecture-draft.md` (§2.5 effects verification + boundary policy)
 
 ---
 

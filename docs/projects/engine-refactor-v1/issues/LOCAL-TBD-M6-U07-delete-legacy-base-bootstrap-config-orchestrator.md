@@ -38,7 +38,7 @@ Remove legacy base/bootstrap/config/orchestrator surfaces after the new pipeline
 - Blocked by: [LOCAL-TBD-M6-U06](./LOCAL-TBD-M6-U06-rewrite-maps-as-recipe-instances.md), [LOCAL-TBD-M6-U08](./LOCAL-TBD-M6-U08-realign-tests-and-ci-gates-to-ownership.md)
 
 ## Remediation (SPIKE alignment)
-- [ ] Align with [SPIKE (M6)](../resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md) by completing [R1](../resources/PLAN-m6-spike-structure-remediation.md#r1), [R2](../resources/PLAN-m6-spike-structure-remediation.md#r2), [R4](../resources/PLAN-m6-spike-structure-remediation.md#r4), and [R5](../resources/PLAN-m6-spike-structure-remediation.md#r5).
+- [ ] Align with [SPIKE (M6)](../resources/spike/spike-target.md) by completing [R1](../resources/PLAN-m6-spike-structure-remediation.md#r1), [R2](../resources/PLAN-m6-spike-structure-remediation.md#r2), [R4](../resources/PLAN-m6-spike-structure-remediation.md#r4), and [R5](../resources/PLAN-m6-spike-structure-remediation.md#r5).
 
 ---
 

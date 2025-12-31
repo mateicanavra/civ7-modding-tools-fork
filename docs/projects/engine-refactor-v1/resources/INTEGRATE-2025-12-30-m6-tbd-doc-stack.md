@@ -25,7 +25,7 @@ It is intentionally lightweight: each entry captures **what conflicted**, **wher
 
 ### Dependency tag prefix: `field:*` vs `buffer:*` (and Recipe schema version)
 
-- **Context:** `docs/projects/engine-refactor-v1/resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md` (4.6 Packaging overlay)
+- **Context:** `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md` (4.6 Packaging overlay)
 - **Conflicting texts:**
   - **Variant A:** `RecipeV1` + `buffer:*` terminology.
   - **Variant B:** `RecipeV2` + `field:*` terminology (explicitly cited as `523905b4`, `engine: lock recipe schema v2 (remove instanceId)`).
@@ -48,4 +48,3 @@ It is intentionally lightweight: each entry captures **what conflicted**, **wher
 ## Open Design Conflicts (Needs Decision)
 
 None captured yet beyond the “confirmations” above. Add new entries here when merges reveal true design drift (not just wording).
-

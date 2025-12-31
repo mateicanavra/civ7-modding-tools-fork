@@ -7,7 +7,7 @@
 - Implementation tasks should follow this plan; the SPIKE is reference-only.
 
 **Baseline references:**
-- `docs/projects/engine-refactor-v1/resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md`
+- `docs/projects/engine-refactor-v1/resources/spike/spike-target.md`
 - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U01-promote-runtime-pipeline-as-engine-sdk-surface.md`
 - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk.md`
 - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M6-U06-rewrite-maps-as-recipe-instances.md`

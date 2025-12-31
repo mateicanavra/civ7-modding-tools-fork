@@ -1,6 +1,6 @@
 # Salvage candidates: Engine-refactor v1
 
-## From: docs/projects/engine-refactor-v1/resources/SPIKE-orchestrator-indirection-audit.md
+## From: docs/projects/engine-refactor-v1/resources/_archive/SPIKE-orchestrator-indirection-audit.md
 
 - Archive decision: Archive + salvage
 - Why this content was considered for salvage:
@@ -13,7 +13,7 @@
 - Notes:
   - This is a shortlist of possible salvage candidates; not all of this needs to be carried forward.
 
-## From: docs/projects/engine-refactor-v1/resources/SPIKE-story-drift-legacy-path-removal.md
+## From: docs/projects/engine-refactor-v1/resources/_archive/SPIKE-story-drift-legacy-path-removal.md
 
 - Archive decision: Archive + salvage
 - Why this content was considered for salvage:
@@ -26,7 +26,7 @@
 - Notes:
   - This is a shortlist of possible salvage candidates; not all of this needs to be carried forward.
 
-## From: docs/projects/engine-refactor-v1/resources/SPIKE-orchestrator-bloat-assessment.md
+## From: docs/projects/engine-refactor-v1/resources/_archive/SPIKE-orchestrator-bloat-assessment.md
 
 - Archive decision: Archive + salvage
 - Why this content was considered for salvage:
@@ -39,7 +39,7 @@
 - Notes:
   - This is a shortlist of possible salvage candidates; not all of this needs to be carried forward.
 
-## From: docs/projects/engine-refactor-v1/resources/config-wiring-status.md
+## From: docs/projects/engine-refactor-v1/resources/_archive/config-wiring-status.md
 
 - Archive decision: Archive + salvage
 - Why this content was considered for salvage:

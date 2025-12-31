@@ -36,7 +36,7 @@ Move the runtime pipeline into `engine/**` and make it the canonical runtime SDK
 - No blocking dependencies.
 
 ## Remediation (SPIKE alignment)
-- [ ] Align with [SPIKE (M6)](../resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md) by completing [R2](../resources/PLAN-m6-spike-structure-remediation.md#r2) and [R5](../resources/PLAN-m6-spike-structure-remediation.md#r5).
+- [ ] Align with [SPIKE (M6)](../resources/spike/spike-target.md) by completing [R2](../resources/PLAN-m6-spike-structure-remediation.md#r2) and [R5](../resources/PLAN-m6-spike-structure-remediation.md#r5).
 
 ---
 

@@ -41,7 +41,7 @@ Compose the standard recipe and tag catalog via the authoring SDK.
 - Blocked by: [LOCAL-TBD-M6-U03](./LOCAL-TBD-M6-U03-scaffold-standard-content-package-skeleton-and-exports.md), [LOCAL-TBD-M6-U04](./LOCAL-TBD-M6-U04-move-domain-libraries-into-standard-content-package.md), [LOCAL-TBD-M6-U05-1](./LOCAL-TBD-M6-U05-1-translate-base-steps-into-recipe-local-stage-step-files.md)
 
 ## Remediation (SPIKE alignment)
-- [ ] Align with [SPIKE (M6)](../resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md) by completing [R6](../resources/PLAN-m6-spike-structure-remediation.md#r6) (tag catalog + validators are mod-owned).
+- [ ] Align with [SPIKE (M6)](../resources/spike/spike-target.md) by completing [R6](../resources/PLAN-m6-spike-structure-remediation.md#r6) (tag catalog + validators are mod-owned).
 
 ---
 

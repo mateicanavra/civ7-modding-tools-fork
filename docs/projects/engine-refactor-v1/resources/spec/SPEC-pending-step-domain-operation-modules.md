@@ -1,3 +1,7 @@
+> **PENDING MERGE**: This is a spec-adjacent design proposal intended to be manually reconciled into `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`. It is **not canonical** until merged.
+
+---
+
 # SPIKE: Step ↔ Domain Contracts via Operation Modules
 
 ## 0) Vocabulary (Project Terms)
