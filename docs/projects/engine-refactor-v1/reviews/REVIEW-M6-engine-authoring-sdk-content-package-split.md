@@ -26,6 +26,26 @@ Re-review: no additional issues found.
 ### Cross-cutting Risks
 - None noted.
 
+## REVIEW m6-u08-realign-tests-and-ci-gates-to-ownership
+
+### Quick Take
+Engine-only tests now live in mapgen-core, content tests moved into the mod package, and a standard recipe execution smoke test was added for the mock adapter path.
+
+### High-Leverage Issues
+- None noted.
+
+### Fix Now (Recommended)
+- None noted.
+
+### Defer / Follow-up
+- None noted.
+
+### Needs Discussion
+- None noted.
+
+### Cross-cutting Risks
+- None noted.
+
 ## REVIEW m6-u06-rewrite-maps-as-recipe-instances
 
 ### Quick Take
