@@ -26,6 +26,26 @@ Re-review: no additional issues found.
 ### Cross-cutting Risks
 - None noted.
 
+## REVIEW m6-u05-1-translate-base-steps-into-recipe-local-stage-step-files
+
+### Quick Take
+Base step implementations now live in recipe-local stage/step files with explicit named exports, but the acceptance test command still fails because the mod package lacks a `test` script.
+
+### High-Leverage Issues
+- `mods/mod-swooper-maps/package.json`: no `test` script, so `pnpm -C mods/mod-swooper-maps test` fails.
+
+### Fix Now (Recommended)
+- Add a `test` script (even if it aliases `pnpm run check`) or update the issue doc to remove the `pnpm -C mods/mod-swooper-maps test` requirement until tests exist.
+
+### Defer / Follow-up
+- None noted.
+
+### Needs Discussion
+- None noted.
+
+### Cross-cutting Risks
+- None noted.
+
 ## REVIEW m6-u04-1-relocate-domain-modules-to-mod-owned-libs
 
 ### Quick Take
