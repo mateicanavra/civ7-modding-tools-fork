@@ -4,8 +4,6 @@
     "baseUrl": ".",
     "paths": {
       "@mapgen": ["src/index.ts"],
-      "@mapgen-content": ["../../mods/mod-swooper-maps/src/domain/index.ts"],
-      "@mapgen-content/*": ["../../mods/mod-swooper-maps/src/domain/*"],
       "@mapgen/*": ["src/*"]
     }
   }
