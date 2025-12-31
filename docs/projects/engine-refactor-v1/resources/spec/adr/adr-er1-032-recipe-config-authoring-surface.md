@@ -1,7 +1,6 @@
 # ADR-ER1-032: Recipe config authoring surface (no global overrides)
 
 **Status:** Proposed
-**Date:** 2025-12-31
 
 ## Context
 

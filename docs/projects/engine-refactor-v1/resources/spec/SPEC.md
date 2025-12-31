@@ -2,8 +2,12 @@
 
 This directory contains spec-adjacent documents for the `engine-refactor-v1` project.
 
+**Notation:**
+- `CORE_SDK_ROOT`, `STANDARD_CONTENT_ROOT`, and `MOD_CONTENT_ROOT` are conceptual roots used to describe ownership and target layouts (do not treat them as stable repo filesystem paths).
+
 **Canonical target architecture (SSOT):**
-- SPEC-target-architecture-draft
+- SPEC-architecture-overview (entrypoint)
+- The full component set in this `SPEC-*` directory
 
 **Component splits (derived from the canonical spec):**
 - SPEC-architecture-overview
@@ -18,10 +22,10 @@ This directory contains spec-adjacent documents for the `engine-refactor-v1` pro
 - SPEC-pending-step-domain-operation-modules
 
 **ADR log:**
-- ADR log (spec-adjacent): see `adr/ADR.md`
+- ADR index: `ER1-ADR-INDEX`
 
 ## How these pieces fit together
 
-Start with the canonical spec for the full, authoritative target architecture. The split component files provide focused views on specific subsystems and contracts while keeping the original text intact. Use the component files for focused review or cross-team discussions, but resolve disagreements in the canonical spec.
+Start with SPEC-architecture-overview, then drill into the component specs as needed. Use this set as the SSOT target architecture.
 
 Cross-cutting concerns live in SPEC-architecture-overview (principles, pipeline contract, context shape, dependency tags, phase ownership, narrative model, observability). The packaging, registry, core SDK, and standard content package docs detail how those cross-cutting decisions are applied in concrete layouts and responsibilities. Global invariants and the appendix provide diffable rules and full target trees to validate implementations.

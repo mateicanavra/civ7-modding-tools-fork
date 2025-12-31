@@ -1,7 +1,6 @@
 # ADR-ER1-031: Strategy config encoding (selection + defaults + explicitness)
 
 **Status:** Proposed
-**Date:** 2025-12-31
 
 ## Context
 

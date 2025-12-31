@@ -1,7 +1,6 @@
 # ADR-ER1-035: Config normalization and derived defaults (beyond schema defaults)
 
 **Status:** Proposed
-**Date:** 2025-12-31
 
 ## Context
 

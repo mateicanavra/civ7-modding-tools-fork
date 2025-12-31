@@ -1,7 +1,6 @@
 # ADR-ER1-028: Dependency key ownership model
 
 **Status:** Proposed
-**Date:** 2025-12-31
 
 ## Context
 

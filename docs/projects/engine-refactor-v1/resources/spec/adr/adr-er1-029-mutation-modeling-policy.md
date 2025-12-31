@@ -1,7 +1,6 @@
 # ADR-ER1-029: Mutation modeling policy (`buffer:*` vs `artifact:*`)
 
 **Status:** Proposed
-**Date:** 2025-12-31
 
 ## Context
 

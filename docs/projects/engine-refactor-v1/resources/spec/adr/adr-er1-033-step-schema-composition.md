@@ -1,7 +1,6 @@
 # ADR-ER1-033: Step schema composition (manual wiring vs declarative op usage)
 
 **Status:** Proposed
-**Date:** 2025-12-31
 
 ## Context
 

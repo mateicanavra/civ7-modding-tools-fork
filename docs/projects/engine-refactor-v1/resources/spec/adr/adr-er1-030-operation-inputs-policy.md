@@ -1,7 +1,6 @@
 # ADR-ER1-030: Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy)
 
 **Status:** Proposed
-**Date:** 2025-12-31
 
 ## Context
 

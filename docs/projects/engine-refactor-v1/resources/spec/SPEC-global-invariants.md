@@ -2,7 +2,7 @@
 
 ## 6. Global Architecture Invariants (Diffable)
 
-- Core SDK (`packages/mapgen-core`) does not depend on mod content (`mods/**`) and does not ship recipe content.
+- Core SDK (`CORE_SDK_ROOT`) does not depend on mod content (`MOD_CONTENT_ROOT/**`) and does not ship recipe content.
 - Content packages own all content artifacts and validators (core may store artifacts but does not define their shapes).
 - Centralized mega-modules are forbidden:
   - no mod-wide config schema/loader package
@@ -14,4 +14,3 @@
   - domain-shared contracts live with their owning domain library
 
 ---
-

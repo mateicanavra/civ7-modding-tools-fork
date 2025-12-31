@@ -1,3 +1,5 @@
+<!-- DocId: ER1-ADR-INDEX -->
+
 # ADR Log (Spec)
 
 This log tracks decisions that are adjacent to the target architecture spec and should not live inside the canonical spec itself.
@@ -5,12 +7,12 @@ This log tracks decisions that are adjacent to the target architecture spec and 
 ## How to use
 
 - Add new ADR entries as separate files in this directory.
-- Link each ADR here with a one-line summary and date.
+- Link each ADR here with a one-line summary.
 
 ## Relationship to other ADR logs
 
-- Canonical accepted decisions for the project live in the Engine Refactor v1 ADR register (ADR-ER1-###).
-- This directory is for spec-adjacent decisions that are still being converged (typically `Status: Proposed`) and will later be promoted or superseded.
+- This directory is for spec-adjacent decisions that are still being converged (typically `Status: Proposed`) and will later be promoted, superseded, or rejected.
+- Historical accepted decisions exist in `ER1-ADR-REGISTER-ARCHIVE` but are not maintained as current, “live” ADRs.
 
 ## Gap map (what is still not fully defined)
 
@@ -32,12 +34,20 @@ This is a compact “where are the real gaps?” map; it is not authoritative co
 
 ## ADR index
 
-- 2025-12-31 — ADR-ER1-027 — Dependency terminology and registry naming.
-- 2025-12-31 — ADR-ER1-028 — Dependency key ownership model.
-- 2025-12-31 — ADR-ER1-029 — Mutation modeling policy (`buffer:*` vs `artifact:*`).
-- 2025-12-31 — ADR-ER1-030 — Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy).
-- 2025-12-31 — ADR-ER1-031 — Strategy config encoding.
-- 2025-12-31 — ADR-ER1-032 — Recipe config authoring surface (no global overrides).
-- 2025-12-31 — ADR-ER1-033 — Step schema composition.
-- 2025-12-31 — ADR-ER1-034 — Operation kind semantics.
-- 2025-12-31 — ADR-ER1-035 — Config normalization and derived defaults.
+- ADR-ER1-027 — Dependency terminology and registry naming.
+- ADR-ER1-028 — Dependency key ownership model.
+- ADR-ER1-029 — Mutation modeling policy (`buffer:*` vs `artifact:*`).
+- ADR-ER1-030 — Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy).
+- ADR-ER1-031 — Strategy config encoding (selection + defaults + explicitness).
+- ADR-ER1-032 — Recipe config authoring surface (no global overrides).
+- ADR-ER1-033 — Step schema composition.
+- ADR-ER1-034 — Operation kind semantics.
+- ADR-ER1-035 — Config normalization and derived defaults.
+
+## Archived/noise decisions (do not treat as current design)
+
+These decisions were milestone- or implementation-tactic specific and should not be used to drive current architecture work:
+
+- ADR-ER1-013 (M4 execution decisions)
+- ADR-ER1-018 (decision promotion plan)
+- ADR-ER1-023 (demo payload “starts” guidance)

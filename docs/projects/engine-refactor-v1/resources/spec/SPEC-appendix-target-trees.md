@@ -2,10 +2,10 @@
 
 ## 7. Appendix: Canonical Target Trees (Full)
 
-### 7.1 Core SDK: `packages/mapgen-core` (full)
+### 7.1 Core SDK: `CORE_SDK_ROOT` (full)
 
 ```text
-packages/mapgen-core/
+CORE_SDK_ROOT/
 ├─ AGENTS.md
 ├─ bunfig.toml
 ├─ package.json
@@ -107,10 +107,10 @@ packages/mapgen-core/
    └─ setup.ts
 ```
 
-### 7.2 Standard content package: `mods/mod-swooper-maps` (full)
+### 7.2 Standard content package: `STANDARD_CONTENT_ROOT` (full)
 
 ```text
-mods/mod-swooper-maps/
+STANDARD_CONTENT_ROOT/
 ├─ AGENTS.md
 ├─ package.json
 ├─ tsconfig.json

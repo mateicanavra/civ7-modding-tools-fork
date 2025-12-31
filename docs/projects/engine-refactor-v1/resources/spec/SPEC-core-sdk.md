@@ -1,6 +1,6 @@
 # SPEC: Target Architecture (Canonical)
 
-## 4. Core SDK (Runtime + Authoring): `packages/mapgen-core`
+## 4. Core SDK (Runtime + Authoring): `CORE_SDK_ROOT`
 
 ### 4.1 Core SDK responsibilities
 
@@ -66,4 +66,3 @@
   - it must not re-export any legacy “core content” surfaces
 
 ---
-

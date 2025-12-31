@@ -1,7 +1,6 @@
 # ADR-ER1-027: Dependency terminology and registry naming
 
 **Status:** Proposed
-**Date:** 2025-12-31
 
 ## Context
 

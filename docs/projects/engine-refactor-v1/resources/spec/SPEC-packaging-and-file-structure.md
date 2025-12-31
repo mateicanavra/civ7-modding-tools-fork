@@ -2,22 +2,28 @@
 
 ## 2. Target Packaging & File Structure (Core SDK + Standard Content Package)
 
+### 2.0 Notation
+
+- `CORE_SDK_ROOT` — the Core SDK package root (runtime + authoring + validation).
+- `STANDARD_CONTENT_ROOT` — the standard content package root (mod-owned content).
+- `MOD_CONTENT_ROOT` — a generic mod content package root (any mod).
+
 ### 2.1 Package boundaries and import rules
 
-- `packages/mapgen-core` must not import from `mods/**`.
-- `mods/mod-swooper-maps/src/domain/**` is a recipe-independent library:
+- `CORE_SDK_ROOT` must not import from `MOD_CONTENT_ROOT/**`.
+- `STANDARD_CONTENT_ROOT/src/domain/**` is a recipe-independent library:
   - It may be imported by `recipes/**` and `maps/**`.
   - It must not import from `recipes/**` or `maps/**`.
-- `mods/mod-swooper-maps/src/recipes/**` owns content wiring:
+- `STANDARD_CONTENT_ROOT/src/recipes/**` owns content wiring:
   - It may import from `domain/**` and `@swooper/mapgen-core/*`.
   - It must not import from `maps/**`.
-- `mods/mod-swooper-maps/src/maps/**` owns map/preset entrypoints and Civ7 runner glue:
+- `STANDARD_CONTENT_ROOT/src/maps/**` owns map/preset entrypoints and Civ7 runner glue:
   - Maps may import recipes and domain libs.
 
-### 2.2 Core SDK (`packages/mapgen-core`) target layout (collapsed)
+### 2.2 Core SDK (`CORE_SDK_ROOT`) target layout (collapsed)
 
 ```text
-packages/mapgen-core/
+CORE_SDK_ROOT/
 ├─ src/
 │  ├─ engine/                        # orchestration runtime (compile + execute + registries)
 │  ├─ core/                          # engine-owned context + platform contracts
@@ -34,15 +40,15 @@ packages/mapgen-core/
 ```
 
 **Forbidden in the target core SDK:**
-- `packages/mapgen-core/src/config/**`
-- `packages/mapgen-core/src/bootstrap/**`
-- `packages/mapgen-core/src/base/**`
-- any imports from `mods/**`
+- `CORE_SDK_ROOT/src/config/**`
+- `CORE_SDK_ROOT/src/bootstrap/**`
+- `CORE_SDK_ROOT/src/base/**`
+- any imports from `MOD_CONTENT_ROOT/**`
 
-### 2.3 Standard content package (`mods/mod-swooper-maps`) target layout (collapsed)
+### 2.3 Standard content package (`STANDARD_CONTENT_ROOT`) target layout (collapsed)
 
 ```text
-mods/mod-swooper-maps/
+STANDARD_CONTENT_ROOT/
 ├─ src/
 │  ├─ mod.ts                         # exports recipes; no global step catalog
 │  ├─ maps/                          # map/preset entrypoints (config instances live here)
@@ -69,7 +75,7 @@ mods/mod-swooper-maps/
 ```
 
 **Forbidden in the target standard content package:**
-- `mods/mod-swooper-maps/src/config/**` (central config module)
+- `STANDARD_CONTENT_ROOT/src/config/**` (central config module)
 - Any recipe-root “catalog” modules that aggregate unrelated domains (e.g. `recipes/standard/tags.ts`, `recipes/standard/artifacts.ts`)
 
 ### 2.4 Colocation and export rules (avoid centralized aggregators)
@@ -105,4 +111,3 @@ mods/mod-swooper-maps/
 - Step schemas must not import from a centralized `@mapgen/config` module.
 
 ---
-

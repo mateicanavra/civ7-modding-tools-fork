@@ -1,7 +1,6 @@
 # ADR-ER1-034: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
 **Status:** Proposed
-**Date:** 2025-12-31
 
 ## Context
 

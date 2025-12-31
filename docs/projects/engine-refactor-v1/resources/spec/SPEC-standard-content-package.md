@@ -1,6 +1,6 @@
 # SPEC: Target Architecture (Canonical)
 
-## 5. Standard Content Package (Mod-Owned Content): `mods/mod-swooper-maps`
+## 5. Standard Content Package (Mod-Owned Content): `STANDARD_CONTENT_ROOT`
 
 ### 5.1 Content package responsibilities
 
@@ -60,4 +60,3 @@
   - executes the recipe module
 
 ---
-

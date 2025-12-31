@@ -78,7 +78,7 @@
 
 ### 1.5 Phase ownership (target surfaces)
 
-**Core SDK (`packages/mapgen-core`) owns:**
+**Core SDK (`CORE_SDK_ROOT`) owns:**
 - Runtime execution (`StepRegistry`, `TagRegistry`, `ExecutionPlan` compile, `PipelineExecutor`)
 - Engine-owned context surface (adapter I/O + buffers + artifact store + tracing)
 - Authoring ergonomics (`createStep`, `createStage`, `createRecipe`)
@@ -104,4 +104,3 @@
 - Optional tracing is supported via `TraceSession` and step scopes; tracing is not required for correctness.
 
 ---
-
