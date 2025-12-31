@@ -46,6 +46,28 @@ Domain modules are now mirrored under the mod-owned `src/domain/**` with tag/art
 ### Cross-cutting Risks
 - None noted.
 
+## REVIEW m6-u04-2-update-recipe-steps-to-use-mod-owned-domain-libs
+
+### Quick Take
+Domain imports now resolve to the mod via a tsconfig alias redirect, which keeps step files untouched but couples mapgen-core builds to mod source; the mod package still lacks a `test` script even though the acceptance criteria call for `pnpm -C mods/mod-swooper-maps test`.
+
+### High-Leverage Issues
+- `packages/mapgen-core/tsconfig.paths.json`: `@mapgen/domain/*` now points at `mods/mod-swooper-maps`, so mapgen-core builds pull mod code and will fail outside the monorepo layout.
+- `mods/mod-swooper-maps/package.json`: no `test` script, so the documented verification command fails.
+
+### Fix Now (Recommended)
+- Either move the base pipeline steps into the mod (so mapgen-core no longer resolves domain) or add a build-time guard/doc note making the alias redirect explicitly monorepo-only until U04-3 lands.
+- Add a `test` script (even if it aliases `pnpm run check`) or update the issue doc to remove `pnpm -C mods/mod-swooper-maps test` until tests exist.
+
+### Defer / Follow-up
+- Remove the alias redirect once steps migrate into the mod and core domain exports are removed (U04-3).
+
+### Needs Discussion
+- Is it acceptable for `@swooper/mapgen-core` builds to depend on `mods/mod-swooper-maps` source in the short term?
+
+### Cross-cutting Risks
+- Publishing mapgen-core before U04-3 may ship mod-owned domain code or fail outside the monorepo layout.
+
 ## REVIEW m6-u02-1-define-authoring-pojos-and-schema-requirements
 
 ### Quick Take
