@@ -1,1024 +1,839 @@
-# SPEC: Target Architecture Draft (Canonical)
+# SPEC: Target Architecture (Canonical)
 
-> ~~Agent disclaimer (WIP):~~
->
-> ~~- We have not yet added the deferrals into this SPEC / flow.~~
-> ~~- We want to add deferrals specifically to avoid agents “finishing” this prematurely.~~
-> ~~- Agents should make sure to implement/handle deferrals and not treat this as a completed end-to-end architecture yet.~~
-> ~~- We have not yet “loaded the screen” in that sense — this deferral behavior is still missing.~~
->
-> **Update (2025-12-21, M4 planning):** Deferrals are tracked in `deferrals.md`; this SPEC is canonical for decisions, and the WIP disclaimer is superseded.
+This document defines the canonical target architecture for MapGen in this repo:
+
+- **Core SDK**: `packages/mapgen-core` (engine runtime + authoring ergonomics only)
+- **Standard content package**: `mods/mod-swooper-maps` (mod-owned content: domain libraries, recipes/stages/steps, schemas, tags, artifacts, and Civ7 glue)
+
+---
 
 ## 0. Purpose
 
-Capture the canonical target architecture for MapGen. This document has two
-layers:
-
-1. **Pure end-state target** (Section 1): The greenfield architecture as if
-   building from scratch, with no legacy constraints.
-2. **V1 target slice** (Section 2): The concrete subset we are actively building
-   toward now, with explicit deferrals and constraints.
-
-The companion doc
-`docs/projects/engine-refactor-v1/resources/SPIKE-target-architecture-draft.md`
-is the working canvas for resolving open questions, accumulating exploratory
-thinking, and documenting decision rationale.
+- Define the runtime contract and ownership boundaries for MapGen.
+- Declare the canonical target file structure for the core SDK and the standard content package.
 
 ---
 
-## 1. Pure Target Architecture (End-State)
-
-This section describes the greenfield target with no legacy constraints.
+## 1. Target Architecture (End-State)
 
 ### 1.1 Core principles
 
-- Task Graph pipeline with explicit contracts between steps.
-- No globals; all state is in `MapGenContext`.
-- Recipe is the single source of truth for step ordering (3.1 accepted) and enablement (3.2 accepted).
-- Artifacts, fields, and effects are explicit, typed, and versioned (3.8 accepted).
-- Engine boundary is adapter-only; engine is an I/O surface. Cross-step dependencies prefer reified `field:*` / `artifact:*` products, and engine-surface guarantees are modeled as verified, schedulable `effect:*` tags (`state:engine.*` is transitional only; 3.5 accepted).
-- Offline determinism is required; engine is optional.
-- The core engine is content-agnostic; pipeline content ships as **mods** that provide
-  their own registry + recipes (the standard pipeline is just one mod).
+- The core SDK is **content-agnostic**: it provides runtime execution + authoring factories, but does not ship privileged pipeline content.
+- All pipeline content (steps, tags, artifacts, schema definitions, validators, domain logic) is **mod-owned**.
+- Pipeline composition is **recipe-authored** and **explicit** (no implicit stage manifests, no hidden enablement).
+- Cross-step dependencies are explicit dependency tags (`artifact:*`, `field:*`, `effect:*`) declared in `requires`/`provides`.
+- Step configuration is **validated per step occurrence**; there is no monolithic runtime config object.
+- Default authoring is **colocation**:
+  - Step-owned: config schemas + config types, dependency tag IDs/definitions, artifact types/validators/publish-get helpers, and any step-local types.
+  - Stage-shared: only items shared across multiple steps in the same stage.
+  - Domain-shared: only items shared across multiple stages and/or recipes, and only when that sharing is real.
+- Centralized “catalog” files are forbidden unless they are **thin, explicit re-export barrels**.
+
+### 1.1.1 Terminology (Schemas, types, tags, artifacts)
+
+- **Config schema**: a runtime validation shape (TypeBox) for user-authored config (JSON-serializable). The engine validates step config against the owning step’s schema during plan compilation.
+- **Config type**: the TypeScript type derived from a config schema (`Static<typeof Schema>`). Types are compile-time; schemas are runtime.
+- **Dependency tag**: a string ID used for gating (`requires`/`provides`), with a stable prefix:
+  - `artifact:*` — declares an intermediate data product
+  - `field:*` — declares a mutable engine-facing buffer
+  - `effect:*` — declares an externally meaningful engine change/capability guarantee
+- **Artifact (value)**: the actual data product stored in `context.artifacts` keyed by an `artifact:*` tag. Tags describe dependency edges; artifacts are the typed values that flow across those edges.
+- **Tag definition**: an optional registry entry (`DependencyTagDefinition`) that can attach postconditions (`satisfies`) and demo validation to a tag. Most tags only need an ID and kind; only a minority need custom `satisfies` logic.
+- **Step model module**: a step-owned contract module (`<stepId>.model.ts`) that bundles schema + types + tags (+ any step-owned artifact helpers) for a single step.
 
 ### 1.2 Pipeline contract
 
-- Boundary input is `RunRequest = { recipe, settings }` (not a monolithic `MapGenConfig`).
-- Legacy stage-based ordering/config inputs (`stageManifest`, `STAGE_ORDER`, `stageConfig`) do not exist in the target runtime. They are migration-only legacy and must be deleted.
-- The engine runs **mod-provided content**: a mod package supplies the `registry`
-  (steps + tags) and one or more recipes; the core engine does not embed a
-  privileged pipeline.
-- `settings` are narrowly-scoped, global per-run values required to initialize the context (at minimum: seed selection and dimensions). Step-local knobs live in per-occurrence config supplied by the recipe.
-- Canonical long-term: a recipe defines pipeline composition as a **DAG / partial-order**
-  of step occurrences plus per-occurrence config.
-- V1 baseline: a **linear sequence** is the canonical baseline authoring shape (DAG authoring is a later refinement).
-- `MapGenStep` is the contract: `id`, `phase`, `requires`, `provides`, `run`.
-- Enablement is authored in the recipe and compiled into the `ExecutionPlan`:
-  - The plan contains only enabled nodes.
-  - The executor runs plan nodes; it does not re-check enablement.
-  - `MapGenStep` does not have a `shouldRun` field in the target contract.
-  - Any runtime checks are explicit preconditions/capability checks that fail
-    loudly (validation/precondition error), not silent skips.
-- Validation is fail-fast: missing deps or unknown config keys are errors.
-- Recipes compile into an internal `ExecutionPlan` (derived) which is what the
-  executor runs (validated, defaults resolved, bundles expanded, topo-sorted).
-- Canonical DAG scheduling (when DAG authoring is introduced): compile to a deterministic schedule via stable topological sort (tie-break rule is a separate decision tracked in the SPIKE).
-
-Observability baseline (accepted; 3.10):
-- Required outputs (always-on; stable contract):
-  - A deterministic `runId` and a stable “plan fingerprint” derived from `settings + recipe + step IDs + config`.
-  - Structured compile-time errors (recipe schema, unknown IDs, invalid tags/config) and structured runtime failures (missing deps, `effect:*` verification failures, step precondition failures).
-  - `ExecutionPlan` must carry enough normalized data to explain scheduling (resolved node IDs + per-node `requires/provides` + resolved per-node config).
-- Optional (dev/tracing):
-  - Rich tracing and diagnostics are implemented as optional sinks fed by a shared event model.
-  - Tracing must be toggleable globally and per step occurrence; toggles must not change execution semantics.
-  - Steps own domain-specific richness (events/summaries) but emit through the shared foundation.
-
-V1 recipe structure (sketch):
-- Recipe is versioned via `schemaVersion`.
-- Recipe references runnable atoms by registry step `id`.
-- V1 ordering is an explicit ordered `steps[]` list; compilation produces `ExecutionPlan`.
-- Keep explicit extension containers reserved for future DAG/mod placement semantics.
+- Boundary input is `RunRequest = { recipe, settings }`.
+- `RunRequest.recipe` is the only ordering/enablement source of truth.
+- The runtime compiles a `RunRequest` into an `ExecutionPlan`, then executes the plan against a `StepRegistry`.
+- The step contract is `MapGenStep`:
+  - `id`: string identifier (globally unique inside a mod registry)
+  - `phase`: `GenerationPhase`
+  - `requires`: dependency tags
+  - `provides`: dependency tags
+  - `configSchema`: per-step config schema (TypeBox)
+  - `run(context, config)`: side-effecting execution against the run context
+- Enablement is recipe-authored and compiled into the plan:
+  - Disabled steps do not appear in the `ExecutionPlan`.
+  - Steps do not implement “silent skips” (`shouldRun` is not part of the target step contract).
+- Validation is fail-fast:
+  - Unknown step IDs, unknown tag IDs, and invalid step config are hard errors at compile time.
+  - Missing dependencies are hard errors at execution time.
 
 ### 1.3 Context shape
 
-`MapGenContext` owns:
-- `fields`: mutable canvas buffers (engine-facing, but canonical in TS).
-- `artifacts`: immutable or versioned intermediate products.
-- `settings`: validated global run settings (from `RunRequest.settings`).
-- `runtime`: the engine I/O boundary surface (adapter + related facilities).
-
-Step-local config is not a global context property; it is supplied per occurrence
-via the recipe and carried in the compiled `ExecutionPlan` nodes.
+- The engine-owned run context is `ExtendedMapContext` (exported from `@swooper/mapgen-core/core`).
+- The context contains only run-global state and runtime surfaces:
+  - Adapter I/O surface (`EngineAdapter`)
+  - Run settings (the validated `RunSettings` from the `RunRequest`)
+  - Mutable buffers/fields (engine-facing typed arrays)
+  - Artifact storage (immutable or effectively-immutable intermediates keyed by tag ID)
+  - Tracing/observability scope
+- Step-local config values do not live on the context; they are carried per node in the `ExecutionPlan`.
+- The context must not carry a monolithic `MapGenConfig` (or equivalent “mega-object”).
 
 ### 1.4 Dependency tags
 
-- `artifact:*` tags reference concrete artifacts in `context.artifacts`.
-- `field:*` tags reference concrete buffers in `context.fields`.
-- `effect:*` tags reference externally meaningful changes/events emitted by steps.
-- Intended end-state: `state:*` tags are transitional only and not part of the
-  target contract (3.5 accepted).
-- **Satisfaction semantics (accepted for M4):** dependency satisfaction is tracked
-  explicitly by execution state (`provides` plus an explicit initial set), **not**
-  inferred from storage allocation.
-  - `field:*` tags are **not** satisfied just because a buffer is preallocated;
-    a step that makes a field meaningful must `provide` it.
-  - **M4 decision:** no `field:*` tags are initially satisfied.
-    - If you believe a `field:*` tag must be in the initial satisfied set,
-      stop and add a `triage` entry to `docs/projects/engine-refactor-v1/triage.md`
-      documenting the tag + rationale, then ask for confirmation before proceeding.
+- Tags are strings with stable prefixes:
+  - `artifact:*` — intermediate products (typically immutable snapshots)
+  - `field:*` — mutable engine-facing buffers
+  - `effect:*` — externally meaningful engine changes/capability guarantees
+- A mod instantiates a `TagRegistry` and registers all tags used by its steps.
+- Satisfaction is explicit:
+  - A tag is satisfied only if it is in the satisfied set (initially empty by default) or was provided by a completed step.
+  - Optional `satisfies(context, state)` functions may add postconditions (e.g., “buffer is allocated and has correct length”).
 
 ### 1.5 Phase ownership (target surfaces)
 
-~~The concrete list of canonical artifacts/fields is a target sketch and is
-finalized via ADRs (pending decisions 3.4, 3.6, 3.7).~~
-**Update (2025-12-21, M4 planning):** Decisions 3.4/3.6/3.7 are accepted; ADRs are optional post-M4. Implementation timing is governed by `deferrals.md`.
+**Core SDK (`packages/mapgen-core`) owns:**
+- Runtime execution (`StepRegistry`, `TagRegistry`, `ExecutionPlan` compile, `PipelineExecutor`)
+- Engine-owned context surface (adapter I/O + buffers + artifact store + tracing)
+- Authoring ergonomics (`createStep`, `createStage`, `createRecipe`)
+- Neutral utilities (`lib/**`) and optional diagnostics (`dev/**`)
 
-- Foundation (3.3 accepted): the foundation surface is **discrete artifacts**
-  (not a monolithic `FoundationContext`). The initial canonical tag set is
-  expected to look like:
-  - `artifact:foundation.mesh`
-  - `artifact:foundation.crust`
-  - `artifact:foundation.plateGraph`
-  - `artifact:foundation.tectonics`
-  Payload shapes may evolve during Phase B without blocking the rest of this
-  architecture.
-  - Storage layout is **decided**: canonical storage is nested under
-    `context.artifacts.foundation.*` (e.g., `context.artifacts.foundation.mesh`),
-    but dependencies are still expressed via `artifact:*` tags (no blob
-    dependency). New work must not depend on `ctx.foundation.*`.
-  - Transition note (DEF-014): Phase A keeps the existing `FoundationContext`-like
-    backing object as compatibility wiring (internal only), but it must be surfaced via
-    `context.artifacts.foundation.*` (not `ctx.foundation`) and must have an
-    explicit deletion trigger.
-- Morphology: intended `field:heightfield` plus `artifact:terrainMask`,
-  `artifact:erosion`, `artifact:sediment`.
-- Hydrology: intended `artifact:climateField` (rainfall + temperature) and
-  ~~`artifact:riverGraph` (pending 3.6).~~
-  - **Update (2025-12-21, M4 planning):** `artifact:riverGraph` is deferred per DEF-005; canonical river product remains `artifact:riverAdjacency` until a later milestone.
-- Ecology: intended `artifact:soils`, `artifact:biomes`, `artifact:resources`,
-  `artifact:features`.
-- Narrative/playability: intended typed narrative artifacts under
-  `artifact:narrative.*` (3.4 accepted; concrete inventory is domain-owned).
-- Placement: intended explicit artifact inputs/outputs ~~(pending 3.7).~~
-  - **Update (2025-12-21, M4 planning):** Decision 3.7 is accepted; M4 cuts over to the explicit `artifact:placementInputs@v1` contract (see DEF-006 and the M4 placement inputs issues).
+**Content packages (mods) own:**
+- Domain libraries (pure logic)
+- Recipe packages (stages/steps wiring + schemas + tags + artifacts)
+- Civ7-facing glue to instantiate and run recipes
 
-### 1.6 Narrative / playability model (accepted)
+### 1.6 Narrative / playability model
 
-Narrative/playability is an **optional bundle of steps** (a recipe composition
-choice), not a privileged core pipeline phase.
-
-**Accepted target contract (3.4):**
-- Narrative/playability steps publish **typed, versioned, categorized narrative
-  artifacts** (examples: `artifact:narrative.corridors@v1`,
-  `artifact:narrative.regions@v1`, `artifact:narrative.motifs.*@v1`,
-  `artifact:narrative.heatmaps.*@v1`).
-- Motif packaging decisions are treated as **target contract** decisions when
-  accepted (see `docs/projects/engine-refactor-v1/ADR.md`), e.g. **ADR-ER1-024:**
-  hotspot categories (paradise/volcanic) are encoded within
-  `artifact:narrative.motifs.hotspots@v1` (no split artifacts in v1).
-- Downstream steps that need narrative semantics must `require` those artifacts
-  and must not re-derive the same semantics independently.
-- There is **no canonical `StoryTags` surface** in the target contract.
-  Any “tag-like” query convenience must be derived from narrative artifacts and
-  must be context-scoped (performance only; not a second representation).
-- There are **no narrative globals** outside a run context (no module-level
-  registries/caches). Any caching must be context-owned artifacts keyed to the
-  run.
-- “Optional” is enforced via recipes:
-  - A recipe may omit narrative/playability steps entirely and still be valid.
-  - If a recipe includes a narrative consumer, it must also include the
-    narrative publishers; compilation fails fast otherwise.
+- Narrative/playability is expressed as **typed, versioned artifacts** published into the artifact store.
+- There is no canonical “StoryTags” global surface; any tag-like convenience is derived from artifacts and remains context-scoped.
+- Narrative state is context-scoped; there are no module-level narrative registries or caches.
 
 ### 1.7 Observability
 
-- Dependency validation before each step.
-- Post-step contract checks (required outputs present).
-- Optional artifact lineage tracing for debugging.
+- Compile-time validation produces structured, actionable errors (unknown step, invalid config).
+- Runtime validates dependencies before each step and validates `provides` postconditions after each step.
+- Optional tracing is supported via `TraceSession` and step scopes; tracing is not required for correctness.
 
 ---
 
-## 2. V1 Target Slice
+## 2. Target Packaging & File Structure (Core SDK + Standard Content Package)
 
-This section describes the concrete subset of the end-state target that we are
-actively building toward. It explicitly calls out what V1 includes, what it
-defers, and any V1-specific constraints.
+### 2.1 Package boundaries and import rules
 
-### 2.1 What V1 includes
+- `packages/mapgen-core` must not import from `mods/**`.
+- `mods/mod-swooper-maps/src/domain/**` is a recipe-independent library:
+  - It may be imported by `recipes/**` and `maps/**`.
+  - It must not import from `recipes/**` or `maps/**`.
+- `mods/mod-swooper-maps/src/recipes/**` owns content wiring:
+  - It may import from `domain/**` and `@swooper/mapgen-core/*`.
+  - It must not import from `maps/**`.
+- `mods/mod-swooper-maps/src/maps/**` owns map/preset entrypoints and Civ7 runner glue:
+  - Maps may import recipes and domain libs.
 
-Long-term direction commitments that V1 locks in:
+### 2.2 Core SDK (`packages/mapgen-core`) target layout (collapsed)
 
-- Canonical long-term direction: recipes can be DAG/partial-order authored (later refinement).
-- "Vanilla" ships as a **standard mod package** (registry + default recipe), not
-  a privileged internal order.
-- Mods can be expressed as steps plus placement constraints (dataflow + hooks).
+```text
+packages/mapgen-core/
+├─ src/
+│  ├─ engine/                        # orchestration runtime (compile + execute + registries)
+│  ├─ core/                          # engine-owned context + platform contracts
+│  ├─ authoring/                     # authoring ergonomics (factories)
+│  ├─ lib/                           # neutral utilities (engine-owned)
+│  ├─ trace/                         # tracing primitives
+│  ├─ dev/                           # diagnostics (not part of runtime contract)
+│  ├─ polyfills/
+│  ├─ shims/
+│  └─ index.ts                       # package entrypoint
+└─ test/
+   ├─ engine/
+   └─ authoring/
+```
 
-Concrete V1 deliverables:
+**Forbidden in the target core SDK:**
+- `packages/mapgen-core/src/config/**`
+- `packages/mapgen-core/src/bootstrap/**`
+- `packages/mapgen-core/src/base/**`
+- any imports from `mods/**`
 
-- Boundary input is `RunRequest = { recipe, settings }`.
-- Linear recipe schema (baseline) compiles to `ExecutionPlan`.
-- Deterministic scheduling comes from authored linear order (no topo-sort semantics required in V1).
-- Registry is the canonical catalog; steps declare deps and config schemas.
-- Enablement is recipe-authored and compiled into the plan; no silent runtime skips.
-- ~~Presets shape is explicitly deferred (recipe-only vs full `RunRequest`); the V1 contract supports either without changing `RunRequest` or `ExecutionPlan`.~~
-  **Update (2025-12-21, M4 planning):** Presets are removed; entry is explicit recipe + settings selection, and any "preset" is treated as a named recipe (if used). See `docs/projects/engine-refactor-v1/milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
+### 2.3 Standard content package (`mods/mod-swooper-maps`) target layout (collapsed)
 
-### 2.2 What V1 explicitly defers
+```text
+mods/mod-swooper-maps/
+├─ src/
+│  ├─ mod.ts                         # exports recipes; no global step catalog
+│  ├─ maps/                          # map/preset entrypoints (config instances live here)
+│  │  ├─ *.ts
+│  │  └─ _runtime/                   # Civ7 runner glue (mod-owned)
+│  ├─ recipes/
+│  │  └─ standard/
+│  │     ├─ recipe.ts
+│  │     ├─ runtime.ts
+│  │     └─ stages/
+│  │        └─ <stageId>/
+│  │           ├─ index.ts
+│  │           ├─ steps/             # step modules (standardized contract + implementation pairing)
+│  │           │  ├─ index.ts
+│  │           │  ├─ <stepId>.model.ts
+│  │           │  └─ <stepId>.ts
+│  │           └─ *.ts               # stage-scoped helpers/contracts (optional)
+│  └─ domain/
+│     ├─ config/
+│     │  └─ schema/**                # shared schema fragments only
+│     └─ **/**                       # domain logic + shared contracts (artifacts, tags, validators)
+└─ test/
+   └─ **/**
+```
 
-These are explicitly out of scope for V1, but the schema/contracts must allow
-adding them non-breakingly later:
+**Forbidden in the target standard content package:**
+- `mods/mod-swooper-maps/src/config/**` (central config module)
+- Any recipe-root “catalog” modules that aggregate unrelated domains (e.g. `recipes/standard/tags.ts`, `recipes/standard/artifacts.ts`)
 
-- Ergonomic patch tooling for recipes (insert/replace/remove operations).
-- Indirect mod placement scripts ("a script changes mountains; system places it").
-- DAG authoring semantics and tooling (including deterministic scheduling tie-break rules).
-- Optional descriptive metadata like `affects` / `affectedBy` (no scheduling semantics by default).
-- Full artifact lineage tracing (optional hooks are sufficient for V1).
+### 2.4 Colocation and export rules (avoid centralized aggregators)
 
-### 2.3 V1-specific constraints
+**Step modules (`stages/<stageId>/steps/<stepId>.*`)**
+- Steps are standardized as a 2-file module pair:
+  - `<stepId>.model.ts` — step-owned contract model: config schema + derived config type, step-local tag IDs/arrays, and step-owned artifact helpers/validators (only when the artifact is not domain-shared).
+  - `<stepId>.ts` — step definition: `createStep({ ... })` + `run` implementation, importing the contract model and domain logic.
+- The `.model.ts` file is the ownership surface for step contracts. The `.ts` file is orchestration only.
+- Canonical exports from `<stepId>.model.ts`:
+  - `schema` (TypeBox) + derived `Config` type
+  - `requires` / `provides` tag arrays
+  - optional `tagDefinitions` and artifact helper exports (publish/get/validators)
 
-Any compromises or transitional constraints that apply only to V1:
+**Stage scope (`stages/<stageId>/**`)**
+- Stage-scoped helpers and contracts shared across multiple steps live at the stage root as explicit modules (e.g., `producer.ts`, `placement-inputs.ts`, `shared.model.ts`).
+- Stage files must remain stage-scoped and must not accumulate cross-stage contracts.
 
-- (None currently identified—V1 is a true subset of end-state, not a compromise.)
+**Domain scope (`src/domain/**`)**
+- Domain is the home for:
+  - domain algorithms
+  - domain data contracts (artifact value types + validators, shared tag IDs/definitions)
+  - shared config schema fragments (`domain/config/schema/**`) when used by more than one step
+- Domain modules may be used by a single step; reuse is not the criterion for domain placement. The criterion is recipe-independence and a clean separation between step orchestration and content logic.
+- Domain must not import from `recipes/**` or `maps/**`.
+
+**Barrels (`index.ts`)**
+- Barrels must be explicit, thin re-exports only (no side-effect registration, no hidden aggregation).
+- Recipe-level assembly (`recipe.ts` + `runtime.ts`) composes stages; it does not define cross-domain catalogs.
+
+**Schemas**
+- Step config schemas are step-owned (`<stepId>.model.ts`).
+- Shared schema fragments live in `domain/config/schema/**` and are imported by steps/domain; they do not define recipe-wide “mega schemas”.
+- Step schemas must not import from a centralized `@mapgen/config` module.
 
 ---
 
 ## 3. Tag Registry (Artifacts, Fields, Effects)
 
-Each mod instantiates its own registry. This registry shape is the intended
-greenfield contract surface. Registry rules (canonical registration, schema
-ownership, optional demos, and fail-fast collisions) are locked in decision 3.8;
-the concrete tag inventory still evolves alongside domain decisions. This
-section applies to both end-state and V1.
+### 3.1 Registry invariants
 
-Rules (3.8 accepted):
-- Tags are only valid if they are registered in the mod’s instantiated registry.
-- No collisions: duplicate tag IDs and duplicate step IDs are hard errors.
-- Unknown tag references in `requires/provides` are hard errors.
-- Demo payloads are optional; if provided, they must be safe defaults and schema-valid.
-- `effect:*` tags are first-class and visible in the registry like artifacts/fields.
+- Each mod instantiates its own registry; tags are valid only if registered.
+- Duplicate tag IDs and duplicate step IDs are hard errors.
+- Unknown tag references in `requires`/`provides` are hard errors.
+- Demo payloads are optional; if provided, they must validate.
 
-Type safety note:
-- TypeScript can strongly type tag *shapes* (via TypeBox) and tag *kinds* (via
-  `field:*` / `artifact:*` / `effect:*` template-literal `TagId`s).
-- It cannot generally guarantee global uniqueness of IDs purely because modules are
-  imported. Uniqueness is enforced by runtime fail-fast checks when the registry is built.
-- For static compositions (a `const` entry list), we can add best-effort compile-time
-  duplicate detection later without changing the runtime contract.
+### 3.2 Canonical dependency tag inventory (standard recipe)
 
-### 3.1 Artifacts (intermediate products)
+Artifacts:
+- `artifact:foundation.plates@v1`
+- `artifact:foundation.dynamics@v1`
+- `artifact:foundation.seed@v1`
+- `artifact:foundation.diagnostics@v1`
+- `artifact:foundation.config@v1`
+- `artifact:heightfield`
+- `artifact:climateField`
+- `artifact:riverAdjacency`
+- `artifact:storyOverlays`
+- `artifact:narrative.corridors@v1`
+- `artifact:narrative.motifs.margins@v1`
+- `artifact:narrative.motifs.hotspots@v1`
+- `artifact:narrative.motifs.rifts@v1`
+- `artifact:narrative.motifs.orogeny@v1`
+- `artifact:placementInputs@v1`
+- `artifact:placementOutputs@v1`
 
-| Tag | Owner phase | Purpose |
-| --- | --- | --- |
-| `artifact:foundation.mesh` | foundation | Voronoi mesh / region graph |
-| `artifact:foundation.crust` | foundation | Lithosphere material mask |
-| `artifact:foundation.plateGraph` | foundation | Plate partition + kinematics |
-| `artifact:foundation.tectonics` | foundation | Tectonic force tensors |
-| `artifact:terrainMask` | morphology | Land/water mask + terrain classes |
-| `artifact:erosion` | morphology | Erosion field or modifiers |
-| `artifact:sediment` | morphology | Sediment deposition map |
-| `artifact:climateField` | hydrology | Rainfall + temperature fields |
-| `artifact:riverAdjacency` | hydrology | River adjacency mask (near-river queries) |
-| `artifact:soils` | ecology | Soil fertility / moisture |
-| `artifact:biomes` | ecology | Biome classification |
-| `artifact:resources` | ecology | Resource placement candidates |
-| `artifact:features` | ecology | Feature placement candidates |
-| `artifact:narrative.corridors@v1` | narrative | Strategic corridors / paths (typed) |
-| `artifact:narrative.regions@v1` | narrative | Named regions / partitions (typed) |
-| `artifact:narrative.motifs.*@v1` | narrative | Motif sets/heatmaps (typed, categorized) |
-| `artifact:placementInputs@v1` | placement | Resolved placement prerequisites (typed, TS-canonical) |
-| `artifact:placementOutputs` | placement | Final placement decisions |
+Fields:
+- `field:terrainType`
+- `field:elevation`
+- `field:rainfall`
+- `field:biomeId`
+- `field:featureType`
 
-Deferred/future artifacts (not V1/M4):
-- `artifact:riverGraph` (DEF-005; `artifact:riverAdjacency` remains canonical for now)
-
-### 3.2 Fields (engine-facing buffers)
-
-| Tag | Purpose |
-| --- | --- |
-| `field:heightfield` | Elevation buffer |
-| `field:terrainType` | Terrain class buffer |
-| `field:rainfall` | Rainfall buffer |
-| `field:temperature` | Temperature buffer |
-| `field:biomes` | Biome buffer |
-| `field:features` | Feature buffer |
-
-### 3.3 Effects (externally meaningful changes/events)
-
-Effects represent externally meaningful changes/events emitted by steps that may
-be consumed by other systems. They are part of the shared dependency language
-and registry visibility, but they are not necessarily stored as dataflow
-artifacts.
-
-| Tag | Purpose |
-| --- | --- |
-| `effect:engine.heightfieldApplied` | Heightfield publish/applied to engine |
-| `effect:engine.featuresApplied` | Feature publish/applied to engine |
+Effects:
+- `effect:engine.landmassApplied`
+- `effect:engine.coastlinesApplied`
+- `effect:engine.riversModeled`
+- `effect:engine.biomesApplied`
+- `effect:engine.featuresApplied`
+- `effect:engine.placementApplied`
 
 ---
 
-## 4. Pending Decisions
+## 4. Core SDK (Runtime + Authoring): `packages/mapgen-core`
 
-The following decisions are tracked (open/proposed/accepted). See the SPIKE for
-full decision packets with context, options, and rationale.
+### 4.1 Core SDK responsibilities
 
-```mermaid
-flowchart LR
-  %% Category (stroke) colors
-  classDef spine stroke:#228be6,stroke-width:2px
-  classDef boundary stroke:#f08c00,stroke-width:2px
-  classDef domain stroke:#12b886,stroke-width:2px
+- Provide **content-agnostic runtime** primitives (compile + execute).
+- Provide **authoring ergonomics** (typed recipe/stage/step factories).
+- Provide **engine-owned context** types and helpers.
+- Provide **neutral utilities** (`lib/**`) and optional diagnostics (`dev/**`).
+- Do not define or ship mod content (no recipe steps, no tag catalogs, no content artifacts).
 
-  %% Status (fill) colors
-  classDef accepted fill:#d3f9d8,color:#0b5345
-  classDef proposed fill:#fff3bf,color:#7f4f00
-  classDef open fill:#f1f3f5,color:#343a40
+### 4.2 Engine runtime module layout (`src/engine/**`)
 
-  ordering["3.1 Ordering"]:::spine
-  recipeSchema["3.9 Recipe schema"]:::spine
-  enablement["3.2 Enablement"]:::spine
-  registry["3.8 Tag registry"]:::spine
+- The engine runtime surface is `src/engine/**` and is designed to be imported via:
+  - `@swooper/mapgen-core/engine` (public)
+  - `@swooper/mapgen-core/engine/*` (public subpaths)
+- `src/engine/**` is kept cohesive as the orchestration runtime: plan compilation, registries, and execution live together.
+- Canonical orchestration modules (flat, discoverable):
+  - `ExecutionPlan.ts` — structural schemas + plan compilation (`compileExecutionPlan`)
+  - `PipelineExecutor.ts` — plan/recipe execution
+  - `StepRegistry.ts` — step registration and lookup
+  - `TagRegistry.ts` — dependency tag registry + satisfaction checks
+  - `errors.ts`, `types.ts`, `Observability.ts`, `index.ts`
 
-  engineBoundary["3.5 Engine boundary"]:::boundary
-  observability["3.10 Observability"]:::boundary
+### 4.3 Naming and organization conventions (core)
 
-  foundation["3.3 Foundation"]:::domain
-  story["3.4 Narrative/playability"]:::domain
-  climate["3.6 Climate ownership"]:::domain
-  placement["3.7 Placement inputs"]:::domain
+- `src/engine/**` and `src/core/**` use consistent, intention-revealing names:
+  - `PascalCase.ts` for primary runtime primitives/modules (classes and named orchestration objects)
+  - `lowerCamelCase.ts` for factories/helpers (e.g., `createExtendedMapContext.ts`)
+  - `index.ts` for barrels; `types.ts` / `errors.ts` for type/error-only modules
+- Kebab-case filenames are forbidden within the orchestration/runtime surfaces (no `execution-plan.ts` alongside `PipelineExecutor.ts`).
+- `index.ts` files are thin, explicit re-export barrels only.
 
-  ordering --> recipeSchema
-  recipeSchema --> enablement
-  recipeSchema --> registry
-  registry --> foundation
-  registry --> story
-  registry --> climate
-  registry --> placement
-  engineBoundary --> climate
-  engineBoundary --> placement
-  enablement --> observability
-  engineBoundary --> observability
+### 4.4 Core runtime contracts (`src/core/**`)
 
-  %% Apply current statuses (keep updated as decisions are accepted)
-  class ordering spine,accepted
-  class recipeSchema spine,accepted
-  class enablement spine,accepted
-  class registry spine,accepted
+- `src/core/context/**` owns `ExtendedMapContext` and includes:
+  - `adapter: EngineAdapter`
+  - `dimensions: MapDimensions`
+  - `settings: RunSettings`
+  - `fields` / `buffers` (engine-facing typed arrays)
+  - `artifacts` (artifact store keyed by `artifact:*`)
+  - `trace` (trace scope)
+  - optional engine-owned metrics/diagnostics buffers (not content contracts)
+- `ExtendedMapContext` does not include:
+  - a monolithic `config`/`MapGenConfig` mega-object
+  - domain artifacts (foundation/narrative/placement payload types)
+  - narrative registries/caches (those are mod-owned and/or artifacts)
+- `src/core/platform/**` owns Civ/platform-facing helper contracts (terrain constants, plot tagging helpers). These are engine-owned and content-agnostic.
 
-  class engineBoundary boundary,accepted
-  class observability boundary,accepted
+### 4.5 Engine structural schemas (co-located)
 
-  class foundation domain,accepted
-  class story domain,accepted
-  class climate domain,accepted
-  class placement domain,accepted
-```
+- Engine-owned schemas are limited to structural validation and live with the orchestration module that consumes them:
+  - `src/engine/ExecutionPlan.ts` owns:
+    - `RunSettingsSchema` / `RunSettings`
+    - `RunRequestSchema` / `RunRequest`
+    - recipe structural schemas (`RecipeV1Schema`, `RecipeStepV1Schema`)
+  - `src/engine/StepConfig.ts` owns `EmptyStepConfigSchema` for explicit “no config” steps
+- Content package step schemas live with steps; the engine does not ship content schemas.
 
-| ID | Decision | Status | SPIKE section |
-| --- | --- | --- | --- |
-| 3.1 | Ordering source of truth (recipe vs manifest) | accepted | §2.1 |
-| 3.2 | Enablement model (recipe-only; remove `shouldRun`) | accepted | §2.2 |
-| 3.3 | Foundation surface (discrete artifacts vs `FoundationContext`) | accepted | §2.3 |
-| 3.4 | Narrative/playability model (typed narrative artifacts; no `StoryTags`) | accepted | §2.4 |
-| 3.5 | Engine boundary (adapter-only; reification-first; verified `effect:*`; `state:engine.*` transitional-only) | accepted | §2.5 |
-| 3.6 | Climate ownership (`ClimateField` vs engine rainfall) | accepted | §2.6 |
-| 3.7 | Placement inputs (explicit artifact vs engine reads) | accepted | §2.7 |
-| 3.8 | Artifact registry (names + schema ownership + versioning) | accepted | §2.8 |
-| 3.9 | Recipe schema (versioning + compatibility rules) | accepted | §2.9 |
-| 3.10 | Observability (required diagnostics + validation behavior) | accepted | §2.10 |
+### 4.6 Core SDK entrypoint (`src/index.ts`)
+
+- `src/index.ts` is a compatibility entrypoint only:
+  - it may re-export `engine/**`, `core/**`, `authoring/**`, `lib/**`, `trace/**`, and `dev/**`
+  - it must not re-export any legacy “core content” surfaces
 
 ---
 
-## 5. Non-goals (pure target)
+## 5. Standard Content Package (Mod-Owned Content): `mods/mod-swooper-maps`
 
-- No migration strategy or compatibility shims in this document.
-- No algorithm selection or tuning details for individual steps.
-- No parity or output-compatibility guarantees with legacy pipelines.
-- No engine adapter API specification beyond the adapter-only boundary.
+### 5.1 Content package responsibilities
+
+- Own all content:
+  - domain libraries
+  - recipe packages (stages + steps)
+  - step schemas, tag definitions, artifacts, validators
+  - Civ7 runner glue to instantiate context and execute recipes
+
+### 5.2 Recipes are mini-packages (`src/recipes/**`)
+
+- A recipe directory owns:
+  - `recipe.ts` (assembly: stages + ordering)
+  - `runtime.ts` (runtime glue: tagDefinitions assembly, optional helpers)
+  - `stages/**` (stage packages)
+- Recipes do not own global catalogs:
+  - there is no recipe-root `tags.ts` / `artifacts.ts` / `config.ts` definition source of truth
+  - recipe-level aggregation is allowed only as composition (imports + re-exports), not as a grab-bag definition surface
+
+### 5.3 Stages and steps (colocation without forced oversplitting)
+
+- Stage package layout:
+  - `stages/<stageId>/index.ts` defines the stage via `createStage({ id, steps })`.
+  - `stages/<stageId>/steps/` contains step modules (standardized contract + implementation pairing):
+    - `steps/index.ts` is the only barrel; it re-exports step modules explicitly.
+    - Each step is defined by `steps/<stepId>.model.ts` + `steps/<stepId>.ts`.
+  - Stage-scoped helpers/contracts (when shared across multiple steps) live at the stage root as explicit modules (e.g., `producer.ts`, `shared.model.ts`).
+- Step module invariants:
+  - `<stepId>.model.ts` is the step’s contract surface (schema + types + tags + step-owned artifact helpers).
+  - `<stepId>.ts` is the step definition and `run` orchestration; it imports the model and domain logic.
+  - Steps do not introduce recipe-wide catalogs; shared contracts live at the closest real owner (stage root or domain).
+
+### 5.4 Config ownership (no centralized config package)
+
+- Config values are owned by maps (`src/maps/**`).
+- Step config schemas are owned by steps (`src/recipes/**/stages/**/steps/*.model.ts`).
+- Shared config schema fragments live with the closest owner:
+  - stage scope (`stages/<stageId>/*.model.ts`) when stage-local
+  - domain scope (`src/domain/config/schema/**` and other domain modules) when cross-stage/cross-recipe
+- There is no mod-wide `src/config/**` module and no `@mapgen/config` path alias.
+
+### 5.5 Tags, artifacts, and registration
+
+- Steps declare `requires`/`provides` using dependency tag IDs.
+- Tags are registered via `TagRegistry` using:
+  - auto-derived tag definitions (ID + kind) for most tags, and
+  - explicit `DependencyTagDefinition` entries only where custom `satisfies` logic or demo validation is required.
+- Explicit tag definitions live with their owning step/stage/domain module and are assembled in `recipes/<recipeId>/runtime.ts`.
+
+### 5.6 Maps and runner glue (`src/maps/**`)
+
+- `src/maps/*.ts` are the map/preset entrypoints:
+  - select a recipe module
+  - construct `RunSettings` and recipe config instances
+- `src/maps/_runtime/**` is mod-owned orchestration glue:
+  - builds a Civ7 adapter and `ExtendedMapContext`
+  - executes the recipe module
 
 ---
 
-## 6. Promotion Plan
+## 6. Global Architecture Invariants (Diffable)
 
-- Once decisions are resolved, move sections of this spec into
-  `docs/system/libs/mapgen/architecture.md` and phase docs.
-- Record decisions in `docs/system/ADR.md` as they are finalized.
+- Core SDK (`packages/mapgen-core`) does not depend on mod content (`mods/**`) and does not ship recipe content.
+- Content packages own all content artifacts and validators (core may store artifacts but does not define their shapes).
+- Centralized mega-modules are forbidden:
+  - no mod-wide config schema/loader package
+  - no recipe-root tag/artifact catalogs
+  - no “god files” that define multiple unrelated stages’ contracts
+- Colocation is the default:
+  - step-owned contracts live with steps
+  - stage-shared contracts live in stage-scoped modules at the stage root
+  - domain-shared contracts live with their owning domain library
 
 ---
 
-## 7. Appendix: Reference Code Sketch (Registry + Tags + Steps + Recipe)
+## 7. Appendix: Canonical Target Trees (Full)
 
-This appendix shows a concrete, developer-experience-first sketch of the target
-authoring model. It is illustrative (not copy/paste production code), but it
-is intended to be internally consistent with the locked decisions in this SPEC:
-the standard pipeline is represented as a mod package under `mods/standard`.
-
-- `RunRequest = { recipe, settings }`
-- `recipe` is composition + enablement (compile-time); no `shouldRun` or silent skips
-- `Registry` is the canonical catalog of tags + steps
-- `ExecutionPlan` is compiled from `{ recipe, settings } + Registry` and is the only
-  effective-run artifact the executor runs
-- `ctx.artifacts.get/set(tagId)` in this appendix is shorthand for “read/write the artifact
-  identified by this tag at its canonical storage location”; it does **not** override
-  the storage layout decision (e.g., foundation artifacts live under `ctx.artifacts.foundation.*` per §1.5).
-
-### 7.1 Suggested file layout (core + mods)
-
-Core engine library (definitions only, no concrete pipeline content):
-- `packages/mapgen-core/src/core/registry.ts` — `RegistryEntry` types + registry factory
-- `packages/mapgen-core/src/core/lib/**` — shared core utilities (RNG, noise, helpers)
-
-Standard mod package (content; treated like any other mod):
-- `packages/mapgen-core/src/mods/standard/mod.ts` — entrypoint (exports `mod`)
-- `packages/mapgen-core/src/mods/standard/registry/index.ts` — builds the mod’s `Registry`
-- `packages/mapgen-core/src/mods/standard/registry/globals.ts` — mod tags (fields + shared artifacts/effects)
-- `packages/mapgen-core/src/mods/standard/registry/<phase>/**/<name>.entry.ts` — one entry per file
-- `packages/mapgen-core/src/mods/standard/recipes/default.ts` — default recipe (separate from registry)
-- `packages/mapgen-core/src/mods/standard/lib/**` — domain logic used by the mod’s steps
-
-Note: the top-level split (`core/`, `pipeline/`, `runtime/`, `types/`, `mods/`) is
-intentional and minimal. It keeps the core entrypoints clear while grouping
-compiler/runtime surfaces under the current pipeline boundary.
+### 7.1 Core SDK: `packages/mapgen-core` (full)
 
 ```text
-packages/mapgen-core/src/
-├─ core/
-│  ├─ registry.ts
-│  │  # RegistryEntry types + registry factory (core entrypoint for mod authors)
-│  └─ lib/
-│     └─ ... (shared utilities)
-├─ pipeline/
-│  └─ execution-plan.ts
-├─ runtime/
-│  ├─ runExecutionPlan.ts
-│  └─ runtimeAdapters.ts
-├─ types/
-│  └─ runtime.ts
-└─ mods/
-   └─ standard/
-      ├─ mod.ts
-      ├─ lib/
-      │  ├─ terrain.ts
-      │  └─ ... (domain logic, helpers)
-      ├─ recipes/
-      │  └─ default.ts
-      └─ registry/
-         ├─ index.ts
-         ├─ globals.ts
-         ├─ morphology/
-         │  └─ buildHeightfield.entry.ts
-         ├─ hydrology/
-         │  └─ buildClimateField.entry.ts
-         └─ ... (other phase folders)
+packages/mapgen-core/
+├─ AGENTS.md
+├─ bunfig.toml
+├─ package.json
+├─ tsconfig.json
+├─ tsconfig.paths.json
+├─ tsconfig.tsup.json
+├─ tsup.config.ts
+├─ src/
+│  ├─ AGENTS.md
+│  ├─ index.ts
+│  ├─ authoring/
+│  │  ├─ index.ts
+│  │  ├─ recipe.ts
+│  │  ├─ stage.ts
+│  │  ├─ step.ts
+│  │  └─ types.ts
+│  ├─ core/
+│  │  ├─ index.ts
+│  │  ├─ context/
+│  │  │  ├─ index.ts
+│  │  │  ├─ types.ts
+│  │  │  ├─ createExtendedMapContext.ts
+│  │  │  └─ writers.ts
+│  │  └─ platform/
+│  │     ├─ index.ts
+│  │     ├─ PlotTags.ts
+│  │     └─ TerrainConstants.ts
+│  ├─ dev/
+│  │  ├─ ascii.ts
+│  │  ├─ flags.ts
+│  │  ├─ histograms.ts
+│  │  ├─ index.ts
+│  │  ├─ introspection.ts
+│  │  ├─ logging.ts
+│  │  ├─ summaries.ts
+│  │  └─ timing.ts
+│  ├─ engine/
+│  │  ├─ index.ts
+│  │  ├─ errors.ts
+│  │  ├─ types.ts
+│  │  ├─ ExecutionPlan.ts
+│  │  ├─ Observability.ts
+│  │  ├─ PipelineExecutor.ts
+│  │  ├─ StepConfig.ts
+│  │  ├─ StepRegistry.ts
+│  │  └─ TagRegistry.ts
+│  ├─ lib/
+│  │  ├─ collections/
+│  │  │  ├─ freeze-clone.ts
+│  │  │  ├─ index.ts
+│  │  │  └─ record.ts
+│  │  ├─ grid/
+│  │  │  ├─ bounds.ts
+│  │  │  ├─ distance/
+│  │  │  │  └─ bfs.ts
+│  │  │  ├─ index.ts
+│  │  │  ├─ indexing.ts
+│  │  │  ├─ neighborhood/
+│  │  │  │  ├─ hex-oddq.ts
+│  │  │  │  └─ square-3x3.ts
+│  │  │  └─ wrap.ts
+│  │  ├─ heightfield/
+│  │  │  ├─ base.ts
+│  │  │  ├─ index.ts
+│  │  │  └─ sea-level.ts
+│  │  ├─ math/
+│  │  │  ├─ clamp.ts
+│  │  │  ├─ index.ts
+│  │  │  └─ lerp.ts
+│  │  ├─ noise/
+│  │  │  ├─ fractal.ts
+│  │  │  ├─ index.ts
+│  │  │  └─ perlin.ts
+│  │  ├─ plates/
+│  │  │  ├─ crust.ts
+│  │  │  ├─ index.ts
+│  │  │  └─ topology.ts
+│  │  └─ rng/
+│  │     ├─ index.ts
+│  │     ├─ pick.ts
+│  │     ├─ unit.ts
+│  │     └─ weighted-choice.ts
+│  ├─ polyfills/
+│  │  └─ text-encoder.ts
+│  ├─ shims/
+│  │  └─ typebox-format.ts
+│  └─ trace/
+│     └─ index.ts
+└─ test/
+   ├─ authoring/
+   │  └─ authoring.test.ts
+   ├─ engine/
+   │  ├─ execution-plan.test.ts
+   │  ├─ hello-mod.smoke.test.ts
+   │  ├─ placement-gating.test.ts
+   │  ├─ tag-registry.test.ts
+   │  ├─ tracing.test.ts
+   │  └─ smoke.test.ts
+   └─ setup.ts
 ```
 
-### 7.1a Core import surface (mod author entrypoint)
-
-Mod authors should import core registry helpers from a single, stable surface:
-`core/registry.ts`. Shared utilities live under `core/lib/**` (and should be
-referenced via path alias rather than deep relative paths).
-
-### 7.1b Path alias call-out (recommended surfaces only)
-
-Use path aliases for the **main surfaces only**:
-- mod-local `lib` (domain logic for the mod),
-- core `lib` (shared utilities),
-- the core package itself (registry/pipeline/runtime entrypoints).
-
-```ts
-// examples (alias names are placeholders; wire via tsconfig paths)
-import { createRegistryEntry } from "@mapgen/core/registry";
-import { compileExecutionPlan } from "@mapgen/pipeline";
-import { noise2d } from "@mapgen/core/lib/noise";
-import { buildTerrainMask } from "@mod/lib/terrain";
-```
-### 7.2 `RegistryEntry` and `Registry` (single catalog, no clever names)
-
-Key DX goal: step files export a **single registry entry** that contains
-**exactly one step** plus any number of **fields / artifacts / effects**. These
-are all tags internally, but splitting them makes author intent and diffs clear.
-No per-step `registerX()` exports, no singleton builder, and no hidden
-side-effect registration.
-
-Note: without codegen or runtime filesystem scanning, **a static import list is
-still required**. We keep that explicit in one place (`mods/standard/registry/index.ts`)
-so adding an entry is:
-
-1) add `*.entry.ts`
-2) add one import line to `mods/standard/registry/index.ts`
-
-Step modules import a single creator from `core/registry.ts` (the primary core
-import point for mod authors). It is a thin, direct wrapper (an identity helper)
-that returns a typed `RegistryEntry`
-without extra nesting or per-item helper calls.
-The mod-local `registry/index.ts` imports the global fields/artifacts/effects and
-the entry list and constructs that mod’s canonical `Registry`.
-
-```ts
-// packages/mapgen-core/src/core/registry.ts
-import type { Static, TSchema } from "typebox";
-
-export type TagId =
-  | `field:${string}`
-  | `artifact:${string}`
-  | `effect:${string}`;
-export type StepId = string;
-
-export type TagKind = "field" | "artifact" | "effect";
-export type Owner = { pkg: string; phase?: string };
-
-export type BaseTag = {
-  id: TagId;
-  kind: TagKind;
-  owner: Owner;
-  doc?: string;
-};
-
-// Field tags: mutable canvases/buffers. Schema/demo are optional in V1.
-export type FieldTag<S extends TSchema | undefined = TSchema | undefined> =
-  BaseTag & {
-    kind: "field";
-    schema?: S;
-    demo?: S extends TSchema ? Static<S> : unknown;
-  };
-
-// Artifact tags: dataflow products. Schema is required; demo is optional (recommended).
-export type ArtifactTag<S extends TSchema = TSchema> = BaseTag & {
-  kind: "artifact";
-  schema: S;
-  demo?: Static<S>;
-};
-
-// Effect tags: externally meaningful changes/events. Schema/demo are optional.
-export type EffectTag<S extends TSchema | undefined = TSchema | undefined> =
-  BaseTag & {
-    kind: "effect";
-    schema?: S;
-    demo?: S extends TSchema ? Static<S> : unknown;
-  };
-
-export type Tag = FieldTag | ArtifactTag | EffectTag;
-
-export type Step<C extends TSchema> = {
-  id: StepId;
-  owner: Owner;
-  configSchema: C;
-  requires: readonly TagId[];
-  provides: readonly TagId[];
-  run: (ctx: unknown, config: Static<C>) => void | Promise<void>;
-};
-
-export type RegistryEntry = Readonly<{
-  fields?: readonly FieldTag[];
-  artifacts?: readonly ArtifactTag[];
-  effects?: readonly EffectTag[];
-  step: Step<TSchema>;
-}>;
-
-export type Registry = Readonly<{
-  tags: ReadonlyMap<TagId, Tag>;
-  steps: ReadonlyMap<StepId, Step<TSchema>>;
-}>;
-
-export function createRegistryEntry(entry: RegistryEntry): RegistryEntry {
-  return entry;
-}
-
-export function createRegistry<const Entries extends readonly RegistryEntry[]>(input: {
-  fields?: readonly FieldTag[];
-  artifacts?: readonly ArtifactTag[];
-  effects?: readonly EffectTag[];
-  entries: Entries;
-}): Registry {
-  const tags = new Map<TagId, Tag>();
-  const steps = new Map<StepId, Step<TSchema>>();
-
-  const addTag = (tag: Tag) => {
-    if (tags.has(tag.id)) throw new Error(`Duplicate tag: ${tag.id}`);
-    tags.set(tag.id, tag);
-  };
-
-  for (const tag of input.fields ?? []) addTag(tag);
-  for (const tag of input.artifacts ?? []) addTag(tag);
-  for (const tag of input.effects ?? []) addTag(tag);
-
-  for (const entry of input.entries) {
-    for (const tag of entry.fields ?? []) addTag(tag);
-    for (const tag of entry.artifacts ?? []) addTag(tag);
-    for (const tag of entry.effects ?? []) addTag(tag);
-    if (steps.has(entry.step.id)) throw new Error(`Duplicate step: ${entry.step.id}`);
-    steps.set(entry.step.id, entry.step as Step<TSchema>);
-  }
-
-  // Fail-fast on unknown tag references (validated at build time so declaration
-  // order across modules does not matter).
-  for (const step of steps.values()) {
-    for (const t of [...step.requires, ...step.provides]) {
-      if (!tags.has(t)) throw new Error(`Unknown tag "${t}" referenced by step "${step.id}"`);
-    }
-  }
-
-  return {
-    tags,
-    steps,
-  };
-}
-```
-
-### 7.3 Global tags (fields + shared artifacts + effects) are just tags
-
-Fields are tags with `kind: "field"`. Artifacts are tags with `kind: "artifact"`.
-Effects are tags with `kind: "effect"`. This file declares the
-globally shared surfaces in one place.
-
-```ts
-// packages/mapgen-core/src/mods/standard/registry/globals.ts
-import { Type } from "typebox";
-import type { ArtifactTag, EffectTag, FieldTag } from "../../../core/registry";
-
-// Field surfaces (mutable canvases)
-export const FIELD_HEIGHTFIELD: FieldTag = {
-  id: "field:heightfield",
-  kind: "field",
-  owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
-  schema: Type.Object({}),
-};
-
-// Shared artifacts (dataflow products) that many steps depend on
-export const ARTIFACT_CLIMATE_FIELD: ArtifactTag = {
-  id: "artifact:climateField",
-  kind: "artifact",
-  owner: { pkg: "@swooper/mapgen-core", phase: "hydrology" },
-  schema: Type.Object({
-    rainfall: Type.Uint8Array(),
-    temperature: Type.Uint8Array(),
-  }),
-  demo: {
-    rainfall: new Uint8Array(),
-    temperature: new Uint8Array(),
-  },
-};
-
-// Shared effects that multiple steps may emit/observe (no schema required in V1).
-export const EFFECT_ENGINE_HEIGHTFIELD_APPLIED: EffectTag = {
-  id: "effect:engine.heightfieldApplied",
-  kind: "effect",
-  owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
-  doc: "Heightfield was published/applied to the engine surface.",
-};
-
-export const GLOBAL_FIELDS = [
-  FIELD_HEIGHTFIELD,
-] as const;
-
-export const GLOBAL_ARTIFACTS = [
-  ARTIFACT_CLIMATE_FIELD,
-] as const;
-
-export const GLOBAL_EFFECTS = [
-  EFFECT_ENGINE_HEIGHTFIELD_APPLIED,
-] as const;
-```
-
-### 7.4 One step per file: export a `RegistryEntry` (one step + many fields/artifacts/effects)
-
-Step files import the shared factory and declare:
-- any step-local artifacts/fields/effects they provide, and
-- the step definition (id, config schema, requires/provides, run).
-
-```ts
-// packages/mapgen-core/src/mods/standard/registry/morphology/buildHeightfield.entry.ts
-import { Type } from "typebox";
-import { createRegistryEntry } from "@mapgen/core/registry";
-import { buildTerrainMask } from "@mod/lib/terrain";
-import { EFFECT_ENGINE_HEIGHTFIELD_APPLIED, FIELD_HEIGHTFIELD } from "../globals";
-
-export default createRegistryEntry({
-	  artifacts: [
-	    {
-	      id: "artifact:terrainMask",
-	      kind: "artifact",
-	      owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
-	      schema: Type.Object({
-	        landMask: Type.Uint8Array(),
-	        terrainClass: Type.Uint8Array(),
-	      }),
-	      demo: {
-	        landMask: new Uint8Array(),
-	        terrainClass: new Uint8Array(),
-	      },
-	    },
-	  ],
-	  step: {
-	    id: "core.morphology.buildHeightfield",
-	    owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
-	    configSchema: Type.Object({ roughness: Type.Number() }),
-	    requires: [FIELD_HEIGHTFIELD.id],
-	    provides: ["artifact:terrainMask", EFFECT_ENGINE_HEIGHTFIELD_APPLIED.id],
-	    run: async (ctx, config) => {
-	      const mask = buildTerrainMask(ctx, config);
-      // 1) read from ctx.settings + step-local config
-      // 2) write to field:heightfield
-      // 3) publish artifact:terrainMask
-      // 4) emit effect:engine.heightfieldApplied if/when a publish step applies it
-    },
-  },
-});
-```
-
-### 7.5 Registry index (explicit entry list + registry build)
-
-This module gathers entries and builds the registry. It is intentionally
-explicit (no codegen).
-
-```ts
-// packages/mapgen-core/src/mods/standard/registry/index.ts
-import { createRegistry } from "../../../core/registry";
-import { GLOBAL_FIELDS, GLOBAL_ARTIFACTS, GLOBAL_EFFECTS } from "./globals";
-import buildHeightfield from "./morphology/buildHeightfield.entry";
-import buildClimateField from "./hydrology/buildClimateField.entry";
-
-const ENTRY_LIST = [
-  buildHeightfield,
-  buildClimateField,
-] as const;
-
-export const registry = createRegistry({
-  fields: GLOBAL_FIELDS,
-  artifacts: GLOBAL_ARTIFACTS,
-  effects: GLOBAL_EFFECTS,
-  entries: ENTRY_LIST,
-});
-```
-
-### 7.6 Default recipe lives separately from the registry
-
-Registry is a catalog; recipe is composition + enablement + per-occurrence config.
-
-```ts
-// packages/mapgen-core/src/mods/standard/recipes/default.ts
-export const defaultRecipe = {
-  schemaVersion: 1,
-  id: "core.default",
-  steps: [
-    {
-      id: "core.morphology.buildHeightfield",
-      enabled: true,
-      config: { roughness: 0.6 },
-    },
-    {
-      id: "core.hydrology.buildClimateField",
-      enabled: true,
-      config: { humidityBias: 0.1 },
-    },
-  ],
-} as const;
-```
-
-### 7.7 Mod entrypoint exports `mod`
-
-```ts
-// packages/mapgen-core/src/mods/standard/mod.ts
-import { registry } from "./registry";
-import { defaultRecipe } from "./recipes/default";
-
-export const mod = {
-  id: "core.standard",
-  registry,
-  recipes: {
-    default: defaultRecipe,
-  },
-} as const;
-```
-
-### 7.8 How this connects to `RunRequest` and `ExecutionPlan` (high level)
-
-```ts
-// conceptual usage (compiler/runner APIs are described elsewhere in the SPEC)
-import { mod } from "./mods/standard/mod";
-
-const runRequest = {
-  recipe: mod.recipes.default,
-  settings: { seed: 123, width: 80, height: 50 },
-};
-
-// compile: strict validation + config defaulting/cleaning (TypeBox-based)
-const plan = compileExecutionPlan(runRequest, mod.registry);
-
-// run: executor runs the plan nodes; no `shouldRun`, no silent skips
-runExecutionPlan(plan);
-```
-
-### 7.9 Narrative/playability example (motif artifacts + injectors)
-
-This section illustrates the accepted narrative/playability model (3.4):
-
-- Narrative/playability is authored as normal steps.
-- Steps publish **typed narrative artifacts** (`artifact:narrative.*`) and other
-  steps consume them.
-- There is no `StoryTags` contract surface; any query helpers are derived from
-  the narrative artifacts and scoped to the run context.
-- “Optional” is recipe composition: include or omit the steps; do not rely on
-  “if present” behavior inside core steps.
-
-#### 7.9a End-to-end flow inside the standard mod (deriver + injector)
-
-Deriver step: compute a strategic corridor motif and publish it as a narrative artifact.
-
-```ts
-// packages/mapgen-core/src/mods/standard/registry/morphology/deriveCorridors.entry.ts
-import { Type } from "typebox";
-import { createRegistryEntry } from "@mapgen/core/registry";
-import { computeStrategicCorridors } from "@mod/lib/narrative/corridors";
-
-export default createRegistryEntry({
-  artifacts: [
-    {
-      id: "artifact:narrative.corridors@v1",
-      kind: "artifact",
-      owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
-      schema: Type.Object({
-        version: Type.Literal(1),
-        corridors: Type.Array(
-          Type.Object({
-            id: Type.String(),
-            kind: Type.Union([Type.Literal("landOpen"), Type.Literal("seaLane"), Type.Literal("riverChain")]),
-            cells: Type.Array(Type.String()), // "x,y" keys (sparse)
-          })
-        ),
-        summary: Type.Record(Type.String(), Type.Unknown()),
-      }),
-      demo: { version: 1, corridors: [], summary: {} },
-    },
-  ],
-  step: {
-    id: "standard.narrative.deriveCorridors",
-    owner: { pkg: "@swooper/mapgen-core", phase: "morphology" },
-    configSchema: Type.Object({
-      density: Type.Number({ default: 0.1 }),
-      maxCorridors: Type.Number({ default: 6 }),
-    }),
-    requires: [
-      "field:heightfield",
-      "artifact:climateField",
-      "artifact:riverAdjacency",
-    ],
-    provides: ["artifact:narrative.corridors@v1"],
-    run: (ctx, config) => {
-      const corridors = computeStrategicCorridors(ctx, config);
-      ctx.artifacts.set("artifact:narrative.corridors@v1", corridors);
-    },
-  },
-});
-```
-
-Injector step: consume the corridor motif to bias biomes or features in a strictly
-dataflow-shaped way (no re-derivation).
-
-```ts
-// packages/mapgen-core/src/mods/standard/registry/ecology/applyCorridorBiomeBias.entry.ts
-import { Type } from "typebox";
-import { createRegistryEntry } from "@mapgen/core/registry";
-import { applyCorridorBiasToBiomes } from "@mod/lib/narrative/injectors/biomes";
-
-export default createRegistryEntry({
-  step: {
-    id: "standard.ecology.applyCorridorBiomeBias",
-    owner: { pkg: "@swooper/mapgen-core", phase: "ecology" },
-    configSchema: Type.Object({
-      riverValleyFoodBias: Type.Number({ default: 1.15 }),
-      tundraRestraint: Type.Number({ default: 0.9 }),
-    }),
-    requires: [
-      "artifact:biomes",
-      "artifact:narrative.corridors@v1",
-    ],
-    provides: ["artifact:biomes"],
-    run: (ctx, config) => {
-      const corridors = ctx.artifacts.get("artifact:narrative.corridors@v1");
-      const biomes = ctx.artifacts.get("artifact:biomes");
-      ctx.artifacts.set("artifact:biomes", applyCorridorBiasToBiomes(biomes, corridors, config));
-    },
-  },
-});
-```
-
-Recipe composition is what makes narrative “optional” (include or omit the steps):
-
-```ts
-// packages/mapgen-core/src/mods/standard/recipes/default.ts (excerpt)
-export const defaultRecipe = {
-  schemaVersion: 1,
-  id: "standard.default",
-  steps: [
-    { id: "standard.morphology.buildHeightfield", enabled: true, config: {} },
-    { id: "standard.hydrology.buildClimateField", enabled: true, config: {} },
-    { id: "standard.hydrology.buildRiverAdjacency", enabled: true, config: {} },
-
-    // Narrative bundle (optional): omit both steps to run “no-story”.
-    { id: "standard.narrative.deriveCorridors", enabled: true, config: {} },
-    { id: "standard.ecology.applyCorridorBiomeBias", enabled: true, config: {} },
-
-    { id: "standard.ecology.designateBiomes", enabled: true, config: {} },
-    { id: "standard.ecology.designateFeatures", enabled: true, config: {} },
-    { id: "standard.placement.placeStarts", enabled: true, config: {} },
-  ],
-} as const;
-```
-
-#### 7.9b Mod authoring examples (light vs heavy)
-
-These examples intentionally avoid “automatic insertion” tooling (patching/DAG
-authoring is deferred). The mod author composes a recipe explicitly.
-
-**Light mod:** one injector step that biases features near rivers (no motif artifact).
-
-```ts
-// packages/my-playability-lite/mod.ts (conceptual)
-import { createRegistry, createRegistryEntry } from "@mapgen/core/registry";
-import type { Mod } from "@mapgen/core/mod";
-import standardBuildHeightfield from "@mapgen/core/mods/standard/registry/morphology/buildHeightfield.entry";
-import standardBuildRiverAdjacency from "@mapgen/core/mods/standard/registry/hydrology/buildRiverAdjacency.entry";
-import standardDesignateFeatures from "@mapgen/core/mods/standard/registry/ecology/designateFeatures.entry";
-import { Type } from "typebox";
-
-const biasFeaturesNearRivers = createRegistryEntry({
-  step: {
-    id: "playabilityLite.ecology.biasFeaturesNearRivers",
-    owner: { pkg: "@mods/playability-lite", phase: "ecology" },
-    configSchema: Type.Object({ riverBonus: Type.Number({ default: 1.2 }) }),
-    requires: ["artifact:riverAdjacency", "artifact:features"],
-    provides: ["artifact:features"],
-    run: (ctx, config) => {
-      // mutate the features candidate artifact in-memory (pure dataflow)
-      const adj = ctx.artifacts.get("artifact:riverAdjacency");
-      const features = ctx.artifacts.get("artifact:features");
-      ctx.artifacts.set("artifact:features", bumpRiverFeatures(features, adj, config));
-    },
-  },
-});
-
-export const mod: Mod = {
-  id: "@mods/playability-lite",
-  registry: createRegistry({ entries: [standardBuildHeightfield, standardBuildRiverAdjacency, standardDesignateFeatures, biasFeaturesNearRivers] }),
-  recipes: {
-    default: {
-      schemaVersion: 1,
-      id: "playabilityLite.default",
-      steps: [
-        { id: "standard.morphology.buildHeightfield", enabled: true, config: {} },
-        { id: "standard.hydrology.buildRiverAdjacency", enabled: true, config: {} },
-        { id: "standard.ecology.designateFeatures", enabled: true, config: {} },
-        { id: "playabilityLite.ecology.biasFeaturesNearRivers", enabled: true, config: { riverBonus: 1.3 } },
-      ],
-    },
-  },
-};
-```
-
-**Heavier mod:** publishes a motif artifact (mountain passes) and then injects it into placement.
-
-```ts
-// packages/my-mountain-corridors/mod.ts (conceptual)
-import { createRegistry, createRegistryEntry } from "@mapgen/core/registry";
-import type { Mod } from "@mapgen/core/mod";
-import standardBuildHeightfield from "@mapgen/core/mods/standard/registry/morphology/buildHeightfield.entry";
-import standardPlaceStarts from "@mapgen/core/mods/standard/registry/placement/placeStarts.entry";
-import { Type } from "typebox";
-
-const deriveMountainPasses = createRegistryEntry({
-  artifacts: [
-    {
-      id: "artifact:narrative.motifs.mountainPasses@v1",
-      kind: "artifact",
-      owner: { pkg: "@mods/mountain-corridors", phase: "morphology" },
-      schema: Type.Object({
-        version: Type.Literal(1),
-        passes: Type.Array(Type.Object({ cells: Type.Array(Type.String()), strength: Type.Number() })),
-      }),
-      demo: { version: 1, passes: [] },
-    },
-  ],
-  step: {
-    id: "mountainCorridors.narrative.deriveMountainPasses",
-    owner: { pkg: "@mods/mountain-corridors", phase: "morphology" },
-    configSchema: Type.Object({ maxPasses: Type.Number({ default: 12 }) }),
-    requires: ["field:heightfield"],
-    provides: ["artifact:narrative.motifs.mountainPasses@v1"],
-    run: (ctx, config) => {
-      ctx.artifacts.set("artifact:narrative.motifs.mountainPasses@v1", findMountainPasses(ctx, config));
-    },
-  },
-});
-
-const biasStartsByPassability = createRegistryEntry({
-  step: {
-    id: "mountainCorridors.placement.biasStartsByPassability",
-    owner: { pkg: "@mods/mountain-corridors", phase: "placement" },
-    configSchema: Type.Object({ corridorWeight: Type.Number({ default: 1.25 }) }),
-    requires: ["artifact:narrative.motifs.mountainPasses@v1"],
-    provides: ["artifact:placementOutputs"],
-    run: (ctx, config) => {
-      // placement consumes the motif as an explicit input (no hidden engine reads)
-      const passes = ctx.artifacts.get("artifact:narrative.motifs.mountainPasses@v1");
-      applyPlacementBias(ctx, passes, config);
-    },
-  },
-});
-
-export const mod: Mod = {
-  id: "@mods/mountain-corridors",
-  registry: createRegistry({ entries: [standardBuildHeightfield, standardPlaceStarts, deriveMountainPasses, biasStartsByPassability] }),
-  recipes: {
-    default: {
-      schemaVersion: 1,
-      id: "mountainCorridors.default",
-      steps: [
-        { id: "standard.morphology.buildHeightfield", enabled: true, config: {} },
-        { id: "mountainCorridors.narrative.deriveMountainPasses", enabled: true, config: {} },
-        { id: "standard.placement.placeStarts", enabled: true, config: {} },
-        { id: "mountainCorridors.placement.biasStartsByPassability", enabled: true, config: {} },
-      ],
-    },
-  },
-};
+### 7.2 Standard content package: `mods/mod-swooper-maps` (full)
+
+```text
+mods/mod-swooper-maps/
+├─ AGENTS.md
+├─ package.json
+├─ tsconfig.json
+├─ tsconfig.tsup.json
+├─ tsup.config.ts
+├─ mod/
+│  ├─ config/
+│  │  └─ config.xml
+│  ├─ swooper-maps.modinfo
+│  └─ text/
+│     └─ en_us/
+│        ├─ MapText.xml
+│        └─ ModuleText.xml
+├─ src/
+│  ├─ AGENTS.md
+│  ├─ mod.ts
+│  ├─ maps/
+│  │  ├─ gate-a-continents.ts
+│  │  ├─ shattered-ring.ts
+│  │  ├─ sundered-archipelago.ts
+│  │  ├─ swooper-desert-mountains.ts
+│  │  ├─ swooper-earthlike.ts
+│  │  └─ _runtime/
+│  │     ├─ helpers.ts
+│  │     ├─ map-init.ts
+│  │     ├─ run-standard.ts
+│  │     ├─ standard-config.ts
+│  │     └─ types.ts
+│  ├─ domain/
+│  │  ├─ config/
+│  │  │  └─ schema/
+│  │  │     ├─ index.ts
+│  │  │     ├─ common.ts
+│  │  │     ├─ ecology.ts
+│  │  │     ├─ foundation.ts
+│  │  │     ├─ hydrology.ts
+│  │  │     ├─ landmass.ts
+│  │  │     ├─ morphology.ts
+│  │  │     └─ narrative.ts
+│  │  ├─ ecology/
+│  │  │  ├─ index.ts
+│  │  │  ├─ biomes/
+│  │  │  │  ├─ coastal.ts
+│  │  │  │  ├─ globals.ts
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ types.ts
+│  │  │  │  └─ nudges/
+│  │  │  │     ├─ corridor-bias.ts
+│  │  │  │     ├─ corridor-edge-hints.ts
+│  │  │  │     ├─ rift-shoulder.ts
+│  │  │  │     ├─ river-valley.ts
+│  │  │  │     ├─ tropical-coast.ts
+│  │  │  │     └─ tundra-restraint.ts
+│  │  │  └─ features/
+│  │  │     ├─ density-tweaks.ts
+│  │  │     ├─ index.ts
+│  │  │     ├─ indices.ts
+│  │  │     ├─ paradise-reefs.ts
+│  │  │     ├─ place-feature.ts
+│  │  │     ├─ shelf-reefs.ts
+│  │  │     ├─ types.ts
+│  │  │     └─ volcanic-vegetation.ts
+│  │  ├─ foundation/
+│  │  │  ├─ constants.ts
+│  │  │  ├─ index.ts
+│  │  │  ├─ plate-seed.ts
+│  │  │  ├─ plates.ts
+│  │  │  └─ types.ts
+│  │  ├─ hydrology/
+│  │  │  ├─ index.ts
+│  │  │  └─ climate/
+│  │  │     ├─ baseline.ts
+│  │  │     ├─ distance-to-water.ts
+│  │  │     ├─ index.ts
+│  │  │     ├─ orographic-shadow.ts
+│  │  │     ├─ runtime.ts
+│  │  │     ├─ types.ts
+│  │  │     ├─ refine/
+│  │  │     │  ├─ hotspot-microclimates.ts
+│  │  │     │  ├─ index.ts
+│  │  │     │  ├─ orogeny-belts.ts
+│  │  │     │  ├─ orographic-shadow.ts
+│  │  │     │  ├─ rift-humidity.ts
+│  │  │     │  ├─ river-corridor.ts
+│  │  │     │  └─ water-gradient.ts
+│  │  │     └─ swatches/
+│  │  │        ├─ chooser.ts
+│  │  │        ├─ equatorial-rainbelt.ts
+│  │  │        ├─ great-plains.ts
+│  │  │        ├─ index.ts
+│  │  │        ├─ macro-desert-belt.ts
+│  │  │        ├─ monsoon-bias.ts
+│  │  │        ├─ mountain-forests.ts
+│  │  │        ├─ rainforest-archipelago.ts
+│  │  │        └─ types.ts
+│  │  ├─ morphology/
+│  │  │  ├─ index.ts
+│  │  │  ├─ coastlines/
+│  │  │  │  ├─ adjacency.ts
+│  │  │  │  ├─ corridor-policy.ts
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ plate-bias.ts
+│  │  │  │  ├─ rugged-coasts.ts
+│  │  │  │  └─ types.ts
+│  │  │  ├─ islands/
+│  │  │  │  ├─ adjacency.ts
+│  │  │  │  ├─ fractal-threshold.ts
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ placement.ts
+│  │  │  │  └─ types.ts
+│  │  │  ├─ landmass/
+│  │  │  │  ├─ crust-first-landmask.ts
+│  │  │  │  ├─ diagnostics.ts
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ plate-stats.ts
+│  │  │  │  ├─ post-adjustments.ts
+│  │  │  │  ├─ terrain-apply.ts
+│  │  │  │  ├─ types.ts
+│  │  │  │  ├─ water-target.ts
+│  │  │  │  ├─ windows.ts
+│  │  │  │  └─ ocean-separation/
+│  │  │  │     ├─ apply.ts
+│  │  │  │     ├─ carve.ts
+│  │  │  │     ├─ fill.ts
+│  │  │  │     ├─ index.ts
+│  │  │  │     ├─ policy.ts
+│  │  │  │     ├─ row-state.ts
+│  │  │  │     └─ types.ts
+│  │  │  ├─ mountains/
+│  │  │  │  ├─ apply.ts
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ scoring.ts
+│  │  │  │  ├─ selection.ts
+│  │  │  │  └─ types.ts
+│  │  │  └─ volcanoes/
+│  │  │     ├─ apply.ts
+│  │  │     ├─ index.ts
+│  │  │     ├─ scoring.ts
+│  │  │     ├─ selection.ts
+│  │  │     └─ types.ts
+│  │  ├─ narrative/
+│  │  │  ├─ artifacts.ts
+│  │  │  ├─ index.ts
+│  │  │  ├─ queries.ts
+│  │  │  ├─ swatches.ts
+│  │  │  ├─ paleo/
+│  │  │  │  ├─ index.ts
+│  │  │  │  └─ rainfall-artifacts.ts
+│  │  │  ├─ overlays/
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ keys.ts
+│  │  │  │  ├─ normalize.ts
+│  │  │  │  └─ registry.ts
+│  │  │  ├─ corridors/
+│  │  │  │  ├─ backfill.ts
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ island-hop.ts
+│  │  │  │  ├─ land-corridors.ts
+│  │  │  │  ├─ river-chains.ts
+│  │  │  │  ├─ runtime.ts
+│  │  │  │  ├─ sea-lanes.ts
+│  │  │  │  ├─ state.ts
+│  │  │  │  ├─ style-cache.ts
+│  │  │  │  └─ types.ts
+│  │  │  ├─ orogeny/
+│  │  │  │  ├─ belts.ts
+│  │  │  │  ├─ cache.ts
+│  │  │  │  ├─ index.ts
+│  │  │  │  └─ wind.ts
+│  │  │  ├─ tagging/
+│  │  │  │  ├─ hotspots.ts
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ margins.ts
+│  │  │  │  ├─ rifts.ts
+│  │  │  │  └─ types.ts
+│  │  │  └─ utils/
+│  │  │     ├─ adjacency.ts
+│  │  │     ├─ dims.ts
+│  │  │     ├─ latitude.ts
+│  │  │     ├─ rng.ts
+│  │  │     └─ water.ts
+│  │  ├─ placement/
+│  │  │  ├─ advanced-start.ts
+│  │  │  ├─ areas.ts
+│  │  │  ├─ diagnostics.ts
+│  │  │  ├─ discoveries.ts
+│  │  │  ├─ fertility.ts
+│  │  │  ├─ floodplains.ts
+│  │  │  ├─ index.ts
+│  │  │  ├─ resources.ts
+│  │  │  ├─ snow.ts
+│  │  │  ├─ starts.ts
+│  │  │  ├─ terrain-validation.ts
+│  │  │  ├─ types.ts
+│  │  │  ├─ water-data.ts
+│  │  │  └─ wonders.ts
+│  │  └─ index.ts
+│  └─ recipes/
+│     └─ standard/
+│        ├─ recipe.ts
+│        ├─ runtime.ts
+│        └─ stages/
+│           ├─ ecology/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ biomes.model.ts
+│           │     ├─ biomes.ts
+│           │     ├─ features.model.ts
+│           │     └─ features.ts
+│           ├─ foundation/
+│           │  ├─ index.ts
+│           │  ├─ producer.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ foundation.model.ts
+│           │     └─ foundation.ts
+│           ├─ hydrology-core/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ rivers.model.ts
+│           │     └─ rivers.ts
+│           ├─ hydrology-post/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ climateRefine.model.ts
+│           │     └─ climateRefine.ts
+│           ├─ hydrology-pre/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ climateBaseline.model.ts
+│           │     ├─ climateBaseline.ts
+│           │     ├─ lakes.model.ts
+│           │     └─ lakes.ts
+│           ├─ morphology-mid/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ ruggedCoasts.model.ts
+│           │     └─ ruggedCoasts.ts
+│           ├─ morphology-post/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ islands.model.ts
+│           │     ├─ islands.ts
+│           │     ├─ mountains.model.ts
+│           │     ├─ mountains.ts
+│           │     ├─ volcanoes.model.ts
+│           │     └─ volcanoes.ts
+│           ├─ morphology-pre/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ coastlines.model.ts
+│           │     ├─ coastlines.ts
+│           │     ├─ landmassPlates.model.ts
+│           │     └─ landmassPlates.ts
+│           ├─ narrative-mid/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ storyCorridorsPre.model.ts
+│           │     ├─ storyCorridorsPre.ts
+│           │     ├─ storyOrogeny.model.ts
+│           │     └─ storyOrogeny.ts
+│           ├─ narrative-post/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ storyCorridorsPost.model.ts
+│           │     └─ storyCorridorsPost.ts
+│           ├─ narrative-pre/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ storyHotspots.model.ts
+│           │     ├─ storyHotspots.ts
+│           │     ├─ storyRifts.model.ts
+│           │     ├─ storyRifts.ts
+│           │     ├─ storySeed.model.ts
+│           │     └─ storySeed.ts
+│           ├─ narrative-swatches/
+│           │  ├─ index.ts
+│           │  └─ steps/
+│           │     ├─ index.ts
+│           │     ├─ storySwatches.model.ts
+│           │     └─ storySwatches.ts
+│           └─ placement/
+│              ├─ index.ts
+│              ├─ placement-inputs.ts
+│              ├─ placement-outputs.ts
+│              └─ steps/
+│                 ├─ index.ts
+│                 ├─ derivePlacementInputs.model.ts
+│                 ├─ derivePlacementInputs.ts
+│                 ├─ placement.model.ts
+│                 └─ placement.ts
+└─ test/
+   ├─ dev/
+   │  └─ crust-map.test.ts
+   ├─ foundation/
+   │  ├─ plate-seed.test.ts
+   │  ├─ plates.test.ts
+   │  └─ voronoi.test.ts
+   ├─ layers/
+   │  └─ callsite-fixes.test.ts
+   ├─ pipeline/
+   │  └─ artifacts.test.ts
+   ├─ story/
+   │  ├─ corridors.test.ts
+   │  ├─ orogeny.test.ts
+   │  ├─ overlays.test.ts
+   │  ├─ paleo.test.ts
+   │  └─ tags.test.ts
+   ├─ standard-recipe.test.ts
+   └─ standard-run.test.ts
 ```
