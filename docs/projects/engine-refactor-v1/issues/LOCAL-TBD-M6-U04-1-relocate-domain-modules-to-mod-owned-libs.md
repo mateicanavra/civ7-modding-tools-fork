@@ -71,3 +71,33 @@ Move domain modules from core into `mods/mod-swooper-maps/src/domain/**` without
   - Replace `@mapgen/base/tags` with a mod-owned `recipes/standard/tags.ts` (or `domain/tags.ts`) that re-exports the same tag IDs.
   - Replace `@mapgen/base/pipeline/artifacts` accessors with mod-owned artifact helpers colocated with the recipe (`recipes/standard/artifacts.ts`) and re-export them to domain.
   - Move `BOUNDARY_TYPE` into a mod-owned foundation constants module (e.g., `domain/foundation/constants.ts`) and update imports accordingly.
+
+## Implementation Decisions
+
+### Preserve `@mapgen/domain/*` import paths via mod-local TS path mapping
+- **Context:** Domain modules contain extensive `@mapgen/domain/*` self-references; rewriting all paths would be noisy and error-prone.
+- **Options:** (A) rewrite to relative imports, (B) add a mod-local `paths` alias for `@mapgen/domain/*`.
+- **Choice:** Option B — map `@mapgen/domain/*` → `mods/mod-swooper-maps/src/domain/*`.
+- **Rationale:** Keeps file-level APIs stable while relocating domain logic into the mod package.
+- **Risk:** Requires tsconfig path resolution during builds; if tooling ignores `paths`, imports will fail.
+
+### Export engine lib utilities needed by domain modules
+- **Context:** Domain code relies on `lib/plates/*` and `lib/heightfield/*`, which are not exported as package subpaths.
+- **Options:** (A) copy helpers into the mod, (B) add package exports and indexes for the missing lib modules.
+- **Choice:** Option B — add `lib/plates` and `lib/heightfield` indexes and export them from `@swooper/mapgen-core`.
+- **Rationale:** Keeps domain logic depending on shared engine utilities rather than duplicating code.
+- **Risk:** Expands the public surface of `@swooper/mapgen-core`; downstream docs/tests may need updates.
+
+### Introduce mod-owned tag/artifact shims for domain access
+- **Context:** Domain modules referenced `@mapgen/base/tags` and `@mapgen/base/pipeline/artifacts`.
+- **Options:** (A) keep base dependencies, (B) move tags/artifacts into mod-owned modules and re-export to domain.
+- **Choice:** Option B — create `recipes/standard/tags.ts` + `recipes/standard/artifacts.ts` and re-export from `domain/*`.
+- **Rationale:** Removes base-mod coupling while keeping the tag identifiers and artifact accessors colocated with standard content.
+- **Risk:** The artifact helper surface is minimal (climate + river adjacency); additional helpers may be needed when steps migrate.
+
+### Re-export bootstrap types from the bootstrap entrypoint
+- **Context:** Domain types reference `@mapgen/bootstrap/types`, but the public subpath is `@swooper/mapgen-core/bootstrap`.
+- **Options:** (A) add a new bootstrap subpath export, (B) re-export types from the bootstrap entrypoint.
+- **Choice:** Option B — re-export types from `bootstrap/entry.ts`.
+- **Rationale:** Keeps imports on the existing bootstrap entry path without adding another public subpath.
+- **Risk:** Type-only exports are now exposed via the bootstrap entry, which may affect API expectations.

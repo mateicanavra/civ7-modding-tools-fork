@@ -1,0 +1,5 @@
+import type { ExtendedMapContext } from "@swooper/mapgen-core";
+
+export function isWaterAt(ctx: ExtendedMapContext, x: number, y: number): boolean {
+  return ctx.adapter.isWater(x, y);
+}

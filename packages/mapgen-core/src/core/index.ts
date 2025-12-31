@@ -9,6 +9,7 @@
 export * from "@mapgen/core/types.js";
 export * from "@mapgen/core/plot-tags.js";
 export * from "@mapgen/core/terrain-constants.js";
+export * from "@mapgen/core/assertions.js";
 
 export { idx, xyFromIndex } from "@mapgen/lib/grid/indexing.js";
 export { inBounds } from "@mapgen/lib/grid/bounds.js";
