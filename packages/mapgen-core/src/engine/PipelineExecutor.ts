@@ -1,19 +1,18 @@
-import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { TSchema } from "typebox";
 import { Value } from "typebox/value";
 import {
   MissingDependencyError,
   UnsatisfiedProvidesError,
-} from "@mapgen/pipeline/errors.js";
-import type { ExecutionPlan } from "@mapgen/pipeline/execution-plan.js";
+} from "@mapgen/engine/errors.js";
+import type { ExecutionPlan } from "@mapgen/engine/execution-plan.js";
 import {
   computeInitialSatisfiedTags,
   isDependencyTagSatisfied,
   validateDependencyTags,
-} from "@mapgen/pipeline/tags.js";
-import type { MapGenStep } from "@mapgen/pipeline/types.js";
-import type { StepRegistry } from "@mapgen/pipeline/StepRegistry.js";
-import type { PipelineStepResult } from "@mapgen/pipeline/types.js";
+} from "@mapgen/engine/tags.js";
+import type { EngineContext, MapGenStep } from "@mapgen/engine/types.js";
+import type { StepRegistry } from "@mapgen/engine/StepRegistry.js";
+import type { PipelineStepResult } from "@mapgen/engine/types.js";
 import type { TraceSession } from "@mapgen/trace/index.js";
 import { createNoopTraceSession } from "@mapgen/trace/index.js";
 
@@ -44,7 +43,7 @@ function resolveStepConfig(schema: TSchema | undefined): unknown {
   return Value.Clean(schema, converted);
 }
 
-export class PipelineExecutor<TContext extends ExtendedMapContext, TConfig = unknown> {
+export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown> {
   private readonly registry: StepRegistry<TContext>;
   private readonly log: (message: string) => void;
   private readonly logPrefix: string;

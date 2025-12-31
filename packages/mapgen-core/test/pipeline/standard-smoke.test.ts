@@ -11,7 +11,7 @@ import {
   createTraceSessionFromPlan,
   PipelineExecutor,
   StepRegistry,
-} from "@mapgen/pipeline/index.js";
+} from "@mapgen/engine/index.js";
 import { runFoundationStage } from "@mapgen/base/pipeline/foundation/producer.js";
 import type { TraceEvent } from "@mapgen/trace/index.js";
 

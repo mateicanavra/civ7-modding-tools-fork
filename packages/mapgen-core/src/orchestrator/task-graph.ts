@@ -22,7 +22,7 @@ import {
   type ExecutionPlan,
   type RecipeV1,
   type RunRequest,
-} from "@mapgen/pipeline/index.js";
+} from "@mapgen/engine/index.js";
 import {
   DEV,
   devWarn,

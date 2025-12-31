@@ -10,7 +10,7 @@ import {
   StepRegistry,
   TagRegistry,
   UnknownDependencyTagError,
-} from "@mapgen/pipeline/index.js";
+} from "@mapgen/engine/index.js";
 
 describe("tag registry", () => {
   it("fails fast on unknown dependency tags at registration", () => {

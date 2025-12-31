@@ -11,7 +11,7 @@ import {
   ExecutionPlanCompileError,
   PipelineExecutor,
   StepRegistry,
-} from "@mapgen/pipeline/index.js";
+} from "@mapgen/engine/index.js";
 
 const baseSettings = {
   seed: 123,

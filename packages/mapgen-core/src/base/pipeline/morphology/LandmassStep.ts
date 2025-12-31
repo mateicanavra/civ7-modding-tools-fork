@@ -10,7 +10,7 @@ import { DEV, devWarn, logLandmassAscii } from "@mapgen/dev/index.js";
 import type { ContinentBounds, LandmassConfig } from "@mapgen/bootstrap/types.js";
 import { LandmassConfigSchema, OceanSeparationConfigSchema } from "@mapgen/config/index.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
-import type { MapGenStep } from "@mapgen/pipeline/index.js";
+import type { MapGenStep } from "@mapgen/engine/index.js";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,

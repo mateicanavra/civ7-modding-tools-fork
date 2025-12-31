@@ -22,9 +22,9 @@
       "types": "./dist/polyfills/text-encoder.d.ts",
       "import": "./dist/polyfills/text-encoder.js"
     },
-    "./pipeline": {
-      "types": "./dist/pipeline/index.d.ts",
-      "import": "./dist/pipeline/index.js"
+    "./engine": {
+      "types": "./dist/engine/index.d.ts",
+      "import": "./dist/engine/index.js"
     },
     "./trace": {
       "types": "./dist/trace/index.d.ts",

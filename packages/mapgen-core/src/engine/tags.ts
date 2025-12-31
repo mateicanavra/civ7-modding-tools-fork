@@ -1,11 +1,10 @@
-import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import type { GenerationPhase } from "@mapgen/pipeline/types.js";
+import type { EngineContext, GenerationPhase } from "@mapgen/engine/types.js";
 import {
   DuplicateDependencyTagError,
   InvalidDependencyTagDemoError,
   InvalidDependencyTagError,
   UnknownDependencyTagError,
-} from "@mapgen/pipeline/errors.js";
+} from "@mapgen/engine/errors.js";
 
 export type DependencyTagKind = "artifact" | "field" | "effect";
 
@@ -19,19 +18,19 @@ export interface TagOwner {
   stepId?: string;
 }
 
-export interface DependencyTagDefinition {
+export interface DependencyTagDefinition<TContext = EngineContext> {
   id: string;
   kind: DependencyTagKind;
   owner?: TagOwner;
-  satisfies?: (context: ExtendedMapContext, state: SatisfactionState) => boolean;
+  satisfies?: (context: TContext, state: SatisfactionState) => boolean;
   demo?: unknown;
   validateDemo?: (demo: unknown) => boolean;
 }
 
-export class TagRegistry {
-  private readonly tags = new Map<string, DependencyTagDefinition>();
+export class TagRegistry<TContext = EngineContext> {
+  private readonly tags = new Map<string, DependencyTagDefinition<TContext>>();
 
-  registerTag(definition: DependencyTagDefinition): void {
+  registerTag(definition: DependencyTagDefinition<TContext>): void {
     if (this.tags.has(definition.id)) {
       throw new DuplicateDependencyTagError(definition.id);
     }
@@ -46,15 +45,15 @@ export class TagRegistry {
     this.tags.set(definition.id, definition);
   }
 
-  registerTags(definitions: readonly DependencyTagDefinition[]): void {
+  registerTags(definitions: readonly DependencyTagDefinition<TContext>[]): void {
     for (const definition of definitions) {
       this.registerTag(definition);
     }
   }
 
-  get(tag: string): DependencyTagDefinition {
+  get(tag: string): DependencyTagDefinition<TContext> {
     this.validateTag(tag);
-    return this.tags.get(tag) as DependencyTagDefinition;
+    return this.tags.get(tag) as DependencyTagDefinition<TContext>;
   }
 
   has(tag: string): boolean {
@@ -77,19 +76,22 @@ export class TagRegistry {
   }
 }
 
-export function validateDependencyTag(tag: string, registry: TagRegistry): void {
+export function validateDependencyTag<TContext>(tag: string, registry: TagRegistry<TContext>): void {
   registry.validateTag(tag);
 }
 
-export function validateDependencyTags(tags: readonly string[], registry: TagRegistry): void {
+export function validateDependencyTags<TContext>(
+  tags: readonly string[],
+  registry: TagRegistry<TContext>
+): void {
   registry.validateTags(tags);
 }
 
-export function isDependencyTagSatisfied(
+export function isDependencyTagSatisfied<TContext>(
   tag: string,
-  context: ExtendedMapContext,
+  context: TContext,
   state: SatisfactionState,
-  registry: TagRegistry
+  registry: TagRegistry<TContext>
 ): boolean {
   const definition = registry.get(tag);
   if (!state.satisfied.has(tag)) return false;
@@ -97,7 +99,7 @@ export function isDependencyTagSatisfied(
   return true;
 }
 
-export function computeInitialSatisfiedTags(_context: ExtendedMapContext): Set<string> {
+export function computeInitialSatisfiedTags<TContext>(_context: TContext): Set<string> {
   // Tags become satisfied only when explicitly provided.
   return new Set<string>();
 }

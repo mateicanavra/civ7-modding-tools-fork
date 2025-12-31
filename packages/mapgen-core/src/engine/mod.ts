@@ -1,5 +1,5 @@
-import type { RecipeV1 } from "@mapgen/pipeline/execution-plan.js";
-import type { StepRegistry } from "@mapgen/pipeline/StepRegistry.js";
+import type { RecipeV1 } from "@mapgen/engine/execution-plan.js";
+import type { StepRegistry } from "@mapgen/engine/StepRegistry.js";
 
 export interface PipelineModV1<TContext, TConfig = unknown, TRuntime = unknown> {
   readonly id: string;

@@ -6,8 +6,8 @@ import { M3_DEPENDENCY_TAGS, M3_STAGE_DEPENDENCY_SPINE, M4_EFFECT_TAGS, register
 import {
   PipelineExecutor,
   StepRegistry,
-} from "@mapgen/pipeline/index.js";
-import { isDependencyTagSatisfied } from "@mapgen/pipeline/tags.js";
+} from "@mapgen/engine/index.js";
+import { isDependencyTagSatisfied } from "@mapgen/engine/tags.js";
 import {
   computeRiverAdjacencyMask,
   publishClimateFieldArtifact,

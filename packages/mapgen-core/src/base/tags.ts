@@ -21,7 +21,7 @@ import {
   validateFoundationPlatesArtifact,
   validateFoundationSeedArtifact,
 } from "@mapgen/core/types.js";
-import type { DependencyTagDefinition, TagOwner } from "@mapgen/pipeline/tags.js";
+import type { DependencyTagDefinition, TagOwner } from "@mapgen/engine/tags.js";
 
 export const M3_DEPENDENCY_TAGS = {
   artifact: {
@@ -99,7 +99,7 @@ type SatisfactionState = {
   satisfied: ReadonlySet<string>;
 };
 
-export const BASE_TAG_DEFINITIONS: readonly DependencyTagDefinition[] = [
+export const BASE_TAG_DEFINITIONS: readonly DependencyTagDefinition<ExtendedMapContext>[] = [
   {
     id: M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
     kind: "artifact",
@@ -276,7 +276,7 @@ export const BASE_TAG_DEFINITIONS: readonly DependencyTagDefinition[] = [
     validateDemo: (demo) => isInt16Array(demo),
   },
   ...Object.values(M4_EFFECT_TAGS.engine).map((id) => {
-    const definition: DependencyTagDefinition = {
+    const definition: DependencyTagDefinition<ExtendedMapContext> = {
       id,
       kind: "effect",
     };
@@ -296,7 +296,7 @@ export const BASE_TAG_DEFINITIONS: readonly DependencyTagDefinition[] = [
 ];
 
 export function registerBaseTags(registry: {
-  registerTags: (definitions: readonly DependencyTagDefinition[]) => void;
+  registerTags: (definitions: readonly DependencyTagDefinition<ExtendedMapContext>[]) => void;
 }): void {
   registry.registerTags(BASE_TAG_DEFINITIONS);
 }

@@ -2,7 +2,7 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { M3_STANDARD_STAGE_PHASE } from "@mapgen/base/phases.js";
-import type { MapGenStep } from "@mapgen/pipeline/index.js";
+import type { MapGenStep } from "@mapgen/engine/index.js";
 import { CorridorsConfigSchema } from "@mapgen/config/index.js";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
 

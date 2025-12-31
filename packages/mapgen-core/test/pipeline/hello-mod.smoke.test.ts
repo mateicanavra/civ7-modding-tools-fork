@@ -8,7 +8,7 @@ import {
   PipelineExecutor,
   type PipelineModV1,
   StepRegistry,
-} from "@mapgen/pipeline/index.js";
+} from "@mapgen/engine/index.js";
 
 describe("pipeline: hello mod compile/execute (no standard-domain imports)", () => {
   it("compiles and executes a minimal mod registration", () => {

@@ -1,7 +1,7 @@
 import type { MapInfo } from "@civ7/adapter";
 import type { MapGenConfig } from "@mapgen/config/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
-import type { RecipeV1, RunRequest } from "@mapgen/pipeline/index.js";
+import type { RecipeV1, RunRequest } from "@mapgen/engine/index.js";
 
 function resolveRunSeed(config: MapGenConfig): number {
   const seedConfig = config.foundation?.seed;

@@ -1,4 +1,4 @@
-import type { GenerationPhase } from "@mapgen/pipeline/types.js";
+import type { GenerationPhase } from "@mapgen/engine/types.js";
 
 export const M3_STANDARD_STAGE_PHASE: Readonly<Record<string, GenerationPhase>> = Object.freeze({
   foundation: "foundation",

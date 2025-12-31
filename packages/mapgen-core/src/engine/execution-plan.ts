@@ -4,8 +4,8 @@ import "../polyfills/text-encoder";
 import { Type, type Static, type TSchema } from "typebox";
 import { Value } from "typebox/value";
 
-import type { StepRegistry } from "@mapgen/pipeline/StepRegistry.js";
-import type { GenerationPhase, MapGenStep } from "@mapgen/pipeline/types.js";
+import type { StepRegistry } from "@mapgen/engine/StepRegistry.js";
+import type { GenerationPhase, MapGenStep } from "@mapgen/engine/types.js";
 
 const UnknownRecord = Type.Record(Type.String(), Type.Unknown(), { default: {} });
 
