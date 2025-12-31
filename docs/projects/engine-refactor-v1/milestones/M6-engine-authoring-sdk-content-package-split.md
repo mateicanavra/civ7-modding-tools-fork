@@ -2,7 +2,7 @@
 
 **Status:** proposed  
 **Baseline snapshot:** `2429a600` (post‑M5 landed)  
-**Canonical spec (for this milestone):** `docs/projects/engine-refactor-v1/resources/SPIKE-m5-standard-mod-feature-sliced-content-ownership.md`
+**Canonical spec (for this milestone):** `docs/projects/engine-refactor-v1/resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md`
 
 ---
 
@@ -97,7 +97,7 @@ This milestone is a packaging + ownership re‑architecture, not an algorithm re
   - maps select recipes and provide config instances
 
 **No hidden gaps:** The authoritative file‑by‑file mapping is in the SPIKE:
-`docs/projects/engine-refactor-v1/resources/SPIKE-m5-standard-mod-feature-sliced-content-ownership.md` (Section 9).
+`docs/projects/engine-refactor-v1/resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md` (Section 9).
 
 ---
 
