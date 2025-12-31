@@ -183,6 +183,7 @@ Rebuild the standard recipe as a mod-owned mini-package with stages/steps on dis
 Issue doc: [LOCAL-TBD-M6-U06](../issues/LOCAL-TBD-M6-U06-rewrite-maps-as-recipe-instances.md)
 
 Rewrite maps/presets to select a recipe and provide config instances at runtime.
+- [x] Done (branch: `m6-u06-rewrite-maps-as-recipe-instances`; PR: pending)
 
 ### LOCAL-TBD-M6-U07 — Delete legacy: base/bootstrap/config/orchestrator/task-graph
 Issue doc: [LOCAL-TBD-M6-U07](../issues/LOCAL-TBD-M6-U07-delete-legacy-base-bootstrap-config-orchestrator.md)

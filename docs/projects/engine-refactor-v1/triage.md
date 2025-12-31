@@ -30,6 +30,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** New stage IDs include `morphology-pre`, `morphology-mid`, `morphology-post`, and `narrative-mid` alongside the narrative/hydrology splits. Ensure config mappings and any stage-based tooling are updated.
   - **Next check:** during M6 U06 map/preset rewrite or before stabilizing recipe config shape.
 
+- **Map overrides mapped directly to recipe config without parseConfig defaults** [Source: LOCAL-TBD-M6-U06]
+  - **Context:** Map entrypoints now build recipe config directly from overrides and pass overrides into `ExtendedMapContext.config`.
+  - **Type:** triage
+  - **Notes:** This skips `parseConfig` defaults/validation; add explicit validation or defaults if step configs require them.
+  - **Next check:** before stabilizing map config docs or when recipe config defaults are audited.
+
 - **Engine tag definitions/registry are generic over context** [Source: LOCAL-TBD-M6-U01]
   - **Context:** M6 engine cutover removes `ExtendedMapContext` from `engine/**` and introduces a minimal `EngineContext`.
   - **Type:** triage
