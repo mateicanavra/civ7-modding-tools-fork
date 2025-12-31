@@ -26,6 +26,26 @@ Re-review: no additional issues found.
 ### Cross-cutting Risks
 - None noted.
 
+## REVIEW m6-u06-rewrite-maps-as-recipe-instances
+
+### Quick Take
+Map entrypoints now run the standard recipe with runtime helpers and no legacy task-graph calls, but the new runtime still depends on legacy config types from `@swooper/mapgen-core/config`, which U07 intends to delete.
+
+### High-Leverage Issues
+- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` and `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts`: import `MapGenConfig` from `@swooper/mapgen-core/config`, so the map runtime will break once U07 removes the core config package.
+
+### Fix Now (Recommended)
+- Move the config type surface into the mod package (or a new shared config module) and update the runtime imports before U07 deletes `packages/mapgen-core/src/config`.
+
+### Defer / Follow-up
+- None noted.
+
+### Needs Discussion
+- None noted.
+
+### Cross-cutting Risks
+- None noted.
+
 ## REVIEW m6-u05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk
 
 ### Quick Take
