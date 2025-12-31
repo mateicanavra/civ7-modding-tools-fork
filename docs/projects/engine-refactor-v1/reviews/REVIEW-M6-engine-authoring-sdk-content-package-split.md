@@ -46,3 +46,24 @@ Re-review: no additional issues beyond the `instanceId` placement concern.
 
 ### Cross-cutting Risks
 - Step reuse across recipes could silently carry `instanceId` semantics and undermine the intended authoring/recipe separation.
+
+## REVIEW m6-u02-2-implement-createrecipe-registry-plumbing-and-api-surface
+
+### Quick Take
+`createRecipe` now builds registries internally, derives deterministic step IDs, and exposes compile/run helpers, but it silently infers tag definitions from step usage, which shifts the contract away from explicit tag ownership.
+Re-review: no additional issues beyond the tag inference vs explicit catalog mismatch.
+
+### High-Leverage Issues
+- `packages/mapgen-core/src/authoring/recipe.ts`: tag definitions are inferred from `requires`/`provides`, so missing tags will never surface as errors even if the intent was to require explicit tag catalogs; this deviates from the acceptance criteria that mention missing tags causing compile errors.
+
+### Fix Now (Recommended)
+- Decide whether tag definitions must be explicit; if yes, add a guard that every required/provided tag is present in `tagDefinitions` (and drop inference), or update the issue doc/parent scope to reflect the inference contract.
+
+### Defer / Follow-up
+- If inference is intended, document it in the authoring SDK docs and update the parent U02 scope to reflect that tag catalogs are optional/augmentative.
+
+### Needs Discussion
+- Do we want authoring to require explicit tag ownership catalogs for observability/validation, or is inference acceptable for the standard content package?
+
+### Cross-cutting Risks
+- Tag ownership/observability may be weaker than the target architecture if explicit tag catalogs become optional in practice.
