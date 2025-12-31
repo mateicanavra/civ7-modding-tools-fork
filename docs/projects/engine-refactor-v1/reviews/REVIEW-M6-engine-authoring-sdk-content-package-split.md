@@ -26,6 +26,26 @@ Re-review: no additional issues found.
 ### Cross-cutting Risks
 - None noted.
 
+## REVIEW m6-u07-delete-legacy-base-bootstrap-config-orchestrator
+
+### Quick Take
+Legacy base/bootstrap/config/orchestrator surfaces are removed from mapgen-core, config ownership is moved into the mod, and the standard recipe test no longer depends on the deleted base module.
+
+### High-Leverage Issues
+- None noted.
+
+### Fix Now (Recommended)
+- None noted.
+
+### Defer / Follow-up
+- None noted.
+
+### Needs Discussion
+- None noted.
+
+### Cross-cutting Risks
+- None noted.
+
 ## REVIEW m6-u08-realign-tests-and-ci-gates-to-ownership
 
 ### Quick Take
