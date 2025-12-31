@@ -70,6 +70,7 @@ Engine-only tests now live in mapgen-core, content tests moved into the mod pack
 
 ### Quick Take
 Map entrypoints now run the standard recipe with runtime helpers and no legacy task-graph calls, but the new runtime still depends on legacy config types from `@swooper/mapgen-core/config`, which U07 intends to delete.
+Status check (stack tip): runtime now imports config types from `@mapgen/config` in the mod package, so the legacy-core-config dependency is resolved.
 
 ### High-Leverage Issues
 - `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` and `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts`: import `MapGenConfig` from `@swooper/mapgen-core/config`, so the map runtime will break once U07 removes the core config package.
@@ -90,6 +91,7 @@ Map entrypoints now run the standard recipe with runtime helpers and no legacy t
 
 ### Quick Take
 Standard recipe composition now uses `createRecipe` with an explicit tag catalog and split stages, and a mod-level test was added, but the test depends on `@swooper/mapgen-core/base` fixtures that are slated for deletion in U07.
+Status check (stack tip): the test now uses mod-owned tag definitions, so the base dependency issue is resolved.
 
 ### High-Leverage Issues
 - `mods/mod-swooper-maps/test/standard-recipe.test.ts`: relies on `@swooper/mapgen-core/base` for `BASE_TAG_DEFINITIONS` and `BASE_RECIPE_STEP_IDS`, so the test will break once U07 removes the base surface.
@@ -110,6 +112,7 @@ Standard recipe composition now uses `createRecipe` with an explicit tag catalog
 
 ### Quick Take
 Base step implementations now live in recipe-local stage/step files with explicit named exports, but the acceptance test command still fails because the mod package lacks a `test` script.
+Status check (stack tip): `mods/mod-swooper-maps` now defines a `test` script, so the acceptance command is unblocked.
 
 ### High-Leverage Issues
 - `mods/mod-swooper-maps/package.json`: no `test` script, so `pnpm -C mods/mod-swooper-maps test` fails.
@@ -130,6 +133,7 @@ Base step implementations now live in recipe-local stage/step files with explici
 
 ### Quick Take
 Domain modules are now mirrored under the mod-owned `src/domain/**` with tag/artifact shims and new lib exports, but the mod package still lacks a `test` script even though the acceptance criteria call for `pnpm -C mods/mod-swooper-maps test`.
+Status check (stack tip): `mods/mod-swooper-maps` now defines a `test` script, so the acceptance command is unblocked.
 
 ### High-Leverage Issues
 - `mods/mod-swooper-maps/package.json`: no `test` script, so the documented verification command fails.
@@ -150,6 +154,7 @@ Domain modules are now mirrored under the mod-owned `src/domain/**` with tag/art
 
 ### Quick Take
 Domain imports now resolve to the mod via a tsconfig alias redirect, which keeps step files untouched but couples mapgen-core builds to mod source; the mod package still lacks a `test` script even though the acceptance criteria call for `pnpm -C mods/mod-swooper-maps test`.
+Status check (stack tip): `mods/mod-swooper-maps` now defines a `test` script, and the alias redirect now lives under `@mapgen-content` (no remaining `@mapgen/domain` remap).
 
 ### High-Leverage Issues
 - `packages/mapgen-core/tsconfig.paths.json`: `@mapgen/domain/*` now points at `mods/mod-swooper-maps`, so mapgen-core builds pull mod code and will fail outside the monorepo layout.
@@ -172,6 +177,7 @@ Domain imports now resolve to the mod via a tsconfig alias redirect, which keeps
 
 ### Quick Take
 Core domain files are removed and imports rerouted to `@mapgen-content`, but the base pipeline sources still contain unresolved merge markers and `tsup` still lists deleted domain entrypoints, so builds will fail as-is.
+Status check (stack tip): conflict markers are gone, `tsup.config.ts` no longer lists deleted domain entrypoints, and the mod `test` script exists.
 
 ### High-Leverage Issues
 - `packages/mapgen-core/src/base/pipeline/**`: multiple files contain conflict markers (e.g., `<<<<<<<< HEAD` in `packages/mapgen-core/src/base/pipeline/morphology/LandmassStep.ts`, plus similar markers in hydrology/narrative/placement indexes and steps), which makes the code invalid.
@@ -203,6 +209,7 @@ Re-review: no additional issues beyond the `instanceId` placement concern.
 
 ### Fix Now (Recommended)
 - Move `instanceId` off `StepModule` into a recipe-stage step wrapper (or a new `RecipeStep` type) and keep the uniqueness check on recipe steps.
+- Status check (docs tip, `m6-tbd-01-review-spec-audit`): integration notes call out `RecipeV2` removing `instanceId` (`docs/projects/engine-refactor-v1/resources/INTEGRATE-2025-12-30-m6-tbd-doc-stack.md`), so the code still diverges from the intended target unless the schema stays at V1.
 
 ### Defer / Follow-up
 - If `StepModule` intentionally represents recipe occurrences, document that in the authoring SDK and in parent U02 docs to avoid misuse.
@@ -224,6 +231,7 @@ Re-review: no additional issues beyond the tag inference vs explicit catalog mis
 
 ### Fix Now (Recommended)
 - Decide whether tag definitions must be explicit; if yes, add a guard that every required/provided tag is present in `tagDefinitions` (and drop inference), or update the issue doc/parent scope to reflect the inference contract.
+- Status check (docs tip, `m6-tbd-01-review-spec-audit`): target registry PRD requires explicit tag catalogs and unknown tag IDs to fail compile (`docs/projects/engine-refactor-v1/resources/PRD-target-registry-and-tag-catalog.md`), so inference still violates the target spec.
 
 ### Defer / Follow-up
 - If inference is intended, document it in the authoring SDK docs and update the parent U02 scope to reflect that tag catalogs are optional/augmentative.
@@ -238,6 +246,7 @@ Re-review: no additional issues beyond the tag inference vs explicit catalog mis
 
 ### Quick Take
 Standard recipe skeleton and stage layout are in place and use the authoring SDK, but the mod package still lacks a `test` script even though the acceptance criteria call for `pnpm -C mods/mod-swooper-maps test`.
+Status check (stack tip): `mods/mod-swooper-maps` now defines a `test` script, so the acceptance command is unblocked.
 
 ### High-Leverage Issues
 - `mods/mod-swooper-maps/package.json`: no `test` script, so the documented verification command fails.
