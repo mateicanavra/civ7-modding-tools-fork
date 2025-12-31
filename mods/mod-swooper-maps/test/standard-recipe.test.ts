@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
 
-import { BASE_RECIPE_STEP_IDS, BASE_TAG_DEFINITIONS } from "@swooper/mapgen-core/base";
 import standardRecipe from "../src/recipes/standard/recipe.js";
 import { STANDARD_TAG_DEFINITIONS } from "../src/recipes/standard/tags.js";
 
@@ -12,16 +11,38 @@ const baseSettings = {
 };
 
 describe("standard recipe composition", () => {
-  it("matches the legacy tag catalog", () => {
-    const baseIds = BASE_TAG_DEFINITIONS.map((tag) => tag.id).sort();
-    const standardIds = STANDARD_TAG_DEFINITIONS.map((tag) => tag.id).sort();
-
-    expect(standardIds).toEqual(baseIds);
+  it("keeps tag definitions unique", () => {
+    const ids = STANDARD_TAG_DEFINITIONS.map((tag) => tag.id);
+    expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("preserves the legacy step order", () => {
-    const stepIds = standardRecipe.recipe.steps.map((step) => step.id.split(".").at(-1));
-    expect(stepIds).toEqual([...BASE_RECIPE_STEP_IDS]);
+  it("uses the expected stage ordering", () => {
+    const expectedStages = [
+      "foundation",
+      "morphology-pre",
+      "narrative-pre",
+      "morphology-mid",
+      "narrative-mid",
+      "morphology-post",
+      "hydrology-pre",
+      "narrative-swatches",
+      "hydrology-core",
+      "narrative-post",
+      "hydrology-post",
+      "ecology",
+      "placement",
+    ];
+    const observedStages: string[] = [];
+
+    for (const step of standardRecipe.recipe.steps) {
+      const parts = step.id.split(".");
+      const stageId = parts[2] ?? "";
+      if (observedStages.at(-1) !== stageId) {
+        observedStages.push(stageId);
+      }
+    }
+
+    expect(observedStages).toEqual(expectedStages);
   });
 
   it("compiles without missing tag errors", () => {

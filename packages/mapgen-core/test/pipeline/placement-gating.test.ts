@@ -2,12 +2,57 @@ import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { M3_DEPENDENCY_TAGS, M3_STAGE_DEPENDENCY_SPINE, M4_EFFECT_TAGS, registerBaseTags } from "@mapgen/base/index.js";
 import {
   MissingDependencyError,
   PipelineExecutor,
   StepRegistry,
 } from "@mapgen/engine/index.js";
+
+const TEST_TAGS = {
+  artifact: {
+    placementInputs: "artifact:test.placementInputs",
+    placementOutputs: "artifact:test.placementOutputs",
+  },
+  effect: {
+    coastlinesApplied: "effect:test.coastlinesApplied",
+    riversModeled: "effect:test.riversModeled",
+    placementApplied: "effect:test.placementApplied",
+  },
+} as const;
+
+const TEST_TAG_DEFINITIONS = [
+  {
+    id: TEST_TAGS.artifact.placementInputs,
+    kind: "artifact",
+    satisfies: (context: ExtendedMapContext, _state) =>
+      (context.artifacts.get(TEST_TAGS.artifact.placementInputs) as { valid?: boolean } | undefined)
+        ?.valid === true,
+  },
+  {
+    id: TEST_TAGS.artifact.placementOutputs,
+    kind: "artifact",
+    satisfies: (context: ExtendedMapContext, _state) =>
+      (context.artifacts.get(TEST_TAGS.artifact.placementOutputs) as { valid?: boolean } | undefined)
+        ?.valid === true,
+  },
+  {
+    id: TEST_TAGS.effect.coastlinesApplied,
+    kind: "effect",
+    satisfies: (_context: ExtendedMapContext, _state) => true,
+  },
+  {
+    id: TEST_TAGS.effect.riversModeled,
+    kind: "effect",
+    satisfies: (_context: ExtendedMapContext, _state) => true,
+  },
+  {
+    id: TEST_TAGS.effect.placementApplied,
+    kind: "effect",
+    satisfies: (context: ExtendedMapContext, _state) =>
+      (context.artifacts.get(TEST_TAGS.artifact.placementOutputs) as { valid?: boolean } | undefined)
+        ?.valid === true,
+  },
+] as const;
 
 describe("placement step contracts", () => {
   it("fails fast when placement runs without placementInputs", () => {
@@ -21,12 +66,12 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
-    registerBaseTags(registry);
+    registry.registerTags(TEST_TAG_DEFINITIONS);
     registry.register({
       id: "coastlines",
       phase: "morphology",
       requires: [],
-      provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
+      provides: [TEST_TAGS.effect.coastlinesApplied],
       run: (ctx) => {
         const ocean = ctx.adapter.getTerrainTypeIndex("TERRAIN_OCEAN");
         for (let x = 0; x < width; x++) {
@@ -39,7 +84,7 @@ describe("placement step contracts", () => {
       id: "rivers",
       phase: "hydrology",
       requires: [],
-      provides: [M4_EFFECT_TAGS.engine.riversModeled],
+      provides: [TEST_TAGS.effect.riversModeled],
       run: (ctx) => {
         const riverTerrain = ctx.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER");
         ctx.adapter.modelRivers(5, 15, riverTerrain);
@@ -48,8 +93,8 @@ describe("placement step contracts", () => {
     registry.register({
       id: "placement",
       phase: "placement",
-      requires: M3_STAGE_DEPENDENCY_SPINE.placement.requires,
-      provides: M3_STAGE_DEPENDENCY_SPINE.placement.provides,
+      requires: [TEST_TAGS.artifact.placementInputs],
+      provides: [TEST_TAGS.effect.placementApplied],
       run: (_context, _config) => {},
     });
 
@@ -62,7 +107,7 @@ describe("placement step contracts", () => {
       expect(err).toBeInstanceOf(MissingDependencyError);
       expect((err as MissingDependencyError).stepId).toBe("placement");
       expect((err as MissingDependencyError).missing).toEqual([
-        M3_DEPENDENCY_TAGS.artifact.placementInputsV1,
+        TEST_TAGS.artifact.placementInputs,
       ]);
     }
   });
@@ -78,18 +123,14 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
-    registerBaseTags(registry);
+    registry.registerTags(TEST_TAG_DEFINITIONS);
     registry.register({
       id: "derivePlacementInputs",
       phase: "placement",
       requires: [],
-      provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
+      provides: [TEST_TAGS.artifact.placementInputs],
       run: (_context, _config) => {
-        _context.artifacts.set(M3_DEPENDENCY_TAGS.artifact.placementInputsV1, {
-          mapInfo: {},
-          starts: {},
-          placementConfig: {},
-        });
+        _context.artifacts.set(TEST_TAGS.artifact.placementInputs, { valid: false });
       },
     });
 
@@ -99,7 +140,7 @@ describe("placement step contracts", () => {
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
     expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
-    expect(stepResults[0]?.error).toContain(M3_DEPENDENCY_TAGS.artifact.placementInputsV1);
+    expect(stepResults[0]?.error).toContain(TEST_TAGS.artifact.placementInputs);
   });
 
   it("fails fast when placement outputs are missing", () => {
@@ -113,12 +154,12 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
-    registerBaseTags(registry);
+    registry.registerTags(TEST_TAG_DEFINITIONS);
     registry.register({
       id: "placement",
       phase: "placement",
       requires: [],
-      provides: [M4_EFFECT_TAGS.engine.placementApplied],
+      provides: [TEST_TAGS.effect.placementApplied],
       run: (_context, _config) => {},
     });
 
@@ -128,7 +169,7 @@ describe("placement step contracts", () => {
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
     expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
-    expect(stepResults[0]?.error).toContain(M4_EFFECT_TAGS.engine.placementApplied);
+    expect(stepResults[0]?.error).toContain(TEST_TAGS.effect.placementApplied);
   });
 
   it("fails fast when placement outputs are invalid", () => {
@@ -142,16 +183,14 @@ describe("placement step contracts", () => {
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
-    registerBaseTags(registry);
+    registry.registerTags(TEST_TAG_DEFINITIONS);
     registry.register({
       id: "placement",
       phase: "placement",
       requires: [],
-      provides: [M4_EFFECT_TAGS.engine.placementApplied],
+      provides: [TEST_TAGS.effect.placementApplied],
       run: (_context, _config) => {
-        _context.artifacts.set(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1, {
-          startsAssigned: 0,
-        });
+        _context.artifacts.set(TEST_TAGS.artifact.placementOutputs, { valid: false });
       },
     });
 
@@ -161,6 +200,6 @@ describe("placement step contracts", () => {
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
     expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
-    expect(stepResults[0]?.error).toContain(M4_EFFECT_TAGS.engine.placementApplied);
+    expect(stepResults[0]?.error).toContain(TEST_TAGS.effect.placementApplied);
   });
 });

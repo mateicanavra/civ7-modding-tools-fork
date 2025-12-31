@@ -1,51 +1,28 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import type { MapGenConfig } from "@mapgen/config/index.js";
-import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { M3_DEPENDENCY_TAGS, M3_STAGE_DEPENDENCY_SPINE, M4_EFFECT_TAGS, registerBaseTags } from "@mapgen/base/index.js";
+import { createExtendedMapContext } from "@swooper/mapgen-core";
 import {
   PipelineExecutor,
   StepRegistry,
-} from "@mapgen/engine/index.js";
-import { isDependencyTagSatisfied } from "@mapgen/engine/tags.js";
+  isDependencyTagSatisfied,
+} from "@swooper/mapgen-core/engine";
 import {
   computeRiverAdjacencyMask,
   publishClimateFieldArtifact,
   publishRiverAdjacencyArtifact,
-} from "@mapgen/base/pipeline/artifacts.js";
+} from "../../src/recipes/standard/artifacts.js";
+import { M3_DEPENDENCY_TAGS, STANDARD_TAG_DEFINITIONS } from "../../src/recipes/standard/tags.js";
 
 describe("pipeline artifacts", () => {
-  it("requires artifact:heightfield for climate baseline and swatches", () => {
-    expect(M3_STAGE_DEPENDENCY_SPINE.climateBaseline.requires).toContain(
-      M3_DEPENDENCY_TAGS.artifact.heightfield
-    );
-    expect(M3_STAGE_DEPENDENCY_SPINE.storySwatches.requires).toContain(
-      M3_DEPENDENCY_TAGS.artifact.heightfield
-    );
-  });
-
-  it("includes climate/river prerequisites for storyCorridorsPost in the standard dependency spine", () => {
-    expect(M3_STAGE_DEPENDENCY_SPINE.storyCorridorsPost.requires).toEqual(
-      expect.arrayContaining([
-        M4_EFFECT_TAGS.engine.coastlinesApplied,
-        M3_DEPENDENCY_TAGS.artifact.climateField,
-        M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
-      ])
-    );
-    expect(M3_STAGE_DEPENDENCY_SPINE.storyCorridorsPost.requires).not.toContain(
-      M3_DEPENDENCY_TAGS.artifact.storyOverlays
-    );
-  });
-
   it("treats artifact:climateField as unsatisfied until published", () => {
     const adapter = createMockAdapter({ width: 4, height: 3, rng: () => 0 });
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as unknown as MapGenConfig
+      {} as ReturnType<typeof createExtendedMapContext>["config"]
     );
     const registry = new StepRegistry<typeof ctx>();
-    registerBaseTags(registry);
+    registry.registerTags(STANDARD_TAG_DEFINITIONS);
     const tagRegistry = registry.getTagRegistry();
 
     expect(
@@ -68,10 +45,10 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as unknown as MapGenConfig
+      {} as ReturnType<typeof createExtendedMapContext>["config"]
     );
     const registry = new StepRegistry<typeof ctx>();
-    registerBaseTags(registry);
+    registry.registerTags(STANDARD_TAG_DEFINITIONS);
     const tagRegistry = registry.getTagRegistry();
 
     expect(
@@ -92,11 +69,11 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as unknown as MapGenConfig
+      {} as ReturnType<typeof createExtendedMapContext>["config"]
     );
 
     const registry = new StepRegistry<typeof ctx>();
-    registerBaseTags(registry);
+    registry.registerTags(STANDARD_TAG_DEFINITIONS);
     registry.register({
       id: "climateBaseline",
       phase: "hydrology",
@@ -120,11 +97,11 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as unknown as MapGenConfig
+      {} as ReturnType<typeof createExtendedMapContext>["config"]
     );
 
     const registry = new StepRegistry<typeof ctx>();
-    registerBaseTags(registry);
+    registry.registerTags(STANDARD_TAG_DEFINITIONS);
     registry.register({
       id: "rivers",
       phase: "hydrology",
