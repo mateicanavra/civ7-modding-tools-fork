@@ -21,6 +21,7 @@ function resolveMapInfo(
   const hasInitBottomLat = initParams?.bottomLatitude != null;
   const hasCompleteInitParams =
     hasInitWidth && hasInitHeight && hasInitTopLat && hasInitBottomLat;
+  const hasInitMapSize = initParams?.mapSize != null;
 
   if (options.mapSizeDefaults) {
     const mapSizeId = options.mapSizeDefaults.mapSizeId ?? 0;
@@ -33,6 +34,33 @@ function resolveMapInfo(
       );
     }
     return { mapSizeId, mapInfo };
+  }
+
+  if (hasInitMapSize) {
+    const mapSizeId = initParams.mapSize as MapSizeId;
+    const mapInfo = adapter.lookupMapInfo(mapSizeId);
+    if (mapInfo) {
+      console.log(`${prefix} Using initParams.mapSize for map initialization`);
+      return { mapSizeId, mapInfo };
+    }
+    if (hasCompleteInitParams) {
+      console.log(
+        `${prefix} MapInfo lookup failed for mapSizeId=${String(mapSizeId)}; using initParams dimensions.`
+      );
+      return {
+        mapSizeId,
+        mapInfo: {
+          GridWidth: initParams.width,
+          GridHeight: initParams.height,
+          MinLatitude: initParams.bottomLatitude,
+          MaxLatitude: initParams.topLatitude,
+        },
+      };
+    }
+    throw new Error(
+      `${prefix} Failed to resolve mapInfo for mapSizeId=${String(mapSizeId)}. ` +
+        `Provide initParams width/height/latitude to proceed without mapInfo.`
+    );
   }
 
   if (hasCompleteInitParams) {
@@ -92,7 +120,9 @@ function resolveMapInitDataWithAdapter(
       `Lat=[${resolvedBottomLatitude}, ${resolvedTopLatitude}]`
   );
 
+  const baseParams = initParams ? { ...initParams } : {};
   const params: MapInitParams = {
+    ...baseParams,
     width: resolvedWidth,
     height: resolvedHeight,
     topLatitude: resolvedTopLatitude,
