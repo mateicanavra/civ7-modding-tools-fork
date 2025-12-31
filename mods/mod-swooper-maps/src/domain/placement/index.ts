@@ -52,7 +52,6 @@ import { applyStartPositions } from "@mapgen/domain/placement/starts.js";
 import { applyDiscoveries } from "@mapgen/domain/placement/discoveries.js";
 import { applyFertilityRecalc } from "@mapgen/domain/placement/fertility.js";
 import { applyAdvancedStartRegions } from "@mapgen/domain/placement/advanced-start.js";
-import { COAST_TERRAIN, OCEAN_TERRAIN } from "@swooper/mapgen-core";
 
 export type {
   ContinentBounds,
@@ -63,86 +62,6 @@ export type {
   StartsConfig,
 } from "@mapgen/domain/placement/types.js";
 
-let loggedPlotTags = false;
-
-function logPlotTagKeysOnce(): void {
-  if (loggedPlotTags) return;
-  loggedPlotTags = true;
-  const tags = (globalThis as unknown as { PlotTags?: Record<string, number> }).PlotTags;
-  if (!tags || typeof tags !== "object") {
-    console.log("[Placement] PlotTags global not available.");
-    return;
-  }
-  const keys = Object.keys(tags).filter((key) => key.startsWith("PLOT_TAG_"));
-  console.log(`[Placement] PlotTags available: ${keys.join(", ")}`);
-}
-
-function applyPlotTags(
-  adapter: EngineAdapter,
-  width: number,
-  height: number,
-  eastBoundary: number
-): void {
-  const safeTag = (name: Parameters<EngineAdapter["getPlotTagId"]>[0]): number | null => {
-    try {
-      return adapter.getPlotTagId(name);
-    } catch (err) {
-      console.log(`[Placement] Plot tag unavailable (${name}):`, err);
-      logPlotTagKeysOnce();
-      return null;
-    }
-  };
-
-  const tagNone = safeTag("NONE");
-  const tagLandmass = safeTag("LANDMASS");
-  const tagWater = safeTag("WATER");
-  const tagEastLandmass = safeTag("EAST_LANDMASS");
-  const tagWestLandmass = safeTag("WEST_LANDMASS");
-  const tagEastWater = safeTag("EAST_WATER");
-  const tagWestWater = safeTag("WEST_WATER");
-
-  if (
-    [
-      tagNone,
-      tagLandmass,
-      tagWater,
-      tagEastLandmass,
-      tagWestLandmass,
-      tagEastWater,
-      tagWestWater,
-    ].every((tag) => tag === null)
-  ) {
-    console.log("[Placement] Plot tags unavailable; skipping plot tag pass.");
-    return;
-  }
-
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      if (tagNone !== null) {
-        adapter.setPlotTag(x, y, tagNone);
-      }
-      const terrain = adapter.getTerrainType(x, y);
-      const isLand = terrain !== COAST_TERRAIN && terrain !== OCEAN_TERRAIN;
-      if (isLand) {
-        if (tagLandmass !== null) {
-          adapter.addPlotTag(x, y, tagLandmass);
-        }
-        const landTag = x >= eastBoundary ? tagEastLandmass : tagWestLandmass;
-        if (landTag !== null) {
-          adapter.addPlotTag(x, y, landTag);
-        }
-      } else {
-        if (tagWater !== null) {
-          adapter.addPlotTag(x, y, tagWater);
-        }
-        const waterTag = x >= eastBoundary - 1 ? tagEastWater : tagWestWater;
-        if (waterTag !== null) {
-          adapter.addPlotTag(x, y, waterTag);
-        }
-      }
-    }
-  }
-}
 
 // ============================================================================
 // ============================================================================
@@ -238,15 +157,7 @@ export function runPlacement(
     console.log("[Placement] generateSnow failed:", err);
   }
 
-  // 7) Plot tags (needed for resource/starts that rely on hemispheres)
-  try {
-    const eastBoundary = starts?.eastContinent?.west ?? Math.floor(iWidth / 2);
-    applyPlotTags(adapter, iWidth, iHeight, eastBoundary);
-  } catch (err) {
-    console.log("[Placement] applyPlotTags failed:", err);
-  }
-
-  // 8) Resources (after snow, before start positions)
+  // 7) Resources (after snow, before start positions)
   try {
     generateResources(adapter, iWidth, iHeight);
   } catch (err) {
@@ -257,7 +168,7 @@ export function runPlacement(
   // The vanilla StartPositioner.divideMapIntoMajorRegions() now uses region IDs.
   // Do NOT mark them again here - that causes inconsistency with the early marking.
 
-  // 9) Start positions (vanilla-compatible)
+  // 8) Start positions (vanilla-compatible)
   try {
     if (!starts) {
       console.log("[Placement] Start placement skipped (no starts config provided).");
@@ -278,7 +189,7 @@ export function runPlacement(
     console.log("[Placement] assignStartPositions failed:", err);
   }
 
-  // 10) Discoveries (post-starts to seed exploration)
+  // 9) Discoveries (post-starts to seed exploration)
   try {
     applyDiscoveries(adapter, iWidth, iHeight, startPositions);
     console.log("[Placement] Discoveries generated successfully");
@@ -286,7 +197,7 @@ export function runPlacement(
     console.log("[Placement] generateDiscoveries failed:", err);
   }
 
-  // 11) Fertility recalculation (AFTER starts, matching vanilla order)
+  // 10) Fertility recalculation (AFTER starts, matching vanilla order)
   // Must be after features are added per vanilla comment
   try {
     applyFertilityRecalc(adapter);
@@ -295,7 +206,7 @@ export function runPlacement(
     console.log("[Placement] FertilityBuilder.recalculate failed:", err);
   }
 
-  // 12) Advanced Start regions
+  // 11) Advanced Start regions
   try {
     applyAdvancedStartRegions(adapter);
   } catch (err) {
