@@ -63,3 +63,10 @@ Audit Civ7 base biome/feature rules (scripts + XML), restore missing biome place
 - **Choice:** Add explicit `marine` binding and set BIOME_MARINE on water tiles during the biomes step.
 - **Rationale:** Keeps land classification untouched while ensuring engine-required marine biomes exist.
 - **Risk:** If water/land masks drift from engine terrain types, assignments could mismatch.
+
+### Disable climate swatches in presets by omitting config
+- **Context:** Climate swatches add macro overlays that can fight early ecology tuning (baseline + biomes + features) while iterating on stable defaults.
+- **Options:** Keep swatches enabled with tuned weights; disable by adding a config flag; disable by omitting `climate.swatches`.
+- **Choice:** Omit `climate.swatches` in current map presets so the swatches stage no-ops.
+- **Rationale:** Keeps the pipeline intact while removing a major source of variability during ecology retuning.
+- **Risk:** Less dramatic macro-climate regions until swatches are reintroduced deliberately.

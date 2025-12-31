@@ -17,7 +17,6 @@ import { runStandardRecipe } from "./_runtime/run-standard.js";
 import type { MapInitResolution } from "./_runtime/map-init.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import type { StandardRecipeOverrides } from "./_runtime/standard-config.js";
-import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
 
 /**
  * Build the map overrides.
@@ -213,11 +212,46 @@ function buildConfig(): StandardRecipeOverrides {
         },
       },
       biomes: {
-        ...classifyBiomes.defaultConfig,
-        moisture: {
-          ...classifyBiomes.defaultConfig.moisture,
-          thresholds: [60, 80, 120, 170],
+        temperature: {
+          equator: 28,
+          pole: -8,
+          lapseRate: 6.5,
+          seaLevel: 0,
+          bias: 0,
+          polarCutoff: -5,
+          tundraCutoff: 2,
+          midLatitude: 12,
+          tropicalThreshold: 24,
         },
+        moisture: {
+          thresholds: [60, 80, 120, 170],
+          bias: 0,
+          humidityWeight: 0.35,
+        },
+        vegetation: {
+          base: 0.2,
+          moistureWeight: 0.55,
+          humidityWeight: 0.25,
+        },
+        noise: {
+          amplitude: 0.03,
+          seed: 1337,
+        },
+        overlays: {
+          corridorMoistureBonus: 8,
+          riftShoulderMoistureBonus: 5,
+        },
+      },
+      biomeBindings: {
+        snow: "BIOME_TUNDRA",
+        tundra: "BIOME_TUNDRA",
+        boreal: "BIOME_TUNDRA",
+        temperateDry: "BIOME_PLAINS",
+        temperateHumid: "BIOME_GRASSLAND",
+        tropicalSeasonal: "BIOME_GRASSLAND",
+        tropicalRainforest: "BIOME_TROPICAL",
+        desert: "BIOME_DESERT",
+        marine: "BIOME_MARINE",
       },
       featuresDensity: {
         rainforestExtraChance: 10,

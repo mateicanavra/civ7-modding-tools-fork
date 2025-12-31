@@ -19,7 +19,6 @@ import { runStandardRecipe } from "./_runtime/run-standard.js";
 import type { MapInitResolution } from "./_runtime/map-init.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import type { StandardRecipeOverrides } from "./_runtime/standard-config.js";
-import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
 
 /**
  * Build the Sundered Archipelago configuration.
@@ -234,53 +233,6 @@ function buildConfig(): StandardRecipeOverrides {
             volcanicDelta: 14,
           },
         },
-        swatches: {
-          maxPerMap: 8,
-          forceAtLeastOne: true,
-          sizeScaling: {
-            widthMulSqrt: 0.28,
-            lengthMulSqrt: 0.35,
-          },
-          types: {
-            // No desert belt in maritime world
-            macroDesertBelt: {
-              weight: 1,
-              latitudeCenterDeg: 25,
-              halfWidthDeg: 6,
-              drynessDelta: 12,
-              bleedRadius: 2,
-            },
-            equatorialRainbelt: {
-              weight: 8,
-              latitudeCenterDeg: 0,
-              halfWidthDeg: 15,
-              wetnessDelta: 35,
-              bleedRadius: 4,
-            },
-            rainforestArchipelago: {
-              weight: 10,
-              islandBias: 3.0,
-              reefBias: 2.0,
-              wetnessDelta: 30,
-              bleedRadius: 4,
-            },
-            mountainForests: {
-              weight: 5,
-              coupleToOrogeny: true,
-              windwardBonus: 12,
-              leePenalty: 4,
-              bleedRadius: 3,
-            },
-            greatPlains: {
-              weight: 2,
-              latitudeCenterDeg: 40,
-              halfWidthDeg: 6,
-              dryDelta: 8,
-              lowlandMaxElevation: 250,
-              bleedRadius: 3,
-            },
-          },
-        },
       },
       story: {
         hotspot: {
@@ -297,11 +249,46 @@ function buildConfig(): StandardRecipeOverrides {
         },
       },
       biomes: {
-        ...classifyBiomes.defaultConfig,
-        moisture: {
-          ...classifyBiomes.defaultConfig.moisture,
-          thresholds: [70, 90, 130, 190],
+        temperature: {
+          equator: 28,
+          pole: -8,
+          lapseRate: 6.5,
+          seaLevel: 0,
+          bias: 0,
+          polarCutoff: -5,
+          tundraCutoff: 2,
+          midLatitude: 12,
+          tropicalThreshold: 24,
         },
+        moisture: {
+          thresholds: [70, 90, 130, 190],
+          bias: 0,
+          humidityWeight: 0.35,
+        },
+        vegetation: {
+          base: 0.2,
+          moistureWeight: 0.55,
+          humidityWeight: 0.25,
+        },
+        noise: {
+          amplitude: 0.03,
+          seed: 1337,
+        },
+        overlays: {
+          corridorMoistureBonus: 8,
+          riftShoulderMoistureBonus: 5,
+        },
+      },
+      biomeBindings: {
+        snow: "BIOME_TUNDRA",
+        tundra: "BIOME_TUNDRA",
+        boreal: "BIOME_TUNDRA",
+        temperateDry: "BIOME_PLAINS",
+        temperateHumid: "BIOME_GRASSLAND",
+        tropicalSeasonal: "BIOME_GRASSLAND",
+        tropicalRainforest: "BIOME_TROPICAL",
+        desert: "BIOME_DESERT",
+        marine: "BIOME_MARINE",
       },
       featuresDensity: {
         // Lush tropical islands
