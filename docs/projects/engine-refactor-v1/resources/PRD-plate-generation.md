@@ -1,3 +1,5 @@
+> **Disclaimer:** This PRD is **not authoritative** for target-architecture decisions. It must be re-validated against the canonical spec and pending step-domain module spec before use. Do not use it to drive new decisions.
+
 # PRD: Foundation — Plate & Tectonics Generation (Mesh → Crust → Partition → Tectonics)
 
 ## 1. Objective
