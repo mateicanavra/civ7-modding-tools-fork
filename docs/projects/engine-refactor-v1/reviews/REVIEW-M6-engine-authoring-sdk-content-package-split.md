@@ -26,6 +26,26 @@ Re-review: no additional issues found.
 ### Cross-cutting Risks
 - None noted.
 
+## REVIEW m6-u05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk
+
+### Quick Take
+Standard recipe composition now uses `createRecipe` with an explicit tag catalog and split stages, and a mod-level test was added, but the test depends on `@swooper/mapgen-core/base` fixtures that are slated for deletion in U07.
+
+### High-Leverage Issues
+- `mods/mod-swooper-maps/test/standard-recipe.test.ts`: relies on `@swooper/mapgen-core/base` for `BASE_TAG_DEFINITIONS` and `BASE_RECIPE_STEP_IDS`, so the test will break once U07 removes the base surface.
+
+### Fix Now (Recommended)
+- Copy the legacy tag/step inventories into a mod-owned fixture (or snapshot them in the test) so the test stays valid after base removal.
+
+### Defer / Follow-up
+- None noted.
+
+### Needs Discussion
+- None noted.
+
+### Cross-cutting Risks
+- None noted.
+
 ## REVIEW m6-u05-1-translate-base-steps-into-recipe-local-stage-step-files
 
 ### Quick Take
