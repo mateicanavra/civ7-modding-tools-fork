@@ -177,7 +177,7 @@ Rebuild the standard recipe as a mod-owned mini-package with stages/steps on dis
 
 **Children**
 - [x] [LOCAL-TBD-M6-U05-1](../issues/LOCAL-TBD-M6-U05-1-translate-base-steps-into-recipe-local-stage-step-files.md) — Done (branch: `m6-u05-1-translate-base-steps-into-recipe-local-stage-step-files`; review: `m6-u05-1-review-translate-base-steps-into-recipe-local-stage-step-files`; PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/294)
-- [LOCAL-TBD-M6-U05-2](../issues/LOCAL-TBD-M6-U05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk.md)
+- [x] [LOCAL-TBD-M6-U05-2](../issues/LOCAL-TBD-M6-U05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk.md) — Done (branch: `m6-u05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk`; PR: pending)
 
 ### LOCAL-TBD-M6-U06 — Rewrite maps as recipe instances
 Issue doc: [LOCAL-TBD-M6-U06](../issues/LOCAL-TBD-M6-U06-rewrite-maps-as-recipe-instances.md)

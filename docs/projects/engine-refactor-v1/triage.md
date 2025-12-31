@@ -24,6 +24,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Implemented as a WeakMap keyed by `ExtendedMapContext` and initialized from adapter lookup/chooseStartSectors. Revisit if runs become concurrent or if mapInfo should be passed via settings metadata.
   - **Next check:** before finalizing map/preset rewrites (M6 U06) or adding multi-run concurrency.
 
+- **Standard recipe stage IDs expanded for legacy ordering** [Source: LOCAL-TBD-M6-U05-2]
+  - **Context:** Preserving legacy step order required splitting morphology and narrative into additional stage IDs.
+  - **Type:** triage
+  - **Notes:** New stage IDs include `morphology-pre`, `morphology-mid`, `morphology-post`, and `narrative-mid` alongside the narrative/hydrology splits. Ensure config mappings and any stage-based tooling are updated.
+  - **Next check:** during M6 U06 map/preset rewrite or before stabilizing recipe config shape.
+
 - **Engine tag definitions/registry are generic over context** [Source: LOCAL-TBD-M6-U01]
   - **Context:** M6 engine cutover removes `ExtendedMapContext` from `engine/**` and introduces a minimal `EngineContext`.
   - **Type:** triage
