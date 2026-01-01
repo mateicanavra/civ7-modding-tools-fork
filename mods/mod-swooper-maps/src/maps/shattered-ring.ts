@@ -177,11 +177,11 @@ function buildConfig(): StandardRecipeOverrides {
           },
           bands: {
             // Moderate tropical due to ring disruption
-            deg0to10: 110,
-            deg10to20: 95,
+            deg0to10: 108,
+            deg10to20: 90,
             // Strong ring mountain rain shadow
-            deg20to35: 45,
-            deg35to55: 80,
+            deg20to35: 40,
+            deg35to55: 78,
             deg55to70: 55,
             deg70plus: 35,
           },
@@ -259,7 +259,7 @@ function buildConfig(): StandardRecipeOverrides {
           tropicalThreshold: 24,
         },
         moisture: {
-          thresholds: [80, 95, 140, 200],
+          thresholds: [85, 105, 145, 195],
           bias: 0,
           humidityWeight: 0.35,
         },
@@ -294,6 +294,27 @@ function buildConfig(): StandardRecipeOverrides {
         forestExtraChance: 45,
         taigaExtraChance: 22,
         shelfReefMultiplier: 1.0,
+      },
+      featuresPlacement: {
+        mode: "owned",
+        groups: {
+          vegetated: { multiplier: 1 },
+          wet: { multiplier: 0.95 },
+          aquatic: { multiplier: 1.3 },
+          ice: { multiplier: 0.9 },
+        },
+        chances: {
+          FEATURE_REEF: 40,
+          FEATURE_COLD_REEF: 35,
+          FEATURE_ATOLL: 16,
+          FEATURE_LOTUS: 18,
+          FEATURE_MANGROVE: 35,
+        },
+        ice: {
+          minAbsLatitude: 80,
+          forbidAdjacentToLand: true,
+          forbidAdjacentToNaturalWonders: true,
+        },
       },
   };
 }

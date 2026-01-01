@@ -1,7 +1,11 @@
 import { Type, type Static } from "typebox";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "@mapgen/config";
+import {
+  FeaturesConfigSchema,
+  FeaturesDensityConfigSchema,
+  FeaturesPlacementConfigSchema,
+} from "@mapgen/config";
 import { addDiverseFeatures } from "@mapgen/domain/ecology/features/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 import { getPublishedBiomeClassification } from "../../../artifacts.js";
@@ -15,8 +19,9 @@ const FeaturesStepConfigSchema = Type.Object(
       { additionalProperties: false, default: {} }
     ),
     featuresDensity: FeaturesDensityConfigSchema,
+    featuresPlacement: FeaturesPlacementConfigSchema,
   },
-  { additionalProperties: false, default: { story: {}, featuresDensity: {} } }
+  { additionalProperties: false, default: { story: {}, featuresDensity: {}, featuresPlacement: {} } }
 );
 
 type FeaturesStepConfig = Static<typeof FeaturesStepConfigSchema>;
@@ -63,6 +68,7 @@ export default createStep({
     addDiverseFeatures(width, height, context, {
       story: config.story,
       featuresDensity: config.featuresDensity,
+      featuresPlacement: config.featuresPlacement,
     });
     reifyFeatureField(context);
     context.adapter.validateAndFixTerrain();

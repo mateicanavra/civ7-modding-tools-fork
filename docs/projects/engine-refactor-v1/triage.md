@@ -42,6 +42,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Plan is to phase replacement (aquatic+ice → vegetated → wet/isolate) while keeping `adapter.canHaveFeature` as the canonical gate; defer “full floodplains ownership” until we define a minimal river topology/adjacency contract or an explicit hybrid policy.
   - **Next check:** before implementing `LOCAL-TBD-M7-U09` (confirm floodplains scope and where the ownership boundary should live).
 
+- **Climate swatches default disabled in standard recipe** [Source: LOCAL-TBD-M7-U09]
+  - **Context:** `climate.swatches` defaults to `{}` via schema and applies a macro swatch even when omitted; U09 disables swatches to isolate ecology/feature placement changes.
+  - **Type:** triage
+  - **Notes:** `applyClimateSwatches` now honors `swatches.enabled === false`, and standard config defaults that flag to false. Re-enable explicitly in presets when swatch tuning is desired.
+  - **Next check:** when swatch tuning becomes a focus or when climate swatch schemas are formalized.
+
 - **Standard recipe runtime stored per context** [Source: LOCAL-TBD-M6-U05-1]
   - **Context:** Standard recipe steps need shared mutable state (continents, start sectors, mapInfo) without registry-layer runtime injection.
   - **Type:** triage

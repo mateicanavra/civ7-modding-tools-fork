@@ -1,0 +1,99 @@
+import { createMockAdapter } from "@civ7/adapter";
+import { createExtendedMapContext } from "@swooper/mapgen-core";
+
+import {
+  publishBiomeClassificationArtifact,
+  publishClimateFieldArtifact,
+  publishHeightfieldArtifact,
+} from "../../src/recipes/standard/artifacts.js";
+
+type WaterMask = (x: number, y: number) => boolean;
+
+type FeaturesTestContextOptions = {
+  width: number;
+  height: number;
+  rng?: (max: number, label: string) => number;
+  canHaveFeature?: (x: number, y: number, featureType: number) => boolean;
+  isWater?: WaterMask;
+  defaultBiomeIndex?: number;
+  defaultVegetation?: number;
+  defaultMoisture?: number;
+  defaultTemperature?: number;
+  defaultRainfall?: number;
+  defaultHumidity?: number;
+};
+
+export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
+  const {
+    width,
+    height,
+    rng,
+    canHaveFeature,
+    isWater = () => false,
+    defaultBiomeIndex = 4,
+    defaultVegetation = 0.5,
+    defaultMoisture = 120,
+    defaultTemperature = 15,
+    defaultRainfall = 120,
+    defaultHumidity = 80,
+  } = options;
+
+  const adapter = createMockAdapter({ width, height, rng, canHaveFeature });
+  adapter.fillWater(false);
+
+  const ctx = createExtendedMapContext(
+    { width, height },
+    adapter,
+    {} as ReturnType<typeof createExtendedMapContext>["config"]
+  );
+
+  const size = width * height;
+  ctx.buffers.heightfield.elevation.fill(0);
+  ctx.buffers.heightfield.landMask.fill(1);
+  ctx.buffers.climate.rainfall.fill(defaultRainfall);
+  ctx.buffers.climate.humidity.fill(defaultHumidity);
+
+  const marineId = adapter.getBiomeGlobal("BIOME_MARINE");
+  const landId = adapter.getBiomeGlobal("BIOME_GRASSLAND");
+
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width;
+    for (let x = 0; x < width; x++) {
+      const idx = rowOffset + x;
+      if (isWater(x, y)) {
+        adapter.setWater(x, y, true);
+        ctx.buffers.heightfield.landMask[idx] = 0;
+        ctx.fields.biomeId[idx] = marineId;
+      } else {
+        ctx.fields.biomeId[idx] = landId;
+      }
+    }
+  }
+
+  const biomeIndex = new Uint8Array(size).fill(defaultBiomeIndex);
+  const vegetationDensity = new Float32Array(size).fill(defaultVegetation);
+  const effectiveMoisture = new Float32Array(size).fill(defaultMoisture);
+  const surfaceTemperature = new Float32Array(size).fill(defaultTemperature);
+
+  publishHeightfieldArtifact(ctx);
+  publishClimateFieldArtifact(ctx);
+  publishBiomeClassificationArtifact(ctx, {
+    width,
+    height,
+    biomeIndex,
+    vegetationDensity,
+    effectiveMoisture,
+    surfaceTemperature,
+  });
+
+  return {
+    ctx,
+    adapter,
+    classification: {
+      biomeIndex,
+      vegetationDensity,
+      effectiveMoisture,
+      surfaceTemperature,
+    },
+  };
+}

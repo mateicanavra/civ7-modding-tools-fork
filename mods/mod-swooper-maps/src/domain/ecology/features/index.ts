@@ -2,7 +2,7 @@
  * Features Layer — addDiverseFeatures
  *
  * Purpose
- * - Run base-standard feature generation, then apply small, validated, and
+ * - Run owned baseline feature placement (or vanilla if configured), then apply small, validated, and
  *   climate-aware embellishments that strengthen the narrative:
  *   - Paradise reefs near hotspot paradise centers
  *   - Volcanic vegetation around volcanic centers (forests in warm/wet, taiga in cold/wet)
@@ -26,8 +26,11 @@ import { applyParadiseReefs } from "@mapgen/domain/ecology/features/paradise-ree
 import { applyShelfReefs } from "@mapgen/domain/ecology/features/shelf-reefs.js";
 import { applyVolcanicVegetationAtTile } from "@mapgen/domain/ecology/features/volcanic-vegetation.js";
 import { applyDensityTweaksAtTile } from "@mapgen/domain/ecology/features/density-tweaks.js";
+import { placeOwnedFeatures } from "@mapgen/domain/ecology/features/owned/index.js";
+import type { FeaturesPlacementConfig } from "@mapgen/domain/ecology/features/owned/types.js";
 
 export type { FeaturesConfig, FeaturesDensityConfig } from "@mapgen/domain/ecology/features/types.js";
+export type { FeaturesPlacementConfig } from "@mapgen/domain/ecology/features/owned/types.js";
 
 // ============================================================================
 // Main Function
@@ -40,7 +43,11 @@ export function addDiverseFeatures(
   iWidth: number,
   iHeight: number,
   ctx?: ExtendedMapContext | null,
-  config: { story?: { features?: FeaturesConfig }; featuresDensity?: FeaturesDensityConfig } = {}
+  config: {
+    story?: { features?: FeaturesConfig };
+    featuresDensity?: FeaturesDensityConfig;
+    featuresPlacement?: FeaturesPlacementConfig;
+  } = {}
 ): void {
   console.log("Adding diverse terrain features...");
 
@@ -56,8 +63,14 @@ export function addDiverseFeatures(
   const inBounds = (x: number, y: number): boolean =>
     boundsCheck(x, y, iWidth, iHeight);
 
-  // 1) Base-standard features (vanilla-compatible baseline) via the real engine
-  adapter.addFeatures(iWidth, iHeight);
+  // 1) Baseline features (owned or vanilla)
+  const placementMode =
+    config.featuresPlacement?.mode === "vanilla" ? "vanilla" : "owned";
+  if (placementMode === "vanilla") {
+    adapter.addFeatures(iWidth, iHeight);
+  } else {
+    placeOwnedFeatures(iWidth, iHeight, ctx, config.featuresPlacement);
+  }
 
   const storyTunables = config.story || {};
   const featuresCfg = storyTunables.features || {};
@@ -89,6 +102,7 @@ export function addDiverseFeatures(
   const g_GrasslandBiome = adapter.getBiomeGlobal("BIOME_GRASSLAND");
   const g_TropicalBiome = adapter.getBiomeGlobal("BIOME_TROPICAL");
   const g_TundraBiome = adapter.getBiomeGlobal("BIOME_TUNDRA");
+  const navigableRiverTerrain = adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER");
 
   const getRandom = (label: string, max: number): number => ctxRandom(ctx, label, max);
 
@@ -146,6 +160,9 @@ export function addDiverseFeatures(
       const idxValue = rowOffset + x;
       if (adapter.isWater(x, y)) continue;
       if (adapter.getFeatureType(x, y) !== NO_FEATURE) continue;
+      if (navigableRiverTerrain >= 0 && adapter.getTerrainType(x, y) === navigableRiverTerrain) {
+        continue;
+      }
 
       const elevation = adapter.getElevation(x, y);
       const rainfall = rainfallField[idxValue] | 0;

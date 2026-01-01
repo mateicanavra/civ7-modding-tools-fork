@@ -102,7 +102,10 @@ export function buildStandardRecipeConfig(
     },
     "narrative-swatches": {
       storySwatches: {
-        climate: overrides.climate ?? {},
+        climate: {
+          ...(overrides.climate ?? {}),
+          swatches: overrides.climate?.swatches ?? { enabled: false },
+        },
         foundation: { dynamics: { directionality } },
       },
     },
@@ -129,6 +132,7 @@ export function buildStandardRecipeConfig(
       features: {
         story: { features: overrides.story?.features ?? {} },
         featuresDensity: overrides.featuresDensity ?? {},
+        featuresPlacement: overrides.featuresPlacement ?? {},
       },
     },
     placement: {
