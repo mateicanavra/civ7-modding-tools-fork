@@ -55,6 +55,7 @@ function buildConfig(): StandardRecipeOverrides {
         fractalWeight: 0.37, // Keep fractal contribution subtle (avoid blanket ruggedness)
         riftDepth: 0.75,
         boundaryWeight: 0.8, // Standard boundary weight
+        boundaryGate: 0,
         boundaryExponent: 1.77, // Standard falloff
         interiorPenaltyWeight: 0.0, // Disabled as per mountains.ts defaults
         convergenceBonus: 0.4,

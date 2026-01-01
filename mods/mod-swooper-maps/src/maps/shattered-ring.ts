@@ -77,6 +77,7 @@ function buildConfig(): StandardRecipeOverrides {
         riftDepth: 0.35,
         // Strong emphasis on plate boundaries for the ring
         boundaryWeight: 1.2,
+        boundaryGate: 0.05,
         boundaryExponent: 1.8,
         interiorPenaltyWeight: 0.0,
         convergenceBonus: 0.85,
