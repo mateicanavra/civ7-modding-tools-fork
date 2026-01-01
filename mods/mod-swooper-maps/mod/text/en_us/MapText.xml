@@ -7,12 +7,6 @@
 		<Row Tag="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_DESCRIPTION">
 			<Text>Plate-forged mega ranges carve a hyper-arid world into stark basins and windward oases. Expect towering boundary cordilleras, savage lee-side deserts, and a handful of monsoon belts clinging to the mountains that feed them.</Text>
 		</Row>
-		<Row Tag="LOC_MAP_GATE_A_CONTINENTS_NAME">
-			<Text>[Gate A] TS Pipeline Test</Text>
-		</Row>
-		<Row Tag="LOC_MAP_GATE_A_CONTINENTS_DESCRIPTION">
-			<Text>TypeScript build pipeline validation. Generates a standard Continents map via base-standard delegation. If this loads without errors, Gate A passes.</Text>
-		</Row>
 		<Row Tag="LOC_MAP_SWOOPER_EARTHLIKE_NAME">
 			<Text>Swooper Earthlike</Text>
 		</Row>
