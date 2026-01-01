@@ -1,6 +1,0 @@
-<Database>
-	<Modifiers>
-		<Delete ModifierId="MOD_AQ_CODEX"/>
-		<Delete ModifierId="MOD_AQ_MATHEMATICS_CODEX"/>
-	</Modifiers>	
-</Database>

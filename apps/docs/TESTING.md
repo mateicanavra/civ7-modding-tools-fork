@@ -10,7 +10,7 @@ pnpm --filter @civ7/docs test
 
 ## Current smoke tests
 
-- Ensures `apps/docs/docs.json` and `apps/docs/pages/index.mdx` exist and are valid.
+- Ensures `apps/docs/docs.json` and `apps/docs/index.mdx` exist and are valid.
 
 ## Suggested future tests
 

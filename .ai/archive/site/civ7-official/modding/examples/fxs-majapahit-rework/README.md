@@ -1,7 +1,0 @@
-You'll notice all the files in this mod, except for the `.modinfo` file, come in pairs. For every XML file there's an identically named SQL file. Each file does the same thing as their identically named sibling, and is being provided as an example of how to achieve the same results with XML or SQL.
-
-Only one file in each pair is actually being used by the mod. You can see which is in use by checking the `.modinfo` file.
-
-Comments throughout the files (lines starting with `--` in SQL and comment tags `<!-- comment -->` in XML), will help explain what's going on.
-
-Happy Modding!

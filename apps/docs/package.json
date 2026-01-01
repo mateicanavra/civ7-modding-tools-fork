@@ -5,7 +5,6 @@
     "predev": "pnpm -F @civ7/config build && pnpm -F @civ7/plugin-files build",
     "prebuild": "pnpm -F @civ7/config build && pnpm -F @civ7/plugin-files build",
     "dev": "bun run scripts/sync-resources.ts && bun run scripts/dev-staged.ts",
-    "dev:fast": "DOCS_FAST_DEV=1 bun run scripts/dev-staged.ts",
     "start": "mint dev -p 6660 --no-open",
     
     "normalize": "bun run scripts/update-code-blocks.ts",
@@ -16,9 +15,7 @@
     "fix:duplicate-h1": "bun run scripts/remove-duplicate-h1.ts",
     "fix:title-prefixes": "bun run scripts/remove-title-prefixes.ts",
     
-    "fix:links": "bun run scripts/fix-links.ts",
     "fix:mdx-links": "bun run scripts/fix-mdx-links.ts",
-    "migrate": "bun run scripts/migrate-site-to-pages.ts",
     "sync": "bun run scripts/sync-resources.ts",
     
     "build": "bun run sync && bun run validate"

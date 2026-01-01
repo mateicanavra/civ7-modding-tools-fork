@@ -1,8 +1,0 @@
-@use '../../../core/ui/utilities/utility-layout' as *;
-
-.unit-rename__container {
-	border-image-source: url("fs://game/hud_unit-panel_action");
-	border-image-slice: 20 fill;
-	border-image-width: auto;
-	border-image-outset: pixels(12) pixels(10);
-}

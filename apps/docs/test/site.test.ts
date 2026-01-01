@@ -6,7 +6,7 @@ import { expect, test } from 'vitest';
 test('Mintlify config, llms.txt, and entry page exist', () => {
   const here = dirname(fileURLToPath(import.meta.url));
   const docsJson = join(here, '..', 'docs.json');
-  const indexMdx = join(here, '..', 'pages', 'index.mdx');
+  const indexMdx = join(here, '..', 'index.mdx');
   const llmsTxt = join(here, '..', 'public', 'llms.txt');
   expect(existsSync(docsJson)).toBe(true);
   expect(existsSync(indexMdx)).toBe(true);

@@ -1,1 +1,0 @@
-export * as StatefulIcon from './stateful-icon.js';
