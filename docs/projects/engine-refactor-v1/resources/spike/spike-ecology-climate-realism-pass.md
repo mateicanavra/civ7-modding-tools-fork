@@ -47,6 +47,97 @@ This is not “wrong” physically—latitude is a first-order driver of insolat
 - latitude is used as a **hard categorical switch**, rather than as one influence on continuous fields, and
 - we don’t give elevation/aridity enough leverage to create plausible exceptions (e.g., alpine snow in the tropics, cold deserts, coastal moderation).
 
+### Concrete findings from recent work (snow, banding, and “dead biomes”)
+
+These are the specific places where latitude still dominates *in practice* today.
+
+#### 1) Snow is still delegated, so we don’t control “snowline” behavior yet
+
+- Our placement stage calls a thin wrapper:
+  - `mods/mod-swooper-maps/src/domain/placement/snow.ts`
+  - which calls `adapter.generateSnow(width, height)`.
+- The adapter implementation delegates to the engine-side `generateSnow` function:
+  - `packages/civ7-adapter/src/civ7-adapter.ts` (method `generateSnow`).
+
+Implication for realism:
+
+- Until we own snow placement, we cannot drive snow from our **temperature/elevation** field; we only get whatever the delegated generator does.
+- Owning snow requires adapter support for plot effects (snow is a plot effect type, not a normal feature placement).
+
+Engine surface note (why this matters):
+
+- Civ7 models snow visuals as **plot effects**, not a `FeatureType`:
+  - `apps/docs/site/civ7-official/resources/Base/modules/base-standard/data/plot-effects.xml`
+  - includes permanent + transient snow effect types (`PLOTEFFECT_SNOW_*_(TRANSIENT|PERMANENT)`).
+- Plot effects are tagged (for discovery via `getPlotEffectTypesContainingTags`):
+  - `SNOW` + `LIGHT|MEDIUM|HEAVY` + `TRANSIENT|PERMANENT` (same `plot-effects.xml`).
+
+So “owning snow” means: compute a snow field (and intensity) from our climate/ecology fields, then apply plot effects via adapter APIs.
+
+#### 2) Climate baseline blending currently behaves like “bands dominate by construction”
+
+In `applyClimateBaseline`, we currently clear the rainfall buffers before computing bands:
+
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/baseline.ts`:
+  - `ctx.buffers.climate.rainfall.fill(0);`
+  - then `const base = readRainfall(x, y);` (reads from the cleared buffer via `createClimateRuntime`)
+
+Implication:
+
+- `blend.baseWeight` is effectively blending against **zero**, not against an existing rainfall field.
+- This makes band targets the primary signal, even when “blend” appears to suggest mixing with another baseline.
+
+This isn’t necessarily incorrect for the “baseline pass” intent, but it is a key lever for reducing visible latitude band cutoffs: we need a clear decision on what `base` is supposed to represent (engine rainfall, previous pass rainfall, or a constant/reference field).
+
+#### 3) We still have at least one hard exclusion that creates sterile cold tiles
+
+In owned feature placement, snow biomes are excluded from vegetated placement entirely:
+
+- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/rules/selection.ts`:
+  - `if (symbol === "snow") return null;`
+
+Implication:
+
+- Even if we tune `vegetationDensity` to allow sparse cold vegetation, the selection rule blocks it.
+- If the intent is “snow biome can still have sparse tundra vegetation”, this needs to become a configurable envelope (not a hardcoded branch).
+
+## Other opportunities discovered (within climate/ecology/features scope)
+
+These are “available primitives” we can leverage to improve realism without stepping into resource/start placement.
+
+### 1) Additional plot effects beyond snow (sand, burned)
+
+The plot effects catalog includes:
+
+- `PLOTEFFECT_SAND`
+- `PLOTEFFECT_BURNED`
+
+Source:
+
+- `apps/docs/site/civ7-official/resources/Base/modules/base-standard/data/plot-effects.xml`
+
+For realism, these can become *secondary outputs* of the climate/ecology stack:
+
+- sand as an aridity/wind-driven effect (desertification / dunes)
+- burned as a fire-risk proxy (likely needs a “dry lightning” / biomass / drought driver)
+
+### 2) Cold/wet feature variants exist in the feature catalog
+
+The base feature set includes options that support “non-empty cold biomes”, e.g.:
+
+- `FEATURE_TAIGA` (vegetated)
+- `FEATURE_TUNDRA_BOG` (wet, near river)
+
+Source:
+
+- `apps/docs/site/civ7-official/resources/Base/modules/base-standard/data/terrain.xml` (feature rows)
+
+This supports a realism direction where:
+
+- tundra is sparse but not sterile,
+- cold wetlands appear along rivers when local moisture is higher,
+- and “snow biome” can still host limited, high-latitude vegetation where climate supports it (configurable).
+
 ## What “escaping latitude tyranny” should mean (for the mod)
 
 The goal is not “remove latitude”.
@@ -227,4 +318,3 @@ Deliverable for implementation planning:
 
 - A single “full pass” checklist + proposed ordering (climate fields → biomes → features → plot effects),
 - plus a clear list of what becomes out-of-scope if we stay “minimal” for the current refactor tranche.
-
