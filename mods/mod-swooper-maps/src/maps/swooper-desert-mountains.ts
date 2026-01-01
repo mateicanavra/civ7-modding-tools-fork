@@ -48,20 +48,20 @@ function buildConfig(): StandardRecipeOverrides {
       },
       mountains: {
         // Balanced physics settings for plate-driven terrain
-        tectonicIntensity: 0.5, // Reduced intensity to preserve playable basins
+        tectonicIntensity: 0.65, // Reduced intensity to preserve playable basins
         mountainThreshold: 0.7, // Raise threshold to avoid over-mountainizing small maps
         hillThreshold: 0.35, // Slightly raise hills threshold to preserve flats for starts
         upliftWeight: 0.37, // Standard uplift contribution
-        fractalWeight: 0.18, // Keep fractal contribution subtle (avoid blanket ruggedness)
-        riftDepth: 0.25,
-        boundaryWeight: 1.0, // Standard boundary weight
+        fractalWeight: 0.37, // Keep fractal contribution subtle (avoid blanket ruggedness)
+        riftDepth: 0.75,
+        boundaryWeight: 0.8, // Standard boundary weight
         boundaryExponent: 1.77, // Standard falloff
         interiorPenaltyWeight: 0.0, // Disabled as per mountains.ts defaults
         convergenceBonus: 0.4,
         transformPenalty: 0.6,
         riftPenalty: 1.0,
         hillBoundaryWeight: 0.35,
-        hillRiftBonus: 0.25,
+        hillRiftBonus: 0.67,
         hillConvergentFoothill: 0.35,
         hillInteriorFalloff: 0.1,
         hillUpliftWeight: 0.2,
@@ -82,7 +82,7 @@ function buildConfig(): StandardRecipeOverrides {
       },
       foundation: {
         plates: {
-          count: 15,
+          count: 13,
           convergenceMix: 0.65,
           relaxationSteps: 4, // Smoother cells
           plateRotationMultiple: 1.77,
@@ -140,47 +140,63 @@ function buildConfig(): StandardRecipeOverrides {
         },
       },
       climate: {
-	        baseline: {
-	          blend: {
-	            baseWeight: 0,
-	            bandWeight: 1,
-	          },
-        bands: {
-          // Standard Earth-like distribution
-          deg0to10: 70,
-          deg10to20: 45,
-          deg20to35: 15,
-          deg35to55: 50,
-          deg55to70: 35,
-          deg70plus: 20,
+        baseline: {
+          blend: {
+            baseWeight: 0,
+            bandWeight: 1,
+          },
+          bands: {
+            // Desert-leaning bands with dry subtropics.
+            deg0to10: 70,
+            deg10to20: 45,
+            deg20to35: 15,
+            deg35to55: 50,
+            deg55to70: 35,
+            deg70plus: 20,
+            edges: {
+              deg0to10: 10,
+              deg10to20: 20,
+              deg20to35: 35,
+              deg35to55: 55,
+              deg55to70: 70,
+            },
+            transitionWidth: 4,
+          },
+          sizeScaling: {
+            baseArea: 10000,
+            minScale: 0.6,
+            maxScale: 2.0,
+            equatorBoostScale: 10,
+            equatorBoostTaper: 0.5,
+          },
+          orographic: {
+            hi1Threshold: 200,
+            hi1Bonus: 10,
+            hi2Threshold: 400,
+            hi2Bonus: 20,
+          },
+          coastal: {
+            coastalLandBonus: 30,
+            spread: 3,
+          },
+          noise: {
+            baseSpanSmall: 5,
+            spanLargeScaleFactor: 1.25,
+            scale: 0.15,
+          },
         },
-        orographic: {
-          hi1Threshold: 200,
-          hi1Bonus: 10,
-          hi2Threshold: 400,
-          hi2Bonus: 20,
-        },
-        coastal: {
-          coastalLandBonus: 30,
-          spread: 3,
-        },
-        noise: {
-          baseSpanSmall: 5,
-          spanLargeScaleFactor: 1.25,
-          scale: 0.15,
-        },
-      },
-      refine: {
-        waterGradient: {
-          radius: 4,
-          perRingBonus: 2,
-          lowlandBonus: 4,
-        },
-        orographic: {
-          steps: 4,
-          reductionBase: 22,
-          reductionPerStep: 12,
-        },
+        swatches: { enabled: false },
+        refine: {
+          waterGradient: {
+            radius: 4,
+            perRingBonus: 2,
+            lowlandBonus: 4,
+          },
+          orographic: {
+            steps: 4,
+            reductionBase: 22,
+            reductionPerStep: 12,
+          },
           riverCorridor: {
             lowlandAdjacencyBonus: 15,
             highlandAdjacencyBonus: 5,
@@ -207,15 +223,23 @@ function buildConfig(): StandardRecipeOverrides {
         },
         features: {
           paradiseReefChance: 25,
+          paradiseReefRadius: 2,
           volcanicForestChance: 20,
+          volcanicForestBonus: 4,
+          volcanicForestMinRainfall: 105,
           volcanicTaigaChance: 15,
+          volcanicTaigaBonus: 3,
+          volcanicRadius: 1,
+          volcanicTaigaMinLatitude: 58,
+          volcanicTaigaMaxElevation: 380,
+          volcanicTaigaMinRainfall: 55,
         },
       },
       biomes: {
         temperature: {
-          equator: 28,
+          equator: 32,
           pole: -8,
-          lapseRate: 6.5,
+          lapseRate: 20,
           seaLevel: 0,
           bias: 0,
           polarCutoff: -5,
@@ -232,6 +256,17 @@ function buildConfig(): StandardRecipeOverrides {
           base: 0.15,
           moistureWeight: 0.5,
           humidityWeight: 0.2,
+          moistureNormalizationPadding: 45,
+          biomeModifiers: {
+            snow: { multiplier: 0.05, bonus: 0 },
+            tundra: { multiplier: 0.3, bonus: 0 },
+            boreal: { multiplier: 0.7, bonus: 0 },
+            temperateDry: { multiplier: 0.6, bonus: 0 },
+            temperateHumid: { multiplier: 0.9, bonus: 0 },
+            tropicalSeasonal: { multiplier: 0.9, bonus: 0 },
+            tropicalRainforest: { multiplier: 1, bonus: 0.2 },
+            desert: { multiplier: 0.05, bonus: 0 },
+          },
         },
         noise: {
           amplitude: 0.03,
@@ -254,25 +289,85 @@ function buildConfig(): StandardRecipeOverrides {
         marine: "BIOME_MARINE",
       },
       featuresDensity: {
+        shelfReefMultiplier: 0.6,
+        shelfReefRadius: 1,
         rainforestExtraChance: 10,
         forestExtraChance: 10,
         taigaExtraChance: 5,
-        shelfReefMultiplier: 0.6,
+        rainforestVegetationScale: 20,
+        forestVegetationScale: 15,
+        taigaVegetationScale: 10,
+        rainforestMinRainfall: 145,
+        forestMinRainfall: 115,
+        taigaMaxElevation: 280,
+        minVegetationForBonus: 0.05,
       },
       featuresPlacement: {
-        mode: "owned",
-        groups: {
-          vegetated: { multiplier: 0.7 },
-          wet: { multiplier: 0.35 },
-          aquatic: { multiplier: 0.8 },
-          ice: { multiplier: 0.9 },
-        },
-        chances: {
-          FEATURE_OASIS: 70,
-          FEATURE_WATERING_HOLE: 45,
-          FEATURE_MARSH: 15,
-          FEATURE_TUNDRA_BOG: 15,
-          FEATURE_MANGROVE: 10,
+        strategy: "owned",
+        config: {
+          groups: {
+            vegetated: { multiplier: 0.7 },
+            wet: { multiplier: 0.35 },
+            aquatic: { multiplier: 0.8 },
+            ice: { multiplier: 0.9 },
+          },
+          chances: {
+            FEATURE_FOREST: 35,
+            FEATURE_RAINFOREST: 15,
+            FEATURE_TAIGA: 25,
+            FEATURE_SAVANNA_WOODLAND: 25,
+            FEATURE_SAGEBRUSH_STEPPE: 45,
+            FEATURE_MARSH: 15,
+            FEATURE_TUNDRA_BOG: 15,
+            FEATURE_MANGROVE: 10,
+            FEATURE_OASIS: 70,
+            FEATURE_WATERING_HOLE: 45,
+            FEATURE_REEF: 28,
+            FEATURE_COLD_REEF: 25,
+            FEATURE_ATOLL: 6,
+            FEATURE_LOTUS: 8,
+            FEATURE_ICE: 80,
+          },
+          vegetated: {
+            minVegetation: 0.08,
+            vegetationChanceScalar: 0.9,
+            desertSagebrushMinVegetation: 0.2,
+            tundraTaigaMinVegetation: 0.3,
+            tundraTaigaMinTemperature: -1,
+            temperateDryForestMoisture: 130,
+            temperateDryForestVegetation: 0.5,
+            tropicalSeasonalRainforestMoisture: 160,
+          },
+          wet: {
+            nearRiverRadius: 1,
+            coldTemperatureMax: 1,
+            coldBiomeSymbols: ["snow", "tundra", "boreal"],
+            mangroveWarmTemperatureMin: 20,
+            mangroveWarmBiomeSymbols: ["tropicalRainforest", "tropicalSeasonal"],
+            coastalAdjacencyRadius: 1,
+            isolatedRiverRadius: 1,
+            isolatedSpacingRadius: 2,
+            oasisBiomeSymbols: ["desert", "temperateDry"],
+          },
+          aquatic: {
+            reefLatitudeSplit: 55,
+            atoll: {
+              enableClustering: true,
+              clusterRadius: 1,
+              equatorialBandMaxAbsLatitude: 23,
+              shallowWaterAdjacencyGateChance: 40,
+              shallowWaterAdjacencyRadius: 1,
+              growthChanceEquatorial: 10,
+              growthChanceNonEquatorial: 3,
+            },
+          },
+          ice: {
+            minAbsLatitude: 80,
+            forbidAdjacentToLand: true,
+            landAdjacencyRadius: 1,
+            forbidAdjacentToNaturalWonders: true,
+            naturalWonderAdjacencyRadius: 1,
+          },
         },
       },
   };
