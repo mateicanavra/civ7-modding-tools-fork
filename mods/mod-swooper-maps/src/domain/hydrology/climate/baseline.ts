@@ -46,6 +46,7 @@ export function applyClimateBaseline(
   const { adapter, writeRainfall, rand } = runtime;
 
   ctx.buffers.climate.rainfall.fill(0);
+  ctx.buffers.climate.humidity.fill(0);
   if (ctx.fields?.rainfall) ctx.fields.rainfall.fill(0);
 
   const resolvedConfig = Value.Default(ClimateConfigSchema, config) as ClimateConfig;

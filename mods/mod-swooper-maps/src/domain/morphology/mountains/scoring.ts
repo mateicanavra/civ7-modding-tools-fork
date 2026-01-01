@@ -48,6 +48,7 @@ export function computePlateBasedScores(
     upliftWeight: number;
     fractalWeight: number;
     boundaryWeight: number;
+    boundaryGate: number;
     boundaryExponent: number;
     interiorPenaltyWeight: number;
     convergenceBonus: number;
@@ -79,8 +80,8 @@ export function computePlateBasedScores(
   }
 
   // Lower gate allows mountains to start forming further from the fault line.
-  // 0.1 means we only ignore the very deep interior (bottom 10% of closeness).
-  const boundaryGate = 0.1;
+  // 0.0 means we allow interior uplift/fractal contributions everywhere.
+  const boundaryGate = Math.max(0, Math.min(0.99, options.boundaryGate));
   const falloffExponent = options.boundaryExponent; // Suggest lowering this in config to ~1.0-1.2
 
   for (let y = 0; y < height; y++) {
@@ -95,18 +96,12 @@ export function computePlateBasedScores(
 
       const closenessRaw = boundaryCloseness ? boundaryCloseness[i] / 255 : 0;
 
-      // Optimization: Skip tiles deep in the plate interior
-      if (closenessRaw < boundaryGate) {
-        const rawHill = adapter.getFractalHeight(HILL_FRACTAL, x, y);
-        const fractalHill = normalizeFractal(rawHill);
-        scores[i] = 0;
-        hillScores[i] = Math.max(0, fractalHill * options.fractalWeight * 0.5);
-        continue;
-      }
-
       // 1. Calculate Boundary Strength (Wider Profile)
       // Normalize closeness to 0..1 range above the gate
-      const normalized = (closenessRaw - boundaryGate) / (1 - boundaryGate);
+      const normalized =
+        closenessRaw <= boundaryGate
+          ? 0
+          : (closenessRaw - boundaryGate) / Math.max(1e-6, 1 - boundaryGate);
 
       // Use power curve for falloff, but since normalized range is wider, the slope is gentler.
       const boundaryStrength = Math.pow(normalized, falloffExponent);
@@ -146,6 +141,11 @@ export function computePlateBasedScores(
         mountainScore += collision * options.convergenceBonus * (0.6 + fractalMtn * 0.4);
       }
 
+      if (options.interiorPenaltyWeight > 0) {
+        const penalty = Math.max(0, Math.min(1, (1 - boundaryStrength) * options.interiorPenaltyWeight));
+        mountainScore *= Math.max(0, 1 - penalty);
+      }
+
       // Rifts and Transforms suppress mountains
       if (divergence > 0) {
         mountainScore *= Math.max(0, 1 - divergence * options.riftPenalty);
@@ -174,6 +174,11 @@ export function computePlateBasedScores(
       if (divergence > 0) {
         // Rift shoulders
         hillScore += hillIntensity * rift * options.hillRiftBonus * foothillExtent * 0.5;
+      }
+
+      if (options.hillInteriorFalloff > 0) {
+        const penalty = Math.max(0, Math.min(1, (1 - hillIntensity) * options.hillInteriorFalloff));
+        hillScore *= Math.max(0, 1 - penalty);
       }
 
       hillScores[i] = Math.max(0, hillScore);

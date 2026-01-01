@@ -91,10 +91,16 @@ export function createClimateRuntime(
   const adapter = resolveAdapter(ctx);
   const climate = ctx.buffers?.climate;
   const rainfallBuf = climate?.rainfall || null;
+  const humidityBuf = climate?.humidity || null;
   const expectedSize = Math.max(0, (width | 0) * (height | 0)) | 0;
   if (!(rainfallBuf instanceof Uint8Array) || rainfallBuf.length !== expectedSize) {
     throw new Error(
       `ClimateEngine: Missing or invalid climate rainfall buffer (expected ${expectedSize}).`
+    );
+  }
+  if (!(humidityBuf instanceof Uint8Array) || humidityBuf.length !== expectedSize) {
+    throw new Error(
+      `ClimateEngine: Missing or invalid climate humidity buffer (expected ${expectedSize}).`
     );
   }
 
@@ -106,7 +112,8 @@ export function createClimateRuntime(
 
   const writeRainfall = (x: number, y: number, rainfall: number): void => {
     const clamped = clamp(rainfall, 0, 200);
-    writeClimateField(ctx, x, y, { rainfall: clamped });
+    const humidity = Math.round((clamped / 200) * 255);
+    writeClimateField(ctx, x, y, { rainfall: clamped, humidity });
   };
 
   const rand = (max: number, label: string): number => {

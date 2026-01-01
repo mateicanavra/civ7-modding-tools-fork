@@ -353,6 +353,23 @@ export const MountainsConfigSchema = Type.Object(
         default: 1.0,
       })
     ),
+    /**
+     * Boundary-closeness gate (0..0.99).
+     *
+     * Tiles with boundary closeness at-or-below this value receive no boundary-driven contribution,
+     * but can still form mountains/hills from uplift + fractal noise.
+     *
+     * Set to 0 for more interior variety; raise it to keep mountains concentrated along active margins.
+     */
+    boundaryGate: Type.Optional(
+      Type.Number({
+        description:
+          "Boundary-closeness gate (0..0.99). Set to 0 for more interior variety; raise it to concentrate mountains along margins.",
+        default: 0.1,
+        minimum: 0,
+        maximum: 0.99,
+      })
+    ),
     /** Exponent controlling how quickly boundary influence decays with distance (>=0.25). */
     boundaryExponent: Type.Optional(
       Type.Number({
@@ -360,10 +377,15 @@ export const MountainsConfigSchema = Type.Object(
         default: 1.6,
       })
     ),
-    /** Penalty applied to deep interior tiles to keep high terrain near tectonic action. */
+    /**
+     * Penalty applied to deep interior tiles to keep high terrain near tectonic action.
+     *
+     * Applied as a multiplier that scales with distance from plate boundaries (higher = fewer interior peaks).
+     */
     interiorPenaltyWeight: Type.Optional(
       Type.Number({
-        description: "Penalty applied to deep interior tiles to keep high terrain near tectonic action.",
+        description:
+          "Penalty applied to deep interior tiles to keep high terrain near tectonic action (higher = fewer interior peaks).",
         default: 0.0,
       })
     ),
@@ -409,10 +431,15 @@ export const MountainsConfigSchema = Type.Object(
         default: 0.35,
       })
     ),
-    /** Penalty for hills deep inside plates; higher values keep hills near tectonic features. */
+    /**
+     * Penalty for hills deep inside plates; higher values keep hills near tectonic features.
+     *
+     * Applied as a multiplier that scales with distance from plate boundaries.
+     */
     hillInteriorFalloff: Type.Optional(
       Type.Number({
-        description: "Penalty for hills deep inside plates; higher values keep hills near tectonic features.",
+        description:
+          "Penalty for hills deep inside plates; scales with distance from boundaries (higher = fewer interior hills).",
         default: 0.1,
       })
     ),
