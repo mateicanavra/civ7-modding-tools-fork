@@ -8,6 +8,7 @@ import {
   ClimateBaselineCoastalSchema,
   ClimateBaselineNoiseSchema,
   ClimateBaselineOrographicSchema,
+  ClimateBaselineSeedSchema,
   ClimateBaselineSchema,
   ClimateBaselineSizeScalingSchema,
   ClimateConfigSchema,
@@ -18,6 +19,7 @@ import {
   type ClimateBaselineCoastal,
   type ClimateBaselineNoise,
   type ClimateBaselineOrographic,
+  type ClimateBaselineSeed,
   type ClimateBaselineSizeScaling,
   type ClimateConfig,
 } from "@mapgen/config";
@@ -41,7 +43,7 @@ export function applyClimateBaseline(
   }
 
   const runtime = createClimateRuntime(width, height, ctx);
-  const { adapter, readRainfall, writeRainfall, rand } = runtime;
+  const { adapter, writeRainfall, rand } = runtime;
 
   ctx.buffers.climate.rainfall.fill(0);
   if (ctx.fields?.rainfall) ctx.fields.rainfall.fill(0);
@@ -68,6 +70,10 @@ export function applyClimateBaseline(
     ClimateBaselineBlendSchema,
     baselineCfg.blend ?? {}
   ) as Required<ClimateBaselineBlend>;
+  const seedCfg = Value.Default(
+    ClimateBaselineSeedSchema,
+    baselineCfg.seed ?? {}
+  ) as Required<ClimateBaselineSeed>;
   const orographic = Value.Default(
     ClimateBaselineOrographicSchema,
     baselineCfg.orographic ?? {}
@@ -99,8 +105,8 @@ export function applyClimateBaseline(
   const maxSpread = coastalCfg.spread;
   const noiseScale = noiseCfg.scale;
 
-  const seed = rand(10000, "PerlinSeed");
-  const perlin = new PerlinNoise(seed);
+  const perlinSeed = rand(10000, "PerlinSeed");
+  const perlin = new PerlinNoise(perlinSeed);
   const distMap = distanceToNearestWater(width, height, (x: number, y: number) =>
     adapter.isWater(x, y)
   );
@@ -114,7 +120,6 @@ export function applyClimateBaseline(
     for (let x = 0; x < width; x++) {
       if (adapter.isWater(x, y)) continue;
 
-      const base = readRainfall(x, y);
       const elevation = adapter.getElevation(x, y);
       const lat = Math.abs(adapter.getLatitude(x, y));
 
@@ -173,9 +178,17 @@ export function applyClimateBaseline(
         }
       }
 
+      const dist = distMap[y * width + x];
+      let coastalFactor = 0;
+      if (dist > 0 && dist <= maxSpread) {
+        coastalFactor = 1 - (dist - 1) / maxSpread;
+      }
+      const coastalFalloff = Math.pow(coastalFactor, seedCfg.coastalExponent);
+      const seedRainfall = seedCfg.baseRainfall + coastalCfg.coastalLandBonus * coastalFalloff;
+
       const baseW = blend.baseWeight;
       const bandW = blend.bandWeight;
-      let currentRainfall = Math.round(base * baseW + bandRain * bandW);
+      let currentRainfall = Math.round(seedRainfall * baseW + bandRain * bandW);
 
       const hi1T = orographic.hi1Threshold;
       const hi1B = orographic.hi1Bonus;
@@ -183,14 +196,6 @@ export function applyClimateBaseline(
       const hi2B = orographic.hi2Bonus;
       if (elevation > hi1T) currentRainfall += hi1B;
       if (elevation > hi2T) currentRainfall += hi2B;
-
-      const coastalBonus = coastalCfg.coastalLandBonus;
-
-      const dist = distMap[y * width + x];
-      if (dist > 0 && dist <= maxSpread) {
-        const factor = 1 - (dist - 1) / maxSpread;
-        currentRainfall += coastalBonus * factor;
-      }
 
       currentRainfall += rollNoise(x, y);
       writeRainfall(x, y, currentRainfall);

@@ -58,6 +58,7 @@ import {
   ClimateBaselineBandEdgesSchema,
   ClimateBaselineBandsSchema,
   ClimateBaselineBlendSchema,
+  ClimateBaselineSeedSchema,
   ClimateBaselineOrographicSchema,
   ClimateBaselineCoastalSchema,
   ClimateBaselineNoiseSchema,
@@ -78,6 +79,7 @@ import {
   BiomeConfigSchema,
   FeaturesDensityConfigSchema,
   FeaturesPlacementConfigSchema,
+  PlotEffectsConfigSchema,
 } from "@mapgen/config/schema/ecology.js";
 import {
   FloodplainsConfigSchema,
@@ -133,6 +135,8 @@ export const MapGenConfigSchema = Type.Object(
     featuresDensity: Type.Optional(FeaturesDensityConfigSchema),
     /** Baseline feature placement ownership and tuning. */
     featuresPlacement: Type.Optional(FeaturesPlacementConfigSchema),
+    /** Plot effects driven by ecology/climate (snow, sand, burned). */
+    plotEffects: Type.Optional(PlotEffectsConfigSchema),
     /** Continental margin tagging parameters (active/passive coastline fractions). */
     margins: Type.Optional(ContinentalMarginsConfigSchema),
     /** Story seed overlays: hotspots, rifts, orogeny. */
@@ -191,6 +195,7 @@ export type CorridorsConfig = Static<typeof CorridorsConfigSchema>;
 export type ClimateBaselineBands = Static<typeof ClimateBaselineBandsSchema>;
 export type ClimateBaselineBandEdges = Static<typeof ClimateBaselineBandEdgesSchema>;
 export type ClimateBaselineBlend = Static<typeof ClimateBaselineBlendSchema>;
+export type ClimateBaselineSeed = Static<typeof ClimateBaselineSeedSchema>;
 export type ClimateBaselineOrographic = Static<typeof ClimateBaselineOrographicSchema>;
 export type ClimateBaselineCoastal = Static<typeof ClimateBaselineCoastalSchema>;
 export type ClimateBaselineNoise = Static<typeof ClimateBaselineNoiseSchema>;
@@ -209,6 +214,7 @@ export type BiomeConfig = Static<typeof BiomeConfigSchema>;
 export type BiomeBindings = Static<typeof BiomeBindingsSchema>;
 export type FeaturesDensityConfig = Static<typeof FeaturesDensityConfigSchema>;
 export type FeaturesPlacementConfig = Static<typeof FeaturesPlacementConfigSchema>;
+export type PlotEffectsConfig = Static<typeof PlotEffectsConfigSchema>;
 export type FloodplainsConfig = Static<typeof FloodplainsConfigSchema>;
 export type StartsConfig = Static<typeof StartsConfigSchema>;
 export type PlacementConfig = Static<typeof PlacementConfigSchema>;

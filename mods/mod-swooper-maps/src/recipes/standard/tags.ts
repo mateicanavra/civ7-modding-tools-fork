@@ -170,6 +170,8 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
       vegetationDensity: new Float32Array(0),
       effectiveMoisture: new Float32Array(0),
       surfaceTemperature: new Float32Array(0),
+      aridityIndex: new Float32Array(0),
+      freezeIndex: new Float32Array(0),
     },
     validateDemo: (demo) => isBiomeClassificationArtifactV1(demo),
   },

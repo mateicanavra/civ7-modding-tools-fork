@@ -244,6 +244,49 @@ export class Civ7Adapter implements EngineAdapter {
     return TerrainBuilder.canHaveFeature(x, y, featureType);
   }
 
+  // === PLOT EFFECTS ===
+
+  getPlotEffectTypesContainingTags(tags: string[]): number[] {
+    if (typeof MapPlotEffects === "undefined") {
+      throw new Error("[Adapter] MapPlotEffects global is unavailable.");
+    }
+    const result = MapPlotEffects.getPlotEffectTypesContainingTags(tags);
+    return Array.isArray(result) ? result : [];
+  }
+
+  getPlotEffectTypeIndex(name: string): number {
+    const plotEffects = GameInfo?.PlotEffects;
+    if (!plotEffects) return -1;
+
+    const effectType = name.toUpperCase().startsWith("PLOTEFFECT_")
+      ? name.toUpperCase()
+      : `PLOTEFFECT_${name.toUpperCase()}`;
+
+    const effect = plotEffects.find((entry) => entry.PlotEffectType === effectType) as
+      | { Index?: number; $index?: number }
+      | null;
+
+    if (typeof effect?.Index === "number") return effect.Index;
+    if (typeof effect?.$index === "number") return effect.$index;
+    return -1;
+  }
+
+  addPlotEffect(x: number, y: number, plotEffectType: number): void {
+    if (typeof MapPlotEffects === "undefined") {
+      throw new Error("[Adapter] MapPlotEffects global is unavailable.");
+    }
+    const index = GameplayMap.getIndexFromXY(x, y);
+    MapPlotEffects.addPlotEffect(index, plotEffectType);
+  }
+
+  hasPlotEffect(x: number, y: number, plotEffectType: number): boolean {
+    if (typeof MapPlotEffects === "undefined") {
+      throw new Error("[Adapter] MapPlotEffects global is unavailable.");
+    }
+    const index = GameplayMap.getIndexFromXY(x, y);
+    return MapPlotEffects.hasPlotEffect(index, plotEffectType);
+  }
+
   // === RANDOM NUMBER GENERATION ===
 
   getRandomNumber(max: number, label: string): number {

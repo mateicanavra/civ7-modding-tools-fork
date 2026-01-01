@@ -1,4 +1,5 @@
 import { Type, type Static } from "typebox";
+import { Value } from "typebox/value";
 
 import { DEV, logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
@@ -22,7 +23,6 @@ import {
   maskFromCoordSet,
 } from "./helpers/inputs.js";
 import { clampToByte } from "./helpers/apply.js";
-import { mergeBiomeConfig } from "./helpers/config.js";
 
 const BiomesStepConfigSchema = Type.Object(
   {
@@ -78,10 +78,10 @@ export default createStep({
 
     const riftShoulderMask = maskFromCoordSet(rifts?.riftShoulder, width, height);
 
-    const opConfig = mergeBiomeConfig(
-      classifyBiomes.defaultConfig,
+    const opConfig = Value.Default(
+      BiomeConfigSchema,
       (config.classify ?? {}) as Partial<BiomeClassificationConfig>
-    );
+    ) as BiomeClassificationConfig;
 
     const result = classifyBiomes.run(
       {

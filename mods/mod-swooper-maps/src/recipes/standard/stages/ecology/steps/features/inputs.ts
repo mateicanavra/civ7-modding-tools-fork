@@ -21,6 +21,8 @@ export function buildFeaturesPlacementInput(context: ExtendedMapContext): Featur
     vegetationDensity: classification.vegetationDensity,
     effectiveMoisture: classification.effectiveMoisture,
     surfaceTemperature: classification.surfaceTemperature,
+    aridityIndex: classification.aridityIndex,
+    freezeIndex: classification.freezeIndex,
     rand,
   };
 }

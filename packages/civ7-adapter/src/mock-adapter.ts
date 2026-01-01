@@ -166,6 +166,20 @@ export const DEFAULT_LANDMASS_IDS: Record<LandmassIdName, number> = {
   ANY: -1,
 };
 
+export interface MockPlotEffectType {
+  id: number;
+  name: string;
+  tags: string[];
+}
+
+export const DEFAULT_PLOT_EFFECT_TYPES: MockPlotEffectType[] = [
+  { id: 0, name: "PLOTEFFECT_SNOW_LIGHT_PERMANENT", tags: ["SNOW", "LIGHT", "PERMANENT"] },
+  { id: 1, name: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT", tags: ["SNOW", "MEDIUM", "PERMANENT"] },
+  { id: 2, name: "PLOTEFFECT_SNOW_HEAVY_PERMANENT", tags: ["SNOW", "HEAVY", "PERMANENT"] },
+  { id: 3, name: "PLOTEFFECT_SAND", tags: ["SAND"] },
+  { id: 4, name: "PLOTEFFECT_BURNED", tags: ["BURNED"] },
+];
+
 export interface MockAdapterConfig {
   width?: number;
   height?: number;
@@ -197,6 +211,8 @@ export interface MockAdapterConfig {
   landmassIds?: Partial<Record<LandmassIdName, number>>;
   /** Optional feature validation hook for tests (return false to reject placement). */
   canHaveFeature?: (x: number, y: number, featureType: number) => boolean;
+  /** Plot effect types and tag sets for getPlotEffectTypesContainingTags. */
+  plotEffectTypes?: MockPlotEffectType[];
 }
 
 /**
@@ -226,6 +242,8 @@ export class MockAdapter implements EngineAdapter {
   private plotTags: Record<PlotTagName, number>;
   private landmassIds: Record<LandmassIdName, number>;
   private canHaveFeatureFn?: (x: number, y: number, featureType: number) => boolean;
+  private plotEffectTypes: Array<{ id: number; name: string; tags: Set<string> }>;
+  private plotEffectsByIndex: Map<number, Set<number>>;
   private readonly effectEvidence = new Set<string>();
   private coastTerrainId: number;
   private oceanTerrainId: number;
@@ -251,6 +269,7 @@ export class MockAdapter implements EngineAdapter {
     assignAdvancedStartRegions: number;
     addFloodplains: Array<{ minLength: number; maxLength: number }>;
     recalculateFertility: number;
+    addPlotEffect: Array<{ x: number; y: number; plotEffectType: number }>;
   };
 
   constructor(config: MockAdapterConfig = {}) {
@@ -277,6 +296,12 @@ export class MockAdapter implements EngineAdapter {
     this.plotTags = { ...DEFAULT_PLOT_TAGS, ...(config.plotTags ?? {}) };
     this.landmassIds = { ...DEFAULT_LANDMASS_IDS, ...(config.landmassIds ?? {}) };
     this.canHaveFeatureFn = config.canHaveFeature;
+    this.plotEffectTypes = (config.plotEffectTypes ?? DEFAULT_PLOT_EFFECT_TYPES).map((entry) => ({
+      id: entry.id,
+      name: entry.name,
+      tags: new Set(entry.tags.map((tag) => tag.toUpperCase())),
+    }));
+    this.plotEffectsByIndex = new Map();
 
     this.coastTerrainId = this.getTerrainTypeIndex("TERRAIN_COAST");
     this.oceanTerrainId = this.getTerrainTypeIndex("TERRAIN_OCEAN");
@@ -295,6 +320,7 @@ export class MockAdapter implements EngineAdapter {
       assignAdvancedStartRegions: 0,
       addFloodplains: [],
       recalculateFertility: 0,
+      addPlotEffect: [],
     };
   }
 
@@ -466,6 +492,44 @@ export class MockAdapter implements EngineAdapter {
       return this.canHaveFeatureFn(_x, _y, _featureType);
     }
     return true; // Mock: always allow features
+  }
+
+  // === PLOT EFFECTS ===
+
+  getPlotEffectTypesContainingTags(tags: string[]): number[] {
+    const required = new Set(tags.map((tag) => tag.toUpperCase()));
+    return this.plotEffectTypes
+      .filter((entry) => {
+        for (const tag of required) {
+          if (!entry.tags.has(tag)) return false;
+        }
+        return true;
+      })
+      .map((entry) => entry.id);
+  }
+
+  getPlotEffectTypeIndex(name: string): number {
+    const target = name.toUpperCase().startsWith("PLOTEFFECT_")
+      ? name.toUpperCase()
+      : `PLOTEFFECT_${name.toUpperCase()}`;
+    const match = this.plotEffectTypes.find((entry) => entry.name === target);
+    return match ? match.id : -1;
+  }
+
+  addPlotEffect(x: number, y: number, plotEffectType: number): void {
+    const index = this.idx(x, y);
+    const existing = this.plotEffectsByIndex.get(index);
+    if (existing) {
+      existing.add(plotEffectType);
+    } else {
+      this.plotEffectsByIndex.set(index, new Set([plotEffectType]));
+    }
+    this.calls.addPlotEffect.push({ x, y, plotEffectType });
+  }
+
+  hasPlotEffect(x: number, y: number, plotEffectType: number): boolean {
+    const existing = this.plotEffectsByIndex.get(this.idx(x, y));
+    return existing ? existing.has(plotEffectType) : false;
   }
 
   // === RANDOM NUMBER GENERATION ===
@@ -747,11 +811,18 @@ export class MockAdapter implements EngineAdapter {
     this.calls.assignAdvancedStartRegions = 0;
     this.calls.addFloodplains.length = 0;
     this.calls.recalculateFertility = 0;
+    this.calls.addPlotEffect.length = 0;
     this.effectEvidence.clear();
     this.terrainTypeIndices = config.terrainTypeIndices ?? { ...DEFAULT_TERRAIN_TYPE_INDICES };
     this.plotTags = { ...DEFAULT_PLOT_TAGS, ...(config.plotTags ?? {}) };
     this.landmassIds = { ...DEFAULT_LANDMASS_IDS, ...(config.landmassIds ?? {}) };
     this.canHaveFeatureFn = config.canHaveFeature ?? this.canHaveFeatureFn;
+    this.plotEffectTypes = (config.plotEffectTypes ?? DEFAULT_PLOT_EFFECT_TYPES).map((entry) => ({
+      id: entry.id,
+      name: entry.name,
+      tags: new Set(entry.tags.map((tag) => tag.toUpperCase())),
+    }));
+    this.plotEffectsByIndex.clear();
 
     this.coastTerrainId = this.getTerrainTypeIndex("TERRAIN_COAST");
     this.oceanTerrainId = this.getTerrainTypeIndex("TERRAIN_OCEAN");

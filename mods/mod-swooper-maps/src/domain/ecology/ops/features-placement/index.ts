@@ -21,6 +21,8 @@ const FeaturesPlacementInputSchema = Type.Object(
     vegetationDensity: Type.Any({ description: "Vegetation density per tile (0..1)." }),
     effectiveMoisture: Type.Any({ description: "Effective moisture per tile." }),
     surfaceTemperature: Type.Any({ description: "Surface temperature per tile (C)." }),
+    aridityIndex: Type.Any({ description: "Aridity index per tile (0..1)." }),
+    freezeIndex: Type.Any({ description: "Freeze index per tile (0..1)." }),
     rand: Type.Any({ description: "Deterministic RNG (ctxRandom wrapper)." }),
   },
   { additionalProperties: false }

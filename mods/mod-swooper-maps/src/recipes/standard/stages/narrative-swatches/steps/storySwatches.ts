@@ -41,6 +41,12 @@ export default createStep({
   provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
   schema: StorySwatchesStepConfigSchema,
   run: (context: ExtendedMapContext, config: StorySwatchesStepConfig) => {
+    const swatchesConfig = config.climate?.swatches as { enabled?: boolean } | undefined;
+    if (!swatchesConfig || swatchesConfig.enabled === false) {
+      publishClimateFieldArtifact(context);
+      return;
+    }
+
     storyTagClimateSwatches(context, {
       orogenyCache: getOrogenyCache(context),
       climate: config.climate,

@@ -40,6 +40,72 @@ const BiomeSymbolSchema = Type.Union(
   }
 );
 
+export const FeaturesPlacementVegetatedMinByBiomeSchema = Type.Object(
+  {
+    /** Minimum vegetation density for snow biomes (0..1). */
+    snow: Type.Number({
+      description: "Minimum vegetation density for snow biomes (0..1).",
+      default: 0.05,
+      minimum: 0,
+      maximum: 1,
+    }),
+    /** Minimum vegetation density for tundra biomes (0..1). */
+    tundra: Type.Number({
+      description: "Minimum vegetation density for tundra biomes (0..1).",
+      default: 0.03,
+      minimum: 0,
+      maximum: 1,
+    }),
+    /** Minimum vegetation density for boreal biomes (0..1). */
+    boreal: Type.Number({
+      description: "Minimum vegetation density for boreal biomes (0..1).",
+      default: 0.05,
+      minimum: 0,
+      maximum: 1,
+    }),
+    /** Minimum vegetation density for temperate dry biomes (0..1). */
+    temperateDry: Type.Number({
+      description: "Minimum vegetation density for temperate dry biomes (0..1).",
+      default: 0.05,
+      minimum: 0,
+      maximum: 1,
+    }),
+    /** Minimum vegetation density for temperate humid biomes (0..1). */
+    temperateHumid: Type.Number({
+      description: "Minimum vegetation density for temperate humid biomes (0..1).",
+      default: 0.05,
+      minimum: 0,
+      maximum: 1,
+    }),
+    /** Minimum vegetation density for tropical seasonal biomes (0..1). */
+    tropicalSeasonal: Type.Number({
+      description: "Minimum vegetation density for tropical seasonal biomes (0..1).",
+      default: 0.05,
+      minimum: 0,
+      maximum: 1,
+    }),
+    /** Minimum vegetation density for tropical rainforest biomes (0..1). */
+    tropicalRainforest: Type.Number({
+      description: "Minimum vegetation density for tropical rainforest biomes (0..1).",
+      default: 0.05,
+      minimum: 0,
+      maximum: 1,
+    }),
+    /** Minimum vegetation density for desert biomes (0..1). */
+    desert: Type.Number({
+      description: "Minimum vegetation density for desert biomes (0..1).",
+      default: 0.02,
+      minimum: 0,
+      maximum: 1,
+    }),
+  },
+  {
+    additionalProperties: false,
+    default: {},
+    description: "Per-biome vegetation thresholds for enabling scatter vegetation.",
+  }
+);
+
 export const FeaturesPlacementGroupSchema = Type.Object(
   {
     /**
@@ -227,18 +293,11 @@ export const FeaturesPlacementChancesSchema = Type.Object(
 export const FeaturesPlacementVegetatedRulesSchema = Type.Object(
   {
     /**
-     * Minimum vegetation density (0..1) required before any scatter vegetation can spawn.
-     * Lower values allow sparse shrublands; higher values keep deserts mostly barren.
+     * Minimum vegetation density (0..1) required before any scatter vegetation can spawn,
+     * keyed by biome symbol. This is the primary knob for letting deserts/tundra stay sparse
+     * while still allowing occasional vegetation in harsh climates.
      */
-    minVegetation: Type.Optional(
-      Type.Number({
-        description:
-          "Minimum vegetation density required for any vegetated scatter (0..1).",
-        default: 0.05,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
+    minVegetationByBiome: Type.Optional(FeaturesPlacementVegetatedMinByBiomeSchema),
     /**
      * Scalar multiplier applied to vegetation density when scaling scatter chance.
      * Values > 1 make vegetation more decisive; values < 1 soften its influence.
@@ -261,6 +320,19 @@ export const FeaturesPlacementVegetatedRulesSchema = Type.Object(
         maximum: 1,
       })
     ),
+    /**
+     * Maximum aridity index (0..1) that still allows sagebrush in deserts.
+     * Lower values keep the driest basins completely barren.
+     */
+    desertSagebrushMaxAridity: Type.Optional(
+      Type.Number({
+        description:
+          "Maximum aridity index that still allows sagebrush in deserts (0..1).",
+        default: 0.85,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
     /** Vegetation density required for taiga in tundra (0..1). */
     tundraTaigaMinVegetation: Type.Optional(
       Type.Number({
@@ -279,12 +351,31 @@ export const FeaturesPlacementVegetatedRulesSchema = Type.Object(
         default: -2,
       })
     ),
+    /** Maximum freeze index (0..1) that still allows taiga in tundra. */
+    tundraTaigaMaxFreeze: Type.Optional(
+      Type.Number({
+        description: "Maximum freeze index that still allows taiga in tundra (0..1).",
+        default: 0.9,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
     /** Effective moisture threshold to prefer forest over steppe in temperate dry zones. */
     temperateDryForestMoisture: Type.Optional(
       Type.Number({
         description:
           "Effective moisture threshold to prefer forest over steppe in temperate dry zones.",
         default: 120,
+      })
+    ),
+    /** Maximum aridity index (0..1) to allow temperate forests in dry zones. */
+    temperateDryForestMaxAridity: Type.Optional(
+      Type.Number({
+        description:
+          "Maximum aridity index to allow temperate forests in dry zones (0..1).",
+        default: 0.65,
+        minimum: 0,
+        maximum: 1,
       })
     ),
     /** Vegetation density threshold to prefer forest over steppe in temperate dry zones. */
@@ -303,6 +394,16 @@ export const FeaturesPlacementVegetatedRulesSchema = Type.Object(
         description:
           "Effective moisture threshold to prefer rainforest over savanna in tropical seasonal zones.",
         default: 140,
+      })
+    ),
+    /** Maximum aridity index (0..1) to allow rainforests in tropical seasonal zones. */
+    tropicalSeasonalRainforestMaxAridity: Type.Optional(
+      Type.Number({
+        description:
+          "Maximum aridity index to allow rainforests in tropical seasonal zones (0..1).",
+        default: 0.6,
+        minimum: 0,
+        maximum: 1,
       })
     ),
   },
@@ -598,6 +699,9 @@ export const FeaturesPlacementConfigSchema = Type.Object(
 export type FeaturesPlacementGroupsConfig = Static<typeof FeaturesPlacementGroupsSchema>;
 export type FeaturesPlacementGroupConfig = Static<typeof FeaturesPlacementGroupSchema>;
 export type FeaturesPlacementChances = Static<typeof FeaturesPlacementChancesSchema>;
+export type FeaturesPlacementVegetatedMinByBiome = Static<
+  typeof FeaturesPlacementVegetatedMinByBiomeSchema
+>;
 export type FeaturesPlacementVegetatedRules = Static<typeof FeaturesPlacementVegetatedRulesSchema>;
 export type FeaturesPlacementWetRules = Static<typeof FeaturesPlacementWetRulesSchema>;
 export type FeaturesPlacementAquaticConfig = Static<typeof FeaturesPlacementAquaticSchema>;
@@ -651,6 +755,10 @@ export function resolveFeaturesPlacementOwnedConfig(
     FeaturesPlacementVegetatedRulesSchema,
     {}
   ) as Required<FeaturesPlacementVegetatedRules>;
+  const minVegDefaults = Value.Default(
+    FeaturesPlacementVegetatedMinByBiomeSchema,
+    {}
+  ) as Required<FeaturesPlacementVegetatedMinByBiome>;
   const wetDefaults = Value.Default(
     FeaturesPlacementWetRulesSchema,
     {}
@@ -672,6 +780,10 @@ export function resolveFeaturesPlacementOwnedConfig(
     FeaturesPlacementVegetatedRulesSchema,
     input?.vegetated ?? {}
   ) as Required<FeaturesPlacementVegetatedRules>;
+  const minVegInput = Value.Default(
+    FeaturesPlacementVegetatedMinByBiomeSchema,
+    input?.vegetated?.minVegetationByBiome ?? {}
+  ) as Required<FeaturesPlacementVegetatedMinByBiome>;
   const wetInput = Value.Default(
     FeaturesPlacementWetRulesSchema,
     input?.wet ?? {}
@@ -734,11 +846,32 @@ export function resolveFeaturesPlacementOwnedConfig(
     },
     chances,
     vegetated: {
-      minVegetation: clamp(
-        readNumber(vegetatedInput.minVegetation, vegetatedDefaults.minVegetation),
-        0,
-        1
-      ),
+      minVegetationByBiome: {
+        snow: clamp(readNumber(minVegInput.snow, minVegDefaults.snow), 0, 1),
+        tundra: clamp(readNumber(minVegInput.tundra, minVegDefaults.tundra), 0, 1),
+        boreal: clamp(readNumber(minVegInput.boreal, minVegDefaults.boreal), 0, 1),
+        temperateDry: clamp(
+          readNumber(minVegInput.temperateDry, minVegDefaults.temperateDry),
+          0,
+          1
+        ),
+        temperateHumid: clamp(
+          readNumber(minVegInput.temperateHumid, minVegDefaults.temperateHumid),
+          0,
+          1
+        ),
+        tropicalSeasonal: clamp(
+          readNumber(minVegInput.tropicalSeasonal, minVegDefaults.tropicalSeasonal),
+          0,
+          1
+        ),
+        tropicalRainforest: clamp(
+          readNumber(minVegInput.tropicalRainforest, minVegDefaults.tropicalRainforest),
+          0,
+          1
+        ),
+        desert: clamp(readNumber(minVegInput.desert, minVegDefaults.desert), 0, 1),
+      },
       vegetationChanceScalar: Math.max(
         0,
         readNumber(
@@ -750,6 +883,14 @@ export function resolveFeaturesPlacementOwnedConfig(
         readNumber(
           vegetatedInput.desertSagebrushMinVegetation,
           vegetatedDefaults.desertSagebrushMinVegetation
+        ),
+        0,
+        1
+      ),
+      desertSagebrushMaxAridity: clamp(
+        readNumber(
+          vegetatedInput.desertSagebrushMaxAridity,
+          vegetatedDefaults.desertSagebrushMaxAridity
         ),
         0,
         1
@@ -766,9 +907,25 @@ export function resolveFeaturesPlacementOwnedConfig(
         vegetatedInput.tundraTaigaMinTemperature,
         vegetatedDefaults.tundraTaigaMinTemperature
       ),
+      tundraTaigaMaxFreeze: clamp(
+        readNumber(
+          vegetatedInput.tundraTaigaMaxFreeze,
+          vegetatedDefaults.tundraTaigaMaxFreeze
+        ),
+        0,
+        1
+      ),
       temperateDryForestMoisture: readNumber(
         vegetatedInput.temperateDryForestMoisture,
         vegetatedDefaults.temperateDryForestMoisture
+      ),
+      temperateDryForestMaxAridity: clamp(
+        readNumber(
+          vegetatedInput.temperateDryForestMaxAridity,
+          vegetatedDefaults.temperateDryForestMaxAridity
+        ),
+        0,
+        1
       ),
       temperateDryForestVegetation: clamp(
         readNumber(
@@ -781,6 +938,14 @@ export function resolveFeaturesPlacementOwnedConfig(
       tropicalSeasonalRainforestMoisture: readNumber(
         vegetatedInput.tropicalSeasonalRainforestMoisture,
         vegetatedDefaults.tropicalSeasonalRainforestMoisture
+      ),
+      tropicalSeasonalRainforestMaxAridity: clamp(
+        readNumber(
+          vegetatedInput.tropicalSeasonalRainforestMaxAridity,
+          vegetatedDefaults.tropicalSeasonalRainforestMaxAridity
+        ),
+        0,
+        1
       ),
     },
     wet: {

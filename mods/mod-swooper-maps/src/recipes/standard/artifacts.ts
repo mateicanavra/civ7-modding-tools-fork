@@ -81,7 +81,11 @@ export function getPublishedBiomeClassification(
     value.width !== ctx.dimensions.width ||
     value.height !== ctx.dimensions.height ||
     value.biomeIndex.length !== expectedSize ||
-    value.vegetationDensity.length !== expectedSize
+    value.vegetationDensity.length !== expectedSize ||
+    value.effectiveMoisture.length !== expectedSize ||
+    value.surfaceTemperature.length !== expectedSize ||
+    value.aridityIndex.length !== expectedSize ||
+    value.freezeIndex.length !== expectedSize
   ) {
     return null;
   }

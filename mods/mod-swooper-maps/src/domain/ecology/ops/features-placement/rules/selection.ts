@@ -6,24 +6,30 @@ export function pickVegetatedFeature(params: {
   moistureValue: number;
   temperatureValue: number;
   vegetationValue: number;
+  aridityIndex: number;
+  freezeIndex: number;
   rules: Required<FeaturesPlacementVegetatedRules>;
 }): FeaturePlacementKey | null {
-  const { symbolIndex, moistureValue, temperatureValue, vegetationValue, rules } = params;
+  const { symbolIndex, moistureValue, temperatureValue, vegetationValue, aridityIndex, freezeIndex, rules } = params;
   const symbol = biomeSymbolFromIndex(symbolIndex);
 
   if (symbol === "snow") return null;
   if (symbol === "desert") {
+    if (aridityIndex > rules.desertSagebrushMaxAridity) return null;
     return vegetationValue > rules.desertSagebrushMinVegetation
       ? "FEATURE_SAGEBRUSH_STEPPE"
       : null;
   }
   if (symbol === "tundra") {
-    return vegetationValue > rules.tundraTaigaMinVegetation && temperatureValue > rules.tundraTaigaMinTemperature
+    if (freezeIndex > rules.tundraTaigaMaxFreeze) return null;
+    return vegetationValue > rules.tundraTaigaMinVegetation &&
+      temperatureValue > rules.tundraTaigaMinTemperature
       ? "FEATURE_TAIGA"
       : null;
   }
   if (symbol === "boreal") return "FEATURE_TAIGA";
   if (symbol === "temperateDry") {
+    if (aridityIndex > rules.temperateDryForestMaxAridity) return "FEATURE_SAGEBRUSH_STEPPE";
     return moistureValue > rules.temperateDryForestMoisture ||
       vegetationValue > rules.temperateDryForestVegetation
       ? "FEATURE_FOREST"
@@ -31,6 +37,9 @@ export function pickVegetatedFeature(params: {
   }
   if (symbol === "temperateHumid") return "FEATURE_FOREST";
   if (symbol === "tropicalSeasonal") {
+    if (aridityIndex > rules.tropicalSeasonalRainforestMaxAridity) {
+      return "FEATURE_SAVANNA_WOODLAND";
+    }
     return moistureValue > rules.tropicalSeasonalRainforestMoisture
       ? "FEATURE_RAINFOREST"
       : "FEATURE_SAVANNA_WOODLAND";

@@ -7,6 +7,8 @@ export interface BiomeClassificationArtifactV1 {
   vegetationDensity: Float32Array;
   effectiveMoisture: Float32Array;
   surfaceTemperature: Float32Array;
+  aridityIndex: Float32Array;
+  freezeIndex: Float32Array;
 }
 
 export const BiomeClassificationArtifactSchema = Type.Object(
@@ -17,6 +19,8 @@ export const BiomeClassificationArtifactSchema = Type.Object(
     vegetationDensity: Type.Any(),
     effectiveMoisture: Type.Any(),
     surfaceTemperature: Type.Any(),
+    aridityIndex: Type.Any(),
+    freezeIndex: Type.Any(),
   },
   { additionalProperties: false }
 );
@@ -32,6 +36,8 @@ export function isBiomeClassificationArtifactV1(
     candidate.biomeIndex instanceof Uint8Array &&
     candidate.vegetationDensity instanceof Float32Array &&
     candidate.effectiveMoisture instanceof Float32Array &&
-    candidate.surfaceTemperature instanceof Float32Array
+    candidate.surfaceTemperature instanceof Float32Array &&
+    candidate.aridityIndex instanceof Float32Array &&
+    candidate.freezeIndex instanceof Float32Array
   );
 }

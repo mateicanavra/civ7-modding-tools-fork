@@ -19,7 +19,9 @@ import {
 import { biomeSymbolForZones } from "./rules/lookup.js";
 import { pseudoRandom01 } from "./rules/noise.js";
 import { overlayMoistureBonus } from "./rules/overlays.js";
+import { aridityShiftForIndex, computeAridityIndex, shiftMoistureZone } from "./rules/aridity.js";
 import { computeEffectiveMoisture, moistureZoneOf } from "./rules/moisture.js";
+import { computeFreezeIndex } from "./rules/freeze.js";
 import { computeTemperature, temperatureZoneOf } from "./rules/temperature.js";
 import { clamp01, computeMaxLatitude, ensureSize } from "./rules/util.js";
 import { vegetationDensityForBiome } from "./rules/vegetation.js";
@@ -58,6 +60,8 @@ export const classifyBiomes = createOp({
     const vegetationDensity = new Float32Array(size);
     const effectiveMoisture = new Float32Array(size);
     const surfaceTemperature = new Float32Array(size);
+    const aridityIndex = new Float32Array(size);
+    const freezeIndex = new Float32Array(size);
 
     const maxLatitude = computeMaxLatitude(latitude);
     const [dry, semiArid, subhumid, humidThreshold] = resolvedConfig.moisture.thresholds;
@@ -76,6 +80,8 @@ export const classifyBiomes = createOp({
         vegetationDensity[i] = 0;
         effectiveMoisture[i] = 0;
         surfaceTemperature[i] = resolvedConfig.temperature.pole;
+        aridityIndex[i] = 0;
+        freezeIndex[i] = 0;
         continue;
       }
 
@@ -86,6 +92,7 @@ export const classifyBiomes = createOp({
         cfg: resolvedConfig.temperature,
       });
       surfaceTemperature[i] = temperature;
+      freezeIndex[i] = computeFreezeIndex(temperature, resolvedConfig.freeze);
 
       const noise = (pseudoRandom01(i, resolvedConfig.noise.seed) - 0.5) * 2;
       const overlayBonus = overlayMoistureBonus(
@@ -105,8 +112,19 @@ export const classifyBiomes = createOp({
 
       effectiveMoisture[i] = moisture;
 
+      const aridity = computeAridityIndex({
+        temperature,
+        humidity: humidity[i]!,
+        rainfall: rainfall[i]!,
+        cfg: resolvedConfig.aridity,
+      });
+      aridityIndex[i] = aridity;
+
       const tempZone = temperatureZoneOf(temperature, resolvedConfig.temperature);
-      const moistureZone = moistureZoneOf(moisture, [dry, semiArid, subhumid, humidThreshold]);
+      const moistureZone = shiftMoistureZone(
+        moistureZoneOf(moisture, [dry, semiArid, subhumid, humidThreshold]),
+        aridityShiftForIndex(aridity, resolvedConfig.aridity.moistureShiftThresholds)
+      );
       const symbol = biomeSymbolForZones(tempZone, moistureZone);
       biomeIndex[i] = BIOME_SYMBOL_TO_INDEX[symbol]!;
 
@@ -118,11 +136,20 @@ export const classifyBiomes = createOp({
         humidityWeight: resolvedConfig.vegetation.humidityWeight,
         moistureNorm,
         humidityNorm,
+        aridityIndex: aridity,
+        aridityPenalty: resolvedConfig.aridity.vegetationPenalty,
         modifiers: biomeModifiers,
       });
     }
 
-    return { biomeIndex, vegetationDensity, effectiveMoisture, surfaceTemperature };
+    return {
+      biomeIndex,
+      vegetationDensity,
+      effectiveMoisture,
+      surfaceTemperature,
+      aridityIndex,
+      freezeIndex,
+    };
   },
 } as const);
 

@@ -248,6 +248,32 @@ export interface EngineAdapter {
   /** Validate feature placement */
   canHaveFeature(x: number, y: number, featureType: number): boolean;
 
+  // === PLOT EFFECTS ===
+
+  /**
+   * Resolve plot effect type indices that match all provided tags.
+   * (Civ7: MapPlotEffects.getPlotEffectTypesContainingTags)
+   */
+  getPlotEffectTypesContainingTags(tags: string[]): number[];
+
+  /**
+   * Resolve a plot effect type index by name.
+   * (Civ7: GameInfo.PlotEffects.lookup / MapPlotEffects tables)
+   */
+  getPlotEffectTypeIndex(name: string): number;
+
+  /**
+   * Add a plot effect at a tile.
+   * (Civ7: MapPlotEffects.addPlotEffect)
+   */
+  addPlotEffect(x: number, y: number, plotEffectType: number): void;
+
+  /**
+   * Check whether a plot effect exists on a tile.
+   * (Civ7: MapPlotEffects.hasPlotEffect)
+   */
+  hasPlotEffect(x: number, y: number, plotEffectType: number): boolean;
+
   // === EFFECT VERIFICATION ===
 
   /**
