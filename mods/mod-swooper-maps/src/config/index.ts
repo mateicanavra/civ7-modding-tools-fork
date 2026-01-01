@@ -2,11 +2,13 @@ export {
   // Metadata constants
   INTERNAL_METADATA_KEY,
   // Climate sub-schemas (typed replacements for UnknownRecord)
+  ClimateBaselineBandEdgesSchema,
   ClimateBaselineBandsSchema,
   ClimateBaselineBlendSchema,
   ClimateBaselineOrographicSchema,
   ClimateBaselineCoastalSchema,
   ClimateBaselineNoiseSchema,
+  ClimateBaselineSizeScalingSchema,
   ClimateRefineWaterGradientSchema,
   ClimateRefineOrographicSchema,
   ClimateRefineRiverCorridorSchema,
@@ -65,10 +67,12 @@ export {
 export type {
   // Climate sub-types (typed replacements for UnknownRecord)
   ClimateBaselineBands,
+  ClimateBaselineBandEdges,
   ClimateBaselineBlend,
   ClimateBaselineOrographic,
   ClimateBaselineCoastal,
   ClimateBaselineNoise,
+  ClimateBaselineSizeScaling,
   ClimateRefineWaterGradient,
   ClimateRefineOrographic,
   ClimateRefineRiverCorridor,

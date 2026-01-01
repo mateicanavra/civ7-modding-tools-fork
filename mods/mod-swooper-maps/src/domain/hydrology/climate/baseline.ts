@@ -1,6 +1,26 @@
 import { PerlinNoise } from "@swooper/mapgen-core/lib/noise";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type { ClimateConfig } from "@mapgen/config";
+import { Value } from "typebox/value";
+import {
+  ClimateBaselineBandEdgesSchema,
+  ClimateBaselineBandsSchema,
+  ClimateBaselineBlendSchema,
+  ClimateBaselineCoastalSchema,
+  ClimateBaselineNoiseSchema,
+  ClimateBaselineOrographicSchema,
+  ClimateBaselineSchema,
+  ClimateBaselineSizeScalingSchema,
+  ClimateConfigSchema,
+  type ClimateBaseline,
+  type ClimateBaselineBandEdges,
+  type ClimateBaselineBands,
+  type ClimateBaselineBlend,
+  type ClimateBaselineCoastal,
+  type ClimateBaselineNoise,
+  type ClimateBaselineOrographic,
+  type ClimateBaselineSizeScaling,
+  type ClimateConfig,
+} from "@mapgen/config";
 import { distanceToNearestWater } from "@mapgen/domain/hydrology/climate/distance-to-water.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 
@@ -26,28 +46,58 @@ export function applyClimateBaseline(
   ctx.buffers.climate.rainfall.fill(0);
   if (ctx.fields?.rainfall) ctx.fields.rainfall.fill(0);
 
-  const climateCfg = config;
-  const baselineCfg = climateCfg.baseline || {};
-  const bands = (baselineCfg.bands || {}) as Record<string, number>;
-  const blend = (baselineCfg.blend || {}) as Record<string, number>;
-  const orographic = (baselineCfg.orographic || {}) as Record<string, number>;
-  const coastalCfg = (baselineCfg.coastal || {}) as Record<string, number>;
-  const noiseCfg = (baselineCfg.noise || {}) as Record<string, number>;
+  const resolvedConfig = Value.Default(ClimateConfigSchema, config) as ClimateConfig;
+  const baselineCfg = Value.Default(
+    ClimateBaselineSchema,
+    resolvedConfig.baseline ?? {}
+  ) as Required<ClimateBaseline>;
+  const bands = Value.Default(
+    ClimateBaselineBandsSchema,
+    baselineCfg.bands ?? {}
+  ) as Required<ClimateBaselineBands>;
+  const bandEdges = Value.Default(
+    ClimateBaselineBandEdgesSchema,
+    bands.edges ?? {}
+  ) as Required<ClimateBaselineBandEdges>;
+  const transitionWidth = bands.transitionWidth;
+  const sizeScaling = Value.Default(
+    ClimateBaselineSizeScalingSchema,
+    baselineCfg.sizeScaling ?? {}
+  ) as Required<ClimateBaselineSizeScaling>;
+  const blend = Value.Default(
+    ClimateBaselineBlendSchema,
+    baselineCfg.blend ?? {}
+  ) as Required<ClimateBaselineBlend>;
+  const orographic = Value.Default(
+    ClimateBaselineOrographicSchema,
+    baselineCfg.orographic ?? {}
+  ) as Required<ClimateBaselineOrographic>;
+  const coastalCfg = Value.Default(
+    ClimateBaselineCoastalSchema,
+    baselineCfg.coastal ?? {}
+  ) as Required<ClimateBaselineCoastal>;
+  const noiseCfg = Value.Default(
+    ClimateBaselineNoiseSchema,
+    baselineCfg.noise ?? {}
+  ) as Required<ClimateBaselineNoise>;
 
-  const BASE_AREA = 10000;
-  const sqrt = Math.min(2.0, Math.max(0.6, Math.sqrt(Math.max(1, width * height) / BASE_AREA)));
-  const equatorPlus = Math.round(12 * (sqrt - 1));
+  const baseArea = sizeScaling.baseArea;
+  const minScale = sizeScaling.minScale;
+  const maxScale = sizeScaling.maxScale;
+  const equatorBoostScale = sizeScaling.equatorBoostScale;
+  const equatorBoostTaper = sizeScaling.equatorBoostTaper;
 
-  const noiseBase = Number.isFinite(noiseCfg?.baseSpanSmall) ? noiseCfg.baseSpanSmall : 3;
-  const noiseSpan =
-    sqrt > 1
-      ? noiseBase +
-        Math.round(
-          Number.isFinite(noiseCfg?.spanLargeScaleFactor) ? noiseCfg.spanLargeScaleFactor : 1
-        )
-      : noiseBase;
-  const maxSpread = Number.isFinite(coastalCfg.spread) ? coastalCfg.spread : 4;
-  const noiseScale = Number.isFinite(noiseCfg.scale) ? noiseCfg.scale : 0.15;
+  const areaScale = Math.min(
+    maxScale,
+    Math.max(minScale, Math.sqrt(Math.max(1, width * height) / Math.max(1, baseArea)))
+  );
+  const equatorPlus = equatorBoostScale * (areaScale - 1);
+
+  const noiseBase = noiseCfg.baseSpanSmall;
+  const noiseScaleFactor = noiseCfg.spanLargeScaleFactor;
+  const noiseSpan = noiseBase + noiseScaleFactor * Math.max(0, areaScale - 1);
+  const maxSpread = coastalCfg.spread;
+  const noiseScale = noiseCfg.scale;
 
   const seed = rand(10000, "PerlinSeed");
   const perlin = new PerlinNoise(seed);
@@ -68,35 +118,73 @@ export function applyClimateBaseline(
       const elevation = adapter.getElevation(x, y);
       const lat = Math.abs(adapter.getLatitude(x, y));
 
-      const b0 = Number.isFinite(bands.deg0to10) ? bands.deg0to10 : 120;
-      const b1 = Number.isFinite(bands.deg10to20) ? bands.deg10to20 : 104;
-      const b2 = Number.isFinite(bands.deg20to35) ? bands.deg20to35 : 75;
-      const b3 = Number.isFinite(bands.deg35to55) ? bands.deg35to55 : 70;
-      const b4 = Number.isFinite(bands.deg55to70) ? bands.deg55to70 : 60;
-      const b5 = Number.isFinite(bands.deg70plus) ? bands.deg70plus : 45;
+      const b0 = bands.deg0to10;
+      const b1 = bands.deg10to20;
+      const b2 = bands.deg20to35;
+      const b3 = bands.deg35to55;
+      const b4 = bands.deg55to70;
+      const b5 = bands.deg70plus;
 
-      let bandRain = 0;
-      if (lat < 10) bandRain = b0 + equatorPlus;
-      else if (lat < 20) bandRain = b1 + Math.floor(equatorPlus * 0.6);
-      else if (lat < 35) bandRain = b2;
-      else if (lat < 55) bandRain = b3;
-      else if (lat < 70) bandRain = b4;
-      else bandRain = b5;
+      const edges = [
+        bandEdges.deg0to10,
+        bandEdges.deg10to20,
+        bandEdges.deg20to35,
+        bandEdges.deg35to55,
+        bandEdges.deg55to70,
+      ];
 
-      const baseW = Number.isFinite(blend?.baseWeight) ? blend.baseWeight : 0.6;
-      const bandW = Number.isFinite(blend?.bandWeight) ? blend.bandWeight : 0.4;
+      const bandValues = [
+        b0 + equatorPlus,
+        b1 + equatorPlus * equatorBoostTaper,
+        b2,
+        b3,
+        b4,
+        b5,
+      ];
+
+      const blendWidth = Math.max(0, transitionWidth);
+      const halfBlend = blendWidth / 2;
+
+      let bandRain = bandValues[bandValues.length - 1] ?? 0;
+      let blended = false;
+      if (blendWidth > 0) {
+        for (let i = 0; i < edges.length; i++) {
+          const edge = edges[i] ?? 0;
+          const start = edge - halfBlend;
+          const end = edge + halfBlend;
+          if (lat >= start && lat <= end) {
+            const t = (lat - start) / Math.max(1e-6, blendWidth);
+            const smooth = t * t * (3 - 2 * t);
+            const left = bandValues[i] ?? 0;
+            const right = bandValues[i + 1] ?? left;
+            bandRain = left + (right - left) * smooth;
+            blended = true;
+            break;
+          }
+        }
+      }
+
+      if (!blended) {
+        for (let i = 0; i < edges.length; i++) {
+          if (lat < (edges[i] ?? 0)) {
+            bandRain = bandValues[i] ?? bandRain;
+            break;
+          }
+        }
+      }
+
+      const baseW = blend.baseWeight;
+      const bandW = blend.bandWeight;
       let currentRainfall = Math.round(base * baseW + bandRain * bandW);
 
-      const hi1T = Number.isFinite(orographic?.hi1Threshold) ? orographic.hi1Threshold : 350;
-      const hi1B = Number.isFinite(orographic?.hi1Bonus) ? orographic.hi1Bonus : 8;
-      const hi2T = Number.isFinite(orographic?.hi2Threshold) ? orographic.hi2Threshold : 600;
-      const hi2B = Number.isFinite(orographic?.hi2Bonus) ? orographic.hi2Bonus : 7;
+      const hi1T = orographic.hi1Threshold;
+      const hi1B = orographic.hi1Bonus;
+      const hi2T = orographic.hi2Threshold;
+      const hi2B = orographic.hi2Bonus;
       if (elevation > hi1T) currentRainfall += hi1B;
       if (elevation > hi2T) currentRainfall += hi2B;
 
-      const coastalBonus = Number.isFinite(coastalCfg.coastalLandBonus)
-        ? coastalCfg.coastalLandBonus
-        : 24;
+      const coastalBonus = coastalCfg.coastalLandBonus;
 
       const dist = distMap[y * width + x];
       if (dist > 0 && dist <= maxSpread) {

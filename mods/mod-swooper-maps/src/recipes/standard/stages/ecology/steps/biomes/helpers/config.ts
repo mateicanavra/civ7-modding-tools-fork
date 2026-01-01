@@ -7,7 +7,14 @@ export function mergeBiomeConfig(
   return {
     temperature: { ...base.temperature, ...(override.temperature ?? {}) },
     moisture: { ...base.moisture, ...(override.moisture ?? {}) },
-    vegetation: { ...base.vegetation, ...(override.vegetation ?? {}) },
+    vegetation: {
+      ...base.vegetation,
+      ...(override.vegetation ?? {}),
+      biomeModifiers: {
+        ...(base.vegetation.biomeModifiers ?? {}),
+        ...(override.vegetation?.biomeModifiers ?? {}),
+      },
+    },
     noise: { ...base.noise, ...(override.noise ?? {}) },
     overlays: { ...base.overlays, ...(override.overlays ?? {}) },
   };

@@ -4,6 +4,8 @@
 
 Ecology turns the physical world (foundation + morphology + climate) into living‑world signals: **soils**, **biomes**, **resources**, and **terrain features**. It follows the operation-module architecture (`docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`): every domain op exports its own schemas/defaults, and steps stay orchestration-only (build inputs → call op → apply/publish).
 
+Baseline non-wonder feature placement is ecology-owned (forests, wetlands, reefs, ice), while placement retains natural wonders and floodplains. The ownership boundary and migration rationale are tracked in `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-feature-placement-ownership.md`.
+
 ### Responsibilities (causal chain)
 
 1. **Pedology (planned):** derive soil class + fertility from bedrock age/type, sediment depth, slope, and climate (CLORPT proxy) so downstream placement has a physical substrate.

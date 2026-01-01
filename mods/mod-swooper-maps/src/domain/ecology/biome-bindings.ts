@@ -3,9 +3,14 @@ import { Type, type Static } from "typebox";
 
 import { BIOME_SYMBOL_ORDER, type BiomeSymbol } from "./types.js";
 
+/**
+ * Bindings from internal biome symbols to Civ7 engine biome globals.
+ * These values are resolved during the biomes step to populate `field:biomeId`,
+ * which downstream feature placement and engine validity checks depend on.
+ */
 export const BiomeEngineBindingsSchema = Type.Object(
   {
-    /** Engine biome global used for permanent snow/ice biomes. */
+    /** Engine biome global used for permanent snow/ice biomes (written to field:biomeId). */
     snow: Type.Optional(
       Type.String({
         description: "Engine biome global used for permanent snow/ice biomes.",
@@ -61,7 +66,7 @@ export const BiomeEngineBindingsSchema = Type.Object(
         default: "BIOME_DESERT",
       })
     ),
-    /** Engine biome global used for ocean and coastal water tiles. */
+    /** Engine biome global used for ocean and coastal water tiles (water tiles must resolve to BIOME_MARINE). */
     marine: Type.Optional(
       Type.String({
         description: "Engine biome global used for ocean and coastal water tiles.",
@@ -72,7 +77,8 @@ export const BiomeEngineBindingsSchema = Type.Object(
   {
     additionalProperties: false,
     default: {},
-    description: "Mappings from biome symbols to Civ7 engine biome globals.",
+    description:
+      "Mappings from biome symbols to Civ7 engine biome globals (used to populate field:biomeId).",
   }
 );
 

@@ -6,8 +6,11 @@ describe("features placement config", () => {
   it("rejects unknown feature chance keys", () => {
     const result = safeParseConfig({
       featuresPlacement: {
-        chances: {
-          FEATURE_FAKE_FEATURE: 20,
+        strategy: "owned",
+        config: {
+          chances: {
+            FEATURE_FAKE_FEATURE: 20,
+          },
         },
       },
     });

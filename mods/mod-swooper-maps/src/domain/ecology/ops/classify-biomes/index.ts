@@ -1,10 +1,17 @@
+import { Value } from "typebox/value";
 import { createOp } from "@swooper/mapgen-core/authoring";
 
-import { BIOME_SYMBOL_TO_INDEX, biomeSymbolFromIndex, type BiomeSymbol } from "../../types.js";
+import {
+  BIOME_SYMBOL_ORDER,
+  BIOME_SYMBOL_TO_INDEX,
+  biomeSymbolFromIndex,
+  type BiomeSymbol,
+} from "../../types.js";
 import {
   BiomeClassificationConfigSchema,
   BiomeClassificationInputSchema,
   BiomeClassificationOutputSchema,
+  VegetationBiomeModifiersSchema,
   type BiomeClassificationConfig,
   type BiomeClassificationInput,
   type BiomeClassificationOutput,
@@ -24,6 +31,10 @@ export const classifyBiomes = createOp({
   output: BiomeClassificationOutputSchema,
   config: BiomeClassificationConfigSchema,
   run: (input: BiomeClassificationInput, cfg: BiomeClassificationConfig) => {
+    const resolvedConfig = Value.Default(
+      BiomeClassificationConfigSchema,
+      cfg
+    ) as BiomeClassificationConfig;
     const { width, height } = input;
     const size = width * height;
 
@@ -49,15 +60,22 @@ export const classifyBiomes = createOp({
     const surfaceTemperature = new Float32Array(size);
 
     const maxLatitude = computeMaxLatitude(latitude);
-    const [dry, semiArid, subhumid, humidThreshold] = cfg.moisture.thresholds;
-    const noiseScale = cfg.noise.amplitude * 255;
+    const [dry, semiArid, subhumid, humidThreshold] = resolvedConfig.moisture.thresholds;
+    const noiseScale = resolvedConfig.noise.amplitude * 255;
+    const moistureNormalization =
+      humidThreshold + resolvedConfig.vegetation.moistureNormalizationPadding;
+
+    const biomeModifiers = Value.Default(
+      VegetationBiomeModifiersSchema,
+      resolvedConfig.vegetation.biomeModifiers ?? {}
+    ) as Record<BiomeSymbol, { multiplier: number; bonus: number }>;
 
     for (let i = 0; i < size; i++) {
       if (landMask[i] === 0) {
         biomeIndex[i] = 255;
         vegetationDensity[i] = 0;
         effectiveMoisture[i] = 0;
-        surfaceTemperature[i] = cfg.temperature.pole;
+        surfaceTemperature[i] = resolvedConfig.temperature.pole;
         continue;
       }
 
@@ -65,21 +83,21 @@ export const classifyBiomes = createOp({
         latitudeAbs: Math.abs(latitude[i]!),
         maxLatitude,
         elevationMeters: elevation[i]!,
-        cfg: cfg.temperature,
+        cfg: resolvedConfig.temperature,
       });
       surfaceTemperature[i] = temperature;
 
-      const noise = (pseudoRandom01(i, cfg.noise.seed) - 0.5) * 2;
+      const noise = (pseudoRandom01(i, resolvedConfig.noise.seed) - 0.5) * 2;
       const overlayBonus = overlayMoistureBonus(
         corridorMask[i]!,
         riftShoulderMask[i]!,
-        cfg.overlays
+        resolvedConfig.overlays
       );
       const moisture = computeEffectiveMoisture({
         rainfall: rainfall[i]!,
         humidity: humidity[i]!,
-        bias: cfg.moisture.bias,
-        humidityWeight: cfg.moisture.humidityWeight,
+        bias: resolvedConfig.moisture.bias,
+        humidityWeight: resolvedConfig.moisture.humidityWeight,
         overlayBonus,
         noise,
         noiseScale,
@@ -87,19 +105,20 @@ export const classifyBiomes = createOp({
 
       effectiveMoisture[i] = moisture;
 
-      const tempZone = temperatureZoneOf(temperature, cfg.temperature);
+      const tempZone = temperatureZoneOf(temperature, resolvedConfig.temperature);
       const moistureZone = moistureZoneOf(moisture, [dry, semiArid, subhumid, humidThreshold]);
       const symbol = biomeSymbolForZones(tempZone, moistureZone);
       biomeIndex[i] = BIOME_SYMBOL_TO_INDEX[symbol]!;
 
-      const moistureNorm = clamp01(moisture / (humidThreshold + 40));
+      const moistureNorm = clamp01(moisture / moistureNormalization);
       const humidityNorm = clamp01(humidity[i]! / 255);
       vegetationDensity[i] = vegetationDensityForBiome(symbol, {
-        base: cfg.vegetation.base,
-        moistureWeight: cfg.vegetation.moistureWeight,
-        humidityWeight: cfg.vegetation.humidityWeight,
+        base: resolvedConfig.vegetation.base,
+        moistureWeight: resolvedConfig.vegetation.moistureWeight,
+        humidityWeight: resolvedConfig.vegetation.humidityWeight,
         moistureNorm,
         humidityNorm,
+        modifiers: biomeModifiers,
       });
     }
 

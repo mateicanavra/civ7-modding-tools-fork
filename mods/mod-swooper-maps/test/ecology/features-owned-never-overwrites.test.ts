@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features.js";
+import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
 import { createFeaturesTestContext } from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
@@ -27,8 +27,8 @@ describe("features (owned baseline)", () => {
         taigaExtraChance: 0,
       },
       featuresPlacement: {
-        mode: "owned",
-        chances: { FEATURE_FOREST: 100 },
+        strategy: "owned",
+        config: { chances: { FEATURE_FOREST: 100 } },
       },
     });
 

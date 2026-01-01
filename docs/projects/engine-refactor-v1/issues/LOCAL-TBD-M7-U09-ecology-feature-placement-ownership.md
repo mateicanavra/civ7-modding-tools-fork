@@ -26,19 +26,24 @@ related_to: [LOCAL-TBD-M7-U08]
   - Aquatic: `FEATURE_REEF`, `FEATURE_COLD_REEF`, `FEATURE_ATOLL`, `FEATURE_LOTUS`
   - Ice: `FEATURE_ICE`
 - A dedicated, explicit config/schema surface for owned baseline placement (no overloading of `story.features`) with:
-  - mode switch: `"owned" | "vanilla"`
-  - per-group enable/multiplier knobs
+  - strategy switch: `"owned" | "vanilla"` (strategy selection shape)
+  - per-group multipliers only (no per-group enable/disable)
   - per-feature “chance per eligible plot” overrides
   - explicit placement invariants that are enforced regardless of tuning
+- Modularize the ecology features pipeline per the operation-module spec:
+  - domain op module with strategies + rules for baseline placement
+  - step-local inputs/apply helpers for runtime integration
 - Standard recipe wiring updates so the ecology `features` step can choose owned vs vanilla baseline without changing downstream contracts.
-- Map preset updates (all shipped maps under `mods/mod-swooper-maps/src/maps/`) to opt into the owned baseline and tune where theme-appropriate.
+- Map preset updates (all shipped maps under `mods/mod-swooper-maps/src/maps/`) to opt into the owned baseline and tune where theme-appropriate, with all feature/ecology placement config fields explicitly defined (no defaults, including climate baseline/swatch knobs).
 - Tests that prove correctness and catch regressions: `canHaveFeature` gating, “never overwrite”, land/water separation, and navigable river exclusions.
 - Documentation update that makes the ecology/placement ownership boundary explicit and links to the spike.
 - Climate swatches are disabled without deleting code (confirm omission is insufficient; implement minimal config/code gate to suppress them while isolating ecology work).
 - Biome schemas/configs updated with TypeBox descriptions **and** JSDoc comments that explain intent, tuning impact, units, and expected ranges for non-expert configuration.
+- Fix latitude band cutoffs and/or swatch dominance so biome/feature distribution blends naturally (no harsh band edges).
+- All tunable parameters and multipliers in feature/ecology rules are surfaced in config schemas (no hidden tuning constants).
 
 ## Acceptance Criteria
-- With `featuresPlacement.mode = "owned"`:
+- With `featuresPlacement.strategy = "owned"`:
   - the ecology `features` step never calls `adapter.addFeatures(...)` (test-enforced)
   - the step completes successfully and produces a valid map (no engine crash; no missing required biome invariants such as marine-on-water)
 - Every placement:
@@ -48,8 +53,12 @@ related_to: [LOCAL-TBD-M7-U08]
   - water tiles
   - `TERRAIN_NAVIGABLE_RIVER` tiles
 - Aquatic/ice features are never placed on land tiles.
-- All shipped map presets set `featuresPlacement.mode = "owned"` and still pass `pnpm lint`, `pnpm check`, `pnpm test`, `pnpm build`, `pnpm -C mods/mod-swooper-maps test`, `pnpm run deploy:mods`.
+- All shipped map presets set `featuresPlacement.strategy = "owned"` and still pass `pnpm lint`, `pnpm check`, `pnpm test`, `pnpm build`, `pnpm -C mods/mod-swooper-maps test`, `pnpm run deploy:mods`.
 - Climate swatches do not render/execute when explicitly disabled, without removing their implementation.
+- All shipped map presets explicitly set every feature/ecology placement config value (no reliance on defaults in map files).
+- Feature placement config has no per-group enable/disable (owned strategy activates all groups).
+- Feature/ecology rules expose all tunables in config schemas (no hidden constants).
+- Baseline latitude bands blend without visible hard cutoffs (verify in at least one earthlike and one extreme-biome map).
 
 ## Testing / Verification
 - `pnpm -C mods/mod-swooper-maps test`
@@ -81,11 +90,19 @@ related_to: [LOCAL-TBD-M7-U08]
 
 ### Current state (inventory, concrete delegation)
 
-- Current ecology `features` behavior is “vanilla baseline + mod tweaks”:
-  - Stage step: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features.ts`
-  - Domain entrypoint: `mods/mod-swooper-maps/src/domain/ecology/features/index.ts`
-  - Baseline delegation: `adapter.addFeatures(...)` → `/base-standard/maps/feature-biome-generator.js` `addFeatures(...)`
-  - Post-pass tweaks: paradise reefs, shelf reefs, volcanic vegetation, density tweaks (mod-owned).
+- Ecology `features` is now an op-backed orchestration step:
+  - Stage step: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`
+  - Baseline op: `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/` (strategy wrapper: owned vs vanilla)
+  - Embellishment op: `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/`
+  - Engine baseline is only invoked when `featuresPlacement.strategy = "vanilla"`; owned baseline plans placements and the step applies them.
+
+### Modularization requirements (SPEC pending)
+
+- Convert features placement into an ecology op module with strategies + rules, mirroring the volcano example.
+- Move step orchestration into a foldered step with explicit `inputs` + `apply` helpers.
+- Steps must consume op configs directly (no re-authored wrappers) and pass strategy configs through.
+- Rules must be pure and parameterized by config (no hidden constants).
+- If any ecology placement rule still embeds tunables, lift them into config + schema as part of this work (no “hidden” multipliers).
 
 ### Scope boundary (explicit: what this issue owns vs does not own)
 
@@ -191,7 +208,7 @@ Owned placement should be modular by placement group, but feature targeting must
 
 - Vegetated / SCATTER
   - Eligible: land, NO_FEATURE, not navigable-river plot.
-  - Feature choice: choose among the 5 vegetated features using biome/climate signals (implementation detail), but the selection policy must be stable and configurable via per-feature chances and group multipliers.
+  - Feature choice: choose among the 5 vegetated features using biome/climate signals (implementation detail), but the selection policy must be stable and configurable via per-feature chances, group multipliers, and explicit biome/threshold tunables.
 - Wet / NEARRIVER
   - Eligible: land, NO_FEATURE, not navigable-river plot, `adapter.isAdjacentToRivers(x, y, 2)`.
   - Feature choice: marsh vs tundra bog, guided by biome (preferred) and/or `canHaveFeature` gating.
@@ -217,6 +234,10 @@ Owned placement should be modular by placement group, but feature targeting must
   - Eligible: water, NO_FEATURE, abs-latitude ≥ threshold (78° default), and not adjacent to land.
   - Optional additional exclusion: avoid adjacency to natural wonders (explicitly configurable).
 
+#### No hidden tunables
+
+Any multiplier, threshold, radius, or scalar used by feature/ecology rules must be surfaced in config (op schema + step schema + map preset).
+
 ### Config & schema spec (must be implementable + must update map presets)
 
 This issue must add a dedicated config block; do not overload narrative `FeaturesConfigSchema`.
@@ -230,7 +251,7 @@ This issue must add a dedicated config block; do not overload narrative `Feature
   - `mods/mod-swooper-maps/src/config/schema.ts`: wire `featuresPlacement` into `MapGenConfigSchema`
 - Thread into recipe config:
   - `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts`: pass `overrides.featuresPlacement` into the ecology `features` step config
-  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features.ts`: accept + validate config and pass into domain entrypoint
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`: accept + validate config and pass into domain entrypoint
 
 #### Proposed config shape (fully specified)
 
@@ -238,58 +259,103 @@ This is a “requirements” spec for config semantics; exact naming can vary sl
 
 ```
 featuresPlacement: {
-  mode: "owned" | "vanilla", // default "owned" for shipped maps
+  strategy: "owned" | "vanilla",
+  config: {
 
-  groups: {
-    vegetated: { enabled: true, multiplier: 1 },
-    wet:       { enabled: true, multiplier: 1 },
-    aquatic:   { enabled: true, multiplier: 1 },
-    ice:       { enabled: true, multiplier: 1 },
-  },
-
-  chances: {
-    // chance per eligible plot (0..100)
-    // defaults must match Civ7 PlacementDensity values from terrain.xml
-    FEATURE_FOREST: 50,
-    FEATURE_RAINFOREST: 65,
-    FEATURE_TAIGA: 50,
-    FEATURE_SAVANNA_WOODLAND: 30,
-    FEATURE_SAGEBRUSH_STEPPE: 30,
-    FEATURE_MARSH: 30,
-    FEATURE_TUNDRA_BOG: 30,
-    FEATURE_MANGROVE: 30,
-    FEATURE_OASIS: 50,
-    FEATURE_WATERING_HOLE: 30,
-    FEATURE_REEF: 30,
-    FEATURE_COLD_REEF: 30,
-    FEATURE_ATOLL: 12,
-    FEATURE_LOTUS: 15,
-    FEATURE_ICE: 90,
-  },
-
-  aquatic: {
-    reefLatitudeSplit: 55,
-    atoll: {
-      enableClustering: true,
-      clusterRadius: 1,
-      shallowWaterAdjacencyGateChance: 30,
-      growthChanceEquatorial: 15,
-      growthChanceNonEquatorial: 5,
+    groups: {
+      vegetated: { multiplier: 1 },
+      wet:       { multiplier: 1 },
+      aquatic:   { multiplier: 1 },
+      ice:       { multiplier: 1 },
     },
-  },
 
-  ice: {
-    minAbsLatitude: 78,
-    forbidAdjacentToLand: true,
-    forbidAdjacentToNaturalWonders: true,
-  },
+    chances: {
+      // chance per eligible plot (0..100)
+      // defaults must match Civ7 PlacementDensity values from terrain.xml
+      FEATURE_FOREST: 50,
+      FEATURE_RAINFOREST: 65,
+      FEATURE_TAIGA: 50,
+      FEATURE_SAVANNA_WOODLAND: 30,
+      FEATURE_SAGEBRUSH_STEPPE: 30,
+      FEATURE_MARSH: 30,
+      FEATURE_TUNDRA_BOG: 30,
+      FEATURE_MANGROVE: 30,
+      FEATURE_OASIS: 50,
+      FEATURE_WATERING_HOLE: 30,
+      FEATURE_REEF: 30,
+      FEATURE_COLD_REEF: 30,
+      FEATURE_ATOLL: 12,
+      FEATURE_LOTUS: 15,
+      FEATURE_ICE: 90,
+    },
+
+    vegetated: {
+      minVegetation: 0.05,
+      vegetationChanceScalar: 1,
+      desertSagebrushMinVegetation: 0.2,
+      tundraTaigaMinVegetation: 0.25,
+      tundraTaigaMinTemperature: -2,
+      temperateDryForestMoisture: 120,
+      temperateDryForestVegetation: 0.45,
+      tropicalSeasonalRainforestMoisture: 140,
+    },
+
+    wet: {
+      nearRiverRadius: 2,
+      coldTemperatureMax: 2,
+      coldBiomeSymbols: ["snow", "tundra", "boreal"],
+      mangroveWarmTemperatureMin: 18,
+      mangroveWarmBiomeSymbols: ["tropicalRainforest", "tropicalSeasonal"],
+      coastalAdjacencyRadius: 1,
+      isolatedRiverRadius: 1,
+      isolatedSpacingRadius: 1,
+      oasisBiomeSymbols: ["desert", "temperateDry"],
+    },
+
+    aquatic: {
+      reefLatitudeSplit: 55,
+      atoll: {
+        enableClustering: true,
+        clusterRadius: 1,
+        equatorialBandMaxAbsLatitude: 23,
+        shallowWaterAdjacencyGateChance: 30,
+        shallowWaterAdjacencyRadius: 1,
+        growthChanceEquatorial: 15,
+        growthChanceNonEquatorial: 5,
+      },
+    },
+
+    ice: {
+      minAbsLatitude: 78,
+      forbidAdjacentToLand: true,
+      landAdjacencyRadius: 1,
+      forbidAdjacentToNaturalWonders: true,
+      naturalWonderAdjacencyRadius: 1,
+    },
+  }
 }
 ```
 
 Hard requirements for config behavior:
 - Unknown feature keys in `featuresPlacement.chances` must not silently no-op:
   - either fail fast (preferred) or log a loud warning and skip; behavior must be explicit and test-covered.
-- When `mode = "owned"`, vanilla baseline must not run (test-enforced via `MockAdapter.calls.addFeatures`).
+- Strategy config shape must be used even if only one strategy is implemented (proto strategy wrapper).
+- Per-group enable/disable toggles are not allowed (owned strategy always activates all groups).
+- All tunable constants in feature/ecology rules must be surfaced in config/schema.
+- When `strategy = "owned"`, vanilla baseline must not run (test-enforced via `MockAdapter.calls.addFeatures`).
+
+### Climate baseline smoothing (lat-band blending)
+
+Baseline rainfall bands must blend smoothly rather than hard-cut at latitude boundaries.
+
+Required config updates:
+- Add explicit band edges (degrees) and transition width to `ClimateBaselineBandsSchema`.
+- Add size-scaling knobs for equatorial boost and noise scaling (base area, min/max scale, equator boost scale).
+- Map presets must explicitly set the new band edges + transition width, and explicitly set `climate.swatches.enabled = false`.
+
+Implementation requirements:
+- Use linear or smoothstep blending across band boundaries using the transition width.
+- Avoid hard step changes at latitude cutoffs; verify by comparing at least one earthlike and one extreme-biome map.
 
 ### Map preset updates (required; this issue is not “done” without them)
 
@@ -302,9 +368,10 @@ Update every shipped map preset in `mods/mod-swooper-maps/src/maps/`:
 - `swooper-earthlike.ts`
 
 Minimum required changes per map:
-- add a `featuresPlacement` block
-- set `featuresPlacement.mode = "owned"`
-- keep existing `featuresDensity` and story feature-tunables (post-pass tweaks) unless a map’s theme requires adjustment
+- add a `featuresPlacement` block with full strategy config shape
+- set `featuresPlacement.strategy = "owned"`
+- explicitly set **all** feature placement + ecology placement config fields (no defaults)
+  - includes features placement, biome/ecology placement, and climate baseline/swatches knobs
 
 Contextual tuning requirements (high-level, no black ice):
 - Archipelago-style maps must bias `aquatic.multiplier` upward and/or increase reef/atoll chances.
@@ -316,7 +383,7 @@ Contextual tuning requirements (high-level, no black ice):
 Add new tests under `mods/mod-swooper-maps/test/ecology/`:
 
 1) `features-owned-does-not-call-vanilla.test.ts`
-   - `featuresPlacement.mode = "owned"` ⇒ `adapter.calls.addFeatures.length === 0`
+   - `featuresPlacement.strategy = "owned"` ⇒ `adapter.calls.addFeatures.length === 0`
 2) `features-owned-never-overwrites.test.ts`
    - pre-seed a feature on a plot and prove it never changes
 3) `features-owned-land-water-separation.test.ts`
@@ -334,15 +401,18 @@ If `MockAdapter.canHaveFeature` remains “always true”, add a test-only injec
 
 Expected patch footprint:
 
-- Domain implementation (new):
-  - `mods/mod-swooper-maps/src/domain/ecology/features/owned/**` (placement group rules + helpers)
-  - `mods/mod-swooper-maps/src/domain/ecology/features/owned/types.ts` (feature placement config types)
+- Domain implementation (new/refactor):
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/**` (op module, strategies, rules, schemas)
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/strategies/*.ts` (owned vs vanilla/engine)
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/rules/**` (pure placement helpers)
 - Domain orchestration (update):
-  - `mods/mod-swooper-maps/src/domain/ecology/features/index.ts`:
-    - chooses baseline (`owned` vs `vanilla`)
-    - runs existing narrative tweaks after baseline (paradise reefs, shelf reefs, volcanic vegetation, density tweaks)
-- Step wiring (update):
-  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features.ts` (schema + pass config through)
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/**` (owned/vanilla strategies + rules)
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/**` (post-pass tweaks as an op)
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts` (export new ops)
+- Step wiring (update to foldered step):
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/inputs.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/apply.ts`
   - `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` (thread `featuresPlacement` overrides into the step config)
 - Config schema/types (update):
   - `mods/mod-swooper-maps/src/config/schema/ecology.ts` (add `FeaturesPlacementConfigSchema`)
@@ -406,3 +476,38 @@ Implementation order (recommended):
 - **Choice:** Use a 23° equatorial band and apply the shallow-water gate only when adjacent to shallow water.
 - **Rationale:** Aligns with real-world tropics and keeps gating localized to coasts.
 - **Risk:** Atoll distribution might skew until tuning passes adjust the band or chances.
+
+### Split feature ownership into baseline placement + embellishment ops
+- **Context:** The spec calls for operation modules with strategies and pure rules; current `addDiverseFeatures` mixes baseline placement with post-pass narrative tweaks.
+- **Options:** Keep a single monolithic domain function; split into separate ops for baseline and embellishments; push embellishments into step-only logic.
+- **Choice:** Create a baseline placement op (with strategies) and a separate embellishments op; step orchestrates both.
+- **Rationale:** Aligns with the op-module spec while keeping embellishment tuning colocated with domain logic.
+- **Risk:** More wiring/config surface; requires map/config updates for new op shapes.
+
+### Model baseline placement as a strategy selection wrapper
+- **Context:** The spec requires a strategy shape even before multiple strategies are fully implemented.
+- **Options:** Keep a `mode` string; use `{ strategy, config }` wrapper; add separate `featuresPlacement` and `featuresPlacementStrategy` fields.
+- **Choice:** Use `{ strategy, config }` with literal strategies (`owned` | `vanilla`) and strategy-specific configs.
+- **Rationale:** Makes the intended strategy abstraction explicit and keeps op contracts stable.
+- **Risk:** Requires broader config/schema updates and explicit map overrides.
+
+### Hoist biome vegetation adjustments into explicit per-symbol modifiers
+- **Context:** Vegetation density rules embed per-biome multipliers/bonuses and moisture normalization padding constants.
+- **Options:** Leave constants in rules; expose a few top-level scalars; define per-biome modifiers/bonuses in config.
+- **Choice:** Add per-biome multiplier/bonus settings plus moisture normalization padding to the biome config schema.
+- **Rationale:** Exposes all tuning knobs without hardcoding biome behavior in rules.
+- **Risk:** Adds verbose config requirements for every map preset.
+
+### Blend climate baseline bands with smooth transitions
+- **Context:** Hard latitude cutoffs cause visible banding; spec requires smooth blending.
+- **Options:** Linear blend; smoothstep blend; noise-based blending.
+- **Choice:** Use smoothstep blending across explicit band edges with a configurable transition width.
+- **Rationale:** Smoothstep avoids visible seams while preserving band intent.
+- **Risk:** Requires map retuning of band values due to blended overlaps.
+
+### Keep ecology feature ownership tests split by behavior
+- **Context:** Feature ownership tests are spread across multiple files; user asked whether to consolidate.
+- **Options:** Merge into a single monolithic spec file; keep focused tests per behavior.
+- **Choice:** Keep focused test files for each behavior (ownership, adjacency, exclusions).
+- **Rationale:** Isolates failures to specific behaviors and matches existing test patterns in the mod package.
+- **Risk:** Slightly more files to navigate, but failures stay more diagnosable.

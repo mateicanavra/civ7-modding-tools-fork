@@ -6,5 +6,3 @@ export {
   DEFAULT_ENGINE_BINDINGS,
   resolveEngineBiomeIds,
 } from "./biome-bindings.js";
-
-export * from "./features/index.js";

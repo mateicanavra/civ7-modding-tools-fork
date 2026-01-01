@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features.js";
+import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
 import { createFeaturesTestContext } from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
@@ -23,25 +23,27 @@ describe("features (owned baseline)", () => {
         taigaExtraChance: 0,
       },
       featuresPlacement: {
-        mode: "owned",
-        chances: {
-          FEATURE_FOREST: 100,
-          FEATURE_RAINFOREST: 100,
-          FEATURE_TAIGA: 100,
-          FEATURE_SAVANNA_WOODLAND: 100,
-          FEATURE_SAGEBRUSH_STEPPE: 100,
-          FEATURE_MARSH: 100,
-          FEATURE_TUNDRA_BOG: 100,
-          FEATURE_MANGROVE: 100,
-          FEATURE_OASIS: 100,
-          FEATURE_WATERING_HOLE: 100,
-          FEATURE_REEF: 100,
-          FEATURE_COLD_REEF: 100,
-          FEATURE_ATOLL: 100,
-          FEATURE_LOTUS: 100,
-          FEATURE_ICE: 100,
+        strategy: "owned",
+        config: {
+          chances: {
+            FEATURE_FOREST: 100,
+            FEATURE_RAINFOREST: 100,
+            FEATURE_TAIGA: 100,
+            FEATURE_SAVANNA_WOODLAND: 100,
+            FEATURE_SAGEBRUSH_STEPPE: 100,
+            FEATURE_MARSH: 100,
+            FEATURE_TUNDRA_BOG: 100,
+            FEATURE_MANGROVE: 100,
+            FEATURE_OASIS: 100,
+            FEATURE_WATERING_HOLE: 100,
+            FEATURE_REEF: 100,
+            FEATURE_COLD_REEF: 100,
+            FEATURE_ATOLL: 100,
+            FEATURE_LOTUS: 100,
+            FEATURE_ICE: 100,
+          },
+          ice: { minAbsLatitude: 90 },
         },
-        ice: { minAbsLatitude: 90 },
       },
     });
 

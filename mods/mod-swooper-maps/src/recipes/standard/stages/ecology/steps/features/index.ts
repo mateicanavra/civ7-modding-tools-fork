@@ -6,9 +6,13 @@ import {
   FeaturesDensityConfigSchema,
   FeaturesPlacementConfigSchema,
 } from "@mapgen/config";
-import { addDiverseFeatures } from "@mapgen/domain/ecology/features/index.js";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
-import { getPublishedBiomeClassification } from "../../../artifacts.js";
+import {
+  featuresEmbellishments,
+} from "@mapgen/domain/ecology/ops/features-embellishments/index.js";
+import { featuresPlacement } from "@mapgen/domain/ecology/ops/features-placement/index.js";
+import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
+import { buildFeaturesEmbellishmentsInput, buildFeaturesPlacementInput } from "./inputs.js";
+import { applyFeaturePlacements, reifyFeatureField } from "./apply.js";
 
 const FeaturesStepConfigSchema = Type.Object(
   {
@@ -25,23 +29,6 @@ const FeaturesStepConfigSchema = Type.Object(
 );
 
 type FeaturesStepConfig = Static<typeof FeaturesStepConfigSchema>;
-
-function reifyFeatureField(context: ExtendedMapContext): void {
-  const featureTypeField = context.fields?.featureType;
-  if (!featureTypeField) {
-    throw new Error("FeaturesStep: Missing field:featureType buffer for reification.");
-  }
-
-  const { width, height } = context.dimensions;
-  const { adapter } = context;
-
-  for (let y = 0; y < height; y++) {
-    const rowOffset = y * width;
-    for (let x = 0; x < width; x++) {
-      featureTypeField[rowOffset + x] = adapter.getFeatureType(x, y) | 0;
-    }
-  }
-}
 
 export default createStep({
   id: "features",
@@ -61,15 +48,26 @@ export default createStep({
   schema: FeaturesStepConfigSchema,
   run: (context: ExtendedMapContext, config: FeaturesStepConfig) => {
     const { width, height } = context.dimensions;
-    const classification = getPublishedBiomeClassification(context);
-    if (!classification) {
-      throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
+
+    const placementInput = buildFeaturesPlacementInput(context);
+    const placementResult = featuresPlacement.run(placementInput, config.featuresPlacement);
+
+    if (placementResult.useEngineBaseline) {
+      context.adapter.addFeatures(width, height);
+    } else if (placementResult.placements.length > 0) {
+      applyFeaturePlacements(context, placementResult.placements);
     }
-    addDiverseFeatures(width, height, context, {
+
+    const embellishmentInput = buildFeaturesEmbellishmentsInput(context);
+    const embellishmentResult = featuresEmbellishments.run(embellishmentInput, {
       story: config.story,
       featuresDensity: config.featuresDensity,
-      featuresPlacement: config.featuresPlacement,
     });
+
+    if (embellishmentResult.placements.length > 0) {
+      applyFeaturePlacements(context, embellishmentResult.placements);
+    }
+
     reifyFeatureField(context);
     context.adapter.validateAndFixTerrain();
     syncHeightfield(context);
