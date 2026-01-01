@@ -1,6 +1,7 @@
 import { Type, type Static } from "typebox";
 import {
   markLandmassId,
+  logElevationSummary,
   resolveLandmassIds,
   syncHeightfield,
   type ExtendedMapContext,
@@ -63,6 +64,7 @@ export default createStep({
     );
 
     syncHeightfield(context);
+    logElevationSummary(context.adapter, width, height, "post-buildElevation");
     publishHeightfieldArtifact(context);
     applyClimateBaseline(width, height, context, config.climate);
     publishClimateFieldArtifact(context);

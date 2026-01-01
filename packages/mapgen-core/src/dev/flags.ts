@@ -24,8 +24,10 @@ export type DevFlagKey =
   | "LOG_RELIEF_ASCII"
   | "LOG_RAINFALL_ASCII"
   | "LOG_RAINFALL_SUMMARY"
+  | "LOG_ELEVATION_SUMMARY"
   | "LOG_BIOME_ASCII"
   | "LOG_BIOME_SUMMARY"
+  | "LOG_SNOW_SUMMARY"
   | "LOG_CORRIDOR_ASCII"
   | "LOG_BOUNDARY_METRICS"
   | "LOG_MOUNTAINS"
@@ -63,10 +65,14 @@ export interface DevFlags extends Record<DevFlagKey, boolean> {
   LOG_RAINFALL_ASCII: boolean;
   /** Log rainfall min/max/avg statistics */
   LOG_RAINFALL_SUMMARY: boolean;
+  /** Log elevation min/max/avg statistics */
+  LOG_ELEVATION_SUMMARY: boolean;
   /** ASCII biome classification overlay */
   LOG_BIOME_ASCII: boolean;
   /** Log biome tile counts */
   LOG_BIOME_SUMMARY: boolean;
+  /** Log snow eligibility and placement summaries */
+  LOG_SNOW_SUMMARY: boolean;
   /** ASCII corridor overlay */
   LOG_CORRIDOR_ASCII: boolean;
   /** Quantitative boundary coverage metrics */
@@ -98,8 +104,10 @@ export const DEV: DevFlags = {
   LOG_RELIEF_ASCII: false,
   LOG_RAINFALL_ASCII: false,
   LOG_RAINFALL_SUMMARY: false,
+  LOG_ELEVATION_SUMMARY: false,
   LOG_BIOME_ASCII: false,
   LOG_BIOME_SUMMARY: false,
+  LOG_SNOW_SUMMARY: false,
   LOG_CORRIDOR_ASCII: false,
   LOG_BOUNDARY_METRICS: false,
   LOG_MOUNTAINS: false,
@@ -125,8 +133,10 @@ export interface DevLogConfig {
   logReliefAscii?: boolean;
   logRainfallAscii?: boolean;
   logRainfallSummary?: boolean;
+  logElevationSummary?: boolean;
   logBiomeAscii?: boolean;
   logBiomeSummary?: boolean;
+  logSnowSummary?: boolean;
   logCorridorAscii?: boolean;
   logBoundaryMetrics?: boolean;
   logMountains?: boolean;
@@ -156,8 +166,10 @@ export function initDevFlags(config?: DevLogConfig | null): void {
     logReliefAscii: "LOG_RELIEF_ASCII",
     logRainfallAscii: "LOG_RAINFALL_ASCII",
     logRainfallSummary: "LOG_RAINFALL_SUMMARY",
+    logElevationSummary: "LOG_ELEVATION_SUMMARY",
     logBiomeAscii: "LOG_BIOME_ASCII",
     logBiomeSummary: "LOG_BIOME_SUMMARY",
+    logSnowSummary: "LOG_SNOW_SUMMARY",
     logCorridorAscii: "LOG_CORRIDOR_ASCII",
     logBoundaryMetrics: "LOG_BOUNDARY_METRICS",
     logMountains: "LOG_MOUNTAINS",

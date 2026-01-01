@@ -502,6 +502,13 @@ export const FoundationDiagnosticsConfigSchema = Type.Object(
     logRainfallSummary: Type.Optional(
       Type.Boolean({ default: false, description: "Log rainfall min/max/avg statistics." })
     ),
+    /** Log elevation min/max/avg statistics across terrain types. */
+    logElevationSummary: Type.Optional(
+      Type.Boolean({
+        default: false,
+        description: "Log elevation min/max/avg statistics across terrain types.",
+      })
+    ),
     /** ASCII biome classification overlay. */
     logBiomeAscii: Type.Optional(
       Type.Boolean({ default: false, description: "Emit ASCII biome classification overlay." })
@@ -509,6 +516,10 @@ export const FoundationDiagnosticsConfigSchema = Type.Object(
     /** Log biome tile counts. */
     logBiomeSummary: Type.Optional(
       Type.Boolean({ default: false, description: "Log biome tile counts and distribution." })
+    ),
+    /** Log snow eligibility and placement summaries. */
+    logSnowSummary: Type.Optional(
+      Type.Boolean({ default: false, description: "Log snow eligibility and placement summaries." })
     ),
     /** ASCII corridor overlay. */
     logCorridorAscii: Type.Optional(

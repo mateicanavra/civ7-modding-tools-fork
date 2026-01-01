@@ -8,6 +8,7 @@ import {
 } from "./schema.js";
 import type { PlotEffectsInput } from "./types.js";
 import { planOwnedPlotEffects } from "./strategies/owned.js";
+import { logSnowEligibilitySummary } from "./diagnostics.js";
 
 const PlotEffectsInputSchema = Type.Object(
   {
@@ -50,8 +51,10 @@ export const plotEffects = createOp({
   config: PlotEffectsConfigSchema,
   run: (input: PlotEffectsInput, config: PlotEffectsConfig) => {
     const resolved = resolvePlotEffectsConfig(config);
+    const placements = planOwnedPlotEffects(input, resolved);
+    logSnowEligibilitySummary(input, resolved, placements);
     return {
-      placements: planOwnedPlotEffects(input, resolved),
+      placements,
     };
   },
 } as const);
