@@ -101,6 +101,16 @@ Implication:
 - Even if we tune `vegetationDensity` to allow sparse cold vegetation, the selection rule blocks it.
 - If the intent is “snow biome can still have sparse tundra vegetation”, this needs to become a configurable envelope (not a hardcoded branch).
 
+Related “dead biome” failure mode:
+
+- Vegetation density is computed as a weighted combination of normalized moisture + humidity, then multiplied by per-biome modifiers:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/rules/vegetation.ts`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/schema.ts` (`VegetationBiomeModifiersSchema` defaults)
+- Feature placement then gates on vegetation thresholds:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts` (`minVegetation`, `desertSagebrushMinVegetation`, `tundraTaigaMinVegetation`, …)
+
+If a biome’s multipliers drive `vegetationDensity` below the gating thresholds, the result is “correct-by-code but sterile-by-experience”. A realism pass should replace global gates with per-biome envelopes (and ensure cold/desert biomes have plausible low-density placements).
+
 ## Other opportunities discovered (within climate/ecology/features scope)
 
 These are “available primitives” we can leverage to improve realism without stepping into resource/start placement.
