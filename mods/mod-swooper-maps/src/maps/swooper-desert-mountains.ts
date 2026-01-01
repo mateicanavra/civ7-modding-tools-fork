@@ -119,6 +119,11 @@ function buildConfig(): StandardRecipeOverrides {
             },
           },
         },
+        diagnostics: {
+          enabled: true,
+          logElevationSummary: true,
+          logSnowSummary: true,
+        },
       },
       oceanSeparation: {
         enabled: false, // Ensure oceans separate continents

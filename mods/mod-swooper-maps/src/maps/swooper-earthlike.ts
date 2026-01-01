@@ -136,6 +136,11 @@ function buildConfig(): StandardRecipeOverrides {
             },
           },
         },
+        diagnostics: {
+          enabled: true,
+          logElevationSummary: true,
+          logSnowSummary: true,
+        },
       },
       oceanSeparation: {
         // Leave separation off; keep defaults earthlike if enabled later.
