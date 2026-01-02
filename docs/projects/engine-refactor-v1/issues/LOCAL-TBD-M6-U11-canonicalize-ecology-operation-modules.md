@@ -23,6 +23,13 @@ related_to:
 ## TL;DR
 Make `mods/mod-swooper-maps` ecology the canonical reference implementation of the step ↔ domain operation module contract: operations are pure (buffers/POJOs only), placement-producing operations are `kind: "plan"` with verb-forward naming, and all engine binding/logging lives strictly in the step layer.
 
+## Target outcome (canonical)
+- **Pure domain ops:** every module under `mods/mod-swooper-maps/src/domain/ecology/ops/**` is callable with only buffers/POJOs + schema-backed config; no adapter/callback/runtime views exist in op contracts.
+- **Strict kind semantics:** any op whose output can be applied to the engine is `kind: "plan"` and verb-forward (`plan*`); `kind: "compute"` remains reserved for derived-field products (biome classification).
+- **Engine-agnostic plans:** plan ops return semantic keys (ex: `FEATURE_FOREST`, `PLOTEFFECT_SNOW_LIGHT_PERMANENT`) rather than engine indices; steps resolve keys → engine IDs at apply time.
+- **No baseline/legacy behavior:** ecology “features” does not call `adapter.addFeatures(...)` and does not have a baseline switch/strategy/config field; the step always applies mod-owned plans.
+- **Tracing boundary only:** all observability is step-owned tracing; the domain has zero logging/diagnostic helpers and no trace types in signatures.
+
 ## Deliverables
 - Ecology domain ops are contract-pure (ADR-ER1-030):
   - No ecology op input/output contains adapters, callbacks, or other runtime “views”.
@@ -43,6 +50,7 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 ## Acceptance Criteria
 - **Boundary purity**
   - `rg -n "adapter\\b|ctxRandom\\b|TraceScope\\b|devLogJson\\b" mods/mod-swooper-maps/src/domain/ecology/ops` returns no matches.
+  - `rg -n "Type\\.Any\\(" mods/mod-swooper-maps/src/domain/ecology/ops` returns no matches.
   - All ecology ops are callable with plain buffers/POJOs (no engine adapter required in `op.input`).
 - **Correct kind + naming**
   - `mods/mod-swooper-maps/src/domain/ecology/ops/**` exports:
@@ -61,6 +69,9 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 - **Feature baseline orchestration**
   - The ecology `features` step never calls `adapter.addFeatures(...)` and always applies mod-owned plans.
   - There is no op-level “engine baseline” strategy, and no op returns `useEngineBaseline`.
+  - Guardrails:
+    - `rg -n "\\baddFeatures\\(" mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
+    - `rg -n "\\buseEngineBaseline\\b" mods/mod-swooper-maps/src/domain/ecology mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
 - **Diagnostics alignment**
   - Any snow/plot-effects diagnostics are step-owned (or refactored into pure summary functions + step-level logging), and never depend on adapter within the domain layer.
 
@@ -84,10 +95,13 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 
 ### Quick Navigation
 - [TL;DR](#tldr)
+- [Target outcome (canonical)](#target-outcome-canonical)
 - [Deliverables](#deliverables)
 - [Acceptance Criteria](#acceptance-criteria)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+- [Implementation Plan](#implementation-plan-no-ambiguity)
+- [Pre-work](#pre-work)
 
 ## Implementation Decisions (locked)
 
@@ -105,12 +119,12 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 - **Rationale:** Aligns taxonomy with reality (ADR-ER1-034); improves reviewability and tooling.
 - **Risk:** Requires renames across steps/configs; stable step IDs remain unchanged.
 
-### D3) Engine baseline behavior is step orchestration (not a domain op strategy)
+### D3) Delete engine baseline behavior entirely
 - **Context:** `featuresPlacement` currently mixes “call engine baseline” into the op surface.
-- **Options:** Keep baseline as a strategy; move baseline to step.
-- **Choice:** Step owns baseline orchestration; domain ops never model “do engine thing”.
-- **Rationale:** Keeps the op surface purely about domain planning; steps own runtime IO.
-- **Risk:** Step config surface must explicitly represent baseline choice (no silent fallback).
+- **Options:** Keep baseline as a strategy/switch; delete baseline entirely.
+- **Choice:** Delete baseline entirely: ecology features always applies mod-owned plans and never calls `adapter.addFeatures(...)`.
+- **Rationale:** Eliminates a mixed “plan vs engine” contract and removes silent compatibility drift.
+- **Risk:** Maps may differ vs engine defaults; treat as intended under architectural cutover.
 
 ### D4) Plan outputs use semantic keys; steps resolve keys → engine indices
 - **Context:** Ops currently return numeric IDs and resolve IDs using adapters.
@@ -129,7 +143,7 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 ### D6) Diagnostics/logging are step-owned
 - **Context:** Domain-side diagnostics currently log and depend on adapter.
 - **Options:** Keep logging in domain; move to step; split into pure summary + step log.
-- **Choice:** Step owns diagnostics and tracing; domain exports pure summary helpers only when required.
+- **Choice:** Step owns diagnostics and tracing; domain exports no diagnostic helpers (any summaries live in step scope).
 - **Rationale:** Observability is a runtime concern; domains stay pure.
 - **Risk:** Requires moving/refactoring existing snow summary utilities.
 
@@ -154,7 +168,7 @@ mods/mod-swooper-maps/src/domain/ecology/
     classify-biomes/
       index.ts
       schema.ts
-  rules/*
+      rules/*
     plan-feature-placements/
       index.ts
       schema.ts
@@ -192,11 +206,11 @@ mods/mod-swooper-maps/src/domain/ecology/
 ### D) Canonical step responsibilities
 - Step `inputs.ts`:
   - reads runtime via adapter/artifacts/fields,
-  - validates buffer sizes and invariants,
+  - validates buffer sizes and invariants (fail fast; no silent coercions),
   - computes any derived masks/fields needed by the op,
   - provides `seed` for op PRNG (fixed label per op; no callback RNG).
 - Step `apply.ts`:
-  - resolves keys → engine indices,
+  - resolves keys → engine indices (throw on unknown key; no `-1` fallbacks),
   - gates with `adapter.canHaveFeature` (and equivalent plot-effect gates),
   - applies placements and reifies any fields as required.
 - Step `index.ts`:
@@ -205,41 +219,141 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 ## Implementation Plan (no ambiguity)
 
-### 1) Rename + restructure ecology ops to match the operation-module spec
-- Replace existing ecology ops:
-  - `ops/features-placement` → `ops/plan-feature-placements`
-  - `ops/plot-effects` → `ops/plan-plot-effects`
-  - `ops/features-embellishments` → split into `ops/plan-reef-embellishments` + `ops/plan-vegetation-embellishments`
-- Update `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts` and `mods/mod-swooper-maps/src/domain/ecology/index.ts` to re-export the new op names only.
+### A) Rename + restructure ecology ops to match the operation-module spec
+**In scope**
+- Replace existing ops (no compat re-exports):
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/**` → `mods/mod-swooper-maps/src/domain/ecology/ops/plan-feature-placements/**`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/**` → `mods/mod-swooper-maps/src/domain/ecology/ops/plan-plot-effects/**`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/**` → split into:
+    - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-reef-embellishments/**`
+    - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-vegetation-embellishments/**`
+- Remove any legacy “module duplication” that exists solely to preserve old import paths (ex: delete `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` if it’s only a re-export).
+- Update exports:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ecology/index.ts`
 
-### 2) Remove runtime views from all ecology op inputs
-- Delete all op-schema fields for:
+**Out of scope**
+- Renaming stable step IDs in the recipe graph (step IDs must remain unchanged).
+
+**Acceptance Criteria**
+- `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts` exports only:
+  - `classifyBiomes` (`compute`),
+  - `planFeaturePlacements` (`plan`),
+  - `planPlotEffects` (`plan`),
+  - `planReefEmbellishments` (`plan`),
+  - `planVegetationEmbellishments` (`plan`).
+- Guardrails pass:
+  - `rg -n "featuresPlacement|plotEffects|featuresEmbellishments" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+
+### B) Remove runtime views from all ecology op inputs (and enforce op-entry validation)
+**In scope**
+- Delete op-schema fields for runtime views:
   - `adapter`
-  - callback RNG (`rand`)
-- Replace with buffer/POJO inputs only:
-  - typed-array fields use `TypedArraySchemas.*` with grid shape metadata and validators.
-  - include `seed: number` for deterministic randomness.
-
-### 3) Convert placement ops to `kind: "plan"` and key-based outputs
-- Convert all placement-producing ops to `kind: "plan"` and return key-based placements.
-- Remove any `useEngineBaseline`/baseline signal from op output.
-
-### 4) Delete the engine baseline path from ecology features
-- The `features` step never calls `adapter.addFeatures(...)` and has no baseline switch in config.
-
-### 5) Move/replace domain diagnostics with step-owned tracing
-- Move snow/plot-effects diagnostics out of domain ops.
-- Any diagnostic summary computation lives in the step layer and is logged via trace (no domain-side helper exports).
-
-### 6) Typed-array schemas and validation are canonical (no `Type.Any`)
-- All typed arrays in op inputs/outputs use `TypedArraySchemas.*`.
-- Steps validate grid-shape invariants before calling ops.
+  - callback RNG (`rand`, `ctxRandom`, etc.)
+- Add pure input fields only:
+  - `seed: number`
+  - typed arrays expressed via `TypedArraySchemas.*`
 - Steps call ops using `op.runValidated(...)` (not `op.run(...)`).
 
-### 7) Verification + cleanup (required)
+**Out of scope**
+- Introducing new runtime “view” abstractions that reintroduce adapters/callbacks under a different name.
+
+**Acceptance Criteria**
+- Guardrails pass:
+  - `rg -n "adapter\\b|ctxRandom\\b|rand\\b|TraceScope\\b|devLogJson\\b" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+  - `rg -n "Type\\.Any\\(" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+- `rg -n "\\.runValidated\\(" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps` has matches for `features` and `plot-effects` steps.
+
+### C) Convert placement-producing ops to `kind: "plan"` and key-based outputs
+**In scope**
+- Convert placement ops to `kind: "plan"` and return key-based placements:
+  - features: `FeatureKey` (`FEATURE_*`)
+  - plot effects: `PlotEffectKey` (`PLOTEFFECT_*`)
+- Apply steps resolve keys → engine indices and apply placements at runtime:
+  - features: `adapter.getFeatureTypeIndex(...)`, `adapter.setFeatureType(...)`, `adapter.canHaveFeature(...)`
+  - plot effects: `adapter.getPlotEffectTypeIndex(...)` + plot-effect apply API
+
+**Out of scope**
+- Allowing “missing key” fallbacks (no `-1` / `undefined` / “skip silently” behavior).
+
+**Acceptance Criteria**
+- `rg -n "getFeatureTypeIndex|getPlotEffectTypeIndex" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps` is non-empty.
+- `rg -n "getFeatureTypeIndex|getPlotEffectTypeIndex" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+
+### D) Split “embellishments” into two semantic plan ops (reef vs vegetation)
+**In scope**
+- Implement exactly two plan ops:
+  - `planReefEmbellishments` (paradise reefs + shelf reefs)
+  - `planVegetationEmbellishments` (volcanic halos + density vegetation tweaks)
+- Update the `features` step to orchestrate:
+  - base feature placements plan → apply
+  - reef embellishments plan → apply
+  - vegetation embellishments plan → apply
+
+**Out of scope**
+- Further fragmentation into more than two embellishment ops.
+
+**Acceptance Criteria**
+- No remaining `featuresEmbellishments` op export exists; two new plan ops exist and are used by the `features` step.
+
+### E) Delete engine-baseline paths from ecology features (no switches)
+**In scope**
+- Remove baseline strategy/switches completely:
+  - no op strategy named “vanilla”/“owned”,
+  - no “engine baseline” flag/field returned by ops,
+  - no step config fields that represent baseline choice.
+- Ensure the `features` step never calls `adapter.addFeatures(...)`.
+
+**Acceptance Criteria**
+- Guardrails pass:
+  - `rg -n "\\baddFeatures\\(" mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
+  - `rg -n "\\buseEngineBaseline\\b" mods/mod-swooper-maps/src/domain/ecology mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
+
+### F) Move diagnostics/logging to steps and use tracing only
+**In scope**
+- Delete domain diagnostics modules under ecology ops (ex: `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/diagnostics.ts`) and replace with step-owned tracing.
+- Ensure the only logging emitted is from step scopes via tracing.
+
+**Out of scope**
+- Introducing a new domain-level diagnostics API.
+
+**Acceptance Criteria**
+- `rg -n "devLogJson\\b|console\\." mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+
+### G) Verification + cleanup (required)
+**In scope**
 - Run the full verification pipeline:
   - `pnpm check`
   - `pnpm build`
   - `pnpm test`
   - `pnpm deploy:mods`
-- Remove any dead exports/files from renames; ensure no “compat layer” remains (no legacy op names re-exported).
+- After green:
+  - remove dead files/exports from renames,
+  - remove legacy compat re-exports (no shim layer),
+  - ensure all guardrail `rg` checks in this doc are still zero-hit.
+
+## Pre-work
+
+### Pre-work for A (module layout + exports)
+- “Inventory current ecology op exports and importers (domain `index.ts`, step call-sites). Enumerate every symbol/name that must be renamed and ensure the final export surface matches the `plan*` and `classifyBiomes` shape exactly.”
+- “Confirm whether `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` is required for anything other than re-export; if it’s redundant, delete it as part of the module cleanup.”
+
+### Pre-work for B (purity + validation)
+- “Inventory runtime views in ecology ops (`adapter`, `rand`, `ctxRandom`). For each, write down the step-level replacement: inputs builder reads runtime, apply stage writes runtime.”
+- “Locate and list any `Type.Any` fields in ecology op schemas; plan the exact `TypedArraySchemas.*` replacements and any required shape validation in step `inputs.ts`.”
+
+### Pre-work for C (key-based plans)
+- “List the full set of feature/plot-effect numeric IDs currently returned by ecology ops. Define the corresponding semantic key surface (`FEATURE_*`, `PLOTEFFECT_*`) and identify where key→engine-ID resolution will live in the apply steps.”
+- “Decide the ‘unknown key’ failure behavior (must be throw/fail fast) and specify the error message shape so it’s debuggable (key + step id).”
+
+### Pre-work for D (embellishments split)
+- “Audit the current `features-embellishments` implementation and classify each behavior into reef vs vegetation. Confirm the split is exhaustive and there are no leftovers.”
+
+### Pre-work for E (baseline deletion)
+- “Locate all baseline references (`addFeatures`, `useEngineBaseline`, `owned/vanilla` strategies, config flags). Confirm a complete deletion plan with no compatibility switches.”
+
+### Pre-work for F (diagnostics relocation)
+- “Inventory ecology diagnostic modules and identify what they compute vs what they log. For any computed summaries, either keep them step-local or inline them; do not export domain diagnostics.”
+
+### Pre-work for G (verification)
+- “Before final cleanup, run all guardrail `rg` checks in this doc and ensure they’re correctly scoped (avoid false positives outside ecology).”
