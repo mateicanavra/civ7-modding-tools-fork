@@ -213,6 +213,16 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
   - **Directionality reads in runtime code:** `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` and `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` read `context.config.foundation.dynamics.directionality`. Replacement: `context.settings.directionality` passed into those steps/domain helpers.
 - No other `context.config` consumers exist in `mods/mod-swooper-maps/src` beyond the two directionality reads above.
 
+#### D2 Findings: docs/tests assuming runtime overrides live in `context.config`
+- **Active docs to update:**
+  - `docs/system/mods/swooper-maps/architecture.md` (explicitly says runtime overrides live in `ExtendedMapContext.config`).
+  - `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md` (lists “Embed `MapGenConfig` into `MapGenContext` consistently (`context.config`)”).
+  - `docs/projects/engine-refactor-v1/triage.md` (notes overrides mapped directly to recipe config and passed into `ExtendedMapContext.config`).
+- **Archived references (likely no change needed unless reactivated):**
+  - `docs/system/libs/mapgen/_archive/architecture-legacy.md`
+  - `docs/projects/engine-refactor-v1/resources/_archive/*` and `docs/projects/engine-refactor-v1/reviews/_archive/*` that document the older `context.config` model.
+- **Tests:** no test files currently mention `context.config` (`rg -n "context\\.config" packages mods -g "*test*"` returned none).
+
 ### Pre-work for E (loader optional)
 - “Enumerate all imports of `@mapgen/config/loader` and `safeParseConfig` and determine whether they are runtime-critical or tooling/test-only.”
 - “Decide whether schema export (`getJsonSchema` / `getPublicJsonSchema`) is a required public surface for the standard content package in M6.”
