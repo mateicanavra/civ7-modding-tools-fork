@@ -201,6 +201,13 @@ Finish the target run-boundary wiring so cross-cutting runtime knobs live in `Ru
 - **Rationale:** Avoids “trace enabled but nothing happened” confusion; keeps trace behavior visible and explicit in the architecture.
 - **Risk:** Console output may be noisy if authors enable trace broadly; mitigate via per-step levels in `settings.trace.steps` and by keeping tracing disabled by default unless enabled in settings.
 
+### Treat `trace.steps` as an implicit enable signal
+- **Context:** `TraceConfigSchema` previously defaulted `enabled` to `false`, which disabled tracing even when `trace.steps` was populated.
+- **Options:** Keep default `enabled: false` (require explicit enable) vs remove the default and let step mappings activate tracing unless explicitly disabled.
+- **Choice:** Remove the default for `enabled` so `trace.steps` alone enables tracing when provided.
+- **Rationale:** Aligns runtime behavior with the issue contract: per-step trace settings should be sufficient to activate trace output.
+- **Risk:** Callers relying on defaulted `enabled: false` may now see trace output if they already provide `trace.steps`; mitigated by allowing explicit `enabled: false` to force disable.
+
 ### Do not re-home `foundation.diagnostics`/`DEV.*` flags in this issue
 - **Context:** `foundation.diagnostics` + `DEV.*` gating is legacy “global knobs” behavior threaded via `context.config`.
 - **Options:** Port DEV flags into a new `settings.dev`/`settings.diagnostics` model now vs deprecate config-owned DEV flags and rely on trace for step-level observability.
