@@ -14,7 +14,7 @@ This document defines the binding contract for these discrete artifacts.
 ## 1. Purpose
 
 - Define the consumer-facing contract for the foundation inventory artifacts.
-- Make post-M5 foundation dependencies explicit for downstream work (climate, story overlays,
+- Make post-M5 foundation dependencies explicit for downstream work (climate, narrative story entries/views,
   hydrology, placement).
 - Provide a stable reference for tags, shapes, and invariants as algorithms evolve.
 

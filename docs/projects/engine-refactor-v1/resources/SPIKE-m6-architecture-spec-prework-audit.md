@@ -13,6 +13,9 @@ These are now **directives** for the next phase and must be reflected in the fin
 4) **Domain boundary (final):** domain modules are pure; steps own engine semantics (adapter/context/artifact publication).
 5) **Step module standard (final):** single-file step modules; ban `steps/index.ts` barrels; prefer decomposition into more steps over per-step directory forests.
 6) **Core public surface (final):** mod-facing API is authoring-first; mods must not import from `@swooper/mapgen-core/engine` (treat as a leak to clean up). Explicitly sanctioned `lib/*` imports must be listed in SPEC.
+7) **Artifact immutability (final):** artifact values are immutable snapshots and this is **enforced**, not advisory.
+8) **Context naming (final):** rename `context.fields` → `context.buffers`. Retire the term “fields” entirely.
+9) **Buffers vs artifacts separation (final):** buffers are mutable run state; artifacts are immutable published snapshots. Do not publish buffers as artifacts to satisfy dependency gating.
 
 ## Why this exists
 
@@ -118,6 +121,128 @@ Directive: the final SPEC must describe **only** this model.
 - A map file authors **one config surface** for a chosen recipe: `RecipeConfigOf<typeof stages>` (strongly typed) which is validated/defaulted at compile time.
 - `ExtendedMapContext.config` is not part of the target authoring/runtime model; any remaining reads are remediation targets.
 
+## Artifact immutability (target, enforced)
+
+### Decision (locked)
+
+Artifact **values** are immutable snapshots: once published into the artifact store, they must not be mutated.
+
+This is an intentional design constraint (not just convention) and must be **enforced** by the publishing mechanism.
+
+### Enforcement rule (target)
+
+- Artifact publication must **deep-immobilize** the artifact value at publish time (freeze / deep-freeze semantics).
+- Artifact payloads are restricted to “snapshot-friendly” data:
+  - primitives, arrays, and plain objects (JSON-ish trees)
+  - `Readonly<Record<string, unknown>>`-style shapes and nested readonly collections
+- Disallowed as artifact payloads:
+  - typed arrays and other mutable buffers (`Uint8Array`, `Int16Array`, etc.)
+  - `Map`/`Set`
+  - class instances with mutable internal state
+  - functions
+- Large/mutable numeric state belongs in `context.buffers` / `context.staging`, not in artifacts.
+
+### Why this matters (non-optional semantics)
+
+- `requires/provides` only makes sense if “provided” means “stable snapshot exists now”.
+- Prevents action-at-a-distance: downstream steps cannot mutate upstream artifacts via shared references.
+- Supports replay/debug/diff by ensuring artifacts are stable by construction.
+
+## Context naming: `fields` → `buffers` (target)
+
+### Decision (locked)
+
+- Rename `context.fields` → `context.buffers`.
+- Retire “fields” as a term in the runtime/authoring API: all “fields” are mutable buffers in practice.
+
+### Implementation blast radius (for the later execution pass)
+
+- Rename touches core types (`ExtendedMapContext`, `createExtendedMapContext`) plus all mod steps and tag-contract `satisfies` checks referencing `context.fields`.
+
+## Decision record: buffers vs artifacts separation (immutable artifacts; mutable buffers)
+
+### Decision (locked)
+
+We commit to a hard separation:
+
+- **Artifacts are immutable snapshots.**
+  - “Publish artifact” means “store an immutable value that downstream steps can rely on as stable”.
+- **Buffers are mutable run state.**
+  - Buffers are where generation writes evolving world state and intermediate working data (typed arrays, caches, staging tensors).
+- **Do not publish buffers as artifacts.**
+  - Using `context.artifacts` as a registry for typed-array buffers is a transitional misuse and is not allowed in the target.
+
+Canonical step context shape (for now):
+
+- `context.buffers` (mutable)
+- `context.artifacts` (mutable store of **immutable values**)
+- `context.settings` (immutable run settings)
+- `context.overlays` (optional, non-canonical derived debug cache; never required for correctness)
+
+### Intent / architectural direction
+
+Make the system legible:
+
+- “Mutable world state” is clearly contained under buffers.
+- “Published results” are clearly contained under artifacts.
+- Dependency gating (“requires/provides”) must be able to refer to both **without forcing buffers through artifacts**.
+
+### Current state (M6 reality)
+
+M6 uses `context.artifacts` as the only general-purpose cross-step registry for dependency satisfaction. As a result:
+
+- “Artifact dependencies” are sometimes used as a proxy for “this buffer is ready”.
+  - Example: the standard recipe publishes heightfield/climate buffers into `context.artifacts` (e.g. “artifact:heightfield”, “artifact:climateField”) by storing references to typed arrays.
+- Foundation publishes large tensor buffers (`plates`, `dynamics`) into artifacts for downstream gating, even though they are typed arrays by nature.
+
+### Why current state exists (cutover/transition reasons)
+
+The dependency system has explicit dependency kinds (`artifact` / `field` / `effect`) and can validate satisfaction via `satisfies(context)`.
+
+However, there is no first-class “buffer readiness” dependency surface for intermediate/staging buffers. The artifact store became the default place to put “things steps want to depend on”, even when those things are mutable buffers.
+
+### Why this was a mistake (or, more precisely, a transitional hack)
+
+Publishing buffers as artifacts creates a semantic collision:
+
+- Artifacts are intended to be stable published products; buffers are intentionally mutable.
+- Buffer-as-artifact makes immutability enforcement either impossible or expensive (deep cloning typed arrays would be a semantic and performance shift).
+- It blurs boundaries and makes “what is safe to mutate?” unclear, increasing black-ice risk.
+
+### Target (what changes)
+
+In the target architecture:
+
+- **Buffers stay in `context.buffers`** and are satisfied/validated as buffers.
+- **Artifacts stay in `context.artifacts`** and are enforced-immutable snapshots.
+- Steps that currently “publish a buffer artifact” instead:
+  - **provide a buffer dependency** (readiness contract) and
+  - write/read the underlying data via `context.buffers`.
+
+This requires tightening an architectural seam in the dependency system:
+
+- The gating model must support “buffer readiness” dependencies that validate against `context.buffers` (sizes, presence, invariants) without copying the data into artifacts.
+
+### Problem this solves
+
+- Restores a clean mental model: mutable buffers vs immutable artifacts.
+- Makes artifact immutability enforcement feasible and meaningful.
+- Clarifies what the dependency system is actually gating: stable snapshots vs mutable state availability.
+
+### Boundaries (what this decision does NOT decide)
+
+- **Overlays**: whether overlays live as artifacts or a separate context surface is explicitly **TBD** and must be decided in a separate session.
+- The exact internal organization of buffers (world vs work vs staging) is not settled here; we only commit that they are all **buffers** and are mutable.
+
+### Open questions / follow-ups (explicit)
+
+- **Dependency gating detail (needs design):**
+  - Where do buffer dependency contracts live and how are they inferred/declared?
+  - What are the canonical satisfiers for buffer readiness (presence + size + shape + version)?
+- **Buffer taxonomy (needs design):**
+  - Do we standardize a `context.buffers.<area>` hierarchy (e.g., `world`, `foundation`, `scratch`) or keep a flat structure?
+  - How do we represent “work buffers” vs “world buffers” without reintroducing confusing terminology?
+
 Concrete grounding for the “validated/defaulted” claim:
 
 - Step config validation/defaulting already happens during plan compile via TypeBox, per step schema:
@@ -207,7 +332,7 @@ This system uses “tag” to mean at least three unrelated things. Untangling t
 
 **Where “tag” shows up today (what it actually means)**
 
-- **Pipeline dependency IDs** (strings): `DependencyTag` values in `requires`/`provides` (e.g. `artifact:*`, `field:*`, `effect:*`).
+- **Pipeline dependency IDs** (strings): `DependencyTag` values in `requires`/`provides` (e.g. `artifact:*`, `buffer:*` (today: `field:*`), `effect:*`).
   - `packages/mapgen-core/src/engine/types.ts`
 - **Pipeline dependency registry + runtime contracts**: `TagRegistry` + `DependencyTagDefinition` (`kind`, optional `satisfies(context, state)`, optional `demo`, optional `owner`).
   - `packages/mapgen-core/src/engine/tags.ts`
@@ -219,14 +344,14 @@ This system uses “tag” to mean at least three unrelated things. Untangling t
   - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
 - **Civ7 plot tags** are a separate engine concept: numeric plot tag IDs set on tiles (`PLOT_TAG.*`, `PlotTagName`, `adapter.getPlotTagId(...)`).
   - `packages/mapgen-core/src/core/plot-tags.ts`
-- **“Story tagging”** is narrative overlay classification (domain algorithms that pick tile-key sets and publish `StoryOverlaySnapshot` overlays). It is unrelated to pipeline dependency tags.
+- **“Story tagging”** is narrative overlay classification (domain algorithms that pick tile-key sets and, in M6, write `StoryOverlaySnapshot` snapshots into `ctx.overlays`; target: views are derived on demand from published story entries). It is unrelated to pipeline dependency tags.
   - `mods/mod-swooper-maps/src/domain/narrative/tagging/**`
 
 **Clean semantic buckets (distinct concepts currently shoved under “tag”)**
 
 1. **DependencyKey** — the string a step declares in `requires`/`provides` (today: `DependencyTag`).
    - Role: drives scheduling/integrity checks in the executor.
-   - Shape: string with kind prefix (`artifact:` / `field:` / `effect:`).
+   - Shape: string with kind prefix (`artifact:` / `buffer:` / `effect:`) (today: `field:` instead of `buffer:`).
    - Ownership: pipeline contract (not pure domain, not Civ7 adapter).
 2. **DependencyDefinition** — the runtime-checkable contract for a `DependencyKey` (today: `DependencyTagDefinition` in a `TagRegistry`).
    - Role: enforces postconditions (`satisfies`) and optionally carries `demo`/`owner` metadata.
@@ -236,9 +361,9 @@ This system uses “tag” to mean at least three unrelated things. Untangling t
    - Role: names a published data product in the pipeline.
    - Note: in M6, some `artifact:*` dependencies are satisfied via custom `satisfies(...)` logic against *other* context stores (e.g. story overlays), so “artifact” is best read as “data-product dependency”, not strictly “`context.artifacts` storage key”.
    - Ownership: pipeline contract; payload schemas/types may be domain-owned, but publication/verification is step/contract-owned.
-4. **FieldKey** — a `DependencyKey` of kind `field:` that asserts a specific buffer exists on `context.fields` (e.g. `field:rainfall`).
-   - Role: integrity check for “this field is present/initialized”.
-   - Ownership: pipeline contract; its relationship to `keyof MapFields` is core-owned.
+4. **BufferKey** — a `DependencyKey` of kind `buffer:` that asserts a specific buffer exists on `context.buffers` (e.g. `buffer:rainfall`).
+   - Role: integrity check for “this buffer is present/initialized”.
+   - Ownership: pipeline contract; its relationship to `keyof MapBuffers` is core-owned.
 5. **EffectKey** — a `DependencyKey` of kind `effect:` that asserts some engine-side effect has been applied (verified via adapter).
    - Role: integrity check for “engine state guarantees”.
    - Ownership: adapter-integration contract (engine-aware).
@@ -615,17 +740,17 @@ Prompt:
 
 **Where they live (SSOT today):**
 - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
-  - `M3_DEPENDENCY_TAGS`: canonical **artifact** + **field** dependency IDs for the standard recipe.
+  - `M3_DEPENDENCY_TAGS`: canonical **artifact** + **buffer** dependency IDs for the standard recipe (today: `field`).
   - `M4_EFFECT_TAGS`: canonical **effect** dependency IDs (engine effects) for the standard recipe.
-  - `STANDARD_TAG_DEFINITIONS`: explicit dependency contracts (`DependencyTagDefinition<ExtendedMapContext>`) for artifacts/fields/effects used by the standard recipe.
+  - `STANDARD_TAG_DEFINITIONS`: explicit dependency contracts (`DependencyTagDefinition<ExtendedMapContext>`) for artifacts/buffers/effects used by the standard recipe.
 
 **How `M3_DEPENDENCY_TAGS` is structured:**
 - `artifact.*`
   - Mix of:
     - *Imported IDs from core*: `FOUNDATION_*_ARTIFACT_TAG` (from `@swooper/mapgen-core`)
-    - *Local literal IDs*: e.g. `artifact:heightfield`, `artifact:climateField`, `artifact:narrative.*@v1`, `artifact:placementInputs@v1`
-- `field.*`
-  - Local literal IDs: `field:terrainType`, `field:elevation`, etc.
+    - *Local literal IDs*: e.g. `artifact:riverAdjacency`, `artifact:placementInputs@v1`, narrative story entries (`artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`)
+- `buffer.*` (today: `field.*`)
+  - Local literal IDs: `buffer:terrainType`, `buffer:elevation`, etc.
 
 **How `M4_EFFECT_TAGS` is structured:**
 - `engine.*` effect IDs
@@ -638,7 +763,7 @@ Prompt:
 - `M3_DEPENDENCY_TAGS` is used broadly for artifact/field `requires`/`provides` across stages.
 - `M4_EFFECT_TAGS` is used broadly for effect `requires`/`provides` across stages (not just “placement”):
   - Example: `coastlines` requires `effect:engine.landmassApplied`, provides `effect:engine.coastlinesApplied`.
-  - Example: `biomes` provides `effect:engine.biomesApplied` and also provides `field:biomeId`.
+  - Example: `biomes` provides `effect:engine.biomesApplied` and also provides `buffer:biomeId`.
   - Quick “where” summary (by stage):
     - `M3_DEPENDENCY_TAGS`: ecology, foundation, hydrology-pre/core/post, morphology-pre/mid/post, narrative-pre/mid/post/swatches, placement
     - `M4_EFFECT_TAGS`: ecology, hydrology-pre/core, morphology-pre/mid/post, narrative-pre/mid/post, placement
@@ -830,7 +955,8 @@ Locked names (no alternatives):
 
 **Where the outputs flow next (today):**
 - Narrative motif artifacts are read back via `mods/mod-swooper-maps/src/domain/narrative/queries.ts` (`getNarrativeMotifs*`), e.g. corridors consume rift/hotspot motifs.
-- Story overlays live in `ctx.overlays` for inspection/debug/contracts (separate from pipeline dependency gating).
+- M6 also writes `StoryOverlaySnapshot` into `ctx.overlays` for inspection/debug/contracts.
+  - **Target:** `ctx.overlays` is non-canonical; motif **story entries are the primitives**, and any narrative “views” are **derived on demand** from those primitives.
 
 #### Proposed semantic mapping: marker / overlay / annotation
 
@@ -838,21 +964,22 @@ Locked names (no alternatives):
 - Concrete representation today: a `storyKey` string (`"${x},${y}"`).
 - Appears today as: `Set<string>` in narrative artifacts, `active/passive: string[]` inside overlays.
 
-**Overlay (noun):** an immutable snapshot aggregating markers (and metadata) for inspection/debug/contracts.
-- Concrete representation today: `StoryOverlaySnapshot` published into `ctx.overlays` under a `STORY_OVERLAY_KEYS.*` key.
+**Overlay (noun):** a derived snapshot aggregating markers (and metadata) for inspection/debug/contracts.
+- Concrete representation today: `StoryOverlaySnapshot` (in M6, stored in `ctx.overlays` under a `STORY_OVERLAY_KEYS.*` key).
+- **Target:** overlays are not published products; overlay snapshots are *derived on demand* from narrative story entries.
 
-**Annotate (verb):** “apply markings onto the map” (i.e. publish overlays / publish motif artifacts).
-- In target boundary terms, “annotate” is inherently **engine-facing** (writes to `ctx.overlays` / `ctx.artifacts`) and therefore should read as a **step-level verb**, not a domain-level verb.
+**Annotate (verb):** “apply narrative markings onto the map”.
+- In target boundary terms, “annotate” is inherently **engine-facing** (writes to `context.artifacts` and/or mutates `context.buffers`) and therefore should read as a **step-level verb**, not a domain-level verb.
 
 #### Clarify “derive” vs “annotate” (verb semantics)
 
 **What “derive” would mean here (pure):**
-- Compute marker sets / overlay payloads from inputs (fields/artifacts/config) **without writing** to `ctx`.
+- Compute marker sets / overlay payloads from inputs (`context.buffers`/`context.artifacts`/config) **without writing** to `ctx`.
 - In M6 code, most `storyTag*` bodies are already “derive + publish” interleaved; the “derive” part is the tile-set math and summary computation.
 
 **What “annotate” would mean here (side effect):**
-- Publish overlay snapshots (and/or motif artifacts) into context for downstream consumers (corridors, debugging, contracts).
-- In M6 code, this corresponds to calls like `publishStoryOverlay(...)` and `ctx.artifacts.set(...)`.
+- Publish **story entries** (artifacts) and/or apply changes to mutable world state (`context.buffers`).
+- In M6 code, this corresponds primarily to calls like `ctx.artifacts.set(...)` (and, as legacy debug behavior, `publishStoryOverlay(...)`).
 
 **Conclusion:** “derive” and “annotate” are not synonyms. If we want “domain is pure; steps own engine semantics” later, we should reserve:
 - `derive*` / `compute*` for domain operations (pure)
@@ -866,7 +993,7 @@ Locked names (no alternatives):
   - “overlay” = `StoryOverlaySnapshot` (inspectable snapshot)
 - Verbs:
   - `derive*` / `compute*` = pure computation (no `ctx` writes)
-  - `publish*` = side-effect boundary (writes to context/artifacts)
+  - `publish*` / `annotate*` = side-effect boundary (writes to `context.artifacts` / mutates `context.buffers`)
 - Legacy note (for later mechanical rename work): `storyTag*` functions should be renamed to `derive*` + `publish*` shapes where appropriate.
 
 #### Locked terminology firewall (extends Bucket C rule)
@@ -875,33 +1002,86 @@ Locked names (no alternatives):
 - **Preferred narrative vocabulary (even when “story tag” is allowed):** “marker”, “overlay”, “annotation”.
 - **Forbidden “tag” usage:** pipeline dependency system (Buckets A/B).
 
-#### Decision (locked): narrative overlays are artifacts (single-writer, last-write-wins)
+#### Decision (locked): story entries are published primitives; views are derived on demand
 
-**Target shape:**
-- Narrative overlays are **not** a special publishing channel. They are published as **artifacts** (i.e., dependency-gated data products in the artifact store).
-- There is **one overlay artifact per overlay kind/layer** (e.g., “margins overlay”, “rifts overlay”, “corridors overlay”), owned at the narrative layer/motif level (not “one overlay per story instance”).
-- The artifact ID naming convention is part of the dependency ID catalog work (Bucket B); this decision is about **publishing semantics and ownership**, not strings.
+**What is published (primitives):**
+- Steps publish **story entries** as immutable artifacts (per-story/per-producer intervention records), classified under a motif.
+- These story entries are the only narrative data products that participate in `requires/provides` gating and correctness.
 
-**Publishing model (explicit, no black ice):**
-- **Single-writer, last-write-wins.**
-  - For a given overlay artifact, there is exactly **one writer step** in a recipe.
-  - If multiple steps write/provide the same overlay artifact, that is a **design violation**; any “winner” outcome is incidental and treated as a bug to remediate.
-- **No merge semantics (by design).**
-  - No implicit merge between “existing overlay artifact” and “new overlay artifact”.
-  - No “smart merge”, no reconciliation layer, no multi-writer concurrency model at the artifact layer.
-  - Any reconciliation happens inside the writer step (or other explicit downstream logic), not as an artifact-store feature.
-- **Composition pattern (how multiple stories still contribute):**
-  - Multiple computations can contribute via **intermediate artifacts** (marker sets, motif artifacts, etc.).
-  - The single overlay-writer step composes those inputs into the final overlay artifact snapshot.
+**What is not published (no persisted views):**
+- Narrative **views** (e.g., “corridors overlay”) are not published products and must not be treated as dependency surfaces.
+- There is no meaningful “`corridors view exists`” dependency in the target model; consumers depend on the specific story entries (or motif-level story-entry availability once that gating story is designed).
+
+**How views work (explicit, no black ice):**
+- A view is a **derived snapshot** computed at point-of-use from story entries (and, where relevant, current buffers).
+- Derivation lives in code (domain/authoring), not as “store-level merge semantics”.
+- Any caching of derived views (including `ctx.overlays` / `StoryOverlaySnapshot`) is **non-canonical debug support only** and must never be required for correctness.
 
 **Relationship to prior decisions (consistency constraints):**
-- Buckets A/B: overlay artifacts participate in pipeline gating using **dependency** terminology (`DependencyId` / `DependencyContract`), never “tags”.
+- Buckets A/B: pipeline gating uses **dependency** terminology (`DependencyId` / `DependencyContract`), never “tags”.
 - Bucket C: “tag” remains reserved for Civ7 plot tags and explicitly-qualified map-surface language; narrative APIs should prefer marker/overlay nouns.
-- Bucket D naming: domain-side operations should read as `derive*`/`compute*`; publishing overlay artifacts is step-owned side-effect work (`publish*`).
+- Bucket D naming: domain-side operations should read as `derive*`/`compute*`; publishing story entries is step-owned side-effect work (`publish*`).
 
 **Open design topic (explicitly out of scope for this decision):**
 - We may later want “merge-like” overlay collaboration (multiple contributors, partial updates, etc.).
-- If that becomes necessary, it requires a **separate design session** and is not implied by (or compatible with) the current single-writer, last-write-wins model.
+- If that becomes necessary, it requires a **separate design session** and is not implied by the current derived-view model (no store-level merge semantics).
 
-**Question to resolve (do not assume):**
-- Do we want the side-effect verb to stay **`publish*`** everywhere, or do we introduce **`annotate*`** as the mod-facing verb (while remaining single-writer, last-write-wins either way)?
+**Decision (locked):** keep `publish*` as the canonical side-effect verb for storing narrative story entries (artifacts). “Annotate” remains narrative vocabulary, but it is not the API verb for artifact publication.
+
+---
+
+## Narrative System (Motifs + Views) — Current Synthesis
+
+### Purpose / problem space (conceptual)
+The narrative system resolves the longstanding “how do we handle narratives?” problem by separating **world-generation rules** from **intentful interventions**.
+
+- The **pipeline** is the “rules world”: procedural mechanics that evolve world state (terrain, climate, hydrology, ecology). It defines *how* the universe works.
+- The **narrative system** is the “intervention world”: deliberate, playability-driven nudges that shape *how the map feels* (movement corridors, strategic funnels, hotspot regions, crater-lake candidates, etc.) without requiring mod authors to rewrite the procedural laws.
+
+This matters because most gameplay-facing customization is better expressed as “put your thumb on the scale” (corridors, regions, playability signals) rather than as low-level algorithm rewrites. Narrative motifs give mod authors a stable, high-leverage authoring surface: publish and consume story entries that can influence multiple downstream stages while the core pipeline stays maintainable and coherent.
+
+### Architecture connection (concrete/technical)
+Architecturally, narrative is **not a separate execution system**. It is a **mod-facing lens** over published story entries produced/consumed by steps, preserving explicit ordering via requires/provides.
+
+- Steps still own sequencing and engine coupling: they decide when an intervention is produced and when it is applied.
+- Domain remains pure (per the locked boundary rule): narrative selection/scoring/derivation logic can live in domain modules as pure operations; steps orchestrate and publish.
+- Narrative story entries are immutable published snapshots (consistent with enforced artifact immutability). The container may accumulate many such snapshots over a run; the values themselves are immutable.
+- Narrative “overlay”/“view” snapshots are **derived on demand** from story entries (and, where relevant, buffers). They are not published dependency surfaces.
+
+Net effect: narrative becomes a coherent, authorable layer that can be depended on, without collapsing back into “just another procedural step” or smuggling hidden merge semantics into the engine.
+
+### Emerging solution shape (what we’ve converged on so far)
+**Motifs** (e.g. corridors/regions/fertility) are the primary narrative organizing concept: stable categories of interventions that downstream consumers can treat as coherent concepts.
+
+Current direction:
+- Steps publish **immutable story entries** (per-story/per-producer intervention records) over time, classified under motifs.
+- Other steps consume story entries at the point they need them and apply explicit logic (no store-level “winner” behavior required).
+- Narrative should be **mod-facing and data-first**: a typed, discoverable authoring surface that lets modders publish/query/reduce motif story entries without spelunking step internals.
+
+A key practical pressure: the hard part is not raw storage (we can store immutable items), it’s **DX and gating**:
+- Discovery/query: “give me all corridor story entries so far” needs a first-class typed query story (not ad-hoc `Map` spelunking).
+- Requires/provides: consumers gate on specific story entry IDs; “motif exists” is a query concern, not a dependency surface.
+
+### Locked decisions that constrain narrative
+- Artifacts are immutable snapshots and immutability is enforced.
+- Buffers are mutable run state (`context.buffers`), and buffers must not be modeled as artifacts just to satisfy gating.
+- Domain is pure; steps own engine semantics.
+- Pipeline dependency terminology must not use generic “tag”; “tag” is reserved for Civ7 plot tags and explicitly-qualified map-surface semantics (story/narrative), not pipeline gating.
+- Narrative story entries are published primitives; views are derived on demand (no persisted view products).
+- Narrative motifs are a **first-class, mod-facing, data-first authoring surface** (a lens over published products, not a separate execution system).
+- Motif story entries are **multi-producer**: multiple steps may publish distinct story entries over time.
+
+### Open questions / unresolved design decisions (explicit)
+1) **Narrative API packaging / runtime exposure**
+- Narrative is mod-facing (locked). Open: does the narrative lens live as:
+  - a first-class `context.narrative` facade/container, or
+  - an authoring surface (e.g., `@swooper/mapgen-core/authoring/narrative`) that reads/writes existing context stores?
+- If we choose a `context.narrative` facade: is it purely a typed query/publish façade over immutable story entries, or does it become a distinct runtime store with new semantics?
+
+2) **Discovery/query contract**
+- How does a consumer obtain “all story entries for motif X” in a typed way?
+- Do we standardize prefix conventions + helper utilities, or require an explicit per-motif index/manifest?
+
+3) **Consistency of interpretation**
+- If multiple consumers “reduce at point-of-use”, how do we prevent semantic drift (different reductions meaning different “corridors”)?
+- Do we lock “one canonical reducer per motif” as a rule, and where does it live (domain operations vs authoring layer)?

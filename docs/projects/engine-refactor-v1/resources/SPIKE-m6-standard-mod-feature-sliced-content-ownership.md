@@ -565,7 +565,7 @@ Notes:
 - `requires`/`provides` remain on steps; engine semantics are unchanged.
 - Recipe definition exports a **structural** `RecipeV1` (ordered `steps[]`, no config values); stages do not appear in runtime.
 - The end consumer (a map entrypoint) supplies config values; `RecipeModule.instantiate(config)` produces the concrete `RecipeV1` that is compiled/executed.
-- Field tags (`field:*`) are part of the target architecture, but runtime satisfaction seeding is an engine concern (e.g., via `computeInitialSatisfiedTags`). Until that exists, prefer `artifact:*` products for cross-step contracts.
+- Buffer tags (`buffer:*`) are part of the target architecture, but runtime satisfaction seeding is an engine concern (e.g., via `computeInitialSatisfiedTags`). Until that exists, prefer `artifact:*` products for cross-step contracts.
 
 ---
 

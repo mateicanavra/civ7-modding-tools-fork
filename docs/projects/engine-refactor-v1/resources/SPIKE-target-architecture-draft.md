@@ -389,7 +389,7 @@ to revisit after we publish a mod-facing contract.
   - Scheduling semantics should remain grounded in **dataflow**:
     - `requires` ≈ reads, `provides` ≈ writes.
   - Canonical direction:
-    - `field:*` are mutable canvases (in-place writes are expected).
+    - `buffer:*` are mutable canvases (in-place writes are expected).
     - `artifact:*` should be treated as immutable/versioned products; steps that "modify" an artifact should publish a new artifact (new tag or versioned key) rather than mutate in place.
   - If we later need richer mutation modeling, introduce explicit `reads`/`writes` sets (or artifact versioning) rather than `affects` semantics.
 - **Mod placement model (dataflow + hooks):**
@@ -603,13 +603,14 @@ skips—only fail-fast validation/precondition errors.
 **ADR stub:**
 - ~~ADR-TBD: Foundation surface (discrete artifacts; `FoundationContext` compat-only)~~ **Update (2025-12-21, M4 planning):** ADRs are post-M4; decisions are captured in the SPEC/M4 plan.
 
-### 2.4 Narrative/playability model (typed narrative artifacts; no `StoryTags`)
+### 2.4 Narrative/playability model (story entries by motif; views derived; no `StoryTags`)
 
 **Status:** `accepted`
 
 **Decision (one sentence):** Narrative/playability is expressed as normal
-pipeline steps that publish **typed, versioned, categorized narrative
-artifacts** (`artifact:narrative.*`); there is no canonical `StoryTags` surface,
+pipeline steps that publish **typed, versioned narrative story entries**
+(`artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`); consumers derive
+views on demand from story entries, there is no canonical `StoryTags` surface,
 and no narrative globals outside the run context.
 
 **Context (why this exists):**
@@ -625,11 +626,12 @@ and no narrative globals outside the run context.
   not introduce a dedicated new phase.
 
 **What is locked (target direction, not content inventory):**
-- Narrative/playability steps **publish narrative artifacts** (examples:
-  `artifact:narrative.corridors@v1`, `artifact:narrative.regions@v1`,
-  `artifact:narrative.motifs.margins@v1`, `artifact:narrative.heatmaps.*@v1`).
-- Consumers (ecology/placement/climate refinements) depend on those artifacts
-  via `requires`/`provides`; they must not re-derive the same semantics.
+- Narrative/playability steps publish **story entry artifacts** under a stable
+  motif vocabulary (`artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`).
+- Consumers (ecology/placement/climate refinements) depend on the specific story
+  entry IDs they require via `requires`/`provides`.
+- Narrative views (overlays/snapshots) are derived on demand from story entries
+  and are not published dependency surfaces.
 - “Optional” means **recipe-level composition**:
   - Recipes may omit narrative/playability steps entirely and still be valid.
   - If a recipe includes a narrative artifact consumer, it must also include
@@ -637,8 +639,8 @@ and no narrative globals outside the run context.
 - There are **no module-level globals/caches** for narrative state. Any
   caching must be context-owned artifacts keyed to the run.
 - `StoryTags` is **not** a target contract surface. Any remaining tag-like
-  convenience views must be derived from narrative artifacts and explicitly
-  scoped to the context (performance-only; no new canonical representation).
+  convenience views must be derived from story entries and explicitly scoped to
+  the context (performance-only; no new canonical representation).
 
 **Why this mattered:**
 - Prevents semantic drift (“double deriving” motifs differently in multiple
@@ -648,17 +650,12 @@ and no narrative globals outside the run context.
 - Keeps the dependency graph honest: narrative products are explicit artifacts.
 
 **Migration note (implementation follow-up, not a design question):**
-- Replace `artifact:storyOverlays` with explicit `artifact:narrative.*` products
-  (inventory is domain-owned and can evolve).
-- Remove StoryTags consumption from downstream logic; migrate consumers to
-  narrative artifacts (or derived, context-scoped query helpers).
 - Remove any remaining “global story registry” fallbacks and caches (or move
   them into context-owned artifacts).
-  - Deferrals aligned: `DEF-002`, `DEF-012` (implementation cleanup only).
 
 **SPEC impact (accepted):**
 - `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`:
-  - Replace “`artifact:storyOverlays` narrative” with typed narrative artifacts.
+  - Replace any “published overlay view” narrative with story entries + derived views.
   - Explicitly state “no StoryTags” and “optional via recipe composition”.
 
 **ADR stub:**
@@ -669,7 +666,7 @@ and no narrative globals outside the run context.
 **Status:** `accepted`
 
 **Decision (one sentence):** The Civ engine is an I/O surface behind
-`EngineAdapter`; cross-step dependencies must flow through reified `field:*` /
+`EngineAdapter`; cross-step dependencies must flow through reified `buffer:*` /
 `artifact:*` products and verified, schedulable `effect:*` tags (with
 `state:engine.*` treated as transitional-only wiring).
 
@@ -681,13 +678,13 @@ and no narrative globals outside the run context.
 - **No unverified schedulable effects:** any `effect:*` used for scheduling must
   be runtime-verifiable (typically adapter postcondition checks). There is no
   “asserted but unverified” category for schedulable engine signals.
-- **Reification-first:** pipeline state is canonical in TS-owned `field:*` /
+- **Reification-first:** pipeline state is canonical in TS-owned `buffer:*` /
   `artifact:*`. If a step reads engine state that later steps depend on, it must
-  publish (reify) the corresponding `field:*` / `artifact:*` onto the context.
+  publish (reify) the corresponding `buffer:*` / `artifact:*` onto the context.
 - **Engine mutations must be reflected back:** if a step mutates the engine and
   later steps depend on the results, the step must either:
   - compute/carry authoritative data in TS first and publish to engine (“publish step”), or
-  - mutate engine then reify the relevant results back into `field:*` / `artifact:*`
+  - mutate engine then reify the relevant results back into `buffer:*` / `artifact:*`
     (often as a separate “reify step”).
 - **`state:engine.*` is transitional-only:** migrate to `effect:engine.*` +
   reified products; do not enshrine `state:engine.*` as a permanent namespace
@@ -727,14 +724,14 @@ Why this is a problem:
 - Offline determinism and reproducibility are compromised.
 - Climate steps become harder to test and reason about outside the engine.
 
-**Decision (one sentence):** `artifact:climateField` (and any derived `field:*`
+**Decision (one sentence):** `artifact:climateField` (and any derived `buffer:*`
 mirrors) is TS-owned and canonical; the engine is a publish surface via adapter
 writes, and any engine-only reads are allowed only through the adapter and must
 be reified if they become cross-step dependencies.
 
 **Accepted policy (enforceable rules):**
 - **TS-owned climate is canonical:** climate generation writes to TS buffers and
-  publishes `artifact:climateField` (and optional `field:*` mirrors).
+  publishes `artifact:climateField` (and optional `buffer:*` mirrors).
 - **Engine writes are publish:** adapter writes (e.g., `setRainfall`) are treated
   as publish effects, not the source-of-truth.
 - **Engine reads are allowed but fenced:** mods/steps may read engine-only signals
@@ -742,14 +739,14 @@ be reified if they become cross-step dependencies.
   engine later” as an implicit cross-step dependency surface.
 - **Reify cross-step dependencies:** if a value read from (or mutated in) the
   engine is needed by later steps, the producing step must reify it into
-  `field:*`/`artifact:*` and declare it in `provides` so downstream steps depend
+  `buffer:*`/`artifact:*` and declare it in `provides` so downstream steps depend
   on TS-canonical products.
 
 Why we might not simplify yet:
 - (Content) The exact minimal climate IO contract (e.g., latitude/water/elevation
   inputs) is still evolving; this does not change the ownership rule above.
 - Some climate inputs may remain adapter-only during migration/parity work until
-  we fully reify them (e.g., `field:latitude`, TS landmask/isWater, heightfield
+  we fully reify them (e.g., `buffer:latitude`, TS landmask/isWater, heightfield
   elevation).
 
 ### 2.7 Placement inputs (explicit artifact vs engine reads)
@@ -768,7 +765,7 @@ as a cross-step dependency surface.
 - `DEF-006` deferred introducing a canonical `artifact:placementInputs` in M3 to
   avoid blocking on a full placement-input contract design.
 - With 3.5 (engine boundary) accepted, any cross-step dependency must be
-  expressed via `field:*`/`artifact:*`/verified `effect:*`, not opaque engine
+  expressed via `buffer:*`/`artifact:*`/verified `effect:*`, not opaque engine
   reads.
 
 **Why this matters (what stays hard until resolved):**
@@ -791,14 +788,14 @@ as a cross-step dependency surface.
 - **Adapter-only IO:** engine access is only via `ctx.runtime.adapter` (no direct
   engine calls).
 - **Reification-first:** if any engine-derived value is needed cross-step, it
-  must be reified into `field:*`/`artifact:*` and declared in `provides`
+  must be reified into `buffer:*`/`artifact:*` and declared in `provides`
   (no implicit “read engine again later”).
 - **Engine writes remain allowed:** placement can still apply results to the
   engine (e.g., via Civ scripts), but must publish a verified `effect:*` to make
   the engine-side mutation schedulable and observable.
 - **No `state:engine.*` dependency surface:** `state:engine.*` remains
   transitional-only wiring (aligns with DEF-008). Target placement contracts use
-  `artifact:*`/`field:*`/`effect:*`.
+  `artifact:*`/`buffer:*`/`effect:*`.
 
 **What is intentionally *not* decided here (content layer):**
 - The exact fields inside `PlacementInputs@v1` (and the exact set of placement
@@ -827,7 +824,7 @@ as a cross-step dependency surface.
 **Status:** `accepted`
 
 **Decision (one sentence):** What is the canonical registry for dependency tags
-(`artifact:*`, `field:*`, and `effect:*`), including naming, schema ownership,
+(`artifact:*`, `buffer:*`, and `effect:*`), including naming, schema ownership,
 and versioning, such that step `requires/provides` and plan validation are
 strict and mod/plugin-safe with fail-fast collision behavior?
 
@@ -864,7 +861,7 @@ strict and mod/plugin-safe with fail-fast collision behavior?
 **Evidence (what we do today):**
 - Allowlisted tags and shape checks exist but are not generalized:
   - `packages/mapgen-core/src/pipeline/tags.ts` provides validation and special
-    satisfaction checks for a small set of `artifact:*` and `field:*` tags.
+    satisfaction checks for a small set of `artifact:*` and `buffer:*` tags.
   - `packages/mapgen-core/src/pipeline/PipelineExecutor.ts` duplicates a
     hard-coded list of “verified provides” tags post-step.
 - Stage manifest still treats `state:engine.*` tags as “trusted assertions”:
@@ -873,7 +870,7 @@ strict and mod/plugin-safe with fail-fast collision behavior?
 
 **Greenfield simplest (pure target):**
 - A single canonical registry of dependency tags that:
-  - defines the tag namespace (`artifact:*`, `field:*`, `effect:*`, and any
+  - defines the tag namespace (`artifact:*`, `buffer:*`, `effect:*`, and any
     explicitly-scoped transitional namespaces if any),
   - assigns ownership to a domain package (or phase owner),
   - defines a strict schema for each artifact/field (TypeBox),
@@ -908,7 +905,7 @@ strict and mod/plugin-safe with fail-fast collision behavior?
   - If a demo payload is provided, it must conform to the tag schema (when present) and
     must be a safe default (non-crashing).
 - **Effects are first-class**:
-  - `effect:*` tags are declared and registered like `artifact:*` and `field:*`.
+  - `effect:*` tags are declared and registered like `artifact:*` and `buffer:*`.
   - Effects represent externally meaningful changes/events and are visible in the
     canonical registry alongside artifacts/fields.
 - **Schema ownership and evolution are explicit**:
@@ -933,7 +930,7 @@ strict and mod/plugin-safe with fail-fast collision behavior?
   mark “unstable” tags during transition.
 - **`state:engine.*` tags are transitional:** M3 currently relies on them and does
   not verify them (`DEF-008`). In the target:
-  - the canonical dependency language is `artifact:*`, `field:*`, and `effect:*`,
+  - the canonical dependency language is `artifact:*`, `buffer:*`, and `effect:*`,
   - and any `state:*`/engine assertions (if needed) must be explicitly fenced as
     transitional wiring with a sunset plan.
 
@@ -1354,7 +1351,7 @@ Assumptions to confirm:
 - Morphology: heightfield + terrain masks; erosion/sediment artifacts.
 - Hydrology: `ClimateField` is canonical (rainfall + temperature).
 - Ecology: soils, biomes, resources, features derived from climate/morphology.
-- Narrative/playability: typed narrative artifacts (`artifact:narrative.*`) as explicit products.
+- Narrative/playability: narrative story entry artifacts (`artifact:narrative.motifs.*.stories.*@vN`) as explicit products.
 - Placement: consumes artifacts, emits placement outputs without engine reads.
 
 Assumptions to confirm:
@@ -1366,14 +1363,14 @@ Assumptions to confirm:
 **Engine boundary policy (accepted):**
 - `state:engine.*` tags are transitional only; target uses verified `effect:*`.
 - `effect:*` participates in scheduling via `requires`/`provides` and is runtime-verifiable.
-- Reification-first: any engine-derived value that flows across steps is reified into `field:*` / `artifact:*`.
+- Reification-first: any engine-derived value that flows across steps is reified into `buffer:*` / `artifact:*`.
 - Engine reads/writes happen only through `EngineAdapter`; no direct engine globals.
 
 Assumptions to confirm:
 - The minimal “effect verifier” surface (adapter queries + executor hook) and the first set of high-risk effects to verify (placement/biomes/features).
 
 **Narrative/playability model (accepted):**
-- Narrative/playability publishes typed, versioned narrative artifacts under `artifact:narrative.*`.
+- Narrative/playability publishes typed, versioned narrative story entry artifacts under `artifact:narrative.motifs.*.stories.*@vN`.
 - There is no canonical `StoryTags` surface; any query convenience is derived from narrative artifacts
   and context-scoped (performance only).
 - “Optional” is recipe composition: omit the narrative bundle entirely, or include both publishers and

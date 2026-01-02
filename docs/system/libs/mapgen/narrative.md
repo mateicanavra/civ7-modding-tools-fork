@@ -2,12 +2,16 @@
 
 ## Overview
 
-Narrative is the "soul" of map generation. While the physical layers determine *what* the world looks like, Narrative determines *why* it matters and *how* it feels.
+Narrative is the "soul" of map generation. While the physical systems determine *what* the world looks like, Narrative determines *why* it matters and *how* it feels.
 
-Unlike other layers that have clear physical ownership, Narrative is a **cross-cutting concern**:
+Unlike other domains that have clear physical ownership, Narrative is a **cross-cutting concern**:
 
 - It **observes** the evolving world and annotates it with meaning (regions, motifs, strategic cues).
 - It can **inject** bespoke features that intentionally deviate from pure physics (wonders, corridors, myths).
+
+**Target model (locked):**
+- Narrative **story entries** are the published primitives (immutable artifacts).
+- Narrative “views” (overlays/snapshots) are **derived on demand** from story entries (and, where relevant, current buffers) for inspection/debug/contracts; they are not published dependency surfaces.
 
 ### Core responsibilities
 
@@ -28,15 +32,15 @@ interface NarrativeProducts {
     id: string;
     type: "continent" | "ocean" | "mountain_range" | "desert" | "valley";
     name: string;
-    cells: Int32Array;
-    tags: Set<string>;
+    cells: readonly number[];
+    annotations: readonly string[];
   }>;
 
   /**
    * Per-cell semantic annotations (sparse map or bitmask).
    * Allows consumers to query “is this a rift zone?” without embedding domain heuristics everywhere.
    */
-  tags: Map<number, Set<string>>;
+  annotationsByCellId: Readonly<Record<string, readonly string[]>>;
 
   /**
    * Strategic paths or corridors identified during generation.
@@ -54,7 +58,7 @@ interface NarrativeProducts {
 
 ## Observer vs injector
 
-- **Observers** interpret existing physical signals and add semantic meaning (tags, regions, corridors, history entries).
+- **Observers** interpret existing physical signals and add semantic meaning (markers, regions, corridors, history entries).
 - **Injectors** deliberately modify the world when a motif or gameplay beat needs enforcement (fjords, canals, bespoke wonders).
 
 Injectors should be used sparingly: prefer “wrap existing signals with meaning” over “rewrite the world” unless the motif is intentional and testable.

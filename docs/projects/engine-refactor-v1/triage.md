@@ -190,7 +190,7 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Context:** System docs at `docs/system/libs/mapgen/*.md` vs implementation once `PipelineExecutor` / `MapGenStep` / `StepRegistry` and canonical products stabilize.
   - **Type:** backlog
   - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `hydrology.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `CIV-40` (which only adds framing + minimal current-state pointers).
-  - **Next check:** after Task Graph + step execution is implemented and key products (`FoundationContext`, `ClimateField`, `StoryOverlays`) are stabilized.
+  - **Next check:** after Task Graph + step execution is implemented and key products (`FoundationContext`, `ClimateField`, narrative story entries) are stabilized.
 
 - **~~Migrate `state:engine.*` → verified `effect:*` + reification~~** [Review by: early M4]  
   **Update (2025-12-21, M4 planning):** This work is now scheduled in M4 (effects verification + placement inputs). See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
