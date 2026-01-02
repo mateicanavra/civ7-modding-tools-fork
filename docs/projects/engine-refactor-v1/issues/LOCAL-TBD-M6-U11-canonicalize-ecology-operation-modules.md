@@ -276,6 +276,7 @@ mods/mod-swooper-maps/src/domain/ecology/
   - `rg -n "adapter\\b|ctxRandom\\b|rand\\b|TraceScope\\b|devLogJson\\b" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
   - `rg -n "Type\\.Any\\(" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
 - `rg -n "\\.runValidated\\(" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps` has matches for `features` and `plot-effects` steps.
+- `rg -n "\\bctxRandom\\b" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps` is empty.
 
 ### C) Convert placement-producing ops to `kind: "plan"` and key-based outputs
 **In scope**
@@ -436,3 +437,30 @@ mods/mod-swooper-maps/src/domain/ecology/
 **Decision (no ambiguity)**
 - Delete `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` and update all importers to the directory module entrypoint:
   - `@mapgen/domain/ecology/ops/classify-biomes/index.js`
+
+### B1) Inventory runtime views in ecology ops (and the step-owned replacements)
+**Runtime views currently passed into op inputs (must be deleted)**
+- `adapter` (engine runtime view) is present in op input schemas for:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`
+- `rand` callback (ctxRandom wrapper) is present in op inputs for:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`
+
+**Step-level sources of those runtime views (must be migrated)**
+- `ctxRandom` is currently used to build `rand` in:
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/inputs.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/inputs.ts`
+
+**Replacement plan (strict boundary)**
+- `adapter` replacement:
+  - Step `inputs.ts` reads runtime/engine-derived state and supplies only buffers/POJOs to ops (no adapter).
+  - Step `apply.ts` owns all adapter queries and mutations:
+    - resolve keys → engine IDs,
+    - gate with `adapter.canHaveFeature(...)` / plot-effect gate equivalents,
+    - apply placements (`adapter.setFeatureType(...)`, plot-effect apply APIs).
+- `rand` / `ctxRandom` replacement:
+  - Steps pass `seed: number` into op input (derived deterministically from run settings + step/op id).
+  - Ops construct a pure deterministic PRNG internally and never accept callback RNGs.
