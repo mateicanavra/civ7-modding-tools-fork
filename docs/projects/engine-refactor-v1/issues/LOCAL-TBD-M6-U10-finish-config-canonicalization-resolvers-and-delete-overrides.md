@@ -219,7 +219,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### Pre-work for C (derived defaults migration)
 
 ### Pre-work for D (delete overrides translator)
-- “Rewrite each map to directly author a `StandardRecipeConfig | null` (use `satisfies StandardRecipeConfig` on the top-level config literal); do not introduce a new ‘config builder’ that recreates the overrides translation layer. (Ergonomics follow-up is tracked in `LOCAL-TBD-M7-U12`.)”
 - “List all call sites/types that depend on `StandardRecipeOverrides` and plan a mechanical migration.”
 - “List all runner entrypoints that currently accept overrides-shaped inputs and define the new canonical signature(s) that accept `settings` + `config` only.”
 - “Identify and delete any remaining runtime config-defaulting in the map entrypoint path (e.g., `Value.Default` in `maps/_runtime/**`).”
@@ -663,3 +662,47 @@ Source of truth for this mapping: `mods/mod-swooper-maps/src/maps/_runtime/stand
   - seed via `foundation.seed`
   - directionality via `foundation.dynamics.directionality`
   - all other `RunSettings` fields (`dimensions`, `wrap`, `latitudeBounds`) come from `MapInitResolution` today, not overrides.
+
+### D2) Rewrite plan: maps directly author `StandardRecipeConfig | null` (no overrides blob, no translator)
+
+**What this rewrite must do (mechanically)**
+- Replace `buildConfig(): StandardRecipeOverrides` in each map entrypoint with:
+  - `const settings: RunSettings = ...` (explicit; derived from `init` + map-authored constants only)
+  - `const config = { ... } satisfies StandardRecipeConfig` (direct, stage/step nested literal; no translation helper)
+- Replace `runStandardRecipe({ recipe, init, overrides, options })` with `runStandardRecipe({ recipe, init, settings, config, options })` once the runner is updated (D4).
+
+**Critical type constraint: `StandardRecipeConfig` is “full shape”, not sparse**
+- `StandardRecipeConfig` is `RecipeConfigOf<typeof stages>` (see `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`).
+- `RecipeConfigOf<...>` is a `Record<stageId, Record<stepId, StepConfig>>` (see `packages/mapgen-core/src/authoring/types.ts`), which means:
+  - every stage key must exist, and
+  - every step key inside each stage must exist.
+- Therefore, `satisfies StandardRecipeConfig` forces each map’s config literal to provide the complete stage/step key set, even for “default” steps. This is desirable: it prevents accidental omission and makes “no translation layer” verifiable via TypeScript alone.
+
+**Canonical stage/step key set for `StandardRecipeConfig` (grounded)**
+
+Source: stage modules imported by `mods/mod-swooper-maps/src/recipes/standard/recipe.ts` and each stage’s `index.ts`.
+
+- `foundation`: `foundation`
+- `morphology-pre`: `landmassPlates`, `coastlines`
+- `narrative-pre`: `storySeed`, `storyHotspots`, `storyRifts`
+- `morphology-mid`: `ruggedCoasts`
+- `narrative-mid`: `storyOrogeny`, `storyCorridorsPre`
+- `morphology-post`: `islands`, `mountains`, `volcanoes`
+- `hydrology-pre`: `lakes`, `climateBaseline`
+- `narrative-swatches`: `storySwatches`
+- `hydrology-core`: `rivers`
+- `narrative-post`: `storyCorridorsPost`
+- `hydrology-post`: `climateRefine`
+- `ecology`: `biomes`, `features`, `plotEffects`
+- `placement`: `derivePlacementInputs`, `placement`
+
+**How to author “defaults” without reintroducing a translator**
+- For steps where the map previously relied on translator-supplied `{}` defaults (because the overrides fragment was absent), the map should explicitly author the step config with the minimal required shape:
+  - Prefer the same “shape stubs” the translator currently uses (example: `storyRifts` requires `{ story: { rift: {} } }`, not bare `{}`).
+  - Do not introduce any computed “merge” or `Value.Default(...)` calls in the map entrypoint path; just author the literal and let compile-time schema defaults fill the rest.
+
+**How to avoid accidental new runtime defaulting**
+- `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` currently uses `Value.Default(BiomeConfigSchema, overrides.biomes ?? {})` and multiple `?? {}` shells.
+- Once maps directly author `StandardRecipeConfig`, none of those translation-time defaults are needed:
+  - maps already provide explicit values for the “non-trivial” configs (foundation/landmass/climate/ecology),
+  - compile-time schema defaults (in the engine compiler) must own all remaining defaults.
