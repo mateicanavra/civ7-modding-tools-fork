@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { DEV, logRainfallStats, type ExtendedMapContext } from "@swooper/mapgen-core";
+import { logRainfallStats, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import {
   ClimateConfigSchema,
@@ -49,8 +49,6 @@ export default createStep({
     });
     publishClimateFieldArtifact(context);
 
-    if (DEV.ENABLED && context?.adapter) {
-      logRainfallStats(context.adapter, width, height, "post-climate");
-    }
+    logRainfallStats(context.trace, context.adapter, width, height, "post-climate");
   },
 } as const);

@@ -1,4 +1,4 @@
-import type { ExtendedMapContext, FoundationContext } from "@swooper/mapgen-core";
+import type { ExtendedMapContext, FoundationContext, TraceScope } from "@swooper/mapgen-core";
 import {
   FOUNDATION_CONFIG_ARTIFACT_TAG,
   FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
@@ -74,11 +74,13 @@ function computePlates(
   config: FoundationConfig,
   rng: RngFunction,
   voronoiUtils: VoronoiUtilsInterface,
-  directionalityOverride: PlateConfig["directionality"] | null
+  directionalityOverride: PlateConfig["directionality"] | null,
+  trace: TraceScope | null | undefined
 ): PlateFieldsResult {
   const plateConfig = buildPlateConfig(config, directionalityOverride);
 
   devLogIf(
+    trace,
     "LOG_FOUNDATION_PLATES",
     `[Foundation] Config plates.count=${plateConfig.count}, relaxationSteps=${plateConfig.relaxationSteps}, ` +
       `convergenceMix=${plateConfig.convergenceMix}, rotationMultiple=${plateConfig.plateRotationMultiple}, ` +
@@ -92,6 +94,7 @@ function computePlates(
   const directionalityCfg = plateConfig.directionality;
 
   devLogIf(
+    trace,
     "LOG_FOUNDATION_DYNAMICS",
     `[Foundation] Config dynamics.wind jetStreaks=${windCfg?.jetStreaks ?? "n/a"}, ` +
       `jetStrength=${windCfg?.jetStrength ?? "n/a"}, variance=${windCfg?.variance ?? "n/a"}; ` +
@@ -352,7 +355,8 @@ export function buildFoundationContext(
     foundationCfg,
     rng,
     adapter.getVoronoiUtils(),
-    directionality
+    directionality,
+    context.trace
   );
   const dynamicsResult = computeDynamics(
     width,
@@ -378,7 +382,7 @@ export function buildFoundationContext(
         dynamics: foundationCfg.dynamics as Record<string, unknown>,
         surface: (foundationCfg.surface || {}) as Record<string, unknown>,
         policy: (foundationCfg.policy || {}) as Record<string, unknown>,
-        diagnostics: (foundationCfg.diagnostics || {}) as Record<string, unknown>,
+        diagnostics: {},
       },
     }
   );

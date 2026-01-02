@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { DEV, devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
+import { devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { ContinentalMarginsConfigSchema } from "@mapgen/config";
 import { storyTagContinentalMargins } from "@mapgen/domain/narrative/tagging/index.js";
@@ -26,15 +26,18 @@ export default createStep({
   schema: StorySeedStepConfigSchema,
   run: (context: ExtendedMapContext, config: StorySeedStepConfig) => {
     const runtime = getStandardRuntime(context);
-    console.log(`${runtime.logPrefix} Imprinting continental margins (active/passive)...`);
+    if (context.trace.isVerbose) {
+      context.trace.event(() => ({
+        type: "story.seed.start",
+        message: `${runtime.logPrefix} Imprinting continental margins (active/passive)...`,
+      }));
+    }
     const margins = storyTagContinentalMargins(context, config.margins);
 
-    if (DEV.ENABLED) {
-      const activeCount = margins.active?.length ?? 0;
-      const passiveCount = margins.passive?.length ?? 0;
-      if (activeCount + passiveCount === 0) {
-        devWarn("[smoke] storySeed enabled but margins overlay is empty");
-      }
+    const activeCount = margins.active?.length ?? 0;
+    const passiveCount = margins.passive?.length ?? 0;
+    if (activeCount + passiveCount === 0) {
+      devWarn(context.trace, "[smoke] storySeed enabled but margins overlay is empty");
     }
   },
 } as const);

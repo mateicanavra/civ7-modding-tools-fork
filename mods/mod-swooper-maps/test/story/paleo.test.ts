@@ -52,7 +52,6 @@ describe("story/paleo", () => {
     const ctx = createExtendedMapContext(
       { width, height },
       adapter,
-      config as ReturnType<typeof createExtendedMapContext>["config"],
       settings
     );
     ctx.buffers?.climate?.rainfall?.fill(50);

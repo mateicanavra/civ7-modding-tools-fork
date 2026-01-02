@@ -33,7 +33,6 @@ describe("story/orogeny", () => {
     const ctx = createExtendedMapContext(
       { width, height },
       adapter,
-      config as ReturnType<typeof createExtendedMapContext>["config"],
       settings
     );
 

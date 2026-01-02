@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { DEV, devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
+import { devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { RiftTunablesSchema } from "@mapgen/config";
 import { storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/index.js";
@@ -34,12 +34,17 @@ export default createStep({
   schema: StoryRiftsStepConfigSchema,
   run: (context: ExtendedMapContext, config: StoryRiftsStepConfig) => {
     const runtime = getStandardRuntime(context);
-    console.log(`${runtime.logPrefix} Imprinting rift valleys...`);
+    if (context.trace.isVerbose) {
+      context.trace.event(() => ({
+        type: "story.rifts.start",
+        message: `${runtime.logPrefix} Imprinting rift valleys...`,
+      }));
+    }
     const summary = storyTagRiftValleys(context, {
       story: config.story,
     });
-    if (DEV.ENABLED && summary.lineTiles === 0) {
-      devWarn("[smoke] storyRifts enabled but no rift tiles were emitted");
+    if (summary.lineTiles === 0) {
+      devWarn(context.trace, "[smoke] storyRifts enabled but no rift tiles were emitted");
     }
   },
 } as const);

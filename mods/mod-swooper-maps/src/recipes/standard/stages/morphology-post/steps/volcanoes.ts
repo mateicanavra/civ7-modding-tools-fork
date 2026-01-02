@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { DEV, assertFoundationPlates, logVolcanoSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
+import { assertFoundationPlates, logVolcanoSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import type { VolcanoesConfig } from "@mapgen/config";
 import { VolcanoesConfigSchema } from "@mapgen/config";
@@ -28,9 +28,7 @@ export default createStep({
 
     layerAddVolcanoesPlateAware(context, volcanoOptions);
 
-    if (DEV.ENABLED && context?.adapter) {
-      const volcanoId = context.adapter.getFeatureTypeIndex?.("FEATURE_VOLCANO") ?? -1;
-      logVolcanoSummary(context.adapter, width, height, volcanoId);
-    }
+    const volcanoId = context.adapter.getFeatureTypeIndex?.("FEATURE_VOLCANO") ?? -1;
+    logVolcanoSummary(context.trace, context.adapter, width, height, volcanoId);
   },
 } as const);

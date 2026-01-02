@@ -8,7 +8,7 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import { isDevEnabled } from "@mapgen/dev/flags.js";
+import type { TraceScope } from "@mapgen/trace/index.js";
 import { devLog, devLogJson } from "@mapgen/dev/logging.js";
 
 // Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
@@ -76,12 +76,13 @@ export function formatHistogramPercent(counts: number[], total: number): string[
  * Log a rainfall histogram over non-water tiles.
  */
 export function logRainfallHistogram(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   options: { bins?: number } = {}
 ): void {
-  if (!isDevEnabled("LOG_RAINFALL_SUMMARY")) return;
+  if (!trace?.isVerbose) return;
 
   const bins = Math.max(5, Math.min(20, options.bins ?? 10));
   const values: number[] = [];
@@ -94,14 +95,14 @@ export function logRainfallHistogram(
   }
 
   if (values.length === 0) {
-    devLog("[rainfall] histogram: No land samples");
+    devLog(trace, "[rainfall] histogram: No land samples");
     return;
   }
 
   const hist = buildHistogram(values, bins, [0, 200]);
   const pct = formatHistogramPercent(hist.counts, hist.total);
 
-  devLogJson("rainfall histogram", {
+  devLogJson(trace, "rainfall histogram", {
     samples: hist.total,
     bins,
     distribution: pct,
@@ -112,12 +113,13 @@ export function logRainfallHistogram(
  * Log rainfall statistics (min/max/avg/buckets).
  */
 export function logRainfallStats(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   label: string = "rainfall"
 ): void {
-  if (!isDevEnabled("LOG_RAINFALL_SUMMARY")) return;
+  if (!trace?.isVerbose) return;
 
   let min = Infinity;
   let max = -Infinity;
@@ -146,11 +148,11 @@ export function logRainfallStats(
   }
 
   if (landTiles === 0) {
-    devLog(`[${label}] stats: No land tiles`);
+    devLog(trace, `[${label}] stats: No land tiles`);
     return;
   }
 
-  devLogJson(`${label} stats`, {
+  devLogJson(trace, `${label} stats`, {
     landTiles,
     min,
     max,
@@ -163,6 +165,7 @@ export function logRainfallStats(
  * Log foundation uplift/rift potential histograms.
  */
 export function logFoundationHistograms(
+  trace: TraceScope | null | undefined,
   width: number,
   height: number,
   foundation: {
@@ -171,11 +174,11 @@ export function logFoundationHistograms(
   },
   options: { bins?: number } = {}
 ): void {
-  if (!isDevEnabled("FOUNDATION_HISTOGRAMS")) return;
+  if (!trace?.isVerbose) return;
 
   const { upliftPotential, riftPotential } = foundation;
   if (!upliftPotential || !riftPotential) {
-    devLog("[foundation] histograms: Missing uplift/rift data");
+    devLog(trace, "[foundation] histograms: Missing uplift/rift data");
     return;
   }
 
@@ -189,12 +192,12 @@ export function logFoundationHistograms(
   const upliftHist = buildHistogram(upliftValues, bins, [0, 255]);
   const riftHist = buildHistogram(riftValues, bins, [0, 255]);
 
-  devLogJson("foundation uplift histogram", {
+  devLogJson(trace, "foundation uplift histogram", {
     samples: upliftHist.total,
     distribution: formatHistogramPercent(upliftHist.counts, upliftHist.total),
   });
 
-  devLogJson("foundation rift histogram", {
+  devLogJson(trace, "foundation rift histogram", {
     samples: riftHist.total,
     distribution: formatHistogramPercent(riftHist.counts, riftHist.total),
   });
@@ -204,6 +207,7 @@ export function logFoundationHistograms(
  * Log boundary closeness distribution by type.
  */
 export function logBoundaryMetrics(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
@@ -213,11 +217,11 @@ export function logBoundaryMetrics(
   },
   options: { thresholds?: number[] } = {}
 ): void {
-  if (!isDevEnabled("LOG_BOUNDARY_METRICS")) return;
+  if (!trace?.isVerbose) return;
 
   const { boundaryType, boundaryCloseness } = foundation;
   if (!boundaryType || !boundaryCloseness) {
-    devLog("[boundary] metrics: Missing boundary data");
+    devLog(trace, "[boundary] metrics: Missing boundary data");
     return;
   }
 
@@ -271,7 +275,7 @@ export function logBoundaryMetrics(
 
   const pct = (v: number) => `${((v / totalTiles) * 100).toFixed(1)}%`;
 
-  devLogJson("boundary type counts", {
+  devLogJson(trace, "boundary type counts", {
     total: totalTiles,
     ...typeCounts,
     shares: {
@@ -282,13 +286,13 @@ export function logBoundaryMetrics(
   });
 
   for (let t = 0; t < thresholds.length; t++) {
-    devLogJson(`boundary closeness >= ${thresholds[t].toFixed(2)}`, {
+    devLogJson(trace, `boundary closeness >= ${thresholds[t].toFixed(2)}`, {
       tiles: thresholdHits[t],
       share: pct(thresholdHits[t]),
     });
   }
 
-  devLogJson("mountains by boundary type", {
+  devLogJson(trace, "mountains by boundary type", {
     total: mountains,
     none: mountainByType[0],
     convergent: mountainByType[1],
@@ -296,7 +300,7 @@ export function logBoundaryMetrics(
     transform: mountainByType[3],
   });
 
-  devLogJson("hills by boundary type", {
+  devLogJson(trace, "hills by boundary type", {
     total: hills,
     none: hillByType[0],
     convergent: hillByType[1],

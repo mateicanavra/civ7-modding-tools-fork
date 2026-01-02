@@ -30,8 +30,9 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
     hillUpliftWeight = 0.2,
   } = options;
 
-  devLogIf("LOG_MOUNTAINS", "[Mountains] Physics Config (Input):", JSON.stringify(options));
+  devLogIf(ctx.trace, "LOG_MOUNTAINS", "[Mountains] Physics Config (Input):", JSON.stringify(options));
   devLogIf(
+    ctx.trace,
     "LOG_MOUNTAINS",
     "[Mountains] Physics Config (Effective):",
     JSON.stringify({
@@ -146,8 +147,13 @@ export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Parti
   const flatCount = Math.max(0, landTiles - mtnCount - hillCount);
   const total = Math.max(1, landTiles);
 
-  console.log(`[Mountains] Terrain Distribution (Land Tiles: ${landTiles}):`);
-  console.log(`  Mountains: ${mtnCount} (${((mtnCount / total) * 100).toFixed(1)}%)`);
-  console.log(`  Hills:     ${hillCount} (${((hillCount / total) * 100).toFixed(1)}%)`);
-  console.log(`  Flat:      ${flatCount} (${((flatCount / total) * 100).toFixed(1)}%)`);
+  if (ctx.trace.isVerbose) {
+    ctx.trace.event(() => ({
+      type: "mountains.distribution",
+      landTiles,
+      mountains: { count: mtnCount, share: Number(((mtnCount / total) * 100).toFixed(1)) },
+      hills: { count: hillCount, share: Number(((hillCount / total) * 100).toFixed(1)) },
+      flat: { count: flatCount, share: Number(((flatCount / total) * 100).toFixed(1)) },
+    }));
+  }
 }

@@ -7,7 +7,7 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import { isDevEnabled } from "@mapgen/dev/flags.js";
+import type { TraceScope } from "@mapgen/trace/index.js";
 import { devLog, devLogJson } from "@mapgen/dev/logging.js";
 import {
   COAST_TERRAIN,
@@ -72,17 +72,18 @@ export interface FoundationPlates {
  * Log a compact foundation summary.
  */
 export function logFoundationSummary(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   foundation: FoundationPlates
 ): void {
-  if (!isDevEnabled("LOG_FOUNDATION_SUMMARY")) return;
+  if (!trace?.isVerbose) return;
 
   const { plateId, boundaryType, boundaryCloseness, upliftPotential, riftPotential } = foundation;
 
   if (!plateId || !boundaryType || !boundaryCloseness) {
-    devLog("[foundation] summary: Missing core fields");
+    devLog(trace, "[foundation] summary: Missing core fields");
     return;
   }
 
@@ -150,7 +151,7 @@ export function logFoundationSummary(
     });
   }
 
-  devLogJson("foundation summary", {
+  devLogJson(trace, "foundation summary", {
     dimensions: { width, height },
     plates: plates.size,
     boundaryTiles,
@@ -170,12 +171,13 @@ export function logFoundationSummary(
  * Log biome tile counts and distribution.
  */
 export function logBiomeSummary(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   biomeNames?: Map<number, string>
 ): void {
-  if (!isDevEnabled("LOG_BIOME_SUMMARY")) return;
+  if (!trace?.isVerbose) return;
 
   const counts = new Map<number, number>();
   let landTiles = 0;
@@ -190,7 +192,7 @@ export function logBiomeSummary(
   }
 
   if (landTiles === 0) {
-    devLog("[biome] summary: No land tiles");
+    devLog(trace, "[biome] summary: No land tiles");
     return;
   }
 
@@ -204,7 +206,7 @@ export function logBiomeSummary(
     }))
     .sort((a, b) => b.count - a.count);
 
-  devLogJson("biome summary", {
+  devLogJson(trace, "biome summary", {
     landTiles,
     biomes: summary,
   });
@@ -214,11 +216,12 @@ export function logBiomeSummary(
  * Log mountain placement summary.
  */
 export function logMountainSummary(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number
 ): void {
-  if (!isDevEnabled("LOG_MOUNTAINS")) return;
+  if (!trace?.isVerbose) return;
 
   let mountains = 0;
   let onLand = 0;
@@ -247,7 +250,7 @@ export function logMountainSummary(
     }
   }
 
-  devLogJson("mountains summary", {
+  devLogJson(trace, "mountains summary", {
     total: mountains,
     onLand,
     coastal,
@@ -259,12 +262,13 @@ export function logMountainSummary(
  * Log elevation summary stats for land and terrain categories.
  */
 export function logElevationSummary(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   stage?: string
 ): void {
-  if (!isDevEnabled("LOG_ELEVATION_SUMMARY")) return;
+  if (!trace?.isVerbose) return;
 
   const land: number[] = [];
   const mountain: number[] = [];
@@ -311,7 +315,7 @@ export function logElevationSummary(
     }
   }
 
-  devLogJson("elevation summary", {
+  devLogJson(trace, "elevation summary", {
     stage: stage ?? null,
     dimensions: { width, height },
     totals: {
@@ -334,15 +338,16 @@ export function logElevationSummary(
  * Log volcano placement summary.
  */
 export function logVolcanoSummary(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   volcanoFeatureId?: number
 ): void {
-  if (!isDevEnabled("LOG_VOLCANOES")) return;
+  if (!trace?.isVerbose) return;
 
   if (volcanoFeatureId === undefined || volcanoFeatureId < 0) {
-    devLog("[volcanoes] summary: Volcano feature ID not available");
+    devLog(trace, "[volcanoes] summary: Volcano feature ID not available");
     return;
   }
 
@@ -359,7 +364,7 @@ export function logVolcanoSummary(
     }
   }
 
-  devLogJson("volcanoes summary", {
+  devLogJson(trace, "volcanoes summary", {
     total: volcanoes,
     onMountain,
   });
@@ -369,16 +374,17 @@ export function logVolcanoSummary(
  * Log landmass window bounding boxes.
  */
 export function logLandmassWindows(
+  trace: TraceScope | null | undefined,
   windows: Array<{ minX: number; maxX: number; minY: number; maxY: number; area: number }>
 ): void {
-  if (!isDevEnabled("LOG_LANDMASS_WINDOWS")) return;
+  if (!trace?.isVerbose) return;
 
   if (!windows || windows.length === 0) {
-    devLog("[landmass] windows: None defined");
+    devLog(trace, "[landmass] windows: None defined");
     return;
   }
 
-  devLogJson("landmass windows", {
+  devLogJson(trace, "landmass windows", {
     count: windows.length,
     windows: windows.map((w, i) => ({
       id: i,

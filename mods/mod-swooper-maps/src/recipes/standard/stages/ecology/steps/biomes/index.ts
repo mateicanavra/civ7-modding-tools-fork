@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import { Value } from "typebox/value";
 
-import { DEV, logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
+import { logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { BiomeBindingsSchema, BiomeConfigSchema } from "@mapgen/config";
 import {
@@ -128,8 +128,6 @@ export default createStep({
       }
     }
 
-    if (DEV.ENABLED) {
-      logBiomeSummary(context.adapter, width, height);
-    }
+    logBiomeSummary(context.trace, context.adapter, width, height);
   },
 } as const);

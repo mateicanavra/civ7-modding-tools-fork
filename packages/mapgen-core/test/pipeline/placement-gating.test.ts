@@ -72,7 +72,6 @@ describe("placement step contracts", () => {
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      {} as ExtendedMapContext["config"],
       settings
     );
 
@@ -131,7 +130,6 @@ describe("placement step contracts", () => {
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      {} as ExtendedMapContext["config"],
       settings
     );
 
@@ -164,7 +162,6 @@ describe("placement step contracts", () => {
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      {} as ExtendedMapContext["config"],
       settings
     );
 
@@ -195,7 +192,6 @@ describe("placement step contracts", () => {
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      {} as ExtendedMapContext["config"],
       settings
     );
 

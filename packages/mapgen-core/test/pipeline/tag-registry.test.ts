@@ -57,7 +57,6 @@ describe("tag registry", () => {
     const ctx = createExtendedMapContext(
       { width: 2, height: 2 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       baseSettings
     );
 
@@ -87,7 +86,6 @@ describe("tag registry", () => {
     const ctx = createExtendedMapContext(
       { width: 2, height: 2 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       baseSettings
     );
 

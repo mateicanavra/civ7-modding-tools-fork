@@ -149,11 +149,6 @@ function buildConfig(): StandardRecipeOverrides {
             },
           },
         },
-        diagnostics: {
-          enabled: true,
-          logElevationSummary: true,
-          logSnowSummary: true,
-        },
       },
       oceanSeparation: {
         enabled: false,
@@ -525,8 +520,3 @@ engine.on("GenerateMap", () => {
   const init = mapInitData ?? resolveMapInitData(runtimeOptions);
   runStandardRecipe({ recipe: standardRecipe, init, overrides, options: runtimeOptions });
 });
-
-console.log("[SHATTERED_RING] ========================================");
-console.log("[SHATTERED_RING] The Shattered Ring (TypeScript Build) Loaded");
-console.log("[SHATTERED_RING] Post-impact crater world with ring mountains");
-console.log("[SHATTERED_RING] ========================================");

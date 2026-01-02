@@ -1,12 +1,12 @@
 /**
  * Timing utilities for performance measurement.
  *
- * All functions are no-op (pass-through) when DEV.LOG_TIMING is disabled.
+ * All functions are no-op (pass-through) unless trace verbosity is enabled.
  *
  * @module dev/timing
  */
 
-import { isDevEnabled } from "@mapgen/dev/flags.js";
+import type { TraceScope } from "@mapgen/trace/index.js";
 
 /** Token returned by timeStart for use with timeEnd */
 export interface TimingToken {
@@ -36,15 +36,14 @@ function formatMs(ms: number): string {
   return `${ms.toFixed(2)} ms`;
 }
 
-/**
- * Safe console.log for timing output.
- */
-function logTiming(message: string): void {
-  try {
-    console.log(message);
-  } catch {
-    // Swallow errors
-  }
+function emitTiming(trace: TraceScope | null | undefined, label: string, durationMs: number): void {
+  if (!trace?.isVerbose) return;
+  trace.event(() => ({
+    type: "dev.timing",
+    label,
+    durationMs,
+    formatted: formatMs(durationMs),
+  }));
 }
 
 /**
@@ -56,17 +55,19 @@ function logTiming(message: string): void {
  *   return addMountains(width, height);
  * });
  */
-export function timeSection<T>(label: string, fn: () => T): T {
-  if (!isDevEnabled("LOG_TIMING")) {
-    return fn();
-  }
+export function timeSection<T>(
+  trace: TraceScope | null | undefined,
+  label: string,
+  fn: () => T
+): T {
+  if (!trace?.isVerbose) return fn();
 
   const t0 = nowMs();
   try {
     return fn();
   } finally {
     const dt = nowMs() - t0;
-    logTiming(`[DEV][time] ${label}: ${formatMs(dt)}`);
+    emitTiming(trace, label, dt);
   }
 }
 
@@ -79,10 +80,11 @@ export function timeSection<T>(label: string, fn: () => T): T {
  * // ... do work ...
  * timeEnd(token);
  */
-export function timeStart(label: string): TimingToken | null {
-  if (!isDevEnabled("LOG_TIMING")) {
-    return null;
-  }
+export function timeStart(
+  trace: TraceScope | null | undefined,
+  label: string
+): TimingToken | null {
+  if (!trace?.isVerbose) return null;
   return { label, t0: nowMs() };
 }
 
@@ -92,10 +94,13 @@ export function timeStart(label: string): TimingToken | null {
  *
  * @returns Duration in milliseconds, or 0 if token was null
  */
-export function timeEnd(token: TimingToken | null): number {
+export function timeEnd(
+  trace: TraceScope | null | undefined,
+  token: TimingToken | null
+): number {
   if (!token) return 0;
   const dt = nowMs() - token.t0;
-  logTiming(`[DEV][time] ${token.label}: ${formatMs(dt)}`);
+  emitTiming(trace, token.label, dt);
   return dt;
 }
 

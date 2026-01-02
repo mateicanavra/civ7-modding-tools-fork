@@ -116,9 +116,12 @@ export function createPlateDrivenLandmasses(
   );
 
   if (!crustResult) {
-    console.log(
-      `${LANDMASS_LOG_PREFIX} ERROR: Crust-first landmask generation failed (invalid plate data).`
-    );
+    if (ctx.trace.isVerbose) {
+      ctx.trace.event(() => ({
+        type: "landmass.crust.error",
+        message: `${LANDMASS_LOG_PREFIX} ERROR: Crust-first landmask generation failed (invalid plate data).`,
+      }));
+    }
     return null;
   }
 
@@ -130,11 +133,12 @@ export function createPlateDrivenLandmasses(
   const plateStats = computePlateStatsFromLandMask(width, height, landMask, plateIds);
   const windowsOut = windowsFromPlateStats(plateStats.values(), width, height, postCfg);
 
-  logCrustFirstDiagnostics(crustResult, size, targetLandTiles, closenessLimit, waterPct);
-  logLandmassWindowsSummary(plateStats.size, windowsOut.length);
+  logCrustFirstDiagnostics(ctx.trace, crustResult, size, targetLandTiles, closenessLimit, waterPct);
+  logLandmassWindowsSummary(ctx.trace, plateStats.size, windowsOut.length);
 
   if (windowsOut.length === 0) {
     logNoWindowsGeneratedDiagnostics(
+      ctx.trace,
       finalLandTiles,
       plateStats.size,
       seaLevel,

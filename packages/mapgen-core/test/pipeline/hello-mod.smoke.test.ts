@@ -40,7 +40,6 @@ describe("authoring: hello recipe compile/execute", () => {
     const ctx = createExtendedMapContext(
       { width: 8, height: 6 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       baseSettings
     );
 

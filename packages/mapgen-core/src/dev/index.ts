@@ -4,35 +4,21 @@
  * Provides logging, timing, ASCII visualization, histograms, and summaries
  * for debugging foundation/climate/biomes behavior.
  *
- * All diagnostics are no-op when DEV.ENABLED is false.
+ * All diagnostics are no-op unless trace verbosity is enabled.
  *
  * @example
  * ```typescript
- * import { DEV, initDevFlags, devLog, timeSection, logFoundationSummary } from "@swooper/mapgen-core/dev";
- *
- * // Enable dev logging from config
- * initDevFlags({ enabled: true, logTiming: true, logFoundationSummary: true });
+ * import { devLog, timeSection, logFoundationSummary } from "@swooper/mapgen-core/dev";
  *
  * // Use timing wrapper
- * const result = timeSection("Foundation init", () => initFoundation());
+ * const result = timeSection(context.trace, "Foundation init", () => initFoundation());
  *
  * // Log summaries
- * logFoundationSummary(adapter, width, height, foundation);
+ * logFoundationSummary(context.trace, adapter, width, height, foundation);
  * ```
  *
  * @module dev
  */
-
-// Flags
-export {
-  DEV,
-  initDevFlags,
-  resetDevFlags,
-  isDevEnabled,
-  type DevFlags,
-  type DevFlagKey,
-  type DevLogConfig,
-} from "@mapgen/dev/flags.js";
 
 // Logging
 export {

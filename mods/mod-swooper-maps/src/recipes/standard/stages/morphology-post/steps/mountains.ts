@@ -1,6 +1,5 @@
 import { Type, type Static } from "typebox";
 import {
-  DEV,
   assertFoundationPlates,
   devLogIf,
   logMountainSummary,
@@ -36,6 +35,7 @@ export default createStep({
     const mountainOptions = (config.mountains ?? {}) as MountainsConfig;
 
     devLogIf(
+      context.trace,
       "LOG_MOUNTAINS",
       `${runtime.logPrefix} [Mountains] thresholds ` +
         `mountain=${mountainOptions.mountainThreshold}, ` +
@@ -48,9 +48,7 @@ export default createStep({
 
     layerAddMountainsPhysics(context, mountainOptions);
 
-    if (DEV.ENABLED && context?.adapter) {
-      logMountainSummary(context.adapter, width, height);
-      logReliefAscii(context.adapter, width, height);
-    }
+    logMountainSummary(context.trace, context.adapter, width, height);
+    logReliefAscii(context.trace, context.adapter, width, height);
   },
 } as const);

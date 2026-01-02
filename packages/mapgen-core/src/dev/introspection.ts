@@ -5,10 +5,10 @@
  * GameplayMap and TerrainBuilder APIs. Useful for validating the actual runtime
  * API surface during engine integration and migrations.
  *
- * All helpers are no-op when DEV.ENABLED is false.
+ * All helpers are no-op unless trace verbosity is enabled.
  */
 
-import { DEV } from "@mapgen/dev/flags.js";
+import type { TraceScope } from "@mapgen/trace/index.js";
 import { devLogPrefixed } from "@mapgen/dev/logging.js";
 
 /**
@@ -40,11 +40,12 @@ function collectApiKeys(obj: unknown): string[] {
 /**
  * Log the API surface for a single engine object (e.g., GameplayMap).
  */
-function logEngineObjectApi(label: string, obj: unknown): void {
-  if (!DEV.ENABLED) return;
+function logEngineObjectApi(trace: TraceScope, label: string, obj: unknown): void {
+  if (!trace.isVerbose) return;
 
   if (!obj || (typeof obj !== "object" && typeof obj !== "function")) {
     devLogPrefixed(
+      trace,
       "ENGINE_API",
       `${label} is not an object/function (typeof=${typeof obj})`
     );
@@ -52,7 +53,7 @@ function logEngineObjectApi(label: string, obj: unknown): void {
   }
 
   const apiKeys = collectApiKeys(obj);
-  devLogPrefixed("ENGINE_API", `${label} API (${apiKeys.length} keys)`);
+  devLogPrefixed(trace, "ENGINE_API", `${label} API (${apiKeys.length} keys)`);
 
   for (const name of apiKeys) {
     let kind = "unknown";
@@ -63,7 +64,7 @@ function logEngineObjectApi(label: string, obj: unknown): void {
     } catch {
       kind = "unknown";
     }
-    devLogPrefixed("ENGINE_API", `  ${label}.${name}: ${kind}`);
+    devLogPrefixed(trace, "ENGINE_API", `  ${label}.${name}: ${kind}`);
   }
 }
 
@@ -73,8 +74,8 @@ let engineApiLogged = false;
  * Log the engine surface APIs (GameplayMap, TerrainBuilder, etc.) once per
  * script context. Safe to call multiple times; subsequent calls are no-op.
  */
-export function logEngineSurfaceApisOnce(): void {
-  if (!DEV.ENABLED) return;
+export function logEngineSurfaceApisOnce(trace: TraceScope | null | undefined): void {
+  if (!trace?.isVerbose) return;
   if (engineApiLogged) return;
   engineApiLogged = true;
 
@@ -88,6 +89,7 @@ export function logEngineSurfaceApisOnce(): void {
 
     if (!gameplayMap && !terrainBuilder && !fractalBuilder && !areaBuilder) {
       devLogPrefixed(
+        trace,
         "ENGINE_API",
         "GameplayMap, TerrainBuilder, FractalBuilder, and AreaBuilder are not defined in global scope"
       );
@@ -95,29 +97,29 @@ export function logEngineSurfaceApisOnce(): void {
     }
 
     if (gameplayMap) {
-      logEngineObjectApi("GameplayMap", gameplayMap);
+      logEngineObjectApi(trace, "GameplayMap", gameplayMap);
     } else {
-      devLogPrefixed("ENGINE_API", "GameplayMap is not defined");
+      devLogPrefixed(trace, "ENGINE_API", "GameplayMap is not defined");
     }
 
     if (terrainBuilder) {
-      logEngineObjectApi("TerrainBuilder", terrainBuilder);
+      logEngineObjectApi(trace, "TerrainBuilder", terrainBuilder);
     } else {
-      devLogPrefixed("ENGINE_API", "TerrainBuilder is not defined");
+      devLogPrefixed(trace, "ENGINE_API", "TerrainBuilder is not defined");
     }
 
     if (fractalBuilder) {
-      logEngineObjectApi("FractalBuilder", fractalBuilder);
+      logEngineObjectApi(trace, "FractalBuilder", fractalBuilder);
     } else {
-      devLogPrefixed("ENGINE_API", "FractalBuilder is not defined");
+      devLogPrefixed(trace, "ENGINE_API", "FractalBuilder is not defined");
     }
 
     if (areaBuilder) {
-      logEngineObjectApi("AreaBuilder", areaBuilder);
+      logEngineObjectApi(trace, "AreaBuilder", areaBuilder);
     } else {
-      devLogPrefixed("ENGINE_API", "AreaBuilder is not defined");
+      devLogPrefixed(trace, "ENGINE_API", "AreaBuilder is not defined");
     }
   } catch (err) {
-    devLogPrefixed("ENGINE_API", "Failed to introspect engine APIs", err);
+    devLogPrefixed(trace, "ENGINE_API", "Failed to introspect engine APIs", err);
   }
 }

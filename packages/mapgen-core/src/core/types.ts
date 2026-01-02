@@ -3,7 +3,7 @@
  *
  * Purpose:
  * - Define the seam between pure logic and engine coupling
- * - MapContext holds all data dependencies for passes (buffers/fields, rng, config)
+ * - MapContext holds all data dependencies for passes (buffers/fields, rng)
  * - EngineAdapter abstracts read/write operations (enables testing, replay, diffing)
  *
  * Invariants:
@@ -210,8 +210,6 @@ export interface GenerationMetrics {
 // Extended MapContext
 // ============================================================================
 
-export type MapConfig = Readonly<Record<string, unknown>>;
-
 /**
  * Extended MapContext with all generation state.
  * This extends the minimal MapContext from @civ7/adapter.
@@ -220,7 +218,6 @@ export interface ExtendedMapContext {
   dimensions: MapDimensions;
   fields: MapFields;
   rng: RNGState;
-  config: MapConfig;
   settings: RunSettings;
   metrics: GenerationMetrics;
   trace: TraceScope;
@@ -246,7 +243,6 @@ const EMPTY_FROZEN_OBJECT = Object.freeze({});
 export function createExtendedMapContext(
   dimensions: MapDimensions,
   adapter: EngineAdapter,
-  config: MapConfig,
   settings: RunSettings
 ): ExtendedMapContext {
   initializeTerrainConstants(adapter);
@@ -279,7 +275,6 @@ export function createExtendedMapContext(
       callCounts: new Map(),
       seed: null,
     },
-    config,
     settings,
     metrics: {
       timings: new Map(),

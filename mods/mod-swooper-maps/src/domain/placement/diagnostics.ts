@@ -1,9 +1,15 @@
 import type { EngineAdapter } from "@civ7/adapter";
-import { DEV } from "@swooper/mapgen-core";
+import type { TraceScope } from "@swooper/mapgen-core";
 import { HILL_TERRAIN, MOUNTAIN_TERRAIN, getTerrainSymbol } from "@swooper/mapgen-core";
 
-export function logTerrainStats(adapter: EngineAdapter, width: number, height: number, stage: string): void {
-  if (!DEV.ENABLED) return;
+export function logTerrainStats(
+  trace: TraceScope | null | undefined,
+  adapter: EngineAdapter,
+  width: number,
+  height: number,
+  stage: string
+): void {
+  if (!trace?.isVerbose) return;
   let flat = 0;
   let hill = 0;
   let mtn = 0;
@@ -24,17 +30,30 @@ export function logTerrainStats(adapter: EngineAdapter, width: number, height: n
   }
 
   const land = Math.max(1, flat + hill + mtn);
-  console.log(`[Placement] Stats (${stage}):`);
-  console.log(`  Water: ${((water / total) * 100).toFixed(1)}%`);
-  console.log(`  Land:  ${((land / total) * 100).toFixed(1)}% (${land} tiles)`);
-  console.log(`    Mtn:  ${((mtn / land) * 100).toFixed(1)}%`);
-  console.log(`    Hill: ${((hill / land) * 100).toFixed(1)}%`);
-  console.log(`    Flat: ${((flat / land) * 100).toFixed(1)}%`);
+  trace.event(() => ({
+    type: "placement.terrainStats",
+    stage,
+    totals: {
+      water: Number(((water / total) * 100).toFixed(1)),
+      land: Number(((land / total) * 100).toFixed(1)),
+      landTiles: land,
+    },
+    shares: {
+      mountains: Number(((mtn / land) * 100).toFixed(1)),
+      hills: Number(((hill / land) * 100).toFixed(1)),
+      flat: Number(((flat / land) * 100).toFixed(1)),
+    },
+  }));
 }
 
-export function logAsciiMap(adapter: EngineAdapter, width: number, height: number): void {
-  if (!DEV.ENABLED) return;
-  console.log("[Placement] Final Map ASCII:");
+export function logAsciiMap(
+  trace: TraceScope | null | undefined,
+  adapter: EngineAdapter,
+  width: number,
+  height: number
+): void {
+  if (!trace?.isVerbose) return;
+  const lines: string[] = ["[Placement] Final Map ASCII:"];
 
   for (let y = height - 1; y >= 0; y--) {
     let row = "";
@@ -43,7 +62,8 @@ export function logAsciiMap(adapter: EngineAdapter, width: number, height: numbe
       const t = adapter.getTerrainType(x, y);
       row += getTerrainSymbol(t) + " ";
     }
-    console.log(row);
+    lines.push(row);
   }
-}
 
+  trace.event(() => ({ type: "placement.ascii", lines }));
+}

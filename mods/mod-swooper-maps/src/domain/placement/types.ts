@@ -1,4 +1,5 @@
 import type { ContinentBounds } from "@civ7/adapter";
+import type { TraceScope } from "@swooper/mapgen-core";
 import type { PlacementConfig, FloodplainsConfig, StartsConfig } from "@mapgen/config";
 
 export type { PlacementConfig, FloodplainsConfig, ContinentBounds, StartsConfig };
@@ -14,4 +15,5 @@ export interface PlacementOptions {
   floodplains?: FloodplainsConfig;
   starts?: StartsConfig;
   placementConfig?: PlacementConfig;
+  trace?: TraceScope | null;
 }
