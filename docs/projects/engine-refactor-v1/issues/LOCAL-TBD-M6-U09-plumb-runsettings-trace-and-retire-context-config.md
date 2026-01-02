@@ -189,6 +189,16 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - “Enumerate all directionality reads across steps/domains (`rg -n 'directionality' mods/mod-swooper-maps/src/recipes`) and ensure they can be replaced by `context.settings.directionality`.”
 - “Confirm that `buildStandardRunSettings` is the only writer of directionality (or list others).”
 
+#### C1 Findings: directionality reads + replacement path
+- **Recipe/step-level reads (all replaceable with `context.settings.directionality`):**
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` (reads `context.config.foundation.dynamics.directionality`).
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid/steps/storyCorridorsPre.ts`, `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.ts`, `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/steps/storySwatches.ts` (read `config.foundation.dynamics.directionality` from step config).
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/producer.ts` (reads `config.dynamics?.directionality`).
+- **Domain-level reads (all fed via step/config options today, can be fed from `context.settings.directionality`):**
+  - Hydrology refine/swatches: `mods/mod-swooper-maps/src/domain/hydrology/climate/refine/index.ts`, `mods/mod-swooper-maps/src/domain/hydrology/climate/refine/orographic-shadow.ts`, `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/index.ts`, `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/chooser.ts`, `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/monsoon-bias.ts`.
+  - Narrative corridors: `mods/mod-swooper-maps/src/domain/narrative/corridors/index.ts`, `mods/mod-swooper-maps/src/domain/narrative/corridors/land-corridors.ts`, `mods/mod-swooper-maps/src/domain/narrative/corridors/sea-lanes.ts`.
+  - Narrative rifts tagging reads from `ctx.config`: `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` → replace with `context.settings.directionality` plumbed into helper calls.
+
 ### Pre-work for D (retire global config blob)
 - “Identify all remaining reasons `run-standard.ts` sets `context.config` today (directionality, diagnostics, other). For each, list the replacement (settings vs artifacts vs step config).”
 - “Locate any tests/docs that still assume ‘runtime overrides live in `ExtendedMapContext.config`’ and list required updates.”
