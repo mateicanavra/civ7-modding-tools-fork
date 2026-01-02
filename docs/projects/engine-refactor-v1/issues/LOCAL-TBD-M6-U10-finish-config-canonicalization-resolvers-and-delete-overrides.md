@@ -215,7 +215,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### Pre-work for A (step resolver + compiler execution)
 
 ### Pre-work for B (op resolver authoring surface)
-- “Inspect `packages/mapgen-core/src/authoring/op.ts` and propose a minimal type-safe `resolveConfig` addition that does not affect runtime `run(...)` signature.”
 - “Wire step resolver composition by directly calling `op.resolveConfig(opConfig, settings)` via the op object (no engine/compiler calling op resolvers directly).”
 
 ### Pre-work for C (derived defaults migration)
@@ -329,3 +328,39 @@ This is the only point where we have:
 - Resolver failure coverage should add:
   - a “resolver throws” test asserting `step.resolveConfig.failed` at `/recipe/steps/0/config`
   - a “resolver returns invalid config” test asserting `step.config.invalid` with the nested path(s)
+
+### B1) Minimal `op.resolveConfig` authoring surface (type-safe; runtime signature unchanged)
+
+**Primary entrypoint:** `packages/mapgen-core/src/authoring/op.ts`
+
+**Current authoring surface (what exists today)**
+- `createOp(...)` returns a `DomainOp<...>` object with:
+  - `kind`, `id`, `input`, `output`
+  - `config` schema and `defaultConfig` value (computed via `Value.Default` + `Value.Convert` + `Value.Clean`)
+  - runtime executor: `run(input, config) -> output`
+  - validation surface added by `attachValidationSurface(...)`: `validate(...)` and `runValidated(...)`
+- The op config “shape modes”:
+  - **no strategies:** `config` is `ConfigSchema` and `run(input, Static<ConfigSchema>)`
+  - **strategies:** `config` is a union schema of `{ strategy, config }` selections, and `run(...)` dispatches to `strategies[selectedId].run(input, cfg.config ?? {})`
+- `attachValidationSurface(...)` (via `packages/mapgen-core/src/authoring/validation.ts`) validates `(input, config)` but does **not** apply schema defaults/cleaning; many ops currently apply `Value.Default(...)` inside `run(...)` to compensate.
+
+**Minimal, spec-aligned addition (no runtime signature change)**
+- Add a compile-time-only hook on the op object:
+  - `resolveConfig?: (config, settings) => config`
+  - It must be *pure* and must return a value that still validates against the op’s existing config schema (no plan-stored internal fields).
+- Type-level shape that matches the existing `DomainOp` generics:
+  - Define a single generic helper (conceptual):
+    - `export type OpResolveConfig<TConfig> = (config: TConfig, settings: RunSettings) => TConfig;`
+    - `RunSettings` is already an authoring-level concept (imported elsewhere under `packages/mapgen-core/src/authoring/**`), so `op.ts` can `import type { RunSettings } from "@mapgen/engine/index.js";` without introducing runtime coupling.
+  - Extend `DomainOp<...>` to include:
+    - `resolveConfig?: OpResolveConfig<Static<ConfigSchema>>` for non-strategy ops
+    - `resolveConfig?: OpResolveConfig<StrategySelection<Strategies, DefaultStrategy>>` for strategy ops
+
+**Implementation notes (mechanical, low-risk)**
+- For non-strategy ops, `createOp` already returns `{ ...(rest as any), defaultConfig }`; if `resolveConfig` is included in `op` input, it is already preserved by that spread. The required change is primarily types (overload + `DomainOp`).
+- For strategy ops, `createOp` constructs `domainOp` explicitly; `resolveConfig` would need to be explicitly forwarded (e.g., `resolveConfig: op.resolveConfig`) to avoid silently dropping it.
+- No runtime behavior change is required (the compiler never calls op resolvers directly; step resolvers do).
+
+**Compatibility note (important for C and for resolver expectations)**
+- Today, many ops perform runtime defaulting via `Value.Default(schema, cfg)` inside `run(...)` even when step schemas already specify defaults.
+- After U10, the intended posture is: step schemas + compiler normalization + `step.resolveConfig` own config shaping; op runtime should treat config as already canonical.
