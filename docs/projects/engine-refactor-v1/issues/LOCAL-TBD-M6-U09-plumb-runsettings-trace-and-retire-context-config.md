@@ -175,6 +175,10 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - `TraceSink` is only instantiated in tests today (e.g. in-memory sink in `packages/mapgen-core/test/pipeline/tracing.test.ts`). The normal mod runtime (`mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`) does not pass a sink or `TraceSession` into `recipe.run`, so tracing is effectively disabled by default.
 - There is no existing runtime surface for a sink in `MapRuntimeOptions` (`mods/mod-swooper-maps/src/maps/_runtime/types.ts`), so a default strategy is currently undefined. Any runtime tracing will need an explicit boundary choice (e.g., optional console sink, FireTuner sink, or a caller-provided sink).
 
+#### B2 Findings: trace usage in executor + helpers
+- `PipelineExecutor` already scopes tracing per-step by assigning `context.trace = trace.createStepScope({ stepId, phase })` and emits run/step start/finish events (`packages/mapgen-core/src/engine/PipelineExecutor.ts`). No step code reads `settings.trace` directly today.
+- `EngineContext` only exposes `trace: TraceScope` (`packages/mapgen-core/src/engine/types.ts`), so step authors already have the correct surface (`context.trace.event(...)`, `isVerbose`, `isEnabled`). That implies no new helper API is strictly required, though a small convenience helper for structured step events could be added later if desired.
+
 ### Pre-work for C (directionality cutover)
 - “Enumerate all directionality reads across steps/domains (`rg -n 'directionality' mods/mod-swooper-maps/src/recipes`) and ensure they can be replaced by `context.settings.directionality`.”
 - “Confirm that `buildStandardRunSettings` is the only writer of directionality (or list others).”
