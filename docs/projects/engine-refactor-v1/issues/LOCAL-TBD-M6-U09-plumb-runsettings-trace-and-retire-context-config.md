@@ -179,6 +179,12 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - `PipelineExecutor` already scopes tracing per-step by assigning `context.trace = trace.createStepScope({ stepId, phase })` and emits run/step start/finish events (`packages/mapgen-core/src/engine/PipelineExecutor.ts`). No step code reads `settings.trace` directly today.
 - `EngineContext` only exposes `trace: TraceScope` (`packages/mapgen-core/src/engine/types.ts`), so step authors already have the correct surface (`context.trace.event(...)`, `isVerbose`, `isEnabled`). That implies no new helper API is strictly required, though a small convenience helper for structured step events could be added later if desired.
 
+#### B3 Plan: trace steps verbosity test
+- **Location:** extend `packages/mapgen-core/test/pipeline/tracing.test.ts` (already exercises `createTraceSessionFromPlan`).
+- **Setup:** register two steps (`alpha`, `beta`) that call `context.trace.event({ step: "<id>" })` inside `run`.
+- **Settings:** build plan with `settings.trace.steps = { alpha: "verbose", beta: "off" }` (or `beta` omitted + `enabled: true` if we want only step-event gating) so only `alpha` should emit `kind: "step.event"`.
+- **Assertions:** collect emitted events via an in-memory sink; filter `kind === "step.event"` and assert all are `stepId === "alpha"` and count matches expected calls. (Run/step start/finish can still be asserted separately if desired.)
+
 ### Pre-work for C (directionality cutover)
 - “Enumerate all directionality reads across steps/domains (`rg -n 'directionality' mods/mod-swooper-maps/src/recipes`) and ensure they can be replaced by `context.settings.directionality`.”
 - “Confirm that `buildStandardRunSettings` is the only writer of directionality (or list others).”
