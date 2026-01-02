@@ -36,6 +36,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Added explicit marine binding + water assignment in the biomes step to guarantee engine validity.
   - **Next check:** if land/water mask generation changes or additional water terrain types are introduced.
 
+- **Feature placement ownership: phase replacement + clarify floodplains boundary** [Source: LOCAL-TBD-M7-U09]
+  - **Context:** Transitioning ecology feature placement away from vanilla `addFeatures` requires separating “requirements we must preserve” from Civ7’s internal algorithm; floodplains also straddle the hydrology boundary.
+  - **Type:** triage
+  - **Notes:** Plan is to phase replacement (aquatic+ice → vegetated → wet/isolate) while keeping `adapter.canHaveFeature` as the canonical gate; defer “full floodplains ownership” until we define a minimal river topology/adjacency contract or an explicit hybrid policy.
+  - **Next check:** before implementing `LOCAL-TBD-M7-U09` (confirm floodplains scope and where the ownership boundary should live).
+
 - **Standard recipe runtime stored per context** [Source: LOCAL-TBD-M6-U05-1]
   - **Context:** Standard recipe steps need shared mutable state (continents, start sectors, mapInfo) without registry-layer runtime injection.
   - **Type:** triage

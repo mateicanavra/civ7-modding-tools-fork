@@ -9,3 +9,6 @@ This directory reorganizes historical spike material for `engine-refactor-v1` in
 Notes:
 - The focused “step ↔ domain operation modules” design spike was moved to a spec-adjacent doc (pending merge): SPEC-pending-step-domain-operation-modules.
 - `spike-target.md` intentionally consolidates target/design snippets by original source spike filename; some sources were too mixed to cleanly extract without rewriting and are included verbatim with an explicit note.
+
+New:
+- Feature placement ownership spike: `spike-ecology-feature-placement-ownership.md`
