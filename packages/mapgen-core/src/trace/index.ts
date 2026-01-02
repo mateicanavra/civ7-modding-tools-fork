@@ -92,6 +92,14 @@ export function createNoopTraceSession(): TraceSession {
   };
 }
 
+export function createConsoleTraceSink(): TraceSink {
+  return {
+    emit: (event) => {
+      console.log("[trace]", event);
+    },
+  };
+}
+
 export function resolveTraceLevel(
   config: TraceConfig | null | undefined,
   stepId: string

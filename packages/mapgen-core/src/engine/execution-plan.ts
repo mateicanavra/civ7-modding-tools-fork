@@ -19,7 +19,6 @@ export const TraceConfigSchema = Type.Object(
   {
     enabled: Type.Optional(
       Type.Boolean({
-        default: false,
         description: "Master tracing switch.",
       })
     ),

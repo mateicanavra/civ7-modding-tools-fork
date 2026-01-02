@@ -9,7 +9,7 @@ import type {
   RunSettings,
 } from "@mapgen/engine/index.js";
 import type { DependencyTagDefinition } from "@mapgen/engine/tags.js";
-import type { TraceSession } from "@mapgen/trace/index.js";
+import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
 export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
@@ -83,7 +83,11 @@ export type RecipeModule<TContext = ExtendedMapContext, TConfig = RecipeConfig |
     context: TContext,
     settings: RunSettings,
     config?: TConfig,
-    options?: { trace?: TraceSession | null; log?: (message: string) => void }
+    options?: {
+      trace?: TraceSession | null;
+      traceSink?: TraceSink | null;
+      log?: (message: string) => void;
+    }
   ) => void;
 };
 

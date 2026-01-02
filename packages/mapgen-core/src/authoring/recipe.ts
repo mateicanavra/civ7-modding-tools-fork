@@ -1,5 +1,6 @@
 import {
   compileExecutionPlan,
+  createTraceSessionFromPlan,
   PipelineExecutor,
   StepRegistry,
   TagRegistry,
@@ -11,7 +12,8 @@ import {
   type RunSettings,
 } from "@mapgen/engine/index.js";
 
-import type { TraceSession } from "@mapgen/trace/index.js";
+import { createConsoleTraceSink } from "@mapgen/trace/index.js";
+import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type {
   RecipeConfig,
@@ -174,15 +176,22 @@ export function createRecipe<
     context: TContext,
     settings: RunSettings,
     config?: RecipeConfigOf<TStages> | null,
-    options: { trace?: TraceSession | null; log?: (message: string) => void } = {}
+    options: { trace?: TraceSession | null; traceSink?: TraceSink | null; log?: (message: string) => void } = {}
   ): void {
     const plan = compile(settings, config);
     context.settings = plan.settings;
+    const traceSession =
+      options.trace !== undefined
+        ? options.trace
+        : createTraceSessionFromPlan(
+            plan,
+            options.traceSink !== undefined ? options.traceSink : createConsoleTraceSink()
+          );
     const executor = new PipelineExecutor(registry, {
       log: options.log,
       logPrefix: `[recipe:${input.id}]`,
     });
-    executor.executePlan(context, plan, { trace: options.trace ?? null });
+    executor.executePlan(context, plan, { trace: traceSession ?? null });
   }
 
   return { id: input.id, recipe, instantiate, runRequest, compile, run };
