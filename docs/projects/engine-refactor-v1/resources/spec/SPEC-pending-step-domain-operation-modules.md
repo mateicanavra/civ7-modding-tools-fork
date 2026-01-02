@@ -140,7 +140,10 @@ An **operation** (aka “op”) is the stable unit that steps depend on. It:
 - has a **required, strict** `kind` (`plan`, `compute`, `score`, `select`) for a shared mental model and consistent contract review (see ADR-ER1-034),
 - is the primary **domain contract** and **unit-testable unit** (steps orchestrate; ops encapsulate domain logic),
 - owns its `input`, `config`, and `output` schemas (per-operation, not per-domain),
-- exports a pure `run(input, config) -> output` over plain values (POJOs + POJO-ish runtime values such as typed arrays), not runtime/engine “views”.
+- exports a raw `run(input, config) -> output` executor over plain values (POJOs + POJO-ish runtime values such as typed arrays), not runtime/engine “views”.
+- also exposes contract enforcement helpers:
+  - `validate(input, config, opts?) -> { ok, errors }` (never throws),
+  - `runValidated(input, config, opts?) -> output` (throws on validation failure; optional output validation for tests/tooling).
 
 ### Strategies (optional, internal)
 
@@ -220,7 +223,7 @@ An “apply” phase is not a round-trip back into the domain; it is the step us
 ┌─────────────────────────┐        ┌──────────────────────┐        ┌─────────────────────────┐
 │ Step.run(ctx, config)   │        │ domain/ops/**        │        │ engine + artifacts      │
 │                         │        │                      │        │                         │
-│ 1) build inputs         │  ───▶  │ op.run(inputs,cfg)   │  ───▶  │ 3) apply + publish      │
+│ 1) build inputs         │  ───▶  │ op.runValidated(..)  │  ───▶  │ 3) apply + publish      │
 │    from ctx+adapter     │        │ => result            │        │                         │
 └─────────────────────────┘        └──────────────────────┘        └─────────────────────────┘
 ```
@@ -289,7 +292,7 @@ Recommended step-side import pattern:
 ```ts
 import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
 
-const plan = volcanoes.ops.planVolcanoes.run(inputs, config.planVolcanoes);
+const plan = volcanoes.ops.planVolcanoes.runValidated(inputs, config.planVolcanoes);
 ```
 
 ### Step structure / step-local helpers (TBD)
@@ -687,7 +690,10 @@ export default createStep({
     const inputs = buildVolcanoInputs(ctx);
 
     // 2) Compute + plan (pure domain logic)
-    const { suitability } = volcanoes.ops.computeSuitability.run(inputs, cfg.computeSuitability);
+    const { suitability } = volcanoes.ops.computeSuitability.runValidated(
+      inputs,
+      cfg.computeSuitability
+    );
 
     // Two equivalent authoring patterns for strategy-backed ops:
     //
@@ -698,7 +704,7 @@ export default createStep({
     //    cfg.planVolcanoes = { strategy: "hotspotClusters", config: { seedCount: 4, targetCount: 12, minDistance: 6 } }
     //
     // Both are runtime-validated (via `volcanoes.ops.planVolcanoes.config`) and type-checked via `Parameters<...run>[1]`.
-    const { placements } = volcanoes.ops.planVolcanoes.run(
+    const { placements } = volcanoes.ops.planVolcanoes.runValidated(
       {
         width: inputs.width,
         height: inputs.height,
@@ -863,6 +869,9 @@ Implications (summary):
 - Typed-array schemas are intentionally conservative in TypeBox:
   - default to `Type.Unsafe<...>(...)` via a shared helper (`TypedArraySchemas.*`) rather than attempting to serialize function-backed checks,
   - enforce correctness-critical invariants (buffer types and `width * height` coupling) via explicit validators (step input-builders first; reuse for tests and later op-entry validation) exported from `@swooper/mapgen-core/authoring`.
+- Op-entry contract enforcement is provided by the authoring SDK:
+  - `op.validate(...)` returns `{ ok, errors }` (schema checks + typed-array checks + optional op-specific `customValidate`),
+  - `op.runValidated(...)` throws on validation failure and supports optional output validation for tests/tooling.
 
 ### DD-004: Artifact keys / dependency keys ownership (domain vs recipe)
 
@@ -1006,7 +1015,7 @@ Target integration decisions aligned to the recommendations above:
 
 - **Operation module:** `ecology/biomes/classify` is a `compute` op with colocated input/output/config schemas. Inputs are buffered data (`rainfall`, `humidity`, `elevation`, `latitude`, `landMask`, optional overlay masks); outputs are typed arrays (`biomeIndex`, `vegetationDensity`, `effectiveMoisture`, `surfaceTemperature`).
 - **Artifact + keys:** the recipe publishes the result under the recipe-owned key `artifact:ecology.biomeClassification@v1`. The domain owns the artifact shape (`BiomeClassificationArtifactV1`); steps own the key, satisfying DD-004.
-- **Step boundary:** the biomes step builds inputs from artifacts/adapters, calls `classifyBiomes.run(...)`, publishes the artifact, and applies results to the engine (mapping biome symbols → adapter globals via a step-local binding map). No domain code reaches into the adapter.
+- **Step boundary:** the biomes step builds inputs from artifacts/adapters, calls `classifyBiomes.runValidated(...)`, publishes the artifact, and applies results to the engine (mapping biome symbols → adapter globals via a step-local binding map). No domain code reaches into the adapter.
 - **Config colocation:** biome classification config and defaults live beside the op (`classifyBiomes.config`/`defaultConfig`). Step schema imports these directly (DD-005/007) and exposes an engine-binding config (`BiomeBindingsSchema`) rather than re-authoring wrappers.
 - **Kind semantics:** the op is declared as `compute` and only returns derived fields; the step performs the `plan/apply` work (DD-001).
 - **Future ops:** pedology (`ecology/soils/classify`) and resource basin generation will follow the same model: domain-owned schemas + outputs, recipe-owned keys (`artifact:ecology.soils@v1`, `artifact:ecology.resources@v1`), and steps that adapt/apply.

@@ -145,6 +145,53 @@ Policy note:
 - **Reusable validator intent:** typed-array and invariant validators should be written so they can be reused by:
   - step input-builders (runtime),
   - direct unit tests of ops (fixtures),
-  - and (later) optional op-entry validation for defensive usage.
-- **No over-promise:** today, the core authoring helper (`createOp`) does not automatically validate operation inputs/outputs at runtime; adding first-class runtime op validation is intended, but the exact mechanism/rollout is separate from this contract decision.
-- **Deferred mechanics (explicitly out-of-scope here):** whether op-entry validation is (a) always-on, (b) opt-in per op, or (c) a separate wrapper API (e.g., `runValidated(...)`), and whether we validate outputs as well as inputs.
+  - and op-entry validation (defensive usage and tests/tooling).
+
+### 5) Op-entry validation mechanics (decided)
+
+To make “ops are contracts” enforceable without changing the meaning of `op.run(...)`, every operation exposes:
+
+- `op.run(input, config) -> output` — raw executor (no validation side effects).
+- `op.validate(input, config, opts?) -> { ok, errors }` — returns structured errors; never throws.
+- `op.runValidated(input, config, opts?) -> output` — throws `OpValidationError` on failure; optionally validates outputs.
+
+**Uniform validation pipeline (`op.validate`)**
+
+1) **TypeBox schema checks** for `op.input` and `op.config` (and for `op.output` when validating an output value).
+2) **Typed-array checks** inferred from schema metadata:
+   - constructor validation (`instanceof`),
+   - grid length validation when the schema declares a grid shape (e.g., `width * height` coupling).
+3) **Operation-specific custom validation hook** (when present).
+
+**Custom validation hook (authoring-time, internal)**
+
+Operation authors may optionally provide `customValidate: (input, config) => ValidationError[]` in `createOp({ ... })`:
+- it is **not** a public method on the op,
+- it is invoked automatically as part of `op.validate(...)` / `op.runValidated(...)`,
+- it is intended for cheap semantic invariants that need both `(input, config)` and may return multiple pathful errors.
+
+**Typed-array schema metadata contract (`x-runtime`)**
+
+Typed-array schemas produced by `TypedArraySchemas.*` include an enumerable metadata payload so validation can infer typed-array intent:
+
+```ts
+{
+  "x-runtime": {
+    kind: "typed-array",
+    ctor: "Int16Array",
+    shape: { kind: "grid", dims: ["width", "height"] }
+  }
+}
+```
+
+This metadata is used for runtime validation only; it is not standard JSON Schema, but it survives schema serialization (unlike function-backed refinements).
+
+**Error surface**
+
+- `ValidationError`: `{ path: string; message: string; code?: string }`
+- `OpValidationError extends Error`: `{ opId: string; errors: ValidationError[] }` (thrown by `runValidated`)
+
+**Call patterns**
+
+- Runtime steps (default): `op.runValidated(input, config)` (input/config validation; output validation typically off).
+- Tests/tooling: `op.runValidated(input, config, { validateOutput: true })` to catch output-shape regressions.

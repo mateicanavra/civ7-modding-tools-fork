@@ -3,6 +3,7 @@ export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
 export { createOp, createStrategy } from "./op.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
+export { OpValidationError } from "./validation.js";
 export {
   assertFloat32Array,
   assertInt16Array,
@@ -32,3 +33,9 @@ export type {
   StepModule,
 } from "./types.js";
 export type { DomainOp, DomainOpKind, OpStrategy } from "./op.js";
+export type {
+  CustomValidateFn,
+  OpRunValidatedOptions,
+  OpValidateOptions,
+  ValidationError,
+} from "./validation.js";
