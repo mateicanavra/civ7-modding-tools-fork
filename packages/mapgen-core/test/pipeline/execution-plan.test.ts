@@ -426,7 +426,8 @@ describe("compileExecutionPlan", () => {
     const context = createExtendedMapContext(
       { width: 2, height: 2 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      baseSettings
     );
     const executor = new PipelineExecutor(registry, { log: () => {} });
     executor.executePlan(context, plan);

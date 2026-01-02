@@ -54,15 +54,26 @@ const TEST_TAG_DEFINITIONS = [
   },
 ] as const;
 
+function buildTestSettings(width: number, height: number) {
+  return {
+    seed: 0,
+    dimensions: { width, height },
+    latitudeBounds: { topLatitude: 80, bottomLatitude: -80 },
+    wrap: { wrapX: true, wrapY: false },
+  };
+}
+
 describe("placement step contracts", () => {
   it("fails fast when placement runs without placementInputs", () => {
     const width = 4;
     const height = 4;
+    const settings = buildTestSettings(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      {} as ExtendedMapContext["config"]
+      {} as ExtendedMapContext["config"],
+      settings
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
@@ -115,11 +126,13 @@ describe("placement step contracts", () => {
   it("fails fast when placementInputs are published with an invalid payload", () => {
     const width = 4;
     const height = 4;
+    const settings = buildTestSettings(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      {} as ExtendedMapContext["config"]
+      {} as ExtendedMapContext["config"],
+      settings
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
@@ -146,11 +159,13 @@ describe("placement step contracts", () => {
   it("fails fast when placement outputs are missing", () => {
     const width = 4;
     const height = 4;
+    const settings = buildTestSettings(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      {} as ExtendedMapContext["config"]
+      {} as ExtendedMapContext["config"],
+      settings
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
@@ -175,11 +190,13 @@ describe("placement step contracts", () => {
   it("fails fast when placement outputs are invalid", () => {
     const width = 4;
     const height = 4;
+    const settings = buildTestSettings(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      {} as ExtendedMapContext["config"]
+      {} as ExtendedMapContext["config"],
+      settings
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();

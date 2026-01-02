@@ -13,6 +13,7 @@
  */
 
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
+import type { RunSettings } from "@mapgen/engine/execution-plan.js";
 import { initializeTerrainConstants } from "@mapgen/core/terrain-constants.js";
 import type { TraceScope } from "@mapgen/trace/index.js";
 import { createNoopTraceScope } from "@mapgen/trace/index.js";
@@ -220,6 +221,7 @@ export interface ExtendedMapContext {
   fields: MapFields;
   rng: RNGState;
   config: MapConfig;
+  settings: RunSettings;
   metrics: GenerationMetrics;
   trace: TraceScope;
   adapter: EngineAdapter;
@@ -244,7 +246,8 @@ const EMPTY_FROZEN_OBJECT = Object.freeze({});
 export function createExtendedMapContext(
   dimensions: MapDimensions,
   adapter: EngineAdapter,
-  config: MapConfig
+  config: MapConfig,
+  settings: RunSettings
 ): ExtendedMapContext {
   initializeTerrainConstants(adapter);
   const { width, height } = dimensions;
@@ -277,6 +280,7 @@ export function createExtendedMapContext(
       seed: null,
     },
     config,
+    settings,
     metrics: {
       timings: new Map(),
       histograms: new Map(),

@@ -11,6 +11,13 @@ describe("biomes step", () => {
     const width = 4;
     const height = 3;
     const size = width * height;
+    const settings = {
+      seed: 0,
+      dimensions: { width, height },
+      latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
+      wrap: { wrapX: false, wrapY: false },
+      directionality: {},
+    };
 
     const adapter = createMockAdapter({ width, height });
     adapter.fillWater(false);
@@ -19,7 +26,8 @@ describe("biomes step", () => {
     const ctx = createExtendedMapContext(
       { width, height },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      settings
     );
 
     ctx.buffers.heightfield.landMask.fill(1);

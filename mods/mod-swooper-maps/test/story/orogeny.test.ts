@@ -13,6 +13,13 @@ describe("story/orogeny", () => {
   it("fails fast when foundation context is missing", () => {
     const width = 30;
     const height = 20;
+    const settings = {
+      seed: 0,
+      dimensions: { width, height },
+      latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
+      wrap: { wrapX: false, wrapY: false },
+      directionality: {},
+    };
     const adapter = createMockAdapter({ width, height });
 
     // Create a dense mountain patch to exceed the minLenSoft floor (>=10).
@@ -26,7 +33,8 @@ describe("story/orogeny", () => {
     const ctx = createExtendedMapContext(
       { width, height },
       adapter,
-      config as ReturnType<typeof createExtendedMapContext>["config"]
+      config as ReturnType<typeof createExtendedMapContext>["config"],
+      settings
     );
 
     expect(() => storyTagOrogenyBelts(ctx, config.story)).toThrow("foundation plates");

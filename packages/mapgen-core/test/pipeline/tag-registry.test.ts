@@ -17,6 +17,13 @@ const TEST_TAGS = {
   },
 } as const;
 
+const baseSettings = {
+  seed: 0,
+  dimensions: { width: 2, height: 2 },
+  latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
+  wrap: { wrapX: false, wrapY: false },
+};
+
 describe("tag registry", () => {
   it("fails fast on unknown dependency tags at registration", () => {
     const registry = new StepRegistry<unknown>();
@@ -50,7 +57,8 @@ describe("tag registry", () => {
     const ctx = createExtendedMapContext(
       { width: 2, height: 2 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      baseSettings
     );
 
     const registry = new StepRegistry<typeof ctx>();
@@ -79,7 +87,8 @@ describe("tag registry", () => {
     const ctx = createExtendedMapContext(
       { width: 2, height: 2 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      baseSettings
     );
 
     const registry = new StepRegistry<typeof ctx>();
