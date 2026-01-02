@@ -172,7 +172,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
   - `rg -n "StandardRecipeOverrides|buildStandardRecipeConfig|DeepPartial<" mods/mod-swooper-maps/src` is empty
 
 **Verification / tests**
-- Existing pipeline tests + any new plan compile tests should pass; configs still behave as before (modulo intended deterministic normalization).
+- Existing pipeline tests + the new plan compile tests added in (A) should pass; configs still behave as before (modulo intended deterministic normalization).
 
 ### D) Delete `StandardRecipeOverrides` translation and move maps to direct `StandardRecipeConfig`
 **In scope**
@@ -182,10 +182,11 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
   - `buildStandardRecipeConfig(...)` translation.
 - Update the standard map runtime glue and maps to remove the overrides-shaped authoring surface entirely:
   - `runStandardRecipe(...)` accepts `settings` and `config` directly (no `overrides` parameter),
-  - maps supply `settings` and `config` directly (no translation layer).
+  - maps supply `settings` and `config` directly (no translation layer),
+  - maps do not depend on any map-runtime “settings builder” helper (duplication is acceptable here; `LOCAL-TBD-M7-U10` introduces an authoring factory that can dedupe later).
 - Keep settings explicit at the boundary:
   - delete `buildStandardRunSettings(...)` (it is part of the overrides translation layer).
-  - if any helper remains, it must not accept “overrides” or any global config blob; it can only derive missing run-envelope fields from `MapInitResolution` + explicit authored inputs.
+  - no replacement “settings builder” helper is introduced in this unit.
 
 **Out of scope**
 - Re-introducing a config loader or JSON ingestion surface as part of this cleanup.
@@ -199,6 +200,8 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - Runtime maps supply `recipe.run(context, settings, config)` where `config` is a `StandardRecipeConfig | null` instance.
 - The standard runner glue does not construct/translate config at runtime.
 - No entrypoint accepts an overrides-shaped input “for compatibility”.
+- The standard runner has a single canonical signature post-U10:
+  - `runStandardRecipe({ recipe, init, settings, config, options? })` (no other overloads).
 
 **Verification / tests**
 - `pnpm -C mods/mod-swooper-maps check`
@@ -223,7 +226,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 
 ### Pre-work for D (delete overrides translator)
 - “Inventory current authored config surfaces in `mods/mod-swooper-maps/src/maps/*.ts` (what they currently return) and map each top-level override fragment to the target `StandardRecipeConfig` keys.”
-- “Rewrite each map to directly author a `StandardRecipeConfig | null` (using `satisfies StandardRecipeConfig` where helpful); do not introduce a new ‘config builder’ that recreates the overrides translation layer. (Ergonomics follow-up is tracked in `LOCAL-TBD-M7-U10`.)”
+- “Rewrite each map to directly author a `StandardRecipeConfig | null` (use `satisfies StandardRecipeConfig` on the top-level config literal); do not introduce a new ‘config builder’ that recreates the overrides translation layer. (Ergonomics follow-up is tracked in `LOCAL-TBD-M7-U10`.)”
 - “List all call sites/types that depend on `StandardRecipeOverrides` and plan a mechanical migration.”
 - “List all runner entrypoints that currently accept overrides-shaped inputs and define the new canonical signature(s) that accept `settings` + `config` only.”
 - “Identify and delete any remaining runtime config-defaulting in the map entrypoint path (e.g., `Value.Default` in `maps/_runtime/**`).”
