@@ -213,7 +213,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ## Pre-work
 
 ### Pre-work for A (step resolver + compiler execution)
-- “Design the compile error surface for resolver failures (paths, codes), consistent with existing `ExecutionPlanCompileError` items.”
 
 ### Pre-work for B (op resolver authoring surface)
 - “Inspect `packages/mapgen-core/src/authoring/op.ts` and propose a minimal type-safe `resolveConfig` addition that does not affect runtime `run(...)` signature.”
@@ -275,3 +274,58 @@ This is the only point where we have:
     2) re-validates the resolver output using the **same** `normalizeStepConfig(...)` pathing and unknown-key detection logic
     3) returns the final plan-stored config for `nodes.push(...)`
 - If `configSchema` is undefined, there is no existing validation surface to “re-run”; the current system behavior is “accept unknown config”. That constraint should be made explicit in the implementation (either: require schema for resolver support, or accept unvalidated output for schema-less steps).
+
+### A2) Compile error surface for resolver failures (`step.resolveConfig`)
+
+**Current compile error contract (existing behavior)**
+- Compiler throws `ExecutionPlanCompileError`, which carries `errors: ExecutionPlanCompileErrorItem[]`.
+- `ExecutionPlanCompileErrorItem` is:
+  - `code: "runRequest.invalid" | "step.unknown" | "step.config.invalid"`
+  - `path: string` (JSON-pointer-like, rooted at `/`)
+  - `message: string`
+  - `stepId?: string` (populated by `compileExecutionPlan(...)` for step-local errors)
+- Per-step config errors are reported with:
+  - `code: "step.config.invalid"`
+  - `path` rooted at the authored config location (e.g., `/recipe/steps/0/config/extra`)
+  - messages coming from either:
+    - `findUnknownKeyErrors(...)` (`"Unknown key"`), or
+    - `Value.Errors(...)` (`typebox` validation messages)
+
+**Canonical resolver error policy (non-optional; keep it mechanical)**
+- Resolver output is treated as **untrusted** and is always validated before storing into `ExecutionPlan.nodes[].config`.
+- Add **one** new compile error code to precisely represent resolver execution failures:
+  - `code: "step.resolveConfig.failed"`
+  - (requires extending `ExecutionPlanCompileErrorCode` in `packages/mapgen-core/src/engine/execution-plan.ts`)
+- Paths for resolver failures should match the per-step config surface (stable UX and matches existing tests):
+  - `path: /recipe/steps/<index>/config` (the same `configPath` used by `normalizeStepConfig`)
+  - `stepId: <step.id>`
+
+**Resolver failure cases and how they surface**
+- If `step.resolveConfig(...)` throws:
+  - emit one `ExecutionPlanCompileErrorItem` with:
+    - `code: "step.resolveConfig.failed"`
+    - `path: configPath`
+    - `message: <error name/message, no stack>` (e.g., `resolveConfig threw: RangeError: ...`)
+- If resolver returns `undefined` or `null`:
+  - treat as a resolver failure (do **not** coerce to `{}`):
+    - `code: "step.resolveConfig.failed"`
+    - `path: configPath`
+    - `message: resolveConfig returned null/undefined`
+- If resolver returns an object that fails schema validation or includes unknown keys:
+  - reuse the existing step-config error surface (do **not** introduce new codes here):
+    - `code: "step.config.invalid"`
+    - `path: configPath + <subpath>` (unknown keys and schema paths)
+    - `message: "Unknown key"` or the typebox error message
+  - Implementation note: validation should be done by reusing the existing `normalizeStepConfig(...)` machinery, *but* the resolver-return path must guard against the current `undefined -> {}` coercion (so resolver-return `undefined` stays an error, not a silently-defaulted config).
+
+**Schema-less steps**
+- If `registryStep.configSchema` is absent, the compiler currently cannot do unknown-key detection or schema validation.
+- Canonical (strong) constraint for U10 to preserve “plan-truth config” and strictness:
+  - `step.resolveConfig` must be treated as invalid without `configSchema`.
+  - Surface as `code: "step.resolveConfig.failed"`, `path: configPath`, `message: resolveConfig requires configSchema`.
+
+**Test touchpoints (to keep future changes predictable)**
+- Existing compile-error expectations live in `packages/mapgen-core/test/pipeline/execution-plan.test.ts` and assert `code` and `path` strings.
+- Resolver failure coverage should add:
+  - a “resolver throws” test asserting `step.resolveConfig.failed` at `/recipe/steps/0/config`
+  - a “resolver returns invalid config” test asserting `step.config.invalid` with the nested path(s)
