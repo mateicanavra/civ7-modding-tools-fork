@@ -1,6 +1,23 @@
 import { Type, type Static, type TSchema } from "typebox";
 import { Value } from "typebox/value";
 
+/**
+ * Strict operation kind taxonomy for domain operation modules.
+ *
+ * Kinds are semantic and should remain trustworthy over time (i.e., avoid using `compute` as a
+ * catch-all). Runtime enforcement is not required, but tooling/lint and code review may rely on
+ * these meanings for consistency and observability.
+ *
+ * Boundary intent:
+ * - Ops are pure domain contracts: `run(input, config) -> output`.
+ * - Op inputs/outputs should be plain values (POJOs + POJO-ish runtime values such as typed arrays),
+ *   not runtime/engine “views” (e.g., adapters or callback readbacks).
+ * - Steps own runtime binding (adapter reads, engine writes, buffer mutation, artifact publication).
+ *
+ * Export discipline:
+ * - Only export ops that are intended to be step-callable domain contracts.
+ * - Internal phases can still be modeled as ops when useful, without being exported from the domain.
+ */
 export type DomainOpKind = "plan" | "compute" | "score" | "select";
 
 export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{

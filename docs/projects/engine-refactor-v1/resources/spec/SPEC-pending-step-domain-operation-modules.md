@@ -137,9 +137,10 @@ Notes:
 
 An **operation** (aka “op”) is the stable unit that steps depend on. It:
 
-- has a **kind** (`plan`, `compute`, `score`, `select`) for shared mental model,
+- has a **required, strict** `kind` (`plan`, `compute`, `score`, `select`) for a shared mental model and consistent contract review (see ADR-ER1-034),
+- is the primary **domain contract** and **unit-testable unit** (steps orchestrate; ops encapsulate domain logic),
 - owns its `input`, `config`, and `output` schemas (per-operation, not per-domain),
-- exports a pure `run(input, config) -> output`.
+- exports a pure `run(input, config) -> output` over plain values (POJOs + POJO-ish runtime values such as typed arrays), not runtime/engine “views”.
 
 ### Strategies (optional, internal)
 
@@ -232,6 +233,12 @@ Operations are plain exports, but a tiny helper improves inference and standardi
 // CORE_SDK_ROOT/src/authoring/op.ts
 import { Type, type Static, type TSchema } from "typebox";
 
+/**
+ * Strict operation kind taxonomy (see ADR-ER1-034).
+ *
+ * Kinds are semantic; ops are contract units and should not accept runtime/engine “views”
+ * (adapters/callback readbacks) as part of their input/output contract.
+ */
 export type DomainOpKind = "plan" | "compute" | "score" | "select";
 
 export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
@@ -415,7 +422,11 @@ export default createOp({
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
       suitability: Type.Any(),
-      rng01: Type.Any(),
+      rngSeed: Type.Integer({
+        minimum: 0,
+        description:
+          "Deterministic RNG seed (derived by the step from RunRequest settings + step/op identity).",
+      }),
     },
     { additionalProperties: false }
   ),
@@ -465,6 +476,14 @@ export default createStrategy({
     const target = cfg.targetCount ?? 12;
     const minD = cfg.minDistance ?? 6;
 
+    // Derive deterministic randomness locally from the seed.
+    // NOTE: The op contract passes seeds/values (POJO-ish), not callback “views”.
+    let draw = 0;
+    const rng01 = (): number => {
+      const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
+      return ((x >>> 0) / 2 ** 32);
+    };
+
     const width = inputs.width;
     const height = inputs.height;
     const size = width * height;
@@ -474,7 +493,7 @@ export default createStrategy({
     for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
 
     while (chosen.length < target) {
-      const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.pick"));
+      const i = pickWeightedIndex(weights, rng01);
       if (i < 0) break;
 
       const x = i % width;
@@ -514,6 +533,14 @@ export default createStrategy({
     const target = cfg.targetCount ?? 12;
     const minD = cfg.minDistance ?? 6;
 
+    // Derive deterministic randomness locally from the seed.
+    // NOTE: The op contract passes seeds/values (POJO-ish), not callback “views”.
+    let draw = 0;
+    const rng01 = (): number => {
+      const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
+      return ((x >>> 0) / 2 ** 32);
+    };
+
     const width = inputs.width;
     const height = inputs.height;
     const size = width * height;
@@ -524,7 +551,7 @@ export default createStrategy({
 
     const seedCount = Math.min(cfg.seedCount ?? 3, target);
     while (chosen.length < seedCount) {
-      const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.seed"));
+      const i = pickWeightedIndex(weights, rng01);
       if (i < 0) break;
 
       const x = i % width;
@@ -538,7 +565,7 @@ export default createStrategy({
     }
 
     while (chosen.length < target) {
-      const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.fill"));
+      const i = pickWeightedIndex(weights, rng01);
       if (i < 0) break;
 
       const x = i % width;
@@ -676,7 +703,7 @@ export default createStep({
         width: inputs.width,
         height: inputs.height,
         suitability,
-        rng01: (label) => ctxRandom(ctx, label, 1_000_000) / 1_000_000,
+        rngSeed: ctxRandom(ctx, "volcanoes:planVolcanoes:rngSeed", 1_000_000) | 0,
       },
       cfg.planVolcanoes
     );
@@ -785,6 +812,8 @@ In particular, when a step (or a domain op used by the step) offers strategies, 
 Each item below is an intentionally standalone decision packet. The goal is to make the downstream consequences explicit so we can converge without accidental drift.
 
 ### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
+
+**Status:** Decided (ADR-ER1-034 accepted)
 
 Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`.
 
