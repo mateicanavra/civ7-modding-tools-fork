@@ -161,6 +161,11 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 #### A2 Findings: `context.config` consumers in recipes
 - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` reads `context.config` to access `foundation.dynamics.directionality`. This is legacy/global-knob usage and should move to `context.settings.directionality` (not a legitimate per-step config read).
 
+#### A3 Findings: `context.settings` type surface + impacted types/tests
+- **Minimal surface choice:** use full `RunSettings` on `context.settings`. The runtime already normalizes `RunRequest.settings` into `ExecutionPlan.settings`, and step needs are a subset of that schema; keeping the full type avoids inventing a duplicate “subset settings” type and keeps settings/plan aligned.
+- **Primary type touchpoints:** `packages/mapgen-core/src/core/types.ts` (`ExtendedMapContext` interface and `createExtendedMapContext` factory) and `packages/mapgen-core/src/engine/PipelineExecutor.ts` (assign `context.settings` from `plan.settings`).
+- **Tests likely impacted (context construction):** `packages/mapgen-core/test/pipeline/hello-mod.smoke.test.ts`, `packages/mapgen-core/test/pipeline/execution-plan.test.ts`, `packages/mapgen-core/test/pipeline/tag-registry.test.ts`, `packages/mapgen-core/test/pipeline/tracing.test.ts`, `packages/mapgen-core/test/pipeline/placement-gating.test.ts` (all call `createExtendedMapContext` and may need a default/placeholder for `settings` if it becomes required).
+
 ### Pre-work for B (trace wiring)
 - “Confirm the intended default sink strategy: where does `TraceSink` come from in a normal mod run (console, file, FireTuner, in-memory test sink)?”
 - “Audit `PipelineExecutor` and step wrappers to ensure no one needs to check `settings.trace` directly; list any needed helper APIs for emitting step events.”
