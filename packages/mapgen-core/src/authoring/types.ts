@@ -4,7 +4,7 @@ import type {
   DependencyTag,
   ExecutionPlan,
   GenerationPhase,
-  RecipeV1,
+  RecipeV2,
   RunRequest,
   RunSettings,
 } from "@mapgen/engine/index.js";
@@ -18,7 +18,6 @@ export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
   readonly requires: readonly DependencyTag[];
   readonly provides: readonly DependencyTag[];
   readonly schema: TSchema;
-  readonly instanceId?: string;
   run: (context: TContext, config: TConfig) => void | Promise<void>;
 };
 
@@ -76,8 +75,8 @@ export type RecipeDefinition<
 
 export type RecipeModule<TContext = ExtendedMapContext, TConfig = RecipeConfig | null> = {
   readonly id: string;
-  readonly recipe: RecipeV1;
-  instantiate: (config?: TConfig) => RecipeV1;
+  readonly recipe: RecipeV2;
+  instantiate: (config?: TConfig) => RecipeV2;
   runRequest: (settings: RunSettings, config?: TConfig) => RunRequest;
   compile: (settings: RunSettings, config?: TConfig) => ExecutionPlan;
   run: (

@@ -7,7 +7,7 @@ interface PlanFingerprintInput {
   recipeSchemaVersion: number;
   recipeId: string | null;
   settings: RunSettings;
-  nodes: Array<{ nodeId: string; stepId: string; config: unknown }>;
+  nodes: Array<{ stepId: string; config: unknown }>;
 }
 
 function stripTraceSettings(settings: RunSettings): RunSettings {
@@ -22,7 +22,6 @@ export function computePlanFingerprint(plan: ExecutionPlan): string {
     recipeId: plan.recipeId ?? null,
     settings: stripTraceSettings(plan.settings),
     nodes: plan.nodes.map((node) => ({
-      nodeId: node.nodeId,
       stepId: node.stepId,
       config: node.config ?? {},
     })),

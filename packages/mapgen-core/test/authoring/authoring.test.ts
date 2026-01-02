@@ -74,7 +74,7 @@ describe("authoring SDK", () => {
     ).toThrow(/tagDefinitions/);
   });
 
-  it("createRecipe rejects duplicate instanceId values", () => {
+  it("createRecipe produces Recipe schema v2 (no instance ids)", () => {
     const stepA = createStep({
       id: "alpha",
       phase: "foundation",
@@ -82,7 +82,6 @@ describe("authoring SDK", () => {
       provides: [],
       schema: EmptyStepConfigSchema,
       run: () => {},
-      instanceId: "dup",
     });
     const stepB = createStep({
       id: "beta",
@@ -91,17 +90,18 @@ describe("authoring SDK", () => {
       provides: [],
       schema: EmptyStepConfigSchema,
       run: () => {},
-      instanceId: "dup",
     });
     const stage = createStage({ id: "foundation", steps: [stepA, stepB] });
 
-    expect(() =>
-      createRecipe({
-        id: "core.base",
-        tagDefinitions: [],
-        stages: [stage],
-      })
-    ).toThrow(/instanceId/);
+    const recipe = createRecipe({
+      id: "core.base",
+      tagDefinitions: [],
+      stages: [stage],
+    });
+
+    expect(recipe.recipe.schemaVersion).toBe(2);
+    expect(recipe.recipe.steps[0]).toHaveProperty("id");
+    expect(recipe.recipe.steps[0]).not.toHaveProperty("instanceId");
   });
 
   it("createRecipe derives deterministic step ids", () => {

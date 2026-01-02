@@ -78,7 +78,7 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
     const nodes = plan.nodes.map((node) => ({
       step: this.registry.get<TConfig>(node.stepId),
       config: node.config as TConfig,
-      label: node.nodeId ?? node.stepId,
+      label: node.stepId,
     }));
     return this.executeNodes(context, nodes, options);
   }
@@ -211,7 +211,7 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
     const nodes = plan.nodes.map((node) => ({
       step: this.registry.get<TConfig>(node.stepId),
       config: node.config as TConfig,
-      label: node.nodeId ?? node.stepId,
+      label: node.stepId,
     }));
     return this.executeNodesAsync(context, nodes, options);
   }

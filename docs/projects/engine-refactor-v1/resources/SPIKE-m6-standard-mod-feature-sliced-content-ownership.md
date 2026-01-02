@@ -76,7 +76,7 @@ The “ideal state” packaging change is to **promote** that surface as the pub
 
 **Engine owns:**
 - `StepRegistry`, `TagRegistry`
-- `RunRequest`, `RecipeV1`, `RunSettings`
+- `RunRequest`, `RecipeV2`, `RunSettings`
 - `compileExecutionPlan`, `ExecutionPlan`
 - `PipelineExecutor`
 - errors + observability primitives
@@ -156,7 +156,7 @@ SPEC 1.2 says “mods ship registry + recipes”. In this model we satisfy that 
 
 - `mods/mod-swooper-maps/src/mod.ts` exports recipes (and mod metadata), not a global registry.
 - Each `mods/mod-swooper-maps/src/recipes/<recipeId>/recipe.ts` builds a runtime `StepRegistry` internally from its recipe-local steps.
-- The **only** canonical ordering artifact remains `RunRequest.recipe.steps[]` (a `RecipeV1` list). Stages are authoring-only groupings that flatten into that single list.
+- The **only** canonical ordering artifact remains `RunRequest.recipe.steps[]` (a `RecipeV2` list). Stages are authoring-only groupings that flatten into that single list.
 
 This keeps the engine contract intact while removing a mod-wide “catalog” folder that tends to become a grab bag.
 
@@ -258,7 +258,7 @@ import type {
   DependencyTag,
   ExecutionPlan,
   GenerationPhase,
-  RecipeV1,
+  RecipeV2,
   RunRequest,
   RunSettings,
 } from "@mapgen/engine/index.js";
@@ -283,9 +283,6 @@ export type Step<TContext = ExtendedMapContext, TConfig = unknown> = Readonly<{
   schema: TSchema;
   run: (context: TContext, config: TConfig) => void | Promise<void>;
 
-  // Optional: allow multiple occurrences of the same step behavior by pinning a stable node id.
-  // If omitted, instanceId defaults to the computed full step id.
-  instanceId?: string;
 }>;
 
 export type Stage<TContext = ExtendedMapContext> = {
@@ -332,10 +329,10 @@ export type RecipeModule<TContext = ExtendedMapContext> = {
   readonly id: string;
   // Structural recipe: step order + ids, but no per-step config values baked in.
   // Concrete config values are supplied by the map that instantiates the recipe.
-  readonly recipe: RecipeV1;
+  readonly recipe: RecipeV2;
 
-  // Instantiate a concrete RecipeV1 by applying config values (stageId→stepId) onto the structural recipe.
-  instantiate: (config?: RecipeConfig | null) => RecipeV1;
+  // Instantiate a concrete RecipeV2 by applying config values (stageId→stepId) onto the structural recipe.
+  instantiate: (config?: RecipeConfig | null) => RecipeV2;
 
   runRequest: (settings: RunSettings, config?: RecipeConfig | null) => RunRequest;
   compile: (settings: RunSettings, config?: RecipeConfig | null) => ExecutionPlan;
@@ -382,7 +379,7 @@ import {
   type DependencyTagDefinition,
   type ExecutionPlan,
   type MapGenStep,
-  type RecipeV1,
+  type RecipeV2,
   type RunRequest,
   type RunSettings,
 } from "@mapgen/engine/index.js";
@@ -395,7 +392,6 @@ type StepOccurrence<TContext> = {
   stageId: string;
   stepId: string;
   step: MapGenStep<TContext, unknown>;
-  instanceId?: string;
 };
 
 function inferTagKind(id: string): DependencyTagDefinition["kind"] {
@@ -432,21 +428,20 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
         stepId,
       });
 
-      out.push({
-        stageId: stage.id,
-        stepId,
-        step: {
-          id: fullId,
-          phase: authored.phase,
-          requires: authored.requires,
-          provides: authored.provides,
-          configSchema: authored.schema,
-          run: authored.run as unknown as MapGenStep<TContext, unknown>["run"],
-        },
-        instanceId: authored.instanceId,
-      });
-    }
-  }
+	      out.push({
+	        stageId: stage.id,
+	        stepId,
+	        step: {
+	          id: fullId,
+	          phase: authored.phase,
+	          requires: authored.requires,
+	          provides: authored.provides,
+	          configSchema: authored.schema,
+	          run: authored.run as unknown as MapGenStep<TContext, unknown>["run"],
+	        },
+	      });
+	    }
+	  }
 
   return out;
 }
@@ -486,16 +481,15 @@ function buildRegistry<TContext extends ExtendedMapContext>(
   return registry;
 }
 
-function toStructuralRecipeV1(id: string, occurrences: readonly StepOccurrence<unknown>[]): RecipeV1 {
-  return {
-    schemaVersion: 1,
-    id,
-    steps: occurrences.map((occ) => ({
-      id: occ.step.id,
-      instanceId: occ.instanceId,
-    })),
-  };
-}
+  function toStructuralRecipeV2(id: string, occurrences: readonly StepOccurrence<unknown>[]): RecipeV2 {
+    return {
+      schemaVersion: 2,
+      id,
+      steps: occurrences.map((occ) => ({
+        id: occ.step.id,
+      })),
+    };
+  }
 
 export function createRecipe<TContext extends ExtendedMapContext>(input: {
   id: string;
@@ -511,15 +505,14 @@ export function createRecipe<TContext extends ExtendedMapContext>(input: {
     stages: input.stages,
   });
   const registry = buildRegistry(occurrences, input.tagDefinitions);
-  const recipe = toStructuralRecipeV1(input.id, occurrences);
+  const recipe = toStructuralRecipeV2(input.id, occurrences);
 
-  function instantiate(config?: RecipeConfig | null): RecipeV1 {
+  function instantiate(config?: RecipeConfig | null): RecipeV2 {
     const cfg = config ?? null;
     return {
       ...recipe,
       steps: occurrences.map((occ) => ({
         id: occ.step.id,
-        instanceId: occ.instanceId,
         config: cfg ? cfg[occ.stageId]?.[occ.stepId] : undefined,
       })),
     };
@@ -563,8 +556,8 @@ Concretely:
 Notes:
 - Registry creation exists, but is **invisible** to mod authors and end users.
 - `requires`/`provides` remain on steps; engine semantics are unchanged.
-- Recipe definition exports a **structural** `RecipeV1` (ordered `steps[]`, no config values); stages do not appear in runtime.
-- The end consumer (a map entrypoint) supplies config values; `RecipeModule.instantiate(config)` produces the concrete `RecipeV1` that is compiled/executed.
+- Recipe definition exports a **structural** `RecipeV2` (ordered `steps[]`, no config values); stages do not appear in runtime.
+- The end consumer (a map entrypoint) supplies config values; `RecipeModule.instantiate(config)` produces the concrete `RecipeV2` that is compiled/executed.
 - Buffer tags (`buffer:*`) are part of the target architecture, but runtime satisfaction seeding is an engine concern (e.g., via `computeInitialSatisfiedTags`). Until that exists, prefer `artifact:*` products for cross-step contracts.
 
 ---

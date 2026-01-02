@@ -66,38 +66,36 @@ export const RunSettingsSchema = Type.Object(
 
 export type RunSettings = Static<typeof RunSettingsSchema>;
 
-export const RecipeStepV1Schema = Type.Object(
+/**
+ * Recipe schema version 2 (locked):
+ * - step ids are unique within the recipe
+ * - no instance identity layer; a "step" is a single execution node
+ */
+export const RecipeStepV2Schema = Type.Object(
   {
     id: Type.String(),
-    instanceId: Type.Optional(Type.String()),
     enabled: Type.Optional(Type.Boolean()),
     config: Type.Optional(UnknownRecord),
-    labels: Type.Optional(Type.Array(Type.String())),
   },
   { additionalProperties: false }
 );
 
-export type RecipeStepV1 = Static<typeof RecipeStepV1Schema>;
+export type RecipeStepV2 = Static<typeof RecipeStepV2Schema>;
 
-const RecipeFutureV1Schema = Type.Object({}, { additionalProperties: false });
-
-export const RecipeV1Schema = Type.Object(
+export const RecipeV2Schema = Type.Object(
   {
-    schemaVersion: Type.Literal(1),
+    schemaVersion: Type.Literal(2),
     id: Type.Optional(Type.String()),
-    metadata: Type.Optional(UnknownRecord),
-    steps: Type.Array(RecipeStepV1Schema),
-    future: Type.Optional(RecipeFutureV1Schema),
-    extensions: Type.Optional(UnknownRecord),
+    steps: Type.Array(RecipeStepV2Schema),
   },
   { additionalProperties: false }
 );
 
-export type RecipeV1 = Static<typeof RecipeV1Schema>;
+export type RecipeV2 = Static<typeof RecipeV2Schema>;
 
 export const RunRequestSchema = Type.Object(
   {
-    recipe: RecipeV1Schema,
+    recipe: RecipeV2Schema,
     settings: RunSettingsSchema,
   },
   { additionalProperties: false }
@@ -106,7 +104,6 @@ export const RunRequestSchema = Type.Object(
 export type RunRequest = Static<typeof RunRequestSchema>;
 
 export interface ExecutionPlanNode {
-  nodeId: string;
   stepId: string;
   phase: GenerationPhase;
   requires: readonly string[];
@@ -119,7 +116,6 @@ export interface ExecutionPlan {
   recipeId?: string;
   settings: RunSettings;
   nodes: ExecutionPlanNode[];
-  extensions?: Record<string, unknown>;
 }
 
 export type ExecutionPlanCompileErrorCode =
@@ -298,7 +294,7 @@ function normalizeStepConfig(
 
 function buildNodeConfig<TContext>(
   step: MapGenStep<TContext, unknown>,
-  recipeStep: RecipeStepV1,
+  recipeStep: RecipeStepV2,
   path: string
 ): { config: unknown; errors: ExecutionPlanCompileErrorItem[] } {
   if (!step.configSchema) {
@@ -318,10 +314,22 @@ export function compileExecutionPlan<TContext>(
 
   const errors: ExecutionPlanCompileErrorItem[] = [];
   const nodes: ExecutionPlanNode[] = [];
+  const seenStepIds = new Set<string>();
 
   recipe.steps.forEach((step, index) => {
     const enabled = step.enabled ?? true;
     if (!enabled) return;
+
+    if (seenStepIds.has(step.id)) {
+      errors.push({
+        code: "runRequest.invalid",
+        path: `/recipe/steps/${index}/id`,
+        message: `Duplicate step id "${step.id}" (recipes require unique step ids)`,
+        stepId: step.id,
+      });
+      return;
+    }
+    seenStepIds.add(step.id);
 
     if (!registry.has(step.id)) {
       errors.push({
@@ -346,9 +354,7 @@ export function compileExecutionPlan<TContext>(
       return;
     }
 
-    const instanceId = step.instanceId ?? step.id;
     nodes.push({
-      nodeId: instanceId,
       stepId: step.id,
       phase: registryStep.phase,
       requires: [...registryStep.requires],
@@ -366,6 +372,5 @@ export function compileExecutionPlan<TContext>(
     recipeId: recipe.id,
     settings,
     nodes,
-    extensions: recipe.extensions ?? undefined,
   };
 }
