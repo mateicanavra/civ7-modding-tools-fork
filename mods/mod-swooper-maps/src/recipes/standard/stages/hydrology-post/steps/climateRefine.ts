@@ -1,7 +1,11 @@
 import { Type, type Static } from "typebox";
 import { DEV, logRainfallStats, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { ClimateConfigSchema, OrogenyTunablesSchema, type MapGenConfig } from "@mapgen/config";
+import {
+  ClimateConfigSchema,
+  OrogenyTunablesSchema,
+  type FoundationDirectionalityConfig,
+} from "@mapgen/config";
 import { publishClimateFieldArtifact } from "../../../artifacts.js";
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 import { refineClimateEarthlike } from "@mapgen/domain/hydrology/climate/index.js";
@@ -36,11 +40,12 @@ export default createStep({
   schema: ClimateRefineStepConfigSchema,
   run: (context: ExtendedMapContext, config: ClimateRefineStepConfig) => {
     const { width, height } = context.dimensions;
-    const runtimeConfig = context.config as MapGenConfig;
+    const directionality =
+      context.settings.directionality as FoundationDirectionalityConfig | undefined;
     refineClimateEarthlike(width, height, context, {
       climate: config.climate,
       story: config.story,
-      directionality: runtimeConfig.foundation?.dynamics?.directionality,
+      directionality,
     });
     publishClimateFieldArtifact(context);
 

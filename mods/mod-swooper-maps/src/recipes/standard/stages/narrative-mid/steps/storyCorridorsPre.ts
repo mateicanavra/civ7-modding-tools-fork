@@ -1,29 +1,15 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import {
-  CorridorsConfigSchema,
-  FoundationDirectionalityConfigSchema,
-} from "@mapgen/config";
+import { CorridorsConfigSchema, type FoundationDirectionalityConfig } from "@mapgen/config";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
 const StoryCorridorsStepConfigSchema = Type.Object(
   {
     corridors: CorridorsConfigSchema,
-    foundation: Type.Object(
-      {
-        dynamics: Type.Object(
-          {
-            directionality: FoundationDirectionalityConfigSchema,
-          },
-          { additionalProperties: false, default: {} }
-        ),
-      },
-      { additionalProperties: false, default: {} }
-    ),
   },
-  { additionalProperties: false, default: { corridors: {}, foundation: {} } }
+  { additionalProperties: false, default: { corridors: {} } }
 );
 
 type StoryCorridorsStepConfig = Static<typeof StoryCorridorsStepConfigSchema>;
@@ -42,9 +28,11 @@ export default createStep({
   ],
   schema: StoryCorridorsStepConfigSchema,
   run: (context: ExtendedMapContext, config: StoryCorridorsStepConfig) => {
+    const directionality =
+      context.settings.directionality as FoundationDirectionalityConfig | undefined;
     storyTagStrategicCorridors(context, "preIslands", {
       corridors: config.corridors,
-      directionality: config.foundation?.dynamics?.directionality,
+      directionality,
     });
   },
 } as const);

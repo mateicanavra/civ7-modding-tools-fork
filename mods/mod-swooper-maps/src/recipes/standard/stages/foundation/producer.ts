@@ -39,9 +39,12 @@ function requireRng(rng: RngFunction | undefined, scope: string): RngFunction {
   return rng;
 }
 
-function buildPlateConfig(config: FoundationConfig): PlateConfig {
+function buildPlateConfig(
+  config: FoundationConfig,
+  directionalityOverride: PlateConfig["directionality"] | null
+): PlateConfig {
   const platesCfg = config.plates || {};
-  const directionality = config.dynamics?.directionality ?? null;
+  const directionality = directionalityOverride ?? null;
 
   const count = (platesCfg.count! | 0);
   const convergenceMix = platesCfg.convergenceMix!;
@@ -70,9 +73,10 @@ function computePlates(
   height: number,
   config: FoundationConfig,
   rng: RngFunction,
-  voronoiUtils: VoronoiUtilsInterface
+  voronoiUtils: VoronoiUtilsInterface,
+  directionalityOverride: PlateConfig["directionality"] | null
 ): PlateFieldsResult {
-  const plateConfig = buildPlateConfig(config);
+  const plateConfig = buildPlateConfig(config, directionalityOverride);
 
   devLogIf(
     "LOG_FOUNDATION_PLATES",
@@ -340,7 +344,16 @@ export function buildFoundationContext(
     throw new Error("[Foundation] Adapter missing getVoronoiUtils.");
   }
 
-  const plateResult = computePlates(width, height, foundationCfg, rng, adapter.getVoronoiUtils());
+  const directionality =
+    (context.settings.directionality as PlateConfig["directionality"] | undefined) ?? null;
+  const plateResult = computePlates(
+    width,
+    height,
+    foundationCfg,
+    rng,
+    adapter.getVoronoiUtils(),
+    directionality
+  );
   const dynamicsResult = computeDynamics(
     width,
     height,

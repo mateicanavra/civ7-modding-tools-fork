@@ -1,10 +1,7 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import {
-  ClimateConfigSchema,
-  FoundationDirectionalityConfigSchema,
-} from "@mapgen/config";
+import { ClimateConfigSchema, type FoundationDirectionalityConfig } from "@mapgen/config";
 import { publishClimateFieldArtifact } from "../../../artifacts.js";
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 import { getOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
@@ -13,19 +10,8 @@ import { storyTagClimateSwatches } from "@mapgen/domain/narrative/swatches.js";
 const StorySwatchesStepConfigSchema = Type.Object(
   {
     climate: ClimateConfigSchema,
-    foundation: Type.Object(
-      {
-        dynamics: Type.Object(
-          {
-            directionality: FoundationDirectionalityConfigSchema,
-          },
-          { additionalProperties: false, default: {} }
-        ),
-      },
-      { additionalProperties: false, default: {} }
-    ),
   },
-  { additionalProperties: false, default: { climate: {}, foundation: {} } }
+  { additionalProperties: false, default: { climate: {} } }
 );
 
 type StorySwatchesStepConfig = Static<typeof StorySwatchesStepConfigSchema>;
@@ -47,10 +33,12 @@ export default createStep({
       return;
     }
 
+    const directionality =
+      context.settings.directionality as FoundationDirectionalityConfig | undefined;
     storyTagClimateSwatches(context, {
       orogenyCache: getOrogenyCache(context),
       climate: config.climate,
-      directionality: config.foundation?.dynamics?.directionality,
+      directionality,
     });
     publishClimateFieldArtifact(context);
   },
