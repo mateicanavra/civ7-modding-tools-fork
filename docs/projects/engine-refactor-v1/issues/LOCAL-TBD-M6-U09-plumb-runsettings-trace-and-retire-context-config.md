@@ -234,3 +234,7 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
   - `mods/mod-swooper-maps/test/ecology/features-owned-unknown-chance-key.test.ts` (test-only).
   - The implementation lives in `mods/mod-swooper-maps/src/config/loader.ts` and is not imported by runtime code.
 - **Conclusion:** current usages are tooling/test-only; no runtime-critical dependency on the loader.
+
+#### E2 Decision: schema export surface in M6
+- **Decision:** keep `getJsonSchema` / `getPublicJsonSchema` as part of the `@mapgen/config` public surface in M6, even though runtime doesn’t depend on them.
+- **Rationale:** ADR-ER1-035 classifies the loader as a boundary/tooling helper (optional for runtime but valuable for external tooling and non-TS inputs). There are no current code callers, but removing the exports would be an unnecessary surface change during the M6 plumbing work.
