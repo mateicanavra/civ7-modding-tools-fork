@@ -61,9 +61,9 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Next check:** during M6 U06 map/preset rewrite or before stabilizing recipe config shape.
 
 - **Map overrides mapped directly to recipe config without parseConfig defaults** [Source: LOCAL-TBD-M6-U06]
-  - **Context:** Map entrypoints now build recipe config directly from overrides and pass overrides into `ExtendedMapContext.config`.
+  - **Context:** Map entrypoints now build recipe config directly from overrides and derive run settings at the boundary (no `context.config` global overrides).
   - **Type:** triage
-  - **Notes:** This skips `parseConfig` defaults/validation; add explicit validation or defaults if step configs require them.
+  - **Notes:** Entry points build recipe config directly from overrides and derive run settings from overrides; `context.config` is no longer used as a global knob. This skips `parseConfig` defaults/validation; add explicit validation or defaults if step configs require them.
   - **Next check:** before stabilizing map config docs or when recipe config defaults are audited.
 
 - **Engine tag definitions/registry are generic over context** [Source: LOCAL-TBD-M6-U01]

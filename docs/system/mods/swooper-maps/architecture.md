@@ -9,7 +9,7 @@ This mod uses **explicit overrides + recipe selection** so variants can share on
 - Entry scripts resolve map init data via `applyMapInitData` / `resolveMapInitData` in `src/maps/_runtime/map-init.ts`.
 - Entry scripts build run settings + recipe config (see `src/maps/_runtime/standard-config.ts`).
 - Entry scripts select a recipe (e.g., `standardRecipe`) and execute via `runStandardRecipe` (or `recipe.run` directly).
-- Steps read per-step config from the recipe config; runtime overrides (if any) live in `ExtendedMapContext.config`.
+- Steps read per-step config from the recipe config; run-global overrides live in `RunRequest.settings` and surface as `context.settings`.
 
 Example (minimal runnable pipeline):
 ```ts
@@ -43,7 +43,7 @@ runStandardRecipe({ recipe: standardRecipe, init, overrides: {} });
                     │
         ┌───────────▼──────────┐
         │ Step graph            │
-        │ └─ steps read config  │  ← recipe config + context.config overrides
+        │ └─ steps read config  │  ← recipe config + context.settings
         └──────────────────────┘
 ```
 

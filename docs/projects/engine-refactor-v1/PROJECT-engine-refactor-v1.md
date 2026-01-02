@@ -144,7 +144,7 @@ Extend the task-graph architecture and data-product model across the full engine
 See `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md` for detailed scope and sequencing. At a high level, this milestone covers:
 
 - **Config integration and evolution**
-  - Embed `MapGenConfig` into `MapGenContext` consistently (`context.config`).
+  - Use `RunRequest.settings` + recipe config as the run boundary (no `context.config` global overrides).
   - Map `PlateGenerationConfig` and other domain configs into sub-schemas within `MapGenConfig`.
   - Flatten and rationalize the external config shape into step-aligned groups (e.g., `plates`, `landmass`, `mountains`, `climate`, `story`, `placement`, `diagnostics`).
   - Provide adapters for older config shapes where necessary to ease migrations.
