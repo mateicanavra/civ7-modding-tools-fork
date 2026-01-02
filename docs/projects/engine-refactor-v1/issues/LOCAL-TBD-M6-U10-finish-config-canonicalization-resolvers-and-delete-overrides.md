@@ -183,7 +183,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - Update the standard map runtime glue and maps to remove the overrides-shaped authoring surface entirely:
   - `runStandardRecipe(...)` accepts `settings` and `config` directly (no `overrides` parameter),
   - maps supply `settings` and `config` directly (no translation layer),
-  - maps do not depend on any map-runtime “settings builder” helper (duplication is acceptable here; `LOCAL-TBD-M7-U10` introduces an authoring factory that can dedupe later).
+  - maps do not depend on any map-runtime “settings builder” helper (duplication is acceptable here; `LOCAL-TBD-M7-U12` introduces an authoring factory that can dedupe later).
 - Keep settings explicit at the boundary:
   - delete `buildStandardRunSettings(...)` (it is part of the overrides translation layer).
   - no replacement “settings builder” helper is introduced in this unit.
@@ -226,7 +226,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 
 ### Pre-work for D (delete overrides translator)
 - “Inventory current authored config surfaces in `mods/mod-swooper-maps/src/maps/*.ts` (what they currently return) and map each top-level override fragment to the target `StandardRecipeConfig` keys.”
-- “Rewrite each map to directly author a `StandardRecipeConfig | null` (use `satisfies StandardRecipeConfig` on the top-level config literal); do not introduce a new ‘config builder’ that recreates the overrides translation layer. (Ergonomics follow-up is tracked in `LOCAL-TBD-M7-U10`.)”
+- “Rewrite each map to directly author a `StandardRecipeConfig | null` (use `satisfies StandardRecipeConfig` on the top-level config literal); do not introduce a new ‘config builder’ that recreates the overrides translation layer. (Ergonomics follow-up is tracked in `LOCAL-TBD-M7-U12`.)”
 - “List all call sites/types that depend on `StandardRecipeOverrides` and plan a mechanical migration.”
 - “List all runner entrypoints that currently accept overrides-shaped inputs and define the new canonical signature(s) that accept `settings` + `config` only.”
 - “Identify and delete any remaining runtime config-defaulting in the map entrypoint path (e.g., `Value.Default` in `maps/_runtime/**`).”
