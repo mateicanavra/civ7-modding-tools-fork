@@ -26,17 +26,28 @@ Finish the target run-boundary wiring so cross-cutting runtime knobs live in `Ru
 - **Boundary-first tracing:** `RunRequest.settings.trace` controls per-step trace level (`off/basic/verbose`) using `TraceSession` + per-step scopes, without step code checking flags directly.
 - **Retire legacy “global knobs” pattern:** stop using `ExtendedMapContext.config` as a “global runtime MapGenConfig blob” in mod runtime entrypoints.
 - **Diagnostics cleanup:** deprecate/remove `foundation.diagnostics` as the author-facing control plane for step logging; replace with settings-owned observability knobs (trace first; do not port DEV flags 1:1 as part of this issue).
+- **Remove config loader tooling:** delete `@mapgen/config` loader/schemas/helpers; there are no external consumers.
+
+## Sequencing (parent coordination)
+1) **A (settings plumbing):** unblock all downstream cutovers by giving steps a stable `context.settings`.
+2) **B (trace wiring):** land default console tracing once settings are visible and plan settings can be consumed.
+3) **C (directionality):** migrate all reads to `context.settings.directionality`, then remove per-step duplication.
+4) **D (retire `context.config` as global knobs):** remove the legacy global blob in `run-standard.ts` and update docs that still describe it.
+5) **E (remove loader tooling):** delete `mods/mod-swooper-maps/src/config/loader.ts` and any remaining public surface; keep only TS-authored config.
 
 ## Acceptance Criteria
 - `mods/mod-swooper-maps/src/recipes/**` contains **0** reads of `context.config.foundation.dynamics.directionality` (or any `context.config.*` reads for cross-cutting policies).
 - Standard runtime entrypoints no longer cast overrides into `context.config` as a “global config object”.
 - A run with `settings.trace.steps = { "<stepId>": "verbose" }` emits trace events for that step via the trace sink; steps do not perform `if (settings.trace...)` checks.
 - The default trace sink is **console**; enabling `settings.trace` produces visible console output without requiring extra wiring at call sites.
+- `mods/mod-swooper-maps/src/config/loader.ts` is deleted and there are **0** imports of `@mapgen/config/loader` and **0** usages of `safeParseConfig` across the repo.
 - The only code that interprets `settings.trace.steps` lives at the runtime boundary (trace session creation + executor step-scoping), not inside domain/step logic.
 
 ## Testing / Verification
-- `pnpm -F @swooper/mapgen-core test`
-- `pnpm -C mods/mod-swooper-maps test`
+- `pnpm check`
+- `pnpm build`
+- `pnpm deploy:mods`
+- `pnpm test`
 
 ## Dependencies / Notes
 - Blocked by: [LOCAL-TBD-M6-U06](./LOCAL-TBD-M6-U06-rewrite-maps-as-recipe-instances.md)
@@ -48,111 +59,122 @@ Finish the target run-boundary wiring so cross-cutting runtime knobs live in `Ru
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Details (Local Only)
 
-### Trace configuration shape (locked by existing schema)
-The target trace authoring surface is part of run settings:
-- `RunRequest.settings.trace?: TraceConfig`
-- `TraceConfig = { enabled?: boolean; steps?: Record<string, "off" | "basic" | "verbose"> }`
+### A) Settings plumbing: `RunRequest.settings` → `ExecutionPlan.settings` → `context.settings`
+**In scope**
+- Add `context.settings: RunSettings` (full `RunSettings`) to the runtime context surface used by steps.
+- Plumb settings once per run from `ExecutionPlan.settings` (plan is the source of truth at runtime).
+- Keep step config shape unchanged (step still receives `stepConfig` as the second arg to `step.run`).
 
-Source of truth (already present today):
-- `TraceConfigSchema` + `RunSettingsSchema.trace`: `packages/mapgen-core/src/engine/execution-plan.ts`
-- Trace model: `packages/mapgen-core/src/trace/index.ts`
-- Plan-driven session helper: `createTraceSessionFromPlan(plan, sink)`: `packages/mapgen-core/src/engine/observability.ts`
+**Out of scope**
+- Reworking how step config schemas are authored/normalized (this issue only exposes run settings).
 
-### Trace wiring model (boundary-first, no scattered checks)
-Goal: step/domain code should not read `settings.trace` directly.
+**Rationale / context**
+- Directionality and trace are run-global policies, already represented in `RunRequest.settings` and normalized onto the plan; steps currently lack a supported way to read settings and have been using `context.config` as a global blob.
 
-Mechanics:
-1) `compileExecutionPlan(runRequest, registry)` normalizes the run request and stores settings on the plan: `plan.settings`.
-2) Runtime creates a `TraceSession` using the plan:
-   - `createTraceSessionFromPlan(plan, sink)` uses `plan.settings.trace` to set per-step levels.
-   - Note: `createTraceSessionFromPlan` computes run fingerprints using `stripTraceSettings(plan.settings)`; preserve this behavior so turning tracing on/off does not change the run fingerprint.
-3) `PipelineExecutor.executePlan(context, plan, { trace })` runs with that session.
-4) The executor sets `context.trace = trace.createStepScope({ stepId, phase })` around each step.
-   - `TraceSession.resolveTraceLevel(config, stepId)` enforces `settings.trace.steps[stepId]`.
-   - Off/basic/verbose is enforced by the trace session and scopes (events are no-op when disabled).
+**Acceptance criteria**
+- Steps can read `context.settings` with correct typing (no `as any` at call sites for settings).
+- All `createExtendedMapContext(...)` call sites and tests compile with the new required/optional shape.
 
-Step author rules:
-- ✅ Allowed: emit trace events through `context.trace` (or helpers that emit to `context.trace`).
-- ❌ Forbidden: `if (context.settings.trace...)` / `if (settings.trace.steps[...])` checks in step/domain logic.
-- ❌ Forbidden: interpreting `settings.trace` inside ops/domains to change semantics.
+**Verification / tests**
+- `pnpm check`
+- `pnpm build`
+- `pnpm -C packages/mapgen-core check`
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps check`
+- `pnpm -C mods/mod-swooper-maps test`
 
-### Directionality model (locked by ADR)
-Directionality is a cross-cutting runtime policy and belongs in `RunRequest.settings.directionality`:
-- Decision: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-019-cross-cutting-directionality-policy-is-runrequest-settings-not-per-step-config-duplication.md`
+### B) Trace wiring: settings-owned + boundary-enforced, default sink = console
+**In scope**
+- Continue to treat trace configuration as `RunRequest.settings.trace` (already in schema).
+- Ensure the runtime boundary creates a `TraceSession` from the compiled plan and applies per-step scopes.
+- Implement a **default console sink** used when tracing is enabled (no silent no-op).
+- Allow overrides at the boundary (e.g., caller passes `traceSink` or a full `TraceSession`).
 
-In code, `RunSettingsSchema` already contains:
-- `directionality?: Record<string, unknown>` (`packages/mapgen-core/src/engine/execution-plan.ts`)
+**Out of scope**
+- FireTuner/file sinks, sampling, advanced sinks, or long-term structured log routing.
+- Step/domain code checking flags (still forbidden).
 
-Gap to close:
-- Steps need a supported way to read settings (not by smuggling a global `MapGenConfig` blob into `context.config`).
+**Rationale / context**
+- Authors should not enable trace and see “nothing happened”; default console output keeps behavior visible and debuggable. Runtime toggle interpretation stays at the boundary; step/domain logic only emits to `context.trace`.
 
-### Diagnostics / DEV flags: what we are deprecating
-Deprecate/remove the pattern:
-- “Enable diagnostics via `context.config.foundation.diagnostics` and thread a global ‘dev logging’ config through `ExtendedMapContext.config`”.
+**Acceptance criteria**
+- Trace config interpretation is confined to runner/session creation + executor scoping; there are no `if (context.settings.trace...)` checks in step/domain code.
+- When `settings.trace` is enabled, trace events are visibly emitted to console by default.
+- Run fingerprints remain stable across trace enablement changes (preserve `stripTraceSettings(...)` behavior).
 
-Today’s stable-slice behavior (legacy):
-- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` reads `context.config.foundation?.diagnostics` and calls `initDevFlags(...)`.
-- Steps and domain helpers use `DEV.*` gating (console logs, ascii dumps, summaries).
+**Verification / tests**
+- `pnpm check`
+- `pnpm -C packages/mapgen-core test` (add/extend tests as needed; see B3 below)
+  - Add a runner-level test that enables `settings.trace` and asserts the default console sink is used when no `traceSink` is provided (spy on `console.*`).
+- `pnpm -C mods/mod-swooper-maps test`
 
-Target direction:
-- Observability knobs are settings-owned (trace first).
-- If DEV-style debug flags must remain, define a settings-owned replacement as a follow-up (not config-owned); this issue only removes the config-owned control plane.
+### C) Directionality cutover: settings-owned only (no per-step duplication)
+**In scope**
+- Migrate all directionality consumers to `context.settings.directionality`.
+- After reads are migrated, stop duplicating directionality into per-step configs (single source of truth is `RunRequest.settings`).
 
-### Implementation steps (A–E)
+**Out of scope**
+- Redesigning the shape of `directionality` itself (it remains settings-owned; internal schema refinement can happen later).
 
-#### A) Plumb `RunRequest.settings` onto context (make settings visible to steps)
-- Introduce a typed settings surface on the runtime context (e.g. `context.settings: RunSettings`).
-- Set it once per execution from `plan.settings` (source of truth: `ExecutionPlan.settings`).
-- Keep step config unchanged (still passed as the second argument to `step.run`).
+**Rationale / context**
+- ADR-ER1-019 locks directionality as a cross-cutting run policy; duplicating it into per-step config creates drift and confusion.
 
-Touchpoints (expected):
-- `packages/mapgen-core/src/core/types.ts` (extend `ExtendedMapContext` contract)
-- `packages/mapgen-core/src/engine/PipelineExecutor.ts` (assign settings at runtime start)
-- Any tests that assert context shape
+**Acceptance criteria**
+- `mods/mod-swooper-maps/src/recipes/**` contains 0 reads of `context.config.*` for directionality.
+- No step config schemas include directionality solely to carry run-global policy.
 
-#### B) Wire tracing to `settings.trace.steps` via `TraceSession` at the boundary
-- Ensure the runtime boundary creates a `TraceSession` from the plan when trace is enabled, using a **console** sink by default.
-- Avoid scattering: the only consumer of `settings.trace.steps` should be trace session creation + executor scoping.
-- **Single-path choice:** tracing is still sink-driven, but the **default sink is console**:
-  - Extend `recipe.run(...)` options to accept `traceSink?: TraceSink | null`.
-  - If `trace` is provided, it wins (advanced/tests).
-  - Else if `traceSink` is provided, use it.
-  - Else, when `settings.trace.enabled` is true (or when `settings.trace.steps` is non-empty), use the default console sink.
+**Verification / tests**
+- `rg -n \"context\\.config\\..*directionality\" mods/mod-swooper-maps/src/recipes` returns no matches.
+- `pnpm check`
+- `pnpm -C mods/mod-swooper-maps check`
+- `pnpm -C mods/mod-swooper-maps test`
 
-Touchpoints (expected):
-- `packages/mapgen-core/src/engine/observability.ts` (already has `createTraceSessionFromPlan`)
-- `packages/mapgen-core/src/authoring/recipe.ts` (runner API: add `traceSink` option and create the session from the compiled plan)
-- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` (dev harness: optionally override the sink; default behavior is console when trace is enabled)
-- Implement the default console sink in `@swooper/mapgen-core` so all runtimes get consistent behavior.
+### D) Retire `context.config` as a “global knobs blob” (keep `runStandard`, remove legacy usage)
+**In scope**
+- Keep `runStandard` as the runtime entrypoint, but remove its use of `ExtendedMapContext.config` as a global cross-cutting store.
+- Remove `context.config = safeOverrides` pattern from `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`.
+- Remove config-owned `foundation.diagnostics` control plane + `initDevFlags(...)` call from that entry boundary (no replacement in this issue).
+- Update docs that still describe “runtime overrides live in `context.config`”.
 
-#### C) Directionality cutover: stop reading it from `context.config`
-- Migrate any step consumers to `context.settings.directionality`.
-  - Known current consumers:
-    - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` (currently reads `context.config.foundation.dynamics.directionality`)
-    - `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid/steps/storyCorridorsPre.ts` (currently reads directionality from step config)
-    - `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.ts` (currently reads directionality from step config)
-    - `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/steps/storySwatches.ts` (currently reads directionality from step config)
-    - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/producer.ts` (currently reads `config.dynamics?.directionality`)
-    - `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` (currently reads directionality via `ctx.config`)
-- Ensure standard runtime wiring sets `settings.directionality` once (already done in `buildStandardRunSettings`).
-- After migrating reads, stop duplicating directionality into per-step configs (ADR-ER1-019): keep directionality in `RunRequest.settings` as the single source of truth.
+**Out of scope**
+- Introducing a new DEV-flag system under settings (explicitly deferred).
+- Removing `StandardRecipeOverrides` translation layer (this issue only removes the “global knobs” justification for it).
 
-#### D) Retire the “global config blob” entrypoint pattern
-- Stop casting overrides/config blobs into `ExtendedMapContext.config` as a substitute for settings.
-- In `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`, remove the `context.config = safeOverrides` pattern entirely:
-  - Stop reading `foundation.diagnostics` from that blob and remove the `initDevFlags(...)` call (no replacement in this issue).
-  - Stop relying on that blob for directionality; use `context.settings.directionality` instead (after step C lands).
-- Replace reads that currently use `context.config` as a cross-cutting store with:
-  - `context.settings` (for cross-cutting policies), and/or
-  - explicit artifacts (for runtime-derived products), and/or
-  - step config (for semantic knobs).
+**Rationale / context**
+- The target boundary is `RunRequest = { recipe, settings }`; `context.config` as a global blob is legacy/accidental and creates “missing config / irrelevant keys” complexity elsewhere.
 
-This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` translation later, because the remaining reason it exists is “we needed somewhere to stick global knobs”.
+**Acceptance criteria**
+- Standard runtime entrypoints do not cast/store overrides into `context.config` for cross-cutting policies.
+- `docs/system/mods/swooper-maps/architecture.md`, `docs/projects/engine-refactor-v1/PROJECT-engine-refactor-v1.md`, and `docs/projects/engine-refactor-v1/triage.md` no longer claim runtime overrides live in `context.config`.
 
-#### E) Keep config loader as tooling-only (explicitly in scope)
-- Keep `mods/mod-swooper-maps/src/config/loader.ts` + `@mapgen/config` exports for tooling and tests.
-- Ensure runtime entrypoints do not import or depend on the loader.
-- Do not remove JSON config ingestion / schema export workflows as part of this issue (avoid unnecessary public-surface churn during M6 plumbing).
+**Verification / tests**
+- `pnpm check`
+- `pnpm build`
+- `pnpm deploy:mods`
+- `pnpm -C mods/mod-swooper-maps deploy`
+
+### E) Remove loader tooling completely (`@mapgen/config` / `safeParseConfig`)
+**In scope**
+- Delete `mods/mod-swooper-maps/src/config/loader.ts` and any associated public exports/re-exports (e.g. `mods/mod-swooper-maps/src/config/index.ts`).
+- Delete or migrate any tests/tooling that depend on `safeParseConfig` (do not replace with a new loader in this issue).
+  - Example: rewrite `mods/mod-swooper-maps/test/ecology/features-owned-unknown-chance-key.test.ts` to validate the relevant config schema directly (or assert runtime validation behavior via existing step/op validation paths).
+- Remove any docs that describe the loader as a supported surface.
+
+**Out of scope**
+- Reintroducing JSON ingestion/schema export as a first-class public surface (explicitly deferred until there is a real consumer).
+
+**Rationale / context**
+- There are no external consumers today; keeping unused public surfaces adds maintenance and confusion. If/when JSON ingestion becomes required, reintroduce it with an intentional design and ownership model.
+
+**Acceptance criteria**
+- `mods/mod-swooper-maps/src/config/loader.ts` is deleted.
+- `rg -n \"@mapgen/config/loader|safeParseConfig|getJsonSchema|getPublicJsonSchema|getDefaultConfig\" .` returns no matches.
+
+**Verification / tests**
+- `pnpm check`
+- `pnpm build`
+- `pnpm deploy:mods`
+- `pnpm test`
 
 ---
 
@@ -186,12 +208,12 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - **Rationale:** Keeps this issue scoped to the agreed boundary-first trace model; avoids introducing a new settings surface without a dedicated decision/ADR.
 - **Risk:** Some legacy debug outputs may be harder to enable until a follow-up defines the replacement (if needed).
 
-### Keep `@mapgen/config` schema exports in M6
-- **Context:** The loader is tooling/test-only today, but it defines schema export entrypoints (`getJsonSchema`, `getPublicJsonSchema`) that external tooling may rely on.
-- **Options:** Remove loader and exports now vs keep as tooling-only while runtime plumbing lands.
-- **Choice:** Keep schema exports and loader as tooling-only in M6.
-- **Rationale:** Avoids unnecessary public surface churn during plumbing work; aligns with ADR-ER1-035 classification as boundary/tooling helper.
-- **Risk:** Keeps a legacy-ish codepath around longer; mitigate by ensuring runtime entrypoints do not depend on it and by tracking removal as a separate decision/issue.
+### Delete loader tooling surface (`@mapgen/config`)
+- **Context:** The loader is tooling/test-only and has no external consumers today; it also introduces a “second config ingestion path” that is not part of the target boundary model.
+- **Options:** Keep as tooling-only vs delete entirely and reintroduce later if needed.
+- **Choice:** Delete it entirely (code + exports + tests that depend on it).
+- **Rationale:** Prefer removing unused surfaces and reintroducing intentionally when there is a real consumer.
+- **Risk:** If someone was relying on these exports out-of-tree, this is a breaking change; mitigate by confirming no external consumers before merging and by documenting the replacement story (“TS-authored config only”).
 
 ## Pre-work
 
@@ -273,9 +295,10 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
   - `docs/projects/engine-refactor-v1/resources/_archive/*` and `docs/projects/engine-refactor-v1/reviews/_archive/*` that document the older `context.config` model.
 - **Tests:** no test files currently mention `context.config` (`rg -n "context\\.config" packages mods -g "*test*"` returned none).
 
-### Pre-work for E (loader tooling-only)
-- “Enumerate all imports of `@mapgen/config/loader` and `safeParseConfig` and determine whether they are runtime-critical or tooling/test-only.”
-- “Decide whether schema export (`getJsonSchema` / `getPublicJsonSchema`) is a required public surface for the standard content package in M6.”
+### Pre-work for E (loader removal)
+- “Enumerate all imports of `@mapgen/config/loader` and `safeParseConfig` and confirm they are only internal/test usage.”
+- “Confirm there are no external consumers (search repo docs + exports).”
+- “Delete the loader and remove/replace any tests/docs that reference it.”
 
 #### E1 Findings: `@mapgen/config/loader` + `safeParseConfig` usage
 - **Imports of `@mapgen/config/loader`:**
@@ -285,6 +308,6 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
   - The implementation lives in `mods/mod-swooper-maps/src/config/loader.ts` and is not imported by runtime code.
 - **Conclusion:** current usages are tooling/test-only; no runtime-critical dependency on the loader.
 
-#### E2 Decision: schema export surface in M6
-- **Decision:** keep `getJsonSchema` / `getPublicJsonSchema` as part of the `@mapgen/config` public surface in M6, even though runtime doesn’t depend on them.
-- **Rationale:** ADR-ER1-035 classifies the loader as a boundary/tooling helper (optional for runtime but valuable for external tooling and non-TS inputs). There are no current code callers, but removing the exports would be an unnecessary surface change during the M6 plumbing work.
+#### E2 Decision: delete loader tooling surface
+- **Decision:** delete `mods/mod-swooper-maps/src/config/loader.ts` and remove the `@mapgen/config` loader/schema export surface entirely.
+- **Rationale:** There are no external consumers today; removing unused public surfaces keeps the boundary model simpler. If JSON ingestion/schema export becomes required later, reintroduce it intentionally with a dedicated spec/ADR and a real consumer.
