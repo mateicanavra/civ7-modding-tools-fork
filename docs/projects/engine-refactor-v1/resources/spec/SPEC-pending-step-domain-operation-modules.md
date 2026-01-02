@@ -841,6 +841,8 @@ Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-o
 
 **Impact / scale:** **High**
 
+**Status:** Decided (ADR-ER1-030 accepted)
+
 **System surface / blast radius (components):**
 - **Step → domain boundary (inputs/outputs)**: how steps package runtime state into op inputs (and how results come back).
 - **Runtime performance/memory**: whether we precompute buffers, allocate typed arrays, or rely on callback views.
@@ -849,15 +851,13 @@ Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-o
 
 **Question:** What shapes are allowed for `op.input` / `op.output`, and how hard do we try to represent them in TypeBox schemas (especially for typed arrays)?
 
-**Why it matters / what it affects:** Inputs are the main coupling point between runtime and domain. Buffer-based inputs (typed arrays/POJOs) are deterministic and easy to test, but require step-side extraction/precompute. Callback “views” can reduce boilerplate and memory, but risk domain logic implicitly depending on runtime state in ways that are harder to test and reason about. Separately, TypeBox can’t precisely encode typed-array shapes out of the box, so runtime validation and doc rendering may degrade to `Type.Any()` unless we add helpers.
+**Decision (locked):** Operation contracts are **buffers/POJO-ish only** (no adapters/callback “views” in `op.input`/`op.output`) (ADR-ER1-030).
 
-**Options:**
-- **A) Buffers/POJOs only (preferred default):** inputs are plain data (typed arrays, plain objects), no runtime callbacks.
-- **B) Allow callback views:** inputs may include readonly functions (e.g., `readElevation(x,y)`), kept pure by convention.
-- **C) Two-tier model:** “core” ops take buffers; separate convenience ops accept callback views when memory pressure matters.
-- **D) Minimal typed-array schema helpers (TBD):** add tiny helpers so schemas are more informative than `Type.Any()` without introducing a big framework.
-
-**Recommendation:** Default to **A** for step-callable ops (best determinism/testability). If we introduce callbacks, constrain them to tiny, explicitly named readonly interfaces. For schema expressiveness, consider **D** only if we concretely need better runtime validation/docs; keep it minimal.
+Implications (summary):
+- Typed arrays are allowed as first-class contract values; ecology’s current working set includes at least `Uint8Array`, `Int32Array`, `Float32Array` (and `Int16Array` observed for elevation).
+- Typed-array schemas are intentionally conservative in TypeBox:
+  - default to `Type.Unsafe<...>(...)` (metadata-only) rather than attempting to serialize function-backed checks,
+  - enforce correctness-critical invariants (buffer types and `width * height` coupling) via explicit validators (step input-builders first; reuse for tests and later op-entry validation).
 
 ### DD-004: Artifact keys / dependency keys ownership (domain vs recipe)
 

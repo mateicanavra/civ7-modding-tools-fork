@@ -1,10 +1,10 @@
 ---
 id: ADR-ER1-030
 title: "Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy)"
-status: proposed
+status: accepted
 date: 2025-12-30
 project: engine-refactor-v1
-risk: at_risk
+risk: stable
 system: mapgen
 component: authoring-sdk
 concern: domain-operation-modules
@@ -50,3 +50,53 @@ The step/domain-operation module design introduces a reusable “domain operatio
 - Domain libraries remain engine-agnostic and unit-test-friendly by default.
 - Performance-sensitive cases must be handled explicitly (e.g., by changing which buffers are materialized, or by introducing a deliberate “view surface” as a separate design—without silently changing the default contract).
 - Schema tooling may require small helpers later, but the target architecture does not depend on schema precision for typed arrays.
+
+## Decision / Outcome (decided)
+
+### 1) Decision (locked)
+
+- **No runtime “views” in operation contracts (hard rule):**
+  - operation inputs/outputs **must not** include adapters, callbacks, or other runtime/engine readback surfaces.
+  - This applies to **all** operations (exported or not) so “ops are contracts” remains uniform.
+- **Allowed contract value families (POJO-ish):**
+  - plain JSON-ish values (primitives, arrays, plain objects),
+  - typed arrays used as dense grid fields, at minimum:
+    - `Uint8Array`
+    - `Int32Array`
+    - `Float32Array`
+  - **Candidate observed in ecology (called out explicitly, not silently expanded):**
+    - `Int16Array` (used for elevation fields today).
+- **Typed-array schema strategy (default):** represent typed-array fields using **coarse TypeBox schemas** (typically `Type.Unsafe<...>(...)` with descriptive metadata), and enforce correctness-critical invariants with **explicit validators**.
+- **Typed-array validation strategy (required):** typed arrays and their invariants are validated by code we own (not “just the schema”):
+  - element-type expectation (e.g., “this is `Float32Array`”),
+  - shape invariants (e.g., `buffer.length === width * height`),
+  - any additional coupling invariants (shared width/height, sentinel ranges, etc.).
+
+### 2) Homework result: `Type.Refine(...)` vs `Type.Unsafe<...>(...)` (TypeBox 1.0.61)
+
+This repo uses TypeBox `typebox@1.0.61`. In that version:
+
+- `Type.Refine(...)` stores the refinement under a non-enumerable `~refine` property (containing a function).
+  - **Consequence:** JSON serialization (e.g., `JSON.stringify(schema)`) drops `~refine` entirely, so the emitted JSON schema does **not** carry the refinement.
+  - That makes `Refine` **non-portable** as JSON schema: the extra validation logic only exists in-process, inside this codebase.
+- `Type.Unsafe<...>(...)` is primarily a TypeScript typing tool:
+  - it allows `Static<typeof schema>` to be a non-JSON value (like `Uint8Array`) without requiring TypeBox to “understand” the runtime representation.
+  - it **can** serialize the enumerable metadata you provide (e.g., `description`), but it does not provide a portable, standards-based JSON schema representation of typed arrays.
+
+Implication for this architecture:
+- `Refine` can add useful **in-process runtime checks**, but does not improve the **portable JSON schema** surface.
+- `Unsafe` keeps schemas more stable/serializable (metadata-only) without embedding function-backed validation into schemas.
+- Either way, meaningful typed-array validation and invariants are enforced by **explicit validators** we control.
+
+Decision consequence:
+- **Default to `Type.Unsafe` + explicit validators** for typed arrays.
+- `Type.Refine` remains an **optional, internal** technique (e.g., for local runtime checks in tests or tooling) when we explicitly accept that it will not survive schema serialization.
+
+### 3) Validation placement (now vs intended)
+
+- **Primary enforcement location:** step input-builders (`inputs.ts`) validate and materialize plain inputs (including buffers) before calling ops. This is where contextual shape parameters (width/height, grid conventions) are naturally available.
+- **Reusable validator intent:** typed-array and invariant validators should be written so they can be reused by:
+  - step input-builders (runtime),
+  - direct unit tests of ops (fixtures),
+  - and (later) optional op-entry validation for defensive usage.
+- **No over-promise:** today, the core authoring helper (`createOp`) does not automatically validate operation inputs/outputs at runtime; adding first-class runtime op validation is intended, but the exact mechanism/rollout is separate from this contract decision.
