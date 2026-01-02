@@ -1,7 +1,6 @@
 import { Type, type Static } from "typebox";
 import type { ContinentBounds } from "@civ7/adapter";
 import {
-  DEV,
   assertFoundationPlates,
   devWarn,
   logLandmassAscii,
@@ -86,8 +85,9 @@ export default createStep({
 
     windows = applyLandmassPostAdjustments(windows, landmassCfg.geometry, width, height);
 
-    if (DEV.ENABLED && windows.length < 2) {
+    if (windows.length < 2) {
       devWarn(
+        context.trace,
         `[smoke] landmassPlates produced ${windows.length} window(s); expected >= 2 for west/east continents.`
       );
     }
@@ -112,16 +112,19 @@ export default createStep({
       landmassIds.EAST,
       context.adapter
     );
-    console.log(
-      `[landmass-plate] Region IDs marked: ${westMarked} west (ID=${landmassIds.WEST}), ${eastMarked} east (ID=${landmassIds.EAST})`
-    );
+    if (context.trace.isVerbose) {
+      context.trace.event(() => ({
+        type: "landmass.regionIds",
+        westMarked,
+        eastMarked,
+        ids: { west: landmassIds.WEST, east: landmassIds.EAST },
+      }));
+    }
 
     context.adapter.validateAndFixTerrain();
     context.adapter.recalculateAreas();
     context.adapter.stampContinents();
 
-    if (DEV.ENABLED && context?.adapter) {
-      logLandmassAscii(context.adapter, width, height);
-    }
+    logLandmassAscii(context.trace, context.adapter, width, height);
   },
 } as const);

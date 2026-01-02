@@ -36,7 +36,6 @@ export {
   FeaturesDensityConfigSchema,
   FloodplainsConfigSchema,
   FoundationConfigSchema,
-  FoundationDiagnosticsConfigSchema,
   FoundationDirectionalityConfigSchema,
   FoundationDynamicsConfigSchema,
   FoundationOceanSeparationConfigSchema,
@@ -102,7 +101,6 @@ export type {
   FeaturesDensityConfig,
   FloodplainsConfig,
   FoundationConfig,
-  FoundationDiagnosticsConfig,
   FoundationDirectionalityConfig,
   FoundationDynamicsConfig,
   FoundationOceanSeparationConfig,
@@ -131,12 +129,3 @@ export type {
   StoryConfig,
   VolcanoesConfig,
 } from "@mapgen/config/schema.js";
-
-export {
-  parseConfig,
-  safeParseConfig,
-  getDefaultConfig,
-  getJsonSchema,
-  getPublicJsonSchema,
-  type ParseResult,
-} from "@mapgen/config/loader.js";

@@ -35,11 +35,16 @@ export function applyClimateBaseline(
   ctx: ExtendedMapContext | null = null,
   config: ClimateConfig = {}
 ): void {
-  console.log("Building enhanced rainfall patterns...");
   if (!ctx) {
     throw new Error(
       "ClimateEngine: applyClimateBaseline requires MapContext (legacy direct-engine fallback removed)."
     );
+  }
+  if (ctx.trace.isVerbose) {
+    ctx.trace.event(() => ({
+      type: "climate.baseline.start",
+      message: "Building enhanced rainfall patterns...",
+    }));
   }
 
   const runtime = createClimateRuntime(width, height, ctx);

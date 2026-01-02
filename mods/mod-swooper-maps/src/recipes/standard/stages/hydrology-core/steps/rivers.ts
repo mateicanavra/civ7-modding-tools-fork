@@ -52,6 +52,7 @@ export default createStep({
     const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
     const { width, height } = context.dimensions;
     const logStats = (label: string) => {
+      if (!context.trace.isVerbose) return;
       let flat = 0,
         hill = 0,
         mtn = 0,
@@ -70,12 +71,20 @@ export default createStep({
       }
       const total = width * height;
       const land = Math.max(1, flat + hill + mtn);
-      console.log(
-        `[Rivers] ${label}: Land=${land} (${((land / total) * 100).toFixed(1)}%) ` +
-          `Mtn=${((mtn / land) * 100).toFixed(1)}% ` +
-          `Hill=${((hill / land) * 100).toFixed(1)}% ` +
-          `Flat=${((flat / land) * 100).toFixed(1)}%`
-      );
+      context.trace.event(() => ({
+        type: "rivers.terrainStats",
+        label,
+        totals: {
+          land,
+          water,
+          landShare: Number(((land / total) * 100).toFixed(1)),
+        },
+        shares: {
+          mountains: Number(((mtn / land) * 100).toFixed(1)),
+          hills: Number(((hill / land) * 100).toFixed(1)),
+          flat: Number(((flat / land) * 100).toFixed(1)),
+        },
+      }));
     };
 
     logStats("PRE-RIVERS");
@@ -88,7 +97,12 @@ export default createStep({
     context.adapter.defineNamedRivers();
 
     if (runtime.storyEnabled && config.climate?.story?.paleo != null) {
-      console.log(`${runtime.logPrefix} Applying paleo hydrology (post-rivers)...`);
+      if (context.trace.isVerbose) {
+        context.trace.event(() => ({
+          type: "rivers.paleo.start",
+          message: `${runtime.logPrefix} Applying paleo hydrology (post-rivers)...`,
+        }));
+      }
       storyTagClimatePaleo(context, config.climate);
       publishClimateFieldArtifact(context);
     }

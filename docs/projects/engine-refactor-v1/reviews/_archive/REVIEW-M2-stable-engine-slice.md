@@ -67,12 +67,12 @@ Satisfied for M2: schema + loader + defaults are in place and type-safe. Public/
 
 **What’s Strong**  
 - Broad coverage of landmass, foundation, climate, story, corridors, ocean separation, etc., with sensible defaults and ranges.  
-- Loader (`parseConfig`/`safeParseConfig`) clones→defaults→converts→cleans and surfaces structured errors; `getDefaultConfig`/`getJsonSchema` exported.  
+- Loader (`parseConfig`/`safe-parse helper`) clones→defaults→converts→cleans and surfaces structured errors; `default-config helper`/`json-schema helper` exported.  
 - Public exports wired in `config/index.ts`; type checks green across the repo.  
 - Tests cover defaults, type/range failures, and safe parse paths.
 
 **High-Leverage Issues**  
-- Public vs. internal knobs were previously only noted via `[tag]` markers. In this slice we introduced a schema-level metadata flag (`xInternal`) and a **public-schema guard** (`getPublicJsonSchema` + `filterInternalFields`) that can hide those internals in the future, without changing the current config surface.  
+- Public vs. internal knobs were previously only noted via `[tag]` markers. In this slice we introduced a schema-level metadata flag (`xInternal`) and a **public-schema guard** (`public-schema helper` + `filterInternalFields`) that can hide those internals in the future, without changing the current config surface.  
 - Optional-wrapper metadata was stripped to satisfy TypeBox v1 signatures; reattaching descriptions/defaults at the property schema level remains a nice-to-have but is not required to close M2.  
 - `UnknownRecord` escape hatches keep validation loose (notably climate knobs); we’ve already narrowed several of these (baseline/refine sub-schemas) and explicitly scoped the remaining pockets for later tightening.
 
@@ -80,13 +80,13 @@ Satisfied for M2: schema + loader + defaults are in place and type-safe. Public/
 Delivers the schema/loader backbone needed for M2’s config hygiene goals. It also lays **non-breaking groundwork** (internal tagging + public-schema guard) for a future public/internal schema split without committing to structural changes or new call sites in this milestone.
 
 **Recommended Next Moves (Future Work, Not M2)**  
-1. Decide, in a later config/CLI/docs pass, which consumers should call `getPublicJsonSchema()` instead of `getJsonSchema()` and curate the truly public surface there.  
+1. Decide, in a later config/CLI/docs pass, which consumers should call `public-schema helper()` instead of `json-schema helper()` and curate the truly public surface there.  
 2. Continue narrowing the remaining `UnknownRecord` sections using historical JS docs and real usage as guides.  
 3. Reattach property-level descriptions/defaults that were dropped during the TypeBox v1 migration where they materially improve generated docs or tooling.
 
 **Follow-ups / Checklist**  
 - [x] TypeBox v1 compatibility and typechecks fixed (dependency bumped; loader/schema updated).  
-- [x] Public/internal boundary tagged via `xInternal` and guarded by `getPublicJsonSchema` (prep only; no current callers).  
+- [x] Public/internal boundary tagged via `xInternal` and guarded by `public-schema helper` (prep only; no current callers).  
 - [x] Narrowed several `UnknownRecord` escape hatches to typed schemas (climate baseline/refine).  
 - [ ] Reattach property-level descriptions/defaults removed from `Type.Optional` wrappers (nice-to-have).  
 - [ ] Decide how/where to actually consume the public schema in tooling/docs (explicitly deferred to a future milestone).
@@ -104,15 +104,15 @@ Yes for M2: the loader is fully implemented and tested on top of `MapGenConfigSc
 - Defer actual integration into the orchestrator/tunables/global-removal to sibling tasks in the M2 config-hygiene epic.
 
 **What’s Strong**  
-- `packages/mapgen-core/src/config/loader.ts` implements `parseConfig`, `safeParseConfig`, `getDefaultConfig`, and `getJsonSchema` using the Clone→Default→Convert→Clean pipeline on `MapGenConfigSchema`.  
-- Validation uses the compiled TypeBox schema and aggregates errors into an `Invalid MapGenConfig: …` message while also exposing a structured `errors` array via `safeParseConfig`.  
+- `packages/mapgen-core/src/config/loader.ts` implements `parseConfig`, `safe-parse helper`, `default-config helper`, and `json-schema helper` using the Clone→Default→Convert→Clean pipeline on `MapGenConfigSchema`.  
+- Validation uses the compiled TypeBox schema and aggregates errors into an `Invalid MapGenConfig: …` message while also exposing a structured `errors` array via `safe-parse helper`.  
 - `config/index.ts` re-exports both schema/types and loader helpers, matching the intended `@swooper/mapgen-core/config` surface.  
 - `packages/mapgen-core/test/config/loader.test.ts` covers defaults, type/range failures, safe-parse behavior, and the internal vs public JSON Schema guard.
 
 **High-Leverage Issues**
 - The loader is not yet the canonical runtime entrypoint: production code still reads config via the legacy global store (`bootstrap/runtime.ts`) and does not call `parseConfig` on input. This is squarely in CIV‑29/30/31 scope but worth calling out so we don't assume hygiene is "done" just because the loader exists.
 - ~~Tests currently import the loader via its internal path (`../../src/config/loader.js`) instead of the public `config` entrypoint, which slightly weakens guarantees that the exported surface matches what's tested (low risk given the thin index, but an easy future improvement).~~ **Resolved**: tests now import via `config/index.js`.
-- ~~Documentation for CIV‑28 refers to `TypeCompiler` while the implementation uses TypeBox's `Compile` API; functionally correct but mildly confusing when cross-referencing tickets.~~ **Resolved**: docs updated to reference `Compile` API and `getPublicJsonSchema`.
+- ~~Documentation for CIV‑28 refers to `TypeCompiler` while the implementation uses TypeBox's `Compile` API; functionally correct but mildly confusing when cross-referencing tickets.~~ **Resolved**: docs updated to reference `Compile` API and `public-schema helper`.
 
 **Fit Within the Milestone**  
 Together with CIV‑27, this task delivers the backbone of M2’s config hygiene story: a schema-backed, defaulting, and validating loader with clear errors and JSON Schema export. It intentionally stops short of removing globals or rewiring the orchestrator/tunables, which are addressed in later tasks. For M2’s “stable slice” goal, this is an appropriate and complete step.
@@ -120,14 +120,14 @@ Together with CIV‑27, this task delivers the backbone of M2’s config hygiene
 **Recommended Next Moves (Future Work, Not M2)**
 1. As part of CIV‑29/30/31, route all engine configuration through `parseConfig` and eliminate direct dependence on `globalThis.__EPIC_MAP_CONFIG__` in runtime paths.
 2. ~~Update `loader.test.ts` (or add an integration-style test) to import from `@swooper/mapgen-core/config` to validate the exported surface end to end.~~ **Done.**
-3. ~~Refresh CIV‑27/CIV‑28 docs to reference the current TypeBox compile API and call out the existence of `getPublicJsonSchema` for public tooling.~~ **Done.**
+3. ~~Refresh CIV‑27/CIV‑28 docs to reference the current TypeBox compile API and call out the existence of `public-schema helper` for public tooling.~~ **Done.**
 
 **Follow-ups / Checklist**
-- [x] `packages/mapgen-core/src/config/loader.ts` implements `parseConfig`, `safeParseConfig`, `getDefaultConfig`, and `getJsonSchema` on top of `MapGenConfigSchema`.
+- [x] `packages/mapgen-core/src/config/loader.ts` implements `parseConfig`, `safe-parse helper`, `default-config helper`, and `json-schema helper` on top of `MapGenConfigSchema`.
 - [x] Helpers are re-exported via `packages/mapgen-core/src/config/index.ts` and usable from `@swooper/mapgen-core/config`.
 - [x] Unit tests cover defaults, type/range errors, safe-parse behavior, and the public vs internal JSON Schema guard.
 - [x] Tests import from `config/index.js` entrypoint (validates exported surface).
-- [x] CIV‑28 documentation aligned with actual TypeBox `Compile` API and `getPublicJsonSchema` helper.
+- [x] CIV‑28 documentation aligned with actual TypeBox `Compile` API and `public-schema helper` helper.
 - [ ] Wire `parseConfig` into orchestrator/tunables and remove reliance on the global config store (CIV‑29/30/31 scope).
 
 ---
@@ -206,7 +206,7 @@ Mostly, with notable gaps: `MapOrchestrator` now takes a validated `MapGenConfig
 - ~~**Tests still instantiate `MapOrchestrator` with options-shaped arguments, not `(config, options)`.**~~
   ~~`packages/mapgen-core/test/orchestrator/requestMapData.test.ts` still does `new MapOrchestrator({ mapSizeDefaults: { … } })`, which under the new signature is treated as a `MapGenConfig` rather than `OrchestratorConfig`. That means the `mapSizeDefaults` path is never exercised in these tests, and they instead fall back to engine globals and standard defaults. This doesn't block runtime behavior but weakens our guardrails around the new constructor contract; updating these tests to pass a simple dummy `MapGenConfig` plus `{ mapSizeDefaults }` as `options` is a worthwhile follow-up, and can reasonably ride with CIV‑31 or a small CIV‑26 hygiene task.~~
 
-  **Update (2025‑12):** Resolved. Tests in `requestMapData.test.ts` now use `new MapOrchestrator(getDefaultConfig(), { mapSizeDefaults: ... })`. The integration test in `generateMap.integration.test.ts` uses the correct `(config, options)` signature and properly separates EngineAdapter (for layer operations) from the globals-based OrchestratorAdapter (for map-init operations).  
+  **Update (2025‑12):** Resolved. Tests in `requestMapData.test.ts` now use `new MapOrchestrator(default-config helper(), { mapSizeDefaults: ... })`. The integration test in `generateMap.integration.test.ts` uses the correct `(config, options)` signature and properly separates EngineAdapter (for layer operations) from the globals-based OrchestratorAdapter (for map-init operations).  
 - **Top-of-file usage docs still show the pre-injection constructor.**  
   The header comment in `MapOrchestrator.ts` still advertises `const orchestrator = new MapOrchestrator();` without config, which no longer matches the implementation. This is low-risk but confusing for future entry point authors. It’s an easy cleanup to update the examples to the new pattern (`const config = bootstrap(opts); const orchestrator = new MapOrchestrator(config, options)`), ideally when CIV‑31 touches this file next.
 
@@ -245,7 +245,7 @@ CIV‑30 delivers the key boundary shift for M2: the orchestrator is now constru
   **Update (2025‑12):** Fixed. `resetTunables()` now clears only `_cache` while preserving `_boundConfig`. A separate `resetTunablesForTest()` function is provided for test isolation that clears both.
 
 - ~~**The "module-state compatibility" contract is now ambiguous and tests are misaligned.**~~
-  ~~The CIV‑31 issue text still describes `getTunables()` as working off module state for backward compat, but the implementation only ever consults `_boundConfig`, and test suites (`test/bootstrap/tunables.test.ts`, `test/bootstrap/entry.test.ts`) still rely on `setConfig()` + `rebind()` without `bindTunables()` or `bootstrap()`. We need an explicit decision for M2: either reintroduce a legacy fallback (e.g., when `_boundConfig` is missing, derive a config from `getConfig()` / `getDefaultConfig()`), or formally tighten the contract to "must call `bootstrap()` / `bindTunables()` first" and update tests and docs to match.~~
+  ~~The CIV‑31 issue text still describes `getTunables()` as working off module state for backward compat, but the implementation only ever consults `_boundConfig`, and test suites (`test/bootstrap/tunables.test.ts`, `test/bootstrap/entry.test.ts`) still rely on `setConfig()` + `rebind()` without `bindTunables()` or `bootstrap()`. We need an explicit decision for M2: either reintroduce a legacy fallback (e.g., when `_boundConfig` is missing, derive a config from `getConfig()` / `default-config helper()`), or formally tighten the contract to "must call `bootstrap()` / `bindTunables()` first" and update tests and docs to match.~~
 
   **Update (2025‑12):** Resolved. The contract is now explicit: `getTunables()` throws if no config has been bound via `bindTunables()` or `bootstrap()`. There is no legacy fallback to module state. Tests have been updated to use `bootstrap()` or `bindTunables()` and assert the fail-fast behavior.
 

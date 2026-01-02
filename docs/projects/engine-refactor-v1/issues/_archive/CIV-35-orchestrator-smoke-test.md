@@ -23,7 +23,7 @@ Add at least one end-to-end `MapOrchestrator.generateMap` smoke test over the cu
 ## Deliverables
 
 - A new Vitest test file under `packages/mapgen-core/test/` (or an appropriate subfolder) that:
-  - Uses `getDefaultConfig()` or an equivalent helper to construct a minimal `MapGenConfig`.
+  - Uses `default-config helper()` or an equivalent helper to construct a minimal `MapGenConfig`.
   - Wires a stub `EngineAdapter` sufficient to exercise the orchestrator without touching the real Civ7 runtime.
   - Calls `MapOrchestrator.generateMap()` with the validated config and stub adapter.
   - Asserts that:

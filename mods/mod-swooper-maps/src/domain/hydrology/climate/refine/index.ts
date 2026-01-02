@@ -50,7 +50,12 @@ export function refineClimateEarthlike(
   // Local bounds check with captured width/height
   const inBounds = (x: number, y: number): boolean => boundsCheck(x, y, width, height);
 
-  console.log("[Climate Refinement] Using MapContext adapter");
+  if (ctx.trace.isVerbose) {
+    ctx.trace.event(() => ({
+      type: "climate.refine.start",
+      message: "[Climate Refinement] Using MapContext adapter",
+    }));
+  }
 
   // Pass A: coastal and lake humidity gradient
   applyWaterGradientRefinement(width, height, runtime, refineCfg as Record<string, unknown>);

@@ -27,7 +27,6 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       baseSettings
     );
     const registry = new StepRegistry<typeof ctx>();
@@ -54,7 +53,6 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       baseSettings
     );
     const registry = new StepRegistry<typeof ctx>();
@@ -79,7 +77,6 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       baseSettings
     );
 
@@ -108,7 +105,6 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       baseSettings
     );
 

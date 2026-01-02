@@ -32,6 +32,7 @@ export default createStep({
       mapInfo: derivedInputs.mapInfo as { NumNaturalWonders?: number },
       starts,
       placementConfig,
+      trace: context.trace,
     });
 
     runtime.startPositions.push(...startPositions);

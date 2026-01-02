@@ -59,7 +59,7 @@ This section captures the *current* sources of “normalization” and config sh
 
 #### D) Mod config loader parsing unknown inputs into a config object
 
-- **Where:** `mods/mod-swooper-maps/src/config/loader.ts` (`parseConfig`, `safeParseConfig`, `getDefaultConfig`, `getJsonSchema`, `getPublicJsonSchema`)
+- **Where:** `mods/mod-swooper-maps/src/config/loader.ts` (`parseConfig`, `safe-parse helper`, `default-config helper`, `json-schema helper`, `public-schema helper`)
 - **What it does:** takes `unknown` input, applies schema defaults/conversion/cleaning, and returns a typed config object (or structured errors).
 - **Why it exists:** supports untyped config ingestion (JSON-like inputs) and schema export for tooling; it is not required for strictly-typed TS map authoring.
 - **Classification:** boundary tool / optional; can be treated as legacy if the target authoring model is “TS recipe config only”, but may remain useful for external tooling and non-TS inputs.

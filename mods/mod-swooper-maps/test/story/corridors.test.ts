@@ -25,7 +25,6 @@ describe("story/corridors", () => {
     const ctx = createExtendedMapContext(
       { width, height },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       settings
     );
 

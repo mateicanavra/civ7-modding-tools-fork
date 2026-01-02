@@ -80,10 +80,16 @@ export function runPlacement(
   iHeight: number,
   options: PlacementOptions = {}
 ): number[] {
-  console.log("[SWOOPER_MOD] === runPlacement() CALLED ===");
-  console.log(`[SWOOPER_MOD] Map size: ${iWidth}x${iHeight}`);
+  const trace = options.trace ?? null;
+  const emit = (payload: Record<string, unknown>): void => {
+    if (!trace?.isVerbose) return;
+    trace.event(() => payload);
+  };
 
-  logTerrainStats(adapter, iWidth, iHeight, "Initial");
+  emit({ type: "placement.start", message: "[SWOOPER_MOD] === runPlacement() CALLED ===" });
+  emit({ type: "placement.start", message: `[SWOOPER_MOD] Map size: ${iWidth}x${iHeight}` });
+
+  logTerrainStats(trace, adapter, iWidth, iHeight, "Initial");
 
   const { mapInfo, wondersPlusOne, floodplains, starts } = options;
   const placementCfg = options.placementConfig ?? {};
@@ -109,7 +115,7 @@ export function runPlacement(
           : true;
     applyNaturalWonders(adapter, iWidth, iHeight, mapInfo, useWondersPlusOne);
   } catch (err) {
-    console.log("[Placement] addNaturalWonders failed:", err);
+    emit({ type: "placement.wonders.error", error: err instanceof Error ? err.message : String(err) });
   }
 
   // 2) Floodplains
@@ -117,24 +123,30 @@ export function runPlacement(
     const floodplainsCfg = floodplains || placementCfg.floodplains || {};
     applyFloodplains(adapter, floodplainsCfg as FloodplainsConfig);
   } catch (err) {
-    console.log("[Placement] addFloodplains failed:", err);
+    emit({ type: "placement.floodplains.error", error: err instanceof Error ? err.message : String(err) });
   }
 
   // 3) Validate and fix terrain (matches vanilla order before recalculateAreas)
   try {
     validateAndFixTerrain(adapter);
-    console.log("[Placement] Terrain validated successfully");
-    logTerrainStats(adapter, iWidth, iHeight, "After validateAndFixTerrain");
+    emit({ type: "placement.terrain.validated" });
+    logTerrainStats(trace, adapter, iWidth, iHeight, "After validateAndFixTerrain");
   } catch (err) {
-    console.log("[Placement] validateAndFixTerrain failed:", err);
+    emit({
+      type: "placement.terrain.error",
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
   // 4) Area recalculation (after terrain validation)
   try {
     recalculateAreas(adapter);
-    console.log("[Placement] Areas recalculated successfully");
+    emit({ type: "placement.areas.recalculated" });
   } catch (err) {
-    console.log("[Placement] AreaBuilder.recalculateAreas failed:", err);
+    emit({
+      type: "placement.areas.error",
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
   // 5) Store water data (CRITICAL for start position scoring)
@@ -142,16 +154,22 @@ export function runPlacement(
   // Without this, the StartPositioner may not have valid water data for scoring.
   try {
     storeWaterData(adapter);
-    console.log("[Placement] Water data stored successfully");
+    emit({ type: "placement.water.stored" });
   } catch (err) {
-    console.log("[Placement] storeWaterData failed:", err);
+    emit({
+      type: "placement.water.error",
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
   // 6) Resources (after water data, before start positions)
   try {
     generateResources(adapter, iWidth, iHeight);
   } catch (err) {
-    console.log("[Placement] generateResources failed:", err);
+    emit({
+      type: "placement.resources.error",
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
   // NOTE: Region IDs are already set early in landmassPlates stage.
@@ -161,50 +179,67 @@ export function runPlacement(
   // 8) Start positions (vanilla-compatible)
   try {
     if (!starts) {
-      console.log("[Placement] Start placement skipped (no starts config provided).");
+      emit({ type: "placement.starts.skipped", reason: "no starts config provided" });
     } else {
-      const pos = applyStartPositions(adapter, starts);
+      const pos = applyStartPositions(adapter, starts, trace);
       startPositions.push(...pos);
 
       const totalPlayers = starts.playersLandmass1 + starts.playersLandmass2;
       const successCount = pos.filter((p) => p !== undefined && p >= 0).length;
 
       if (successCount === totalPlayers) {
-        console.log("[Placement] Start positions assigned successfully");
+        emit({ type: "placement.starts.assigned", successCount, totalPlayers });
       } else {
-        console.log(`[Placement] Start positions assignment incomplete: ${totalPlayers - successCount} failures`);
+        emit({
+          type: "placement.starts.partial",
+          successCount,
+          totalPlayers,
+          failures: Math.max(0, totalPlayers - successCount),
+        });
       }
     }
   } catch (err) {
-    console.log("[Placement] assignStartPositions failed:", err);
+    emit({
+      type: "placement.starts.error",
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
   // 9) Discoveries (post-starts to seed exploration)
   try {
     applyDiscoveries(adapter, iWidth, iHeight, startPositions);
-    console.log("[Placement] Discoveries generated successfully");
+    emit({ type: "placement.discoveries.applied" });
   } catch (err) {
-    console.log("[Placement] generateDiscoveries failed:", err);
+    emit({
+      type: "placement.discoveries.error",
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
   // 10) Fertility recalculation (AFTER starts, matching vanilla order)
   // Must be after features are added per vanilla comment
   try {
     applyFertilityRecalc(adapter);
-    console.log("[Placement] Fertility recalculated successfully");
+    emit({ type: "placement.fertility.recalculated" });
   } catch (err) {
-    console.log("[Placement] FertilityBuilder.recalculate failed:", err);
+    emit({
+      type: "placement.fertility.error",
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
   // 11) Advanced Start regions
   try {
     applyAdvancedStartRegions(adapter);
   } catch (err) {
-    console.log("[Placement] assignAdvancedStartRegions failed:", err);
+    emit({
+      type: "placement.advancedStart.error",
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
-  logTerrainStats(adapter, iWidth, iHeight, "Final");
-  logAsciiMap(adapter, iWidth, iHeight);
+  logTerrainStats(trace, adapter, iWidth, iHeight, "Final");
+  logAsciiMap(trace, adapter, iWidth, iHeight);
 
   return startPositions;
 }

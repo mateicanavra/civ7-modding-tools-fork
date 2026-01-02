@@ -59,12 +59,17 @@ export default createStep({
     );
     context.adapter.recalculateAreas();
     context.adapter.stampContinents();
-    console.log(
-      `[landmass-plate] Region IDs refreshed post-terrain: ${westRestamped} west (ID=${landmassIds.WEST}), ${eastRestamped} east (ID=${landmassIds.EAST})`
-    );
+    if (context.trace.isVerbose) {
+      context.trace.event(() => ({
+        type: "landmass.regionIds.refresh",
+        westRestamped,
+        eastRestamped,
+        ids: { west: landmassIds.WEST, east: landmassIds.EAST },
+      }));
+    }
 
     syncHeightfield(context);
-    logElevationSummary(context.adapter, width, height, "post-buildElevation");
+    logElevationSummary(context.trace, context.adapter, width, height, "post-buildElevation");
     publishHeightfieldArtifact(context);
     applyClimateBaseline(width, height, context, config.climate);
     publishClimateFieldArtifact(context);

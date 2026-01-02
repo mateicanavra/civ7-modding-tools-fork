@@ -1,7 +1,8 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
+import type * as ecology from "@mapgen/domain/ecology";
 
-import type { FeaturePlacement } from "@mapgen/domain/ecology/ops/features-placement/index.js";
+type FeaturePlacement = ReturnType<typeof ecology.ops.featuresPlacement.run>["placements"][number];
 
 export function tryPlaceFeature(
   adapter: EngineAdapter,

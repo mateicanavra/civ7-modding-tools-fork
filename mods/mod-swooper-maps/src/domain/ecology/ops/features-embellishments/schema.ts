@@ -1,6 +1,6 @@
 import { Type, type Static } from "typebox";
 
-import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "@mapgen/config";
+import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "../../config.js";
 
 /**
  * Config for post-placement feature embellishments.

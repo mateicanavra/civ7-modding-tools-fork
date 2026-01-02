@@ -8,7 +8,7 @@
  */
 
 import type { EngineAdapter } from "@civ7/adapter";
-import { isDevEnabled, type DevFlagKey } from "@mapgen/dev/flags.js";
+import type { TraceScope } from "@mapgen/trace/index.js";
 import { devLog, devLogLines } from "@mapgen/dev/logging.js";
 
 // Terrain type constants - imported from shared module (matched to Civ7 terrain.xml)
@@ -121,24 +121,25 @@ export function renderAsciiGrid(config: AsciiGridConfig): string[] {
  * No-op if the specified flag is disabled.
  */
 export function logAsciiGrid(
-  flag: DevFlagKey,
+  trace: TraceScope | null | undefined,
   label: string,
   config: AsciiGridConfig,
   legend?: string
 ): void {
-  if (!isDevEnabled(flag)) return;
+  if (!trace?.isVerbose) return;
 
   const step = computeSampleStep(config.width, config.height, config.sampleStep);
-  devLog(`${label} (step=${step})${legend ? `: ${legend}` : ""}`);
+  devLog(trace, `${label} (step=${step})${legend ? `: ${legend}` : ""}`);
 
   const rows = renderAsciiGrid(config);
-  devLogLines(rows);
+  devLogLines(trace, rows);
 }
 
 /**
  * Render foundation/plate boundary ASCII visualization.
  */
 export function logFoundationAscii(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
@@ -148,11 +149,11 @@ export function logFoundationAscii(
   },
   options: { sampleStep?: number; threshold?: number } = {}
 ): void {
-  if (!isDevEnabled("LOG_FOUNDATION_ASCII")) return;
+  if (!trace?.isVerbose) return;
 
   const { boundaryCloseness, boundaryType } = foundation;
   if (!boundaryCloseness || !boundaryType) {
-    devLog("[foundation] ascii: Missing boundary data");
+    devLog(trace, "[foundation] ascii: Missing boundary data");
     return;
   }
 
@@ -160,7 +161,7 @@ export function logFoundationAscii(
   const chars = ASCII_CHARS;
 
   logAsciiGrid(
-    "LOG_FOUNDATION_ASCII",
+    trace,
     "[foundation] plates",
     {
       width,
@@ -197,17 +198,18 @@ export function logFoundationAscii(
  * Render landmass (land vs water) ASCII visualization.
  */
 export function logLandmassAscii(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   options: { sampleStep?: number } = {}
 ): void {
-  if (!isDevEnabled("LOG_LANDMASS_ASCII")) return;
+  if (!trace?.isVerbose) return;
 
   const chars = ASCII_CHARS;
 
   logAsciiGrid(
-    "LOG_LANDMASS_ASCII",
+    trace,
     "[landmass] continents",
     {
       width,
@@ -227,17 +229,18 @@ export function logLandmassAscii(
  * Render terrain relief (mountains/hills/volcanoes) ASCII visualization.
  */
 export function logReliefAscii(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   options: { sampleStep?: number } = {}
 ): void {
-  if (!isDevEnabled("LOG_RELIEF_ASCII")) return;
+  if (!trace?.isVerbose) return;
 
   const chars = ASCII_CHARS;
 
   logAsciiGrid(
-    "LOG_RELIEF_ASCII",
+    trace,
     "[relief] terrain",
     {
       width,
@@ -271,18 +274,19 @@ export function logReliefAscii(
  * Render rainfall ASCII heatmap visualization.
  */
 export function logRainfallAscii(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   options: { sampleStep?: number } = {}
 ): void {
-  if (!isDevEnabled("LOG_RAINFALL_ASCII")) return;
+  if (!trace?.isVerbose) return;
 
   // Rainfall buckets: 0-3 for arid to lush
   const bucketChars = ["0", "1", "2", "3", "4"];
 
   logAsciiGrid(
-    "LOG_RAINFALL_ASCII",
+    trace,
     "[rainfall] heatmap",
     {
       width,
@@ -308,19 +312,20 @@ export function logRainfallAscii(
  * Render biome ASCII visualization.
  */
 export function logBiomeAscii(
+  trace: TraceScope | null | undefined,
   adapter: EngineAdapter,
   width: number,
   height: number,
   biomeCharMap?: Map<number, string>,
   options: { sampleStep?: number } = {}
 ): void {
-  if (!isDevEnabled("LOG_BIOME_ASCII")) return;
+  if (!trace?.isVerbose) return;
 
   // Default char for unknown biomes
   const defaultChar = "?";
 
   logAsciiGrid(
-    "LOG_BIOME_ASCII",
+    trace,
     "[biome] classification",
     {
       width,

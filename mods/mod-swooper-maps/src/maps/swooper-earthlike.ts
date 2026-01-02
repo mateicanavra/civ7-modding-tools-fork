@@ -136,11 +136,6 @@ function buildConfig(): StandardRecipeOverrides {
             },
           },
         },
-        diagnostics: {
-          enabled: true,
-          logElevationSummary: true,
-          logSnowSummary: true,
-        },
       },
       oceanSeparation: {
         // Leave separation off; keep defaults earthlike if enabled later.
@@ -506,8 +501,3 @@ engine.on("GenerateMap", () => {
   const init = mapInitData ?? resolveMapInitData(runtimeOptions);
   runStandardRecipe({ recipe: standardRecipe, init, overrides, options: runtimeOptions });
 });
-
-console.log("[SWOOPER_MOD] ========================================");
-console.log("[SWOOPER_MOD] Swooper Earthlike (TypeScript Build) Loaded");
-console.log("[SWOOPER_MOD] Using RunRequest → ExecutionPlan pipeline");
-console.log("[SWOOPER_MOD] ========================================");

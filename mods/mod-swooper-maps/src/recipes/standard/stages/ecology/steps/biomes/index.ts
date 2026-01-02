@@ -1,20 +1,14 @@
 import { Type, type Static } from "typebox";
 import { Value } from "typebox/value";
 
-import { DEV, logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
+import { logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { BiomeBindingsSchema, BiomeConfigSchema } from "@mapgen/config";
 import {
   getPublishedClimateField,
   publishBiomeClassificationArtifact,
 } from "../../../../artifacts.js";
 import { getNarrativeCorridors, getNarrativeMotifsRifts } from "@mapgen/domain/narrative/queries.js";
-import {
-  biomeSymbolFromIndex,
-  classifyBiomes,
-  type BiomeClassificationConfig,
-} from "@mapgen/domain/ecology/ops/classify-biomes.js";
-import { resolveEngineBiomeIds } from "@mapgen/domain/ecology/biome-bindings.js";
+import * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import {
   assertHeightfield,
@@ -26,13 +20,22 @@ import { clampToByte } from "./helpers/apply.js";
 
 const BiomesStepConfigSchema = Type.Object(
   {
-    classify: BiomeConfigSchema,
-    bindings: BiomeBindingsSchema,
+    classify: ecology.ops.classifyBiomes.config,
+    bindings: ecology.BiomeEngineBindingsSchema,
   },
-  { additionalProperties: false, default: { classify: {}, bindings: {} } }
+  {
+    additionalProperties: false,
+    default: {
+      classify: ecology.ops.classifyBiomes.defaultConfig,
+      bindings: {},
+    },
+  }
 );
 
-type BiomesStepConfig = Static<typeof BiomesStepConfigSchema>;
+type BiomesStepConfig = {
+  classify: Parameters<typeof ecology.ops.classifyBiomes.run>[1];
+  bindings: Static<typeof ecology.BiomeEngineBindingsSchema>;
+};
 
 export default createStep({
   id: "biomes",
@@ -79,11 +82,11 @@ export default createStep({
     const riftShoulderMask = maskFromCoordSet(rifts?.riftShoulder, width, height);
 
     const opConfig = Value.Default(
-      BiomeConfigSchema,
-      (config.classify ?? {}) as Partial<BiomeClassificationConfig>
-    ) as BiomeClassificationConfig;
+      ecology.ops.classifyBiomes.config,
+      config.classify ?? ecology.ops.classifyBiomes.defaultConfig
+    ) as Parameters<typeof ecology.ops.classifyBiomes.run>[1];
 
-    const result = classifyBiomes.run(
+    const result = ecology.ops.classifyBiomes.run(
       {
         width,
         height,
@@ -98,7 +101,7 @@ export default createStep({
       opConfig
     );
 
-    const { land: engineBindings, marine: marineBiome } = resolveEngineBiomeIds(
+    const { land: engineBindings, marine: marineBiome } = ecology.resolveEngineBiomeIds(
       context.adapter,
       config.bindings
     );
@@ -120,7 +123,7 @@ export default createStep({
         }
         const biomeIdx = result.biomeIndex[idx]!;
         if (biomeIdx === 255) continue;
-        const symbol = biomeSymbolFromIndex(biomeIdx);
+        const symbol = ecology.biomeSymbolFromIndex(biomeIdx);
         const engineId = engineBindings[symbol];
         context.adapter.setBiomeType(x, y, engineId);
         biomeField[idx] = engineId;
@@ -128,8 +131,6 @@ export default createStep({
       }
     }
 
-    if (DEV.ENABLED) {
-      logBiomeSummary(context.adapter, width, height);
-    }
+    logBiomeSummary(context.trace, context.adapter, width, height);
   },
 } as const);

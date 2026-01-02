@@ -27,7 +27,6 @@ import {
   FoundationDynamicsConfigSchema,
   FoundationSurfaceConfigSchema,
   FoundationPolicyConfigSchema,
-  FoundationDiagnosticsConfigSchema,
   FoundationOceanSeparationConfigSchema,
 } from "@mapgen/config/schema/foundation.js";
 import {
@@ -102,8 +101,6 @@ export const FoundationConfigSchema = Type.Object(
     surface: Type.Optional(FoundationSurfaceConfigSchema),
     /** @internal Policy flags for foundation stage (engine plumbing). */
     policy: Type.Optional(FoundationPolicyConfigSchema),
-    /** Diagnostics toggles for stable-slice debugging (M2-supported). */
-    diagnostics: Type.Optional(FoundationDiagnosticsConfigSchema),
   },
   { additionalProperties: false, default: {} }
 );
@@ -115,7 +112,7 @@ export const MapGenConfigSchema = Type.Object(
   {
     /** Landmass geometry: water percent, tectonic bias, and post-processing. */
     landmass: Type.Optional(LandmassConfigSchema),
-    /** Foundation stage config: plates, dynamics, and internal policy/diagnostics. */
+    /** Foundation stage config: plates, dynamics, and internal policy. */
     foundation: FoundationConfigSchema,
     /** Climate baseline and refinement settings for humidity. */
     climate: Type.Optional(ClimateConfigSchema),
@@ -169,7 +166,6 @@ export type FoundationDirectionalityConfig = Static<typeof FoundationDirectional
 export type FoundationDynamicsConfig = Static<typeof FoundationDynamicsConfigSchema>;
 export type FoundationSurfaceConfig = Static<typeof FoundationSurfaceConfigSchema>;
 export type FoundationPolicyConfig = Static<typeof FoundationPolicyConfigSchema>;
-export type FoundationDiagnosticsConfig = Static<typeof FoundationDiagnosticsConfigSchema>;
 export type FoundationOceanSeparationConfig = Static<typeof FoundationOceanSeparationConfigSchema>;
 export type FoundationConfig = Static<typeof FoundationConfigSchema>;
 export type OceanSeparationEdgePolicy = Static<typeof OceanSeparationEdgePolicySchema>;

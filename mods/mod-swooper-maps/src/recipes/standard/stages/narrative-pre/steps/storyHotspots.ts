@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { DEV, devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
+import { devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { HotspotTunablesSchema } from "@mapgen/config";
 import { storyTagHotspotTrails } from "@mapgen/domain/narrative/tagging/index.js";
@@ -31,10 +31,15 @@ export default createStep({
   schema: StoryHotspotsStepConfigSchema,
   run: (context: ExtendedMapContext, config: StoryHotspotsStepConfig) => {
     const runtime = getStandardRuntime(context);
-    console.log(`${runtime.logPrefix} Imprinting hotspot trails...`);
+    if (context.trace.isVerbose) {
+      context.trace.event(() => ({
+        type: "story.hotspots.start",
+        message: `${runtime.logPrefix} Imprinting hotspot trails...`,
+      }));
+    }
     const summary = storyTagHotspotTrails(context, config.story?.hotspot ?? {});
-    if (DEV.ENABLED && summary.points === 0) {
-      devWarn("[smoke] storyHotspots enabled but no hotspot points were emitted");
+    if (summary.points === 0) {
+      devWarn(context.trace, "[smoke] storyHotspots enabled but no hotspot points were emitted");
     }
   },
 } as const);

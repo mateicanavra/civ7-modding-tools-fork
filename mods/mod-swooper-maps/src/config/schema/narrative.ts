@@ -1,4 +1,7 @@
 import { Type } from "typebox";
+import { FeaturesConfigSchema } from "@mapgen/domain/ecology/config.js";
+
+export { FeaturesConfigSchema };
 
 /**
  * Hotspot tuning used by story overlays.
@@ -87,131 +90,7 @@ export const HotspotTunablesSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-/**
- * Localized feature bonuses around story elements.
- */
-export const FeaturesConfigSchema = Type.Object(
-  {
-    /** Extra coral reef probability near paradise islands (percent 0..100). */
-    paradiseReefChance: Type.Optional(
-      Type.Number({
-        description: "Extra coral reef probability near paradise islands (percent 0..100).",
-        default: 18,
-        minimum: 0,
-        maximum: 100,
-      })
-    ),
-    /**
-     * Radius (tiles) around paradise hotspots to seed bonus reefs.
-     * Larger values create larger reef halos around paradise islands.
-     */
-    paradiseReefRadius: Type.Optional(
-      Type.Number({
-        description: "Radius (tiles) around paradise hotspots to seed bonus reefs.",
-        default: 2,
-        minimum: 0,
-      })
-    ),
-    /** Extra temperate forest chance on volcanic slopes in warm climates (percent 0..100). */
-    volcanicForestChance: Type.Optional(
-      Type.Number({
-        description: "Extra temperate forest chance on volcanic slopes in warm climates (percent 0..100).",
-        default: 22,
-        minimum: 0,
-        maximum: 100,
-      })
-    ),
-    /**
-     * Additional bonus (percent) applied on top of volcanic forest chance.
-     * Use to make volcano-adjacent forests stand out without changing the base rate.
-     */
-    volcanicForestBonus: Type.Optional(
-      Type.Number({
-        description: "Additional bonus (percent) applied on top of volcanic forest chance.",
-        default: 6,
-        minimum: 0,
-        maximum: 100,
-      })
-    ),
-    /**
-     * Minimum rainfall required for volcanic forest growth (rainfall units).
-     * Raise to restrict volcanic forests to very wet regions.
-     */
-    volcanicForestMinRainfall: Type.Optional(
-      Type.Number({
-        description: "Minimum rainfall required for volcanic forest growth (rainfall units).",
-        default: 95,
-        minimum: 0,
-      })
-    ),
-    /** Extra coniferous forest chance on volcano-adjacent tiles in cold climates (percent 0..100). */
-    volcanicTaigaChance: Type.Optional(
-      Type.Number({
-        description: "Extra coniferous forest chance on volcano-adjacent tiles in cold climates (percent 0..100).",
-        default: 25,
-        minimum: 0,
-        maximum: 100,
-      })
-    ),
-    /**
-     * Additional bonus (percent) applied on top of volcanic taiga chance.
-     * Use to emphasize taiga halos around volcanic belts.
-     */
-    volcanicTaigaBonus: Type.Optional(
-      Type.Number({
-        description: "Additional bonus (percent) applied on top of volcanic taiga chance.",
-        default: 5,
-        minimum: 0,
-        maximum: 100,
-      })
-    ),
-    /**
-     * Radius (tiles) around volcanic hotspots to consider for vegetation bonuses.
-     * Larger values create broader volcanic vegetation halos.
-     */
-    volcanicRadius: Type.Optional(
-      Type.Number({
-        description: "Radius (tiles) around volcanic hotspots to consider for vegetation bonuses.",
-        default: 1,
-        minimum: 1,
-      })
-    ),
-    /**
-     * Minimum absolute latitude (degrees) for volcanic taiga placement.
-     * Lower values allow taiga near volcanic centers closer to the equator.
-     */
-    volcanicTaigaMinLatitude: Type.Optional(
-      Type.Number({
-        description: "Minimum absolute latitude (degrees) for volcanic taiga placement.",
-        default: 55,
-        minimum: 0,
-        maximum: 90,
-      })
-    ),
-    /**
-     * Maximum elevation (meters) for volcanic taiga placement.
-     * Lower values keep taiga bonuses in lowlands near volcanoes.
-     */
-    volcanicTaigaMaxElevation: Type.Optional(
-      Type.Number({
-        description: "Maximum elevation (meters) for volcanic taiga placement.",
-        default: 400,
-      })
-    ),
-    /**
-     * Minimum rainfall required for volcanic taiga growth (rainfall units).
-     * Raise this to require wetter climates for taiga around volcanoes.
-     */
-    volcanicTaigaMinRainfall: Type.Optional(
-      Type.Number({
-        description: "Minimum rainfall required for volcanic taiga growth (rainfall units).",
-        default: 60,
-        minimum: 0,
-      })
-    ),
-  },
-  { additionalProperties: false, default: {} }
-);
+
 
 /**
  * Story orogeny belt tunables affecting windward/lee rainfall refinement.
@@ -589,3 +468,4 @@ export const CorridorsConfigSchema = Type.Object(
  * Rainfall targets by latitude zone for the climate engine.
  * Values are rainfall units (0-200 typical range).
  */
+

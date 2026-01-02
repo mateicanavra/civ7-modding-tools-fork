@@ -1,101 +1,87 @@
 /**
  * Developer logging utilities.
  *
- * All functions are no-op when DEV.ENABLED is false.
+ * All functions are no-op unless trace verbosity is enabled.
  *
  * @module dev/logging
  */
 
-import { DEV, isDevEnabled, type DevFlagKey } from "@mapgen/dev/flags.js";
+import type { TraceScope } from "@mapgen/trace/index.js";
 
-/** Default log prefix */
-const LOG_PREFIX = "[DEV]";
+type TraceEventPayload = {
+  type: string;
+  [key: string]: unknown;
+};
 
-/**
- * Safe console.log wrapper. No-op if DEV.ENABLED is false.
- */
-export function devLog(...args: unknown[]): void {
-  if (!DEV.ENABLED) return;
-  try {
-    console.log(LOG_PREFIX, ...args);
-  } catch {
-    // Swallow errors in logging
-  }
+function emitTrace(
+  trace: TraceScope | null | undefined,
+  payload: TraceEventPayload
+): void {
+  if (!trace?.isVerbose) return;
+  trace.event(() => payload);
 }
 
 /**
- * Conditional console.log for a specific flag.
- * No-op if flag is disabled or master switch is off.
+ * Emit a trace event for ad-hoc logs.
  */
-export function devLogIf(flag: DevFlagKey, ...args: unknown[]): void {
-  if (!isDevEnabled(flag)) return;
-  try {
-    console.log(`${LOG_PREFIX}[${flag}]`, ...args);
-  } catch {
-    // Swallow errors in logging
-  }
+export function devLog(trace: TraceScope | null | undefined, ...args: unknown[]): void {
+  emitTrace(trace, { type: "dev.log", args });
 }
 
 /**
- * Log with a custom prefix. No-op if DEV.ENABLED is false.
+ * Emit a trace event tagged by a legacy flag label.
  */
-export function devLogPrefixed(prefix: string, ...args: unknown[]): void {
-  if (!DEV.ENABLED) return;
-  try {
-    console.log(`${LOG_PREFIX}[${prefix}]`, ...args);
-  } catch {
-    // Swallow errors in logging
-  }
+export function devLogIf(
+  trace: TraceScope | null | undefined,
+  flag: string,
+  ...args: unknown[]
+): void {
+  emitTrace(trace, { type: "dev.log", flag, args });
 }
 
 /**
- * Log a warning. No-op if DEV.ENABLED is false.
+ * Emit a trace event with a custom prefix label.
  */
-export function devWarn(...args: unknown[]): void {
-  if (!DEV.ENABLED) return;
-  try {
-    console.log(`${LOG_PREFIX}[WARN]`, ...args);
-  } catch {
-    // Swallow errors in logging
-  }
+export function devLogPrefixed(
+  trace: TraceScope | null | undefined,
+  prefix: string,
+  ...args: unknown[]
+): void {
+  emitTrace(trace, { type: "dev.log", prefix, args });
 }
 
 /**
- * Log an error. Always logs (errors are important even in production).
+ * Emit a warning trace event.
  */
-export function devError(...args: unknown[]): void {
-  try {
-    console.error(LOG_PREFIX, ...args);
-  } catch {
-    // Swallow errors in logging
-  }
+export function devWarn(trace: TraceScope | null | undefined, ...args: unknown[]): void {
+  emitTrace(trace, { type: "dev.warn", args });
 }
 
 /**
- * Log a JSON-serialized object with a label.
- * Useful for compact structured output.
+ * Emit an error trace event.
  */
-export function devLogJson(label: string, data: unknown): void {
-  if (!DEV.ENABLED) return;
-  try {
-    console.log(`${LOG_PREFIX}[${label}]`, JSON.stringify(data));
-  } catch {
-    // Swallow errors in logging
-  }
+export function devError(trace: TraceScope | null | undefined, ...args: unknown[]): void {
+  emitTrace(trace, { type: "dev.error", args });
 }
 
 /**
- * Log multiple lines (e.g., ASCII grids).
- * Each line is logged separately for readability.
+ * Emit a JSON-ish payload trace event.
  */
-export function devLogLines(lines: string[], prefix?: string): void {
-  if (!DEV.ENABLED) return;
-  const pfx = prefix ? `${LOG_PREFIX}[${prefix}]` : LOG_PREFIX;
-  try {
-    for (const line of lines) {
-      console.log(pfx, line);
-    }
-  } catch {
-    // Swallow errors in logging
-  }
+export function devLogJson(
+  trace: TraceScope | null | undefined,
+  label: string,
+  data: unknown
+): void {
+  emitTrace(trace, { type: "dev.json", label, data });
+}
+
+/**
+ * Emit a multi-line payload for ASCII grids or summaries.
+ */
+export function devLogLines(
+  trace: TraceScope | null | undefined,
+  lines: string[],
+  prefix?: string
+): void {
+  emitTrace(trace, { type: "dev.lines", prefix, lines });
 }

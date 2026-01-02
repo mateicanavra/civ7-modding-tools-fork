@@ -26,7 +26,6 @@ describe("biomes step", () => {
     const ctx = createExtendedMapContext(
       { width, height },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       settings
     );
 

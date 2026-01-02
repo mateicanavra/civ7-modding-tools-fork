@@ -26,7 +26,6 @@ function resolveMapInfo(
   if (options.mapSizeDefaults) {
     const mapSizeId = options.mapSizeDefaults.mapSizeId ?? 0;
     const mapInfo = options.mapSizeDefaults.mapInfo;
-    console.log(`${prefix} Using test mapSizeDefaults`);
     if (!mapInfo) {
       throw new Error(
         `${prefix} Failed to resolve mapInfo for mapSizeId=${String(mapSizeId)}. ` +
@@ -40,13 +39,9 @@ function resolveMapInfo(
     const mapSizeId = initParams.mapSize as MapSizeId;
     const mapInfo = adapter.lookupMapInfo(mapSizeId);
     if (mapInfo) {
-      console.log(`${prefix} Using initParams.mapSize for map initialization`);
       return { mapSizeId, mapInfo };
     }
     if (hasCompleteInitParams) {
-      console.log(
-        `${prefix} MapInfo lookup failed for mapSizeId=${String(mapSizeId)}; using initParams dimensions.`
-      );
       return {
         mapSizeId,
         mapInfo: {
@@ -64,7 +59,6 @@ function resolveMapInfo(
   }
 
   if (hasCompleteInitParams) {
-    console.log(`${prefix} Using initParams for map initialization`);
     return {
       mapSizeId: "initParams",
       mapInfo: {
@@ -94,7 +88,6 @@ function resolveMapInitDataWithAdapter(
   initParams?: Partial<MapInitParams>
 ): MapInitResolution {
   const prefix = options.logPrefix || "[SWOOPER_MOD]";
-  console.log(`${prefix} === RequestMapInitData ===`);
 
   const { mapSizeId, mapInfo } = resolveMapInfo(adapter, options, prefix, initParams);
 
@@ -114,12 +107,6 @@ function resolveMapInitDataWithAdapter(
     );
   }
 
-  console.log(`${prefix} Map size ID: ${mapSizeId}`);
-  console.log(
-    `${prefix} MapInfo: GridWidth=${resolvedWidth}, GridHeight=${resolvedHeight}, ` +
-      `Lat=[${resolvedBottomLatitude}, ${resolvedTopLatitude}]`
-  );
-
   const baseParams = initParams ? { ...initParams } : {};
   const params: MapInitParams = {
     ...baseParams,
@@ -130,11 +117,6 @@ function resolveMapInitDataWithAdapter(
     wrapX: initParams?.wrapX ?? true,
     wrapY: initParams?.wrapY ?? false,
   };
-
-  console.log(`${prefix} Final dimensions: ${params.width} x ${params.height}`);
-  console.log(
-    `${prefix} Final latitude range: ${params.bottomLatitude} to ${params.topLatitude}`
-  );
 
   return { mapSizeId, mapInfo, params };
 }

@@ -119,11 +119,6 @@ function buildConfig(): StandardRecipeOverrides {
             },
           },
         },
-        diagnostics: {
-          enabled: true,
-          logElevationSummary: true,
-          logSnowSummary: true,
-        },
       },
       oceanSeparation: {
         enabled: false, // Ensure oceans separate continents
@@ -494,7 +489,3 @@ engine.on("GenerateMap", () => {
 });
 
 // TypeScript build marker
-console.log("[SWOOPER_MOD] ========================================");
-console.log("[SWOOPER_MOD] Swooper Desert Mountains (TypeScript Build) Loaded");
-console.log("[SWOOPER_MOD] Using RunRequest → ExecutionPlan pipeline");
-console.log("[SWOOPER_MOD] ========================================");

@@ -1,8 +1,10 @@
 import { ctxRandom, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { getPublishedBiomeClassification, getPublishedClimateField } from "@mapgen/domain/artifacts.js";
 import { getNarrativeMotifsHotspots, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
-import type { FeaturesPlacementInput } from "@mapgen/domain/ecology/ops/features-placement/index.js";
-import type { FeaturesEmbellishmentsInput } from "@mapgen/domain/ecology/ops/features-embellishments/index.js";
+import type * as ecology from "@mapgen/domain/ecology";
+
+type FeaturesPlacementInput = Parameters<typeof ecology.ops.featuresPlacement.run>[0];
+type FeaturesEmbellishmentsInput = Parameters<typeof ecology.ops.featuresEmbellishments.run>[0];
 
 export function buildFeaturesPlacementInput(context: ExtendedMapContext): FeaturesPlacementInput {
   const { width, height } = context.dimensions;

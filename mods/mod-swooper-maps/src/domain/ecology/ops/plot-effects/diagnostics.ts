@@ -1,10 +1,10 @@
 import {
   devLogJson,
-  isDevEnabled,
   FLAT_TERRAIN,
   HILL_TERRAIN,
   MOUNTAIN_TERRAIN,
 } from "@swooper/mapgen-core";
+import type { TraceScope } from "@swooper/mapgen-core";
 
 import type { PlotEffectPlacement, PlotEffectsInput } from "./types.js";
 import type { PlotEffectSelector, ResolvedPlotEffectsConfig } from "./schema.js";
@@ -73,14 +73,15 @@ const finalizeScoreStats = (bucket: TerrainBucket): ScoreStats | null => {
 };
 
 export function logSnowEligibilitySummary(
+  trace: TraceScope | null | undefined,
   input: PlotEffectsInput,
   config: ResolvedPlotEffectsConfig,
   placements: PlotEffectPlacement[]
 ): void {
-  if (!isDevEnabled("LOG_SNOW_SUMMARY")) return;
+  if (!trace?.isVerbose) return;
 
   if (!config.snow.enabled) {
-    devLogJson("snow summary", {
+    devLogJson(trace, "snow summary", {
       enabled: false,
       reason: "snow placement disabled",
     });
@@ -184,7 +185,7 @@ export function logSnowEligibilitySummary(
     if (placement.plotEffectType === snowTypes.heavy) placementCounts.snowHeavy += 1;
   }
 
-  devLogJson("snow summary", {
+  devLogJson(trace, "snow summary", {
     enabled: true,
     snowTypes,
     config: {

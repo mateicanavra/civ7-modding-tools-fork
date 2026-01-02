@@ -27,12 +27,14 @@ export function runStandardRecipe({
 }: StandardRunOptions): void {
   const safeOverrides = overrides ?? {};
   const settings = buildStandardRunSettings(init, safeOverrides);
+  if (options?.trace) {
+    settings.trace = options.trace;
+  }
   const config = buildStandardRecipeConfig(safeOverrides);
   const adapter = createLayerAdapter(options ?? {}, init.params.width, init.params.height);
   const context = createExtendedMapContext(
     { width: init.params.width, height: init.params.height },
     adapter,
-    {} as ReturnType<typeof createExtendedMapContext>["config"],
     settings
   );
 
@@ -42,5 +44,8 @@ export function runStandardRecipe({
     storyEnabled: true,
   });
 
-  recipe.run(context, settings, config);
+  recipe.run(context, settings, config, {
+    trace: options?.traceSession ?? undefined,
+    traceSink: options?.traceSink ?? undefined,
+  });
 }

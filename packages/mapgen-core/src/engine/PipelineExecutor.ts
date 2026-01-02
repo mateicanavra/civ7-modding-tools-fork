@@ -50,7 +50,7 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
 
   constructor(registry: StepRegistry<TContext>, options: PipelineExecutorOptions = {}) {
     this.registry = registry;
-    this.log = options.log ?? console.log;
+    this.log = options.log ?? (() => undefined);
     this.logPrefix = options.logPrefix ?? "[PipelineExecutor]";
   }
 

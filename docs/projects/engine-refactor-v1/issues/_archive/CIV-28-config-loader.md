@@ -24,12 +24,12 @@ Implement the `parseConfig` helper and related utilities that validate raw confi
 
 - [x] Create `packages/mapgen-core/src/config/loader.ts` with:
   - `parseConfig(input: unknown): MapGenConfig` — throws on validation failure
-  - `safeParseConfig(input: unknown): ParseResult` — returns success/failure with errors
-  - `getDefaultConfig(): MapGenConfig` — returns a fully-defaulted config
-  - `getJsonSchema(): object` — exports JSON Schema for external tooling
+  - `safe-parse helper(input: unknown): ParseResult` — returns success/failure with errors
+  - `default-config helper(): MapGenConfig` — returns a fully-defaulted config
+  - `json-schema helper(): object` — exports JSON Schema for external tooling
 - [x] Use TypeBox `Compile` for high-performance validation
 - [x] Use TypeBox `Value` utilities for defaults (Clone → Default → Convert → Clean)
-- [x] Add `getPublicJsonSchema()` helper to filter internal fields for public tooling
+- [x] Add `public-schema helper()` helper to filter internal fields for public tooling
 - [x] Export helpers from `packages/mapgen-core/src/config/index.ts`
 - [x] Add unit tests for validation edge cases
 
@@ -38,9 +38,9 @@ Implement the `parseConfig` helper and related utilities that validate raw confi
 - [x] `parseConfig({})` returns a valid `MapGenConfig` with all defaults applied
 - [x] `parseConfig({ foundation: { plates: { count: 50 } } })` throws (count > max)
 - [x] `parseConfig({ foundation: { plates: { count: "invalid" } } })` throws (wrong type)
-- [x] `safeParseConfig` returns `{ success: false, errors: [...] }` on invalid input
-- [x] `getDefaultConfig()` returns config that passes validation
-- [x] `getJsonSchema()` returns valid JSON Schema object
+- [x] `safe-parse helper` returns `{ success: false, errors: [...] }` on invalid input
+- [x] `default-config helper()` returns config that passes validation
+- [x] `json-schema helper()` returns valid JSON Schema object
 - [x] Clear error messages indicate which field failed and why
 - [x] TypeScript compiles without errors
 
@@ -58,8 +58,8 @@ pnpm -C packages/mapgen-core build
 
 # Manual validation test
 node -e "
-  const { parseConfig, safeParseConfig, getDefaultConfig } = await import('@swooper/mapgen-core/config');
-  console.log('Default config:', JSON.stringify(getDefaultConfig(), null, 2));
+  const { parseConfig, safe-parse helper, default-config helper } = await import('@swooper/mapgen-core/config');
+  console.log('Default config:', JSON.stringify(default-config helper(), null, 2));
   console.log('Parse empty:', JSON.stringify(parseConfig({}), null, 2));
   try { parseConfig({ foundation: { plates: { count: 'bad' } } }); }
   catch (e) { console.log('Expected error:', e.message); }
@@ -119,7 +119,7 @@ export function parseConfig(input: unknown): MapGenConfig {
 /**
  * Safe parse that returns success/failure instead of throwing.
  */
-export function safeParseConfig(input: unknown): ParseResult {
+export function safe-parse helper(input: unknown): ParseResult {
   try {
     const config = parseConfig(input);
     return { success: true, config };
@@ -135,14 +135,14 @@ export function safeParseConfig(input: unknown): ParseResult {
 /**
  * Get a fully-defaulted config.
  */
-export function getDefaultConfig(): MapGenConfig {
+export function default-config helper(): MapGenConfig {
   return parseConfig({});
 }
 
 /**
  * Export JSON Schema for external tooling (includes internal fields).
  */
-export function getJsonSchema(): object {
+export function json-schema helper(): object {
   return JSON.parse(JSON.stringify(MapGenConfigSchema));
 }
 
@@ -150,7 +150,7 @@ export function getJsonSchema(): object {
  * Export filtered JSON Schema excluding internal fields.
  * Use for public tooling, editor integrations, and documentation.
  */
-export function getPublicJsonSchema(): object {
+export function public-schema helper(): object {
   const fullSchema = JSON.parse(JSON.stringify(MapGenConfigSchema));
   return filterInternalFields(fullSchema) ?? {};
 }
@@ -188,15 +188,15 @@ describe("parseConfig", () => {
   });
 });
 
-describe("safeParseConfig", () => {
+describe("safe-parse helper", () => {
   it("returns success for valid input", () => {
-    const result = safeParseConfig({});
+    const result = safe-parse helper({});
     expect(result.success).toBe(true);
     expect(result.config).toBeDefined();
   });
 
   it("returns errors for invalid input", () => {
-    const result = safeParseConfig({ foundation: { plates: { count: "bad" } } });
+    const result = safe-parse helper({ foundation: { plates: { count: "bad" } } });
     expect(result.success).toBe(false);
     expect(result.errors).toHaveLength(1);
   });

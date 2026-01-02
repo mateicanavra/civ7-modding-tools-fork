@@ -49,7 +49,6 @@ describe("pipeline tracing", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       plan.settings
     );
 
@@ -122,7 +121,6 @@ describe("pipeline tracing", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       plan.settings
     );
 
@@ -146,7 +144,6 @@ describe("pipeline tracing", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       settings
     );
 

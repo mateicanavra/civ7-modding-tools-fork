@@ -37,7 +37,6 @@ describe("standard recipe execution", () => {
     const context = createExtendedMapContext(
       { width, height },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"],
       settings
     );
 

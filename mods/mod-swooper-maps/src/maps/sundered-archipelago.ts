@@ -151,11 +151,6 @@ function buildConfig(): StandardRecipeOverrides {
             },
           },
         },
-        diagnostics: {
-          enabled: true,
-          logElevationSummary: true,
-          logSnowSummary: true,
-        },
       },
       oceanSeparation: {
         enabled: false,
@@ -528,8 +523,3 @@ engine.on("GenerateMap", () => {
   const init = mapInitData ?? resolveMapInitData(runtimeOptions);
   runStandardRecipe({ recipe: standardRecipe, init, overrides, options: runtimeOptions });
 });
-
-console.log("[SUNDERED_ARCHIPELAGO] ========================================");
-console.log("[SUNDERED_ARCHIPELAGO] The Sundered Archipelago (TypeScript Build) Loaded");
-console.log("[SUNDERED_ARCHIPELAGO] Volcanic island chains and maritime world");
-console.log("[SUNDERED_ARCHIPELAGO] ========================================");

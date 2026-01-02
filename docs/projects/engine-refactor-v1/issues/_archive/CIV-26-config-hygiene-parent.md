@@ -33,7 +33,7 @@ Establish a single, validated `MapGenConfig` schema with fail-fast behavior, rem
 
 - [ ] `MapGenConfigSchema` is defined in `packages/mapgen-core/src/config/schema.ts`
 - [ ] `parseConfig(input)` throws on invalid config with clear error messages
-- [ ] `safeParseConfig`, `getDefaultConfig`, `getJsonSchema` helpers are exported
+- [ ] `safe-parse helper`, `default-config helper`, `json-schema helper` helpers are exported
 - [ ] No global config stores remain in `mapgen-core`
 - [ ] `MapOrchestrator` constructor accepts validated config (not raw options)
 - [ ] `bootstrap/tunables.ts` consumes `MapGenConfig` instead of loosely-typed globals
