@@ -8,6 +8,7 @@ import {
 
 import type { PlotEffectPlacement, PlotEffectsInput } from "./types.js";
 import type { PlotEffectSelector, ResolvedPlotEffectsConfig } from "./schema.js";
+import { resolveSnowElevationRange } from "./snow-elevation.js";
 
 type TerrainBucket = {
   total: number;
@@ -97,8 +98,9 @@ export function logSnowEligibilitySummary(
   const bucketHill = createBucket();
   const bucketFlat = createBucket();
 
-  const elevationMin = config.snow.elevationMin;
-  const elevationMax = config.snow.elevationMax;
+  const snowElevation = resolveSnowElevationRange(input, config);
+  const elevationMin = snowElevation.min;
+  const elevationMax = snowElevation.max;
 
   const totals = {
     land: 0,
@@ -142,9 +144,9 @@ export function logSnowEligibilitySummary(
       const moistureFactor = normalizeRange(moisture, config.snow.moistureMin, config.snow.moistureMax);
       const scoreRaw =
         freeze * config.snow.freezeWeight +
-        elevationFactor * config.snow.elevationWeight +
-        moistureFactor * config.snow.moistureWeight +
-        config.snow.scoreBias;
+      elevationFactor * config.snow.elevationWeight +
+      moistureFactor * config.snow.moistureWeight +
+      config.snow.scoreBias;
       const score = clamp01(scoreRaw / Math.max(0.0001, config.snow.scoreNormalization));
 
       const gateEligible = temp <= config.snow.maxTemperature && aridity <= config.snow.maxAridity;
@@ -193,8 +195,20 @@ export function logSnowEligibilitySummary(
         heavy: config.snow.heavyThreshold,
       },
       elevation: {
-        min: elevationMin,
-        max: elevationMax,
+        strategy: snowElevation.strategy,
+        absolute: {
+          min: config.snow.elevationMin,
+          max: config.snow.elevationMax,
+        },
+        percentiles: {
+          min: config.snow.elevationPercentileMin,
+          max: config.snow.elevationPercentileMax,
+        },
+        derived: {
+          min: elevationMin,
+          max: elevationMax,
+        },
+        stats: snowElevation.stats,
       },
       temperatureMax: config.snow.maxTemperature,
       aridityMax: config.snow.maxAridity,

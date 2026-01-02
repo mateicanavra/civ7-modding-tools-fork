@@ -563,3 +563,10 @@ This pass expands ecology/climate ownership to remove latitude dominance and add
 - **Choice:** Keep focused test files for each behavior (ownership, adjacency, exclusions).
 - **Rationale:** Isolates failures to specific behaviors and matches existing test patterns in the mod package.
 - **Risk:** Slightly more files to navigate, but failures stay more diagnosable.
+
+### Normalize snow elevation by land percentiles (absolute strategy retained)
+- **Context:** Snow placement used absolute elevation thresholds; map heightfields often peak far below the configured max, so the elevation factor never saturated and heavy snow could not trigger.
+- **Options:** Keep absolute meters only; normalize by min/max range; normalize by land elevation percentiles; implement a strategy switch.
+- **Choice:** Add an `elevationStrategy` switch with a percentile-based path and map presets set to `percentile` with explicit min/max percentiles.
+- **Rationale:** Percentiles scale with map size and elevation range, preserve relative mountain prominence, and keep snowline behavior stable across maps while still allowing absolute meters when needed.
+- **Risk:** Percentile tuning must be explicit per map to avoid over-snowing low-relief worlds.
