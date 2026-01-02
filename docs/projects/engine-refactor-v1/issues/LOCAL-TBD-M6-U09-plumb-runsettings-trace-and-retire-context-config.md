@@ -138,6 +138,9 @@ Touchpoints (expected):
 
 #### D) Retire the “global config blob” entrypoint pattern
 - Stop casting overrides/config blobs into `ExtendedMapContext.config` as a substitute for settings.
+- In `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`, remove the `context.config = safeOverrides` pattern entirely:
+  - Stop reading `foundation.diagnostics` from that blob and remove the `initDevFlags(...)` call (no replacement in this issue).
+  - Stop relying on that blob for directionality; use `context.settings.directionality` instead (after step C lands).
 - Replace reads that currently use `context.config` as a cross-cutting store with:
   - `context.settings` (for cross-cutting policies), and/or
   - explicit artifacts (for runtime-derived products), and/or
