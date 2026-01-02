@@ -215,7 +215,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 
 ### Pre-work for B (op resolver authoring surface)
 - “Inspect `packages/mapgen-core/src/authoring/op.ts` and propose a minimal type-safe `resolveConfig` addition that does not affect runtime `run(...)` signature.”
-- “Decide how step resolvers should call op resolvers in practice (direct property access on the op object; no engine/compiler calling op resolvers directly).”
+- “Wire step resolver composition by directly calling `op.resolveConfig(opConfig, settings)` via the op object (no engine/compiler calling op resolvers directly).”
 
 ### Pre-work for C (derived defaults migration)
 - “Search for all ‘meaning-level defaults’ in `mods/mod-swooper-maps/src/recipes/**` and `mods/mod-swooper-maps/src/domain/**` (e.g., `Value.Default`, `?? {}`, `|| {}` on config). Classify each as schema default vs resolver vs runtime params.”
