@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "types/**", "example-generated-mod/**", "mods/*/mod/**"]
+      "outputs": ["dist/**", "types/**", "example-generated-mod/**", "mod/**"]
     },
     "deploy": {
       "dependsOn": ["build"],
