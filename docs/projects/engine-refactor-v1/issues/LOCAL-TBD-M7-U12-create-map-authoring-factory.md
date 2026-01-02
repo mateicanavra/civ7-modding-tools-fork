@@ -1,5 +1,5 @@
 ---
-id: LOCAL-TBD-M7-U10
+id: LOCAL-TBD-M7-U12
 title: "[M7] Introduce createMap() factory for map entrypoints (metadata + settings + recipe config)"
 state: planned
 priority: 2
@@ -101,4 +101,3 @@ Goal: leave an implementer with no hidden branching.
 3) Define the minimal metadata we must not lose
 - “List which metadata fields we need to preserve for future Civ7 XML/modinfo work (id/name at minimum).”
 - “Confirm whether the `id` must match any external Civ7 identifiers today, or whether it is internal-only for now.”
-

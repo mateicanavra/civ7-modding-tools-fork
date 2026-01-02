@@ -27,6 +27,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - **Fractal only at step boundaries:** the compiler calls `step.resolveConfig(stepConfig, settings)`; composite steps use that hook to delegate to op-local `op.resolveConfig(opConfig, settings)` and recompose.
 - **Runtime steps do not branch:** steps treat `node.config` as “the config” and do not do meaning-level defaults/merges at runtime.
 - **No legacy config translation:** remove `StandardRecipeOverrides` (DeepPartial global-ish override blob) and the translator that builds `StandardRecipeConfig` from it.
+- **No legacy runner entrypoints:** delete overrides-shaped map runner wiring; map entrypoints supply `settings` and `config` directly and runner glue only wires adapter/context + `recipe.run(...)`.
 
 ## Deliverables
 - Engine/runtime:
@@ -36,9 +37,18 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
   - `createOp(...)` supports an optional **compile-time** `resolveConfig(config, settings) -> config` hook (domain owns; compiler executes via step boundary).
   - Resolver output must remain valid under the existing schema (no plan-stored internal-only fields).
 - Mod authoring (standard maps):
-  - `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` no longer exports `StandardRecipeOverrides` or `buildStandardRecipeConfig(...)`.
-  - Standard map entrypoints no longer build a DeepPartial “global overrides” blob; they provide a direct `StandardRecipeConfig` (or a typed helper that produces one without reintroducing a global override layer).
-  - Run settings remain explicitly authored at the boundary (seed/dimensions/wrap/trace/directionality), not smuggled through config.
+  - Delete `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` entirely:
+    - no `DeepPartial<T>`,
+    - no `StandardRecipeOverrides`,
+    - no `buildStandardRecipeConfig(...)`,
+    - no “defaults via `Value.Default`” that mutate/construct recipe config at runtime.
+  - `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` no longer accepts overrides-shaped inputs:
+    - no `overrides?: ...`,
+    - no `safeOverrides` shells,
+    - no config/setting derivation via override translation.
+  - Standard map entrypoints no longer build a DeepPartial “global overrides” blob; they provide:
+    - explicit `RunSettings` (seed/dimensions/wrap/trace/directionality), and
+    - a direct `StandardRecipeConfig | null` (no runtime translation layer).
 - Migration/cleanup:
   - Derived defaults that currently live as “meaning-level fixups” inside runtime code are moved into:
     - schema defaults (pure local defaults), or
@@ -48,11 +58,15 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ## Acceptance Criteria
 - `packages/mapgen-core/src/engine/execution-plan.ts` calls `step.resolveConfig(config, settings)` (when defined) and validates the returned config against `step.configSchema` before writing to the plan.
 - A composite resolver pattern is demonstrated in tests (canonical fan-out → delegate → recompose using op-local resolvers) and results in plan-truth config in `ExecutionPlan.nodes[].config`.
-- `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` no longer:
-  - defines `DeepPartial<T>`,
-  - exports `StandardRecipeOverrides`,
-  - or exports `buildStandardRecipeConfig(...)`.
-- `mods/mod-swooper-maps/src/maps/**` no longer constructs “global-ish overrides” objects as the author surface (no `StandardRecipeOverrides` usage).
+- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` does not accept or mention overrides-shaped authoring:
+  - no `StandardRecipeOverrides`,
+  - no `buildStandardRecipeConfig`,
+  - no `buildStandardRunSettings` that reads from overrides (the legacy builder is deleted with the overrides layer).
+- `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` is deleted.
+- `mods/mod-swooper-maps/src/maps/**` does not construct “global-ish overrides” objects as the author surface (no `StandardRecipeOverrides` usage).
+- Guardrails (documented as zero-hit checks) pass:
+  - `rg -n "StandardRecipeOverrides|buildStandardRecipeConfig|DeepPartial<" mods/mod-swooper-maps/src` is empty
+  - `rg -n "\\bValue\\.Default\\(" mods/mod-swooper-maps/src/maps mods/mod-swooper-maps/src/maps/_runtime` is empty
 - No new runtime “meaning-level defaults” are introduced in step/op runtime paths (no “resolve during run”).
 
 ## Testing / Verification
@@ -158,7 +172,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
   - `rg -n "StandardRecipeOverrides|buildStandardRecipeConfig|DeepPartial<" mods/mod-swooper-maps/src` is empty
 
 **Verification / tests**
-- Existing pipeline tests + any new plan compile tests should pass; configs still behave as before (modulo intended deterministic normalization).
+- Existing pipeline tests + the new plan compile tests added in (A) must pass; configs still behave as before (modulo intended deterministic normalization).
 
 ### D) Delete `StandardRecipeOverrides` translation and move maps to direct `StandardRecipeConfig`
 **In scope**
@@ -166,9 +180,13 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
   - `DeepPartial<T>` override typing,
   - `StandardRecipeOverrides`,
   - `buildStandardRecipeConfig(...)` translation.
-- Update standard maps to directly provide `StandardRecipeConfig` (or a typed helper that produces it without reintroducing a global override blob).
+- Update the standard map runtime glue and maps to remove the overrides-shaped authoring surface entirely:
+  - `runStandardRecipe(...)` accepts `settings` and `config` directly (no `overrides` parameter),
+  - maps supply `settings` and `config` directly (no translation layer),
+  - maps do not depend on any map-runtime “settings builder” helper (duplication is acceptable here; `LOCAL-TBD-M7-U12` introduces an authoring factory that can dedupe later).
 - Keep settings explicit at the boundary:
-  - `buildStandardRunSettings(...)` may remain, but must not depend on a global config blob shape.
+  - delete `buildStandardRunSettings(...)` (it is part of the overrides translation layer).
+  - no replacement “settings builder” helper is introduced in this unit.
 
 **Out of scope**
 - Re-introducing a config loader or JSON ingestion surface as part of this cleanup.
@@ -180,6 +198,10 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 **Acceptance Criteria**
 - No `StandardRecipeOverrides` usage remains in `mods/mod-swooper-maps/src/maps/**`.
 - Runtime maps supply `recipe.run(context, settings, config)` where `config` is a `StandardRecipeConfig | null` instance.
+- The standard runner glue does not construct/translate config at runtime.
+- No entrypoint accepts an overrides-shaped input “for compatibility”.
+- The standard runner has a single canonical signature post-U10:
+  - `runStandardRecipe({ recipe, init, settings, config, options? })` (no other overloads).
 
 **Verification / tests**
 - `pnpm -C mods/mod-swooper-maps check`
@@ -196,7 +218,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 
 ### Pre-work for B (op resolver authoring surface)
 - “Inspect `packages/mapgen-core/src/authoring/op.ts` and propose a minimal type-safe `resolveConfig` addition that does not affect runtime `run(...)` signature.”
-- “Decide how step resolvers should call op resolvers in practice (direct property access on the op object; no engine/compiler calling op resolvers directly).”
+- “Wire step resolver composition by directly calling `op.resolveConfig(opConfig, settings)` via the op object (no engine/compiler calling op resolvers directly).”
 
 ### Pre-work for C (derived defaults migration)
 - “Search for all ‘meaning-level defaults’ in `mods/mod-swooper-maps/src/recipes/**` and `mods/mod-swooper-maps/src/domain/**` (e.g., `Value.Default`, `?? {}`, `|| {}` on config). Classify each as schema default vs resolver vs runtime params.”
@@ -204,5 +226,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 
 ### Pre-work for D (delete overrides translator)
 - “Inventory current authored config surfaces in `mods/mod-swooper-maps/src/maps/*.ts` (what they currently return) and map each top-level override fragment to the target `StandardRecipeConfig` keys.”
-- “Propose an author-friendly, type-safe replacement for `buildStandardRecipeConfig` that does not reintroduce a global overrides blob (direct config authoring or a typed helper).”
+- “Rewrite each map to directly author a `StandardRecipeConfig | null` (use `satisfies StandardRecipeConfig` on the top-level config literal); do not introduce a new ‘config builder’ that recreates the overrides translation layer. (Ergonomics follow-up is tracked in `LOCAL-TBD-M7-U12`.)”
 - “List all call sites/types that depend on `StandardRecipeOverrides` and plan a mechanical migration.”
+- “List all runner entrypoints that currently accept overrides-shaped inputs and define the new canonical signature(s) that accept `settings` + `config` only.”
+- “Identify and delete any remaining runtime config-defaulting in the map entrypoint path (e.g., `Value.Default` in `maps/_runtime/**`).”
