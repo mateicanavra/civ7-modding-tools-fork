@@ -150,6 +150,14 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - “Locate all consumers of `context.config` in `mods/mod-swooper-maps/src/recipes/**` and classify each as legacy vs legitimate.”
 - “Decide the minimal type surface for `context.settings` (full `RunSettings` vs a smaller subset) and list impacted TypeScript types/tests.”
 
+#### A1 Findings: run-global values in steps (scope + placement)
+- **Dimensions** (`context.dimensions`) are read across the standard recipe steps: `mods/mod-swooper-maps/src/recipes/standard/tags.ts`, `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts`, `mods/mod-swooper-maps/src/recipes/standard/runtime.ts`, and most step files under `mods/mod-swooper-maps/src/recipes/standard/stages/**` (morphology, hydrology, narrative, ecology, placement). These are run-global and should remain on context, with `RunSettings.dimensions` as the source of truth (not per-step config or artifacts).
+- **Latitude** is derived via the adapter in step helpers: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/helpers/inputs.ts` uses `context.adapter.getLatitude`, and narrative helpers like `mods/mod-swooper-maps/src/domain/narrative/utils/latitude.ts` consume adapter-backed data. This is run-global from `RunSettings.latitudeBounds`, but steps should keep consuming adapter/derived artifacts (not per-step config).
+- **Directionality** is currently supplied as step config in recipe config builders and used in steps like `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` and `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-*/steps/storyCorridors*.ts`. It is a cross-cutting run policy → should live in `RunSettings.directionality` and be read via `context.settings`, not step config.
+- **Seed** (`RunSettings.seed`) is only set at runtime (`mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts`) and not read by steps directly. Steps rely on `ctxRandom`/domain RNG flows, so seed should stay in settings with boundary ownership (not per-step config/artifacts).
+- **Wrap** (`RunSettings.wrap`) is currently assembled in `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` and `mods/mod-swooper-maps/src/maps/_runtime/map-init.ts`, with no direct step reads. It should remain a settings-level knob and be enforced by adapter/grid helpers (not per-step config).
+- **Trace** (`RunSettings.trace`) has no step-level reads in `mods/mod-swooper-maps/src/recipes/**` today. Steps should emit via `context.trace` only; trace config interpretation belongs at the runtime boundary (settings-owned, not per-step config/artifacts).
+
 ### Pre-work for B (trace wiring)
 - “Confirm the intended default sink strategy: where does `TraceSink` come from in a normal mod run (console, file, FireTuner, in-memory test sink)?”
 - “Audit `PipelineExecutor` and step wrappers to ensure no one needs to check `settings.trace` directly; list any needed helper APIs for emitting step events.”
@@ -166,4 +174,3 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 ### Pre-work for E (loader optional)
 - “Enumerate all imports of `@mapgen/config/loader` and `safeParseConfig` and determine whether they are runtime-critical or tooling/test-only.”
 - “Decide whether schema export (`getJsonSchema` / `getPublicJsonSchema`) is a required public surface for the standard content package in M6.”
-
