@@ -604,3 +604,38 @@ mods/mod-swooper-maps/src/domain/ecology/
   - shelf reefs,
   - volcanic vegetation halos,
   - density-driven vegetation tweaks.
+
+### E) Baseline/legacy feature placement references and the complete deletion plan (no switches)
+**Baseline references (must be deleted)**
+- Step baseline call:
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`:
+    - branches on `placementResult.useEngineBaseline`
+    - calls `context.adapter.addFeatures(width, height)`
+- Op baseline flag + strategy surface:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`:
+    - exports `featuresPlacement` with `useEngineBaseline` in output
+    - branches on `resolvedConfig.strategy === "vanilla"`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts`:
+    - `FeaturesPlacementStrategySchema = "owned" | "vanilla"`
+    - config wrapper `{ strategy, config }` with default `"owned"`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/strategies/vanilla.ts` (placeholder returning `[]`)
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/strategies/owned.ts` (the actual implementation)
+- Authoring surfaces that encode the baseline strategy wrapper:
+  - Map presets:
+    - `mods/mod-swooper-maps/src/maps/shattered-ring.ts` (`featuresPlacement.strategy = "owned"`)
+    - `mods/mod-swooper-maps/src/maps/sundered-archipelago.ts` (`featuresPlacement.strategy = "owned"`)
+    - `mods/mod-swooper-maps/src/maps/swooper-desert-mountains.ts` (`featuresPlacement.strategy = "owned"`)
+    - `mods/mod-swooper-maps/src/maps/swooper-earthlike.ts` (`featuresPlacement.strategy = "owned"`)
+  - Tests:
+    - `mods/mod-swooper-maps/test/ecology/features-owned-*.test.ts` set `featuresPlacement.strategy = "owned"` (and some assert `addFeatures` is not called)
+
+**Deletion plan (no compatibility switches; exact end state)**
+- Delete the baseline strategy surface entirely:
+  - Remove `FeaturesPlacementStrategySchema` and the `{ strategy, config }` wrapper shape.
+  - Delete `strategies/owned.ts` and `strategies/vanilla.ts` and replace them with a single `planFeaturePlacements` op module (no internal strategy selection).
+- Delete baseline behavior:
+  - Remove `useEngineBaseline` from op outputs.
+  - Remove the `adapter.addFeatures(...)` call and the `if (useEngineBaseline)` branch from the `features` step.
+- Migrate authoring and tests without shims:
+  - Update all map presets and ecology tests to author the new (non-wrapper) config shape.
+  - There is no `strategy` field retained “for compatibility”; any attempt to pass `strategy` must be rejected by schema (`additionalProperties: false`).
