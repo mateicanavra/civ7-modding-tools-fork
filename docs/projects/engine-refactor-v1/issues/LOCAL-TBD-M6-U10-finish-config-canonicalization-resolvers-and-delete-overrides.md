@@ -213,7 +213,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ## Pre-work
 
 ### Pre-work for A (step resolver + compiler execution)
-- “Inspect `packages/mapgen-core/src/engine/execution-plan.ts` and pick the exact insertion point for resolver execution + re-validation + unknown-key detection (after initial config normalization, before node storage).”
 - “Design the compile error surface for resolver failures (paths, codes), consistent with existing `ExecutionPlanCompileError` items.”
 
 ### Pre-work for B (op resolver authoring surface)
@@ -230,3 +229,49 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - “List all call sites/types that depend on `StandardRecipeOverrides` and plan a mechanical migration.”
 - “List all runner entrypoints that currently accept overrides-shaped inputs and define the new canonical signature(s) that accept `settings` + `config` only.”
 - “Identify and delete any remaining runtime config-defaulting in the map entrypoint path (e.g., `Value.Default` in `maps/_runtime/**`).”
+
+---
+
+## Pre-work Findings
+
+### A1) Insertion point for `step.resolveConfig` in `compileExecutionPlan(...)`
+
+**Primary entrypoint:** `packages/mapgen-core/src/engine/execution-plan.ts`
+
+**Current compile flow (relevant checkpoints)**
+- `parseRunRequest(...)` performs run-request normalization and validation:
+  - collects unknown-key errors via `findUnknownKeyErrors(RunRequestSchema, input, "")`
+  - applies schema defaults/cleaning via `Value.Default` + `Value.Clean` (`buildValue`)
+  - formats `Value.Errors(...)` into `ExecutionPlanCompileErrorItem` with paths rooted at `""`
+- `compileExecutionPlan(...)` iterates `recipe.steps` and, for each enabled step:
+  - validates uniqueness and registry existence
+  - builds per-node config via `buildNodeConfig(...)`
+    - if the step has `configSchema`: `normalizeStepConfig(schema, rawConfig, configPath)`:
+      - treats `undefined` as `{}` and validates `null` as an error case (no coercion)
+      - unknown-key detection uses the same `findUnknownKeyErrors(schema, value, configPath)`
+      - schema validation uses `Value.Errors(schema, converted)` with errors formatted at `configPath`
+      - returns the **cleaned** value (`Value.Clean`) as the plan candidate
+    - if the step has **no** `configSchema`: returns `recipeStep.config ?? {}` with **no** validation/defaulting/unknown-key detection
+  - pushes a node with `config` as currently computed
+
+**Exact insertion point (matches the prompt’s “after normalization, before node storage”)**
+- In `compileExecutionPlan(...)`, after:
+  - `const { config, errors: configErrors } = buildNodeConfig(...)` and
+  - the `configErrors` early-return gate
+- …and immediately before:
+  - `nodes.push({ ..., config })`
+
+This is the only point where we have:
+- the concrete `registryStep` (future owner of `resolveConfig`)
+- the fully normalized/cleaned step config (when `configSchema` exists)
+- the step’s `configPath` for stable, user-facing error paths
+- all compile-time-only inputs (`settings`) available without mixing runtime execution concerns
+
+**Practical guidance for implementation (to avoid drift)**
+- Prefer factoring this into a small helper (conceptual):
+  - `applyStepResolver(registryStep, config, settings, configPath) -> { config, errors }`
+  - which:
+    1) calls `registryStep.resolveConfig?.(...)`
+    2) re-validates the resolver output using the **same** `normalizeStepConfig(...)` pathing and unknown-key detection logic
+    3) returns the final plan-stored config for `nodes.push(...)`
+- If `configSchema` is undefined, there is no existing validation surface to “re-run”; the current system behavior is “accept unknown config”. That constraint should be made explicit in the implementation (either: require schema for resolver support, or accept unvalidated output for schema-less steps).
