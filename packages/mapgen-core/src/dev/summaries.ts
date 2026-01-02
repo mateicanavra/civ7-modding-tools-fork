@@ -9,6 +9,53 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import { isDevEnabled } from "@mapgen/dev/flags.js";
 import { devLog, devLogJson } from "@mapgen/dev/logging.js";
+import {
+  COAST_TERRAIN,
+  FLAT_TERRAIN,
+  HILL_TERRAIN,
+  MOUNTAIN_TERRAIN,
+  NAVIGABLE_RIVER_TERRAIN,
+  OCEAN_TERRAIN,
+} from "@mapgen/core/terrain-constants.js";
+
+type ElevationStats = {
+  count: number;
+  min: number;
+  max: number;
+  mean: number;
+  p50: number;
+  p90: number;
+  p99: number;
+};
+
+function computeElevationStats(values: number[]): ElevationStats | null {
+  if (!values.length) return null;
+  let min = Number.POSITIVE_INFINITY;
+  let max = Number.NEGATIVE_INFINITY;
+  let sum = 0;
+  for (const value of values) {
+    if (!Number.isFinite(value)) continue;
+    min = Math.min(min, value);
+    max = Math.max(max, value);
+    sum += value;
+  }
+  const sorted = values.slice().sort((a, b) => a - b);
+  const pick = (ratio: number): number => {
+    if (sorted.length === 0) return 0;
+    const idx = Math.min(sorted.length - 1, Math.max(0, Math.floor(ratio * (sorted.length - 1))));
+    return sorted[idx] ?? 0;
+  };
+  const mean = sum / Math.max(1, values.length);
+  return {
+    count: values.length,
+    min,
+    max,
+    mean: Number(mean.toFixed(2)),
+    p50: pick(0.5),
+    p90: pick(0.9),
+    p99: pick(0.99),
+  };
+}
 
 /**
  * Foundation plates data structure.
@@ -205,6 +252,81 @@ export function logMountainSummary(
     onLand,
     coastal,
     share: width * height > 0 ? `${((mountains / (width * height)) * 100).toFixed(2)}%` : "0%",
+  });
+}
+
+/**
+ * Log elevation summary stats for land and terrain categories.
+ */
+export function logElevationSummary(
+  adapter: EngineAdapter,
+  width: number,
+  height: number,
+  stage?: string
+): void {
+  if (!isDevEnabled("LOG_ELEVATION_SUMMARY")) return;
+
+  const land: number[] = [];
+  const mountain: number[] = [];
+  const hill: number[] = [];
+  const flat: number[] = [];
+  const coast: number[] = [];
+  const ocean: number[] = [];
+  const river: number[] = [];
+  const unknown: number[] = [];
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const elevation = adapter.getElevation(x, y);
+      if (!Number.isFinite(elevation)) continue;
+      const terrain = adapter.getTerrainType(x, y);
+
+      if (!adapter.isWater(x, y)) {
+        land.push(elevation);
+      }
+
+      switch (terrain) {
+        case MOUNTAIN_TERRAIN:
+          mountain.push(elevation);
+          break;
+        case HILL_TERRAIN:
+          hill.push(elevation);
+          break;
+        case FLAT_TERRAIN:
+          flat.push(elevation);
+          break;
+        case COAST_TERRAIN:
+          coast.push(elevation);
+          break;
+        case OCEAN_TERRAIN:
+          ocean.push(elevation);
+          break;
+        case NAVIGABLE_RIVER_TERRAIN:
+          river.push(elevation);
+          break;
+        default:
+          unknown.push(elevation);
+          break;
+      }
+    }
+  }
+
+  devLogJson("elevation summary", {
+    stage: stage ?? null,
+    dimensions: { width, height },
+    totals: {
+      landTiles: land.length,
+      waterTiles: coast.length + ocean.length,
+      unknownTerrainTiles: unknown.length,
+    },
+    land: computeElevationStats(land),
+    mountain: computeElevationStats(mountain),
+    hill: computeElevationStats(hill),
+    flat: computeElevationStats(flat),
+    coast: computeElevationStats(coast),
+    ocean: computeElevationStats(ocean),
+    navigableRiver: computeElevationStats(river),
+    unknown: computeElevationStats(unknown),
   });
 }
 

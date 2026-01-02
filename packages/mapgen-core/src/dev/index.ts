@@ -88,6 +88,7 @@ export {
   logBiomeSummary,
   logMountainSummary,
   logVolcanoSummary,
+  logElevationSummary,
   logLandmassWindows,
   type FoundationPlates,
 } from "@mapgen/dev/summaries.js";
