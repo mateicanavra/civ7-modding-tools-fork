@@ -219,7 +219,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### Pre-work for C (derived defaults migration)
 
 ### Pre-work for D (delete overrides translator)
-- “Identify and delete any remaining runtime config-defaulting in the map entrypoint path (e.g., `Value.Default` in `maps/_runtime/**`).”
 
 ---
 
@@ -790,3 +789,33 @@ Canonical type shape (grounded in existing imports):
 **Recommended invariant enforcement (to avoid silent mismatches)**
 - `createExtendedMapContext(...)` should be constructed from `settings.dimensions` (not from `init.params.width/height`) so the plan settings remain the single source of truth.
 - `init.params.width/height` should be treated as already-resolved engine inputs; if they disagree with `settings.dimensions`, throw immediately (hard failure, no fallback).
+
+### D5) Inventory: runtime config-defaulting in the map entrypoint path (must go to zero)
+
+**Current runtime config-defaulting sites (grounded)**
+
+`mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` (to be deleted):
+- Defines the `StandardRecipeOverrides` deep-partial author surface.
+- Performs runtime defaulting / synthesis when constructing recipe config:
+  - `Value.Default(BiomeConfigSchema, overrides.biomes ?? {})`
+  - widespread `?? {}` shells to ensure intermediate nested objects exist
+  - object spread `...(overrides.climate ?? {})` to “copy in” a global-ish config fragment
+- Performs runtime defaulting when constructing settings:
+  - `directionality: overrides.foundation?.dynamics?.directionality ?? {}`
+
+`mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` (must be rewritten):
+- Introduces an overrides defaulting shell:
+  - `const safeOverrides = overrides ?? {}`
+- Synthesizes settings/config from overrides at runtime by calling:
+  - `buildStandardRunSettings(init, safeOverrides)`
+  - `buildStandardRecipeConfig(safeOverrides)`
+- Mutates `settings` from runtime options:
+  - `if (options?.trace) settings.trace = options.trace` (trace config must become settings-owned and explicit post-U10)
+
+**What must remain after U10 (hard rule)**
+- There must be zero usage of:
+  - `Value.Default` in `mods/mod-swooper-maps/src/maps/**` and `mods/mod-swooper-maps/src/maps/_runtime/**`
+  - `StandardRecipeOverrides`, `DeepPartial`, `buildStandardRecipeConfig`, or `buildStandardRunSettings` anywhere under `mods/mod-swooper-maps/src`
+- The map entrypoint path must not construct recipe config via translation/defaulting:
+  - maps author `config` directly (full shape, `satisfies StandardRecipeConfig`)
+  - compiler applies schema defaults/cleaning (compile-time), not maps/runtime
