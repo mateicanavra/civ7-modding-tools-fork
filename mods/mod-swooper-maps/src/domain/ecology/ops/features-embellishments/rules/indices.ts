@@ -1,6 +1,6 @@
 import type { EngineAdapter } from "@civ7/adapter";
 
-export interface FeatureIndices {
+export interface EmbellishmentFeatureIndices {
   reefIndex: number;
   rainforestIdx: number;
   forestIdx: number;
@@ -8,7 +8,7 @@ export interface FeatureIndices {
   NO_FEATURE: number;
 }
 
-export function resolveFeatureIndices(adapter: EngineAdapter): FeatureIndices {
+export function resolveEmbellishmentFeatureIndices(adapter: EngineAdapter): EmbellishmentFeatureIndices {
   return {
     reefIndex: adapter.getFeatureTypeIndex("FEATURE_REEF"),
     rainforestIdx: adapter.getFeatureTypeIndex("FEATURE_RAINFOREST"),
@@ -17,4 +17,3 @@ export function resolveFeatureIndices(adapter: EngineAdapter): FeatureIndices {
     NO_FEATURE: adapter.NO_FEATURE,
   };
 }
-

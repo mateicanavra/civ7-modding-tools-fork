@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features.js";
+import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
 import { createFeaturesTestContext } from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
@@ -28,14 +28,16 @@ describe("features (owned baseline)", () => {
         taigaExtraChance: 0,
       },
       featuresPlacement: {
-        mode: "owned",
-        groups: { wet: { enabled: false }, aquatic: { enabled: false }, ice: { enabled: false } },
-        chances: {
-          FEATURE_FOREST: 100,
-          FEATURE_RAINFOREST: 0,
-          FEATURE_TAIGA: 0,
-          FEATURE_SAVANNA_WOODLAND: 0,
-          FEATURE_SAGEBRUSH_STEPPE: 0,
+        strategy: "owned",
+        config: {
+          groups: { wet: { multiplier: 0 }, aquatic: { multiplier: 0 }, ice: { multiplier: 0 } },
+          chances: {
+            FEATURE_FOREST: 100,
+            FEATURE_RAINFOREST: 0,
+            FEATURE_TAIGA: 0,
+            FEATURE_SAVANNA_WOODLAND: 0,
+            FEATURE_SAGEBRUSH_STEPPE: 0,
+          },
         },
       },
     });

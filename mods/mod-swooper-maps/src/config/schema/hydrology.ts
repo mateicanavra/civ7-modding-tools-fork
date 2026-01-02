@@ -5,50 +5,169 @@ import { UnknownRecord } from "@mapgen/config/schema/common.js";
  * Rainfall targets by latitude zone for the climate engine.
  * Values are rainfall units (0-200 typical range).
  */
-export const ClimateBaselineBandsSchema = Type.Object(
+export const ClimateBaselineBandEdgesSchema = Type.Object(
   {
-    /** Equatorial zone (0-10°) rainfall target (rainforests, monsoons; typically 110-130). */
+    /** Edge between equatorial and tropical zones (degrees, default 10). */
     deg0to10: Type.Optional(
       Type.Number({
-        description: "Equatorial zone rainfall target (rainforests, monsoons; typically 110-130).",
+        description: "Edge between equatorial and tropical zones (degrees).",
+        default: 10,
+        minimum: 0,
+        maximum: 90,
       })
     ),
-    /** Tropical zone (10-20°) rainfall target (wet but variable; typically 90-110). */
+    /** Edge between tropical and subtropical zones (degrees, default 20). */
     deg10to20: Type.Optional(
       Type.Number({
-        description: "Tropical zone rainfall target (wet but variable; typically 90-110).",
+        description: "Edge between tropical and subtropical zones (degrees).",
+        default: 20,
+        minimum: 0,
+        maximum: 90,
       })
     ),
-    /** Subtropical zone (20-35°) rainfall target (deserts, Mediterranean; typically 60-80). */
+    /** Edge between subtropical and temperate zones (degrees, default 35). */
     deg20to35: Type.Optional(
       Type.Number({
-        description: "Subtropical zone rainfall target (deserts, Mediterranean; typically 60-80).",
+        description: "Edge between subtropical and temperate zones (degrees).",
+        default: 35,
+        minimum: 0,
+        maximum: 90,
       })
     ),
-    /** Temperate zone (35-55°) rainfall target (moderate rainfall; typically 70-90). */
+    /** Edge between temperate and subpolar zones (degrees, default 55). */
     deg35to55: Type.Optional(
       Type.Number({
-        description: "Temperate zone rainfall target (moderate rainfall; typically 70-90).",
+        description: "Edge between temperate and subpolar zones (degrees).",
+        default: 55,
+        minimum: 0,
+        maximum: 90,
       })
     ),
-    /** Subpolar zone (55-70°) rainfall target (cool, moderate moisture; typically 55-70). */
+    /** Edge between subpolar and polar zones (degrees, default 70). */
     deg55to70: Type.Optional(
       Type.Number({
-        description: "Subpolar zone rainfall target (cool, moderate moisture; typically 55-70).",
-      })
-    ),
-    /** Polar zone (70°+) rainfall target (cold deserts, ice; typically 40-50). */
-    deg70plus: Type.Optional(
-      Type.Number({
-        description: "Polar zone rainfall target (cold deserts, ice; typically 40-50).",
+        description: "Edge between subpolar and polar zones (degrees).",
+        default: 70,
+        minimum: 0,
+        maximum: 90,
       })
     ),
   },
   {
     additionalProperties: false,
     default: {},
-    description: "Rainfall targets by latitude zone.",
+    description: "Latitude edges that separate rainfall bands.",
   }
+);
+
+export const ClimateBaselineBandsSchema = Type.Object(
+  {
+    /** Equatorial zone (0-10°) rainfall target (rainforests, monsoons; typically 110-130). */
+    deg0to10: Type.Optional(
+      Type.Number({
+        description: "Equatorial zone rainfall target (rainforests, monsoons; typically 110-130).",
+        default: 120,
+      })
+    ),
+    /** Tropical zone (10-20°) rainfall target (wet but variable; typically 90-110). */
+    deg10to20: Type.Optional(
+      Type.Number({
+        description: "Tropical zone rainfall target (wet but variable; typically 90-110).",
+        default: 104,
+      })
+    ),
+    /** Subtropical zone (20-35°) rainfall target (deserts, Mediterranean; typically 60-80). */
+    deg20to35: Type.Optional(
+      Type.Number({
+        description: "Subtropical zone rainfall target (deserts, Mediterranean; typically 60-80).",
+        default: 75,
+      })
+    ),
+    /** Temperate zone (35-55°) rainfall target (moderate rainfall; typically 70-90). */
+    deg35to55: Type.Optional(
+      Type.Number({
+        description: "Temperate zone rainfall target (moderate rainfall; typically 70-90).",
+        default: 70,
+      })
+    ),
+    /** Subpolar zone (55-70°) rainfall target (cool, moderate moisture; typically 55-70). */
+    deg55to70: Type.Optional(
+      Type.Number({
+        description: "Subpolar zone rainfall target (cool, moderate moisture; typically 55-70).",
+        default: 60,
+      })
+    ),
+    /** Polar zone (70°+) rainfall target (cold deserts, ice; typically 40-50). */
+    deg70plus: Type.Optional(
+      Type.Number({
+        description: "Polar zone rainfall target (cold deserts, ice; typically 40-50).",
+        default: 45,
+      })
+    ),
+    /** Explicit band edges (degrees) used for blending between targets. */
+    edges: Type.Optional(ClimateBaselineBandEdgesSchema),
+    /** Blend width (degrees) for smoothing between adjacent bands. */
+    transitionWidth: Type.Optional(
+      Type.Number({
+        description: "Blend width (degrees) for smoothing between adjacent bands.",
+        default: 4,
+        minimum: 0,
+        maximum: 20,
+      })
+    ),
+  },
+  {
+    additionalProperties: false,
+    default: {},
+    description: "Rainfall targets by latitude zone (with explicit edges for blending).",
+  }
+);
+
+export const ClimateBaselineSizeScalingSchema = Type.Object(
+  {
+    /** Reference map area (tiles) used to compute size scaling. */
+    baseArea: Type.Optional(
+      Type.Number({
+        description: "Reference map area (tiles) used to compute size scaling.",
+        default: 10000,
+        minimum: 1,
+      })
+    ),
+    /** Minimum scale multiplier applied to size scaling. */
+    minScale: Type.Optional(
+      Type.Number({
+        description: "Minimum scale multiplier applied to size scaling.",
+        default: 0.6,
+        minimum: 0.1,
+      })
+    ),
+    /** Maximum scale multiplier applied to size scaling. */
+    maxScale: Type.Optional(
+      Type.Number({
+        description: "Maximum scale multiplier applied to size scaling.",
+        default: 2.0,
+        minimum: 0.1,
+      })
+    ),
+    /** Equatorial boost per scale step (rainfall units). */
+    equatorBoostScale: Type.Optional(
+      Type.Number({
+        description: "Equatorial boost per scale step (rainfall units).",
+        default: 12,
+        minimum: 0,
+      })
+    ),
+    /** Fraction of equator boost applied to the 10-20° band (0..1). */
+    equatorBoostTaper: Type.Optional(
+      Type.Number({
+        description: "Fraction of equator boost applied to the 10-20° band (0..1).",
+        default: 0.6,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
+  },
+  { additionalProperties: false, default: {} }
 );
 
 /**
@@ -60,6 +179,7 @@ export const ClimateBaselineBlendSchema = Type.Object(
     baseWeight: Type.Optional(
       Type.Number({
         description: "Weight for engine's base rainfall (0..1; typically 0.5-0.7).",
+        default: 0.6,
         minimum: 0,
         maximum: 1,
       })
@@ -68,6 +188,7 @@ export const ClimateBaselineBlendSchema = Type.Object(
     bandWeight: Type.Optional(
       Type.Number({
         description: "Weight for latitude band targets (0..1; typically 0.3-0.5).",
+        default: 0.4,
         minimum: 0,
         maximum: 1,
       })
@@ -89,24 +210,28 @@ export const ClimateBaselineOrographicSchema = Type.Object(
     hi1Threshold: Type.Optional(
       Type.Number({
         description: "Elevation for modest rain increase (hills get some extra moisture).",
+        default: 350,
       })
     ),
     /** Rainfall bonus at first threshold (typically 5-15 units). */
     hi1Bonus: Type.Optional(
       Type.Number({
         description: "Rainfall bonus at first threshold (typically 5-15 units).",
+        default: 8,
       })
     ),
     /** Elevation for strong rain increase (mountains get significant moisture). */
     hi2Threshold: Type.Optional(
       Type.Number({
         description: "Elevation for strong rain increase (mountains get significant moisture).",
+        default: 600,
       })
     ),
     /** Rainfall bonus at second threshold (typically 10-25 units). */
     hi2Bonus: Type.Optional(
       Type.Number({
         description: "Rainfall bonus at second threshold (typically 10-25 units).",
+        default: 7,
       })
     ),
   },
@@ -126,6 +251,7 @@ export const ClimateBaselineCoastalSchema = Type.Object(
     coastalLandBonus: Type.Optional(
       Type.Number({
         description: "Bonus rainfall on coastal land tiles (rainfall units).",
+        default: 24,
       })
     ),
     /** How far inland the coastal bonus spreads (in tiles). Default: 4. */
@@ -153,12 +279,14 @@ export const ClimateBaselineNoiseSchema = Type.Object(
     baseSpanSmall: Type.Optional(
       Type.Number({
         description: "Base +/- jitter span used on smaller maps (rainfall units).",
+        default: 3,
       })
     ),
     /** Extra jitter span applied on larger maps (scalar via sqrt(area)). */
     spanLargeScaleFactor: Type.Optional(
       Type.Number({
         description: "Extra jitter span applied on larger maps (scalar via sqrt(area)).",
+        default: 1,
       })
     ),
     /** Frequency scale for Perlin noise (lower = larger blobs). Default: 0.15. */
@@ -183,6 +311,8 @@ export const ClimateBaselineSchema = Type.Object(
   {
     /** Rainfall targets by latitude zone. */
     bands: Type.Optional(ClimateBaselineBandsSchema),
+    /** Map-size scaling for latitude boosts and noise. */
+    sizeScaling: Type.Optional(ClimateBaselineSizeScalingSchema),
     /** Blend weights for mixing engine rainfall with latitude-based targets. */
     blend: Type.Optional(ClimateBaselineBlendSchema),
     /** Orographic lift bonuses (mountains cause rain). */
@@ -554,7 +684,10 @@ export const ClimateConfigSchema = Type.Object(
     refine: Type.Optional(ClimateRefineSchema),
     /** Story-driven climate modifiers reacting to narrative overlays. */
     story: Type.Optional(ClimateStorySchema),
-    /** Swatch overrides for macro climate regions (untyped placeholder). */
+    /**
+     * Swatch overrides for macro climate regions.
+     * Set `swatches.enabled = false` to disable the swatch pass entirely.
+     */
     swatches: Type.Optional(UnknownRecord),
   },
   { additionalProperties: false, default: {} }

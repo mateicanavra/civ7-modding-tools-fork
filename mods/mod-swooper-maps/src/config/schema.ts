@@ -55,11 +55,13 @@ import {
   CorridorsConfigSchema,
 } from "@mapgen/config/schema/narrative.js";
 import {
+  ClimateBaselineBandEdgesSchema,
   ClimateBaselineBandsSchema,
   ClimateBaselineBlendSchema,
   ClimateBaselineOrographicSchema,
   ClimateBaselineCoastalSchema,
   ClimateBaselineNoiseSchema,
+  ClimateBaselineSizeScalingSchema,
   ClimateBaselineSchema,
   ClimateRefineWaterGradientSchema,
   ClimateRefineOrographicSchema,
@@ -187,10 +189,12 @@ export type RiverCorridorConfig = Static<typeof RiverCorridorConfigSchema>;
 export type IslandHopCorridorConfig = Static<typeof IslandHopCorridorConfigSchema>;
 export type CorridorsConfig = Static<typeof CorridorsConfigSchema>;
 export type ClimateBaselineBands = Static<typeof ClimateBaselineBandsSchema>;
+export type ClimateBaselineBandEdges = Static<typeof ClimateBaselineBandEdgesSchema>;
 export type ClimateBaselineBlend = Static<typeof ClimateBaselineBlendSchema>;
 export type ClimateBaselineOrographic = Static<typeof ClimateBaselineOrographicSchema>;
 export type ClimateBaselineCoastal = Static<typeof ClimateBaselineCoastalSchema>;
 export type ClimateBaselineNoise = Static<typeof ClimateBaselineNoiseSchema>;
+export type ClimateBaselineSizeScaling = Static<typeof ClimateBaselineSizeScalingSchema>;
 export type ClimateBaseline = Static<typeof ClimateBaselineSchema>;
 export type ClimateRefineWaterGradient = Static<typeof ClimateRefineWaterGradientSchema>;
 export type ClimateRefineOrographic = Static<typeof ClimateRefineOrographicSchema>;

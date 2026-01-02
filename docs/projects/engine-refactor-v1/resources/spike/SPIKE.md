@@ -12,3 +12,4 @@ Notes:
 
 New:
 - Feature placement ownership spike: `spike-ecology-feature-placement-ownership.md`
+- Ecology/climate realism pass spike: `spike-ecology-climate-realism-pass.md`
