@@ -226,3 +226,11 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 ### Pre-work for E (loader optional)
 - “Enumerate all imports of `@mapgen/config/loader` and `safeParseConfig` and determine whether they are runtime-critical or tooling/test-only.”
 - “Decide whether schema export (`getJsonSchema` / `getPublicJsonSchema`) is a required public surface for the standard content package in M6.”
+
+#### E1 Findings: `@mapgen/config/loader` + `safeParseConfig` usage
+- **Imports of `@mapgen/config/loader`:**
+  - `mods/mod-swooper-maps/src/config/index.ts` re-exports `parseConfig/safeParseConfig/getDefaultConfig/getJsonSchema/getPublicJsonSchema` for external consumers. This is a tooling-facing surface, not used in runtime entrypoints.
+- **`safeParseConfig` usage:**
+  - `mods/mod-swooper-maps/test/ecology/features-owned-unknown-chance-key.test.ts` (test-only).
+  - The implementation lives in `mods/mod-swooper-maps/src/config/loader.ts` and is not imported by runtime code.
+- **Conclusion:** current usages are tooling/test-only; no runtime-critical dependency on the loader.
