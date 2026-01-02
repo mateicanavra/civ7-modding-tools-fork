@@ -171,6 +171,10 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - “Audit `PipelineExecutor` and step wrappers to ensure no one needs to check `settings.trace` directly; list any needed helper APIs for emitting step events.”
 - “Write a small end-to-end test that sets `settings.trace.steps[stepId] = 'verbose'` and asserts sink receives step events for that step only.”
 
+#### B1 Findings: TraceSink source in normal runs
+- `TraceSink` is only instantiated in tests today (e.g. in-memory sink in `packages/mapgen-core/test/pipeline/tracing.test.ts`). The normal mod runtime (`mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`) does not pass a sink or `TraceSession` into `recipe.run`, so tracing is effectively disabled by default.
+- There is no existing runtime surface for a sink in `MapRuntimeOptions` (`mods/mod-swooper-maps/src/maps/_runtime/types.ts`), so a default strategy is currently undefined. Any runtime tracing will need an explicit boundary choice (e.g., optional console sink, FireTuner sink, or a caller-provided sink).
+
 ### Pre-work for C (directionality cutover)
 - “Enumerate all directionality reads across steps/domains (`rg -n 'directionality' mods/mod-swooper-maps/src/recipes`) and ensure they can be replaced by `context.settings.directionality`.”
 - “Confirm that `buildStandardRunSettings` is the only writer of directionality (or list others).”
