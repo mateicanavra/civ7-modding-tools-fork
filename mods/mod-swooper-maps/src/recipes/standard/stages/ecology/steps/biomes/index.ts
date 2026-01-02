@@ -98,7 +98,10 @@ export default createStep({
       opConfig
     );
 
-    const engineBindings = resolveEngineBiomeIds(context.adapter, config.bindings);
+    const { land: engineBindings, marine: marineBiome } = resolveEngineBiomeIds(
+      context.adapter,
+      config.bindings
+    );
     publishBiomeClassificationArtifact(context, {
       width,
       height,
@@ -109,7 +112,12 @@ export default createStep({
       const rowOffset = y * width;
       for (let x = 0; x < width; x++) {
         const idx = rowOffset + x;
-        if (landMask[idx] === 0) continue;
+        if (landMask[idx] === 0) {
+          context.adapter.setBiomeType(x, y, marineBiome);
+          biomeField[idx] = marineBiome;
+          temperatureField[idx] = clampToByte(result.surfaceTemperature[idx]! + 50);
+          continue;
+        }
         const biomeIdx = result.biomeIndex[idx]!;
         if (biomeIdx === 255) continue;
         const symbol = biomeSymbolFromIndex(biomeIdx);
