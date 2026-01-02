@@ -115,10 +115,13 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - Resolver output that violates schema/unknown-keys fails plan compilation with actionable errors.
 - A step that defines `resolveConfig` must also define `configSchema`; otherwise plan compilation fails (no untyped resolver execution).
 - `resolveConfig` must return a non-null POJO; `null` or non-object outputs fail plan compilation.
-- Resolver-related failures are reported as `ExecutionPlanCompileErrorItem` with:
-  - `code: "step.config.invalid"` (no new error code in this unit),
-  - a `/recipe/steps/<index>/config...` path (same prefix as standard step-config validation),
+- Resolver execution failures are reported as `ExecutionPlanCompileErrorItem` with:
+  - `code: "step.resolveConfig.failed"`,
+  - `path: /recipe/steps/<index>/config` (same prefix as standard step-config validation),
   - `stepId` populated.
+- Resolver output that fails schema validation or unknown-key checks is still reported as:
+  - `code: "step.config.invalid"`,
+  - with paths rooted at `/recipe/steps/<index>/config/...` (same as non-resolved step config validation).
 
 **Verification / tests**
 - Extend `packages/mapgen-core/test/pipeline/execution-plan.test.ts`:
@@ -184,9 +187,13 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
   - `runStandardRecipe(...)` accepts `settings` and `config` directly (no `overrides` parameter),
   - maps supply `settings` and `config` directly (no translation layer),
   - maps do not depend on any map-runtime “settings builder” helper (duplication is acceptable here; `LOCAL-TBD-M7-U12` introduces an authoring factory that can dedupe later).
+- Treat `StandardRecipeConfig` as the only canonical authoring surface for standard recipe config:
+  - maps must author the full stage/step key shape (`RecipeConfigOf<typeof stages>` is `Record<stageId, Record<stepId, ...>>`),
+  - enforce completeness with `satisfies StandardRecipeConfig` on the top-level config literal (no sparse/partial objects).
 - Keep settings explicit at the boundary:
   - delete `buildStandardRunSettings(...)` (it is part of the overrides translation layer).
   - no replacement “settings builder” helper is introduced in this unit.
+  - `runStandardRecipe(...)` must not mutate `settings` (including `settings.trace`) based on `options`.
 
 **Out of scope**
 - Re-introducing a config loader or JSON ingestion surface as part of this cleanup.
@@ -202,6 +209,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - No entrypoint accepts an overrides-shaped input “for compatibility”.
 - The standard runner has a single canonical signature post-U10:
   - `runStandardRecipe({ recipe, init, settings, config, options? })` (no other overloads).
+- `mods/mod-swooper-maps/test/standard-run.test.ts` does not import or use any overrides translator helpers (no `buildStandardRecipeConfig` / `StandardRecipeOverrides`).
 
 **Verification / tests**
 - `pnpm -C mods/mod-swooper-maps check`
@@ -819,3 +827,26 @@ Canonical type shape (grounded in existing imports):
 - The map entrypoint path must not construct recipe config via translation/defaulting:
   - maps author `config` directly (full shape, `satisfies StandardRecipeConfig`)
   - compiler applies schema defaults/cleaning (compile-time), not maps/runtime
+
+## Implementation Decisions
+
+### Introduce a dedicated compile error code for resolver execution failures
+- **Context:** The existing error surface only has `runRequest.invalid`, `step.unknown`, and `step.config.invalid`, but `resolveConfig` introduces a new failure mode (exception / invalid return / missing schema) that is not “schema invalid”.
+- **Options:** (A) reuse `step.config.invalid`, (B) add `step.resolveConfig.failed`.
+- **Choice:** (B) add `step.resolveConfig.failed`.
+- **Rationale:** keeps schema/unknown-key validation errors distinct from “resolver itself failed”; avoids conflating user-authored config errors with domain-owned resolver bugs.
+- **Risk:** requires widening `ExecutionPlanCompileErrorCode` and updating/adding tests that assert on the new code.
+
+### Make trace configuration settings-owned only
+- **Context:** `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` currently mutates `settings.trace` from `options.trace`. Post-U10, settings must be explicit at the boundary and runner glue must not synthesize/mutate settings.
+- **Options:** (A) keep `options.trace` as a runner convenience, (B) require maps/tests to set `settings.trace` directly and delete runner mutation (and the `options.trace` field).
+- **Choice:** (B) require explicit `settings.trace` and delete the runner mutation; remove `MapRuntimeOptions.trace`.
+- **Rationale:** makes `RunRequest.settings` the single source of truth for trace config; prevents hidden “options changed my settings” behavior.
+- **Risk:** any external call sites that relied on `options.trace` must be migrated (none were found in-repo).
+
+### Require maps to author full-shape `StandardRecipeConfig` (no sparse config objects)
+- **Context:** `StandardRecipeConfig` is `RecipeConfigOf<typeof stages>`, which is a `Record<stageId, Record<stepId, ...>>`; this is intentionally a complete shape.
+- **Options:** (A) loosen `StandardRecipeConfig` to allow sparse configs, (B) keep it full-shape and require maps to provide the full stage/step key set.
+- **Choice:** (B) keep full-shape and enforce with `satisfies StandardRecipeConfig` in each map entrypoint.
+- **Rationale:** makes the absence of translation layers mechanically verifiable by TypeScript; prevents accidental omissions that would silently become “no config provided”.
+- **Risk:** maps become more verbose; ergonomics are intentionally deferred to `LOCAL-TBD-M7-U12` rather than reintroducing a translator/builder now.
