@@ -227,7 +227,7 @@ mods/mod-swooper-maps/src/domain/ecology/
   - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/**` → split into:
     - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-reef-embellishments/**`
     - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-vegetation-embellishments/**`
-- Remove any legacy “module duplication” that exists solely to preserve old import paths (ex: delete `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` if it’s only a re-export).
+- Delete the legacy re-export module `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` and migrate importers to `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts` (no alias modules).
 - Update exports:
   - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
   - `mods/mod-swooper-maps/src/domain/ecology/index.ts`
@@ -422,3 +422,17 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 **U10 landing assumption (affects what exists to migrate)**
 - `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` is deleted by U10; any current references found there are not part of this issue’s migration surface.
+
+### A2) `ops/classify-biomes.ts` is a pure re-export shim and will be deleted
+**Observed**
+- `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` is a 1-line `export * from "./classify-biomes/index.js"`.
+- Current importers of `@mapgen/domain/ecology/ops/classify-biomes.js` (must be migrated):
+  - `mods/mod-swooper-maps/src/domain/ecology/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
+  - `mods/mod-swooper-maps/src/config/schema/ecology.ts`
+  - `mods/mod-swooper-maps/test/ecology/classify-biomes.test.ts`
+  - `mods/mod-swooper-maps/test/layers/callsite-fixes.test.ts`
+
+**Decision (no ambiguity)**
+- Delete `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` and update all importers to the directory module entrypoint:
+  - `@mapgen/domain/ecology/ops/classify-biomes/index.js`
