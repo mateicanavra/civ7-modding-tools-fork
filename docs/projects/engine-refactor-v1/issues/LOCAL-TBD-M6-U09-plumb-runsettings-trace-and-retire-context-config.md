@@ -197,7 +197,11 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - **Domain-level reads (all fed via step/config options today, can be fed from `context.settings.directionality`):**
   - Hydrology refine/swatches: `mods/mod-swooper-maps/src/domain/hydrology/climate/refine/index.ts`, `mods/mod-swooper-maps/src/domain/hydrology/climate/refine/orographic-shadow.ts`, `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/index.ts`, `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/chooser.ts`, `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/monsoon-bias.ts`.
   - Narrative corridors: `mods/mod-swooper-maps/src/domain/narrative/corridors/index.ts`, `mods/mod-swooper-maps/src/domain/narrative/corridors/land-corridors.ts`, `mods/mod-swooper-maps/src/domain/narrative/corridors/sea-lanes.ts`.
-  - Narrative rifts tagging reads from `ctx.config`: `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` → replace with `context.settings.directionality` plumbed into helper calls.
+- Narrative rifts tagging reads from `ctx.config`: `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` → replace with `context.settings.directionality` plumbed into helper calls.
+
+#### C2 Findings: directionality writers
+- `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` (`buildStandardRunSettings`) is the only writer of `RunSettings.directionality`.
+- Directionality is also written into **step configs** via `buildStandardRecipeConfig` (same file) from overrides, and **authored in map definitions** (`mods/mod-swooper-maps/src/maps/*.ts`) as `overrides.foundation.dynamics.directionality`. Those are config-level writers, not runtime settings writers.
 
 ### Pre-work for D (retire global config blob)
 - “Identify all remaining reasons `run-standard.ts` sets `context.config` today (directionality, diagnostics, other). For each, list the replacement (settings vs artifacts vs step config).”
