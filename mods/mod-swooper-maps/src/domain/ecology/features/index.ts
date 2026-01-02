@@ -18,7 +18,7 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { ctxRandom } from "@swooper/mapgen-core";
 import { inBounds as boundsCheck } from "@swooper/mapgen-core";
-import { getPublishedClimateField } from "@mapgen/domain/artifacts.js";
+import { getPublishedBiomeClassification, getPublishedClimateField } from "@mapgen/domain/artifacts.js";
 import { getNarrativeMotifsHotspots, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
 import type { FeaturesConfig, FeaturesDensityConfig } from "@mapgen/domain/ecology/features/types.js";
 import { resolveFeatureIndices } from "@mapgen/domain/ecology/features/indices.js";
@@ -82,6 +82,8 @@ export function addDiverseFeatures(
       "addDiverseFeatures: Missing field:biomeId (expected biomes reification)."
     );
   }
+  const biomeClassification = getPublishedBiomeClassification(ctx);
+  const vegetationDensity = biomeClassification?.vegetationDensity;
 
   const { reefIndex, rainforestIdx, forestIdx, taigaIdx, NO_FEATURE } = resolveFeatureIndices(adapter);
   const g_GrasslandBiome = adapter.getBiomeGlobal("BIOME_GRASSLAND");
@@ -149,6 +151,10 @@ export function addDiverseFeatures(
       const rainfall = rainfallField[idxValue] | 0;
       const biome = biomeField[idxValue] | 0;
       const plat = Math.abs(adapter.getLatitude(x, y));
+      const vegetation = vegetationDensity?.[idxValue];
+      if (vegetation !== undefined && vegetation < 0.01) {
+        continue;
+      }
 
       // 3a) Volcanic vegetation near volcanic hotspot centers (radius 1)
       if (
@@ -191,9 +197,18 @@ export function addDiverseFeatures(
           tropicalBiome: g_TropicalBiome,
           grasslandBiome: g_GrasslandBiome,
           tundraBiome: g_TundraBiome,
-          rainforestExtraChance,
-          forestExtraChance,
-          taigaExtraChance,
+          rainforestExtraChance: Math.min(
+            100,
+            rainforestExtraChance + (vegetation !== undefined ? Math.round(vegetation * 50) : 0)
+          ),
+          forestExtraChance: Math.min(
+            100,
+            forestExtraChance + (vegetation !== undefined ? Math.round(vegetation * 30) : 0)
+          ),
+          taigaExtraChance: Math.min(
+            100,
+            taigaExtraChance + (vegetation !== undefined ? Math.round(vegetation * 20) : 0)
+          ),
         })
       ) {
         continue;

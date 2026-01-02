@@ -17,6 +17,7 @@ Scope: `packages/mapgen-core/**`
 
 - No direct Civ7 engine imports here; all engine interaction goes through `@civ7/adapter` and `MapGenContext.adapter`.
 - Avoid global mutable state; steps/layers communicate only via `MapGenContext`.
+- Step identity is recipe-unique (`step.id` only); `instanceId`/`nodeId` are retired and tracing/plan fingerprints are keyed by `stepId`.
 
 ## Canonical Docs
 
@@ -24,4 +25,3 @@ Scope: `packages/mapgen-core/**`
 - Design notes & invariants: `docs/system/libs/mapgen/design.md`
 - Foundation & climate concepts: `docs/system/libs/mapgen/foundation.md`, `docs/system/libs/mapgen/climate.md`
 - Testing overview: `docs/system/TESTING.md`
-

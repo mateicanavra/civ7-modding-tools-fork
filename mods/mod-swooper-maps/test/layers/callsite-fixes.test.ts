@@ -112,20 +112,11 @@ describe("CIV-18: Call-site Fixes", () => {
     });
   });
 
-  describe("biomes ctx parameter", () => {
-    it("designateEnhancedBiomes accepts optional ctx parameter", async () => {
-      // Import the function to verify its signature
-      const { designateEnhancedBiomes } = await import(
-        "@mapgen/domain/ecology/biomes/index.js"
-      );
-
-      // Function should exist and be callable
-      expect(typeof designateEnhancedBiomes).toBe("function");
-
-      // Verify it accepts 3 parameters (iWidth, iHeight, ctx?)
-      // The function.length property shows required parameters, not optional
-      // Since ctx is optional, length should be 2
-      expect(designateEnhancedBiomes.length).toBeLessThanOrEqual(3);
+  describe("biomes op exports", () => {
+    it("classifyBiomes exposes a runnable op with defaults", async () => {
+      const { classifyBiomes } = await import("@mapgen/domain/ecology/ops/classify-biomes.js");
+      expect(typeof classifyBiomes.run).toBe("function");
+      expect(classifyBiomes.defaultConfig).toBeDefined();
     });
   });
 });

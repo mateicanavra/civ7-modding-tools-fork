@@ -13,7 +13,6 @@ export interface TraceEvent {
   planFingerprint: string;
   kind: "run.start" | "run.finish" | "step.start" | "step.finish" | "step.event";
   stepId?: string;
-  nodeId?: string;
   phase?: string;
   durationMs?: number;
   success?: boolean;
@@ -27,7 +26,6 @@ export interface TraceSink {
 
 export interface TraceStepMeta {
   stepId: string;
-  nodeId?: string;
   phase?: string;
 }
 

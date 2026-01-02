@@ -13,6 +13,7 @@ import {
   validateFoundationSeedArtifact,
 } from "@swooper/mapgen-core";
 import type { DependencyTagDefinition, TagOwner } from "@swooper/mapgen-core/engine";
+import { isBiomeClassificationArtifactV1 } from "@mapgen/domain/ecology/artifacts.js";
 import {
   isNarrativeCorridorsV1,
   isNarrativeMotifsHotspotsV1,
@@ -34,6 +35,7 @@ export const M3_DEPENDENCY_TAGS = {
     climateField: "artifact:climateField",
     storyOverlays: "artifact:storyOverlays",
     riverAdjacency: "artifact:riverAdjacency",
+    biomeClassificationV1: "artifact:ecology.biomeClassification@v1",
     narrativeCorridorsV1: "artifact:narrative.corridors@v1",
     narrativeMotifsMarginsV1: "artifact:narrative.motifs.margins@v1",
     narrativeMotifsHotspotsV1: "artifact:narrative.motifs.hotspots@v1",
@@ -153,6 +155,23 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
       humidity: new Uint8Array(0),
     },
     validateDemo: (demo) => isClimateFieldBuffer(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isBiomeClassificationArtifactV1(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1)
+      ),
+    demo: {
+      width: 0,
+      height: 0,
+      biomeIndex: new Uint8Array(0),
+      vegetationDensity: new Float32Array(0),
+      effectiveMoisture: new Float32Array(0),
+      surfaceTemperature: new Float32Array(0),
+    },
+    validateDemo: (demo) => isBiomeClassificationArtifactV1(demo),
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.storyOverlays,

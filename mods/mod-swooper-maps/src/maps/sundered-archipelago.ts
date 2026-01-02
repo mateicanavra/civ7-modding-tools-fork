@@ -19,6 +19,7 @@ import { runStandardRecipe } from "./_runtime/run-standard.js";
 import type { MapInitResolution } from "./_runtime/map-init.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import type { StandardRecipeOverrides } from "./_runtime/standard-config.js";
+import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
 
 /**
  * Build the Sundered Archipelago configuration.
@@ -296,24 +297,10 @@ function buildConfig(): StandardRecipeOverrides {
         },
       },
       biomes: {
-        tundra: {
-          latMin: 78,
-          elevMin: 600,
-          rainMax: 70,
-        },
-        tropicalCoast: {
-          latMax: 28,
-          rainMin: 90,
-        },
-        riverValleyGrassland: {
-          latMax: 55,
-          rainMin: 70,
-        },
-        riftShoulder: {
-          grasslandLatMax: 50,
-          grasslandRainMin: 60,
-          tropicalLatMax: 28,
-          tropicalRainMin: 90,
+        ...classifyBiomes.defaultConfig,
+        moisture: {
+          ...classifyBiomes.defaultConfig.moisture,
+          thresholds: [70, 90, 130, 190],
         },
       },
       featuresDensity: {

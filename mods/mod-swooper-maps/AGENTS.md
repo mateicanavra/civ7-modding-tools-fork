@@ -14,6 +14,11 @@ Scope: `mods/mod-swooper-maps/**`
 - Prefer regenerating `mod/` via `pnpm build` over editing build artifacts.
 - Run broader tests from the repo root (`pnpm test`) or the MapGen core package when needed.
 
+## Ecology domain
+
+- Ecology ops live under `src/domain/ecology/ops`; step schemas should import op configs/defaults directly (no re-authored wrappers).
+- The biomes step publishes `artifact:ecology.biomeClassification@v1` (biome symbols, vegetation density, moisture/temp). Downstream feature logic expects this artifact plus `field:biomeId`.
+
 ## Canonical Docs
 
 - Mod architecture & presets: `docs/system/mods/swooper-maps/architecture.md`

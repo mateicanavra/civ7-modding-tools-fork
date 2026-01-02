@@ -4,6 +4,7 @@ import { createStep } from "@swooper/mapgen-core/authoring";
 import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "@mapgen/config";
 import { addDiverseFeatures } from "@mapgen/domain/ecology/features/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { getPublishedBiomeClassification } from "../../../artifacts.js";
 
 const FeaturesStepConfigSchema = Type.Object(
   {
@@ -44,6 +45,7 @@ export default createStep({
     M3_DEPENDENCY_TAGS.field.biomeId,
     M3_DEPENDENCY_TAGS.artifact.climateField,
     M3_DEPENDENCY_TAGS.artifact.heightfield,
+    M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
   ],
@@ -54,6 +56,10 @@ export default createStep({
   schema: FeaturesStepConfigSchema,
   run: (context: ExtendedMapContext, config: FeaturesStepConfig) => {
     const { width, height } = context.dimensions;
+    const classification = getPublishedBiomeClassification(context);
+    if (!classification) {
+      throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
+    }
     addDiverseFeatures(width, height, context, {
       story: config.story,
       featuresDensity: config.featuresDensity,

@@ -46,7 +46,7 @@ describe("compileExecutionPlan", () => {
     const plan = compileExecutionPlan(
       {
         recipe: {
-          schemaVersion: 1,
+          schemaVersion: 2,
           steps: [
             {
               id: "alpha",
@@ -60,7 +60,6 @@ describe("compileExecutionPlan", () => {
     );
 
     expect(plan.nodes).toHaveLength(1);
-    expect(plan.nodes[0].nodeId).toBe("alpha");
     expect(plan.nodes[0].stepId).toBe("alpha");
     expect(plan.nodes[0].phase).toBe("foundation");
     expect(plan.nodes[0].config).toEqual({ value: 3 });
@@ -81,7 +80,7 @@ describe("compileExecutionPlan", () => {
     const plan = compileExecutionPlan(
       {
         recipe: {
-          schemaVersion: 1,
+          schemaVersion: 2,
           steps: [
             {
               id: "alpha",
@@ -97,6 +96,92 @@ describe("compileExecutionPlan", () => {
     expect(plan.nodes).toHaveLength(0);
   });
 
+  it("rejects recipe schema versions other than v2", () => {
+    const registry = new StepRegistry<unknown>();
+    registry.register({
+      id: "alpha",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      run: () => {},
+    });
+
+    expect(() =>
+      compileExecutionPlan(
+        {
+          recipe: {
+            // Intentionally invalid schema version to assert v1 is deprecated
+            schemaVersion: 1 as unknown as 2,
+            steps: [{ id: "alpha" }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      )
+    ).toThrow(ExecutionPlanCompileError);
+
+    try {
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 1 as unknown as 2,
+            steps: [{ id: "alpha" }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      );
+    } catch (err) {
+      expect(err).toBeInstanceOf(ExecutionPlanCompileError);
+      const errors = (err as ExecutionPlanCompileError).errors;
+      expect(errors[0]?.code).toBe("runRequest.invalid");
+      expect(errors[0]?.path).toBe("/recipe/schemaVersion");
+    }
+  });
+
+  it("enforces unique step ids within a recipe", () => {
+    const registry = new StepRegistry<unknown>();
+    registry.register({
+      id: "alpha",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      run: () => {},
+    });
+
+    expect(() =>
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 2,
+            steps: [{ id: "alpha" }, { id: "alpha" }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      )
+    ).toThrow(ExecutionPlanCompileError);
+
+    try {
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 2,
+            steps: [{ id: "alpha" }, { id: "alpha" }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      );
+    } catch (err) {
+      expect(err).toBeInstanceOf(ExecutionPlanCompileError);
+      const errors = (err as ExecutionPlanCompileError).errors;
+      expect(errors[0]?.code).toBe("runRequest.invalid");
+      expect(errors[0]?.path).toBe("/recipe/steps/1/id");
+      expect(errors[0]?.message).toContain('Duplicate step id "alpha"');
+    }
+  });
+
   it("fails fast on unknown step IDs", () => {
     const registry = new StepRegistry<unknown>();
 
@@ -104,7 +189,7 @@ describe("compileExecutionPlan", () => {
       compileExecutionPlan(
         {
           recipe: {
-            schemaVersion: 1,
+            schemaVersion: 2,
             steps: [{ id: "missing" }],
           },
           settings: baseSettings,
@@ -117,7 +202,7 @@ describe("compileExecutionPlan", () => {
       compileExecutionPlan(
         {
           recipe: {
-            schemaVersion: 1,
+            schemaVersion: 2,
             steps: [{ id: "missing" }],
           },
           settings: baseSettings,
@@ -153,7 +238,7 @@ describe("compileExecutionPlan", () => {
       compileExecutionPlan(
         {
           recipe: {
-            schemaVersion: 1,
+            schemaVersion: 2,
             steps: [{ id: "alpha", config: { value: "bad" } }],
           },
           settings: baseSettings,
@@ -189,7 +274,7 @@ describe("compileExecutionPlan", () => {
       compileExecutionPlan(
         {
           recipe: {
-            schemaVersion: 1,
+            schemaVersion: 2,
             steps: [{ id: "alpha", config: { value: 3, extra: 9 } }],
           },
           settings: baseSettings,
@@ -231,7 +316,7 @@ describe("compileExecutionPlan", () => {
       compileExecutionPlan(
         {
           recipe: {
-            schemaVersion: 1,
+            schemaVersion: 2,
             steps: [{ id: "alpha", config: null }],
           },
           settings: baseSettings,
@@ -256,7 +341,7 @@ describe("compileExecutionPlan", () => {
       compileExecutionPlan(
         {
           recipe: {
-            schemaVersion: 1,
+            schemaVersion: 2,
             steps: [],
           },
           settings: {
@@ -287,7 +372,7 @@ describe("compileExecutionPlan", () => {
       compileExecutionPlan(
         {
           recipe: {
-            schemaVersion: 1,
+            schemaVersion: 2,
             steps: [{ id: "alpha" }],
           },
           settings: {
@@ -329,7 +414,7 @@ describe("compileExecutionPlan", () => {
     const plan = compileExecutionPlan(
       {
         recipe: {
-          schemaVersion: 1,
+          schemaVersion: 2,
           steps: [{ id: "alpha", config: {} }],
         },
         settings: baseSettings,

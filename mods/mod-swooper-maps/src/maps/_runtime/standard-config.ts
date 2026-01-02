@@ -1,8 +1,9 @@
 import type { RunSettings } from "@swooper/mapgen-core/engine";
-import type { FoundationConfig, MapGenConfig } from "@mapgen/config";
+import type { FoundationConfig, MapGenConfig, BiomeConfig } from "@mapgen/config";
 
 import type { StandardRecipeConfig } from "../../recipes/standard/recipe.js";
 import type { MapInitResolution } from "./map-init.js";
+import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
 
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends ReadonlyArray<infer U>
@@ -52,6 +53,10 @@ export function buildStandardRecipeConfig(
     ...foundationOverrides,
   } as FoundationConfig;
   const directionality = foundationConfig.dynamics?.directionality ?? {};
+  const biomeConfig: BiomeConfig = {
+    ...classifyBiomes.defaultConfig,
+    ...(overrides.biomes ?? {}),
+  };
 
   return {
     foundation: {
@@ -117,7 +122,10 @@ export function buildStandardRecipeConfig(
       },
     },
     ecology: {
-      biomes: { biomes: overrides.biomes ?? {}, corridors: overrides.corridors ?? {} },
+      biomes: {
+        classify: biomeConfig,
+        bindings: overrides.biomeBindings ?? {},
+      },
       features: {
         story: { features: overrides.story?.features ?? {} },
         featuresDensity: overrides.featuresDensity ?? {},
