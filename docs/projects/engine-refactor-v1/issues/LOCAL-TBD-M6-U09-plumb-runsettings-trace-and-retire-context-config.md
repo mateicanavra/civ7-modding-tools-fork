@@ -158,6 +158,9 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - **Wrap** (`RunSettings.wrap`) is currently assembled in `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` and `mods/mod-swooper-maps/src/maps/_runtime/map-init.ts`, with no direct step reads. It should remain a settings-level knob and be enforced by adapter/grid helpers (not per-step config).
 - **Trace** (`RunSettings.trace`) has no step-level reads in `mods/mod-swooper-maps/src/recipes/**` today. Steps should emit via `context.trace` only; trace config interpretation belongs at the runtime boundary (settings-owned, not per-step config/artifacts).
 
+#### A2 Findings: `context.config` consumers in recipes
+- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` reads `context.config` to access `foundation.dynamics.directionality`. This is legacy/global-knob usage and should move to `context.settings.directionality` (not a legitimate per-step config read).
+
 ### Pre-work for B (trace wiring)
 - “Confirm the intended default sink strategy: where does `TraceSink` come from in a normal mod run (console, file, FireTuner, in-memory test sink)?”
 - “Audit `PipelineExecutor` and step wrappers to ensure no one needs to check `settings.trace` directly; list any needed helper APIs for emitting step events.”
