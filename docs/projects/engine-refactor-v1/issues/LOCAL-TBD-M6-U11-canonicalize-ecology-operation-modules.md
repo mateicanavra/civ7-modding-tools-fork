@@ -46,6 +46,9 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 - No domain-side logging:
   - Domain ops do not call `devLogJson` or any logger.
   - Step-level tracing is the only logging/diagnostics mechanism (no domain-side diagnostic helpers).
+- No runtime config normalization helpers:
+  - Delete `resolvePlotEffectsConfig` and any equivalent runtime config resolver exports.
+  - Steps treat `node.config` as plan-truth (assumes U10 landed) and do not “resolve” plot-effects config during `run`.
 
 ## Acceptance Criteria
 - **Boundary purity**
@@ -74,6 +77,8 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
     - `rg -n "\\buseEngineBaseline\\b" mods/mod-swooper-maps/src/domain/ecology mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
 - **Diagnostics alignment**
   - Any snow/plot-effects diagnostics are step-owned (or refactored into pure summary functions + step-level logging), and never depend on adapter within the domain layer.
+  - Guardrail:
+    - `rg -n "\\bresolvePlotEffectsConfig\\b" mods/mod-swooper-maps/src/domain/ecology mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
 
 ## Testing / Verification
 - `pnpm check`
