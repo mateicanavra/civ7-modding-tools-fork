@@ -520,3 +520,38 @@ mods/mod-swooper-maps/src/domain/ecology/
   - typed array *type* (`assertUint8Array`, `assertInt16Array`, `assertFloat32Array`),
   - typed array *length* equals `expectedGridSize(width, height)` (no silent mismatch).
 - `mask` fields (`hotspot*`, `passiveShelf`, `landMask`) must be `Uint8Array` with length `width * height` (0/1 semantics; values outside {0,1} are treated as invalid input and must throw in the input builder).
+
+### C1) Current numeric placement IDs and the semantic key surface (Feature/PlotEffect)
+**Current numeric IDs returned by ops (what we are retiring)**
+- Feature placements:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts` outputs `placements[].feature: number` (engine feature type index).
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts` outputs `placements[].feature: number` (engine feature type index).
+  - Numeric indices are produced via:
+    - `adapter.getFeatureTypeIndex("FEATURE_*")` (feature type lookup)
+    - `adapter.NO_FEATURE` / `adapter.getFeatureType(x, y)` (existing feature reads)
+    - `adapter.canHaveFeature(x, y, featureIdx)` (runtime gating)
+- Plot effects:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts` outputs `placements[].plotEffectType: number` (engine plot effect type index).
+  - Numeric indices are produced via:
+    - `adapter.getPlotEffectTypesContainingTags(tags)` (tag-based lookup, returns numeric IDs)
+    - `adapter.getPlotEffectTypeIndex("PLOTEFFECT_*")` (type-name lookup)
+    - `adapter.hasPlotEffect(x, y, type)` (runtime gating)
+
+**Semantic key surface (what ops will return post-migration)**
+- `FeatureKey` (string union of `FEATURE_*`):
+  - Use the existing ecology key surface from `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts`:
+    - `FEATURE_PLACEMENT_KEYS = ["FEATURE_FOREST", "FEATURE_RAINFOREST", "FEATURE_TAIGA", "FEATURE_SAVANNA_WOODLAND", "FEATURE_SAGEBRUSH_STEPPE", "FEATURE_MARSH", "FEATURE_TUNDRA_BOG", "FEATURE_MANGROVE", "FEATURE_OASIS", "FEATURE_WATERING_HOLE", "FEATURE_REEF", "FEATURE_COLD_REEF", "FEATURE_ATOLL", "FEATURE_LOTUS", "FEATURE_ICE"]`
+  - Embellishment outputs are a strict subset of the same key surface (`FEATURE_REEF`, `FEATURE_RAINFOREST`, `FEATURE_FOREST`, `FEATURE_TAIGA`).
+- `PlotEffectKey` (string union of `PLOTEFFECT_*` used by this op):
+  - Default selectors in `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/schema.ts` reference:
+    - `PLOTEFFECT_SNOW_LIGHT_PERMANENT`
+    - `PLOTEFFECT_SNOW_MEDIUM_PERMANENT`
+    - `PLOTEFFECT_SNOW_HEAVY_PERMANENT`
+    - `PLOTEFFECT_SAND`
+    - `PLOTEFFECT_BURNED`
+
+**Where key → engine-ID resolution will live (no ambiguity)**
+- Features:
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/apply.ts` resolves `FeatureKey` → engine feature type index via `adapter.getFeatureTypeIndex(key)` and throws on unknown.
+- Plot effects:
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/apply.ts` resolves `PlotEffectKey` → engine plot effect type index via `adapter.getPlotEffectTypeIndex(key)` and throws on unknown.
