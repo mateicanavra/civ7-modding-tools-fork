@@ -53,7 +53,6 @@ export function buildStandardRecipeConfig(
     dynamics: {},
     ...foundationOverrides,
   } as FoundationConfig;
-  const directionality = foundationConfig.dynamics?.directionality ?? {};
   const biomeConfig = Value.Default(
     BiomeConfigSchema,
     overrides.biomes ?? {}
@@ -85,7 +84,6 @@ export function buildStandardRecipeConfig(
       storyOrogeny: { story: { orogeny: overrides.story?.orogeny ?? {} } },
       storyCorridorsPre: {
         corridors: overrides.corridors ?? {},
-        foundation: { dynamics: { directionality } },
       },
     },
     "morphology-post": {
@@ -107,7 +105,6 @@ export function buildStandardRecipeConfig(
           ...(overrides.climate ?? {}),
           swatches: overrides.climate?.swatches ?? { enabled: false },
         },
-        foundation: { dynamics: { directionality } },
       },
     },
     "hydrology-core": {
@@ -116,7 +113,6 @@ export function buildStandardRecipeConfig(
     "narrative-post": {
       storyCorridorsPost: {
         corridors: overrides.corridors ?? {},
-        foundation: { dynamics: { directionality } },
       },
     },
     "hydrology-post": {
