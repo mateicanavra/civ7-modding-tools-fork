@@ -108,6 +108,7 @@ STANDARD_CONTENT_ROOT/
 - Shared config schema fragments live with the *closest* real owner:
   - stage scope when shared within a stage (`stages/<stageId>/shared/**`)
   - domain scope when shared across stages/recipes (prefer `src/domain/config/schema/**` when the shared surface is config-oriented)
-- Step schemas must not import from a centralized `@mapgen/config` module.
+- Step schemas must not depend on a centralized “global runtime config blob” module.
+- Importing shared **schema/type-only** fragments from a mod-owned `@mapgen/config` alias is allowed when the fragment is truly cross-domain and does not introduce recipe/map coupling.
 
 ---

@@ -11,10 +11,7 @@ This document is the canonical entrypoint for the target architecture. The autho
 - SPEC-standard-content-package
 - SPEC-global-invariants
 - SPEC-appendix-target-trees
-
-## Pending-merge specs (not canonical until merged)
-
-- SPEC-pending-step-domain-operation-modules
+- SPEC-step-domain-operation-modules
 
 ## Decision log
 

@@ -6,7 +6,7 @@ This directory contains spec-adjacent documents for the `engine-refactor-v1` pro
 - `CORE_SDK_ROOT`, `STANDARD_CONTENT_ROOT`, and `MOD_CONTENT_ROOT` are conceptual roots used to describe ownership and target layouts (do not treat them as stable repo filesystem paths).
 
 **Canonical target architecture (SSOT):**
-- SPEC-architecture-overview (entrypoint)
+- `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (entrypoint)
 - The full component set in this `SPEC-*` directory
 
 **Component splits (derived from the canonical spec):**
@@ -17,9 +17,7 @@ This directory contains spec-adjacent documents for the `engine-refactor-v1` pro
 - SPEC-standard-content-package
 - SPEC-global-invariants
 - SPEC-appendix-target-trees
-
-**Pending-merge specs (not canonical until merged):**
-- SPEC-pending-step-domain-operation-modules
+- SPEC-step-domain-operation-modules
 
 **ADR log:**
 - ADR index: `ER1-ADR-INDEX`

@@ -18,7 +18,7 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
-- **Legacy orchestrator test coverage dropped** [Source: LOCAL-TBD-M6-U08]
+- **Legacy orchestrator test coverage dropped** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U08-realign-tests-and-ci-gates-to-ownership.md`]
   - **Context:** Realigning tests to ownership removes `runTaskGraphGeneration`/bootstrap/config test suites.
   - **Type:** triage
   - **Notes:** Legacy path is scheduled for deletion in M6-U07; no CI coverage remains for orchestrator-only flows.
@@ -48,61 +48,61 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** `applyClimateSwatches` now honors `swatches.enabled === false`, and standard config defaults that flag to false. Re-enable explicitly in presets when swatch tuning is desired.
   - **Next check:** when swatch tuning becomes a focus or when climate swatch schemas are formalized.
 
-- **Standard recipe runtime stored per context** [Source: LOCAL-TBD-M6-U05-1]
+- **Standard recipe runtime stored per context** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U05-1-translate-base-steps-into-recipe-local-stage-step-files.md`]
   - **Context:** Standard recipe steps need shared mutable state (continents, start sectors, mapInfo) without registry-layer runtime injection.
   - **Type:** triage
   - **Notes:** Implemented as a WeakMap keyed by `ExtendedMapContext` and initialized from adapter lookup/chooseStartSectors. Revisit if runs become concurrent or if mapInfo should be passed via settings metadata.
   - **Next check:** before finalizing map/preset rewrites (M6 U06) or adding multi-run concurrency.
 
-- **Standard recipe stage IDs expanded for legacy ordering** [Source: LOCAL-TBD-M6-U05-2]
+- **Standard recipe stage IDs expanded for legacy ordering** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U05-2-compose-standard-recipe-and-tag-definitions-via-authoring-sdk.md`]
   - **Context:** Preserving legacy step order required splitting morphology and narrative into additional stage IDs.
   - **Type:** triage
   - **Notes:** New stage IDs include `morphology-pre`, `morphology-mid`, `morphology-post`, and `narrative-mid` alongside the narrative/hydrology splits. Ensure config mappings and any stage-based tooling are updated.
   - **Next check:** during M6 U06 map/preset rewrite or before stabilizing recipe config shape.
 
-- **Map overrides mapped directly to recipe config without parseConfig defaults** [Source: LOCAL-TBD-M6-U06]
+- **Map overrides mapped directly to recipe config without parseConfig defaults** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U06-rewrite-maps-as-recipe-instances.md`]
   - **Context:** Map entrypoints now build recipe config directly from overrides and derive run settings at the boundary (no `context.config` global overrides).
   - **Type:** triage
   - **Notes:** Entry points build recipe config directly from overrides and derive run settings from overrides; `context.config` is no longer used as a global knob. This skips `parseConfig` defaults/validation; add explicit validation or defaults if step configs require them.
   - **Next check:** before stabilizing map config docs or when recipe config defaults are audited.
 
-- **Engine tag definitions/registry are generic over context** [Source: LOCAL-TBD-M6-U01]
+- **Engine tag definitions/registry are generic over context** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U01-promote-runtime-pipeline-as-engine-sdk-surface.md`]
   - **Context:** M6 engine cutover removes `ExtendedMapContext` from `engine/**` and introduces a minimal `EngineContext`.
   - **Type:** triage
   - **Notes:** `DependencyTagDefinition<TContext>` and `TagRegistry<TContext>` now accept contextual `satisfies` callbacks without binding engine to core. Watch for downstream typing changes (e.g., registries that assumed non-generic definitions).
   - **Next check:** when authoring SDK and content package work begins wiring tag definitions outside mapgen-core.
 
-- **Authoring schema enforcement stays in authoring layer (engine remains permissive)** [Source: LOCAL-TBD-M6-U02-1]
+- **Authoring schema enforcement stays in authoring layer (engine remains permissive)** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U02-1-define-authoring-pojos-and-schema-requirements.md`]
   - **Context:** M6 authoring SDK contract work keeps `MapGenStep.configSchema` optional in engine runtime while authoring requires explicit schema.
   - **Type:** triage
   - **Notes:** Revisit once all base steps have explicit schemas; at that point decide if engine contract should be tightened.
   - **Next check:** before declaring engine surface stable or before deprecating engine-only authoring calls.
 
-- **Authoring types use stage/recipe generics to preserve config variance** [Source: LOCAL-TBD-M6-U07]
+- **Authoring types use stage/recipe generics to preserve config variance** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U07-delete-legacy-base-bootstrap-config-orchestrator.md`]
   - **Context:** Config ownership moved into the mod, and stages still need to accept steps with concrete config types.
   - **Type:** triage
   - **Notes:** `Stage` is generic over the step tuple and `RecipeModule` is specialized per inferred config type, avoiding `any` defaults or bivariant `run`. Revisit if we want stricter constraints on `RecipeConfig` shape.
   - **Next check:** before publishing the authoring SDK or documenting long-term typing guarantees.
 
-- **Recipe `instanceId` uniqueness enforced in authoring** [Source: LOCAL-TBD-M6-U02-1]
+- **Recipe `instanceId` uniqueness enforced in authoring** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U02-1-define-authoring-pojos-and-schema-requirements.md`]
   - **Context:** `compileExecutionPlan` does not check `instanceId` collisions; authoring validation will enforce uniqueness.
   - **Type:** triage
   - **Notes:** If engine-only call sites remain, decide whether to add engine-level guards or document the expectation.
   - **Next check:** before publishing the authoring SDK or when external tooling uses engine runtime directly.
 
-- **Authoring step IDs standardized as `recipeId.stageId.stepId`** [Source: LOCAL-TBD-M6-U02-2]
+- **Authoring step IDs standardized as `recipeId.stageId.stepId`** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U02-2-implement-createrecipe-registry-plumbing-and-api-surface.md`]
   - **Context:** M6 authoring SDK derives deterministic full IDs; base recipe currently uses single-segment step IDs.
   - **Type:** triage
   - **Notes:** Re-authoring the base recipe will change step IDs; update tags/tests and verify downstream tooling assumptions.
   - **Next check:** during M6 U05 (re-author standard recipe) before stabilizing authoring IDs.
 
-- **Expose lib/plates + lib/heightfield as public mapgen-core subpaths** [Source: LOCAL-TBD-M6-U04-1]
+- **Expose lib/plates + lib/heightfield as public mapgen-core subpaths** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U04-1-relocate-domain-modules-to-mod-owned-libs.md`]
   - **Context:** Domain libraries now depend on `lib/plates` and `lib/heightfield` utilities once moved into the mod package.
   - **Type:** triage
   - **Notes:** Confirm the expanded export surface is acceptable and update documentation/tests as needed.
   - **Next check:** before publishing the mapgen-core package or declaring the content package boundary stable.
 
-- **Mapgen-core content alias points at the mod domain** [Source: LOCAL-TBD-M6-U04-2, LOCAL-TBD-M6-U04-3]
+- **Mapgen-core content alias points at the mod domain** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U04-2-update-recipe-steps-to-use-mod-owned-domain-libs.md`, `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U04-3-remove-core-domain-exports-and-clean-import-edges.md`]
   - **Context:** Base pipeline steps still live in mapgen-core but must resolve domain logic from `mods/mod-swooper-maps/src/domain`.
   - **Type:** triage
   - **Notes:** `@mapgen-content/*` now resolves to the mod domain to avoid core-domain imports; verify packaging/story around releases.

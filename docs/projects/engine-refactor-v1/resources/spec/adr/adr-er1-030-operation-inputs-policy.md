@@ -13,7 +13,7 @@ superseded_by: null
 sources:
   - "SPEC-architecture-overview"
   - "SPEC-core-sdk"
-  - "SPEC-pending-step-domain-operation-modules"
+  - "SPEC-step-domain-operation-modules"
 ---
 
 # ADR-ER1-030: Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy)

@@ -13,7 +13,7 @@ superseded_by: null
 sources:
   - "SPEC-architecture-overview"
   - "SPEC-tag-registry"
-  - "SPEC-pending-step-domain-operation-modules"
+  - "SPEC-step-domain-operation-modules"
 ---
 
 # ADR-ER1-027: Dependency terminology and registry naming
@@ -22,7 +22,7 @@ sources:
 
 Pipeline “tags” are currently overloaded in meaning (pipeline dependencies vs narrative tags vs diagnostics), which makes the target architecture hard to read and makes ownership rules ambiguous.
 
-The pending step/domain-operation modules spec explicitly calls out the intent to retire “tag” as the primary term for pipeline dependencies and to rename the registry surface.
+The step/domain-operation modules spec explicitly calls out the intent to retire “tag” as the primary term for pipeline dependencies and to rename the registry surface.
 
 ## Decision
 

@@ -12,7 +12,7 @@ supersedes: []
 superseded_by: null
 sources:
   - "SPEC-architecture-overview"
-  - "SPEC-pending-step-domain-operation-modules"
+  - "SPEC-step-domain-operation-modules"
 ---
 
 # ADR-ER1-031: Strategy config encoding (selection + defaults + explicitness)

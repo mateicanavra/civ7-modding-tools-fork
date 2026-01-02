@@ -11,12 +11,12 @@ concern: domain-operation-modules
 supersedes: []
 superseded_by: null
 sources:
-  - "SPEC-pending-step-domain-operation-modules"
+  - "SPEC-step-domain-operation-modules"
 ---
 
 # ADR-ER1-034: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
-This ADR is the canonical home for DD-001 from `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`.
+This ADR is the canonical home for DD-001 from `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`.
 
 ## Context (verbatim from spike)
 

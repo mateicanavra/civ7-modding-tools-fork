@@ -14,7 +14,7 @@ sources:
   - "Engine Refactor v1 ADR register (ADR-ER1-###)"
   - "SPEC-architecture-overview"
   - "SPEC-tag-registry"
-  - "SPEC-pending-step-domain-operation-modules"
+  - "SPEC-step-domain-operation-modules"
 ---
 
 # ADR-ER1-029: Mutation modeling policy (`buffer:*` vs `artifact:*`)

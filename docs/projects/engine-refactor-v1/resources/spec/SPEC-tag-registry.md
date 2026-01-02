@@ -21,6 +21,10 @@ Artifacts:
 - `artifact:placementInputs@v1`
 - `artifact:placementOutputs@v1`
 
+Notes:
+- `artifact:foundation.diagnostics@v1` is a debug-only artifact (a data product dependency), not a “diagnostics toggle plane”.
+- Logging/observability is controlled via `RunRequest.settings.trace` and enforced through per-step trace scopes.
+
 Buffers:
 - `buffer:heightfield`
 - `buffer:climateField`
@@ -44,4 +48,3 @@ Effects:
 - `effect:engine.placementApplied`
 
 ---
-
