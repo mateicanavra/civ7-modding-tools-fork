@@ -57,12 +57,13 @@ This section captures the *current* sources of “normalization” and config sh
 - **Why it exists:** a mix of (A) translation, incremental refactors, and “defensive” patterns that assume `config.<field>` might be missing even when the step schema defaults make it present.
 - **Classification:** mostly legacy/transient and drift/cleanup (should reduce as config authoring moves to direct recipe config and step schemas become canonical).
 
-#### D) Mod config loader parsing unknown inputs into a config object
+#### D) (Removed) Mod config loader parsing unknown inputs into a config object
 
-- **Where:** `mods/mod-swooper-maps/src/config/loader.ts` (`parseConfig`, `safe-parse helper`, `default-config helper`, `json-schema helper`, `public-schema helper`)
-- **What it does:** takes `unknown` input, applies schema defaults/conversion/cleaning, and returns a typed config object (or structured errors).
-- **Why it exists:** supports untyped config ingestion (JSON-like inputs) and schema export for tooling; it is not required for strictly-typed TS map authoring.
-- **Classification:** boundary tool / optional; can be treated as legacy if the target authoring model is “TS recipe config only”, but may remain useful for external tooling and non-TS inputs.
+- **Where:** (previously) `mods/mod-swooper-maps/src/config/loader.ts` (`parseConfig`, `safe-parse helper`, `default-config helper`, `json-schema helper`, `public-schema helper`)
+- **What it did:** took `unknown` input, applied schema defaults/conversion/cleaning, and returned a typed config object (or structured errors).
+- **Why it existed:** untyped config ingestion (JSON-like inputs) and schema export for tooling; not required for strictly-typed TS recipe authoring.
+- **Current status:** removed from the baseline to avoid maintaining an unused ingestion surface.
+- **Classification:** optional/boundary-only; if reintroduced, keep it explicitly as a boundary/tooling concern (not as a hidden dependency of runtime compilation).
 
 ### Intentional (target-architecture boundaries)
 
