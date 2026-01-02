@@ -101,6 +101,10 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - Resolver output that violates schema/unknown-keys fails plan compilation with actionable errors.
 - A step that defines `resolveConfig` must also define `configSchema`; otherwise plan compilation fails (no untyped resolver execution).
 - `resolveConfig` must return a non-null POJO; `null` or non-object outputs fail plan compilation.
+- Resolver-related failures are reported as `ExecutionPlanCompileErrorItem` with:
+  - `code: "step.config.invalid"` (no new error code in this unit),
+  - a `/recipe/steps/<index>/config...` path (same prefix as standard step-config validation),
+  - `stepId` populated.
 
 **Verification / tests**
 - Extend `packages/mapgen-core/test/pipeline/execution-plan.test.ts`:
