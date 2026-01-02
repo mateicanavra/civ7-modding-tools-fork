@@ -39,7 +39,11 @@ This document defines the canonical target architecture for MapGen in this repo:
   - `effect:*` — declares an externally meaningful engine change/capability guarantee
 - **Artifact (value)**: the actual data product stored in `context.artifacts` keyed by an `artifact:*` tag. Tags describe dependency edges; artifacts are the typed values that flow across those edges.
 - **Tag definition**: an optional registry entry (`DependencyTagDefinition`) that can attach postconditions (`satisfies`) and demo validation to a tag. Most tags only need an ID and kind; only a minority need custom `satisfies` logic.
+<<<<<<< HEAD
+- **Step contract module**: a step-owned contract bundle (schema + types + tags + any step-owned artifact helpers) for a single step. Implemented either as a single file or a small colocated module set (inside a step directory or via adjacent `<stepId>.*` files).
+=======
 - **Step model module**: a step-owned contract module (`<stepId>.model.ts`) that bundles schema + types + tags (+ any step-owned artifact helpers) for a single step.
+>>>>>>> c1426d3d (docs(spec): standardize step modules and core layout)
 
 ### 1.2 Pipeline contract
 
@@ -184,6 +188,16 @@ mods/mod-swooper-maps/
 
 ### 2.4 Colocation and export rules (avoid centralized aggregators)
 
+<<<<<<< HEAD
+**Step modules (`stages/<stageId>/steps/<stepId>/**` or `stages/<stageId>/steps/<stepId>.*`)**
+- The step module is the unit of ownership. It is responsible for its **contract** (schema + tags + artifacts) and its **implementation** (the `run` body).
+- Default shape is **one step = one module** (no forced multi-file split):
+  - keep the step contract colocated with the step
+  - split into additional files only when it materially improves readability (e.g., very large schemas or multi-variant artifact models)
+- If a step is split, it is split *with the step* (never into repo-wide “catalog” modules). Common patterns:
+  - Directory-based: `schema.ts`, `artifacts.ts`, `tags.ts`
+  - File-based: `<stepId>.schema.ts`, `<stepId>.artifacts.ts`, `<stepId>.tags.ts`
+=======
 **Step modules (`stages/<stageId>/steps/<stepId>.*`)**
 - Steps are standardized as a 2-file module pair:
   - `<stepId>.model.ts` — step-owned contract model: config schema + derived config type, step-local tag IDs/arrays, and step-owned artifact helpers/validators (only when the artifact is not domain-shared).
@@ -193,6 +207,7 @@ mods/mod-swooper-maps/
   - `schema` (TypeBox) + derived `Config` type
   - `requires` / `provides` tag arrays
   - optional `tagDefinitions` and artifact helper exports (publish/get/validators)
+>>>>>>> c1426d3d (docs(spec): standardize step modules and core layout)
 
 **Stage scope (`stages/<stageId>/**`)**
 - Stage-scoped helpers and contracts shared across multiple steps live at the stage root as explicit modules (e.g., `producer.ts`, `placement-inputs.ts`, `shared.model.ts`).
@@ -211,8 +226,15 @@ mods/mod-swooper-maps/
 - Recipe-level assembly (`recipe.ts` + `runtime.ts`) composes stages; it does not define cross-domain catalogs.
 
 **Schemas**
+<<<<<<< HEAD
+- Step config schemas are step-owned.
+- Shared config schema fragments live with the *closest* real owner:
+  - stage scope when shared within a stage (`stages/<stageId>/shared/**`)
+  - domain scope when shared across stages/recipes (prefer `src/domain/config/schema/**` when the shared surface is config-oriented)
+=======
 - Step config schemas are step-owned (`<stepId>.model.ts`).
 - Shared schema fragments live in `domain/config/schema/**` and are imported by steps/domain; they do not define recipe-wide “mega schemas”.
+>>>>>>> c1426d3d (docs(spec): standardize step modules and core layout)
 - Step schemas must not import from a centralized `@mapgen/config` module.
 
 ---
@@ -288,11 +310,16 @@ Effects:
 
 ### 4.3 Naming and organization conventions (core)
 
+<<<<<<< HEAD
+- Prefer kebab-case for new files across `src/**`.
+- Existing PascalCase entrypoints (e.g., `PipelineExecutor.ts`) are acceptable; normalize mechanically only if it adds clarity.
+=======
 - `src/engine/**` and `src/core/**` use consistent, intention-revealing names:
   - `PascalCase.ts` for primary runtime primitives/modules (classes and named orchestration objects)
   - `lowerCamelCase.ts` for factories/helpers (e.g., `createExtendedMapContext.ts`)
   - `index.ts` for barrels; `types.ts` / `errors.ts` for type/error-only modules
 - Kebab-case filenames are forbidden within the orchestration/runtime surfaces (no `execution-plan.ts` alongside `PipelineExecutor.ts`).
+>>>>>>> c1426d3d (docs(spec): standardize step modules and core layout)
 - `index.ts` files are thin, explicit re-export barrels only.
 
 ### 4.4 Core runtime contracts (`src/core/**`)

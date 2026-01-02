@@ -231,7 +231,6 @@ End-state invariants:
 - No `packages/mapgen-core/src/config/**` or `packages/mapgen-core/src/bootstrap/**` modules. Config schemas live under `mods/mod-swooper-maps/src/domain/config/schema/**`; maps provide config instances directly.
 - No `packages/mapgen-core/src/base/**` or `packages/mapgen-core/src/pipeline/mod.ts`. Standard content lives entirely in `mods/mod-swooper-maps/src/recipes/**` + `mods/mod-swooper-maps/src/domain/**`.
 - `packages/mapgen-core/src/engine/context.ts` is the only engine-owned context surface; `MapGenConfig` is removed from core.
-
 ---
 
 ## 4) Authoring SDK: minimal factories (`createStep`, `createStage`, `createRecipe`)
@@ -1062,15 +1061,15 @@ moves:
   - current: "packages/mapgen-core/src/orchestrator/helpers.ts"
     target: "mods/mod-swooper-maps/src/maps/_runtime/helpers.ts"
     layer: "content (maps)"
-    notes: "Mod-owned runtime glue for map entrypoints"
+    notes: "Mod-owned runtime glue for map entrypoints (M6). M7: consider extracting a reusable `packages/mapgen-core/src/runner/**` surface."
   - current: "packages/mapgen-core/src/orchestrator/map-init.ts"
     target: "mods/mod-swooper-maps/src/maps/_runtime/map-init.ts"
     layer: "content (maps)"
-    notes: "Map init resolution/apply; mod-owned runtime glue"
+    notes: "Map init resolution/apply; mod-owned runtime glue (M6). M7 candidate: `packages/mapgen-core/src/runner/map-init.ts`."
   - current: "packages/mapgen-core/src/orchestrator/types.ts"
     target: "mods/mod-swooper-maps/src/maps/_runtime/types.ts"
     layer: "content (maps)"
-    notes: "Runner-only types (adapter creation, mapSizeDefaults, etc.)"
+    notes: "Runner-only types (adapter creation, mapSizeDefaults, etc.). M7 candidate: `packages/mapgen-core/src/runner/types.ts`."
   - current: "packages/mapgen-core/src/orchestrator/task-graph.ts"
     target: "(delete)"
     layer: "legacy"
