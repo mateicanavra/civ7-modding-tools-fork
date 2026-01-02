@@ -173,7 +173,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 **Out of scope**
 - Re-introducing a config loader or JSON ingestion surface as part of this cleanup.
 - Any map metadata/XML automation (if needed, track separately).
-- A `createMap()` / `defineMap()` helper (track separately once canonical config is complete).
 
 **Rationale / context**
 - The override translator is the remaining major legacy surface that creates “missing config / irrelevant keys” ambiguity and forces casts.
@@ -186,9 +185,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - `pnpm -C mods/mod-swooper-maps check`
 - `pnpm deploy:mods`
 - Smoke run at least one map entrypoint (local harness or existing tests).
-
-### E) (Deferred) `createMap()` / `defineMap()` helper
-This is intentionally out of scope for this issue. Track separately once canonical config + resolution is complete.
 
 ---
 
