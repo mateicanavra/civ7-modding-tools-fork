@@ -639,3 +639,25 @@ mods/mod-swooper-maps/src/domain/ecology/
 - Migrate authoring and tests without shims:
   - Update all map presets and ecology tests to author the new (non-wrapper) config shape.
   - There is no `strategy` field retained “for compatibility”; any attempt to pass `strategy` must be rejected by schema (`additionalProperties: false`).
+
+### F) Ecology diagnostics inventory (compute vs log) and relocation plan
+**Domain-side diagnostics (must be deleted; not migrated as exports)**
+- `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/diagnostics.ts`
+  - exports `logSnowEligibilitySummary(trace, input, config, placements)`
+  - **logs:** uses `devLogJson(trace, "snow summary", {...})`
+  - **computes:** aggregates per-terrain buckets, eligibility counts, score statistics, and placement counts; also derives snow elevation range via `resolveSnowElevationRange(...)`.
+- `mods/mod-swooper-maps/src/domain/ecology/index.ts`
+  - re-exports `logSnowEligibilitySummary` (this export must be deleted)
+
+**Relocation plan (no ambiguity)**
+- Delete:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/diagnostics.ts`
+  - the corresponding re-export in `mods/mod-swooper-maps/src/domain/ecology/index.ts`
+- Replace with step-owned tracing:
+  - Create a step-local diagnostic helper under:
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/diagnostics.ts`
+  - The helper:
+    - computes the same summary payload (step-local compute), and
+    - emits it via step tracing only (no `devLogJson`, no domain exports, no `TraceScope` types in signatures).
+- No domain rules are imported into the step to support diagnostics:
+  - any snow-elevation derived-range computation needed for diagnostics is duplicated step-locally (diagnostics-only), rather than exporting `resolveSnowElevationRange` from the domain.
