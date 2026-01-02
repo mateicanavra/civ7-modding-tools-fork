@@ -236,6 +236,7 @@ Operations are plain exports, but a tiny helper improves inference and standardi
 ```ts
 // CORE_SDK_ROOT/src/authoring/op.ts
 import { Type, type Static, type TSchema } from "typebox";
+import type { RunSettings } from "@swooper/mapgen-core/engine";
 
 /**
  * Strict operation kind taxonomy (see ADR-ER1-034).
@@ -249,6 +250,19 @@ export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
   config: ConfigSchema;
   run: (input: Input, config: Static<ConfigSchema>) => Output;
 }>;
+
+/**
+ * Compile-time config resolution hook.
+ *
+ * - Executed by the plan compiler via the step boundary (steps may compose multiple ops).
+ * - Pure: depends only on `(config, settings)`.
+ * - Must return a value that still validates against the operation’s `config` schema
+ *   (no plan-stored internal/derived fields in the minimal model).
+ */
+export type OpResolveConfig<ConfigSchema extends TSchema> = (
+  config: Static<ConfigSchema>,
+  settings: RunSettings
+) => Static<ConfigSchema>;
 
 export function createStrategy<ConfigSchema extends TSchema, Input, Output>(
   strategy: OpStrategy<ConfigSchema, Input, Output>
@@ -268,6 +282,7 @@ export function createOp<
   input: InputSchema;
   output: OutputSchema;
   config: ConfigSchema;
+  resolveConfig?: OpResolveConfig<ConfigSchema>;
   run: (input: Static<InputSchema>, config: Static<ConfigSchema>) => Static<OutputSchema>;
 }): unknown;
 
@@ -285,6 +300,7 @@ export function createOp<
   output: OutputSchema;
   strategies: Strategies;
   defaultStrategy?: keyof Strategies & string;
+  resolveConfig?: OpResolveConfig<TSchema>;
 }): unknown;
 ```
 
@@ -830,21 +846,97 @@ Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-o
 
 **Impact / scale:** **Medium**
 
+**Status:** Decided (ADR-ER1-035 accepted)
+
 **System surface / blast radius (components):**
 - **Operation config schema (`op.config`) + defaults (`op.defaultConfig`)**: the canonical runtime-validatable contract for op configuration.
 - **Steps (config boundary)**: where config is validated/defaulted before calling ops.
 - **Ops / step-local helpers**: where derived scaling rules and normalization logic would live if we make them explicit and testable.
 
-**Question:** Beyond plain schema defaults (via `op.config` + `op.defaultConfig`), where do we put “derived defaults” and “normalization” (clamping/rewriting config into canonical form)?
+Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md`.
 
-**Why it matters / what it affects:** Schema defaults cover “static” defaults, but mapgen also needs scale-aware behavior and guardrails. The question is where that logic lives so it is visible, deterministic, and testable without smuggling runtime into the domain. The answer affects whether step config remains a truthful “knobs surface” and whether ops consistently see already-normalized values.
+#### Canonical projected outcome (target architecture)
 
-**Options:**
-- **A) Schema defaults only (baseline):** rely on TypeBox defaults and minimal in-op fallbacks; avoid derived defaults.
-- **B) Explicit pure normalizer (escape hatch):** export `normalizeConfig(input, cfg)` (either from the op module or a step-local helper) and call it before `run(...)` (or inside `run(...)`, but keep it pure/testable).
-- **C) Derived values inside `run(...)`:** keep config stable; compute derived scalars from `(input, cfg)` within the algorithm.
+Derived defaults and normalization are **compile-time** and stored as plan truth:
 
-**Recommendation:** Treat **A** as the default expectation. When derived/defaulting behavior is needed, prefer **B** because it makes scaling/normalization explicit and unit-testable without dragging runtime into the domain.
+- The plan compiler (`compileExecutionPlan`) always produces explicit `ExecutionPlan.nodes[].config` values.
+- A step may provide a pure `step.resolveConfig(stepConfig, settings)` hook that the compiler runs after schema defaults/cleaning.
+- Composite steps use `step.resolveConfig` as the composition point:
+  - fan out the step-authored config into per-op configs,
+  - call each op’s `resolveConfig(opConfig, settings)` (domain-owned scaling semantics),
+  - recombine back into a single step config object.
+- The resolver output must still validate against the step’s existing `configSchema`:
+  - no plan-stored internal/derived coordination fields,
+  - no separate resolved schema,
+  - no dual storage (`authorConfig` + `resolvedConfig`) in the plan.
+- Runtime has no special cases:
+  - recipes remain ignorant of resolution,
+  - steps always receive `node.config` as “the config” and pass it to ops,
+  - runtime code must not apply meaning-level defaulting/merging.
+
+#### Operation shape (compile-time resolver, runtime-pure)
+
+```ts
+// runtime: op.runValidated(input, config)
+// compile-time: optional op.resolveConfig(config, settings) -> config
+export type OpResolveConfig<TConfig> = (config: TConfig, settings: RunSettings) => TConfig;
+```
+
+#### Step shape (compile-time composition point)
+
+```ts
+// compile-time: optional step.resolveConfig(stepConfig, settings) -> stepConfig
+export type StepResolveConfig<TStepConfig> = (config: TStepConfig, settings: RunSettings) => TStepConfig;
+```
+
+#### Composite step example (fan-out → delegate → recombine)
+
+```ts
+export const FeaturesStepConfigSchema = Type.Object(
+  {
+    computeSuitability: features.ops.computeSuitability.config,
+    selectPlacements: features.ops.selectPlacements.config,
+  },
+  { additionalProperties: false }
+);
+export type FeaturesStepConfig = Static<typeof FeaturesStepConfigSchema>;
+
+export const featuresStep = createStep({
+  id: "standard.ecology.features",
+  phase: "ecology",
+  configSchema: FeaturesStepConfigSchema,
+
+  resolveConfig: (cfg: FeaturesStepConfig, settings: RunSettings): FeaturesStepConfig => ({
+    computeSuitability: features.ops.computeSuitability.resolveConfig
+      ? features.ops.computeSuitability.resolveConfig(cfg.computeSuitability, settings)
+      : cfg.computeSuitability,
+    selectPlacements: features.ops.selectPlacements.resolveConfig
+      ? features.ops.selectPlacements.resolveConfig(cfg.selectPlacements, settings)
+      : cfg.selectPlacements,
+  }),
+
+  run: (ctx, cfg: FeaturesStepConfig) => {
+    // cfg is already resolved (compiler stored it in ExecutionPlan.nodes[].config)
+    const inputs1 = buildComputeSuitabilityInputs(ctx);
+    const { suitability } = features.ops.computeSuitability.runValidated(inputs1, cfg.computeSuitability);
+
+    const inputs2 = buildSelectPlacementsInputs(ctx, suitability);
+    const { placements } = features.ops.selectPlacements.runValidated(inputs2, cfg.selectPlacements);
+
+    applyPlacementsToEngine(ctx, placements);
+  },
+});
+```
+
+Compile-time flow (canonical):
+1) schema defaults + cleaning (`Value.Default + Value.Clean`) on the step config,
+2) `step.resolveConfig(stepConfig, settings)` (if present),
+3) validate returned config against the step schema,
+4) store the result as `ExecutionPlan.nodes[].config`.
+
+Runtime flow (canonical):
+- executor passes `node.config` into `step.run(ctx, node.config)`,
+- step delegates to ops using that config (no runtime branching on “if resolver exists”).
 
 ### DD-003: Operation input shape and schema expressiveness (buffers, views, typed arrays)
 
