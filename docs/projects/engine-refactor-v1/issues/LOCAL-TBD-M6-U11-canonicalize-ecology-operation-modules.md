@@ -568,3 +568,39 @@ mods/mod-swooper-maps/src/domain/ecology/
   - `features: unknown FeatureKey "<KEY>" (adapter.getFeatureTypeIndex returned -1)`
 - Plot effects (`id: "plotEffects"`), when `adapter.getPlotEffectTypeIndex(key) < 0`:
   - `plotEffects: unknown PlotEffectKey "<KEY>" (adapter.getPlotEffectTypeIndex returned -1)`
+
+### D) `features-embellishments` audit: reef vs vegetation split (exhaustive)
+**Current `features-embellishments` behaviors**
+- Reef embellishments (belongs in `planReefEmbellishments`):
+  - Paradise reef halos around narrative paradise hotspots:
+    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/rules/paradise-reefs.ts`
+    - driven by `FeaturesConfigSchema` (`paradiseReefChance`, `paradiseReefRadius`)
+    - consumes `hotspotParadise`
+  - Passive-shelf reef skirts:
+    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/rules/shelf-reefs.ts`
+    - driven by `FeaturesDensityConfigSchema` (`shelfReefMultiplier`, `shelfReefRadius`)
+    - consumes `passiveShelf`
+- Vegetation embellishments (belongs in `planVegetationEmbellishments`):
+  - Volcanic vegetation halos (forest/taiga bonuses) around volcanic hotspots:
+    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/rules/volcanic-vegetation.ts`
+    - driven by `FeaturesConfigSchema` (all `volcanic*` knobs)
+    - consumes `hotspotVolcanic` + per-tile `rainfall` + `latitude` + `elevation` + biome signal
+  - Density-driven vegetation tweaks (extra rainforest/forest/taiga):
+    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/rules/density-tweaks.ts`
+    - driven by `FeaturesDensityConfigSchema` (`*ExtraChance`, `*VegetationScale`, thresholds)
+    - consumes `vegetationDensity` + per-tile `rainfall` + `elevation` + biome signal
+  - Navigable river exclusion is currently enforced only for vegetation placements:
+    - `navigableRiverTerrain` lookup + `adapter.getTerrainType(...)` gating in `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`
+
+**Shared mechanics (not a third op; must be duplicated or factored as pure shared rules)**
+- Feature-index resolution (`resolveEmbellishmentFeatureIndices`) and runtime gating (`adapter.canHaveFeature`, `adapter.isWater`, current feature reads) are currently interwoven with the op.
+- Post-migration these become:
+  - key-based planning + internal planned masks in the op (pure), and
+  - engine gating + existing-feature reads in the step apply layer.
+
+**Exhaustiveness confirmation**
+- There are no other embellishment behaviors beyond:
+  - paradise reefs,
+  - shelf reefs,
+  - volcanic vegetation halos,
+  - density-driven vegetation tweaks.
