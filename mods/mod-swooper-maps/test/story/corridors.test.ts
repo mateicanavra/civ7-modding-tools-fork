@@ -12,13 +12,21 @@ describe("story/corridors", () => {
   it("tags sea lanes and publishes a corridors overlay", () => {
     const width = 20;
     const height = 12;
+    const settings = {
+      seed: 0,
+      dimensions: { width, height },
+      latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
+      wrap: { wrapX: false, wrapY: false },
+      directionality: {},
+    };
     const adapter = createMockAdapter({ width, height, defaultTerrainType: OCEAN_TERRAIN });
     (adapter as any).fillWater(true);
 
     const ctx = createExtendedMapContext(
       { width, height },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      settings
     );
 
     storyTagStrategicCorridors(ctx, "preIslands", { corridors: {}, directionality: {} });

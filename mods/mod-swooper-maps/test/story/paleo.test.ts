@@ -13,6 +13,13 @@ describe("story/paleo", () => {
   it("applies a delta rainfall fan on coastal river-adjacent tiles", () => {
     const width = 12;
     const height = 8;
+    const settings = {
+      seed: 0,
+      dimensions: { width, height },
+      latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
+      wrap: { wrapX: false, wrapY: false },
+      directionality: {},
+    };
     const adapter = createMockAdapter({
       width,
       height,
@@ -45,7 +52,8 @@ describe("story/paleo", () => {
     const ctx = createExtendedMapContext(
       { width, height },
       adapter,
-      config as ReturnType<typeof createExtendedMapContext>["config"]
+      config as ReturnType<typeof createExtendedMapContext>["config"],
+      settings
     );
     ctx.buffers?.climate?.rainfall?.fill(50);
     ctx.fields?.rainfall?.fill(50);

@@ -13,13 +13,22 @@ import {
 } from "../../src/recipes/standard/artifacts.js";
 import { M3_DEPENDENCY_TAGS, STANDARD_TAG_DEFINITIONS } from "../../src/recipes/standard/tags.js";
 
+const baseSettings = {
+  seed: 0,
+  dimensions: { width: 4, height: 3 },
+  latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
+  wrap: { wrapX: false, wrapY: false },
+  directionality: {},
+};
+
 describe("pipeline artifacts", () => {
   it("treats artifact:climateField as unsatisfied until published", () => {
     const adapter = createMockAdapter({ width: 4, height: 3, rng: () => 0 });
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      baseSettings
     );
     const registry = new StepRegistry<typeof ctx>();
     registry.registerTags(STANDARD_TAG_DEFINITIONS);
@@ -45,7 +54,8 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      baseSettings
     );
     const registry = new StepRegistry<typeof ctx>();
     registry.registerTags(STANDARD_TAG_DEFINITIONS);
@@ -69,7 +79,8 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      baseSettings
     );
 
     const registry = new StepRegistry<typeof ctx>();
@@ -97,7 +108,8 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      baseSettings
     );
 
     const registry = new StepRegistry<typeof ctx>();

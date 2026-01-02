@@ -177,6 +177,7 @@ export function createRecipe<
     options: { trace?: TraceSession | null; log?: (message: string) => void } = {}
   ): void {
     const plan = compile(settings, config);
+    context.settings = plan.settings;
     const executor = new PipelineExecutor(registry, {
       log: options.log,
       logPrefix: `[recipe:${input.id}]`,

@@ -46,7 +46,8 @@ export function runStandardRecipe({
   const context = createExtendedMapContext(
     { width: init.params.width, height: init.params.height },
     adapter,
-    contextConfig
+    contextConfig,
+    settings
   );
 
   initializeStandardRuntime(context, {

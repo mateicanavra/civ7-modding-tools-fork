@@ -45,10 +45,18 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const adapter = createMockAdapter({ width, height, rng, canHaveFeature });
   adapter.fillWater(false);
 
+  const settings = {
+    seed: 0,
+    dimensions: { width, height },
+    latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
+    wrap: { wrapX: false, wrapY: false },
+    directionality: {},
+  };
   const ctx = createExtendedMapContext(
     { width, height },
     adapter,
-    {} as ReturnType<typeof createExtendedMapContext>["config"]
+    {} as ReturnType<typeof createExtendedMapContext>["config"],
+    settings
   );
 
   const size = width * height;

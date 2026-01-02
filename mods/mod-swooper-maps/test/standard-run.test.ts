@@ -22,15 +22,6 @@ describe("standard recipe execution", () => {
       StartSectorCols: 4,
     };
 
-    const adapter = createMockAdapter({ width, height, mapInfo, mapSizeId: 1 });
-    const context = createExtendedMapContext(
-      { width, height },
-      adapter,
-      {} as ReturnType<typeof createExtendedMapContext>["config"]
-    );
-
-    initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
-
     const settings = {
       seed: 123,
       dimensions: { width, height },
@@ -41,6 +32,16 @@ describe("standard recipe execution", () => {
       wrap: { wrapX: true, wrapY: false },
       directionality: {},
     };
+
+    const adapter = createMockAdapter({ width, height, mapInfo, mapSizeId: 1 });
+    const context = createExtendedMapContext(
+      { width, height },
+      adapter,
+      {} as ReturnType<typeof createExtendedMapContext>["config"],
+      settings
+    );
+
+    initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
 
     const config = buildStandardRecipeConfig({});
     const plan = standardRecipe.compile(settings, config);
