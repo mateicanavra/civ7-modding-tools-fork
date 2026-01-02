@@ -2,7 +2,7 @@
 
 Scope: `mods/mod-swooper-maps/src/config/**`
 
-- Owns the canonical standard recipe config schema, defaults, and loader.
+- Owns the canonical standard recipe config schema and defaults.
 - Keep config shapes centralized here; recipe steps should not invent parallel schemas.
 - Changes here affect mod runtime and tooling; run mod + workspace checks after edits.
 

@@ -120,7 +120,7 @@ These should become explicit optional fields on the `hemispheres` schema (even i
    - Ensure config still validates and swatches still apply.
 
 4. **Tests + docs alignment**
-   - Add loader tests ensuring swatches config is accepted and invalid shapes are rejected (or at least surfaced in `safeParseConfig` errors).
+   - Add loader tests ensuring swatches config is accepted and invalid shapes are rejected (or at least surfaced in `safe-parse helper` errors).
    - Update `docs/projects/engine-refactor-v1/resources/config-wiring-status.md` to stop calling `climate.swatches` an `UnknownRecord` pocket and remove it from “untyped but consumed”.
 
 ## Risks / Trade-offs

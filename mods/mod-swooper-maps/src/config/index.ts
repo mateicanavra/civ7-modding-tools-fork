@@ -131,12 +131,3 @@ export type {
   StoryConfig,
   VolcanoesConfig,
 } from "@mapgen/config/schema.js";
-
-export {
-  parseConfig,
-  safeParseConfig,
-  getDefaultConfig,
-  getJsonSchema,
-  getPublicJsonSchema,
-  type ParseResult,
-} from "@mapgen/config/loader.js";

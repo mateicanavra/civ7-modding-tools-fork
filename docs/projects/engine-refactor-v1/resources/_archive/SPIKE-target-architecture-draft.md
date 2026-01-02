@@ -983,7 +983,7 @@ recipe (authored) → registry (catalog) → `ExecutionPlan` (compiled)?
   - `packages/mapgen-core/src/config/loader.ts` detects unknown keys
     (`findUnknownKeyErrors`) before coercion/cleaning and throws.
   - `packages/mapgen-core/src/config/schema.ts` marks internal plumbing fields
-    with `xInternal` and exports a filtered public schema via `getPublicJsonSchema()`.
+    with `xInternal` and exports a filtered public schema via `public-schema helper()`.
 - No recipe schema exists today:
   - `packages/mapgen-core/src/config/schema.ts` includes internal `StageConfigSchema`
     and `StageManifestSchema` but no mod-facing recipe object.

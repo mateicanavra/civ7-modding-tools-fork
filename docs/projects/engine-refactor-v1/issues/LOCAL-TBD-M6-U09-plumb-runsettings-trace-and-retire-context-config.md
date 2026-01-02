@@ -40,7 +40,7 @@ Finish the target run-boundary wiring so cross-cutting runtime knobs live in `Ru
 - Standard runtime entrypoints no longer cast overrides into `context.config` as a “global config object”.
 - A run with `settings.trace.steps = { "<stepId>": "verbose" }` emits trace events for that step via the trace sink; steps do not perform `if (settings.trace...)` checks.
 - The default trace sink is **console**; enabling `settings.trace` produces visible console output without requiring extra wiring at call sites.
-- `mods/mod-swooper-maps/src/config/loader.ts` is deleted and there are **0** imports of `@mapgen/config/loader` and **0** usages of `safeParseConfig` across the repo.
+- `mods/mod-swooper-maps/src/config/loader.ts` is deleted and there are **0** imports of `config loader module` and **0** usages of `safe-parse helper` across the repo.
 - The only code that interprets `settings.trace.steps` lives at the runtime boundary (trace session creation + executor step-scoping), not inside domain/step logic.
 
 ## Testing / Verification
@@ -153,10 +153,10 @@ Finish the target run-boundary wiring so cross-cutting runtime knobs live in `Ru
 - `pnpm deploy:mods`
 - `pnpm -C mods/mod-swooper-maps deploy`
 
-### E) Remove loader tooling completely (`@mapgen/config` / `safeParseConfig`)
+### E) Remove loader tooling completely (`@mapgen/config` / `safe-parse helper`)
 **In scope**
 - Delete `mods/mod-swooper-maps/src/config/loader.ts` and any associated public exports/re-exports (e.g. `mods/mod-swooper-maps/src/config/index.ts`).
-- Delete or migrate any tests/tooling that depend on `safeParseConfig` (do not replace with a new loader in this issue).
+- Delete or migrate any tests/tooling that depend on `safe-parse helper` (do not replace with a new loader in this issue).
   - Example: rewrite `mods/mod-swooper-maps/test/ecology/features-owned-unknown-chance-key.test.ts` to validate the relevant config schema directly (or assert runtime validation behavior via existing step/op validation paths).
 - Remove any docs that describe the loader as a supported surface.
 
@@ -168,7 +168,7 @@ Finish the target run-boundary wiring so cross-cutting runtime knobs live in `Ru
 
 **Acceptance criteria**
 - `mods/mod-swooper-maps/src/config/loader.ts` is deleted.
-- `rg -n \"@mapgen/config/loader|safeParseConfig|getJsonSchema|getPublicJsonSchema|getDefaultConfig\" .` returns no matches.
+- `rg -n \"config loader module|safe-parse helper|json-schema helper|public-schema helper|default-config helper\" .` returns no matches.
 
 **Verification / tests**
 - `pnpm check`
@@ -303,14 +303,14 @@ Finish the target run-boundary wiring so cross-cutting runtime knobs live in `Ru
 - **Tests:** no test files currently mention `context.config` (`rg -n "context\\.config" packages mods -g "*test*"` returned none).
 
 ### Pre-work for E (loader removal)
-- “Enumerate all imports of `@mapgen/config/loader` and `safeParseConfig` and confirm they are only internal/test usage.”
+- “Enumerate all imports of `config loader module` and `safe-parse helper` and confirm they are only internal/test usage.”
 - “Confirm there are no external consumers (search repo docs + exports).”
 - “Delete the loader and remove/replace any tests/docs that reference it.”
 
-#### E1 Findings: `@mapgen/config/loader` + `safeParseConfig` usage
-- **Imports of `@mapgen/config/loader`:**
-  - `mods/mod-swooper-maps/src/config/index.ts` re-exports `parseConfig/safeParseConfig/getDefaultConfig/getJsonSchema/getPublicJsonSchema` for external consumers. This is a tooling-facing surface, not used in runtime entrypoints.
-- **`safeParseConfig` usage:**
+#### E1 Findings: `config loader module` + `safe-parse helper` usage
+- **Imports of `config loader module`:**
+  - `mods/mod-swooper-maps/src/config/index.ts` re-exports `parseConfig/safe-parse helper/default-config helper/json-schema helper/public-schema helper` for external consumers. This is a tooling-facing surface, not used in runtime entrypoints.
+- **`safe-parse helper` usage:**
   - `mods/mod-swooper-maps/test/ecology/features-owned-unknown-chance-key.test.ts` (test-only).
   - The implementation lives in `mods/mod-swooper-maps/src/config/loader.ts` and is not imported by runtime code.
 - **Conclusion:** current usages are tooling/test-only; no runtime-critical dependency on the loader.

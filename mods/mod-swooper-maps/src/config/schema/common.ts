@@ -2,7 +2,7 @@ import { Type } from "typebox";
 
 /**
  * Metadata key marking schema nodes as engine-internal (not part of the public
- * mod-facing API). Used by getPublicJsonSchema() to filter the exported schema.
+ * mod-facing API). Used by schema filtering tooling to remove internal fields.
  */
 export const INTERNAL_METADATA_KEY = "xInternal" as const;
 

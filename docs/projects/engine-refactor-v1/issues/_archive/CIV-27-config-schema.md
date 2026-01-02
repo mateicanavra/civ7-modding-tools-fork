@@ -29,7 +29,7 @@ Define `MapGenConfigSchema` using TypeBox as the canonical, single source of tru
   - Sub-schemas for each config group (foundation, landmass, climate, etc.)
 - [x] Create `packages/mapgen-core/src/config/index.ts` re-exporting public API
 - [x] Document the schema structure in code comments
-- [x] Add schema-level metadata for internal-only fields (`xInternal`) and a public-schema guard helper (`getPublicJsonSchema`) as groundwork for future public/internal surface cleanup.
+- [x] Add schema-level metadata for internal-only fields (`xInternal`) and a public-schema guard helper (`public-schema helper`) as groundwork for future public/internal surface cleanup.
 
 ## Acceptance Criteria
 
@@ -54,7 +54,7 @@ Define `MapGenConfigSchema` using TypeBox as the canonical, single source of tru
 - [x] Schema preserves existing nesting patterns for backward compatibility
 - [x] TypeScript compiles without errors
 - [x] Types can be imported: `import { MapGenConfig, MapGenConfigSchema } from '@swooper/mapgen-core/config'`
-- [x] Internal-only config plumbing is tagged at the schema level via `xInternal`, and a `getPublicJsonSchema` helper exists to filter those fields for future public-schema consumers (no current callers; integration is explicitly deferred).
+- [x] Internal-only config plumbing is tagged at the schema level via `xInternal`, and a `public-schema helper` helper exists to filter those fields for future public-schema consumers (no current callers; integration is explicitly deferred).
 
 ## Testing / Verification
 
@@ -81,8 +81,8 @@ node -e "import('@swooper/mapgen-core/config').then(m => console.log(Object.keys
 ### M2 Outcome: Public vs. Internal Schema
 
 - For M2 we **do not** introduce a separate public config type or reshape the config surface.  
-- The `xInternal` tagging and `getPublicJsonSchema` helper are implemented as **non-breaking groundwork** so that future issues can curate a public schema for tooling/docs without revisiting the core schema/loader again.  
-- All existing consumers continue to use the full schema / `getJsonSchema()` for now; deciding where to consume the public schema is deferred to a later milestone.
+- The `xInternal` tagging and `public-schema helper` helper are implemented as **non-breaking groundwork** so that future issues can curate a public schema for tooling/docs without revisiting the core schema/loader again.  
+- All existing consumers continue to use the full schema / `json-schema helper()` for now; deciding where to consume the public schema is deferred to a later milestone.
 
 ### Why TypeBox?
 

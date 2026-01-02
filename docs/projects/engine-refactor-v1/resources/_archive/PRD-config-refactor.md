@@ -129,9 +129,9 @@ We will follow the pattern from `SPIKE-config-refactor-design.md`, adapted to th
   - High-performance validation.
 - Export helpers:
   - `parseConfig(input: unknown): MapGenConfig` — throws on validation failure.
-  - `safeParseConfig(input: unknown): { success: true; config } | { success: false; errors }`.
-  - `getDefaultConfig(): MapGenConfig`.
-  - `getJsonSchema(): object` — for external tooling.
+  - `safe-parse helper(input: unknown): { success: true; config } | { success: false; errors }`.
+  - `default-config helper(): MapGenConfig`.
+  - `json-schema helper(): object` — for external tooling.
 
 This choice is compatible with the Task Graph and Foundation PRDs:
 - Config validation happens at the **engine boundary**, not per-step.
@@ -165,7 +165,7 @@ This choice is compatible with the Task Graph and Foundation PRDs:
 2. **Single loader**
    - Implement `config/loader.ts` in `mapgen-core` with:
      - `parseConfig(input)` (clone + default + convert + clean + validate).
-     - `safeParseConfig`, `getDefaultConfig`, `getJsonSchema`.
+     - `safe-parse helper`, `default-config helper`, `json-schema helper`.
    - Replace ad-hoc merge logic in bootstrap/entry code with a call to `parseConfig`.
 
 3. **No global config store**
@@ -268,7 +268,7 @@ This choice is compatible with the Task Graph and Foundation PRDs:
 
 4. **Documentation & tooling**
    - Update docs and examples to show the new config structure.
-   - Use `getJsonSchema()` to generate JSON Schema for:
+   - Use `json-schema helper()` to generate JSON Schema for:
      - Docs under `docs/system/libs/mapgen/`.
      - Potential editor integrations.
 

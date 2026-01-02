@@ -264,7 +264,7 @@ export function parseConfig(input: unknown): MapGenConfig {
 /**
  * Safe parse that returns result object instead of throwing.
  */
-export function safeParseConfig(input: unknown):
+export function safe-parse helper(input: unknown):
   | { success: true; config: MapGenConfig }
   | { success: false; errors: ValueError[] } {
   try {
@@ -281,14 +281,14 @@ export function safeParseConfig(input: unknown):
 /**
  * Get default configuration (all defaults applied).
  */
-export function getDefaultConfig(): MapGenConfig {
+export function default-config helper(): MapGenConfig {
   return parseConfig({});
 }
 
 /**
  * Export JSON Schema for external tooling.
  */
-export function getJsonSchema(): object {
+export function json-schema helper(): object {
   return MapGenConfigSchema;
 }
 
@@ -574,13 +574,13 @@ For mods that want a fluent API:
 
 ```typescript
 // config/builder.ts
-import { type MapGenConfig, getDefaultConfig } from './schema.js';
+import { type MapGenConfig, default-config helper } from './schema.js';
 
 export class ConfigBuilder {
   private config: MapGenConfig;
 
   constructor() {
-    this.config = getDefaultConfig();
+    this.config = default-config helper();
   }
 
   plates(cfg: Partial<PlatesConfig>): this {

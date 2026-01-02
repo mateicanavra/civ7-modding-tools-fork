@@ -218,7 +218,7 @@ describe("Climate Behavior", () => {
 ```typescript
 // __tests__/helpers/mock-context.ts
 import { createExtendedMapContext } from "../../src/core/types.js";
-import { getDefaultConfig } from "../../src/config/index.js";
+import { default-config helper } from "../../src/config/index.js";
 import { MockAdapter } from "@civ7/adapter/mock";
 
 export function createMockContext(options: {
@@ -228,7 +228,7 @@ export function createMockContext(options: {
   const width = options.width ?? 84;
   const height = options.height ?? 54;
   const adapter = new MockAdapter();
-  const config = getDefaultConfig();
+  const config = default-config helper();
 
   return createExtendedMapContext({ width, height }, adapter, config);
 }
