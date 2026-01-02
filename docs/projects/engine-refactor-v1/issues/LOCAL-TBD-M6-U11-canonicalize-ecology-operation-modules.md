@@ -661,3 +661,8 @@ mods/mod-swooper-maps/src/domain/ecology/
     - emits it via step tracing only (no `devLogJson`, no domain exports, no `TraceScope` types in signatures).
 - No domain rules are imported into the step to support diagnostics:
   - any snow-elevation derived-range computation needed for diagnostics is duplicated step-locally (diagnostics-only), rather than exporting `resolveSnowElevationRange` from the domain.
+
+### G) Guardrail `rg` checks executed and confirmed correctly scoped
+**Result**
+- All `rg` guardrails in this doc run successfully and are scoped to ecology-specific paths under `mods/mod-swooper-maps/` (no false-positive scanning of other packages/domains).
+- No changes to the guardrail commands were required after running them.
