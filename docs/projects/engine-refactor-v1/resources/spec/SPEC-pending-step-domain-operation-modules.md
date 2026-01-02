@@ -93,6 +93,7 @@ A **step** is the smallest executable unit in a recipe graph. Its responsibiliti
 - Each step occurrence has a **single recipe-unique `step.id`** (authoring composes `namespace.recipe.stage.step` to guarantee uniqueness). Duplicate ids are invalid.
 - `instanceId`/`nodeId` are retired; execution plans, tracing, fingerprints, and trace config keys are all keyed by `stepId`.
 - Trace sinks no longer receive `nodeId`; per-step scopes use the same `stepId` that appears in the recipe and execution plan.
+- Tracing configuration lives in `RunRequest.settings.trace` and is enforced at the runtime boundary; the default trace sink is console. Step/domain logic emits via `context.trace` and must not check trace settings flags directly.
 
 ## 3) Domain Architecture
 

@@ -31,7 +31,7 @@ Finish the target run-boundary wiring so cross-cutting runtime knobs live in `Ru
 - `mods/mod-swooper-maps/src/recipes/**` contains **0** reads of `context.config.foundation.dynamics.directionality` (or any `context.config.*` reads for cross-cutting policies).
 - Standard runtime entrypoints no longer cast overrides into `context.config` as a “global config object”.
 - A run with `settings.trace.steps = { "<stepId>": "verbose" }` emits trace events for that step via the trace sink; steps do not perform `if (settings.trace...)` checks.
-- If `settings.trace` is enabled but no trace sink is provided by the runtime boundary, tracing is a no-op by design (no implicit console output).
+- The default trace sink is **console**; enabling `settings.trace` produces visible console output without requiring extra wiring at call sites.
 - The only code that interprets `settings.trace.steps` lives at the runtime boundary (trace session creation + executor step-scoping), not inside domain/step logic.
 
 ## Testing / Verification
@@ -111,18 +111,19 @@ Touchpoints (expected):
 - Any tests that assert context shape
 
 #### B) Wire tracing to `settings.trace.steps` via `TraceSession` at the boundary
-- Ensure the runtime boundary can create a `TraceSession` from the plan when trace is enabled *and* a sink is provided.
+- Ensure the runtime boundary creates a `TraceSession` from the plan when trace is enabled, using a **console** sink by default.
 - Avoid scattering: the only consumer of `settings.trace.steps` should be trace session creation + executor scoping.
-- **Single-path choice:** keep tracing **sink-driven** at the runtime boundary:
+- **Single-path choice:** tracing is still sink-driven, but the **default sink is console**:
   - Extend `recipe.run(...)` options to accept `traceSink?: TraceSink | null`.
-  - If `trace` is provided, it wins (advanced/tests). Else if `traceSink` is provided, the runner compiles the plan and creates a `TraceSession` via `createTraceSessionFromPlan(plan, traceSink)`.
-  - If neither is provided, tracing stays disabled (even if `settings.trace.enabled` is true), to avoid implicit console output in normal runs.
+  - If `trace` is provided, it wins (advanced/tests).
+  - Else if `traceSink` is provided, use it.
+  - Else, when `settings.trace.enabled` is true (or when `settings.trace.steps` is non-empty), use the default console sink.
 
 Touchpoints (expected):
 - `packages/mapgen-core/src/engine/observability.ts` (already has `createTraceSessionFromPlan`)
 - `packages/mapgen-core/src/authoring/recipe.ts` (runner API: add `traceSink` option and create the session from the compiled plan)
-- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` (dev harness: optionally pass a sink when trace is desired)
-- (Optional follow-up) add a trivial sink implementation in mod runtime if/when desired (e.g. console sink) — out of scope for this issue unless explicitly requested.
+- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` (dev harness: optionally override the sink; default behavior is console when trace is enabled)
+- Implement the default console sink in `@swooper/mapgen-core` so all runtimes get consistent behavior.
 
 #### C) Directionality cutover: stop reading it from `context.config`
 - Migrate any step consumers to `context.settings.directionality`.
@@ -171,12 +172,12 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - **Rationale:** Eliminates drift/confusion between “step config directionality” and “run settings directionality”; makes `RunRequest.settings` the single source of truth.
 - **Risk:** Any callers relying on per-step directionality config will break; mitigate by migrating all known consumers (see Implementation step C) before removing writers.
 
-### Make tracing sink-driven (no implicit default sink)
-- **Context:** `settings.trace.steps` is the contract for what to emit, but a `TraceSink` is the delivery mechanism and is not currently provided in normal runs.
-- **Options:** Default to an implicit console sink when enabled vs require an explicit sink at the boundary.
-- **Choice:** Require an explicit sink (`traceSink`) to enable tracing; no implicit console sink.
-- **Rationale:** Avoids surprising console output in “normal” runs and keeps observability instrumentation boundary-owned.
-- **Risk:** Authors may set `settings.trace` and see nothing until they also provide a sink; mitigate via docs/examples in runtime wrappers and tests.
+### Default trace sink is console (allow overrides)
+- **Context:** `settings.trace.steps` is the contract for what to emit, and a `TraceSink` is the delivery mechanism.
+- **Options:** Default to console vs require an explicit sink.
+- **Choice:** Default to a console sink when `settings.trace` is enabled; allow overriding via `traceSink` (or supplying a pre-built `TraceSession`).
+- **Rationale:** Avoids “trace enabled but nothing happened” confusion; keeps trace behavior visible and explicit in the architecture.
+- **Risk:** Console output may be noisy if authors enable trace broadly; mitigate via per-step levels in `settings.trace.steps` and by keeping tracing disabled by default unless enabled in settings.
 
 ### Do not re-home `foundation.diagnostics`/`DEV.*` flags in this issue
 - **Context:** `foundation.diagnostics` + `DEV.*` gating is legacy “global knobs” behavior threaded via `context.config`.
@@ -216,13 +217,13 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - **Tests likely impacted (context construction):** `packages/mapgen-core/test/pipeline/hello-mod.smoke.test.ts`, `packages/mapgen-core/test/pipeline/execution-plan.test.ts`, `packages/mapgen-core/test/pipeline/tag-registry.test.ts`, `packages/mapgen-core/test/pipeline/tracing.test.ts`, `packages/mapgen-core/test/pipeline/placement-gating.test.ts` (all call `createExtendedMapContext` and may need a default/placeholder for `settings` if it becomes required).
 
 ### Pre-work for B (trace wiring)
-- “Implement the chosen sink-driven model: `recipe.run(..., { traceSink })` with no implicit default sink.”
+- “Implement the chosen model: default console sink when `settings.trace` is enabled; allow override via `recipe.run(..., { traceSink })`.”
 - “Audit `PipelineExecutor` and step wrappers to ensure no one needs to check `settings.trace` directly; list any needed helper APIs for emitting step events.”
 - “Write a small end-to-end test that sets `settings.trace.steps[stepId] = 'verbose'` and asserts sink receives step events for that step only.”
 
 #### B1 Findings: TraceSink source in normal runs
-- `TraceSink` is only instantiated in tests today (e.g. in-memory sink in `packages/mapgen-core/test/pipeline/tracing.test.ts`). The normal mod runtime (`mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`) does not pass a sink or `TraceSession` into `recipe.run`, so tracing is effectively disabled by default.
-- There is no existing runtime surface for a sink in `MapRuntimeOptions` (`mods/mod-swooper-maps/src/maps/_runtime/types.ts`), so a default strategy is currently undefined. Any runtime tracing will need an explicit boundary choice (e.g., optional console sink, FireTuner sink, or a caller-provided sink).
+- `TraceSink` is only instantiated in tests today (e.g. in-memory sink in `packages/mapgen-core/test/pipeline/tracing.test.ts`). The normal mod runtime (`mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`) does not pass a sink or `TraceSession` into `recipe.run`, so tracing is effectively disabled today.
+- This issue’s target behavior removes that “silent disabled” default by introducing a **default console sink** in the core runner when `settings.trace` is enabled (with optional override via `traceSink` / `TraceSession`).
 
 #### B2 Findings: trace usage in executor + helpers
 - `PipelineExecutor` already scopes tracing per-step by assigning `context.trace = trace.createStepScope({ stepId, phase })` and emits run/step start/finish events (`packages/mapgen-core/src/engine/PipelineExecutor.ts`). No step code reads `settings.trace` directly today.
