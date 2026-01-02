@@ -172,7 +172,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
   - `rg -n "StandardRecipeOverrides|buildStandardRecipeConfig|DeepPartial<" mods/mod-swooper-maps/src` is empty
 
 **Verification / tests**
-- Existing pipeline tests + the new plan compile tests added in (A) should pass; configs still behave as before (modulo intended deterministic normalization).
+- Existing pipeline tests + the new plan compile tests added in (A) must pass; configs still behave as before (modulo intended deterministic normalization).
 
 ### D) Delete `StandardRecipeOverrides` translation and move maps to direct `StandardRecipeConfig`
 **In scope**
