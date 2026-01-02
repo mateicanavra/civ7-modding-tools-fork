@@ -219,7 +219,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### Pre-work for C (derived defaults migration)
 
 ### Pre-work for D (delete overrides translator)
-- “List all runner entrypoints that currently accept overrides-shaped inputs and define the new canonical signature(s) that accept `settings` + `config` only.”
 - “Identify and delete any remaining runtime config-defaulting in the map entrypoint path (e.g., `Value.Default` in `maps/_runtime/**`).”
 
 ---
@@ -754,3 +753,40 @@ Test dependencies (must be updated or removed as part of the cutover)
 4) Update tests:
    - replace `buildStandardRecipeConfig({})` with an explicit `StandardRecipeConfig` fixture (full shape) or by importing a real map’s exported config (if we choose to export configs explicitly as part of the rewrite).
    - do not reintroduce a shared “config builder” helper in test code; tests must remain explicit about the config shape (this keeps the “no translation layer” invariant strong).
+
+### D4) Inventory runner entrypoints that accept overrides + define the single canonical post-U10 signature
+
+**Current “runner” entrypoints that accept overrides-shaped inputs (must be removed)**
+- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`
+  - `runStandardRecipe({ ..., overrides?: StandardRecipeOverrides, ... })`
+- `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts`
+  - `buildStandardRunSettings(init, overrides?: StandardRecipeOverrides)`
+  - `buildStandardRecipeConfig(overrides?: StandardRecipeOverrides)`
+
+No other map runtime entrypoints accept an overrides-shaped argument; `map-init.ts` is solely concerned with map-size / init param resolution.
+
+**Single canonical signature (no overloads, no “compat” branches)**
+
+Post-U10, the standard runner should have exactly one signature:
+- `runStandardRecipe({ recipe, init, settings, config, options? })`
+
+Canonical type shape (grounded in existing imports):
+- `recipe`: `RecipeModule<ExtendedMapContext, StandardRecipeConfig | null>`
+- `init`: `MapInitResolution` (needed for `mapInfo` and for adapter initialization context)
+- `settings`: `RunSettings` (fully explicit; this replaces `buildStandardRunSettings`)
+- `config`: `StandardRecipeConfig | null` (fully explicit; this replaces `buildStandardRecipeConfig`)
+- `options?`: `MapRuntimeOptions` (adapter factory + trace session/sink + logging prefix; **must not** be used to synthesize settings/config)
+
+**Strict settings ownership rules (to prevent “implicit defaults” drift)**
+- `runStandardRecipe(...)` must not:
+  - accept `overrides`,
+  - accept `safeOverrides` shells,
+  - call `Value.Default(...)`,
+  - or mutate `settings` based on `options` (especially not `settings.trace`).
+- Trace config is a `RunSettings` concern (see `RunSettingsSchema` in `packages/mapgen-core/src/engine/execution-plan.ts`):
+  - maps should explicitly set `settings.trace` when tracing is desired.
+  - `options.traceSession` / `options.traceSink` remain valid runtime-only plumbing and can be passed through to `recipe.run(...)` without mutating settings.
+
+**Recommended invariant enforcement (to avoid silent mismatches)**
+- `createExtendedMapContext(...)` should be constructed from `settings.dimensions` (not from `init.params.width/height`) so the plan settings remain the single source of truth.
+- `init.params.width/height` should be treated as already-resolved engine inputs; if they disagree with `settings.dimensions`, throw immediately (hard failure, no fallback).
