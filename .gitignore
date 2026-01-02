@@ -50,7 +50,7 @@ Thumbs.db
 
 # Project-specific ignores
 # Modify this to match your zip output
-# **/civ7-official/resources/
+apps/docs/public/civ7-official/resources/
 .early.coverage/
 
 # Turbo cache

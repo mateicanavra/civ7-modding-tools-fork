@@ -1,1 +1,0 @@
-/// <reference path="component-support.ts" />

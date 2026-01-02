@@ -1,9 +1,0 @@
-<Database>
-	<LeaderCivPriorities>
-		<!--This is the table used for AI, the UI uses LeaderCivilizationBias in config.xml-->
-		<Row Leader="LEADER_GENGHIS_KHAN" Civilization="CIVILIZATION_BULGARIA" Priority="2"/>
-	</LeaderCivPriorities>
-	<UnlockRequirements>
-		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_BULGARIA" RequirementSetId="REQSET_LEADER_IS_GENGHIS_KHAN" Description="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_DESCRIPTION" Tooltip="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_BULGARIA_TOOLTIP"/>
-	</UnlockRequirements>
-</Database>

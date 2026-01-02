@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Database>
-	<LeaderCivilizationBias>
-		<InsertOrIgnore CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_ASSYRIA" LeaderDomain="StandardLeaders" LeaderType="LEADER_XERXES_ALT" Bias="2" ReasonType="LOC_UNLOCK_PLAY_AS_XERXES_ASSYRIA_TOOLTIP" ChoiceType="LOC_CREATE_GAME_GEOGRAPHIC_CHOICE" />
-	</LeaderCivilizationBias>
-</Database>
