@@ -217,7 +217,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### Pre-work for B (op resolver authoring surface)
 
 ### Pre-work for C (derived defaults migration)
-- “Identify any cases where defaults depend on run settings (dimensions/wrap/seed/directionality/trace) vs only local config.”
 
 ### Pre-work for D (delete overrides translator)
 - “Inventory current authored config surfaces in `mods/mod-swooper-maps/src/maps/*.ts` (what they currently return) and map each top-level override fragment to the target `StandardRecipeConfig` keys.”
@@ -528,3 +527,40 @@ Most of these are legacy “defensive config shells” caused by optional/untype
 - Placement orchestration: `mods/mod-swooper-maps/src/domain/placement/index.ts`
   - mixes `options.*` with `options.placementConfig.*` and local defaults.
   - this is boundary-level param selection; once maps author a single canonical config object, this merging should be removed from runtime and moved to compile-time/boundary assembly.
+
+### C2) Settings-dependent defaults vs pure-config defaults (what must move to `resolveConfig`)
+
+**Summary**
+- **Dimensions:** multiple domain helpers implement “scale with map size” defaults by computing `sqrtScale`/`areaScale` from `width * height`. These are derived defaults dependent on `RunSettings.dimensions`.
+- **Directionality:** multiple helpers treat directionality as optional and then default missing knobs; effective behavior depends on `RunSettings.directionality`.
+- **Wrap/seed/trace:** no direct `ctx.settings.wrap*`, `ctx.settings.seed`, or `ctx.settings.trace` reads were found in the scanned `domain/**` + `recipes/**` trees (string scan for `wrapX/wrapY/settings.seed/settings.trace` returned no hits).
+
+**Dimension-dependent derived defaults (depend on `RunSettings.dimensions`)**
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/baseline.ts` (`applyClimateBaseline`):
+  - computes `areaScale` and uses it to derive effective equator boost and noise span.
+  - **Rule:** if these scaling knobs are considered “defaults with meaning”, resolve them via `resolveConfig` (store the derived band/scale values into the config the plan stores) so plan-truth reflects the actual parameters used.
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/index.ts` (`applyClimateSwatches`):
+  - computes `sqrtScale` and derives `widthMul`.
+- `mods/mod-swooper-maps/src/domain/morphology/coastlines/rugged-coasts.ts` (`addRuggedCoasts`):
+  - computes `sqrtScale` and adjusts multiple effective thresholds/denominators.
+- `mods/mod-swooper-maps/src/domain/narrative/orogeny/belts.ts` (`storyTagOrogenyBelts`):
+  - computes `sqrtScale` and adjusts `radius`/`minLenSoft`.
+- `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` (`storyTagRiftValleys`):
+  - computes `sqrtRift` and scales `maxRiftsPerMap`, `lineSteps`, and `shoulderWidth`.
+
+**Directionality-dependent derived defaults (depend on `RunSettings.directionality`)**
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/refine/orographic-shadow.ts`:
+  - adjusts effective “upwind barrier steps” based on `directionality.cohesion` and `directionality.interplay.windsFollowPlates`.
+  - **Rule:** compute the effective `steps` in `resolveConfig` (settings-aware), store it back into config, and keep runtime branch-free.
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/chooser.ts`:
+  - adjusts swatch weights based on directionality cohesion and axis angles.
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/monsoon-bias.ts`:
+  - uses directionality hemispheres + cohesion to derive monsoon bias magnitude and equator band.
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/index.ts`:
+  - passes directionality into swatch selection and monsoon bias pass.
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/refine/index.ts`:
+  - treats `directionality` as an optional param and threads it to refinements; under U10 it should be sourced from settings at the step boundary and treated as present/typed (no `|| {}` shells).
+- Narrative corridor tagging also consumes directionality via `context.settings.directionality` (step boundary); any remaining “directionality || {}” patterns in domain helpers should become unnecessary once settings are always present and correctly typed.
+
+**Pure-config defaults (do not depend on settings)**
+- Most `Value.Default(...)` and `{}` shells in ecology ops (`classify-biomes`, `features-embellishments`, `features-placement`, `plot-effects`) are pure config defaulting and should be handled entirely by schema defaults + compile-time normalization (and/or resolver-only normalization for the two “resolver-like” helpers).
