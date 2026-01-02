@@ -215,7 +215,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### Pre-work for A (step resolver + compiler execution)
 
 ### Pre-work for B (op resolver authoring surface)
-- “Wire step resolver composition by directly calling `op.resolveConfig(opConfig, settings)` via the op object (no engine/compiler calling op resolvers directly).”
 
 ### Pre-work for C (derived defaults migration)
 - “Search for all ‘meaning-level defaults’ in `mods/mod-swooper-maps/src/recipes/**` and `mods/mod-swooper-maps/src/domain/**` (e.g., `Value.Default`, `?? {}`, `|| {}` on config). Classify each as schema default vs resolver vs runtime params.”
@@ -364,3 +363,47 @@ This is the only point where we have:
 **Compatibility note (important for C and for resolver expectations)**
 - Today, many ops perform runtime defaulting via `Value.Default(schema, cfg)` inside `run(...)` even when step schemas already specify defaults.
 - After U10, the intended posture is: step schemas + compiler normalization + `step.resolveConfig` own config shaping; op runtime should treat config as already canonical.
+
+### B2) Step-side resolver composition pattern (step delegates to op resolvers)
+
+**Why this prework matters**
+- U10’s “compiler executes resolution” rule is explicitly **step-scoped**:
+  - compiler calls `step.resolveConfig(stepConfig, settings)`
+  - step resolver may compose multiple op resolvers (`op.resolveConfig(opConfig, settings)`) and recompose a final step config
+- This preserves the boundary: the compiler never needs to understand op structure or call op hooks directly.
+
+**Current state (what must change to enable composition)**
+- Engine step type (`packages/mapgen-core/src/engine/types.ts`) currently defines `MapGenStep` with:
+  - `configSchema?: TSchema` and `run(context, config)`
+  - **no** `resolveConfig` hook
+- Authoring step type (`packages/mapgen-core/src/authoring/types.ts`) defines `Step` with:
+  - `schema: TSchema` (required via `createStep` assertion in `packages/mapgen-core/src/authoring/step.ts`)
+  - **no** `resolveConfig` hook
+- Authoring recipe assembly (`packages/mapgen-core/src/authoring/recipe.ts`) maps authored steps into engine steps in `finalizeOccurrences(...)`:
+  - sets `configSchema: authored.schema`
+  - sets `run: authored.run`
+  - would need to forward `resolveConfig` once it exists on the authored step type
+
+**Concrete composition example in current code (shows the problem clearly)**
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/index.ts`:
+  - Step schema already defaults `classify` to `ecology.ops.classifyBiomes.defaultConfig`.
+  - Runtime step still re-defaults/cleans op config via:
+    - `Value.Default(ecology.ops.classifyBiomes.config, config.classify ?? ecology.ops.classifyBiomes.defaultConfig)`
+  - This is exactly the “runtime meaning-level defaults” posture U10 is deleting.
+
+**Canonical composition pattern (what to implement later, but the rule is important now)**
+- Step owns a resolver:
+  - `resolveConfig: (cfg, settings) => cfg'`
+- Inside the step resolver, delegate only through op objects:
+  - Example shape for the biomes step:
+    - `cfg.classify = ecology.ops.classifyBiomes.resolveConfig ? ecology.ops.classifyBiomes.resolveConfig(cfg.classify, settings) : cfg.classify`
+    - `cfg.bindings` stays as-is (bindings are adapter-owned IDs; not settings-derived)
+- For a multi-op step, the resolver is fan-out → delegate → recompose:
+  - `cfg = { ...cfg, opA: resolveA(cfg.opA), opB: resolveB(cfg.opB) }`
+- Runtime rule for steps after this change:
+  - runtime `run(...)` must treat `config` as already resolved and must not call `Value.Default` / `?? defaultConfig` on meaning-level config again.
+
+**Key invariants to preserve**
+- The compiler remains op-agnostic: only sees `step.resolveConfig`.
+- Op resolvers remain compile-time-only helpers and are never called from engine/compiler directly.
+- Step schemas remain the single plan-stored config schema; resolver output must remain schema-valid (enforced by compiler re-validation per A2).
