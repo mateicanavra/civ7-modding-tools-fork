@@ -555,3 +555,16 @@ mods/mod-swooper-maps/src/domain/ecology/
   - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/apply.ts` resolves `FeatureKey` → engine feature type index via `adapter.getFeatureTypeIndex(key)` and throws on unknown.
 - Plot effects:
   - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/apply.ts` resolves `PlotEffectKey` → engine plot effect type index via `adapter.getPlotEffectTypeIndex(key)` and throws on unknown.
+
+### C2) Unknown key failure behavior (fail fast) and exact error message shape
+**Decision (no ambiguity)**
+- Unknown key resolution is a hard error at apply time (no `-1` fallbacks, no “skip silently” behavior).
+- Error messages must include both:
+  - `stepId` (the step `id` in the recipe module), and
+  - the unknown key string.
+
+**Canonical error messages (exact strings)**
+- Features (`id: "features"`), when `adapter.getFeatureTypeIndex(key) < 0`:
+  - `features: unknown FeatureKey "<KEY>" (adapter.getFeatureTypeIndex returned -1)`
+- Plot effects (`id: "plotEffects"`), when `adapter.getPlotEffectTypeIndex(key) < 0`:
+  - `plotEffects: unknown PlotEffectKey "<KEY>" (adapter.getPlotEffectTypeIndex returned -1)`
