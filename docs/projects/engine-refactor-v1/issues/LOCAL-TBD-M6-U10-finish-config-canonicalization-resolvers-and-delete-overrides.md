@@ -219,7 +219,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### Pre-work for C (derived defaults migration)
 
 ### Pre-work for D (delete overrides translator)
-- “List all call sites/types that depend on `StandardRecipeOverrides` and plan a mechanical migration.”
 - “List all runner entrypoints that currently accept overrides-shaped inputs and define the new canonical signature(s) that accept `settings` + `config` only.”
 - “Identify and delete any remaining runtime config-defaulting in the map entrypoint path (e.g., `Value.Default` in `maps/_runtime/**`).”
 
@@ -706,3 +705,52 @@ Source: stage modules imported by `mods/mod-swooper-maps/src/recipes/standard/re
 - Once maps directly author `StandardRecipeConfig`, none of those translation-time defaults are needed:
   - maps already provide explicit values for the “non-trivial” configs (foundation/landmass/climate/ecology),
   - compile-time schema defaults (in the engine compiler) must own all remaining defaults.
+
+### D3) Inventory: `StandardRecipeOverrides` dependency surface + mechanical migration plan
+
+**Direct code dependencies (must change in the implementation)**
+
+Definition site (to be deleted):
+- `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts`
+  - `type DeepPartial<T>`
+  - `export type StandardRecipeOverrides = DeepPartial<MapGenConfig>`
+  - `export function buildStandardRunSettings(init, overrides)`
+  - `export function buildStandardRecipeConfig(overrides)`
+
+Runtime call sites (must stop importing the type and/or functions):
+- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`
+  - imports `buildStandardRunSettings`, `buildStandardRecipeConfig`, and `StandardRecipeOverrides`
+  - constructs `safeOverrides = overrides ?? {}` and translates at runtime
+
+Map entrypoints (must stop authoring overrides blobs):
+- `mods/mod-swooper-maps/src/maps/swooper-earthlike.ts`
+- `mods/mod-swooper-maps/src/maps/swooper-desert-mountains.ts`
+- `mods/mod-swooper-maps/src/maps/sundered-archipelago.ts`
+- `mods/mod-swooper-maps/src/maps/shattered-ring.ts`
+  - all import `type StandardRecipeOverrides` from `./_runtime/standard-config.js`
+  - all define `buildConfig(): StandardRecipeOverrides`
+  - all pass `{ overrides }` into `runStandardRecipe(...)`
+
+Test dependencies (must be updated or removed as part of the cutover)
+- `mods/mod-swooper-maps/test/standard-run.test.ts`
+  - imports `buildStandardRecipeConfig` from `../src/maps/_runtime/standard-config.js`
+  - uses `buildStandardRecipeConfig({})` to compile a plan
+
+**Doc references (optional to update, but should be kept consistent if touched)**
+- `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md` references the legacy file and its exports as the “bad current state” (can remain accurate historically, but should not claim the file still exists after U10 is implemented).
+
+**Mechanical migration plan (no branching, no compatibility shims)**
+
+1) Delete the legacy translation module:
+   - delete `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts`
+2) Update the standard runner glue to accept the canonical inputs:
+   - rewrite `runStandardRecipe(...)` to take `settings + config` (D4)
+   - remove all mentions/imports of `StandardRecipeOverrides`, `buildStandardRunSettings`, `buildStandardRecipeConfig`, and `safeOverrides`
+3) Rewrite each map entrypoint to stop producing overrides:
+   - replace `buildConfig(): StandardRecipeOverrides` with:
+     - `const settings: RunSettings = ...`
+     - `const config = { ... } satisfies StandardRecipeConfig`
+   - pass `settings` + `config` into `runStandardRecipe(...)`
+4) Update tests:
+   - replace `buildStandardRecipeConfig({})` with an explicit `StandardRecipeConfig` fixture (full shape) or by importing a real map’s exported config (if we choose to export configs explicitly as part of the rewrite).
+   - do not reintroduce a shared “config builder” helper in test code; tests must remain explicit about the config shape (this keeps the “no translation layer” invariant strong).
