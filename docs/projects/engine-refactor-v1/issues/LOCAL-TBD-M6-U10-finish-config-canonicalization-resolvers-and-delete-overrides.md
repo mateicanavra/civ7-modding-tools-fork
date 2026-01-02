@@ -217,7 +217,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### Pre-work for B (op resolver authoring surface)
 
 ### Pre-work for C (derived defaults migration)
-- “Search for all ‘meaning-level defaults’ in `mods/mod-swooper-maps/src/recipes/**` and `mods/mod-swooper-maps/src/domain/**` (e.g., `Value.Default`, `?? {}`, `|| {}` on config). Classify each as schema default vs resolver vs runtime params.”
 - “Identify any cases where defaults depend on run settings (dimensions/wrap/seed/directionality/trace) vs only local config.”
 
 ### Pre-work for D (delete overrides translator)
@@ -407,3 +406,125 @@ This is the only point where we have:
 - The compiler remains op-agnostic: only sees `step.resolveConfig`.
 - Op resolvers remain compile-time-only helpers and are never called from engine/compiler directly.
 - Step schemas remain the single plan-stored config schema; resolver output must remain schema-valid (enforced by compiler re-validation per A2).
+
+### C1) Inventory of “meaning-level defaults” in `mods/mod-swooper-maps` (classified)
+
+**Scan scope**
+- Included:
+  - `mods/mod-swooper-maps/src/domain/**`
+  - `mods/mod-swooper-maps/src/recipes/**`
+- Searched for the explicit “meaning-level default” patterns called out in the prompt:
+  - `Value.Default(...)`
+  - `?? {}`
+  - `|| {}`
+- Note: many files also contain non-`{}` numeric fallbacks (e.g. `cfg.foo ?? 5`, `Number.isFinite(x) ? x : 12`). Those follow the same classification rules below, but this prework section focuses on the explicitly requested patterns.
+
+**Classification rubric (used below)**
+- **Schema default**: the value should always be present post-compile because it is represented as a schema default (step schema or op config schema) and the plan compiler already applies `Value.Default + Value.Clean`.
+- **Resolver**: the “default” is actually semantic normalization beyond schema defaults (composition, derived defaults, or non-trivial normalization that must happen at compile-time to satisfy “plan truth”).
+- **Runtime params**: runtime-derived computation that is allowed to depend on runtime data (adapter, artifacts, etc.) and does not mutate/merge config; it should remain in runtime code (but stop using `config ?? {}` once the schema guarantees presence).
+
+#### C1.a) `Value.Default(...)` usage (meaning-level defaults happening at runtime today)
+
+**1) Domain hydrology baseline**
+- `mods/mod-swooper-maps/src/domain/hydrology/climate/baseline.ts` (`applyClimateBaseline`):
+  - `Value.Default(ClimateConfigSchema, config)` plus repeated `Value.Default(...)` into nested `baseline/bands/edges/...`.
+  - **Classification:** schema default.
+  - **Why:** the calling step schema already models `climate.baseline` with schema defaults, and U10’s compiler will hand runtime a plan-stored `node.config` that is already defaulted/cleaned. The domain function should treat config as canonical and stop defaulting/branching.
+
+**2) Domain ecology ops**
+- `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`:
+  - `Value.Default(BiomeClassificationConfigSchema, cfg)` and defaulting `vegetation.biomeModifiers`.
+  - **Classification:** schema default.
+  - **Why:** the biomes step’s schema references `classifyBiomes.config` and defaults to `classifyBiomes.defaultConfig`; post-U10, the plan compiler is the defaulting/cleaning phase.
+- `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`:
+  - `Value.Default(FeaturesEmbellishmentsConfigSchema, config)` and then nested `Value.Default` for `FeaturesConfigSchema` / `FeaturesDensityConfigSchema`.
+  - **Classification:** schema default.
+  - **Why:** steps already author `story` and `featuresDensity` with schema defaults; the op should stop re-defaulting at runtime.
+- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`:
+  - `Value.Default(FeaturesPlacementConfigSchema, config)` and `resolvedConfig.config ?? {}`.
+  - **Classification:** schema default (plus a schema-shape bug).
+  - **Why:** op config should be fully schema-defaulted pre-run; the `config ?? {}` indicates the schema currently permits `config` to be missing and the implementation compensates at runtime.
+
+**3) Step-level runtime defaulting**
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/index.ts`:
+  - `Value.Default(ecology.ops.classifyBiomes.config, config.classify ?? ecology.ops.classifyBiomes.defaultConfig)`
+  - **Classification:** schema default.
+  - **Why:** the step schema already defaults `classify` to `defaultConfig`. Runtime re-defaulting is redundant and violates “no meaning-level defaults at runtime”.
+
+#### C1.b) “Resolver-like” config resolution helpers in schema modules (runtime today; should be compile-time)
+
+These are the highest-risk defaulting sites because they are already doing non-trivial normalization and are called from runtime ops/steps.
+
+**1) Plot effects**
+- `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/schema.ts`:
+  - `resolvePlotEffectsConfig(input?: PlotEffectsConfig): ResolvedPlotEffectsConfig`
+  - Uses `Value.Default(...)` and manual spreads to force nested selector objects into a fully-populated structure.
+  - Call sites:
+    - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts` (`plotEffects.run` calls `resolvePlotEffectsConfig(config)`).
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/index.ts` (verbose logging).
+  - **Classification:** resolver.
+  - **Why:** this is effectively compile-time normalization (turning partially-present optional objects into a canonical shape). Under U10 it should move behind `resolveConfig` so runtime code doesn’t need “config fixing”.
+
+**2) Owned feature placement**
+- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts`:
+  - `resolveFeaturesPlacementOwnedConfig(input?: FeaturesPlacementOwnedConfig): ResolvedFeaturesPlacementOwnedConfig`
+  - Uses `Value.Default(...)`, explicit unknown-key checks, and value normalization (clamp, rounding, non-empty array fallbacks).
+  - Call sites:
+    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/strategies/owned.ts` (`planOwnedFeaturePlacements` calls `resolveFeaturesPlacementOwnedConfig(config)`).
+    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts` passes `resolvedConfig.config ?? {}` into `planOwnedFeaturePlacements`.
+  - **Classification:** resolver.
+  - **Why:** this function is performing “DD‑002 style” normalization beyond schema defaults. Under U10, this belongs in `resolveConfig` (op-level or step-level) so the plan stores already-canonical config and runtime stays branch-free.
+
+#### C1.c) `?? {}` occurrences (quick classification)
+
+**Schema default (remove once compiler owns defaults)**
+- `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storyHotspots.ts`:
+  - `config.story?.hotspot ?? {}` (step schema already defaults `story.hotspot`).
+- `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/landmassPlates.ts`:
+  - `config.landmass ?? {}`, `config.oceanSeparation ?? {}` (step schema defaults both).
+- `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/volcanoes.ts`:
+  - `config.volcanoes ?? {}` (step schema defaults).
+- `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/mountains.ts`:
+  - `config.mountains ?? {}` (step schema defaults).
+- `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`:
+  - `resolvedConfig.vegetation.biomeModifiers ?? {}` (should be defaulted by schema/compile-time normalization).
+- `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`:
+  - `resolvedConfig.story?.features ?? {}`, `resolvedConfig.featuresDensity ?? {}` (schema/compile-time normalization).
+- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`:
+  - `resolvedConfig.config ?? {}` (schema should default `config` to `{}`; runtime fallback should be removed).
+- `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/schema.ts` and `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts`:
+  - `input?.<field> ?? {}` patterns inside resolver-like helpers (should move to compile-time via resolver; once config is canonical, these are unnecessary).
+
+**Runtime params (not config-defaulting; keep as runtime, but stop pretending “maybe missing” if schema guarantees it)**
+- `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derivePlacementInputs.ts`:
+  - `config.placement ?? {}` (schema defaults it); merging `starts` is runtime param derivation (uses `getBaseStarts(context)`).
+- `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement.ts`:
+  - `derivedInputs.placementConfig ?? {}` (artifact should already carry an object; keep runtime behavior but remove defensive fallback once artifact shape is guaranteed).
+- `mods/mod-swooper-maps/src/recipes/standard/runtime.ts`:
+  - `adapter.lookupMapInfo(...) ?? {}` (engine boundary; unrelated to recipe config).
+
+#### C1.d) `|| {}` occurrences (quick classification)
+
+Most of these are legacy “defensive config shells” caused by optional/untyped config entrypoints. Under U10, they should disappear once the canonical config surface is: map authors provide explicit `settings` + typed recipe config, the compiler defaults/cleans, and runtime receives plan-truth configs.
+
+**Schema default (remove defensive `|| {}` once typed configs are guaranteed)**
+- Foundation stage config fan-out: `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/producer.ts`:
+  - `config.plates || {}`, `config.dynamics?.mantle || {}`, `config.dynamics?.wind || {}`, etc. (the step schema already uses `FoundationConfigSchema`).
+- Domain morphology/coastlines: `mods/mod-swooper-maps/src/domain/morphology/coastlines/rugged-coasts.ts` and `.../corridor-policy.ts`
+- Domain morphology/landmass: `mods/mod-swooper-maps/src/domain/morphology/landmass/index.ts` and `.../ocean-separation/apply.ts`
+- Domain morphology/islands: `mods/mod-swooper-maps/src/domain/morphology/islands/placement.ts`
+- Domain hydrology/climate swatches: `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/index.ts` (e.g., `cfg.types || {}`, `cfg.sizeScaling || {}`)
+
+**Resolver (semantic normalization currently happening via `|| {}` + hard-coded fallbacks)**
+- Legacy hydrology refinement knobs: `mods/mod-swooper-maps/src/domain/hydrology/climate/refine/*.ts`
+  - use raw `Record<string, unknown>` configs with pervasive `|| {}` and numeric fallbacks (`?? 5`, etc).
+  - these should be replaced by a typed schema surface + compile-time normalization (resolver) so runtime doesn’t branch on missing keys.
+- Plate seed semantics: `mods/mod-swooper-maps/src/domain/foundation/plate-seed.ts`
+  - `normalizeSeedConfig(config || {})` turns invalid “fixed” inputs into “engine” mode.
+  - this is semantic policy; under U10 strictness it should be made explicit either as schema validation (reject invalid) or a documented resolver rule (normalize).
+
+**Runtime params**
+- Placement orchestration: `mods/mod-swooper-maps/src/domain/placement/index.ts`
+  - mixes `options.*` with `options.placementConfig.*` and local defaults.
+  - this is boundary-level param selection; once maps author a single canonical config object, this merging should be removed from runtime and moved to compile-time/boundary assembly.
