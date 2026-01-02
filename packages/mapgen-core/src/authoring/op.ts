@@ -1,6 +1,33 @@
 import { Type, type Static, type TSchema } from "typebox";
 import { Value } from "typebox/value";
 
+import type { ValidationError } from "./validation.js";
+import {
+  OpValidationError,
+  type CustomValidateFn,
+  type OpRunValidatedOptions,
+  type OpValidateOptions,
+  validateOpCall,
+  validateOpOutput,
+} from "./validation.js";
+
+/**
+ * Strict operation kind taxonomy for domain operation modules.
+ *
+ * Kinds are semantic and should remain trustworthy over time (i.e., avoid using `compute` as a
+ * catch-all). Runtime enforcement is not required, but tooling/lint and code review may rely on
+ * these meanings for consistency and observability.
+ *
+ * Boundary intent:
+ * - Ops are pure domain contracts: `run(input, config) -> output`.
+ * - Op inputs/outputs should be plain values (POJOs + POJO-ish runtime values such as typed arrays),
+ *   not runtime/engine “views” (e.g., adapters or callback readbacks).
+ * - Steps own runtime binding (adapter reads, engine writes, buffer mutation, artifact publication).
+ *
+ * Export discipline:
+ * - Only export ops that are intended to be step-callable domain contracts.
+ * - Internal phases can still be modeled as ops when useful, without being exported from the domain.
+ */
 export type DomainOpKind = "plan" | "compute" | "score" | "select";
 
 export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
@@ -48,6 +75,20 @@ export type DomainOp<
       ? StrategySelection<Strategies, DefaultStrategy>
       : Static<ConfigSchema>
   ) => Static<OutputSchema>;
+  validate: (
+    input: Static<InputSchema>,
+    config: Strategies extends Record<string, { config: TSchema }>
+      ? StrategySelection<Strategies, DefaultStrategy>
+      : Static<ConfigSchema>,
+    options?: OpValidateOptions
+  ) => { ok: boolean; errors: ValidationError[] };
+  runValidated: (
+    input: Static<InputSchema>,
+    config: Strategies extends Record<string, { config: TSchema }>
+      ? StrategySelection<Strategies, DefaultStrategy>
+      : Static<ConfigSchema>,
+    options?: OpRunValidatedOptions
+  ) => Static<OutputSchema>;
 }>;
 
 type OpDefinitionBase<InputSchema extends TSchema, OutputSchema extends TSchema> = Readonly<{
@@ -63,6 +104,16 @@ function buildDefaultConfigValue(schema: TSchema): unknown {
   return Value.Clean(schema, converted);
 }
 
+type OpDefinitionValidationHook<InputSchema extends TSchema, ConfigSchema> = Readonly<{
+  /**
+   * Optional domain-/operation-specific validation hook.
+   *
+   * This is not called by consumers directly; it is wired into `op.validate(...)` and
+   * `op.runValidated(...)` automatically.
+   */
+  customValidate?: CustomValidateFn<Static<InputSchema>, ConfigSchema>;
+}>;
+
 export function createOp<
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
@@ -71,7 +122,12 @@ export function createOp<
   Readonly<{
     config: ConfigSchema;
     run: (input: Static<InputSchema>, config: Static<ConfigSchema>) => Static<OutputSchema>;
-  }>): DomainOp<InputSchema, OutputSchema, ConfigSchema>;
+  }> &
+  OpDefinitionValidationHook<InputSchema, Static<ConfigSchema>>): DomainOp<
+  InputSchema,
+  OutputSchema,
+  ConfigSchema
+>;
 
 export function createOp<
   InputSchema extends TSchema,
@@ -83,10 +139,16 @@ export function createOp<
     Readonly<{
       strategies: Strategies;
       defaultStrategy?: DefaultStrategy;
-    }>
+    }> &
+    OpDefinitionValidationHook<
+      InputSchema,
+      StrategySelection<Strategies, DefaultStrategy>
+    >
 ): DomainOp<InputSchema, OutputSchema, TSchema, Strategies, DefaultStrategy>;
 
 export function createOp(op: any): any {
+  const customValidate = op.customValidate as CustomValidateFn<unknown, unknown> | undefined;
+
   if (op.strategies) {
     const strategies = op.strategies as Record<string, OpStrategy<TSchema, unknown, unknown>>;
     const defaultStrategy = op.defaultStrategy as string | undefined;
@@ -125,7 +187,7 @@ export function createOp(op: any): any {
       default: defaultConfig,
     });
 
-    return {
+    const domainOp = {
       kind: op.kind,
       id: op.id,
       input: op.input,
@@ -141,9 +203,40 @@ export function createOp(op: any): any {
         if (!selected) throw new Error(`createOp(${op.id}) unknown strategy "${selectedId}"`);
         return selected.run(input, cfg?.config ?? {});
       },
-    };
+    } as const;
+
+    return attachValidationSurface(domainOp, customValidate);
   }
 
   const defaultConfig = buildDefaultConfigValue(op.config ?? Type.Object({}, { default: {} }));
-  return { ...op, defaultConfig };
+  const { customValidate: _customValidate, ...rest } = op as Record<string, unknown>;
+  const domainOp = { ...(rest as any), defaultConfig } as const;
+  return attachValidationSurface(domainOp, customValidate);
+}
+
+function attachValidationSurface<T extends Readonly<{ id: string; input: TSchema; output: TSchema; config: TSchema; run: any }>>(
+  op: T,
+  customValidate?: CustomValidateFn<any, any>
+): T & {
+  validate: (input: any, config: any, options?: OpValidateOptions) => { ok: boolean; errors: ValidationError[] };
+  runValidated: (input: any, config: any, options?: OpRunValidatedOptions) => any;
+} {
+  const validate = (input: unknown, config: unknown, options?: OpValidateOptions) =>
+    validateOpCall(op, input, config, customValidate, options);
+
+  const runValidated = (input: unknown, config: unknown, options?: OpRunValidatedOptions) => {
+    const validated = validateOpCall(op, input, config, customValidate, { validateOutput: false });
+    if (!validated.ok) throw new OpValidationError(op.id, validated.errors);
+
+    const output = op.run(input as any, config as any);
+
+    if (options?.validateOutput) {
+      const out = validateOpOutput(op, input, output);
+      if (!out.ok) throw new OpValidationError(op.id, out.errors);
+    }
+
+    return output;
+  };
+
+  return { ...(op as any), validate, runValidated };
 }

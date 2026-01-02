@@ -3,6 +3,9 @@ doc_id: ER1-ADR-INDEX
 title: "Engine Refactor v1 — ADR Index"
 project: engine-refactor-v1
 status: active
+system: mapgen
+component: documentation
+concern: adr-index
 ---
 
 # ADR Index

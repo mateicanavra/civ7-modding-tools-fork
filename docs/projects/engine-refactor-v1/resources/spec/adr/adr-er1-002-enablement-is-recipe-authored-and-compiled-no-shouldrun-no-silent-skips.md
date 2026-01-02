@@ -5,6 +5,9 @@ status: accepted
 date: 2025-12-21
 project: engine-refactor-v1
 risk: stable
+system: mapgen
+component: engine-runtime
+concern: execution-plan
 supersedes: []
 superseded_by: null
 sources:

@@ -137,9 +137,13 @@ Notes:
 
 An **operation** (aka “op”) is the stable unit that steps depend on. It:
 
-- has a **kind** (`plan`, `compute`, `score`, `select`) for shared mental model,
+- has a **required, strict** `kind` (`plan`, `compute`, `score`, `select`) for a shared mental model and consistent contract review (see ADR-ER1-034),
+- is the primary **domain contract** and **unit-testable unit** (steps orchestrate; ops encapsulate domain logic),
 - owns its `input`, `config`, and `output` schemas (per-operation, not per-domain),
-- exports a pure `run(input, config) -> output`.
+- exports a raw `run(input, config) -> output` executor over plain values (POJOs + POJO-ish runtime values such as typed arrays), not runtime/engine “views”.
+- also exposes contract enforcement helpers:
+  - `validate(input, config, opts?) -> { ok, errors }` (never throws),
+  - `runValidated(input, config, opts?) -> output` (throws on validation failure; optional output validation for tests/tooling).
 
 ### Strategies (optional, internal)
 
@@ -219,7 +223,7 @@ An “apply” phase is not a round-trip back into the domain; it is the step us
 ┌─────────────────────────┐        ┌──────────────────────┐        ┌─────────────────────────┐
 │ Step.run(ctx, config)   │        │ domain/ops/**        │        │ engine + artifacts      │
 │                         │        │                      │        │                         │
-│ 1) build inputs         │  ───▶  │ op.run(inputs,cfg)   │  ───▶  │ 3) apply + publish      │
+│ 1) build inputs         │  ───▶  │ op.runValidated(..)  │  ───▶  │ 3) apply + publish      │
 │    from ctx+adapter     │        │ => result            │        │                         │
 └─────────────────────────┘        └──────────────────────┘        └─────────────────────────┘
 ```
@@ -232,6 +236,12 @@ Operations are plain exports, but a tiny helper improves inference and standardi
 // CORE_SDK_ROOT/src/authoring/op.ts
 import { Type, type Static, type TSchema } from "typebox";
 
+/**
+ * Strict operation kind taxonomy (see ADR-ER1-034).
+ *
+ * Kinds are semantic; ops are contract units and should not accept runtime/engine “views”
+ * (adapters/callback readbacks) as part of their input/output contract.
+ */
 export type DomainOpKind = "plan" | "compute" | "score" | "select";
 
 export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
@@ -282,7 +292,7 @@ Recommended step-side import pattern:
 ```ts
 import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
 
-const plan = volcanoes.ops.planVolcanoes.run(inputs, config.planVolcanoes);
+const plan = volcanoes.ops.planVolcanoes.runValidated(inputs, config.planVolcanoes);
 ```
 
 ### Step structure / step-local helpers (TBD)
@@ -342,7 +352,7 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 ```ts
 // src/domain/morphology/volcanoes/ops/compute-suitability.ts
 import { Type } from "typebox";
-import { createOp } from "@swooper/mapgen-core/authoring";
+import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 
 export default createOp({
   kind: "compute",
@@ -352,11 +362,11 @@ export default createOp({
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
 
-      // NOTE: These are typed-array buffers in practice. If we want stricter static typing,
-      // we can introduce an opaque schema helper (e.g., `t.uint8Array()`) in authoring.
-      isLand: Type.Any(),
-      plateBoundaryProximity: Type.Any(),
-      elevation: Type.Any(),
+      isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
+      plateBoundaryProximity: TypedArraySchemas.u8({
+        description: "Plate boundary proximity per tile (0..255).",
+      }),
+      elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
     },
     { additionalProperties: false }
   ),
@@ -369,7 +379,7 @@ export default createOp({
   ),
   output: Type.Object(
     {
-      suitability: Type.Any(),
+      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
     },
     { additionalProperties: false }
   ),
@@ -403,7 +413,7 @@ This operation has interchangeable strategies. The op stays stable; internal str
 ```ts
 // src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
 import { Type } from "typebox";
-import { createOp } from "@swooper/mapgen-core/authoring";
+import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import plateAware from "./strategies/plate-aware.js";
 import hotspotClusters from "./strategies/hotspot-clusters.js";
 
@@ -414,8 +424,12 @@ export default createOp({
     {
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
-      suitability: Type.Any(),
-      rng01: Type.Any(),
+      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
+      rngSeed: Type.Integer({
+        minimum: 0,
+        description:
+          "Deterministic RNG seed (derived by the step from RunRequest settings + step/op identity).",
+      }),
     },
     { additionalProperties: false }
   ),
@@ -465,6 +479,14 @@ export default createStrategy({
     const target = cfg.targetCount ?? 12;
     const minD = cfg.minDistance ?? 6;
 
+    // Derive deterministic randomness locally from the seed.
+    // NOTE: The op contract passes seeds/values (POJO-ish), not callback “views”.
+    let draw = 0;
+    const rng01 = (): number => {
+      const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
+      return ((x >>> 0) / 2 ** 32);
+    };
+
     const width = inputs.width;
     const height = inputs.height;
     const size = width * height;
@@ -474,7 +496,7 @@ export default createStrategy({
     for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
 
     while (chosen.length < target) {
-      const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.pick"));
+      const i = pickWeightedIndex(weights, rng01);
       if (i < 0) break;
 
       const x = i % width;
@@ -514,6 +536,14 @@ export default createStrategy({
     const target = cfg.targetCount ?? 12;
     const minD = cfg.minDistance ?? 6;
 
+    // Derive deterministic randomness locally from the seed.
+    // NOTE: The op contract passes seeds/values (POJO-ish), not callback “views”.
+    let draw = 0;
+    const rng01 = (): number => {
+      const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
+      return ((x >>> 0) / 2 ** 32);
+    };
+
     const width = inputs.width;
     const height = inputs.height;
     const size = width * height;
@@ -524,7 +554,7 @@ export default createStrategy({
 
     const seedCount = Math.min(cfg.seedCount ?? 3, target);
     while (chosen.length < seedCount) {
-      const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.seed"));
+      const i = pickWeightedIndex(weights, rng01);
       if (i < 0) break;
 
       const x = i % width;
@@ -538,7 +568,7 @@ export default createStrategy({
     }
 
     while (chosen.length < target) {
-      const i = pickWeightedIndex(weights, () => inputs.rng01("volcano.fill"));
+      const i = pickWeightedIndex(weights, rng01);
       if (i < 0) break;
 
       const x = i % width;
@@ -660,7 +690,10 @@ export default createStep({
     const inputs = buildVolcanoInputs(ctx);
 
     // 2) Compute + plan (pure domain logic)
-    const { suitability } = volcanoes.ops.computeSuitability.run(inputs, cfg.computeSuitability);
+    const { suitability } = volcanoes.ops.computeSuitability.runValidated(
+      inputs,
+      cfg.computeSuitability
+    );
 
     // Two equivalent authoring patterns for strategy-backed ops:
     //
@@ -671,12 +704,12 @@ export default createStep({
     //    cfg.planVolcanoes = { strategy: "hotspotClusters", config: { seedCount: 4, targetCount: 12, minDistance: 6 } }
     //
     // Both are runtime-validated (via `volcanoes.ops.planVolcanoes.config`) and type-checked via `Parameters<...run>[1]`.
-    const { placements } = volcanoes.ops.planVolcanoes.run(
+    const { placements } = volcanoes.ops.planVolcanoes.runValidated(
       {
         width: inputs.width,
         height: inputs.height,
         suitability,
-        rng01: (label) => ctxRandom(ctx, label, 1_000_000) / 1_000_000,
+        rngSeed: ctxRandom(ctx, "volcanoes:planVolcanoes:rngSeed", 1_000_000) | 0,
       },
       cfg.planVolcanoes
     );
@@ -690,13 +723,15 @@ export default createStep({
 
 ```ts
 // src/recipes/standard/stages/morphology-post/steps/volcanoes/inputs.ts
+import { expectedGridSize } from "@swooper/mapgen-core/authoring";
+
 export function buildVolcanoInputs(ctx: {
   dimensions: { width: number; height: number };
   adapter: { isWater: (x: number, y: number) => boolean; getElevation: (x: number, y: number) => number };
   artifacts: { get: (key: string) => unknown };
 }) {
   const { width, height } = ctx.dimensions;
-  const size = width * height;
+  const size = expectedGridSize(width, height);
 
   const isLand = new Uint8Array(size);
   const elevation = new Int16Array(size);
@@ -786,27 +821,9 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
-**Impact / scale:** **Medium**
+**Status:** Decided (ADR-ER1-034 accepted)
 
-**System surface / blast radius (components):**
-- **Domain operations (`DomainOpKind`)**: the labeled “kind” of an op (the public contract a step calls).
-- **Steps**: the runtime orchestrator that validates config, calls ops, and applies/publishes results.
-- **Docs/tooling**: any future scaffolding, contract rendering, or authoring UX that depends on “kind” meaning something consistent.
-
-**Question:** Are `DomainOpKind` values strict semantics (a contract we teach and enforce) or just labels for documentation?
-
-**Why it matters / what it affects:** “Kind” is the shared vocabulary that tells authors (and later tooling) how to treat the op’s output. If it is strict, it creates predictable step behavior (“plans are applied”, “compute results are published”) and keeps domain vs step responsibilities crisp. If it is soft, “kind” stops carrying reliable meaning and we drift back into ad-hoc orchestration and inconsistent contracts.
-
-**Options:**
-- **A) Strict semantics (preferred):** treat kinds as a contract.
-  - `plan`: produces intents/edits/overrides that steps apply.
-  - `compute`: produces derived artifacts/fields (no side effects).
-  - `score`: produces scores/rankings over candidates.
-  - `select`: produces selections/choices from candidates/scores.
-- **B) Soft semantics:** kinds are descriptive only; overlap is allowed.
-- **C) Fewer kinds:** collapse `score`/`select` (e.g., keep `plan` + `compute` + `score`).
-
-**Recommendation:** Start with **A**, but keep the set small. If `select` doesn’t add real clarity, adopt **C** (collapse into `score`) while keeping the `plan` vs `compute` distinction crisp.
+Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`.
 
 ### DD-002: Derived defaults and config normalization (beyond schema defaults)
 
@@ -832,6 +849,8 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 **Impact / scale:** **High**
 
+**Status:** Decided (ADR-ER1-030 accepted)
+
 **System surface / blast radius (components):**
 - **Step → domain boundary (inputs/outputs)**: how steps package runtime state into op inputs (and how results come back).
 - **Runtime performance/memory**: whether we precompute buffers, allocate typed arrays, or rely on callback views.
@@ -840,15 +859,19 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 **Question:** What shapes are allowed for `op.input` / `op.output`, and how hard do we try to represent them in TypeBox schemas (especially for typed arrays)?
 
-**Why it matters / what it affects:** Inputs are the main coupling point between runtime and domain. Buffer-based inputs (typed arrays/POJOs) are deterministic and easy to test, but require step-side extraction/precompute. Callback “views” can reduce boilerplate and memory, but risk domain logic implicitly depending on runtime state in ways that are harder to test and reason about. Separately, TypeBox can’t precisely encode typed-array shapes out of the box, so runtime validation and doc rendering may degrade to `Type.Any()` unless we add helpers.
+**Decision (locked):** Operation contracts are **buffers/POJO-ish only** (no adapters/callback “views” in `op.input`/`op.output`) (ADR-ER1-030).
 
-**Options:**
-- **A) Buffers/POJOs only (preferred default):** inputs are plain data (typed arrays, plain objects), no runtime callbacks.
-- **B) Allow callback views:** inputs may include readonly functions (e.g., `readElevation(x,y)`), kept pure by convention.
-- **C) Two-tier model:** “core” ops take buffers; separate convenience ops accept callback views when memory pressure matters.
-- **D) Minimal typed-array schema helpers (TBD):** add tiny helpers so schemas are more informative than `Type.Any()` without introducing a big framework.
-
-**Recommendation:** Default to **A** for step-callable ops (best determinism/testability). If we introduce callbacks, constrain them to tiny, explicitly named readonly interfaces. For schema expressiveness, consider **D** only if we concretely need better runtime validation/docs; keep it minimal.
+Implications (summary):
+- Typed arrays are allowed as first-class contract values; the current cross-domain working set includes:
+  - `Uint8Array`, `Int8Array`
+  - `Uint16Array`, `Int16Array`, `Int32Array`
+  - `Float32Array`
+- Typed-array schemas are intentionally conservative in TypeBox:
+  - default to `Type.Unsafe<...>(...)` via a shared helper (`TypedArraySchemas.*`) rather than attempting to serialize function-backed checks,
+  - enforce correctness-critical invariants (buffer types and `width * height` coupling) via explicit validators (step input-builders first; reuse for tests and later op-entry validation) exported from `@swooper/mapgen-core/authoring`.
+- Op-entry contract enforcement is provided by the authoring SDK:
+  - `op.validate(...)` returns `{ ok, errors }` (schema checks + typed-array checks + optional op-specific `customValidate`),
+  - `op.runValidated(...)` throws on validation failure and supports optional output validation for tests/tooling.
 
 ### DD-004: Artifact keys / dependency keys ownership (domain vs recipe)
 
@@ -992,7 +1015,7 @@ Target integration decisions aligned to the recommendations above:
 
 - **Operation module:** `ecology/biomes/classify` is a `compute` op with colocated input/output/config schemas. Inputs are buffered data (`rainfall`, `humidity`, `elevation`, `latitude`, `landMask`, optional overlay masks); outputs are typed arrays (`biomeIndex`, `vegetationDensity`, `effectiveMoisture`, `surfaceTemperature`).
 - **Artifact + keys:** the recipe publishes the result under the recipe-owned key `artifact:ecology.biomeClassification@v1`. The domain owns the artifact shape (`BiomeClassificationArtifactV1`); steps own the key, satisfying DD-004.
-- **Step boundary:** the biomes step builds inputs from artifacts/adapters, calls `classifyBiomes.run(...)`, publishes the artifact, and applies results to the engine (mapping biome symbols → adapter globals via a step-local binding map). No domain code reaches into the adapter.
+- **Step boundary:** the biomes step builds inputs from artifacts/adapters, calls `classifyBiomes.runValidated(...)`, publishes the artifact, and applies results to the engine (mapping biome symbols → adapter globals via a step-local binding map). No domain code reaches into the adapter.
 - **Config colocation:** biome classification config and defaults live beside the op (`classifyBiomes.config`/`defaultConfig`). Step schema imports these directly (DD-005/007) and exposes an engine-binding config (`BiomeBindingsSchema`) rather than re-authoring wrappers.
 - **Kind semantics:** the op is declared as `compute` and only returns derived fields; the step performs the `plan/apply` work (DD-001).
 - **Future ops:** pedology (`ecology/soils/classify`) and resource basin generation will follow the same model: domain-owned schemas + outputs, recipe-owned keys (`artifact:ecology.soils@v1`, `artifact:ecology.resources@v1`), and steps that adapt/apply.

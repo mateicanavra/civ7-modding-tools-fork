@@ -5,6 +5,9 @@ status: accepted
 date: 2025-12-22
 project: engine-refactor-v1
 risk: stable
+system: mapgen
+component: authoring-sdk
+concern: recipe-config
 supersedes: []
 superseded_by: null
 sources:

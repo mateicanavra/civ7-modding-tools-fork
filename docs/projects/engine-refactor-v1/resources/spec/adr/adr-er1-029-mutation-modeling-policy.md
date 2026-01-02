@@ -5,6 +5,9 @@ status: proposed
 date: 2025-12-30
 project: engine-refactor-v1
 risk: at_risk
+system: mapgen
+component: engine-runtime
+concern: mutation-model
 supersedes: []
 superseded_by: null
 sources:

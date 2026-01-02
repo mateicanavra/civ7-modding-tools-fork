@@ -5,6 +5,9 @@ status: accepted
 date: 2025-12-22
 project: engine-refactor-v1
 risk: overridden
+system: mapgen
+component: engine-runtime
+concern: dependency-registry
 supersedes: []
 superseded_by: null
 archived: true

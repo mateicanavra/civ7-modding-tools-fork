@@ -5,6 +5,9 @@ status: accepted
 date: 2025-12-21
 project: engine-refactor-v1
 risk: at_risk
+system: mapgen
+component: domain-content
+concern: hydrology
 supersedes: []
 superseded_by: null
 sources:
