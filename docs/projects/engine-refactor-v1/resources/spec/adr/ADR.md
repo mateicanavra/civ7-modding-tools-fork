@@ -32,12 +32,12 @@ This is a compact “where are the real gaps?” map; it is not authoritative co
 | Spine | Dependency terminology + registry naming | Proposed | — | SPEC-architecture-overview; SPEC-tag-registry; SPEC-pending-step-domain-operation-modules |
 | Spine | Dependency key ownership model (domain vs recipe) | Proposed | Dependency terminology + registry naming | SPEC-architecture-overview; SPEC-packaging-and-file-structure; SPEC-tag-registry; SPEC-pending-step-domain-operation-modules |
 | Spine/Boundary | Mutation modeling policy (`buffer:*` vs `artifact:*`) | Proposed | Dependency key ownership model | SPEC-architecture-overview; SPEC-tag-registry; SPEC-core-sdk; SPEC-pending-step-domain-operation-modules |
-| Domain boundary | Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy) | Proposed | Mutation modeling policy | SPEC-pending-step-domain-operation-modules; SPEC-core-sdk |
+| Domain boundary | Operation inputs policy (buffers/POJOs vs views; typed-array schema strategy) | Accepted | Mutation modeling policy | ADR-ER1-030; SPEC-core-sdk; SPEC-pending-step-domain-operation-modules |
 | Domain authoring | Strategy config encoding (strategy selection + defaults) | Proposed | Operation inputs policy | SPEC-pending-step-domain-operation-modules |
 | Domain authoring | Recipe config surface (no global overrides; explicitness rules) | Proposed | Strategy config encoding | SPEC-architecture-overview; SPEC-packaging-and-file-structure; SPEC-pending-step-domain-operation-modules |
 | Domain authoring | Step schema composition approach (manual vs declarative op wiring) | Proposed | Recipe config surface | SPEC-architecture-overview; SPEC-packaging-and-file-structure; SPEC-pending-step-domain-operation-modules |
-| Domain semantics | Operation kind semantics (`plan`/`compute`/`score`/`select`) | Proposed | — | SPEC-pending-step-domain-operation-modules |
-| Compile/validate | Config normalization beyond schema defaults | Proposed | Recipe config surface | SPEC-architecture-overview; SPEC-pending-step-domain-operation-modules |
+| Domain semantics | Operation kind semantics (`plan`/`compute`/`score`/`select`) | Accepted | — | ADR-ER1-034; SPEC-pending-step-domain-operation-modules |
+| Compile/validate | Config normalization beyond schema defaults | Accepted | Recipe config surface | ADR-ER1-035; SPEC-architecture-overview; SPEC-pending-step-domain-operation-modules |
 | Narrative debug | Overlays as derived-only vs dependency surface | Accepted | — | ADR-ER1-025 |
 | Runtime boundary | Directionality source of truth (`RunRequest.settings`) | Accepted | — | ADR-ER1-019 |
 

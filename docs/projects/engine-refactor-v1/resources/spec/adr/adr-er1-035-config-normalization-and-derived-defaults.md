@@ -1,10 +1,10 @@
 ---
 id: ADR-ER1-035
 title: "Config normalization and derived defaults (beyond schema defaults)"
-status: proposed
-date: 2025-12-30
+status: accepted
+date: 2026-01-02
 project: engine-refactor-v1
-risk: at_risk
+risk: stable
 system: mapgen
 component: authoring-sdk
 concern: config-normalization
@@ -108,15 +108,20 @@ This section captures the *current* sources of “normalization” and config sh
 
 ## Decision
 
-- Configuration normalization is a **compile/validation concern**:
-  - after schema defaults are applied, a deterministic normalization step may compute derived defaults and canonicalize shapes.
-  - the compiled plan carries the final explicit config for each step occurrence.
-- Normalization may depend on:
-  - the authored config,
-  - `RunRequest.settings`,
-  - registry metadata (e.g., known dependency keys),
-  - but not on runtime buffer state or engine callbacks.
-- Runtime execution must not apply implicit config merges or hidden defaults; it consumes the compiled plan as-is.
+- Configuration normalization is a **compile-time concern** (plan truth):
+  - `compileExecutionPlan(...)` applies schema defaults/cleaning and produces explicit `ExecutionPlan.nodes[].config` values.
+  - Steps and recipes treat `node.config` as **the config** at runtime (no additional meaning-level defaulting/merging in runtime paths).
+- Config normalization is **fractal only at step boundaries**:
+  - the plan compiler knows about steps (nodes), not about operations directly.
+  - composite steps may call multiple ops; each op may have its own normalization logic, but the composition point remains `step.resolveConfig(...)`.
+- Introduce an optional **step-level resolver hook** executed by the compiler:
+  - `step.resolveConfig(stepConfig, settings) -> stepConfig`
+  - This resolver is **pure** and depends only on `(stepConfig, RunRequest.settings)` (no adapters, no runtime buffers, no artifacts, no RNG).
+  - The resolver output must validate against the step’s existing `configSchema` (no plan-stored internal/derived fields).
+- Operations may provide **op-local normalization helpers** that are composed by steps at compile time:
+  - `op.resolveConfig(opConfig, settings) -> opConfig`
+  - Op resolvers are invoked by `step.resolveConfig(...)` (for composite steps) and the returned config remains schema-valid.
+  - Ops do not receive settings at runtime; op config resolution is a compiler-time phase.
 
 ## Options considered
 
@@ -136,3 +141,146 @@ This section captures the *current* sources of “normalization” and config sh
 - If a default depends on runtime state, it must be re-framed as:
   - an explicit input/setting, or
   - an explicit runtime-derived artifact/buffer dependency.
+- Op-local `Value.Default(...)` inside `run(...)` becomes a migration smell: ops should assume they receive already-canonical config (schema defaults + any step/op resolvers applied) and reserve runtime logic for runtime-only parameter derivation.
+
+## Explicitly not doing (deferred)
+
+- Do not store internal-only/derived coordination fields in `ExecutionPlan.nodes[].config`.
+- Do not introduce a separate “resolved schema” distinct from the author-facing config schema.
+- Do not introduce dual-shape storage (e.g., `authorConfig` + `resolvedConfig`) in the plan.
+
+If we later need plan-level truth for derived fields (e.g., implicit strategy choice, scale-derived thresholds), that will require a separate decision about:
+- a distinct resolved schema, and/or
+- a separate plan storage slot for resolved/internal config.
+
+## Canonical projected outcome
+
+### Operation shape (domain-owned)
+
+Operations remain runtime-pure and do not accept adapters/callback “views” as contract inputs/outputs. Config normalization lives alongside the op as a pure helper.
+
+```ts
+import type { Static, TSchema } from "typebox";
+import type { RunSettings } from "@swooper/mapgen-core/engine";
+
+export type OpResolveConfig<ConfigSchema extends TSchema> = (
+  config: Static<ConfigSchema>,
+  settings: RunSettings
+) => Static<ConfigSchema>;
+
+export type DomainOp<
+  InputSchema extends TSchema,
+  OutputSchema extends TSchema,
+  ConfigSchema extends TSchema,
+> = Readonly<{
+  kind: "plan" | "compute" | "score" | "select";
+  id: string;
+  input: InputSchema;
+  output: OutputSchema;
+  config: ConfigSchema;
+  defaultConfig: Static<ConfigSchema>;
+  resolveConfig?: OpResolveConfig<ConfigSchema>; // compile-time only
+  runValidated: (input: Static<InputSchema>, config: Static<ConfigSchema>) => Static<OutputSchema>;
+}>;
+```
+
+Resolver rule: `resolveConfig` must return a value that still validates against `op.config` (no internal-only fields).
+
+### Step shape (compiler-owned execution node)
+
+Steps are the compilation/execution units. The compiler owns plan construction and runs an optional step resolver hook.
+
+```ts
+import type { MapGenStep } from "@swooper/mapgen-core/engine";
+import type { RunSettings } from "@swooper/mapgen-core/engine";
+
+export type StepResolveConfig<TConfig> = (config: TConfig, settings: RunSettings) => TConfig;
+
+export type ResolvableStep<TContext, TConfig> = MapGenStep<TContext, TConfig> & {
+  resolveConfig?: StepResolveConfig<TConfig>; // compile-time only
+};
+```
+
+### Composite step example (fan-out → delegate → recombine)
+
+```ts
+// domain/ops (two ops, each owns scaling semantics)
+export const computeSuitability = createOp({
+  kind: "compute",
+  id: "ecology/features/computeSuitability",
+  input: ComputeSuitabilityInputSchema,
+  output: ComputeSuitabilityOutputSchema,
+  config: ComputeSuitabilityConfigSchema,
+  resolveConfig: (cfg, settings) => {
+    // example: default grid-scaled search radius based on map size
+    const size = settings.dimensions.width * settings.dimensions.height;
+    const autoRadius = size < 20000 ? 3 : 5;
+    return { ...cfg, searchRadius: cfg.searchRadius ?? autoRadius };
+  },
+  run: (input, cfg) => { /* ... */ },
+} as const);
+
+export const selectPlacements = createOp({
+  kind: "select",
+  id: "ecology/features/selectPlacements",
+  input: SelectPlacementsInputSchema,
+  output: SelectPlacementsOutputSchema,
+  config: SelectPlacementsConfigSchema,
+  resolveConfig: (cfg, settings) => {
+    const wrap = settings.wrap.wrapX || settings.wrap.wrapY;
+    return { ...cfg, allowWrapAdjacency: cfg.allowWrapAdjacency ?? wrap };
+  },
+  run: (input, cfg) => { /* ... */ },
+} as const);
+
+// composite step schema references op config schemas directly (no separate resolved schema)
+export const FeaturesStepConfigSchema = Type.Object(
+  {
+    computeSuitability: computeSuitability.config,
+    selectPlacements: selectPlacements.config,
+  },
+  { additionalProperties: false }
+);
+export type FeaturesStepConfig = Static<typeof FeaturesStepConfigSchema>;
+
+export const featuresStep: ResolvableStep<EngineContext, FeaturesStepConfig> = {
+  id: "standard.ecology.features",
+  phase: "ecology",
+  requires: [/* ... */],
+  provides: [/* ... */],
+  configSchema: FeaturesStepConfigSchema,
+
+  // compiler-time composition point
+  resolveConfig: (cfg, settings) => ({
+    computeSuitability: computeSuitability.resolveConfig
+      ? computeSuitability.resolveConfig(cfg.computeSuitability, settings)
+      : cfg.computeSuitability,
+    selectPlacements: selectPlacements.resolveConfig
+      ? selectPlacements.resolveConfig(cfg.selectPlacements, settings)
+      : cfg.selectPlacements,
+  }),
+
+  run: (context, cfg) => {
+    // runtime receives cfg already resolved; no branching on "if resolver exists"
+    const inputs1 = buildComputeSuitabilityInputs(context);
+    const { suitability } = computeSuitability.runValidated(inputs1, cfg.computeSuitability);
+
+    const inputs2 = buildSelectPlacementsInputs(context, suitability);
+    const { placements } = selectPlacements.runValidated(inputs2, cfg.selectPlacements);
+
+    applyPlacementsToEngine(context, placements);
+  },
+};
+```
+
+### Compiler flow (canonical)
+
+When compiling each enabled recipe step:
+1) Normalize authored config via schema: `Value.Default + Value.Clean` (plus unknown-key checks).
+2) If `step.resolveConfig` exists, call it with `(cleanedConfig, settings)`.
+3) Validate the returned config against the step’s existing schema.
+4) Store the resolved config into `ExecutionPlan.nodes[].config`.
+
+At runtime:
+- `PipelineExecutor` calls `step.run(context, node.config)`.
+- The step treats `node.config` as the single source of truth and delegates to ops with no additional meaning-level defaulting/merging.
