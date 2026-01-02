@@ -219,7 +219,6 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### Pre-work for C (derived defaults migration)
 
 ### Pre-work for D (delete overrides translator)
-- “Inventory current authored config surfaces in `mods/mod-swooper-maps/src/maps/*.ts` (what they currently return) and map each top-level override fragment to the target `StandardRecipeConfig` keys.”
 - “Rewrite each map to directly author a `StandardRecipeConfig | null` (use `satisfies StandardRecipeConfig` on the top-level config literal); do not introduce a new ‘config builder’ that recreates the overrides translation layer. (Ergonomics follow-up is tracked in `LOCAL-TBD-M7-U12`.)”
 - “List all call sites/types that depend on `StandardRecipeOverrides` and plan a mechanical migration.”
 - “List all runner entrypoints that currently accept overrides-shaped inputs and define the new canonical signature(s) that accept `settings` + `config` only.”
@@ -564,3 +563,103 @@ Most of these are legacy “defensive config shells” caused by optional/untype
 
 **Pure-config defaults (do not depend on settings)**
 - Most `Value.Default(...)` and `{}` shells in ecology ops (`classify-biomes`, `features-embellishments`, `features-placement`, `plot-effects`) are pure config defaulting and should be handled entirely by schema defaults + compile-time normalization (and/or resolver-only normalization for the two “resolver-like” helpers).
+
+### D1) Inventory current map auth surface (`StandardRecipeOverrides`) + map override fragments → `StandardRecipeConfig` keys
+
+**Current authoring surface (the thing we are deleting)**
+- All standard map entrypoints under `mods/mod-swooper-maps/src/maps/*.ts` define `buildConfig(): StandardRecipeOverrides` and pass it into `runStandardRecipe({ ..., overrides })`.
+- `StandardRecipeOverrides` is currently `DeepPartial<MapGenConfig>` defined in `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts`.
+- The “meaning” of each top-level overrides fragment is only realized by the translation layer:
+  - config translation: `buildStandardRecipeConfig(overrides) -> StandardRecipeConfig`
+  - settings derivation: `buildStandardRunSettings(init, overrides) -> RunSettings`
+
+**All maps currently author the same top-level override fragments**
+
+Each of these map entrypoints currently returns an overrides blob with the same top-level keys (only values differ):
+- `mods/mod-swooper-maps/src/maps/swooper-earthlike.ts`
+- `mods/mod-swooper-maps/src/maps/swooper-desert-mountains.ts`
+- `mods/mod-swooper-maps/src/maps/sundered-archipelago.ts`
+- `mods/mod-swooper-maps/src/maps/shattered-ring.ts`
+
+Top-level keys present in all four maps today:
+- `landmass`
+- `margins`
+- `coastlines`
+- `mountains`
+- `volcanoes`
+- `foundation`
+- `oceanSeparation`
+- `climate`
+- `story` (only `hotspot` + `features` populated)
+- `biomes`
+- `biomeBindings`
+- `featuresDensity`
+- `featuresPlacement`
+- `plotEffects`
+
+Notably absent in all four maps today (these exist in the translation layer but are unused by map authors):
+- `corridors`
+- `islands`
+- `placement`
+- `story.rift`
+- `story.orogeny`
+- `climate.story.paleo`
+
+**Mapping: override fragment → `StandardRecipeConfig` stage/step keys**
+
+Source of truth for this mapping: `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` (`buildStandardRecipeConfig(...)`).
+
+`foundation`:
+- → `config.foundation.foundation` step config: `{ foundation: <FoundationConfig> }`
+  - The translator currently forces `dynamics: {}` and then spreads overrides (`{ dynamics: {}, ...foundationOverrides } as FoundationConfig`).
+- **Also affects settings** (separate from recipe config):
+  - `RunSettings.seed` is derived from `foundation.seed.*` (`mode: "fixed"` + `fixedSeed`)
+  - `RunSettings.directionality` is taken from `foundation.dynamics.directionality ?? {}`
+
+`landmass` and `oceanSeparation`:
+- → `config["morphology-pre"].landmassPlates`: `{ landmass: overrides.landmass, oceanSeparation: overrides.oceanSeparation }`
+
+`margins`:
+- → `config["narrative-pre"].storySeed`: `{ margins: overrides.margins }`
+
+`coastlines`:
+- → `config["morphology-mid"].ruggedCoasts`: `{ coastlines: overrides.coastlines, corridors: overrides.corridors }`
+  - In current maps, `overrides.corridors` is absent (so the translator supplies `{}`).
+
+`mountains`:
+- → `config["morphology-post"].mountains`: `{ mountains: overrides.mountains }`
+
+`volcanoes`:
+- → `config["morphology-post"].volcanoes`: `{ volcanoes: overrides.volcanoes }`
+
+`climate`:
+- → `config["hydrology-pre"].climateBaseline`: `{ climate: { baseline: overrides.climate.baseline } }`
+- → `config["narrative-swatches"].storySwatches`: `{ climate: { ...overrides.climate, swatches: overrides.climate.swatches ?? { enabled: false } } }`
+- → `config["hydrology-core"].rivers`: `{ climate: { story: { paleo: overrides.climate.story.paleo } } }`
+- → `config["hydrology-post"].climateRefine`: `{ climate: overrides.climate, story: { orogeny: overrides.story.orogeny } }`
+  - In current maps, `climate.story.paleo` is absent and `story.orogeny` is absent (so the translator supplies `{}` for those sub-configs).
+
+`story.hotspot`:
+- → `config["narrative-pre"].storyHotspots`: `{ story: { hotspot: overrides.story.hotspot } }`
+- → (also used by the legacy islands config slot) `config["morphology-post"].islands`: `story.hotspot` (but current maps do not author `overrides.islands` at all)
+
+`story.features`:
+- → `config.ecology.features.story`: `{ features: overrides.story.features }`
+
+`biomes` and `biomeBindings`:
+- → `config.ecology.biomes.classify`: `Value.Default(BiomeConfigSchema, overrides.biomes ?? {})`
+- → `config.ecology.biomes.bindings`: `overrides.biomeBindings ?? {}`
+
+`featuresDensity` and `featuresPlacement`:
+- → `config.ecology.features.featuresDensity`: `overrides.featuresDensity ?? {}`
+- → `config.ecology.features.featuresPlacement`: `overrides.featuresPlacement ?? {}`
+
+`plotEffects`:
+- → `config.ecology.plotEffects.plotEffects`: `overrides.plotEffects ?? {}`
+
+**Implication for the rewrite (ties into D2/D4/D5)**
+- Because all four maps share the same override fragment set, the migration to direct `StandardRecipeConfig` authoring is a mechanical “move values to new stage/step nesting” operation.
+- The only “settings-bearing” values currently buried in overrides are:
+  - seed via `foundation.seed`
+  - directionality via `foundation.dynamics.directionality`
+  - all other `RunSettings` fields (`dimensions`, `wrap`, `latitudeBounds`) come from `MapInitResolution` today, not overrides.
