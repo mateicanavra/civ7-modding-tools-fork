@@ -126,8 +126,15 @@ Touchpoints (expected):
 
 #### C) Directionality cutover: stop reading it from `context.config`
 - Migrate any step consumers to `context.settings.directionality`.
-  - Known current consumer: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts`
+  - Known current consumers:
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` (currently reads `context.config.foundation.dynamics.directionality`)
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid/steps/storyCorridorsPre.ts` (currently reads directionality from step config)
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.ts` (currently reads directionality from step config)
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/steps/storySwatches.ts` (currently reads directionality from step config)
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/producer.ts` (currently reads `config.dynamics?.directionality`)
+    - `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` (currently reads directionality via `ctx.config`)
 - Ensure standard runtime wiring sets `settings.directionality` once (already done in `buildStandardRunSettings`).
+- After migrating reads, stop duplicating directionality into per-step configs (ADR-ER1-019): keep directionality in `RunRequest.settings` as the single source of truth.
 
 #### D) Retire the “global config blob” entrypoint pattern
 - Stop casting overrides/config blobs into `ExtendedMapContext.config` as a substitute for settings.
@@ -153,6 +160,13 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - **Choice:** Expose full `RunSettings` on `context.settings`.
 - **Rationale:** Keeps `ExecutionPlan.settings` and `context.settings` aligned; avoids duplicating a “subset settings” type that will drift as settings evolve.
 - **Risk:** Wider type surface on `context` than strictly necessary, but still settings-owned and stable per ADR boundary.
+
+### Make directionality settings-owned only (remove per-step duplication)
+- **Context:** Directionality is currently duplicated into some per-step configs via `buildStandardRecipeConfig`, even though ADR-ER1-019 declares it a cross-cutting run setting.
+- **Options:** Keep duplication temporarily vs remove duplication after migrating reads to `context.settings.directionality`.
+- **Choice:** Remove per-step directionality duplication once reads have been migrated to `context.settings.directionality`.
+- **Rationale:** Eliminates drift/confusion between “step config directionality” and “run settings directionality”; makes `RunRequest.settings` the single source of truth.
+- **Risk:** Any callers relying on per-step directionality config will break; mitigate by migrating all known consumers (see Implementation step C) before removing writers.
 
 ### Make tracing sink-driven (no implicit default sink)
 - **Context:** `settings.trace.steps` is the contract for what to emit, but a `TraceSink` is the delivery mechanism and is not currently provided in normal runs.
