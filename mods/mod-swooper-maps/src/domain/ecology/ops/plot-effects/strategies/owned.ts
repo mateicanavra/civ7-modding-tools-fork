@@ -4,6 +4,7 @@ import type {
   PlotEffectSelector,
   ResolvedPlotEffectsConfig,
 } from "../schema.js";
+import { resolveSnowElevationRange } from "../snow-elevation.js";
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
@@ -48,6 +49,11 @@ export function planOwnedPlotEffects(
 
   const sandBiomeSet = new Set(config.sand.allowedBiomes);
   const burnedBiomeSet = new Set(config.burned.allowedBiomes);
+  const snowEnabled =
+    config.snow.enabled && (snowTypes.light >= 0 || snowTypes.medium >= 0 || snowTypes.heavy >= 0);
+  const snowElevation = snowEnabled ? resolveSnowElevationRange(input, config) : null;
+  const snowElevationMin = snowElevation?.min ?? config.snow.elevationMin;
+  const snowElevationMax = snowElevation?.max ?? config.snow.elevationMax;
 
   for (let y = 0; y < height; y++) {
     const rowOffset = y * width;
@@ -64,12 +70,12 @@ export function planOwnedPlotEffects(
       const symbol = biomeSymbolFromIndex(input.biomeIndex[idx] ?? 0);
 
       // --- Snow ---
-      if (config.snow.enabled && (snowTypes.light >= 0 || snowTypes.medium >= 0 || snowTypes.heavy >= 0)) {
+      if (snowEnabled) {
         if (temp <= config.snow.maxTemperature && aridity <= config.snow.maxAridity) {
           const elevationFactor = normalizeRange(
             elevation,
-            config.snow.elevationMin,
-            config.snow.elevationMax
+            snowElevationMin,
+            snowElevationMax
           );
           const moistureFactor = normalizeRange(
             moisture,

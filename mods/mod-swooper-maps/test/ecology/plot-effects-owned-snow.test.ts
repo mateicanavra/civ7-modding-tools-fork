@@ -31,6 +31,11 @@ describe("plot effects (owned)", () => {
     const result = plotEffects.run(input, {
       snow: {
         enabled: true,
+        elevationStrategy: "percentile",
+        elevationPercentileMin: 0,
+        elevationPercentileMax: 1,
+        elevationMin: 0,
+        elevationMax: 3000,
         coverageChance: 100,
         lightThreshold: 0.1,
         mediumThreshold: 0.2,

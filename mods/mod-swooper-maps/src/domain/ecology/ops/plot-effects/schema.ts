@@ -34,6 +34,15 @@ const DEFAULT_SNOW_SELECTORS = {
 const DEFAULT_SAND_SELECTOR = { tags: ["SAND"], typeName: "PLOTEFFECT_SAND" } as const;
 const DEFAULT_BURNED_SELECTOR = { tags: ["BURNED"], typeName: "PLOTEFFECT_BURNED" } as const;
 
+const SnowElevationStrategySchema = Type.Union(
+  [Type.Literal("absolute"), Type.Literal("percentile")],
+  {
+    description:
+      "Elevation normalization strategy for snow scoring: absolute meters or percentile-based land elevation.",
+    default: "absolute",
+  }
+);
+
 const createPlotEffectSelectorSchema = (defaultValue: PlotEffectSelectorValue = {}) =>
   Type.Object(
     {
@@ -164,18 +173,58 @@ export const PlotEffectsSnowSchema = Type.Object(
         maximum: 1,
       })
     ),
-    /** Minimum elevation (meters) to start contributing to snow score. */
+    /**
+     * Elevation normalization strategy used for snow placement.
+     * - absolute: uses elevationMin/elevationMax as meters
+     * - percentile: derives min/max from land elevation percentiles
+     */
+    elevationStrategy: Type.Optional(SnowElevationStrategySchema),
+    /**
+     * Minimum elevation (meters) to start contributing to snow score.
+     * Only used when elevationStrategy = "absolute".
+     */
     elevationMin: Type.Optional(
       Type.Number({
-        description: "Minimum elevation that contributes to snow score (meters).",
+        description:
+          "Minimum elevation that contributes to snow score (meters). Used only for absolute elevation strategy.",
         default: 200,
       })
     ),
-    /** Elevation (meters) where the elevation factor saturates at 1.0. */
+    /**
+     * Elevation (meters) where the elevation factor saturates at 1.0.
+     * Only used when elevationStrategy = "absolute".
+     */
     elevationMax: Type.Optional(
       Type.Number({
-        description: "Elevation where the elevation factor saturates (meters).",
+        description:
+          "Elevation where the elevation factor saturates (meters). Used only for absolute elevation strategy.",
         default: 2400,
+      })
+    ),
+    /**
+     * Land elevation percentile (0..1) where the elevation factor starts rising.
+     * Only used when elevationStrategy = "percentile".
+     */
+    elevationPercentileMin: Type.Optional(
+      Type.Number({
+        description:
+          "Land elevation percentile (0..1) where snow elevation influence begins (percentile strategy only).",
+        default: 0.7,
+        minimum: 0,
+        maximum: 1,
+      })
+    ),
+    /**
+     * Land elevation percentile (0..1) where the elevation factor saturates at 1.0.
+     * Only used when elevationStrategy = "percentile".
+     */
+    elevationPercentileMax: Type.Optional(
+      Type.Number({
+        description:
+          "Land elevation percentile (0..1) where snow elevation influence saturates (percentile strategy only).",
+        default: 0.98,
+        minimum: 0,
+        maximum: 1,
       })
     ),
     /** Minimum effective moisture to contribute to snow score. */
@@ -373,6 +422,7 @@ export const PlotEffectsConfigSchema = Type.Object(
 );
 
 export type PlotEffectSelector = Static<typeof PlotEffectSelectorSchema>;
+export type SnowElevationStrategy = Static<typeof SnowElevationStrategySchema>;
 export type PlotEffectsSnowSelectors = Static<typeof PlotEffectsSnowSelectorsSchema>;
 export type PlotEffectsSnowConfig = Static<typeof PlotEffectsSnowSchema>;
 export type PlotEffectsSandConfig = Static<typeof PlotEffectsSandSchema>;
