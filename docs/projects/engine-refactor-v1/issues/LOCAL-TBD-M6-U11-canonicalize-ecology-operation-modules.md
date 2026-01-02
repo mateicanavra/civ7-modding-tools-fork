@@ -231,6 +231,17 @@ mods/mod-swooper-maps/src/domain/ecology/
 - Update exports:
   - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
   - `mods/mod-swooper-maps/src/domain/ecology/index.ts`
+- Update all in-repo importers to the new op names/paths (no compat re-exports), including:
+  - `mods/mod-swooper-maps/src/config/schema/ecology.ts`
+  - `mods/mod-swooper-maps/src/config/schema.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/inputs.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/apply.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/index.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/inputs.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/apply.ts`
+  - `mods/mod-swooper-maps/src/maps/*.ts` presets that author ecology config blocks
+  - `mods/mod-swooper-maps/test/ecology/*.test.ts` fixtures and assertions that import op modules directly
 
 **Out of scope**
 - Renaming stable step IDs in the recipe graph (step IDs must remain unchanged).
@@ -244,6 +255,8 @@ mods/mod-swooper-maps/src/domain/ecology/
   - `planVegetationEmbellishments` (`plan`).
 - Guardrails pass:
   - `rg -n "featuresPlacement|plotEffects|featuresEmbellishments" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+  - `rg -n "\\becology\\.ops\\.(featuresPlacement|featuresEmbellishments|plotEffects)\\b" mods/mod-swooper-maps/src` is empty.
+  - `rg -n "@mapgen/domain/ecology/ops/(features-placement|plot-effects|features-embellishments)" mods/mod-swooper-maps` is empty.
 
 ### B) Remove runtime views from all ecology op inputs (and enforce op-entry validation)
 **In scope**
@@ -357,3 +370,55 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 ### Pre-work for G (verification)
 - “Before final cleanup, run all guardrail `rg` checks in this doc and ensure they’re correctly scoped (avoid false positives outside ecology).”
+
+## Findings (pre-work results)
+
+### A1) Inventory current ecology op exports + importers
+**Current public op exports (must be replaced; no shims)**
+- `@mapgen/domain/ecology` exports:
+  - `ops.classifyBiomes`
+  - `ops.featuresPlacement`
+  - `ops.featuresEmbellishments`
+  - `ops.plotEffects`
+- `@mapgen/domain/ecology` additionally exports runtime-only helpers that are incompatible with the target boundary:
+  - `logSnowEligibilitySummary` (plot-effects diagnostics)
+  - `resolvePlotEffectsConfig` (runtime config normalization)
+
+**Importers that must be updated to the new canonical op names**
+- Domain export aggregators:
+  - `mods/mod-swooper-maps/src/domain/ecology/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
+- Step call-sites (and their helper type aliases):
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/inputs.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/apply.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/index.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/inputs.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/apply.ts`
+- Schema importers:
+  - `mods/mod-swooper-maps/src/config/schema/ecology.ts`
+  - `mods/mod-swooper-maps/src/config/schema.ts`
+- Map presets (authoring):
+  - `mods/mod-swooper-maps/src/maps/shattered-ring.ts` (`featuresPlacement`, `plotEffects`)
+  - `mods/mod-swooper-maps/src/maps/sundered-archipelago.ts` (`featuresPlacement`, `plotEffects`)
+  - `mods/mod-swooper-maps/src/maps/swooper-desert-mountains.ts` (`featuresPlacement`, `plotEffects`)
+  - `mods/mod-swooper-maps/src/maps/swooper-earthlike.ts` (`featuresPlacement`, `plotEffects`)
+- Tests that import ecology op modules directly (must be migrated to the new op modules):
+  - `mods/mod-swooper-maps/test/ecology/features-owned-does-not-call-vanilla.test.ts`
+  - `mods/mod-swooper-maps/test/ecology/features-owned-enforces-canHaveFeature.test.ts`
+  - `mods/mod-swooper-maps/test/ecology/features-owned-land-water-separation.test.ts`
+  - `mods/mod-swooper-maps/test/ecology/features-owned-navigable-river-exclusion.test.ts`
+  - `mods/mod-swooper-maps/test/ecology/features-owned-never-overwrites.test.ts`
+  - `mods/mod-swooper-maps/test/ecology/features-owned-reef-latitude-split.test.ts`
+  - `mods/mod-swooper-maps/test/ecology/features-owned-unknown-chance-key.test.ts` (imports `resolveFeaturesPlacementOwnedConfig` / `FeaturesPlacementOwnedConfig`)
+  - `mods/mod-swooper-maps/test/ecology/plot-effects-owned-snow.test.ts` (imports `plotEffects`)
+
+**Canonical rename mapping**
+- `featuresPlacement` → `planFeaturePlacements`
+- `plotEffects` → `planPlotEffects`
+- `featuresEmbellishments` → split into:
+  - `planReefEmbellishments`
+  - `planVegetationEmbellishments`
+
+**U10 landing assumption (affects what exists to migrate)**
+- `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` is deleted by U10; any current references found there are not part of this issue’s migration surface.
