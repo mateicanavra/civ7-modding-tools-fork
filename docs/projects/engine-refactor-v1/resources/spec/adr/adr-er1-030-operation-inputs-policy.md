@@ -30,7 +30,7 @@ The step/domain-operation module design introduces a reusable “domain operatio
 - Domain operations consume **plain data inputs** (POJOs + typed arrays) and return plain data outputs. They do not receive callback “views” into runtime state as part of their primary contract.
 - Any runtime “view” helpers are step-local implementation details used to *build* operation inputs; they are not part of the domain operation’s exported surface.
 - Typed-array buffers are treated as first-class runtime values, but schema representation is intentionally conservative:
-  - schemas may use coarse shapes for typed arrays (or `Type.Any()` where necessary),
+  - schemas use coarse typed-array helpers (canonical: `TypedArraySchemas.*` built on `Type.Unsafe<...>(Type.Any(...))`),
   - correctness-critical buffer invariants (length, required allocation, element-type expectations) are enforced via explicit step/domain validators rather than pretending JSON schema can fully express typed arrays.
 
 ## Options considered
@@ -62,10 +62,11 @@ The step/domain-operation module design introduces a reusable “domain operatio
   - plain JSON-ish values (primitives, arrays, plain objects),
   - typed arrays used as dense grid fields, at minimum:
     - `Uint8Array`
+    - `Int8Array`
+    - `Uint16Array`
+    - `Int16Array`
     - `Int32Array`
     - `Float32Array`
-  - **Candidate observed in ecology (called out explicitly, not silently expanded):**
-    - `Int16Array` (used for elevation fields today).
 - **Typed-array schema strategy (default):** represent typed-array fields using **coarse TypeBox schemas** (typically `Type.Unsafe<...>(...)` with descriptive metadata), and enforce correctness-critical invariants with **explicit validators**.
 - **Typed-array validation strategy (required):** typed arrays and their invariants are validated by code we own (not “just the schema”):
   - element-type expectation (e.g., “this is `Float32Array`”),
@@ -92,7 +93,53 @@ Decision consequence:
 - **Default to `Type.Unsafe` + explicit validators** for typed arrays.
 - `Type.Refine` remains an **optional, internal** technique (e.g., for local runtime checks in tests or tooling) when we explicitly accept that it will not survive schema serialization.
 
-### 3) Validation placement (now vs intended)
+### 3) Canonical validator + schema helper modules (location + API)
+
+To keep typed-array contracts and invariants consistent across domains and steps, we standardize both:
+- runtime validators (type + length checks), and
+- schema helpers (TypeBox `Type.Unsafe` wrappers for Static typing + documentation metadata).
+
+**Canonical location (exported via `@swooper/mapgen-core/authoring`):**
+- Validators: `packages/mapgen-core/src/authoring/typed-arrays.ts`
+- Schema helpers: `packages/mapgen-core/src/authoring/typed-array-schemas.ts`
+
+**Validator API sketch (runtime + tests):**
+
+```ts
+import {
+  expectedGridSize,
+  assertUint8Array,
+  assertInt16Array,
+  assertFloat32Array,
+} from "@swooper/mapgen-core/authoring";
+
+const size = expectedGridSize(input.width, input.height);
+const rainfall = assertUint8Array("rainfall", input.rainfall, size);
+const elevation = assertInt16Array("elevation", input.elevation, size);
+const suitability = assertFloat32Array("suitability", input.suitability, size);
+```
+
+**Schema helper API sketch (canonical):**
+
+```ts
+import { Type } from "typebox";
+import { TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+
+export const InputSchema = Type.Object(
+  {
+    width: Type.Integer({ minimum: 1 }),
+    height: Type.Integer({ minimum: 1 }),
+    rainfall: TypedArraySchemas.u8({ description: "Rainfall per tile (0..255)." }),
+    elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
+  },
+  { additionalProperties: false }
+);
+```
+
+Policy note:
+- Using `TypedArraySchemas.*` (and the corresponding validators) is the canonical way to represent typed-array fields in operation schemas and step input-builders. Avoid ad hoc `Type.Any()` for typed arrays in new work.
+
+### 4) Validation placement (now vs intended)
 
 - **Primary enforcement location:** step input-builders (`inputs.ts`) validate and materialize plain inputs (including buffers) before calling ops. This is where contextual shape parameters (width/height, grid conventions) are naturally available.
 - **Reusable validator intent:** typed-array and invariant validators should be written so they can be reused by:
@@ -100,3 +147,4 @@ Decision consequence:
   - direct unit tests of ops (fixtures),
   - and (later) optional op-entry validation for defensive usage.
 - **No over-promise:** today, the core authoring helper (`createOp`) does not automatically validate operation inputs/outputs at runtime; adding first-class runtime op validation is intended, but the exact mechanism/rollout is separate from this contract decision.
+- **Deferred mechanics (explicitly out-of-scope here):** whether op-entry validation is (a) always-on, (b) opt-in per op, or (c) a separate wrapper API (e.g., `runValidated(...)`), and whether we validate outputs as well as inputs.

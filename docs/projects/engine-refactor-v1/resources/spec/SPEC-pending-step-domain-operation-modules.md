@@ -349,7 +349,7 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 ```ts
 // src/domain/morphology/volcanoes/ops/compute-suitability.ts
 import { Type } from "typebox";
-import { createOp } from "@swooper/mapgen-core/authoring";
+import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 
 export default createOp({
   kind: "compute",
@@ -359,11 +359,11 @@ export default createOp({
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
 
-      // NOTE: These are typed-array buffers in practice. If we want stricter static typing,
-      // we can introduce an opaque schema helper (e.g., `t.uint8Array()`) in authoring.
-      isLand: Type.Any(),
-      plateBoundaryProximity: Type.Any(),
-      elevation: Type.Any(),
+      isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
+      plateBoundaryProximity: TypedArraySchemas.u8({
+        description: "Plate boundary proximity per tile (0..255).",
+      }),
+      elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
     },
     { additionalProperties: false }
   ),
@@ -376,7 +376,7 @@ export default createOp({
   ),
   output: Type.Object(
     {
-      suitability: Type.Any(),
+      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
     },
     { additionalProperties: false }
   ),
@@ -410,7 +410,7 @@ This operation has interchangeable strategies. The op stays stable; internal str
 ```ts
 // src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
 import { Type } from "typebox";
-import { createOp } from "@swooper/mapgen-core/authoring";
+import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import plateAware from "./strategies/plate-aware.js";
 import hotspotClusters from "./strategies/hotspot-clusters.js";
 
@@ -421,7 +421,7 @@ export default createOp({
     {
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
-      suitability: Type.Any(),
+      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
       rngSeed: Type.Integer({
         minimum: 0,
         description:
@@ -717,13 +717,15 @@ export default createStep({
 
 ```ts
 // src/recipes/standard/stages/morphology-post/steps/volcanoes/inputs.ts
+import { expectedGridSize } from "@swooper/mapgen-core/authoring";
+
 export function buildVolcanoInputs(ctx: {
   dimensions: { width: number; height: number };
   adapter: { isWater: (x: number, y: number) => boolean; getElevation: (x: number, y: number) => number };
   artifacts: { get: (key: string) => unknown };
 }) {
   const { width, height } = ctx.dimensions;
-  const size = width * height;
+  const size = expectedGridSize(width, height);
 
   const isLand = new Uint8Array(size);
   const elevation = new Int16Array(size);
@@ -854,10 +856,13 @@ Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-o
 **Decision (locked):** Operation contracts are **buffers/POJO-ish only** (no adapters/callback “views” in `op.input`/`op.output`) (ADR-ER1-030).
 
 Implications (summary):
-- Typed arrays are allowed as first-class contract values; ecology’s current working set includes at least `Uint8Array`, `Int32Array`, `Float32Array` (and `Int16Array` observed for elevation).
+- Typed arrays are allowed as first-class contract values; the current cross-domain working set includes:
+  - `Uint8Array`, `Int8Array`
+  - `Uint16Array`, `Int16Array`, `Int32Array`
+  - `Float32Array`
 - Typed-array schemas are intentionally conservative in TypeBox:
-  - default to `Type.Unsafe<...>(...)` (metadata-only) rather than attempting to serialize function-backed checks,
-  - enforce correctness-critical invariants (buffer types and `width * height` coupling) via explicit validators (step input-builders first; reuse for tests and later op-entry validation).
+  - default to `Type.Unsafe<...>(...)` via a shared helper (`TypedArraySchemas.*`) rather than attempting to serialize function-backed checks,
+  - enforce correctness-critical invariants (buffer types and `width * height` coupling) via explicit validators (step input-builders first; reuse for tests and later op-entry validation) exported from `@swooper/mapgen-core/authoring`.
 
 ### DD-004: Artifact keys / dependency keys ownership (domain vs recipe)
 
