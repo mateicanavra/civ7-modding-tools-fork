@@ -171,14 +171,14 @@ export const ClimateBaselineSizeScalingSchema = Type.Object(
 );
 
 /**
- * Blend weights for mixing engine rainfall with latitude-based targets.
+ * Blend weights for mixing seed rainfall with latitude-based targets.
  */
 export const ClimateBaselineBlendSchema = Type.Object(
   {
-    /** Weight for engine's base rainfall (0..1; typically 0.5-0.7). */
+    /** Weight for seed rainfall (0..1; typically 0.4-0.7). */
     baseWeight: Type.Optional(
       Type.Number({
-        description: "Weight for engine's base rainfall (0..1; typically 0.5-0.7).",
+        description: "Weight for seed rainfall (0..1; typically 0.4-0.7).",
         default: 0.6,
         minimum: 0,
         maximum: 1,
@@ -198,6 +198,42 @@ export const ClimateBaselineBlendSchema = Type.Object(
     additionalProperties: false,
     default: {},
     description: "Blend weights for rainfall mixing.",
+  }
+);
+
+/**
+ * Seed rainfall parameters (baseline interior moisture before latitude bands).
+ */
+export const ClimateBaselineSeedSchema = Type.Object(
+  {
+    /**
+     * Baseline interior rainfall (rainfall units).
+     * Acts as the dry-season floor before latitude bands and orographic boosts.
+     */
+    baseRainfall: Type.Optional(
+      Type.Number({
+        description: "Baseline interior rainfall before latitude bands (rainfall units).",
+        default: 40,
+        minimum: 0,
+        maximum: 200,
+      })
+    ),
+    /**
+     * Exponent applied to the coastal falloff curve (1 = linear, >1 steeper drop).
+     * Higher values concentrate moisture closer to coastlines.
+     */
+    coastalExponent: Type.Optional(
+      Type.Number({
+        description: "Exponent for coastal falloff (1 = linear; >1 steeper drop).",
+        default: 1,
+        minimum: 0.1,
+      })
+    ),
+  },
+  {
+    additionalProperties: false,
+    default: {},
+    description: "Seed rainfall parameters for baseline moisture.",
   }
 );
 
@@ -243,14 +279,14 @@ export const ClimateBaselineOrographicSchema = Type.Object(
 );
 
 /**
- * Coastal rainfall bonuses for the climate engine.
+ * Coastal rainfall gradient used when seeding baseline moisture.
  */
 export const ClimateBaselineCoastalSchema = Type.Object(
   {
-    /** Bonus rainfall on coastal land tiles (rainfall units). */
+    /** Coastal rainfall bonus at the shoreline (rainfall units). */
     coastalLandBonus: Type.Optional(
       Type.Number({
-        description: "Bonus rainfall on coastal land tiles (rainfall units).",
+        description: "Coastal rainfall bonus at the shoreline (rainfall units).",
         default: 24,
       })
     ),
@@ -266,7 +302,7 @@ export const ClimateBaselineCoastalSchema = Type.Object(
   {
     additionalProperties: false,
     default: {},
-    description: "Coastal proximity rainfall bonuses.",
+    description: "Coastal proximity rainfall gradient used for baseline seeding.",
   }
 );
 
@@ -309,11 +345,13 @@ export const ClimateBaselineNoiseSchema = Type.Object(
  */
 export const ClimateBaselineSchema = Type.Object(
   {
+    /** Baseline interior moisture before latitude bands are applied. */
+    seed: Type.Optional(ClimateBaselineSeedSchema),
     /** Rainfall targets by latitude zone. */
     bands: Type.Optional(ClimateBaselineBandsSchema),
     /** Map-size scaling for latitude boosts and noise. */
     sizeScaling: Type.Optional(ClimateBaselineSizeScalingSchema),
-    /** Blend weights for mixing engine rainfall with latitude-based targets. */
+    /** Blend weights for mixing seed rainfall with latitude-based targets. */
     blend: Type.Optional(ClimateBaselineBlendSchema),
     /** Orographic lift bonuses (mountains cause rain). */
     orographic: Type.Optional(ClimateBaselineOrographicSchema),

@@ -21,6 +21,8 @@ type FeaturesTestContextOptions = {
   defaultTemperature?: number;
   defaultRainfall?: number;
   defaultHumidity?: number;
+  defaultAridity?: number;
+  defaultFreeze?: number;
 };
 
 export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
@@ -36,6 +38,8 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     defaultTemperature = 15,
     defaultRainfall = 120,
     defaultHumidity = 80,
+    defaultAridity = 0.3,
+    defaultFreeze = 0.1,
   } = options;
 
   const adapter = createMockAdapter({ width, height, rng, canHaveFeature });
@@ -74,6 +78,8 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const vegetationDensity = new Float32Array(size).fill(defaultVegetation);
   const effectiveMoisture = new Float32Array(size).fill(defaultMoisture);
   const surfaceTemperature = new Float32Array(size).fill(defaultTemperature);
+  const aridityIndex = new Float32Array(size).fill(defaultAridity);
+  const freezeIndex = new Float32Array(size).fill(defaultFreeze);
 
   publishHeightfieldArtifact(ctx);
   publishClimateFieldArtifact(ctx);
@@ -84,6 +90,8 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     vegetationDensity,
     effectiveMoisture,
     surfaceTemperature,
+    aridityIndex,
+    freezeIndex,
   });
 
   return {
@@ -94,6 +102,8 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
       vegetationDensity,
       effectiveMoisture,
       surfaceTemperature,
+      aridityIndex,
+      freezeIndex,
     },
   };
 }

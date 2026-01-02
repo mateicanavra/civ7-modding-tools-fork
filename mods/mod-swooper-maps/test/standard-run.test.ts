@@ -50,6 +50,14 @@ describe("standard recipe execution", () => {
       standardRecipe.run(context, settings, config, { log: () => {} })
     ).not.toThrow();
 
+    const climateField = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.climateField) as
+      | { humidity?: Uint8Array }
+      | undefined;
+    const humidity = climateField?.humidity;
+    expect(humidity instanceof Uint8Array).toBe(true);
+    expect(humidity?.length).toBe(width * height);
+    expect(humidity?.some((value) => value > 0)).toBe(true);
+
     expect(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1)).toBeTruthy();
     expect(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1)).toBeTruthy();
   });

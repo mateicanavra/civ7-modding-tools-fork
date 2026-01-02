@@ -1,5 +1,5 @@
 /**
- * Placement Layer — Wonders, Floodplains, Snow, Resources, Starts, Discoveries, Fertility, Advanced Start
+ * Placement Layer — Wonders, Floodplains, Resources, Starts, Discoveries, Fertility, Advanced Start
  *
  * @packageDocumentation
  */
@@ -12,7 +12,6 @@
  * Responsibilities:
  * - Natural wonders (+1 vs. map defaults unless overridden)
  * - Floodplains
- * - Snow generation
  * - Resources
  * - Start position assignment (vanilla-compatible)
  * - Discoveries (post-starts to seed exploration)
@@ -46,7 +45,6 @@ import { applyFloodplains } from "@mapgen/domain/placement/floodplains.js";
 import { validateAndFixTerrain } from "@mapgen/domain/placement/terrain-validation.js";
 import { recalculateAreas } from "@mapgen/domain/placement/areas.js";
 import { storeWaterData } from "@mapgen/domain/placement/water-data.js";
-import { generateSnow } from "@mapgen/domain/placement/snow.js";
 import { generateResources } from "@mapgen/domain/placement/resources.js";
 import { applyStartPositions } from "@mapgen/domain/placement/starts.js";
 import { applyDiscoveries } from "@mapgen/domain/placement/discoveries.js";
@@ -94,7 +92,7 @@ export function runPlacement(
   // =========================================================================
   // Vanilla continents.js order (after features):
   //   addNaturalWonders → addFloodplains → addFeatures → validateAndFixTerrain →
-  //   recalculateAreas → storeWaterData → generateSnow → generateResources →
+  //   recalculateAreas → storeWaterData → generateResources →
   //   assignStartPositions → generateDiscoveries → FertilityBuilder.recalculate
   //
   // IMPORTANT: Region IDs are already set early in landmassPlates stage.
@@ -140,7 +138,7 @@ export function runPlacement(
   }
 
   // 5) Store water data (CRITICAL for start position scoring)
-  // This must happen BEFORE generateSnow and generateResources per vanilla order.
+  // This must happen BEFORE generateResources per vanilla order.
   // Without this, the StartPositioner may not have valid water data for scoring.
   try {
     storeWaterData(adapter);
@@ -149,14 +147,7 @@ export function runPlacement(
     console.log("[Placement] storeWaterData failed:", err);
   }
 
-  // 6) Snow (after water data is stored)
-  try {
-    generateSnow(adapter, iWidth, iHeight);
-  } catch (err) {
-    console.log("[Placement] generateSnow failed:", err);
-  }
-
-  // 7) Resources (after snow, before start positions)
+  // 6) Resources (after water data, before start positions)
   try {
     generateResources(adapter, iWidth, iHeight);
   } catch (err) {

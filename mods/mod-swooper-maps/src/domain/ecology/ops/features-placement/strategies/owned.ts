@@ -23,7 +23,18 @@ export function planOwnedFeaturePlacements(
   input: FeaturesPlacementInput,
   config?: Parameters<typeof resolveFeaturesPlacementOwnedConfig>[0]
 ): FeaturePlacement[] {
-  const { width, height, adapter, biomeIndex, vegetationDensity, effectiveMoisture, surfaceTemperature, rand } = input;
+  const {
+    width,
+    height,
+    adapter,
+    biomeIndex,
+    vegetationDensity,
+    effectiveMoisture,
+    surfaceTemperature,
+    aridityIndex,
+    freezeIndex,
+    rand,
+  } = input;
   const resolved = resolveFeaturesPlacementOwnedConfig(config);
 
   const indices = resolveFeatureIndices(adapter);
@@ -293,13 +304,17 @@ export function planOwnedFeaturePlacements(
         if (isNavigableRiverPlot(x, y)) continue;
 
         const vegetationValue = vegetationDensity[idx] ?? 0;
-        if (vegetationValue < resolved.vegetated.minVegetation) continue;
+        const symbol = biomeSymbolFromIndex(biomeIndex[idx] | 0);
+        const minVeg = resolved.vegetated.minVegetationByBiome[symbol];
+        if (vegetationValue < minVeg) continue;
 
         const featureKey = pickVegetatedFeature({
           symbolIndex: biomeIndex[idx] | 0,
           moistureValue: effectiveMoisture[idx] ?? 0,
           temperatureValue: surfaceTemperature[idx] ?? 0,
           vegetationValue,
+          aridityIndex: aridityIndex[idx] ?? 0,
+          freezeIndex: freezeIndex[idx] ?? 0,
           rules: resolved.vegetated,
         });
         if (!featureKey) continue;

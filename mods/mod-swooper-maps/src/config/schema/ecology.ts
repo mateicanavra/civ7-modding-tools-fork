@@ -2,6 +2,7 @@ import { Type } from "typebox";
 
 import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
 import { featuresPlacement } from "@mapgen/domain/ecology/ops/features-placement/index.js";
+import { plotEffects } from "@mapgen/domain/ecology/ops/plot-effects/index.js";
 import { BiomeEngineBindingsSchema } from "@mapgen/domain/ecology/biome-bindings.js";
 
 /**
@@ -178,3 +179,8 @@ export const FeaturesDensityConfigSchema = Type.Object(
  * Config for the baseline feature placement operation (strategy wrapper).
  */
 export const FeaturesPlacementConfigSchema = featuresPlacement.config;
+
+/**
+ * Config for climate/ecology plot effects (snow, sand, burned).
+ */
+export const PlotEffectsConfigSchema = plotEffects.config;

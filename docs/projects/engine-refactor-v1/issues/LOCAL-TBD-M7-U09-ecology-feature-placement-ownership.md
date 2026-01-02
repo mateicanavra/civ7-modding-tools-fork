@@ -41,11 +41,21 @@ related_to: [LOCAL-TBD-M7-U08]
 - Biome schemas/configs updated with TypeBox descriptions **and** JSDoc comments that explain intent, tuning impact, units, and expected ranges for non-expert configuration.
 - Fix latitude band cutoffs and/or swatch dominance so biome/feature distribution blends naturally (no harsh band edges).
 - All tunable parameters and multipliers in feature/ecology rules are surfaced in config schemas (no hidden tuning constants).
+- Owned plot-effect placement for climate/ecology outputs:
+  - Snow (light/medium/heavy permanent) driven by temperature + elevation + moisture (no `adapter.generateSnow` call).
+  - Sand/burned plot effects as explicit, config-driven ecology outputs (where relevant to climate realism).
+- Climate realism pass upgrades:
+  - explicit rainfall seed/blend semantics (band targets are a bias, not the only signal).
+  - explicit aridity/freeze-index fields that feed biomes and features.
+- Full cutover: no in-logic dual paths; any compatibility shims must live at boundaries and be documented in Implementation Decisions.
+- Remove `gate-a-continents.ts` map entry (now obsolete).
 
 ## Acceptance Criteria
 - With `featuresPlacement.strategy = "owned"`:
   - the ecology `features` step never calls `adapter.addFeatures(...)` (test-enforced)
   - the step completes successfully and produces a valid map (no engine crash; no missing required biome invariants such as marine-on-water)
+- The placement stage never calls `adapter.generateSnow(...)`; owned snow plot effects are applied instead (test-enforced).
+- Plot-effect placement (snow/sand/burned) is fully driven by ecology/climate config (no hidden constants).
 - Every placement:
   - only occurs on plots with `adapter.getFeatureType(x, y) === adapter.NO_FEATURE`
   - is gated by `adapter.canHaveFeature(x, y, featureIdx)` (test-enforced)
@@ -59,6 +69,7 @@ related_to: [LOCAL-TBD-M7-U08]
 - Feature placement config has no per-group enable/disable (owned strategy activates all groups).
 - Feature/ecology rules expose all tunables in config schemas (no hidden constants).
 - Baseline latitude bands blend without visible hard cutoffs (verify in at least one earthlike and one extreme-biome map).
+- Aridity/freeze-index fields are computed and used by biome + feature placement (no ad-hoc recomputations inside rules).
 
 ## Testing / Verification
 - `pnpm -C mods/mod-swooper-maps test`
@@ -71,6 +82,7 @@ related_to: [LOCAL-TBD-M7-U08]
 
 ## Dependencies / Notes
 - Spike: `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-feature-placement-ownership.md`
+- Spike (realism pass): `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-climate-realism-pass.md`
 - Civ7 base sources (requirements inputs, not to be copied wholesale):
   - `Base/modules/base-standard/maps/feature-biome-generator.js`
   - `Base/modules/base-standard/data/terrain.xml`
@@ -115,6 +127,9 @@ related_to: [LOCAL-TBD-M7-U08]
    - Ice: ice
 2) Config + schema + map preset updates required to make owned baseline the default for shipped maps.
 3) Tests that prove we respect engine validity and our invariants (so we don’t rediscover crashes later).
+4) Owned plot effects for snow/sand/burned driven by ecology/climate fields.
+5) Climate realism upgrades (explicit rainfall seed/blend, aridity + freeze index fields).
+6) Remove the obsolete `gate-a-continents.ts` entry map.
 
 #### Explicitly out of scope (must not silently creep in)
 
@@ -126,8 +141,6 @@ related_to: [LOCAL-TBD-M7-U08]
   - `FEATURE_*_FLOODPLAIN_*` (placed by `TerrainBuilder.addFloodplains` in placement layer)
 - Volcano placement:
   - `FEATURE_VOLCANO` (morphology-owned; do not move into ecology)
-- Snow / plot effects:
-  - `/base-standard/maps/snow-generator.js` + `MapPlotEffects` (separate issue if we want “snow ownership”)
 - Resources / starts / discoveries / advanced start (placement-domain owned).
 - Stage-order refactors (ecology vs placement ordering). If we decide ordering is a correctness bug, that is a separate, explicit decision and follow-up issue.
 
@@ -433,6 +446,17 @@ Implementation order (recommended):
 5) Update all shipped map presets to enable owned mode and tune multipliers.
 6) Run full verification + in-game smoke generation for each map preset.
 
+### Realism pass extension (new scope for this follow-on)
+
+This pass expands ecology/climate ownership to remove latitude dominance and add owned plot effects.
+
+- Adapter boundary: add PlotEffects APIs (add/has/query-by-tags) to `@civ7/adapter` + mock.
+- Climate baseline: explicit seed + blend semantics; bands become bias, not the only signal.
+- New climate/ecology fields: aridity + freeze-index (first-class artifacts with schema).
+- Plot-effects ops: owned snow + sand + burned with full config and strategy modules.
+- Feature placement: replace hard exclusions with climate envelopes; hoist all thresholds into config.
+- Map presets: set all new config fields explicitly; delete `gate-a-continents.ts`.
+
 ## Implementation Decisions
 
 ### Introduce a dedicated `featuresPlacement` config block
@@ -452,8 +476,8 @@ Implementation order (recommended):
 ### Disable climate swatches via an explicit `enabled` gate
 - **Context:** `climate.swatches` defaults to `{}` via schema, so omission still runs a macro swatch; the issue requires swatches off to isolate ecology changes.
 - **Options:** Remove the storySwatches stage; change defaults to `undefined`; add an `enabled` gate in `applyClimateSwatches` and set it false in standard-config.
-- **Choice:** Add a `swatches.enabled === false` early return in `applyClimateSwatches`, and default `enabled: false` in standard recipe config.
-- **Rationale:** Minimal, reversible change that preserves the swatch pipeline while making the disable explicit.
+- **Choice:** Short‑circuit the `storySwatches` step when `swatches.enabled === false` (or swatches missing), and default `enabled: false` in standard recipe config. `applyClimateSwatches` remains guarded as a secondary safety net.
+- **Rationale:** Minimal, reversible change that prevents swatches from mutating rainfall while keeping the pipeline intact.
 - **Risk:** Swatches remain off until explicitly re-enabled in a preset.
 
 ### Order owned feature placement by stability priority
@@ -504,6 +528,34 @@ Implementation order (recommended):
 - **Choice:** Use smoothstep blending across explicit band edges with a configurable transition width.
 - **Rationale:** Smoothstep avoids visible seams while preserving band intent.
 - **Risk:** Requires map retuning of band values due to blended overlaps.
+
+### Move plot-effect placement (snow/sand/burned) into ecology stage
+- **Context:** Owned plot effects need access to climate/ecology fields; placement stage currently only has adapter and does not expose those fields.
+- **Options:** Keep plot effects in placement and thread artifacts through `runPlacement`; move plot effects into a dedicated ecology op/step; create a hybrid “compute in ecology, apply in placement” artifact.
+- **Choice:** Add a dedicated ecology op + step that computes and applies plot effects, and remove the placement-stage snow call.
+- **Rationale:** Keeps plot effects with the climate/ecology field pipeline, avoids widening the placement API, and supports full ownership without hidden fallbacks.
+- **Risk:** Slight ordering shift relative to vanilla (snow now happens before placement passes); may require tuning if any downstream systems assume snow occurs later.
+
+### Resolve plot-effect types by tags with explicit type-name fallback
+- **Context:** Snow plot effects are discoverable via tags; sand/burned may not have tags in base data.
+- **Options:** Hardcode plot-effect IDs; resolve by tags only; resolve by tags with a type-name fallback.
+- **Choice:** Resolve by tags first, then fall back to explicit plot-effect type names.
+- **Rationale:** Keeps configs readable while ensuring sand/burned can still resolve even if tag metadata is missing.
+- **Risk:** If engine type names change, sand/burned placement will silently drop; mitigated by explicit config and tests.
+
+### Use per-biome vegetation thresholds with aridity/freeze gating for scatter features
+- **Context:** A single global vegetation threshold made deserts/tundra almost barren and over-coupled to latitude bands.
+- **Options:** Keep a global threshold; add per-biome thresholds; add aridity/freeze gating to the biome-based selector.
+- **Choice:** Introduce per-biome minimum vegetation thresholds and aridity/freeze gates for desert/tundra/temperate-dry selectors.
+- **Rationale:** Allows sparse vegetation in harsh biomes while keeping hot/dry or frozen extremes appropriately barren.
+- **Risk:** Requires map-level tuning for consistent biome look and feature mix.
+
+### Blend rainfall bands with a seed baseline in presets
+- **Context:** Pure band-driven rainfall can produce sharp latitudinal seams and dominate climate fields.
+- **Options:** Keep band-only weights; bias toward seed rainfall; fully replace bands with seed.
+- **Choice:** Use non-zero seed/base weight in map presets alongside band weights.
+- **Rationale:** Adds coastal + distance-to-water structure and softens band cutoffs without dropping band intent.
+- **Risk:** Presets require rebalancing band values to hit target humidity levels.
 
 ### Keep ecology feature ownership tests split by behavior
 - **Context:** Feature ownership tests are spread across multiple files; user asked whether to consolidate.

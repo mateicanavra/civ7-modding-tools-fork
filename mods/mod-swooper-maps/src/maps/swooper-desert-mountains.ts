@@ -55,6 +55,7 @@ function buildConfig(): StandardRecipeOverrides {
         fractalWeight: 0.37, // Keep fractal contribution subtle (avoid blanket ruggedness)
         riftDepth: 0.75,
         boundaryWeight: 0.8, // Standard boundary weight
+        boundaryGate: 0,
         boundaryExponent: 1.77, // Standard falloff
         interiorPenaltyWeight: 0.0, // Disabled as per mountains.ts defaults
         convergenceBonus: 0.4,
@@ -142,8 +143,12 @@ function buildConfig(): StandardRecipeOverrides {
       climate: {
         baseline: {
           blend: {
-            baseWeight: 0,
-            bandWeight: 1,
+            baseWeight: 0.15,
+            bandWeight: 0.85,
+          },
+          seed: {
+            baseRainfall: 22,
+            coastalExponent: 1.4,
           },
           bands: {
             // Desert-leaning bands with dry subtropics.
@@ -160,7 +165,7 @@ function buildConfig(): StandardRecipeOverrides {
               deg35to55: 55,
               deg55to70: 70,
             },
-            transitionWidth: 4,
+            transitionWidth: 6,
           },
           sizeScaling: {
             baseArea: 10000,
@@ -252,6 +257,22 @@ function buildConfig(): StandardRecipeOverrides {
           bias: 0,
           humidityWeight: 0.35,
         },
+        aridity: {
+          temperatureMin: 2,
+          temperatureMax: 40,
+          petBase: 28,
+          petTemperatureWeight: 110,
+          humidityDampening: 0.35,
+          rainfallWeight: 1,
+          bias: 15,
+          normalization: 85,
+          moistureShiftThresholds: [0.4, 0.65],
+          vegetationPenalty: 0.22,
+        },
+        freeze: {
+          minTemperature: -6,
+          maxTemperature: 5,
+        },
         vegetation: {
           base: 0.15,
           moistureWeight: 0.5,
@@ -329,14 +350,27 @@ function buildConfig(): StandardRecipeOverrides {
             FEATURE_ICE: 80,
           },
           vegetated: {
-            minVegetation: 0.08,
-            vegetationChanceScalar: 0.9,
-            desertSagebrushMinVegetation: 0.2,
-            tundraTaigaMinVegetation: 0.3,
+            minVegetationByBiome: {
+              snow: 0.1,
+              tundra: 0.05,
+              boreal: 0.06,
+              temperateDry: 0.04,
+              temperateHumid: 0.05,
+              tropicalSeasonal: 0.05,
+              tropicalRainforest: 0.05,
+              desert: 0.01,
+            },
+            vegetationChanceScalar: 0.85,
+            desertSagebrushMinVegetation: 0.12,
+            desertSagebrushMaxAridity: 0.95,
+            tundraTaigaMinVegetation: 0.25,
             tundraTaigaMinTemperature: -1,
-            temperateDryForestMoisture: 130,
+            tundraTaigaMaxFreeze: 0.85,
+            temperateDryForestMoisture: 135,
+            temperateDryForestMaxAridity: 0.5,
             temperateDryForestVegetation: 0.5,
-            tropicalSeasonalRainforestMoisture: 160,
+            tropicalSeasonalRainforestMoisture: 165,
+            tropicalSeasonalRainforestMaxAridity: 0.5,
           },
           wet: {
             nearRiverRadius: 1,
@@ -368,6 +402,68 @@ function buildConfig(): StandardRecipeOverrides {
             forbidAdjacentToNaturalWonders: true,
             naturalWonderAdjacencyRadius: 1,
           },
+        },
+      },
+      plotEffects: {
+        snow: {
+          enabled: true,
+          selectors: {
+            light: {
+              tags: ["SNOW", "LIGHT", "PERMANENT"],
+              typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT",
+            },
+            medium: {
+              tags: ["SNOW", "MEDIUM", "PERMANENT"],
+              typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT",
+            },
+            heavy: {
+              tags: ["SNOW", "HEAVY", "PERMANENT"],
+              typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT",
+            },
+          },
+          coverageChance: 35,
+          freezeWeight: 1,
+          elevationWeight: 1.2,
+          moistureWeight: 0.4,
+          scoreNormalization: 2.6,
+          scoreBias: 0,
+          lightThreshold: 0.5,
+          mediumThreshold: 0.7,
+          heavyThreshold: 0.85,
+          elevationMin: 400,
+          elevationMax: 3200,
+          moistureMin: 20,
+          moistureMax: 120,
+          maxTemperature: 2,
+          maxAridity: 0.8,
+        },
+        sand: {
+          enabled: true,
+          selector: {
+            tags: ["SAND"],
+            typeName: "PLOTEFFECT_SAND",
+          },
+          chance: 28,
+          minAridity: 0.65,
+          minTemperature: 22,
+          maxFreeze: 0.25,
+          maxVegetation: 0.12,
+          maxMoisture: 70,
+          allowedBiomes: ["desert", "temperateDry"],
+        },
+        burned: {
+          enabled: true,
+          selector: {
+            tags: ["BURNED"],
+            typeName: "PLOTEFFECT_BURNED",
+          },
+          chance: 10,
+          minAridity: 0.6,
+          minTemperature: 24,
+          maxFreeze: 0.2,
+          maxVegetation: 0.2,
+          maxMoisture: 90,
+          allowedBiomes: ["desert", "temperateDry", "temperateHumid"],
         },
       },
   };

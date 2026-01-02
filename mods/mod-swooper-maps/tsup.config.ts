@@ -32,7 +32,6 @@ const typeboxFormatPlugin: Plugin = {
 export default defineConfig({
   // Entry points for mod maps
   entry: [
-    "src/maps/gate-a-continents.ts",
     "src/maps/swooper-desert-mountains.ts",
     "src/maps/swooper-earthlike.ts",
     "src/maps/shattered-ring.ts",

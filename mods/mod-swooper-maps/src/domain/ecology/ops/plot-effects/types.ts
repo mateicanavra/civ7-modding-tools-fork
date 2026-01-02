@@ -1,12 +1,12 @@
 import type { EngineAdapter } from "@civ7/adapter";
 
-export type FeaturePlacement = {
+export type PlotEffectPlacement = {
   x: number;
   y: number;
-  feature: number;
+  plotEffectType: number;
 };
 
-export type FeaturesPlacementInput = {
+export type PlotEffectsInput = {
   width: number;
   height: number;
   adapter: EngineAdapter;
@@ -16,5 +16,6 @@ export type FeaturesPlacementInput = {
   surfaceTemperature: Float32Array;
   aridityIndex: Float32Array;
   freezeIndex: Float32Array;
+  elevation: Int16Array;
   rand: (label: string, max: number) => number;
 };

@@ -107,6 +107,16 @@ interface ResourceRow {
   [key: string]: any;
 }
 
+/**
+ * Plot effect row from GameInfo.PlotEffects
+ */
+interface PlotEffectRow {
+  PlotEffectType: string;
+  Index: number;
+  Name: string;
+  [key: string]: any;
+}
+
 // =============================================================================
 // GLOBAL DECLARATIONS
 // =============================================================================
@@ -215,6 +225,16 @@ declare global {
   };
 
   // ---------------------------------------------------------------------------
+  // MapPlotEffects - Plot effect placement and queries
+  // ---------------------------------------------------------------------------
+  const MapPlotEffects: {
+    getPlotEffectTypesContainingTags(tags: string[]): number[];
+    addPlotEffect(index: number, plotEffectType: number): void;
+    hasPlotEffect(index: number, plotEffectType: number): boolean;
+    getPlotEffects?(index: number): number[];
+  };
+
+  // ---------------------------------------------------------------------------
   // AreaBuilder - Area/continent management
   // ---------------------------------------------------------------------------
   const AreaBuilder: {
@@ -245,6 +265,7 @@ declare global {
     Terrains: GameInfoTable<TerrainRow>;
     Biomes: GameInfoTable<BiomeRow>;
     Features: GameInfoTable<FeatureRow>;
+    PlotEffects: GameInfoTable<PlotEffectRow>;
     Resources: GameInfoTable<ResourceRow>;
     Ages: GameInfoTable;
     Civilizations: GameInfoTable;

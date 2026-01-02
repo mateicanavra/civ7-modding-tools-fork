@@ -77,6 +77,7 @@ function buildConfig(): StandardRecipeOverrides {
         riftDepth: 0.35,
         // Strong emphasis on plate boundaries for the ring
         boundaryWeight: 1.2,
+        boundaryGate: 0.05,
         boundaryExponent: 1.8,
         interiorPenaltyWeight: 0.0,
         convergenceBonus: 0.85,
@@ -172,8 +173,12 @@ function buildConfig(): StandardRecipeOverrides {
       climate: {
         baseline: {
           blend: {
-            baseWeight: 0,
-            bandWeight: 1,
+            baseWeight: 0.2,
+            bandWeight: 0.8,
+          },
+          seed: {
+            baseRainfall: 35,
+            coastalExponent: 1.3,
           },
           bands: {
             // Moderate tropical due to ring disruption
@@ -191,7 +196,7 @@ function buildConfig(): StandardRecipeOverrides {
               deg35to55: 55,
               deg55to70: 70,
             },
-            transitionWidth: 5,
+            transitionWidth: 7,
           },
           sizeScaling: {
             baseArea: 10000,
@@ -287,6 +292,22 @@ function buildConfig(): StandardRecipeOverrides {
           bias: 0,
           humidityWeight: 0.35,
         },
+        aridity: {
+          temperatureMin: 0,
+          temperatureMax: 35,
+          petBase: 20,
+          petTemperatureWeight: 80,
+          humidityDampening: 0.55,
+          rainfallWeight: 1,
+          bias: 4,
+          normalization: 120,
+          moistureShiftThresholds: [0.45, 0.7],
+          vegetationPenalty: 0.15,
+        },
+        freeze: {
+          minTemperature: -11,
+          maxTemperature: 2,
+        },
         vegetation: {
           base: 0.2,
           moistureWeight: 0.55,
@@ -365,14 +386,27 @@ function buildConfig(): StandardRecipeOverrides {
             FEATURE_ICE: 85,
           },
           vegetated: {
-            minVegetation: 0.05,
+            minVegetationByBiome: {
+              snow: 0.08,
+              tundra: 0.05,
+              boreal: 0.06,
+              temperateDry: 0.05,
+              temperateHumid: 0.05,
+              tropicalSeasonal: 0.05,
+              tropicalRainforest: 0.04,
+              desert: 0.02,
+            },
             vegetationChanceScalar: 1,
-            desertSagebrushMinVegetation: 0.2,
-            tundraTaigaMinVegetation: 0.25,
+            desertSagebrushMinVegetation: 0.16,
+            desertSagebrushMaxAridity: 0.88,
+            tundraTaigaMinVegetation: 0.22,
             tundraTaigaMinTemperature: -2,
+            tundraTaigaMaxFreeze: 0.9,
             temperateDryForestMoisture: 125,
+            temperateDryForestMaxAridity: 0.6,
             temperateDryForestVegetation: 0.45,
             tropicalSeasonalRainforestMoisture: 140,
+            tropicalSeasonalRainforestMaxAridity: 0.6,
           },
           wet: {
             nearRiverRadius: 2,
@@ -404,6 +438,68 @@ function buildConfig(): StandardRecipeOverrides {
             forbidAdjacentToNaturalWonders: true,
             naturalWonderAdjacencyRadius: 1,
           },
+        },
+      },
+      plotEffects: {
+        snow: {
+          enabled: true,
+          selectors: {
+            light: {
+              tags: ["SNOW", "LIGHT", "PERMANENT"],
+              typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT",
+            },
+            medium: {
+              tags: ["SNOW", "MEDIUM", "PERMANENT"],
+              typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT",
+            },
+            heavy: {
+              tags: ["SNOW", "HEAVY", "PERMANENT"],
+              typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT",
+            },
+          },
+          coverageChance: 55,
+          freezeWeight: 1,
+          elevationWeight: 1,
+          moistureWeight: 0.6,
+          scoreNormalization: 2.6,
+          scoreBias: 0,
+          lightThreshold: 0.4,
+          mediumThreshold: 0.6,
+          heavyThreshold: 0.78,
+          elevationMin: 300,
+          elevationMax: 2600,
+          moistureMin: 40,
+          moistureMax: 160,
+          maxTemperature: 3,
+          maxAridity: 0.8,
+        },
+        sand: {
+          enabled: true,
+          selector: {
+            tags: ["SAND"],
+            typeName: "PLOTEFFECT_SAND",
+          },
+          chance: 12,
+          minAridity: 0.55,
+          minTemperature: 20,
+          maxFreeze: 0.25,
+          maxVegetation: 0.18,
+          maxMoisture: 85,
+          allowedBiomes: ["desert", "temperateDry"],
+        },
+        burned: {
+          enabled: true,
+          selector: {
+            tags: ["BURNED"],
+            typeName: "PLOTEFFECT_BURNED",
+          },
+          chance: 6,
+          minAridity: 0.5,
+          minTemperature: 20,
+          maxFreeze: 0.2,
+          maxVegetation: 0.25,
+          maxMoisture: 100,
+          allowedBiomes: ["temperateDry", "tropicalSeasonal"],
         },
       },
   };
