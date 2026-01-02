@@ -19,7 +19,6 @@ import { runStandardRecipe } from "./_runtime/run-standard.js";
 import type { MapInitResolution } from "./_runtime/map-init.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import type { StandardRecipeOverrides } from "./_runtime/standard-config.js";
-import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
 
 /**
  * Build the Shattered Ring configuration.
@@ -232,53 +231,6 @@ function buildConfig(): StandardRecipeOverrides {
             volcanicDelta: 10,
           },
         },
-        swatches: {
-          maxPerMap: 7,
-          forceAtLeastOne: true,
-          sizeScaling: {
-            widthMulSqrt: 0.35,
-            lengthMulSqrt: 0.45,
-          },
-          types: {
-            // Ring-specific climate zones
-            macroDesertBelt: {
-              weight: 5,
-              latitudeCenterDeg: 28,
-              halfWidthDeg: 12,
-              drynessDelta: 25,
-              bleedRadius: 4,
-            },
-            equatorialRainbelt: {
-              weight: 5,
-              latitudeCenterDeg: 0,
-              halfWidthDeg: 12,
-              wetnessDelta: 30,
-              bleedRadius: 4,
-            },
-            rainforestArchipelago: {
-              weight: 6,
-              islandBias: 2.0,
-              reefBias: 1.2,
-              wetnessDelta: 22,
-              bleedRadius: 3,
-            },
-            mountainForests: {
-              weight: 4,
-              coupleToOrogeny: true,
-              windwardBonus: 8,
-              leePenalty: 3,
-              bleedRadius: 3,
-            },
-            greatPlains: {
-              weight: 4,
-              latitudeCenterDeg: 42,
-              halfWidthDeg: 10,
-              dryDelta: 12,
-              lowlandMaxElevation: 280,
-              bleedRadius: 5,
-            },
-          },
-        },
       },
       story: {
         hotspot: {
@@ -295,11 +247,46 @@ function buildConfig(): StandardRecipeOverrides {
         },
       },
       biomes: {
-        ...classifyBiomes.defaultConfig,
-        moisture: {
-          ...classifyBiomes.defaultConfig.moisture,
-          thresholds: [80, 95, 140, 200],
+        temperature: {
+          equator: 28,
+          pole: -8,
+          lapseRate: 6.5,
+          seaLevel: 0,
+          bias: 0,
+          polarCutoff: -5,
+          tundraCutoff: 2,
+          midLatitude: 12,
+          tropicalThreshold: 24,
         },
+        moisture: {
+          thresholds: [80, 95, 140, 200],
+          bias: 0,
+          humidityWeight: 0.35,
+        },
+        vegetation: {
+          base: 0.2,
+          moistureWeight: 0.55,
+          humidityWeight: 0.25,
+        },
+        noise: {
+          amplitude: 0.03,
+          seed: 1337,
+        },
+        overlays: {
+          corridorMoistureBonus: 8,
+          riftShoulderMoistureBonus: 5,
+        },
+      },
+      biomeBindings: {
+        snow: "BIOME_TUNDRA",
+        tundra: "BIOME_TUNDRA",
+        boreal: "BIOME_TUNDRA",
+        temperateDry: "BIOME_PLAINS",
+        temperateHumid: "BIOME_GRASSLAND",
+        tropicalSeasonal: "BIOME_GRASSLAND",
+        tropicalRainforest: "BIOME_TROPICAL",
+        desert: "BIOME_DESERT",
+        marine: "BIOME_MARINE",
       },
       featuresDensity: {
         // Lush crater islands

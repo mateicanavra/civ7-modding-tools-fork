@@ -17,7 +17,6 @@ import { runStandardRecipe } from "./_runtime/run-standard.js";
 import type { MapInitResolution } from "./_runtime/map-init.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import type { StandardRecipeOverrides } from "./_runtime/standard-config.js";
-import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
 
 function buildConfig(): StandardRecipeOverrides {
   return {
@@ -216,52 +215,6 @@ function buildConfig(): StandardRecipeOverrides {
             volcanicDelta: 8,
           },
         },
-        swatches: {
-          maxPerMap: 6,
-          forceAtLeastOne: true,
-          sizeScaling: {
-            widthMulSqrt: 0.3,
-            lengthMulSqrt: 0.4,
-          },
-          types: {
-            macroDesertBelt: {
-              weight: 6,
-              latitudeCenterDeg: 22,
-              halfWidthDeg: 10,
-              drynessDelta: 22,
-              bleedRadius: 3,
-            },
-            equatorialRainbelt: {
-              weight: 4,
-              latitudeCenterDeg: 0,
-              halfWidthDeg: 10,
-              wetnessDelta: 26,
-              bleedRadius: 3,
-            },
-            rainforestArchipelago: {
-              weight: 5,
-              islandBias: 1.6,
-              reefBias: 1,
-              wetnessDelta: 18,
-              bleedRadius: 3,
-            },
-            mountainForests: {
-              weight: 3,
-              coupleToOrogeny: true,
-              windwardBonus: 6,
-              leePenalty: 2,
-              bleedRadius: 3,
-            },
-            greatPlains: {
-              weight: 5,
-              latitudeCenterDeg: 45,
-              halfWidthDeg: 8,
-              dryDelta: 10,
-              lowlandMaxElevation: 300,
-              bleedRadius: 4,
-            },
-          },
-        },
       },
       story: {
         hotspot: {
@@ -276,11 +229,46 @@ function buildConfig(): StandardRecipeOverrides {
         },
       },
       biomes: {
-        ...classifyBiomes.defaultConfig,
-        moisture: {
-          ...classifyBiomes.defaultConfig.moisture,
-          thresholds: [80, 100, 150, 200],
+        temperature: {
+          equator: 28,
+          pole: -8,
+          lapseRate: 6.5,
+          seaLevel: 0,
+          bias: 0,
+          polarCutoff: -5,
+          tundraCutoff: 2,
+          midLatitude: 12,
+          tropicalThreshold: 24,
         },
+        moisture: {
+          thresholds: [80, 100, 150, 200],
+          bias: 0,
+          humidityWeight: 0.35,
+        },
+        vegetation: {
+          base: 0.2,
+          moistureWeight: 0.55,
+          humidityWeight: 0.25,
+        },
+        noise: {
+          amplitude: 0.03,
+          seed: 1337,
+        },
+        overlays: {
+          corridorMoistureBonus: 8,
+          riftShoulderMoistureBonus: 5,
+        },
+      },
+      biomeBindings: {
+        snow: "BIOME_TUNDRA",
+        tundra: "BIOME_TUNDRA",
+        boreal: "BIOME_TUNDRA",
+        temperateDry: "BIOME_PLAINS",
+        temperateHumid: "BIOME_GRASSLAND",
+        tropicalSeasonal: "BIOME_GRASSLAND",
+        tropicalRainforest: "BIOME_TROPICAL",
+        desert: "BIOME_DESERT",
+        marine: "BIOME_MARINE",
       },
       featuresDensity: {
         rainforestExtraChance: 50,
