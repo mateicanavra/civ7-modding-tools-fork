@@ -3,6 +3,9 @@ doc_id: ER1-ADR-REDIRECT
 title: "Engine Refactor v1 — ADRs"
 project: engine-refactor-v1
 status: deprecated
+system: mapgen
+component: documentation
+concern: adr-index
 ---
 
 # Engine Refactor v1 — ADRs

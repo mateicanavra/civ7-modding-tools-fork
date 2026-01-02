@@ -1,3 +1,9 @@
+---
+system: mapgen
+component: civ7-adapter
+concern: plot-tagging
+---
+
 # ADR-002: Own Plot Tagging + Civ7 Adapter Layer
 
 **Status:** Accepted

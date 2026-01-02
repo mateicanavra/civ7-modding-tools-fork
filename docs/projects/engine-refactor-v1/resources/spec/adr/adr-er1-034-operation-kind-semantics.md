@@ -5,6 +5,9 @@ status: proposed
 date: 2025-12-30
 project: engine-refactor-v1
 risk: at_risk
+system: mapgen
+component: authoring-sdk
+concern: domain-operation-modules
 supersedes: []
 superseded_by: null
 sources:
@@ -13,33 +16,30 @@ sources:
 
 # ADR-ER1-034: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
-## Context
+This ADR is the canonical home for DD-001 from `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`.
 
-The step/domain-operation module design introduces operation “kinds” such as `plan`, `compute`, `score`, and `select`. Without a shared meaning, these labels become decorative and can’t support tooling, review, or invariants.
+## Context (verbatim from spike)
 
-## Decision
+### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
-- Operation kind is a **semantic classification** used for documentation and optional static validation/tooling.
-- Kinds carry the following intent:
-  - `compute`: deterministic pure computation from inputs to outputs (no runtime writes)
-  - `score`: produces scoring outputs from inputs (no runtime writes)
-  - `select`: selects among candidates using scores/rules (no runtime writes)
-  - `plan`: produces an execution/placement plan or decisions that will later be applied by a step (still no runtime writes)
-- Runtime enforcement is not required for v1; any enforcement is lint-level and opt-in.
+**Impact / scale:** **Medium**
 
-## Options considered
+**System surface / blast radius (components):**
+- **Domain operations (`DomainOpKind`)**: the labeled “kind” of an op (the public contract a step calls).
+- **Steps**: the runtime orchestrator that validates config, calls ops, and applies/publishes results.
+- **Docs/tooling**: any future scaffolding, contract rendering, or authoring UX that depends on “kind” meaning something consistent.
 
-1. **No kinds**
-   - Pros: avoids bikeshedding
-   - Cons: loses shared language and review structure
-2. **Kinds as docs-only labels**
-   - Pros: simple; minimal coupling
-   - Cons: easy to misuse without guardrails
-3. **Kinds with enforced invariants**
-   - Pros: strong guarantees
-   - Cons: higher implementation cost and risk of over-constraining early design
+**Question:** Are `DomainOpKind` values strict semantics (a contract we teach and enforce) or just labels for documentation?
 
-## Consequences
+**Why it matters / what it affects:** “Kind” is the shared vocabulary that tells authors (and later tooling) how to treat the op’s output. If it is strict, it creates predictable step behavior (“plans are applied”, “compute results are published”) and keeps domain vs step responsibilities crisp. If it is soft, “kind” stops carrying reliable meaning and we drift back into ad-hoc orchestration and inconsistent contracts.
 
-- Operation contracts can remain stable and testable while still gaining a shared vocabulary for intent.
-- If enforcement becomes desirable, it can be added later as tooling/lint without changing operation signatures.
+**Options:**
+- **A) Strict semantics (preferred):** treat kinds as a contract.
+  - `plan`: produces intents/edits/overrides that steps apply.
+  - `compute`: produces derived artifacts/fields (no side effects).
+  - `score`: produces scores/rankings over candidates.
+  - `select`: produces selections/choices from candidates/scores.
+- **B) Soft semantics:** kinds are descriptive only; overlap is allowed.
+- **C) Fewer kinds:** collapse `score`/`select` (e.g., keep `plan` + `compute` + `score`).
+
+**Recommendation:** Start with **A**, but keep the set small. If `select` doesn’t add real clarity, adopt **C** (collapse into `score`) while keeping the `plan` vs `compute` distinction crisp.

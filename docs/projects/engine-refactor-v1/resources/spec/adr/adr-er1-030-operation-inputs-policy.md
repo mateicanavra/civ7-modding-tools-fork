@@ -5,6 +5,9 @@ status: proposed
 date: 2025-12-30
 project: engine-refactor-v1
 risk: at_risk
+system: mapgen
+component: authoring-sdk
+concern: domain-operation-modules
 supersedes: []
 superseded_by: null
 sources:

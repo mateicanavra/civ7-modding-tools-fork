@@ -1,3 +1,9 @@
+---
+system: mapgen
+component: documentation
+concern: adr-index
+---
+
 # Architecture Decision Records
 
 > Significant architectural decisions made in this project.

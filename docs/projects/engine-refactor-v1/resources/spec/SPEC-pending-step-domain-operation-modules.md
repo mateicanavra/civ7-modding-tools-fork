@@ -786,27 +786,7 @@ Each item below is an intentionally standalone decision packet. The goal is to m
 
 ### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
 
-**Impact / scale:** **Medium**
-
-**System surface / blast radius (components):**
-- **Domain operations (`DomainOpKind`)**: the labeled “kind” of an op (the public contract a step calls).
-- **Steps**: the runtime orchestrator that validates config, calls ops, and applies/publishes results.
-- **Docs/tooling**: any future scaffolding, contract rendering, or authoring UX that depends on “kind” meaning something consistent.
-
-**Question:** Are `DomainOpKind` values strict semantics (a contract we teach and enforce) or just labels for documentation?
-
-**Why it matters / what it affects:** “Kind” is the shared vocabulary that tells authors (and later tooling) how to treat the op’s output. If it is strict, it creates predictable step behavior (“plans are applied”, “compute results are published”) and keeps domain vs step responsibilities crisp. If it is soft, “kind” stops carrying reliable meaning and we drift back into ad-hoc orchestration and inconsistent contracts.
-
-**Options:**
-- **A) Strict semantics (preferred):** treat kinds as a contract.
-  - `plan`: produces intents/edits/overrides that steps apply.
-  - `compute`: produces derived artifacts/fields (no side effects).
-  - `score`: produces scores/rankings over candidates.
-  - `select`: produces selections/choices from candidates/scores.
-- **B) Soft semantics:** kinds are descriptive only; overlap is allowed.
-- **C) Fewer kinds:** collapse `score`/`select` (e.g., keep `plan` + `compute` + `score`).
-
-**Recommendation:** Start with **A**, but keep the set small. If `select` doesn’t add real clarity, adopt **C** (collapse into `score`) while keeping the `plan` vs `compute` distinction crisp.
+Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`.
 
 ### DD-002: Derived defaults and config normalization (beyond schema defaults)
 

@@ -1,3 +1,9 @@
+---
+system: mapgen
+component: build-tooling
+concern: typebox
+---
+
 # ADR-002 — Shim TypeBox Format Registry for Civ7 V8 Compatibility
 
 - **Status:** Accepted

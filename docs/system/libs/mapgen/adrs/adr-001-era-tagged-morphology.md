@@ -1,3 +1,9 @@
+---
+system: mapgen
+component: domain-content
+concern: morphology
+---
+
 # ADR-001: Single-Pass Era-Tagged Morphology
 
 **Status:** Accepted

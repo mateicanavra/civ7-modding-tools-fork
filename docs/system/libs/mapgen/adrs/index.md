@@ -1,3 +1,9 @@
+---
+system: mapgen
+component: documentation
+concern: adr-index
+---
+
 # Architecture Decision Records — mapgen-core
 
 This directory contains architectural decision records for the mapgen-core library.

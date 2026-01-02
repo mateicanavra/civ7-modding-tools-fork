@@ -1,3 +1,9 @@
+---
+system: mapgen
+component: documentation
+concern: adr-index
+---
+
 # Architecture Decision Records — Swooper Maps
 
 This directory contains architectural decision records specific to the Swooper Maps mod.
