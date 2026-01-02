@@ -8,33 +8,26 @@
 			Description="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_DESCRIPTION"
 			SortIndex="500"
 		/>
-		<!-- Gate A - TypeScript pipeline validation -->
-		<Row
-			File="{swooper-maps}/maps/gate-a-continents.js"
-			Name="LOC_MAP_GATE_A_CONTINENTS_NAME"
-			Description="LOC_MAP_GATE_A_CONTINENTS_DESCRIPTION"
-			SortIndex="501"
-		/>
 		<!-- Earthlike variant - Realistic Earth analogue -->
 		<Row
 			File="{swooper-maps}/maps/swooper-earthlike.js"
 			Name="LOC_MAP_SWOOPER_EARTHLIKE_NAME"
 			Description="LOC_MAP_SWOOPER_EARTHLIKE_DESCRIPTION"
-			SortIndex="502"
+			SortIndex="501"
 		/>
 		<!-- Shattered Ring - Post-impact crater world -->
 		<Row
 			File="{swooper-maps}/maps/shattered-ring.js"
 			Name="LOC_MAP_SHATTERED_RING_NAME"
 			Description="LOC_MAP_SHATTERED_RING_DESCRIPTION"
-			SortIndex="503"
+			SortIndex="502"
 		/>
 		<!-- Sundered Archipelago - Volcanic island chains -->
 		<Row
 			File="{swooper-maps}/maps/sundered-archipelago.js"
 			Name="LOC_MAP_SUNDERED_ARCHIPELAGO_NAME"
 			Description="LOC_MAP_SUNDERED_ARCHIPELAGO_DESCRIPTION"
-			SortIndex="504"
+			SortIndex="503"
 		/>
 	</Maps>
 </Database>

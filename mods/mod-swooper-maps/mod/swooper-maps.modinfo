@@ -22,7 +22,6 @@
 					<Item>text/en_us/MapText.xml</Item>
 				</UpdateText>
 				<ImportFiles>
-					<Item>maps/gate-a-continents.js</Item>
 					<Item>maps/shattered-ring.js</Item>
 					<Item>maps/sundered-archipelago.js</Item>
 					<Item>maps/swooper-desert-mountains.js</Item>
