@@ -195,6 +195,8 @@ export interface MockAdapterConfig {
   plotTags?: Partial<Record<PlotTagName, number>>;
   /** Custom landmass region values (default: DEFAULT_LANDMASS_IDS) */
   landmassIds?: Partial<Record<LandmassIdName, number>>;
+  /** Optional feature validation hook for tests (return false to reject placement). */
+  canHaveFeature?: (x: number, y: number, featureType: number) => boolean;
 }
 
 /**
@@ -223,6 +225,7 @@ export class MockAdapter implements EngineAdapter {
   private terrainTypeIndices: Record<string, number>;
   private plotTags: Record<PlotTagName, number>;
   private landmassIds: Record<LandmassIdName, number>;
+  private canHaveFeatureFn?: (x: number, y: number, featureType: number) => boolean;
   private readonly effectEvidence = new Set<string>();
   private coastTerrainId: number;
   private oceanTerrainId: number;
@@ -273,6 +276,7 @@ export class MockAdapter implements EngineAdapter {
     this.terrainTypeIndices = config.terrainTypeIndices ?? { ...DEFAULT_TERRAIN_TYPE_INDICES };
     this.plotTags = { ...DEFAULT_PLOT_TAGS, ...(config.plotTags ?? {}) };
     this.landmassIds = { ...DEFAULT_LANDMASS_IDS, ...(config.landmassIds ?? {}) };
+    this.canHaveFeatureFn = config.canHaveFeature;
 
     this.coastTerrainId = this.getTerrainTypeIndex("TERRAIN_COAST");
     this.oceanTerrainId = this.getTerrainTypeIndex("TERRAIN_OCEAN");
@@ -458,6 +462,9 @@ export class MockAdapter implements EngineAdapter {
   }
 
   canHaveFeature(_x: number, _y: number, _featureType: number): boolean {
+    if (this.canHaveFeatureFn) {
+      return this.canHaveFeatureFn(_x, _y, _featureType);
+    }
     return true; // Mock: always allow features
   }
 
@@ -744,6 +751,7 @@ export class MockAdapter implements EngineAdapter {
     this.terrainTypeIndices = config.terrainTypeIndices ?? { ...DEFAULT_TERRAIN_TYPE_INDICES };
     this.plotTags = { ...DEFAULT_PLOT_TAGS, ...(config.plotTags ?? {}) };
     this.landmassIds = { ...DEFAULT_LANDMASS_IDS, ...(config.landmassIds ?? {}) };
+    this.canHaveFeatureFn = config.canHaveFeature ?? this.canHaveFeatureFn;
 
     this.coastTerrainId = this.getTerrainTypeIndex("TERRAIN_COAST");
     this.oceanTerrainId = this.getTerrainTypeIndex("TERRAIN_OCEAN");

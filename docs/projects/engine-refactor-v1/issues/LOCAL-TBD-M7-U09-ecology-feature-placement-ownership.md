@@ -34,6 +34,8 @@ related_to: [LOCAL-TBD-M7-U08]
 - Map preset updates (all shipped maps under `mods/mod-swooper-maps/src/maps/`) to opt into the owned baseline and tune where theme-appropriate.
 - Tests that prove correctness and catch regressions: `canHaveFeature` gating, “never overwrite”, land/water separation, and navigable river exclusions.
 - Documentation update that makes the ecology/placement ownership boundary explicit and links to the spike.
+- Climate swatches are disabled without deleting code (confirm omission is insufficient; implement minimal config/code gate to suppress them while isolating ecology work).
+- Biome schemas/configs updated with TypeBox descriptions **and** JSDoc comments that explain intent, tuning impact, units, and expected ranges for non-expert configuration.
 
 ## Acceptance Criteria
 - With `featuresPlacement.mode = "owned"`:
@@ -47,6 +49,7 @@ related_to: [LOCAL-TBD-M7-U08]
   - `TERRAIN_NAVIGABLE_RIVER` tiles
 - Aquatic/ice features are never placed on land tiles.
 - All shipped map presets set `featuresPlacement.mode = "owned"` and still pass `pnpm lint`, `pnpm check`, `pnpm test`, `pnpm build`, `pnpm -C mods/mod-swooper-maps test`, `pnpm run deploy:mods`.
+- Climate swatches do not render/execute when explicitly disabled, without removing their implementation.
 
 ## Testing / Verification
 - `pnpm -C mods/mod-swooper-maps test`
@@ -376,3 +379,30 @@ Implementation order (recommended):
 - **Rationale:** Avoid crossing into hydrology while still keeping correctness and compatibility.
 - **Risk:** Some “environment look” remains engine-controlled until a follow-up issue lands.
 
+### Disable climate swatches via an explicit `enabled` gate
+- **Context:** `climate.swatches` defaults to `{}` via schema, so omission still runs a macro swatch; the issue requires swatches off to isolate ecology changes.
+- **Options:** Remove the storySwatches stage; change defaults to `undefined`; add an `enabled` gate in `applyClimateSwatches` and set it false in standard-config.
+- **Choice:** Add a `swatches.enabled === false` early return in `applyClimateSwatches`, and default `enabled: false` in standard recipe config.
+- **Rationale:** Minimal, reversible change that preserves the swatch pipeline while making the disable explicit.
+- **Risk:** Swatches remain off until explicitly re-enabled in a preset.
+
+### Order owned feature placement by stability priority
+- **Context:** The spec does not define ordering between ice, aquatic, wetland, and vegetated passes.
+- **Options:** Vegetated-first; wetland-first; aquatic-first; ice-first with aquatic/land after.
+- **Choice:** Place ice first, then aquatic features, then wetland features, and finally vegetated scatter.
+- **Rationale:** Ensures polar ice wins ties, wetlands reserve near-river/coastal niches, and scatter fills remaining land.
+- **Risk:** Feature mix may differ from vanilla and require tuning.
+
+### Map biome symbols to vegetated feature types using moisture heuristics
+- **Context:** Owned scatter needs a stable selection policy; the spec leaves the mapping open.
+- **Options:** Random weighted across all vegetated features; strict biome→feature mapping; heuristic mapping using moisture/vegetation density.
+- **Choice:** Use biome-symbol mapping with moisture/vegetation thresholds to decide forest vs sagebrush and rainforest vs savanna.
+- **Rationale:** Keeps results predictable while still responding to climate signals.
+- **Risk:** Thresholds may bias feature mixes in edge climates.
+
+### Define equatorial band for atoll growth and shallow-water gating
+- **Context:** Atoll growth config includes equatorial vs non-equatorial chances but no latitude boundary or gate semantics.
+- **Options:** Use tropics (~23°); reuse reef latitude split; add new config field.
+- **Choice:** Use a 23° equatorial band and apply the shallow-water gate only when adjacent to shallow water.
+- **Rationale:** Aligns with real-world tropics and keeps gating localized to coasts.
+- **Risk:** Atoll distribution might skew until tuning passes adjust the band or chances.

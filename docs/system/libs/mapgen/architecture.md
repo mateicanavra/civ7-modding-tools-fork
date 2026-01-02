@@ -20,6 +20,8 @@ Map generation is organized into domain layers that progressively refine the wor
 
 - Interprets geology + climate into soils, biomes, resources, and features.
 - Separates pedology (soil) from biogeography (biomes).
+- Owns baseline placement of non-wonder features (forests, wetlands, reefs, ice); placement still owns wonders and floodplains.
+- Ownership boundary details: `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-feature-placement-ownership.md`.
 
 ## Narrative
 

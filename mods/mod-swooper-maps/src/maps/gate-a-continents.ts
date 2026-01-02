@@ -136,6 +136,18 @@ function buildConfig(): StandardRecipeOverrides {
       taigaExtraChance: 20,
       shelfReefMultiplier: 0.8,
     },
+    featuresPlacement: {
+      mode: "owned",
+      groups: {
+        vegetated: { multiplier: 1 },
+        wet: { multiplier: 0.95 },
+        aquatic: { multiplier: 0.85 },
+        ice: { multiplier: 1 },
+      },
+      chances: {
+        FEATURE_ATOLL: 8,
+      },
+    },
   };
 }
 

@@ -75,6 +75,7 @@ import {
   BiomeBindingsSchema,
   BiomeConfigSchema,
   FeaturesDensityConfigSchema,
+  FeaturesPlacementConfigSchema,
 } from "@mapgen/config/schema/ecology.js";
 import {
   FloodplainsConfigSchema,
@@ -128,6 +129,8 @@ export const MapGenConfigSchema = Type.Object(
     biomeBindings: Type.Optional(BiomeBindingsSchema),
     /** Vegetation and reef density multipliers. */
     featuresDensity: Type.Optional(FeaturesDensityConfigSchema),
+    /** Baseline feature placement ownership and tuning. */
+    featuresPlacement: Type.Optional(FeaturesPlacementConfigSchema),
     /** Continental margin tagging parameters (active/passive coastline fractions). */
     margins: Type.Optional(ContinentalMarginsConfigSchema),
     /** Story seed overlays: hotspots, rifts, orogeny. */
@@ -201,6 +204,7 @@ export type ClimateConfig = Static<typeof ClimateConfigSchema>;
 export type BiomeConfig = Static<typeof BiomeConfigSchema>;
 export type BiomeBindings = Static<typeof BiomeBindingsSchema>;
 export type FeaturesDensityConfig = Static<typeof FeaturesDensityConfigSchema>;
+export type FeaturesPlacementConfig = Static<typeof FeaturesPlacementConfigSchema>;
 export type FloodplainsConfig = Static<typeof FloodplainsConfigSchema>;
 export type StartsConfig = Static<typeof StartsConfigSchema>;
 export type PlacementConfig = Static<typeof PlacementConfigSchema>;

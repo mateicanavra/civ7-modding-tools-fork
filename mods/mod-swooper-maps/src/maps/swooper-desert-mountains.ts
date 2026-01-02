@@ -145,42 +145,42 @@ function buildConfig(): StandardRecipeOverrides {
 	            baseWeight: 0,
 	            bandWeight: 1,
 	          },
-          bands: {
-            // Standard Earth-like distribution
-            deg0to10: 80, // Wet tropics
-            deg10to20: 60,
-            deg20to35: 20, // Deserts
-            deg35to55: 60, // Temperate
-            deg55to70: 40,
-            deg70plus: 20,
-          },
-          orographic: {
-            hi1Threshold: 200,
-            hi1Bonus: 10,
-            hi2Threshold: 400,
-            hi2Bonus: 20,
-          },
-          coastal: {
-            coastalLandBonus: 45,
-            spread: 4,
-          },
-          noise: {
-            baseSpanSmall: 5,
-            spanLargeScaleFactor: 1.25,
-            scale: 0.15,
-          },
+        bands: {
+          // Standard Earth-like distribution
+          deg0to10: 70,
+          deg10to20: 45,
+          deg20to35: 15,
+          deg35to55: 50,
+          deg55to70: 35,
+          deg70plus: 20,
         },
-        refine: {
-          waterGradient: {
-            radius: 5,
-            perRingBonus: 3,
-            lowlandBonus: 7,
-          },
-          orographic: {
-            steps: 4,
-            reductionBase: 20,
-            reductionPerStep: 10,
-          },
+        orographic: {
+          hi1Threshold: 200,
+          hi1Bonus: 10,
+          hi2Threshold: 400,
+          hi2Bonus: 20,
+        },
+        coastal: {
+          coastalLandBonus: 30,
+          spread: 3,
+        },
+        noise: {
+          baseSpanSmall: 5,
+          spanLargeScaleFactor: 1.25,
+          scale: 0.15,
+        },
+      },
+      refine: {
+        waterGradient: {
+          radius: 4,
+          perRingBonus: 2,
+          lowlandBonus: 4,
+        },
+        orographic: {
+          steps: 4,
+          reductionBase: 22,
+          reductionPerStep: 12,
+        },
           riverCorridor: {
             lowlandAdjacencyBonus: 15,
             highlandAdjacencyBonus: 5,
@@ -224,14 +224,14 @@ function buildConfig(): StandardRecipeOverrides {
           tropicalThreshold: 24,
         },
         moisture: {
-          thresholds: [60, 80, 120, 170],
+          thresholds: [80, 110, 150, 195],
           bias: 0,
           humidityWeight: 0.35,
         },
         vegetation: {
-          base: 0.2,
-          moistureWeight: 0.55,
-          humidityWeight: 0.25,
+          base: 0.15,
+          moistureWeight: 0.5,
+          humidityWeight: 0.2,
         },
         noise: {
           amplitude: 0.03,
@@ -257,7 +257,23 @@ function buildConfig(): StandardRecipeOverrides {
         rainforestExtraChance: 10,
         forestExtraChance: 10,
         taigaExtraChance: 5,
-        shelfReefMultiplier: 1.0,
+        shelfReefMultiplier: 0.6,
+      },
+      featuresPlacement: {
+        mode: "owned",
+        groups: {
+          vegetated: { multiplier: 0.7 },
+          wet: { multiplier: 0.35 },
+          aquatic: { multiplier: 0.8 },
+          ice: { multiplier: 0.9 },
+        },
+        chances: {
+          FEATURE_OASIS: 70,
+          FEATURE_WATERING_HOLE: 45,
+          FEATURE_MARSH: 15,
+          FEATURE_TUNDRA_BOG: 15,
+          FEATURE_MANGROVE: 10,
+        },
       },
   };
 }

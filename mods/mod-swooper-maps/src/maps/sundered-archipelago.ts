@@ -261,7 +261,7 @@ function buildConfig(): StandardRecipeOverrides {
           tropicalThreshold: 24,
         },
         moisture: {
-          thresholds: [70, 90, 130, 190],
+          thresholds: [65, 85, 125, 185],
           bias: 0,
           humidityWeight: 0.35,
         },
@@ -297,6 +297,29 @@ function buildConfig(): StandardRecipeOverrides {
         taigaExtraChance: 18,
         // Abundant coral reefs
         shelfReefMultiplier: 1.4,
+      },
+      featuresPlacement: {
+        mode: "owned",
+        groups: {
+          vegetated: { multiplier: 1.1 },
+          wet: { multiplier: 1.2 },
+          aquatic: { multiplier: 1.6 },
+          ice: { multiplier: 0.4 },
+        },
+        chances: {
+          FEATURE_REEF: 45,
+          FEATURE_COLD_REEF: 35,
+          FEATURE_ATOLL: 20,
+          FEATURE_LOTUS: 22,
+          FEATURE_MANGROVE: 45,
+        },
+        aquatic: {
+          reefLatitudeSplit: 58,
+          atoll: {
+            growthChanceEquatorial: 20,
+            growthChanceNonEquatorial: 8,
+          },
+        },
       },
   };
 }

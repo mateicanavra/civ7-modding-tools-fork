@@ -30,9 +30,10 @@ export function applyClimateSwatches(
       "ClimateEngine: applyClimateSwatches requires MapContext (legacy direct-engine fallback removed)."
     );
   }
-  const cfg = options.climate?.swatches;
+  const cfg = options.climate?.swatches as Record<string, unknown> | undefined;
 
   if (!cfg) return { applied: false, kind: "missing-config" };
+  if (cfg.enabled === false) return { applied: false, kind: "disabled" };
 
   const area = Math.max(1, width * height);
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
