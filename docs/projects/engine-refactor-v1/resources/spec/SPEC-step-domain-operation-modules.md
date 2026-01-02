@@ -1,8 +1,4 @@
-> **PENDING MERGE**: This is a spec-adjacent design proposal intended to be manually reconciled into the canonical spec entrypoint (SPEC-target-architecture-draft). It is **not canonical** until merged.
-
----
-
-# SPIKE: Step ↔ Domain Contracts via Operation Modules
+# SPEC: Step ↔ Domain Contracts via Operation Modules
 
 ## 0) Vocabulary (Project Terms)
 

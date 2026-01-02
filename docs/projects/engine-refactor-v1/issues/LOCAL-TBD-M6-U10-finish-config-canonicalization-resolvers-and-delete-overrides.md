@@ -10,7 +10,7 @@ assignees: []
 labels: []
 parent: null
 children: []
-blocked_by: [LOCAL-TBD-M6-U09, LOCAL-TBD-M6-U06]
+blocked_by: []
 blocked: []
 related_to:
   - ADR-ER1-035
@@ -23,7 +23,7 @@ related_to:
 Finish the “config story” end-to-end for MapGen by implementing DD‑002’s compile-time config resolution wiring (`resolveConfig`) and deleting the remaining legacy authoring surface (`StandardRecipeOverrides` → `StandardRecipeConfig` translation).
 
 ## Target outcome (canonical)
-- **Plan truth:** `compileExecutionPlan(...)` produces a fully schema-defaulted, cleaned, and **resolution-applied** `ExecutionPlan.nodes[].config`.
+- **Plan truth:** `compileExecutionPlan(...)` produces a fully schema-defaulted, cleaned, and **resolution-applied** `ExecutionPlan.nodes[].config` for every enabled step.
 - **Fractal only at step boundaries:** the compiler calls `step.resolveConfig(stepConfig, settings)`; composite steps use that hook to delegate to op-local `op.resolveConfig(opConfig, settings)` and recompose.
 - **Runtime steps do not branch:** steps treat `node.config` as “the config” and do not do meaning-level defaults/merges at runtime.
 - **No legacy config translation:** remove `StandardRecipeOverrides` (DeepPartial global-ish override blob) and the translator that builds `StandardRecipeConfig` from it.
@@ -47,7 +47,7 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 
 ## Acceptance Criteria
 - `packages/mapgen-core/src/engine/execution-plan.ts` calls `step.resolveConfig(config, settings)` (when defined) and validates the returned config against `step.configSchema` before writing to the plan.
-- At least one composite step demonstrates the canonical fan-out → delegate → recompose pattern using op-local resolvers (and compiles into plan-truth config).
+- A composite resolver pattern is demonstrated in tests (canonical fan-out → delegate → recompose using op-local resolvers) and results in plan-truth config in `ExecutionPlan.nodes[].config`.
 - `mods/mod-swooper-maps/src/maps/_runtime/standard-config.ts` no longer:
   - defines `DeepPartial<T>`,
   - exports `StandardRecipeOverrides`,
@@ -62,12 +62,12 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - `pnpm deploy:mods`
 
 ## Dependencies / Notes
-- Depends on U09 baseline: settings/trace plumbing and retirement of `context.config` and `foundation.diagnostics` (already in flight/landing).
+- Assumes the U09 baseline exists: settings/trace plumbing and retirement of `context.config` and `foundation.diagnostics`.
 - This issue implements the *documented* wiring from:
   - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md` (DD‑002)
   - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-030-operation-inputs-policy.md` (op-entry validation + typed arrays)
   - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md` (strict kinds; ops are contracts)
-  - `docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md` (target spec projection)
+  - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md` (target spec projection)
 
 ---
 
@@ -79,11 +79,14 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - Extend the step type surface to optionally include:
   - `resolveConfig?: (config, settings) => config` (pure; settings-only; compile-time only).
 - In `compileExecutionPlan(...)`:
-  1) schema `Default/Convert/Clean` the authored step config (current behavior),
+  1) schema default + clean the authored step config (current behavior: `Value.Default` + `Value.Clean`),
   2) call `step.resolveConfig?.(cleaned, settings)`,
-  3) re-validate/clean and reject unknown keys on the resolver output,
-  4) store the resolved config in `ExecutionPlan.nodes[].config`.
+  3) reject unknown keys + validate the resolver output,
+  4) schema default + clean the resolver output,
+  5) store the resolved config in `ExecutionPlan.nodes[].config`.
 - Ensure compile errors include pathful errors originating from resolver output.
+  - Implementation target: `packages/mapgen-core/src/engine/execution-plan.ts`.
+  - Step surface target: `packages/mapgen-core/src/engine/types.ts` (`MapGenStep`).
 
 **Out of scope**
 - Introducing plan-stored internal/derived fields (no dual author vs resolved config storage).
@@ -96,16 +99,25 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 **Acceptance Criteria**
 - Compiler executes `resolveConfig` when present; runtime steps do not branch.
 - Resolver output that violates schema/unknown-keys fails plan compilation with actionable errors.
+- A step that defines `resolveConfig` must also define `configSchema`; otherwise plan compilation fails (no untyped resolver execution).
+- `resolveConfig` must return a non-null POJO; `null` or non-object outputs fail plan compilation.
+- Resolver-related failures are reported as `ExecutionPlanCompileErrorItem` with:
+  - `code: "step.config.invalid"` (no new error code in this unit),
+  - a `/recipe/steps/<index>/config...` path (same prefix as standard step-config validation),
+  - `stepId` populated.
 
 **Verification / tests**
-- Add/extend a unit test that compiles a plan with a step resolver and asserts `ExecutionPlan.nodes[].config` is resolved.
+- Extend `packages/mapgen-core/test/pipeline/execution-plan.test.ts`:
+  - add one test asserting resolver output is stored in `nodes[].config`,
+  - add one test asserting resolver output is re-validated for schema errors + unknown keys.
 
 ### B) Add `op.resolveConfig` authoring hook and document composition via steps
 **In scope**
 - Extend `createOp(...)` (authoring SDK) to accept optional:
   - `resolveConfig?: (config, settings) => config` (compile-time only).
 - Ensure the op surface communicates “compile-time only” clearly (JSDoc; types).
-- Implement at least one real op resolver (or a minimal exemplar) and wire it through a composite step’s `step.resolveConfig`.
+- Implement a minimal exemplar and wire it through a composite step’s `step.resolveConfig` in tests.
+  - Implementation target: `packages/mapgen-core/src/authoring/op.ts`.
 
 **Out of scope**
 - Making the engine/compiler call op resolvers directly (fractal remains only at step boundaries).
@@ -123,12 +135,15 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 ### C) Audit and migrate “meaning-level” defaults into schema defaults or resolvers
 **In scope**
 - Inventory occurrences of:
-  - `Value.Default(...)` / `?? {}` shells / ad hoc “fill missing config” inside runtime step/op code.
+  - `Value.Default(...)` usage inside runtime step/op code,
+  - ad-hoc “fill missing config” patterns inside runtime step/op code (e.g., `?? {}`, `|| {}`, spreads/merges over config objects).
 - For each, decide one of:
   - schema default (pure local),
   - `resolveConfig` (settings-aware meaning resolution),
   - runtime param derivation (allowed; must not mutate config).
-- Implement the migrations for the MapGen areas in scope (standard recipe + domains it uses).
+- Implement the migrations for:
+  - `mods/mod-swooper-maps/src/recipes/standard/**`
+  - `mods/mod-swooper-maps/src/domain/**`
 
 **Out of scope**
 - Algorithmic changes unrelated to config meaning (no behavior changes beyond moving equivalent defaults).
@@ -137,8 +152,10 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - Runtime “fixups” are invisible to plan-truth and hard to reproduce; this work makes normalization explicit and testable.
 
 **Acceptance Criteria**
-- No config meaning-level defaults remain in runtime call paths for the targeted steps/ops.
-- A grep-based guardrail is added or documented (e.g., avoid `Value.Default` in op runtime for config).
+- No config meaning-level defaults remain in runtime call paths for the in-scope steps/ops.
+- Guardrails (documented as zero-hit checks) are added to prevent regression:
+  - `rg -n "\\bValue\\.Default\\(" mods/mod-swooper-maps/src/domain mods/mod-swooper-maps/src/recipes/standard` is empty
+  - `rg -n "StandardRecipeOverrides|buildStandardRecipeConfig|DeepPartial<" mods/mod-swooper-maps/src` is empty
 
 **Verification / tests**
 - Existing pipeline tests + any new plan compile tests should pass; configs still behave as before (modulo intended deterministic normalization).
@@ -169,40 +186,17 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - `pnpm deploy:mods`
 - Smoke run at least one map entrypoint (local harness or existing tests).
 
-### E) (Optional but recommended) Introduce a `createMap()` / `defineMap()` helper to package settings + config + metadata
-**In scope**
-- Provide a single-file authoring pattern where each map entry exports a map definition containing:
-  - id/name/metadata,
-  - `settings` (or `buildSettings(init)`),
-  - `config` (direct recipe config),
-  - and a `run()` that uses the standard recipe runtime glue.
-- Ensure this helper does not reintroduce a legacy “global overrides blob”.
-
-**Out of scope**
-- Generating Civ7 XML/modinfo automatically (track separately unless it becomes a trivial follow-up).
-
-**Rationale / context**
-- Improves author DX: a single place to set `settings.trace`, directionality, map seed policy, and recipe config without scattering boundary knowledge.
-
-**Acceptance Criteria**
-- At least one standard map entrypoint uses the helper and remains small/declarative.
-
-**Verification / tests**
-- `pnpm -C mods/mod-swooper-maps check`
-- `pnpm deploy:mods`
-
 ---
 
 ## Pre-work
 
 ### Pre-work for A (step resolver + compiler execution)
-- “List all `MapGenStep` definitions that should gain `resolveConfig` (or remain without it). Identify at least one composite step suitable for the canonical example.”
-- “Inspect `packages/mapgen-core/src/engine/execution-plan.ts` and propose the exact insertion point for resolver execution + re-validation + unknown-key detection.”
+- “Inspect `packages/mapgen-core/src/engine/execution-plan.ts` and pick the exact insertion point for resolver execution + re-validation + unknown-key detection (after initial config normalization, before node storage).”
 - “Design the compile error surface for resolver failures (paths, codes), consistent with existing `ExecutionPlanCompileError` items.”
 
 ### Pre-work for B (op resolver authoring surface)
 - “Inspect `packages/mapgen-core/src/authoring/op.ts` and propose a minimal type-safe `resolveConfig` addition that does not affect runtime `run(...)` signature.”
-- “Identify 2–3 real places in the standard pipeline where settings-aware resolution would live naturally as op resolvers (e.g., scaling knobs by map dimensions).”
+- “Decide how step resolvers should call op resolvers in practice (direct property access on the op object; no engine/compiler calling op resolvers directly).”
 
 ### Pre-work for C (derived defaults migration)
 - “Search for all ‘meaning-level defaults’ in `mods/mod-swooper-maps/src/recipes/**` and `mods/mod-swooper-maps/src/domain/**` (e.g., `Value.Default`, `?? {}`, `|| {}` on config). Classify each as schema default vs resolver vs runtime params.”
@@ -212,7 +206,3 @@ Finish the “config story” end-to-end for MapGen by implementing DD‑002’s
 - “Inventory current authored config surfaces in `mods/mod-swooper-maps/src/maps/*.ts` (what they currently return) and map each top-level override fragment to the target `StandardRecipeConfig` keys.”
 - “Propose an author-friendly, type-safe replacement for `buildStandardRecipeConfig` that does not reintroduce a global overrides blob (direct config authoring or a typed helper).”
 - “List all call sites/types that depend on `StandardRecipeOverrides` and plan a mechanical migration.”
-
-### Pre-work for E (`createMap()` helper)
-- “Sketch the minimal `createMap()` API (types + file location) that packages map metadata + settings + config and calls `runStandardRecipe`, without introducing new implicit defaults.”
-- “Confirm which metadata fields are needed later for Civ7 XML/modinfo generation so the helper doesn’t paint us into a corner.”

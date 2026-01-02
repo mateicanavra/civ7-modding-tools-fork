@@ -13,7 +13,7 @@ superseded_by: null
 sources:
   - "SPEC-architecture-overview"
   - "SPEC-packaging-and-file-structure"
-  - "SPEC-pending-step-domain-operation-modules"
+  - "SPEC-step-domain-operation-modules"
 ---
 
 # ADR-ER1-033: Step schema composition (manual wiring vs declarative op usage)

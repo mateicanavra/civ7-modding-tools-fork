@@ -33,14 +33,18 @@
   - `<stepId>.ts` is the step definition and `run` orchestration; it imports the model and domain logic.
   - Steps do not introduce recipe-wide catalogs; shared contracts live at the closest real owner (stage root or domain).
 
-### 5.4 Config ownership (no centralized config package)
+### 5.4 Config ownership (no global runtime config blob)
 
-- Config values are owned by maps (`src/maps/**`).
+- Config values (instances) are owned by maps (`src/maps/**`).
 - Step config schemas are owned by steps (`src/recipes/**/stages/**/steps/*.model.ts`).
 - Shared config schema fragments live with the closest owner:
   - stage scope (`stages/<stageId>/*.model.ts`) when stage-local
-  - domain scope (`src/domain/config/schema/**` and other domain modules) when cross-stage/cross-recipe
-- There is no mod-wide `src/config/**` module and no `@mapgen/config` path alias.
+  - domain scope (`src/domain/**`) when domain-owned and not purely “schema-only”
+  - mod scope (`src/config/schema/**`) when truly cross-domain and schema-only
+- A mod-wide `@mapgen/config` path alias is allowed and canonical for importing shared schema fragments and types.
+- `@mapgen/config` is **schema/type-only**:
+  - it must not become a grab-bag “global runtime config blob”,
+  - it must not own map instances, step orchestration, or registry assembly.
 
 ### 5.5 Tags, artifacts, and registration
 

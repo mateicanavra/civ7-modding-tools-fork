@@ -13,7 +13,7 @@ superseded_by: null
 sources:
   - "SPEC-architecture-overview"
   - "SPEC-packaging-and-file-structure"
-  - "SPEC-pending-step-domain-operation-modules"
+  - "SPEC-step-domain-operation-modules"
 ---
 
 # ADR-ER1-032: Recipe config authoring surface (no global overrides)

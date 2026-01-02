@@ -22,7 +22,7 @@ Authoritative implementation references:
 
 - Types, tags, validators: `packages/mapgen-core/src/core/types.ts`
 - Assertions: `packages/mapgen-core/src/core/assertions.ts`
-- Foundation stage publisher: `packages/mapgen-core/src/base/pipeline/foundation/producer.ts`
+- Foundation stage publisher (standard recipe): `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/producer.ts`
 - Target architecture: SPEC-target-architecture-draft
 
 ## 2. Scope & Status
@@ -94,12 +94,13 @@ Shape: `FoundationConfigSnapshot` from `packages/mapgen-core/src/core/types.ts`.
 
 ## 5. Orchestration Flow (M5+)
 
-- `bootstrap(...)` builds and validates `MapGenConfig`.
-- The Task Graph runner creates `ExtendedMapContext` with validated config.
-- The foundation stage:
-  - Produces plates + dynamics tensors and diagnostics.
-  - Captures a seed snapshot when available.
-  - Publishes discrete artifacts into `ctx.artifacts` via the `artifact:foundation.*@v1` tags.
+- The run boundary is `RunRequest = { recipe, settings }`, compiled into an `ExecutionPlan`.
+- The standard recipe foundation stage publishes the foundation inventory:
+  - plates + dynamics tensors,
+  - optional seed snapshot (when available),
+  - debug-only diagnostics payload (when available),
+  - a shallow config snapshot for reproducibility/debugging.
+- All artifacts are published into `context.artifacts` via the `artifact:foundation.*@v1` tags.
 
 ## 6. Historical Notes
 

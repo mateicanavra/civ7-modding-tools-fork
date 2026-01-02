@@ -1,15 +1,15 @@
 # Spikes (Project Resources)
 
-This directory reorganizes historical spike material for `engine-refactor-v1` into three conceptual buckets:
-
-- **Ground truth (current system):** `spike-current-m6-system.md`
-- **Drift audits (implementation vs expectations):** `spike-drift-m6-vs-spec.md`
-- **Target directives/design grab bag (non-canonical staging):** `spike-target.md`
+This directory contains spike material for `engine-refactor-v1`. Spikes are non-canonical working documents; promote durable outcomes into SPEC/ADR/CONTRACT docs.
 
 Notes:
-- The focused “step ↔ domain operation modules” design spike was moved to a spec-adjacent doc (pending merge): SPEC-pending-step-domain-operation-modules.
-- `spike-target.md` intentionally consolidates target/design snippets by original source spike filename; some sources were too mixed to cleanly extract without rewriting and are included verbatim with an explicit note.
+- The “step ↔ domain operation modules” spike is now a canonical SPEC component: `SPEC-step-domain-operation-modules`.
 - Migration viability snapshots live in `spike-domain-migration-map.md` (domain portion only).
+
+Historical (archived under `_archive/`):
+- Ground truth snapshots for prior milestones.
+- Drift audits for older target-vs-impl reconciliation passes.
+- Consolidated “target directive” grab bags superseded by the split SPEC component set.
 
 New:
 - Feature placement ownership spike: `spike-ecology-feature-placement-ownership.md`

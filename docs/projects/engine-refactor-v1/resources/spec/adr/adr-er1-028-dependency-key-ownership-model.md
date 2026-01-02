@@ -14,7 +14,7 @@ sources:
   - "SPEC-architecture-overview"
   - "SPEC-packaging-and-file-structure"
   - "SPEC-tag-registry"
-  - "SPEC-pending-step-domain-operation-modules"
+  - "SPEC-step-domain-operation-modules"
 ---
 
 # ADR-ER1-028: Dependency key ownership model
