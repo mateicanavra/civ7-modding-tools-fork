@@ -2,7 +2,7 @@ import { Type, type Static } from "typebox";
 import { Value } from "typebox/value";
 import { createOp } from "@swooper/mapgen-core/authoring";
 
-import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "@mapgen/config";
+import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "../../config.js";
 import { FeaturesEmbellishmentsConfigSchema, type FeaturesEmbellishmentsConfig } from "./schema.js";
 import { resolveEmbellishmentFeatureIndices } from "./rules/indices.js";
 import { planParadiseReefs } from "./rules/paradise-reefs.js";

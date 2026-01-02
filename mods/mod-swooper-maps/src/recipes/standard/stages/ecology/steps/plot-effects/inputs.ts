@@ -1,8 +1,10 @@
 import { ctxRandom, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { getPublishedBiomeClassification } from "@mapgen/domain/artifacts.js";
-import type { PlotEffectsInput } from "@mapgen/domain/ecology/ops/plot-effects/index.js";
+import type * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { assertHeightfield } from "../biomes/helpers/inputs.js";
+
+type PlotEffectsInput = Parameters<typeof ecology.ops.plotEffects.run>[0];
 
 export function buildPlotEffectsInput(context: ExtendedMapContext): PlotEffectsInput {
   const { width, height } = context.dimensions;

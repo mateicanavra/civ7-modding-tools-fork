@@ -1,15 +1,7 @@
 import { Type, type Static } from "typebox";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import {
-  FeaturesConfigSchema,
-  FeaturesDensityConfigSchema,
-  FeaturesPlacementConfigSchema,
-} from "@mapgen/config";
-import {
-  featuresEmbellishments,
-} from "@mapgen/domain/ecology/ops/features-embellishments/index.js";
-import { featuresPlacement } from "@mapgen/domain/ecology/ops/features-placement/index.js";
+import * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import { buildFeaturesEmbellishmentsInput, buildFeaturesPlacementInput } from "./inputs.js";
 import { applyFeaturePlacements, reifyFeatureField } from "./apply.js";
@@ -18,14 +10,21 @@ const FeaturesStepConfigSchema = Type.Object(
   {
     story: Type.Object(
       {
-        features: FeaturesConfigSchema,
+        features: ecology.FeaturesConfigSchema,
       },
       { additionalProperties: false, default: {} }
     ),
-    featuresDensity: FeaturesDensityConfigSchema,
-    featuresPlacement: FeaturesPlacementConfigSchema,
+    featuresDensity: ecology.FeaturesDensityConfigSchema,
+    featuresPlacement: ecology.ops.featuresPlacement.config,
   },
-  { additionalProperties: false, default: { story: {}, featuresDensity: {}, featuresPlacement: {} } }
+  {
+    additionalProperties: false,
+    default: {
+      story: {},
+      featuresDensity: {},
+      featuresPlacement: ecology.ops.featuresPlacement.defaultConfig,
+    },
+  }
 );
 
 type FeaturesStepConfig = Static<typeof FeaturesStepConfigSchema>;
@@ -50,7 +49,10 @@ export default createStep({
     const { width, height } = context.dimensions;
 
     const placementInput = buildFeaturesPlacementInput(context);
-    const placementResult = featuresPlacement.run(placementInput, config.featuresPlacement);
+    const placementResult = ecology.ops.featuresPlacement.run(
+      placementInput,
+      config.featuresPlacement
+    );
 
     if (placementResult.useEngineBaseline) {
       context.adapter.addFeatures(width, height);
@@ -59,7 +61,7 @@ export default createStep({
     }
 
     const embellishmentInput = buildFeaturesEmbellishmentsInput(context);
-    const embellishmentResult = featuresEmbellishments.run(embellishmentInput, {
+    const embellishmentResult = ecology.ops.featuresEmbellishments.run(embellishmentInput, {
       story: config.story,
       featuresDensity: config.featuresDensity,
     });

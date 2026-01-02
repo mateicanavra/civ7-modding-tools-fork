@@ -1,24 +1,24 @@
-import { Type, type Static } from "typebox";
+import { Type } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { PlotEffectsConfigSchema } from "@mapgen/config";
-import {
-  plotEffects,
-  resolvePlotEffectsConfig,
-} from "@mapgen/domain/ecology/ops/plot-effects/index.js";
-import { logSnowEligibilitySummary } from "@mapgen/domain/ecology/ops/plot-effects/diagnostics.js";
+import * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { buildPlotEffectsInput } from "./inputs.js";
 import { applyPlotEffectPlacements } from "./apply.js";
 
 const PlotEffectsStepConfigSchema = Type.Object(
   {
-    plotEffects: PlotEffectsConfigSchema,
+    plotEffects: ecology.ops.plotEffects.config,
   },
-  { additionalProperties: false, default: { plotEffects: {} } }
+  {
+    additionalProperties: false,
+    default: { plotEffects: ecology.ops.plotEffects.defaultConfig },
+  }
 );
 
-type PlotEffectsStepConfig = Static<typeof PlotEffectsStepConfigSchema>;
+type PlotEffectsStepConfig = {
+  plotEffects: Parameters<typeof ecology.ops.plotEffects.run>[1];
+};
 
 export default createStep({
   id: "plotEffects",
@@ -31,10 +31,10 @@ export default createStep({
   schema: PlotEffectsStepConfigSchema,
   run: (context: ExtendedMapContext, config: PlotEffectsStepConfig) => {
     const input = buildPlotEffectsInput(context);
-    const result = plotEffects.run(input, config.plotEffects);
+    const result = ecology.ops.plotEffects.run(input, config.plotEffects);
     if (context.trace.isVerbose) {
-      const resolved = resolvePlotEffectsConfig(config.plotEffects);
-      logSnowEligibilitySummary(context.trace, input, resolved, result.placements);
+      const resolved = ecology.resolvePlotEffectsConfig(config.plotEffects);
+      ecology.logSnowEligibilitySummary(context.trace, input, resolved, result.placements);
     }
 
     if (result.placements.length > 0) {
