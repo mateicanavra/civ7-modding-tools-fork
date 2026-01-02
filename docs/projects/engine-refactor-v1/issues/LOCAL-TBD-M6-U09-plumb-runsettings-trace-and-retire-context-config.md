@@ -207,6 +207,12 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - “Identify all remaining reasons `run-standard.ts` sets `context.config` today (directionality, diagnostics, other). For each, list the replacement (settings vs artifacts vs step config).”
 - “Locate any tests/docs that still assume ‘runtime overrides live in `ExtendedMapContext.config`’ and list required updates.”
 
+#### D1 Findings: `run-standard.ts` global config reasons + replacements
+- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` sets `context.config = safeOverrides` primarily to:
+  - **Diagnostics/DEV flags:** reads `context.config.foundation.diagnostics` to call `initDevFlags(...)`. Replacement: settings-owned observability flags (or a dedicated runtime option) set at the entry boundary.
+  - **Directionality reads in runtime code:** `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` and `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` read `context.config.foundation.dynamics.directionality`. Replacement: `context.settings.directionality` passed into those steps/domain helpers.
+- No other `context.config` consumers exist in `mods/mod-swooper-maps/src` beyond the two directionality reads above.
+
 ### Pre-work for E (loader optional)
 - “Enumerate all imports of `@mapgen/config/loader` and `safeParseConfig` and determine whether they are runtime-critical or tooling/test-only.”
 - “Decide whether schema export (`getJsonSchema` / `getPublicJsonSchema`) is a required public surface for the standard content package in M6.”
