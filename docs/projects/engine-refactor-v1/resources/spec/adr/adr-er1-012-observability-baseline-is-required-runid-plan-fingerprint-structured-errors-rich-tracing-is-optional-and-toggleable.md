@@ -28,7 +28,7 @@ Removing legacy indirection (manifest/config/flags) increases risk unless the ta
   - deterministic `runId` and stable “plan fingerprint” derived from `settings + recipe + step IDs + config`
   - structured compile-time errors and structured runtime failures
   - `ExecutionPlan` carries normalized data to explain scheduling and resolved config
-- Optional diagnostics are implemented as pluggable sinks fed by a shared event model.
+- Optional diagnostics are implemented as pluggable sinks fed by a shared event model (default sink: console).
 - Tracing/diagnostics must be toggleable globally and per step occurrence, without changing execution semantics.
 
 ## Consequences

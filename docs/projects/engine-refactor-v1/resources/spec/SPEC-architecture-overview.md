@@ -101,6 +101,6 @@
 
 - Compile-time validation produces structured, actionable errors (unknown step, invalid config).
 - Runtime validates dependencies before each step and validates `provides` postconditions after each step.
-- Optional tracing is supported via `TraceSession` and step scopes; tracing is not required for correctness.
+- Optional tracing is configured via `RunRequest.settings.trace` and implemented via `TraceSession` + per-step scopes; the default sink is console and tracing is not required for correctness.
 
 ---
