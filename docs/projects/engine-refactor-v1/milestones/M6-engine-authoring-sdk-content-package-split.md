@@ -2,7 +2,7 @@
 
 **Status:** proposed  
 **Baseline snapshot:** `2429a600` (post‑M5 landed)  
-**Canonical spec (for this milestone):** `docs/projects/engine-refactor-v1/resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md`
+**Canonical spec (for this milestone):** `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
 
 ---
 
@@ -97,7 +97,7 @@ This milestone is a packaging + ownership re‑architecture, not an algorithm re
   - maps select recipes and provide config instances
 
 **No hidden gaps:** The authoritative file‑by‑file mapping is in the SPIKE:
-`docs/projects/engine-refactor-v1/resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md` (Section 9).
+`docs/projects/engine-refactor-v1/resources/_archive/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md` (authoritative file mapping).
 
 ---
 
@@ -262,7 +262,7 @@ steps:
 **Rationale:** best DX (one place to look; minimal indirection); keeps engine/authoring SDK Civ7‑agnostic. A future “publishing SDK” package can be extracted only when multiple mods need it.
 
 2) **Tag “schema richness” vs current `TagRegistry` (for M6)**  
-**Decision:** keep the existing runtime `TagRegistry` contract (IDs + kind prefix validation + optional `satisfies` + optional demo validation). Do **not** implement the richer “tag schemas as TypeBox” sketch from `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` Appendix §7 in M6.  
+**Decision:** keep the existing runtime `TagRegistry` contract (IDs + kind prefix validation + optional `satisfies` + optional demo validation). Do **not** implement the richer “tag schemas as TypeBox” sketch from `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md` (appendix) in M6.  
 **What “schema richness” means:** the SPEC appendix sketches per‑tag TypeBox schemas (e.g., `ArtifactTag.schema` required; `FieldTag.schema` optional) and richer tag metadata (`doc`, stronger `TagId` typing). The current runtime does not model per‑tag schemas; it validates by prefix, optional `satisfies`, and optional demo validators.  
 **Rationale:** M6 is a packaging/ownership cutover; adding per‑tag schemas is high churn for limited author‑experience gain right now. Revisit only if it becomes a blocker for validation/observability.
 
@@ -270,7 +270,7 @@ steps:
 
 ## Coverage map (SPIKE → M6)
 
-- SPIKE §1–2 (runtime contract + layering) → LOCAL-TBD-M6-U01, LOCAL-TBD-M6-U02
-- SPIKE §3–7 (content package shape + examples) → LOCAL-TBD-M6-U03 through LOCAL-TBD-M6-U06
-- SPIKE §9 (file mapping) → all units (authoritative per-file moves)
-- SPIKE §10 (pre-work) → LOCAL-TBD-M6-U01/LOCAL-TBD-M6-U06 (context split + runner seam)
+- SPIKE (runtime contract + layering) → LOCAL-TBD-M6-U01, LOCAL-TBD-M6-U02
+- SPIKE (content package shape + examples) → LOCAL-TBD-M6-U03 through LOCAL-TBD-M6-U06
+- SPIKE (file mapping) → all units (authoritative per-file moves)
+- SPIKE (pre-work) → LOCAL-TBD-M6-U01/LOCAL-TBD-M6-U06 (context split + runner seam)

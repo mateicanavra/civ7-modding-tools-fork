@@ -63,7 +63,7 @@ Create the standard content package skeleton under `mods/mod-swooper-maps` with 
   - Do not add `src/mod.ts` as an entry unless we need a standalone bundled output; the map entries will include it transitively when imported.
 
 #### P2) Stage skeleton enforcement checklist
-- From `docs/projects/engine-refactor-v1/resources/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md`:
+- From `docs/projects/engine-refactor-v1/resources/_archive/SPIKE-m6-standard-mod-feature-sliced-content-ownership.md`:
   - Each step is a file exporting a single `createStep(...)` POJO (default export).
   - Each stage is a folder with:
     - `stages/<stageId>/index.ts` exporting a single `createStage(...)` POJO (ordered step list), and

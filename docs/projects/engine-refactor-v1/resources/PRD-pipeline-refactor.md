@@ -30,7 +30,7 @@ The current `MapOrchestrator` suffers from several critical flaws:
 
 ## 3. Architecture: The Task Graph
 
-We will implement the architecture defined in [`docs/system/libs/mapgen/architecture.md`](../../../system/libs/mapgen/architecture.md).
+We will implement the architecture defined in the system doc “mapgen architecture”.
 
 ### 3.1. Core Components
 
@@ -112,7 +112,7 @@ The engine will be driven by an authored recipe (step list + per-step config). T
 *   **Risk:** Performance overhead of the generic Executor.
     *   *Mitigation:* The overhead of a loop and a few map lookups is negligible compared to the heavy math of Voronoi/Erosion.
 *   **Risk:** "Air Gap" between recipe config and step config types.
-    *   *Mitigation:* Validate run settings at the boundary (see `PRD-config-refactor.md`) and validate per-step config at compile-time using registry-provided config schemas.
+    *   *Mitigation:* Validate run settings at the boundary (see `resources/_archive/PRD-config-refactor.md`) and validate per-step config at compile-time using registry-provided config schemas.
 *   **Risk:** Debugging complexity.
     *   *Mitigation:* The Executor should log "Starting Step X..." and "Finished Step X (15ms)" to provide a clear trace.
 
@@ -120,7 +120,7 @@ The engine will be driven by an authored recipe (step list + per-step config). T
 
 ## 7. Dependencies
 
-This PRD assumes the configuration system has been brought up to the Phase 1 “hygiene” standard described in `PRD-config-refactor.md`:
+This PRD assumes the configuration system has been brought up to the Phase 1 “hygiene” standard described in `resources/_archive/PRD-config-refactor.md`:
 
 * A single validated run-settings schema is available (currently `MapGenConfig`) and is injected at the boundary (`RunRequest.settings`).
 * Global config stores and multi-stage deep-merge paths have been removed in favor of explicit injection at the engine boundary.

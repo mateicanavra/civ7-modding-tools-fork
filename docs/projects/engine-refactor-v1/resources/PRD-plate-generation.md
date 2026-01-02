@@ -1,3 +1,5 @@
+> **Disclaimer:** This PRD is **not authoritative** for target-architecture decisions. It must be re-validated against the canonical spec and pending step-domain module spec before use. Do not use it to drive new decisions.
+
 # PRD: Foundation — Plate & Tectonics Generation (Mesh → Crust → Partition → Tectonics)
 
 ## 1. Objective
@@ -55,10 +57,10 @@ This boundary is chosen for “Earth-like physical causality” and is a hard co
 ## 4. Canonical References
 
 Internal (canonical for this repo):
-- Algorithms & data products: `docs/system/libs/mapgen/foundation.md`
-- Domain layering: `docs/system/libs/mapgen/architecture.md`
-- Target architecture: `docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md`
-- Post‑M4 cleanup context: `docs/projects/engine-refactor-v1/spikes/2025-12-26-m5-clean-architecture-finalization-scope.md`
+- Algorithms & data products: system doc “mapgen foundation”
+- Domain layering: system doc “mapgen architecture”
+- Target architecture: SPEC-target-architecture-draft
+- Post‑M4 cleanup context: SPIKE-2025-12-26-m5-clean-architecture-finalization-scope (archived)
 
 External (conceptual grounding):
 - USGS (plate boundary types, plate motion concepts): https://pubs.usgs.gov/gip/dynamic/understanding.html

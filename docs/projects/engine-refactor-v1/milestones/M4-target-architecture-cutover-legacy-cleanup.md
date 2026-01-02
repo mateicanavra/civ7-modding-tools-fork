@@ -62,7 +62,7 @@ Within that baseline, M4 focuses on:
 
 Lower-level expectations for config behavior, pipeline contracts, and foundation outputs remain in:
 
-- `resources/PRD-config-refactor.md`
+- `resources/_archive/PRD-config-refactor.md` (legacy config hygiene plan)
 - `resources/PRD-pipeline-refactor.md`
 - `resources/PRD-plate-generation.md`
 

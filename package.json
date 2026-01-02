@@ -27,7 +27,9 @@
     "mods:import": "pnpm exec civ7 mod git import",
     "test:mapgen": "pnpm -C packages/mapgen-core test",
     "build:mapgen": "pnpm -C packages/mapgen-core build",
-    "lint:adapter-boundary": "./scripts/lint-adapter-boundary.sh",
+    "lint:adapter-boundary": "./scripts/lint/lint-adapter-boundary.sh",
+    "lint:adrs": "node scripts/lint/lint-doc-adrs.mjs",
+    "lint:doc-ambiguity": "node scripts/lint/lint-doc-ambiguity.mjs",
     "deploy:mods": "turbo run deploy --filter='./mods/*'",
     "gt:import-worktree": "bash ./scripts/graphite-import-worktree.sh",
     "gt:import-pr": "bash ./scripts/graphite-import-pr.sh"

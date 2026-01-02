@@ -1,3 +1,7 @@
+> **PENDING MERGE**: This is a spec-adjacent design proposal intended to be manually reconciled into the canonical spec entrypoint (SPEC-target-architecture-draft). It is **not canonical** until merged.
+
+---
+
 # SPIKE: Step ↔ Domain Contracts via Operation Modules
 
 ## 0) Vocabulary (Project Terms)
@@ -189,7 +193,7 @@ Rules are internal by default: they should not leak into step-level imports or r
 
 ### Shared utilities vs domain logic
 
-- **generic utilities** (math, rng helpers, array ops) belong in shared libraries (e.g. `packages/mapgen-core/src/lib/**`).
+- **generic utilities** (math, rng helpers, array ops) belong in shared libraries (e.g. `CORE_SDK_ROOT/src/lib/**`).
 - **domain-specific semantics** belong in the domain (e.g. “what constitutes a convergent boundary hotspot”).
 - **runtime adapter helpers** (mapping symbolic kinds → engine IDs, applying placements to the engine) belong in the step (or step-local libs).
 
@@ -218,7 +222,7 @@ An “apply” phase is not a round-trip back into the domain; it is the step us
 Operations are plain exports, but a tiny helper improves inference and standardizes shape.
 
 ```ts
-// packages/mapgen-core/src/authoring/op.ts
+// CORE_SDK_ROOT/src/authoring/op.ts
 import { Type, type Static, type TSchema } from "typebox";
 
 export type DomainOpKind = "plan" | "compute" | "score" | "select";

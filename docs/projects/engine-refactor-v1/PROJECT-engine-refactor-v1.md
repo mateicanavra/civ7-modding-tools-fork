@@ -84,7 +84,7 @@ These residual tasks are tracked in the milestone doc and will be completed acro
 **Milestone doc:** `milestones/M2-stable-engine-slice.md`  
 **Depends on:** Milestone 1, plus feature PRDs:
 
-- `PRD-config-refactor.md` (Phase 1)
+- `resources/_archive/PRD-config-refactor.md` (legacy config hygiene plan)
 - `PRD-plate-generation.md`
 
 **Intent**
@@ -157,7 +157,7 @@ See `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refact
 
 - **Data products and cluster alignment**
   - Solidify `FoundationContext`, `Heightfield`, `ClimateField`, and narrative story entries (typed story entry artifacts by motif; derived views for inspection/debug) as core data products.
-  - Ensure clusters follow the target topology (see Section 5.1) and consume these products instead of ad-hoc globals.
+  - Ensure clusters follow the target topology and consume these products instead of ad-hoc globals.
 
 **Exit Criteria**
 
@@ -248,7 +248,7 @@ The milestones above converge on a target engine that follows the cluster topolo
   - `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refactor-config-evolution.md`
   - `milestones/M4-target-architecture-cutover-legacy-cleanup.md`
 - **Feature PRDs**
-  - `resources/PRD-config-refactor.md`
+  - `resources/_archive/PRD-config-refactor.md`
   - `resources/PRD-pipeline-refactor.md`
   - `resources/PRD-plate-generation.md`
   - `resources/PRD-target-task-graph-runtime.md`
