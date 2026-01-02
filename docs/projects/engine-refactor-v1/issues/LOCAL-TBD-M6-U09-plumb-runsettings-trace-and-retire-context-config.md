@@ -25,12 +25,13 @@ Finish the target run-boundary wiring so cross-cutting runtime knobs live in `Ru
 - **Directionality cutover:** migrate remaining consumers away from `context.config.*` to `context.settings.directionality`, aligned with ADR-ER1-019.
 - **Boundary-first tracing:** `RunRequest.settings.trace` controls per-step trace level (`off/basic/verbose`) using `TraceSession` + per-step scopes, without step code checking flags directly.
 - **Retire legacy “global knobs” pattern:** stop using `ExtendedMapContext.config` as a “global runtime MapGenConfig blob” in mod runtime entrypoints.
-- **Diagnostics cleanup:** deprecate/remove `foundation.diagnostics` as the author-facing control plane for step logging; replace with settings-owned observability knobs (trace first; optional dev flags via settings if needed).
+- **Diagnostics cleanup:** deprecate/remove `foundation.diagnostics` as the author-facing control plane for step logging; replace with settings-owned observability knobs (trace first; do not port DEV flags 1:1 as part of this issue).
 
 ## Acceptance Criteria
 - `mods/mod-swooper-maps/src/recipes/**` contains **0** reads of `context.config.foundation.dynamics.directionality` (or any `context.config.*` reads for cross-cutting policies).
 - Standard runtime entrypoints no longer cast overrides into `context.config` as a “global config object”.
 - A run with `settings.trace.steps = { "<stepId>": "verbose" }` emits trace events for that step via the trace sink; steps do not perform `if (settings.trace...)` checks.
+- If `settings.trace` is enabled but no trace sink is provided by the runtime boundary, tracing is a no-op by design (no implicit console output).
 - The only code that interprets `settings.trace.steps` lives at the runtime boundary (trace session creation + executor step-scoping), not inside domain/step logic.
 
 ## Testing / Verification
@@ -64,6 +65,7 @@ Mechanics:
 1) `compileExecutionPlan(runRequest, registry)` normalizes the run request and stores settings on the plan: `plan.settings`.
 2) Runtime creates a `TraceSession` using the plan:
    - `createTraceSessionFromPlan(plan, sink)` uses `plan.settings.trace` to set per-step levels.
+   - Note: `createTraceSessionFromPlan` computes run fingerprints using `stripTraceSettings(plan.settings)`; preserve this behavior so turning tracing on/off does not change the run fingerprint.
 3) `PipelineExecutor.executePlan(context, plan, { trace })` runs with that session.
 4) The executor sets `context.trace = trace.createStepScope({ stepId, phase })` around each step.
    - `TraceSession.resolveTraceLevel(config, stepId)` enforces `settings.trace.steps[stepId]`.
@@ -94,7 +96,7 @@ Today’s stable-slice behavior (legacy):
 
 Target direction:
 - Observability knobs are settings-owned (trace first).
-- If DEV-style debug flags must remain temporarily, they should also be settings-owned (not config-owned) and applied at the entry boundary only.
+- If DEV-style debug flags must remain, define a settings-owned replacement as a follow-up (not config-owned); this issue only removes the config-owned control plane.
 
 ### Implementation steps (A–E)
 
@@ -109,16 +111,18 @@ Touchpoints (expected):
 - Any tests that assert context shape
 
 #### B) Wire tracing to `settings.trace.steps` via `TraceSession` at the boundary
-- Ensure the default runtime path creates a `TraceSession` from the plan when trace is enabled.
+- Ensure the runtime boundary can create a `TraceSession` from the plan when trace is enabled *and* a sink is provided.
 - Avoid scattering: the only consumer of `settings.trace.steps` should be trace session creation + executor scoping.
-- Provide a minimal default sink strategy (implementation choice):
-  - Option 1: add a `traceSink?: TraceSink` option to recipe execution (or mod runtime wrapper) and create the session inside the runner.
-  - Option 2: keep tracing opt-in by supplying an explicit `TraceSession` from the entrypoint (compile plan first, then create session, then execute).
+- **Single-path choice:** keep tracing **sink-driven** at the runtime boundary:
+  - Extend `recipe.run(...)` options to accept `traceSink?: TraceSink | null`.
+  - If `trace` is provided, it wins (advanced/tests). Else if `traceSink` is provided, the runner compiles the plan and creates a `TraceSession` via `createTraceSessionFromPlan(plan, traceSink)`.
+  - If neither is provided, tracing stays disabled (even if `settings.trace.enabled` is true), to avoid implicit console output in normal runs.
 
 Touchpoints (expected):
 - `packages/mapgen-core/src/engine/observability.ts` (already has `createTraceSessionFromPlan`)
-- `packages/mapgen-core/src/authoring/recipe.ts` (runner API) and/or mod runtime glue `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts`
-- Add a trivial sink implementation in mod runtime if needed (e.g. console sink) to validate end-to-end behavior
+- `packages/mapgen-core/src/authoring/recipe.ts` (runner API: add `traceSink` option and create the session from the compiled plan)
+- `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` (dev harness: optionally pass a sink when trace is desired)
+- (Optional follow-up) add a trivial sink implementation in mod runtime if/when desired (e.g. console sink) — out of scope for this issue unless explicitly requested.
 
 #### C) Directionality cutover: stop reading it from `context.config`
 - Migrate any step consumers to `context.settings.directionality`.
@@ -134,14 +138,42 @@ Touchpoints (expected):
 
 This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` translation later, because the remaining reason it exists is “we needed somewhere to stick global knobs”.
 
-#### E) Optional: config loader de-scope (do not commit without explicit confirmation)
-- Assess whether `mods/mod-swooper-maps/src/config/loader.ts` is required for current workflows:
-  - It is currently used by tests via `safeParseConfig` and exported by `@mapgen/config`.
-- Options:
-  - Keep it as tooling-only and ensure runtime entrypoints do not depend on it.
-  - Remove it only if we are explicitly dropping JSON config ingestion + schema export workflows for the standard content package.
+#### E) Keep config loader as tooling-only (explicitly in scope)
+- Keep `mods/mod-swooper-maps/src/config/loader.ts` + `@mapgen/config` exports for tooling and tests.
+- Ensure runtime entrypoints do not import or depend on the loader.
+- Do not remove JSON config ingestion / schema export workflows as part of this issue (avoid unnecessary public-surface churn during M6 plumbing).
 
 ---
+
+## Implementation Decisions
+
+### Put full `RunSettings` on `context.settings`
+- **Context:** Steps need a supported way to read run-global policies (directionality, trace) without smuggling global knobs through `context.config`.
+- **Options:** Expose a subset type vs expose the full `RunSettings` schema type.
+- **Choice:** Expose full `RunSettings` on `context.settings`.
+- **Rationale:** Keeps `ExecutionPlan.settings` and `context.settings` aligned; avoids duplicating a “subset settings” type that will drift as settings evolve.
+- **Risk:** Wider type surface on `context` than strictly necessary, but still settings-owned and stable per ADR boundary.
+
+### Make tracing sink-driven (no implicit default sink)
+- **Context:** `settings.trace.steps` is the contract for what to emit, but a `TraceSink` is the delivery mechanism and is not currently provided in normal runs.
+- **Options:** Default to an implicit console sink when enabled vs require an explicit sink at the boundary.
+- **Choice:** Require an explicit sink (`traceSink`) to enable tracing; no implicit console sink.
+- **Rationale:** Avoids surprising console output in “normal” runs and keeps observability instrumentation boundary-owned.
+- **Risk:** Authors may set `settings.trace` and see nothing until they also provide a sink; mitigate via docs/examples in runtime wrappers and tests.
+
+### Do not re-home `foundation.diagnostics`/`DEV.*` flags in this issue
+- **Context:** `foundation.diagnostics` + `DEV.*` gating is legacy “global knobs” behavior threaded via `context.config`.
+- **Options:** Port DEV flags into a new `settings.dev`/`settings.diagnostics` model now vs deprecate config-owned DEV flags and rely on trace for step-level observability.
+- **Choice:** Deprecate/remove config-owned diagnostics control in this issue; do not introduce a new settings-owned DEV-flag system yet.
+- **Rationale:** Keeps this issue scoped to the agreed boundary-first trace model; avoids introducing a new settings surface without a dedicated decision/ADR.
+- **Risk:** Some legacy debug outputs may be harder to enable until a follow-up defines the replacement (if needed).
+
+### Keep `@mapgen/config` schema exports in M6
+- **Context:** The loader is tooling/test-only today, but it defines schema export entrypoints (`getJsonSchema`, `getPublicJsonSchema`) that external tooling may rely on.
+- **Options:** Remove loader and exports now vs keep as tooling-only while runtime plumbing lands.
+- **Choice:** Keep schema exports and loader as tooling-only in M6.
+- **Rationale:** Avoids unnecessary public surface churn during plumbing work; aligns with ADR-ER1-035 classification as boundary/tooling helper.
+- **Risk:** Keeps a legacy-ish codepath around longer; mitigate by ensuring runtime entrypoints do not depend on it and by tracking removal as a separate decision/issue.
 
 ## Pre-work
 
@@ -167,7 +199,7 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 - **Tests likely impacted (context construction):** `packages/mapgen-core/test/pipeline/hello-mod.smoke.test.ts`, `packages/mapgen-core/test/pipeline/execution-plan.test.ts`, `packages/mapgen-core/test/pipeline/tag-registry.test.ts`, `packages/mapgen-core/test/pipeline/tracing.test.ts`, `packages/mapgen-core/test/pipeline/placement-gating.test.ts` (all call `createExtendedMapContext` and may need a default/placeholder for `settings` if it becomes required).
 
 ### Pre-work for B (trace wiring)
-- “Confirm the intended default sink strategy: where does `TraceSink` come from in a normal mod run (console, file, FireTuner, in-memory test sink)?”
+- “Implement the chosen sink-driven model: `recipe.run(..., { traceSink })` with no implicit default sink.”
 - “Audit `PipelineExecutor` and step wrappers to ensure no one needs to check `settings.trace` directly; list any needed helper APIs for emitting step events.”
 - “Write a small end-to-end test that sets `settings.trace.steps[stepId] = 'verbose'` and asserts sink receives step events for that step only.”
 
@@ -209,7 +241,7 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
 
 #### D1 Findings: `run-standard.ts` global config reasons + replacements
 - `mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts` sets `context.config = safeOverrides` primarily to:
-  - **Diagnostics/DEV flags:** reads `context.config.foundation.diagnostics` to call `initDevFlags(...)`. Replacement: settings-owned observability flags (or a dedicated runtime option) set at the entry boundary.
+  - **Diagnostics/DEV flags:** reads `context.config.foundation.diagnostics` to call `initDevFlags(...)`. Replacement: settings-owned tracing (`settings.trace` + boundary-provided sink) and removal of the config-owned DEV-flag control plane (no 1:1 DEV flag port in this issue).
   - **Directionality reads in runtime code:** `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` and `mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts` read `context.config.foundation.dynamics.directionality`. Replacement: `context.settings.directionality` passed into those steps/domain helpers.
 - No other `context.config` consumers exist in `mods/mod-swooper-maps/src` beyond the two directionality reads above.
 
@@ -223,7 +255,7 @@ This is the primary prerequisite for cleanly removing `StandardRecipeOverrides` 
   - `docs/projects/engine-refactor-v1/resources/_archive/*` and `docs/projects/engine-refactor-v1/reviews/_archive/*` that document the older `context.config` model.
 - **Tests:** no test files currently mention `context.config` (`rg -n "context\\.config" packages mods -g "*test*"` returned none).
 
-### Pre-work for E (loader optional)
+### Pre-work for E (loader tooling-only)
 - “Enumerate all imports of `@mapgen/config/loader` and `safeParseConfig` and determine whether they are runtime-critical or tooling/test-only.”
 - “Decide whether schema export (`getJsonSchema` / `getPublicJsonSchema`) is a required public surface for the standard content package in M6.”
 
