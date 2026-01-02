@@ -266,6 +266,7 @@ mods/mod-swooper-maps/src/domain/ecology/
 - Add pure input fields only:
   - `seed: number`
   - typed arrays expressed via `TypedArraySchemas.*`
+- Replace all typed-array `Type.Any()` schema fields in ecology ops with `TypedArraySchemas.*` (including `classifyBiomes` input/output).
 - Steps call ops using `op.runValidated(...)` (not `op.run(...)`).
 
 **Out of scope**
@@ -464,3 +465,58 @@ mods/mod-swooper-maps/src/domain/ecology/
 - `rand` / `ctxRandom` replacement:
   - Steps pass `seed: number` into op input (derived deterministically from run settings + step/op id).
   - Ops construct a pure deterministic PRNG internally and never accept callback RNGs.
+
+### B2) `Type.Any` fields in ecology op schemas and the exact `TypedArraySchemas.*` replacements
+**Inventory (current `Type.Any` schema fields)**
+- `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/schema.ts`
+  - input:
+    - `rainfall` → `Uint8Array`
+    - `humidity` → `Uint8Array`
+    - `elevation` → `Int16Array`
+    - `latitude` → `Float32Array`
+    - `landMask` → `Uint8Array`
+    - `corridorMask?` → `Uint8Array`
+    - `riftShoulderMask?` → `Uint8Array`
+  - output:
+    - `biomeIndex` → `Uint8Array`
+    - `vegetationDensity` → `Float32Array`
+    - `effectiveMoisture` → `Float32Array`
+    - `surfaceTemperature` → `Float32Array`
+    - `aridityIndex` → `Float32Array`
+    - `freezeIndex` → `Float32Array`
+- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts` (input schema only)
+  - `biomeIndex` → `Uint8Array`
+  - `vegetationDensity` → `Float32Array`
+  - `effectiveMoisture` → `Float32Array`
+  - `surfaceTemperature` → `Float32Array`
+  - `aridityIndex` → `Float32Array`
+  - `freezeIndex` → `Float32Array`
+  - (non-array runtime views that will be deleted, not replaced): `adapter`, `rand`
+- `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts` (input schema only)
+  - `biomeIndex` → `Uint8Array`
+  - `vegetationDensity` → `Float32Array`
+  - `effectiveMoisture` → `Float32Array`
+  - `surfaceTemperature` → `Float32Array`
+  - `aridityIndex` → `Float32Array`
+  - `freezeIndex` → `Float32Array`
+  - `elevation` → `Int16Array`
+  - (non-array runtime views that will be deleted, not replaced): `adapter`, `rand`
+- `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts` (input schema only)
+  - `rainfall` → `Uint8Array`
+  - `vegetationDensity` → `Float32Array`
+  - (fields that will be deleted or re-shaped under the new ops; see replacement plan below):
+    - `biomeId` (engine IDs) will be replaced by `biomeIndex: Uint8Array` (engine-agnostic).
+    - `hotspotParadise` / `hotspotVolcanic` / `passiveShelf` will be replaced by `Uint8Array` masks.
+    - `adapter` / `rand` will be deleted.
+
+**Exact schema replacements (`Type.Any()` → `TypedArraySchemas.*`)**
+- Use `TypedArraySchemas` from `@swooper/mapgen-core/authoring`:
+  - `TypedArraySchemas.u8(...)` for `Uint8Array` fields (`rainfall`, `humidity`, `landMask`, masks, `biomeIndex`)
+  - `TypedArraySchemas.i16(...)` for `Int16Array` fields (`elevation`)
+  - `TypedArraySchemas.f32(...)` for `Float32Array` fields (`latitude`, `vegetationDensity`, `effectiveMoisture`, `surfaceTemperature`, `aridityIndex`, `freezeIndex`)
+
+**Step `inputs.ts` shape validation (required; no ambiguity)**
+- Every ecology step input builder must assert:
+  - typed array *type* (`assertUint8Array`, `assertInt16Array`, `assertFloat32Array`),
+  - typed array *length* equals `expectedGridSize(width, height)` (no silent mismatch).
+- `mask` fields (`hotspot*`, `passiveShelf`, `landMask`) must be `Uint8Array` with length `width * height` (0/1 semantics; values outside {0,1} are treated as invalid input and must throw in the input builder).
