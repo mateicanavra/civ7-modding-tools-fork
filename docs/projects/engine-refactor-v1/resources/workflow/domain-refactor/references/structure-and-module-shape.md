@@ -7,6 +7,9 @@ If any existing code (including ecology) conflicts with a hard rule in this work
 Canonical spec:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
 
+Canonical example:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples/VOLCANO.md`
+
 ## Repo map (this repo)
 
 Use these as the **literal roots** when executing the workflow in `civ7-modding-tools`.
