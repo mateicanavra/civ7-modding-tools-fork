@@ -16,6 +16,7 @@ import {
   maskFromCoordSet,
 } from "./helpers/inputs.js";
 import { clampToByte } from "./helpers/apply.js";
+import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
 
 const BiomesStepConfigSchema = Type.Object(
   {
@@ -95,7 +96,7 @@ export default createStep({
       config.classify
     );
 
-    const { land: engineBindings, marine: marineBiome } = ecology.resolveEngineBiomeIds(
+    const { land: engineBindings, marine: marineBiome } = resolveEngineBiomeIds(
       context.adapter,
       config.bindings
     );
