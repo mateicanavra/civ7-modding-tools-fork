@@ -61,6 +61,9 @@ This document defines a canonical model for **how steps and domains interact**:
 - Domains expose a small, predictable authoring surface composed of **operation modules**.
 - Steps wire runtime → domain inputs, call operations, and publish/apply results.
 
+Execution workflow (canonical for implementation):
+- `docs/projects/engine-refactor-v1/resources/spec/WORKFLOW-step-domain-operation-modules.md`
+
 ## 2) Step System (Recipe → Stage → Step)
 
 ### Responsibilities
