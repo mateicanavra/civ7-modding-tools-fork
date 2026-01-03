@@ -1,10 +1,10 @@
 import { Type, type Static } from "typebox";
 import { createOp } from "@swooper/mapgen-core/authoring";
-
 import {
   PlotEffectsConfigSchema,
   resolvePlotEffectsConfig,
   type PlotEffectsConfig,
+  type ResolvedPlotEffectsConfig,
 } from "./schema.js";
 import type { PlotEffectsInput } from "./types.js";
 import { planOwnedPlotEffects } from "./strategies/owned.js";
@@ -48,9 +48,12 @@ export const plotEffects = createOp({
   input: PlotEffectsInputSchema,
   output: PlotEffectsOutputSchema,
   config: PlotEffectsConfigSchema,
+  resolveConfig: (config) => resolvePlotEffectsConfig(config),
   run: (input: PlotEffectsInput, config: PlotEffectsConfig) => {
-    const resolved = resolvePlotEffectsConfig(config);
-    const placements = planOwnedPlotEffects(input, resolved);
+    const placements = planOwnedPlotEffects(
+      input,
+      config as ResolvedPlotEffectsConfig
+    );
     return {
       placements,
     };

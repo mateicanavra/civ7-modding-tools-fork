@@ -776,32 +776,36 @@ export function resolveFeaturesPlacementOwnedConfig(
     {}
   ) as Required<FeaturesPlacementIceConfig>;
 
+  const ownedInput = Value.Default(
+    FeaturesPlacementOwnedConfigSchema,
+    input ?? {}
+  ) as Required<FeaturesPlacementOwnedConfig>;
   const vegetatedInput = Value.Default(
     FeaturesPlacementVegetatedRulesSchema,
-    input?.vegetated ?? {}
+    ownedInput.vegetated
   ) as Required<FeaturesPlacementVegetatedRules>;
   const minVegInput = Value.Default(
     FeaturesPlacementVegetatedMinByBiomeSchema,
-    input?.vegetated?.minVegetationByBiome ?? {}
+    ownedInput.vegetated.minVegetationByBiome
   ) as Required<FeaturesPlacementVegetatedMinByBiome>;
   const wetInput = Value.Default(
     FeaturesPlacementWetRulesSchema,
-    input?.wet ?? {}
+    ownedInput.wet
   ) as Required<FeaturesPlacementWetRules>;
   const aquaticInput = Value.Default(
     FeaturesPlacementAquaticSchema,
-    input?.aquatic ?? {}
+    ownedInput.aquatic
   ) as Required<FeaturesPlacementAquaticConfig>;
   const atollInput = Value.Default(
     FeaturesPlacementAtollSchema,
-    input?.aquatic?.atoll ?? {}
+    ownedInput.aquatic.atoll
   ) as Required<FeaturesPlacementAtollConfig>;
   const iceInput = Value.Default(
     FeaturesPlacementIceSchema,
-    input?.ice ?? {}
+    ownedInput.ice
   ) as Required<FeaturesPlacementIceConfig>;
 
-  const chancesInput = input?.chances ?? {};
+  const chancesInput = ownedInput.chances ?? {};
 
   const unknownKeys = Object.keys(chancesInput).filter(
     (key) => !FEATURE_PLACEMENT_KEYS.includes(key as FeaturePlacementKey)
@@ -822,25 +826,25 @@ export function resolveFeaturesPlacementOwnedConfig(
       vegetated: {
         multiplier: Math.max(
           0,
-          readNumber(input?.groups?.vegetated?.multiplier, groupDefaults.multiplier)
+          readNumber(ownedInput.groups.vegetated?.multiplier, groupDefaults.multiplier)
         ),
       },
       wet: {
         multiplier: Math.max(
           0,
-          readNumber(input?.groups?.wet?.multiplier, groupDefaults.multiplier)
+          readNumber(ownedInput.groups.wet?.multiplier, groupDefaults.multiplier)
         ),
       },
       aquatic: {
         multiplier: Math.max(
           0,
-          readNumber(input?.groups?.aquatic?.multiplier, groupDefaults.multiplier)
+          readNumber(ownedInput.groups.aquatic?.multiplier, groupDefaults.multiplier)
         ),
       },
       ice: {
         multiplier: Math.max(
           0,
-          readNumber(input?.groups?.ice?.multiplier, groupDefaults.multiplier)
+          readNumber(ownedInput.groups.ice?.multiplier, groupDefaults.multiplier)
         ),
       },
     },
@@ -991,12 +995,18 @@ export function resolveFeaturesPlacementOwnedConfig(
           2
         ),
         equatorialBandMaxAbsLatitude: clamp(
-          readNumber(atollInput.equatorialBandMaxAbsLatitude, atollDefaults.equatorialBandMaxAbsLatitude),
+          readNumber(
+            atollInput.equatorialBandMaxAbsLatitude,
+            atollDefaults.equatorialBandMaxAbsLatitude
+          ),
           0,
           90
         ),
         shallowWaterAdjacencyGateChance: clamp(
-          readNumber(atollInput.shallowWaterAdjacencyGateChance, atollDefaults.shallowWaterAdjacencyGateChance),
+          readNumber(
+            atollInput.shallowWaterAdjacencyGateChance,
+            atollDefaults.shallowWaterAdjacencyGateChance
+          ),
           0,
           100
         ),
@@ -1040,6 +1050,23 @@ export function resolveFeaturesPlacementOwnedConfig(
         )
       ),
     },
+  };
+}
+
+export function resolveFeaturesPlacementConfig(
+  input: FeaturesPlacementConfig
+): FeaturesPlacementConfig {
+  const resolved = Value.Default(FeaturesPlacementConfigSchema, input) as FeaturesPlacementConfig;
+  if (resolved.strategy === "vanilla") {
+    return {
+      ...resolved,
+      config: resolved.config ?? {},
+    };
+  }
+
+  return {
+    ...resolved,
+    config: resolveFeaturesPlacementOwnedConfig(resolved.config),
   };
 }
 

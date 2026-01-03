@@ -850,3 +850,10 @@ Canonical type shape (grounded in existing imports):
 - **Choice:** (B) keep full-shape and enforce with `satisfies StandardRecipeConfig` in each map entrypoint.
 - **Rationale:** makes the absence of translation layers mechanically verifiable by TypeScript; prevents accidental omissions that would silently become “no config provided”.
 - **Risk:** maps become more verbose; ergonomics are intentionally deferred to `LOCAL-TBD-M7-U12` rather than reintroducing a translator/builder now.
+
+### Keep config resolvers co-located with domain ops (no centralized resolver module)
+- **Context:** Early U10 changes moved domain resolvers into `mods/mod-swooper-maps/src/config/resolve/*`, which conflicts with the step↔domain operation module spec’s requirement that ops own their config and normalization logic.
+- **Options:** (A) keep centralized resolvers under `src/config/resolve`, (B) move resolvers back into each op module (`src/domain/**/ops/**/schema.ts`).
+- **Choice:** (B) move resolvers back into the domain op schema modules and have ops import them locally.
+- **Rationale:** preserves domain ownership and keeps config + normalization logic co-located per spec; avoids a global resolver registry.
+- **Risk:** minor churn in imports/exports; no functional risk if compile-time resolution still runs through op/step hooks.

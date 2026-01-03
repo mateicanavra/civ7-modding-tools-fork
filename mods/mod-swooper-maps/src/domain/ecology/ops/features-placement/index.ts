@@ -1,11 +1,11 @@
 import { Type, type Static } from "typebox";
-import { Value } from "typebox/value";
 import { createOp } from "@swooper/mapgen-core/authoring";
-
 import {
   FeaturesPlacementConfigSchema,
   FeaturesPlacementStrategySchema,
+  resolveFeaturesPlacementConfig,
   type FeaturesPlacementConfig,
+  type ResolvedFeaturesPlacementOwnedConfig,
   type FeaturesPlacementStrategy,
 } from "./schema.js";
 import type { FeaturesPlacementInput } from "./types.js";
@@ -55,13 +55,10 @@ export const featuresPlacement = createOp({
   input: FeaturesPlacementInputSchema,
   output: FeaturesPlacementOutputSchema,
   config: FeaturesPlacementConfigSchema,
+  resolveConfig: (config) => resolveFeaturesPlacementConfig(config),
   run: (input: FeaturesPlacementInput, config: FeaturesPlacementConfig) => {
-    const resolvedConfig = Value.Default(
-      FeaturesPlacementConfigSchema,
-      config
-    ) as FeaturesPlacementConfig;
     const strategy: FeaturesPlacementStrategy =
-      resolvedConfig.strategy === "vanilla" ? "vanilla" : "owned";
+      config.strategy === "vanilla" ? "vanilla" : "owned";
     if (strategy === "vanilla") {
       return {
         strategy,
@@ -70,7 +67,10 @@ export const featuresPlacement = createOp({
       };
     }
 
-    const placements = planOwnedFeaturePlacements(input, resolvedConfig.config ?? {});
+    const placements = planOwnedFeaturePlacements(
+      input,
+      config.config as ResolvedFeaturesPlacementOwnedConfig
+    );
     return {
       strategy,
       useEngineBaseline: false,
