@@ -136,3 +136,17 @@ Exit criteria:
 
 3) Large config schemas (especially hydrology) make refactors brittle
 - Mitigation: refactor by op boundary (one op module + schema + resolver + tests at a time), not by “domain big bang”.
+
+4) Deterministic RNG seams (plan ops) can introduce flakiness and silent drift
+- Mitigation: model randomness as numeric seeds in op inputs (e.g. `rngSeed`), derive seeds in steps via `ctxRandom(...)` with stable labels, and keep tests fully deterministic (fixed `settings.seed`, deterministic mock adapter RNG).
+
+5) Key semantics drift (requires/provides keys, engine bindings) becomes stringly-typed and inconsistent
+- Mitigation: centralize dependency keys in `mods/mod-swooper-maps/src/recipes/standard/tags.ts`, and keep any engine-ID binding maps/schema colocated with the domain that owns the semantics (similar to ecology bindings patterns).
+
+## Field Learnings (Ecology) → Hardening Backlog
+
+These are high-leverage follow-ups surfaced during the first “field run” (ecology). They reduce repetition and lower the chance of half-migrations in future domains.
+
+- Add a repo-level guardrail script (and CI check) that fails on the forbidden patterns in `WORKFLOW-step-domain-operation-modules.md` (adapter/context crossing, runtime config merges, legacy deep imports, non-type engine imports).
+- Add a standard “domain stage smoke test” template under `mods/mod-swooper-maps/test/pipeline/**` that can be copied per domain to prove wiring + artifact contracts early.
+- Standardize and document `ctxRandom(...)` label conventions for seed derivation so substream identities remain stable across refactors.
