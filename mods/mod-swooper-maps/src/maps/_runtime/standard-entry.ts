@@ -36,34 +36,40 @@ export function wireStandardMapEntry({
   });
 
   engine.on("GenerateMap", () => {
-    const init = mapInitData ?? resolveMapInitData(options);
-    const { width, height, topLatitude, bottomLatitude, wrapX, wrapY } = init.params;
-    if (
-      width == null ||
-      height == null ||
-      topLatitude == null ||
-      bottomLatitude == null ||
-      wrapX == null ||
-      wrapY == null
-    ) {
+    try {
+      const init = mapInitData ?? resolveMapInitData(options);
+      const { width, height, topLatitude, bottomLatitude, wrapX, wrapY } = init.params;
+      if (
+        width == null ||
+        height == null ||
+        topLatitude == null ||
+        bottomLatitude == null ||
+        wrapX == null ||
+        wrapY == null
+      ) {
+        const prefix = options.logPrefix || "[SWOOPER_MOD]";
+        throw new Error(`${prefix} Missing required map init params.`);
+      }
+
+      const settings: RunSettings = {
+        seed,
+        dimensions: { width, height },
+        latitudeBounds: {
+          topLatitude,
+          bottomLatitude,
+        },
+        wrap: {
+          wrapX,
+          wrapY,
+        },
+        directionality,
+      };
+
+      runStandardRecipe({ recipe, init, settings, config, options });
+    } catch (err) {
       const prefix = options.logPrefix || "[SWOOPER_MOD]";
-      throw new Error(`${prefix} Missing required map init params.`);
+      console.error(prefix, "Map generation failed:", err);
+      throw err;
     }
-
-    const settings: RunSettings = {
-      seed,
-      dimensions: { width, height },
-      latitudeBounds: {
-        topLatitude,
-        bottomLatitude,
-      },
-      wrap: {
-        wrapX,
-        wrapY,
-      },
-      directionality,
-    };
-
-    runStandardRecipe({ recipe, init, settings, config, options });
   });
 }

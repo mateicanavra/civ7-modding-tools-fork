@@ -73,9 +73,7 @@ export const M3_CANONICAL_DEPENDENCY_TAGS: ReadonlySet<string> = new Set([
 const VERIFIED_EFFECT_TAGS = new Set<string>([
   M4_EFFECT_TAGS.engine.landmassApplied,
   M4_EFFECT_TAGS.engine.coastlinesApplied,
-  M4_EFFECT_TAGS.engine.riversModeled,
   M4_EFFECT_TAGS.engine.biomesApplied,
-  M4_EFFECT_TAGS.engine.featuresApplied,
   M4_EFFECT_TAGS.engine.placementApplied,
 ]);
 

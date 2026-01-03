@@ -4,7 +4,7 @@ import { createExtendedMapContext, type ExtendedMapContext } from "@swooper/mapg
 import type { RecipeModule } from "@swooper/mapgen-core/authoring";
 import type { RunSettings } from "@swooper/mapgen-core/engine";
 
-import { initializeStandardRuntime } from "../../recipes/standard/runtime.js";
+import { getStandardRuntime, initializeStandardRuntime } from "../../recipes/standard/runtime.js";
 import type { StandardRecipeConfig } from "../../recipes/standard/recipe.js";
 import type { MapInitResolution } from "./map-init.js";
 import type { MapRuntimeOptions } from "./types.js";
@@ -54,5 +54,15 @@ export function runStandardRecipe({
   recipe.run(context, settings, config, {
     trace: options?.traceSession ?? undefined,
     traceSink: options?.traceSink ?? undefined,
+    log: (message) => console.log(message),
   });
+
+  const runtime = getStandardRuntime(context);
+  const assignedStarts = runtime.startPositions.filter((pos) => Number.isFinite(pos) && pos >= 0).length;
+  if (assignedStarts === 0) {
+    throw new Error(
+      `${options?.logPrefix ?? "[SWOOPER_MOD]"} Map generation produced zero starting positions. ` +
+        `Check output.log for the failing step (PipelineExecutor logs).`
+    );
+  }
 }
