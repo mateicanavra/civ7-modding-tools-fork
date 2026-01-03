@@ -26,6 +26,9 @@ Workflow package references (read as needed; do not reinterpret them):
 Canonical example:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples/VOLCANO.md`
 
+Implementation sub-flow:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/subflows/IMPLEMENTATION.md`
+
 ## Mission + hard constraints (do not skip)
 
 Refactor a single domain so that:
@@ -159,20 +162,13 @@ Reference:
 
 <step name="implement-subissues">
 
-Refactor is executed as a series of subissues. Each subissue ends in:
-- code complete,
-- tests updated/added,
-- dead weight removed,
-- guardrails re-run,
-- committed.
+Implementation is executed as a series of **agent-defined slices** (you choose slice boundaries based on the domain inventory).
 
-Subissue template (repeat):
-1) Extract op module (op directory module under `domain/<domain>/ops/**`; schemas + `defaultConfig`; optional `resolveConfig`).
-2) Wire step orchestration (step directory module; `inputs.ts` → op call(s) → `apply.ts`; schema imports op `config`/`defaultConfig`).
-3) Delete legacy (remove old entrypoints/helpers; no compat exports).
-4) Add tests (at least one op contract test; add a thin integration test if contracts changed).
-5) Run guardrails (use `./scripts/lint/lint-domain-refactor-guardrails.sh` as the single must-run gate; set `REFRACTOR_DOMAINS` for your touched domain(s)).
-6) Commit (Conventional Commits; one clean unit per subissue).
+Hard requirement:
+- Each slice must be completed end-to-end (no dual paths), then committed, before moving on.
+
+Detailed implementation checklist + slicing guardrails:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/subflows/IMPLEMENTATION.md`
 
 Implementation shape references:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/structure-and-module-shape.md`

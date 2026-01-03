@@ -119,3 +119,14 @@ List and link every instance of:
 - callback “views” passed into domain functions,
 - RNG callbacks/state crossing into domain logic (e.g. `options.rng`, `ctx.rng`),
 - runtime config fixups/merges inside op/domain code.
+
+## Slicing plan (required before implementation)
+
+Based on the inventory, define agent-chosen slices (A/B/C…).
+
+For each slice, record:
+- step(s) included (ids + file paths),
+- op(s) to create/modify (ids + kinds),
+- legacy entrypoints to delete in that slice,
+- tests to add/update,
+- which domains to run guardrails for (`REFRACTOR_DOMAINS=...`).
