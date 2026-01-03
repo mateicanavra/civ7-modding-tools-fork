@@ -4,6 +4,8 @@ This is the **canonical, end-to-end workflow** for refactoring **one MapGen doma
 
 Ecology is the **golden reference** for final form; use it as proof of what “done” looks like.
 
+If any existing code (including ecology) conflicts with a hard rule in this workflow or the linked ADRs/spec, treat the **docs as canonical** and fix the code during the refactor (do not weaken the rule).
+
 ---
 
 ## -1) Repo map + placeholders (this repo)
@@ -190,6 +192,19 @@ Install dependencies (in the worktree) if needed for checks:
 pnpm install
 ```
 
+Baseline gates (mandatory, once per domain refactor):
+- Run these **before writing code** in your first worktree for the domain so you don’t discover environment breakage late.
+- If any of these fail due to unrelated upstream issues, do not proceed with the refactor until the baseline is green.
+
+```bash
+pnpm -C packages/mapgen-core check
+pnpm -C packages/mapgen-core test
+pnpm -C mods/mod-swooper-maps check
+pnpm -C mods/mod-swooper-maps test
+pnpm -C mods/mod-swooper-maps build
+pnpm deploy:mods
+```
+
 ### 3.3 Commit rules (per subissue)
 
 Each subissue must end in a clean, reviewable commit:
@@ -221,6 +236,11 @@ rg -n "@mapgen/domain/" "${DOMAIN_ROOT}" -S
 Locate legacy step→domain boundary violations (adapter/context passed into domain functions):
 ```bash
 rg -n "ExtendedMapContext|context\\.adapter|\\badapter\\b|@civ7/adapter" "${DOMAIN_ROOT}" -S
+```
+
+Locate RNG boundary violations (RNG callbacks/state crossing into domain logic):
+```bash
+rg -n "RngFunction|options\\.rng|\\bctx\\.rng\\b" "${DOMAIN_ROOT}" -S
 ```
 
 Locate legacy step config imports from the centralized schema bundle (refactor removes these from refactored steps):
@@ -269,6 +289,7 @@ Policy:
 List and link every instance of:
 - adapter/context crossing into domain logic,
 - callback “views” passed into domain functions,
+- RNG callbacks/state crossing into domain logic (e.g. `options.rng`, `ctx.rng`),
 - runtime config fixups/merges inside op/domain code.
 
 ---
@@ -285,6 +306,10 @@ Define the target op catalog for the domain, with **no optionality**:
   - `defaultConfig` (derived from schema defaults)
   - optional `resolveConfig(config, settings)` (compile-time only)
 - Steps call `op.runValidated(input, resolvedConfig)`; steps do not call internal rules directly.
+- If an op needs randomness, model it explicitly:
+  - add `rngSeed: Type.Integer(...)` to the op `input` schema (not an RNG callback),
+  - derive deterministic draws inside the op from `rngSeed`,
+  - derive `rngSeed` in the step using `ctxRandom(...)` (see `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`), with a stable label string (canonical pattern: `<stepId>:<opName>:rngSeed`).
 
 Naming constraints:
 - Op ids are stable and verb-forward (e.g., `compute*`, `plan*`, `score*`, `select*`).
@@ -391,6 +416,8 @@ export const myOp = createOp({
 - Call `op.runValidated(input, config)` in runtime steps (input/config validation is required).
 - Apply/publish in `apply.ts`.
 - Ensure step schema imports op `config`/`defaultConfig` directly from the domain module (see ecology step patterns).
+- Use canonical dependency keys from the standard registry file; do not inline new key strings in refactored steps:
+  - `mods/mod-swooper-maps/src/recipes/standard/tags.ts` (`M3_DEPENDENCY_TAGS`, `M4_EFFECT_TAGS`, `STANDARD_TAG_DEFINITIONS`)
 - Implement `step.resolveConfig` if the step composes multiple ops or requires settings-derived defaults.
 
 Reference examples (copy the boundary discipline):
@@ -405,7 +432,14 @@ Reference examples (copy the boundary discipline):
 - Add at least one domain-local unit test for the op contract.
   - Use `op.runValidated(input, config, { validateOutput: true })` to catch output-shape drift.
   - Location (mod): `mods/mod-swooper-maps/test/**` (bun test runner via `pnpm -C mods/mod-swooper-maps test`).
+  - Reference pattern for output validation: `packages/mapgen-core/test/authoring/op-validation.test.ts`
+- Make tests deterministic:
+  - set `settings.seed = 0` (or a fixed seed),
+  - use a deterministic mock adapter RNG (e.g. `createMockAdapter({ rng: () => 0 })`),
+  - if the op requires randomness, pass a fixed `rngSeed` input (do not pass RNG callbacks).
 - If the subissue affects artifact contracts across steps, add one minimal pipeline/integration test for the braid edge.
+  - Reference pattern: `mods/mod-swooper-maps/test/pipeline/artifacts.test.ts` (registry + provides validation)
+  - Reference full pipeline gate: `mods/mod-swooper-maps/test/standard-run.test.ts`
 
 5) **Run guardrails**
 - Search for forbidden patterns in the touched scope and drive them to zero:
@@ -430,6 +464,11 @@ Domain must not import engine/runtime values (type-only imports of `RunSettings`
 rg -n "from \"@swooper/mapgen-core/engine\"|from \"@mapgen/engine\"" "${DOMAIN_ROOT}" -S
 rg -n -P "import(?!\\s+type)\\s+.*from\\s+\"@swooper/mapgen-core/engine\"" "${DOMAIN_ROOT}" -S
 rg -n -P "import(?!\\s+type)\\s+.*from\\s+\"@mapgen/engine\"" "${DOMAIN_ROOT}" -S
+```
+
+Domain ops must not accept RNG callbacks/state (randomness must be modeled as numeric seeds in op inputs):
+```bash
+rg -n "RngFunction|options\\.rng|\\bctx\\.rng\\b" "${DOMAIN_ROOT}" -S
 ```
 
 Refactored steps must not import legacy domain entrypoints or centralized config blobs:
@@ -460,14 +499,10 @@ pnpm -C packages/mapgen-core test
 pnpm -C mods/mod-swooper-maps check
 pnpm -C mods/mod-swooper-maps test
 pnpm -C mods/mod-swooper-maps build
+pnpm deploy:mods
 pnpm check
 pnpm test
 pnpm build
-```
-
-If mod packaging is part of the touched surface:
-```bash
-pnpm deploy:mods
 ```
 
 ---
