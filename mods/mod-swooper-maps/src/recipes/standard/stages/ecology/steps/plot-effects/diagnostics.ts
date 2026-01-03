@@ -5,10 +5,18 @@ import {
   MOUNTAIN_TERRAIN,
 } from "@swooper/mapgen-core";
 import type { TraceScope } from "@swooper/mapgen-core";
+import type { PlotEffectsInput } from "@mapgen/domain/ecology/ops/plan-plot-effects/types.js";
+import type {
+  PlotEffectKey,
+  ResolvedPlotEffectsConfig,
+} from "@mapgen/domain/ecology/ops/plan-plot-effects/schema.js";
+import { resolveSnowElevationRange } from "@mapgen/domain/ecology/ops/plan-plot-effects/snow-elevation.js";
 
-import type { PlotEffectPlacement, PlotEffectsInput } from "./types.js";
-import type { PlotEffectSelector, ResolvedPlotEffectsConfig } from "./schema.js";
-import { resolveSnowElevationRange } from "./snow-elevation.js";
+type PlotEffectPlacement = {
+  x: number;
+  y: number;
+  plotEffect: PlotEffectKey;
+};
 
 type TerrainBucket = {
   total: number;
@@ -35,18 +43,6 @@ const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 const normalizeRange = (value: number, min: number, max: number): number => {
   if (max <= min) return value >= max ? 1 : 0;
   return clamp01((value - min) / (max - min));
-};
-
-const resolvePlotEffectType = (input: PlotEffectsInput, selector: PlotEffectSelector): number => {
-  const tags = selector.tags?.map((tag) => tag.toUpperCase()) ?? [];
-  if (tags.length > 0) {
-    const matches = input.adapter.getPlotEffectTypesContainingTags(tags);
-    if (matches.length > 0) return matches[0] ?? -1;
-  }
-  if (selector.typeName) {
-    return input.adapter.getPlotEffectTypeIndex(selector.typeName);
-  }
-  return -1;
 };
 
 const createBucket = (): TerrainBucket => ({
@@ -76,7 +72,8 @@ export function logSnowEligibilitySummary(
   trace: TraceScope | null | undefined,
   input: PlotEffectsInput,
   config: ResolvedPlotEffectsConfig,
-  placements: PlotEffectPlacement[]
+  placements: PlotEffectPlacement[],
+  terrainType: Uint8Array
 ): void {
   if (!trace?.isVerbose) return;
 
@@ -89,10 +86,10 @@ export function logSnowEligibilitySummary(
   }
 
   const snowTypes = {
-    light: resolvePlotEffectType(input, config.snow.selectors.light),
-    medium: resolvePlotEffectType(input, config.snow.selectors.medium),
-    heavy: resolvePlotEffectType(input, config.snow.selectors.heavy),
-  };
+    light: config.snow.selectors.light.typeName,
+    medium: config.snow.selectors.medium.typeName,
+    heavy: config.snow.selectors.heavy.typeName,
+  } as const;
 
   const bucketLand = createBucket();
   const bucketMountain = createBucket();
@@ -114,9 +111,9 @@ export function logSnowEligibilitySummary(
     const rowOffset = y * input.width;
     for (let x = 0; x < input.width; x++) {
       const idx = rowOffset + x;
-      if (input.adapter.isWater(x, y)) continue;
+      if (input.landMask[idx] === 0) continue;
 
-      const terrain = input.adapter.getTerrainType(x, y);
+      const terrain = terrainType[idx] ?? 0;
       const isMountain = terrain === MOUNTAIN_TERRAIN;
       const isHill = terrain === HILL_TERRAIN;
       const isFlat = terrain === FLAT_TERRAIN;
@@ -142,12 +139,16 @@ export function logSnowEligibilitySummary(
       const elevation = input.elevation[idx] ?? 0;
 
       const elevationFactor = normalizeRange(elevation, elevationMin, elevationMax);
-      const moistureFactor = normalizeRange(moisture, config.snow.moistureMin, config.snow.moistureMax);
+      const moistureFactor = normalizeRange(
+        moisture,
+        config.snow.moistureMin,
+        config.snow.moistureMax
+      );
       const scoreRaw =
         freeze * config.snow.freezeWeight +
-      elevationFactor * config.snow.elevationWeight +
-      moistureFactor * config.snow.moistureWeight +
-      config.snow.scoreBias;
+        elevationFactor * config.snow.elevationWeight +
+        moistureFactor * config.snow.moistureWeight +
+        config.snow.scoreBias;
       const score = clamp01(scoreRaw / Math.max(0.0001, config.snow.scoreNormalization));
 
       const gateEligible = temp <= config.snow.maxTemperature && aridity <= config.snow.maxAridity;
@@ -180,9 +181,9 @@ export function logSnowEligibilitySummary(
   };
 
   for (const placement of placements) {
-    if (placement.plotEffectType === snowTypes.light) placementCounts.snowLight += 1;
-    if (placement.plotEffectType === snowTypes.medium) placementCounts.snowMedium += 1;
-    if (placement.plotEffectType === snowTypes.heavy) placementCounts.snowHeavy += 1;
+    if (placement.plotEffect === snowTypes.light) placementCounts.snowLight += 1;
+    if (placement.plotEffect === snowTypes.medium) placementCounts.snowMedium += 1;
+    if (placement.plotEffect === snowTypes.heavy) placementCounts.snowHeavy += 1;
   }
 
   devLogJson(trace, "snow summary", {

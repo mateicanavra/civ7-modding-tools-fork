@@ -21,7 +21,7 @@ export const FEATURE_PLACEMENT_KEYS = [
   "FEATURE_ICE",
 ] as const;
 
-export type FeaturePlacementKey = (typeof FEATURE_PLACEMENT_KEYS)[number];
+export type FeatureKey = (typeof FEATURE_PLACEMENT_KEYS)[number];
 
 const BiomeSymbolSchema = Type.Union(
   [
@@ -652,7 +652,7 @@ export const FeaturesPlacementIceSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementOwnedConfigSchema = Type.Object(
+export const FeaturesPlacementConfigSchema = Type.Object(
   {
     /** Group-level knobs for major feature families. */
     groups: Type.Optional(FeaturesPlacementGroupsSchema),
@@ -670,32 +670,6 @@ export const FeaturesPlacementOwnedConfigSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementStrategySchema = Type.Union(
-  [Type.Literal("owned"), Type.Literal("vanilla")],
-  {
-    description: "Baseline placement strategy (owned vs vanilla).",
-  }
-);
-
-/**
- * Config for the baseline feature placement operation.
- * Strategy selection is explicit to signal future swaps.
- */
-export const FeaturesPlacementConfigSchema = Type.Object(
-  {
-    /** Which placement strategy to run. */
-    strategy: Type.Optional(
-      Type.Union([Type.Literal("owned"), Type.Literal("vanilla")], {
-        description: "Baseline placement strategy (owned vs vanilla).",
-        default: "owned",
-      })
-    ),
-    /** Strategy-specific config for owned placement. */
-    config: Type.Optional(FeaturesPlacementOwnedConfigSchema),
-  },
-  { additionalProperties: false, default: {} }
-);
-
 export type FeaturesPlacementGroupsConfig = Static<typeof FeaturesPlacementGroupsSchema>;
 export type FeaturesPlacementGroupConfig = Static<typeof FeaturesPlacementGroupSchema>;
 export type FeaturesPlacementChances = Static<typeof FeaturesPlacementChancesSchema>;
@@ -707,20 +681,18 @@ export type FeaturesPlacementWetRules = Static<typeof FeaturesPlacementWetRulesS
 export type FeaturesPlacementAquaticConfig = Static<typeof FeaturesPlacementAquaticSchema>;
 export type FeaturesPlacementAtollConfig = Static<typeof FeaturesPlacementAtollSchema>;
 export type FeaturesPlacementIceConfig = Static<typeof FeaturesPlacementIceSchema>;
-export type FeaturesPlacementOwnedConfig = Static<typeof FeaturesPlacementOwnedConfigSchema>;
 export type FeaturesPlacementConfig = Static<typeof FeaturesPlacementConfigSchema>;
-export type FeaturesPlacementStrategy = Static<typeof FeaturesPlacementStrategySchema>;
 
 export type FeaturesPlacementResolvedGroup = { multiplier: number };
 
-export type ResolvedFeaturesPlacementOwnedConfig = {
+export type ResolvedFeaturesPlacementConfig = {
   groups: {
     vegetated: FeaturesPlacementResolvedGroup;
     wet: FeaturesPlacementResolvedGroup;
     aquatic: FeaturesPlacementResolvedGroup;
     ice: FeaturesPlacementResolvedGroup;
   };
-  chances: Record<FeaturePlacementKey, number>;
+  chances: Record<FeatureKey, number>;
   vegetated: Required<FeaturesPlacementVegetatedRules>;
   wet: Required<FeaturesPlacementWetRules>;
   aquatic: Required<FeaturesPlacementAquaticConfig> & {
@@ -740,9 +712,9 @@ const readSymbolArray = (
   fallback: BiomeSymbol[]
 ): BiomeSymbol[] => (Array.isArray(input) && input.length > 0 ? input : fallback);
 
-export function resolveFeaturesPlacementOwnedConfig(
-  input: FeaturesPlacementOwnedConfig
-): ResolvedFeaturesPlacementOwnedConfig {
+export function resolveFeaturesPlacementConfig(
+  input: FeaturesPlacementConfig
+): ResolvedFeaturesPlacementConfig {
   const chanceDefaults = applySchemaDefaults(
     FeaturesPlacementChancesSchema,
     {}
@@ -779,19 +751,19 @@ export function resolveFeaturesPlacementOwnedConfig(
   const rawChances = input.chances;
   if (rawChances) {
     const unknownKeys = Object.keys(rawChances).filter(
-      (key) => !FEATURE_PLACEMENT_KEYS.includes(key as FeaturePlacementKey)
+      (key) => !FEATURE_PLACEMENT_KEYS.includes(key as FeatureKey)
     );
     if (unknownKeys.length > 0) {
       throw new Error(
-        `featuresPlacement.chances contains unknown feature keys: ${unknownKeys.join(", ")}`
+        `planFeaturePlacements.chances contains unknown feature keys: ${unknownKeys.join(", ")}`
       );
     }
   }
 
   const ownedInput = applySchemaDefaults(
-    FeaturesPlacementOwnedConfigSchema,
+    FeaturesPlacementConfigSchema,
     input
-  ) as Required<FeaturesPlacementOwnedConfig>;
+  ) as Required<FeaturesPlacementConfig>;
   const vegetatedInput = applySchemaDefaults(
     FeaturesPlacementVegetatedRulesSchema,
     ownedInput.vegetated
@@ -822,7 +794,7 @@ export function resolveFeaturesPlacementOwnedConfig(
   const chances = FEATURE_PLACEMENT_KEYS.reduce((acc, key) => {
     acc[key] = clamp(readNumber(chancesInput[key], chanceDefaults[key]), 0, 100);
     return acc;
-  }, {} as Record<FeaturePlacementKey, number>);
+  }, {} as Record<FeatureKey, number>);
 
   return {
     groups: {
@@ -1053,27 +1025,6 @@ export function resolveFeaturesPlacementOwnedConfig(
         )
       ),
     },
-  };
-}
-
-export function resolveFeaturesPlacementConfig(
-  input: FeaturesPlacementConfig
-): FeaturesPlacementConfig {
-  const resolved = applySchemaDefaults(
-    FeaturesPlacementConfigSchema,
-    input
-  ) as FeaturesPlacementConfig;
-  const ownedConfig = resolved.config as FeaturesPlacementOwnedConfig;
-  if (resolved.strategy === "vanilla") {
-    return {
-      ...resolved,
-      config: ownedConfig,
-    };
-  }
-
-  return {
-    ...resolved,
-    config: resolveFeaturesPlacementOwnedConfig(ownedConfig),
   };
 }
 

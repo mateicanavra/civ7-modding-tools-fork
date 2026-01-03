@@ -1,5 +1,5 @@
-import { biomeSymbolFromIndex } from "../../classify-biomes.js";
-import type { FeaturePlacementKey, FeaturesPlacementVegetatedRules } from "../schema.js";
+import { biomeSymbolFromIndex } from "../../classify-biomes/index.js";
+import type { FeatureKey, FeaturesPlacementVegetatedRules } from "../schema.js";
 
 export function pickVegetatedFeature(params: {
   symbolIndex: number;
@@ -9,7 +9,7 @@ export function pickVegetatedFeature(params: {
   aridityIndex: number;
   freezeIndex: number;
   rules: Required<FeaturesPlacementVegetatedRules>;
-}): FeaturePlacementKey | null {
+}): FeatureKey | null {
   const { symbolIndex, moistureValue, temperatureValue, vegetationValue, aridityIndex, freezeIndex, rules } = params;
   const symbol = biomeSymbolFromIndex(symbolIndex);
 

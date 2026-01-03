@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
 import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
-import { createFeaturesTestContext } from "./features-owned.helpers.js";
+import { createFeaturesTestContext, disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
   it("respects adapter.canHaveFeature gating", () => {
@@ -20,26 +20,18 @@ describe("features (owned baseline)", () => {
     });
 
     const config = {
-      story: { features: { paradiseReefChance: 0, volcanicForestChance: 0, volcanicTaigaChance: 0 } },
-      featuresDensity: {
-        shelfReefMultiplier: 0,
-        rainforestExtraChance: 0,
-        forestExtraChance: 0,
-        taigaExtraChance: 0,
-      },
       featuresPlacement: {
-        strategy: "owned",
-        config: {
-          groups: { wet: { multiplier: 0 }, aquatic: { multiplier: 0 }, ice: { multiplier: 0 } },
-          chances: {
-            FEATURE_FOREST: 100,
-            FEATURE_RAINFOREST: 0,
-            FEATURE_TAIGA: 0,
-            FEATURE_SAVANNA_WOODLAND: 0,
-            FEATURE_SAGEBRUSH_STEPPE: 0,
-          },
+        groups: { wet: { multiplier: 0 }, aquatic: { multiplier: 0 }, ice: { multiplier: 0 } },
+        chances: {
+          FEATURE_FOREST: 100,
+          FEATURE_RAINFOREST: 0,
+          FEATURE_TAIGA: 0,
+          FEATURE_SAVANNA_WOODLAND: 0,
+          FEATURE_SAGEBRUSH_STEPPE: 0,
         },
       },
+      reefEmbellishments: { ...disabledEmbellishmentsConfig },
+      vegetationEmbellishments: { ...disabledEmbellishmentsConfig },
     };
     const resolvedConfig = featuresStep.resolveConfig
       ? featuresStep.resolveConfig(config, ctx.settings)

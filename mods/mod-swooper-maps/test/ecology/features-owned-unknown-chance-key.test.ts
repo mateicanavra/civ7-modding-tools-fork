@@ -1,9 +1,9 @@
 import { describe, expect, it } from "bun:test";
 
 import {
-  resolveFeaturesPlacementOwnedConfig,
-  type FeaturesPlacementOwnedConfig,
-} from "@mapgen/domain/ecology/ops/features-placement/index.js";
+  resolveFeaturesPlacementConfig,
+  type FeaturesPlacementConfig,
+} from "@mapgen/domain/ecology/ops/plan-feature-placements/index.js";
 
 describe("features placement config", () => {
   it("rejects unknown feature chance keys", () => {
@@ -11,10 +11,10 @@ describe("features placement config", () => {
       chances: {
         FEATURE_FAKE_FEATURE: 20,
       },
-    } as unknown as FeaturesPlacementOwnedConfig;
+    } as unknown as FeaturesPlacementConfig;
 
-    expect(() => resolveFeaturesPlacementOwnedConfig(invalidConfig)).toThrow(
-      "unknown feature keys"
+    expect(() => resolveFeaturesPlacementConfig(invalidConfig)).toThrow(
+      "planFeaturePlacements.chances contains unknown feature keys"
     );
   });
 });

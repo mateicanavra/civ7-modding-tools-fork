@@ -1,10 +1,11 @@
-import { ctxRandom, type ExtendedMapContext } from "@swooper/mapgen-core";
+import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { getPublishedBiomeClassification } from "@mapgen/domain/artifacts.js";
 import type * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { assertHeightfield } from "../biomes/helpers/inputs.js";
+import { deriveStepSeed } from "../helpers/seed.js";
 
-type PlotEffectsInput = Parameters<typeof ecology.ops.plotEffects.run>[0];
+type PlotEffectsInput = Parameters<typeof ecology.ops.planPlotEffects.run>[0];
 
 export function buildPlotEffectsInput(context: ExtendedMapContext): PlotEffectsInput {
   const { width, height } = context.dimensions;
@@ -16,12 +17,10 @@ export function buildPlotEffectsInput(context: ExtendedMapContext): PlotEffectsI
   const heightfield = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
   assertHeightfield(heightfield, width * height);
 
-  const rand = (label: string, max: number): number => ctxRandom(context, label, max);
-
   return {
     width,
     height,
-    adapter: context.adapter,
+    seed: deriveStepSeed(context.settings.seed, "ecology:planPlotEffects"),
     biomeIndex: classification.biomeIndex,
     vegetationDensity: classification.vegetationDensity,
     effectiveMoisture: classification.effectiveMoisture,
@@ -29,6 +28,6 @@ export function buildPlotEffectsInput(context: ExtendedMapContext): PlotEffectsI
     aridityIndex: classification.aridityIndex,
     freezeIndex: classification.freezeIndex,
     elevation: heightfield.elevation,
-    rand,
+    landMask: heightfield.landMask,
   };
 }
