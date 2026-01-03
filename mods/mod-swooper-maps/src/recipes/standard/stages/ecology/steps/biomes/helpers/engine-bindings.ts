@@ -1,7 +1,7 @@
 import type { EngineAdapter } from "@civ7/adapter";
 
-import type { BiomeEngineBindings } from "@mapgen/domain/ecology/biome-bindings.js";
-import { BIOME_SYMBOL_ORDER, type BiomeSymbol } from "@mapgen/domain/ecology/types.js";
+import type { BiomeEngineBindings, BiomeSymbol } from "@mapgen/domain/ecology";
+import { BIOME_SYMBOL_ORDER } from "@mapgen/domain/ecology";
 
 const DEFAULT_ENGINE_BINDINGS: Record<BiomeSymbol, string> = Object.freeze({
   snow: "BIOME_TUNDRA",

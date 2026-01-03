@@ -2,7 +2,7 @@ import { Type } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
-import type { ResolvedPlotEffectsConfig } from "@mapgen/domain/ecology/ops/plan-plot-effects/schema.js";
+import type { ResolvedPlotEffectsConfig } from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { buildPlotEffectsInput } from "./inputs.js";
 import { applyPlotEffectPlacements } from "./apply.js";

@@ -24,3 +24,14 @@ export {
   type BiomeEngineBindings,
 } from "./biome-bindings.js";
 export { BIOME_SYMBOL_ORDER, biomeSymbolFromIndex, type BiomeSymbol } from "./types.js";
+export {
+  FEATURE_PLACEMENT_KEYS,
+  type FeatureKey,
+  type ResolvedFeaturesPlacementConfig,
+} from "./ops/plan-feature-placements/schema.js";
+export {
+  type PlotEffectKey,
+  type ResolvedPlotEffectsConfig,
+} from "./ops/plan-plot-effects/schema.js";
+export { type PlotEffectsInput } from "./ops/plan-plot-effects/types.js";
+export { resolveSnowElevationRange } from "./ops/plan-plot-effects/snow-elevation.js";
