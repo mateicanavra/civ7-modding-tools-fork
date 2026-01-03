@@ -47,6 +47,7 @@ const config = {
             interplay: {
               windsFollowPlates: 0.4,
               currentsFollowWinds: 0.6,
+              riftsFollowPlates: 0.75,
             },
             hemispheres: {
               southernFlip: true,
