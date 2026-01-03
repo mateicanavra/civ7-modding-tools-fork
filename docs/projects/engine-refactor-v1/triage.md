@@ -18,6 +18,18 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **ResolveConfig compile failures use a distinct error code** [Source: LOCAL-TBD-M6-U10]
+  - **Context:** U10 plan compilation now emits `step.resolveConfig.failed` for resolver exceptions/invalid returns.
+  - **Type:** triage
+  - **Notes:** Downstream tooling that assumed only `step.config.invalid` may need to handle the new code explicitly.
+  - **Next check:** before exposing compile errors to external tooling or UI.
+
+- **Run settings require explicit directionality + trace** [Source: LOCAL-TBD-M6-U10]
+  - **Context:** U10 removes runtime defaults/mutation for `settings.directionality` and `settings.trace`; map entrypoints must provide them explicitly.
+  - **Type:** triage
+  - **Notes:** Verify any external entrypoints supply these settings or add boundary validation for missing fields.
+  - **Next check:** when integrating external map entrypoints or tooling.
+
 - **Legacy orchestrator test coverage dropped** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U08-realign-tests-and-ci-gates-to-ownership.md`]
   - **Context:** Realigning tests to ownership removes `runTaskGraphGeneration`/bootstrap/config test suites.
   - **Type:** triage

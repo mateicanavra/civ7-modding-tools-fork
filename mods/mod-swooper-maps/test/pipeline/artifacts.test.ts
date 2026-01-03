@@ -1,6 +1,8 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
 import {
   PipelineExecutor,
   StepRegistry,
@@ -18,7 +20,7 @@ const baseSettings = {
   dimensions: { width: 4, height: 3 },
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
   wrap: { wrapX: false, wrapY: false },
-  directionality: {},
+  directionality: applySchemaDefaults(FoundationDirectionalityConfigSchema, {}),
 };
 
 describe("pipeline artifacts", () => {

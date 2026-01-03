@@ -40,8 +40,10 @@ export default createStep({
   schema: ClimateRefineStepConfigSchema,
   run: (context: ExtendedMapContext, config: ClimateRefineStepConfig) => {
     const { width, height } = context.dimensions;
-    const directionality =
-      context.settings.directionality as FoundationDirectionalityConfig | undefined;
+    const directionality = context.settings.directionality as FoundationDirectionalityConfig;
+    if (!directionality) {
+      throw new Error("climateRefine requires settings.directionality.");
+    }
     refineClimateEarthlike(width, height, context, {
       climate: config.climate,
       story: config.story,

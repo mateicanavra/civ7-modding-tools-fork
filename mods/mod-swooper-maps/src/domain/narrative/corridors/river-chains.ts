@@ -10,7 +10,10 @@ export function tagRiverChainsPostRivers(
   corridorsCfg: Record<string, unknown>,
   state: CorridorState
 ): void {
-  const cfg = ((corridorsCfg.river || {}) as Record<string, unknown>) || {};
+  const cfg = corridorsCfg.river as Record<string, unknown>;
+  if (!cfg) {
+    throw new Error("[Narrative] Missing corridors.river config.");
+  }
   const { width, height } = getDims(ctx);
 
   const maxChains = Math.max(0, Number((cfg.maxChains as number) ?? 2) | 0);

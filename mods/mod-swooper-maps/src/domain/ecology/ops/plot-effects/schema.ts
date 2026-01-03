@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { Value } from "typebox/value";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 
 import type { BiomeSymbol } from "../../types.js";
 
@@ -437,63 +437,10 @@ export type ResolvedPlotEffectsConfig = {
   burned: Required<PlotEffectsBurnedConfig> & { selector: PlotEffectSelector };
 };
 
-export function resolvePlotEffectsConfig(input?: PlotEffectsConfig): ResolvedPlotEffectsConfig {
-  const snowDefaults = Value.Default(PlotEffectsSnowSchema, {}) as Required<PlotEffectsSnowConfig>;
-  const sandDefaults = Value.Default(PlotEffectsSandSchema, {}) as Required<PlotEffectsSandConfig>;
-  const burnedDefaults = Value.Default(
-    PlotEffectsBurnedSchema,
-    {}
-  ) as Required<PlotEffectsBurnedConfig>;
-  const snowInput = Value.Default(PlotEffectsSnowSchema, input?.snow ?? {}) as Required<
-    PlotEffectsSnowConfig
-  >;
-  const sandInput = Value.Default(PlotEffectsSandSchema, input?.sand ?? {}) as Required<
-    PlotEffectsSandConfig
-  >;
-  const burnedInput = Value.Default(PlotEffectsBurnedSchema, input?.burned ?? {}) as Required<
-    PlotEffectsBurnedConfig
-  >;
-  const snowSelectorsInput = Value.Default(
-    PlotEffectsSnowSelectorsSchema,
-    snowInput.selectors ?? {}
-  ) as Required<PlotEffectsSnowSelectors>;
-
-  return {
-    snow: {
-      ...snowDefaults,
-      ...snowInput,
-      selectors: {
-        light: Value.Default(
-          PlotEffectSnowLightSelectorSchema,
-          snowSelectorsInput.light ?? {}
-        ) as PlotEffectSelector,
-        medium: Value.Default(
-          PlotEffectSnowMediumSelectorSchema,
-          snowSelectorsInput.medium ?? {}
-        ) as PlotEffectSelector,
-        heavy: Value.Default(
-          PlotEffectSnowHeavySelectorSchema,
-          snowSelectorsInput.heavy ?? {}
-        ) as PlotEffectSelector,
-      },
-    },
-    sand: {
-      ...sandDefaults,
-      ...sandInput,
-      selector: Value.Default(
-        PlotEffectSandSelectorSchema,
-        sandInput.selector ?? {}
-      ) as PlotEffectSelector,
-    },
-    burned: {
-      ...burnedDefaults,
-      ...burnedInput,
-      selector: Value.Default(
-        PlotEffectBurnedSelectorSchema,
-        burnedInput.selector ?? {}
-      ) as PlotEffectSelector,
-    },
-  };
+export function resolvePlotEffectsConfig(
+  input: PlotEffectsConfig
+): ResolvedPlotEffectsConfig {
+  return applySchemaDefaults(PlotEffectsConfigSchema, input) as ResolvedPlotEffectsConfig;
 }
 
 export type { BiomeSymbol };

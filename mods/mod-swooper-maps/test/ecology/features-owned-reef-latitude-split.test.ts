@@ -14,7 +14,7 @@ describe("features (owned baseline)", () => {
       isWater: () => true,
     });
 
-    featuresStep.run(ctx, {
+    const config = {
       story: { features: { paradiseReefChance: 0, volcanicForestChance: 0, volcanicTaigaChance: 0 } },
       featuresDensity: {
         shelfReefMultiplier: 0,
@@ -35,7 +35,12 @@ describe("features (owned baseline)", () => {
           },
         },
       },
-    });
+    };
+    const resolvedConfig = featuresStep.resolveConfig
+      ? featuresStep.resolveConfig(config, ctx.settings)
+      : config;
+
+    featuresStep.run(ctx, resolvedConfig);
 
     const warmReef = adapter.getFeatureTypeIndex("FEATURE_REEF");
     const coldReef = adapter.getFeatureTypeIndex("FEATURE_COLD_REEF");

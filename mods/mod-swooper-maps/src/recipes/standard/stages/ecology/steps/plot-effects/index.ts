@@ -29,12 +29,24 @@ export default createStep({
   ],
   provides: [],
   schema: PlotEffectsStepConfigSchema,
+  resolveConfig: (config, settings) => {
+    if (!ecology.ops.plotEffects.resolveConfig) {
+      throw new Error("plotEffects op missing resolveConfig");
+    }
+    return {
+      plotEffects: ecology.ops.plotEffects.resolveConfig(config.plotEffects, settings),
+    };
+  },
   run: (context: ExtendedMapContext, config: PlotEffectsStepConfig) => {
     const input = buildPlotEffectsInput(context);
     const result = ecology.ops.plotEffects.run(input, config.plotEffects);
     if (context.trace.isVerbose) {
-      const resolved = ecology.resolvePlotEffectsConfig(config.plotEffects);
-      ecology.logSnowEligibilitySummary(context.trace, input, resolved, result.placements);
+      ecology.logSnowEligibilitySummary(
+        context.trace,
+        input,
+        config.plotEffects as Parameters<typeof ecology.logSnowEligibilitySummary>[2],
+        result.placements
+      );
     }
 
     if (result.placements.length > 0) {

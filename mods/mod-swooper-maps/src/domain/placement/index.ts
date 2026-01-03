@@ -92,7 +92,10 @@ export function runPlacement(
   logTerrainStats(trace, adapter, iWidth, iHeight, "Initial");
 
   const { mapInfo, wondersPlusOne, floodplains, starts } = options;
-  const placementCfg = options.placementConfig ?? {};
+  if (!options.placementConfig) {
+    throw new Error("runPlacement requires placementConfig.");
+  }
+  const placementCfg = options.placementConfig;
   const startPositions: number[] = [];
 
   // =========================================================================
@@ -120,7 +123,7 @@ export function runPlacement(
 
   // 2) Floodplains
   try {
-    const floodplainsCfg = floodplains || placementCfg.floodplains || {};
+    const floodplainsCfg = floodplains ?? placementCfg.floodplains;
     applyFloodplains(adapter, floodplainsCfg as FloodplainsConfig);
   } catch (err) {
     emit({ type: "placement.floodplains.error", error: err instanceof Error ? err.message : String(err) });

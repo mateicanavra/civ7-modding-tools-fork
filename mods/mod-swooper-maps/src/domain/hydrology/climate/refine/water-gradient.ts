@@ -9,8 +9,8 @@ export function applyWaterGradientRefinement(
 ): void {
   const { adapter, readRainfall, writeRainfall } = runtime;
 
-  const waterGradient = (refineCfg.waterGradient || {}) as Record<string, number>;
-  const maxR = (waterGradient?.radius ?? 5) | 0;
+  const waterGradient = refineCfg.waterGradient as Record<string, number>;
+  const maxR = (waterGradient.radius as number) | 0;
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -19,12 +19,12 @@ export function applyWaterGradientRefinement(
       const dist = distanceToNearestWater(x, y, maxR, adapter, width, height);
       if (dist >= 0) {
         const elev = adapter.getElevation(x, y);
-        let bonus = Math.max(0, maxR - dist) * (waterGradient?.perRingBonus ?? 5);
-        if (elev < 150) bonus += waterGradient?.lowlandBonus ?? 3;
+        let bonus =
+          Math.max(0, maxR - dist) * (waterGradient.perRingBonus as number);
+        if (elev < 150) bonus += waterGradient.lowlandBonus as number;
         rf += bonus;
         writeRainfall(x, y, rf);
       }
     }
   }
 }
-

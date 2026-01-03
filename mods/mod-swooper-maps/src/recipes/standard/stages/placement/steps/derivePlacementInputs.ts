@@ -29,7 +29,7 @@ export default createStep({
   run: (context: ExtendedMapContext, config: DerivePlacementInputsConfig) => {
     const runtime = getStandardRuntime(context);
     const baseStarts = getBaseStarts(context);
-    const placementConfig = config.placement ?? {};
+    const placementConfig = config.placement;
     const starts =
       placementConfig.starts && typeof placementConfig.starts === "object"
         ? { ...baseStarts, ...placementConfig.starts }

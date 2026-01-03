@@ -25,7 +25,11 @@ export type StandardRuntimeInit = {
 const runtimeByContext = new WeakMap<ExtendedMapContext, StandardRuntime>();
 
 function resolveMapInfo(adapter: EngineAdapter): MapInfo {
-  return adapter.lookupMapInfo(adapter.getMapSizeId()) ?? {};
+  const mapInfo = adapter.lookupMapInfo(adapter.getMapSizeId());
+  if (!mapInfo) {
+    throw new Error("[Standard] MapInfo missing for map size id.");
+  }
+  return mapInfo;
 }
 
 function createDefaultContinentBounds(

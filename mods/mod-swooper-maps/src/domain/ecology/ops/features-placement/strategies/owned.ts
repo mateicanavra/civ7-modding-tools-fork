@@ -1,8 +1,8 @@
 import type { FeaturePlacement } from "../types.js";
 import type { FeaturesPlacementInput } from "../types.js";
 import {
-  resolveFeaturesPlacementOwnedConfig,
   type FeaturePlacementKey,
+  type ResolvedFeaturesPlacementOwnedConfig,
 } from "../schema.js";
 import { resolveFeatureIndices, resolveNaturalWonderIndices } from "../rules/indices.js";
 import {
@@ -21,7 +21,7 @@ const rollPercent = (rand: (label: string, max: number) => number, label: string
 
 export function planOwnedFeaturePlacements(
   input: FeaturesPlacementInput,
-  config?: Parameters<typeof resolveFeaturesPlacementOwnedConfig>[0]
+  config: ResolvedFeaturesPlacementOwnedConfig
 ): FeaturePlacement[] {
   const {
     width,
@@ -35,7 +35,7 @@ export function planOwnedFeaturePlacements(
     freezeIndex,
     rand,
   } = input;
-  const resolved = resolveFeaturesPlacementOwnedConfig(config);
+  const resolved = config;
 
   const indices = resolveFeatureIndices(adapter);
   const naturalWonderIndices = resolveNaturalWonderIndices(adapter);

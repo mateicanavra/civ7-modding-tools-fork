@@ -3,12 +3,21 @@ import type { NarrativeCorridorsV1 } from "@mapgen/domain/narrative/artifacts.js
 import { forEachNeighbor3x3 } from "@swooper/mapgen-core/lib/grid";
 
 export function resolveSeaCorridorPolicy(
-  corridors: CorridorPolicy | null | undefined
+  corridors: CorridorPolicy
 ): { protection: string; softChanceMultiplier: number } {
-  const corridorPolicy = corridors || {};
-  const seaPolicy = corridorPolicy.sea || {};
-  const protection = seaPolicy.protection || "hard";
-  const softChanceMultiplier = Math.max(0, Math.min(1, seaPolicy.softChanceMultiplier ?? 0.5));
+  const seaPolicy = corridors.sea;
+  if (!seaPolicy) {
+    throw new Error("[Coastlines] Missing sea corridor policy.");
+  }
+  const protection = seaPolicy.protection;
+  if (!protection) {
+    throw new Error("[Coastlines] Missing sea corridor protection.");
+  }
+  const rawSoftChance = seaPolicy.softChanceMultiplier;
+  if (typeof rawSoftChance !== "number" || !Number.isFinite(rawSoftChance)) {
+    throw new Error("[Coastlines] Invalid sea corridor softChanceMultiplier.");
+  }
+  const softChanceMultiplier = Math.max(0, Math.min(1, rawSoftChance));
   return { protection, softChanceMultiplier };
 }
 

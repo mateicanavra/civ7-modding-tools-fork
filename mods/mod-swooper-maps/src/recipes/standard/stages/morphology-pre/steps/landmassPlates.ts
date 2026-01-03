@@ -58,8 +58,8 @@ export default createStep({
     assertFoundationPlates(context, "landmassPlates");
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
-    const landmassCfg = (config.landmass ?? {}) as LandmassConfig;
-    const oceanSeparationCfg = config.oceanSeparation ?? {};
+    const landmassCfg = config.landmass as LandmassConfig;
+    const oceanSeparationCfg = config.oceanSeparation;
 
     const plateResult = createPlateDrivenLandmasses(width, height, context, {
       landmassCfg,

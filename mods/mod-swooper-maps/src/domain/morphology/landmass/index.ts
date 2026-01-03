@@ -96,10 +96,19 @@ export function createPlateDrivenLandmasses(
   }
 
   // Cast to our local LandmassConfig which includes extended properties
-  const landmassCfg: LandmassConfig = (options.landmassCfg || {}) as LandmassConfig;
+  const landmassCfg = options.landmassCfg as LandmassConfig;
+  if (!landmassCfg) {
+    throw new Error("[Landmass] Missing landmass config.");
+  }
 
-  const geomCfg: GeometryConfig = options.geometry || {};
-  const postCfg: GeometryPostConfig = geomCfg.post || {};
+  const geomCfg = options.geometry as GeometryConfig;
+  if (!geomCfg) {
+    throw new Error("[Landmass] Missing geometry config.");
+  }
+  const postCfg = geomCfg.post as GeometryPostConfig;
+  if (!postCfg) {
+    throw new Error("[Landmass] Missing geometry post config.");
+  }
 
   const { waterPct, targetLandTiles } = computeTargetLandTiles(size, landmassCfg);
 

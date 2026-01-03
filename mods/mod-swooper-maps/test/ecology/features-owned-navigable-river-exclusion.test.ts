@@ -18,7 +18,7 @@ describe("features (owned baseline)", () => {
     const navigableRiver = adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER");
     adapter.setTerrainType(riverX, riverY, navigableRiver);
 
-    featuresStep.run(ctx, {
+    const config = {
       story: { features: { paradiseReefChance: 0, volcanicForestChance: 0, volcanicTaigaChance: 0 } },
       featuresDensity: {
         shelfReefMultiplier: 0,
@@ -33,7 +33,12 @@ describe("features (owned baseline)", () => {
           chances: { FEATURE_FOREST: 100 },
         },
       },
-    });
+    };
+    const resolvedConfig = featuresStep.resolveConfig
+      ? featuresStep.resolveConfig(config, ctx.settings)
+      : config;
+
+    featuresStep.run(ctx, resolvedConfig);
 
     expect(adapter.getFeatureType(riverX, riverY)).toBe(adapter.NO_FEATURE);
   });

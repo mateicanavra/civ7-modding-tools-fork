@@ -23,7 +23,7 @@ interface NormalizedSeedConfig {
 }
 
 function normalizeSeedConfig(config: Partial<PlateConfig> | null): NormalizedSeedConfig {
-  const cfg = config || {};
+  const cfg = config && typeof config === "object" ? config : {};
   const wantsFixed = cfg.seedMode === "fixed";
   const hasFixed = wantsFixed && Number.isFinite(cfg.fixedSeed);
   const seedMode = hasFixed ? "fixed" : "engine";

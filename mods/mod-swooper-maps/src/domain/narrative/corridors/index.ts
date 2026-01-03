@@ -32,10 +32,13 @@ export type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js"
 export function storyTagStrategicCorridors(
   ctx: ExtendedMapContext,
   stage: CorridorStage,
-  config: { corridors?: CorridorsConfig; directionality?: FoundationDirectionalityConfig } = {}
+  config: { corridors: CorridorsConfig; directionality: FoundationDirectionalityConfig }
 ): StoryOverlaySnapshot {
-  const corridorsCfg = (config.corridors || {}) as Record<string, unknown>;
+  const corridorsCfg = config.corridors as Record<string, unknown>;
   const directionality = config.directionality;
+  if (!directionality) {
+    throw new Error("[Narrative] Missing settings.directionality.");
+  }
   const emptySet = new Set<string>();
   const existingCorridors = stage === "postRivers" ? getNarrativeCorridors(ctx) : null;
   const hotspots = getNarrativeMotifsHotspots(ctx);

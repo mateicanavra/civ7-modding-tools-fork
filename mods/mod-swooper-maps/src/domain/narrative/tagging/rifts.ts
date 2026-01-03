@@ -14,13 +14,41 @@ import type { StoryConfig } from "@mapgen/config";
 
 export function storyTagRiftValleys(
   ctx: ExtendedMapContext,
-  config: { story?: StoryConfig } = {}
+  config: { story: StoryConfig }
 ): RiftValleysSummary {
   const plates = assertFoundationPlates(ctx, "storyRifts");
   const { width, height } = getDims(ctx);
-  const storyCfg = (config.story || {}) as Record<string, unknown>;
-  const riftCfg = (storyCfg.rift || {}) as Record<string, number>;
-  const directionality = (ctx.settings.directionality || {}) as Record<string, unknown>;
+  const storyCfg = config.story as Record<string, unknown>;
+  const riftCfg = storyCfg.rift as Record<string, number>;
+  if (!riftCfg) {
+    throw new Error("[Narrative] Missing story rift config.");
+  }
+  const directionality = ctx.settings.directionality as Record<string, unknown>;
+  if (!directionality) {
+    throw new Error("[Narrative] Missing settings.directionality.");
+  }
+  const interplay = directionality.interplay as Record<string, number>;
+  const primaryAxes = directionality.primaryAxes as Record<string, number>;
+  if (!interplay || !primaryAxes) {
+    throw new Error("[Narrative] Missing directionality interplay/primaryAxes.");
+  }
+  const cohesionRaw = Number(directionality.cohesion);
+  if (!Number.isFinite(cohesionRaw)) {
+    throw new Error("[Narrative] Invalid directionality cohesion.");
+  }
+  const cohesion = clamp(cohesionRaw, 0, 1);
+  const followPlates = Number(interplay.riftsFollowPlates);
+  if (!Number.isFinite(followPlates)) {
+    throw new Error("[Narrative] Invalid directionality riftsFollowPlates.");
+  }
+  const follow = clamp(followPlates, 0, 1) * cohesion;
+  const plateAxisDeg = Number(primaryAxes.plateAxisDeg);
+  if (!Number.isFinite(plateAxisDeg)) {
+    throw new Error("[Narrative] Invalid directionality plateAxisDeg.");
+  }
+  const axisRad = (plateAxisDeg * Math.PI) / 180;
+  const axisX = Math.cos(axisRad);
+  const axisY = Math.sin(axisRad);
 
   const areaRift = Math.max(1, width * height);
   const sqrtRift = Math.min(2.0, Math.max(0.6, Math.sqrt(areaRift / 10000)));
@@ -166,19 +194,11 @@ export function storyTagRiftValleys(
       tagShoulders(x, y, sdx, sdy);
 
       function stepDirBias(tx: number, ty: number): number {
-        const coh = clamp(Number(directionality.cohesion ?? 0), 0, 1);
-        const interplay = (directionality.interplay || {}) as Record<string, number>;
-        const follow = clamp(Number(interplay.riftsFollowPlates ?? 0), 0, 1) * coh;
         if (follow <= 0) return 0;
-        const primaryAxes = (directionality.primaryAxes || {}) as Record<string, number>;
-        const deg = (primaryAxes.plateAxisDeg ?? 0) | 0;
-        const rad = (deg * Math.PI) / 180;
-        const ax = Math.cos(rad);
-        const ay = Math.sin(rad);
         const vlen = Math.max(1, Math.hypot(tx, ty));
         const vx = tx / vlen;
         const vy = ty / vlen;
-        const dot = ax * vx + ay * vy;
+        const dot = axisX * vx + axisY * vy;
         return Math.round(10 * follow * dot);
       }
 

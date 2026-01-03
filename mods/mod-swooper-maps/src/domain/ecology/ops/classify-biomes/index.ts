@@ -1,4 +1,3 @@
-import { Value } from "typebox/value";
 import { createOp } from "@swooper/mapgen-core/authoring";
 
 import {
@@ -11,7 +10,6 @@ import {
   BiomeClassificationConfigSchema,
   BiomeClassificationInputSchema,
   BiomeClassificationOutputSchema,
-  VegetationBiomeModifiersSchema,
   type BiomeClassificationConfig,
   type BiomeClassificationInput,
   type BiomeClassificationOutput,
@@ -33,10 +31,7 @@ export const classifyBiomes = createOp({
   output: BiomeClassificationOutputSchema,
   config: BiomeClassificationConfigSchema,
   run: (input: BiomeClassificationInput, cfg: BiomeClassificationConfig) => {
-    const resolvedConfig = Value.Default(
-      BiomeClassificationConfigSchema,
-      cfg
-    ) as BiomeClassificationConfig;
+    const resolvedConfig = cfg;
     const { width, height } = input;
     const size = width * height;
 
@@ -69,10 +64,8 @@ export const classifyBiomes = createOp({
     const moistureNormalization =
       humidThreshold + resolvedConfig.vegetation.moistureNormalizationPadding;
 
-    const biomeModifiers = Value.Default(
-      VegetationBiomeModifiersSchema,
-      resolvedConfig.vegetation.biomeModifiers ?? {}
-    ) as Record<BiomeSymbol, { multiplier: number; bonus: number }>;
+    const biomeModifiers = resolvedConfig.vegetation
+      .biomeModifiers as Record<BiomeSymbol, { multiplier: number; bonus: number }>;
 
     for (let i = 0; i < size; i++) {
       if (landMask[i] === 0) {
