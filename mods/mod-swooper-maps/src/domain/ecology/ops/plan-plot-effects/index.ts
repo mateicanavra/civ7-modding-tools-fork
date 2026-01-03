@@ -3,15 +3,18 @@ import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import {
   PlotEffectsConfigSchema,
   resolvePlotEffectsConfig,
+  type PlotEffectKey,
   type PlotEffectsConfig,
   type ResolvedPlotEffectsConfig,
 } from "./schema.js";
 import type { PlotEffectsInput } from "./types.js";
 import { planPlotEffects as planPlotEffectsImpl } from "./plan.js";
 
-const PlotEffectKeySchema = Type.String({
-  description: "Plot effect key (PLOTEFFECT_*).",
-});
+const PlotEffectKeySchema = Type.Unsafe<PlotEffectKey>(
+  Type.String({
+    description: "Plot effect key (PLOTEFFECT_*).",
+  })
+);
 
 const PlotEffectsInputSchema = Type.Object(
   {

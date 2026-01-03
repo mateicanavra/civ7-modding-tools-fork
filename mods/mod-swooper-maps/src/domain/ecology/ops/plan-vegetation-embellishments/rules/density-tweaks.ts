@@ -1,5 +1,5 @@
-import type { BiomeSymbol } from "../../types.js";
-import type { FeatureKey } from "../plan-feature-placements/schema.js";
+import type { BiomeSymbol } from "../../../types.js";
+import type { FeatureKey } from "../../plan-feature-placements/schema.js";
 
 export function planDensityTweaksAtTile(params: {
   x: number;

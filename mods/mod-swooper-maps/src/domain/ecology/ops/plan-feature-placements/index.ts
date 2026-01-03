@@ -4,15 +4,18 @@ import {
   FEATURE_PLACEMENT_KEYS,
   FeaturesPlacementConfigSchema,
   resolveFeaturesPlacementConfig,
+  type FeatureKey,
   type FeaturesPlacementConfig,
   type ResolvedFeaturesPlacementConfig,
 } from "./schema.js";
 import type { FeaturesPlacementInput } from "./types.js";
 import { planFeaturePlacements as planFeaturePlacementsImpl } from "./plan.js";
 
-const FeatureKeySchema = Type.Union(
-  FEATURE_PLACEMENT_KEYS.map((key) => Type.Literal(key)),
-  { description: "Feature placement key (FEATURE_*)." }
+const FeatureKeySchema = Type.Unsafe<FeatureKey>(
+  Type.Union(
+    FEATURE_PLACEMENT_KEYS.map((key) => Type.Literal(key)),
+    { description: "Feature placement key (FEATURE_*)." }
+  )
 );
 
 const FeaturesPlacementInputSchema = Type.Object(

@@ -13,6 +13,7 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
+import type { PlotEffectsConfig } from "@mapgen/domain/ecology/ops/plan-plot-effects/schema.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
@@ -407,7 +408,7 @@ const featuresPlacementConfig = {
   },
 };
 
-const plotEffectsConfig = {
+const plotEffectsConfig: PlotEffectsConfig = {
   snow: {
     enabled: true,
     selectors: {

@@ -13,9 +13,11 @@ import {
 import type { VegetationEmbellishmentsInput } from "./types.js";
 import { planVegetationEmbellishments as planVegetationEmbellishmentsImpl } from "./plan.js";
 
-const FeatureKeySchema = Type.Union(
-  FEATURE_PLACEMENT_KEYS.map((key) => Type.Literal(key)),
-  { description: "Feature placement key (FEATURE_*)." }
+const FeatureKeySchema = Type.Unsafe<FeatureKey>(
+  Type.Union(
+    FEATURE_PLACEMENT_KEYS.map((key) => Type.Literal(key)),
+    { description: "Feature placement key (FEATURE_*)." }
+  )
 );
 
 const VegetationEmbellishmentsInputSchema = Type.Object(

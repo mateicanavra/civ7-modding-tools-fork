@@ -1,5 +1,5 @@
 export function hasAdjacentFeatureType(
-  featureField: Int32Array,
+  featureField: Int16Array,
   width: number,
   height: number,
   x: number,
