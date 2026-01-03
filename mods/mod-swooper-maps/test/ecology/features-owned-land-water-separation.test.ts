@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
 import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
-import { createFeaturesTestContext } from "./features-owned.helpers.js";
+import { createFeaturesTestContext, disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
   it("keeps land features on land and aquatic features on water", () => {
@@ -15,36 +15,28 @@ describe("features (owned baseline)", () => {
     });
 
     const config = {
-      story: { features: { paradiseReefChance: 0, volcanicForestChance: 0, volcanicTaigaChance: 0 } },
-      featuresDensity: {
-        shelfReefMultiplier: 0,
-        rainforestExtraChance: 0,
-        forestExtraChance: 0,
-        taigaExtraChance: 0,
-      },
       featuresPlacement: {
-        strategy: "owned",
-        config: {
-          chances: {
-            FEATURE_FOREST: 100,
-            FEATURE_RAINFOREST: 100,
-            FEATURE_TAIGA: 100,
-            FEATURE_SAVANNA_WOODLAND: 100,
-            FEATURE_SAGEBRUSH_STEPPE: 100,
-            FEATURE_MARSH: 100,
-            FEATURE_TUNDRA_BOG: 100,
-            FEATURE_MANGROVE: 100,
-            FEATURE_OASIS: 100,
-            FEATURE_WATERING_HOLE: 100,
-            FEATURE_REEF: 100,
-            FEATURE_COLD_REEF: 100,
-            FEATURE_ATOLL: 100,
-            FEATURE_LOTUS: 100,
-            FEATURE_ICE: 100,
-          },
-          ice: { minAbsLatitude: 90 },
+        chances: {
+          FEATURE_FOREST: 100,
+          FEATURE_RAINFOREST: 100,
+          FEATURE_TAIGA: 100,
+          FEATURE_SAVANNA_WOODLAND: 100,
+          FEATURE_SAGEBRUSH_STEPPE: 100,
+          FEATURE_MARSH: 100,
+          FEATURE_TUNDRA_BOG: 100,
+          FEATURE_MANGROVE: 100,
+          FEATURE_OASIS: 100,
+          FEATURE_WATERING_HOLE: 100,
+          FEATURE_REEF: 100,
+          FEATURE_COLD_REEF: 100,
+          FEATURE_ATOLL: 100,
+          FEATURE_LOTUS: 100,
+          FEATURE_ICE: 100,
         },
+        ice: { minAbsLatitude: 90 },
       },
+      reefEmbellishments: { ...disabledEmbellishmentsConfig },
+      vegetationEmbellishments: { ...disabledEmbellishmentsConfig },
     };
     const resolvedConfig = featuresStep.resolveConfig
       ? featuresStep.resolveConfig(config, ctx.settings)

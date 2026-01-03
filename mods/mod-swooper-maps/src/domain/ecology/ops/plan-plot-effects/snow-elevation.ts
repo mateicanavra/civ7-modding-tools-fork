@@ -46,12 +46,12 @@ const computeStats = (sorted: number[]): SnowElevationStats => {
 
 const collectLandElevations = (input: PlotEffectsInput): number[] => {
   const elevations: number[] = [];
-  const { width, height, adapter, elevation } = input;
+  const { width, height, landMask, elevation } = input;
 
   for (let y = 0; y < height; y++) {
     const rowOffset = y * width;
     for (let x = 0; x < width; x++) {
-      if (adapter.isWater(x, y)) continue;
+      if (landMask[rowOffset + x] === 0) continue;
       const idx = rowOffset + x;
       elevations.push(elevation[idx] ?? 0);
     }

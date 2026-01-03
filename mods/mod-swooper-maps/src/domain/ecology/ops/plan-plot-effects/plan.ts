@@ -1,10 +1,8 @@
-import { biomeSymbolFromIndex } from "../../classify-biomes.js";
-import type { PlotEffectsInput, PlotEffectPlacement } from "../types.js";
-import type {
-  PlotEffectSelector,
-  ResolvedPlotEffectsConfig,
-} from "../schema.js";
-import { resolveSnowElevationRange } from "../snow-elevation.js";
+import { biomeSymbolFromIndex } from "../classify-biomes/index.js";
+import type { PlotEffectsInput, PlotEffectPlacement } from "./types.js";
+import type { PlotEffectSelector, ResolvedPlotEffectsConfig } from "./schema.js";
+import { resolveSnowElevationRange } from "./snow-elevation.js";
+import { createLabelRng } from "../rng.js";
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
@@ -13,44 +11,30 @@ const normalizeRange = (value: number, min: number, max: number): number => {
   return clamp01((value - min) / (max - min));
 };
 
-const rollPercent = (rand: (label: string, max: number) => number, label: string, chance: number): boolean =>
-  chance > 0 && rand(label, 100) < chance;
+const rollPercent = (rng: (label: string, max: number) => number, label: string, chance: number): boolean =>
+  chance > 0 && rng(label, 100) < chance;
 
-const resolvePlotEffectType = (
-  input: PlotEffectsInput,
-  selector: PlotEffectSelector
-): number => {
-  const tags = selector.tags?.map((tag) => tag.toUpperCase()) ?? [];
-  if (tags.length > 0) {
-    const matches = input.adapter.getPlotEffectTypesContainingTags(tags);
-    if (matches.length > 0) return matches[0] ?? -1;
-  }
-  if (selector.typeName) {
-    return input.adapter.getPlotEffectTypeIndex(selector.typeName);
-  }
-  return -1;
-};
+const resolvePlotEffectKey = (selector: PlotEffectSelector): PlotEffectSelector => selector;
 
-export function planOwnedPlotEffects(
+export function planPlotEffects(
   input: PlotEffectsInput,
   config: ResolvedPlotEffectsConfig
 ): PlotEffectPlacement[] {
-  const { width, height, adapter } = input;
+  const { width, height, landMask } = input;
   const placements: PlotEffectPlacement[] = [];
+  const rng = createLabelRng(input.seed);
 
-  const snowTypes = {
-    light: resolvePlotEffectType(input, config.snow.selectors.light),
-    medium: resolvePlotEffectType(input, config.snow.selectors.medium),
-    heavy: resolvePlotEffectType(input, config.snow.selectors.heavy),
+  const snowSelectors = {
+    light: resolvePlotEffectKey(config.snow.selectors.light),
+    medium: resolvePlotEffectKey(config.snow.selectors.medium),
+    heavy: resolvePlotEffectKey(config.snow.selectors.heavy),
   };
-
-  const sandType = resolvePlotEffectType(input, config.sand.selector);
-  const burnedType = resolvePlotEffectType(input, config.burned.selector);
+  const sandSelector = resolvePlotEffectKey(config.sand.selector);
+  const burnedSelector = resolvePlotEffectKey(config.burned.selector);
 
   const sandBiomeSet = new Set(config.sand.allowedBiomes);
   const burnedBiomeSet = new Set(config.burned.allowedBiomes);
-  const snowEnabled =
-    config.snow.enabled && (snowTypes.light >= 0 || snowTypes.medium >= 0 || snowTypes.heavy >= 0);
+  const snowEnabled = config.snow.enabled;
   const snowElevation = snowEnabled ? resolveSnowElevationRange(input, config) : null;
   const snowElevationMin = snowElevation?.min ?? config.snow.elevationMin;
   const snowElevationMax = snowElevation?.max ?? config.snow.elevationMax;
@@ -59,7 +43,7 @@ export function planOwnedPlotEffects(
     const rowOffset = y * width;
     for (let x = 0; x < width; x++) {
       const idx = rowOffset + x;
-      if (adapter.isWater(x, y)) continue;
+      if (landMask[idx] === 0) continue;
 
       const temp = input.surfaceTemperature[idx] ?? 0;
       const moisture = input.effectiveMoisture[idx] ?? 0;
@@ -90,52 +74,48 @@ export function planOwnedPlotEffects(
           const score = clamp01(scoreRaw / Math.max(0.0001, config.snow.scoreNormalization));
 
           if (score >= config.snow.lightThreshold) {
-            if (rollPercent(input.rand, "plot-effects:snow:coverage", config.snow.coverageChance)) {
+            if (rollPercent(rng, "plot-effects:plan:snow:coverage", config.snow.coverageChance)) {
               const typeToUse =
                 score >= config.snow.heavyThreshold
-                  ? snowTypes.heavy
+                  ? snowSelectors.heavy.typeName
                   : score >= config.snow.mediumThreshold
-                    ? snowTypes.medium
-                    : snowTypes.light;
+                    ? snowSelectors.medium.typeName
+                    : snowSelectors.light.typeName;
 
-              if (typeToUse >= 0 && !adapter.hasPlotEffect(x, y, typeToUse)) {
-                placements.push({ x, y, plotEffectType: typeToUse });
-              }
+              placements.push({ x, y, plotEffect: typeToUse });
             }
           }
         }
       }
 
       // --- Sand ---
-      if (config.sand.enabled && sandType >= 0) {
+      if (config.sand.enabled) {
         if (
           aridity >= config.sand.minAridity &&
           temp >= config.sand.minTemperature &&
           freeze <= config.sand.maxFreeze &&
           vegetation <= config.sand.maxVegetation &&
           moisture <= config.sand.maxMoisture &&
-          sandBiomeSet.has(symbol) &&
-          !adapter.hasPlotEffect(x, y, sandType)
+          sandBiomeSet.has(symbol)
         ) {
-          if (rollPercent(input.rand, "plot-effects:sand", config.sand.chance)) {
-            placements.push({ x, y, plotEffectType: sandType });
+          if (rollPercent(rng, "plot-effects:plan:sand", config.sand.chance)) {
+            placements.push({ x, y, plotEffect: sandSelector.typeName });
           }
         }
       }
 
       // --- Burned ---
-      if (config.burned.enabled && burnedType >= 0) {
+      if (config.burned.enabled) {
         if (
           aridity >= config.burned.minAridity &&
           temp >= config.burned.minTemperature &&
           freeze <= config.burned.maxFreeze &&
           vegetation <= config.burned.maxVegetation &&
           moisture <= config.burned.maxMoisture &&
-          burnedBiomeSet.has(symbol) &&
-          !adapter.hasPlotEffect(x, y, burnedType)
+          burnedBiomeSet.has(symbol)
         ) {
-          if (rollPercent(input.rand, "plot-effects:burned", config.burned.chance)) {
-            placements.push({ x, y, plotEffectType: burnedType });
+          if (rollPercent(rng, "plot-effects:plan:burned", config.burned.chance)) {
+            placements.push({ x, y, plotEffect: burnedSelector.typeName });
           }
         }
       }

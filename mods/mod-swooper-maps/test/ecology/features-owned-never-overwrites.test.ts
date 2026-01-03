@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
 import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
-import { createFeaturesTestContext } from "./features-owned.helpers.js";
+import { createFeaturesTestContext, disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
   it("never overwrites existing features", () => {
@@ -19,17 +19,9 @@ describe("features (owned baseline)", () => {
     adapter.setFeatureType(seedX, seedY, { Feature: forestIdx, Direction: -1, Elevation: 0 });
 
     const config = {
-      story: { features: { paradiseReefChance: 0, volcanicForestChance: 0, volcanicTaigaChance: 0 } },
-      featuresDensity: {
-        shelfReefMultiplier: 0,
-        rainforestExtraChance: 0,
-        forestExtraChance: 0,
-        taigaExtraChance: 0,
-      },
-      featuresPlacement: {
-        strategy: "owned",
-        config: { chances: { FEATURE_FOREST: 100 } },
-      },
+      featuresPlacement: { chances: { FEATURE_FOREST: 100 } },
+      reefEmbellishments: { ...disabledEmbellishmentsConfig },
+      vegetationEmbellishments: { ...disabledEmbellishmentsConfig },
     };
     const resolvedConfig = featuresStep.resolveConfig
       ? featuresStep.resolveConfig(config, ctx.settings)

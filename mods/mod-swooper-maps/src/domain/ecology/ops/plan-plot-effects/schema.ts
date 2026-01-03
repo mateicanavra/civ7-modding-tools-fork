@@ -3,10 +3,7 @@ import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 
 import type { BiomeSymbol } from "../../types.js";
 
-type PlotEffectSelectorValue = {
-  tags?: ReadonlyArray<string>;
-  typeName?: string;
-};
+export type PlotEffectKey = `PLOTEFFECT_${string}`;
 
 const BiomeSymbolSchema = Type.Union(
   [
@@ -26,13 +23,13 @@ const BiomeSymbolSchema = Type.Union(
 );
 
 const DEFAULT_SNOW_SELECTORS = {
-  light: { tags: ["SNOW", "LIGHT", "PERMANENT"], typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT" },
-  medium: { tags: ["SNOW", "MEDIUM", "PERMANENT"], typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT" },
-  heavy: { tags: ["SNOW", "HEAVY", "PERMANENT"], typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT" },
+  light: { typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT" },
+  medium: { typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT" },
+  heavy: { typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT" },
 } as const;
 
-const DEFAULT_SAND_SELECTOR = { tags: ["SAND"], typeName: "PLOTEFFECT_SAND" } as const;
-const DEFAULT_BURNED_SELECTOR = { tags: ["BURNED"], typeName: "PLOTEFFECT_BURNED" } as const;
+const DEFAULT_SAND_SELECTOR = { typeName: "PLOTEFFECT_SAND" } as const;
+const DEFAULT_BURNED_SELECTOR = { typeName: "PLOTEFFECT_BURNED" } as const;
 
 const SnowElevationStrategySchema = Type.Union(
   [Type.Literal("absolute"), Type.Literal("percentile")],
@@ -43,28 +40,18 @@ const SnowElevationStrategySchema = Type.Union(
   }
 );
 
-const createPlotEffectSelectorSchema = (defaultValue: PlotEffectSelectorValue = {}) =>
+const createPlotEffectSelectorSchema = (defaultValue: { typeName: string } = { typeName: "" }) =>
   Type.Object(
     {
-      /** Tag set that should resolve to a plot effect type. */
-      tags: Type.Optional(
-        Type.Array(Type.String(), {
-          description:
-            "Tag set used to resolve a plot effect type (case-insensitive, all tags required).",
-        })
-      ),
       /** Explicit plot effect type name (ex: PLOTEFFECT_SNOW_LIGHT_PERMANENT). */
-      typeName: Type.Optional(
-        Type.String({
-          description:
-            "Explicit plot effect type name used when tags do not resolve (ex: PLOTEFFECT_SAND).",
-        })
-      ),
+      typeName: Type.String({
+        description: "Explicit plot effect type name (ex: PLOTEFFECT_SAND).",
+      }),
     },
     {
       additionalProperties: false,
       default: defaultValue,
-      description: "Selector for a plot effect type (by tags or explicit name).",
+      description: "Selector for a plot effect type (explicit name).",
     }
   );
 
@@ -421,7 +408,7 @@ export const PlotEffectsConfigSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export type PlotEffectSelector = Static<typeof PlotEffectSelectorSchema>;
+export type PlotEffectSelector = { typeName: PlotEffectKey };
 export type SnowElevationStrategy = Static<typeof SnowElevationStrategySchema>;
 export type PlotEffectsSnowSelectors = Static<typeof PlotEffectsSnowSelectorsSchema>;
 export type PlotEffectsSnowConfig = Static<typeof PlotEffectsSnowSchema>;
@@ -437,10 +424,44 @@ export type ResolvedPlotEffectsConfig = {
   burned: Required<PlotEffectsBurnedConfig> & { selector: PlotEffectSelector };
 };
 
+const normalizePlotEffectKey = (value: string): PlotEffectKey => {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    throw new Error("plot effects selector typeName must be a non-empty string");
+  }
+  const upper = trimmed.toUpperCase();
+  return (upper.startsWith("PLOTEFFECT_") ? upper : `PLOTEFFECT_${upper}`) as PlotEffectKey;
+};
+
+const normalizeSelector = (selector: { typeName: string }): PlotEffectSelector => ({
+  typeName: normalizePlotEffectKey(selector.typeName),
+});
+
 export function resolvePlotEffectsConfig(
   input: PlotEffectsConfig
 ): ResolvedPlotEffectsConfig {
-  return applySchemaDefaults(PlotEffectsConfigSchema, input) as ResolvedPlotEffectsConfig;
+  const resolved = applySchemaDefaults(
+    PlotEffectsConfigSchema,
+    input
+  ) as ResolvedPlotEffectsConfig;
+  return {
+    snow: {
+      ...resolved.snow,
+      selectors: {
+        light: normalizeSelector(resolved.snow.selectors.light),
+        medium: normalizeSelector(resolved.snow.selectors.medium),
+        heavy: normalizeSelector(resolved.snow.selectors.heavy),
+      },
+    },
+    sand: {
+      ...resolved.sand,
+      selector: normalizeSelector(resolved.sand.selector),
+    },
+    burned: {
+      ...resolved.burned,
+      selector: normalizeSelector(resolved.burned.selector),
+    },
+  };
 }
 
 export type { BiomeSymbol };

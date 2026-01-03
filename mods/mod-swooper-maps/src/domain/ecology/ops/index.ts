@@ -1,4 +1,5 @@
-export { classifyBiomes } from "./classify-biomes.js";
-export { featuresPlacement } from "./features-placement/index.js";
-export { featuresEmbellishments } from "./features-embellishments/index.js";
-export { plotEffects } from "./plot-effects/index.js";
+export { classifyBiomes } from "./classify-biomes/index.js";
+export { planFeaturePlacements } from "./plan-feature-placements/index.js";
+export { planPlotEffects } from "./plan-plot-effects/index.js";
+export { planReefEmbellishments } from "./plan-reef-embellishments/index.js";
+export { planVegetationEmbellishments } from "./plan-vegetation-embellishments/index.js";
