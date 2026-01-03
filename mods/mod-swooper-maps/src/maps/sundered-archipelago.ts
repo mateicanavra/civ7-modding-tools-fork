@@ -15,11 +15,8 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
-import { applyMapInitData, resolveMapInitData } from "./_runtime/map-init.js";
-import { runStandardRecipe } from "./_runtime/run-standard.js";
-import type { MapInitResolution } from "./_runtime/map-init.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
-import type { RunSettings } from "@swooper/mapgen-core/engine";
+import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
 const directionality = {
   // Varied patterns for diverse island climates
@@ -603,33 +600,11 @@ const config = {
 } satisfies StandardRecipeConfig;
 
 const runtimeOptions: MapRuntimeOptions = { logPrefix: "[SUNDERED_ARCHIPELAGO]" };
-let mapInitData: MapInitResolution | null = null;
 
-engine.on("RequestMapInitData", (initParams) => {
-  mapInitData = applyMapInitData(runtimeOptions, initParams);
-});
-
-engine.on("GenerateMap", () => {
-  const init = mapInitData ?? resolveMapInitData(runtimeOptions);
-  const { topLatitude, bottomLatitude, wrapX, wrapY } = init.params;
-  if (topLatitude == null || bottomLatitude == null) {
-    throw new Error("[SUNDERED_ARCHIPELAGO] Missing init latitude bounds.");
-  }
-  if (wrapX == null || wrapY == null) {
-    throw new Error("[SUNDERED_ARCHIPELAGO] Missing init wrap flags.");
-  }
-  const settings: RunSettings = {
-    seed: 0,
-    dimensions: { width: init.params.width, height: init.params.height },
-    latitudeBounds: {
-      topLatitude,
-      bottomLatitude,
-    },
-    wrap: {
-      wrapX,
-      wrapY,
-    },
-    directionality,
-  };
-  runStandardRecipe({ recipe: standardRecipe, init, settings, config, options: runtimeOptions });
+wireStandardMapEntry({
+  engine,
+  recipe: standardRecipe,
+  config,
+  directionality,
+  options: runtimeOptions,
 });

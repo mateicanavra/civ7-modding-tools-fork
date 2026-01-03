@@ -1,3 +1,5 @@
+import type { EngineAdapter } from "@civ7/adapter";
+import { Civ7Adapter } from "@civ7/adapter/civ7";
 import { createExtendedMapContext, type ExtendedMapContext } from "@swooper/mapgen-core";
 import type { RecipeModule } from "@swooper/mapgen-core/authoring";
 import type { RunSettings } from "@swooper/mapgen-core/engine";
@@ -5,7 +7,6 @@ import type { RunSettings } from "@swooper/mapgen-core/engine";
 import { initializeStandardRuntime } from "../../recipes/standard/runtime.js";
 import type { StandardRecipeConfig } from "../../recipes/standard/recipe.js";
 import type { MapInitResolution } from "./map-init.js";
-import { createLayerAdapter } from "./helpers.js";
 import type { MapRuntimeOptions } from "./types.js";
 
 type StandardRunOptions = {
@@ -15,6 +16,16 @@ type StandardRunOptions = {
   config: StandardRecipeConfig | null;
   options?: MapRuntimeOptions;
 };
+
+function createLayerAdapter(
+  options: MapRuntimeOptions,
+  width: number,
+  height: number
+): EngineAdapter {
+  if (options.adapter) return options.adapter;
+  if (options.createAdapter) return options.createAdapter(width, height);
+  return new Civ7Adapter(width, height);
+}
 
 export function runStandardRecipe({
   recipe,
