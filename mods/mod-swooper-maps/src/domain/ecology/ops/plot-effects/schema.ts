@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { Value } from "typebox/value";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 
 import type { BiomeSymbol } from "../../types.js";
 
@@ -440,9 +440,7 @@ export type ResolvedPlotEffectsConfig = {
 export function resolvePlotEffectsConfig(
   input: PlotEffectsConfig
 ): ResolvedPlotEffectsConfig {
-  const cloned = Value.Clone(input ?? {});
-  const defaulted = Value.Default(PlotEffectsConfigSchema, cloned);
-  return Value.Clean(PlotEffectsConfigSchema, defaulted) as ResolvedPlotEffectsConfig;
+  return applySchemaDefaults(PlotEffectsConfigSchema, input) as ResolvedPlotEffectsConfig;
 }
 
 export type { BiomeSymbol };

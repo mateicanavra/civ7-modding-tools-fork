@@ -33,8 +33,10 @@ export default createStep({
       return;
     }
 
-    const directionality =
-      context.settings.directionality as FoundationDirectionalityConfig | undefined;
+    const directionality = context.settings.directionality as FoundationDirectionalityConfig;
+    if (!directionality) {
+      throw new Error("storySwatches requires settings.directionality.");
+    }
     storyTagClimateSwatches(context, {
       orogenyCache: getOrogenyCache(context),
       climate: config.climate,

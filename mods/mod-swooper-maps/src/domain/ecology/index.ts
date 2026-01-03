@@ -12,7 +12,6 @@ export const ops = {
 
 export * from "./artifacts.js";
 export { logSnowEligibilitySummary } from "./ops/plot-effects/diagnostics.js";
-export { resolvePlotEffectsConfig } from "./ops/plot-effects/index.js";
 export {
   FeaturesConfigSchema,
   FeaturesDensityConfigSchema,

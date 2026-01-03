@@ -1,5 +1,4 @@
 import { Type, type Static } from "typebox";
-import { Value } from "typebox/value";
 import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "../../config.js";
@@ -64,18 +63,8 @@ export const featuresEmbellishments = createOp({
       rand,
     } = input;
 
-    const resolvedConfig = Value.Default(
-      FeaturesEmbellishmentsConfigSchema,
-      config
-    ) as FeaturesEmbellishmentsConfig;
-    const featuresCfg = Value.Default(
-      FeaturesConfigSchema,
-      resolvedConfig.story?.features ?? {}
-    ) as Required<Static<typeof FeaturesConfigSchema>>;
-    const densityCfg = Value.Default(
-      FeaturesDensityConfigSchema,
-      resolvedConfig.featuresDensity ?? {}
-    ) as Required<Static<typeof FeaturesDensityConfigSchema>>;
+    const featuresCfg = config.story.features as Required<Static<typeof FeaturesConfigSchema>>;
+    const densityCfg = config.featuresDensity as Required<Static<typeof FeaturesDensityConfigSchema>>;
 
     const { reefIndex, rainforestIdx, forestIdx, taigaIdx, NO_FEATURE } =
       resolveEmbellishmentFeatureIndices(adapter);

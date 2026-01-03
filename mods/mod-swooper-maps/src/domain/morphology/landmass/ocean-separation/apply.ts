@@ -8,7 +8,6 @@ import type {
   PlateAwareOceanSeparationResult,
   RowState,
 } from "@mapgen/domain/morphology/landmass/ocean-separation/types.js";
-import { DEFAULT_OCEAN_SEPARATION } from "@mapgen/domain/morphology/landmass/ocean-separation/policy.js";
 import { aggregateRowState, createRowState, normalizeWindow } from "@mapgen/domain/morphology/landmass/ocean-separation/row-state.js";
 
 export function applyPlateAwareOceanSeparation(
@@ -28,11 +27,13 @@ export function applyPlateAwareOceanSeparation(
   if (!context) {
     throw new Error("[OceanSeparation] MapContext is required to apply separation.");
   }
-  const rawPolicy = params?.policy ?? null;
-  const policy =
-    rawPolicy && Object.prototype.hasOwnProperty.call(rawPolicy, "enabled")
-      ? rawPolicy
-      : { ...DEFAULT_OCEAN_SEPARATION, ...(rawPolicy ?? {}) };
+  const policy = params?.policy ?? null;
+  if (!policy || typeof policy !== "object") {
+    throw new Error("[OceanSeparation] Missing ocean separation policy.");
+  }
+  if (!Object.prototype.hasOwnProperty.call(policy, "enabled")) {
+    throw new Error("[OceanSeparation] Missing ocean separation policy.enabled.");
+  }
   const normalizedWindows: LandmassWindow[] = windows.map((win, idx) => normalizeWindow(win, idx, width, height));
 
   if (!policy || !policy.enabled) {

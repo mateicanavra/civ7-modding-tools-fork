@@ -2,6 +2,8 @@ import { describe, expect, it } from "bun:test";
 
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
 
 import biomesStep from "../../src/recipes/standard/stages/ecology/steps/biomes/index.js";
 import { publishClimateFieldArtifact, publishHeightfieldArtifact } from "../../src/recipes/standard/artifacts.js";
@@ -11,12 +13,13 @@ describe("biomes step", () => {
     const width = 4;
     const height = 3;
     const size = width * height;
+    const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
     const settings = {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
       wrap: { wrapX: false, wrapY: false },
-      directionality: {},
+      directionality,
     };
 
     const adapter = createMockAdapter({ width, height });

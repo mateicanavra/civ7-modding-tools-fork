@@ -11,7 +11,10 @@ export function tagIslandHopFromHotspots(
   hotspotPoints: ReadonlySet<string>,
   state: CorridorState
 ): void {
-  const cfg = ((corridorsCfg.islandHop || {}) as Record<string, unknown>) || {};
+  const cfg = corridorsCfg.islandHop as Record<string, unknown>;
+  if (!cfg) {
+    throw new Error("[Narrative] Missing corridors.islandHop config.");
+  }
   if (!cfg.useHotspots) return;
 
   const maxArcs = Math.max(0, Number((cfg.maxArcs as number) ?? 2) | 0);

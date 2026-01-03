@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { Value } from "typebox/value";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 
 import type { BiomeSymbol } from "../../types.js";
 
@@ -741,71 +741,71 @@ const readSymbolArray = (
 ): BiomeSymbol[] => (Array.isArray(input) && input.length > 0 ? input : fallback);
 
 export function resolveFeaturesPlacementOwnedConfig(
-  input?: FeaturesPlacementOwnedConfig
+  input: FeaturesPlacementOwnedConfig
 ): ResolvedFeaturesPlacementOwnedConfig {
-  const chanceDefaults = Value.Default(
+  const chanceDefaults = applySchemaDefaults(
     FeaturesPlacementChancesSchema,
     {}
   ) as Required<FeaturesPlacementChances>;
-  const groupDefaults = Value.Default(
+  const groupDefaults = applySchemaDefaults(
     FeaturesPlacementGroupSchema,
     {}
   ) as Required<FeaturesPlacementGroupConfig>;
-  const vegetatedDefaults = Value.Default(
+  const vegetatedDefaults = applySchemaDefaults(
     FeaturesPlacementVegetatedRulesSchema,
     {}
   ) as Required<FeaturesPlacementVegetatedRules>;
-  const minVegDefaults = Value.Default(
+  const minVegDefaults = applySchemaDefaults(
     FeaturesPlacementVegetatedMinByBiomeSchema,
     {}
   ) as Required<FeaturesPlacementVegetatedMinByBiome>;
-  const wetDefaults = Value.Default(
+  const wetDefaults = applySchemaDefaults(
     FeaturesPlacementWetRulesSchema,
     {}
   ) as Required<FeaturesPlacementWetRules>;
-  const aquaticDefaults = Value.Default(
+  const aquaticDefaults = applySchemaDefaults(
     FeaturesPlacementAquaticSchema,
     {}
   ) as Required<FeaturesPlacementAquaticConfig>;
-  const atollDefaults = Value.Default(
+  const atollDefaults = applySchemaDefaults(
     FeaturesPlacementAtollSchema,
     {}
   ) as Required<FeaturesPlacementAtollConfig>;
-  const iceDefaults = Value.Default(
+  const iceDefaults = applySchemaDefaults(
     FeaturesPlacementIceSchema,
     {}
   ) as Required<FeaturesPlacementIceConfig>;
 
-  const ownedInput = Value.Default(
+  const ownedInput = applySchemaDefaults(
     FeaturesPlacementOwnedConfigSchema,
-    input ?? {}
+    input
   ) as Required<FeaturesPlacementOwnedConfig>;
-  const vegetatedInput = Value.Default(
+  const vegetatedInput = applySchemaDefaults(
     FeaturesPlacementVegetatedRulesSchema,
     ownedInput.vegetated
   ) as Required<FeaturesPlacementVegetatedRules>;
-  const minVegInput = Value.Default(
+  const minVegInput = applySchemaDefaults(
     FeaturesPlacementVegetatedMinByBiomeSchema,
     ownedInput.vegetated.minVegetationByBiome
   ) as Required<FeaturesPlacementVegetatedMinByBiome>;
-  const wetInput = Value.Default(
+  const wetInput = applySchemaDefaults(
     FeaturesPlacementWetRulesSchema,
     ownedInput.wet
   ) as Required<FeaturesPlacementWetRules>;
-  const aquaticInput = Value.Default(
+  const aquaticInput = applySchemaDefaults(
     FeaturesPlacementAquaticSchema,
     ownedInput.aquatic
   ) as Required<FeaturesPlacementAquaticConfig>;
-  const atollInput = Value.Default(
+  const atollInput = applySchemaDefaults(
     FeaturesPlacementAtollSchema,
     ownedInput.aquatic.atoll
   ) as Required<FeaturesPlacementAtollConfig>;
-  const iceInput = Value.Default(
+  const iceInput = applySchemaDefaults(
     FeaturesPlacementIceSchema,
     ownedInput.ice
   ) as Required<FeaturesPlacementIceConfig>;
 
-  const chancesInput = ownedInput.chances ?? {};
+  const chancesInput = ownedInput.chances;
 
   const unknownKeys = Object.keys(chancesInput).filter(
     (key) => !FEATURE_PLACEMENT_KEYS.includes(key as FeaturePlacementKey)
@@ -1056,17 +1056,21 @@ export function resolveFeaturesPlacementOwnedConfig(
 export function resolveFeaturesPlacementConfig(
   input: FeaturesPlacementConfig
 ): FeaturesPlacementConfig {
-  const resolved = Value.Default(FeaturesPlacementConfigSchema, input) as FeaturesPlacementConfig;
+  const resolved = applySchemaDefaults(
+    FeaturesPlacementConfigSchema,
+    input
+  ) as FeaturesPlacementConfig;
+  const ownedConfig = resolved.config as FeaturesPlacementOwnedConfig;
   if (resolved.strategy === "vanilla") {
     return {
       ...resolved,
-      config: resolved.config ?? {},
+      config: ownedConfig,
     };
   }
 
   return {
     ...resolved,
-    config: resolveFeaturesPlacementOwnedConfig(resolved.config),
+    config: resolveFeaturesPlacementOwnedConfig(ownedConfig),
   };
 }
 

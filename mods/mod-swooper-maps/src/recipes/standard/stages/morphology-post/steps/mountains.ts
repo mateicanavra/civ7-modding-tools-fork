@@ -32,7 +32,7 @@ export default createStep({
     assertFoundationPlates(context, "mountains");
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
-    const mountainOptions = (config.mountains ?? {}) as MountainsConfig;
+    const mountainOptions = config.mountains as MountainsConfig;
 
     devLogIf(
       context.trace,

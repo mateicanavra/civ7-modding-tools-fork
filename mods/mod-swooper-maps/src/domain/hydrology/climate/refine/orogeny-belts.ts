@@ -7,11 +7,11 @@ export function applyOrogenyBeltsRefinement(
   height: number,
   runtime: ClimateRuntime,
   orogenyCache: OrogenyCache | null,
-  storyConfig: StoryConfig = {}
+  storyConfig: StoryConfig
 ): void {
   const { adapter, readRainfall, writeRainfall } = runtime;
 
-  const orogenyTunables = (storyConfig.orogeny || {}) as Record<string, number>;
+  const orogenyTunables = storyConfig.orogeny as Record<string, number>;
 
   if (orogenyCache !== null) {
     const windwardSet = orogenyCache.windward;
@@ -20,8 +20,8 @@ export function applyOrogenyBeltsRefinement(
     const hasLee = (leeSet?.size ?? 0) > 0;
 
     if (hasWindward || hasLee) {
-      const windwardBoost = orogenyTunables?.windwardBoost ?? 5;
-      const leeAmp = orogenyTunables?.leeDrynessAmplifier ?? 1.2;
+      const windwardBoost = orogenyTunables.windwardBoost as number;
+      const leeAmp = orogenyTunables.leeDrynessAmplifier as number;
 
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {

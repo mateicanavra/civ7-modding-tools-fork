@@ -43,7 +43,10 @@ function buildPlateConfig(
   config: FoundationConfig,
   directionalityOverride: PlateConfig["directionality"] | null
 ): PlateConfig {
-  const platesCfg = config.plates || {};
+  const platesCfg = config.plates;
+  if (!platesCfg) {
+    throw new Error("[Foundation] Missing plates config.");
+  }
   const directionality = directionalityOverride ?? null;
 
   const count = (platesCfg.count! | 0);
@@ -89,8 +92,12 @@ function computePlates(
       }`
   );
 
-  const windCfg = config.dynamics?.wind;
-  const mantleCfg = config.dynamics?.mantle;
+  const dynamicsCfg = config.dynamics;
+  if (!dynamicsCfg) {
+    throw new Error("[Foundation] Missing dynamics config.");
+  }
+  const windCfg = dynamicsCfg.wind;
+  const mantleCfg = dynamicsCfg.mantle;
   const directionalityCfg = plateConfig.directionality;
 
   devLogIf(
@@ -153,7 +160,10 @@ function computePressure(
   const size = width * height;
   const pressure = new Uint8Array(size);
 
-  const mantleCfg = config.dynamics?.mantle || {};
+  const mantleCfg = config.dynamics?.mantle;
+  if (!mantleCfg) {
+    throw new Error("[Foundation] Missing mantle dynamics config.");
+  }
   const bumps = (mantleCfg.bumps! | 0);
   const amp = mantleCfg.amplitude!;
   const scl = mantleCfg.scale!;
@@ -214,7 +224,10 @@ function computeWinds(
   const windU = new Int8Array(size);
   const windV = new Int8Array(size);
 
-  const windCfg = config.dynamics?.wind || {};
+  const windCfg = config.dynamics?.wind;
+  if (!windCfg) {
+    throw new Error("[Foundation] Missing wind dynamics config.");
+  }
   const streaks = (windCfg.jetStreaks! | 0);
   const jetStrength = windCfg.jetStrength!;
   const variance = windCfg.variance!;
@@ -347,8 +360,11 @@ export function buildFoundationContext(
     throw new Error("[Foundation] Adapter missing getVoronoiUtils.");
   }
 
-  const directionality =
-    (context.settings.directionality as PlateConfig["directionality"] | undefined) ?? null;
+  const directionality = context.settings
+    .directionality as PlateConfig["directionality"] | undefined;
+  if (!directionality) {
+    throw new Error("[Foundation] Missing settings.directionality.");
+  }
   const plateResult = computePlates(
     width,
     height,
@@ -377,11 +393,11 @@ export function buildFoundationContext(
     {
       dimensions: context.dimensions,
       config: {
-        seed: (foundationCfg.seed || {}) as Record<string, unknown>,
-        plates: (foundationCfg.plates || {}) as Record<string, unknown>,
+        seed: foundationCfg.seed as Record<string, unknown>,
+        plates: foundationCfg.plates as Record<string, unknown>,
         dynamics: foundationCfg.dynamics as Record<string, unknown>,
-        surface: (foundationCfg.surface || {}) as Record<string, unknown>,
-        policy: (foundationCfg.policy || {}) as Record<string, unknown>,
+        surface: foundationCfg.surface as Record<string, unknown>,
+        policy: foundationCfg.policy as Record<string, unknown>,
         diagnostics: {},
       },
     }

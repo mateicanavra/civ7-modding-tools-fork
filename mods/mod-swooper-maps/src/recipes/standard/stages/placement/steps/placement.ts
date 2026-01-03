@@ -24,7 +24,7 @@ export default createStep({
     if (!derivedInputs) {
       throw new Error("Missing required artifact: placementInputs@v1");
     }
-    const placementConfig = derivedInputs.placementConfig ?? {};
+    const placementConfig = derivedInputs.placementConfig;
     const starts = derivedInputs.starts;
     const { width, height } = context.dimensions;
 

@@ -4,16 +4,15 @@ import type { SwatchTypeEntry } from "@mapgen/domain/hydrology/climate/swatches/
 export function chooseSwatchTypeWeighted(
   initialEntries: SwatchTypeEntry[],
   rand: (max: number, label: string) => number,
-  directionality: FoundationDirectionalityConfig | null | undefined
+  directionality: FoundationDirectionalityConfig
 ): string {
   let entries = initialEntries;
 
   // Apply directionality adjustments
-  const DIR = directionality || {};
-  const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
+  const COH = Math.max(0, Math.min(1, directionality.cohesion ?? 0));
   if (COH > 0) {
-    const windDeg = (DIR?.primaryAxes?.windBiasDeg ?? 0) | 0;
-    const plateDeg = (DIR?.primaryAxes?.plateAxisDeg ?? 0) | 0;
+    const windDeg = (directionality.primaryAxes?.windBiasDeg ?? 0) | 0;
+    const plateDeg = (directionality.primaryAxes?.plateAxisDeg ?? 0) | 0;
     const wRad = (windDeg * Math.PI) / 180;
     const pRad = (plateDeg * Math.PI) / 180;
     const alignZonal = Math.abs(Math.cos(wRad));

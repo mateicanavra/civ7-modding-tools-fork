@@ -1,27 +1,16 @@
 import { PerlinNoise } from "@swooper/mapgen-core/lib/noise";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { Value } from "typebox/value";
-import {
-  ClimateBaselineBandEdgesSchema,
-  ClimateBaselineBandsSchema,
-  ClimateBaselineBlendSchema,
-  ClimateBaselineCoastalSchema,
-  ClimateBaselineNoiseSchema,
-  ClimateBaselineOrographicSchema,
-  ClimateBaselineSeedSchema,
-  ClimateBaselineSchema,
-  ClimateBaselineSizeScalingSchema,
-  ClimateConfigSchema,
-  type ClimateBaseline,
-  type ClimateBaselineBandEdges,
-  type ClimateBaselineBands,
-  type ClimateBaselineBlend,
-  type ClimateBaselineCoastal,
-  type ClimateBaselineNoise,
-  type ClimateBaselineOrographic,
-  type ClimateBaselineSeed,
-  type ClimateBaselineSizeScaling,
-  type ClimateConfig,
+import type {
+  ClimateBaseline,
+  ClimateBaselineBandEdges,
+  ClimateBaselineBands,
+  ClimateBaselineBlend,
+  ClimateBaselineCoastal,
+  ClimateBaselineNoise,
+  ClimateBaselineOrographic,
+  ClimateBaselineSeed,
+  ClimateBaselineSizeScaling,
+  ClimateConfig,
 } from "@mapgen/config";
 import { distanceToNearestWater } from "@mapgen/domain/hydrology/climate/distance-to-water.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
@@ -33,7 +22,7 @@ export function applyClimateBaseline(
   width: number,
   height: number,
   ctx: ExtendedMapContext | null = null,
-  config: ClimateConfig = {}
+  config: ClimateConfig
 ): void {
   if (!ctx) {
     throw new Error(
@@ -54,44 +43,17 @@ export function applyClimateBaseline(
   ctx.buffers.climate.humidity.fill(0);
   if (ctx.fields?.rainfall) ctx.fields.rainfall.fill(0);
 
-  const resolvedConfig = Value.Default(ClimateConfigSchema, config) as ClimateConfig;
-  const baselineCfg = Value.Default(
-    ClimateBaselineSchema,
-    resolvedConfig.baseline ?? {}
-  ) as Required<ClimateBaseline>;
-  const bands = Value.Default(
-    ClimateBaselineBandsSchema,
-    baselineCfg.bands ?? {}
-  ) as Required<ClimateBaselineBands>;
-  const bandEdges = Value.Default(
-    ClimateBaselineBandEdgesSchema,
-    bands.edges ?? {}
-  ) as Required<ClimateBaselineBandEdges>;
+  const resolvedConfig = config;
+  const baselineCfg = resolvedConfig.baseline as Required<ClimateBaseline>;
+  const bands = baselineCfg.bands as Required<ClimateBaselineBands>;
+  const bandEdges = bands.edges as Required<ClimateBaselineBandEdges>;
   const transitionWidth = bands.transitionWidth;
-  const sizeScaling = Value.Default(
-    ClimateBaselineSizeScalingSchema,
-    baselineCfg.sizeScaling ?? {}
-  ) as Required<ClimateBaselineSizeScaling>;
-  const blend = Value.Default(
-    ClimateBaselineBlendSchema,
-    baselineCfg.blend ?? {}
-  ) as Required<ClimateBaselineBlend>;
-  const seedCfg = Value.Default(
-    ClimateBaselineSeedSchema,
-    baselineCfg.seed ?? {}
-  ) as Required<ClimateBaselineSeed>;
-  const orographic = Value.Default(
-    ClimateBaselineOrographicSchema,
-    baselineCfg.orographic ?? {}
-  ) as Required<ClimateBaselineOrographic>;
-  const coastalCfg = Value.Default(
-    ClimateBaselineCoastalSchema,
-    baselineCfg.coastal ?? {}
-  ) as Required<ClimateBaselineCoastal>;
-  const noiseCfg = Value.Default(
-    ClimateBaselineNoiseSchema,
-    baselineCfg.noise ?? {}
-  ) as Required<ClimateBaselineNoise>;
+  const sizeScaling = baselineCfg.sizeScaling as Required<ClimateBaselineSizeScaling>;
+  const blend = baselineCfg.blend as Required<ClimateBaselineBlend>;
+  const seedCfg = baselineCfg.seed as Required<ClimateBaselineSeed>;
+  const orographic = baselineCfg.orographic as Required<ClimateBaselineOrographic>;
+  const coastalCfg = baselineCfg.coastal as Required<ClimateBaselineCoastal>;
+  const noiseCfg = baselineCfg.noise as Required<ClimateBaselineNoise>;
 
   const baseArea = sizeScaling.baseArea;
   const minScale = sizeScaling.minScale;

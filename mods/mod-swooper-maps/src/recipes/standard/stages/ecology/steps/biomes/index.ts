@@ -1,5 +1,4 @@
 import { Type, type Static } from "typebox";
-import { Value } from "typebox/value";
 
 import { logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
@@ -81,11 +80,6 @@ export default createStep({
 
     const riftShoulderMask = maskFromCoordSet(rifts?.riftShoulder, width, height);
 
-    const opConfig = Value.Default(
-      ecology.ops.classifyBiomes.config,
-      config.classify ?? ecology.ops.classifyBiomes.defaultConfig
-    ) as Parameters<typeof ecology.ops.classifyBiomes.run>[1];
-
     const result = ecology.ops.classifyBiomes.run(
       {
         width,
@@ -98,7 +92,7 @@ export default createStep({
         corridorMask,
         riftShoulderMask,
       },
-      opConfig
+      config.classify
     );
 
     const { land: engineBindings, marine: marineBiome } = ecology.resolveEngineBiomeIds(

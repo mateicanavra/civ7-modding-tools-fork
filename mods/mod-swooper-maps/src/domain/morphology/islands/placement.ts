@@ -19,10 +19,10 @@ export function addIslandChains(
   iHeight: number,
   ctx: ExtendedMapContext,
   config: {
-    islands?: IslandsConfig;
-    story?: { hotspot?: HotspotTunables };
-    corridors?: CorridorsConfig;
-  } = {}
+    islands: IslandsConfig;
+    story: { hotspot: HotspotTunables };
+    corridors: CorridorsConfig;
+  }
 ): void {
   const adapter = ctx.adapter;
 
@@ -30,18 +30,26 @@ export function addIslandChains(
     adapter.createFractal(HILL_FRACTAL, iWidth, iHeight, 5, 0);
   }
 
-  const islandsCfg = config.islands || {};
-  const storyTunables = config.story || {};
-  const corridorsCfg = config.corridors || {};
+  const islandsCfg = config.islands;
+  const storyTunables = config.story;
+  const hotspotCfg = storyTunables.hotspot;
+  if (!hotspotCfg) {
+    throw new Error("[Islands] Missing story hotspot tunables.");
+  }
+  const corridorsCfg = config.corridors;
+  const seaCfg = corridorsCfg.sea;
+  if (!seaCfg) {
+    throw new Error("[Islands] Missing sea corridor config.");
+  }
 
   const fracPct = (islandsCfg.fractalThresholdPercent ?? 90) | 0;
   const threshold = getFractalThreshold(adapter, fracPct);
 
-  const paradiseWeight = (storyTunables.hotspot?.paradiseBias ?? 2) | 0;
-  const volcanicWeight = (storyTunables.hotspot?.volcanicBias ?? 1) | 0;
+  const paradiseWeight = (hotspotCfg.paradiseBias ?? 2) | 0;
+  const volcanicWeight = (hotspotCfg.volcanicBias ?? 1) | 0;
   const peakPercent = Math.max(
     0,
-    Math.min(100, Math.round((storyTunables.hotspot?.volcanicPeakChance ?? 0.33) * 100) + 10)
+    Math.min(100, Math.round((hotspotCfg.volcanicPeakChance ?? 0.33) * 100) + 10)
   );
 
   const emptySet = new Set<string>();
@@ -78,7 +86,7 @@ export function addIslandChains(
       const minDist = (islandsCfg.minDistFromLandRadius ?? 2) | 0;
       if (isAdjacentToLand(x, y, iWidth, iHeight, isWater, Math.max(0, minDist))) continue;
 
-      const laneRadius = (corridorsCfg.sea?.avoidRadius ?? 2) | 0;
+      const laneRadius = (seaCfg.avoidRadius ?? 2) | 0;
       if (isNearSeaLane(x, y, laneRadius, seaLanes)) continue;
 
       const v = getFractalHeight(x, y);
