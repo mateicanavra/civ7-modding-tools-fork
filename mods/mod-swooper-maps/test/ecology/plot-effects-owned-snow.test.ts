@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { createMockAdapter } from "@civ7/adapter";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
 import { plotEffects } from "../../src/domain/ecology/ops/plot-effects/index.js";
 import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
 
@@ -28,7 +30,15 @@ const createInput = () => {
 describe("plot effects (owned)", () => {
   it("places permanent snow plot effects when thresholds pass", () => {
     const input = createInput();
-    const result = plotEffects.run(input, {
+    const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
+    const settings = {
+      seed: 0,
+      dimensions: { width: input.width, height: input.height },
+      latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
+      wrap: { wrapX: false, wrapY: false },
+      directionality,
+    };
+    const config = {
       snow: {
         enabled: true,
         elevationStrategy: "percentile",
@@ -43,7 +53,11 @@ describe("plot effects (owned)", () => {
       },
       sand: { enabled: false },
       burned: { enabled: false },
-    });
+    };
+    const resolvedConfig = plotEffects.resolveConfig
+      ? plotEffects.resolveConfig(config, settings)
+      : config;
+    const result = plotEffects.run(input, resolvedConfig);
 
     expect(result.placements.length).toBeGreaterThan(0);
     const anySnow = result.placements.some((placement) => placement.plotEffectType >= 0);

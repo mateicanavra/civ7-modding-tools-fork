@@ -14,7 +14,7 @@ describe("features (owned baseline)", () => {
       isWater: (_x, y) => y === 0,
     });
 
-    featuresStep.run(ctx, {
+    const config = {
       story: { features: { paradiseReefChance: 0, volcanicForestChance: 0, volcanicTaigaChance: 0 } },
       featuresDensity: {
         shelfReefMultiplier: 0,
@@ -45,7 +45,12 @@ describe("features (owned baseline)", () => {
           ice: { minAbsLatitude: 90 },
         },
       },
-    });
+    };
+    const resolvedConfig = featuresStep.resolveConfig
+      ? featuresStep.resolveConfig(config, ctx.settings)
+      : config;
+
+    featuresStep.run(ctx, resolvedConfig);
 
     const landFeatures = new Set([
       adapter.getFeatureTypeIndex("FEATURE_FOREST"),

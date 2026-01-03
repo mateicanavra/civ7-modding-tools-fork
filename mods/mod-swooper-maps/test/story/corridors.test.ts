@@ -14,7 +14,7 @@ describe("story/corridors", () => {
   it("tags sea lanes and publishes a corridors overlay", () => {
     const width = 20;
     const height = 12;
-    const corridors = applySchemaDefaults(CorridorsConfigSchema, {});
+    const corridorsConfig = applySchemaDefaults(CorridorsConfigSchema, {});
     const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
     const settings = {
       seed: 0,
@@ -32,7 +32,10 @@ describe("story/corridors", () => {
       settings
     );
 
-    storyTagStrategicCorridors(ctx, "preIslands", { corridors, directionality });
+    storyTagStrategicCorridors(ctx, "preIslands", {
+      corridors: corridorsConfig,
+      directionality,
+    });
 
     const corridors = getNarrativeCorridors(ctx);
     expect(corridors).not.toBeNull();

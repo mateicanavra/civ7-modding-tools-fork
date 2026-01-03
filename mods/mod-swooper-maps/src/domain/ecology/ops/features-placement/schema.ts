@@ -776,6 +776,18 @@ export function resolveFeaturesPlacementOwnedConfig(
     {}
   ) as Required<FeaturesPlacementIceConfig>;
 
+  const rawChances = input.chances;
+  if (rawChances) {
+    const unknownKeys = Object.keys(rawChances).filter(
+      (key) => !FEATURE_PLACEMENT_KEYS.includes(key as FeaturePlacementKey)
+    );
+    if (unknownKeys.length > 0) {
+      throw new Error(
+        `featuresPlacement.chances contains unknown feature keys: ${unknownKeys.join(", ")}`
+      );
+    }
+  }
+
   const ownedInput = applySchemaDefaults(
     FeaturesPlacementOwnedConfigSchema,
     input
@@ -806,15 +818,6 @@ export function resolveFeaturesPlacementOwnedConfig(
   ) as Required<FeaturesPlacementIceConfig>;
 
   const chancesInput = ownedInput.chances;
-
-  const unknownKeys = Object.keys(chancesInput).filter(
-    (key) => !FEATURE_PLACEMENT_KEYS.includes(key as FeaturePlacementKey)
-  );
-  if (unknownKeys.length > 0) {
-    throw new Error(
-      `featuresPlacement.chances contains unknown feature keys: ${unknownKeys.join(", ")}`
-    );
-  }
 
   const chances = FEATURE_PLACEMENT_KEYS.reduce((acc, key) => {
     acc[key] = clamp(readNumber(chancesInput[key], chanceDefaults[key]), 0, 100);
