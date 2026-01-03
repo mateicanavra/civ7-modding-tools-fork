@@ -32,6 +32,27 @@ Naming constraints:
 - Op ids are stable and verb-forward (e.g., `compute*`, `plan*`, `score*`, `select*`).
 - Strategy selection exists only when there are truly multiple implementations; otherwise keep config flat.
 
+## Op sizing and naming guardrails (avoid noun-first buckets)
+
+These guardrails exist to prevent “mega ops” and loss of granularity (a common failure mode in messy domains).
+
+Hard rules:
+- Op ids must be verb-forward and action-specific. If the id reads like a noun/category (`placement`, `terrain`, `features`), it is probably too broad.
+- Prefer multiple small ops over one “bucket op” that does multiple distinct jobs.
+- If a change can be expressed as “compute X”, “plan Y”, “score Z”, or “select W”, it should usually be its own op.
+
+Heuristics for splitting:
+- Split by **different responsibilities** even if they share inputs (e.g., compute a field vs plan placements).
+- Split by **different kinds** (a `plan` should not also be a `compute`).
+- If an op’s config starts to look like multiple unrelated knobs, you likely need multiple ops or strategy modules.
+
+Heuristics for using strategies vs ops:
+- Use strategies when the op’s contract stays stable but the internal implementation changes by strategy (same kind, same input/output shape).
+- Avoid strategies as a way to hide unrelated responsibilities under one op id.
+
+Step sizing note:
+- Refactors should not collapse multiple legacy steps into one mega-step; preserve step granularity and extract shared logic into ops/rules instead.
+
 Illustrative skeleton (trimmed; do not invent extra surfaces):
 ```ts
 export const myOp = createOp({
