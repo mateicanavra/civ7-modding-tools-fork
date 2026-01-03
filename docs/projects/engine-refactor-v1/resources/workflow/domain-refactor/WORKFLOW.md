@@ -24,6 +24,9 @@ Workflow package references (read as needed; do not reinterpret them):
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
 
+Canonical example:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples/VOLCANO.md`
+
 ## Mission + hard constraints (do not skip)
 
 Refactor a single domain so that:
