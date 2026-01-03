@@ -1,39 +1,35 @@
 import { createExtendedMapContext, type ExtendedMapContext } from "@swooper/mapgen-core";
 import type { RecipeModule } from "@swooper/mapgen-core/authoring";
+import type { RunSettings } from "@swooper/mapgen-core/engine";
 
 import { initializeStandardRuntime } from "../../recipes/standard/runtime.js";
 import type { StandardRecipeConfig } from "../../recipes/standard/recipe.js";
 import type { MapInitResolution } from "./map-init.js";
 import { createLayerAdapter } from "./helpers.js";
 import type { MapRuntimeOptions } from "./types.js";
-import {
-  buildStandardRecipeConfig,
-  buildStandardRunSettings,
-  type StandardRecipeOverrides,
-} from "./standard-config.js";
 
 type StandardRunOptions = {
   recipe: RecipeModule<ExtendedMapContext, StandardRecipeConfig | null>;
   init: MapInitResolution;
-  overrides?: StandardRecipeOverrides;
+  settings: RunSettings;
+  config: StandardRecipeConfig | null;
   options?: MapRuntimeOptions;
 };
 
 export function runStandardRecipe({
   recipe,
   init,
-  overrides,
+  settings,
+  config,
   options,
 }: StandardRunOptions): void {
-  const safeOverrides = overrides ?? {};
-  const settings = buildStandardRunSettings(init, safeOverrides);
-  if (options?.trace) {
-    settings.trace = options.trace;
+  const { width, height } = settings.dimensions;
+  if (width !== init.params.width || height !== init.params.height) {
+    throw new Error("[Standard] Settings dimensions must match map init dimensions.");
   }
-  const config = buildStandardRecipeConfig(safeOverrides);
-  const adapter = createLayerAdapter(options ?? {}, init.params.width, init.params.height);
+  const adapter = createLayerAdapter(options ?? {}, width, height);
   const context = createExtendedMapContext(
-    { width: init.params.width, height: init.params.height },
+    { width, height },
     adapter,
     settings
   );
