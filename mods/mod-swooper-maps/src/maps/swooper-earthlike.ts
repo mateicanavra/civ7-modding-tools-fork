@@ -736,7 +736,7 @@ const config = {
     },
   },
   placement: {
-    derivePlacementInputs: { placement: {} },
+    derivePlacementInputs: { wonders: {}, floodplains: {}, starts: {} },
     placement: {},
   },
 } satisfies StandardRecipeConfig;

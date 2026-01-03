@@ -23,7 +23,7 @@ echo ""
 if [ -n "${REFRACTOR_DOMAINS:-}" ]; then
   IFS=',' read -r -a DOMAINS <<< "$REFRACTOR_DOMAINS"
 else
-  DOMAINS=("ecology")
+  DOMAINS=("ecology", "foundation", "morphology", "narrative", "hydrology", "placement")
 fi
 
 if [ ${#DOMAINS[@]} -eq 0 ]; then
