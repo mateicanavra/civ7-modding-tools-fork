@@ -13,6 +13,7 @@ import { planPlotEffects as planPlotEffectsImpl } from "./plan.js";
 const PlotEffectKeySchema = Type.Unsafe<PlotEffectKey>(
   Type.String({
     description: "Plot effect key (PLOTEFFECT_*).",
+    pattern: "^PLOTEFFECT_",
   })
 );
 

@@ -21,9 +21,6 @@ export {
 } from "./config.js";
 export {
   BiomeEngineBindingsSchema,
-  DEFAULT_ENGINE_BINDINGS,
-  resolveEngineBiomeIds,
   type BiomeEngineBindings,
-  type ResolvedEngineBiomeIds,
 } from "./biome-bindings.js";
 export { BIOME_SYMBOL_ORDER, biomeSymbolFromIndex, type BiomeSymbol } from "./types.js";

@@ -54,6 +54,7 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 ## Acceptance Criteria
 - **Boundary purity**
   - `rg -n "adapter\\b|ctxRandom\\b|TraceScope\\b|devLogJson\\b" mods/mod-swooper-maps/src/domain/ecology/ops` returns no matches.
+  - `rg -n "@civ7/adapter" mods/mod-swooper-maps/src/domain/ecology` returns no matches.
   - `rg -n "Type\\.Any\\(" mods/mod-swooper-maps/src/domain/ecology/ops` returns no matches.
   - All ecology ops are callable with plain buffers/POJOs (no engine adapter required in `op.input`).
 - **Correct kind + naming**
@@ -65,6 +66,7 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
   - Ecology plan ops return placements using:
     - `feature: FeatureKey` where `FeatureKey` is `FEATURE_*` strings,
     - `plotEffect: PlotEffectKey` where `PlotEffectKey` is `PLOTEFFECT_*` strings.
+  - `PlotEffectKey` is validated at the op boundary (invalid `plotEffect` outputs fail in `runValidated`).
   - Steps contain the only code that calls:
     - `adapter.getFeatureTypeIndex(...)`, `adapter.getPlotEffectTypeIndex(...)`,
     - `adapter.canHaveFeature(...)`, `adapter.setFeatureType(...)`, plot-effect apply APIs.

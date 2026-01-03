@@ -35,3 +35,7 @@ Note: the issue title/id says `[M6]`, but based on milestone context this should
 ### Recommended next moves
 - Tighten plot-effect key schema validation to fail early at `runValidated`.
 - Align biome engine binding placement with the intended step/domain boundary (move adapter-dependent helper out of `src/domain/ecology/**`).
+
+### Follow-up (implemented)
+- `PlotEffectKey` output schema now enforces the `PLOTEFFECT_` prefix (fails early at `runValidated`).
+- Biome engine-ID binding is now step-scoped (`mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/helpers/engine-bindings.ts`); `src/domain/ecology/**` no longer imports `@civ7/adapter`.
