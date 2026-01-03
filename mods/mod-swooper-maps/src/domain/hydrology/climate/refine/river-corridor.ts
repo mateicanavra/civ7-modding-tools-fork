@@ -9,8 +9,8 @@ export function applyRiverCorridorRefinement(
 ): void {
   const { adapter, readRainfall, writeRainfall } = runtime;
 
-  const riverCorridor = ((refineCfg.riverCorridor || {}) as Record<string, number>) || {};
-  const lowBasinCfg = ((refineCfg.lowBasin || {}) as Record<string, number>) || {};
+  const riverCorridor = refineCfg.riverCorridor as Record<string, number>;
+  const lowBasinCfg = refineCfg.lowBasin as Record<string, number>;
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -21,12 +21,12 @@ export function applyRiverCorridorRefinement(
       if (adapter.isAdjacentToRivers(x, y, 1)) {
         rf +=
           elev < 250
-            ? (riverCorridor?.lowlandAdjacencyBonus ?? 14)
-            : (riverCorridor?.highlandAdjacencyBonus ?? 10);
+            ? (riverCorridor.lowlandAdjacencyBonus as number)
+            : (riverCorridor.highlandAdjacencyBonus as number);
       }
 
       let lowBasinClosed = true;
-      const basinRadius = lowBasinCfg?.radius ?? 2;
+      const basinRadius = (lowBasinCfg.radius as number) | 0;
 
       for (let dy = -basinRadius; dy <= basinRadius && lowBasinClosed; dy++) {
         for (let dx = -basinRadius; dx <= basinRadius; dx++) {
@@ -42,9 +42,8 @@ export function applyRiverCorridorRefinement(
         }
       }
 
-      if (lowBasinClosed && elev < 200) rf += lowBasinCfg?.delta ?? 6;
+      if (lowBasinClosed && elev < 200) rf += lowBasinCfg.delta as number;
       writeRainfall(x, y, rf);
     }
   }
 }
-

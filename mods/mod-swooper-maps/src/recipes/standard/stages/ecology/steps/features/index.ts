@@ -45,6 +45,18 @@ export default createStep({
     M4_EFFECT_TAGS.engine.featuresApplied,
   ],
   schema: FeaturesStepConfigSchema,
+  resolveConfig: (config, settings) => {
+    if (!ecology.ops.featuresPlacement.resolveConfig) {
+      throw new Error("featuresPlacement op missing resolveConfig");
+    }
+    return {
+      ...config,
+      featuresPlacement: ecology.ops.featuresPlacement.resolveConfig(
+        config.featuresPlacement,
+        settings
+      ),
+    };
+  },
   run: (context: ExtendedMapContext, config: FeaturesStepConfig) => {
     const { width, height } = context.dimensions;
 

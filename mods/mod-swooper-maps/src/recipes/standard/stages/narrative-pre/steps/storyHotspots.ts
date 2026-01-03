@@ -37,7 +37,7 @@ export default createStep({
         message: `${runtime.logPrefix} Imprinting hotspot trails...`,
       }));
     }
-    const summary = storyTagHotspotTrails(context, config.story?.hotspot ?? {});
+    const summary = storyTagHotspotTrails(context, config.story.hotspot);
     if (summary.points === 0) {
       devWarn(context.trace, "[smoke] storyHotspots enabled but no hotspot points were emitted");
     }

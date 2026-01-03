@@ -6,6 +6,8 @@ import {
   FLAT_TERRAIN,
   createExtendedMapContext,
 } from "@swooper/mapgen-core";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
 
 describe("story/paleo", () => {
   beforeEach(() => {});
@@ -13,12 +15,13 @@ describe("story/paleo", () => {
   it("applies a delta rainfall fan on coastal river-adjacent tiles", () => {
     const width = 12;
     const height = 8;
+    const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
     const settings = {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
       wrap: { wrapX: false, wrapY: false },
-      directionality: {},
+      directionality,
     };
     const adapter = createMockAdapter({
       width,

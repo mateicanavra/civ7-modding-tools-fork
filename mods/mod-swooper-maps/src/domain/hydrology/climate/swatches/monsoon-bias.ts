@@ -10,16 +10,15 @@ export function applyMonsoonBiasPass(
   ctx: ExtendedMapContext,
   runtime: SwatchRuntime,
   helpers: SwatchHelpers,
-  directionality: FoundationDirectionalityConfig | null | undefined
+  directionality: FoundationDirectionalityConfig
 ): void {
   const { readRainfall, writeRainfall, idx } = runtime;
   const { inLocalBounds, isWater, isCoastalLand, signedLatitudeAt } = helpers;
-  const DIR = directionality || {};
-  const hemispheres = (DIR as Record<string, unknown>).hemispheres as
+  const hemispheres = (directionality as Record<string, unknown>).hemispheres as
     | Record<string, number>
     | undefined;
   const monsoonBias = Math.max(0, Math.min(1, hemispheres?.monsoonBias ?? 0));
-  const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
+  const COH = Math.max(0, Math.min(1, directionality.cohesion ?? 0));
   const eqBand = Math.max(0, (hemispheres?.equatorBandDeg ?? 12) | 0);
 
   const dynamics = assertFoundationDynamics(ctx, "storySwatches");

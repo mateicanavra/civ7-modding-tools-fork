@@ -33,8 +33,8 @@ export function storyTagPaleoHydrology(
     throw new Error("[Story] Paleo hydrology requires MapContext adapter.");
   }
 
-  const story = (config.story || {}) as Record<string, unknown>;
-  const cfg = story.paleo as Record<string, unknown> | undefined;
+  const story = config.story as Record<string, unknown> | undefined;
+  const cfg = story?.paleo as Record<string, unknown> | undefined;
 
   if (!cfg) {
     return { deltas: 0, oxbows: 0, fossils: 0, kind: "missing-config" };
@@ -124,14 +124,14 @@ export function storyTagPaleoHydrology(
   if (maxFossilChannels > 0) {
     const baseLen = Math.max(6, Number((cfg.fossilChannelLengthTiles as number) ?? 6) | 0);
     const step = Math.max(1, Number((cfg.fossilChannelStep as number) ?? 1) | 0);
-    const sizeScaling = (cfg.sizeScaling || {}) as Record<string, number>;
+    const sizeScaling = cfg.sizeScaling as Record<string, number> | undefined;
     const len = Math.round(baseLen * (1 + (sizeScaling?.lengthMulSqrt || 0) * (sqrtScale - 1)));
     const hum = Number((cfg.fossilChannelHumidity as number) ?? 0) | 0;
     const minDistFromRivers = Math.max(
       0,
       Number((cfg.fossilChannelMinDistanceFromCurrentRivers as number) ?? 0) | 0
     );
-    const canyonCfg = (cfg.elevationCarving || {}) as Record<string, unknown>;
+    const canyonCfg = cfg.elevationCarving as Record<string, unknown> | undefined;
     const rimW = Math.max(0, Number((canyonCfg.rimWidth as number) ?? 0) | 0);
     const canyonDryBonus = Math.max(0, Number((canyonCfg.canyonDryBonus as number) ?? 0) | 0);
     const bluffWetReduction = Math.max(0, Number((cfg.bluffWetReduction as number) ?? 0) | 0);
@@ -155,7 +155,7 @@ export function storyTagPaleoHydrology(
         if (inBounds(x, y, width, height) && !isWaterAt(ctx, x, y)) {
           let rf = readRainfall(x, y);
           rf = clamp(rf + hum, 0, 200);
-          const enableCanyonRim = (canyonCfg.enableCanyonRim as boolean | undefined) ?? true;
+          const enableCanyonRim = (canyonCfg?.enableCanyonRim as boolean | undefined) ?? true;
           if (enableCanyonRim && canyonDryBonus > 0) {
             rf = clamp(rf - canyonDryBonus, 0, 200);
           }

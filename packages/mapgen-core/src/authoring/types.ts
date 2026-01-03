@@ -18,6 +18,7 @@ export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
   readonly requires: readonly DependencyTag[];
   readonly provides: readonly DependencyTag[];
   readonly schema: TSchema;
+  resolveConfig?: (config: TConfig, settings: RunSettings) => TConfig;
   run: (context: TContext, config: TConfig) => void | Promise<void>;
 };
 

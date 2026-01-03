@@ -1,5 +1,7 @@
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
 
 import {
   publishBiomeClassificationArtifact,
@@ -45,12 +47,13 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const adapter = createMockAdapter({ width, height, rng, canHaveFeature });
   adapter.fillWater(false);
 
+  const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
   const settings = {
     seed: 0,
     dimensions: { width, height },
     latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
     wrap: { wrapX: false, wrapY: false },
-    directionality: {},
+    directionality,
   };
   const ctx = createExtendedMapContext(
     { width, height },
