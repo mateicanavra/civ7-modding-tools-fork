@@ -166,6 +166,14 @@ Refactor is executed as a series of subissues. Each subissue ends in:
 - guardrails re-run,
 - committed.
 
+Subissue template (repeat):
+1) Extract op module (op directory module under `domain/<domain>/ops/**`; schemas + `defaultConfig`; optional `resolveConfig`).
+2) Wire step orchestration (step directory module; `inputs.ts` → op call(s) → `apply.ts`; schema imports op `config`/`defaultConfig`).
+3) Delete legacy (remove old entrypoints/helpers; no compat exports).
+4) Add tests (at least one op contract test; add a thin integration test if contracts changed).
+5) Run guardrails (use `./scripts/lint/lint-domain-refactor-guardrails.sh` as the single must-run gate; set `REFRACTOR_DOMAINS` for your touched domain(s)).
+6) Commit (Conventional Commits; one clean unit per subissue).
+
 Implementation shape references:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/structure-and-module-shape.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`

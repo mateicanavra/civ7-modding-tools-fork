@@ -14,10 +14,10 @@ Run it from repo root:
 ./scripts/lint/lint-domain-refactor-guardrails.sh
 ```
 
-Note:
-- Unless `REFRACTOR_DOMAINS` is set, the script currently checks: `ecology`, `foundation`, `morphology`, `narrative`, `hydrology`, `placement`.
+Default:
+- Unless `REFRACTOR_DOMAINS` is set, the script checks `ecology` only.
 
-To restrict to a subset of domains:
+To run guardrails for the domain(s) you touched:
 ```bash
 REFRACTOR_DOMAINS="ecology,foundation" ./scripts/lint/lint-domain-refactor-guardrails.sh
 ```
@@ -44,46 +44,8 @@ After migrating a callsite to ops + step modules:
 - remove the old entrypoints for the extracted logic (no “compat exports”),
 - remove dead helpers, adapters, translators, and unused exports.
 
-## Guardrail searches (must go to zero in the touched scope)
-
-Run these after each subissue and at the end; for every remaining hit, either delete the code path or move it back to the correct boundary.
-
-These commands assume you’ve set `DOMAIN_ROOT` and `STAGE_ROOTS` from:
-- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/domain-inventory-and-boundaries.md`
-
-Domain must not depend on adapter/runtime:
-```bash
-rg -n "ExtendedMapContext|context\\.adapter|\\badapter\\b|@civ7/adapter" "${DOMAIN_ROOT}" -S
-```
-
-Domain must not import engine/runtime values (type-only imports of `RunSettings` are allowed; runtime imports are forbidden):
-```bash
-rg -n "from \"@swooper/mapgen-core/engine\"|from \"@mapgen/engine\"" "${DOMAIN_ROOT}" -S
-rg -n -P "import(?!\\s+type)\\s+.*from\\s+\"@swooper/mapgen-core/engine\"" "${DOMAIN_ROOT}" -S
-rg -n -P "import(?!\\s+type)\\s+.*from\\s+\"@mapgen/engine\"" "${DOMAIN_ROOT}" -S
-```
-
-Domain ops must not accept RNG callbacks/state (randomness must be modeled as numeric seeds in op inputs):
-```bash
-rg -n "RngFunction|options\\.rng|\\bctx\\.rng\\b" "${DOMAIN_ROOT}" -S
-```
-
-Refactored steps must not import legacy domain entrypoints or centralized config blobs:
-```bash
-rg -n "@mapgen/config\\b" "${STAGE_ROOTS[@]}" -S
-rg -n "@mapgen/domain/${DOMAIN}/" "${STAGE_ROOTS[@]}" -S
-```
-
-Runtime config defaulting/merging must not exist in step/op `run(...)` paths:
-```bash
-rg -n "\\?\\?\\s*\\{\\}" "${DOMAIN_ROOT}" "${STAGE_ROOTS[@]}" -S
-rg -n "\\bValue\\.Default\\(" "${DOMAIN_ROOT}" "${STAGE_ROOTS[@]}" -S
-```
-
-Refactored steps must not cast config to recover type safety (remove `as SomeConfig` and use schema-derived types):
-```bash
-rg -n "\\bas\\s+[A-Za-z0-9_]+Config\\b" "${STAGE_ROOTS[@]}" -S
-```
+Troubleshooting note:
+- If the guardrail script fails, use the printed hits (file + line) to drive fixes; run any additional `rg` searches ad-hoc as needed while iterating.
 
 ## Verification gates (must be green)
 
