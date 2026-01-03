@@ -120,7 +120,8 @@ export interface ExecutionPlan {
 export type ExecutionPlanCompileErrorCode =
   | "runRequest.invalid"
   | "step.unknown"
-  | "step.config.invalid";
+  | "step.config.invalid"
+  | "step.resolveConfig.failed";
 
 export interface ExecutionPlanCompileErrorItem {
   code: ExecutionPlanCompileErrorCode;
@@ -294,14 +295,65 @@ function normalizeStepConfig(
 function buildNodeConfig<TContext>(
   step: MapGenStep<TContext, unknown>,
   recipeStep: RecipeStepV2,
+  settings: RunSettings,
   path: string
 ): { config: unknown; errors: ExecutionPlanCompileErrorItem[] } {
   if (!step.configSchema) {
+    if (step.resolveConfig) {
+      return {
+        config: recipeStep.config ?? {},
+        errors: [
+          {
+            code: "step.resolveConfig.failed",
+            path,
+            message: "resolveConfig requires configSchema",
+          },
+        ],
+      };
+    }
     return { config: recipeStep.config ?? {}, errors: [] };
   }
 
   const { value, errors } = normalizeStepConfig(step.configSchema, recipeStep.config, path);
-  return { config: value, errors };
+  if (errors.length > 0 || !step.resolveConfig) {
+    return { config: value, errors };
+  }
+
+  let resolved: unknown;
+  try {
+    resolved = step.resolveConfig(value, settings);
+  } catch (err) {
+    return {
+      config: value,
+      errors: [
+        {
+          code: "step.resolveConfig.failed",
+          path,
+          message: err instanceof Error ? err.message : "resolveConfig failed",
+        },
+      ],
+    };
+  }
+
+  if (!isPlainObject(resolved)) {
+    return {
+      config: value,
+      errors: [
+        {
+          code: "step.resolveConfig.failed",
+          path,
+          message: "resolveConfig must return a plain object",
+        },
+      ],
+    };
+  }
+
+  const { value: resolvedValue, errors: resolvedErrors } = normalizeStepConfig(
+    step.configSchema,
+    resolved,
+    path
+  );
+  return { config: resolvedValue, errors: resolvedErrors };
 }
 
 export function compileExecutionPlan<TContext>(
@@ -342,7 +394,12 @@ export function compileExecutionPlan<TContext>(
 
     const registryStep = registry.get(step.id);
     const configPath = `/recipe/steps/${index}/config`;
-    const { config, errors: configErrors } = buildNodeConfig(registryStep, step, configPath);
+    const { config, errors: configErrors } = buildNodeConfig(
+      registryStep,
+      step,
+      settings,
+      configPath
+    );
     if (configErrors.length > 0) {
       errors.push(
         ...configErrors.map((err) => ({

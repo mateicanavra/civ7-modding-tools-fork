@@ -2,6 +2,7 @@ import { describe, it, expect } from "bun:test";
 import { Type } from "typebox";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
+import { createOp } from "@mapgen/authoring/index.js";
 
 import {
   compileExecutionPlan,
@@ -432,5 +433,111 @@ describe("compileExecutionPlan", () => {
     executor.executePlan(context, plan);
 
     expect(observedConfig).toEqual({ value: 7 });
+  });
+
+  it("applies step resolveConfig results into the plan", () => {
+    const registry = new StepRegistry<unknown>();
+    const op = createOp({
+      kind: "compute",
+      id: "test/resolveConfig/op",
+      input: Type.Object({}, { additionalProperties: false }),
+      output: Type.Object({}, { additionalProperties: false }),
+      config: Type.Object(
+        {
+          value: Type.Number({ default: 2 }),
+        },
+        { additionalProperties: false, default: {} }
+      ),
+      resolveConfig: (config, settings) => ({
+        ...config,
+        value: config.value + settings.dimensions.width,
+      }),
+      run: () => ({}),
+    } as const);
+
+    registry.register({
+      id: "alpha",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      configSchema: Type.Object(
+        {
+          op: op.config,
+        },
+        {
+          additionalProperties: false,
+          default: { op: op.defaultConfig },
+        }
+      ),
+      resolveConfig: (config, settings) => {
+        if (!op.resolveConfig) {
+          throw new Error("Expected op resolveConfig to exist");
+        }
+        return { op: op.resolveConfig(config.op, settings) };
+      },
+      run: () => {},
+    });
+
+    const plan = compileExecutionPlan(
+      {
+        recipe: {
+          schemaVersion: 2,
+          steps: [{ id: "alpha" }],
+        },
+        settings: baseSettings,
+      },
+      registry
+    );
+
+    expect(plan.nodes[0].config).toEqual({ op: { value: 12 } });
+  });
+
+  it("re-validates resolver output against the schema", () => {
+    const registry = new StepRegistry<unknown>();
+    registry.register({
+      id: "alpha",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      configSchema: Type.Object(
+        {
+          value: Type.Number(),
+        },
+        { additionalProperties: false }
+      ),
+      resolveConfig: () => ({ value: "bad" }),
+      run: () => {},
+    });
+
+    expect(() =>
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 2,
+            steps: [{ id: "alpha", config: { value: 1 } }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      )
+    ).toThrow(ExecutionPlanCompileError);
+
+    try {
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 2,
+            steps: [{ id: "alpha", config: { value: 1 } }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      );
+    } catch (err) {
+      expect(err).toBeInstanceOf(ExecutionPlanCompileError);
+      const errors = (err as ExecutionPlanCompileError).errors;
+      expect(errors[0].code).toBe("step.config.invalid");
+      expect(errors[0].path).toBe("/recipe/steps/0/config/value");
+    }
   });
 });
