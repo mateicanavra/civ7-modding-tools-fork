@@ -15,590 +15,747 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
-import type { PlotEffectsConfig } from "@mapgen/domain/ecology/ops/plan-plot-effects/schema.js";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
-
-const directionality = {
-  // Varied patterns for diverse island climates
-  cohesion: 0.18,
-  primaryAxes: {
-    plateAxisDeg: 30,
-    windBiasDeg: 25,
-    currentBiasDeg: 35,
-  },
-  interplay: {
-    windsFollowPlates: 0.2,
-    currentsFollowWinds: 0.65,
-  },
-  hemispheres: {
-    southernFlip: true,
-    monsoonBias: 0.85,
-    equatorBandDeg: 22,
-  },
-  variability: {
-    // High variability for island-specific climates
-    angleJitterDeg: 30,
-    magnitudeVariance: 0.6,
-  },
-};
-
-const landmassConfig = {
-  // Less water, but fragmented into islands not continents
-  baseWaterPercent: 65,
-  waterScalar: 1,
-  // Sharp edges to fragment land into islands
-  crustEdgeBlend: 0.2,
-  crustNoiseAmplitude: 0.25,
-  // Normal continental height (was too low before!)
-  continentalHeight: 0.45,
-  oceanicHeight: -0.7,
-  // Maximum boundary influence - all land at plate edges
-  boundaryBias: 0.75,
-  boundaryShareTarget: 0.65,
-  tectonics: {
-    // Maximum boundary arc weight - islands form along plate edges only
-    boundaryArcWeight: 0.85,
-    boundaryArcNoiseWeight: 0.7,
-    // Minimal interior weight - no continental cores
-    interiorNoiseWeight: 0.15,
-    fractalGrain: 8,
-  },
-};
-
-const marginsConfig = {
-  // Very high active fraction for volcanic arcs
-  activeFraction: 0.55,
-  passiveFraction: 0.12,
-  minSegmentLength: 8,
-};
-
-const coastlinesConfig = {
-  plateBias: {
-    threshold: 0.35,
-    power: 1.5,
-    // Strong convergent coasts for island arcs
-    convergent: 2.0,
-    transform: 0.5,
-    divergent: -0.2,
-    interior: 0.3,
-    // Very complex coastlines for island detail
-    bayWeight: 1.2,
-    bayNoiseBonus: 0.8,
-    fjordWeight: 0.9,
-  },
-};
-
-const mountainsConfig = {
-  // Focused volcanic peaks rather than ranges
-  tectonicIntensity: 0.7,
-  mountainThreshold: 0.55,
-  hillThreshold: 0.28,
-  upliftWeight: 0.3,
-  fractalWeight: 0.35,
-  riftDepth: 0.4,
-  // Strong boundary influence for arc volcanism
-  boundaryWeight: 1.0,
-  boundaryGate: 0.05,
-  boundaryExponent: 1.5,
-  interiorPenaltyWeight: 0.1,
-  convergenceBonus: 0.9,
-  transformPenalty: 0.4,
-  riftPenalty: 0.6,
-  hillBoundaryWeight: 0.5,
-  hillRiftBonus: 0.35,
-  hillConvergentFoothill: 0.4,
-  hillInteriorFalloff: 0.2,
-  hillUpliftWeight: 0.3,
-};
-
-const volcanoesConfig = {
-  // High volcanic density for island chains
-  baseDensity: 1 / 100,
-  minSpacing: 2,
-  boundaryThreshold: 0.2,
-  boundaryWeight: 1.5,
-  convergentMultiplier: 3.0,
-  transformMultiplier: 1.3,
-  divergentMultiplier: 0.6,
-  // Maximum hotspot activity for volcanic chains
-  hotspotWeight: 0.55,
-  shieldPenalty: 0.3,
-  randomJitter: 0.15,
-  minVolcanoes: 12,
-  maxVolcanoes: 55,
-};
-
-const foundationConfig = {
-  plates: {
-    // Maximum plates for island fragmentation
-    count: 32,
-    convergenceMix: 0.75,
-    relaxationSteps: 4,
-    plateRotationMultiple: 1.8,
-  },
-  dynamics: {
-    wind: {
-      jetStreaks: 5,
-      jetStrength: 0.85,
-      variance: 0.8,
-    },
-    mantle: {
-      // Strong upwelling for hotspot chains
-      bumps: 7,
-      amplitude: 0.9,
-      scale: 0.4,
-    },
-    directionality,
-  },
-};
-
-const oceanSeparationConfig = {
-  enabled: false,
-  baseSeparationTiles: 0,
-  boundaryClosenessMultiplier: 1.0,
-  maxPerRowDelta: 5,
-  minChannelWidth: 3,
-  respectSeaLanes: true,
-  edgeWest: {
-    enabled: false,
-    baseTiles: 0,
-    boundaryClosenessMultiplier: 1.0,
-    maxPerRowDelta: 2,
-  },
-  edgeEast: {
-    enabled: false,
-    baseTiles: 0,
-    boundaryClosenessMultiplier: 1.0,
-    maxPerRowDelta: 2,
-  },
-};
-
-const climateConfig = {
-  baseline: {
-    blend: {
-      baseWeight: 0.25,
-      bandWeight: 0.75,
-    },
-    seed: {
-      baseRainfall: 65,
-      coastalExponent: 1.1,
-    },
-    bands: {
-      // Very wet tropical maritime climate
-      deg0to10: 165,
-      deg10to20: 145,
-      deg20to35: 115,
-      deg35to55: 85,
-      deg55to70: 65,
-      deg70plus: 40,
-      edges: {
-        deg0to10: 10,
-        deg10to20: 20,
-        deg20to35: 35,
-        deg35to55: 55,
-        deg55to70: 70,
-      },
-      transitionWidth: 8,
-    },
-    sizeScaling: {
-      baseArea: 10000,
-      minScale: 0.6,
-      maxScale: 2.0,
-      equatorBoostScale: 14,
-      equatorBoostTaper: 0.7,
-    },
-    orographic: {
-      // Strong orographic effects on volcanic peaks
-      hi1Threshold: 250,
-      hi1Bonus: 15,
-      hi2Threshold: 450,
-      hi2Bonus: 12,
-    },
-    coastal: {
-      // Very high coastal moisture for island world
-      coastalLandBonus: 55,
-      spread: 9,
-    },
-    noise: {
-      baseSpanSmall: 4,
-      spanLargeScaleFactor: 1.2,
-      scale: 0.16,
-    },
-  },
-  swatches: { enabled: false },
-  refine: {
-    waterGradient: {
-      radius: 8,
-      perRingBonus: 6,
-      lowlandBonus: 8,
-    },
-    orographic: {
-      // Moderate rain shadow on larger islands
-      steps: 4,
-      reductionBase: 10,
-      reductionPerStep: 6,
-    },
-    riverCorridor: {
-      lowlandAdjacencyBonus: 20,
-      highlandAdjacencyBonus: 10,
-    },
-    lowBasin: {
-      radius: 3,
-      delta: 10,
-    },
-  },
-  story: {
-    rainfall: {
-      riftBoost: 15,
-      riftRadius: 3,
-      paradiseDelta: 12,
-      volcanicDelta: 14,
-    },
-  },
-};
-
-const storyHotspotConfig = {
-  // Maximum paradise island frequency
-  paradiseBias: 5,
-  // High volcanic chain frequency
-  volcanicBias: 5,
-  volcanicPeakChance: 0.45,
-};
-
-const storyFeaturesConfig = {
-  paradiseReefChance: 35,
-  paradiseReefRadius: 3,
-  volcanicForestChance: 35,
-  volcanicForestBonus: 8,
-  volcanicForestMinRainfall: 90,
-  volcanicTaigaChance: 18,
-  volcanicTaigaBonus: 4,
-  volcanicRadius: 1,
-  volcanicTaigaMinLatitude: 50,
-  volcanicTaigaMaxElevation: 450,
-  volcanicTaigaMinRainfall: 70,
-};
-
-const biomesConfig = {
-  temperature: {
-    equator: 28,
-    pole: -8,
-    lapseRate: 6.5,
-    seaLevel: 0,
-    bias: 0,
-    polarCutoff: -5,
-    tundraCutoff: 2,
-    midLatitude: 12,
-    tropicalThreshold: 24,
-  },
-  moisture: {
-    thresholds: [55, 75, 110, 165] as [number, number, number, number],
-    bias: 5,
-    humidityWeight: 0.35,
-  },
-  aridity: {
-    temperatureMin: 0,
-    temperatureMax: 32,
-    petBase: 10,
-    petTemperatureWeight: 55,
-    humidityDampening: 0.7,
-    rainfallWeight: 1,
-    bias: -12,
-    normalization: 150,
-    moistureShiftThresholds: [0.6, 0.8] as [number, number],
-    vegetationPenalty: 0.05,
-  },
-  freeze: {
-    minTemperature: -10,
-    maxTemperature: 3,
-  },
-  vegetation: {
-    base: 0.3,
-    moistureWeight: 0.6,
-    humidityWeight: 0.3,
-    moistureNormalizationPadding: 45,
-    biomeModifiers: {
-      snow: { multiplier: 0.05, bonus: 0 },
-      tundra: { multiplier: 0.35, bonus: 0 },
-      boreal: { multiplier: 0.8, bonus: 0 },
-      temperateDry: { multiplier: 0.8, bonus: 0 },
-      temperateHumid: { multiplier: 1.1, bonus: 0 },
-      tropicalSeasonal: { multiplier: 1.1, bonus: 0 },
-      tropicalRainforest: { multiplier: 1.1, bonus: 0.4 },
-      desert: { multiplier: 0.08, bonus: 0 },
-    },
-  },
-  noise: {
-    amplitude: 0.03,
-    seed: 1337,
-  },
-  overlays: {
-    corridorMoistureBonus: 8,
-    riftShoulderMoistureBonus: 5,
-  },
-};
-
-const biomeBindingsConfig = {
-  snow: "BIOME_TUNDRA",
-  tundra: "BIOME_TUNDRA",
-  boreal: "BIOME_TUNDRA",
-  temperateDry: "BIOME_PLAINS",
-  temperateHumid: "BIOME_GRASSLAND",
-  tropicalSeasonal: "BIOME_GRASSLAND",
-  tropicalRainforest: "BIOME_TROPICAL",
-  desert: "BIOME_DESERT",
-  marine: "BIOME_MARINE",
-};
-
-const featuresDensityConfig = {
-  // Lush tropical islands
-  rainforestExtraChance: 75,
-  forestExtraChance: 60,
-  taigaExtraChance: 18,
-  // Abundant coral reefs
-  shelfReefMultiplier: 1.6,
-  shelfReefRadius: 2,
-  rainforestVegetationScale: 80,
-  forestVegetationScale: 45,
-  taigaVegetationScale: 15,
-  rainforestMinRainfall: 110,
-  forestMinRainfall: 90,
-  taigaMaxElevation: 320,
-  minVegetationForBonus: 0.01,
-};
-
-const featuresPlacementConfig = {
-  groups: {
-    vegetated: { multiplier: 1.1 },
-    wet: { multiplier: 1.2 },
-    aquatic: { multiplier: 1.6 },
-    ice: { multiplier: 0.4 },
-  },
-  chances: {
-    FEATURE_FOREST: 55,
-    FEATURE_RAINFOREST: 85,
-    FEATURE_TAIGA: 35,
-    FEATURE_SAVANNA_WOODLAND: 40,
-    FEATURE_SAGEBRUSH_STEPPE: 20,
-    FEATURE_MARSH: 40,
-    FEATURE_TUNDRA_BOG: 15,
-    FEATURE_MANGROVE: 55,
-    FEATURE_OASIS: 40,
-    FEATURE_WATERING_HOLE: 30,
-    FEATURE_REEF: 55,
-    FEATURE_COLD_REEF: 35,
-    FEATURE_ATOLL: 20,
-    FEATURE_LOTUS: 28,
-    FEATURE_ICE: 60,
-  },
-  vegetated: {
-    minVegetationByBiome: {
-      snow: 0.08,
-      tundra: 0.05,
-      boreal: 0.06,
-      temperateDry: 0.04,
-      temperateHumid: 0.04,
-      tropicalSeasonal: 0.03,
-      tropicalRainforest: 0.02,
-      desert: 0.02,
-    },
-    vegetationChanceScalar: 1.15,
-    desertSagebrushMinVegetation: 0.12,
-    desertSagebrushMaxAridity: 0.9,
-    tundraTaigaMinVegetation: 0.08,
-    tundraTaigaMinTemperature: -2,
-    tundraTaigaMaxFreeze: 0.95,
-    temperateDryForestMoisture: 105,
-    temperateDryForestMaxAridity: 0.65,
-    temperateDryForestVegetation: 0.38,
-    tropicalSeasonalRainforestMoisture: 120,
-    tropicalSeasonalRainforestMaxAridity: 0.7,
-  },
-  wet: {
-    nearRiverRadius: 2,
-    coldTemperatureMax: 2,
-    coldBiomeSymbols: ["snow", "tundra", "boreal"],
-    mangroveWarmTemperatureMin: 18,
-    mangroveWarmBiomeSymbols: ["tropicalRainforest", "tropicalSeasonal"],
-    coastalAdjacencyRadius: 2,
-    isolatedRiverRadius: 1,
-    isolatedSpacingRadius: 1,
-    oasisBiomeSymbols: ["desert", "temperateDry"],
-  },
-  aquatic: {
-    reefLatitudeSplit: 58,
-    atoll: {
-      enableClustering: true,
-      clusterRadius: 1,
-      equatorialBandMaxAbsLatitude: 25,
-      shallowWaterAdjacencyGateChance: 20,
-      shallowWaterAdjacencyRadius: 1,
-      growthChanceEquatorial: 20,
-      growthChanceNonEquatorial: 8,
-    },
-  },
-  ice: {
-    minAbsLatitude: 75,
-    forbidAdjacentToLand: true,
-    landAdjacencyRadius: 1,
-    forbidAdjacentToNaturalWonders: true,
-    naturalWonderAdjacencyRadius: 1,
-  },
-};
-
-const plotEffectsConfig: PlotEffectsConfig = {
-  snow: {
-    enabled: true,
-    selectors: {
-      light: {
-        typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT",
-      },
-      medium: {
-        typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT",
-      },
-      heavy: {
-        typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT",
-      },
-    },
-    coverageChance: 25,
-    freezeWeight: 0.9,
-    elevationWeight: 1.1,
-    moistureWeight: 0.6,
-    scoreNormalization: 2.6,
-    scoreBias: 0,
-    lightThreshold: 0.45,
-    mediumThreshold: 0.65,
-    heavyThreshold: 0.8,
-    elevationStrategy: "percentile" as const,
-    elevationMin: 500,
-    elevationMax: 3000,
-    elevationPercentileMin: 0.88,
-    elevationPercentileMax: 0.995,
-    moistureMin: 60,
-    moistureMax: 180,
-    maxTemperature: 3,
-    maxAridity: 0.75,
-  },
-  sand: {
-    enabled: false,
-    selector: {
-      typeName: "PLOTEFFECT_SAND",
-    },
-    chance: 4,
-    minAridity: 0.7,
-    minTemperature: 22,
-    maxFreeze: 0.2,
-    maxVegetation: 0.12,
-    maxMoisture: 80,
-    allowedBiomes: ["desert", "temperateDry"] as ["desert", "temperateDry"],
-  },
-  burned: {
-    enabled: false,
-    selector: {
-      typeName: "PLOTEFFECT_BURNED",
-    },
-    chance: 4,
-    minAridity: 0.55,
-    minTemperature: 24,
-    maxFreeze: 0.2,
-    maxVegetation: 0.2,
-    maxMoisture: 95,
-    allowedBiomes: ["temperateDry", "tropicalSeasonal"] as [
-      "temperateDry",
-      "tropicalSeasonal",
-    ],
-  },
-};
-
-const corridorsConfig = {
-  sea: {},
-  land: {},
-  river: {},
-  islandHop: {},
-};
-
-const islandsConfig = {};
-const placementConfig = {};
-const storyRiftConfig = {};
-const storyOrogenyConfig = {};
-const climatePaleoConfig = {};
 
 const config = {
   foundation: {
     foundation: {
-      foundation: foundationConfig,
+      foundation: {
+        plates: {
+          // Maximum plates for island fragmentation
+          count: 32,
+          convergenceMix: 0.75,
+          relaxationSteps: 4,
+          plateRotationMultiple: 1.8,
+        },
+        dynamics: {
+          wind: {
+            jetStreaks: 5,
+            jetStrength: 0.85,
+            variance: 0.8,
+          },
+          mantle: {
+            // Strong upwelling for hotspot chains
+            bumps: 7,
+            amplitude: 0.9,
+            scale: 0.4,
+          },
+          directionality: {
+            // Varied patterns for diverse island climates
+            cohesion: 0.18,
+            primaryAxes: {
+              plateAxisDeg: 30,
+              windBiasDeg: 25,
+              currentBiasDeg: 35,
+            },
+            interplay: {
+              windsFollowPlates: 0.2,
+              currentsFollowWinds: 0.65,
+            },
+            hemispheres: {
+              southernFlip: true,
+              monsoonBias: 0.85,
+              equatorBandDeg: 22,
+            },
+            variability: {
+              // High variability for island-specific climates
+              angleJitterDeg: 30,
+              magnitudeVariance: 0.6,
+            },
+          },
+        },
+      },
     },
   },
   "morphology-pre": {
     landmassPlates: {
-      landmass: landmassConfig,
-      oceanSeparation: oceanSeparationConfig,
+      landmass: {
+        // Less water, but fragmented into islands not continents
+        baseWaterPercent: 65,
+        waterScalar: 1,
+        // Sharp edges to fragment land into islands
+        crustEdgeBlend: 0.2,
+        crustNoiseAmplitude: 0.25,
+        // Normal continental height (was too low before!)
+        continentalHeight: 0.45,
+        oceanicHeight: -0.7,
+        // Maximum boundary influence - all land at plate edges
+        boundaryBias: 0.75,
+        boundaryShareTarget: 0.65,
+        tectonics: {
+          // Maximum boundary arc weight - islands form along plate edges only
+          boundaryArcWeight: 0.85,
+          boundaryArcNoiseWeight: 0.7,
+          // Minimal interior weight - no continental cores
+          interiorNoiseWeight: 0.15,
+          fractalGrain: 8,
+        },
+      },
+      oceanSeparation: {
+        enabled: false,
+        baseSeparationTiles: 0,
+        boundaryClosenessMultiplier: 1.0,
+        maxPerRowDelta: 5,
+        minChannelWidth: 3,
+        respectSeaLanes: true,
+        edgeWest: {
+          enabled: false,
+          baseTiles: 0,
+          boundaryClosenessMultiplier: 1.0,
+          maxPerRowDelta: 2,
+        },
+        edgeEast: {
+          enabled: false,
+          baseTiles: 0,
+          boundaryClosenessMultiplier: 1.0,
+          maxPerRowDelta: 2,
+        },
+      },
     },
     coastlines: {},
   },
   "narrative-pre": {
-    storySeed: { margins: marginsConfig },
-    storyHotspots: { story: { hotspot: storyHotspotConfig } },
-    storyRifts: { story: { rift: storyRiftConfig } },
+    storySeed: {
+      margins: {
+        // Very high active fraction for volcanic arcs
+        activeFraction: 0.55,
+        passiveFraction: 0.12,
+        minSegmentLength: 8,
+      },
+    },
+    storyHotspots: {
+      story: {
+        hotspot: {
+          paradiseBias: 3,
+          volcanicBias: 3,
+          volcanicPeakChance: 0.5,
+        },
+      },
+    },
+    storyRifts: { story: { rift: {} } },
   },
   "morphology-mid": {
     ruggedCoasts: {
-      coastlines: coastlinesConfig,
-      corridors: corridorsConfig,
+      coastlines: {
+        plateBias: {
+          threshold: 0.35,
+          power: 1.5,
+          // Strong convergent coasts for island arcs
+          convergent: 2.0,
+          transform: 0.5,
+          divergent: -0.2,
+          interior: 0.3,
+          // Very complex coastlines for island detail
+          bayWeight: 1.2,
+          bayNoiseBonus: 0.8,
+          fjordWeight: 0.9,
+        },
+      },
+      corridors: {
+        sea: {},
+        land: {},
+        river: {},
+        islandHop: {},
+      },
     },
   },
   "narrative-mid": {
-    storyOrogeny: { story: { orogeny: storyOrogenyConfig } },
-    storyCorridorsPre: { corridors: corridorsConfig },
+    storyOrogeny: { story: { orogeny: {} } },
+    storyCorridorsPre: {
+      corridors: {
+        sea: {},
+        land: {},
+        river: {},
+        islandHop: {},
+      },
+    },
   },
   "morphology-post": {
     islands: {
-      islands: islandsConfig,
-      story: { hotspot: storyHotspotConfig },
-      corridors: { sea: corridorsConfig.sea },
+      islands: {},
+      story: {
+        hotspot: {
+          paradiseBias: 3,
+          volcanicBias: 3,
+          volcanicPeakChance: 0.5,
+        },
+      },
+      corridors: { sea: {} },
     },
-    mountains: { mountains: mountainsConfig },
-    volcanoes: { volcanoes: volcanoesConfig },
+    mountains: {
+      mountains: {
+        // Focused volcanic peaks rather than ranges
+        tectonicIntensity: 0.7,
+        mountainThreshold: 0.55,
+        hillThreshold: 0.28,
+        upliftWeight: 0.3,
+        fractalWeight: 0.35,
+        riftDepth: 0.4,
+        // Strong boundary influence for arc volcanism
+        boundaryWeight: 1.0,
+        boundaryGate: 0.05,
+        boundaryExponent: 1.5,
+        interiorPenaltyWeight: 0.1,
+        convergenceBonus: 0.9,
+        transformPenalty: 0.4,
+        riftPenalty: 0.6,
+        hillBoundaryWeight: 0.5,
+        hillRiftBonus: 0.35,
+        hillConvergentFoothill: 0.4,
+        hillInteriorFalloff: 0.2,
+        hillUpliftWeight: 0.3,
+      },
+    },
+    volcanoes: {
+      volcanoes: {
+        // High volcanic density for island chains
+        baseDensity: 1 / 100,
+        minSpacing: 2,
+        boundaryThreshold: 0.2,
+        boundaryWeight: 1.5,
+        convergentMultiplier: 3.0,
+        transformMultiplier: 1.3,
+        divergentMultiplier: 0.6,
+        // Maximum hotspot activity for volcanic chains
+        hotspotWeight: 0.55,
+        shieldPenalty: 0.3,
+        randomJitter: 0.15,
+        minVolcanoes: 12,
+        maxVolcanoes: 55,
+      },
+    },
   },
   "hydrology-pre": {
     lakes: {},
-    climateBaseline: { climate: { baseline: climateConfig.baseline } },
-  },
-  "narrative-swatches": {
-    storySwatches: { climate: climateConfig },
-  },
-  "hydrology-core": {
-    rivers: { climate: { story: { paleo: climatePaleoConfig } } },
-  },
-  "narrative-post": {
-    storyCorridorsPost: { corridors: corridorsConfig },
-  },
-  "hydrology-post": {
-    climateRefine: { climate: climateConfig, story: { orogeny: storyOrogenyConfig } },
-  },
-  ecology: {
-    biomes: { classify: biomesConfig, bindings: biomeBindingsConfig },
-    features: {
-      featuresPlacement: featuresPlacementConfig,
-      reefEmbellishments: {
-        story: { features: storyFeaturesConfig },
-        featuresDensity: featuresDensityConfig,
-      },
-      vegetationEmbellishments: {
-        story: { features: storyFeaturesConfig },
-        featuresDensity: featuresDensityConfig,
+    climateBaseline: {
+      climate: {
+        baseline: {
+          blend: {
+            baseWeight: 0.25,
+            bandWeight: 0.75,
+          },
+          seed: {
+            baseRainfall: 65,
+            coastalExponent: 1.1,
+          },
+          bands: {
+            // Very wet tropical maritime climate
+            deg0to10: 165,
+            deg10to20: 145,
+            deg20to35: 115,
+            deg35to55: 85,
+            deg55to70: 65,
+            deg70plus: 40,
+            edges: {
+              deg0to10: 10,
+              deg10to20: 20,
+              deg20to35: 35,
+              deg35to55: 55,
+              deg55to70: 70,
+            },
+            transitionWidth: 9,
+          },
+          sizeScaling: {
+            baseArea: 10000,
+            minScale: 0.6,
+            maxScale: 2.2,
+            equatorBoostScale: 14,
+            equatorBoostTaper: 0.7,
+          },
+          orographic: {
+            hi1Threshold: 300,
+            hi1Bonus: 8,
+            hi2Threshold: 550,
+            hi2Bonus: 7,
+          },
+          coastal: {
+            coastalLandBonus: 30,
+            spread: 6,
+          },
+          noise: {
+            baseSpanSmall: 4,
+            spanLargeScaleFactor: 1.0,
+            scale: 0.12,
+          },
+        },
       },
     },
-    plotEffects: { plotEffects: plotEffectsConfig },
+  },
+  "narrative-swatches": {
+    storySwatches: {
+      climate: {
+        baseline: {
+          blend: {
+            baseWeight: 0.25,
+            bandWeight: 0.75,
+          },
+          seed: {
+            baseRainfall: 65,
+            coastalExponent: 1.1,
+          },
+          bands: {
+            // Very wet tropical maritime climate
+            deg0to10: 165,
+            deg10to20: 145,
+            deg20to35: 115,
+            deg35to55: 85,
+            deg55to70: 65,
+            deg70plus: 40,
+            edges: {
+              deg0to10: 10,
+              deg10to20: 20,
+              deg20to35: 35,
+              deg35to55: 55,
+              deg55to70: 70,
+            },
+            transitionWidth: 9,
+          },
+          sizeScaling: {
+            baseArea: 10000,
+            minScale: 0.6,
+            maxScale: 2.2,
+            equatorBoostScale: 14,
+            equatorBoostTaper: 0.7,
+          },
+          orographic: {
+            hi1Threshold: 300,
+            hi1Bonus: 8,
+            hi2Threshold: 550,
+            hi2Bonus: 7,
+          },
+          coastal: {
+            coastalLandBonus: 30,
+            spread: 6,
+          },
+          noise: {
+            baseSpanSmall: 4,
+            spanLargeScaleFactor: 1.0,
+            scale: 0.12,
+          },
+        },
+        swatches: { enabled: true },
+        refine: {
+          waterGradient: {
+            radius: 6,
+            perRingBonus: 5,
+            lowlandBonus: 6,
+          },
+          orographic: {
+            steps: 4,
+            reductionBase: 8,
+            reductionPerStep: 4,
+          },
+          riverCorridor: {
+            lowlandAdjacencyBonus: 18,
+            highlandAdjacencyBonus: 7,
+          },
+          lowBasin: {
+            radius: 3,
+            delta: 6,
+          },
+        },
+        story: {
+          rainfall: {
+            riftBoost: 10,
+            riftRadius: 2,
+            paradiseDelta: 8,
+            volcanicDelta: 12,
+          },
+        },
+      },
+    },
+  },
+  "hydrology-core": {
+    rivers: { climate: { story: { paleo: {} } } },
+  },
+  "narrative-post": {
+    storyCorridorsPost: {
+      corridors: {
+        sea: {},
+        land: {},
+        river: {},
+        islandHop: {},
+      },
+    },
+  },
+  "hydrology-post": {
+    climateRefine: {
+      climate: {
+        baseline: {
+          blend: {
+            baseWeight: 0.25,
+            bandWeight: 0.75,
+          },
+          seed: {
+            baseRainfall: 65,
+            coastalExponent: 1.1,
+          },
+          bands: {
+            // Very wet tropical maritime climate
+            deg0to10: 165,
+            deg10to20: 145,
+            deg20to35: 115,
+            deg35to55: 85,
+            deg55to70: 65,
+            deg70plus: 40,
+            edges: {
+              deg0to10: 10,
+              deg10to20: 20,
+              deg20to35: 35,
+              deg35to55: 55,
+              deg55to70: 70,
+            },
+            transitionWidth: 9,
+          },
+          sizeScaling: {
+            baseArea: 10000,
+            minScale: 0.6,
+            maxScale: 2.2,
+            equatorBoostScale: 14,
+            equatorBoostTaper: 0.7,
+          },
+          orographic: {
+            hi1Threshold: 300,
+            hi1Bonus: 8,
+            hi2Threshold: 550,
+            hi2Bonus: 7,
+          },
+          coastal: {
+            coastalLandBonus: 30,
+            spread: 6,
+          },
+          noise: {
+            baseSpanSmall: 4,
+            spanLargeScaleFactor: 1.0,
+            scale: 0.12,
+          },
+        },
+        swatches: { enabled: true },
+        refine: {
+          waterGradient: {
+            radius: 6,
+            perRingBonus: 5,
+            lowlandBonus: 6,
+          },
+          orographic: {
+            steps: 4,
+            reductionBase: 8,
+            reductionPerStep: 4,
+          },
+          riverCorridor: {
+            lowlandAdjacencyBonus: 18,
+            highlandAdjacencyBonus: 7,
+          },
+          lowBasin: {
+            radius: 3,
+            delta: 6,
+          },
+        },
+        story: {
+          rainfall: {
+            riftBoost: 10,
+            riftRadius: 2,
+            paradiseDelta: 8,
+            volcanicDelta: 12,
+          },
+        },
+      },
+      story: { orogeny: {} },
+    },
+  },
+  ecology: {
+    biomes: {
+      classify: {
+        temperature: {
+          equator: 31,
+          pole: -5,
+          lapseRate: 6.5,
+          seaLevel: 0,
+          bias: 2,
+          polarCutoff: -4,
+          tundraCutoff: 3,
+          midLatitude: 14,
+          tropicalThreshold: 25,
+        },
+        moisture: {
+          thresholds: [85, 115, 160, 210] as [number, number, number, number],
+          bias: 0.15,
+          humidityWeight: 0.35,
+        },
+        aridity: {
+          temperatureMin: 2,
+          temperatureMax: 36,
+          petBase: 22,
+          petTemperatureWeight: 85,
+          humidityDampening: 0.6,
+          rainfallWeight: 1,
+          bias: 0,
+          normalization: 140,
+          moistureShiftThresholds: [0.45, 0.7] as [number, number],
+          vegetationPenalty: 0.1,
+        },
+        freeze: {
+          minTemperature: -9,
+          maxTemperature: 4,
+        },
+        vegetation: {
+          base: 0.4,
+          moistureWeight: 0.7,
+          humidityWeight: 0.4,
+          moistureNormalizationPadding: 70,
+          biomeModifiers: {
+            snow: { multiplier: 0.5, bonus: 0 },
+            tundra: { multiplier: 0.55, bonus: 0 },
+            boreal: { multiplier: 0.9, bonus: 0 },
+            temperateDry: { multiplier: 0.8, bonus: 0 },
+            temperateHumid: { multiplier: 1, bonus: 0 },
+            tropicalSeasonal: { multiplier: 1, bonus: 0 },
+            tropicalRainforest: { multiplier: 1, bonus: 0.3 },
+            desert: { multiplier: 0.15, bonus: 0 },
+          },
+        },
+        noise: {
+          amplitude: 0.03,
+          seed: 1337,
+        },
+        overlays: {
+          corridorMoistureBonus: 10,
+          riftShoulderMoistureBonus: 6,
+        },
+      },
+      bindings: {
+        snow: "BIOME_TUNDRA",
+        tundra: "BIOME_TUNDRA",
+        boreal: "BIOME_TUNDRA",
+        temperateDry: "BIOME_PLAINS",
+        temperateHumid: "BIOME_GRASSLAND",
+        tropicalSeasonal: "BIOME_GRASSLAND",
+        tropicalRainforest: "BIOME_TROPICAL",
+        desert: "BIOME_DESERT",
+        marine: "BIOME_MARINE",
+      },
+    },
+    features: {
+      featuresPlacement: {
+        groups: {
+          vegetated: { multiplier: 1.6 },
+          wet: { multiplier: 0.8 },
+          aquatic: { multiplier: 0.75 },
+          ice: { multiplier: 1 },
+        },
+        chances: {
+          FEATURE_FOREST: 55,
+          FEATURE_RAINFOREST: 75,
+          FEATURE_TAIGA: 45,
+          FEATURE_SAVANNA_WOODLAND: 35,
+          FEATURE_SAGEBRUSH_STEPPE: 25,
+          FEATURE_MARSH: 35,
+          FEATURE_TUNDRA_BOG: 20,
+          FEATURE_MANGROVE: 40,
+          FEATURE_OASIS: 20,
+          FEATURE_WATERING_HOLE: 25,
+          FEATURE_REEF: 55,
+          FEATURE_COLD_REEF: 40,
+          FEATURE_ATOLL: 18,
+          FEATURE_LOTUS: 20,
+          FEATURE_ICE: 85,
+        },
+        vegetated: {
+          minVegetationByBiome: {
+            snow: 0.06,
+            tundra: 0.04,
+            boreal: 0.05,
+            temperateDry: 0.05,
+            temperateHumid: 0.04,
+            tropicalSeasonal: 0.04,
+            tropicalRainforest: 0.04,
+            desert: 0.02,
+          },
+          vegetationChanceScalar: 1.1,
+          desertSagebrushMinVegetation: 0.18,
+          desertSagebrushMaxAridity: 0.82,
+          tundraTaigaMinVegetation: 0.1,
+          tundraTaigaMinTemperature: -1,
+          tundraTaigaMaxFreeze: 0.92,
+          temperateDryForestMoisture: 115,
+          temperateDryForestMaxAridity: 0.62,
+          temperateDryForestVegetation: 0.4,
+          tropicalSeasonalRainforestMoisture: 150,
+          tropicalSeasonalRainforestMaxAridity: 0.6,
+        },
+        wet: {
+          nearRiverRadius: 2,
+          coldTemperatureMax: 3,
+          coldBiomeSymbols: ["snow", "tundra", "boreal"],
+          mangroveWarmTemperatureMin: 20,
+          mangroveWarmBiomeSymbols: ["tropicalRainforest", "tropicalSeasonal"],
+          coastalAdjacencyRadius: 1,
+          isolatedRiverRadius: 1,
+          isolatedSpacingRadius: 1,
+          oasisBiomeSymbols: ["desert", "temperateDry"],
+        },
+        aquatic: {
+          reefLatitudeSplit: 52,
+          atoll: {
+            enableClustering: true,
+            clusterRadius: 1,
+            equatorialBandMaxAbsLatitude: 25,
+            shallowWaterAdjacencyGateChance: 40,
+            shallowWaterAdjacencyRadius: 1,
+            growthChanceEquatorial: 18,
+            growthChanceNonEquatorial: 6,
+          },
+        },
+        ice: {
+          minAbsLatitude: 76,
+          forbidAdjacentToLand: true,
+          landAdjacencyRadius: 1,
+          forbidAdjacentToNaturalWonders: true,
+          naturalWonderAdjacencyRadius: 1,
+        },
+      },
+      reefEmbellishments: {
+        story: {
+          features: {
+            paradiseReefChance: 28,
+            paradiseReefRadius: 2,
+            volcanicForestChance: 30,
+            volcanicForestBonus: 7,
+            volcanicForestMinRainfall: 105,
+            volcanicTaigaChance: 25,
+            volcanicTaigaBonus: 5,
+            volcanicRadius: 1,
+            volcanicTaigaMinLatitude: 54,
+            volcanicTaigaMaxElevation: 380,
+            volcanicTaigaMinRainfall: 65,
+          },
+        },
+        featuresDensity: {
+          shelfReefMultiplier: 0.9,
+          shelfReefRadius: 1,
+          rainforestExtraChance: 60,
+          forestExtraChance: 45,
+          taigaExtraChance: 25,
+          rainforestVegetationScale: 60,
+          forestVegetationScale: 35,
+          taigaVegetationScale: 25,
+          rainforestMinRainfall: 140,
+          forestMinRainfall: 105,
+          taigaMaxElevation: 280,
+          minVegetationForBonus: 0.01,
+        },
+      },
+      vegetationEmbellishments: {
+        story: {
+          features: {
+            paradiseReefChance: 28,
+            paradiseReefRadius: 2,
+            volcanicForestChance: 30,
+            volcanicForestBonus: 7,
+            volcanicForestMinRainfall: 105,
+            volcanicTaigaChance: 25,
+            volcanicTaigaBonus: 5,
+            volcanicRadius: 1,
+            volcanicTaigaMinLatitude: 54,
+            volcanicTaigaMaxElevation: 380,
+            volcanicTaigaMinRainfall: 65,
+          },
+        },
+        featuresDensity: {
+          shelfReefMultiplier: 0.9,
+          shelfReefRadius: 1,
+          rainforestExtraChance: 60,
+          forestExtraChance: 45,
+          taigaExtraChance: 25,
+          rainforestVegetationScale: 60,
+          forestVegetationScale: 35,
+          taigaVegetationScale: 25,
+          rainforestMinRainfall: 140,
+          forestMinRainfall: 105,
+          taigaMaxElevation: 280,
+          minVegetationForBonus: 0.01,
+        },
+      },
+    },
+    plotEffects: {
+      plotEffects: {
+        snow: {
+          enabled: true,
+          selectors: {
+            light: {
+              typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT",
+            },
+            medium: {
+              typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT",
+            },
+            heavy: {
+              typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT",
+            },
+          },
+          coverageChance: 50,
+          freezeWeight: 0.9,
+          elevationWeight: 0.8,
+          moistureWeight: 0.7,
+          scoreNormalization: 2.6,
+          scoreBias: 0,
+          lightThreshold: 0.4,
+          mediumThreshold: 0.65,
+          heavyThreshold: 0.82,
+          elevationStrategy: "percentile" as const,
+          elevationMin: 150,
+          elevationMax: 2400,
+          elevationPercentileMin: 0.7,
+          elevationPercentileMax: 0.95,
+          moistureMin: 60,
+          moistureMax: 180,
+          maxTemperature: 5,
+          maxAridity: 0.8,
+        },
+        sand: {
+          enabled: true,
+          selector: {
+            typeName: "PLOTEFFECT_SAND",
+          },
+          chance: 8,
+          minAridity: 0.6,
+          minTemperature: 22,
+          maxFreeze: 0.25,
+          maxVegetation: 0.2,
+          maxMoisture: 95,
+          allowedBiomes: ["desert", "temperateDry"] as [
+            "desert",
+            "temperateDry",
+          ],
+        },
+        burned: {
+          enabled: true,
+          selector: {
+            typeName: "PLOTEFFECT_BURNED",
+          },
+          chance: 7,
+          minAridity: 0.55,
+          minTemperature: 24,
+          maxFreeze: 0.2,
+          maxVegetation: 0.25,
+          maxMoisture: 110,
+          allowedBiomes: ["temperateDry", "tropicalSeasonal"] as [
+            "temperateDry",
+            "tropicalSeasonal",
+          ],
+        },
+      },
+    },
   },
   placement: {
-    derivePlacementInputs: { placement: placementConfig },
+    derivePlacementInputs: { placement: {} },
     placement: {},
   },
 } satisfies StandardRecipeConfig;
 
-const runtimeOptions: MapRuntimeOptions = { logPrefix: "[SUNDERED_ARCHIPELAGO]" };
+const runtimeOptions: MapRuntimeOptions = { logPrefix: "[SWOOPER_MOD]" };
+const directionality =
+  config.foundation.foundation.foundation.dynamics.directionality;
 
 wireStandardMapEntry({
   engine,
