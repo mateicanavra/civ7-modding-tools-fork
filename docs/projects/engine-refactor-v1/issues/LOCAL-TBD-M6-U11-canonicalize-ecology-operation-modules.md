@@ -46,9 +46,10 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 - No domain-side logging:
   - Domain ops do not call `devLogJson` or any logger.
   - Step-level tracing is the only logging/diagnostics mechanism (no domain-side diagnostic helpers).
-- No runtime config normalization helpers:
-  - Delete `resolvePlotEffectsConfig` and any equivalent runtime config resolver exports.
-  - Steps treat `node.config` as plan-truth (assumes U10 landed) and do not “resolve” plot-effects config during `run`.
+- Compile-time config normalization only (U10 pattern):
+  - Any config normalization beyond schema defaults is implemented via compile-time `resolveConfig` hooks (step- and op-level) and stored as plan truth.
+  - Step `run(...)` and op `run(...)` must not do meaning-level defaulting/merging; they treat `node.config` as “the config”.
+  - Schema-local helper functions (ex: `resolvePlotEffectsConfig`) are allowed, but must only be called from `op.resolveConfig(...)` (and tests) — never during runtime `run(...)`.
 
 ## Acceptance Criteria
 - **Boundary purity**
@@ -77,8 +78,9 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
     - `rg -n "\\buseEngineBaseline\\b" mods/mod-swooper-maps/src/domain/ecology mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
 - **Diagnostics alignment**
   - Any snow/plot-effects diagnostics are step-owned (or refactored into pure summary functions + step-level logging), and never depend on adapter within the domain layer.
-  - Guardrail:
-    - `rg -n "\\bresolvePlotEffectsConfig\\b" mods/mod-swooper-maps/src/domain/ecology mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
+  - Guardrails:
+    - `rg -n "\\bresolvePlotEffectsConfig\\b" mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
+    - `rg -n "\\bresolveFeaturesPlacementConfig\\b" mods/mod-swooper-maps/src/recipes/standard/stages/ecology` is empty.
 
 ## Testing / Verification
 - `pnpm check`
@@ -387,9 +389,9 @@ mods/mod-swooper-maps/src/domain/ecology/
   - `ops.featuresPlacement`
   - `ops.featuresEmbellishments`
   - `ops.plotEffects`
-- `@mapgen/domain/ecology` additionally exports runtime-only helpers that are incompatible with the target boundary:
+- `@mapgen/domain/ecology` additionally exports a boundary-incompatible helper that must be removed:
   - `logSnowEligibilitySummary` (plot-effects diagnostics)
-  - `resolvePlotEffectsConfig` (runtime config normalization)
+- (U10 landed) `resolvePlotEffectsConfig` exists as an op-schema compile-time normalizer used via `op.resolveConfig` (and may be imported by tests); it must never be called during runtime `run(...)`.
 
 **Importers that must be updated to the new canonical op names**
 - Domain export aggregators:
