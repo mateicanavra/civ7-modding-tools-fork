@@ -40,13 +40,17 @@ const SnowElevationStrategySchema = Type.Union(
   }
 );
 
-const createPlotEffectSelectorSchema = (defaultValue: { typeName: string } = { typeName: "" }) =>
+const createPlotEffectSelectorSchema = (
+  defaultValue: { typeName: PlotEffectKey } = { typeName: "PLOTEFFECT_UNSET" }
+) =>
   Type.Object(
     {
       /** Explicit plot effect type name (ex: PLOTEFFECT_SNOW_LIGHT_PERMANENT). */
-      typeName: Type.String({
-        description: "Explicit plot effect type name (ex: PLOTEFFECT_SAND).",
-      }),
+      typeName: Type.Unsafe<PlotEffectKey>(
+        Type.String({
+          description: "Explicit plot effect type name (ex: PLOTEFFECT_SAND).",
+        })
+      ),
     },
     {
       additionalProperties: false,
