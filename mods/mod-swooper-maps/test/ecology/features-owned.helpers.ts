@@ -9,6 +9,30 @@ import {
   publishHeightfieldArtifact,
 } from "../../src/recipes/standard/artifacts.js";
 
+export const disabledEmbellishmentsConfig = {
+  story: {
+    features: {
+      paradiseReefChance: 0,
+      paradiseReefRadius: 0,
+      volcanicForestChance: 0,
+      volcanicForestBonus: 0,
+      volcanicTaigaChance: 0,
+      volcanicTaigaBonus: 0,
+    },
+  },
+  featuresDensity: {
+    shelfReefMultiplier: 0,
+    shelfReefRadius: 0,
+    rainforestExtraChance: 0,
+    forestExtraChance: 0,
+    taigaExtraChance: 0,
+    rainforestVegetationScale: 0,
+    forestVegetationScale: 0,
+    taigaVegetationScale: 0,
+    minVegetationForBonus: 1,
+  },
+};
+
 type WaterMask = (x: number, y: number) => boolean;
 
 type FeaturesTestContextOptions = {

@@ -1,21 +1,18 @@
 import { describe, it, expect } from "vitest";
-import { createMockAdapter } from "@civ7/adapter";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
-import { plotEffects } from "../../src/domain/ecology/ops/plot-effects/index.js";
+import { planPlotEffects } from "../../src/domain/ecology/ops/plan-plot-effects/index.js";
 import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
 
 const createInput = () => {
   const width = 2;
   const height = 2;
   const size = width * height;
-  const adapter = createMockAdapter({ width, height, rng: () => 0 });
-  adapter.fillWater(false);
 
   return {
     width,
     height,
-    adapter,
+    seed: 0,
     biomeIndex: new Uint8Array(size).fill(BIOME_SYMBOL_TO_INDEX.tundra ?? 1),
     vegetationDensity: new Float32Array(size).fill(0.1),
     effectiveMoisture: new Float32Array(size).fill(120),
@@ -23,7 +20,7 @@ const createInput = () => {
     aridityIndex: new Float32Array(size).fill(0.2),
     freezeIndex: new Float32Array(size).fill(0.95),
     elevation: new Int16Array(size).fill(2400),
-    rand: (_label: string, max: number) => 0 % max,
+    landMask: new Uint8Array(size).fill(1),
   };
 };
 
@@ -54,13 +51,15 @@ describe("plot effects (owned)", () => {
       sand: { enabled: false },
       burned: { enabled: false },
     };
-    const resolvedConfig = plotEffects.resolveConfig
-      ? plotEffects.resolveConfig(config, settings)
+    const resolvedConfig = planPlotEffects.resolveConfig
+      ? planPlotEffects.resolveConfig(config, settings)
       : config;
-    const result = plotEffects.run(input, resolvedConfig);
+    const result = planPlotEffects.run(input, resolvedConfig);
 
     expect(result.placements.length).toBeGreaterThan(0);
-    const anySnow = result.placements.some((placement) => placement.plotEffectType >= 0);
+    const anySnow = result.placements.some((placement) =>
+      placement.plotEffect.startsWith("PLOTEFFECT_SNOW_")
+    );
     expect(anySnow).toBe(true);
   });
 });

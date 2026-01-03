@@ -1,6 +1,8 @@
-import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes.js";
-import { featuresPlacement } from "@mapgen/domain/ecology/ops/features-placement/index.js";
-import { plotEffects } from "@mapgen/domain/ecology/ops/plot-effects/index.js";
+import { classifyBiomes } from "@mapgen/domain/ecology/ops/classify-biomes/index.js";
+import { planFeaturePlacements } from "@mapgen/domain/ecology/ops/plan-feature-placements/index.js";
+import { planPlotEffects } from "@mapgen/domain/ecology/ops/plan-plot-effects/index.js";
+import { planReefEmbellishments } from "@mapgen/domain/ecology/ops/plan-reef-embellishments/index.js";
+import { planVegetationEmbellishments } from "@mapgen/domain/ecology/ops/plan-vegetation-embellishments/index.js";
 import { BiomeEngineBindingsSchema } from "@mapgen/domain/ecology/biome-bindings.js";
 export { FeaturesDensityConfigSchema } from "@mapgen/domain/ecology/config.js";
 
@@ -17,15 +19,22 @@ export const BiomeConfigSchema = classifyBiomes.config;
  */
 export const BiomeBindingsSchema = BiomeEngineBindingsSchema;
 
-
+/**
+ * Config for the feature placement plan operation.
+ */
+export const FeaturesPlacementConfigSchema = planFeaturePlacements.config;
 
 /**
- * Config for the baseline feature placement operation (strategy wrapper).
+ * Config for reef embellishment plan placement.
  */
-export const FeaturesPlacementConfigSchema = featuresPlacement.config;
+export const ReefEmbellishmentsConfigSchema = planReefEmbellishments.config;
+
+/**
+ * Config for vegetation embellishment plan placement.
+ */
+export const VegetationEmbellishmentsConfigSchema = planVegetationEmbellishments.config;
 
 /**
  * Config for climate/ecology plot effects (snow, sand, burned).
  */
-export const PlotEffectsConfigSchema = plotEffects.config;
-
+export const PlotEffectsConfigSchema = planPlotEffects.config;

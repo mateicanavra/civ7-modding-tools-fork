@@ -1,38 +1,73 @@
-import { ctxRandom, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { getPublishedBiomeClassification, getPublishedClimateField } from "@mapgen/domain/artifacts.js";
+import type { ExtendedMapContext } from "@swooper/mapgen-core";
+import {
+  computeRiverAdjacencyMask,
+  getPublishedBiomeClassification,
+  getPublishedClimateField,
+} from "../../../../artifacts.js";
 import { getNarrativeMotifsHotspots, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
 import type * as ecology from "@mapgen/domain/ecology";
+import type { ResolvedFeaturesPlacementConfig } from "@mapgen/domain/ecology/ops/plan-feature-placements/schema.js";
+import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
+import { assertHeightfield, buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
+import { deriveStepSeed } from "../helpers/seed.js";
+import type { FeatureKeyLookups } from "./feature-keys.js";
 
-type FeaturesPlacementInput = Parameters<typeof ecology.ops.featuresPlacement.run>[0];
-type FeaturesEmbellishmentsInput = Parameters<typeof ecology.ops.featuresEmbellishments.run>[0];
+const NO_FEATURE = -1;
+const UNKNOWN_FEATURE = -2;
 
-export function buildFeaturesPlacementInput(context: ExtendedMapContext): FeaturesPlacementInput {
+type FeaturesPlacementInput = Parameters<typeof ecology.ops.planFeaturePlacements.run>[0];
+type ReefEmbellishmentsInput = Parameters<typeof ecology.ops.planReefEmbellishments.run>[0];
+type VegetationEmbellishmentsInput = Parameters<typeof ecology.ops.planVegetationEmbellishments.run>[0];
+
+type HeightfieldArtifact = {
+  elevation: Int16Array;
+  terrain: Uint8Array;
+  landMask: Uint8Array;
+};
+
+const getHeightfieldArtifact = (
+  context: ExtendedMapContext,
+  expectedSize: number
+): HeightfieldArtifact => {
+  const heightfield = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
+  assertHeightfield(heightfield, expectedSize);
+  return heightfield;
+};
+
+const buildFeatureKeyField = (
+  context: ExtendedMapContext,
+  lookups: FeatureKeyLookups
+): Int16Array => {
   const { width, height } = context.dimensions;
-  const classification = getPublishedBiomeClassification(context);
-  if (!classification) {
-    throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
+  const size = width * height;
+  const field = new Int16Array(size);
+
+  const noFeature = context.adapter.NO_FEATURE;
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width;
+    for (let x = 0; x < width; x++) {
+      const idx = rowOffset + x;
+      const feature = context.adapter.getFeatureType(x, y) | 0;
+      if (feature === noFeature) {
+        field[idx] = NO_FEATURE;
+        continue;
+      }
+      const mapped = lookups.byEngineId.get(feature);
+      field[idx] = mapped ?? UNKNOWN_FEATURE;
+    }
   }
 
-  const rand = (label: string, max: number): number => ctxRandom(context, label, max);
+  return field;
+};
 
-  return {
-    width,
-    height,
-    adapter: context.adapter,
-    biomeIndex: classification.biomeIndex,
-    vegetationDensity: classification.vegetationDensity,
-    effectiveMoisture: classification.effectiveMoisture,
-    surfaceTemperature: classification.surfaceTemperature,
-    aridityIndex: classification.aridityIndex,
-    freezeIndex: classification.freezeIndex,
-    rand,
-  };
-}
-
-export function buildFeaturesEmbellishmentsInput(
-  context: ExtendedMapContext
-): FeaturesEmbellishmentsInput {
+export function buildFeaturesPlacementInput(
+  context: ExtendedMapContext,
+  config: ResolvedFeaturesPlacementConfig,
+  lookups: FeatureKeyLookups
+): FeaturesPlacementInput {
   const { width, height } = context.dimensions;
+  const size = width * height;
+
   const classification = getPublishedBiomeClassification(context);
   if (!classification) {
     throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
@@ -43,26 +78,96 @@ export function buildFeaturesEmbellishmentsInput(
     throw new Error("FeaturesStep: Missing artifact:climateField rainfall field.");
   }
 
-  const biomeField = context.fields?.biomeId;
-  if (!biomeField) {
-    throw new Error("FeaturesStep: Missing field:biomeId (expected biomes reification).");
-  }
+  const heightfield = getHeightfieldArtifact(context, size);
+  const latitude = buildLatitudeField(context.adapter, width, height);
 
-  const hotspots = getNarrativeMotifsHotspots(context);
-  const margins = getNarrativeMotifsMargins(context);
-
-  const rand = (label: string, max: number): number => ctxRandom(context, label, max);
+  const featureKeyField = buildFeatureKeyField(context, lookups);
+  const naturalWonderMask = new Uint8Array(size);
+  const nearRiverMask = computeRiverAdjacencyMask(context, config.wet.nearRiverRadius);
+  const isolatedRiverMask = computeRiverAdjacencyMask(context, config.wet.isolatedRiverRadius);
 
   return {
     width,
     height,
-    adapter: context.adapter,
-    biomeId: biomeField,
+    seed: deriveStepSeed(context.settings.seed, "ecology:planFeaturePlacements"),
+    biomeIndex: classification.biomeIndex,
+    vegetationDensity: classification.vegetationDensity,
+    effectiveMoisture: classification.effectiveMoisture,
+    surfaceTemperature: classification.surfaceTemperature,
+    aridityIndex: classification.aridityIndex,
+    freezeIndex: classification.freezeIndex,
+    landMask: heightfield.landMask,
+    terrainType: heightfield.terrain,
+    latitude,
+    featureKeyField,
+    naturalWonderMask,
+    nearRiverMask,
+    isolatedRiverMask,
+    navigableRiverTerrain: context.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER"),
+    coastTerrain: context.adapter.getTerrainTypeIndex("TERRAIN_COAST"),
+  };
+}
+
+export function buildReefEmbellishmentsInput(
+  context: ExtendedMapContext,
+  lookups: FeatureKeyLookups
+): ReefEmbellishmentsInput {
+  const { width, height } = context.dimensions;
+  const size = width * height;
+
+  const heightfield = getHeightfieldArtifact(context, size);
+  const featureKeyField = buildFeatureKeyField(context, lookups);
+
+  const hotspots = getNarrativeMotifsHotspots(context);
+  const margins = getNarrativeMotifsMargins(context);
+
+  return {
+    width,
+    height,
+    seed: deriveStepSeed(context.settings.seed, "ecology:planReefEmbellishments"),
+    landMask: heightfield.landMask,
+    featureKeyField,
+    paradiseMask: maskFromCoordSet(hotspots?.paradise, width, height),
+    passiveShelfMask: maskFromCoordSet(margins?.passiveShelf, width, height),
+  };
+}
+
+export function buildVegetationEmbellishmentsInput(
+  context: ExtendedMapContext,
+  lookups: FeatureKeyLookups
+): VegetationEmbellishmentsInput {
+  const { width, height } = context.dimensions;
+  const size = width * height;
+
+  const classification = getPublishedBiomeClassification(context);
+  if (!classification) {
+    throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
+  }
+
+  const climateField = getPublishedClimateField(context);
+  if (!climateField?.rainfall) {
+    throw new Error("FeaturesStep: Missing artifact:climateField rainfall field.");
+  }
+
+  const heightfield = getHeightfieldArtifact(context, size);
+  const latitude = buildLatitudeField(context.adapter, width, height);
+  const featureKeyField = buildFeatureKeyField(context, lookups);
+
+  const hotspots = getNarrativeMotifsHotspots(context);
+
+  return {
+    width,
+    height,
+    seed: deriveStepSeed(context.settings.seed, "ecology:planVegetationEmbellishments"),
+    landMask: heightfield.landMask,
+    terrainType: heightfield.terrain,
+    featureKeyField,
+    biomeIndex: classification.biomeIndex,
     rainfall: climateField.rainfall,
     vegetationDensity: classification.vegetationDensity,
-    hotspotParadise: hotspots?.paradise ?? new Set<string>(),
-    hotspotVolcanic: hotspots?.volcanic ?? new Set<string>(),
-    passiveShelf: margins?.passiveShelf ?? new Set<string>(),
-    rand,
+    elevation: heightfield.elevation,
+    latitude,
+    volcanicMask: maskFromCoordSet(hotspots?.volcanic, width, height),
+    navigableRiverTerrain: context.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER"),
   };
 }

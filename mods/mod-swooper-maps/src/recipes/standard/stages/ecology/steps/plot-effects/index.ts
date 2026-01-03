@@ -2,22 +2,25 @@ import { Type } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
+import type { ResolvedPlotEffectsConfig } from "@mapgen/domain/ecology/ops/plan-plot-effects/schema.js";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { buildPlotEffectsInput } from "./inputs.js";
 import { applyPlotEffectPlacements } from "./apply.js";
+import { logSnowEligibilitySummary } from "./diagnostics.js";
+import { assertHeightfield } from "../biomes/helpers/inputs.js";
 
 const PlotEffectsStepConfigSchema = Type.Object(
   {
-    plotEffects: ecology.ops.plotEffects.config,
+    plotEffects: ecology.ops.planPlotEffects.config,
   },
   {
     additionalProperties: false,
-    default: { plotEffects: ecology.ops.plotEffects.defaultConfig },
+    default: { plotEffects: ecology.ops.planPlotEffects.defaultConfig },
   }
 );
 
 type PlotEffectsStepConfig = {
-  plotEffects: Parameters<typeof ecology.ops.plotEffects.run>[1];
+  plotEffects: Parameters<typeof ecology.ops.planPlotEffects.run>[1];
 };
 
 export default createStep({
@@ -30,22 +33,26 @@ export default createStep({
   provides: [],
   schema: PlotEffectsStepConfigSchema,
   resolveConfig: (config, settings) => {
-    if (!ecology.ops.plotEffects.resolveConfig) {
-      throw new Error("plotEffects op missing resolveConfig");
+    if (!ecology.ops.planPlotEffects.resolveConfig) {
+      throw new Error("planPlotEffects op missing resolveConfig");
     }
     return {
-      plotEffects: ecology.ops.plotEffects.resolveConfig(config.plotEffects, settings),
+      plotEffects: ecology.ops.planPlotEffects.resolveConfig(config.plotEffects, settings),
     };
   },
   run: (context: ExtendedMapContext, config: PlotEffectsStepConfig) => {
     const input = buildPlotEffectsInput(context);
-    const result = ecology.ops.plotEffects.run(input, config.plotEffects);
+    const result = ecology.ops.planPlotEffects.runValidated(input, config.plotEffects);
+
     if (context.trace.isVerbose) {
-      ecology.logSnowEligibilitySummary(
+      const heightfield = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
+      assertHeightfield(heightfield, context.dimensions.width * context.dimensions.height);
+      logSnowEligibilitySummary(
         context.trace,
         input,
-        config.plotEffects as Parameters<typeof ecology.logSnowEligibilitySummary>[2],
-        result.placements
+        config.plotEffects as ResolvedPlotEffectsConfig,
+        result.placements,
+        heightfield.terrain
       );
     }
 

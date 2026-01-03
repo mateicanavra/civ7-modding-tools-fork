@@ -1,8 +1,21 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type * as ecology from "@mapgen/domain/ecology";
+import type { FeatureKey } from "@mapgen/domain/ecology/ops/plan-feature-placements/schema.js";
+import type { FeatureKeyLookups } from "./feature-keys.js";
 
-type FeaturePlacement = ReturnType<typeof ecology.ops.featuresPlacement.run>["placements"][number];
+type FeaturePlacement = {
+  x: number;
+  y: number;
+  feature: FeatureKey;
+};
+
+const resolveFeatureIndex = (lookups: FeatureKeyLookups, key: FeatureKey): number => {
+  const index = lookups.byKey[key];
+  if (index == null || index < 0) {
+    throw new Error(`FeaturesStep: Unknown feature key "${key}".`);
+  }
+  return index;
+};
 
 export function tryPlaceFeature(
   adapter: EngineAdapter,
@@ -18,12 +31,14 @@ export function tryPlaceFeature(
 
 export function applyFeaturePlacements(
   context: ExtendedMapContext,
-  placements: FeaturePlacement[]
+  placements: FeaturePlacement[],
+  lookups: FeatureKeyLookups
 ): number {
   const { adapter } = context;
   let applied = 0;
   for (const placement of placements) {
-    if (tryPlaceFeature(adapter, placement.x, placement.y, placement.feature)) {
+    const featureIndex = resolveFeatureIndex(lookups, placement.feature);
+    if (tryPlaceFeature(adapter, placement.x, placement.y, featureIndex)) {
       applied += 1;
     }
   }

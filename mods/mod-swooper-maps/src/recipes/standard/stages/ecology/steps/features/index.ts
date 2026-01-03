@@ -2,32 +2,39 @@ import { Type, type Static } from "typebox";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
+import type { ResolvedFeaturesPlacementConfig } from "@mapgen/domain/ecology/ops/plan-feature-placements/schema.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
-import { buildFeaturesEmbellishmentsInput, buildFeaturesPlacementInput } from "./inputs.js";
+import {
+  buildFeaturesPlacementInput,
+  buildReefEmbellishmentsInput,
+  buildVegetationEmbellishmentsInput,
+} from "./inputs.js";
 import { applyFeaturePlacements, reifyFeatureField } from "./apply.js";
+import { resolveFeatureKeyLookups } from "./feature-keys.js";
 
 const FeaturesStepConfigSchema = Type.Object(
   {
-    story: Type.Object(
-      {
-        features: ecology.FeaturesConfigSchema,
-      },
-      { additionalProperties: false, default: {} }
-    ),
-    featuresDensity: ecology.FeaturesDensityConfigSchema,
-    featuresPlacement: ecology.ops.featuresPlacement.config,
+    featuresPlacement: ecology.ops.planFeaturePlacements.config,
+    reefEmbellishments: ecology.ops.planReefEmbellishments.config,
+    vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.config,
   },
   {
     additionalProperties: false,
     default: {
-      story: {},
-      featuresDensity: {},
-      featuresPlacement: ecology.ops.featuresPlacement.defaultConfig,
+      featuresPlacement: ecology.ops.planFeaturePlacements.defaultConfig,
+      reefEmbellishments: ecology.ops.planReefEmbellishments.defaultConfig,
+      vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.defaultConfig,
     },
   }
 );
 
 type FeaturesStepConfig = Static<typeof FeaturesStepConfigSchema>;
+
+type ResolvedReefConfig = Parameters<typeof ecology.ops.planReefEmbellishments.run>[1];
+
+type ResolvedVegetationConfig = Parameters<
+  typeof ecology.ops.planVegetationEmbellishments.run
+>[1];
 
 export default createStep({
   id: "features",
@@ -40,46 +47,59 @@ export default createStep({
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
   ],
-  provides: [
-    M3_DEPENDENCY_TAGS.field.featureType,
-    M4_EFFECT_TAGS.engine.featuresApplied,
-  ],
+  provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
   schema: FeaturesStepConfigSchema,
   resolveConfig: (config, settings) => {
-    if (!ecology.ops.featuresPlacement.resolveConfig) {
-      throw new Error("featuresPlacement op missing resolveConfig");
-    }
     return {
-      ...config,
-      featuresPlacement: ecology.ops.featuresPlacement.resolveConfig(
-        config.featuresPlacement,
-        settings
-      ),
+      featuresPlacement: ecology.ops.planFeaturePlacements.resolveConfig
+        ? ecology.ops.planFeaturePlacements.resolveConfig(config.featuresPlacement, settings)
+        : config.featuresPlacement,
+      reefEmbellishments: ecology.ops.planReefEmbellishments.resolveConfig
+        ? ecology.ops.planReefEmbellishments.resolveConfig(config.reefEmbellishments, settings)
+        : config.reefEmbellishments,
+      vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.resolveConfig
+        ? ecology.ops.planVegetationEmbellishments.resolveConfig(
+            config.vegetationEmbellishments,
+            settings
+          )
+        : config.vegetationEmbellishments,
     };
   },
   run: (context: ExtendedMapContext, config: FeaturesStepConfig) => {
-    const { width, height } = context.dimensions;
+    const featureLookups = resolveFeatureKeyLookups(context.adapter);
 
-    const placementInput = buildFeaturesPlacementInput(context);
-    const placementResult = ecology.ops.featuresPlacement.run(
+    const placementInput = buildFeaturesPlacementInput(
+      context,
+      config.featuresPlacement as ResolvedFeaturesPlacementConfig,
+      featureLookups
+    );
+    const placementResult = ecology.ops.planFeaturePlacements.runValidated(
       placementInput,
       config.featuresPlacement
     );
 
-    if (placementResult.useEngineBaseline) {
-      context.adapter.addFeatures(width, height);
-    } else if (placementResult.placements.length > 0) {
-      applyFeaturePlacements(context, placementResult.placements);
+    if (placementResult.placements.length > 0) {
+      applyFeaturePlacements(context, placementResult.placements, featureLookups);
     }
 
-    const embellishmentInput = buildFeaturesEmbellishmentsInput(context);
-    const embellishmentResult = ecology.ops.featuresEmbellishments.run(embellishmentInput, {
-      story: config.story,
-      featuresDensity: config.featuresDensity,
-    });
+    const reefInput = buildReefEmbellishmentsInput(context, featureLookups);
+    const reefResult = ecology.ops.planReefEmbellishments.runValidated(
+      reefInput,
+      config.reefEmbellishments as ResolvedReefConfig
+    );
 
-    if (embellishmentResult.placements.length > 0) {
-      applyFeaturePlacements(context, embellishmentResult.placements);
+    if (reefResult.placements.length > 0) {
+      applyFeaturePlacements(context, reefResult.placements, featureLookups);
+    }
+
+    const vegetationInput = buildVegetationEmbellishmentsInput(context, featureLookups);
+    const vegetationResult = ecology.ops.planVegetationEmbellishments.runValidated(
+      vegetationInput,
+      config.vegetationEmbellishments as ResolvedVegetationConfig
+    );
+
+    if (vegetationResult.placements.length > 0) {
+      applyFeaturePlacements(context, vegetationResult.placements, featureLookups);
     }
 
     reifyFeatureField(context);

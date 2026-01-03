@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
 import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
-import { createFeaturesTestContext } from "./features-owned.helpers.js";
+import { createFeaturesTestContext, disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
   it("never places land features on navigable river plots", () => {
@@ -17,22 +17,15 @@ describe("features (owned baseline)", () => {
     const riverY = 2;
     const navigableRiver = adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER");
     adapter.setTerrainType(riverX, riverY, navigableRiver);
+    ctx.buffers.heightfield.terrain[riverY * width + riverX] = navigableRiver;
 
     const config = {
-      story: { features: { paradiseReefChance: 0, volcanicForestChance: 0, volcanicTaigaChance: 0 } },
-      featuresDensity: {
-        shelfReefMultiplier: 0,
-        rainforestExtraChance: 0,
-        forestExtraChance: 0,
-        taigaExtraChance: 0,
-      },
       featuresPlacement: {
-        strategy: "owned",
-        config: {
-          groups: { aquatic: { multiplier: 0 }, ice: { multiplier: 0 } },
-          chances: { FEATURE_FOREST: 100 },
-        },
+        groups: { aquatic: { multiplier: 0 }, ice: { multiplier: 0 } },
+        chances: { FEATURE_FOREST: 100 },
       },
+      reefEmbellishments: { ...disabledEmbellishmentsConfig },
+      vegetationEmbellishments: { ...disabledEmbellishmentsConfig },
     };
     const resolvedConfig = featuresStep.resolveConfig
       ? featuresStep.resolveConfig(config, ctx.settings)

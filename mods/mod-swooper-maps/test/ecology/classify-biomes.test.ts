@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import { biomeSymbolFromIndex, classifyBiomes } from "../../src/domain/ecology/ops/classify-biomes.js";
+import { biomeSymbolFromIndex, classifyBiomes } from "../../src/domain/ecology/ops/classify-biomes/index.js";
 
 describe("classifyBiomes operation", () => {
   it("maps temperature + moisture into biome symbols", () => {
