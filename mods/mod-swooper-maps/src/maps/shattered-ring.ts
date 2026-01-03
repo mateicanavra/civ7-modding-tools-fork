@@ -335,7 +335,51 @@ const config = {
             scale: 0.12,
           },
         },
-        swatches: { enabled: true },
+        swatches: {
+          enabled: true,
+          sizeScaling: {
+            widthMulSqrt: 0.3,
+            lengthMulSqrt: 0.4,
+          },
+          types: {
+            macroDesertBelt: {
+              weight: 8,
+              latitudeCenterDeg: 20,
+              halfWidthDeg: 12,
+              drynessDelta: 28,
+              bleedRadius: 3,
+            },
+            equatorialRainbelt: {
+              weight: 3,
+              latitudeCenterDeg: 0,
+              halfWidthDeg: 10,
+              wetnessDelta: 24,
+              bleedRadius: 3,
+            },
+            rainforestArchipelago: {
+              weight: 7,
+              islandBias: 2,
+              reefBias: 1,
+              wetnessDelta: 18,
+              bleedRadius: 3,
+            },
+            mountainForests: {
+              weight: 2,
+              coupleToOrogeny: true,
+              windwardBonus: 6,
+              leePenalty: 2,
+              bleedRadius: 3,
+            },
+            greatPlains: {
+              weight: 5,
+              latitudeCenterDeg: 45,
+              halfWidthDeg: 8,
+              dryDelta: 12,
+              lowlandMaxElevation: 300,
+              bleedRadius: 4,
+            },
+          },
+        },
         refine: {
           waterGradient: {
             radius: 5,
@@ -433,7 +477,51 @@ const config = {
             scale: 0.12,
           },
         },
-        swatches: { enabled: true },
+        swatches: {
+          enabled: true,
+          sizeScaling: {
+            widthMulSqrt: 0.3,
+            lengthMulSqrt: 0.4,
+          },
+          types: {
+            macroDesertBelt: {
+              weight: 8,
+              latitudeCenterDeg: 20,
+              halfWidthDeg: 12,
+              drynessDelta: 28,
+              bleedRadius: 3,
+            },
+            equatorialRainbelt: {
+              weight: 3,
+              latitudeCenterDeg: 0,
+              halfWidthDeg: 10,
+              wetnessDelta: 24,
+              bleedRadius: 3,
+            },
+            rainforestArchipelago: {
+              weight: 7,
+              islandBias: 2,
+              reefBias: 1,
+              wetnessDelta: 18,
+              bleedRadius: 3,
+            },
+            mountainForests: {
+              weight: 2,
+              coupleToOrogeny: true,
+              windwardBonus: 6,
+              leePenalty: 2,
+              bleedRadius: 3,
+            },
+            greatPlains: {
+              weight: 5,
+              latitudeCenterDeg: 45,
+              halfWidthDeg: 8,
+              dryDelta: 12,
+              lowlandMaxElevation: 300,
+              bleedRadius: 4,
+            },
+          },
+        },
         refine: {
           waterGradient: {
             radius: 5,
