@@ -869,5 +869,5 @@ Canonical type shape (grounded in existing imports):
 - **Context:** U10 normalization needs TypeBox-native defaulting without changing compile error semantics; using `Value.Parse` would assert/throw inside resolvers and blur error categories.
 - **Options:** (A) use `Value.Parse` in resolver helpers, (B) keep `Value.Default` + `Value.Clean` (validation remains in compileExecutionPlan).
 - **Choice:** (B) keep `Value.Default` + `Value.Clean` for resolver defaulting.
-- **Rationale:** matches the canonical spec’s “schema defaults + cleaning” step and preserves `step.config.invalid` reporting for schema errors.
+- **Rationale:** matches the canonical spec’s “schema defaults + cleaning” step and preserves `step.config.invalid` reporting for schema errors; `Value.Parse` adds `Convert` + `Assert`, which would throw before the compiler can aggregate errors.
 - **Risk:** resolver helpers do not perform additional assertion; invalid configs are still caught by plan compilation.
