@@ -177,6 +177,13 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 - **Rationale:** Keeps ops engine-agnostic and key-based; avoids hidden runtime adapter use.
 - **Risk:** Configs relying on tags must be updated to explicit plot-effect keys.
 
+### D10) Preserve typed-array Static types in `TypedArraySchemas`
+- **Context:** Using `TypedArraySchemas.*` in op input/output schemas produced `unknown` Static types, breaking `createOp` typing for ecology plans.
+- **Options:** Cast inputs/outputs at each op boundary; update `TypedArraySchemas` to return `TUnsafe<T>` so Static types are typed arrays.
+- **Choice:** Update `TypedArraySchemas` to return `TUnsafe<T>` for each typed array builder.
+- **Rationale:** Keeps op schemas typed without reintroducing `Type.Any` or per-op casts.
+- **Risk:** Type-only change could surface new type mismatches elsewhere; no runtime impact expected.
+
 ## Canonical target shape (what “done” looks like)
 
 ### A) File layout (ecology domain)
