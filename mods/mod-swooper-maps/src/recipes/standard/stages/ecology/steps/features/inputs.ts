@@ -6,7 +6,7 @@ import {
 } from "../../../../artifacts.js";
 import { getNarrativeMotifsHotspots, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
 import type * as ecology from "@mapgen/domain/ecology";
-import type { ResolvedFeaturesPlacementConfig } from "@mapgen/domain/ecology/ops/plan-feature-placements/schema.js";
+import type { ResolvedFeaturesPlacementConfig } from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { assertHeightfield, buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";

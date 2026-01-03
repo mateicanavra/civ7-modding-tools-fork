@@ -307,6 +307,18 @@ export function ctxRandom(
   return ctx.adapter.getRandomNumber(max, `${label}_${count}`);
 }
 
+/**
+ * Canonical ctxRandom label for op-level seed derivation.
+ * Format: "<stepId>:<opName>:<suffix>" (default suffix = "rngSeed").
+ */
+export function ctxRandomLabel(
+  stepId: string,
+  opName: string,
+  suffix = "rngSeed"
+): string {
+  return `${stepId}:${opName}:${suffix}`;
+}
+
 // ============================================================================
 // Heightfield and Climate Writers
 // ============================================================================
