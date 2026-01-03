@@ -857,3 +857,17 @@ Canonical type shape (grounded in existing imports):
 - **Choice:** (B) move resolvers back into the domain op schema modules and have ops import them locally.
 - **Rationale:** preserves domain ownership and keeps config + normalization logic co-located per spec; avoids a global resolver registry.
 - **Risk:** minor churn in imports/exports; no functional risk if compile-time resolution still runs through op/step hooks.
+
+### Require explicit `settings.directionality` (no runtime fallback)
+- **Context:** Foundation steps previously defaulted `settings.directionality` to `{}` in runtime glue, which masked missing inputs after removing overrides translation.
+- **Options:** (A) keep a `{}` fallback in runtime, (B) throw when `settings.directionality` is missing.
+- **Choice:** (B) throw when `settings.directionality` is missing.
+- **Rationale:** keeps run settings explicit at the boundary and avoids silent config drift; aligns with “no runtime defaults” for meaning-level inputs.
+- **Risk:** map entrypoints/tests must always supply directionality; missing settings now fail fast.
+
+### Keep resolver defaulting on TypeBox `Value.Default` + `Value.Clean`
+- **Context:** U10 normalization needs TypeBox-native defaulting without changing compile error semantics; using `Value.Parse` would assert/throw inside resolvers and blur error categories.
+- **Options:** (A) use `Value.Parse` in resolver helpers, (B) keep `Value.Default` + `Value.Clean` (validation remains in compileExecutionPlan).
+- **Choice:** (B) keep `Value.Default` + `Value.Clean` for resolver defaulting.
+- **Rationale:** matches the canonical spec’s “schema defaults + cleaning” step and preserves `step.config.invalid` reporting for schema errors.
+- **Risk:** resolver helpers do not perform additional assertion; invalid configs are still caught by plan compilation.
