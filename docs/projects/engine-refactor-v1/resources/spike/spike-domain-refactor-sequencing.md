@@ -11,6 +11,9 @@ Inputs used for sequencing (ground truth in repo):
 - Config surface area: `mods/mod-swooper-maps/src/config/schema/*.ts` line counts.
 - Test surface area: `mods/mod-swooper-maps/test/**` (domain‑adjacent coverage by folder presence + counts).
 
+Canonical workflow for executing each domain refactor:
+- `docs/projects/engine-refactor-v1/resources/spec/WORKFLOW-step-domain-operation-modules.md`
+
 ## Remaining Domains (excluding ecology)
 
 Domain inventory (rough size signals):
@@ -133,4 +136,3 @@ Exit criteria:
 
 3) Large config schemas (especially hydrology) make refactors brittle
 - Mitigation: refactor by op boundary (one op module + schema + resolver + tests at a time), not by “domain big bang”.
-
