@@ -260,7 +260,7 @@ const biomesConfig = {
     tropicalThreshold: 24,
   },
   moisture: {
-    thresholds: [70, 95, 135, 185],
+    thresholds: [70, 95, 135, 185] as [number, number, number, number],
     bias: 0.2,
     humidityWeight: 0.35,
   },
@@ -273,7 +273,7 @@ const biomesConfig = {
     rainfallWeight: 1,
     bias: 0,
     normalization: 125,
-    moistureShiftThresholds: [0.45, 0.7],
+    moistureShiftThresholds: [0.45, 0.7] as [number, number],
     vegetationPenalty: 0.12,
   },
   freeze: {
@@ -441,7 +441,7 @@ const plotEffectsConfig = {
     lightThreshold: 0.35,
     mediumThreshold: 0.6,
     heavyThreshold: 0.8,
-    elevationStrategy: "percentile",
+    elevationStrategy: "percentile" as const,
     elevationMin: 200,
     elevationMax: 2800,
     elevationPercentileMin: 0.7,
@@ -463,7 +463,7 @@ const plotEffectsConfig = {
     maxFreeze: 0.25,
     maxVegetation: 0.15,
     maxMoisture: 80,
-    allowedBiomes: ["desert", "temperateDry"],
+    allowedBiomes: ["desert", "temperateDry"] as ["desert", "temperateDry"],
   },
   burned: {
     enabled: false,
@@ -477,7 +477,10 @@ const plotEffectsConfig = {
     maxFreeze: 0.2,
     maxVegetation: 0.25,
     maxMoisture: 100,
-    allowedBiomes: ["temperateDry", "tropicalSeasonal"],
+    allowedBiomes: ["temperateDry", "tropicalSeasonal"] as [
+      "temperateDry",
+      "tropicalSeasonal",
+    ],
   },
 };
 

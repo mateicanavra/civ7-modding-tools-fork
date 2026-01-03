@@ -132,6 +132,9 @@ export function storyTagPaleoHydrology(
       Number((cfg.fossilChannelMinDistanceFromCurrentRivers as number) ?? 0) | 0
     );
     const canyonCfg = cfg.elevationCarving as Record<string, unknown> | undefined;
+    if (!canyonCfg) {
+      throw new Error("[Paleo] Missing elevationCarving config.");
+    }
     const rimW = Math.max(0, Number((canyonCfg.rimWidth as number) ?? 0) | 0);
     const canyonDryBonus = Math.max(0, Number((canyonCfg.canyonDryBonus as number) ?? 0) | 0);
     const bluffWetReduction = Math.max(0, Number((cfg.bluffWetReduction as number) ?? 0) | 0);

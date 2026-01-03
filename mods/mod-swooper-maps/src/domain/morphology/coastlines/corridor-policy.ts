@@ -14,7 +14,7 @@ export function resolveSeaCorridorPolicy(
     throw new Error("[Coastlines] Missing sea corridor protection.");
   }
   const rawSoftChance = seaPolicy.softChanceMultiplier;
-  if (!Number.isFinite(rawSoftChance)) {
+  if (typeof rawSoftChance !== "number" || !Number.isFinite(rawSoftChance)) {
     throw new Error("[Coastlines] Invalid sea corridor softChanceMultiplier.");
   }
   const softChanceMultiplier = Math.max(0, Math.min(1, rawSoftChance));
