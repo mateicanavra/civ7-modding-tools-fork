@@ -2,7 +2,7 @@ import type { EngineAdapter } from "@civ7/adapter";
 import {
   FEATURE_PLACEMENT_KEYS,
   type FeatureKey,
-} from "@mapgen/domain/ecology/ops/plan-feature-placements/schema.js";
+} from "@mapgen/domain/ecology";
 
 export type FeatureKeyLookups = {
   byKey: Record<FeatureKey, number>;

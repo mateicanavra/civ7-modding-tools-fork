@@ -2,7 +2,7 @@ import { Type, type Static } from "typebox";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
-import type { ResolvedFeaturesPlacementConfig } from "@mapgen/domain/ecology/ops/plan-feature-placements/schema.js";
+import type { ResolvedFeaturesPlacementConfig } from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import {
   buildFeaturesPlacementInput,

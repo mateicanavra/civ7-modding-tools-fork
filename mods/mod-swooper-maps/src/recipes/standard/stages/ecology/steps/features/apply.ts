@@ -1,6 +1,6 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type { FeatureKey } from "@mapgen/domain/ecology/ops/plan-feature-placements/schema.js";
+import type { FeatureKey } from "@mapgen/domain/ecology";
 import type { FeatureKeyLookups } from "./feature-keys.js";
 
 type FeaturePlacement = {

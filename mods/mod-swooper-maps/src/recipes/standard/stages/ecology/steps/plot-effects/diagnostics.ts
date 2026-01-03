@@ -5,12 +5,9 @@ import {
   MOUNTAIN_TERRAIN,
 } from "@swooper/mapgen-core";
 import type { TraceScope } from "@swooper/mapgen-core";
-import type { PlotEffectsInput } from "@mapgen/domain/ecology/ops/plan-plot-effects/types.js";
-import type {
-  PlotEffectKey,
-  ResolvedPlotEffectsConfig,
-} from "@mapgen/domain/ecology/ops/plan-plot-effects/schema.js";
-import { resolveSnowElevationRange } from "@mapgen/domain/ecology/ops/plan-plot-effects/snow-elevation.js";
+import type { PlotEffectsInput } from "@mapgen/domain/ecology";
+import type { PlotEffectKey, ResolvedPlotEffectsConfig } from "@mapgen/domain/ecology";
+import { resolveSnowElevationRange } from "@mapgen/domain/ecology";
 
 type PlotEffectPlacement = {
   x: number;
