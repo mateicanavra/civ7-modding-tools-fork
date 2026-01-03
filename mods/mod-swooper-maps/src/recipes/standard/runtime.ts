@@ -1,6 +1,6 @@
 import type { ContinentBounds, EngineAdapter, MapInfo } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type { StartsConfig } from "@mapgen/config";
+import type { StartsConfig } from "@mapgen/domain/placement";
 
 export type StandardRuntime = {
   logPrefix: string;
