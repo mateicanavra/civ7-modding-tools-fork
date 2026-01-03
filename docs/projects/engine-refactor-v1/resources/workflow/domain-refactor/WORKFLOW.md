@@ -14,9 +14,8 @@ This file is intentionally a **thin executable checklist**. Deep detail lives in
 Golden reference:
 - Ecology domain (post-U10, op-module refactor form is the template).
 
-Canonical spec and legacy workflow (source material):
+Canonical spec:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
-- `docs/projects/engine-refactor-v1/resources/spec/WORKFLOW-step-domain-operation-modules.md`
 
 Workflow package references (read as needed; do not reinterpret them):
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/structure-and-module-shape.md`
