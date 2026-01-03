@@ -1,16 +1,17 @@
 ---
-milestone: M6
-id: M6-review
+milestone: M7
+id: M7-review
 status: draft
 reviewer: AI agent
 ---
 
-# Engine Refactor v1 — Milestone M6 Review
+# Engine Refactor v1 — Milestone M7 Review
 
 ## LOCAL-TBD-M6-U11 — Canonicalize ecology domain operation modules
 
 ### Quick take
 Mostly yes: the ecology `ops/**` layer now matches the intended “pure ops + strict kinds + key-based plans” contract. The remaining gaps are primarily (1) runtime validation looseness for plot-effect keys and (2) continued adapter usage in non-op ecology exports (biome bindings), which conflicts with the issue’s “engine binding lives in steps” target outcome.
+Note: the issue title/id says `[M6]`, but based on milestone context this should have been tracked as **M7**; the review is filed under M7 accordingly.
 
 ### What’s strong
 - `mods/mod-swooper-maps/src/domain/ecology/ops/**` is contract-pure (no adapter/TraceScope/devLogJson/Type.Any; typed-array schemas used).
@@ -34,4 +35,3 @@ Mostly yes: the ecology `ops/**` layer now matches the intended “pure ops + st
 ### Recommended next moves
 - Tighten plot-effect key schema validation to fail early at `runValidated`.
 - Align biome engine binding placement with the intended step/domain boundary (move adapter-dependent helper out of `src/domain/ecology/**`).
-
