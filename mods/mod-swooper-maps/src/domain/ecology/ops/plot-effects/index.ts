@@ -48,7 +48,7 @@ export const plotEffects = createOp({
   input: PlotEffectsInputSchema,
   output: PlotEffectsOutputSchema,
   config: PlotEffectsConfigSchema,
-  resolveConfig: (config) => resolvePlotEffectsConfig(config),
+  resolveConfig: (config: PlotEffectsConfig) => resolvePlotEffectsConfig(config),
   run: (input: PlotEffectsInput, config: PlotEffectsConfig) => {
     const placements = planOwnedPlotEffects(
       input,

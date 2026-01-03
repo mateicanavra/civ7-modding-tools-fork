@@ -293,7 +293,7 @@ const biomesConfig = {
     tropicalThreshold: 24,
   },
   moisture: {
-    thresholds: [85, 105, 145, 195],
+    thresholds: [85, 105, 145, 195] as [number, number, number, number],
     bias: 0,
     humidityWeight: 0.35,
   },
@@ -306,7 +306,7 @@ const biomesConfig = {
     rainfallWeight: 1,
     bias: 4,
     normalization: 120,
-    moistureShiftThresholds: [0.45, 0.7],
+    moistureShiftThresholds: [0.45, 0.7] as [number, number],
     vegetationPenalty: 0.15,
   },
   freeze: {
@@ -475,7 +475,7 @@ const plotEffectsConfig = {
     lightThreshold: 0.4,
     mediumThreshold: 0.6,
     heavyThreshold: 0.78,
-    elevationStrategy: "percentile",
+    elevationStrategy: "percentile" as const,
     elevationMin: 300,
     elevationMax: 2600,
     elevationPercentileMin: 0.8,
@@ -497,7 +497,7 @@ const plotEffectsConfig = {
     maxFreeze: 0.25,
     maxVegetation: 0.18,
     maxMoisture: 85,
-    allowedBiomes: ["desert", "temperateDry"],
+    allowedBiomes: ["desert", "temperateDry"] as ["desert", "temperateDry"],
   },
   burned: {
     enabled: true,
@@ -511,7 +511,10 @@ const plotEffectsConfig = {
     maxFreeze: 0.2,
     maxVegetation: 0.25,
     maxMoisture: 100,
-    allowedBiomes: ["temperateDry", "tropicalSeasonal"],
+    allowedBiomes: ["temperateDry", "tropicalSeasonal"] as [
+      "temperateDry",
+      "tropicalSeasonal",
+    ],
   },
 };
 
@@ -605,16 +608,23 @@ engine.on("RequestMapInitData", (initParams) => {
 
 engine.on("GenerateMap", () => {
   const init = mapInitData ?? resolveMapInitData(runtimeOptions);
+  const { topLatitude, bottomLatitude, wrapX, wrapY } = init.params;
+  if (topLatitude == null || bottomLatitude == null) {
+    throw new Error("[SHATTERED_RING] Missing init latitude bounds.");
+  }
+  if (wrapX == null || wrapY == null) {
+    throw new Error("[SHATTERED_RING] Missing init wrap flags.");
+  }
   const settings: RunSettings = {
     seed: 0,
     dimensions: { width: init.params.width, height: init.params.height },
     latitudeBounds: {
-      topLatitude: init.params.topLatitude,
-      bottomLatitude: init.params.bottomLatitude,
+      topLatitude,
+      bottomLatitude,
     },
     wrap: {
-      wrapX: init.params.wrapX,
-      wrapY: init.params.wrapY,
+      wrapX,
+      wrapY,
     },
     directionality,
   };

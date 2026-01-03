@@ -55,7 +55,8 @@ export const featuresPlacement = createOp({
   input: FeaturesPlacementInputSchema,
   output: FeaturesPlacementOutputSchema,
   config: FeaturesPlacementConfigSchema,
-  resolveConfig: (config) => resolveFeaturesPlacementConfig(config),
+  resolveConfig: (config: FeaturesPlacementConfig) =>
+    resolveFeaturesPlacementConfig(config),
   run: (input: FeaturesPlacementInput, config: FeaturesPlacementConfig) => {
     const strategy: FeaturesPlacementStrategy =
       config.strategy === "vanilla" ? "vanilla" : "owned";

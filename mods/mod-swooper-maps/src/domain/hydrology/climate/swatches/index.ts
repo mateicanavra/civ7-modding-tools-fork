@@ -22,7 +22,7 @@ export function applyClimateSwatches(
   options: {
     orogenyCache?: OrogenyCache;
     climate?: ClimateConfig;
-    directionality: FoundationDirectionalityConfig;
+    directionality?: FoundationDirectionalityConfig;
   } = {}
 ): ClimateSwatchResult {
   if (!ctx) {

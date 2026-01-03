@@ -24,7 +24,7 @@ export function storyTagClimateSwatches(
   options: {
     orogenyCache?: OrogenyCache;
     climate?: ClimateConfig;
-    directionality: FoundationDirectionalityConfig;
+    directionality?: FoundationDirectionalityConfig;
   } = {}
 ): ClimateSwatchesSummary {
   const { width, height } = ctx.dimensions;
