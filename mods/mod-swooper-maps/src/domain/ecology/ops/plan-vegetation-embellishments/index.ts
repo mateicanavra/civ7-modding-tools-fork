@@ -6,11 +6,7 @@ import {
 } from "./schema.js";
 import { planVegetationEmbellishments as planVegetationEmbellishmentsImpl } from "./plan.js";
 
-export const planVegetationEmbellishments = createOp<
-  typeof PlanVegetationEmbellishmentsSchema["properties"]["input"],
-  typeof PlanVegetationEmbellishmentsSchema["properties"]["output"],
-  { default: typeof PlanVegetationEmbellishmentsSchema["properties"]["config"] }
->({
+export const planVegetationEmbellishments = createOp({
   kind: "plan",
   id: "ecology/features/vegetation-embellishments",
   input: PlanVegetationEmbellishmentsSchema.properties.input,
@@ -28,6 +24,6 @@ export const planVegetationEmbellishments = createOp<
       },
     },
   },
-} as const);
+});
 
 export * from "./schema.js";
