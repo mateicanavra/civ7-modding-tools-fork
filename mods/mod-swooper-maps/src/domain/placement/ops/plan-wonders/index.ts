@@ -20,9 +20,15 @@ function resolveNaturalWonderCount(mapInfo: MapInfo, wondersPlusOne: boolean): n
 export const planWonders = createOp({
   kind: "plan",
   id: "placement/plan-wonders",
-  schema: PlanWondersSchema,
-  run: (input: PlanWondersInput, config: PlanWondersConfig) => {
-    const wondersCount = resolveNaturalWonderCount(input.mapInfo, config.wondersPlusOne);
-    return { wondersCount };
+  input: PlanWondersSchema.properties.input,
+  output: PlanWondersSchema.properties.output,
+  strategies: {
+    default: {
+      config: PlanWondersSchema.properties.config,
+      run: (input: PlanWondersInput, config: PlanWondersConfig) => {
+        const wondersCount = resolveNaturalWonderCount(input.mapInfo, config.wondersPlusOne);
+        return { wondersCount };
+      },
+    },
   },
 } as const);

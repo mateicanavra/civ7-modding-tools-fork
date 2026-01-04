@@ -4,6 +4,11 @@ import type { RunSettings } from "@mapgen/engine/execution-plan.js";
 import type { ValidationError, OpRunValidatedOptions, OpValidateOptions } from "../validation.js";
 import type { StrategySelection } from "./strategy.js";
 
+export interface OpConfigSchema<Strategies extends Record<string, { config: TSchema }>>
+  extends TSchema {
+  static: StrategySelection<Strategies>;
+}
+
 /**
  * Strict operation kind taxonomy for domain operation modules.
  *
@@ -26,50 +31,35 @@ export type DomainOpKind = "plan" | "compute" | "score" | "select";
 export type DomainOp<
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
-  ConfigSchema extends TSchema,
-  Strategies extends Record<string, { config: TSchema }> | undefined = undefined,
-  DefaultStrategy extends (keyof NonNullable<Strategies> & string) | undefined = undefined,
+  Strategies extends Record<string, { config: TSchema }>,
 > = Readonly<{
   kind: DomainOpKind;
   id: string;
   input: InputSchema;
   output: OutputSchema;
-  config: ConfigSchema;
-  defaultConfig: Strategies extends Record<string, { config: TSchema }>
-    ? StrategySelection<NonNullable<Strategies>, DefaultStrategy>
-    : Static<ConfigSchema>;
-  strategies?: Strategies;
-  defaultStrategy?: DefaultStrategy;
+  config: OpConfigSchema<Strategies>;
+  defaultConfig: StrategySelection<Strategies>;
+  strategies: Strategies;
   run: (
     input: Static<InputSchema>,
-    config: Strategies extends Record<string, { config: TSchema }>
-      ? StrategySelection<Strategies, DefaultStrategy>
-      : Static<ConfigSchema>
+    config: StrategySelection<Strategies>
   ) => Static<OutputSchema>;
   validate: (
     input: Static<InputSchema>,
-    config: Strategies extends Record<string, { config: TSchema }>
-      ? StrategySelection<Strategies, DefaultStrategy>
-      : Static<ConfigSchema>,
+    config: StrategySelection<Strategies>,
     options?: OpValidateOptions
   ) => { ok: boolean; errors: ValidationError[] };
   runValidated: (
     input: Static<InputSchema>,
-    config: Strategies extends Record<string, { config: TSchema }>
-      ? StrategySelection<Strategies, DefaultStrategy>
-      : Static<ConfigSchema>,
+    config: StrategySelection<Strategies>,
     options?: OpRunValidatedOptions
   ) => Static<OutputSchema>;
   /**
    * Optional compile-time config normalization hook (called by step resolvers).
    * This is never invoked at runtime.
    */
-  resolveConfig?: (
-    config: Strategies extends Record<string, { config: TSchema }>
-      ? StrategySelection<Strategies, DefaultStrategy>
-      : Static<ConfigSchema>,
+  resolveConfig: (
+    config: StrategySelection<Strategies>,
     settings: RunSettings
-  ) => Strategies extends Record<string, { config: TSchema }>
-    ? StrategySelection<Strategies, DefaultStrategy>
-    : Static<ConfigSchema>;
+  ) => StrategySelection<Strategies>;
 }>;

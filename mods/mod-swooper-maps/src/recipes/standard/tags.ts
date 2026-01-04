@@ -246,9 +246,9 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
       wonders: { wondersCount: 1 },
       floodplains: { minLength: 4, maxLength: 10 },
       placementConfig: {
-        wonders: { wondersPlusOne: true },
-        floodplains: { minLength: 4, maxLength: 10 },
-        starts: {},
+        wonders: { strategy: "default", config: { wondersPlusOne: true } },
+        floodplains: { strategy: "default", config: { minLength: 4, maxLength: 10 } },
+        starts: { strategy: "default", config: {} },
       },
     },
     validateDemo: (demo) => isPlacementInputsV1(demo),

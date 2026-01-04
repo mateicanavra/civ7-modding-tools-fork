@@ -14,15 +14,21 @@ type VegetationEmbellishmentsConfig =
 export const planVegetationEmbellishments = createOp({
   kind: "plan",
   id: "ecology/features/vegetation-embellishments",
-  schema: PlanVegetationEmbellishmentsSchema,
-  resolveConfig: (config: VegetationEmbellishmentsConfig) =>
-    resolveVegetationEmbellishmentsConfig(config),
-  run: (input: VegetationEmbellishmentsInput, config: VegetationEmbellishmentsConfig) => {
-    const placements = planVegetationEmbellishmentsImpl(
-      input,
-      config as ResolvedVegetationEmbellishmentsConfig
-    );
-    return { placements };
+  input: PlanVegetationEmbellishmentsSchema.properties.input,
+  output: PlanVegetationEmbellishmentsSchema.properties.output,
+  strategies: {
+    default: {
+      config: PlanVegetationEmbellishmentsSchema.properties.config,
+      resolveConfig: (config: VegetationEmbellishmentsConfig) =>
+        resolveVegetationEmbellishmentsConfig(config),
+      run: (input: VegetationEmbellishmentsInput, config: VegetationEmbellishmentsConfig) => {
+        const placements = planVegetationEmbellishmentsImpl(
+          input,
+          config as ResolvedVegetationEmbellishmentsConfig
+        );
+        return { placements };
+      },
+    },
   },
 } as const);
 
