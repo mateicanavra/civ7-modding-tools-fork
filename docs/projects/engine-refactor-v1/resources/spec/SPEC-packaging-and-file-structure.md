@@ -93,11 +93,11 @@ STANDARD_CONTENT_ROOT/
 **Domain scope (`src/domain/**`)**
 - Domain is the home for:
   - domain algorithms
-  - domain data contracts (artifact value types + validators)
+  - operation contracts (`ops/**`) and op-local rules/strategies
   - shared config schema fragments (`src/domain/**/config.ts`) when used by more than one step
 - Domain modules may be used by a single step; reuse is not the criterion for domain placement. The criterion is recipe-independence and a clean separation between step orchestration and content logic.
 - Domain must not import from `recipes/**` or `maps/**`.
- - Dependency IDs (tags/artifacts/effects) are recipe-owned; domain modules must not re-export recipe tag/artifact shims.
+- Dependency IDs (tags/artifacts/effects) are recipe-owned; domain modules must not re-export recipe shims.
 
 **Barrels (`index.ts`)**
 - Barrels must be explicit, thin re-exports only (no side-effect registration, no hidden aggregation).

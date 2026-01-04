@@ -45,7 +45,7 @@
   - optional engine-owned metrics/diagnostics buffers (not content contracts)
 - `ExtendedMapContext` does not include:
   - a monolithic `config`/`MapGenConfig` mega-object
-  - domain artifacts (foundation/narrative/placement payload types)
+  - content artifact payload types (foundation/narrative/placement/etc.)
   - narrative registries/caches (those are mod-owned and/or artifacts)
 - `src/core/platform/**` owns Civ/platform-facing helper contracts (terrain constants, plot tagging helpers). These are engine-owned and content-agnostic.
 

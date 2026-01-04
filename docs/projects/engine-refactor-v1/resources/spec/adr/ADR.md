@@ -75,6 +75,7 @@ This is a compact “where are the real gaps?” map; it is not authoritative co
 - ADR-ER1-033 — Step schema composition.
 - ADR-ER1-034 — Operation kind semantics.
 - ADR-ER1-035 — Config normalization and derived defaults.
+- ADR-ER1-036 — Sequence strategy-required `createOp` cutover before remaining domain refactors.
 
 ## Archived/noise decisions (do not treat as current design)
 

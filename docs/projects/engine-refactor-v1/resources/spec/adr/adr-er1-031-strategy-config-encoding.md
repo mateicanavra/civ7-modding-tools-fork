@@ -26,17 +26,21 @@ Domain operations may offer multiple strategies. The authoring surface needs a c
 
 ## Decision
 
-- Strategy selection is represented as a **discriminated union** keyed by `strategy` for multi-strategy operations.
-- For operations with exactly one strategy:
-  - `strategy` may be omitted and the single strategy is implied.
-  - if a `defaultStrategy` exists and there are multiple strategies, omission selects the default; otherwise `strategy` is required.
+- Strategy selection is represented as a **discriminated union** keyed by `strategy`.
+- The plan-truth config shape is always explicit and uniform:
+  - `{ strategy: "<strategyId>", config: <innerConfig> }`
+  - `strategy` is always present (no shorthand encodings).
+- Operation authoring is strategy-first:
+  - all ops declare `strategies` and include a mandatory `"default"` strategy id,
+  - each strategy owns its own `config` schema (and optional `resolveConfig`),
+  - `createOp(...)` derives `op.config` (the envelope union schema) and `op.defaultConfig` (always `{ strategy: "default", config: <defaulted inner> }`).
 - Strategy defaults are resolved in compile/validation and the compiled plan carries an explicit, fully-resolved strategy config.
 
 ## Options considered
 
 1. **Discriminated union (`strategy` field)**
    - Pros: type-safe; clear selection; supports per-strategy schemas cleanly
-   - Cons: requires a wrapper field even for single-strategy ops (unless special-cased)
+   - Cons: requires a wrapper field even for single-strategy ops
 2. **Nested shape (`{ shared, strategy: { id, config } }`)**
    - Pros: avoids field collisions; supports shared + per-strategy config explicitly
    - Cons: heavier authoring surface; more boilerplate
@@ -51,3 +55,4 @@ Domain operations may offer multiple strategies. The authoring surface needs a c
   - config schemas for each strategy,
   - a normalization/defaulting path so the plan is explicit.
 - Step config schemas can compose operation strategy schemas without inventing custom shapes per step.
+- Any legacy/default-friendly encodings (e.g., omitting `strategy` when a default exists) must be treated as transitional-only and removed as part of the authoring cutover (see ADR-ER1-036).
