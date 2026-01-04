@@ -6,11 +6,7 @@ import {
 } from "./schema.js";
 import { planFeaturePlacements as planFeaturePlacementsImpl } from "./plan.js";
 
-export const planFeaturePlacements = createOp<
-  typeof FeaturesPlacementSchema["properties"]["input"],
-  typeof FeaturesPlacementSchema["properties"]["output"],
-  { default: typeof FeaturesPlacementSchema["properties"]["config"] }
->({
+export const planFeaturePlacements = createOp({
   kind: "plan",
   id: "ecology/features/placement",
   input: FeaturesPlacementSchema.properties.input,
@@ -28,6 +24,6 @@ export const planFeaturePlacements = createOp<
       },
     },
   },
-} as const);
+});
 
 export * from "./schema.js";

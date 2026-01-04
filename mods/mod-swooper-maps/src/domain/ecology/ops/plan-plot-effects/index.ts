@@ -6,11 +6,7 @@ import {
 } from "./schema.js";
 import { planPlotEffects as planPlotEffectsImpl } from "./plan.js";
 
-export const planPlotEffects = createOp<
-  typeof PlanPlotEffectsSchema["properties"]["input"],
-  typeof PlanPlotEffectsSchema["properties"]["output"],
-  { default: typeof PlanPlotEffectsSchema["properties"]["config"] }
->({
+export const planPlotEffects = createOp({
   kind: "plan",
   id: "ecology/plot-effects/placement",
   input: PlanPlotEffectsSchema.properties.input,
@@ -25,6 +21,6 @@ export const planPlotEffects = createOp<
       },
     },
   },
-} as const);
+});
 
 export * from "./schema.js";
