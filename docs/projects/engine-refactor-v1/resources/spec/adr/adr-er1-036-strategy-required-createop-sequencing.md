@@ -91,16 +91,11 @@ This ADR is also adjacent to `ADR-ER1-031` (strategy config encoding). If the pr
 
 ## Open questions (must be resolved as part of the cutover slice)
 
-1) **One authoring shape vs multiple shapes**
-   - Should `{ schema }` and `strategies` compose into a single authoring path, or should `schema` be replaced by a different primitive for multi-strategy operations?
-
-2) **Exact plan-truth envelope contract**
-   - Stable strategy IDs (e.g., `"default"` for single-strategy ops).
-   - Strategy is always present; no shorthand encodings.
-   - Whether step schemas should always reference `op.defaultConfig` (and/or `op.configSchema`) to avoid duplicating defaults.
-
-3) **Cutover strictness**
+1) **Cutover strictness**
    - Hard-delete old `createOp` forms (preferred for clarity and guardrails), vs temporary backwards compatibility (higher complexity; reintroduces ambiguity).
+
+2) **Guardrail enforcement scope**
+   - Which checks become hard gates in `scripts/lint/lint-domain-refactor-guardrails.sh` for this cutover (e.g., forbid legacy `createOp` call shapes, forbid configs that omit `strategy`, forbid non-literal strategy ids).
 
 ## Projected outcome if accepted (draft canonical shape)
 
@@ -111,21 +106,26 @@ This section is a concrete target shape for the authoring SDK and plan-truth con
 - Every operation defines:
   - `input` schema (shared across all strategies)
   - `output` schema (shared across all strategies)
-  - `strategies` map, each entry defining:
+  - `strategies` map (required), each entry defining:
     - `config` schema (strategy-specific)
-    - `resolveConfig(innerConfig, settings) -> innerConfig` (optional)
+    - `resolveConfig(innerConfig, settings) -> innerConfig` (optional; compile-time only)
     - `run(input, innerConfig) -> output`
 - Plan-truth op config is always:
   - `{ strategy: "<strategyId>", config: <innerConfig> }`
-- `op.defaultConfig` is always that envelope shape, and is safe to embed as a step-schema default.
+- Strategy selection is always explicit; `strategy` is always present (no shorthand encodings).
+- Every op has a mandatory `"default"` strategy id.
+- `createOp(...)` derives and exposes:
+  - `op.config` (the derived union schema for the envelope config),
+  - `op.defaultConfig` (always `{ strategy: "default", config: <defaulted inner> }`),
+  - `op.resolveConfig(envelope, settings)` (derived; dispatches to `strategy.resolveConfig` if present).
 
 ### Authoring SDK shape (illustrative TypeScript)
 
 ```ts
-type OpConfigEnvelope<StrategyId extends string, InnerConfig> = {
+type OpConfigEnvelope<StrategyId extends string, InnerConfig> = Readonly<{
   strategy: StrategyId;
   config: InnerConfig;
-};
+}>;
 
 type StrategyDef<Input, InnerConfig, Output, Settings> = {
   configSchema: unknown; // TypeBox TSchema in real code
@@ -133,13 +133,12 @@ type StrategyDef<Input, InnerConfig, Output, Settings> = {
   run: (input: Input, config: InnerConfig) => Output;
 };
 
-type OpDef<Input, Output, StrategyId extends string, InnerConfig, Settings> = {
+type OpDef<Input, Output, StrategyId extends string, InnerConfig, Settings> = Readonly<{
   kind: "plan" | "compute" | "score" | "select";
   inputSchema: unknown;  // TypeBox TSchema in real code
   outputSchema: unknown; // TypeBox TSchema in real code
   strategies: Record<StrategyId, StrategyDef<Input, any, Output, Settings>>;
-  defaultStrategy: StrategyId;
-};
+}>;
 ```
 
 ### Example: a “thick” plan op (plan feature placements) with rules beneath it
@@ -150,7 +149,7 @@ export const planFeaturePlacements = createOp({
   input: PlanFeaturePlacementsInputSchema,
   output: PlanFeaturePlacementsOutputSchema,
   strategies: {
-    default: {
+    default: createStrategy({
       config: PlanFeaturePlacementsDefaultStrategyConfigSchema,
       resolveConfig: (cfg, settings) => deriveDefaults(cfg, settings),
       run: (input, cfg) => {
@@ -160,9 +159,8 @@ export const planFeaturePlacements = createOp({
         // - return a POJO plan result (no adapter/context crossing)
         return computePlan(input, cfg);
       },
-    },
+    }),
   },
-  defaultStrategy: "default",
 });
 ```
 
@@ -182,10 +180,9 @@ Plan-truth config shape for this op (including single strategy):
 
 ```ts
 const stepSchema = Type.Object({
-  planFeaturePlacements: Type.Optional(
-    planFeaturePlacements.configSchema /* envelope */,
-    { default: planFeaturePlacements.defaultConfig }
-  ),
+  planFeaturePlacements: Type.Optional(planFeaturePlacements.config, {
+    default: planFeaturePlacements.defaultConfig,
+  }),
 });
 
 export async function run(ctx: StepCtx, config: Static<typeof stepSchema>) {
@@ -231,4 +228,3 @@ it("plans features deterministically", () => {
   expect(out).toMatchObject({ /* stable invariants */ });
 });
 ```
-

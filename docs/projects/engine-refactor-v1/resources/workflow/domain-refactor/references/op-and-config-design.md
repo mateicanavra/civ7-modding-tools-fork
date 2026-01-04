@@ -15,11 +15,18 @@ Canonical references:
 Define the target op catalog for the domain, with **no optionality**:
 - Each op has an explicit `kind`: `plan | compute | score | select` (ADR-ER1-034).
 - Each op lives in its own module under `mods/mod-swooper-maps/src/domain/<domain>/ops/**` (one op per module).
-- Each op owns:
-  - an op `schema` object that contains `input`, `config`, and `output` schemas
-  - `defaultConfig` (derived from schema defaults)
-  - optional `resolveConfig(config, settings)` (compile-time only)
-- Steps call `op.runValidated(input, resolvedConfig)`; steps do not call internal rules directly.
+- Each op is strategy-backed and owns:
+  - `input` schema (shared across all strategies),
+  - `output` schema (shared across all strategies),
+  - `strategies` map (must include `"default"`), where each strategy owns:
+    - a strategy `config` schema,
+    - optional `resolveConfig(innerConfig, settings)` (compile-time only),
+    - `run(input, innerConfig)`.
+- `createOp(...)` derives and exposes:
+  - `op.config`: a derived union schema for `{ strategy, config }`,
+  - `op.defaultConfig`: always `{ strategy: "default", config: <defaulted inner> }`,
+  - `op.resolveConfig(envelope, settings)`: derived dispatcher over `strategy.resolveConfig`.
+- Steps call `op.runValidated(input, planTruthConfig)`; steps do not call internal rules directly.
 
 If an op needs randomness, model it explicitly:
 - add `rngSeed: Type.Integer(...)` to the op `input` schema (not an RNG callback),
@@ -28,7 +35,7 @@ If an op needs randomness, model it explicitly:
 
 Naming constraints:
 - Op ids are stable and verb-forward (e.g., `compute*`, `plan*`, `score*`, `select*`).
-- Strategy selection exists only when there are truly multiple implementations; otherwise keep config flat.
+- Strategy selection is always explicit in plan truth (`{ strategy, config }`). Single-strategy ops still use `strategies: { default: ... }`.
 
 ## Op sizing and naming guardrails (avoid noun-first buckets)
 
@@ -53,28 +60,28 @@ Step sizing note:
 
 Illustrative skeleton (trimmed; do not invent extra surfaces):
 ```ts
-export const myOpSchema = Type.Object(
-  {
-    input: Type.Object(
-      { width: Type.Integer(), height: Type.Integer(), field: TypedArraySchemas.u8() },
-      { additionalProperties: false }
-    ),
-    config: Type.Object(
-      { knob: Type.Optional(Type.Number({ default: 1 })) },
-      { additionalProperties: false, default: {} }
-    ),
-    output: Type.Object({ out: TypedArraySchemas.u8() }, { additionalProperties: false }),
-  },
-  { additionalProperties: false }
-);
-
 export const myOp = createOp({
   kind: "compute",
   id: "<domain>/<area>/<verb>",
-  schema: myOpSchema,
-  resolveConfig: (cfg, settings) => ({ ...cfg }), // compile-time only
-  customValidate: (input, cfg) => [],             // optional, returns pathful errors
-  run: (input, cfg) => ({ out: input.field }),
+  input: Type.Object(
+    { width: Type.Integer(), height: Type.Integer(), field: TypedArraySchemas.u8() },
+    { additionalProperties: false }
+  ),
+  output: Type.Object({ out: TypedArraySchemas.u8() }, { additionalProperties: false }),
+
+  strategies: {
+    default: createStrategy({
+      config: Type.Object(
+        { knob: Type.Optional(Type.Number({ default: 1 })) },
+        { additionalProperties: false, default: {} }
+      ),
+      resolveConfig: (cfg, settings) => ({ ...cfg }), // compile-time only
+      run: (input, cfg) => ({ out: input.field }),
+    }),
+  },
+
+  // optional: returns pathful errors (must use /config/config/* paths for inner config)
+  customValidate: (input, cfg) => [],
 } as const);
 ```
 
@@ -88,7 +95,7 @@ Plan compilation defaults and cleans config via TypeBox `Value.*` utilities (ADR
 
 Rules:
 - Put **local, unconditional defaults** in the schema (TypeBox `default`).
-- Put **settings-derived defaults** in `resolveConfig` (op-level, composed by step-level `resolveConfig`).
+- Put **settings-derived defaults** in `strategy.resolveConfig` (composed via `op.resolveConfig` at the step boundary).
 - Do not implement meaning-level defaults in runtime step or op `run(...)` (`?? {}` merges and `Value.Default(...)` in runtime paths are migration smells).
 
 ### Resolution location (colocation + composition)
@@ -97,7 +104,7 @@ Domain-owned scaling semantics live with the op:
 - `mods/mod-swooper-maps/src/domain/<domain>/ops/**` exports `resolveConfig` (optional) next to `config` and `defaultConfig`.
 
 Step-level composition is the only place ops are combined:
-- `step.resolveConfig(stepConfig, settings)` fans out to each op’s `resolveConfig` and recomposes a step config that still validates against the step schema.
+- `step.resolveConfig(stepConfig, settings)` fans out to each op’s derived `resolveConfig` and recomposes a step config that still validates against the step schema.
 
 Hard rule:
 - Resolvers and schemas are not centralized in recipe roots or shared “resolver registries”; they live with the domain operations that own the semantics.

@@ -170,6 +170,13 @@ Operation authors may optionally provide `customValidate: (input, config) => Val
 - it is invoked automatically as part of `op.validate(...)` / `op.runValidated(...)`,
 - it is intended for cheap semantic invariants that need both `(input, config)` and may return multiple pathful errors.
 
+Config note (strategy-backed ops):
+- In the canonical strategy-first model, op config is the plan-truth envelope `{ strategy, config }`.
+- `customValidate` therefore receives the envelope, not the inner strategy config.
+- When returning pathful errors, prefer:
+  - `/config/strategy` for strategy selection errors, and
+  - `/config/config/<field>` for inner config errors.
+
 **Typed-array schema metadata contract (`x-runtime`)**
 
 Typed-array schemas produced by `TypedArraySchemas.*` include an enumerable metadata payload so validation can infer typed-array intent:
