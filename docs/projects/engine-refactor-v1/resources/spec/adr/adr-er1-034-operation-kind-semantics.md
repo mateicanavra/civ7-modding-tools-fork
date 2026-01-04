@@ -83,10 +83,10 @@ export const myOp = createOp({
   input: InputSchema,
   output: OutputSchema,
   strategies: {
-    default: createStrategy({
+    default: {
       config: ConfigSchema,
       run: (input, config) => ({ /* output */ }),
-    }),
+    },
   },
 });
 ```

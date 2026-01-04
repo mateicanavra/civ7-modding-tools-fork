@@ -149,7 +149,7 @@ export const planFeaturePlacements = createOp({
   input: PlanFeaturePlacementsInputSchema,
   output: PlanFeaturePlacementsOutputSchema,
   strategies: {
-    default: createStrategy({
+    default: {
       config: PlanFeaturePlacementsDefaultStrategyConfigSchema,
       resolveConfig: (cfg, settings) => deriveDefaults(cfg, settings),
       run: (input, cfg) => {
@@ -159,7 +159,7 @@ export const planFeaturePlacements = createOp({
         // - return a POJO plan result (no adapter/context crossing)
         return computePlan(input, cfg);
       },
-    }),
+    },
   },
 });
 ```

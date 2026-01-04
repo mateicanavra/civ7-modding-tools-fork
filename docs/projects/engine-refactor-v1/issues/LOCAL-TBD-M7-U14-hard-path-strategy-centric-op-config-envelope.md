@@ -29,6 +29,27 @@ This is a breaking shape change, by design. The win is drastic simplification: o
 
 ---
 
+## Scope (U14 = authoring SDK cutover + repo alignment)
+U14 is not “just tweak `createOp`”. It is the full cutover + alignment slice that makes the target authoring model real and consistent across the repo.
+
+In-scope:
+- Authoring SDK:
+  - `createOp` contract and inference (strategy-centric only; single config shape at runtime boundary).
+  - Strategy definition surface (`OpStrategy`, `StrategySelection`, `resolveConfig` placement).
+  - `DomainOp` types so config is always the envelope union.
+- Repo-wide callsite alignment:
+  - Every op authoring module migrates to strategies (`strategies: { default: ... }` at minimum).
+  - All step schemas, presets/maps, fixtures/tests migrate to the envelope config shape.
+  - Any helper logic that assumed “inner config” at the runtime boundary is updated to explicitly unwrap `config.config`.
+- Guardrails:
+  - `scripts/lint/lint-domain-refactor-guardrails.sh` becomes the canonical gate for “no legacy authoring shapes / no non-envelope configs”.
+
+Out-of-scope (explicitly not decided here):
+- Any redesign of “strategy as a concept” beyond “strategy config + run live on the strategy”.
+- Extra authoring sugar (e.g., `defineStrategies(...)`). We stick to inline POJO strategies + optional `createStrategy(...)` for out-of-line strategy modules.
+
+---
+
 ## Context / starting point
 - Worktree: `/Users/mateicanavra/Documents/.nosync/DEV/civ7-modding-tools-mapgen-domain-config`
 - Branch: `chore/mapgen-domain-config-barrel`
@@ -107,12 +128,21 @@ Implementation: `packages/mapgen-core/src/authoring/op/create.ts`
 3) Strategy authoring:
 - `{ input, output, strategies, defaultStrategy? }`
 
+### Why `{ schema }` is still mentioned (and what to do about it)
+`{ schema }` is a legacy authoring convenience from the “op owns config schema” era: it bundles `{ input, config, output }` into one TypeBox object so `createOp` can unpack `schema.properties.*`.
+
+Under the hard-path model, **the config schema lives inside each strategy** and `createOp` derives the envelope union. That means `{ schema }` no longer maps cleanly to the authoring model (there is no single authored `config` schema to bundle).
+
+Decision for U14:
+- Treat `{ schema }` authoring as **legacy** and remove it as part of the hard cutover.
+- If we want a future convenience for bundling `input/output`, do it as a separate, explicit helper (post-U14), not as an alternate authoring shape inside `createOp`.
+
 ### Current “optional strategy discriminator” behavior (why it’s a problem)
 The current strategy path synthesizes an op-level config union and attempts to be ergonomic by making the discriminator optional for the default strategy case.
 Consequences:
 - Multiple runtime config shapes exist (`{ config: ... }` and `{ strategy, config }`) depending on defaults.
 - Type relationships become conditional and hard to reason about (especially when composing step configs that include multiple ops).
-- The wrapper logic falls back to `cfg?.config ?? {}` which undermines “plan-truth config is fully defaulted + validated”.
+- The wrapper logic falls back to `cfg?.config ?? {}` which undermines “plan-truth config is fully defaulted + validated”. 
 
 ### Repo scale (this branch, current scan)
 - `createOp(...)` call sites: **29** (`rg -n "\\bcreateOp\\(" -S . | wc -l`)

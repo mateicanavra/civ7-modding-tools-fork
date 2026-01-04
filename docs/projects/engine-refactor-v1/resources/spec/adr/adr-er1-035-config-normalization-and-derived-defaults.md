@@ -206,7 +206,7 @@ export type ResolvableStep<TContext, TConfig> = MapGenStep<TContext, TConfig> & 
 
 ```ts
 // domain/ops (two ops, each owns scaling semantics)
-import { createOp, createStrategy } from "@swooper/mapgen-core/authoring";
+import { createOp } from "@swooper/mapgen-core/authoring";
 
 export const computeSuitability = createOp({
   kind: "compute",
@@ -214,7 +214,7 @@ export const computeSuitability = createOp({
   input: ComputeSuitabilityInputSchema,
   output: ComputeSuitabilityOutputSchema,
   strategies: {
-    default: createStrategy({
+    default: {
       config: ComputeSuitabilityConfigSchema,
       resolveConfig: (cfg, settings) => {
         // example: default grid-scaled search radius based on map size
@@ -225,7 +225,7 @@ export const computeSuitability = createOp({
       run: (input, cfg) => {
         /* ... */
       },
-    }),
+    },
   },
 } as const);
 
@@ -235,7 +235,7 @@ export const selectPlacements = createOp({
   input: SelectPlacementsInputSchema,
   output: SelectPlacementsOutputSchema,
   strategies: {
-    default: createStrategy({
+    default: {
       config: SelectPlacementsConfigSchema,
       resolveConfig: (cfg, settings) => {
         const wrap = settings.wrap.wrapX || settings.wrap.wrapY;
@@ -244,7 +244,7 @@ export const selectPlacements = createOp({
       run: (input, cfg) => {
         /* ... */
       },
-    }),
+    },
   },
 } as const);
 
