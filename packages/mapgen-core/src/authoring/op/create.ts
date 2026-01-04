@@ -24,43 +24,32 @@ type OpDefinitionValidationHook<InputSchema extends TSchema, ConfigSchema> = Rea
   customValidate?: CustomValidateFn<Static<InputSchema>, ConfigSchema>;
 }>;
 
-type StrategyShape<InputSchema extends TSchema, OutputSchema extends TSchema> = Readonly<{
-  config: TSchema;
-  resolveConfig?: (config: any, settings: RunSettings) => any;
-  run: (input: Static<InputSchema>, config: any) => Static<OutputSchema>;
+type StrategyConfigSchemas = Readonly<Record<string, TSchema>>;
+
+type StrategiesFor<
+  InputSchema extends TSchema,
+  OutputSchema extends TSchema,
+  ConfigSchemas extends StrategyConfigSchemas,
+> = Readonly<{
+  [K in keyof ConfigSchemas & string]: OpStrategy<
+    ConfigSchemas[K],
+    Static<InputSchema>,
+    Static<OutputSchema>
+  >;
 }>;
 
-type StrategyRecord<InputSchema extends TSchema, OutputSchema extends TSchema> = Readonly<
-  Record<string, StrategyShape<InputSchema, OutputSchema>>
->;
-
-type StrategyDefaults<InputSchema extends TSchema, OutputSchema extends TSchema> = Readonly<
-  Record<"default", StrategyShape<InputSchema, OutputSchema>>
->;
-
-type EnforceStrategies<
-  InputSchema extends TSchema,
-  OutputSchema extends TSchema,
-  Strategies,
-> = Strategies extends StrategyRecord<InputSchema, OutputSchema> ? Strategies : never;
-
 export function createOp<
-  InputSchema extends TSchema,
-  OutputSchema extends TSchema,
-  const Strategies,
+  const InputSchema extends TSchema,
+  const OutputSchema extends TSchema,
+  const ConfigSchemas extends StrategyConfigSchemas & { default: TSchema },
 >(op: OpDefinitionBase<InputSchema, OutputSchema> &
   Readonly<{
-    strategies: EnforceStrategies<InputSchema, OutputSchema, Strategies> &
-      StrategyDefaults<InputSchema, OutputSchema>;
+    strategies: StrategiesFor<InputSchema, OutputSchema, ConfigSchemas>;
   }> &
   OpDefinitionValidationHook<
     InputSchema,
-    StrategySelection<EnforceStrategies<InputSchema, OutputSchema, Strategies>>
-  >): DomainOp<
-  InputSchema,
-  OutputSchema,
-  EnforceStrategies<InputSchema, OutputSchema, Strategies>
->;
+    StrategySelection<StrategiesFor<InputSchema, OutputSchema, ConfigSchemas>>
+  >): DomainOp<InputSchema, OutputSchema, StrategiesFor<InputSchema, OutputSchema, ConfigSchemas>>;
 
 export function createOp(op: any): any {
   const customValidate = op.customValidate as CustomValidateFn<unknown, unknown> | undefined;
