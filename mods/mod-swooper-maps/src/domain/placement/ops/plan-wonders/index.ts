@@ -1,23 +1,12 @@
-import { createOp, type Static } from "@swooper/mapgen-core/authoring";
+import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanWondersSchema } from "./schema.js";
 
-type PlanWondersInput = Static<typeof PlanWondersSchema["properties"]["input"]>;
-type PlanWondersConfig = Static<typeof PlanWondersSchema["properties"]["config"]>;
-type PlanWondersOutput = Static<typeof PlanWondersSchema["properties"]["output"]>;
-type MapInfo = PlanWondersInput["mapInfo"];
-
-function resolveNaturalWonderCount(mapInfo: MapInfo, wondersPlusOne: boolean): number {
-  if (!mapInfo || typeof mapInfo.NumNaturalWonders !== "number") {
-    return 1;
-  }
-  if (wondersPlusOne) {
-    return Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders);
-  }
-  return mapInfo.NumNaturalWonders;
-}
-
-export const planWonders = createOp({
+export const planWonders = createOp<
+  typeof PlanWondersSchema["properties"]["input"],
+  typeof PlanWondersSchema["properties"]["output"],
+  { default: typeof PlanWondersSchema["properties"]["config"] }
+>({
   kind: "plan",
   id: "placement/plan-wonders",
   input: PlanWondersSchema.properties.input,
@@ -25,8 +14,17 @@ export const planWonders = createOp({
   strategies: {
     default: {
       config: PlanWondersSchema.properties.config,
-      run: (input: PlanWondersInput, config: PlanWondersConfig) => {
-        const wondersCount = resolveNaturalWonderCount(input.mapInfo, config.wondersPlusOne);
+      run: (input, config) => {
+        const mapInfo = input.mapInfo;
+        const wondersPlusOne = config.wondersPlusOne;
+        let wondersCount = 1;
+
+        if (mapInfo && typeof mapInfo.NumNaturalWonders === "number") {
+          wondersCount = wondersPlusOne
+            ? Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders)
+            : mapInfo.NumNaturalWonders;
+        }
+
         return { wondersCount };
       },
     },
