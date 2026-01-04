@@ -45,6 +45,11 @@ Canonical authoring surface (single shape):
   - imported strategy modules (authored with `createStrategy(...)`) attached as `strategies: { default: importedStrategy }`.
 - Do not introduce any alternate op-authoring patterns; keep the repo converging on one shape.
 
+TypeScript inference rules (hard rules):
+- Do not apply a type assertion to the object literal passed into `createOp(...)` (including `as const`); it disables contextual typing and breaks inferred `run(input, cfg)` types.
+- Inline POJO strategies are the preferred authoring mode for full inference.
+- Out-of-line strategy modules must be explicitly typed (see `references/op-and-config-design.md`).
+
 Canonical op module structure (single shape):
 - Every op is a directory module under `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/`.
 - Every op directory contains: `schema.ts`, `index.ts`, `rules/`, `strategies/` (create the folders even if empty).

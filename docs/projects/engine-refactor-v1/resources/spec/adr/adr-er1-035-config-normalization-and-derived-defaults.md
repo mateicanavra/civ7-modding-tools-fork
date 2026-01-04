@@ -227,7 +227,7 @@ export const computeSuitability = createOp({
       },
     },
   },
-} as const);
+});
 
 export const selectPlacements = createOp({
   kind: "select",
@@ -246,7 +246,7 @@ export const selectPlacements = createOp({
       },
     },
   },
-} as const);
+});
 
 // composite step schema references op config schemas directly (no separate resolved schema)
 export const FeaturesStepConfigSchema = Type.Object(
