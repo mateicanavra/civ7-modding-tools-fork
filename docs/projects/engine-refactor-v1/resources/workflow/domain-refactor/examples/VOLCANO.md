@@ -96,7 +96,7 @@ export default createOp({
       },
     },
   },
-} as const);
+});
 ```
 
 ## Domain: operation 2 — plan volcano placements (strategies + rules)
@@ -104,48 +104,58 @@ export default createOp({
 This operation has interchangeable strategies. The op stays stable; internal strategies can evolve independently.
 
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/schema.ts
 import { Type } from "typebox";
-import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+import { TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+
+export const PlanVolcanoesInputSchema = Type.Object(
+  {
+    width: Type.Integer({ minimum: 1 }),
+    height: Type.Integer({ minimum: 1 }),
+    suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
+    rngSeed: Type.Integer({
+      minimum: 0,
+      description:
+        "Deterministic RNG seed (derived by the step from RunRequest settings + step/op identity).",
+    }),
+  },
+  { additionalProperties: false }
+);
+
+export const PlanVolcanoesOutputSchema = Type.Object(
+  {
+    placements: Type.Array(
+      Type.Object(
+        {
+          x: Type.Integer({ minimum: 0 }),
+          y: Type.Integer({ minimum: 0 }),
+          intensity: Type.Integer({ minimum: 0 }),
+        },
+        { additionalProperties: false }
+      )
+    ),
+  },
+  { additionalProperties: false }
+);
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
+import { createOp } from "@swooper/mapgen-core/authoring";
+import { PlanVolcanoesInputSchema, PlanVolcanoesOutputSchema } from "./schema.js";
 import plateAware from "./strategies/plate-aware.js";
 import hotspotClusters from "./strategies/hotspot-clusters.js";
 
 export default createOp({
   kind: "plan",
   id: "morphology/volcanoes/planVolcanoes",
-  input: Type.Object(
-    {
-      width: Type.Integer({ minimum: 1 }),
-      height: Type.Integer({ minimum: 1 }),
-      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
-      rngSeed: Type.Integer({
-        minimum: 0,
-        description:
-          "Deterministic RNG seed (derived by the step from RunRequest settings + step/op identity).",
-      }),
-    },
-    { additionalProperties: false }
-  ),
-  output: Type.Object(
-    {
-      placements: Type.Array(
-        Type.Object(
-          {
-            x: Type.Integer({ minimum: 0 }),
-            y: Type.Integer({ minimum: 0 }),
-            intensity: Type.Integer({ minimum: 0 }),
-          },
-          { additionalProperties: false }
-        )
-      ),
-    },
-    { additionalProperties: false }
-  ),
+  input: PlanVolcanoesInputSchema,
+  output: PlanVolcanoesOutputSchema,
   strategies: {
     default: plateAware,
     hotspotClusters,
-  } as const,
-} as const);
+  },
+});
 ```
 
 ## Domain: strategies (separate modules with per-strategy config)
@@ -156,17 +166,22 @@ Strategies live under `strategies/` so they can be “real code” without bloat
 // src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/plate-aware.ts
 import { Type } from "typebox";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
+import type { Static } from "typebox";
+import type { OpStrategy } from "@swooper/mapgen-core/authoring";
+import { PlanVolcanoesInputSchema, PlanVolcanoesOutputSchema } from "../schema.js";
 import { enforceMinDistance } from "../rules/enforce-min-distance.js";
 import { pickWeightedIndex } from "../rules/pick-weighted.js";
 
+const PlateAwareConfigSchema = Type.Object(
+  {
+    targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
+    minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
+  },
+  { additionalProperties: false, default: {} }
+);
+
 export default createStrategy({
-  config: Type.Object(
-    {
-      targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
-      minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
-    },
-    { additionalProperties: false, default: {} }
-  ),
+  config: PlateAwareConfigSchema,
   run: (inputs, cfg) => {
     const target = cfg.targetCount ?? 12;
     const minD = cfg.minDistance ?? 6;
@@ -205,25 +220,34 @@ export default createStrategy({
 
     return { placements: chosen };
   },
-} as const);
+} satisfies OpStrategy<
+  typeof PlateAwareConfigSchema,
+  Static<typeof PlanVolcanoesInputSchema>,
+  Static<typeof PlanVolcanoesOutputSchema>
+>);
 ```
 
 ```ts
 // src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/hotspot-clusters.ts
 import { Type } from "typebox";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
+import type { Static } from "typebox";
+import type { OpStrategy } from "@swooper/mapgen-core/authoring";
+import { PlanVolcanoesInputSchema, PlanVolcanoesOutputSchema } from "../schema.js";
 import { enforceMinDistance } from "../rules/enforce-min-distance.js";
 import { pickWeightedIndex } from "../rules/pick-weighted.js";
 
+const HotspotClustersConfigSchema = Type.Object(
+  {
+    targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
+    minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
+    seedCount: Type.Optional(Type.Integer({ minimum: 1, default: 3 })),
+  },
+  { additionalProperties: false, default: {} }
+);
+
 export default createStrategy({
-  config: Type.Object(
-    {
-      targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
-      minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
-      seedCount: Type.Optional(Type.Integer({ minimum: 1, default: 3 })),
-    },
-    { additionalProperties: false, default: {} }
-  ),
+  config: HotspotClustersConfigSchema,
   run: (inputs, cfg) => {
     const target = cfg.targetCount ?? 12;
     const minD = cfg.minDistance ?? 6;
@@ -276,7 +300,11 @@ export default createStrategy({
 
     return { placements: chosen };
   },
-} as const);
+} satisfies OpStrategy<
+  typeof HotspotClustersConfigSchema,
+  Static<typeof PlanVolcanoesInputSchema>,
+  Static<typeof PlanVolcanoesOutputSchema>
+>);
 ```
 
 ## Domain: rules (small, pure building blocks)
@@ -338,7 +366,7 @@ import planVolcanoes from "./ops/plan-volcanoes/index.js";
 export const ops = {
   computeSuitability,
   planVolcanoes,
-} as const;
+};
 ```
 
 ## Step: build inputs → call ops → apply/publish (runtime boundary)
@@ -412,7 +440,7 @@ export default createStep({
     applyVolcanoPlacements(ctx.adapter, placements);
     ctx.artifacts.set("artifact:volcanoPlacements", { placements });
   },
-} as const);
+});
 ```
 
 ```ts
