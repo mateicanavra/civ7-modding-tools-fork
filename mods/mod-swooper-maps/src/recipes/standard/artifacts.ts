@@ -4,6 +4,16 @@ import type {
   HeightfieldBuffer,
 } from "@swooper/mapgen-core";
 import { isBiomeClassificationArtifactV1, type BiomeClassificationArtifactV1 } from "@mapgen/domain/ecology/artifacts.js";
+import {
+  isNarrativeCorridorsV1,
+  isNarrativeMotifsHotspotsV1,
+  isNarrativeMotifsMarginsV1,
+  isNarrativeMotifsRiftsV1,
+  type NarrativeCorridorsV1,
+  type NarrativeMotifsHotspotsV1,
+  type NarrativeMotifsMarginsV1,
+  type NarrativeMotifsRiftsV1,
+} from "@mapgen/domain/narrative/artifacts.js";
 import type { PlacementInputsV1 } from "./stages/placement/placement-inputs.js";
 import { isPlacementInputsV1 } from "./stages/placement/placement-inputs.js";
 import type { PlacementOutputsV1 } from "./stages/placement/placement-outputs.js";
@@ -89,6 +99,38 @@ export function getPublishedBiomeClassification(
   ) {
     return null;
   }
+  return value;
+}
+
+export function getPublishedNarrativeCorridors(
+  ctx: ExtendedMapContext
+): NarrativeCorridorsV1 | null {
+  const value = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1);
+  if (!isNarrativeCorridorsV1(value)) return null;
+  return value;
+}
+
+export function getPublishedNarrativeMotifsMargins(
+  ctx: ExtendedMapContext
+): NarrativeMotifsMarginsV1 | null {
+  const value = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1);
+  if (!isNarrativeMotifsMarginsV1(value)) return null;
+  return value;
+}
+
+export function getPublishedNarrativeMotifsHotspots(
+  ctx: ExtendedMapContext
+): NarrativeMotifsHotspotsV1 | null {
+  const value = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1);
+  if (!isNarrativeMotifsHotspotsV1(value)) return null;
+  return value;
+}
+
+export function getPublishedNarrativeMotifsRifts(
+  ctx: ExtendedMapContext
+): NarrativeMotifsRiftsV1 | null {
+  const value = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1);
+  if (!isNarrativeMotifsRiftsV1(value)) return null;
   return value;
 }
 

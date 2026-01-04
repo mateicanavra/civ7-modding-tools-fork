@@ -10,14 +10,13 @@
 
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@swooper/mapgen-core";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
-import type { CorridorsConfig, FoundationDirectionalityConfig } from "@mapgen/config";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";
-import { buildNarrativeCorridorsV1 } from "@mapgen/domain/narrative/artifacts.js";
+import type { CorridorsConfig, FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import {
-  getNarrativeCorridors,
-  getNarrativeMotifsHotspots,
-  getNarrativeMotifsRifts,
-} from "@mapgen/domain/narrative/queries.js";
+  buildNarrativeCorridorsV1,
+  type NarrativeCorridorsV1,
+  type NarrativeMotifsHotspotsV1,
+  type NarrativeMotifsRiftsV1,
+} from "@mapgen/domain/narrative/artifacts.js";
 
 import type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
 import { createCorridorState } from "@mapgen/domain/narrative/corridors/state.js";
@@ -29,20 +28,35 @@ import { backfillCorridorKinds } from "@mapgen/domain/narrative/corridors/backfi
 
 export type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
 
+export interface StoryCorridorsInputs {
+  corridors?: NarrativeCorridorsV1 | null;
+  hotspots?: NarrativeMotifsHotspotsV1 | null;
+  rifts?: NarrativeMotifsRiftsV1 | null;
+}
+
+export interface StoryCorridorsResult {
+  snapshot: StoryOverlaySnapshot;
+  corridors: NarrativeCorridorsV1;
+}
+
 export function storyTagStrategicCorridors(
   ctx: ExtendedMapContext,
   stage: CorridorStage,
-  config: { corridors: CorridorsConfig; directionality: FoundationDirectionalityConfig }
-): StoryOverlaySnapshot {
-  const corridorsCfg = config.corridors as Record<string, unknown>;
+  config: { corridors?: CorridorsConfig; directionality: FoundationDirectionalityConfig },
+  artifacts: StoryCorridorsInputs = {}
+): StoryCorridorsResult {
+  const corridorsCfg = config.corridors as Record<string, unknown> | undefined;
+  if (!corridorsCfg) {
+    throw new Error("[Narrative] Missing corridors config.");
+  }
   const directionality = config.directionality;
   if (!directionality) {
     throw new Error("[Narrative] Missing settings.directionality.");
   }
   const emptySet = new Set<string>();
-  const existingCorridors = stage === "postRivers" ? getNarrativeCorridors(ctx) : null;
-  const hotspots = getNarrativeMotifsHotspots(ctx);
-  const rifts = getNarrativeMotifsRifts(ctx);
+  const existingCorridors = stage === "postRivers" ? artifacts.corridors ?? null : null;
+  const hotspots = artifacts.hotspots ?? null;
+  const rifts = artifacts.rifts ?? null;
 
   const state = createCorridorState(existingCorridors);
 
@@ -97,10 +111,7 @@ export function storyTagStrategicCorridors(
     },
   });
 
-  ctx.artifacts.set(
-    M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
-    buildNarrativeCorridorsV1(state)
-  );
+  const corridors = buildNarrativeCorridorsV1(state);
 
-  return overlay;
+  return { snapshot: overlay, corridors };
 }

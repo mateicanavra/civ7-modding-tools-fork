@@ -1,16 +1,24 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { ctxRandom, writeHeightfield } from "@swooper/mapgen-core";
-import { buildNarrativeMotifsHotspotsV1 } from "@mapgen/domain/narrative/artifacts.js";
 import {
-  getNarrativeCorridors,
-  getNarrativeMotifsHotspots,
-  getNarrativeMotifsMargins,
-} from "@mapgen/domain/narrative/queries.js";
+  buildNarrativeMotifsHotspotsV1,
+  type NarrativeCorridorsV1,
+  type NarrativeMotifsHotspotsV1,
+  type NarrativeMotifsMarginsV1,
+} from "@mapgen/domain/narrative/artifacts.js";
 import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "@swooper/mapgen-core";
 import type { CorridorsConfig, HotspotTunables, IslandsConfig } from "@mapgen/domain/morphology/islands/types.js";
 import { getFractalThreshold } from "@mapgen/domain/morphology/islands/fractal-threshold.js";
 import { isAdjacentToLand, isNearSeaLane, storyKey } from "@mapgen/domain/morphology/islands/adjacency.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";
+export interface IslandChainArtifacts {
+  corridors?: NarrativeCorridorsV1 | null;
+  margins?: NarrativeMotifsMarginsV1 | null;
+  hotspots?: NarrativeMotifsHotspotsV1 | null;
+}
+
+export interface IslandChainResult {
+  motifs: NarrativeMotifsHotspotsV1;
+}
 
 const HILL_FRACTAL = 1;
 
@@ -19,11 +27,12 @@ export function addIslandChains(
   iHeight: number,
   ctx: ExtendedMapContext,
   config: {
-    islands: IslandsConfig;
-    story: { hotspot: HotspotTunables };
-    corridors: CorridorsConfig;
-  }
-): void {
+    islands?: IslandsConfig;
+    story: { hotspot?: HotspotTunables };
+    corridors?: CorridorsConfig;
+  },
+  artifacts: IslandChainArtifacts = {}
+): IslandChainResult {
   const adapter = ctx.adapter;
 
   if (adapter?.createFractal) {
@@ -31,12 +40,18 @@ export function addIslandChains(
   }
 
   const islandsCfg = config.islands;
+  if (!islandsCfg) {
+    throw new Error("[Islands] Missing islands config.");
+  }
   const storyTunables = config.story;
   const hotspotCfg = storyTunables.hotspot;
   if (!hotspotCfg) {
     throw new Error("[Islands] Missing story hotspot tunables.");
   }
   const corridorsCfg = config.corridors;
+  if (!corridorsCfg) {
+    throw new Error("[Islands] Missing corridors config.");
+  }
   const seaCfg = corridorsCfg.sea;
   if (!seaCfg) {
     throw new Error("[Islands] Missing sea corridor config.");
@@ -53,9 +68,9 @@ export function addIslandChains(
   );
 
   const emptySet = new Set<string>();
-  const corridors = getNarrativeCorridors(ctx);
-  const margins = getNarrativeMotifsMargins(ctx);
-  const hotspots = getNarrativeMotifsHotspots(ctx);
+  const corridors = artifacts.corridors ?? null;
+  const margins = artifacts.margins ?? null;
+  const hotspots = artifacts.hotspots ?? null;
   const seaLanes = corridors?.seaLanes ?? emptySet;
   const activeMargin = margins?.activeMargin ?? emptySet;
   const passiveShelf = margins?.passiveShelf ?? emptySet;
@@ -159,13 +174,12 @@ export function addIslandChains(
     }
   }
 
-  ctx.artifacts.set(
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-    buildNarrativeMotifsHotspotsV1({
-      points: hotspotPoints,
-      paradise,
-      volcanic,
-      trails: hotspots?.trails,
-    })
-  );
+  const motifs = buildNarrativeMotifsHotspotsV1({
+    points: hotspotPoints,
+    paradise,
+    volcanic,
+    trails: hotspots?.trails,
+  });
+
+  return { motifs };
 }

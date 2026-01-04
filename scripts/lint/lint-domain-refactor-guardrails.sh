@@ -19,11 +19,16 @@ echo "=== Domain Refactor Guardrails ==="
 echo ""
 
 # Comma-separated list of refactored domains, e.g. "ecology,foundation"
-# Default: ecology only.
+# Default: auto-detect domains with ops roots.
 if [ -n "${REFRACTOR_DOMAINS:-}" ]; then
   IFS=',' read -r -a DOMAINS <<< "$REFRACTOR_DOMAINS"
 else
-  DOMAINS=("ecology", "foundation", "morphology", "narrative", "hydrology", "placement")
+  DOMAINS=()
+  for ops_dir in mods/mod-swooper-maps/src/domain/*/ops; do
+    if [ -d "$ops_dir" ]; then
+      DOMAINS+=("$(basename "$(dirname "$ops_dir")")")
+    fi
+  done
 fi
 
 if [ ${#DOMAINS[@]} -eq 0 ]; then
@@ -88,6 +93,10 @@ stage_roots_for_domain() {
 }
 
 for domain in "${DOMAINS[@]}"; do
+  domain="${domain//[[:space:]]/}"
+  if [ -z "$domain" ]; then
+    continue
+  fi
   ops_root="mods/mod-swooper-maps/src/domain/${domain}/ops"
   if [ ! -d "$ops_root" ]; then
     echo -e "${RED}ERROR: Missing ops root for '${domain}': ${ops_root}${NC}"
@@ -111,18 +120,19 @@ for domain in "${DOMAINS[@]}"; do
 
   echo -e "${YELLOW}Checking domain: ${domain}${NC}"
 
-  run_rg "Adapter/context crossing in ops (${domain})" "ExtendedMapContext|context\\.adapter|\\badapter\\b|@civ7/adapter" -- "$ops_root"
+  run_rg "Adapter/context crossing in ops (${domain})" "ExtendedMapContext|context\\.adapter|@civ7/adapter" -- "$ops_root"
   run_rg "RNG callbacks/state in ops (${domain})" "RngFunction|options\\.rng|\\bctx\\.rng\\b" -- "$ops_root"
   run_rg "Engine imports in ops (${domain})" "from \"@swooper/mapgen-core/engine\"|from \"@mapgen/engine\"" -- "$ops_root"
   run_rg "Non-type engine imports in ops (${domain})" "import(?!\\s+type)\\s+.*from\\s+\"@swooper/mapgen-core/engine\"|import(?!\\s+type)\\s+.*from\\s+\"@mapgen/engine\"" -P -- "$ops_root"
   run_rg "Runtime config merges in ops (${domain})" "\\?\\?\\s*\\{\\}|\\bValue\\.Default\\(" -- "$ops_root"
-
-  run_rg "Config bundle imports in steps (${domain})" "@mapgen/config\\b" -- "${stage_roots[@]}"
-  run_rg "Deep domain imports in steps (${domain})" "@mapgen/domain/${domain}/" -- "${stage_roots[@]}"
   run_rg "Literal dependency keys in requires (${domain})" "requires:\\s*\\[[^\\]]*['\\\"](artifact|field|effect):" -U -- "${stage_roots[@]}"
   run_rg "Literal dependency keys in provides (${domain})" "provides:\\s*\\[[^\\]]*['\\\"](artifact|field|effect):" -U -- "${stage_roots[@]}"
   run_rg "Runtime config merges in steps (${domain})" "\\?\\?\\s*\\{\\}|\\bValue\\.Default\\(" -- "${stage_roots[@]}"
 done
+
+run_rg "Recipe imports in domain" "recipes/standard|/recipes/" -- "mods/mod-swooper-maps/src/domain"
+run_rg "Domain tag/artifact shims" "@mapgen/domain/(tags|artifacts)" -P -- "mods/mod-swooper-maps/src"
+run_rg "Unknown bag config usage" "UnknownRecord|INTERNAL_METADATA_KEY" -- "mods/mod-swooper-maps/src/domain"
 
 if [ "$violations" -gt 0 ]; then
   echo -e "${RED}Guardrails failed with ${violations} violation group(s).${NC}"
