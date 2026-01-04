@@ -33,9 +33,6 @@ export default createStep({
   provides: [],
   schema: PlotEffectsStepConfigSchema,
   resolveConfig: (config, settings) => {
-    if (!ecology.ops.planPlotEffects.resolveConfig) {
-      throw new Error("planPlotEffects op missing resolveConfig");
-    }
     return {
       plotEffects: ecology.ops.planPlotEffects.resolveConfig(config.plotEffects, settings),
     };
@@ -50,7 +47,7 @@ export default createStep({
       logSnowEligibilitySummary(
         context.trace,
         input,
-        config.plotEffects as ResolvedPlotEffectsConfig,
+        config.plotEffects.config as ResolvedPlotEffectsConfig,
         result.placements,
         heightfield.terrain
       );

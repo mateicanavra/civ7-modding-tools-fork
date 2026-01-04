@@ -1,6 +1,7 @@
 import { Type, type Static } from "typebox";
 import { Value } from "typebox/value";
 import {
+  ops,
   PlanFloodplainsSchema,
   PlanWondersSchema,
   PlanStartsSchema,
@@ -8,9 +9,9 @@ import {
 
 export const PlacementInputsConfigSchema = Type.Object(
   {
-    wonders: PlanWondersSchema.properties.config,
-    floodplains: PlanFloodplainsSchema.properties.config,
-    starts: PlanStartsSchema.properties.config,
+    wonders: ops.planWonders.config,
+    floodplains: ops.planFloodplains.config,
+    starts: ops.planStarts.config,
   },
   { additionalProperties: false }
 );

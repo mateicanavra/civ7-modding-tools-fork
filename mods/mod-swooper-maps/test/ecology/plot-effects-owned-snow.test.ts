@@ -36,24 +36,25 @@ describe("plot effects (owned)", () => {
       directionality,
     };
     const config = {
-      snow: {
-        enabled: true,
-        elevationStrategy: "percentile",
-        elevationPercentileMin: 0,
-        elevationPercentileMax: 1,
-        elevationMin: 0,
-        elevationMax: 3000,
-        coverageChance: 100,
-        lightThreshold: 0.1,
-        mediumThreshold: 0.2,
-        heavyThreshold: 0.3,
+      strategy: "default",
+      config: {
+        snow: {
+          enabled: true,
+          elevationStrategy: "percentile",
+          elevationPercentileMin: 0,
+          elevationPercentileMax: 1,
+          elevationMin: 0,
+          elevationMax: 3000,
+          coverageChance: 100,
+          lightThreshold: 0.1,
+          mediumThreshold: 0.2,
+          heavyThreshold: 0.3,
+        },
+        sand: { enabled: false },
+        burned: { enabled: false },
       },
-      sand: { enabled: false },
-      burned: { enabled: false },
     };
-    const resolvedConfig = planPlotEffects.resolveConfig
-      ? planPlotEffects.resolveConfig(config, settings)
-      : config;
+    const resolvedConfig = planPlotEffects.resolveConfig(config, settings);
     const result = planPlotEffects.run(input, resolvedConfig);
 
     expect(result.placements.length).toBeGreaterThan(0);

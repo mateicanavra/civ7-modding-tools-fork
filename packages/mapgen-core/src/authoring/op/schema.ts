@@ -5,7 +5,7 @@ import type { TSchema } from "typebox";
  * `output` schemas.
  *
  * This exists to eliminate boilerplate at op definition sites: callers can pass the full schema to
- * `createOp({ schema, ... })` and let types infer from `schema.properties.*` internally.
+ * Shared schema bundle type for ops; callers still pass `schema.properties.*` into `createOp`.
  */
 export type DomainOpSchema<
   InputSchema extends TSchema,

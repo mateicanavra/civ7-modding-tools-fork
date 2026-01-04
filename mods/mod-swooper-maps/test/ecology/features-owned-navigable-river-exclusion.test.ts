@@ -21,15 +21,16 @@ describe("features (owned baseline)", () => {
 
     const config = {
       featuresPlacement: {
-        groups: { aquatic: { multiplier: 0 }, ice: { multiplier: 0 } },
-        chances: { FEATURE_FOREST: 100 },
+        strategy: "default",
+        config: {
+          groups: { aquatic: { multiplier: 0 }, ice: { multiplier: 0 } },
+          chances: { FEATURE_FOREST: 100 },
+        },
       },
-      reefEmbellishments: { ...disabledEmbellishmentsConfig },
-      vegetationEmbellishments: { ...disabledEmbellishmentsConfig },
+      reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
+      vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
     };
-    const resolvedConfig = featuresStep.resolveConfig
-      ? featuresStep.resolveConfig(config, ctx.settings)
-      : config;
+    const resolvedConfig = featuresStep.resolveConfig(config, ctx.settings);
 
     featuresStep.run(ctx, resolvedConfig);
 

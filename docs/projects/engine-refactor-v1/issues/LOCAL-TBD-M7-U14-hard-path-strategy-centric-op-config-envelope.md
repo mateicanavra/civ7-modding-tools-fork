@@ -352,3 +352,20 @@ If any of these are relaxed, complexity rises sharply (conditional unions + ambi
 ---
 
 ## Pre-work Findings
+- `rg -n "\\bcreateOp\\(" -S . | wc -l` → `43`
+- `rg -n "\\.defaultConfig\\b" -S mods/mod-swooper-maps packages/mapgen-core | wc -l` → `23`
+- `rg -n "\\.ops\\.[A-Za-z0-9_]+\\.config\\b" mods/mod-swooper-maps/src/recipes | wc -l` → `11`
+
+## Implementation Decisions
+
+### Always expose op.resolveConfig dispatcher
+- **Context:** Spec requires op-level dispatch to `strategy.resolveConfig`, but it does not explicitly say whether `op.resolveConfig` should be omitted when no strategy defines a resolver.
+- **Options:** (A) Only define `op.resolveConfig` when any strategy has a resolver, (B) Always define `op.resolveConfig` and return the envelope unchanged when the selected strategy lacks a resolver.
+- **Choice:** Option B — always define `op.resolveConfig`.
+- **Rationale:** Keeps the op surface uniform and matches the “steps call op.resolveConfig” guidance without reintroducing conditional call sites.
+- **Risk:** Steps that previously skipped resolver calls now invoke a no-op dispatcher; behavior should remain stable because it returns unchanged config.
+
+## Completion Checklist
+- [x] Authoring SDK enforces strategy-only ops and envelope config shape.
+- [x] Ops/steps/tests/presets updated to use `{ strategy, config }` everywhere.
+- [x] Guardrails + verification commands are green (`pnpm check`, `pnpm test`, `pnpm build`, `pnpm deploy:mods`).
