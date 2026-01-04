@@ -1,20 +1,17 @@
-import { createOp, type Static } from "@swooper/mapgen-core/authoring";
+import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanFloodplainsSchema } from "./schema.js";
 
-type PlanFloodplainsInput = Static<typeof PlanFloodplainsSchema["properties"]["input"]>;
-type PlanFloodplainsConfig = Static<typeof PlanFloodplainsSchema["properties"]["config"]>;
-type PlanFloodplainsOpConfig = Readonly<{
-  strategy: "default";
-  config: PlanFloodplainsConfig;
-}>;
-
-export const planFloodplains = createOp({
+export const planFloodplains = createOp<
+  typeof PlanFloodplainsSchema["properties"]["input"],
+  typeof PlanFloodplainsSchema["properties"]["output"],
+  { default: typeof PlanFloodplainsSchema["properties"]["config"] }
+>({
   kind: "plan",
   id: "placement/plan-floodplains",
   input: PlanFloodplainsSchema.properties.input,
   output: PlanFloodplainsSchema.properties.output,
-  customValidate: (_input: PlanFloodplainsInput, config: PlanFloodplainsOpConfig) => {
+  customValidate: (_input, config) => {
     if (config.config.maxLength < config.config.minLength) {
       return [
         {
@@ -28,7 +25,7 @@ export const planFloodplains = createOp({
   strategies: {
     default: {
       config: PlanFloodplainsSchema.properties.config,
-      run: (_input: PlanFloodplainsInput, config: PlanFloodplainsConfig) => {
+      run: (_input, config) => {
         return {
           minLength: config.minLength,
           maxLength: config.maxLength,
