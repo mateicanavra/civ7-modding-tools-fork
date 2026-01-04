@@ -7,15 +7,15 @@ import {
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import type { MountainsConfig } from "@mapgen/config";
-import { MountainsConfigSchema } from "@mapgen/config";
+import type { MountainsConfig } from "@mapgen/domain/config";
+import { MorphologyConfigSchema } from "@mapgen/domain/config";
 import { layerAddMountainsPhysics } from "@mapgen/domain/morphology/mountains/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
 const MountainsStepConfigSchema = Type.Object(
   {
-    mountains: MountainsConfigSchema,
+    mountains: MorphologyConfigSchema.properties.mountains,
   },
   { additionalProperties: false, default: { mountains: {} } }
 );

@@ -5,9 +5,11 @@ import {
   MOUNTAIN_TERRAIN,
 } from "@swooper/mapgen-core";
 import type { TraceScope } from "@swooper/mapgen-core";
-import type { PlotEffectsInput } from "@mapgen/domain/ecology";
+import type * as ecology from "@mapgen/domain/ecology";
 import type { PlotEffectKey, ResolvedPlotEffectsConfig } from "@mapgen/domain/ecology";
 import { resolveSnowElevationRange } from "@mapgen/domain/ecology";
+
+type PlotEffectsInput = Parameters<typeof ecology.ops.planPlotEffects.run>[0];
 
 type PlotEffectPlacement = {
   x: number;

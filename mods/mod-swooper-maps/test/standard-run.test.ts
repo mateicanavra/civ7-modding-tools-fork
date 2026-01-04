@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 
 import standardRecipe from "../src/recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../src/recipes/standard/recipe.js";

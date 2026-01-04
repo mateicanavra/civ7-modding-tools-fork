@@ -11,7 +11,7 @@ import type {
   ClimateBaselineSeed,
   ClimateBaselineSizeScaling,
   ClimateConfig,
-} from "@mapgen/config";
+} from "@mapgen/domain/config";
 import { distanceToNearestWater } from "@mapgen/domain/hydrology/climate/distance-to-water.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 

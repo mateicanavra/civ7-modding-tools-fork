@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import { planPlotEffects } from "../../src/domain/ecology/ops/plan-plot-effects/index.js";
 import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
 

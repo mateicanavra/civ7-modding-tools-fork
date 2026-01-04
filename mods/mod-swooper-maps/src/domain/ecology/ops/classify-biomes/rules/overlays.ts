@@ -1,5 +1,5 @@
-import type { Static } from "typebox";
-import type { OverlaySchema } from "../schema.js";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import { OverlaySchema } from "../overlays.schema.js";
 
 export function overlayMoistureBonus(
   corridorFlag: number,

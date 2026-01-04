@@ -1,9 +1,12 @@
-import { Type, type Static } from "typebox";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import {
+  Type,
+  applySchemaDefaults,
+  defineOpSchema,
+  TypedArraySchemas,
+  type Static,
+} from "@swooper/mapgen-core/authoring";
 
-import type { BiomeSymbol } from "../../types.js";
-
-export type PlotEffectKey = `PLOTEFFECT_${string}`;
+import type { BiomeSymbol, PlotEffectKey } from "../../types.js";
 
 const BiomeSymbolSchema = Type.Union(
   [
@@ -59,14 +62,14 @@ const createPlotEffectSelectorSchema = (
     }
   );
 
-export const PlotEffectSelectorSchema = createPlotEffectSelectorSchema();
+const PlotEffectSelectorSchema = createPlotEffectSelectorSchema();
 const PlotEffectSnowLightSelectorSchema = createPlotEffectSelectorSchema(DEFAULT_SNOW_SELECTORS.light);
 const PlotEffectSnowMediumSelectorSchema = createPlotEffectSelectorSchema(DEFAULT_SNOW_SELECTORS.medium);
 const PlotEffectSnowHeavySelectorSchema = createPlotEffectSelectorSchema(DEFAULT_SNOW_SELECTORS.heavy);
 const PlotEffectSandSelectorSchema = createPlotEffectSelectorSchema(DEFAULT_SAND_SELECTOR);
 const PlotEffectBurnedSelectorSchema = createPlotEffectSelectorSchema(DEFAULT_BURNED_SELECTOR);
 
-export const PlotEffectsSnowSelectorsSchema = Type.Object(
+const PlotEffectsSnowSelectorsSchema = Type.Object(
   {
     /** Plot effect selector for light snow. */
     light: Type.Optional(PlotEffectSnowLightSelectorSchema),
@@ -78,7 +81,7 @@ export const PlotEffectsSnowSelectorsSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const PlotEffectsSnowSchema = Type.Object(
+const PlotEffectsSnowSchema = Type.Object(
   {
     /** Enable or disable permanent snow placement. */
     enabled: Type.Optional(
@@ -254,7 +257,7 @@ export const PlotEffectsSnowSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const PlotEffectsSandSchema = Type.Object(
+const PlotEffectsSandSchema = Type.Object(
   {
     /** Enable or disable sand plot effects. */
     enabled: Type.Optional(
@@ -327,7 +330,7 @@ export const PlotEffectsSandSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const PlotEffectsBurnedSchema = Type.Object(
+const PlotEffectsBurnedSchema = Type.Object(
   {
     /** Enable or disable burned plot effects. */
     enabled: Type.Optional(
@@ -400,7 +403,7 @@ export const PlotEffectsBurnedSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const PlotEffectsConfigSchema = Type.Object(
+const PlotEffectsConfigSchema = Type.Object(
   {
     /** Snow plot effects (light/medium/heavy permanent). */
     snow: Type.Optional(PlotEffectsSnowSchema),
@@ -412,13 +415,69 @@ export const PlotEffectsConfigSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export type PlotEffectSelector = { typeName: PlotEffectKey };
-export type SnowElevationStrategy = Static<typeof SnowElevationStrategySchema>;
-export type PlotEffectsSnowSelectors = Static<typeof PlotEffectsSnowSelectorsSchema>;
-export type PlotEffectsSnowConfig = Static<typeof PlotEffectsSnowSchema>;
-export type PlotEffectsSandConfig = Static<typeof PlotEffectsSandSchema>;
-export type PlotEffectsBurnedConfig = Static<typeof PlotEffectsBurnedSchema>;
-export type PlotEffectsConfig = Static<typeof PlotEffectsConfigSchema>;
+const PlotEffectKeySchema = Type.Unsafe<PlotEffectKey>(
+  Type.String({
+    description: "Plot effect key (PLOTEFFECT_*).",
+    pattern: "^PLOTEFFECT_",
+  })
+);
+
+const PlotEffectsInputSchema = Type.Object(
+  {
+    width: Type.Integer({ minimum: 1 }),
+    height: Type.Integer({ minimum: 1 }),
+    seed: Type.Number({ description: "Deterministic seed for plot-effect RNG." }),
+    biomeIndex: TypedArraySchemas.u8({ description: "Biome symbol indices per tile." }),
+    vegetationDensity: TypedArraySchemas.f32({ description: "Vegetation density per tile (0..1)." }),
+    effectiveMoisture: TypedArraySchemas.f32({ description: "Effective moisture per tile." }),
+    surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature per tile (C)." }),
+    aridityIndex: TypedArraySchemas.f32({ description: "Aridity index per tile (0..1)." }),
+    freezeIndex: TypedArraySchemas.f32({ description: "Freeze index per tile (0..1)." }),
+    elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
+    landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
+  },
+  { additionalProperties: false }
+);
+
+const PlotEffectPlacementSchema = Type.Object(
+  {
+    x: Type.Integer({ minimum: 0 }),
+    y: Type.Integer({ minimum: 0 }),
+    plotEffect: PlotEffectKeySchema,
+  },
+  { additionalProperties: false }
+);
+
+const PlotEffectsOutputSchema = Type.Object(
+  {
+    placements: Type.Array(PlotEffectPlacementSchema),
+  },
+  { additionalProperties: false }
+);
+
+export const PlanPlotEffectsSchema = defineOpSchema<
+  typeof PlotEffectsInputSchema,
+  typeof PlotEffectsConfigSchema,
+  typeof PlotEffectsOutputSchema
+>(
+  {
+    input: PlotEffectsInputSchema,
+    config: PlotEffectsConfigSchema,
+    output: PlotEffectsOutputSchema,
+  },
+  {
+    title: "PlanPlotEffectsSchema",
+    description: "Plan climate/ecology plot effects",
+    additionalProperties: false,
+  }
+);
+
+type PlotEffectSelector = { typeName: PlotEffectKey };
+type PlotEffectsSnowSelectors = Static<typeof PlotEffectsSnowSelectorsSchema>;
+type PlotEffectsSnowConfig = Static<typeof PlotEffectsSnowSchema>;
+type PlotEffectsSandConfig = Static<typeof PlotEffectsSandSchema>;
+type PlotEffectsBurnedConfig = Static<typeof PlotEffectsBurnedSchema>;
+type PlotEffectsConfig = Static<typeof PlanPlotEffectsSchema["properties"]["config"]>;
 
 export type ResolvedPlotEffectsConfig = {
   snow: Required<PlotEffectsSnowConfig> & {
