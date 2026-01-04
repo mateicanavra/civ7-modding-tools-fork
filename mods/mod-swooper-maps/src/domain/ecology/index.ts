@@ -12,7 +12,6 @@ export const ops = {
   planVegetationEmbellishments,
 } as const;
 
-export * from "./artifacts.js";
 export {
   EcologyConfigSchema,
   type EcologyConfig,
