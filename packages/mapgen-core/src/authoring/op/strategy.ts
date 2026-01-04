@@ -2,10 +2,15 @@ import type { Static, TSchema } from "typebox";
 
 import type { RunSettings } from "@mapgen/engine/execution-plan.js";
 
+type NoInfer<T> = [T][T extends any ? 0 : never];
+
 export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
   config: ConfigSchema;
-  resolveConfig?: (config: Static<ConfigSchema>, settings: RunSettings) => Static<ConfigSchema>;
-  run: (input: Input, config: Static<ConfigSchema>) => Output;
+  resolveConfig?: (
+    config: Static<NoInfer<ConfigSchema>>,
+    settings: RunSettings
+  ) => Static<NoInfer<ConfigSchema>>;
+  run: (input: Input, config: Static<NoInfer<ConfigSchema>>) => Output;
 }>;
 
 export function createStrategy<ConfigSchema extends TSchema, Input, Output>(
