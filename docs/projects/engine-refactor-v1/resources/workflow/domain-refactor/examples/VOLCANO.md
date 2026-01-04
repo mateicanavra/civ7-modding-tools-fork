@@ -40,63 +40,57 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 ```ts
 // src/domain/morphology/volcanoes/ops/compute-suitability.ts
 import { Type } from "typebox";
-import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
-
-const computeSuitabilitySchema = Type.Object(
-  {
-    input: Type.Object(
-      {
-        width: Type.Integer({ minimum: 1 }),
-        height: Type.Integer({ minimum: 1 }),
-
-        isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
-        plateBoundaryProximity: TypedArraySchemas.u8({
-          description: "Plate boundary proximity per tile (0..255).",
-        }),
-        elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
-      },
-      { additionalProperties: false }
-    ),
-    config: Type.Object(
-      {
-        wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
-        wElevation: Type.Optional(Type.Number({ default: 0.25 })),
-      },
-      { additionalProperties: false, default: {} }
-    ),
-    output: Type.Object(
-      {
-        suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
-      },
-      { additionalProperties: false }
-    ),
-  },
-  { additionalProperties: false }
-);
+import { createOp, createStrategy, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 
 export default createOp({
   kind: "compute",
   id: "morphology/volcanoes/computeSuitability",
-  schema: computeSuitabilitySchema,
-  run: (inputs, cfg) => {
-    const size = inputs.width * inputs.height;
-    const suitability = new Float32Array(size);
+  input: Type.Object(
+    {
+      width: Type.Integer({ minimum: 1 }),
+      height: Type.Integer({ minimum: 1 }),
 
-    const wPlate = Number.isFinite(cfg.wPlateBoundary) ? cfg.wPlateBoundary! : 1.0;
-    const wElev = Number.isFinite(cfg.wElevation) ? cfg.wElevation! : 0.25;
+      isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
+      plateBoundaryProximity: TypedArraySchemas.u8({
+        description: "Plate boundary proximity per tile (0..255).",
+      }),
+      elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
+    },
+    { additionalProperties: false }
+  ),
+  output: Type.Object(
+    {
+      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
+    },
+    { additionalProperties: false }
+  ),
+  strategies: {
+    default: createStrategy({
+      config: Type.Object(
+        {
+          wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
+          wElevation: Type.Optional(Type.Number({ default: 0.25 })),
+        },
+        { additionalProperties: false, default: {} }
+      ),
+      run: (inputs, cfg) => {
+        const size = inputs.width * inputs.height;
+        const suitability = new Float32Array(size);
 
-    for (let i = 0; i < size; i++) {
-      if (inputs.isLand[i] === 0) {
-        suitability[i] = 0;
-        continue;
-      }
+        for (let i = 0; i < size; i++) {
+          if (inputs.isLand[i] === 0) {
+            suitability[i] = 0;
+            continue;
+          }
 
-      const plate = inputs.plateBoundaryProximity[i] / 255;
-      const elev = Math.max(0, Math.min(1, inputs.elevation[i] / 4000));
-      suitability[i] = wPlate * plate + wElev * elev;
-    }
+          const plate = inputs.plateBoundaryProximity[i] / 255;
+          const elev = Math.max(0, Math.min(1, inputs.elevation[i] / 4000));
+          suitability[i] = cfg.wPlateBoundary! * plate + cfg.wElevation! * elev;
+        }
 
-    return { suitability };
+        return { suitability };
+      },
+    }),
   },
 } as const);
 ```
@@ -144,10 +138,9 @@ export default createOp({
     { additionalProperties: false }
   ),
   strategies: {
-    plateAware,
+    default: plateAware,
     hotspotClusters,
   } as const,
-  defaultStrategy: "plateAware",
 } as const);
 ```
 
@@ -392,10 +385,10 @@ export default createStep({
       cfg.computeSuitability
     );
 
-    // Two equivalent authoring patterns for strategy-backed ops:
+    // Two equivalent authoring patterns for strategy-backed ops (always explicit):
     //
-    // 1) Use the default strategy (omit `strategy`):
-    //    cfg.planVolcanoes = { config: { targetCount: 12, minDistance: 6 } }
+    // 1) Use the default strategy:
+    //    cfg.planVolcanoes = { strategy: "default", config: { targetCount: 12, minDistance: 6 } }
     //
     // 2) Explicitly select a non-default strategy:
     //    cfg.planVolcanoes = { strategy: "hotspotClusters", config: { seedCount: 4, targetCount: 12, minDistance: 6 } }
