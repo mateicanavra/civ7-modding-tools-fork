@@ -188,6 +188,9 @@ Steps should not have to re-author (or re-wrap) the canonical operation config s
 
 Steps can then assemble their own step schema defaults without manually re-creating wrapper objects like `{ config: {} }` for strategy-backed ops.
 
+Config hygiene:
+- Domain config schemas must be explicit (no open-ended “unknown bag” placeholders or internal-only fields).
+
 ### Rules (optional, internal building blocks)
 
 **Rules** are small pure functions used to decompose complexity:
@@ -215,6 +218,9 @@ Steps and domains interact as a simple boundary:
 1. **Build Inputs (step):** adapt runtime (adapter + artifacts/fields) into plain, typed inputs.
 2. **Compute (domain op):** run pure logic using operation config + inputs, returning a typed result.
 3. **Apply/Publish (step):** apply results to runtime (engine writes, buffer writes) and publish artifacts/fields.
+
+Boundary rule:
+- Steps own dependency IDs and artifact publication; domain code does not read/write the artifact store and must not import recipe tag/artifact shims.
 
 An “apply” phase is not a round-trip back into the domain; it is the step using the domain’s return value to mutate runtime.
 
@@ -370,35 +376,42 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 import { Type } from "typebox";
 import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 
+const computeSuitabilitySchema = Type.Object(
+  {
+    input: Type.Object(
+      {
+        width: Type.Integer({ minimum: 1 }),
+        height: Type.Integer({ minimum: 1 }),
+
+        isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
+        plateBoundaryProximity: TypedArraySchemas.u8({
+          description: "Plate boundary proximity per tile (0..255).",
+        }),
+        elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
+      },
+      { additionalProperties: false }
+    ),
+    config: Type.Object(
+      {
+        wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
+        wElevation: Type.Optional(Type.Number({ default: 0.25 })),
+      },
+      { additionalProperties: false, default: {} }
+    ),
+    output: Type.Object(
+      {
+        suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
+      },
+      { additionalProperties: false }
+    ),
+  },
+  { additionalProperties: false }
+);
+
 export default createOp({
   kind: "compute",
   id: "morphology/volcanoes/computeSuitability",
-  input: Type.Object(
-    {
-      width: Type.Integer({ minimum: 1 }),
-      height: Type.Integer({ minimum: 1 }),
-
-      isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
-      plateBoundaryProximity: TypedArraySchemas.u8({
-        description: "Plate boundary proximity per tile (0..255).",
-      }),
-      elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
-    },
-    { additionalProperties: false }
-  ),
-  config: Type.Object(
-    {
-      wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
-      wElevation: Type.Optional(Type.Number({ default: 0.25 })),
-    },
-    { additionalProperties: false, default: {} }
-  ),
-  output: Type.Object(
-    {
-      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
-    },
-    { additionalProperties: false }
-  ),
+  schema: computeSuitabilitySchema,
   run: (inputs, cfg) => {
     const size = inputs.width * inputs.height;
     const suitability = new Float32Array(size);

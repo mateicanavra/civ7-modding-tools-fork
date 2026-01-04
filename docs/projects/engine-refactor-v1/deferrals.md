@@ -144,14 +144,16 @@ Each deferral follows this structure:
 **Trigger:** When config churn stabilizes post-M4 and we want to improve schema discoverability/ownership.
 **Context:** During ice patch analysis, we identified that `schema.ts` is a 2800+ line monolith containing 60+ schemas spanning all domains. While step files are colocated by phase (e.g., `pipeline/morphology/MountainsStep.ts`), their config schemas remain centralized. Splitting schemas to match the step pattern would improve domain ownership but requires touching 60+ definitions and updating imports across the codebase.
 **Scope:**
-- Evaluate splitting `src/config/schema.ts` into `src/config/schemas/{foundation,morphology,hydrology,ecology,placement}.ts`.
-- Create barrel `src/config/schemas/index.ts` to re-export all schemas.
+- Split schema ownership by domain (`src/domain/<domain>/config.ts`) instead of a single monolith.
+- Create a thin barrel (`src/domain/config.ts`) to re-export shared schema fragments.
 - Update all import paths and ensure `parseConfig()` still composes the root schema correctly.
 - Align with existing `steps.ts` barrel pattern for consistency.
 **Impact:**
 - Schema changes remain high-friction (one massive file to navigate).
 - Domain ownership is unclear (who owns `MountainsConfigSchema`?).
 - Acceptable in M3/M4 while config is still evolving; revisit when stable.
+
+**Update (2025-12):** Completed via domain config relocation (`src/domain/<domain>/config.ts`) and the `@mapgen/domain/config` barrel. Deferral closed.
 
 ---
 

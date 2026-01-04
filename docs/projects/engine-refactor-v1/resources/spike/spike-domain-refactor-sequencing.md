@@ -8,7 +8,7 @@ Context:
 Inputs used for sequencing (ground truth in repo):
 - Standard recipe stage order: `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`.
 - Cross‑domain import edges inside mod domain libs: `mods/mod-swooper-maps/src/domain/**` (`@mapgen/domain/<domain>` imports).
-- Config surface area: `mods/mod-swooper-maps/src/config/schema/*.ts` line counts.
+- Config surface area: `mods/mod-swooper-maps/src/domain/**/config.ts` line counts.
 - Test surface area: `mods/mod-swooper-maps/test/**` (domain‑adjacent coverage by folder presence + counts).
 
 Canonical workflow for executing each domain refactor:
