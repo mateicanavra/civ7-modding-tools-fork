@@ -102,7 +102,6 @@ Canonical file layout:
 ```txt
 src/domain/<area>/<domain>/
   index.ts
-  artifacts.ts                 # optional: shapes only (keys remain recipe/step-owned)
   ops/
     <op>/
       index.ts                 # exports exactly one op via createOp

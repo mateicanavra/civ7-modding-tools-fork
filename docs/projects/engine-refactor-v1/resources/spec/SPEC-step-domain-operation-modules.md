@@ -104,7 +104,7 @@ Domains are built to be:
 
 - **testable**: deterministic computation over plain inputs,
 - **reusable**: can be invoked from any step that can supply the required inputs,
-- **co-located**: schemas, typed outputs (“artifacts”), and logic live together under the domain directory.
+- **co-located**: operation schemas and content logic live together under the domain directory; step-owned artifact shapes live with the steps that publish them.
 
 ### What a domain contains (canonical structure)
 
@@ -113,14 +113,13 @@ A domain is organized as a small module with an explicit public surface:
 - `index.ts` aggregates exports (usually `ops`),
 - `ops/**` contains step-callable operation modules,
 - `rules/**` contains pure building blocks used by operations/strategies (never step-callable),
-- optional `artifacts.ts` exports artifact shapes (schemas/types) and suggested names (keys are still step/recipe-owned).
+- no `artifacts.ts` domain modules: artifact shapes are step-owned and must be co-located with the publishing step (or stage-shared model modules).
 
 Canonical on-disk layout:
 
 ```txt
 src/domain/<area>/<domain>/
   index.ts
-  artifacts.ts                 # optional: shapes only (keys are recipe-owned)
   ops/
     <op>/
       index.ts                 # exports exactly one op via createOp
@@ -306,11 +305,9 @@ import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
 const plan = volcanoes.ops.planVolcanoes.runValidated(inputs, config.planVolcanoes);
 ```
 
-### Step structure / step-local helpers (TBD)
+### Step structure / step-local helpers
 
-Steps are the runtime boundary, so they often need a small amount of step-local “apply” logic. Two plausible layouts:
-
-**Option A: directory step (index + helpers)**
+Steps are the runtime boundary, so they often need a small amount of step-local “apply” logic. Canonical layout:
 
 ```txt
 src/recipes/<recipe>/stages/<stage>/steps/volcanoes/
@@ -319,7 +316,7 @@ src/recipes/<recipe>/stages/<stage>/steps/volcanoes/
   inputs.ts         # step-local input builders (adapter → buffers)
 ```
 
-Canonical rule: refactored steps are always directory modules (Option A). Do not introduce “file step + sibling folder” layouts in new/refactored code.
+Canonical rule: refactored steps are always directory modules. Do not introduce “file step + sibling folder” layouts in new/refactored code.
 
 ## 4) End-to-End Example (Volcano)
 
@@ -330,7 +327,6 @@ This example is intentionally “pure-domain + side-effects-in-step”: the doma
 ```txt
 src/domain/morphology/volcanoes/
   index.ts
-  artifacts.ts
   ops/
     compute-suitability/
       index.ts
@@ -962,7 +958,7 @@ Implications (summary):
 **System surface / blast radius (components):**
 - **Recipe compiler / pipeline graph**: the dependency graph is built from `requires`/`provides` keys and enforced for correctness.
 - **Steps (publication boundary)**: steps publish artifacts/fields/effects under keys and declare dependencies they need.
-- **Domains**: define artifact *shapes* (schemas/types), but should not silently publish or own pipeline wiring by default.
+- **Domains**: provide algorithms and op output contracts; they do not own dependency identifiers or publish artifacts directly.
 - **Dependency registry**: stores definitions/contracts for dependency keys and optionally enforces satisfaction checks.
 
 **Question:** Who “owns” dependency identifiers (`DependencyKey`s): domains, recipes, or some split?
@@ -970,11 +966,11 @@ Implications (summary):
 **Why it matters / what it affects:** Dependency identifiers are the glue of the recipe graph. If keys are invented ad hoc in multiple places, the dependency graph becomes fragile and refactors become painful. This decision also determines how portable a domain is across recipes and how much implicit wiring is hidden behind “magic” keys.
 
 **Options:**
-- **A) Recipe-owned keys (preferred):** domains define artifact shapes (schemas/types), recipes (or recipe-level catalogs) define the canonical string keys, and steps publish under recipe-owned keys.
-- **B) Domain-owned keys:** domains export canonical keys along with shapes.
-- **C) Split by layer:** engine/runner defines some core keys centrally; content domains define their own keys.
+- **A) Recipe-owned keys + step-owned shapes (preferred):** steps define and validate artifact shapes (schemas/types) and publish under recipe-owned keys.
+- **B) Domain-owned keys:** domains export canonical keys (discouraged; leaks recipe wiring into reusable domain modules).
+- **C) Split by layer:** engine/runner defines some core keys centrally; recipes define content keys.
 
-**Recommendation:** Prefer **A**: domains own shapes; recipes own dependency identifiers. If a domain needs stable naming, encode it in type/schema metadata (e.g., `kind`/`version`) rather than forcing a global key into every recipe.
+**Recommendation:** Prefer **A**: recipes own dependency identifiers; steps own artifact shapes and validators. Domains remain recipe-independent and must not re-export recipe shims.
 
 ### DD-005: Strategy config encoding and ergonomics (wrapper shape, defaults, explicitness)
 

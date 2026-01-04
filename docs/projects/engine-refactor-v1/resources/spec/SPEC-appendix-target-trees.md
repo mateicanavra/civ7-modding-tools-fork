@@ -252,13 +252,11 @@ STANDARD_CONTENT_ROOT/
 │  │  │     ├─ selection.ts
 │  │  │     └─ types.ts
 │  │  ├─ narrative/
-│  │  │  ├─ artifacts.ts
 │  │  │  ├─ index.ts
 │  │  │  ├─ queries.ts
 │  │  │  ├─ swatches.ts
 │  │  │  ├─ paleo/
 │  │  │  │  ├─ index.ts
-│  │  │  │  └─ rainfall-artifacts.ts
 │  │  │  ├─ views/
 │  │  │  │  ├─ index.ts
 │  │  │  │  ├─ keys.ts

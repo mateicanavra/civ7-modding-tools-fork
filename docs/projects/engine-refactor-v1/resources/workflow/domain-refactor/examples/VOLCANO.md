@@ -17,7 +17,6 @@ Repo-path note:
 ```txt
 src/domain/morphology/volcanoes/
   index.ts
-  artifacts.ts
   ops/
     compute-suitability/
       index.ts
