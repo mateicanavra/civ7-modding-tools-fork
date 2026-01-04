@@ -11,8 +11,6 @@ import {
   buildNarrativeMotifsMarginsV1,
   buildNarrativeMotifsHotspotsV1,
   buildNarrativeMotifsRiftsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
-import {
   getPublishedNarrativeCorridors,
   getPublishedNarrativeMotifsMargins,
   getPublishedNarrativeMotifsHotspots,

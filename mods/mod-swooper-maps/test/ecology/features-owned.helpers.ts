@@ -2,12 +2,10 @@ import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
+
 import {
   buildNarrativeMotifsHotspotsV1,
   buildNarrativeMotifsMarginsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
-
-import {
   publishBiomeClassificationArtifact,
   publishClimateFieldArtifact,
   publishHeightfieldArtifact,

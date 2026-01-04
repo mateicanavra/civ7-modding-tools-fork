@@ -5,13 +5,14 @@ import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import * as ecology from "@mapgen/domain/ecology";
+
+import biomesStep from "../../src/recipes/standard/stages/ecology/steps/biomes/index.js";
 import {
   buildNarrativeCorridorsV1,
   buildNarrativeMotifsRiftsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
-
-import biomesStep from "../../src/recipes/standard/stages/ecology/steps/biomes/index.js";
-import { publishClimateFieldArtifact, publishHeightfieldArtifact } from "../../src/recipes/standard/artifacts.js";
+  publishClimateFieldArtifact,
+  publishHeightfieldArtifact,
+} from "../../src/recipes/standard/artifacts.js";
 import { M3_DEPENDENCY_TAGS } from "../../src/recipes/standard/tags.js";
 
 describe("biomes step", () => {
