@@ -46,9 +46,12 @@ Domain public surface:
 
 ## Op module shape (one op per module)
 
-Each op is a directory module under `ops/**`:
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/schema.ts` (TypeBox schemas + `Static` types)
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/index.ts` (exports exactly one op via `createOp`)
+Each op is one module under `ops/**` (pick the smallest shape that keeps the op readable):
+- Small op (single file):
+  - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>.ts`
+- Large op (directory module):
+  - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/index.ts` (exports exactly one op via `createOp`)
+  - Optional: `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/schema.ts` (TypeBox schemas only; keep schema types inferred at use sites)
 
 Internal helpers live under the op directory:
 - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/rules/**` (pure rules)

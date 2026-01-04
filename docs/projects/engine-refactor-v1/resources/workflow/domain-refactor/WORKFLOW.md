@@ -37,6 +37,14 @@ Refactor a single domain so that:
 - **Configs are plan-truth canonicalized** at compile time (schema defaults + clean + `resolveConfig`), and runtime does not “fix up” config.
 - **Legacy paths are removed** within the refactor scope (“scorched earth”).
 
+Canonical authoring surface (single shape):
+- Operations are authored via `createOp({ kind, id, input, output, strategies: { ... } })`.
+- Every op must include a `"default"` strategy.
+- Strategy entries are either:
+  - inline POJOs (`strategies: { default: { config, resolveConfig?, run } }`), or
+  - imported strategy modules (authored with `createStrategy(...)`) attached as `strategies: { default: importedStrategy }`.
+- Do not introduce any alternate op-authoring patterns; keep the repo converging on one shape.
+
 Execution posture:
 - Proceed **end-to-end without pausing for feedback**.
 - Only stop if continuing would cause dangerous side effects (data loss, breaking public contracts without updating consumers, or violating the canonical spec/ADRs).
