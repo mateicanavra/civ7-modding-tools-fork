@@ -45,6 +45,10 @@ Canonical authoring surface (single shape):
   - imported strategy modules (authored with `createStrategy(...)`) attached as `strategies: { default: importedStrategy }`.
 - Do not introduce any alternate op-authoring patterns; keep the repo converging on one shape.
 
+Canonical op module structure (single shape):
+- Every op is a directory module under `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/`.
+- Every op directory contains: `schema.ts`, `index.ts`, `rules/`, `strategies/` (create the folders even if empty).
+
 Execution posture:
 - Proceed **end-to-end without pausing for feedback**.
 - Only stop if continuing would cause dangerous side effects (data loss, breaking public contracts without updating consumers, or violating the canonical spec/ADRs).
