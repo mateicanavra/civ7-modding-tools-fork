@@ -56,3 +56,8 @@ Domain operations may offer multiple strategies. The authoring surface needs a c
   - a normalization/defaulting path so the plan is explicit.
 - Step config schemas can compose operation strategy schemas without inventing custom shapes per step.
 - Any legacy/default-friendly encodings (e.g., omitting `strategy` when a default exists) must be treated as transitional-only and removed as part of the authoring cutover (see ADR-ER1-036).
+
+Authoring constraints (TypeScript hard rules):
+- Do not apply a type assertion to the object literal passed into `createOp(...)` (including `as const`); it disables contextual typing and breaks inferred `run(input, cfg)` types.
+- Inline POJO strategies are the preferred authoring mode for full inference.
+- Out-of-line strategy modules must be explicitly typed (via `createStrategy(...)` + `satisfies OpStrategy<...>` or equivalent).
