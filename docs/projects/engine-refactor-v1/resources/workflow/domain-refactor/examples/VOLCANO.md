@@ -42,35 +42,42 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 import { Type } from "typebox";
 import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 
+const computeSuitabilitySchema = Type.Object(
+  {
+    input: Type.Object(
+      {
+        width: Type.Integer({ minimum: 1 }),
+        height: Type.Integer({ minimum: 1 }),
+
+        isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
+        plateBoundaryProximity: TypedArraySchemas.u8({
+          description: "Plate boundary proximity per tile (0..255).",
+        }),
+        elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
+      },
+      { additionalProperties: false }
+    ),
+    config: Type.Object(
+      {
+        wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
+        wElevation: Type.Optional(Type.Number({ default: 0.25 })),
+      },
+      { additionalProperties: false, default: {} }
+    ),
+    output: Type.Object(
+      {
+        suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
+      },
+      { additionalProperties: false }
+    ),
+  },
+  { additionalProperties: false }
+);
+
 export default createOp({
   kind: "compute",
   id: "morphology/volcanoes/computeSuitability",
-  input: Type.Object(
-    {
-      width: Type.Integer({ minimum: 1 }),
-      height: Type.Integer({ minimum: 1 }),
-
-      isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
-      plateBoundaryProximity: TypedArraySchemas.u8({
-        description: "Plate boundary proximity per tile (0..255).",
-      }),
-      elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
-    },
-    { additionalProperties: false }
-  ),
-  config: Type.Object(
-    {
-      wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
-      wElevation: Type.Optional(Type.Number({ default: 0.25 })),
-    },
-    { additionalProperties: false, default: {} }
-  ),
-  output: Type.Object(
-    {
-      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
-    },
-    { additionalProperties: false }
-  ),
+  schema: computeSuitabilitySchema,
   run: (inputs, cfg) => {
     const size = inputs.width * inputs.height;
     const suitability = new Float32Array(size);
