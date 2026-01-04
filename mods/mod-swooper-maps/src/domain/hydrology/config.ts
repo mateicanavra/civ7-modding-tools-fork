@@ -1,11 +1,10 @@
-import { Type } from "typebox";
-import { UnknownRecord } from "@mapgen/config/schema/common.js";
+import { Type, type Static } from "typebox";
 
 /**
  * Rainfall targets by latitude zone for the climate engine.
  * Values are rainfall units (0-200 typical range).
  */
-export const ClimateBaselineBandEdgesSchema = Type.Object(
+const ClimateBaselineBandEdgesSchema = Type.Object(
   {
     /** Edge between equatorial and tropical zones (degrees, default 10). */
     deg0to10: Type.Optional(
@@ -60,7 +59,7 @@ export const ClimateBaselineBandEdgesSchema = Type.Object(
   }
 );
 
-export const ClimateBaselineBandsSchema = Type.Object(
+const ClimateBaselineBandsSchema = Type.Object(
   {
     /** Equatorial zone (0-10°) rainfall target (rainforests, monsoons; typically 110-130). */
     deg0to10: Type.Optional(
@@ -123,7 +122,7 @@ export const ClimateBaselineBandsSchema = Type.Object(
   }
 );
 
-export const ClimateBaselineSizeScalingSchema = Type.Object(
+const ClimateBaselineSizeScalingSchema = Type.Object(
   {
     /** Reference map area (tiles) used to compute size scaling. */
     baseArea: Type.Optional(
@@ -173,7 +172,7 @@ export const ClimateBaselineSizeScalingSchema = Type.Object(
 /**
  * Blend weights for mixing seed rainfall with latitude-based targets.
  */
-export const ClimateBaselineBlendSchema = Type.Object(
+const ClimateBaselineBlendSchema = Type.Object(
   {
     /** Weight for seed rainfall (0..1; typically 0.4-0.7). */
     baseWeight: Type.Optional(
@@ -204,7 +203,7 @@ export const ClimateBaselineBlendSchema = Type.Object(
 /**
  * Seed rainfall parameters (baseline interior moisture before latitude bands).
  */
-export const ClimateBaselineSeedSchema = Type.Object(
+const ClimateBaselineSeedSchema = Type.Object(
   {
     /**
      * Baseline interior rainfall (rainfall units).
@@ -240,7 +239,7 @@ export const ClimateBaselineSeedSchema = Type.Object(
 /**
  * Orographic lift bonuses (mountains force air upward, causing condensation and rain).
  */
-export const ClimateBaselineOrographicSchema = Type.Object(
+const ClimateBaselineOrographicSchema = Type.Object(
   {
     /** Elevation for modest rain increase (hills get some extra moisture). */
     hi1Threshold: Type.Optional(
@@ -281,7 +280,7 @@ export const ClimateBaselineOrographicSchema = Type.Object(
 /**
  * Coastal rainfall gradient used when seeding baseline moisture.
  */
-export const ClimateBaselineCoastalSchema = Type.Object(
+const ClimateBaselineCoastalSchema = Type.Object(
   {
     /** Coastal rainfall bonus at the shoreline (rainfall units). */
     coastalLandBonus: Type.Optional(
@@ -309,7 +308,7 @@ export const ClimateBaselineCoastalSchema = Type.Object(
 /**
  * Rainfall noise/jitter parameters for climate variation.
  */
-export const ClimateBaselineNoiseSchema = Type.Object(
+const ClimateBaselineNoiseSchema = Type.Object(
   {
     /** Base +/- jitter span used on smaller maps (rainfall units). */
     baseSpanSmall: Type.Optional(
@@ -343,7 +342,7 @@ export const ClimateBaselineNoiseSchema = Type.Object(
 /**
  * Baseline rainfall and local bonuses used by the climate engine.
  */
-export const ClimateBaselineSchema = Type.Object(
+const ClimateBaselineSchema = Type.Object(
   {
     /** Baseline interior moisture before latitude bands are applied. */
     seed: Type.Optional(ClimateBaselineSeedSchema),
@@ -366,7 +365,7 @@ export const ClimateBaselineSchema = Type.Object(
 /**
  * Continental effect (distance from ocean impacts humidity).
  */
-export const ClimateRefineWaterGradientSchema = Type.Object(
+const ClimateRefineWaterGradientSchema = Type.Object(
   {
     /** How far inland to measure water proximity (typically 8-15 tiles). */
     radius: Type.Optional(
@@ -400,7 +399,7 @@ export const ClimateRefineWaterGradientSchema = Type.Object(
 /**
  * Orographic rain shadow simulation (leeward drying effect).
  */
-export const ClimateRefineOrographicSchema = Type.Object(
+const ClimateRefineOrographicSchema = Type.Object(
   {
     /** How far upwind to scan for blocking mountains (typically 4-8 tiles). */
     steps: Type.Optional(
@@ -434,7 +433,7 @@ export const ClimateRefineOrographicSchema = Type.Object(
 /**
  * River valley humidity (water channels transport moisture inland).
  */
-export const ClimateRefineRiverCorridorSchema = Type.Object(
+const ClimateRefineRiverCorridorSchema = Type.Object(
   {
     /** Humidity bonus next to rivers in lowlands (typically 8-18 units). */
     lowlandAdjacencyBonus: Type.Optional(
@@ -461,7 +460,7 @@ export const ClimateRefineRiverCorridorSchema = Type.Object(
 /**
  * Enclosed basin humidity retention (valleys trap moisture).
  */
-export const ClimateRefineLowBasinSchema = Type.Object(
+const ClimateRefineLowBasinSchema = Type.Object(
   {
     /** Search radius to detect if a lowland is surrounded by higher ground (typically 3-6 tiles). */
     radius: Type.Optional(
@@ -488,7 +487,7 @@ export const ClimateRefineLowBasinSchema = Type.Object(
 /**
  * Earthlike refinement parameters layered on top of baseline climate.
  */
-export const ClimateRefineSchema = Type.Object(
+const ClimateRefineSchema = Type.Object(
   {
     /** Continental effect (distance from ocean impacts humidity). */
     waterGradient: Type.Optional(ClimateRefineWaterGradientSchema),
@@ -498,8 +497,53 @@ export const ClimateRefineSchema = Type.Object(
     riverCorridor: Type.Optional(ClimateRefineRiverCorridorSchema),
     /** Enclosed basin humidity retention (valleys trap moisture). */
     lowBasin: Type.Optional(ClimateRefineLowBasinSchema),
-    /** Pressure system effects (untyped placeholder). */
-    pressure: Type.Optional(UnknownRecord),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+const ClimateSwatchTypeValueSchema = Type.Union([Type.Number(), Type.Boolean()]);
+
+const ClimateSwatchTypeConfigSchema = Type.Record(Type.String(), ClimateSwatchTypeValueSchema, {
+  default: {},
+});
+
+const ClimateSwatchTypesConfigSchema = Type.Record(Type.String(), ClimateSwatchTypeConfigSchema, {
+  default: {},
+});
+
+const ClimateSwatchSizeScalingSchema = Type.Object(
+  {
+    /** Scale swatch widths for large maps (sqrt multiplier). */
+    widthMulSqrt: Type.Optional(
+      Type.Number({
+        description: "Scale swatch widths for large maps (sqrt multiplier).",
+        default: 0,
+      })
+    ),
+    /** Scale swatch lengths for large maps (sqrt multiplier). */
+    lengthMulSqrt: Type.Optional(
+      Type.Number({
+        description: "Scale swatch lengths for large maps (sqrt multiplier).",
+        default: 0,
+      })
+    ),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+const ClimateSwatchesSchema = Type.Object(
+  {
+    /** Toggle the macro swatch pass. */
+    enabled: Type.Optional(
+      Type.Boolean({
+        description: "Toggle the macro swatch pass.",
+        default: true,
+      })
+    ),
+    /** Per-swatch weights and knobs keyed by swatch id. */
+    types: Type.Optional(ClimateSwatchTypesConfigSchema),
+    /** Map-size scaling for swatch selection and widths. */
+    sizeScaling: Type.Optional(ClimateSwatchSizeScalingSchema),
   },
   { additionalProperties: false, default: {} }
 );
@@ -507,7 +551,7 @@ export const ClimateRefineSchema = Type.Object(
 /**
  * Aggregated climate configuration grouping baseline, refinement, and swatch knobs.
  */
-export const ClimateStoryRainfallSchema = Type.Object(
+const ClimateStoryRainfallSchema = Type.Object(
   {
     /**
      * Radius around rift line tiles that receives a humidity boost.
@@ -557,7 +601,7 @@ export const ClimateStoryRainfallSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const ClimateStoryPaleoSizeScalingSchema = Type.Object(
+const ClimateStoryPaleoSizeScalingSchema = Type.Object(
   {
     /**
      * Length multiplier applied with sqrt(mapArea) scaling.
@@ -573,7 +617,7 @@ export const ClimateStoryPaleoSizeScalingSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const ClimateStoryPaleoElevationCarvingSchema = Type.Object(
+const ClimateStoryPaleoElevationCarvingSchema = Type.Object(
   {
     /** Whether canyon rims should be enabled when carving paleo artifacts. */
     enableCanyonRim: Type.Optional(
@@ -602,7 +646,7 @@ export const ClimateStoryPaleoElevationCarvingSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const ClimateStoryPaleoSchema = Type.Object(
+const ClimateStoryPaleoSchema = Type.Object(
   {
     /** Maximum deltas to apply (0 disables). */
     maxDeltas: Type.Optional(
@@ -701,7 +745,7 @@ export const ClimateStoryPaleoSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const ClimateStorySchema = Type.Object(
+const ClimateStorySchema = Type.Object(
   {
     /** Story-driven rainfall modifiers keyed off narrative tags. */
     rainfall: Type.Optional(ClimateStoryRainfallSchema),
@@ -726,10 +770,44 @@ export const ClimateConfigSchema = Type.Object(
      * Swatch overrides for macro climate regions.
      * Set `swatches.enabled = false` to disable the swatch pass entirely.
      */
-    swatches: Type.Optional(UnknownRecord),
+    swatches: Type.Optional(ClimateSwatchesSchema),
   },
   { additionalProperties: false, default: {} }
 );
+
+export type ClimateConfig = Static<typeof ClimateConfigSchema>;
+export type ClimateBaseline = Static<typeof ClimateConfigSchema["properties"]["baseline"]>;
+export type ClimateBaselineBands =
+  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["bands"]>;
+export type ClimateBaselineBandEdges =
+  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["bands"]["properties"]["edges"]>;
+export type ClimateBaselineBlend =
+  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["blend"]>;
+export type ClimateBaselineSeed =
+  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["seed"]>;
+export type ClimateBaselineOrographic =
+  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["orographic"]>;
+export type ClimateBaselineCoastal =
+  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["coastal"]>;
+export type ClimateBaselineNoise =
+  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["noise"]>;
+export type ClimateBaselineSizeScaling =
+  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["sizeScaling"]>;
+export type ClimateRefine = Static<typeof ClimateConfigSchema["properties"]["refine"]>;
+export type ClimateRefineWaterGradient =
+  Static<typeof ClimateConfigSchema["properties"]["refine"]["properties"]["waterGradient"]>;
+export type ClimateRefineOrographic =
+  Static<typeof ClimateConfigSchema["properties"]["refine"]["properties"]["orographic"]>;
+export type ClimateRefineRiverCorridor =
+  Static<typeof ClimateConfigSchema["properties"]["refine"]["properties"]["riverCorridor"]>;
+export type ClimateRefineLowBasin =
+  Static<typeof ClimateConfigSchema["properties"]["refine"]["properties"]["lowBasin"]>;
+export type ClimateStoryPaleo =
+  Static<typeof ClimateConfigSchema["properties"]["story"]["properties"]["paleo"]>;
+export type ClimateStoryPaleoSizeScaling =
+  Static<typeof ClimateConfigSchema["properties"]["story"]["properties"]["paleo"]["properties"]["sizeScaling"]>;
+export type ClimateStoryPaleoElevationCarving =
+  Static<typeof ClimateConfigSchema["properties"]["story"]["properties"]["paleo"]["properties"]["elevationCarving"]>;
 
 /**
  * Biome nudge thresholds that fine-tune terrain assignment.

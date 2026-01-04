@@ -3,8 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@mapgen/config": ["src/config/index.ts"],
-      "@mapgen/config/*": ["src/config/*"],
+      "@mapgen/domain/config": ["src/domain/config.ts"],
       "@mapgen/domain": ["src/domain/index.ts"],
       "@mapgen/domain/*": ["src/domain/*"]
     },
