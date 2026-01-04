@@ -12,11 +12,17 @@ type PlotEffectsConfig = Static<typeof PlanPlotEffectsSchema["properties"]["conf
 export const planPlotEffects = createOp({
   kind: "plan",
   id: "ecology/plot-effects/placement",
-  schema: PlanPlotEffectsSchema,
-  resolveConfig: (config: PlotEffectsConfig) => resolvePlotEffectsConfig(config),
-  run: (input: PlotEffectsInput, config: PlotEffectsConfig) => {
-    const placements = planPlotEffectsImpl(input, config as ResolvedPlotEffectsConfig);
-    return { placements };
+  input: PlanPlotEffectsSchema.properties.input,
+  output: PlanPlotEffectsSchema.properties.output,
+  strategies: {
+    default: {
+      config: PlanPlotEffectsSchema.properties.config,
+      resolveConfig: (config: PlotEffectsConfig) => resolvePlotEffectsConfig(config),
+      run: (input: PlotEffectsInput, config: PlotEffectsConfig) => {
+        const placements = planPlotEffectsImpl(input, config as ResolvedPlotEffectsConfig);
+        return { placements };
+      },
+    },
   },
 } as const);
 

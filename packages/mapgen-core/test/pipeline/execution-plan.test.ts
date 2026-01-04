@@ -437,22 +437,27 @@ describe("compileExecutionPlan", () => {
 
   it("applies step resolveConfig results into the plan", () => {
     const registry = new StepRegistry<unknown>();
+    const OpConfigSchema = Type.Object(
+      {
+        value: Type.Number({ default: 2 }),
+      },
+      { additionalProperties: false, default: {} }
+    );
     const op = createOp({
       kind: "compute",
       id: "test/resolveConfig/op",
       input: Type.Object({}, { additionalProperties: false }),
       output: Type.Object({}, { additionalProperties: false }),
-      config: Type.Object(
-        {
-          value: Type.Number({ default: 2 }),
+      strategies: {
+        default: {
+          config: OpConfigSchema,
+          resolveConfig: (config, settings) => ({
+            ...config,
+            value: config.value + settings.dimensions.width,
+          }),
+          run: () => ({}),
         },
-        { additionalProperties: false, default: {} }
-      ),
-      resolveConfig: (config, settings) => ({
-        ...config,
-        value: config.value + settings.dimensions.width,
-      }),
-      run: () => ({}),
+      },
     } as const);
 
     registry.register({
@@ -470,9 +475,6 @@ describe("compileExecutionPlan", () => {
         }
       ),
       resolveConfig: (config, settings) => {
-        if (!op.resolveConfig) {
-          throw new Error("Expected op resolveConfig to exist");
-        }
         return { op: op.resolveConfig(config.op, settings) };
       },
       run: () => {},
@@ -489,7 +491,9 @@ describe("compileExecutionPlan", () => {
       registry
     );
 
-    expect(plan.nodes[0].config).toEqual({ op: { value: 12 } });
+    expect(plan.nodes[0].config).toEqual({
+      op: { strategy: "default", config: { value: 12 } },
+    });
   });
 
   it("re-validates resolver output against the schema", () => {

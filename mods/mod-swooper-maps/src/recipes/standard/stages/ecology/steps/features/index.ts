@@ -1,4 +1,4 @@
-import { Type, type Static } from "typebox";
+import { Type } from "typebox";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
@@ -28,13 +28,15 @@ const FeaturesStepConfigSchema = Type.Object(
   }
 );
 
-type FeaturesStepConfig = Static<typeof FeaturesStepConfigSchema>;
-
-type ResolvedReefConfig = Parameters<typeof ecology.ops.planReefEmbellishments.run>[1];
-
-type ResolvedVegetationConfig = Parameters<
-  typeof ecology.ops.planVegetationEmbellishments.run
->[1];
+type FeaturesPlacementOpConfig = typeof ecology.ops.planFeaturePlacements.defaultConfig;
+type ReefEmbellishmentsOpConfig = typeof ecology.ops.planReefEmbellishments.defaultConfig;
+type VegetationEmbellishmentsOpConfig =
+  typeof ecology.ops.planVegetationEmbellishments.defaultConfig;
+type FeaturesStepConfig = {
+  featuresPlacement: FeaturesPlacementOpConfig;
+  reefEmbellishments: ReefEmbellishmentsOpConfig;
+  vegetationEmbellishments: VegetationEmbellishmentsOpConfig;
+};
 
 export default createStep({
   id: "features",
@@ -51,18 +53,18 @@ export default createStep({
   schema: FeaturesStepConfigSchema,
   resolveConfig: (config, settings) => {
     return {
-      featuresPlacement: ecology.ops.planFeaturePlacements.resolveConfig
-        ? ecology.ops.planFeaturePlacements.resolveConfig(config.featuresPlacement, settings)
-        : config.featuresPlacement,
-      reefEmbellishments: ecology.ops.planReefEmbellishments.resolveConfig
-        ? ecology.ops.planReefEmbellishments.resolveConfig(config.reefEmbellishments, settings)
-        : config.reefEmbellishments,
-      vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.resolveConfig
-        ? ecology.ops.planVegetationEmbellishments.resolveConfig(
-            config.vegetationEmbellishments,
-            settings
-          )
-        : config.vegetationEmbellishments,
+      featuresPlacement: ecology.ops.planFeaturePlacements.resolveConfig(
+        config.featuresPlacement,
+        settings
+      ),
+      reefEmbellishments: ecology.ops.planReefEmbellishments.resolveConfig(
+        config.reefEmbellishments,
+        settings
+      ),
+      vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.resolveConfig(
+        config.vegetationEmbellishments,
+        settings
+      ),
     };
   },
   run: (context: ExtendedMapContext, config: FeaturesStepConfig) => {
@@ -70,7 +72,7 @@ export default createStep({
 
     const placementInput = buildFeaturesPlacementInput(
       context,
-      config.featuresPlacement as ResolvedFeaturesPlacementConfig,
+      config.featuresPlacement.config as ResolvedFeaturesPlacementConfig,
       featureLookups
     );
     const placementResult = ecology.ops.planFeaturePlacements.runValidated(
@@ -85,7 +87,7 @@ export default createStep({
     const reefInput = buildReefEmbellishmentsInput(context, featureLookups);
     const reefResult = ecology.ops.planReefEmbellishments.runValidated(
       reefInput,
-      config.reefEmbellishments as ResolvedReefConfig
+      config.reefEmbellishments
     );
 
     if (reefResult.placements.length > 0) {
@@ -95,7 +97,7 @@ export default createStep({
     const vegetationInput = buildVegetationEmbellishmentsInput(context, featureLookups);
     const vegetationResult = ecology.ops.planVegetationEmbellishments.runValidated(
       vegetationInput,
-      config.vegetationEmbellishments as ResolvedVegetationConfig
+      config.vegetationEmbellishments
     );
 
     if (vegetationResult.placements.length > 0) {

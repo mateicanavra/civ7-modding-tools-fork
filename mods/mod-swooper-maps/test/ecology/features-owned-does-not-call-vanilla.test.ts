@@ -12,13 +12,11 @@ describe("features (owned baseline)", () => {
     });
 
     const config = {
-      featuresPlacement: {},
-      reefEmbellishments: { ...disabledEmbellishmentsConfig },
-      vegetationEmbellishments: { ...disabledEmbellishmentsConfig },
+      featuresPlacement: { strategy: "default", config: {} },
+      reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
+      vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
     };
-    const resolvedConfig = featuresStep.resolveConfig
-      ? featuresStep.resolveConfig(config, ctx.settings)
-      : config;
+    const resolvedConfig = featuresStep.resolveConfig(config, ctx.settings);
 
     featuresStep.run(ctx, resolvedConfig);
 

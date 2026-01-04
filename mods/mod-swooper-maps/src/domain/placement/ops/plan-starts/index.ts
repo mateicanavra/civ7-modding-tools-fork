@@ -23,8 +23,14 @@ function mergeStarts(base: PlanStartsInput["baseStarts"], overrides?: StartsOver
 export const planStarts = createOp({
   kind: "plan",
   id: "placement/plan-starts",
-  schema: PlanStartsSchema,
-  run: (input: PlanStartsInput, config: PlanStartsConfig) => {
-    return mergeStarts(input.baseStarts, config.overrides);
+  input: PlanStartsSchema.properties.input,
+  output: PlanStartsSchema.properties.output,
+  strategies: {
+    default: {
+      config: PlanStartsSchema.properties.config,
+      run: (input: PlanStartsInput, config: PlanStartsConfig) => {
+        return mergeStarts(input.baseStarts, config.overrides);
+      },
+    },
   },
 } as const);

@@ -1,7 +1,10 @@
 import type { Static, TSchema } from "typebox";
 
+import type { RunSettings } from "@mapgen/engine/execution-plan.js";
+
 export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
   config: ConfigSchema;
+  resolveConfig?: (config: Static<ConfigSchema>, settings: RunSettings) => Static<ConfigSchema>;
   run: (input: Input, config: Static<ConfigSchema>) => Output;
 }>;
 
@@ -15,9 +18,9 @@ type StrategyConfigSchemaOf<T> = T extends { config: infer C extends TSchema } ?
 
 export type StrategySelection<
   Strategies extends Record<string, { config: TSchema }>,
-  DefaultStrategy extends (keyof Strategies & string) | undefined,
 > = {
-  [K in keyof Strategies & string]: K extends DefaultStrategy
-    ? Readonly<{ strategy?: K; config: Static<StrategyConfigSchemaOf<Strategies[K]>> }>
-    : Readonly<{ strategy: K; config: Static<StrategyConfigSchemaOf<Strategies[K]>> }>;
+  [K in keyof Strategies & string]: Readonly<{
+    strategy: K;
+    config: Static<StrategyConfigSchemaOf<Strategies[K]>>;
+  }>;
 }[keyof Strategies & string];

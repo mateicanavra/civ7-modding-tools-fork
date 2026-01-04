@@ -279,7 +279,8 @@ export function createStrategy<ConfigSchema extends TSchema, Input, Output>(
 // createOp supports one canonical shape:
 // - strategy-first authoring (all ops are strategy-backed)
 // - must include a "default" strategy id
-// - createOp derives op.config (envelope union schema) and op.defaultConfig (always explicit)
+// - createOp derives op.config (envelope union schema), op.defaultConfig (always explicit),
+//   and op.resolveConfig(envelope, settings) (dispatcher over strategy.resolveConfig).
 export function createOp<
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
@@ -850,6 +851,8 @@ Derived defaults and normalization are **compile-time** and stored as plan truth
   - fan out the step-authored config into per-op configs,
   - call each op’s `resolveConfig(opConfig, settings)` (domain-owned scaling semantics),
   - recombine back into a single step config object.
+  - `op.resolveConfig` is always present; if the selected strategy does not define `resolveConfig`,
+    the dispatcher returns the envelope unchanged.
 - The resolver output must still validate against the step’s existing `configSchema`:
   - no plan-stored internal/derived coordination fields,
   - no separate resolved schema,
@@ -863,7 +866,7 @@ Derived defaults and normalization are **compile-time** and stored as plan truth
 
 ```ts
 // runtime: op.runValidated(input, config)
-// compile-time: optional op.resolveConfig(config, settings) -> config
+// compile-time: op.resolveConfig(envelope, settings) -> envelope
 export type OpResolveConfig<TConfig> = (config: TConfig, settings: RunSettings) => TConfig;
 ```
 
@@ -892,12 +895,8 @@ export const featuresStep = createStep({
   configSchema: FeaturesStepConfigSchema,
 
   resolveConfig: (cfg: FeaturesStepConfig, settings: RunSettings): FeaturesStepConfig => ({
-    computeSuitability: features.ops.computeSuitability.resolveConfig
-      ? features.ops.computeSuitability.resolveConfig(cfg.computeSuitability, settings)
-      : cfg.computeSuitability,
-    selectPlacements: features.ops.selectPlacements.resolveConfig
-      ? features.ops.selectPlacements.resolveConfig(cfg.selectPlacements, settings)
-      : cfg.selectPlacements,
+    computeSuitability: features.ops.computeSuitability.resolveConfig(cfg.computeSuitability, settings),
+    selectPlacements: features.ops.selectPlacements.resolveConfig(cfg.selectPlacements, settings),
   }),
 
   run: (ctx, cfg: FeaturesStepConfig) => {

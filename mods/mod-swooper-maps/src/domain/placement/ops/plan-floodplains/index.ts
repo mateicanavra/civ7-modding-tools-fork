@@ -4,27 +4,36 @@ import { PlanFloodplainsSchema } from "./schema.js";
 
 type PlanFloodplainsInput = Static<typeof PlanFloodplainsSchema["properties"]["input"]>;
 type PlanFloodplainsConfig = Static<typeof PlanFloodplainsSchema["properties"]["config"]>;
+type PlanFloodplainsOpConfig = Readonly<{
+  strategy: "default";
+  config: PlanFloodplainsConfig;
+}>;
 
 export const planFloodplains = createOp({
   kind: "plan",
   id: "placement/plan-floodplains",
-  schema: PlanFloodplainsSchema,
-
-  customValidate: (_input: PlanFloodplainsInput, config: PlanFloodplainsConfig) => {
-    if (config.maxLength < config.minLength) {
+  input: PlanFloodplainsSchema.properties.input,
+  output: PlanFloodplainsSchema.properties.output,
+  customValidate: (_input: PlanFloodplainsInput, config: PlanFloodplainsOpConfig) => {
+    if (config.config.maxLength < config.config.minLength) {
       return [
         {
-          path: "/config/maxLength",
+          path: "/config/config/maxLength",
           message: "maxLength must be greater than or equal to minLength",
         },
       ];
     }
     return [];
   },
-  run: (_input: PlanFloodplainsInput, config: PlanFloodplainsConfig) => {
-    return {
-      minLength: config.minLength,
-      maxLength: config.maxLength,
-    };
+  strategies: {
+    default: {
+      config: PlanFloodplainsSchema.properties.config,
+      run: (_input: PlanFloodplainsInput, config: PlanFloodplainsConfig) => {
+        return {
+          minLength: config.minLength,
+          maxLength: config.maxLength,
+        };
+      },
+    },
   },
 } as const);

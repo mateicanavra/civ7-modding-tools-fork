@@ -16,8 +16,7 @@ export function applySchemaDefaults<T extends TSchema>(
  * Helper to define the canonical op schema bundle shape: `Type.Object({ input, config, output })`.
  *
  * TypeBox object inference can be lossy across package boundaries. This helper pins the schema's
- * TypeScript type so `createOp({ schema, ... })` can infer `run(input, config)` types from the
- * schema bundle without callers spelling out `schema.properties.*` or exporting per-sub-schema
+ * TypeScript type so callers can reuse `schema.properties.*` without re-exporting per-sub-schema
  * types.
  */
 export function defineOpSchema<

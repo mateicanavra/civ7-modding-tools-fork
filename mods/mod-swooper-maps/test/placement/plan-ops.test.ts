@@ -15,7 +15,7 @@ describe("placement plan operations", () => {
   it("plans wonders without plus-one when disabled", () => {
     const result = planWonders.runValidated(
       { mapInfo: { NumNaturalWonders: 2 } },
-      { wondersPlusOne: false }
+      { strategy: "default", config: { wondersPlusOne: false } }
     );
     expect(result.wondersCount).toBe(2);
   });
@@ -40,10 +40,13 @@ describe("placement plan operations", () => {
     const result = planStarts.runValidated(
       { baseStarts },
       {
-        overrides: {
-          playersLandmass1: 3,
-          startSectorRows: 3,
-          startSectors: [5],
+        strategy: "default",
+        config: {
+          overrides: {
+            playersLandmass1: 3,
+            startSectorRows: 3,
+            startSectors: [5],
+          },
         },
       }
     );

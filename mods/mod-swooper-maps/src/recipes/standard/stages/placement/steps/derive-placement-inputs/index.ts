@@ -1,4 +1,4 @@
-import { Type, type Static } from "typebox";
+import { Type } from "typebox";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import * as placement from "@mapgen/domain/placement";
 
@@ -22,7 +22,11 @@ const DerivePlacementInputsConfigSchema = Type.Object(
   }
 );
 
-type DerivePlacementInputsConfig = Static<typeof DerivePlacementInputsConfigSchema>;
+type DerivePlacementInputsConfig = {
+  wonders: typeof placement.ops.planWonders.defaultConfig;
+  floodplains: typeof placement.ops.planFloodplains.defaultConfig;
+  starts: typeof placement.ops.planStarts.defaultConfig;
+};
 
 export default createStep({
   id: "derivePlacementInputs",
@@ -35,15 +39,9 @@ export default createStep({
   provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
   schema: DerivePlacementInputsConfigSchema,
   resolveConfig: (config, settings) => ({
-    wonders: placement.ops.planWonders.resolveConfig
-      ? placement.ops.planWonders.resolveConfig(config.wonders, settings)
-      : config.wonders,
-    floodplains: placement.ops.planFloodplains.resolveConfig
-      ? placement.ops.planFloodplains.resolveConfig(config.floodplains, settings)
-      : config.floodplains,
-    starts: placement.ops.planStarts.resolveConfig
-      ? placement.ops.planStarts.resolveConfig(config.starts, settings)
-      : config.starts,
+    wonders: placement.ops.planWonders.resolveConfig(config.wonders, settings),
+    floodplains: placement.ops.planFloodplains.resolveConfig(config.floodplains, settings),
+    starts: placement.ops.planStarts.resolveConfig(config.starts, settings),
   }),
   run: (context, config: DerivePlacementInputsConfig) => {
     const inputs = buildPlacementInputs(context, config);
