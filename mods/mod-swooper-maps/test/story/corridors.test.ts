@@ -2,8 +2,7 @@ import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext, OCEAN_TERRAIN } from "@swooper/mapgen-core";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
-import { CorridorsConfigSchema, FoundationDirectionalityConfigSchema } from "@mapgen/config";
-import { getNarrativeCorridors } from "@mapgen/domain/narrative/queries.js";
+import { CorridorsConfigSchema, FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
@@ -32,14 +31,13 @@ describe("story/corridors", () => {
       settings
     );
 
-    storyTagStrategicCorridors(ctx, "preIslands", {
+    const result = storyTagStrategicCorridors(ctx, "preIslands", {
       corridors: corridorsConfig,
       directionality,
     });
 
-    const corridors = getNarrativeCorridors(ctx);
-    expect(corridors).not.toBeNull();
-    expect(corridors?.seaLanes.size).toBeGreaterThan(0);
+    expect(result.corridors).not.toBeNull();
+    expect(result.corridors.seaLanes.size).toBeGreaterThan(0);
 
     const overlay = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.CORRIDORS);
     expect(overlay).not.toBeNull();

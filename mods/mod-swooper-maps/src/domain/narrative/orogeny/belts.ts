@@ -10,10 +10,9 @@
  */
 
 import type { ExtendedMapContext, FoundationPlateFields, StoryOverlaySnapshot } from "@swooper/mapgen-core";
-import type { StoryConfig } from "@mapgen/config";
+import type { StoryConfig } from "@mapgen/domain/config";
 import { inBounds, storyKey } from "@swooper/mapgen-core";
 import { assertFoundationDynamics, assertFoundationPlates } from "@swooper/mapgen-core";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";
 import { buildNarrativeMotifsOrogenyV1 } from "@mapgen/domain/narrative/artifacts.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
@@ -35,7 +34,7 @@ export interface OrogenySummary {
 export function storyTagOrogenyBelts(
   ctx: ExtendedMapContext,
   storyConfig: StoryConfig
-): StoryOverlaySnapshot {
+): { snapshot: StoryOverlaySnapshot; motifs: ReturnType<typeof buildNarrativeMotifsOrogenyV1> } {
   const plates = assertFoundationPlates(ctx, "storyOrogeny");
   const cache = getOrogenyCache(ctx);
   cache.belts.clear();
@@ -87,12 +86,9 @@ export function storyTagOrogenyBelts(
     },
   });
 
-  ctx.artifacts.set(
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
-    buildNarrativeMotifsOrogenyV1(cache)
-  );
+  const motifs = buildNarrativeMotifsOrogenyV1(cache);
 
-  return overlay;
+  return { snapshot: overlay, motifs };
 }
 
 // ============================================================================

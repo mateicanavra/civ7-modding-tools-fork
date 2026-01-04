@@ -3,8 +3,9 @@ import {
   computeRiverAdjacencyMask,
   getPublishedBiomeClassification,
   getPublishedClimateField,
+  getPublishedNarrativeMotifsHotspots,
+  getPublishedNarrativeMotifsMargins,
 } from "../../../../artifacts.js";
-import { getNarrativeMotifsHotspots, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
 import type * as ecology from "@mapgen/domain/ecology";
 import type { ResolvedFeaturesPlacementConfig } from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
@@ -118,8 +119,14 @@ export function buildReefEmbellishmentsInput(
   const heightfield = getHeightfieldArtifact(context, size);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
-  const hotspots = getNarrativeMotifsHotspots(context);
-  const margins = getNarrativeMotifsMargins(context);
+  const hotspots = getPublishedNarrativeMotifsHotspots(context);
+  if (!hotspots) {
+    throw new Error("FeaturesStep: Missing artifact:narrative.motifs.hotspots@v1.");
+  }
+  const margins = getPublishedNarrativeMotifsMargins(context);
+  if (!margins) {
+    throw new Error("FeaturesStep: Missing artifact:narrative.motifs.margins@v1.");
+  }
 
   return {
     width,
@@ -153,7 +160,10 @@ export function buildVegetationEmbellishmentsInput(
   const latitude = buildLatitudeField(context.adapter, width, height);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
-  const hotspots = getNarrativeMotifsHotspots(context);
+  const hotspots = getPublishedNarrativeMotifsHotspots(context);
+  if (!hotspots) {
+    throw new Error("FeaturesStep: Missing artifact:narrative.motifs.hotspots@v1.");
+  }
 
   return {
     width,
