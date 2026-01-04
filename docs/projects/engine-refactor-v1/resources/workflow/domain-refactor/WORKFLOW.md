@@ -69,11 +69,12 @@ Read (do not reinterpret):
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-global-invariants.md`
 - `docs/projects/engine-refactor-v1/triage.md` (cross-cutting decisions and ongoing risk notes)
 - `mods/mod-swooper-maps/AGENTS.md` and closest scoped routers for touched files
-- `mods/mod-swooper-maps/src/config/AGENTS.md` when touching standard config exports
+- `mods/mod-swooper-maps/src/AGENTS.md` when touching standard config exports
 
 Code references (read when implementing; these are the “truth of behavior”):
 - `packages/mapgen-core/src/engine/execution-plan.ts` (where `step.resolveConfig` is invoked at compile time)
-- `packages/mapgen-core/src/authoring/op.ts` (op contract: `createOp`, `resolveConfig`, `defaultConfig`)
+- `packages/mapgen-core/src/authoring/op/create.ts` (op contract: `createOp`, `resolveConfig`, `defaultConfig`)
+- `packages/mapgen-core/src/authoring/op/schema.ts` (op schema surface: `DomainOpSchema`)
 - `packages/mapgen-core/src/authoring/validation.ts` (error surface, `customValidate`, `validateOutput`)
 - `packages/mapgen-core/src/authoring/typed-array-schemas.ts` (typed-array schema metadata used by validation)
 

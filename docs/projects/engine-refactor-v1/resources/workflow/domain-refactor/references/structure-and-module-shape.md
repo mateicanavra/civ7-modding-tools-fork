@@ -81,14 +81,14 @@ Reference example:
 ## Standard content config exports (avoid duplication)
 
 Standard config schema exports live under:
-- `mods/mod-swooper-maps/src/config/schema/**`
+- `mods/mod-swooper-maps/src/domain/**/config.ts`
 
 Rule:
 - When an op owns a config schema, the standard config schema module must **re-export** it from the domain op, not re-author it.
 
 Reference example (thin re-export pattern):
-- `mods/mod-swooper-maps/src/config/schema/ecology.ts`
+- `mods/mod-swooper-maps/src/domain/ecology/config.ts`
 
 Concrete expectation:
 - Refactored steps import op config/defaults from the domain module (`@mapgen/domain/<domain>`, via `domain.ops.*`).
-- The config schema bundle (`@mapgen/config`) remains the canonical author-facing schema surface, but it sources shapes from domain ops and domain config modules.
+- The config schema bundle (`@mapgen/domain/config`) remains the canonical author-facing schema surface, but it is a thin barrel over domain-owned config modules and op schemas.
