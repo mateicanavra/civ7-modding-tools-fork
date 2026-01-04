@@ -40,11 +40,14 @@
 - Shared config schema fragments live with the closest owner:
   - stage scope (`stages/<stageId>/*.model.ts`) when stage-local
   - domain scope (`src/domain/**`) when domain-owned and not purely “schema-only”
-  - mod scope (`src/config/schema/**`) when truly cross-domain and schema-only
-- A mod-wide `@mapgen/config` path alias is allowed and canonical for importing shared schema fragments and types.
-- `@mapgen/config` is **schema/type-only**:
+  - mod scope uses a thin barrel only (`src/domain/config.ts`) for cross-domain imports
+- A mod-wide `@mapgen/domain/config` path alias is allowed and canonical for importing shared schema fragments and types.
+- `@mapgen/domain/config` is **schema/type-only**:
   - it must not become a grab-bag “global runtime config blob”,
   - it must not own map instances, step orchestration, or registry assembly.
+- Domain config schemas must stay explicit:
+  - no open-ended “unknown bag” fields (`UnknownRecord`-style placeholders),
+  - no internal-only config fields in the public schema surface.
 
 ### 5.5 Tags, artifacts, and registration
 
@@ -53,6 +56,7 @@
   - auto-derived tag definitions (ID + kind) for most tags, and
   - explicit `DependencyTagDefinition` entries only where custom `satisfies` logic or demo validation is required.
 - Explicit tag definitions live with their owning step/stage/domain module and are assembled in `recipes/<recipeId>/runtime.ts`.
+- Domains own artifact *shapes* and validators; recipes/steps own dependency IDs and artifact publication. No domain↔recipe tag/artifact re-export shims.
 
 ### 5.6 Maps and runner glue (`src/maps/**`)
 
