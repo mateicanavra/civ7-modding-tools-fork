@@ -1,4 +1,4 @@
-import { createOp } from "@swooper/mapgen-core/authoring";
+import { createOp, type Static } from "@swooper/mapgen-core/authoring";
 
 import {
   BIOME_SYMBOL_ORDER,
@@ -6,14 +6,7 @@ import {
   biomeSymbolFromIndex,
   type BiomeSymbol,
 } from "../../types.js";
-import {
-  BiomeClassificationConfigSchema,
-  BiomeClassificationInputSchema,
-  BiomeClassificationOutputSchema,
-  type BiomeClassificationConfig,
-  type BiomeClassificationInput,
-  type BiomeClassificationOutput,
-} from "./schema.js";
+import { BiomeClassificationSchema } from "./schema.js";
 import { biomeSymbolForZones } from "./rules/lookup.js";
 import { pseudoRandom01 } from "./rules/noise.js";
 import { overlayMoistureBonus } from "./rules/overlays.js";
@@ -24,14 +17,15 @@ import { computeTemperature, temperatureZoneOf } from "./rules/temperature.js";
 import { clamp01, computeMaxLatitude, ensureSize } from "./rules/util.js";
 import { vegetationDensityForBiome } from "./rules/vegetation.js";
 
+type BiomeClassificationInput = Static<typeof BiomeClassificationSchema["properties"]["input"]>;
+type BiomeClassificationConfig = Static<typeof BiomeClassificationSchema["properties"]["config"]>;
+
 export const classifyBiomes = createOp({
   kind: "compute",
   id: "ecology/biomes/classify",
-  input: BiomeClassificationInputSchema,
-  output: BiomeClassificationOutputSchema,
-  config: BiomeClassificationConfigSchema,
-  run: (input: BiomeClassificationInput, cfg: BiomeClassificationConfig) => {
-    const resolvedConfig = cfg;
+  schema: BiomeClassificationSchema,
+  run: (input: BiomeClassificationInput, config: BiomeClassificationConfig) => {
+    const resolvedConfig = config;
     const { width, height } = input;
     const size = width * height;
 
@@ -151,4 +145,3 @@ export function biomeSymbolAt(index: number): BiomeSymbol {
 }
 
 export { biomeSymbolFromIndex };
-export type { BiomeClassificationConfig, BiomeClassificationInput, BiomeClassificationOutput };

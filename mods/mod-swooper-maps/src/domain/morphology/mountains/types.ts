@@ -1,4 +1,4 @@
-import type { MountainsConfig as BootstrapMountainsConfig } from "@mapgen/config";
+import type { MountainsConfig as BootstrapMountainsConfig } from "@mapgen/domain/config";
 
 export type MountainsConfig = BootstrapMountainsConfig;
 

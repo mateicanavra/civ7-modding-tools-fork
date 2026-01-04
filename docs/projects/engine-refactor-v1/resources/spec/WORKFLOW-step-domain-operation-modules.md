@@ -92,7 +92,7 @@ Execution posture:
 - For this work you will always need at least:
   - repo root `AGENTS.md`,
   - `mods/mod-swooper-maps/AGENTS.md`,
-  - and often `mods/mod-swooper-maps/src/config/AGENTS.md` when touching config exports.
+  - and often `mods/mod-swooper-maps/src/AGENTS.md` when touching config exports.
 
 ### Decision discipline (no branching instructions)
 
@@ -119,7 +119,7 @@ Required:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-global-invariants.md`
 - `docs/projects/engine-refactor-v1/triage.md` (cross-cutting decisions and ongoing risk notes)
 - `mods/mod-swooper-maps/AGENTS.md` and closest scoped routers for touched files
-- `mods/mod-swooper-maps/src/config/AGENTS.md` when touching standard config exports
+- `mods/mod-swooper-maps/src/AGENTS.md` when touching standard config exports
 
 Code references (read when implementing; these are the “truth of behavior”):
 - `packages/mapgen-core/src/engine/execution-plan.ts` (where `step.resolveConfig` is invoked at compile time)
@@ -221,32 +221,9 @@ If you need an additional layer for the next subissue, repeat 3.2 to create a ne
 
 Before implementing, produce a domain inventory (in the issue doc or spike notes). This is not optional; it is the primary derisking artifact.
 
-### Inventory command kit (copy/paste)
+### Inventory command kit
 
-Locate all step callsites that import or call into the domain:
-```bash
-rg -n "@mapgen/domain/${DOMAIN}\\b" "${RECIPE_ROOT}" -S
-```
-
-Locate cross-domain imports (coupling) inside the domain library:
-```bash
-rg -n "@mapgen/domain/" "${DOMAIN_ROOT}" -S
-```
-
-Locate legacy step→domain boundary violations (adapter/context passed into domain functions):
-```bash
-rg -n "ExtendedMapContext|context\\.adapter|\\badapter\\b|@civ7/adapter" "${DOMAIN_ROOT}" -S
-```
-
-Locate RNG boundary violations (RNG callbacks/state crossing into domain logic):
-```bash
-rg -n "RngFunction|options\\.rng|\\bctx\\.rng\\b" "${DOMAIN_ROOT}" -S
-```
-
-Locate legacy step config imports from the centralized schema bundle (refactor removes these from refactored steps):
-```bash
-rg -n "@mapgen/config\\b" "${STAGE_ROOTS[@]}" -S
-```
+Use `scripts/lint/lint-domain-refactor-guardrails.sh` as the canonical gate. If you need ad-hoc searches, keep them in the issue/spike notes rather than copying static `rg` lists into this workflow doc.
 
 ### A) Step map (all callsites)
 
@@ -354,17 +331,17 @@ Hard rule:
 
 ### 6.5 Standard content config exports (avoid duplication)
 
-Standard config schema exports live under `mods/mod-swooper-maps/src/config/schema/**`.
+Standard config schema exports live under `mods/mod-swooper-maps/src/domain/**/config.ts`.
 
 Rule:
 - When an op owns a config schema, the standard config schema module must **re-export** it from the domain op, not re-author it.
 
 Reference example (thin re-export pattern):
-- `mods/mod-swooper-maps/src/config/schema/ecology.ts`
+- `mods/mod-swooper-maps/src/domain/ecology/config.ts`
 
 Concrete expectation:
 - Refactored steps import op config/defaults from the domain module (`@mapgen/domain/<domain>`, via `domain.ops.*`).
-- The config schema bundle (`@mapgen/config`) remains the canonical author-facing schema surface, but it sources shapes from domain ops and domain config modules.
+- The config schema bundle (`@mapgen/domain/config`) remains the canonical author-facing schema surface, but it is a thin barrel over domain-owned config modules and op schemas.
 
 ---
 
@@ -393,12 +370,25 @@ Refactor is executed as a series of subissues. Each subissue ends in:
 
 Illustrative skeleton (trimmed; do not invent extra surfaces):
 ```ts
+export const myOpSchema = Type.Object(
+  {
+    input: Type.Object(
+      { width: Type.Integer(), height: Type.Integer(), field: TypedArraySchemas.u8() },
+      { additionalProperties: false }
+    ),
+    config: Type.Object(
+      { knob: Type.Optional(Type.Number({ default: 1 })) },
+      { additionalProperties: false, default: {} }
+    ),
+    output: Type.Object({ out: TypedArraySchemas.u8() }, { additionalProperties: false }),
+  },
+  { additionalProperties: false }
+);
+
 export const myOp = createOp({
   kind: "compute",
   id: "<domain>/<area>/<verb>",
-  input: Type.Object({ width: Type.Integer(), height: Type.Integer(), field: TypedArraySchemas.u8() }, { additionalProperties: false }),
-  output: Type.Object({ out: TypedArraySchemas.u8() }, { additionalProperties: false }),
-  config: Type.Object({ knob: Type.Optional(Type.Number({ default: 1 })) }, { additionalProperties: false, default: {} }),
+  schema: myOpSchema,
   resolveConfig: (cfg, settings) => ({ ...cfg }), // compile-time only
   customValidate: (input, cfg) => [],             // optional, returns pathful errors
   run: (input, cfg) => ({ out: input.field }),
@@ -442,51 +432,14 @@ Reference examples (copy the boundary discipline):
   - Reference full pipeline gate: `mods/mod-swooper-maps/test/standard-run.test.ts`
 
 5) **Run guardrails**
-- Search for forbidden patterns in the touched scope and drive them to zero:
-  - runtime config merges (`?? {}`, spread merges of config shells),
-  - adapter/context crossing into domain logic,
-  - old entrypoint imports.
+- Run `scripts/lint/lint-domain-refactor-guardrails.sh` and drive any violations to zero.
 
 6) **Commit**
 - Conventional commit message, scoped to the domain + subissue.
 
-### Guardrail searches (must go to zero in the touched scope)
+### Guardrails (canonical)
 
-Run these after each subissue and at the end; for every remaining hit, either delete the code path or move it back to the correct boundary.
-
-Domain must not depend on adapter/runtime:
-```bash
-rg -n "ExtendedMapContext|context\\.adapter|\\badapter\\b|@civ7/adapter" "${DOMAIN_ROOT}" -S
-```
-
-Domain must not import engine/runtime values (type-only imports of `RunSettings` are allowed; runtime imports are forbidden):
-```bash
-rg -n "from \"@swooper/mapgen-core/engine\"|from \"@mapgen/engine\"" "${DOMAIN_ROOT}" -S
-rg -n -P "import(?!\\s+type)\\s+.*from\\s+\"@swooper/mapgen-core/engine\"" "${DOMAIN_ROOT}" -S
-rg -n -P "import(?!\\s+type)\\s+.*from\\s+\"@mapgen/engine\"" "${DOMAIN_ROOT}" -S
-```
-
-Domain ops must not accept RNG callbacks/state (randomness must be modeled as numeric seeds in op inputs):
-```bash
-rg -n "RngFunction|options\\.rng|\\bctx\\.rng\\b" "${DOMAIN_ROOT}" -S
-```
-
-Refactored steps must not import legacy domain entrypoints or centralized config blobs:
-```bash
-rg -n "@mapgen/config\\b" "${STAGE_ROOTS[@]}" -S
-rg -n "@mapgen/domain/${DOMAIN}/" "${STAGE_ROOTS[@]}" -S
-```
-
-Runtime config defaulting/merging must not exist in step/op `run(...)` paths:
-```bash
-rg -n "\\?\\?\\s*\\{\\}" "${DOMAIN_ROOT}" "${STAGE_ROOTS[@]}" -S
-rg -n "\\bValue\\.Default\\(" "${DOMAIN_ROOT}" "${STAGE_ROOTS[@]}" -S
-```
-
-Refactored steps must not cast config to recover type safety (remove `as SomeConfig` and use schema-derived types):
-```bash
-rg -n "\\bas\\s+[A-Za-z0-9_]+Config\\b" "${STAGE_ROOTS[@]}" -S
-```
+Run `scripts/lint/lint-domain-refactor-guardrails.sh` after each subissue and again at the end. Do not copy/paste ad-hoc `rg` lists into this workflow doc.
 
 ---
 
@@ -494,6 +447,7 @@ rg -n "\\bas\\s+[A-Za-z0-9_]+Config\\b" "${STAGE_ROOTS[@]}" -S
 
 Run smallest-first, then widen:
 ```bash
+./scripts/lint/lint-domain-refactor-guardrails.sh
 pnpm -C packages/mapgen-core check
 pnpm -C packages/mapgen-core test
 pnpm -C mods/mod-swooper-maps check

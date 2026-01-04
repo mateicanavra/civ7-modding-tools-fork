@@ -4,9 +4,10 @@ import { logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import {
   getPublishedClimateField,
+  getPublishedNarrativeCorridors,
+  getPublishedNarrativeMotifsRifts,
   publishBiomeClassificationArtifact,
 } from "../../../../artifacts.js";
-import { getNarrativeCorridors, getNarrativeMotifsRifts } from "@mapgen/domain/narrative/queries.js";
 import * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import {
@@ -72,8 +73,14 @@ export default createStep({
     }
 
     const latitude = buildLatitudeField(context.adapter, width, height);
-    const corridors = getNarrativeCorridors(context);
-    const rifts = getNarrativeMotifsRifts(context);
+    const corridors = getPublishedNarrativeCorridors(context);
+    if (!corridors) {
+      throw new Error("BiomesStep: Missing artifact:narrative.corridors@v1.");
+    }
+    const rifts = getPublishedNarrativeMotifsRifts(context);
+    if (!rifts) {
+      throw new Error("BiomesStep: Missing artifact:narrative.motifs.rifts@v1.");
+    }
 
     const corridorMask = maskFromCoordSet(corridors?.landCorridors, width, height);
     const riverCorridorMask = maskFromCoordSet(corridors?.riverCorridors, width, height);

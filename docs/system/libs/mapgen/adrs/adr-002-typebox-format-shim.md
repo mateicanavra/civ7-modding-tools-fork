@@ -14,7 +14,7 @@ concern: typebox
 - Civ7’s embedded V8 rejects Unicode property escapes (e.g., `\p{L}`) in regex literals.
 - TypeBox’s built-in format registry (`typebox/format`) ships regexes using Unicode properties, notably `idn-email`.
 - After switching validation from `typebox/compile` to `typebox/value`, the format registry began loading and its `idn-email` regex caused runtime parse failures inside the bundled mod (see chunk `IdnEmail`).
-- MapGenConfig currently does not declare any `format:` keywords, so the built-in format checks are unused.
+- Current domain/step config schemas do not declare any `format:` keywords, so the built-in format checks are unused.
 
 ## Decision
 
@@ -37,4 +37,4 @@ concern: typebox
 - tsup aliases:
   - `packages/mapgen-core/tsup.config.ts` aliases `typebox/format`, `../format/index.mjs`, `../../format/index.mjs` to the shim and bundles `typebox`.
   - `mods/mod-swooper-maps/tsup.config.ts` applies the same aliases to ensure the game-facing bundle never pulls the original format registry.
-- No changes to the MapGenConfig schema or validation API surface were needed.
+- No changes to the config schema surfaces or validation API were needed.

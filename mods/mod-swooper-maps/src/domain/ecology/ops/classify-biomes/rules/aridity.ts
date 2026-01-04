@@ -1,5 +1,5 @@
-import type { Static } from "typebox";
-import type { AriditySchema } from "../schema.js";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import { AriditySchema } from "../aridity.schema.js";
 import type { MoistureZone } from "./moisture.js";
 import { clamp01 } from "./util.js";
 

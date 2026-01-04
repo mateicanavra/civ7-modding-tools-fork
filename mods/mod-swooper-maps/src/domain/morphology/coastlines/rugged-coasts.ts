@@ -5,7 +5,10 @@ import { clamp } from "@swooper/mapgen-core/lib/math";
 import { forEachNeighbor3x3 } from "@swooper/mapgen-core/lib/grid";
 import { BOUNDARY_TYPE } from "@mapgen/domain/foundation/constants.js";
 import { COAST_TERRAIN } from "@swooper/mapgen-core";
-import { getNarrativeCorridors, getNarrativeMotifsMargins } from "@mapgen/domain/narrative/queries.js";
+import type {
+  NarrativeCorridors,
+  NarrativeMotifsMargins,
+} from "@mapgen/domain/narrative/models.js";
 import { computePlateBias } from "@mapgen/domain/morphology/coastlines/plate-bias.js";
 import { isAdjacentToLand, isCoastalLand } from "@mapgen/domain/morphology/coastlines/adjacency.js";
 import {
@@ -17,11 +20,17 @@ import type { CoastlinePlateBiasConfig, CoastlinesConfig, CorridorPolicy } from 
 
 const HILL_FRACTAL = 1;
 
+export interface RuggedCoastsArtifacts {
+  corridors?: NarrativeCorridors | null;
+  margins?: NarrativeMotifsMargins | null;
+}
+
 export function addRuggedCoasts(
   iWidth: number,
   iHeight: number,
   ctx: ExtendedMapContext,
-  config: { coastlines: CoastlinesConfig; corridors: CorridorPolicy }
+  config: { coastlines?: CoastlinesConfig; corridors?: CorridorPolicy },
+  artifacts: RuggedCoastsArtifacts = {}
 ): void {
   const plates = assertFoundationPlates(ctx, "coastlines");
   const adapter = ctx.adapter;
@@ -36,6 +45,9 @@ export function addRuggedCoasts(
   const { boundaryCloseness, boundaryType } = plates;
 
   const cfg = config.coastlines;
+  if (!cfg) {
+    throw new Error("[Coastlines] Missing coastlines config.");
+  }
   const cfgBay = cfg.bay;
   const cfgFjord = cfg.fjord;
   if (!cfgBay || !cfgFjord) {
@@ -68,10 +80,15 @@ export function addRuggedCoasts(
     fjordWeight: Math.max(0, Number.isFinite(plateBiasRaw.fjordWeight) ? plateBiasRaw.fjordWeight! : 0.8),
   };
 
-  const { protection: SEA_PROTECTION, softChanceMultiplier: SOFT_MULT } = resolveSeaCorridorPolicy(config.corridors);
+  const corridorsCfg = config.corridors;
+  if (!corridorsCfg) {
+    throw new Error("[Coastlines] Missing corridors config.");
+  }
+  const { protection: SEA_PROTECTION, softChanceMultiplier: SOFT_MULT } =
+    resolveSeaCorridorPolicy(corridorsCfg);
   const emptySet = new Set<string>();
-  const corridors = getNarrativeCorridors(ctx);
-  const margins = getNarrativeMotifsMargins(ctx);
+  const corridors = artifacts.corridors ?? null;
+  const margins = artifacts.margins ?? null;
   const seaLanes = corridors?.seaLanes ?? emptySet;
   const activeMargin = margins?.activeMargin ?? emptySet;
   const passiveShelf = margins?.passiveShelf ?? emptySet;

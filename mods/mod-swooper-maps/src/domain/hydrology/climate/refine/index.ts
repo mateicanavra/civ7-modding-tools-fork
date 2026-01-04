@@ -1,8 +1,11 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { assertFoundationDynamics } from "@swooper/mapgen-core";
 import { inBounds as boundsCheck } from "@swooper/mapgen-core/lib/grid";
-import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@mapgen/config";
-import { getNarrativeMotifsHotspots, getNarrativeMotifsRifts } from "@mapgen/domain/narrative/queries.js";
+import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@mapgen/domain/config";
+import type {
+  NarrativeMotifsHotspots,
+  NarrativeMotifsRifts,
+} from "@mapgen/domain/narrative/models.js";
 import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 import { applyWaterGradientRefinement } from "@mapgen/domain/hydrology/climate/refine/water-gradient.js";
@@ -24,6 +27,9 @@ export function refineClimateEarthlike(
     climate?: ClimateConfig;
     story?: StoryConfig;
     directionality?: FoundationDirectionalityConfig;
+    rifts?: NarrativeMotifsRifts | null;
+    hotspots?: NarrativeMotifsHotspots | null;
+    riverAdjacency?: Uint8Array | null;
   } = {}
 ): void {
   if (!ctx) {
@@ -31,7 +37,9 @@ export function refineClimateEarthlike(
       "ClimateEngine: refineClimateEarthlike requires MapContext (legacy direct-engine fallback removed)."
     );
   }
-  const runtime = createClimateRuntime(width, height, ctx);
+  const runtime = createClimateRuntime(width, height, ctx, {
+    riverAdjacency: options.riverAdjacency,
+  });
   const dynamics = assertFoundationDynamics(ctx, "climateRefine");
 
   if (!options.climate) {
@@ -48,8 +56,8 @@ export function refineClimateEarthlike(
   }
   const directionality = options.directionality;
   const emptySet = new Set<string>();
-  const rifts = getNarrativeMotifsRifts(ctx);
-  const hotspots = getNarrativeMotifsHotspots(ctx);
+  const rifts = options.rifts ?? null;
+  const hotspots = options.hotspots ?? null;
 
   // Local bounds check with captured width/height
   const inBounds = (x: number, y: number): boolean => boundsCheck(x, y, width, height);

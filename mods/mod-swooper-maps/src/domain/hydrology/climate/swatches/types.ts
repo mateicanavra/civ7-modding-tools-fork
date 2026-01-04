@@ -3,7 +3,7 @@ export interface SwatchTypeEntry {
   w: number;
 }
 
-export type SwatchTypeConfig = Record<string, number | undefined>;
+export type SwatchTypeConfig = Record<string, number | boolean | undefined>;
 export type SwatchTypesConfig = Record<string, SwatchTypeConfig>;
 
 export interface SwatchRuntime {
@@ -20,4 +20,3 @@ export interface SwatchHelpers {
   getElevation: (x: number, y: number) => number;
   inLocalBounds: (x: number, y: number) => boolean;
 }
-

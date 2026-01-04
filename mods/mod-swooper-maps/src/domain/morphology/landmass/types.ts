@@ -3,7 +3,7 @@ import type {
   LandmassGeometry,
   LandmassGeometryPost,
   LandmassTectonicsConfig,
-} from "@mapgen/config";
+} from "@mapgen/domain/config";
 
 export type { LandmassTectonicsConfig, LandmassGeometry, LandmassGeometryPost };
 

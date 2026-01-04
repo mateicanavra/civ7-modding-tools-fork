@@ -6,7 +6,7 @@ export interface OrogenyCacheInstance {
   lee: Set<string>;
 }
 
-const OROGENY_CACHE_ARTIFACT_KEY = "story:orogenyCache";
+const OROGENY_CACHE = new WeakMap<ExtendedMapContext, OrogenyCacheInstance>();
 
 function createCache(): OrogenyCacheInstance {
   return { belts: new Set(), windward: new Set(), lee: new Set() };
@@ -14,9 +14,9 @@ function createCache(): OrogenyCacheInstance {
 
 export function getOrogenyCache(ctx: ExtendedMapContext | null | undefined): OrogenyCacheInstance {
   if (!ctx) return createCache();
-  const existing = ctx.artifacts?.get(OROGENY_CACHE_ARTIFACT_KEY) as OrogenyCacheInstance | undefined;
+  const existing = OROGENY_CACHE.get(ctx);
   if (existing) return existing;
   const created = createCache();
-  ctx.artifacts?.set(OROGENY_CACHE_ARTIFACT_KEY, created);
+  OROGENY_CACHE.set(ctx, created);
   return created;
 }

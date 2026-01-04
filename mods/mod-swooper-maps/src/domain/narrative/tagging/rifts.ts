@@ -2,20 +2,24 @@ import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { clamp, inBounds, storyKey } from "@swooper/mapgen-core";
 import { assertFoundationPlates } from "@swooper/mapgen-core";
 import { idx } from "@swooper/mapgen-core/lib/grid";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";
-import { buildNarrativeMotifsRiftsV1 } from "@mapgen/domain/narrative/artifacts.js";
+import type { NarrativeMotifsRifts } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
 import { latitudeAbsDeg } from "@mapgen/domain/narrative/utils/latitude.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 import type { RiftValleysSummary } from "@mapgen/domain/narrative/tagging/types.js";
-import type { StoryConfig } from "@mapgen/config";
+import type { StoryConfig } from "@mapgen/domain/config";
+
+export interface RiftValleysResult {
+  summary: RiftValleysSummary;
+  motifs: NarrativeMotifsRifts;
+}
 
 export function storyTagRiftValleys(
   ctx: ExtendedMapContext,
   config: { story: StoryConfig }
-): RiftValleysSummary {
+): RiftValleysResult {
   const plates = assertFoundationPlates(ctx, "storyRifts");
   const { width, height } = getDims(ctx);
   const storyCfg = config.story as Record<string, unknown>;
@@ -263,10 +267,10 @@ export function storyTagRiftValleys(
     },
   });
 
-  ctx.artifacts.set(
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
-    buildNarrativeMotifsRiftsV1({ riftLine, riftShoulder })
-  );
+  const motifs: NarrativeMotifsRifts = {
+    riftLine: new Set(riftLine),
+    riftShoulder: new Set(riftShoulder),
+  };
 
-  return summary;
+  return { summary, motifs };
 }

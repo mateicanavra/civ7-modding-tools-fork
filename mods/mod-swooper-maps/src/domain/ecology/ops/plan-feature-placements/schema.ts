@@ -1,27 +1,23 @@
-import { Type, type Static } from "typebox";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import {
+  applySchemaDefaults,
+  defineOpSchema,
+  Type,
+  TypedArraySchemas,
+  type Static,
+} from "@swooper/mapgen-core/authoring";
 
-import type { BiomeSymbol } from "../../types.js";
+import {
+  FEATURE_PLACEMENT_KEYS,
+  type FeatureKey,
+  type BiomeSymbol,
+} from "../../types.js";
 
-export const FEATURE_PLACEMENT_KEYS = [
-  "FEATURE_FOREST",
-  "FEATURE_RAINFOREST",
-  "FEATURE_TAIGA",
-  "FEATURE_SAVANNA_WOODLAND",
-  "FEATURE_SAGEBRUSH_STEPPE",
-  "FEATURE_MARSH",
-  "FEATURE_TUNDRA_BOG",
-  "FEATURE_MANGROVE",
-  "FEATURE_OASIS",
-  "FEATURE_WATERING_HOLE",
-  "FEATURE_REEF",
-  "FEATURE_COLD_REEF",
-  "FEATURE_ATOLL",
-  "FEATURE_LOTUS",
-  "FEATURE_ICE",
-] as const;
-
-export type FeatureKey = (typeof FEATURE_PLACEMENT_KEYS)[number];
+const FeatureKeySchema = Type.Unsafe<FeatureKey>(
+  Type.Union(
+    FEATURE_PLACEMENT_KEYS.map((key) => Type.Literal(key)),
+    { description: "Feature placement key (FEATURE_*)." }
+  )
+);
 
 const BiomeSymbolSchema = Type.Union(
   [
@@ -40,7 +36,7 @@ const BiomeSymbolSchema = Type.Union(
   }
 );
 
-export const FeaturesPlacementVegetatedMinByBiomeSchema = Type.Object(
+const FeaturesPlacementVegetatedMinByBiomeSchema = Type.Object(
   {
     /** Minimum vegetation density for snow biomes (0..1). */
     snow: Type.Number({
@@ -106,7 +102,7 @@ export const FeaturesPlacementVegetatedMinByBiomeSchema = Type.Object(
   }
 );
 
-export const FeaturesPlacementGroupSchema = Type.Object(
+const FeaturesPlacementGroupSchema = Type.Object(
   {
     /**
      * Scalar multiplier applied to all per-feature chances in the group.
@@ -124,7 +120,7 @@ export const FeaturesPlacementGroupSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementGroupsSchema = Type.Object(
+const FeaturesPlacementGroupsSchema = Type.Object(
   {
     /** Vegetated scatter features on land (forest/rainforest/taiga/savanna/sagebrush). */
     vegetated: Type.Optional(FeaturesPlacementGroupSchema),
@@ -138,7 +134,7 @@ export const FeaturesPlacementGroupsSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementChancesSchema = Type.Object(
+const FeaturesPlacementChancesSchema = Type.Object(
   {
     /** Chance per eligible plot to place a temperate forest (percent 0..100). */
     FEATURE_FOREST: Type.Optional(
@@ -290,7 +286,7 @@ export const FeaturesPlacementChancesSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementVegetatedRulesSchema = Type.Object(
+const FeaturesPlacementVegetatedRulesSchema = Type.Object(
   {
     /**
      * Minimum vegetation density (0..1) required before any scatter vegetation can spawn,
@@ -410,7 +406,7 @@ export const FeaturesPlacementVegetatedRulesSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementWetRulesSchema = Type.Object(
+const FeaturesPlacementWetRulesSchema = Type.Object(
   {
     /**
      * River adjacency radius (tiles) used for marsh/bog placement.
@@ -510,7 +506,7 @@ export const FeaturesPlacementWetRulesSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementAtollSchema = Type.Object(
+const FeaturesPlacementAtollSchema = Type.Object(
   {
     /**
      * Enable or disable cluster-growth behavior for atolls.
@@ -583,7 +579,7 @@ export const FeaturesPlacementAtollSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementAquaticSchema = Type.Object(
+const FeaturesPlacementAquaticSchema = Type.Object(
   {
     /**
      * Absolute latitude split for warm vs cold reefs.
@@ -603,7 +599,7 @@ export const FeaturesPlacementAquaticSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementIceSchema = Type.Object(
+const FeaturesPlacementIceSchema = Type.Object(
   {
     /**
      * Minimum absolute latitude to place ice (degrees).
@@ -652,7 +648,7 @@ export const FeaturesPlacementIceSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const FeaturesPlacementConfigSchema = Type.Object(
+const FeaturesPlacementConfigSchema = Type.Object(
   {
     /** Group-level knobs for major feature families. */
     groups: Type.Optional(FeaturesPlacementGroupsSchema),
@@ -670,18 +666,77 @@ export const FeaturesPlacementConfigSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export type FeaturesPlacementGroupsConfig = Static<typeof FeaturesPlacementGroupsSchema>;
-export type FeaturesPlacementGroupConfig = Static<typeof FeaturesPlacementGroupSchema>;
-export type FeaturesPlacementChances = Static<typeof FeaturesPlacementChancesSchema>;
-export type FeaturesPlacementVegetatedMinByBiome = Static<
+const FeaturesPlacementInputSchema = Type.Object(
+  {
+    width: Type.Integer({ minimum: 1 }),
+    height: Type.Integer({ minimum: 1 }),
+    seed: Type.Number({ description: "Deterministic seed for placement RNG." }),
+    biomeIndex: TypedArraySchemas.u8({ description: "Biome symbol indices per tile." }),
+    vegetationDensity: TypedArraySchemas.f32({ description: "Vegetation density per tile (0..1)." }),
+    effectiveMoisture: TypedArraySchemas.f32({ description: "Effective moisture per tile." }),
+    surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature per tile (C)." }),
+    aridityIndex: TypedArraySchemas.f32({ description: "Aridity index per tile (0..1)." }),
+    freezeIndex: TypedArraySchemas.f32({ description: "Freeze index per tile (0..1)." }),
+    landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
+    terrainType: TypedArraySchemas.u8({ description: "Terrain type id per tile." }),
+    latitude: TypedArraySchemas.f32({ description: "Latitude per tile (degrees)." }),
+    featureKeyField: TypedArraySchemas.i16({
+      description: "Existing feature keys per tile (-1 for empty).",
+    }),
+    naturalWonderMask: TypedArraySchemas.u8({ description: "Natural wonder mask per tile (1=present)." }),
+    nearRiverMask: TypedArraySchemas.u8({ description: "River adjacency mask for near-river checks." }),
+    isolatedRiverMask: TypedArraySchemas.u8({ description: "River adjacency mask for isolation checks." }),
+    navigableRiverTerrain: Type.Integer({ description: "Terrain id for navigable rivers." }),
+    coastTerrain: Type.Integer({ description: "Terrain id for coast/shallow water." }),
+  },
+  { additionalProperties: false }
+);
+
+const FeaturePlacementSchema = Type.Object(
+  {
+    x: Type.Integer({ minimum: 0 }),
+    y: Type.Integer({ minimum: 0 }),
+    feature: FeatureKeySchema,
+  },
+  { additionalProperties: false }
+);
+
+const FeaturesPlacementOutputSchema = Type.Object(
+  {
+    placements: Type.Array(FeaturePlacementSchema),
+  },
+  { additionalProperties: false }
+);
+
+export const FeaturesPlacementSchema = defineOpSchema<
+  typeof FeaturesPlacementInputSchema,
+  typeof FeaturesPlacementConfigSchema,
+  typeof FeaturesPlacementOutputSchema
+>(
+  {
+    input: FeaturesPlacementInputSchema,
+    config: FeaturesPlacementConfigSchema,
+    output: FeaturesPlacementOutputSchema,
+  },
+  {
+    title: "FeaturesPlacementSchema",
+    description: "Plan ecology feature placements",
+    additionalProperties: false,
+  }
+);
+
+type FeaturesPlacementGroupsConfig = Static<typeof FeaturesPlacementGroupsSchema>;
+type FeaturesPlacementGroupConfig = Static<typeof FeaturesPlacementGroupSchema>;
+type FeaturesPlacementChances = Static<typeof FeaturesPlacementChancesSchema>;
+type FeaturesPlacementVegetatedMinByBiome = Static<
   typeof FeaturesPlacementVegetatedMinByBiomeSchema
 >;
-export type FeaturesPlacementVegetatedRules = Static<typeof FeaturesPlacementVegetatedRulesSchema>;
-export type FeaturesPlacementWetRules = Static<typeof FeaturesPlacementWetRulesSchema>;
-export type FeaturesPlacementAquaticConfig = Static<typeof FeaturesPlacementAquaticSchema>;
-export type FeaturesPlacementAtollConfig = Static<typeof FeaturesPlacementAtollSchema>;
-export type FeaturesPlacementIceConfig = Static<typeof FeaturesPlacementIceSchema>;
-export type FeaturesPlacementConfig = Static<typeof FeaturesPlacementConfigSchema>;
+type FeaturesPlacementVegetatedRules = Static<typeof FeaturesPlacementVegetatedRulesSchema>;
+type FeaturesPlacementWetRules = Static<typeof FeaturesPlacementWetRulesSchema>;
+type FeaturesPlacementAquaticConfig = Static<typeof FeaturesPlacementAquaticSchema>;
+type FeaturesPlacementAtollConfig = Static<typeof FeaturesPlacementAtollSchema>;
+type FeaturesPlacementIceConfig = Static<typeof FeaturesPlacementIceSchema>;
+type FeaturesPlacementConfig = Static<typeof FeaturesPlacementSchema["properties"]["config"]>;
 
 export type FeaturesPlacementResolvedGroup = { multiplier: number };
 
@@ -1027,5 +1082,3 @@ export function resolveFeaturesPlacementConfig(
     },
   };
 }
-
-export type { BiomeSymbol };

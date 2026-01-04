@@ -1,12 +1,10 @@
-import { Type } from "typebox";
-import { FeaturesConfigSchema } from "@mapgen/domain/ecology/config.js";
-
-export { FeaturesConfigSchema };
+import { Type, type Static } from "typebox";
+import { EcologyConfigSchema } from "@mapgen/domain/ecology/config.js";
 
 /**
  * Hotspot tuning used by story overlays.
  */
-export const HotspotTunablesSchema = Type.Object(
+const HotspotTunablesSchema = Type.Object(
   {
     /**
      * Maximum hotspot trails to seed, before map-size scaling.
@@ -95,7 +93,7 @@ export const HotspotTunablesSchema = Type.Object(
 /**
  * Story orogeny belt tunables affecting windward/lee rainfall refinement.
  */
-export const OrogenyTunablesSchema = Type.Object(
+const OrogenyTunablesSchema = Type.Object(
   {
     /** Search radius (tiles) for windward/lee tagging around detected belts. */
     radius: Type.Optional(
@@ -136,7 +134,7 @@ export const OrogenyTunablesSchema = Type.Object(
 /**
  * Story rift valley tagging tunables.
  */
-export const RiftTunablesSchema = Type.Object(
+const RiftTunablesSchema = Type.Object(
   {
     /** Maximum rift valleys per map (pre-scaling). */
     maxRiftsPerMap: Type.Optional(
@@ -180,7 +178,7 @@ export const RiftTunablesSchema = Type.Object(
  * Used by storyTagContinentalMargins() to decide how much coastline is tagged
  * as active vs passive margins.
  */
-export const ContinentalMarginsConfigSchema = Type.Object(
+const ContinentalMarginsConfigSchema = Type.Object(
   {
     /** Fraction of coastal tiles to tag as active margins (0..1). */
     activeFraction: Type.Optional(
@@ -215,7 +213,7 @@ export const ContinentalMarginsConfigSchema = Type.Object(
 /**
  * Aggregated story configuration controlling hotspots and localized features.
  */
-export const StoryConfigSchema = Type.Object(
+const StoryConfigSchema = Type.Object(
   {
     /** Hotspot tuning for volcanic/paradise overlays. */
     hotspot: Type.Optional(HotspotTunablesSchema),
@@ -224,7 +222,7 @@ export const StoryConfigSchema = Type.Object(
     /** Orogeny belt climate modifiers. */
     orogeny: Type.Optional(OrogenyTunablesSchema),
     /** Localized feature bonuses around story elements. */
-    features: Type.Optional(FeaturesConfigSchema),
+    features: Type.Optional(EcologyConfigSchema.properties.features),
   },
   { additionalProperties: false, default: {} }
 );
@@ -232,7 +230,7 @@ export const StoryConfigSchema = Type.Object(
 /**
  * Policy governing how strategic sea corridors are protected or softened.
  */
-export const SeaCorridorPolicySchema = Type.Object(
+const SeaCorridorPolicySchema = Type.Object(
   {
     /**
      * Protection mode for sea corridors.
@@ -314,7 +312,7 @@ export const SeaCorridorPolicySchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const IslandHopCorridorConfigSchema = Type.Object(
+const IslandHopCorridorConfigSchema = Type.Object(
   {
     /** Whether island-hop corridors should be tagged from hotspots. */
     useHotspots: Type.Optional(
@@ -335,7 +333,7 @@ export const IslandHopCorridorConfigSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const LandCorridorConfigSchema = Type.Object(
+const LandCorridorConfigSchema = Type.Object(
   {
     /** Strength of biome biasing near land corridors (0..1). */
     biomesBiasStrength: Type.Optional(
@@ -381,7 +379,7 @@ export const LandCorridorConfigSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const RiverCorridorConfigSchema = Type.Object(
+const RiverCorridorConfigSchema = Type.Object(
   {
     /** Strength of biome biasing near river corridors (0..1). */
     biomesBiasStrength: Type.Optional(
@@ -460,12 +458,40 @@ export const CorridorsConfigSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
+export const NarrativeConfigSchema = Type.Object(
+  {
+    story: Type.Optional(StoryConfigSchema),
+    corridors: Type.Optional(CorridorsConfigSchema),
+    margins: Type.Optional(ContinentalMarginsConfigSchema),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+export type NarrativeConfig = Static<typeof NarrativeConfigSchema>;
+export type StoryConfig = Static<typeof NarrativeConfigSchema["properties"]["story"]>;
+export type CorridorsConfig = Static<typeof NarrativeConfigSchema["properties"]["corridors"]>;
+export type ContinentalMarginsConfig =
+  Static<typeof NarrativeConfigSchema["properties"]["margins"]>;
+export type HotspotTunables =
+  Static<typeof NarrativeConfigSchema["properties"]["story"]["properties"]["hotspot"]>;
+export type RiftTunables =
+  Static<typeof NarrativeConfigSchema["properties"]["story"]["properties"]["rift"]>;
+export type OrogenyTunables =
+  Static<typeof NarrativeConfigSchema["properties"]["story"]["properties"]["orogeny"]>;
+export type SeaCorridorPolicy =
+  Static<typeof NarrativeConfigSchema["properties"]["corridors"]["properties"]["sea"]>;
+export type LandCorridorConfig =
+  Static<typeof NarrativeConfigSchema["properties"]["corridors"]["properties"]["land"]>;
+export type RiverCorridorConfig =
+  Static<typeof NarrativeConfigSchema["properties"]["corridors"]["properties"]["river"]>;
+export type IslandHopCorridorConfig =
+  Static<typeof NarrativeConfigSchema["properties"]["corridors"]["properties"]["islandHop"]>;
+
 // ────────────────────────────────────────────────────────────────────────────
-// Climate sub-schemas (typed replacements for UnknownRecord)
+// Climate sub-schemas used by story-driven climate tuning
 // ────────────────────────────────────────────────────────────────────────────
 
 /**
  * Rainfall targets by latitude zone for the climate engine.
  * Values are rainfall units (0-200 typical range).
  */
-

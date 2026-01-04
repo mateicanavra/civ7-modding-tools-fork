@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { getPublishedBiomeClassification } from "@mapgen/domain/artifacts.js";
+import { getPublishedBiomeClassification } from "../../../../artifacts.js";
 import type * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { assertHeightfield } from "../biomes/helpers/inputs.js";

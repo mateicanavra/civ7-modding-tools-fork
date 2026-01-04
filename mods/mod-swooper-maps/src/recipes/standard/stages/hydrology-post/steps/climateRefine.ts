@@ -3,10 +3,15 @@ import { logRainfallStats, type ExtendedMapContext } from "@swooper/mapgen-core"
 import { createStep } from "@swooper/mapgen-core/authoring";
 import {
   ClimateConfigSchema,
-  OrogenyTunablesSchema,
+  NarrativeConfigSchema,
   type FoundationDirectionalityConfig,
-} from "@mapgen/config";
-import { publishClimateFieldArtifact } from "../../../artifacts.js";
+} from "@mapgen/domain/config";
+import {
+  getPublishedNarrativeMotifsHotspots,
+  getPublishedNarrativeMotifsRifts,
+  getPublishedRiverAdjacency,
+  publishClimateFieldArtifact,
+} from "../../../artifacts.js";
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 import { refineClimateEarthlike } from "@mapgen/domain/hydrology/climate/index.js";
 
@@ -15,7 +20,7 @@ const ClimateRefineStepConfigSchema = Type.Object(
     climate: ClimateConfigSchema,
     story: Type.Object(
       {
-        orogeny: OrogenyTunablesSchema,
+        orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,
       },
       { additionalProperties: false, default: {} }
     ),
@@ -44,10 +49,25 @@ export default createStep({
     if (!directionality) {
       throw new Error("climateRefine requires settings.directionality.");
     }
+    const rifts = getPublishedNarrativeMotifsRifts(context);
+    if (!rifts) {
+      throw new Error("[Hydrology] Missing artifact:narrative.motifs.rifts@v1.");
+    }
+    const hotspots = getPublishedNarrativeMotifsHotspots(context);
+    if (!hotspots) {
+      throw new Error("[Hydrology] Missing artifact:narrative.motifs.hotspots@v1.");
+    }
+    const riverAdjacency = getPublishedRiverAdjacency(context);
+    if (!riverAdjacency) {
+      throw new Error("[Hydrology] Missing artifact:riverAdjacency.");
+    }
     refineClimateEarthlike(width, height, context, {
       climate: config.climate,
       story: config.story,
       directionality,
+      rifts,
+      hotspots,
+      riverAdjacency,
     });
     publishClimateFieldArtifact(context);
 

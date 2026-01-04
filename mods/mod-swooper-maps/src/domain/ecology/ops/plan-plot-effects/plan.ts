@@ -1,6 +1,9 @@
 import { biomeSymbolFromIndex } from "../classify-biomes/index.js";
-import type { PlotEffectsInput, PlotEffectPlacement } from "./types.js";
-import type { PlotEffectSelector, ResolvedPlotEffectsConfig } from "./schema.js";
+import { type Static } from "@swooper/mapgen-core/authoring";
+import {
+  PlanPlotEffectsSchema,
+  type ResolvedPlotEffectsConfig,
+} from "./schema.js";
 import { resolveSnowElevationRange } from "./snow-elevation.js";
 import { createLabelRng } from "../rng.js";
 
@@ -13,6 +16,12 @@ const normalizeRange = (value: number, min: number, max: number): number => {
 
 const rollPercent = (rng: (label: string, max: number) => number, label: string, chance: number): boolean =>
   chance > 0 && rng(label, 100) < chance;
+
+type PlotEffectsInput = Static<typeof PlanPlotEffectsSchema["properties"]["input"]>;
+type PlotEffectPlacement = Static<
+  typeof PlanPlotEffectsSchema["properties"]["output"]["properties"]["placements"]["items"]
+>;
+type PlotEffectSelector = ResolvedPlotEffectsConfig["snow"]["selectors"]["light"];
 
 const resolvePlotEffectKey = (selector: PlotEffectSelector): PlotEffectSelector => selector;
 

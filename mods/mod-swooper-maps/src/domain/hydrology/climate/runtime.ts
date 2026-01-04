@@ -4,26 +4,26 @@ import { ctxRandom, writeClimateField } from "@swooper/mapgen-core";
 import { MOUNTAIN_TERRAIN } from "@swooper/mapgen-core";
 import { idx } from "@swooper/mapgen-core/lib/grid";
 import { clamp } from "@swooper/mapgen-core/lib/math";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";
 import type { ClimateAdapter, ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
 
-function getPublishedHeightfield(
+function getHeightfield(
   ctx: ExtendedMapContext,
-  expectedSize: number
+  expectedSize: number,
+  heightfield?: HeightfieldBuffer | null
 ): HeightfieldBuffer {
-  const value = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
+  const value = heightfield ?? ctx.buffers?.heightfield;
   if (!value || typeof value !== "object") {
-    throw new Error("ClimateEngine: Missing artifact:heightfield (required for climate).");
+    throw new Error("ClimateEngine: Missing heightfield buffer (required for climate).");
   }
   const candidate = value as HeightfieldBuffer;
   if (!(candidate.elevation instanceof Int16Array) || candidate.elevation.length !== expectedSize) {
-    throw new Error("ClimateEngine: Invalid artifact:heightfield.elevation payload.");
+    throw new Error("ClimateEngine: Invalid heightfield.elevation payload.");
   }
   if (!(candidate.terrain instanceof Uint8Array) || candidate.terrain.length !== expectedSize) {
-    throw new Error("ClimateEngine: Invalid artifact:heightfield.terrain payload.");
+    throw new Error("ClimateEngine: Invalid heightfield.terrain payload.");
   }
   if (!(candidate.landMask instanceof Uint8Array) || candidate.landMask.length !== expectedSize) {
-    throw new Error("ClimateEngine: Invalid artifact:heightfield.landMask payload.");
+    throw new Error("ClimateEngine: Invalid heightfield.landMask payload.");
   }
   return candidate;
 }
@@ -31,7 +31,10 @@ function getPublishedHeightfield(
 /**
  * Resolve an engine adapter for rainfall operations.
  */
-export function resolveAdapter(ctx: ExtendedMapContext): ClimateAdapter {
+export function resolveAdapter(
+  ctx: ExtendedMapContext,
+  options: { heightfield?: HeightfieldBuffer | null; riverAdjacency?: Uint8Array | null } = {}
+): ClimateAdapter {
   if (!ctx?.adapter) {
     throw new Error(
       "ClimateEngine: MapContext adapter is required (legacy direct-engine fallback removed)."
@@ -42,8 +45,8 @@ export function resolveAdapter(ctx: ExtendedMapContext): ClimateAdapter {
   const width = ctx.dimensions.width | 0;
   const height = ctx.dimensions.height | 0;
   const expectedSize = Math.max(0, width * height) | 0;
-  const heightfield = getPublishedHeightfield(ctx, expectedSize);
-  const riverAdjacency = ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency);
+  const heightfield = getHeightfield(ctx, expectedSize, options.heightfield);
+  const riverAdjacency = options.riverAdjacency ?? null;
   const hasRiverAdjacencyArtifact =
     riverAdjacency instanceof Uint8Array && riverAdjacency.length === expectedSize;
   return {
@@ -56,12 +59,12 @@ export function resolveAdapter(ctx: ExtendedMapContext): ClimateAdapter {
     isAdjacentToRivers: (x, y, radius) => {
       if (radius !== 1) {
         throw new Error(
-          "ClimateEngine: isAdjacentToRivers only supports radius=1 via artifact:riverAdjacency."
+          "ClimateEngine: isAdjacentToRivers only supports radius=1 via the river adjacency mask."
         );
       }
       if (!hasRiverAdjacencyArtifact) {
         throw new Error(
-          "ClimateEngine: Missing artifact:riverAdjacency (required for climate refinement)."
+          "ClimateEngine: Missing river adjacency mask (required for climate refinement)."
         );
       }
       return (riverAdjacency as Uint8Array)[idx(x, y, width)] === 1;
@@ -80,7 +83,8 @@ export function resolveAdapter(ctx: ExtendedMapContext): ClimateAdapter {
 export function createClimateRuntime(
   width: number,
   height: number,
-  ctx: ExtendedMapContext | null
+  ctx: ExtendedMapContext | null,
+  options: { heightfield?: HeightfieldBuffer | null; riverAdjacency?: Uint8Array | null } = {}
 ): ClimateRuntime {
   if (!ctx) {
     throw new Error(
@@ -88,7 +92,7 @@ export function createClimateRuntime(
     );
   }
 
-  const adapter = resolveAdapter(ctx);
+  const adapter = resolveAdapter(ctx, options);
   const climate = ctx.buffers?.climate;
   const rainfallBuf = climate?.rainfall || null;
   const humidityBuf = climate?.humidity || null;

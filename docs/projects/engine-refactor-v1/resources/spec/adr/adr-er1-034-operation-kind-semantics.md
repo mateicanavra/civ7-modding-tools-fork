@@ -80,9 +80,7 @@ An operation module exports exactly one operation:
 export const myOp = createOp({
   kind: "compute" | "plan" | "score" | "select",
   id: "domain/path/opName",
-  input: InputSchema,
-  output: OutputSchema,
-  config: ConfigSchema,
+  schema: MyOpSchema, // Type.Object({ input, config, output })
   run: (input, config) => ({ /* output */ }),
 });
 ```

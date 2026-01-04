@@ -1,13 +1,14 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { CorridorsConfigSchema, type FoundationDirectionalityConfig } from "@mapgen/config";
+import { NarrativeConfigSchema, type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
+import { getPublishedNarrativeCorridors } from "../../../artifacts.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
 const StoryCorridorsStepConfigSchema = Type.Object(
   {
-    corridors: CorridorsConfigSchema,
+    corridors: NarrativeConfigSchema.properties.corridors,
   },
   { additionalProperties: false, default: { corridors: {} } }
 );
@@ -34,9 +35,22 @@ export default createStep({
     if (!directionality) {
       throw new Error("[Narrative] Missing settings.directionality.");
     }
-    storyTagStrategicCorridors(context, "postRivers", {
-      corridors: config.corridors,
-      directionality,
-    });
+    const corridors = getPublishedNarrativeCorridors(context);
+    if (!corridors) {
+      throw new Error("[Narrative] Missing artifact:narrative.corridors@v1.");
+    }
+    const result = storyTagStrategicCorridors(
+      context,
+      "postRivers",
+      {
+        corridors: config.corridors,
+        directionality,
+      },
+      { corridors }
+    );
+    context.artifacts.set(
+      M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
+      result.corridors
+    );
   },
 } as const);

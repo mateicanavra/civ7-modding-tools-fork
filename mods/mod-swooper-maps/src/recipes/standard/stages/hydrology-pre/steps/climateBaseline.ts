@@ -7,7 +7,7 @@ import {
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { ClimateBaselineSchema } from "@mapgen/config";
+import { ClimateConfigSchema } from "@mapgen/domain/config";
 import {
   publishClimateFieldArtifact,
   publishHeightfieldArtifact,
@@ -20,7 +20,7 @@ const ClimateBaselineStepConfigSchema = Type.Object(
   {
     climate: Type.Object(
       {
-        baseline: ClimateBaselineSchema,
+        baseline: ClimateConfigSchema.properties.baseline,
       },
       { additionalProperties: false, default: {} }
     ),

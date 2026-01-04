@@ -1,9 +1,34 @@
 import { Type, type Static } from "typebox";
+import { BiomeEngineBindingsSchema } from "./biome-bindings.js";
+import { classifyBiomes } from "./ops/classify-biomes/index.js";
+import { planFeaturePlacements } from "./ops/plan-feature-placements/index.js";
+import { planPlotEffects } from "./ops/plan-plot-effects/index.js";
+
+/**
+ * Biome classification config (Holdridge/Whittaker-inspired).
+ * Sourced from the ecology domain operation to keep schema + logic colocated.
+ */
+const BiomeConfigSchema = classifyBiomes.config;
+
+/**
+ * Optional bindings from biome symbols -> engine biome globals.
+ */
+const BiomeBindingsSchema = BiomeEngineBindingsSchema;
+
+/**
+ * Config for the feature placement plan operation.
+ */
+const FeaturesPlacementConfigSchema = planFeaturePlacements.config;
+
+/**
+ * Config for climate/ecology plot effects (snow, sand, burned).
+ */
+const PlotEffectsConfigSchema = planPlotEffects.config;
 
 /**
  * Localized feature bonuses around story elements.
  */
-export const FeaturesConfigSchema = Type.Object(
+const FeaturesConfigSchema = Type.Object(
   {
     /** Extra coral reef probability near paradise islands (percent 0..100). */
     paradiseReefChance: Type.Optional(
@@ -132,7 +157,7 @@ export const FeaturesConfigSchema = Type.Object(
  * Feature density controls for vegetation and reef prevalence.
  * These are additive/scale knobs layered on top of the baseline feature pass.
  */
-export const FeaturesDensityConfigSchema = Type.Object(
+const FeaturesDensityConfigSchema = Type.Object(
   {
     /**
      * Coral reef density multiplier on passive continental shelves.
@@ -284,5 +309,25 @@ export const FeaturesDensityConfigSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export type FeaturesConfig = Static<typeof FeaturesConfigSchema>;
-export type FeaturesDensityConfig = Static<typeof FeaturesDensityConfigSchema>;
+export const EcologyConfigSchema = Type.Object(
+  {
+    biomes: Type.Optional(BiomeConfigSchema),
+    bindings: Type.Optional(BiomeBindingsSchema),
+    featuresPlacement: Type.Optional(FeaturesPlacementConfigSchema),
+    plotEffects: Type.Optional(PlotEffectsConfigSchema),
+    features: Type.Optional(FeaturesConfigSchema),
+    featuresDensity: Type.Optional(FeaturesDensityConfigSchema),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+export type BiomeConfig = Static<typeof EcologyConfigSchema["properties"]["biomes"]>;
+export type BiomeBindings = Static<typeof EcologyConfigSchema["properties"]["bindings"]>;
+export type FeaturesPlacementConfig =
+  Static<typeof EcologyConfigSchema["properties"]["featuresPlacement"]>;
+export type PlotEffectsConfig =
+  Static<typeof EcologyConfigSchema["properties"]["plotEffects"]>;
+export type FeaturesConfig = Static<typeof EcologyConfigSchema["properties"]["features"]>;
+export type FeaturesDensityConfig =
+  Static<typeof EcologyConfigSchema["properties"]["featuresDensity"]>;
+export type EcologyConfig = Static<typeof EcologyConfigSchema>;

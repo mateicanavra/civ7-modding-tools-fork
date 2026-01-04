@@ -28,17 +28,6 @@ Each decision follows this structure:
 
 ## Decisions
 
-## ADR-001: Strict `MapGenConfig` (no unknown keys)
-
-**Status:** Accepted
-**Date:** 2025-12-19
-**Context:** `MapGenConfig` previously allowed arbitrary extra keys throughout the tree, which made it unclear where new config belonged and allowed typos/legacy fields to silently pass validation.
-**Decision:** Make the schema strict (`additionalProperties: false`) and validate before cleaning so unknown keys fail fast. Provide a single explicit escape hatch at `config.extensions` for experimental/plugin-owned knobs.
-**Consequences:**
-- Misplaced/typoed config now throws early instead of being silently accepted.
-- Experimental knobs must be routed via `config.extensions` (or formalized into the schema).
-- Existing configs that relied on undocumented extra keys must be updated.
-
 <!-- Example:
 ## ADR-001: Use pnpm Workspaces for Monorepo
 

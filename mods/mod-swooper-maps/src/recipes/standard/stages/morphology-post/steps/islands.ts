@@ -2,25 +2,29 @@ import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import {
-  HotspotTunablesSchema,
-  IslandsConfigSchema,
-  SeaCorridorPolicySchema,
-} from "@mapgen/config";
+  MorphologyConfigSchema,
+  NarrativeConfigSchema,
+} from "@mapgen/domain/config";
 import { addIslandChains } from "@mapgen/domain/morphology/islands/index.js";
+import {
+  getPublishedNarrativeCorridors,
+  getPublishedNarrativeMotifsHotspots,
+  getPublishedNarrativeMotifsMargins,
+} from "../../../artifacts.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
 const IslandsStepConfigSchema = Type.Object(
   {
-    islands: IslandsConfigSchema,
+    islands: MorphologyConfigSchema.properties.islands,
     story: Type.Object(
       {
-        hotspot: HotspotTunablesSchema,
+        hotspot: NarrativeConfigSchema.properties.story.properties.hotspot,
       },
       { additionalProperties: false, default: {} }
     ),
     corridors: Type.Object(
       {
-        sea: SeaCorridorPolicySchema,
+        sea: NarrativeConfigSchema.properties.corridors.properties.sea,
       },
       { additionalProperties: false, default: {} }
     ),
@@ -46,6 +50,23 @@ export default createStep({
   schema: IslandsStepConfigSchema,
   run: (context: ExtendedMapContext, config: IslandsStepConfig) => {
     const { width, height } = context.dimensions;
-    addIslandChains(width, height, context, config);
+    const margins = getPublishedNarrativeMotifsMargins(context);
+    if (!margins) {
+      throw new Error("[Morphology] Missing artifact:narrative.motifs.margins@v1.");
+    }
+    const hotspots = getPublishedNarrativeMotifsHotspots(context);
+    if (!hotspots) {
+      throw new Error("[Morphology] Missing artifact:narrative.motifs.hotspots@v1.");
+    }
+    const corridors = getPublishedNarrativeCorridors(context);
+    const result = addIslandChains(width, height, context, config, {
+      margins,
+      hotspots,
+      corridors,
+    });
+    context.artifacts.set(
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
+      result.motifs
+    );
   },
 } as const);

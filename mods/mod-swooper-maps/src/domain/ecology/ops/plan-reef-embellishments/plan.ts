@@ -1,10 +1,10 @@
 import { createLabelRng } from "../rng.js";
+import { type Static } from "@swooper/mapgen-core/authoring";
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
 import {
-  FEATURE_PLACEMENT_KEYS,
-  type FeatureKey,
-} from "../plan-feature-placements/schema.js";
-import type { ReefEmbellishmentPlacement, ReefEmbellishmentsInput } from "./types.js";
-import type { ResolvedReefEmbellishmentsConfig } from "./schema.js";
+  PlanReefEmbellishmentsSchema,
+  type ResolvedReefEmbellishmentsConfig,
+} from "./schema.js";
 import { planParadiseReefs } from "./rules/paradise-reefs.js";
 import { planShelfReefs } from "./rules/shelf-reefs.js";
 
@@ -16,6 +16,13 @@ const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
 const NO_FEATURE = -1;
 
 const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
+
+type ReefEmbellishmentsInput = Static<
+  typeof PlanReefEmbellishmentsSchema["properties"]["input"]
+>;
+type ReefEmbellishmentPlacement = Static<
+  typeof PlanReefEmbellishmentsSchema["properties"]["output"]["properties"]["placements"]["items"]
+>;
 
 export function planReefEmbellishments(
   input: ReefEmbellishmentsInput,

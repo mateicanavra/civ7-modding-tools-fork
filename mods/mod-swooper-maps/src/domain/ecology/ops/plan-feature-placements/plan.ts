@@ -1,9 +1,9 @@
-import type { FeaturePlacement, FeaturesPlacementInput } from "./types.js";
+import { type Static } from "@swooper/mapgen-core/authoring";
 import {
-  FEATURE_PLACEMENT_KEYS,
-  type FeatureKey,
+  FeaturesPlacementSchema,
   type ResolvedFeaturesPlacementConfig,
 } from "./schema.js";
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
 import {
   hasAdjacentFeatureType,
   isAdjacentToLand,
@@ -25,6 +25,13 @@ const rollPercent = (rng: (label: string, max: number) => number, label: string,
   chance > 0 && rng(label, 100) < chance;
 
 const NO_FEATURE = -1;
+
+type FeaturesPlacementInput = Static<
+  typeof FeaturesPlacementSchema["properties"]["input"]
+>;
+type FeaturePlacement = Static<
+  typeof FeaturesPlacementSchema["properties"]["output"]["properties"]["placements"]["items"]
+>;
 
 export function planFeaturePlacements(
   input: FeaturesPlacementInput,

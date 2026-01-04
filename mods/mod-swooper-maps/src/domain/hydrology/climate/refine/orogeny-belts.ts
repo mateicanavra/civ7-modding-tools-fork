@@ -1,6 +1,6 @@
 import { clamp } from "@swooper/mapgen-core/lib/math";
 import type { ClimateRuntime, OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
-import type { StoryConfig } from "@mapgen/config";
+import type { StoryConfig } from "@mapgen/domain/config";
 
 export function applyOrogenyBeltsRefinement(
   width: number,

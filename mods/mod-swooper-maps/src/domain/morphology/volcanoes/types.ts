@@ -1,4 +1,4 @@
-import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "@mapgen/config";
+import type { VolcanoesConfig as BootstrapVolcanoesConfig } from "@mapgen/domain/config";
 
 export type VolcanoesConfig = BootstrapVolcanoesConfig;
 

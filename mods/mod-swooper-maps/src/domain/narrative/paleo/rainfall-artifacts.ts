@@ -7,7 +7,7 @@
  */
 
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type { ClimateConfig } from "@mapgen/config";
+import type { ClimateConfig } from "@mapgen/domain/config";
 import { inBounds } from "@swooper/mapgen-core";
 import { writeClimateField } from "@swooper/mapgen-core";
 import { idx } from "@swooper/mapgen-core/lib/grid";

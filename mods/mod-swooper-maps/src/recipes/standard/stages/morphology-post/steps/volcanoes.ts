@@ -1,14 +1,14 @@
 import { Type, type Static } from "typebox";
 import { assertFoundationPlates, logVolcanoSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import type { VolcanoesConfig } from "@mapgen/config";
-import { VolcanoesConfigSchema } from "@mapgen/config";
+import type { VolcanoesConfig } from "@mapgen/domain/config";
+import { MorphologyConfigSchema } from "@mapgen/domain/config";
 import { layerAddVolcanoesPlateAware } from "@mapgen/domain/morphology/volcanoes/index.js";
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
 const VolcanoesStepConfigSchema = Type.Object(
   {
-    volcanoes: VolcanoesConfigSchema,
+    volcanoes: MorphologyConfigSchema.properties.volcanoes,
   },
   { additionalProperties: false, default: { volcanoes: {} } }
 );

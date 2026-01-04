@@ -7,7 +7,7 @@ import {
   createExtendedMapContext,
 } from "@swooper/mapgen-core";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 
 describe("story/paleo", () => {
   beforeEach(() => {});

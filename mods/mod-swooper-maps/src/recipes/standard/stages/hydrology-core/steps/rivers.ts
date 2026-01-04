@@ -7,7 +7,7 @@ import {
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { ClimateStoryPaleoSchema } from "@mapgen/config";
+import { ClimateConfigSchema } from "@mapgen/domain/config";
 import {
   computeRiverAdjacencyMask,
   publishClimateFieldArtifact,
@@ -24,7 +24,7 @@ const RiversStepConfigSchema = Type.Object(
       {
         story: Type.Object(
       {
-        paleo: Type.Optional(ClimateStoryPaleoSchema),
+        paleo: Type.Optional(ClimateConfigSchema.properties.story.properties.paleo),
       },
       { additionalProperties: false, default: {} }
     ),

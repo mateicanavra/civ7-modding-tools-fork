@@ -1,11 +1,10 @@
-import { Type } from "typebox";
-import { INTERNAL_METADATA_KEY } from "@mapgen/config/schema/common.js";
-import { LandmassConfigSchema } from "@mapgen/config/schema/landmass.js";
+import { Type, type Static } from "typebox";
+import { LandmassConfigSchema } from "../morphology/landmass/config.js";
 
 /**
  * Seed configuration shared across the foundation pipeline.
  */
-export const FoundationSeedConfigSchema = Type.Object(
+const FoundationSeedConfigSchema = Type.Object(
   {
     /**
      * Choose Civ engine RNG or a fixed deterministic seed.
@@ -42,7 +41,7 @@ export const FoundationSeedConfigSchema = Type.Object(
 /**
  * Voronoi plate layout controls for the world foundation.
  */
-export const FoundationPlatesConfigSchema = Type.Object(
+const FoundationPlatesConfigSchema = Type.Object(
   {
     /**
      * Number of tectonic plates.
@@ -279,7 +278,7 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
 /**
  * Atmospheric, oceanic, and mantle drivers for the foundation tensors.
  */
-export const FoundationDynamicsConfigSchema = Type.Object(
+const FoundationDynamicsConfigSchema = Type.Object(
   {
     /** Mantle plume configuration for deep-earth uplift sources. */
     mantle: Type.Optional(
@@ -380,55 +379,24 @@ export const FoundationDynamicsConfigSchema = Type.Object(
 );
 
 /**
- * Placeholder for plate-aware ocean separation inputs stored during foundation.
- *
- * @internal Engine plumbing; use top-level oceanSeparation for mod configs.
+ * Consolidated foundation configuration replacing the legacy worldModel split.
  */
-export const FoundationOceanSeparationConfigSchema = Type.Object(
-  {},
+export const FoundationConfigSchema = Type.Object(
   {
-    additionalProperties: false,
-    default: {},
-    description: "[internal] Foundation-level ocean separation alias; prefer top-level oceanSeparation.",
-    [INTERNAL_METADATA_KEY]: true,
-  }
-);
-
-/**
- * Surface targets derived from the world foundation seed.
- *
- * @internal Engine plumbing; surface config is derived from other fields.
- */
-export const FoundationSurfaceConfigSchema = Type.Object(
-  {
-    landmass: Type.Optional(LandmassConfigSchema),
-    oceanSeparation: Type.Optional(FoundationOceanSeparationConfigSchema),
+    /** Random seed configuration for reproducible generation. */
+    seed: Type.Optional(FoundationSeedConfigSchema),
+    /** Tectonic plate count and behavior settings. */
+    plates: Type.Optional(FoundationPlatesConfigSchema),
+    /** Wind, mantle convection, and directional coherence settings. */
+    dynamics: FoundationDynamicsConfigSchema,
   },
-  {
-    additionalProperties: false,
-    default: {},
-    description: "[internal] Surface targets derived from foundation; prefer top-level landmass/oceanSeparation.",
-    [INTERNAL_METADATA_KEY]: true,
-  }
+  { additionalProperties: false, default: {} }
 );
 
-/**
- * Policy multipliers exposed to downstream stages (coastlines, story overlays, etc.).
- *
- * @internal Engine plumbing for policy propagation.
- */
-export const FoundationPolicyConfigSchema = Type.Object(
-  {
-    oceanSeparation: Type.Optional(FoundationOceanSeparationConfigSchema),
-  },
-  {
-    additionalProperties: false,
-    default: {},
-    description: "[internal] Policy multipliers for downstream stages.",
-    [INTERNAL_METADATA_KEY]: true,
-  }
-);
-
-/**
- * Edge override policy for the ocean separation pass.
- */
+export type FoundationConfig = Static<typeof FoundationConfigSchema>;
+export type FoundationSeedConfig = Static<typeof FoundationConfigSchema["properties"]["seed"]>;
+export type FoundationPlatesConfig = Static<typeof FoundationConfigSchema["properties"]["plates"]>;
+export type FoundationDynamicsConfig =
+  Static<typeof FoundationConfigSchema["properties"]["dynamics"]>;
+export type FoundationDirectionalityConfig =
+  Static<typeof FoundationConfigSchema["properties"]["dynamics"]["properties"]["directionality"]>;

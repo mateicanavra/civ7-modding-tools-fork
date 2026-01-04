@@ -4,18 +4,19 @@ import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import type { CorridorKind, CorridorStyle } from "@mapgen/domain/narrative/corridors/types.js";
 import type { CorridorState } from "@mapgen/domain/narrative/corridors/state.js";
 
-const STYLE_PRIMITIVE_CACHE_KEY = "story:corridorStyleCache";
+const STYLE_PRIMITIVE_CACHE = new WeakMap<
+  ExtendedMapContext,
+  Map<string, Readonly<Record<string, unknown>>>
+>();
 
 function getStylePrimitiveCache(
   ctx: ExtendedMapContext | null | undefined
 ): Map<string, Readonly<Record<string, unknown>>> | null {
   if (!ctx) return null;
-  const existing = ctx.artifacts?.get(STYLE_PRIMITIVE_CACHE_KEY) as
-    | Map<string, Readonly<Record<string, unknown>>>
-    | undefined;
+  const existing = STYLE_PRIMITIVE_CACHE.get(ctx);
   if (existing) return existing;
   const created = new Map<string, Readonly<Record<string, unknown>>>();
-  ctx.artifacts?.set(STYLE_PRIMITIVE_CACHE_KEY, created);
+  STYLE_PRIMITIVE_CACHE.set(ctx, created);
   return created;
 }
 

@@ -1,15 +1,12 @@
 import type { BiomeSymbol } from "../../types.js";
 import { biomeSymbolFromIndex } from "../classify-biomes/index.js";
 import { createLabelRng } from "../rng.js";
+import { type Static } from "@swooper/mapgen-core/authoring";
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
 import {
-  FEATURE_PLACEMENT_KEYS,
-  type FeatureKey,
-} from "../plan-feature-placements/schema.js";
-import type {
-  VegetationEmbellishmentPlacement,
-  VegetationEmbellishmentsInput,
-} from "./types.js";
-import type { ResolvedVegetationEmbellishmentsConfig } from "./schema.js";
+  PlanVegetationEmbellishmentsSchema,
+  type ResolvedVegetationEmbellishmentsConfig,
+} from "./schema.js";
 import { planDensityTweaksAtTile } from "./rules/density-tweaks.js";
 import { planVolcanicVegetationAtTile } from "./rules/volcanic-vegetation.js";
 
@@ -21,6 +18,13 @@ const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
 const NO_FEATURE = -1;
 
 const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
+
+type VegetationEmbellishmentsInput = Static<
+  typeof PlanVegetationEmbellishmentsSchema["properties"]["input"]
+>;
+type VegetationEmbellishmentPlacement = Static<
+  typeof PlanVegetationEmbellishmentsSchema["properties"]["output"]["properties"]["placements"]["items"]
+>;
 
 const WARM_BIOMES: ReadonlySet<BiomeSymbol> = new Set([
   "temperateHumid",

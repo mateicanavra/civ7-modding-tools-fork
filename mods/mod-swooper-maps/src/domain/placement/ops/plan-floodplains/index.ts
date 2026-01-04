@@ -1,21 +1,16 @@
-import { createOp } from "@swooper/mapgen-core/authoring";
+import { createOp, type Static } from "@swooper/mapgen-core/authoring";
 
-import {
-  PlanFloodplainsConfigSchema,
-  PlanFloodplainsInputSchema,
-  PlanFloodplainsOutputSchema,
-  type PlanFloodplainsConfig,
-  type PlanFloodplainsInput,
-  type PlanFloodplainsOutput,
-} from "./schema.js";
+import { PlanFloodplainsSchema } from "./schema.js";
+
+type PlanFloodplainsInput = Static<typeof PlanFloodplainsSchema["properties"]["input"]>;
+type PlanFloodplainsConfig = Static<typeof PlanFloodplainsSchema["properties"]["config"]>;
 
 export const planFloodplains = createOp({
   kind: "plan",
   id: "placement/plan-floodplains",
-  input: PlanFloodplainsInputSchema,
-  output: PlanFloodplainsOutputSchema,
-  config: PlanFloodplainsConfigSchema,
-  customValidate: (_input, config: PlanFloodplainsConfig) => {
+  schema: PlanFloodplainsSchema,
+
+  customValidate: (_input: PlanFloodplainsInput, config: PlanFloodplainsConfig) => {
     if (config.maxLength < config.minLength) {
       return [
         {
@@ -26,12 +21,10 @@ export const planFloodplains = createOp({
     }
     return [];
   },
-  run: (_input: PlanFloodplainsInput, config: PlanFloodplainsConfig): PlanFloodplainsOutput => {
+  run: (_input: PlanFloodplainsInput, config: PlanFloodplainsConfig) => {
     return {
       minLength: config.minLength,
       maxLength: config.maxLength,
     };
   },
 } as const);
-
-export type { PlanFloodplainsInput, PlanFloodplainsOutput, PlanFloodplainsConfig };

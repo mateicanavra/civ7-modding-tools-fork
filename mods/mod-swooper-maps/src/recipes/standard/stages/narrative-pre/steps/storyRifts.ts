@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import { devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { RiftTunablesSchema } from "@mapgen/config";
+import { NarrativeConfigSchema } from "@mapgen/domain/config";
 import { storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
@@ -10,7 +10,7 @@ const StoryRiftsStepConfigSchema = Type.Object(
   {
     story: Type.Object(
       {
-        rift: RiftTunablesSchema,
+        rift: NarrativeConfigSchema.properties.story.properties.rift,
       },
       { additionalProperties: false, default: {} }
     ),
@@ -40,10 +40,14 @@ export default createStep({
         message: `${runtime.logPrefix} Imprinting rift valleys...`,
       }));
     }
-    const summary = storyTagRiftValleys(context, {
+    const result = storyTagRiftValleys(context, {
       story: config.story,
     });
-    if (summary.lineTiles === 0) {
+    context.artifacts.set(
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
+      result.motifs
+    );
+    if (result.summary.lineTiles === 0) {
       devWarn(context.trace, "[smoke] storyRifts enabled but no rift tiles were emitted");
     }
   },

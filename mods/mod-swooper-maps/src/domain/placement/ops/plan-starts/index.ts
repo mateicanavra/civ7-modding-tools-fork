@@ -1,15 +1,12 @@
-import { createOp } from "@swooper/mapgen-core/authoring";
+import { createOp, type Static } from "@swooper/mapgen-core/authoring";
 
-import {
-  PlanStartsConfigSchema,
-  PlanStartsInputSchema,
-  PlanStartsOutputSchema,
-  StartsConfigSchema,
-  type PlanStartsConfig,
-  type PlanStartsInput,
-  type PlanStartsOutput,
-  type StartsOverride,
-} from "./schema.js";
+import { PlanStartsSchema } from "./schema.js";
+
+type PlanStartsInput = Static<typeof PlanStartsSchema["properties"]["input"]>;
+type PlanStartsConfig = Static<typeof PlanStartsSchema["properties"]["config"]>;
+type PlanStartsOutput = Static<typeof PlanStartsSchema["properties"]["output"]>;
+type StartsConfig = PlanStartsOutput;
+type StartsOverride = NonNullable<PlanStartsConfig["overrides"]>;
 
 function mergeStarts(base: PlanStartsInput["baseStarts"], overrides?: StartsOverride): PlanStartsOutput {
   if (!overrides) {
@@ -26,18 +23,8 @@ function mergeStarts(base: PlanStartsInput["baseStarts"], overrides?: StartsOver
 export const planStarts = createOp({
   kind: "plan",
   id: "placement/plan-starts",
-  input: PlanStartsInputSchema,
-  output: PlanStartsOutputSchema,
-  config: PlanStartsConfigSchema,
-  run: (input: PlanStartsInput, config: PlanStartsConfig): PlanStartsOutput => {
+  schema: PlanStartsSchema,
+  run: (input: PlanStartsInput, config: PlanStartsConfig) => {
     return mergeStarts(input.baseStarts, config.overrides);
   },
 } as const);
-
-export {
-  StartsConfigSchema,
-  type PlanStartsInput,
-  type PlanStartsOutput,
-  type PlanStartsConfig,
-  type StartsOverride,
-};

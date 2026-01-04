@@ -1,6 +1,8 @@
-import { Type, type Static } from "typebox";
+import { Type, defineOpSchema } from "@swooper/mapgen-core/authoring";
 
-export const PlanFloodplainsConfigSchema = Type.Object(
+const FloodplainsInputSchema = Type.Object({}, { additionalProperties: false, default: {} });
+
+const FloodplainsConfigSchema = Type.Object(
   {
     minLength: Type.Integer({
       description: "Minimum river segment length that can host floodplains (tiles).",
@@ -16,18 +18,35 @@ export const PlanFloodplainsConfigSchema = Type.Object(
   { additionalProperties: false, default: { minLength: 4, maxLength: 10 } }
 );
 
-export type PlanFloodplainsConfig = Static<typeof PlanFloodplainsConfigSchema>;
-
-export const PlanFloodplainsInputSchema = Type.Object({}, { additionalProperties: false, default: {} });
-
-export type PlanFloodplainsInput = Static<typeof PlanFloodplainsInputSchema>;
-
-export const PlanFloodplainsOutputSchema = Type.Object(
+const FloodplainsOutputSchema = Type.Object(
   {
-    minLength: Type.Integer({ minimum: 1 }),
-    maxLength: Type.Integer({ minimum: 1 }),
+    minLength: Type.Integer({
+      description: "Minimum river segment length that can host floodplains (tiles).",
+      minimum: 1,
+      default: 4,
+    }),
+    maxLength: Type.Integer({
+      description: "Maximum contiguous river length converted to floodplains (tiles).",
+      minimum: 1,
+      default: 10,
+    }),
   },
-  { additionalProperties: false }
+  { additionalProperties: false, default: { minLength: 4, maxLength: 10 } }
 );
 
-export type PlanFloodplainsOutput = Static<typeof PlanFloodplainsOutputSchema>;
+export const PlanFloodplainsSchema = defineOpSchema<
+  typeof FloodplainsInputSchema,
+  typeof FloodplainsConfigSchema,
+  typeof FloodplainsOutputSchema
+>(
+  {
+    input: FloodplainsInputSchema,
+    config: FloodplainsConfigSchema,
+    output: FloodplainsOutputSchema,
+  },
+  {
+    title: "PlanFloodplainsSchema",
+    description: "Plan floodplains placement",
+    additionalProperties: false,
+  }
+);

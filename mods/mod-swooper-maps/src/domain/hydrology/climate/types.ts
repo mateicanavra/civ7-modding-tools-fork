@@ -1,4 +1,4 @@
-import type { ClimateConfig as BootstrapClimateConfig } from "@mapgen/config";
+import type { ClimateConfig as BootstrapClimateConfig } from "@mapgen/domain/config";
 
 export type ClimateConfig = BootstrapClimateConfig;
 
