@@ -104,10 +104,11 @@ src/domain/<area>/<domain>/
   index.ts
   artifacts.ts                 # optional: shapes only (keys remain recipe/step-owned)
   ops/
-    <op>.ts                    # small op: one file
-    <op>/index.ts              # large op: promote to a folder
-    <op>/strategies/*.ts       # optional: internal strategies
-    <op>/rules/*.ts            # optional: op-local rules (pure)
+    <op>/
+      index.ts                 # exports exactly one op via createOp
+      schema.ts                # TypeBox schemas (types inferred at use sites)
+      strategies/              # strategy implementations (may start empty)
+      rules/                   # pure op-local rules (may start empty)
   rules/*.ts                   # optional: cross-op rules (pure)
 
 src/recipes/<recipe>/stages/<stage>/steps/<step>/
