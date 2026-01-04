@@ -1,9 +1,9 @@
-import { Type } from "typebox";
+import { Type, type Static } from "typebox";
 
 import {
-  PlanFloodplainsConfigSchema,
-  PlanStartsConfigSchema,
-  PlanWondersConfigSchema,
+  PlanFloodplainsSchema,
+  PlanStartsSchema,
+  PlanWondersSchema,
 } from "@mapgen/domain/placement";
 
 /**
@@ -12,9 +12,9 @@ import {
  */
 export const PlacementConfigSchema = Type.Object(
   {
-    wonders: PlanWondersConfigSchema,
-    floodplains: PlanFloodplainsConfigSchema,
-    starts: PlanStartsConfigSchema,
+    wonders: PlanWondersSchema.properties.config,
+    floodplains: PlanFloodplainsSchema.properties.config,
+    starts: PlanStartsSchema.properties.config,
   },
   {
     additionalProperties: false,
@@ -26,4 +26,4 @@ export const PlacementConfigSchema = Type.Object(
   }
 );
 
-export { PlanStartsConfigSchema as StartsConfigSchema, PlanFloodplainsConfigSchema as FloodplainsConfigSchema };
+export type PlacementConfig = Static<typeof PlacementConfigSchema>;

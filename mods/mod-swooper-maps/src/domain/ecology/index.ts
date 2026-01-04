@@ -14,8 +14,8 @@ export const ops = {
 
 export * from "./artifacts.js";
 export {
-  FeaturesConfigSchema,
-  FeaturesDensityConfigSchema,
+  EcologyConfigSchema,
+  type EcologyConfig,
   type FeaturesConfig,
   type FeaturesDensityConfig,
 } from "./config.js";
@@ -23,15 +23,14 @@ export {
   BiomeEngineBindingsSchema,
   type BiomeEngineBindings,
 } from "./biome-bindings.js";
-export { BIOME_SYMBOL_ORDER, biomeSymbolFromIndex, type BiomeSymbol } from "./types.js";
 export {
+  BIOME_SYMBOL_ORDER,
+  biomeSymbolFromIndex,
   FEATURE_PLACEMENT_KEYS,
+  type BiomeSymbol,
   type FeatureKey,
-  type ResolvedFeaturesPlacementConfig,
-} from "./ops/plan-feature-placements/schema.js";
-export {
   type PlotEffectKey,
-  type ResolvedPlotEffectsConfig,
-} from "./ops/plan-plot-effects/schema.js";
-export { type PlotEffectsInput } from "./ops/plan-plot-effects/types.js";
+} from "./types.js";
+export { type ResolvedFeaturesPlacementConfig } from "./ops/plan-feature-placements/schema.js";
+export { type ResolvedPlotEffectsConfig } from "./ops/plan-plot-effects/schema.js";
 export { resolveSnowElevationRange } from "./ops/plan-plot-effects/snow-elevation.js";
