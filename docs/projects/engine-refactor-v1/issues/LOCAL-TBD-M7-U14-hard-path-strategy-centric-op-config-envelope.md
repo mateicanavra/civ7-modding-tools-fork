@@ -22,7 +22,7 @@ U14 is the repo-wide cutover to a strict “hard path” op authoring + plan-tru
 - Ops are strategy-centric: `run` lives on the strategy.
 - Plan-truth op config is always the same envelope: `{ strategy: "<id>", config: <innerConfig> }` for every op.
 - No shorthand and no optional discriminator behavior; `strategy` is always present.
-- Single-strategy ops use stable strategy id `"default"`.
+- Every op must define a `"default"` strategy (stable id).
 - Resolution is strategy-level: `resolveConfig(innerConfig, settings) -> innerConfig`.
 
 ---
@@ -34,7 +34,8 @@ U14 is the full cutover + repo alignment slice. After U14, there is one authorin
 - `createOp` supports exactly one authoring shape: **strategies required** (minimum: `strategies.default`).
 - The op-level config contract is always the **envelope union** derived from strategies:
   - `op.config` schema validates the envelope union.
-  - `op.defaultConfig` is always `{ strategy: "default", config: <defaulted inner config> }`.
+  - `op.defaultConfig` is always `{ strategy: "default", config: <defaulted inner config for strategies.default> }`.
+  - `op.resolveConfig(envelope, settings)` dispatches to `strategy.resolveConfig(innerConfig, settings)` when present.
   - `op.run` / `op.runValidated` accept and validate the envelope (never inner config).
 - Repo-wide call sites are aligned:
   - Every op authoring module uses `strategies` (single-strategy ops become `strategies: { default: … }`).
@@ -64,9 +65,9 @@ In-scope:
 ---
 
 ## Context / starting point
-- Worktree: `/Users/mateicanavra/Documents/.nosync/DEV/civ7-modding-tools-mapgen-domain-config`
-- Branch: `chore/mapgen-domain-config-barrel`
-- This branch is intentionally dirty. Do not reset/revert/stash as part of this issue.
+This is a repo-wide cutover and should be executed from the stack tip **post-U13**.
+- Create a dedicated worktree for this work (do not implement on the primary checkout).
+- Keep the cutover strict: no shims, no compatibility layers, no dual shapes.
 
 ---
 
@@ -80,11 +81,10 @@ These are architecture decisions for this migration. Do not introduce dual paths
 
 ### H1) Strategy-centric ops only
 - The only way to define op behavior is via strategies.
-- The strategy is the unit that contains:
-  - `id: string` (required; stable)
-  - `config: TSchema` (strategy-specific config schema; “inner config”)
-  - `resolveConfig?: (innerConfig, settings) => innerConfig` (optional; compile-time only)
-  - `run: (input, innerConfig) => output`
+- A strategy entry (keyed under `op.strategies`) owns:
+  - `config: TSchema` (strategy-specific config schema; “inner config”),
+  - `resolveConfig?: (innerConfig, settings) => innerConfig` (optional; compile-time only),
+  - `run: (input, innerConfig) => output`.
 - No top-level op `run` authored by the op module (runtime op surface may still expose `op.run`, but it must dispatch to the selected strategy’s `run`).
 
 ### H2) Plan-truth op config is always an envelope
@@ -105,8 +105,8 @@ Hard prohibitions:
 - No “optional discriminator for default strategy” behavior.
 
 ### H3) Stable strategy IDs
-- Single-strategy ops use strategy id `"default"`.
-- Multi-strategy ops must explicitly provide IDs for each strategy (no implicit ids).
+- Every operation must include a `"default"` strategy (stable id).
+- Multi-strategy ops add additional strategies under explicit keys; the key is the strategy id.
 
 ### H4) Resolution is strategy-level, schema-preserving
 - Resolution/normalization occurs on `innerConfig` only:
@@ -150,11 +150,11 @@ Consequences:
 - Type relationships become conditional and hard to reason about (especially when composing step configs that include multiple ops).
 - The wrapper logic falls back to `cfg?.config ?? {}` which undermines “plan-truth config is fully defaulted + validated”. 
 
-### Repo scale (this branch, current scan)
-- `createOp(...)` call sites: **29** (`rg -n "\\bcreateOp\\(" -S . | wc -l`)
-- `.defaultConfig` call sites: **17** (`rg -n "\\.defaultConfig\\b" -S mods/mod-swooper-maps packages/mapgen-core | wc -l`)
-- Step schemas referencing `ops.*.config` in `mods/mod-swooper-maps/src/recipes`: **8** (`rg -n "\\.ops\\.[A-Za-z0-9_]+\\.config\\b" mods/mod-swooper-maps/src/recipes | wc -l`)
-- Strategy authoring call sites: **0** (`rg -n "strategies:\\s*\\{" -S mods/mod-swooper-maps packages/mapgen-core | wc -l`)
+### Preflight sizing (record in Pre-work Findings)
+Run these to understand the blast radius and track progress toward “only one shape”:
+- `rg -n "\\bcreateOp\\(" -S . | wc -l`
+- `rg -n "\\.defaultConfig\\b" -S mods/mod-swooper-maps packages/mapgen-core | wc -l`
+- `rg -n "\\.ops\\.[A-Za-z0-9_]+\\.config\\b" mods/mod-swooper-maps/src/recipes | wc -l`
 
 ---
 
@@ -175,13 +175,13 @@ This is a hard cutover. Implement in the order below; do not introduce compatibi
      - `{ input, config, output, run }`
      - `{ schema, run }`
    - Required authoring shape:
-     - `{ input, output, strategies: { ... }, defaultStrategy: "default" }`
+     - `{ kind, id, input, output, strategies: { ... } }` with `strategies.default` present.
 
 2) Op config schema derivation:
    - Build the op-level `config` schema as a union of:
      - `{ strategy: Literal(id), config: <strategyConfigSchema> }`
    - Set `defaultConfig` to:
-     - `{ strategy: <defaultId>, config: <defaultedInnerConfig> }`
+     - `{ strategy: "default", config: <defaulted inner config for strategies.default> }`
    - Delete the “optional discriminator” behavior entirely.
 
 3) Runtime `op.run(input, cfg)`:
@@ -191,8 +191,8 @@ This is a hard cutover. Implement in the order below; do not introduce compatibi
 4) Resolution plumbing:
    - Move the canonical resolve hook to the strategy surface:
      - `resolveConfig?: (innerConfig, settings) => innerConfig`
-   - Op-level resolve (if it continues to exist as a surface for step composition) must:
-     - unwrap envelope -> call selected strategy resolve -> rewrap envelope.
+   - `createOp(...)` must derive `op.resolveConfig(envelope, settings)` as a dispatcher over `strategy.resolveConfig`:
+     - unwrap envelope -> call selected strategy resolve (if present) -> rewrap envelope.
 
 5) Types:
    - Update `DomainOp` to model op config as the envelope union for all ops.
@@ -238,7 +238,6 @@ createOp({
       // optional: resolveConfig: <oldResolveInnerConfig> (if needed)
     },
   },
-  defaultStrategy: "default",
 });
 ```
 
@@ -268,12 +267,11 @@ createOp({
      - But any use of config fields in step-local logic must unwrap first.
 
 3) Step `resolveConfig`:
-   - Prefer: unwrap -> call strategy-level resolver -> rewrap.
-   - Avoid calling op-level resolver on the envelope unless the op implementation provides a thin wrapper; the strategy resolver is canonical under this model.
+   - Steps call `op.resolveConfig(envelope, settings)` for each op config and recomposes a schema-valid step config.
 
 **Where thought is required**
 - Existing casts like `as ResolvedXConfig` must be revisited; prefer deriving runtime values in `run(...)` rather than asserting resolved types.
-- Composite step configs containing multiple ops must unwrap each op independently (avoid “spread merges”).
+- Composite step configs containing multiple ops must resolve each op config independently (avoid “spread merges”).
 
 **Acceptance criteria**
 - No step config can be authored without a `strategy`.
