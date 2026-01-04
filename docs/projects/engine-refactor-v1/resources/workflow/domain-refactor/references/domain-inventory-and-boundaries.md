@@ -47,32 +47,23 @@ case "${DOMAIN}" in
 esac
 ```
 
-## Inventory command kit (copy/paste)
+## Inventory search starter kit
 
-Locate all step callsites that import or call into the domain:
-```bash
-rg -n "@mapgen/domain/${DOMAIN}\\b" "${RECIPE_ROOT}" -S
-```
+Use `scripts/lint/lint-domain-refactor-guardrails.sh` as the canonical gate after each slice. Avoid copying static `rg` lists into workflow docs.
 
-Locate cross-domain imports (coupling) inside the domain library:
-```bash
-rg -n "@mapgen/domain/" "${DOMAIN_ROOT}" -S
-```
-
-Locate legacy step→domain boundary violations (adapter/context passed into domain functions):
-```bash
-rg -n "ExtendedMapContext|context\\.adapter|\\badapter\\b|@civ7/adapter" "${DOMAIN_ROOT}" -S
-```
-
-Locate RNG boundary violations (RNG callbacks/state crossing into domain logic):
-```bash
-rg -n "RngFunction|options\\.rng|\\bctx\\.rng\\b" "${DOMAIN_ROOT}" -S
-```
-
-Locate legacy step config imports from the centralized schema bundle (refactor removes these from refactored steps):
-```bash
-rg -n "@mapgen/config\\b" "${STAGE_ROOTS[@]}" -S
-```
+If you need ad-hoc searches during inventory work, keep them in the issue/spike notes (so they can be tailored to the domain’s reality). Common starting points:
+- Step callsites that import the domain:
+  ```bash
+  rg -n "@mapgen/domain/${DOMAIN}\\b" "${RECIPE_ROOT}" -S
+  ```
+- Cross-domain imports (coupling) inside the domain library:
+  ```bash
+  rg -n "@mapgen/domain/" "${DOMAIN_ROOT}" -S
+  ```
+- Legacy config bundle imports in steps (pre-refactor surface; should disappear for migrated steps):
+  ```bash
+  rg -n "@mapgen/domain/config\\b" "${STAGE_ROOTS[@]}" -S
+  ```
 
 ## Required inventory outputs (no skipping)
 

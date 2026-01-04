@@ -16,9 +16,7 @@ Define the target op catalog for the domain, with **no optionality**:
 - Each op has an explicit `kind`: `plan | compute | score | select` (ADR-ER1-034).
 - Each op lives in its own module under `mods/mod-swooper-maps/src/domain/<domain>/ops/**` (one op per module).
 - Each op owns:
-  - `input` schema
-  - `output` schema
-  - `config` schema
+  - an op `schema` object that contains `input`, `config`, and `output` schemas
   - `defaultConfig` (derived from schema defaults)
   - optional `resolveConfig(config, settings)` (compile-time only)
 - Steps call `op.runValidated(input, resolvedConfig)`; steps do not call internal rules directly.
@@ -55,12 +53,25 @@ Step sizing note:
 
 Illustrative skeleton (trimmed; do not invent extra surfaces):
 ```ts
+export const myOpSchema = Type.Object(
+  {
+    input: Type.Object(
+      { width: Type.Integer(), height: Type.Integer(), field: TypedArraySchemas.u8() },
+      { additionalProperties: false }
+    ),
+    config: Type.Object(
+      { knob: Type.Optional(Type.Number({ default: 1 })) },
+      { additionalProperties: false, default: {} }
+    ),
+    output: Type.Object({ out: TypedArraySchemas.u8() }, { additionalProperties: false }),
+  },
+  { additionalProperties: false }
+);
+
 export const myOp = createOp({
   kind: "compute",
   id: "<domain>/<area>/<verb>",
-  input: Type.Object({ width: Type.Integer(), height: Type.Integer(), field: TypedArraySchemas.u8() }, { additionalProperties: false }),
-  output: Type.Object({ out: TypedArraySchemas.u8() }, { additionalProperties: false }),
-  config: Type.Object({ knob: Type.Optional(Type.Number({ default: 1 })) }, { additionalProperties: false, default: {} }),
+  schema: myOpSchema,
   resolveConfig: (cfg, settings) => ({ ...cfg }), // compile-time only
   customValidate: (input, cfg) => [],             // optional, returns pathful errors
   run: (input, cfg) => ({ out: input.field }),

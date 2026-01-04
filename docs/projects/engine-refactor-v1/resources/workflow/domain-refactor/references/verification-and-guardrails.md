@@ -14,8 +14,8 @@ Run it from repo root:
 ./scripts/lint/lint-domain-refactor-guardrails.sh
 ```
 
-Default:
-- Unless `REFRACTOR_DOMAINS` is set, the script checks `ecology` only.
+Hard rule:
+- Always set `REFRACTOR_DOMAINS` to the domain(s) you refactored in this change.
 
 To run guardrails for the domain(s) you touched:
 ```bash
@@ -51,6 +51,7 @@ Troubleshooting note:
 
 Run smallest-first, then widen:
 ```bash
+REFRACTOR_DOMAINS="<domain>[,<domain2>...]" ./scripts/lint/lint-domain-refactor-guardrails.sh
 pnpm -C packages/mapgen-core check
 pnpm -C packages/mapgen-core test
 pnpm -C mods/mod-swooper-maps check
