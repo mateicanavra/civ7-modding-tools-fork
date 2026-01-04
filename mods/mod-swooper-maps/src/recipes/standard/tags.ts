@@ -13,14 +13,14 @@ import {
   validateFoundationSeedArtifact,
 } from "@swooper/mapgen-core";
 import type { DependencyTagDefinition, TagOwner } from "@swooper/mapgen-core/engine";
-import { isBiomeClassificationArtifactV1 } from "@mapgen/domain/ecology/artifacts.js";
 import {
+  isBiomeClassificationArtifactV1,
   isNarrativeCorridorsV1,
   isNarrativeMotifsHotspotsV1,
   isNarrativeMotifsMarginsV1,
   isNarrativeMotifsOrogenyV1,
   isNarrativeMotifsRiftsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+} from "./artifacts.js";
 import { isPlacementInputsV1 } from "./stages/placement/placement-inputs.js";
 import { isPlacementOutputsV1 } from "./stages/placement/placement-outputs.js";
 
