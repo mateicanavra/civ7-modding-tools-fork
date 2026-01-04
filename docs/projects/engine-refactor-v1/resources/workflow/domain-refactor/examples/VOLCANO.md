@@ -19,9 +19,14 @@ src/domain/morphology/volcanoes/
   index.ts
   artifacts.ts
   ops/
-    compute-suitability.ts
+    compute-suitability/
+      index.ts
+      schema.ts
+      rules/
+      strategies/
     plan-volcanoes/
       index.ts
+      schema.ts
       strategies/
         plate-aware.ts
         hotspot-clusters.ts
@@ -38,7 +43,7 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 ## Domain: operation 1 — compute suitability (derived field)
 
 ```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability.ts
+// src/domain/morphology/volcanoes/ops/compute-suitability/index.ts
 import { Type } from "typebox";
 import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 

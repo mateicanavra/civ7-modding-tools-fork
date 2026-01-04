@@ -46,16 +46,17 @@ Domain public surface:
 
 ## Op module shape (one op per module)
 
-Each op is one module under `ops/**` (pick the smallest shape that keeps the op readable):
-- Small op (single file):
-  - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>.ts`
-- Large op (directory module):
-  - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/index.ts` (exports exactly one op via `createOp`)
-  - Optional: `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/schema.ts` (TypeBox schemas only; keep schema types inferred at use sites)
+Each op is a directory module under `ops/**` (no exceptions):
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/schema.ts` (TypeBox schemas only; keep schema types inferred at use sites)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/index.ts` (exports exactly one op via `createOp`)
 
 Internal helpers live under the op directory:
 - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/rules/**` (pure rules)
 - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/strategies/**` (strategy implementations)
+
+Directory discipline (canonical):
+- Always create `rules/` and `strategies/` directories for an op, even if one of them remains empty for now.
+- Do not introduce single-file ops or alternate layouts.
 
 Reference example:
 - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`

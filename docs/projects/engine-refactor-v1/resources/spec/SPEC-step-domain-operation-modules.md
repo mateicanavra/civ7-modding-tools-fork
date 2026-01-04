@@ -122,15 +122,16 @@ src/domain/<area>/<domain>/
   index.ts
   artifacts.ts                 # optional: shapes only (keys are recipe-owned)
   ops/
-    <op>.ts                    # small op: one file
-    <op>/index.ts              # large op: promote to a folder
-    <op>/strategies/*.ts       # optional: extracted strategies (typically the default)
-    <op>/rules/*.ts            # optional: op-local rules
+    <op>/
+      index.ts                 # exports exactly one op via createOp
+      schema.ts                # TypeBox schemas (types inferred at use sites)
+      strategies/              # strategy implementations (may start empty)
+      rules/                   # pure op-local rules (may start empty)
   rules/*.ts                   # optional: cross-op rules
 ```
 
 Notes:
-- The unit of organization is an **operation module** (“one op per module”). Most ops can be single-file modules; complex ops can be promoted to a directory with `index.ts` as the op module.
+- The unit of organization is an **operation module** (“one op per module”). Every op is a directory module under `ops/<op>/` (no single-file ops).
 - Strategies are typically **extracted into their own modules** under `strategies/` because they contain real algorithmic code. Very small strategies can be inlined, but the canonical authoring pattern prefers separate files.
 
 ### Operations (the step-callable contract)
@@ -318,17 +319,7 @@ src/recipes/<recipe>/stages/<stage>/steps/volcanoes/
   inputs.ts         # step-local input builders (adapter → buffers)
 ```
 
-**Option B: file step + sibling helper directory**
-
-```txt
-src/recipes/<recipe>/stages/<stage>/steps/
-  volcanoes.ts
-  volcanoes/
-    apply.ts
-    inputs.ts
-```
-
-We haven’t locked this down yet. Option A reads cleaner (everything for the step is in one folder). Option B keeps the existing “step is a file” convention but can look odd (a file + a same-named folder). Either way, the boundary rule stays the same: adapter/runtime calls live in the step layer, not in the domain.
+Canonical rule: refactored steps are always directory modules (Option A). Do not introduce “file step + sibling folder” layouts in new/refactored code.
 
 ## 4) End-to-End Example (Volcano)
 
@@ -341,15 +332,20 @@ src/domain/morphology/volcanoes/
   index.ts
   artifacts.ts
   ops/
-    compute-suitability.ts
-    plan-volcanoes/
+    compute-suitability/
       index.ts
-      strategies/
-        plate-aware.ts
-        hotspot-clusters.ts
+      schema.ts
       rules/
-        enforce-min-distance.ts
-        pick-weighted.ts
+      strategies/
+	    plan-volcanoes/
+	      index.ts
+	      schema.ts
+	      strategies/
+	        plate-aware.ts
+	        hotspot-clusters.ts
+	      rules/
+	        enforce-min-distance.ts
+	        pick-weighted.ts
 
 src/recipes/standard/stages/morphology-post/steps/volcanoes/
   index.ts
@@ -360,7 +356,7 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 ### Domain: operation 1 — compute suitability (derived field)
 
 ```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability.ts
+// src/domain/morphology/volcanoes/ops/compute-suitability/index.ts
 import { Type } from "typebox";
 import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 
