@@ -2,10 +2,7 @@ import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { clamp, inBounds, storyKey } from "@swooper/mapgen-core";
 import { assertFoundationPlates } from "@swooper/mapgen-core";
 import { idx } from "@swooper/mapgen-core/lib/grid";
-import {
-  buildNarrativeMotifsRiftsV1,
-  type NarrativeMotifsRiftsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+import type { NarrativeMotifsRifts } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
 import { latitudeAbsDeg } from "@mapgen/domain/narrative/utils/latitude.js";
@@ -16,7 +13,7 @@ import type { StoryConfig } from "@mapgen/domain/config";
 
 export interface RiftValleysResult {
   summary: RiftValleysSummary;
-  motifs: NarrativeMotifsRiftsV1;
+  motifs: NarrativeMotifsRifts;
 }
 
 export function storyTagRiftValleys(
@@ -270,7 +267,10 @@ export function storyTagRiftValleys(
     },
   });
 
-  const motifs = buildNarrativeMotifsRiftsV1({ riftLine, riftShoulder });
+  const motifs: NarrativeMotifsRifts = {
+    riftLine: new Set(riftLine),
+    riftShoulder: new Set(riftShoulder),
+  };
 
   return { summary, motifs };
 }

@@ -1,23 +1,22 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { ctxRandom, writeHeightfield } from "@swooper/mapgen-core";
 import {
-  buildNarrativeMotifsHotspotsV1,
-  type NarrativeCorridorsV1,
-  type NarrativeMotifsHotspotsV1,
-  type NarrativeMotifsMarginsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+  type NarrativeCorridors,
+  type NarrativeMotifsHotspots,
+  type NarrativeMotifsMargins,
+} from "@mapgen/domain/narrative/models.js";
 import { COAST_TERRAIN, FLAT_TERRAIN, OCEAN_TERRAIN } from "@swooper/mapgen-core";
 import type { CorridorsConfig, HotspotTunables, IslandsConfig } from "@mapgen/domain/morphology/islands/types.js";
 import { getFractalThreshold } from "@mapgen/domain/morphology/islands/fractal-threshold.js";
 import { isAdjacentToLand, isNearSeaLane, storyKey } from "@mapgen/domain/morphology/islands/adjacency.js";
 export interface IslandChainArtifacts {
-  corridors?: NarrativeCorridorsV1 | null;
-  margins?: NarrativeMotifsMarginsV1 | null;
-  hotspots?: NarrativeMotifsHotspotsV1 | null;
+  corridors?: NarrativeCorridors | null;
+  margins?: NarrativeMotifsMargins | null;
+  hotspots?: NarrativeMotifsHotspots | null;
 }
 
 export interface IslandChainResult {
-  motifs: NarrativeMotifsHotspotsV1;
+  motifs: NarrativeMotifsHotspots;
 }
 
 const HILL_FRACTAL = 1;
@@ -174,12 +173,12 @@ export function addIslandChains(
     }
   }
 
-  const motifs = buildNarrativeMotifsHotspotsV1({
-    points: hotspotPoints,
+  const motifs: NarrativeMotifsHotspots = {
+    points: new Set(hotspotPoints),
     paradise,
     volcanic,
     trails: hotspots?.trails,
-  });
+  };
 
   return { motifs };
 }

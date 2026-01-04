@@ -1,9 +1,6 @@
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@swooper/mapgen-core";
 import { storyKey } from "@swooper/mapgen-core";
-import {
-  buildNarrativeMotifsMarginsV1,
-  type NarrativeMotifsMarginsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+import type { NarrativeMotifsMargins } from "@mapgen/domain/narrative/models.js";
 import {
   STORY_OVERLAY_KEYS,
   finalizeStoryOverlay,
@@ -18,7 +15,7 @@ import type { ContinentalMarginsConfig } from "@mapgen/domain/config";
 
 export interface ContinentalMarginsResult {
   snapshot: StoryOverlaySnapshot;
-  motifs: NarrativeMotifsMarginsV1;
+  motifs: NarrativeMotifsMargins;
 }
 
 export function storyTagContinentalMargins(
@@ -131,10 +128,10 @@ export function storyTagContinentalMargins(
     ? publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.MARGINS, overlay)
     : finalizeStoryOverlay(STORY_OVERLAY_KEYS.MARGINS, overlay);
 
-  const motifs = buildNarrativeMotifsMarginsV1({
-    activeMargin: activeSet,
-    passiveShelf: passiveSet,
-  });
+  const motifs: NarrativeMotifsMargins = {
+    activeMargin: new Set(activeSet),
+    passiveShelf: new Set(passiveSet),
+  };
 
   return { snapshot, motifs };
 }

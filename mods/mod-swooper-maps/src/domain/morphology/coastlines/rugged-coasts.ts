@@ -6,9 +6,9 @@ import { forEachNeighbor3x3 } from "@swooper/mapgen-core/lib/grid";
 import { BOUNDARY_TYPE } from "@mapgen/domain/foundation/constants.js";
 import { COAST_TERRAIN } from "@swooper/mapgen-core";
 import type {
-  NarrativeCorridorsV1,
-  NarrativeMotifsMarginsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+  NarrativeCorridors,
+  NarrativeMotifsMargins,
+} from "@mapgen/domain/narrative/models.js";
 import { computePlateBias } from "@mapgen/domain/morphology/coastlines/plate-bias.js";
 import { isAdjacentToLand, isCoastalLand } from "@mapgen/domain/morphology/coastlines/adjacency.js";
 import {
@@ -21,8 +21,8 @@ import type { CoastlinePlateBiasConfig, CoastlinesConfig, CorridorPolicy } from 
 const HILL_FRACTAL = 1;
 
 export interface RuggedCoastsArtifacts {
-  corridors?: NarrativeCorridorsV1 | null;
-  margins?: NarrativeMotifsMarginsV1 | null;
+  corridors?: NarrativeCorridors | null;
+  margins?: NarrativeMotifsMargins | null;
 }
 
 export function addRuggedCoasts(

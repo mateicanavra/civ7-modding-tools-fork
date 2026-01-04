@@ -1,9 +1,6 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { inBounds, storyKey } from "@swooper/mapgen-core";
-import {
-  buildNarrativeMotifsHotspotsV1,
-  type NarrativeMotifsHotspotsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+import type { NarrativeMotifsHotspots } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { isAdjacentToLand } from "@mapgen/domain/narrative/utils/adjacency.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
@@ -15,7 +12,7 @@ import type { HotspotTunables } from "@mapgen/domain/config";
 
 export interface HotspotTrailsResult {
   summary: HotspotTrailsSummary;
-  motifs: NarrativeMotifsHotspotsV1;
+  motifs: NarrativeMotifsHotspots;
 }
 
 export function storyTagHotspotTrails(
@@ -117,11 +114,11 @@ export function storyTagHotspotTrails(
     summary: { trails: summary.trails, points: summary.points },
   });
 
-  const motifs = buildNarrativeMotifsHotspotsV1({
-    points: hotspotPoints,
+  const motifs: NarrativeMotifsHotspots = {
+    points: new Set(hotspotPoints),
     paradise: new Set(),
     volcanic: new Set(),
-  });
+  };
 
   return { summary, motifs };
 }

@@ -1,12 +1,12 @@
 import type {
   NarrativeCorridorAttributes,
-  NarrativeCorridorsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+  NarrativeCorridors,
+} from "@mapgen/domain/narrative/models.js";
 import type { CorridorKind, CorridorStyle } from "@mapgen/domain/narrative/corridors/types.js";
 
-export type CorridorState = NarrativeCorridorsV1;
+export type CorridorState = NarrativeCorridors;
 
-export function createCorridorState(source?: NarrativeCorridorsV1 | null): CorridorState {
+export function createCorridorState(source?: NarrativeCorridors | null): CorridorState {
   if (!source) {
     return {
       seaLanes: new Set<string>(),

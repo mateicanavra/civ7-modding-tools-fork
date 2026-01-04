@@ -3,9 +3,9 @@ import { assertFoundationDynamics } from "@swooper/mapgen-core";
 import { inBounds as boundsCheck } from "@swooper/mapgen-core/lib/grid";
 import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@mapgen/domain/config";
 import type {
-  NarrativeMotifsHotspotsV1,
-  NarrativeMotifsRiftsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+  NarrativeMotifsHotspots,
+  NarrativeMotifsRifts,
+} from "@mapgen/domain/narrative/models.js";
 import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 import { applyWaterGradientRefinement } from "@mapgen/domain/hydrology/climate/refine/water-gradient.js";
@@ -27,8 +27,8 @@ export function refineClimateEarthlike(
     climate?: ClimateConfig;
     story?: StoryConfig;
     directionality?: FoundationDirectionalityConfig;
-    rifts?: NarrativeMotifsRiftsV1 | null;
-    hotspots?: NarrativeMotifsHotspotsV1 | null;
+    rifts?: NarrativeMotifsRifts | null;
+    hotspots?: NarrativeMotifsHotspots | null;
     riverAdjacency?: Uint8Array | null;
   } = {}
 ): void {

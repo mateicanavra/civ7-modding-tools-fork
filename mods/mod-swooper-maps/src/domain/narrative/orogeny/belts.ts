@@ -13,7 +13,7 @@ import type { ExtendedMapContext, FoundationPlateFields, StoryOverlaySnapshot } 
 import type { StoryConfig } from "@mapgen/domain/config";
 import { inBounds, storyKey } from "@swooper/mapgen-core";
 import { assertFoundationDynamics, assertFoundationPlates } from "@swooper/mapgen-core";
-import { buildNarrativeMotifsOrogenyV1 } from "@mapgen/domain/narrative/artifacts.js";
+import type { NarrativeMotifsOrogeny } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
@@ -34,7 +34,7 @@ export interface OrogenySummary {
 export function storyTagOrogenyBelts(
   ctx: ExtendedMapContext,
   storyConfig: StoryConfig
-): { snapshot: StoryOverlaySnapshot; motifs: ReturnType<typeof buildNarrativeMotifsOrogenyV1> } {
+): { snapshot: StoryOverlaySnapshot; motifs: NarrativeMotifsOrogeny } {
   const plates = assertFoundationPlates(ctx, "storyOrogeny");
   const cache = getOrogenyCache(ctx);
   cache.belts.clear();
@@ -86,7 +86,11 @@ export function storyTagOrogenyBelts(
     },
   });
 
-  const motifs = buildNarrativeMotifsOrogenyV1(cache);
+  const motifs: NarrativeMotifsOrogeny = {
+    belts: new Set(cache.belts),
+    windward: new Set(cache.windward),
+    lee: new Set(cache.lee),
+  };
 
   return { snapshot: overlay, motifs };
 }
