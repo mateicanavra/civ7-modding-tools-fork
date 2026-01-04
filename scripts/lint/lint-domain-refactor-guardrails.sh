@@ -77,6 +77,19 @@ run_rg() {
   fi
 }
 
+run_files() {
+  local label="$1"
+  shift
+  local hits
+  hits=$(rg --files "$@" 2>/dev/null || true)
+  if [ -n "$hits" ]; then
+    echo -e "${RED}ERROR: ${label}${NC}"
+    echo "$hits" | sed 's/^/  /'
+    echo ""
+    violations=$((violations + 1))
+  fi
+}
+
 stage_roots_for_domain() {
   local domain="$1"
   case "$domain" in
@@ -133,6 +146,7 @@ done
 run_rg "Recipe imports in domain" "recipes/standard|/recipes/" -- "mods/mod-swooper-maps/src/domain"
 run_rg "Domain tag/artifact shims" "@mapgen/domain/(tags|artifacts)" -P -- "mods/mod-swooper-maps/src"
 run_rg "Unknown bag config usage" "UnknownRecord|INTERNAL_METADATA_KEY" -- "mods/mod-swooper-maps/src/domain"
+run_files "Domain artifacts modules" -g "artifacts.ts" "mods/mod-swooper-maps/src/domain"
 
 if [ "$violations" -gt 0 ]; then
   echo -e "${RED}Guardrails failed with ${violations} violation group(s).${NC}"
