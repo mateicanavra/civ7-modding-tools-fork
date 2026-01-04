@@ -12,11 +12,10 @@ import type { ExtendedMapContext, StoryOverlaySnapshot } from "@swooper/mapgen-c
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import type { CorridorsConfig, FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import {
-  buildNarrativeCorridorsV1,
-  type NarrativeCorridorsV1,
-  type NarrativeMotifsHotspotsV1,
-  type NarrativeMotifsRiftsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
+  type NarrativeCorridors,
+  type NarrativeMotifsHotspots,
+  type NarrativeMotifsRifts,
+} from "@mapgen/domain/narrative/models.js";
 
 import type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
 import { createCorridorState } from "@mapgen/domain/narrative/corridors/state.js";
@@ -29,14 +28,14 @@ import { backfillCorridorKinds } from "@mapgen/domain/narrative/corridors/backfi
 export type { CorridorStage } from "@mapgen/domain/narrative/corridors/types.js";
 
 export interface StoryCorridorsInputs {
-  corridors?: NarrativeCorridorsV1 | null;
-  hotspots?: NarrativeMotifsHotspotsV1 | null;
-  rifts?: NarrativeMotifsRiftsV1 | null;
+  corridors?: NarrativeCorridors | null;
+  hotspots?: NarrativeMotifsHotspots | null;
+  rifts?: NarrativeMotifsRifts | null;
 }
 
 export interface StoryCorridorsResult {
   snapshot: StoryOverlaySnapshot;
-  corridors: NarrativeCorridorsV1;
+  corridors: NarrativeCorridors;
 }
 
 export function storyTagStrategicCorridors(
@@ -111,7 +110,5 @@ export function storyTagStrategicCorridors(
     },
   });
 
-  const corridors = buildNarrativeCorridorsV1(state);
-
-  return { snapshot: overlay, corridors };
+  return { snapshot: overlay, corridors: state };
 }
