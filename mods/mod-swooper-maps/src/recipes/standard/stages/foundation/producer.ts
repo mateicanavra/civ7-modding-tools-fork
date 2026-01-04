@@ -12,7 +12,7 @@ import {
   idx,
   clampInt,
 } from "@swooper/mapgen-core";
-import type { FoundationConfig } from "@mapgen/config";
+import type { FoundationConfig } from "@mapgen/domain/config";
 import { PlateSeedManager } from "@mapgen/domain/foundation/plate-seed.js";
 import { computePlatesVoronoi } from "@mapgen/domain/foundation/plates.js";
 import type {
@@ -396,8 +396,8 @@ export function buildFoundationContext(
         seed: foundationCfg.seed as Record<string, unknown>,
         plates: foundationCfg.plates as Record<string, unknown>,
         dynamics: foundationCfg.dynamics as Record<string, unknown>,
-        surface: foundationCfg.surface as Record<string, unknown>,
-        policy: foundationCfg.policy as Record<string, unknown>,
+        surface: {},
+        policy: {},
         diagnostics: {},
       },
     }

@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { FoundationConfigSchema } from "@mapgen/config";
+import { FoundationConfigSchema } from "@mapgen/domain/config";
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 import { runFoundationStage } from "../producer.js";
 

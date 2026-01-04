@@ -5,7 +5,7 @@ import type {
   CoastlineFjordConfig as BootstrapCoastlineFjordConfig,
   SeaCorridorPolicy as BootstrapSeaCorridorPolicy,
   CorridorsConfig,
-} from "@mapgen/config";
+} from "@mapgen/domain/config";
 
 export type CoastlinePlateBiasConfig = BootstrapCoastlinePlateBiasConfig;
 export type CoastlineBayConfig = BootstrapCoastlineBayConfig;
