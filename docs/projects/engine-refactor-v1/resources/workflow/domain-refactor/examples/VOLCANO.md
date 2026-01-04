@@ -40,7 +40,7 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 ```ts
 // src/domain/morphology/volcanoes/ops/compute-suitability.ts
 import { Type } from "typebox";
-import { createOp, createStrategy, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 
 export default createOp({
   kind: "compute",
@@ -65,7 +65,7 @@ export default createOp({
     { additionalProperties: false }
   ),
   strategies: {
-    default: createStrategy({
+    default: {
       config: Type.Object(
         {
           wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
@@ -90,7 +90,7 @@ export default createOp({
 
         return { suitability };
       },
-    }),
+    },
   },
 } as const);
 ```

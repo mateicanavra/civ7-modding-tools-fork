@@ -70,18 +70,63 @@ export const myOp = createOp({
   output: Type.Object({ out: TypedArraySchemas.u8() }, { additionalProperties: false }),
 
   strategies: {
-    default: createStrategy({
+    default: {
       config: Type.Object(
         { knob: Type.Optional(Type.Number({ default: 1 })) },
         { additionalProperties: false, default: {} }
       ),
       resolveConfig: (cfg, settings) => ({ ...cfg }), // compile-time only
       run: (input, cfg) => ({ out: input.field }),
-    }),
+    },
   },
 
   // optional: returns pathful errors (must use /config/config/* paths for inner config)
   customValidate: (input, cfg) => [],
+} as const);
+```
+
+## Strategy authoring patterns (canonical)
+
+Use exactly one of these patterns per operation:
+
+### Pattern A: inline POJO strategies (preferred for single-strategy ops)
+
+```ts
+export const myOp = createOp({
+  kind: "compute",
+  id: "<domain>/<area>/<verb>",
+  input: MyInputSchema,
+  output: MyOutputSchema,
+
+  strategies: {
+    default: {
+      config: MyStrategyConfigSchema,
+      run: (input, cfg) => ({ /* ... */ }),
+    },
+  },
+} as const);
+```
+
+### Pattern B: out-of-line strategy modules (use `createStrategy`)
+
+```ts
+// src/domain/<domain>/ops/<opName>/strategies/default.ts
+export default createStrategy({
+  config: MyStrategyConfigSchema,
+  run: (input, cfg) => ({ /* ... */ }),
+} as const);
+```
+
+```ts
+// src/domain/<domain>/ops/<opName>/index.ts
+import defaultStrategy from "./strategies/default.js";
+
+export const myOp = createOp({
+  kind: "compute",
+  id: "<domain>/<area>/<verb>",
+  input: MyInputSchema,
+  output: MyOutputSchema,
+  strategies: { default: defaultStrategy },
 } as const);
 ```
 
