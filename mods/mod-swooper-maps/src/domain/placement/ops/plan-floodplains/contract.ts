@@ -1,4 +1,4 @@
-import { Type, defineOpSchema } from "@swooper/mapgen-core/authoring";
+import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
 
 const FloodplainsInputSchema = Type.Object({}, { additionalProperties: false, default: {} });
 
@@ -34,19 +34,12 @@ const FloodplainsOutputSchema = Type.Object(
   { additionalProperties: false, default: { minLength: 4, maxLength: 10 } }
 );
 
-export const PlanFloodplainsSchema = defineOpSchema<
-  typeof FloodplainsInputSchema,
-  typeof FloodplainsConfigSchema,
-  typeof FloodplainsOutputSchema
->(
-  {
-    input: FloodplainsInputSchema,
-    config: FloodplainsConfigSchema,
-    output: FloodplainsOutputSchema,
+export const PlanFloodplainsContract = defineOpContract({
+  kind: "plan",
+  id: "placement/plan-floodplains",
+  input: FloodplainsInputSchema,
+  output: FloodplainsOutputSchema,
+  strategies: {
+    default: FloodplainsConfigSchema,
   },
-  {
-    title: "PlanFloodplainsSchema",
-    description: "Plan floodplains placement",
-    additionalProperties: false,
-  }
-);
+} as const);

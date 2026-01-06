@@ -4,9 +4,9 @@ import { createLabelRng } from "../rng.js";
 import { type Static } from "@swooper/mapgen-core/authoring";
 import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
 import {
-  PlanVegetationEmbellishmentsSchema,
+  PlanVegetationEmbellishmentsContract,
   type ResolvedVegetationEmbellishmentsConfig,
-} from "./schema.js";
+} from "./contract.js";
 import { planDensityTweaksAtTile } from "./rules/density-tweaks.js";
 import { planVolcanicVegetationAtTile } from "./rules/volcanic-vegetation.js";
 
@@ -20,11 +20,11 @@ const NO_FEATURE = -1;
 const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
 
 type VegetationEmbellishmentsInput = Static<
-  typeof PlanVegetationEmbellishmentsSchema["properties"]["input"]
+  typeof PlanVegetationEmbellishmentsContract["input"]
 >;
 type VegetationEmbellishmentPlacement = Static<
-  typeof PlanVegetationEmbellishmentsSchema["properties"]["output"]["properties"]["placements"]["items"]
->;
+  typeof PlanVegetationEmbellishmentsContract["output"]
+>["placements"][number];
 
 const WARM_BIOMES: ReadonlySet<BiomeSymbol> = new Set([
   "temperateHumid",

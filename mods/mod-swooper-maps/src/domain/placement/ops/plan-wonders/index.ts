@@ -1,28 +1,13 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
 
-import { PlanWondersSchema } from "./schema.js";
+import { PlanWondersContract } from "./contract.js";
+import { defaultStrategy } from "./strategies/index.js";
 
-export const planWonders = createOp({
-  kind: "plan",
-  id: "placement/plan-wonders",
-  input: PlanWondersSchema.properties.input,
-  output: PlanWondersSchema.properties.output,
+export const planWonders = createOp(PlanWondersContract, {
   strategies: {
-    default: {
-      config: PlanWondersSchema.properties.config,
-      run: (input, config) => {
-        const mapInfo = input.mapInfo;
-        const wondersPlusOne = config.wondersPlusOne;
-        let wondersCount = 1;
-
-        if (mapInfo && typeof mapInfo.NumNaturalWonders === "number") {
-          wondersCount = wondersPlusOne
-            ? Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders)
-            : mapInfo.NumNaturalWonders;
-        }
-
-        return { wondersCount };
-      },
-    },
+    default: defaultStrategy,
   },
 });
+
+export * from "./contract.js";
+export type * from "./types.js";

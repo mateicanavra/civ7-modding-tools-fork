@@ -1,4 +1,4 @@
-import { Type, TypedArraySchemas, defineOpSchema } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
 
 import { TemperatureSchema } from "./temperature.schema.js";
 import { MoistureSchema } from "./moisture.schema.js";
@@ -8,6 +8,7 @@ import { VegetationSchema } from "./vegetation.schema.js";
 import { NoiseSchema } from "./noise.schema.js";
 import { OverlaySchema } from "./overlays.schema.js";
 
+/** Biome classification parameters for temperature, moisture, vegetation, and overlays. */
 const BiomeClassificationConfigSchema = Type.Object(
   {
     /** Temperature model knobs (degrees C, lapse rate, thresholds). */
@@ -63,19 +64,12 @@ const BiomeClassificationOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const BiomeClassificationSchema = defineOpSchema<
-  typeof BiomeClassificationInputSchema,
-  typeof BiomeClassificationConfigSchema,
-  typeof BiomeClassificationOutputSchema
->(
-  {
-    input: BiomeClassificationInputSchema,
-    config: BiomeClassificationConfigSchema,
-    output: BiomeClassificationOutputSchema,
+export const BiomeClassificationContract = defineOpContract({
+  kind: "compute",
+  id: "ecology/biomes/classify",
+  input: BiomeClassificationInputSchema,
+  output: BiomeClassificationOutputSchema,
+  strategies: {
+    default: BiomeClassificationConfigSchema,
   },
-  {
-    title: "BiomeClassificationSchema",
-    description: "Classify biomes from climate inputs",
-    additionalProperties: false,
-  }
-);
+} as const);

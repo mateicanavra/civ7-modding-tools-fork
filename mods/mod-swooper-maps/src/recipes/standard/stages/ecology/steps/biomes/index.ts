@@ -1,7 +1,6 @@
-import { Type, type Static } from "typebox";
-
 import { logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import {
   getPublishedClimateField,
   getPublishedNarrativeCorridors,
@@ -9,6 +8,7 @@ import {
   publishBiomeClassificationArtifact,
 } from "../../../../artifacts.js";
 import * as ecology from "@mapgen/domain/ecology";
+import { BiomesStepContract } from "./contract.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import {
   assertHeightfield,
@@ -19,40 +19,9 @@ import {
 import { clampToByte } from "./helpers/apply.js";
 import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
 
-const BiomesStepConfigSchema = Type.Object(
-  {
-    classify: ecology.ops.classifyBiomes.config,
-    bindings: ecology.BiomeEngineBindingsSchema,
-  },
-  {
-    additionalProperties: false,
-    default: {
-      classify: ecology.ops.classifyBiomes.defaultConfig,
-      bindings: {},
-    },
-  }
-);
+type BiomesStepConfig = Static<typeof BiomesStepContract.schema>;
 
-type BiomesStepConfig = {
-  classify: Parameters<typeof ecology.ops.classifyBiomes.run>[1];
-  bindings: Static<typeof ecology.BiomeEngineBindingsSchema>;
-};
-
-export default createStep({
-  id: "biomes",
-  phase: "ecology",
-  requires: [
-    M3_DEPENDENCY_TAGS.artifact.climateField,
-    M3_DEPENDENCY_TAGS.artifact.heightfield,
-    M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
-  ],
-  provides: [
-    M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
-    M3_DEPENDENCY_TAGS.field.biomeId,
-    M4_EFFECT_TAGS.engine.biomesApplied,
-  ],
-  schema: BiomesStepConfigSchema,
+export default createStep(BiomesStepContract, {
   run: (context: ExtendedMapContext, config: BiomesStepConfig) => {
     const { width, height } = context.dimensions;
     const size = width * height;
@@ -135,4 +104,4 @@ export default createStep({
 
     logBiomeSummary(context.trace, context.adapter, width, height);
   },
-} as const);
+});

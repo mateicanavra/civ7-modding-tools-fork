@@ -1,31 +1,15 @@
-import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
-import { ClimateConfigSchema, type FoundationDirectionalityConfig } from "@mapgen/domain/config";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import { type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { publishClimateFieldArtifact } from "../../../artifacts.js";
-import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 import { getOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
 import { storyTagClimateSwatches } from "@mapgen/domain/narrative/swatches.js";
+import { StorySwatchesStepContract } from "./storySwatches.contract.js";
 
-const StorySwatchesStepConfigSchema = Type.Object(
-  {
-    climate: ClimateConfigSchema,
-  },
-  { additionalProperties: false, default: { climate: {} } }
-);
+type StorySwatchesStepConfig = Static<typeof StorySwatchesStepContract.schema>;
 
-type StorySwatchesStepConfig = Static<typeof StorySwatchesStepConfigSchema>;
-
-export default createStep({
-  id: "storySwatches",
-  phase: "hydrology",
-  requires: [
-    M3_DEPENDENCY_TAGS.artifact.heightfield,
-    M3_DEPENDENCY_TAGS.artifact.climateField,
-    M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
-  ],
-  provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
-  schema: StorySwatchesStepConfigSchema,
+export default createStep(StorySwatchesStepContract, {
   run: (context: ExtendedMapContext, config: StorySwatchesStepConfig) => {
     const swatchesConfig = config.climate?.swatches as { enabled?: boolean } | undefined;
     if (!swatchesConfig || swatchesConfig.enabled === false) {
@@ -44,4 +28,4 @@ export default createStep({
     });
     publishClimateFieldArtifact(context);
   },
-} as const);
+});

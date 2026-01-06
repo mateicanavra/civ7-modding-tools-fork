@@ -1,29 +1,13 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
 
-import { PlanStartsSchema } from "./schema.js";
+import { PlanStartsContract } from "./contract.js";
+import { defaultStrategy } from "./strategies/index.js";
 
-export const planStarts = createOp({
-  kind: "plan",
-  id: "placement/plan-starts",
-  input: PlanStartsSchema.properties.input,
-  output: PlanStartsSchema.properties.output,
+export const planStarts = createOp(PlanStartsContract, {
   strategies: {
-    default: {
-      config: PlanStartsSchema.properties.config,
-      run: (input, config) => {
-        const baseStarts = input.baseStarts;
-        const overrides = config.overrides;
-
-        if (!overrides) {
-          return { ...baseStarts, startSectors: [...baseStarts.startSectors] };
-        }
-
-        return {
-          ...baseStarts,
-          ...overrides,
-          startSectors: [...(overrides.startSectors ?? baseStarts.startSectors)],
-        };
-      },
-    },
+    default: defaultStrategy,
   },
 });
+
+export * from "./contract.js";
+export type * from "./types.js";

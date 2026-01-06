@@ -1,37 +1,13 @@
-import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
-import { NarrativeConfigSchema } from "@mapgen/domain/config";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import { storyTagOrogenyBelts } from "@mapgen/domain/narrative/orogeny/index.js";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
+import { StoryOrogenyStepContract } from "./storyOrogeny.contract.js";
 
-const StoryOrogenyStepConfigSchema = Type.Object(
-  {
-    story: Type.Object(
-      {
-        orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,
-      },
-      { additionalProperties: false, default: {} }
-    ),
-  },
-  { additionalProperties: false, default: { story: {} } }
-);
+type StoryOrogenyStepConfig = Static<typeof StoryOrogenyStepContract.schema>;
 
-type StoryOrogenyStepConfig = Static<typeof StoryOrogenyStepConfigSchema>;
-
-export default createStep({
-  id: "storyOrogeny",
-  phase: "morphology",
-  requires: [
-    M4_EFFECT_TAGS.engine.coastlinesApplied,
-    M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
-    M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
-  ],
-  provides: [
-    M3_DEPENDENCY_TAGS.artifact.storyOverlays,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
-  ],
-  schema: StoryOrogenyStepConfigSchema,
+export default createStep(StoryOrogenyStepContract, {
   run: (context: ExtendedMapContext, config: StoryOrogenyStepConfig) => {
     const result = storyTagOrogenyBelts(context, config.story);
     context.artifacts.set(
@@ -39,4 +15,4 @@ export default createStep({
       result.motifs
     );
   },
-} as const);
+});

@@ -2,18 +2,18 @@ import type { ExtendedMapContext, TraceScope } from "@swooper/mapgen-core";
 import { HILL_TERRAIN, MOUNTAIN_TERRAIN, getTerrainSymbol } from "@swooper/mapgen-core";
 
 import {
-  PlanFloodplainsSchema,
-  PlanStartsSchema,
-  PlanWondersSchema,
+  PlanFloodplainsContract,
+  PlanStartsContract,
+  PlanWondersContract,
 } from "@mapgen/domain/placement";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { publishPlacementOutputsArtifact } from "../../../../artifacts.js";
 import { getStandardRuntime } from "../../../../runtime.js";
 import type { PlacementOutputsV1 } from "../../placement-outputs.js";
 
-type PlanFloodplainsOutput = Static<typeof PlanFloodplainsSchema["properties"]["output"]>;
-type PlanStartsOutput = Static<typeof PlanStartsSchema["properties"]["output"]>;
-type PlanWondersOutput = Static<typeof PlanWondersSchema["properties"]["output"]>;
+type PlanFloodplainsOutput = Static<typeof PlanFloodplainsContract["output"]>;
+type PlanStartsOutput = Static<typeof PlanStartsContract["output"]>;
+type PlanWondersOutput = Static<typeof PlanWondersContract["output"]>;
 
 type ApplyPlacementArgs = {
   context: ExtendedMapContext;

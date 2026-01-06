@@ -2,73 +2,80 @@ import { Type, type Static, type TSchema } from "typebox";
 
 import type { RunSettings } from "@mapgen/engine/execution-plan.js";
 import type { CustomValidateFn } from "../validation.js";
-import type { OpStrategy, StrategySelection } from "./strategy.js";
-import type { DomainOpKind, DomainOp, OpConfigSchema } from "./types.js";
+import type {
+  OpStrategy,
+  StrategyImplMapFor,
+  StrategySelection,
+} from "./strategy.js";
+import type { DomainOp, OpConfigSchema } from "./types.js";
+import type { OpContract } from "./contract.js";
 import { buildDefaultConfigValue } from "./defaults.js";
 import { attachValidationSurface } from "./validation-surface.js";
 
-type OpDefinitionBase<InputSchema extends TSchema, OutputSchema extends TSchema> = Readonly<{
-  kind: DomainOpKind;
-  id: string;
-  input: InputSchema;
-  output: OutputSchema;
-}>;
-
-type OpDefinitionValidationHook<InputSchema extends TSchema, ConfigSchema> = Readonly<{
-  /**
-   * Optional domain-/operation-specific validation hook.
-   *
-   * This is not called by consumers directly; it is wired into `op.validate(...)` and
-   * `op.runValidated(...)` automatically.
-   */
-  customValidate?: CustomValidateFn<Static<InputSchema>, ConfigSchema>;
-}>;
-
-type StrategyConfigSchemas = Readonly<Record<string, TSchema>>;
-
-type StrategiesFor<
-  InputSchema extends TSchema,
-  OutputSchema extends TSchema,
-  ConfigSchemas extends StrategyConfigSchemas,
-> = Readonly<{
-  [K in keyof ConfigSchemas & string]: OpStrategy<
-    ConfigSchemas[K],
-    Static<InputSchema>,
-    Static<OutputSchema>
+type RuntimeStrategiesForContract<C extends OpContract<any, any, any, any, any>> = Readonly<{
+  [K in keyof C["strategies"] & string]: OpStrategy<
+    C["strategies"][K],
+    Static<C["input"]>,
+    Static<C["output"]>
   >;
 }>;
 
-export function createOp<
-  const InputSchema extends TSchema,
-  const OutputSchema extends TSchema,
-  const ConfigSchemas extends StrategyConfigSchemas & { default: TSchema },
->(op: OpDefinitionBase<InputSchema, OutputSchema> &
-  Readonly<{
-    strategies: StrategiesFor<InputSchema, OutputSchema, ConfigSchemas>;
-  }> &
-  OpDefinitionValidationHook<
-    InputSchema,
-    StrategySelection<StrategiesFor<InputSchema, OutputSchema, ConfigSchemas>>
-  >): DomainOp<InputSchema, OutputSchema, StrategiesFor<InputSchema, OutputSchema, ConfigSchemas>>;
+type StrategySelectionForContract<C extends OpContract<any, any, any, any, any>> =
+  StrategySelection<RuntimeStrategiesForContract<C>>;
 
-export function createOp(op: any): any {
-  const customValidate = op.customValidate as CustomValidateFn<unknown, unknown> | undefined;
-  const strategies = op.strategies as Record<string, OpStrategy<TSchema, unknown, unknown>> | undefined;
+type OpImpl<C extends OpContract<any, any, any, any, any>> = Readonly<{
+  strategies: StrategyImplMapFor<C>;
+  customValidate?: CustomValidateFn<Static<C["input"]>, StrategySelectionForContract<C>>;
+}>;
 
-  if (!strategies) {
-    throw new Error(`createOp(${op.id ?? "unknown"}) requires strategies`);
+export function createOp<const C extends OpContract<any, any, any, any, any>>(
+  contract: C,
+  impl: OpImpl<C>
+): DomainOp<C["input"], C["output"], RuntimeStrategiesForContract<C>>;
+
+export function createOp(contract: any, impl: any): any {
+  const strategySchemas = contract?.strategies as Record<string, TSchema> | undefined;
+  const strategyImpls = impl?.strategies as
+    | Record<string, { resolveConfig?: Function; run?: Function }>
+    | undefined;
+
+  if (!strategySchemas) {
+    throw new Error(`createOp(${contract?.id ?? "unknown"}) requires a contract`);
   }
 
-  if (!Object.prototype.hasOwnProperty.call(strategies, "default")) {
-    throw new Error(`createOp(${op.id}) missing required "default" strategy`);
+  if (!strategyImpls) {
+    throw new Error(`createOp(${contract?.id ?? "unknown"}) requires strategies`);
   }
 
-  const ids = Object.keys(strategies);
+  if (!Object.prototype.hasOwnProperty.call(strategySchemas, "default")) {
+    throw new Error(`createOp(${contract?.id}) missing required "default" strategy`);
+  }
+
+  const ids = Object.keys(strategySchemas);
   if (ids.length === 0) {
-    throw new Error(`createOp(${op.id}) received empty strategies`);
+    throw new Error(`createOp(${contract?.id}) received empty strategies`);
   }
 
-  const defaultInnerConfig = buildDefaultConfigValue(strategies.default.config) as Record<
+  const runtimeStrategies: Record<string, OpStrategy<TSchema, unknown, unknown>> = {};
+  for (const id of ids) {
+    const implStrategy = strategyImpls[id];
+    if (!implStrategy) {
+      throw new Error(`createOp(${contract?.id}) missing strategy "${id}"`);
+    }
+    runtimeStrategies[id] = {
+      config: strategySchemas[id]!,
+      resolveConfig: implStrategy.resolveConfig as any,
+      run: implStrategy.run as any,
+    };
+  }
+
+  for (const id of Object.keys(strategyImpls)) {
+    if (!Object.prototype.hasOwnProperty.call(strategySchemas, id)) {
+      throw new Error(`createOp(${contract?.id}) has unknown strategy "${id}"`);
+    }
+  }
+
+  const defaultInnerConfig = buildDefaultConfigValue(strategySchemas.default) as Record<
     string,
     unknown
   >;
@@ -78,7 +85,7 @@ export function createOp(op: any): any {
     Type.Object(
       {
         strategy: Type.Literal(id),
-        config: strategies[id]!.config,
+        config: strategySchemas[id]!,
       },
       { additionalProperties: false }
     )
@@ -86,15 +93,15 @@ export function createOp(op: any): any {
 
   const config = Type.Union(configCases as any, {
     default: defaultConfig,
-  }) as unknown as OpConfigSchema<typeof strategies>;
+  }) as unknown as OpConfigSchema<typeof runtimeStrategies>;
 
-  const resolveConfig = (cfg: StrategySelection<typeof strategies>, settings: RunSettings) => {
+  const resolveConfig = (cfg: StrategySelection<typeof runtimeStrategies>, settings: RunSettings) => {
     if (!cfg || typeof cfg.strategy !== "string") {
-      throw new Error(`createOp(${op.id}) resolveConfig requires a strategy`);
+      throw new Error(`createOp(${contract?.id}) resolveConfig requires a strategy`);
     }
-    const selected = strategies[cfg.strategy];
+    const selected = runtimeStrategies[cfg.strategy];
     if (!selected) {
-      throw new Error(`createOp(${op.id}) unknown strategy "${cfg.strategy}"`);
+      throw new Error(`createOp(${contract?.id}) unknown strategy "${cfg.strategy}"`);
     }
     if (!selected.resolveConfig) {
       return cfg;
@@ -106,23 +113,25 @@ export function createOp(op: any): any {
   };
 
   const domainOp = {
-    kind: op.kind,
-    id: op.id,
-    input: op.input,
-    output: op.output,
-    strategies: op.strategies,
+    kind: contract.kind,
+    id: contract.id,
+    input: contract.input,
+    output: contract.output,
+    strategies: runtimeStrategies,
     config,
     defaultConfig,
     resolveConfig,
     run: (input: any, cfg: any) => {
       if (!cfg || typeof cfg.strategy !== "string") {
-        throw new Error(`createOp(${op.id}) requires config.strategy`);
+        throw new Error(`createOp(${contract?.id}) requires config.strategy`);
       }
-      const selected = strategies[cfg.strategy];
-      if (!selected) throw new Error(`createOp(${op.id}) unknown strategy "${cfg.strategy}"`);
+      const selected = runtimeStrategies[cfg.strategy];
+      if (!selected) {
+        throw new Error(`createOp(${contract?.id}) unknown strategy "${cfg.strategy}"`);
+      }
       return selected.run(input, cfg.config);
     },
   } as const;
 
-  return attachValidationSurface(domainOp, customValidate);
+  return attachValidationSurface(domainOp, impl.customValidate);
 }

@@ -1,9 +1,9 @@
-import { Type } from "typebox";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import type { ResolvedFeaturesPlacementConfig } from "@mapgen/domain/ecology";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
+import { FeaturesStepContract } from "./contract.js";
 import {
   buildFeaturesPlacementInput,
   buildReefEmbellishmentsInput,
@@ -12,45 +12,9 @@ import {
 import { applyFeaturePlacements, reifyFeatureField } from "./apply.js";
 import { resolveFeatureKeyLookups } from "./feature-keys.js";
 
-const FeaturesStepConfigSchema = Type.Object(
-  {
-    featuresPlacement: ecology.ops.planFeaturePlacements.config,
-    reefEmbellishments: ecology.ops.planReefEmbellishments.config,
-    vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.config,
-  },
-  {
-    additionalProperties: false,
-    default: {
-      featuresPlacement: ecology.ops.planFeaturePlacements.defaultConfig,
-      reefEmbellishments: ecology.ops.planReefEmbellishments.defaultConfig,
-      vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.defaultConfig,
-    },
-  }
-);
+type FeaturesStepConfig = Static<typeof FeaturesStepContract.schema>;
 
-type FeaturesPlacementOpConfig = typeof ecology.ops.planFeaturePlacements.defaultConfig;
-type ReefEmbellishmentsOpConfig = typeof ecology.ops.planReefEmbellishments.defaultConfig;
-type VegetationEmbellishmentsOpConfig =
-  typeof ecology.ops.planVegetationEmbellishments.defaultConfig;
-type FeaturesStepConfig = {
-  featuresPlacement: FeaturesPlacementOpConfig;
-  reefEmbellishments: ReefEmbellishmentsOpConfig;
-  vegetationEmbellishments: VegetationEmbellishmentsOpConfig;
-};
-
-export default createStep({
-  id: "features",
-  phase: "ecology",
-  requires: [
-    M3_DEPENDENCY_TAGS.field.biomeId,
-    M3_DEPENDENCY_TAGS.artifact.climateField,
-    M3_DEPENDENCY_TAGS.artifact.heightfield,
-    M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-  ],
-  provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
-  schema: FeaturesStepConfigSchema,
+export default createStep(FeaturesStepContract, {
   resolveConfig: (config, settings) => {
     return {
       featuresPlacement: ecology.ops.planFeaturePlacements.resolveConfig(
@@ -109,4 +73,4 @@ export default createStep({
     syncHeightfield(context);
     context.adapter.recalculateAreas();
   },
-} as const);
+});

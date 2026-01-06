@@ -3,7 +3,12 @@ import { Type } from "typebox";
 
 import { ExecutionPlanCompileError } from "@mapgen/engine/index.js";
 import { EmptyStepConfigSchema } from "@mapgen/engine/step-config.js";
-import { createRecipe, createStage, createStep } from "@mapgen/authoring/index.js";
+import {
+  createRecipe,
+  createStage,
+  createStep,
+  defineStepContract,
+} from "@mapgen/authoring/index.js";
 
 describe("authoring SDK", () => {
   const baseSettings = {
@@ -13,28 +18,32 @@ describe("authoring SDK", () => {
     wrap: { wrapX: true, wrapY: false },
   };
 
+  const makeContract = (id: string, schema = EmptyStepConfigSchema) =>
+    defineStepContract({
+      id,
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      schema,
+    });
+
   it("createStep rejects missing schema", () => {
     expect(() =>
-      createStep({
-        id: "alpha",
-        phase: "foundation",
-        requires: [],
-        provides: [],
-        run: () => {},
-      } as any)
+      createStep(
+        {
+          id: "alpha",
+          phase: "foundation",
+          requires: [],
+          provides: [],
+        } as any,
+        { run: () => {} }
+      )
     ).toThrow(/schema/);
   });
 
   it("createStep accepts explicit empty schema", () => {
     expect(() =>
-      createStep({
-        id: "alpha",
-        phase: "foundation",
-        requires: [],
-        provides: [],
-        schema: EmptyStepConfigSchema,
-        run: () => {},
-      })
+      createStep(makeContract("alpha"), { run: () => {} })
     ).not.toThrow();
   });
 
@@ -56,14 +65,7 @@ describe("authoring SDK", () => {
   });
 
   it("createRecipe rejects missing tagDefinitions", () => {
-    const step = createStep({
-      id: "alpha",
-      phase: "foundation",
-      requires: [],
-      provides: [],
-      schema: EmptyStepConfigSchema,
-      run: () => {},
-    });
+    const step = createStep(makeContract("alpha"), { run: () => {} });
     const stage = createStage({ id: "foundation", steps: [step] });
 
     expect(() =>
@@ -75,22 +77,8 @@ describe("authoring SDK", () => {
   });
 
   it("createRecipe produces Recipe schema v2 (no instance ids)", () => {
-    const stepA = createStep({
-      id: "alpha",
-      phase: "foundation",
-      requires: [],
-      provides: [],
-      schema: EmptyStepConfigSchema,
-      run: () => {},
-    });
-    const stepB = createStep({
-      id: "beta",
-      phase: "foundation",
-      requires: [],
-      provides: [],
-      schema: EmptyStepConfigSchema,
-      run: () => {},
-    });
+    const stepA = createStep(makeContract("alpha"), { run: () => {} });
+    const stepB = createStep(makeContract("beta"), { run: () => {} });
     const stage = createStage({ id: "foundation", steps: [stepA, stepB] });
 
     const recipe = createRecipe({
@@ -105,14 +93,7 @@ describe("authoring SDK", () => {
   });
 
   it("createRecipe derives deterministic step ids", () => {
-    const step = createStep({
-      id: "alpha",
-      phase: "foundation",
-      requires: [],
-      provides: [],
-      schema: EmptyStepConfigSchema,
-      run: () => {},
-    });
+    const step = createStep(makeContract("alpha"), { run: () => {} });
     const stage = createStage({ id: "foundation", steps: [step] });
     const recipe = createRecipe({ id: "core.base", tagDefinitions: [], stages: [stage] });
 
@@ -120,14 +101,16 @@ describe("authoring SDK", () => {
   });
 
   it("createRecipe rejects invalid tag prefixes", () => {
-    const step = createStep({
-      id: "alpha",
-      phase: "foundation",
-      requires: ["bad:tag"],
-      provides: [],
-      schema: EmptyStepConfigSchema,
-      run: () => {},
-    });
+    const step = createStep(
+      defineStepContract({
+        id: "alpha",
+        phase: "foundation",
+        requires: ["bad:tag"],
+        provides: [],
+        schema: EmptyStepConfigSchema,
+      }),
+      { run: () => {} }
+    );
     const stage = createStage({ id: "foundation", steps: [step] });
 
     expect(() =>
@@ -142,14 +125,7 @@ describe("authoring SDK", () => {
       },
       { additionalProperties: false }
     );
-    const step = createStep({
-      id: "alpha",
-      phase: "foundation",
-      requires: [],
-      provides: [],
-      schema,
-      run: () => {},
-    });
+    const step = createStep(makeContract("alpha", schema), { run: () => {} });
     const stage = createStage({ id: "foundation", steps: [step] });
     const recipe = createRecipe({ id: "core.base", tagDefinitions: [], stages: [stage] });
 

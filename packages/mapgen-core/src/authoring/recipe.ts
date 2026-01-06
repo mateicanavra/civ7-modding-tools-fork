@@ -81,6 +81,9 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
           requires: authored.requires,
           provides: authored.provides,
           configSchema: authored.schema,
+          resolveConfig: authored.resolveConfig as
+            | MapGenStep<TContext, unknown>["resolveConfig"]
+            | undefined,
           run: authored.run as unknown as MapGenStep<TContext, unknown>["run"],
         },
       });

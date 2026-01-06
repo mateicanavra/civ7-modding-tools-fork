@@ -10,14 +10,6 @@ export const ops = {
 
 export { planFloodplains, planStarts, planWonders };
 
-export {
-  PlanFloodplainsSchema,
-} from "./ops/plan-floodplains/schema.js";
-
-export {
-  PlanStartsSchema,
-} from "./ops/plan-starts/schema.js";
-
-export {
-  PlanWondersSchema,
-} from "./ops/plan-wonders/schema.js";
+export { PlanFloodplainsContract } from "./ops/plan-floodplains/contract.js";
+export { PlanStartsContract } from "./ops/plan-starts/contract.js";
+export { PlanWondersContract } from "./ops/plan-wonders/contract.js";

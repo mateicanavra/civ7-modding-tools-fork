@@ -1,34 +1,14 @@
-import { Type, type Static } from "typebox";
 import { devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
-import { NarrativeConfigSchema } from "@mapgen/domain/config";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import { storyTagHotspotTrails } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
+import { StoryHotspotsStepContract } from "./storyHotspots.contract.js";
 
-const StoryHotspotsStepConfigSchema = Type.Object(
-  {
-    story: Type.Object(
-      {
-        hotspot: NarrativeConfigSchema.properties.story.properties.hotspot,
-      },
-      { additionalProperties: false, default: {} }
-    ),
-  },
-  { additionalProperties: false, default: { story: {} } }
-);
+type StoryHotspotsStepConfig = Static<typeof StoryHotspotsStepContract.schema>;
 
-type StoryHotspotsStepConfig = Static<typeof StoryHotspotsStepConfigSchema>;
-
-export default createStep({
-  id: "storyHotspots",
-  phase: "morphology",
-  requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
-  provides: [
-    M3_DEPENDENCY_TAGS.artifact.storyOverlays,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-  ],
-  schema: StoryHotspotsStepConfigSchema,
+export default createStep(StoryHotspotsStepContract, {
   run: (context: ExtendedMapContext, config: StoryHotspotsStepConfig) => {
     const runtime = getStandardRuntime(context);
     if (context.trace.isVerbose) {
@@ -46,4 +26,4 @@ export default createStep({
       devWarn(context.trace, "[smoke] storyHotspots enabled but no hotspot points were emitted");
     }
   },
-} as const);
+});

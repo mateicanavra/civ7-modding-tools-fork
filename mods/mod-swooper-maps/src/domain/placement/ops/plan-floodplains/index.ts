@@ -1,12 +1,9 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
 
-import { PlanFloodplainsSchema } from "./schema.js";
+import { PlanFloodplainsContract } from "./contract.js";
+import { defaultStrategy } from "./strategies/index.js";
 
-export const planFloodplains = createOp({
-  kind: "plan",
-  id: "placement/plan-floodplains",
-  input: PlanFloodplainsSchema.properties.input,
-  output: PlanFloodplainsSchema.properties.output,
+export const planFloodplains = createOp(PlanFloodplainsContract, {
   customValidate: (_input, config) => {
     if (config.config.maxLength < config.config.minLength) {
       return [
@@ -19,14 +16,9 @@ export const planFloodplains = createOp({
     return [];
   },
   strategies: {
-    default: {
-      config: PlanFloodplainsSchema.properties.config,
-      run: (_input, config) => {
-        return {
-          minLength: config.minLength,
-          maxLength: config.maxLength,
-        };
-      },
-    },
+    default: defaultStrategy,
   },
 });
+
+export * from "./contract.js";
+export type * from "./types.js";

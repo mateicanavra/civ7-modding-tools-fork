@@ -1,6 +1,6 @@
 import {
   applySchemaDefaults,
-  defineOpSchema,
+  defineOpContract,
   Type,
   TypedArraySchemas,
   type Static,
@@ -708,22 +708,15 @@ const FeaturesPlacementOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const FeaturesPlacementSchema = defineOpSchema<
-  typeof FeaturesPlacementInputSchema,
-  typeof FeaturesPlacementConfigSchema,
-  typeof FeaturesPlacementOutputSchema
->(
-  {
-    input: FeaturesPlacementInputSchema,
-    config: FeaturesPlacementConfigSchema,
-    output: FeaturesPlacementOutputSchema,
+export const PlanFeaturePlacementsContract = defineOpContract({
+  kind: "plan",
+  id: "ecology/features/placement",
+  input: FeaturesPlacementInputSchema,
+  output: FeaturesPlacementOutputSchema,
+  strategies: {
+    default: FeaturesPlacementConfigSchema,
   },
-  {
-    title: "FeaturesPlacementSchema",
-    description: "Plan ecology feature placements",
-    additionalProperties: false,
-  }
-);
+} as const);
 
 type FeaturesPlacementGroupsConfig = Static<typeof FeaturesPlacementGroupsSchema>;
 type FeaturesPlacementGroupConfig = Static<typeof FeaturesPlacementGroupSchema>;
@@ -736,7 +729,7 @@ type FeaturesPlacementWetRules = Static<typeof FeaturesPlacementWetRulesSchema>;
 type FeaturesPlacementAquaticConfig = Static<typeof FeaturesPlacementAquaticSchema>;
 type FeaturesPlacementAtollConfig = Static<typeof FeaturesPlacementAtollSchema>;
 type FeaturesPlacementIceConfig = Static<typeof FeaturesPlacementIceSchema>;
-type FeaturesPlacementConfig = Static<typeof FeaturesPlacementSchema["properties"]["config"]>;
+type FeaturesPlacementConfig = Static<typeof FeaturesPlacementConfigSchema>;
 
 export type FeaturesPlacementResolvedGroup = { multiplier: number };
 

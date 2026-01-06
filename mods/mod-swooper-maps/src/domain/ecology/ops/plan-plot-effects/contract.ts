@@ -1,7 +1,7 @@
 import {
   Type,
   applySchemaDefaults,
-  defineOpSchema,
+  defineOpContract,
   TypedArraySchemas,
   type Static,
 } from "@swooper/mapgen-core/authoring";
@@ -455,29 +455,22 @@ const PlotEffectsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanPlotEffectsSchema = defineOpSchema<
-  typeof PlotEffectsInputSchema,
-  typeof PlotEffectsConfigSchema,
-  typeof PlotEffectsOutputSchema
->(
-  {
-    input: PlotEffectsInputSchema,
-    config: PlotEffectsConfigSchema,
-    output: PlotEffectsOutputSchema,
+export const PlanPlotEffectsContract = defineOpContract({
+  kind: "plan",
+  id: "ecology/plot-effects/placement",
+  input: PlotEffectsInputSchema,
+  output: PlotEffectsOutputSchema,
+  strategies: {
+    default: PlotEffectsConfigSchema,
   },
-  {
-    title: "PlanPlotEffectsSchema",
-    description: "Plan climate/ecology plot effects",
-    additionalProperties: false,
-  }
-);
+} as const);
 
 type PlotEffectSelector = { typeName: PlotEffectKey };
 type PlotEffectsSnowSelectors = Static<typeof PlotEffectsSnowSelectorsSchema>;
 type PlotEffectsSnowConfig = Static<typeof PlotEffectsSnowSchema>;
 type PlotEffectsSandConfig = Static<typeof PlotEffectsSandSchema>;
 type PlotEffectsBurnedConfig = Static<typeof PlotEffectsBurnedSchema>;
-type PlotEffectsConfig = Static<typeof PlanPlotEffectsSchema["properties"]["config"]>;
+type PlotEffectsConfig = Static<typeof PlotEffectsConfigSchema>;
 
 export type ResolvedPlotEffectsConfig = {
   snow: Required<PlotEffectsSnowConfig> & {

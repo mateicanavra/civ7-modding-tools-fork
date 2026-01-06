@@ -4,6 +4,30 @@ import type { RunSettings } from "@mapgen/engine/execution-plan.js";
 import type { ValidationError, OpRunValidatedOptions, OpValidateOptions } from "../validation.js";
 import type { StrategySelection } from "./strategy.js";
 
+export type OpContractLike = Readonly<{
+  input: TSchema;
+  output: TSchema;
+  strategies: Readonly<Record<string, TSchema>>;
+}>;
+
+export type OpStrategyId<TContract extends OpContractLike> =
+  keyof TContract["strategies"] & string;
+
+export type OpTypeBag<TContract extends OpContractLike> = Readonly<{
+  input: Static<TContract["input"]>;
+  output: Static<TContract["output"]>;
+  strategyId: OpStrategyId<TContract>;
+  config: Readonly<{
+    [K in OpStrategyId<TContract>]: Static<TContract["strategies"][K]>;
+  }>;
+  envelope: {
+    [K in OpStrategyId<TContract>]: Readonly<{
+      strategy: K;
+      config: Static<TContract["strategies"][K]>;
+    }>;
+  }[OpStrategyId<TContract>];
+}>;
+
 export interface OpConfigSchema<Strategies extends Record<string, { config: TSchema }>>
   extends TSchema {
   static: StrategySelection<Strategies>;

@@ -1,7 +1,7 @@
 import {
   Type,
   applySchemaDefaults,
-  defineOpSchema,
+  defineOpContract,
   TypedArraySchemas,
   type Static,
 } from "@swooper/mapgen-core/authoring";
@@ -62,35 +62,24 @@ const ReefEmbellishmentsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanReefEmbellishmentsSchema = defineOpSchema<
-  typeof ReefEmbellishmentsInputSchema,
-  typeof ReefEmbellishmentsConfigSchema,
-  typeof ReefEmbellishmentsOutputSchema
->(
-  {
-    input: ReefEmbellishmentsInputSchema,
-    config: ReefEmbellishmentsConfigSchema,
-    output: ReefEmbellishmentsOutputSchema,
+export const PlanReefEmbellishmentsContract = defineOpContract({
+  kind: "plan",
+  id: "ecology/features/reef-embellishments",
+  input: ReefEmbellishmentsInputSchema,
+  output: ReefEmbellishmentsOutputSchema,
+  strategies: {
+    default: ReefEmbellishmentsConfigSchema,
   },
-  {
-    title: "PlanReefEmbellishmentsSchema",
-    description: "Plan reef embellishments",
-    additionalProperties: false,
-  }
-);
+} as const);
 
 export type ResolvedReefEmbellishmentsConfig = {
   story: { features: Required<Static<typeof EcologyConfigSchema["properties"]["features"]>> };
   featuresDensity: Required<Static<typeof EcologyConfigSchema["properties"]["featuresDensity"]>>;
 };
 
-type ReefEmbellishmentsConfig =
-  Static<typeof PlanReefEmbellishmentsSchema["properties"]["config"]>;
+type ReefEmbellishmentsConfig = Static<typeof ReefEmbellishmentsConfigSchema>;
 
 export const resolveReefEmbellishmentsConfig = (
   config: ReefEmbellishmentsConfig
 ): ResolvedReefEmbellishmentsConfig =>
-  applySchemaDefaults(
-    PlanReefEmbellishmentsSchema.properties.config,
-    config
-  ) as ResolvedReefEmbellishmentsConfig;
+  applySchemaDefaults(ReefEmbellishmentsConfigSchema, config) as ResolvedReefEmbellishmentsConfig;
