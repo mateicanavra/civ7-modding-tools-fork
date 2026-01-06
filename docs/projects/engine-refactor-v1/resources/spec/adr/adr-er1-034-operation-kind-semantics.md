@@ -77,16 +77,23 @@ This ADR is the canonical home for DD-001 from `docs/projects/engine-refactor-v1
 An operation module exports exactly one operation:
 
 ```ts
-export const myOp = createOp({
+export const myOpContract = defineOpContract({
   kind: "compute" | "plan" | "score" | "select",
   id: "domain/path/opName",
   input: InputSchema,
   output: OutputSchema,
   strategies: {
-    default: {
-      config: ConfigSchema,
-      run: (input, config) => ({ /* output */ }),
-    },
+    default: ConfigSchema,
+  },
+});
+
+export const myOpDefault = createStrategy(myOpContract, "default", {
+  run: (input, config) => ({ /* output */ }),
+});
+
+export const myOp = createOp(myOpContract, {
+  strategies: {
+    default: myOpDefault,
   },
 });
 ```
@@ -104,16 +111,14 @@ src/domain/<area>/<domain>/
   index.ts
   ops/
     <op>/
-      index.ts                 # exports exactly one op via createOp
-      schema.ts                # TypeBox schemas (types inferred at use sites)
-      strategies/              # strategy implementations (may start empty)
+      contract.ts              # contract-first schemas
       rules/                   # pure op-local rules (may start empty)
-  rules/*.ts                   # optional: cross-op rules (pure)
+      strategies/              # strategy implementations (may start empty)
+      index.ts                 # exports exactly one op via createOp(contract, { strategies })
 
-src/recipes/<recipe>/stages/<stage>/steps/<step>/
-  index.ts                     # step orchestration (build inputs → call ops → apply/publish)
-  inputs.ts                    # runtime binding (adapter/artifacts → POJO inputs)
-  apply.ts                     # runtime writes (engine/buffer mutation)
+src/recipes/<recipe>/stages/<stage>/steps/
+  <stepId>.model.ts            # step contract surface (schema + tags + helpers)
+  <stepId>.ts                  # step orchestration (build inputs → call ops → apply/publish)
 ```
 
 Illustrative composition pattern:

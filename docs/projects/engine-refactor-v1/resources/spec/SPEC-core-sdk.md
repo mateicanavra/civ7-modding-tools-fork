@@ -6,6 +6,7 @@
 
 - Provide **content-agnostic runtime** primitives (compile + execute).
 - Provide **authoring ergonomics** (typed recipe/stage/step factories).
+- Provide **contract-first op authoring** (`src/authoring/op/*`).
 - Provide **engine-owned context** types and helpers.
 - Provide **neutral utilities** (`lib/**`) and optional diagnostics (`dev/**`).
 - Do not define or ship mod content (no recipe steps, no tag catalogs, no content artifacts).

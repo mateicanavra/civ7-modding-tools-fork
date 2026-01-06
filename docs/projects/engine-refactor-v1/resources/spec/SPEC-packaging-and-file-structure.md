@@ -28,6 +28,11 @@ CORE_SDK_ROOT/
 │  ├─ engine/                        # orchestration runtime (compile + execute + registries)
 │  ├─ core/                          # engine-owned context + platform contracts
 │  ├─ authoring/                     # authoring ergonomics (factories)
+│  │  ├─ op/                         # contract-first op authoring
+│  │  │  ├─ contract.ts
+│  │  │  ├─ strategy.ts
+│  │  │  ├─ create.ts
+│  │  │  └─ index.ts
 │  ├─ lib/                           # neutral utilities (engine-owned)
 │  ├─ trace/                         # tracing primitives
 │  ├─ dev/                           # diagnostics (not part of runtime contract)
@@ -68,7 +73,18 @@ STANDARD_CONTENT_ROOT/
 │  │           └─ *.ts               # stage-scoped helpers/contracts (optional)
 │  └─ domain/
 │     ├─ config.ts                   # schema/type-only barrel for shared fragments
-│     └─ **/**                       # domain logic + shared contracts (artifacts, tags, validators)
+│     ├─ <domain>/
+│     │  ├─ index.ts
+│     │  └─ ops/
+│     │     └─ <op-slug>/
+│     │        ├─ contract.ts
+│     │        ├─ rules/
+│     │        │  └─ <rule>.ts
+│     │        ├─ strategies/
+│     │        │  ├─ default.ts
+│     │        │  └─ <strategy>.ts
+│     │        └─ index.ts
+│     └─ **/**                       # other domain logic + shared contracts
 └─ test/
    └─ **/**
 ```
@@ -93,7 +109,7 @@ STANDARD_CONTENT_ROOT/
 **Domain scope (`src/domain/**`)**
 - Domain is the home for:
   - domain algorithms
-  - operation contracts (`ops/**`) and op-local rules/strategies
+  - operation modules under `ops/<op>/` with `contract.ts`, `strategies/**`, and `rules/**`
   - shared config schema fragments (`src/domain/**/config.ts`) when used by more than one step
 - Domain modules may be used by a single step; reuse is not the criterion for domain placement. The criterion is recipe-independence and a clean separation between step orchestration and content logic.
 - Domain must not import from `recipes/**` or `maps/**`.

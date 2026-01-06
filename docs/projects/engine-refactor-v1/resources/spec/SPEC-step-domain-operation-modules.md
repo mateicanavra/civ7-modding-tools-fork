@@ -1,1131 +1,479 @@
-# SPEC: Step ↔ Domain Contracts via Operation Modules
+# SPEC: Step <-> Domain Contracts via Operation Modules
 
 ## 0) Vocabulary (Project Terms)
 
-These terms are used throughout this document with specific meanings. Several are intentionally more explicit than legacy wording (notably “tag”).
-
 **Rule**
-- A small, pure, domain-specific function implementing one heuristic/invariant (e.g., “apply coastal bonus”, “choose latitude band rainfall”).
-- Rules are internal building blocks; they are not step-callable contracts and should not reach into runtime context.
+- A small, pure, domain-specific function implementing one heuristic or invariant.
+- Rules are internal building blocks; they are not step-callable contracts.
+- Rules live under each op in `ops/<op>/rules/**` and are imported directly by strategies.
 
-**Operation** (aka “op”)
-- A step-callable, schema-backed domain entrypoint: `run(inputs, config) -> result`.
-- Operations are the public contract that steps depend on; rules are implementation detail beneath operations.
+**Operation** (aka "op")
+- A step-callable, schema-backed domain entrypoint: `run(input, config) -> output`.
+- Operations are the public contract that steps depend on.
+- Operation contracts are contract-first and live in `ops/<op>/contract.ts`.
 
-**Strategy** (formerly “variant”)
-- A swappable implementation of an operation that preserves the operation’s input/output contract.
-- Strategies are internal by default: steps select a strategy via config, but do not import strategy modules directly.
-- Strategies may have **strategy-specific config** (common when different algorithms need different knobs).
+**Strategy**
+- A swappable implementation of an operation that preserves the operation's input/output contract.
+- Strategies are internal by default; steps select a strategy via config, not by importing strategy modules.
+- Strategies may have strategy-specific config schemas.
 
 **Operation module**
-- A module that exports exactly one operation (usually as the default export), enabling “one op per module” organization and easy `index.ts` aggregation into `ops.*`.
-- Most operation modules are single files; large operations can be promoted to a directory with `index.ts` as the module entrypoint.
+- A directory under `domain/<domain>/ops/<op>/` that exports exactly one operation.
+- Canonical files: `contract.ts`, `strategies/**`, `rules/**`, `index.ts`.
 
-**Artifact**
-- A domain-defined data product published by steps for downstream consumption (e.g., a climate field, a corridor snapshot, a placement input bundle).
-- Important nuance: an `artifact:*` dependency indicates a *data-product dependency*, not necessarily “a value stored in `ctx.artifacts`”. Some artifacts are satisfied via other runtime state (e.g., overlay state) and a custom `satisfies(...)` check.
+**Step**
+- The smallest executable unit in a recipe graph.
+- Steps orchestrate runtime context and domain ops using validated values.
+- Steps do not declare or own op graphs, strategy bindings, or op-level wiring.
 
-**DependencyKey** (formerly “DependencyTag”)
-- The **string identifier** a step declares in `requires` / `provides` (must be prefixed by kind: `artifact:` / `field:` / `effect:`).
-- Example: `artifact:climateField`, `field:rainfall`, `effect:engine.riversModeled`.
+**DependencyKey**
+- The string identifier a step declares in `requires` / `provides` (prefixed by kind: `artifact:` / `field:` / `effect:`).
 
-**DependencyDefinition / DependencyContract** (formerly “DependencyTagDefinition”)
-- Metadata and (optional) runtime enforcement for a `DependencyKey`: `{ id, kind, satisfies? , owner? , demo? }`.
-- Stored in a registry and used to validate keys and (optionally) determine whether a runtime state satisfies a dependency.
-
-**Registry** (`TagRegistry`, rename TBD)
-- The container that stores `DependencyDefinition`s and supports validation and satisfaction checks.
-- Naming is TBD: we intend to retire “tag” as the primary term for pipeline dependencies; `DependencyRegistry` is the likely replacement.
-
-**Key** (generic term; avoid when possible)
-- “Key” is overloaded. Prefer the specific term (`DependencyKey`, `Artifact key`, `Overlay key`, etc.) when writing contracts.
-
-**Tag** (overloaded; avoid for pipeline dependencies)
-- “Tag” is not the primary term for pipeline dependencies in this model (use `DependencyKey`).
-- It may still refer to unrelated concepts:
-  - **Civ7 plot tags**: numeric engine-level tile tags (`PLOT_TAG`, `adapter.getPlotTagId(...)`).
-  - **Story “tagging”**: domain-level overlay classification (not a pipeline dependency system).
+---
 
 ## 1) Problem
 
 Map generation content needs a clean boundary between:
 
-- **runtime orchestration** (engine/adapter calls, artifact I/O, ordering), and
-- **domain logic** (deterministic computation over typed inputs with typed configuration).
+- runtime orchestration (engine/adapter calls, artifact I/O, ordering), and
+- domain logic (deterministic computation over typed inputs with typed configuration).
 
-Without an explicit contract, step code tends to accumulate domain rules, domains tend to reach into runtime context, configuration schemas drift away from the logic that uses them, and authoring new domains becomes inconsistent and harder to test.
+Without an explicit contract, step code accumulates domain rules, configuration schemas drift away from logic, and domain logic grows runtime dependencies.
 
-This document defines a canonical model for **how steps and domains interact**:
+This spec defines the canonical model for how steps and domains interact:
 
-- Steps remain the unit of execution in recipes/stages.
-- Domains expose a small, predictable authoring surface composed of **operation modules**.
-- Steps wire runtime → domain inputs, call operations, and publish/apply results.
+- Steps remain the unit of execution in recipes.
+- Domains expose a predictable authoring surface composed of operation modules.
+- Steps wire runtime inputs, call operations, and publish results.
 
-Execution workflow (canonical for implementation):
-- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
+---
 
-## 2) Step System (Recipe → Stage → Step)
+## 2) Step System (Recipe v2 + Step Registry)
 
 ### Responsibilities
 
-A **step** is the smallest executable unit in a recipe graph. Its responsibilities are:
+A **step** is responsible for:
 
-- **Orchestration (boundary work):**
-  - read runtime state (adapter, context buffers/fields),
-  - read upstream artifacts/fields required by this step,
-  - validate/configure execution from user-provided config (schema-backed),
-  - call into domain logic with domain-shaped inputs,
-  - apply results back into runtime (engine mutations, buffer writes),
-  - publish artifacts/fields for downstream steps.
-- **Ordering (graph contract):**
-  - declare `requires`/`provides` so the recipe compiler can enforce correctness.
+- **Orchestration:** read runtime state, validate step config, build op inputs, call ops, apply results, publish artifacts.
+- **Ordering:** declare `requires` / `provides` for recipe compilation and execution gating.
 
-### What steps intentionally do *not* own
+### What steps do not own
 
-- domain rules and heuristics (those belong in domains),
-- cross-step global configuration registries,
-- ad-hoc “grab bag” utilities (shared utilities belong in shared libs).
+- domain rules and heuristics,
+- strategy implementations,
+- op binding graphs or op-level wiring DSLs.
 
-### Step identity (schema v2, no nodeId/instanceId)
+### Step contract (canonical)
 
-- Recipe schema is locked to **version 2**; legacy v1 shapes are deprecated. Compile/authoring must reject any other version.
-- Each step occurrence has a **single recipe-unique `step.id`** (authoring composes `namespace.recipe.stage.step` to guarantee uniqueness). Duplicate ids are invalid.
-- `instanceId`/`nodeId` are retired; execution plans, tracing, fingerprints, and trace config keys are all keyed by `stepId`.
-- Trace sinks no longer receive `nodeId`; per-step scopes use the same `stepId` that appears in the recipe and execution plan.
-- Tracing configuration lives in `RunRequest.settings.trace` and is enforced at the runtime boundary; the default trace sink is console. Step/domain logic emits via `context.trace` and must not check trace settings flags directly.
+```ts
+export type MapGenStep<TConfig> = Readonly<{
+  id: string;
+  phase: GenerationPhase;
+  requires: DependencyKey[];
+  provides: DependencyKey[];
+  schema: TSchema; // step-owned config schema
+  resolveConfig?: (config: TConfig, settings: RunSettings) => TConfig;
+  run: (context: ExtendedMapContext, config: TConfig) => void;
+}>;
+```
+
+Notes:
+- `schema` is the single step-owned config schema.
+- `resolveConfig` is optional and pure; it composes op-level resolution without introducing a second schema.
+- Steps can reuse `op.config` and `op.defaultConfig` values directly in their schema definitions.
+
+---
 
 ## 3) Domain Architecture
 
 ### What a domain is
 
-A **domain** is a cohesive unit of content logic (hydrology, morphology, ecology, narrative, placement, etc.) implemented as **pure TypeScript modules**.
+A **domain** is a cohesive unit of content logic implemented as pure TypeScript modules.
 
-Domains are built to be:
+Domains are:
+- deterministic and testable,
+- recipe-independent,
+- contract-first (ops own their schemas).
 
-- **testable**: deterministic computation over plain inputs,
-- **reusable**: can be invoked from any step that can supply the required inputs,
-- **co-located**: operation schemas and content logic live together under the domain directory; step-owned artifact shapes live with the steps that publish them.
-
-### What a domain contains (canonical structure)
-
-A domain is organized as a small module with an explicit public surface:
-
-- `index.ts` aggregates exports (usually `ops`),
-- `ops/**` contains step-callable operation modules,
-- `rules/**` contains pure building blocks used by operations/strategies (never step-callable),
-- no `artifacts.ts` domain modules: artifact shapes are step-owned and must be co-located with the publishing step (or stage-shared model modules).
-
-Canonical on-disk layout:
+### Canonical domain layout
 
 ```txt
-src/domain/<area>/<domain>/
+src/domain/<domain>/
   index.ts
   ops/
-    <op>/
-      index.ts                 # exports exactly one op via createOp
-      schema.ts                # TypeBox schemas (types inferred at use sites)
-      strategies/              # strategy implementations (may start empty)
-      rules/                   # pure op-local rules (may start empty)
-  rules/*.ts                   # optional: cross-op rules
+    <op-slug>/
+      contract.ts
+      rules/
+        <rule>.ts
+      strategies/
+        default.ts
+        <strategy>.ts
+      index.ts
 ```
 
-Notes:
-- The unit of organization is an **operation module** (“one op per module”). Every op is a directory module under `ops/<op>/` (no single-file ops).
-- Strategies are typically **extracted into their own modules** under `strategies/` because they contain real algorithmic code. Very small strategies can be inlined, but the canonical authoring pattern prefers separate files.
+Rules are op-local by default and live under `ops/<op>/rules/**`.
 
-### Operations (the step-callable contract)
+---
 
-An **operation** (aka “op”) is the stable unit that steps depend on. It:
+## 4) Operations and Strategies (Contract-First)
 
-- has a **required, strict** `kind` (`plan`, `compute`, `score`, `select`) for a shared mental model and consistent contract review (see ADR-ER1-034),
-- is the primary **domain contract** and **unit-testable unit** (steps orchestrate; ops encapsulate domain logic),
-- owns its `input`, `config`, and `output` schemas (per-operation, not per-domain),
-- exports a raw `run(input, config) -> output` executor over plain values (POJOs + POJO-ish runtime values such as typed arrays), not runtime/engine “views”.
-- also exposes contract enforcement helpers:
-  - `validate(input, config, opts?) -> { ok, errors }` (never throws),
-  - `runValidated(input, config, opts?) -> output` (throws on validation failure; optional output validation for tests/tooling).
+### Operation contract
 
-### Strategies (required, internal)
+Each op defines a contract in `contract.ts` using `defineOpContract`:
 
-When an operation can be implemented in multiple interchangeable ways, we model that as **strategies** under the operation module:
+- `kind` (semantic intent; see ADR-ER1-034)
+- `id` (stable string)
+- `input` (TypeBox schema)
+- `output` (TypeBox schema)
+- `strategies` (TypeBox schemas keyed by strategy id, must include `default`)
 
-- each strategy preserves the same **input/output** contract,
-- each strategy may have its own config schema,
-- the operation selects a strategy via config,
-- steps do **not** import strategies directly; they only pass config to the op.
+### Strategy implementations
 
-#### Config semantics with strategies
+Each strategy implementation is authored out of line using `createStrategy(contract, id, impl)`:
 
-What must be shared vs what can vary:
+- `config` schema is declared in the contract (not the strategy module)
+- strategy module supplies `run` and optional `resolveConfig`
 
-- **Required to be shared:** operation **input** and **output** schemas (the contract steps depend on).
-- **Allowed to vary:** the strategy’s algorithm and its **strategy-specific config**.
+### Runtime op construction
 
-Canonical config shape (always explicit; plan truth):
+Each op module exports the runtime op via:
 
-- All ops are strategy-backed and must declare a `"default"` strategy.
-- The operation’s `config` is always a discriminated union of envelopes:
-  - `{ strategy: "<strategyId>", config: <innerConfig> }`
-- `strategy` is always present (no shorthand encodings).
+```ts
+export const planTreeVegetation = createOp(contract, {
+  strategies: {
+    default: defaultStrategy,
+    clustered: clusteredStrategy,
+  },
+});
+```
 
-This ensures recipe authoring, step schemas, and execution-plan node configs all share the same uniform shape across single- and multi-strategy operations.
+`createOp` derives:
+- `op.config`: union schema of `{ strategy, config }` envelopes
+- `op.defaultConfig`: default strategy envelope
+- `op.resolveConfig`: strategy-aware resolver (compile-time only)
+- `op.runValidated`: input/config validation + execution
 
-If you need both **shared op-level config** and **strategy-specific config**, there are two common options:
+### Strategy selection shape (canonical)
 
-- **Option A (explicit nesting):** inner config is `{ shared: <SharedConfig>, specific: <StrategySpecificConfig> }`.
-- **Option B (schema composition):** inner config schema is `SharedConfig ∩ StrategySpecificConfig` (TypeBox `Type.Intersect([...])`).
+All ops are strategy-backed and must declare a `default` strategy.
 
-Both options apply to the **inner strategy config**. The outer plan-truth selection wrapper remains `{ strategy, config }`.
+The config shape is always:
 
-This keeps step imports small and keeps the op’s public contract stable even if internal implementations evolve.
+```ts
+{ strategy: "<strategyId>", config: <strategyConfig> }
+```
 
-#### Step config ergonomics: ops export canonical `config` + `defaultConfig`
+This is local to the op. Steps may reuse `op.config` and `op.defaultConfig` directly.
 
-Steps should not have to re-author (or re-wrap) the canonical operation config shape. Each op exports:
+---
 
-- `op.config`: the canonical TypeBox schema for that op’s config (including strategy selection shape when relevant)
-- `op.defaultConfig`: the canonical default value for that config (computed from schema defaults)
+## 5) Step <-> Domain Interaction Model
 
-Steps can then assemble their own step schema defaults without manually re-creating wrapper objects like `{ config: {} }` for strategy-backed ops.
+Steps and domains interact as a clean boundary:
 
-Config hygiene:
-- Domain config schemas must be explicit (no open-ended “unknown bag” placeholders or internal-only fields).
+1. **Build Inputs (step):** adapt runtime context into typed inputs.
+2. **Compute (domain op):** run pure op logic using typed inputs + config.
+3. **Apply/Publish (step):** apply results to runtime and publish artifacts.
 
-### Rules (optional, internal building blocks)
-
-**Rules** are small pure functions used to decompose complexity:
-
-- score terms (“plate boundary proximity contributes +X”),
-- constraints/predicates (“reject if too close to existing volcano”),
-- tiny transformations (“clamp rainfall to 0…N”).
-
-Rules may live:
-- in `domain/rules/**` when shared across operations, or
-- in `domain/ops/<op>/rules/**` when specific to one operation.
-
-Rules are internal by default: they should not leak into step-level imports or runtime concerns.
-
-### Shared utilities vs domain logic
-
-- **generic utilities** (math, rng helpers, array ops) belong in shared libraries (e.g. `CORE_SDK_ROOT/src/lib/**`).
-- **domain-specific semantics** belong in the domain (e.g. “what constitutes a convergent boundary hotspot”).
-- **runtime adapter helpers** (mapping symbolic kinds → engine IDs, applying placements to the engine) belong in the step (or step-local libs).
-
-### Step ↔ domain interaction model (3 phases)
-
-Steps and domains interact as a simple boundary:
-
-1. **Build Inputs (step):** adapt runtime (adapter + artifacts/fields) into plain, typed inputs.
-2. **Compute (domain op):** run pure logic using operation config + inputs, returning a typed result.
-3. **Apply/Publish (step):** apply results to runtime (engine writes, buffer writes) and publish artifacts/fields.
+```
+(runtime)                       (pure)                        (runtime)
+Step.run(ctx, config)  -->      domain/ops/**     -->         engine + artifacts
+  build inputs                 op.runValidated(...)           apply + publish
+```
 
 Boundary rule:
-- Steps own dependency IDs and artifact publication; domain code does not read/write the artifact store and must not import recipe tag/artifact shims.
+- Steps own dependency IDs and artifact publication.
+- Domain ops do not read/write the artifact store and do not import recipe contracts.
 
-An “apply” phase is not a round-trip back into the domain; it is the step using the domain’s return value to mutate runtime.
+---
 
-```
-          (runtime)                          (pure)                           (runtime)
-┌─────────────────────────┐        ┌──────────────────────┐        ┌─────────────────────────┐
-│ Step.run(ctx, config)   │        │ domain/ops/**        │        │ engine + artifacts      │
-│                         │        │                      │        │                         │
-│ 1) build inputs         │  ───▶  │ op.runValidated(..)  │  ───▶  │ 3) apply + publish      │
-│    from ctx+adapter     │        │ => result            │        │                         │
-└─────────────────────────┘        └──────────────────────┘        └─────────────────────────┘
-```
+## 6) Authoring API (Core SDK)
 
-### Authoring primitives (minimal helpers, not a framework)
+Canonical authoring surface (Core SDK):
 
-Operations are plain exports, but a tiny helper improves inference and standardizes shape.
+- `packages/mapgen-core/src/authoring/op/contract.ts`
+  - `defineOpContract(...)`
+- `packages/mapgen-core/src/authoring/op/strategy.ts`
+  - `createStrategy(...)`
+  - `StrategySelection<...>`
+- `packages/mapgen-core/src/authoring/op/create.ts`
+  - `createOp(contract, { strategies, customValidate? })`
 
-```ts
-// CORE_SDK_ROOT/src/authoring/op.ts
-import { Type, type Static, type TSchema } from "typebox";
-import type { RunSettings } from "@swooper/mapgen-core/engine";
+Inference rules:
+- Do not use type assertions on `defineOpContract` or `createOp` arguments.
+- Out-of-line strategies must be authored via `createStrategy(contract, id, impl)`.
 
-/**
- * Strict operation kind taxonomy (see ADR-ER1-034).
- *
- * Kinds are semantic; ops are contract units and should not accept runtime/engine “views”
- * (adapters/callback readbacks) as part of their input/output contract.
- */
-export type DomainOpKind = "plan" | "compute" | "score" | "select";
+---
 
-export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
-  config: ConfigSchema;
-  resolveConfig?: OpResolveConfig<ConfigSchema>; // compile-time only
-  run: (input: Input, config: Static<ConfigSchema>) => Output;
-}>;
+## 7) End-to-End Example: Plan Vegetation (Multi-Op, Multi-Strategy)
 
-/**
- * Compile-time config resolution hook.
- *
- * - Executed by the plan compiler via the step boundary (steps may compose multiple ops).
- * - Pure: depends only on `(config, settings)`.
- * - Must return a value that still validates against the operation’s `config` schema
- *   (no plan-stored internal/derived fields in the minimal model).
- */
-export type OpResolveConfig<ConfigSchema extends TSchema> = (
-  config: Static<ConfigSchema>,
-  settings: RunSettings
-) => Static<ConfigSchema>;
-
-export function createStrategy<ConfigSchema extends TSchema, Input, Output>(
-  strategy: OpStrategy<ConfigSchema, Input, Output>
-): OpStrategy<ConfigSchema, Input, Output> {
-  return strategy;
-}
-
-// createOp supports one canonical shape:
-// - strategy-first authoring (all ops are strategy-backed)
-// - must include a "default" strategy id
-// - createOp derives op.config (envelope union schema), op.defaultConfig (always explicit),
-//   and op.resolveConfig(envelope, settings) (dispatcher over strategy.resolveConfig).
-export function createOp<
-  InputSchema extends TSchema,
-  OutputSchema extends TSchema,
-  Strategies extends Record<
-    string,
-    OpStrategy<TSchema, Static<InputSchema>, Static<OutputSchema>>
-  > &
-    Record<"default", OpStrategy<TSchema, Static<InputSchema>, Static<OutputSchema>>>
->(op: {
-  kind: DomainOpKind;
-  id: string;
-  input: InputSchema;
-  output: OutputSchema;
-  strategies: Strategies;
-}): unknown;
-```
-
-TypeScript inference rules (hard rules):
-- Do not apply a type assertion to the object literal passed into `createOp(...)` (including `as const`); it disables contextual typing and breaks inferred `run(input, cfg)` types.
-- Inline POJO strategies are the preferred authoring mode for full inference.
-- Out-of-line strategy modules must be explicitly typed (via `createStrategy(...)` + `satisfies OpStrategy<...>` or equivalent).
-
-Recommended step-side import pattern:
-
-```ts
-import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
-
-const plan = volcanoes.ops.planVolcanoes.runValidated(inputs, config.planVolcanoes);
-```
-
-### Step structure / step-local helpers
-
-Steps are the runtime boundary, so they often need a small amount of step-local “apply” logic. Canonical layout:
+### Example layout
 
 ```txt
-src/recipes/<recipe>/stages/<stage>/steps/volcanoes/
-  index.ts          # default export createStep(...)
-  apply.ts          # step-local helper(s) with adapter/engine calls
-  inputs.ts         # step-local input builders (adapter → buffers)
+src/domain/ecology/ops/plan-tree-vegetation/
+  contract.ts
+  rules/
+    normalize.ts
+    placements.ts
+  strategies/
+    default.ts
+    clustered.ts
+  index.ts
+
+src/domain/ecology/ops/plan-shrub-vegetation/
+  contract.ts
+  rules/
+    normalize.ts
+    placements.ts
+  strategies/
+    default.ts
+    arid.ts
+  index.ts
+
+src/recipes/standard/stages/ecology/steps/
+  plan-vegetation.model.ts
+  plan-vegetation.ts
+  plan-vegetation.inputs.ts
 ```
 
-Canonical rule: refactored steps are always directory modules. Do not introduce “file step + sibling folder” layouts in new/refactored code.
-
-## 4) End-to-End Example (Volcano)
-
-This example is intentionally “pure-domain + side-effects-in-step”: the domain computes placements and the step applies them to the engine/runtime.
-
-### File layout
-
-```txt
-src/domain/morphology/volcanoes/
-  index.ts
-  ops/
-    compute-suitability/
-      index.ts
-      schema.ts
-      rules/
-      strategies/
-	    plan-volcanoes/
-	      index.ts
-	      schema.ts
-	      strategies/
-	        plate-aware.ts
-	        hotspot-clusters.ts
-	      rules/
-	        enforce-min-distance.ts
-	        pick-weighted.ts
-
-src/recipes/standard/stages/morphology-post/steps/volcanoes/
-  index.ts
-  apply.ts
-  inputs.ts
-```
-
-### Domain: operation 1 — compute suitability (derived field)
+### Tree operation contract
 
 ```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability/index.ts
+// src/domain/ecology/ops/plan-tree-vegetation/contract.ts
 import { Type } from "typebox";
-import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+import { defineOpContract } from "@mapgen/authoring/op/contract.js";
 
-export default createOp({
-  kind: "compute",
-  id: "morphology/volcanoes/computeSuitability",
+export const planTreeVegetationContract = defineOpContract({
+  kind: "plan",
+  id: "ecology/planTreeVegetation",
   input: Type.Object(
     {
-      width: Type.Integer({ minimum: 1 }),
-      height: Type.Integer({ minimum: 1 }),
-
-      isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
-      plateBoundaryProximity: TypedArraySchemas.u8({
-        description: "Plate boundary proximity per tile (0..255).",
-      }),
-      elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
+      width: Type.Number(),
+      height: Type.Number(),
+      biomeId: Type.Array(Type.Number()),
+      moisture: Type.Array(Type.Number()),
+      elevation: Type.Array(Type.Number()),
+      landMask: Type.Array(Type.Number()),
     },
     { additionalProperties: false }
   ),
   output: Type.Object(
     {
-      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
+      placements: Type.Array(
+        Type.Object(
+          {
+            x: Type.Number(),
+            y: Type.Number(),
+            density: Type.Number(),
+          },
+          { additionalProperties: false }
+        )
+      ),
     },
     { additionalProperties: false }
   ),
   strategies: {
-    default: {
-      config: Type.Object(
-        {
-          wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
-          wElevation: Type.Optional(Type.Number({ default: 0.25 })),
-        },
-        { additionalProperties: false, default: {} }
-      ),
-      run: (inputs, cfg) => {
-        const size = inputs.width * inputs.height;
-        const suitability = new Float32Array(size);
-
-        for (let i = 0; i < size; i++) {
-          if (inputs.isLand[i] === 0) {
-            suitability[i] = 0;
-            continue;
-          }
-
-          const plate = inputs.plateBoundaryProximity[i] / 255;
-          const elev = Math.max(0, Math.min(1, inputs.elevation[i] / 4000));
-          suitability[i] = cfg.wPlateBoundary! * plate + cfg.wElevation! * elev;
-        }
-
-        return { suitability };
+    default: Type.Object(
+      {
+        density: Type.Number({ default: 0.6 }),
       },
-    },
-  },
-});
-```
-
-### Domain: operation 2 — plan volcano placements (strategies + rules)
-
-This operation has interchangeable strategies. The op stays stable; internal strategies can evolve independently.
-
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/schema.ts
-import { Type } from "typebox";
-import { TypedArraySchemas } from "@swooper/mapgen-core/authoring";
-
-export const PlanVolcanoesInputSchema = Type.Object(
-  {
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
-    suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
-    rngSeed: Type.Integer({
-      minimum: 0,
-      description:
-        "Deterministic RNG seed (derived by the step from RunRequest settings + step/op identity).",
-    }),
-  },
-  { additionalProperties: false }
-);
-
-export const PlanVolcanoesOutputSchema = Type.Object(
-  {
-    placements: Type.Array(
-      Type.Object(
-        {
-          x: Type.Integer({ minimum: 0 }),
-          y: Type.Integer({ minimum: 0 }),
-          intensity: Type.Integer({ minimum: 0 }),
-        },
-        { additionalProperties: false }
-      )
+      { additionalProperties: false, default: {} }
+    ),
+    clustered: Type.Object(
+      {
+        density: Type.Number({ default: 0.75 }),
+        clusterRadius: Type.Number({ default: 5 }),
+      },
+      { additionalProperties: false, default: {} }
     ),
   },
-  { additionalProperties: false }
+});
+```
+
+### Tree rules
+
+```ts
+// src/domain/ecology/ops/plan-tree-vegetation/rules/normalize.ts
+export type TreeConfig = { density: number };
+
+export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
+  return {
+    ...config,
+    density: Math.max(0, Math.min(1, config.density)),
+  };
+}
+```
+
+```ts
+// src/domain/ecology/ops/plan-tree-vegetation/rules/placements.ts
+import type { Static } from "typebox";
+import { planTreeVegetationContract } from "../contract.js";
+
+export type TreeInput = Static<typeof planTreeVegetationContract.input>;
+export type TreeConfig = Static<typeof planTreeVegetationContract.strategies.default>;
+
+export function planTreePlacements(input: TreeInput, config: TreeConfig) {
+  void input;
+  return [{ x: 0, y: 0, density: config.density }];
+}
+```
+
+### Tree strategies
+
+```ts
+// src/domain/ecology/ops/plan-tree-vegetation/strategies/default.ts
+import { createStrategy } from "@mapgen/authoring/op/strategy.js";
+import { planTreeVegetationContract } from "../contract.js";
+import { normalizeTreeConfig } from "../rules/normalize.js";
+import { planTreePlacements } from "../rules/placements.js";
+
+export const planTreeVegetationDefault = createStrategy(
+  planTreeVegetationContract,
+  "default",
+  {
+    resolveConfig: (config) => normalizeTreeConfig(config),
+    run: (input, config) => ({
+      placements: planTreePlacements(input, config),
+    }),
+  }
 );
 ```
 
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
-import { createOp } from "@swooper/mapgen-core/authoring";
-import { PlanVolcanoesInputSchema, PlanVolcanoesOutputSchema } from "./schema.js";
-import plateAware from "./strategies/plate-aware.js";
-import hotspotClusters from "./strategies/hotspot-clusters.js";
+// src/domain/ecology/ops/plan-tree-vegetation/strategies/clustered.ts
+import { createStrategy } from "@mapgen/authoring/op/strategy.js";
+import { planTreeVegetationContract } from "../contract.js";
+import { normalizeTreeConfig } from "../rules/normalize.js";
+import { planTreePlacements } from "../rules/placements.js";
 
-export default createOp({
-  kind: "plan",
-  id: "morphology/volcanoes/planVolcanoes",
-  input: PlanVolcanoesInputSchema,
-  output: PlanVolcanoesOutputSchema,
+export const planTreeVegetationClustered = createStrategy(
+  planTreeVegetationContract,
+  "clustered",
+  {
+    resolveConfig: (config) => normalizeTreeConfig(config),
+    run: (input, config) => ({
+      placements: planTreePlacements(input, { density: config.density }),
+    }),
+  }
+);
+```
+
+### Tree op entry
+
+```ts
+// src/domain/ecology/ops/plan-tree-vegetation/index.ts
+import { createOp } from "@mapgen/authoring/op/create.js";
+import { planTreeVegetationContract } from "./contract.js";
+import { planTreeVegetationDefault } from "./strategies/default.js";
+import { planTreeVegetationClustered } from "./strategies/clustered.js";
+
+export const planTreeVegetation = createOp(planTreeVegetationContract, {
   strategies: {
-    default: plateAware, // "default" id is mandatory; module name can still be descriptive
-    hotspotClusters,
+    default: planTreeVegetationDefault,
+    clustered: planTreeVegetationClustered,
   },
 });
 ```
 
-### Domain: strategies (separate modules with per-strategy config)
-
-Strategies live under `strategies/` so they can be “real code” without bloating the operation module.
+### Shrub op entry (short form)
 
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/plate-aware.ts
-import { Type } from "typebox";
-import { createStrategy } from "@swooper/mapgen-core/authoring";
-import type { Static } from "typebox";
-import type { OpStrategy } from "@swooper/mapgen-core/authoring";
-import { PlanVolcanoesInputSchema, PlanVolcanoesOutputSchema } from "../schema.js";
-import { enforceMinDistance } from "../rules/enforce-min-distance.js";
-import { pickWeightedIndex } from "../rules/pick-weighted.js";
+// src/domain/ecology/ops/plan-shrub-vegetation/index.ts
+import { createOp } from "@mapgen/authoring/op/create.js";
+import { planShrubVegetationContract } from "./contract.js";
+import { planShrubVegetationDefault } from "./strategies/default.js";
+import { planShrubVegetationArid } from "./strategies/arid.js";
 
-const PlateAwareConfigSchema = Type.Object(
+export const planShrubVegetation = createOp(planShrubVegetationContract, {
+  strategies: {
+    default: planShrubVegetationDefault,
+    arid: planShrubVegetationArid,
+  },
+});
+```
+
+### Step orchestration
+
+```ts
+// src/recipes/standard/stages/ecology/steps/plan-vegetation.model.ts
+import { Type } from "typebox";
+
+import { ecology } from "@mapgen/domain/ecology/index.js";
+
+export const PlanVegetationStepSchema = Type.Object(
   {
-    targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
-    minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
+    trees: ecology.ops.planTreeVegetation.config,
+    shrubs: ecology.ops.planShrubVegetation.config,
+    densityBias: Type.Number({ default: 0 }),
   },
   { additionalProperties: false, default: {} }
 );
 
-export default createStrategy({
-  config: PlateAwareConfigSchema,
-  run: (inputs, cfg) => {
-    const target = cfg.targetCount ?? 12;
-    const minD = cfg.minDistance ?? 6;
-
-    // Derive deterministic randomness locally from the seed.
-    // NOTE: The op contract passes seeds/values (POJO-ish), not callback “views”.
-    let draw = 0;
-    const rng01 = (): number => {
-      const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
-      return ((x >>> 0) / 2 ** 32);
-    };
-
-    const width = inputs.width;
-    const height = inputs.height;
-    const size = width * height;
-
-    const chosen: { x: number; y: number; intensity: number }[] = [];
-    const weights = new Float32Array(size);
-    for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
-
-    while (chosen.length < target) {
-      const i = pickWeightedIndex(weights, rng01);
-      if (i < 0) break;
-
-      const x = i % width;
-      const y = (i / width) | 0;
-
-      if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
-        weights[i] = 0;
-        continue;
-      }
-
-      chosen.push({ x, y, intensity: 1 });
-      weights[i] = 0;
-    }
-
-    return { placements: chosen };
-  },
-} satisfies OpStrategy<
-  typeof PlateAwareConfigSchema,
-  Static<typeof PlanVolcanoesInputSchema>,
-  Static<typeof PlanVolcanoesOutputSchema>
->);
-```
-
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/hotspot-clusters.ts
-import { Type } from "typebox";
-import { createStrategy } from "@swooper/mapgen-core/authoring";
-import type { Static } from "typebox";
-import type { OpStrategy } from "@swooper/mapgen-core/authoring";
-import { PlanVolcanoesInputSchema, PlanVolcanoesOutputSchema } from "../schema.js";
-import { enforceMinDistance } from "../rules/enforce-min-distance.js";
-import { pickWeightedIndex } from "../rules/pick-weighted.js";
-
-const HotspotClustersConfigSchema = Type.Object(
-  {
-    targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
-    minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
-    seedCount: Type.Optional(Type.Integer({ minimum: 1, default: 3 })),
-  },
-  { additionalProperties: false, default: {} }
-);
-
-export default createStrategy({
-  config: HotspotClustersConfigSchema,
-  run: (inputs, cfg) => {
-    const target = cfg.targetCount ?? 12;
-    const minD = cfg.minDistance ?? 6;
-
-    // Derive deterministic randomness locally from the seed.
-    // NOTE: The op contract passes seeds/values (POJO-ish), not callback “views”.
-    let draw = 0;
-    const rng01 = (): number => {
-      const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
-      return ((x >>> 0) / 2 ** 32);
-    };
-
-    const width = inputs.width;
-    const height = inputs.height;
-    const size = width * height;
-
-    const chosen: { x: number; y: number; intensity: number }[] = [];
-    const weights = new Float32Array(size);
-    for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
-
-    const seedCount = Math.min(cfg.seedCount ?? 3, target);
-    while (chosen.length < seedCount) {
-      const i = pickWeightedIndex(weights, rng01);
-      if (i < 0) break;
-
-      const x = i % width;
-      const y = (i / width) | 0;
-      if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
-        weights[i] = 0;
-        continue;
-      }
-      chosen.push({ x, y, intensity: 2 });
-      weights[i] = 0;
-    }
-
-    while (chosen.length < target) {
-      const i = pickWeightedIndex(weights, rng01);
-      if (i < 0) break;
-
-      const x = i % width;
-      const y = (i / width) | 0;
-      if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
-        weights[i] = 0;
-        continue;
-      }
-
-      chosen.push({ x, y, intensity: 1 });
-      weights[i] = 0;
-    }
-
-    return { placements: chosen };
-  },
-} satisfies OpStrategy<
-  typeof HotspotClustersConfigSchema,
-  Static<typeof PlanVolcanoesInputSchema>,
-  Static<typeof PlanVolcanoesOutputSchema>
->);
-```
-
-### Domain: rules (small, pure building blocks)
-
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/pick-weighted.ts
-export function pickWeightedIndex(
-  weights: Float32Array,
-  rng01: () => number
-): number {
-  let sum = 0;
-  for (let i = 0; i < weights.length; i++) sum += Math.max(0, weights[i]);
-  if (sum <= 0) return -1;
-
-  let r = Math.max(0, Math.min(0.999999, rng01())) * sum;
-  for (let i = 0; i < weights.length; i++) {
-    r -= Math.max(0, weights[i]);
-    if (r <= 0) return i;
-  }
-
-  return weights.length - 1;
-}
-```
-
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/enforce-min-distance.ts
-export type Dims = { width: number; height: number };
-export type Point = { x: number; y: number };
-
-export function enforceMinDistance(
-  dims: Dims,
-  chosen: Point[],
-  candidate: Point,
-  minDistance: number
-): boolean {
-  if (minDistance <= 0) return true;
-
-  for (const p of chosen) {
-    const dx = p.x - candidate.x;
-    const dy = p.y - candidate.y;
-    if (dx * dx + dy * dy < minDistance * minDistance) return false;
-  }
-
-  return candidate.x >= 0 && candidate.y >= 0 && candidate.x < dims.width && candidate.y < dims.height;
-}
-```
-
-### Domain index (public surface)
-
-Steps import the domain module and only see `ops` (not rules/strategies).
-
-```ts
-// src/domain/morphology/volcanoes/index.ts
-import computeSuitability from "./ops/compute-suitability.js";
-import planVolcanoes from "./ops/plan-volcanoes/index.js";
-
-export const ops = {
-  computeSuitability,
-  planVolcanoes,
+export type PlanVegetationStepConfig = {
+  trees: typeof ecology.ops.planTreeVegetation.defaultConfig;
+  shrubs: typeof ecology.ops.planShrubVegetation.defaultConfig;
+  densityBias: number;
 };
 ```
 
-### Step: build inputs → call ops → apply/publish (runtime boundary)
-
-The step owns adapter/engine interaction and artifact publishing. The step never imports domain rules or strategy modules.
-
 ```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/index.ts
-import { Type } from "typebox";
-import { createStep } from "@swooper/mapgen-core/authoring";
-import { ctxRandom } from "@swooper/mapgen-core/core/types";
-import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
-import { buildVolcanoInputs } from "./inputs.js";
-import { applyVolcanoPlacements } from "./apply.js";
+// src/recipes/standard/stages/ecology/steps/plan-vegetation.ts
+import { createStep } from "@mapgen/authoring/step.js";
+import type { RunSettings } from "@mapgen/engine/execution-plan.js";
+import type { ExtendedMapContext } from "@mapgen/core/context.js";
 
-const StepSchema = Type.Object(
-  {
-    computeSuitability: volcanoes.ops.computeSuitability.config,
-    planVolcanoes: volcanoes.ops.planVolcanoes.config,
-  },
-  {
-    additionalProperties: false,
-    default: {
-      computeSuitability: volcanoes.ops.computeSuitability.defaultConfig,
-      planVolcanoes: volcanoes.ops.planVolcanoes.defaultConfig,
-    },
-  }
-);
+import { ecology } from "@mapgen/domain/ecology/index.js";
+import { buildVegetationInput } from "./plan-vegetation.inputs.js";
+import { PlanVegetationStepSchema, type PlanVegetationStepConfig } from "./plan-vegetation.model.js";
 
-type StepConfig = {
-  computeSuitability: Parameters<typeof volcanoes.ops.computeSuitability.run>[1];
-  planVolcanoes: Parameters<typeof volcanoes.ops.planVolcanoes.run>[1];
-};
+function clamp01(value: number): number {
+  return Math.max(0, Math.min(1, value));
+}
 
 export default createStep({
-  id: "volcanoes",
-  phase: "morphology-post",
-  requires: ["artifact:plates", "field:elevation"],
-  provides: ["artifact:volcanoPlacements", "effect:volcanoesPlaced"],
-  schema: StepSchema,
-  run: (ctx, cfg: StepConfig) => {
-    // 1) Build domain inputs from runtime
-    const inputs = buildVolcanoInputs(ctx);
-
-    // 2) Compute + plan (pure domain logic)
-    const { suitability } = volcanoes.ops.computeSuitability.runValidated(
-      inputs,
-      cfg.computeSuitability
-    );
-
-    // Two equivalent authoring patterns for strategy-backed ops (always explicit):
-    //
-    // 1) Use the default strategy:
-    //    cfg.planVolcanoes = { strategy: "default", config: { targetCount: 12, minDistance: 6 } }
-    //
-    // 2) Explicitly select a non-default strategy:
-    //    cfg.planVolcanoes = { strategy: "hotspotClusters", config: { seedCount: 4, targetCount: 12, minDistance: 6 } }
-    //
-    // Both are runtime-validated (via `volcanoes.ops.planVolcanoes.config`) and type-checked via `Parameters<...run>[1]`.
-    const { placements } = volcanoes.ops.planVolcanoes.runValidated(
-      {
-        width: inputs.width,
-        height: inputs.height,
-        suitability,
-        rngSeed: ctxRandom(ctx, "volcanoes:planVolcanoes:rngSeed", 1_000_000) | 0,
-      },
-      cfg.planVolcanoes
-    );
-
-    // 3) Apply + publish (runtime side effects)
-    applyVolcanoPlacements(ctx.adapter, placements);
-    ctx.artifacts.set("artifact:volcanoPlacements", { placements });
-  },
-});
-```
-
-```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/inputs.ts
-import { expectedGridSize } from "@swooper/mapgen-core/authoring";
-
-export function buildVolcanoInputs(ctx: {
-  dimensions: { width: number; height: number };
-  adapter: { isWater: (x: number, y: number) => boolean; getElevation: (x: number, y: number) => number };
-  artifacts: { get: (key: string) => unknown };
-}) {
-  const { width, height } = ctx.dimensions;
-  const size = expectedGridSize(width, height);
-
-  const isLand = new Uint8Array(size);
-  const elevation = new Int16Array(size);
-
-  // In practice this would come from an artifact produced by plate generation.
-  const plateBoundaryProximity = new Uint8Array(size);
-
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const i = y * width + x;
-      isLand[i] = ctx.adapter.isWater(x, y) ? 0 : 1;
-      elevation[i] = ctx.adapter.getElevation(x, y) | 0;
-      plateBoundaryProximity[i] = 0;
-    }
-  }
-
-  return { width, height, isLand, elevation, plateBoundaryProximity };
-}
-```
-
-```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/apply.ts
-export type VolcanoPlacement = { x: number; y: number; intensity: number };
-
-export function applyVolcanoPlacements(
-  adapter: { setVolcano: (x: number, y: number, intensity: number) => void },
-  placements: VolcanoPlacement[]
-) {
-  for (const p of placements) adapter.setVolcano(p.x, p.y, p.intensity);
-}
-```
-
-## 5) Recipe Config Requirements (Handoff)
-
-This section is a requirements handoff for the **recipe config** design conversation. It does not propose an implementation.
-
-### Problem we’re solving
-
-We currently have a “map global config” object that is edited in map files and then translated into the pipeline’s real config. This creates problems:
-
-- The map file config is **not the true execution config** (it’s a proxy/translation layer), which makes it harder to reason about what a step actually receives.
-- It blocks type-safe authoring for richer step contracts (notably strategy selection with per-strategy config).
-- It encourages cross-cutting reads from a shared global config, blurring the boundary between step config and runtime state.
-
-### Capability we want to enable
-
-Mod authors should be able to author recipe configuration **directly in map files** as a TypeScript object, with strong typing derived from the recipe’s steps.
-
-In particular, when a step (or a domain op used by the step) offers strategies, authors should be able to:
-
-- choose a strategy by **string literal name**, and
-- have the config type **narrow automatically** to the selected strategy’s config schema (via a discriminated union), and
-- continue authoring the rest of the recipe config with type safety.
-
-### High-level requirements for the recipe config system
-
-**R-001: Remove “map global config” authoring**
-- There must not be a single monolithic “map global config” object that is translated into recipe config.
-- The primary authoring surface is the **composed recipe config** for the selected recipe.
-
-**R-002: Config composes upwards from steps → recipe**
-- The recipe-level config shape must be composed from the stages/steps included in the recipe.
-- Step config schemas/types are the source of truth for what each step accepts.
-
-**R-003: Strategy selection must be type-safe at authoring time**
-- If a step exposes one or more strategies, authors must be able to select a strategy by name.
-- Selecting a strategy must narrow the config type to the correct strategy config shape (discriminated union).
-- This must work for “authored in TS map file” configs (compile-time type checking), independent of runtime validation.
-
-**R-004: Strategy selection must be runtime-validatable**
-- The strategy union config must also exist as a runtime schema so non-TS inputs (serialized config) can be validated/defaulted.
-- The runtime schema must reject unknown strategy ids and invalid strategy config shapes.
-
-**R-005: No forced re-authoring of canonical op config wrappers**
-- Where steps expose operation config (including strategy selection wrappers), authors should not need to recreate wrapper defaults or schema plumbing by hand.
-- Canonical config schemas/defaults should be importable and usable as-is (e.g., operation `config` and `defaultConfig`), even if steps choose to wrap/extend them for additional step-local options.
-
-### Boundary notes / non-goals for this document
-
-- This spike does **not** define the concrete authoring DSL for recipe config (e.g., `defineRecipeConfig(...)`, `satisfies ...`, JSON schema emission, etc.).
-- This spike does **not** define whether steps should always expose op configs 1:1 vs wrap them; it only requires that strategy selection remains expressible and type-safe in the recipe-level config shape.
-- This spike does **not** address migration from existing overrides/global config usage; it only states the target requirement.
-
-## 6) Open Questions / Design Decisions
-
-Each item below is an intentionally standalone decision packet. The goal is to make the downstream consequences explicit so we can converge without accidental drift.
-
-### DD-001: Operation kind semantics (`plan` vs `compute` vs `score` vs `select`)
-
-**Status:** Decided (ADR-ER1-034 accepted)
-
-Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`.
-
-### DD-002: Derived defaults and config normalization (beyond schema defaults)
-
-**Impact / scale:** **Medium**
-
-**Status:** Decided (ADR-ER1-035 accepted)
-
-**System surface / blast radius (components):**
-- **Operation config schema (`op.config`) + defaults (`op.defaultConfig`)**: the canonical runtime-validatable contract for op configuration.
-- **Steps (config boundary)**: where config is validated/defaulted before calling ops.
-- **Ops / step-local helpers**: where derived scaling rules and normalization logic would live if we make them explicit and testable.
-
-Moved to ADR: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md`.
-
-#### Canonical projected outcome (target architecture)
-
-Derived defaults and normalization are **compile-time** and stored as plan truth:
-
-- The plan compiler (`compileExecutionPlan`) always produces explicit `ExecutionPlan.nodes[].config` values.
-- A step may provide a pure `step.resolveConfig(stepConfig, settings)` hook that the compiler runs after schema defaults/cleaning.
-- Composite steps use `step.resolveConfig` as the composition point:
-  - fan out the step-authored config into per-op configs,
-  - call each op’s `resolveConfig(opConfig, settings)` (domain-owned scaling semantics),
-  - recombine back into a single step config object.
-  - `op.resolveConfig` is always present; if the selected strategy does not define `resolveConfig`,
-    the dispatcher returns the envelope unchanged.
-- The resolver output must still validate against the step’s existing `configSchema`:
-  - no plan-stored internal/derived coordination fields,
-  - no separate resolved schema,
-  - no dual storage (`authorConfig` + `resolvedConfig`) in the plan.
-- Runtime has no special cases:
-  - recipes remain ignorant of resolution,
-  - steps always receive `node.config` as “the config” and pass it to ops,
-  - runtime code must not apply meaning-level defaulting/merging.
-
-#### Operation shape (compile-time resolver, runtime-pure)
-
-```ts
-// runtime: op.runValidated(input, config)
-// compile-time: op.resolveConfig(envelope, settings) -> envelope
-export type OpResolveConfig<TConfig> = (config: TConfig, settings: RunSettings) => TConfig;
-```
-
-#### Step shape (compile-time composition point)
-
-```ts
-// compile-time: optional step.resolveConfig(stepConfig, settings) -> stepConfig
-export type StepResolveConfig<TStepConfig> = (config: TStepConfig, settings: RunSettings) => TStepConfig;
-```
-
-#### Composite step example (fan-out → delegate → recombine)
-
-```ts
-export const FeaturesStepConfigSchema = Type.Object(
-  {
-    computeSuitability: features.ops.computeSuitability.config,
-    selectPlacements: features.ops.selectPlacements.config,
-  },
-  { additionalProperties: false }
-);
-export type FeaturesStepConfig = Static<typeof FeaturesStepConfigSchema>;
-
-export const featuresStep = createStep({
-  id: "standard.ecology.features",
+  id: "plan-vegetation",
   phase: "ecology",
-  configSchema: FeaturesStepConfigSchema,
-
-  resolveConfig: (cfg: FeaturesStepConfig, settings: RunSettings): FeaturesStepConfig => ({
-    computeSuitability: features.ops.computeSuitability.resolveConfig(cfg.computeSuitability, settings),
-    selectPlacements: features.ops.selectPlacements.resolveConfig(cfg.selectPlacements, settings),
-  }),
-
-  run: (ctx, cfg: FeaturesStepConfig) => {
-    // cfg is already resolved (compiler stored it in ExecutionPlan.nodes[].config)
-    const inputs1 = buildComputeSuitabilityInputs(ctx);
-    const { suitability } = features.ops.computeSuitability.runValidated(inputs1, cfg.computeSuitability);
-
-    const inputs2 = buildSelectPlacementsInputs(ctx, suitability);
-    const { placements } = features.ops.selectPlacements.runValidated(inputs2, cfg.selectPlacements);
-
-    applyPlacementsToEngine(ctx, placements);
+  requires: ["artifact:climateField@v1"],
+  provides: ["artifact:ecology.vegetation-plan@v1"],
+  schema: PlanVegetationStepSchema,
+  resolveConfig: (config: PlanVegetationStepConfig, settings: RunSettings) => {
+    const bias = clamp01(config.densityBias);
+    return {
+      densityBias: bias,
+      trees: ecology.ops.planTreeVegetation.resolveConfig(config.trees, settings),
+      shrubs: ecology.ops.planShrubVegetation.resolveConfig(config.shrubs, settings),
+    };
   },
-});
+  run: (context: ExtendedMapContext, config: PlanVegetationStepConfig) => {
+    const input = buildVegetationInput(context);
+    const treePlan = ecology.ops.planTreeVegetation.runValidated(input, config.trees);
+    const shrubPlan = ecology.ops.planShrubVegetation.runValidated(input, config.shrubs);
+
+    context.artifacts.set("artifact:ecology.vegetation-plan@v1", {
+      trees: treePlan.placements,
+      shrubs: shrubPlan.placements,
+    });
+  },
+} as const);
 ```
 
-Compile-time flow (canonical):
-1) schema defaults + cleaning (`Value.Default + Value.Clean`) on the step config,
-2) `step.resolveConfig(stepConfig, settings)` (if present),
-3) validate returned config against the step schema,
-4) store the result as `ExecutionPlan.nodes[].config`.
+---
 
-Runtime flow (canonical):
-- executor passes `node.config` into `step.run(ctx, node.config)`,
-- step delegates to ops using that config (no runtime branching on “if resolver exists”).
+## 8) Config Resolution and Defaults
 
-### DD-003: Operation input shape and schema expressiveness (buffers, views, typed arrays)
+- Schema defaults are applied via the existing plan compilation pipeline.
+- `step.resolveConfig` is optional; it may compose op-level resolution via `op.resolveConfig`.
+- `op.resolveConfig` is a per-strategy hook and must return a value that validates against the op config schema.
+- No secondary config schema exists; the step schema remains the single source of truth.
 
-**Impact / scale:** **High**
+---
 
-**Status:** Decided (ADR-ER1-030 accepted)
+## 9) Requirements (Hard Rules)
 
-**System surface / blast radius (components):**
-- **Step → domain boundary (inputs/outputs)**: how steps package runtime state into op inputs (and how results come back).
-- **Runtime performance/memory**: whether we precompute buffers, allocate typed arrays, or rely on callback views.
-- **Testing model**: whether ops can be tested with plain data fixtures vs requiring mock runtime readbacks.
-- **Runtime validation / docs**: whether TypeBox schemas can represent these inputs meaningfully or degrade to `Type.Any()`.
+- **R-001: Operations are contract-first.** All ops define `contract.ts` and are created via `createOp(contract, { strategies })`.
+- **R-002: Strategies are out-of-line.** Strategy modules use `createStrategy(contract, id, impl)`.
+- **R-003: Strategy selection is explicit.** Op config is always `{ strategy, config }`.
+- **R-004: Steps do not bind ops.** Steps orchestrate ops by calling them, without declaring op graphs or bindings.
+- **R-005: Rules are op-local.** Rules live under `ops/<op>/rules/**` and are not imported by steps.
 
-**Question:** What shapes are allowed for `op.input` / `op.output`, and how hard do we try to represent them in TypeBox schemas (especially for typed arrays)?
-
-**Decision (locked):** Operation contracts are **buffers/POJO-ish only** (no adapters/callback “views” in `op.input`/`op.output`) (ADR-ER1-030).
-
-Implications (summary):
-- Typed arrays are allowed as first-class contract values; the current cross-domain working set includes:
-  - `Uint8Array`, `Int8Array`
-  - `Uint16Array`, `Int16Array`, `Int32Array`
-  - `Float32Array`
-- Typed-array schemas are intentionally conservative in TypeBox:
-  - default to `Type.Unsafe<...>(...)` via a shared helper (`TypedArraySchemas.*`) rather than attempting to serialize function-backed checks,
-  - enforce correctness-critical invariants (buffer types and `width * height` coupling) via explicit validators (step input-builders first; reuse for tests and later op-entry validation) exported from `@swooper/mapgen-core/authoring`.
-- Op-entry contract enforcement is provided by the authoring SDK:
-  - `op.validate(...)` returns `{ ok, errors }` (schema checks + typed-array checks + optional op-specific `customValidate`),
-  - `op.runValidated(...)` throws on validation failure and supports optional output validation for tests/tooling.
-
-### DD-004: Artifact keys / dependency keys ownership (domain vs recipe)
-
-**Impact / scale:** **High**
-
-**System surface / blast radius (components):**
-- **Recipe compiler / pipeline graph**: the dependency graph is built from `requires`/`provides` keys and enforced for correctness.
-- **Steps (publication boundary)**: steps publish artifacts/fields/effects under keys and declare dependencies they need.
-- **Domains**: provide algorithms and op output contracts; they do not own dependency identifiers or publish artifacts directly.
-- **Dependency registry**: stores definitions/contracts for dependency keys and optionally enforces satisfaction checks.
-
-**Question:** Who “owns” dependency identifiers (`DependencyKey`s): domains, recipes, or some split?
-
-**Why it matters / what it affects:** Dependency identifiers are the glue of the recipe graph. If keys are invented ad hoc in multiple places, the dependency graph becomes fragile and refactors become painful. This decision also determines how portable a domain is across recipes and how much implicit wiring is hidden behind “magic” keys.
-
-**Options:**
-- **A) Recipe-owned keys + step-owned shapes (preferred):** steps define and validate artifact shapes (schemas/types) and publish under recipe-owned keys.
-- **B) Domain-owned keys:** domains export canonical keys (discouraged; leaks recipe wiring into reusable domain modules).
-- **C) Split by layer:** engine/runner defines some core keys centrally; recipes define content keys.
-
-**Recommendation:** Prefer **A**: recipes own dependency identifiers; steps own artifact shapes and validators. Domains remain recipe-independent and must not re-export recipe shims.
-
-### DD-005: Strategy config encoding and ergonomics (wrapper shape, defaults, explicitness)
-
-**Impact / scale:** **High**
-
-**System surface / blast radius (components):**
-- **Mod author config surface (TS map files / composed recipe config)**: where authors choose a strategy id and fill in the config shape that should narrow correctly.
-- **Operation authoring (`createOp` + strategies)**: how op authors publish a strategy-backed config schema and how defaults are computed.
-- **Steps (schema + defaults)**: how step schemas reference `op.config`/`op.defaultConfig` and validate/default strategy selection.
-- **Migration/evolution story**: how config shape behaves if an op gains additional strategies over time.
-
-**Decision (locked):** **Option A (always explicit)** — config is always `{ strategy, config }` (including for single-strategy ops via mandatory `"default"` strategy id).
-
-**Why it matters / what it affects:** This is the primary authoring surface mod authors will touch. It needs to (1) remain readable when the common/default strategy is used, and (2) still enable type-safe explicit strategy overrides with config narrowing.
-
-**Options:**
-- **A) Always explicit:** always require `{ strategy, config }` even if a default exists.
-- **B) Default-friendly (legacy/transient):** allow omitting `strategy` when a default strategy exists, while still permitting explicit override.
-- **C) Flatten for `n=1`:** if there is only one strategy, use just that config object; only multi-strategy ops use `{ strategy, config }`.
-
-**Type-safety confirmation (authoring / autocomplete):** This remains type-safe in the “bubbled-up” recipe config as long as the recipe/step config type includes the operation config type (e.g., a step config property typed as `Static<typeof op.config>`). Because `strategy` is a string-literal discriminator (`"default" | "hotspotClusters" | ...`), setting `strategy: "hotspotClusters"` narrows the `config` field to that strategy’s config object; setting `strategy: "default"` narrows to the default strategy’s config object.
-
-**Notes / implications:**
-- Canonical authoring is strategy-first: even “single strategy ops” are authored with `strategies: { default: ... }`.
-- Avoid Option **C**: adding a second strategy later would otherwise change the config shape.
-
-### DD-006: Recipe config authoring surface (remove global overrides, preserve type-safe strategy selection)
-
-**Impact / scale:** **High**
-
-**System surface / blast radius (components):**
-- **Map-file authoring**: where mod authors write the recipe configuration for a particular map/recipe.
-- **Recipe config composition**: the mechanism that composes step-level config schemas/types into a single recipe-level config shape.
-- **Step config contracts**: the ground-truth config shapes that runtime validation uses at execution time.
-- **Global-config legacy**: the “map global config overrides” pattern that sits above steps and can erase strategy unions by translating.
-
-**Decision (locked):** Map files author **direct recipe config** (stageId → stepId → stepConfig) using `RecipeConfigOf<typeof stages>`. No separate curated/compiled authoring config surface is part of the target model in this spike.
-
-**Additional invariant (locked):** Within a recipe, authored step ids are **globally unique across all stages** (no two stages may define a step with the same `stepId`). This keeps step identity unambiguous for future DAG authoring and supports optional authoring sugar that can address step configs by `stepId` alone without requiring a mapping table.
-
-**Why it matters / what it affects:** This keeps the authored surface minimal and fully type-derived from the recipe’s steps. It also preserves DD-005 strategy union narrowing at the exact place mod authors write config, without introducing a second authoring-only schema that could drift.
-
-**Concrete example (direct recipe config)**
-
-```ts
-// maps/my-map.ts
-import type { RecipeConfigOf } from "@swooper/mapgen-core/authoring"; // exported today
-import { stages } from "../recipes/standard/stages/index.js"; // recipe-local stages list
-
-type StandardRecipeConfig = RecipeConfigOf<typeof stages>;
-
-export const config = {
-  morphologyPost: {
-    volcanoes: {
-      // Step-local config, including any op config the step exposes.
-      planVolcanoes: {
-        strategy: "default",
-        config: { targetCount: 18 },
-      },
-    },
-  },
-} satisfies StandardRecipeConfig;
-
-export const configExplicit = {
-  morphologyPost: {
-    volcanoes: {
-      planVolcanoes: {
-        // Explicit override: strategy literal narrows the config type.
-        strategy: "hotspotClusters",
-        config: { seedCount: 4 },
-      },
-    },
-  },
-} satisfies StandardRecipeConfig;
-```
-
-### DD-007: Step schema composition (manual wiring vs declarative op usage)
-
-**Impact / scale:** **Medium**
-
-**System surface / blast radius (components):**
-- **Step authoring ergonomics**: the amount of “schema plumbing” a step author writes vs focusing on orchestration logic.
-- **Runtime validation/defaulting**: step schemas are the runtime validators; drift here causes hard-to-debug mismatches.
-- **Op reuse**: whether steps can safely “just use” op schemas/defaults without re-authoring wrapper shapes.
-
-**Question:** How much should step authors manually wire step schemas vs having a small helper derive schema/config shape from declared op usage?
-
-**Why it matters / what it affects:** Steps sit at the runtime boundary and must validate/default configuration. If authors have to repeatedly mirror operation configs by hand, step code gets noisy and can drift out of sync with the ops actually called (especially for strategy-backed ops where wrapper shapes/defaults matter, since the canonical plan-truth config is always `{ strategy, config }`).
-
-**Options:**
-- **A) Manual schema composition (baseline):** steps write `Type.Object(...)` and reference `op.config` / `op.defaultConfig` as needed.
-- **B) Declarative op usage (small ergonomic helper):** steps declare which ops they use, and a helper derives the `schema` and/or default config shape for those ops.
-- **C) Build-time composition:** scan code and generate schemas/templates (more tooling).
-
-**Recommendation:** Keep **A** for now while the model stabilizes, but plan for **B** as the first ergonomic upgrade once recipe-config authoring becomes the priority. Avoid **C** unless we hit a real scaling wall.
-
-### DD-008: Pipeline dependency terminology migration (`DependencyTag` → `DependencyKey`)
-
-**Impact / scale:** **Medium**
-
-**System surface / blast radius (components):**
-- **Public vocabulary for mod authors**: the terms they learn and search for (docs + examples).
-- **Runtime types/exports**: the actual names in code (`DependencyTag`, `TagRegistry`, etc.) and any deprecation/alias strategy.
-- **Ambiguity reduction**: separating pipeline dependency keys from Civ plot tags and story overlay “tagging”.
-
-**Question:** Do we align runtime code vocabulary with the doc vocabulary (`DependencyKey`/`DependencyDefinition`) or keep legacy “tag” naming in code?
-
-**Why it matters / what it affects:** “Tag” is overloaded (pipeline dependencies vs Civ plot tags vs story overlay classification). If code and docs diverge, mod authors learn two vocabularies and the ambiguity comes back through everyday usage and APIs.
-
-**Options:**
-- **A) Docs-only rename:** keep legacy code names; docs use the newer vocabulary.
-- **B) Code rename with deprecations (preferred):** introduce `DependencyKey`/`DependencyRegistry` and keep legacy exports as deprecated aliases for a transition period.
-- **C) Hard code rename:** rename without aliases (breaking).
-
-**Recommendation:** Prefer **B** so docs, examples, and code converge without a hard break.
-
-## 7) Application: Ecology domain (biomes)
-
-Target integration decisions aligned to the recommendations above:
-
-- **Operation module:** `ecology/biomes/classify` is a `compute` op with colocated input/output/config schemas. Inputs are buffered data (`rainfall`, `humidity`, `elevation`, `latitude`, `landMask`, optional overlay masks); outputs are typed arrays (`biomeIndex`, `vegetationDensity`, `effectiveMoisture`, `surfaceTemperature`).
-- **Artifact + keys:** the recipe publishes the result under the recipe-owned key `artifact:ecology.biomeClassification@v1`. The domain owns the artifact shape (`BiomeClassificationArtifactV1`); steps own the key, satisfying DD-004.
-- **Step boundary:** the biomes step builds inputs from artifacts/adapters, calls `classifyBiomes.runValidated(...)`, publishes the artifact, and applies results to the engine (mapping biome symbols → adapter globals via a step-local binding map). No domain code reaches into the adapter.
-- **Config colocation:** biome classification config and defaults live beside the op (`classifyBiomes.config`/`defaultConfig`). Step schema imports these directly (DD-005/007) and exposes an engine-binding config (`BiomeBindingsSchema`) rather than re-authoring wrappers.
-- **Kind semantics:** the op is declared as `compute` and only returns derived fields; the step performs the `plan/apply` work (DD-001).
-- **Future ops:** pedology (`ecology/soils/classify`) and resource basin generation will follow the same model: domain-owned schemas + outputs, recipe-owned keys (`artifact:ecology.soils@v1`, `artifact:ecology.resources@v1`), and steps that adapt/apply.
+---
