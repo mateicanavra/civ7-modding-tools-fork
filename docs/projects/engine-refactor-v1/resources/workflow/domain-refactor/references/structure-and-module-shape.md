@@ -7,6 +7,9 @@ If any existing code (including ecology) conflicts with a hard rule in this work
 Canonical spec:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
 
+Canonical architecture:
+- `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
+
 Canonical example:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples/VOLCANO.md`
 
@@ -20,7 +23,7 @@ Use these as the **literal roots** when executing the workflow in `civ7-modding-
   - Generated artifacts: `mods/mod-swooper-maps/mod/` (read-only; never hand-edit)
 - Core SDK:
   - Package root: `packages/mapgen-core/`
-  - Authoring contracts: `packages/mapgen-core/src/authoring/` (`createStep`, `createOp`)
+  - Authoring contracts: `packages/mapgen-core/src/authoring/` (`defineStepContract`, `createStepFor`, `defineOpContract`, `createOp`)
   - Plan compilation (config canonicalization boundary): `packages/mapgen-core/src/engine/execution-plan.ts`
 - Standard recipe (stage braid reality):
   - Recipe root: `mods/mod-swooper-maps/src/recipes/standard/`
@@ -47,35 +50,44 @@ Domain public surface:
 ## Op module shape (one op per module)
 
 Each op is a directory module under `ops/**` (no exceptions):
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/schema.ts` (TypeBox schemas only; keep schema types inferred at use sites)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/contract.ts` (op contract via `defineOpContract`)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/types.ts` (type-only exports via `OpTypeBag`)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/rules/` (pure rule helpers)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/rules/index.ts` (runtime barrel)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/strategies/` (strategy implementations)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/strategies/index.ts` (runtime barrel)
 - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/index.ts` (exports exactly one op via `createOp`)
-
-Internal helpers live under the op directory:
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/rules/**` (pure rules)
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/strategies/**` (strategy implementations)
 
 Directory discipline (canonical):
 - Always create `rules/` and `strategies/` directories for an op, even if one of them remains empty for now.
 - Do not introduce single-file ops or alternate layouts.
+
+Import direction rules (hard):
+- `contract.ts` never imports from `rules/**` or `strategies/**`.
+- `rules/**` must not import `../contract.js` (type-only or runtime). Use `../types.js` for types and core SDK packages for utilities.
+- `rules/index.ts` is runtime-only; it exports helpers, not types.
+- `strategies/**` import `../contract.js`, `../rules/index.js`, and optionally `../types.js` for type annotations.
+- `index.ts` imports the contract and the strategies barrel, calls `createOp`, then re-exports `*` from `./contract.js` and `type *` from `./types.js`.
 
 Reference example:
 - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`
 
 ## Step module shape (orchestration-only steps)
 
-Refactored steps are promoted into a step directory module (ecology is the reference pattern):
-- `mods/mod-swooper-maps/src/recipes/standard/stages/<stage>/steps/<step>/index.ts`
+Steps are contract-first and orchestration-only:
+- `contract.ts` contains metadata only (`id`, `phase`, `requires`, `provides`, `schema`).
+- `index.ts` attaches `resolveConfig` and `run` using a bound `createStep` from `createStepFor<TContext>()`.
 
-Fixed internal structure:
-- `index.ts` (orchestration only)
-- `inputs.ts` (runtime binding: artifacts/adapters → POJO inputs)
-- `apply.ts` (runtime writes + artifact publication)
+Recommended structure:
+- `mods/mod-swooper-maps/src/recipes/standard/stages/<stage>/steps/<step>/contract.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/<stage>/steps/<step>/index.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/<stage>/steps/<step>/lib/**` (helpers; optional)
 
 Step logic responsibilities:
-- `inputs.ts` builds POJO inputs.
-- `index.ts` calls `op.runValidated(input, config)` and coordinates sub-ops (if any).
-- `apply.ts` applies/publishes outputs (engine/braid boundary).
-- Step schemas import op `config`/`defaultConfig` directly from the domain module; steps do not re-author wrappers unless step-local options are genuinely step-owned.
+- `contract.ts` defines the schema and dependency metadata only.
+- `index.ts` builds inputs, calls ops, and publishes artifacts.
+- `lib/**` contains pure helpers (e.g., `inputs.ts`, `apply.ts`) with no registry awareness.
+- Step schemas import op `config`/`defaultConfig` directly from the **implemented op** (via the domain module); steps do not re-author wrappers unless step-local options are genuinely step-owned.
 - Use canonical dependency keys from the standard registry file; do not inline new key strings in refactored steps:
   - `mods/mod-swooper-maps/src/recipes/standard/tags.ts` (`M3_DEPENDENCY_TAGS`, `M4_EFFECT_TAGS`, `STANDARD_TAG_DEFINITIONS`)
 
@@ -88,11 +100,11 @@ Standard config schema exports live under:
 - `mods/mod-swooper-maps/src/domain/**/config.ts`
 
 Rule:
-- When an op owns a config schema, the standard config schema module must **re-export** it from the domain op, not re-author it.
+- When an op owns a config schema, the standard config schema module must **re-export** it from the op contract, not re-author it.
 
 Reference example (thin re-export pattern):
 - `mods/mod-swooper-maps/src/domain/ecology/config.ts`
 
 Concrete expectation:
 - Refactored steps import op config/defaults from the domain module (`@mapgen/domain/<domain>`, via `domain.ops.*`).
-- The config schema bundle (`@mapgen/domain/config`) remains the canonical author-facing schema surface, but it is a thin barrel over domain-owned config modules and op schemas.
+- The config schema bundle (`@mapgen/domain/config`) remains the canonical author-facing schema surface, but it is a thin barrel over domain-owned op contracts.

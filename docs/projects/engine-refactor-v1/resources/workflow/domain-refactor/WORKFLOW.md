@@ -2,12 +2,12 @@
 name: domain-refactor-operation-modules
 description: |
   Entry point workflow for refactoring one MapGen domain to the canonical
-  step ↔ domain contracts via operation modules architecture.
+  contract-first ops + orchestration-only steps architecture.
 ---
 
 # WORKFLOW: Refactor a Domain to Operation Modules (Canonical)
 
-This is the **canonical, end-to-end workflow** for refactoring **one MapGen domain** so it conforms to the target “step ↔ domain contracts via operation modules” architecture.
+This is the **canonical, end-to-end workflow** for refactoring **one MapGen domain** so it conforms to the target **contract-first ops + orchestration-only steps** architecture.
 
 This file is intentionally a **thin executable checklist**. Deep detail lives in the linked references.
 
@@ -16,6 +16,9 @@ Golden reference:
 
 Canonical spec:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
+
+Canonical architecture:
+- `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
 
 Workflow package references (read as needed; do not reinterpret them):
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/structure-and-module-shape.md`
@@ -34,25 +37,24 @@ Implementation sub-flow:
 Refactor a single domain so that:
 - **All domain logic is behind operation contracts** (`mods/mod-swooper-maps/src/domain/<domain>/ops/**`).
 - **Steps are orchestration only** (build inputs → call ops → apply/publish).
-- **Configs are plan-truth canonicalized** at compile time (schema defaults + clean + `resolveConfig`), and runtime does not “fix up” config.
+- **Config resolution happens at compile time** (schema defaults + `resolveConfig`), and runtime does not “fix up” config.
 - **Legacy paths are removed** within the refactor scope (“scorched earth”).
 
 Canonical authoring surface (single shape):
-- Operations are authored via `createOp({ kind, id, input, output, strategies: { ... } })`.
+- Ops are authored with `defineOpContract(...)` + `createOp(contract, { strategies })`.
+- Strategies are authored with `createStrategy(contract, "<strategyId>", { resolveConfig?, run })`.
 - Every op must include a `"default"` strategy.
-- Strategy entries are either:
-  - inline POJOs (`strategies: { default: { config, resolveConfig?, run } }`), or
-  - imported strategy modules (authored with `createStrategy(...)`) attached as `strategies: { default: importedStrategy }`.
-- Do not introduce any alternate op-authoring patterns; keep the repo converging on one shape.
+- Steps are authored with `defineStepContract(...)` + `createStep(contract, { resolveConfig?, run })`, where `createStep` is bound via `createStepFor<TContext>()`.
+- Do not introduce any alternate authoring patterns; keep the repo converging on one shape.
 
-TypeScript inference rules (hard rules):
-- Do not apply a type assertion to the object literal passed into `createOp(...)` (including `as const`); it disables contextual typing and breaks inferred `run(input, cfg)` types.
-- Inline POJO strategies are the preferred authoring mode for full inference.
-- Out-of-line strategy modules must be explicitly typed (see `references/op-and-config-design.md`).
+TypeScript rules (hard rules):
+- Use `OpTypeBag` from `@swooper/mapgen-core/authoring` for all shared op types (`types.ts` is the only shared type surface).
+- Do not export or re-export types from helpers or rules; shared types live in `types.ts` only.
+- `rules/**` must not import `../contract.js` (type-only or runtime). Use `../types.js` for types and core SDK packages for utilities.
 
 Canonical op module structure (single shape):
 - Every op is a directory module under `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/`.
-- Every op directory contains: `schema.ts`, `index.ts`, `rules/`, `strategies/` (create the folders even if empty).
+- Every op directory contains: `contract.ts`, `types.ts`, `rules/`, `strategies/`, `rules/index.ts`, `strategies/index.ts`, `index.ts`.
 
 Execution posture:
 - Proceed **end-to-end without pausing for feedback**.
@@ -61,8 +63,8 @@ Execution posture:
 Non-negotiable invariants (target architecture):
 - Ops are the contract; steps never call internal domain helpers directly.
 - No runtime “views” cross the op boundary (POJOs + typed arrays only).
-- Config schemas/defaults/resolvers are colocated with ops; step schemas import op shapes.
-- Plan compilation produces final node configs; runtime treats `node.config` as “the config”.
+- Op contracts own schemas; step contracts compose op `config` and `defaultConfig` from implemented ops.
+- Plan compilation produces final configs; runtime treats `node.config` as “the config”.
 - No dual paths, shims, translators, DeepPartial override blobs, or fallback behaviors within scope.
 - Router compliance: before editing any file, read the closest `AGENTS.md` router that scopes that file.
 
@@ -79,6 +81,7 @@ Where to record decisions:
 <step name="canonical-references">
 
 Read (do not reinterpret):
+- `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-030-operation-inputs-policy.md`
@@ -90,8 +93,12 @@ Read (do not reinterpret):
 
 Code references (read when implementing; these are the “truth of behavior”):
 - `packages/mapgen-core/src/engine/execution-plan.ts` (where `step.resolveConfig` is invoked at compile time)
-- `packages/mapgen-core/src/authoring/op/create.ts` (op contract: `createOp`, `resolveConfig`, `defaultConfig`)
-- `packages/mapgen-core/src/authoring/op/schema.ts` (op schema surface: `DomainOpSchema`)
+- `packages/mapgen-core/src/authoring/op/contract.ts` (`defineOpContract`)
+- `packages/mapgen-core/src/authoring/op/types.ts` (`OpTypeBag`)
+- `packages/mapgen-core/src/authoring/op/strategy.ts` (`createStrategy`)
+- `packages/mapgen-core/src/authoring/op/create.ts` (`createOp`)
+- `packages/mapgen-core/src/authoring/step/contract.ts` (`defineStepContract`)
+- `packages/mapgen-core/src/authoring/step/create.ts` (`createStep`, `createStepFor`)
 - `packages/mapgen-core/src/authoring/validation.ts` (error surface, `customValidate`, `validateOutput`)
 - `packages/mapgen-core/src/authoring/typed-array-schemas.ts` (typed-array schema metadata used by validation)
 

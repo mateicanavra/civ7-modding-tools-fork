@@ -17,6 +17,11 @@ Run it from repo root:
 Hard rule:
 - Always set `REFRACTOR_DOMAINS` to the domain(s) you refactored in this change.
 
+Import guardrails (lint-enforced):
+- `rules/**` must not import `../contract.js` (type-only or runtime).
+- `rules/**` must not export or re-export types; shared op types live in `types.ts`.
+- When using TypeBox in examples/tests, import `Type`/`Static` from `@swooper/mapgen-core/authoring`.
+
 To run guardrails for the domain(s) you touched:
 ```bash
 REFRACTOR_DOMAINS="ecology,foundation" ./scripts/lint/lint-domain-refactor-guardrails.sh

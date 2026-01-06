@@ -88,7 +88,7 @@ For each `requires`/`provides` key:
 ### C) Config surfaces (all schemas + defaults)
 
 For each step and each candidate op:
-- config schema location
+- config schema location (op `contract.ts`, step `contract.ts`)
 - schema defaults (TypeBox defaults)
 - any runtime merges/defaulting (must be eliminated)
 - any scaling semantics (must move into `resolveConfig`)

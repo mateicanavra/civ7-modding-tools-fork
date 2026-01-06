@@ -9,29 +9,28 @@ Canonical references:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md`
+- `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
 
 ## Target op surface design (fixed rule set)
 
 Define the target op catalog for the domain, with **no optionality**:
 - Each op has an explicit `kind`: `plan | compute | score | select` (ADR-ER1-034).
 - Each op lives in its own module under `mods/mod-swooper-maps/src/domain/<domain>/ops/**` (one op per module).
-- Each op is strategy-backed and owns:
+- Each op is contract-first and owns:
   - `input` schema (shared across all strategies),
   - `output` schema (shared across all strategies),
-  - `strategies` map (must include `"default"`), where each strategy owns:
-    - a strategy `config` schema,
-    - optional `resolveConfig(innerConfig, settings)` (compile-time only),
-    - `run(input, innerConfig)`.
-- `createOp(...)` derives and exposes:
-  - `op.config`: a derived union schema for `{ strategy, config }`,
+  - `strategies` schema map (must include `"default"`).
+- Strategy implementations are authored with `createStrategy(contract, strategyId, { resolveConfig?, run })`.
+- `createOp(contract, { strategies })` derives and exposes:
+  - `op.config`: a union schema for `{ strategy, config }`,
   - `op.defaultConfig`: always `{ strategy: "default", config: <defaulted inner> }`,
-  - `op.resolveConfig(envelope, settings)`: derived dispatcher over `strategy.resolveConfig`.
-- Steps call `op.runValidated(input, planTruthConfig)`; steps do not call internal rules directly.
+  - `op.resolveConfig(envelope, settings)`: dispatcher over `strategy.resolveConfig`.
+- Steps call `op.runValidated(input, config)`; steps do not call internal rules directly.
 
 If an op needs randomness, model it explicitly:
 - add `rngSeed: Type.Integer(...)` to the op `input` schema (not an RNG callback),
 - derive deterministic draws inside the op from `rngSeed`,
-- derive `rngSeed` in the step using `ctxRandom(...)` (see `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`), with a stable label string (canonical pattern: `<stepId>:<opName>:rngSeed`).
+- derive `rngSeed` in the step using `ctxRandom(...)` (see the spec for the canonical pattern).
 
 Naming constraints:
 - Op ids are stable and verb-forward (e.g., `compute*`, `plan*`, `score*`, `select*`).
@@ -58,9 +57,13 @@ Heuristics for using strategies vs ops:
 Step sizing note:
 - Refactors should not collapse multiple legacy steps into one mega-step; preserve step granularity and extract shared logic into ops/rules instead.
 
-Illustrative skeleton (trimmed; do not invent extra surfaces):
+## Contract-first skeleton (trimmed; do not invent extra surfaces)
+
 ```ts
-export const myOp = createOp({
+// src/domain/<domain>/ops/<op>/contract.ts
+import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+
+export const MyOpContract = defineOpContract({
   kind: "compute",
   id: "<domain>/<area>/<verb>",
   input: Type.Object(
@@ -68,82 +71,52 @@ export const myOp = createOp({
     { additionalProperties: false }
   ),
   output: Type.Object({ out: TypedArraySchemas.u8() }, { additionalProperties: false }),
-
   strategies: {
-    default: {
-      config: Type.Object(
-        { knob: Type.Optional(Type.Number({ default: 1 })) },
-        { additionalProperties: false, default: {} }
-      ),
-      resolveConfig: (cfg, settings) => ({ ...cfg }), // compile-time only
-      run: (input, cfg) => ({ out: input.field }),
-    },
+    default: Type.Object(
+      { knob: Type.Optional(Type.Number({ default: 1 })) },
+      { additionalProperties: false, default: {} }
+    ),
   },
+} as const);
+```
 
-  // optional: returns pathful errors (must use /config/config/* paths for inner config)
-  customValidate: (input, cfg) => [],
+```ts
+// src/domain/<domain>/ops/<op>/strategies/default.ts
+import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { MyOpContract } from "../contract.js";
+
+export const defaultStrategy = createStrategy(MyOpContract, "default", {
+  resolveConfig: (cfg) => ({ ...cfg }),
+  run: (input, cfg) => ({ out: input.field }),
 });
 ```
 
-## Strategy authoring patterns (canonical)
-
-Use exactly one of these patterns per operation:
-
-### Pattern A: inline POJO strategies (preferred for single-strategy ops)
-
 ```ts
-export const myOp = createOp({
-  kind: "compute",
-  id: "<domain>/<area>/<verb>",
-  input: MyInputSchema,
-  output: MyOutputSchema,
+// src/domain/<domain>/ops/<op>/index.ts
+import { createOp } from "@swooper/mapgen-core/authoring";
+import { MyOpContract } from "./contract.js";
+import { defaultStrategy } from "./strategies/index.js";
 
-  strategies: {
-    default: {
-      config: MyStrategyConfigSchema,
-      run: (input, cfg) => ({ /* ... */ }),
-    },
-  },
-});
-```
-
-### Pattern B: out-of-line strategy modules (use `createStrategy`)
-
-```ts
-// src/domain/<domain>/ops/<opName>/strategies/default.ts
-import type { Static } from "typebox";
-import type { OpStrategy } from "@swooper/mapgen-core/authoring";
-
-export default createStrategy({
-  config: MyStrategyConfigSchema,
-  run: (input, cfg) => ({ /* ... */ }),
-} satisfies OpStrategy<
-  typeof MyStrategyConfigSchema,
-  Static<typeof MyInputSchema>,
-  Static<typeof MyOutputSchema>
->);
-```
-
-```ts
-// src/domain/<domain>/ops/<opName>/index.ts
-import defaultStrategy from "./strategies/default.js";
-
-export const myOp = createOp({
-  kind: "compute",
-  id: "<domain>/<area>/<verb>",
-  input: MyInputSchema,
-  output: MyOutputSchema,
+export const myOp = createOp(MyOpContract, {
   strategies: { default: defaultStrategy },
 });
+
+export * from "./contract.js";
+export type * from "./types.js";
 ```
 
-### Inference hard rules (TypeScript)
+## Op type surface (single type bag)
 
-These are required for the intended authoring DX (no `Static<>` boilerplate in inline strategies).
+`types.ts` is the only shared type surface for an op. Do not export types from rules or helpers.
 
-- Do not apply a type assertion to the op definition object passed into `createOp(...)` (including `as const`).
-- If you must define a strategy out-of-line (separate module), you must provide `Input`/`Output` types (example above) so `run(input, cfg)` is type-safe.
-- If a schema is exported with a widened type (e.g., `TSchema`), inference becomes lossy. Prefer exporting concrete `Type.*(...)` results, and use `defineOpSchema(...)` to pin schema types across package boundaries.
+```ts
+// src/domain/<domain>/ops/<op>/types.ts
+import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+
+type Contract = typeof import("./contract.js").MyOpContract;
+
+export type MyOpTypes = OpTypeBag<Contract>;
+```
 
 ## Config canonicalization rules (post-U10)
 
@@ -172,7 +145,7 @@ Hard rule:
 ### Compile-time enforcement reality (must match engine behavior)
 
 - `step.resolveConfig` is executed during plan compilation in `packages/mapgen-core/src/engine/execution-plan.ts`.
-- If a step defines `resolveConfig` it must also define a schema (`createStep({ schema: ... })`), otherwise plan compilation produces `step.resolveConfig.failed` with message `resolveConfig requires configSchema`.
+- If a step defines `resolveConfig` it must also define a schema (`defineStepContract({ schema: ... })`), otherwise plan compilation produces `step.resolveConfig.failed` with message `resolveConfig requires configSchema`.
 - The engine normalizes the resolver output through the same schema again (defaults/cleaning + unknown-key checks). Resolver output must remain schema-valid and must not add internal-only fields.
 
 ### Allowed vs forbidden merges (resolver vs runtime)
