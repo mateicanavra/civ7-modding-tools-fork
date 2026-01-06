@@ -38,7 +38,7 @@ This issue intentionally lives **after** U14 so the exemplar is perfected in the
 ## Canonical exemplar: ecology “plan feature placements” (thick op + step wiring)
 
 ### Exemplar scope
-- Operation: `mods/mod-swooper-maps/src/domain/ecology/ops/plan-feature-placements/**`
+- Operation: `mods/mod-swooper-maps/src/domain/ops/ecology/plan-feature-placements/**`
 - Step wiring: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/**`
 
 ### “Perfect” acceptance criteria (must all be true)

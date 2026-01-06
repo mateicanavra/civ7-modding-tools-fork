@@ -370,7 +370,7 @@ export const ecologySettings = defineDomainSettings({
 
 ### 5.2 Op contract (contract-first)
 
-#### `src/domain/ecology/ops/classify-biomes/contract.ts`
+#### `src/domain/ops/ecology/classify-biomes/contract.ts`
 
 ```ts
 import { Type } from "@mapgen/authoring";
@@ -391,7 +391,7 @@ export const ClassifyBiomes = defineOp({
 
 ### 5.3 Strategy implementation in its own module
 
-#### `src/domain/ecology/ops/classify-biomes/strategies/default.ts`
+#### `src/domain/ops/ecology/classify-biomes/strategies/default.ts`
 
 ```ts
 import { Type, createStrategy } from "@mapgen/authoring";
@@ -425,7 +425,7 @@ No exported `Static<>` aliases. No generics. Strong inference.
 
 ### 5.4 Op assembly (implementation router)
 
-#### `src/domain/ecology/ops/classify-biomes/index.ts`
+#### `src/domain/ops/ecology/classify-biomes/index.ts`
 
 ```ts
 import { createOp } from "@mapgen/authoring";

@@ -32,7 +32,7 @@ Implementation sub-flow:
 ## Mission + hard constraints (do not skip)
 
 Refactor a single domain so that:
-- **All domain logic is behind operation contracts** (`mods/mod-swooper-maps/src/domain/<domain>/ops/**`).
+- **All domain logic is behind operation contracts** (`mods/mod-swooper-maps/src/domain/ops/<domain>/**`).
 - **Steps are orchestration only** (build inputs → call ops → apply/publish).
 - **Configs are plan-truth canonicalized** at compile time (schema defaults + clean + `resolveConfig`), and runtime does not “fix up” config.
 - **Legacy paths are removed** within the refactor scope (“scorched earth”).
@@ -51,7 +51,7 @@ TypeScript inference rules (hard rules):
 - Out-of-line strategy modules must be explicitly typed (see `references/op-and-config-design.md`).
 
 Canonical op module structure (single shape):
-- Every op is a directory module under `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/`.
+- Every op is a directory module under `mods/mod-swooper-maps/src/domain/ops/<domain>/<op>/`.
 - Every op directory contains: `schema.ts`, `index.ts`, `rules/`, `strategies/` (create the folders even if empty).
 
 Execution posture:

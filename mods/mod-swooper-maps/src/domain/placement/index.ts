@@ -1,6 +1,6 @@
-import { planFloodplains } from "./ops/plan-floodplains/index.js";
-import { planStarts } from "./ops/plan-starts/index.js";
-import { planWonders } from "./ops/plan-wonders/index.js";
+import { planFloodplains } from "../ops/placement/plan-floodplains/index.js";
+import { planStarts } from "../ops/placement/plan-starts/index.js";
+import { planWonders } from "../ops/placement/plan-wonders/index.js";
 
 export const ops = {
   planFloodplains,
@@ -12,12 +12,12 @@ export { planFloodplains, planStarts, planWonders };
 
 export {
   PlanFloodplainsSchema,
-} from "./ops/plan-floodplains/schema.js";
+} from "../ops/placement/plan-floodplains/schema.js";
 
 export {
   PlanStartsSchema,
-} from "./ops/plan-starts/schema.js";
+} from "../ops/placement/plan-starts/schema.js";
 
 export {
   PlanWondersSchema,
-} from "./ops/plan-wonders/schema.js";
+} from "../ops/placement/plan-wonders/schema.js";

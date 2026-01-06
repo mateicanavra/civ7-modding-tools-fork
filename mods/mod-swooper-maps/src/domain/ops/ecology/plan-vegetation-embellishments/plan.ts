@@ -1,8 +1,8 @@
-import type { BiomeSymbol } from "../../types.js";
+import type { BiomeSymbol } from '../../../ecology/types.js';
 import { biomeSymbolFromIndex } from "../classify-biomes/index.js";
 import { createLabelRng } from "../rng.js";
 import { type Static } from "@swooper/mapgen-core/authoring";
-import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from '../../../ecology/types.js';
 import {
   PlanVegetationEmbellishmentsSchema,
   type ResolvedVegetationEmbellishmentsConfig,

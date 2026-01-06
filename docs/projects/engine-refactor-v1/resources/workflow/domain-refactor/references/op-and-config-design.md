@@ -14,7 +14,7 @@ Canonical references:
 
 Define the target op catalog for the domain, with **no optionality**:
 - Each op has an explicit `kind`: `plan | compute | score | select` (ADR-ER1-034).
-- Each op lives in its own module under `mods/mod-swooper-maps/src/domain/<domain>/ops/**` (one op per module).
+- Each op lives in its own module under `mods/mod-swooper-maps/src/domain/ops/<domain>/**` (one op per module).
 - Each op is strategy-backed and owns:
   - `input` schema (shared across all strategies),
   - `output` schema (shared across all strategies),
@@ -110,7 +110,7 @@ export const myOp = createOp({
 ### Pattern B: out-of-line strategy modules (use `createStrategy`)
 
 ```ts
-// src/domain/<domain>/ops/<opName>/strategies/default.ts
+// src/domain/ops/<domain>/<opName>/strategies/default.ts
 import type { Static } from "typebox";
 import type { OpStrategy } from "@swooper/mapgen-core/authoring";
 
@@ -125,7 +125,7 @@ export default createStrategy({
 ```
 
 ```ts
-// src/domain/<domain>/ops/<opName>/index.ts
+// src/domain/ops/<domain>/<opName>/index.ts
 import defaultStrategy from "./strategies/default.js";
 
 export const myOp = createOp({
@@ -161,7 +161,7 @@ Rules:
 ### Resolution location (colocation + composition)
 
 Domain-owned scaling semantics live with the op:
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/**` exports `resolveConfig` (optional) next to `config` and `defaultConfig`.
+- `mods/mod-swooper-maps/src/domain/ops/<domain>/**` exports `resolveConfig` (optional) next to `config` and `defaultConfig`.
 
 Step-level composition is the only place ops are combined:
 - `step.resolveConfig(stepConfig, settings)` fans out to each op’s derived `resolveConfig` and recomposes a step config that still validates against the step schema.

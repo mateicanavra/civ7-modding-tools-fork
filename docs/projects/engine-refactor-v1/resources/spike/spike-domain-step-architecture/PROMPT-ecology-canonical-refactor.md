@@ -13,7 +13,7 @@ Treat the repomix output as read-only; you should implement changes in the origi
 Re-implement / reorganize the **ecology** domain so it becomes the **canonical reference implementation** of our target domain architecture. Ecology already “works”, but it is not easy to inspect, test, or extend. Your job is to make it the exemplar we will follow when refactoring every other domain.
 
 Primary exemplar focus (must be “perfect” in the strict model):
-- Operation: `mods/mod-swooper-maps/src/domain/ecology/ops/plan-feature-placements/**`
+- Operation: `mods/mod-swooper-maps/src/domain/ops/ecology/plan-feature-placements/**`
 - Step wiring: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/**`
 
 ## Canonical architecture (do not improvise)
@@ -78,7 +78,7 @@ Also read the local issue context:
 - Typed arrays must be validated consistently (see `TypedArraySchemas.*` and the validation surface in `packages/mapgen-core/src/authoring/**`).
 
 ### 5) Layout discipline
-- Ops are directory modules under `mods/mod-swooper-maps/src/domain/ecology/ops/<op>/` with:
+- Ops are directory modules under `mods/mod-swooper-maps/src/domain/ops/ecology/<op>/` with:
   - `schema.ts`
   - `index.ts`
   - `rules/` (even if empty initially)

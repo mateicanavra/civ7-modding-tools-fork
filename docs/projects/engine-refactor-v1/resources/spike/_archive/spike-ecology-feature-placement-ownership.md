@@ -18,7 +18,7 @@ This spike documents:
 ### We own
 
 - **Biome classification + reification**
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/**`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/**`
   - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/**`
   - Outcome: publishes/sets `field:biomeId` and ensures `BIOME_MARINE` on water tiles (engine requirement).
 

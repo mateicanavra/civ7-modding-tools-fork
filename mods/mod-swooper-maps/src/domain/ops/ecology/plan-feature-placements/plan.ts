@@ -3,7 +3,7 @@ import {
   FeaturesPlacementSchema,
   type ResolvedFeaturesPlacementConfig,
 } from "./schema.js";
-import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from '../../../ecology/types.js';
 import {
   hasAdjacentFeatureType,
   isAdjacentToLand,

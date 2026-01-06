@@ -14,7 +14,7 @@ Mostly yes: the ecology `ops/**` layer now matches the intended “pure ops + st
 Note: the issue title/id says `[M6]`, but based on milestone context this should have been tracked as **M7**; the review is filed under M7 accordingly.
 
 ### What’s strong
-- `mods/mod-swooper-maps/src/domain/ecology/ops/**` is contract-pure (no adapter/TraceScope/devLogJson/Type.Any; typed-array schemas used).
+- `mods/mod-swooper-maps/src/domain/ops/ecology/**` is contract-pure (no adapter/TraceScope/devLogJson/Type.Any; typed-array schemas used).
 - Strict op kinds/naming: single `compute` (`classifyBiomes`); placements/embellishments are verb-forward `plan*`.
 - Key-based plans are applied at the step boundary with explicit key→engine-ID resolution and “throw on unknown key” guardrails.
 - Legacy baseline strategy is gone from the `features` step (`addFeatures` / `useEngineBaseline` removed).

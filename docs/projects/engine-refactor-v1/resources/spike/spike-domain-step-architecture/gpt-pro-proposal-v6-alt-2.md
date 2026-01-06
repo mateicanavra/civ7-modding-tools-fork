@@ -478,7 +478,7 @@ export const BiomesStepContract = defineStep({
 ```ts
 import { createStep } from "@mapgen/authoring/step/create-step";
 import { BiomesStepContract } from "./contract";
-import { ecologyOps } from "@mapgen/domain/ecology/ops";
+import { ecologyOps } from "@mapgen/domain/ops/ecology";
 
 export const biomesStep = createStep(BiomesStepContract, {
   ops: {
@@ -556,7 +556,7 @@ export const BiomesFacadeStepContract = defineStep({
 ```ts
 import { createStep } from "@mapgen/authoring/step/create-step";
 import { BiomesFacadeStepContract } from "./contract";
-import { ecologyOps } from "@mapgen/domain/ecology/ops";
+import { ecologyOps } from "@mapgen/domain/ops/ecology";
 
 export const biomesStep = createStep(BiomesFacadeStepContract, {
   ops: { classifyBiomes: ecologyOps.classifyBiomes },

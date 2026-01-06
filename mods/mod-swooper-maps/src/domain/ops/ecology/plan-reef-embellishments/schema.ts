@@ -6,8 +6,8 @@ import {
   type Static,
 } from "@swooper/mapgen-core/authoring";
 
-import { EcologyConfigSchema } from "../../config.js";
-import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
+import { EcologyConfigSchema } from '../../../ecology/config.js';
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from '../../../ecology/types.js';
 
 
 const FeatureKeySchema = Type.Unsafe<FeatureKey>(

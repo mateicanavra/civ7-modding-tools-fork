@@ -62,7 +62,7 @@ related_to: []
 - Upstream required effects: `effect:engine.coastlinesApplied`, `effect:engine.riversModeled`, `effect:engine.featuresApplied` (produced in prior stages; verified via adapter).
 
 #### C) Config surfaces (schemas, defaults, fixups)
-- Op-owned schemas in `mods/mod-swooper-maps/src/domain/placement/ops/**/schema.ts` (re-exported via `mods/mod-swooper-maps/src/config/schema/placement.ts`):
+- Op-owned schemas in `mods/mod-swooper-maps/src/domain/ops/placement/**/schema.ts` (re-exported via `mods/mod-swooper-maps/src/config/schema/placement.ts`):
   - `PlanWondersConfigSchema` (wondersPlusOne default true).
   - `PlanFloodplainsConfigSchema` (minLength default 4, maxLength default 10, validated max>=min).
   - `PlanStartsConfigSchema` (optional overrides; base starts passed as op input).

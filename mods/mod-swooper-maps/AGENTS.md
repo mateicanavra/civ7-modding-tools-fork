@@ -18,7 +18,7 @@ Scope: `mods/mod-swooper-maps/**`
 
 ## Ecology domain
 
-- Ecology ops live under `src/domain/ecology/ops`; step schemas should import op configs/defaults directly (no re-authored wrappers).
+- Ecology ops live under `src/domain/ops/ecology`; step schemas should import op configs/defaults directly (no re-authored wrappers).
 - The biomes step publishes `artifact:ecology.biomeClassification@v1` (biome symbols, vegetation density, moisture/temp). Downstream feature logic expects this artifact plus `field:biomeId`.
 
 ## Canonical Docs

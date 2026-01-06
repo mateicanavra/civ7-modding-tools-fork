@@ -1,4 +1,4 @@
-import type { BiomeSymbol } from "../../../types.js";
+import type { BiomeSymbol } from '../../../../ecology/types.js';
 import type { TempZone } from "./temperature.js";
 import type { MoistureZone } from "./moisture.js";
 

@@ -21,16 +21,16 @@ Related research:
 ### What we already have (the “field” foundation)
 
 - **Temperature is already a field** derived from latitude + elevation:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/rules/temperature.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/rules/temperature.ts`
   - Uses a lapse-rate penalty (`degrees C / km`) and configurable equator/pole anchors.
 - **Effective moisture is already a field** derived from rainfall + humidity (+ overlays + noise):
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/rules/moisture.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/rules/moisture.ts`
   - Output is “effective moisture units” (rainfall + weighted humidity + bonuses).
 - **Biome classification is already multi-factor**, not purely latitude:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/index.ts`
   - Produces `biomeIndex`, `vegetationDensity`, `effectiveMoisture`, `surfaceTemperature`.
 - **Feature placement (owned strategy) consumes those fields**:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/index.ts`
 
 ### Where latitude is still overly “direct”
 
@@ -40,7 +40,7 @@ Even if downstream decisions are “field-based”, latitude can still dominate 
   - `mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/**`
   - swatches commonly use `signedLatitudeAt(y)` plus thresholds (and sometimes elevation).
 - classify biomes by **temperature zones** that are effectively just remapped latitude zones unless tuned:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/schema.ts` (`TemperatureSchema` thresholds)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/schema.ts` (`TemperatureSchema` thresholds)
 
 This is not “wrong” physically—latitude is a first-order driver of insolation—but it becomes a problem when:
 
@@ -93,7 +93,7 @@ This isn’t necessarily incorrect for the “baseline pass” intent, but it is
 
 In owned feature placement, snow biomes are excluded from vegetated placement entirely:
 
-- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/rules/selection.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/rules/selection.ts`:
   - `if (symbol === "snow") return null;`
 
 Implication:
@@ -104,10 +104,10 @@ Implication:
 Related “dead biome” failure mode:
 
 - Vegetation density is computed as a weighted combination of normalized moisture + humidity, then multiplied by per-biome modifiers:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/rules/vegetation.ts`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/schema.ts` (`VegetationBiomeModifiersSchema` defaults)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/rules/vegetation.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/schema.ts` (`VegetationBiomeModifiersSchema` defaults)
 - Feature placement then gates on vegetation thresholds:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts` (`minVegetation`, `desertSagebrushMinVegetation`, `tundraTaigaMinVegetation`, …)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/schema.ts` (`minVegetation`, `desertSagebrushMinVegetation`, `tundraTaigaMinVegetation`, …)
 
 If a biome’s multipliers drive `vegetationDensity` below the gating thresholds, the result is “correct-by-code but sterile-by-experience”. A realism pass should replace global gates with per-biome envelopes (and ensure cold/desert biomes have plausible low-density placements).
 

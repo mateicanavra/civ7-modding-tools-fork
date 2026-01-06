@@ -291,7 +291,7 @@ export function adaptEcologySettings(run: { /* engine RunSettings-like */ }): Ec
 
 ### 4.2 Operation contract (IO-only)
 
-**`src/domain/ecology/ops/classify-biomes/contract.ts`**
+**`src/domain/ops/ecology/classify-biomes/contract.ts`**
 
 ```ts
 import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
@@ -320,7 +320,7 @@ export const classifyBiomesContract = defineOpContract({
 
 ### 4.3 Strategy definition (single strategy case)
 
-**`src/domain/ecology/ops/classify-biomes/strategies/default.ts`**
+**`src/domain/ops/ecology/classify-biomes/strategies/default.ts`**
 
 ```ts
 import { Type, createStrategy } from "@swooper/mapgen-core/authoring";
@@ -356,7 +356,7 @@ export const defaultStrategy = createStrategy(classifyBiomesContract, {
 
 ### 4.4 Multi-strategy case: “fast” strategy with a different config schema
 
-**`src/domain/ecology/ops/classify-biomes/strategies/fast.ts`**
+**`src/domain/ops/ecology/classify-biomes/strategies/fast.ts`**
 
 ```ts
 import { Type, createStrategy } from "@swooper/mapgen-core/authoring";
@@ -382,7 +382,7 @@ export const fastStrategy = createStrategy(classifyBiomesContract, {
 
 ### 4.5 Implement the op: attach strategies, derive envelope config
 
-**`src/domain/ecology/ops/classify-biomes/index.ts`**
+**`src/domain/ops/ecology/classify-biomes/index.ts`**
 
 ```ts
 import { createOp } from "@swooper/mapgen-core/authoring";
@@ -499,7 +499,7 @@ These are the rules that make the architecture “self-enforcing.”
 
 3. **Steps must not deep-import ops**
 
-   * Ban imports matching `src/domain/*/ops/*/index` from step directories
+   * Ban imports matching `src/domain/ops/*/*/index` from step directories
    * Require step imports from `src/domain/<domain>/index` public surface
 
 Example eslint rule sketch:
@@ -514,7 +514,7 @@ Example eslint rule sketch:
           message: "Domain code must not depend on engine runtime modules."
         },
         {
-          group: ["**/src/domain/**/ops/**/index*"],
+          group: ["**/src/domain/ops/**/**/index*"],
           message: "Strategies/steps must import ops via the domain public surface, not deep paths."
         }
       ]

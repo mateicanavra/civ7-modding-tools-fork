@@ -658,7 +658,7 @@ export const ecologySettings = defineDomainSettings({
 ### 5.2 Op Contract: `ecology/ops/classify-biomes/contract.ts`
 
 ```ts
-// @mapgen/domain/ecology/ops/classify-biomes/contract.ts
+// @mapgen/domain/ops/ecology/classify-biomes/contract.ts
 
 import { Type } from "typebox";
 import { defineOp } from "@swooper/mapgen-core/authoring/op/contract";

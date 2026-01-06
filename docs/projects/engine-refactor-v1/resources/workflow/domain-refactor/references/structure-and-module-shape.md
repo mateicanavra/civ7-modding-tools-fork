@@ -27,7 +27,7 @@ Use these as the **literal roots** when executing the workflow in `civ7-modding-
   - Stage order source of truth: `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`
 - Domains:
   - Domain root: `mods/mod-swooper-maps/src/domain/<domain>/`
-  - Domain ops: `mods/mod-swooper-maps/src/domain/<domain>/ops/**`
+  - Domain ops: `mods/mod-swooper-maps/src/domain/ops/<domain>/**`
 - Tracking docs:
   - Domain issue docs: `docs/projects/engine-refactor-v1/issues/**`
   - Cross-cutting decision log: `docs/projects/engine-refactor-v1/triage.md`
@@ -38,7 +38,7 @@ Domain root:
 - `mods/mod-swooper-maps/src/domain/<domain>/`
 
 Domain ops:
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/**` (one op per module)
+- `mods/mod-swooper-maps/src/domain/ops/<domain>/**` (one op per module)
 
 Domain public surface:
 - Domain index re-exports step-callable ops and any domain-owned config/schema surfaces.
@@ -47,19 +47,19 @@ Domain public surface:
 ## Op module shape (one op per module)
 
 Each op is a directory module under `ops/**` (no exceptions):
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/schema.ts` (TypeBox schemas only; keep schema types inferred at use sites)
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/index.ts` (exports exactly one op via `createOp`)
+- `mods/mod-swooper-maps/src/domain/ops/<domain>/<op>/schema.ts` (TypeBox schemas only; keep schema types inferred at use sites)
+- `mods/mod-swooper-maps/src/domain/ops/<domain>/<op>/index.ts` (exports exactly one op via `createOp`)
 
 Internal helpers live under the op directory:
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/rules/**` (pure rules)
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/strategies/**` (strategy implementations)
+- `mods/mod-swooper-maps/src/domain/ops/<domain>/<op>/rules/**` (pure rules)
+- `mods/mod-swooper-maps/src/domain/ops/<domain>/<op>/strategies/**` (strategy implementations)
 
 Directory discipline (canonical):
 - Always create `rules/` and `strategies/` directories for an op, even if one of them remains empty for now.
 - Do not introduce single-file ops or alternate layouts.
 
 Reference example:
-- `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`
+- `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/index.ts`
 
 ## Step module shape (orchestration-only steps)
 

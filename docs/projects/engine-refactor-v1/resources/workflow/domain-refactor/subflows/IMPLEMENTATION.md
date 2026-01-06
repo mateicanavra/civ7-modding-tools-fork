@@ -52,7 +52,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 
 <step name="extract-ops-for-slice">
 
-- Create/update the op module(s) needed by this slice under `mods/mod-swooper-maps/src/domain/<domain>/ops/**`.
+- Create/update the op module(s) needed by this slice under `mods/mod-swooper-maps/src/domain/ops/<domain>/**`.
 - Op contracts are POJO/POJO-ish only (typed arrays ok); no adapters/context/RNG callbacks cross the boundary.
 - Op schemas + `defaultConfig` + optional `resolveConfig` are colocated with the op module.
 

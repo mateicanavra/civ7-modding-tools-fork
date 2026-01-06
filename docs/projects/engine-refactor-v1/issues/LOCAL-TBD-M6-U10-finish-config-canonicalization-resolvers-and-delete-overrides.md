@@ -435,15 +435,15 @@ This is the only point where we have:
   - **Why:** the calling step schema already models `climate.baseline` with schema defaults, and U10’s compiler will hand runtime a plan-stored `node.config` that is already defaulted/cleaned. The domain function should treat config as canonical and stop defaulting/branching.
 
 **2) Domain ecology ops**
-- `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/index.ts`:
   - `Value.Default(BiomeClassificationConfigSchema, cfg)` and defaulting `vegetation.biomeModifiers`.
   - **Classification:** schema default.
   - **Why:** the biomes step’s schema references `classifyBiomes.config` and defaults to `classifyBiomes.defaultConfig`; post-U10, the plan compiler is the defaulting/cleaning phase.
-- `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/index.ts`:
   - `Value.Default(FeaturesEmbellishmentsConfigSchema, config)` and then nested `Value.Default` for `FeaturesConfigSchema` / `FeaturesDensityConfigSchema`.
   - **Classification:** schema default.
   - **Why:** steps already author `story` and `featuresDensity` with schema defaults; the op should stop re-defaulting at runtime.
-- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/index.ts`:
   - `Value.Default(FeaturesPlacementConfigSchema, config)` and `resolvedConfig.config ?? {}`.
   - **Classification:** schema default (plus a schema-shape bug).
   - **Why:** op config should be fully schema-defaulted pre-run; the `config ?? {}` indicates the schema currently permits `config` to be missing and the implementation compensates at runtime.
@@ -459,22 +459,22 @@ This is the only point where we have:
 These are the highest-risk defaulting sites because they are already doing non-trivial normalization and are called from runtime ops/steps.
 
 **1) Plot effects**
-- `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/schema.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/schema.ts`:
   - `resolvePlotEffectsConfig(input?: PlotEffectsConfig): ResolvedPlotEffectsConfig`
   - Uses `Value.Default(...)` and manual spreads to force nested selector objects into a fully-populated structure.
   - Call sites:
-    - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts` (`plotEffects.run` calls `resolvePlotEffectsConfig(config)`).
+    - `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/index.ts` (`plotEffects.run` calls `resolvePlotEffectsConfig(config)`).
     - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/index.ts` (verbose logging).
   - **Classification:** resolver.
   - **Why:** this is effectively compile-time normalization (turning partially-present optional objects into a canonical shape). Under U10 it should move behind `resolveConfig` so runtime code doesn’t need “config fixing”.
 
 **2) Owned feature placement**
-- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/schema.ts`:
   - `resolveFeaturesPlacementOwnedConfig(input?: FeaturesPlacementOwnedConfig): ResolvedFeaturesPlacementOwnedConfig`
   - Uses `Value.Default(...)`, explicit unknown-key checks, and value normalization (clamp, rounding, non-empty array fallbacks).
   - Call sites:
-    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/strategies/owned.ts` (`planOwnedFeaturePlacements` calls `resolveFeaturesPlacementOwnedConfig(config)`).
-    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts` passes `resolvedConfig.config ?? {}` into `planOwnedFeaturePlacements`.
+    - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/strategies/owned.ts` (`planOwnedFeaturePlacements` calls `resolveFeaturesPlacementOwnedConfig(config)`).
+    - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/index.ts` passes `resolvedConfig.config ?? {}` into `planOwnedFeaturePlacements`.
   - **Classification:** resolver.
   - **Why:** this function is performing “DD‑002 style” normalization beyond schema defaults. Under U10, this belongs in `resolveConfig` (op-level or step-level) so the plan stores already-canonical config and runtime stays branch-free.
 
@@ -489,13 +489,13 @@ These are the highest-risk defaulting sites because they are already doing non-t
   - `config.volcanoes ?? {}` (step schema defaults).
 - `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/mountains.ts`:
   - `config.mountains ?? {}` (step schema defaults).
-- `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/index.ts`:
   - `resolvedConfig.vegetation.biomeModifiers ?? {}` (should be defaulted by schema/compile-time normalization).
-- `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/index.ts`:
   - `resolvedConfig.story?.features ?? {}`, `resolvedConfig.featuresDensity ?? {}` (schema/compile-time normalization).
-- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/index.ts`:
   - `resolvedConfig.config ?? {}` (schema should default `config` to `{}`; runtime fallback should be removed).
-- `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/schema.ts` and `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts`:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/schema.ts` and `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/schema.ts`:
   - `input?.<field> ?? {}` patterns inside resolver-like helpers (should move to compile-time via resolver; once config is canonical, these are unnecessary).
 
 **Runtime params (not config-defaulting; keep as runtime, but stop pretending “maybe missing” if schema guarantees it)**
@@ -853,7 +853,7 @@ Canonical type shape (grounded in existing imports):
 
 ### Keep config resolvers co-located with domain ops (no centralized resolver module)
 - **Context:** Early U10 changes moved domain resolvers into `mods/mod-swooper-maps/src/config/resolve/*`, which conflicts with the step↔domain operation module spec’s requirement that ops own their config and normalization logic.
-- **Options:** (A) keep centralized resolvers under `src/config/resolve`, (B) move resolvers back into each op module (`src/domain/**/ops/**/schema.ts`).
+- **Options:** (A) keep centralized resolvers under `src/config/resolve`, (B) move resolvers back into each op module (`src/domain/ops/**/**/schema.ts`).
 - **Choice:** (B) move resolvers back into the domain op schema modules and have ops import them locally.
 - **Rationale:** preserves domain ownership and keeps config + normalization logic co-located per spec; avoids a global resolver registry.
 - **Risk:** minor churn in imports/exports; no functional risk if compile-time resolution still runs through op/step hooks.

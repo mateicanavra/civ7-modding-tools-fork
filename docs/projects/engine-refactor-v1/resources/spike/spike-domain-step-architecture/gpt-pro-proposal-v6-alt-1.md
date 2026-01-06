@@ -335,7 +335,7 @@ I’ll show (1) a “simple” domain op, (2) a “hefty” op, then (3) a step 
 
 ### 1) Simple domain op (same structure, minimal content)
 
-#### `src/domain/placement/ops/plan-starts/contract.ts`
+#### `src/domain/ops/placement/plan-starts/contract.ts`
 
 ```ts
 import { Type } from "typebox";
@@ -364,7 +364,7 @@ export const planStarts = defineOpContract({
 });
 ```
 
-#### `src/domain/placement/ops/plan-starts/strategies/default.ts`
+#### `src/domain/ops/placement/plan-starts/strategies/default.ts`
 
 ```ts
 import { createStrategy } from "@mapgen/authoring";
@@ -378,7 +378,7 @@ export const defaultStrategy = createStrategy(planStarts, "default", {
 });
 ```
 
-#### `src/domain/placement/ops/plan-starts/index.ts`
+#### `src/domain/ops/placement/plan-starts/index.ts`
 
 ```ts
 import { createOp } from "@mapgen/authoring";

@@ -5,7 +5,7 @@ import {
   BIOME_SYMBOL_TO_INDEX,
   biomeSymbolFromIndex,
   type BiomeSymbol,
-} from "../../types.js";
+} from '../../../ecology/types.js';
 import { BiomeClassificationSchema } from "./schema.js";
 import { biomeSymbolForZones } from "./rules/lookup.js";
 import { pseudoRandom01 } from "./rules/noise.js";

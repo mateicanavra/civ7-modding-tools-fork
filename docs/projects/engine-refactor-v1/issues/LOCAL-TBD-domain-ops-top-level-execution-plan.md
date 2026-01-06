@@ -169,10 +169,10 @@ Manual sanity check:
 #### 6) Tooling updates (mixed)
 
 **Guardrails script (manual edit required):**
-- `scripts/lint/lint-domain-refactor-guardrails.sh` currently scans `src/domain/<domain>/ops`. Update it to derive the domain list from `src/domain/ops/*` and use `ops_root` as `mods/mod-swooper-maps/src/domain/ops/${domain}`.
+- `scripts/lint/lint-domain-refactor-guardrails.sh` currently scans `src/domain/ops/<domain>`. Update it to derive the domain list from `src/domain/ops/*` and use `ops_root` as `mods/mod-swooper-maps/src/domain/ops/${domain}`.
 - Suggested edit points:
   - Replace any domain discovery like `mods/mod-swooper-maps/src/domain/*/ops` with `mods/mod-swooper-maps/src/domain/ops/*`.
-  - Replace `ops_root="mods/mod-swooper-maps/src/domain/${domain}/ops"` with `ops_root="mods/mod-swooper-maps/src/domain/ops/${domain}"`.
+  - Replace `ops_root="mods/mod-swooper-maps/src/domain/ops/${domain}"` with `ops_root="mods/mod-swooper-maps/src/domain/ops/${domain}"`.
 
 **Scriptable sweep for other tooling/configs:**
 ```bash

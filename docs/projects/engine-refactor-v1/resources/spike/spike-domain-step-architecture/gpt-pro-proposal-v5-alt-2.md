@@ -636,7 +636,7 @@ export const ecology = {
 
 ### 5.2 Op Contract and Strategy Implementations
 
-#### `domain/ecology/ops/classifyBiomes/contract.ts`
+#### `domain/ops/ecology/classifyBiomes/contract.ts`
 
 ```ts
 import { Type } from "typebox";
@@ -694,7 +694,7 @@ export const ClassifyBiomes = defineOp({
 });
 ```
 
-#### `domain/ecology/ops/classifyBiomes/strategies/default.ts`
+#### `domain/ops/ecology/classifyBiomes/strategies/default.ts`
 
 ```ts
 import { createStrategy } from "@mapgen/authoring/op/strategy";
@@ -719,7 +719,7 @@ export const defaultStrategy = createStrategy(ClassifyBiomes, "default", {
 });
 ```
 
-#### `domain/ecology/ops/classifyBiomes/strategies/accurate.ts`
+#### `domain/ops/ecology/classifyBiomes/strategies/accurate.ts`
 
 ```ts
 import { createStrategy } from "@mapgen/authoring/op/strategy";
@@ -734,7 +734,7 @@ export const accurateStrategy = createStrategy(ClassifyBiomes, "accurate", {
 });
 ```
 
-#### `domain/ecology/ops/classifyBiomes/op.ts`
+#### `domain/ops/ecology/classifyBiomes/op.ts`
 
 ```ts
 import { createOp } from "@mapgen/authoring/op/create";
@@ -1388,7 +1388,7 @@ Add a small set of high-leverage tests (no full new suite):
 Example `*.test-d.ts`:
 
 ```ts
-import { ClassifyBiomes } from "../domain/ecology/ops/classifyBiomes/contract";
+import { ClassifyBiomes } from "../domain/ops/ecology/classifyBiomes/contract";
 import { createStrategy } from "../authoring/op/strategy";
 
 createStrategy(ClassifyBiomes, "default", {

@@ -10,7 +10,7 @@ import {
   FEATURE_PLACEMENT_KEYS,
   type FeatureKey,
   type BiomeSymbol,
-} from "../../types.js";
+} from '../../../ecology/types.js';
 
 const FeatureKeySchema = Type.Unsafe<FeatureKey>(
   Type.Union(

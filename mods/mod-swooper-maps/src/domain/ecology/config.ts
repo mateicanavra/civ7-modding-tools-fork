@@ -1,8 +1,8 @@
 import { Type, type Static } from "typebox";
 import { BiomeEngineBindingsSchema } from "./biome-bindings.js";
-import { classifyBiomes } from "./ops/classify-biomes/index.js";
-import { planFeaturePlacements } from "./ops/plan-feature-placements/index.js";
-import { planPlotEffects } from "./ops/plan-plot-effects/index.js";
+import { classifyBiomes } from "../ops/ecology/classify-biomes/index.js";
+import { planFeaturePlacements } from "../ops/ecology/plan-feature-placements/index.js";
+import { planPlotEffects } from "../ops/ecology/plan-plot-effects/index.js";
 
 /**
  * Biome classification config (Holdridge/Whittaker-inspired).

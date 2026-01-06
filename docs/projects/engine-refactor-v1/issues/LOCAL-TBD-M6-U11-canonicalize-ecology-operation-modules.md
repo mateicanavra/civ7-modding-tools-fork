@@ -24,7 +24,7 @@ related_to:
 Make `mods/mod-swooper-maps` ecology the canonical reference implementation of the step ↔ domain operation module contract: operations are pure (buffers/POJOs only), placement-producing operations are `kind: "plan"` with verb-forward naming, and all engine binding/logging lives strictly in the step layer.
 
 ## Target outcome (canonical)
-- **Pure domain ops:** every module under `mods/mod-swooper-maps/src/domain/ecology/ops/**` is callable with only buffers/POJOs + schema-backed config; no adapter/callback/runtime views exist in op contracts.
+- **Pure domain ops:** every module under `mods/mod-swooper-maps/src/domain/ops/ecology/**` is callable with only buffers/POJOs + schema-backed config; no adapter/callback/runtime views exist in op contracts.
 - **Strict kind semantics:** any op whose output can be applied to the engine is `kind: "plan"` and verb-forward (`plan*`); `kind: "compute"` remains reserved for derived-field products (biome classification).
 - **Engine-agnostic plans:** plan ops return semantic keys (ex: `FEATURE_FOREST`, `PLOTEFFECT_SNOW_LIGHT_PERMANENT`) rather than engine indices; steps resolve keys → engine IDs at apply time.
 - **No baseline/legacy behavior:** ecology “features” does not call `adapter.addFeatures(...)` and does not have a baseline switch/strategy/config field; the step always applies mod-owned plans.
@@ -53,12 +53,12 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 
 ## Acceptance Criteria
 - **Boundary purity**
-  - `rg -n "adapter\\b|ctxRandom\\b|TraceScope\\b|devLogJson\\b" mods/mod-swooper-maps/src/domain/ecology/ops` returns no matches.
+  - `rg -n "adapter\\b|ctxRandom\\b|TraceScope\\b|devLogJson\\b" mods/mod-swooper-maps/src/domain/ops/ecology` returns no matches.
   - `rg -n "@civ7/adapter" mods/mod-swooper-maps/src/domain/ecology` returns no matches.
-  - `rg -n "Type\\.Any\\(" mods/mod-swooper-maps/src/domain/ecology/ops` returns no matches.
+  - `rg -n "Type\\.Any\\(" mods/mod-swooper-maps/src/domain/ops/ecology` returns no matches.
   - All ecology ops are callable with plain buffers/POJOs (no engine adapter required in `op.input`).
 - **Correct kind + naming**
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/**` exports:
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/**` exports:
     - exactly one `compute` op: `classifyBiomes` (existing behavior),
     - `plan*` ops for placements (features + plot effects) and embellishments (reef + vegetation split).
   - No exported op is noun-named (no `*Placement`, `*Embellishments`, `plotEffects` exports).
@@ -252,14 +252,14 @@ mods/mod-swooper-maps/src/domain/ecology/
 ### A) Rename + restructure ecology ops to match the operation-module spec
 **In scope**
 - Replace existing ops (no compat re-exports):
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/**` → `mods/mod-swooper-maps/src/domain/ecology/ops/plan-feature-placements/**`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/**` → `mods/mod-swooper-maps/src/domain/ecology/ops/plan-plot-effects/**`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/**` → split into:
-    - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-reef-embellishments/**`
-    - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-vegetation-embellishments/**`
-- Delete the legacy re-export module `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` and migrate importers to `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts` (no alias modules).
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/**` → `mods/mod-swooper-maps/src/domain/ops/ecology/plan-feature-placements/**`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/**` → `mods/mod-swooper-maps/src/domain/ops/ecology/plan-plot-effects/**`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/**` → split into:
+    - `mods/mod-swooper-maps/src/domain/ops/ecology/plan-reef-embellishments/**`
+    - `mods/mod-swooper-maps/src/domain/ops/ecology/plan-vegetation-embellishments/**`
+- Delete the legacy re-export module `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes.ts` and migrate importers to `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/index.ts` (no alias modules).
 - Update exports:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/index.ts`
   - `mods/mod-swooper-maps/src/domain/ecology/index.ts`
 - Update all in-repo importers to the new op names/paths (no compat re-exports), including:
   - `mods/mod-swooper-maps/src/config/schema/ecology.ts`
@@ -277,16 +277,16 @@ mods/mod-swooper-maps/src/domain/ecology/
 - Renaming stable step IDs in the recipe graph (step IDs must remain unchanged).
 
 **Acceptance Criteria**
-- `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts` exports only:
+- `mods/mod-swooper-maps/src/domain/ops/ecology/index.ts` exports only:
   - `classifyBiomes` (`compute`),
   - `planFeaturePlacements` (`plan`),
   - `planPlotEffects` (`plan`),
   - `planReefEmbellishments` (`plan`),
   - `planVegetationEmbellishments` (`plan`).
 - Guardrails pass:
-  - `rg -n "featuresPlacement|plotEffects|featuresEmbellishments" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+  - `rg -n "featuresPlacement|plotEffects|featuresEmbellishments" mods/mod-swooper-maps/src/domain/ops/ecology` is empty.
   - `rg -n "\\becology\\.ops\\.(featuresPlacement|featuresEmbellishments|plotEffects)\\b" mods/mod-swooper-maps/src` is empty.
-  - `rg -n "@mapgen/domain/ecology/ops/(features-placement|plot-effects|features-embellishments)" mods/mod-swooper-maps` is empty.
+  - `rg -n "@mapgen/domain/ops/ecology/(features-placement|plot-effects|features-embellishments)" mods/mod-swooper-maps` is empty.
 
 ### B) Remove runtime views from all ecology op inputs (and enforce op-entry validation)
 **In scope**
@@ -304,8 +304,8 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 **Acceptance Criteria**
 - Guardrails pass:
-  - `rg -n "adapter\\b|ctxRandom\\b|rand\\b|TraceScope\\b|devLogJson\\b" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
-  - `rg -n "Type\\.Any\\(" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+  - `rg -n "adapter\\b|ctxRandom\\b|rand\\b|TraceScope\\b|devLogJson\\b" mods/mod-swooper-maps/src/domain/ops/ecology` is empty.
+  - `rg -n "Type\\.Any\\(" mods/mod-swooper-maps/src/domain/ops/ecology` is empty.
 - `rg -n "\\.runValidated\\(" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps` has matches for `features` and `plot-effects` steps.
 - `rg -n "\\bctxRandom\\b" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps` is empty.
 
@@ -323,7 +323,7 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 **Acceptance Criteria**
 - `rg -n "getFeatureTypeIndex|getPlotEffectTypeIndex" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps` is non-empty.
-- `rg -n "getFeatureTypeIndex|getPlotEffectTypeIndex" mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+- `rg -n "getFeatureTypeIndex|getPlotEffectTypeIndex" mods/mod-swooper-maps/src/domain/ops/ecology` is empty.
 
 ### D) Split “embellishments” into two semantic plan ops (reef vs vegetation)
 **In scope**
@@ -356,14 +356,14 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 ### F) Move diagnostics/logging to steps and use tracing only
 **In scope**
-- Delete domain diagnostics modules under ecology ops (ex: `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/diagnostics.ts`) and replace with step-owned tracing.
+- Delete domain diagnostics modules under ecology ops (ex: `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/diagnostics.ts`) and replace with step-owned tracing.
 - Ensure the only logging emitted is from step scopes via tracing.
 
 **Out of scope**
 - Introducing a new domain-level diagnostics API.
 
 **Acceptance Criteria**
-- `rg -n "devLogJson\\b|console\\." mods/mod-swooper-maps/src/domain/ecology/ops` is empty.
+- `rg -n "devLogJson\\b|console\\." mods/mod-swooper-maps/src/domain/ops/ecology` is empty.
 
 ### G) Verification + cleanup (required)
 **In scope**
@@ -381,7 +381,7 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 ### Pre-work for A (module layout + exports)
 - “Inventory current ecology op exports and importers (domain `index.ts`, step call-sites). Enumerate every symbol/name that must be renamed and ensure the final export surface matches the `plan*` and `classifyBiomes` shape exactly.”
-- “Confirm whether `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` is required for anything other than re-export; if it’s redundant, delete it as part of the module cleanup.”
+- “Confirm whether `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes.ts` is required for anything other than re-export; if it’s redundant, delete it as part of the module cleanup.”
 
 ### Pre-work for B (purity + validation)
 - “Inventory runtime views in ecology ops (`adapter`, `rand`, `ctxRandom`). For each, write down the step-level replacement: inputs builder reads runtime, apply stage writes runtime.”
@@ -419,7 +419,7 @@ mods/mod-swooper-maps/src/domain/ecology/
 **Importers that must be updated to the new canonical op names**
 - Domain export aggregators:
   - `mods/mod-swooper-maps/src/domain/ecology/index.ts`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/index.ts`
 - Step call-sites (and their helper type aliases):
   - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`
   - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/inputs.ts`
@@ -457,28 +457,28 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 ### A2) `ops/classify-biomes.ts` is a pure re-export shim and will be deleted
 **Observed**
-- `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` is a 1-line `export * from "./classify-biomes/index.js"`.
-- Current importers of `@mapgen/domain/ecology/ops/classify-biomes.js` (must be migrated):
+- `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes.ts` is a 1-line `export * from "./classify-biomes/index.js"`.
+- Current importers of `@mapgen/domain/ops/ecology/classify-biomes.js` (must be migrated):
   - `mods/mod-swooper-maps/src/domain/ecology/index.ts`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/index.ts`
   - `mods/mod-swooper-maps/src/config/schema/ecology.ts`
   - `mods/mod-swooper-maps/test/ecology/classify-biomes.test.ts`
   - `mods/mod-swooper-maps/test/layers/callsite-fixes.test.ts`
 
 **Decision (no ambiguity)**
-- Delete `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes.ts` and update all importers to the directory module entrypoint:
-  - `@mapgen/domain/ecology/ops/classify-biomes/index.js`
+- Delete `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes.ts` and update all importers to the directory module entrypoint:
+  - `@mapgen/domain/ops/ecology/classify-biomes/index.js`
 
 ### B1) Inventory runtime views in ecology ops (and the step-owned replacements)
 **Runtime views currently passed into op inputs (must be deleted)**
 - `adapter` (engine runtime view) is present in op input schemas for:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/index.ts`
 - `rand` callback (ctxRandom wrapper) is present in op inputs for:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/index.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/index.ts`
 
 **Step-level sources of those runtime views (must be migrated)**
 - `ctxRandom` is currently used to build `rand` in:
@@ -498,7 +498,7 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 ### B2) `Type.Any` fields in ecology op schemas and the exact `TypedArraySchemas.*` replacements
 **Inventory (current `Type.Any` schema fields)**
-- `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/schema.ts`
+- `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/schema.ts`
   - input:
     - `rainfall` → `Uint8Array`
     - `humidity` → `Uint8Array`
@@ -514,7 +514,7 @@ mods/mod-swooper-maps/src/domain/ecology/
     - `surfaceTemperature` → `Float32Array`
     - `aridityIndex` → `Float32Array`
     - `freezeIndex` → `Float32Array`
-- `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts` (input schema only)
+- `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/index.ts` (input schema only)
   - `biomeIndex` → `Uint8Array`
   - `vegetationDensity` → `Float32Array`
   - `effectiveMoisture` → `Float32Array`
@@ -522,7 +522,7 @@ mods/mod-swooper-maps/src/domain/ecology/
   - `aridityIndex` → `Float32Array`
   - `freezeIndex` → `Float32Array`
   - (non-array runtime views that will be deleted, not replaced): `adapter`, `rand`
-- `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts` (input schema only)
+- `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/index.ts` (input schema only)
   - `biomeIndex` → `Uint8Array`
   - `vegetationDensity` → `Float32Array`
   - `effectiveMoisture` → `Float32Array`
@@ -531,7 +531,7 @@ mods/mod-swooper-maps/src/domain/ecology/
   - `freezeIndex` → `Float32Array`
   - `elevation` → `Int16Array`
   - (non-array runtime views that will be deleted, not replaced): `adapter`, `rand`
-- `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts` (input schema only)
+- `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/index.ts` (input schema only)
   - `rainfall` → `Uint8Array`
   - `vegetationDensity` → `Float32Array`
   - (fields that will be deleted or re-shaped under the new ops; see replacement plan below):
@@ -554,14 +554,14 @@ mods/mod-swooper-maps/src/domain/ecology/
 ### C1) Current numeric placement IDs and the semantic key surface (Feature/PlotEffect)
 **Current numeric IDs returned by ops (what we are retiring)**
 - Feature placements:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts` outputs `placements[].feature: number` (engine feature type index).
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts` outputs `placements[].feature: number` (engine feature type index).
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/index.ts` outputs `placements[].feature: number` (engine feature type index).
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/index.ts` outputs `placements[].feature: number` (engine feature type index).
   - Numeric indices are produced via:
     - `adapter.getFeatureTypeIndex("FEATURE_*")` (feature type lookup)
     - `adapter.NO_FEATURE` / `adapter.getFeatureType(x, y)` (existing feature reads)
     - `adapter.canHaveFeature(x, y, featureIdx)` (runtime gating)
 - Plot effects:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/index.ts` outputs `placements[].plotEffectType: number` (engine plot effect type index).
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/index.ts` outputs `placements[].plotEffectType: number` (engine plot effect type index).
   - Numeric indices are produced via:
     - `adapter.getPlotEffectTypesContainingTags(tags)` (tag-based lookup, returns numeric IDs)
     - `adapter.getPlotEffectTypeIndex("PLOTEFFECT_*")` (type-name lookup)
@@ -569,11 +569,11 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 **Semantic key surface (what ops will return post-migration)**
 - `FeatureKey` (string union of `FEATURE_*`):
-  - Use the existing ecology key surface from `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts`:
+  - Use the existing ecology key surface from `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/schema.ts`:
     - `FEATURE_PLACEMENT_KEYS = ["FEATURE_FOREST", "FEATURE_RAINFOREST", "FEATURE_TAIGA", "FEATURE_SAVANNA_WOODLAND", "FEATURE_SAGEBRUSH_STEPPE", "FEATURE_MARSH", "FEATURE_TUNDRA_BOG", "FEATURE_MANGROVE", "FEATURE_OASIS", "FEATURE_WATERING_HOLE", "FEATURE_REEF", "FEATURE_COLD_REEF", "FEATURE_ATOLL", "FEATURE_LOTUS", "FEATURE_ICE"]`
   - Embellishment outputs are a strict subset of the same key surface (`FEATURE_REEF`, `FEATURE_RAINFOREST`, `FEATURE_FOREST`, `FEATURE_TAIGA`).
 - `PlotEffectKey` (string union of `PLOTEFFECT_*` used by this op):
-  - Default selectors in `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/schema.ts` reference:
+  - Default selectors in `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/schema.ts` reference:
     - `PLOTEFFECT_SNOW_LIGHT_PERMANENT`
     - `PLOTEFFECT_SNOW_MEDIUM_PERMANENT`
     - `PLOTEFFECT_SNOW_HEAVY_PERMANENT`
@@ -603,24 +603,24 @@ mods/mod-swooper-maps/src/domain/ecology/
 **Current `features-embellishments` behaviors**
 - Reef embellishments (belongs in `planReefEmbellishments`):
   - Paradise reef halos around narrative paradise hotspots:
-    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/rules/paradise-reefs.ts`
+    - `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/rules/paradise-reefs.ts`
     - driven by `FeaturesConfigSchema` (`paradiseReefChance`, `paradiseReefRadius`)
     - consumes `hotspotParadise`
   - Passive-shelf reef skirts:
-    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/rules/shelf-reefs.ts`
+    - `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/rules/shelf-reefs.ts`
     - driven by `FeaturesDensityConfigSchema` (`shelfReefMultiplier`, `shelfReefRadius`)
     - consumes `passiveShelf`
 - Vegetation embellishments (belongs in `planVegetationEmbellishments`):
   - Volcanic vegetation halos (forest/taiga bonuses) around volcanic hotspots:
-    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/rules/volcanic-vegetation.ts`
+    - `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/rules/volcanic-vegetation.ts`
     - driven by `FeaturesConfigSchema` (all `volcanic*` knobs)
     - consumes `hotspotVolcanic` + per-tile `rainfall` + `latitude` + `elevation` + biome signal
   - Density-driven vegetation tweaks (extra rainforest/forest/taiga):
-    - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/rules/density-tweaks.ts`
+    - `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/rules/density-tweaks.ts`
     - driven by `FeaturesDensityConfigSchema` (`*ExtraChance`, `*VegetationScale`, thresholds)
     - consumes `vegetationDensity` + per-tile `rainfall` + `elevation` + biome signal
   - Navigable river exclusion is currently enforced only for vegetation placements:
-    - `navigableRiverTerrain` lookup + `adapter.getTerrainType(...)` gating in `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/index.ts`
+    - `navigableRiverTerrain` lookup + `adapter.getTerrainType(...)` gating in `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/index.ts`
 
 **Shared mechanics (not a third op; must be duplicated or factored as pure shared rules)**
 - Feature-index resolution (`resolveEmbellishmentFeatureIndices`) and runtime gating (`adapter.canHaveFeature`, `adapter.isWater`, current feature reads) are currently interwoven with the op.
@@ -642,14 +642,14 @@ mods/mod-swooper-maps/src/domain/ecology/
     - branches on `placementResult.useEngineBaseline`
     - calls `context.adapter.addFeatures(width, height)`
 - Op baseline flag + strategy surface:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/index.ts`:
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/index.ts`:
     - exports `featuresPlacement` with `useEngineBaseline` in output
     - branches on `resolvedConfig.strategy === "vanilla"`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/schema.ts`:
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/schema.ts`:
     - `FeaturesPlacementStrategySchema = "owned" | "vanilla"`
     - config wrapper `{ strategy, config }` with default `"owned"`
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/strategies/vanilla.ts` (placeholder returning `[]`)
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/strategies/owned.ts` (the actual implementation)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/strategies/vanilla.ts` (placeholder returning `[]`)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/strategies/owned.ts` (the actual implementation)
 - Authoring surfaces that encode the baseline strategy wrapper:
   - Map presets:
     - `mods/mod-swooper-maps/src/maps/shattered-ring.ts` (`featuresPlacement.strategy = "owned"`)
@@ -672,7 +672,7 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 ### F) Ecology diagnostics inventory (compute vs log) and relocation plan
 **Domain-side diagnostics (must be deleted; not migrated as exports)**
-- `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/diagnostics.ts`
+- `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/diagnostics.ts`
   - exports `logSnowEligibilitySummary(trace, input, config, placements)`
   - **logs:** uses `devLogJson(trace, "snow summary", {...})`
   - **computes:** aggregates per-terrain buckets, eligibility counts, score statistics, and placement counts; also derives snow elevation range via `resolveSnowElevationRange(...)`.
@@ -681,7 +681,7 @@ mods/mod-swooper-maps/src/domain/ecology/
 
 **Relocation plan (no ambiguity)**
 - Delete:
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/diagnostics.ts`
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/diagnostics.ts`
   - the corresponding re-export in `mods/mod-swooper-maps/src/domain/ecology/index.ts`
 - Replace with step-owned tracing:
   - Create a step-local diagnostic helper under:

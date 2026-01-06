@@ -658,7 +658,7 @@ Pick one domain (ecology is a good target because it already composes multiple o
 **Implement**
 
 * `src/domain/<domain>/contracts.ts`: export contract router
-* `src/domain/<domain>/ops.ts`: export implemented ops router
+* `src/domain/ops/<domain>.ts`: export implemented ops router
 * `src/domain/<domain>/index.ts`: export `{ settings, contracts, ops }`
 
 Optionally introduce helper types:

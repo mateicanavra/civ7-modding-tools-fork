@@ -6,7 +6,7 @@ import {
   type Static,
 } from "@swooper/mapgen-core/authoring";
 
-import type { BiomeSymbol, PlotEffectKey } from "../../types.js";
+import type { BiomeSymbol, PlotEffectKey } from '../../../ecology/types.js';
 
 const BiomeSymbolSchema = Type.Union(
   [

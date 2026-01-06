@@ -104,8 +104,8 @@ related_to: [LOCAL-TBD-M7-U08]
 
 - Ecology `features` is now an op-backed orchestration step:
   - Stage step: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`
-  - Baseline op: `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/` (strategy wrapper: owned vs vanilla)
-  - Embellishment op: `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/`
+  - Baseline op: `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/` (strategy wrapper: owned vs vanilla)
+  - Embellishment op: `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/`
   - Engine baseline is only invoked when `featuresPlacement.strategy = "vanilla"`; owned baseline plans placements and the step applies them.
 
 ### Modularization requirements (SPEC pending)
@@ -415,13 +415,13 @@ If `MockAdapter.canHaveFeature` remains “always true”, add a test-only injec
 Expected patch footprint:
 
 - Domain implementation (new/refactor):
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/**` (op module, strategies, rules, schemas)
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/strategies/*.ts` (owned vs vanilla/engine)
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/rules/**` (pure placement helpers)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/**` (op module, strategies, rules, schemas)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/strategies/*.ts` (owned vs vanilla/engine)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/rules/**` (pure placement helpers)
 - Domain orchestration (update):
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-placement/**` (owned/vanilla strategies + rules)
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-embellishments/**` (post-pass tweaks as an op)
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts` (export new ops)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-placement/**` (owned/vanilla strategies + rules)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/features-embellishments/**` (post-pass tweaks as an op)
+  - `mods/mod-swooper-maps/src/domain/ops/ecology/index.ts` (export new ops)
 - Step wiring (update to foldered step):
   - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`
   - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/inputs.ts`
