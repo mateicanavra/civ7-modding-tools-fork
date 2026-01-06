@@ -1,6 +1,6 @@
 import type { Static } from "@swooper/mapgen-core/authoring";
 import type { TempZone } from "../types.js";
-import { TemperatureSchema } from "../temperature.schema.js";
+import { TemperatureSchema } from "./temperature.schema.js";
 
 export function temperatureZoneOf(value: number, cfg: Static<typeof TemperatureSchema>): TempZone {
   if (value <= cfg.polarCutoff) return "polar";
