@@ -61,3 +61,9 @@ apps/docs/public/civ7-official/resources/
 !.ai/archive/
 !.ai/archive/**
 .claude/settings.local.json
+
+
+# Repomix artifacts
+**/repomix-*.json
+**/repomix-*.xml
+!**/repomix-*.config.json
