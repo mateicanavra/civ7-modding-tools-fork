@@ -1,8 +1,7 @@
 import { type Static } from "@swooper/mapgen-core/authoring";
-import { PlanPlotEffectsContract, type ResolvedPlotEffectsConfig } from "./contract.js";
+import { PlanPlotEffectsContract } from "./contract.js";
 
 type PlotEffectsInput = Static<typeof PlanPlotEffectsContract["input"]>;
-type SnowElevationStrategy = NonNullable<ResolvedPlotEffectsConfig["snow"]["elevationStrategy"]>;
 
 export type SnowElevationStats = {
   count: number;
@@ -14,7 +13,7 @@ export type SnowElevationStats = {
 };
 
 export type SnowElevationRange = {
-  strategy: SnowElevationStrategy;
+  strategy: "absolute" | "percentile";
   min: number;
   max: number;
   stats: SnowElevationStats;
@@ -65,7 +64,15 @@ const collectLandElevations = (input: PlotEffectsInput): number[] => {
 
 export function resolveSnowElevationRange(
   input: PlotEffectsInput,
-  config: ResolvedPlotEffectsConfig
+  config: {
+    snow: {
+      elevationStrategy?: "absolute" | "percentile";
+      elevationPercentileMin: number;
+      elevationPercentileMax: number;
+      elevationMin: number;
+      elevationMax: number;
+    };
+  }
 ): SnowElevationRange {
   const elevations = collectLandElevations(input);
   const sorted = elevations.slice().sort((a, b) => a - b);

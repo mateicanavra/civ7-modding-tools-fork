@@ -1,8 +1,10 @@
 import type { Static } from "@swooper/mapgen-core/authoring";
-import type { TempZone } from "../types.js";
 import { TemperatureSchema } from "./temperature.schema.js";
 
-export function temperatureZoneOf(value: number, cfg: Static<typeof TemperatureSchema>): TempZone {
+export function temperatureZoneOf(
+  value: number,
+  cfg: Static<typeof TemperatureSchema>
+): "polar" | "cold" | "temperate" | "tropical" {
   if (value <= cfg.polarCutoff) return "polar";
   if (value <= cfg.tundraCutoff) return "cold";
   if (value <= cfg.midLatitude) return "temperate";

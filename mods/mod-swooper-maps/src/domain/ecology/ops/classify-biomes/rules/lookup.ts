@@ -1,6 +1,9 @@
-import type { BiomeSymbol, MoistureZone, TempZone } from "../types.js";
+import type { BiomeSymbol } from "@mapgen/domain/ecology/types.js";
 
-const BIOME_LOOKUP: Record<TempZone, Record<MoistureZone, BiomeSymbol>> = {
+const BIOME_LOOKUP: Record<
+  "polar" | "cold" | "temperate" | "tropical",
+  Record<"arid" | "semiArid" | "subhumid" | "humid" | "perhumid", BiomeSymbol>
+> = {
   polar: {
     arid: "snow",
     semiArid: "tundra",
@@ -31,6 +34,9 @@ const BIOME_LOOKUP: Record<TempZone, Record<MoistureZone, BiomeSymbol>> = {
   },
 };
 
-export function biomeSymbolForZones(tempZone: TempZone, moistureZone: MoistureZone): BiomeSymbol {
+export function biomeSymbolForZones(
+  tempZone: "polar" | "cold" | "temperate" | "tropical",
+  moistureZone: "arid" | "semiArid" | "subhumid" | "humid" | "perhumid"
+): BiomeSymbol {
   return BIOME_LOOKUP[tempZone][moistureZone];
 }

@@ -6,7 +6,7 @@ import {
 } from "@swooper/mapgen-core";
 import type { TraceScope } from "@swooper/mapgen-core";
 import type * as ecology from "@mapgen/domain/ecology";
-import type { PlotEffectKey, ResolvedPlotEffectsConfig } from "@mapgen/domain/ecology";
+import type { PlotEffectKey } from "@mapgen/domain/ecology";
 import { resolveSnowElevationRange } from "@mapgen/domain/ecology";
 
 type PlotEffectsInput = Parameters<typeof ecology.ops.planPlotEffects.run>[0];
@@ -70,13 +70,15 @@ const finalizeScoreStats = (bucket: TerrainBucket): ScoreStats | null => {
 export function logSnowEligibilitySummary(
   trace: TraceScope | null | undefined,
   input: PlotEffectsInput,
-  config: ResolvedPlotEffectsConfig,
+  config: unknown,
   placements: PlotEffectPlacement[],
   terrainType: Uint8Array
 ): void {
   if (!trace?.isVerbose) return;
 
-  if (!config.snow.enabled) {
+  const resolved = config as any;
+
+  if (!resolved.snow.enabled) {
     devLogJson(trace, "snow summary", {
       enabled: false,
       reason: "snow placement disabled",
@@ -85,9 +87,9 @@ export function logSnowEligibilitySummary(
   }
 
   const snowTypes = {
-    light: config.snow.selectors.light.typeName,
-    medium: config.snow.selectors.medium.typeName,
-    heavy: config.snow.selectors.heavy.typeName,
+    light: resolved.snow.selectors.light.typeName,
+    medium: resolved.snow.selectors.medium.typeName,
+    heavy: resolved.snow.selectors.heavy.typeName,
   } as const;
 
   const bucketLand = createBucket();
@@ -95,7 +97,7 @@ export function logSnowEligibilitySummary(
   const bucketHill = createBucket();
   const bucketFlat = createBucket();
 
-  const snowElevation = resolveSnowElevationRange(input, config);
+  const snowElevation = resolveSnowElevationRange(input, resolved);
   const elevationMin = snowElevation.min;
   const elevationMax = snowElevation.max;
 
@@ -140,17 +142,17 @@ export function logSnowEligibilitySummary(
       const elevationFactor = normalizeRange(elevation, elevationMin, elevationMax);
       const moistureFactor = normalizeRange(
         moisture,
-        config.snow.moistureMin,
-        config.snow.moistureMax
+        resolved.snow.moistureMin,
+        resolved.snow.moistureMax
       );
       const scoreRaw =
-        freeze * config.snow.freezeWeight +
-        elevationFactor * config.snow.elevationWeight +
-        moistureFactor * config.snow.moistureWeight +
-        config.snow.scoreBias;
-      const score = clamp01(scoreRaw / Math.max(0.0001, config.snow.scoreNormalization));
+        freeze * resolved.snow.freezeWeight +
+        elevationFactor * resolved.snow.elevationWeight +
+        moistureFactor * resolved.snow.moistureWeight +
+        resolved.snow.scoreBias;
+      const score = clamp01(scoreRaw / Math.max(0.0001, resolved.snow.scoreNormalization));
 
-      const gateEligible = temp <= config.snow.maxTemperature && aridity <= config.snow.maxAridity;
+      const gateEligible = temp <= resolved.snow.maxTemperature && aridity <= resolved.snow.maxAridity;
 
       const applyBucket = (bucket: TerrainBucket): void => {
         bucket.scoreSum += score;
@@ -160,9 +162,9 @@ export function logSnowEligibilitySummary(
         if (elevation >= elevationMin) bucket.aboveElevationMin += 1;
         if (elevation >= elevationMax) bucket.aboveElevationMax += 1;
         if (gateEligible) bucket.gateEligible += 1;
-        if (score >= config.snow.lightThreshold) bucket.scoreEligible += 1;
-        if (score >= config.snow.mediumThreshold) bucket.mediumEligible += 1;
-        if (score >= config.snow.heavyThreshold) bucket.heavyEligible += 1;
+        if (score >= resolved.snow.lightThreshold) bucket.scoreEligible += 1;
+        if (score >= resolved.snow.mediumThreshold) bucket.mediumEligible += 1;
+        if (score >= resolved.snow.heavyThreshold) bucket.heavyEligible += 1;
       };
 
       applyBucket(bucketLand);
@@ -189,21 +191,21 @@ export function logSnowEligibilitySummary(
     enabled: true,
     snowTypes,
     config: {
-      coverageChance: config.snow.coverageChance,
+      coverageChance: resolved.snow.coverageChance,
       thresholds: {
-        light: config.snow.lightThreshold,
-        medium: config.snow.mediumThreshold,
-        heavy: config.snow.heavyThreshold,
+        light: resolved.snow.lightThreshold,
+        medium: resolved.snow.mediumThreshold,
+        heavy: resolved.snow.heavyThreshold,
       },
       elevation: {
         strategy: snowElevation.strategy,
         absolute: {
-          min: config.snow.elevationMin,
-          max: config.snow.elevationMax,
+          min: resolved.snow.elevationMin,
+          max: resolved.snow.elevationMax,
         },
         percentiles: {
-          min: config.snow.elevationPercentileMin,
-          max: config.snow.elevationPercentileMax,
+          min: resolved.snow.elevationPercentileMin,
+          max: resolved.snow.elevationPercentileMax,
         },
         derived: {
           min: elevationMin,
@@ -211,14 +213,14 @@ export function logSnowEligibilitySummary(
         },
         stats: snowElevation.stats,
       },
-      temperatureMax: config.snow.maxTemperature,
-      aridityMax: config.snow.maxAridity,
+      temperatureMax: resolved.snow.maxTemperature,
+      aridityMax: resolved.snow.maxAridity,
       scoreWeights: {
-        freeze: config.snow.freezeWeight,
-        elevation: config.snow.elevationWeight,
-        moisture: config.snow.moistureWeight,
+        freeze: resolved.snow.freezeWeight,
+        elevation: resolved.snow.elevationWeight,
+        moisture: resolved.snow.moistureWeight,
       },
-      scoreNormalization: config.snow.scoreNormalization,
+      scoreNormalization: resolved.snow.scoreNormalization,
     },
     totals,
     land: {
@@ -239,7 +241,7 @@ export function logSnowEligibilitySummary(
     },
     placements: placementCounts,
     expectedCoverage: Number(
-      ((bucketLand.scoreEligible * config.snow.coverageChance) / 100).toFixed(2)
+      ((bucketLand.scoreEligible * resolved.snow.coverageChance) / 100).toFixed(2)
     ),
   });
 }

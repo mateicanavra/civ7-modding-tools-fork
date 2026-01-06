@@ -1,9 +1,7 @@
 import {
   Type,
-  applySchemaDefaults,
   defineOpContract,
   TypedArraySchemas,
-  type Static,
 } from "@swooper/mapgen-core/authoring";
 
 import { EcologyConfigSchema } from "../../config.js";
@@ -71,14 +69,3 @@ export const PlanReefEmbellishmentsContract = defineOpContract({
     default: ReefEmbellishmentsConfigSchema,
   },
 });
-export type ResolvedReefEmbellishmentsConfig = {
-  story: { features: Required<Static<typeof EcologyConfigSchema["properties"]["features"]>> };
-  featuresDensity: Required<Static<typeof EcologyConfigSchema["properties"]["featuresDensity"]>>;
-};
-
-type ReefEmbellishmentsConfig = Static<typeof ReefEmbellishmentsConfigSchema>;
-
-export const resolveReefEmbellishmentsConfig = (
-  config: ReefEmbellishmentsConfig
-): ResolvedReefEmbellishmentsConfig =>
-  applySchemaDefaults(ReefEmbellishmentsConfigSchema, config) as ResolvedReefEmbellishmentsConfig;

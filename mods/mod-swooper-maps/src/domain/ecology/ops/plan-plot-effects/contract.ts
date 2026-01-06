@@ -1,12 +1,10 @@
 import {
   Type,
-  applySchemaDefaults,
   defineOpContract,
   TypedArraySchemas,
-  type Static,
 } from "@swooper/mapgen-core/authoring";
 
-import type { BiomeSymbol, PlotEffectKey } from "@mapgen/domain/ecology/types.js";
+import type { PlotEffectKey } from "@mapgen/domain/ecology/types.js";
 
 const BiomeSymbolSchema = Type.Union(
   [
@@ -481,59 +479,3 @@ export const PlanPlotEffectsContract = defineOpContract({
     default: PlotEffectsConfigSchema,
   },
 });
-type PlotEffectSelector = { typeName: PlotEffectKey };
-type PlotEffectsSnowSelectors = Static<typeof PlotEffectsSnowSelectorsSchema>;
-type PlotEffectsSnowConfig = Static<typeof PlotEffectsSnowSchema>;
-type PlotEffectsSandConfig = Static<typeof PlotEffectsSandSchema>;
-type PlotEffectsBurnedConfig = Static<typeof PlotEffectsBurnedSchema>;
-type PlotEffectsConfig = Static<typeof PlotEffectsConfigSchema>;
-
-export type ResolvedPlotEffectsConfig = {
-  snow: Required<PlotEffectsSnowConfig> & {
-    selectors: Required<PlotEffectsSnowSelectors>;
-  };
-  sand: Required<PlotEffectsSandConfig> & { selector: PlotEffectSelector };
-  burned: Required<PlotEffectsBurnedConfig> & { selector: PlotEffectSelector };
-};
-
-const normalizePlotEffectKey = (value: string): PlotEffectKey => {
-  const trimmed = value.trim();
-  if (!trimmed) {
-    throw new Error("plot effects selector typeName must be a non-empty string");
-  }
-  const upper = trimmed.toUpperCase();
-  return (upper.startsWith("PLOTEFFECT_") ? upper : `PLOTEFFECT_${upper}`) as PlotEffectKey;
-};
-
-const normalizeSelector = (selector: { typeName: string }): PlotEffectSelector => ({
-  typeName: normalizePlotEffectKey(selector.typeName),
-});
-
-export function resolvePlotEffectsConfig(
-  input: PlotEffectsConfig
-): ResolvedPlotEffectsConfig {
-  const resolved = applySchemaDefaults(
-    PlotEffectsConfigSchema,
-    input
-  ) as ResolvedPlotEffectsConfig;
-  return {
-    snow: {
-      ...resolved.snow,
-      selectors: {
-        light: normalizeSelector(resolved.snow.selectors.light),
-        medium: normalizeSelector(resolved.snow.selectors.medium),
-        heavy: normalizeSelector(resolved.snow.selectors.heavy),
-      },
-    },
-    sand: {
-      ...resolved.sand,
-      selector: normalizeSelector(resolved.sand.selector),
-    },
-    burned: {
-      ...resolved.burned,
-      selector: normalizeSelector(resolved.burned.selector),
-    },
-  };
-}
-
-export type { BiomeSymbol };

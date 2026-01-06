@@ -2,7 +2,6 @@ import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@mapgen/authoring/steps";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
-import type { ResolvedPlotEffectsConfig } from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { buildPlotEffectsInput } from "./inputs.js";
 import { applyPlotEffectPlacements } from "./apply.js";
@@ -28,7 +27,7 @@ export default createStep(PlotEffectsStepContract, {
       logSnowEligibilitySummary(
         context.trace,
         input,
-        config.plotEffects.config as ResolvedPlotEffectsConfig,
+        config.plotEffects.config,
         result.placements,
         heightfield.terrain
       );

@@ -1,12 +1,5 @@
 import { biomeSymbolFromIndex } from "@mapgen/domain/ecology/types.js";
 
-export type VegetatedFeatureKey =
-  | "FEATURE_FOREST"
-  | "FEATURE_RAINFOREST"
-  | "FEATURE_TAIGA"
-  | "FEATURE_SAVANNA_WOODLAND"
-  | "FEATURE_SAGEBRUSH_STEPPE";
-
 type VegetatedRules = {
   desertSagebrushMinVegetation: number;
   desertSagebrushMaxAridity: number;
@@ -28,7 +21,7 @@ export function pickVegetatedFeature(params: {
   aridityIndex: number;
   freezeIndex: number;
   rules: VegetatedRules;
-}): VegetatedFeatureKey | null {
+}) {
   const {
     symbolIndex,
     moistureValue,
