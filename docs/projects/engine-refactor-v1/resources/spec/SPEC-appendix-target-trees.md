@@ -23,9 +23,12 @@ CORE_SDK_ROOT/
 │  │  │  ├─ strategy.ts
 │  │  │  ├─ create.ts
 │  │  │  └─ index.ts
+│  │  ├─ step/
+│  │  │  ├─ contract.ts
+│  │  │  ├─ create.ts
+│  │  │  └─ index.ts
 │  │  ├─ recipe.ts
 │  │  ├─ stage.ts
-│  │  ├─ step.ts
 │  │  └─ types.ts
 │  ├─ core/
 │  │  ├─ index.ts
@@ -150,16 +153,17 @@ STANDARD_CONTENT_ROOT/
 │  │  │     ├─ index.ts
 │  │  │     └─ <domain>.ts
 │  │  ├─ <domain>/
-│  │  │  ├─ index.ts
-│  │  │  └─ ops/
-│  │  │     └─ <op-slug>/
-│  │  │        ├─ contract.ts
-│  │  │        ├─ rules/
-│  │  │        │  └─ <rule>.ts
-│  │  │        ├─ strategies/
-│  │  │        │  ├─ default.ts
-│  │  │        │  └─ <strategy>.ts
-│  │  │        └─ index.ts
+│  │  │  └─ index.ts
+│  │  └─ ops/
+│  │     └─ <domain>/
+│  │        └─ <op-slug>/
+│  │           ├─ contract.ts
+│  │           ├─ rules/
+│  │           │  └─ <rule>.ts
+│  │           ├─ strategies/
+│  │           │  ├─ default.ts
+│  │           │  └─ <strategy>.ts
+│  │           └─ index.ts
 │  │  └─ **/*                         # other domain logic and shared helpers
 │  └─ recipes/
 │     └─ standard/
@@ -170,101 +174,123 @@ STANDARD_CONTENT_ROOT/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ biomes.model.ts
-│           │     ├─ biomes.ts
-│           │     ├─ features.model.ts
-│           │     └─ features.ts
+│           │     ├─ biomes/
+│           │     │  ├─ contract.ts
+│           │     │  └─ index.ts
+│           │     └─ features/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ foundation/
 │           │  ├─ index.ts
 │           │  ├─ producer.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ foundation.model.ts
-│           │     └─ foundation.ts
+│           │     └─ foundation/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ hydrology-core/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ rivers.model.ts
-│           │     └─ rivers.ts
+│           │     └─ rivers/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ hydrology-post/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ climateRefine.model.ts
-│           │     └─ climateRefine.ts
+│           │     └─ climateRefine/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ hydrology-pre/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ climateBaseline.model.ts
-│           │     ├─ climateBaseline.ts
-│           │     ├─ lakes.model.ts
-│           │     └─ lakes.ts
+│           │     ├─ climateBaseline/
+│           │     │  ├─ contract.ts
+│           │     │  └─ index.ts
+│           │     └─ lakes/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ morphology-mid/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ ruggedCoasts.model.ts
-│           │     └─ ruggedCoasts.ts
+│           │     └─ ruggedCoasts/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ morphology-post/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ islands.model.ts
-│           │     ├─ islands.ts
-│           │     ├─ mountains.model.ts
-│           │     ├─ mountains.ts
-│           │     ├─ volcanoes.model.ts
-│           │     └─ volcanoes.ts
+│           │     ├─ islands/
+│           │     │  ├─ contract.ts
+│           │     │  └─ index.ts
+│           │     ├─ mountains/
+│           │     │  ├─ contract.ts
+│           │     │  └─ index.ts
+│           │     └─ volcanoes/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ morphology-pre/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ coastlines.model.ts
-│           │     ├─ coastlines.ts
-│           │     ├─ landmassPlates.model.ts
-│           │     └─ landmassPlates.ts
+│           │     ├─ coastlines/
+│           │     │  ├─ contract.ts
+│           │     │  └─ index.ts
+│           │     └─ landmassPlates/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ narrative-mid/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ storyCorridorsPre.model.ts
-│           │     ├─ storyCorridorsPre.ts
-│           │     ├─ storyOrogeny.model.ts
-│           │     └─ storyOrogeny.ts
+│           │     ├─ storyCorridorsPre/
+│           │     │  ├─ contract.ts
+│           │     │  └─ index.ts
+│           │     └─ storyOrogeny/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ narrative-post/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ storyCorridorsPost.model.ts
-│           │     └─ storyCorridorsPost.ts
+│           │     └─ storyCorridorsPost/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ narrative-pre/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ storyHotspots.model.ts
-│           │     ├─ storyHotspots.ts
-│           │     ├─ storyRifts.model.ts
-│           │     ├─ storyRifts.ts
-│           │     ├─ storySeed.model.ts
-│           │     └─ storySeed.ts
+│           │     ├─ storyHotspots/
+│           │     │  ├─ contract.ts
+│           │     │  └─ index.ts
+│           │     ├─ storyRifts/
+│           │     │  ├─ contract.ts
+│           │     │  └─ index.ts
+│           │     └─ storySeed/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           ├─ narrative-swatches/
 │           │  ├─ index.ts
 │           │  └─ steps/
 │           │     ├─ index.ts
-│           │     ├─ storySwatches.model.ts
-│           │     └─ storySwatches.ts
+│           │     └─ storySwatches/
+│           │        ├─ contract.ts
+│           │        └─ index.ts
 │           └─ placement/
 │              ├─ index.ts
 │              ├─ placement-inputs.ts
 │              ├─ placement-outputs.ts
 │              └─ steps/
 │                 ├─ index.ts
-│                 ├─ derivePlacementInputs.model.ts
-│                 ├─ derivePlacementInputs.ts
-│                 ├─ placement.model.ts
-│                 └─ placement.ts
+│                 ├─ derivePlacementInputs/
+│                 │  ├─ contract.ts
+│                 │  └─ index.ts
+│                 └─ placement/
+│                    ├─ contract.ts
+│                    └─ index.ts
 └─ test/
    ├─ dev/
    │  └─ crust-map.test.ts

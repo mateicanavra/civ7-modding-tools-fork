@@ -29,7 +29,7 @@ The step/domain-operation module design introduces reusable domain operations wi
 
 ## Decision
 
-- Steps use an explicit, step-owned contract model module (e.g., `<stepId>.model.ts`) as the authoritative contract surface.
+- Steps use an explicit, step-owned contract module (e.g., `steps/<stepId>/contract.ts`) as the authoritative contract surface.
 - Step schemas may **compose** operation schemas via explicit imports/helpers, but there is no “implicit inference” from which operations a step happens to call.
 - The compiled plan is the final, explicit contract surface for a run; any generation must result in explicit schemas/config in the plan.
 

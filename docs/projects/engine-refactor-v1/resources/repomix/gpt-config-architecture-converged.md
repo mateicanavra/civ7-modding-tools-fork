@@ -104,6 +104,7 @@ mods/mod-swooper-maps/src/domain/
 - Use stable path aliases for cross-module imports:
   - `@mapgen/domain/*` → `mods/mod-swooper-maps/src/domain/*`
   - `@mapgen/ops/*` → `mods/mod-swooper-maps/src/domain/ops/*`
+  - `@mapgen/authoring/*` → `mods/mod-swooper-maps/src/authoring/*`
 - Keep relative imports within a single op or step directory (e.g., `./rules/...`, `./strategies/...`).
 - Do not force aliasing on local helpers; use aliases only when crossing module boundaries.
 
@@ -1136,7 +1137,7 @@ export function buildVegetationInput(context: ExtendedMapContext) {
 `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/index.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
-import { createStep } from "../../../../../../authoring/steps.js";
+import { createStep } from "@mapgen/authoring/steps";
 import * as ecology from "@mapgen/domain/ecology";
 
 import { PlotVegetationStepContract } from "./contract.js";

@@ -12,5 +12,8 @@
   - step-owned contracts live with steps
   - stage-shared contracts live in stage-scoped modules at the stage root
   - domain-shared contracts live with their owning domain library
+- Shared utilities are centralized:
+  - cross-cutting helpers (math, noise, RNG, grid) live in the core SDK and are imported from there
+  - only truly local helpers remain inside a step or op module
 
 ---
