@@ -9,6 +9,7 @@ This doc contains:
 
 Canonical references:
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-030-operation-inputs-policy.md`
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 
 ## Tooling and investigation discipline
 

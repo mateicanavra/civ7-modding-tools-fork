@@ -46,6 +46,9 @@ This spec defines the canonical model for how steps and domains interact:
 - Domains expose a predictable authoring surface composed of operation modules.
 - Steps wire runtime inputs, call operations, and publish results.
 
+For **domain modeling guidance** (how to choose ops vs strategies vs rules vs steps), use:
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
+
 ---
 
 ## 2) Step System (Recipe v2 + Step Registry)

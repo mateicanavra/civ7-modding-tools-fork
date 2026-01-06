@@ -16,6 +16,7 @@ Golden reference:
 
 Canonical spec:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 
 Canonical architecture:
 - `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
@@ -83,6 +84,7 @@ Where to record decisions:
 Read (do not reinterpret):
 - `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-030-operation-inputs-policy.md`
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md`
@@ -170,6 +172,7 @@ Produce the domain inventory (this is not optional; it is the primary derisking 
 
 Reference (includes the command kit and required inventory sections):
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/domain-inventory-and-boundaries.md`
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 
 </step>
 
@@ -182,6 +185,7 @@ Lock the target op surface design for the domain with **no optionality**:
 
 Reference:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 
 </step>
 
