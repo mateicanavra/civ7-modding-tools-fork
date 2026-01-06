@@ -16,6 +16,7 @@
 - Pipeline composition is **recipe-authored** and **explicit** (no implicit stage manifests, no hidden enablement).
 - Cross-step dependencies are explicit dependency tags (`artifact:*`, `buffer:*`, `effect:*`) declared in `requires`/`provides`.
 - Step configuration is **validated per step occurrence**; there is no monolithic runtime config object.
+- Operations are **contract-first** and strategy selection is an op-local config concern; steps call ops but do not bind or declare op graphs.
 - Default authoring is **colocation**:
   - Step-owned: config schemas + config types, dependency tag IDs/definitions, artifact types/validators/publish-get helpers, and any step-local types.
   - Stage-shared: only items shared across multiple steps in the same stage.
@@ -44,7 +45,8 @@
   - `phase`: `GenerationPhase`
   - `requires`: dependency tags
   - `provides`: dependency tags
-  - `configSchema`: per-step config schema (TypeBox)
+  - `schema`: per-step config schema (TypeBox)
+  - `resolveConfig?`: optional compile-time config resolver
   - `run(context, config)`: side-effecting execution against the run context
 - Enablement is recipe-authored and compiled into the plan:
   - Disabled steps do not appear in the `ExecutionPlan`.

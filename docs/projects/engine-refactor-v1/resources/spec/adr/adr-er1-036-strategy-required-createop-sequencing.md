@@ -99,17 +99,17 @@ This ADR is also adjacent to `ADR-ER1-031` (strategy config encoding). If the pr
 
 ## Projected outcome if accepted (draft canonical shape)
 
-This section is a concrete target shape for the authoring SDK and plan-truth configs, intended to be made real by the cutover slice. It is intentionally explicit to support agent implementation.
+This section is a concrete target shape for the authoring SDK and op config envelopes, intended to be made real by the cutover slice. It is intentionally explicit to support agent implementation.
 
 ### Core invariants
 
-- Every operation defines:
+- Every operation defines a **contract**:
   - `input` schema (shared across all strategies)
   - `output` schema (shared across all strategies)
-  - `strategies` map (required), each entry defining:
-    - `config` schema (strategy-specific)
-    - `resolveConfig(innerConfig, settings) -> innerConfig` (optional; compile-time only)
-    - `run(input, innerConfig) -> output`
+  - `strategies` map of **config schemas** (required), keyed by strategy id
+- Every strategy implementation is authored out of line:
+  - `resolveConfig(innerConfig, settings) -> innerConfig` (optional; compile-time only)
+  - `run(input, innerConfig) -> output`
 - Plan-truth op config is always:
   - `{ strategy: "<strategyId>", config: <innerConfig> }`
 - Strategy selection is always explicit; `strategy` is always present (no shorthand encodings).
@@ -127,39 +127,49 @@ type OpConfigEnvelope<StrategyId extends string, InnerConfig> = Readonly<{
   config: InnerConfig;
 }>;
 
-type StrategyDef<Input, InnerConfig, Output, Settings> = {
-  configSchema: unknown; // TypeBox TSchema in real code
+type StrategyImpl<Input, InnerConfig, Output, Settings> = {
   resolveConfig?: (config: InnerConfig, settings: Settings) => InnerConfig;
   run: (input: Input, config: InnerConfig) => Output;
 };
 
-type OpDef<Input, Output, StrategyId extends string, InnerConfig, Settings> = Readonly<{
+type OpContract<Input, Output, StrategyId extends string> = Readonly<{
   kind: "plan" | "compute" | "score" | "select";
   inputSchema: unknown;  // TypeBox TSchema in real code
   outputSchema: unknown; // TypeBox TSchema in real code
-  strategies: Record<StrategyId, StrategyDef<Input, any, Output, Settings>>;
+  strategies: Record<StrategyId, unknown>; // TypeBox schemas in real code
 }>;
 ```
 
 ### Example: a “thick” plan op (plan feature placements) with rules beneath it
 
 ```ts
-export const planFeaturePlacements = createOp({
+export const planFeaturePlacementsContract = defineOpContract({
   kind: "plan",
   input: PlanFeaturePlacementsInputSchema,
   output: PlanFeaturePlacementsOutputSchema,
   strategies: {
-    default: {
-      config: PlanFeaturePlacementsDefaultStrategyConfigSchema,
-      resolveConfig: (cfg, settings) => deriveDefaults(cfg, settings),
-      run: (input, cfg) => {
-        // orchestration inside op is allowed; domain rules remain internal helpers
-        // - build per-feature candidate sets
-        // - invoke feature-specific rules
-        // - return a POJO plan result (no adapter/context crossing)
-        return computePlan(input, cfg);
-      },
+    default: PlanFeaturePlacementsDefaultStrategyConfigSchema,
+  },
+});
+
+export const planFeaturePlacementsDefault = createStrategy(
+  planFeaturePlacementsContract,
+  "default",
+  {
+    resolveConfig: (cfg, settings) => deriveDefaults(cfg, settings),
+    run: (input, cfg) => {
+      // orchestration inside op is allowed; domain rules remain internal helpers
+      // - build per-feature candidate sets
+      // - invoke feature-specific rules
+      // - return a POJO plan result (no adapter/context crossing)
+      return computePlan(input, cfg);
     },
+  }
+);
+
+export const planFeaturePlacements = createOp(planFeaturePlacementsContract, {
+  strategies: {
+    default: planFeaturePlacementsDefault,
   },
 });
 ```
