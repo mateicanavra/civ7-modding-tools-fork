@@ -80,7 +80,7 @@ export default createStep({
 
     const riftShoulderMask = maskFromCoordSet(rifts?.riftShoulder, width, height);
 
-    const result = ecology.ops.classifyBiomes.run(
+    const result = ecology.ops.classifyBiomes.runValidated(
       {
         width,
         height,

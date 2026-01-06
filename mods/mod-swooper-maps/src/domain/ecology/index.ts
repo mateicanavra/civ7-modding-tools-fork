@@ -1,17 +1,18 @@
-import { classifyBiomes } from "./ops/classify-biomes.js";
-import { featuresEmbellishments } from "./ops/features-embellishments/index.js";
-import { featuresPlacement } from "./ops/features-placement/index.js";
-import { plotEffects } from "./ops/plot-effects/index.js";
+import { classifyBiomes } from "./ops/classify-biomes/index.js";
+import { planFeaturePlacements } from "./ops/plan-feature-placements/index.js";
+import { planPlotEffects } from "./ops/plan-plot-effects/index.js";
+import { planReefEmbellishments } from "./ops/plan-reef-embellishments/index.js";
+import { planVegetationEmbellishments } from "./ops/plan-vegetation-embellishments/index.js";
 
 export const ops = {
   classifyBiomes,
-  featuresEmbellishments,
-  featuresPlacement,
-  plotEffects,
+  planFeaturePlacements,
+  planPlotEffects,
+  planReefEmbellishments,
+  planVegetationEmbellishments,
 } as const;
 
 export * from "./artifacts.js";
-export { logSnowEligibilitySummary } from "./ops/plot-effects/diagnostics.js";
 export {
   FeaturesConfigSchema,
   FeaturesDensityConfigSchema,

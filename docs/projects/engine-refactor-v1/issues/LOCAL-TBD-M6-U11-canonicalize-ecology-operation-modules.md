@@ -163,6 +163,27 @@ Make `mods/mod-swooper-maps` ecology the canonical reference implementation of t
 - **Rationale:** Keeps contracts reviewable and single-purpose without over-fragmenting.
 - **Risk:** Additional wiring work in the `features` step and config schema migration.
 
+### D8) Use label-scoped LCG RNG for pure op randomness
+- **Context:** Ops must accept `seed` only and still respect labeled RNG calls for determinism.
+- **Options:** Single global LCG (ignores labels); per-label LCG streams seeded by label hash.
+- **Choice:** Per-label LCG streams seeded by `seed ^ hash(label)`.
+- **Rationale:** Preserves labeled RNG semantics without runtime views; deterministic across runs.
+- **Risk:** RNG distribution will differ from adapter-backed `ctxRandom`, but is intentional.
+
+### D9) Require plot-effect selectors to specify `typeName` (no tag resolution)
+- **Context:** Tag-based selector resolution requires adapter access, violating op purity.
+- **Options:** Keep tag resolution in ops; resolve tags in steps; require explicit type names.
+- **Choice:** Require explicit `typeName` (normalized to `PLOTEFFECT_*`); remove tag fields.
+- **Rationale:** Keeps ops engine-agnostic and key-based; avoids hidden runtime adapter use.
+- **Risk:** Configs relying on tags must be updated to explicit plot-effect keys.
+
+### D10) Preserve typed-array Static types in `TypedArraySchemas`
+- **Context:** Using `TypedArraySchemas.*` in op input/output schemas produced `unknown` Static types, breaking `createOp` typing for ecology plans.
+- **Options:** Cast inputs/outputs at each op boundary; update `TypedArraySchemas` to return `TUnsafe<T>` so Static types are typed arrays.
+- **Choice:** Update `TypedArraySchemas` to return `TUnsafe<T>` for each typed array builder.
+- **Rationale:** Keeps op schemas typed without reintroducing `Type.Any` or per-op casts.
+- **Risk:** Type-only change could surface new type mismatches elsewhere; no runtime impact expected.
+
 ## Canonical target shape (what “done” looks like)
 
 ### A) File layout (ecology domain)
