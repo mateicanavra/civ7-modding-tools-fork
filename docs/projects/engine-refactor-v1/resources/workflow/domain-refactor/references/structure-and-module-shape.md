@@ -45,7 +45,7 @@ Domain ops:
 
 Domain public surface:
 - Domain index re-exports step-callable ops and any domain-owned config/schema surfaces.
-- Steps import ops through the domain public surface (`@mapgen/domain/<domain>`, via `domain.ops.*`) unless there is a scoped, explicit reason not to.
+- Steps import ops through the domain public surface (`@mapgen/domain/<domain>`, via `domain.ops.*`).
 
 ## Op module shape (one op per module)
 

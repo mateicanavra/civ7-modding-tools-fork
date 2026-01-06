@@ -43,7 +43,7 @@
   - domain scope (`src/domain/**`) when domain-owned and not purely “schema-only”
   - mod scope uses a thin barrel only (`src/domain/config.ts`) for cross-domain imports
 - A mod-wide `@mapgen/domain/config` path alias is allowed and canonical for importing shared schema fragments and types.
-- Cross-module op imports should use `@mapgen/domain/<domain>/ops/<op>` (keep relative imports inside a single op module).
+- Cross-module consumers (steps/tests/other domains) import ops through the domain public surface `@mapgen/domain/<domain>` (keep relative imports inside a single op module).
 - `@mapgen/domain/config` is **schema/type-only**:
   - it must not become a grab-bag “global runtime config blob”,
   - it must not own map instances, step orchestration, or registry assembly.
