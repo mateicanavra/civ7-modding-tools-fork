@@ -2,11 +2,7 @@ import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanFloodplainsSchema } from "./schema.js";
 
-export const planFloodplains = createOp<
-  typeof PlanFloodplainsSchema["properties"]["input"],
-  typeof PlanFloodplainsSchema["properties"]["output"],
-  { default: typeof PlanFloodplainsSchema["properties"]["config"] }
->({
+export const planFloodplains = createOp({
   kind: "plan",
   id: "placement/plan-floodplains",
   input: PlanFloodplainsSchema.properties.input,
@@ -33,4 +29,4 @@ export const planFloodplains = createOp<
       },
     },
   },
-} as const);
+});

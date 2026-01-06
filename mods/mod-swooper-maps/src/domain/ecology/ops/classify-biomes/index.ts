@@ -17,11 +17,7 @@ import { computeTemperature, temperatureZoneOf } from "./rules/temperature.js";
 import { clamp01, computeMaxLatitude, ensureSize } from "./rules/util.js";
 import { vegetationDensityForBiome } from "./rules/vegetation.js";
 
-export const classifyBiomes = createOp<
-  typeof BiomeClassificationSchema["properties"]["input"],
-  typeof BiomeClassificationSchema["properties"]["output"],
-  { default: typeof BiomeClassificationSchema["properties"]["config"] }
->({
+export const classifyBiomes = createOp({
   kind: "compute",
   id: "ecology/biomes/classify",
   input: BiomeClassificationSchema.properties.input,
@@ -145,7 +141,7 @@ export const classifyBiomes = createOp<
       },
     },
   },
-} as const);
+});
 
 export function biomeSymbolAt(index: number): BiomeSymbol {
   return biomeSymbolFromIndex(index);

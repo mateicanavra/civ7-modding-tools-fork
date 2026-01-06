@@ -2,11 +2,7 @@ import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanWondersSchema } from "./schema.js";
 
-export const planWonders = createOp<
-  typeof PlanWondersSchema["properties"]["input"],
-  typeof PlanWondersSchema["properties"]["output"],
-  { default: typeof PlanWondersSchema["properties"]["config"] }
->({
+export const planWonders = createOp({
   kind: "plan",
   id: "placement/plan-wonders",
   input: PlanWondersSchema.properties.input,
@@ -29,4 +25,4 @@ export const planWonders = createOp<
       },
     },
   },
-} as const);
+});

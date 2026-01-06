@@ -82,7 +82,7 @@ export const myOp = createOp({
 
   // optional: returns pathful errors (must use /config/config/* paths for inner config)
   customValidate: (input, cfg) => [],
-} as const);
+});
 ```
 
 ## Strategy authoring patterns (canonical)
@@ -104,17 +104,24 @@ export const myOp = createOp({
       run: (input, cfg) => ({ /* ... */ }),
     },
   },
-} as const);
+});
 ```
 
 ### Pattern B: out-of-line strategy modules (use `createStrategy`)
 
 ```ts
 // src/domain/<domain>/ops/<opName>/strategies/default.ts
+import type { Static } from "typebox";
+import type { OpStrategy } from "@swooper/mapgen-core/authoring";
+
 export default createStrategy({
   config: MyStrategyConfigSchema,
   run: (input, cfg) => ({ /* ... */ }),
-} as const);
+} satisfies OpStrategy<
+  typeof MyStrategyConfigSchema,
+  Static<typeof MyInputSchema>,
+  Static<typeof MyOutputSchema>
+>);
 ```
 
 ```ts
@@ -127,8 +134,16 @@ export const myOp = createOp({
   input: MyInputSchema,
   output: MyOutputSchema,
   strategies: { default: defaultStrategy },
-} as const);
+});
 ```
+
+### Inference hard rules (TypeScript)
+
+These are required for the intended authoring DX (no `Static<>` boilerplate in inline strategies).
+
+- Do not apply a type assertion to the op definition object passed into `createOp(...)` (including `as const`).
+- If you must define a strategy out-of-line (separate module), you must provide `Input`/`Output` types (example above) so `run(input, cfg)` is type-safe.
+- If a schema is exported with a widened type (e.g., `TSchema`), inference becomes lossy. Prefer exporting concrete `Type.*(...)` results, and use `defineOpSchema(...)` to pin schema types across package boundaries.
 
 ## Config canonicalization rules (post-U10)
 

@@ -6,11 +6,7 @@ import {
 } from "./schema.js";
 import { planReefEmbellishments as planReefEmbellishmentsImpl } from "./plan.js";
 
-export const planReefEmbellishments = createOp<
-  typeof PlanReefEmbellishmentsSchema["properties"]["input"],
-  typeof PlanReefEmbellishmentsSchema["properties"]["output"],
-  { default: typeof PlanReefEmbellishmentsSchema["properties"]["config"] }
->({
+export const planReefEmbellishments = createOp({
   kind: "plan",
   id: "ecology/features/reef-embellishments",
   input: PlanReefEmbellishmentsSchema.properties.input,
@@ -28,6 +24,6 @@ export const planReefEmbellishments = createOp<
       },
     },
   },
-} as const);
+});
 
 export * from "./schema.js";
