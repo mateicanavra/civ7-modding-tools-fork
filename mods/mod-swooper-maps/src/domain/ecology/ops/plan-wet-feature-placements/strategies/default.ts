@@ -1,4 +1,5 @@
 import { applySchemaDefaults, createStrategy, type Static } from "@swooper/mapgen-core/authoring";
+import { createLabelRng, type LabelRng } from "@swooper/mapgen-core";
 
 import {
   FEATURE_PLACEMENT_KEYS,
@@ -7,7 +8,6 @@ import {
   type FeatureKey,
 } from "@mapgen/domain/ecology/types.js";
 
-import { createLabelRng } from "../../rng.js";
 import {
   PlanWetFeaturePlacementsContract,
   WetChancesSchema,
@@ -58,8 +58,8 @@ const readSymbolArray = (
   fallback: BiomeSymbol[]
 ): BiomeSymbol[] => (Array.isArray(input) && input.length > 0 ? input : fallback);
 
-const rollPercent = (rng: (label: string, max: number) => number, label: string, chance: number): boolean =>
-  chance > 0 && rng(label, 100) < chance;
+const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
+  chance > 0 && rng(100, label) < chance;
 
 const NO_FEATURE = -1;
 

@@ -1,9 +1,10 @@
+import type { LabelRng } from "@swooper/mapgen-core";
 import type { BiomeSymbol, FeatureKey } from "../types.js";
 
 export function planDensityTweaksAtTile(params: {
   x: number;
   y: number;
-  rng: (label: string, max: number) => number;
+  rng: LabelRng;
   rainforestKey: FeatureKey;
   forestKey: FeatureKey;
   taigaKey: FeatureKey;
@@ -46,21 +47,27 @@ export function planDensityTweaksAtTile(params: {
   } = params;
 
   if (biome === tropicalBiome && rainfall >= rainforestMinRainfall) {
-    if (rng("features:plan:vegetation:rainforest", 100) < rainforestExtraChance && canPlace(x, y)) {
+    if (
+      rng(100, "features:plan:vegetation:rainforest") < rainforestExtraChance &&
+      canPlace(x, y)
+    ) {
       place(x, y, rainforestKey);
       return true;
     }
   }
 
   if (grasslandBiomes.has(biome) && rainfall >= forestMinRainfall) {
-    if (rng("features:plan:vegetation:forest", 100) < forestExtraChance && canPlace(x, y)) {
+    if (
+      rng(100, "features:plan:vegetation:forest") < forestExtraChance &&
+      canPlace(x, y)
+    ) {
       place(x, y, forestKey);
       return true;
     }
   }
 
   if (tundraBiomes.has(biome) && elevation <= taigaMaxElevation) {
-    if (rng("features:plan:vegetation:taiga", 100) < taigaExtraChance && canPlace(x, y)) {
+    if (rng(100, "features:plan:vegetation:taiga") < taigaExtraChance && canPlace(x, y)) {
       place(x, y, taigaKey);
       return true;
     }

@@ -1,8 +1,7 @@
 import { applySchemaDefaults, createStrategy, type Static } from "@swooper/mapgen-core/authoring";
+import { createLabelRng, type LabelRng } from "@swooper/mapgen-core";
 
 import { FEATURE_PLACEMENT_KEYS, biomeSymbolFromIndex, type BiomeSymbol, type FeatureKey } from "@mapgen/domain/ecology/types.js";
-
-import { createLabelRng } from "../../rng.js";
 import {
   PlanVegetatedFeaturePlacementsContract,
   VegetatedChancesSchema,
@@ -49,8 +48,8 @@ const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 const readNumber = (value: number | undefined, fallback: number): number =>
   typeof value === "number" && Number.isFinite(value) ? value : fallback;
 
-const rollPercent = (rng: (label: string, max: number) => number, label: string, chance: number): boolean =>
-  chance > 0 && rng(label, 100) < chance;
+const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
+  chance > 0 && rng(100, label) < chance;
 
 const NO_FEATURE = -1;
 
