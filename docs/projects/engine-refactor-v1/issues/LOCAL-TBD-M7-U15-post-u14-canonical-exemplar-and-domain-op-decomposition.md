@@ -106,6 +106,42 @@ Notes:
 - Steps must be action boundaries (e.g., `plot-*`, `apply-*`, `publish-*`), not planning units.
   - Audit step IDs/filenames; rename any planning-named step to an action boundary and update all references.
 
+#### Ecology op catalog (current + target mapping)
+
+| Op id | Kind | Responsibilities | Step boundary |
+|---|---:|---|---|
+| `classify-biomes` | `compute` | Compute biome index + climate-derived ecology fields (temperature/moisture/aridity/freeze, vegetation density). Deterministic; no engine bindings. | `biomes` (applies/publishes) |
+| `plan-vegetated-feature-placements` | `plan` | Plan baseline vegetated features (forest/rainforest/taiga/savanna/sagebrush). Deterministic; returns placements only. | `features` (applies) |
+| `plan-wet-feature-placements` | `plan` | Plan baseline wet features (marsh/bog/mangrove/oasis/watering hole). Deterministic; returns placements only. | `features` (applies) |
+| `plan-aquatic-feature-placements` | `plan` | Plan baseline aquatic features (reef/cold reef/atoll/lotus). Deterministic; returns placements only. | `features` (applies) |
+| `plan-ice-feature-placements` | `plan` | Plan baseline ice features (sea ice). Deterministic; returns placements only. | `features` (applies) |
+| `plan-reef-embellishments` | `plan` | Plan story-driven reef embellishments (paradise shelves) on top of baseline feature field. | `features` (applies) |
+| `plan-vegetation-embellishments` | `plan` | Plan story-driven vegetation embellishments (volcanic halos + density tweaks) on top of baseline feature field. | `features` (applies) |
+| `plan-plot-effects` | `plan` | Plan plot effects (snow/sand/burned) as a pure placement set. | `plotEffects` (applies) |
+
+#### Ecology rule inventory (target)
+- `classify-biomes`: temperature zoning, moisture zoning, aridity shifts, biome lookup, density/fields derivation.
+- baseline feature placement ops: each op is single-concern with its own `rules/**`; avoid multi-concern “switchboard” planning in one module.
+- `plan-reef-embellishments`: keep `rules/` for paradise/shelf planners (already split) and make `plan.ts` orchestration-only.
+- `plan-vegetation-embellishments`: keep `rules/` for volcanic + density planners (already split) and make `plan.ts` orchestration-only.
+- `plan-plot-effects`: move config resolution + selector normalization out of `contract.ts`; keep `rules/` for snow-elevation helpers as needed.
+
+## Implementation Decisions
+
+### Split baseline feature placement into multiple ops (remove mega `plan-feature-placements`)
+- **Context:** Baseline feature placement currently mixes multiple concerns (vegetated/wet/aquatic/ice) and grows a large orchestration surface.
+- **Options:** (A) Keep a single baseline planning op and refactor into many rules; (B) Split into multiple focused ops with stable inputs/configs and let the `features` step orchestrate.
+- **Choice:** (B) Split into focused ops: `plan-vegetated-feature-placements`, `plan-wet-feature-placements`, `plan-aquatic-feature-placements`, `plan-ice-feature-placements`.
+- **Rationale:** Aligns with domain modeling guidance (multiple focused ops over mega-ops) and avoids a multi-concern switchboard plan module.
+- **Risk:** Step becomes an orchestration point for multiple baseline ops; ordering between ops must be explicit and tested.
+
+### Enforce “single type bag” per op `types.ts` by moving helper types out of op exports
+- **Context:** Current ecology ops export extra types (e.g., `Resolved*Config`, `TempZone`, `MoistureZone`) from `types.ts` and domain `index.ts`, which conflicts with the locked-in “types.ts exports exactly one OpTypeBag” rule.
+- **Options:** (A) Keep extra type exports for convenience; (B) Remove extra exports and re-derive needed types locally (via `OpTypeBag` indexing) or keep them local to steps/strategies.
+- **Choice:** (B) Remove extra exports; update rules/steps to use `OpTypeBag` indexing or local types.
+- **Rationale:** Makes ecology the canonical exemplar for the strict import/type-surface rules and reduces accidental type leakage.
+- **Risk:** Requires touching multiple files and could surface implicit dependencies on removed exports.
+
 ### 2) Refactor ecology ops to canonical module layout
 **Goal:** Every ecology op conforms to the canonical op module structure and import rules.
 
