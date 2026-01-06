@@ -25,14 +25,23 @@ const BiomeSymbolSchema = Type.Union(
   }
 );
 
-const DEFAULT_SNOW_SELECTORS = {
+type PlotEffectSelectorDefault = { typeName: PlotEffectKey };
+type SnowSelectorDefaults = {
+  light: PlotEffectSelectorDefault;
+  medium: PlotEffectSelectorDefault;
+  heavy: PlotEffectSelectorDefault;
+};
+
+const DEFAULT_SNOW_SELECTORS: SnowSelectorDefaults = {
   light: { typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT" },
   medium: { typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT" },
   heavy: { typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT" },
-} as const;
+};
 
-const DEFAULT_SAND_SELECTOR = { typeName: "PLOTEFFECT_SAND" } as const;
-const DEFAULT_BURNED_SELECTOR = { typeName: "PLOTEFFECT_BURNED" } as const;
+const DEFAULT_SAND_SELECTOR: PlotEffectSelectorDefault = { typeName: "PLOTEFFECT_SAND" };
+const DEFAULT_BURNED_SELECTOR: PlotEffectSelectorDefault = {
+  typeName: "PLOTEFFECT_BURNED",
+};
 
 const SnowElevationStrategySchema = Type.Union(
   [Type.Literal("absolute"), Type.Literal("percentile")],
@@ -63,11 +72,19 @@ const createPlotEffectSelectorSchema = (
   );
 
 const PlotEffectSelectorSchema = createPlotEffectSelectorSchema();
-const PlotEffectSnowLightSelectorSchema = createPlotEffectSelectorSchema(DEFAULT_SNOW_SELECTORS.light);
-const PlotEffectSnowMediumSelectorSchema = createPlotEffectSelectorSchema(DEFAULT_SNOW_SELECTORS.medium);
-const PlotEffectSnowHeavySelectorSchema = createPlotEffectSelectorSchema(DEFAULT_SNOW_SELECTORS.heavy);
-const PlotEffectSandSelectorSchema = createPlotEffectSelectorSchema(DEFAULT_SAND_SELECTOR);
-const PlotEffectBurnedSelectorSchema = createPlotEffectSelectorSchema(DEFAULT_BURNED_SELECTOR);
+const PlotEffectSnowLightSelectorSchema = createPlotEffectSelectorSchema(
+  DEFAULT_SNOW_SELECTORS.light
+);
+const PlotEffectSnowMediumSelectorSchema = createPlotEffectSelectorSchema(
+  DEFAULT_SNOW_SELECTORS.medium
+);
+const PlotEffectSnowHeavySelectorSchema = createPlotEffectSelectorSchema(
+  DEFAULT_SNOW_SELECTORS.heavy
+);
+const PlotEffectSandSelectorSchema =
+  createPlotEffectSelectorSchema(DEFAULT_SAND_SELECTOR);
+const PlotEffectBurnedSelectorSchema =
+  createPlotEffectSelectorSchema(DEFAULT_BURNED_SELECTOR);
 
 const PlotEffectsSnowSelectorsSchema = Type.Object(
   {
