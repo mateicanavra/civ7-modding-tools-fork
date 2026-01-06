@@ -36,8 +36,8 @@ related_to: []
   - [ ] Ensure `packages/mapgen-core/src/engine/types.ts` supports optional `resolveConfig` and `packages/mapgen-core/src/engine/execution-plan.ts` continues to invoke it for normalization.
 - [ ] Standardize the canonical op/domain module layout (per draft):
   - [ ] `mods/mod-swooper-maps/src/domain/<domain>/index.ts` exports the domain module surface.
-  - [ ] `mods/mod-swooper-maps/src/domain/ops/<domain>/index.ts` exports all ops for that domain.
-  - [ ] Each op lives at `mods/mod-swooper-maps/src/domain/ops/<domain>/<op-slug>/{contract.ts,rules/**,strategies/**,index.ts}` and exports an implemented op.
+  - [ ] `mods/mod-swooper-maps/src/domain/<domain>/ops/index.ts` exports all ops for that domain.
+  - [ ] Each op lives at `mods/mod-swooper-maps/src/domain/<domain>/ops/<op-slug>/{contract.ts,rules/**,strategies/**,index.ts}` and exports an implemented op.
 - [ ] Standardize the canonical step module layout (per draft):
   - [ ] `mods/mod-swooper-maps/src/recipes/<recipe>/stages/<stage>/steps/<step-slug>/contract.ts` exports the contract.
   - [ ] `mods/mod-swooper-maps/src/recipes/<recipe>/stages/<stage>/steps/<step-slug>/index.ts` exports the implementation using the bound factory.
@@ -45,7 +45,7 @@ related_to: []
   - [ ] Add `mods/mod-swooper-maps/src/authoring/steps.ts` exporting `createStepFor<ExtendedMapContext>()` as `createStep` (the only entrypoint for step implementations).
 - [ ] Add/standardize path aliasing (per draft):
   - [ ] `@mapgen/domain/*` → `mods/mod-swooper-maps/src/domain/*`
-  - [ ] `@mapgen/ops/*` → `mods/mod-swooper-maps/src/domain/ops/*`
+  - [ ] `@mapgen/authoring/*` → `mods/mod-swooper-maps/src/authoring/*`
 - [ ] Convert existing ops and step schemas to the converged shape:
   - [ ] Move op IO + per-strategy config schemas into `contract.ts`.
   - [ ] Move per-strategy behavior into `strategies/<id>.ts`.
@@ -132,8 +132,7 @@ Ops/domains:
 mods/mod-swooper-maps/src/domain/
   <domain>/
     index.ts
-  ops/
-    <domain>/
+    ops/
       index.ts
       <op-slug>/
         contract.ts
@@ -189,7 +188,7 @@ mods/mod-swooper-maps/src/authoring/
   4. Convert each op module to the canonical layout (contract/rules/strategies/index).
   5. Update step modules to the contract-first layout (contract file + bound `createStep` implementation + `lib/**`).
   6. Update step schema defaults to reference `op.defaultConfig` and `op.config` from implemented ops.
-  7. Add the `@mapgen/ops/*` path alias and standardize cross-module imports to use aliases (keep intra-op/step imports relative).
+  7. Standardize cross-module imports to use `@mapgen/domain/*` and `@mapgen/authoring/*` aliases (keep intra-op/step imports relative).
   8. Move any shared helper clones into the core SDK and import them from `@swooper/mapgen-core`.
   9. Update op validation tests and any direct `createOp({ ... })` usages to `createOp(contract, { strategies })`.
 - **Thinky work**
