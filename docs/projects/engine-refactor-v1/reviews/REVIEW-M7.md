@@ -40,6 +40,34 @@ Note: the issue title/id says `[M6]`, but based on milestone context this should
 - `PlotEffectKey` output schema now enforces the `PLOTEFFECT_` prefix (fails early at `runValidated`).
 - Biome engine-ID binding is now step-scoped (`mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/helpers/engine-bindings.ts`); `src/domain/ecology/**` no longer imports `@civ7/adapter`.
 
+## LOCAL-TBD-M7-U16 — Land converged contract-first op + step authoring (strategy envelopes + step binder)
+
+### Quick take
+Mostly yes: the core authoring surfaces landed and mod call sites now use envelope configs + bound step factories. The main gap is rules/type-boundary enforcement (Decision D8), where rule modules still import/emit types outside the op `types.ts` surface.
+
+### What’s strong
+- Contract-first authoring APIs are in place for ops/steps (`defineOpContract`/`createOp`/`createStrategy`, `defineStepContract`/`createStep`/`createStepFor`).
+- Recipe compilation forwards step `resolveConfig`, and execution-plan normalization re-validates resolver output.
+- Mod step contracts are metadata-only; implementations use the bound `createStep` factory with envelope configs + defaults.
+
+### High-leverage issues
+- **Rules boundary violations undermine the centralized types contract.**
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-feature-placements/rules/selection.ts` imports `ResolvedFeaturesPlacementConfig` from `../contract.js`.
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/rules/moisture.ts` and `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/rules/temperature.ts` export types.
+  - This conflicts with Decision D8 (rules import types from `types.ts` only; no type exports). It reintroduces contract coupling and makes refactors brittle.
+  - Direction: move these types into the op’s `types.ts` (or a dedicated type module) and keep rules as type-only consumers.
+
+### Implementation decisions review
+- Logged decisions reviewed: D1–D8.
+- Gaps: D8 (rules boundary) is not fully honored.
+- Side-effect risks: rules-to-contract coupling can silently expand the op surface area and impede future authoring changes.
+
+### Recommended next moves
+- Normalize rules to import types from `types.ts` and remove type exports from rules modules.
+
+### Nice-to-have
+- If `defineOpSchema` is legacy/unused, remove the export from `packages/mapgen-core/src/authoring/index.ts` to fully satisfy the “no shims” directive.
+
 ## Fix Loop Update (M7)
 - Review points: follow-ups landed and rules boundary violations now import types from each op’s `types.ts` surface (no rule exports).
 - Additional fixes (to unblock full suite): op config schema typing now uses `TUnsafe` for strategy envelope `Static<>` inference, ecology ops use `@mapgen/domain` aliases for cross-module imports, and contract `as const` assertions were removed to match authoring spec.

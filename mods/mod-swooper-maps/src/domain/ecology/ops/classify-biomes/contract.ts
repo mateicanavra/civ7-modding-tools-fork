@@ -1,12 +1,12 @@
 import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
 
-import { TemperatureSchema } from "./temperature.schema.js";
-import { MoistureSchema } from "./moisture.schema.js";
-import { AriditySchema } from "./aridity.schema.js";
-import { FreezeSchema } from "./freeze.schema.js";
-import { VegetationSchema } from "./vegetation.schema.js";
-import { NoiseSchema } from "./noise.schema.js";
-import { OverlaySchema } from "./overlays.schema.js";
+import { TemperatureSchema } from "./rules/temperature.schema.js";
+import { MoistureSchema } from "./rules/moisture.schema.js";
+import { AriditySchema } from "./rules/aridity.schema.js";
+import { FreezeSchema } from "./rules/freeze.schema.js";
+import { VegetationSchema } from "./rules/vegetation.schema.js";
+import { NoiseSchema } from "./rules/noise.schema.js";
+import { OverlaySchema } from "./rules/overlays.schema.js";
 
 /** Biome classification parameters for temperature, moisture, vegetation, and overlays. */
 const BiomeClassificationConfigSchema = Type.Object(

@@ -1,5 +1,5 @@
 import type { Static } from "@swooper/mapgen-core/authoring";
-import { FreezeSchema } from "../freeze.schema.js";
+import { FreezeSchema } from "./freeze.schema.js";
 import { clamp01 } from "./util.js";
 
 export function computeFreezeIndex(
