@@ -82,7 +82,7 @@ const config = {
           // Favor coastal arcs (Andes/Ring of Fire) but keep thick interiors.
           boundaryArcWeight: 0.37,
           boundaryArcNoiseWeight: 0.35,
-          interiorNoiseWeight: 0.75,
+          interiorNoiseWeight: 0.55,  // Reduced: smoother continental interiors
           fractalGrain: 5,
         },
       },
@@ -181,9 +181,9 @@ const config = {
         // Earth-like prevalence: a few major ranges, not wall-to-wall mountains.
         tectonicIntensity: 0.65,
         mountainThreshold: 0.62,
-        hillThreshold: 0.32,
-        upliftWeight: 0.4,
-        fractalWeight: 0.45,
+        hillThreshold: 0.36,           // Raised: fewer hills overall
+        upliftWeight: 0.25,
+        fractalWeight: 0.62,           // Reduced: less noisy elevation → fewer scattered hills
         riftDepth: 0.25,
         boundaryWeight: 0.55,
         boundaryGate: 0,
@@ -192,28 +192,26 @@ const config = {
         convergenceBonus: 0.6,
         transformPenalty: 0.6,
         riftPenalty: 0.76,
-        hillBoundaryWeight: 0.32,
-        hillRiftBonus: 0.65,
-        hillConvergentFoothill: 0.32,
-        hillInteriorFalloff: 0.05,
-        hillUpliftWeight: 0.22,
+        hillBoundaryWeight: 0.28,      // Reduced: fewer hills at boundaries
+        hillRiftBonus: 0.45,           // Reduced: fewer hills along rifts
+        hillConvergentFoothill: 0.28,  // Reduced: narrower foothills
+        hillInteriorFalloff: 0.14,     // KEY FIX: hills decay faster into interiors → more plains
+        hillUpliftWeight: 0.18,        // Slightly reduced
       },
     },
     volcanoes: {
       volcanoes: {
         // Boundary-dominant volcanism with a modest hotspot tail.
-        baseDensity: 5 / 190,
-        minSpacing: 3,
+        baseDensity: 7 / 190,
+        minSpacing: 5,
         boundaryThreshold: 0.35,
         boundaryWeight: 1.2,
         convergentMultiplier: 2.5,
         transformMultiplier: 1.0,
         divergentMultiplier: 0.4,
         hotspotWeight: 0.18,
-        shieldPenalty: 0.6,
-        randomJitter: 0.08,
-        minVolcanoes: 5,
-        maxVolcanoes: 30,
+        shieldPenalty: 0.4,
+        randomJitter: 0.08
       },
     },
   },
@@ -223,20 +221,20 @@ const config = {
       climate: {
         baseline: {
           blend: {
-            baseWeight: 0.2,
-            bandWeight: 0.8,
+            baseWeight: 0.45,
+            bandWeight: 0.65,
           },
           seed: {
-            baseRainfall: 40,
-            coastalExponent: 1.2,
+            baseRainfall: 18,       // REDUCED from 30: interior continents are naturally dry
+            coastalExponent: 1.4,   // Steeper falloff: sharper coast/interior contrast
           },
           bands: {
             deg0to10: 125,
-            deg10to20: 105,
-            deg20to35: 55,
-            deg35to55: 75,
-            deg55to70: 60,
-            deg70plus: 42,
+            deg10to20: 100,
+            deg20to35: 45,         // Raised from 25: less extreme deserts, more grassland/steppe transition
+            deg35to55: 88,
+            deg55to70: 75,
+            deg70plus: 40,         // Slightly raised: more tundra variation
             edges: {
               deg0to10: 10,
               deg10to20: 20,
@@ -244,24 +242,24 @@ const config = {
               deg35to55: 55,
               deg55to70: 70,
             },
-            transitionWidth: 8,
+            transitionWidth: 12,
           },
           sizeScaling: {
             baseArea: 10000,
             minScale: 0.6,
             maxScale: 2.0,
             equatorBoostScale: 12,
-            equatorBoostTaper: 0.6,
+            equatorBoostTaper: 0.75,
           },
           orographic: {
-            hi1Threshold: 350,
-            hi1Bonus: 8,
-            hi2Threshold: 600,
-            hi2Bonus: 7,
+            hi1Threshold: 300,     // Lower threshold: more tiles get uplift rainfall
+            hi1Bonus: 10,          // Increased: mountains wetter on windward side
+            hi2Threshold: 550,
+            hi2Bonus: 9,
           },
           coastal: {
-            coastalLandBonus: 26,
-            spread: 5,
+            coastalLandBonus: 32,  // Moderate coastal moisture
+            spread: 6,             // Moderate penetration inland
           },
           noise: {
             baseSpanSmall: 4,
@@ -286,11 +284,11 @@ const config = {
           },
           bands: {
             deg0to10: 125,
-            deg10to20: 105,
-            deg20to35: 55,
-            deg35to55: 75,
-            deg55to70: 60,
-            deg70plus: 42,
+            deg10to20: 100,
+            deg20to35: 55,         // Moderate subtropical band
+            deg35to55: 82,
+            deg55to70: 68,
+            deg70plus: 45,
             edges: {
               deg0to10: 10,
               deg10to20: 20,
@@ -298,7 +296,7 @@ const config = {
               deg35to55: 55,
               deg55to70: 70,
             },
-            transitionWidth: 8,
+            transitionWidth: 10,   // Slightly wider: smoother biome transitions
           },
           sizeScaling: {
             baseArea: 10000,
@@ -308,14 +306,14 @@ const config = {
             equatorBoostTaper: 0.6,
           },
           orographic: {
-            hi1Threshold: 350,
-            hi1Bonus: 8,
-            hi2Threshold: 600,
-            hi2Bonus: 7,
+            hi1Threshold: 300,     // Lower threshold: more tiles get uplift rainfall
+            hi1Bonus: 10,          // Increased: mountains wetter on windward side
+            hi2Threshold: 550,
+            hi2Bonus: 9,
           },
           coastal: {
-            coastalLandBonus: 26,
-            spread: 5,
+            coastalLandBonus: 32,  // Moderate coastal moisture
+            spread: 6,             // Moderate penetration inland
           },
           noise: {
             baseSpanSmall: 4,
@@ -323,7 +321,42 @@ const config = {
             scale: 0.13,
           },
         },
-        swatches: { enabled: false },
+        swatches: {
+          enabled: true,
+          types: {
+            // Desert band - balanced
+            macroDesertBelt: {
+              weight: 28,
+              latitudeCenterDeg: 26,
+              halfWidthDeg: 10,
+              drynessDelta: 20,
+            },
+            // Continental interior drying
+            greatPlains: {
+              weight: 22,
+              latitudeCenterDeg: 42,
+              halfWidthDeg: 8,
+              dryDelta: 12,
+              lowlandMaxElevation: 320,
+            },
+            // Wet mountains for contrast
+            mountainForests: {
+              weight: 25,
+              elevationThreshold: 280,
+              wetBonus: 14,
+            },
+            // Tropical rain variety
+            equatorialRainbelt: {
+              weight: 25,
+              latitudeCenterDeg: 5,
+              halfWidthDeg: 10,
+              wetnessDelta: 16,
+            },
+          },
+          sizeScaling: {
+            widthMulSqrt: 0.3,
+          },
+        },
         refine: {
           waterGradient: {
             radius: 6,
@@ -331,9 +364,9 @@ const config = {
             lowlandBonus: 5,
           },
           orographic: {
-            steps: 4,
-            reductionBase: 9,
-            reductionPerStep: 5,
+            steps: 5,
+            reductionBase: 14,
+            reductionPerStep: 6,
           },
           riverCorridor: {
             lowlandAdjacencyBonus: 15,
@@ -382,11 +415,11 @@ const config = {
           },
           bands: {
             deg0to10: 125,
-            deg10to20: 105,
-            deg20to35: 55,
-            deg35to55: 75,
-            deg55to70: 60,
-            deg70plus: 42,
+            deg10to20: 100,
+            deg20to35: 55,         // Moderate subtropical band
+            deg35to55: 82,
+            deg55to70: 68,
+            deg70plus: 45,
             edges: {
               deg0to10: 10,
               deg10to20: 20,
@@ -394,7 +427,7 @@ const config = {
               deg35to55: 55,
               deg55to70: 70,
             },
-            transitionWidth: 8,
+            transitionWidth: 10,   // Slightly wider: smoother biome transitions
           },
           sizeScaling: {
             baseArea: 10000,
@@ -404,14 +437,14 @@ const config = {
             equatorBoostTaper: 0.6,
           },
           orographic: {
-            hi1Threshold: 350,
-            hi1Bonus: 8,
-            hi2Threshold: 600,
-            hi2Bonus: 7,
+            hi1Threshold: 300,     // Lower threshold: more tiles get uplift rainfall
+            hi1Bonus: 10,          // Increased: mountains wetter on windward side
+            hi2Threshold: 550,
+            hi2Bonus: 9,
           },
           coastal: {
-            coastalLandBonus: 26,
-            spread: 5,
+            coastalLandBonus: 32,  // Moderate coastal moisture
+            spread: 6,             // Moderate penetration inland
           },
           noise: {
             baseSpanSmall: 4,
@@ -419,7 +452,42 @@ const config = {
             scale: 0.13,
           },
         },
-        swatches: { enabled: false },
+        swatches: {
+          enabled: true,
+          types: {
+            // Desert band - balanced
+            macroDesertBelt: {
+              weight: 28,
+              latitudeCenterDeg: 26,
+              halfWidthDeg: 10,
+              drynessDelta: 20,
+            },
+            // Continental interior drying
+            greatPlains: {
+              weight: 22,
+              latitudeCenterDeg: 42,
+              halfWidthDeg: 8,
+              dryDelta: 12,
+              lowlandMaxElevation: 320,
+            },
+            // Wet mountains for contrast
+            mountainForests: {
+              weight: 25,
+              elevationThreshold: 280,
+              wetBonus: 14,
+            },
+            // Tropical rain variety
+            equatorialRainbelt: {
+              weight: 25,
+              latitudeCenterDeg: 5,
+              halfWidthDeg: 10,
+              wetnessDelta: 16,
+            },
+          },
+          sizeScaling: {
+            widthMulSqrt: 0.3,
+          },
+        },
         refine: {
           waterGradient: {
             radius: 6,
@@ -427,9 +495,9 @@ const config = {
             lowlandBonus: 5,
           },
           orographic: {
-            steps: 4,
-            reductionBase: 9,
-            reductionPerStep: 5,
+            steps: 5,
+            reductionBase: 14,
+            reductionPerStep: 6,
           },
           riverCorridor: {
             lowlandAdjacencyBonus: 15,
@@ -462,35 +530,35 @@ const config = {
             pole: -8,
             lapseRate: 6.5,
             seaLevel: 0,
-            bias: 2.5,
+            bias: 0.5,             // Reduced from 2.5: allows more cold biomes (tundra, boreal)
             polarCutoff: -5,
             tundraCutoff: 2,
             midLatitude: 12,
             tropicalThreshold: 24,
           },
           moisture: {
-            thresholds: [70, 95, 135, 185] as [number, number, number, number],
-            bias: 0.2,
+            thresholds: [50, 95, 140, 190] as [number, number, number, number],  // Widened: more graduated biome transitions
+            bias: 0,               // Neutral: let rainfall bands drive distribution
             humidityWeight: 0.35,
           },
           aridity: {
             temperatureMin: 0,
             temperatureMax: 35,
-            petBase: 18,
-            petTemperatureWeight: 75,
-            humidityDampening: 0.55,
-            rainfallWeight: 1,
-            bias: 0,
-            normalization: 125,
-            moistureShiftThresholds: [0.45, 0.7] as [number, number],
-            vegetationPenalty: 0.12,
+            petBase: 20,           // Moderate evaporation demand
+            petTemperatureWeight: 78,  // Moderate temperature effect
+            humidityDampening: 0.52,   // Humidity provides some protection
+            rainfallWeight: 0.95,  // Rainfall offsets aridity reasonably
+            bias: 3,               // Slight push toward aridity (was 8, too aggressive)
+            normalization: 118,    // More reasonable normalization
+            moistureShiftThresholds: [0.42, 0.65] as [number, number],  // Less aggressive thresholds
+            vegetationPenalty: 0.14,  // Moderate sparse vegetation in arid areas
           },
           freeze: {
             minTemperature: -12,
             maxTemperature: 2,
           },
           vegetation: {
-            base: 0.35,
+            base: 0.22,            // Reduced from 0.35: more contrast between lush and sparse areas
             moistureWeight: 0.65,
             humidityWeight: 0.35,
             moistureNormalizationPadding: 60,
@@ -557,8 +625,8 @@ const config = {
           vegetated: {
             minVegetationByBiome: {
               snow: 0.08,
-              tundra: 0.04,
-              boreal: 0.06,
+              tundra: 0.08,
+              boreal: 0.14,
               temperateDry: 0.06,
               temperateHumid: 0.05,
               tropicalSeasonal: 0.05,
@@ -569,7 +637,7 @@ const config = {
             desertSagebrushMinVegetation: 0.15,
             desertSagebrushMaxAridity: 0.85,
             tundraTaigaMinVegetation: 0.08,
-            tundraTaigaMinTemperature: -2,
+            tundraTaigaMinTemperature: -6,
             tundraTaigaMaxFreeze: 0.95,
             temperateDryForestMoisture: 120,
             temperateDryForestMaxAridity: 0.6,
@@ -578,10 +646,10 @@ const config = {
             tropicalSeasonalRainforestMaxAridity: 0.55,
           },
           wet: {
-            nearRiverRadius: 2,
-            coldTemperatureMax: 2,
+            nearRiverRadius: 2.2,
+            coldTemperatureMax: 2.2,
             coldBiomeSymbols: ["snow", "tundra", "boreal"],
-            mangroveWarmTemperatureMin: 18,
+            mangroveWarmTemperatureMin: 14,
             mangroveWarmBiomeSymbols: ["tropicalRainforest", "tropicalSeasonal"],
             coastalAdjacencyRadius: 1,
             isolatedRiverRadius: 1,
@@ -592,7 +660,7 @@ const config = {
             reefLatitudeSplit: 55,
             atoll: {
               enableClustering: true,
-              clusterRadius: 1,
+              clusterRadius: 2,
               equatorialBandMaxAbsLatitude: 23,
               shallowWaterAdjacencyGateChance: 30,
               shallowWaterAdjacencyRadius: 1,
