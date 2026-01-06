@@ -50,7 +50,7 @@ This is a **full, comprehensive refactor** of ecology to match the target archit
   - `mods/mod-swooper-maps/test/ecology/**`
   - `mods/mod-swooper-maps/test/layers/**` (or existing step harness paths)
 - Guardrails:
-  - `scripts/lint/lint-domain-refactor-guardrails.sh` (if updates are needed for new rules)
+  - `scripts/lint/lint-domain-refactor-guardrails.sh` (update required for new rules)
 
 ### Out of scope
 - Recipe v2 compilation changes or new step execution engines.
@@ -64,7 +64,7 @@ Ops to migrate (current):
 - `plan-plot-effects`
 - `plan-reef-embellishments`
 - `plan-vegetation-embellishments`
-- `rng.ts` (op-local helper; move to rules/helpers as appropriate)
+- `rng.ts` (cross-op helper; move into core SDK and delete the local copy)
 
 Steps to migrate (current):
 - `steps/biomes/**`
@@ -104,6 +104,7 @@ Acceptance criteria:
 Notes:
 - Use `SPEC-DOMAIN-MODELING-GUIDELINES.md` as the decision framework.
 - Steps must be action boundaries (e.g., `plot-*`, `apply-*`, `publish-*`), not planning units.
+  - Audit step IDs/filenames; rename any planning-named step to an action boundary and update all references.
 
 ### 2) Refactor ecology ops to canonical module layout
 **Goal:** Every ecology op conforms to the canonical op module structure and import rules.
@@ -131,6 +132,7 @@ Acceptance criteria:
 - `strategies/index.ts` is the runtime barrel for strategies.
 - `index.ts` calls `createOp` and re-exports `*` from `./contract.js` and `type *` from `./types.js`.
 - All shared math/noise/RNG helpers come from `@swooper/mapgen-core` (or another core SDK package).
+  - Promote `createLabelRng` to core SDK (mapgen-core) and update all ecology imports; remove `ops/rng.ts`.
 
 ### 3) Step refactor to contract-first action boundaries
 **Goal:** Ecology steps use the new contract-first step model and remain action boundaries.
@@ -141,7 +143,7 @@ Acceptance criteria:
 - `index.ts` uses `createStepFor<TContext>()` to attach `resolveConfig?` and `run`.
 - Steps call ops via `op.resolveConfig` + `op.runValidated`; no direct rule/strategy imports.
 - Step config uses `op.config` and/or op strategy envelopes directly (no custom plan envelopes).
-- Step ids/labels reflect action boundaries (rename any `plan-*` steps to `plot-*`/`apply-*` if needed).
+- Step ids/labels reflect action boundaries; rename planning-labeled steps to `plot-*`/`apply-*`/`publish-*` and update all references.
 
 ### 4) Ecology domain index + exports
 **Goal:** Ensure domain-level exports are coherent and minimal.
@@ -155,7 +157,7 @@ Acceptance criteria:
 
 Acceptance criteria:
 - Each ecology op has a contract test using `runValidated(..., { validateOutput: true })`.
-- At least one integration test exercises the ecology step boundary through the recipe harness.
+- At least one integration test exercises the ecology step boundary through the recipe harness in `mods/mod-swooper-maps/test/layers/**`.
 - Guardrail lint script enforces:
   - no `rules/** -> contract.ts` imports,
   - no type exports from helper modules,
@@ -228,7 +230,7 @@ Use existing test conventions in `mods/mod-swooper-maps/test/**`; do not introdu
 ---
 
 ## Guardrails + docs catch-up
-- Update `scripts/lint/lint-domain-refactor-guardrails.sh` only if necessary to:
+- Update `scripts/lint/lint-domain-refactor-guardrails.sh` to:
   - enforce the hard path (uniform envelope config),
   - enforce domain boundary (no domain imports from recipes),
   - prevent reintroduction of legacy config merging or unknown bags.
@@ -238,12 +240,3 @@ Use existing test conventions in `mods/mod-swooper-maps/test/**`; do not introdu
   - Avoid duplicating raw `rg` checklists in docs; keep the guardrail script as the single must-run gate.
 
 ---
-
-## Verification (must be green)
-- `./scripts/lint/lint-domain-refactor-guardrails.sh`
-- `pnpm -C mods/mod-swooper-maps check`
-- `pnpm -C mods/mod-swooper-maps test`
-- `pnpm -C mods/mod-swooper-maps build`
-- `pnpm -C packages/mapgen-core build`
-- `pnpm -C packages/civ7-adapter build`
-- `pnpm deploy:mods`
