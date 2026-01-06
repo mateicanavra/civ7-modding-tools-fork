@@ -1,4 +1,4 @@
-import { createOp, type Static } from "@swooper/mapgen-core/authoring";
+import { createOp } from "@swooper/mapgen-core/authoring";
 import {
   FeaturesPlacementSchema,
   resolveFeaturesPlacementConfig,
@@ -6,10 +6,11 @@ import {
 } from "./schema.js";
 import { planFeaturePlacements as planFeaturePlacementsImpl } from "./plan.js";
 
-type FeaturesPlacementInput = Static<typeof FeaturesPlacementSchema["properties"]["input"]>;
-type FeaturesPlacementConfig = Static<typeof FeaturesPlacementSchema["properties"]["config"]>;
-
-export const planFeaturePlacements = createOp({
+export const planFeaturePlacements = createOp<
+  typeof FeaturesPlacementSchema["properties"]["input"],
+  typeof FeaturesPlacementSchema["properties"]["output"],
+  { default: typeof FeaturesPlacementSchema["properties"]["config"] }
+>({
   kind: "plan",
   id: "ecology/features/placement",
   input: FeaturesPlacementSchema.properties.input,
@@ -17,8 +18,8 @@ export const planFeaturePlacements = createOp({
   strategies: {
     default: {
       config: FeaturesPlacementSchema.properties.config,
-      resolveConfig: (config: FeaturesPlacementConfig) => resolveFeaturesPlacementConfig(config),
-      run: (input: FeaturesPlacementInput, config: FeaturesPlacementConfig) => {
+      resolveConfig: (config) => resolveFeaturesPlacementConfig(config),
+      run: (input, config) => {
         const placements = planFeaturePlacementsImpl(
           input,
           config as ResolvedFeaturesPlacementConfig

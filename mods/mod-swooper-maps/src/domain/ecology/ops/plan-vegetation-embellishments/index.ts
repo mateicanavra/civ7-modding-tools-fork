@@ -1,4 +1,4 @@
-import { createOp, type Static } from "@swooper/mapgen-core/authoring";
+import { createOp } from "@swooper/mapgen-core/authoring";
 import {
   PlanVegetationEmbellishmentsSchema,
   resolveVegetationEmbellishmentsConfig,
@@ -6,12 +6,11 @@ import {
 } from "./schema.js";
 import { planVegetationEmbellishments as planVegetationEmbellishmentsImpl } from "./plan.js";
 
-type VegetationEmbellishmentsInput =
-  Static<typeof PlanVegetationEmbellishmentsSchema["properties"]["input"]>;
-type VegetationEmbellishmentsConfig =
-  Static<typeof PlanVegetationEmbellishmentsSchema["properties"]["config"]>;
-
-export const planVegetationEmbellishments = createOp({
+export const planVegetationEmbellishments = createOp<
+  typeof PlanVegetationEmbellishmentsSchema["properties"]["input"],
+  typeof PlanVegetationEmbellishmentsSchema["properties"]["output"],
+  { default: typeof PlanVegetationEmbellishmentsSchema["properties"]["config"] }
+>({
   kind: "plan",
   id: "ecology/features/vegetation-embellishments",
   input: PlanVegetationEmbellishmentsSchema.properties.input,
@@ -19,9 +18,8 @@ export const planVegetationEmbellishments = createOp({
   strategies: {
     default: {
       config: PlanVegetationEmbellishmentsSchema.properties.config,
-      resolveConfig: (config: VegetationEmbellishmentsConfig) =>
-        resolveVegetationEmbellishmentsConfig(config),
-      run: (input: VegetationEmbellishmentsInput, config: VegetationEmbellishmentsConfig) => {
+      resolveConfig: (config) => resolveVegetationEmbellishmentsConfig(config),
+      run: (input, config) => {
         const placements = planVegetationEmbellishmentsImpl(
           input,
           config as ResolvedVegetationEmbellishmentsConfig

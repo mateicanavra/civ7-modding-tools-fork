@@ -1,4 +1,4 @@
-import { createOp, type Static } from "@swooper/mapgen-core/authoring";
+import { createOp } from "@swooper/mapgen-core/authoring";
 import {
   PlanReefEmbellishmentsSchema,
   resolveReefEmbellishmentsConfig,
@@ -6,10 +6,11 @@ import {
 } from "./schema.js";
 import { planReefEmbellishments as planReefEmbellishmentsImpl } from "./plan.js";
 
-type ReefEmbellishmentsInput = Static<typeof PlanReefEmbellishmentsSchema["properties"]["input"]>;
-type ReefEmbellishmentsConfig = Static<typeof PlanReefEmbellishmentsSchema["properties"]["config"]>;
-
-export const planReefEmbellishments = createOp({
+export const planReefEmbellishments = createOp<
+  typeof PlanReefEmbellishmentsSchema["properties"]["input"],
+  typeof PlanReefEmbellishmentsSchema["properties"]["output"],
+  { default: typeof PlanReefEmbellishmentsSchema["properties"]["config"] }
+>({
   kind: "plan",
   id: "ecology/features/reef-embellishments",
   input: PlanReefEmbellishmentsSchema.properties.input,
@@ -17,8 +18,8 @@ export const planReefEmbellishments = createOp({
   strategies: {
     default: {
       config: PlanReefEmbellishmentsSchema.properties.config,
-      resolveConfig: (config: ReefEmbellishmentsConfig) => resolveReefEmbellishmentsConfig(config),
-      run: (input: ReefEmbellishmentsInput, config: ReefEmbellishmentsConfig) => {
+      resolveConfig: (config) => resolveReefEmbellishmentsConfig(config),
+      run: (input, config) => {
         const placements = planReefEmbellishmentsImpl(
           input,
           config as ResolvedReefEmbellishmentsConfig

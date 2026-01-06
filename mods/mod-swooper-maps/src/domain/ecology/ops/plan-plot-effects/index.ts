@@ -1,4 +1,4 @@
-import { createOp, type Static } from "@swooper/mapgen-core/authoring";
+import { createOp } from "@swooper/mapgen-core/authoring";
 import {
   PlanPlotEffectsSchema,
   resolvePlotEffectsConfig,
@@ -6,10 +6,11 @@ import {
 } from "./schema.js";
 import { planPlotEffects as planPlotEffectsImpl } from "./plan.js";
 
-type PlotEffectsInput = Static<typeof PlanPlotEffectsSchema["properties"]["input"]>;
-type PlotEffectsConfig = Static<typeof PlanPlotEffectsSchema["properties"]["config"]>;
-
-export const planPlotEffects = createOp({
+export const planPlotEffects = createOp<
+  typeof PlanPlotEffectsSchema["properties"]["input"],
+  typeof PlanPlotEffectsSchema["properties"]["output"],
+  { default: typeof PlanPlotEffectsSchema["properties"]["config"] }
+>({
   kind: "plan",
   id: "ecology/plot-effects/placement",
   input: PlanPlotEffectsSchema.properties.input,
@@ -17,8 +18,8 @@ export const planPlotEffects = createOp({
   strategies: {
     default: {
       config: PlanPlotEffectsSchema.properties.config,
-      resolveConfig: (config: PlotEffectsConfig) => resolvePlotEffectsConfig(config),
-      run: (input: PlotEffectsInput, config: PlotEffectsConfig) => {
+      resolveConfig: (config) => resolvePlotEffectsConfig(config),
+      run: (input, config) => {
         const placements = planPlotEffectsImpl(input, config as ResolvedPlotEffectsConfig);
         return { placements };
       },
