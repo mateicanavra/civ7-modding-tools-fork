@@ -26,6 +26,7 @@ related_to:
 ## Target outcome (canonical)
 - **Ops are contract-first:** op IO + per-strategy config schemas live in `contract.ts`; strategies are implemented out-of-line and remain fully typed.
 - **Strategy config is always envelope-shaped:** op config at the runtime boundary is always `{ strategy: "<id>", config: <innerConfig> }` (no alternate shapes).
+- **Op types are centralized:** each op exports a single `OpTypeBag` from `types.ts`; rules import types from `types.ts` only and never export types themselves.
 - **Steps are contract-first:** step contracts are metadata only; runtime behavior (`run`, optional `resolveConfig`) is attached via a factory, mirroring `defineOpContract` / `createOp`.
 - **Step typing parity with ops:** step implementations use a bound factory `createStepFor<TContext>()` so `run`/`resolveConfig` have full context autocomplete without manual type imports.
 - **No architectural churn:** Recipe v2 + step registry compilation remain as-is; only pass optional step `resolveConfig` through compilation so normalization still works.
@@ -120,10 +121,15 @@ This section is written for implementers (human or agent). It assumes the conver
 ### D6) Import hygiene is a hard rule
 - **Decision:** cross-module imports must use package imports / stable aliases (no deep relative path churn across modules/packages).
 - **Decision:** shared helpers come from `@swooper/mapgen-core` when available; if broadly useful and missing, add to the core SDK.
+- **Decision:** contract/step schemas import `Type`/`Static` from `@swooper/mapgen-core/authoring` (not from `typebox` directly).
 
 ### D7) Step schemas compose op envelope schemas directly
 - **Decision:** when a step config needs an op config, it embeds the op’s envelope schema directly (e.g., `trees: ecology.ops.planTreeVegetation.config`) and uses `op.defaultConfig` for defaults.
 - **Non-goal:** do not duplicate strategy unions or per-strategy schemas at the step level.
+
+### D8) Op module type + rules boundaries are strict
+- **Decision:** each op has `types.ts` exporting a single `OpTypeBag` (and optional extra type-only helpers).
+- **Decision:** `rules/**` files import types from `../types.js` only (type-only) and never import from `../contract.js` or export types.
 
 ## Implementation Plan (sub-issues)
 
@@ -133,6 +139,7 @@ Implement as a Graphite stack with one logical change per branch (A → H). Do n
 **In scope**
 - Implement the canonical op authoring surface in `packages/mapgen-core/src/authoring/op/**` exactly as described in `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`.
 - Ensure `createOp(...)` derives (and exports) the envelope config schema and defaults in a compile-time-available way.
+- Add the `OpTypeBag` helper type in the authoring package and export it from `packages/mapgen-core/src/authoring/index.ts`.
 
 **Out of scope**
 - Refactoring any mod ops under `mods/mod-swooper-maps` (handled in Sub-issue E).
@@ -211,9 +218,10 @@ Implement as a Graphite stack with one logical change per branch (A → H). Do n
 **In scope**
 - Convert existing ops under `mods/mod-swooper-maps/src/domain/<domain>/ops/**` to the canonical layout:
   - `contract.ts` owns IO + per-strategy config schemas
-  - `strategies/<id>.ts` implement out-of-line strategy behavior via `createStrategy`
-  - `rules/**` contains small, focused helpers imported directly by strategies
-  - `index.ts` exports the created op via `createOp`
+  - `types.ts` exports a single `OpTypeBag` (plus optional type-only helpers)
+  - `rules/index.ts` barrels rule helpers; `rules/**` never export types
+  - `strategies/index.ts` barrels strategies; `strategies/<id>.ts` implement out-of-line behavior via `createStrategy`
+  - `index.ts` exports the created op via `createOp` and re-exports `*` from `contract.ts` + `type *` from `types.ts`
 - Update all importers to the new module locations and exports; do not keep compatibility barrel modules.
 
 **Acceptance Criteria**
@@ -251,6 +259,10 @@ Implement as a Graphite stack with one logical change per branch (A → H). Do n
   - `createStrategy` out-of-line typing remains correct (smoke),
   - step binder typing works (compile-time via `pnpm check`),
   - step `resolveConfig` pass-through is invoked when present.
+- Add lint guardrails so:
+  - `rules/**` never import from `../contract.js`,
+  - `rules/**` never export types,
+  - `Type`/`Static` are imported from `@swooper/mapgen-core/authoring` in contracts/steps.
 
 **Acceptance Criteria**
 - Repo compiles with the new authoring surface and migrated call sites.
@@ -275,5 +287,8 @@ Implement as a Graphite stack with one logical change per branch (A → H). Do n
 - No deep relative imports into core authoring:
   - `rg -n "\\.{2}/\\.{2}/\\.{2}/\\.{2}/\\.{2}/authoring" mods/mod-swooper-maps/src || true`
   - `rg -n "packages/mapgen-core/src/authoring" mods/mod-swooper-maps/src || true`
+- No rule modules exporting types or importing contracts:
+  - `rg -n "rules/.+export type" mods/mod-swooper-maps/src || true`
+  - `rg -n "rules/.+contract\\.js" mods/mod-swooper-maps/src || true`
 - No legacy op authoring call sites using the old shape:
   - `rg -n "createOp\\(\\{" mods/mod-swooper-maps/src packages/mapgen-core/src || true`

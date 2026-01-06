@@ -157,11 +157,14 @@ STANDARD_CONTENT_ROOT/
 │  │  │  └─ ops/
 │  │  │     └─ <op-slug>/
 │  │  │        ├─ contract.ts
+│  │  │        ├─ types.ts
 │  │  │        ├─ rules/
-│  │  │        │  └─ <rule>.ts
+│  │  │        │  ├─ <rule>.ts
+│  │  │        │  └─ index.ts
 │  │  │        ├─ strategies/
 │  │  │        │  ├─ default.ts
-│  │  │        │  └─ <strategy>.ts
+│  │  │        │  ├─ <strategy>.ts
+│  │  │        │  └─ index.ts
 │  │  │        └─ index.ts
 │  │  └─ **/*                         # other domain logic and shared helpers
 │  └─ recipes/

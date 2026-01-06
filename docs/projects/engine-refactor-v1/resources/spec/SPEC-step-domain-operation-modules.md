@@ -5,7 +5,7 @@
 **Rule**
 - A small, pure, domain-specific function implementing one heuristic or invariant.
 - Rules are internal building blocks; they are not step-callable contracts.
-- Rules live under each op in `domain/<domain>/ops/<op>/rules/**` and are imported directly by strategies.
+- Rules live under each op in `domain/<domain>/ops/<op>/rules/**` and are imported via `rules/index.ts`.
 
 **Operation** (aka "op")
 - A step-callable, schema-backed domain entrypoint: `run(input, config) -> output`.
@@ -19,7 +19,7 @@
 
 **Operation module**
 - A directory under `domain/<domain>/ops/<op>/` that exports exactly one operation.
-- Canonical files: `contract.ts`, `strategies/**`, `rules/**`, `index.ts`.
+- Canonical files: `contract.ts`, `types.ts`, `rules/**`, `rules/index.ts`, `strategies/**`, `strategies/index.ts`, `index.ts`.
 
 **Step**
 - The smallest executable unit in a recipe graph.
@@ -104,15 +104,17 @@ Domains are:
 src/domain/
   <domain>/
     index.ts
-  ops/
-    <domain>/
+    ops/
       <op-slug>/
         contract.ts
+        types.ts
         rules/
           <rule>.ts
+          index.ts
         strategies/
           default.ts
           <strategy>.ts
+          index.ts
         index.ts
 ```
 
@@ -122,6 +124,7 @@ Import rules:
 - Use `@mapgen/domain/<domain>/ops/<op>` or `@mapgen/domain/<domain>` for cross-module imports.
 - Use `@mapgen/authoring/steps` for bound step factories (no relative path churn).
 - Keep relative imports inside a single op module (e.g., `./rules/...`, `./strategies/...`).
+- `rules/**` never import `../contract.js` and never export types; shared types live in `types.ts` only.
 
 ---
 
@@ -163,6 +166,18 @@ export const planTreeVegetation = createOp(contract, {
 - `op.resolveConfig`: strategy-aware resolver (compile-time only)
 - `op.runValidated`: input/config validation + execution
 
+### Types surface (canonical)
+
+- `types.ts` is the single type export surface for the op.
+- It exports exactly one type bag derived from the contract:
+  - `export type PlanTreeVegetationTypes = OpTypeBag<typeof PlanTreeVegetationContract>;`
+- Callers select types by indexing:
+  - `PlanTreeVegetationTypes["input"]`, `PlanTreeVegetationTypes["output"]`
+  - `PlanTreeVegetationTypes["strategyId"]`
+  - `PlanTreeVegetationTypes["config"]["default"]`
+  - `PlanTreeVegetationTypes["envelope"]`
+- Optional convenience types may be added in `types.ts` only (type-only exports).
+
 ### Strategy selection shape (canonical)
 
 All ops are strategy-backed and must declare a `default` strategy.
@@ -203,6 +218,8 @@ Canonical authoring surface (Core SDK):
 
 - `packages/mapgen-core/src/authoring/op/contract.ts`
   - `defineOpContract(...)`
+- `packages/mapgen-core/src/authoring/op/types.ts`
+  - `OpContractLike`, `OpStrategyId`, `OpTypeBag`
 - `packages/mapgen-core/src/authoring/op/strategy.ts`
   - `createStrategy(...)`
   - `StrategySelection<...>`
@@ -227,22 +244,28 @@ Inference rules:
 ```txt
 src/domain/ecology/ops/plan-tree-vegetation/
   contract.ts
+  types.ts
   rules/
     normalize.ts
     placements.ts
+    index.ts
   strategies/
     default.ts
     clustered.ts
+    index.ts
   index.ts
 
 src/domain/ecology/ops/plan-shrub-vegetation/
   contract.ts
+  types.ts
   rules/
     normalize.ts
     placements.ts
+    index.ts
   strategies/
     default.ts
     arid.ts
+    index.ts
   index.ts
 
 src/recipes/standard/stages/ecology/steps/plot-vegetation/
@@ -256,7 +279,7 @@ src/recipes/standard/stages/ecology/steps/plot-vegetation/
 
 ```ts
 // src/domain/ecology/ops/plan-tree-vegetation/contract.ts
-import { Type, type Static, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
 
 export const PlanTreeVegetationContract = defineOpContract({
@@ -308,11 +331,20 @@ export const PlanTreeVegetationContract = defineOpContract({
     ),
   },
 } as const);
+```
 
-export type PlanTreeVegetationInput = Static<typeof PlanTreeVegetationContract.input>;
-export type PlanTreeVegetationOutput = Static<typeof PlanTreeVegetationContract.output>;
-export type TreeDefaultConfig = Static<typeof PlanTreeVegetationContract.strategies.default>;
-export type TreeClusteredConfig = Static<typeof PlanTreeVegetationContract.strategies.clustered>;
+### Tree op types
+
+```ts
+// src/domain/ecology/ops/plan-tree-vegetation/types.ts
+import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+
+type Contract = typeof import("./contract.js").PlanTreeVegetationContract;
+
+export type PlanTreeVegetationTypes = OpTypeBag<Contract>;
+export type TreeConfig =
+  PlanTreeVegetationTypes["config"][keyof PlanTreeVegetationTypes["config"]];
+export type TreePlacement = PlanTreeVegetationTypes["output"]["placements"][number];
 ```
 
 ### Tree rules
@@ -320,9 +352,7 @@ export type TreeClusteredConfig = Static<typeof PlanTreeVegetationContract.strat
 ```ts
 // src/domain/ecology/ops/plan-tree-vegetation/rules/normalize.ts
 import { clamp01 } from "@swooper/mapgen-core";
-import type { TreeDefaultConfig, TreeClusteredConfig } from "../contract.js";
-
-export type TreeConfig = TreeDefaultConfig | TreeClusteredConfig;
+import type { TreeConfig } from "../types.js";
 
 export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
   return {
@@ -336,13 +366,10 @@ export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
 ```ts
 // src/domain/ecology/ops/plan-tree-vegetation/rules/placements.ts
 import { clamp01 } from "@swooper/mapgen-core";
-import type { PlanTreeVegetationInput, TreeClusteredConfig } from "../contract.js";
-import { type TreeConfig } from "./normalize.js";
-
-export type TreePlacement = { plot: number; density: number };
+import type { PlanTreeVegetationTypes, TreeConfig, TreePlacement } from "../types.js";
 
 export function buildTreePlacements(
-  input: PlanTreeVegetationInput,
+  input: PlanTreeVegetationTypes["input"],
   config: TreeConfig
 ): TreePlacement[] {
   const placements: TreePlacement[] = [];
@@ -355,8 +382,10 @@ export function buildTreePlacements(
     if (moisture < config.minMoisture) continue;
     let density = config.density;
     if (hasCluster) {
-      const clusterRadius = (config as TreeClusteredConfig).clusterRadius;
-      const clusterBoost = (config as TreeClusteredConfig).clusterBoost;
+      const clusterRadius = (config as PlanTreeVegetationTypes["config"]["clustered"])
+        .clusterRadius;
+      const clusterBoost = (config as PlanTreeVegetationTypes["config"]["clustered"])
+        .clusterBoost;
       if (plot % clusterRadius === 0) {
         density = clamp01(density + clusterBoost);
       }
@@ -367,6 +396,12 @@ export function buildTreePlacements(
 }
 ```
 
+```ts
+// src/domain/ecology/ops/plan-tree-vegetation/rules/index.ts
+export { normalizeTreeConfig } from "./normalize.js";
+export { buildTreePlacements } from "./placements.js";
+```
+
 ### Tree strategies
 
 ```ts
@@ -374,8 +409,7 @@ export function buildTreePlacements(
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
 import { PlanTreeVegetationContract } from "../contract.js";
-import { buildTreePlacements } from "../rules/placements.js";
-import { normalizeTreeConfig } from "../rules/normalize.js";
+import { buildTreePlacements, normalizeTreeConfig } from "../rules/index.js";
 
 export const defaultStrategy = createStrategy(PlanTreeVegetationContract, "default", {
   resolveConfig: (config) => normalizeTreeConfig(config),
@@ -388,13 +422,18 @@ export const defaultStrategy = createStrategy(PlanTreeVegetationContract, "defau
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
 import { PlanTreeVegetationContract } from "../contract.js";
-import { buildTreePlacements } from "../rules/placements.js";
-import { normalizeTreeConfig } from "../rules/normalize.js";
+import { buildTreePlacements, normalizeTreeConfig } from "../rules/index.js";
 
 export const clusteredStrategy = createStrategy(PlanTreeVegetationContract, "clustered", {
   resolveConfig: (config) => normalizeTreeConfig(config),
   run: (input, config) => ({ placements: buildTreePlacements(input, config) }),
 });
+```
+
+```ts
+// src/domain/ecology/ops/plan-tree-vegetation/strategies/index.ts
+export { defaultStrategy } from "./default.js";
+export { clusteredStrategy } from "./clustered.js";
 ```
 
 ### Tree op entry
@@ -404,8 +443,7 @@ export const clusteredStrategy = createStrategy(PlanTreeVegetationContract, "clu
 import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanTreeVegetationContract } from "./contract.js";
-import { defaultStrategy } from "./strategies/default.js";
-import { clusteredStrategy } from "./strategies/clustered.js";
+import { clusteredStrategy, defaultStrategy } from "./strategies/index.js";
 
 export const planTreeVegetation = createOp(PlanTreeVegetationContract, {
   strategies: {
@@ -415,6 +453,7 @@ export const planTreeVegetation = createOp(PlanTreeVegetationContract, {
 });
 
 export * from "./contract.js";
+export type * from "./types.js";
 ```
 
 ### Shrub op entry (short form)
@@ -424,8 +463,7 @@ export * from "./contract.js";
 import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanShrubVegetationContract } from "./contract.js";
-import { defaultStrategy } from "./strategies/default.js";
-import { aridStrategy } from "./strategies/arid.js";
+import { aridStrategy, defaultStrategy } from "./strategies/index.js";
 
 export const planShrubVegetation = createOp(PlanShrubVegetationContract, {
   strategies: {
@@ -435,6 +473,7 @@ export const planShrubVegetation = createOp(PlanShrubVegetationContract, {
 });
 
 export * from "./contract.js";
+export type * from "./types.js";
 ```
 
 ### Step orchestration
@@ -449,8 +488,7 @@ export const createStep = createStepFor<ExtendedMapContext>();
 
 ```ts
 // src/recipes/standard/stages/ecology/steps/plot-vegetation/contract.ts
-import { Type, type Static } from "typebox";
-import { defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStepContract, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 const VEGETATION_DEPENDENCIES = [
@@ -568,6 +606,7 @@ export default createStep(PlotVegetationStepContract, {
 - **R-003: Strategy selection is explicit.** Op config is always `{ strategy, config }`.
 - **R-004: Steps do not bind ops.** Steps orchestrate ops by calling them, without declaring op graphs or bindings.
 - **R-005: Rules are op-local.** Rules live under `domain/<domain>/ops/<op>/rules/**` and are not imported by steps.
-- **R-006: Shared utilities live in core.** Cross-cutting helpers (math, noise, RNG, grid) must be imported from the core SDK; add them there if broadly useful.
+- **R-006: Rules do not export types.** Shared op types live in `types.ts` only; rules import them via `import type` and do not re-export.
+- **R-007: Shared utilities live in core.** Cross-cutting helpers (math, noise, RNG, grid) must be imported from the core SDK; add them there if broadly useful.
 
 ---

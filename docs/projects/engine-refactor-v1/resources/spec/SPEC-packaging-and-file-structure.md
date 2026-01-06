@@ -87,17 +87,19 @@ STANDARD_CONTENT_ROOT/
 │  └─ domain/
 │     ├─ config.ts                   # schema/type-only barrel for shared fragments
 │     ├─ <domain>/
-│     │  └─ index.ts
-│     └─ ops/
-│        └─ <domain>/
-│           └─ <op-slug>/
-│              ├─ contract.ts
-│              ├─ rules/
-│              │  └─ <rule>.ts
-│              ├─ strategies/
-│              │  ├─ default.ts
-│              │  └─ <strategy>.ts
-│              └─ index.ts
+│     │  ├─ index.ts
+│     │  └─ ops/
+│     │     └─ <op-slug>/
+│     │        ├─ contract.ts
+│     │        ├─ types.ts
+│     │        ├─ rules/
+│     │        │  ├─ <rule>.ts
+│     │        │  └─ index.ts
+│     │        ├─ strategies/
+│     │        │  ├─ default.ts
+│     │        │  ├─ <strategy>.ts
+│     │        │  └─ index.ts
+│     │        └─ index.ts
 │     └─ **/**                       # other domain logic + shared contracts
 └─ test/
    └─ **/**
@@ -125,11 +127,12 @@ STANDARD_CONTENT_ROOT/
 **Domain scope (`src/domain/**`)**
 - Domain is the home for:
   - domain algorithms
-  - operation modules under `<domain>/ops/<op>/` with `contract.ts`, `strategies/**`, and `rules/**`
+  - operation modules under `<domain>/ops/<op>/` with `contract.ts`, `types.ts`, `rules/**` + `rules/index.ts`, and `strategies/**` + `strategies/index.ts`
   - shared config schema fragments (`src/domain/**/config.ts`) when used by more than one step
 - Domain modules may be used by a single step; reuse is not the criterion for domain placement. The criterion is recipe-independence and a clean separation between step orchestration and content logic.
 - Domain must not import from `recipes/**` or `maps/**`.
 - Dependency IDs (tags/artifacts/effects) are recipe-owned; domain modules must not re-export recipe shims.
+- Rules never import `contract.ts` and never export types; shared op types live in `types.ts`.
 
 **Barrels (`index.ts`)**
 - Barrels must be explicit, thin re-exports only (no side-effect registration, no hidden aggregation).

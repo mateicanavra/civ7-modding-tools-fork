@@ -9,7 +9,7 @@
   - recipe packages (stages + steps)
   - step schemas, tag definitions, artifacts, validators
   - Civ7 runner glue to instantiate context and execute recipes
-  - contract-first op modules under `src/domain/<domain>/ops/<op>/` (`contract.ts`, `strategies/**`, `rules/**`, `index.ts`)
+  - contract-first op modules under `src/domain/<domain>/ops/<op>/` (`contract.ts`, `types.ts`, `rules/**` + `rules/index.ts`, `strategies/**` + `strategies/index.ts`, `index.ts`)
 
 ### 5.2 Recipes are mini-packages (`src/recipes/**`)
 

@@ -161,7 +161,7 @@ If we later need plan-level truth for derived fields (e.g., implicit strategy ch
 Operations remain runtime-pure and do not accept adapters/callback “views” as contract inputs/outputs. Config normalization lives alongside the op as a pure helper.
 
 ```ts
-import type { Static, TSchema } from "typebox";
+import type { Static, TSchema } from "@swooper/mapgen-core/authoring";
 import type { RunSettings } from "@swooper/mapgen-core/engine/execution-plan.js";
 import type { OpContract } from "@swooper/mapgen-core/authoring";
 import type { StrategySelection } from "@swooper/mapgen-core/authoring";
@@ -208,7 +208,7 @@ export type ResolvableStep<TContext, TConfig> = MapGenStep<TContext, TConfig> & 
 
 ```ts
 // domain/<domain>/ops (two ops, each owns scaling semantics)
-import { Type, type Static } from "typebox";
+import { Type, type Static } from "@swooper/mapgen-core/authoring";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { createOp } from "@swooper/mapgen-core/authoring";
