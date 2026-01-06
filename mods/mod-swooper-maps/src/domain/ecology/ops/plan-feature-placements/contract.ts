@@ -730,9 +730,9 @@ type FeaturesPlacementAtollConfig = Static<typeof FeaturesPlacementAtollSchema>;
 type FeaturesPlacementIceConfig = Static<typeof FeaturesPlacementIceSchema>;
 type FeaturesPlacementConfig = Static<typeof FeaturesPlacementConfigSchema>;
 
-export type FeaturesPlacementResolvedGroup = { multiplier: number };
+type FeaturesPlacementResolvedGroup = { multiplier: number };
 
-export type ResolvedFeaturesPlacementConfig = {
+type ResolvedFeaturesPlacementConfig = {
   groups: {
     vegetated: FeaturesPlacementResolvedGroup;
     wet: FeaturesPlacementResolvedGroup;

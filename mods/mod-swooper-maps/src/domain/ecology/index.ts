@@ -30,6 +30,6 @@ export {
   type FeatureKey,
   type PlotEffectKey,
 } from "./types.js";
-export { type ResolvedFeaturesPlacementConfig } from "./ops/plan-feature-placements/contract.js";
+export { type ResolvedFeaturesPlacementConfig } from "./ops/plan-feature-placements/types.js";
 export { type ResolvedPlotEffectsConfig } from "./ops/plan-plot-effects/contract.js";
 export { resolveSnowElevationRange } from "./ops/plan-plot-effects/snow-elevation.js";

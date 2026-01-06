@@ -1,4 +1,4 @@
-import type { BiomeSymbol, FeatureKey } from "@mapgen/domain/ecology/types.js";
+import type { BiomeSymbol, FeatureKey } from "../types.js";
 
 export function planVolcanicVegetationAtTile(params: {
   width: number;

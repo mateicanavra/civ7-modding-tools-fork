@@ -1,6 +1,4 @@
-import type { BiomeSymbol } from "@mapgen/domain/ecology/types.js";
-import type { TempZone } from "./temperature.js";
-import type { MoistureZone } from "./moisture.js";
+import type { BiomeSymbol, MoistureZone, TempZone } from "../types.js";
 
 const BIOME_LOOKUP: Record<TempZone, Record<MoistureZone, BiomeSymbol>> = {
   polar: {

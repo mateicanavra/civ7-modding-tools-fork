@@ -1,4 +1,4 @@
-type MoistureZone = "arid" | "semiArid" | "subhumid" | "humid" | "perhumid";
+import type { MoistureZone } from "../types.js";
 
 export function moistureZoneOf(value: number, thresholds: readonly number[]): MoistureZone {
   if (value < thresholds[0]!) return "arid";
@@ -20,5 +20,3 @@ export function computeEffectiveMoisture(params: {
   const { rainfall, humidity, bias, humidityWeight, overlayBonus, noise, noiseScale } = params;
   return rainfall + humidityWeight * humidity + bias + overlayBonus + noise * noiseScale;
 }
-
-export type { MoistureZone };

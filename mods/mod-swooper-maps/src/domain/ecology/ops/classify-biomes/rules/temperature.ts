@@ -1,7 +1,6 @@
 import type { Static } from "@swooper/mapgen-core/authoring";
+import type { TempZone } from "../types.js";
 import { TemperatureSchema } from "../temperature.schema.js";
-
-type TempZone = "polar" | "cold" | "temperate" | "tropical";
 
 export function temperatureZoneOf(value: number, cfg: Static<typeof TemperatureSchema>): TempZone {
   if (value <= cfg.polarCutoff) return "polar";
@@ -23,5 +22,3 @@ export function computeTemperature(params: {
   const elevationPenalty = ((elevationMeters - cfg.seaLevel) / 1000) * cfg.lapseRate;
   return baseTemp - elevationPenalty + cfg.bias;
 }
-
-export type { TempZone };
