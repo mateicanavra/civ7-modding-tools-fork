@@ -20,6 +20,13 @@
 - `STANDARD_CONTENT_ROOT/src/maps/**` owns map/preset entrypoints and Civ7 runner glue:
   - Maps may import recipes and domain libs.
 
+Path aliasing:
+- Use stable aliases for cross-module imports:
+  - `@mapgen/domain/*` → `STANDARD_CONTENT_ROOT/src/domain/*`
+  - `@mapgen/ops/*` → `STANDARD_CONTENT_ROOT/src/domain/ops/*`
+  - `@mapgen/authoring/*` → `STANDARD_CONTENT_ROOT/src/authoring/*`
+- Keep relative imports inside a single op or step directory.
+
 ### 2.2 Core SDK (`CORE_SDK_ROOT`) target layout (collapsed)
 
 ```text
@@ -31,6 +38,10 @@ CORE_SDK_ROOT/
 │  │  ├─ op/                         # contract-first op authoring
 │  │  │  ├─ contract.ts
 │  │  │  ├─ strategy.ts
+│  │  │  ├─ create.ts
+│  │  │  └─ index.ts
+│  │  ├─ step/                       # contract-first step authoring
+│  │  │  ├─ contract.ts
 │  │  │  ├─ create.ts
 │  │  │  └─ index.ts
 │  ├─ lib/                           # neutral utilities (engine-owned)
@@ -68,22 +79,26 @@ STANDARD_CONTENT_ROOT/
 │  │           ├─ index.ts
 │  │           ├─ steps/             # step modules (standardized contract + implementation pairing)
 │  │           │  ├─ index.ts
-│  │           │  ├─ <stepId>.model.ts
-│  │           │  └─ <stepId>.ts
+│  │           │  └─ <stepId>/
+│  │           │     ├─ contract.ts
+│  │           │     ├─ index.ts
+│  │           │     └─ lib/
+│  │           │        └─ <helper>.ts
 │  │           └─ *.ts               # stage-scoped helpers/contracts (optional)
 │  └─ domain/
 │     ├─ config.ts                   # schema/type-only barrel for shared fragments
 │     ├─ <domain>/
-│     │  ├─ index.ts
-│     │  └─ ops/
-│     │     └─ <op-slug>/
-│     │        ├─ contract.ts
-│     │        ├─ rules/
-│     │        │  └─ <rule>.ts
-│     │        ├─ strategies/
-│     │        │  ├─ default.ts
-│     │        │  └─ <strategy>.ts
-│     │        └─ index.ts
+│     │  └─ index.ts
+│     └─ ops/
+│        └─ <domain>/
+│           └─ <op-slug>/
+│              ├─ contract.ts
+│              ├─ rules/
+│              │  └─ <rule>.ts
+│              ├─ strategies/
+│              │  ├─ default.ts
+│              │  └─ <strategy>.ts
+│              └─ index.ts
 │     └─ **/**                       # other domain logic + shared contracts
 └─ test/
    └─ **/**
@@ -95,12 +110,14 @@ STANDARD_CONTENT_ROOT/
 
 ### 2.4 Colocation and export rules (avoid centralized aggregators)
 
-**Step modules (`stages/<stageId>/steps/<stepId>.*`)**
-- Steps are standardized as a 2-file module pair:
-  - `<stepId>.model.ts` — step-owned contract model: config schema + derived config type, step-local tag IDs/arrays, and step-owned artifact helpers/validators (only when the artifact is not domain-shared).
-  - `<stepId>.ts` — step definition: `createStep({ ... })` + `run` implementation, importing the contract model and domain logic.
-- The `.model.ts` file is the ownership surface for step contracts. The `.ts` file is orchestration only.
-- If a step’s contract is very large, it may split into additional colocated files (e.g., `<stepId>.schema.ts`, `<stepId>.tags.ts`, `<stepId>.artifacts.ts`) but must remain step-owned under `stages/<stageId>/steps/**` (no repo-wide catalogs).
+**Step modules (`stages/<stageId>/steps/<stepId>/`)**
+- Steps are standardized as a directory with a contract + implementation entry:
+  - `contract.ts` — step-owned contract metadata (schema + derived config type, step-local tag IDs/arrays, and step-owned artifact helpers/validators).
+  - `index.ts` — step implementation via `createStep(contract, { resolveConfig?, run })`, importing the contract and domain logic.
+  - `lib/**` — step-local helpers (pure or orchestration helpers), no registry awareness.
+- `contract.ts` is the ownership surface for step contracts. `index.ts` is orchestration only.
+- If a step’s contract is large, split into additional colocated files under the step directory (e.g., `schema.ts`, `tags.ts`, `artifacts.ts`) while keeping ownership local.
+  - `createStep` is a bound factory from `createStepFor<ExtendedMapContext>()` (exported via `src/authoring/steps.ts`).
 
 **Stage scope (`stages/<stageId>/**`)**
 - Stage-scoped helpers and contracts shared across multiple steps live at the stage root as explicit modules (e.g., `producer.ts`, `placement-inputs.ts`, `shared.model.ts`).
@@ -109,7 +126,7 @@ STANDARD_CONTENT_ROOT/
 **Domain scope (`src/domain/**`)**
 - Domain is the home for:
   - domain algorithms
-  - operation modules under `ops/<op>/` with `contract.ts`, `strategies/**`, and `rules/**`
+  - operation modules under `ops/<domain>/<op>/` with `contract.ts`, `strategies/**`, and `rules/**`
   - shared config schema fragments (`src/domain/**/config.ts`) when used by more than one step
 - Domain modules may be used by a single step; reuse is not the criterion for domain placement. The criterion is recipe-independence and a clean separation between step orchestration and content logic.
 - Domain must not import from `recipes/**` or `maps/**`.
@@ -120,7 +137,7 @@ STANDARD_CONTENT_ROOT/
 - Recipe-level assembly (`recipe.ts` + `runtime.ts`) composes stages; it does not define cross-domain catalogs.
 
 **Schemas**
-- Step config schemas are step-owned (`<stepId>.model.ts`).
+- Step config schemas are step-owned (`stages/<stageId>/steps/<stepId>/contract.ts`).
 - Shared config schema fragments live with the *closest* real owner:
   - stage scope when shared within a stage (`stages/<stageId>/shared/**`)
   - domain scope when shared across stages/recipes (prefer `src/domain/<domain>/config.ts` for config-oriented fragments)

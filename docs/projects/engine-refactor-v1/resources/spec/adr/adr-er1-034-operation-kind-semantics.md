@@ -107,18 +107,21 @@ Kind intent (non-exhaustive):
 Canonical file layout:
 
 ```txt
-src/domain/<area>/<domain>/
-  index.ts
+src/domain/
+  <domain>/
+    index.ts
   ops/
-    <op>/
-      contract.ts              # contract-first schemas
-      rules/                   # pure op-local rules (may start empty)
-      strategies/              # strategy implementations (may start empty)
-      index.ts                 # exports exactly one op via createOp(contract, { strategies })
+    <domain>/
+      <op>/
+        contract.ts            # contract-first schemas
+        rules/                 # pure op-local rules (may start empty)
+        strategies/            # strategy implementations (may start empty)
+        index.ts               # exports exactly one op via createOp(contract, { strategies })
 
 src/recipes/<recipe>/stages/<stage>/steps/
-  <stepId>.model.ts            # step contract surface (schema + tags + helpers)
-  <stepId>.ts                  # step orchestration (build inputs → call ops → apply/publish)
+  <stepId>/
+    contract.ts                # step contract surface (schema + tags + helpers)
+    index.ts                   # step orchestration (build inputs → call ops → apply/publish)
 ```
 
 Illustrative composition pattern:

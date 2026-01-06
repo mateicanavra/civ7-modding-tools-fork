@@ -88,14 +88,14 @@ This section captures the *current* sources of “normalization” and config sh
 
 #### G) Op-local defaulting inside `run(...)` (`Value.Default(...)` in ops)
 
-- **Where:** ecology ops commonly default config inside `run(...)` (e.g., `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`)
+- **Where:** ecology ops commonly default config inside `run(...)` (e.g., `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/index.ts`)
 - **What it does:** applies schema defaults at op entry and then uses “resolved config” to compute derived scalars.
 - **Why it exists:** callers are not consistently passing fully defaulted/canonical op config; op authors defend against partial configs and normalize locally.
 - **Classification:** accidental/unclear (needs an explicit rule about *where* op config is defaulted/canonicalized and whether ops should assume canonical config inputs).
 
 #### H) Explicit resolver helpers that manufacture a “resolved” config shape
 
-- **Where:** `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/rules/normalize.ts` (`resolvePlotEffectsConfig(...)`)
+- **Where:** `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/rules/normalize.ts` (`resolvePlotEffectsConfig(...)`)
 - **What it does:** takes an optional/partial config input and returns a fully expanded “resolved” config object with nested defaults applied.
 - **Why it exists:** nested config ergonomics; avoids sprinkling defaults throughout algorithm logic.
 - **Classification:** ambiguous: this may be the *right* pattern (a pure normalizer) but needs to be placed consistently (compile-time vs op-time) to preserve plan truthfulness and avoid duplicated normalization.
@@ -162,9 +162,9 @@ Operations remain runtime-pure and do not accept adapters/callback “views” a
 
 ```ts
 import type { Static, TSchema } from "typebox";
-import type { RunSettings } from "@mapgen/engine/execution-plan.js";
-import type { OpContract } from "@mapgen/authoring/op/contract.js";
-import type { StrategySelection } from "@mapgen/authoring/op/strategy.js";
+import type { RunSettings } from "@swooper/mapgen-core/engine/execution-plan.js";
+import type { OpContract } from "@swooper/mapgen-core/authoring";
+import type { StrategySelection } from "@swooper/mapgen-core/authoring";
 
 export type OpResolveConfig<ConfigSchema extends TSchema> = (
   config: Static<ConfigSchema>,
@@ -194,8 +194,8 @@ Resolver rule: `resolveConfig` must return a value that still validates against 
 Steps are the compilation/execution units. The compiler owns plan construction and runs an optional step resolver hook.
 
 ```ts
-import type { MapGenStep } from "@mapgen/engine";
-import type { RunSettings } from "@mapgen/engine";
+import type { MapGenStep } from "@swooper/mapgen-core/engine";
+import type { RunSettings } from "@swooper/mapgen-core/engine";
 
 export type StepResolveConfig<TConfig> = (config: TConfig, settings: RunSettings) => TConfig;
 
@@ -209,9 +209,9 @@ export type ResolvableStep<TContext, TConfig> = MapGenStep<TContext, TConfig> & 
 ```ts
 // domain/ops (two ops, each owns scaling semantics)
 import { Type, type Static } from "typebox";
-import { defineOpContract } from "@mapgen/authoring/op/contract.js";
-import { createStrategy } from "@mapgen/authoring/op/strategy.js";
-import { createOp } from "@mapgen/authoring/op/create.js";
+import { defineOpContract } from "@swooper/mapgen-core/authoring";
+import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { createOp } from "@swooper/mapgen-core/authoring";
 
 export const computeSuitabilityContract = defineOpContract({
   kind: "compute",
