@@ -34,7 +34,7 @@ export interface OrogenySummary {
  */
 export function storyTagOrogenyBelts(
   ctx: ExtendedMapContext,
-  storyConfig: StoryConfig = {}
+  storyConfig: StoryConfig
 ): StoryOverlaySnapshot {
   const plates = assertFoundationPlates(ctx, "storyOrogeny");
   const cache = getOrogenyCache(ctx);
@@ -50,7 +50,10 @@ export function storyTagOrogenyBelts(
   
   // Configuration
   const storyCfg = storyConfig as Record<string, unknown>;
-  const cfg = (storyCfg.orogeny || {}) as Record<string, number>;
+  const cfg = storyCfg.orogeny as Record<string, number>;
+  if (!cfg) {
+    throw new Error("[Narrative] Missing story orogeny config.");
+  }
 
   const baseRadius = Number.isFinite(cfg.radius) ? (cfg.radius | 0) : 2;
   const radius = baseRadius + (sqrtScale > 1.5 ? 1 : 0);

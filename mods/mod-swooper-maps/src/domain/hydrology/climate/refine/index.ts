@@ -34,15 +34,19 @@ export function refineClimateEarthlike(
   const runtime = createClimateRuntime(width, height, ctx);
   const dynamics = assertFoundationDynamics(ctx, "climateRefine");
 
-  const climateCfg = options.climate ?? {};
-  const refineCfg = climateCfg.refine || {};
-  const storyMoisture = (climateCfg as Record<string, unknown>).story as
-    | Record<string, unknown>
-    | undefined;
-  const storyRain = (storyMoisture?.rainfall || {}) as Record<string, number>;
+  if (!options.climate) {
+    throw new Error("refineClimateEarthlike requires climate config.");
+  }
+  const climateCfg = options.climate;
+  const refineCfg = climateCfg.refine as Record<string, unknown>;
+  const storyMoisture = (climateCfg as Record<string, unknown>).story as Record<string, unknown>;
+  const storyRain = storyMoisture.rainfall as Record<string, number>;
   const orogenyCache = options?.orogenyCache || null;
-  const storyCfg = options.story ?? {};
-  const directionality = options.directionality ?? null;
+  const storyCfg = options.story as StoryConfig;
+  if (!options.directionality) {
+    throw new Error("refineClimateEarthlike requires settings.directionality.");
+  }
+  const directionality = options.directionality;
   const emptySet = new Set<string>();
   const rifts = getNarrativeMotifsRifts(ctx);
   const hotspots = getNarrativeMotifsHotspots(ctx);

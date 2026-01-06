@@ -1,6 +1,7 @@
 import { Type, type Static, type TSchema } from "typebox";
 import { Value } from "typebox/value";
 
+import type { RunSettings } from "@mapgen/engine/execution-plan.js";
 import type { ValidationError } from "./validation.js";
 import {
   OpValidationError,
@@ -89,6 +90,18 @@ export type DomainOp<
       : Static<ConfigSchema>,
     options?: OpRunValidatedOptions
   ) => Static<OutputSchema>;
+  /**
+   * Optional compile-time config normalization hook (called by step resolvers).
+   * This is never invoked at runtime.
+   */
+  resolveConfig?: (
+    config: Strategies extends Record<string, { config: TSchema }>
+      ? StrategySelection<Strategies, DefaultStrategy>
+      : Static<ConfigSchema>,
+    settings: RunSettings
+  ) => Strategies extends Record<string, { config: TSchema }>
+    ? StrategySelection<Strategies, DefaultStrategy>
+    : Static<ConfigSchema>;
 }>;
 
 type OpDefinitionBase<InputSchema extends TSchema, OutputSchema extends TSchema> = Readonly<{
@@ -114,6 +127,14 @@ type OpDefinitionValidationHook<InputSchema extends TSchema, ConfigSchema> = Rea
   customValidate?: CustomValidateFn<Static<InputSchema>, ConfigSchema>;
 }>;
 
+type OpDefinitionResolveConfigHook<ConfigSchema> = Readonly<{
+  /**
+   * Optional compile-time config normalization hook (called by step resolvers).
+   * This is never invoked at runtime.
+   */
+  resolveConfig?: (config: ConfigSchema, settings: RunSettings) => ConfigSchema;
+}>;
+
 export function createOp<
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
@@ -123,7 +144,8 @@ export function createOp<
     config: ConfigSchema;
     run: (input: Static<InputSchema>, config: Static<ConfigSchema>) => Static<OutputSchema>;
   }> &
-  OpDefinitionValidationHook<InputSchema, Static<ConfigSchema>>): DomainOp<
+  OpDefinitionValidationHook<InputSchema, Static<ConfigSchema>> &
+  OpDefinitionResolveConfigHook<Static<ConfigSchema>>): DomainOp<
   InputSchema,
   OutputSchema,
   ConfigSchema
@@ -143,7 +165,8 @@ export function createOp<
     OpDefinitionValidationHook<
       InputSchema,
       StrategySelection<Strategies, DefaultStrategy>
-    >
+    > &
+    OpDefinitionResolveConfigHook<StrategySelection<Strategies, DefaultStrategy>>
 ): DomainOp<InputSchema, OutputSchema, TSchema, Strategies, DefaultStrategy>;
 
 export function createOp(op: any): any {
@@ -194,6 +217,7 @@ export function createOp(op: any): any {
       output: op.output,
       strategies: op.strategies,
       defaultStrategy: op.defaultStrategy,
+      resolveConfig: op.resolveConfig,
       config,
       defaultConfig,
       run: (input: any, cfg: any) => {

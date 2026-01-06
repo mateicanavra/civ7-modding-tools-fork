@@ -11,7 +11,7 @@ describe("features (owned baseline)", () => {
       rng: () => 0,
     });
 
-    featuresStep.run(ctx, {
+    const config = {
       story: { features: { paradiseReefChance: 0, volcanicForestChance: 0, volcanicTaigaChance: 0 } },
       featuresDensity: {
         shelfReefMultiplier: 0,
@@ -20,7 +20,12 @@ describe("features (owned baseline)", () => {
         taigaExtraChance: 0,
       },
       featuresPlacement: { strategy: "owned" },
-    });
+    };
+    const resolvedConfig = featuresStep.resolveConfig
+      ? featuresStep.resolveConfig(config, ctx.settings)
+      : config;
+
+    featuresStep.run(ctx, resolvedConfig);
 
     expect(adapter.calls.addFeatures.length).toBe(0);
   });

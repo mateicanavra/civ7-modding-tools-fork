@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { Value } from "typebox/value";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 
 import type { BiomeSymbol } from "../../types.js";
 
@@ -741,76 +741,83 @@ const readSymbolArray = (
 ): BiomeSymbol[] => (Array.isArray(input) && input.length > 0 ? input : fallback);
 
 export function resolveFeaturesPlacementOwnedConfig(
-  input?: FeaturesPlacementOwnedConfig
+  input: FeaturesPlacementOwnedConfig
 ): ResolvedFeaturesPlacementOwnedConfig {
-  const chanceDefaults = Value.Default(
+  const chanceDefaults = applySchemaDefaults(
     FeaturesPlacementChancesSchema,
     {}
   ) as Required<FeaturesPlacementChances>;
-  const groupDefaults = Value.Default(
+  const groupDefaults = applySchemaDefaults(
     FeaturesPlacementGroupSchema,
     {}
   ) as Required<FeaturesPlacementGroupConfig>;
-  const vegetatedDefaults = Value.Default(
+  const vegetatedDefaults = applySchemaDefaults(
     FeaturesPlacementVegetatedRulesSchema,
     {}
   ) as Required<FeaturesPlacementVegetatedRules>;
-  const minVegDefaults = Value.Default(
+  const minVegDefaults = applySchemaDefaults(
     FeaturesPlacementVegetatedMinByBiomeSchema,
     {}
   ) as Required<FeaturesPlacementVegetatedMinByBiome>;
-  const wetDefaults = Value.Default(
+  const wetDefaults = applySchemaDefaults(
     FeaturesPlacementWetRulesSchema,
     {}
   ) as Required<FeaturesPlacementWetRules>;
-  const aquaticDefaults = Value.Default(
+  const aquaticDefaults = applySchemaDefaults(
     FeaturesPlacementAquaticSchema,
     {}
   ) as Required<FeaturesPlacementAquaticConfig>;
-  const atollDefaults = Value.Default(
+  const atollDefaults = applySchemaDefaults(
     FeaturesPlacementAtollSchema,
     {}
   ) as Required<FeaturesPlacementAtollConfig>;
-  const iceDefaults = Value.Default(
+  const iceDefaults = applySchemaDefaults(
     FeaturesPlacementIceSchema,
     {}
   ) as Required<FeaturesPlacementIceConfig>;
 
-  const vegetatedInput = Value.Default(
-    FeaturesPlacementVegetatedRulesSchema,
-    input?.vegetated ?? {}
-  ) as Required<FeaturesPlacementVegetatedRules>;
-  const minVegInput = Value.Default(
-    FeaturesPlacementVegetatedMinByBiomeSchema,
-    input?.vegetated?.minVegetationByBiome ?? {}
-  ) as Required<FeaturesPlacementVegetatedMinByBiome>;
-  const wetInput = Value.Default(
-    FeaturesPlacementWetRulesSchema,
-    input?.wet ?? {}
-  ) as Required<FeaturesPlacementWetRules>;
-  const aquaticInput = Value.Default(
-    FeaturesPlacementAquaticSchema,
-    input?.aquatic ?? {}
-  ) as Required<FeaturesPlacementAquaticConfig>;
-  const atollInput = Value.Default(
-    FeaturesPlacementAtollSchema,
-    input?.aquatic?.atoll ?? {}
-  ) as Required<FeaturesPlacementAtollConfig>;
-  const iceInput = Value.Default(
-    FeaturesPlacementIceSchema,
-    input?.ice ?? {}
-  ) as Required<FeaturesPlacementIceConfig>;
-
-  const chancesInput = input?.chances ?? {};
-
-  const unknownKeys = Object.keys(chancesInput).filter(
-    (key) => !FEATURE_PLACEMENT_KEYS.includes(key as FeaturePlacementKey)
-  );
-  if (unknownKeys.length > 0) {
-    throw new Error(
-      `featuresPlacement.chances contains unknown feature keys: ${unknownKeys.join(", ")}`
+  const rawChances = input.chances;
+  if (rawChances) {
+    const unknownKeys = Object.keys(rawChances).filter(
+      (key) => !FEATURE_PLACEMENT_KEYS.includes(key as FeaturePlacementKey)
     );
+    if (unknownKeys.length > 0) {
+      throw new Error(
+        `featuresPlacement.chances contains unknown feature keys: ${unknownKeys.join(", ")}`
+      );
+    }
   }
+
+  const ownedInput = applySchemaDefaults(
+    FeaturesPlacementOwnedConfigSchema,
+    input
+  ) as Required<FeaturesPlacementOwnedConfig>;
+  const vegetatedInput = applySchemaDefaults(
+    FeaturesPlacementVegetatedRulesSchema,
+    ownedInput.vegetated
+  ) as Required<FeaturesPlacementVegetatedRules>;
+  const minVegInput = applySchemaDefaults(
+    FeaturesPlacementVegetatedMinByBiomeSchema,
+    ownedInput.vegetated.minVegetationByBiome
+  ) as Required<FeaturesPlacementVegetatedMinByBiome>;
+  const wetInput = applySchemaDefaults(
+    FeaturesPlacementWetRulesSchema,
+    ownedInput.wet
+  ) as Required<FeaturesPlacementWetRules>;
+  const aquaticInput = applySchemaDefaults(
+    FeaturesPlacementAquaticSchema,
+    ownedInput.aquatic
+  ) as Required<FeaturesPlacementAquaticConfig>;
+  const atollInput = applySchemaDefaults(
+    FeaturesPlacementAtollSchema,
+    ownedInput.aquatic.atoll
+  ) as Required<FeaturesPlacementAtollConfig>;
+  const iceInput = applySchemaDefaults(
+    FeaturesPlacementIceSchema,
+    ownedInput.ice
+  ) as Required<FeaturesPlacementIceConfig>;
+
+  const chancesInput = ownedInput.chances;
 
   const chances = FEATURE_PLACEMENT_KEYS.reduce((acc, key) => {
     acc[key] = clamp(readNumber(chancesInput[key], chanceDefaults[key]), 0, 100);
@@ -822,25 +829,25 @@ export function resolveFeaturesPlacementOwnedConfig(
       vegetated: {
         multiplier: Math.max(
           0,
-          readNumber(input?.groups?.vegetated?.multiplier, groupDefaults.multiplier)
+          readNumber(ownedInput.groups.vegetated?.multiplier, groupDefaults.multiplier)
         ),
       },
       wet: {
         multiplier: Math.max(
           0,
-          readNumber(input?.groups?.wet?.multiplier, groupDefaults.multiplier)
+          readNumber(ownedInput.groups.wet?.multiplier, groupDefaults.multiplier)
         ),
       },
       aquatic: {
         multiplier: Math.max(
           0,
-          readNumber(input?.groups?.aquatic?.multiplier, groupDefaults.multiplier)
+          readNumber(ownedInput.groups.aquatic?.multiplier, groupDefaults.multiplier)
         ),
       },
       ice: {
         multiplier: Math.max(
           0,
-          readNumber(input?.groups?.ice?.multiplier, groupDefaults.multiplier)
+          readNumber(ownedInput.groups.ice?.multiplier, groupDefaults.multiplier)
         ),
       },
     },
@@ -991,12 +998,18 @@ export function resolveFeaturesPlacementOwnedConfig(
           2
         ),
         equatorialBandMaxAbsLatitude: clamp(
-          readNumber(atollInput.equatorialBandMaxAbsLatitude, atollDefaults.equatorialBandMaxAbsLatitude),
+          readNumber(
+            atollInput.equatorialBandMaxAbsLatitude,
+            atollDefaults.equatorialBandMaxAbsLatitude
+          ),
           0,
           90
         ),
         shallowWaterAdjacencyGateChance: clamp(
-          readNumber(atollInput.shallowWaterAdjacencyGateChance, atollDefaults.shallowWaterAdjacencyGateChance),
+          readNumber(
+            atollInput.shallowWaterAdjacencyGateChance,
+            atollDefaults.shallowWaterAdjacencyGateChance
+          ),
           0,
           100
         ),
@@ -1040,6 +1053,27 @@ export function resolveFeaturesPlacementOwnedConfig(
         )
       ),
     },
+  };
+}
+
+export function resolveFeaturesPlacementConfig(
+  input: FeaturesPlacementConfig
+): FeaturesPlacementConfig {
+  const resolved = applySchemaDefaults(
+    FeaturesPlacementConfigSchema,
+    input
+  ) as FeaturesPlacementConfig;
+  const ownedConfig = resolved.config as FeaturesPlacementOwnedConfig;
+  if (resolved.strategy === "vanilla") {
+    return {
+      ...resolved,
+      config: ownedConfig,
+    };
+  }
+
+  return {
+    ...resolved,
+    config: resolveFeaturesPlacementOwnedConfig(ownedConfig),
   };
 }
 

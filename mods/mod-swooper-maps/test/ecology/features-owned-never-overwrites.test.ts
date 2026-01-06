@@ -18,7 +18,7 @@ describe("features (owned baseline)", () => {
     const forestIdx = adapter.getFeatureTypeIndex("FEATURE_FOREST");
     adapter.setFeatureType(seedX, seedY, { Feature: forestIdx, Direction: -1, Elevation: 0 });
 
-    featuresStep.run(ctx, {
+    const config = {
       story: { features: { paradiseReefChance: 0, volcanicForestChance: 0, volcanicTaigaChance: 0 } },
       featuresDensity: {
         shelfReefMultiplier: 0,
@@ -30,7 +30,12 @@ describe("features (owned baseline)", () => {
         strategy: "owned",
         config: { chances: { FEATURE_FOREST: 100 } },
       },
-    });
+    };
+    const resolvedConfig = featuresStep.resolveConfig
+      ? featuresStep.resolveConfig(config, ctx.settings)
+      : config;
+
+    featuresStep.run(ctx, resolvedConfig);
 
     expect(adapter.getFeatureType(seedX, seedY)).toBe(forestIdx);
   });

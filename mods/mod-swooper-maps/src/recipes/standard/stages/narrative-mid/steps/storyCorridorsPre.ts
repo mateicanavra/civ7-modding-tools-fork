@@ -30,6 +30,9 @@ export default createStep({
   run: (context: ExtendedMapContext, config: StoryCorridorsStepConfig) => {
     const directionality =
       context.settings.directionality as FoundationDirectionalityConfig | undefined;
+    if (!directionality) {
+      throw new Error("[Narrative] Missing settings.directionality.");
+    }
     storyTagStrategicCorridors(context, "preIslands", {
       corridors: config.corridors,
       directionality,

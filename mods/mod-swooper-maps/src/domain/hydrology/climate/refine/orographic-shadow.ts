@@ -9,21 +9,20 @@ export function applyOrographicShadowRefinement(
   runtime: ClimateRuntime,
   refineCfg: Record<string, unknown>,
   dynamics: FoundationContext["dynamics"],
-  directionality: FoundationDirectionalityConfig | null | undefined
+  directionality: FoundationDirectionalityConfig
 ): void {
   const { adapter, readRainfall, writeRainfall } = runtime;
-  const orographic = (refineCfg.orographic || {}) as Record<string, number>;
+  const orographic = refineCfg.orographic as Record<string, number>;
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       if (adapter.isWater(x, y)) continue;
 
-      const baseSteps = (orographic?.steps ?? 4) | 0;
+      const baseSteps = (orographic.steps as number) | 0;
       let steps = baseSteps;
 
-      const DIR = directionality || {};
-      const coh = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
-      const interplay = (DIR as Record<string, unknown>).interplay as
+      const coh = Math.max(0, Math.min(1, directionality.cohesion ?? 0));
+      const interplay = (directionality as Record<string, unknown>).interplay as
         | Record<string, number>
         | undefined;
       const windC = Math.max(0, Math.min(1, interplay?.windsFollowPlates ?? 0));
@@ -35,7 +34,8 @@ export function applyOrographicShadowRefinement(
       if (barrier) {
         const rf = readRainfall(x, y);
         const reduction =
-          (orographic?.reductionBase ?? 8) + barrier * (orographic?.reductionPerStep ?? 6);
+          (orographic.reductionBase as number) +
+          barrier * (orographic.reductionPerStep as number);
         writeRainfall(x, y, rf - reduction);
       }
     }

@@ -24,7 +24,7 @@ export default createStep({
   run: (context: ExtendedMapContext, config: VolcanoesStepConfig) => {
     assertFoundationPlates(context, "volcanoes");
     const { width, height } = context.dimensions;
-    const volcanoOptions = (config.volcanoes ?? {}) as VolcanoesConfig;
+    const volcanoOptions = config.volcanoes as VolcanoesConfig;
 
     layerAddVolcanoesPlateAware(context, volcanoOptions);
 

@@ -2,6 +2,7 @@ export { createStep } from "./step.js";
 export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
 export { createOp, createStrategy } from "./op.js";
+export { applySchemaDefaults } from "./schema.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
 export { OpValidationError } from "./validation.js";
 export {

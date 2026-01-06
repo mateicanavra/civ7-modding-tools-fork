@@ -38,9 +38,13 @@ export function applyClimateSwatches(
   const area = Math.max(1, width * height);
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
 
+  if (!options.directionality) {
+    throw new Error("applyClimateSwatches requires settings.directionality.");
+  }
+  const directionality = options.directionality;
   const runtimeFull = createClimateRuntime(width, height, ctx);
   const { adapter, readRainfall, writeRainfall, rand, idx } = runtimeFull;
-  const orogenyCache = options?.orogenyCache || {};
+  const orogenyCache = options.orogenyCache as OrogenyCache;
 
   const runtime: SwatchRuntime = { readRainfall, writeRainfall, idx };
 
@@ -75,18 +79,21 @@ export function applyClimateSwatches(
     getElevation,
   };
 
-  const types = (cfg.types || {}) as SwatchTypesConfig;
+  const types = cfg.types as SwatchTypesConfig;
   const entries = Object.keys(types).map((key) => ({
     key,
     w: Math.max(0, (types[key].weight as number) | 0),
   }));
 
-  const chosenKey = chooseSwatchTypeWeighted(entries, rand, options.directionality);
+  const chosenKey = chooseSwatchTypeWeighted(entries, rand, directionality);
 
   const kind = chosenKey;
-  const t = types[kind] || {};
-  const sizeScaling = (cfg.sizeScaling || {}) as Record<string, number>;
-  const widthMul = 1 + (sizeScaling?.widthMulSqrt || 0) * (sqrtScale - 1);
+  const t = types[kind];
+  if (!t) {
+    throw new Error(`climate.swatches.types missing config for "${kind}"`);
+  }
+  const sizeScaling = cfg.sizeScaling as Record<string, number>;
+  const widthMul = 1 + (sizeScaling.widthMulSqrt as number) * (sqrtScale - 1);
 
   let applied = 0;
 
@@ -102,7 +109,7 @@ export function applyClimateSwatches(
     applied = applyGreatPlainsSwatch(width, height, runtime, helpers, t, widthMul);
   }
 
-  applyMonsoonBiasPass(width, height, ctx, runtime, helpers, options.directionality);
+  applyMonsoonBiasPass(width, height, ctx, runtime, helpers, directionality);
 
   return { applied: applied > 0, kind, tiles: applied };
 }

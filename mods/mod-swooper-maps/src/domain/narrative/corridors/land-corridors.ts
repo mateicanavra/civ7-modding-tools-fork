@@ -8,11 +8,33 @@ import { getDims, rand } from "@mapgen/domain/narrative/corridors/runtime.js";
 export function tagLandCorridorsFromRifts(
   ctx: ExtendedMapContext,
   corridorsCfg: Record<string, unknown>,
-  directionality: Record<string, unknown> | null | undefined,
+  directionality: Record<string, unknown>,
   riftShoulder: ReadonlySet<string>,
   state: CorridorState
 ): void {
-  const cfg = ((corridorsCfg.land || {}) as Record<string, unknown>) || {};
+  const cfg = corridorsCfg.land as Record<string, unknown>;
+  if (!cfg) {
+    throw new Error("[Narrative] Missing corridors.land config.");
+  }
+  const dirCfg = directionality;
+  const cohesionRaw = Number(dirCfg.cohesion);
+  if (!Number.isFinite(cohesionRaw)) {
+    throw new Error("[Narrative] Invalid directionality cohesion.");
+  }
+  const cohesion = Math.max(0, Math.min(1, cohesionRaw));
+  const axes = dirCfg.primaryAxes as Record<string, number>;
+  if (!axes) {
+    throw new Error("[Narrative] Missing directionality primaryAxes.");
+  }
+  const plateDeg = Number(axes.plateAxisDeg);
+  const windDeg = Number(axes.windBiasDeg);
+  if (!Number.isFinite(plateDeg) || !Number.isFinite(windDeg)) {
+    throw new Error("[Narrative] Invalid directionality axis values.");
+  }
+  const radP = (plateDeg * Math.PI) / 180;
+  const radW = (windDeg * Math.PI) / 180;
+  const plateVec = { x: Math.cos(radP), y: Math.sin(radP) };
+  const windVec = { x: Math.cos(radW), y: Math.sin(radW) };
   if (!cfg.useRiftShoulders) return;
 
   const { width, height } = getDims(ctx);
@@ -79,19 +101,10 @@ export function tagLandCorridorsFromRifts(
       else if (avgRain < 85 && latDeg < 35) style = "desertBelt";
       else if (avgRain > 115) style = "grasslandBelt";
 
-      const DIR = (directionality || {}) as Record<string, unknown>;
-      const cohesion = Math.max(0, Math.min(1, Number((DIR.cohesion as number) ?? 0)));
       if (cohesion > 0) {
-        const axes = (DIR.primaryAxes || {}) as Record<string, number>;
-        const plateDeg = (axes.plateAxisDeg ?? 0) | 0;
-        const windDeg = (axes.windBiasDeg ?? 0) | 0;
-        const radP = (plateDeg * Math.PI) / 180;
-        const radW = (windDeg * Math.PI) / 180;
-        const PV = { x: Math.cos(radP), y: Math.sin(radP) };
-        const WV = { x: Math.cos(radW), y: Math.sin(radW) };
         const L = { x: 1, y: 0 };
-        const alignPlate = Math.abs(PV.x * L.x + PV.y * L.y);
-        const alignWind = Math.abs(WV.x * L.x + WV.y * L.y);
+        const alignPlate = Math.abs(plateVec.x * L.x + plateVec.y * L.y);
+        const alignWind = Math.abs(windVec.x * L.x + windVec.y * L.y);
         const hiAlign = 0.75 * cohesion + 0.1;
         const midAlign = 0.5 * cohesion + 0.1;
 

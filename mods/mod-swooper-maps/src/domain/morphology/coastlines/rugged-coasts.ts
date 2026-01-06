@@ -21,7 +21,7 @@ export function addRuggedCoasts(
   iWidth: number,
   iHeight: number,
   ctx: ExtendedMapContext,
-  config: { coastlines?: CoastlinesConfig; corridors?: CorridorPolicy } = {}
+  config: { coastlines: CoastlinesConfig; corridors: CorridorPolicy }
 ): void {
   const plates = assertFoundationPlates(ctx, "coastlines");
   const adapter = ctx.adapter;
@@ -35,9 +35,12 @@ export function addRuggedCoasts(
 
   const { boundaryCloseness, boundaryType } = plates;
 
-  const cfg = config.coastlines || {};
-  const cfgBay = cfg.bay || {};
-  const cfgFjord = cfg.fjord || {};
+  const cfg = config.coastlines;
+  const cfgBay = cfg.bay;
+  const cfgFjord = cfg.fjord;
+  if (!cfgBay || !cfgFjord) {
+    throw new Error("[Coastlines] Missing bay/fjord config.");
+  }
 
   const bayNoiseExtra = (sqrtScale > 1 ? 1 : 0) + (Number.isFinite(cfgBay.noiseGateAdd) ? cfgBay.noiseGateAdd! : 0);
   const fjordBaseDenom = Math.max(
@@ -49,7 +52,10 @@ export function addRuggedCoasts(
   const bayRollDenActive = Number.isFinite(cfgBay.rollDenActive) ? cfgBay.rollDenActive! : 4;
   const bayRollDenDefault = Number.isFinite(cfgBay.rollDenDefault) ? cfgBay.rollDenDefault! : 5;
 
-  const plateBiasRaw = cfg.plateBias || {};
+  const plateBiasRaw = cfg.plateBias;
+  if (!plateBiasRaw) {
+    throw new Error("[Coastlines] Missing plate bias config.");
+  }
   const plateBiasCfg: Required<CoastlinePlateBiasConfig> = {
     threshold: clamp(Number.isFinite(plateBiasRaw.threshold) ? plateBiasRaw.threshold! : 0.45, 0, 1),
     power: Math.max(0.1, Number.isFinite(plateBiasRaw.power) ? plateBiasRaw.power! : 1.25),

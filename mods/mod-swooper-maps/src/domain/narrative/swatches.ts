@@ -29,6 +29,10 @@ export function storyTagClimateSwatches(
 ): ClimateSwatchesSummary {
   const { width, height } = ctx.dimensions;
 
+  if (!options.directionality) {
+    throw new Error("storyTagClimateSwatches requires settings.directionality.");
+  }
+
   const result = applyClimateSwatches(width, height, ctx, {
     orogenyCache: options.orogenyCache,
     climate: options.climate,
