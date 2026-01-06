@@ -110,8 +110,7 @@ Canonical file layout:
 src/domain/
   <domain>/
     index.ts
-  ops/
-    <domain>/
+    ops/
       <op>/
         contract.ts            # contract-first schemas
         rules/                 # pure op-local rules (may start empty)

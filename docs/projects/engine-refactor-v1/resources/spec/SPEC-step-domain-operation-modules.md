@@ -46,6 +46,9 @@ This spec defines the canonical model for how steps and domains interact:
 - Domains expose a predictable authoring surface composed of operation modules.
 - Steps wire runtime inputs, call operations, and publish results.
 
+For **domain modeling guidance** (how to choose ops vs strategies vs rules vs steps), use:
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
+
 ---
 
 ## 2) Step System (Recipe v2 + Step Registry)
@@ -121,7 +124,7 @@ src/domain/
 Rules are op-local by default and live under `domain/<domain>/ops/<op>/rules/**`.
 
 Import rules:
-- Use `@mapgen/domain/<domain>/ops/<op>` or `@mapgen/domain/<domain>` for cross-module imports.
+- Cross-module consumers (steps/tests/other domains) import ops through the domain public surface `@mapgen/domain/<domain>`.
 - Use `@mapgen/authoring/steps` for bound step factories (no relative path churn).
 - Keep relative imports inside a single op module (e.g., `./rules/...`, `./strategies/...`).
 - `rules/**` never import `../contract.js` and never export types; shared types live in `types.ts` only.

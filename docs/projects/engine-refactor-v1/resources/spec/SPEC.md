@@ -18,6 +18,7 @@ This directory contains spec-adjacent documents for the `engine-refactor-v1` pro
 - SPEC-global-invariants
 - SPEC-appendix-target-trees
 - SPEC-step-domain-operation-modules
+- SPEC-DOMAIN-MODELING-GUIDELINES
 
 **ADR log:**
 - ADR index: `ER1-ADR-INDEX`

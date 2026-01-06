@@ -1,7 +1,7 @@
 ---
 name: example-volcano-end-to-end
 description: |
-  Canonical end-to-end example of the step ↔ domain contracts via operation modules architecture.
+  Canonical end-to-end example of the contract-first ops + orchestration-only steps architecture.
   This is a standalone copy of the “Volcano” example to avoid depending on deep links into the SPEC.
 ---
 
@@ -19,41 +19,48 @@ src/domain/morphology/volcanoes/
   index.ts
   ops/
     compute-suitability/
-      index.ts
-      schema.ts
+      contract.ts
+      types.ts
+      strategies/
+        default.ts
+        index.ts
       rules/
-      strategies/
-    plan-volcanoes/
+        index.ts
       index.ts
-      schema.ts
+    plan-volcanoes/
+      contract.ts
+      types.ts
       strategies/
-        plate-aware.ts
+        default.ts
         hotspot-clusters.ts
+        index.ts
       rules/
         enforce-min-distance.ts
         pick-weighted.ts
+        index.ts
+      index.ts
 
 src/recipes/standard/stages/morphology-post/steps/volcanoes/
+  contract.ts
   index.ts
-  apply.ts
-  inputs.ts
+  lib/
+    inputs.ts
+    apply.ts
 ```
 
 ## Domain: operation 1 — compute suitability (derived field)
 
 ```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability/index.ts
-import { Type } from "typebox";
-import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+// src/domain/morphology/volcanoes/ops/compute-suitability/contract.ts
+import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
 
-export default createOp({
+export const ComputeSuitabilityContract = defineOpContract({
   kind: "compute",
-  id: "morphology/volcanoes/computeSuitability",
+  id: "morphology/volcanoes/compute-suitability",
   input: Type.Object(
     {
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
-
       isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
       plateBoundaryProximity: TypedArraySchemas.u8({
         description: "Plate boundary proximity per tile (0..255).",
@@ -69,133 +76,210 @@ export default createOp({
     { additionalProperties: false }
   ),
   strategies: {
-    default: {
-      config: Type.Object(
-        {
-          wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
-          wElevation: Type.Optional(Type.Number({ default: 0.25 })),
-        },
-        { additionalProperties: false, default: {} }
-      ),
-      run: (inputs, cfg) => {
-        const size = inputs.width * inputs.height;
-        const suitability = new Float32Array(size);
-
-        for (let i = 0; i < size; i++) {
-          if (inputs.isLand[i] === 0) {
-            suitability[i] = 0;
-            continue;
-          }
-
-          const plate = inputs.plateBoundaryProximity[i] / 255;
-          const elev = Math.max(0, Math.min(1, inputs.elevation[i] / 4000));
-          suitability[i] = cfg.wPlateBoundary! * plate + cfg.wElevation! * elev;
-        }
-
-        return { suitability };
+    default: Type.Object(
+      {
+        wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
+        wElevation: Type.Optional(Type.Number({ default: 0.25 })),
       },
-    },
+      { additionalProperties: false, default: {} }
+    ),
+  },
+} as const);
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/compute-suitability/types.ts
+import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+
+type Contract = typeof import("./contract.js").ComputeSuitabilityContract;
+
+export type ComputeSuitabilityTypes = OpTypeBag<Contract>;
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/compute-suitability/strategies/default.ts
+import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { ComputeSuitabilityContract } from "../contract.js";
+
+export const defaultStrategy = createStrategy(ComputeSuitabilityContract, "default", {
+  run: (inputs, cfg) => {
+    const size = inputs.width * inputs.height;
+    const suitability = new Float32Array(size);
+
+    for (let i = 0; i < size; i++) {
+      if (inputs.isLand[i] === 0) {
+        suitability[i] = 0;
+        continue;
+      }
+
+      const plate = inputs.plateBoundaryProximity[i] / 255;
+      const elev = Math.max(0, Math.min(1, inputs.elevation[i] / 4000));
+      suitability[i] = cfg.wPlateBoundary! * plate + cfg.wElevation! * elev;
+    }
+
+    return { suitability };
   },
 });
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/compute-suitability/strategies/index.ts
+export { defaultStrategy } from "./default.js";
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/compute-suitability/rules/index.ts
+// No rules needed for this op; keep the barrel as the canonical runtime surface.
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/compute-suitability/index.ts
+import { createOp } from "@swooper/mapgen-core/authoring";
+import { ComputeSuitabilityContract } from "./contract.js";
+import { defaultStrategy } from "./strategies/index.js";
+
+export const computeSuitability = createOp(ComputeSuitabilityContract, {
+  strategies: { default: defaultStrategy },
+});
+
+export * from "./contract.js";
+export type * from "./types.js";
 ```
 
 ## Domain: operation 2 — plan volcano placements (strategies + rules)
 
-This operation has interchangeable strategies. The op stays stable; internal strategies can evolve independently.
+This operation has interchangeable strategies. The op contract stays stable; internal strategies can evolve independently.
 
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/schema.ts
-import { Type } from "typebox";
-import { TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/contract.ts
+import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
 
-export const PlanVolcanoesInputSchema = Type.Object(
-  {
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
-    suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
-    rngSeed: Type.Integer({
-      minimum: 0,
-      description:
-        "Deterministic RNG seed (derived by the step from RunRequest settings + step/op identity).",
-    }),
-  },
-  { additionalProperties: false }
-);
-
-export const PlanVolcanoesOutputSchema = Type.Object(
-  {
-    placements: Type.Array(
-      Type.Object(
-        {
-          x: Type.Integer({ minimum: 0 }),
-          y: Type.Integer({ minimum: 0 }),
-          intensity: Type.Integer({ minimum: 0 }),
-        },
-        { additionalProperties: false }
-      )
+export const PlanVolcanoesContract = defineOpContract({
+  kind: "plan",
+  id: "morphology/volcanoes/plan-volcanoes",
+  input: Type.Object(
+    {
+      width: Type.Integer({ minimum: 1 }),
+      height: Type.Integer({ minimum: 1 }),
+      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
+      rngSeed: Type.Integer({
+        minimum: 0,
+        description:
+          "Deterministic RNG seed (derived by the step from RunRequest settings + step/op identity).",
+      }),
+    },
+    { additionalProperties: false }
+  ),
+  output: Type.Object(
+    {
+      placements: Type.Array(
+        Type.Object(
+          {
+            x: Type.Integer({ minimum: 0 }),
+            y: Type.Integer({ minimum: 0 }),
+            intensity: Type.Integer({ minimum: 0 }),
+          },
+          { additionalProperties: false }
+        )
+      ),
+    },
+    { additionalProperties: false }
+  ),
+  strategies: {
+    default: Type.Object(
+      {
+        targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
+        minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
+      },
+      { additionalProperties: false, default: {} }
+    ),
+    hotspotClusters: Type.Object(
+      {
+        targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
+        minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
+        seedCount: Type.Optional(Type.Integer({ minimum: 1, default: 3 })),
+      },
+      { additionalProperties: false, default: {} }
     ),
   },
-  { additionalProperties: false }
-);
+} as const);
 ```
 
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
-import { createOp } from "@swooper/mapgen-core/authoring";
-import { PlanVolcanoesInputSchema, PlanVolcanoesOutputSchema } from "./schema.js";
-import plateAware from "./strategies/plate-aware.js";
-import hotspotClusters from "./strategies/hotspot-clusters.js";
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/types.ts
+import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
 
-export default createOp({
-  kind: "plan",
-  id: "morphology/volcanoes/planVolcanoes",
-  input: PlanVolcanoesInputSchema,
-  output: PlanVolcanoesOutputSchema,
-  strategies: {
-    default: plateAware,
-    hotspotClusters,
-  },
-});
+type Contract = typeof import("./contract.js").PlanVolcanoesContract;
+
+export type PlanVolcanoesTypes = OpTypeBag<Contract>;
 ```
 
-## Domain: strategies (separate modules with per-strategy config)
-
-Strategies live under `strategies/` so they can be “real code” without bloating the operation module.
+```ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/index.ts
+export { enforceMinDistance } from "./enforce-min-distance.js";
+export { pickWeightedIndex } from "./pick-weighted.js";
+```
 
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/plate-aware.ts
-import { Type } from "typebox";
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/pick-weighted.ts
+export function pickWeightedIndex(weights: Float32Array, rng01: () => number): number {
+  let sum = 0;
+  for (let i = 0; i < weights.length; i++) sum += Math.max(0, weights[i]);
+  if (sum <= 0) return -1;
+
+  let r = Math.max(0, Math.min(0.999999, rng01())) * sum;
+  for (let i = 0; i < weights.length; i++) {
+    r -= Math.max(0, weights[i]);
+    if (r <= 0) return i;
+  }
+
+  return weights.length - 1;
+}
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/enforce-min-distance.ts
+export function enforceMinDistance(
+  dims: { width: number; height: number },
+  chosen: { x: number; y: number }[],
+  candidate: { x: number; y: number },
+  minDistance: number
+): boolean {
+  if (minDistance <= 0) return true;
+
+  for (const p of chosen) {
+    const dx = p.x - candidate.x;
+    const dy = p.y - candidate.y;
+    if (dx * dx + dy * dy < minDistance * minDistance) return false;
+  }
+
+  return (
+    candidate.x >= 0 &&
+    candidate.y >= 0 &&
+    candidate.x < dims.width &&
+    candidate.y < dims.height
+  );
+}
+```
+
+```ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/default.ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import type { Static } from "typebox";
-import type { OpStrategy } from "@swooper/mapgen-core/authoring";
-import { PlanVolcanoesInputSchema, PlanVolcanoesOutputSchema } from "../schema.js";
-import { enforceMinDistance } from "../rules/enforce-min-distance.js";
-import { pickWeightedIndex } from "../rules/pick-weighted.js";
+import { PlanVolcanoesContract } from "../contract.js";
+import { enforceMinDistance, pickWeightedIndex } from "../rules/index.js";
 
-const PlateAwareConfigSchema = Type.Object(
-  {
-    targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
-    minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
-  },
-  { additionalProperties: false, default: {} }
-);
-
-export default createStrategy({
-  config: PlateAwareConfigSchema,
+export const defaultStrategy = createStrategy(PlanVolcanoesContract, "default", {
   run: (inputs, cfg) => {
     const target = cfg.targetCount ?? 12;
     const minD = cfg.minDistance ?? 6;
 
-    // Derive deterministic randomness locally from the seed.
-    // NOTE: The op contract passes seeds/values (POJO-ish), not callback “views”.
     let draw = 0;
     const rng01 = (): number => {
       const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
       return (x >>> 0) / 2 ** 32;
     };
 
-    const width = inputs.width;
-    const height = inputs.height;
+    const { width, height } = inputs;
     const size = width * height;
 
     const chosen: { x: number; y: number; intensity: number }[] = [];
@@ -220,48 +304,27 @@ export default createStrategy({
 
     return { placements: chosen };
   },
-} satisfies OpStrategy<
-  typeof PlateAwareConfigSchema,
-  Static<typeof PlanVolcanoesInputSchema>,
-  Static<typeof PlanVolcanoesOutputSchema>
->);
+});
 ```
 
 ```ts
 // src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/hotspot-clusters.ts
-import { Type } from "typebox";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import type { Static } from "typebox";
-import type { OpStrategy } from "@swooper/mapgen-core/authoring";
-import { PlanVolcanoesInputSchema, PlanVolcanoesOutputSchema } from "../schema.js";
-import { enforceMinDistance } from "../rules/enforce-min-distance.js";
-import { pickWeightedIndex } from "../rules/pick-weighted.js";
+import { PlanVolcanoesContract } from "../contract.js";
+import { enforceMinDistance, pickWeightedIndex } from "../rules/index.js";
 
-const HotspotClustersConfigSchema = Type.Object(
-  {
-    targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
-    minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
-    seedCount: Type.Optional(Type.Integer({ minimum: 1, default: 3 })),
-  },
-  { additionalProperties: false, default: {} }
-);
-
-export default createStrategy({
-  config: HotspotClustersConfigSchema,
+export const hotspotClustersStrategy = createStrategy(PlanVolcanoesContract, "hotspotClusters", {
   run: (inputs, cfg) => {
     const target = cfg.targetCount ?? 12;
     const minD = cfg.minDistance ?? 6;
 
-    // Derive deterministic randomness locally from the seed.
-    // NOTE: The op contract passes seeds/values (POJO-ish), not callback “views”.
     let draw = 0;
     const rng01 = (): number => {
       const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
       return (x >>> 0) / 2 ** 32;
     };
 
-    const width = inputs.width;
-    const height = inputs.height;
+    const { width, height } = inputs;
     const size = width * height;
 
     const chosen: { x: number; y: number; intensity: number }[] = [];
@@ -300,58 +363,30 @@ export default createStrategy({
 
     return { placements: chosen };
   },
-} satisfies OpStrategy<
-  typeof HotspotClustersConfigSchema,
-  Static<typeof PlanVolcanoesInputSchema>,
-  Static<typeof PlanVolcanoesOutputSchema>
->);
-```
-
-## Domain: rules (small, pure building blocks)
-
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/pick-weighted.ts
-export function pickWeightedIndex(weights: Float32Array, rng01: () => number): number {
-  let sum = 0;
-  for (let i = 0; i < weights.length; i++) sum += Math.max(0, weights[i]);
-  if (sum <= 0) return -1;
-
-  let r = Math.max(0, Math.min(0.999999, rng01())) * sum;
-  for (let i = 0; i < weights.length; i++) {
-    r -= Math.max(0, weights[i]);
-    if (r <= 0) return i;
-  }
-
-  return weights.length - 1;
-}
+});
 ```
 
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/enforce-min-distance.ts
-export type Dims = { width: number; height: number };
-export type Point = { x: number; y: number };
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/index.ts
+export { defaultStrategy } from "./default.js";
+export { hotspotClustersStrategy } from "./hotspot-clusters.js";
+```
 
-export function enforceMinDistance(
-  dims: Dims,
-  chosen: Point[],
-  candidate: Point,
-  minDistance: number
-): boolean {
-  if (minDistance <= 0) return true;
+```ts
+// src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
+import { createOp } from "@swooper/mapgen-core/authoring";
+import { PlanVolcanoesContract } from "./contract.js";
+import { defaultStrategy, hotspotClustersStrategy } from "./strategies/index.js";
 
-  for (const p of chosen) {
-    const dx = p.x - candidate.x;
-    const dy = p.y - candidate.y;
-    if (dx * dx + dy * dy < minDistance * minDistance) return false;
-  }
+export const planVolcanoes = createOp(PlanVolcanoesContract, {
+  strategies: {
+    default: defaultStrategy,
+    hotspotClusters: hotspotClustersStrategy,
+  },
+});
 
-  return (
-    candidate.x >= 0 &&
-    candidate.y >= 0 &&
-    candidate.x < dims.width &&
-    candidate.y < dims.height
-  );
-}
+export * from "./contract.js";
+export type * from "./types.js";
 ```
 
 ## Domain index (public surface)
@@ -360,8 +395,8 @@ Steps import the domain module and only see `ops` (not rules/strategies).
 
 ```ts
 // src/domain/morphology/volcanoes/index.ts
-import computeSuitability from "./ops/compute-suitability.js";
-import planVolcanoes from "./ops/plan-volcanoes/index.js";
+import { computeSuitability } from "./ops/compute-suitability/index.js";
+import { planVolcanoes } from "./ops/plan-volcanoes/index.js";
 
 export const ops = {
   computeSuitability,
@@ -374,94 +409,50 @@ export const ops = {
 The step owns adapter/engine interaction and artifact publishing. The step never imports domain rules or strategy modules.
 
 ```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/index.ts
-import { Type } from "typebox";
-import { createStep } from "@swooper/mapgen-core/authoring";
-import { ctxRandom } from "@swooper/mapgen-core/core/types";
+// src/recipes/standard/stages/morphology-post/steps/volcanoes/contract.ts
+import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
 import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
-import { buildVolcanoInputs } from "./inputs.js";
-import { applyVolcanoPlacements } from "./apply.js";
 
-const StepSchema = Type.Object(
-  {
-    computeSuitability: volcanoes.ops.computeSuitability.config,
-    planVolcanoes: volcanoes.ops.planVolcanoes.config,
-  },
-  {
-    additionalProperties: false,
-    default: {
-      computeSuitability: volcanoes.ops.computeSuitability.defaultConfig,
-      planVolcanoes: volcanoes.ops.planVolcanoes.defaultConfig,
-    },
-  }
-);
-
-type StepConfig = {
-  computeSuitability: Parameters<typeof volcanoes.ops.computeSuitability.run>[1];
-  planVolcanoes: Parameters<typeof volcanoes.ops.planVolcanoes.run>[1];
-};
-
-export default createStep({
+export const VolcanoesStepContract = defineStepContract({
   id: "volcanoes",
   phase: "morphology-post",
   requires: ["artifact:plates", "field:elevation"],
   provides: ["artifact:volcanoPlacements", "effect:volcanoesPlaced"],
-  schema: StepSchema,
-  run: (ctx, cfg: StepConfig) => {
-    // 1) Build domain inputs from runtime
-    const inputs = buildVolcanoInputs(ctx);
-
-    // 2) Compute + plan (pure domain logic)
-    const { suitability } = volcanoes.ops.computeSuitability.runValidated(
-      inputs,
-      cfg.computeSuitability
-    );
-
-    // Two equivalent authoring patterns for strategy-backed ops (always explicit):
-    //
-    // 1) Use the default strategy:
-    //    cfg.planVolcanoes = { strategy: "default", config: { targetCount: 12, minDistance: 6 } }
-    //
-    // 2) Explicitly select a non-default strategy:
-    //    cfg.planVolcanoes = { strategy: "hotspotClusters", config: { seedCount: 4, targetCount: 12, minDistance: 6 } }
-    //
-    // Both are runtime-validated (via `volcanoes.ops.planVolcanoes.config`) and type-checked via `Parameters<...run>[1]`.
-    const { placements } = volcanoes.ops.planVolcanoes.runValidated(
-      {
-        width: inputs.width,
-        height: inputs.height,
-        suitability,
-        rngSeed: ctxRandom(ctx, "volcanoes:planVolcanoes:rngSeed", 1_000_000) | 0,
+  schema: Type.Object(
+    {
+      computeSuitability: volcanoes.ops.computeSuitability.config,
+      planVolcanoes: volcanoes.ops.planVolcanoes.config,
+    },
+    {
+      additionalProperties: false,
+      default: {
+        computeSuitability: volcanoes.ops.computeSuitability.defaultConfig,
+        planVolcanoes: volcanoes.ops.planVolcanoes.defaultConfig,
       },
-      cfg.planVolcanoes
-    );
-
-    // 3) Apply + publish (runtime side effects)
-    applyVolcanoPlacements(ctx.adapter, placements);
-    ctx.artifacts.set("artifact:volcanoPlacements", { placements });
-  },
-});
+    }
+  ),
+} as const);
 ```
 
 ```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/inputs.ts
+// src/recipes/standard/stages/morphology-post/steps/volcanoes/lib/inputs.ts
 import { expectedGridSize } from "@swooper/mapgen-core/authoring";
 
-export function buildVolcanoInputs(ctx: {
+type VolcanoInputsContext = {
   dimensions: { width: number; height: number };
   adapter: {
     isWater: (x: number, y: number) => boolean;
     getElevation: (x: number, y: number) => number;
   };
   artifacts: { get: (key: string) => unknown };
-}) {
+};
+
+export function buildVolcanoInputs(ctx: VolcanoInputsContext) {
   const { width, height } = ctx.dimensions;
   const size = expectedGridSize(width, height);
 
   const isLand = new Uint8Array(size);
   const elevation = new Int16Array(size);
-
-  // In practice this would come from an artifact produced by plate generation.
   const plateBoundaryProximity = new Uint8Array(size);
 
   for (let y = 0; y < height; y++) {
@@ -478,7 +469,7 @@ export function buildVolcanoInputs(ctx: {
 ```
 
 ```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/apply.ts
+// src/recipes/standard/stages/morphology-post/steps/volcanoes/lib/apply.ts
 export type VolcanoPlacement = { x: number; y: number; intensity: number };
 
 export function applyVolcanoPlacements(
@@ -487,4 +478,46 @@ export function applyVolcanoPlacements(
 ) {
   for (const p of placements) adapter.setVolcano(p.x, p.y, p.intensity);
 }
+```
+
+```ts
+// src/recipes/standard/stages/morphology-post/steps/volcanoes/index.ts
+import { createStep } from "@mapgen/authoring/steps";
+import { ctxRandom } from "@swooper/mapgen-core";
+import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
+
+import { VolcanoesStepContract } from "./contract.js";
+import { applyVolcanoPlacements } from "./lib/apply.js";
+import { buildVolcanoInputs } from "./lib/inputs.js";
+
+export default createStep(VolcanoesStepContract, {
+  resolveConfig: (config, settings) => ({
+    computeSuitability: volcanoes.ops.computeSuitability.resolveConfig(
+      config.computeSuitability,
+      settings
+    ),
+    planVolcanoes: volcanoes.ops.planVolcanoes.resolveConfig(config.planVolcanoes, settings),
+  }),
+  run: (context, config) => {
+    const inputs = buildVolcanoInputs(context);
+
+    const { suitability } = volcanoes.ops.computeSuitability.runValidated(
+      inputs,
+      config.computeSuitability
+    );
+
+    const { placements } = volcanoes.ops.planVolcanoes.runValidated(
+      {
+        width: inputs.width,
+        height: inputs.height,
+        suitability,
+        rngSeed: ctxRandom(context, "volcanoes:planVolcanoes:rngSeed", 1_000_000) | 0,
+      },
+      config.planVolcanoes
+    );
+
+    applyVolcanoPlacements(context.adapter, placements);
+    context.artifacts.set("artifact:volcanoPlacements", { placements });
+  },
+});
 ```

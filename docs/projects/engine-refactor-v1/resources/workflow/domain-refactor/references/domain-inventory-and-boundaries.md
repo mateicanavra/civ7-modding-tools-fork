@@ -9,6 +9,7 @@ This doc contains:
 
 Canonical references:
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-030-operation-inputs-policy.md`
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 
 ## Tooling and investigation discipline
 
@@ -88,7 +89,7 @@ For each `requires`/`provides` key:
 ### C) Config surfaces (all schemas + defaults)
 
 For each step and each candidate op:
-- config schema location
+- config schema location (op `contract.ts`, step `contract.ts`)
 - schema defaults (TypeBox defaults)
 - any runtime merges/defaulting (must be eliminated)
 - any scaling semantics (must move into `resolveConfig`)
