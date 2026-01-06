@@ -52,8 +52,6 @@ Mostly yes: the core authoring surfaces landed and mod call sites now use envelo
 
 ### High-leverage issues
 - **Rules boundary violations undermine the centralized types contract.**
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-feature-placements/rules/selection.ts` imports `ResolvedFeaturesPlacementConfig` from `../contract.js`.
-  - `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/rules/moisture.ts` and `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/rules/temperature.ts` export types.
   - This conflicts with Decision D8 (rules import types from `types.ts` only; no type exports). It reintroduces contract coupling and makes refactors brittle.
   - Direction: move these types into the op’s `types.ts` (or a dedicated type module) and keep rules as type-only consumers.
 

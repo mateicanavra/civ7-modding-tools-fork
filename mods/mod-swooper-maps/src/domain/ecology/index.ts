@@ -36,4 +36,3 @@ export {
   type FeatureKey,
   type PlotEffectKey,
 } from "./types.js";
-export { resolveSnowElevationRange } from "./ops/plan-plot-effects/snow-elevation.js";

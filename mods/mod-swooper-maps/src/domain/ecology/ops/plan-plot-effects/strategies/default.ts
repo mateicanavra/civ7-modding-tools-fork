@@ -5,7 +5,7 @@ import type { PlotEffectKey } from "@mapgen/domain/ecology/types.js";
 
 import { biomeSymbolFromIndex } from "../../classify-biomes/index.js";
 import { PlanPlotEffectsContract } from "../contract.js";
-import { resolveSnowElevationRange } from "../snow-elevation.js";
+import { resolveSnowElevationRange } from "../rules/index.js";
 
 type Config = Static<(typeof PlanPlotEffectsContract)["strategies"]["default"]>;
 type Input = Static<(typeof PlanPlotEffectsContract)["input"]>;

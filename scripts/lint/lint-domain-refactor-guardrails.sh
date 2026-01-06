@@ -141,6 +141,36 @@ for domain in "${DOMAINS[@]}"; do
   run_rg "Literal dependency keys in requires (${domain})" "requires:\\s*\\[[^\\]]*['\\\"](artifact|field|effect):" -U -- "${stage_roots[@]}"
   run_rg "Literal dependency keys in provides (${domain})" "provides:\\s*\\[[^\\]]*['\\\"](artifact|field|effect):" -U -- "${stage_roots[@]}"
   run_rg "Runtime config merges in steps (${domain})" "\\?\\?\\s*\\{\\}|\\bValue\\.Default\\(" -- "${stage_roots[@]}"
+
+  # Ecology is the canonical exemplar for the stricter op/step module rules.
+  if [ "$domain" = "ecology" ]; then
+    run_rg "Rules import op contracts (ecology)" "from\\s+\"\\.\\./contract\\.js\"|from\\s+\"\\.\\./\\.\\./contract\\.js\"|from\\s+\"\\.\\./\\.\\./\\.\\./contract\\.js\"" -P -g "*/rules/**/*.ts" -- "$ops_root"
+    run_rg "Type exports from rules (ecology)" "^export\\s+type\\b" -g "*/rules/**/*.ts" -- "$ops_root"
+    run_rg "runValidated called with inner config (ecology)" "runValidated\\([^,]+,\\s*[^\\)]*\\.config\\b" -P -- "${stage_roots[@]}"
+    run_rg "Custom strategy-envelope schemas in steps (ecology)" "\\bstrategy\\s*:\\s*Type\\.(Literal|Union|String)\\(" -P -- "${stage_roots[@]}"
+
+    for op_dir in "$ops_root"/*; do
+      if [ ! -d "$op_dir" ]; then
+        continue
+      fi
+      missing=()
+      [ -f "$op_dir/contract.ts" ] || missing+=("contract.ts")
+      [ -f "$op_dir/types.ts" ] || missing+=("types.ts")
+      [ -f "$op_dir/index.ts" ] || missing+=("index.ts")
+      [ -d "$op_dir/rules" ] || missing+=("rules/")
+      [ -f "$op_dir/rules/index.ts" ] || missing+=("rules/index.ts")
+      [ -d "$op_dir/strategies" ] || missing+=("strategies/")
+      [ -f "$op_dir/strategies/index.ts" ] || missing+=("strategies/index.ts")
+      if [ "${#missing[@]}" -gt 0 ]; then
+        echo -e "${RED}ERROR: Missing canonical op module files in ${op_dir}${NC}"
+        for m in "${missing[@]}"; do
+          echo "  - ${m}"
+        done
+        echo ""
+        violations=$((violations + 1))
+      fi
+    done
+  fi
 done
 
 run_rg "Recipe imports in domain" "recipes/standard|/recipes/" -- "mods/mod-swooper-maps/src/domain"

@@ -1,9 +1,11 @@
-import { type Static } from "@swooper/mapgen-core/authoring";
-import { PlanPlotEffectsContract } from "./contract.js";
+type PlotEffectsInput = {
+  width: number;
+  height: number;
+  landMask: Uint8Array;
+  elevation: Int16Array;
+};
 
-type PlotEffectsInput = Static<typeof PlanPlotEffectsContract["input"]>;
-
-export type SnowElevationStats = {
+type SnowElevationStats = {
   count: number;
   min: number;
   max: number;
@@ -12,7 +14,7 @@ export type SnowElevationStats = {
   p99: number;
 };
 
-export type SnowElevationRange = {
+type SnowElevationRange = {
   strategy: "absolute" | "percentile";
   min: number;
   max: number;
@@ -73,7 +75,7 @@ export function resolveSnowElevationRange(
       elevationMax: number;
     };
   }
-): SnowElevationRange {
+) {
   const elevations = collectLandElevations(input);
   const sorted = elevations.slice().sort((a, b) => a - b);
   const stats = computeStats(sorted);
@@ -93,7 +95,7 @@ export function resolveSnowElevationRange(
         min: minPercentile,
         max: maxPercentile,
       },
-    };
+    } satisfies SnowElevationRange;
   }
 
   return {
@@ -101,5 +103,5 @@ export function resolveSnowElevationRange(
     min: config.snow.elevationMin,
     max: config.snow.elevationMax,
     stats,
-  };
+  } satisfies SnowElevationRange;
 }

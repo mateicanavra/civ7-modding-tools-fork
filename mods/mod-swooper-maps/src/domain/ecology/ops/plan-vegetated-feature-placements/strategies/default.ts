@@ -76,7 +76,7 @@ const resolveConfig = (input: Config): ResolvedConfig => {
   >;
   const minVegInput = applySchemaDefaults(
     VegetatedMinByBiomeSchema,
-    (rulesInput.minVegetationByBiome as object | undefined) ?? {}
+    rulesInput.minVegetationByBiome
   ) as Record<string, number>;
   const readMinVeg = (symbol: BiomeSymbol): number =>
     clamp01(readNumber(minVegInput[symbol], readNumber(minVegDefaults[symbol], 0)));
