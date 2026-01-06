@@ -16,31 +16,32 @@ describe("features (owned baseline)", () => {
 
     const config = {
       featuresPlacement: {
-        chances: {
-          FEATURE_FOREST: 100,
-          FEATURE_RAINFOREST: 100,
-          FEATURE_TAIGA: 100,
-          FEATURE_SAVANNA_WOODLAND: 100,
-          FEATURE_SAGEBRUSH_STEPPE: 100,
-          FEATURE_MARSH: 100,
-          FEATURE_TUNDRA_BOG: 100,
-          FEATURE_MANGROVE: 100,
-          FEATURE_OASIS: 100,
-          FEATURE_WATERING_HOLE: 100,
-          FEATURE_REEF: 100,
-          FEATURE_COLD_REEF: 100,
-          FEATURE_ATOLL: 100,
-          FEATURE_LOTUS: 100,
-          FEATURE_ICE: 100,
+        strategy: "default",
+        config: {
+          chances: {
+            FEATURE_FOREST: 100,
+            FEATURE_RAINFOREST: 100,
+            FEATURE_TAIGA: 100,
+            FEATURE_SAVANNA_WOODLAND: 100,
+            FEATURE_SAGEBRUSH_STEPPE: 100,
+            FEATURE_MARSH: 100,
+            FEATURE_TUNDRA_BOG: 100,
+            FEATURE_MANGROVE: 100,
+            FEATURE_OASIS: 100,
+            FEATURE_WATERING_HOLE: 100,
+            FEATURE_REEF: 100,
+            FEATURE_COLD_REEF: 100,
+            FEATURE_ATOLL: 100,
+            FEATURE_LOTUS: 100,
+            FEATURE_ICE: 100,
+          },
+          ice: { minAbsLatitude: 90 },
         },
-        ice: { minAbsLatitude: 90 },
       },
-      reefEmbellishments: { ...disabledEmbellishmentsConfig },
-      vegetationEmbellishments: { ...disabledEmbellishmentsConfig },
+      reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
+      vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
     };
-    const resolvedConfig = featuresStep.resolveConfig
-      ? featuresStep.resolveConfig(config, ctx.settings)
-      : config;
+    const resolvedConfig = featuresStep.resolveConfig(config, ctx.settings);
 
     featuresStep.run(ctx, resolvedConfig);
 

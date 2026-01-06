@@ -12,14 +12,20 @@ type ReefEmbellishmentsConfig = Static<typeof PlanReefEmbellishmentsSchema["prop
 export const planReefEmbellishments = createOp({
   kind: "plan",
   id: "ecology/features/reef-embellishments",
-  schema: PlanReefEmbellishmentsSchema,
-  resolveConfig: (config: ReefEmbellishmentsConfig) => resolveReefEmbellishmentsConfig(config),
-  run: (input: ReefEmbellishmentsInput, config: ReefEmbellishmentsConfig) => {
-    const placements = planReefEmbellishmentsImpl(
-      input,
-      config as ResolvedReefEmbellishmentsConfig
-    );
-    return { placements };
+  input: PlanReefEmbellishmentsSchema.properties.input,
+  output: PlanReefEmbellishmentsSchema.properties.output,
+  strategies: {
+    default: {
+      config: PlanReefEmbellishmentsSchema.properties.config,
+      resolveConfig: (config: ReefEmbellishmentsConfig) => resolveReefEmbellishmentsConfig(config),
+      run: (input: ReefEmbellishmentsInput, config: ReefEmbellishmentsConfig) => {
+        const placements = planReefEmbellishmentsImpl(
+          input,
+          config as ResolvedReefEmbellishmentsConfig
+        );
+        return { placements };
+      },
+    },
   },
 } as const);
 

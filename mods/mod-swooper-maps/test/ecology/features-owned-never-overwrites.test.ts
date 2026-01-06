@@ -19,13 +19,14 @@ describe("features (owned baseline)", () => {
     adapter.setFeatureType(seedX, seedY, { Feature: forestIdx, Direction: -1, Elevation: 0 });
 
     const config = {
-      featuresPlacement: { chances: { FEATURE_FOREST: 100 } },
-      reefEmbellishments: { ...disabledEmbellishmentsConfig },
-      vegetationEmbellishments: { ...disabledEmbellishmentsConfig },
+      featuresPlacement: {
+        strategy: "default",
+        config: { chances: { FEATURE_FOREST: 100 } },
+      },
+      reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
+      vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
     };
-    const resolvedConfig = featuresStep.resolveConfig
-      ? featuresStep.resolveConfig(config, ctx.settings)
-      : config;
+    const resolvedConfig = featuresStep.resolveConfig(config, ctx.settings);
 
     featuresStep.run(ctx, resolvedConfig);
 
