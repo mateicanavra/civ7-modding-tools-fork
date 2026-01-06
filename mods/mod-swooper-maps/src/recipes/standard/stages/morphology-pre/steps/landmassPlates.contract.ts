@@ -17,4 +17,4 @@ export const LandmassPlatesStepContract = defineStepContract({
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
   provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   schema: LandmassStepConfigSchema,
-} as const);
+});

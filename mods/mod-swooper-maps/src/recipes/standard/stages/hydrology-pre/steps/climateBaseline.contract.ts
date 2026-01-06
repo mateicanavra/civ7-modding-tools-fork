@@ -24,4 +24,4 @@ export const ClimateBaselineStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.climateField,
   ],
   schema: ClimateBaselineStepConfigSchema,
-} as const);
+});

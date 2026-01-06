@@ -16,4 +16,4 @@ export const VolcanoesStepContract = defineStepContract({
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
   provides: [],
   schema: VolcanoesStepConfigSchema,
-} as const);
+});

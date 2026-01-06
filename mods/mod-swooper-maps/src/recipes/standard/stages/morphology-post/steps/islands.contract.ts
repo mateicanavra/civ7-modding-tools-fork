@@ -36,4 +36,4 @@ export const IslandsStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
   ],
   schema: IslandsStepConfigSchema,
-} as const);
+});

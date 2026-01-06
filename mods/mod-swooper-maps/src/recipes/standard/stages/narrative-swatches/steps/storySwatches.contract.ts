@@ -20,4 +20,4 @@ export const StorySwatchesStepContract = defineStepContract({
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
   schema: StorySwatchesStepConfigSchema,
-} as const);
+});

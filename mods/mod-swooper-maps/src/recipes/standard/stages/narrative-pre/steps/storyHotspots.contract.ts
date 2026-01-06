@@ -24,4 +24,4 @@ export const StoryHotspotsStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
   ],
   schema: StoryHotspotsStepConfigSchema,
-} as const);
+});

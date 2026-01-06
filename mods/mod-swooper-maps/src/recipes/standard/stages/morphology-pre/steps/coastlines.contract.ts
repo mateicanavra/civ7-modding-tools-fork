@@ -10,4 +10,4 @@ export const CoastlinesStepContract = defineStepContract({
   requires: [M4_EFFECT_TAGS.engine.landmassApplied],
   provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
   schema: EmptySchema,
-} as const);
+});

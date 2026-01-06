@@ -28,4 +28,4 @@ export const StoryOrogenyStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
   ],
   schema: StoryOrogenyStepConfigSchema,
-} as const);
+});

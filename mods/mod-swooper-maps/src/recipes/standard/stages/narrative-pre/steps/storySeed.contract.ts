@@ -19,4 +19,4 @@ export const StorySeedStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
   ],
   schema: StorySeedStepConfigSchema,
-} as const);
+});
