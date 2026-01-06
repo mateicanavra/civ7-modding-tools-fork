@@ -16,4 +16,4 @@ export const MountainsStepContract = defineStepContract({
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
   provides: [],
   schema: MountainsStepConfigSchema,
-} as const);
+});

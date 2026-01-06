@@ -30,4 +30,4 @@ export const RiversStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
   ],
   schema: RiversStepConfigSchema,
-} as const);
+});

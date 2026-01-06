@@ -10,4 +10,4 @@ export const LakesStepContract = defineStepContract({
   requires: [M4_EFFECT_TAGS.engine.landmassApplied],
   provides: [M3_DEPENDENCY_TAGS.artifact.heightfield],
   schema: EmptySchema,
-} as const);
+});

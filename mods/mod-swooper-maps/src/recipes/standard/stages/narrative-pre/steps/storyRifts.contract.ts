@@ -27,4 +27,4 @@ export const StoryRiftsStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
   ],
   schema: StoryRiftsStepConfigSchema,
-} as const);
+});

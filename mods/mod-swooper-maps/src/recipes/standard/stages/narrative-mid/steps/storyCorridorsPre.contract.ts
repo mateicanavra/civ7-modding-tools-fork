@@ -23,4 +23,4 @@ export const StoryCorridorsPreStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
   ],
   schema: StoryCorridorsStepConfigSchema,
-} as const);
+});

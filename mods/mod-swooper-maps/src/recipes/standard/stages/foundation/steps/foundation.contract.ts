@@ -22,4 +22,4 @@ export const FoundationStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.foundationConfigV1,
   ],
   schema: FoundationStepConfigSchema,
-} as const);
+});
