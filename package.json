@@ -7,7 +7,7 @@
   "scripts": {
     "setup:corepack": "corepack enable && corepack prepare pnpm@10.10.0 --activate",
     "build": "turbo run build",
-    "check": "turbo run check",
+    "check": "turbo run check && pnpm lint:domain-refactor-guardrails",
     "check-types": "turbo run check",
     "dev:cli": "pnpm -F @mateicanavra/civ7-cli dev",
     "dev:sdk": "pnpm -F @mateicanavra/civ7-sdk dev",
@@ -28,6 +28,7 @@
     "test:mapgen": "pnpm -C packages/mapgen-core test",
     "build:mapgen": "pnpm -C packages/mapgen-core build",
     "lint:adapter-boundary": "./scripts/lint/lint-adapter-boundary.sh",
+    "lint:domain-refactor-guardrails": "./scripts/lint/lint-domain-refactor-guardrails.sh",
     "lint:adrs": "node scripts/lint/lint-doc-adrs.mjs",
     "lint:doc-ambiguity": "node scripts/lint/lint-doc-ambiguity.mjs",
     "deploy:mods": "turbo run deploy --filter='./mods/*'",
