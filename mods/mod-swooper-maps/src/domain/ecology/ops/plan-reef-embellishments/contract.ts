@@ -7,7 +7,7 @@ import {
 } from "@swooper/mapgen-core/authoring";
 
 import { EcologyConfigSchema } from "../../config.js";
-import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
 
 
 const FeatureKeySchema = Type.Unsafe<FeatureKey>(
@@ -70,8 +70,7 @@ export const PlanReefEmbellishmentsContract = defineOpContract({
   strategies: {
     default: ReefEmbellishmentsConfigSchema,
   },
-} as const);
-
+});
 export type ResolvedReefEmbellishmentsConfig = {
   story: { features: Required<Static<typeof EcologyConfigSchema["properties"]["features"]>> };
   featuresDensity: Required<Static<typeof EcologyConfigSchema["properties"]["featuresDensity"]>>;

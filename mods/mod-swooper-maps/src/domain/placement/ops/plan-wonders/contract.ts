@@ -40,4 +40,4 @@ export const PlanWondersContract = defineOpContract({
   strategies: {
     default: WondersConfigSchema,
   },
-} as const);
+});

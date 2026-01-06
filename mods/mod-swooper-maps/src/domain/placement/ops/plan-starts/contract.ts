@@ -66,4 +66,4 @@ export const PlanStartsContract = defineOpContract({
   strategies: {
     default: StartsConfigWrapperSchema,
   },
-} as const);
+});

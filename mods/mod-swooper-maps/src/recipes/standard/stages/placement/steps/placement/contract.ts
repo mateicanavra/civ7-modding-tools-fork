@@ -13,4 +13,4 @@ export const PlacementStepContract = defineStepContract({
     M4_EFFECT_TAGS.engine.placementApplied,
   ],
   schema: EmptySchema,
-} as const);
+});

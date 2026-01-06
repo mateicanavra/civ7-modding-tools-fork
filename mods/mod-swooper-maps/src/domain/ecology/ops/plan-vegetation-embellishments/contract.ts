@@ -7,7 +7,7 @@ import {
 } from "@swooper/mapgen-core/authoring";
 
 import { EcologyConfigSchema } from "../../config.js";
-import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
 
 const VegetationEmbellishmentsConfigSchema = Type.Object(
   {
@@ -74,8 +74,7 @@ export const PlanVegetationEmbellishmentsContract = defineOpContract({
   strategies: {
     default: VegetationEmbellishmentsConfigSchema,
   },
-} as const);
-
+});
 type VegetationEmbellishmentsConfig = Static<typeof VegetationEmbellishmentsConfigSchema>;
 
 export type ResolvedVegetationEmbellishmentsConfig = {

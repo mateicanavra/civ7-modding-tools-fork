@@ -42,4 +42,4 @@ export const PlanFloodplainsContract = defineOpContract({
   strategies: {
     default: FloodplainsConfigSchema,
   },
-} as const);
+});

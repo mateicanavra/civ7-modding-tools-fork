@@ -1,2 +1,2 @@
-export { applyDensityBias } from "./density-tweaks.js";
-export { planVolcanicVegetation } from "./volcanic-vegetation.js";
+export { planDensityTweaksAtTile } from "./density-tweaks.js";
+export { planVolcanicVegetationAtTile } from "./volcanic-vegetation.js";

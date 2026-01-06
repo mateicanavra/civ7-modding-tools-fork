@@ -39,3 +39,8 @@ Note: the issue title/id says `[M6]`, but based on milestone context this should
 ### Follow-up (implemented)
 - `PlotEffectKey` output schema now enforces the `PLOTEFFECT_` prefix (fails early at `runValidated`).
 - Biome engine-ID binding is now step-scoped (`mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/helpers/engine-bindings.ts`); `src/domain/ecology/**` no longer imports `@civ7/adapter`.
+
+## Fix Loop Update (M7)
+- Review points: already satisfied by the follow-up items above.
+- Additional fixes (to unblock full suite): op config schema typing now uses `TUnsafe` for strategy envelope `Static<>` inference, ecology ops use `@mapgen/domain` aliases for cross-module imports, and contract `as const` assertions were removed to match authoring spec.
+- Validation: `pnpm check`, `pnpm build`, `pnpm test`, `pnpm lint`.
