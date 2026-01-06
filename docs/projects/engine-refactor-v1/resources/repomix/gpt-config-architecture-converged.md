@@ -86,8 +86,7 @@
 mods/mod-swooper-maps/src/domain/
   <domain>/
     index.ts
-  ops/
-    <domain>/
+    ops/
       index.ts
       <op-slug>/
         contract.ts
@@ -103,7 +102,6 @@ mods/mod-swooper-maps/src/domain/
 
 - Use stable path aliases for cross-module imports:
   - `@mapgen/domain/*` → `mods/mod-swooper-maps/src/domain/*`
-  - `@mapgen/ops/*` → `mods/mod-swooper-maps/src/domain/ops/*`
   - `@mapgen/authoring/*` → `mods/mod-swooper-maps/src/authoring/*`
 - Keep relative imports within a single op or step directory (e.g., `./rules/...`, `./strategies/...`).
 - Do not force aliasing on local helpers; use aliases only when crossing module boundaries.
@@ -735,7 +733,7 @@ independently.
 
 ### Domain module files
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/contract.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/contract.ts`
 ```ts
 import { Type, type Static, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
@@ -796,7 +794,7 @@ export type TreeDefaultConfig = Static<typeof PlanTreeVegetationContract.strateg
 export type TreeClusteredConfig = Static<typeof PlanTreeVegetationContract.strategies.clustered>;
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/rules/normalize.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/rules/normalize.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
 import type { TreeDefaultConfig, TreeClusteredConfig } from "../contract.js";
@@ -812,7 +810,7 @@ export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
 }
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/rules/placements.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/rules/placements.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
 import type { PlanTreeVegetationInput, TreeClusteredConfig } from "../contract.js";
@@ -846,7 +844,7 @@ export function buildTreePlacements(
 }
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/strategies/default.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/strategies/default.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
@@ -860,7 +858,7 @@ export const defaultStrategy = createStrategy(PlanTreeVegetationContract, "defau
 });
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/strategies/clustered.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/strategies/clustered.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
@@ -874,7 +872,7 @@ export const clusteredStrategy = createStrategy(PlanTreeVegetationContract, "clu
 });
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/index.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/index.ts`
 ```ts
 import { createOp } from "@swooper/mapgen-core/authoring";
 
@@ -892,7 +890,7 @@ export const planTreeVegetation = createOp(PlanTreeVegetationContract, {
 export * from "./contract.js";
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/contract.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/contract.ts`
 ```ts
 import { Type, type Static, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
@@ -952,7 +950,7 @@ export type ShrubDefaultConfig = Static<typeof PlanShrubVegetationContract.strat
 export type ShrubAridConfig = Static<typeof PlanShrubVegetationContract.strategies.arid>;
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/rules/normalize.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/rules/normalize.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
 import type { ShrubDefaultConfig, ShrubAridConfig } from "../contract.js";
@@ -968,7 +966,7 @@ export function normalizeShrubConfig(config: ShrubConfig): ShrubConfig {
 }
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/rules/placements.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/rules/placements.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
 import type { PlanShrubVegetationInput, ShrubAridConfig } from "../contract.js";
@@ -998,7 +996,7 @@ export function buildShrubPlacements(
 }
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/strategies/default.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/strategies/default.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
@@ -1012,7 +1010,7 @@ export const defaultStrategy = createStrategy(PlanShrubVegetationContract, "defa
 });
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/strategies/arid.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/strategies/arid.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
@@ -1026,7 +1024,7 @@ export const aridStrategy = createStrategy(PlanShrubVegetationContract, "arid", 
 });
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/index.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/index.ts`
 ```ts
 import { createOp } from "@swooper/mapgen-core/authoring";
 
@@ -1044,7 +1042,7 @@ export const planShrubVegetation = createOp(PlanShrubVegetationContract, {
 export * from "./contract.js";
 ```
 
-`mods/mod-swooper-maps/src/domain/ops/ecology/index.ts`
+`mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
 ```ts
 export { planTreeVegetation } from "./plan-tree-vegetation/index.js";
 export { planShrubVegetation } from "./plan-shrub-vegetation/index.js";
@@ -1212,7 +1210,7 @@ export default createStep(PlotVegetationStepContract, {
    - Move orchestration into `steps/<step>/index.ts` using the bound `createStep(contract, { resolveConfig?, run })`.
    - Move helper logic into `steps/<step>/lib/*`.
 7. Update step schema defaults to reference `op.defaultConfig` and `op.config` from the implemented ops.
-8. Add the `@mapgen/ops/*` path alias and standardize cross-module imports to use aliases, leaving intra-op/step imports relative.
+8. Standardize cross-module imports to use `@mapgen/domain/*` and `@mapgen/authoring/*` aliases, leaving intra-op/step imports relative.
 9. Move any shared helper clones (e.g., `clamp01`, noise helpers) into the core SDK and import them from `@swooper/mapgen-core`.
 10. Update op validation tests and any direct `createOp({ ... })` usages to `createOp(contract, { strategies })`.
 

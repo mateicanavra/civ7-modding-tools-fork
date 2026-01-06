@@ -153,17 +153,16 @@ STANDARD_CONTENT_ROOT/
 │  │  │     ├─ index.ts
 │  │  │     └─ <domain>.ts
 │  │  ├─ <domain>/
-│  │  │  └─ index.ts
-│  │  └─ ops/
-│  │     └─ <domain>/
-│  │        └─ <op-slug>/
-│  │           ├─ contract.ts
-│  │           ├─ rules/
-│  │           │  └─ <rule>.ts
-│  │           ├─ strategies/
-│  │           │  ├─ default.ts
-│  │           │  └─ <strategy>.ts
-│  │           └─ index.ts
+│  │  │  ├─ index.ts
+│  │  │  └─ ops/
+│  │  │     └─ <op-slug>/
+│  │  │        ├─ contract.ts
+│  │  │        ├─ rules/
+│  │  │        │  └─ <rule>.ts
+│  │  │        ├─ strategies/
+│  │  │        │  ├─ default.ts
+│  │  │        │  └─ <strategy>.ts
+│  │  │        └─ index.ts
 │  │  └─ **/*                         # other domain logic and shared helpers
 │  └─ recipes/
 │     └─ standard/

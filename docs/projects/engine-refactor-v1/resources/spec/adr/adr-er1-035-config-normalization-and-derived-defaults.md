@@ -88,14 +88,14 @@ This section captures the *current* sources of “normalization” and config sh
 
 #### G) Op-local defaulting inside `run(...)` (`Value.Default(...)` in ops)
 
-- **Where:** ecology ops commonly default config inside `run(...)` (e.g., `mods/mod-swooper-maps/src/domain/ops/ecology/classify-biomes/index.ts`)
+- **Where:** ecology ops commonly default config inside `run(...)` (e.g., `mods/mod-swooper-maps/src/domain/ecology/ops/classify-biomes/index.ts`)
 - **What it does:** applies schema defaults at op entry and then uses “resolved config” to compute derived scalars.
 - **Why it exists:** callers are not consistently passing fully defaulted/canonical op config; op authors defend against partial configs and normalize locally.
 - **Classification:** accidental/unclear (needs an explicit rule about *where* op config is defaulted/canonicalized and whether ops should assume canonical config inputs).
 
 #### H) Explicit resolver helpers that manufacture a “resolved” config shape
 
-- **Where:** `mods/mod-swooper-maps/src/domain/ops/ecology/plot-effects/rules/normalize.ts` (`resolvePlotEffectsConfig(...)`)
+- **Where:** `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/rules/normalize.ts` (`resolvePlotEffectsConfig(...)`)
 - **What it does:** takes an optional/partial config input and returns a fully expanded “resolved” config object with nested defaults applied.
 - **Why it exists:** nested config ergonomics; avoids sprinkling defaults throughout algorithm logic.
 - **Classification:** ambiguous: this may be the *right* pattern (a pure normalizer) but needs to be placed consistently (compile-time vs op-time) to preserve plan truthfulness and avoid duplicated normalization.
@@ -207,7 +207,7 @@ export type ResolvableStep<TContext, TConfig> = MapGenStep<TContext, TConfig> & 
 ### Composite step example (fan-out → delegate → recombine)
 
 ```ts
-// domain/ops (two ops, each owns scaling semantics)
+// domain/<domain>/ops (two ops, each owns scaling semantics)
 import { Type, type Static } from "typebox";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
 import { createStrategy } from "@swooper/mapgen-core/authoring";

@@ -23,7 +23,6 @@
 Path aliasing:
 - Use stable aliases for cross-module imports:
   - `@mapgen/domain/*` → `STANDARD_CONTENT_ROOT/src/domain/*`
-  - `@mapgen/ops/*` → `STANDARD_CONTENT_ROOT/src/domain/ops/*`
   - `@mapgen/authoring/*` → `STANDARD_CONTENT_ROOT/src/authoring/*`
 - Keep relative imports inside a single op or step directory.
 
@@ -126,7 +125,7 @@ STANDARD_CONTENT_ROOT/
 **Domain scope (`src/domain/**`)**
 - Domain is the home for:
   - domain algorithms
-  - operation modules under `ops/<domain>/<op>/` with `contract.ts`, `strategies/**`, and `rules/**`
+  - operation modules under `<domain>/ops/<op>/` with `contract.ts`, `strategies/**`, and `rules/**`
   - shared config schema fragments (`src/domain/**/config.ts`) when used by more than one step
 - Domain modules may be used by a single step; reuse is not the criterion for domain placement. The criterion is recipe-independence and a clean separation between step orchestration and content logic.
 - Domain must not import from `recipes/**` or `maps/**`.

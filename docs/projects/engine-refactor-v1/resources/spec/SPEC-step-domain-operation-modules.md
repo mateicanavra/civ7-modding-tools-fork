@@ -5,12 +5,12 @@
 **Rule**
 - A small, pure, domain-specific function implementing one heuristic or invariant.
 - Rules are internal building blocks; they are not step-callable contracts.
-- Rules live under each op in `domain/ops/<domain>/<op>/rules/**` and are imported directly by strategies.
+- Rules live under each op in `domain/<domain>/ops/<op>/rules/**` and are imported directly by strategies.
 
 **Operation** (aka "op")
 - A step-callable, schema-backed domain entrypoint: `run(input, config) -> output`.
 - Operations are the public contract that steps depend on.
-- Operation contracts are contract-first and live in `domain/ops/<domain>/<op>/contract.ts`.
+- Operation contracts are contract-first and live in `domain/<domain>/ops/<op>/contract.ts`.
 
 **Strategy**
 - A swappable implementation of an operation that preserves the operation's input/output contract.
@@ -18,7 +18,7 @@
 - Strategies may have strategy-specific config schemas.
 
 **Operation module**
-- A directory under `domain/ops/<domain>/<op>/` that exports exactly one operation.
+- A directory under `domain/<domain>/ops/<op>/` that exports exactly one operation.
 - Canonical files: `contract.ts`, `strategies/**`, `rules/**`, `index.ts`.
 
 **Step**
@@ -116,10 +116,10 @@ src/domain/
         index.ts
 ```
 
-Rules are op-local by default and live under `domain/ops/<domain>/<op>/rules/**`.
+Rules are op-local by default and live under `domain/<domain>/ops/<op>/rules/**`.
 
 Import rules:
-- Use `@mapgen/ops/<domain>/<op>` or `@mapgen/domain/<domain>` for cross-module imports.
+- Use `@mapgen/domain/<domain>/ops/<op>` or `@mapgen/domain/<domain>` for cross-module imports.
 - Use `@mapgen/authoring/steps` for bound step factories (no relative path churn).
 - Keep relative imports inside a single op module (e.g., `./rules/...`, `./strategies/...`).
 
@@ -187,13 +187,13 @@ Steps and domains interact as a clean boundary:
 
 ```
 (runtime)                       (pure)                        (runtime)
-Step.run(ctx, config)  -->      domain/ops/**     -->         engine + artifacts
+Step.run(ctx, config)  -->      domain/**     -->         engine + artifacts
   build inputs                 op.runValidated(...)           apply + publish
 ```
 
 Boundary rule:
 - Steps own dependency IDs and artifact publication.
-- Domain ops do not read/write the artifact store and do not import recipe contracts.
+- Domain ops do not read/ops/write the artifact store and do not import recipe contracts.
 
 ---
 
@@ -225,7 +225,7 @@ Inference rules:
 ### Example layout
 
 ```txt
-src/domain/ops/ecology/plan-tree-vegetation/
+src/domain/ecology/ops/plan-tree-vegetation/
   contract.ts
   rules/
     normalize.ts
@@ -235,7 +235,7 @@ src/domain/ops/ecology/plan-tree-vegetation/
     clustered.ts
   index.ts
 
-src/domain/ops/ecology/plan-shrub-vegetation/
+src/domain/ecology/ops/plan-shrub-vegetation/
   contract.ts
   rules/
     normalize.ts
@@ -255,7 +255,7 @@ src/recipes/standard/stages/ecology/steps/plot-vegetation/
 ### Tree operation contract
 
 ```ts
-// src/domain/ops/ecology/plan-tree-vegetation/contract.ts
+// src/domain/ecology/ops/plan-tree-vegetation/contract.ts
 import { Type, type Static, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
 
@@ -318,7 +318,7 @@ export type TreeClusteredConfig = Static<typeof PlanTreeVegetationContract.strat
 ### Tree rules
 
 ```ts
-// src/domain/ops/ecology/plan-tree-vegetation/rules/normalize.ts
+// src/domain/ecology/ops/plan-tree-vegetation/rules/normalize.ts
 import { clamp01 } from "@swooper/mapgen-core";
 import type { TreeDefaultConfig, TreeClusteredConfig } from "../contract.js";
 
@@ -334,7 +334,7 @@ export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
 ```
 
 ```ts
-// src/domain/ops/ecology/plan-tree-vegetation/rules/placements.ts
+// src/domain/ecology/ops/plan-tree-vegetation/rules/placements.ts
 import { clamp01 } from "@swooper/mapgen-core";
 import type { PlanTreeVegetationInput, TreeClusteredConfig } from "../contract.js";
 import { type TreeConfig } from "./normalize.js";
@@ -370,7 +370,7 @@ export function buildTreePlacements(
 ### Tree strategies
 
 ```ts
-// src/domain/ops/ecology/plan-tree-vegetation/strategies/default.ts
+// src/domain/ecology/ops/plan-tree-vegetation/strategies/default.ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
 import { PlanTreeVegetationContract } from "../contract.js";
@@ -384,7 +384,7 @@ export const defaultStrategy = createStrategy(PlanTreeVegetationContract, "defau
 ```
 
 ```ts
-// src/domain/ops/ecology/plan-tree-vegetation/strategies/clustered.ts
+// src/domain/ecology/ops/plan-tree-vegetation/strategies/clustered.ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
 import { PlanTreeVegetationContract } from "../contract.js";
@@ -400,7 +400,7 @@ export const clusteredStrategy = createStrategy(PlanTreeVegetationContract, "clu
 ### Tree op entry
 
 ```ts
-// src/domain/ops/ecology/plan-tree-vegetation/index.ts
+// src/domain/ecology/ops/plan-tree-vegetation/index.ts
 import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanTreeVegetationContract } from "./contract.js";
@@ -420,7 +420,7 @@ export * from "./contract.js";
 ### Shrub op entry (short form)
 
 ```ts
-// src/domain/ops/ecology/plan-shrub-vegetation/index.ts
+// src/domain/ecology/ops/plan-shrub-vegetation/index.ts
 import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanShrubVegetationContract } from "./contract.js";
@@ -567,7 +567,7 @@ export default createStep(PlotVegetationStepContract, {
 - **R-002: Strategies are out-of-line.** Strategy modules use `createStrategy(contract, id, impl)`.
 - **R-003: Strategy selection is explicit.** Op config is always `{ strategy, config }`.
 - **R-004: Steps do not bind ops.** Steps orchestrate ops by calling them, without declaring op graphs or bindings.
-- **R-005: Rules are op-local.** Rules live under `domain/ops/<domain>/<op>/rules/**` and are not imported by steps.
+- **R-005: Rules are op-local.** Rules live under `domain/<domain>/ops/<op>/rules/**` and are not imported by steps.
 - **R-006: Shared utilities live in core.** Cross-cutting helpers (math, noise, RNG, grid) must be imported from the core SDK; add them there if broadly useful.
 
 ---
