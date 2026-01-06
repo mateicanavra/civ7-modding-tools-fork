@@ -1,0 +1,42 @@
+{
+  "output": {
+    "filePath": "docs/projects/engine-refactor-v1/resources/repomix/ecology-canonical-repomix.xml",
+    "style": "xml",
+    "parsableStyle": true,
+    "compress": true,
+    "fileSummary": true,
+    "directoryStructure": true,
+    "showLineNumbers": true
+  },
+  "include": [
+    "mods/mod-swooper-maps/package.json",
+    "packages/civ7-adapter/package.json",
+    "packages/civ7-adapter/src/**",
+    "packages/civ7-types/package.json",
+    "packages/civ7-types/index.d.ts",
+    "packages/mapgen-core/package.json",
+    "packages/mapgen-core/src/**",
+    "mods/mod-swooper-maps/src/domain/config.ts",
+    "mods/mod-swooper-maps/src/domain/index.ts",
+    "mods/mod-swooper-maps/src/domain/ecology/**",
+    "mods/mod-swooper-maps/src/domain/foundation/**",
+    "mods/mod-swooper-maps/src/domain/narrative/corridors/types.ts",
+    "mods/mod-swooper-maps/src/domain/narrative/orogeny/cache.ts",
+    "mods/mod-swooper-maps/src/recipes/standard/artifacts.ts",
+    "mods/mod-swooper-maps/src/recipes/standard/tags.ts",
+    "mods/mod-swooper-maps/src/recipes/standard/stages/ecology/**",
+    "mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-inputs.ts",
+    "mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-outputs.ts",
+    "mods/mod-swooper-maps/test/ecology/**",
+    "mods/mod-swooper-maps/test/support/op-contract.ts",
+    "scripts/lint/lint-domain-refactor-guardrails.sh"
+  ],
+  "ignore": {
+    "patterns": [
+      "docs/projects/engine-refactor-v1/resources/repomix/ecology-canonical-repomix.xml",
+      "mods/**/dist/**",
+      "mods/**/mod/**",
+      "**/dist/**"
+    ]
+  }
+}

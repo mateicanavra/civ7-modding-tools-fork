@@ -9,6 +9,7 @@
   - recipe packages (stages + steps)
   - step schemas, tag definitions, artifacts, validators
   - Civ7 runner glue to instantiate context and execute recipes
+  - contract-first op modules under `src/domain/<domain>/ops/<op>/` (`contract.ts`, `strategies/**`, `rules/**`, `index.ts`)
 
 ### 5.2 Recipes are mini-packages (`src/recipes/**`)
 
@@ -26,22 +27,23 @@
   - `stages/<stageId>/index.ts` defines the stage via `createStage({ id, steps })`.
   - `stages/<stageId>/steps/` contains step modules (standardized contract + implementation pairing):
     - `steps/index.ts` is the only barrel; it re-exports step modules explicitly.
-    - Each step is defined by `steps/<stepId>.model.ts` + `steps/<stepId>.ts`.
+    - Each step is defined by `steps/<stepId>/contract.ts` + `steps/<stepId>/index.ts`.
   - Stage-scoped helpers/contracts (when shared across multiple steps) live at the stage root as explicit modules (e.g., `producer.ts`, `shared.model.ts`).
 - Step module invariants:
-  - `<stepId>.model.ts` is the step’s contract surface (schema + types + tags + step-owned artifact helpers).
-  - `<stepId>.ts` is the step definition and `run` orchestration; it imports the model and domain logic.
+  - `steps/<stepId>/contract.ts` is the step’s contract surface (schema + types + tags + step-owned artifact helpers).
+  - `steps/<stepId>/index.ts` is the step definition and `run` orchestration; it imports the contract and domain logic.
   - Steps do not introduce recipe-wide catalogs; shared contracts live at the closest real owner (stage root or domain).
 
 ### 5.4 Config ownership (no global runtime config blob)
 
 - Config values (instances) are owned by maps (`src/maps/**`).
-- Step config schemas are owned by steps (`src/recipes/**/stages/**/steps/*.model.ts`).
+- Step config schemas are owned by steps (`src/recipes/**/stages/**/steps/*/contract.ts`).
 - Shared config schema fragments live with the closest owner:
-  - stage scope (`stages/<stageId>/*.model.ts`) when stage-local
+  - stage scope (`stages/<stageId>/shared/**`) when stage-local
   - domain scope (`src/domain/**`) when domain-owned and not purely “schema-only”
   - mod scope uses a thin barrel only (`src/domain/config.ts`) for cross-domain imports
 - A mod-wide `@mapgen/domain/config` path alias is allowed and canonical for importing shared schema fragments and types.
+- Cross-module op imports should use `@mapgen/domain/<domain>/ops/<op>` (keep relative imports inside a single op module).
 - `@mapgen/domain/config` is **schema/type-only**:
   - it must not become a grab-bag “global runtime config blob”,
   - it must not own map instances, step orchestration, or registry assembly.

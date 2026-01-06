@@ -165,7 +165,7 @@ To make “ops are contracts” enforceable without changing the meaning of `op.
 
 **Custom validation hook (authoring-time, internal)**
 
-Operation authors may optionally provide `customValidate: (input, config) => ValidationError[]` in `createOp({ ... })`:
+Operation authors may optionally provide `customValidate: (input, config) => ValidationError[]` in `createOp(contract, { strategies, customValidate? })`:
 - it is **not** a public method on the op,
 - it is invoked automatically as part of `op.validate(...)` / `op.runValidated(...)`,
 - it is intended for cheap semantic invariants that need both `(input, config)` and may return multiple pathful errors.

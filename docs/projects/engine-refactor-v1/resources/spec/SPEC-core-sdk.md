@@ -6,8 +6,11 @@
 
 - Provide **content-agnostic runtime** primitives (compile + execute).
 - Provide **authoring ergonomics** (typed recipe/stage/step factories).
+- Provide **contract-first op authoring** (`src/authoring/op/*`).
+- Provide **contract-first step authoring** (`src/authoring/step/*`, `createStepFor<TContext>()`).
 - Provide **engine-owned context** types and helpers.
 - Provide **neutral utilities** (`lib/**`) and optional diagnostics (`dev/**`).
+- Re-export shared utilities from `@swooper/mapgen-core` root to reduce churn (math, noise, RNG, grid).
 - Do not define or ship mod content (no recipe steps, no tag catalogs, no content artifacts).
 
 ### 4.2 Engine runtime module layout (`src/engine/**`)

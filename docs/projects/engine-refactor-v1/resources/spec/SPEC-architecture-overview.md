@@ -16,6 +16,7 @@
 - Pipeline composition is **recipe-authored** and **explicit** (no implicit stage manifests, no hidden enablement).
 - Cross-step dependencies are explicit dependency tags (`artifact:*`, `buffer:*`, `effect:*`) declared in `requires`/`provides`.
 - Step configuration is **validated per step occurrence**; there is no monolithic runtime config object.
+- Operations are **contract-first** and strategy selection is an op-local config concern; steps call ops but do not bind or declare op graphs.
 - Default authoring is **colocation**:
   - Step-owned: config schemas + config types, dependency tag IDs/definitions, artifact types/validators/publish-get helpers, and any step-local types.
   - Stage-shared: only items shared across multiple steps in the same stage.
@@ -32,19 +33,21 @@
   - `effect:*` — declares an externally meaningful engine change/capability guarantee
 - **Artifact (value)**: an immutable snapshot stored in `context.artifacts` keyed by an `artifact:*` tag. Tags describe dependency edges; artifacts are the typed values that flow across those edges.
 - **Tag definition**: an optional registry entry (`DependencyTagDefinition`) that can attach postconditions (`satisfies`) and demo validation to a tag. Most tags only need an ID and kind; only a minority need custom `satisfies` logic.
-- **Step contract model module**: a step-owned contract bundle for a single step (schema + derived config type + tag IDs/arrays + optional step-owned artifact helpers/validators). The default shape is `<stepId>.model.ts` colocated next to the step implementation.
+- **Step contract module**: a step-owned contract bundle for a single step (schema + derived config type + tag IDs/arrays + optional step-owned artifact helpers/validators). The default shape is `steps/<stepId>/contract.ts` colocated next to the step implementation.
 
 ### 1.2 Pipeline contract
 
 - Boundary input is `RunRequest = { recipe, settings }`.
 - `RunRequest.recipe` is the only ordering/enablement source of truth.
 - The runtime compiles a `RunRequest` into an `ExecutionPlan`, then executes the plan against a `StepRegistry`.
-- The step contract is `MapGenStep`:
+- The step contract is metadata-only (`MapGenStepContract`):
   - `id`: string identifier (globally unique inside a mod registry)
   - `phase`: `GenerationPhase`
   - `requires`: dependency tags
   - `provides`: dependency tags
-  - `configSchema`: per-step config schema (TypeBox)
+  - `schema`: per-step config schema (TypeBox)
+- The runtime step (`MapGenStep`) is created by `createStepFor<TContext>()` and attaches:
+  - `resolveConfig?`: optional compile-time config resolver
   - `run(context, config)`: side-effecting execution against the run context
 - Enablement is recipe-authored and compiled into the plan:
   - Disabled steps do not appear in the `ExecutionPlan`.
@@ -81,7 +84,7 @@
 **Core SDK (`CORE_SDK_ROOT`) owns:**
 - Runtime execution (`StepRegistry`, `TagRegistry`, `ExecutionPlan` compile, `PipelineExecutor`)
 - Engine-owned context surface (adapter I/O + buffers + artifact store + tracing)
-- Authoring ergonomics (`createStep`, `createStage`, `createRecipe`)
+- Authoring ergonomics (`defineStepContract`, `createStepFor`, `createStage`, `createRecipe`)
 - Neutral utilities (`lib/**`) and optional diagnostics (`dev/**`)
 
 **Content packages (mods) own:**

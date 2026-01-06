@@ -1,0 +1,31 @@
+{
+  "output": {
+    "filePath": "docs/projects/engine-refactor-v1/resources/repomix/repomix-mapgen-uncompressed.xml",
+    "style": "xml",
+    "parsableStyle": true,
+    "compress": false,
+    "fileSummary": true,
+    "directoryStructure": true,
+    "showLineNumbers": true
+  },
+  "include": [
+    "packages/civ7-types/**",
+    "packages/civ7-adapter/*.json",
+    "packages/civ7-adapter/src/**",
+    "packages/mapgen-core/*.json",
+    "packages/mapgen-core/src/**",
+    "packages/mapgen-core/test/**",
+    "mods/mod-swooper-maps/src/**",
+    "mods/mod-swooper-maps/*.json",
+    "mods/mod-swooper-maps/test/**",
+    "scripts/lint/lint-domain-refactor-guardrails.sh"
+  ],
+  "ignore": {
+    "patterns": [
+      "docs/projects/engine-refactor-v1/resources/repomix/ecology-canonical-repomix.xml",
+      "mods/**/dist/**",
+      "mods/**/mod/**",
+      "**/dist/**"
+    ]
+  }
+}

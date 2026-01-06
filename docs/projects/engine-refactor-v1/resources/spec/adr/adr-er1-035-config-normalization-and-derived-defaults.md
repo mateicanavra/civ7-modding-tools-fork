@@ -79,7 +79,7 @@ This section captures the *current* sources of “normalization” and config sh
 
 #### F) Strategy selection default-friendliness implies a normalization step
 
-- **Where:** `packages/mapgen-core/src/authoring/op.ts` (`createOp` strategy union + default handling)
+- **Where:** `packages/mapgen-core/src/authoring/op/create.ts` (`createOp` strategy union + default handling)
 - **What it does:** supports an explicit plan-truth strategy envelope (`{ strategy, config }`) while still selecting a concrete strategy implementation at call time.
 - **Why it exists:** authoring ergonomics and type-safe strategy selection require multiple *authored* shapes for “the same” config intent.
 - **Classification:** intentional/staying (this is DD-005’s core outcome).
@@ -95,7 +95,7 @@ This section captures the *current* sources of “normalization” and config sh
 
 #### H) Explicit resolver helpers that manufacture a “resolved” config shape
 
-- **Where:** `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/schema.ts` (`resolvePlotEffectsConfig(...)`)
+- **Where:** `mods/mod-swooper-maps/src/domain/ecology/ops/plot-effects/rules/normalize.ts` (`resolvePlotEffectsConfig(...)`)
 - **What it does:** takes an optional/partial config input and returns a fully expanded “resolved” config object with nested defaults applied.
 - **Why it exists:** nested config ergonomics; avoids sprinkling defaults throughout algorithm logic.
 - **Classification:** ambiguous: this may be the *right* pattern (a pure normalizer) but needs to be placed consistently (compile-time vs op-time) to preserve plan truthfulness and avoid duplicated normalization.
@@ -118,7 +118,7 @@ This section captures the *current* sources of “normalization” and config sh
 - Introduce an optional **step-level resolver hook** executed by the compiler:
   - `step.resolveConfig(stepConfig, settings) -> stepConfig`
   - This resolver is **pure** and depends only on `(stepConfig, RunRequest.settings)` (no adapters, no runtime buffers, no artifacts, no RNG).
-  - The resolver output must validate against the step’s existing `configSchema` (no plan-stored internal/derived fields).
+- The resolver output must validate against the step’s existing `schema` (no plan-stored internal/derived fields).
 - Operations may provide **op-local normalization helpers** that are composed by steps at compile time:
   - `op.resolveConfig(opConfig, settings) -> opConfig`
   - Op resolvers are invoked by `step.resolveConfig(...)` (for composite steps) and the returned config remains schema-valid.
@@ -162,26 +162,28 @@ Operations remain runtime-pure and do not accept adapters/callback “views” a
 
 ```ts
 import type { Static, TSchema } from "typebox";
-import type { RunSettings } from "@swooper/mapgen-core/engine";
+import type { RunSettings } from "@swooper/mapgen-core/engine/execution-plan.js";
+import type { OpContract } from "@swooper/mapgen-core/authoring";
+import type { StrategySelection } from "@swooper/mapgen-core/authoring";
 
 export type OpResolveConfig<ConfigSchema extends TSchema> = (
   config: Static<ConfigSchema>,
   settings: RunSettings
 ) => Static<ConfigSchema>;
 
-export type DomainOp<
-  InputSchema extends TSchema,
-  OutputSchema extends TSchema,
-  ConfigSchema extends TSchema,
-> = Readonly<{
-  kind: "plan" | "compute" | "score" | "select";
-  id: string;
-  input: InputSchema;
-  output: OutputSchema;
-  config: ConfigSchema;
-  defaultConfig: Static<ConfigSchema>;
-  resolveConfig?: OpResolveConfig<ConfigSchema>; // compile-time only
-  runValidated: (input: Static<InputSchema>, config: Static<ConfigSchema>) => Static<OutputSchema>;
+type StrategySelectionFor<C extends OpContract<any, any, any, any, any>> = StrategySelection<{
+  [K in keyof C["strategies"] & string]: { config: C["strategies"][K] };
+}>;
+
+export type DomainOp<C extends OpContract<any, any, any, any, any>> = Readonly<{
+  contract: C;
+  config: TSchema; // derived envelope schema
+  defaultConfig: StrategySelectionFor<C>;
+  resolveConfig?: (config: StrategySelectionFor<C>, settings: RunSettings) => StrategySelectionFor<C>;
+  runValidated: (
+    input: Static<C["input"]>,
+    config: StrategySelectionFor<C>
+  ) => Static<C["output"]>;
 }>;
 ```
 
@@ -205,46 +207,71 @@ export type ResolvableStep<TContext, TConfig> = MapGenStep<TContext, TConfig> & 
 ### Composite step example (fan-out → delegate → recombine)
 
 ```ts
-// domain/ops (two ops, each owns scaling semantics)
+// domain/<domain>/ops (two ops, each owns scaling semantics)
+import { Type, type Static } from "typebox";
+import { defineOpContract } from "@swooper/mapgen-core/authoring";
+import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { createOp } from "@swooper/mapgen-core/authoring";
 
-export const computeSuitability = createOp({
+export const computeSuitabilityContract = defineOpContract({
   kind: "compute",
   id: "ecology/features/computeSuitability",
   input: ComputeSuitabilityInputSchema,
   output: ComputeSuitabilityOutputSchema,
   strategies: {
-    default: {
-      config: ComputeSuitabilityConfigSchema,
-      resolveConfig: (cfg, settings) => {
-        // example: default grid-scaled search radius based on map size
-        const size = settings.dimensions.width * settings.dimensions.height;
-        const autoRadius = size < 20000 ? 3 : 5;
-        return { ...cfg, searchRadius: cfg.searchRadius ?? autoRadius };
-      },
-      run: (input, cfg) => {
-        /* ... */
-      },
-    },
+    default: ComputeSuitabilityConfigSchema,
   },
 });
 
-export const selectPlacements = createOp({
+export const computeSuitabilityDefault = createStrategy(
+  computeSuitabilityContract,
+  "default",
+  {
+    resolveConfig: (cfg, settings) => {
+      // example: default grid-scaled search radius based on map size
+      const size = settings.dimensions.width * settings.dimensions.height;
+      const autoRadius = size < 20000 ? 3 : 5;
+      return { ...cfg, searchRadius: cfg.searchRadius ?? autoRadius };
+    },
+    run: (input, cfg) => {
+      /* ... */
+    },
+  }
+);
+
+export const computeSuitability = createOp(computeSuitabilityContract, {
+  strategies: {
+    default: computeSuitabilityDefault,
+  },
+});
+
+export const selectPlacementsContract = defineOpContract({
   kind: "select",
   id: "ecology/features/selectPlacements",
   input: SelectPlacementsInputSchema,
   output: SelectPlacementsOutputSchema,
   strategies: {
-    default: {
-      config: SelectPlacementsConfigSchema,
-      resolveConfig: (cfg, settings) => {
-        const wrap = settings.wrap.wrapX || settings.wrap.wrapY;
-        return { ...cfg, allowWrapAdjacency: cfg.allowWrapAdjacency ?? wrap };
-      },
-      run: (input, cfg) => {
-        /* ... */
-      },
+    default: SelectPlacementsConfigSchema,
+  },
+});
+
+export const selectPlacementsDefault = createStrategy(
+  selectPlacementsContract,
+  "default",
+  {
+    resolveConfig: (cfg, settings) => {
+      const wrap = settings.wrap.wrapX || settings.wrap.wrapY;
+      return { ...cfg, allowWrapAdjacency: cfg.allowWrapAdjacency ?? wrap };
     },
+    run: (input, cfg) => {
+      /* ... */
+    },
+  }
+);
+
+export const selectPlacements = createOp(selectPlacementsContract, {
+  strategies: {
+    default: selectPlacementsDefault,
   },
 });
 
@@ -263,7 +290,7 @@ export const featuresStep: ResolvableStep<EngineContext, FeaturesStepConfig> = {
   phase: "ecology",
   requires: [/* ... */],
   provides: [/* ... */],
-  configSchema: FeaturesStepConfigSchema,
+  schema: FeaturesStepConfigSchema,
 
   // compiler-time composition point
   resolveConfig: (cfg, settings) => ({
