@@ -1,9 +1,7 @@
 import { type Static } from "@swooper/mapgen-core/authoring";
-import {
-  PlanFeaturePlacementsContract,
-  type ResolvedFeaturesPlacementConfig,
-} from "./contract.js";
-import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
+import { PlanFeaturePlacementsContract } from "./contract.js";
+import type { ResolvedFeaturesPlacementConfig } from "./types.js";
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
 import {
   hasAdjacentFeatureType,
   isAdjacentToLand,

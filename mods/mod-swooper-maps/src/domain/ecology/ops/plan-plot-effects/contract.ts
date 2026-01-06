@@ -6,7 +6,7 @@ import {
   type Static,
 } from "@swooper/mapgen-core/authoring";
 
-import type { BiomeSymbol, PlotEffectKey } from "../../types.js";
+import type { BiomeSymbol, PlotEffectKey } from "@mapgen/domain/ecology/types.js";
 
 const BiomeSymbolSchema = Type.Union(
   [
@@ -463,8 +463,7 @@ export const PlanPlotEffectsContract = defineOpContract({
   strategies: {
     default: PlotEffectsConfigSchema,
   },
-} as const);
-
+});
 type PlotEffectSelector = { typeName: PlotEffectKey };
 type PlotEffectsSnowSelectors = Static<typeof PlotEffectsSnowSelectorsSchema>;
 type PlotEffectsSnowConfig = Static<typeof PlotEffectsSnowSchema>;

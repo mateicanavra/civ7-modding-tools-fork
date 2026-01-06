@@ -1,6 +1,6 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
-import { BIOME_SYMBOL_TO_INDEX, type BiomeSymbol } from "../../types.js";
+import { BIOME_SYMBOL_TO_INDEX, type BiomeSymbol } from "@mapgen/domain/ecology/types.js";
 import { BiomeClassificationContract } from "../contract.js";
 import {
   aridityShiftForIndex,

@@ -32,4 +32,4 @@ export const BiomesStepContract = defineStepContract({
     M4_EFFECT_TAGS.engine.biomesApplied,
   ],
   schema: BiomesStepConfigSchema,
-} as const);
+});

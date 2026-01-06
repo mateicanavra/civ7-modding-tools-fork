@@ -1,6 +1,6 @@
 import { createLabelRng } from "../rng.js";
 import { type Static } from "@swooper/mapgen-core/authoring";
-import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "../../types.js";
+import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
 import {
   PlanReefEmbellishmentsContract,
   type ResolvedReefEmbellishmentsConfig,

@@ -1,10 +1,7 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
-import {
-  PlanFeaturePlacementsContract,
-  resolveFeaturesPlacementConfig,
-  type ResolvedFeaturesPlacementConfig,
-} from "../contract.js";
+import { PlanFeaturePlacementsContract, resolveFeaturesPlacementConfig } from "../contract.js";
+import type { ResolvedFeaturesPlacementConfig } from "../types.js";
 import { planFeaturePlacements as planFeaturePlacementsImpl } from "../plan.js";
 
 export const defaultStrategy = createStrategy(PlanFeaturePlacementsContract, "default", {

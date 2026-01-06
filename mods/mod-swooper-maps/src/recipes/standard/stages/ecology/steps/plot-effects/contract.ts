@@ -22,4 +22,4 @@ export const PlotEffectsStepContract = defineStepContract({
   ],
   provides: [],
   schema: PlotEffectsStepConfigSchema,
-} as const);
+});

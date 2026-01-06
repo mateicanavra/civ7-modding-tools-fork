@@ -1,4 +1,4 @@
-import type { Static, TSchema } from "typebox";
+import type { Static, TSchema, TUnsafe } from "typebox";
 
 import type { RunSettings } from "@mapgen/engine/execution-plan.js";
 import type { ValidationError, OpRunValidatedOptions, OpValidateOptions } from "../validation.js";
@@ -28,10 +28,9 @@ export type OpTypeBag<TContract extends OpContractLike> = Readonly<{
   }[OpStrategyId<TContract>];
 }>;
 
-export interface OpConfigSchema<Strategies extends Record<string, { config: TSchema }>>
-  extends TSchema {
-  static: StrategySelection<Strategies>;
-}
+export type OpConfigSchema<Strategies extends Record<string, { config: TSchema }>> = TUnsafe<
+  StrategySelection<Strategies>
+>;
 
 /**
  * Strict operation kind taxonomy for domain operation modules.

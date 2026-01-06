@@ -10,7 +10,7 @@ import {
   FEATURE_PLACEMENT_KEYS,
   type FeatureKey,
   type BiomeSymbol,
-} from "../../types.js";
+} from "@mapgen/domain/ecology/types.js";
 
 const FeatureKeySchema = Type.Unsafe<FeatureKey>(
   Type.Union(
@@ -716,8 +716,7 @@ export const PlanFeaturePlacementsContract = defineOpContract({
   strategies: {
     default: FeaturesPlacementConfigSchema,
   },
-} as const);
-
+});
 type FeaturesPlacementGroupsConfig = Static<typeof FeaturesPlacementGroupsSchema>;
 type FeaturesPlacementGroupConfig = Static<typeof FeaturesPlacementGroupSchema>;
 type FeaturesPlacementChances = Static<typeof FeaturesPlacementChancesSchema>;
@@ -731,9 +730,9 @@ type FeaturesPlacementAtollConfig = Static<typeof FeaturesPlacementAtollSchema>;
 type FeaturesPlacementIceConfig = Static<typeof FeaturesPlacementIceSchema>;
 type FeaturesPlacementConfig = Static<typeof FeaturesPlacementConfigSchema>;
 
-export type FeaturesPlacementResolvedGroup = { multiplier: number };
+type FeaturesPlacementResolvedGroup = { multiplier: number };
 
-export type ResolvedFeaturesPlacementConfig = {
+type ResolvedFeaturesPlacementConfig = {
   groups: {
     vegetated: FeaturesPlacementResolvedGroup;
     wet: FeaturesPlacementResolvedGroup;

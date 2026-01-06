@@ -1,4 +1,4 @@
-import type { BiomeSymbol } from "../../../types.js";
+import type { BiomeSymbol } from "../types.js";
 
 export function vegetationDensityForBiome(
   symbol: BiomeSymbol,

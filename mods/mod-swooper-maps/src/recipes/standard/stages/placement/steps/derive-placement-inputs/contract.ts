@@ -29,4 +29,4 @@ export const DerivePlacementInputsContract = defineStepContract({
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
   schema: DerivePlacementInputsConfigSchema,
-} as const);
+});

@@ -1,6 +1,5 @@
 import { biomeSymbolFromIndex } from "../../classify-biomes/index.js";
-import type { ResolvedFeaturesPlacementConfig } from "../contract.js";
-import type { FeatureKey } from "../../../types.js";
+import type { FeatureKey, ResolvedFeaturesPlacementConfig } from "../types.js";
 
 type VegetatedRules = ResolvedFeaturesPlacementConfig["vegetated"];
 
