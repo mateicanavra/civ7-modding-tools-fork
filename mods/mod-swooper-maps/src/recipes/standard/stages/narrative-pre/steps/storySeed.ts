@@ -1,29 +1,14 @@
-import { Type, type Static } from "typebox";
 import { devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
-import { NarrativeConfigSchema } from "@mapgen/domain/config";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import { storyTagContinentalMargins } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
+import { StorySeedStepContract } from "./storySeed.contract.js";
 
-const StorySeedStepConfigSchema = Type.Object(
-  {
-    margins: NarrativeConfigSchema.properties.margins,
-  },
-  { additionalProperties: false, default: { margins: {} } }
-);
+type StorySeedStepConfig = Static<typeof StorySeedStepContract.schema>;
 
-type StorySeedStepConfig = Static<typeof StorySeedStepConfigSchema>;
-
-export default createStep({
-  id: "storySeed",
-  phase: "morphology",
-  requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
-  provides: [
-    M3_DEPENDENCY_TAGS.artifact.storyOverlays,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
-  ],
-  schema: StorySeedStepConfigSchema,
+export default createStep(StorySeedStepContract, {
   run: (context: ExtendedMapContext, config: StorySeedStepConfig) => {
     const runtime = getStandardRuntime(context);
     if (context.trace.isVerbose) {
@@ -44,4 +29,4 @@ export default createStep({
       devWarn(context.trace, "[smoke] storySeed enabled but margins overlay is empty");
     }
   },
-} as const);
+});

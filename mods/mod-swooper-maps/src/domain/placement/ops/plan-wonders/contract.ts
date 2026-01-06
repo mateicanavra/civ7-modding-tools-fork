@@ -1,4 +1,4 @@
-import { Type, defineOpSchema } from "@swooper/mapgen-core/authoring";
+import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
 
 const MapInfoSchema = Type.Object(
   {
@@ -32,19 +32,12 @@ const WondersOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanWondersSchema = defineOpSchema<
-  typeof WondersInputSchema,
-  typeof WondersConfigSchema,
-  typeof WondersOutputSchema
->(
-  {
-    input: WondersInputSchema,
-    config: WondersConfigSchema,
-    output: WondersOutputSchema,
+export const PlanWondersContract = defineOpContract({
+  kind: "plan",
+  id: "placement/plan-wonders",
+  input: WondersInputSchema,
+  output: WondersOutputSchema,
+  strategies: {
+    default: WondersConfigSchema,
   },
-  {
-    title: "PlanWondersSchema",
-    description: "Plan natural wonder counts",
-    additionalProperties: false,
-  }
-);
+} as const);

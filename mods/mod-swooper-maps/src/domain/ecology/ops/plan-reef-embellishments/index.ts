@@ -1,29 +1,12 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import {
-  PlanReefEmbellishmentsSchema,
-  resolveReefEmbellishmentsConfig,
-  type ResolvedReefEmbellishmentsConfig,
-} from "./schema.js";
-import { planReefEmbellishments as planReefEmbellishmentsImpl } from "./plan.js";
+import { PlanReefEmbellishmentsContract } from "./contract.js";
+import { defaultStrategy } from "./strategies/index.js";
 
-export const planReefEmbellishments = createOp({
-  kind: "plan",
-  id: "ecology/features/reef-embellishments",
-  input: PlanReefEmbellishmentsSchema.properties.input,
-  output: PlanReefEmbellishmentsSchema.properties.output,
+export const planReefEmbellishments = createOp(PlanReefEmbellishmentsContract, {
   strategies: {
-    default: {
-      config: PlanReefEmbellishmentsSchema.properties.config,
-      resolveConfig: (config) => resolveReefEmbellishmentsConfig(config),
-      run: (input, config) => {
-        const placements = planReefEmbellishmentsImpl(
-          input,
-          config as ResolvedReefEmbellishmentsConfig
-        );
-        return { placements };
-      },
-    },
+    default: defaultStrategy,
   },
 });
 
-export * from "./schema.js";
+export * from "./contract.js";
+export type * from "./types.js";

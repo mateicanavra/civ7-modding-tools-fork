@@ -1,6 +1,6 @@
-import { Type } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import type { ResolvedPlotEffectsConfig } from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
@@ -8,30 +8,11 @@ import { buildPlotEffectsInput } from "./inputs.js";
 import { applyPlotEffectPlacements } from "./apply.js";
 import { logSnowEligibilitySummary } from "./diagnostics.js";
 import { assertHeightfield } from "../biomes/helpers/inputs.js";
+import { PlotEffectsStepContract } from "./contract.js";
 
-const PlotEffectsStepConfigSchema = Type.Object(
-  {
-    plotEffects: ecology.ops.planPlotEffects.config,
-  },
-  {
-    additionalProperties: false,
-    default: { plotEffects: ecology.ops.planPlotEffects.defaultConfig },
-  }
-);
+type PlotEffectsStepConfig = Static<typeof PlotEffectsStepContract.schema>;
 
-type PlotEffectsStepConfig = {
-  plotEffects: Parameters<typeof ecology.ops.planPlotEffects.run>[1];
-};
-
-export default createStep({
-  id: "plotEffects",
-  phase: "ecology",
-  requires: [
-    M3_DEPENDENCY_TAGS.artifact.heightfield,
-    M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
-  ],
-  provides: [],
-  schema: PlotEffectsStepConfigSchema,
+export default createStep(PlotEffectsStepContract, {
   resolveConfig: (config, settings) => {
     return {
       plotEffects: ecology.ops.planPlotEffects.resolveConfig(config.plotEffects, settings),
@@ -57,4 +38,4 @@ export default createStep({
       applyPlotEffectPlacements(context, result.placements);
     }
   },
-} as const);
+});

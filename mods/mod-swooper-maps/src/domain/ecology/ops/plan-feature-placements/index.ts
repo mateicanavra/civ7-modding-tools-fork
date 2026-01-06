@@ -1,29 +1,12 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import {
-  FeaturesPlacementSchema,
-  resolveFeaturesPlacementConfig,
-  type ResolvedFeaturesPlacementConfig,
-} from "./schema.js";
-import { planFeaturePlacements as planFeaturePlacementsImpl } from "./plan.js";
+import { PlanFeaturePlacementsContract } from "./contract.js";
+import { defaultStrategy } from "./strategies/index.js";
 
-export const planFeaturePlacements = createOp({
-  kind: "plan",
-  id: "ecology/features/placement",
-  input: FeaturesPlacementSchema.properties.input,
-  output: FeaturesPlacementSchema.properties.output,
+export const planFeaturePlacements = createOp(PlanFeaturePlacementsContract, {
   strategies: {
-    default: {
-      config: FeaturesPlacementSchema.properties.config,
-      resolveConfig: (config) => resolveFeaturesPlacementConfig(config),
-      run: (input, config) => {
-        const placements = planFeaturePlacementsImpl(
-          input,
-          config as ResolvedFeaturesPlacementConfig
-        );
-        return { placements };
-      },
-    },
+    default: defaultStrategy,
   },
 });
 
-export * from "./schema.js";
+export * from "./contract.js";
+export type * from "./types.js";

@@ -2,9 +2,9 @@ import { Type, type Static } from "typebox";
 import { Value } from "typebox/value";
 import {
   ops,
-  PlanFloodplainsSchema,
-  PlanWondersSchema,
-  PlanStartsSchema,
+  PlanFloodplainsContract,
+  PlanWondersContract,
+  PlanStartsContract,
 } from "@mapgen/domain/placement";
 
 export const PlacementInputsConfigSchema = Type.Object(
@@ -18,16 +18,16 @@ export const PlacementInputsConfigSchema = Type.Object(
 
 export const PlacementInputsV1Schema = Type.Object(
   {
-    mapInfo: PlanWondersSchema.properties.input.properties.mapInfo,
-    starts: PlanStartsSchema.properties.output,
-    wonders: PlanWondersSchema.properties.output,
-    floodplains: PlanFloodplainsSchema.properties.output,
+    mapInfo: PlanWondersContract["input"].properties.mapInfo,
+    starts: PlanStartsContract["output"],
+    wonders: PlanWondersContract["output"],
+    floodplains: PlanFloodplainsContract["output"],
     placementConfig: PlacementInputsConfigSchema,
   },
   { additionalProperties: false }
 );
 
-type MapInfo = Static<typeof PlanWondersSchema["properties"]["input"]["properties"]["mapInfo"]>;
+type MapInfo = Static<typeof PlanWondersContract["input"]["properties"]["mapInfo"]>;
 export type PlacementInputsV1 = Static<typeof PlacementInputsV1Schema> & { mapInfo: MapInfo };
 
 export function isPlacementInputsV1(value: unknown): value is PlacementInputsV1 {

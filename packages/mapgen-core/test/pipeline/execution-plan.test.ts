@@ -2,7 +2,7 @@ import { describe, it, expect } from "bun:test";
 import { Type } from "typebox";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { createOp } from "@mapgen/authoring/index.js";
+import { createOp, defineOpContract } from "@mapgen/authoring/index.js";
 
 import {
   compileExecutionPlan,
@@ -443,14 +443,19 @@ describe("compileExecutionPlan", () => {
       },
       { additionalProperties: false, default: {} }
     );
-    const op = createOp({
+    const opContract = defineOpContract({
       kind: "compute",
       id: "test/resolveConfig/op",
       input: Type.Object({}, { additionalProperties: false }),
       output: Type.Object({}, { additionalProperties: false }),
       strategies: {
+        default: OpConfigSchema,
+      },
+    });
+
+    const op = createOp(opContract, {
+      strategies: {
         default: {
-          config: OpConfigSchema,
           resolveConfig: (config, settings) => ({
             ...config,
             value: config.value + settings.dimensions.width,
@@ -458,7 +463,7 @@ describe("compileExecutionPlan", () => {
           run: () => ({}),
         },
       },
-    } as const);
+    });
 
     registry.register({
       id: "alpha",

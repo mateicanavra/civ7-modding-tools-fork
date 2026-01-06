@@ -1,4 +1,3 @@
-import { Type, type Static } from "typebox";
 import {
   HILL_TERRAIN,
   MOUNTAIN_TERRAIN,
@@ -6,8 +5,8 @@ import {
   syncHeightfield,
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
-import { ClimateConfigSchema } from "@mapgen/domain/config";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import {
   computeRiverAdjacencyMask,
   publishClimateFieldArtifact,
@@ -15,38 +14,12 @@ import {
   publishRiverAdjacencyArtifact,
 } from "../../../artifacts.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
+import { RiversStepContract } from "./rivers.contract.js";
 
-const RiversStepConfigSchema = Type.Object(
-  {
-    climate: Type.Object(
-      {
-        story: Type.Object(
-      {
-        paleo: Type.Optional(ClimateConfigSchema.properties.story.properties.paleo),
-      },
-      { additionalProperties: false, default: {} }
-    ),
-      },
-      { additionalProperties: false, default: {} }
-    ),
-  },
-  { additionalProperties: false, default: { climate: {} } }
-);
+type RiversStepConfig = Static<typeof RiversStepContract.schema>;
 
-type RiversStepConfig = Static<typeof RiversStepConfigSchema>;
-
-export default createStep({
-  id: "rivers",
-  phase: "hydrology",
-  requires: [M3_DEPENDENCY_TAGS.artifact.heightfield],
-  provides: [
-    M4_EFFECT_TAGS.engine.riversModeled,
-    M3_DEPENDENCY_TAGS.artifact.heightfield,
-    M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
-  ],
-  schema: RiversStepConfigSchema,
+export default createStep(RiversStepContract, {
   run: (context: ExtendedMapContext, config: RiversStepConfig) => {
     const runtime = getStandardRuntime(context);
     const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
@@ -110,4 +83,4 @@ export default createStep({
     const riverAdjacency = computeRiverAdjacencyMask(context);
     publishRiverAdjacencyArtifact(context, riverAdjacency);
   },
-} as const);
+});

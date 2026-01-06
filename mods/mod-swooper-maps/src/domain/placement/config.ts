@@ -1,10 +1,6 @@
 import { Type, type Static } from "typebox";
 
-import {
-  PlanFloodplainsSchema,
-  PlanStartsSchema,
-  PlanWondersSchema,
-} from "@mapgen/domain/placement";
+import * as placement from "@mapgen/domain/placement";
 
 /**
  * Late-stage placement config (wonders, floodplains, starts).
@@ -12,16 +8,16 @@ import {
  */
 export const PlacementConfigSchema = Type.Object(
   {
-    wonders: PlanWondersSchema.properties.config,
-    floodplains: PlanFloodplainsSchema.properties.config,
-    starts: PlanStartsSchema.properties.config,
+    wonders: placement.ops.planWonders.config,
+    floodplains: placement.ops.planFloodplains.config,
+    starts: placement.ops.planStarts.config,
   },
   {
     additionalProperties: false,
     default: {
-      wonders: { wondersPlusOne: true },
-      floodplains: { minLength: 4, maxLength: 10 },
-      starts: {},
+      wonders: placement.ops.planWonders.defaultConfig,
+      floodplains: placement.ops.planFloodplains.defaultConfig,
+      starts: placement.ops.planStarts.defaultConfig,
     },
   }
 );

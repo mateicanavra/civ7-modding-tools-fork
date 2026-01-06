@@ -1,4 +1,3 @@
-import { Type, type Static } from "typebox";
 import {
   assertFoundationPlates,
   devLogIf,
@@ -6,28 +5,16 @@ import {
   logReliefAscii,
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import type { MountainsConfig } from "@mapgen/domain/config";
-import { MorphologyConfigSchema } from "@mapgen/domain/config";
 import { layerAddMountainsPhysics } from "@mapgen/domain/morphology/mountains/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
+import { MountainsStepContract } from "./mountains.contract.js";
 
-const MountainsStepConfigSchema = Type.Object(
-  {
-    mountains: MorphologyConfigSchema.properties.mountains,
-  },
-  { additionalProperties: false, default: { mountains: {} } }
-);
+type MountainsStepConfig = Static<typeof MountainsStepContract.schema>;
 
-type MountainsStepConfig = Static<typeof MountainsStepConfigSchema>;
-
-export default createStep({
-  id: "mountains",
-  phase: "morphology",
-  requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
-  provides: [],
-  schema: MountainsStepConfigSchema,
+export default createStep(MountainsStepContract, {
   run: (context: ExtendedMapContext, config: MountainsStepConfig) => {
     assertFoundationPlates(context, "mountains");
     const runtime = getStandardRuntime(context);
@@ -51,4 +38,4 @@ export default createStep({
     logMountainSummary(context.trace, context.adapter, width, height);
     logReliefAscii(context.trace, context.adapter, width, height);
   },
-} as const);
+});

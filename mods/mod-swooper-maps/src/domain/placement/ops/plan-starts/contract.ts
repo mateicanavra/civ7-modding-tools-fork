@@ -1,4 +1,4 @@
-import { Type, defineOpSchema } from "@swooper/mapgen-core/authoring";
+import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
 
 const ContinentBoundsSchema = Type.Object(
   {
@@ -58,19 +58,12 @@ const StartsInputSchema = Type.Object(
 
 const StartsOutputSchema = StartsConfigSchema;
 
-export const PlanStartsSchema = defineOpSchema<
-  typeof StartsInputSchema,
-  typeof StartsConfigWrapperSchema,
-  typeof StartsOutputSchema
->(
-  {
-    input: StartsInputSchema,
-    config: StartsConfigWrapperSchema,
-    output: StartsConfigSchema,
+export const PlanStartsContract = defineOpContract({
+  kind: "plan",
+  id: "placement/plan-starts",
+  input: StartsInputSchema,
+  output: StartsOutputSchema,
+  strategies: {
+    default: StartsConfigWrapperSchema,
   },
-  {
-    title: "PlanStartsSchema",
-    description: "Plan player start positions",
-    additionalProperties: false,
-  }
-);
+} as const);

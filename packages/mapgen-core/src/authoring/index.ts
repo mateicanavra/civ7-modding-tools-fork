@@ -1,7 +1,7 @@
-export { createStep } from "./step.js";
+export { createStep, createStepFor, defineStepContract } from "./step/index.js";
 export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
-export { createOp, createStrategy } from "./op/index.js";
+export { createOp, createStrategy, defineOpContract } from "./op/index.js";
 export { applySchemaDefaults, defineOpSchema } from "./schema.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
 export { OpValidationError } from "./validation.js";
@@ -34,7 +34,21 @@ export type {
   Step,
   StepModule,
 } from "./types.js";
-export type { DomainOp, DomainOpKind, OpStrategy } from "./op/index.js";
+export type {
+  DomainOp,
+  DomainOpKind,
+  OpContract,
+  OpContractLike,
+  OpStrategy,
+  OpStrategyId,
+  OpTypeBag,
+  StrategyConfigSchemas,
+  StrategyImpl,
+  StrategyImplFor,
+  StrategyImplMapFor,
+  StrategySelection,
+} from "./op/index.js";
+export type { CreateStepFor, StepContract } from "./step/index.js";
 export type { Static, TSchema } from "typebox";
 export type {
   CustomValidateFn,

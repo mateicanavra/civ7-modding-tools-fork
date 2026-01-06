@@ -2,7 +2,12 @@ import { describe, it, expect } from "bun:test";
 import { Type } from "typebox";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { createRecipe, createStage, createStep } from "@mapgen/authoring/index.js";
+import {
+  createRecipe,
+  createStage,
+  createStep,
+  defineStepContract,
+} from "@mapgen/authoring/index.js";
 import {
   PipelineExecutor,
   StepRegistry,
@@ -147,14 +152,14 @@ describe("pipeline tracing", () => {
       settings
     );
 
-    const step = createStep({
+    const contract = defineStepContract({
       id: "alpha",
       phase: "foundation",
       requires: [],
       provides: [],
       schema: Type.Object({}, { additionalProperties: false }),
-      run: () => {},
     });
+    const step = createStep(contract, { run: () => {} });
     const stage = createStage({ id: "foundation", steps: [step] });
     const recipe = createRecipe({
       id: "trace",

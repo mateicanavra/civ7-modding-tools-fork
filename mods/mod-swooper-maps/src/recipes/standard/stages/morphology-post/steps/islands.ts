@@ -1,53 +1,18 @@
-import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
-import {
-  MorphologyConfigSchema,
-  NarrativeConfigSchema,
-} from "@mapgen/domain/config";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import { addIslandChains } from "@mapgen/domain/morphology/islands/index.js";
 import {
   getPublishedNarrativeCorridors,
   getPublishedNarrativeMotifsHotspots,
   getPublishedNarrativeMotifsMargins,
 } from "../../../artifacts.js";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
+import { IslandsStepContract } from "./islands.contract.js";
 
-const IslandsStepConfigSchema = Type.Object(
-  {
-    islands: MorphologyConfigSchema.properties.islands,
-    story: Type.Object(
-      {
-        hotspot: NarrativeConfigSchema.properties.story.properties.hotspot,
-      },
-      { additionalProperties: false, default: {} }
-    ),
-    corridors: Type.Object(
-      {
-        sea: NarrativeConfigSchema.properties.corridors.properties.sea,
-      },
-      { additionalProperties: false, default: {} }
-    ),
-  },
-  { additionalProperties: false, default: { islands: {}, story: {}, corridors: {} } }
-);
+type IslandsStepConfig = Static<typeof IslandsStepContract.schema>;
 
-type IslandsStepConfig = Static<typeof IslandsStepConfigSchema>;
-
-export default createStep({
-  id: "islands",
-  phase: "morphology",
-  requires: [
-    M4_EFFECT_TAGS.engine.coastlinesApplied,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-    M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
-  ],
-  provides: [
-    M4_EFFECT_TAGS.engine.landmassApplied,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-  ],
-  schema: IslandsStepConfigSchema,
+export default createStep(IslandsStepContract, {
   run: (context: ExtendedMapContext, config: IslandsStepConfig) => {
     const { width, height } = context.dimensions;
     const margins = getPublishedNarrativeMotifsMargins(context);
@@ -69,4 +34,4 @@ export default createStep({
       result.motifs
     );
   },
-} as const);
+});

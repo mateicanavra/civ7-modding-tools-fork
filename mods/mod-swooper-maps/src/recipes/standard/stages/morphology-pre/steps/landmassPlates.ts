@@ -1,4 +1,3 @@
-import { Type, type Static } from "typebox";
 import type { ContinentBounds } from "@civ7/adapter";
 import {
   assertFoundationPlates,
@@ -8,9 +7,9 @@ import {
   resolveLandmassIds,
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@mapgen/authoring/steps";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import type { LandmassConfig } from "@mapgen/domain/config";
-import { LandmassConfigSchema, MorphologyConfigSchema } from "@mapgen/domain/config";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,
@@ -18,17 +17,9 @@ import {
   type LandmassWindow,
 } from "@mapgen/domain/morphology/landmass/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { LandmassPlatesStepContract } from "./landmassPlates.contract.js";
 
-const LandmassStepConfigSchema = Type.Object(
-  {
-    landmass: LandmassConfigSchema,
-    oceanSeparation: MorphologyConfigSchema.properties.oceanSeparation,
-  },
-  { additionalProperties: false, default: { landmass: {}, oceanSeparation: {} } }
-);
-
-type LandmassStepConfig = Static<typeof LandmassStepConfigSchema>;
+type LandmassStepConfig = Static<typeof LandmassPlatesStepContract.schema>;
 
 function windowToContinentBounds(window: LandmassWindow, continent: number): ContinentBounds {
   return {
@@ -48,12 +39,7 @@ function assignContinentBounds(target: ContinentBounds, src: ContinentBounds): v
   target.continent = src.continent;
 }
 
-export default createStep({
-  id: "landmassPlates",
-  phase: "morphology",
-  requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
-  provides: [M4_EFFECT_TAGS.engine.landmassApplied],
-  schema: LandmassStepConfigSchema,
+export default createStep(LandmassPlatesStepContract, {
   run: (context: ExtendedMapContext, config: LandmassStepConfig) => {
     assertFoundationPlates(context, "landmassPlates");
     const runtime = getStandardRuntime(context);
@@ -127,4 +113,4 @@ export default createStep({
 
     logLandmassAscii(context.trace, context.adapter, width, height);
   },
-} as const);
+});

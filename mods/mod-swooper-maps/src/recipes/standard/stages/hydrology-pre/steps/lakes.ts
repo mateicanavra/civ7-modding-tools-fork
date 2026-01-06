@@ -1,18 +1,10 @@
-import { Type } from "typebox";
-import { createStep } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@mapgen/authoring/steps";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { publishHeightfieldArtifact } from "../../../artifacts.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { LakesStepContract } from "./lakes.contract.js";
 
-const EmptySchema = Type.Object({}, { additionalProperties: false, default: {} });
-
-export default createStep({
-  id: "lakes",
-  phase: "hydrology",
-  requires: [M4_EFFECT_TAGS.engine.landmassApplied],
-  provides: [M3_DEPENDENCY_TAGS.artifact.heightfield],
-  schema: EmptySchema,
+export default createStep(LakesStepContract, {
   run: (context: ExtendedMapContext) => {
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
@@ -21,4 +13,4 @@ export default createStep({
     syncHeightfield(context);
     publishHeightfieldArtifact(context);
   },
-} as const);
+});

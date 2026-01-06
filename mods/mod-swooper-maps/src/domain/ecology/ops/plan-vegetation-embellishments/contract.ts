@@ -1,7 +1,7 @@
 import {
   Type,
   applySchemaDefaults,
-  defineOpSchema,
+  defineOpContract,
   TypedArraySchemas,
   type Static,
 } from "@swooper/mapgen-core/authoring";
@@ -66,25 +66,17 @@ const VegetationEmbellishmentsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanVegetationEmbellishmentsSchema = defineOpSchema<
-  typeof VegetationEmbellishmentsInputSchema,
-  typeof VegetationEmbellishmentsConfigSchema,
-  typeof VegetationEmbellishmentsOutputSchema
->(
-  {
-    input: VegetationEmbellishmentsInputSchema,
-    config: VegetationEmbellishmentsConfigSchema,
-    output: VegetationEmbellishmentsOutputSchema,
+export const PlanVegetationEmbellishmentsContract = defineOpContract({
+  kind: "plan",
+  id: "ecology/features/vegetation-embellishments",
+  input: VegetationEmbellishmentsInputSchema,
+  output: VegetationEmbellishmentsOutputSchema,
+  strategies: {
+    default: VegetationEmbellishmentsConfigSchema,
   },
-  {
-    title: "PlanVegetationEmbellishmentsSchema",
-    description: "Plan vegetation embellishments",
-    additionalProperties: false,
-  }
-);
+} as const);
 
-type VegetationEmbellishmentsConfig =
-  Static<typeof PlanVegetationEmbellishmentsSchema["properties"]["config"]>;
+type VegetationEmbellishmentsConfig = Static<typeof VegetationEmbellishmentsConfigSchema>;
 
 export type ResolvedVegetationEmbellishmentsConfig = {
   story: { features: Required<Static<typeof EcologyConfigSchema["properties"]["features"]>> };

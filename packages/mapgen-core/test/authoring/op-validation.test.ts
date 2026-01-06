@@ -5,6 +5,7 @@ import {
   OpValidationError,
   TypedArraySchemas,
   createOp,
+  defineOpContract,
   type ValidationError,
 } from "@mapgen/authoring/index.js";
 
@@ -32,14 +33,19 @@ describe("domain op validation surface", () => {
     { additionalProperties: false, default: {} }
   );
 
-  const op = createOp({
+  const opContract = defineOpContract({
     kind: "compute",
     id: "test/opValidation",
     input: InputSchema,
     output: OutputSchema,
     strategies: {
+      default: ConfigSchema,
+    },
+  });
+
+  const op = createOp(opContract, {
+    strategies: {
       default: {
-        config: ConfigSchema,
         run: (input) => {
           const size = input.width * input.height;
           return { out: new Uint8Array(size) };
@@ -60,7 +66,7 @@ describe("domain op validation surface", () => {
       }
       return errors;
     },
-  } as const);
+  });
 
   it("validate returns ok for valid inputs", () => {
     const input = { width: 2, height: 2, field: new Uint8Array(4) };
@@ -89,14 +95,19 @@ describe("domain op validation surface", () => {
   });
 
   it("runValidated can validate outputs when toggled", () => {
-    const badOutputOp = createOp({
+    const badOutputContract = defineOpContract({
       kind: "compute",
       id: "test/opValidationOutput",
       input: InputSchema,
       output: OutputSchema,
       strategies: {
+        default: ConfigSchema,
+      },
+    });
+
+    const badOutputOp = createOp(badOutputContract, {
+      strategies: {
         default: {
-          config: ConfigSchema,
           run: (input) => {
             const size = input.width * input.height;
             // Wrong ctor + wrong length
@@ -104,7 +115,7 @@ describe("domain op validation surface", () => {
           },
         },
       },
-    } as const);
+    });
 
     const input = { width: 3, height: 3, field: new Uint8Array(9) };
 
