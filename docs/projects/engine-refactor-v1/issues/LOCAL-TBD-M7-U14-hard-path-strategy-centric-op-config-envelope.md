@@ -18,32 +18,61 @@ related_to:
 ---
 
 ## TL;DR
-We are committing to a strict “hard path” authoring and plan-truth config model:
-- Every op is strategy-centric: **`run` lives on the strategy**.
-- Every op config stored/used as plan-truth is a **uniform envelope**: `{ strategy: "<id>", config: <innerConfig> }` for **every** op (including single-strategy ops).
-- No shorthand: no `{ config: ... }` only, and `strategy` is never optional.
-- Strategy IDs are stable. Single-strategy ops use `"default"`.
-- Config resolution happens at the **strategy config** level: `strategy.resolveConfig(innerConfig, settings) -> innerConfig`.
+U14 is the repo-wide cutover to a strict “hard path” op authoring + plan-truth config model:
+- Ops are strategy-centric: `run` lives on the strategy.
+- Plan-truth op config is always the same envelope: `{ strategy: "<id>", config: <innerConfig> }` for every op.
+- No shorthand and no optional discriminator behavior; `strategy` is always present.
+- Every op must define a `"default"` strategy (stable id).
+- Resolution is strategy-level: `resolveConfig(innerConfig, settings) -> innerConfig`.
 
-This is a breaking shape change, by design. The win is drastic simplification: one config shape everywhere, no conditional typing, no optional discriminator ambiguity.
+---
+
+## Scope (above the fold)
+U14 is the full cutover + repo alignment slice. After U14, there is one authoring shape, one plan-truth config shape, and no legacy compatibility paths remaining inside the authoring SDK.
+
+### Deliverables (done means…)
+- `createOp` supports exactly one authoring shape: **strategies required** (minimum: `strategies.default`).
+- The op-level config contract is always the **envelope union** derived from strategies:
+  - `op.config` schema validates the envelope union.
+  - `op.defaultConfig` is always `{ strategy: "default", config: <defaulted inner config for strategies.default> }`.
+  - `op.resolveConfig(envelope, settings)` dispatches to `strategy.resolveConfig(innerConfig, settings)` when present.
+  - `op.run` / `op.runValidated` accept and validate the envelope (never inner config).
+- Repo-wide call sites are aligned:
+  - Every op authoring module uses `strategies` (single-strategy ops become `strategies: { default: … }`).
+  - All step schemas, presets/maps, fixtures/tests author op configs as the envelope.
+  - Any code that previously assumed “inner config at runtime boundary” is updated to unwrap explicitly.
+- Guardrails are authoritative and green:
+  - `pnpm lint:domain-refactor-guardrails` fails on legacy authoring shapes and non-envelope configs.
+  - `pnpm check`, `pnpm test`, `pnpm build`, `pnpm deploy:mods` are green.
+
+### Explicit non-goals (U14 does not do these)
+- Redesign what “strategy” means beyond enforcing that config + run live on strategy.
+- Add new authoring sugar (`defineStrategies(...)`, factories over POJOs, etc.).
+- Restructure domain directories or operation decomposition (that work is tracked elsewhere).
+
+In-scope:
+- Authoring SDK:
+  - `createOp` contract and inference (strategy-centric only; single config shape at runtime boundary).
+  - Strategy definition surface (`OpStrategy`, `StrategySelection`, `resolveConfig` placement).
+  - `DomainOp` types so config is always the envelope union.
+- Repo-wide callsite alignment:
+  - Every op authoring module migrates to strategies (`strategies: { default: ... }` at minimum).
+  - All step schemas, presets/maps, fixtures/tests migrate to the envelope config shape.
+  - Any helper logic that assumed “inner config” at the runtime boundary is updated to explicitly unwrap `config.config`.
+- Guardrails:
+  - `scripts/lint/lint-domain-refactor-guardrails.sh` becomes the canonical gate for “no legacy authoring shapes / no non-envelope configs”.
 
 ---
 
 ## Context / starting point
-- Worktree: `/Users/mateicanavra/Documents/.nosync/DEV/civ7-modding-tools-mapgen-domain-config`
-- Branch: `chore/mapgen-domain-config-barrel`
-- This branch is intentionally dirty. Do not reset/revert/stash as part of this issue.
+This is a repo-wide cutover and should be executed from the stack tip **post-U13**.
+- Create a dedicated worktree for this work (do not implement on the primary checkout).
+- Keep the cutover strict: no shims, no compatibility layers, no dual shapes.
 
 ---
 
-## Sequencing / dependency
-Do **LOCAL-TBD-M7-U13** first (pre-U14 cleanup):
-- delete domain↔recipe shim exports (`domain/tags.ts`, `domain/artifacts.ts`) and fix callsites,
-- remove unknown-bag config patterns (`UnknownRecord`, internal metadata) while keeping `@mapgen/domain/config` stable.
-
-Rationale:
-- These are architecture-cleanup changes that do not depend on the hard-path config envelope model.
-- They reduce confusing indirection and shrink the surface area before the repo-wide config shape migration.
+## Prerequisites
+- **LOCAL-TBD-M7-U13** is merged.
 
 ---
 
@@ -52,11 +81,10 @@ These are architecture decisions for this migration. Do not introduce dual paths
 
 ### H1) Strategy-centric ops only
 - The only way to define op behavior is via strategies.
-- The strategy is the unit that contains:
-  - `id: string` (required; stable)
-  - `config: TSchema` (strategy-specific config schema; “inner config”)
-  - `resolveConfig?: (innerConfig, settings) => innerConfig` (optional; compile-time only)
-  - `run: (input, innerConfig) => output`
+- A strategy entry (keyed under `op.strategies`) owns:
+  - `config: TSchema` (strategy-specific config schema; “inner config”),
+  - `resolveConfig?: (innerConfig, settings) => innerConfig` (optional; compile-time only),
+  - `run: (input, innerConfig) => output`.
 - No top-level op `run` authored by the op module (runtime op surface may still expose `op.run`, but it must dispatch to the selected strategy’s `run`).
 
 ### H2) Plan-truth op config is always an envelope
@@ -77,8 +105,8 @@ Hard prohibitions:
 - No “optional discriminator for default strategy” behavior.
 
 ### H3) Stable strategy IDs
-- Single-strategy ops use strategy id `"default"`.
-- Multi-strategy ops must explicitly provide IDs for each strategy (no implicit ids).
+- Every operation must include a `"default"` strategy (stable id).
+- Multi-strategy ops add additional strategies under explicit keys; the key is the strategy id.
 
 ### H4) Resolution is strategy-level, schema-preserving
 - Resolution/normalization occurs on `innerConfig` only:
@@ -95,7 +123,7 @@ This migration is intended to reduce noise and ambiguity:
 
 ## Current reality (pre-migration)
 
-### `createOp` shapes that currently exist
+### `createOp` shapes that currently exist (must be removed in U14)
 Implementation: `packages/mapgen-core/src/authoring/op/create.ts`
 
 1) Non-strategy authoring:
@@ -107,37 +135,39 @@ Implementation: `packages/mapgen-core/src/authoring/op/create.ts`
 3) Strategy authoring:
 - `{ input, output, strategies, defaultStrategy? }`
 
+### `{ schema }` authoring (legacy; remove in U14)
+`{ schema }` is a legacy authoring convenience from the “op owns config schema” era: it bundles `{ input, config, output }` into one TypeBox object so `createOp` can unpack `schema.properties.*`.
+
+Under the hard-path model, **the config schema lives inside each strategy** and `createOp` derives the envelope union. That means `{ schema }` no longer maps cleanly to the authoring model (there is no single authored `config` schema to bundle).
+
+U14 decision:
+- Remove `{ schema }` authoring as part of the hard cutover.
+
 ### Current “optional strategy discriminator” behavior (why it’s a problem)
 The current strategy path synthesizes an op-level config union and attempts to be ergonomic by making the discriminator optional for the default strategy case.
 Consequences:
 - Multiple runtime config shapes exist (`{ config: ... }` and `{ strategy, config }`) depending on defaults.
 - Type relationships become conditional and hard to reason about (especially when composing step configs that include multiple ops).
-- The wrapper logic falls back to `cfg?.config ?? {}` which undermines “plan-truth config is fully defaulted + validated”.
+- The wrapper logic falls back to `cfg?.config ?? {}` which undermines “plan-truth config is fully defaulted + validated”. 
 
-### Repo scale (this branch, current scan)
-- `createOp(...)` call sites: **29** (`rg -n "\\bcreateOp\\(" -S . | wc -l`)
-- `.defaultConfig` call sites: **17** (`rg -n "\\.defaultConfig\\b" -S mods/mod-swooper-maps packages/mapgen-core | wc -l`)
-- Step schemas referencing `ops.*.config` in `mods/mod-swooper-maps/src/recipes`: **8** (`rg -n "\\.ops\\.[A-Za-z0-9_]+\\.config\\b" mods/mod-swooper-maps/src/recipes | wc -l`)
-- Strategy authoring call sites: **0** (`rg -n "strategies:\\s*\\{" -S mods/mod-swooper-maps packages/mapgen-core | wc -l`)
+### Preflight sizing (record in Pre-work Findings)
+Run these to understand the blast radius and track progress toward “only one shape”:
+- `rg -n "\\bcreateOp\\(" -S . | wc -l`
+- `rg -n "\\.defaultConfig\\b" -S mods/mod-swooper-maps packages/mapgen-core | wc -l`
+- `rg -n "\\.ops\\.[A-Za-z0-9_]+\\.config\\b" mods/mod-swooper-maps/src/recipes | wc -l`
 
 ---
 
-## Migration plan (explicit subtasks)
-Each subtask is labeled as:
-- **Complex**: requires thought / API changes / inference and schema derivation risk.
-- **Bulk**: mechanical updates; lots of call sites but low judgment.
-
-Keep each subtask green before moving on. Prefer one Graphite layer per subtask (or split further if necessary).
+## Implementation details (single committed plan)
+This is a hard cutover. Implement in the order below; do not introduce compatibility layers.
 
 ### A) Authoring SDK: enforce strategy-centric + uniform envelope (Complex)
 **Files to touch**
 - `packages/mapgen-core/src/authoring/op/create.ts`
 - `packages/mapgen-core/src/authoring/op/types.ts`
 - `packages/mapgen-core/src/authoring/op/strategy.ts`
-- Possibly `packages/mapgen-core/src/authoring/op/schema.ts`
-- Tests likely impacted:
-  - `packages/mapgen-core/test/authoring/op-validation.test.ts`
-  - Any other authoring SDK tests that create ops
+- Authoring SDK tests (update as needed to match the new single authoring shape):
+  - `packages/mapgen-core/test/**`
 
 **Work**
 1) Change `createOp` so the only supported authoring shape is “strategies required”.
@@ -145,13 +175,13 @@ Keep each subtask green before moving on. Prefer one Graphite layer per subtask 
      - `{ input, config, output, run }`
      - `{ schema, run }`
    - Required authoring shape:
-     - `{ input, output, strategies: { ... }, defaultStrategy: "default" }`
+     - `{ kind, id, input, output, strategies: { ... } }` with `strategies.default` present.
 
 2) Op config schema derivation:
    - Build the op-level `config` schema as a union of:
      - `{ strategy: Literal(id), config: <strategyConfigSchema> }`
    - Set `defaultConfig` to:
-     - `{ strategy: <defaultId>, config: <defaultedInnerConfig> }`
+     - `{ strategy: "default", config: <defaulted inner config for strategies.default> }`
    - Delete the “optional discriminator” behavior entirely.
 
 3) Runtime `op.run(input, cfg)`:
@@ -161,8 +191,8 @@ Keep each subtask green before moving on. Prefer one Graphite layer per subtask 
 4) Resolution plumbing:
    - Move the canonical resolve hook to the strategy surface:
      - `resolveConfig?: (innerConfig, settings) => innerConfig`
-   - Op-level resolve (if it continues to exist as a surface for step composition) must:
-     - unwrap envelope -> call selected strategy resolve -> rewrap envelope.
+   - `createOp(...)` must derive `op.resolveConfig(envelope, settings)` as a dispatcher over `strategy.resolveConfig`:
+     - unwrap envelope -> call selected strategy resolve (if present) -> rewrap envelope.
 
 5) Types:
    - Update `DomainOp` to model op config as the envelope union for all ops.
@@ -208,7 +238,6 @@ createOp({
       // optional: resolveConfig: <oldResolveInnerConfig> (if needed)
     },
   },
-  defaultStrategy: "default",
 });
 ```
 
@@ -238,12 +267,11 @@ createOp({
      - But any use of config fields in step-local logic must unwrap first.
 
 3) Step `resolveConfig`:
-   - Prefer: unwrap -> call strategy-level resolver -> rewrap.
-   - Avoid calling op-level resolver on the envelope unless the op implementation provides a thin wrapper; the strategy resolver is canonical under this model.
+   - Steps call `op.resolveConfig(envelope, settings)` for each op config and recomposes a schema-valid step config.
 
 **Where thought is required**
 - Existing casts like `as ResolvedXConfig` must be revisited; prefer deriving runtime values in `run(...)` rather than asserting resolved types.
-- Composite step configs containing multiple ops must unwrap each op independently (avoid “spread merges”).
+- Composite step configs containing multiple ops must resolve each op config independently (avoid “spread merges”).
 
 **Acceptance criteria**
 - No step config can be authored without a `strategy`.
@@ -290,9 +318,10 @@ createOp({
 ### F) Tests + docs/spec/workflow catch-up (Bulk)
 **Files**
 - `packages/mapgen-core/test/**`
-- Specs/workflow docs that describe strategy/config behavior
-  - Update at least: `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md` (as needed)
-  - Update the active workflow packet docs if they mention non-uniform strategy config shapes
+- Specs/workflow docs that describe strategy/config behavior:
+  - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
 
 **Work**
 - Update tests to use envelope configs.
@@ -314,21 +343,12 @@ If any of these are relaxed, complexity rises sharply (conditional unions + ambi
 
 ---
 
-## Execution checklist (how I’ll drive it systematically)
-
-### Must-run gate (canonical)
-- `./scripts/lint/lint-domain-refactor-guardrails.sh`
-
-### Local verification commands (must be green before finishing)
-- `pnpm -C packages/mapgen-core build`
-- `pnpm -C packages/civ7-adapter build`
-- `pnpm -C mods/mod-swooper-maps check`
-- `pnpm -C mods/mod-swooper-maps test` (or the repo-standard CI test script if different)
+## Verification (must be green)
+- `pnpm check` (includes `pnpm lint:domain-refactor-guardrails`)
+- `pnpm test`
+- `pnpm build`
 - `pnpm deploy:mods`
 
-### Helper searches (optional, for fast iteration)
-Drive these to zero for legacy patterns:
-- `rg -n "\\bcreateOp\\(\\{[^\\}]*\\bconfig\\b" -S packages mods`
-- `rg -n "\\bcreateOp\\(\\{[^\\}]*\\bschema\\b" -S packages mods`
-- `rg -n "\\.defaultConfig\\b" -S packages mods` (audit each remaining use; it should now be envelope)
-- `rg -n "\\bstrategy\\?:" -S packages mods` (should not exist in plan-truth config shapes)
+---
+
+## Pre-work Findings

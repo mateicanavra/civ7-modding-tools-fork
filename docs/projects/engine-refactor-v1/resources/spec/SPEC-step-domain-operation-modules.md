@@ -62,7 +62,7 @@ This document defines a canonical model for **how steps and domains interact**:
 - Steps wire runtime → domain inputs, call operations, and publish/apply results.
 
 Execution workflow (canonical for implementation):
-- `docs/projects/engine-refactor-v1/resources/spec/WORKFLOW-step-domain-operation-modules.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
 
 ## 2) Step System (Recipe → Stage → Step)
 
@@ -104,7 +104,7 @@ Domains are built to be:
 
 - **testable**: deterministic computation over plain inputs,
 - **reusable**: can be invoked from any step that can supply the required inputs,
-- **co-located**: schemas, typed outputs (“artifacts”), and logic live together under the domain directory.
+- **co-located**: operation schemas and content logic live together under the domain directory; step-owned artifact shapes live with the steps that publish them.
 
 ### What a domain contains (canonical structure)
 
@@ -113,24 +113,24 @@ A domain is organized as a small module with an explicit public surface:
 - `index.ts` aggregates exports (usually `ops`),
 - `ops/**` contains step-callable operation modules,
 - `rules/**` contains pure building blocks used by operations/strategies (never step-callable),
-- optional `artifacts.ts` exports artifact shapes (schemas/types) and suggested names (keys are still step/recipe-owned).
+- no `artifacts.ts` domain modules: artifact shapes are step-owned and must be co-located with the publishing step (or stage-shared model modules).
 
 Canonical on-disk layout:
 
 ```txt
 src/domain/<area>/<domain>/
   index.ts
-  artifacts.ts                 # optional: shapes only (keys are recipe-owned)
   ops/
-    <op>.ts                    # small op: one file
-    <op>/index.ts              # large op: promote to a folder
-    <op>/strategies/*.ts       # optional: extracted strategies (typically the default)
-    <op>/rules/*.ts            # optional: op-local rules
+    <op>/
+      index.ts                 # exports exactly one op via createOp
+      schema.ts                # TypeBox schemas (types inferred at use sites)
+      strategies/              # strategy implementations (may start empty)
+      rules/                   # pure op-local rules (may start empty)
   rules/*.ts                   # optional: cross-op rules
 ```
 
 Notes:
-- The unit of organization is an **operation module** (“one op per module”). Most ops can be single-file modules; complex ops can be promoted to a directory with `index.ts` as the op module.
+- The unit of organization is an **operation module** (“one op per module”). Every op is a directory module under `ops/<op>/` (no single-file ops).
 - Strategies are typically **extracted into their own modules** under `strategies/` because they contain real algorithmic code. Very small strategies can be inlined, but the canonical authoring pattern prefers separate files.
 
 ### Operations (the step-callable contract)
@@ -145,7 +145,7 @@ An **operation** (aka “op”) is the stable unit that steps depend on. It:
   - `validate(input, config, opts?) -> { ok, errors }` (never throws),
   - `runValidated(input, config, opts?) -> output` (throws on validation failure; optional output validation for tests/tooling).
 
-### Strategies (optional, internal)
+### Strategies (required, internal)
 
 When an operation can be implemented in multiple interchangeable ways, we model that as **strategies** under the operation module:
 
@@ -161,21 +161,21 @@ What must be shared vs what can vary:
 - **Required to be shared:** operation **input** and **output** schemas (the contract steps depend on).
 - **Allowed to vary:** the strategy’s algorithm and its **strategy-specific config**.
 
-How config behaves by case:
+Canonical config shape (always explicit; plan truth):
 
-- **Multiple strategies (n>1):** the operation’s `config` is a **strategy selection** wrapper (conceptually: `{ strategy: "...", config: {...} }`). Each strategy owns its own `config` schema. The operation dispatches to the selected strategy.
-- **Single strategy (n=1):** you can still model a strategy (useful if you expect future swap-outs). Set a `defaultStrategy` so callers can omit `strategy` and just provide `config`. If you *don’t* need a swappable implementation, skip the strategy layer and model the op as a single implementation with a plain op-level `config`.
-- **No strategies:** the operation itself is the implementation; its `config` is the only config.
+- All ops are strategy-backed and must declare a `"default"` strategy.
+- The operation’s `config` is always a discriminated union of envelopes:
+  - `{ strategy: "<strategyId>", config: <innerConfig> }`
+- `strategy` is always present (no shorthand encodings).
 
-Compile-time behavior (edge cases):
-
-- **Op with no strategies:** `op.run(input, config)` expects the op’s plain config type; passing `{ strategy: "...", config: {...} }` is a TypeScript error (and would also fail runtime schema validation if `additionalProperties: false`).
-- **Op with exactly one strategy:** `op.run(input, config)` expects that strategy’s config selection shape. If `defaultStrategy` is set to the only strategy, `strategy` becomes optional; if it is not set, `strategy` is required (but can only be that one literal).
+This ensures recipe authoring, step schemas, and execution-plan node configs all share the same uniform shape across single- and multi-strategy operations.
 
 If you need both **shared op-level config** and **strategy-specific config**, there are two common options:
 
-- **Option A (explicit nesting):** `config = { shared: <SharedConfig>, strategy: <StrategySelection> }`.
-- **Option B (schema composition):** each strategy’s config schema is `SharedConfig ∩ StrategyConfig` (TypeBox `Type.Intersect([...])`).
+- **Option A (explicit nesting):** inner config is `{ shared: <SharedConfig>, specific: <StrategySpecificConfig> }`.
+- **Option B (schema composition):** inner config schema is `SharedConfig ∩ StrategySpecificConfig` (TypeBox `Type.Intersect([...])`).
+
+Both options apply to the **inner strategy config**. The outer plan-truth selection wrapper remains `{ strategy, config }`.
 
 This keeps step imports small and keeps the op’s public contract stable even if internal implementations evolve.
 
@@ -253,6 +253,7 @@ export type DomainOpKind = "plan" | "compute" | "score" | "select";
 
 export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
   config: ConfigSchema;
+  resolveConfig?: OpResolveConfig<ConfigSchema>; // compile-time only
   run: (input: Input, config: Static<ConfigSchema>) => Output;
 }>;
 
@@ -275,37 +276,24 @@ export function createStrategy<ConfigSchema extends TSchema, Input, Output>(
   return strategy;
 }
 
-// createOp supports two shapes:
-// 1) single implementation: provide { config, run }
+// createOp supports one canonical shape:
+// - strategy-first authoring (all ops are strategy-backed)
+// - must include a "default" strategy id
+// - createOp derives op.config (envelope union schema) and op.defaultConfig (always explicit)
 export function createOp<
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
-  ConfigSchema extends TSchema
->(op: {
-  kind: DomainOpKind;
-  id: string;
-  input: InputSchema;
-  output: OutputSchema;
-  config: ConfigSchema;
-  resolveConfig?: OpResolveConfig<ConfigSchema>;
-  run: (input: Static<InputSchema>, config: Static<ConfigSchema>) => Static<OutputSchema>;
-}): unknown;
-
-// 2) strategies: provide { strategies, defaultStrategy? }
-// - each strategy owns its own config schema
-// - createOp derives an operation `config` schema and dispatches to the selected strategy at runtime
-export function createOp<
-  InputSchema extends TSchema,
-  OutputSchema extends TSchema,
-  Strategies extends Record<string, OpStrategy<TSchema, Static<InputSchema>, Static<OutputSchema>>>
+  Strategies extends Record<
+    string,
+    OpStrategy<TSchema, Static<InputSchema>, Static<OutputSchema>>
+  > &
+    Record<"default", OpStrategy<TSchema, Static<InputSchema>, Static<OutputSchema>>>
 >(op: {
   kind: DomainOpKind;
   id: string;
   input: InputSchema;
   output: OutputSchema;
   strategies: Strategies;
-  defaultStrategy?: keyof Strategies & string;
-  resolveConfig?: OpResolveConfig<TSchema>;
 }): unknown;
 ```
 
@@ -317,11 +305,9 @@ import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
 const plan = volcanoes.ops.planVolcanoes.runValidated(inputs, config.planVolcanoes);
 ```
 
-### Step structure / step-local helpers (TBD)
+### Step structure / step-local helpers
 
-Steps are the runtime boundary, so they often need a small amount of step-local “apply” logic. Two plausible layouts:
-
-**Option A: directory step (index + helpers)**
+Steps are the runtime boundary, so they often need a small amount of step-local “apply” logic. Canonical layout:
 
 ```txt
 src/recipes/<recipe>/stages/<stage>/steps/volcanoes/
@@ -330,17 +316,7 @@ src/recipes/<recipe>/stages/<stage>/steps/volcanoes/
   inputs.ts         # step-local input builders (adapter → buffers)
 ```
 
-**Option B: file step + sibling helper directory**
-
-```txt
-src/recipes/<recipe>/stages/<stage>/steps/
-  volcanoes.ts
-  volcanoes/
-    apply.ts
-    inputs.ts
-```
-
-We haven’t locked this down yet. Option A reads cleaner (everything for the step is in one folder). Option B keeps the existing “step is a file” convention but can look odd (a file + a same-named folder). Either way, the boundary rule stays the same: adapter/runtime calls live in the step layer, not in the domain.
+Canonical rule: refactored steps are always directory modules. Do not introduce “file step + sibling folder” layouts in new/refactored code.
 
 ## 4) End-to-End Example (Volcano)
 
@@ -351,17 +327,21 @@ This example is intentionally “pure-domain + side-effects-in-step”: the doma
 ```txt
 src/domain/morphology/volcanoes/
   index.ts
-  artifacts.ts
   ops/
-    compute-suitability.ts
-    plan-volcanoes/
+    compute-suitability/
       index.ts
-      strategies/
-        plate-aware.ts
-        hotspot-clusters.ts
+      schema.ts
       rules/
-        enforce-min-distance.ts
-        pick-weighted.ts
+      strategies/
+	    plan-volcanoes/
+	      index.ts
+	      schema.ts
+	      strategies/
+	        plate-aware.ts
+	        hotspot-clusters.ts
+	      rules/
+	        enforce-min-distance.ts
+	        pick-weighted.ts
 
 src/recipes/standard/stages/morphology-post/steps/volcanoes/
   index.ts
@@ -372,65 +352,59 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 ### Domain: operation 1 — compute suitability (derived field)
 
 ```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability.ts
+// src/domain/morphology/volcanoes/ops/compute-suitability/index.ts
 import { Type } from "typebox";
 import { createOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
-
-const computeSuitabilitySchema = Type.Object(
-  {
-    input: Type.Object(
-      {
-        width: Type.Integer({ minimum: 1 }),
-        height: Type.Integer({ minimum: 1 }),
-
-        isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
-        plateBoundaryProximity: TypedArraySchemas.u8({
-          description: "Plate boundary proximity per tile (0..255).",
-        }),
-        elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
-      },
-      { additionalProperties: false }
-    ),
-    config: Type.Object(
-      {
-        wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
-        wElevation: Type.Optional(Type.Number({ default: 0.25 })),
-      },
-      { additionalProperties: false, default: {} }
-    ),
-    output: Type.Object(
-      {
-        suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
-      },
-      { additionalProperties: false }
-    ),
-  },
-  { additionalProperties: false }
-);
 
 export default createOp({
   kind: "compute",
   id: "morphology/volcanoes/computeSuitability",
-  schema: computeSuitabilitySchema,
-  run: (inputs, cfg) => {
-    const size = inputs.width * inputs.height;
-    const suitability = new Float32Array(size);
+  input: Type.Object(
+    {
+      width: Type.Integer({ minimum: 1 }),
+      height: Type.Integer({ minimum: 1 }),
 
-    const wPlate = Number.isFinite(cfg.wPlateBoundary) ? cfg.wPlateBoundary! : 1.0;
-    const wElev = Number.isFinite(cfg.wElevation) ? cfg.wElevation! : 0.25;
+      isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
+      plateBoundaryProximity: TypedArraySchemas.u8({
+        description: "Plate boundary proximity per tile (0..255).",
+      }),
+      elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
+    },
+    { additionalProperties: false }
+  ),
+  output: Type.Object(
+    {
+      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
+    },
+    { additionalProperties: false }
+  ),
+  strategies: {
+    default: {
+      config: Type.Object(
+        {
+          wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
+          wElevation: Type.Optional(Type.Number({ default: 0.25 })),
+        },
+        { additionalProperties: false, default: {} }
+      ),
+      run: (inputs, cfg) => {
+        const size = inputs.width * inputs.height;
+        const suitability = new Float32Array(size);
 
-    for (let i = 0; i < size; i++) {
-      if (inputs.isLand[i] === 0) {
-        suitability[i] = 0;
-        continue;
-      }
+        for (let i = 0; i < size; i++) {
+          if (inputs.isLand[i] === 0) {
+            suitability[i] = 0;
+            continue;
+          }
 
-      const plate = inputs.plateBoundaryProximity[i] / 255;
-      const elev = Math.max(0, Math.min(1, inputs.elevation[i] / 4000));
-      suitability[i] = wPlate * plate + wElev * elev;
-    }
+          const plate = inputs.plateBoundaryProximity[i] / 255;
+          const elev = Math.max(0, Math.min(1, inputs.elevation[i] / 4000));
+          suitability[i] = cfg.wPlateBoundary! * plate + cfg.wElevation! * elev;
+        }
 
-    return { suitability };
+        return { suitability };
+      },
+    },
   },
 } as const);
 ```
@@ -478,10 +452,9 @@ export default createOp({
     { additionalProperties: false }
   ),
   strategies: {
-    plateAware,
+    default: plateAware, // "default" id is mandatory; module name can still be descriptive
     hotspotClusters,
   } as const,
-  defaultStrategy: "plateAware",
 } as const);
 ```
 
@@ -724,10 +697,10 @@ export default createStep({
       cfg.computeSuitability
     );
 
-    // Two equivalent authoring patterns for strategy-backed ops:
+    // Two equivalent authoring patterns for strategy-backed ops (always explicit):
     //
-    // 1) Use the default strategy (omit `strategy`):
-    //    cfg.planVolcanoes = { config: { targetCount: 12, minDistance: 6 } }
+    // 1) Use the default strategy:
+    //    cfg.planVolcanoes = { strategy: "default", config: { targetCount: 12, minDistance: 6 } }
     //
     // 2) Explicitly select a non-default strategy:
     //    cfg.planVolcanoes = { strategy: "hotspotClusters", config: { seedCount: 4, targetCount: 12, minDistance: 6 } }
@@ -985,7 +958,7 @@ Implications (summary):
 **System surface / blast radius (components):**
 - **Recipe compiler / pipeline graph**: the dependency graph is built from `requires`/`provides` keys and enforced for correctness.
 - **Steps (publication boundary)**: steps publish artifacts/fields/effects under keys and declare dependencies they need.
-- **Domains**: define artifact *shapes* (schemas/types), but should not silently publish or own pipeline wiring by default.
+- **Domains**: provide algorithms and op output contracts; they do not own dependency identifiers or publish artifacts directly.
 - **Dependency registry**: stores definitions/contracts for dependency keys and optionally enforces satisfaction checks.
 
 **Question:** Who “owns” dependency identifiers (`DependencyKey`s): domains, recipes, or some split?
@@ -993,11 +966,11 @@ Implications (summary):
 **Why it matters / what it affects:** Dependency identifiers are the glue of the recipe graph. If keys are invented ad hoc in multiple places, the dependency graph becomes fragile and refactors become painful. This decision also determines how portable a domain is across recipes and how much implicit wiring is hidden behind “magic” keys.
 
 **Options:**
-- **A) Recipe-owned keys (preferred):** domains define artifact shapes (schemas/types), recipes (or recipe-level catalogs) define the canonical string keys, and steps publish under recipe-owned keys.
-- **B) Domain-owned keys:** domains export canonical keys along with shapes.
-- **C) Split by layer:** engine/runner defines some core keys centrally; content domains define their own keys.
+- **A) Recipe-owned keys + step-owned shapes (preferred):** steps define and validate artifact shapes (schemas/types) and publish under recipe-owned keys.
+- **B) Domain-owned keys:** domains export canonical keys (discouraged; leaks recipe wiring into reusable domain modules).
+- **C) Split by layer:** engine/runner defines some core keys centrally; recipes define content keys.
 
-**Recommendation:** Prefer **A**: domains own shapes; recipes own dependency identifiers. If a domain needs stable naming, encode it in type/schema metadata (e.g., `kind`/`version`) rather than forcing a global key into every recipe.
+**Recommendation:** Prefer **A**: recipes own dependency identifiers; steps own artifact shapes and validators. Domains remain recipe-independent and must not re-export recipe shims.
 
 ### DD-005: Strategy config encoding and ergonomics (wrapper shape, defaults, explicitness)
 
@@ -1009,20 +982,20 @@ Implications (summary):
 - **Steps (schema + defaults)**: how step schemas reference `op.config`/`op.defaultConfig` and validate/default strategy selection.
 - **Migration/evolution story**: how config shape behaves if an op gains additional strategies over time.
 
-**Decision (locked):** **Option B (default-friendly)** — when an operation declares a `defaultStrategy`, config may omit `strategy` and still be valid, while still allowing explicit override to a non-default strategy.
+**Decision (locked):** **Option A (always explicit)** — config is always `{ strategy, config }` (including for single-strategy ops via mandatory `"default"` strategy id).
 
 **Why it matters / what it affects:** This is the primary authoring surface mod authors will touch. It needs to (1) remain readable when the common/default strategy is used, and (2) still enable type-safe explicit strategy overrides with config narrowing.
 
 **Options:**
 - **A) Always explicit:** always require `{ strategy, config }` even if a default exists.
-- **B) Default-friendly (current pattern):** allow omitting `strategy` when a default strategy exists, while still permitting explicit override.
+- **B) Default-friendly (legacy/transient):** allow omitting `strategy` when a default strategy exists, while still permitting explicit override.
 - **C) Flatten for `n=1`:** if there is only one strategy, use just that config object; only multi-strategy ops use `{ strategy, config }`.
 
-**Type-safety confirmation (authoring / autocomplete):** This remains type-safe in the “bubbled-up” recipe config as long as the recipe/step config type includes the operation config type (e.g., a step config property typed as `Static<typeof op.config>`). Because `strategy` is a string-literal discriminator (`"plateAware" | "hotspotClusters" | ...`), setting `strategy: "hotspotClusters"` narrows the `config` field to that strategy’s config object; omitting `strategy` narrows to the default strategy’s config object (the only union member that permits omission).
+**Type-safety confirmation (authoring / autocomplete):** This remains type-safe in the “bubbled-up” recipe config as long as the recipe/step config type includes the operation config type (e.g., a step config property typed as `Static<typeof op.config>`). Because `strategy` is a string-literal discriminator (`"default" | "hotspotClusters" | ...`), setting `strategy: "hotspotClusters"` narrows the `config` field to that strategy’s config object; setting `strategy: "default"` narrows to the default strategy’s config object.
 
 **Notes / implications:**
-- Omitting `strategy` is only allowed when an op explicitly declares `defaultStrategy` (otherwise strategy selection remains explicit).
-- Avoid Option **C** unless we commit to a migration story: adding a second strategy later would otherwise change the config shape.
+- Canonical authoring is strategy-first: even “single strategy ops” are authored with `strategies: { default: ... }`.
+- Avoid Option **C**: adding a second strategy later would otherwise change the config shape.
 
 ### DD-006: Recipe config authoring surface (remove global overrides, preserve type-safe strategy selection)
 
@@ -1054,7 +1027,7 @@ export const config = {
     volcanoes: {
       // Step-local config, including any op config the step exposes.
       planVolcanoes: {
-        // Default-friendly (DD-005): omit `strategy` when default exists.
+        strategy: "default",
         config: { targetCount: 18 },
       },
     },
@@ -1085,7 +1058,7 @@ export const configExplicit = {
 
 **Question:** How much should step authors manually wire step schemas vs having a small helper derive schema/config shape from declared op usage?
 
-**Why it matters / what it affects:** Steps sit at the runtime boundary and must validate/default configuration. If authors have to repeatedly mirror operation configs by hand, step code gets noisy and can drift out of sync with the ops actually called (especially for strategy-backed ops where wrapper shapes/defaults matter, including DD-005’s “omit strategy when default exists” behavior).
+**Why it matters / what it affects:** Steps sit at the runtime boundary and must validate/default configuration. If authors have to repeatedly mirror operation configs by hand, step code gets noisy and can drift out of sync with the ops actually called (especially for strategy-backed ops where wrapper shapes/defaults matter, since the canonical plan-truth config is always `{ strategy, config }`).
 
 **Options:**
 - **A) Manual schema composition (baseline):** steps write `Type.Object(...)` and reference `op.config` / `op.defaultConfig` as needed.

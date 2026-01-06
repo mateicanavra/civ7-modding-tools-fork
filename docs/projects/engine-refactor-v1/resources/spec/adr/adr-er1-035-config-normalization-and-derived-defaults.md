@@ -80,7 +80,7 @@ This section captures the *current* sources of “normalization” and config sh
 #### F) Strategy selection default-friendliness implies a normalization step
 
 - **Where:** `packages/mapgen-core/src/authoring/op.ts` (`createOp` strategy union + default handling)
-- **What it does:** supports a default-friendly authored config shape (strategy may be omitted when a default exists) while still selecting a concrete strategy implementation at call time.
+- **What it does:** supports an explicit plan-truth strategy envelope (`{ strategy, config }`) while still selecting a concrete strategy implementation at call time.
 - **Why it exists:** authoring ergonomics and type-safe strategy selection require multiple *authored* shapes for “the same” config intent.
 - **Classification:** intentional/staying (this is DD-005’s core outcome).
 
@@ -206,19 +206,27 @@ export type ResolvableStep<TContext, TConfig> = MapGenStep<TContext, TConfig> & 
 
 ```ts
 // domain/ops (two ops, each owns scaling semantics)
+import { createOp } from "@swooper/mapgen-core/authoring";
+
 export const computeSuitability = createOp({
   kind: "compute",
   id: "ecology/features/computeSuitability",
   input: ComputeSuitabilityInputSchema,
   output: ComputeSuitabilityOutputSchema,
-  config: ComputeSuitabilityConfigSchema,
-  resolveConfig: (cfg, settings) => {
-    // example: default grid-scaled search radius based on map size
-    const size = settings.dimensions.width * settings.dimensions.height;
-    const autoRadius = size < 20000 ? 3 : 5;
-    return { ...cfg, searchRadius: cfg.searchRadius ?? autoRadius };
+  strategies: {
+    default: {
+      config: ComputeSuitabilityConfigSchema,
+      resolveConfig: (cfg, settings) => {
+        // example: default grid-scaled search radius based on map size
+        const size = settings.dimensions.width * settings.dimensions.height;
+        const autoRadius = size < 20000 ? 3 : 5;
+        return { ...cfg, searchRadius: cfg.searchRadius ?? autoRadius };
+      },
+      run: (input, cfg) => {
+        /* ... */
+      },
+    },
   },
-  run: (input, cfg) => { /* ... */ },
 } as const);
 
 export const selectPlacements = createOp({
@@ -226,12 +234,18 @@ export const selectPlacements = createOp({
   id: "ecology/features/selectPlacements",
   input: SelectPlacementsInputSchema,
   output: SelectPlacementsOutputSchema,
-  config: SelectPlacementsConfigSchema,
-  resolveConfig: (cfg, settings) => {
-    const wrap = settings.wrap.wrapX || settings.wrap.wrapY;
-    return { ...cfg, allowWrapAdjacency: cfg.allowWrapAdjacency ?? wrap };
+  strategies: {
+    default: {
+      config: SelectPlacementsConfigSchema,
+      resolveConfig: (cfg, settings) => {
+        const wrap = settings.wrap.wrapX || settings.wrap.wrapY;
+        return { ...cfg, allowWrapAdjacency: cfg.allowWrapAdjacency ?? wrap };
+      },
+      run: (input, cfg) => {
+        /* ... */
+      },
+    },
   },
-  run: (input, cfg) => { /* ... */ },
 } as const);
 
 // composite step schema references op config schemas directly (no separate resolved schema)
@@ -253,12 +267,8 @@ export const featuresStep: ResolvableStep<EngineContext, FeaturesStepConfig> = {
 
   // compiler-time composition point
   resolveConfig: (cfg, settings) => ({
-    computeSuitability: computeSuitability.resolveConfig
-      ? computeSuitability.resolveConfig(cfg.computeSuitability, settings)
-      : cfg.computeSuitability,
-    selectPlacements: selectPlacements.resolveConfig
-      ? selectPlacements.resolveConfig(cfg.selectPlacements, settings)
-      : cfg.selectPlacements,
+    computeSuitability: computeSuitability.resolveConfig(cfg.computeSuitability, settings),
+    selectPlacements: selectPlacements.resolveConfig(cfg.selectPlacements, settings),
   }),
 
   run: (context, cfg) => {

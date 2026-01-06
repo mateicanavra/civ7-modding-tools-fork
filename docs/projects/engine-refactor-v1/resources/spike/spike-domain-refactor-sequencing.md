@@ -12,7 +12,7 @@ Inputs used for sequencing (ground truth in repo):
 - Test surface area: `mods/mod-swooper-maps/test/**` (domain‑adjacent coverage by folder presence + counts).
 
 Canonical workflow for executing each domain refactor:
-- `docs/projects/engine-refactor-v1/resources/spec/WORKFLOW-step-domain-operation-modules.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
 
 ## Remaining Domains (excluding ecology)
 
@@ -147,6 +147,7 @@ Exit criteria:
 
 These are high-leverage follow-ups surfaced during the first “field run” (ecology). They reduce repetition and lower the chance of half-migrations in future domains.
 
-- Add a repo-level guardrail script (and CI check) that fails on the forbidden patterns in `WORKFLOW-step-domain-operation-modules.md` (adapter/context crossing, runtime config merges, legacy deep imports, non-type engine imports).
+- Add a repo-level guardrail script (and CI check) that fails on the forbidden patterns in:
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
 - Add a standard “domain stage smoke test” template under `mods/mod-swooper-maps/test/pipeline/**` that can be copied per domain to prove wiring + artifact contracts early.
 - Standardize and document `ctxRandom(...)` label conventions for seed derivation so substream identities remain stable across refactors.
