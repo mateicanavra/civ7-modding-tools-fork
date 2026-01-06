@@ -8,6 +8,7 @@
 - Provide **authoring ergonomics** (typed recipe/stage/step factories).
 - Provide **contract-first op authoring** (`src/authoring/op/*`).
 - Provide **contract-first step authoring** (`src/authoring/step/*`, `createStepFor<TContext>()`).
+- Provide op contract-derived type helpers (`OpTypeBag` in `src/authoring/op/types.ts`).
 - Provide **engine-owned context** types and helpers.
 - Provide **neutral utilities** (`lib/**`) and optional diagnostics (`dev/**`).
 - Re-export shared utilities from `@swooper/mapgen-core` root to reduce churn (math, noise, RNG, grid).

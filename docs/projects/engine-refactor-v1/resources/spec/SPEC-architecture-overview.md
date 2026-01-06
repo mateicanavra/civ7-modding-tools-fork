@@ -17,6 +17,7 @@
 - Cross-step dependencies are explicit dependency tags (`artifact:*`, `buffer:*`, `effect:*`) declared in `requires`/`provides`.
 - Step configuration is **validated per step occurrence**; there is no monolithic runtime config object.
 - Operations are **contract-first** and strategy selection is an op-local config concern; steps call ops but do not bind or declare op graphs.
+- Operation types are derived from the contract and exported only from each op’s `types.ts`; rules never export types and never import `contract.ts`.
 - Default authoring is **colocation**:
   - Step-owned: config schemas + config types, dependency tag IDs/definitions, artifact types/validators/publish-get helpers, and any step-local types.
   - Stage-shared: only items shared across multiple steps in the same stage.

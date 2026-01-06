@@ -189,6 +189,8 @@ Plan-truth config shape for this op (including single strategy):
 ### Step wiring (illustrative)
 
 ```ts
+import { Type, type Static } from "@swooper/mapgen-core/authoring";
+
 const stepSchema = Type.Object({
   planFeaturePlacements: Type.Optional(planFeaturePlacements.config, {
     default: planFeaturePlacements.defaultConfig,

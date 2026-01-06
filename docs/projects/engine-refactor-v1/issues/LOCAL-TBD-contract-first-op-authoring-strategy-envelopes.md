@@ -1,222 +1,294 @@
 ---
-id: LOCAL-TBD
-title: "Adopt contract-first op authoring + strategy envelope config"
+id: LOCAL-TBD-M7-U16
+title: "[M7] Land converged contract-first op + step authoring (strategy envelopes + step binder)"
 state: planned
 priority: 3
 estimate: 0
 project: engine-refactor-v1
-milestone: null
+milestone: M7
 assignees: []
 labels: []
 parent: null
 children: []
 blocked_by: []
 blocked: []
-related_to: []
+related_to:
+  - ADR-ER1-031
+  - ADR-ER1-033
+  - ADR-ER1-036
+  - SPEC-step-domain-operation-modules
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
-- Implement the converged, contract-first op + step authoring model: ops use strategy-local `{ strategy, config }` envelopes and out-of-line `createStrategy` implementations, and steps remain contract-first orchestration modules wired through recipe compilation (no structural op graphs).
+- Implement the converged, contract-first op + step authoring model: operations use strategy-local `{ strategy, config }` envelopes with out-of-line `createStrategy` implementations, and steps become contract-first orchestration modules created via a bound `createStepFor<TContext>()` factory (no step↔op binding DSL, no recipe compilation refactor).
+
+## Target outcome (canonical)
+- **Ops are contract-first:** op IO + per-strategy config schemas live in `contract.ts`; strategies are implemented out-of-line and remain fully typed.
+- **Strategy config is always envelope-shaped:** op config at the runtime boundary is always `{ strategy: "<id>", config: <innerConfig> }` (no alternate shapes).
+- **Op types are centralized:** each op exports a single `OpTypeBag` from `types.ts`; rules import types from `types.ts` only and never export types themselves.
+- **Steps are contract-first:** step contracts are metadata only; runtime behavior (`run`, optional `resolveConfig`) is attached via a factory, mirroring `defineOpContract` / `createOp`.
+- **Step typing parity with ops:** step implementations use a bound factory `createStepFor<TContext>()` so `run`/`resolveConfig` have full context autocomplete without manual type imports.
+- **No architectural churn:** Recipe v2 + step registry compilation remain as-is; only pass optional step `resolveConfig` through compilation so normalization still works.
+- **No shims:** remove or replace any legacy authoring APIs/call paths rather than keeping compatibility exports.
+
+## Out of scope (hard boundaries)
+- No recipe/stage redesign (no v5/v7-style mechanical compilers, no stage views, no plan-schema layering).
+- No step↔op binding DSL or “declared op graphs” in step/stage/recipe contracts.
+- No ops-root directory reorg (ops remain nested: `mods/mod-swooper-maps/src/domain/<domain>/ops/**`).
+- No legacy compatibility shims, dual paths, or “keep old exports around” fallbacks.
+
+## References (canonical)
+- `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
+- `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-031-strategy-config-encoding.md`
 
 ## Deliverables
-- [ ] Land contract-first op authoring surface in `packages/mapgen-core/src/authoring/op/`:
-  - [ ] `defineOpContract(...)` for IO + per-strategy config schema ownership.
-  - [ ] `createStrategy(contract, id, impl)` for out-of-line, contract-typed strategy implementations.
-  - [ ] `createOp(contract, { strategies, customValidate? })` that derives:
-    - [ ] `op.config` as the union of `{ strategy: Literal(id), config: <innerSchema> }` over strategies.
-    - [ ] `op.defaultConfig` from `strategies.default` defaults as `{ strategy: "default", config: <defaulted inner config> }`.
-    - [ ] `op.resolveConfig(envelope, settings)` as a dispatcher over per-strategy `resolveConfig`.
-    - [ ] `op.runValidated(input, envelope)` that validates values and calls the selected strategy `run`.
-- [ ] Land contract-first step authoring surface in `packages/mapgen-core/src/authoring/step/` and export it from `packages/mapgen-core/src/authoring/index.ts`:
-  - [ ] `defineStepContract(...)` for contract metadata only (`id`, `phase`, `requires`, `provides`, `schema`).
-  - [ ] `createStep(contract, { resolveConfig?, run })` + `createStepFor<TContext>()` to bind context typing and compose `contract + impl`.
-- [ ] Wire step-level `resolveConfig` through recipe compilation (per draft):
-  - [ ] Update `packages/mapgen-core/src/authoring/recipe.ts` to forward `resolveConfig` into `MapGenStep`.
-  - [ ] Ensure `packages/mapgen-core/src/engine/types.ts` supports optional `resolveConfig` and `packages/mapgen-core/src/engine/execution-plan.ts` continues to invoke it for normalization.
-- [ ] Standardize the canonical op/domain module layout (per draft):
-  - [ ] `mods/mod-swooper-maps/src/domain/<domain>/index.ts` exports the domain module surface.
-  - [ ] `mods/mod-swooper-maps/src/domain/<domain>/ops/index.ts` exports all ops for that domain.
-  - [ ] Each op lives at `mods/mod-swooper-maps/src/domain/<domain>/ops/<op-slug>/{contract.ts,rules/**,strategies/**,index.ts}` and exports an implemented op.
-- [ ] Standardize the canonical step module layout (per draft):
-  - [ ] `mods/mod-swooper-maps/src/recipes/<recipe>/stages/<stage>/steps/<step-slug>/contract.ts` exports the contract.
-  - [ ] `mods/mod-swooper-maps/src/recipes/<recipe>/stages/<stage>/steps/<step-slug>/index.ts` exports the implementation using the bound factory.
-  - [ ] `mods/mod-swooper-maps/src/recipes/<recipe>/stages/<stage>/steps/<step-slug>/lib/**` holds local helpers.
-  - [ ] Add `mods/mod-swooper-maps/src/authoring/steps.ts` exporting `createStepFor<ExtendedMapContext>()` as `createStep` (the only entrypoint for step implementations).
-- [ ] Add/standardize path aliasing (per draft):
-  - [ ] `@mapgen/domain/*` → `mods/mod-swooper-maps/src/domain/*`
-  - [ ] `@mapgen/authoring/*` → `mods/mod-swooper-maps/src/authoring/*`
-- [ ] Convert existing ops and step schemas to the converged shape:
-  - [ ] Move op IO + per-strategy config schemas into `contract.ts`.
-  - [ ] Move per-strategy behavior into `strategies/<id>.ts`.
-  - [ ] Move helpers into `rules/*.ts`.
-  - [ ] Update step schemas to reuse `op.config` / `op.defaultConfig` without declaring bindings/graphs.
-- [ ] Move shared helper clones (math/noise/RNG/grid utilities, etc.) into the core SDK and import from `@swooper/mapgen-core`.
-- [ ] Update tests and call sites:
-  - [ ] Migrate any legacy `createOp({ ... })` authoring/call-site patterns to `createOp(contract, { strategies })`.
-  - [ ] Ensure any direct config normalization uses `op.resolveConfig(...)` (strategy-local), not step-owned widening.
-- [ ] Validate with an end-to-end reference example (ecology vegetation multi-op orchestration) proving:
-  - [ ] Out-of-line strategies keep full type inference.
-  - [ ] Steps orchestrate via function calls + validated values.
-  - [ ] Strategy selection remains local to each op via the `{ strategy, config }` envelope.
+- [ ] Sub-issue A: Implement op authoring surface in `packages/mapgen-core/src/authoring/op/**` (`defineOpContract`, `createStrategy`, `createOp`).
+- [ ] Sub-issue B: Implement step authoring surface in `packages/mapgen-core/src/authoring/step/**` (`defineStepContract`, `createStep`, `createStepFor<TContext>`), export from `packages/mapgen-core/src/authoring/index.ts`.
+- [ ] Sub-issue C: Wire step `resolveConfig` through recipe compilation and engine types (pass-through only; no compilation redesign).
+- [ ] Sub-issue D: Standardize mod path aliasing (`@mapgen/domain/*`, `@mapgen/authoring/*`) and add `mods/mod-swooper-maps/src/authoring/steps.ts` binder.
+- [ ] Sub-issue E: Convert ops to canonical layout + envelope config, and update call sites (no compat exports).
+- [ ] Sub-issue F: Convert steps to contract-first modules + binder-based implementations (no binding DSL; steps remain structurally ignorant of ops/domains).
+- [ ] Sub-issue G: Replace shared helper clones with core SDK imports and add missing broadly-useful helpers to `@swooper/mapgen-core`.
+- [ ] Sub-issue H: Update tests and add guardrails so legacy authoring paths cannot reappear.
 
 ## Acceptance Criteria
-- [ ] For every op, the plan-truth config shape at the runtime boundary is always `{ strategy: "<id>", config: <innerConfig> }` (no alternate shapes).
-- [ ] Each op contract owns IO schemas and all per-strategy config schemas; strategy implementations are typed by the contract.
-- [ ] Steps remain contract-first orchestration modules (no op graphs/bindings):
-  - [ ] Step contract is metadata-only and exported independently of implementation.
-  - [ ] Step implementation is created via a bound `createStepFor<TContext>()` factory; `resolveConfig` (when present) lives only in the implementation.
-  - [ ] Step schemas remain mandatory and enforced by authoring helpers.
-  - [ ] Recipe compilation forwards optional step `resolveConfig` so normalization still works end-to-end.
-- [ ] Strategy selection remains op-local; steps do not centrally choose strategies beyond supplying the envelope value.
-- [ ] Repo compiles with the new authoring surface and converted call sites; no remaining legacy authoring paths are required for the target architecture.
+- **Architecture enforcement**
+  - [ ] For every op, config at the runtime boundary is always `{ strategy: "<id>", config: <innerConfig> }` (no alternate shapes).
+  - [ ] Each op contract owns IO schemas and all per-strategy config schemas; strategy implementations are typed by the contract (no type widening to `any`).
+  - [ ] Steps remain contract-first orchestration modules (no op graphs/bindings):
+    - [ ] Contract is metadata-only and exported independently of implementation.
+    - [ ] Implementation is created via a bound `createStepFor<TContext>()` factory; `resolveConfig` (when present) lives only in the implementation.
+    - [ ] Step schemas remain mandatory and enforced by authoring helpers.
+    - [ ] Recipe compilation forwards optional step `resolveConfig` so normalization still works end-to-end.
+  - [ ] Strategy selection remains op-local; steps do not centrally choose strategies beyond supplying the envelope value.
+- **No legacy fallbacks**
+  - [ ] No “compat” exports remain for previous op/step authoring APIs; all call sites are updated to the new factories.
+  - [ ] No deep relative imports into core packages exist (no `../../../../packages/...` or `../../../../../authoring/...` patterns crossing package boundaries).
 
 ## Testing / Verification
 - `pnpm check`
 - `pnpm test`
 - `pnpm lint`
-- Manually sanity-check at least one multi-strategy op + orchestration step pair (see draft’s vegetation example) compiles and validates configs at the boundary.
+- Manually sanity-check at least one multi-strategy op + orchestration step pair (vegetation example) compiles and validates configs at the boundary.
 
 ## Dependencies / Notes
-- Source draft (authoritative): `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
-- This converged shape appears aligned with existing “hard path / envelope config” work in `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M7-U14-hard-path-strategy-centric-op-config-envelope.md`; confirm whether this issue is a standalone slice or should be merged/treated as a refinement of that effort.
-- Touchpoints called out in the draft include `packages/mapgen-core/src/authoring/step/*`, `packages/mapgen-core/src/authoring/recipe.ts`, `packages/mapgen-core/src/engine/types.ts`, `packages/mapgen-core/src/engine/execution-plan.ts`, and step/recipe call sites.
-- Integration edge (draft): `createRecipe` currently maps `schema -> configSchema` but drops step `resolveConfig`; this must be wired through to preserve step-level normalization.
-- Open questions carried from the draft:
-  - Step config: pass op envelopes directly vs map from step-specific shapes.
-  - For each op: ensure the strategy set is stable and per-strategy config schemas are minimal.
-  - Ensure op boundaries remain focused (avoid monolithic ops).
+- Canonical architecture (source of truth): `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
+- This issue intentionally replaces any earlier “envelope config hard-path” approaches for op authoring; do not preserve alternate authoring APIs as fallbacks.
+- Key touchpoints:
+  - `packages/mapgen-core/src/authoring/op/**`
+  - `packages/mapgen-core/src/authoring/step/**`
+  - `packages/mapgen-core/src/authoring/recipe.ts`
+  - `packages/mapgen-core/src/engine/types.ts`
+  - `packages/mapgen-core/src/engine/execution-plan.ts`
+  - mod ops + step call sites under `mods/mod-swooper-maps/src/**`
+- Critical wiring edge: `createRecipe` currently maps `schema -> configSchema`; it must also forward step `resolveConfig` (pass-through only).
 
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Details (Local Only)
 
-### Approach / Design Notes
-- **Problem framing (from draft):**
-  - Operation authoring needs contract-first structure so strategy implementations can be authored out of line with full type inference.
-  - Steps must remain simple contracts that orchestrate ops without owning or declaring op graphs.
-  - The step↔op bridge should be validated function calls (not structural coupling/mechanical compilation).
-- **Design goals (from draft):**
-  - Contract-first and declarative.
-  - Compile-time availability for schemas/config shapes/defaults.
-  - Domain/recipe separation: steps do not own or expose op bindings; ops remain pure functions.
-  - Strategy selection stays a local op detail using `{ strategy, config }`.
+This section is written for implementers (human or agent). It assumes the converged architecture doc is locked and exists only to translate it into a complete, sequenced, “no ambiguity / no shims” implementation plan.
 
-### Canonical Model (from draft)
-- **Operation**
-  - Pure domain capability: `run(input, config) -> output`.
-  - Contract owns IO schemas and per-strategy config schemas.
-  - Strategies are attached via `createStrategy`.
-  - Runtime op is produced by `createOp(contract, { strategies })` and derives:
-    - `op.config` (union over strategy envelopes)
-    - `op.defaultConfig` (from default strategy schema)
-    - `op.resolveConfig` (per-strategy resolver hook; compile-time oriented)
-- **Step**
-  - Contract is metadata only: `id`, `phase`, `requires`, `provides`, `schema`.
-  - Implementation is attached via a bound factory `createStepFor<TContext>()`, producing `createStep(contract, { resolveConfig?, run })`.
-  - `resolveConfig` is implementation-only; the contract file never contains runtime code.
-- **Bridge**
-  - Steps build op inputs, resolve config with `op.resolveConfig`, and call `op.runValidated`.
-  - Recipe v2 and step registry compilation stay unchanged; the only wiring change is carrying step `resolveConfig` through compilation.
+### Quick Navigation
+- [Implementation Decisions (locked)](#implementation-decisions-locked)
+- [Implementation Plan (sub-issues)](#implementation-plan-sub-issues)
+- [Pre-work Findings / Research](#pre-work-findings--research)
 
-### Conceptual model (from draft)
-- **Ops** are planning/analysis units defined by contracts; **strategies** are algorithmic variants with the same IO contract.
-- **Rules** are small policy/decision helpers composed inside strategies.
-- **Steps** are action boundaries that orchestrate ops and publish artifacts; **stages** are orchestration/grouping only.
+## Implementation Decisions (locked)
 
-### Canonical file layouts (from draft)
+### D1) Op config is always an envelope
+- **Decision:** the runtime config shape for any op is always `{ strategy: "<id>", config: <inner> }`.
+- **Non-negotiable:** do not accept “flat” config or strategy hidden behind implicit defaults at the boundary.
 
-Ops/domains:
-```
-mods/mod-swooper-maps/src/domain/
-  <domain>/
-    index.ts
-    ops/
-      index.ts
-      <op-slug>/
-        contract.ts
-        rules/
-          <rule>.ts
-        strategies/
-          default.ts
-        <strategy>.ts
-        index.ts
-```
+### D2) Step contracts are metadata-only; implementation is factory-attached
+- **Decision:** `defineStepContract(...)` returns metadata only (`id`, `phase`, `requires`, `provides`, `schema`).
+- **Decision:** `createStep(contract, { resolveConfig?, run })` attaches behavior; the contract file contains no runtime code.
 
-Steps:
-```
-mods/mod-swooper-maps/src/recipes/<recipe>/stages/<stage>/steps/
-  <step-slug>/
-    contract.ts
-    index.ts
-    lib/
-      <helper>.ts
-```
+### D3) `createStepFor<TContext>()` is required for step typing parity
+- **Decision:** step implementations must be authored using a bound factory (e.g., `createStep = createStepFor<ExtendedMapContext>()`) so `run`/`resolveConfig` have rich contextual typing without manual generics or extra type imports.
+- **Decision:** `mods/mod-swooper-maps/src/authoring/steps.ts` is the only place that binds `ExtendedMapContext`.
 
-Bound step factories:
-```
-mods/mod-swooper-maps/src/authoring/
-  steps.ts
-```
+### D4) No recipe compilation refactor
+- **Decision:** recipe v2 + step registry compilation stay as-is; only add step `resolveConfig` pass-through.
+- **Non-goal:** no mechanical plan compilers, no stage views, no schema layering (no `planSchema` vs `configSchema`).
 
-### Canonical authoring surface (from draft)
-- Draft provides concrete target code for:
+### D5) No legacy shims
+- **Decision:** remove or replace superseded authoring APIs and call paths; do not keep compatibility exports or “legacy mode” behavior.
+
+### D6) Import hygiene is a hard rule
+- **Decision:** cross-module imports must use package imports / stable aliases (no deep relative path churn across modules/packages).
+- **Decision:** shared helpers come from `@swooper/mapgen-core` when available; if broadly useful and missing, add to the core SDK.
+- **Decision:** contract/step schemas import `Type`/`Static` from `@swooper/mapgen-core/authoring` (not from `typebox` directly).
+
+### D7) Step schemas compose op envelope schemas directly
+- **Decision:** when a step config needs an op config, it embeds the op’s envelope schema directly (e.g., `trees: ecology.ops.planTreeVegetation.config`) and uses `op.defaultConfig` for defaults.
+- **Non-goal:** do not duplicate strategy unions or per-strategy schemas at the step level.
+
+### D8) Op module type + rules boundaries are strict
+- **Decision:** each op has `types.ts` exporting a single `OpTypeBag` (and optional extra type-only helpers).
+- **Decision:** `rules/**` files import types from `../types.js` only (type-only) and never import from `../contract.js` or export types.
+
+## Implementation Plan (sub-issues)
+
+Implement as a Graphite stack with one logical change per branch (A → H). Do not mix migrations with authoring-surface changes; keep each layer reviewable.
+
+### Sub-issue A) Land contract-first op authoring (`defineOpContract` / `createStrategy` / `createOp`)
+**In scope**
+- Implement the canonical op authoring surface in `packages/mapgen-core/src/authoring/op/**` exactly as described in `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`.
+- Ensure `createOp(...)` derives (and exports) the envelope config schema and defaults in a compile-time-available way.
+- Add the `OpTypeBag` helper type in the authoring package and export it from `packages/mapgen-core/src/authoring/index.ts`.
+
+**Out of scope**
+- Refactoring any mod ops under `mods/mod-swooper-maps` (handled in Sub-issue E).
+
+**Files**
+- Add/modify:
   - `packages/mapgen-core/src/authoring/op/contract.ts`
   - `packages/mapgen-core/src/authoring/op/strategy.ts`
   - `packages/mapgen-core/src/authoring/op/create.ts`
   - `packages/mapgen-core/src/authoring/op/index.ts`
   - `packages/mapgen-core/src/authoring/index.ts`
-- Draft also defines the step authoring surface:
+- Delete/replace any legacy op authoring modules that provide alternative shapes.
+
+**Acceptance Criteria**
+- `createStrategy(...)` implementations authored out-of-line preserve full type inference from the op contract (no `any` leaks).
+- `op.config` and `op.defaultConfig` are envelope-shaped and compile-time available.
+- There is exactly one op authoring path in the codebase (no dual APIs or compat exports).
+
+### Sub-issue B) Land contract-first step authoring (`defineStepContract` / `createStep` / `createStepFor<TContext>`)
+**In scope**
+- Implement `defineStepContract(...)` (metadata only) and `createStep(contract, impl)` that attaches `run` + optional `resolveConfig`.
+- Implement `createStepFor<TContext>()` binder and require it for step implementations (DX parity with ops).
+- Export from `packages/mapgen-core/src/authoring/index.ts`.
+
+**Files**
+- Add/modify:
   - `packages/mapgen-core/src/authoring/step/contract.ts`
   - `packages/mapgen-core/src/authoring/step/create.ts`
-  - `packages/mapgen-core/src/authoring/step/index.ts` (or re-exports via `authoring/index.ts`)
-- Keep the draft as the canonical reference for the exact code shapes/snippets:
-  - `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
+  - `packages/mapgen-core/src/authoring/step/index.ts`
+  - `packages/mapgen-core/src/authoring/index.ts`
+- Delete/replace any legacy step authoring modules that conflate contract + implementation.
 
-### End-to-end example reference (from draft)
-- Ecology vegetation planning orchestrates two focused ops:
-  - `planTreeVegetation` (`default`, `clustered`)
-  - `planShrubVegetation` (`default`, `arid`)
-- A single step owns its schema, validates config, resolves strategy-specific settings, and publishes a combined plan.
+**Acceptance Criteria**
+- Step contract does not accept runtime functions.
+- `createStepFor<TContext>()` restores contextual typing for `run(ctx, config)` and `resolveConfig(config, ctx)` without extra generics in call sites.
+- There is exactly one step authoring path in the codebase (no dual APIs or compat exports).
 
-### Implementation Plan (from draft)
-- **Mechanical work**
-  1. Add contract-first op authoring files and exports in `packages/mapgen-core/src/authoring/op/**` and `packages/mapgen-core/src/authoring/index.ts`.
-  2. Add contract-first step authoring files and exports in `packages/mapgen-core/src/authoring/step/**` and `packages/mapgen-core/src/authoring/index.ts`.
-  3. Pass through step `resolveConfig` during recipe compilation (wire `authoring/recipe.ts` → `MapGenStep`).
-  4. Convert each op module to the canonical layout (contract/rules/strategies/index).
-  5. Update step modules to the contract-first layout (contract file + bound `createStep` implementation + `lib/**`).
-  6. Update step schema defaults to reference `op.defaultConfig` and `op.config` from implemented ops.
-  7. Standardize cross-module imports to use `@mapgen/domain/*` and `@mapgen/authoring/*` aliases (keep intra-op/step imports relative).
-  8. Move any shared helper clones into the core SDK and import them from `@swooper/mapgen-core`.
-  9. Update op validation tests and any direct `createOp({ ... })` usages to `createOp(contract, { strategies })`.
-- **Thinky work**
-  1. For each op, confirm strategy set is stable and config schemas are minimal.
-  2. Ensure op boundaries stay focused (avoid monolithic ops mixing unrelated concerns).
-  3. Decide whether step config should pass op envelopes directly or map from step-specific shapes.
-  4. Confirm whether step config should always be `Static<typeof schema>` or whether any steps require a looser config type.
+### Sub-issue C) Wire step `resolveConfig` through recipe compilation (pass-through only)
+**In scope**
+- Update recipe compilation to carry the optional step `resolveConfig` through to the runtime `MapGenStep` object.
+- Ensure engine normalization continues to call step-level `resolveConfig` when present.
 
-### Dependency chain + integration edges (from draft)
-- Dependency chain and touchpoints:
-  - `packages/mapgen-core/src/authoring/step/contract.ts`: new contract-only metadata builder.
-  - `packages/mapgen-core/src/authoring/step/create.ts`: composes `contract + impl` and enforces schema presence.
-  - `packages/mapgen-core/src/authoring/index.ts`: export surface for `defineStepContract`.
-  - `packages/mapgen-core/src/authoring/step.ts`: superseded by `authoring/step/create.ts` and should be removed or re-exported.
-  - `packages/mapgen-core/src/authoring/stage.ts`: still asserts `schema` on created steps.
-  - `packages/mapgen-core/src/authoring/recipe.ts`: forwards `schema -> configSchema` and must also forward `resolveConfig`.
-  - `packages/mapgen-core/src/engine/types.ts`: `MapGenStep` includes `configSchema` and optional `resolveConfig`.
-  - `packages/mapgen-core/src/engine/execution-plan.ts`: uses `configSchema` and optional `resolveConfig` for normalization.
-  - `packages/mapgen-core/src/engine/PipelineExecutor.ts`: executes `run` using normalized config.
-  - Tests and example recipes: update to `defineStepContract` + bound `createStep` from `createStepFor<ExtendedMapContext>()`.
-- Integration edges:
-  - `createRecipe` currently maps `schema -> configSchema` and drops `resolveConfig`; this must be wired through to preserve step-level config normalization.
-  - `engine/execution-plan.ts` already treats `resolveConfig` as optional and only invokes it when `configSchema` exists, so the contract schema must remain mandatory.
-  - `createStage` and `createStep` should continue to reject missing schemas, ensuring compile-time safety and consistent defaults.
+**Files**
+- Modify:
+  - `packages/mapgen-core/src/authoring/recipe.ts`
+  - `packages/mapgen-core/src/engine/types.ts`
+  - `packages/mapgen-core/src/engine/execution-plan.ts`
 
-### Quick Navigation
-- [TL;DR](#tldr)
-- [Deliverables](#deliverables)
-- [Acceptance Criteria](#acceptance-criteria)
-- [Testing / Verification](#testing--verification)
-- [Dependencies / Notes](#dependencies--notes)
+**Out of scope**
+- Any change to recipe v2 semantics beyond adding the pass-through property.
+
+**Acceptance Criteria**
+- Compiled steps still expose `configSchema` and `run`, and now also preserve `resolveConfig` when provided.
+- No “dual” pipeline exists: there is a single compilation path and a single runtime step shape.
+
+### Sub-issue D) Standardize mod aliasing + step authoring binder module
+**In scope**
+- Add stable path aliasing for cross-module imports:
+  - `@mapgen/domain/*` → `mods/mod-swooper-maps/src/domain/*`
+  - `@mapgen/authoring/*` → `mods/mod-swooper-maps/src/authoring/*`
+- Add `mods/mod-swooper-maps/src/authoring/steps.ts` exporting a single bound factory:
+  - `export const createStep = createStepFor<ExtendedMapContext>();`
+- Update step implementations to import from `@mapgen/authoring/steps` (never deep-relative into authoring).
+
+**Files**
+- Modify:
+  - `mods/mod-swooper-maps/tsconfig.json` (or nearest tsconfig governing the mod build)
+- Add:
+  - `mods/mod-swooper-maps/src/authoring/steps.ts`
+
+**Acceptance Criteria**
+- No step implementation file binds `ExtendedMapContext` directly; the only binder is `@mapgen/authoring/steps`.
+- Cross-module imports in the mod use aliases or package imports (no brittle `../../..` traversals across the domain/recipe tree).
+
+### Sub-issue E) Convert ops to canonical layout + envelope config (no compat exports)
+**In scope**
+- Convert existing ops under `mods/mod-swooper-maps/src/domain/<domain>/ops/**` to the canonical layout:
+  - `contract.ts` owns IO + per-strategy config schemas
+  - `types.ts` exports a single `OpTypeBag` (plus optional type-only helpers)
+  - `rules/index.ts` barrels rule helpers; `rules/**` never export types
+  - `strategies/index.ts` barrels strategies; `strategies/<id>.ts` implement out-of-line behavior via `createStrategy`
+  - `index.ts` exports the created op via `createOp` and re-exports `*` from `contract.ts` + `type *` from `types.ts`
+- Update all importers to the new module locations and exports; do not keep compatibility barrel modules.
+
+**Acceptance Criteria**
+- Each converted op exports a single implemented op from `index.ts`.
+- Strategy selection and normalization happen through the op (`op.resolveConfig`, `op.runValidated`), not via step-specific widening layers.
+- No compat exports exist and all call sites are updated.
+
+### Sub-issue F) Convert steps to contract-first modules + binder-based implementations
+**In scope**
+- Convert steps to the canonical layout:
+  - `contract.ts`: metadata-only `defineStepContract(...)`
+  - `index.ts`: `export default createStep(contract, { resolveConfig?, run })`
+  - `lib/**`: local helpers with no registry awareness
+- Ensure step code remains orchestration/action oriented and uses domain ops as functions.
+
+**Acceptance Criteria**
+- Steps do not declare op graphs or op bindings in their contracts.
+- Step schemas reuse `op.config` and `op.defaultConfig` where they need op configs (no duplicated unions or per-strategy schema copies in step contracts).
+- Steps call ops via `runValidated` with already-normalized configs.
+- Step modules import authoring via `@mapgen/authoring/steps` + `@swooper/mapgen-core/authoring` (no deep-relative imports).
+
+### Sub-issue G) Replace shared helper clones with core SDK imports
+**In scope**
+- Audit ops/steps for duplicated generic utilities (math/noise/RNG/grid).
+- Replace local clones with imports from `@swooper/mapgen-core` where functions already exist.
+- If a helper is broadly useful but missing, add it to the core SDK and import it from there (no new local “utils” proliferation).
+
+**Acceptance Criteria**
+- Shared helpers are imported from the core SDK; local helpers remain only when truly local.
+
+### Sub-issue H) Tests + guardrails: prevent regressions into legacy authoring
+**In scope**
+- Update tests and call sites to use the new authoring surfaces.
+- Add at least one focused test (or type-level harness) that proves:
+  - `createStrategy` out-of-line typing remains correct (smoke),
+  - step binder typing works (compile-time via `pnpm check`),
+  - step `resolveConfig` pass-through is invoked when present.
+- Add lint guardrails so:
+  - `rules/**` never import from `../contract.js`,
+  - `rules/**` never export types,
+  - `Type`/`Static` are imported from `@swooper/mapgen-core/authoring` in contracts/steps.
+
+**Acceptance Criteria**
+- Repo compiles with the new authoring surface and migrated call sites.
+- There is no remaining legacy authoring path required to run the engine.
+
+## Pre-work Findings / Research
+
+### Dependency chain + integration edges (must be touched)
+- `packages/mapgen-core/src/authoring/op/**`: new canonical op authoring surface.
+- `packages/mapgen-core/src/authoring/step/**`: new canonical step authoring surface.
+- `packages/mapgen-core/src/authoring/recipe.ts`: must forward step `resolveConfig` (pass-through).
+- `packages/mapgen-core/src/engine/types.ts`: `MapGenStep` includes `configSchema` and optional `resolveConfig`.
+- `packages/mapgen-core/src/engine/execution-plan.ts`: uses `configSchema` and optional `resolveConfig` for normalization.
+- `packages/mapgen-core/src/engine/PipelineExecutor.ts`: executes `run` using normalized config.
+
+### High-signal searches for implementers
+- Find existing step authoring entrypoints: `rg -n "createStep\\b|defineStep\\b|StepContract\\b" packages/mapgen-core/src/authoring`
+- Find recipe compilation touchpoints: `rg -n "createRecipe\\b|configSchema\\b|resolveConfig\\b" packages/mapgen-core/src/authoring packages/mapgen-core/src/engine`
+- Find op authoring call sites: `rg -n "createOp\\b|defineOpContract\\b|createStrategy\\b" mods/mod-swooper-maps/src`
+
+### Hard guardrails (required before marking the issue done)
+- No deep relative imports into core authoring:
+  - `rg -n "\\.{2}/\\.{2}/\\.{2}/\\.{2}/\\.{2}/authoring" mods/mod-swooper-maps/src || true`
+  - `rg -n "packages/mapgen-core/src/authoring" mods/mod-swooper-maps/src || true`
+- No rule modules exporting types or importing contracts:
+  - `rg -n "rules/.+export type" mods/mod-swooper-maps/src || true`
+  - `rg -n "rules/.+contract\\.js" mods/mod-swooper-maps/src || true`
+- No legacy op authoring call sites using the old shape:
+  - `rg -n "createOp\\(\\{" mods/mod-swooper-maps/src packages/mapgen-core/src || true`

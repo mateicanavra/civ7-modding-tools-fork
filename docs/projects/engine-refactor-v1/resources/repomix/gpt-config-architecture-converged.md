@@ -56,6 +56,7 @@
   - `op.config` as a union over strategy envelopes
   - `op.defaultConfig` from the default strategy schema
   - `op.resolveConfig` as a per-strategy resolver hook (compile-time only)
+- `types.ts` exports a **single type bag** derived from the contract via `OpTypeBag`; callers select types via indexing (e.g. `OpTypes["input"]`, `OpTypes["config"]["default"]`).
 
 **Step**
 - **Contract** is metadata only: `id`, `phase`, `requires`, `provides`, and `schema`.
@@ -90,13 +91,31 @@ mods/mod-swooper-maps/src/domain/
       index.ts
       <op-slug>/
         contract.ts
+        types.ts
         rules/
+          index.ts
           <rule>.ts
         strategies/
-          default.ts
-        <strategy>.ts
+          index.ts
+          <strategy>.ts
         index.ts
 ```
+
+### Import direction rules for ops
+
+- `contract.ts` is the single runtime schema truth and does **not** import from `rules/**` or `strategies/**`.
+- `types.ts` is type-only: import `OpTypeBag` from the core authoring package and reference the contract via `typeof import("./contract.js")`.
+- Optional convenience types (e.g., `Placement` helpers) live in `types.ts` and must remain type-only.
+- `rules/**`:
+  - **Never** import `../contract.js` (lint-enforced, no exceptions).
+  - Import types from `../types.js` using `import type`.
+  - Import shared utilities only from core SDK packages (e.g., `@swooper/mapgen-core`).
+  - Do not export or re-export types from helper modules; all shared types live in `types.ts`.
+- `rules/index.ts` is the runtime barrel for rules and should only export runtime helpers.
+- `strategies/**` import `../contract.js`, `../rules/index.js`, and optionally `../types.js` for type annotations.
+- `strategies/index.ts` is the runtime barrel for strategies.
+- `index.ts` imports only the contract and the strategies barrel, calls `createOp`, and re-exports `*` from `./contract.js` plus `type *` from `./types.js`.
+- No `schemas/`, `context.ts`, or alternate entrypoints for ops.
 
 ### Path aliasing rules
 
@@ -159,6 +178,56 @@ export function defineOpContract<
 >(def: OpContract<Kind, Id, InputSchema, OutputSchema, Strategies>): typeof def {
   return def;
 }
+```
+
+`packages/mapgen-core/src/authoring/op/types.ts`
+```ts
+import type { Static, TSchema } from "typebox";
+
+export type OpContractLike = Readonly<{
+  input: TSchema;
+  output: TSchema;
+  strategies: Readonly<Record<string, TSchema>>;
+}>;
+
+export type OpStrategyId<TContract extends OpContractLike> =
+  keyof TContract["strategies"] & string;
+
+export type OpTypeBag<TContract extends OpContractLike> = Readonly<{
+  input: Static<TContract["input"]>;
+  output: Static<TContract["output"]>;
+  strategyId: OpStrategyId<TContract>;
+  config: Readonly<{
+    [K in OpStrategyId<TContract>]: Static<TContract["strategies"][K]>;
+  }>;
+  envelope: {
+    [K in OpStrategyId<TContract>]: Readonly<{
+      strategy: K;
+      config: Static<TContract["strategies"][K]>;
+    }>;
+  }[OpStrategyId<TContract>];
+}>;
+```
+
+`mods/mod-swooper-maps/src/domain/<domain>/ops/<op-slug>/types.ts`
+```ts
+import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+
+type Contract = typeof import("./contract.js").SomeOpContract;
+
+export type SomeOpTypes = OpTypeBag<Contract>;
+```
+
+Caller usage is via a single type bag import and direct indexing:
+
+```ts
+import type { SomeOpTypes } from "./types.js";
+
+type Input = SomeOpTypes["input"];
+type Output = SomeOpTypes["output"];
+type StrategyId = SomeOpTypes["strategyId"];
+type DefaultConfig = SomeOpTypes["config"]["default"];
+type Envelope = SomeOpTypes["envelope"];
 ```
 
 `packages/mapgen-core/src/authoring/op/strategy.ts`
@@ -373,6 +442,7 @@ export { createOp } from "./create.js";
 export { createStrategy } from "./strategy.js";
 
 export type { OpContract, StrategyConfigSchemas } from "./contract.js";
+export type { OpContractLike, OpStrategyId, OpTypeBag } from "./types.js";
 export type { DomainOp, DomainOpKind } from "./types.js";
 export type {
   OpStrategy,
@@ -499,7 +569,10 @@ export type {
   DomainOp,
   DomainOpKind,
   OpContract,
+  OpContractLike,
   OpStrategy,
+  OpStrategyId,
+  OpTypeBag,
   StrategyImpl,
   StrategyImplFor,
   StrategyImplMapFor,
@@ -735,7 +808,7 @@ independently.
 
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/contract.ts`
 ```ts
-import { Type, type Static, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
 
 export const PlanTreeVegetationContract = defineOpContract({
@@ -787,19 +860,24 @@ export const PlanTreeVegetationContract = defineOpContract({
     ),
   },
 } as const);
+```
 
-export type PlanTreeVegetationInput = Static<typeof PlanTreeVegetationContract.input>;
-export type PlanTreeVegetationOutput = Static<typeof PlanTreeVegetationContract.output>;
-export type TreeDefaultConfig = Static<typeof PlanTreeVegetationContract.strategies.default>;
-export type TreeClusteredConfig = Static<typeof PlanTreeVegetationContract.strategies.clustered>;
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/types.ts`
+```ts
+import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+
+type Contract = typeof import("./contract.js").PlanTreeVegetationContract;
+
+export type PlanTreeVegetationTypes = OpTypeBag<Contract>;
+export type TreeConfig =
+  PlanTreeVegetationTypes["config"][keyof PlanTreeVegetationTypes["config"]];
+export type TreePlacement = PlanTreeVegetationTypes["output"]["placements"][number];
 ```
 
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/rules/normalize.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
-import type { TreeDefaultConfig, TreeClusteredConfig } from "../contract.js";
-
-export type TreeConfig = TreeDefaultConfig | TreeClusteredConfig;
+import type { TreeConfig } from "../types.js";
 
 export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
   return {
@@ -813,10 +891,10 @@ export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/rules/placements.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
-import type { PlanTreeVegetationInput, TreeClusteredConfig } from "../contract.js";
-import { type TreeConfig } from "./normalize.js";
+import type { PlanTreeVegetationTypes, TreeConfig, TreePlacement } from "../types.js";
 
-export type TreePlacement = { plot: number; density: number };
+type PlanTreeVegetationInput = PlanTreeVegetationTypes["input"];
+type TreeClusteredConfig = PlanTreeVegetationTypes["config"]["clustered"];
 
 export function buildTreePlacements(
   input: PlanTreeVegetationInput,
@@ -844,13 +922,18 @@ export function buildTreePlacements(
 }
 ```
 
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/rules/index.ts`
+```ts
+export { normalizeTreeConfig } from "./normalize.js";
+export { buildTreePlacements } from "./placements.js";
+```
+
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/strategies/default.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
 import { PlanTreeVegetationContract } from "../contract.js";
-import { buildTreePlacements } from "../rules/placements.js";
-import { normalizeTreeConfig } from "../rules/normalize.js";
+import { buildTreePlacements, normalizeTreeConfig } from "../rules/index.js";
 
 export const defaultStrategy = createStrategy(PlanTreeVegetationContract, "default", {
   resolveConfig: (config) => normalizeTreeConfig(config),
@@ -863,8 +946,7 @@ export const defaultStrategy = createStrategy(PlanTreeVegetationContract, "defau
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
 import { PlanTreeVegetationContract } from "../contract.js";
-import { buildTreePlacements } from "../rules/placements.js";
-import { normalizeTreeConfig } from "../rules/normalize.js";
+import { buildTreePlacements, normalizeTreeConfig } from "../rules/index.js";
 
 export const clusteredStrategy = createStrategy(PlanTreeVegetationContract, "clustered", {
   resolveConfig: (config) => normalizeTreeConfig(config),
@@ -872,13 +954,18 @@ export const clusteredStrategy = createStrategy(PlanTreeVegetationContract, "clu
 });
 ```
 
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/strategies/index.ts`
+```ts
+export { defaultStrategy } from "./default.js";
+export { clusteredStrategy } from "./clustered.js";
+```
+
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/index.ts`
 ```ts
 import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanTreeVegetationContract } from "./contract.js";
-import { defaultStrategy } from "./strategies/default.js";
-import { clusteredStrategy } from "./strategies/clustered.js";
+import { clusteredStrategy, defaultStrategy } from "./strategies/index.js";
 
 export const planTreeVegetation = createOp(PlanTreeVegetationContract, {
   strategies: {
@@ -888,11 +975,12 @@ export const planTreeVegetation = createOp(PlanTreeVegetationContract, {
 });
 
 export * from "./contract.js";
+export type * from "./types.js";
 ```
 
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/contract.ts`
 ```ts
-import { Type, type Static, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
 
 export const PlanShrubVegetationContract = defineOpContract({
@@ -943,19 +1031,24 @@ export const PlanShrubVegetationContract = defineOpContract({
     ),
   },
 } as const);
+```
 
-export type PlanShrubVegetationInput = Static<typeof PlanShrubVegetationContract.input>;
-export type PlanShrubVegetationOutput = Static<typeof PlanShrubVegetationContract.output>;
-export type ShrubDefaultConfig = Static<typeof PlanShrubVegetationContract.strategies.default>;
-export type ShrubAridConfig = Static<typeof PlanShrubVegetationContract.strategies.arid>;
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/types.ts`
+```ts
+import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+
+type Contract = typeof import("./contract.js").PlanShrubVegetationContract;
+
+export type PlanShrubVegetationTypes = OpTypeBag<Contract>;
+export type ShrubConfig =
+  PlanShrubVegetationTypes["config"][keyof PlanShrubVegetationTypes["config"]];
+export type ShrubPlacement = PlanShrubVegetationTypes["output"]["placements"][number];
 ```
 
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/rules/normalize.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
-import type { ShrubDefaultConfig, ShrubAridConfig } from "../contract.js";
-
-export type ShrubConfig = ShrubDefaultConfig | ShrubAridConfig;
+import type { ShrubConfig } from "../types.js";
 
 export function normalizeShrubConfig(config: ShrubConfig): ShrubConfig {
   return {
@@ -969,10 +1062,10 @@ export function normalizeShrubConfig(config: ShrubConfig): ShrubConfig {
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/rules/placements.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
-import type { PlanShrubVegetationInput, ShrubAridConfig } from "../contract.js";
-import { type ShrubConfig } from "./normalize.js";
+import type { PlanShrubVegetationTypes, ShrubConfig, ShrubPlacement } from "../types.js";
 
-export type ShrubPlacement = { plot: number; density: number };
+type PlanShrubVegetationInput = PlanShrubVegetationTypes["input"];
+type ShrubAridConfig = PlanShrubVegetationTypes["config"]["arid"];
 
 export function buildShrubPlacements(
   input: PlanShrubVegetationInput,
@@ -996,13 +1089,18 @@ export function buildShrubPlacements(
 }
 ```
 
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/rules/index.ts`
+```ts
+export { normalizeShrubConfig } from "./normalize.js";
+export { buildShrubPlacements } from "./placements.js";
+```
+
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/strategies/default.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
 import { PlanShrubVegetationContract } from "../contract.js";
-import { buildShrubPlacements } from "../rules/placements.js";
-import { normalizeShrubConfig } from "../rules/normalize.js";
+import { buildShrubPlacements, normalizeShrubConfig } from "../rules/index.js";
 
 export const defaultStrategy = createStrategy(PlanShrubVegetationContract, "default", {
   resolveConfig: (config) => normalizeShrubConfig(config),
@@ -1015,8 +1113,7 @@ export const defaultStrategy = createStrategy(PlanShrubVegetationContract, "defa
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
 import { PlanShrubVegetationContract } from "../contract.js";
-import { buildShrubPlacements } from "../rules/placements.js";
-import { normalizeShrubConfig } from "../rules/normalize.js";
+import { buildShrubPlacements, normalizeShrubConfig } from "../rules/index.js";
 
 export const aridStrategy = createStrategy(PlanShrubVegetationContract, "arid", {
   resolveConfig: (config) => normalizeShrubConfig(config),
@@ -1024,13 +1121,18 @@ export const aridStrategy = createStrategy(PlanShrubVegetationContract, "arid", 
 });
 ```
 
+`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/strategies/index.ts`
+```ts
+export { defaultStrategy } from "./default.js";
+export { aridStrategy } from "./arid.js";
+```
+
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/index.ts`
 ```ts
 import { createOp } from "@swooper/mapgen-core/authoring";
 
 import { PlanShrubVegetationContract } from "./contract.js";
-import { defaultStrategy } from "./strategies/default.js";
-import { aridStrategy } from "./strategies/arid.js";
+import { aridStrategy, defaultStrategy } from "./strategies/index.js";
 
 export const planShrubVegetation = createOp(PlanShrubVegetationContract, {
   strategies: {
@@ -1040,6 +1142,7 @@ export const planShrubVegetation = createOp(PlanShrubVegetationContract, {
 });
 
 export * from "./contract.js";
+export type * from "./types.js";
 ```
 
 `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
@@ -1050,7 +1153,7 @@ export { planShrubVegetation } from "./plan-shrub-vegetation/index.js";
 
 `mods/mod-swooper-maps/src/domain/ecology/index.ts`
 ```ts
-export * as ops from "../ops/ecology/index.js";
+export * as ops from "./ops/index.js";
 ```
 
 ### Step orchestration
@@ -1065,8 +1168,7 @@ export const createStep = createStepFor<ExtendedMapContext>();
 
 `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/contract.ts`
 ```ts
-import { Type, type Static } from "typebox";
-import { defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStepContract, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 const VEGETATION_DEPENDENCIES = [
@@ -1183,6 +1285,7 @@ export default createStep(PlotVegetationStepContract, {
 
 1. Add the contract-first authoring files and exports:
    - `packages/mapgen-core/src/authoring/op/contract.ts`
+   - `packages/mapgen-core/src/authoring/op/types.ts`
    - Update `packages/mapgen-core/src/authoring/op/strategy.ts`
    - Update `packages/mapgen-core/src/authoring/op/create.ts`
    - Update `packages/mapgen-core/src/authoring/op/index.ts`
@@ -1201,9 +1304,11 @@ export default createStep(PlotVegetationStepContract, {
    - No changes to `engine/execution-plan.ts` or `PipelineExecutor.ts` are required beyond this wiring
 5. Convert each op module to the canonical layout:
    - Move schemas into `contract.ts` and define the op contract there.
+   - Add `types.ts` and export a single `OpTypeBag` for the op; remove manual type exports from `contract.ts`.
+   - Add `rules/index.ts` and `strategies/index.ts` barrels for runtime imports.
    - Move each strategy implementation into `strategies/<id>.ts` using `createStrategy`.
-   - Move helpers into `rules/<rule>.ts` and import directly from strategies.
-   - Expose the implemented op from `index.ts`.
+   - Move helpers into `rules/<rule>.ts` and import from `rules/index.ts` in strategies.
+   - Expose the implemented op from `index.ts` and re-export `type *` from `./types.ts`.
 6. Update step modules to the contract-first layout:
    - Add `steps/<step>/contract.ts` using `defineStepContract`.
    - Add `src/authoring/steps.ts` to export `createStepFor<ExtendedMapContext>()` as `createStep`.
@@ -1213,6 +1318,8 @@ export default createStep(PlotVegetationStepContract, {
 8. Standardize cross-module imports to use `@mapgen/domain/*` and `@mapgen/authoring/*` aliases, leaving intra-op/step imports relative.
 9. Move any shared helper clones (e.g., `clamp01`, noise helpers) into the core SDK and import them from `@swooper/mapgen-core`.
 10. Update op validation tests and any direct `createOp({ ... })` usages to `createOp(contract, { strategies })`.
+11. Add lint guardrails to forbid `rules/**` importing `../contract.js` and to keep cross-module imports on package aliases.
+12. Add lint guardrails to forbid `rules/**` from exporting or re-exporting types; all shared op types must live in `types.ts`.
 
 ### Thinky work
 

@@ -122,7 +122,7 @@ const suitability = assertFloat32Array("suitability", input.suitability, size);
 **Schema helper API sketch (canonical):**
 
 ```ts
-import { Type } from "typebox";
+import { Type } from "@swooper/mapgen-core/authoring";
 import { TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 
 export const InputSchema = Type.Object(
