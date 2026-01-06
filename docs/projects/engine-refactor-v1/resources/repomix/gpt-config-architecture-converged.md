@@ -15,6 +15,37 @@
 - Domain and recipe separation: steps do not own or expose op bindings; ops remain pure functions.
 - Strategy selection stays a local op detail using the envelope `{ strategy, config }`.
 
+### Conceptual model: operations, strategies, rules, steps, stages
+
+**Operations**
+- Defined by their **contracts** (inputs/outputs) and represent **observable units of work** in a domain.
+- Must have a **coherent, stable input shape**. If inputs diverge across use cases, split into multiple ops.
+- Use operations for planning, analysis, or any pure computation you want to inspect independently.
+
+**Strategies**
+- Algorithmic variants of the **same operation**.
+- Same input and output contract; different internal computation.
+- If the IO contract needs to change, that is **not** a strategy—define a new op.
+
+**Rules**
+- Small, discrete policy/decision units (checks, scores, thresholds).
+- Split into focused files under `rules/` and composed inside strategies.
+
+**Steps**
+- **Action boundaries**: orchestrate ops and then **do** something with the results (apply changes, publish artifacts).
+- Steps are not planning units. Planning belongs inside ops/strategies.
+- A step can call multiple ops, collect outputs, and emit a coherent artifact.
+
+**Stages**
+- Organize steps into recipe phases and dependency boundaries.
+- Pure orchestration; no domain semantics or op wiring.
+
+**Vegetation example framing**
+- A step named `plan-vegetation` is a smell: planning belongs to ops, not steps.
+- The correct shape is a `plot-vegetation` step that orchestrates multiple **planning ops**
+  (trees, shrubs, groundcover, embellishments) and then publishes a coherent artifact.
+- If one “plan vegetation” op keeps growing new input needs, split it into focused ops with stable inputs.
+
 ### Core model
 
 **Operation**
@@ -27,33 +58,62 @@
   - `op.resolveConfig` as a per-strategy resolver hook (compile-time only)
 
 **Step**
-- A simple orchestration contract: `id`, `phase`, `requires`, `provides`, `schema`, optional `resolveConfig`, and `run`.
+- **Contract** is metadata only: `id`, `phase`, `requires`, `provides`, and `schema`.
+- **Implementation** is attached by a bound factory:
+  - `const createStep = createStepFor<TContext>()`
+  - `createStep(contract, { resolveConfig?, run })`
+- Bound factories live in `src/authoring/steps.ts` and are the only entrypoint for step implementations.
+- Contract is authored with `defineStepContract` and exported independently of implementation.
+- `resolveConfig` is implementation-only; the contract file never contains runtime code.
 - Config schema is owned by the step and can reuse op config schemas for convenience.
 - Steps call ops with validated values and do not declare op bindings or graphs.
+- A step is the action boundary; ops do planning and analysis.
 
 **Bridge**
 - Steps build op inputs from context, resolve config with `op.resolveConfig`, and call `op.runValidated`.
-- Recipe v2 and the step registry compilation remain unchanged and provide the plan surface.
+- Recipe v2 and step registry compilation remain unchanged; the only wiring change is passing step `resolveConfig` through when registering steps.
+- `createStepFor<TContext>()` is required to lock step context typing and provide full autocomplete in `run`/`resolveConfig`.
 
 ### Canonical file layout for ops and domains
 
 ```
-mods/mod-swooper-maps/src/domain/<domain>/
-  index.ts
+mods/mod-swooper-maps/src/domain/
+  <domain>/
+    index.ts
   ops/
-    <op-slug>/
-      contract.ts
-      rules/
-        <rule>.ts
-      strategies/
-        default.ts
-        <strategy>.ts
+    <domain>/
       index.ts
+      <op-slug>/
+        contract.ts
+        rules/
+          <rule>.ts
+        strategies/
+          default.ts
+          <strategy>.ts
+        index.ts
+```
+
+### Canonical file layout for steps
+
+```
+mods/mod-swooper-maps/src/recipes/<recipe>/stages/<stage>/steps/
+  <step-slug>/
+    contract.ts
+    index.ts
+    lib/
+      <helper>.ts
+```
+
+### Canonical file layout for bound step factories
+
+```
+mods/mod-swooper-maps/src/authoring/
+  steps.ts
 ```
 
 ### Canonical authoring API (files)
 
-The following files are the canonical authoring surface for contract-first ops and strategies.
+The following files are the canonical authoring surface for contract-first ops and contract-first steps.
 
 `packages/mapgen-core/src/authoring/op/contract.ts`
 ```ts
@@ -310,9 +370,82 @@ export type {
 } from "./strategy.js";
 ```
 
+`packages/mapgen-core/src/authoring/step/contract.ts`
+```ts
+import type { TSchema } from "typebox";
+
+import type { DependencyTag, GenerationPhase } from "@mapgen/engine/index.js";
+
+export type StepContract<Schema extends TSchema, Id extends string> = Readonly<{
+  id: Id;
+  phase: GenerationPhase;
+  requires: readonly DependencyTag[];
+  provides: readonly DependencyTag[];
+  schema: Schema;
+}>;
+
+export function defineStepContract<const Schema extends TSchema, const Id extends string>(
+  def: StepContract<Schema, Id>
+): typeof def {
+  return def;
+}
+```
+
+`packages/mapgen-core/src/authoring/step/create.ts`
+```ts
+import type { Static } from "typebox";
+
+import type { RunSettings } from "@mapgen/engine/index.js";
+import type { StepContract } from "./contract.js";
+import type { StepModule } from "../types.js";
+
+type StepConfigOf<C extends StepContract<any, any>> = Static<C["schema"]>;
+
+type StepImpl<TContext, TConfig> = Readonly<{
+  resolveConfig?: (config: TConfig, settings: RunSettings) => TConfig;
+  run: (context: TContext, config: TConfig) => void | Promise<void>;
+}>;
+
+export function createStep<
+  const C extends StepContract<any, any>,
+  TContext = unknown,
+>(
+  contract: C,
+  impl: StepImpl<TContext, StepConfigOf<C>>
+): StepModule<TContext, StepConfigOf<C>> {
+  if (!contract?.schema) {
+    const label = contract?.id ? `step "${contract.id}"` : "step";
+    throw new Error(`createStep requires an explicit schema for ${label}`);
+  }
+  return {
+    ...contract,
+    ...impl,
+  };
+}
+
+export type CreateStepFor<TContext> = <
+  const C extends StepContract<any, any>,
+>(
+  contract: C,
+  impl: StepImpl<TContext, StepConfigOf<C>>
+) => StepModule<TContext, StepConfigOf<C>>;
+
+export function createStepFor<TContext>(): CreateStepFor<TContext> {
+  return (contract, impl) => createStep(contract, impl);
+}
+```
+
+`packages/mapgen-core/src/authoring/step/index.ts`
+```ts
+export { defineStepContract } from "./contract.js";
+export { createStep, createStepFor } from "./create.js";
+
+export type { StepContract } from "./contract.js";
+```
+
 `packages/mapgen-core/src/authoring/index.ts`
 ```ts
-export { createStep } from "./step.js";
+export { createStep, createStepFor, defineStepContract } from "./step/index.js";
 export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
 export { createOp, createStrategy, defineOpContract } from "./op/index.js";
@@ -348,6 +481,7 @@ export type {
   Step,
   StepModule,
 } from "./types.js";
+export type { StepContract } from "./step/index.js";
 export type {
   DomainOp,
   DomainOpKind,
@@ -367,19 +501,226 @@ export type {
 } from "./validation.js";
 ```
 
+`packages/mapgen-core/src/authoring/recipe.ts`
+```ts
+import {
+  compileExecutionPlan,
+  createTraceSessionFromPlan,
+  PipelineExecutor,
+  StepRegistry,
+  TagRegistry,
+  type DependencyTagDefinition,
+  type ExecutionPlan,
+  type MapGenStep,
+  type RecipeV2,
+  type RunRequest,
+  type RunSettings,
+} from "@mapgen/engine/index.js";
+
+import { createConsoleTraceSink } from "@mapgen/trace/index.js";
+import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type {
+  RecipeConfig,
+  RecipeConfigOf,
+  RecipeDefinition,
+  RecipeModule,
+  Stage,
+  Step,
+} from "./types.js";
+
+type AnyStage<TContext> = Stage<TContext, readonly Step<TContext, any>[]>;
+
+type StepOccurrence<TContext> = {
+  stageId: string;
+  stepId: string;
+  step: MapGenStep<TContext, unknown>;
+};
+
+function assertTagDefinitions(value: unknown): void {
+  if (!Array.isArray(value)) {
+    throw new Error("createRecipe requires tagDefinitions (may be an empty array)");
+  }
+}
+
+function inferTagKind(id: string): DependencyTagDefinition<unknown>["kind"] {
+  if (id.startsWith("artifact:")) return "artifact";
+  if (id.startsWith("field:")) return "field";
+  if (id.startsWith("effect:")) return "effect";
+  throw new Error(`Invalid dependency tag "${id}" (expected artifact:/field:/effect:)`);
+}
+
+function computeFullStepId(input: {
+  namespace?: string;
+  recipeId: string;
+  stageId: string;
+  stepId: string;
+}): string {
+  const base = input.namespace ? `${input.namespace}.${input.recipeId}` : input.recipeId;
+  return `${base}.${input.stageId}.${input.stepId}`;
+}
+
+function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
+  namespace?: string;
+  recipeId: string;
+  stages: readonly AnyStage<TContext>[];
+}): StepOccurrence<TContext>[] {
+  const out: StepOccurrence<TContext>[] = [];
+
+  for (const stage of input.stages) {
+    for (const authored of stage.steps) {
+      const stepId = authored.id;
+      const fullId = computeFullStepId({
+        namespace: input.namespace,
+        recipeId: input.recipeId,
+        stageId: stage.id,
+        stepId,
+      });
+
+      out.push({
+        stageId: stage.id,
+        stepId,
+        step: {
+          id: fullId,
+          phase: authored.phase,
+          requires: authored.requires,
+          provides: authored.provides,
+          configSchema: authored.schema,
+          resolveConfig: authored.resolveConfig as MapGenStep<TContext, unknown>["resolveConfig"],
+          run: authored.run as MapGenStep<TContext, unknown>["run"],
+        },
+      });
+    }
+  }
+
+  return out;
+}
+
+function collectTagDefinitions<TContext>(
+  occurrences: readonly StepOccurrence<TContext>[],
+  explicit: readonly DependencyTagDefinition<TContext>[]
+): DependencyTagDefinition<TContext>[] {
+  const defs = new Map<string, DependencyTagDefinition<TContext>>();
+
+  const tagIds = new Set<string>();
+  for (const occ of occurrences) {
+    for (const tag of occ.step.requires) tagIds.add(tag);
+    for (const tag of occ.step.provides) tagIds.add(tag);
+  }
+  for (const id of tagIds) {
+    defs.set(id, { id, kind: inferTagKind(id) } as DependencyTagDefinition<TContext>);
+  }
+
+  for (const def of explicit) {
+    defs.set(def.id, def);
+  }
+
+  return Array.from(defs.values());
+}
+
+function buildRegistry<TContext extends ExtendedMapContext>(
+  occurrences: readonly StepOccurrence<TContext>[],
+  tagDefinitions: readonly DependencyTagDefinition<TContext>[]
+): StepRegistry<TContext> {
+  const tags = new TagRegistry<TContext>();
+  tags.registerTags(collectTagDefinitions(occurrences, tagDefinitions));
+
+  const registry = new StepRegistry<TContext>({ tags });
+  for (const occ of occurrences) registry.register(occ.step);
+  return registry;
+}
+
+function toStructuralRecipeV2<TContext>(
+  id: string,
+  occurrences: readonly StepOccurrence<TContext>[]
+): RecipeV2 {
+  return {
+    schemaVersion: 2,
+    id,
+    steps: occurrences.map((occ) => ({
+      id: occ.step.id,
+    })),
+  };
+}
+
+export function createRecipe<
+  TContext extends ExtendedMapContext,
+  const TStages extends readonly AnyStage<TContext>[],
+>(input: RecipeDefinition<TContext, TStages>): RecipeModule<TContext, RecipeConfigOf<TStages> | null> {
+  assertTagDefinitions(input.tagDefinitions);
+
+  const occurrences = finalizeOccurrences({
+    namespace: input.namespace,
+    recipeId: input.id,
+    stages: input.stages,
+  });
+  const registry = buildRegistry(occurrences, input.tagDefinitions);
+  const recipe = toStructuralRecipeV2(input.id, occurrences);
+
+  function instantiate(config?: RecipeConfigOf<TStages> | null): RecipeV2 {
+    const cfg = (config ?? null) as RecipeConfig | null;
+    return {
+      ...recipe,
+      steps: occurrences.map((occ) => ({
+        id: occ.step.id,
+        config: cfg
+          ? (cfg[occ.stageId]?.[occ.stepId] as Record<string, unknown> | undefined)
+          : undefined,
+      })),
+    };
+  }
+
+  function runRequest(settings: RunSettings, config?: RecipeConfigOf<TStages> | null): RunRequest {
+    return { recipe: instantiate(config), settings };
+  }
+
+  function compile(settings: RunSettings, config?: RecipeConfigOf<TStages> | null): ExecutionPlan {
+    return compileExecutionPlan(runRequest(settings, config), registry);
+  }
+
+  function run(
+    context: TContext,
+    settings: RunSettings,
+    config?: RecipeConfigOf<TStages> | null,
+    options: { trace?: TraceSession | null; traceSink?: TraceSink | null; log?: (message: string) => void } = {}
+  ): void {
+    const plan = compile(settings, config);
+    context.settings = plan.settings;
+    const traceSession =
+      options.trace !== undefined
+        ? options.trace
+        : createTraceSessionFromPlan(
+            plan,
+            options.traceSink !== undefined ? options.traceSink : createConsoleTraceSink()
+          );
+    const executor = new PipelineExecutor(registry, {
+      log: options.log,
+      logPrefix: `[recipe:${input.id}]`,
+    });
+    executor.executePlan(context, plan, { trace: traceSession ?? null });
+  }
+
+  return { id: input.id, recipe, instantiate, runRequest, compile, run };
+}
+```
+
 ## 2. End-to-End Example(s)
 
 ### Use case
 
-Plan vegetation in the ecology phase using two focused ops:
+Plot vegetation in the ecology phase by orchestrating focused planning ops:
 - `planTreeVegetation` with `default` and `clustered` strategies.
 - `planShrubVegetation` with `default` and `arid` strategies.
 
-A single step orchestrates both ops, validates config, resolves strategy-specific settings, and publishes a combined vegetation plan. The step owns its schema and has no op bindings or structural coupling beyond function calls.
+A single `plotVegetation` step orchestrates the ops, validates config, resolves strategy-specific settings, and publishes a coherent vegetation artifact. The step owns its schema and has no op bindings or structural coupling beyond function calls.
+
+This is the corrected model for the previous “plan vegetation” step: the step does the work boundary
+(publish/apply), and the planning work is split into separate ops whose input contracts can evolve
+independently.
 
 ### Domain module files
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/contract.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/contract.ts`
 ```ts
 import { Type, type Static, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
@@ -440,7 +781,7 @@ export type TreeDefaultConfig = Static<typeof PlanTreeVegetationContract.strateg
 export type TreeClusteredConfig = Static<typeof PlanTreeVegetationContract.strategies.clustered>;
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/rules/normalize.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/rules/normalize.ts`
 ```ts
 import type { TreeDefaultConfig, TreeClusteredConfig } from "../contract.js";
 
@@ -459,7 +800,7 @@ export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
 }
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/rules/placements.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/rules/placements.ts`
 ```ts
 import type { PlanTreeVegetationInput, TreeClusteredConfig } from "../contract.js";
 import { clamp01, type TreeConfig } from "./normalize.js";
@@ -492,7 +833,7 @@ export function buildTreePlacements(
 }
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/strategies/default.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/strategies/default.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
@@ -506,7 +847,7 @@ export const defaultStrategy = createStrategy(PlanTreeVegetationContract, "defau
 });
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/strategies/clustered.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/strategies/clustered.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
@@ -520,7 +861,7 @@ export const clusteredStrategy = createStrategy(PlanTreeVegetationContract, "clu
 });
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/index.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/index.ts`
 ```ts
 import { createOp } from "@swooper/mapgen-core/authoring";
 
@@ -538,7 +879,7 @@ export const planTreeVegetation = createOp(PlanTreeVegetationContract, {
 export * from "./contract.js";
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/contract.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/contract.ts`
 ```ts
 import { Type, type Static, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import { defineOpContract } from "@swooper/mapgen-core/authoring";
@@ -598,7 +939,7 @@ export type ShrubDefaultConfig = Static<typeof PlanShrubVegetationContract.strat
 export type ShrubAridConfig = Static<typeof PlanShrubVegetationContract.strategies.arid>;
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/rules/normalize.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/rules/normalize.ts`
 ```ts
 import type { ShrubDefaultConfig, ShrubAridConfig } from "../contract.js";
 
@@ -617,7 +958,7 @@ export function normalizeShrubConfig(config: ShrubConfig): ShrubConfig {
 }
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/rules/placements.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/rules/placements.ts`
 ```ts
 import type { PlanShrubVegetationInput, ShrubAridConfig } from "../contract.js";
 import { clamp01, type ShrubConfig } from "./normalize.js";
@@ -646,7 +987,7 @@ export function buildShrubPlacements(
 }
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/strategies/default.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/strategies/default.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
@@ -660,7 +1001,7 @@ export const defaultStrategy = createStrategy(PlanShrubVegetationContract, "defa
 });
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/strategies/arid.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/strategies/arid.ts`
 ```ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
@@ -674,7 +1015,7 @@ export const aridStrategy = createStrategy(PlanShrubVegetationContract, "arid", 
 });
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/index.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/index.ts`
 ```ts
 import { createOp } from "@swooper/mapgen-core/authoring";
 
@@ -692,7 +1033,7 @@ export const planShrubVegetation = createOp(PlanShrubVegetationContract, {
 export * from "./contract.js";
 ```
 
-`mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
+`mods/mod-swooper-maps/src/domain/ops/ecology/index.ts`
 ```ts
 export { planTreeVegetation } from "./plan-tree-vegetation/index.js";
 export { planShrubVegetation } from "./plan-shrub-vegetation/index.js";
@@ -700,16 +1041,23 @@ export { planShrubVegetation } from "./plan-shrub-vegetation/index.js";
 
 `mods/mod-swooper-maps/src/domain/ecology/index.ts`
 ```ts
-export * as ops from "./ops/index.js";
+export * as ops from "../ops/ecology/index.js";
 ```
 
 ### Step orchestration
 
-`mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plan-vegetation/index.ts`
+`mods/mod-swooper-maps/src/authoring/steps.ts`
 ```ts
-import { Type } from "typebox";
-import { createStep } from "@swooper/mapgen-core/authoring";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
+import { createStepFor } from "@swooper/mapgen-core/authoring";
+
+export const createStep = createStepFor<ExtendedMapContext>();
+```
+
+`mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/contract.ts`
+```ts
+import { Type, type Static } from "typebox";
+import { defineStepContract } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 const VEGETATION_DEPENDENCIES = [
@@ -719,35 +1067,42 @@ const VEGETATION_DEPENDENCIES = [
   "artifact:climateField@v1",
 ];
 
-const VEGETATION_PROVIDES = ["artifact:ecology.vegetation-plan@v1"];
+const VEGETATION_PROVIDES = ["artifact:ecology.vegetation@v1"];
 
-const PlanVegetationStepSchema = Type.Object(
-  {
-    trees: ecology.ops.planTreeVegetation.config,
-    shrubs: ecology.ops.planShrubVegetation.config,
-    densityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
-  },
-  {
-    additionalProperties: false,
-    default: {
-      trees: ecology.ops.planTreeVegetation.defaultConfig,
-      shrubs: ecology.ops.planShrubVegetation.defaultConfig,
-      densityBias: 0,
+export const PlotVegetationStepContract = defineStepContract({
+  id: "plot-vegetation",
+  phase: "ecology",
+  requires: VEGETATION_DEPENDENCIES,
+  provides: VEGETATION_PROVIDES,
+  schema: Type.Object(
+    {
+      trees: ecology.ops.planTreeVegetation.config,
+      shrubs: ecology.ops.planShrubVegetation.config,
+      densityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
     },
-  }
-);
+    {
+      additionalProperties: false,
+      default: {
+        trees: ecology.ops.planTreeVegetation.defaultConfig,
+        shrubs: ecology.ops.planShrubVegetation.defaultConfig,
+        densityBias: 0,
+      },
+    }
+  ),
+} as const);
 
-type PlanVegetationStepConfig = {
-  trees: typeof ecology.ops.planTreeVegetation.defaultConfig;
-  shrubs: typeof ecology.ops.planShrubVegetation.defaultConfig;
-  densityBias: number;
-};
+export type PlotVegetationStepConfig = Static<typeof PlotVegetationStepContract.schema>;
+```
 
-function clamp01(value: number): number {
+`mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/lib/vegetation.ts`
+```ts
+import type { ExtendedMapContext } from "@swooper/mapgen-core";
+
+export function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
-function applyDensityBias<
+export function applyDensityBias<
   T extends { strategy: string; config: { density: number } },
 >(envelope: T, bias: number): T {
   return {
@@ -759,7 +1114,7 @@ function applyDensityBias<
   };
 }
 
-function buildVegetationInput(context: ExtendedMapContext) {
+export function buildVegetationInput(context: ExtendedMapContext) {
   const { width, height } = context.dimensions;
   return {
     width,
@@ -770,14 +1125,22 @@ function buildVegetationInput(context: ExtendedMapContext) {
     landMask: context.buffers.heightfield.landMask,
   };
 }
+```
 
-export default createStep({
-  id: "plan-vegetation",
-  phase: "ecology",
-  requires: VEGETATION_DEPENDENCIES,
-  provides: VEGETATION_PROVIDES,
-  schema: PlanVegetationStepSchema,
-  resolveConfig: (config: PlanVegetationStepConfig, settings) => {
+`mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/index.ts`
+```ts
+import { createStep } from "../../../../../../authoring/steps.js";
+import * as ecology from "@mapgen/domain/ecology";
+
+import { PlotVegetationStepContract } from "./contract.js";
+import {
+  applyDensityBias,
+  buildVegetationInput,
+  clamp01,
+} from "./lib/vegetation.js";
+
+export default createStep(PlotVegetationStepContract, {
+  resolveConfig: (config, settings) => {
     const bias = clamp01(config.densityBias);
     const trees = applyDensityBias(config.trees, bias);
     const shrubs = applyDensityBias(config.shrubs, bias);
@@ -787,25 +1150,27 @@ export default createStep({
       shrubs: ecology.ops.planShrubVegetation.resolveConfig(shrubs, settings),
     };
   },
-  run: (context: ExtendedMapContext, config: PlanVegetationStepConfig) => {
+  run: (context, config) => {
     const input = buildVegetationInput(context);
     const treePlan = ecology.ops.planTreeVegetation.runValidated(input, config.trees);
     const shrubPlan = ecology.ops.planShrubVegetation.runValidated(input, config.shrubs);
 
-    context.artifacts.set("artifact:ecology.vegetation-plan@v1", {
+    context.artifacts.set("artifact:ecology.vegetation@v1", {
       trees: treePlan.placements,
       shrubs: shrubPlan.placements,
     });
   },
-} as const);
+});
 ```
 
 ### Why this example works
 
 - Each op has a contract with strategy-specific config schemas. The strategy implementations are typed by the contract and authored out of line.
-- The step schema is its own contract and uses `op.config` and `op.defaultConfig` for convenience without declaring op bindings.
+- The step contract is metadata-only and uses `op.config`/`op.defaultConfig` for convenience without declaring op bindings.
+- The step implementation is attached via a bound `createStep` from `createStepFor<ExtendedMapContext>()`, mirroring the op pattern while locking context typing.
 - Strategy selection is a plain union in config; no envelope propagation or stage-level compilation is required.
 - Variations such as `clustered` trees and `arid` shrubs are handled entirely within op strategies.
+- Planning lives in ops, while the step is the action boundary that publishes a coherent vegetation artifact.
 
 ## 3. Implementation Plan
 
@@ -817,20 +1182,56 @@ export default createStep({
    - Update `packages/mapgen-core/src/authoring/op/create.ts`
    - Update `packages/mapgen-core/src/authoring/op/index.ts`
    - Update `packages/mapgen-core/src/authoring/index.ts`
-2. Convert each op module to the canonical layout:
+2. Add the contract-first step authoring files and exports:
+   - `packages/mapgen-core/src/authoring/step/contract.ts`
+   - `packages/mapgen-core/src/authoring/step/create.ts`
+   - `packages/mapgen-core/src/authoring/step/index.ts`
+   - Update `packages/mapgen-core/src/authoring/index.ts` to export `defineStepContract` and `createStepFor`
+   - Replace `packages/mapgen-core/src/authoring/step.ts` usage with `authoring/step/create.ts`
+3. Update `createStep` signatures to take `(contract, impl)` and return a composed step, then add `createStepFor<TContext>()`:
+   - Keep the step module shape unchanged (schema + run + optional resolveConfig)
+   - Make `createStepFor<TContext>()` the canonical authoring entrypoint for steps
+4. Pass through step `resolveConfig` during recipe compilation:
+   - Update `packages/mapgen-core/src/authoring/recipe.ts` to carry `resolveConfig` from the step module into `MapGenStep`
+   - No changes to `engine/execution-plan.ts` or `PipelineExecutor.ts` are required beyond this wiring
+5. Convert each op module to the canonical layout:
    - Move schemas into `contract.ts` and define the op contract there.
    - Move each strategy implementation into `strategies/<id>.ts` using `createStrategy`.
    - Move helpers into `rules/<rule>.ts` and import directly from strategies.
    - Expose the implemented op from `index.ts`.
-3. Update step schema defaults to reference `op.defaultConfig` and `op.config` from the implemented ops.
-4. Update op validation tests and any direct `createOp({ ... })` usages to `createOp(contract, { strategies })`.
+6. Update step modules to the contract-first layout:
+   - Add `steps/<step>/contract.ts` using `defineStepContract`.
+   - Add `src/authoring/steps.ts` to export `createStepFor<ExtendedMapContext>()` as `createStep`.
+   - Move orchestration into `steps/<step>/index.ts` using the bound `createStep(contract, { resolveConfig?, run })`.
+   - Move helper logic into `steps/<step>/lib/*`.
+7. Update step schema defaults to reference `op.defaultConfig` and `op.config` from the implemented ops.
+8. Update op validation tests and any direct `createOp({ ... })` usages to `createOp(contract, { strategies })`.
 
 ### Thinky work
 
 1. For each op, confirm that the strategy set is stable and that the contract uses the smallest useful config schemas.
 2. Ensure op boundaries stay focused and avoid monolithic ops that mix unrelated concerns.
 3. Decide whether step config should pass op config envelopes directly or map from step-specific shapes.
+4. Confirm whether step config should always be `Static<typeof schema>` or whether any steps require a looser config type.
 
+### Dependency chain and touchpoints
+
+- `packages/mapgen-core/src/authoring/step/contract.ts`: new contract-only metadata builder.
+- `packages/mapgen-core/src/authoring/step/create.ts`: composes `contract + impl` and enforces schema presence.
+- `packages/mapgen-core/src/authoring/index.ts`: export surface for `defineStepContract`.
+- `packages/mapgen-core/src/authoring/step.ts`: superseded by `authoring/step/create.ts` and should be removed or re-exported.
+- `packages/mapgen-core/src/authoring/stage.ts`: still asserts `schema` on created steps.
+- `packages/mapgen-core/src/authoring/recipe.ts`: forwards `schema -> configSchema` and must also forward `resolveConfig`.
+- `packages/mapgen-core/src/engine/types.ts`: `MapGenStep` includes `configSchema` and optional `resolveConfig`.
+- `packages/mapgen-core/src/engine/execution-plan.ts`: uses `configSchema` and optional `resolveConfig` for normalization.
+- `packages/mapgen-core/src/engine/PipelineExecutor.ts`: executes `run` using normalized config.
+- Tests and example recipes: update to `defineStepContract` + bound `createStep` from `createStepFor<ExtendedMapContext>()`.
+
+### Integration edges
+
+- `createRecipe` currently maps `schema -> configSchema` and drops `resolveConfig`; this must be wired through to preserve step-level config normalization.
+- `engine/execution-plan.ts` already treats `resolveConfig` as optional and only invokes it when `configSchema` exists, so the contract schema must remain mandatory.
+- `createStage` and `createStep` should continue to reject missing schemas, ensuring compile-time safety and consistent defaults.
 ### Wrap-up
 
 This slice locks in contract-first ops with out-of-line strategy inference and keeps steps as simple orchestration contracts. The recipe v2 compile path stays unchanged, and all complexity remains localized to op contracts and strategy implementations.
