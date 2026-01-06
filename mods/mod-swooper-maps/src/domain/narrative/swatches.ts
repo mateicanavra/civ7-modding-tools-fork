@@ -8,7 +8,7 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { applyClimateSwatches } from "@mapgen/domain/hydrology/climate/index.js";
 import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/index.js";
-import type { ClimateConfig, FoundationDirectionalityConfig } from "@mapgen/config";
+import type { ClimateConfig, FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { storyTagPaleoHydrology } from "@mapgen/domain/narrative/paleo/index.js";
 

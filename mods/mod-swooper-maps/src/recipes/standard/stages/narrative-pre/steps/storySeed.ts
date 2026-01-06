@@ -1,14 +1,14 @@
 import { Type, type Static } from "typebox";
 import { devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { ContinentalMarginsConfigSchema } from "@mapgen/config";
+import { NarrativeConfigSchema } from "@mapgen/domain/config";
 import { storyTagContinentalMargins } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
 const StorySeedStepConfigSchema = Type.Object(
   {
-    margins: ContinentalMarginsConfigSchema,
+    margins: NarrativeConfigSchema.properties.margins,
   },
   { additionalProperties: false, default: { margins: {} } }
 );
@@ -32,10 +32,14 @@ export default createStep({
         message: `${runtime.logPrefix} Imprinting continental margins (active/passive)...`,
       }));
     }
-    const margins = storyTagContinentalMargins(context, config.margins);
+    const result = storyTagContinentalMargins(context, config.margins);
+    context.artifacts.set(
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
+      result.motifs
+    );
 
-    const activeCount = margins.active?.length ?? 0;
-    const passiveCount = margins.passive?.length ?? 0;
+    const activeCount = result.snapshot.active?.length ?? 0;
+    const passiveCount = result.snapshot.passive?.length ?? 0;
     if (activeCount + passiveCount === 0) {
       devWarn(context.trace, "[smoke] storySeed enabled but margins overlay is empty");
     }

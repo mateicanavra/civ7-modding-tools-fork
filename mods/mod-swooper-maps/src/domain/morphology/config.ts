@@ -1,9 +1,9 @@
-import { Type } from "typebox";
+import { Type, type Static } from "typebox";
 
 /**
  * Edge override policy for the ocean separation pass.
  */
-export const OceanSeparationEdgePolicySchema = Type.Object(
+const OceanSeparationEdgePolicySchema = Type.Object(
   {
     /** Enable edge-specific override for this map border (west or east). */
     enabled: Type.Optional(
@@ -36,7 +36,7 @@ export const OceanSeparationEdgePolicySchema = Type.Object(
 /**
  * Plate-aware ocean separation policy controlling continental drift spacing.
  */
-export const OceanSeparationConfigSchema = Type.Object(
+const OceanSeparationConfigSchema = Type.Object(
   {
     /** Master switch for plate-aware ocean widening between continent bands. */
     enabled: Type.Optional(
@@ -101,7 +101,7 @@ export const OceanSeparationConfigSchema = Type.Object(
 /**
  * Plate-aware weighting for bay/fjord odds based on boundary closeness.
  */
-export const CoastlinePlateBiasConfigSchema = Type.Object(
+const CoastlinePlateBiasConfigSchema = Type.Object(
   {
     /** Normalized closeness where coastline edits begin to respond to plate boundaries (0..1). */
     threshold: Type.Optional(
@@ -167,7 +167,7 @@ export const CoastlinePlateBiasConfigSchema = Type.Object(
 /**
  * Bay configuration (gentle coastal indentations).
  */
-export const CoastlineBayConfigSchema = Type.Object(
+const CoastlineBayConfigSchema = Type.Object(
   {
     /** Extra noise threshold on larger maps; higher values reduce bay frequency while keeping size larger. */
     noiseGateAdd: Type.Optional(
@@ -194,7 +194,7 @@ export const CoastlineBayConfigSchema = Type.Object(
 /**
  * Fjord configuration (deep, narrow inlets along steep margins).
  */
-export const CoastlineFjordConfigSchema = Type.Object(
+const CoastlineFjordConfigSchema = Type.Object(
   {
     /** Base fjord frequency; smaller values increase fjord count across the map. */
     baseDenom: Type.Optional(
@@ -221,7 +221,7 @@ export const CoastlineFjordConfigSchema = Type.Object(
 /**
  * Coastline ruggedization settings that transform smooth coasts into bays and fjords.
  */
-export const CoastlinesConfigSchema = Type.Object(
+const CoastlinesConfigSchema = Type.Object(
   {
     /** Bay (gentle coastal indentation) configuration. */
     bay: Type.Optional(CoastlineBayConfigSchema),
@@ -242,7 +242,7 @@ export const CoastlinesConfigSchema = Type.Object(
 /**
  * Island chain placement using fractal noise and hotspot trails.
  */
-export const IslandsConfigSchema = Type.Object(
+const IslandsConfigSchema = Type.Object(
   {
     /** Noise cutoff for island seeds (percent). Higher values mean fewer, larger island groups. */
     fractalThresholdPercent: Type.Optional(
@@ -299,7 +299,7 @@ export const IslandsConfigSchema = Type.Object(
 /**
  * Mountain and hill placement tuning driven by foundation physics.
  */
-export const MountainsConfigSchema = Type.Object(
+const MountainsConfigSchema = Type.Object(
   {
     /**
      * Global scale for tectonic effects.
@@ -457,7 +457,7 @@ export const MountainsConfigSchema = Type.Object(
 /**
  * Volcano placement controls combining plate-aware arcs and hotspot trails.
  */
-export const VolcanoesConfigSchema = Type.Object(
+const VolcanoesConfigSchema = Type.Object(
   {
     /** Master toggle for volcano placement. */
     enabled: Type.Optional(
@@ -553,6 +553,37 @@ export const VolcanoesConfigSchema = Type.Object(
   },
   { additionalProperties: false, default: {} }
 );
+
+export const MorphologyConfigSchema = Type.Object(
+  {
+    oceanSeparation: Type.Optional(OceanSeparationConfigSchema),
+    coastlines: Type.Optional(CoastlinesConfigSchema),
+    islands: Type.Optional(IslandsConfigSchema),
+    mountains: Type.Optional(MountainsConfigSchema),
+    volcanoes: Type.Optional(VolcanoesConfigSchema),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+export type MorphologyConfig = Static<typeof MorphologyConfigSchema>;
+export type OceanSeparationEdgePolicy =
+  Static<typeof MorphologyConfigSchema["properties"]["oceanSeparation"]["properties"]["edgeWest"]>;
+export type OceanSeparationConfig =
+  Static<typeof MorphologyConfigSchema["properties"]["oceanSeparation"]>;
+export type CoastlinePlateBiasConfig =
+  Static<typeof MorphologyConfigSchema["properties"]["coastlines"]["properties"]["plateBias"]>;
+export type CoastlineBayConfig =
+  Static<typeof MorphologyConfigSchema["properties"]["coastlines"]["properties"]["bay"]>;
+export type CoastlineFjordConfig =
+  Static<typeof MorphologyConfigSchema["properties"]["coastlines"]["properties"]["fjord"]>;
+export type CoastlinesConfig =
+  Static<typeof MorphologyConfigSchema["properties"]["coastlines"]>;
+export type IslandsConfig =
+  Static<typeof MorphologyConfigSchema["properties"]["islands"]>;
+export type MountainsConfig =
+  Static<typeof MorphologyConfigSchema["properties"]["mountains"]>;
+export type VolcanoesConfig =
+  Static<typeof MorphologyConfigSchema["properties"]["volcanoes"]>;
 
 /**
  * Hotspot tuning used by story overlays.

@@ -1,5 +1,5 @@
-import type { Static } from "typebox";
-import type { TemperatureSchema } from "../schema.js";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import { TemperatureSchema } from "../temperature.schema.js";
 
 type TempZone = "polar" | "cold" | "temperate" | "tropical";
 

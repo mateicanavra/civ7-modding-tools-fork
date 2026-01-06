@@ -1,7 +1,6 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { inBounds, storyKey } from "@swooper/mapgen-core";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";
-import { buildNarrativeMotifsHotspotsV1 } from "@mapgen/domain/narrative/artifacts.js";
+import type { NarrativeMotifsHotspots } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { isAdjacentToLand } from "@mapgen/domain/narrative/utils/adjacency.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
@@ -9,12 +8,17 @@ import { rand } from "@mapgen/domain/narrative/utils/rng.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 import type { HotspotTrailsSummary } from "@mapgen/domain/narrative/tagging/types.js";
-import type { HotspotTunables } from "@mapgen/config";
+import type { HotspotTunables } from "@mapgen/domain/config";
+
+export interface HotspotTrailsResult {
+  summary: HotspotTrailsSummary;
+  motifs: NarrativeMotifsHotspots;
+}
 
 export function storyTagHotspotTrails(
   ctx: ExtendedMapContext,
   config: HotspotTunables = {}
-): HotspotTrailsSummary {
+): HotspotTrailsResult {
   const { width, height } = getDims(ctx);
   const hotspotCfg = config as Record<string, number>;
 
@@ -110,16 +114,11 @@ export function storyTagHotspotTrails(
     summary: { trails: summary.trails, points: summary.points },
   });
 
-  if (ctx) {
-    ctx.artifacts.set(
-      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-      buildNarrativeMotifsHotspotsV1({
-        points: hotspotPoints,
-        paradise: new Set(),
-        volcanic: new Set(),
-      })
-    );
-  }
+  const motifs: NarrativeMotifsHotspots = {
+    points: new Set(hotspotPoints),
+    paradise: new Set(),
+    volcanic: new Set(),
+  };
 
-  return summary;
+  return { summary, motifs };
 }

@@ -1,13 +1,16 @@
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 
 import {
+  buildNarrativeMotifsHotspotsV1,
+  buildNarrativeMotifsMarginsV1,
   publishBiomeClassificationArtifact,
   publishClimateFieldArtifact,
   publishHeightfieldArtifact,
 } from "../../src/recipes/standard/artifacts.js";
+import { M3_DEPENDENCY_TAGS } from "../../src/recipes/standard/tags.js";
 
 export const disabledEmbellishmentsConfig = {
   story: {
@@ -127,6 +130,14 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     aridityIndex,
     freezeIndex,
   });
+  ctx.artifacts.set(
+    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
+    buildNarrativeMotifsHotspotsV1({ points: [], paradise: [], volcanic: [] })
+  );
+  ctx.artifacts.set(
+    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
+    buildNarrativeMotifsMarginsV1({ activeMargin: [], passiveShelf: [] })
+  );
 
   return {
     ctx,

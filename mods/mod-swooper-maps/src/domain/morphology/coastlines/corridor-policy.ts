@@ -1,5 +1,5 @@
 import type { CorridorPolicy } from "@mapgen/domain/morphology/coastlines/types.js";
-import type { NarrativeCorridorsV1 } from "@mapgen/domain/narrative/artifacts.js";
+import type { NarrativeCorridors } from "@mapgen/domain/narrative/models.js";
 import { forEachNeighbor3x3 } from "@swooper/mapgen-core/lib/grid";
 
 export function resolveSeaCorridorPolicy(
@@ -26,7 +26,7 @@ export function findNeighborSeaLaneAttributes(
   y: number,
   width: number,
   height: number,
-  corridors: NarrativeCorridorsV1 | null | undefined
+  corridors: NarrativeCorridors | null | undefined
 ): Record<string, unknown> | null {
   let laneAttr: Record<string, unknown> | null = null;
   forEachNeighbor3x3(x, y, width, height, (nx, ny) => {
@@ -44,7 +44,7 @@ export function findNeighborSeaLaneEdgeConfig(
   y: number,
   width: number,
   height: number,
-  corridors: NarrativeCorridorsV1 | null | undefined
+  corridors: NarrativeCorridors | null | undefined
 ): Record<string, unknown> | null {
   const laneAttr = findNeighborSeaLaneAttributes(x, y, width, height, corridors);
   return laneAttr?.edge ? (laneAttr.edge as Record<string, unknown>) : null;

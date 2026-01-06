@@ -1,12 +1,17 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type {
-  PlanFloodplainsOutput,
-  PlanStartsOutput,
-  PlanWondersOutput,
+import {
+  PlanFloodplainsSchema,
+  PlanStartsSchema,
+  PlanWondersSchema,
 } from "@mapgen/domain/placement";
+import type { Static } from "@swooper/mapgen-core/authoring";
 
 import { getPublishedPlacementInputs } from "../../../../artifacts.js";
 import type { PlacementInputsV1 } from "../../placement-inputs.js";
+
+type PlanFloodplainsOutput = Static<typeof PlanFloodplainsSchema["properties"]["output"]>;
+type PlanStartsOutput = Static<typeof PlanStartsSchema["properties"]["output"]>;
+type PlanWondersOutput = Static<typeof PlanWondersSchema["properties"]["output"]>;
 
 export type PlacementPlanBundle = {
   artifact: PlacementInputsV1;

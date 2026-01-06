@@ -3,7 +3,7 @@ import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import type {
   OceanSeparationConfig,
   OceanSeparationEdgePolicy,
-} from "@mapgen/config";
+} from "@mapgen/domain/config";
 import type { LandmassWindow } from "@mapgen/domain/morphology/landmass/types.js";
 
 export type { LandmassWindow };

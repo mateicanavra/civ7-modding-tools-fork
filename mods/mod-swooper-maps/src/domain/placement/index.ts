@@ -11,34 +11,13 @@ export const ops = {
 export { planFloodplains, planStarts, planWonders };
 
 export {
-  PlanFloodplainsConfigSchema,
-  PlanFloodplainsInputSchema,
-  PlanFloodplainsOutputSchema,
-  type PlanFloodplainsConfig,
-  type PlanFloodplainsInput,
-  type PlanFloodplainsOutput,
+  PlanFloodplainsSchema,
 } from "./ops/plan-floodplains/schema.js";
 
 export {
-  PlanStartsConfigSchema,
-  PlanStartsInputSchema,
-  PlanStartsOutputSchema,
-  StartsConfigSchema,
-  StartsOverrideSchema,
-  type PlanStartsConfig,
-  type PlanStartsInput,
-  type PlanStartsOutput,
-  type StartsConfig,
-  type StartsOverride,
+  PlanStartsSchema,
 } from "./ops/plan-starts/schema.js";
 
 export {
-  PlanWondersConfigSchema,
-  PlanWondersInputSchema,
-  PlanWondersOutputSchema,
-  MapInfoSchema,
-  type PlanWondersConfig,
-  type PlanWondersInput,
-  type PlanWondersOutput,
-  type MapInfo,
+  PlanWondersSchema,
 } from "./ops/plan-wonders/schema.js";

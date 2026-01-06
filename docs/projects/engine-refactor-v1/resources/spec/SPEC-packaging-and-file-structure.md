@@ -67,8 +67,7 @@ STANDARD_CONTENT_ROOT/
 │  │           │  └─ <stepId>.ts
 │  │           └─ *.ts               # stage-scoped helpers/contracts (optional)
 │  └─ domain/
-│     ├─ config/
-│     │  └─ schema/**                # shared schema fragments only
+│     ├─ config.ts                   # schema/type-only barrel for shared fragments
 │     └─ **/**                       # domain logic + shared contracts (artifacts, tags, validators)
 └─ test/
    └─ **/**
@@ -94,10 +93,11 @@ STANDARD_CONTENT_ROOT/
 **Domain scope (`src/domain/**`)**
 - Domain is the home for:
   - domain algorithms
-  - domain data contracts (artifact value types + validators, shared tag IDs/definitions)
-  - shared config schema fragments (`domain/config/schema/**`) when used by more than one step
+  - domain data contracts (artifact value types + validators)
+  - shared config schema fragments (`src/domain/**/config.ts`) when used by more than one step
 - Domain modules may be used by a single step; reuse is not the criterion for domain placement. The criterion is recipe-independence and a clean separation between step orchestration and content logic.
 - Domain must not import from `recipes/**` or `maps/**`.
+ - Dependency IDs (tags/artifacts/effects) are recipe-owned; domain modules must not re-export recipe tag/artifact shims.
 
 **Barrels (`index.ts`)**
 - Barrels must be explicit, thin re-exports only (no side-effect registration, no hidden aggregation).
@@ -107,8 +107,9 @@ STANDARD_CONTENT_ROOT/
 - Step config schemas are step-owned (`<stepId>.model.ts`).
 - Shared config schema fragments live with the *closest* real owner:
   - stage scope when shared within a stage (`stages/<stageId>/shared/**`)
-  - domain scope when shared across stages/recipes (prefer `src/domain/config/schema/**` when the shared surface is config-oriented)
+  - domain scope when shared across stages/recipes (prefer `src/domain/<domain>/config.ts` for config-oriented fragments)
 - Step schemas must not depend on a centralized “global runtime config blob” module.
-- Importing shared **schema/type-only** fragments from a mod-owned `@mapgen/config` alias is allowed when the fragment is truly cross-domain and does not introduce recipe/map coupling.
+- Importing shared **schema/type-only** fragments from a mod-owned `@mapgen/domain/config` alias is allowed when the fragment is truly cross-domain and does not introduce recipe/map coupling.
+- Domain config schemas must not use open-ended “unknown bag” fields or internal-only metadata fields.
 
 ---

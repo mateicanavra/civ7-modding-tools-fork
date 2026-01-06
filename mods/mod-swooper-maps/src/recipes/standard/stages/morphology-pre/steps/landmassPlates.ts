@@ -9,8 +9,8 @@ import {
   type ExtendedMapContext,
 } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import type { LandmassConfig } from "@mapgen/config";
-import { LandmassConfigSchema, OceanSeparationConfigSchema } from "@mapgen/config";
+import type { LandmassConfig } from "@mapgen/domain/config";
+import { LandmassConfigSchema, MorphologyConfigSchema } from "@mapgen/domain/config";
 import {
   applyLandmassPostAdjustments,
   applyPlateAwareOceanSeparation,
@@ -23,7 +23,7 @@ import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 const LandmassStepConfigSchema = Type.Object(
   {
     landmass: LandmassConfigSchema,
-    oceanSeparation: OceanSeparationConfigSchema,
+    oceanSeparation: MorphologyConfigSchema.properties.oceanSeparation,
   },
   { additionalProperties: false, default: { landmass: {}, oceanSeparation: {} } }
 );

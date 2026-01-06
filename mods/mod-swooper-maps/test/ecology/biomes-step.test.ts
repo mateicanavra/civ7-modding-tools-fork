@@ -3,11 +3,17 @@ import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/config";
+import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import * as ecology from "@mapgen/domain/ecology";
 
 import biomesStep from "../../src/recipes/standard/stages/ecology/steps/biomes/index.js";
-import { publishClimateFieldArtifact, publishHeightfieldArtifact } from "../../src/recipes/standard/artifacts.js";
+import {
+  buildNarrativeCorridorsV1,
+  buildNarrativeMotifsRiftsV1,
+  publishClimateFieldArtifact,
+  publishHeightfieldArtifact,
+} from "../../src/recipes/standard/artifacts.js";
+import { M3_DEPENDENCY_TAGS } from "../../src/recipes/standard/tags.js";
 
 describe("biomes step", () => {
   it("assigns marine biome to water tiles", () => {
@@ -42,6 +48,22 @@ describe("biomes step", () => {
 
     publishHeightfieldArtifact(ctx);
     publishClimateFieldArtifact(ctx);
+    ctx.artifacts.set(
+      M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
+      buildNarrativeCorridorsV1({
+        seaLanes: [],
+        islandHops: [],
+        landCorridors: [],
+        riverCorridors: [],
+        kindByTile: new Map(),
+        styleByTile: new Map(),
+        attributesByTile: new Map(),
+      })
+    );
+    ctx.artifacts.set(
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
+      buildNarrativeMotifsRiftsV1({ riftLine: [], riftShoulder: [] })
+    );
 
     biomesStep.run(ctx, {
       classify: ecology.ops.classifyBiomes.defaultConfig,

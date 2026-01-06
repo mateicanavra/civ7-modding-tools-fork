@@ -1,7 +1,7 @@
 import { Type, type Static } from "typebox";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { OrogenyTunablesSchema } from "@mapgen/config";
+import { NarrativeConfigSchema } from "@mapgen/domain/config";
 import { storyTagOrogenyBelts } from "@mapgen/domain/narrative/orogeny/index.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
@@ -9,7 +9,7 @@ const StoryOrogenyStepConfigSchema = Type.Object(
   {
     story: Type.Object(
       {
-        orogeny: OrogenyTunablesSchema,
+        orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,
       },
       { additionalProperties: false, default: {} }
     ),
@@ -33,6 +33,10 @@ export default createStep({
   ],
   schema: StoryOrogenyStepConfigSchema,
   run: (context: ExtendedMapContext, config: StoryOrogenyStepConfig) => {
-    storyTagOrogenyBelts(context, config.story);
+    const result = storyTagOrogenyBelts(context, config.story);
+    context.artifacts.set(
+      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
+      result.motifs
+    );
   },
 } as const);

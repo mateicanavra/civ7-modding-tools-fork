@@ -1,7 +1,7 @@
 /**
- * Narrative query tests
+ * Narrative artifact getter tests
  *
- * Validates narrative artifact accessors and type guards.
+ * Validates recipe-owned narrative artifact accessors and type guards.
  */
 
 import { describe, it, expect, beforeEach } from "bun:test";
@@ -11,17 +11,14 @@ import {
   buildNarrativeMotifsMarginsV1,
   buildNarrativeMotifsHotspotsV1,
   buildNarrativeMotifsRiftsV1,
-} from "@mapgen/domain/narrative/artifacts.js";
-import {
-  getNarrativeCorridors,
-  getNarrativeMotifsMargins,
-  getNarrativeMotifsHotspots,
-  getNarrativeMotifsOrogeny,
-  getNarrativeMotifsRifts,
-} from "@mapgen/domain/narrative/queries.js";
-import { M3_DEPENDENCY_TAGS } from "@mapgen/domain/tags.js";
+  getPublishedNarrativeCorridors,
+  getPublishedNarrativeMotifsMargins,
+  getPublishedNarrativeMotifsHotspots,
+  getPublishedNarrativeMotifsRifts,
+} from "../../src/recipes/standard/artifacts.js";
+import { M3_DEPENDENCY_TAGS } from "../../src/recipes/standard/tags.js";
 
-describe("narrative/queries", () => {
+describe("recipes/artifacts (narrative)", () => {
   let ctx: ExtendedMapContext;
 
   beforeEach(() => {
@@ -29,11 +26,10 @@ describe("narrative/queries", () => {
   });
 
   it("returns null when artifacts are missing", () => {
-    expect(getNarrativeCorridors(ctx)).toBeNull();
-    expect(getNarrativeMotifsMargins(ctx)).toBeNull();
-    expect(getNarrativeMotifsHotspots(ctx)).toBeNull();
-    expect(getNarrativeMotifsRifts(ctx)).toBeNull();
-    expect(getNarrativeMotifsOrogeny(ctx)).toBeNull();
+    expect(getPublishedNarrativeCorridors(ctx)).toBeNull();
+    expect(getPublishedNarrativeMotifsMargins(ctx)).toBeNull();
+    expect(getPublishedNarrativeMotifsHotspots(ctx)).toBeNull();
+    expect(getPublishedNarrativeMotifsRifts(ctx)).toBeNull();
   });
 
   it("returns artifacts when present and validated", () => {
@@ -69,10 +65,10 @@ describe("narrative/queries", () => {
       buildNarrativeMotifsRiftsV1({ riftLine: ["4,4"], riftShoulder: [] })
     );
 
-    expect(getNarrativeCorridors(ctx)?.seaLanes.has("1,1")).toBe(true);
-    expect(getNarrativeMotifsMargins(ctx)?.activeMargin.has("2,2")).toBe(true);
-    expect(getNarrativeMotifsHotspots(ctx)?.points.has("3,3")).toBe(true);
-    expect(getNarrativeMotifsHotspots(ctx)?.paradise.has("3,3")).toBe(true);
-    expect(getNarrativeMotifsRifts(ctx)?.riftLine.has("4,4")).toBe(true);
+    expect(getPublishedNarrativeCorridors(ctx)?.seaLanes.has("1,1")).toBe(true);
+    expect(getPublishedNarrativeMotifsMargins(ctx)?.activeMargin.has("2,2")).toBe(true);
+    expect(getPublishedNarrativeMotifsHotspots(ctx)?.points.has("3,3")).toBe(true);
+    expect(getPublishedNarrativeMotifsHotspots(ctx)?.paradise.has("3,3")).toBe(true);
+    expect(getPublishedNarrativeMotifsRifts(ctx)?.riftLine.has("4,4")).toBe(true);
   });
 });

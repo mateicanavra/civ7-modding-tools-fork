@@ -1,11 +1,10 @@
-import { Type } from "typebox";
-import { INTERNAL_METADATA_KEY } from "@mapgen/config/schema/common.js";
+import { Type, type Static } from "typebox";
 
 /**
  * Bounding box for a continent band when seeding player starts.
  * All values are inclusive tile coordinates in the Civ engine grid.
  */
-export const ContinentBoundsSchema = Type.Object(
+const ContinentBoundsSchema = Type.Object(
   {
     /** Westernmost tile column (inclusive) for the continent window. */
     west: Type.Number({
@@ -36,7 +35,7 @@ export const ContinentBoundsSchema = Type.Object(
 /**
  * Tectonic weighting used while scoring candidate land tiles.
  */
-export const LandmassTectonicsConfigSchema = Type.Object(
+const LandmassTectonicsConfigSchema = Type.Object(
   {
     /**
      * Blend factor for plate-interior fractal noise.
@@ -86,7 +85,7 @@ export const LandmassTectonicsConfigSchema = Type.Object(
 /**
  * Post-processing adjustments applied to landmass windows after plate layout.
  */
-export const LandmassGeometryPostSchema = Type.Object(
+const LandmassGeometryPostSchema = Type.Object(
   {
     /** Uniform horizontal expansion (tiles) applied to every landmass before individual offsets. */
     expandTiles: Type.Optional(
@@ -143,7 +142,7 @@ export const LandmassGeometryPostSchema = Type.Object(
 /**
  * Landmass geometry wrapper for future knobs beyond post-processing.
  */
-export const LandmassGeometrySchema = Type.Object(
+const LandmassGeometrySchema = Type.Object(
   {
     post: Type.Optional(LandmassGeometryPostSchema),
   },
@@ -311,6 +310,13 @@ export const LandmassConfigSchema = Type.Object(
   },
   { additionalProperties: false, default: {} }
 );
+
+export type LandmassConfig = Static<typeof LandmassConfigSchema>;
+export type LandmassTectonicsConfig =
+  Static<typeof LandmassConfigSchema["properties"]["tectonics"]>;
+export type LandmassGeometry = Static<typeof LandmassConfigSchema["properties"]["geometry"]>;
+export type LandmassGeometryPost =
+  Static<typeof LandmassConfigSchema["properties"]["geometry"]["properties"]["post"]>;
 
 /**
  * Seed configuration shared across the foundation pipeline.

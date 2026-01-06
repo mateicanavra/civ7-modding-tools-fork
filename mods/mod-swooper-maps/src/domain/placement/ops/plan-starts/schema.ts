@@ -1,6 +1,6 @@
-import { Type, type Static } from "typebox";
+import { Type, defineOpSchema } from "@swooper/mapgen-core/authoring";
 
-export const ContinentBoundsSchema = Type.Object(
+const ContinentBoundsSchema = Type.Object(
   {
     west: Type.Number({ description: "Western bound for the continent placement window." }),
     east: Type.Number({ description: "Eastern bound for the continent placement window." }),
@@ -13,9 +13,7 @@ export const ContinentBoundsSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export type ContinentBounds = Static<typeof ContinentBoundsSchema>;
-
-export const StartsConfigSchema = Type.Object(
+const StartsConfigSchema = Type.Object(
   {
     playersLandmass1: Type.Number({
       description: "Player count allocated to the primary landmass band.",
@@ -39,33 +37,40 @@ export const StartsConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export type StartsConfig = Static<typeof StartsConfigSchema>;
-
-export const StartsOverrideSchema = Type.Partial(StartsConfigSchema, {
+const StartsOverrideSchema = Type.Partial(StartsConfigSchema, {
   default: {},
   additionalProperties: false,
 });
 
-export type StartsOverride = Static<typeof StartsOverrideSchema>;
-
-export const PlanStartsInputSchema = Type.Object(
-  {
-    baseStarts: StartsConfigSchema,
-  },
-  { additionalProperties: false }
-);
-
-export type PlanStartsInput = Static<typeof PlanStartsInputSchema>;
-
-export const PlanStartsConfigSchema = Type.Object(
+const StartsConfigWrapperSchema = Type.Object(
   {
     overrides: Type.Optional(StartsOverrideSchema),
   },
   { additionalProperties: false, default: {} }
 );
 
-export type PlanStartsConfig = Static<typeof PlanStartsConfigSchema>;
+const StartsInputSchema = Type.Object(
+  {
+    baseStarts: StartsConfigSchema,
+  },
+  { additionalProperties: false }
+);
 
-export const PlanStartsOutputSchema = StartsConfigSchema;
+const StartsOutputSchema = StartsConfigSchema;
 
-export type PlanStartsOutput = Static<typeof PlanStartsOutputSchema>;
+export const PlanStartsSchema = defineOpSchema<
+  typeof StartsInputSchema,
+  typeof StartsConfigWrapperSchema,
+  typeof StartsOutputSchema
+>(
+  {
+    input: StartsInputSchema,
+    config: StartsConfigWrapperSchema,
+    output: StartsConfigSchema,
+  },
+  {
+    title: "PlanStartsSchema",
+    description: "Plan player start positions",
+    additionalProperties: false,
+  }
+);

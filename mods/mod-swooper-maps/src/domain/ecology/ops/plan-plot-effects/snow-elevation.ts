@@ -1,5 +1,8 @@
-import type { PlotEffectsInput } from "./types.js";
-import type { ResolvedPlotEffectsConfig, SnowElevationStrategy } from "./schema.js";
+import { type Static } from "@swooper/mapgen-core/authoring";
+import { PlanPlotEffectsSchema, type ResolvedPlotEffectsConfig } from "./schema.js";
+
+type PlotEffectsInput = Static<typeof PlanPlotEffectsSchema["properties"]["input"]>;
+type SnowElevationStrategy = NonNullable<ResolvedPlotEffectsConfig["snow"]["elevationStrategy"]>;
 
 export type SnowElevationStats = {
   count: number;

@@ -1,4 +1,4 @@
-import type { FoundationDirectionalityConfig } from "@mapgen/config";
+import type { FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import type { SwatchTypeEntry } from "@mapgen/domain/hydrology/climate/swatches/types.js";
 
 export function chooseSwatchTypeWeighted(
