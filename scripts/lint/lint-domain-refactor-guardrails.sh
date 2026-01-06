@@ -24,9 +24,9 @@ if [ -n "${REFRACTOR_DOMAINS:-}" ]; then
   IFS=',' read -r -a DOMAINS <<< "$REFRACTOR_DOMAINS"
 else
   DOMAINS=()
-  for ops_dir in mods/mod-swooper-maps/src/domain/*/ops; do
+  for ops_dir in mods/mod-swooper-maps/src/domain/ops/*; do
     if [ -d "$ops_dir" ]; then
-      DOMAINS+=("$(basename "$(dirname "$ops_dir")")")
+      DOMAINS+=("$(basename "$ops_dir")")
     fi
   done
 fi
@@ -110,7 +110,7 @@ for domain in "${DOMAINS[@]}"; do
   if [ -z "$domain" ]; then
     continue
   fi
-  ops_root="mods/mod-swooper-maps/src/domain/${domain}/ops"
+  ops_root="mods/mod-swooper-maps/src/domain/ops/${domain}"
   if [ ! -d "$ops_root" ]; then
     echo -e "${RED}ERROR: Missing ops root for '${domain}': ${ops_root}${NC}"
     violations=$((violations + 1))
