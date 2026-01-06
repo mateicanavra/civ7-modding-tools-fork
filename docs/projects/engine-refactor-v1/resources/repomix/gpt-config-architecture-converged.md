@@ -74,6 +74,12 @@
 - Recipe v2 and step registry compilation remain unchanged; the only wiring change is passing step `resolveConfig` through when registering steps.
 - `createStepFor<TContext>()` is required to lock step context typing and provide full autocomplete in `run`/`resolveConfig`.
 
+**Shared utilities**
+- Shared math, noise, RNG, grid, and other cross-cutting helpers must come from the core SDK.
+- Prefer root re-exports from `@swooper/mapgen-core` when available to avoid churn.
+- If a helper is broadly useful but missing, add it to the core SDK and import it from there.
+- If a helper is truly local to one op/step, keep it local and do not promote it.
+
 ### Canonical file layout for ops and domains
 
 ```
@@ -89,9 +95,17 @@ mods/mod-swooper-maps/src/domain/
           <rule>.ts
         strategies/
           default.ts
-          <strategy>.ts
+        <strategy>.ts
         index.ts
 ```
+
+### Path aliasing rules
+
+- Use stable path aliases for cross-module imports:
+  - `@mapgen/domain/*` → `mods/mod-swooper-maps/src/domain/*`
+  - `@mapgen/ops/*` → `mods/mod-swooper-maps/src/domain/ops/*`
+- Keep relative imports within a single op or step directory (e.g., `./rules/...`, `./strategies/...`).
+- Do not force aliasing on local helpers; use aliases only when crossing module boundaries.
 
 ### Canonical file layout for steps
 
@@ -783,13 +797,10 @@ export type TreeClusteredConfig = Static<typeof PlanTreeVegetationContract.strat
 
 `mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/rules/normalize.ts`
 ```ts
+import { clamp01 } from "@swooper/mapgen-core";
 import type { TreeDefaultConfig, TreeClusteredConfig } from "../contract.js";
 
 export type TreeConfig = TreeDefaultConfig | TreeClusteredConfig;
-
-export function clamp01(value: number): number {
-  return Math.max(0, Math.min(1, value));
-}
 
 export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
   return {
@@ -802,8 +813,9 @@ export function normalizeTreeConfig(config: TreeConfig): TreeConfig {
 
 `mods/mod-swooper-maps/src/domain/ops/ecology/plan-tree-vegetation/rules/placements.ts`
 ```ts
+import { clamp01 } from "@swooper/mapgen-core";
 import type { PlanTreeVegetationInput, TreeClusteredConfig } from "../contract.js";
-import { clamp01, type TreeConfig } from "./normalize.js";
+import { type TreeConfig } from "./normalize.js";
 
 export type TreePlacement = { plot: number; density: number };
 
@@ -941,13 +953,10 @@ export type ShrubAridConfig = Static<typeof PlanShrubVegetationContract.strategi
 
 `mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/rules/normalize.ts`
 ```ts
+import { clamp01 } from "@swooper/mapgen-core";
 import type { ShrubDefaultConfig, ShrubAridConfig } from "../contract.js";
 
 export type ShrubConfig = ShrubDefaultConfig | ShrubAridConfig;
-
-export function clamp01(value: number): number {
-  return Math.max(0, Math.min(1, value));
-}
 
 export function normalizeShrubConfig(config: ShrubConfig): ShrubConfig {
   return {
@@ -960,8 +969,9 @@ export function normalizeShrubConfig(config: ShrubConfig): ShrubConfig {
 
 `mods/mod-swooper-maps/src/domain/ops/ecology/plan-shrub-vegetation/rules/placements.ts`
 ```ts
+import { clamp01 } from "@swooper/mapgen-core";
 import type { PlanShrubVegetationInput, ShrubAridConfig } from "../contract.js";
-import { clamp01, type ShrubConfig } from "./normalize.js";
+import { type ShrubConfig } from "./normalize.js";
 
 export type ShrubPlacement = { plot: number; density: number };
 
@@ -1096,11 +1106,7 @@ export type PlotVegetationStepConfig = Static<typeof PlotVegetationStepContract.
 
 `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/lib/vegetation.ts`
 ```ts
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
-
-export function clamp01(value: number): number {
-  return Math.max(0, Math.min(1, value));
-}
+import { clamp01, type ExtendedMapContext } from "@swooper/mapgen-core";
 
 export function applyDensityBias<
   T extends { strategy: string; config: { density: number } },
@@ -1129,6 +1135,7 @@ export function buildVegetationInput(context: ExtendedMapContext) {
 
 `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/index.ts`
 ```ts
+import { clamp01 } from "@swooper/mapgen-core";
 import { createStep } from "../../../../../../authoring/steps.js";
 import * as ecology from "@mapgen/domain/ecology";
 
@@ -1136,7 +1143,6 @@ import { PlotVegetationStepContract } from "./contract.js";
 import {
   applyDensityBias,
   buildVegetationInput,
-  clamp01,
 } from "./lib/vegetation.js";
 
 export default createStep(PlotVegetationStepContract, {
@@ -1205,7 +1211,9 @@ export default createStep(PlotVegetationStepContract, {
    - Move orchestration into `steps/<step>/index.ts` using the bound `createStep(contract, { resolveConfig?, run })`.
    - Move helper logic into `steps/<step>/lib/*`.
 7. Update step schema defaults to reference `op.defaultConfig` and `op.config` from the implemented ops.
-8. Update op validation tests and any direct `createOp({ ... })` usages to `createOp(contract, { strategies })`.
+8. Add the `@mapgen/ops/*` path alias and standardize cross-module imports to use aliases, leaving intra-op/step imports relative.
+9. Move any shared helper clones (e.g., `clamp01`, noise helpers) into the core SDK and import them from `@swooper/mapgen-core`.
+10. Update op validation tests and any direct `createOp({ ... })` usages to `createOp(contract, { strategies })`.
 
 ### Thinky work
 
