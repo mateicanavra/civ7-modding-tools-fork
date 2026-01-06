@@ -484,7 +484,11 @@ const corridorsConfig = {
 };
 
 const islandsConfig = {};
-const placementConfig = {};
+const placementConfig = {
+  wonders: { wondersPlusOne: true },
+  floodplains: { minLength: 4, maxLength: 10 },
+  starts: {},
+};
 const storyRiftConfig = {};
 const storyOrogenyConfig = {};
 const climatePaleoConfig = {};
@@ -558,7 +562,7 @@ const standardConfig = {
     plotEffects: { plotEffects: plotEffectsConfig },
   },
   placement: {
-    derivePlacementInputs: { placement: placementConfig },
+    derivePlacementInputs: placementConfig,
     placement: {},
   },
 } satisfies StandardRecipeConfig;

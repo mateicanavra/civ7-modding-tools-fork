@@ -1,29 +1,32 @@
 import { Type, type Static } from "typebox";
 import { Value } from "typebox/value";
-import type { MapInfo } from "@civ7/adapter";
-import { PlacementConfigSchema, StartsConfigSchema } from "@mapgen/config";
+import {
+  MapInfoSchema,
+  PlanFloodplainsConfigSchema,
+  PlanFloodplainsOutputSchema,
+  PlanWondersConfigSchema,
+  PlanWondersOutputSchema,
+  PlanStartsConfigSchema,
+  PlanStartsOutputSchema,
+  type MapInfo,
+} from "@mapgen/domain/placement";
 
-const MapInfoSchema = Type.Object(
+export const PlacementInputsConfigSchema = Type.Object(
   {
-    GridWidth: Type.Optional(Type.Number()),
-    GridHeight: Type.Optional(Type.Number()),
-    MinLatitude: Type.Optional(Type.Number()),
-    MaxLatitude: Type.Optional(Type.Number()),
-    NumNaturalWonders: Type.Optional(Type.Number()),
-    LakeGenerationFrequency: Type.Optional(Type.Number()),
-    PlayersLandmass1: Type.Optional(Type.Number()),
-    PlayersLandmass2: Type.Optional(Type.Number()),
-    StartSectorRows: Type.Optional(Type.Number()),
-    StartSectorCols: Type.Optional(Type.Number()),
+    wonders: PlanWondersConfigSchema,
+    floodplains: PlanFloodplainsConfigSchema,
+    starts: PlanStartsConfigSchema,
   },
-  { additionalProperties: true }
+  { additionalProperties: false }
 );
 
 export const PlacementInputsV1Schema = Type.Object(
   {
     mapInfo: MapInfoSchema,
-    starts: StartsConfigSchema,
-    placementConfig: PlacementConfigSchema,
+    starts: PlanStartsOutputSchema,
+    wonders: PlanWondersOutputSchema,
+    floodplains: PlanFloodplainsOutputSchema,
+    placementConfig: PlacementInputsConfigSchema,
   },
   { additionalProperties: false }
 );
