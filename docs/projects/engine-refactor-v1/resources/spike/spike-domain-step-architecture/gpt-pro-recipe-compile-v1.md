@@ -1,9 +1,21 @@
-Understood. I’m going to restate the full proposal end‑to‑end (canonical spec + the core variations, fully illustrated), but with your two updates applied:
+# Proposal: composition-first recipe compiler (v1)
 
-1. **Runtime channel is `env`** (not `runtime`). I also checked the current baseline: there is **no existing `runtime` property** on the core execution context; the runtime-ish object you have today is called **`settings`** (and it is overloaded). So switching our design vocabulary to `env` is clean and removes ambiguity.
-2. **We proceed with my recommended direction**: keep config shapes stable; move all “resolution” to compile-time composition; treat “public→internal” as an explicit *facade transform* (not “resolution”); and keep runtime “normalization” limited to value derivation (never shape-changing).
+This document describes the target architecture “as if it already existed” (canonical spec + variations), with explicit boundaries, types, and compilation/execution flow.
 
-I’m also grounding this in the compiled code representation you provided. 
+It keeps the intended design and behavior unchanged, but it replaces hand-wavy examples and vocabulary drift with concrete anchors from the current repo baseline:
+
+- **Baseline reality (implemented today):**
+  - `packages/mapgen-core/src/authoring/recipe.ts` — `createRecipe(...)` and the current recipe→plan wiring.
+  - `packages/mapgen-core/src/engine/execution-plan.ts` — `compileExecutionPlan(...)`, schema defaulting, and the current `step.resolveConfig(...)` hook.
+  - `packages/mapgen-core/src/authoring/op/create.ts` — `createOp(...)` and op-level `resolveConfig(...)` (currently typed against engine `RunSettings`).
+  - `mods/mod-swooper-maps/src/recipes/standard/recipe.ts` — the real `standard` recipe composition and `StandardRecipeConfig` shape.
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-plan/*` — a real multi-op step whose `resolveConfig` is currently forwarding op `resolveConfig` calls.
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/features-plan-reefs/strategies/default.ts` — a real strategy that currently re-defaults config inside `run(...)` (a “runtime normalization smell” this proposal explicitly removes).
+
+The two vocabulary updates this proposal assumes:
+
+1. **Runtime channel is `env`** (not `runtime`). Baseline today uses `context.settings: RunSettings` (plus `context.dimensions`), and there is no existing `context.runtime` property.
+2. **Config shapes stay stable**. All “resolution” moves to compile-time composition; public→internal is an explicit facade transform; runtime derives values but does not reshape config.
 
 ---
 
@@ -157,16 +169,18 @@ import { Value } from "typebox/value";
 import type { Static, TSchema } from "typebox";
 
 /**
- * Canonical, deterministic schema normalization:
- * Convert → Clean → Default
+ * Canonical, deterministic schema defaulting:
+ * Clone → Default → Clean
  *
- * This is the only place "defaulting" happens.
+ * Baseline reference: `applySchemaDefaults` in `packages/mapgen-core/src/authoring/schema.ts`.
+ *
+ * Note: the current baseline does not use `Value.Convert(...)` for authoring defaults; conversions
+ * are intentionally explicit (and TypeBox Convert semantics can be surprising across boundaries).
  */
-export function normalizeBySchema<T extends TSchema>(schema: T, input: unknown): Static<T> {
-  const converted = Value.Convert(schema, input);
-  const cleaned = Value.Clean(schema, converted);
-  const defaulted = Value.Default(schema, cleaned);
-  return defaulted as Static<T>;
+export function applySchemaDefaults<T extends TSchema>(schema: T, input: unknown): Static<T> {
+  const cloned = Value.Clone(input ?? {});
+  const defaulted = Value.Default(schema, cloned);
+  return Value.Clean(schema, defaulted) as Static<T>;
 }
 ```
 
@@ -176,49 +190,16 @@ export function normalizeBySchema<T extends TSchema>(schema: T, input: unknown):
 
 This is intentionally “engine‑agnostic Civ7 runtime env”, even if populated by the Civ7 adapter.
 
+Baseline anchor: the current runtime surface is `RunSettings` / `RunSettingsSchema` in
+`packages/mapgen-core/src/engine/execution-plan.ts` and is threaded through the system as
+`context.settings: RunSettings` (see `packages/mapgen-core/src/core/types.ts`).
+
 ```ts
-import { Type, type Static } from "typebox";
+import { RunSettingsSchema, type RunSettings } from "@swooper/mapgen-core/engine";
 
-export const EnvSchema = Type.Object(
-  {
-    seed: Type.Number(),
-    dimensions: Type.Object(
-      { width: Type.Number(), height: Type.Number() },
-      { additionalProperties: false }
-    ),
-    latitudeBounds: Type.Object(
-      { topLatitude: Type.Number(), bottomLatitude: Type.Number() },
-      { additionalProperties: false }
-    ),
-    wrap: Type.Object(
-      { wrapX: Type.Boolean(), wrapY: Type.Boolean() },
-      { additionalProperties: false }
-    ),
-
-    // Optional / expandable runtime context
-    players: Type.Optional(Type.Array(Type.Object({ id: Type.Number(), civId: Type.String() }))),
-    mapSizeId: Type.Optional(Type.Union([Type.String(), Type.Number()])),
-    metadata: Type.Optional(Type.Record(Type.String(), Type.Unknown(), { default: {} })),
-
-    // Observability controls are runtime options; ok on env or as separate exec options
-    trace: Type.Optional(
-      Type.Object(
-        {
-          enabled: Type.Optional(Type.Boolean()),
-          steps: Type.Optional(Type.Record(Type.String(), Type.Union([
-            Type.Literal("off"),
-            Type.Literal("basic"),
-            Type.Literal("verbose"),
-          ]), { default: {} })),
-        },
-        { additionalProperties: false, default: {} }
-      )
-    ),
-  },
-  { additionalProperties: false }
-);
-
-export type Env = Static<typeof EnvSchema>;
+// Target rename (mechanical): `settings` -> `env`.
+export const EnvSchema = RunSettingsSchema;
+export type Env = RunSettings;
 ```
 
 **Important:** `EnvSchema` is the place where “Civ7 official runtime shapes/settings” land, *normalized once*, and then passed down as `ctx.env`.
@@ -248,7 +229,8 @@ export type KnobsShape = Readonly<{
 A given recipe will define a concrete schema and type for knobs:
 
 ```ts
-import { Type, type Static, type TObject } from "typebox";
+import { Type, type Static } from "@swooper/mapgen-core/authoring";
+import type { TObject } from "typebox";
 
 export function defineKnobsSchema(args: {
   global: TObject;
@@ -279,6 +261,8 @@ import type { Static, TSchema } from "typebox";
 
 type NoInfer<T> = [T][T extends any ? 0 : never];
 
+// Baseline reference: `OpStrategy` in `packages/mapgen-core/src/authoring/op/strategy.ts`.
+// Target rename: `resolveConfig(settings)` -> `normalizeConfig(knobs)`.
 export type OpStrategy<ConfigSchema extends TSchema, Input, Output, Knobs = unknown> = Readonly<{
   config: ConfigSchema;
 
@@ -309,7 +293,7 @@ export type StrategySelection<Strategies extends Record<string, { config: TSchem
 export type DomainOp<InputSchema extends TSchema, OutputSchema extends TSchema, Strategies extends Record<string, any>, Knobs> =
   Readonly<{
     id: string;
-    kind: string;
+    kind: "plan" | "compute" | "score" | "select"; // baseline: `DomainOpKind`
     input: InputSchema;
     output: OutputSchema;
     strategies: Strategies;
@@ -336,7 +320,8 @@ A step contract declares:
 
 ```ts
 import type { Static, TObject } from "typebox";
-import type { OpContract } from "./op-contract"; // pure contract type
+import type { DependencyTag, GenerationPhase } from "@swooper/mapgen-core/engine";
+import type { OpContract } from "@swooper/mapgen-core/authoring"; // pure contract type
 
 export type StepOpBinding<C extends OpContract<any, any, any, any, any>> = Readonly<{
   key: string;             // key under internalConfig.ops.<key>
@@ -346,15 +331,15 @@ export type StepOpBinding<C extends OpContract<any, any, any, any, any>> = Reado
 
 export type StepContract<
   StepId extends string,
-  Phase extends string,
+  Phase extends GenerationPhase,
   PublicSchema extends TObject,
   InternalSchema extends TObject,
   Ops extends ReadonlyArray<StepOpBinding<any>>,
 > = Readonly<{
   id: StepId;
   phase: Phase;
-  requires: readonly string[];
-  provides: readonly string[];
+  requires: readonly DependencyTag[];
+  provides: readonly DependencyTag[];
 
   publicSchema: PublicSchema;
   internalSchema: InternalSchema;
@@ -370,9 +355,10 @@ export type StepInternalConfigOf<C extends StepContract<any, any, any, any, any>
 #### Step contract helper
 
 ```ts
-export function defineStep<
+// Baseline reference: `defineStepContract` in `packages/mapgen-core/src/authoring/step/contract.ts`.
+export function defineStepContract<
   const StepId extends string,
-  const Phase extends string,
+  const Phase extends GenerationPhase,
   const PublicSchema extends TObject,
   const InternalSchema extends TObject = PublicSchema,
   const Ops extends ReadonlyArray<StepOpBinding<any>> = readonly [],
@@ -399,13 +385,14 @@ export function defineStep<
 ```ts
 import type { Env } from "./env";
 import type { KnobsShape } from "./knobs";
-import { normalizeBySchema } from "./schema-normalize";
+import type { EngineAdapter, TraceScope } from "@swooper/mapgen-core";
+import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 
 export type StepContext<TArtifacts> = Readonly<{
   env: Env;                 // runtime, game-provided
   artifacts: TArtifacts;    // resource store / artifact store
-  trace: unknown;           // whatever tracing type you have
-  adapter: unknown;         // civ7 adapter surface (if steps need it)
+  trace: TraceScope;
+  adapter: EngineAdapter;
 }>;
 
 export type StepModule<
@@ -453,11 +440,11 @@ export function createStep<
   }
 ): StepModule<C, TArtifacts, TDomainOps> {
   function compileConfig(publicCfg: StepPublicConfigOf<C>, knobs: KnobsShape): StepInternalConfigOf<C> {
-    const publicNorm = normalizeBySchema(contract.publicSchema, publicCfg);
+    const publicNorm = applySchemaDefaults(contract.publicSchema, publicCfg);
 
     const internalCandidate = impl.expandConfig ? impl.expandConfig(publicNorm, knobs) : publicNorm;
 
-    const internalNorm = normalizeBySchema(contract.internalSchema, internalCandidate) as any;
+    const internalNorm = applySchemaDefaults(contract.internalSchema, internalCandidate) as any;
 
     // Mechanical op normalization (no per-step forwarding)
     if (contract.ops?.length) {
@@ -633,7 +620,7 @@ Public schema is defined by stage/recipe; steps define internal schema only.
 
 If your top priority is “modder config must never mention envelopes/internal ids”, this becomes the canonical endpoint. If your top priority is “fix config compilation and engine/domain decoupling now”, Variation B is the right first landing.
 
-Given your latest “go with your rec sure”, the canonical path I’m recommending remains:
+Given the preference for a clean, incremental landing path, the canonical recommendation remains:
 **Variation B now, with a clean path to Variation C later if needed.**
 
 ---
@@ -647,204 +634,290 @@ Two examples:
 
 ## Example 1 — Simple end-to-end (single op, no facade)
 
-### A) Domain: `noise` operation
+### A) Domain op (baseline): `ecology/biomes/refine-edge`
 
-#### `domain/noise/contracts.ts` (pure)
+This is a real baseline op from `mods/mod-swooper-maps/src/domain/ecology/ops/refine-biome-edges/*` (contract-first, strategy envelope).
+
+#### `mods/mod-swooper-maps/src/domain/ecology/ops/refine-biome-edges/contract.ts`
 
 ```ts
-import { Type } from "typebox";
-import { defineOpContract } from "@mapgen/authoring/op";
+import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
 
-export const NoiseKnobsSchema = Type.Object(
+const RefineBiomeEdgesInputSchema = Type.Object(
   {
-    amplitudeScale: Type.Optional(Type.Number({ default: 1.0 })),
+    width: Type.Integer({ minimum: 1 }),
+    height: Type.Integer({ minimum: 1 }),
+    biomeIndex: TypedArraySchemas.u8({ description: "Biome indices per tile." }),
+    landMask: TypedArraySchemas.u8({ description: "Land mask (1 = land, 0 = water)." }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
-const NoiseConfigSchema = Type.Object(
+const RefineBiomeEdgesOutputSchema = Type.Object(
   {
-    frequency: Type.Optional(Type.Number({ default: 0.01 })),
-    octaves: Type.Optional(Type.Number({ default: 4 })),
+    biomeIndex: TypedArraySchemas.u8({ description: "Smoothed biome indices per tile." }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
-export const NoiseOpContract = defineOpContract({
+const RefineBiomeEdgesConfigSchema = Type.Object(
+  {
+    radius: Type.Integer({ minimum: 1, maximum: 5, default: 1 }),
+    iterations: Type.Integer({ minimum: 1, maximum: 4, default: 1 }),
+  },
+  { additionalProperties: false }
+);
+
+export const RefineBiomeEdgesContract = defineOpContract({
   kind: "compute",
-  id: "noise/generate",
-  input: Type.Object(
-    {
-      width: Type.Number(),
-      height: Type.Number(),
-    },
-    { additionalProperties: false }
-  ),
-  output: Type.Object(
-    {
-      field: Type.Any(), // pretend TypedArray schema
-    },
-    { additionalProperties: false }
-  ),
+  id: "ecology/biomes/refine-edge",
+  input: RefineBiomeEdgesInputSchema,
+  output: RefineBiomeEdgesOutputSchema,
   strategies: {
-    default: NoiseConfigSchema,
+    default: RefineBiomeEdgesConfigSchema,
+    morphological: RefineBiomeEdgesConfigSchema,
+    gaussian: RefineBiomeEdgesConfigSchema,
+  },
+});
+```
+
+#### `mods/mod-swooper-maps/src/domain/ecology/ops/refine-biome-edges/index.ts`
+
+```ts
+import { createOp } from "@swooper/mapgen-core/authoring";
+import { RefineBiomeEdgesContract } from "./contract.js";
+import { defaultStrategy, gaussianStrategy } from "./strategies/index.js";
+
+export const refineBiomeEdges = createOp(RefineBiomeEdgesContract, {
+  strategies: {
+    default: defaultStrategy,
+    morphological: defaultStrategy,
+    gaussian: gaussianStrategy,
   },
 });
 
-export const noiseContracts = {
-  id: "noise",
-  knobsSchema: NoiseKnobsSchema,
-  ops: {
-    generate: NoiseOpContract,
+export * from "./contract.js";
+export type * from "./types.js";
+```
+
+#### `mods/mod-swooper-maps/src/domain/ecology/ops/refine-biome-edges/strategies/default.ts`
+
+```ts
+import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { RefineBiomeEdgesContract } from "../contract.js";
+
+export const defaultStrategy = createStrategy(RefineBiomeEdgesContract, "default", {
+  run: (input, config) => {
+    const { width, height } = input;
+    const size = width * height;
+    if (input.biomeIndex.length !== size || input.landMask.length !== size) {
+      throw new Error("Refine biome edges: invalid input size.");
+    }
+    let working = new Uint8Array(input.biomeIndex);
+    const radius = config.radius;
+
+    for (let iter = 0; iter < config.iterations; iter++) {
+      const next = new Uint8Array(size);
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          const idx = y * width + x;
+          if (input.landMask[idx] === 0) {
+            next[idx] = working[idx]!;
+            continue;
+          }
+          const counts: Record<number, number> = {};
+          for (let dy = -radius; dy <= radius; dy++) {
+            const ny = y + dy;
+            if (ny < 0 || ny >= height) continue;
+            for (let dx = -radius; dx <= radius; dx++) {
+              const nx = x + dx;
+              if (nx < 0 || nx >= width) continue;
+              const nIdx = ny * width + nx;
+              const biome = working[nIdx]!;
+              counts[biome] = (counts[biome] ?? 0) + 1;
+            }
+          }
+          let dominant = working[idx]!;
+          let bestCount = -1;
+          for (const [biome, count] of Object.entries(counts)) {
+            const numericBiome = Number(biome);
+            if (count > bestCount) {
+              dominant = numericBiome;
+              bestCount = count;
+            }
+          }
+          next[idx] = dominant;
+        }
+      }
+      working = next;
+    }
+
+    return { biomeIndex: working };
   },
-} as const;
+});
 ```
 
-#### `domain/noise/ops.ts` (runtime)
+### B) Step (baseline): `biome-edge-refine` (stage `ecology`)
+
+This is a real baseline step from `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biome-edge-refine/*`.
+
+#### `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biome-edge-refine/contract.ts`
 
 ```ts
-import { createOp, createStrategy, normalizeBySchema } from "@mapgen/authoring/op-runtime";
-import { NoiseOpContract } from "./contracts";
+import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import * as ecology from "@mapgen/domain/ecology";
+import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
-export const noiseOps = {
-  generate: createOp(NoiseOpContract, {
-    strategies: {
-      default: createStrategy(NoiseOpContract, "default", {
-        normalizeConfig: (cfg, knobs) => {
-          // normalize values, shape stable
-          const base = normalizeBySchema(NoiseOpContract.strategies.default, cfg);
-          // apply knob scaling into config values if you want
-          // (or keep knobs only for runtime use; your choice)
-          return { ...base, frequency: base.frequency * ((knobs as any).amplitudeScale ?? 1.0) };
-        },
-        run: (input, config) => {
-          // config assumed normalized (no resolve here)
-          return { field: new Float32Array(input.width * input.height) };
-        },
-      }),
-    },
-  }),
-} as const;
-```
-
-### B) Step: `foundation:noiseField`
-
-#### `steps/foundation/noiseField/contract.ts`
-
-```ts
-import { Type } from "typebox";
-import { defineStep } from "@mapgen/authoring/step";
-import { opConfigFieldFromContract } from "@mapgen/authoring/step/op-fields";
-import { noiseContracts } from "@mapgen/domain/noise/contracts";
-
-export const NoiseFieldStepContract = defineStep({
-  id: "foundation:noiseField",
-  phase: "foundation",
-  requires: [],
-  provides: ["artifact:noiseField"],
-
-  ops: [{ key: "noise", contract: noiseContracts.ops.generate, knobsDomain: noiseContracts.id }] as const,
-
-  publicSchema: Type.Object(
+export const BiomeEdgeRefineStepContract = defineStepContract({
+  id: "biome-edge-refine",
+  phase: "ecology",
+  requires: [
+    M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
+    M3_DEPENDENCY_TAGS.artifact.heightfield,
+  ],
+  provides: [M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1],
+  schema: Type.Object(
     {
-      ops: Type.Object(
-        {
-          noise: opConfigFieldFromContract(noiseContracts.ops.generate),
-        },
-        { additionalProperties: false, default: {} }
-      ),
+      refine: ecology.ops.refineBiomeEdges.config,
     },
-    { additionalProperties: false, default: {} }
+    {
+      additionalProperties: false,
+      default: {
+        refine: ecology.ops.refineBiomeEdges.defaultConfig,
+      },
+    }
   ),
 });
 ```
 
-#### `steps/foundation/noiseField/index.ts`
+#### `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biome-edge-refine/index.ts`
 
 ```ts
-import { createStep } from "@mapgen/authoring/step";
-import { NoiseFieldStepContract } from "./contract";
-import { noiseOps } from "@mapgen/domain/noise/ops";
+import { createStep } from "@mapgen/authoring/steps";
+import type { HeightfieldBuffer } from "@swooper/mapgen-core";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import * as ecology from "@mapgen/domain/ecology";
+import { isBiomeClassificationArtifactV1 } from "../../../../artifacts.js";
+import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
+import { BiomeEdgeRefineStepContract } from "./contract.js";
 
-export const noiseFieldStep = createStep(NoiseFieldStepContract, {
-  ops: { noise: noiseOps.generate },
+type BiomeEdgeRefineConfig = Static<typeof BiomeEdgeRefineStepContract.schema>;
 
-  run: (ctx, cfg) => {
-    const { width, height } = ctx.env.dimensions;
-    const out = noiseOps.generate.run({ width, height }, cfg.ops.noise);
-    ctx.artifacts.set("artifact:noiseField", out.field);
-  },
-});
-```
+const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer => {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as Partial<HeightfieldBuffer>;
+  return candidate.landMask instanceof Uint8Array && candidate.landMask.length === size;
+};
 
-### C) Recipe: composes knobs + pipeline + compiles to `CompiledRun`
+export default createStep(BiomeEdgeRefineStepContract, {
+  resolveConfig: (config, settings) => ({
+    refine: ecology.ops.refineBiomeEdges.resolveConfig(config.refine, settings),
+  }),
+  run: (context, config: BiomeEdgeRefineConfig) => {
+    const classification = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1);
+    if (!isBiomeClassificationArtifactV1(classification)) {
+      throw new Error("BiomeEdgeRefineStep: Missing biome classification artifact.");
+    }
 
-```ts
-import { Type } from "typebox";
-import { defineKnobsSchema, normalizeBySchema } from "@mapgen/authoring/recipe";
-import { noiseContracts } from "@mapgen/domain/noise/contracts";
-import { noiseFieldStep } from "./steps/foundation/noiseField";
+    const { width, height } = context.dimensions;
+    const heightfieldArtifact = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
+    if (!isHeightfield(heightfieldArtifact, width * height)) {
+      throw new Error("BiomeEdgeRefineStep: Missing heightfield for land mask.");
+    }
+    const heightfield = heightfieldArtifact as HeightfieldBuffer;
 
-const KnobsSchema = defineKnobsSchema({
-  global: Type.Object({}, { additionalProperties: false, default: {} }),
-  domains: {
-    [noiseContracts.id]: noiseContracts.knobsSchema,
-  },
-  recipe: Type.Object({}, { additionalProperties: false, default: {} }),
-});
-
-const PublicSchema = Type.Object(
-  {
-    knobs: KnobsSchema,
-    pipeline: Type.Object(
+    const refined = ecology.ops.refineBiomeEdges.runValidated(
       {
-        foundation: Type.Object(
-          {
-            noiseField: noiseFieldStep.contract.publicSchema,
-          },
-          { additionalProperties: false, default: {} }
-        ),
+        width,
+        height,
+        biomeIndex: classification.biomeIndex,
+        landMask: heightfield.landMask,
       },
-      { additionalProperties: false, default: {} }
-    ),
+      config.refine
+    );
+
+    context.artifacts.set(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1, {
+      ...classification,
+      biomeIndex: refined.biomeIndex,
+    });
   },
-  { additionalProperties: false, default: {} }
-);
-
-export const demoRecipe = {
-  id: "demo",
-  publicSchema: PublicSchema,
-
-  steps: [noiseFieldStep],
-
-  compile: (env, publicConfig) => {
-    const normalized = normalizeBySchema(PublicSchema, publicConfig);
-    const knobs = normalizeBySchema(KnobsSchema, normalized.knobs);
-
-    const internalNoiseCfg = noiseFieldStep.compileConfig(normalized.pipeline.foundation.noiseField, knobs);
-
-    return {
-      recipeId: "demo",
-      env,
-      steps: [
-        {
-          id: "demo.foundation.foundation:noiseField", // whatever your full id policy is
-          phase: "foundation",
-          requires: [],
-          provides: ["artifact:noiseField"],
-          config: internalNoiseCfg,
-        },
-      ],
-    };
-  },
-} as const;
+});
 ```
+
+### C) Recipe wiring (baseline): `standard`
+
+Baseline today, recipes are composed with `createRecipe(...)` and produce a `RecipeModule` that:
+
+- Builds `StepRegistry` + `TagRegistry` from stages/steps.
+- `instantiate(config?) -> RecipeV2` (structural recipe + per-step config objects).
+- `runRequest(settings, config?) -> RunRequest`.
+- `compile(settings, config?) -> ExecutionPlan` (calls `compileExecutionPlan(...)` in the engine; this is where schema defaulting + `step.resolveConfig(...)` happen today).
+- `run(context, settings, config?, ...)` (constructs the plan and executes it via `PipelineExecutor`).
+
+Real baseline recipe (`mods/mod-swooper-maps/src/recipes/standard/recipe.ts`):
+
+```ts
+import { createRecipe } from "@swooper/mapgen-core/authoring";
+import type { RecipeConfigOf } from "@swooper/mapgen-core/authoring";
+
+import ecology from "./stages/ecology/index.js";
+import foundation from "./stages/foundation/index.js";
+import hydrologyCore from "./stages/hydrology-core/index.js";
+import hydrologyPost from "./stages/hydrology-post/index.js";
+import hydrologyPre from "./stages/hydrology-pre/index.js";
+import morphologyMid from "./stages/morphology-mid/index.js";
+import morphologyPost from "./stages/morphology-post/index.js";
+import morphologyPre from "./stages/morphology-pre/index.js";
+import narrativeMid from "./stages/narrative-mid/index.js";
+import narrativePost from "./stages/narrative-post/index.js";
+import narrativePre from "./stages/narrative-pre/index.js";
+import narrativeSwatches from "./stages/narrative-swatches/index.js";
+import placement from "./stages/placement/index.js";
+import { STANDARD_TAG_DEFINITIONS } from "./tags.js";
+
+const NAMESPACE = "mod-swooper-maps";
+const stages = [
+  foundation,
+  morphologyPre,
+  narrativePre,
+  morphologyMid,
+  narrativeMid,
+  morphologyPost,
+  hydrologyPre,
+  narrativeSwatches,
+  hydrologyCore,
+  narrativePost,
+  hydrologyPost,
+  ecology,
+  placement,
+] as const;
+
+export type StandardRecipeConfig = RecipeConfigOf<typeof stages>;
+
+export default createRecipe({
+  id: "standard",
+  namespace: NAMESPACE,
+  tagDefinitions: STANDARD_TAG_DEFINITIONS,
+  stages,
+} as const);
+```
+
+Baseline step ids are composed by `createRecipe` as:
+
+- Full id: `"<namespace>.<recipeId>.<stageId>.<stepId>"` (see `packages/mapgen-core/src/authoring/recipe.ts`).
+- Example: `mod-swooper-maps.standard.ecology.biome-edge-refine`.
 
 ### D) Engine executes `CompiledRun` (no config compilation)
 
-* Engine schedules nodes
-* Runs `noiseFieldStep.run(ctx, internalCfg)`
-  No resolve hooks. No schema “resolution”.
+Baseline today:
+
+* Engine compiles an `ExecutionPlan` (including schema defaulting and optional `step.resolveConfig`).
+* `PipelineExecutor.executePlan(context, plan, ...)` executes steps and enforces requires/provides at runtime via the tag registry.
+
+Target in this proposal:
+
+* Recipe compiler produces compiled per-step internal configs (validated/defaulted/normalized at composition time).
+* Engine only schedules and executes compiled nodes; it does not call any step/op config normalization hook.
 
 ---
 
@@ -862,6 +935,8 @@ We’ll model a realistic ecology stage that:
 #### Domain knobs (compile-time settings affecting multiple ops)
 
 ```ts
+import { Type } from "@swooper/mapgen-core/authoring";
+
 export const EcologyKnobsSchema = Type.Object(
   {
     featureDensityScale: Type.Optional(Type.Number({ default: 1.0, minimum: 0 })),
@@ -874,41 +949,45 @@ export const EcologyKnobsSchema = Type.Object(
 #### Op contract: `planReefs` with two strategies
 
 * `default`
-* `shippingLanes`
+* `shipping-lanes`
 
 ```ts
+import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { FeaturePlacementSchema } from "../../shared/placement-schema.js";
+
+const PlanReefsInputSchema = Type.Object(
+  {
+    width: Type.Integer({ minimum: 1 }),
+    height: Type.Integer({ minimum: 1 }),
+    landMask: TypedArraySchemas.u8({ description: "Land mask (1 = land, 0 = water)." }),
+    surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature (C)." }),
+  },
+  { additionalProperties: false }
+);
+
+const PlanReefsOutputSchema = Type.Object(
+  {
+    placements: Type.Array(FeaturePlacementSchema),
+  },
+  { additionalProperties: false }
+);
+
+const PlanReefsConfigSchema = Type.Object(
+  {
+    warmThreshold: Type.Number({ default: 12 }),
+    density: Type.Number({ minimum: 0, maximum: 1, default: 0.35 }),
+  },
+  { additionalProperties: false }
+);
+
 export const PlanReefsContract = defineOpContract({
-  kind: "compute",
-  id: "ecology/features/planReefs",
-  input: Type.Object(
-    {
-      width: Type.Number(),
-      height: Type.Number(),
-      landMask: Type.Any(),
-      surfaceTemperature: Type.Any(),
-    },
-    { additionalProperties: false }
-  ),
-  output: Type.Object(
-    { placements: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), feature: Type.String() })) },
-    { additionalProperties: false }
-  ),
+  kind: "plan",
+  id: "ecology/features/plan-reefs",
+  input: PlanReefsInputSchema,
+  output: PlanReefsOutputSchema,
   strategies: {
-    default: Type.Object(
-      {
-        warmThreshold: Type.Optional(Type.Number({ default: 0.6 })),
-        density: Type.Optional(Type.Number({ default: 1.0 })),
-      },
-      { additionalProperties: false, default: {} }
-    ),
-    shippingLanes: Type.Object(
-      {
-        warmThreshold: Type.Optional(Type.Number({ default: 0.65 })),
-        density: Type.Optional(Type.Number({ default: 0.8 })),
-        laneBias: Type.Optional(Type.Number({ default: 0.5 })),
-      },
-      { additionalProperties: false, default: {} }
-    ),
+    default: PlanReefsConfigSchema,
+    "shipping-lanes": PlanReefsConfigSchema,
   },
 });
 ```
@@ -916,24 +995,54 @@ export const PlanReefsContract = defineOpContract({
 #### Strategy normalization uses knobs (not env)
 
 ```ts
-export const reefsDefault = createStrategy(PlanReefsContract, "default", {
-  normalizeConfig: (cfg, knobs) => {
-    const base = normalizeBySchema(PlanReefsContract.strategies.default, cfg);
-    const k = knobs as any;
+import { applySchemaDefaults, createStrategy, type Static } from "@swooper/mapgen-core/authoring";
+import { PlanReefsContract } from "../contract.js";
+
+type Knobs = Readonly<{
+  featureDensityScale?: number;
+  reefWarmThresholdBias?: number;
+}>;
+
+type Config = Static<typeof PlanReefsContract["strategies"]["default"]>;
+const EMPTY_CONFIG: Config = {} as Config;
+
+export const defaultStrategy = createStrategy(PlanReefsContract, "default", {
+  /**
+   * Target semantics:
+   * - called at compile-time composition
+   * - shape-stable (same schema in/out)
+   * - takes `knobs` (not runtime `RunSettings`)
+   */
+  normalizeConfig: (cfg: Config, knobs: Knobs): Config => {
+    const base = applySchemaDefaults(PlanReefsContract.strategies.default, cfg ?? EMPTY_CONFIG);
     return {
       ...base,
-      warmThreshold: base.warmThreshold + (k.reefWarmThresholdBias ?? 0),
-      density: base.density * (k.featureDensityScale ?? 1.0),
+      warmThreshold: base.warmThreshold + (knobs.reefWarmThresholdBias ?? 0),
+      density: base.density * (knobs.featureDensityScale ?? 1),
     };
   },
+
   run: (input, config) => {
-    // config already normalized; do not call normalize again
-    return { placements: [] };
+    // config already normalized; do not call normalize/defaulting again
+    const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
+    const { width, height } = input;
+    for (let y = 0; y < height; y++) {
+      const row = y * width;
+      for (let x = 0; x < width; x++) {
+        const idx = row + x;
+        if (input.landMask[idx] !== 0) continue; // water only
+        const temperature = input.surfaceTemperature[idx] ?? 0;
+        if (temperature < config.warmThreshold) continue;
+        if ((x + y) % 3 !== 0) continue; // simple spacing
+        placements.push({ x, y, feature: "FEATURE_REEF", weight: config.density });
+      }
+    }
+    return { placements };
   },
 });
 ```
 
-### B) Step: `ecology:featuresPlan` with a facade
+### B) Step: `features-plan` (baseline multi-op step; facade candidate)
 
 **Public intent:**
 
@@ -948,111 +1057,110 @@ type Public = {
 
 ```ts
 type Internal = {
-  ops: {
-    reefs: { strategy: "default" | "shippingLanes"; config: { ... } };
-    // ... other ops: vegetation, wetlands, ice ...
-  };
+  // Baseline reality today: this step's config is already "internal" op envelopes,
+  // one per op (no `ops: {...}` wrapper).
+  vegetation: { strategy: "default" | "clustered"; config: { /* PlanVegetationConfig */ } };
+  wetlands: { strategy: "default"; config: { /* PlanWetlandsConfig */ } };
+  reefs: { strategy: "default" | "shipping-lanes"; config: { /* PlanReefsConfig */ } };
+  ice: { strategy: "default"; config: { /* PlanIceConfig */ } };
 };
 ```
 
-#### Contract
+#### Baseline contract (`mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-plan/contract.ts`)
 
 ```ts
-export const FeaturesPlanStepContract = defineStep({
-  id: "ecology:featuresPlan",
+import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import * as ecology from "@mapgen/domain/ecology";
+import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
+
+export const FeaturesPlanStepContract = defineStepContract({
+  id: "features-plan",
   phase: "ecology",
-  requires: ["artifact:heightfield", "artifact:biomes"],
-  provides: ["artifact:featureIntents"],
-
-  ops: [
-    { key: "reefs", contract: PlanReefsContract, knobsDomain: "ecology" },
-    // plus other ops...
-  ] as const,
-
-  // PUBLIC
-  publicSchema: Type.Object(
+  requires: [
+    M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
+    M3_DEPENDENCY_TAGS.artifact.heightfield,
+    M3_DEPENDENCY_TAGS.artifact.pedologyV1,
+  ],
+  provides: [M3_DEPENDENCY_TAGS.artifact.featureIntentsV1],
+  schema: Type.Object(
     {
-      quality: Type.Optional(Type.Union([Type.Literal("fast"), Type.Literal("accurate")]), { default: "fast" }),
-      density: Type.Optional(Type.Union([Type.Literal("sparse"), Type.Literal("normal"), Type.Literal("dense")]), {
-        default: "normal",
-      }),
+      vegetation: ecology.ops.planVegetation.config,
+      wetlands: ecology.ops.planWetlands.config,
+      reefs: ecology.ops.planReefs.config,
+      ice: ecology.ops.planIce.config,
     },
-    { additionalProperties: false, default: {} }
-  ),
-
-  // INTERNAL
-  internalSchema: Type.Object(
     {
-      ops: Type.Object(
-        {
-          reefs: opConfigFieldFromContract(PlanReefsContract),
-          // ... vegetation, wetlands, etc as opConfigFieldFromContract(...)
-        },
-        { additionalProperties: false, default: {} }
-      ),
-    },
-    { additionalProperties: false, default: {} }
+      additionalProperties: false,
+      default: {
+        vegetation: ecology.ops.planVegetation.defaultConfig,
+        wetlands: ecology.ops.planWetlands.defaultConfig,
+        reefs: ecology.ops.planReefs.defaultConfig,
+        ice: ecology.ops.planIce.defaultConfig,
+      },
+    }
   ),
 });
 ```
 
-#### Implementation (`expandConfig` is the only shape transform)
+#### Baseline step module (excerpt showing the current forwarding glue)
 
 ```ts
-export const featuresPlanStep = createStep(FeaturesPlanStepContract, {
-  ops: {
-    reefs: ecologyOps.planReefs,
-    // ...
-  },
-
-  expandConfig: (pub, knobs) => {
-    // Facade translation: public -> internal
-    const density = pub.density ?? "normal";
-    const densityScalar = density === "sparse" ? 0.6 : density === "dense" ? 1.4 : 1.0;
-
-    // encode facade choices into internal op envelopes
-    return {
-      ops: {
-        reefs:
-          pub.quality === "accurate"
-            ? { strategy: "shippingLanes", config: { density: densityScalar } }
-            : { strategy: "default", config: { density: densityScalar } },
-      },
-    };
-  },
-
-  run: (ctx, cfg) => {
-    const { width, height } = ctx.env.dimensions;
-
-    // ENV-INFLUENCED VALUE DERIVATION (NO SHAPE CHANGE):
-    // Example: scale “density” with map size at runtime
-    const mapArea = width * height;
-    const areaScale = Math.sqrt(mapArea / (80 * 52)); // baseline area constant
-
-    // We do NOT mutate cfg; we derive local values.
-    const reefsCfg = cfg.ops.reefs;
-    const derivedReefDensity =
-      // assume reefsCfg.config has density already normalized w/ knobs in compile step
-      ((reefsCfg as any).config.density ?? 1.0) * areaScale;
-
-    const out = ecologyOps.planReefs.run(
-      {
-        width,
-        height,
-        landMask: ctx.artifacts.get("artifact:landMask"),
-        surfaceTemperature: ctx.artifacts.get("artifact:surfaceTemperature"),
-      },
-      // pass the same shape; if needed, pass a computed value via input instead
-      { ...reefsCfg, config: { ...(reefsCfg as any).config, density: derivedReefDensity } }
-    );
-
-    ctx.artifacts.set("artifact:featureIntents", out.placements);
-  },
+export default createStep(FeaturesPlanStepContract, {
+  resolveConfig: (config, settings) => ({
+    vegetation: ecology.ops.planVegetation.resolveConfig(config.vegetation, settings),
+    wetlands: ecology.ops.planWetlands.resolveConfig(config.wetlands, settings),
+    reefs: ecology.ops.planReefs.resolveConfig(config.reefs, settings),
+    ice: ecology.ops.planIce.resolveConfig(config.ice, settings),
+  }),
+  // `run(...)` unchanged here; see `mods/mod-swooper-maps/.../features-plan/index.ts` for the full baseline implementation.
 });
 ```
 
-**Important note about the last line:**
-If you want *absolute purity* (“runtime never constructs a config object”), then instead of cloning the config envelope, you pass the derived value via input:
+#### Target facade overlay (public → internal), grounded in baseline contracts
+
+Under this proposal, the **only** shape-changing step is an explicit facade expansion during recipe composition.
+
+For example, we can expose a small public config surface that compiles down to the same internal op-envelope config that the baseline `FeaturesPlanStepContract.schema` already expects:
+
+```ts
+import { Type, applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import * as ecology from "@mapgen/domain/ecology";
+import { FeaturesPlanStepContract } from "./contract.js";
+
+const FeaturesPlanPublicSchema = Type.Object(
+  {
+    quality: Type.Optional(Type.Union([Type.Literal("fast"), Type.Literal("accurate")]), { default: "fast" }),
+    density: Type.Optional(
+      Type.Union([Type.Literal("sparse"), Type.Literal("normal"), Type.Literal("dense")]),
+      { default: "normal" }
+    ),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+type FeaturesPlanPublicConfig = Static<typeof FeaturesPlanPublicSchema>;
+type FeaturesPlanInternalConfig = Static<typeof FeaturesPlanStepContract.schema>;
+
+export function expandFeaturesPlanConfig(publicCfg: FeaturesPlanPublicConfig): FeaturesPlanInternalConfig {
+  const densityScalar =
+    publicCfg.density === "sparse" ? 0.6 : publicCfg.density === "dense" ? 1.4 : 1.0;
+
+  // Public -> internal is deterministic and pure. Defaults are applied by schema.
+  return applySchemaDefaults(FeaturesPlanStepContract.schema, {
+    reefs:
+      publicCfg.quality === "accurate"
+        ? { strategy: "shipping-lanes", config: { density: densityScalar } }
+        : { strategy: "default", config: { density: densityScalar } },
+
+    // Optional: leave other ops unspecified and rely on schema defaults.
+    // vegetation, wetlands, ice: omitted
+  });
+}
+```
+
+**Runtime env influence (value derivation only):**
+If a step needs to scale behavior by map size/seed/etc, compute a local derived value from `ctx.env`/`ctx.dimensions` and use it as a runtime input (preferred), or as a transient derived value that never persists back into stored config.
 
 * `planReefs` input adds `densityScale: number`
 * op multiplies internally
@@ -1122,8 +1230,8 @@ We basically don’t.
 
 ### What we keep (and rename for honesty)
 
-1. **Schema normalization** (`normalizeBySchema`)
-   Convert/Clean/Default — deterministic, stable shape.
+1. **Schema defaulting + cleanup** (`applySchemaDefaults`)
+   Clone/Default/Clean — deterministic, stable shape.
 
 2. **Facade translation (public → internal)**
    This is the *only* legitimate shape transform, and it is explicit:
