@@ -1,0 +1,298 @@
+{
+  "id": "config-resolution-flow",
+  "title": "Following the Config: End-to-End Resolution in the Mapgen Pipeline",
+  "concepts": {
+    "authoring": {
+      "label": "Authoring",
+      "description": "Compile-time contracts and schemas",
+      "color": "blue"
+    },
+    "runtime": {
+      "label": "Runtime",
+      "description": "Execution-time implementations",
+      "color": "purple"
+    },
+    "confusion": {
+      "label": "Confusion Point",
+      "description": "Areas of complexity worth noting",
+      "color": "orange"
+    }
+  },
+  "slides": [
+    {
+      "id": "config-journey",
+      "order": 1,
+      "concept": "authoring",
+      "explanation": "A single config value like `{ climateWeight: 1.5 }` must traverse 4+ layers before reaching the algorithm that uses it. Understanding this flow is essential for debugging, extending, and eventually simplifying the system.",
+      "blocks": [
+        {
+          "layers": {
+            "layout": "pyramid",
+            "layers": [
+              {
+                "label": "Recipe",
+                "value": "RecipeConfig",
+                "description": "Nested config aggregated from all stages and steps"
+              },
+              {
+                "label": "Step",
+                "value": "StepConfig",
+                "description": "Composes one or more op configs with defaults"
+              },
+              {
+                "label": "Op",
+                "value": "OpConfigSchema",
+                "description": "Discriminated union of strategy configs"
+              },
+              {
+                "label": "Strategy",
+                "value": "strategy.run()",
+                "description": "The actual config consumer that applies weights/parameters"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "recipe-entry",
+      "order": 2,
+      "concept": "authoring",
+      "explanation": "The recipe config is a deeply nested object synthesized from all stages and steps. TypeBox infers this type automatically via `RecipeConfigOf<typeof stages>`.",
+      "blocks": [
+        {
+          "codeBlock": {
+            "file": "packages/mapgen-core/src/authoring/types.ts",
+            "language": "typescript",
+            "startLine": 48,
+            "endLine": 62,
+            "code": "export type RecipeConfigOf<TStages extends readonly Stage<any, readonly Step<any, any>[]>[]> =\n  UnionToIntersection<\n  TStages[number] extends infer TStage\n    ? TStage extends Stage<any, readonly Step<any, any>[]>\n      ? Readonly<\n          Record<\n            TStage[\"id\"],\n            Readonly<{\n              [K in TStage[\"steps\"][number][\"id\"]]: StepConfigById<TStage, K>;\n            }>\n          >\n        >\n      : never\n    : never\n>;"
+          }
+        },
+        {
+          "explanation": "**Result shape:** `{ [stageName]: { [stepName]: StepConfig } }`\n\nFor example:\n```typescript\n{ ecology: { pedology: {...}, \"features-plan\": {...} }, morphology: {...} }\n```"
+        }
+      ]
+    },
+    {
+      "id": "compiler-bridge",
+      "order": 3,
+      "concept": "authoring",
+      "explanation": "The compiler extracts step configs from the nested structure and calls each step's `resolveConfig()` to normalize values before execution.",
+      "blocks": [
+        {
+          "diagram": {
+            "content": "flowchart TD\n    A[\"recipe.run(ctx, settings, config)\"] --> B[\"recipe.compile(settings, config)\"]\n    B --> C[\"instantiate(config)\"]\n    C --> D[\"Map to step occurrences\"]\n    D --> E[\"For each step: step.resolveConfig()\"]\n    E --> F[\"ExecutionPlan with resolved configs\"]\n    F --> G[\"executor.executePlan()\"]",
+            "caption": "Config resolution happens during compilation, not execution"
+          }
+        },
+        {
+          "codeBlock": {
+            "file": "packages/mapgen-core/src/authoring/recipe.ts",
+            "language": "typescript",
+            "startLine": 174,
+            "endLine": 176,
+            "code": "function compile(settings: RunSettings, config?: RecipeConfigOf<TStages> | null): ExecutionPlan {\n  return compileExecutionPlan(runRequest(settings, config), registry);\n}",
+            "highlight": [175]
+          }
+        },
+        {
+          "explanation": "**Confusion point:** The `compile` function does config resolution, but the name suggests execution planning. This conflation is a source of confusion\u2014resolution is buried inside `compileExecutionPlan`."
+        }
+      ]
+    },
+    {
+      "id": "step-composition",
+      "order": 4,
+      "concept": "authoring",
+      "explanation": "Steps define a schema that embeds each op's config union. Multi-op steps like `features-plan` compose 4 independent op configs.",
+      "blocks": [
+        {
+          "codeBlock": {
+            "file": "mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-plan/contract.ts",
+            "language": "typescript",
+            "startLine": 5,
+            "endLine": 31,
+            "code": "export const FeaturesPlanStepContract = defineStepContract({\n  id: \"features-plan\",\n  phase: \"ecology\",\n  requires: [\n    M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,\n    M3_DEPENDENCY_TAGS.artifact.heightfield,\n    M3_DEPENDENCY_TAGS.artifact.pedologyV1,\n  ],\n  provides: [M3_DEPENDENCY_TAGS.artifact.featureIntentsV1],\n  schema: Type.Object(\n    {\n      vegetation: ecology.ops.planVegetation.config,\n      wetlands: ecology.ops.planWetlands.config,\n      reefs: ecology.ops.planReefs.config,\n      ice: ecology.ops.planIce.config,\n    },\n    {\n      additionalProperties: false,\n      default: {\n        vegetation: ecology.ops.planVegetation.defaultConfig,\n        wetlands: ecology.ops.planWetlands.defaultConfig,\n        reefs: ecology.ops.planReefs.defaultConfig,\n        ice: ecology.ops.planIce.defaultConfig,\n      },\n    }\n  ),\n});",
+            "highlight": [16, 17, 18, 19]
+          }
+        },
+        {
+          "explanation": "Each property embeds an op's full config union. The step's `default` injects each op's `defaultConfig`."
+        }
+      ]
+    },
+    {
+      "id": "step-delegation",
+      "order": 5,
+      "concept": "confusion",
+      "explanation": "The step's `resolveConfig` must manually delegate to each op's `resolveConfig`. This is boilerplate that could be automated.",
+      "blocks": [
+        {
+          "codeBlock": {
+            "file": "mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-plan/index.ts",
+            "language": "typescript",
+            "startLine": 25,
+            "endLine": 31,
+            "code": "export default createStep(FeaturesPlanStepContract, {\n  resolveConfig: (config, settings) => ({\n    vegetation: ecology.ops.planVegetation.resolveConfig(config.vegetation, settings),\n    wetlands: ecology.ops.planWetlands.resolveConfig(config.wetlands, settings),\n    reefs: ecology.ops.planReefs.resolveConfig(config.reefs, settings),\n    ice: ecology.ops.planIce.resolveConfig(config.ice, settings),\n  }),",
+            "highlight": [27, 28, 29, 30]
+          }
+        },
+        {
+          "explanation": "**Confusion point:** Every multi-op step repeats this pattern. If an op is added or removed from the contract, the `resolveConfig` must be manually updated. This coupling is error-prone and could be auto-derived from the contract."
+        }
+      ]
+    },
+    {
+      "id": "op-discriminated-union",
+      "order": 6,
+      "concept": "authoring",
+      "explanation": "Each op's config is a discriminated union: `{ strategy: \"name\", config: {...} }`. This enables type-safe strategy selection while sharing the same input/output contract.",
+      "blocks": [
+        {
+          "diagram": {
+            "content": "flowchart LR\n    subgraph OpConfigSchema\n        A[\"{ strategy: 'default', config: DefaultSchema }\"]\n        B[\"{ strategy: 'coastal-shelf', config: CoastalSchema }\"]\n        C[\"{ strategy: 'orogeny-boosted', config: OrogenySchema }\"]\n    end\n    A -.->|Union| D[OpConfigSchema]\n    B -.->|Union| D\n    C -.->|Union| D",
+            "caption": "Strategy selection via TypeBox discriminated union"
+          }
+        },
+        {
+          "codeBlock": {
+            "file": "packages/mapgen-core/src/authoring/op/create.ts",
+            "language": "typescript",
+            "startLine": 84,
+            "endLine": 96,
+            "code": "const configCases = ids.map((id) =>\n  Type.Object(\n    {\n      strategy: Type.Literal(id),\n      config: strategySchemas[id]!,\n    },\n    { additionalProperties: false }\n  )\n);\n\nconst config = Type.Union(configCases as any, {\n  default: defaultConfig,\n}) as unknown as OpConfigSchema<typeof runtimeStrategies>;",
+            "highlight": [87, 88, 94]
+          }
+        }
+      ]
+    },
+    {
+      "id": "strategy-resolution",
+      "order": 7,
+      "concept": "runtime",
+      "explanation": "Each strategy can define a `resolveConfig` hook that applies schema defaults via `applySchemaDefaults()`. This uses TypeBox's `Value.Default()` chain.",
+      "blocks": [
+        {
+          "codeBlock": {
+            "file": "mods/mod-swooper-maps/src/domain/ecology/ops/pedology-classify/strategies/default.ts",
+            "language": "typescript",
+            "startLine": 5,
+            "endLine": 11,
+            "code": "type Config = Static<typeof PedologyClassifyContract[\"strategies\"][\"default\"]>;\nconst EMPTY_CONFIG: Config = {} as Config;\nconst resolveConfig = (config?: Config) =>\n  applySchemaDefaults(PedologyClassifyContract.strategies.default, config ?? EMPTY_CONFIG);\n\nexport const defaultStrategy = createStrategy(PedologyClassifyContract, \"default\", {\n  resolveConfig,",
+            "highlight": [7, 8]
+          }
+        },
+        {
+          "codeBlock": {
+            "file": "packages/mapgen-core/src/authoring/schema.ts",
+            "language": "typescript",
+            "startLine": 6,
+            "endLine": 13,
+            "code": "export function applySchemaDefaults<T extends TSchema>(\n  schema: T,\n  input: unknown\n): Static<T> {\n  const cloned = Value.Clone(input ?? {});\n  const defaulted = Value.Default(schema, cloned);\n  return Value.Clean(schema, defaulted) as Static<T>;\n}",
+            "highlight": [11, 12]
+          }
+        },
+        {
+          "explanation": "**Confusion point:** `resolveConfig` can do arbitrary transformations, not just defaults. Some strategies boost weights or modify values. This breaks the declarative model\u2014config becomes code-dependent."
+        }
+      ]
+    },
+    {
+      "id": "runtime-execution",
+      "order": 8,
+      "concept": "runtime",
+      "explanation": "At runtime, the executor calls `step.run(context, resolvedConfig)`. Steps call `op.runValidated()` which validates then invokes `strategy.run(input, config)`. By this point, config is already resolved.",
+      "blocks": [
+        {
+          "diagram": {
+            "content": "sequenceDiagram\n    participant E as Executor\n    participant S as Step\n    participant O as Op\n    participant V as Validation\n    participant St as Strategy\n    \n    E->>S: step.run(ctx, resolvedConfig)\n    S->>O: op.runValidated(input, config)\n    O->>V: validateOpCall(input, config)\n    V-->>O: { ok: true }\n    O->>St: strategy.run(input, config)\n    St-->>O: output\n    O-->>S: output",
+            "caption": "Runtime flow: validation then execution"
+          }
+        },
+        {
+          "codeBlock": {
+            "file": "packages/mapgen-core/src/authoring/op/validation-surface.ts",
+            "language": "typescript",
+            "startLine": 31,
+            "endLine": 43,
+            "code": "const runValidated = (input: unknown, config: unknown, options?: OpRunValidatedOptions) => {\n  const validated = validateOpCall(op, input, config, customValidate, { validateOutput: false });\n  if (!validated.ok) throw new OpValidationError(op.id, validated.errors);\n\n  const output = op.run(input as any, config as any);\n\n  if (options?.validateOutput) {\n    const out = validateOpOutput(op, input, output);\n    if (!out.ok) throw new OpValidationError(op.id, out.errors);\n  }\n\n  return output;\n};",
+            "highlight": [32, 33, 35]
+          }
+        }
+      ]
+    },
+    {
+      "id": "full-flow",
+      "order": 9,
+      "concept": "authoring",
+      "explanation": "The complete config journey from recipe entry to strategy execution. The line between compile-time and runtime is the ExecutionPlan.",
+      "blocks": [
+        {
+          "diagram": {
+            "content": "flowchart TD\n    subgraph COMPILE[\"Compile Time\"]\n        R[\"RecipeConfig\\n{ ecology: { pedology: {...} } }\"]\n        R --> I[\"recipe.instantiate()\"]\n        I --> SO[\"StepOccurrence[] with configs\"]\n        SO --> SRC[\"step.resolveConfig(config, settings)\"]\n        SRC --> ORC[\"op.resolveConfig(strategy, settings)\"]\n        ORC --> STRC[\"strategy.resolveConfig(config)\"]\n        STRC --> EP[\"ExecutionPlan\\n(configs frozen)\"]\n    end\n    \n    subgraph RUN[\"Runtime\"]\n        EP --> EX[\"executor.executePlan()\"]\n        EX --> SR[\"step.run(ctx, config)\"]\n        SR --> ORV[\"op.runValidated(input, config)\"]\n        ORV --> STR[\"strategy.run(input, config)\"]\n        STR --> OUT[\"Output: computed arrays\"]\n    end",
+            "caption": "Above the line: config transformation. Below: config consumption."
+          }
+        },
+        {
+          "explanation": "A fully declarative system would eliminate all transformation logic above the line. Schema defaults would be the only normalization, applied statically."
+        }
+      ]
+    },
+    {
+      "id": "confusion-summary",
+      "order": 10,
+      "concept": "confusion",
+      "explanation": "Three key areas where config resolution creates confusion or coupling:",
+      "blocks": [
+        {
+          "table": {
+            "rows": [
+              "Issue,Location,Impact",
+              "resolveConfig hooks,Strategy implementations,Arbitrary code transforms break declarative model",
+              "Manual delegation,Step implementations,Boilerplate; must match contract manually",
+              "Compile/runtime blur,recipe.compile(),Naming misleads; resolution hidden in compilation"
+            ],
+            "caption": "Config resolution complexity sources"
+          }
+        },
+        {
+          "explanation": "**Implications for refactoring:**\n\n1. Make all defaults schema-only (eliminate `resolveConfig` hooks)\n2. Auto-generate step\u2192op delegation from contract structure\n3. Rename/restructure to separate \"config resolution\" from \"execution planning\""
+        }
+      ]
+    },
+    {
+      "id": "declarative-future",
+      "order": 11,
+      "concept": "authoring",
+      "explanation": "A fully declarative config system would eliminate runtime-dependent resolution entirely. All config normalization would happen via schema defaults at compile time.",
+      "blocks": [
+        {
+          "layers": {
+            "layout": "stack",
+            "layers": [
+              {
+                "label": "Schema Defaults",
+                "value": "TypeBox defaults only",
+                "description": "All normalization via schema `default` properties; no code transforms"
+              },
+              {
+                "label": "Composition Rules",
+                "value": "Auto-derived schemas",
+                "description": "Steps declare which ops; step schema auto-composed from op configs"
+              },
+              {
+                "label": "Execution",
+                "value": "Pure runtime",
+                "description": "No config mutation; strategies receive final values directly"
+              }
+            ]
+          }
+        },
+        {
+          "explanation": "**Benefits:**\n- Config is always what you see (no hidden transforms)\n- Step boilerplate eliminated (auto-generated from contract)\n- Cleaner separation: compilation = planning, resolution = static\n- Easier debugging: config values traceable without running code"
+        }
+      ]
+    }
+  ]
+}
