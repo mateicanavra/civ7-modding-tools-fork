@@ -186,7 +186,7 @@ export function applySchemaDefaults<T extends TSchema>(schema: T, input: unknown
 
 **Rule:** In this target architecture, `applySchemaDefaults(...)` is a **compile-time tool**:
 it is called from the recipe/step compilation path (`compileConfig(...)`, `normalizeConfig(...)`, facade expansion), and it is **not** called from runtime `run(...)` bodies.
-If you prefer call-site clarity, we can re-export `applySchemaDefaults` under an alias like `normalizeBySchema` without introducing a second implementation.
+To prevent accidental runtime usage, treat it as a **compiler-internal** helper (not exported from public authoring entrypoints).
 
 ---
 
