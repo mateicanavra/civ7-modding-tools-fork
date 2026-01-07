@@ -20,6 +20,7 @@ Scope: `mods/mod-swooper-maps/**`
 
 - Ecology ops live under `src/domain/ecology/ops`; step schemas should import op configs/defaults directly (no re-authored wrappers).
 - The biomes step publishes `artifact:ecology.biomeClassification@v1` (biome symbols, vegetation density, moisture/temp). Downstream feature logic expects this artifact plus `field:biomeId`.
+- Pedology + resource basin planning now run before biomes: `artifact:ecology.soils@v1` feeds `artifact:ecology.resourceBasins@v1` and feature planning publishes `artifact:ecology.featureIntents@v1` before the apply step writes features to the engine.
 
 ## Canonical Docs
 

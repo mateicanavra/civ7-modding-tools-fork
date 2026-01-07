@@ -554,6 +554,23 @@ const config = {
     },
   },
   ecology: {
+    // New ecology steps with strategy selections for tropical island world
+    pedology: {
+      classify: { strategy: "coastal-shelf", config: {} },  // Island-focused coastal soils
+    },
+    resourceBasins: {
+      plan: { strategy: "hydro-fluvial", config: {} },      // Water-focused resources
+      score: { strategy: "default", config: {} },
+    },
+    biomeEdgeRefine: {
+      refine: { strategy: "gaussian", config: {} },         // Smooth tropical biome blending
+    },
+    featuresPlan: {
+      vegetation: { strategy: "clustered", config: {} },    // Tropical rainforest clusters
+      wetlands: { strategy: "delta-focused", config: {} },  // Mangrove deltas
+      reefs: { strategy: "shipping-lanes", config: {} },    // Island chain reef patterns
+      ice: { strategy: "default", config: {} },             // Minimal polar ice
+    },
     biomes: {
       classify: {
         strategy: "default",
@@ -815,52 +832,52 @@ const config = {
                 typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT",
               },
             },
-            coverageChance: 50,
+            coverageChance: 35,           // Reduced for tropical world
             freezeWeight: 0.9,
             elevationWeight: 0.8,
             moistureWeight: 0.7,
             scoreNormalization: 2.6,
-            scoreBias: 0,
-            lightThreshold: 0.4,
-            mediumThreshold: 0.65,
-            heavyThreshold: 0.82,
+            scoreBias: -0.1,              // Bias against snow
+            lightThreshold: 0.45,         // Higher threshold
+            mediumThreshold: 0.7,
+            heavyThreshold: 0.85,
             elevationStrategy: "percentile" as const,
-            elevationMin: 150,
-            elevationMax: 2400,
-            elevationPercentileMin: 0.7,
-            elevationPercentileMax: 0.95,
-            moistureMin: 60,
+            elevationMin: 300,            // Only high elevations
+            elevationMax: 2600,
+            elevationPercentileMin: 0.82, // Only very high peaks
+            elevationPercentileMax: 0.98,
+            moistureMin: 70,
             moistureMax: 180,
-            maxTemperature: 5,
-            maxAridity: 0.8,
+            maxTemperature: 3,            // Stricter temperature
+            maxAridity: 0.75,
           },
           sand: {
-            enabled: true,
+            enabled: false,               // Tropical islands don't have desert sand
             selector: {
               typeName: "PLOTEFFECT_SAND",
             },
-            chance: 8,
-            minAridity: 0.6,
-            minTemperature: 22,
-            maxFreeze: 0.25,
-            maxVegetation: 0.2,
-            maxMoisture: 95,
+            chance: 5,
+            minAridity: 0.7,
+            minTemperature: 24,
+            maxFreeze: 0.2,
+            maxVegetation: 0.1,
+            maxMoisture: 70,
             allowedBiomes: ["desert", "temperateDry"] as [
               "desert",
               "temperateDry",
             ],
           },
           burned: {
-            enabled: true,
+            enabled: false,               // Lush tropical - no scorched earth
             selector: {
               typeName: "PLOTEFFECT_BURNED",
             },
-            chance: 7,
-            minAridity: 0.55,
-            minTemperature: 24,
-            maxFreeze: 0.2,
-            maxVegetation: 0.25,
-            maxMoisture: 110,
+            chance: 4,
+            minAridity: 0.65,
+            minTemperature: 26,
+            maxFreeze: 0.15,
+            maxVegetation: 0.15,
+            maxMoisture: 90,
             allowedBiomes: ["temperateDry", "tropicalSeasonal"] as [
               "temperateDry",
               "tropicalSeasonal",

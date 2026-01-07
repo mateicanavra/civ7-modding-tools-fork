@@ -52,6 +52,7 @@ type FeaturesTestContextOptions = {
   defaultHumidity?: number;
   defaultAridity?: number;
   defaultFreeze?: number;
+  defaultFertility?: number;
 };
 
 export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
@@ -69,6 +70,7 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     defaultHumidity = 80,
     defaultAridity = 0.3,
     defaultFreeze = 0.1,
+    defaultFertility = 0.6,
   } = options;
 
   const adapter = createMockAdapter({ width, height, rng, canHaveFeature });
@@ -117,6 +119,8 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const surfaceTemperature = new Float32Array(size).fill(defaultTemperature);
   const aridityIndex = new Float32Array(size).fill(defaultAridity);
   const freezeIndex = new Float32Array(size).fill(defaultFreeze);
+  const soilType = new Uint8Array(size).fill(2);
+  const fertility = new Float32Array(size).fill(defaultFertility);
 
   publishHeightfieldArtifact(ctx);
   publishClimateFieldArtifact(ctx);
@@ -129,6 +133,12 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     surfaceTemperature,
     aridityIndex,
     freezeIndex,
+  });
+  ctx.artifacts.set(M3_DEPENDENCY_TAGS.artifact.pedologyV1, {
+    width,
+    height,
+    soilType,
+    fertility,
   });
   ctx.artifacts.set(
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,

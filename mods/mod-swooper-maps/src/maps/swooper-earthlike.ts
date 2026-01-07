@@ -322,7 +322,7 @@ const config = {
           },
         },
         swatches: {
-          enabled: true,
+          enabled: false,
           types: {
             // Desert band - balanced
             macroDesertBelt: {
@@ -453,7 +453,7 @@ const config = {
           },
         },
         swatches: {
-          enabled: true,
+          enabled: false,
           types: {
             // Desert band - balanced
             macroDesertBelt: {
@@ -521,6 +521,23 @@ const config = {
     },
   },
   ecology: {
+    // New ecology steps with strategy selections
+    pedology: {
+      classify: { strategy: "default", config: {} },
+    },
+    resourceBasins: {
+      plan: { strategy: "mixed", config: {} },  // Variety in resource distribution
+      score: { strategy: "default", config: {} },
+    },
+    biomeEdgeRefine: {
+      refine: { strategy: "gaussian", config: {} },  // Smoother Earth-like biome transitions
+    },
+    featuresPlan: {
+      vegetation: { strategy: "clustered", config: {} },  // Natural forest grouping
+      wetlands: { strategy: "delta-focused", config: {} },  // River-mouth wetlands
+      reefs: { strategy: "default", config: {} },
+      ice: { strategy: "default", config: {} },
+    },
     biomes: {
       classify: {
         strategy: "default",
@@ -806,12 +823,12 @@ const config = {
             selector: {
               typeName: "PLOTEFFECT_SAND",
             },
-            chance: 6,
-            minAridity: 0.65,
-            minTemperature: 20,
+            chance: 18,            // Increased for more visible deserts
+            minAridity: 0.55,      // Lowered to catch more desert tiles
+            minTemperature: 16,    // Lowered for cooler desert edges
             maxFreeze: 0.25,
-            maxVegetation: 0.15,
-            maxMoisture: 80,
+            maxVegetation: 0.18,
+            maxMoisture: 85,
             allowedBiomes: ["desert", "temperateDry"] as [
               "desert",
               "temperateDry",
