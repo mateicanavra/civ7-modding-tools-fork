@@ -334,11 +334,13 @@ function toInternal({ env, stageConfig }: { env: Env; stageConfig: any }): Stage
 Add a compiler module that produces a fully canonical internal execution shape:
 
 - `packages/mapgen-core/src/compiler/recipe-compile.ts` **NEW (planned)** (note: `packages/mapgen-core/src/compiler/` does not exist today)
-  - `compileRecipeConfig({ env, recipe, config }): CompiledRecipeConfig` **NEW (planned)**
+  - `compileRecipeConfig({ env, recipe, config }): CompiledRecipeConfigOf<...>` **NEW (planned)**
   - returns a total (per-step) canonical internal tree
 
 Baseline today (repo-verified):
 - recipe orchestration is in `packages/mapgen-core/src/authoring/recipe.ts` (`createRecipe(...)`)
+  - author input typing is partial via `RecipeConfigInputOf<...>` in `packages/mapgen-core/src/authoring/types.ts`
+  - total/compiled typing is represented by `CompiledRecipeConfigOf<...>` (currently an alias) in `packages/mapgen-core/src/authoring/types.ts`
 - engine plan compilation is `compileExecutionPlan(runRequest, registry)` in `packages/mapgen-core/src/engine/execution-plan.ts`
 
 #### Engine plan compilation (validates only)
