@@ -75,7 +75,8 @@ This section is the **curated “rules of the road”**. If a future change viol
 #### I7 — Inline schema strictness + ops-derived step schema (DX)
 
 - Inline schema field-map shorthands are supported only inside definition factories, and default to `additionalProperties: false`.
-- If a step contract declares `ops` and omits `schema`, the factory may derive a strict step schema from op envelope schemas (with a constrained “extras” story; see O3).
+- If a step contract declares `ops` and omits `schema`, the factory may derive a strict step schema from op envelope schemas.
+- This landing does **not** support adding “extra” top-level keys on top of an ops-derived schema; authors must provide an explicit schema if they need extra keys.
 
 ---
 
@@ -269,7 +270,8 @@ Step contracts:
 Contract-level op references (to avoid bundling implementations into contracts):
 
 ```ts
-// NEW (planned): there is no `OpRef`/`OpsMap` concept in the repo baseline today.
+// Baseline today (repo-verified):
+// - `OpRef` and `opRef(...)`: `packages/mapgen-core/src/authoring/op/ref.ts`
 type OpRef = Readonly<{ id: string; config: TSchema }>;
 type OpsMap = Readonly<Record<string, OpRef>>;
 ```
@@ -449,8 +451,12 @@ This is in-scope for this landing (explicit decision):
 Contract-level helper (no op impl bundling):
 
 ```ts
-// NEW (planned): no `opRef(...)` helper exists in the repo baseline today.
-function opRef(contract: OpContract<any, any, any, any, any>): OpRef { /* derives envelope schema from contract */ }
+// Baseline today (repo-verified):
+// - `buildOpEnvelopeSchema(...)`: `packages/mapgen-core/src/authoring/op/envelope.ts`
+// - `opRef(...)`: `packages/mapgen-core/src/authoring/op/ref.ts`
+function opRef(contract: OpContract<any, any, any, any, any>): OpRef {
+  /* uses shared op envelope derivation; does not rebuild schema independently */
+}
 ```
 
 Binding helper (op refs → implementations):
@@ -604,20 +610,12 @@ Enforcement (minimal, real):
 
 ---
 
-## 4) Open Questions / Ambiguities (existing, not new)
+## 4) Open Questions / Ambiguities (remaining)
 
-These are the remaining major “known unknowns” already surfaced in prior versions.
+O1/O2/O3 were previously tracked as “known unknowns”, but are now **locked in** and should not be treated as open:
 
-### O1 — Envelope schema derivation for `OpRef`
+- **O1 (closed)**: shared op envelope derivation is implemented and used by both `createOp(...)` and `opRef(...)` via `packages/mapgen-core/src/authoring/op/envelope.ts`.
+- **O2 (closed)**: recipe config typing is split into author input vs compiled output via `RecipeConfigInputOf<...>` and `CompiledRecipeConfigOf<...>` in `packages/mapgen-core/src/authoring/types.ts`.
+- **O3 (closed)**: no “ops-derived schema + extra fields” hybrid; extra fields require an explicit schema (derive-only is ops-only).
 
-We need one authoritative way to derive an envelope schema from an op contract so `opRef(contract)` does not create a second forever-maintained schema builder.
-
-### O2 — Exact author-input typing for internal-as-public stages
-
-Mechanically, internal-as-public should accept partial step maps; existing recipe config typing may be total in places because engine defaulting historically masked it. Decide and encode:
-- separate `RecipeConfigInputOf<T>` (partial) vs `CompiledRecipeConfigOf<T>` (total), or
-- accept boilerplate `{ stepId: {} }` and keep total types (worse DX).
-
-### O3 — Ops-derived schema “extras” ergonomics vs TS complexity
-
-We can support inline “extra step fields” merged with ops-derived fields, but perfect compile-time collision prevention can be deferred; ensure runtime collision throws happen at module initialization time, not mid-run.
+No additional open questions are tracked in this document yet.

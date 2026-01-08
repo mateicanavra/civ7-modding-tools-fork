@@ -61,6 +61,30 @@ export type RecipeConfigOf<TStages extends readonly Stage<any, readonly Step<any
     : never
 >;
 
+export type RecipeConfigInputOf<TStages extends readonly Stage<any, readonly Step<any, any>[]>[]> =
+  UnionToIntersection<
+    TStages[number] extends infer TStage
+      ? TStage extends Stage<any, readonly Step<any, any>[]>
+        ? Readonly<
+            Partial<
+              Record<
+                TStage["id"],
+                Readonly<
+                  Partial<{
+                    [K in TStage["steps"][number]["id"]]: StepConfigById<TStage, K>;
+                  }>
+                >
+              >
+            >
+          >
+        : never
+      : never
+  >;
+
+export type CompiledRecipeConfigOf<
+  TStages extends readonly Stage<any, readonly Step<any, any>[]>[],
+> = RecipeConfigOf<TStages>;
+
 export type RecipeDefinition<
   TContext = ExtendedMapContext,
   TStages extends readonly Stage<TContext, readonly Step<TContext, any>[]>[] = readonly Stage<

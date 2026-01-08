@@ -1,7 +1,7 @@
 export { createStep, createStepFor, defineStepContract } from "./step/index.js";
 export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
-export { createOp, createStrategy, defineOpContract } from "./op/index.js";
+export { createOp, createStrategy, defineOpContract, opRef } from "./op/index.js";
 export { applySchemaDefaults, defineOpSchema } from "./schema.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
 export { OpValidationError } from "./validation.js";
@@ -27,6 +27,8 @@ export {
 export type {
   RecipeConfig,
   RecipeConfigOf,
+  RecipeConfigInputOf,
+  CompiledRecipeConfigOf,
   RecipeDefinition,
   RecipeModule,
   Stage,
@@ -39,6 +41,7 @@ export type {
   DomainOpKind,
   OpContract,
   OpContractLike,
+  OpRef,
   OpStrategy,
   OpStrategyId,
   OpTypeBag,

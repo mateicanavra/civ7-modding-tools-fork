@@ -17,7 +17,7 @@ import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type {
   RecipeConfig,
-  RecipeConfigOf,
+  RecipeConfigInputOf,
   RecipeDefinition,
   RecipeModule,
   Stage,
@@ -143,7 +143,9 @@ function toStructuralRecipeV2<TContext>(
 export function createRecipe<
   TContext extends ExtendedMapContext,
   const TStages extends readonly AnyStage<TContext>[],
->(input: RecipeDefinition<TContext, TStages>): RecipeModule<TContext, RecipeConfigOf<TStages> | null> {
+>(
+  input: RecipeDefinition<TContext, TStages>
+): RecipeModule<TContext, RecipeConfigInputOf<TStages> | null> {
   assertTagDefinitions(input.tagDefinitions);
 
   const occurrences = finalizeOccurrences({
@@ -154,7 +156,7 @@ export function createRecipe<
   const registry = buildRegistry(occurrences, input.tagDefinitions);
   const recipe = toStructuralRecipeV2(input.id, occurrences);
 
-  function instantiate(config?: RecipeConfigOf<TStages> | null): RecipeV2 {
+  function instantiate(config?: RecipeConfigInputOf<TStages> | null): RecipeV2 {
     const cfg = (config ?? null) as RecipeConfig | null;
     return {
       ...recipe,
@@ -167,18 +169,18 @@ export function createRecipe<
     };
   }
 
-  function runRequest(settings: RunSettings, config?: RecipeConfigOf<TStages> | null): RunRequest {
+  function runRequest(settings: RunSettings, config?: RecipeConfigInputOf<TStages> | null): RunRequest {
     return { recipe: instantiate(config), settings };
   }
 
-  function compile(settings: RunSettings, config?: RecipeConfigOf<TStages> | null): ExecutionPlan {
+  function compile(settings: RunSettings, config?: RecipeConfigInputOf<TStages> | null): ExecutionPlan {
     return compileExecutionPlan(runRequest(settings, config), registry);
   }
 
   function run(
     context: TContext,
     settings: RunSettings,
-    config?: RecipeConfigOf<TStages> | null,
+    config?: RecipeConfigInputOf<TStages> | null,
     options: { trace?: TraceSession | null; traceSink?: TraceSink | null; log?: (message: string) => void } = {}
   ): void {
     const plan = compile(settings, config);
