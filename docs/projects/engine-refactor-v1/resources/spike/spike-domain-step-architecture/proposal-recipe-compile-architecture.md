@@ -215,42 +215,61 @@ Runtime handlers (`step.run`, `strategy.run`) must not default/clean/normalize; 
 
 ### 1.8 Canonical type surfaces (planned signatures + module layout)
 
-This is the target “code reality” the proposals converge toward. Names and paths are chosen to match existing repo conventions.
+This is the target “code reality” the proposals converge toward.
+
+Grounding note:
+- Any file path or symbol marked **NEW (planned)** does not exist in the repo baseline today.
+- Where relevant, baseline owners are called out explicitly (file + symbol names).
 
 #### `Env` (runtime envelope)
 
-Move `EnvSchema`/`Env` out of engine-only ownership:
+**NEW (planned)**: move the runtime envelope out of engine-only ownership by introducing `EnvSchema`/`Env`.
 
-- `packages/mapgen-core/src/runtime/env.ts`
+Planned location (does not exist today):
+- `packages/mapgen-core/src/runtime/env.ts` **NEW (planned)** (note: `packages/mapgen-core/src/runtime/` does not exist today)
   - `export const EnvSchema = Type.Object(...)`
   - `export type Env = Static<typeof EnvSchema>`
 
-Engine imports `EnvSchema`; authoring/domain may import `Env` without importing engine.
+Baseline today (repo-verified):
+- Runtime envelope schema/type live in `packages/mapgen-core/src/engine/execution-plan.ts`:
+  - `RunSettingsSchema`
+  - `RunSettings`
+- Runtime envelope is threaded as `settings: RunSettings`:
+  - engine plan compilation: `compileExecutionPlan(runRequest, registry)` in `packages/mapgen-core/src/engine/execution-plan.ts`
+  - context storage: `ExtendedMapContext.settings: RunSettings` in `packages/mapgen-core/src/core/types.ts`
+
+In the target architecture, engine imports `EnvSchema`; authoring/domain may import `Env` without importing engine.
 
 #### Domain ops (contract-first, op envelopes)
 
 Op contracts remain contract-first. Implementations expose:
 
 ```ts
-type DomainOpAny = {
-  id: string;
-  config: TSchema;        // envelope schema
-  defaultConfig: unknown; // default envelope
-  strategies: Record<string, { config: TSchema; normalize?: (cfg: any, ctx: any) => any }>;
-  normalize?: (cfg: unknown, ctx: unknown) => unknown; // optional value-only (envelope-level)
-  runValidated: (input: any, cfg: any) => any;
-};
+// Baseline today (repo-verified): `DomainOp` in `packages/mapgen-core/src/authoring/op/types.ts`
+//
+// Notes:
+// - Envelope schema is `DomainOp["config"]` (an `OpConfigSchema<Strategies>` which is a `TSchema`).
+// - `resolveConfig(cfg, settings)` is a compile-time normalization hook; this proposal later renames it
+//   to `normalize` (NEW (planned)).
+type DomainOpAny = DomainOp<TSchema, TSchema, Record<string, { config: TSchema }>>;
 ```
 
 #### Step contracts + step modules (ops injected, implementations bound by id)
 
 Step contracts:
-- **`schema` is required conceptually**, but can be derived (DX shortcut) when ops are declared.
-- `ops` is optional; when present it declares which op envelopes exist as top-level properties.
+- Baseline today (repo-verified):
+  - `StepContract` / `defineStepContract(...)`: `packages/mapgen-core/src/authoring/step/contract.ts`
+  - `createStep(...)` enforces an explicit `contract.schema`: `packages/mapgen-core/src/authoring/step/create.ts`
+  - step module hook today is `resolveConfig(config, settings: RunSettings)` (not `normalize`): `packages/mapgen-core/src/authoring/types.ts`
+- **NEW (planned)**:
+  - allow an ops-derived `schema` when ops are declared (DX shortcut; see 1.11)
+  - add `ops` (e.g. `step.contract.ops`) to declare which op envelopes exist as top-level properties
+  - rename step hook from `resolveConfig` → `normalize` (value-only; compile-time only)
 
 Contract-level op references (to avoid bundling implementations into contracts):
 
 ```ts
+// NEW (planned): there is no `OpRef`/`OpsMap` concept in the repo baseline today.
 type OpRef = Readonly<{ id: string; config: TSchema }>;
 type OpsMap = Readonly<Record<string, OpRef>>;
 ```
@@ -272,6 +291,10 @@ For knobs:
 - Internally, the stage exposes a computed strict `surfaceSchema` (single author-facing schema) and a deterministic `toInternal(...)`:
 
 ```ts
+// NEW (planned): stage “public view” + knobs are not present in the repo baseline stage API today.
+// Baseline today:
+// - `Stage`/`StageModule` is `{ id, steps }`: `packages/mapgen-core/src/authoring/types.ts`
+// - `createStage(...)` validates each `step.schema` exists: `packages/mapgen-core/src/authoring/stage.ts`
 type StageToInternalResult = {
   knobs: unknown;
   rawSteps: Partial<Record<string, unknown>>; // stepId-keyed partial step configs
@@ -281,7 +304,7 @@ type StageRuntime = {
   id: string;
   // strict schema: knobs + (public fields OR step ids)
   // (TypeBox object schema with `additionalProperties: false`)
-  surfaceSchema: TObject;
+  surfaceSchema: TSchema;
   toInternal: (args: { env: Env; stageConfig: unknown /* already normalized by surfaceSchema */ }) => StageToInternalResult;
 };
 ```
@@ -308,9 +331,13 @@ function toInternal({ env, stageConfig }: { env: Env; stageConfig: any }): Stage
 
 Add a compiler module that produces a fully canonical internal execution shape:
 
-- `packages/mapgen-core/src/compiler/recipe-compile.ts`
-  - `compileRecipeConfig({ env, recipe, config }): CompiledRecipeConfig`
+- `packages/mapgen-core/src/compiler/recipe-compile.ts` **NEW (planned)** (note: `packages/mapgen-core/src/compiler/` does not exist today)
+  - `compileRecipeConfig({ env, recipe, config }): CompiledRecipeConfig` **NEW (planned)**
   - returns a total (per-step) canonical internal tree
+
+Baseline today (repo-verified):
+- recipe orchestration is in `packages/mapgen-core/src/authoring/recipe.ts` (`createRecipe(...)`)
+- engine plan compilation is `compileExecutionPlan(runRequest, registry)` in `packages/mapgen-core/src/engine/execution-plan.ts`
 
 #### Engine plan compilation (validates only)
 
@@ -374,12 +401,23 @@ Non-negotiable invariants:
 Strict schema normalization helper (compiler-only) mirrors existing engine behavior (default + clean + unknown-key errors), but runs in compilation, not engine planning:
 
 ```ts
+// NEW (planned): compiler-only helper.
+//
+// Baseline today: `normalizeStepConfig(...)` in `packages/mapgen-core/src/engine/execution-plan.ts`
+// (uses `findUnknownKeyErrors(...)` + `Value.Default(...)` + `Value.Clean(...)` + `Value.Errors(...)`).
+//
+// NEW (planned): `CompileErrorItem` is a compiler-owned error surface (no baseline type exists today;
+// baseline uses `ExecutionPlanCompileErrorItem` in `packages/mapgen-core/src/engine/execution-plan.ts`).
 function normalizeStrict<T>(schema: TSchema, rawValue: unknown, path: string): { value: T; errors: CompileErrorItem[] } { /* ... */ }
 ```
 
 Prefill op defaults (compiler-only; not schema defaulting):
 
 ```ts
+// NEW (planned): `StepModuleAny` is a future step-module surface for the compiler pipeline.
+// Baseline today:
+// - authoring step module type: `StepModule` in `packages/mapgen-core/src/authoring/types.ts`
+// - engine step type: `MapGenStep` in `packages/mapgen-core/src/engine/types.ts`
 function prefillOpDefaults(step: StepModuleAny, rawStepConfig: unknown, path: string): { value: Record<string, unknown>; errors: CompileErrorItem[] } { /* ... */ }
 ```
 
@@ -404,19 +442,21 @@ Why “top-level only” is a hard model constraint:
 
 This is in-scope for this landing (explicit decision):
 
-- If `defineStepContract` is called with `ops` and **no explicit schema**, auto-generate a strict step schema where:
+- **NEW (planned)**: if `defineStepContract` is called with `ops` and **no explicit schema**, auto-generate a strict step schema where:
   - each op key becomes a required property whose schema is the op envelope schema
   - `additionalProperties: false` is defaulted inside the factory
 
 Contract-level helper (no op impl bundling):
 
 ```ts
-function opRef(contract: OpContractAny): OpRef { /* derives envelope schema from contract */ }
+// NEW (planned): no `opRef(...)` helper exists in the repo baseline today.
+function opRef(contract: OpContract<any, any, any, any, any>): OpRef { /* derives envelope schema from contract */ }
 ```
 
 Binding helper (op refs → implementations):
 
 ```ts
+// NEW (planned): no `bindOps(...)` helper exists in the repo baseline today.
 function bindOps(ops: OpsMap, domain: { byId: Record<string, DomainOpAny> }): Record<string, DomainOpAny> { /* ... */ }
 ```
 
@@ -428,7 +468,7 @@ Inline schema strictness (factory-only):
 
 ### 1.12 File-level reconciliation (what changes where; grounded in repo)
 
-Every file named below exists today; this is a grounding map, not a final implementation plan.
+Every item below is either repo-verified (exists today) or explicitly marked **NEW (planned)**.
 
 Core engine:
 - `packages/mapgen-core/src/engine/execution-plan.ts`
@@ -436,6 +476,7 @@ Core engine:
   - remove step-config default/clean mutation during plan compilation
   - remove all calls to `step.resolveConfig(...)`
   - validate-only behavior
+  - grounding (baseline today): `compileExecutionPlan(...)` performs defaulting/cleaning via `Value.Default(...)` + `Value.Clean(...)` and calls `step.resolveConfig(...)` from `buildNodeConfig(...)`
 - `packages/mapgen-core/src/engine/types.ts`
   - move/rename `RunSettings` → `Env`
   - remove `resolveConfig` from the engine-facing step interface (if present)
@@ -444,8 +485,8 @@ Core engine:
   - rename `ExtendedMapContext.settings` → `ExtendedMapContext.env`
 
 Compiler (new):
-- `packages/mapgen-core/src/compiler/normalize.ts` (compiler-only normalization helpers; wraps TypeBox Value.*)
-- `packages/mapgen-core/src/compiler/recipe-compile.ts` (owns stage compile + step/op canonicalization pipeline)
+- `packages/mapgen-core/src/compiler/normalize.ts` **NEW (planned)** (compiler-only normalization helpers; wraps TypeBox `Value.*` from `typebox/value`)
+- `packages/mapgen-core/src/compiler/recipe-compile.ts` **NEW (planned)** (owns stage compile + step/op canonicalization pipeline)
 
 Authoring:
 - `packages/mapgen-core/src/authoring/types.ts`
@@ -474,13 +515,12 @@ Recipe config input is a stage-id keyed map. Each stage config is a single objec
 const config = {
   foundation: {
     knobs: { /* optional */ },
-    plates: { /* internal step config */ },
-    heightmap: { /* internal step config */ },
+    foundation: { /* internal step config */ },
   },
   ecology: {
     knobs: { /* optional */ },
-    vegetation: { density: 0.4, shrubsEnabled: true }, // public fields (ecology has stage public)
-    biomeEdges: { strength: 0.55, passes: 3 },
+    biomes: { /* public fields (ecology has stage public; see `mods/mod-swooper-maps/src/domain/ecology/config.ts` `EcologyConfigSchema`) */ },
+    featuresPlacement: { /* public fields */ },
   }
 };
 ```
@@ -496,7 +536,7 @@ Assume a step has:
 
 ```ts
 contract.ops = { trees: opRef(...), shrubs: opRef(...) };
-boundOps = { trees: ecology.ops.planTreeVegetation, shrubs: ecology.ops.planShrubVegetation };
+boundOps = { trees: ecology.ops.planVegetation, shrubs: ecology.ops.planWetlands };
 ```
 
 Raw step config input:
@@ -539,7 +579,7 @@ Policy:
 Enforcement (minimal, real):
 - Keep defaulting utilities in compiler-only modules, e.g. `packages/mapgen-core/src/compiler/normalize.ts`.
 - Do not re-export compiler helpers from runtime-facing entrypoints.
-- Lint rule: forbid importing `@sinclair/typebox/value` (or any schema default/clean helper) in:
+- Lint rule: forbid importing `typebox/value` (or any schema default/clean helper) in:
   - `mods/**/domain/**`
   - `mods/**/recipes/**/steps/**`
   - `packages/**/src/engine/**`
