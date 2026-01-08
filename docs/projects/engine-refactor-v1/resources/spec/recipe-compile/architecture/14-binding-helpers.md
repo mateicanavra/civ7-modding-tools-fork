@@ -28,7 +28,9 @@ export type OpsById<Op> = Readonly<Record<OpId, Op>>;
 
 Domain packages should export a deterministic registry (built, not hand-maintained), e.g.:
 
-- `ecologyOpsById` for runtime ops (compile ops are fine as input; runtime binder strips)
+- `opsById` from the domain public surface (e.g. `import * as ecology from "@mapgen/domain/ecology"; ecology.opsById`)
+
+DX rule (pinned): step modules / recipes / tests must not deep-import domain internals (e.g. no `@mapgen/domain/ecology/ops-by-id` import). The domain entrypoint is the only allowed cross-module import path.
 
 #### Canonical APIs
 
@@ -84,4 +86,3 @@ const ops = bindRuntimeOps(contract.ops, fakeOpsById);
 No bespoke `createPlotVegetationStep` factory is introduced as an architectural primitive.
 
 ---
-

@@ -38,5 +38,19 @@ TypeScript (copy-paste ready):
 - Any helper that attempts to discover ops by scanning config objects (nested paths/arrays) is a violation.
 - Op envelopes are discovered only via `step.contract.ops` keys.
 
----
+### 3.5 Domain public surface imports only
 
+Policy:
+- Cross-module consumers (steps, recipes, tests) import domain contracts/ops only via the domain public surface:
+  - `@mapgen/domain/<domain>`
+  - and optionally `@mapgen/domain/config` for schema/type-only fragments
+- No deep imports into `@mapgen/domain/**/ops/**` (or `strategies/**`, `rules/**`) from outside the domain module itself.
+
+Enforcement (lint, plus review discipline):
+- Lint rule: forbid imports matching `@mapgen/domain/**/ops/**` under:
+  - `mods/**/recipes/**`
+  - `mods/**/maps/**`
+  - `mods/**/test/**`
+- Allow deep imports only under `mods/**/domain/**` (op internals may use relative imports).
+
+---

@@ -2,7 +2,11 @@
 
 ```
 Domain (ops + strategies + contracts)
-  └── exports `contracts` (contract-only) and `ops` (implementations), plus a deterministic id index (built, not hand-maintained)
+  └── exports a domain public surface (`src/domain/<domain>/index.ts`):
+      - `contracts` (contract-only; safe for step contracts)
+      - `ops` (implementations; developer convenience)
+      - `opsById` (canonical binding registry; deterministic; built, not hand-maintained)
+  └── cross-module consumers import only from `@mapgen/domain/<domain>` (no deep imports into `ops/**` or `strategies/**`)
 
 Step (internal node; orchestration)
   └── defines internal schema (required)
@@ -27,6 +31,7 @@ Engine (execution plan + executor)
 
 Hard boundary:
 - Domain code must not import engine plan compilation internals. `env` must live in a shared runtime module, not in engine-only types.
+- Domain code must not import from `recipes/**` or `maps/**`.
+- Recipe wiring may import domain modules, but must not import from `maps/**`.
 
 ---
-

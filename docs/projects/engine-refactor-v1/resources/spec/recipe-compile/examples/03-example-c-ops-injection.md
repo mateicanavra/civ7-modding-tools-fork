@@ -8,13 +8,13 @@ Canonical pattern:
 One plausible (NEW (planned)) step module shape:
 
 ```ts
-import { createStep } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@mapgen/authoring/steps";
 import { bindRuntimeOps } from "@swooper/mapgen-core/authoring/bindings";
 
-import { ecologyOpsById } from "@mapgen/domain/ecology/ops-by-id";
+import * as ecology from "@mapgen/domain/ecology";
 
 // Module-scope closure binding (canonical): ops are not passed through engine signatures.
-const ops = bindRuntimeOps(PlotVegetationContract.ops, ecologyOpsById);
+const ops = bindRuntimeOps(PlotVegetationContract.ops, ecology.opsById);
 
 export default createStep(PlotVegetationContract, {
   // Compile-time only normalization hook; sees `{ env, knobs }`.
@@ -56,4 +56,3 @@ This example shows the *intended* reason ops are injected:
 - contracts remain light and do not bundle implementations
 
 ---
-

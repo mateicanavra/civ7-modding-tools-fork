@@ -21,10 +21,11 @@ A step module should export:
 
 A step module should import:
 
-- `defineStepContract` and `createStep` from authoring (core)
+- `defineStepContract` from core authoring
+- `createStep` from the mod’s stable authoring alias (`@mapgen/authoring/steps`) so the mod’s `ExtendedMapContext` typing is centralized
 - `bindRuntimeOps` (and sometimes `bindCompileOps` in compiler-only code; not used by runtime `run`)
-- Domain **contracts** for op declarations (IDs + schemas)
-- Domain **ops registry** for runtime binding (by id)
+- Domain **contracts** for op declarations (IDs + schemas), imported only via the domain public surface (`@mapgen/domain/<domain>`)
+- Domain **opsById** registry for runtime binding (by id), imported only via the domain public surface (`@mapgen/domain/<domain>`)
 - No compiler helpers and no TypeBox `Value.*` inside runtime `run`
 
 #### Canonical step module shape
@@ -34,15 +35,12 @@ A step module should import:
 
 import { Type } from "typebox";
 
-import { defineStepContract, createStep } from "@swooper/mapgen-core/authoring";
+import { defineStepContract } from "@swooper/mapgen-core/authoring";
 import { bindRuntimeOps } from "@swooper/mapgen-core/authoring/bindings";
+import { createStep } from "@mapgen/authoring/steps";
 
-// Domain contracts (pure) — used only for ops declaration + schema derivation
-import { PlanTreeVegetationContract } from "@mapgen/domain/ecology/ops/plan-tree-vegetation/contract";
-import { PlanShrubVegetationContract } from "@mapgen/domain/ecology/ops/plan-shrub-vegetation/contract";
-
-// Domain runtime ops registry (impl) — used only for runtime binding
-import { ecologyOpsById } from "@mapgen/domain/ecology/ops-by-id";
+// Domain public surface (canonical): step modules never deep-import op files.
+import * as ecology from "@mapgen/domain/ecology";
 
 export const contract = defineStepContract({
   id: "plot-vegetation",
@@ -52,8 +50,8 @@ export const contract = defineStepContract({
 
   // Ops declared as contracts (single source of truth)
   ops: {
-    trees: PlanTreeVegetationContract,
-    shrubs: PlanShrubVegetationContract,
+    trees: ecology.contracts.planTreeVegetation,
+    shrubs: ecology.contracts.planShrubVegetation,
   },
 
   // O3: if you need non-op fields, you MUST provide an explicit schema.
@@ -71,8 +69,9 @@ export const contract = defineStepContract({
   ),
 } as const);
 
-// Runtime ops are structurally stripped (no normalize/defaultConfig/strategies)
-const ops = bindRuntimeOps(contract.ops, ecologyOpsById);
+// Runtime ops are structurally stripped (no normalize/defaultConfig/strategies).
+// Note: binding is by op id via the domain registry; decl keys are preserved for IDE completion.
+const ops = bindRuntimeOps(contract.ops, ecology.opsById);
 
 export const step = createStep(contract, {
   // Compile-time step normalize hook (optional).
@@ -105,4 +104,3 @@ Key invariants enforced by this pattern:
 - `normalize` exists but is not callable at runtime because `createStep` does not expose it to the engine runtime surface, and `bindRuntimeOps` strips normalize hooks structurally.
 
 ---
-
