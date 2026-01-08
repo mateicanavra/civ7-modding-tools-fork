@@ -17,30 +17,16 @@ This document is a **canonical consolidation pass** for the “composition-first
 ## 1) Canonical Architecture
 
 
-Split into focused files:
+Spec package structure:
 
-- `01-goals.md`
-- `02-invariants.md`
-- `03-four-channels.md`
-- `04-layering.md`
-- `05-config-model.md`
-- `06-knobs-model.md`
-- `07-hook-semantics.md`
-- `08-type-surfaces.md`
-- `09-compilation-pipeline.md`
-- `10-op-envelopes.md`
-- `11-ops-derived-schema.md`
-- `12-file-reconciliation.md`
-- `13-step-module-pattern.md`
-- `14-binding-helpers.md`
-- `15-author-input-vs-compiled.md`
-- `16-call-chain.md`
-- `17-op-shapes.md`
-- `18-normalization-rule.md`
-- `dx-rules.md`
-- `lint-boundaries.md`
-- `open-questions.md`
-- `appendix/README.md`
+- `00-fundamentals.md` (this file) — Goals, invariants, mental model, layering, and the locked O1/O2/O3 statements
+- `01-config-model.md` — Configuration model, knobs, and hook semantics
+- `02-compilation.md` — Compilation pipeline, op envelopes, ops-derived schema, and normalization rules
+- `03-authoring-patterns.md` — Step module pattern, bindings, and type flow
+- `04-type-surfaces.md` — Canonical TypeScript definitions (includes Appendix A surfaces)
+- `05-file-reconciliation.md` — What changes where in the repo
+- `06-enforcement.md` — DX rules and lint boundaries
+- `../examples/EXAMPLES.md` — End-to-end illustrative examples
 ### 1.1 Goals (what this architecture is for)
 
 - **Composition-first**: recipe/stage composition produces a fully canonical internal execution shape.
@@ -171,4 +157,3 @@ O1/O2/O3 were previously tracked as “known unknowns”, but are now **locked i
 No additional open questions are tracked in this document yet.
 
 ---
-

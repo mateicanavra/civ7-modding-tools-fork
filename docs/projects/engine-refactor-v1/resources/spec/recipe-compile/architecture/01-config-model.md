@@ -28,6 +28,79 @@ There is no recipe-wide mode flag and no runtime branching/mode detection.
 
 ---
 
+Inline example: stage contract with an explicit `public` view (single author-facing surface).
+
+```ts
+import { Type } from "typebox";
+
+import { createStage } from "@swooper/mapgen-core/authoring/stage";
+
+import { plotVegetationStep } from "./steps/plot-vegetation/index.js";
+import { plotWetlandsStep } from "./steps/plot-wetlands/index.js";
+
+export const ecologyStage = createStage({
+  id: "ecology",
+
+  steps: [plotVegetationStep, plotWetlandsStep] as const,
+
+  knobsSchema: Type.Object(
+    {
+      vegetationDensityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+
+  // Public schema is the non-knob portion when a public view is present.
+  public: Type.Object(
+    {
+      vegetation: Type.Object(
+        {
+          densityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
+        },
+        { additionalProperties: false, default: {} }
+      ),
+      wetlands: Type.Object({}, { additionalProperties: false, default: {} }),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+
+  // Single author-facing schema: `knobs` + (public fields OR step ids).
+  surfaceSchema: Type.Object(
+    {
+      knobs: Type.Optional(
+        Type.Object(
+          {
+            vegetationDensityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
+          },
+          { additionalProperties: false, default: {} }
+        )
+      ),
+      vegetation: Type.Object(
+        {
+          densityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
+        },
+        { additionalProperties: false, default: {} }
+      ),
+      wetlands: Type.Object({}, { additionalProperties: false, default: {} }),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+
+  // Deterministic public → internal mapping. No runtime “shape detection”.
+  toInternal: ({ env, stageConfig }) => {
+    const { knobs = {}, ...configPart } = stageConfig;
+    return {
+      knobs,
+      rawSteps: {
+        // Important: stage compile outputs `StepConfigInputOf` values (partial; op envelopes may be omitted).
+        plotVegetation: { densityBias: configPart.vegetation.densityBias },
+        plotWetlands: {},
+      },
+    };
+  },
+} as const);
+```
+
 ### 1.6 Knobs model (single author surface, ctx-threaded to step normalization)
 
 This section is a detailed mechanics expansion of invariants I4/I5 (knobs + stage surface).
@@ -92,5 +165,26 @@ Terminology is intentionally strict:
 
 Runtime handlers (`step.run`, `strategy.run`) must not default/clean/normalize; they execute with already-canonical configs.
 
----
+Clarifications: “shape-preserving” normalization
 
+- `normalize` may change values (including nested objects and array contents) and may fill optional fields, so long as the result still validates against the same schema (no unknown keys, correct types, etc.).
+- `normalize` must not change the *structural model* of the config (e.g. it must not move op envelopes to different keys, introduce new top-level keys not present in the schema, or convert an object into a different shape).
+- Schema defaults/cleaning are owned by strict normalization (`Value.Default` + `Value.Clean`); `normalize` is for value-only canonicalization and derived adjustments.
+
+Inline example (shape-preserving vs non-shape-preserving):
+
+```ts
+// shape-preserving: edits values, preserves top-level op envelope topology, still validates
+normalize: (cfg, ctx) => ({
+  ...cfg,
+  densityBias: Math.max(-1, Math.min(1, cfg.densityBias)),
+});
+
+// not shape-preserving (rejected): adds a new key not present in the schema
+normalize: (cfg) => ({
+  ...cfg,
+  debug: true,
+});
+```
+
+---

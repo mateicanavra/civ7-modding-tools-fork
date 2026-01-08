@@ -2,12 +2,6 @@
 
 These examples are meant to show the *full chain* and reinforce the invariants above. They are consolidated from existing proposal examples and updated minimally for consistency with the locked knobs model.
 
-
-Split into focused files:
-
-- `01-example-a-ecology-stage.md`
-- `02-example-b-plot-vegetation-step.md`
-- `03-example-c-ops-injection.md`
 ### Example A — Ecology stage: single author-facing surface (`knobs` + config), optional stage `public`
 
 This example uses ecology to illustrate the canonical “single surface” model:
@@ -41,6 +35,65 @@ const config = {
     placement: { /* internal step config */ },
   },
 };
+```
+
+Stage contract sketch (public view + `toInternal` mapping):
+
+```ts
+import { Type } from "typebox";
+import { createStage } from "@swooper/mapgen-core/authoring/stage";
+
+import { plotVegetationStep } from "./steps/plot-vegetation/index.js";
+import { plotWetlandsStep } from "./steps/plot-wetlands/index.js";
+
+export const ecologyStage = createStage({
+  id: "ecology",
+  steps: [plotVegetationStep, plotWetlandsStep] as const,
+
+  knobsSchema: Type.Object(
+    {
+      vegetationDensityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+
+  public: Type.Object(
+    {
+      vegetation: Type.Object({}, { additionalProperties: false, default: {} }),
+      wetlands: Type.Object({}, { additionalProperties: false, default: {} }),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+
+  surfaceSchema: Type.Object(
+    {
+      knobs: Type.Optional(
+        Type.Object(
+          {
+            vegetationDensityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
+          },
+          { additionalProperties: false, default: {} }
+        )
+      ),
+      vegetation: Type.Object({}, { additionalProperties: false, default: {} }),
+      wetlands: Type.Object({}, { additionalProperties: false, default: {} }),
+    },
+    { additionalProperties: false, default: {} }
+  ),
+
+  toInternal: ({ env, stageConfig }) => {
+    const { knobs = {}, ...configPart } = stageConfig;
+    return {
+      knobs,
+      rawSteps: {
+        // Compile maps public fields → internal step-id keyed map.
+        // (Each step config is still `unknown`/partial here; strict step canonicalization happens in Phase B.)
+        plotVegetation: configPart.vegetation,
+        plotWetlands: configPart.wetlands,
+      },
+    };
+  },
+} as const);
 ```
 
 Phase A output for `ecology` (conceptual, after `surfaceSchema` validation and `toInternal(...)`):

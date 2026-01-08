@@ -33,6 +33,48 @@ A step module should import:
 - Domain **opsById** registry for runtime binding (by id), imported only via the domain public surface (`@mapgen/domain/<domain>`)
 - No compiler helpers and no TypeBox `Value.*` inside runtime `run`
 
+#### Domain entrypoint shape (canonical; pinned)
+
+The spec assumes each domain exports a public surface (single import path, no deep imports) with:
+
+- `contracts` — op contracts only (stable, used by step contracts)
+- `ops` — compile-surface ops (developer convenience; optional)
+- `opsById` — deterministic registry keyed by `op.id` returning **compile-surface ops** (required by bindings + compiler)
+
+Inline example:
+
+```ts
+// mods/mod-swooper-maps/src/domain/ecology/index.ts
+
+import type { DomainOpCompileAny } from "@swooper/mapgen-core/authoring/bindings";
+
+import { planTreeVegetationContract } from "./ops/plan-tree-vegetation/contract.js";
+import { planShrubVegetationContract } from "./ops/plan-shrub-vegetation/contract.js";
+
+import { planTreeVegetation } from "./ops/plan-tree-vegetation/index.js";
+import { planShrubVegetation } from "./ops/plan-shrub-vegetation/index.js";
+
+export const contracts = {
+  planTreeVegetation: planTreeVegetationContract,
+  planShrubVegetation: planShrubVegetationContract,
+} as const;
+
+export const ops = {
+  planTreeVegetation,
+  planShrubVegetation,
+} as const;
+
+export const opsById = buildOpsById(ops);
+
+function buildOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
+  input: TOps
+): Readonly<Record<string, DomainOpCompileAny>> {
+  const out: Record<string, DomainOpCompileAny> = {};
+  for (const op of Object.values(input)) out[op.id] = op;
+  return out;
+}
+```
+
 #### Canonical step module shape
 
 ```ts
@@ -336,4 +378,3 @@ export type DomainOpRuntime = Pick<DomainOpCompile, "id" | "kind" | "validate" |
 Structural stripping is via `runtimeOp(op)` (see §1.14).
 
 ---
-
