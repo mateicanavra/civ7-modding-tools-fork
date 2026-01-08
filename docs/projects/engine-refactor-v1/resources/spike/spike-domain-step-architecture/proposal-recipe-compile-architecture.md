@@ -553,6 +553,22 @@ Mod wiring (example):
   - rename `settings` → `env`
   - ensure recipe compilation happens before engine plan compilation
 
+### 1.13 Canonical Step Module Pattern (stub)
+
+TODO: Specify the single canonical step-module authoring pattern (contract + ops binding + `createStep` usage) with repo-accurate signatures and a concrete ecology example.
+
+### 1.14 Binding helpers (stub)
+
+TODO: Specify the single canonical binding API (`bindCompileOps` / `bindRuntimeOps`), including the structural runtime-surface stripping rule and how ids/keys are preserved for IDE completion.
+
+### 1.15 Author input vs compiled typing (stub)
+
+TODO: Specify the canonical type splits (`RecipeConfigInputOf` vs `CompiledRecipeConfigOf`, and step-level `StepConfigInputOf`) and how op-envelope prefill interacts with strict schema validation.
+
+### 1.16 Call chain (stub)
+
+TODO: Pin one authoritative “who calls what” call chain from runtime entry → recipe compile → engine plan compile → executor (no fallback/defaulting paths).
+
 ---
 
 ## 2) Illustrative Examples
