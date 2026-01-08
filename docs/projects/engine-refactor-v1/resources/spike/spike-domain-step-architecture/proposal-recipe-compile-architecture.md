@@ -27,7 +27,59 @@ Non-goals for this landing:
 
 ---
 
-### 1.2 Four channels (mental model)
+### 1.2 Invariants (must not be violated)
+
+This section is the **curated “rules of the road”**. If a future change violates one of these, it must be treated as a design change (not a refactor) and re-justified explicitly.
+
+#### I1 — Single-mode configuration (no recipe-wide modes)
+
+- There is exactly **one** configuration model:
+  - per-stage optional `public` view + `compile` hook, otherwise internal-as-public
+  - no recipe-wide variant flags, and no runtime mode detection/branching
+- Recipe-owned global facade (“Variant C”) is explicitly **deferred**.
+
+#### I2 — No runtime config resolution/defaulting
+
+- Runtime handlers (`step.run`, `strategy.run`) must not default/clean/normalize configs.
+- Engine plan compilation validates; it must not mutate config objects and must not call any step/op “resolver”.
+- All schema defaulting/cleaning lives in compiler-only modules, owned by the recipe compiler pipeline.
+
+#### I3 — `compile` vs `normalize` semantics are strict
+
+- `compile` is **shape-changing** and exists only to map **stage public → internal step-id keyed map**.
+- `normalize` is **shape-preserving** (value-only canonicalization) and must return a value validating against the same schema shape.
+- The compiler always runs the full canonicalization pipeline; “public === internal” never means “skip compilation”.
+
+#### I4 — Stage surface + knobs (single author-facing surface, compiler-threaded)
+
+- Knobs are always a field on the stage config object: `stageConfig.knobs`.
+- The compiler extracts knobs **once** and threads them into step/op normalization via ctx: `{ env, knobs }`.
+- Step configs do not embed a `knobs` field.
+- Reserved key rule: `"knobs"` cannot be a step id and cannot be a stage public field name.
+
+#### I5 — Stage public vs stage surface schema
+
+- If a stage defines a `public` view, it defines the schema for the **non-knob** portion of the stage surface.
+- The stage’s single author-facing schema is a computed **stage surface schema** that includes:
+  - `knobs` (validated by the stage’s knobs schema, defaulting to `{}`), and
+  - either stage public fields (when `public` is present) or step-id keys (for internal-as-public stages).
+- Internal-as-public stage surface validation must not validate step configs (step fields are `unknown`); strict step validation happens later during step canonicalization (after op-prefill).
+- Stage exposes a deterministic `toInternal(...)` plumbing hook: no “shape detection”.
+
+#### I6 — Op envelope discovery is contract-driven and top-level only
+
+- Op envelopes are discovered **only** via `step.contract.ops`.
+- Op envelopes are top-level properties in step configs: `stepConfig[opKey]`.
+- No nested traversal, arrays, or scanning config shapes to infer ops.
+
+#### I7 — Inline schema strictness + ops-derived step schema (DX)
+
+- Inline schema field-map shorthands are supported only inside definition factories, and default to `additionalProperties: false`.
+- If a step contract declares `ops` and omits `schema`, the factory may derive a strict step schema from op envelope schemas (with a constrained “extras” story; see O3).
+
+---
+
+### 1.3 Four channels (mental model)
 
 This architecture becomes tractable once these are treated as distinct channels:
 
@@ -38,7 +90,7 @@ This architecture becomes tractable once these are treated as distinct channels:
 
 ---
 
-### 1.3 Layering and dependency boundaries
+### 1.4 Layering and dependency boundaries
 
 ```
 Domain (ops + strategies + contracts)
@@ -70,7 +122,7 @@ Hard boundary:
 
 ---
 
-### 1.4 Canonical configuration model (single mode, per-stage optional `public`)
+### 1.5 Canonical configuration model (single mode, per-stage optional `public`)
 
 There is exactly **one** configuration model:
 
@@ -79,6 +131,11 @@ There is exactly **one** configuration model:
 - A stage may optionally define a **public** schema + `compile` function:
   - If present: stage config input is **public**, and `compile` maps public → internal step-id keyed configs.
   - If absent: stage config input is assumed to already be **internal** (*public = internal* for that stage).
+
+Stage config surface shape (always):
+- Stage config is a single object.
+- `knobs` is always a field on that object (`stageConfig.knobs`).
+- Stage `public` schema (when present) is the schema for the **non-knob** portion; the full author-facing schema is the computed stage surface schema (`knobs` + fields).
 
 Explicitly deferred (not implemented now):
 - **Recipe-owned global facade** (the old “Variant C”).
@@ -90,9 +147,9 @@ There is no recipe-wide mode flag and no runtime branching/mode detection.
 
 ---
 
-### 1.5 Knobs model (single author surface, ctx-threaded to step normalization)
+### 1.6 Knobs model (single author surface, ctx-threaded to step normalization)
 
-This is a **hard invariant** (lock-in) for the compiled configuration model.
+This section is a detailed mechanics expansion of invariants I4/I5 (knobs + stage surface).
 
 #### K1 — Knobs are always a field in the stage config surface
 
@@ -143,11 +200,11 @@ Important clarification for *public === internal*:
 
 ---
 
-### 1.6 Hook semantics (compile vs normalize)
+### 1.7 Hook semantics (compile vs normalize)
 
 Terminology is intentionally strict:
 
-- **`compile`** (shape-changing): maps a stage’s **public** view into an internal step-id keyed map.
+- **`compile`** (shape-changing): maps a stage’s **public** view (non-knob portion) into an internal step-id keyed map (and may consult `knobs` and `env`).
   - Only required when `public !== internal` for that stage.
 - **`normalize`** (shape-preserving): value-only canonicalization; must return the same shape it receives.
   - Used for step-level and op-level canonicalization inside the compiler pipeline.
@@ -156,7 +213,7 @@ Runtime handlers (`step.run`, `strategy.run`) must not default/clean/normalize; 
 
 ---
 
-### 1.7 Canonical type surfaces (planned signatures + module layout)
+### 1.8 Canonical type surfaces (planned signatures + module layout)
 
 This is the target “code reality” the proposals converge toward. Names and paths are chosen to match existing repo conventions.
 
@@ -210,7 +267,42 @@ Stage-level “public view” remains optional and is the only “public” conc
 - If stage defines `public`, it must define `compile`.
 - If stage omits `public`, stage input is internal-as-public (step-id keyed map).
 
-For knobs: stage surface always includes `knobs` as a field in the stage config input, but stage authors do not need to define `compile` merely because knobs exist (the compiler extracts and threads knobs mechanically).
+For knobs:
+- Stage author input is always one object with `knobs` as a field; there is no separate knobs parameter at the recipe boundary.
+- Internally, the stage exposes a computed strict `surfaceSchema` (single author-facing schema) and a deterministic `toInternal(...)`:
+
+```ts
+type StageToInternalResult = {
+  knobs: unknown;
+  rawSteps: Partial<Record<string, unknown>>; // stepId-keyed partial step configs
+};
+
+type StageRuntime = {
+  id: string;
+  // strict schema: knobs + (public fields OR step ids)
+  // (TypeBox object schema with `additionalProperties: false`)
+  surfaceSchema: TObject;
+  toInternal: (args: { env: Env; stageConfig: unknown /* already normalized by surfaceSchema */ }) => StageToInternalResult;
+};
+```
+
+- If stage defines a public view, `compile` is invoked with the **non-knob** portion (validated) plus knobs and env:
+
+```ts
+compile: (args: { env: Env; knobs: unknown; config: unknown }) => Partial<Record<string, unknown>>;
+```
+
+Stage authors do not need to define `compile` merely because knobs exist; knobs are extracted and threaded mechanically for normalization in the compiler pipeline.
+
+Concrete `toInternal(...)` mechanics (code-like, deterministic; no “shape detection”):
+
+```ts
+function toInternal({ env, stageConfig }: { env: Env; stageConfig: any }): StageToInternalResult {
+  const { knobs = {}, ...configPart } = stageConfig;
+  if (stage.public) return { knobs, rawSteps: stage.compile({ env, knobs, config: configPart }) };
+  return { knobs, rawSteps: configPart };
+}
+```
 
 #### Recipe compiler (owns compilation)
 
@@ -230,7 +322,7 @@ Modify the existing planner:
 
 ---
 
-### 1.8 Canonical compilation pipeline (definitive ordering)
+### 1.9 Canonical compilation pipeline (definitive ordering)
 
 This is the definitive ordering for the landing.
 
@@ -239,12 +331,13 @@ This is the definitive ordering for the landing.
 For each stage:
 
 1. Normalize stage config input via schema:
-   - If stage has `public`: validate/default/clean via `stage.public` over the **full stage config object** (including `knobs`).
-   - Else: validate/default/clean via a derived internal stage schema (internal-as-public; includes optional `knobs`).
-2. Extract `knobs` from the stage config object (`const { knobs = {}, ...rawStepMap } = stageConfig`).
-3. Produce raw internal step configs:
-   - If stage has `public`: `rawInternal = stage.compile({ env, config: stageConfig })`
-   - Else: `rawInternal = rawStepMap` (identity on step-map portion; `knobs` is not part of the step map)
+   - Always validate/default/clean against the stage’s computed `surfaceSchema` (the single author-facing schema: `knobs` + fields).
+   - For internal-as-public stages, step fields are `unknown` at this phase; strict step validation happens later.
+2. Convert to internal plumbing shape deterministically via `stage.toInternal({ env, stageConfig })`:
+   - Extract `knobs` from the stage config object.
+   - Produce `rawSteps`:
+     - If stage has `public`: `rawSteps = stage.compile({ env, knobs, config: configPart })`
+     - Else: `rawSteps = omit(stageConfig, "knobs")` (identity on the step-map portion; `knobs` is not part of the step map)
 
 At the end of Phase A for each stage:
 
@@ -270,7 +363,7 @@ This pipeline is recipe-owned; the engine receives only the compiled internal co
 
 ---
 
-### 1.9 Mechanical op envelopes (discovery rules, helpers, and “top-level only”)
+### 1.10 Mechanical op envelopes (discovery rules, helpers, and “top-level only”)
 
 Non-negotiable invariants:
 
@@ -307,7 +400,7 @@ Why “top-level only” is a hard model constraint:
 
 ---
 
-### 1.10 Ops-derived step schema (DX shortcut; constrained scope)
+### 1.11 Ops-derived step schema (DX shortcut; constrained scope)
 
 This is in-scope for this landing (explicit decision):
 
@@ -333,7 +426,7 @@ Inline schema strictness (factory-only):
 
 ---
 
-### 1.11 File-level reconciliation (what changes where; grounded in repo)
+### 1.12 File-level reconciliation (what changes where; grounded in repo)
 
 Every file named below exists today; this is a grounding map, not a final implementation plan.
 
@@ -455,7 +548,9 @@ Enforcement (minimal, real):
 
 ### 3.2 Reserved key: `"knobs"`
 
-- Lint/check at stage construction time: disallow step ids named `"knobs"`.
+- Lint/check at stage construction time:
+  - disallow step ids named `"knobs"`
+  - disallow stage public field named `"knobs"`
 
 ### 3.3 Factories default `additionalProperties: false` for inline schema definitions
 
