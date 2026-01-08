@@ -23,6 +23,7 @@ This document is a **canonical consolidation pass** for the “composition-first
 
 Non-goals for this landing:
 - A recipe-level global “public facade” schema (deferred).
+- A step-level “public input schema pass” (e.g. `inputSchema`, or “canonical schema but everything Optional”) (deferred).
 - Nested op-envelope discovery (“op AST”, nested paths, arrays) (explicitly out of model).
 
 ---
@@ -76,7 +77,8 @@ This section is the **curated “rules of the road”**. If a future change viol
 
 - Inline schema field-map shorthands are supported only inside definition factories, and default to `additionalProperties: false`.
 - If a step contract declares `ops` and omits `schema`, the factory may derive a strict step schema from op envelope schemas.
-- This landing does **not** support adding “extra” top-level keys on top of an ops-derived schema; authors must provide an explicit schema if they need extra keys.
+- There is no separate “input schema” for step configs in v1; author-input partiality is handled by the compiler pipeline (op-prefill before strict validation) plus type-level author input types (O2).
+- This landing does **not** support adding “extra” top-level keys on top of an ops-derived schema; authors must provide an explicit schema (and include any op envelope keys they want) if they need extra keys.
 
 ---
 
@@ -266,6 +268,13 @@ Step contracts:
   - allow an ops-derived `schema` when ops are declared (DX shortcut; see 1.11)
   - add `ops` (e.g. `step.contract.ops`) to declare which op envelopes exist as top-level properties
   - rename step hook from `resolveConfig` → `normalize` (value-only; compile-time only)
+
+Explicit decision (from this proposal’s v1 scope):
+- There is no `inputSchema` / “optionalized mirror schema” for steps. A step has one canonical schema (`contract.schema`) representing plan-truth shape.
+- Author-input “omitting envelopes” is handled by the compiler ordering:
+  1) prefill missing op envelopes (from op contract defaults) and then
+  2) strict schema normalization/validation against `contract.schema`.
+- **NEW (planned)** (type-level): for steps that declare `ops`, the author-input config type treats op envelope keys as optional (since the compiler prefills before strict validation), while the compiled config type remains total/canonical.
 
 Contract-level op declarations (to avoid bundling implementations into contracts):
 
@@ -457,6 +466,16 @@ This is in-scope for this landing (explicit decision):
   - each op key becomes a required property whose schema is the op envelope schema
   - `additionalProperties: false` is defaulted inside the factory
 
+Important: `schema` is not required just because `ops` exists:
+- If the step is “ops-only” (no extra top-level config keys), the derived `schema` removes boilerplate (no duplicate schema authoring).
+- If the step needs extra top-level fields, the author provides an explicit `schema` (including the op envelope keys they want). There is no derived-schema “merge” in v1 (O3).
+- In both cases, there is still only one step schema; there is no separate step `inputSchema`.
+
+Concretely, the v1 authoring surface supports (and only supports) these shapes:
+- `defineStepContract({ ..., schema })` — explicit schema-owned step config (no ops-derived schema).
+- `defineStepContract({ ..., ops })` — ops-only step config; schema is derived from op envelopes (DX shortcut).
+- `defineStepContract({ ..., ops, schema })` — explicit hybrid schema (author-owned); still declares `ops` for envelope discovery/normalization, but nothing is auto-merged/auto-derived beyond the optional DX shortcut above.
+
 Contract-level helper (no op impl bundling):
 
 ```ts
@@ -595,8 +614,8 @@ Why this example exists:
 Contract (NEW (planned) step; op contracts may already exist in split form or may be introduced during domain refactors):
 
 ```ts
-import { defineStepContract } from "@mapgen/authoring/index.js";
-import { ecology } from "mods/mod-swooper-maps/src/domain/ecology/index.js";
+import { defineStepContract } from "@swooper/mapgen-core/authoring";
+import * as ecology from "@mapgen/domain/ecology";
 
 // NEW (planned): export `contracts` from the domain entrypoint alongside `ops`.
 // Baseline today: `ecology.ops` exists; individual op modules export contracts, but there is no
@@ -644,7 +663,7 @@ const rawStepConfig = {
 ```
 
 Compiler execution (Phase B excerpt; with stage knobs threaded via ctx):
-- `prefillOpDefaults` injects missing `shrubs` envelope from the bound op’s `defaultConfig`.
+- `prefillOpDefaults` injects missing `shrubs` envelope from op contract defaults (via `buildOpEnvelopeSchema(contract.id, contract.strategies).defaultConfig`), before strict schema validation.
 - `normalizeStrict(step.schema, prefilled)` default/cleans the step fields and rejects unknown keys.
 - `step.normalize(cfg, { env, knobs })` may bias envelope values using `knobs` (value-only, shape-preserving).
   - Example: apply `knobs.vegetationDensityBias` by adjusting `trees.config.density` and `groundCover.config.density`.
@@ -661,12 +680,17 @@ Canonical pattern:
 One plausible (NEW (planned)) step module shape:
 
 ```ts
+import { createStep } from "@mapgen/authoring/steps";
+import * as ecology from "@mapgen/domain/ecology";
+
+const ops = bindOps(PlotVegetationContract.ops, ecology.ops);
+
 export default createStep(PlotVegetationContract, {
   // NEW (planned): bind contract-level OpRef ids to runtime implementations.
   //
   // Repo note: today ecology exports `ops` (see `mods/mod-swooper-maps/src/domain/ecology/index.ts`).
   // NEW (planned): ecology also exports `contracts` from the same entrypoint for cheap contract imports.
-  ops: bindOps(PlotVegetationContract.ops, ecology.ops),
+  ops,
 
   // NEW (planned): compile-time only normalization hook; sees `{ env, knobs }`.
   normalize: (config, { env, knobs }) => {
@@ -688,7 +712,10 @@ export default createStep(PlotVegetationContract, {
   },
 
   // Runtime handler: uses injected ops and canonical config; no defaulting/cleaning here.
-  run: (context, config, { ops }) => {
+  //
+  // DX decision: keep the baseline engine step signature (`run(context, config)`), and access bound
+  // ops via the step module object (or module-scope closure), not a third `run` argument.
+  run: (context, config) => {
     const treePlacements = ops.trees.runValidated(/* input */, config.trees);
     const shrubPlacements = ops.shrubs.runValidated(/* input */, config.shrubs);
     const coverPlacements = ops.groundCover.runValidated(/* input */, config.groundCover);
