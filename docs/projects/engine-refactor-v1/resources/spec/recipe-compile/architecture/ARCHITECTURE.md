@@ -32,6 +32,7 @@ Split into focused files:
 - `16-call-chain.md`
 - `17-op-shapes.md`
 - `18-normalization-rule.md`
+- `dx-rules.md`
 - `lint-boundaries.md`
 - `open-questions.md`
 - `appendix/README.md`
