@@ -28,9 +28,9 @@ Step IDs become user-facing: they appear in compiler errors, config objects, and
 
 ## Acceptance Criteria
 
-- [ ] `defineStepContract(...)` throws on non-kebab step IDs with a message that includes the invalid id.
-- [ ] `createStage(...)` throws if any child step id is non-kebab, including stage id + step id in the error message.
-- [ ] All step IDs in `mods/mod-swooper-maps/src/recipes/**` are kebab-case and all call sites are updated accordingly.
+- [x] `defineStepContract(...)` throws on non-kebab step IDs with a message that includes the invalid id.
+- [x] `createStage(...)` throws if any child step id is non-kebab, including stage id + step id in the error message.
+- [x] All step IDs in `mods/mod-swooper-maps/src/recipes/**` are kebab-case and all call sites are updated accordingly.
 
 ## Scope Boundaries
 
