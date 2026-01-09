@@ -559,14 +559,14 @@ const config = {
     pedology: {
       classify: { strategy: "orogeny-boosted", config: {} },  // Volcanic terrain soils
     },
-    "resource-basins": {
+    resourceBasins: {
       plan: { strategy: "default", config: {} },
       score: { strategy: "default", config: {} },
     },
-    "biome-edge-refine": {
+    biomeEdgeRefine: {
       refine: { strategy: "default", config: {} },
     },
-    "features-plan": {
+    featuresPlan: {
       vegetation: { strategy: "clustered", config: {} },     // Volcanic forest clusters
       wetlands: { strategy: "delta-focused", config: {} },   // Volcanic valley wetlands
       reefs: { strategy: "default", config: {} },
@@ -646,7 +646,7 @@ const config = {
         marine: "BIOME_MARINE",
       },
     },
-    "plot-effects": {
+    plotEffects: {
       plotEffects: {
         strategy: "default",
         config: {
