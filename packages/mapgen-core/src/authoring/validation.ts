@@ -1,5 +1,5 @@
 import type { TSchema } from "typebox";
-import { TypeCompiler } from "@sinclair/typebox/compiler";
+import { TypeCompiler } from "typebox/compile";
 
 export type ValidationError = Readonly<{
   path: string;
