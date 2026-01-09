@@ -15,11 +15,14 @@ import {
 import type { DependencyTagDefinition, TagOwner } from "@swooper/mapgen-core/engine";
 import {
   isBiomeClassificationArtifactV1,
+  isFeatureIntentsArtifactV1,
   isNarrativeCorridorsV1,
   isNarrativeMotifsHotspotsV1,
   isNarrativeMotifsMarginsV1,
   isNarrativeMotifsOrogenyV1,
   isNarrativeMotifsRiftsV1,
+  isPedologyArtifactV1,
+  isResourceBasinsArtifactV1,
 } from "./artifacts.js";
 import { isPlacementInputsV1 } from "./stages/placement/placement-inputs.js";
 import { isPlacementOutputsV1 } from "./stages/placement/placement-outputs.js";
@@ -36,6 +39,9 @@ export const M3_DEPENDENCY_TAGS = {
     storyOverlays: "artifact:storyOverlays",
     riverAdjacency: "artifact:riverAdjacency",
     biomeClassificationV1: "artifact:ecology.biomeClassification@v1",
+    pedologyV1: "artifact:ecology.soils@v1",
+    resourceBasinsV1: "artifact:ecology.resourceBasins@v1",
+    featureIntentsV1: "artifact:ecology.featureIntents@v1",
     narrativeCorridorsV1: "artifact:narrative.corridors@v1",
     narrativeMotifsMarginsV1: "artifact:narrative.motifs.margins@v1",
     narrativeMotifsHotspotsV1: "artifact:narrative.motifs.hotspots@v1",
@@ -86,7 +92,7 @@ const EFFECT_OWNERS: Record<string, TagOwner> = {
   [M4_EFFECT_TAGS.engine.featuresApplied]: {
     pkg: "mod-swooper-maps",
     phase: "ecology",
-    stepId: "features",
+    stepId: "features-apply",
   },
   [M4_EFFECT_TAGS.engine.placementApplied]: {
     pkg: "mod-swooper-maps",
@@ -172,6 +178,24 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
       freezeIndex: new Float32Array(0),
     },
     validateDemo: (demo) => isBiomeClassificationArtifactV1(demo),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.pedologyV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isPedologyArtifactV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.pedologyV1)),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isResourceBasinsArtifactV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1)),
+  },
+  {
+    id: M3_DEPENDENCY_TAGS.artifact.featureIntentsV1,
+    kind: "artifact",
+    satisfies: (context) =>
+      isFeatureIntentsArtifactV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.featureIntentsV1)),
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.storyOverlays,

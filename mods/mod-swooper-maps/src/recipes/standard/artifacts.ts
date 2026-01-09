@@ -23,6 +23,29 @@ export interface BiomeClassificationArtifactV1 {
   freezeIndex: Float32Array;
 }
 
+export interface PedologyArtifactV1 {
+  width: number;
+  height: number;
+  soilType: Uint8Array;
+  fertility: Float32Array;
+}
+
+export interface ResourceBasinsArtifactV1 {
+  basins: Array<{
+    resourceId: string;
+    plots: number[];
+    intensity: number[];
+    confidence: number;
+  }>;
+}
+
+export interface FeatureIntentsArtifactV1 {
+  vegetation: Array<{ x: number; y: number; feature: string; weight?: number }>;
+  wetlands: Array<{ x: number; y: number; feature: string; weight?: number }>;
+  reefs: Array<{ x: number; y: number; feature: string; weight?: number }>;
+  ice: Array<{ x: number; y: number; feature: string; weight?: number }>;
+}
+
 export const BiomeClassificationArtifactSchema = Type.Object(
   {
     width: Type.Integer({ minimum: 1 }),
@@ -33,6 +56,83 @@ export const BiomeClassificationArtifactSchema = Type.Object(
     surfaceTemperature: Type.Any(),
     aridityIndex: Type.Any(),
     freezeIndex: Type.Any(),
+  },
+  { additionalProperties: false }
+);
+
+export const PedologyArtifactSchema = Type.Object(
+  {
+    width: Type.Integer({ minimum: 1 }),
+    height: Type.Integer({ minimum: 1 }),
+    soilType: Type.Any(),
+    fertility: Type.Any(),
+  },
+  { additionalProperties: false }
+);
+
+export const ResourceBasinsArtifactSchema = Type.Object(
+  {
+    basins: Type.Array(
+      Type.Object(
+        {
+          resourceId: Type.String(),
+          plots: Type.Array(Type.Integer({ minimum: 0 })),
+          intensity: Type.Array(Type.Number({ minimum: 0 })),
+          confidence: Type.Number({ minimum: 0 }),
+        },
+        { additionalProperties: false }
+      )
+    ),
+  },
+  { additionalProperties: false }
+);
+
+export const FeatureIntentsArtifactSchema = Type.Object(
+  {
+    vegetation: Type.Array(
+      Type.Object(
+        {
+          x: Type.Integer({ minimum: 0 }),
+          y: Type.Integer({ minimum: 0 }),
+          feature: Type.String(),
+          weight: Type.Optional(Type.Number()),
+        },
+        { additionalProperties: false }
+      )
+    ),
+    wetlands: Type.Array(
+      Type.Object(
+        {
+          x: Type.Integer({ minimum: 0 }),
+          y: Type.Integer({ minimum: 0 }),
+          feature: Type.String(),
+          weight: Type.Optional(Type.Number()),
+        },
+        { additionalProperties: false }
+      )
+    ),
+    reefs: Type.Array(
+      Type.Object(
+        {
+          x: Type.Integer({ minimum: 0 }),
+          y: Type.Integer({ minimum: 0 }),
+          feature: Type.String(),
+          weight: Type.Optional(Type.Number()),
+        },
+        { additionalProperties: false }
+      )
+    ),
+    ice: Type.Array(
+      Type.Object(
+        {
+          x: Type.Integer({ minimum: 0 }),
+          y: Type.Integer({ minimum: 0 }),
+          feature: Type.String(),
+          weight: Type.Optional(Type.Number()),
+        },
+        { additionalProperties: false }
+      )
+    ),
   },
   { additionalProperties: false }
 );
@@ -51,6 +151,42 @@ export function isBiomeClassificationArtifactV1(
     candidate.surfaceTemperature instanceof Float32Array &&
     candidate.aridityIndex instanceof Float32Array &&
     candidate.freezeIndex instanceof Float32Array
+  );
+}
+
+export function isPedologyArtifactV1(value: unknown): value is PedologyArtifactV1 {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as PedologyArtifactV1;
+  return (
+    typeof candidate.width === "number" &&
+    typeof candidate.height === "number" &&
+    candidate.soilType instanceof Uint8Array &&
+    candidate.fertility instanceof Float32Array
+  );
+}
+
+export function isResourceBasinsArtifactV1(value: unknown): value is ResourceBasinsArtifactV1 {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as ResourceBasinsArtifactV1;
+  if (!Array.isArray(candidate.basins)) return false;
+  return candidate.basins.every(
+    (basin) =>
+      basin &&
+      typeof basin.resourceId === "string" &&
+      Array.isArray(basin.plots) &&
+      Array.isArray(basin.intensity) &&
+      typeof basin.confidence === "number"
+  );
+}
+
+export function isFeatureIntentsArtifactV1(value: unknown): value is FeatureIntentsArtifactV1 {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as FeatureIntentsArtifactV1;
+  return (
+    Array.isArray(candidate.vegetation) &&
+    Array.isArray(candidate.wetlands) &&
+    Array.isArray(candidate.reefs) &&
+    Array.isArray(candidate.ice)
   );
 }
 

@@ -434,6 +434,23 @@ const config = {
     },
   },
   ecology: {
+    // New ecology steps with strategy selections for arid mountain world
+    pedology: {
+      classify: { strategy: "orogeny-boosted", config: {} },  // Dramatic mountain soils
+    },
+    resourceBasins: {
+      plan: { strategy: "default", config: {} },
+      score: { strategy: "default", config: {} },
+    },
+    biomeEdgeRefine: {
+      refine: { strategy: "default", config: {} },  // Sharp desert/mountain transitions
+    },
+    featuresPlan: {
+      vegetation: { strategy: "default", config: {} },  // Sparse desert vegetation
+      wetlands: { strategy: "default", config: {} },    // Minimal wetlands
+      reefs: { strategy: "default", config: {} },
+      ice: { strategy: "continentality", config: {} },  // Continental interior ice
+    },
     biomes: {
       classify: {
         strategy: "default",
@@ -719,12 +736,12 @@ const config = {
             selector: {
               typeName: "PLOTEFFECT_SAND",
             },
-            chance: 28,
-            minAridity: 0.65,
-            minTemperature: 22,
-            maxFreeze: 0.25,
-            maxVegetation: 0.12,
-            maxMoisture: 70,
+            chance: 38,            // Aggressive for desert world
+            minAridity: 0.48,      // Capture more arid tiles
+            minTemperature: 18,    // Include cooler desert edges
+            maxFreeze: 0.2,
+            maxVegetation: 0.15,
+            maxMoisture: 75,
             allowedBiomes: ["desert", "temperateDry"] as [
               "desert",
               "temperateDry",
@@ -735,16 +752,16 @@ const config = {
             selector: {
               typeName: "PLOTEFFECT_BURNED",
             },
-            chance: 10,
-            minAridity: 0.6,
-            minTemperature: 24,
-            maxFreeze: 0.2,
-            maxVegetation: 0.2,
-            maxMoisture: 90,
-            allowedBiomes: ["desert", "temperateDry", "temperateHumid"] as [
+            chance: 14,            // More scorched earth
+            minAridity: 0.55,      // Capture more tiles
+            minTemperature: 22,
+            maxFreeze: 0.15,
+            maxVegetation: 0.25,
+            maxMoisture: 95,
+            allowedBiomes: ["desert", "temperateDry", "tropicalSeasonal"] as [
               "desert",
               "temperateDry",
-              "temperateHumid",
+              "tropicalSeasonal",
             ],
           },
         },

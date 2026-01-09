@@ -555,6 +555,23 @@ const config = {
     },
   },
   ecology: {
+    // New ecology steps with strategy selections for volcanic ring world
+    pedology: {
+      classify: { strategy: "orogeny-boosted", config: {} },  // Volcanic terrain soils
+    },
+    resourceBasins: {
+      plan: { strategy: "default", config: {} },
+      score: { strategy: "default", config: {} },
+    },
+    biomeEdgeRefine: {
+      refine: { strategy: "default", config: {} },
+    },
+    featuresPlan: {
+      vegetation: { strategy: "clustered", config: {} },     // Volcanic forest clusters
+      wetlands: { strategy: "delta-focused", config: {} },   // Volcanic valley wetlands
+      reefs: { strategy: "default", config: {} },
+      ice: { strategy: "default", config: {} },
+    },
     biomes: {
       classify: {
         strategy: "default",
@@ -856,13 +873,14 @@ const config = {
             selector: {
               typeName: "PLOTEFFECT_BURNED",
             },
-            chance: 6,
-            minAridity: 0.55,
-            minTemperature: 20,
-            maxFreeze: 0.2,
-            maxVegetation: 0.25,
-            maxMoisture: 100,
-            allowedBiomes: ["temperateDry", "tropicalSeasonal"] as [
+            chance: 16,            // More volcanic scorched earth
+            minAridity: 0.42,      // Capture more volcanic tiles
+            minTemperature: 18,
+            maxFreeze: 0.25,
+            maxVegetation: 0.35,   // Allow more in volcanic areas
+            maxMoisture: 120,
+            allowedBiomes: ["desert", "temperateDry", "tropicalSeasonal"] as [
+              "desert",
               "temperateDry",
               "tropicalSeasonal",
             ],

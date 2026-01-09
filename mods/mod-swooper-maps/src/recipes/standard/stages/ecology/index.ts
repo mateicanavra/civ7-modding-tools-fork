@@ -3,5 +3,13 @@ import { steps } from "./steps/index.js";
 
 export default createStage({
   id: "ecology",
-  steps: [steps.biomes, steps.features, steps.plotEffects],
+  steps: [
+    steps.pedology,
+    steps.resourceBasins,
+    steps.biomes,
+    steps.biomeEdgeRefine,
+    steps.featuresPlan,
+    steps.featuresApply,
+    steps.plotEffects,
+  ],
 });
