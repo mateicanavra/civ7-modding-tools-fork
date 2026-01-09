@@ -4,13 +4,13 @@ import { PlanReefsContract } from "../contract.js";
 const EMPTY_CONFIG: Static<typeof PlanReefsContract["strategies"]["default"]> = {} as Static<
   typeof PlanReefsContract["strategies"]["default"]
 >;
-const resolveConfig = (input?: Static<typeof PlanReefsContract["strategies"]["default"]>) =>
+const normalize = (input?: Static<typeof PlanReefsContract["strategies"]["default"]>) =>
   applySchemaDefaults(PlanReefsContract.strategies["shipping-lanes"], input ?? EMPTY_CONFIG);
 
 export const shippingLanesStrategy = createStrategy(PlanReefsContract, "shipping-lanes", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
     for (let y = 0; y < height; y++) {

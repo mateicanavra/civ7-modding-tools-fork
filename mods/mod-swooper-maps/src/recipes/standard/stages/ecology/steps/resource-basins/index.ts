@@ -15,9 +15,9 @@ const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer
 };
 
 export default createStep(ResourceBasinsStepContract, {
-  resolveConfig: (config, settings) => ({
-    plan: ecology.ops.planResourceBasins.resolveConfig(config.plan, settings),
-    score: ecology.ops.scoreResourceBasins.resolveConfig(config.score, settings),
+  normalize: (config, ctx) => ({
+    plan: ecology.ops.planResourceBasins.normalize(config.plan, ctx),
+    score: ecology.ops.scoreResourceBasins.normalize(config.score, ctx),
   }),
   run: (context, config: ResourceBasinsStepConfig) => {
     const { width, height } = context.dimensions;

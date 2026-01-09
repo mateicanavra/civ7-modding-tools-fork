@@ -22,8 +22,8 @@ import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
 type BiomesStepConfig = Static<typeof BiomesStepContract.schema>;
 
 export default createStep(BiomesStepContract, {
-  resolveConfig: (config, settings) => ({
-    classify: ecology.ops.classifyBiomes.resolveConfig(config.classify, settings),
+  normalize: (config, ctx) => ({
+    classify: ecology.ops.classifyBiomes.normalize(config.classify, ctx),
     bindings: config.bindings,
   }),
   run: (context: ExtendedMapContext, config: BiomesStepConfig) => {

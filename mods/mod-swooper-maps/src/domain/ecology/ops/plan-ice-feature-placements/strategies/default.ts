@@ -44,7 +44,7 @@ const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
 
 const NO_FEATURE = -1;
 
-const resolveConfig = (input: Config): ResolvedConfig => {
+const normalize = (input: Config): ResolvedConfig => {
   const defaults = applySchemaDefaults(IceFeaturePlacementsConfigSchema, {}) as Required<Config>;
   const owned = applySchemaDefaults(IceFeaturePlacementsConfigSchema, input) as Required<Config>;
 
@@ -79,9 +79,9 @@ const resolveConfig = (input: Config): ResolvedConfig => {
 };
 
 export const defaultStrategy = createStrategy(PlanIceFeaturePlacementsContract, "default", {
-  resolveConfig,
+  normalize,
   run: (input: Input, config: Config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     const rng = createLabelRng(input.seed);
 
     const { width, height, landMask, latitude, featureKeyField, naturalWonderMask } = input;

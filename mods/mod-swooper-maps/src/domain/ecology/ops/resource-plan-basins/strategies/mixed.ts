@@ -5,13 +5,13 @@ import { defaultStrategy } from "./default.js";
 const EMPTY_CONFIG: Static<typeof ResourcePlanBasinsContract["strategies"]["mixed"]> = {} as Static<
   typeof ResourcePlanBasinsContract["strategies"]["mixed"]
 >;
-const resolveConfig = (input?: Static<typeof ResourcePlanBasinsContract["strategies"]["mixed"]>) =>
+const normalize = (input?: Static<typeof ResourcePlanBasinsContract["strategies"]["mixed"]>) =>
   applySchemaDefaults(ResourcePlanBasinsContract.strategies.mixed, input ?? EMPTY_CONFIG);
 
 export const mixedStrategy = createStrategy(ResourcePlanBasinsContract, "mixed", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     const balanced = {
       ...resolved,
       resources: resolved.resources.map((res, idx) => ({
