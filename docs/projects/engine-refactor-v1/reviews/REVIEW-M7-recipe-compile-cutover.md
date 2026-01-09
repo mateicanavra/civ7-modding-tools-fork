@@ -224,3 +224,30 @@ Pragmatic migration move: align stage inputs to the new “single object per sta
 ### Cross-cutting Risks
 
 - Content-level config removals can mask compiler issues by “making inputs empty”; keep at least one preset intentionally non-trivial per stage so compilation is exercised.
+
+## REVIEW m7-t09-remove-runtime-fallbacks
+
+### Quick Take
+
+Strong cut: `instantiate`/`runRequest` now require compiled, total step-id keyed configs, so author-facing configs cannot bypass the recipe-boundary compiler.
+
+### High-Leverage Issues
+
+- `assertCompiledConfig` is a runtime guardrail; it’s great for safety, but it can produce surprising failures if someone uses `instantiate` for tooling with partial configs. The error message points to `compileConfig`, which is good—keep it stable.
+- The compiler remains the only place that can produce a total config; ensure “missing step config” is always treated as a compile-time error (not patched at runtime).
+
+### Fix Now (Recommended)
+
+- Add one test that calling `runRequest` with a partial compiled config fails fast with the exact actionable error text (to keep downstream tooling expectations stable).
+
+### Defer / Follow-up
+
+- Consider whether `instantiate` should be marked as “advanced/tooling only” in docs once external consumers exist.
+
+### Needs Discussion
+
+- Do we want a lighter-weight “unsafe instantiate” for internal testing, or is the hard guardrail intentional everywhere?
+
+### Cross-cutting Risks
+
+- This is the point-of-no-return for config shape compatibility; any remaining legacy entrypoints will now fail loudly.
