@@ -78,3 +78,12 @@ This is a cleanup gate: confirm we ended with one architecture and remove dead e
 - [Scope Boundaries](#scope-boundaries)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Implementation Decisions
+
+### Replace authoring Value.* defaulting with schema-default extraction
+- **Context:** F1 requires eliminating `Value.Default/Convert/Clean` outside compiler-only paths while preserving config defaults.
+- **Options:** Keep Value.* in authoring, move defaulting into compiler-only utilities (creates cycles), implement schema-default extraction in authoring without Value.*.
+- **Choice:** Implement schema-default extraction in `applySchemaDefaults`/`buildDefaultConfigValue` using schema defaults only.
+- **Rationale:** Removes Value.* usage outside compiler without introducing cross-layer dependencies or runtime shims.
+- **Risk:** Defaulting behavior may differ from TypeBox Value.Default for complex schemas (unions/arrays).

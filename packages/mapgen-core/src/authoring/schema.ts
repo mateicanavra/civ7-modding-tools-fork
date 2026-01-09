@@ -1,15 +1,79 @@
 import { Type, type Static, type TSchema } from "typebox";
-import { Value } from "typebox/value";
 
 import type { DomainOpSchema } from "./op/schema.js";
+
+type SchemaWithDefaults = TSchema & {
+  default?: unknown;
+  type?: string;
+  properties?: Record<string, TSchema>;
+  items?: TSchema | TSchema[];
+};
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+function cloneDefault(value: unknown): unknown {
+  if (value == null || typeof value !== "object") return value;
+  if (typeof structuredClone === "function") {
+    return structuredClone(value);
+  }
+  return JSON.parse(JSON.stringify(value));
+}
+
+export function buildSchemaDefaults(schema: TSchema): unknown {
+  const typed = schema as SchemaWithDefaults;
+  if (typed.default !== undefined) return cloneDefault(typed.default);
+
+  if (typed.type === "object") {
+    const props = typed.properties ?? {};
+    const out: Record<string, unknown> = {};
+    let hasDefaults = false;
+
+    for (const [key, propSchema] of Object.entries(props)) {
+      const value = buildSchemaDefaults(propSchema);
+      if (value !== undefined) {
+        out[key] = value;
+        hasDefaults = true;
+      }
+    }
+
+    return hasDefaults ? out : undefined;
+  }
+
+  return undefined;
+}
 
 export function applySchemaDefaults<T extends TSchema>(
   schema: T,
   input: unknown
 ): Static<T> {
-  const cloned = Value.Clone(input ?? {});
-  const defaulted = Value.Default(schema, cloned);
-  return Value.Clean(schema, defaulted) as Static<T>;
+  const typed = schema as SchemaWithDefaults;
+  if (input == null) {
+    const defaults = buildSchemaDefaults(typed);
+    return (defaults ?? (typed.type === "object" ? {} : input)) as Static<T>;
+  }
+
+  if (typed.type === "object") {
+    if (!isPlainObject(input)) return input as Static<T>;
+    const props = typed.properties ?? {};
+    const out: Record<string, unknown> = { ...input };
+
+    for (const [key, propSchema] of Object.entries(props)) {
+      if (out[key] === undefined) {
+        const value = buildSchemaDefaults(propSchema);
+        if (value !== undefined) out[key] = value;
+        continue;
+      }
+      out[key] = applySchemaDefaults(propSchema, out[key]);
+    }
+
+    return out as Static<T>;
+  }
+
+  return input as Static<T>;
 }
 
 /**
