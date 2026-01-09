@@ -23,11 +23,11 @@ const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer
 };
 
 export default createStep(FeaturesPlanStepContract, {
-  resolveConfig: (config, settings) => ({
-    vegetation: ecology.ops.planVegetation.resolveConfig(config.vegetation, settings),
-    wetlands: ecology.ops.planWetlands.resolveConfig(config.wetlands, settings),
-    reefs: ecology.ops.planReefs.resolveConfig(config.reefs, settings),
-    ice: ecology.ops.planIce.resolveConfig(config.ice, settings),
+  normalize: (config, ctx) => ({
+    vegetation: ecology.ops.planVegetation.normalize(config.vegetation, ctx),
+    wetlands: ecology.ops.planWetlands.normalize(config.wetlands, ctx),
+    reefs: ecology.ops.planReefs.normalize(config.reefs, ctx),
+    ice: ecology.ops.planIce.normalize(config.ice, ctx),
   }),
   run: (context, config: FeaturesPlanConfig) => {
     const classificationArtifact = context.artifacts.get(

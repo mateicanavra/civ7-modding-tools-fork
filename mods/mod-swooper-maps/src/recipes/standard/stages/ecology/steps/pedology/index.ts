@@ -27,8 +27,8 @@ function assertHeightfield(
 }
 
 export default createStep(PedologyStepContract, {
-  resolveConfig: (config, settings) => ({
-    classify: ecology.ops.classifyPedology.resolveConfig(config.classify, settings),
+  normalize: (config, ctx) => ({
+    classify: ecology.ops.classifyPedology.normalize(config.classify, ctx),
   }),
   run: (context, config: PedologyStepConfig) => {
     const { width, height } = context.dimensions;

@@ -4,13 +4,13 @@ import { computeReliefProxy, fertilityForTile, normalizeOptionalField, soilPalet
 
 type Config = Static<typeof PedologyClassifyContract["strategies"]["default"]>;
 const EMPTY_CONFIG: Config = {} as Config;
-const resolveConfig = (config?: Config) =>
+const normalize = (config?: Config) =>
   applySchemaDefaults(PedologyClassifyContract.strategies.default, config ?? EMPTY_CONFIG);
 
 export const defaultStrategy = createStrategy(PedologyClassifyContract, "default", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     const size = validateInput(input);
     const relief = computeReliefProxy(input.slope as Float32Array | undefined, input.elevation as Int16Array, size);
     const sediment = normalizeOptionalField(input.sedimentDepth as Float32Array | undefined, size);

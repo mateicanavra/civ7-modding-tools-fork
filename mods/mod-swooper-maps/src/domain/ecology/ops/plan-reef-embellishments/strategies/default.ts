@@ -26,7 +26,7 @@ const NO_FEATURE = -1;
 
 const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
 
-const resolveConfig = (config: Config): ResolvedConfig =>
+const normalize = (config: Config): ResolvedConfig =>
   applySchemaDefaults(PlanReefEmbellishmentsContract.strategies.default, config) as ResolvedConfig;
 
 const planReefEmbellishments = (input: Input, config: ResolvedConfig): Placement[] => {
@@ -91,6 +91,6 @@ const planReefEmbellishments = (input: Input, config: ResolvedConfig): Placement
 };
 
 export const defaultStrategy = createStrategy(PlanReefEmbellishmentsContract, "default", {
-  resolveConfig,
-  run: (input: Input, config: Config) => ({ placements: planReefEmbellishments(input, resolveConfig(config)) }),
+  normalize,
+  run: (input: Input, config: Config) => ({ placements: planReefEmbellishments(input, normalize(config)) }),
 });

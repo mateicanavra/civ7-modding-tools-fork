@@ -5,13 +5,13 @@ import { defaultStrategy } from "./default.js";
 const EMPTY_CONFIG: Static<typeof PedologyClassifyContract["strategies"]["coastal-shelf"]> = {} as Static<
   typeof PedologyClassifyContract["strategies"]["coastal-shelf"]
 >;
-const resolveConfig = (input?: Static<typeof PedologyClassifyContract["strategies"]["coastal-shelf"]>) =>
+const normalize = (input?: Static<typeof PedologyClassifyContract["strategies"]["coastal-shelf"]>) =>
   applySchemaDefaults(PedologyClassifyContract.strategies["coastal-shelf"], input ?? EMPTY_CONFIG);
 
 export const coastalShelfStrategy = createStrategy(PedologyClassifyContract, "coastal-shelf", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     // Coastal shelves emphasize sediment and moisture slightly more.
     const boosted = {
       ...resolved,

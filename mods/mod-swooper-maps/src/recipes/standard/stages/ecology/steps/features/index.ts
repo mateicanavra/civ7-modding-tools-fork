@@ -17,33 +17,33 @@ import { resolveFeatureKeyLookups } from "./feature-keys.js";
 type FeaturesStepConfig = Static<typeof FeaturesStepContract.schema>;
 
 export default createStep(FeaturesStepContract, {
-  resolveConfig: (config, settings) => {
+  normalize: (config, ctx) => {
     return {
       featuresPlacement: {
-        vegetated: ecology.ops.planVegetatedFeaturePlacements.resolveConfig(
+        vegetated: ecology.ops.planVegetatedFeaturePlacements.normalize(
           config.featuresPlacement.vegetated,
-          settings
+          ctx
         ),
-        wet: ecology.ops.planWetFeaturePlacements.resolveConfig(
+        wet: ecology.ops.planWetFeaturePlacements.normalize(
           config.featuresPlacement.wet,
-          settings
+          ctx
         ),
-        aquatic: ecology.ops.planAquaticFeaturePlacements.resolveConfig(
+        aquatic: ecology.ops.planAquaticFeaturePlacements.normalize(
           config.featuresPlacement.aquatic,
-          settings
+          ctx
         ),
-        ice: ecology.ops.planIceFeaturePlacements.resolveConfig(
+        ice: ecology.ops.planIceFeaturePlacements.normalize(
           config.featuresPlacement.ice,
-          settings
+          ctx
         ),
       },
-      reefEmbellishments: ecology.ops.planReefEmbellishments.resolveConfig(
+      reefEmbellishments: ecology.ops.planReefEmbellishments.normalize(
         config.reefEmbellishments,
-        settings
+        ctx
       ),
-      vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.resolveConfig(
+      vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.normalize(
         config.vegetationEmbellishments,
-        settings
+        ctx
       ),
     };
   },

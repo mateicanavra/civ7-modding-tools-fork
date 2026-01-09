@@ -4,13 +4,13 @@ import { PlanWetlandsContract } from "../contract.js";
 const EMPTY_CONFIG: Static<typeof PlanWetlandsContract["strategies"]["default"]> = {} as Static<
   typeof PlanWetlandsContract["strategies"]["default"]
 >;
-const resolveConfig = (input?: Static<typeof PlanWetlandsContract["strategies"]["default"]>) =>
+const normalize = (input?: Static<typeof PlanWetlandsContract["strategies"]["default"]>) =>
   applySchemaDefaults(PlanWetlandsContract.strategies.default, input ?? EMPTY_CONFIG);
 
 export const defaultStrategy = createStrategy(PlanWetlandsContract, "default", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
     const fertility = (input.fertility as Float32Array | undefined) ?? new Float32Array(width * height);

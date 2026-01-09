@@ -3,15 +3,15 @@ import { PlanVegetationContract } from "../contract.js";
 import { biomeSymbolFromIndex, FEATURE_PLACEMENT_KEYS } from "@mapgen/domain/ecology/types.js";
 
 const EMPTY_CONFIG: Parameters<typeof applySchemaDefaults>[1] = {} as Parameters<typeof applySchemaDefaults>[1];
-const resolveConfig = (input: Parameters<typeof applySchemaDefaults>[1]) =>
+const normalize = (input: Parameters<typeof applySchemaDefaults>[1]) =>
   applySchemaDefaults(PlanVegetationContract.strategies.clustered, input ?? EMPTY_CONFIG);
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
 export const clusteredStrategy = createStrategy(PlanVegetationContract, "clustered", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
     const fertility = (input.fertility as Float32Array | undefined) ?? new Float32Array(width * height);

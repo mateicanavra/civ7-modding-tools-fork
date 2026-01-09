@@ -5,13 +5,13 @@ import { defaultStrategy } from "./default.js";
 const EMPTY_CONFIG: Static<typeof ResourcePlanBasinsContract["strategies"]["hydro-fluvial"]> = {} as Static<
   typeof ResourcePlanBasinsContract["strategies"]["hydro-fluvial"]
 >;
-const resolveConfig = (input?: Static<typeof ResourcePlanBasinsContract["strategies"]["hydro-fluvial"]>) =>
+const normalize = (input?: Static<typeof ResourcePlanBasinsContract["strategies"]["hydro-fluvial"]>) =>
   applySchemaDefaults(ResourcePlanBasinsContract.strategies["hydro-fluvial"], input ?? EMPTY_CONFIG);
 
 export const hydroFluvialStrategy = createStrategy(ResourcePlanBasinsContract, "hydro-fluvial", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     const boosted = {
       ...resolved,
       resources: resolved.resources.map((res) => ({

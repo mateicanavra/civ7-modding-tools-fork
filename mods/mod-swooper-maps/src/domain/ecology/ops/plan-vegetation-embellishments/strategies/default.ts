@@ -39,7 +39,7 @@ const GRASSLAND_BIOMES: ReadonlySet<BiomeSymbol> = new Set(["temperateHumid", "t
 
 const TUNDRA_BIOMES: ReadonlySet<BiomeSymbol> = new Set(["snow", "tundra", "boreal"]);
 
-const resolveConfig = (config: Config): ResolvedConfig =>
+const normalize = (config: Config): ResolvedConfig =>
   applySchemaDefaults(
     PlanVegetationEmbellishmentsContract.strategies.default,
     config
@@ -199,8 +199,8 @@ const planVegetationEmbellishments = (input: Input, config: ResolvedConfig): Pla
 };
 
 export const defaultStrategy = createStrategy(PlanVegetationEmbellishmentsContract, "default", {
-  resolveConfig,
+  normalize,
   run: (input: Input, config: Config) => ({
-    placements: planVegetationEmbellishments(input, resolveConfig(config)),
+    placements: planVegetationEmbellishments(input, normalize(config)),
   }),
 });

@@ -15,8 +15,8 @@ const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer
 };
 
 export default createStep(BiomeEdgeRefineStepContract, {
-  resolveConfig: (config, settings) => ({
-    refine: ecology.ops.refineBiomeEdges.resolveConfig(config.refine, settings),
+  normalize: (config, ctx) => ({
+    refine: ecology.ops.refineBiomeEdges.normalize(config.refine, ctx),
   }),
   run: (context, config: BiomeEdgeRefineConfig) => {
     const classification = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1);
