@@ -23,7 +23,7 @@ export function createStep<
     throw new Error(`createStep requires an explicit schema for ${label}`);
   }
   return {
-    ...contract,
+    contract,
     ...impl,
   };
 }
