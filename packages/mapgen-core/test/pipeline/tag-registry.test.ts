@@ -3,6 +3,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 
 import {
+  compileExecutionPlan,
   InvalidDependencyTagDemoError,
   PipelineExecutor,
   StepRegistry,
@@ -23,6 +24,23 @@ const baseSettings = {
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
   wrap: { wrapX: false, wrapY: false },
 };
+
+function compilePlan<TContext>(
+  registry: StepRegistry<TContext>,
+  settings: typeof baseSettings,
+  steps: readonly string[]
+) {
+  return compileExecutionPlan(
+    {
+      recipe: {
+        schemaVersion: 2,
+        steps: steps.map((id) => ({ id, config: {} })),
+      },
+      settings,
+    },
+    registry
+  );
+}
 
 describe("tag registry", () => {
   it("fails fast on unknown dependency tags at registration", () => {
@@ -75,7 +93,8 @@ describe("tag registry", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const { stepResults } = executor.execute(ctx, ["biomes"]);
+    const plan = compilePlan(registry, baseSettings, ["biomes"]);
+    const { stepResults } = executor.executePlan(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(false);
     expect(stepResults[0]?.error).toContain(TEST_TAGS.effect.biomesApplied);
@@ -104,7 +123,8 @@ describe("tag registry", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const { stepResults } = executor.execute(ctx, ["coastlines"]);
+    const plan = compilePlan(registry, baseSettings, ["coastlines"]);
+    const { stepResults } = executor.executePlan(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(true);
   });

@@ -34,7 +34,7 @@ describe("pipeline tracing", () => {
       {
         recipe: {
           schemaVersion: 2,
-          steps: [{ id: "alpha" }],
+          steps: [{ id: "alpha", config: {} }],
         },
         settings: {
           seed: 123,
@@ -60,7 +60,7 @@ describe("pipeline tracing", () => {
     );
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    executor.execute(ctx, ["alpha"], { trace: traceSession });
+    executor.executePlan(ctx, plan, { trace: traceSession });
 
     const runStart = events.find((event) => event.kind === "run.start");
     const runFinish = events.find((event) => event.kind === "run.finish");
@@ -106,7 +106,10 @@ describe("pipeline tracing", () => {
       {
         recipe: {
           schemaVersion: 2,
-          steps: [{ id: "alpha" }, { id: "beta" }],
+          steps: [
+            { id: "alpha", config: {} },
+            { id: "beta", config: {} },
+          ],
         },
         settings: {
           seed: 123,

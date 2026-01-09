@@ -3,6 +3,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 import {
+  compileExecutionPlan,
   MissingDependencyError,
   PipelineExecutor,
   StepRegistry,
@@ -63,6 +64,23 @@ function buildTestSettings(width: number, height: number) {
   };
 }
 
+function compilePlan<TContext>(
+  registry: StepRegistry<TContext>,
+  settings: ReturnType<typeof buildTestSettings>,
+  steps: readonly string[]
+) {
+  return compileExecutionPlan(
+    {
+      recipe: {
+        schemaVersion: 2,
+        steps: steps.map((id) => ({ id, config: {} })),
+      },
+      settings,
+    },
+    registry
+  );
+}
+
 describe("placement step contracts", () => {
   it("fails fast when placement runs without placementInputs", () => {
     const width = 4;
@@ -111,7 +129,8 @@ describe("placement step contracts", () => {
     const executor = new PipelineExecutor(registry, { log: () => {} });
 
     try {
-      executor.execute(context, ["coastlines", "rivers", "placement"]);
+      const plan = compilePlan(registry, settings, ["coastlines", "rivers", "placement"]);
+      executor.executePlan(context, plan);
       throw new Error("Expected placement gating to fail");
     } catch (err) {
       expect(err).toBeInstanceOf(MissingDependencyError);
@@ -146,7 +165,8 @@ describe("placement step contracts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const { stepResults } = executor.execute(context, ["derive-placement-inputs"]);
+    const plan = compilePlan(registry, settings, ["derive-placement-inputs"]);
+    const { stepResults } = executor.executePlan(context, plan);
 
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
@@ -176,7 +196,8 @@ describe("placement step contracts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const { stepResults } = executor.execute(context, ["placement"]);
+    const plan = compilePlan(registry, settings, ["placement"]);
+    const { stepResults } = executor.executePlan(context, plan);
 
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
@@ -208,7 +229,8 @@ describe("placement step contracts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const { stepResults } = executor.execute(context, ["placement"]);
+    const plan = compilePlan(registry, settings, ["placement"]);
+    const { stepResults } = executor.executePlan(context, plan);
 
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
