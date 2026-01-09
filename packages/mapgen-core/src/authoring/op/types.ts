@@ -4,6 +4,11 @@ import type { NormalizeContext } from "@mapgen/engine/index.js";
 import type { ValidationError, OpRunValidatedOptions, OpValidateOptions } from "../validation.js";
 import type { StrategySelection } from "./strategy.js";
 
+// Allow ops with specific input/config types to flow through generic registries.
+type BivariantCallback<Args extends unknown[], Return> = {
+  bivarianceHack(...args: Args): Return;
+}["bivarianceHack"];
+
 export type OpContractLike = Readonly<{
   input: TSchema;
   output: TSchema;
@@ -55,34 +60,33 @@ export type DomainOp<
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
   Strategies extends Record<string, { config: TSchema }>,
+  Id extends string = string,
 > = Readonly<{
   kind: DomainOpKind;
-  id: string;
+  id: Id;
   input: InputSchema;
   output: OutputSchema;
   config: OpConfigSchema<Strategies>;
   defaultConfig: StrategySelection<Strategies>;
   strategies: Strategies;
-  run: (
-    input: Static<InputSchema>,
-    config: StrategySelection<Strategies>
-  ) => Static<OutputSchema>;
-  validate: (
-    input: Static<InputSchema>,
-    config: StrategySelection<Strategies>,
-    options?: OpValidateOptions
-  ) => { ok: boolean; errors: ValidationError[] };
-  runValidated: (
-    input: Static<InputSchema>,
-    config: StrategySelection<Strategies>,
-    options?: OpRunValidatedOptions
-  ) => Static<OutputSchema>;
+  run: BivariantCallback<
+    [Static<InputSchema>, StrategySelection<Strategies>],
+    Static<OutputSchema>
+  >;
+  validate: BivariantCallback<
+    [Static<InputSchema>, StrategySelection<Strategies>, OpValidateOptions?],
+    { ok: boolean; errors: ValidationError[] }
+  >;
+  runValidated: BivariantCallback<
+    [Static<InputSchema>, StrategySelection<Strategies>, OpRunValidatedOptions?],
+    Static<OutputSchema>
+  >;
   /**
    * Compile-time config normalization hook (called by the compiler).
    * This is never invoked at runtime; default behavior returns the input envelope unchanged.
    */
-  normalize: (
-    config: StrategySelection<Strategies>,
-    ctx: NormalizeContext
-  ) => StrategySelection<Strategies>;
+  normalize: BivariantCallback<
+    [StrategySelection<Strategies>, NormalizeContext],
+    StrategySelection<Strategies>
+  >;
 }>;

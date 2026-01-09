@@ -205,7 +205,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "missing" }],
           },
-          env: baseSettings,
+          env: baseEnv,
         },
         registry
       );
@@ -241,7 +241,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha", config: { value: "bad" } }],
           },
-          env: baseSettings,
+          env: baseEnv,
         },
         registry
       );
@@ -277,7 +277,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha", config: { value: 3, extra: 9 } }],
           },
-          env: baseSettings,
+          env: baseEnv,
         },
         registry
       );
@@ -319,7 +319,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha", config: null }],
           },
-          env: baseSettings,
+          env: baseEnv,
         },
         registry
       );
@@ -376,10 +376,10 @@ describe("compileExecutionPlan", () => {
             steps: [{ id: "alpha" }],
           },
           env: {
-            ...baseSettings,
+            ...baseEnv,
             seed: "123",
             wrap: {
-              ...baseSettings.wrap,
+              ...baseEnv.wrap,
               wrapX: "false",
             },
           },
@@ -415,7 +415,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha" }],
           },
-          env: baseSettings,
+          env: baseEnv,
         },
         registry
       )
@@ -428,7 +428,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha" }],
           },
-          env: baseSettings,
+          env: baseEnv,
         },
         registry
       );
@@ -465,7 +465,7 @@ describe("compileExecutionPlan", () => {
           schemaVersion: 2,
           steps: [{ id: "alpha", config: { value: 11 } }],
         },
-        env: baseSettings,
+        env: baseEnv,
       },
       registry
     );
@@ -474,7 +474,7 @@ describe("compileExecutionPlan", () => {
     const context = createExtendedMapContext(
       { width: 2, height: 2 },
       adapter,
-      baseSettings
+      baseEnv
     );
     const executor = new PipelineExecutor(registry, { log: () => {} });
     executor.executePlan(context, plan);
@@ -509,7 +509,7 @@ describe("compileExecutionPlan", () => {
           schemaVersion: 2,
           steps: [{ id: "alpha", config: { value: 12 } }],
         },
-        env: baseSettings,
+        env: baseEnv,
       },
       registry
     );

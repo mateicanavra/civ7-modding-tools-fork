@@ -85,7 +85,7 @@ export type Stage<
   TContext = ExtendedMapContext,
   TSteps extends StepsArray<TContext> = StepsArray<TContext>,
   KnobsSchema extends TObject = TObject,
-  PublicSchema extends TObject | undefined = undefined,
+  PublicSchema extends TObject | undefined = TObject | undefined,
 > = StageContract<string, TContext, KnobsSchema, Static<KnobsSchema>, TSteps, PublicSchema>;
 
 export type RecipeConfig = Readonly<Record<string, Readonly<Record<string, unknown>>>>;

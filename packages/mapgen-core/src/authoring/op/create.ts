@@ -31,7 +31,7 @@ type OpImpl<C extends OpContract<any, any, any, any, any>> = Readonly<{
 export function createOp<const C extends OpContract<any, any, any, any, any>>(
   contract: C,
   impl: OpImpl<C>
-): DomainOp<C["input"], C["output"], RuntimeStrategiesForContract<C>>;
+): DomainOp<C["input"], C["output"], RuntimeStrategiesForContract<C>, C["id"]>;
 
 export function createOp(contract: any, impl: any): any {
   const rawStrategySchemas = contract?.strategies as Record<string, TSchema> | undefined;
