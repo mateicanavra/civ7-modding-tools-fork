@@ -117,7 +117,10 @@ Domain (ops + strategies + contracts)
       - `contracts` (contract-only; safe for step contracts)
       - `ops` (implementations; developer convenience)
       - `opsById` (canonical binding registry; deterministic; built, not hand-maintained)
-  └── cross-module consumers import only from `@mapgen/domain/<domain>` (no deep imports into `ops/**` or `strategies/**`)
+  └── cross-module consumers import only from:
+      - `@mapgen/domain/<domain>` (domain public surface), and
+      - `@mapgen/domain/<domain>/contracts` (contract-only; safe narrow import),
+      - with no deep imports into `ops/**` or `strategies/**`
 
 Step (internal node; orchestration)
   └── defines internal schema (required)

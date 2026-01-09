@@ -337,7 +337,7 @@ Why “top-level only” is a hard model constraint:
 This is in-scope for this landing (explicit decision):
 
 - **NEW (planned)**: if `defineStepContract` is called with `ops` and **no explicit schema**, auto-generate a strict step schema where:
-  - each op key becomes a required property whose schema is the op envelope schema
+  - each op key becomes a schema-required property whose schema is the op envelope schema (author input may omit these keys; the compiler prefills before strict schema normalization)
   - `additionalProperties: false` is defaulted inside the factory
 
 Important: `schema` is not required just because `ops` exists:
@@ -449,9 +449,12 @@ Minimal test skeleton (Bun test runner; repo-real):
 import { expect, test } from "bun:test";
 import { Type } from "typebox";
 
-import { defineOpContract } from "@swooper/mapgen-core/authoring/op/contract";
-import { createStage } from "@swooper/mapgen-core/authoring/stage";
-import { defineStepContract, createStep } from "@swooper/mapgen-core/authoring";
+import {
+  createStage,
+  createStep,
+  defineOpContract,
+  defineStepContract,
+} from "@swooper/mapgen-core/authoring";
 
 import { compileRecipeConfig } from "@swooper/mapgen-core/compiler/recipe-compile";
 

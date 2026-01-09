@@ -100,5 +100,5 @@ Downstream usage exists in mods (examples; not exhaustive):
 Migration note (pinned intent):
 
 - During the compiler landing, `normalize` becomes the only supported compile-time normalization hook name.
-- A short transitional period may keep `resolveConfig` as an alias for `normalize` in authoring surfaces to avoid breaking downstream domains/steps immediately.
-- The engine must not call either name once validate-only behavior is in place.
+- There is no supported dual-path: `resolveConfig` is removed from authoring/runtime surfaces. Downstream steps/ops must be updated as part of the cutover.
+- The engine must not call compile-time normalization hooks once validate-only behavior is in place; compilation is the only place defaulting/cleaning/canonicalization occurs.

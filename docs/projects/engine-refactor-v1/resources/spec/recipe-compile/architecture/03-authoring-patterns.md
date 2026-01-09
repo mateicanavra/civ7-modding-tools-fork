@@ -27,26 +27,28 @@ A step module should export:
 A step module should import:
 
 - `defineStepContract` from core authoring
-- `createStep` from the mod’s stable authoring alias (`@mapgen/authoring/steps`) so the mod’s `ExtendedMapContext` typing is centralized
+- `createStep` from the canonical authoring entrypoint (`@swooper/mapgen-core/authoring`), or from a mod-local authoring barrel that re-exports it (pick one entrypoint per package; do not mix)
 - `bindRuntimeOps` (and sometimes `bindCompileOps` in compiler-only code; not used by runtime `run`)
-- Domain **contracts** for op declarations (IDs + schemas), imported only via the domain public surface (`@mapgen/domain/<domain>`)
+- Domain **contracts** for op declarations (IDs + schemas), imported via the domain contract surface (`@mapgen/domain/<domain>/contracts`)
 - Domain **opsById** registry for runtime binding (by id), imported only via the domain public surface (`@mapgen/domain/<domain>`)
 - No compiler helpers and no TypeBox `Value.*` inside runtime `run`
 
 #### Domain entrypoint shape (canonical; pinned)
 
-The spec assumes each domain exports a public surface (single import path, no deep imports) with:
+The spec assumes each domain exports:
 
-- `contracts` — op contracts only (stable, used by step contracts)
-- `ops` — compile-surface ops (developer convenience; optional)
-- `opsById` — deterministic registry keyed by `op.id` returning **compile-surface ops** (required by bindings + compiler)
+- A domain public surface (`@mapgen/domain/<domain>`) (no deep imports into internal `ops/**` / `strategies/**`), with:
+  - `contracts` — op contracts only (stable, used by step contracts)
+  - `ops` — compile-surface ops (developer convenience; optional)
+  - `opsById` — deterministic registry keyed by `op.id` returning **compile-surface ops** (required by bindings + compiler)
+- A domain contract surface (`@mapgen/domain/<domain>/contracts`) that is contract-only (no implementations), for step contracts and schema/type-only consumers.
 
 Inline example:
 
 ```ts
 // mods/mod-swooper-maps/src/domain/ecology/index.ts
 
-import type { DomainOpCompileAny } from "@swooper/mapgen-core/authoring/bindings";
+import type { DomainOpCompileAny } from "@swooper/mapgen-core/authoring";
 
 import { planTreeVegetationContract } from "./ops/plan-tree-vegetation/contract.js";
 import { planShrubVegetationContract } from "./ops/plan-shrub-vegetation/contract.js";
@@ -82,12 +84,11 @@ function buildOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
 
 import { Type } from "typebox";
 
-import { defineStepContract } from "@swooper/mapgen-core/authoring";
-import { bindRuntimeOps } from "@swooper/mapgen-core/authoring/bindings";
-import { createStep } from "@mapgen/authoring/steps";
+import { bindRuntimeOps, createStep, defineStepContract } from "@swooper/mapgen-core/authoring";
 
 // Domain public surface (canonical): step modules never deep-import op files.
 import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 
 export const contract = defineStepContract({
   id: "plot-vegetation",
@@ -97,8 +98,8 @@ export const contract = defineStepContract({
 
   // Ops declared as contracts (single source of truth)
   ops: {
-    trees: ecology.contracts.planTreeVegetation,
-    shrubs: ecology.contracts.planShrubVegetation,
+    trees: ecologyContracts.planTreeVegetation,
+    shrubs: ecologyContracts.planShrubVegetation,
   },
 
   // O3: if you need non-op fields, you MUST provide an explicit schema.
