@@ -33,7 +33,19 @@ const VegetationBiomeModifierSchema = Type.Object(
   }
 );
 
-const DEFAULT_VEGETATION_BIOME_MODIFIERS = {
+type VegetationBiomeModifierDefault = { multiplier: number; bonus: number };
+type VegetationBiomeModifiersDefault = {
+  snow: VegetationBiomeModifierDefault;
+  tundra: VegetationBiomeModifierDefault;
+  boreal: VegetationBiomeModifierDefault;
+  temperateDry: VegetationBiomeModifierDefault;
+  temperateHumid: VegetationBiomeModifierDefault;
+  tropicalSeasonal: VegetationBiomeModifierDefault;
+  tropicalRainforest: VegetationBiomeModifierDefault;
+  desert: VegetationBiomeModifierDefault;
+};
+
+const DEFAULT_VEGETATION_BIOME_MODIFIERS: VegetationBiomeModifiersDefault = {
   snow: { multiplier: 0.05, bonus: 0 },
   tundra: { multiplier: 0.35, bonus: 0 },
   boreal: { multiplier: 0.75, bonus: 0 },
@@ -42,7 +54,7 @@ const DEFAULT_VEGETATION_BIOME_MODIFIERS = {
   tropicalSeasonal: { multiplier: 1, bonus: 0 },
   tropicalRainforest: { multiplier: 1, bonus: 0.25 },
   desert: { multiplier: 0.1, bonus: 0 },
-} as const;
+};
 
 const VegetationBiomeModifiersSchema = Type.Object(
   {

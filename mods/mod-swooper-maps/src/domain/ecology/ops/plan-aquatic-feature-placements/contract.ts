@@ -1,0 +1,102 @@
+import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+
+import type { FeatureKey } from "@mapgen/domain/ecology/types.js";
+
+const AquaticFeatureKeySchema = Type.Unsafe<FeatureKey>(
+  Type.Union(
+    [
+      Type.Literal("FEATURE_REEF"),
+      Type.Literal("FEATURE_COLD_REEF"),
+      Type.Literal("FEATURE_ATOLL"),
+      Type.Literal("FEATURE_LOTUS"),
+    ],
+    { description: "Baseline aquatic feature keys." }
+  )
+);
+
+export const AquaticChancesSchema = Type.Object(
+  {
+    FEATURE_REEF: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
+    FEATURE_COLD_REEF: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
+    FEATURE_ATOLL: Type.Optional(Type.Number({ default: 12, minimum: 0, maximum: 100 })),
+    FEATURE_LOTUS: Type.Optional(Type.Number({ default: 15, minimum: 0, maximum: 100 })),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+export const AquaticAtollSchema = Type.Object(
+  {
+    enableClustering: Type.Optional(Type.Boolean({ default: true })),
+    clusterRadius: Type.Optional(Type.Number({ default: 1, minimum: 0, maximum: 2 })),
+    equatorialBandMaxAbsLatitude: Type.Optional(Type.Number({ default: 23, minimum: 0, maximum: 90 })),
+    shallowWaterAdjacencyGateChance: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
+    shallowWaterAdjacencyRadius: Type.Optional(Type.Number({ default: 1, minimum: 1 })),
+    growthChanceEquatorial: Type.Optional(Type.Number({ default: 15, minimum: 0, maximum: 100 })),
+    growthChanceNonEquatorial: Type.Optional(Type.Number({ default: 5, minimum: 0, maximum: 100 })),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+export const AquaticRulesSchema = Type.Object(
+  {
+    reefLatitudeSplit: Type.Optional(Type.Number({ default: 55, minimum: 0, maximum: 90 })),
+    atoll: Type.Optional(AquaticAtollSchema),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+export const AquaticFeaturePlacementsConfigSchema = Type.Object(
+  {
+    multiplier: Type.Optional(
+      Type.Number({
+        description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
+        default: 1,
+        minimum: 0,
+      })
+    ),
+    chances: Type.Optional(AquaticChancesSchema),
+    rules: Type.Optional(AquaticRulesSchema),
+  },
+  { additionalProperties: false, default: {} }
+);
+
+const AquaticFeaturePlacementsInputSchema = Type.Object(
+  {
+    width: Type.Integer({ minimum: 1 }),
+    height: Type.Integer({ minimum: 1 }),
+    seed: Type.Number({ description: "Deterministic seed for aquatic placement RNG." }),
+    landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
+    terrainType: TypedArraySchemas.u8({ description: "Terrain type id per tile." }),
+    latitude: TypedArraySchemas.f32({ description: "Latitude per tile (degrees)." }),
+    featureKeyField: TypedArraySchemas.i16({ description: "Existing feature key indices per tile (-1 for empty)." }),
+    coastTerrain: Type.Integer({ description: "Terrain id for coast/shallow water." }),
+  },
+  { additionalProperties: false }
+);
+
+const AquaticPlacementSchema = Type.Object(
+  {
+    x: Type.Integer({ minimum: 0 }),
+    y: Type.Integer({ minimum: 0 }),
+    feature: AquaticFeatureKeySchema,
+  },
+  { additionalProperties: false }
+);
+
+const AquaticFeaturePlacementsOutputSchema = Type.Object(
+  {
+    placements: Type.Array(AquaticPlacementSchema),
+  },
+  { additionalProperties: false }
+);
+
+export const PlanAquaticFeaturePlacementsContract = defineOpContract({
+  kind: "plan",
+  id: "ecology/features/aquatic-placement",
+  input: AquaticFeaturePlacementsInputSchema,
+  output: AquaticFeaturePlacementsOutputSchema,
+  strategies: {
+    default: AquaticFeaturePlacementsConfigSchema,
+  },
+});
+

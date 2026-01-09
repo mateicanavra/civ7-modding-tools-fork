@@ -5,14 +5,35 @@ import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 
 const FeaturesStepConfigSchema = Type.Object(
   {
-    featuresPlacement: ecology.ops.planFeaturePlacements.config,
+    featuresPlacement: Type.Object(
+      {
+        vegetated: ecology.ops.planVegetatedFeaturePlacements.config,
+        wet: ecology.ops.planWetFeaturePlacements.config,
+        aquatic: ecology.ops.planAquaticFeaturePlacements.config,
+        ice: ecology.ops.planIceFeaturePlacements.config,
+      },
+      {
+        additionalProperties: false,
+        default: {
+          vegetated: ecology.ops.planVegetatedFeaturePlacements.defaultConfig,
+          wet: ecology.ops.planWetFeaturePlacements.defaultConfig,
+          aquatic: ecology.ops.planAquaticFeaturePlacements.defaultConfig,
+          ice: ecology.ops.planIceFeaturePlacements.defaultConfig,
+        },
+      }
+    ),
     reefEmbellishments: ecology.ops.planReefEmbellishments.config,
     vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.config,
   },
   {
     additionalProperties: false,
     default: {
-      featuresPlacement: ecology.ops.planFeaturePlacements.defaultConfig,
+      featuresPlacement: {
+        vegetated: ecology.ops.planVegetatedFeaturePlacements.defaultConfig,
+        wet: ecology.ops.planWetFeaturePlacements.defaultConfig,
+        aquatic: ecology.ops.planAquaticFeaturePlacements.defaultConfig,
+        ice: ecology.ops.planIceFeaturePlacements.defaultConfig,
+      },
       reefEmbellishments: ecology.ops.planReefEmbellishments.defaultConfig,
       vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.defaultConfig,
     },

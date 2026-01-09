@@ -20,8 +20,10 @@ describe("features (owned baseline)", () => {
 
     const config = {
       featuresPlacement: {
-        strategy: "default",
-        config: { chances: { FEATURE_FOREST: 100 } },
+        vegetated: { strategy: "default", config: { chances: { FEATURE_FOREST: 100 } } },
+        wet: { strategy: "default", config: { multiplier: 0 } },
+        aquatic: { strategy: "default", config: { multiplier: 0 } },
+        ice: { strategy: "default", config: { multiplier: 0 } },
       },
       reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
       vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },

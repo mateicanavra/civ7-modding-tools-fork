@@ -1,4 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
+import { applySchemaDefaults, type Static } from "@swooper/mapgen-core/authoring";
 import {
   computeRiverAdjacencyMask,
   getPublishedBiomeClassification,
@@ -7,7 +8,8 @@ import {
   getPublishedNarrativeMotifsMargins,
 } from "../../../../artifacts.js";
 import type * as ecology from "@mapgen/domain/ecology";
-import type { ResolvedFeaturesPlacementConfig } from "@mapgen/domain/ecology";
+import type { PlanWetFeaturePlacementsTypes } from "@mapgen/domain/ecology/ops/plan-wet-feature-placements/index.js";
+import { WetRulesSchema } from "@mapgen/domain/ecology/ops/plan-wet-feature-placements/index.js";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { assertHeightfield, buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";
@@ -16,9 +18,16 @@ import type { FeatureKeyLookups } from "./feature-keys.js";
 const NO_FEATURE = -1;
 const UNKNOWN_FEATURE = -2;
 
-type FeaturesPlacementInput = Parameters<typeof ecology.ops.planFeaturePlacements.run>[0];
 type ReefEmbellishmentsInput = Parameters<typeof ecology.ops.planReefEmbellishments.run>[0];
 type VegetationEmbellishmentsInput = Parameters<typeof ecology.ops.planVegetationEmbellishments.run>[0];
+type VegetatedPlacementInput =
+  Parameters<typeof ecology.ops.planVegetatedFeaturePlacements.run>[0];
+type WetPlacementInput = Parameters<typeof ecology.ops.planWetFeaturePlacements.run>[0];
+type AquaticPlacementInput =
+  Parameters<typeof ecology.ops.planAquaticFeaturePlacements.run>[0];
+type IcePlacementInput = Parameters<typeof ecology.ops.planIceFeaturePlacements.run>[0];
+
+type WetInnerConfig = PlanWetFeaturePlacementsTypes["config"]["default"];
 
 type HeightfieldArtifact = {
   elevation: Int16Array;
@@ -61,11 +70,56 @@ const buildFeatureKeyField = (
   return field;
 };
 
-export function buildFeaturesPlacementInput(
+export function buildIceFeaturePlacementsInput(
   context: ExtendedMapContext,
-  config: ResolvedFeaturesPlacementConfig,
   lookups: FeatureKeyLookups
-): FeaturesPlacementInput {
+): IcePlacementInput {
+  const { width, height } = context.dimensions;
+  const size = width * height;
+
+  const heightfield = getHeightfieldArtifact(context, size);
+  const latitude = buildLatitudeField(context.adapter, width, height);
+  const featureKeyField = buildFeatureKeyField(context, lookups);
+
+  return {
+    width,
+    height,
+    seed: deriveStepSeed(context.settings.seed, "ecology:planFeaturePlacements"),
+    landMask: heightfield.landMask,
+    latitude,
+    featureKeyField,
+    naturalWonderMask: new Uint8Array(size),
+  };
+}
+
+export function buildAquaticFeaturePlacementsInput(
+  context: ExtendedMapContext,
+  lookups: FeatureKeyLookups
+): AquaticPlacementInput {
+  const { width, height } = context.dimensions;
+  const size = width * height;
+
+  const heightfield = getHeightfieldArtifact(context, size);
+  const latitude = buildLatitudeField(context.adapter, width, height);
+  const featureKeyField = buildFeatureKeyField(context, lookups);
+
+  return {
+    width,
+    height,
+    seed: deriveStepSeed(context.settings.seed, "ecology:planFeaturePlacements"),
+    landMask: heightfield.landMask,
+    terrainType: heightfield.terrain,
+    latitude,
+    featureKeyField,
+    coastTerrain: context.adapter.getTerrainTypeIndex("TERRAIN_COAST"),
+  };
+}
+
+export function buildWetFeaturePlacementsInput(
+  context: ExtendedMapContext,
+  config: WetInnerConfig,
+  lookups: FeatureKeyLookups
+): WetPlacementInput {
   const { width, height } = context.dimensions;
   const size = width * height;
 
@@ -74,18 +128,47 @@ export function buildFeaturesPlacementInput(
     throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
   }
 
-  const climateField = getPublishedClimateField(context);
-  if (!climateField?.rainfall) {
-    throw new Error("FeaturesStep: Missing artifact:climateField rainfall field.");
+  const heightfield = getHeightfieldArtifact(context, size);
+  const featureKeyField = buildFeatureKeyField(context, lookups);
+  const rules = applySchemaDefaults(WetRulesSchema, config.rules) as Required<
+    Static<typeof WetRulesSchema>
+  >;
+
+  return {
+    width,
+    height,
+    seed: deriveStepSeed(context.settings.seed, "ecology:planFeaturePlacements"),
+    biomeIndex: classification.biomeIndex,
+    surfaceTemperature: classification.surfaceTemperature,
+    landMask: heightfield.landMask,
+    terrainType: heightfield.terrain,
+    featureKeyField,
+    nearRiverMask: computeRiverAdjacencyMask(
+      context,
+      Math.max(1, Math.floor(rules.nearRiverRadius))
+    ),
+    isolatedRiverMask: computeRiverAdjacencyMask(
+      context,
+      Math.max(1, Math.floor(rules.isolatedRiverRadius))
+    ),
+    navigableRiverTerrain: context.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER"),
+  };
+}
+
+export function buildVegetatedFeaturePlacementsInput(
+  context: ExtendedMapContext,
+  lookups: FeatureKeyLookups
+): VegetatedPlacementInput {
+  const { width, height } = context.dimensions;
+  const size = width * height;
+
+  const classification = getPublishedBiomeClassification(context);
+  if (!classification) {
+    throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
   }
 
   const heightfield = getHeightfieldArtifact(context, size);
-  const latitude = buildLatitudeField(context.adapter, width, height);
-
   const featureKeyField = buildFeatureKeyField(context, lookups);
-  const naturalWonderMask = new Uint8Array(size);
-  const nearRiverMask = computeRiverAdjacencyMask(context, config.wet.nearRiverRadius);
-  const isolatedRiverMask = computeRiverAdjacencyMask(context, config.wet.isolatedRiverRadius);
 
   return {
     width,
@@ -99,13 +182,8 @@ export function buildFeaturesPlacementInput(
     freezeIndex: classification.freezeIndex,
     landMask: heightfield.landMask,
     terrainType: heightfield.terrain,
-    latitude,
     featureKeyField,
-    naturalWonderMask,
-    nearRiverMask,
-    isolatedRiverMask,
     navigableRiverTerrain: context.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER"),
-    coastTerrain: context.adapter.getTerrainTypeIndex("TERRAIN_COAST"),
   };
 }
 

@@ -16,17 +16,21 @@ describe("features (owned baseline)", () => {
 
     const config = {
       featuresPlacement: {
-        strategy: "default",
-        config: {
-          groups: { vegetated: { multiplier: 0 }, wet: { multiplier: 0 }, ice: { multiplier: 0 } },
-          aquatic: { reefLatitudeSplit: 55 },
-          chances: {
-            FEATURE_REEF: 100,
-            FEATURE_COLD_REEF: 100,
-            FEATURE_ATOLL: 0,
-            FEATURE_LOTUS: 0,
+        vegetated: { strategy: "default", config: { multiplier: 0 } },
+        wet: { strategy: "default", config: { multiplier: 0 } },
+        aquatic: {
+          strategy: "default",
+          config: {
+            rules: { reefLatitudeSplit: 55 },
+            chances: {
+              FEATURE_REEF: 100,
+              FEATURE_COLD_REEF: 100,
+              FEATURE_ATOLL: 0,
+              FEATURE_LOTUS: 0,
+            },
           },
         },
+        ice: { strategy: "default", config: { multiplier: 0 } },
       },
       reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
       vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },

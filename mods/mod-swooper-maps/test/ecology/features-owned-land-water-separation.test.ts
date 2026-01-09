@@ -16,26 +16,47 @@ describe("features (owned baseline)", () => {
 
     const config = {
       featuresPlacement: {
-        strategy: "default",
-        config: {
-          chances: {
-            FEATURE_FOREST: 100,
-            FEATURE_RAINFOREST: 100,
-            FEATURE_TAIGA: 100,
-            FEATURE_SAVANNA_WOODLAND: 100,
-            FEATURE_SAGEBRUSH_STEPPE: 100,
-            FEATURE_MARSH: 100,
-            FEATURE_TUNDRA_BOG: 100,
-            FEATURE_MANGROVE: 100,
-            FEATURE_OASIS: 100,
-            FEATURE_WATERING_HOLE: 100,
-            FEATURE_REEF: 100,
-            FEATURE_COLD_REEF: 100,
-            FEATURE_ATOLL: 100,
-            FEATURE_LOTUS: 100,
-            FEATURE_ICE: 100,
+        vegetated: {
+          strategy: "default",
+          config: {
+            chances: {
+              FEATURE_FOREST: 100,
+              FEATURE_RAINFOREST: 100,
+              FEATURE_TAIGA: 100,
+              FEATURE_SAVANNA_WOODLAND: 100,
+              FEATURE_SAGEBRUSH_STEPPE: 100,
+            },
           },
-          ice: { minAbsLatitude: 90 },
+        },
+        wet: {
+          strategy: "default",
+          config: {
+            chances: {
+              FEATURE_MARSH: 100,
+              FEATURE_TUNDRA_BOG: 100,
+              FEATURE_MANGROVE: 100,
+              FEATURE_OASIS: 100,
+              FEATURE_WATERING_HOLE: 100,
+            },
+          },
+        },
+        aquatic: {
+          strategy: "default",
+          config: {
+            chances: {
+              FEATURE_REEF: 100,
+              FEATURE_COLD_REEF: 100,
+              FEATURE_ATOLL: 100,
+              FEATURE_LOTUS: 100,
+            },
+          },
+        },
+        ice: {
+          strategy: "default",
+          config: {
+            chances: { FEATURE_ICE: 100 },
+            rules: { minAbsLatitude: 90 },
+          },
         },
       },
       reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },

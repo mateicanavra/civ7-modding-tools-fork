@@ -1,8 +1,11 @@
 import { Type, type Static } from "typebox";
 import { BiomeEngineBindingsSchema } from "./biome-bindings.js";
 import { classifyBiomes } from "./ops/classify-biomes/index.js";
-import { planFeaturePlacements } from "./ops/plan-feature-placements/index.js";
+import { planAquaticFeaturePlacements } from "./ops/plan-aquatic-feature-placements/index.js";
+import { planIceFeaturePlacements } from "./ops/plan-ice-feature-placements/index.js";
 import { planPlotEffects } from "./ops/plan-plot-effects/index.js";
+import { planVegetatedFeaturePlacements } from "./ops/plan-vegetated-feature-placements/index.js";
+import { planWetFeaturePlacements } from "./ops/plan-wet-feature-placements/index.js";
 
 /**
  * Biome classification config (Holdridge/Whittaker-inspired).
@@ -16,9 +19,25 @@ const BiomeConfigSchema = classifyBiomes.config;
 const BiomeBindingsSchema = BiomeEngineBindingsSchema;
 
 /**
- * Config for the feature placement plan operation.
+ * Baseline feature placement config split by concern (step orchestrates order).
  */
-const FeaturesPlacementConfigSchema = planFeaturePlacements.config;
+const FeaturesPlacementConfigSchema = Type.Object(
+  {
+    vegetated: planVegetatedFeaturePlacements.config,
+    wet: planWetFeaturePlacements.config,
+    aquatic: planAquaticFeaturePlacements.config,
+    ice: planIceFeaturePlacements.config,
+  },
+  {
+    additionalProperties: false,
+    default: {
+      vegetated: planVegetatedFeaturePlacements.defaultConfig,
+      wet: planWetFeaturePlacements.defaultConfig,
+      aquatic: planAquaticFeaturePlacements.defaultConfig,
+      ice: planIceFeaturePlacements.defaultConfig,
+    },
+  }
+);
 
 /**
  * Config for climate/ecology plot effects (snow, sand, burned).

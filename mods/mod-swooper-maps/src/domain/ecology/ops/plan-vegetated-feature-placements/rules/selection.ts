@@ -1,7 +1,24 @@
-import { biomeSymbolFromIndex } from "../../classify-biomes/index.js";
-import type { FeatureKey, ResolvedFeaturesPlacementConfig } from "../types.js";
+import { biomeSymbolFromIndex } from "@mapgen/domain/ecology/types.js";
 
-type VegetatedRules = ResolvedFeaturesPlacementConfig["vegetated"];
+export type VegetatedFeatureKey =
+  | "FEATURE_FOREST"
+  | "FEATURE_RAINFOREST"
+  | "FEATURE_TAIGA"
+  | "FEATURE_SAVANNA_WOODLAND"
+  | "FEATURE_SAGEBRUSH_STEPPE";
+
+type VegetatedRules = {
+  desertSagebrushMinVegetation: number;
+  desertSagebrushMaxAridity: number;
+  tundraTaigaMinVegetation: number;
+  tundraTaigaMinTemperature: number;
+  tundraTaigaMaxFreeze: number;
+  temperateDryForestMoisture: number;
+  temperateDryForestMaxAridity: number;
+  temperateDryForestVegetation: number;
+  tropicalSeasonalRainforestMoisture: number;
+  tropicalSeasonalRainforestMaxAridity: number;
+};
 
 export function pickVegetatedFeature(params: {
   symbolIndex: number;
@@ -11,8 +28,16 @@ export function pickVegetatedFeature(params: {
   aridityIndex: number;
   freezeIndex: number;
   rules: VegetatedRules;
-}): FeatureKey | null {
-  const { symbolIndex, moistureValue, temperatureValue, vegetationValue, aridityIndex, freezeIndex, rules } = params;
+}): VegetatedFeatureKey | null {
+  const {
+    symbolIndex,
+    moistureValue,
+    temperatureValue,
+    vegetationValue,
+    aridityIndex,
+    freezeIndex,
+    rules,
+  } = params;
   const symbol = biomeSymbolFromIndex(symbolIndex);
 
   if (symbol === "snow") return null;

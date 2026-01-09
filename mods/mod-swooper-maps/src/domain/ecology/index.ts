@@ -1,15 +1,21 @@
 import { classifyBiomes } from "./ops/classify-biomes/index.js";
-import { planFeaturePlacements } from "./ops/plan-feature-placements/index.js";
+import { planAquaticFeaturePlacements } from "./ops/plan-aquatic-feature-placements/index.js";
+import { planIceFeaturePlacements } from "./ops/plan-ice-feature-placements/index.js";
 import { planPlotEffects } from "./ops/plan-plot-effects/index.js";
 import { planReefEmbellishments } from "./ops/plan-reef-embellishments/index.js";
+import { planVegetatedFeaturePlacements } from "./ops/plan-vegetated-feature-placements/index.js";
 import { planVegetationEmbellishments } from "./ops/plan-vegetation-embellishments/index.js";
+import { planWetFeaturePlacements } from "./ops/plan-wet-feature-placements/index.js";
 
 export const ops = {
   classifyBiomes,
-  planFeaturePlacements,
+  planAquaticFeaturePlacements,
+  planIceFeaturePlacements,
   planPlotEffects,
   planReefEmbellishments,
+  planVegetatedFeaturePlacements,
   planVegetationEmbellishments,
+  planWetFeaturePlacements,
 } as const;
 
 export {
@@ -30,6 +36,5 @@ export {
   type FeatureKey,
   type PlotEffectKey,
 } from "./types.js";
-export { type ResolvedFeaturesPlacementConfig } from "./ops/plan-feature-placements/types.js";
 export { type ResolvedPlotEffectsConfig } from "./ops/plan-plot-effects/contract.js";
 export { resolveSnowElevationRange } from "./ops/plan-plot-effects/snow-elevation.js";
