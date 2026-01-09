@@ -47,6 +47,18 @@ describe("authoring SDK", () => {
     ).not.toThrow();
   });
 
+  it("defineStepContract rejects non-kebab step ids", () => {
+    expect(() =>
+      defineStepContract({
+        id: "BadId",
+        phase: "foundation",
+        requires: [],
+        provides: [],
+        schema: EmptyStepConfigSchema,
+      })
+    ).toThrow(/BadId/);
+  });
+
   it("createStage rejects steps without explicit schemas", () => {
     expect(() =>
       createStage({
@@ -62,6 +74,29 @@ describe("authoring SDK", () => {
         ],
       } as any)
     ).toThrow(/schema/);
+  });
+
+  it("createStage rejects non-kebab step ids with stage context", () => {
+    let error: Error | null = null;
+    try {
+      createStage({
+        id: "foundation",
+        steps: [
+          {
+            id: "BadId",
+            phase: "foundation",
+            requires: [],
+            provides: [],
+            schema: EmptyStepConfigSchema,
+            run: () => {},
+          },
+        ],
+      } as any);
+    } catch (err) {
+      error = err as Error;
+    }
+    expect(error?.message).toContain("foundation");
+    expect(error?.message).toContain("BadId");
   });
 
   it("createRecipe rejects missing tagDefinitions", () => {
