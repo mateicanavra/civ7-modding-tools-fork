@@ -41,7 +41,7 @@ Stage contract sketch (public view + `toInternal` mapping):
 
 ```ts
 import { Type } from "typebox";
-import { createStage } from "@swooper/mapgen-core/authoring/stage";
+import { createStage } from "@swooper/mapgen-core/authoring";
 
 import { plotVegetationStep } from "./steps/plot-vegetation/index.js";
 import { plotWetlandsStep } from "./steps/plot-wetlands/index.js";
@@ -129,11 +129,11 @@ Contract (NEW (planned) step; op contracts may already exist in split form or ma
 
 ```ts
 import { defineStepContract } from "@swooper/mapgen-core/authoring";
-import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 
-// NEW (planned): export `contracts` from the domain entrypoint alongside `ops`.
-// Baseline today: `ecology.ops` exists; individual op modules export contracts, but there is no
-// consolidated `ecology.contracts` yet.
+// NEW (planned): domains export contract-only entrypoints for step contracts.
+// Baseline today: `ecology.ops` exists; individual op modules export contracts, but there may be no
+// consolidated `@mapgen/domain/ecology/contracts` surface yet.
 
 export const PlotVegetationContract = defineStepContract({
   id: "plotVegetation",
@@ -150,11 +150,11 @@ export const PlotVegetationContract = defineStepContract({
     // canonical target is to keep splitting toward these focused “plan-*” ops.
     //
     // DX model: domains export contracts separately from implementations:
-    // - `ecology.contracts.*` are contract-only (safe to import in step contracts)
-    // - `ecology.ops.*` are runtime implementations (used only in step modules)
-    trees: ecology.contracts.planTreeVegetation,
-    shrubs: ecology.contracts.planShrubVegetation,
-    groundCover: ecology.contracts.planGroundCover,
+    // - `@mapgen/domain/<domain>/contracts` is contract-only (safe to import in step contracts)
+    // - `@mapgen/domain/<domain>` may include implementation registries (used only in step modules)
+    trees: ecologyContracts.planTreeVegetation,
+    shrubs: ecologyContracts.planShrubVegetation,
+    groundCover: ecologyContracts.planGroundCover,
   },
   // If schema is omitted here, an ops-derived schema is allowed (I7) and will be strict:
   // - required: `trees`, `shrubs`, `groundCover` (prefilled before schema normalization)
@@ -194,8 +194,7 @@ Canonical pattern:
 One plausible (NEW (planned)) step module shape:
 
 ```ts
-import { createStep } from "@mapgen/authoring/steps";
-import { bindRuntimeOps } from "@swooper/mapgen-core/authoring/bindings";
+import { bindRuntimeOps, createStep } from "@swooper/mapgen-core/authoring";
 
 import * as ecology from "@mapgen/domain/ecology";
 

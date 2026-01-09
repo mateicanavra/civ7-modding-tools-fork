@@ -33,7 +33,7 @@ Inline example: stage contract with an explicit `public` view (single author-fac
 ```ts
 import { Type } from "typebox";
 
-import { createStage } from "@swooper/mapgen-core/authoring/stage";
+import { createStage } from "@swooper/mapgen-core/authoring";
 
 import { plotVegetationStep } from "./steps/plot-vegetation/index.js";
 import { plotWetlandsStep } from "./steps/plot-wetlands/index.js";
