@@ -16,6 +16,8 @@ import { planVegetation } from "./ops/features-plan-vegetation/index.js";
 import { planWetlands } from "./ops/features-plan-wetlands/index.js";
 import { planReefs } from "./ops/features-plan-reefs/index.js";
 import { planIce } from "./ops/features-plan-ice/index.js";
+import type { DomainOpCompileAny, DomainOpRuntimeAny } from "@swooper/mapgen-core/authoring";
+import { runtimeOp } from "@swooper/mapgen-core/authoring";
 
 export const ops = {
   classifyBiomes,
@@ -38,6 +40,9 @@ export const ops = {
   applyFeatures,
 };
 
+export const compileOpsById = buildOpsById(ops);
+export const runtimeOpsById = buildRuntimeOpsById(compileOpsById);
+
 export {
   EcologyConfigSchema,
   type EcologyConfig,
@@ -56,3 +61,19 @@ export {
   type FeatureKey,
   type PlotEffectKey,
 } from "./types.js";
+
+function buildOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
+  input: TOps
+): Readonly<Record<string, DomainOpCompileAny>> {
+  const out: Record<string, DomainOpCompileAny> = {};
+  for (const op of Object.values(input)) out[op.id] = op;
+  return out;
+}
+
+function buildRuntimeOpsById(
+  input: Readonly<Record<string, DomainOpCompileAny>>
+): Readonly<Record<string, DomainOpRuntimeAny>> {
+  const out: Record<string, DomainOpRuntimeAny> = {};
+  for (const [id, op] of Object.entries(input)) out[id] = runtimeOp(op);
+  return out;
+}
