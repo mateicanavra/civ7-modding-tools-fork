@@ -1,6 +1,8 @@
 import type { TSchema } from "typebox";
 import { Value } from "typebox/value";
 
+import type { DomainOpCompileAny, OpsById } from "../authoring/bindings.js";
+import { bindCompileOps, OpBindingError } from "../authoring/bindings.js";
 import { buildOpEnvelopeSchema } from "../authoring/op/envelope.js";
 import type { CompileErrorItem } from "./recipe-compile.js";
 
@@ -14,11 +16,6 @@ export type OpContractAny = Readonly<{
 export type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
 
 export type StepModuleAny = Readonly<{ contract?: Readonly<{ ops?: StepOpsDecl }> }>;
-
-export type DomainOpCompileAny = Readonly<{
-  id: string;
-  normalize?: (envelope: unknown, ctx: NormalizeCtx<any, any>) => unknown;
-}>;
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
@@ -168,7 +165,7 @@ export function normalizeOpsTopLevel(
   step: StepModuleAny,
   stepConfig: Record<string, unknown>,
   ctx: NormalizeCtx<any, any>,
-  compileOpsById: Readonly<Record<string, DomainOpCompileAny>>,
+  compileOpsById: OpsById<DomainOpCompileAny>,
   path: string
 ): { value: Record<string, unknown>; errors: CompileErrorItem[] } {
   const errors: CompileErrorItem[] = [];
@@ -176,10 +173,32 @@ export function normalizeOpsTopLevel(
   const opsDecl = step.contract?.ops;
   if (!opsDecl) return { value: stepConfig, errors };
 
+  let compileOps: Record<string, DomainOpCompileAny>;
+  try {
+    compileOps = bindCompileOps(opsDecl, compileOpsById) as Record<string, DomainOpCompileAny>;
+  } catch (err) {
+    if (err instanceof OpBindingError) {
+      errors.push({
+        code: "op.missing",
+        path: `${path}/${err.opKey}`,
+        message: `Missing op implementation for key "${err.opKey}"`,
+        opKey: err.opKey,
+        opId: err.opId,
+      });
+    } else {
+      errors.push({
+        code: "op.missing",
+        path,
+        message: err instanceof Error ? err.message : "bindCompileOps failed",
+      });
+    }
+    return { value: stepConfig, errors };
+  }
+
   let value: Record<string, unknown> = stepConfig;
   for (const opKey of Object.keys(opsDecl)) {
     const contract = opsDecl[opKey]!;
-    const op = compileOpsById[contract.id];
+    const op = compileOps[opKey];
     if (!op) {
       errors.push({
         code: "op.missing",

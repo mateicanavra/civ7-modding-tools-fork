@@ -1,6 +1,7 @@
 export { createStep, createStepFor, defineStepContract } from "./step/index.js";
 export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
+export { bindCompileOps, bindRuntimeOps, runtimeOp } from "./bindings.js";
 export { createOp, createStrategy, defineOpContract, opRef } from "./op/index.js";
 export { applySchemaDefaults, defineOpSchema } from "./schema.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
@@ -36,6 +37,7 @@ export type {
   Step,
   StepModule,
 } from "./types.js";
+export type { DomainOpCompileAny, DomainOpRuntimeAny, OpId, OpsById } from "./bindings.js";
 export type {
   DomainOp,
   DomainOpKind,
