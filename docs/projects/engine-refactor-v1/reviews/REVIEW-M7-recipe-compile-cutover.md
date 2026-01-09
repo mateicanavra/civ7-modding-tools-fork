@@ -278,3 +278,30 @@ Clean, high-signal cut: executor no longer synthesizes configs; runtime consumes
 ### Cross-cutting Risks
 
 - Any remaining “config synthesis” utilities elsewhere (planner, shims) will now be architecturally inconsistent; D2/F1 must fully eliminate them.
+
+## REVIEW m7-t11-planner-validate-only
+
+### Quick Take
+
+This completes the engine-side cut: `compileExecutionPlan` becomes validate-only (no defaulting/cleaning, no step hooks), which is exactly what the compiler-first architecture needs.
+
+### High-Leverage Issues
+
+- There is now a second implementation of unknown-key + error-path formatting logic (planner + compiler). That’s okay short-term, but treat it as a “must not drift” pair—small differences will produce confusing UX.
+- The decision to treat missing step config as invalid is strong and consistent with “compiled output is total”; ensure all recipe instantiation paths always populate configs (C3’s `assertCompiledConfig` is doing the right job here).
+
+### Fix Now (Recommended)
+
+- Add one integration-ish test that runs `recipe.compile(settings, config)` and asserts that any schema-invalid compiled step config fails in the compiler stage rather than at plan validation (keeps error surfaces “owned” by the compiler).
+
+### Defer / Follow-up
+
+- Consider factoring shared “strict validation + unknown key detection” into a single utility once the compiler API stabilizes.
+
+### Needs Discussion
+
+- Do we want planner errors to reference `/config/...` (compiler paths) instead of `/recipe/steps/.../config`, or is keeping them distinct important for debugging?
+
+### Cross-cutting Risks
+
+- Once both compiler and planner validate strictly, any mismatch in schema defaults (e.g. missing `default: {}`) will become a sharp edge for content authors.
