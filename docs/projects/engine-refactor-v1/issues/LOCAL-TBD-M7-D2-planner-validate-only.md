@@ -30,9 +30,9 @@ related_to: []
 
 ## Acceptance Criteria
 
-- [ ] `compileExecutionPlan` validates only: it does not call `Value.Default/Convert/Clean` on step configs.
-- [ ] `compileExecutionPlan` does not call any step/op normalization hook (`step.resolveConfig`/`step.normalize` etc).
-- [ ] Error code `step.resolveConfig.failed` is deleted and tests updated accordingly.
+- [x] `compileExecutionPlan` validates only: it does not call `Value.Default/Convert/Clean` on step configs.
+- [x] `compileExecutionPlan` does not call any step/op normalization hook (`step.resolveConfig`/`step.normalize` etc).
+- [x] Error code `step.resolveConfig.failed` is deleted and tests updated accordingly.
 
 ## Scope Boundaries
 
