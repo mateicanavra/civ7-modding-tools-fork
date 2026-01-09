@@ -65,7 +65,7 @@ const RESERVED_STAGE_KEY = "knobs";
 export function compileRecipeConfig<const TStages extends readonly StageContractAny[]>(args: {
   env: unknown;
   recipe: Readonly<{ stages: TStages }>;
-  config: RecipeConfigInputOf<any> | null | undefined;
+  config: RecipeConfigInputOf<TStages> | null | undefined;
   compileOpsById: CompileOpsById;
 }): CompiledRecipeConfigOf<any> {
   const errors: CompileErrorItem[] = [];

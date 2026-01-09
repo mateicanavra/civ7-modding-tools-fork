@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { TypeCompiler } from "@sinclair/typebox/compiler";
+import { TypeCompiler } from "typebox/compile";
 
 const PlacementMethodCallSchema = Type.Object(
   {

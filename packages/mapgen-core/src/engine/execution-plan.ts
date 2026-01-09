@@ -2,7 +2,7 @@
 import "../polyfills/text-encoder";
 
 import { Type, type Static, type TSchema } from "typebox";
-import { TypeCompiler } from "@sinclair/typebox/compiler";
+import { TypeCompiler } from "typebox/compile";
 
 import type { StepRegistry } from "@mapgen/engine/StepRegistry.js";
 import type { GenerationPhase } from "@mapgen/engine/types.js";
@@ -266,7 +266,7 @@ export function compileExecutionPlan<TContext>(
 
     const registryStep = registry.get(step.id);
     const configPath = `/recipe/steps/${index}/config`;
-    let config = step.config;
+    let config: unknown = step.config;
     if (registryStep.configSchema) {
       const { value, errors: configErrors } = validateStepConfig(
         registryStep.configSchema,
