@@ -5,12 +5,16 @@ import type { RecipeModule } from "@swooper/mapgen-core/authoring";
 import type { RunSettings } from "@swooper/mapgen-core/engine";
 
 import { getStandardRuntime, initializeStandardRuntime } from "../../recipes/standard/runtime.js";
-import type { StandardRecipeConfig } from "../../recipes/standard/recipe.js";
+import type { StandardRecipeCompiledConfig, StandardRecipeConfig } from "../../recipes/standard/recipe.js";
 import type { MapInitResolution } from "./map-init.js";
 import type { MapRuntimeOptions } from "./types.js";
 
 type StandardRunOptions = {
-  recipe: RecipeModule<ExtendedMapContext, StandardRecipeConfig | null>;
+  recipe: RecipeModule<
+    ExtendedMapContext,
+    StandardRecipeConfig | null,
+    StandardRecipeCompiledConfig
+  >;
   init: MapInitResolution;
   settings: RunSettings;
   config: StandardRecipeConfig | null;
