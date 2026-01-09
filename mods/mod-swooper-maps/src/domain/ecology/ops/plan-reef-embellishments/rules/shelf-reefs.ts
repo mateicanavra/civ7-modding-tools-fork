@@ -1,10 +1,12 @@
+import type { LabelRng } from "@swooper/mapgen-core";
+
 export function planShelfReefs(params: {
   width: number;
   height: number;
   passiveShelfMask: Uint8Array;
   inBounds: (x: number, y: number) => boolean;
   isWater: (x: number, y: number) => boolean;
-  rng: (label: string, max: number) => number;
+  rng: LabelRng;
   shelfReefChance: number;
   shelfReefRadius: number;
   canPlace: (x: number, y: number) => boolean;
@@ -39,7 +41,7 @@ export function planShelfReefs(params: {
         if (!isWater(nx, ny)) continue;
         if (!canPlace(nx, ny)) continue;
 
-        if (rng("features:plan:reef:shelf", 100) < shelfReefChance) {
+        if (rng(100, "features:plan:reef:shelf") < shelfReefChance) {
           place(nx, ny);
         }
       }

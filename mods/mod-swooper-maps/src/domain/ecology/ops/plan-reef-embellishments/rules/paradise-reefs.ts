@@ -1,10 +1,12 @@
+import type { LabelRng } from "@swooper/mapgen-core";
+
 export function planParadiseReefs(params: {
   width: number;
   height: number;
   paradiseMask: Uint8Array;
   inBounds: (x: number, y: number) => boolean;
   isWater: (x: number, y: number) => boolean;
-  rng: (label: string, max: number) => number;
+  rng: LabelRng;
   paradiseReefChance: number;
   paradiseReefRadius: number;
   canPlace: (x: number, y: number) => boolean;
@@ -39,7 +41,7 @@ export function planParadiseReefs(params: {
         if (!isWater(nx, ny)) continue;
         if (!canPlace(nx, ny)) continue;
 
-        if (rng("features:plan:reef:paradise", 100) < paradiseReefChance) {
+        if (rng(100, "features:plan:reef:paradise") < paradiseReefChance) {
           place(nx, ny);
         }
       }

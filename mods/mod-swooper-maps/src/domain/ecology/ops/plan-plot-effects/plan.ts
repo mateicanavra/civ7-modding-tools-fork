@@ -1,11 +1,11 @@
 import { biomeSymbolFromIndex } from "../classify-biomes/index.js";
 import { type Static } from "@swooper/mapgen-core/authoring";
+import { createLabelRng, type LabelRng } from "@swooper/mapgen-core";
 import {
   PlanPlotEffectsContract,
   type ResolvedPlotEffectsConfig,
 } from "./contract.js";
 import { resolveSnowElevationRange } from "./snow-elevation.js";
-import { createLabelRng } from "../rng.js";
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
@@ -14,8 +14,8 @@ const normalizeRange = (value: number, min: number, max: number): number => {
   return clamp01((value - min) / (max - min));
 };
 
-const rollPercent = (rng: (label: string, max: number) => number, label: string, chance: number): boolean =>
-  chance > 0 && rng(label, 100) < chance;
+const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
+  chance > 0 && rng(100, label) < chance;
 
 type PlotEffectsInput = Static<typeof PlanPlotEffectsContract["input"]>;
 type PlotEffectPlacement = Static<

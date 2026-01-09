@@ -33,6 +33,8 @@ export function parseStoryKey(key: string): { x: number; y: number } {
 
 export { clamp, clamp01, clampInt, clampPct } from "@mapgen/lib/math/clamp.js";
 export { lerp } from "@mapgen/lib/math/lerp.js";
+export { createLabelRng } from "@mapgen/lib/rng/label.js";
+export type { LabelRng } from "@mapgen/lib/rng/label.js";
 
 /**
  * Fill a typed array buffer with a value

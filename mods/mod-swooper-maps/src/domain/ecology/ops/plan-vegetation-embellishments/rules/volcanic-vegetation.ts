@@ -1,3 +1,4 @@
+import type { LabelRng } from "@swooper/mapgen-core";
 import type { BiomeSymbol, FeatureKey } from "../types.js";
 
 export function planVolcanicVegetationAtTile(params: {
@@ -5,7 +6,7 @@ export function planVolcanicVegetationAtTile(params: {
   height: number;
   x: number;
   y: number;
-  rng: (label: string, max: number) => number;
+  rng: LabelRng;
   volcanicMask: Uint8Array;
   volcanicRadius: number;
   forestKey: FeatureKey;
@@ -72,7 +73,7 @@ export function planVolcanicVegetationAtTile(params: {
   if (
     warmBiomes.has(biome) &&
     rainfall >= forestMinRainfall &&
-    rng("features:plan:vegetation:volcanic-forest", 100) < forestChance
+    rng(100, "features:plan:vegetation:volcanic-forest") < forestChance
   ) {
     if (canPlace(x, y)) {
       place(x, y, forestKey);
@@ -85,7 +86,7 @@ export function planVolcanicVegetationAtTile(params: {
     latAbs >= taigaMinLatitude &&
     elevation <= taigaMaxElevation &&
     rainfall >= taigaMinRainfall &&
-    rng("features:plan:vegetation:volcanic-taiga", 100) < taigaChance
+    rng(100, "features:plan:vegetation:volcanic-taiga") < taigaChance
   ) {
     if (canPlace(x, y)) {
       place(x, y, taigaKey);

@@ -1,4 +1,4 @@
-import { createLabelRng } from "../rng.js";
+import { createLabelRng } from "@swooper/mapgen-core";
 import { type Static } from "@swooper/mapgen-core/authoring";
 import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
 import {

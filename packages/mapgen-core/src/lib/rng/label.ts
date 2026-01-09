@@ -1,4 +1,4 @@
-export type LabelRng = (label: string, max: number) => number;
+export type LabelRng = (max: number, label?: string) => number;
 
 const hashLabel = (label: string): number => {
   let hash = 5381;
@@ -8,13 +8,21 @@ const hashLabel = (label: string): number => {
   return hash | 0;
 };
 
+/**
+ * Deterministic RNG keyed by label.
+ *
+ * Each unique label maintains its own LCG state derived from the base seed.
+ * Useful for stable, intention-revealing randomness without global RNG plumbing.
+ *
+ * Returns values in [0, max).
+ */
 export function createLabelRng(seed: number): LabelRng {
   const baseSeed = seed | 0;
   const stateByLabel = new Map<string, number>();
 
-  return (label: string, max: number): number => {
+  return (max: number, label?: string): number => {
     const bound = Math.max(1, max | 0);
-    const key = label || "rng";
+    const key = label && label.length > 0 ? label : "rng";
     let state = stateByLabel.get(key);
     if (state == null) {
       state = (baseSeed ^ hashLabel(key)) >>> 0;
