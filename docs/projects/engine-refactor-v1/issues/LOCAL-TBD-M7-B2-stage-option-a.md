@@ -30,9 +30,9 @@ Make stages the authoritative "author-facing config surface" owner. Stage config
 
 ## Acceptance Criteria
 
-- [ ] `createStage(...)` computes and attaches `surfaceSchema` for the stage (including `"knobs"` reserved key handling).
-- [ ] Stage Option A exists: stages may declare optional `public` schema and a `compile` mapping; internal-as-public stages remain valid.
-- [ ] Reserved key enforcement: authors cannot declare a step id/key named `"knobs"` and `"knobs"` must not appear inside step configs post-compilation.
+- [x] `createStage(...)` computes and attaches `surfaceSchema` for the stage (including `"knobs"` reserved key handling).
+- [x] Stage Option A exists: stages may declare optional `public` schema and a `compile` mapping; internal-as-public stages remain valid.
+- [x] Reserved key enforcement: authors cannot declare a step id/key named `"knobs"` and `"knobs"` must not appear inside step configs post-compilation.
 
 ## Scope Boundaries
 
