@@ -438,14 +438,14 @@ const config = {
     pedology: {
       classify: { strategy: "orogeny-boosted", config: {} },  // Dramatic mountain soils
     },
-    "resource-basins": {
+    resourceBasins: {
       plan: { strategy: "default", config: {} },
       score: { strategy: "default", config: {} },
     },
-    "biome-edge-refine": {
+    biomeEdgeRefine: {
       refine: { strategy: "default", config: {} },  // Sharp desert/mountain transitions
     },
-    "features-plan": {
+    featuresPlan: {
       vegetation: { strategy: "default", config: {} },  // Sparse desert vegetation
       wetlands: { strategy: "default", config: {} },    // Minimal wetlands
       reefs: { strategy: "default", config: {} },
@@ -525,7 +525,7 @@ const config = {
         marine: "BIOME_MARINE",
       },
     },
-    "plot-effects": {
+    plotEffects: {
       plotEffects: {
         strategy: "default",
         config: {

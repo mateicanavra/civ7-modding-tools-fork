@@ -558,14 +558,14 @@ const config = {
     pedology: {
       classify: { strategy: "coastal-shelf", config: {} },  // Island-focused coastal soils
     },
-    "resource-basins": {
+    resourceBasins: {
       plan: { strategy: "hydro-fluvial", config: {} },      // Water-focused resources
       score: { strategy: "default", config: {} },
     },
-    "biome-edge-refine": {
+    biomeEdgeRefine: {
       refine: { strategy: "gaussian", config: {} },         // Smooth tropical biome blending
     },
-    "features-plan": {
+    featuresPlan: {
       vegetation: { strategy: "clustered", config: {} },    // Tropical rainforest clusters
       wetlands: { strategy: "delta-focused", config: {} },  // Mangrove deltas
       reefs: { strategy: "shipping-lanes", config: {} },    // Island chain reef patterns
@@ -645,7 +645,7 @@ const config = {
         marine: "BIOME_MARINE",
       },
     },
-    "plot-effects": {
+    plotEffects: {
       plotEffects: {
         strategy: "default",
         config: {
