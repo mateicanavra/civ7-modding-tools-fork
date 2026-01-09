@@ -4,6 +4,7 @@ import type {
   DependencyTag,
   ExecutionPlan,
   GenerationPhase,
+  NormalizeContext,
   RecipeV2,
   RunRequest,
   RunSettings,
@@ -15,7 +16,7 @@ import type { StepContract } from "./step/contract.js";
 
 export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
   readonly contract: StepContract<TSchema, string>;
-  resolveConfig?: (config: TConfig, settings: RunSettings) => TConfig;
+  normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
   run: (context: TContext, config: TConfig) => void | Promise<void>;
 };
 

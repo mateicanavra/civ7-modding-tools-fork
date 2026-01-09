@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { Type } from "typebox";
 
 import { defineOpContract } from "@mapgen/authoring/index.js";
+import type { DomainOpCompileAny } from "@mapgen/authoring/index.js";
 import { compileRecipeConfig, RecipeCompileError } from "@mapgen/compiler/recipe-compile.js";
 
 describe("compileRecipeConfig", () => {
@@ -68,14 +69,14 @@ describe("compileRecipeConfig", () => {
       steps: [step],
     };
 
-    const compileOpsById = {
+    const compileOpsById: Record<string, DomainOpCompileAny> = {
       [op.id]: {
         id: op.id,
         normalize: (envelope: { config?: Record<string, unknown> }) => {
           calls.push("op.normalize");
           return { ...envelope, config: { ...(envelope.config ?? {}), tag: "op" } };
         },
-      },
+      } as DomainOpCompileAny,
     };
 
     const result = compileRecipeConfig({

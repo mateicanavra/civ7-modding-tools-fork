@@ -3,6 +3,7 @@ export type {
   EngineContext,
   GenerationPhase,
   MapGenStep,
+  NormalizeContext,
   PipelineStepResult,
 } from "@mapgen/engine/types.js";
 export {

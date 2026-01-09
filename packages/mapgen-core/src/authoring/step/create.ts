@@ -1,13 +1,13 @@
 import type { Static } from "typebox";
 
-import type { RunSettings } from "@mapgen/engine/index.js";
+import type { NormalizeContext } from "@mapgen/engine/index.js";
 import type { StepContract } from "./contract.js";
 import type { StepModule } from "../types.js";
 
 type StepConfigOf<C extends StepContract<any, any>> = Static<C["schema"]>;
 
 type StepImpl<TContext, TConfig> = Readonly<{
-  resolveConfig?: (config: TConfig, settings: RunSettings) => TConfig;
+  normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
   run: (context: TContext, config: TConfig) => void | Promise<void>;
 }>;
 

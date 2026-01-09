@@ -121,7 +121,7 @@ export type ExecutionPlanCompileErrorCode =
   | "runRequest.invalid"
   | "step.unknown"
   | "step.config.invalid"
-  | "step.resolveConfig.failed";
+  | "step.normalize.failed";
 
 export interface ExecutionPlanCompileErrorItem {
   code: ExecutionPlanCompileErrorCode;
@@ -299,14 +299,14 @@ function buildNodeConfig<TContext>(
   path: string
 ): { config: unknown; errors: ExecutionPlanCompileErrorItem[] } {
   if (!step.configSchema) {
-    if (step.resolveConfig) {
+    if (step.normalize) {
       return {
         config: recipeStep.config ?? {},
         errors: [
           {
-            code: "step.resolveConfig.failed",
+            code: "step.normalize.failed",
             path,
-            message: "resolveConfig requires configSchema",
+            message: "normalize requires configSchema",
           },
         ],
       };
@@ -315,21 +315,22 @@ function buildNodeConfig<TContext>(
   }
 
   const { value, errors } = normalizeStepConfig(step.configSchema, recipeStep.config, path);
-  if (errors.length > 0 || !step.resolveConfig) {
+  if (errors.length > 0 || !step.normalize) {
     return { config: value, errors };
   }
 
+  const normalizeCtx = { env: settings, knobs: {} };
   let resolved: unknown;
   try {
-    resolved = step.resolveConfig(value, settings);
+    resolved = step.normalize(value, normalizeCtx);
   } catch (err) {
     return {
       config: value,
       errors: [
         {
-          code: "step.resolveConfig.failed",
+          code: "step.normalize.failed",
           path,
-          message: err instanceof Error ? err.message : "resolveConfig failed",
+          message: err instanceof Error ? err.message : "normalize failed",
         },
       ],
     };
@@ -340,9 +341,9 @@ function buildNodeConfig<TContext>(
       config: value,
       errors: [
         {
-          code: "step.resolveConfig.failed",
+          code: "step.normalize.failed",
           path,
-          message: "resolveConfig must return a plain object",
+          message: "normalize must return a plain object",
         },
       ],
     };

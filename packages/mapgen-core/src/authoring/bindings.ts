@@ -5,9 +5,7 @@ import type { DomainOp } from "./op/types.js";
 export type OpId = string;
 export type OpsById<Op> = Readonly<Record<OpId, Op>>;
 
-export type DomainOpCompileAny = DomainOp<TSchema, TSchema, Record<string, { config: TSchema }>> & {
-  normalize?: (envelope: unknown, ctx: { env: unknown; knobs: unknown }) => unknown;
-};
+export type DomainOpCompileAny = DomainOp<TSchema, TSchema, Record<string, { config: TSchema }>>;
 
 export type DomainOpRuntimeAny = Readonly<{
   id: DomainOpCompileAny["id"];
