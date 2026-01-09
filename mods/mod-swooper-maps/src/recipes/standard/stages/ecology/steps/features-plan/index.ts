@@ -1,7 +1,8 @@
 import { createStep } from "@mapgen/authoring/steps";
 import type { HeightfieldBuffer } from "@swooper/mapgen-core";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import {
   isBiomeClassificationArtifactV1,
   isPedologyArtifactV1,
@@ -10,6 +11,16 @@ import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { FeaturesPlanStepContract } from "./contract.js";
 
 type FeaturesPlanConfig = Static<typeof FeaturesPlanStepContract.schema>;
+
+const opContracts = {
+  planVegetation: ecologyContracts.PlanVegetationContract,
+  planWetlands: ecologyContracts.PlanWetlandsContract,
+  planReefs: ecologyContracts.PlanReefsContract,
+  planIce: ecologyContracts.PlanIceContract,
+} as const;
+
+const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
+const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
 
 const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer => {
   if (!value || typeof value !== "object") return false;
@@ -24,10 +35,10 @@ const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer
 
 export default createStep(FeaturesPlanStepContract, {
   normalize: (config, ctx) => ({
-    vegetation: ecology.ops.planVegetation.normalize(config.vegetation, ctx),
-    wetlands: ecology.ops.planWetlands.normalize(config.wetlands, ctx),
-    reefs: ecology.ops.planReefs.normalize(config.reefs, ctx),
-    ice: ecology.ops.planIce.normalize(config.ice, ctx),
+    vegetation: compileOps.planVegetation.normalize(config.vegetation, ctx),
+    wetlands: compileOps.planWetlands.normalize(config.wetlands, ctx),
+    reefs: compileOps.planReefs.normalize(config.reefs, ctx),
+    ice: compileOps.planIce.normalize(config.ice, ctx),
   }),
   run: (context, config: FeaturesPlanConfig) => {
     const classificationArtifact = context.artifacts.get(
@@ -52,7 +63,7 @@ export default createStep(FeaturesPlanStepContract, {
     const heightfield = heightfieldArtifact as HeightfieldBuffer;
 
     const { width, height } = context.dimensions;
-    const vegetationPlan = ecology.ops.planVegetation.runValidated(
+    const vegetationPlan = runtimeOps.planVegetation.runValidated(
       {
         width,
         height,
@@ -66,7 +77,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.vegetation
     );
 
-    const wetlandsPlan = ecology.ops.planWetlands.runValidated(
+    const wetlandsPlan = runtimeOps.planWetlands.runValidated(
       {
         width,
         height,
@@ -79,7 +90,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.wetlands
     );
 
-    const reefsPlan = ecology.ops.planReefs.runValidated(
+    const reefsPlan = runtimeOps.planReefs.runValidated(
       {
         width,
         height,
@@ -89,7 +100,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.reefs
     );
 
-    const icePlan = ecology.ops.planIce.runValidated(
+    const icePlan = runtimeOps.planIce.runValidated(
       {
         width,
         height,

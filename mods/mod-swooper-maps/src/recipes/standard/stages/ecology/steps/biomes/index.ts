@@ -1,6 +1,6 @@
 import { logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
 import {
   getPublishedClimateField,
   getPublishedNarrativeCorridors,
@@ -8,6 +8,7 @@ import {
   publishBiomeClassificationArtifact,
 } from "../../../../artifacts.js";
 import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import { BiomesStepContract } from "./contract.js";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import {
@@ -21,9 +22,16 @@ import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
 
 type BiomesStepConfig = Static<typeof BiomesStepContract.schema>;
 
+const opContracts = {
+  classifyBiomes: ecologyContracts.BiomeClassificationContract,
+} as const;
+
+const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
+const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
+
 export default createStep(BiomesStepContract, {
   normalize: (config, ctx) => ({
-    classify: ecology.ops.classifyBiomes.normalize(config.classify, ctx),
+    classify: compileOps.classifyBiomes.normalize(config.classify, ctx),
     bindings: config.bindings,
   }),
   run: (context: ExtendedMapContext, config: BiomesStepConfig) => {
@@ -61,7 +69,7 @@ export default createStep(BiomesStepContract, {
 
     const riftShoulderMask = maskFromCoordSet(rifts?.riftShoulder, width, height);
 
-    const result = ecology.ops.classifyBiomes.runValidated(
+    const result = runtimeOps.classifyBiomes.runValidated(
       {
         width,
         height,
