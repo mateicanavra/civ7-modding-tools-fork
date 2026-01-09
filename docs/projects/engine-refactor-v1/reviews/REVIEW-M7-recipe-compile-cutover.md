@@ -251,3 +251,30 @@ Strong cut: `instantiate`/`runRequest` now require compiled, total step-id keyed
 ### Cross-cutting Risks
 
 - This is the point-of-no-return for config shape compatibility; any remaining legacy entrypoints will now fail loudly.
+
+## REVIEW m7-t10-executor-plan-only
+
+### Quick Take
+
+Clean, high-signal cut: executor no longer synthesizes configs; runtime consumes execution plans only, which aligns with “compiler owns normalization/defaulting.”
+
+### High-Leverage Issues
+
+- This is a breaking API change (`execute`/`executeAsync` removed); it’s good for architecture purity, but ensure all external entrypoints route through `recipe.compile` + `executor.executePlan*`.
+- `executePlan` casts `node.config as TConfig`; if any legacy callsite still builds plans with “almost compiled” configs, type safety won’t catch it—compiler gating must be the real protection.
+
+### Fix Now (Recommended)
+
+- Add one top-level test (or smoke check) that external mod runtime entrypoints no longer call the removed executor APIs, to avoid regressions via copy/paste older snippets.
+
+### Defer / Follow-up
+
+- Consider a small “plan executor” facade for tooling that used `execute(...)` convenience, but keep it in tooling-land, not engine core.
+
+### Needs Discussion
+
+- Do we want to hard-error if `node.config` is `undefined` at runtime (instead of letting steps crash), or is that already guaranteed by compilation invariants?
+
+### Cross-cutting Risks
+
+- Any remaining “config synthesis” utilities elsewhere (planner, shims) will now be architecturally inconsistent; D2/F1 must fully eliminate them.
