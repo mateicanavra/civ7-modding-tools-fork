@@ -209,7 +209,7 @@ export function createRecipe<
     return compileRecipeConfig({
       env,
       recipe: { stages: input.stages },
-      config,
+      config: config as RecipeConfigInputOf<any> | null | undefined,
       compileOpsById: input.compileOpsById,
     }) as CompiledRecipeConfigOf<TStages>;
   }
