@@ -33,9 +33,9 @@ Ecology is the exemplar domain for the new ownership model. This unit reshapes t
 
 ## Acceptance Criteria
 
-- [ ] `@mapgen/domain/ecology/contracts` exports contracts only (no engine binding, no strategy implementations).
-- [ ] `@mapgen/domain/ecology` exports `compileOpsById` and `runtimeOpsById` keyed by `op.id`.
-- [ ] Recipes/steps/tests do not deep-import from `@mapgen/domain/ecology/ops/**` (enforced by lint and/or `rg` scans).
+- [x] `@mapgen/domain/ecology/contracts` exports contracts only (no engine binding, no strategy implementations).
+- [x] `@mapgen/domain/ecology` exports `compileOpsById` and `runtimeOpsById` keyed by `op.id`.
+- [x] Recipes/steps/tests do not deep-import from `@mapgen/domain/ecology/ops/**` (enforced by lint and/or `rg` scans).
 
 ## Scope Boundaries
 
