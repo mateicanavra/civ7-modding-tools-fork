@@ -30,9 +30,9 @@ Make op registry ownership explicit and enforce "domain entrypoint only" imports
 
 ## Acceptance Criteria
 
-- [ ] Canonical binding helpers exist in authoring core (bind compile-time ops vs runtime ops distinctly).
-- [ ] Domains expose `compileOpsById` and `runtimeOpsById` registries keyed by `op.id`.
-- [ ] Recipe boundary merges domain registries into a recipe-owned `compileOpsById` (no implicit globals).
+- [x] Canonical binding helpers exist in authoring core (bind compile-time ops vs runtime ops distinctly).
+- [x] Domains expose `compileOpsById` and `runtimeOpsById` registries keyed by `op.id`.
+- [x] Recipe boundary merges domain registries into a recipe-owned `compileOpsById` (no implicit globals).
 
 ## Scope Boundaries
 
