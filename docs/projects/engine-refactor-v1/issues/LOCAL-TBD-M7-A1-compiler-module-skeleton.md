@@ -99,7 +99,16 @@ Land compiler primitives (strict schema normalization + op envelope prefill + er
 - [Scope Boundaries](#scope-boundaries)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+- [Implementation Details (Local Only)](#implementation-details-local-only)
+  - [Implementation Notes](#implementation-notes)
+  - [Test Notes](#test-notes)
+  - [New Files Planned](#new-files-planned)
+  - [Implementation Guidance](#implementation-guidance)
+  - [Paper Trail](#paper-trail)
+  - [Quick Navigation](#quick-navigation)
 - [Implementation Decisions](#implementation-decisions)
+  - [Normalize error paths without trailing slash](#normalize-error-paths-without-trailing-slash)
+  - [Export compiler helpers as subpath entries](#export-compiler-helpers-as-subpath-entries)
 
 ## Implementation Decisions
 
