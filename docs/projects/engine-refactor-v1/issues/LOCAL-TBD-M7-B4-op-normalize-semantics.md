@@ -32,9 +32,9 @@ The compiler architecture renames and narrows "config normalization hooks":
 
 ## Acceptance Criteria
 
-- [ ] `resolveConfig` is renamed to `normalize` on op and step authoring surfaces.
-- [ ] `createOp(...)` implements `op.normalize` dispatch by `envelope.strategy` (strategy-specific normalize hook).
-- [ ] No runtime code path calls `normalize` (enforced by imports + tests).
+- [x] `resolveConfig` is renamed to `normalize` on op and step authoring surfaces.
+- [x] `createOp(...)` implements `op.normalize` dispatch by `envelope.strategy` (strategy-specific normalize hook).
+- [x] No runtime code path calls `normalize` (enforced by imports + tests).
 
 ## Scope Boundaries
 
@@ -56,6 +56,15 @@ The compiler architecture renames and narrows "config normalization hooks":
 - **Blocks:** [LOCAL-TBD-M7-C1](./LOCAL-TBD-M7-C1-recipe-boundary-compilation.md), [LOCAL-TBD-M7-E1](./LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md), [LOCAL-TBD-M7-F1](./LOCAL-TBD-M7-F1-verify-no-shims.md)
 - **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
+
+## Implementation Decisions
+
+### Normalize context uses RunSettings as env in planner
+- **Context:** Engine plan compilation still invokes step normalization, but there is no knobs/env boundary available yet.
+- **Options:** Remove planner normalization now; bridge using `{ env: settings, knobs: {} }`.
+- **Choice:** Bridge using `{ env: settings, knobs: {} }`.
+- **Rationale:** Preserves current behavior while aligning with the new normalize signature until D2 removes planner normalization.
+- **Risk:** Env naming mismatch persists temporarily; mitigated by the D2 cutover.
 
 ---
 
