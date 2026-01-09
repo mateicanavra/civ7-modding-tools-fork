@@ -34,7 +34,7 @@ Land the composition-first recipe compiler architecture as the single, canonical
 
 ```yaml
 summary:
-  - "Stage config becomes a single author-facing surface (knobs + fields), compiled into internal step-id keyed configs."
+  - "Stage config becomes a single author-facing surface (`knobs` + either public fields or internal step keys), compiled into internal step-id keyed configs."
   - "Config defaulting/cleaning/canonicalization moves fully into compilation."
   - "Engine planning and execution become validate-only with respect to configs (no normalization hooks, no runtime defaulting/cleaning)."
   - "Ecology becomes the canonical exemplar domain and stage family for the new authoring + compilation model."
@@ -385,7 +385,7 @@ workstreams:
           - packages/mapgen-core/src/authoring/types.ts
       - id: C2
         name: "Update stage+step authoring to the new config shape"
-        goal: "Make stage config a single object (knobs + fields), compiled to internal step map."
+        goal: "Make stage config a single object (`knobs` + either public fields or internal step keys), compiled to an internal step map."
         reference_disclaimer:
           - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
           - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
@@ -797,7 +797,7 @@ files:
 
 #### B2 — Stage Option A: public+compile with computed surfaceSchema
 
-This unit makes stages the authoritative “author-facing config surface” owner. Stage config becomes: `{ knobs, ...fields }`, and the compiler is the only place where the stage surface is normalized and compiled into per-step configs.
+This unit makes stages the authoritative “author-facing config surface” owner. Stage config becomes a single object per stage: either `{ knobs, ...publicFields }` (when `public` is present) or `{ knobs, ...stepKeys }` (for internal-as-public stages). The compiler is the only place where the stage surface is normalized and compiled into per-step configs.
 
 **Complexity × parallelism:** high complexity, medium parallelism.
 
@@ -925,7 +925,7 @@ C:
     concrete_changes:
       - "Update createRecipe so compileRecipeConfig runs before compileExecutionPlan."
       - "Make compileOpsById assembly explicit at the recipe boundary (no implicit globals)."
-      - "Update recipe config typing to reflect stage surfaces (knobs + fields) and compiled output (stageId -> stepId -> canonical)."
+      - "Update recipe config typing to reflect stage surfaces (`knobs` + either public fields or internal step keys) and compiled output (stageId -> stepId -> canonical)."
   C2:
     reference_disclaimer:
       - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
@@ -991,7 +991,9 @@ This unit migrates the standard recipe to the new authoring surface incrementall
 **Complexity × parallelism:** high complexity, medium parallelism.
 
 **Acceptance Criteria (Verifiable)**
-- [ ] Stage config input is a single object per stage: `{ knobs, ...fields }` (public fields optional); no per-step nested config is authored directly.
+- [ ] Stage config input is a single object per stage and matches one of:
+  - internal-as-public: `{ knobs, ...[stepId]: unknown }` (step fields remain unknown at Phase A), or
+  - public+compile: `{ knobs, ...publicFields }` validated by `stage.public`, then compiled by `stage.compile`.
 - [ ] Compiled output is total: `stageId → stepId → canonical step config` (no missing required envelopes/config).
 - [ ] At least one migrated stage runs end-to-end through compiler → plan → `executePlan` and passes tests.
 
@@ -1315,6 +1317,7 @@ slices:
     includes: [C1, C2, C3]
     approach:
       - "Adopt compileRecipeConfig at recipe boundary, then migrate stages one by one"
+      - "Treat unmigrated stages as internal-as-public surfaces (step-id keyed map); add `public`+`compile` only where it buys meaningful DX (ecology exemplar in Slice 4)"
       - "Keep engine planner/executor behavior unchanged until compilation adoption is in place"
     gates:
       - "At least one migrated stage runs end-to-end through compiler -> plan -> executePlan"
