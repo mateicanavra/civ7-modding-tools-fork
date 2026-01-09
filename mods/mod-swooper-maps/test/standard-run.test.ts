@@ -576,7 +576,7 @@ const standardConfig = {
   },
   ecology: {
     biomes: { classify: biomesConfig, bindings: biomeBindingsConfig },
-    "plot-effects": { plotEffects: plotEffectsConfig },
+    plotEffects: { plotEffects: plotEffectsConfig },
   },
   placement: {
     "derive-placement-inputs": placementConfig,
