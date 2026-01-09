@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect } from "bun:test";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import { planPlotEffects } from "../../src/domain/ecology/ops/plan-plot-effects/index.js";
@@ -55,7 +55,7 @@ describe("plot effects (owned)", () => {
       },
     };
     const resolvedConfig = planPlotEffects.resolveConfig(config, settings);
-    const result = planPlotEffects.run(input, resolvedConfig);
+    const result = planPlotEffects.runValidated(input, resolvedConfig, { validateOutput: true });
 
     expect(result.placements.length).toBeGreaterThan(0);
     const anySnow = result.placements.some((placement) =>
