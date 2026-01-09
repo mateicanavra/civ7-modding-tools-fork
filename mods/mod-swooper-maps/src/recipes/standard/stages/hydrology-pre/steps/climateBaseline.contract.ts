@@ -16,7 +16,7 @@ const ClimateBaselineStepConfigSchema = Type.Object(
 );
 
 export const ClimateBaselineStepContract = defineStepContract({
-  id: "climateBaseline",
+  id: "climate-baseline",
   phase: "hydrology",
   requires: [M3_DEPENDENCY_TAGS.artifact.heightfield],
   provides: [

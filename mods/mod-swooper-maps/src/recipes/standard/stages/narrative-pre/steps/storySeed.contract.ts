@@ -11,7 +11,7 @@ const StorySeedStepConfigSchema = Type.Object(
 );
 
 export const StorySeedStepContract = defineStepContract({
-  id: "storySeed",
+  id: "story-seed",
   phase: "morphology",
   requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
   provides: [

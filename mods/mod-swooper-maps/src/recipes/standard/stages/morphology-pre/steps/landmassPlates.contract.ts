@@ -12,7 +12,7 @@ const LandmassStepConfigSchema = Type.Object(
 );
 
 export const LandmassPlatesStepContract = defineStepContract({
-  id: "landmassPlates",
+  id: "landmass-plates",
   phase: "morphology",
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
   provides: [M4_EFFECT_TAGS.engine.landmassApplied],

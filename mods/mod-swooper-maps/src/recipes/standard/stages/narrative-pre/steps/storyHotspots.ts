@@ -23,7 +23,7 @@ export default createStep(StoryHotspotsStepContract, {
       result.motifs
     );
     if (result.summary.points === 0) {
-      devWarn(context.trace, "[smoke] storyHotspots enabled but no hotspot points were emitted");
+      devWarn(context.trace, "[smoke] story-hotspots enabled but no hotspot points were emitted");
     }
   },
 });

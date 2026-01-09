@@ -40,7 +40,7 @@ export function refineClimateEarthlike(
   const runtime = createClimateRuntime(width, height, ctx, {
     riverAdjacency: options.riverAdjacency,
   });
-  const dynamics = assertFoundationDynamics(ctx, "climateRefine");
+  const dynamics = assertFoundationDynamics(ctx, "climate-refine");
 
   if (!options.climate) {
     throw new Error("refineClimateEarthlike requires climate config.");

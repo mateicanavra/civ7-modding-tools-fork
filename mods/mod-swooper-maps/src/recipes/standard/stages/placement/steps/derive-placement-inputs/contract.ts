@@ -20,7 +20,7 @@ const DerivePlacementInputsConfigSchema = Type.Object(
 );
 
 export const DerivePlacementInputsContract = defineStepContract({
-  id: "derivePlacementInputs",
+  id: "derive-placement-inputs",
   phase: "placement",
   requires: [
     M4_EFFECT_TAGS.engine.coastlinesApplied,

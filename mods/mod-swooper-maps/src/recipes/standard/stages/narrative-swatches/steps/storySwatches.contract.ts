@@ -11,7 +11,7 @@ const StorySwatchesStepConfigSchema = Type.Object(
 );
 
 export const StorySwatchesStepContract = defineStepContract({
-  id: "storySwatches",
+  id: "story-swatches",
   phase: "hydrology",
   requires: [
     M3_DEPENDENCY_TAGS.artifact.heightfield,

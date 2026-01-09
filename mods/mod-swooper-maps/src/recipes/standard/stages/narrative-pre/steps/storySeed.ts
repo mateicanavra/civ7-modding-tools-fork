@@ -26,7 +26,7 @@ export default createStep(StorySeedStepContract, {
     const activeCount = result.snapshot.active?.length ?? 0;
     const passiveCount = result.snapshot.passive?.length ?? 0;
     if (activeCount + passiveCount === 0) {
-      devWarn(context.trace, "[smoke] storySeed enabled but margins overlay is empty");
+      devWarn(context.trace, "[smoke] story-seed enabled but margins overlay is empty");
     }
   },
 });

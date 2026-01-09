@@ -85,7 +85,7 @@ describe("pipeline artifacts", () => {
     const registry = new StepRegistry<typeof ctx>();
     registry.registerTags(STANDARD_TAG_DEFINITIONS);
     registry.register({
-      id: "climateBaseline",
+      id: "climate-baseline",
       phase: "hydrology",
       requires: [],
       provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
@@ -93,7 +93,7 @@ describe("pipeline artifacts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const { stepResults } = executor.execute(ctx, ["climateBaseline"]);
+    const { stepResults } = executor.execute(ctx, ["climate-baseline"]);
 
     expect(stepResults[0]?.success).toBe(false);
     expect(stepResults[0]?.error).toContain("did not satisfy declared provides");

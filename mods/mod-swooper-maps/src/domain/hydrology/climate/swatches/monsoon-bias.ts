@@ -21,7 +21,7 @@ export function applyMonsoonBiasPass(
   const COH = Math.max(0, Math.min(1, directionality.cohesion ?? 0));
   const eqBand = Math.max(0, (hemispheres?.equatorBandDeg ?? 12) | 0);
 
-  const dynamics = assertFoundationDynamics(ctx, "storySwatches");
+  const dynamics = assertFoundationDynamics(ctx, "story-swatches");
   if (monsoonBias > 0 && COH > 0) {
     const baseDelta = Math.max(1, Math.round(3 * COH * monsoonBias));
 

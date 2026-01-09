@@ -41,7 +41,7 @@ function assignContinentBounds(target: ContinentBounds, src: ContinentBounds): v
 
 export default createStep(LandmassPlatesStepContract, {
   run: (context: ExtendedMapContext, config: LandmassStepConfig) => {
-    assertFoundationPlates(context, "landmassPlates");
+    assertFoundationPlates(context, "landmass-plates");
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
     const landmassCfg = config.landmass as LandmassConfig;
@@ -74,7 +74,7 @@ export default createStep(LandmassPlatesStepContract, {
     if (windows.length < 2) {
       devWarn(
         context.trace,
-        `[smoke] landmassPlates produced ${windows.length} window(s); expected >= 2 for west/east continents.`
+        `[smoke] landmass-plates produced ${windows.length} window(s); expected >= 2 for west/east continents.`
       );
     }
 

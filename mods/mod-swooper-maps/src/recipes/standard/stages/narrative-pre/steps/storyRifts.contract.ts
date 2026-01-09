@@ -16,7 +16,7 @@ const StoryRiftsStepConfigSchema = Type.Object(
 );
 
 export const StoryRiftsStepContract = defineStepContract({
-  id: "storyRifts",
+  id: "story-rifts",
   phase: "morphology",
   requires: [
     M4_EFFECT_TAGS.engine.coastlinesApplied,
