@@ -31,8 +31,8 @@ Remove any bypass paths that allow uncompiled configs to flow into engine plan c
 
 ## Acceptance Criteria
 
-- [ ] No code path constructs an engine plan from uncompiled (author-facing) configs.
-- [ ] Errors that used to surface during engine planning/resolveConfig now surface as compiler errors at the recipe boundary.
+- [x] No code path constructs an engine plan from uncompiled (author-facing) configs.
+- [x] Errors that used to surface during engine planning/resolveConfig now surface as compiler errors at the recipe boundary.
 
 ## Scope Boundaries
 
@@ -76,3 +76,12 @@ Remove any bypass paths that allow uncompiled configs to flow into engine plan c
 - [Scope Boundaries](#scope-boundaries)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Implementation Decisions
+
+### Require total step-id config for instantiate/runRequest
+- **Context:** `instantiate`/`runRequest` could be called with author-facing or partial configs, bypassing recipe-boundary compilation.
+- **Options:** Remove these methods, add a compiled-config marker, or enforce total step-id config at runtime.
+- **Choice:** Enforce total step-id config at runtime and keep methods public.
+- **Rationale:** Preserves API surface while preventing author-facing configs from reaching engine planning without compilation.
+- **Risk:** Callers that relied on partial configs must now call `compileConfig` before instantiate/runRequest.
