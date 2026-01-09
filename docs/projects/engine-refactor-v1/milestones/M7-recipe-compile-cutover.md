@@ -58,6 +58,83 @@ spec_package:
     - docs/projects/engine-refactor-v1/resources/spec/recipe-compile/examples/EXAMPLES.md
 ```
 
+### Off-limits references (non-target MapGen architecture/spec docs)
+
+Do not consult any MapGen/MapGen-core “architecture/spec” docs outside `spec_package`. They are non-target for this milestone and will cause confusion (they diverge from the locked-in composition-first recipe compiler spec).
+
+```yaml
+non_target_arch_docs_off_limits:
+  rule: "Do not consult these for M7 implementation work; use spec_package + baseline code only."
+  categories:
+    - id: system_mapgen_library_docs
+      note: "System-level MapGen docs (not the recipe-compile target spec)."
+      paths:
+        - docs/system/libs/mapgen/architecture.md
+        - docs/system/libs/mapgen/ecology.md
+        - docs/system/libs/mapgen/foundation.md
+        - docs/system/libs/mapgen/hydrology.md
+        - docs/system/libs/mapgen/morphology.md
+        - docs/system/libs/mapgen/narrative.md
+        - docs/system/libs/mapgen/adrs/index.md
+        - docs/system/libs/mapgen/adrs/adr-001-era-tagged-morphology.md
+        - docs/system/libs/mapgen/adrs/adr-002-typebox-format-shim.md
+        - docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md
+        - docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling.md
+        - docs/system/libs/mapgen/research/SPIKE-earth-physics-systems-modeling-alt.md
+        - docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-climate-story-tldr.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-design.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-design-hotspot-trails-and-rift-valleys.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-earth-forces-and-layer-contracts.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-layer-contracts.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-margins-narrative.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-overview.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-plan-crust-first-morphology.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-plan-landmass-plates-fix.md
+        - docs/system/libs/mapgen/_archive/LEGACY-mapgen-roadmap-additional-motifs.md
+        - docs/system/libs/mapgen/_archive/architecture-legacy.md
+        - docs/system/libs/mapgen/_archive/ecology-architecture-legacy.md
+        - docs/system/libs/mapgen/_archive/foundation-architecture-legacy.md
+        - docs/system/libs/mapgen/_archive/hydrology-architecture-legacy.md
+        - docs/system/libs/mapgen/_archive/morphology-architecture-legacy.md
+        - docs/system/libs/mapgen/_archive/narrative-architecture-legacy.md
+    - id: engine_refactor_v1_non_recipe_compile_specs
+      note: "Engine refactor specs/ADRs outside recipe-compile (non-target for M7)."
+      paths:
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC.md
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC-architecture-overview.md
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC-core-sdk.md
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC-packaging-and-file-structure.md
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC-standard-content-package.md
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC-global-invariants.md
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC-tag-registry.md
+        - docs/projects/engine-refactor-v1/resources/spec/SPEC-appendix-target-trees.md
+        - docs/projects/engine-refactor-v1/resources/spec/adr/ADR.md
+        - docs/projects/engine-refactor-v1/resources/spec/adr/**/*.md
+    - id: other_suspect_mapgen_arch_materials
+      note: "Other repo docs that can look canonical but are non-target for M7 recipe-compile implementation."
+      paths:
+        - docs/SYSTEM.md
+        - docs/system/ARCHITECTURE.md
+        - docs/slides/config-resolution-flow.outline.md
+        - docs/_archive/LEGACY-mapgen-architecture-audit.md
+        - docs/_archive/LEGACY-mapgen-plan-plate-generation-refactor.md
+        - docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md
+        - docs/projects/engine-refactor-v1/resources/PRD-*.md
+        - docs/projects/engine-refactor-v1/resources/SPEC-target-architecture-draft.md
+        - docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md
+        - docs/projects/engine-refactor-v1/resources/slides/**/*
+        - docs/projects/engine-refactor-v1/resources/_archive/**/*
+        - docs/projects/engine-refactor-v1/resources/spike/**/*
+        - docs/projects/engine-refactor-v1/resources/workflow/**/*
+  allowed_references_rule_of_thumb:
+    - "Allowed: spec_package paths + baseline code paths listed in this doc."
+    - "Allowed: issue/review docs explicitly linked by this milestone (e.g., REVIEW-M7.md, LOCAL-TBD-M7-*)."
+    - "Disallowed: anything in non_target_arch_docs_off_limits.categories[*].paths."
+```
+
 ### Baseline (current state)
 
 ```yaml
@@ -147,7 +224,7 @@ acceptance_criteria:
   - "Compiler throws explicit errors for unknown step ids returned by stage.toInternal (excluding \"knobs\")"
   - "All step ids are kebab-case and enforced at authoring time"
   - "Ecology is fully migrated and serves as the reference implementation"
-  - "No compatibility shims were introduced; if any internal bridges were unavoidable, they are deleted by the end of M7"
+  - "No compatibility shims were introduced"
 ```
 
 ---
@@ -163,14 +240,14 @@ dx_first_wins:
   - "Compiler helpers and a compileRecipeConfig entrypoint with unit tests (safe to land without wiring)"
   - "Clear, structurally enforced authoring surfaces (kebab-case ids, reserved key enforcement, Stage Option A factory)"
   - "Explicit ops registry ownership + binding helpers (reduces ad-hoc deep imports and ad-hoc wiring)"
+```
 
 ```yaml
 compat_policy:
-  rule: "Prefer hard cutovers over compatibility shims."
+  rule: "No compatibility shims."
   intent:
-    - "This milestone plans to go all the way through to the target state, so it does not budget for long-lived dual APIs."
-    - "If a bridge is unavoidable to keep the repo runnable between slices, it must be internal-only (not exported), short-lived, and deleted in Slice 5."
-```
+    - "This milestone plans to go all the way through to the target state, so it does not budget for dual APIs or transitional exported surfaces."
+    - "If you feel you need a compatibility shim, treat that as a design error: re-slice the work so the repo stays runnable without adding a second architecture."
 ```
 
 ### Workstreams (hierarchy and estimates)
@@ -180,10 +257,16 @@ workstreams:
   - id: A
     name: Compiler foundation
     estimate: { complexity: high, parallelism: medium }
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     units:
       - id: A1
         name: "Compiler module skeleton + strict normalization"
         goal: "Make the compiler pipeline implementable and testable before any engine/runtime churn."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         new_files_planned:
           - packages/mapgen-core/src/compiler/normalize.ts
           - packages/mapgen-core/src/compiler/recipe-compile.ts
@@ -199,6 +282,9 @@ workstreams:
       - id: A2
         name: "compileRecipeConfig end-to-end wiring"
         goal: "Wire Phase A + Phase B into a single entrypoint that produces CompiledRecipeConfigOf."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         pinned_behavior:
           - "Phase A validates stage surfaceSchema then stage.toInternal"
           - "Compiler rejects unknown rawSteps keys (excluding \"knobs\")"
@@ -211,10 +297,16 @@ workstreams:
   - id: B
     name: Authoring surface upgrades
     estimate: { complexity: medium, parallelism: medium-high }
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     units:
       - id: B1
         name: "Step id convention: kebab-case enforced"
         goal: "Make step ids unambiguous and uniform across authoring, compiler, errors, and tests."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         enforcement_points:
           - "step contract factory throws on non-kebab ids"
           - "stage factory throws if any step id is non-kebab"
@@ -226,6 +318,9 @@ workstreams:
       - id: B2
         name: "Stage Option A: public+compile with computed surfaceSchema"
         goal: "Make createStage compute surfaceSchema and provide standard toInternal wrapper."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "knobsSchema and reserved key enforcement (\"knobs\")"
           - "internal-as-public stage surface schema uses optional unknown per-step keys"
@@ -236,6 +331,9 @@ workstreams:
       - id: B3
         name: "Domain ops registries + binding helpers (compile vs runtime)"
         goal: "Make opsById ownership and flow explicit and structurally enforced."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "authoring/bindings.ts: bindCompileOps + bindRuntimeOps"
           - "domain entrypoint exports compileOpsById + runtimeOpsById"
@@ -246,6 +344,9 @@ workstreams:
       - id: B4
         name: "Op normalization hook semantics: resolveConfig -> normalize"
         goal: "Rename op.resolveConfig to op.normalize; normalize dispatches by envelope.strategy."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "authoring op types: op.normalize(envelope, ctx) dispatches to strategy.normalize"
           - "compiler uses op.normalize (not step or engine runtime)"
@@ -256,10 +357,16 @@ workstreams:
   - id: C
     name: Recipe boundary + config model cutover
     estimate: { complexity: high, parallelism: low-medium }
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     units:
       - id: C1
         name: "Introduce recipe boundary compilation (before engine plan compilation)"
         goal: "Make compilation mandatory at the recipe boundary with explicit compileOpsById."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "createRecipe runs compileRecipeConfig before compileExecutionPlan"
           - "createRecipe assembles compileOpsById from domains used by the recipe/stages"
@@ -270,6 +377,9 @@ workstreams:
       - id: C2
         name: "Update stage+step authoring to the new config shape"
         goal: "Make stage config a single object (knobs + fields), compiled to internal step map."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "stage surface accepts knobs and either public fields or internal step keys"
           - "compiled output is stageId -> stepId -> canonical step config"
@@ -278,6 +388,9 @@ workstreams:
       - id: C3
         name: "Remove runtime compilation fallbacks at the recipe boundary"
         goal: "No lingering \"compile optional\" mode or parallel config path."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "remove/forbid passing raw configs into engine plan without compilation"
           - "ensure error surfaces point to compiler errors, not engine resolveConfig failures"
@@ -285,10 +398,16 @@ workstreams:
   - id: D
     name: Engine becomes validate-only
     estimate: { complexity: high, parallelism: medium }
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     units:
       - id: D1
         name: "Executor plan-only: remove runtime config synthesis"
         goal: "Make PipelineExecutor consume only compiled plan configs."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "PipelineExecutor.execute/executeAsync removed or made internal-only"
           - "executePlan/executePlanAsync remain the supported entrypoints"
@@ -297,6 +416,9 @@ workstreams:
       - id: D2
         name: "Planner validate-only: remove default/clean and step.resolveConfig"
         goal: "Make compileExecutionPlan validate configs but never mutate or normalize."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "remove Value.Default/Convert/Clean from plan compilation path"
           - "remove step.resolveConfig calls and the corresponding error code"
@@ -307,10 +429,16 @@ workstreams:
   - id: E
     name: Ecology as canonical exemplar
     estimate: { complexity: high, parallelism: low-medium }
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     units:
       - id: E1
         name: "Ecology domain entrypoint refactor (contracts + registries)"
         goal: "Make ecology the reference domain for contracts/registries and import boundaries."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "export contracts from @mapgen/domain/ecology/contracts (contract-only)"
           - "export compileOpsById and runtimeOpsById from @mapgen/domain/ecology"
@@ -320,6 +448,9 @@ workstreams:
       - id: E2
         name: "Ecology steps migration (compiler-first, no runtime resolveConfig)"
         goal: "Move all normalization/defaulting out of step.resolveConfig into compilation."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "steps declare ops contracts and bind runtime ops by id"
           - "step.normalize (compile-time) replaces resolveConfig patterns where needed"
@@ -329,6 +460,9 @@ workstreams:
       - id: E3
         name: "Ecology stage public view + compile (Option A) where beneficial"
         goal: "Use ecology to demonstrate the optional stage public surface in a complete, copyable pattern."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "ecology stage defines knobsSchema and optional public schema"
           - "stage.compile maps public fields to internal step configs"
@@ -337,16 +471,25 @@ workstreams:
   - id: F
     name: Cleanup pass (no legacy left)
     estimate: { complexity: medium, parallelism: high }
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     units:
       - id: F1
         name: "Verify no shims + remove dead paths"
         goal: "End the milestone with one architecture, not two."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
-          - "confirm no compatibility shims were introduced; if any internal-only bridge was unavoidable, delete it"
+          - "confirm no compatibility shims were introduced"
           - "delete any now-obsolete error codes and docs"
       - id: F2
         name: "Final hygiene + enforcement tightening"
         goal: "Make drift difficult after the cutover."
+        reference_disclaimer:
+          - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+          - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
           - "lint boundaries updated to forbid compiler-only imports from runtime paths"
           - "docs/spec references updated to match the final code reality"
@@ -360,7 +503,13 @@ Phase ordering and helper behavior are pinned by the target spec (`02-compilatio
 
 ```yaml
 A:
+  reference_disclaimer:
+    - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+    - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
   A1:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     implementation_notes:
       - "Normalize strictly using TypeBox Value.Default + Value.Clean, and report unknown keys separately (additionalProperties:false)."
       - "Prefill op defaults by reading step.contract.ops (contract-driven discovery) and installing default envelope values built from op contract strategies."
@@ -368,6 +517,9 @@ A:
     test_notes:
       - "Include tests for unknown-key errors, null/undefined behavior, and error path formatting."
   A2:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     implementation_notes:
       - "Implement compileRecipeConfig as: stage surface normalize -> stage.toInternal -> unknown step id validation -> step canonicalization loop."
       - "Iterate steps in stage.steps array order; this is pinned for stable error ordering."
@@ -380,21 +532,36 @@ This workstream upgrades the public authoring surface so the target architecture
 
 ```yaml
 B:
+  reference_disclaimer:
+    - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+    - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
   B1:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Enforce kebab-case at step contract creation time (throw on violation)."
       - "Rename existing non-kebab step ids in mods/recipes and update all references."
   B2:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Adopt Stage Option A only (public+compile optional; internal-as-public otherwise)."
       - "createStage computes surfaceSchema and provides a deterministic toInternal wrapper."
       - "Internal-as-public stages validate stage surface only; step configs remain unknown until Phase B."
   B3:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Introduce canonical bindCompileOps/bindRuntimeOps helpers in core authoring."
       - "Domains export compileOpsById/runtimeOpsById registries keyed by op.id; runtime surface is structurally stripped."
       - "Recipe boundary explicitly merges domain registries into a recipe-owned compileOpsById."
   B4:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Rename op.resolveConfig to op.normalize."
       - "Implement normalize dispatch by envelope.strategy (strategy-specific normalize hook)."
@@ -406,17 +573,29 @@ This is where compilation becomes mandatory for any real runtime callsite. The s
 
 ```yaml
 C:
+  reference_disclaimer:
+    - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+    - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
   C1:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Update createRecipe so compileRecipeConfig runs before compileExecutionPlan."
       - "Make compileOpsById assembly explicit at the recipe boundary (no implicit globals)."
       - "Update recipe config typing to reflect stage surfaces (knobs + fields) and compiled output (stageId -> stepId -> canonical)."
   C2:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Migrate the standard recipe stages one-by-one to the new authoring surface."
       - "Start with the foundation stage as the first migrated stage (small surface, no step.resolveConfig today)."
       - "For steps currently using step.resolveConfig, move that logic into compiler-time normalization (step.normalize and/or op.normalize) and remove runtime dependence."
   C3:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Remove any remaining path that lets uncompiled configs reach engine planning."
       - "Ensure error surfaces point authors to compiler errors, not engine resolveConfig failures."
@@ -428,11 +607,20 @@ This is deferred until after compilation is mandatory at the recipe boundary. Th
 
 ```yaml
 D:
+  reference_disclaimer:
+    - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+    - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
   D1:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Remove or internalize PipelineExecutor.execute*/executeAsync* (they synthesize configs today)."
       - "Keep executePlan*/executePlanAsync* as the supported entrypoints."
   D2:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Make compileExecutionPlan validate-only for step configs."
       - "Remove default/clean/mutation and remove all step.resolveConfig calls."
@@ -441,20 +629,32 @@ D:
 
 ### E) Ecology as canonical exemplar (E1–E3)
 
-Ecology is the reference implementation for domain exports, ops registries, step authoring patterns, and (optionally) a stage public view. This refactor is intentionally late (after the compiler + authoring surfaces exist) so ecology can be migrated cleanly without compatibility shims.
+Ecology is the reference implementation for domain exports, ops registries, step authoring patterns, and (optionally) a stage public view. This refactor is intentionally late (after the compiler + authoring surfaces exist) so ecology can be migrated cleanly without introducing a second architecture.
 
 ```yaml
 E:
+  reference_disclaimer:
+    - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+    - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
   E1:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Split ecology exports into a contract-only surface and an implementation surface."
       - "Add compileOpsById/runtimeOpsById registries and enforce domain entrypoint-only imports."
   E2:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Migrate ecology steps to declare ops as contracts and bind runtime ops by id."
       - "Replace step.resolveConfig patterns with compiler-time normalization (step.normalize and op.normalize)."
       - "Keep step-owned config (e.g. engine bindings) in the step schema as explicit extra fields (not duplicated elsewhere)."
   E3:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Define knobsSchema and, where beneficial, a public schema + compile mapping for ecology."
       - "Ensure the public surface validates strictly only at the stage boundary; step config validation remains Phase B."
@@ -466,10 +666,19 @@ This milestone is complete only when there is one architecture and no lingering 
 
 ```yaml
 F:
+  reference_disclaimer:
+    - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+    - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
   F1:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
-      - "Verify no compatibility shims were introduced; delete any dead paths or accidental internal-only bridges if present."
+      - "Verify no compatibility shims were introduced; delete any dead paths if present."
   F2:
+    reference_disclaimer:
+      - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
+      - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
     concrete_changes:
       - "Tighten lint boundaries per 06-enforcement.md and align docs/specs with code reality."
       - "Rename settings -> env and move Env schema/type to core; delete legacy naming (no long-lived alias)."
@@ -536,7 +745,7 @@ risks:
     name: "Config-path duality during transition"
     mitigation:
       - "Adopt compiler at the recipe boundary early (Slice 2) before engine validate-only flip"
-      - "Avoid compatibility shims: do coordinated changes per slice and remove bypasses in C3 (enforce via tests)"
+      - "Do coordinated changes per slice and remove bypasses in C3 (enforce via tests)"
   - id: R2
     name: "Large churn in mods/steps when resolveConfig is removed"
     mitigation:
