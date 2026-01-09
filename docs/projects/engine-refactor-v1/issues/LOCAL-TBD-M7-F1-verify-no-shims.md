@@ -32,8 +32,8 @@ This is a cleanup gate: confirm we ended with one architecture and remove dead e
 
 ## Acceptance Criteria
 
-- [ ] No compatibility shims remain (no dual entrypoints, no parallel config path).
-- [ ] Legacy error codes and dead paths are deleted (including `step.resolveConfig.failed`).
+- [x] No compatibility shims remain (no dual entrypoints, no parallel config path).
+- [x] Legacy error codes and dead paths are deleted (including `step.resolveConfig.failed`).
 
 ## Scope Boundaries
 
