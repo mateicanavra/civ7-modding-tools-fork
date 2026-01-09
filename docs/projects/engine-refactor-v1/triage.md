@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Authoring schema defaults now derive from schema defaults only** [Source: LOCAL-TBD-M7-F1]
+  - **Context:** F1 removed `Value.Default/Convert/Clean` from authoring and replaced `applySchemaDefaults`/`buildDefaultConfigValue` with schema-default extraction.
+  - **Type:** triage
+  - **Notes:** Defaulting now depends on explicit schema defaults; unions/arrays may behave differently from TypeBox Value.Default. Watch for op configs that relied on implicit conversion/clean.
+  - **Next check:** during F2 enforcement or if config default regressions surface in ops/tests.
+
 - **Plan compilation requires explicit step configs when a schema exists** [Source: LOCAL-TBD-M7-D2]
   - **Context:** D2 validate-only planner removes defaulting/cleaning; missing configs should surface as errors.
   - **Type:** triage

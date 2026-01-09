@@ -1,8 +1,7 @@
 import type { TSchema } from "typebox";
-import { Value } from "typebox/value";
+import { buildSchemaDefaults } from "../schema.js";
 
 export function buildDefaultConfigValue(schema: TSchema): unknown {
-  const defaulted = Value.Default(schema, {});
-  const converted = Value.Convert(schema, defaulted);
-  return Value.Clean(schema, converted);
+  const defaults = buildSchemaDefaults(schema);
+  return defaults === undefined ? {} : defaults;
 }
