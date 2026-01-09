@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { Type } from "typebox";
 
-import { ExecutionPlanCompileError } from "@mapgen/engine/index.js";
 import { EmptyStepConfigSchema } from "@mapgen/engine/step-config.js";
+import { RecipeCompileError } from "@mapgen/compiler/recipe-compile.js";
 import {
   bindCompileOps,
   bindRuntimeOps,
@@ -204,6 +204,7 @@ describe("authoring SDK", () => {
       createRecipe({
         id: "core.base",
         stages: [stage],
+        compileOpsById: {},
       } as any)
     ).toThrow(/tagDefinitions/);
   });
@@ -245,6 +246,7 @@ describe("authoring SDK", () => {
       id: "core.base",
       tagDefinitions: [],
       stages: [stage],
+      compileOpsById: {},
     });
 
     expect(recipe.recipe.schemaVersion).toBe(2);
@@ -255,7 +257,12 @@ describe("authoring SDK", () => {
   it("createRecipe derives deterministic step ids", () => {
     const step = createStep(makeContract("alpha"), { run: () => {} });
     const stage = createStage({ id: "foundation", knobsSchema: EmptyKnobsSchema, steps: [step] });
-    const recipe = createRecipe({ id: "core.base", tagDefinitions: [], stages: [stage] });
+    const recipe = createRecipe({
+      id: "core.base",
+      tagDefinitions: [],
+      stages: [stage],
+      compileOpsById: {},
+    });
 
     expect(recipe.recipe.steps[0]?.id).toBe("core.base.foundation.alpha");
   });
@@ -274,7 +281,7 @@ describe("authoring SDK", () => {
     const stage = createStage({ id: "foundation", knobsSchema: EmptyKnobsSchema, steps: [step] });
 
     expect(() =>
-      createRecipe({ id: "core.base", tagDefinitions: [], stages: [stage] })
+      createRecipe({ id: "core.base", tagDefinitions: [], stages: [stage], compileOpsById: {} })
     ).toThrow(/Invalid dependency tag/);
   });
 
@@ -287,7 +294,12 @@ describe("authoring SDK", () => {
     );
     const step = createStep(makeContract("alpha", schema), { run: () => {} });
     const stage = createStage({ id: "foundation", knobsSchema: EmptyKnobsSchema, steps: [step] });
-    const recipe = createRecipe({ id: "core.base", tagDefinitions: [], stages: [stage] });
+    const recipe = createRecipe({
+      id: "core.base",
+      tagDefinitions: [],
+      stages: [stage],
+      compileOpsById: {},
+    });
 
     const plan = recipe.compile(baseSettings);
     expect(plan.nodes[0]?.config).toEqual({ count: 2 });
@@ -296,6 +308,6 @@ describe("authoring SDK", () => {
       recipe.compile(baseSettings, {
         foundation: { alpha: { count: 1, extra: "nope" } },
       })
-    ).toThrow(ExecutionPlanCompileError);
+    ).toThrow(RecipeCompileError);
   });
 });
