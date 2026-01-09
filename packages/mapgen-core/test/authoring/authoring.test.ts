@@ -4,11 +4,15 @@ import { Type } from "typebox";
 import { ExecutionPlanCompileError } from "@mapgen/engine/index.js";
 import { EmptyStepConfigSchema } from "@mapgen/engine/step-config.js";
 import {
+  bindCompileOps,
+  bindRuntimeOps,
   createRecipe,
   createStage,
   createStep,
   defineStepContract,
+  runtimeOp,
 } from "@mapgen/authoring/index.js";
+import type { DomainOpCompileAny } from "@mapgen/authoring/index.js";
 
 describe("authoring SDK", () => {
   const baseSettings = {
@@ -202,6 +206,30 @@ describe("authoring SDK", () => {
         stages: [stage],
       } as any)
     ).toThrow(/tagDefinitions/);
+  });
+
+  it("binds compile/runtime ops by contract ids", () => {
+    const decl = { trees: { id: "ecology/trees" } } as const;
+    const compileOp = {
+      id: "ecology/trees",
+      kind: "plan",
+      run: () => "ok",
+      validate: () => ({ ok: true, errors: [] }),
+      runValidated: () => "ok",
+    } as DomainOpCompileAny;
+
+    const compileOps = bindCompileOps(decl, { [compileOp.id]: compileOp });
+    expect(compileOps.trees).toBe(compileOp);
+
+    const runtimeOps = bindRuntimeOps(decl, { [compileOp.id]: runtimeOp(compileOp) });
+    expect(runtimeOps.trees.id).toBe(compileOp.id);
+  });
+
+  it("bindCompileOps throws when registry is missing an op id", () => {
+    const decl = { trees: { id: "missing" } } as const;
+    expect(() =>
+      bindCompileOps(decl, {} as Record<string, DomainOpCompileAny>)
+    ).toThrow(/missing/i);
   });
 
   it("createRecipe produces Recipe schema v2 (no instance ids)", () => {
