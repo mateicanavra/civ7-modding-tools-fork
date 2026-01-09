@@ -54,6 +54,15 @@ Make stages the authoritative "author-facing config surface" owner. Stage config
 - **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
+## Implementation Decisions
+
+### Adopt contract-owned step modules early
+- **Context:** Stage Option A requires stage surfaces derived from step IDs and the compiler expects contract-owned fields; we needed to choose between keeping top-level step fields with shims or moving to contract-owned fields now.
+- **Options:** Keep top-level step fields + compatibility shims; migrate to contract-owned step fields immediately.
+- **Choice:** Migrate to contract-owned step fields immediately.
+- **Rationale:** Aligns with the spec surface and compiler pipeline while avoiding dual APIs or shims.
+- **Risk:** Broad API shift could break authoring call sites; mitigated by updating stage/recipe wiring and running full mapgen-core + mod test suites.
+
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
