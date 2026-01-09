@@ -18,6 +18,7 @@
     "mods/mod-swooper-maps/src/**",
     "mods/mod-swooper-maps/*.json",
     "mods/mod-swooper-maps/test/**",
+    "docs/projects/engine-refactor-v1/resources/spec/**",
     "scripts/lint/lint-domain-refactor-guardrails.sh"
   ],
   "ignore": {
@@ -25,7 +26,10 @@
       "docs/projects/engine-refactor-v1/resources/repomix/ecology-canonical-repomix.xml",
       "mods/**/dist/**",
       "mods/**/mod/**",
-      "**/dist/**"
+      "**/dist/**",
+      "**/workflow/**",
+      "**/*gpt*proposal*/**",
+      "**/*GPT*proposal*/**"
     ]
   }
 }
