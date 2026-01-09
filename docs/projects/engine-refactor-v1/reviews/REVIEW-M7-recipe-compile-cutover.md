@@ -11,7 +11,18 @@ Milestone doc: `docs/projects/engine-refactor-v1/milestones/M7-recipe-compile-cu
 
 ## Remediation Plan — Runtime Validation Removal (Authoritative)
 
-Goal: remove runtime schema validation/normalization, keep compile-time validation as the single source of truth, and enforce artifact invariants via centralized handlers (no TypeBox runtime validation).
+Goal: remove runtime schema validation/normalization, keep compile-time validation as the single source of truth, and enforce artifact invariants via centralized handlers (no TypeBox runtime validation). This is an architecture alignment pass, not a behavior-preserving shim pass.
+
+### Locked Decisions + Rationale
+
+- Compile-time validates configs; runtime executes plans.
+  - Rationale: avoid dual-path validation and drift; compiler is the single source of truth for author-facing config correctness.
+- Runtime artifact validation is handled via artifact handlers (explicit invariants), not TypeBox runtime checks.
+  - Rationale: artifacts are runtime products; invariants are dimensional/range checks that TypeBox does not cover well, and using TypeBox at runtime reintroduces a second validation pipeline.
+- Execution plan compiles only structure; it does not validate schema shapes at runtime.
+  - Rationale: schema validation/defaulting belongs to the compiler; execution plan only needs structural invariants (unknown steps, missing registry entries).
+- Dedicated compiler error codes for normalization-time validation.
+  - Rationale: error surfaces must remain precise and stable now that runtime validation is removed.
 
 1) Branch + baseline
    - Create a new fix branch off `m7-review-t16-final-hygiene` in a clean worktree.
@@ -21,10 +32,12 @@ Goal: remove runtime schema validation/normalization, keep compile-time validati
    - `compileExecutionPlan` becomes plan construction only.
    - Remove runtime schema validation/defaulting/cleaning.
    - Keep structural runtime invariants only (unknown step ids, missing registry steps, optional duplicate step id guard).
+   - Reference: `packages/mapgen-core/src/engine/execution-plan.ts`.
 
 3) Dedicated compiler error codes (locked in)
    - Add a dedicated compile-time error code for config validation failures (e.g. `op.config.invalid`).
    - Map normalization-time validation failures to the new code (no `op.normalize.failed` for validation).
+   - Reference: `packages/mapgen-core/src/compiler/normalize.ts`, `packages/mapgen-core/src/compiler/recipe-compile.ts`.
 
 4) Remove runtime validation surfaces (authoring core)
    - Delete `packages/mapgen-core/src/authoring/validation.ts`.
@@ -32,10 +45,12 @@ Goal: remove runtime schema validation/normalization, keep compile-time validati
    - Remove `OpValidationError` export from `packages/mapgen-core/src/authoring/index.ts`.
    - Remove `validate`/`runValidated` from `packages/mapgen-core/src/authoring/op/types.ts`.
    - Update `packages/mapgen-core/src/authoring/op/create.ts` to remove `customValidate` and validation surface attachment.
+   - References: `packages/mapgen-core/src/authoring/op/types.ts`, `packages/mapgen-core/src/authoring/op/create.ts`.
 
 5) Move custom validation into compile-time normalize
    - Replace `customValidate` usage (e.g. planFloodplains) with compile-time checks in strategy `normalize`.
    - Throw on invalid config; compiler emits `op.config.invalid`.
+   - Reference: `mods/mod-swooper-maps/src/domain/placement/ops/plan-floodplains/index.ts`.
 
 6) Artifact handler/factory pattern (new runtime contract)
    - Keep TypeBox artifact schemas as canonical contract + typing sources (no runtime validation).
@@ -46,6 +61,7 @@ Goal: remove runtime schema validation/normalization, keep compile-time validati
      - `set(context, value)` -> assert + store
    - Producers call `set`, consumers call `get`, tag `satisfies` uses `validate`.
    - Invariants include presence, typed-array shape, dimension coupling (length == width*height), range bounds.
+   - References: `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts`, `mods/mod-swooper-maps/src/recipes/standard/tags.ts`.
 
 7) Remove runtime TypeBox validators for placement inputs/outputs
    - Remove `TypeCompiler` usage from:
@@ -54,24 +70,29 @@ Goal: remove runtime schema validation/normalization, keep compile-time validati
    - Update tags/artifacts to use handlers instead:
      - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
      - `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts`
+   - Reference: `mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-inputs.ts`.
 
 8) Remove runtime `runValidated` usage in steps
    - Replace all `runValidated` calls with `run` in:
      - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**`
      - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/**`
+   - Reference: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**`.
 
 9) Remove runtime defaulting in op strategies
    - Remove `applySchemaDefaults` from runtime `run` paths.
    - Assume configs are already normalized by the compiler.
+   - Reference: `mods/mod-swooper-maps/src/domain/ecology/ops/**/strategies/*.ts`.
 
 10) Revert default-merge patch
    - Restore `packages/mapgen-core/src/authoring/schema.ts` to avoid merging nested defaults into explicit object defaults.
    - Defaults remain compile-time only.
+   - Reference: `packages/mapgen-core/src/authoring/schema.ts`.
 
 11) Tests + docs
    - Update tests that depended on runtime validation.
    - Add compiler tests for invalid configs (custom invariants now surfaced at compile time).
    - Update issue docs + triage to lock in “no runtime validation” + artifact handler pattern.
+   - References: `packages/mapgen-core/test/**`, `docs/projects/engine-refactor-v1/triage.md`.
 
 ## REVIEW m7-t01-compiler-module-skeleton-strict-normalization
 
