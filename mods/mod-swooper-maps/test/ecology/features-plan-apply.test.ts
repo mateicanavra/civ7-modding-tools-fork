@@ -20,7 +20,7 @@ describe("features plan/apply pipeline", () => {
         reefs: { strategy: "default", config: {} },
         ice: { strategy: "default", config: {} },
       },
-      { env: ctx.settings, knobs: {} }
+      { env: ctx.env, knobs: {} }
     );
     featuresPlanStep.run(ctx, planConfig);
 
@@ -28,7 +28,7 @@ describe("features plan/apply pipeline", () => {
     expect(intents).toBeTruthy();
     expect(intents?.vegetation.length).toBeGreaterThanOrEqual(0);
 
-    const applyConfig = featuresApplyStep.normalize({ apply: { strategy: "default", config: {} } }, { env: ctx.settings, knobs: {} });
+    const applyConfig = featuresApplyStep.normalize({ apply: { strategy: "default", config: {} } }, { env: ctx.env, knobs: {} });
     featuresApplyStep.run(ctx, applyConfig);
 
     const featureField = ctx.fields.featureType;

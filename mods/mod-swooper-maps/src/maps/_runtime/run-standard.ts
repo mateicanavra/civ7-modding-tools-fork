@@ -2,7 +2,7 @@ import type { EngineAdapter } from "@civ7/adapter";
 import { Civ7Adapter } from "@civ7/adapter/civ7";
 import { createExtendedMapContext, type ExtendedMapContext } from "@swooper/mapgen-core";
 import type { RecipeModule } from "@swooper/mapgen-core/authoring";
-import type { RunSettings } from "@swooper/mapgen-core/engine";
+import type { Env } from "@swooper/mapgen-core/engine";
 
 import { getStandardRuntime, initializeStandardRuntime } from "../../recipes/standard/runtime.js";
 import type { StandardRecipeCompiledConfig, StandardRecipeConfig } from "../../recipes/standard/recipe.js";
@@ -16,7 +16,7 @@ type StandardRunOptions = {
     StandardRecipeCompiledConfig
   >;
   init: MapInitResolution;
-  settings: RunSettings;
+  env: Env;
   config: StandardRecipeConfig | null;
   options?: MapRuntimeOptions;
 };
@@ -34,19 +34,19 @@ function createLayerAdapter(
 export function runStandardRecipe({
   recipe,
   init,
-  settings,
+  env,
   config,
   options,
 }: StandardRunOptions): void {
-  const { width, height } = settings.dimensions;
+  const { width, height } = env.dimensions;
   if (width !== init.params.width || height !== init.params.height) {
-    throw new Error("[Standard] Settings dimensions must match map init dimensions.");
+    throw new Error("[Standard] Env dimensions must match map init dimensions.");
   }
   const adapter = createLayerAdapter(options ?? {}, width, height);
   const context = createExtendedMapContext(
     { width, height },
     adapter,
-    settings
+    env
   );
 
   initializeStandardRuntime(context, {
@@ -55,7 +55,7 @@ export function runStandardRecipe({
     storyEnabled: true,
   });
 
-  recipe.run(context, settings, config, {
+  recipe.run(context, env, config, {
     trace: options?.traceSession ?? undefined,
     traceSink: options?.traceSink ?? undefined,
     log: (message) => console.log(message),

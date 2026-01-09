@@ -15,9 +15,9 @@ type StoryCorridorsStepConfig = Static<typeof StoryCorridorsPreStepContract.sche
 export default createStep(StoryCorridorsPreStepContract, {
   run: (context: ExtendedMapContext, config: StoryCorridorsStepConfig) => {
     const directionality =
-      context.settings.directionality as FoundationDirectionalityConfig | undefined;
+      context.env.directionality as FoundationDirectionalityConfig | undefined;
     if (!directionality) {
-      throw new Error("[Narrative] Missing settings.directionality.");
+      throw new Error("[Narrative] Missing env.directionality.");
     }
     const hotspots = getPublishedNarrativeMotifsHotspots(context);
     if (!hotspots) {

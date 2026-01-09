@@ -39,7 +39,7 @@ export function applyClimateSwatches(
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
 
   if (!options.directionality) {
-    throw new Error("applyClimateSwatches requires settings.directionality.");
+    throw new Error("applyClimateSwatches requires env.directionality.");
   }
   const directionality = options.directionality;
   const runtimeFull = createClimateRuntime(width, height, ctx);

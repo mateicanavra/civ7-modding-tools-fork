@@ -77,18 +77,14 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   adapter.fillWater(false);
 
   const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
-  const settings = {
+  const env = {
     seed: 0,
     dimensions: { width, height },
     latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
     wrap: { wrapX: false, wrapY: false },
     directionality,
   };
-  const ctx = createExtendedMapContext(
-    { width, height },
-    adapter,
-    settings
-  );
+  const ctx = createExtendedMapContext({ width, height }, adapter, env);
 
   const size = width * height;
   ctx.buffers.heightfield.elevation.fill(0);

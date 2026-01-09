@@ -18,7 +18,7 @@ const TEST_TAGS = {
   },
 } as const;
 
-const baseSettings = {
+const baseEnv = {
   seed: 0,
   dimensions: { width: 2, height: 2 },
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
@@ -27,7 +27,7 @@ const baseSettings = {
 
 function compilePlan<TContext>(
   registry: StepRegistry<TContext>,
-  settings: typeof baseSettings,
+  env: typeof baseEnv,
   steps: readonly string[]
 ) {
   return compileExecutionPlan(
@@ -36,7 +36,7 @@ function compilePlan<TContext>(
         schemaVersion: 2,
         steps: steps.map((id) => ({ id, config: {} })),
       },
-      settings,
+      env,
     },
     registry
   );
@@ -72,11 +72,7 @@ describe("tag registry", () => {
 
   it("surfaces effect postcondition failures with the effect tag id", () => {
     const adapter = createMockAdapter({ width: 2, height: 2 });
-    const ctx = createExtendedMapContext(
-      { width: 2, height: 2 },
-      adapter,
-      baseSettings
-    );
+    const ctx = createExtendedMapContext({ width: 2, height: 2 }, adapter, baseEnv);
 
     const registry = new StepRegistry<typeof ctx>();
     registry.registerTag({
@@ -93,7 +89,7 @@ describe("tag registry", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const plan = compilePlan(registry, baseSettings, ["biomes"]);
+    const plan = compilePlan(registry, baseEnv, ["biomes"]);
     const { stepResults } = executor.executePlan(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(false);
@@ -102,11 +98,7 @@ describe("tag registry", () => {
 
   it("accepts provides when effect postconditions pass", () => {
     const adapter = createMockAdapter({ width: 2, height: 2 });
-    const ctx = createExtendedMapContext(
-      { width: 2, height: 2 },
-      adapter,
-      baseSettings
-    );
+    const ctx = createExtendedMapContext({ width: 2, height: 2 }, adapter, baseEnv);
 
     const registry = new StepRegistry<typeof ctx>();
     registry.registerTag({
@@ -123,7 +115,7 @@ describe("tag registry", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const plan = compilePlan(registry, baseSettings, ["coastlines"]);
+    const plan = compilePlan(registry, baseEnv, ["coastlines"]);
     const { stepResults } = executor.executePlan(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(true);

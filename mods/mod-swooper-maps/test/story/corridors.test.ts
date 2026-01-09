@@ -15,7 +15,7 @@ describe("story/corridors", () => {
     const height = 12;
     const corridorsConfig = applySchemaDefaults(CorridorsConfigSchema, {});
     const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
-    const settings = {
+    const env = {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
@@ -25,11 +25,7 @@ describe("story/corridors", () => {
     const adapter = createMockAdapter({ width, height, defaultTerrainType: OCEAN_TERRAIN });
     (adapter as any).fillWater(true);
 
-    const ctx = createExtendedMapContext(
-      { width, height },
-      adapter,
-      settings
-    );
+    const ctx = createExtendedMapContext({ width, height }, adapter, env);
 
     const result = storyTagStrategicCorridors(ctx, "preIslands", {
       corridors: corridorsConfig,

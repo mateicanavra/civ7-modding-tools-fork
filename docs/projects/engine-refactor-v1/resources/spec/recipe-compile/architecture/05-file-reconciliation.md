@@ -3,8 +3,10 @@
 Every item below is either repo-verified (exists today) or explicitly marked **NEW (planned)**.
 
 Core engine:
+- `packages/mapgen-core/src/core/env.ts`
+  - `EnvSchema` / `Env` live in core (moved out of engine-only ownership)
 - `packages/mapgen-core/src/engine/execution-plan.ts`
-  - rename runtime “settings” → `env`
+  - runtime envelope uses `env` and imports `EnvSchema`
   - remove step-config default/clean mutation during plan compilation
   - remove all calls to `step.resolveConfig(...)`
   - validate-only behavior
@@ -13,11 +15,10 @@ Core engine:
   - remove runtime config synthesis in `execute(...)` / `executeAsync(...)` (`resolveStepConfig(...)` currently does `Value.Default(...)` + `Value.Convert(...)` + `Value.Clean(...)`)
   - runtime execution must receive canonical configs via the compiled plan (or a compiler-owned execution request), never by defaulting at runtime
 - `packages/mapgen-core/src/engine/types.ts`
-  - move/rename `RunSettings` → `Env`
-  - remove `resolveConfig` from the engine-facing step interface (if present)
-  - rename `settings` → `env` across relevant types
+  - runtime contexts use `env` (no `RunSettings` types remain)
+  - engine-facing step interface excludes compile-time normalization hooks
 - `packages/mapgen-core/src/core/types.ts`
-  - rename `ExtendedMapContext.settings` → `ExtendedMapContext.env`
+  - `ExtendedMapContext.env` stores the runtime envelope
 
 Compiler (new):
 - `packages/mapgen-core/src/compiler/normalize.ts` **NEW (planned)** (compiler-only normalization helpers; wraps TypeBox `Value.*` from `typebox/value`)
@@ -34,7 +35,7 @@ Authoring:
 
 Mod wiring (example):
 - `mods/mod-swooper-maps/src/maps/_runtime/standard-entry.ts`
-  - rename `settings` → `env`
+  - runtime envelope uses `env`
   - ensure recipe compilation happens before engine plan compilation
 
 ---
@@ -109,7 +110,7 @@ Slice 4 — Ecology exemplar migration + polish
 Slice 5 — Cleanup (no legacy left)
 
 8. Do not introduce compatibility shims; if any internal-only bridge was unavoidable to keep the repo runnable between slices, delete it here (explicit deletion pass).
-9. Rename `settings` → `env` across engine/core/recipes once compilation is the sole normalizer, and delete the legacy naming (no long-lived alias).
+9. Rename `settings` → `env` across engine/core/recipes (done; no legacy alias remains).
 
 ---
 
@@ -126,7 +127,7 @@ Authoring/engine baseline touchpoints (repo-real):
 
 Downstream usage exists in mods (examples; not exhaustive):
 
-- Step modules: `mods/mod-swooper-maps/src/recipes/**/steps/**` (e.g. `resolveConfig: (config, settings) => ...`)
+- Step modules: `mods/mod-swooper-maps/src/recipes/**/steps/**` (e.g. `normalize: (config, { env, knobs }) => ...`)
 - Op strategies: `mods/mod-swooper-maps/src/domain/**/ops/**/strategies/**` (e.g. `resolveConfig(config)` inside strategy modules)
 
 Migration note (pinned intent):

@@ -16,7 +16,7 @@ import {
 } from "../../src/recipes/standard/artifacts.js";
 import { M3_DEPENDENCY_TAGS, STANDARD_TAG_DEFINITIONS } from "../../src/recipes/standard/tags.js";
 
-const baseSettings = {
+const baseEnv = {
   seed: 0,
   dimensions: { width: 4, height: 3 },
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
@@ -26,7 +26,7 @@ const baseSettings = {
 
 function compilePlan<TContext>(
   registry: StepRegistry<TContext>,
-  settings: typeof baseSettings,
+  env: typeof baseEnv,
   steps: readonly string[]
 ) {
   return compileExecutionPlan(
@@ -35,7 +35,7 @@ function compilePlan<TContext>(
         schemaVersion: 2,
         steps: steps.map((id) => ({ id, config: {} })),
       },
-      settings,
+      env,
     },
     registry
   );
@@ -47,7 +47,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      baseSettings
+      baseEnv
     );
     const registry = new StepRegistry<typeof ctx>();
     registry.registerTags(STANDARD_TAG_DEFINITIONS);
@@ -73,7 +73,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      baseSettings
+      baseEnv
     );
     const registry = new StepRegistry<typeof ctx>();
     registry.registerTags(STANDARD_TAG_DEFINITIONS);
@@ -97,7 +97,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      baseSettings
+      baseEnv
     );
 
     const registry = new StepRegistry<typeof ctx>();
@@ -111,7 +111,7 @@ describe("pipeline artifacts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const plan = compilePlan(registry, baseSettings, ["climate-baseline"]);
+    const plan = compilePlan(registry, baseEnv, ["climate-baseline"]);
     const { stepResults } = executor.executePlan(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(false);
@@ -126,7 +126,7 @@ describe("pipeline artifacts", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      baseSettings
+      baseEnv
     );
 
     const registry = new StepRegistry<typeof ctx>();
@@ -143,7 +143,7 @@ describe("pipeline artifacts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const plan = compilePlan(registry, baseSettings, ["rivers"]);
+    const plan = compilePlan(registry, baseEnv, ["rivers"]);
     const { stepResults } = executor.executePlan(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(true);

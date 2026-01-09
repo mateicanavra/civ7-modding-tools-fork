@@ -360,10 +360,10 @@ export function buildFoundationContext(
     throw new Error("[Foundation] Adapter missing getVoronoiUtils.");
   }
 
-  const directionality = context.settings
+  const directionality = context.env
     .directionality as PlateConfig["directionality"] | undefined;
   if (!directionality) {
-    throw new Error("[Foundation] Missing settings.directionality.");
+    throw new Error("[Foundation] Missing env.directionality.");
   }
   const plateResult = computePlates(
     width,
