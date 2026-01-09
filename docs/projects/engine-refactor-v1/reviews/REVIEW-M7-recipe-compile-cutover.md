@@ -62,3 +62,30 @@ Solid end-to-end compiler entrypoint: stage surface normalization → stage `toI
 ### Cross-cutting Risks
 
 - The compiler is now the choke point for canonicalization; any ambiguity in schema defaulting/cleaning order will show up here first—keep the ordering pinned by tests.
+
+## REVIEW m7-t03-step-id-kebab-case
+
+### Quick Take
+
+Good guardrail: kebab-case enforcement is pushed into both `defineStepContract` (authoring SDK) and `createStage` (runtime composition), and the repo’s step ids were updated accordingly with tests.
+
+### High-Leverage Issues
+
+- There are now two independent regex implementations for step-id validation; keep them in sync (or factor to one shared helper) to avoid drift.
+- This is a behavior change for any downstream content authors: ensure error messages are stable and actionable (they are today) and that the “migration surface” is clearly documented in the relevant authoring docs once cutover lands.
+
+### Fix Now (Recommended)
+
+- Add one test that asserts the exact error message shape for a bad id in both entrypoints (`defineStepContract` vs `createStage`) so tooling can rely on it.
+
+### Defer / Follow-up
+
+- Consider enforcing stage ids and other public ids with the same convention to avoid mixed-case surfaces creeping back in.
+
+### Needs Discussion
+
+- Should `createStage` validate the *derived* step id (e.g. `core.base.foundation.alpha`) as well, or is validating the local contract id sufficient?
+
+### Cross-cutting Risks
+
+- Id convention enforcement will cascade into config keys and compiler paths; changing it later will be expensive, so treat it as locked once used in authored configs.
