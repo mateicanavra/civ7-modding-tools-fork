@@ -18,6 +18,12 @@ prior_ad_hoc_work_note:
   note: "This milestone doc does not attempt to reconcile that history; it focuses on the remaining path to the target state."
 ```
 
+<!-- Path roots -->
+ENGINE_REFACTOR = docs/projects/engine-refactor-v1
+SPEC = docs/projects/engine-refactor-v1/resources/spec/recipe-compile
+MAPGEN_CORE = packages/mapgen-core
+SWOOPER_MAPS = mods/mod-swooper-maps
+
 ---
 
 ## Part I: Scope & Purpose
@@ -57,6 +63,9 @@ spec_package:
   examples:
     - docs/projects/engine-refactor-v1/resources/spec/recipe-compile/examples/EXAMPLES.md
 ```
+
+Spec status note:
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/00-fundamentals.md` currently records **no remaining open questions**; previously ambiguous O1/O2/O3 are explicitly marked closed with baseline code anchors.
 
 ### Off-limits references (non-target MapGen architecture/spec docs)
 
@@ -491,10 +500,87 @@ workstreams:
           - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
           - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
-          - "lint boundaries updated to forbid compiler-only imports from runtime paths"
-          - "docs/spec references updated to match the final code reality"
-          - "spot-check: no remaining resolveConfig naming or runtime Value.Default usage"
-          - "rename settings -> env and move Env schema/type to core (delete legacy naming; no long-lived alias)"
+      - "lint boundaries updated to forbid compiler-only imports from runtime paths"
+      - "docs/spec references updated to match the final code reality"
+      - "spot-check: no remaining resolveConfig naming or runtime Value.Default usage"
+      - "rename settings -> env and move Env schema/type to core (delete legacy naming; no long-lived alias)"
+```
+
+## Canonical units of work (issue doc index)
+
+This milestone is intended to be executed as leaf issues (one per unit below). Existing `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M7-U*` docs are prior/ad-hoc work notes unless explicitly referenced by a unit here.
+
+```yaml
+issues:
+  - id: A1
+    title: "Compiler module skeleton + strict normalization"
+    status: planned
+    blocked_by: []
+  - id: A2
+    title: "compileRecipeConfig end-to-end wiring"
+    status: planned
+    blocked_by: [A1]
+
+  - id: B1
+    title: "Step id convention: kebab-case enforced"
+    status: planned
+    blocked_by: []
+  - id: B2
+    title: "Stage Option A: public+compile with computed surfaceSchema"
+    status: planned
+    blocked_by: []
+  - id: B3
+    title: "Domain ops registries + binding helpers (compile vs runtime)"
+    status: planned
+    blocked_by: []
+  - id: B4
+    title: "Op normalization hook semantics: resolveConfig -> normalize"
+    status: planned
+    blocked_by: []
+
+  - id: C1
+    title: "Introduce recipe boundary compilation (before engine plan compilation)"
+    status: planned
+    blocked_by: [A2, B2, B3, B4]
+  - id: C2
+    title: "Update stage+step authoring to the new config shape"
+    status: planned
+    blocked_by: [C1, B1, B2]
+  - id: C3
+    title: "Remove runtime compilation fallbacks at the recipe boundary"
+    status: planned
+    blocked_by: [C2]
+
+  - id: D1
+    title: "Executor plan-only: remove runtime config synthesis"
+    status: planned
+    blocked_by: [C3]
+  - id: D2
+    title: "Planner validate-only: remove default/clean and step.resolveConfig"
+    status: planned
+    blocked_by: [C3]
+
+  - id: E1
+    title: "Ecology domain entrypoint refactor (contracts + registries)"
+    status: planned
+    blocked_by: [B3, B4]
+  - id: E2
+    title: "Ecology steps migration (compiler-first, no runtime resolveConfig)"
+    status: planned
+    blocked_by: [E1, C2]
+  - id: E3
+    title: "Ecology stage public view + compile (Option A) where beneficial"
+    status: planned
+    blocked_by: [E2]
+
+  - id: F1
+    title: "Verify no shims + remove dead paths"
+    status: planned
+    blocked_by: [A2, B4, C3, D2, E2]
+  - id: F2
+    title: "Final hygiene + enforcement tightening"
+    status: planned
+    blocked_by: [F1]
 ```
 
 ### A) Compiler foundation (A1–A2)
@@ -525,6 +611,85 @@ A:
       - "Iterate steps in stage.steps array order; this is pinned for stable error ordering."
       - "Explicitly error on stage.toInternal producing unknown step ids (excluding knobs)."
 ```
+
+#### A1 — Compiler module skeleton + strict normalization
+
+This is the “DX-first win” slice: land compiler primitives (strict schema normalization + op envelope prefill + error aggregation) behind a compiler module boundary. This should be landable before any recipe/engine wiring changes.
+
+**Complexity × parallelism:** high complexity, medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] New compiler helpers exist as modules under `/packages/mapgen-core/src/compiler/**` and are exported for tests to import.
+- [ ] `normalizeStrict(schema, raw, path)` (or equivalent) reports unknown-key errors deterministically and in a stable path format.
+- [ ] `prefillOpDefaults(stepContract, rawStepConfig, path)` installs missing op envelopes **only** based on contract-declared ops (no nested scanning).
+- [ ] Unit tests cover: unknown keys, null/undefined behavior, and error path formatting; tests are deterministic.
+
+**Scope Boundaries**
+In scope:
+- Strict normalization helpers and error surface for the compiler.
+- Default envelope construction for ops based on contracts/strategies.
+- Unit tests for the helpers (no runtime wiring).
+Out of scope:
+- Any changes to `/packages/mapgen-core/src/authoring/recipe.ts` or mod runtime wiring.
+- Any changes to engine planner/executor behavior (that is D1/D2).
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C packages/mapgen-core check`
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/compiler/normalize.ts
+    notes: "New: strict normalization utilities + unknown key error surface + stable error path formatting."
+  - path: /packages/mapgen-core/src/compiler/recipe-compile.ts
+    notes: "New: compiler entrypoints will live here; for A1 focus on helper exports, not full wiring."
+  - path: /packages/mapgen-core/src/engine/execution-plan.ts
+    notes: "Baseline prior art for unknown-key detection + Value.Errors formatting (findUnknownKeyErrors + formatErrors)."
+  - path: /packages/mapgen-core/src/authoring/op/defaults.ts
+    notes: "Baseline prior art for defaulting/convert/clean pipeline when constructing default envelope configs."
+```
+
+**Paper Trail**
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/02-compilation.md` (§1.10, §1.20)
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/00-fundamentals.md` (I2, I6, I7)
+
+#### A2 — compileRecipeConfig end-to-end wiring
+
+This unit builds the authoritative compile entrypoint (Phase A + Phase B) but still keeps it decoupled from runtime wiring. The output should be deterministic, fully canonical internal configs keyed by stageId → stepId.
+
+**Complexity × parallelism:** high complexity, medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] `compileRecipeConfig({ env, recipe, config, compileOpsById })` exists and follows the spec’s ordering (Phase A then Phase B).
+- [ ] Compiler rejects unknown keys in per-stage rawSteps (excluding the reserved `"knobs"` key).
+- [ ] Compiler errors include deterministic attribution: stageId + stepId + path (stable ordering across runs).
+- [ ] Unit tests compile a minimal synthetic recipe/stage/steps and assert: (a) canonicalization ordering, (b) unknown-step-id errors, (c) op envelope prefill behavior.
+
+**Scope Boundaries**
+In scope:
+- The end-to-end compiler call chain and error surface shape.
+- Test coverage of compiler ordering and error aggregation.
+Out of scope:
+- Wiring `compileRecipeConfig` into `createRecipe` (that is C1).
+- Removing engine/runtime normalization hooks (that is D2).
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C packages/mapgen-core check`
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/compiler/recipe-compile.ts
+    notes: "Define compileRecipeConfig entrypoint; ensure ordering matches spec Phase A/B."
+  - path: /docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/ts/compiler.ts
+    notes: "Reference ordering and types; do not treat as runtime code."
+```
+
+**Paper Trail**
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/02-compilation.md` (§1.9, §1.20)
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/04-type-surfaces.md` (Recipe compiler + types)
 
 ### B) Authoring surface upgrades (B1–B4)
 
@@ -567,6 +732,183 @@ B:
       - "Implement normalize dispatch by envelope.strategy (strategy-specific normalize hook)."
 ```
 
+#### B1 — Step id convention: kebab-case enforced
+
+Step IDs become user-facing: they appear in compiler errors, config objects, and file layout. The spec pins kebab-case for readability and consistent config keys. This unit makes that a **hard rule** at authoring time.
+
+**Complexity × parallelism:** medium complexity, high parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] `defineStepContract(...)` throws on non-kebab step IDs with a message that includes the invalid id.
+- [ ] `createStage(...)` throws if any child step id is non-kebab, including stage id + step id in the error message.
+- [ ] All step IDs in `mods/mod-swooper-maps/src/recipes/**` are kebab-case and all call sites are updated accordingly.
+
+**Scope Boundaries**
+In scope:
+- Enforcing kebab-case IDs at the authoring factory boundary.
+- Renaming existing non-kebab step ids in the standard recipe (and updating references).
+Out of scope:
+- Renaming stage IDs (already kebab-case in standard recipe).
+- Renaming other `"id"` fields that are not step IDs (e.g., Civ7 modifier IDs).
+
+**Prework Findings (Complete)**
+
+### 1) Current non-kebab step IDs (standard recipe)
+
+These step contract IDs contain uppercase letters today and must be migrated:
+- `storyCorridorsPost`
+- `climateRefine`
+- `storySwatches`
+- `derivePlacementInputs`
+- `landmassPlates`
+- `storyHotspots`
+- `storySeed`
+- `storyCorridorsPre`
+- `storyRifts`
+- `storyOrogeny`
+- `climateBaseline`
+- `ruggedCoasts`
+- `plotEffects`
+
+### 2) Known non-mod touchpoints (will break until updated)
+- `packages/mapgen-core/test/pipeline/placement-gating.test.ts` references `derivePlacementInputs`.
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps test`
+- `rg -n 'id: \"[^\"]*[A-Z][^\"]*\"' mods/mod-swooper-maps/src/recipes` (expect zero hits)
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/authoring/step/contract.ts
+    notes: "Add kebab-case assertion in defineStepContract."
+  - path: /packages/mapgen-core/src/authoring/stage.ts
+    notes: "Add kebab-case assertion for stage.steps[*].id (include stage id in error)."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/**/steps/**/*.contract.ts
+    notes: "Rename non-kebab step contract ids; update any stage composition and test string references."
+  - path: /packages/mapgen-core/test/pipeline/placement-gating.test.ts
+    notes: "Update hard-coded step id strings to kebab-case after migration."
+```
+
+**Paper Trail**
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/04-type-surfaces.md` (step id enforcement)
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/05-file-reconciliation.md` (ordering + kebab-case callout)
+
+#### B2 — Stage Option A: public+compile with computed surfaceSchema
+
+This unit makes stages the authoritative “author-facing config surface” owner. Stage config becomes: `{ knobs, ...fields }`, and the compiler is the only place where the stage surface is normalized and compiled into per-step configs.
+
+**Complexity × parallelism:** high complexity, medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] `createStage(...)` computes and attaches `surfaceSchema` for the stage (including `"knobs"` reserved key handling).
+- [ ] Stage Option A exists: stages may declare optional `public` schema and a `compile` mapping; internal-as-public stages remain valid.
+- [ ] Reserved key enforcement: authors cannot declare a step id/key named `"knobs"` and `"knobs"` must not appear inside step configs post-compilation.
+
+**Scope Boundaries**
+In scope:
+- Stage factory + types to support Option A (public+compile optional; internal-as-public otherwise).
+- Reserved key enforcement for `"knobs"`.
+Out of scope:
+- The compiler implementation that consumes these surfaces (A2 owns compileRecipeConfig; this unit owns stage shapes).
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C packages/mapgen-core check`
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/authoring/stage.ts
+    notes: "Upgrade createStage to compute surfaceSchema + standard toInternal wrapper per spec."
+  - path: /packages/mapgen-core/src/authoring/types.ts
+    notes: "Introduce stage surface/public typing as pinned by spec; ensure RecipeConfigInputOf/CompiledRecipeConfigOf can evolve accordingly."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/**/index.ts
+    notes: "Stage module call sites will need updates once createStage signature/type changes."
+```
+
+**Paper Trail**
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/01-config-model.md` (§1.6 knobs model; reserved key rule)
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/04-type-surfaces.md` (Stage definition; Stage Option A)
+
+#### B3 — Domain ops registries + binding helpers (compile vs runtime)
+
+This unit makes op registry ownership explicit and enforces “domain entrypoint only” imports. Steps should bind runtime ops by id (not deep-import implementations), and the compiler should receive a recipe-owned `compileOpsById` assembled by the recipe boundary.
+
+**Complexity × parallelism:** medium complexity, medium-high parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] Canonical binding helpers exist in authoring core (bind compile-time ops vs runtime ops distinctly).
+- [ ] Domains expose `compileOpsById` and `runtimeOpsById` registries keyed by `op.id`.
+- [ ] Recipe boundary merges domain registries into a recipe-owned `compileOpsById` (no implicit globals).
+
+**Scope Boundaries**
+In scope:
+- Binding helper surfaces and expected domain registry shape.
+Out of scope:
+- Full domain-by-domain adoption (ecology exemplar is E1/E2; other domains can follow later).
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps test`
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/authoring/bindings.ts
+    notes: "New: canonical bindCompileOps/bindRuntimeOps helpers (location pinned by spec)."
+  - path: /docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/03-authoring-patterns.md
+    notes: "Binding helpers canonical location + API shapes (§1.14)."
+  - path: /docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/06-enforcement.md
+    notes: "Import boundaries: domain entrypoints only; steps must not deep import ops/strategies."
+```
+
+#### B4 — Op normalization hook semantics: resolveConfig -> normalize
+
+The compiler architecture renames and narrows “config normalization hooks”:
+- **Old/baseline:** `resolveConfig(config, settings)` exists on steps and ops and can influence engine planning.
+- **Target:** `normalize(envelope, ctx)` exists only as a **compile-time** hook and is dispatched by `envelope.strategy`. Runtime surfaces are stripped and never normalize/default/clean.
+
+**Complexity × parallelism:** high complexity, medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] `resolveConfig` is renamed to `normalize` on op and step authoring surfaces.
+- [ ] `createOp(...)` (or equivalent) implements `op.normalize` dispatch by `envelope.strategy` (strategy-specific normalize hook).
+- [ ] No runtime code path calls `normalize` (enforced by imports + tests).
+
+**Scope Boundaries**
+In scope:
+- Renaming and semantic tightening for op/step normalization surfaces.
+- Updating existing strategy/step implementations to match the new naming/contract.
+Out of scope:
+- Removing engine planner’s step normalization calls (D2 owns validate-only flip).
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps test`
+- `rg -n \"\\bresolveConfig\\b\" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect zero hits by the end of this unit)
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/authoring/op/types.ts
+    notes: "Rename DomainOp.resolveConfig -> normalize; ensure compile-time-only intent stays true."
+  - path: /packages/mapgen-core/src/authoring/op/create.ts
+    notes: "Rename dispatcher to normalize; preserve 'return cfg unchanged if selected strategy has no normalize'."
+  - path: /packages/mapgen-core/src/authoring/types.ts
+    notes: "Rename Step.resolveConfig -> normalize (compile-time only); propagate through authoring surfaces."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/**/steps/**/index.ts
+    notes: "Remove step-level resolveConfig blocks; replace with compiler-time normalization in later units (E2/C2)."
+  - path: /mods/mod-swooper-maps/src/domain/**/ops/**/strategies/*.ts
+    notes: "Rename strategy-local resolveConfig helpers to normalize where they are part of the op’s compile-time surface."
+```
+
+**Paper Trail**
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/00-fundamentals.md` (I2, I3)
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/01-config-model.md` (§1.7 hook semantics)
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/05-file-reconciliation.md` (“Rename: resolveConfig → normalize”)
+
 ### C) Recipe boundary + config model cutover (C1–C3)
 
 This is where compilation becomes mandatory for any real runtime callsite. The strategy is: land compilation at the recipe boundary first, then migrate stages incrementally, then remove the bypass.
@@ -601,6 +943,94 @@ C:
       - "Ensure error surfaces point authors to compiler errors, not engine resolveConfig failures."
 ```
 
+#### C1 — Introduce recipe boundary compilation (before engine plan compilation)
+
+Today the runtime call chain is: `recipe.run(...)` → `compileExecutionPlan(...)` → `PipelineExecutor.executePlan(...)`. This unit inserts compilation at the recipe boundary so the engine only sees canonical per-step configs (and later becomes validate-only).
+
+**Complexity × parallelism:** high complexity, low-medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] `createRecipe` compiles author-facing stage config via `compileRecipeConfig` before engine plan compilation.
+- [ ] Recipe boundary assembles a recipe-owned `compileOpsById` explicitly (by merging domain registries used by the recipe/stages).
+- [ ] `RecipeConfigInputOf` and `CompiledRecipeConfigOf` are updated to represent stage surface input vs compiled per-step output (as pinned by spec; note O2 is closed).
+
+**Scope Boundaries**
+In scope:
+- Wiring compiler into the recipe boundary (in authoring SDK).
+- Making `compileOpsById` assembly explicit at that boundary.
+Out of scope:
+- Migrating all standard stages (that is C2).
+- Engine validate-only flip (that is D1/D2).
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps test`
+- `pnpm test` (full suite gate once wired)
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/authoring/recipe.ts
+    notes: "Current call chain builds a RecipeV2 with per-step config and calls compileExecutionPlan; insert compileRecipeConfig before plan compilation."
+  - path: /packages/mapgen-core/src/authoring/types.ts
+    notes: "Update RecipeConfigInputOf/CompiledRecipeConfigOf typing split (O2 is closed and pinned)."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/recipe.ts
+    notes: "Standard recipe is the primary consumer of createRecipe; will be first runtime callsite to adapt."
+  - path: /mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts
+    notes: "Calls recipe.run(context, settings, config); config typing and shape will change after cutover."
+```
+
+**Paper Trail**
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/03-authoring-patterns.md` (§1.16 call chain)
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/05-file-reconciliation.md` (“Slice 2 — Recipe boundary adoption…”)
+
+#### C2 — Update stage+step authoring to the new config shape
+
+This unit migrates the standard recipe to the new authoring surface incrementally, keeping the repo runnable after each stage migration.
+
+**Complexity × parallelism:** high complexity, medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] Stage config input is a single object per stage: `{ knobs, ...fields }` (public fields optional); no per-step nested config is authored directly.
+- [ ] Compiled output is total: `stageId → stepId → canonical step config` (no missing required envelopes/config).
+- [ ] At least one migrated stage runs end-to-end through compiler → plan → `executePlan` and passes tests.
+
+**Scope Boundaries**
+In scope:
+- Updating standard recipe stages one by one to the new shape.
+- Starting with the foundation stage (no step.resolveConfig today) to establish the migration pattern.
+Out of scope:
+- Ecology exemplar refactor (that is E1–E3, intentionally later).
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps test`
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /mods/mod-swooper-maps/src/recipes/standard/recipe.ts
+    notes: "Stage ordering is explicit; migrate stage modules one by one and keep tests green after each."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/foundation/index.ts
+    notes: "Pinned as the first stage to migrate (small surface; no step.resolveConfig in this stage today)."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/**/index.ts
+    notes: "Stage modules will need updates after Stage Option A and config shape changes."
+```
+
+#### C3 — Remove runtime compilation fallbacks at the recipe boundary
+
+This unit removes any bypass paths that allow uncompiled configs to flow into engine plan compilation. After this, the only supported entry is compilation-first.
+
+**Complexity × parallelism:** medium complexity, low-medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] No code path constructs an engine plan from uncompiled (author-facing) configs.
+- [ ] Errors that used to surface during engine planning/resolveConfig now surface as compiler errors at the recipe boundary.
+
+**Testing / Verification**
+- `pnpm test`
+- `rg -n \"RecipeConfigInputOf\" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect only author-facing call sites; no engine usage)
+
 ### D) Engine becomes validate-only (D1–D2)
 
 This is deferred until after compilation is mandatory at the recipe boundary. The engine then becomes a pure consumer of canonical configs.
@@ -626,6 +1056,75 @@ D:
       - "Remove default/clean/mutation and remove all step.resolveConfig calls."
       - "Remove the obsolete error code step.resolveConfig.failed."
 ```
+
+#### D1 — Executor plan-only: remove runtime config synthesis
+
+`PipelineExecutor.execute*` currently synthesizes configs via `Value.Default/Convert/Clean`. In the target architecture, execution consumes plans only; config construction happens at compile time.
+
+**Complexity × parallelism:** medium complexity, medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] `PipelineExecutor.execute` / `executeAsync` are removed or made internal-only (not supported runtime entrypoints).
+- [ ] `executePlan` / `executePlanAsync` remain the supported entrypoints and are used by runtime call sites.
+- [ ] Tests that previously relied on `execute(...)` are updated to compile a plan and call `executePlan(...)`.
+
+**Scope Boundaries**
+In scope:
+- Executor API surface tightening and removal of config synthesis helpers.
+Out of scope:
+- Planner validate-only changes (D2 owns plan compilation semantics).
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `pnpm test:mapgen`
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/engine/PipelineExecutor.ts
+    notes: "Contains resolveStepConfig(...) (Value.Default/Convert/Clean) and execute*/executeAsync* entrypoints."
+  - path: /packages/mapgen-core/test/pipeline/placement-gating.test.ts
+    notes: "Uses executor.execute(...) today; update to compile plan + executePlan."
+  - path: /packages/mapgen-core/test/pipeline/tag-registry.test.ts
+    notes: "Uses executor.execute(...) today; update accordingly."
+  - path: /packages/mapgen-core/test/pipeline/tracing.test.ts
+    notes: "Uses executor.execute(...) today; update accordingly."
+```
+
+#### D2 — Planner validate-only: remove default/clean and step.resolveConfig
+
+`compileExecutionPlan` currently defaults/cleans configs and invokes `step.resolveConfig(...)` during plan compilation. In the target state, compilation is validate-only: no mutation, no defaulting/cleaning, and no step/op normalization hooks.
+
+**Complexity × parallelism:** high complexity, medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] `compileExecutionPlan` validates only: it does not call `Value.Default/Convert/Clean` on step configs.
+- [ ] `compileExecutionPlan` does not call any step/op normalization hook (`step.resolveConfig`/`step.normalize` etc).
+- [ ] Error code `step.resolveConfig.failed` is deleted and tests updated accordingly.
+
+**Scope Boundaries**
+In scope:
+- Engine planner semantics change (validate-only) and corresponding tests.
+Out of scope:
+- Recipe boundary compilation and stage migrations (C1/C2 own producing canonical configs).
+
+**Testing / Verification**
+- `pnpm -C packages/mapgen-core test`
+- `rg -n \"step\\.resolveConfig\" packages/mapgen-core/src` (expect zero hits after this unit)
+- `rg -n \"Value\\.(Default|Convert|Clean)\" packages/mapgen-core/src/engine` (expect zero hits after this unit)
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/engine/execution-plan.ts
+    notes: "Baseline contains unknown-key detection + Value.Errors formatting; remove default/clean + resolveConfig calls while preserving validation errors."
+  - path: /packages/mapgen-core/test/pipeline/execution-plan.test.ts
+    notes: "Contains coverage for step resolveConfig behavior today; must be rewritten to match validate-only planner."
+```
+
+**Paper Trail**
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/05-file-reconciliation.md` (“Engine validate-only behavior”)
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/00-fundamentals.md` (I2)
 
 ### E) Ecology as canonical exemplar (E1–E3)
 
@@ -660,6 +1159,87 @@ E:
       - "Ensure the public surface validates strictly only at the stage boundary; step config validation remains Phase B."
 ```
 
+#### E1 — Ecology domain entrypoint refactor (contracts + registries)
+
+Ecology is the exemplar domain for the new ownership model. This unit reshapes the ecology domain entrypoint into:
+- a contract-only surface (`@mapgen/domain/ecology/contracts`), and
+- a canonical entrypoint that exports registries (`compileOpsById`, `runtimeOpsById`) and other safe domain types/constants.
+
+**Complexity × parallelism:** high complexity, low-medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] `@mapgen/domain/ecology/contracts` exports contracts only (no engine binding, no strategy implementations).
+- [ ] `@mapgen/domain/ecology` exports `compileOpsById` and `runtimeOpsById` keyed by `op.id`.
+- [ ] Recipes/steps/tests do not deep-import from `@mapgen/domain/ecology/ops/**` (enforced by lint and/or `rg` scans).
+
+**Testing / Verification**
+- `pnpm -C mods/mod-swooper-maps test`
+- `rg -n \"@mapgen/domain/ecology/ops/\" mods/mod-swooper-maps/src` (expect zero hits after refactor)
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /mods/mod-swooper-maps/src/domain/ecology/index.ts
+    notes: "Baseline exports `ops` object and misc schemas/types; refactor into contract-only + registries model."
+  - path: /docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/03-authoring-patterns.md
+    notes: "Domain entrypoint shape and import boundaries (pinned)."
+  - path: /docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/06-enforcement.md
+    notes: "Domain entrypoints only (no deep imports) enforcement."
+```
+
+#### E2 — Ecology steps migration (compiler-first, no runtime resolveConfig)
+
+Baseline ecology steps still use step-level `resolveConfig(...)` that delegates into op `resolveConfig(...)`. This unit removes those runtime dependencies and makes compilation the only place where configs are defaulted/cleaned/normalized.
+
+**Complexity × parallelism:** high complexity, low-medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] Ecology steps do not export or use step-level `resolveConfig` (no runtime normalization).
+- [ ] Step configs are normalized at compile time via step.normalize and/or op.normalize (per the compiler pipeline).
+- [ ] Runtime step code calls ops via `runtimeOpsById` (by id), not `ecology.ops.*` implementation objects.
+
+**Prework Findings (Complete)**
+
+### 1) Current standard recipe steps using step-level resolveConfig (must be migrated)
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/index.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biome-edge-refine/index.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-plan/index.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-apply/index.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-effects/index.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/pedology/index.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/resource-basins/index.ts`
+
+### 2) Non-ecology standard recipe step using step-level resolveConfig (must be migrated)
+- `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/index.ts`
+
+**Testing / Verification**
+- `pnpm -C mods/mod-swooper-maps test`
+- `rg -n \"resolveConfig:\" mods/mod-swooper-maps/src/recipes/standard` (expect zero hits after migration)
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/ecology/**
+    notes: "Remove step-level resolveConfig blocks; bind runtime ops by id; keep adapter-dependent helpers step-scoped."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/**
+    notes: "Placement derive step currently uses resolveConfig; migrate to compiler-first normalization too."
+```
+
+#### E3 — Ecology stage public view + compile (Option A) where beneficial
+
+Use ecology to demonstrate the optional stage public schema and compile mapping end-to-end. This is the “copyable exemplar” for future stages/domains.
+
+**Complexity × parallelism:** medium-high complexity, low-medium parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] Ecology stage defines `knobsSchema`, and where beneficial, an explicit `public` schema.
+- [ ] Ecology stage `compile` maps public fields to internal per-step configs deterministically.
+- [ ] Compiler error examples (unknown step ids, unknown keys, schema errors) are exercised end-to-end using ecology as the reference.
+
+**Testing / Verification**
+- `pnpm -C mods/mod-swooper-maps test`
+
 ### F) Cleanup pass (F1–F2)
 
 This milestone is complete only when there is one architecture and no lingering legacy scaffolding.
@@ -683,6 +1263,38 @@ F:
       - "Tighten lint boundaries per 06-enforcement.md and align docs/specs with code reality."
       - "Rename settings -> env and move Env schema/type to core; delete legacy naming (no long-lived alias)."
 ```
+
+#### F1 — Verify no shims + remove dead paths
+
+This is a cleanup gate: confirm we ended with one architecture and remove dead exports/paths introduced during the cutover.
+
+**Complexity × parallelism:** medium complexity, high parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] No compatibility shims remain (no dual entrypoints, no parallel config path).
+- [ ] Legacy error codes and dead paths are deleted (including `step.resolveConfig.failed`).
+
+**Testing / Verification**
+- `pnpm test`
+- `rg -n \"\\bresolveConfig\\b\" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect zero hits)
+- `rg -n \"Value\\.(Default|Convert|Clean)\" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect zero hits outside compiler-only paths)
+
+#### F2 — Final hygiene + enforcement tightening
+
+This is where enforcement becomes real: tighten import boundaries, finalize naming (`settings` → `env`), and align docs/spec references to the final code reality.
+
+**Complexity × parallelism:** medium complexity, high parallelism.
+
+**Acceptance Criteria (Verifiable)**
+- [ ] Import boundaries match `06-enforcement.md` (domain entrypoint-only; no deep imports).
+- [ ] `settings` is renamed to `env` and `Env` type/schema lives in core (no long-lived alias).
+- [ ] Repo guardrails pass (lint + tests) and drift checks are in place.
+
+**Testing / Verification**
+- `pnpm check`
+- `pnpm lint`
+- `pnpm test`
+- `pnpm lint:domain-refactor-guardrails`
 
 ---
 
@@ -772,6 +1384,16 @@ verification:
   - "Engine validation tests: unknown keys, schema errors, unknown step id errors"
   - "Repo hygiene scans: ripgrep for resolveConfig usage and runtime Value.Default/Convert/Clean usage"
 ```
+
+### Testing / Verification (commands)
+
+- `pnpm -C packages/mapgen-core check`
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps check`
+- `pnpm -C mods/mod-swooper-maps test`
+- `pnpm check`
+- `pnpm lint`
+- `pnpm test`
 
 ---
 
