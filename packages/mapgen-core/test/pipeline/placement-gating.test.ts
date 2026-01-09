@@ -136,7 +136,7 @@ describe("placement step contracts", () => {
     const registry = new StepRegistry<ExtendedMapContext>();
     registry.registerTags(TEST_TAG_DEFINITIONS);
     registry.register({
-      id: "derivePlacementInputs",
+      id: "derive-placement-inputs",
       phase: "placement",
       requires: [],
       provides: [TEST_TAGS.artifact.placementInputs],
@@ -146,7 +146,7 @@ describe("placement step contracts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const { stepResults } = executor.execute(context, ["derivePlacementInputs"]);
+    const { stepResults } = executor.execute(context, ["derive-placement-inputs"]);
 
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
