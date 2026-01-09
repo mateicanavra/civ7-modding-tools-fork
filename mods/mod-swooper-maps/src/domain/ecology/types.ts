@@ -54,6 +54,11 @@ export const FEATURE_PLACEMENT_KEYS: ReadonlyArray<FeatureKey> = [
   "FEATURE_ICE",
 ];
 
+export const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
+  acc[key] = index;
+  return acc;
+}, {} as Record<FeatureKey, number>);
+
 export type PlotEffectKey = `PLOTEFFECT_${string}`;
 
 export const BIOME_SYMBOL_TO_INDEX: Readonly<Record<BiomeSymbol, number>> = Object.freeze(

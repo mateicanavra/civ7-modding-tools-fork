@@ -23,23 +23,31 @@ const BiomeSymbolSchema = Type.Union(
   }
 );
 
-type PlotEffectSelectorDefault = { typeName: PlotEffectKey };
-type SnowSelectorDefaults = {
-  light: PlotEffectSelectorDefault;
-  medium: PlotEffectSelectorDefault;
-  heavy: PlotEffectSelectorDefault;
-};
+const createPlotEffectSelectorSchema = (
+  defaultValue: { typeName: PlotEffectKey }
+) =>
+  Type.Object(
+    {
+      typeName: Type.Unsafe<PlotEffectKey>(
+        Type.String({
+          description: "Explicit plot effect type name (ex: PLOTEFFECT_SAND).",
+        })
+      ),
+    },
+    {
+      additionalProperties: false,
+      default: defaultValue,
+    }
+  );
 
-const DEFAULT_SNOW_SELECTORS: SnowSelectorDefaults = {
-  light: { typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT" },
-  medium: { typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT" },
-  heavy: { typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT" },
-};
-
-const DEFAULT_SAND_SELECTOR: PlotEffectSelectorDefault = { typeName: "PLOTEFFECT_SAND" };
-const DEFAULT_BURNED_SELECTOR: PlotEffectSelectorDefault = {
-  typeName: "PLOTEFFECT_BURNED",
-};
+const PlotEffectsSnowSelectorsSchema = Type.Object(
+  {
+    light: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT" }),
+    medium: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT" }),
+    heavy: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT" }),
+  },
+  { additionalProperties: false, default: {} }
+);
 
 const SnowElevationStrategySchema = Type.Union(
   [Type.Literal("absolute"), Type.Literal("percentile")],
@@ -50,382 +58,67 @@ const SnowElevationStrategySchema = Type.Union(
   }
 );
 
-const createPlotEffectSelectorSchema = (
-  defaultValue: { typeName: PlotEffectKey } = { typeName: "PLOTEFFECT_UNSET" }
-) =>
-  Type.Object(
-    {
-      /** Explicit plot effect type name (ex: PLOTEFFECT_SNOW_LIGHT_PERMANENT). */
-      typeName: Type.Unsafe<PlotEffectKey>(
-        Type.String({
-          description: "Explicit plot effect type name (ex: PLOTEFFECT_SAND).",
-        })
-      ),
-    },
-    {
-      additionalProperties: false,
-      default: defaultValue,
-      description: "Selector for a plot effect type (explicit name).",
-    }
-  );
-
-const PlotEffectSelectorSchema = createPlotEffectSelectorSchema();
-const PlotEffectSnowLightSelectorSchema = createPlotEffectSelectorSchema(
-  DEFAULT_SNOW_SELECTORS.light
-);
-const PlotEffectSnowMediumSelectorSchema = createPlotEffectSelectorSchema(
-  DEFAULT_SNOW_SELECTORS.medium
-);
-const PlotEffectSnowHeavySelectorSchema = createPlotEffectSelectorSchema(
-  DEFAULT_SNOW_SELECTORS.heavy
-);
-const PlotEffectSandSelectorSchema =
-  createPlotEffectSelectorSchema(DEFAULT_SAND_SELECTOR);
-const PlotEffectBurnedSelectorSchema =
-  createPlotEffectSelectorSchema(DEFAULT_BURNED_SELECTOR);
-
-const PlotEffectsSnowSelectorsSchema = Type.Object(
-  {
-    /** Plot effect selector for light snow. */
-    light: Type.Optional(PlotEffectSnowLightSelectorSchema),
-    /** Plot effect selector for medium snow. */
-    medium: Type.Optional(PlotEffectSnowMediumSelectorSchema),
-    /** Plot effect selector for heavy snow. */
-    heavy: Type.Optional(PlotEffectSnowHeavySelectorSchema),
-  },
-  { additionalProperties: false, default: {} }
-);
-
 const PlotEffectsSnowSchema = Type.Object(
   {
-    /** Enable or disable permanent snow placement. */
-    enabled: Type.Optional(
-      Type.Boolean({
-        description: "Enable owned permanent snow plot effects.",
-        default: true,
-      })
-    ),
-    /** Plot effect selectors for snow weights. */
-    selectors: Type.Optional(PlotEffectsSnowSelectorsSchema),
-    /** Chance per eligible plot to receive any snow (percent 0..100). */
-    coverageChance: Type.Optional(
-      Type.Number({
-        description: "Chance per eligible plot to receive any snow (percent 0..100).",
-        default: 80,
-        minimum: 0,
-        maximum: 100,
-      })
-    ),
-    /** Weight for freeze index in the snow score (scalar). */
-    freezeWeight: Type.Optional(
-      Type.Number({
-        description: "Weight for freeze index in the snow score (scalar).",
-        default: 1,
-        minimum: 0,
-      })
-    ),
-    /** Weight for elevation factor in the snow score (scalar). */
-    elevationWeight: Type.Optional(
-      Type.Number({
-        description: "Weight for elevation factor in the snow score (scalar).",
-        default: 1,
-        minimum: 0,
-      })
-    ),
-    /** Weight for moisture factor in the snow score (scalar). */
-    moistureWeight: Type.Optional(
-      Type.Number({
-        description: "Weight for moisture factor in the snow score (scalar).",
-        default: 1,
-        minimum: 0,
-      })
-    ),
-    /** Normalization divisor for the weighted score (prevents weights from exceeding 1). */
-    scoreNormalization: Type.Optional(
-      Type.Number({
-        description: "Normalization divisor for the weighted score (scalar).",
-        default: 3,
-        minimum: 0.0001,
-      })
-    ),
-    /** Bias added to the weighted score before thresholds (scalar). */
-    scoreBias: Type.Optional(
-      Type.Number({
-        description: "Bias added to the weighted score before thresholds (scalar).",
-        default: 0,
-      })
-    ),
-    /** Snow score threshold for light snow (0..1). */
-    lightThreshold: Type.Optional(
-      Type.Number({
-        description: "Snow score threshold for light snow (0..1).",
-        default: 0.35,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Snow score threshold for medium snow (0..1). */
-    mediumThreshold: Type.Optional(
-      Type.Number({
-        description: "Snow score threshold for medium snow (0..1).",
-        default: 0.6,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Snow score threshold for heavy snow (0..1). */
-    heavyThreshold: Type.Optional(
-      Type.Number({
-        description: "Snow score threshold for heavy snow (0..1).",
-        default: 0.8,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /**
-     * Elevation normalization strategy used for snow placement.
-     * - absolute: uses elevationMin/elevationMax as meters
-     * - percentile: derives min/max from land elevation percentiles
-     */
-    elevationStrategy: Type.Optional(SnowElevationStrategySchema),
-    /**
-     * Minimum elevation (meters) to start contributing to snow score.
-     * Only used when elevationStrategy = "absolute".
-     */
-    elevationMin: Type.Optional(
-      Type.Number({
-        description:
-          "Minimum elevation that contributes to snow score (meters). Used only for absolute elevation strategy.",
-        default: 200,
-      })
-    ),
-    /**
-     * Elevation (meters) where the elevation factor saturates at 1.0.
-     * Only used when elevationStrategy = "absolute".
-     */
-    elevationMax: Type.Optional(
-      Type.Number({
-        description:
-          "Elevation where the elevation factor saturates (meters). Used only for absolute elevation strategy.",
-        default: 2400,
-      })
-    ),
-    /**
-     * Land elevation percentile (0..1) where the elevation factor starts rising.
-     * Only used when elevationStrategy = "percentile".
-     */
-    elevationPercentileMin: Type.Optional(
-      Type.Number({
-        description:
-          "Land elevation percentile (0..1) where snow elevation influence begins (percentile strategy only).",
-        default: 0.7,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /**
-     * Land elevation percentile (0..1) where the elevation factor saturates at 1.0.
-     * Only used when elevationStrategy = "percentile".
-     */
-    elevationPercentileMax: Type.Optional(
-      Type.Number({
-        description:
-          "Land elevation percentile (0..1) where snow elevation influence saturates (percentile strategy only).",
-        default: 0.98,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Minimum effective moisture to contribute to snow score. */
-    moistureMin: Type.Optional(
-      Type.Number({
-        description: "Minimum effective moisture to contribute to snow score.",
-        default: 40,
-        minimum: 0,
-      })
-    ),
-    /** Effective moisture where the moisture factor saturates at 1.0. */
-    moistureMax: Type.Optional(
-      Type.Number({
-        description: "Effective moisture where the moisture factor saturates.",
-        default: 160,
-        minimum: 0,
-      })
-    ),
-    /** Maximum surface temperature (C) allowed for snow. */
-    maxTemperature: Type.Optional(
-      Type.Number({
-        description: "Maximum surface temperature allowed for snow (C).",
-        default: 4,
-      })
-    ),
-    /** Maximum aridity index (0..1) allowed for snow. */
-    maxAridity: Type.Optional(
-      Type.Number({
-        description: "Maximum aridity index allowed for snow (0..1).",
-        default: 0.9,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
+    enabled: Type.Boolean({ default: true }),
+    selectors: PlotEffectsSnowSelectorsSchema,
+    coverageChance: Type.Number({ default: 80, minimum: 0, maximum: 100 }),
+    freezeWeight: Type.Number({ default: 1, minimum: 0 }),
+    elevationWeight: Type.Number({ default: 1, minimum: 0 }),
+    moistureWeight: Type.Number({ default: 1, minimum: 0 }),
+    scoreNormalization: Type.Number({ default: 3, minimum: 0.0001 }),
+    scoreBias: Type.Number({ default: 0 }),
+    lightThreshold: Type.Number({ default: 0.35, minimum: 0, maximum: 1 }),
+    mediumThreshold: Type.Number({ default: 0.6, minimum: 0, maximum: 1 }),
+    heavyThreshold: Type.Number({ default: 0.8, minimum: 0, maximum: 1 }),
+    elevationStrategy: SnowElevationStrategySchema,
+    elevationMin: Type.Number({ default: 200 }),
+    elevationMax: Type.Number({ default: 2400 }),
+    elevationPercentileMin: Type.Number({ default: 0.7, minimum: 0, maximum: 1 }),
+    elevationPercentileMax: Type.Number({ default: 0.98, minimum: 0, maximum: 1 }),
+    moistureMin: Type.Number({ default: 40, minimum: 0 }),
+    moistureMax: Type.Number({ default: 160, minimum: 0 }),
+    maxTemperature: Type.Number({ default: 4 }),
+    maxAridity: Type.Number({ default: 0.9, minimum: 0, maximum: 1 }),
   },
   { additionalProperties: false, default: {} }
 );
 
 const PlotEffectsSandSchema = Type.Object(
   {
-    /** Enable or disable sand plot effects. */
-    enabled: Type.Optional(
-      Type.Boolean({
-        description: "Enable sand plot effects in arid regions.",
-        default: false,
-      })
-    ),
-    /** Plot effect selector for sand. */
-    selector: Type.Optional(PlotEffectSandSelectorSchema),
-    /** Chance per eligible plot to receive sand (percent 0..100). */
-    chance: Type.Optional(
-      Type.Number({
-        description: "Chance per eligible plot to receive sand (percent 0..100).",
-        default: 18,
-        minimum: 0,
-        maximum: 100,
-      })
-    ),
-    /** Minimum aridity index (0..1) for sand placement. */
-    minAridity: Type.Optional(
-      Type.Number({
-        description: "Minimum aridity index for sand placement (0..1).",
-        default: 0.55,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Minimum surface temperature (C) for sand placement. */
-    minTemperature: Type.Optional(
-      Type.Number({
-        description: "Minimum surface temperature for sand placement (C).",
-        default: 18,
-      })
-    ),
-    /** Maximum freeze index (0..1) allowed for sand placement. */
-    maxFreeze: Type.Optional(
-      Type.Number({
-        description: "Maximum freeze index allowed for sand placement (0..1).",
-        default: 0.25,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Maximum vegetation density (0..1) allowed for sand placement. */
-    maxVegetation: Type.Optional(
-      Type.Number({
-        description: "Maximum vegetation density allowed for sand placement (0..1).",
-        default: 0.2,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Maximum effective moisture allowed for sand placement. */
-    maxMoisture: Type.Optional(
-      Type.Number({
-        description: "Maximum effective moisture allowed for sand placement.",
-        default: 90,
-        minimum: 0,
-      })
-    ),
-    /** Biome symbols eligible for sand placement. */
-    allowedBiomes: Type.Optional(
-      Type.Array(BiomeSymbolSchema, {
-        description: "Biome symbols eligible for sand placement.",
-        default: ["desert", "temperateDry"],
-      })
-    ),
+    enabled: Type.Boolean({ default: false }),
+    selector: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SAND" }),
+    chance: Type.Number({ default: 18, minimum: 0, maximum: 100 }),
+    minAridity: Type.Number({ default: 0.55, minimum: 0, maximum: 1 }),
+    minTemperature: Type.Number({ default: 18 }),
+    maxFreeze: Type.Number({ default: 0.25, minimum: 0, maximum: 1 }),
+    maxVegetation: Type.Number({ default: 0.2, minimum: 0, maximum: 1 }),
+    maxMoisture: Type.Number({ default: 90, minimum: 0 }),
+    allowedBiomes: Type.Array(BiomeSymbolSchema, { default: ["desert", "temperateDry"] }),
   },
   { additionalProperties: false, default: {} }
 );
 
 const PlotEffectsBurnedSchema = Type.Object(
   {
-    /** Enable or disable burned plot effects. */
-    enabled: Type.Optional(
-      Type.Boolean({
-        description: "Enable burned plot effects in hot, dry regions.",
-        default: false,
-      })
-    ),
-    /** Plot effect selector for burned. */
-    selector: Type.Optional(PlotEffectBurnedSelectorSchema),
-    /** Chance per eligible plot to receive burned effect (percent 0..100). */
-    chance: Type.Optional(
-      Type.Number({
-        description: "Chance per eligible plot to receive burned effect (percent 0..100).",
-        default: 8,
-        minimum: 0,
-        maximum: 100,
-      })
-    ),
-    /** Minimum aridity index (0..1) for burned placement. */
-    minAridity: Type.Optional(
-      Type.Number({
-        description: "Minimum aridity index for burned placement (0..1).",
-        default: 0.45,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Minimum surface temperature (C) for burned placement. */
-    minTemperature: Type.Optional(
-      Type.Number({
-        description: "Minimum surface temperature for burned placement (C).",
-        default: 20,
-      })
-    ),
-    /** Maximum freeze index (0..1) allowed for burned placement. */
-    maxFreeze: Type.Optional(
-      Type.Number({
-        description: "Maximum freeze index allowed for burned placement (0..1).",
-        default: 0.2,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Maximum vegetation density (0..1) allowed for burned placement. */
-    maxVegetation: Type.Optional(
-      Type.Number({
-        description: "Maximum vegetation density allowed for burned placement (0..1).",
-        default: 0.35,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Maximum effective moisture allowed for burned placement. */
-    maxMoisture: Type.Optional(
-      Type.Number({
-        description: "Maximum effective moisture allowed for burned placement.",
-        default: 110,
-        minimum: 0,
-      })
-    ),
-    /** Biome symbols eligible for burned placement. */
-    allowedBiomes: Type.Optional(
-      Type.Array(BiomeSymbolSchema, {
-        description: "Biome symbols eligible for burned placement.",
-        default: ["temperateDry", "tropicalSeasonal"],
-      })
-    ),
+    enabled: Type.Boolean({ default: false }),
+    selector: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_BURNED" }),
+    chance: Type.Number({ default: 8, minimum: 0, maximum: 100 }),
+    minAridity: Type.Number({ default: 0.45, minimum: 0, maximum: 1 }),
+    minTemperature: Type.Number({ default: 20 }),
+    maxFreeze: Type.Number({ default: 0.2, minimum: 0, maximum: 1 }),
+    maxVegetation: Type.Number({ default: 0.35, minimum: 0, maximum: 1 }),
+    maxMoisture: Type.Number({ default: 110, minimum: 0 }),
+    allowedBiomes: Type.Array(BiomeSymbolSchema, { default: ["temperateDry", "tropicalSeasonal"] }),
   },
   { additionalProperties: false, default: {} }
 );
 
 const PlotEffectsConfigSchema = Type.Object(
   {
-    /** Snow plot effects (light/medium/heavy permanent). */
-    snow: Type.Optional(PlotEffectsSnowSchema),
-    /** Sand plot effects for arid basins. */
-    sand: Type.Optional(PlotEffectsSandSchema),
-    /** Burned plot effects for scorched regions. */
-    burned: Type.Optional(PlotEffectsBurnedSchema),
+    snow: PlotEffectsSnowSchema,
+    sand: PlotEffectsSandSchema,
+    burned: PlotEffectsBurnedSchema,
   },
   { additionalProperties: false, default: {} }
 );

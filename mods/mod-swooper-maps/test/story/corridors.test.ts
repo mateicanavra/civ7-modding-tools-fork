@@ -1,7 +1,8 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext, OCEAN_TERRAIN } from "@swooper/mapgen-core";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import { Value } from "typebox/value";
 import { CorridorsConfigSchema, FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import {
   getStoryOverlay,
@@ -13,8 +14,8 @@ describe("story/corridors", () => {
   it("tags sea lanes and publishes a corridors overlay", () => {
     const width = 20;
     const height = 12;
-    const corridorsConfig = applySchemaDefaults(CorridorsConfigSchema, {});
-    const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
+    const corridorsConfig = Value.Default(CorridorsConfigSchema, {}) as Static<typeof CorridorsConfigSchema>;
+    const directionality = Value.Default(FoundationDirectionalityConfigSchema, {}) as Static<typeof FoundationDirectionalityConfigSchema>;
     const env = {
       seed: 0,
       dimensions: { width, height },

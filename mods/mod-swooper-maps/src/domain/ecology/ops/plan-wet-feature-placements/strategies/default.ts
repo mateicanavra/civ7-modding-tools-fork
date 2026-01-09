@@ -1,47 +1,14 @@
-import { applySchemaDefaults, createStrategy, type Static } from "@swooper/mapgen-core/authoring";
+import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { createLabelRng, type LabelRng } from "@swooper/mapgen-core";
 
 import {
   FEATURE_PLACEMENT_KEYS,
   biomeSymbolFromIndex,
-  type BiomeSymbol,
   type FeatureKey,
 } from "@mapgen/domain/ecology/types.js";
 
-import {
-  PlanWetFeaturePlacementsContract,
-  WetChancesSchema,
-  WetFeaturePlacementsConfigSchema,
-  WetRulesSchema,
-} from "../contract.js";
+import { PlanWetFeaturePlacementsContract } from "../contract.js";
 import { hasAdjacentFeatureType, isCoastalLand } from "../rules/index.js";
-
-type WetFeatureKey =
-  | "FEATURE_MARSH"
-  | "FEATURE_TUNDRA_BOG"
-  | "FEATURE_MANGROVE"
-  | "FEATURE_OASIS"
-  | "FEATURE_WATERING_HOLE";
-
-type Config = Static<typeof WetFeaturePlacementsConfigSchema>;
-type Input = Static<(typeof PlanWetFeaturePlacementsContract)["input"]>;
-type Placement = Static<(typeof PlanWetFeaturePlacementsContract)["output"]>["placements"][number];
-
-type ResolvedConfig = {
-  multiplier: number;
-  chances: Record<WetFeatureKey, number>;
-  rules: {
-    nearRiverRadius: number;
-    coldTemperatureMax: number;
-    coldBiomeSymbols: BiomeSymbol[];
-    mangroveWarmTemperatureMin: number;
-    mangroveWarmBiomeSymbols: BiomeSymbol[];
-    coastalAdjacencyRadius: number;
-    isolatedRiverRadius: number;
-    isolatedSpacingRadius: number;
-    oasisBiomeSymbols: BiomeSymbol[];
-  };
-};
 
 const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
   acc[key] = index;
@@ -50,78 +17,13 @@ const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
 
 const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
 
-const readNumber = (value: number | undefined, fallback: number): number =>
-  typeof value === "number" && Number.isFinite(value) ? value : fallback;
-
-const readSymbolArray = (
-  input: BiomeSymbol[] | undefined,
-  fallback: BiomeSymbol[]
-): BiomeSymbol[] => (Array.isArray(input) && input.length > 0 ? input : fallback);
-
 const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
   chance > 0 && rng(100, label) < chance;
 
 const NO_FEATURE = -1;
 
-const normalize = (input: Config): ResolvedConfig => {
-  const defaults = applySchemaDefaults(WetFeaturePlacementsConfigSchema, {}) as Required<Config>;
-  const owned = applySchemaDefaults(WetFeaturePlacementsConfigSchema, input) as Required<Config>;
-
-  const multiplier = Math.max(0, readNumber(owned.multiplier, defaults.multiplier));
-
-  const chanceDefaults = applySchemaDefaults(WetChancesSchema, {}) as Record<string, number>;
-  const chanceInput = applySchemaDefaults(WetChancesSchema, owned.chances) as Record<string, number>;
-  const resolveChance = (key: WetFeatureKey): number =>
-    clampChance(readNumber(chanceInput[key], chanceDefaults[key] ?? 0));
-
-  const rulesDefaults = applySchemaDefaults(WetRulesSchema, {}) as Required<Static<typeof WetRulesSchema>>;
-  const rulesInput = applySchemaDefaults(WetRulesSchema, owned.rules) as Required<Static<typeof WetRulesSchema>>;
-
-  return {
-    multiplier,
-    chances: {
-      FEATURE_MARSH: resolveChance("FEATURE_MARSH"),
-      FEATURE_TUNDRA_BOG: resolveChance("FEATURE_TUNDRA_BOG"),
-      FEATURE_MANGROVE: resolveChance("FEATURE_MANGROVE"),
-      FEATURE_OASIS: resolveChance("FEATURE_OASIS"),
-      FEATURE_WATERING_HOLE: resolveChance("FEATURE_WATERING_HOLE"),
-    },
-    rules: {
-      nearRiverRadius: Math.max(
-        1,
-        Math.floor(readNumber(rulesInput.nearRiverRadius, rulesDefaults.nearRiverRadius))
-      ),
-      coldTemperatureMax: readNumber(rulesInput.coldTemperatureMax, rulesDefaults.coldTemperatureMax),
-      coldBiomeSymbols: readSymbolArray(rulesInput.coldBiomeSymbols, rulesDefaults.coldBiomeSymbols),
-      mangroveWarmTemperatureMin: readNumber(
-        rulesInput.mangroveWarmTemperatureMin,
-        rulesDefaults.mangroveWarmTemperatureMin
-      ),
-      mangroveWarmBiomeSymbols: readSymbolArray(
-        rulesInput.mangroveWarmBiomeSymbols,
-        rulesDefaults.mangroveWarmBiomeSymbols
-      ),
-      coastalAdjacencyRadius: Math.max(
-        1,
-        Math.floor(readNumber(rulesInput.coastalAdjacencyRadius, rulesDefaults.coastalAdjacencyRadius))
-      ),
-      isolatedRiverRadius: Math.max(
-        1,
-        Math.floor(readNumber(rulesInput.isolatedRiverRadius, rulesDefaults.isolatedRiverRadius))
-      ),
-      isolatedSpacingRadius: Math.max(
-        1,
-        Math.floor(readNumber(rulesInput.isolatedSpacingRadius, rulesDefaults.isolatedSpacingRadius))
-      ),
-      oasisBiomeSymbols: readSymbolArray(rulesInput.oasisBiomeSymbols, rulesDefaults.oasisBiomeSymbols),
-    },
-  };
-};
-
 export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, "default", {
-  normalize,
-  run: (input: Input, config: Config) => {
-    const resolved = normalize(config);
+  run: (input, config) => {
     const rng = createLabelRng(input.seed);
 
     const {
@@ -138,7 +40,7 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
     } = input;
 
     const featureField = featureKeyField.slice();
-    const placements: Placement[] = [];
+    const placements: Array<{ x: number; y: number; feature: FeatureKey }> = [];
 
     const isWater = (x: number, y: number): boolean => landMask[y * width + x] === 0;
     const getTerrainType = (x: number, y: number): number => terrainType[y * width + x] ?? -1;
@@ -155,14 +57,18 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
       placements.push({ x, y, feature: featureKey });
     };
 
-    if (resolved.multiplier <= 0) {
+    const multiplier = Math.max(0, config.multiplier);
+    if (multiplier <= 0) {
       return { placements };
     }
 
-    const marshChance = clampChance(resolved.chances.FEATURE_MARSH * resolved.multiplier);
-    const bogChance = clampChance(resolved.chances.FEATURE_TUNDRA_BOG * resolved.multiplier);
+    const chances = config.chances;
+    const rules = config.rules;
+
+    const marshChance = clampChance(clampChance(chances.FEATURE_MARSH) * multiplier);
+    const bogChance = clampChance(clampChance(chances.FEATURE_TUNDRA_BOG) * multiplier);
     if (marshChance > 0 || bogChance > 0) {
-      const coldBiomeSet = new Set(resolved.rules.coldBiomeSymbols);
+      const coldBiomeSet = new Set(rules.coldBiomeSymbols);
       for (let y = 0; y < height; y++) {
         const rowOffset = y * width;
         for (let x = 0; x < width; x++) {
@@ -174,7 +80,7 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
           const symbol = biomeSymbolFromIndex(biomeIndex[idx] | 0);
           const isCold =
             coldBiomeSet.has(symbol) ||
-            (surfaceTemperature[idx] ?? 0) <= resolved.rules.coldTemperatureMax;
+            (surfaceTemperature[idx] ?? 0) <= rules.coldTemperatureMax;
           const featureKey: FeatureKey = isCold ? "FEATURE_TUNDRA_BOG" : "FEATURE_MARSH";
           const chance = isCold ? bogChance : marshChance;
           if (chance <= 0) continue;
@@ -185,23 +91,24 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
       }
     }
 
-    const mangroveChance = clampChance(resolved.chances.FEATURE_MANGROVE * resolved.multiplier);
+    const mangroveChance = clampChance(clampChance(chances.FEATURE_MANGROVE) * multiplier);
     if (mangroveChance > 0) {
-      const warmBiomeSet = new Set(resolved.rules.mangroveWarmBiomeSymbols);
+      const warmBiomeSet = new Set(rules.mangroveWarmBiomeSymbols);
+      const coastalRadius = Math.max(1, Math.floor(rules.coastalAdjacencyRadius));
       for (let y = 0; y < height; y++) {
         const rowOffset = y * width;
         for (let x = 0; x < width; x++) {
           const idx = rowOffset + x;
           if (landMask[idx] === 0) continue;
           if (isNavigableRiverPlot(x, y)) continue;
-          if (!isCoastalLand(isWater, width, height, x, y, resolved.rules.coastalAdjacencyRadius)) {
+          if (!isCoastalLand(isWater, width, height, x, y, coastalRadius)) {
             continue;
           }
 
           const symbol = biomeSymbolFromIndex(biomeIndex[idx] | 0);
           const isWarm =
             warmBiomeSet.has(symbol) ||
-            (surfaceTemperature[idx] ?? 0) >= resolved.rules.mangroveWarmTemperatureMin;
+            (surfaceTemperature[idx] ?? 0) >= rules.mangroveWarmTemperatureMin;
           if (!isWarm) continue;
           if (!canPlaceAt(x, y)) continue;
           if (!rollPercent(rng, "features:plan:wet:mangrove", mangroveChance)) continue;
@@ -210,19 +117,21 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
       }
     }
 
-    const oasisChance = clampChance(resolved.chances.FEATURE_OASIS * resolved.multiplier);
-    const wateringChance = clampChance(resolved.chances.FEATURE_WATERING_HOLE * resolved.multiplier);
+    const oasisChance = clampChance(clampChance(chances.FEATURE_OASIS) * multiplier);
+    const wateringChance = clampChance(clampChance(chances.FEATURE_WATERING_HOLE) * multiplier);
     if (oasisChance > 0 || wateringChance > 0) {
-      const oasisBiomeSet = new Set(resolved.rules.oasisBiomeSymbols);
+      const oasisBiomeSet = new Set(rules.oasisBiomeSymbols);
       const oasisIdx = FEATURE_KEY_INDEX.FEATURE_OASIS;
       const wateringIdx = FEATURE_KEY_INDEX.FEATURE_WATERING_HOLE;
+      const coastalRadius = Math.max(1, Math.floor(rules.coastalAdjacencyRadius));
+      const spacingRadius = Math.max(1, Math.floor(rules.isolatedSpacingRadius));
       for (let y = 0; y < height; y++) {
         const rowOffset = y * width;
         for (let x = 0; x < width; x++) {
           const idx = rowOffset + x;
           if (landMask[idx] === 0) continue;
           if (isNavigableRiverPlot(x, y)) continue;
-          if (isCoastalLand(isWater, width, height, x, y, resolved.rules.coastalAdjacencyRadius)) {
+          if (isCoastalLand(isWater, width, height, x, y, coastalRadius)) {
             continue;
           }
           if (isolatedRiverMask[idx] === 1) continue;
@@ -241,7 +150,7 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
               x,
               y,
               featureIdx,
-              resolved.rules.isolatedSpacingRadius
+              spacingRadius
             )
           ) {
             continue;

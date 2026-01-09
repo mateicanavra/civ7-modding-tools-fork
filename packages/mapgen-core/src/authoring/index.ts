@@ -3,7 +3,7 @@ export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
 export { bindCompileOps, bindRuntimeOps, runtimeOp } from "./bindings.js";
 export { createOp, createStrategy, defineOpContract, opRef } from "./op/index.js";
-export { applySchemaDefaults, defineOpSchema } from "./schema.js";
+export { defineOpSchema } from "./schema.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
 export { OpValidationError } from "./validation.js";
 export { Type } from "typebox";

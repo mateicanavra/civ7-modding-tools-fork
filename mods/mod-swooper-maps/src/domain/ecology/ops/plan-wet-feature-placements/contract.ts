@@ -31,49 +31,41 @@ const BiomeSymbolSchema = Type.Unsafe<BiomeSymbol>(
   )
 );
 
-export const WetChancesSchema = Type.Object(
+const WetChancesSchema = Type.Object(
   {
-    FEATURE_MARSH: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
-    FEATURE_TUNDRA_BOG: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
-    FEATURE_MANGROVE: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
-    FEATURE_OASIS: Type.Optional(Type.Number({ default: 50, minimum: 0, maximum: 100 })),
-    FEATURE_WATERING_HOLE: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
+    FEATURE_MARSH: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
+    FEATURE_TUNDRA_BOG: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
+    FEATURE_MANGROVE: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
+    FEATURE_OASIS: Type.Number({ default: 50, minimum: 0, maximum: 100 }),
+    FEATURE_WATERING_HOLE: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
   },
   { additionalProperties: false, default: {} }
 );
 
-export const WetRulesSchema = Type.Object(
+const WetRulesSchema = Type.Object(
   {
-    nearRiverRadius: Type.Optional(Type.Number({ default: 2, minimum: 1 })),
-    coldTemperatureMax: Type.Optional(Type.Number({ default: 5 })),
-    coldBiomeSymbols: Type.Optional(
-      Type.Array(BiomeSymbolSchema, { default: ["snow", "tundra", "boreal"] })
-    ),
-    mangroveWarmTemperatureMin: Type.Optional(Type.Number({ default: 18 })),
-    mangroveWarmBiomeSymbols: Type.Optional(
-      Type.Array(BiomeSymbolSchema, { default: ["tropicalRainforest", "tropicalSeasonal"] })
-    ),
-    coastalAdjacencyRadius: Type.Optional(Type.Number({ default: 1, minimum: 1 })),
-    isolatedRiverRadius: Type.Optional(Type.Number({ default: 1, minimum: 1 })),
-    isolatedSpacingRadius: Type.Optional(Type.Number({ default: 1, minimum: 1 })),
-    oasisBiomeSymbols: Type.Optional(
-      Type.Array(BiomeSymbolSchema, { default: ["desert", "temperateDry"] })
-    ),
+    nearRiverRadius: Type.Number({ default: 2, minimum: 1 }),
+    coldTemperatureMax: Type.Number({ default: 5 }),
+    coldBiomeSymbols: Type.Array(BiomeSymbolSchema, { default: ["snow", "tundra", "boreal"] }),
+    mangroveWarmTemperatureMin: Type.Number({ default: 18 }),
+    mangroveWarmBiomeSymbols: Type.Array(BiomeSymbolSchema, { default: ["tropicalRainforest", "tropicalSeasonal"] }),
+    coastalAdjacencyRadius: Type.Number({ default: 1, minimum: 1 }),
+    isolatedRiverRadius: Type.Number({ default: 1, minimum: 1 }),
+    isolatedSpacingRadius: Type.Number({ default: 1, minimum: 1 }),
+    oasisBiomeSymbols: Type.Array(BiomeSymbolSchema, { default: ["desert", "temperateDry"] }),
   },
   { additionalProperties: false, default: {} }
 );
 
-export const WetFeaturePlacementsConfigSchema = Type.Object(
+const WetFeaturePlacementsConfigSchema = Type.Object(
   {
-    multiplier: Type.Optional(
-      Type.Number({
-        description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
-        default: 1,
-        minimum: 0,
-      })
-    ),
-    chances: Type.Optional(WetChancesSchema),
-    rules: Type.Optional(WetRulesSchema),
+    multiplier: Type.Number({
+      description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
+      default: 1,
+      minimum: 0,
+    }),
+    chances: WetChancesSchema,
+    rules: WetRulesSchema,
   },
   { additionalProperties: false, default: {} }
 );
@@ -122,4 +114,3 @@ export const PlanWetFeaturePlacementsContract = defineOpContract({
     default: WetFeaturePlacementsConfigSchema,
   },
 });
-
