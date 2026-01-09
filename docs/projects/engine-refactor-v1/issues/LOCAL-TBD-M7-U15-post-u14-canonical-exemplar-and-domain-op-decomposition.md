@@ -60,11 +60,14 @@ This is a **full, comprehensive refactor** of ecology to match the target archit
 ### Current ecology inventory (starting point)
 Ops to migrate (current):
 - `classify-biomes`
-- `plan-feature-placements`
+- `plan-vegetated-feature-placements`
+- `plan-wet-feature-placements`
+- `plan-aquatic-feature-placements`
+- `plan-ice-feature-placements`
 - `plan-plot-effects`
 - `plan-reef-embellishments`
 - `plan-vegetation-embellishments`
-- `rng.ts` (cross-op helper; move into core SDK and delete the local copy)
+- `createLabelRng` (cross-op helper; promote to core SDK and delete local copy)
 
 Steps to migrate (current):
 - `steps/biomes/**`
@@ -122,9 +125,9 @@ Notes:
 #### Ecology rule inventory (target)
 - `classify-biomes`: temperature zoning, moisture zoning, aridity shifts, biome lookup, density/fields derivation.
 - baseline feature placement ops: each op is single-concern with its own `rules/**`; avoid multi-concern “switchboard” planning in one module.
-- `plan-reef-embellishments`: keep `rules/` for paradise/shelf planners (already split) and make `plan.ts` orchestration-only.
-- `plan-vegetation-embellishments`: keep `rules/` for volcanic + density planners (already split) and make `plan.ts` orchestration-only.
-- `plan-plot-effects`: move config resolution + selector normalization out of `contract.ts`; keep `rules/` for snow-elevation helpers as needed.
+- `plan-reef-embellishments`: keep `rules/` for paradise/shelf planners and keep the strategy entry orchestration-only.
+- `plan-vegetation-embellishments`: keep `rules/` for volcanic + density planners and keep the strategy entry orchestration-only.
+- `plan-plot-effects`: keep `contract.ts` schema-only; do config resolution + selector normalization in the strategy entry.
 
 ## Implementation Decisions
 
@@ -225,7 +228,11 @@ Acceptance criteria:
 - `pnpm deploy:mods`
 
 ### Exemplar scope
-- Operation: `mods/mod-swooper-maps/src/domain/ecology/ops/plan-feature-placements/**`
+- Operations:
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-vegetated-feature-placements/**`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-wet-feature-placements/**`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-aquatic-feature-placements/**`
+  - `mods/mod-swooper-maps/src/domain/ecology/ops/plan-ice-feature-placements/**`
 - Step wiring: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/**`
 
 ### “Perfect” acceptance criteria (must all be true)

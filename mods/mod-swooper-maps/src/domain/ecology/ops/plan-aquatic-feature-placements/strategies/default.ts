@@ -70,9 +70,7 @@ const resolveConfig = (input: Config): ResolvedConfig => {
   const rulesDefaults = applySchemaDefaults(AquaticRulesSchema, {}) as Required<Static<typeof AquaticRulesSchema>>;
   const rulesInput = applySchemaDefaults(AquaticRulesSchema, owned.rules) as Required<Static<typeof AquaticRulesSchema>>;
   const atollDefaults = applySchemaDefaults(AquaticAtollSchema, {}) as Required<Static<typeof AquaticAtollSchema>>;
-  const atollInput = applySchemaDefaults(AquaticAtollSchema, (rulesInput.atoll as object | undefined) ?? {}) as Required<
-    Static<typeof AquaticAtollSchema>
-  >;
+  const atollInput = applySchemaDefaults(AquaticAtollSchema, rulesInput.atoll) as Required<Static<typeof AquaticAtollSchema>>;
 
   return {
     multiplier,
