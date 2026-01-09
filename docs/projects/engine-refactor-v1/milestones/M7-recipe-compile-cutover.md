@@ -287,7 +287,7 @@ This milestone is organized into 6 workstreams (A-F), each with detailed issue d
 | C3 | Remove runtime compilation fallbacks | [C2] | [LOCAL-TBD-M7-C3](../issues/LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) | [x] | branch `m7-t09-remove-runtime-fallbacks` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/403) |
 | D1 | Executor plan-only: remove runtime config synthesis | [C3] | [LOCAL-TBD-M7-D1](../issues/LOCAL-TBD-M7-D1-executor-plan-only.md) | [x] | branch `m7-t10-executor-plan-only` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/404) |
 | D2 | Planner validate-only: remove default/clean and step.resolveConfig | [C3] | [LOCAL-TBD-M7-D2](../issues/LOCAL-TBD-M7-D2-planner-validate-only.md) | [x] | branch `m7-t11-planner-validate-only` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/405) |
-| E1 | Ecology domain entrypoint refactor | [B3, B4] | [LOCAL-TBD-M7-E1](../issues/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) | [ ] | |
+| E1 | Ecology domain entrypoint refactor | [B3, B4] | [LOCAL-TBD-M7-E1](../issues/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) | [x] | branch `m7-t12-ecology-domain-entrypoint` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/406) |
 | E2 | Ecology steps migration | [E1, C2] | [LOCAL-TBD-M7-E2](../issues/LOCAL-TBD-M7-E2-ecology-steps-migration.md) | [ ] | |
 | E3 | Ecology stage public view + compile | [E2] | [LOCAL-TBD-M7-E3](../issues/LOCAL-TBD-M7-E3-ecology-stage-public-compile.md) | [ ] | |
 | F1 | Verify no shims + remove dead paths | [A2, B4, C3, D2, E2] | [LOCAL-TBD-M7-F1](../issues/LOCAL-TBD-M7-F1-verify-no-shims.md) | [ ] | |
