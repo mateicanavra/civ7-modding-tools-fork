@@ -359,3 +359,30 @@ This is the right migration pattern: steps bind ops by id, do compile-time norma
 ### Cross-cutting Risks
 
 - As more steps adopt this pattern, the distinction between compile-time ops vs runtime ops becomes critical; accidental mixing will be subtle and hard to debug without enforcement.
+
+## REVIEW m7-t14-ecology-stage-public-compile
+
+### Quick Take
+
+Strong exemplar: ecology now demonstrates Stage Option A end-to-end (explicit `public` schema + `compile` mapping) with compile-error tests that lock in the intended UX.
+
+### High-Leverage Issues
+
+- The public surface is intentionally broad (camelCase mirrors of every ecology step). That’s fine for an exemplar, but it may be wider than desired for “real authoring DX”; future stages might want a curated subset.
+- `compile` currently ignores `env` and `knobs`; that’s okay, but once knobs become meaningful, ensure they’re either mapped explicitly or intentionally unused (and tested).
+
+### Fix Now (Recommended)
+
+- Add one test asserting that an omitted public field compiles to an omitted step config only if the step schema allows it; otherwise, missing step configs should fail deterministically (keep the “total compiled output” invariant).
+
+### Defer / Follow-up
+
+- Consider a small helper for camelCase ↔ kebab-case mapping so future stages don’t hand-roll the same mapping table.
+
+### Needs Discussion
+
+- Should the stage public schema be allowed to reuse step schemas directly (as done here), or should public schemas be decoupled/curated to avoid leaking internal envelope details?
+
+### Cross-cutting Risks
+
+- Public-stage mapping is an author-facing contract; changing field names later will be a breaking change for configs/presets.
