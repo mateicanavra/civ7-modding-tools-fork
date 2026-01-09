@@ -157,13 +157,13 @@ export type RecipeDefinition<
 export type RecipeModule<
   TContext = ExtendedMapContext,
   TConfigInput = RecipeConfigInputOf<any> | null,
-  TConfigCompiled = RecipeConfig | null,
+  TConfigCompiled = RecipeConfig,
 > = {
   readonly id: string;
   readonly recipe: RecipeV2;
-  instantiate: (config?: TConfigCompiled) => RecipeV2;
+  instantiate: (config: TConfigCompiled) => RecipeV2;
   compileConfig: (settings: RunSettings, config?: TConfigInput) => TConfigCompiled;
-  runRequest: (settings: RunSettings, config?: TConfigCompiled) => RunRequest;
+  runRequest: (settings: RunSettings, config: TConfigCompiled) => RunRequest;
   compile: (settings: RunSettings, config?: TConfigInput) => ExecutionPlan;
   run: (
     context: TContext,
