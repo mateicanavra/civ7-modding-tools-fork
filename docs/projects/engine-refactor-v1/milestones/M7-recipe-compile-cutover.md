@@ -290,7 +290,7 @@ This milestone is organized into 6 workstreams (A-F), each with detailed issue d
 | E1 | Ecology domain entrypoint refactor | [B3, B4] | [LOCAL-TBD-M7-E1](../issues/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) | [x] | branch `m7-t12-ecology-domain-entrypoint` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/406) |
 | E2 | Ecology steps migration | [E1, C2] | [LOCAL-TBD-M7-E2](../issues/LOCAL-TBD-M7-E2-ecology-steps-migration.md) | [x] | branch `m7-t13-ecology-steps-migration` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/407) |
 | E3 | Ecology stage public view + compile | [E2] | [LOCAL-TBD-M7-E3](../issues/LOCAL-TBD-M7-E3-ecology-stage-public-compile.md) | [x] | branch `m7-t14-ecology-stage-public-compile` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/408) |
-| F1 | Verify no shims + remove dead paths | [A2, B4, C3, D2, E2] | [LOCAL-TBD-M7-F1](../issues/LOCAL-TBD-M7-F1-verify-no-shims.md) | [x] | branch `m7-t15-verify-no-shims` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/409) |
+| F1 | Verify no shims + remove dead paths | [A2, B4, C3, D2, E2] | [LOCAL-TBD-M7-F1](../issues/LOCAL-TBD-M7-F1-verify-no-shims.md) | [x] | branch `m7-t15-verify-no-shims` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/409) |
 | F2 | Final hygiene + enforcement tightening | [F1] | [LOCAL-TBD-M7-F2](../issues/LOCAL-TBD-M7-F2-final-hygiene.md) | [ ] | |
 
 ### Workstream Summaries
