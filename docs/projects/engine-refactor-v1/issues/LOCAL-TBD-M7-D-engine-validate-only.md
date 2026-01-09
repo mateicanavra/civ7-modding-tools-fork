@@ -33,8 +33,8 @@ This workstream delivers engine validate-only behavior:
 
 | ID | Title | Status | blocked_by |
 |---|---|---|---|
-| [LOCAL-TBD-M7-D1](./LOCAL-TBD-M7-D1-executor-plan-only.md) | Executor plan-only: remove runtime config synthesis | planned | [M7-C3] |
-| [LOCAL-TBD-M7-D2](./LOCAL-TBD-M7-D2-planner-validate-only.md) | Planner validate-only: remove default/clean and step.resolveConfig | planned | [M7-C3] |
+| [LOCAL-TBD-M7-D1](./LOCAL-TBD-M7-D1-executor-plan-only.md) | Executor plan-only: remove runtime config synthesis | planned | [LOCAL-TBD-M7-C3] |
+| [LOCAL-TBD-M7-D2](./LOCAL-TBD-M7-D2-planner-validate-only.md) | Planner validate-only: remove default/clean and step.resolveConfig | planned | [LOCAL-TBD-M7-C3] |
 
 ## Sequencing
 
@@ -56,7 +56,7 @@ D1 and D2 can be worked in parallel after C3 completes. Both depend on C3.
 
 ## Dependencies / Notes
 
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

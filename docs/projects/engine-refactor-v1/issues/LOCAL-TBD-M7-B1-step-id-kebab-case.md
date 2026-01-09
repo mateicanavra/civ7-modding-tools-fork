@@ -73,7 +73,7 @@ These step contract IDs contain uppercase letters today and must be migrated:
 ## Dependencies / Notes
 
 - **Blocks:** [LOCAL-TBD-M7-C2](./LOCAL-TBD-M7-C2-stage-step-config-shape.md)
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

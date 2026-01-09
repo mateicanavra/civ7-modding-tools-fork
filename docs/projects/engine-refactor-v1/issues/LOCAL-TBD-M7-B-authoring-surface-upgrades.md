@@ -60,7 +60,7 @@ B1, B2, B3, B4 can be worked in parallel. No internal dependencies within this w
 
 ## Dependencies / Notes
 
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

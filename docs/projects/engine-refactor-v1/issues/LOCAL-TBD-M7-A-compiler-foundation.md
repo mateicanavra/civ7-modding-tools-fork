@@ -34,7 +34,7 @@ This workstream delivers the compiler module skeleton and strict normalization p
 | ID | Title | Status | blocked_by |
 |---|---|---|---|
 | [LOCAL-TBD-M7-A1](./LOCAL-TBD-M7-A1-compiler-module-skeleton.md) | Compiler module skeleton + strict normalization | planned | [] |
-| [LOCAL-TBD-M7-A2](./LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md) | compileRecipeConfig end-to-end wiring | planned | [M7-A1] |
+| [LOCAL-TBD-M7-A2](./LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md) | compileRecipeConfig end-to-end wiring | planned | [LOCAL-TBD-M7-A1] |
 
 ## Sequencing
 
@@ -53,7 +53,7 @@ A1 must complete before A2. A2 depends on A1 for the normalization helpers.
 
 ## Dependencies / Notes
 
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

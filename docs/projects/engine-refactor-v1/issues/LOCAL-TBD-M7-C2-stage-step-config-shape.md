@@ -59,7 +59,7 @@ Migrate the standard recipe to the new authoring surface incrementally, keeping 
 
 - **Blocked by:** [LOCAL-TBD-M7-C1](./LOCAL-TBD-M7-C1-recipe-boundary-compilation.md), [LOCAL-TBD-M7-B1](./LOCAL-TBD-M7-B1-step-id-kebab-case.md), [LOCAL-TBD-M7-B2](./LOCAL-TBD-M7-B2-stage-option-a.md)
 - **Blocks:** [LOCAL-TBD-M7-C3](./LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md), [LOCAL-TBD-M7-E2](./LOCAL-TBD-M7-E2-ecology-steps-migration.md)
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

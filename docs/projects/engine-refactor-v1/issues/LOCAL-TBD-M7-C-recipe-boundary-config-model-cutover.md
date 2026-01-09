@@ -35,9 +35,9 @@ This workstream delivers recipe boundary compilation and config model cutover:
 
 | ID | Title | Status | blocked_by |
 |---|---|---|---|
-| [LOCAL-TBD-M7-C1](./LOCAL-TBD-M7-C1-recipe-boundary-compilation.md) | Introduce recipe boundary compilation | planned | [M7-A2, M7-B2, M7-B3, M7-B4] |
-| [LOCAL-TBD-M7-C2](./LOCAL-TBD-M7-C2-stage-step-config-shape.md) | Update stage+step authoring to new config shape | planned | [M7-C1, M7-B1, M7-B2] |
-| [LOCAL-TBD-M7-C3](./LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) | Remove runtime compilation fallbacks | planned | [M7-C2] |
+| [LOCAL-TBD-M7-C1](./LOCAL-TBD-M7-C1-recipe-boundary-compilation.md) | Introduce recipe boundary compilation | planned | [LOCAL-TBD-M7-A2, LOCAL-TBD-M7-B2, LOCAL-TBD-M7-B3, LOCAL-TBD-M7-B4] |
+| [LOCAL-TBD-M7-C2](./LOCAL-TBD-M7-C2-stage-step-config-shape.md) | Update stage+step authoring to new config shape | planned | [LOCAL-TBD-M7-C1, LOCAL-TBD-M7-B1, LOCAL-TBD-M7-B2] |
+| [LOCAL-TBD-M7-C3](./LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) | Remove runtime compilation fallbacks | planned | [LOCAL-TBD-M7-C2] |
 
 ## Sequencing
 
@@ -61,7 +61,7 @@ C3 depends on C2.
 
 ## Dependencies / Notes
 
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

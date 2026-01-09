@@ -28,7 +28,7 @@ This is a cleanup gate: confirm we ended with one architecture and remove dead e
 
 ## Deliverables
 
-- Confirm no compatibility shims were introduced; delete any dead paths if present.
+- Verify no compatibility shims exist; delete any dead paths discovered during the cutover.
 
 ## Acceptance Criteria
 
@@ -54,7 +54,7 @@ This is a cleanup gate: confirm we ended with one architecture and remove dead e
 
 - **Blocked by:** [LOCAL-TBD-M7-A2](./LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md), [LOCAL-TBD-M7-B4](./LOCAL-TBD-M7-B4-op-normalize-semantics.md), [LOCAL-TBD-M7-C3](./LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md), [LOCAL-TBD-M7-D2](./LOCAL-TBD-M7-D2-planner-validate-only.md), [LOCAL-TBD-M7-E2](./LOCAL-TBD-M7-E2-ecology-steps-migration.md)
 - **Blocks:** [LOCAL-TBD-M7-F2](./LOCAL-TBD-M7-F2-final-hygiene.md)
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

@@ -23,13 +23,13 @@ related_to: []
 
 ## Deliverables
 
-- `PipelineExecutor.execute/executeAsync` removed or made internal-only (not supported runtime entrypoints).
-- `executePlan/executePlanAsync` remain the supported entrypoints.
+- `PipelineExecutor.execute/executeAsync` are removed; `PipelineExecutor` exposes plan-only entrypoints.
+- `executePlan/executePlanAsync` are the only supported entrypoints.
 
 ## Acceptance Criteria
 
-- [ ] `PipelineExecutor.execute` / `executeAsync` are removed or made internal-only (not supported runtime entrypoints).
-- [ ] `executePlan` / `executePlanAsync` remain the supported entrypoints and are used by runtime call sites.
+- [ ] `PipelineExecutor.execute` / `executeAsync` are removed.
+- [ ] `executePlan` / `executePlanAsync` are the supported entrypoints and are used by runtime call sites.
 - [ ] Tests that previously relied on `execute(...)` are updated to compile a plan and call `executePlan(...)`.
 
 ## Scope Boundaries
@@ -48,7 +48,7 @@ related_to: []
 ## Dependencies / Notes
 
 - **Blocked by:** [LOCAL-TBD-M7-C3](./LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md)
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

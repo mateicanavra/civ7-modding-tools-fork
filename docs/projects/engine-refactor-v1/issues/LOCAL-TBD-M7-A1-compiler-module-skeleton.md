@@ -31,7 +31,7 @@ Land compiler primitives (strict schema normalization + op envelope prefill + er
 ## Acceptance Criteria
 
 - [ ] New compiler helpers exist as modules under `/packages/mapgen-core/src/compiler/**` and are exported for tests to import.
-- [ ] `normalizeStrict(schema, raw, path)` (or equivalent) reports unknown-key errors deterministically and in a stable path format.
+- [ ] `normalizeStrict(schema, raw, path)` reports unknown-key errors deterministically and in a stable path format.
 - [ ] `prefillOpDefaults(stepContract, rawStepConfig, path)` installs missing op envelopes **only** based on contract-declared ops (no nested scanning).
 - [ ] Unit tests cover: unknown keys, null/undefined behavior, and error path formatting; tests are deterministic.
 
@@ -53,7 +53,7 @@ Land compiler primitives (strict schema normalization + op envelope prefill + er
 
 ## Dependencies / Notes
 
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 - **Blocked:** [LOCAL-TBD-M7-A2](./LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md)
 

@@ -33,8 +33,8 @@ This workstream delivers cleanup and enforcement:
 
 | ID | Title | Status | blocked_by |
 |---|---|---|---|
-| [LOCAL-TBD-M7-F1](./LOCAL-TBD-M7-F1-verify-no-shims.md) | Verify no shims + remove dead paths | planned | [M7-A2, M7-B4, M7-C3, M7-D2, M7-E2] |
-| [LOCAL-TBD-M7-F2](./LOCAL-TBD-M7-F2-final-hygiene.md) | Final hygiene + enforcement tightening | planned | [M7-F1] |
+| [LOCAL-TBD-M7-F1](./LOCAL-TBD-M7-F1-verify-no-shims.md) | Verify no shims + remove dead paths | planned | [LOCAL-TBD-M7-A2, LOCAL-TBD-M7-B4, LOCAL-TBD-M7-C3, LOCAL-TBD-M7-D2, LOCAL-TBD-M7-E2] |
+| [LOCAL-TBD-M7-F2](./LOCAL-TBD-M7-F2-final-hygiene.md) | Final hygiene + enforcement tightening | planned | [LOCAL-TBD-M7-F1] |
 
 ## Sequencing
 
@@ -60,7 +60,7 @@ F2 depends on F1.
 
 ## Dependencies / Notes
 
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

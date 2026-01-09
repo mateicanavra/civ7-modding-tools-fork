@@ -29,15 +29,15 @@ This workstream delivers ecology as the canonical exemplar:
 
 - **E1:** Ecology domain entrypoint refactor (contracts + registries)
 - **E2:** Ecology steps migration (compiler-first, no runtime resolveConfig)
-- **E3:** Ecology stage public view + compile (Option A) where beneficial
+- **E3:** Ecology stage public view + compile (Option A)
 
 ## Child Issues
 
 | ID | Title | Status | blocked_by |
 |---|---|---|---|
-| [LOCAL-TBD-M7-E1](./LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) | Ecology domain entrypoint refactor | planned | [M7-B3, M7-B4] |
-| [LOCAL-TBD-M7-E2](./LOCAL-TBD-M7-E2-ecology-steps-migration.md) | Ecology steps migration | planned | [M7-E1, M7-C2] |
-| [LOCAL-TBD-M7-E3](./LOCAL-TBD-M7-E3-ecology-stage-public-compile.md) | Ecology stage public view + compile | planned | [M7-E2] |
+| [LOCAL-TBD-M7-E1](./LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) | Ecology domain entrypoint refactor | planned | [LOCAL-TBD-M7-B3, LOCAL-TBD-M7-B4] |
+| [LOCAL-TBD-M7-E2](./LOCAL-TBD-M7-E2-ecology-steps-migration.md) | Ecology steps migration | planned | [LOCAL-TBD-M7-E1, LOCAL-TBD-M7-C2] |
+| [LOCAL-TBD-M7-E3](./LOCAL-TBD-M7-E3-ecology-stage-public-compile.md) | Ecology stage public view + compile | planned | [LOCAL-TBD-M7-E2] |
 
 ## Sequencing
 
@@ -61,7 +61,7 @@ E3 depends on E2.
 
 ## Dependencies / Notes
 
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---

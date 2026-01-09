@@ -1,6 +1,6 @@
 ---
 id: LOCAL-TBD-M7-E3
-title: "[M7] Ecology stage public view + compile (Option A) where beneficial"
+title: "[M7] Ecology stage public view + compile (Option A)"
 state: planned
 priority: 2
 estimate: 2
@@ -23,13 +23,13 @@ Use ecology to demonstrate the optional stage public schema and compile mapping 
 
 ## Deliverables
 
-- Ecology stage defines `knobsSchema`, and where beneficial, an explicit `public` schema.
+- Ecology stage defines `knobsSchema` and an explicit `public` schema.
 - Ecology stage `compile` maps public fields to internal per-step configs deterministically.
 - Compiler error examples and validation behavior exercised end-to-end.
 
 ## Acceptance Criteria
 
-- [ ] Ecology stage defines `knobsSchema`, and where beneficial, an explicit `public` schema.
+- [ ] Ecology stage defines `knobsSchema` and an explicit `public` schema.
 - [ ] Ecology stage `compile` maps public fields to internal per-step configs deterministically.
 - [ ] Compiler error examples (unknown step ids, unknown keys, schema errors) are exercised end-to-end using ecology as the reference.
 
@@ -50,7 +50,7 @@ Use ecology to demonstrate the optional stage public schema and compile mapping 
 ## Dependencies / Notes
 
 - **Blocked by:** [LOCAL-TBD-M7-E2](./LOCAL-TBD-M7-E2-ecology-steps-migration.md)
-- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `spec_package`; they conflict with the target spec and will cause confusion.
+- **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
 
 ---
