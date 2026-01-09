@@ -162,7 +162,7 @@ export function logSnowEligibilitySummary(
     light: resolved.snow.selectors.light.typeName,
     medium: resolved.snow.selectors.medium.typeName,
     heavy: resolved.snow.selectors.heavy.typeName,
-  } as const;
+  };
 
   const bucketLand = createBucket();
   const bucketMountain = createBucket();

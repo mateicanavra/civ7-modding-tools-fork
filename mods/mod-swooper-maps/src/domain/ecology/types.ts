@@ -1,4 +1,14 @@
-export const BIOME_SYMBOL_ORDER = [
+export type BiomeSymbol =
+  | "snow"
+  | "tundra"
+  | "boreal"
+  | "temperateDry"
+  | "temperateHumid"
+  | "tropicalSeasonal"
+  | "tropicalRainforest"
+  | "desert";
+
+export const BIOME_SYMBOL_ORDER: ReadonlyArray<BiomeSymbol> = [
   "snow",
   "tundra",
   "boreal",
@@ -7,11 +17,26 @@ export const BIOME_SYMBOL_ORDER = [
   "tropicalSeasonal",
   "tropicalRainforest",
   "desert",
-] as const;
+];
 
-export type BiomeSymbol = (typeof BIOME_SYMBOL_ORDER)[number];
+export type FeatureKey =
+  | "FEATURE_FOREST"
+  | "FEATURE_RAINFOREST"
+  | "FEATURE_TAIGA"
+  | "FEATURE_SAVANNA_WOODLAND"
+  | "FEATURE_SAGEBRUSH_STEPPE"
+  | "FEATURE_MARSH"
+  | "FEATURE_TUNDRA_BOG"
+  | "FEATURE_MANGROVE"
+  | "FEATURE_OASIS"
+  | "FEATURE_WATERING_HOLE"
+  | "FEATURE_REEF"
+  | "FEATURE_COLD_REEF"
+  | "FEATURE_ATOLL"
+  | "FEATURE_LOTUS"
+  | "FEATURE_ICE";
 
-export const FEATURE_PLACEMENT_KEYS = [
+export const FEATURE_PLACEMENT_KEYS: ReadonlyArray<FeatureKey> = [
   "FEATURE_FOREST",
   "FEATURE_RAINFOREST",
   "FEATURE_TAIGA",
@@ -27,9 +52,7 @@ export const FEATURE_PLACEMENT_KEYS = [
   "FEATURE_ATOLL",
   "FEATURE_LOTUS",
   "FEATURE_ICE",
-] as const;
-
-export type FeatureKey = (typeof FEATURE_PLACEMENT_KEYS)[number];
+];
 
 export type PlotEffectKey = `PLOTEFFECT_${string}`;
 

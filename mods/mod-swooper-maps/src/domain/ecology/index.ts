@@ -16,7 +16,7 @@ export const ops = {
   planVegetatedFeaturePlacements,
   planVegetationEmbellishments,
   planWetFeaturePlacements,
-} as const;
+};
 
 export {
   EcologyConfigSchema,

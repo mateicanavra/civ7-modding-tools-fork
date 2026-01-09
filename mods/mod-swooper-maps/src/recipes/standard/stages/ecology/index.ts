@@ -4,4 +4,4 @@ import { steps } from "./steps/index.js";
 export default createStage({
   id: "ecology",
   steps: [steps.biomes, steps.features, steps.plotEffects],
-} as const);
+});
