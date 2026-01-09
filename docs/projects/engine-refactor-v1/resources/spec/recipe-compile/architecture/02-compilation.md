@@ -16,9 +16,13 @@ For each stage:
    - For internal-as-public stages, step fields are `unknown` at this phase; strict step validation happens later.
 2. Convert to internal plumbing shape deterministically via `stage.toInternal({ env, stageConfig })`:
    - Extract `knobs` from the stage config object.
-   - Produce `rawSteps`:
-     - If stage has `public`: `rawSteps = stage.compile({ env, knobs, config: configPart })`
-     - Else: `rawSteps = omit(stageConfig, "knobs")` (identity on the step-map portion; `knobs` is not part of the step map)
+   - Produce `rawSteps`.
+     - `createStage(...)` provides a standard `toInternal` wrapper:
+       - If stage has `public`: it calls `stage.compile({ env, knobs, config: configPart })`
+       - Else: `rawSteps = omit(stageConfig, "knobs")` (identity on the step-map portion; `knobs` is not part of the step map)
+3. Validate `rawSteps` keys (pinned; no silent ignore):
+   - `Object.keys(rawSteps)` must be a subset of the declared `stage.steps[].contract.id` set (excluding `"knobs"`).
+   - Unknown keys become explicit compiler errors (see §1.19).
 
 At the end of Phase A for each stage:
 
@@ -41,7 +45,7 @@ Deterministic order (pinned):
 3. Normalize step config via strict schema normalization (default + clean + unknown-key errors)
 4. Apply `step.normalize` (value-only) if present; re-normalize via schema
 5. Apply mechanical op normalization pass (top-level only); re-normalize via schema
-   - requires a compile-visible op registry `opsById: Record<op.id, DomainOpCompileAny>` so the compiler can bind op contracts to implementations by id
+   - requires a compile-visible op registry `compileOpsById: Record<op.id, DomainOpCompileAny>` so the compiler can bind op contracts to implementations by id
    - the runtime op surface is structurally stripped and cannot be used for compilation (see §1.14)
 
 Output:
@@ -59,7 +63,7 @@ Non-negotiable invariants:
 - Op envelopes are **top-level properties** in the step config object: `stepConfig[opKey]`.
 - “Mega-ops” are treated as single ops (internal composition is domain-private).
 
-Strict schema normalization helper (compiler-only) mirrors existing engine behavior (default + clean + unknown-key errors), but runs in compilation, not engine planning:
+Strict schema normalization helper (compiler-only): default + clean + unknown-key errors (runs in compilation, not engine planning):
 
 ```ts
 // NEW (planned): compiler-only helper (implementation-pinned).
@@ -67,7 +71,7 @@ Strict schema normalization helper (compiler-only) mirrors existing engine behav
 // Baseline today: `normalizeStepConfig(...)` in `packages/mapgen-core/src/engine/execution-plan.ts`
 // (uses `findUnknownKeyErrors(...)` + `Value.Default(...)` + `Value.Clean(...)` + `Value.Errors(...)`).
 //
-// NEW (planned): compiler-owned error surface (mirrors baseline shape).
+// NEW (planned): compiler-owned error surface.
 //
 // Copy-pasteable reference implementation: `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/ts/compiler.ts`
 
@@ -82,6 +86,7 @@ import type { NormalizeCtx } from "./env";
 export type CompileErrorCode =
   | "config.invalid"
   | "stage.compile.failed"
+  | "stage.unknown-step-id"
   | "op.missing"
   | "step.normalize.failed"
   | "op.normalize.failed"
@@ -264,7 +269,7 @@ function normalizeOpsTopLevel(
   step: StepModuleAny,
   stepConfig: Record<string, unknown>,
   ctx: NormalizeCtx<any, any>,
-  opsById: Readonly<Record<string, DomainOpCompileAny>>,
+  compileOpsById: Readonly<Record<string, DomainOpCompileAny>>,
   path: string
 ): { value: Record<string, unknown>; errors: CompileErrorItem[] } {
   const errors: CompileErrorItem[] = [];
@@ -272,11 +277,11 @@ function normalizeOpsTopLevel(
   const opsDecl = (step as any).contract?.ops as Record<string, { id: string }> | null;
   if (!opsDecl) return { value: stepConfig, errors };
 
-  // Bind compile ops (by id) so the normalization pass is structurally impossible at runtime.
+  // Bind compile ops (by id) in compiler-only code; runtime code binds against `runtimeOpsById` instead.
   // Important: binding errors are compiler errors (not hard throws) so they can be accumulated.
   let compileOps: Record<string, DomainOpCompileAny>;
   try {
-    compileOps = bindCompileOps(opsDecl, opsById) as any;
+    compileOps = bindCompileOps(opsDecl, compileOpsById) as any;
   } catch (err) {
     errors.push({
       code: "op.missing",
@@ -305,7 +310,8 @@ function normalizeOpsTopLevel(
 
     // Compile-time op normalization (optional).
     // In baseline code this is `op.resolveConfig(envelope, settings)`. In the target architecture
-    // it is renamed to `op.normalize(envelope, ctx)` (compile-time only).
+    // it is renamed to `op.normalize(envelope, ctx)` (compile-time only) and dispatches by
+    // `envelope.strategy` under the hood.
     if (typeof (op as any).normalize === "function") {
       try {
         const next = (op as any).normalize(envelope, ctx);
@@ -385,13 +391,14 @@ Inline schema strictness (factory-only):
 
 Rule (crisp):
 
-> Only the compiler pipeline and its helpers may call `step.normalize` and op strategy normalize. Runtime code never can, because it never has access to the compile op surface.
+> Only the compiler pipeline and its helpers may call `step.normalize` and op normalization (including per-strategy normalize). Runtime code must not.
 
-Enforcement mechanisms (structural, not policy):
+Enforcement mechanisms (structural + lint-reinforced):
 
-- runtime ops are bound using `bindRuntimeOps`, which returns `DomainOpRuntime` that has no normalize members
+- runtime ops are bound using `bindRuntimeOps` against `runtimeOpsById`, which is structurally stripped (`DomainOpRuntime` has no normalize members)
 - engine step interface remains `run(ctx, cfg)`; step.normalize is not part of engine runtime shape
 - compiler modules are not exported in runtime-facing entrypoints
+- lint boundaries forbid importing compile-surface registries or compiler normalization utilities into runtime step modules
 
 ---
 
@@ -404,10 +411,22 @@ Example: unknown key in a step config (caught by strict schema normalization):
 ```ts
 {
   code: "config.invalid",
-  path: "/config/ecology/plotVegetation/extraKey",
+  path: "/config/ecology/plot-vegetation/extraKey",
   message: "Unknown key",
   stageId: "ecology",
-  stepId: "plotVegetation",
+  stepId: "plot-vegetation",
+}
+```
+
+Example: stage public compilation produced an unknown step id (pinned; the compiler does not silently ignore unknown keys in `rawSteps`):
+
+```ts
+{
+  code: "stage.unknown-step-id",
+  path: "/config/ecology/plot-vegetation-typo",
+  message: "Unknown step id \"plot-vegetation-typo\" returned by stage.compile/toInternal (must be declared in stage.steps)",
+  stageId: "ecology",
+  stepId: "plot-vegetation-typo",
 }
 ```
 
@@ -416,10 +435,10 @@ Example: missing op implementation in the compile registry (caught during bindin
 ```ts
 {
   code: "op.missing",
-  path: "/config/ecology/plotVegetation/trees",
+  path: "/config/ecology/plot-vegetation/trees",
   message: "bindCompileOps: missing op id \"ecology/planTreeVegetation\" for key \"trees\"",
   stageId: "ecology",
-  stepId: "plotVegetation",
+  stepId: "plot-vegetation",
   opKey: "trees",
   opId: "ecology/planTreeVegetation",
 }
@@ -430,10 +449,10 @@ Example: step.normalize violates shape-preservation (returns a value that does n
 ```ts
 {
   code: "normalize.not.shape-preserving",
-  path: "/config/ecology/plotVegetation",
+  path: "/config/ecology/plot-vegetation",
   message: "step.normalize returned a value that does not validate against the step schema",
   stageId: "ecology",
-  stepId: "plotVegetation",
+  stepId: "plot-vegetation",
 }
 ```
 
@@ -468,7 +487,7 @@ test("compileRecipeConfig prefills missing op envelopes", () => {
   } as const);
 
   const contract = defineStepContract({
-    id: "plotVegetation",
+    id: "plot-vegetation",
     phase: "ecology",
     requires: [],
     provides: [],
@@ -481,27 +500,19 @@ test("compileRecipeConfig prefills missing op envelopes", () => {
     id: "ecology",
     steps: [step] as const,
     knobsSchema: Type.Object({}, { additionalProperties: false, default: {} }),
-    surfaceSchema: Type.Object(
-      { knobs: Type.Optional(Type.Object({}, { additionalProperties: false, default: {} })), plotVegetation: Type.Object({}, { additionalProperties: true, default: {} }) },
-      { additionalProperties: false, default: {} }
-    ),
-    toInternal: ({ stageConfig }) => {
-      const { knobs = {}, ...rawSteps } = stageConfig as any;
-      return { knobs, rawSteps };
-    },
   } as const);
 
-  const opsById = {
+  const compileOpsById = {
     "ecology/planTreeVegetation": { id: "ecology/planTreeVegetation", kind: "plan" } as any,
   };
 
   const compiled = compileRecipeConfig({
     env: {} as any,
     recipe: { stages: [stage] as const },
-    config: { ecology: { plotVegetation: {} } },
-    opsById,
+    config: { ecology: { "plot-vegetation": {} } },
+    compileOpsById,
   });
 
-  expect((compiled as any).ecology.plotVegetation.trees).toBeDefined();
+  expect((compiled as any).ecology["plot-vegetation"].trees).toBeDefined();
 });
 ```

@@ -3,9 +3,9 @@
 This document defines DX rules and lint boundaries that enforce the
 architectural invariants.
 
-# DX Rules (pinned)
+## DX rules (pinned)
 
-This file captures **developer experience guardrails** that the architecture is intentionally optimizing for. These rules are normative and should be enforced via lint (see `lint-boundaries.md`) and by keeping examples consistent.
+This file captures **developer experience guardrails** that the architecture is intentionally optimizing for. These rules are normative and should be enforced via API/type surfaces, lint, and keeping examples consistent.
 
 ## Enforcement approach (ordering; pinned)
 
@@ -19,12 +19,12 @@ Nuance (why lint still matters early):
 
 ---
 
-## 1) Import boundaries (hard)
+## Import boundaries
 
-### 1.1 Domain entrypoints only (no deep imports)
+### Domain entrypoints only (no deep imports)
 
 - Cross-module consumers must import domain content **only** via:
-  - `@mapgen/domain/<domain>` (domain public surface; may include impl registries like `opsById`), or
+  - `@mapgen/domain/<domain>` (domain public surface; may include registries like `compileOpsById` / `runtimeOpsById`), or
   - `@mapgen/domain/<domain>/contracts` (contract-only; safe for step contracts and schema/type-only consumers).
 - Forbidden in steps/recipes/tests: deep imports such as:
   - `@mapgen/domain/ecology/ops/*`
@@ -36,7 +36,7 @@ Rationale:
 - Prevents “accidental bundling” of op implementations into contracts and prevents brittle path coupling to domain internals.
 - Keeps domains free to reorganize internal layout without forcing horizontal churn.
 
-### 1.2 Steps import only the domain entrypoint (no deep imports)
+### Steps import only the domain entrypoint (no deep imports)
 
 **Pinned:** Step contracts and step modules may import the **domain entrypoint**, but must not deep-import op modules/strategies/rules.
 
@@ -45,7 +45,7 @@ Allowed:
   - `import * as ecologyContracts from "@mapgen/domain/ecology/contracts";`
   - `ops: { trees: ecologyContracts.planTreeVegetation, ... }`
 - Step modules importing the domain entrypoint to access the registry for binding:
-  - `const ops = bindRuntimeOps(contract.ops, ecology.opsById);`
+  - `const ops = bindRuntimeOps(contract.ops, ecology.runtimeOpsById);`
 
 Forbidden:
 - Deep imports into `@mapgen/domain/<domain>/ops/**`, `strategies/**`, `rules/**`.
@@ -56,9 +56,9 @@ Rationale:
 
 ---
 
-## 2) Authoring APIs (preferred)
+## Authoring APIs
 
-### 2.1 Prefer the canonical authoring entrypoint
+### Prefer the canonical authoring entrypoint
 
 Default authoring import path:
 - Prefer importing authoring APIs from `@swooper/mapgen-core/authoring`.
@@ -76,18 +76,18 @@ Rationale:
 
 ---
 
-## 3) Single-path ergonomics (avoid “two ways”)
+## Single-path ergonomics (avoid “two ways”)
 
 Where the architecture offers multiple ways to achieve the same outcome (e.g., ops binding, schema derivation), the spec must:
 - Select one canonical path,
 - Make alternatives explicitly “deferred” or “forbidden for v1,”
 - Ensure examples follow only the canonical path.
 
-## 4) Lint Boundaries / Enforcement
+## Lint boundaries
 
 This section is intentionally small but explicit: the architecture is brittle without enforcement.
 
-### 4.1 No runtime defaulting/cleaning
+### No runtime defaulting/cleaning
 
 Policy:
 - `step.run(...)` and `strategy.run(...)` are runtime and must not default/clean configs.
@@ -103,7 +103,7 @@ Enforcement (minimal, real):
   - `packages/**/src/core/**`
   - allow only under `packages/**/src/compiler/**`
 
-### 4.2 Reserved key: `"knobs"`
+### Reserved key: `"knobs"`
 
 Pinned enforcement (hard throw; not lint-only):
 - Enforce at stage construction time (e.g. inside `createStage(...)` / `defineStage(...)`):
@@ -113,17 +113,17 @@ Pinned enforcement (hard throw; not lint-only):
 TypeScript (copy-paste ready):
 - See Appendix A.4 for the exact `assertNoReservedStageKeys(...)` helper + how stage generics exclude `"knobs"` at the type level.
 
-### 4.3 Factories default `additionalProperties: false` for inline schema definitions
+### Factories default `additionalProperties: false` for inline schema definitions
 
 - Enforce that inline schema field-map shorthands (only within factories) become strict object schemas by default.
 - Do not introduce a globally reusable “schema builder” type that can be used ad hoc.
 
-### 4.4 No nested op envelope scanning
+### No nested op envelope scanning
 
 - Any helper that attempts to discover ops by scanning config objects (nested paths/arrays) is a violation.
 - Op envelopes are discovered only via `step.contract.ops` keys.
 
-### 4.5 Domain public surface imports only
+### Domain public surface imports only
 
 Policy:
 - Cross-module consumers (steps, recipes, tests) import domain contracts/ops only via the domain public surface:

@@ -71,7 +71,8 @@ This is a sequencing suggestion to avoid breaking the repo with an “all-at-onc
 1. Land compiler-owned helpers + entrypoint skeleton (`packages/mapgen-core/src/compiler/*` **NEW (planned)**) with unit tests for normalization + envelope prefill.
 2. Land `packages/mapgen-core/src/authoring/bindings.ts` (**NEW (planned)**) and update step contract factories for ops-derived schema behavior (O3 constraints unchanged).
 3. Update one stage end-to-end (single-stage migration slice):
-   - stage `surfaceSchema` + `toInternal`
+   - stage `public` + `compile` (optional)
+   - `createStage` computes `surfaceSchema` + provides `toInternal`
    - `compileRecipeConfig` used by that stage’s recipe entry before engine plan compilation
 4. Remove executor-side defaulting:
    - make `PipelineExecutor.execute*` internal-only or delete it
@@ -90,7 +91,7 @@ Authoring/engine baseline touchpoints (repo-real):
   - invoked during plan compilation in `packages/mapgen-core/src/engine/execution-plan.ts` (`buildNodeConfig(...)`)
 - Op-level `resolveConfig`:
   - shape lives in `packages/mapgen-core/src/authoring/op/types.ts`
-  - dispatcher is constructed in `packages/mapgen-core/src/authoring/op/create.ts` (calls per-strategy `resolveConfig` when present)
+  - dispatcher is constructed in `packages/mapgen-core/src/authoring/op/create.ts` (calls per-strategy `resolveConfig` when present; renamed to `normalize` in the target architecture)
 
 Downstream usage exists in mods (examples; not exhaustive):
 

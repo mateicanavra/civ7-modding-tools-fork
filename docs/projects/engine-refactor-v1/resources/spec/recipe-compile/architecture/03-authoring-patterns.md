@@ -11,7 +11,7 @@ Define the single recommended, repo-realistic authoring pattern for a step modul
 
 - Lists ops once in the contract as **op contracts** (not `OpRef`) and derives refs/envelopes internally.
 - Binds ops **inside the step module closure**, not in the stage factory.
-- Ensures runtime cannot call compile-time normalization hooks (structural separation, not “policy by convention”).
+- Ensures runtime cannot call compile-time normalization hooks (runtime ops surface is structurally stripped; compile registries are compile-only and lint-restricted).
 - Supports `StepConfigInputOf` (author can omit op envelopes; compiler prefills).
 
 #### Canonical exports for a step module
@@ -30,7 +30,7 @@ A step module should import:
 - `createStep` from the canonical authoring entrypoint (`@swooper/mapgen-core/authoring`), or from a mod-local authoring barrel that re-exports it (pick one entrypoint per package; do not mix)
 - `bindRuntimeOps` (and sometimes `bindCompileOps` in compiler-only code; not used by runtime `run`)
 - Domain **contracts** for op declarations (IDs + schemas), imported via the domain contract surface (`@mapgen/domain/<domain>/contracts`)
-- Domain **opsById** registry for runtime binding (by id), imported only via the domain public surface (`@mapgen/domain/<domain>`)
+- Domain **runtimeOpsById** registry for runtime binding (by id), imported only via the domain public surface (`@mapgen/domain/<domain>`)
 - No compiler helpers and no TypeBox `Value.*` inside runtime `run`
 
 #### Domain entrypoint shape (canonical; pinned)
@@ -40,7 +40,8 @@ The spec assumes each domain exports:
 - A domain public surface (`@mapgen/domain/<domain>`) (no deep imports into internal `ops/**` / `strategies/**`), with:
   - `contracts` — op contracts only (stable, used by step contracts)
   - `ops` — compile-surface ops (developer convenience; optional)
-  - `opsById` — deterministic registry keyed by `op.id` returning **compile-surface ops** (required by bindings + compiler)
+  - `compileOpsById` — deterministic registry keyed by `op.id` returning **compile-surface ops** (required by compiler)
+  - `runtimeOpsById` — deterministic registry keyed by `op.id` returning **runtime-surface ops** (required by step module binding)
 - A domain contract surface (`@mapgen/domain/<domain>/contracts`) that is contract-only (no implementations), for step contracts and schema/type-only consumers.
 
 Inline example:
@@ -48,7 +49,7 @@ Inline example:
 ```ts
 // mods/mod-swooper-maps/src/domain/ecology/index.ts
 
-import type { DomainOpCompileAny } from "@swooper/mapgen-core/authoring";
+import type { DomainOpCompileAny, DomainOpRuntimeAny } from "@swooper/mapgen-core/authoring";
 
 import { planTreeVegetationContract } from "./ops/plan-tree-vegetation/contract.js";
 import { planShrubVegetationContract } from "./ops/plan-shrub-vegetation/contract.js";
@@ -66,13 +67,32 @@ export const ops = {
   planShrubVegetation,
 } as const;
 
-export const opsById = buildOpsById(ops);
+export const compileOpsById = buildOpsById(ops);
+export const runtimeOpsById = buildRuntimeOpsById(compileOpsById);
 
 function buildOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
   input: TOps
 ): Readonly<Record<string, DomainOpCompileAny>> {
   const out: Record<string, DomainOpCompileAny> = {};
   for (const op of Object.values(input)) out[op.id] = op;
+  return out;
+}
+
+function runtimeOp(op: DomainOpCompileAny): DomainOpRuntimeAny {
+  return {
+    id: op.id,
+    kind: op.kind,
+    run: op.run,
+    validate: op.validate,
+    runValidated: op.runValidated,
+  } as const;
+}
+
+function buildRuntimeOpsById(
+  input: Readonly<Record<string, DomainOpCompileAny>>
+): Readonly<Record<string, DomainOpRuntimeAny>> {
+  const out: Record<string, DomainOpRuntimeAny> = {};
+  for (const [id, op] of Object.entries(input)) out[id] = runtimeOp(op);
   return out;
 }
 ```
@@ -119,7 +139,7 @@ export const contract = defineStepContract({
 
 // Runtime ops are structurally stripped (no normalize/defaultConfig/strategies).
 // Note: binding is by op id via the domain registry; decl keys are preserved for IDE completion.
-const ops = bindRuntimeOps(contract.ops, ecology.opsById);
+const ops = bindRuntimeOps(contract.ops, ecology.runtimeOpsById);
 
 export const step = createStep(contract, {
   // Compile-time step normalize hook (optional).
@@ -149,7 +169,7 @@ Key invariants enforced by this pattern:
 
 - `run(ctx, cfg)` has no access to compiler utilities and no access to compile-only op hooks.
 - Ops are listed once (contracts) and bound once (runtime binder).
-- `normalize` exists but is not callable at runtime because `createStep` does not expose it to the engine runtime surface, and `bindRuntimeOps` strips normalize hooks structurally.
+- `normalize` exists but is not callable at runtime because step modules bind only against `runtimeOpsById` (structurally stripped). Importing compile registries into runtime modules is forbidden by lint boundaries.
 
 ---
 ### 1.14 Binding helpers
@@ -182,7 +202,24 @@ export type OpsById<Op> = Readonly<Record<OpId, Op>>;
 
 Domain packages should export a deterministic registry (built, not hand-maintained), e.g.:
 
-- `opsById` from the domain public surface (e.g. `import * as ecology from "@mapgen/domain/ecology"; ecology.opsById`)
+- `compileOpsById` and `runtimeOpsById` from the domain public surface (e.g. `import * as ecology from "@mapgen/domain/ecology"; ecology.compileOpsById` / `ecology.runtimeOpsById`)
+
+Pinned ownership/flow (no implicit globals):
+- The recipe compiler entrypoint receives a recipe-owned `compileOpsById` registry (compile-surface ops, by `op.id`).
+- `compileOpsById` is assembled at the recipe boundary by merging the domain registries for the domains used by the recipe/stages.
+- Step modules bind only against `runtimeOpsById` (runtime-surface ops, by `op.id`); runtime code must not depend on compile-surface registries.
+
+Illustrative assembly (end-to-end callers only):
+
+```ts
+import * as ecology from "@mapgen/domain/ecology";
+import * as hydrology from "@mapgen/domain/hydrology";
+
+const compileOpsById = {
+  ...ecology.compileOpsById,
+  ...hydrology.compileOpsById,
+} as const;
+```
 
 DX rule (pinned): step modules / recipes / tests must not deep-import domain internals (e.g. no `@mapgen/domain/ecology/ops-by-id` import). The domain entrypoint is the only allowed cross-module import path.
 
@@ -202,7 +239,7 @@ export function bindCompileOps<const Decl extends Record<string, { id: string }>
 ```ts
 export function bindRuntimeOps<const Decl extends Record<string, { id: string }>>(
   decl: Decl,
-  registryById: Record<string, DomainOpCompileAny>
+  registryById: Record<string, DomainOpRuntimeAny>
 ): { [K in keyof Decl]: DomainOpRuntimeAny };
 ```
 
@@ -228,12 +265,13 @@ Binding behavior and constraints:
 Testing usage (no per-step factories as primitives):
 
 ```ts
-const fakeOpsById = {
+const fakeCompileOpsById = {
   "ecology/planTreeVegetation": makeFakeOp(),
   "ecology/planShrubVegetation": makeFakeOp(),
 };
 
-const ops = bindRuntimeOps(contract.ops, fakeOpsById);
+const fakeRuntimeOpsById = buildRuntimeOpsById(fakeCompileOpsById);
+const ops = bindRuntimeOps(contract.ops, fakeRuntimeOpsById);
 // step.run uses ops closure binding; you can invoke it under a mocked ctx/config
 ```
 

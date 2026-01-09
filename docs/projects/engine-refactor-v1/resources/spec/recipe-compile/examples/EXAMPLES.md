@@ -1,4 +1,4 @@
-## 2) Illustrative Examples
+# Illustrative Examples
 
 These examples are meant to show the *full chain* and reinforce the invariants above. They are consolidated from existing proposal examples and updated minimally for consistency with the locked knobs model.
 
@@ -31,13 +31,13 @@ const config = {
   // treated as a (partial) step-id keyed map at compile-time (no recipe-wide mode flag).
   placement: {
     knobs: { /* optional */ },
-    derivePlacementInputs: { /* internal step config (shape unknown at Phase A) */ },
+    "derive-placement-inputs": { /* internal step config (shape unknown at Phase A) */ },
     placement: { /* internal step config */ },
   },
 };
 ```
 
-Stage contract sketch (public view + `toInternal` mapping):
+Stage contract sketch (public view + `compile` mapping; `createStage` computes `surfaceSchema` + `toInternal`):
 
 ```ts
 import { Type } from "typebox";
@@ -65,32 +65,14 @@ export const ecologyStage = createStage({
     { additionalProperties: false, default: {} }
   ),
 
-  surfaceSchema: Type.Object(
-    {
-      knobs: Type.Optional(
-        Type.Object(
-          {
-            vegetationDensityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
-          },
-          { additionalProperties: false, default: {} }
-        )
-      ),
-      vegetation: Type.Object({}, { additionalProperties: false, default: {} }),
-      wetlands: Type.Object({}, { additionalProperties: false, default: {} }),
-    },
-    { additionalProperties: false, default: {} }
-  ),
-
-  toInternal: ({ env, stageConfig }) => {
-    const { knobs = {}, ...configPart } = stageConfig;
+  compile: ({ env, knobs, config }) => {
+    void env;
+    void knobs;
     return {
-      knobs,
-      rawSteps: {
-        // Compile maps public fields → internal step-id keyed map.
-        // (Each step config is still `unknown`/partial here; strict step canonicalization happens in Phase B.)
-        plotVegetation: configPart.vegetation,
-        plotWetlands: configPart.wetlands,
-      },
+      // Compile maps public fields → internal step-id keyed map.
+      // (Each step config is still `unknown`/partial here; strict step canonicalization happens in Phase B.)
+      "plot-vegetation": config.vegetation,
+      "plot-wetlands": config.wetlands,
     };
   },
 } as const);
@@ -103,13 +85,13 @@ Phase A output for `ecology` (conceptual, after `surfaceSchema` validation and `
   knobs: { vegetationDensityBias: 0.15 },
   rawSteps: {
     // NEW (planned): this is the intended domain-modeling shape:
-    // ecology exposes multiple focused ops and composes them in a step named `plotVegetation`
-    plotVegetation: {
+    // ecology exposes multiple focused ops and composes them in a step named `plot-vegetation`
+    "plot-vegetation": {
       trees: { /* op envelope */ },
       shrubs: { /* op envelope */ },
       groundCover: { /* op envelope */ },
     },
-    plotWetlands: { /* ... */ },
+    "plot-wetlands": { /* ... */ },
   }
 }
 ```
@@ -136,7 +118,7 @@ import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 // consolidated `@mapgen/domain/ecology/contracts` surface yet.
 
 export const PlotVegetationContract = defineStepContract({
-  id: "plotVegetation",
+  id: "plot-vegetation",
   phase: "ecology",
   // Ops are declared as contracts (DX); `defineStepContract` derives `OpRef`s internally.
   ops: {
@@ -166,7 +148,7 @@ Note on keys:
 - The `ops` keys (`trees`, `shrubs`, `groundCover`) are the authoritative **top-level envelope keys** in the step config (I6).
 - The compiler discovers envelopes from `step.contract.ops` keys only; it does not scan nested config objects.
 
-Raw internal step config input (what Phase A produces for `plotVegetation`; op envelopes are **top-level keys** only):
+Raw internal step config input (what Phase A produces for `plot-vegetation`; op envelopes are **top-level keys** only):
 
 ```ts
 const rawStepConfig = {
@@ -182,7 +164,7 @@ Compiler execution (Phase B excerpt; with stage knobs threaded via ctx):
 - `step.normalize(cfg, { env, knobs })` may bias envelope values using `knobs` (value-only, shape-preserving).
   - Example: apply `knobs.vegetationDensityBias` by adjusting `trees.config.density` and `groundCover.config.density`.
 - `normalizeOpsTopLevel(...)` normalizes envelopes for `trees`, `shrubs`, `groundCover` by contract ops keys only (no nested traversal).
-  - Op normalization consults the op’s compile-time normalization hook (baseline today: `DomainOp.resolveConfig(cfg, settings)`; planned rename to `normalize`).
+  - Op normalization consults the op’s compile-time normalization hook (baseline today: `DomainOp.resolveConfig(cfg, settings)`; renamed to `normalize`), which dispatches by `envelope.strategy` under the hood.
 
 ### Example C — Ops injection into `plot-vegetation` (why “bind ops” is not just indirection)
 
@@ -199,7 +181,7 @@ import { bindRuntimeOps, createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 // Module-scope closure binding (canonical): ops are not passed through engine signatures.
-const ops = bindRuntimeOps(PlotVegetationContract.ops, ecology.opsById);
+const ops = bindRuntimeOps(PlotVegetationContract.ops, ecology.runtimeOpsById);
 
 export default createStep(PlotVegetationContract, {
   // Compile-time only normalization hook; sees `{ env, knobs }`.

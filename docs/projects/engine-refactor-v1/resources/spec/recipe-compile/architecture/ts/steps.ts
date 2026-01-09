@@ -104,6 +104,10 @@ export function defineStepContract<
 ): StepContractHybrid<TDecl, Schema, Id>;
 
 export function defineStepContract(def: any): any {
+  const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  if (typeof def?.id === "string" && !STEP_ID_RE.test(def.id)) {
+    throw new Error(`step id "${def.id}" must be kebab-case (e.g. "plot-vegetation")`);
+  }
   if ("ops" in def && def.ops) {
     const opRefs = deriveOpRefs(def.ops);
     // If schema omitted: derive strict object schema from op envelopes (DX shortcut).
@@ -178,4 +182,3 @@ export type EngineStep<TContext, C extends StepContractAny> = Readonly<{
   configSchema: C["schema"];
   run: (context: TContext, config: StepConfigOf<C>) => void | Promise<void>;
 }>;
-

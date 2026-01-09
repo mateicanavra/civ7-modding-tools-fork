@@ -1,4 +1,4 @@
-import { Type, type Static, type TObject } from "typebox";
+import { Type, type Static, type TObject, type TSchema } from "typebox";
 
 import type { Env } from "./env";
 import type { StepContractAny, StepConfigInputOf, StepModule } from "./steps";
@@ -40,7 +40,67 @@ type StepConfigInputById<
   Id extends NonReservedStepIdOf<TSteps>,
 > = StepConfigInputOf<StepContractById<TSteps, Id>>;
 
-// NEW (planned): stage public schema is always an object schema (non-knob portion).
+const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+function assertKebabCaseStepIds(input: { stageId: string; stepIds: readonly string[] }): void {
+  for (const id of input.stepIds) {
+    if (!STEP_ID_RE.test(id)) {
+      throw new Error(
+        `stage("${input.stageId}") step id "${id}" must be kebab-case (e.g. "plot-vegetation")`
+      );
+    }
+  }
+}
+
+function objectProperties(schema: TObject): Record<string, TSchema> {
+  const props = (schema as any).properties as Record<string, TSchema> | undefined;
+  return props ?? {};
+}
+
+function buildInternalAsPublicSurfaceSchema(stepIds: readonly string[], knobsSchema: TObject): TObject {
+  const properties: Record<string, TSchema> = {
+    knobs: Type.Optional(knobsSchema),
+  };
+  for (const stepId of stepIds) {
+    properties[stepId] = Type.Optional(Type.Unknown());
+  }
+  return Type.Object(properties, { additionalProperties: false, default: {} });
+}
+
+function buildPublicSurfaceSchema(publicSchema: TObject, knobsSchema: TObject): TObject {
+  return Type.Object(
+    { knobs: Type.Optional(knobsSchema), ...objectProperties(publicSchema) },
+    { additionalProperties: false, default: {} }
+  );
+}
+
+export type StageCompileFn<PublicSchema extends TObject, StepId extends string, Knobs> = (args: {
+  env: Env;
+  knobs: Knobs;
+  config: Static<PublicSchema>;
+}) => Partial<Record<StepId, unknown>>;
+
+// Stage authoring surface (Option A):
+// - stage may define `public` + `compile` (public → internal)
+// - otherwise stage is internal-as-public
+// - `createStage` computes `surfaceSchema` and provides a standard `toInternal` wrapper
+export type StageDef<
+  Id extends string,
+  TContext,
+  KnobsSchema extends TObject,
+  Knobs = Static<KnobsSchema>,
+  TSteps extends StepsArray<TContext, Knobs> = StepsArray<TContext, Knobs>,
+  PublicSchema extends TObject | undefined = undefined,
+> = Readonly<{
+  id: Id;
+  steps: TSteps;
+  knobsSchema: KnobsSchema;
+  public?: PublicSchema;
+  compile?: PublicSchema extends TObject
+    ? StageCompileFn<PublicSchema, NonReservedStepIdOf<TSteps>, Knobs>
+    : undefined;
+}>;
+
 export type StageContract<
   Id extends string,
   TContext,
@@ -48,36 +108,54 @@ export type StageContract<
   Knobs = Static<KnobsSchema>,
   TSteps extends StepsArray<TContext, Knobs> = StepsArray<TContext, Knobs>,
   PublicSchema extends TObject | undefined = undefined,
-  SurfaceSchema extends TObject = TObject,
-> = Readonly<{
-  id: Id;
-  steps: TSteps;
-  knobsSchema: KnobsSchema;
-  public?: PublicSchema;
-  // Computed strict author-facing schema: knobs + (public fields OR step ids).
-  surfaceSchema: SurfaceSchema;
-  // Deterministic “public → internal” mapping: extracts knobs and produces raw step map.
-  toInternal: (args: { env: Env; stageConfig: Static<SurfaceSchema> }) => StageToInternalResult<
-    NonReservedStepIdOf<TSteps>,
-    Knobs
-  >;
-}>;
+> = StageDef<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema> &
+  Readonly<{
+    // Computed strict author-facing schema: knobs + (public fields OR step ids).
+    surfaceSchema: TObject;
+    // Deterministic “public → internal” mapping: extracts knobs and produces raw step map.
+    toInternal: (args: { env: Env; stageConfig: unknown }) => StageToInternalResult<
+      NonReservedStepIdOf<TSteps>,
+      Knobs
+    >;
+  }>;
+
+export type StageContractAny = StageContract<string, any, any, any, any, any>;
 
 // Factory surface (pinned):
+// - stage may optionally define `public` + `compile` (public → internal)
+// - `createStage` computes `surfaceSchema` (single author-facing surface) and provides a standard `toInternal`
 // - reserved key enforcement is a hard throw
-// - stage schemas are strict object schemas (surfaceSchema always a TObject)
-export function createStage<const TStage extends StageContract<string, any, any, any, any, any, any>>(
-  stage: TStage
-): TStage {
-  assertNoReservedStageKeys({
-    stageId: stage.id,
-    stepIds: stage.steps.map((s) => s.contract.id),
-    publicSchema: stage.public,
-  });
-  return stage;
+// - step ids are kebab-case (pinned convention)
+export function createStage<const TDef extends StageDef<string, any, any, any, any, any>>(
+  def: TDef
+): StageContractAny {
+  const stepIds = def.steps.map((s) => s.contract.id);
+  assertNoReservedStageKeys({ stageId: def.id, stepIds, publicSchema: def.public });
+  assertKebabCaseStepIds({ stageId: def.id, stepIds });
+
+  if (def.public && typeof (def as any).compile !== "function") {
+    throw new Error(`stage("${def.id}") defines "public" but does not define "compile"`);
+  }
+
+  const surfaceSchema = def.public
+    ? buildPublicSurfaceSchema(def.public, def.knobsSchema)
+    : buildInternalAsPublicSurfaceSchema(stepIds, def.knobsSchema);
+
+  const toInternal = ({ env, stageConfig }: { env: Env; stageConfig: any }) => {
+    const { knobs = {}, ...configPart } = stageConfig as any;
+    if (def.public) {
+      return {
+        knobs,
+        rawSteps: (def as any).compile({ env, knobs, config: configPart }),
+      };
+    }
+    return { knobs, rawSteps: configPart };
+  };
+
+  return { ...(def as any), surfaceSchema, toInternal } as StageContractAny;
 }
 
-export type StageConfigInputOf<TStage extends StageContract<any, any, any, any, any, any>> =
+export type StageConfigInputOf<TStage extends StageContractAny> =
   // Knobs are always present as a field (defaulting handled by `surfaceSchema`).
   Readonly<{ knobs?: Partial<Static<TStage["knobsSchema"]>> }> &
     (TStage["public"] extends TObject
@@ -85,4 +163,3 @@ export type StageConfigInputOf<TStage extends StageContract<any, any, any, any, 
       : Partial<{
           [K in NonReservedStepIdOf<TStage["steps"]>]: StepConfigInputById<TStage["steps"], K>;
         }>);
-

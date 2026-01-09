@@ -2,7 +2,7 @@ import type { TSchema } from "typebox";
 import { Value } from "typebox/value";
 
 import type { Env, NormalizeCtx } from "./env";
-import { buildOpEnvelopeSchema, bindCompileOps, type DomainOpCompileAny } from "./ops";
+import { buildOpEnvelopeSchema, bindCompileOps, type CompileOpsById, type DomainOpCompileAny } from "./ops";
 import type { StepModuleAny } from "./steps";
 import type { StageToInternalResult } from "./stages";
 import type { CompiledRecipeConfigOf, RecipeConfigInputOf } from "./recipes";
@@ -10,6 +10,7 @@ import type { CompiledRecipeConfigOf, RecipeConfigInputOf } from "./recipes";
 export type CompileErrorCode =
   | "config.invalid"
   | "stage.compile.failed"
+  | "stage.unknown-step-id"
   | "op.missing"
   | "step.normalize.failed"
   | "op.normalize.failed"
@@ -185,7 +186,7 @@ export function normalizeOpsTopLevel(
   step: StepModuleAny,
   stepConfig: Record<string, unknown>,
   ctx: NormalizeCtx<Env, unknown>,
-  opsById: Readonly<Record<string, DomainOpCompileAny>>,
+  compileOpsById: CompileOpsById,
   path: string
 ): { value: Record<string, unknown>; errors: CompileErrorItem[] } {
   const errors: CompileErrorItem[] = [];
@@ -195,7 +196,7 @@ export function normalizeOpsTopLevel(
 
   let compileOps: Record<string, DomainOpCompileAny>;
   try {
-    compileOps = bindCompileOps(opsDecl, opsById) as any;
+    compileOps = bindCompileOps(opsDecl, compileOpsById) as any;
   } catch (err) {
     errors.push({
       code: "op.missing",
@@ -245,7 +246,7 @@ export function compileRecipeConfig<const TStages extends readonly any[]>(args: 
   env: Env;
   recipe: Readonly<{ stages: TStages }>;
   config: RecipeConfigInputOf<any> | null | undefined;
-  opsById: Readonly<Record<string, DomainOpCompileAny>>;
+  compileOpsById: CompileOpsById;
 }): CompiledRecipeConfigOf<any> {
   const errors: CompileErrorItem[] = [];
   const out: Record<string, Record<string, unknown>> = {};
@@ -253,7 +254,7 @@ export function compileRecipeConfig<const TStages extends readonly any[]>(args: 
   const env = args.env as Env;
   const recipe = args.recipe as Readonly<{ stages: readonly any[] }>;
   const config = (args.config ?? {}) as Record<string, unknown>;
-  const opsById = args.opsById as Readonly<Record<string, DomainOpCompileAny>>;
+  const compileOpsById = args.compileOpsById as CompileOpsById;
 
   for (const stage of recipe.stages) {
     const stageId = stage.id as string;
@@ -276,7 +277,7 @@ export function compileRecipeConfig<const TStages extends readonly any[]>(args: 
       errors.push({
         code: "stage.compile.failed",
         path: stagePath,
-        message: err instanceof Error ? err.message : "stage.toInternal failed",
+        message: err instanceof Error ? err.message : "stage.compile/toInternal failed",
         stageId,
       });
       continue;
@@ -284,6 +285,27 @@ export function compileRecipeConfig<const TStages extends readonly any[]>(args: 
 
     const stageOut: Record<string, unknown> = {};
     const { knobs, rawSteps } = internal;
+
+    // Pinned behavior: the compiler must not silently ignore unknown step ids.
+    // `rawSteps` may be a partial map, but it must be a subset of `stage.steps` (excluding "knobs").
+    const declaredStepIds = new Set(
+      (stage.steps as readonly StepModuleAny[]).map((s) => s.contract.id).filter((id) => id !== "knobs")
+    );
+    const unknownStepIds = Object.keys((rawSteps ?? {}) as any).filter(
+      (id) => id !== "knobs" && !declaredStepIds.has(id)
+    );
+    if (unknownStepIds.length > 0) {
+      for (const id of unknownStepIds) {
+        errors.push({
+          code: "stage.unknown-step-id",
+          path: `${stagePath}/${id}`,
+          message: `Unknown step id "${id}" returned by stage.compile/toInternal (must be declared in stage.steps)`,
+          stageId,
+          stepId: id,
+        });
+      }
+      continue;
+    }
 
     for (const step of stage.steps as readonly StepModuleAny[]) {
       const stepId = step.contract.id;
@@ -349,7 +371,7 @@ export function compileRecipeConfig<const TStages extends readonly any[]>(args: 
         step as any,
         normalized as any,
         { env, knobs } as NormalizeCtx<Env, unknown>,
-        opsById,
+        compileOpsById,
         stepPath
       );
       if (opNormErrors.length > 0) {
@@ -376,4 +398,3 @@ export function compileRecipeConfig<const TStages extends readonly any[]>(args: 
   if (errors.length > 0) throw new RecipeCompileError(errors);
   return out as CompiledRecipeConfigOf<any>;
 }
-

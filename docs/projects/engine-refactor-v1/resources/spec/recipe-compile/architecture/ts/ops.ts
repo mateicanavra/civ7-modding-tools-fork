@@ -106,7 +106,7 @@ export type OpRunValidatedOptions = OpValidateOptions;
 export type DomainOp<
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
-  Strategies extends Record<string, { config: TSchema }>,
+  Strategies extends Record<string, { config: TSchema; normalize?: (config: any, ctx: any) => any }>,
   Knobs = unknown,
 > = Readonly<{
   kind: DomainOpKind;
@@ -116,6 +116,9 @@ export type DomainOp<
   config: OpConfigSchema<Strategies>;
   defaultConfig: StrategySelection<Strategies>;
   strategies: Strategies;
+  // Compile-time normalization hook (renamed from baseline `resolveConfig`):
+  // - receives the full op envelope `{ strategy, config }`
+  // - dispatches to the selected strategy's `normalize` when present
   normalize?: (
     config: StrategySelection<Strategies>,
     ctx: NormalizeCtx<Env, Knobs>
@@ -134,6 +137,23 @@ export type DomainOp<
 }>;
 
 type DomainOpAny = DomainOp<TSchema, TSchema, Record<string, { config: TSchema }>>;
+
+export function normalizeEnvelopeByStrategy<
+  InputSchema extends TSchema,
+  OutputSchema extends TSchema,
+  Strategies extends Record<string, { config: TSchema; normalize?: (config: any, ctx: any) => any }>,
+  Knobs,
+>(
+  op: DomainOp<InputSchema, OutputSchema, Strategies, Knobs>,
+  envelope: StrategySelection<Strategies>,
+  ctx: NormalizeCtx<Env, Knobs>
+): StrategySelection<Strategies> {
+  const strat = (op.strategies as any)[(envelope as any).strategy] as
+    | { normalize?: (config: unknown, ctx: NormalizeCtx<Env, Knobs>) => unknown }
+    | undefined;
+  if (typeof strat?.normalize !== "function") return envelope;
+  return { ...(envelope as any), config: strat.normalize((envelope as any).config, ctx) } as any;
+}
 
 // Compile-visible op surface (includes normalize/defaultConfig/strategies access via DomainOp shape).
 export type DomainOpCompileAny = DomainOpAny & Readonly<{ id: string; kind: string }>;
@@ -154,9 +174,18 @@ export function runtimeOp(op: DomainOpCompileAny): DomainOpRuntimeAny {
   };
 }
 
+export type CompileOpsById = Readonly<Record<string, DomainOpCompileAny>>;
+export type RuntimeOpsById = Readonly<Record<string, DomainOpRuntimeAny>>;
+
+export function buildRuntimeOpsById(registry: CompileOpsById): RuntimeOpsById {
+  const out: Record<string, DomainOpRuntimeAny> = {};
+  for (const [id, op] of Object.entries(registry)) out[id] = runtimeOp(op);
+  return out;
+}
+
 export function bindCompileOps<const Decl extends Record<string, { id: string }>>(
   decl: Decl,
-  registryById: Readonly<Record<string, DomainOpCompileAny>>
+  registryById: CompileOpsById
 ): { [K in keyof Decl]: DomainOpCompileAny } {
   const out: any = {};
   for (const k of Object.keys(decl)) {
@@ -170,15 +199,14 @@ export function bindCompileOps<const Decl extends Record<string, { id: string }>
 
 export function bindRuntimeOps<const Decl extends Record<string, { id: string }>>(
   decl: Decl,
-  registryById: Readonly<Record<string, DomainOpCompileAny>>
+  registryById: RuntimeOpsById
 ): { [K in keyof Decl]: DomainOpRuntimeAny } {
   const out: any = {};
   for (const k of Object.keys(decl)) {
     const id = (decl as any)[k].id;
     const op = registryById[id];
     if (!op) throw new Error(`bindRuntimeOps: missing op id "${id}" for key "${k}"`);
-    out[k] = runtimeOp(op);
+    out[k] = op;
   }
   return out;
 }
-
