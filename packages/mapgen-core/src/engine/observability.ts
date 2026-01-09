@@ -1,4 +1,5 @@
-import type { ExecutionPlan, RunSettings } from "@mapgen/engine/execution-plan.js";
+import type { Env } from "@mapgen/core/env.js";
+import type { ExecutionPlan } from "@mapgen/engine/execution-plan.js";
 import type { TraceSink, TraceSession } from "@mapgen/trace/index.js";
 import { createTraceSession, sha256Hex, stableStringify } from "@mapgen/trace/index.js";
 
@@ -6,13 +7,13 @@ interface PlanFingerprintInput {
   version: number;
   recipeSchemaVersion: number;
   recipeId: string | null;
-  settings: RunSettings;
+  env: Env;
   nodes: Array<{ stepId: string; config: unknown }>;
 }
 
-function stripTraceSettings(settings: RunSettings): RunSettings {
-  const { trace: _trace, ...rest } = settings as RunSettings & { trace?: unknown };
-  return rest;
+function stripTraceEnv(env: Env): Env {
+  const { trace: _trace, ...rest } = env as Env & { trace?: unknown };
+  return rest as Env;
 }
 
 export function computePlanFingerprint(plan: ExecutionPlan): string {
@@ -20,7 +21,7 @@ export function computePlanFingerprint(plan: ExecutionPlan): string {
     version: 1,
     recipeSchemaVersion: plan.recipeSchemaVersion,
     recipeId: plan.recipeId ?? null,
-    settings: stripTraceSettings(plan.settings),
+    env: stripTraceEnv(plan.env),
     nodes: plan.nodes.map((node) => ({
       stepId: node.stepId,
       config: node.config ?? {},
@@ -41,7 +42,7 @@ export function createTraceSessionFromPlan(
   return createTraceSession({
     runId: deriveRunId(plan),
     planFingerprint: computePlanFingerprint(plan),
-    config: plan.settings.trace ?? null,
+    config: plan.env.trace ?? null,
     sink,
   });
 }

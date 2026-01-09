@@ -16,7 +16,7 @@ describe("story/orogeny", () => {
     const width = 30;
     const height = 20;
     const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
-    const settings = {
+    const env = {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
@@ -33,11 +33,7 @@ describe("story/orogeny", () => {
     }
 
     const config = { story: { orogeny: { beltMinLength: 12 } } };
-    const ctx = createExtendedMapContext(
-      { width, height },
-      adapter,
-      settings
-    );
+    const ctx = createExtendedMapContext({ width, height }, adapter, env);
 
     expect(() => storyTagOrogenyBelts(ctx, config.story)).toThrow("foundation plates");
 

@@ -79,3 +79,12 @@ This is where enforcement becomes real: tighten import boundaries, finalize nami
 - [Scope Boundaries](#scope-boundaries)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Implementation Decisions
+
+### Use TypeCompiler for runtime validation (avoid typebox/value)
+- **Context:** Runtime validation must remain validate-only while avoiding `typebox/value` imports in engine/runtime paths.
+- **Options:** Keep `Value.Errors` from `typebox/value`; switch to `TypeCompiler` from `@sinclair/typebox/compiler`; build custom validators.
+- **Choice:** Switch to `TypeCompiler` for error enumeration in runtime validation.
+- **Rationale:** Satisfies the no-`typebox/value` guardrail without reintroducing runtime normalization helpers.
+- **Risk:** Error shapes/paths could differ slightly from `Value.Errors`, affecting downstream expectations.

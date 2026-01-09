@@ -1,6 +1,6 @@
 import type { MapInitParams } from "@civ7/adapter";
 import type { RecipeModule } from "@swooper/mapgen-core/authoring";
-import type { RunSettings } from "@swooper/mapgen-core/engine";
+import type { Env } from "@swooper/mapgen-core/engine";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 
 import type { StandardRecipeCompiledConfig, StandardRecipeConfig } from "../../recipes/standard/recipe.js";
@@ -55,7 +55,7 @@ export function wireStandardMapEntry({
         throw new Error(`${prefix} Missing required map init params.`);
       }
 
-      const settings: RunSettings = {
+      const env: Env = {
         seed,
         dimensions: { width, height },
         latitudeBounds: {
@@ -69,7 +69,7 @@ export function wireStandardMapEntry({
         directionality,
       };
 
-      runStandardRecipe({ recipe, init, settings, config, options });
+      runStandardRecipe({ recipe, init, env, config, options });
     } catch (err) {
       const prefix = options.logPrefix || "[SWOOPER_MOD]";
       console.error(prefix, "Map generation failed:", err);

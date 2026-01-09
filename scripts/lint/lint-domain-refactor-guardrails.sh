@@ -173,6 +173,16 @@ for domain in "${DOMAINS[@]}"; do
   fi
 done
 
+run_rg "Runtime typebox/value imports" "typebox/value" -- \
+  "packages/mapgen-core/src/engine" \
+  "packages/mapgen-core/src/core" \
+  "mods/mod-swooper-maps/src/domain" \
+  "mods/mod-swooper-maps/src/recipes" \
+  "mods/mod-swooper-maps/src/maps"
+run_rg "Domain deep-imports outside domain roots" "@mapgen/domain/[^\"']+/(ops|strategies|rules)/" -P -- \
+  "mods/mod-swooper-maps/src/recipes" \
+  "mods/mod-swooper-maps/src/maps" \
+  "mods/mod-swooper-maps/test"
 run_rg "Recipe imports in domain" "recipes/standard|/recipes/" -- "mods/mod-swooper-maps/src/domain"
 run_rg "Domain tag/artifact shims" "@mapgen/domain/(tags|artifacts)" -P -- "mods/mod-swooper-maps/src"
 run_rg "Unknown bag config usage" "UnknownRecord|INTERNAL_METADATA_KEY" -- "mods/mod-swooper-maps/src/domain"

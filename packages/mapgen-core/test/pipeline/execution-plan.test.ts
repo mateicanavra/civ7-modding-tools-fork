@@ -16,7 +16,7 @@ const TEST_TAGS = {
   },
 } as const;
 
-const baseSettings = {
+const baseEnv = {
   seed: 123,
   dimensions: { width: 10, height: 10 },
   latitudeBounds: { topLatitude: 80, bottomLatitude: -80 },
@@ -54,7 +54,7 @@ describe("compileExecutionPlan", () => {
             },
           ],
         },
-        settings: baseSettings,
+        env: baseEnv,
       },
       registry
     );
@@ -88,7 +88,7 @@ describe("compileExecutionPlan", () => {
             },
           ],
         },
-        settings: baseSettings,
+        env: baseEnv,
       },
       registry
     );
@@ -114,7 +114,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 1 as unknown as 2,
             steps: [{ id: "alpha" }],
           },
-          settings: baseSettings,
+          env: baseEnv,
         },
         registry
       )
@@ -127,7 +127,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 1 as unknown as 2,
             steps: [{ id: "alpha" }],
           },
-          settings: baseSettings,
+          env: baseEnv,
         },
         registry
       );
@@ -156,7 +156,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha" }, { id: "alpha" }],
           },
-          settings: baseSettings,
+          env: baseEnv,
         },
         registry
       )
@@ -169,7 +169,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha" }, { id: "alpha" }],
           },
-          settings: baseSettings,
+          env: baseEnv,
         },
         registry
       );
@@ -192,7 +192,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "missing" }],
           },
-          settings: baseSettings,
+          env: baseEnv,
         },
         registry
       )
@@ -205,7 +205,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "missing" }],
           },
-          settings: baseSettings,
+          env: baseSettings,
         },
         registry
       );
@@ -241,7 +241,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha", config: { value: "bad" } }],
           },
-          settings: baseSettings,
+          env: baseSettings,
         },
         registry
       );
@@ -277,7 +277,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha", config: { value: 3, extra: 9 } }],
           },
-          settings: baseSettings,
+          env: baseSettings,
         },
         registry
       );
@@ -319,7 +319,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha", config: null }],
           },
-          settings: baseSettings,
+          env: baseSettings,
         },
         registry
       );
@@ -344,7 +344,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [],
           },
-          settings: {
+          env: {
             seed: "bad",
           },
         },
@@ -375,7 +375,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha" }],
           },
-          settings: {
+          env: {
             ...baseSettings,
             seed: "123",
             wrap: {
@@ -415,7 +415,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha" }],
           },
-          settings: baseSettings,
+          env: baseSettings,
         },
         registry
       )
@@ -428,7 +428,7 @@ describe("compileExecutionPlan", () => {
             schemaVersion: 2,
             steps: [{ id: "alpha" }],
           },
-          settings: baseSettings,
+          env: baseSettings,
         },
         registry
       );
@@ -465,7 +465,7 @@ describe("compileExecutionPlan", () => {
           schemaVersion: 2,
           steps: [{ id: "alpha", config: { value: 11 } }],
         },
-        settings: baseSettings,
+        env: baseSettings,
       },
       registry
     );
@@ -509,7 +509,7 @@ describe("compileExecutionPlan", () => {
           schemaVersion: 2,
           steps: [{ id: "alpha", config: { value: 12 } }],
         },
-        settings: baseSettings,
+        env: baseSettings,
       },
       registry
     );

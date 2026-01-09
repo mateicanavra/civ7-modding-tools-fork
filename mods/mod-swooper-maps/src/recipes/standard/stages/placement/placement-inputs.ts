@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { Value } from "typebox/value";
+import { TypeCompiler } from "@sinclair/typebox/compiler";
 import {
   ops,
   PlanFloodplainsContract,
@@ -30,6 +30,8 @@ export const PlacementInputsV1Schema = Type.Object(
 type MapInfo = Static<typeof PlanWondersContract["input"]["properties"]["mapInfo"]>;
 export type PlacementInputsV1 = Static<typeof PlacementInputsV1Schema> & { mapInfo: MapInfo };
 
+const placementInputsCheck = TypeCompiler.Compile(PlacementInputsV1Schema);
+
 export function isPlacementInputsV1(value: unknown): value is PlacementInputsV1 {
-  return Value.Check(PlacementInputsV1Schema, value);
+  return placementInputsCheck.Check(value);
 }

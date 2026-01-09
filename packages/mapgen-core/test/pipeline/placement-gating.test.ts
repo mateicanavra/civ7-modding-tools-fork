@@ -55,7 +55,7 @@ const TEST_TAG_DEFINITIONS = [
   },
 ] as const;
 
-function buildTestSettings(width: number, height: number) {
+function buildTestEnv(width: number, height: number) {
   return {
     seed: 0,
     dimensions: { width, height },
@@ -66,7 +66,7 @@ function buildTestSettings(width: number, height: number) {
 
 function compilePlan<TContext>(
   registry: StepRegistry<TContext>,
-  settings: ReturnType<typeof buildTestSettings>,
+  env: ReturnType<typeof buildTestEnv>,
   steps: readonly string[]
 ) {
   return compileExecutionPlan(
@@ -75,7 +75,7 @@ function compilePlan<TContext>(
         schemaVersion: 2,
         steps: steps.map((id) => ({ id, config: {} })),
       },
-      settings,
+      env,
     },
     registry
   );
@@ -85,12 +85,12 @@ describe("placement step contracts", () => {
   it("fails fast when placement runs without placementInputs", () => {
     const width = 4;
     const height = 4;
-    const settings = buildTestSettings(width, height);
+    const env = buildTestEnv(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      settings
+      env
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
@@ -129,7 +129,7 @@ describe("placement step contracts", () => {
     const executor = new PipelineExecutor(registry, { log: () => {} });
 
     try {
-      const plan = compilePlan(registry, settings, ["coastlines", "rivers", "placement"]);
+      const plan = compilePlan(registry, env, ["coastlines", "rivers", "placement"]);
       executor.executePlan(context, plan);
       throw new Error("Expected placement gating to fail");
     } catch (err) {
@@ -144,12 +144,12 @@ describe("placement step contracts", () => {
   it("fails fast when placementInputs are published with an invalid payload", () => {
     const width = 4;
     const height = 4;
-    const settings = buildTestSettings(width, height);
+    const env = buildTestEnv(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      settings
+      env
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
@@ -165,7 +165,7 @@ describe("placement step contracts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const plan = compilePlan(registry, settings, ["derive-placement-inputs"]);
+    const plan = compilePlan(registry, env, ["derive-placement-inputs"]);
     const { stepResults } = executor.executePlan(context, plan);
 
     expect(stepResults).toHaveLength(1);
@@ -177,12 +177,12 @@ describe("placement step contracts", () => {
   it("fails fast when placement outputs are missing", () => {
     const width = 4;
     const height = 4;
-    const settings = buildTestSettings(width, height);
+    const env = buildTestEnv(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      settings
+      env
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
@@ -196,7 +196,7 @@ describe("placement step contracts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const plan = compilePlan(registry, settings, ["placement"]);
+    const plan = compilePlan(registry, env, ["placement"]);
     const { stepResults } = executor.executePlan(context, plan);
 
     expect(stepResults).toHaveLength(1);
@@ -208,12 +208,12 @@ describe("placement step contracts", () => {
   it("fails fast when placement outputs are invalid", () => {
     const width = 4;
     const height = 4;
-    const settings = buildTestSettings(width, height);
+    const env = buildTestEnv(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
       { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
       adapter,
-      settings
+      env
     );
 
     const registry = new StepRegistry<ExtendedMapContext>();
@@ -229,7 +229,7 @@ describe("placement step contracts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const plan = compilePlan(registry, settings, ["placement"]);
+    const plan = compilePlan(registry, env, ["placement"]);
     const { stepResults } = executor.executePlan(context, plan);
 
     expect(stepResults).toHaveLength(1);

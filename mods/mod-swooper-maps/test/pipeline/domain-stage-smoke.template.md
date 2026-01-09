@@ -8,7 +8,7 @@ Then replace the placeholders and follow the steps below. This template is inten
 
 ## Required invariants
 
-- Use deterministic settings (`settings.seed = 0`, fixed dimensions).
+- Use deterministic env (`env.seed = 0`, fixed dimensions).
 - Use a deterministic adapter RNG: `createMockAdapter({ rng: () => 0 })`.
 - Use canonical dependency keys from `mods/mod-swooper-maps/src/recipes/standard/tags.ts`.
 - Assert artifacts/effects are satisfied via `STANDARD_TAG_DEFINITIONS` where applicable.
@@ -28,7 +28,7 @@ import standardRecipe from "../../src/recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../../src/recipes/standard/recipe.js";
 import { __DOMAIN__Config } from "../../src/maps/__DOMAIN__-map.js";
 
-const settings = {
+const env = {
   seed: 0,
   dimensions: { width: 4, height: 3 },
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
@@ -38,12 +38,12 @@ const settings = {
 
 describe("__DOMAIN__ stage smoke", () => {
   it("runs __STAGE__ and satisfies key artifacts/effects", () => {
-    const adapter = createMockAdapter({ width: settings.dimensions.width, height: settings.dimensions.height, rng: () => 0 });
-    const ctx = createExtendedMapContext(settings.dimensions, adapter, settings);
-    initializeStandardRuntime(ctx, settings);
+    const adapter = createMockAdapter({ width: env.dimensions.width, height: env.dimensions.height, rng: () => 0 });
+    const ctx = createExtendedMapContext(env.dimensions, adapter, env);
+    initializeStandardRuntime(ctx, env);
 
     const config = __DOMAIN__Config satisfies StandardRecipeConfig;
-    expect(() => standardRecipe.run(ctx, settings, config, { log: () => {} })).not.toThrow();
+    expect(() => standardRecipe.run(ctx, env, config, { log: () => {} })).not.toThrow();
 
     expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.__ARTIFACT_KEY__)).toBeTruthy();
     expect(ctx.effects.has(M4_EFFECT_TAGS.engine.__EFFECT_KEY__)).toBe(true);
