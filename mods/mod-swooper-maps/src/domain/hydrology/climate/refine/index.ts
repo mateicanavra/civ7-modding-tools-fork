@@ -52,7 +52,7 @@ export function refineClimateEarthlike(
   const orogenyCache = options?.orogenyCache || null;
   const storyCfg = options.story as StoryConfig;
   if (!options.directionality) {
-    throw new Error("refineClimateEarthlike requires settings.directionality.");
+    throw new Error("refineClimateEarthlike requires env.directionality.");
   }
   const directionality = options.directionality;
   const emptySet = new Set<string>();

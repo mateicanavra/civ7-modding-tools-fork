@@ -28,7 +28,7 @@ describe("plot effects (owned)", () => {
   it("places permanent snow plot effects when thresholds pass", () => {
     const input = createInput();
     const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
-    const settings = {
+    const env = {
       seed: 0,
       dimensions: { width: input.width, height: input.height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
@@ -54,7 +54,7 @@ describe("plot effects (owned)", () => {
         burned: { enabled: false },
       },
     };
-    const resolvedConfig = planPlotEffects.normalize(config, { env: settings, knobs: {} });
+    const resolvedConfig = planPlotEffects.normalize(config, { env, knobs: {} });
     const result = planPlotEffects.runValidated(input, resolvedConfig, { validateOutput: true });
 
     expect(result.placements.length).toBeGreaterThan(0);

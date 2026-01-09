@@ -50,7 +50,7 @@ export function storyTagStrategicCorridors(
   }
   const directionality = config.directionality;
   if (!directionality) {
-    throw new Error("[Narrative] Missing settings.directionality.");
+    throw new Error("[Narrative] Missing env.directionality.");
   }
   const emptySet = new Set<string>();
   const existingCorridors = stage === "postRivers" ? artifacts.corridors ?? null : null;

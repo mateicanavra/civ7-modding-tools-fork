@@ -83,7 +83,7 @@ export function buildIceFeaturePlacementsInput(
   return {
     width,
     height,
-    seed: deriveStepSeed(context.settings.seed, "ecology:planFeaturePlacements"),
+    seed: deriveStepSeed(context.env.seed, "ecology:planFeaturePlacements"),
     landMask: heightfield.landMask,
     latitude,
     featureKeyField,
@@ -105,7 +105,7 @@ export function buildAquaticFeaturePlacementsInput(
   return {
     width,
     height,
-    seed: deriveStepSeed(context.settings.seed, "ecology:planFeaturePlacements"),
+    seed: deriveStepSeed(context.env.seed, "ecology:planFeaturePlacements"),
     landMask: heightfield.landMask,
     terrainType: heightfield.terrain,
     latitude,
@@ -136,7 +136,7 @@ export function buildWetFeaturePlacementsInput(
   return {
     width,
     height,
-    seed: deriveStepSeed(context.settings.seed, "ecology:planFeaturePlacements"),
+    seed: deriveStepSeed(context.env.seed, "ecology:planFeaturePlacements"),
     biomeIndex: classification.biomeIndex,
     surfaceTemperature: classification.surfaceTemperature,
     landMask: heightfield.landMask,
@@ -172,7 +172,7 @@ export function buildVegetatedFeaturePlacementsInput(
   return {
     width,
     height,
-    seed: deriveStepSeed(context.settings.seed, "ecology:planFeaturePlacements"),
+    seed: deriveStepSeed(context.env.seed, "ecology:planFeaturePlacements"),
     biomeIndex: classification.biomeIndex,
     vegetationDensity: classification.vegetationDensity,
     effectiveMoisture: classification.effectiveMoisture,
@@ -208,7 +208,7 @@ export function buildReefEmbellishmentsInput(
   return {
     width,
     height,
-    seed: deriveStepSeed(context.settings.seed, "ecology:planReefEmbellishments"),
+    seed: deriveStepSeed(context.env.seed, "ecology:planReefEmbellishments"),
     landMask: heightfield.landMask,
     featureKeyField,
     paradiseMask: maskFromCoordSet(hotspots?.paradise, width, height),
@@ -245,7 +245,7 @@ export function buildVegetationEmbellishmentsInput(
   return {
     width,
     height,
-    seed: deriveStepSeed(context.settings.seed, "ecology:planVegetationEmbellishments"),
+    seed: deriveStepSeed(context.env.seed, "ecology:planVegetationEmbellishments"),
     landMask: heightfield.landMask,
     terrainType: heightfield.terrain,
     featureKeyField,

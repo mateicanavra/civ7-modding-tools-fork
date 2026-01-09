@@ -26,15 +26,14 @@ export {
 export type { DependencyTagDefinition, DependencyTagKind, TagOwner } from "@mapgen/engine/tags.js";
 export { StepRegistry } from "@mapgen/engine/StepRegistry.js";
 export { PipelineExecutor } from "@mapgen/engine/PipelineExecutor.js";
+export { EnvSchema, TraceConfigSchema, TraceLevelSchema } from "@mapgen/core/env.js";
+export type { Env } from "@mapgen/core/env.js";
 export {
   compileExecutionPlan,
   ExecutionPlanCompileError,
   RecipeStepV2Schema,
   RecipeV2Schema,
   RunRequestSchema,
-  RunSettingsSchema,
-  TraceConfigSchema,
-  TraceLevelSchema,
 } from "@mapgen/engine/execution-plan.js";
 export type {
   ExecutionPlan,
@@ -44,7 +43,6 @@ export type {
   RecipeStepV2,
   RecipeV2,
   RunRequest,
-  RunSettings,
 } from "@mapgen/engine/execution-plan.js";
 
 export {

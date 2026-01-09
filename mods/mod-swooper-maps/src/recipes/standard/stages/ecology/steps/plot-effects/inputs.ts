@@ -20,7 +20,7 @@ export function buildPlotEffectsInput(context: ExtendedMapContext): PlotEffectsI
   return {
     width,
     height,
-    seed: deriveStepSeed(context.settings.seed, "ecology:planPlotEffects"),
+    seed: deriveStepSeed(context.env.seed, "ecology:planPlotEffects"),
     biomeIndex: classification.biomeIndex,
     vegetationDensity: classification.vegetationDensity,
     effectiveMoisture: classification.effectiveMoisture,

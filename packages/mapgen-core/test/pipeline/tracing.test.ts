@@ -36,7 +36,7 @@ describe("pipeline tracing", () => {
           schemaVersion: 2,
           steps: [{ id: "alpha", config: {} }],
         },
-        settings: {
+        env: {
           seed: 123,
           dimensions: { width: 4, height: 3 },
           latitudeBounds: { topLatitude: 80, bottomLatitude: -80 },
@@ -56,7 +56,7 @@ describe("pipeline tracing", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      plan.settings
+      plan.env
     );
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
@@ -111,7 +111,7 @@ describe("pipeline tracing", () => {
             { id: "beta", config: {} },
           ],
         },
-        settings: {
+        env: {
           seed: 123,
           dimensions: { width: 4, height: 3 },
           latitudeBounds: { topLatitude: 80, bottomLatitude: -80 },
@@ -131,7 +131,7 @@ describe("pipeline tracing", () => {
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
-      plan.settings
+      plan.env
     );
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
@@ -142,20 +142,16 @@ describe("pipeline tracing", () => {
     expect(stepEvents.every((event) => event.stepId === "alpha")).toBe(true);
   });
 
-  it("defaults to a console sink when trace settings are enabled", () => {
+  it("defaults to a console sink when trace env is enabled", () => {
     const adapter = createMockAdapter({ width: 4, height: 3, rng: () => 0 });
-    const settings = {
+    const env = {
       seed: 5,
       dimensions: { width: 4, height: 3 },
       latitudeBounds: { topLatitude: 45, bottomLatitude: -45 },
       wrap: { wrapX: true, wrapY: false },
       trace: { enabled: true },
     };
-    const ctx = createExtendedMapContext(
-      { width: 4, height: 3 },
-      adapter,
-      settings
-    );
+    const ctx = createExtendedMapContext({ width: 4, height: 3 }, adapter, env);
 
     const contract = defineStepContract({
       id: "alpha",
@@ -180,7 +176,7 @@ describe("pipeline tracing", () => {
     };
 
     try {
-      recipe.run(ctx, settings, { foundation: { alpha: {} } });
+      recipe.run(ctx, env, { foundation: { alpha: {} } });
     } finally {
       console.log = originalLog;
     }

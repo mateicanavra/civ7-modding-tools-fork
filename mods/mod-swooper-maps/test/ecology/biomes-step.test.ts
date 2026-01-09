@@ -21,7 +21,7 @@ describe("biomes step", () => {
     const height = 3;
     const size = width * height;
     const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
-    const settings = {
+    const env = {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
@@ -33,11 +33,7 @@ describe("biomes step", () => {
     adapter.fillWater(false);
     adapter.setWater(0, 0, true);
 
-    const ctx = createExtendedMapContext(
-      { width, height },
-      adapter,
-      settings
-    );
+    const ctx = createExtendedMapContext({ width, height }, adapter, env);
 
     ctx.buffers.heightfield.landMask.fill(1);
     ctx.buffers.heightfield.landMask[0] = 0;

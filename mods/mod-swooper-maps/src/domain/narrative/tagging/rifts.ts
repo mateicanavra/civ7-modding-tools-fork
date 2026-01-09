@@ -27,9 +27,9 @@ export function storyTagRiftValleys(
   if (!riftCfg) {
     throw new Error("[Narrative] Missing story rift config.");
   }
-  const directionality = ctx.settings.directionality as Record<string, unknown>;
+  const directionality = ctx.env.directionality as Record<string, unknown>;
   if (!directionality) {
-    throw new Error("[Narrative] Missing settings.directionality.");
+    throw new Error("[Narrative] Missing env.directionality.");
   }
   const interplay = directionality.interplay as Record<string, number>;
   const primaryAxes = directionality.primaryAxes as Record<string, number>;

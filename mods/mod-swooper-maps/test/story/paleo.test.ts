@@ -16,7 +16,7 @@ describe("story/paleo", () => {
     const width = 12;
     const height = 8;
     const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
-    const settings = {
+    const env = {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
@@ -52,11 +52,7 @@ describe("story/paleo", () => {
         },
       },
     };
-    const ctx = createExtendedMapContext(
-      { width, height },
-      adapter,
-      settings
-    );
+    const ctx = createExtendedMapContext({ width, height }, adapter, env);
     ctx.buffers?.climate?.rainfall?.fill(50);
     ctx.fields?.rainfall?.fill(50);
 

@@ -164,7 +164,7 @@ Compiler execution (Phase B excerpt; with stage knobs threaded via ctx):
 - `step.normalize(cfg, { env, knobs })` may bias envelope values using `knobs` (value-only, shape-preserving).
   - Example: apply `knobs.vegetationDensityBias` by adjusting `trees.config.density` and `groundCover.config.density`.
 - `normalizeOpsTopLevel(...)` normalizes envelopes for `trees`, `shrubs`, `groundCover` by contract ops keys only (no nested traversal).
-  - Op normalization consults the op’s compile-time normalization hook (baseline today: `DomainOp.resolveConfig(cfg, settings)`; renamed to `normalize`), which dispatches by `envelope.strategy` under the hood.
+  - Op normalization consults the op’s compile-time normalization hook (baseline today: `DomainOp.resolveConfig(cfg, env)`; renamed to `normalize`), which dispatches by `envelope.strategy` under the hood.
 
 ### Example C — Ops injection into `plot-vegetation` (why “bind ops” is not just indirection)
 

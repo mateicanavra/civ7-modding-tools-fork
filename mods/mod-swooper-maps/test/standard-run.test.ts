@@ -599,7 +599,7 @@ describe("standard recipe execution", () => {
       StartSectorCols: 4,
     };
 
-    const settings = {
+    const env = {
       seed: 123,
       dimensions: { width, height },
       latitudeBounds: {
@@ -611,20 +611,16 @@ describe("standard recipe execution", () => {
     };
 
     const adapter = createMockAdapter({ width, height, mapInfo, mapSizeId: 1 });
-    const context = createExtendedMapContext(
-      { width, height },
-      adapter,
-      settings
-    );
+    const context = createExtendedMapContext({ width, height }, adapter, env);
 
     initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
 
     const config = standardConfig;
-    const plan = standardRecipe.compile(settings, config);
+    const plan = standardRecipe.compile(env, config);
     expect(plan.nodes.length).toBeGreaterThan(0);
 
     expect(() =>
-      standardRecipe.run(context, settings, config, { log: () => {} })
+      standardRecipe.run(context, env, config, { log: () => {} })
     ).not.toThrow();
 
     const climateField = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.climateField) as

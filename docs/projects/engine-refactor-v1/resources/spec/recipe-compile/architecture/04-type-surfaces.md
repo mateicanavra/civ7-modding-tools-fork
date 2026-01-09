@@ -13,20 +13,22 @@ Grounding note:
 
 #### `Env` (runtime envelope)
 
-**NEW (planned)**: move the runtime envelope out of engine-only ownership by introducing `EnvSchema`/`Env`.
+Runtime envelope is core-owned via `EnvSchema`/`Env` so authoring/compiler/engine can share it without
+importing engine internals.
 
-Planned location (does not exist today):
-- `packages/mapgen-core/src/core/env.ts` **NEW (planned)** (env is core-owned so authoring/compiler/engine can share it without importing plan compiler internals)
+Current location:
+- `packages/mapgen-core/src/core/env.ts`
   - `export const EnvSchema = Type.Object(...)`
   - `export type Env = Static<typeof EnvSchema>`
 
-Baseline today (repo-verified):
-- Runtime envelope schema/type live in `packages/mapgen-core/src/engine/execution-plan.ts`:
+Baseline history (repo-verified):
+- Runtime envelope schema/type previously lived in `packages/mapgen-core/src/engine/execution-plan.ts`:
   - `RunSettingsSchema`
   - `RunSettings`
-- Runtime envelope is threaded as `settings: RunSettings`:
-  - engine plan compilation: `compileExecutionPlan(runRequest, registry)` in `packages/mapgen-core/src/engine/execution-plan.ts`
-  - context storage: `ExtendedMapContext.settings: RunSettings` in `packages/mapgen-core/src/core/types.ts`
+
+Runtime envelope is now threaded as `env: Env`:
+- engine plan compilation: `compileExecutionPlan(runRequest, registry)` in `packages/mapgen-core/src/engine/execution-plan.ts`
+- context storage: `ExtendedMapContext.env: Env` in `packages/mapgen-core/src/core/types.ts`
 
 In the target architecture, engine imports `EnvSchema`; authoring/domain may import `Env` without importing engine.
 
@@ -42,8 +44,7 @@ Op contracts remain contract-first. Implementations expose:
 //
 // Notes:
 // - Envelope schema is `DomainOp["config"]` (an `OpConfigSchema<Strategies>` which is a `TSchema`).
-// - `resolveConfig(cfg, settings)` is a compile-time normalization hook; this proposal later renames it
-//   to `normalize` (NEW (planned)).
+// - `normalize(cfg, ctx)` is the compile-time normalization hook (renamed from `resolveConfig`).
 type DomainOpAny = DomainOp<TSchema, TSchema, Record<string, { config: TSchema }>>;
 ```
 
@@ -57,7 +58,7 @@ Step contracts:
 - Baseline today (repo-verified):
   - `StepContract` / `defineStepContract(...)`: `packages/mapgen-core/src/authoring/step/contract.ts`
   - `createStep(...)` enforces an explicit `contract.schema`: `packages/mapgen-core/src/authoring/step/create.ts`
-  - step module hook today is `resolveConfig(config, settings: RunSettings)` (not `normalize`): `packages/mapgen-core/src/authoring/types.ts`
+  - step module hook is `normalize(config, ctx)` (compile-time only): `packages/mapgen-core/src/authoring/types.ts`
 - **NEW (planned)**:
   - allow an ops-derived `schema` when ops are declared (DX shortcut; see 1.11)
   - add `ops` (e.g. `step.contract.ops`) to declare which op envelopes exist as top-level properties
@@ -203,9 +204,8 @@ File: `packages/mapgen-core/src/core/env.ts` **NEW (planned)**
 ```ts
 import { Type, type Static } from "typebox";
 
-// Lifted verbatim from baseline `packages/mapgen-core/src/engine/execution-plan.ts`:
-// - `RunSettingsSchema` → `EnvSchema`
-// - `RunSettings` → `Env`
+// Lifted verbatim from the baseline `RunSettingsSchema` / `RunSettings` shape
+// (formerly in `packages/mapgen-core/src/engine/execution-plan.ts`).
 
 const UnknownRecord = Type.Record(Type.String(), Type.Unknown(), { default: {} });
 

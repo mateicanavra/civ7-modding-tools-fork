@@ -9,7 +9,7 @@ import {
   type MapGenStep,
   type RecipeV2,
   type RunRequest,
-  type RunSettings,
+  type Env,
 } from "@mapgen/engine/index.js";
 
 import { createConsoleTraceSink } from "@mapgen/trace/index.js";
@@ -203,34 +203,34 @@ export function createRecipe<
   }
 
   function compileConfig(
-    settings: RunSettings,
+    env: Env,
     config?: RecipeConfigInputOf<TStages> | null
   ): CompiledRecipeConfigOf<TStages> {
     return compileRecipeConfig({
-      env: settings,
+      env,
       recipe: { stages: input.stages },
       config,
       compileOpsById: input.compileOpsById,
     }) as CompiledRecipeConfigOf<TStages>;
   }
 
-  function runRequest(settings: RunSettings, config: CompiledRecipeConfigOf<TStages>): RunRequest {
-    return { recipe: instantiate(config), settings };
+  function runRequest(env: Env, config: CompiledRecipeConfigOf<TStages>): RunRequest {
+    return { recipe: instantiate(config), env };
   }
 
-  function compile(settings: RunSettings, config?: RecipeConfigInputOf<TStages> | null): ExecutionPlan {
-    const compiled = compileConfig(settings, config);
-    return compileExecutionPlan(runRequest(settings, compiled), registry);
+  function compile(env: Env, config?: RecipeConfigInputOf<TStages> | null): ExecutionPlan {
+    const compiled = compileConfig(env, config);
+    return compileExecutionPlan(runRequest(env, compiled), registry);
   }
 
   function run(
     context: TContext,
-    settings: RunSettings,
+    env: Env,
     config?: RecipeConfigInputOf<TStages> | null,
     options: { trace?: TraceSession | null; traceSink?: TraceSink | null; log?: (message: string) => void } = {}
   ): void {
-    const plan = compile(settings, config);
-    context.settings = plan.settings;
+    const plan = compile(env, config);
+    context.env = plan.env;
     const traceSession =
       options.trace !== undefined
         ? options.trace
