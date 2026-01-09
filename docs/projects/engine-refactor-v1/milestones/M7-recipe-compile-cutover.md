@@ -500,10 +500,10 @@ workstreams:
           - "DO NOT consult non-target MapGen architecture/spec docs outside spec_package; they conflict with the target spec and will cause confusion."
           - "See non_target_arch_docs_off_limits in this milestone for off-limits paths."
         deliverables:
-      - "lint boundaries updated to forbid compiler-only imports from runtime paths"
-      - "docs/spec references updated to match the final code reality"
-      - "spot-check: no remaining resolveConfig naming or runtime Value.Default usage"
-      - "rename settings -> env and move Env schema/type to core (delete legacy naming; no long-lived alias)"
+          - "lint boundaries updated to forbid compiler-only imports from runtime paths"
+          - "docs/spec references updated to match the final code reality"
+          - "spot-check: no remaining resolveConfig naming or runtime Value.Default usage"
+          - "rename settings -> env and move Env schema/type to core (delete legacy naming; no long-lived alias)"
 ```
 
 ## Canonical units of work (issue doc index)
@@ -887,7 +887,7 @@ Out of scope:
 **Testing / Verification**
 - `pnpm -C packages/mapgen-core test`
 - `pnpm -C mods/mod-swooper-maps test`
-- `rg -n \"\\bresolveConfig\\b\" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect zero hits by the end of this unit)
+- `rg -n "\\bresolveConfig\\b" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect zero hits by the end of this unit)
 
 **Implementation Guidance**
 ```yaml
@@ -1029,9 +1029,28 @@ This unit removes any bypass paths that allow uncompiled configs to flow into en
 - [ ] No code path constructs an engine plan from uncompiled (author-facing) configs.
 - [ ] Errors that used to surface during engine planning/resolveConfig now surface as compiler errors at the recipe boundary.
 
+**Scope Boundaries**
+In scope:
+- Removing bypass paths that let author-facing configs flow into engine planning without recipe-boundary compilation.
+- Making the recipe module reject/ban legacy config shapes once compilation is mandatory.
+Out of scope:
+- Engine validate-only flip (that is D1–D2).
+- Stage-by-stage authoring migration details (that is C2); C3 only removes remaining bypasses after migration.
+
 **Testing / Verification**
 - `pnpm test`
-- `rg -n \"RecipeConfigInputOf\" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect only author-facing call sites; no engine usage)
+- `rg -n "RecipeConfigInputOf" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect only author-facing call sites; no engine usage)
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/authoring/recipe.ts
+    notes: "Recipe boundary: remove any legacy author-config plumbing once compileRecipeConfig is mandatory."
+  - path: /mods/mod-swooper-maps/src/maps/_runtime/run-standard.ts
+    notes: "Primary mod entry to recipe.run; ensure it cannot pass uncompiled config into planning after C3."
+  - path: /mods/mod-swooper-maps/src/maps/_runtime/standard-entry.ts
+    notes: "Standard entry wiring; ensure only the compile-first config path remains."
+```
 
 ### D) Engine becomes validate-only (D1–D2)
 
@@ -1112,8 +1131,8 @@ Out of scope:
 
 **Testing / Verification**
 - `pnpm -C packages/mapgen-core test`
-- `rg -n \"step\\.resolveConfig\" packages/mapgen-core/src` (expect zero hits after this unit)
-- `rg -n \"Value\\.(Default|Convert|Clean)\" packages/mapgen-core/src/engine` (expect zero hits after this unit)
+- `rg -n "step\\.resolveConfig" packages/mapgen-core/src` (expect zero hits after this unit)
+- `rg -n "Value\\.(Default|Convert|Clean)" packages/mapgen-core/src/engine` (expect zero hits after this unit)
 
 **Implementation Guidance**
 ```yaml
@@ -1174,9 +1193,17 @@ Ecology is the exemplar domain for the new ownership model. This unit reshapes t
 - [ ] `@mapgen/domain/ecology` exports `compileOpsById` and `runtimeOpsById` keyed by `op.id`.
 - [ ] Recipes/steps/tests do not deep-import from `@mapgen/domain/ecology/ops/**` (enforced by lint and/or `rg` scans).
 
+**Scope Boundaries**
+In scope:
+- Splitting ecology into contract-only exports vs runtime/compile registries (per B3/B4 patterns).
+- Updating ecology imports in recipes/steps/tests to use entrypoint exports (no deep imports).
+Out of scope:
+- Removing step-level `resolveConfig` (that is E2).
+- Adding an ecology stage public schema/compile mapping (that is E3).
+
 **Testing / Verification**
 - `pnpm -C mods/mod-swooper-maps test`
-- `rg -n \"@mapgen/domain/ecology/ops/\" mods/mod-swooper-maps/src` (expect zero hits after refactor)
+- `rg -n "@mapgen/domain/ecology/ops/" mods/mod-swooper-maps/src` (expect zero hits after refactor)
 
 **Implementation Guidance**
 ```yaml
@@ -1200,6 +1227,14 @@ Baseline ecology steps still use step-level `resolveConfig(...)` that delegates 
 - [ ] Step configs are normalized at compile time via step.normalize and/or op.normalize (per the compiler pipeline).
 - [ ] Runtime step code calls ops via `runtimeOpsById` (by id), not `ecology.ops.*` implementation objects.
 
+**Scope Boundaries**
+In scope:
+- Migrating all ecology stage steps (and the known placement derive step) off runtime `resolveConfig` to compile-time normalization.
+- Wiring runtime step execution to call ops via `runtimeOpsById` by id (no direct `ecology.ops.*` usage).
+Out of scope:
+- Ecology domain entrypoint refactor (that is E1).
+- Ecology stage public view + compile mapping (that is E3).
+
 **Prework Findings (Complete)**
 
 ### 1) Current standard recipe steps using step-level resolveConfig (must be migrated)
@@ -1217,7 +1252,7 @@ Baseline ecology steps still use step-level `resolveConfig(...)` that delegates 
 
 **Testing / Verification**
 - `pnpm -C mods/mod-swooper-maps test`
-- `rg -n \"resolveConfig:\" mods/mod-swooper-maps/src/recipes/standard` (expect zero hits after migration)
+- `rg -n "resolveConfig:" mods/mod-swooper-maps/src/recipes/standard` (expect zero hits after migration)
 
 **Implementation Guidance**
 ```yaml
@@ -1239,8 +1274,27 @@ Use ecology to demonstrate the optional stage public schema and compile mapping 
 - [ ] Ecology stage `compile` maps public fields to internal per-step configs deterministically.
 - [ ] Compiler error examples (unknown step ids, unknown keys, schema errors) are exercised end-to-end using ecology as the reference.
 
+**Scope Boundaries**
+In scope:
+- Updating the ecology stage module to the Stage Option A shape (`knobsSchema`, optional public schema, and `compile` mapping).
+- Adding/adjusting ecology stage configs so author-facing config stays stage-scoped and compiles to step configs.
+Out of scope:
+- Refactoring ecology domain entrypoint exports (that is E1).
+- Step-level runtime normalization removal and runtime ops binding by id (that is E2).
+
 **Testing / Verification**
 - `pnpm -C mods/mod-swooper-maps test`
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/ecology/index.ts
+    notes: "Upgrade to Stage Option A (knobsSchema/public schema/compile mapping) once B2 is available."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**
+    notes: "Ensure compiled configs line up with step ids and schemas; keep runtime code consuming canonical step configs only."
+  - path: /docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/03-authoring-patterns.md
+    notes: "Stage Option A patterns; ecology should be a copyable exemplar."
+```
 
 ### F) Cleanup pass (F1–F2)
 
@@ -1276,10 +1330,30 @@ This is a cleanup gate: confirm we ended with one architecture and remove dead e
 - [ ] No compatibility shims remain (no dual entrypoints, no parallel config path).
 - [ ] Legacy error codes and dead paths are deleted (including `step.resolveConfig.failed`).
 
+**Scope Boundaries**
+In scope:
+- Deleting compatibility shims and dead code introduced during the migration (no long-lived dual path).
+- Removing now-obsolete error codes and legacy runtime-only config synthesis helpers.
+Out of scope:
+- Introducing new compatibility layers; if needed temporarily, they must be explicitly called out and removed before milestone completion.
+
 **Testing / Verification**
 - `pnpm test`
-- `rg -n \"\\bresolveConfig\\b\" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect zero hits)
-- `rg -n \"Value\\.(Default|Convert|Clean)\" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect zero hits outside compiler-only paths)
+- `rg -n "\\bresolveConfig\\b" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect zero hits)
+- `rg -n "Value\\.(Default|Convert|Clean)" packages/mapgen-core/src mods/mod-swooper-maps/src` (expect zero hits outside compiler-only paths)
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/authoring/**
+    notes: "Ensure only compile-first recipe config paths remain; remove any legacy config plumbing."
+  - path: /packages/mapgen-core/src/engine/**
+    notes: "Remove runtime default/clean and resolveConfig surfaces; ensure validate-only behavior is the only engine path."
+  - path: /mods/mod-swooper-maps/src/**
+    notes: "Remove any lingering resolveConfig usage, deep imports, and legacy config shims introduced during migration."
+  - path: /scripts/lint/lint-domain-refactor-guardrails.sh
+    notes: "Update guardrails to match final enforcement expectations (as needed)."
+```
 
 #### F2 — Final hygiene + enforcement tightening
 
@@ -1292,11 +1366,34 @@ This is where enforcement becomes real: tighten import boundaries, finalize nami
 - [ ] `settings` is renamed to `env` and `Env` type/schema lives in core (no long-lived alias).
 - [ ] Repo guardrails pass (lint + tests) and drift checks are in place.
 
+**Scope Boundaries**
+In scope:
+- Renaming `settings` → `env` across runtime request types, context fields, and call sites.
+- Relocating the runtime envelope schema/type to core as `EnvSchema`/`Env` per the target spec.
+- Tightening lint boundaries to prevent compiler-only imports from runtime paths and prevent deep imports into domain internals.
+Out of scope:
+- Broad refactors unrelated to recipe-compile cutover; enforcement is scoped to the surfaces referenced by `06-enforcement.md`.
+
 **Testing / Verification**
 - `pnpm check`
 - `pnpm lint`
 - `pnpm test`
 - `pnpm lint:domain-refactor-guardrails`
+
+**Implementation Guidance**
+```yaml
+files:
+  - path: /packages/mapgen-core/src/engine/execution-plan.ts
+    notes: "Baseline location of RunSettingsSchema/RunSettings; target state is EnvSchema/Env with engine importing core."
+  - path: /packages/mapgen-core/src/authoring/recipe.ts
+    notes: "Rename settings parameter/plan threading to env per the recipe module target contract."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/**
+    notes: "Update recipe/run wiring and any step reads from context.settings -> context.env."
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/foundation/**
+    notes: "Known baseline user of context.settings.directionality; must migrate to env."
+  - path: /docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/04-type-surfaces.md
+    notes: "Canonical Env module + naming (RunSettings -> Env; settings -> env)."
+```
 
 ---
 
