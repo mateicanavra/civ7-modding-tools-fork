@@ -22,6 +22,14 @@
       "types": "./dist/authoring/index.d.ts",
       "import": "./dist/authoring/index.js"
     },
+    "./compiler/normalize": {
+      "types": "./dist/compiler/normalize.d.ts",
+      "import": "./dist/compiler/normalize.js"
+    },
+    "./compiler/recipe-compile": {
+      "types": "./dist/compiler/recipe-compile.d.ts",
+      "import": "./dist/compiler/recipe-compile.js"
+    },
     "./trace": {
       "types": "./dist/trace/index.d.ts",
       "import": "./dist/trace/index.js"

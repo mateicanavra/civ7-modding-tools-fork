@@ -274,24 +274,24 @@ This milestone is organized into 6 workstreams (A-F), each with detailed issue d
 
 ### Issue Index (with dependencies)
 
-| ID | Title | blocked_by | Issue Doc |
-|---|---|---|---|
-| A1 | Compiler module skeleton + strict normalization | [] | [LOCAL-TBD-M7-A1](../issues/LOCAL-TBD-M7-A1-compiler-module-skeleton.md) |
-| A2 | compileRecipeConfig end-to-end wiring | [A1] | [LOCAL-TBD-M7-A2](../issues/LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md) |
-| B1 | Step id convention: kebab-case enforced | [] | [LOCAL-TBD-M7-B1](../issues/LOCAL-TBD-M7-B1-step-id-kebab-case.md) |
-| B2 | Stage Option A: public+compile with computed surfaceSchema | [] | [LOCAL-TBD-M7-B2](../issues/LOCAL-TBD-M7-B2-stage-option-a.md) |
-| B3 | Domain ops registries + binding helpers | [] | [LOCAL-TBD-M7-B3](../issues/LOCAL-TBD-M7-B3-domain-ops-registries.md) |
-| B4 | Op normalization hook semantics: resolveConfig -> normalize | [] | [LOCAL-TBD-M7-B4](../issues/LOCAL-TBD-M7-B4-op-normalize-semantics.md) |
-| C1 | Introduce recipe boundary compilation | [A2, B2, B3, B4] | [LOCAL-TBD-M7-C1](../issues/LOCAL-TBD-M7-C1-recipe-boundary-compilation.md) |
-| C2 | Update stage+step authoring to new config shape | [C1, B1, B2] | [LOCAL-TBD-M7-C2](../issues/LOCAL-TBD-M7-C2-stage-step-config-shape.md) |
-| C3 | Remove runtime compilation fallbacks | [C2] | [LOCAL-TBD-M7-C3](../issues/LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) |
-| D1 | Executor plan-only: remove runtime config synthesis | [C3] | [LOCAL-TBD-M7-D1](../issues/LOCAL-TBD-M7-D1-executor-plan-only.md) |
-| D2 | Planner validate-only: remove default/clean and step.resolveConfig | [C3] | [LOCAL-TBD-M7-D2](../issues/LOCAL-TBD-M7-D2-planner-validate-only.md) |
-| E1 | Ecology domain entrypoint refactor | [B3, B4] | [LOCAL-TBD-M7-E1](../issues/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) |
-| E2 | Ecology steps migration | [E1, C2] | [LOCAL-TBD-M7-E2](../issues/LOCAL-TBD-M7-E2-ecology-steps-migration.md) |
-| E3 | Ecology stage public view + compile | [E2] | [LOCAL-TBD-M7-E3](../issues/LOCAL-TBD-M7-E3-ecology-stage-public-compile.md) |
-| F1 | Verify no shims + remove dead paths | [A2, B4, C3, D2, E2] | [LOCAL-TBD-M7-F1](../issues/LOCAL-TBD-M7-F1-verify-no-shims.md) |
-| F2 | Final hygiene + enforcement tightening | [F1] | [LOCAL-TBD-M7-F2](../issues/LOCAL-TBD-M7-F2-final-hygiene.md) |
+| ID | Title | blocked_by | Issue Doc | Status | Notes |
+|---|---|---|---|---|---|
+| A1 | Compiler module skeleton + strict normalization | [] | [LOCAL-TBD-M7-A1](../issues/LOCAL-TBD-M7-A1-compiler-module-skeleton.md) | [x] | branch `m7-t01-compiler-module-skeleton-strict-normalization` |
+| A2 | compileRecipeConfig end-to-end wiring | [A1] | [LOCAL-TBD-M7-A2](../issues/LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md) | [ ] | |
+| B1 | Step id convention: kebab-case enforced | [] | [LOCAL-TBD-M7-B1](../issues/LOCAL-TBD-M7-B1-step-id-kebab-case.md) | [ ] | |
+| B2 | Stage Option A: public+compile with computed surfaceSchema | [] | [LOCAL-TBD-M7-B2](../issues/LOCAL-TBD-M7-B2-stage-option-a.md) | [ ] | |
+| B3 | Domain ops registries + binding helpers | [] | [LOCAL-TBD-M7-B3](../issues/LOCAL-TBD-M7-B3-domain-ops-registries.md) | [ ] | |
+| B4 | Op normalization hook semantics: resolveConfig -> normalize | [] | [LOCAL-TBD-M7-B4](../issues/LOCAL-TBD-M7-B4-op-normalize-semantics.md) | [ ] | |
+| C1 | Introduce recipe boundary compilation | [A2, B2, B3, B4] | [LOCAL-TBD-M7-C1](../issues/LOCAL-TBD-M7-C1-recipe-boundary-compilation.md) | [ ] | |
+| C2 | Update stage+step authoring to new config shape | [C1, B1, B2] | [LOCAL-TBD-M7-C2](../issues/LOCAL-TBD-M7-C2-stage-step-config-shape.md) | [ ] | |
+| C3 | Remove runtime compilation fallbacks | [C2] | [LOCAL-TBD-M7-C3](../issues/LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) | [ ] | |
+| D1 | Executor plan-only: remove runtime config synthesis | [C3] | [LOCAL-TBD-M7-D1](../issues/LOCAL-TBD-M7-D1-executor-plan-only.md) | [ ] | |
+| D2 | Planner validate-only: remove default/clean and step.resolveConfig | [C3] | [LOCAL-TBD-M7-D2](../issues/LOCAL-TBD-M7-D2-planner-validate-only.md) | [ ] | |
+| E1 | Ecology domain entrypoint refactor | [B3, B4] | [LOCAL-TBD-M7-E1](../issues/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) | [ ] | |
+| E2 | Ecology steps migration | [E1, C2] | [LOCAL-TBD-M7-E2](../issues/LOCAL-TBD-M7-E2-ecology-steps-migration.md) | [ ] | |
+| E3 | Ecology stage public view + compile | [E2] | [LOCAL-TBD-M7-E3](../issues/LOCAL-TBD-M7-E3-ecology-stage-public-compile.md) | [ ] | |
+| F1 | Verify no shims + remove dead paths | [A2, B4, C3, D2, E2] | [LOCAL-TBD-M7-F1](../issues/LOCAL-TBD-M7-F1-verify-no-shims.md) | [ ] | |
+| F2 | Final hygiene + enforcement tightening | [F1] | [LOCAL-TBD-M7-F2](../issues/LOCAL-TBD-M7-F2-final-hygiene.md) | [ ] | |
 
 ### Workstream Summaries
 
