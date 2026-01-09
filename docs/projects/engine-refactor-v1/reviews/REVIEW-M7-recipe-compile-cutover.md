@@ -386,3 +386,30 @@ Strong exemplar: ecology now demonstrates Stage Option A end-to-end (explicit `p
 ### Cross-cutting Risks
 
 - Public-stage mapping is an author-facing contract; changing field names later will be a breaking change for configs/presets.
+
+## REVIEW m7-t15-verify-no-shims
+
+### Quick Take
+
+High-value cleanup: removes lingering non-compiler `Value.*` defaulting by introducing schema-default extraction in authoring, and keeps the “no dual path” posture intact.
+
+### High-Leverage Issues
+
+- `applySchemaDefaults`/`buildSchemaDefaults` intentionally implement only a subset of TypeBox defaulting semantics (object + explicit defaults). That’s fine if schemas are written accordingly, but it’s easy to drift into schemas that relied on `Value.Default` behavior for unions/arrays.
+- This defaulting logic sits in authoring core; any mismatch will be very hard to debug once configs flow through compiler → planner validate-only → executor.
+
+### Fix Now (Recommended)
+
+- Add targeted tests for `applySchemaDefaults` covering nested objects, `null`/`undefined`, and “no defaults present” cases, and document the supported subset (object-only) as the contract.
+
+### Defer / Follow-up
+
+- Consider pushing all defaulting into compiler-only paths eventually and making authoring defaults purely “schema metadata,” but this requires a careful layering plan to avoid cycles.
+
+### Needs Discussion
+
+- Is it acceptable that schema defaults for arrays/unions are effectively ignored by authoring default extraction, or should those schemas be disallowed/rewritten?
+
+### Cross-cutting Risks
+
+- Defaulting semantics are now split between compiler and authoring; keep them aligned intentionally or you’ll get “it works in tests but not in compilation” class bugs.
