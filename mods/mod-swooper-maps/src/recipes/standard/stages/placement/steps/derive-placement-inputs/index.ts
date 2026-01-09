@@ -14,6 +14,7 @@ const opContracts = {
   planStarts: placement.PlanStartsContract,
 } as const;
 
+
 const compileOps = bindCompileOps(opContracts, placement.compileOpsById);
 const runtimeOps = bindRuntimeOps(opContracts, placement.runtimeOpsById);
 
