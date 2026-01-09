@@ -284,7 +284,7 @@ This milestone is organized into 6 workstreams (A-F), each with detailed issue d
 | B4 | Op normalization hook semantics: resolveConfig -> normalize | [] | [LOCAL-TBD-M7-B4](../issues/LOCAL-TBD-M7-B4-op-normalize-semantics.md) | [x] | branch `m7-t06-op-normalize-semantics` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/400) |
 | C1 | Introduce recipe boundary compilation | [A2, B2, B3, B4] | [LOCAL-TBD-M7-C1](../issues/LOCAL-TBD-M7-C1-recipe-boundary-compilation.md) | [x] | branch `m7-t07-recipe-boundary-compilation` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/401) |
 | C2 | Update stage+step authoring to new config shape | [C1, B1, B2] | [LOCAL-TBD-M7-C2](../issues/LOCAL-TBD-M7-C2-stage-step-config-shape.md) | [x] | branch `m7-t08-stage-step-config-shape` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/402) |
-| C3 | Remove runtime compilation fallbacks | [C2] | [LOCAL-TBD-M7-C3](../issues/LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) | [ ] | |
+| C3 | Remove runtime compilation fallbacks | [C2] | [LOCAL-TBD-M7-C3](../issues/LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) | [x] | branch `m7-t09-remove-runtime-fallbacks` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/403) |
 | D1 | Executor plan-only: remove runtime config synthesis | [C3] | [LOCAL-TBD-M7-D1](../issues/LOCAL-TBD-M7-D1-executor-plan-only.md) | [ ] | |
 | D2 | Planner validate-only: remove default/clean and step.resolveConfig | [C3] | [LOCAL-TBD-M7-D2](../issues/LOCAL-TBD-M7-D2-planner-validate-only.md) | [ ] | |
 | E1 | Ecology domain entrypoint refactor | [B3, B4] | [LOCAL-TBD-M7-E1](../issues/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) | [ ] | |
