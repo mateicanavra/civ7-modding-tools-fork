@@ -64,7 +64,7 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
 
   for (const stage of input.stages) {
     for (const authored of stage.steps) {
-      const stepId = authored.id;
+      const stepId = authored.contract.id;
       const fullId = computeFullStepId({
         namespace: input.namespace,
         recipeId: input.recipeId,
@@ -77,10 +77,10 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
         stepId,
         step: {
           id: fullId,
-          phase: authored.phase,
-          requires: authored.requires,
-          provides: authored.provides,
-          configSchema: authored.schema,
+          phase: authored.contract.phase,
+          requires: authored.contract.requires,
+          provides: authored.contract.provides,
+          configSchema: authored.contract.schema,
           resolveConfig: authored.resolveConfig as
             | MapGenStep<TContext, unknown>["resolveConfig"]
             | undefined,
