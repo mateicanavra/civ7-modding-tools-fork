@@ -15,7 +15,9 @@ import {
 import { createConsoleTraceSink } from "@mapgen/trace/index.js";
 import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { compileRecipeConfig } from "../compiler/recipe-compile.js";
 import type {
+  CompiledRecipeConfigOf,
   RecipeConfig,
   RecipeConfigInputOf,
   RecipeDefinition,
@@ -145,7 +147,11 @@ export function createRecipe<
   const TStages extends readonly AnyStage<TContext>[],
 >(
   input: RecipeDefinition<TContext, TStages>
-): RecipeModule<TContext, RecipeConfigInputOf<TStages> | null> {
+): RecipeModule<
+  TContext,
+  RecipeConfigInputOf<TStages> | null,
+  CompiledRecipeConfigOf<TStages>
+> {
   assertTagDefinitions(input.tagDefinitions);
 
   const occurrences = finalizeOccurrences({
@@ -156,7 +162,7 @@ export function createRecipe<
   const registry = buildRegistry(occurrences, input.tagDefinitions);
   const recipe = toStructuralRecipeV2(input.id, occurrences);
 
-  function instantiate(config?: RecipeConfigInputOf<TStages> | null): RecipeV2 {
+  function instantiate(config?: CompiledRecipeConfigOf<TStages> | null): RecipeV2 {
     const cfg = (config ?? null) as RecipeConfig | null;
     return {
       ...recipe,
@@ -169,12 +175,28 @@ export function createRecipe<
     };
   }
 
-  function runRequest(settings: RunSettings, config?: RecipeConfigInputOf<TStages> | null): RunRequest {
+  function compileConfig(
+    settings: RunSettings,
+    config?: RecipeConfigInputOf<TStages> | null
+  ): CompiledRecipeConfigOf<TStages> {
+    return compileRecipeConfig({
+      env: settings,
+      recipe: { stages: input.stages },
+      config,
+      compileOpsById: input.compileOpsById,
+    }) as CompiledRecipeConfigOf<TStages>;
+  }
+
+  function runRequest(
+    settings: RunSettings,
+    config?: CompiledRecipeConfigOf<TStages> | null
+  ): RunRequest {
     return { recipe: instantiate(config), settings };
   }
 
   function compile(settings: RunSettings, config?: RecipeConfigInputOf<TStages> | null): ExecutionPlan {
-    return compileExecutionPlan(runRequest(settings, config), registry);
+    const compiled = compileConfig(settings, config);
+    return compileExecutionPlan(runRequest(settings, compiled), registry);
   }
 
   function run(
@@ -199,5 +221,5 @@ export function createRecipe<
     executor.executePlan(context, plan, { trace: traceSession ?? null });
   }
 
-  return { id: input.id, recipe, instantiate, runRequest, compile, run };
+  return { id: input.id, recipe, instantiate, compileConfig, runRequest, compile, run };
 }
