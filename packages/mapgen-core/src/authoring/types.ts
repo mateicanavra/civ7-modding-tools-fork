@@ -12,6 +12,7 @@ import type {
 import type { DependencyTagDefinition } from "@mapgen/engine/tags.js";
 import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import type { CompileOpsById } from "../compiler/recipe-compile.js";
 import type { StepContract } from "./step/contract.js";
 
 export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
@@ -150,18 +151,24 @@ export type RecipeDefinition<
   namespace?: string;
   tagDefinitions: readonly DependencyTagDefinition<TContext>[];
   stages: TStages;
+  compileOpsById: CompileOpsById;
 }>;
 
-export type RecipeModule<TContext = ExtendedMapContext, TConfig = RecipeConfig | null> = {
+export type RecipeModule<
+  TContext = ExtendedMapContext,
+  TConfigInput = RecipeConfigInputOf<any> | null,
+  TConfigCompiled = RecipeConfig | null,
+> = {
   readonly id: string;
   readonly recipe: RecipeV2;
-  instantiate: (config?: TConfig) => RecipeV2;
-  runRequest: (settings: RunSettings, config?: TConfig) => RunRequest;
-  compile: (settings: RunSettings, config?: TConfig) => ExecutionPlan;
+  instantiate: (config?: TConfigCompiled) => RecipeV2;
+  compileConfig: (settings: RunSettings, config?: TConfigInput) => TConfigCompiled;
+  runRequest: (settings: RunSettings, config?: TConfigCompiled) => RunRequest;
+  compile: (settings: RunSettings, config?: TConfigInput) => ExecutionPlan;
   run: (
     context: TContext,
     settings: RunSettings,
-    config?: TConfig,
+    config?: TConfigInput,
     options?: {
       trace?: TraceSession | null;
       traceSink?: TraceSink | null;
