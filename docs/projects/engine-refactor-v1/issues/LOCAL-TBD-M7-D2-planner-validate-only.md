@@ -72,6 +72,15 @@ related_to: []
 - `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/05-file-reconciliation.md` ("Engine validate-only behavior")
 - `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/00-fundamentals.md` (I2)
 
+## Implementation Decisions
+
+### Require explicit step config when a schema exists
+- **Context:** Validate-only planning removes defaulting; missing step configs need a deterministic outcome.
+- **Options:** (A) Treat missing config as `{}` and allow defaults, (B) treat missing config as invalid.
+- **Choice:** (B) treat missing config as invalid.
+- **Rationale:** Keeps compileExecutionPlan mutation-free and enforces that compile-time outputs are complete.
+- **Risk:** Callers that omit configs for schema-bearing steps will now fail at plan compilation.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)
