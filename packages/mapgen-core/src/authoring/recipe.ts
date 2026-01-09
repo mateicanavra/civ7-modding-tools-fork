@@ -162,8 +162,35 @@ export function createRecipe<
   const registry = buildRegistry(occurrences, input.tagDefinitions);
   const recipe = toStructuralRecipeV2(input.id, occurrences);
 
-  function instantiate(config?: CompiledRecipeConfigOf<TStages> | null): RecipeV2 {
-    const cfg = (config ?? null) as RecipeConfig | null;
+  function assertCompiledConfig(
+    config: CompiledRecipeConfigOf<TStages> | null | undefined
+  ): asserts config is CompiledRecipeConfigOf<TStages> {
+    if (!config) {
+      throw new Error(`[recipe:${input.id}] compiled config required (use recipe.compileConfig(...))`);
+    }
+
+    const cfg = config as RecipeConfig;
+    for (const stage of input.stages) {
+      const stageConfig = cfg[stage.id];
+      if (!stageConfig || typeof stageConfig !== "object") {
+        throw new Error(
+          `[recipe:${input.id}] missing compiled config for stage "${stage.id}" (use recipe.compileConfig(...))`
+        );
+      }
+      for (const step of stage.steps) {
+        const stepId = step.contract.id;
+        if (!(stepId in stageConfig)) {
+          throw new Error(
+            `[recipe:${input.id}] missing compiled config for step "${stage.id}.${stepId}" (use recipe.compileConfig(...))`
+          );
+        }
+      }
+    }
+  }
+
+  function instantiate(config: CompiledRecipeConfigOf<TStages>): RecipeV2 {
+    assertCompiledConfig(config);
+    const cfg = config as RecipeConfig;
     return {
       ...recipe,
       steps: occurrences.map((occ) => ({
@@ -187,10 +214,7 @@ export function createRecipe<
     }) as CompiledRecipeConfigOf<TStages>;
   }
 
-  function runRequest(
-    settings: RunSettings,
-    config?: CompiledRecipeConfigOf<TStages> | null
-  ): RunRequest {
+  function runRequest(settings: RunSettings, config: CompiledRecipeConfigOf<TStages>): RunRequest {
     return { recipe: instantiate(config), settings };
   }
 
