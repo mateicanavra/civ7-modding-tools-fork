@@ -143,3 +143,30 @@ This lands the right “ownership boundary”: domains export `compileOpsById`/`
 ### Cross-cutting Risks
 
 - Op id collision handling becomes an ecosystem safety concern as more domains adopt registries; silent overwrites are extremely hard to debug.
+
+## REVIEW m7-t06-op-normalize-semantics
+
+### Quick Take
+
+This is the right semantic tightening: `resolveConfig` is fully removed and replaced with compile-time-only `normalize`, dispatched by `envelope.strategy`.
+
+### High-Leverage Issues
+
+- The transitional use of `NormalizeContext` in engine planning (until D2 removes planner normalization) is easy to forget; keep that “bridge” extremely explicit so runtime doesn’t accidentally depend on it long-term.
+- Strategy-level `normalize` hooks now sit adjacent to runtime `run`; make sure no one treats `normalize` as safe to call at runtime (tests/enforcement should keep pressure on this).
+
+### Fix Now (Recommended)
+
+- Add a small regression test that `PipelineExecutor` / runtime execution paths never invoke `normalize` (even indirectly), since this is a key invariant for the cutover.
+
+### Defer / Follow-up
+
+- Consider separating compile-only strategy helpers from runtime strategy impls once the compiler is fully wired (reduces accidental imports).
+
+### Needs Discussion
+
+- Should `normalize` be allowed to change `strategy` as well as `config`, or is it intentionally constrained to be strategy-preserving?
+
+### Cross-cutting Risks
+
+- “Normalize semantics” are now a core authoring contract; accidental re-introduction of runtime normalization would invalidate the “validate-only engine” target.
