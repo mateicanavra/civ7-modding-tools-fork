@@ -1,17 +1,11 @@
-import { applySchemaDefaults, createStrategy } from "@swooper/mapgen-core/authoring";
+import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { PlanVegetationContract } from "../contract.js";
 import { biomeSymbolFromIndex, FEATURE_PLACEMENT_KEYS } from "@mapgen/domain/ecology/types.js";
-
-const EMPTY_CONFIG: Parameters<typeof applySchemaDefaults>[1] = {} as Parameters<typeof applySchemaDefaults>[1];
-const normalize = (input: Parameters<typeof applySchemaDefaults>[1]) =>
-  applySchemaDefaults(PlanVegetationContract.strategies.clustered, input ?? EMPTY_CONFIG);
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
 export const clusteredStrategy = createStrategy(PlanVegetationContract, "clustered", {
-  normalize,
   run: (input, config) => {
-    const resolved = normalize(config);
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
     const fertility = (input.fertility as Float32Array | undefined) ?? new Float32Array(width * height);
@@ -26,15 +20,15 @@ export const clusteredStrategy = createStrategy(PlanVegetationContract, "cluster
         const vegetation = input.vegetationDensity[idx] ?? 0;
         if (vegetation <= 0) continue;
         const temp = input.surfaceTemperature[idx] ?? 0;
-        if (temp < resolved.coldCutoff) continue;
+        if (temp < config.coldCutoff) continue;
 
         const fertilityValue = fertility[idx] ?? 0;
         const moisture = input.effectiveMoisture[idx] ?? vegetation;
         const clusterBonus = noise(x, y);
         const weight = clamp01(
-          resolved.baseDensity +
-            fertilityValue * resolved.fertilityWeight +
-            moisture * resolved.moistureWeight +
+          config.baseDensity +
+            fertilityValue * config.fertilityWeight +
+            moisture * config.moistureWeight +
             clusterBonus * 0.15
         );
         if (weight < 0.15) continue;

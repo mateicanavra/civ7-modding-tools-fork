@@ -31,7 +31,7 @@ const BiomeSymbolSchema = Type.Unsafe<BiomeSymbol>(
   )
 );
 
-export const VegetatedMinByBiomeSchema = Type.Object(
+const VegetatedMinByBiomeSchema = Type.Object(
   {
     snow: Type.Number({ default: 0.05, minimum: 0, maximum: 1 }),
     tundra: Type.Number({ default: 0.03, minimum: 0, maximum: 1 }),
@@ -45,64 +45,44 @@ export const VegetatedMinByBiomeSchema = Type.Object(
   { additionalProperties: false, default: {} }
 );
 
-export const VegetatedRulesSchema = Type.Object(
+const VegetatedRulesSchema = Type.Object(
   {
-    minVegetationByBiome: Type.Optional(VegetatedMinByBiomeSchema),
-    vegetationChanceScalar: Type.Optional(Type.Number({ default: 1, minimum: 0 })),
-    desertSagebrushMinVegetation: Type.Optional(
-      Type.Number({ default: 0.2, minimum: 0, maximum: 1 })
-    ),
-    desertSagebrushMaxAridity: Type.Optional(
-      Type.Number({ default: 0.85, minimum: 0, maximum: 1 })
-    ),
-    tundraTaigaMinVegetation: Type.Optional(
-      Type.Number({ default: 0.25, minimum: 0, maximum: 1 })
-    ),
-    tundraTaigaMinTemperature: Type.Optional(Type.Number({ default: -2 })),
-    tundraTaigaMaxFreeze: Type.Optional(
-      Type.Number({ default: 0.9, minimum: 0, maximum: 1 })
-    ),
-    temperateDryForestMoisture: Type.Optional(Type.Number({ default: 120 })),
-    temperateDryForestMaxAridity: Type.Optional(
-      Type.Number({ default: 0.65, minimum: 0, maximum: 1 })
-    ),
-    temperateDryForestVegetation: Type.Optional(
-      Type.Number({ default: 0.45, minimum: 0, maximum: 1 })
-    ),
-    tropicalSeasonalRainforestMoisture: Type.Optional(Type.Number({ default: 140 })),
-    tropicalSeasonalRainforestMaxAridity: Type.Optional(
-      Type.Number({ default: 0.6, minimum: 0, maximum: 1 })
-    ),
+    minVegetationByBiome: VegetatedMinByBiomeSchema,
+    vegetationChanceScalar: Type.Number({ default: 1, minimum: 0 }),
+    desertSagebrushMinVegetation: Type.Number({ default: 0.2, minimum: 0, maximum: 1 }),
+    desertSagebrushMaxAridity: Type.Number({ default: 0.85, minimum: 0, maximum: 1 }),
+    tundraTaigaMinVegetation: Type.Number({ default: 0.25, minimum: 0, maximum: 1 }),
+    tundraTaigaMinTemperature: Type.Number({ default: -2 }),
+    tundraTaigaMaxFreeze: Type.Number({ default: 0.9, minimum: 0, maximum: 1 }),
+    temperateDryForestMoisture: Type.Number({ default: 120 }),
+    temperateDryForestMaxAridity: Type.Number({ default: 0.65, minimum: 0, maximum: 1 }),
+    temperateDryForestVegetation: Type.Number({ default: 0.45, minimum: 0, maximum: 1 }),
+    tropicalSeasonalRainforestMoisture: Type.Number({ default: 140 }),
+    tropicalSeasonalRainforestMaxAridity: Type.Number({ default: 0.6, minimum: 0, maximum: 1 }),
   },
   { additionalProperties: false, default: {} }
 );
 
-export const VegetatedChancesSchema = Type.Object(
+const VegetatedChancesSchema = Type.Object(
   {
-    FEATURE_FOREST: Type.Optional(Type.Number({ default: 50, minimum: 0, maximum: 100 })),
-    FEATURE_RAINFOREST: Type.Optional(Type.Number({ default: 65, minimum: 0, maximum: 100 })),
-    FEATURE_TAIGA: Type.Optional(Type.Number({ default: 50, minimum: 0, maximum: 100 })),
-    FEATURE_SAVANNA_WOODLAND: Type.Optional(
-      Type.Number({ default: 30, minimum: 0, maximum: 100 })
-    ),
-    FEATURE_SAGEBRUSH_STEPPE: Type.Optional(
-      Type.Number({ default: 30, minimum: 0, maximum: 100 })
-    ),
+    FEATURE_FOREST: Type.Number({ default: 50, minimum: 0, maximum: 100 }),
+    FEATURE_RAINFOREST: Type.Number({ default: 65, minimum: 0, maximum: 100 }),
+    FEATURE_TAIGA: Type.Number({ default: 50, minimum: 0, maximum: 100 }),
+    FEATURE_SAVANNA_WOODLAND: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
+    FEATURE_SAGEBRUSH_STEPPE: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
   },
   { additionalProperties: false, default: {} }
 );
 
-export const VegetatedFeaturePlacementsConfigSchema = Type.Object(
+const VegetatedFeaturePlacementsConfigSchema = Type.Object(
   {
-    multiplier: Type.Optional(
-      Type.Number({
-        description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
-        default: 1,
-        minimum: 0,
-      })
-    ),
-    chances: Type.Optional(VegetatedChancesSchema),
-    rules: Type.Optional(VegetatedRulesSchema),
+    multiplier: Type.Number({
+      description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
+      default: 1,
+      minimum: 0,
+    }),
+    chances: VegetatedChancesSchema,
+    rules: VegetatedRulesSchema,
   },
   { additionalProperties: false, default: {} }
 );
@@ -153,4 +133,3 @@ export const PlanVegetatedFeaturePlacementsContract = defineOpContract({
     default: VegetatedFeaturePlacementsConfigSchema,
   },
 });
-

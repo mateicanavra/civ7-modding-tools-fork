@@ -1,5 +1,4 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { applySchemaDefaults, type Static } from "@swooper/mapgen-core/authoring";
 import {
   computeRiverAdjacencyMask,
   getPublishedBiomeClassification,
@@ -8,7 +7,7 @@ import {
   getPublishedNarrativeMotifsMargins,
 } from "../../../../artifacts.js";
 import type * as ecology from "@mapgen/domain/ecology";
-import { WetRulesSchema, type PlanWetFeaturePlacementsTypes } from "@mapgen/domain/ecology/contracts";
+import type { PlanWetFeaturePlacementsTypes } from "@mapgen/domain/ecology/contracts";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { assertHeightfield, buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";
@@ -129,9 +128,6 @@ export function buildWetFeaturePlacementsInput(
 
   const heightfield = getHeightfieldArtifact(context, size);
   const featureKeyField = buildFeatureKeyField(context, lookups);
-  const rules = applySchemaDefaults(WetRulesSchema, config.rules) as Required<
-    Static<typeof WetRulesSchema>
-  >;
 
   return {
     width,
@@ -144,11 +140,11 @@ export function buildWetFeaturePlacementsInput(
     featureKeyField,
     nearRiverMask: computeRiverAdjacencyMask(
       context,
-      Math.max(1, Math.floor(rules.nearRiverRadius))
+      Math.max(1, Math.floor(config.rules!.nearRiverRadius!))
     ),
     isolatedRiverMask: computeRiverAdjacencyMask(
       context,
-      Math.max(1, Math.floor(rules.isolatedRiverRadius))
+      Math.max(1, Math.floor(config.rules!.isolatedRiverRadius!))
     ),
     navigableRiverTerrain: context.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER"),
   };

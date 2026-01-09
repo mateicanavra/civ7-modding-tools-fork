@@ -1,11 +1,9 @@
-import { applySchemaDefaults, createStrategy, type Static } from "@swooper/mapgen-core/authoring";
+import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 import { createLabelRng, type LabelRng } from "@swooper/mapgen-core";
 
 import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
 import {
-  IceChancesSchema,
   IceFeaturePlacementsConfigSchema,
-  IceRulesSchema,
   PlanIceFeaturePlacementsContract,
 } from "../contract.js";
 import { isAdjacentToLand } from "../rules/index.js";
@@ -13,18 +11,6 @@ import { isAdjacentToLand } from "../rules/index.js";
 type Config = Static<typeof IceFeaturePlacementsConfigSchema>;
 type Input = Static<(typeof PlanIceFeaturePlacementsContract)["input"]>;
 type Placement = Static<(typeof PlanIceFeaturePlacementsContract)["output"]>["placements"][number];
-
-type ResolvedConfig = {
-  multiplier: number;
-  chances: { FEATURE_ICE: number };
-  rules: {
-    minAbsLatitude: number;
-    forbidAdjacentToLand: boolean;
-    landAdjacencyRadius: number;
-    forbidAdjacentToNaturalWonders: boolean;
-    naturalWonderAdjacencyRadius: number;
-  };
-};
 
 const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
   acc[key] = index;
@@ -36,52 +22,16 @@ const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.ro
 const clamp = (value: number, min: number, max: number): number =>
   Math.max(min, Math.min(max, value));
 
-const readNumber = (value: number | undefined, fallback: number): number =>
-  typeof value === "number" && Number.isFinite(value) ? value : fallback;
-
 const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
   chance > 0 && rng(100, label) < chance;
 
 const NO_FEATURE = -1;
 
-const normalize = (input: Config): ResolvedConfig => {
-  const defaults = applySchemaDefaults(IceFeaturePlacementsConfigSchema, {}) as Required<Config>;
-  const owned = applySchemaDefaults(IceFeaturePlacementsConfigSchema, input) as Required<Config>;
-
-  const multiplier = Math.max(0, readNumber(owned.multiplier, defaults.multiplier));
-
-  const chanceDefaults = applySchemaDefaults(IceChancesSchema, {}) as Record<string, number>;
-  const chanceInput = applySchemaDefaults(IceChancesSchema, owned.chances) as Record<string, number>;
-
-  const rulesDefaults = applySchemaDefaults(IceRulesSchema, {}) as Required<Static<typeof IceRulesSchema>>;
-  const rulesInput = applySchemaDefaults(IceRulesSchema, owned.rules) as Required<Static<typeof IceRulesSchema>>;
-
-  return {
-    multiplier,
-    chances: {
-      FEATURE_ICE: clampChance(readNumber(chanceInput.FEATURE_ICE, chanceDefaults.FEATURE_ICE ?? 0)),
-    },
-    rules: {
-      minAbsLatitude: clamp(readNumber(rulesInput.minAbsLatitude, rulesDefaults.minAbsLatitude), 0, 90),
-      forbidAdjacentToLand: rulesInput.forbidAdjacentToLand ?? rulesDefaults.forbidAdjacentToLand,
-      landAdjacencyRadius: Math.max(
-        1,
-        Math.floor(readNumber(rulesInput.landAdjacencyRadius, rulesDefaults.landAdjacencyRadius))
-      ),
-      forbidAdjacentToNaturalWonders:
-        rulesInput.forbidAdjacentToNaturalWonders ?? rulesDefaults.forbidAdjacentToNaturalWonders,
-      naturalWonderAdjacencyRadius: Math.max(
-        1,
-        Math.floor(readNumber(rulesInput.naturalWonderAdjacencyRadius, rulesDefaults.naturalWonderAdjacencyRadius))
-      ),
-    },
-  };
-};
-
 export const defaultStrategy = createStrategy(PlanIceFeaturePlacementsContract, "default", {
-  normalize,
-  run: (input: Input, config: Config) => {
-    const resolved = normalize(config);
+  run: (input, config) => {
+    const chances = config.chances!;
+    const rules = config.rules!;
+    const multiplier = Math.max(0, config.multiplier!);
     const rng = createLabelRng(input.seed);
 
     const { width, height, landMask, latitude, featureKeyField, naturalWonderMask } = input;
@@ -113,8 +63,14 @@ export const defaultStrategy = createStrategy(PlanIceFeaturePlacementsContract, 
       placements.push({ x, y, feature: featureKey });
     };
 
-    if (resolved.multiplier > 0) {
-      const iceChance = clampChance(resolved.chances.FEATURE_ICE * resolved.multiplier);
+    const minAbsLatitude = clamp(rules.minAbsLatitude!, 0, 90);
+    const forbidAdjacentToLand = rules.forbidAdjacentToLand!;
+    const landAdjacencyRadius = Math.max(1, Math.floor(rules.landAdjacencyRadius!));
+    const forbidAdjacentToNaturalWonders = rules.forbidAdjacentToNaturalWonders!;
+    const naturalWonderAdjacencyRadius = Math.max(1, Math.floor(rules.naturalWonderAdjacencyRadius!));
+
+    if (multiplier > 0) {
+      const iceChance = clampChance(chances.FEATURE_ICE! * multiplier);
       if (iceChance > 0) {
         for (let y = 0; y < height; y++) {
           for (let x = 0; x < width; x++) {
@@ -122,16 +78,16 @@ export const defaultStrategy = createStrategy(PlanIceFeaturePlacementsContract, 
             if (!canPlaceAt(x, y)) continue;
 
             const absLat = Math.abs(latitude[y * width + x] ?? 0);
-            if (absLat < resolved.rules.minAbsLatitude) continue;
+            if (absLat < minAbsLatitude) continue;
             if (
-              resolved.rules.forbidAdjacentToLand &&
-              isAdjacentToLand(isWater, width, height, x, y, resolved.rules.landAdjacencyRadius)
+              forbidAdjacentToLand &&
+              isAdjacentToLand(isWater, width, height, x, y, landAdjacencyRadius)
             ) {
               continue;
             }
             if (
-              resolved.rules.forbidAdjacentToNaturalWonders &&
-              hasAdjacentNaturalWonder(x, y, resolved.rules.naturalWonderAdjacencyRadius)
+              forbidAdjacentToNaturalWonders &&
+              hasAdjacentNaturalWonder(x, y, naturalWonderAdjacencyRadius)
             ) {
               continue;
             }

@@ -1,19 +1,11 @@
-import { applySchemaDefaults, createStrategy, type Static } from "@swooper/mapgen-core/authoring";
+import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { PlanVegetationContract } from "../contract.js";
 import { FEATURE_PLACEMENT_KEYS, biomeSymbolFromIndex } from "@mapgen/domain/ecology/types.js";
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
-type Config = Static<typeof PlanVegetationContract["strategies"]["default"]>;
-
-const EMPTY_CONFIG: Config = {} as Config;
-const normalize = (input?: Config) =>
-  applySchemaDefaults(PlanVegetationContract.strategies.default, input ?? EMPTY_CONFIG);
-
 export const defaultStrategy = createStrategy(PlanVegetationContract, "default", {
-  normalize,
   run: (input, config) => {
-    const resolved = normalize(config);
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
     const fertility = (input.fertility as Float32Array | undefined) ?? new Float32Array(width * height);
@@ -26,14 +18,14 @@ export const defaultStrategy = createStrategy(PlanVegetationContract, "default",
         const vegetation = input.vegetationDensity[idx] ?? 0;
         if (vegetation <= 0) continue;
         const temp = input.surfaceTemperature[idx] ?? 0;
-        if (temp < resolved.coldCutoff) continue;
+        if (temp < config.coldCutoff) continue;
 
         const fertilityValue = fertility[idx] ?? 0;
         const moisture = input.effectiveMoisture[idx] ?? vegetation;
         const weight = clamp01(
-          resolved.baseDensity +
-            fertilityValue * resolved.fertilityWeight +
-            moisture * resolved.moistureWeight
+          config.baseDensity +
+            fertilityValue * config.fertilityWeight +
+            moisture * config.moistureWeight
         );
         if (weight < 0.15) continue;
 
