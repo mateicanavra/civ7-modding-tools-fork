@@ -1,5 +1,5 @@
 import type { LabelRng } from "@swooper/mapgen-core";
-import type { BiomeSymbol, FeatureKey } from "../types.js";
+import type { BiomeSymbol, FeatureKey } from "@mapgen/domain/ecology/types.js";
 
 export function planVolcanicVegetationAtTile(params: {
   width: number;

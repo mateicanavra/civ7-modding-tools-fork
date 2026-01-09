@@ -1,15 +1,8 @@
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { AriditySchema } from "./aridity.schema.js";
-import type { MoistureZone } from "../types.js";
 import { clamp01 } from "./util.js";
 
-const MOISTURE_ORDER: readonly MoistureZone[] = [
-  "arid",
-  "semiArid",
-  "subhumid",
-  "humid",
-  "perhumid",
-];
+const MOISTURE_ORDER = ["arid", "semiArid", "subhumid", "humid", "perhumid"] as const;
 
 export function computeAridityIndex(params: {
   temperature: number;
@@ -37,7 +30,10 @@ export function aridityShiftForIndex(index: number, thresholds: readonly number[
   return shift;
 }
 
-export function shiftMoistureZone(zone: MoistureZone, shift: number): MoistureZone {
+export function shiftMoistureZone(
+  zone: (typeof MOISTURE_ORDER)[number],
+  shift: number
+): (typeof MOISTURE_ORDER)[number] {
   const idx = MOISTURE_ORDER.indexOf(zone);
   if (idx < 0) return zone;
   const next = Math.max(0, idx - Math.max(0, shift));

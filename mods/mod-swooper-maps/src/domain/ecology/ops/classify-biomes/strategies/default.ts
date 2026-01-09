@@ -26,7 +26,6 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
     const { width, height } = input;
     const size = width * height;
 
-    /**Don't forget to add comments for all input arrays! And everything else hombres!!! Don't cheat, agents! */
     const rainfall = input.rainfall as Uint8Array;
     const humidity = input.humidity as Uint8Array;
     const elevation = input.elevation as Int16Array;

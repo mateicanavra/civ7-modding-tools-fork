@@ -9,7 +9,7 @@ import {
   VegetatedMinByBiomeSchema,
   VegetatedRulesSchema,
 } from "../contract.js";
-import { pickVegetatedFeature, type VegetatedFeatureKey } from "../rules/index.js";
+import { pickVegetatedFeature } from "../rules/index.js";
 
 type Config = Static<typeof VegetatedFeaturePlacementsConfigSchema>;
 type Input = Static<(typeof PlanVegetatedFeaturePlacementsContract)["input"]>;
@@ -18,7 +18,7 @@ type Placement =
 
 type ResolvedConfig = {
   multiplier: number;
-  chances: Record<VegetatedFeatureKey, number>;
+  chances: Partial<Record<FeatureKey, number>>;
   rules: {
     minVegetationByBiome: Record<BiomeSymbol, number>;
     vegetationChanceScalar: number;
@@ -61,7 +61,7 @@ const resolveConfig = (input: Config): ResolvedConfig => {
 
   const chanceDefaults = applySchemaDefaults(VegetatedChancesSchema, {}) as Record<string, number>;
   const chanceInput = applySchemaDefaults(VegetatedChancesSchema, owned.chances) as Record<string, number>;
-  const resolveChance = (key: VegetatedFeatureKey): number =>
+  const resolveChance = (key: FeatureKey): number =>
     clampChance(readNumber(chanceInput[key], chanceDefaults[key] ?? 0));
 
   const rulesDefaults = applySchemaDefaults(VegetatedRulesSchema, {}) as Required<
@@ -200,7 +200,7 @@ export const defaultStrategy = createStrategy(PlanVegetatedFeaturePlacementsCont
           if (!featureKey) continue;
           if (!canPlaceAt(x, y)) continue;
 
-          const baseChance = clampChance(resolved.chances[featureKey] * resolved.multiplier);
+          const baseChance = clampChance((resolved.chances[featureKey] ?? 0) * resolved.multiplier);
           const vegetationScalar = clamp01(
             (vegetationValue ?? 0) * resolved.rules.vegetationChanceScalar
           );

@@ -1,9 +1,7 @@
 import {
   Type,
-  applySchemaDefaults,
   defineOpContract,
   TypedArraySchemas,
-  type Static,
 } from "@swooper/mapgen-core/authoring";
 
 import { EcologyConfigSchema } from "../../config.js";
@@ -75,17 +73,3 @@ export const PlanVegetationEmbellishmentsContract = defineOpContract({
     default: VegetationEmbellishmentsConfigSchema,
   },
 });
-type VegetationEmbellishmentsConfig = Static<typeof VegetationEmbellishmentsConfigSchema>;
-
-export type ResolvedVegetationEmbellishmentsConfig = {
-  story: { features: Required<Static<typeof EcologyConfigSchema["properties"]["features"]>> };
-  featuresDensity: Required<Static<typeof EcologyConfigSchema["properties"]["featuresDensity"]>>;
-};
-
-export const resolveVegetationEmbellishmentsConfig = (
-  config: VegetationEmbellishmentsConfig
-): ResolvedVegetationEmbellishmentsConfig =>
-  applySchemaDefaults(
-    VegetationEmbellishmentsConfigSchema,
-    config
-  ) as ResolvedVegetationEmbellishmentsConfig;
