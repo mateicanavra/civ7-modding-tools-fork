@@ -28,9 +28,9 @@ related_to: []
 
 ## Acceptance Criteria
 
-- [ ] `PipelineExecutor.execute` / `executeAsync` are removed.
-- [ ] `executePlan` / `executePlanAsync` are the supported entrypoints and are used by runtime call sites.
-- [ ] Tests that previously relied on `execute(...)` are updated to compile a plan and call `executePlan(...)`.
+- [x] `PipelineExecutor.execute` / `executeAsync` are removed.
+- [x] `executePlan` / `executePlanAsync` are the supported entrypoints and are used by runtime call sites.
+- [x] Tests that previously relied on `execute(...)` are updated to compile a plan and call `executePlan(...)`.
 
 ## Scope Boundaries
 
