@@ -11,7 +11,7 @@ const StoryCorridorsStepConfigSchema = Type.Object(
 );
 
 export const StoryCorridorsPostStepContract = defineStepContract({
-  id: "storyCorridorsPost",
+  id: "story-corridors-post",
   phase: "hydrology",
   requires: [
     M4_EFFECT_TAGS.engine.coastlinesApplied,

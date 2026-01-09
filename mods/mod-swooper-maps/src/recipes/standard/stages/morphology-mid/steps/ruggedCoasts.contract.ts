@@ -12,7 +12,7 @@ const RuggedCoastsStepConfigSchema = Type.Object(
 );
 
 export const RuggedCoastsStepContract = defineStepContract({
-  id: "ruggedCoasts",
+  id: "rugged-coasts",
   phase: "morphology",
   requires: [
     M4_EFFECT_TAGS.engine.coastlinesApplied,

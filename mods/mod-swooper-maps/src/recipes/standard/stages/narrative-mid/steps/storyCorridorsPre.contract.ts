@@ -11,7 +11,7 @@ const StoryCorridorsStepConfigSchema = Type.Object(
 );
 
 export const StoryCorridorsPreStepContract = defineStepContract({
-  id: "storyCorridorsPre",
+  id: "story-corridors-pre",
   phase: "morphology",
   requires: [
     M4_EFFECT_TAGS.engine.coastlinesApplied,

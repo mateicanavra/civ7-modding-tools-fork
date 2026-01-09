@@ -14,7 +14,7 @@ const PlotEffectsStepConfigSchema = Type.Object(
 );
 
 export const PlotEffectsStepContract = defineStepContract({
-  id: "plotEffects",
+  id: "plot-effects",
   phase: "ecology",
   requires: [
     M3_DEPENDENCY_TAGS.artifact.heightfield,

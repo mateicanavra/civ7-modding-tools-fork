@@ -25,7 +25,7 @@ export default createStep(StoryRiftsStepContract, {
       result.motifs
     );
     if (result.summary.lineTiles === 0) {
-      devWarn(context.trace, "[smoke] storyRifts enabled but no rift tiles were emitted");
+      devWarn(context.trace, "[smoke] story-rifts enabled but no rift tiles were emitted");
     }
   },
 });
