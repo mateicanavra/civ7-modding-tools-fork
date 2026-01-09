@@ -170,3 +170,30 @@ This is the right semantic tightening: `resolveConfig` is fully removed and repl
 ### Cross-cutting Risks
 
 - “Normalize semantics” are now a core authoring contract; accidental re-introduction of runtime normalization would invalidate the “validate-only engine” target.
+
+## REVIEW m7-t07-recipe-boundary-compilation
+
+### Quick Take
+
+This is the real cutover lever: `createRecipe` now compiles author config via `compileRecipeConfig` before producing the engine execution plan, so the engine consumes canonical per-step configs.
+
+### High-Leverage Issues
+
+- `compileOpsById` is now a required part of `RecipeDefinition`; that’s great for explicitness, but it will be easy for recipe authors to forget (or to accidentally omit needed ops). Consider a helper that assembles registries from declared domains to reduce “manual wiring” errors.
+- Using `RunSettings` as compiler `env` is a pragmatic bridge; keep the type contract tight so future “true env” additions don’t implicitly depend on context-only data.
+
+### Fix Now (Recommended)
+
+- Add a small assertion in `createRecipe` that `compileOpsById` is non-null and object-ish, and a targeted test that missing `compileOpsById` fails fast with an actionable error.
+
+### Defer / Follow-up
+
+- Consider moving `compileOpsById` assembly into a reusable recipe helper once more than one recipe exists (avoids copy/paste merge logic).
+
+### Needs Discussion
+
+- Does the long-term target keep `compileConfig(settings, config)` as a public surface for tooling, or is it strictly internal to recipe execution?
+
+### Cross-cutting Risks
+
+- Recipe boundary is now the canonical compilation choke point; any drift between stage `surfaceSchema` and `compile` semantics will be concentrated here.
