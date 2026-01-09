@@ -576,23 +576,6 @@ const standardConfig = {
   },
   ecology: {
     biomes: { classify: biomesConfig, bindings: biomeBindingsConfig },
-    features: {
-      featuresPlacement: featuresPlacementConfig,
-      reefEmbellishments: {
-        strategy: "default",
-        config: {
-          story: { features: storyFeaturesConfig },
-          featuresDensity: featuresDensityConfig,
-        },
-      },
-      vegetationEmbellishments: {
-        strategy: "default",
-        config: {
-          story: { features: storyFeaturesConfig },
-          featuresDensity: featuresDensityConfig,
-        },
-      },
-    },
     "plot-effects": { plotEffects: plotEffectsConfig },
   },
   placement: {
