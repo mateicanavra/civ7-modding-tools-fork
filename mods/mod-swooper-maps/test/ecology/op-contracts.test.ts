@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import { Value } from "typebox/value";
 
 import * as ecology from "../../src/domain/ecology/index.js";
 import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
@@ -33,7 +34,7 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = applySchemaDefaults(
+    const config = Value.Default(
       ecology.ops.classifyPedology.strategies["coastal-shelf"].config,
       {}
     );
@@ -56,7 +57,7 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = applySchemaDefaults(
+    const config = Value.Default(
       ecology.ops.classifyPedology.strategies["orogeny-boosted"].config,
       {}
     );
@@ -79,7 +80,7 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = applySchemaDefaults(ecology.ops.planResourceBasins.strategies["hydro-fluvial"].config, {
+    const config = Value.Default(ecology.ops.planResourceBasins.strategies["hydro-fluvial"].config, {
       resources: [{ id: "RESOURCE_OIL", target: 3, fertilityBias: 0.8, moistureBias: 1.5, spacing: 2 }],
     });
     const result = ecology.ops.planResourceBasins.runValidated(
@@ -108,7 +109,7 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = applySchemaDefaults(ecology.ops.planResourceBasins.strategies["hydro-fluvial"].config, {
+    const config = Value.Default(ecology.ops.planResourceBasins.strategies["hydro-fluvial"].config, {
       resources: [{ id: "RESOURCE_OIL", target: 3, fertilityBias: 0.8, moistureBias: 1.5, spacing: 2 }],
     });
     const result = ecology.ops.planResourceBasins.runValidated(
@@ -380,7 +381,7 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = applySchemaDefaults(ecology.ops.planVegetation.strategies.clustered.config, {});
+    const config = Value.Default(ecology.ops.planVegetation.strategies.clustered.config, {});
     const result = ecology.ops.planVegetation.runValidated(
       {
         width,
@@ -422,7 +423,7 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = applySchemaDefaults(ecology.ops.planWetlands.strategies["delta-focused"].config, {});
+    const config = Value.Default(ecology.ops.planWetlands.strategies["delta-focused"].config, {});
     const result = ecology.ops.planWetlands.runValidated(
       {
         width,
@@ -460,7 +461,7 @@ describe("ecology op contract surfaces", () => {
     const width = 3;
     const height = 3;
     const size = width * height;
-    const config = applySchemaDefaults(ecology.ops.planReefs.strategies["shipping-lanes"].config, {});
+    const config = Value.Default(ecology.ops.planReefs.strategies["shipping-lanes"].config, {});
     const result = ecology.ops.planReefs.runValidated(
       {
         width,
@@ -496,7 +497,7 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = applySchemaDefaults(ecology.ops.planIce.strategies.continentality.config, {
+    const config = Value.Default(ecology.ops.planIce.strategies.continentality.config, {
       alpineThreshold: 1200,
     });
     const result = ecology.ops.planIce.runValidated(

@@ -2,7 +2,8 @@ import { describe, expect, it } from "bun:test";
 
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import { Value } from "typebox/value";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import * as ecology from "@mapgen/domain/ecology";
 
@@ -20,7 +21,7 @@ describe("biomes step", () => {
     const width = 4;
     const height = 3;
     const size = width * height;
-    const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
+    const directionality = Value.Default(FoundationDirectionalityConfigSchema, {}) as Static<typeof FoundationDirectionalityConfigSchema>;
     const env = {
       seed: 0,
       dimensions: { width, height },
