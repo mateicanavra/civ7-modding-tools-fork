@@ -31,11 +31,18 @@ knobs: unknown
 
 For each step, in deterministic order:
 
+Deterministic order (pinned):
+- The compiler iterates steps in `stage.steps` array order (the stage author’s explicit declaration order).
+- Stage config input is a partial step-id keyed map (for internal-as-public stages), but the step canonicalization order is **not** derived from input key order.
+- Ordering is for reproducibility (stable error ordering, stable traces). The canonicalization algorithm is step-local and must not depend on step ordering for correctness.
+
 1. `rawStep = rawInternalStage[stepId] ?? undefined`
 2. Prefill op defaults (top-level keys only; keys are discovered from `step.contract.ops`)
 3. Normalize step config via strict schema normalization (default + clean + unknown-key errors)
 4. Apply `step.normalize` (value-only) if present; re-normalize via schema
 5. Apply mechanical op normalization pass (top-level only); re-normalize via schema
+   - requires a compile-visible op registry `opsById: Record<op.id, DomainOpCompileAny>` so the compiler can bind op contracts to implementations by id
+   - the runtime op surface is structurally stripped and cannot be used for compilation (see §1.14)
 
 Output:
 - a total, canonical internal per-step config map for the stage
@@ -55,24 +62,199 @@ Non-negotiable invariants:
 Strict schema normalization helper (compiler-only) mirrors existing engine behavior (default + clean + unknown-key errors), but runs in compilation, not engine planning:
 
 ```ts
-// NEW (planned): compiler-only helper.
+// NEW (planned): compiler-only helper (implementation-pinned).
 //
 // Baseline today: `normalizeStepConfig(...)` in `packages/mapgen-core/src/engine/execution-plan.ts`
 // (uses `findUnknownKeyErrors(...)` + `Value.Default(...)` + `Value.Clean(...)` + `Value.Errors(...)`).
 //
-// NEW (planned): `CompileErrorItem` is a compiler-owned error surface (no baseline type exists today;
-// baseline uses `ExecutionPlanCompileErrorItem` in `packages/mapgen-core/src/engine/execution-plan.ts`).
-function normalizeStrict<T>(schema: TSchema, rawValue: unknown, path: string): { value: T; errors: CompileErrorItem[] } { /* ... */ }
+// NEW (planned): compiler-owned error surface (mirrors baseline shape).
+//
+// Copy-pasteable reference implementation: `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/ts/compiler.ts`
+
+import type { TSchema } from "typebox";
+import { Value } from "typebox/value";
+
+import { buildOpEnvelopeSchema } from "./ops";
+import { bindCompileOps, type DomainOpCompileAny } from "./ops";
+import type { StepModuleAny } from "./steps";
+import type { NormalizeCtx } from "./env";
+
+export type CompileErrorCode =
+  | "config.invalid"
+  | "stage.compile.failed"
+  | "op.missing"
+  | "step.normalize.failed"
+  | "op.normalize.failed"
+  | "normalize.not.shape-preserving";
+
+export type CompileErrorItem = Readonly<{
+  code: CompileErrorCode;
+  path: string;
+  message: string;
+  stageId?: string;
+  stepId?: string;
+  opKey?: string;
+  opId?: string;
+}>;
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+function joinPath(basePath: string, rawPath: string): string {
+  const base = basePath && basePath.length > 0 ? basePath : "";
+  const suffix = rawPath && rawPath.length > 0 ? rawPath : "";
+  return `${base}${suffix}`;
+}
+
+function formatErrors(
+  schema: TSchema,
+  value: unknown,
+  basePath: string
+): Array<{ path: string; message: string }> {
+  const formatted: Array<{ path: string; message: string }> = [];
+  for (const err of Value.Errors(schema, value)) {
+    const path =
+      (err as { path?: string; instancePath?: string }).path ??
+      (err as { instancePath?: string }).instancePath ??
+      "";
+    const normalizedPath = path && path.length > 0 ? path : "/";
+    formatted.push({ path: joinPath(basePath, normalizedPath), message: err.message });
+  }
+  return formatted;
+}
+
+function findUnknownKeyErrors(
+  schema: unknown,
+  value: unknown,
+  path = ""
+): Array<{ path: string; message: string }> {
+  if (!isPlainObject(schema) || !isPlainObject(value)) return [];
+
+  const anyOf = Array.isArray(schema.anyOf) ? (schema.anyOf as unknown[]) : null;
+  const oneOf = Array.isArray(schema.oneOf) ? (schema.oneOf as unknown[]) : null;
+  const candidates = anyOf ?? oneOf;
+  if (candidates) {
+    let best: Array<{ path: string; message: string }> | null = null;
+    for (const candidate of candidates) {
+      const errs = findUnknownKeyErrors(candidate, value, path);
+      if (best == null || errs.length < best.length) best = errs;
+      if (best.length === 0) break;
+    }
+    return best ?? [];
+  }
+
+  const properties = isPlainObject(schema.properties)
+    ? (schema.properties as Record<string, unknown>)
+    : null;
+  const additionalProperties = schema.additionalProperties;
+
+  const errors: Array<{ path: string; message: string }> = [];
+
+  if (properties && additionalProperties === false) {
+    for (const key of Object.keys(value)) {
+      if (!(key in properties)) {
+        errors.push({ path: `${path}/${key}`, message: "Unknown key" });
+        continue;
+      }
+      errors.push(...findUnknownKeyErrors(properties[key], value[key], `${path}/${key}`));
+    }
+    return errors;
+  }
+
+  if (properties) {
+    for (const key of Object.keys(properties)) {
+      errors.push(
+        ...findUnknownKeyErrors(properties[key], (value as any)[key], `${path}/${key}`)
+      );
+    }
+  }
+  return errors;
+}
+
+function buildValue(schema: TSchema, input: unknown): { converted: unknown; cleaned: unknown } {
+  const cloned = Value.Clone(input ?? {});
+  const defaulted = Value.Default(schema, cloned);
+  const cleaned = Value.Clean(schema, defaulted);
+  return { converted: defaulted, cleaned };
+}
+
+export function normalizeStrict<T>(
+  schema: TSchema,
+  rawValue: unknown,
+  path: string
+): { value: T; errors: CompileErrorItem[] } {
+  if (rawValue === null) {
+    const errors = formatErrors(schema, rawValue, path).map((err) => ({
+      code: "config.invalid" as const,
+      path: err.path,
+      message: err.message,
+    }));
+    return { value: rawValue as T, errors };
+  }
+
+  const input = rawValue === undefined ? {} : rawValue;
+  const unknownKeyErrors = findUnknownKeyErrors(schema, input, path);
+  const { converted, cleaned } = buildValue(schema, input);
+  const errors = [...unknownKeyErrors, ...formatErrors(schema, converted, path)].map((err) => ({
+    code: "config.invalid" as const,
+    path: err.path,
+    message: err.message,
+  }));
+
+  return { value: cleaned as T, errors };
+}
 ```
 
 Prefill op defaults (compiler-only; not schema defaulting):
 
 ```ts
-// NEW (planned): `StepModuleAny` is a future step-module surface for the compiler pipeline.
-// Baseline today:
-// - authoring step module type: `StepModule` in `packages/mapgen-core/src/authoring/types.ts`
-// - engine step type: `MapGenStep` in `packages/mapgen-core/src/engine/types.ts`
-function prefillOpDefaults(step: StepModuleAny, rawStepConfig: unknown, path: string): { value: Record<string, unknown>; errors: CompileErrorItem[] } { /* ... */ }
+// NEW (planned): compiler helper (implementation-pinned).
+//
+// Prefill is mechanical and contract-driven:
+// - discovers op keys only from `step.contract.ops`
+// - if `rawStepConfig[opKey]` is missing/undefined, installs the op contract's default envelope
+// - does not call op normalization hooks (that happens later)
+//
+// Note: defaults are derived from op contract strategy schemas via `buildOpEnvelopeSchema(...)`.
+export function prefillOpDefaults(
+  step: StepModuleAny,
+  rawStepConfig: unknown,
+  path: string
+): { value: Record<string, unknown>; errors: CompileErrorItem[] } {
+  if (rawStepConfig !== undefined && !isPlainObject(rawStepConfig)) {
+    return {
+      value: {},
+      errors: [
+        {
+          code: "config.invalid",
+          path,
+          message: "Expected object for step config",
+        },
+      ],
+    };
+  }
+
+  const value: Record<string, unknown> = { ...(rawStepConfig as Record<string, unknown> | undefined) };
+  const errors: CompileErrorItem[] = [];
+
+  const opsDecl = (step as any).contract?.ops as Record<
+    string,
+    { id: string; strategies: Record<string, TSchema> }
+  > | null;
+  if (!opsDecl) return { value, errors };
+
+  for (const opKey of Object.keys(opsDecl)) {
+    if (value[opKey] !== undefined) continue;
+    const contract = opsDecl[opKey]!;
+    const { defaultConfig } = buildOpEnvelopeSchema(contract.id, contract.strategies as any);
+    value[opKey] = Value.Clone(defaultConfig);
+  }
+
+  return { value, errors };
+}
 ```
 
 Mechanical op normalization pass (strategy-selected, schema-driven):
@@ -81,9 +263,67 @@ Mechanical op normalization pass (strategy-selected, schema-driven):
 function normalizeOpsTopLevel(
   step: StepModuleAny,
   stepConfig: Record<string, unknown>,
-  ctx: NormalizeCtx<Env, Knobs>,
+  ctx: NormalizeCtx<any, any>,
+  opsById: Readonly<Record<string, DomainOpCompileAny>>,
   path: string
-): { value: Record<string, unknown>; errors: CompileErrorItem[] } { /* ... */ }
+): { value: Record<string, unknown>; errors: CompileErrorItem[] } {
+  const errors: CompileErrorItem[] = [];
+
+  const opsDecl = (step as any).contract?.ops as Record<string, { id: string }> | null;
+  if (!opsDecl) return { value: stepConfig, errors };
+
+  // Bind compile ops (by id) so the normalization pass is structurally impossible at runtime.
+  // Important: binding errors are compiler errors (not hard throws) so they can be accumulated.
+  let compileOps: Record<string, DomainOpCompileAny>;
+  try {
+    compileOps = bindCompileOps(opsDecl, opsById) as any;
+  } catch (err) {
+    errors.push({
+      code: "op.missing",
+      path,
+      message: err instanceof Error ? err.message : "bindCompileOps failed",
+    });
+    return { value: stepConfig, errors };
+  }
+
+  let value: Record<string, unknown> = stepConfig;
+  for (const opKey of Object.keys(opsDecl)) {
+    const op = (compileOps as any)[opKey] as DomainOpCompileAny | undefined;
+    if (!op) {
+      errors.push({
+        code: "op.missing",
+        path: `${path}/${opKey}`,
+        message: `Missing op implementation for key "${opKey}"`,
+        opKey,
+        opId: (opsDecl as any)[opKey]?.id,
+      });
+      continue;
+    }
+
+    const envelope = value[opKey];
+    if (envelope === undefined) continue;
+
+    // Compile-time op normalization (optional).
+    // In baseline code this is `op.resolveConfig(envelope, settings)`. In the target architecture
+    // it is renamed to `op.normalize(envelope, ctx)` (compile-time only).
+    if (typeof (op as any).normalize === "function") {
+      try {
+        const next = (op as any).normalize(envelope, ctx);
+        value = { ...value, [opKey]: next };
+      } catch (err) {
+        errors.push({
+          code: "op.normalize.failed",
+          path: `${path}/${opKey}`,
+          message: err instanceof Error ? err.message : "op.normalize failed",
+          opKey,
+          opId: op.id,
+        });
+      }
+    }
+  }
+
+  return { value, errors };
+}
 ```
 
 Why “top-level only” is a hard model constraint:
@@ -155,3 +395,110 @@ Enforcement mechanisms (structural, not policy):
 
 ---
 
+### 1.19 Compiler error examples (pinned shape; illustrative)
+
+Errors are accumulated as `CompileErrorItem[]` and surfaced as a single `RecipeCompileError` at the compiler boundary.
+
+Example: unknown key in a step config (caught by strict schema normalization):
+
+```ts
+{
+  code: "config.invalid",
+  path: "/config/ecology/plotVegetation/extraKey",
+  message: "Unknown key",
+  stageId: "ecology",
+  stepId: "plotVegetation",
+}
+```
+
+Example: missing op implementation in the compile registry (caught during binding / op normalization):
+
+```ts
+{
+  code: "op.missing",
+  path: "/config/ecology/plotVegetation/trees",
+  message: "bindCompileOps: missing op id \"ecology/planTreeVegetation\" for key \"trees\"",
+  stageId: "ecology",
+  stepId: "plotVegetation",
+  opKey: "trees",
+  opId: "ecology/planTreeVegetation",
+}
+```
+
+Example: step.normalize violates shape-preservation (returns a value that does not validate against the same schema):
+
+```ts
+{
+  code: "normalize.not.shape-preserving",
+  path: "/config/ecology/plotVegetation",
+  message: "step.normalize returned a value that does not validate against the step schema",
+  stageId: "ecology",
+  stepId: "plotVegetation",
+}
+```
+
+---
+
+### 1.20 Testing patterns (compiler + hooks)
+
+All compiler logic should be unit-testable without the engine. Tests should target the compiler entrypoint and the helper functions described above.
+
+Minimal test skeleton (Bun test runner; repo-real):
+
+```ts
+import { expect, test } from "bun:test";
+import { Type } from "typebox";
+
+import { defineOpContract } from "@swooper/mapgen-core/authoring/op/contract";
+import { createStage } from "@swooper/mapgen-core/authoring/stage";
+import { defineStepContract, createStep } from "@swooper/mapgen-core/authoring";
+
+import { compileRecipeConfig } from "@swooper/mapgen-core/compiler/recipe-compile";
+
+test("compileRecipeConfig prefills missing op envelopes", () => {
+  const PlanTrees = defineOpContract({
+    kind: "plan",
+    id: "ecology/planTreeVegetation",
+    input: Type.Object({}, { additionalProperties: false }),
+    output: Type.Object({}, { additionalProperties: false }),
+    strategies: { default: Type.Object({}, { additionalProperties: false, default: {} }) },
+  } as const);
+
+  const contract = defineStepContract({
+    id: "plotVegetation",
+    phase: "ecology",
+    requires: [],
+    provides: [],
+    ops: { trees: PlanTrees },
+  } as const);
+
+  const step = createStep(contract, { run: async () => {} });
+
+  const stage = createStage({
+    id: "ecology",
+    steps: [step] as const,
+    knobsSchema: Type.Object({}, { additionalProperties: false, default: {} }),
+    surfaceSchema: Type.Object(
+      { knobs: Type.Optional(Type.Object({}, { additionalProperties: false, default: {} })), plotVegetation: Type.Object({}, { additionalProperties: true, default: {} }) },
+      { additionalProperties: false, default: {} }
+    ),
+    toInternal: ({ stageConfig }) => {
+      const { knobs = {}, ...rawSteps } = stageConfig as any;
+      return { knobs, rawSteps };
+    },
+  } as const);
+
+  const opsById = {
+    "ecology/planTreeVegetation": { id: "ecology/planTreeVegetation", kind: "plan" } as any,
+  };
+
+  const compiled = compileRecipeConfig({
+    env: {} as any,
+    recipe: { stages: [stage] as const },
+    config: { ecology: { plotVegetation: {} } },
+    opsById,
+  });
+
+  expect((compiled as any).ecology.plotVegetation.trees).toBeDefined();
+});
+```

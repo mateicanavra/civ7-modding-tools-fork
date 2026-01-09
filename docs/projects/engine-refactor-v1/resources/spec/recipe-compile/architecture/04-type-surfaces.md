@@ -163,6 +163,24 @@ Modify the existing planner:
   - removes config defaulting/cleaning/mutation and removes `step.resolveConfig` calls
   - validates `env` and compiled step configs only
 
+Validate-only sketch (behavior-pinned; implementation-adjacent):
+
+```ts
+// Validate-only means:
+// - collect unknown-key errors (for strict object schemas)
+// - collect schema errors via `Value.Errors`
+// - do NOT apply defaults (`Value.Default`), conversion (`Value.Convert`), or cleaning (`Value.Clean`)
+function validateOnly(schema: TSchema, value: unknown, path: string): ExecutionPlanCompileErrorItem[] {
+  const unknownKeyErrors = findUnknownKeyErrors(schema, value ?? {}, path);
+  const schemaErrors = formatErrors(schema, value, path);
+  return [...unknownKeyErrors, ...schemaErrors].map((err) => ({
+    code: "step.config.invalid" as const,
+    path: err.path,
+    message: err.message,
+  }));
+}
+```
+
 ---
 
 ## Appendix A) TypeScript surface definitions (copy-paste ready)
@@ -170,13 +188,14 @@ Modify the existing planner:
 This appendix makes every “pinned / canonical” statement above mechanically implementable in TypeScript without inventing names at implementation time.
 
 
-Split into focused files:
+The definitions in Appendix A are also provided as standalone `.ts` files under `ts/` (same folder as this doc):
 
-- `a.1-env-module.md`
-- `a.2-ops-surfaces.md`
-- `a.3-steps-surfaces.md`
-- `a.4-stages-surfaces.md`
-- `a.5-recipes-typing.md`
+- `ts/env.ts`
+- `ts/ops.ts`
+- `ts/steps.ts`
+- `ts/stages.ts`
+- `ts/recipes.ts`
+- `ts/compiler.ts`
 ### A.1 `Env` module (NEW (planned))
 
 File: `packages/mapgen-core/src/core/env.ts` **NEW (planned)**
@@ -669,9 +688,175 @@ export type CompiledRecipeConfigOf<TStages extends readonly AnyStage[]> = Readon
 // - always-on pipeline (even when stage public === internal)
 // - no runtime defaulting/cleaning: this produces canonical configs pre-runtime
 // - ordering matches §1.9 Phase A/B
-export declare function compileRecipeConfig<const TStages extends readonly AnyStage[]>(args: {
+export type CompileErrorCode =
+  | "config.invalid"
+  | "stage.compile.failed"
+  | "op.missing"
+  | "step.normalize.failed"
+  | "op.normalize.failed"
+  | "normalize.not.shape-preserving";
+
+export type CompileErrorItem = Readonly<{
+  code: CompileErrorCode;
+  path: string;
+  message: string;
+  stageId?: string;
+  stepId?: string;
+  opKey?: string;
+  opId?: string;
+}>;
+
+export class RecipeCompileError extends Error {
+  readonly errors: CompileErrorItem[];
+
+  constructor(errors: CompileErrorItem[]) {
+    const message = errors.map((err) => `${err.path}: ${err.message}`).join("; ");
+    super(`Recipe compile failed: ${message}`);
+    this.name = "RecipeCompileError";
+    this.errors = errors;
+  }
+}
+
+export function compileRecipeConfig<const TStages extends readonly AnyStage[]>(args: {
   env: Env;
   recipe: Readonly<{ stages: TStages }>;
   config: RecipeConfigInputOf<TStages> | null | undefined;
+  opsById: Readonly<Record<string, DomainOpCompileAny>>;
 }): CompiledRecipeConfigOf<TStages>;
+
+export function compileRecipeConfig(args: any): any {
+  const errors: CompileErrorItem[] = [];
+  const out: Record<string, Record<string, unknown>> = {};
+
+  const env = args.env as Env;
+  const recipe = args.recipe as Readonly<{ stages: readonly AnyStage[] }>;
+  const config = (args.config ?? {}) as Record<string, unknown>;
+  const opsById = args.opsById as Readonly<Record<string, DomainOpCompileAny>>;
+
+  for (const stage of recipe.stages) {
+    const stageId = stage.id;
+    const stagePath = `/config/${stageId}`;
+
+    const { value: stageConfig, errors: stageErrors } = normalizeStrict(
+      stage.surfaceSchema as any,
+      config[stageId],
+      stagePath
+    );
+    if (stageErrors.length > 0) {
+      errors.push(...stageErrors.map((e) => ({ ...e, stageId })));
+      continue;
+    }
+
+    let internal: StageToInternalResult<string, unknown>;
+    try {
+      internal = stage.toInternal({ env, stageConfig }) as any;
+    } catch (err) {
+      errors.push({
+        code: "stage.compile.failed",
+        path: stagePath,
+        message: err instanceof Error ? err.message : "stage.toInternal failed",
+        stageId,
+      });
+      continue;
+    }
+
+    const stageOut: Record<string, unknown> = {};
+    const { knobs, rawSteps } = internal;
+
+    for (const step of stage.steps) {
+      const stepId = step.contract.id;
+      const stepPath = `${stagePath}/${stepId}`;
+
+      // B1: prefill op defaults
+      const { value: prefilled, errors: prefillErrors } = prefillOpDefaults(
+        step as any,
+        (rawSteps as any)[stepId],
+        stepPath
+      );
+      if (prefillErrors.length > 0) {
+        errors.push(...prefillErrors.map((e) => ({ ...e, stageId, stepId })));
+        continue;
+      }
+
+      // B2: strict schema normalization (default + clean + unknown-key errors)
+      const { value: strict1, errors: strict1Errors } = normalizeStrict(
+        step.contract.schema as any,
+        prefilled,
+        stepPath
+      );
+      if (strict1Errors.length > 0) {
+        errors.push(...strict1Errors.map((e) => ({ ...e, stageId, stepId })));
+        continue;
+      }
+
+      let normalized: unknown = strict1;
+
+      // B3: step.normalize (value-only; shape-preserving)
+      if (typeof (step as any).normalize === "function") {
+        let next: unknown;
+        try {
+          next = (step as any).normalize(normalized, { env, knobs });
+        } catch (err) {
+          errors.push({
+            code: "step.normalize.failed",
+            path: stepPath,
+            message: err instanceof Error ? err.message : "step.normalize failed",
+            stageId,
+            stepId,
+          });
+          continue;
+        }
+
+        const { value: strict2, errors: strict2Errors } = normalizeStrict(
+          step.contract.schema as any,
+          next,
+          stepPath
+        );
+        if (strict2Errors.length > 0) {
+          errors.push(...strict2Errors.map((e) => ({ ...e, stageId, stepId })));
+          errors.push({
+            code: "normalize.not.shape-preserving",
+            path: stepPath,
+            message: "step.normalize returned a value that does not validate against the step schema",
+            stageId,
+            stepId,
+          });
+          continue;
+        }
+        normalized = strict2;
+      }
+
+      // B4: mechanical op normalization (top-level only)
+      const { value: opNormalized, errors: opNormErrors } = normalizeOpsTopLevel(
+        step as any,
+        normalized as any,
+        { env, knobs },
+        opsById,
+        stepPath
+      );
+      if (opNormErrors.length > 0) {
+        errors.push(...opNormErrors.map((e) => ({ ...e, stageId, stepId })));
+        continue;
+      }
+
+      // B5: strict schema normalization again
+      const { value: strict3, errors: strict3Errors } = normalizeStrict(
+        step.contract.schema as any,
+        opNormalized,
+        stepPath
+      );
+      if (strict3Errors.length > 0) {
+        errors.push(...strict3Errors.map((e) => ({ ...e, stageId, stepId })));
+        continue;
+      }
+
+      stageOut[stepId] = strict3;
+    }
+
+    out[stageId] = stageOut;
+  }
+
+  if (errors.length > 0) throw new RecipeCompileError(errors);
+  return out as CompiledRecipeConfigOf<any>;
+}
 ```
