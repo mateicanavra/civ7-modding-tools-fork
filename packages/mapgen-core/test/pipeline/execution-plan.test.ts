@@ -435,7 +435,7 @@ describe("compileExecutionPlan", () => {
     expect(observedConfig).toEqual({ value: 7 });
   });
 
-  it("applies step resolveConfig results into the plan", () => {
+  it("applies step normalize results into the plan", () => {
     const registry = new StepRegistry<unknown>();
     const OpConfigSchema = Type.Object(
       {
@@ -445,7 +445,7 @@ describe("compileExecutionPlan", () => {
     );
     const opContract = defineOpContract({
       kind: "compute",
-      id: "test/resolveConfig/op",
+      id: "test/normalize/op",
       input: Type.Object({}, { additionalProperties: false }),
       output: Type.Object({}, { additionalProperties: false }),
       strategies: {
@@ -456,9 +456,9 @@ describe("compileExecutionPlan", () => {
     const op = createOp(opContract, {
       strategies: {
         default: {
-          resolveConfig: (config, settings) => ({
+          normalize: (config, ctx) => ({
             ...config,
-            value: config.value + settings.dimensions.width,
+            value: config.value + ctx.env.dimensions.width,
           }),
           run: () => ({}),
         },
@@ -479,8 +479,8 @@ describe("compileExecutionPlan", () => {
           default: { op: op.defaultConfig },
         }
       ),
-      resolveConfig: (config, settings) => {
-        return { op: op.resolveConfig(config.op, settings) };
+      normalize: (config, ctx) => {
+        return { op: op.normalize(config.op, ctx) };
       },
       run: () => {},
     });
@@ -514,7 +514,7 @@ describe("compileExecutionPlan", () => {
         },
         { additionalProperties: false }
       ),
-      resolveConfig: () => ({ value: "bad" }),
+      normalize: () => ({ value: "bad" }),
       run: () => {},
     });
 

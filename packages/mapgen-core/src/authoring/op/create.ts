@@ -1,6 +1,6 @@
 import type { Static, TSchema } from "typebox";
 
-import type { RunSettings } from "@mapgen/engine/execution-plan.js";
+import type { NormalizeContext } from "@mapgen/engine/index.js";
 import type { CustomValidateFn } from "../validation.js";
 import type {
   OpStrategy,
@@ -36,7 +36,7 @@ export function createOp<const C extends OpContract<any, any, any, any, any>>(
 export function createOp(contract: any, impl: any): any {
   const rawStrategySchemas = contract?.strategies as Record<string, TSchema> | undefined;
   const strategyImpls = impl?.strategies as
-    | Record<string, { resolveConfig?: Function; run?: Function }>
+    | Record<string, { normalize?: Function; run?: Function }>
     | undefined;
 
   if (!rawStrategySchemas) {
@@ -66,7 +66,7 @@ export function createOp(contract: any, impl: any): any {
     }
     runtimeStrategies[id] = {
       config: strategySchemas[id]!,
-      resolveConfig: implStrategy.resolveConfig as any,
+      normalize: implStrategy.normalize as any,
       run: implStrategy.run as any,
     };
   }
@@ -79,20 +79,20 @@ export function createOp(contract: any, impl: any): any {
 
   const config = configSchema as unknown as OpConfigSchema<typeof runtimeStrategies>;
 
-  const resolveConfig = (cfg: StrategySelection<typeof runtimeStrategies>, settings: RunSettings) => {
+  const normalize = (cfg: StrategySelection<typeof runtimeStrategies>, ctx: NormalizeContext) => {
     if (!cfg || typeof cfg.strategy !== "string") {
-      throw new Error(`createOp(${contract?.id}) resolveConfig requires a strategy`);
+      throw new Error(`createOp(${contract?.id}) normalize requires a strategy`);
     }
     const selected = runtimeStrategies[cfg.strategy];
     if (!selected) {
       throw new Error(`createOp(${contract?.id}) unknown strategy "${cfg.strategy}"`);
     }
-    if (!selected.resolveConfig) {
+    if (!selected.normalize) {
       return cfg;
     }
     return {
       strategy: cfg.strategy,
-      config: selected.resolveConfig(cfg.config, settings),
+      config: selected.normalize(cfg.config, ctx),
     };
   };
 
@@ -104,7 +104,7 @@ export function createOp(contract: any, impl: any): any {
     strategies: runtimeStrategies,
     config,
     defaultConfig,
-    resolveConfig,
+    normalize,
     run: (input: any, cfg: any) => {
       if (!cfg || typeof cfg.strategy !== "string") {
         throw new Error(`createOp(${contract?.id}) requires config.strategy`);
