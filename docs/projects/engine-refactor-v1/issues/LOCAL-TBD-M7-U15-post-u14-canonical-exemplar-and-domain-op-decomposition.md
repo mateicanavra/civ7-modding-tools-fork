@@ -259,6 +259,24 @@ Acceptance criteria:
 
 ---
 
+## Completion
+- [x] 1) Ecology domain inventory + op catalog (modeling pass)
+- [x] 2) Refactor ecology ops to canonical module layout
+- [x] 3) Step refactor to contract-first action boundaries
+- [x] 4) Ecology domain index + exports
+- [x] 5) Tests and guardrails (op contract tests + lint guardrails)
+- [x] 6) Spec/workflow alignment (ecology as exemplar)
+- [x] Verification (must be green)
+  - [x] `./scripts/lint/lint-domain-refactor-guardrails.sh`
+  - [x] `pnpm -C mods/mod-swooper-maps check`
+  - [x] `pnpm -C mods/mod-swooper-maps test`
+  - [x] `pnpm -C mods/mod-swooper-maps build`
+  - [x] `pnpm -C packages/mapgen-core build`
+  - [x] `pnpm -C packages/civ7-adapter build`
+  - [x] `pnpm deploy:mods`
+
+---
+
 ## Required tests (add both)
 1) **Op contract test**
    - Validate input/config/output using `runValidated(..., { validateOutput: true })`.
