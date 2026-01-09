@@ -146,7 +146,7 @@ function toInternal({ env, stageConfig }: { env: Env; stageConfig: any }): Stage
 Add a compiler module that produces a fully canonical internal execution shape:
 
 - `packages/mapgen-core/src/compiler/recipe-compile.ts` **NEW (planned)** (note: `packages/mapgen-core/src/compiler/` does not exist today)
-  - `compileRecipeConfig({ env, recipe, config }): CompiledRecipeConfigOf<...>` **NEW (planned)**
+  - `compileRecipeConfig({ env, recipe, config, compileOpsById }): CompiledRecipeConfigOf<...>` **NEW (planned)**
   - returns a total (per-step) canonical internal tree
 
 Baseline today (repo-verified):
@@ -303,11 +303,20 @@ export function runtimeOp(op: DomainOpCompileAny): DomainOpRuntimeAny {
   };
 }
 
+export type CompileOpsById = Readonly<Record<string, DomainOpCompileAny>>;
+export type RuntimeOpsById = Readonly<Record<string, DomainOpRuntimeAny>>;
+
+export function buildRuntimeOpsById(registry: CompileOpsById): RuntimeOpsById {
+  const out: Record<string, DomainOpRuntimeAny> = {};
+  for (const [id, op] of Object.entries(registry)) out[id] = runtimeOp(op);
+  return out;
+}
+
 export type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
 
 export function bindCompileOps<const Decl extends Record<string, { id: string }>>(
   decl: Decl,
-  registryById: Readonly<Record<string, DomainOpCompileAny>>
+  registryById: CompileOpsById
 ): { [K in keyof Decl]: DomainOpCompileAny } {
   const out: any = {};
   for (const k of Object.keys(decl)) {
@@ -321,14 +330,14 @@ export function bindCompileOps<const Decl extends Record<string, { id: string }>
 
 export function bindRuntimeOps<const Decl extends Record<string, { id: string }>>(
   decl: Decl,
-  registryById: Readonly<Record<string, DomainOpCompileAny>>
+  registryById: RuntimeOpsById
 ): { [K in keyof Decl]: DomainOpRuntimeAny } {
   const out: any = {};
   for (const k of Object.keys(decl)) {
     const id = (decl as any)[k].id;
     const op = registryById[id];
     if (!op) throw new Error(`bindRuntimeOps: missing op id "${id}" for key "${k}"`);
-    out[k] = runtimeOp(op);
+    out[k] = op;
   }
   return out;
 }
@@ -535,10 +544,10 @@ Files:
 - `packages/mapgen-core/src/authoring/types.ts` (baseline; stage/recipe typing extended)
 
 ```ts
-import { Type, type Static, type TObject } from "typebox";
+import { Type, type Static, type TObject, type TSchema } from "typebox";
 
-import type { Env } from "../core/env.js";
-import type { StepContractAny, StepModule, StepConfigInputOf } from "./step/contract.js";
+import type { Env } from "./env";
+import type { StepContractAny, StepConfigInputOf, StepModule } from "./steps";
 
 export const RESERVED_STAGE_KEY = "knobs" as const;
 export type ReservedStageKey = typeof RESERVED_STAGE_KEY;
@@ -580,7 +589,67 @@ type StepConfigInputById<
   Id extends NonReservedStepIdOf<TSteps>,
 > = StepConfigInputOf<StepContractById<TSteps, Id>>;
 
-// NEW (planned): stage public schema is always an object schema (non-knob portion).
+const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+function assertKebabCaseStepIds(input: { stageId: string; stepIds: readonly string[] }): void {
+  for (const id of input.stepIds) {
+    if (!STEP_ID_RE.test(id)) {
+      throw new Error(
+        `stage("${input.stageId}") step id "${id}" must be kebab-case (e.g. "plot-vegetation")`
+      );
+    }
+  }
+}
+
+function objectProperties(schema: TObject): Record<string, TSchema> {
+  const props = (schema as any).properties as Record<string, TSchema> | undefined;
+  return props ?? {};
+}
+
+function buildInternalAsPublicSurfaceSchema(stepIds: readonly string[], knobsSchema: TObject): TObject {
+  const properties: Record<string, TSchema> = {
+    knobs: Type.Optional(knobsSchema),
+  };
+  for (const stepId of stepIds) {
+    properties[stepId] = Type.Optional(Type.Unknown());
+  }
+  return Type.Object(properties, { additionalProperties: false, default: {} });
+}
+
+function buildPublicSurfaceSchema(publicSchema: TObject, knobsSchema: TObject): TObject {
+  return Type.Object(
+    { knobs: Type.Optional(knobsSchema), ...objectProperties(publicSchema) },
+    { additionalProperties: false, default: {} }
+  );
+}
+
+export type StageCompileFn<PublicSchema extends TObject, StepId extends string, Knobs> = (args: {
+  env: Env;
+  knobs: Knobs;
+  config: Static<PublicSchema>;
+}) => Partial<Record<StepId, unknown>>;
+
+// Stage authoring surface (Option A):
+// - stage may define `public` + `compile` (public → internal)
+// - otherwise stage is internal-as-public
+// - `createStage` computes `surfaceSchema` and provides a standard `toInternal` wrapper
+export type StageDef<
+  Id extends string,
+  TContext,
+  KnobsSchema extends TObject,
+  Knobs = Static<KnobsSchema>,
+  TSteps extends StepsArray<TContext, Knobs> = StepsArray<TContext, Knobs>,
+  PublicSchema extends TObject | undefined = undefined,
+> = Readonly<{
+  id: Id;
+  steps: TSteps;
+  knobsSchema: KnobsSchema;
+  public?: PublicSchema;
+  compile?: PublicSchema extends TObject
+    ? StageCompileFn<PublicSchema, NonReservedStepIdOf<TSteps>, Knobs>
+    : undefined;
+}>;
+
 export type StageContract<
   Id extends string,
   TContext,
@@ -588,36 +657,55 @@ export type StageContract<
   Knobs = Static<KnobsSchema>,
   TSteps extends StepsArray<TContext, Knobs> = StepsArray<TContext, Knobs>,
   PublicSchema extends TObject | undefined = undefined,
-  SurfaceSchema extends TObject = TObject,
-> = Readonly<{
-  id: Id;
-  steps: TSteps;
-  knobsSchema: KnobsSchema;
-  public?: PublicSchema;
-  // Computed strict author-facing schema: knobs + (public fields OR step ids).
-  surfaceSchema: SurfaceSchema;
-  // Deterministic “public → internal” mapping: extracts knobs and produces raw step map.
-  toInternal: (args: { env: Env; stageConfig: Static<SurfaceSchema> }) => StageToInternalResult<
+> = StageDef<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema> &
+  Readonly<{
+    // Computed strict author-facing schema: knobs + (public fields OR step ids).
+    surfaceSchema: TObject;
+    // Deterministic “public → internal” mapping: extracts knobs and produces raw step map.
+    toInternal: (args: { env: Env; stageConfig: unknown }) => StageToInternalResult<
     NonReservedStepIdOf<TSteps>,
     Knobs
-  >;
-}>;
+    >;
+  }>;
+
+export type StageContractAny = StageContract<string, any, any, any, any, any>;
 
 // Factory surface (pinned):
+// - stage may optionally define `public` + `compile` (public → internal)
+// - `createStage` computes `surfaceSchema` (single author-facing surface) and provides a standard `toInternal`
 // - reserved key enforcement is a hard throw
 // - stage schemas are strict object schemas (surfaceSchema always a TObject)
-export function createStage<const TStage extends StageContract<string, any, any, any, any, any, any>>(
-  stage: TStage
-): TStage {
-  assertNoReservedStageKeys({
-    stageId: stage.id,
-    stepIds: stage.steps.map((s) => s.contract.id),
-    publicSchema: stage.public,
-  });
-  return stage;
+// - step ids are kebab-case (pinned convention)
+export function createStage<const TDef extends StageDef<string, any, any, any, any, any>>(
+  def: TDef
+): StageContractAny {
+  const stepIds = def.steps.map((s) => s.contract.id);
+  assertNoReservedStageKeys({ stageId: def.id, stepIds, publicSchema: def.public });
+  assertKebabCaseStepIds({ stageId: def.id, stepIds });
+
+  if (def.public && typeof (def as any).compile !== "function") {
+    throw new Error(`stage("${def.id}") defines "public" but does not define "compile"`);
+  }
+
+  const surfaceSchema = def.public
+    ? buildPublicSurfaceSchema(def.public, def.knobsSchema)
+    : buildInternalAsPublicSurfaceSchema(stepIds, def.knobsSchema);
+
+  const toInternal = ({ env, stageConfig }: { env: Env; stageConfig: any }) => {
+    const { knobs = {}, ...configPart } = stageConfig as any;
+    if (def.public) {
+      return {
+        knobs,
+        rawSteps: (def as any).compile({ env, knobs, config: configPart }),
+      };
+    }
+    return { knobs, rawSteps: configPart };
+  };
+
+  return { ...(def as any), surfaceSchema, toInternal } as StageContractAny;
 }
 
-export type StageConfigInputOf<TStage extends StageContract<any, any, any, any, any, any>> =
+export type StageConfigInputOf<TStage extends StageContractAny> =
   // Knobs are always present as a field (defaulting handled by `surfaceSchema`).
   Readonly<{ knobs?: Partial<Static<TStage["knobsSchema"]>> }> &
     (TStage["public"] extends TObject
@@ -642,10 +730,10 @@ Files:
 import type { Static } from "typebox";
 
 import type { Env } from "../core/env.js";
-import type { StageContract, StageConfigInputOf } from "../authoring/stage.js";
+import type { StageConfigInputOf, StageContractAny } from "../authoring/stage.js";
 import type { StepConfigOf } from "../authoring/step/contract.js";
 
-type AnyStage = StageContract<string, any, any, any, any, any, any>;
+type AnyStage = StageContractAny;
 
 type StageIdOf<TStages extends readonly AnyStage[]> = TStages[number]["id"] & string;
 
@@ -691,6 +779,7 @@ export type CompiledRecipeConfigOf<TStages extends readonly AnyStage[]> = Readon
 export type CompileErrorCode =
   | "config.invalid"
   | "stage.compile.failed"
+  | "stage.unknown-step-id"
   | "op.missing"
   | "step.normalize.failed"
   | "op.normalize.failed"
@@ -721,7 +810,7 @@ export function compileRecipeConfig<const TStages extends readonly AnyStage[]>(a
   env: Env;
   recipe: Readonly<{ stages: TStages }>;
   config: RecipeConfigInputOf<TStages> | null | undefined;
-  opsById: Readonly<Record<string, DomainOpCompileAny>>;
+  compileOpsById: Readonly<Record<string, DomainOpCompileAny>>;
 }): CompiledRecipeConfigOf<TStages>;
 
 export function compileRecipeConfig(args: any): any {
@@ -731,7 +820,7 @@ export function compileRecipeConfig(args: any): any {
   const env = args.env as Env;
   const recipe = args.recipe as Readonly<{ stages: readonly AnyStage[] }>;
   const config = (args.config ?? {}) as Record<string, unknown>;
-  const opsById = args.opsById as Readonly<Record<string, DomainOpCompileAny>>;
+  const compileOpsById = args.compileOpsById as Readonly<Record<string, DomainOpCompileAny>>;
 
   for (const stage of recipe.stages) {
     const stageId = stage.id;
@@ -754,7 +843,7 @@ export function compileRecipeConfig(args: any): any {
       errors.push({
         code: "stage.compile.failed",
         path: stagePath,
-        message: err instanceof Error ? err.message : "stage.toInternal failed",
+        message: err instanceof Error ? err.message : "stage.compile/toInternal failed",
         stageId,
       });
       continue;
@@ -762,6 +851,25 @@ export function compileRecipeConfig(args: any): any {
 
     const stageOut: Record<string, unknown> = {};
     const { knobs, rawSteps } = internal;
+
+    const declaredStepIds = new Set(
+      (stage.steps as readonly any[]).map((s) => s.contract.id).filter((id) => id !== "knobs")
+    );
+    const unknownStepIds = Object.keys((rawSteps ?? {}) as any).filter(
+      (id) => id !== "knobs" && !declaredStepIds.has(id)
+    );
+    if (unknownStepIds.length > 0) {
+      for (const id of unknownStepIds) {
+        errors.push({
+          code: "stage.unknown-step-id",
+          path: `${stagePath}/${id}`,
+          message: `Unknown step id "${id}" returned by stage.compile/toInternal (must be declared in stage.steps)`,
+          stageId,
+          stepId: id,
+        });
+      }
+      continue;
+    }
 
     for (const step of stage.steps) {
       const stepId = step.contract.id;
@@ -831,7 +939,7 @@ export function compileRecipeConfig(args: any): any {
         step as any,
         normalized as any,
         { env, knobs },
-        opsById,
+        compileOpsById,
         stepPath
       );
       if (opNormErrors.length > 0) {

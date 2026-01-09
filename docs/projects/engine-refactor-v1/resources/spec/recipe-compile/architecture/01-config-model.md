@@ -64,38 +64,16 @@ export const ecologyStage = createStage({
     { additionalProperties: false, default: {} }
   ),
 
-  // Single author-facing schema: `knobs` + (public fields OR step ids).
-  surfaceSchema: Type.Object(
-    {
-      knobs: Type.Optional(
-        Type.Object(
-          {
-            vegetationDensityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
-          },
-          { additionalProperties: false, default: {} }
-        )
-      ),
-      vegetation: Type.Object(
-        {
-          densityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
-        },
-        { additionalProperties: false, default: {} }
-      ),
-      wetlands: Type.Object({}, { additionalProperties: false, default: {} }),
-    },
-    { additionalProperties: false, default: {} }
-  ),
-
-  // Deterministic public → internal mapping. No runtime “shape detection”.
-  toInternal: ({ env, stageConfig }) => {
-    const { knobs = {}, ...configPart } = stageConfig;
+  // `createStage` computes `surfaceSchema` (single author-facing schema) and provides `toInternal`.
+  //
+  // Stage authors provide only the public → internal mapping via `compile`.
+  compile: ({ env, knobs, config }) => {
+    void env;
+    void knobs;
     return {
-      knobs,
-      rawSteps: {
-        // Important: stage compile outputs `StepConfigInputOf` values (partial; op envelopes may be omitted).
-        plotVegetation: { densityBias: configPart.vegetation.densityBias },
-        plotWetlands: {},
-      },
+      // Important: stage compile outputs `StepConfigInputOf` values (partial; op envelopes may be omitted).
+      "plot-vegetation": { densityBias: config.vegetation.densityBias },
+      "plot-wetlands": {},
     };
   },
 } as const);

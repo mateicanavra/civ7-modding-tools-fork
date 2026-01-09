@@ -1,7 +1,7 @@
-import type { StageContract, StageConfigInputOf } from "./stages";
+import type { StageConfigInputOf, StageContractAny } from "./stages";
 import type { StepConfigOf } from "./steps";
 
-type AnyStage = StageContract<string, any, any, any, any, any, any>;
+type AnyStage = StageContractAny;
 
 type StageIdOf<TStages extends readonly AnyStage[]> = TStages[number]["id"] & string;
 
@@ -37,4 +37,3 @@ export type CompiledRecipeConfigOf<TStages extends readonly AnyStage[]> = Readon
     [S in StepIdOf<StageById<TStages, K>>]: StepConfigOf<StepById<StageById<TStages, K>, S>["contract"]>;
   }>;
 }>;
-

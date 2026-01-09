@@ -14,7 +14,7 @@ This document is a **canonical consolidation pass** for the “composition-first
 
 ---
 
-## 1) Canonical Architecture
+## Canonical Architecture
 
 
 Spec package structure:
@@ -115,8 +115,9 @@ This architecture becomes tractable once these are treated as distinct channels:
 Domain (ops + strategies + contracts)
   └── exports a domain public surface (`src/domain/<domain>/index.ts`):
       - `contracts` (contract-only; safe for step contracts)
-      - `ops` (implementations; developer convenience)
-      - `opsById` (canonical binding registry; deterministic; built, not hand-maintained)
+      - `ops` (compile-surface implementations; developer convenience)
+      - `compileOpsById` (compile-surface registry by `op.id`; deterministic; built, not hand-maintained)
+      - `runtimeOpsById` (runtime-surface registry by `op.id`; deterministic; built, not hand-maintained)
   └── cross-module consumers import only from:
       - `@mapgen/domain/<domain>` (domain public surface), and
       - `@mapgen/domain/<domain>/contracts` (contract-only; safe narrow import),
@@ -149,7 +150,7 @@ Hard boundary:
 - Recipe wiring may import domain modules, but must not import from `maps/**`.
 
 ---
-## 4) Open Questions / Ambiguities (remaining)
+## Open Questions / Ambiguities (remaining)
 
 O1/O2/O3 were previously tracked as “known unknowns”, but are now **locked in** and should not be treated as open:
 
