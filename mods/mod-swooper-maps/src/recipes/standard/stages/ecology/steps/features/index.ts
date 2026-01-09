@@ -1,7 +1,8 @@
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import { FeaturesStepContract } from "./contract.js";
 import {
   buildAquaticFeaturePlacementsInput,
@@ -16,32 +17,44 @@ import { resolveFeatureKeyLookups } from "./feature-keys.js";
 
 type FeaturesStepConfig = Static<typeof FeaturesStepContract.schema>;
 
+const opContracts = {
+  planVegetatedFeaturePlacements: ecologyContracts.PlanVegetatedFeaturePlacementsContract,
+  planWetFeaturePlacements: ecologyContracts.PlanWetFeaturePlacementsContract,
+  planAquaticFeaturePlacements: ecologyContracts.PlanAquaticFeaturePlacementsContract,
+  planIceFeaturePlacements: ecologyContracts.PlanIceFeaturePlacementsContract,
+  planReefEmbellishments: ecologyContracts.PlanReefEmbellishmentsContract,
+  planVegetationEmbellishments: ecologyContracts.PlanVegetationEmbellishmentsContract,
+} as const;
+
+const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
+const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
+
 export default createStep(FeaturesStepContract, {
   normalize: (config, ctx) => {
     return {
       featuresPlacement: {
-        vegetated: ecology.ops.planVegetatedFeaturePlacements.normalize(
+        vegetated: compileOps.planVegetatedFeaturePlacements.normalize(
           config.featuresPlacement.vegetated,
           ctx
         ),
-        wet: ecology.ops.planWetFeaturePlacements.normalize(
+        wet: compileOps.planWetFeaturePlacements.normalize(
           config.featuresPlacement.wet,
           ctx
         ),
-        aquatic: ecology.ops.planAquaticFeaturePlacements.normalize(
+        aquatic: compileOps.planAquaticFeaturePlacements.normalize(
           config.featuresPlacement.aquatic,
           ctx
         ),
-        ice: ecology.ops.planIceFeaturePlacements.normalize(
+        ice: compileOps.planIceFeaturePlacements.normalize(
           config.featuresPlacement.ice,
           ctx
         ),
       },
-      reefEmbellishments: ecology.ops.planReefEmbellishments.normalize(
+      reefEmbellishments: compileOps.planReefEmbellishments.normalize(
         config.reefEmbellishments,
         ctx
       ),
-      vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.normalize(
+      vegetationEmbellishments: compileOps.planVegetationEmbellishments.normalize(
         config.vegetationEmbellishments,
         ctx
       ),
@@ -51,7 +64,7 @@ export default createStep(FeaturesStepContract, {
     const featureLookups = resolveFeatureKeyLookups(context.adapter);
 
     const iceInput = buildIceFeaturePlacementsInput(context, featureLookups);
-    const iceResult = ecology.ops.planIceFeaturePlacements.runValidated(
+    const iceResult = runtimeOps.planIceFeaturePlacements.runValidated(
       iceInput,
       config.featuresPlacement.ice
     );
@@ -60,7 +73,7 @@ export default createStep(FeaturesStepContract, {
     }
 
     const aquaticInput = buildAquaticFeaturePlacementsInput(context, featureLookups);
-    const aquaticResult = ecology.ops.planAquaticFeaturePlacements.runValidated(
+    const aquaticResult = runtimeOps.planAquaticFeaturePlacements.runValidated(
       aquaticInput,
       config.featuresPlacement.aquatic
     );
@@ -73,7 +86,7 @@ export default createStep(FeaturesStepContract, {
       config.featuresPlacement.wet.config,
       featureLookups
     );
-    const wetResult = ecology.ops.planWetFeaturePlacements.runValidated(
+    const wetResult = runtimeOps.planWetFeaturePlacements.runValidated(
       wetInput,
       config.featuresPlacement.wet
     );
@@ -82,7 +95,7 @@ export default createStep(FeaturesStepContract, {
     }
 
     const vegetatedInput = buildVegetatedFeaturePlacementsInput(context, featureLookups);
-    const vegetatedResult = ecology.ops.planVegetatedFeaturePlacements.runValidated(
+    const vegetatedResult = runtimeOps.planVegetatedFeaturePlacements.runValidated(
       vegetatedInput,
       config.featuresPlacement.vegetated
     );
@@ -91,7 +104,7 @@ export default createStep(FeaturesStepContract, {
     }
 
     const reefInput = buildReefEmbellishmentsInput(context, featureLookups);
-    const reefResult = ecology.ops.planReefEmbellishments.runValidated(
+    const reefResult = runtimeOps.planReefEmbellishments.runValidated(
       reefInput,
       config.reefEmbellishments
     );
@@ -101,7 +114,7 @@ export default createStep(FeaturesStepContract, {
     }
 
     const vegetationInput = buildVegetationEmbellishmentsInput(context, featureLookups);
-    const vegetationResult = ecology.ops.planVegetationEmbellishments.runValidated(
+    const vegetationResult = runtimeOps.planVegetationEmbellishments.runValidated(
       vegetationInput,
       config.vegetationEmbellishments
     );

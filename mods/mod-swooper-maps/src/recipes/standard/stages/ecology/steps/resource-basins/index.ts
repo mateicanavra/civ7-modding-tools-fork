@@ -1,12 +1,21 @@
 import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
 import type { HeightfieldBuffer } from "@swooper/mapgen-core";
 import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import { getPublishedClimateField, isPedologyArtifactV1 } from "../../../../artifacts.js";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { ResourceBasinsStepContract } from "./contract.js";
 
 type ResourceBasinsStepConfig = Static<typeof ResourceBasinsStepContract.schema>;
+
+const opContracts = {
+  planResourceBasins: ecologyContracts.ResourcePlanBasinsContract,
+  scoreResourceBasins: ecologyContracts.ResourceScoreBalanceContract,
+} as const;
+
+const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
+const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
 
 const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer => {
   if (!value || typeof value !== "object") return false;
@@ -16,8 +25,8 @@ const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer
 
 export default createStep(ResourceBasinsStepContract, {
   normalize: (config, ctx) => ({
-    plan: ecology.ops.planResourceBasins.normalize(config.plan, ctx),
-    score: ecology.ops.scoreResourceBasins.normalize(config.score, ctx),
+    plan: compileOps.planResourceBasins.normalize(config.plan, ctx),
+    score: compileOps.scoreResourceBasins.normalize(config.score, ctx),
   }),
   run: (context, config: ResourceBasinsStepConfig) => {
     const { width, height } = context.dimensions;
@@ -41,7 +50,7 @@ export default createStep(ResourceBasinsStepContract, {
     const climate = getPublishedClimateField(context);
     if (!climate) throw new Error("ResourceBasinsStep: Missing climate field.");
 
-    const planned = ecology.ops.planResourceBasins.runValidated(
+    const planned = runtimeOps.planResourceBasins.runValidated(
       {
         width,
         height,
@@ -54,7 +63,7 @@ export default createStep(ResourceBasinsStepContract, {
       config.plan
     );
 
-    const balanced = ecology.ops.scoreResourceBasins.runValidated(planned, config.score);
+    const balanced = runtimeOps.scoreResourceBasins.runValidated(planned, config.score);
 
     context.artifacts.set(M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1, balanced);
   },
