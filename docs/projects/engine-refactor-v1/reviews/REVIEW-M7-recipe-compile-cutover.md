@@ -359,7 +359,6 @@ This is the right migration pattern: steps bind ops by id, do compile-time norma
 ### Cross-cutting Risks
 
 - As more steps adopt this pattern, the distinction between compile-time ops vs runtime ops becomes critical; accidental mixing will be subtle and hard to debug without enforcement.
-
 ## REVIEW m7-t14-ecology-stage-public-compile
 
 ### Quick Take
