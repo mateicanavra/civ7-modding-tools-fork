@@ -43,6 +43,7 @@ describe("authoring: hello recipe compile/execute", () => {
       namespace: "test",
       tagDefinitions: [],
       stages: [helloStage],
+      compileOpsById: {},
     });
 
     const adapter = createMockAdapter({ width: 8, height: 6, mapSizeId: 1 });
