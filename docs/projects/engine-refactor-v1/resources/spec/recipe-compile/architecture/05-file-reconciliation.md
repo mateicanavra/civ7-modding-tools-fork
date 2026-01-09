@@ -68,17 +68,48 @@ Executor (`packages/mapgen-core/src/engine/PipelineExecutor.ts`):
 
 This is a sequencing suggestion to avoid breaking the repo with an “all-at-once” cutover.
 
-1. Land compiler-owned helpers + entrypoint skeleton (`packages/mapgen-core/src/compiler/*` **NEW (planned)**) with unit tests for normalization + envelope prefill.
-2. Land `packages/mapgen-core/src/authoring/bindings.ts` (**NEW (planned)**) and update step contract factories for ops-derived schema behavior (O3 constraints unchanged).
-3. Update one stage end-to-end (single-stage migration slice):
-   - stage `public` + `compile` (optional)
-   - `createStage` computes `surfaceSchema` + provides `toInternal`
-   - `compileRecipeConfig` used by that stage’s recipe entry before engine plan compilation
-4. Remove executor-side defaulting:
+This section is intentionally aligned with the M7 cutover milestone sequencing (DX-first, risk-later).
+
+Slice 1 — Compiler + authoring scaffolding (no behavior cutover yet)
+
+1. Land compiler-owned helpers + entrypoint skeleton (`packages/mapgen-core/src/compiler/*` **NEW (planned)**) with unit tests for:
+   - strict schema normalization (`normalizeStrict`)
+   - op envelope default prefilling (`prefillOpDefaults`)
+   - top-level op normalization pass (`normalizeOpsTopLevel`)
+   - compiler error aggregation behavior (no silent short-circuiting)
+2. Land authoring scaffolding (new, non-invasive surfaces; not yet wired into runtime):
+   - `packages/mapgen-core/src/authoring/bindings.ts` **NEW (planned)** (`bindCompileOps` / `bindRuntimeOps`)
+   - step contract factory upgrades (ops-derived step schema; O3 constraint unchanged)
+   - stage factory Option A surfaces (computed `surfaceSchema`, standard `toInternal`, kebab-case step id enforcement)
+   - op hook rename scaffolding (`op.resolveConfig` → `op.normalize` dispatching by `envelope.strategy`) in authoring types/factories
+
+Slice 2 — Recipe boundary adoption + non-ecology staged migrations
+
+3. Introduce recipe boundary compilation at the mod/recipe entrypoints:
+   - `compileRecipeConfig` runs before `compileExecutionPlan`
+   - recipe-owned assembly of `compileOpsById` (merge domain registries) is explicit and local to the recipe boundary
+4. Migrate stages incrementally (per-stage slice; keep repo runnable after each stage):
+   - convert stage authoring to Option A (optional `public` + `compile`; internal-as-public otherwise)
+   - convert step modules to kebab-case ids and ops-declared contracts (ops listed once; compiler prefills envelopes)
+   - ensure all config defaulting/cleaning/canonicalization happens in the compiler (not in steps/ops at runtime)
+
+Slice 3 — Engine validate-only flip (high-risk churn; land after compiler adoption)
+
+5. Remove executor-side runtime config synthesis:
    - make `PipelineExecutor.execute*` internal-only or delete it
    - keep `executePlan*` as the only supported executor entrypoint
-5. Switch engine planner to validate-only and remove `step.resolveConfig` calls.
-6. Rename `settings` → `env` across engine/core/recipes once the compiler is the sole normalizer.
+6. Switch engine planner to validate-only and remove `step.resolveConfig` calls:
+   - remove step-config default/convert/clean mutation during plan compilation
+   - keep validation (run request envelope + step existence + compiled step configs) and preserve error surface shape
+
+Slice 4 — Ecology exemplar migration + polish
+
+7. Refactor the ecology domain to the canonical domain entrypoint shape (`contracts`, `compileOpsById`, `runtimeOpsById`), and migrate its steps/stages to the canonical authoring patterns.
+
+Slice 5 — Cleanup (no legacy left)
+
+8. Do not introduce compatibility shims; if any internal-only bridge was unavoidable to keep the repo runnable between slices, delete it here (explicit deletion pass).
+9. Rename `settings` → `env` across engine/core/recipes once compilation is the sole normalizer, and delete the legacy naming (no long-lived alias).
 
 ---
 
