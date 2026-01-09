@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Authoring step contracts own IDs/metadata (Stage Option A)** [Source: LOCAL-TBD-M7-B2]
+  - **Context:** Stage Option A requires stage surfaces derived from step IDs; we moved step fields under `contract` to align with compile surfaces.
+  - **Type:** triage
+  - **Notes:** This accelerates the API shift but avoids parallel shims; check downstream authoring/SDK call sites for assumptions about top-level step fields.
+  - **Next check:** before finalizing stage/recipe authoring docs or exposing authoring SDK externally.
+
 - **Compiler normalize error path joinPath handling** [Source: LOCAL-TBD-M7-A1]
   - **Context:** M7 A1 compiler normalize helpers reuse execution-plan joinPath behavior to avoid trailing slashes on root error paths.
   - **Type:** triage
