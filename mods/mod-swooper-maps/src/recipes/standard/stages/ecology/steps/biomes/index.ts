@@ -22,6 +22,10 @@ import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
 type BiomesStepConfig = Static<typeof BiomesStepContract.schema>;
 
 export default createStep(BiomesStepContract, {
+  resolveConfig: (config, settings) => ({
+    classify: ecology.ops.classifyBiomes.resolveConfig(config.classify, settings),
+    bindings: config.bindings,
+  }),
   run: (context: ExtendedMapContext, config: BiomesStepConfig) => {
     const { width, height } = context.dimensions;
     const size = width * height;
