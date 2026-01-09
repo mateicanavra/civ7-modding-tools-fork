@@ -1,4 +1,4 @@
-import { Type, type Static, type TSchema } from "typebox";
+import type { Static, TSchema } from "typebox";
 
 import type { RunSettings } from "@mapgen/engine/execution-plan.js";
 import type { CustomValidateFn } from "../validation.js";
@@ -9,7 +9,7 @@ import type {
 } from "./strategy.js";
 import type { DomainOp, OpConfigSchema } from "./types.js";
 import type { OpContract } from "./contract.js";
-import { buildDefaultConfigValue } from "./defaults.js";
+import { buildOpEnvelopeSchema } from "./envelope.js";
 import { attachValidationSurface } from "./validation-surface.js";
 
 type RuntimeStrategiesForContract<C extends OpContract<any, any, any, any, any>> = Readonly<{
@@ -34,12 +34,12 @@ export function createOp<const C extends OpContract<any, any, any, any, any>>(
 ): DomainOp<C["input"], C["output"], RuntimeStrategiesForContract<C>>;
 
 export function createOp(contract: any, impl: any): any {
-  const strategySchemas = contract?.strategies as Record<string, TSchema> | undefined;
+  const rawStrategySchemas = contract?.strategies as Record<string, TSchema> | undefined;
   const strategyImpls = impl?.strategies as
     | Record<string, { resolveConfig?: Function; run?: Function }>
     | undefined;
 
-  if (!strategySchemas) {
+  if (!rawStrategySchemas) {
     throw new Error(`createOp(${contract?.id ?? "unknown"}) requires a contract`);
   }
 
@@ -47,17 +47,19 @@ export function createOp(contract: any, impl: any): any {
     throw new Error(`createOp(${contract?.id ?? "unknown"}) requires strategies`);
   }
 
-  if (!Object.prototype.hasOwnProperty.call(strategySchemas, "default")) {
-    throw new Error(`createOp(${contract?.id}) missing required "default" strategy`);
+  if (!Object.prototype.hasOwnProperty.call(rawStrategySchemas, "default")) {
+    throw new Error(`createOp(${contract?.id}) missing required "default" strategy schema`);
   }
 
-  const ids = Object.keys(strategySchemas);
-  if (ids.length === 0) {
-    throw new Error(`createOp(${contract?.id}) received empty strategies`);
-  }
+  const strategySchemas = rawStrategySchemas as typeof rawStrategySchemas & { default: TSchema };
+
+  const { schema: configSchema, defaultConfig, strategyIds } = buildOpEnvelopeSchema(
+    contract.id,
+    strategySchemas
+  );
 
   const runtimeStrategies: Record<string, OpStrategy<TSchema, unknown, unknown>> = {};
-  for (const id of ids) {
+  for (const id of strategyIds) {
     const implStrategy = strategyImpls[id];
     if (!implStrategy) {
       throw new Error(`createOp(${contract?.id}) missing strategy "${id}"`);
@@ -75,25 +77,7 @@ export function createOp(contract: any, impl: any): any {
     }
   }
 
-  const defaultInnerConfig = buildDefaultConfigValue(strategySchemas.default) as Record<
-    string,
-    unknown
-  >;
-  const defaultConfig = { strategy: "default", config: defaultInnerConfig };
-
-  const configCases = ids.map((id) =>
-    Type.Object(
-      {
-        strategy: Type.Literal(id),
-        config: strategySchemas[id]!,
-      },
-      { additionalProperties: false }
-    )
-  );
-
-  const config = Type.Union(configCases as any, {
-    default: defaultConfig,
-  }) as unknown as OpConfigSchema<typeof runtimeStrategies>;
+  const config = configSchema as unknown as OpConfigSchema<typeof runtimeStrategies>;
 
   const resolveConfig = (cfg: StrategySelection<typeof runtimeStrategies>, settings: RunSettings) => {
     if (!cfg || typeof cfg.strategy !== "string") {
