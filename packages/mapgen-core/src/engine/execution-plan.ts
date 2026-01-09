@@ -5,7 +5,7 @@ import { Type, type Static, type TSchema } from "typebox";
 import { Value } from "typebox/value";
 
 import type { StepRegistry } from "@mapgen/engine/StepRegistry.js";
-import type { GenerationPhase, MapGenStep } from "@mapgen/engine/types.js";
+import type { GenerationPhase } from "@mapgen/engine/types.js";
 
 const UnknownRecord = Type.Record(Type.String(), Type.Unknown(), { default: {} });
 
@@ -120,8 +120,7 @@ export interface ExecutionPlan {
 export type ExecutionPlanCompileErrorCode =
   | "runRequest.invalid"
   | "step.unknown"
-  | "step.config.invalid"
-  | "step.normalize.failed";
+  | "step.config.invalid";
 
 export interface ExecutionPlanCompileErrorItem {
   code: ExecutionPlanCompileErrorCode;
@@ -235,20 +234,13 @@ function formatErrors(
   return formattedErrors;
 }
 
-function buildValue(schema: TSchema, input: unknown): { converted: unknown; cleaned: unknown } {
-  const cloned = Value.Clone(input ?? {});
-  const defaulted = Value.Default(schema, cloned);
-  const cleaned = Value.Clean(schema, defaulted);
-  return { converted: defaulted, cleaned };
-}
-
 function parseRunRequest(input: unknown): RunRequest {
-  const unknownKeyErrors = findUnknownKeyErrors(RunRequestSchema, input ?? {}, "");
-  const { converted, cleaned } = buildValue(RunRequestSchema, input);
-  const errors = [
-    ...unknownKeyErrors,
-    ...formatErrors(RunRequestSchema, converted, ""),
-  ];
+  const unknownKeyErrors = findUnknownKeyErrors(
+    RunRequestSchema,
+    isPlainObject(input) ? input : {},
+    ""
+  );
+  const errors = [...unknownKeyErrors, ...formatErrors(RunRequestSchema, input, "")];
 
   if (errors.length > 0) {
     throw new ExecutionPlanCompileError(
@@ -260,101 +252,24 @@ function parseRunRequest(input: unknown): RunRequest {
     );
   }
 
-  return cleaned as RunRequest;
+  return input as RunRequest;
 }
 
-function normalizeStepConfig(
+function validateStepConfig(
   schema: TSchema,
   rawValue: unknown,
   path: string
 ): { value: unknown; errors: ExecutionPlanCompileErrorItem[] } {
-  if (rawValue === null) {
-    const errors = formatErrors(schema, rawValue, path).map((err) => ({
+  const unknownKeyErrors = findUnknownKeyErrors(schema, rawValue, path);
+  const errors = [...unknownKeyErrors, ...formatErrors(schema, rawValue, path)].map(
+    (err) => ({
       code: "step.config.invalid" as const,
       path: err.path,
       message: err.message,
-    }));
-    return { value: rawValue, errors };
-  }
-
-  const input = rawValue === undefined ? {} : rawValue;
-  const unknownKeyErrors = findUnknownKeyErrors(schema, input, path);
-  const { converted, cleaned } = buildValue(schema, input);
-  const errors = [
-    ...unknownKeyErrors,
-    ...formatErrors(schema, converted, path),
-  ].map((err) => ({
-    code: "step.config.invalid" as const,
-    path: err.path,
-    message: err.message,
-  }));
-
-  return { value: cleaned, errors };
-}
-
-function buildNodeConfig<TContext>(
-  step: MapGenStep<TContext, unknown>,
-  recipeStep: RecipeStepV2,
-  settings: RunSettings,
-  path: string
-): { config: unknown; errors: ExecutionPlanCompileErrorItem[] } {
-  if (!step.configSchema) {
-    if (step.normalize) {
-      return {
-        config: recipeStep.config ?? {},
-        errors: [
-          {
-            code: "step.normalize.failed",
-            path,
-            message: "normalize requires configSchema",
-          },
-        ],
-      };
-    }
-    return { config: recipeStep.config ?? {}, errors: [] };
-  }
-
-  const { value, errors } = normalizeStepConfig(step.configSchema, recipeStep.config, path);
-  if (errors.length > 0 || !step.normalize) {
-    return { config: value, errors };
-  }
-
-  const normalizeCtx = { env: settings, knobs: {} };
-  let resolved: unknown;
-  try {
-    resolved = step.normalize(value, normalizeCtx);
-  } catch (err) {
-    return {
-      config: value,
-      errors: [
-        {
-          code: "step.normalize.failed",
-          path,
-          message: err instanceof Error ? err.message : "normalize failed",
-        },
-      ],
-    };
-  }
-
-  if (!isPlainObject(resolved)) {
-    return {
-      config: value,
-      errors: [
-        {
-          code: "step.normalize.failed",
-          path,
-          message: "normalize must return a plain object",
-        },
-      ],
-    };
-  }
-
-  const { value: resolvedValue, errors: resolvedErrors } = normalizeStepConfig(
-    step.configSchema,
-    resolved,
-    path
+    })
   );
-  return { config: resolvedValue, errors: resolvedErrors };
+
+  return { value: rawValue, errors };
 }
 
 export function compileExecutionPlan<TContext>(
@@ -395,20 +310,23 @@ export function compileExecutionPlan<TContext>(
 
     const registryStep = registry.get(step.id);
     const configPath = `/recipe/steps/${index}/config`;
-    const { config, errors: configErrors } = buildNodeConfig(
-      registryStep,
-      step,
-      settings,
-      configPath
-    );
-    if (configErrors.length > 0) {
-      errors.push(
-        ...configErrors.map((err) => ({
-          ...err,
-          stepId: step.id,
-        }))
+    let config = step.config;
+    if (registryStep.configSchema) {
+      const { value, errors: configErrors } = validateStepConfig(
+        registryStep.configSchema,
+        step.config,
+        configPath
       );
-      return;
+      if (configErrors.length > 0) {
+        errors.push(
+          ...configErrors.map((err) => ({
+            ...err,
+            stepId: step.id,
+          }))
+        );
+        return;
+      }
+      config = value;
     }
 
     nodes.push({

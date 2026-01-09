@@ -2,7 +2,6 @@ import { describe, it, expect } from "bun:test";
 import { Type } from "typebox";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
-import { createOp, defineOpContract } from "@mapgen/authoring/index.js";
 
 import {
   compileExecutionPlan,
@@ -51,7 +50,7 @@ describe("compileExecutionPlan", () => {
           steps: [
             {
               id: "alpha",
-              config: {},
+              config: { value: 3 },
             },
           ],
         },
@@ -393,7 +392,55 @@ describe("compileExecutionPlan", () => {
     }
   });
 
-  it("passes resolved config into step.run", () => {
+  it("fails when config is missing for a step schema", () => {
+    const registry = new StepRegistry<unknown>();
+    registry.register({
+      id: "alpha",
+      phase: "foundation",
+      requires: [],
+      provides: [],
+      configSchema: Type.Object(
+        {
+          value: Type.Number(),
+        },
+        { additionalProperties: false }
+      ),
+      run: () => {},
+    });
+
+    expect(() =>
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 2,
+            steps: [{ id: "alpha" }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      )
+    ).toThrow(ExecutionPlanCompileError);
+
+    try {
+      compileExecutionPlan(
+        {
+          recipe: {
+            schemaVersion: 2,
+            steps: [{ id: "alpha" }],
+          },
+          settings: baseSettings,
+        },
+        registry
+      );
+    } catch (err) {
+      expect(err).toBeInstanceOf(ExecutionPlanCompileError);
+      const errors = (err as ExecutionPlanCompileError).errors;
+      expect(errors[0].code).toBe("step.config.invalid");
+      expect(errors[0].path).toBe("/recipe/steps/0/config");
+    }
+  });
+
+  it("passes config through to step.run without defaulting", () => {
     const registry = new StepRegistry<unknown>();
     let observedConfig: unknown = null;
     registry.register({
@@ -416,7 +463,7 @@ describe("compileExecutionPlan", () => {
       {
         recipe: {
           schemaVersion: 2,
-          steps: [{ id: "alpha", config: {} }],
+          steps: [{ id: "alpha", config: { value: 11 } }],
         },
         settings: baseSettings,
       },
@@ -432,76 +479,10 @@ describe("compileExecutionPlan", () => {
     const executor = new PipelineExecutor(registry, { log: () => {} });
     executor.executePlan(context, plan);
 
-    expect(observedConfig).toEqual({ value: 7 });
+    expect(observedConfig).toEqual({ value: 11 });
   });
 
-  it("applies step normalize results into the plan", () => {
-    const registry = new StepRegistry<unknown>();
-    const OpConfigSchema = Type.Object(
-      {
-        value: Type.Number({ default: 2 }),
-      },
-      { additionalProperties: false, default: {} }
-    );
-    const opContract = defineOpContract({
-      kind: "compute",
-      id: "test/normalize/op",
-      input: Type.Object({}, { additionalProperties: false }),
-      output: Type.Object({}, { additionalProperties: false }),
-      strategies: {
-        default: OpConfigSchema,
-      },
-    });
-
-    const op = createOp(opContract, {
-      strategies: {
-        default: {
-          normalize: (config, ctx) => ({
-            ...config,
-            value: config.value + ctx.env.dimensions.width,
-          }),
-          run: () => ({}),
-        },
-      },
-    });
-
-    registry.register({
-      id: "alpha",
-      phase: "foundation",
-      requires: [],
-      provides: [],
-      configSchema: Type.Object(
-        {
-          op: op.config,
-        },
-        {
-          additionalProperties: false,
-          default: { op: op.defaultConfig },
-        }
-      ),
-      normalize: (config, ctx) => {
-        return { op: op.normalize(config.op, ctx) };
-      },
-      run: () => {},
-    });
-
-    const plan = compileExecutionPlan(
-      {
-        recipe: {
-          schemaVersion: 2,
-          steps: [{ id: "alpha" }],
-        },
-        settings: baseSettings,
-      },
-      registry
-    );
-
-    expect(plan.nodes[0].config).toEqual({
-      op: { strategy: "default", config: { value: 12 } },
-    });
-  });
-
-  it("re-validates resolver output against the schema", () => {
+  it("does not invoke step normalize during plan compilation", () => {
     const registry = new StepRegistry<unknown>();
     registry.register({
       id: "alpha",
@@ -512,41 +493,27 @@ describe("compileExecutionPlan", () => {
         {
           value: Type.Number(),
         },
-        { additionalProperties: false }
+        {
+          additionalProperties: false,
+        }
       ),
-      normalize: () => ({ value: "bad" }),
+      normalize: () => {
+        throw new Error("normalize should not be called");
+      },
       run: () => {},
     });
 
-    expect(() =>
-      compileExecutionPlan(
-        {
-          recipe: {
-            schemaVersion: 2,
-            steps: [{ id: "alpha", config: { value: 1 } }],
-          },
-          settings: baseSettings,
+    const plan = compileExecutionPlan(
+      {
+        recipe: {
+          schemaVersion: 2,
+          steps: [{ id: "alpha", config: { value: 12 } }],
         },
-        registry
-      )
-    ).toThrow(ExecutionPlanCompileError);
+        settings: baseSettings,
+      },
+      registry
+    );
 
-    try {
-      compileExecutionPlan(
-        {
-          recipe: {
-            schemaVersion: 2,
-            steps: [{ id: "alpha", config: { value: 1 } }],
-          },
-          settings: baseSettings,
-        },
-        registry
-      );
-    } catch (err) {
-      expect(err).toBeInstanceOf(ExecutionPlanCompileError);
-      const errors = (err as ExecutionPlanCompileError).errors;
-      expect(errors[0].code).toBe("step.config.invalid");
-      expect(errors[0].path).toBe("/recipe/steps/0/config/value");
-    }
+    expect(plan.nodes[0].config).toEqual({ value: 12 });
   });
 });
