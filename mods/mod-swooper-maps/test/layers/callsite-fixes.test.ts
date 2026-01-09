@@ -114,9 +114,9 @@ describe("CIV-18: Call-site Fixes", () => {
 
   describe("biomes op exports", () => {
     it("classifyBiomes exposes a runnable op with defaults", async () => {
-      const { classifyBiomes } = await import("@mapgen/domain/ecology/ops/classify-biomes/index.js");
-      expect(typeof classifyBiomes.run).toBe("function");
-      expect(classifyBiomes.defaultConfig).toBeDefined();
+      const ecology = await import("@mapgen/domain/ecology");
+      expect(typeof ecology.ops.classifyBiomes.run).toBe("function");
+      expect(ecology.ops.classifyBiomes.defaultConfig).toBeDefined();
     });
   });
 });

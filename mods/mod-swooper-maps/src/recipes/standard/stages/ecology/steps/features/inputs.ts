@@ -8,8 +8,7 @@ import {
   getPublishedNarrativeMotifsMargins,
 } from "../../../../artifacts.js";
 import type * as ecology from "@mapgen/domain/ecology";
-import type { PlanWetFeaturePlacementsTypes } from "@mapgen/domain/ecology/ops/plan-wet-feature-placements/index.js";
-import { WetRulesSchema } from "@mapgen/domain/ecology/ops/plan-wet-feature-placements/index.js";
+import { WetRulesSchema, type PlanWetFeaturePlacementsTypes } from "@mapgen/domain/ecology/contracts";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { assertHeightfield, buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";
