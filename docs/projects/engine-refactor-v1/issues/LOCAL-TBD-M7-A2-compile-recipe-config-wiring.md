@@ -30,10 +30,10 @@ Wire Phase A + Phase B into a single entrypoint that produces `CompiledRecipeCon
 
 ## Acceptance Criteria
 
-- [ ] `compileRecipeConfig({ env, recipe, config, compileOpsById })` exists and follows the spec's ordering (Phase A then Phase B).
-- [ ] Compiler rejects unknown keys in per-stage rawSteps (excluding the reserved `"knobs"` key).
-- [ ] Compiler errors include deterministic attribution: stageId + stepId + path (stable ordering across runs).
-- [ ] Unit tests compile a minimal synthetic recipe/stage/steps and assert: (a) canonicalization ordering, (b) unknown-step-id errors, (c) op envelope prefill behavior.
+- [x] `compileRecipeConfig({ env, recipe, config, compileOpsById })` exists and follows the spec's ordering (Phase A then Phase B).
+- [x] Compiler rejects unknown keys in per-stage rawSteps (excluding the reserved `"knobs"` key).
+- [x] Compiler errors include deterministic attribution: stageId + stepId + path (stable ordering across runs).
+- [x] Unit tests compile a minimal synthetic recipe/stage/steps and assert: (a) canonicalization ordering, (b) unknown-step-id errors, (c) op envelope prefill behavior.
 
 ## Scope Boundaries
 
