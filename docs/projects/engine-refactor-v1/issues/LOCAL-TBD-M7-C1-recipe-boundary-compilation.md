@@ -33,9 +33,9 @@ Today the runtime call chain is: `recipe.run(...)` -> `compileExecutionPlan(...)
 
 ## Acceptance Criteria
 
-- [ ] `createRecipe` compiles author-facing stage config via `compileRecipeConfig` before engine plan compilation.
-- [ ] Recipe boundary assembles a recipe-owned `compileOpsById` explicitly (by merging domain registries used by the recipe/stages).
-- [ ] `RecipeConfigInputOf` and `CompiledRecipeConfigOf` are updated to represent stage surface input vs compiled per-step output (as pinned by spec; note O2 is closed).
+- [x] `createRecipe` compiles author-facing stage config via `compileRecipeConfig` before engine plan compilation.
+- [x] Recipe boundary assembles a recipe-owned `compileOpsById` explicitly (by merging domain registries used by the recipe/stages).
+- [x] `RecipeConfigInputOf` and `CompiledRecipeConfigOf` are updated to represent stage surface input vs compiled per-step output (as pinned by spec; note O2 is closed).
 
 ## Scope Boundaries
 
@@ -86,3 +86,12 @@ Today the runtime call chain is: `recipe.run(...)` -> `compileExecutionPlan(...)
 - [Scope Boundaries](#scope-boundaries)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Implementation Decisions
+
+### Use RunSettings as compiler env
+- **Context:** `compileRecipeConfig` requires an `env` at the recipe boundary, but only `RunSettings` is available there today.
+- **Options:** Use `RunSettings` directly, derive env from `ExtendedMapContext`, introduce a new env wrapper type.
+- **Choice:** Use `RunSettings` directly as the compiler env.
+- **Rationale:** The spec env schema matches `RunSettings`, and the recipe boundary already receives settings.
+- **Risk:** If future compiler inputs depend on context-only data, this mapping may need revision.
