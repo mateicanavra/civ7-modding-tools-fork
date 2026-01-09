@@ -35,11 +35,11 @@ Migrate the standard recipe to the new authoring surface incrementally, keeping 
 
 ## Acceptance Criteria
 
-- [ ] Stage config input is a single object per stage and matches one of:
+- [x] Stage config input is a single object per stage and matches one of:
   - internal-as-public: `{ knobs, ...[stepId]: unknown }` (step fields remain unknown at Phase A), or
   - public+compile: `{ knobs, ...publicFields }` validated by `stage.public`, then compiled by `stage.compile`.
-- [ ] Compiled output is total: `stageId -> stepId -> canonical step config` (no missing required envelopes/config).
-- [ ] At least one migrated stage runs end-to-end through compiler -> plan -> `executePlan` and passes tests.
+- [x] Compiled output is total: `stageId -> stepId -> canonical step config` (no missing required envelopes/config).
+- [x] At least one migrated stage runs end-to-end through compiler -> plan -> `executePlan` and passes tests.
 
 ## Scope Boundaries
 
@@ -82,3 +82,12 @@ Migrate the standard recipe to the new authoring surface incrementally, keeping 
 - [Scope Boundaries](#scope-boundaries)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Implementation Decisions
+
+### Drop legacy ecology features config in map presets
+- **Context:** Map presets still authored `ecology.features` (legacy step id) which fails compiler validation now that the stage uses `features-plan`/`features-apply`.
+- **Options:** Keep a temporary stage-level public compile shim, map legacy `features` into the new step configs, or remove the legacy block and rely on defaults.
+- **Choice:** Remove the legacy `features` block from map presets and standard-run config.
+- **Rationale:** Keeps stage input strictly keyed by step ids without introducing compatibility shims ahead of the ecology refactor.
+- **Risk:** Preset tuning for feature placement/embellishments is lost until E2/E3 reintroduce explicit config mapping.
