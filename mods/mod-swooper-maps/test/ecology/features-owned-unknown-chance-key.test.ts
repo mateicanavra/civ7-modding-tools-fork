@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import { planVegetatedFeaturePlacements } from "@mapgen/domain/ecology/ops/plan-vegetated-feature-placements/index.js";
+import * as ecology from "@mapgen/domain/ecology";
 
 describe("baseline feature placement config", () => {
   it("rejects unknown chance keys", () => {
@@ -27,10 +27,9 @@ describe("baseline feature placement config", () => {
           FEATURE_FAKE_FEATURE: 20,
         },
       },
-    } as unknown as Parameters<typeof planVegetatedFeaturePlacements.validate>[1];
+    } as unknown as Parameters<typeof ecology.ops.planVegetatedFeaturePlacements.validate>[1];
 
-    const result = planVegetatedFeaturePlacements.validate(input, config);
+    const result = ecology.ops.planVegetatedFeaturePlacements.validate(input, config);
     expect(result.ok).toBe(false);
   });
 });
-

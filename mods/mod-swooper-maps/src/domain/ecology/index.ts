@@ -43,6 +43,8 @@ export const ops = {
 export const compileOpsById = buildOpsById(ops);
 export const runtimeOpsById = buildRuntimeOpsById(compileOpsById);
 
+export * from "./contracts.js";
+
 export {
   EcologyConfigSchema,
   type EcologyConfig,
