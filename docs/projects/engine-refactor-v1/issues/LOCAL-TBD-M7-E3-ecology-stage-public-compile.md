@@ -29,9 +29,9 @@ Use ecology to demonstrate the optional stage public schema and compile mapping 
 
 ## Acceptance Criteria
 
-- [ ] Ecology stage defines `knobsSchema` and an explicit `public` schema.
-- [ ] Ecology stage `compile` maps public fields to internal per-step configs deterministically.
-- [ ] Compiler error examples (unknown step ids, unknown keys, schema errors) are exercised end-to-end using ecology as the reference.
+- [x] Ecology stage defines `knobsSchema` and an explicit `public` schema.
+- [x] Ecology stage `compile` maps public fields to internal per-step configs deterministically.
+- [x] Compiler error examples (unknown step ids, unknown keys, schema errors) are exercised end-to-end using ecology as the reference.
 
 ## Scope Boundaries
 
