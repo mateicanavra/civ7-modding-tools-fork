@@ -32,9 +32,9 @@ Baseline ecology steps still use step-level `resolveConfig(...)` that delegates 
 
 ## Acceptance Criteria
 
-- [ ] Ecology steps do not export or use step-level `resolveConfig` (no runtime normalization).
-- [ ] Step configs are normalized at compile time via step.normalize and/or op.normalize (per the compiler pipeline).
-- [ ] Runtime step code calls ops via `runtimeOpsById` (by id), not `ecology.ops.*` implementation objects.
+- [x] Ecology steps do not export or use step-level `resolveConfig` (no runtime normalization).
+- [x] Step configs are normalized at compile time via step.normalize and/or op.normalize (per the compiler pipeline).
+- [x] Runtime step code calls ops via `runtimeOpsById` (by id), not `ecology.ops.*` implementation objects.
 
 ## Scope Boundaries
 
