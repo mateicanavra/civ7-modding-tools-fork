@@ -34,6 +34,7 @@ Land compiler primitives (strict schema normalization + op envelope prefill + er
 - [x] `normalizeStrict(schema, raw, path)` reports unknown-key errors deterministically and in a stable path format.
 - [x] `prefillOpDefaults(stepContract, rawStepConfig, path)` installs missing op envelopes **only** based on contract-declared ops (no nested scanning).
 - [x] Unit tests cover: unknown keys, null/undefined behavior, and error path formatting; tests are deterministic.
+- [x] Unit tests cover `normalizeOpsTopLevel` failures for `op.missing` and `op.normalize.failed` with stable codes/paths.
 
 ## Scope Boundaries
 
