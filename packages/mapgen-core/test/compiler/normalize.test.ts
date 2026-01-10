@@ -74,7 +74,7 @@ describe("compiler normalize helpers", () => {
   });
 
   it("reports op.missing when a contract op has no implementation", () => {
-    const op = defineOpContract({
+    const op = defineOp({
       kind: "plan",
       id: "test/plan",
       input: Type.Object({}, { additionalProperties: false }),
@@ -105,7 +105,7 @@ describe("compiler normalize helpers", () => {
   });
 
   it("reports op.normalize.failed when op.normalize throws", () => {
-    const op = defineOpContract({
+    const op = defineOp({
       kind: "plan",
       id: "test/plan",
       input: Type.Object({}, { additionalProperties: false }),
