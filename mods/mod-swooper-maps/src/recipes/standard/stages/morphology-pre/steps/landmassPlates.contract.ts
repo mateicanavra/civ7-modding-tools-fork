@@ -1,9 +1,9 @@
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { LandmassConfigSchema, MorphologyConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
-const LandmassPlatesStepContract = defineStepContract({
+const LandmassPlatesStepContract = defineStep({
   id: "landmass-plates",
   phase: "morphology",
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],

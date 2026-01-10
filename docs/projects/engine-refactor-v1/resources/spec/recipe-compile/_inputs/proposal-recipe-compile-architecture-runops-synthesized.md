@@ -26,9 +26,9 @@ This aligns with `docs/projects/engine-refactor-v1/resources/spec/recipe-compile
 
 Step authoring supports exactly these shapes (one schema, no dual sources of truth):
 
-- **Schema-only**: `defineStepContract({ ..., schema })`
-- **Ops-only**: `defineStepContract({ ..., ops })` with schema omitted; schema is derived from op envelope schemas.
-- **Ops + explicit schema**: `defineStepContract({ ..., ops, schema })`; schema is author-owned, but factories overwrite op-key property schemas from `ops` contracts so authors don’t duplicate envelope schemas.
+- **Schema-only**: `defineStep({ ..., schema })`
+- **Ops-only**: `defineStep({ ..., ops })` with schema omitted; schema is derived from op envelope schemas.
+- **Ops + explicit schema**: `defineStep({ ..., ops, schema })`; schema is author-owned, but factories overwrite op-key property schemas from `ops` contracts so authors don’t duplicate envelope schemas.
 
 This is the closed O3 in `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/open-questions.md`.
 
@@ -125,7 +125,7 @@ The pinned “canonical step module” pattern lives in:
 Key properties:
 
 - Step contracts declare ops as **op contracts** (not `OpRef`).
-- `defineStepContract` derives:
+- `defineStep` derives:
   - `opRefs` from op contracts (id + envelope schema)
   - a single authoritative step `schema`:
     - derived (ops-only), or
@@ -346,9 +346,9 @@ export const opsById = {
 ```ts
 // src/domain/ecology/ops/plan-tree-vegetation/contract.ts
 import { Type } from "typebox";
-import { defineOpContract } from "@swooper/mapgen-core/authoring";
+import { defineOp } from "@swooper/mapgen-core/authoring";
 
-export const planTreeVegetationContract = defineOpContract({
+export const planTreeVegetationContract = defineOp({
   domainId: "ecology",
   id: "ecology/planTreeVegetation",
   kind: "plan",
@@ -395,10 +395,10 @@ Compiler-facing note (pinned behavior): the compiler calls **envelope-level** `o
 
 ```ts
 // src/recipes/standard/stages/ecology/steps/plot-vegetation/contract.ts
-import { defineStepContract } from "@swooper/mapgen-core/authoring";
+import { defineStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
-export const contract = defineStepContract({
+export const contract = defineStep({
   id: "plot-vegetation",
   phase: "ecology",
   requires: ["artifact:heightfield"],

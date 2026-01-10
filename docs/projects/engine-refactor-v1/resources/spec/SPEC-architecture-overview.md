@@ -85,7 +85,7 @@
 **Core SDK (`CORE_SDK_ROOT`) owns:**
 - Runtime execution (`StepRegistry`, `TagRegistry`, `ExecutionPlan` compile, `PipelineExecutor`)
 - Engine-owned context surface (adapter I/O + buffers + artifact store + tracing)
-- Authoring ergonomics (`defineStepContract`, `createStepFor`, `createStage`, `createRecipe`)
+- Authoring ergonomics (`defineStep`, `createStepFor`, `createStage`, `createRecipe`)
 - Neutral utilities (`lib/**`) and optional diagnostics (`dev/**`)
 
 **Content packages (mods) own:**

@@ -26,7 +26,7 @@ A step module should export:
 
 A step module should import:
 
-- `defineStepContract` from core authoring
+- `defineStep` from core authoring
 - `createStep` from the canonical authoring entrypoint (`@swooper/mapgen-core/authoring`), or from a mod-local authoring barrel that re-exports it (pick one entrypoint per package; do not mix)
 - `bindRuntimeOps` (and sometimes `bindCompileOps` in compiler-only code; not used by runtime `run`)
 - Domain **contracts** for op declarations (IDs + schemas), imported via the domain contract surface (`@mapgen/domain/<domain>/contracts`)
@@ -104,13 +104,13 @@ function buildRuntimeOpsById(
 
 import { Type } from "typebox";
 
-import { bindRuntimeOps, createStep, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { bindRuntimeOps, createStep, defineStep } from "@swooper/mapgen-core/authoring";
 
 // Domain public surface (canonical): step modules never deep-import op files.
 import * as ecology from "@mapgen/domain/ecology";
 import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 
-export const contract = defineStepContract({
+export const contract = defineStep({
   id: "plot-vegetation",
   phase: "ecology",
   requires: ["artifact:biomes", "artifact:heightfield"],
@@ -125,7 +125,7 @@ export const contract = defineStepContract({
   // O3: if you need non-op fields, you MUST provide an explicit schema.
   // Here we have `densityBias`, so we author the schema explicitly.
   //
-  // `defineStepContract` overwrites the op keys (`trees`, `shrubs`) with their derived
+  // `defineStep` overwrites the op keys (`trees`, `shrubs`) with their derived
   // envelope schemas (see §1.15 + Appendix A), so authors do not duplicate envelope schemas.
   schema: Type.Object(
     {

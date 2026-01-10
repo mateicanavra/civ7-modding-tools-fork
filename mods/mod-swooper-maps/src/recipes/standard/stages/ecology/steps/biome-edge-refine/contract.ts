@@ -1,8 +1,8 @@
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
-const BiomeEdgeRefineStepContract = defineStepContract({
+const BiomeEdgeRefineStepContract = defineStep({
   id: "biome-edge-refine",
   phase: "ecology",
   requires: [

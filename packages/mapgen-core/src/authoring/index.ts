@@ -1,4 +1,4 @@
-export { createStep, createStepFor, defineStepContract } from "./step/index.js";
+export { createStep, createStepFor, defineStep } from "./step/index.js";
 export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
 export {
@@ -8,7 +8,7 @@ export {
   createDomainOpsSurface,
   runtimeOp,
 } from "./bindings.js";
-export { createOp, createStrategy, defineOpContract, opRef } from "./op/index.js";
+export { createOp, createStrategy, defineOp, opRef } from "./op/index.js";
 export { defineOpSchema } from "./schema.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
 export { Type } from "typebox";

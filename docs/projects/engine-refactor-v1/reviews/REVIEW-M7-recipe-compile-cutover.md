@@ -402,7 +402,7 @@ Solid end-to-end compiler entrypoint: stage surface normalization → stage `toI
 
 ### Quick Take
 
-Good guardrail: kebab-case enforcement is pushed into both `defineStepContract` (authoring SDK) and `createStage` (runtime composition), and the repo’s step ids were updated accordingly with tests.
+Good guardrail: kebab-case enforcement is pushed into both `defineStep` (authoring SDK) and `createStage` (runtime composition), and the repo’s step ids were updated accordingly with tests.
 
 ### High-Leverage Issues
 
@@ -411,7 +411,7 @@ Good guardrail: kebab-case enforcement is pushed into both `defineStepContract` 
 
 ### Fix Now (Recommended)
 
-- Add one test that asserts the exact error message shape for a bad id in both entrypoints (`defineStepContract` vs `createStage`) so tooling can rely on it.
+- Add one test that asserts the exact error message shape for a bad id in both entrypoints (`defineStep` vs `createStage`) so tooling can rely on it.
 
 ### Defer / Follow-up
 

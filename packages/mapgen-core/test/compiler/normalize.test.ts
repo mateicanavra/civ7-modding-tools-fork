@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { Type } from "typebox";
 
-import { defineOpContract } from "@mapgen/authoring/index.js";
+import { defineOp } from "@mapgen/authoring/index.js";
 import {
   normalizeOpsTopLevel,
   normalizeStrict,
@@ -50,7 +50,7 @@ describe("compiler normalize helpers", () => {
   });
 
   it("prefills op envelopes based on contract ops", () => {
-    const op = defineOpContract({
+    const op = defineOp({
       kind: "plan",
       id: "test/plan",
       input: Type.Object({}, { additionalProperties: false }),

@@ -75,7 +75,7 @@ Instead:
 
 ### D5 — Inline schema definitions default `additionalProperties: false`
 
-**Decision:** In definition factories (`defineStepContract`, `defineStage`, `defineOpContract`), if the schema is provided inline, we auto-inject `additionalProperties: false` (and do so consistently). No new globally-usable “schema helper type” is introduced.
+**Decision:** In definition factories (`defineStep`, `defineStage`, `defineOp`), if the schema is provided inline, we auto-inject `additionalProperties: false` (and do so consistently). No new globally-usable “schema helper type” is introduced.
 
 **Why:** authoring ergonomics + consistent strictness, without proliferating ad hoc schema helpers.
 
@@ -418,14 +418,14 @@ So schema inference from ops is not safe as a general rule.
 
 ### 7.3 But we still remove boilerplate: ops-driven schema synthesis is supported
 
-**Canonical behavior:** `defineStepContract` can *derive* schema/defaults from `ops` **only when you opt into that shortcut**.
+**Canonical behavior:** `defineStep` can *derive* schema/defaults from `ops` **only when you opt into that shortcut**.
 
 You can do either:
 
 **Explicit schema (always valid):**
 
 ```ts
-defineStepContract({
+defineStep({
   id: "...",
   schema: Type.Object({ refine: ecology.ops.refineBiomeEdges.config }, /* ... */),
   ops: { refine: ecology.ops.refineBiomeEdges },
@@ -435,7 +435,7 @@ defineStepContract({
 **Or ops-derived schema (shortcut):**
 
 ```ts
-defineStepContract({
+defineStep({
   id: "...",
   ops: { refine: ecology.ops.refineBiomeEdges }, // derive schema + defaults from op.config + op.defaultConfig
 });
@@ -497,7 +497,7 @@ These examples are written to align with real semantics from the existing codeba
 
 ```ts
 // mods/mod-swooper-maps/src/domain/ecology/ops/refine-biome-edges/index.ts
-export const refineBiomeEdgesContract = defineOpContract({
+export const refineBiomeEdgesContract = defineOp({
   id: "ecology/refineBiomeEdges",
   kind: "mutate",
 
@@ -534,7 +534,7 @@ export const refineBiomeEdges = createOp(refineBiomeEdgesContract, {
 ```ts
 // mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biome-edge-refine/contract.ts
 export const BiomeEdgeRefineStep = defineStep({
-  contract: defineStepContract({
+  contract: defineStep({
     id: "biome-edge-refine",
     phase: "ecology",
     requires: [/* ... */],
@@ -635,7 +635,7 @@ This addresses your critique directly: I’m showing the **step contract first**
 ### 1) Domain ops: `planTreeVegetation` and `planShrubVegetation`
 
 ```ts
-export const planTreeVegetationContract = defineOpContract({
+export const planTreeVegetationContract = defineOp({
   id: "ecology/planTreeVegetation",
   kind: "compute",
   input: PlanVegetationInputSchema,
@@ -684,7 +684,7 @@ This is the piece you said was “half-assed” in the earlier examples: here it
 ```ts
 // mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/step.ts
 export const PlotVegetationStep = defineStep({
-  contract: defineStepContract({
+  contract: defineStep({
     id: "plot-vegetation",
     phase: "ecology",
     requires: [/* ... */],
@@ -871,8 +871,8 @@ This is a pure DX improvement and reduces import duplication.
 
 **Adopted.**
 
-* `defineStepContract({ schema: { ...fields } })` wraps with `Type.Object(fields, { additionalProperties:false })`.
-* Same pattern applies to `createStage({ public: { ...fields } })`, `knobs`, and `defineOpContract` when provided inline.
+* `defineStep({ schema: { ...fields } })` wraps with `Type.Object(fields, { additionalProperties:false })`.
+* Same pattern applies to `createStage({ public: { ...fields } })`, `knobs`, and `defineOp` when provided inline.
 
 We do **not** introduce a new globally reusable schema builder type; the shorthand is only recognized inside these factories.
 

@@ -1,4 +1,4 @@
-export { defineOpContract } from "./contract.js";
+export { defineOp } from "./contract.js";
 export { createOp } from "./create.js";
 export { createStrategy } from "./strategy.js";
 export { opRef } from "./ref.js";

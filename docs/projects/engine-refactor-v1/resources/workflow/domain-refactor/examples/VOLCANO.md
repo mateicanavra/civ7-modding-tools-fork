@@ -52,9 +52,9 @@ src/recipes/standard/stages/morphology-post/steps/volcanoes/
 
 ```ts
 // src/domain/morphology/volcanoes/ops/compute-suitability/contract.ts
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
-export const ComputeSuitabilityContract = defineOpContract({
+export const ComputeSuitabilityContract = defineOp({
   kind: "compute",
   id: "morphology/volcanoes/compute-suitability",
   input: Type.Object(
@@ -152,9 +152,9 @@ This operation has interchangeable strategies. The op contract stays stable; int
 
 ```ts
 // src/domain/morphology/volcanoes/ops/plan-volcanoes/contract.ts
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
-export const PlanVolcanoesContract = defineOpContract({
+export const PlanVolcanoesContract = defineOp({
   kind: "plan",
   id: "morphology/volcanoes/plan-volcanoes",
   input: Type.Object(
@@ -410,10 +410,10 @@ The step owns adapter/engine interaction and artifact publishing. The step never
 
 ```ts
 // src/recipes/standard/stages/morphology-post/steps/volcanoes/contract.ts
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
 
-export const VolcanoesStepContract = defineStepContract({
+export const VolcanoesStepContract = defineStep({
   id: "volcanoes",
   phase: "morphology-post",
   requires: ["artifact:plates", "field:elevation"],

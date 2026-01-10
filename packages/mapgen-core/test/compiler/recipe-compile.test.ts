@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { Type } from "typebox";
 
-import { defineOpContract } from "@mapgen/authoring/index.js";
+import { defineOp } from "@mapgen/authoring/index.js";
 import type { DomainOpCompileAny } from "@mapgen/authoring/index.js";
 import { compileRecipeConfig, RecipeCompileError } from "@mapgen/compiler/recipe-compile.js";
 
@@ -9,7 +9,7 @@ describe("compileRecipeConfig", () => {
   it("applies canonicalization ordering and op defaults", () => {
     const calls: string[] = [];
 
-    const op = defineOpContract({
+    const op = defineOp({
       kind: "plan",
       id: "test/op",
       input: Type.Object({}, { additionalProperties: false }),

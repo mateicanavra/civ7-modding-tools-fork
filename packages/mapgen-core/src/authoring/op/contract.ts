@@ -20,7 +20,7 @@ export type OpContract<
   strategies: Strategies;
 }>;
 
-export function defineOpContract<
+export function defineOp<
   const Kind extends DomainOpKind,
   const Id extends string,
   const InputSchema extends TSchema,

@@ -1,6 +1,6 @@
-import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineOp } from "@swooper/mapgen-core/authoring";
 
-const PlanFloodplainsContract = defineOpContract({
+const PlanFloodplainsContract = defineOp({
   kind: "plan",
   id: "placement/plan-floodplains",
   input: Type.Object({}),

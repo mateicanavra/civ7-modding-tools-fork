@@ -23,7 +23,7 @@ Use these as the **literal roots** when executing the workflow in `civ7-modding-
   - Generated artifacts: `mods/mod-swooper-maps/mod/` (read-only; never hand-edit)
 - Core SDK:
   - Package root: `packages/mapgen-core/`
-  - Authoring contracts: `packages/mapgen-core/src/authoring/` (`defineStepContract`, `createStepFor`, `defineOpContract`, `createOp`)
+  - Authoring contracts: `packages/mapgen-core/src/authoring/` (`defineStep`, `createStepFor`, `defineOp`, `createOp`)
   - Plan compilation (config canonicalization boundary): `packages/mapgen-core/src/engine/execution-plan.ts`
 - Standard recipe (stage braid reality):
   - Recipe root: `mods/mod-swooper-maps/src/recipes/standard/`
@@ -50,7 +50,7 @@ Domain public surface:
 ## Op module shape (one op per module)
 
 Each op is a directory module under `ops/**` (no exceptions):
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/contract.ts` (op contract via `defineOpContract`)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/contract.ts` (op contract via `defineOp`)
 - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/types.ts` (type-only exports via `OpTypeBag`)
 - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/rules/` (pure rule helpers)
 - `mods/mod-swooper-maps/src/domain/<domain>/ops/<op>/rules/index.ts` (runtime barrel)

@@ -62,9 +62,9 @@ Step sizing note:
 
 ```ts
 // src/domain/<domain>/ops/<op>/contract.ts
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
-export const MyOpContract = defineOpContract({
+export const MyOpContract = defineOp({
   kind: "compute",
   id: "<domain>/<area>/<verb>",
   input: Type.Object(
@@ -146,7 +146,7 @@ Hard rule:
 ### Compile-time enforcement reality (must match engine behavior)
 
 - `step.resolveConfig` is executed during plan compilation in `packages/mapgen-core/src/engine/execution-plan.ts`.
-- If a step defines `resolveConfig` it must also define a schema (`defineStepContract({ schema: ... })`), otherwise plan compilation produces `step.resolveConfig.failed` with message `resolveConfig requires configSchema`.
+- If a step defines `resolveConfig` it must also define a schema (`defineStep({ schema: ... })`), otherwise plan compilation produces `step.resolveConfig.failed` with message `resolveConfig requires configSchema`.
 - The engine normalizes the resolver output through the same schema again (defaults/cleaning + unknown-key checks). Resolver output must remain schema-valid and must not add internal-only fields.
 
 ### Allowed vs forbidden merges (resolver vs runtime)

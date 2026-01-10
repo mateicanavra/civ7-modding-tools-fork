@@ -1,9 +1,9 @@
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { FoundationConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
-const FoundationStepContract = defineStepContract({
+const FoundationStepContract = defineStep({
   id: "foundation",
   phase: "foundation",
   requires: [],

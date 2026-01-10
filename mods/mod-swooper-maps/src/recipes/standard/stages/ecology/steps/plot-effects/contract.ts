@@ -1,9 +1,9 @@
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
-const PlotEffectsStepContract = defineStepContract({
+const PlotEffectsStepContract = defineStep({
   id: "plot-effects",
   phase: "ecology",
   requires: [

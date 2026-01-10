@@ -268,7 +268,7 @@ TypeScript (pinned surfaces):
 
 Step contracts:
 - Baseline today (repo-verified):
-  - `StepContract` / `defineStepContract(...)`: `packages/mapgen-core/src/authoring/step/contract.ts`
+  - `StepContract` / `defineStep(...)`: `packages/mapgen-core/src/authoring/step/contract.ts`
   - `createStep(...)` enforces an explicit `contract.schema`: `packages/mapgen-core/src/authoring/step/create.ts`
   - step module hook today is `resolveConfig(config, settings: RunSettings)` (not `normalize`): `packages/mapgen-core/src/authoring/types.ts`
 - **NEW (planned)**:
@@ -302,7 +302,7 @@ type StepOpsOf<TDecl extends StepOpsDecl> = Readonly<{ [K in keyof TDecl & strin
 ```
 
 Step module binding (conceptual):
-- step contract declares ops as contracts; `defineStepContract` derives envelope schemas/refs for compiler use (cheap; no impl bundling)
+- step contract declares ops as contracts; `defineStep` derives envelope schemas/refs for compiler use (cheap; no impl bundling)
 - step module binds contract ids → actual op implementations from the domain registry (see §1.14)
 - runtime step implementation uses bound runtime ops via module-scope closure (see §1.13), not via engine signatures
 
@@ -471,7 +471,7 @@ Why “top-level only” is a hard model constraint:
 
 This is in-scope for this landing (explicit decision):
 
-- **NEW (planned)**: if `defineStepContract` is called with `ops` and **no explicit schema**, auto-generate a strict step schema where:
+- **NEW (planned)**: if `defineStep` is called with `ops` and **no explicit schema**, auto-generate a strict step schema where:
   - each op key becomes a required property whose schema is the op envelope schema
   - `additionalProperties: false` is defaulted inside the factory
 
@@ -481,9 +481,9 @@ Important: `schema` is not required just because `ops` exists:
 - In both cases, there is still only one step schema; there is no separate step `inputSchema`.
 
 Concretely, the v1 authoring surface supports (and only supports) these shapes:
-- `defineStepContract({ ..., schema })` — explicit schema-owned step config (no ops-derived schema).
-- `defineStepContract({ ..., ops })` — ops-only step config; schema is derived from op envelopes (DX shortcut).
-- `defineStepContract({ ..., ops, schema })` — explicit hybrid schema (author-owned); `ops` declares which envelope keys exist, and factories overwrite those op keys with their derived envelope schemas (authors do not duplicate envelope schemas).
+- `defineStep({ ..., schema })` — explicit schema-owned step config (no ops-derived schema).
+- `defineStep({ ..., ops })` — ops-only step config; schema is derived from op envelopes (DX shortcut).
+- `defineStep({ ..., ops, schema })` — explicit hybrid schema (author-owned); `ops` declares which envelope keys exist, and factories overwrite those op keys with their derived envelope schemas (authors do not duplicate envelope schemas).
 
 Contract-level helper (no op impl bundling):
 
@@ -491,7 +491,7 @@ Contract-level helper (no op impl bundling):
 // Baseline today (repo-verified): shared envelope derivation exists:
 // - `buildOpEnvelopeSchema(...)`: `packages/mapgen-core/src/authoring/op/envelope.ts`
 //
-// NEW (planned): `defineStepContract({ ops, schema? })` derives op-envelope schemas from the provided
+// NEW (planned): `defineStep({ ops, schema? })` derives op-envelope schemas from the provided
 // op contracts and (optionally) auto-derives the step schema when `schema` is omitted.
 //
 // DX intent:
@@ -578,7 +578,7 @@ A step module should export:
 
 A step module should import:
 
-- `defineStepContract` and `createStep` from authoring (core)
+- `defineStep` and `createStep` from authoring (core)
 - `bindRuntimeOps` (and sometimes `bindCompileOps` in compiler-only code; not used by runtime `run`)
 - Domain **contracts** for op declarations (IDs + schemas)
 - Domain **ops registry** for runtime binding (by id)
@@ -591,7 +591,7 @@ A step module should import:
 
 import { Type } from "typebox";
 
-import { defineStepContract, createStep } from "@swooper/mapgen-core/authoring";
+import { defineStep, createStep } from "@swooper/mapgen-core/authoring";
 import { bindRuntimeOps } from "@swooper/mapgen-core/authoring/bindings";
 
 // Domain contracts (pure) — used only for ops declaration + schema derivation
@@ -601,7 +601,7 @@ import { PlanShrubVegetationContract } from "@mapgen/domain/ecology/ops/plan-shr
 // Domain runtime ops registry (impl) — used only for runtime binding
 import { ecologyOpsById } from "@mapgen/domain/ecology/ops-by-id";
 
-export const contract = defineStepContract({
+export const contract = defineStep({
   id: "plot-vegetation",
   phase: "ecology",
   requires: ["artifact:biomes", "artifact:heightfield"],
@@ -616,7 +616,7 @@ export const contract = defineStepContract({
   // O3: if you need non-op fields, you MUST provide an explicit schema.
   // Here we have `densityBias`, so we author the schema explicitly.
   //
-  // `defineStepContract` overwrites the op keys (`trees`, `shrubs`) with their derived
+  // `defineStep` overwrites the op keys (`trees`, `shrubs`) with their derived
   // envelope schemas (see §1.15 + Appendix A), so authors do not duplicate envelope schemas.
   schema: Type.Object(
     {
@@ -975,17 +975,17 @@ Why this example exists:
 Contract (NEW (planned) step; op contracts may already exist in split form or may be introduced during domain refactors):
 
 ```ts
-import { defineStepContract } from "@swooper/mapgen-core/authoring";
+import { defineStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 // NEW (planned): export `contracts` from the domain entrypoint alongside `ops`.
 // Baseline today: `ecology.ops` exists; individual op modules export contracts, but there is no
 // consolidated `ecology.contracts` yet.
 
-export const PlotVegetationContract = defineStepContract({
+export const PlotVegetationContract = defineStep({
   id: "plotVegetation",
   phase: "ecology",
-  // Ops are declared as contracts (DX); `defineStepContract` derives `OpRef`s internally.
+  // Ops are declared as contracts (DX); `defineStep` derives `OpRef`s internally.
   ops: {
     // Example “focused ops” (preferred):
     // - plan-tree-vegetation
@@ -1377,15 +1377,15 @@ function deriveOpRefs<const TDecl extends StepOpsDecl>(ops: TDecl): StepOpRefsOf
   return out as StepOpRefsOf<TDecl>;
 }
 
-export function defineStepContract<const Schema extends TSchema, const Id extends string>(
+export function defineStep<const Schema extends TSchema, const Id extends string>(
   def: StepContractSchemaOnly<Schema, Id>
 ): StepContractSchemaOnly<Schema, Id>;
 
-export function defineStepContract<const TDecl extends StepOpsDecl, const Id extends string>(
+export function defineStep<const TDecl extends StepOpsDecl, const Id extends string>(
   def: StepContractBase<Id> & Readonly<{ ops: TDecl; schema?: undefined }>
 ): StepContractOpsOnly<TDecl, Id>;
 
-export function defineStepContract<
+export function defineStep<
   const TDecl extends StepOpsDecl,
   const Schema extends TObject,
   const Id extends string,
@@ -1399,7 +1399,7 @@ export function defineStepContract<
     }>
 ): StepContractHybrid<TDecl, Schema, Id>;
 
-export function defineStepContract(def: any): any {
+export function defineStep(def: any): any {
   if ("ops" in def && def.ops) {
     const opRefs = deriveOpRefs(def.ops);
     // If schema omitted: derive strict object schema from op envelopes (DX shortcut).

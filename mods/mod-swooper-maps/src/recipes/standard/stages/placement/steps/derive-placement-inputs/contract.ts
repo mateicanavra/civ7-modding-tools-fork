@@ -1,9 +1,9 @@
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import * as placement from "@mapgen/domain/placement";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 
-const DerivePlacementInputsContract = defineStepContract({
+const DerivePlacementInputsContract = defineStep({
   id: "derive-placement-inputs",
   phase: "placement",
   requires: [

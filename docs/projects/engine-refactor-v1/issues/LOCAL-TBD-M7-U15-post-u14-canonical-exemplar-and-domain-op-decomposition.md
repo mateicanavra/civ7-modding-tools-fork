@@ -87,7 +87,7 @@ Key non-negotiables:
 - Ops use contract-first layout with `contract.ts`, `types.ts`, `rules/`, `strategies/`, `index.ts`.
 - Rules never import op contracts and never export types.
 - `types.ts` exports exactly **one** `OpTypeBag` type; callers index into it.
-- Steps are action boundaries and use contract-first step API (`defineStepContract` + `createStepFor<TContext>()`).
+- Steps are action boundaries and use contract-first step API (`defineStep` + `createStepFor<TContext>()`).
 - Steps call ops via `op.resolveConfig` + `op.runValidated` and do not bind or expose op internals.
 - Shared utilities come from the core SDK packages (no new local copies of clamp/noise/etc.).
 

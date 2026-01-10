@@ -46,7 +46,7 @@ Note: the issue title/id says `[M6]`, but based on milestone context this should
 Mostly yes: the core authoring surfaces landed and mod call sites now use envelope configs + bound step factories. The main gap is rules/type-boundary enforcement (Decision D8), where rule modules still import/emit types outside the op `types.ts` surface.
 
 ### What’s strong
-- Contract-first authoring APIs are in place for ops/steps (`defineOpContract`/`createOp`/`createStrategy`, `defineStepContract`/`createStep`/`createStepFor`).
+- Contract-first authoring APIs are in place for ops/steps (`defineOp`/`createOp`/`createStrategy`, `defineStep`/`createStep`/`createStepFor`).
 - Recipe compilation forwards step `resolveConfig`, and execution-plan normalization re-validates resolver output.
 - Mod step contracts are metadata-only; implementations use the bound `createStep` factory with envelope configs + defaults.
 

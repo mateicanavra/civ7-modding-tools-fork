@@ -1,4 +1,4 @@
-import { Type, defineOpContract, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
+import { Type, defineOp, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 
 import type { PlotEffectKey } from "@mapgen/domain/ecology/types.js";
 
@@ -108,7 +108,7 @@ const PlotEffectPlacementSchema = Type.Object({
   plotEffect: PlotEffectKeySchema,
 });
 
-const PlanPlotEffectsContract = defineOpContract({
+const PlanPlotEffectsContract = defineOp({
   kind: "plan",
   id: "ecology/plot-effects/placement",
   input: Type.Object({

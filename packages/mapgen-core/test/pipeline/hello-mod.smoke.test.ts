@@ -6,7 +6,7 @@ import {
   createRecipe,
   createStage,
   createStep,
-  defineStepContract,
+  defineStep,
 } from "@mapgen/authoring/index.js";
 
 const baseSettings = {
@@ -19,7 +19,7 @@ const EmptyKnobsSchema = Type.Object({}, { additionalProperties: false, default:
 
 describe("authoring: hello recipe compile/execute", () => {
   it("compiles and executes a minimal recipe module", () => {
-    const helloContract = defineStepContract({
+    const helloContract = defineStep({
       id: "hello",
       phase: "foundation",
       requires: [],

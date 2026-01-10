@@ -1,4 +1,4 @@
-import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineOp } from "@swooper/mapgen-core/authoring";
 
 const ContinentBoundsSchema = Type.Object({
   west: Type.Number({ description: "Western bound for the continent placement window." }),
@@ -33,7 +33,7 @@ const StartsConfigSchema = Type.Object({
 
 const StartsOverrideSchema = Type.Partial(StartsConfigSchema);
 
-const PlanStartsContract = defineOpContract({
+const PlanStartsContract = defineOp({
   kind: "plan",
   id: "placement/plan-starts",
   input: Type.Object({

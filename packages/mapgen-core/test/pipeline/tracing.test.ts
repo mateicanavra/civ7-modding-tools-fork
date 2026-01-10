@@ -6,7 +6,7 @@ import {
   createRecipe,
   createStage,
   createStep,
-  defineStepContract,
+  defineStep,
 } from "@mapgen/authoring/index.js";
 import {
   PipelineExecutor,
@@ -153,7 +153,7 @@ describe("pipeline tracing", () => {
     };
     const ctx = createExtendedMapContext({ width: 4, height: 3 }, adapter, env);
 
-    const contract = defineStepContract({
+    const contract = defineStep({
       id: "alpha",
       phase: "foundation",
       requires: [],
