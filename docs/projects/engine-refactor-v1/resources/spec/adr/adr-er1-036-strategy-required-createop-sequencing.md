@@ -143,7 +143,7 @@ type OpContract<Input, Output, StrategyId extends string> = Readonly<{
 ### Example: a “thick” plan op (plan feature placements) with rules beneath it
 
 ```ts
-export const planFeaturePlacementsContract = defineOpContract({
+export const planFeaturePlacementsContract = defineOp({
   kind: "plan",
   input: PlanFeaturePlacementsInputSchema,
   output: PlanFeaturePlacementsOutputSchema,

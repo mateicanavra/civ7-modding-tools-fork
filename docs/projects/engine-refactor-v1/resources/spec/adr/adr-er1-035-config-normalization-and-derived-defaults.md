@@ -209,11 +209,11 @@ export type ResolvableStep<TContext, TConfig> = MapGenStep<TContext, TConfig> & 
 ```ts
 // domain/<domain>/ops (two ops, each owns scaling semantics)
 import { Type, type Static } from "@swooper/mapgen-core/authoring";
-import { defineOpContract } from "@swooper/mapgen-core/authoring";
+import { defineOp } from "@swooper/mapgen-core/authoring";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { createOp } from "@swooper/mapgen-core/authoring";
 
-export const computeSuitabilityContract = defineOpContract({
+export const computeSuitabilityContract = defineOp({
   kind: "compute",
   id: "ecology/features/computeSuitability",
   input: ComputeSuitabilityInputSchema,
@@ -245,7 +245,7 @@ export const computeSuitability = createOp(computeSuitabilityContract, {
   },
 });
 
-export const selectPlacementsContract = defineOpContract({
+export const selectPlacementsContract = defineOp({
   kind: "select",
   id: "ecology/features/selectPlacements",
   input: SelectPlacementsInputSchema,

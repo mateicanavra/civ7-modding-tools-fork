@@ -28,7 +28,7 @@ Step IDs become user-facing: they appear in compiler errors, config objects, and
 
 ## Acceptance Criteria
 
-- [x] `defineStepContract(...)` throws on non-kebab step IDs with a message that includes the invalid id.
+- [x] `defineStep(...)` throws on non-kebab step IDs with a message that includes the invalid id.
 - [x] `createStage(...)` throws if any child step id is non-kebab, including stage id + step id in the error message.
 - [x] All step IDs in `mods/mod-swooper-maps/src/recipes/**` are kebab-case and all call sites are updated accordingly.
 
@@ -85,7 +85,7 @@ These step contract IDs contain uppercase letters today and must be migrated:
 
 | File | Notes |
 |---|---|
-| `/packages/mapgen-core/src/authoring/step/contract.ts` | Add kebab-case assertion in defineStepContract. |
+| `/packages/mapgen-core/src/authoring/step/contract.ts` | Add kebab-case assertion in defineStep. |
 | `/packages/mapgen-core/src/authoring/stage.ts` | Add kebab-case assertion for stage.steps[*].id (include stage id in error). |
 | `/mods/mod-swooper-maps/src/recipes/standard/stages/**/steps/**/*.contract.ts` | Rename non-kebab step contract ids; update any stage composition and test string references. |
 | `/packages/mapgen-core/test/pipeline/placement-gating.test.ts` | Update hard-coded step id strings to kebab-case after migration. |

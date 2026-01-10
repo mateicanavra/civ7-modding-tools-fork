@@ -110,17 +110,17 @@ Why this example exists:
 Contract (NEW (planned) step; op contracts may already exist in split form or may be introduced during domain refactors):
 
 ```ts
-import { defineStepContract } from "@swooper/mapgen-core/authoring";
+import { defineStep } from "@swooper/mapgen-core/authoring";
 import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 
 // NEW (planned): domains export contract-only entrypoints for step contracts.
 // Baseline today: `ecology.ops` exists; individual op modules export contracts, but there may be no
 // consolidated `@mapgen/domain/ecology/contracts` surface yet.
 
-export const PlotVegetationContract = defineStepContract({
+export const PlotVegetationContract = defineStep({
   id: "plot-vegetation",
   phase: "ecology",
-  // Ops are declared as contracts (DX); `defineStepContract` derives `OpRef`s internally.
+  // Ops are declared as contracts (DX); `defineStep` derives `OpRef`s internally.
   ops: {
     // Example “focused ops” (preferred):
     // - plan-tree-vegetation

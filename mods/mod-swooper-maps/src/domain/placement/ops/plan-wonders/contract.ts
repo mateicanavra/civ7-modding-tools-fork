@@ -1,4 +1,4 @@
-import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineOp } from "@swooper/mapgen-core/authoring";
 
 const MapInfoSchema = Type.Object(
   {
@@ -7,7 +7,7 @@ const MapInfoSchema = Type.Object(
   { additionalProperties: true }
 );
 
-const PlanWondersContract = defineOpContract({
+const PlanWondersContract = defineOp({
   kind: "plan",
   id: "placement/plan-wonders",
   input: Type.Object({

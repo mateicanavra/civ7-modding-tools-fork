@@ -175,7 +175,7 @@ baseline:
         - packages/mapgen-core/src/authoring/step/create.ts
         - packages/mapgen-core/src/authoring/types.ts
       today:
-        - "defineStepContract is schema-only"
+        - "defineStep is schema-only"
         - "createStep supports step.resolveConfig(config, settings)"
     op:
       file: packages/mapgen-core/src/authoring/op/types.ts

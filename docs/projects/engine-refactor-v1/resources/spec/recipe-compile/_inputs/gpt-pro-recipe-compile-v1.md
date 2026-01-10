@@ -359,8 +359,8 @@ export type StepInternalConfigOf<C extends StepContract<any, any, any, any, any>
 #### Step contract helper
 
 ```ts
-// Baseline reference: `defineStepContract` in `packages/mapgen-core/src/authoring/step/contract.ts`.
-export function defineStepContract<
+// Baseline reference: `defineStep` in `packages/mapgen-core/src/authoring/step/contract.ts`.
+export function defineStep<
   const StepId extends string,
   const Phase extends GenerationPhase,
   const PublicSchema extends TObject,
@@ -645,7 +645,7 @@ This is a real baseline op from `mods/mod-swooper-maps/src/domain/ecology/ops/re
 #### `mods/mod-swooper-maps/src/domain/ecology/ops/refine-biome-edges/contract.ts`
 
 ```ts
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
 const RefineBiomeEdgesInputSchema = Type.Object(
   {
@@ -672,7 +672,7 @@ const RefineBiomeEdgesConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const RefineBiomeEdgesContract = defineOpContract({
+export const RefineBiomeEdgesContract = defineOp({
   kind: "compute",
   id: "ecology/biomes/refine-edge",
   input: RefineBiomeEdgesInputSchema,
@@ -768,11 +768,11 @@ This is a real baseline step from `mods/mod-swooper-maps/src/recipes/standard/st
 #### `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biome-edge-refine/contract.ts`
 
 ```ts
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
-export const BiomeEdgeRefineStepContract = defineStepContract({
+export const BiomeEdgeRefineStepContract = defineStep({
   id: "biome-edge-refine",
   phase: "ecology",
   requires: [
@@ -956,7 +956,7 @@ export const EcologyKnobsSchema = Type.Object(
 * `shipping-lanes`
 
 ```ts
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 import { FeaturePlacementSchema } from "../../shared/placement-schema.js";
 
 const PlanReefsInputSchema = Type.Object(
@@ -984,7 +984,7 @@ const PlanReefsConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanReefsContract = defineOpContract({
+export const PlanReefsContract = defineOp({
   kind: "plan",
   id: "ecology/features/plan-reefs",
   input: PlanReefsInputSchema,
@@ -1073,11 +1073,11 @@ type Internal = {
 #### Baseline contract (`mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-plan/contract.ts`)
 
 ```ts
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
-export const FeaturesPlanStepContract = defineStepContract({
+export const FeaturesPlanStepContract = defineStep({
   id: "features-plan",
   phase: "ecology",
   requires: [

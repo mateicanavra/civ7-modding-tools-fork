@@ -81,15 +81,15 @@ function deriveOpRefs<const TDecl extends StepOpsDecl>(ops: TDecl): StepOpRefsOf
   return out as StepOpRefsOf<TDecl>;
 }
 
-export function defineStepContract<const Schema extends TSchema, const Id extends string>(
+export function defineStep<const Schema extends TSchema, const Id extends string>(
   def: StepContractSchemaOnly<Schema, Id>
 ): StepContractSchemaOnly<Schema, Id>;
 
-export function defineStepContract<const TDecl extends StepOpsDecl, const Id extends string>(
+export function defineStep<const TDecl extends StepOpsDecl, const Id extends string>(
   def: StepContractBase<Id> & Readonly<{ ops: TDecl; schema?: undefined }>
 ): StepContractOpsOnly<TDecl, Id>;
 
-export function defineStepContract<
+export function defineStep<
   const TDecl extends StepOpsDecl,
   const Schema extends TObject,
   const Id extends string,
@@ -103,7 +103,7 @@ export function defineStepContract<
     }>
 ): StepContractHybrid<TDecl, Schema, Id>;
 
-export function defineStepContract(def: any): any {
+export function defineStep(def: any): any {
   const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
   if (typeof def?.id === "string" && !STEP_ID_RE.test(def.id)) {
     throw new Error(`step id "${def.id}" must be kebab-case (e.g. "plot-vegetation")`);

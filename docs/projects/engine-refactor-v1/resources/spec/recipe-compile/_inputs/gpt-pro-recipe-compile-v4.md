@@ -556,7 +556,7 @@ You asked for “prove it’s tractable (or not).” Here is a tractable approac
 
 ### Implement now (scope)
 
-* If `defineStepContract` is called with `ops` and **no explicit schema**, we auto-generate a strict step schema where:
+* If `defineStep` is called with `ops` and **no explicit schema**, we auto-generate a strict step schema where:
 
   * each op key becomes a required property whose schema is the op envelope schema
   * `additionalProperties: false` is defaulted
@@ -596,14 +596,14 @@ type StepContractBase<Id extends string> = Readonly<{
 }>;
 
 // Overload A: explicit schema
-export function defineStepContract<
+export function defineStep<
   const Id extends string,
   const Schema extends TSchema,
   const Ops extends OpsMap | undefined
 >(def: StepContractBase<Id> & { schema: Schema; ops?: Ops }): StepContractBase<Id> & { schema: Schema; ops?: Ops };
 
 // Overload B: schema omitted, ops required => derived schema
-export function defineStepContract<
+export function defineStep<
   const Id extends string,
   const Ops extends OpsMap
 >(def: StepContractBase<Id> & { ops: Ops; schema?: undefined }): StepContractBase<Id> & { schema: SchemaFromOps<Ops>; ops: Ops };
@@ -612,10 +612,10 @@ export function defineStepContract<
 ### Runtime derivation is also straightforward
 
 ```ts
-export function defineStepContract(def: any): any {
+export function defineStep(def: any): any {
   // Inline strictness injection happens inside this factory (see §3.5)
   if (!def.schema) {
-    if (!def.ops) throw new Error(`defineStepContract(${def.id}) requires schema or ops`);
+    if (!def.ops) throw new Error(`defineStep(${def.id}) requires schema or ops`);
 
     const fields: Record<string, TSchema> = {};
     for (const k of Object.keys(def.ops)) fields[k] = def.ops[k].config;
@@ -642,7 +642,7 @@ This is viable and not brittle.
 If you want to avoid repeating op fields in schema, we can support:
 
 ```ts
-defineStepContract({
+defineStep({
   id: "plot-vegetation",
   ops: { trees: opRef(...), shrubs: opRef(...) },
   schema: {

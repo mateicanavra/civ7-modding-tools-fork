@@ -64,7 +64,7 @@
   - `const createStep = createStepFor<TContext>()`
   - `createStep(contract, { resolveConfig?, run })`
 - Bound factories live in `src/authoring/steps.ts` and are the only entrypoint for step implementations.
-- Contract is authored with `defineStepContract` and exported independently of implementation.
+- Contract is authored with `defineStep` and exported independently of implementation.
 - `resolveConfig` is implementation-only; the contract file never contains runtime code.
 - Config schema is owned by the step and can reuse op config schemas for convenience.
 - Steps call ops with validated values and do not declare op bindings or graphs.
@@ -169,7 +169,7 @@ export type OpContract<
   strategies: Strategies;
 }>;
 
-export function defineOpContract<
+export function defineOp<
   const Kind extends DomainOpKind,
   const Id extends string,
   const InputSchema extends TSchema,
@@ -437,7 +437,7 @@ export function createOp(contract: any, impl: any): any {
 
 `packages/mapgen-core/src/authoring/op/index.ts`
 ```ts
-export { defineOpContract } from "./contract.js";
+export { defineOp } from "./contract.js";
 export { createOp } from "./create.js";
 export { createStrategy } from "./strategy.js";
 
@@ -467,7 +467,7 @@ export type StepContract<Schema extends TSchema, Id extends string> = Readonly<{
   schema: Schema;
 }>;
 
-export function defineStepContract<const Schema extends TSchema, const Id extends string>(
+export function defineStep<const Schema extends TSchema, const Id extends string>(
   def: StepContract<Schema, Id>
 ): typeof def {
   return def;
@@ -520,7 +520,7 @@ export function createStepFor<TContext>(): CreateStepFor<TContext> {
 
 `packages/mapgen-core/src/authoring/step/index.ts`
 ```ts
-export { defineStepContract } from "./contract.js";
+export { defineStep } from "./contract.js";
 export { createStep, createStepFor } from "./create.js";
 
 export type { StepContract } from "./contract.js";
@@ -528,10 +528,10 @@ export type { StepContract } from "./contract.js";
 
 `packages/mapgen-core/src/authoring/index.ts`
 ```ts
-export { createStep, createStepFor, defineStepContract } from "./step/index.js";
+export { createStep, createStepFor, defineStep } from "./step/index.js";
 export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
-export { createOp, createStrategy, defineOpContract } from "./op/index.js";
+export { createOp, createStrategy, defineOp } from "./op/index.js";
 export { applySchemaDefaults, defineOpSchema } from "./schema.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
 export { OpValidationError } from "./validation.js";
@@ -809,9 +809,9 @@ independently.
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-tree-vegetation/contract.ts`
 ```ts
 import { Type, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
-import { defineOpContract } from "@swooper/mapgen-core/authoring";
+import { defineOp } from "@swooper/mapgen-core/authoring";
 
-export const PlanTreeVegetationContract = defineOpContract({
+export const PlanTreeVegetationContract = defineOp({
   kind: "plan",
   id: "ecology/vegetation/plan-trees",
   input: Type.Object(
@@ -981,9 +981,9 @@ export type * from "./types.js";
 `mods/mod-swooper-maps/src/domain/ecology/ops/plan-shrub-vegetation/contract.ts`
 ```ts
 import { Type, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
-import { defineOpContract } from "@swooper/mapgen-core/authoring";
+import { defineOp } from "@swooper/mapgen-core/authoring";
 
-export const PlanShrubVegetationContract = defineOpContract({
+export const PlanShrubVegetationContract = defineOp({
   kind: "plan",
   id: "ecology/vegetation/plan-shrubs",
   input: Type.Object(
@@ -1168,7 +1168,7 @@ export const createStep = createStepFor<ExtendedMapContext>();
 
 `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/contract.ts`
 ```ts
-import { Type, defineStepContract, type Static } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 const VEGETATION_DEPENDENCIES = [
@@ -1180,7 +1180,7 @@ const VEGETATION_DEPENDENCIES = [
 
 const VEGETATION_PROVIDES = ["artifact:ecology.vegetation@v1"];
 
-export const PlotVegetationStepContract = defineStepContract({
+export const PlotVegetationStepContract = defineStep({
   id: "plot-vegetation",
   phase: "ecology",
   requires: VEGETATION_DEPENDENCIES,
@@ -1294,7 +1294,7 @@ export default createStep(PlotVegetationStepContract, {
    - `packages/mapgen-core/src/authoring/step/contract.ts`
    - `packages/mapgen-core/src/authoring/step/create.ts`
    - `packages/mapgen-core/src/authoring/step/index.ts`
-   - Update `packages/mapgen-core/src/authoring/index.ts` to export `defineStepContract` and `createStepFor`
+   - Update `packages/mapgen-core/src/authoring/index.ts` to export `defineStep` and `createStepFor`
    - Replace `packages/mapgen-core/src/authoring/step.ts` usage with `authoring/step/create.ts`
 3. Update `createStep` signatures to take `(contract, impl)` and return a composed step, then add `createStepFor<TContext>()`:
    - Keep the step module shape unchanged (schema + run + optional resolveConfig)
@@ -1310,7 +1310,7 @@ export default createStep(PlotVegetationStepContract, {
    - Move helpers into `rules/<rule>.ts` and import from `rules/index.ts` in strategies.
    - Expose the implemented op from `index.ts` and re-export `type *` from `./types.ts`.
 6. Update step modules to the contract-first layout:
-   - Add `steps/<step>/contract.ts` using `defineStepContract`.
+   - Add `steps/<step>/contract.ts` using `defineStep`.
    - Add `src/authoring/steps.ts` to export `createStepFor<ExtendedMapContext>()` as `createStep`.
    - Move orchestration into `steps/<step>/index.ts` using the bound `createStep(contract, { resolveConfig?, run })`.
    - Move helper logic into `steps/<step>/lib/*`.
@@ -1332,14 +1332,14 @@ export default createStep(PlotVegetationStepContract, {
 
 - `packages/mapgen-core/src/authoring/step/contract.ts`: new contract-only metadata builder.
 - `packages/mapgen-core/src/authoring/step/create.ts`: composes `contract + impl` and enforces schema presence.
-- `packages/mapgen-core/src/authoring/index.ts`: export surface for `defineStepContract`.
+- `packages/mapgen-core/src/authoring/index.ts`: export surface for `defineStep`.
 - `packages/mapgen-core/src/authoring/step.ts`: superseded by `authoring/step/create.ts` and should be removed or re-exported.
 - `packages/mapgen-core/src/authoring/stage.ts`: still asserts `schema` on created steps.
 - `packages/mapgen-core/src/authoring/recipe.ts`: forwards `schema -> configSchema` and must also forward `resolveConfig`.
 - `packages/mapgen-core/src/engine/types.ts`: `MapGenStep` includes `configSchema` and optional `resolveConfig`.
 - `packages/mapgen-core/src/engine/execution-plan.ts`: uses `configSchema` and optional `resolveConfig` for normalization.
 - `packages/mapgen-core/src/engine/PipelineExecutor.ts`: executes `run` using normalized config.
-- Tests and example recipes: update to `defineStepContract` + bound `createStep` from `createStepFor<ExtendedMapContext>()`.
+- Tests and example recipes: update to `defineStep` + bound `createStep` from `createStepFor<ExtendedMapContext>()`.
 
 ### Integration edges
 

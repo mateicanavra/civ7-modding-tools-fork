@@ -105,7 +105,7 @@ export type OpContract<
   output: OutputSchema;
 }>
 
-export function defineOpContract<
+export function defineOp<
   const InputSchema extends TSchema,
   const OutputSchema extends TSchema,
   Settings = unknown
@@ -294,10 +294,10 @@ export function adaptEcologySettings(run: { /* engine RunSettings-like */ }): Ec
 **`src/domain/ecology/ops/classify-biomes/contract.ts`**
 
 ```ts
-import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineOp } from "@swooper/mapgen-core/authoring";
 import type { EcologySettings } from "../../settings.js";
 
-export const classifyBiomesContract = defineOpContract({
+export const classifyBiomesContract = defineOp({
   kind: "compute",
   id: "ecology/biomes/classify",
   input: Type.Object({
@@ -311,12 +311,12 @@ export const classifyBiomesContract = defineOpContract({
     vegetationDensity: Type.Any(),
     // ...
   }),
-}) satisfies ReturnType<typeof defineOpContract<
+}) satisfies ReturnType<typeof defineOp<
   any, any, EcologySettings
 >>;
 ```
 
-(You can also encode `Settings` into `defineOpContract` directly via a generic or helper; the concrete mechanics aren’t the point—the point is: contract is IO-only and stable.)
+(You can also encode `Settings` into `defineOp` directly via a generic or helper; the concrete mechanics aren’t the point—the point is: contract is IO-only and stable.)
 
 ### 4.3 Strategy definition (single strategy case)
 
@@ -550,7 +550,7 @@ This is designed as **additive first**, then gradual conversion, then deprecatio
 
 **Goal:** introduce the new contract-first surfaces without breaking anything.
 
-* Add `defineOpContract` and `OpContract` (IO only).
+* Add `defineOp` and `OpContract` (IO only).
 * Add the new canonical `createStrategy(contract, def)` signature.
 * Add `createOp(contract, impl)` overload (keep the existing one temporarily).
 

@@ -130,7 +130,7 @@ export type OpContract<
   strategies: Strategies;
 }>;
 
-export function defineOpContract<
+export function defineOp<
   const Kind extends DomainOpKind,
   const Id extends string,
   const InputSchema extends TSchema,
@@ -142,7 +142,7 @@ export function defineOpContract<
 }
 ```
 
-Key point: `defineOpContract` is the contract equivalent of your existing `defineOpSchema` “pinning helper.” You already do this because inference gets lossy across boundaries.
+Key point: `defineOp` is the contract equivalent of your existing `defineOpSchema` “pinning helper.” You already do this because inference gets lossy across boundaries.
 
 ### 3.3 Strategy implementation: `createStrategy(contract, id, impl)`
 
@@ -347,7 +347,7 @@ Domain ops/strategies never import `RunSettings` now; only the runtime integrati
 ```ts
 import { Type } from "typebox";
 import { defineSettings } from "@swooper/mapgen-core/authoring/op/settings";
-import { defineOpContract } from "@swooper/mapgen-core/authoring/op/contract";
+import { defineOp } from "@swooper/mapgen-core/authoring/op/contract";
 import type { EcologySettings } from "../../settings";
 
 // (schemas can be composed from fragments as you already do in this op)
@@ -363,7 +363,7 @@ const FastCfg = Type.Object({
   maxIterations: Type.Integer({ default: 20 }),
 }, { additionalProperties: false });
 
-export const classifyBiomesContract = defineOpContract({
+export const classifyBiomesContract = defineOp({
   kind: "compute",
   id: "ecology/classifyBiomes",
   input: Input,
@@ -455,12 +455,12 @@ Contract-first version is straightforward:
 #### `ops/plan-floodplains/contract.ts`
 
 ```ts
-import { defineOpContract } from "@swooper/mapgen-core/authoring/op/contract";
+import { defineOp } from "@swooper/mapgen-core/authoring/op/contract";
 import { defineSettings } from "@swooper/mapgen-core/authoring/op/settings";
 import { PlanFloodplainsSchema } from "./schema"; // existing defineOpSchema bundle
 import type { PlacementSettings } from "../../settings";
 
-export const planFloodplainsContract = defineOpContract({
+export const planFloodplainsContract = defineOp({
   kind: "plan",
   id: "placement/planFloodplains",
   input: PlanFloodplainsSchema.properties.input,
@@ -587,7 +587,7 @@ Also add `import/no-cycle` to detect accidental cycles early.
 
 Your current runtime throws if strategies are missing or `"default"` is absent.
 
-With contract-first, you should enforce the same constraint in `defineOpContract`’s type and (optionally) runtime assertion. Type-level enforcement: `Strategies extends { default: TSchema }`.
+With contract-first, you should enforce the same constraint in `defineOp`’s type and (optionally) runtime assertion. Type-level enforcement: `Strategies extends { default: TSchema }`.
 
 ### 7.3 Guard against config schema duplication
 
@@ -606,7 +606,7 @@ This is a staged migration that avoids destabilizing the system.
 * Add new modules:
 
   * `authoring/op/settings.ts` (`defineSettings`)
-  * `authoring/op/contract.ts` (`defineOpContract`, `OpContract` types)
+  * `authoring/op/contract.ts` (`defineOp`, `OpContract` types)
 * Update `authoring/op/strategy.ts`:
 
   * introduce `createStrategy(contract, id, impl)` as above
@@ -721,7 +721,7 @@ This is not a PR; it’s a map of the minimum edit surface.
   * `resolveConfig` dispatch uses strategy impls; signature uses `Settings` not `RunSettings`.
 * `packages/mapgen-core/src/authoring/op/index.ts`
 
-  * Re-export `defineOpContract`, `defineSettings`, etc.
+  * Re-export `defineOp`, `defineSettings`, etc.
 
 ### Representative diff hunk (conceptual)
 

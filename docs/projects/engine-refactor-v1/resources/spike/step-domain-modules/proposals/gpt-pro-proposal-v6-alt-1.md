@@ -282,7 +282,7 @@ This is the “one canonical way” set. There can be convenience, but canonical
 
 ### Operation contracts
 
-* `defineOpContract({ id, kind, input, output, strategies, settings?: selector })`
+* `defineOp({ id, kind, input, output, strategies, settings?: selector })`
 
 ### Operation implementation
 
@@ -303,7 +303,7 @@ Two modes:
 
 #### A) Composition-first (baseline)
 
-* `defineStepContract({ id, phase, requires, provides, ops: { ... } })`
+* `defineStep({ id, phase, requires, provides, ops: { ... } })`
 
 This auto-derives:
 
@@ -312,7 +312,7 @@ This auto-derives:
 
 #### B) Facade (optional)
 
-* `defineStepContract({ ..., configSchema })`
+* `defineStep({ ..., configSchema })`
 * `implementStep(stepContract, { normalizeConfig?, run })`
 
 But the baseline should not require `normalizeConfig`.
@@ -339,9 +339,9 @@ I’ll show (1) a “simple” domain op, (2) a “hefty” op, then (3) a step 
 
 ```ts
 import { Type } from "typebox";
-import { defineOpContract } from "@mapgen/authoring";
+import { defineOp } from "@mapgen/authoring";
 
-export const planStarts = defineOpContract({
+export const planStarts = defineOp({
   id: "placement.planStarts",
   kind: "plan",
   input: Type.Object({
@@ -400,9 +400,9 @@ Same structure; the only difference is more strategies.
 
 ```ts
 import { Type } from "typebox";
-import { defineOpContract } from "@mapgen/authoring";
+import { defineOp } from "@mapgen/authoring";
 
-export const classifyBiomes = defineOpContract({
+export const classifyBiomes = defineOp({
   id: "ecology.classifyBiomes",
   kind: "compute",
   input: Type.Object({ /* fields */ }),
@@ -456,10 +456,10 @@ Under this architecture, the baseline step looks like:
 #### `src/recipes/standard/stages/ecology/steps/features/contract.ts`
 
 ```ts
-import { defineStepContract } from "@mapgen/authoring";
+import { defineStep } from "@mapgen/authoring";
 import { ecology } from "@mapgen/domain/ecology"; // domain router exporting ops
 
-export const features = defineStepContract({
+export const features = defineStep({
   id: "features",
   phase: "ecology",
   requires: [],
@@ -639,7 +639,7 @@ This is the smallest sequence that preserves your “latest wins” while signif
 
 ### Phase 3 — Step contract + auto-resolution (DX unlock)
 
-* Introduce `defineStepContract({ ops: ... })` that:
+* Introduce `defineStep({ ops: ... })` that:
 
   * generates schema + defaults from ops
   * generates `resolveConfig` that calls `op.resolveConfig` for each op config field
@@ -653,7 +653,7 @@ Refactor existing steps (like features) to eliminate:
 
 ### Phase 4 — Strategy contract-first upgrade
 
-* Introduce `defineOpContract` + `createStrategy(opContract, key, impl)` so strategies no longer restate schemas (and don’t import engine settings types).
+* Introduce `defineOp` + `createStrategy(opContract, key, impl)` so strategies no longer restate schemas (and don’t import engine settings types).
 
 ### Phase 5 — Update guardrails and enforce canonical structure
 
@@ -702,7 +702,7 @@ This is a strict reduction in boilerplate while restoring correctness.
 
 If you want, I can next produce a *single canonical template* for:
 
-* `defineOpContract` + `createStrategy` + `createOp`
-* `defineStepContract` + `implementStep`
+* `defineOp` + `createStrategy` + `createOp`
+* `defineStep` + `implementStep`
 * `defineRecipeContract` + `implementRecipe`
   including the minimal TypeScript types needed to make inference work reliably (especially for out-of-line strategies/steps).

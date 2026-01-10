@@ -56,7 +56,7 @@ TypeScript (pinned surfaces):
 
 Step contracts:
 - Baseline today (repo-verified):
-  - `StepContract` / `defineStepContract(...)`: `packages/mapgen-core/src/authoring/step/contract.ts`
+  - `StepContract` / `defineStep(...)`: `packages/mapgen-core/src/authoring/step/contract.ts`
   - `createStep(...)` enforces an explicit `contract.schema`: `packages/mapgen-core/src/authoring/step/create.ts`
   - step module hook is `normalize(config, ctx)` (compile-time only): `packages/mapgen-core/src/authoring/types.ts`
 - **NEW (planned)**:
@@ -90,7 +90,7 @@ type StepOpsOf<TDecl extends StepOpsDecl> = Readonly<{ [K in keyof TDecl & strin
 ```
 
 Step module binding (conceptual):
-- step contract declares ops as contracts; `defineStepContract` derives envelope schemas/refs for compiler use (cheap; no impl bundling)
+- step contract declares ops as contracts; `defineStep` derives envelope schemas/refs for compiler use (cheap; no impl bundling)
 - step module binds contract ids → actual op implementations from the domain registry (see §1.14)
 - runtime step implementation uses bound runtime ops via module-scope closure (see §1.13), not via engine signatures
 
@@ -434,15 +434,15 @@ function deriveOpRefs<const TDecl extends StepOpsDecl>(ops: TDecl): StepOpRefsOf
   return out as StepOpRefsOf<TDecl>;
 }
 
-export function defineStepContract<const Schema extends TSchema, const Id extends string>(
+export function defineStep<const Schema extends TSchema, const Id extends string>(
   def: StepContractSchemaOnly<Schema, Id>
 ): StepContractSchemaOnly<Schema, Id>;
 
-export function defineStepContract<const TDecl extends StepOpsDecl, const Id extends string>(
+export function defineStep<const TDecl extends StepOpsDecl, const Id extends string>(
   def: StepContractBase<Id> & Readonly<{ ops: TDecl; schema?: undefined }>
 ): StepContractOpsOnly<TDecl, Id>;
 
-export function defineStepContract<
+export function defineStep<
   const TDecl extends StepOpsDecl,
   const Schema extends TObject,
   const Id extends string,
@@ -456,7 +456,7 @@ export function defineStepContract<
     }>
 ): StepContractHybrid<TDecl, Schema, Id>;
 
-export function defineStepContract(def: any): any {
+export function defineStep(def: any): any {
   if ("ops" in def && def.ops) {
     const opRefs = deriveOpRefs(def.ops);
     // If schema omitted: derive strict object schema from op envelopes (DX shortcut).

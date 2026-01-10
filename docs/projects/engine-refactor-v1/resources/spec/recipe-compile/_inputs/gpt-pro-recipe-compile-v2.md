@@ -185,7 +185,7 @@ This preserves the domain↔recipe boundary: domain defines its own knob types, 
 
 #### 3.3.2 Canonical shape
 
-**Operation contract stays contract-first** (no change to `defineOpContract` fields: input/output/strategies). Example contract exists today. 
+**Operation contract stays contract-first** (no change to `defineOp` fields: input/output/strategies). Example contract exists today. 
 
 **Strategy:**
 
@@ -238,7 +238,7 @@ This is the exact pattern we remove.
 
 #### 3.4.2 Canonical step contract shape
 
-We extend `defineStepContract` minimally:
+We extend `defineStep` minimally:
 
 ```ts
 type StepContract<TSchema, TPublicSchema = undefined, TBindings = undefined> = {
@@ -362,7 +362,7 @@ Implementation:
 **Contract (only change: add op binding):**
 
 ```ts
-export const BiomeEdgeRefineStepContract = defineStepContract({
+export const BiomeEdgeRefineStepContract = defineStep({
   id: "biome-edge-refine",
   phase: "ecology",
   requires: [...],

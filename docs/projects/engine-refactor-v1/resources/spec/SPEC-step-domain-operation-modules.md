@@ -84,7 +84,7 @@ Notes:
 - Steps can reuse `op.config` and `op.defaultConfig` values directly in their schema definitions.
 
 Step authoring surface:
-- `defineStepContract({ ... })` in `steps/<step>/contract.ts` defines the contract metadata.
+- `defineStep({ ... })` in `steps/<step>/contract.ts` defines the contract metadata.
 - `createStepFor<TContext>()` is bound once (e.g., `src/authoring/steps.ts`) and used by step implementations.
 - `createStep(contract, { resolveConfig?, run })` attaches implementation to the contract and returns the runtime step.
 
@@ -135,7 +135,7 @@ Import rules:
 
 ### Operation contract
 
-Each op defines a contract in `contract.ts` using `defineOpContract`:
+Each op defines a contract in `contract.ts` using `defineOp`:
 
 - `kind` (semantic intent; see ADR-ER1-034)
 - `id` (stable string)
@@ -220,7 +220,7 @@ Boundary rule:
 Canonical authoring surface (Core SDK):
 
 - `packages/mapgen-core/src/authoring/op/contract.ts`
-  - `defineOpContract(...)`
+  - `defineOp(...)`
 - `packages/mapgen-core/src/authoring/op/types.ts`
   - `OpContractLike`, `OpStrategyId`, `OpTypeBag`
 - `packages/mapgen-core/src/authoring/op/strategy.ts`
@@ -229,13 +229,13 @@ Canonical authoring surface (Core SDK):
 - `packages/mapgen-core/src/authoring/op/create.ts`
   - `createOp(contract, { strategies, customValidate? })`
 - `packages/mapgen-core/src/authoring/step/contract.ts`
-  - `defineStepContract(...)`
+  - `defineStep(...)`
 - `packages/mapgen-core/src/authoring/step/create.ts`
   - `createStep(contract, { resolveConfig?, run })`
   - `createStepFor<TContext>()`
 
 Inference rules:
-- Do not use type assertions on `defineOpContract` or `createOp` arguments.
+- Do not use type assertions on `defineOp` or `createOp` arguments.
 - Out-of-line strategies must be authored via `createStrategy(contract, id, impl)`.
 
 ---
@@ -283,9 +283,9 @@ src/recipes/standard/stages/ecology/steps/plot-vegetation/
 ```ts
 // src/domain/ecology/ops/plan-tree-vegetation/contract.ts
 import { Type, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
-import { defineOpContract } from "@swooper/mapgen-core/authoring";
+import { defineOp } from "@swooper/mapgen-core/authoring";
 
-export const PlanTreeVegetationContract = defineOpContract({
+export const PlanTreeVegetationContract = defineOp({
   kind: "plan",
   id: "ecology/vegetation/plan-trees",
   input: Type.Object(
@@ -491,7 +491,7 @@ export const createStep = createStepFor<ExtendedMapContext>();
 
 ```ts
 // src/recipes/standard/stages/ecology/steps/plot-vegetation/contract.ts
-import { Type, defineStepContract, type Static } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 const VEGETATION_DEPENDENCIES = [
@@ -503,7 +503,7 @@ const VEGETATION_DEPENDENCIES = [
 
 const VEGETATION_PROVIDES = ["artifact:ecology.vegetation@v1"];
 
-export const PlotVegetationStepContract = defineStepContract({
+export const PlotVegetationStepContract = defineStep({
   id: "plot-vegetation",
   phase: "ecology",
   requires: VEGETATION_DEPENDENCIES,

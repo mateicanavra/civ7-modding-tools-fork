@@ -1,6 +1,6 @@
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
-const RefineBiomeEdgesContract = defineOpContract({
+const RefineBiomeEdgesContract = defineOp({
   kind: "compute",
   id: "ecology/biomes/refine-edge",
   input: Type.Object({

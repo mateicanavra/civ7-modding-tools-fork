@@ -43,10 +43,10 @@ No `densityBias`. No extra toggles. If you need bias, it lives in **stage knobs*
 **contract.ts**
 
 ```ts
-import { defineStepContract } from "@mapgen/authoring/step";
+import { defineStep } from "@mapgen/authoring/step";
 import { ecology } from "@mapgen/domain/ecology";
 
-export const contract = defineStepContract({
+export const contract = defineStep({
   id: "plot-vegetation",
   phase: "ecology",
   requires: ["artifact:biomes", "artifact:heightfield"],
@@ -206,9 +206,9 @@ export const ecology = {
 ```ts
 // src/domain/ecology/ops/plan-tree-vegetation/contract.ts
 import { Type } from "typebox";
-import { defineOpContract } from "@mapgen/authoring/op";
+import { defineOp } from "@mapgen/authoring/op";
 
-export const planTreeVegetationContract = defineOpContract({
+export const planTreeVegetationContract = defineOp({
   id: "ecology/planTreeVegetation",
   kind: "plan",
 
@@ -267,10 +267,10 @@ export { planTreeVegetationContract };
 
 ```ts
 // stages/ecology/steps/plot-vegetation/contract.ts
-import { defineStepContract } from "@mapgen/authoring/step";
+import { defineStep } from "@mapgen/authoring/step";
 import { ecology } from "@mapgen/domain/ecology";
 
-export const contract = defineStepContract({
+export const contract = defineStep({
   id: "plot-vegetation",
   phase: "ecology",
   requires: ["artifact:biomes", "artifact:heightfield"],
@@ -762,10 +762,10 @@ Two minimal options; I recommend the first:
 
 ### Option A (recommended): contract carries `domainId` explicitly
 
-Add one required field to `defineOpContract`:
+Add one required field to `defineOp`:
 
 ```ts
-defineOpContract({
+defineOp({
   domainId: "ecology",
   id: "ecology/planTreeVegetation",
   ...
@@ -839,7 +839,7 @@ Knobs never persist to runtime configs.
 
 # What changes elsewhere as a result
 
-### A) `defineOpContract` gets `domainId`
+### A) `defineOp` gets `domainId`
 
 Small addition, big clarity.
 
@@ -864,7 +864,7 @@ That’s high DX with no extra work at callsites.
 
 If you confirm you want **explicit `domainId` on every op contract** (I strongly recommend it), I’ll write the exact TypeScript signatures for:
 
-* `defineOpContract` (updated)
+* `defineOp` (updated)
 * `DomainOpCompile.normalize` signature (typed knobs slice)
 * `createStage({ domains })` knobs schema composition logic
 * `compileRecipeConfig` knob threading logic

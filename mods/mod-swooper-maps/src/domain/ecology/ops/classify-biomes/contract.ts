@@ -1,4 +1,4 @@
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
 import { TemperatureSchema } from "./rules/temperature.schema.js";
 import { MoistureSchema } from "./rules/moisture.schema.js";
@@ -10,7 +10,7 @@ import { OverlaySchema } from "./rules/overlays.schema.js";
 
 /** Biome classification parameters for temperature, moisture, vegetation, and overlays. */
 
-const BiomeClassificationContract = defineOpContract({
+const BiomeClassificationContract = defineOp({
   kind: "compute",
   id: "ecology/biomes/classify",
   input: Type.Object({

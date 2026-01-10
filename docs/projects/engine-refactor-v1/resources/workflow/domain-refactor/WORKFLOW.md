@@ -42,10 +42,10 @@ Refactor a single domain so that:
 - **Legacy paths are removed** within the refactor scope (“scorched earth”).
 
 Canonical authoring surface (single shape):
-- Ops are authored with `defineOpContract(...)` + `createOp(contract, { strategies })`.
+- Ops are authored with `defineOp(...)` + `createOp(contract, { strategies })`.
 - Strategies are authored with `createStrategy(contract, "<strategyId>", { resolveConfig?, run })`.
 - Every op must include a `"default"` strategy.
-- Steps are authored with `defineStepContract(...)` + `createStep(contract, { resolveConfig?, run })`, where `createStep` is bound via `createStepFor<TContext>()`.
+- Steps are authored with `defineStep(...)` + `createStep(contract, { resolveConfig?, run })`, where `createStep` is bound via `createStepFor<TContext>()`.
 - Do not introduce any alternate authoring patterns; keep the repo converging on one shape.
 
 TypeScript rules (hard rules):
@@ -95,11 +95,11 @@ Read (do not reinterpret):
 
 Code references (read when implementing; these are the “truth of behavior”):
 - `packages/mapgen-core/src/engine/execution-plan.ts` (where `step.resolveConfig` is invoked at compile time)
-- `packages/mapgen-core/src/authoring/op/contract.ts` (`defineOpContract`)
+- `packages/mapgen-core/src/authoring/op/contract.ts` (`defineOp`)
 - `packages/mapgen-core/src/authoring/op/types.ts` (`OpTypeBag`)
 - `packages/mapgen-core/src/authoring/op/strategy.ts` (`createStrategy`)
 - `packages/mapgen-core/src/authoring/op/create.ts` (`createOp`)
-- `packages/mapgen-core/src/authoring/step/contract.ts` (`defineStepContract`)
+- `packages/mapgen-core/src/authoring/step/contract.ts` (`defineStep`)
 - `packages/mapgen-core/src/authoring/step/create.ts` (`createStep`, `createStepFor`)
 - `packages/mapgen-core/src/authoring/validation.ts` (error surface, `customValidate`, `validateOutput`)
 - `packages/mapgen-core/src/authoring/typed-array-schemas.ts` (typed-array schema metadata used by validation)

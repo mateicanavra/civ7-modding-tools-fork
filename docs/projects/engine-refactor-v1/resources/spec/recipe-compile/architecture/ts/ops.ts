@@ -23,7 +23,7 @@ export type OpContract<
 
 export type OpContractAny = OpContract<any, any, any, any, any>;
 
-export function defineOpContract<
+export function defineOp<
   const Kind extends DomainOpKind,
   const Id extends string,
   const InputSchema extends TSchema,
