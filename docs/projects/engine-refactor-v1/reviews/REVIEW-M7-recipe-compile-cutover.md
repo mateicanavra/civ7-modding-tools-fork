@@ -11,116 +11,327 @@ Milestone doc: `docs/projects/engine-refactor-v1/milestones/M7-recipe-compile-cu
 
 ## Remediation Plan — Runtime Validation Removal (Authoritative)
 
-Goal: remove runtime schema validation/normalization, keep compile-time validation as the single source of truth, and enforce artifact invariants via centralized handlers (no TypeBox runtime validation). This is an architecture alignment pass, not a behavior-preserving shim pass.
+This is an architecture alignment pass (contract tightening), not a pipeline redesign. The intention is to collapse multiple drifting “validation/defaulting” paths into one canonical compile-time path, and to make runtime execution semantics binary and predictable.
 
-### Status Snapshot (Post `m7-fix-t16-inline-strategies`)
+**Two contracts we are tightening (the whole plan hangs off these):**
+1) **Runtime execution semantics:** `recipe.run(...)` must be *binary* (success or throw). Silent partial execution (“break but don’t throw”) is an unacceptable third state.
+2) **Defaults/schema authoring semantics:** property defaults + compiler normalization are canonical; object-level `default: {}` that masks deep defaults is forbidden and must be enforced by factories/helpers (so authors have one obvious way).
 
-- **Completed upstream (accepted but not plan-closers):**
-  - Inlined ecology strategy run handlers and removed out-of-line plan functions.
-  - Removed `Type.Optional(...)` wrappers from some ecology contracts (defaults retained).
-  - Dropped `applySchemaDefaults` export from `packages/mapgen-core/src/authoring/index.ts`.
-- **Not plan-complete yet:** upstream work moved normalization into runtime `run` bodies for multiple ecology ops. That is explicitly out of contract; it must be moved back into compile-time normalization and removed from runtime.
+### Locked Decisions + Rationale (Canonical Contracts)
 
-### Locked Decisions + Rationale
+- **Compile-time is the single source of truth** for schema defaulting/cleaning/validation:
+  - `normalizeStrict` (and the compiler pipeline that composes it) is the canonical behavior.
+  - Rationale: eliminate dual-path validation and drift; preserve stable error surfaces for authors/tooling.
+- **Runtime executes an already-compiled plan/config** and enforces runtime contracts only:
+  - requires/provides, effect/tag bookkeeping, and artifact invariants.
+  - **No TypeBox schema defaulting/cleaning/validation in production runtime execution.**
+  - Rationale: runtime should be simple, predictable, and free of “hidden” normalization behaviors.
+- **Ops must remain independently runnable/testable** via an explicit compiler-backed “validated runner” (dev/test/tooling):
+  - Pipeline: `normalizeStrict(op.config, rawSelection)` → `op.normalize(...)` → `normalizeStrict(op.config, normalizedSelection)` → `op.run(...)`.
+  - Rationale: preserve excellent DX for unit tests/tooling without reintroducing production runtime validation.
+- **Runtime artifact invariants live in artifact handlers/factories**, not in TypeBox runtime checks:
+  - Rationale: artifacts are runtime products; invariants often exceed schema expressiveness (shape coupling, dimensional/range checks), and runtime TypeBox would reintroduce a second validation system.
+- **`recipe.run(...)` is fail-fast and binary by default**:
+  - On failure, it throws a typed error that includes: failing step id, cause, and actionable context.
+  - Any “collect partial results / non-throwing diagnostics” mode must be an explicit opt-in API (separate call path).
+  - Rationale: best DX and testability; avoids “missing artifact” errors that hide the root cause.
+- **Schema defaults are authored via property defaults, not object-level defaults**:
+  - **Rule:** do not set `default: {}` (or any object default) on object schemas when properties already have defaults.
+  - Rationale: object-level defaults mask deep defaults and create misleading `defaultConfig` values.
+- **Factories/helpers enforce schema conventions** (one obvious way):
+  - Inline schemas should not need to manually specify `additionalProperties: false` or root-object defaults.
+  - Factories apply `additionalProperties: false` by convention and reject conflicting object-level defaults.
+  - Rationale: reduce author burden, remove equivalent-but-different schema states, and prevent regressions.
+- **Dedicated compiler error codes for normalization-time validation**:
+  - Rationale: error surfaces must remain precise and stable once runtime schema validation is removed.
 
-- Compile-time validates configs; runtime executes plans.
-  - Rationale: avoid dual-path validation and drift; compiler is the single source of truth for author-facing config correctness.
-- Runtime artifact validation is handled via artifact handlers (explicit invariants), not TypeBox runtime checks.
-  - Rationale: artifacts are runtime products; invariants are dimensional/range checks that TypeBox does not cover well, and using TypeBox at runtime reintroduces a second validation pipeline.
-- Execution plan compiles only structure; it does not validate schema shapes at runtime.
-  - Rationale: schema validation/defaulting belongs to the compiler; execution plan only needs structural invariants (unknown steps, missing registry entries).
-- Dedicated compiler error codes for normalization-time validation.
-  - Rationale: error surfaces must remain precise and stable now that runtime validation is removed.
+### Known Impacts / Prior Work That Must Be Aligned
 
-1) Branch + baseline (REMAINING)
-   - Create a new fix branch off `m7-review-t16-final-hygiene` in a clean worktree.
-   - Confirm clean status and capture baseline test state.
+- Tests that previously relied on runtime defaulting/validation must be migrated to the compiler-backed validated runner (dev/test/tooling).
+- Any runtime code that “quietly stops” (breaks execution but returns without throwing) must be made fail-fast at the `recipe.run` boundary.
+- Existing schemas that rely on object-level `default: {}` must be rewritten to use property defaults and/or adjusted factories so this pattern cannot re-enter.
+- Upstream work that moved normalization/clamping into runtime `run` bodies is explicitly out of contract; it must be moved back to compile-time `normalize` + schema defaults.
 
-2) Execution plan role (locked in) (REMAINING)
-   - `compileExecutionPlan` becomes plan construction only.
-   - Remove runtime schema validation/defaulting/cleaning.
-   - Keep structural runtime invariants only (unknown step ids, missing registry steps, optional duplicate step id guard).
-   - Reference: `packages/mapgen-core/src/engine/execution-plan.ts`.
+### Remediation Issues (Reviewable Units)
 
-3) Dedicated compiler error codes (locked in) (REMAINING)
-   - Add a dedicated compile-time error code for config validation failures (e.g. `op.config.invalid`).
-   - Map normalization-time validation failures to the new code (no `op.normalize.failed` for validation).
-   - Reference: `packages/mapgen-core/src/compiler/normalize.ts`, `packages/mapgen-core/src/compiler/recipe-compile.ts`.
+Each issue is intended to be independently reviewable (one Graphite branch), with frequent commits inside the branch. Every issue below is scoped to avoid reintroducing runtime schema defaulting/cleaning/validation in production execution.
 
-4) Remove runtime validation surfaces (authoring core) (REMAINING)
-   - Delete `packages/mapgen-core/src/authoring/validation.ts`.
-   - Delete `packages/mapgen-core/src/authoring/op/validation-surface.ts`.
-   - Remove `OpValidationError` export from `packages/mapgen-core/src/authoring/index.ts`.
-   - Remove `validate`/`runValidated` from `packages/mapgen-core/src/authoring/op/types.ts`.
-   - Update `packages/mapgen-core/src/authoring/op/create.ts` to remove `customValidate` and validation surface attachment.
-   - References: `packages/mapgen-core/src/authoring/op/types.ts`, `packages/mapgen-core/src/authoring/op/create.ts`.
+#### 1) Runtime execution semantics: fail-fast `recipe.run(...)` + typed error surface (REMAINING)
 
-5) Move custom validation into compile-time normalize (REMAINING)
-   - Replace `customValidate` usage (e.g. planFloodplains) with compile-time checks in strategy `normalize`.
-   - Throw on invalid config; compiler emits `op.config.invalid`.
-   - Reference: `mods/mod-swooper-maps/src/domain/placement/ops/plan-floodplains/index.ts`.
+- **What changes**
+  - Make `recipe.run(...)` binary by default: it throws on any step failure or unsatisfied provides/requires (no silent partial execution).
+  - Ensure thrown errors are actionable: include failing step id and the underlying error/cause/context.
+  - (Optional but recommended) expose an explicit diagnostic API that returns a report without changing `recipe.run(...)` semantics.
+- **Why**
+  - Prevents “missing artifact” cascades that hide the real root cause.
+  - Restores a two-state model: success vs failure (best DX and testability).
+- **Implementation notes**
+  - Primary candidates:
+    - `packages/mapgen-core/src/engine/PipelineExecutor.ts`
+    - `packages/mapgen-core/src/authoring/recipe.ts`
+    - `packages/mapgen-core/src/engine/errors.ts`
+  - Preferred behavior:
+    - Internally, the executor may still collect step results, but `recipe.run(...)` must throw if any step result is failure.
+    - The thrown error should surface the *first* failing step as primary, with an option to include the full report for diagnostics.
+  - If a non-throwing mode is needed, add an explicit API such as `recipe.runWithReport(...)` or `executor.executePlanReport(...)` (name TBD), returning `{ context, report }`.
+- **Acceptance criteria**
+  - `recipe.run(...)` cannot return successfully if any step failed or any required provides were unsatisfied.
+  - The thrown error includes: failing step id and a meaningful cause (original thrown error or provides/requires error).
+  - Tests no longer fail with “missing artifacts” without a preceding actionable pipeline error.
+- **Verification checklist**
+  - Add/adjust a focused unit test in `packages/mapgen-core/test/pipeline/**` that asserts fail-fast throw + error content.
+  - Run `pnpm -C packages/mapgen-core test`.
+  - Run `pnpm -C mods/mod-swooper-maps test` (standard recipe run must fail loudly if a step fails).
 
-6) Artifact handler/factory pattern (new runtime contract) (REMAINING)
-   - Keep TypeBox artifact schemas as canonical contract + typing sources (no runtime validation).
-   - Add artifact handlers that centralize runtime invariants:
-     - `validate(value, dims)` -> invariant errors
-     - `assert(value, dims)` -> throw on error
-     - `get(context)` -> read + assert + return typed
-     - `set(context, value)` -> assert + store
-   - Producers call `set`, consumers call `get`, tag `satisfies` uses `validate`.
-   - Invariants include presence, typed-array shape, dimension coupling (length == width*height), range bounds.
-   - References: `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts`, `mods/mod-swooper-maps/src/recipes/standard/tags.ts`.
+#### 2) Execution plan role: structure-only plan construction (REMAINING)
 
-7) Remove runtime TypeBox validators for placement inputs/outputs (REMAINING)
-   - Remove `TypeCompiler` usage from:
-     - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-inputs.ts`
-     - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-outputs.ts`
-   - Update tags/artifacts to use handlers instead:
-     - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
-     - `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts`
-   - Reference: `mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-inputs.ts`.
+- **What changes**
+  - `compileExecutionPlan` remains structural plan construction only (step graph, ordering, tags).
+  - Remove any runtime schema validation/defaulting/cleaning from plan compilation.
+  - Keep structural runtime invariants only (unknown step ids, missing step registry entries, optional duplicate-step-id guard).
+- **Why**
+  - Execution plan compilation is not a validation system; compile-time normalization is.
+- **Implementation notes**
+  - Reference: `packages/mapgen-core/src/engine/execution-plan.ts`.
+  - Ensure runtime-layer modules do not depend on compiler-only helpers (`normalizeStrict`, `Value.Default`, etc.).
+- **Acceptance criteria**
+  - `execution-plan.ts` contains no TypeBox runtime validation/defaulting code paths.
+  - Structural errors are still detected and surfaced as engine/plan errors (not compiler errors).
+- **Verification checklist**
+  - Run `pnpm -C packages/mapgen-core test` (especially execution plan tests).
+  - `rg -n \"TypeCompiler|Value\\.\" packages/mapgen-core/src/engine` returns empty (or only intended non-validation usages).
 
-8) Remove runtime `runValidated` usage in steps (REMAINING)
-   - Replace all `runValidated` calls with `run` in:
-     - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**`
-     - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/**`
-   - Reference: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**`.
+#### 3) Dedicated compiler error codes for config validation failures (REMAINING)
 
-9) Remove runtime defaulting/normalization in op strategies (REMAINING)
-   - Remove runtime normalization/clamping/coercion in `run` (e.g. selector normalization, `Math.floor` coercions for config values, chance clamping when that is intended to be schema-validated).
-   - Ensure all of the above happens in compile-time normalization and/or schema defaults.
-   - **Upstream divergence:** ecology strategies currently normalize in `run`; this must be reversed.
-   - Reference: `mods/mod-swooper-maps/src/domain/ecology/ops/**/strategies/*.ts`.
+- **What changes**
+  - Add a dedicated compile-time error code for config validation failures (e.g. `op.config.invalid`).
+  - Map normalization-time validation failures to the new code (avoid using `op.normalize.failed` for schema validation).
+- **Why**
+  - Error surfaces are now the primary author feedback mechanism; codes and paths must be stable and precise.
+- **Implementation notes**
+  - References:
+    - `packages/mapgen-core/src/compiler/normalize.ts`
+    - `packages/mapgen-core/src/compiler/recipe-compile.ts`
+  - Ensure custom invariants moved into `normalize` also emit `op.config.invalid` consistently.
+- **Acceptance criteria**
+  - Invalid configs reliably produce `op.config.invalid` with stable `path`/`message` conventions.
+  - No compile-time schema validation errors are labeled as `op.normalize.failed`.
+- **Verification checklist**
+  - Add/adjust compiler unit tests in `packages/mapgen-core/test/compiler/**` validating code + path stability.
+  - Run `pnpm -C packages/mapgen-core test`.
 
-10) Revert default-merge patch (REMAINING)
-   - Restore `packages/mapgen-core/src/authoring/schema.ts` to avoid merging nested defaults into explicit object defaults.
-   - Defaults remain compile-time only.
-   - Reference: `packages/mapgen-core/src/authoring/schema.ts`.
+#### 4) Remove runtime validation surfaces from authoring core (REMAINING)
 
-11) Tests + docs (REMAINING)
-   - Update tests that depended on runtime validation.
-   - Add compiler tests for invalid configs (custom invariants now surfaced at compile time).
-   - Update issue docs + triage to lock in “no runtime validation” + artifact handler pattern.
-   - References: `packages/mapgen-core/test/**`, `docs/projects/engine-refactor-v1/triage.md`.
+- **What changes**
+  - Delete runtime validation-surface modules and exports.
+  - Remove `validate` / `runValidated` from the authoring `DomainOp` surface.
+  - Ensure authoring factories no longer attach validation surfaces at runtime.
+- **Why**
+  - Prevents drift back into “dual validation paths” and avoids inventing runtime default/clean semantics.
+- **Implementation notes**
+  - References:
+    - `packages/mapgen-core/src/authoring/validation.ts` (delete)
+    - `packages/mapgen-core/src/authoring/op/validation-surface.ts` (delete)
+    - `packages/mapgen-core/src/authoring/op/types.ts` (remove APIs/types)
+    - `packages/mapgen-core/src/authoring/op/create.ts` (remove `customValidate` attachment)
+    - `packages/mapgen-core/src/authoring/index.ts` (remove exports)
+- **Acceptance criteria**
+  - No runtime-path code can call `runValidated`/`validate`.
+  - Authoring `DomainOp` remains fully type-safe and ergonomic without validation surface methods.
+- **Verification checklist**
+  - `rg -n \"runValidated\\(|\\.validate\\(\" packages` returns only allowed dev/test/tooling helpers (if any).
+  - Run `pnpm check-types` and `pnpm -C packages/mapgen-core test`.
 
-12) Centralize shared utilities in `mapgen-core` (REMAINING)
-    - Consolidate common helpers that are duplicated across ops/steps into core utilities, then remove local copies.
-    - Target helpers (minimum set):
-      - `clamp01` and general `clamp` (numeric bounds)
-      - `normalizeRange` (range normalization with zero-span guard)
-      - `clampChance` / `rollPercent` (chance normalization + RNG roll helpers)
-    - Add a small `mapgen-core` utility module (e.g. `packages/mapgen-core/src/math/` or `packages/mapgen-core/src/utils/`) and export from the package entrypoint.
-    - Update ecology ops and other steps to import shared utilities from `mapgen-core`, not local inline helpers.
+#### 5) Move custom validation into compile-time `normalize` (REMAINING)
 
-13) Lint guardrails for the new architecture (REMAINING, FIRST-CLASS)
-    - Update `eslint.config.js` (and any workspace-specific configs) with explicit `no-restricted-imports` rules that enforce the new boundaries:
-      - Disallow `runValidated`, `validate`, `OpValidationError`, and TypeBox runtime validators in runtime layers (`mods/**/stages/**`, `mods/**/domain/**/strategies/**`).
-      - Disallow `TypeCompiler`, `Value.Default`, `Value.Clean`, `applySchemaDefaults` in runtime layers (compiler-only use).
-      - Require shared utilities to come from `mapgen-core` (disallow local copies in ops/steps where shared versions exist).
-    - Add guardrails for inline vs. out-of-line decisions:
-      - Disallow deprecated helpers like `resolveConfig` or `customValidate` in op strategies.
-      - Disallow any new runtime defaulting/normalization in `run` when the contract calls for compile-time normalization.
-    - Ensure linter failures are clear and actionable (message text pointing to the intended core utility or compiler path).
+- **What changes**
+  - Replace `customValidate` usage with compile-time checks in strategy `normalize` (or schema-level constraints where expressible).
+  - Throw validation errors from `normalize`; compiler maps them to `op.config.invalid`.
+- **Why**
+  - Keeps all config correctness in one place (compiler pipeline), not scattered runtime checks.
+- **Implementation notes**
+  - Reference: `mods/mod-swooper-maps/src/domain/placement/ops/plan-floodplains/index.ts`.
+  - Prefer producing specific errors (path + code) rather than generic “invalid config” messages.
+- **Acceptance criteria**
+  - Invalid floodplains configs fail compile-time normalization with `op.config.invalid`.
+  - No runtime code path depends on `customValidate`.
+- **Verification checklist**
+  - Add/adjust targeted unit test(s) covering invalid configs.
+  - Run `pnpm -C mods/mod-swooper-maps test`.
+
+#### 6) Schema defaults + factory enforcement (deep-defaults contract) (REMAINING)
+
+- **What changes**
+  - Remove object-level `default: {}` (and any object defaults) from config object schemas where property defaults exist.
+  - Make property defaults the canonical way defaults are expressed.
+  - Update factories/helpers so inline schemas:
+    - implicitly apply `additionalProperties: false`, and
+    - reject/forbid object-level defaults that would mask property defaults.
+- **Why**
+  - Prevents incomplete `defaultConfig` values and eliminates the “deep defaults” ambiguity.
+  - Gives authors one obvious way to express defaults and avoids repeated boilerplate.
+- **Implementation notes**
+  - Likely touchpoints:
+    - Schema default derivation: `packages/mapgen-core/src/authoring/schema.ts` (`buildSchemaDefaults`)
+    - Schema/factory entrypoints (exact factory names may vary; target: op/step/stage contract helpers)
+    - Mod schemas (examples of drift): `mods/mod-swooper-maps/src/domain/**/contract.ts`
+  - Enforcement strategy:
+    - Prefer failing fast at author-time (factory) when an object schema declares an object default.
+    - Add lint guardrails (see issue 13) to prevent reintroduction.
+  - Contract target:
+    - `op.defaultConfig` should be structurally safe and should match the compiler’s “empty selection normalization” semantics (`normalizeStrict(op.config, {})`) wherever applicable.
+- **Acceptance criteria**
+  - No config object schemas use object-level `default: {}` where properties already have defaults.
+  - Inline schemas no longer need to specify `additionalProperties: false` manually when using factories.
+  - `op.defaultConfig` yields a structurally complete config (no missing nested objects that should default).
+- **Verification checklist**
+  - Add/adjust unit tests in `packages/mapgen-core/test/authoring/**` asserting:
+    - factory rejects object-level object defaults, and
+    - `additionalProperties: false` is applied by convention.
+  - Run `pnpm -C packages/mapgen-core test`.
+  - Run `pnpm -C mods/mod-swooper-maps test` (defaultConfig-related failures must be eliminated by schema cleanup, not by runtime defaulting).
+
+#### 7) Artifact handler/factory pattern (runtime invariants) (REMAINING)
+
+- **What changes**
+  - Keep TypeBox artifact schemas as canonical typing/contracts (no runtime schema validation).
+  - Introduce artifact handlers that centralize runtime invariants:
+    - `validate(value, dims)` → invariant errors
+    - `assert(value, dims)` → throw on error
+    - `get(context)` → read + assert + return typed
+    - `set(context, value)` → assert + store
+  - Producers call `set`, consumers call `get`, tag `satisfies` uses `validate`.
+- **Why**
+  - Centralizes runtime invariants and prevents “every consumer re-validates ad hoc” drift.
+- **Implementation notes**
+  - References:
+    - `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts`
+    - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
+  - Invariants include: presence, typed-array shape, dimension coupling (`length === width * height`), and range bounds (when truly invariant).
+- **Acceptance criteria**
+  - Artifact invariants are enforced consistently through handlers, not scattered runtime checks.
+  - No TypeBox runtime validators are required for artifact invariants.
+- **Verification checklist**
+  - Add/adjust artifact-focused tests in `mods/mod-swooper-maps/test/pipeline/**`.
+  - Run `pnpm -C mods/mod-swooper-maps test`.
+
+#### 8) Remove runtime TypeBox validators for placement inputs/outputs (REMAINING)
+
+- **What changes**
+  - Remove `TypeCompiler`/TypeBox runtime validation from:
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-inputs.ts`
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-outputs.ts`
+  - Use artifact handlers for runtime invariants and typed reads/writes.
+- **Why**
+  - Placement stage should operate on already-validated configs and enforce artifact invariants via handlers, not schema validation.
+- **Acceptance criteria**
+  - No `TypeCompiler` usage remains in placement runtime paths.
+  - Placement stages use artifact handlers for reads/writes.
+- **Verification checklist**
+  - `rg -n \"TypeCompiler\" mods/mod-swooper-maps/src/recipes/standard/stages/placement` returns empty.
+  - Run `pnpm -C mods/mod-swooper-maps test`.
+
+#### 9) Remove runtime `runValidated` usage in steps (REMAINING)
+
+- **What changes**
+  - Replace all `runValidated` calls with `run` in runtime step execution paths:
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**`
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/**`
+- **Why**
+  - Step runtime should not perform schema validation/defaulting; it should assume compiler-normalized config and enforce only runtime invariants.
+- **Acceptance criteria**
+  - No runtime step code uses `runValidated`.
+  - Step runtime uses normalized selections produced by the compiler.
+- **Verification checklist**
+  - `rg -n \"runValidated\" mods/mod-swooper-maps/src/recipes/standard/stages` returns empty.
+  - Run `pnpm -C mods/mod-swooper-maps test`.
+
+#### 10) Remove runtime defaulting/normalization in op strategies (REMAINING)
+
+- **What changes**
+  - Remove runtime normalization/clamping/coercion in `run` bodies (e.g. selector normalization, `Math.floor` coercions, runtime chance clamping when the intent is schema validation/defaulting).
+  - Move all config shaping into compile-time normalization (`normalizeStrict` + `op.normalize`) and/or schema defaults.
+  - Reverse upstream divergence where ecology strategies normalize in `run`.
+- **Why**
+  - Prevents a creeping “shadow compiler” inside runtime execution.
+- **Implementation notes**
+  - Reference: `mods/mod-swooper-maps/src/domain/ecology/ops/**/strategies/*.ts`.
+  - Distinguish:
+    - **Config shaping** (compile-time only) vs
+    - **Artifact invariants** (runtime, via handlers).
+- **Acceptance criteria**
+  - `run` bodies no longer contain config defaulting/coercion that belongs in compile-time normalization.
+  - Config behavior matches compiler normalization behavior for all ops.
+- **Verification checklist**
+  - Add/adjust tests to assert normalization happens via compiler-backed runner (issue 11).
+  - Run `pnpm -C mods/mod-swooper-maps test`.
+
+#### 11) Tests + docs: compiler-backed validated runner + alignment pass (REMAINING)
+
+- **What changes**
+  - Update tests that depended on runtime validation/defaulting to use a compiler-backed validated runner (dev/test/tooling).
+  - Ensure test “validated execution” semantics reuse the compiler pipeline exactly:
+    - `normalizeStrict(op.config, rawSelection, path)`
+    - `op.normalize(selection, ctx)`
+    - `normalizeStrict(op.config, normalizedSelection, path)` again
+    - `op.run(input, normalizedSelection)`
+  - Update docs/triage to explicitly describe the compile-time vs runtime contract and the validated-runner rule for tests/tooling.
+- **Why**
+  - Ensures tests and tooling remain ergonomic and accurate without reintroducing production runtime validation.
+- **Implementation notes**
+  - References:
+    - `packages/mapgen-core/test/**`
+    - `docs/projects/engine-refactor-v1/triage.md`
+    - Mod test support helpers under `mods/mod-swooper-maps/test/support/**`
+- **Acceptance criteria**
+  - No tests depend on ad-hoc schema-default extraction that can drift from compiler semantics.
+  - Ops remain easily runnable in isolation with validated runner semantics.
+  - Docs clearly state the boundaries and the “one obvious way” for validation/defaulting.
+- **Verification checklist**
+  - Run `pnpm test:mapgen`.
+  - Run `pnpm -C mods/mod-swooper-maps test`.
+  - Run `pnpm check` (ensures lint guardrails don’t regress).
+
+#### 12) Centralize shared utilities in `mapgen-core` (REMAINING)
+
+- **What changes**
+  - Consolidate common helpers duplicated across ops/steps into core utilities, then remove local copies.
+  - Target helpers (minimum set):
+    - `clamp01` and general `clamp` (numeric bounds)
+    - `normalizeRange` (range normalization with zero-span guard)
+    - `clampChance` / `rollPercent` (chance normalization + RNG roll helpers)
+- **Why**
+  - Reduces drift and makes behavior consistent across domains; authors get one obvious import path.
+- **Implementation notes**
+  - Add a small utility module (e.g. `packages/mapgen-core/src/math/**` or `packages/mapgen-core/src/utils/**`) and export from `packages/mapgen-core/src/index.ts`.
+  - Update callsites (especially ecology ops) to import from `@swooper/mapgen-core`, not local inline helpers.
+- **Acceptance criteria**
+  - Shared helpers live in `mapgen-core` and are reused (no duplicate local clones across ops).
+  - Imports are consistent and type-safe.
+- **Verification checklist**
+  - Run `pnpm -C packages/mapgen-core test` and `pnpm -C mods/mod-swooper-maps test`.
+  - `pnpm lint` (imports should satisfy guardrails once issue 13 lands).
+
+#### 13) Lint guardrails for the architecture (FIRST-CLASS) (REMAINING)
+
+- **What changes**
+  - Update `eslint.config.js` (and any workspace-specific configs) with explicit `no-restricted-imports` rules enforcing boundaries:
+    - Disallow `runValidated`, `validate`, `OpValidationError`, and TypeBox runtime validators in runtime layers (`mods/**/stages/**`, `mods/**/domain/**/strategies/**`).
+    - Disallow compiler-only helpers in runtime layers (`TypeCompiler`, `Value.Default`, `Value.Clean`, `applySchemaDefaults`, etc.).
+    - Require shared utilities to come from `mapgen-core` (disallow local one-off copies where a core helper exists).
+  - Add guardrails for schema conventions:
+    - Disallow object-level `default: {}` on config object schemas (or flag for review), aligned with issue 6.
+  - Add guardrails for inline vs. out-of-line decisions:
+    - Disallow deprecated helpers like `resolveConfig` or `customValidate` in op strategies.
+    - Disallow new runtime defaulting/normalization inside `run` when the contract calls for compile-time normalization.
+- **Why**
+  - The architecture must be enforced mechanically so it doesn’t regress under iteration (human or agent).
+- **Acceptance criteria**
+  - Violations are caught by lint with actionable error messages pointing to the intended canonical path.
+  - Running `pnpm check` serves as a structural safeguard for the target architecture.
+- **Verification checklist**
+  - Run `pnpm lint` and `pnpm check`.
+  - Add at least one regression fixture (a small intentionally-bad import in a test-only fixture or documented example) if the repo’s lint patterns support it; otherwise rely on targeted `no-restricted-imports` coverage.
 
 ## REVIEW m7-t01-compiler-module-skeleton-strict-normalization
 
