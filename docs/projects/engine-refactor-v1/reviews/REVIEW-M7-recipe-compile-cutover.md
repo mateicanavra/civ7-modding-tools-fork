@@ -224,6 +224,12 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - Use artifact handlers for runtime invariants and typed reads/writes.
 - **Why**
   - Placement stage should operate on already-validated configs and enforce artifact invariants via handlers, not schema validation.
+- **Implementation notes**
+  - References:
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-inputs.ts`
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-outputs.ts`
+    - `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts`
+  - Constraint: no runtime TypeBox validation/defaulting in placement runtime; enforce invariants via artifact handlers only.
 - **Acceptance criteria**
   - No `TypeCompiler` usage remains in placement runtime paths.
   - Placement stages use artifact handlers for reads/writes.
@@ -239,6 +245,11 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
     - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/**`
 - **Why**
   - Step runtime should not perform schema validation/defaulting; it should assume compiler-normalized config and enforce only runtime invariants.
+- **Implementation notes**
+  - Primary call sites:
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**`
+    - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/**`
+  - Ensure steps consume normalized selections produced by the compiler (or via the validated runner in tests), not ad-hoc schema defaults.
 - **Acceptance criteria**
   - No runtime step code uses `runValidated`.
   - Step runtime uses normalized selections produced by the compiler.
