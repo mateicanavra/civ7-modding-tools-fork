@@ -99,10 +99,6 @@ export type OpConfigSchema<Strategies extends Record<string, { config: TSchema }
   StrategySelection<Strategies>
 >;
 
-export type ValidationError = Readonly<{ path: string; message: string }>;
-export type OpValidateOptions = Readonly<{ abortEarly?: boolean }>;
-export type OpRunValidatedOptions = OpValidateOptions;
-
 export type DomainOp<
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
@@ -124,36 +120,9 @@ export type DomainOp<
     ctx: NormalizeCtx<Env, Knobs>
   ) => StrategySelection<Strategies>;
   run: (input: Static<InputSchema>, config: StrategySelection<Strategies>) => Static<OutputSchema>;
-  validate: (
-    input: Static<InputSchema>,
-    config: StrategySelection<Strategies>,
-    options?: OpValidateOptions
-  ) => { ok: boolean; errors: ValidationError[] };
-  runValidated: (
-    input: Static<InputSchema>,
-    config: StrategySelection<Strategies>,
-    options?: OpRunValidatedOptions
-  ) => Static<OutputSchema>;
 }>;
 
 type DomainOpAny = DomainOp<TSchema, TSchema, Record<string, { config: TSchema }>>;
-
-export function normalizeEnvelopeByStrategy<
-  InputSchema extends TSchema,
-  OutputSchema extends TSchema,
-  Strategies extends Record<string, { config: TSchema; normalize?: (config: any, ctx: any) => any }>,
-  Knobs,
->(
-  op: DomainOp<InputSchema, OutputSchema, Strategies, Knobs>,
-  envelope: StrategySelection<Strategies>,
-  ctx: NormalizeCtx<Env, Knobs>
-): StrategySelection<Strategies> {
-  const strat = (op.strategies as any)[(envelope as any).strategy] as
-    | { normalize?: (config: unknown, ctx: NormalizeCtx<Env, Knobs>) => unknown }
-    | undefined;
-  if (typeof strat?.normalize !== "function") return envelope;
-  return { ...(envelope as any), config: strat.normalize((envelope as any).config, ctx) } as any;
-}
 
 // Compile-visible op surface (includes normalize/defaultConfig/strategies access via DomainOp shape).
 export type DomainOpCompileAny = DomainOpAny & Readonly<{ id: string; kind: string }>;
@@ -161,7 +130,7 @@ export type DomainOpCompileAny = DomainOpAny & Readonly<{ id: string; kind: stri
 // Runtime-visible op surface (structurally stripped; cannot normalize).
 export type DomainOpRuntimeAny = Pick<
   DomainOpCompileAny,
-  "id" | "kind" | "run" | "validate" | "runValidated"
+  "id" | "kind" | "run"
 >;
 
 export function runtimeOp(op: DomainOpCompileAny): DomainOpRuntimeAny {
@@ -169,8 +138,6 @@ export function runtimeOp(op: DomainOpCompileAny): DomainOpRuntimeAny {
     id: op.id,
     kind: op.kind,
     run: op.run,
-    validate: op.validate,
-    runValidated: op.runValidated,
   };
 }
 

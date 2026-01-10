@@ -73,11 +73,16 @@ This document defines how to model a domain into **operations**, **strategies**,
 - A stable, step-callable contract with explicit schemas.
 - Pure input + config -> output. No engine, no adapter, no step context.
 - The unit we expect to reuse, test, and evolve independently.
+- Compile-time normalization lives in `op.normalize(...)` (never at runtime).
+- Op config envelopes are `{ strategy, config }` and should remain stable in shape.
+- Op normalize runs only during compilation; runtime `run(...)` assumes canonical configs.
 
 **Step**
 - The smallest runtime unit in a recipe pipeline.
 - Orchestrates inputs, calls ops, then applies/publishes results.
 - Owns `requires/provides` and interaction with runtime/engine surfaces.
+- May provide `step.normalize(...)` (compile-time only); runtime `run(...)` treats config as canonical.
+- Step contracts require explicit schemas; op envelopes are included directly in step schemas and defaulted/cleaned by the compiler.
 
 ### 3) Composition boundaries (hard rules)
 
@@ -85,6 +90,8 @@ This document defines how to model a domain into **operations**, **strategies**,
 - Steps **never** import or call op rules or strategy modules directly.
 - Strategies are internal to ops; steps select strategies via config only.
 - Rules are internal to ops; they are not exposed as contracts.
+- Runtime steps bind ops via `bindRuntimeOps` (runtime surface strips compile-time hooks).
+- Compile-time normalization uses `bindCompileOps` (compile surface) inside `step.normalize` or compiler helpers.
 
 ### 4) Decision framework (what becomes what)
 
@@ -114,6 +121,7 @@ Use this decision table when mapping legacy logic to the target architecture:
 - Op ids must be verb-forward and action-specific (`plan`, `compute`, `score`, `select`).
 - A single op must have a **coherent, stable input shape**.
 - If inputs diverge by use case, split into multiple ops.
+- Op `config` schemas must represent a stable envelope shape (strategy + config), not ad-hoc unions.
 
 **Heuristics**
 - Split by **different responsibilities**, even if inputs overlap.
@@ -153,6 +161,11 @@ Steps are **action boundaries**:
 Steps are **not** planning units:
 - Planning belongs to ops.
 - A step named “plan-*” is a modeling smell; rename it to reflect action (e.g., `plot-*`, `apply-*`, `publish-*`).
+
+Steps in the current architecture:
+- Author contracts are schema-only via `defineStepContract` (explicit `schema` required).
+- Op envelopes are included directly in the step schema (typically via `op.config`), and defaults are handled by schema defaults or explicit step defaults.
+- Op normalization is performed in `step.normalize(...)` using compile-surface ops (`bindCompileOps`) when needed.
 
 ### 9) Domain modeling workflow (practical use)
 

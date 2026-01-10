@@ -1,5 +1,6 @@
+import type { Static } from "typebox";
+
 import type { StageConfigInputOf, StageContractAny } from "./stages";
-import type { StepConfigOf } from "./steps";
 
 type AnyStage = StageContractAny;
 
@@ -17,6 +18,8 @@ type StepById<TStage extends AnyStage, Id extends StepIdOf<TStage>> = Extract<
   StepsOf<TStage>[number],
   { contract: { id: Id } }
 >;
+
+type StepConfigOf<C extends { schema: any }> = Static<C["schema"]>;
 
 // Author-facing recipe input: stage-id keyed; each stage config is a *single object* (knobs + fields).
 export type RecipeConfigInputOf<TStages extends readonly AnyStage[]> = Readonly<

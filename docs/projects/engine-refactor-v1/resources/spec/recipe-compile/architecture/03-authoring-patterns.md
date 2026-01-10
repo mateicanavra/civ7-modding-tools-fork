@@ -9,10 +9,10 @@ ops, and the type-level split between author input and compiled output.
 
 Define the single recommended, repo-realistic authoring pattern for a step module that:
 
-- Lists ops once in the contract as **op contracts** (not `OpRef`) and derives refs/envelopes internally.
+- Declares op contracts once in a module-scope `opContracts` map and uses them for binding.
 - Binds ops **inside the step module closure**, not in the stage factory.
 - Ensures runtime cannot call compile-time normalization hooks (runtime ops surface is structurally stripped; compile registries are compile-only and lint-restricted).
-- Supports `StepConfigInputOf` (author can omit op envelopes; compiler prefills).
+- Keeps step contracts schema-only (explicit schema required) and uses schema defaults or step normalization for canonicalization.
 
 #### Canonical exports for a step module
 
@@ -20,15 +20,15 @@ A step module should export:
 
 - `contract`: `StepContract<...>`
 - `step`: the engine-facing step module created by `createStep(contract, impl)`
-- Optionally: `type ConfigInput = StepConfigInputOf<typeof contract>` and `type Config = StepConfigOf<typeof contract>` (local clarity only)
+- Optionally: `type Config = Static<typeof contract.schema>` (local clarity only; `Static` comes from core authoring)
 
 #### Canonical imports for a step module
 
 A step module should import:
 
-- `defineStepContract` from core authoring
-- `createStep` from the canonical authoring entrypoint (`@swooper/mapgen-core/authoring`), or from a mod-local authoring barrel that re-exports it (pick one entrypoint per package; do not mix)
-- `bindRuntimeOps` (and sometimes `bindCompileOps` in compiler-only code; not used by runtime `run`)
+- `Type`/`Static` + `defineStepContract` from core authoring
+- `createStep` from the bound authoring entrypoint (`@mapgen/authoring/steps` in mods)
+- `bindRuntimeOps` and `bindCompileOps` from core authoring (compile ops are used inside `step.normalize`)
 - Domain **contracts** for op declarations (IDs + schemas), imported via the domain contract surface (`@mapgen/domain/<domain>/contracts`)
 - Domain **runtimeOpsById** registry for runtime binding (by id), imported only via the domain public surface (`@mapgen/domain/<domain>`)
 - No compiler helpers and no TypeBox `Value.*` inside runtime `run`
@@ -49,7 +49,8 @@ Inline example:
 ```ts
 // mods/mod-swooper-maps/src/domain/ecology/index.ts
 
-import type { DomainOpCompileAny, DomainOpRuntimeAny } from "@swooper/mapgen-core/authoring";
+import type { DomainOpCompileAny, DomainOpRuntime, OpsById } from "@swooper/mapgen-core/authoring";
+import { runtimeOp } from "@swooper/mapgen-core/authoring";
 
 import { planTreeVegetationContract } from "./ops/plan-tree-vegetation/contract.js";
 import { planShrubVegetationContract } from "./ops/plan-shrub-vegetation/contract.js";
@@ -67,33 +68,31 @@ export const ops = {
   planShrubVegetation,
 } as const;
 
-export const compileOpsById = buildOpsById(ops);
-export const runtimeOpsById = buildRuntimeOpsById(compileOpsById);
+type EcologyOp = (typeof ops)[keyof typeof ops];
+
+export const compileOpsById: OpsById<EcologyOp> = buildOpsById(ops);
+export const runtimeOpsById: OpsById<DomainOpRuntime<EcologyOp>> = buildRuntimeOpsById(ops);
 
 function buildOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
   input: TOps
-): Readonly<Record<string, DomainOpCompileAny>> {
-  const out: Record<string, DomainOpCompileAny> = {};
-  for (const op of Object.values(input)) out[op.id] = op;
-  return out;
+): OpsById<TOps[keyof TOps]> {
+  const out: Partial<OpsById<TOps[keyof TOps]>> = {};
+  for (const op of Object.values(input) as Array<TOps[keyof TOps]>) {
+    out[op.id as TOps[keyof TOps]["id"]] = op as OpsById<TOps[keyof TOps]>[TOps[keyof TOps]["id"]];
+  }
+  return out as OpsById<TOps[keyof TOps]>;
 }
 
-function runtimeOp(op: DomainOpCompileAny): DomainOpRuntimeAny {
-  return {
-    id: op.id,
-    kind: op.kind,
-    run: op.run,
-    validate: op.validate,
-    runValidated: op.runValidated,
-  } as const;
-}
-
-function buildRuntimeOpsById(
-  input: Readonly<Record<string, DomainOpCompileAny>>
-): Readonly<Record<string, DomainOpRuntimeAny>> {
-  const out: Record<string, DomainOpRuntimeAny> = {};
-  for (const [id, op] of Object.entries(input)) out[id] = runtimeOp(op);
-  return out;
+function buildRuntimeOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
+  input: TOps
+): OpsById<DomainOpRuntime<TOps[keyof TOps]>> {
+  const out: Partial<OpsById<DomainOpRuntime<TOps[keyof TOps]>>> = {};
+  for (const op of Object.values(input) as Array<TOps[keyof TOps]>) {
+    const runtime = runtimeOp(op);
+    out[runtime.id as DomainOpRuntime<TOps[keyof TOps]>["id"]] =
+      runtime as OpsById<DomainOpRuntime<TOps[keyof TOps]>>[DomainOpRuntime<TOps[keyof TOps]>["id"]];
+  }
+  return out as OpsById<DomainOpRuntime<TOps[keyof TOps]>>;
 }
 ```
 
@@ -102,9 +101,8 @@ function buildRuntimeOpsById(
 ```ts
 // mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/index.ts
 
-import { Type } from "typebox";
-
-import { bindRuntimeOps, createStep, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, bindCompileOps, bindRuntimeOps, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@mapgen/authoring/steps";
 
 // Domain public surface (canonical): step modules never deep-import op files.
 import * as ecology from "@mapgen/domain/ecology";
@@ -115,31 +113,24 @@ export const contract = defineStepContract({
   phase: "ecology",
   requires: ["artifact:biomes", "artifact:heightfield"],
   provides: ["artifact:vegetationIntents"],
-
-  // Ops declared as contracts (single source of truth)
-  ops: {
-    trees: ecologyContracts.planTreeVegetation,
-    shrubs: ecologyContracts.planShrubVegetation,
-  },
-
-  // O3: if you need non-op fields, you MUST provide an explicit schema.
-  // Here we have `densityBias`, so we author the schema explicitly.
-  //
-  // `defineStepContract` overwrites the op keys (`trees`, `shrubs`) with their derived
-  // envelope schemas (see §1.15 + Appendix A), so authors do not duplicate envelope schemas.
+  // Schema is explicit and schema-only; op envelopes are included via op.config schemas.
   schema: Type.Object(
     {
       densityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
-      trees: Type.Any(), // overwritten by derived envelope schema
-      shrubs: Type.Any(), // overwritten by derived envelope schema
+      trees: ecology.ops.planTreeVegetation.config,
+      shrubs: ecology.ops.planShrubVegetation.config,
     },
     { additionalProperties: false, default: {} }
   ),
 } as const);
 
-// Runtime ops are structurally stripped (no normalize/defaultConfig/strategies).
-// Note: binding is by op id via the domain registry; decl keys are preserved for IDE completion.
-const ops = bindRuntimeOps(contract.ops, ecology.runtimeOpsById);
+const opContracts = {
+  trees: ecologyContracts.planTreeVegetation,
+  shrubs: ecologyContracts.planShrubVegetation,
+} as const;
+
+const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
+const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
 
 export const step = createStep(contract, {
   // Compile-time step normalize hook (optional).
@@ -149,16 +140,16 @@ export const step = createStep(contract, {
     const bias = cfg.densityBias;
     return {
       ...cfg,
-      trees: applyDensityBias(cfg.trees, bias),
-      shrubs: applyDensityBias(cfg.shrubs, bias),
+      trees: applyDensityBias(compileOps.trees.normalize(cfg.trees, ctx), bias),
+      shrubs: applyDensityBias(compileOps.shrubs.normalize(cfg.shrubs, ctx), bias),
     };
   },
 
   run: async (ctx, cfg) => {
-    // Runtime: can only call runtime ops surface (run/runValidated), cannot call normalize.
+    // Runtime: can only call runtime ops surface (run), cannot call normalize.
     const input = buildVegetationInput(ctx);
-    const trees = ops.trees.runValidated(input, cfg.trees);
-    const shrubs = ops.shrubs.runValidated(input, cfg.shrubs);
+    const trees = runtimeOps.trees.run(input, cfg.trees);
+    const shrubs = runtimeOps.shrubs.run(input, cfg.shrubs);
 
     ctx.artifacts.set("artifact:vegetationIntents", { trees, shrubs });
   },
@@ -168,7 +159,7 @@ export const step = createStep(contract, {
 Key invariants enforced by this pattern:
 
 - `run(ctx, cfg)` has no access to compiler utilities and no access to compile-only op hooks.
-- Ops are listed once (contracts) and bound once (runtime binder).
+- Ops are listed once (module-scope contracts) and bound once (runtime binder).
 - `normalize` exists but is not callable at runtime because step modules bind only against `runtimeOpsById` (structurally stripped). Importing compile registries into runtime modules is forbidden by lint boundaries.
 
 ---
@@ -178,7 +169,7 @@ Key invariants enforced by this pattern:
 
 Provide one canonical binding API that:
 
-- Maps from contract-declared ops (contracts) to implementation registries by id.
+- Maps from module-scope op contract maps to implementation registries by id.
 - Produces **two** surfaces:
   - compile surface (includes normalize/defaultConfig/schema access)
   - runtime surface (structurally stripped; cannot normalize)
@@ -251,8 +242,6 @@ export function runtimeOp(op: DomainOpCompileAny): DomainOpRuntimeAny {
     id: op.id,
     kind: op.kind,
     run: op.run,
-    validate: op.validate,
-    runValidated: op.runValidated,
   } as const;
 }
 ```
@@ -271,7 +260,11 @@ const fakeCompileOpsById = {
 };
 
 const fakeRuntimeOpsById = buildRuntimeOpsById(fakeCompileOpsById);
-const ops = bindRuntimeOps(contract.ops, fakeRuntimeOpsById);
+const opContracts = {
+  trees: ecologyContracts.planTreeVegetation,
+  shrubs: ecologyContracts.planShrubVegetation,
+} as const;
+const ops = bindRuntimeOps(opContracts, fakeRuntimeOpsById);
 // step.run uses ops closure binding; you can invoke it under a mocked ctx/config
 ```
 
@@ -282,29 +275,20 @@ No bespoke `createPlotVegetationStep` factory is introduced as an architectural 
 
 #### Purpose
 
-Pin the exact type split and how it ties to the compiler pipeline and envelope prefill.
+Pin the exact type split and how it ties to the compiler pipeline and normalization behavior.
 
 This must satisfy:
 
-- Author config may omit op envelopes (`StepConfigInputOf`)
+- Author config is shaped by step schemas (no step-level `inputSchema`)
 - Compiled config drops knobs (no runtime knob channel)
-- O3: ops-derived schema cannot have extra fields (extras require explicit schema)
-- No step `inputSchema` concept required
+- Op envelope defaults are handled by schema defaults or step normalization
 
 #### Canonical types
 
 Step-level types:
 
 - Runtime config type (strict, canonical): `StepConfigOf<C> = Static<C["schema"]>`
-- Author input type: treat op envelope keys as optional:
-
-```ts
-type StepConfigInputOf<C extends StepContractAny> =
-  OmitPartialOps<Static<C["schema"]>, keyof C["ops"]>;
-
-type OmitPartialOps<T, K extends PropertyKey> =
-  T extends object ? Omit<T, Extract<K, keyof T>> & Partial<Pick<T, Extract<K, keyof T>>> : T;
-```
+- Author input type is the same shape as the step schema (defaults are applied by the compiler)
 
 Stage config input:
 
@@ -327,22 +311,21 @@ type CompilationTrace = {
 };
 ```
 
-#### Prefill + strict validation interaction (mechanics)
+#### Canonicalization + strict validation interaction (mechanics)
 
 Compiler pipeline order (per step):
 
-1. Start with raw step config input (may omit op keys)
-2. Prefill op envelopes for each `opKey` in `step.contract.ops`
+1. Start with raw step config input (stage output, partial by stage)
+2. If the compiler has op metadata (`step.contract.ops`), prefill missing op envelopes
 3. Run strict `normalizeStrict(step.schema)` (unknown keys error + default/clean)
 4. Run `step.normalize(cfg, ctx)` if present (shape-preserving)
-5. Run op normalization pass for each opKey:
-   - normalize envelope using compile op surface
+5. If `step.contract.ops` is declared, run the mechanical op normalization pass:
+   - normalize envelopes using compile op surface
 6. Re-run strict `normalizeStrict(step.schema)`
 7. Output is `StepConfigOf` (canonical runtime config)
 
 This guarantees:
 
-- author can omit envelopes (`StepConfigInputOf`)
 - runtime sees fully concrete config (`StepConfigOf`)
 - no runtime defaulting needed
 
@@ -366,7 +349,7 @@ Textual (authoritative):
 3. Inside `recipe.run`:
    - `compiled = recipe.compileConfig({ env, config })`
    - `runRequest = recipe.runRequest({ env, compiled })`
-   - `plan = engine.compileExecutionPlan(runRequest)` (validate-only; no default/clean)
+   - `plan = engine.compileExecutionPlan(runRequest)` (identity-only; no default/clean)
    - `executor.executePlan(context, plan)` (no default/clean; uses plan configs as-is)
 4. Steps run with `run(ctx, config)` only; ops are available through module-bound runtime bindings, not passed through engine.
 
@@ -388,12 +371,12 @@ Compile op shape (compiler-visible) must include:
 - `config` envelope schema
 - `defaultConfig` envelope value
 - `strategies` including optional `normalize` hooks per strategy
-- `validate`, `runValidated`, `run`
+- `run` and the compile-time `normalize` hook
 
 Runtime op shape (step.run-visible) must include only:
 
 - `id`, `kind`
-- `run` and/or `runValidated` and `validate`
+- `run`
 - must not include `normalize`, `defaultConfig`, or `strategies`
 
 Canonical TS (shape intent):
@@ -406,12 +389,10 @@ export type DomainOpCompile = {
   defaultConfig: unknown;
   strategies: Record<string, { config: TSchema; normalize?: Function; run: Function }>;
   normalize?: (envelope: unknown, ctx: { env: Env; knobs: unknown }) => unknown;
-  validate: Function;
-  runValidated: Function;
   run: Function;
 };
 
-export type DomainOpRuntime = Pick<DomainOpCompile, "id" | "kind" | "validate" | "runValidated" | "run">;
+export type DomainOpRuntime = Pick<DomainOpCompile, "id" | "kind" | "run">;
 ```
 
 Structural stripping is via `runtimeOp(op)` (see §1.14).

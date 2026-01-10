@@ -41,11 +41,11 @@ Rationale:
 **Pinned:** Step contracts and step modules may import the **domain entrypoint**, but must not deep-import op modules/strategies/rules.
 
 Allowed:
-- Step **contract** files importing **op contracts** via the domain contract surface:
-  - `import * as ecologyContracts from "@mapgen/domain/ecology/contracts";`
-  - `ops: { trees: ecologyContracts.planTreeVegetation, ... }`
-- Step modules importing the domain entrypoint to access the registry for binding:
-  - `const ops = bindRuntimeOps(contract.ops, ecology.runtimeOpsById);`
+- Step **contract** files importing op config schemas via the domain entrypoint:
+  - `import * as ecology from "@mapgen/domain/ecology";`
+  - `schema: Type.Object({ trees: ecology.ops.planTreeVegetation.config, ... })`
+- Step modules importing the domain entrypoint to access registries for binding:
+  - `const ops = bindRuntimeOps(opContracts, ecology.runtimeOpsById);`
 
 Forbidden:
 - Deep imports into `@mapgen/domain/<domain>/ops/**`, `strategies/**`, `rules/**`.

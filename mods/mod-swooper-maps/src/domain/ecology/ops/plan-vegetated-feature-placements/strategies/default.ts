@@ -1,4 +1,4 @@
-import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 import { clamp01, clampChance, createLabelRng, rollPercent } from "@swooper/mapgen-core";
 
 import { FEATURE_PLACEMENT_KEYS, biomeSymbolFromIndex, type FeatureKey } from "@mapgen/domain/ecology/types.js";

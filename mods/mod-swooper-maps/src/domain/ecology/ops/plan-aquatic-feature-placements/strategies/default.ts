@@ -53,11 +53,20 @@ export const defaultStrategy = createStrategy(PlanAquaticFeaturePlacementsContra
   run: (input, config) => {
     const rng = createLabelRng(input.seed);
 
-    const chances = config.chances!;
-    const rules = config.rules!;
-    const atollCfg = rules.atoll!;
-    const multiplier = config.multiplier!;
-    const reefLatitudeSplit = rules.reefLatitudeSplit!;
+    const chances = config.chances ?? {};
+    const rules = config.rules ?? {};
+    const atollCfg = rules.atoll ?? {};
+    const multiplier = config.multiplier ?? 0;
+    const reefLatitudeSplit = rules.reefLatitudeSplit ?? 0;
+    const {
+      enableClustering = true,
+      clusterRadius = 0,
+      equatorialBandMaxAbsLatitude = 0,
+      shallowWaterAdjacencyGateChance = 0,
+      shallowWaterAdjacencyRadius = 1,
+      growthChanceEquatorial = 0,
+      growthChanceNonEquatorial = 0,
+    } = atollCfg;
 
     const { width, height, landMask, terrainType, latitude, featureKeyField, coastTerrain } = input;
     const isWater = (x: number, y: number): boolean => landMask[y * width + x] === 0;
@@ -79,8 +88,8 @@ export const defaultStrategy = createStrategy(PlanAquaticFeaturePlacementsContra
       return { placements };
     }
 
-    const reefChance = clampChance(chances.FEATURE_REEF! * multiplier);
-    const coldReefChance = clampChance(chances.FEATURE_COLD_REEF! * multiplier);
+    const reefChance = clampChance((chances.FEATURE_REEF ?? 0) * multiplier);
+    const coldReefChance = clampChance((chances.FEATURE_COLD_REEF ?? 0) * multiplier);
     if (reefChance > 0 || coldReefChance > 0) {
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
@@ -97,7 +106,7 @@ export const defaultStrategy = createStrategy(PlanAquaticFeaturePlacementsContra
       }
     }
 
-    const baseAtollChance = clampChance(chances.FEATURE_ATOLL! * multiplier);
+    const baseAtollChance = clampChance((chances.FEATURE_ATOLL ?? 0) * multiplier);
     if (baseAtollChance > 0) {
       const atollIdx = FEATURE_KEY_INDEX.FEATURE_ATOLL;
       for (let y = 0; y < height; y++) {
@@ -106,22 +115,22 @@ export const defaultStrategy = createStrategy(PlanAquaticFeaturePlacementsContra
           if (!canPlaceAt(x, y)) continue;
 
           let chance = baseAtollChance;
-          if (atollCfg.enableClustering && atollCfg.clusterRadius > 0) {
-            if (hasAdjacentFeatureType(featureField, width, height, x, y, atollIdx, atollCfg.clusterRadius)) {
+          if (enableClustering && clusterRadius > 0) {
+            if (hasAdjacentFeatureType(featureField, width, height, x, y, atollIdx, clusterRadius)) {
               const absLat = Math.abs(latitude[y * width + x] ?? 0);
               chance =
-                absLat <= atollCfg.equatorialBandMaxAbsLatitude
-                  ? atollCfg.growthChanceEquatorial
-                  : atollCfg.growthChanceNonEquatorial;
+                absLat <= equatorialBandMaxAbsLatitude
+                  ? growthChanceEquatorial
+                  : growthChanceNonEquatorial;
             }
           }
 
           if (chance <= 0) continue;
           if (
-            atollCfg.shallowWaterAdjacencyGateChance > 0 &&
-            isAdjacentToShallowWater(getTerrainType, coastTerrain, width, height, x, y, atollCfg.shallowWaterAdjacencyRadius)
+            shallowWaterAdjacencyGateChance > 0 &&
+            isAdjacentToShallowWater(getTerrainType, coastTerrain, width, height, x, y, shallowWaterAdjacencyRadius)
           ) {
-            if (!rollPercent(rng, "features:plan:atoll:shallow-gate", atollCfg.shallowWaterAdjacencyGateChance)) {
+            if (!rollPercent(rng, "features:plan:atoll:shallow-gate", shallowWaterAdjacencyGateChance)) {
               continue;
             }
           }
@@ -131,7 +140,7 @@ export const defaultStrategy = createStrategy(PlanAquaticFeaturePlacementsContra
       }
     }
 
-    const lotusChance = clampChance(chances.FEATURE_LOTUS! * multiplier);
+    const lotusChance = clampChance((chances.FEATURE_LOTUS ?? 0) * multiplier);
     if (lotusChance > 0) {
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
