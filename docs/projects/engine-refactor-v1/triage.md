@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Compiler normalize error path joinPath handling** [Source: LOCAL-TBD-M7-A1]
+  - **Context:** M7 A1 compiler normalize helpers reuse execution-plan joinPath behavior to avoid trailing slashes on root error paths.
+  - **Type:** triage
+  - **Notes:** Spec reference shows base+suffix joinPath; revisit if compiler error formatting needs to match spec examples exactly.
+  - **Next check:** when compileRecipeConfig wiring (A2) adds integration tests or external error consumers.
+
 - **ResolveConfig compile failures use a distinct error code** [Source: LOCAL-TBD-M6-U10]
   - **Context:** U10 plan compilation now emits `step.resolveConfig.failed` for resolver exceptions/invalid returns.
   - **Type:** triage

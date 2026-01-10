@@ -27,6 +27,8 @@ export default defineConfig({
     "src/index.ts",
     "src/engine/index.ts",
     "src/authoring/index.ts",
+    "src/compiler/normalize.ts",
+    "src/compiler/recipe-compile.ts",
     "src/lib/math/index.ts",
     "src/lib/grid/index.ts",
     "src/lib/heightfield/index.ts",

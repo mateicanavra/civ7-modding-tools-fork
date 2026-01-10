@@ -30,10 +30,10 @@ Land compiler primitives (strict schema normalization + op envelope prefill + er
 
 ## Acceptance Criteria
 
-- [ ] New compiler helpers exist as modules under `/packages/mapgen-core/src/compiler/**` and are exported for tests to import.
-- [ ] `normalizeStrict(schema, raw, path)` reports unknown-key errors deterministically and in a stable path format.
-- [ ] `prefillOpDefaults(stepContract, rawStepConfig, path)` installs missing op envelopes **only** based on contract-declared ops (no nested scanning).
-- [ ] Unit tests cover: unknown keys, null/undefined behavior, and error path formatting; tests are deterministic.
+- [x] New compiler helpers exist as modules under `/packages/mapgen-core/src/compiler/**` and are exported for tests to import.
+- [x] `normalizeStrict(schema, raw, path)` reports unknown-key errors deterministically and in a stable path format.
+- [x] `prefillOpDefaults(stepContract, rawStepConfig, path)` installs missing op envelopes **only** based on contract-declared ops (no nested scanning).
+- [x] Unit tests cover: unknown keys, null/undefined behavior, and error path formatting; tests are deterministic.
 
 ## Scope Boundaries
 
@@ -98,3 +98,20 @@ Land compiler primitives (strict schema normalization + op envelope prefill + er
 - [Scope Boundaries](#scope-boundaries)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+- [Implementation Decisions](#implementation-decisions)
+
+## Implementation Decisions
+
+### Normalize error paths without trailing slash
+- **Context:** Compiler normalize path joining for Value.Errors paths that return `"/"` or empty.
+- **Options:** Use spec reference joinPath (base + suffix, trailing slash), reuse execution-plan joinPath (base path when raw path is `"/"`).
+- **Choice:** Reuse execution-plan joinPath behavior.
+- **Rationale:** Keeps compiler error paths consistent with existing engine formatting and avoids trailing slash noise.
+- **Risk:** Minor divergence from spec reference formatting could affect consumers expecting a trailing slash.
+
+### Export compiler helpers as subpath entries
+- **Context:** New compiler helpers need exports for tests, but planned files do not include a compiler index entrypoint.
+- **Options:** Add `compiler/index.ts`, or export normalize + recipe-compile as subpaths.
+- **Choice:** Export `./compiler/normalize` and `./compiler/recipe-compile` subpaths.
+- **Rationale:** Keeps new files aligned with the planned list and avoids introducing an extra entrypoint in A1.
+- **Risk:** Consumers must import subpaths until a compiler index is added in a later task.
