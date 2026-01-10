@@ -277,7 +277,7 @@ This milestone is organized into 6 workstreams (A-F), each with detailed issue d
 | ID | Title | blocked_by | Issue Doc | Status | Notes |
 |---|---|---|---|---|---|
 | A1 | Compiler module skeleton + strict normalization | [] | [LOCAL-TBD-M7-A1](../issues/LOCAL-TBD-M7-A1-compiler-module-skeleton.md) | [x] | branch `m7-t01-compiler-module-skeleton-strict-normalization` |
-| A2 | compileRecipeConfig end-to-end wiring | [A1] | [LOCAL-TBD-M7-A2](../issues/LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md) | [ ] | |
+| A2 | compileRecipeConfig end-to-end wiring | [A1] | [LOCAL-TBD-M7-A2](../issues/LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md) | [x] | branch `m7-t02-compile-recipe-config-wiring` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/396) |
 | B1 | Step id convention: kebab-case enforced | [] | [LOCAL-TBD-M7-B1](../issues/LOCAL-TBD-M7-B1-step-id-kebab-case.md) | [ ] | |
 | B2 | Stage Option A: public+compile with computed surfaceSchema | [] | [LOCAL-TBD-M7-B2](../issues/LOCAL-TBD-M7-B2-stage-option-a.md) | [ ] | |
 | B3 | Domain ops registries + binding helpers | [] | [LOCAL-TBD-M7-B3](../issues/LOCAL-TBD-M7-B3-domain-ops-registries.md) | [ ] | |
