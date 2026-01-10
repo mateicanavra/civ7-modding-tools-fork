@@ -1,8 +1,7 @@
+import { clamp01 } from "@swooper/mapgen-core";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { PlanVegetationContract } from "../contract.js";
 import { FEATURE_PLACEMENT_KEYS, biomeSymbolFromIndex } from "@mapgen/domain/ecology/types.js";
-
-const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
 export const defaultStrategy = createStrategy(PlanVegetationContract, "default", {
   run: (input, config) => {
