@@ -54,7 +54,6 @@ const ClimateBaselineBandEdgesSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Latitude edges that separate rainfall bands.",
   }
 );
@@ -117,7 +116,6 @@ const ClimateBaselineBandsSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Rainfall targets by latitude zone (with explicit edges for blending).",
   }
 );
@@ -166,7 +164,7 @@ const ClimateBaselineSizeScalingSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -195,7 +193,6 @@ const ClimateBaselineBlendSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Blend weights for rainfall mixing.",
   }
 );
@@ -231,7 +228,6 @@ const ClimateBaselineSeedSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Seed rainfall parameters for baseline moisture.",
   }
 );
@@ -272,7 +268,6 @@ const ClimateBaselineOrographicSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Orographic lift rainfall bonuses by elevation.",
   }
 );
@@ -300,7 +295,6 @@ const ClimateBaselineCoastalSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Coastal proximity rainfall gradient used for baseline seeding.",
   }
 );
@@ -334,7 +328,6 @@ const ClimateBaselineNoiseSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Rainfall noise parameters for variation.",
   }
 );
@@ -359,7 +352,7 @@ const ClimateBaselineSchema = Type.Object(
     /** Rainfall noise/jitter parameters. */
     noise: Type.Optional(ClimateBaselineNoiseSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -391,7 +384,6 @@ const ClimateRefineWaterGradientSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Water proximity gradient settings.",
   }
 );
@@ -425,7 +417,6 @@ const ClimateRefineOrographicSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Rain shadow simulation settings.",
   }
 );
@@ -452,7 +443,6 @@ const ClimateRefineRiverCorridorSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "River corridor humidity settings.",
   }
 );
@@ -479,7 +469,6 @@ const ClimateRefineLowBasinSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Enclosed basin humidity settings.",
   }
 );
@@ -498,18 +487,16 @@ const ClimateRefineSchema = Type.Object(
     /** Enclosed basin humidity retention (valleys trap moisture). */
     lowBasin: Type.Optional(ClimateRefineLowBasinSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const ClimateSwatchTypeValueSchema = Type.Union([Type.Number(), Type.Boolean()]);
 
 const ClimateSwatchTypeConfigSchema = Type.Record(Type.String(), ClimateSwatchTypeValueSchema, {
-  default: {},
-});
+  });
 
 const ClimateSwatchTypesConfigSchema = Type.Record(Type.String(), ClimateSwatchTypeConfigSchema, {
-  default: {},
-});
+  });
 
 const ClimateSwatchSizeScalingSchema = Type.Object(
   {
@@ -528,7 +515,7 @@ const ClimateSwatchSizeScalingSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const ClimateSwatchesSchema = Type.Object(
@@ -545,7 +532,7 @@ const ClimateSwatchesSchema = Type.Object(
     /** Map-size scaling for swatch selection and widths. */
     sizeScaling: Type.Optional(ClimateSwatchSizeScalingSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -598,7 +585,7 @@ const ClimateStoryRainfallSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const ClimateStoryPaleoSizeScalingSchema = Type.Object(
@@ -614,7 +601,7 @@ const ClimateStoryPaleoSizeScalingSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const ClimateStoryPaleoElevationCarvingSchema = Type.Object(
@@ -643,7 +630,7 @@ const ClimateStoryPaleoElevationCarvingSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const ClimateStoryPaleoSchema = Type.Object(
@@ -755,7 +742,7 @@ const ClimateStorySchema = Type.Object(
      */
     paleo: Type.Optional(ClimateStoryPaleoSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export const ClimateConfigSchema = Type.Object(
@@ -772,7 +759,7 @@ export const ClimateConfigSchema = Type.Object(
      */
     swatches: Type.Optional(ClimateSwatchesSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export type ClimateConfig = Static<typeof ClimateConfigSchema>;

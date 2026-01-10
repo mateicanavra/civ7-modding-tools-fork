@@ -12,14 +12,7 @@ export const PlacementConfigSchema = Type.Object(
     floodplains: placement.ops.planFloodplains.config,
     starts: placement.ops.planStarts.config,
   },
-  {
-    additionalProperties: false,
-    default: {
-      wonders: placement.ops.planWonders.defaultConfig,
-      floodplains: placement.ops.planFloodplains.defaultConfig,
-      starts: placement.ops.planStarts.defaultConfig,
-    },
-  }
+  { additionalProperties: false }
 );
 
 export type PlacementConfig = Static<typeof PlacementConfigSchema>;

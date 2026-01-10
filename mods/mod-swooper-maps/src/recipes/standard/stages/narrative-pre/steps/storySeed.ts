@@ -3,7 +3,7 @@ import { createStep } from "@mapgen/authoring/steps";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { storyTagContinentalMargins } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
+import { narrativeMotifsMarginsArtifact } from "../../../artifacts.js";
 import { StorySeedStepContract } from "./storySeed.contract.js";
 
 type StorySeedStepConfig = Static<typeof StorySeedStepContract.schema>;
@@ -18,10 +18,7 @@ export default createStep(StorySeedStepContract, {
       }));
     }
     const result = storyTagContinentalMargins(context, config.margins);
-    context.artifacts.set(
-      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
-      result.motifs
-    );
+    narrativeMotifsMarginsArtifact.set(context, result.motifs);
 
     const activeCount = result.snapshot.active?.length ?? 0;
     const passiveCount = result.snapshot.passive?.length ?? 0;

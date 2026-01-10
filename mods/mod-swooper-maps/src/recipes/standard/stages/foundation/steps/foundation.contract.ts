@@ -7,7 +7,7 @@ const FoundationStepConfigSchema = Type.Object(
   {
     foundation: FoundationConfigSchema,
   },
-  { additionalProperties: false, default: { foundation: {} } }
+  { additionalProperties: false }
 );
 
 export const FoundationStepContract = defineStepContract({

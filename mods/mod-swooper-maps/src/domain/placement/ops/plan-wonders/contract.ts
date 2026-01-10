@@ -4,7 +4,7 @@ const MapInfoSchema = Type.Object(
   {
     NumNaturalWonders: Type.Optional(Type.Number()),
   },
-  { additionalProperties: true, default: {} }
+  { additionalProperties: true }
 );
 
 const WondersInputSchema = Type.Object(
@@ -22,7 +22,7 @@ const WondersConfigSchema = Type.Object(
       default: true,
     }),
   },
-  { additionalProperties: false, default: { wondersPlusOne: true } }
+  { additionalProperties: false }
 );
 
 const WondersOutputSchema = Type.Object(

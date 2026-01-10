@@ -14,11 +14,6 @@ export const BiomeEdgeRefineStepContract = defineStepContract({
     {
       refine: ecology.ops.refineBiomeEdges.config,
     },
-    {
-      additionalProperties: false,
-      default: {
-        refine: ecology.ops.refineBiomeEdges.defaultConfig,
-      },
-    }
+    { additionalProperties: false }
   ),
 });

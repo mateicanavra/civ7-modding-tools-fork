@@ -1,5 +1,6 @@
 import {
   MissingDependencyError,
+  StepExecutionError,
   UnsatisfiedProvidesError,
 } from "@mapgen/engine/errors.js";
 import type { ExecutionPlan } from "@mapgen/engine/execution-plan.js";
@@ -54,13 +55,26 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
       step: this.registry.get<TConfig>(node.stepId),
       config: node.config as TConfig,
     }));
-    return this.executeNodes(context, nodes, options);
+    return this.executeNodes(context, nodes, options, "throw");
+  }
+
+  executePlanReport(
+    context: TContext,
+    plan: ExecutionPlan,
+    options: PipelineExecutionOptions = {}
+  ): { stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> } {
+    const nodes = plan.nodes.map((node) => ({
+      step: this.registry.get<TConfig>(node.stepId),
+      config: node.config as TConfig,
+    }));
+    return this.executeNodes(context, nodes, options, "report");
   }
 
   private executeNodes(
     context: TContext,
     nodes: Array<{ step: MapGenStep<TContext, TConfig>; config: TConfig }>,
-    options: PipelineExecutionOptions = {}
+    options: PipelineExecutionOptions = {},
+    mode: "throw" | "report"
   ): { stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> } {
     const stepResults: PipelineStepResult[] = [];
     const tagRegistry = this.registry.getTagRegistry();
@@ -142,6 +156,9 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
             durationMs,
             error: errorMessage,
           });
+          if (mode === "throw") {
+            throw err instanceof StepExecutionError ? err : new StepExecutionError(step.id, err);
+          }
           break;
         } finally {
           context.trace = previousTrace;
@@ -170,13 +187,26 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
       step: this.registry.get<TConfig>(node.stepId),
       config: node.config as TConfig,
     }));
-    return this.executeNodesAsync(context, nodes, options);
+    return this.executeNodesAsync(context, nodes, options, "throw");
+  }
+
+  async executePlanReportAsync(
+    context: TContext,
+    plan: ExecutionPlan,
+    options: PipelineExecutionOptions = {}
+  ): Promise<{ stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> }> {
+    const nodes = plan.nodes.map((node) => ({
+      step: this.registry.get<TConfig>(node.stepId),
+      config: node.config as TConfig,
+    }));
+    return this.executeNodesAsync(context, nodes, options, "report");
   }
 
   private async executeNodesAsync(
     context: TContext,
     nodes: Array<{ step: MapGenStep<TContext, TConfig>; config: TConfig }>,
-    options: PipelineExecutionOptions = {}
+    options: PipelineExecutionOptions = {},
+    mode: "throw" | "report"
   ): Promise<{ stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> }> {
     const stepResults: PipelineStepResult[] = [];
     const tagRegistry = this.registry.getTagRegistry();
@@ -253,6 +283,9 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
             durationMs,
             error: errorMessage,
           });
+          if (mode === "throw") {
+            throw err instanceof StepExecutionError ? err : new StepExecutionError(step.id, err);
+          }
           break;
         } finally {
           context.trace = previousTrace;

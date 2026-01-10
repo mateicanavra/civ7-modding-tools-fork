@@ -12,32 +12,12 @@ const FeaturesStepConfigSchema = Type.Object(
         aquatic: ecology.ops.planAquaticFeaturePlacements.config,
         ice: ecology.ops.planIceFeaturePlacements.config,
       },
-      {
-        additionalProperties: false,
-        default: {
-          vegetated: ecology.ops.planVegetatedFeaturePlacements.defaultConfig,
-          wet: ecology.ops.planWetFeaturePlacements.defaultConfig,
-          aquatic: ecology.ops.planAquaticFeaturePlacements.defaultConfig,
-          ice: ecology.ops.planIceFeaturePlacements.defaultConfig,
-        },
-      }
+      { additionalProperties: false }
     ),
     reefEmbellishments: ecology.ops.planReefEmbellishments.config,
     vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.config,
   },
-  {
-    additionalProperties: false,
-    default: {
-      featuresPlacement: {
-        vegetated: ecology.ops.planVegetatedFeaturePlacements.defaultConfig,
-        wet: ecology.ops.planWetFeaturePlacements.defaultConfig,
-        aquatic: ecology.ops.planAquaticFeaturePlacements.defaultConfig,
-        ice: ecology.ops.planIceFeaturePlacements.defaultConfig,
-      },
-      reefEmbellishments: ecology.ops.planReefEmbellishments.defaultConfig,
-      vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.defaultConfig,
-    },
-  }
+  { additionalProperties: false }
 );
 
 export const FeaturesStepContract = defineStepContract({

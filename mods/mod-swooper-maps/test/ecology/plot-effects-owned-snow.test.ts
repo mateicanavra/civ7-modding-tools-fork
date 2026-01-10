@@ -1,9 +1,8 @@
 import { describe, it, expect } from "bun:test";
-import type { Static } from "@swooper/mapgen-core/authoring";
-import { Value } from "typebox/value";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import { planPlotEffects } from "../../src/domain/ecology/ops/plan-plot-effects/index.js";
 import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
+import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 const createInput = () => {
   const width = 2;
@@ -28,7 +27,11 @@ const createInput = () => {
 describe("plot effects (owned)", () => {
   it("places permanent snow plot effects when thresholds pass", () => {
     const input = createInput();
-    const directionality = Value.Default(FoundationDirectionalityConfigSchema, {}) as Static<typeof FoundationDirectionalityConfigSchema>;
+    const directionality = normalizeStrictOrThrow(
+      FoundationDirectionalityConfigSchema,
+      {},
+      "/env/directionality"
+    );
     const env = {
       seed: 0,
       dimensions: { width: input.width, height: input.height },
@@ -36,27 +39,30 @@ describe("plot effects (owned)", () => {
       wrap: { wrapX: false, wrapY: false },
       directionality,
     };
-    const config = {
-      strategy: "default",
-      config: {
-        snow: {
-          enabled: true,
-          elevationStrategy: "percentile",
-          elevationPercentileMin: 0,
-          elevationPercentileMax: 1,
-          elevationMin: 0,
-          elevationMax: 3000,
-          coverageChance: 100,
-          lightThreshold: 0.1,
-          mediumThreshold: 0.2,
-          heavyThreshold: 0.3,
+    const selection = normalizeOpSelectionOrThrow(
+      planPlotEffects,
+      {
+        strategy: "default",
+        config: {
+          snow: {
+            enabled: true,
+            elevationStrategy: "percentile",
+            elevationPercentileMin: 0,
+            elevationPercentileMax: 1,
+            elevationMin: 0,
+            elevationMax: 3000,
+            coverageChance: 100,
+            lightThreshold: 0.1,
+            mediumThreshold: 0.2,
+            heavyThreshold: 0.3,
+          },
+          sand: { enabled: false },
+          burned: { enabled: false },
         },
-        sand: { enabled: false },
-        burned: { enabled: false },
       },
-    };
-    const resolvedConfig = planPlotEffects.normalize(config, { env, knobs: {} });
-    const result = planPlotEffects.runValidated(input, resolvedConfig, { validateOutput: true });
+      { ctx: { env, knobs: {} }, path: "/ops/planPlotEffects" }
+    );
+    const result = planPlotEffects.run(input, selection);
 
     expect(result.placements.length).toBeGreaterThan(0);
     const anySnow = result.placements.some((placement) =>

@@ -1,7 +1,11 @@
 import { describe, expect, it } from "bun:test";
 
 import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
-import { createFeaturesTestContext, disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
+import {
+  buildFeaturesPlacementConfig,
+  createFeaturesTestContext,
+  disabledEmbellishmentsConfig,
+} from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
   it("keeps land features on land and aquatic features on water", () => {
@@ -14,51 +18,40 @@ describe("features (owned baseline)", () => {
       isWater: (_x, y) => y === 0,
     });
 
-    const config = {
-      featuresPlacement: {
-        vegetated: {
-          strategy: "default",
-          config: {
-            chances: {
-              FEATURE_FOREST: 100,
-              FEATURE_RAINFOREST: 100,
-              FEATURE_TAIGA: 100,
-              FEATURE_SAVANNA_WOODLAND: 100,
-              FEATURE_SAGEBRUSH_STEPPE: 100,
-            },
-          },
-        },
-        wet: {
-          strategy: "default",
-          config: {
-            chances: {
-              FEATURE_MARSH: 100,
-              FEATURE_TUNDRA_BOG: 100,
-              FEATURE_MANGROVE: 100,
-              FEATURE_OASIS: 100,
-              FEATURE_WATERING_HOLE: 100,
-            },
-          },
-        },
-        aquatic: {
-          strategy: "default",
-          config: {
-            chances: {
-              FEATURE_REEF: 100,
-              FEATURE_COLD_REEF: 100,
-              FEATURE_ATOLL: 100,
-              FEATURE_LOTUS: 100,
-            },
-          },
-        },
-        ice: {
-          strategy: "default",
-          config: {
-            chances: { FEATURE_ICE: 100 },
-            rules: { minAbsLatitude: 90 },
-          },
+    const featuresPlacement = buildFeaturesPlacementConfig({
+      vegetated: {
+        chances: {
+          FEATURE_FOREST: 100,
+          FEATURE_RAINFOREST: 100,
+          FEATURE_TAIGA: 100,
+          FEATURE_SAVANNA_WOODLAND: 100,
+          FEATURE_SAGEBRUSH_STEPPE: 100,
         },
       },
+      wet: {
+        chances: {
+          FEATURE_MARSH: 100,
+          FEATURE_TUNDRA_BOG: 100,
+          FEATURE_MANGROVE: 100,
+          FEATURE_OASIS: 100,
+          FEATURE_WATERING_HOLE: 100,
+        },
+      },
+      aquatic: {
+        chances: {
+          FEATURE_REEF: 100,
+          FEATURE_COLD_REEF: 100,
+          FEATURE_ATOLL: 100,
+          FEATURE_LOTUS: 100,
+        },
+      },
+      ice: {
+        chances: { FEATURE_ICE: 100 },
+        rules: { minAbsLatitude: 90 },
+      },
+    });
+    const config = {
+      featuresPlacement,
       reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
       vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
     };

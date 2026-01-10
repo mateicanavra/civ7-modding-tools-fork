@@ -3,7 +3,7 @@ import { createStep } from "@mapgen/authoring/steps";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { storyTagHotspotTrails } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
+import { narrativeMotifsHotspotsArtifact } from "../../../artifacts.js";
 import { StoryHotspotsStepContract } from "./storyHotspots.contract.js";
 
 type StoryHotspotsStepConfig = Static<typeof StoryHotspotsStepContract.schema>;
@@ -18,10 +18,7 @@ export default createStep(StoryHotspotsStepContract, {
       }));
     }
     const result = storyTagHotspotTrails(context, config.story.hotspot);
-    context.artifacts.set(
-      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-      result.motifs
-    );
+    narrativeMotifsHotspotsArtifact.set(context, result.motifs);
     if (result.summary.points === 0) {
       devWarn(context.trace, "[smoke] story-hotspots enabled but no hotspot points were emitted");
     }

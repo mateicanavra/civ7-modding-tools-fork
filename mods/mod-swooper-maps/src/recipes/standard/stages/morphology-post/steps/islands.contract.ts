@@ -10,16 +10,16 @@ const IslandsStepConfigSchema = Type.Object(
       {
         hotspot: NarrativeConfigSchema.properties.story.properties.hotspot,
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
     corridors: Type.Object(
       {
         sea: NarrativeConfigSchema.properties.corridors.properties.sea,
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
   },
-  { additionalProperties: false, default: { islands: {}, story: {}, corridors: {} } }
+  { additionalProperties: false }
 );
 
 export const IslandsStepContract = defineStepContract({

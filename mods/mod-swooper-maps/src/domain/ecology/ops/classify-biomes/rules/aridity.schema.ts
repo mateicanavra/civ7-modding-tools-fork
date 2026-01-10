@@ -109,7 +109,6 @@ export const AriditySchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Aridity/PET proxy controls for dry-climate modeling.",
   }
 );

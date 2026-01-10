@@ -4,8 +4,7 @@ import * as ecology from "@mapgen/domain/ecology";
 import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import type { FeatureKey } from "@mapgen/domain/ecology";
 import { syncHeightfield } from "@swooper/mapgen-core";
-import { isFeatureIntentsArtifactV1 } from "../../../../artifacts.js";
-import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
+import { featureIntentsArtifact } from "../../../../artifacts.js";
 import { FeaturesApplyStepContract } from "./contract.js";
 import { applyFeaturePlacements, reifyFeatureField } from "../features/apply.js";
 import { resolveFeatureKeyLookups } from "../features/feature-keys.js";
@@ -24,12 +23,9 @@ export default createStep(FeaturesApplyStepContract, {
     apply: compileOps.applyFeatures.normalize(config.apply, ctx),
   }),
   run: (context, config: FeaturesApplyConfig) => {
-    const intents = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.featureIntentsV1);
-    if (!isFeatureIntentsArtifactV1(intents)) {
-      throw new Error("FeaturesApplyStep: Missing artifact:ecology.featureIntents@v1.");
-    }
+    const intents = featureIntentsArtifact.get(context);
 
-    const merged = runtimeOps.applyFeatures.runValidated(
+    const merged = runtimeOps.applyFeatures.run(
       {
         vegetation: intents.vegetation ?? [],
         wetlands: intents.wetlands ?? [],

@@ -16,12 +16,6 @@ export const ResourceBasinsStepContract = defineStepContract({
       plan: ecology.ops.planResourceBasins.config,
       score: ecology.ops.scoreResourceBasins.config,
     },
-    {
-      additionalProperties: false,
-      default: {
-        plan: ecology.ops.planResourceBasins.defaultConfig,
-        score: ecology.ops.scoreResourceBasins.defaultConfig,
-      },
-    }
+    { additionalProperties: false }
   ),
 });

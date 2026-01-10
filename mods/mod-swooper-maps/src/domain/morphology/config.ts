@@ -30,7 +30,7 @@ const OceanSeparationEdgePolicySchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -95,7 +95,7 @@ const OceanSeparationConfigSchema = Type.Object(
     /** East edge-specific override policy. */
     edgeEast: Type.Optional(OceanSeparationEdgePolicySchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -161,7 +161,7 @@ const CoastlinePlateBiasConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -173,22 +173,25 @@ const CoastlineBayConfigSchema = Type.Object(
     noiseGateAdd: Type.Optional(
       Type.Number({
         description: "Extra noise threshold on larger maps; higher values reduce bay frequency while keeping size larger.",
+        default: 0,
       })
     ),
     /** Bay frequency on active margins; lower denominators produce more bays along energetic coasts. */
     rollDenActive: Type.Optional(
       Type.Number({
         description: "Bay frequency on active margins; lower denominators produce more bays along energetic coasts.",
+        default: 4,
       })
     ),
     /** Bay frequency on passive margins; lower denominators carve more bays in calm regions. */
     rollDenDefault: Type.Optional(
       Type.Number({
         description: "Bay frequency on passive margins; lower denominators carve more bays in calm regions.",
+        default: 5,
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -200,22 +203,25 @@ const CoastlineFjordConfigSchema = Type.Object(
     baseDenom: Type.Optional(
       Type.Number({
         description: "Base fjord frequency; smaller values increase fjord count across the map.",
+        default: 12,
       })
     ),
     /** Bonus applied on active convergent margins; subtracts from baseDenom to amplify fjord density. */
     activeBonus: Type.Optional(
       Type.Number({
         description: "Bonus applied on active convergent margins; subtracts from baseDenom to amplify fjord density.",
+        default: 1,
       })
     ),
     /** Bonus applied on passive shelves; subtracts from baseDenom for gentler fjords. */
     passiveBonus: Type.Optional(
       Type.Number({
         description: "Bonus applied on passive shelves; subtracts from baseDenom for gentler fjords.",
+        default: 2,
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -236,7 +242,7 @@ const CoastlinesConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -293,7 +299,7 @@ const IslandsConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -451,7 +457,7 @@ const MountainsConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -551,7 +557,7 @@ const VolcanoesConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export const MorphologyConfigSchema = Type.Object(
@@ -562,7 +568,7 @@ export const MorphologyConfigSchema = Type.Object(
     mountains: Type.Optional(MountainsConfigSchema),
     volcanoes: Type.Optional(VolcanoesConfigSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export type MorphologyConfig = Static<typeof MorphologyConfigSchema>;

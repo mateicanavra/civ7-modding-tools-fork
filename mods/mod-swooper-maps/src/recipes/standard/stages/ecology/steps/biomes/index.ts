@@ -5,14 +5,13 @@ import {
   getPublishedClimateField,
   getPublishedNarrativeCorridors,
   getPublishedNarrativeMotifsRifts,
+  heightfieldArtifact,
   publishBiomeClassificationArtifact,
 } from "../../../../artifacts.js";
 import * as ecology from "@mapgen/domain/ecology";
 import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import { BiomesStepContract } from "./contract.js";
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import {
-  assertHeightfield,
   buildLatitudeField,
   combineCorridorMasks,
   maskFromCoordSet,
@@ -36,16 +35,11 @@ export default createStep(BiomesStepContract, {
   }),
   run: (context: ExtendedMapContext, config: BiomesStepConfig) => {
     const { width, height } = context.dimensions;
-    const size = width * height;
 
     const climateField = getPublishedClimateField(context);
-    if (!climateField) {
-      throw new Error("BiomesStep: Missing artifact:climateField.");
-    }
 
-    const heightfieldArtifact = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
-    assertHeightfield(heightfieldArtifact, size);
-    const { landMask, elevation } = heightfieldArtifact;
+    const heightfield = heightfieldArtifact.get(context);
+    const { landMask, elevation } = heightfield;
 
     const biomeField = context.fields.biomeId;
     const temperatureField = context.fields.temperature;
@@ -55,21 +49,15 @@ export default createStep(BiomesStepContract, {
 
     const latitude = buildLatitudeField(context.adapter, width, height);
     const corridors = getPublishedNarrativeCorridors(context);
-    if (!corridors) {
-      throw new Error("BiomesStep: Missing artifact:narrative.corridors@v1.");
-    }
     const rifts = getPublishedNarrativeMotifsRifts(context);
-    if (!rifts) {
-      throw new Error("BiomesStep: Missing artifact:narrative.motifs.rifts@v1.");
-    }
 
-    const corridorMask = maskFromCoordSet(corridors?.landCorridors, width, height);
-    const riverCorridorMask = maskFromCoordSet(corridors?.riverCorridors, width, height);
+    const corridorMask = maskFromCoordSet(corridors.landCorridors, width, height);
+    const riverCorridorMask = maskFromCoordSet(corridors.riverCorridors, width, height);
     combineCorridorMasks(corridorMask, riverCorridorMask);
 
-    const riftShoulderMask = maskFromCoordSet(rifts?.riftShoulder, width, height);
+    const riftShoulderMask = maskFromCoordSet(rifts.riftShoulder, width, height);
 
-    const result = runtimeOps.classifyBiomes.runValidated(
+    const result = runtimeOps.classifyBiomes.run(
       {
         width,
         height,

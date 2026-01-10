@@ -3,6 +3,6 @@ import { foundation } from "./steps/index.js";
 
 export default createStage({
   id: "foundation",
-  knobsSchema: Type.Object({}, { additionalProperties: false, default: {} }),
+  knobsSchema: Type.Object({}, { additionalProperties: false }),
   steps: [foundation],
 } as const);

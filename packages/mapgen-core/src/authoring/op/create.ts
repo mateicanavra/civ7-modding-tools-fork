@@ -1,7 +1,6 @@
 import type { Static, TSchema } from "typebox";
 
 import type { NormalizeContext } from "@mapgen/engine/index.js";
-import type { CustomValidateFn } from "../validation.js";
 import type {
   OpStrategy,
   StrategyImplMapFor,
@@ -10,7 +9,6 @@ import type {
 import type { DomainOp, OpConfigSchema } from "./types.js";
 import type { OpContract } from "./contract.js";
 import { buildOpEnvelopeSchema } from "./envelope.js";
-import { attachValidationSurface } from "./validation-surface.js";
 
 type RuntimeStrategiesForContract<C extends OpContract<any, any, any, any, any>> = Readonly<{
   [K in keyof C["strategies"] & string]: OpStrategy<
@@ -25,7 +23,6 @@ type StrategySelectionForContract<C extends OpContract<any, any, any, any, any>>
 
 type OpImpl<C extends OpContract<any, any, any, any, any>> = Readonly<{
   strategies: StrategyImplMapFor<C>;
-  customValidate?: CustomValidateFn<Static<C["input"]>, StrategySelectionForContract<C>>;
 }>;
 
 export function createOp<const C extends OpContract<any, any, any, any, any>>(
@@ -117,5 +114,5 @@ export function createOp(contract: any, impl: any): any {
     },
   } as const;
 
-  return attachValidationSurface(domainOp, impl.customValidate);
+  return domainOp;
 }

@@ -166,7 +166,7 @@ describe("placement step contracts", () => {
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
     const plan = compilePlan(registry, env, ["derive-placement-inputs"]);
-    const { stepResults } = executor.executePlan(context, plan);
+    const { stepResults } = executor.executePlanReport(context, plan);
 
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
@@ -197,7 +197,7 @@ describe("placement step contracts", () => {
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
     const plan = compilePlan(registry, env, ["placement"]);
-    const { stepResults } = executor.executePlan(context, plan);
+    const { stepResults } = executor.executePlanReport(context, plan);
 
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
@@ -230,11 +230,45 @@ describe("placement step contracts", () => {
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
     const plan = compilePlan(registry, env, ["placement"]);
-    const { stepResults } = executor.executePlan(context, plan);
+    const { stepResults } = executor.executePlanReport(context, plan);
 
     expect(stepResults).toHaveLength(1);
     expect(stepResults[0]?.success).toBe(false);
     expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
     expect(stepResults[0]?.error).toContain(TEST_TAGS.effect.placementApplied);
+  });
+
+  it("throws StepExecutionError on unsatisfied provides", () => {
+    const width = 4;
+    const height = 4;
+    const env = buildTestEnv(width, height);
+    const adapter = createMockAdapter({ width, height, rng: () => 0 });
+    const context = createExtendedMapContext(
+      { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
+      adapter,
+      env
+    );
+
+    const registry = new StepRegistry<ExtendedMapContext>();
+    registry.registerTags(TEST_TAG_DEFINITIONS);
+    registry.register({
+      id: "placement",
+      phase: "placement",
+      requires: [],
+      provides: [TEST_TAGS.effect.placementApplied],
+      run: (_context, _config) => {},
+    });
+
+    const executor = new PipelineExecutor(registry, { log: () => {} });
+    const plan = compilePlan(registry, env, ["placement"]);
+
+    try {
+      executor.executePlan(context, plan);
+      throw new Error("Expected provides validation to fail");
+    } catch (err) {
+      expect((err as Error).name).toBe("StepExecutionError");
+      expect((err as Error).message).toContain("placement");
+      expect((err as Error).message).toContain("did not satisfy declared provides");
+    }
   });
 });

@@ -7,7 +7,7 @@ const StorySwatchesStepConfigSchema = Type.Object(
   {
     climate: ClimateConfigSchema,
   },
-  { additionalProperties: false, default: { climate: {} } }
+  { additionalProperties: false }
 );
 
 export const StorySwatchesStepContract = defineStepContract({

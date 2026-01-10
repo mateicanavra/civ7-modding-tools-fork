@@ -128,6 +128,14 @@ const config = {
       },
     },
     "story-rifts": { story: { rift: {} } },
+    "story-corridors-pre": {
+      corridors: {
+        sea: {},
+        land: {},
+        river: {},
+        islandHop: {},
+      },
+    },
   },
   "morphology-mid": {
     "rugged-coasts": {
@@ -155,14 +163,6 @@ const config = {
   },
   "narrative-mid": {
     "story-orogeny": { story: { orogeny: {} } },
-    "story-corridors-pre": {
-      corridors: {
-        sea: {},
-        land: {},
-        river: {},
-        islandHop: {},
-      },
-    },
   },
   "morphology-post": {
     islands: {

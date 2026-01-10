@@ -11,11 +11,6 @@ export const FeaturesApplyStepContract = defineStepContract({
     {
       apply: ecology.ops.applyFeatures.config,
     },
-    {
-      additionalProperties: false,
-      default: {
-        apply: ecology.ops.applyFeatures.defaultConfig,
-      },
-    }
+    { additionalProperties: false }
   ),
 });
