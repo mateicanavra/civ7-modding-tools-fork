@@ -8,7 +8,7 @@ import {
   getPublishedNarrativeMotifsMargins,
 } from "../../../../artifacts.js";
 import type * as ecology from "@mapgen/domain/ecology";
-import type { PlanWetFeaturePlacementsTypes } from "@mapgen/domain/ecology/contracts";
+import type { PlanWetFeaturePlacementsTypes } from "@mapgen/domain/ecology";
 import { buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";
 import type { FeatureKeyLookups } from "./feature-keys.js";
