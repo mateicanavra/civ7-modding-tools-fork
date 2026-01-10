@@ -1,7 +1,6 @@
 import { createStep } from "@mapgen/authoring/steps";
-import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
+import { type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
-import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import {
   biomeClassificationArtifact,
   featureIntentsArtifact,
@@ -13,21 +12,20 @@ import { FeaturesPlanStepContract } from "./contract.js";
 type FeaturesPlanConfig = Static<typeof FeaturesPlanStepContract.schema>;
 
 const opContracts = {
-  planVegetation: ecologyContracts.PlanVegetationContract,
-  planWetlands: ecologyContracts.PlanWetlandsContract,
-  planReefs: ecologyContracts.PlanReefsContract,
-  planIce: ecologyContracts.PlanIceContract,
+  planVegetation: ecology.contracts.planVegetation,
+  planWetlands: ecology.contracts.planWetlands,
+  planReefs: ecology.contracts.planReefs,
+  planIce: ecology.contracts.planIce,
 } as const;
 
-const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
-const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
+const { compile, runtime } = ecology.ops.bind(opContracts);
 
 export default createStep(FeaturesPlanStepContract, {
   normalize: (config, ctx) => ({
-    vegetation: compileOps.planVegetation.normalize(config.vegetation, ctx),
-    wetlands: compileOps.planWetlands.normalize(config.wetlands, ctx),
-    reefs: compileOps.planReefs.normalize(config.reefs, ctx),
-    ice: compileOps.planIce.normalize(config.ice, ctx),
+    vegetation: compile.planVegetation.normalize(config.vegetation, ctx),
+    wetlands: compile.planWetlands.normalize(config.wetlands, ctx),
+    reefs: compile.planReefs.normalize(config.reefs, ctx),
+    ice: compile.planIce.normalize(config.ice, ctx),
   }),
   run: (context, config: FeaturesPlanConfig) => {
     const classification = biomeClassificationArtifact.get(context);
@@ -35,7 +33,7 @@ export default createStep(FeaturesPlanStepContract, {
     const heightfield = heightfieldArtifact.get(context);
 
     const { width, height } = context.dimensions;
-    const vegetationPlan = runtimeOps.planVegetation.run(
+    const vegetationPlan = runtime.planVegetation.run(
       {
         width,
         height,
@@ -49,7 +47,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.vegetation
     );
 
-    const wetlandsPlan = runtimeOps.planWetlands.run(
+    const wetlandsPlan = runtime.planWetlands.run(
       {
         width,
         height,
@@ -62,7 +60,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.wetlands
     );
 
-    const reefsPlan = runtimeOps.planReefs.run(
+    const reefsPlan = runtime.planReefs.run(
       {
         width,
         height,
@@ -72,7 +70,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.reefs
     );
 
-    const icePlan = runtimeOps.planIce.run(
+    const icePlan = runtime.planIce.run(
       {
         width,
         height,

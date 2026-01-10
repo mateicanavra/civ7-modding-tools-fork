@@ -1,7 +1,6 @@
 import { createStep } from "@mapgen/authoring/steps";
-import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
+import { type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
-import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import {
   getPublishedClimateField,
   heightfieldArtifact,
@@ -13,17 +12,16 @@ import { ResourceBasinsStepContract } from "./contract.js";
 type ResourceBasinsStepConfig = Static<typeof ResourceBasinsStepContract.schema>;
 
 const opContracts = {
-  planResourceBasins: ecologyContracts.ResourcePlanBasinsContract,
-  scoreResourceBasins: ecologyContracts.ResourceScoreBalanceContract,
+  planResourceBasins: ecology.contracts.planResourceBasins,
+  scoreResourceBasins: ecology.contracts.scoreResourceBasins,
 } as const;
 
-const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
-const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
+const { compile, runtime } = ecology.ops.bind(opContracts);
 
 export default createStep(ResourceBasinsStepContract, {
   normalize: (config, ctx) => ({
-    plan: compileOps.planResourceBasins.normalize(config.plan, ctx),
-    score: compileOps.scoreResourceBasins.normalize(config.score, ctx),
+    plan: compile.planResourceBasins.normalize(config.plan, ctx),
+    score: compile.scoreResourceBasins.normalize(config.score, ctx),
   }),
   run: (context, config: ResourceBasinsStepConfig) => {
     const { width, height } = context.dimensions;
@@ -31,7 +29,7 @@ export default createStep(ResourceBasinsStepContract, {
     const heightfield = heightfieldArtifact.get(context);
     const climate = getPublishedClimateField(context);
 
-    const planned = runtimeOps.planResourceBasins.run(
+    const planned = runtime.planResourceBasins.run(
       {
         width,
         height,
@@ -44,7 +42,7 @@ export default createStep(ResourceBasinsStepContract, {
       config.plan
     );
 
-    const balanced = runtimeOps.scoreResourceBasins.run(planned, config.score);
+    const balanced = runtime.scoreResourceBasins.run(planned, config.score);
 
     resourceBasinsArtifact.set(context, balanced);
   },

@@ -24,6 +24,23 @@ export default [
     rules: {}
   },
   {
+    files: ["mods/**/src/**/*.ts"],
+    ignores: ["mods/**/src/domain/**"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@mapgen/domain/*/ops/*"],
+              message: "Import domain ops via the domain entrypoint surface."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
     files: [
       "mods/**/src/recipes/**/stages/**/steps/**/*.ts",
       "mods/**/src/domain/**/ops/**/strategies/**/*.ts"
@@ -52,6 +69,12 @@ export default [
             {
               name: "@swooper/mapgen-core/authoring/op/validation-surface",
               message: "Runtime validation surfaces are forbidden; rely on compile-time normalization."
+            }
+          ],
+          patterns: [
+            {
+              group: ["@mapgen/domain/*/ops/*"],
+              message: "Import domain ops via the domain entrypoint surface."
             }
           ]
         }
@@ -117,4 +140,3 @@ export default [
     }
   }
 ];
-

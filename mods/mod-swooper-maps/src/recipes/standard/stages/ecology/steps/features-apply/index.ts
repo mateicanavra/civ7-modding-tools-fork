@@ -1,7 +1,6 @@
 import { createStep } from "@mapgen/authoring/steps";
-import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
+import { type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
-import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import type { FeatureKey } from "@mapgen/domain/ecology";
 import { syncHeightfield } from "@swooper/mapgen-core";
 import { featureIntentsArtifact } from "../../../../artifacts.js";
@@ -12,20 +11,19 @@ import { resolveFeatureKeyLookups } from "../features/feature-keys.js";
 type FeaturesApplyConfig = Static<typeof FeaturesApplyStepContract.schema>;
 
 const opContracts = {
-  applyFeatures: ecologyContracts.FeaturesApplyContract,
+  applyFeatures: ecology.contracts.applyFeatures,
 } as const;
 
-const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
-const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
+const { compile, runtime } = ecology.ops.bind(opContracts);
 
 export default createStep(FeaturesApplyStepContract, {
   normalize: (config, ctx) => ({
-    apply: compileOps.applyFeatures.normalize(config.apply, ctx),
+    apply: compile.applyFeatures.normalize(config.apply, ctx),
   }),
   run: (context, config: FeaturesApplyConfig) => {
     const intents = featureIntentsArtifact.get(context);
 
-    const merged = runtimeOps.applyFeatures.run(
+    const merged = runtime.applyFeatures.run(
       {
         vegetation: intents.vegetation ?? [],
         wetlands: intents.wetlands ?? [],

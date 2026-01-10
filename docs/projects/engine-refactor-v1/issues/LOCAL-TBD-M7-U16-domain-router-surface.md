@@ -1,7 +1,7 @@
 ---
 id: LOCAL-TBD-M7-U16
 title: "[M7] Domain router surface for ops and stage step routing"
-state: planned
+state: done
 priority: 2
 estimate: 3
 project: engine-refactor-v1
@@ -30,11 +30,11 @@ related_to:
 - Import guardrails to prevent deep op imports outside domain modules, with documented exceptions for tests if needed.
 
 ## Acceptance Criteria
-- [ ] Steps in `mods/mod-swooper-maps/src/recipes/**` bind ops via `domain.ops.bind(domain.contracts)` and do not import `compileOpsById` or `runtimeOpsById`.
-- [ ] `mods/mod-swooper-maps/src/recipes/standard/recipe.ts` no longer imports `compileOpsById` directly; compile registries are collected through a helper.
-- [ ] Domain entrypoints expose `ops` and `contracts` as the primary surface without requiring deep imports.
-- [ ] Lint or path restrictions prevent `@mapgen/domain/*/ops/*` imports outside domain modules (tests can be exempted explicitly).
-- [ ] Existing op authoring and strategy layout remain unchanged.
+- [x] Steps in `mods/mod-swooper-maps/src/recipes/**` bind ops via `domain.ops.bind(domain.contracts)` and do not import `compileOpsById` or `runtimeOpsById`.
+- [x] `mods/mod-swooper-maps/src/recipes/standard/recipe.ts` no longer imports `compileOpsById` directly; compile registries are collected through a helper.
+- [x] Domain entrypoints expose `ops` and `contracts` as the primary surface without requiring deep imports.
+- [x] Lint or path restrictions prevent `@mapgen/domain/*/ops/*` imports outside domain modules (tests can be exempted explicitly).
+- [x] Existing op authoring and strategy layout remain unchanged.
 
 ## Testing / Verification
 - `pnpm -C packages/mapgen-core test`
@@ -50,6 +50,18 @@ related_to:
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
 ## Implementation Details (Local Only)
+
+### Prework Notes (Local Only)
+- Current state (as of prework): steps bind via `bindCompileOps`/`bindRuntimeOps` with `domain.compileOpsById` and `domain.runtimeOpsById` (ecology + placement); recipe merges registries via object spread; domain entrypoints export `compileOpsById`/`runtimeOpsById` directly.
+- Files to touch:
+  - Domain entrypoints: `mods/mod-swooper-maps/src/domain/ecology/index.ts`, `mods/mod-swooper-maps/src/domain/placement/index.ts`.
+  - Steps: `mods/mod-swooper-maps/src/recipes/standard/stages/**/steps/**/index.ts` (ecology + placement).
+  - Recipe boundary: `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`.
+  - Authoring helper: `packages/mapgen-core/src/authoring/bindings.ts` + re-exports in `packages/mapgen-core/src/authoring/index.ts`.
+  - Lint guardrails: `eslint.config.js`.
+- Migration notes:
+  - Preserve access to op implementations for step schema typing (`domain.ops.<op>.config`) while adding `domain.ops.bind(domain.contracts)` as the canonical binding surface.
+  - Keep contract modules stable; add a `contracts` object to the domain entrypoint surface for steps to use.
 
 ### Proposed public surface (author and step usage)
 

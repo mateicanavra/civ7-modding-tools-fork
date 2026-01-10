@@ -1,8 +1,7 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@mapgen/authoring/steps";
-import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
+import { type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
-import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import { heightfieldArtifact } from "../../../../artifacts.js";
 import { buildPlotEffectsInput } from "./inputs.js";
 import { applyPlotEffectPlacements } from "./apply.js";
@@ -12,21 +11,20 @@ import { PlotEffectsStepContract } from "./contract.js";
 type PlotEffectsStepConfig = Static<typeof PlotEffectsStepContract.schema>;
 
 const opContracts = {
-  planPlotEffects: ecologyContracts.PlanPlotEffectsContract,
+  planPlotEffects: ecology.contracts.planPlotEffects,
 } as const;
 
-const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
-const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
+const { compile, runtime } = ecology.ops.bind(opContracts);
 
 export default createStep(PlotEffectsStepContract, {
   normalize: (config, ctx) => {
     return {
-      plotEffects: compileOps.planPlotEffects.normalize(config.plotEffects, ctx),
+      plotEffects: compile.planPlotEffects.normalize(config.plotEffects, ctx),
     };
   },
   run: (context: ExtendedMapContext, config: PlotEffectsStepConfig) => {
     const input = buildPlotEffectsInput(context);
-    const result = runtimeOps.planPlotEffects.run(input, config.plotEffects);
+    const result = runtime.planPlotEffects.run(input, config.plotEffects);
 
     if (context.trace.isVerbose) {
       const heightfield = heightfieldArtifact.get(context);

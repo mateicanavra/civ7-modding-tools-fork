@@ -12,20 +12,24 @@ type Placement = Static<(typeof PlanReefEmbellishmentsContract)["output"]>["plac
 const NO_FEATURE = -1;
 
 function normalizeConfig(config: Config): Config {
+  const story = config.story ?? { features: {} };
+  const storyFeatures = story.features ?? {};
+  const featuresDensity = config.featuresDensity ?? {};
+
   return {
     ...config,
     story: {
-      ...config.story,
+      ...story,
       features: {
-        ...config.story.features,
-        paradiseReefChance: clampChance(config.story.features.paradiseReefChance),
-        paradiseReefRadius: Math.max(0, Math.floor(config.story.features.paradiseReefRadius)),
+        ...storyFeatures,
+        paradiseReefChance: clampChance(storyFeatures.paradiseReefChance ?? 0),
+        paradiseReefRadius: Math.max(0, Math.floor(storyFeatures.paradiseReefRadius ?? 0)),
       },
     },
     featuresDensity: {
-      ...config.featuresDensity,
-      shelfReefMultiplier: Math.max(0, config.featuresDensity.shelfReefMultiplier),
-      shelfReefRadius: Math.max(0, Math.floor(config.featuresDensity.shelfReefRadius)),
+      ...featuresDensity,
+      shelfReefMultiplier: Math.max(0, featuresDensity.shelfReefMultiplier ?? 0),
+      shelfReefRadius: Math.max(0, Math.floor(featuresDensity.shelfReefRadius ?? 0)),
     },
   };
 }
@@ -48,11 +52,17 @@ export const defaultStrategy = createStrategy(PlanReefEmbellishmentsContract, "d
       placements.push({ x, y, feature: "FEATURE_REEF" });
     };
 
-    const featuresCfg = config.story!.features!;
-    const densityCfg = config.featuresDensity!;
+    const featuresCfg = config.story?.features ?? {
+      paradiseReefChance: 0,
+      paradiseReefRadius: 0,
+    };
+    const densityCfg = config.featuresDensity ?? {
+      shelfReefMultiplier: 0,
+      shelfReefRadius: 0,
+    };
 
-    const paradiseReefChance = featuresCfg.paradiseReefChance;
-    const paradiseReefRadius = featuresCfg.paradiseReefRadius;
+    const paradiseReefChance = featuresCfg.paradiseReefChance ?? 0;
+    const paradiseReefRadius = featuresCfg.paradiseReefRadius ?? 0;
 
     if (paradiseMask.some((value) => value === 1)) {
       planParadiseReefs({
@@ -69,8 +79,8 @@ export const defaultStrategy = createStrategy(PlanReefEmbellishmentsContract, "d
       });
     }
 
-    const shelfReefMultiplier = densityCfg.shelfReefMultiplier;
-    const shelfReefRadius = densityCfg.shelfReefRadius;
+    const shelfReefMultiplier = densityCfg.shelfReefMultiplier ?? 0;
+    const shelfReefRadius = densityCfg.shelfReefRadius ?? 0;
     const shelfReefChance = clampChance(paradiseReefChance * shelfReefMultiplier);
 
     if (passiveShelfMask.some((value) => value === 1)) {
@@ -89,7 +99,7 @@ export const defaultStrategy = createStrategy(PlanReefEmbellishmentsContract, "d
     }
 
     return {
-      placements
+      placements,
     };
   },
 });
