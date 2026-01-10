@@ -441,3 +441,11 @@ verification:
 migration_ordering_source:
   file: docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/05-file-reconciliation.md
 ```
+
+### Remediation follow-ons (post-index)
+
+- runtime validation removal + fail-fast execution: branch `m7-remediate-runtime-validation` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/431)
+- op runtime normalization moved to compile-time: branch `m7-remediate-op-runtime-defaulting` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/432)
+- compiler-backed validation contract note: branch `m7-remediate-docs-validation-contract` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/433)
+- shared utilities centralized in mapgen-core: branch `m7-remediate-core-utils` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/434)
+- lint guardrails for architecture boundaries: branch `m7-remediate-lint-guardrails` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/435)
