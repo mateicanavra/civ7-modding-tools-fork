@@ -70,3 +70,4 @@ Mostly yes: the core authoring surfaces landed and mod call sites now use envelo
 - Review points: follow-ups landed and rules boundary violations now import types from each op’s `types.ts` surface (no rule exports).
 - Additional fixes (to unblock full suite): op config schema typing now uses `TUnsafe` for strategy envelope `Static<>` inference, ecology ops use `@mapgen/domain` aliases for cross-module imports, and contract `as const` assertions were removed to match authoring spec.
 - Validation: `pnpm check`, `pnpm build`, `pnpm test`, `pnpm lint`.
+- A1 review follow-up: added `normalizeOpsTopLevel` tests for `op.missing` + `op.normalize.failed` in `packages/mapgen-core/test/compiler/normalize.test.ts`.
