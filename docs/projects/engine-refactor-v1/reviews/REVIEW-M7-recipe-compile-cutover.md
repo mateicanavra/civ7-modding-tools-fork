@@ -35,3 +35,30 @@ Good foundation cut: strict normalization + op-envelope prefill are contract-dri
 ### Cross-cutting Risks
 
 - Compiler error surface stability is now a public-ish contract for downstream tests and future tooling; keep any changes to error codes/paths behind explicit review.
+
+## REVIEW m7-t02-compile-recipe-config-wiring
+
+### Quick Take
+
+Solid end-to-end compiler entrypoint: stage surface normalization → stage `toInternal` → per-step strict normalization → step.normalize → op.normalize → re-validate.
+
+### High-Leverage Issues
+
+- `compileRecipeConfig` treats `null` config as `{}`; ensure callsites never rely on distinguishing “absent” vs “explicitly null” configs once cutover proceeds.
+- Error aggregation is per-stage/per-step but compilation continues after errors; that’s good for UX, but it assumes later stages don’t depend on earlier compilation outputs (document this in the recipe contract if it’s a real invariant).
+
+### Fix Now (Recommended)
+
+- Add one unit test for `op.missing` and one for `step.normalize` shape-not-preserving; these are the two most likely failure modes during cutover.
+
+### Defer / Follow-up
+
+- Consider exporting a small “error formatting stability” note (codes + path conventions) as a doc adjacent to the compiler module once this becomes the author-facing canonical path.
+
+### Needs Discussion
+
+- Should stage compilation be allowed to “return” step ids not declared in `stage.steps` for experimental flows, or is the strict rejection (today) the intended hard guardrail?
+
+### Cross-cutting Risks
+
+- The compiler is now the choke point for canonicalization; any ambiguity in schema defaulting/cleaning order will show up here first—keep the ordering pinned by tests.
