@@ -3,13 +3,10 @@
 This document contains all canonical TypeScript definitions. Section 1.8
 provides the overview; Appendix A provides copy-paste ready implementations.
 
-### 1.8 Canonical type surfaces (planned signatures + module layout)
+### 1.8 Canonical type surfaces (repo reality + module layout)
 
-This is the target “code reality” the proposals converge toward.
-
-Grounding note:
-- Any file path or symbol marked **NEW (planned)** does not exist in the repo baseline today.
-- Where relevant, baseline owners are called out explicitly (file + symbol names).
+This section documents the current code reality and serves as the canonical
+surface reference for authoring, compilation, and runtime binding.
 
 #### `Env` (runtime envelope)
 
@@ -20,11 +17,6 @@ Current location:
 - `packages/mapgen-core/src/core/env.ts`
   - `export const EnvSchema = Type.Object(...)`
   - `export type Env = Static<typeof EnvSchema>`
-
-Baseline history (repo-verified):
-- Runtime envelope schema/type previously lived in `packages/mapgen-core/src/engine/execution-plan.ts`:
-  - `RunSettingsSchema`
-  - `RunSettings`
 
 Runtime envelope is now threaded as `env: Env`:
 - engine plan compilation: `compileExecutionPlan(runRequest, registry)` in `packages/mapgen-core/src/engine/execution-plan.ts`
@@ -45,11 +37,11 @@ Op contracts remain contract-first. Implementations expose:
 // Notes:
 // - Envelope schema is `DomainOp["config"]` (an `OpConfigSchema<Strategies>` which is a `TSchema`).
 // - `normalize(cfg, ctx)` is the compile-time normalization hook (renamed from `resolveConfig`).
-type DomainOpAny = DomainOp<TSchema, TSchema, Record<string, { config: TSchema }>>;
+type DomainOpAny = DomainOp<TSchema, TSchema, Record<string, { config: TSchema }>, string>;
 ```
 
 TypeScript (pinned surfaces):
-- Runtime steps must never see compile-time normalization hooks on ops. The runtime-facing op surface is explicitly narrowed (no `resolveConfig` / `normalize`), even if the underlying op implementation type still contains it.
+- Runtime steps must never see compile-time normalization hooks on ops. The runtime-facing op surface is explicitly narrowed (no `normalize`), even if the underlying op implementation type still contains it.
 - See §1.14 and Appendix A.2 for the canonical binding helpers (`bindCompileOps` / `bindRuntimeOps`) and the structural runtime-surface stripping rule (`runtimeOp(...)`).
 
 #### Step contracts + step modules (ops injected, implementations bound by id)
@@ -59,38 +51,15 @@ Step contracts:
   - `StepContract` / `defineStepContract(...)`: `packages/mapgen-core/src/authoring/step/contract.ts`
   - `createStep(...)` enforces an explicit `contract.schema`: `packages/mapgen-core/src/authoring/step/create.ts`
   - step module hook is `normalize(config, ctx)` (compile-time only): `packages/mapgen-core/src/authoring/types.ts`
-- **NEW (planned)**:
-  - allow an ops-derived `schema` when ops are declared (DX shortcut; see 1.11)
-  - add `ops` (e.g. `step.contract.ops`) to declare which op envelopes exist as top-level properties
-  - rename step hook from `resolveConfig` → `normalize` (value-only; compile-time only)
+  - step module types (`Step`, `StepModule`) are defined in `packages/mapgen-core/src/authoring/types.ts`
 
 Explicit decision (from this proposal’s v1 scope):
 - There is no `inputSchema` / “optionalized mirror schema” for steps. A step has one canonical schema (`contract.schema`) representing plan-truth shape.
-- Author-input “omitting envelopes” is handled by the compiler ordering:
-  1) prefill missing op envelopes (from op contract defaults) and then
-  2) strict schema normalization/validation against `contract.schema`.
-- **NEW (planned)** (type-level): for steps that declare `ops`, the author-input config type treats op envelope keys as optional (since the compiler prefills before strict validation), while the compiled config type remains total/canonical.
-
-Contract-level op declarations (to avoid bundling implementations into contracts):
-
-```ts
-// Baseline today (repo-verified):
-// - `OpRef` and `opRef(...)`: `packages/mapgen-core/src/authoring/op/ref.ts`
-type OpContractAny = OpContract<any, any, any, any, any>;
-
-// NEW (planned): preserve literal op ids in references for DX (no `string` widening).
-type OpRefOf<C extends OpContractAny> = Readonly<{ id: C["id"]; config: TSchema }>;
-
-// NEW (planned): authors declare ops as contracts (DX); the factory derives OpRefs internally.
-// The keys are the top-level op envelope keys in the step config (I6).
-type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
-
-// NEW (planned): the compiled contract surface stores OpRefs (cheap to import; no impl bundling).
-type StepOpsOf<TDecl extends StepOpsDecl> = Readonly<{ [K in keyof TDecl & string]: OpRefOf<TDecl[K]> }>;
-```
+  - Author-input defaults and envelope defaults are handled by schema defaults and step normalization.
+  - When op normalization is required, step modules use compile-surface bindings (`bindCompileOps`) inside `step.normalize`.
 
 Step module binding (conceptual):
-- step contract declares ops as contracts; `defineStepContract` derives envelope schemas/refs for compiler use (cheap; no impl bundling)
+- step modules declare local op contracts (module-scope `opContracts`) and bind them to implementations
 - step module binds contract ids → actual op implementations from the domain registry (see §1.14)
 - runtime step implementation uses bound runtime ops via module-scope closure (see §1.13), not via engine signatures
 
@@ -100,16 +69,13 @@ Stage-level “public view” remains optional and is the only “public” conc
 
 - If stage defines `public`, it must define `compile`.
 - If stage omits `public`, stage input is internal-as-public (step-id keyed map).
+- `createStage(...)` lives in `packages/mapgen-core/src/authoring/stage.ts` and enforces explicit step schemas.
 
 For knobs:
 - Stage author input is always one object with `knobs` as a field; there is no separate knobs parameter at the recipe boundary.
 - Internally, the stage exposes a computed strict `surfaceSchema` (single author-facing schema) and a deterministic `toInternal(...)`:
 
 ```ts
-// NEW (planned): stage “public view” + knobs are not present in the repo baseline stage API today.
-// Baseline today:
-// - `Stage`/`StageModule` is `{ id, steps }`: `packages/mapgen-core/src/authoring/types.ts`
-// - `createStage(...)` validates each `step.schema` exists: `packages/mapgen-core/src/authoring/stage.ts`
 type StageToInternalResult = {
   knobs: unknown;
   rawSteps: Partial<Record<string, unknown>>; // stepId-keyed partial step configs (shape unknown at Phase A)
@@ -146,8 +112,8 @@ function toInternal({ env, stageConfig }: { env: Env; stageConfig: any }): Stage
 
 Add a compiler module that produces a fully canonical internal execution shape:
 
-- `packages/mapgen-core/src/compiler/recipe-compile.ts` **NEW (planned)** (note: `packages/mapgen-core/src/compiler/` does not exist today)
-  - `compileRecipeConfig({ env, recipe, config, compileOpsById }): CompiledRecipeConfigOf<...>` **NEW (planned)**
+- `packages/mapgen-core/src/compiler/recipe-compile.ts`
+  - `compileRecipeConfig({ env, recipe, config, compileOpsById }): CompiledRecipeConfigOf<...>`
   - returns a total (per-step) canonical internal tree
 
 Baseline today (repo-verified):
@@ -156,31 +122,13 @@ Baseline today (repo-verified):
   - total/compiled typing is represented by `CompiledRecipeConfigOf<...>` (currently an alias) in `packages/mapgen-core/src/authoring/types.ts`
 - engine plan compilation is `compileExecutionPlan(runRequest, registry)` in `packages/mapgen-core/src/engine/execution-plan.ts`
 
-#### Engine plan compilation (validates only)
+#### Engine plan compilation (identity validation only)
 
-Modify the existing planner:
+Planner behavior (repo-verified):
 
 - `packages/mapgen-core/src/engine/execution-plan.ts`
-  - removes config defaulting/cleaning/mutation and removes `step.resolveConfig` calls
-  - validates `env` and compiled step configs only
-
-Validate-only sketch (behavior-pinned; implementation-adjacent):
-
-```ts
-// Validate-only means:
-// - collect unknown-key errors (for strict object schemas)
-// - collect schema errors via `Value.Errors`
-// - do NOT apply defaults (`Value.Default`), conversion (`Value.Convert`), or cleaning (`Value.Clean`)
-function validateOnly(schema: TSchema, value: unknown, path: string): ExecutionPlanCompileErrorItem[] {
-  const unknownKeyErrors = findUnknownKeyErrors(schema, value ?? {}, path);
-  const schemaErrors = formatErrors(schema, value, path);
-  return [...unknownKeyErrors, ...schemaErrors].map((err) => ({
-    code: "step.config.invalid" as const,
-    path: err.path,
-    message: err.message,
-  }));
-}
-```
+  - does not default/clean/mutate configs
+  - validates step identity only (duplicate step ids, unknown step ids)
 
 ---
 
@@ -197,9 +145,9 @@ The definitions in Appendix A are also provided as standalone `.ts` files under 
 - `ts/stages.ts`
 - `ts/recipes.ts`
 - `ts/compiler.ts`
-### A.1 `Env` module (NEW (planned))
+### A.1 `Env` module
 
-File: `packages/mapgen-core/src/core/env.ts` **NEW (planned)**
+File: `packages/mapgen-core/src/core/env.ts`
 
 ```ts
 import { Type, type Static } from "typebox";
@@ -273,268 +221,164 @@ Files:
 - `packages/mapgen-core/src/authoring/op/envelope.ts` (baseline; shared envelope derivation)
 - `packages/mapgen-core/src/authoring/op/create.ts` (baseline; uses shared envelope derivation)
 - `packages/mapgen-core/src/authoring/op/ref.ts` (baseline; convenience ref, not required by step authors)
-- `packages/mapgen-core/src/authoring/bindings.ts` **NEW (planned)** (canonical binding helpers; structural runtime surface)
+- `packages/mapgen-core/src/authoring/bindings.ts` (canonical binding helpers; structural runtime surface)
 
 ```ts
 import type { TSchema } from "typebox";
 
-import type { OpContract } from "../op/contract.js";
 import type { DomainOp } from "../op/types.js";
+import type { OpContract } from "../op/contract.js";
+
+export type OpId = string;
+export type OpsById<Op extends { id: OpId }> = Readonly<{
+  [K in Op["id"]]: Extract<Op, { id: K }>;
+}>;
 
 type OpContractAny = OpContract<any, any, any, any, any>;
-type DomainOpAny = DomainOp<TSchema, TSchema, Record<string, { config: TSchema }>>;
 
 // Compile-visible op surface (includes normalize/defaultConfig/strategies access via DomainOp shape).
-export type DomainOpCompileAny = DomainOpAny & Readonly<{ id: string; kind: string }>;
-
-// Runtime-visible op surface (structurally stripped; cannot normalize).
-export type DomainOpRuntimeAny = Pick<
-  DomainOpCompileAny,
-  "id" | "kind" | "run" | "validate" | "runValidated"
+export type DomainOpCompileAny = DomainOp<
+  TSchema,
+  TSchema,
+  Record<string, { config: TSchema }>,
+  string
 >;
 
-export function runtimeOp(op: DomainOpCompileAny): DomainOpRuntimeAny {
+// Runtime-visible op surface (structurally stripped; cannot normalize).
+export type DomainOpRuntime<Op extends DomainOpCompileAny> = Op extends DomainOpCompileAny
+  ? Readonly<{
+      id: Op["id"];
+      kind: Op["kind"];
+      run: Op["run"];
+    }>
+  : never;
+
+export type DomainOpRuntimeAny = DomainOpRuntime<DomainOpCompileAny>;
+
+export class OpBindingError extends Error {
+  readonly opKey: string;
+  readonly opId: string;
+
+  constructor(opKey: string, opId: string) {
+    super(`Missing op implementation for key "${opKey}" (id: "${opId}")`);
+    this.name = "OpBindingError";
+    this.opKey = opKey;
+    this.opId = opId;
+  }
+}
+
+type BoundOps<
+  Decl extends Record<string, { id: string }>,
+  Registry extends Record<string, unknown>,
+> = {
+  [K in keyof Decl]: Registry[Decl[K]["id"] & keyof Registry];
+};
+
+function bindOps<
+  Decl extends Record<string, { id: string }>,
+  Registry extends Record<string, unknown>,
+>(decl: Decl, registryById: Registry): BoundOps<Decl, Registry> {
+  const out = {} as BoundOps<Decl, Registry>;
+  for (const key of Object.keys(decl) as Array<keyof Decl>) {
+    const opId = decl[key].id;
+    const op = registryById[opId as keyof Registry];
+    if (!op) throw new OpBindingError(String(key), opId);
+    out[key] = op as BoundOps<Decl, Registry>[typeof key];
+  }
+  return out;
+}
+
+export function bindCompileOps<
+  const Decl extends Record<string, { id: string }>,
+  const Registry extends Readonly<Record<string, DomainOpCompileAny>>,
+>(decl: Decl, registryById: Registry): BoundOps<Decl, Registry> {
+  return bindOps(decl, registryById);
+}
+
+export function bindRuntimeOps<
+  const Decl extends Record<string, { id: string }>,
+  const Registry extends Readonly<Record<string, DomainOpRuntimeAny>>,
+>(decl: Decl, registryById: Registry): BoundOps<Decl, Registry> {
+  return bindOps(decl, registryById);
+}
+
+export function runtimeOp<Op extends DomainOpCompileAny>(op: Op): DomainOpRuntime<Op> {
   return {
     id: op.id,
     kind: op.kind,
     run: op.run,
-    validate: op.validate,
-    runValidated: op.runValidated,
-  };
-}
-
-export type CompileOpsById = Readonly<Record<string, DomainOpCompileAny>>;
-export type RuntimeOpsById = Readonly<Record<string, DomainOpRuntimeAny>>;
-
-export function buildRuntimeOpsById(registry: CompileOpsById): RuntimeOpsById {
-  const out: Record<string, DomainOpRuntimeAny> = {};
-  for (const [id, op] of Object.entries(registry)) out[id] = runtimeOp(op);
-  return out;
-}
-
-export type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
-
-export function bindCompileOps<const Decl extends Record<string, { id: string }>>(
-  decl: Decl,
-  registryById: CompileOpsById
-): { [K in keyof Decl]: DomainOpCompileAny } {
-  const out: any = {};
-  for (const k of Object.keys(decl)) {
-    const id = (decl as any)[k].id;
-    const op = registryById[id];
-    if (!op) throw new Error(`bindCompileOps: missing op id "${id}" for key "${k}"`);
-    out[k] = op;
-  }
-  return out;
-}
-
-export function bindRuntimeOps<const Decl extends Record<string, { id: string }>>(
-  decl: Decl,
-  registryById: RuntimeOpsById
-): { [K in keyof Decl]: DomainOpRuntimeAny } {
-  const out: any = {};
-  for (const k of Object.keys(decl)) {
-    const id = (decl as any)[k].id;
-    const op = registryById[id];
-    if (!op) throw new Error(`bindRuntimeOps: missing op id "${id}" for key "${k}"`);
-    out[k] = op;
-  }
-  return out;
+  } as DomainOpRuntime<Op>;
 }
 ```
 
-### A.3 Steps: contracts, config input vs compiled config, and module surfaces (pinned)
+### A.3 Steps: contracts, module surfaces, and normalize hook (pinned)
 
 Files:
-- `packages/mapgen-core/src/authoring/step/contract.ts` (baseline; extended)
-- `packages/mapgen-core/src/authoring/step/create.ts` (baseline; extended)
-- `packages/mapgen-core/src/authoring/types.ts` (baseline; step/module typing tightened)
+- `packages/mapgen-core/src/authoring/step/contract.ts`
+- `packages/mapgen-core/src/authoring/step/create.ts`
+- `packages/mapgen-core/src/authoring/types.ts`
 
 ```ts
-import { Type, type Static, type TObject, type TSchema } from "typebox";
+import type { Static, TSchema } from "typebox";
 
-import type { DependencyTag, GenerationPhase } from "@mapgen/engine/index.js";
+import { applySchemaConventions } from "../schema.js";
+import type { DependencyTag, GenerationPhase, NormalizeContext } from "@mapgen/engine/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
-import type { Env } from "../../core/env.js";
-import type { OpContract } from "../op/contract.js";
-import { buildOpEnvelopeSchema } from "../op/envelope.js";
-
-type OpContractAny = OpContract<any, any, any, any, any>;
-export type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
-
-type ObjectKeys<T> = keyof T & string;
-type OptionalizeKeys<T, K extends PropertyKey> =
-  T extends object ? Omit<T, Extract<keyof T, K>> & Partial<Pick<T, Extract<keyof T, K>>> : T;
-
-export type NormalizeCtx<Knobs> = Readonly<{ env: Env; knobs: Knobs }>;
-
-type OpRefOf<C extends OpContractAny> = Readonly<{ id: C["id"]; config: TSchema }>;
-type StepOpRefsOf<TDecl extends StepOpsDecl> = Readonly<{ [K in keyof TDecl & string]: OpRefOf<TDecl[K]> }>;
-
-export type StepContractBase<Id extends string> = Readonly<{
+export type StepContract<Schema extends TSchema, Id extends string> = Readonly<{
   id: Id;
   phase: GenerationPhase;
   requires: readonly DependencyTag[];
   provides: readonly DependencyTag[];
+  schema: Schema;
 }>;
 
-// v1 authoring surface (and only these shapes):
-// - schema-only
-// - ops-only (schema derived)
-// - ops+schema hybrid (schema author-owned; op keys are overwritten with derived envelope schemas)
-export type StepContractSchemaOnly<Schema extends TSchema, Id extends string> =
-  StepContractBase<Id> & Readonly<{ schema: Schema }>;
-
-export type StepContractOpsOnly<TDecl extends StepOpsDecl, Id extends string> =
-  StepContractBase<Id> &
-    Readonly<{
-      ops: TDecl;
-      opRefs: StepOpRefsOf<TDecl>;
-      schema: TObject; // derived from op envelopes (strict object)
-    }>;
-
-export type StepContractHybrid<TDecl extends StepOpsDecl, Schema extends TObject, Id extends string> =
-  StepContractBase<Id> &
-    Readonly<{
-      ops: TDecl;
-      opRefs: StepOpRefsOf<TDecl>;
-      schema: Schema; // explicit, author-owned; must include op keys (see below)
-    }>;
-
-export type StepContractAny =
-  | StepContractSchemaOnly<TSchema, string>
-  | StepContractOpsOnly<StepOpsDecl, string>
-  | StepContractHybrid<StepOpsDecl, TObject, string>;
-
-export type StepConfigOf<C extends StepContractAny> = Static<C["schema"]>;
-
-// Pinned: author-input type treats op envelope keys as optional (no inputSchema).
-export type StepConfigInputOf<C extends StepContractAny> = C extends { ops: infer TDecl extends StepOpsDecl }
-  ? OptionalizeKeys<StepConfigOf<C>, ObjectKeys<TDecl>>
-  : StepConfigOf<C>;
-
-type SchemaIncludesKeys<Schema extends TObject, Keys extends string> =
-  Exclude<Keys, keyof Schema["properties"] & string> extends never ? Schema : never;
-
-function deriveOpsSchemaProperties(ops: StepOpsDecl): Record<string, TSchema> {
-  const out: Record<string, TSchema> = {};
-  for (const key of Object.keys(ops)) {
-    const contract = ops[key] as OpContractAny;
-    out[key] = buildOpEnvelopeSchema(contract.id, contract.strategies).schema;
-  }
-  return out;
-}
-
-function deriveOpRefs<const TDecl extends StepOpsDecl>(ops: TDecl): StepOpRefsOf<TDecl> {
-  const out: Record<string, OpRefOf<OpContractAny>> = {};
-  for (const key of Object.keys(ops)) {
-    const contract = ops[key] as OpContractAny;
-    out[key] = { id: contract.id, config: buildOpEnvelopeSchema(contract.id, contract.strategies).schema };
-  }
-  return out as StepOpRefsOf<TDecl>;
-}
+const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export function defineStepContract<const Schema extends TSchema, const Id extends string>(
-  def: StepContractSchemaOnly<Schema, Id>
-): StepContractSchemaOnly<Schema, Id>;
-
-export function defineStepContract<const TDecl extends StepOpsDecl, const Id extends string>(
-  def: StepContractBase<Id> & Readonly<{ ops: TDecl; schema?: undefined }>
-): StepContractOpsOnly<TDecl, Id>;
-
-export function defineStepContract<
-  const TDecl extends StepOpsDecl,
-  const Schema extends TObject,
-  const Id extends string,
->(
-  def: StepContractBase<Id> &
-    Readonly<{
-      ops: TDecl;
-      // Pinned: hybrid authors explicitly include the op envelope keys; factories overwrite the
-      // op-key schemas from ops contracts so authors don't duplicate envelope schema definitions.
-      schema: SchemaIncludesKeys<Schema, keyof TDecl & string>;
-    }>
-): StepContractHybrid<TDecl, Schema, Id>;
-
-export function defineStepContract(def: any): any {
-  if ("ops" in def && def.ops) {
-    const opRefs = deriveOpRefs(def.ops);
-    // If schema omitted: derive strict object schema from op envelopes (DX shortcut).
-    if (!("schema" in def)) {
-      const properties = deriveOpsSchemaProperties(def.ops);
-      return {
-        ...(def as any),
-        opRefs,
-        schema: Type.Object(properties, { additionalProperties: false }),
-      };
-    }
-
-    // If schema provided: overwrite op-key property schemas with their derived envelope schemas.
-    // This keeps "extras require explicit schema" while avoiding duplicated envelope schemas.
-    const derived = deriveOpsSchemaProperties(def.ops);
-    const schema = def.schema as TObject;
-    const merged = Type.Object(
-      { ...(schema as any).properties, ...derived },
-      {
-        additionalProperties: (schema as any).additionalProperties ?? false,
-        default: (schema as any).default ?? {},
-      }
-    );
-    return { ...(def as any), opRefs, schema: merged };
+  def: StepContract<Schema, Id>
+): typeof def {
+  if (!STEP_ID_RE.test(def.id)) {
+    throw new Error(`step id "${def.id}" must be kebab-case (e.g. "plot-vegetation")`);
   }
+  applySchemaConventions(def.schema, `step:${def.id}.schema`);
   return def;
 }
 
-export type StepModule<
-  C extends StepContractAny,
-  TContext,
-  Knobs
-> = Readonly<{
-  contract: C;
-  // Compile-time only normalization hook (value-only; shape-preserving).
-  normalize?: (config: StepConfigOf<C>, ctx: NormalizeCtx<Knobs>) => StepConfigOf<C>;
-  // Runtime handler (pinned signature).
-  run: (context: TContext, config: StepConfigOf<C>) => void | Promise<void>;
+export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
+  readonly contract: StepContract<TSchema, string>;
+  normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
+  run: (context: TContext, config: TConfig) => void | Promise<void>;
+};
+
+export type StepModule<TContext = ExtendedMapContext, TConfig = unknown> = Step<TContext, TConfig>;
+
+type StepConfigOf<C extends StepContract<any, any>> = Static<C["schema"]>;
+
+type StepImpl<TContext, TConfig> = Readonly<{
+  normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
+  run: (context: TContext, config: TConfig) => void | Promise<void>;
 }>;
 
-type StepImpl<C extends StepContractAny, TContext, Knobs> = Readonly<
-  {
-    normalize?: StepModule<C, TContext, Knobs>["normalize"];
-    run: StepModule<C, TContext, Knobs>["run"];
-  }
->;
-
-// Factory surface (pinned):
-// - step module always owns `contract`
-// - runtime-facing `run(context, config)` stays baseline
-// - ops are module-owned (closure) rather than a third `run` arg
-export function createStep<const C extends StepContractAny, TContext, Knobs>(
+export function createStep<const C extends StepContract<any, any>, TContext = unknown>(
   contract: C,
-  impl: StepImpl<C, TContext, Knobs>
-): StepModule<C, TContext, Knobs> {
-  return { contract, ...(impl as any) } as StepModule<C, TContext, Knobs>;
+  impl: StepImpl<TContext, StepConfigOf<C>>
+): StepModule<TContext, StepConfigOf<C>> {
+  if (!contract?.schema) {
+    const label = contract?.id ? `step "${contract.id}"` : "step";
+    throw new Error(`createStep requires an explicit schema for ${label}`);
+  }
+  return { contract, ...impl };
 }
 
-export type CreateStepFor<TContext> = <const C extends StepContractAny, Knobs = unknown>(
+export type CreateStepFor<TContext> = <const C extends StepContract<any, any>>(
   contract: C,
-  impl: StepImpl<C, TContext, Knobs>
-) => StepModule<C, TContext, Knobs>;
+  impl: StepImpl<TContext, StepConfigOf<C>>
+) => StepModule<TContext, StepConfigOf<C>>;
 
 export function createStepFor<TContext>(): CreateStepFor<TContext> {
   return (contract, impl) => createStep(contract, impl);
 }
-
-// Engine-facing step surface (pinned boundary):
-// - no compile-time hooks (`normalize` is compile-time only)
-// - no op binding surface (`ops` are step-module private; `run` already closes over them)
-export type EngineStep<TContext, C extends StepContractAny> = Readonly<{
-  id: string; // fully-qualified execution id (namespace.recipe.stage.step)
-  phase: GenerationPhase;
-  requires: readonly DependencyTag[];
-  provides: readonly DependencyTag[];
-  configSchema: C["schema"];
-  run: (context: TContext, config: StepConfigOf<C>) => void | Promise<void>;
-}>;
 ```
 
 ### A.4 Stages: single surface schema, reserved key enforcement, and knobs threading (pinned)
@@ -547,7 +391,7 @@ Files:
 import { Type, type Static, type TObject, type TSchema } from "typebox";
 
 import type { Env } from "./env";
-import type { StepContractAny, StepConfigInputOf, StepModule } from "./steps";
+import type { Step } from "./steps";
 
 export const RESERVED_STAGE_KEY = "knobs" as const;
 export type ReservedStageKey = typeof RESERVED_STAGE_KEY;
@@ -571,23 +415,17 @@ export function assertNoReservedStageKeys(input: {
   }
 }
 
-type StepsArray<TContext, Knobs> = readonly StepModule<StepContractAny, TContext, Knobs>[];
+type StepsArray<TContext> = readonly Step<TContext, any>[];
 
-type StepIdOf<TSteps extends StepsArray<any, any>> = TSteps[number]["contract"]["id"] & string;
-type NonReservedStepIdOf<TSteps extends StepsArray<any, any>> = Exclude<
-  StepIdOf<TSteps>,
-  ReservedStageKey
->;
-
-type StepContractById<
-  TSteps extends StepsArray<any, any>,
-  Id extends StepIdOf<TSteps>,
-> = Extract<TSteps[number], { contract: { id: Id } }>["contract"];
+type StepIdOf<TSteps extends StepsArray<any>> = TSteps[number]["contract"]["id"] & string;
+type NonReservedStepIdOf<TSteps extends StepsArray<any>> = Exclude<StepIdOf<TSteps>, ReservedStageKey>;
 
 type StepConfigInputById<
-  TSteps extends StepsArray<any, any>,
+  TSteps extends StepsArray<any>,
   Id extends NonReservedStepIdOf<TSteps>,
-> = StepConfigInputOf<StepContractById<TSteps, Id>>;
+> = Extract<TSteps[number], { contract: { id: Id } }> extends Step<any, infer TConfig>
+  ? TConfig
+  : unknown;
 
 const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -613,13 +451,13 @@ function buildInternalAsPublicSurfaceSchema(stepIds: readonly string[], knobsSch
   for (const stepId of stepIds) {
     properties[stepId] = Type.Optional(Type.Unknown());
   }
-  return Type.Object(properties, { additionalProperties: false, default: {} });
+  return Type.Object(properties, { additionalProperties: false });
 }
 
 function buildPublicSurfaceSchema(publicSchema: TObject, knobsSchema: TObject): TObject {
   return Type.Object(
     { knobs: Type.Optional(knobsSchema), ...objectProperties(publicSchema) },
-    { additionalProperties: false, default: {} }
+    { additionalProperties: false }
   );
 }
 
@@ -638,7 +476,7 @@ export type StageDef<
   TContext,
   KnobsSchema extends TObject,
   Knobs = Static<KnobsSchema>,
-  TSteps extends StepsArray<TContext, Knobs> = StepsArray<TContext, Knobs>,
+  TSteps extends StepsArray<TContext> = StepsArray<TContext>,
   PublicSchema extends TObject | undefined = undefined,
 > = Readonly<{
   id: Id;
@@ -655,7 +493,7 @@ export type StageContract<
   TContext,
   KnobsSchema extends TObject,
   Knobs = Static<KnobsSchema>,
-  TSteps extends StepsArray<TContext, Knobs> = StepsArray<TContext, Knobs>,
+  TSteps extends StepsArray<TContext> = StepsArray<TContext>,
   PublicSchema extends TObject | undefined = undefined,
 > = StageDef<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema> &
   Readonly<{
@@ -687,6 +525,10 @@ export function createStage<const TDef extends StageDef<string, any, any, any, a
     throw new Error(`stage("${def.id}") defines "public" but does not define "compile"`);
   }
 
+  for (const step of def.steps as ReadonlyArray<{ contract: { id: string; schema: unknown } }>) {
+    assertSchema(step.contract.schema, step.contract.id, def.id);
+  }
+
   const surfaceSchema = def.public
     ? buildPublicSurfaceSchema(def.public, def.knobsSchema)
     : buildInternalAsPublicSurfaceSchema(stepIds, def.knobsSchema);
@@ -694,10 +536,11 @@ export function createStage<const TDef extends StageDef<string, any, any, any, a
   const toInternal = ({ env, stageConfig }: { env: Env; stageConfig: any }) => {
     const { knobs = {}, ...configPart } = stageConfig as any;
     if (def.public) {
-      return {
-        knobs,
-        rawSteps: (def as any).compile({ env, knobs, config: configPart }),
-      };
+      const rawSteps = (def as any).compile({ env, knobs, config: configPart }) ?? {};
+      if (Object.prototype.hasOwnProperty.call(rawSteps, RESERVED_STAGE_KEY)) {
+        throw new Error(`stage("${def.id}") compile returned reserved key "${RESERVED_STAGE_KEY}"`);
+      }
+      return { knobs, rawSteps };
     }
     return { knobs, rawSteps: configPart };
   };
@@ -724,7 +567,7 @@ Notes:
 
 Files:
 - `packages/mapgen-core/src/authoring/types.ts` (baseline; recipe typing reworked for stage-surface configs)
-- `packages/mapgen-core/src/compiler/recipe-compile.ts` **NEW (planned)** (compiler entrypoint signature)
+- `packages/mapgen-core/src/compiler/recipe-compile.ts` (compiler entrypoint signature)
 
 ```ts
 import type { Static } from "typebox";
@@ -770,7 +613,7 @@ export type CompiledRecipeConfigOf<TStages extends readonly AnyStage[]> = Readon
   }>;
 }>;
 
-// NEW (planned): compiler-owned entrypoint.
+// Compiler-owned entrypoint.
 //
 // Pinned behavior:
 // - always-on pipeline (even when stage public === internal)
@@ -780,6 +623,7 @@ export type CompileErrorCode =
   | "config.invalid"
   | "stage.compile.failed"
   | "stage.unknown-step-id"
+  | "op.config.invalid"
   | "op.missing"
   | "step.normalize.failed"
   | "op.normalize.failed"

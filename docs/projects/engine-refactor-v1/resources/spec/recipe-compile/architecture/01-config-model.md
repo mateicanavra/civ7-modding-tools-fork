@@ -71,7 +71,7 @@ export const ecologyStage = createStage({
     void env;
     void knobs;
     return {
-      // Important: stage compile outputs `StepConfigInputOf` values (partial; op envelopes may be omitted).
+      // Important: stage compile outputs raw step config values; defaults/normalization happen later.
       "plot-vegetation": { densityBias: config.vegetation.densityBias },
       "plot-wetlands": {},
     };

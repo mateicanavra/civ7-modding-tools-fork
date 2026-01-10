@@ -41,10 +41,10 @@ Deterministic order (pinned):
 - Ordering is for reproducibility (stable error ordering, stable traces). The canonicalization algorithm is step-local and must not depend on step ordering for correctness.
 
 1. `rawStep = rawInternalStage[stepId] ?? undefined`
-2. Prefill op defaults (top-level keys only; keys are discovered from `step.contract.ops`)
+2. Prefill op defaults (top-level keys only; only when `step.contract.ops` is present)
 3. Normalize step config via strict schema normalization (default + clean + unknown-key errors)
-4. Apply `step.normalize` (value-only) if present; re-normalize via schema
-5. Apply mechanical op normalization pass (top-level only); re-normalize via schema
+4. Apply `step.normalize` (value-only, compile-time only) if present; re-normalize via schema
+5. Apply mechanical op normalization pass (top-level only) when `step.contract.ops` is present; re-normalize via schema
    - requires a compile-visible op registry `compileOpsById: Record<op.id, DomainOpCompileAny>` so the compiler can bind op contracts to implementations by id
    - the runtime op surface is structurally stripped and cannot be used for compilation (see §1.14)
 
@@ -66,41 +66,39 @@ Non-negotiable invariants:
 Strict schema normalization helper (compiler-only): default + clean + unknown-key errors (runs in compilation, not engine planning):
 
 ```ts
-// NEW (planned): compiler-only helper (implementation-pinned).
+// Compiler-only helper (implementation-pinned).
 //
-// Baseline today: `normalizeStepConfig(...)` in `packages/mapgen-core/src/engine/execution-plan.ts`
-// (uses `findUnknownKeyErrors(...)` + `Value.Default(...)` + `Value.Clean(...)` + `Value.Errors(...)`).
-//
-// NEW (planned): compiler-owned error surface.
-//
-// Copy-pasteable reference implementation: `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/ts/compiler.ts`
+// Canonical source: `packages/mapgen-core/src/compiler/normalize.ts`
 
 import type { TSchema } from "typebox";
 import { Value } from "typebox/value";
 
-import { buildOpEnvelopeSchema } from "./ops";
-import { bindCompileOps, type DomainOpCompileAny } from "./ops";
-import type { StepModuleAny } from "./steps";
-import type { NormalizeCtx } from "./env";
+import type { DomainOpCompileAny, OpsById } from "../authoring/bindings.js";
+import { bindCompileOps, OpBindingError } from "../authoring/bindings.js";
+import { buildOpEnvelopeSchema } from "../authoring/op/envelope.js";
+import { applySchemaDefaults } from "../authoring/schema.js";
+import type { CompileErrorItem } from "./recipe-compile.js";
 
-export type CompileErrorCode =
-  | "config.invalid"
-  | "stage.compile.failed"
-  | "stage.unknown-step-id"
-  | "op.missing"
-  | "step.normalize.failed"
-  | "op.normalize.failed"
-  | "normalize.not.shape-preserving";
+export type NormalizeCtx<TEnv = unknown, TKnobs = unknown> = Readonly<{ env: TEnv; knobs: TKnobs }>;
 
-export type CompileErrorItem = Readonly<{
-  code: CompileErrorCode;
-  path: string;
-  message: string;
-  stageId?: string;
-  stepId?: string;
-  opKey?: string;
-  opId?: string;
+export type OpContractAny = Readonly<{
+  id: string;
+  strategies: Readonly<Record<string, TSchema>> & { default: TSchema };
 }>;
+
+export type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
+
+export type StepModuleAny = Readonly<{ contract?: Readonly<{ ops?: StepOpsDecl }> }>;
+
+export class OpConfigInvalidError extends Error {
+  readonly opId?: string;
+
+  constructor(message: string, opId?: string) {
+    super(message);
+    this.name = "OpConfigInvalidError";
+    this.opId = opId;
+  }
+}
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
@@ -180,7 +178,34 @@ function findUnknownKeyErrors(
 }
 
 function buildValue(schema: TSchema, input: unknown): { converted: unknown; cleaned: unknown } {
-  const cloned = Value.Clone(input ?? {});
+  const normalizedInput = input ?? {};
+  const typed = schema as { anyOf?: TSchema[]; oneOf?: TSchema[] };
+  const unionCandidates = Array.isArray(typed.anyOf)
+    ? typed.anyOf
+    : Array.isArray(typed.oneOf)
+      ? typed.oneOf
+      : null;
+
+  if (unionCandidates) {
+    let best: { errors: number; converted: unknown; cleaned: unknown } | null = null;
+    for (const candidate of unionCandidates) {
+      const initial = applySchemaDefaults(candidate, normalizedInput);
+      const cloned = Value.Clone(initial ?? {});
+      const converted = Value.Default(candidate, cloned);
+      const errorCount = Array.from(Value.Errors(candidate, converted)).length;
+      const cleaned = Value.Clean(candidate, converted);
+      if (!best || errorCount < best.errors) {
+        best = { errors: errorCount, converted, cleaned };
+        if (errorCount === 0) break;
+      }
+    }
+    if (best) {
+      return { converted: best.converted, cleaned: best.cleaned };
+    }
+  }
+
+  const initial = applySchemaDefaults(schema, normalizedInput);
+  const cloned = Value.Clone(initial ?? {});
   const defaulted = Value.Default(schema, cloned);
   const cleaned = Value.Clean(schema, defaulted);
   return { converted: defaulted, cleaned };
@@ -216,7 +241,7 @@ export function normalizeStrict<T>(
 Prefill op defaults (compiler-only; not schema defaulting):
 
 ```ts
-// NEW (planned): compiler helper (implementation-pinned).
+// Compiler helper (implementation-pinned).
 //
 // Prefill is mechanical and contract-driven:
 // - discovers op keys only from `step.contract.ops`
@@ -245,10 +270,7 @@ export function prefillOpDefaults(
   const value: Record<string, unknown> = { ...(rawStepConfig as Record<string, unknown> | undefined) };
   const errors: CompileErrorItem[] = [];
 
-  const opsDecl = (step as any).contract?.ops as Record<
-    string,
-    { id: string; strategies: Record<string, TSchema> }
-  > | null;
+  const opsDecl = step.contract?.ops;
   if (!opsDecl) return { value, errors };
 
   for (const opKey of Object.keys(opsDecl)) {
@@ -269,12 +291,12 @@ function normalizeOpsTopLevel(
   step: StepModuleAny,
   stepConfig: Record<string, unknown>,
   ctx: NormalizeCtx<any, any>,
-  compileOpsById: Readonly<Record<string, DomainOpCompileAny>>,
+  compileOpsById: OpsById<DomainOpCompileAny>,
   path: string
 ): { value: Record<string, unknown>; errors: CompileErrorItem[] } {
   const errors: CompileErrorItem[] = [];
 
-  const opsDecl = (step as any).contract?.ops as Record<string, { id: string }> | null;
+  const opsDecl = step.contract?.ops;
   if (!opsDecl) return { value: stepConfig, errors };
 
   // Bind compile ops (by id) in compiler-only code; runtime code binds against `runtimeOpsById` instead.
@@ -283,16 +305,27 @@ function normalizeOpsTopLevel(
   try {
     compileOps = bindCompileOps(opsDecl, compileOpsById) as any;
   } catch (err) {
-    errors.push({
-      code: "op.missing",
-      path,
-      message: err instanceof Error ? err.message : "bindCompileOps failed",
-    });
+    if (err instanceof OpBindingError) {
+      errors.push({
+        code: "op.missing",
+        path: `${path}/${err.opKey}`,
+        message: `Missing op implementation for key "${err.opKey}"`,
+        opKey: err.opKey,
+        opId: err.opId,
+      });
+    } else {
+      errors.push({
+        code: "op.missing",
+        path,
+        message: err instanceof Error ? err.message : "bindCompileOps failed",
+      });
+    }
     return { value: stepConfig, errors };
   }
 
   let value: Record<string, unknown> = stepConfig;
   for (const opKey of Object.keys(opsDecl)) {
+    const contract = (opsDecl as any)[opKey];
     const op = (compileOps as any)[opKey] as DomainOpCompileAny | undefined;
     if (!op) {
       errors.push({
@@ -300,7 +333,7 @@ function normalizeOpsTopLevel(
         path: `${path}/${opKey}`,
         message: `Missing op implementation for key "${opKey}"`,
         opKey,
-        opId: (opsDecl as any)[opKey]?.id,
+        opId: contract?.id,
       });
       continue;
     }
@@ -317,13 +350,23 @@ function normalizeOpsTopLevel(
         const next = (op as any).normalize(envelope, ctx);
         value = { ...value, [opKey]: next };
       } catch (err) {
-        errors.push({
-          code: "op.normalize.failed",
-          path: `${path}/${opKey}`,
-          message: err instanceof Error ? err.message : "op.normalize failed",
-          opKey,
-          opId: op.id,
-        });
+        if (err instanceof OpConfigInvalidError) {
+          errors.push({
+            code: "op.config.invalid",
+            path: `${path}/${opKey}`,
+            message: err.message,
+            opKey,
+            opId: op.id,
+          });
+        } else {
+          errors.push({
+            code: "op.normalize.failed",
+            path: `${path}/${opKey}`,
+            message: err instanceof Error ? err.message : "op.normalize failed",
+            opKey,
+            opId: op.id,
+          });
+        }
       }
     }
   }
@@ -338,52 +381,24 @@ Why “top-level only” is a hard model constraint:
 
 ---
 
-### 1.11 Ops-derived step schema (DX shortcut; constrained scope)
+### 1.11 Step schema and op envelopes (current behavior)
 
-This is in-scope for this landing (explicit decision):
+Current authoring behavior:
 
-- **NEW (planned)**: if `defineStepContract` is called with `ops` and **no explicit schema**, auto-generate a strict step schema where:
-  - each op key becomes a schema-required property whose schema is the op envelope schema (author input may omit these keys; the compiler prefills before strict schema normalization)
-  - `additionalProperties: false` is defaulted inside the factory
+- `defineStepContract` is schema-only: an explicit `schema` is required.
+- Op envelopes live inside the step schema (typically using `op.config` from the domain op surface).
+- There is no step `inputSchema`; author input uses the same schema shape, and compiler normalization applies defaults/cleaning.
 
-Important: `schema` is not required just because `ops` exists:
-- If the step is “ops-only” (no extra top-level config keys), the derived `schema` removes boilerplate (no duplicate schema authoring).
-- If the step needs extra top-level fields, the author provides an explicit `schema`. Factories still derive and overwrite op-key property schemas from `ops`, but factories do not add any new non-op keys “for you” (O3: no “derive + extras” hybrid).
-- In both cases, there is still only one step schema; there is no separate step `inputSchema`.
+Compiler integration:
 
-Concretely, the v1 authoring surface supports (and only supports) these shapes:
-- `defineStepContract({ ..., schema })` — explicit schema-owned step config (no ops-derived schema).
-- `defineStepContract({ ..., ops })` — ops-only step config; schema is derived from op envelopes (DX shortcut).
-- `defineStepContract({ ..., ops, schema })` — explicit hybrid schema (author-owned); `ops` declares which envelope keys exist, and factories overwrite those op keys with their derived envelope schemas (authors do not duplicate envelope schemas).
+- The compiler only prefills or normalizes ops mechanically when a step contract includes optional op metadata (`step.contract.ops`).
+- When op metadata is not provided, steps are responsible for calling compile-surface op normalization inside `step.normalize` (via `bindCompileOps`).
 
-Contract-level helper (no op impl bundling):
+Binding helpers (op contracts → implementations):
 
-```ts
-// Baseline today (repo-verified): shared envelope derivation exists:
-// - `buildOpEnvelopeSchema(...)`: `packages/mapgen-core/src/authoring/op/envelope.ts`
-//
-// NEW (planned): `defineStepContract({ ops, schema? })` derives op-envelope schemas from the provided
-// op contracts and (optionally) auto-derives the step schema when `schema` is omitted.
-//
-// DX intent:
-// - authors do NOT need to call `opRef(...)` directly
-// - they declare the op contracts; factories derive `OpRef` + envelope schemas using the shared builder
-```
-
-Binding helper (op refs → implementations):
-
-```ts
-// Canonical binding API: see §1.14.
-//
-// Key properties:
-// - binds by op id (declared in contracts)
-// - produces compile vs runtime op surfaces
-// - runtime surface is structurally stripped (no normalize/defaultConfig/strategies)
-```
-
-Inline schema strictness (factory-only):
-- If schema is supplied as an inline field-map object, factories wrap it with `additionalProperties: false`.
-- If schema is supplied as an arbitrary `TSchema`, factories do not mutate it.
+- Canonical binding API: see §1.14.
+- Binds by op id (declared in contracts).
+- Produces compile vs runtime op surfaces; runtime surface is structurally stripped (no normalize/defaultConfig/strategies).
 
 ---
 
@@ -436,7 +451,7 @@ Example: missing op implementation in the compile registry (caught during bindin
 {
   code: "op.missing",
   path: "/config/ecology/plot-vegetation/trees",
-  message: "bindCompileOps: missing op id \"ecology/planTreeVegetation\" for key \"trees\"",
+  message: "Missing op implementation for key \"trees\"",
   stageId: "ecology",
   stepId: "plot-vegetation",
   opKey: "trees",
@@ -469,6 +484,8 @@ import { expect, test } from "bun:test";
 import { Type } from "typebox";
 
 import {
+  bindCompileOps,
+  createOp,
   createStage,
   createStep,
   defineOpContract,
@@ -477,8 +494,8 @@ import {
 
 import { compileRecipeConfig } from "@swooper/mapgen-core/compiler/recipe-compile";
 
-test("compileRecipeConfig prefills missing op envelopes", () => {
-  const PlanTrees = defineOpContract({
+test("compileRecipeConfig normalizes step config via step.normalize", () => {
+  const PlanTreesContract = defineOpContract({
     kind: "plan",
     id: "ecology/planTreeVegetation",
     input: Type.Object({}, { additionalProperties: false }),
@@ -486,15 +503,38 @@ test("compileRecipeConfig prefills missing op envelopes", () => {
     strategies: { default: Type.Object({}, { additionalProperties: false, default: {} }) },
   } as const);
 
+  const PlanTrees = createOp(PlanTreesContract, {
+    strategies: {
+      default: {
+        normalize: (cfg: Record<string, unknown>) => cfg,
+        run: () => ({}),
+      },
+    },
+  });
+
   const contract = defineStepContract({
     id: "plot-vegetation",
     phase: "ecology",
     requires: [],
     provides: [],
-    ops: { trees: PlanTrees },
+    schema: Type.Object(
+      {
+        trees: PlanTrees.config,
+      },
+      { additionalProperties: false, default: {} }
+    ),
   } as const);
 
-  const step = createStep(contract, { run: async () => {} });
+  const opContracts = { trees: PlanTreesContract } as const;
+  const compileOps = bindCompileOps(opContracts, { [PlanTrees.id]: PlanTrees });
+
+  const step = createStep(contract, {
+    normalize: (config, ctx) => ({
+      ...config,
+      trees: compileOps.trees.normalize(config.trees, ctx),
+    }),
+    run: async () => {},
+  });
 
   const stage = createStage({
     id: "ecology",
@@ -503,7 +543,7 @@ test("compileRecipeConfig prefills missing op envelopes", () => {
   } as const);
 
   const compileOpsById = {
-    "ecology/planTreeVegetation": { id: "ecology/planTreeVegetation", kind: "plan" } as any,
+    [PlanTrees.id]: PlanTrees,
   };
 
   const compiled = compileRecipeConfig({
@@ -513,6 +553,9 @@ test("compileRecipeConfig prefills missing op envelopes", () => {
     compileOpsById,
   });
 
-  expect((compiled as any).ecology["plot-vegetation"].trees).toBeDefined();
+  expect((compiled as any).ecology["plot-vegetation"].trees).toEqual({
+    strategy: "default",
+    config: {},
+  });
 });
 ```

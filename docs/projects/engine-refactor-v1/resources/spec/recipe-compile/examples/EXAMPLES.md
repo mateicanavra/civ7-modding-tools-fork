@@ -84,7 +84,7 @@ Phase A output for `ecology` (conceptual, after `surfaceSchema` validation and `
 {
   knobs: { vegetationDensityBias: 0.15 },
   rawSteps: {
-    // NEW (planned): this is the intended domain-modeling shape:
+    // Intended domain-modeling shape:
     // ecology exposes multiple focused ops and composes them in a step named `plot-vegetation`
     "plot-vegetation": {
       trees: { /* op envelope */ },
@@ -107,46 +107,31 @@ Why this example exists:
 - The domain modeling guidelines explicitly prefer **multiple focused ops** + a step that orchestrates them (e.g. `plot-vegetation`).
 - Baseline note (repo reality): ecology currently includes composite ops such as `mods/mod-swooper-maps/src/domain/ecology/ops/features-plan-vegetation/index.ts` (`planVegetation`). That shape is treated as a legacy “mega-op” smell in the target modeling.
 
-Contract (NEW (planned) step; op contracts may already exist in split form or may be introduced during domain refactors):
+Contract (schema-only; op envelopes are encoded directly in the step schema):
 
 ```ts
-import { defineStepContract } from "@swooper/mapgen-core/authoring";
-import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
-
-// NEW (planned): domains export contract-only entrypoints for step contracts.
-// Baseline today: `ecology.ops` exists; individual op modules export contracts, but there may be no
-// consolidated `@mapgen/domain/ecology/contracts` surface yet.
+import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import * as ecology from "@mapgen/domain/ecology";
 
 export const PlotVegetationContract = defineStepContract({
   id: "plot-vegetation",
   phase: "ecology",
-  // Ops are declared as contracts (DX); `defineStepContract` derives `OpRef`s internally.
-  ops: {
-    // Example “focused ops” (preferred):
-    // - plan-tree-vegetation
-    // - plan-shrub-vegetation
-    // - plan-ground-cover
-    //
-    // Repo note: the precise contracts are a domain-refactor deliverable. Today, ecology already has
-    // several focused op contracts under `mods/mod-swooper-maps/src/domain/ecology/ops/**`, but the
-    // canonical target is to keep splitting toward these focused “plan-*” ops.
-    //
-    // DX model: domains export contracts separately from implementations:
-    // - `@mapgen/domain/<domain>/contracts` is contract-only (safe to import in step contracts)
-    // - `@mapgen/domain/<domain>` may include implementation registries (used only in step modules)
-    trees: ecologyContracts.planTreeVegetation,
-    shrubs: ecologyContracts.planShrubVegetation,
-    groundCover: ecologyContracts.planGroundCover,
-  },
-  // If schema is omitted here, an ops-derived schema is allowed (I7) and will be strict:
-  // - required: `trees`, `shrubs`, `groundCover` (prefilled before schema normalization)
-  // - no extra top-level keys (O3: no “extras” hybrid for v1)
+  requires: [],
+  provides: [],
+  schema: Type.Object(
+    {
+      trees: ecology.ops.planTreeVegetation.config,
+      shrubs: ecology.ops.planShrubVegetation.config,
+      groundCover: ecology.ops.planGroundCover.config,
+    },
+    { additionalProperties: false, default: {} }
+  ),
 });
 ```
 
 Note on keys:
-- The `ops` keys (`trees`, `shrubs`, `groundCover`) are the authoritative **top-level envelope keys** in the step config (I6).
-- The compiler discovers envelopes from `step.contract.ops` keys only; it does not scan nested config objects.
+- The envelope keys (`trees`, `shrubs`, `groundCover`) are the authoritative **top-level envelope keys** in the step config (I6).
+- The compiler only discovers envelopes from `step.contract.ops` metadata (when present); it does not scan nested config objects.
 
 Raw internal step config input (what Phase A produces for `plot-vegetation`; op envelopes are **top-level keys** only):
 
@@ -159,12 +144,11 @@ const rawStepConfig = {
 ```
 
 Compiler execution (Phase B excerpt; with stage knobs threaded via ctx):
-- `prefillOpDefaults` injects missing `shrubs` envelope from op contract defaults (via `buildOpEnvelopeSchema(contract.id, contract.strategies).defaultConfig`), before strict schema validation.
 - `normalizeStrict(step.schema, prefilled)` default/cleans the step fields and rejects unknown keys.
 - `step.normalize(cfg, { env, knobs })` may bias envelope values using `knobs` (value-only, shape-preserving).
   - Example: apply `knobs.vegetationDensityBias` by adjusting `trees.config.density` and `groundCover.config.density`.
-- `normalizeOpsTopLevel(...)` normalizes envelopes for `trees`, `shrubs`, `groundCover` by contract ops keys only (no nested traversal).
-  - Op normalization consults the op’s compile-time normalization hook (baseline today: `DomainOp.resolveConfig(cfg, env)`; renamed to `normalize`), which dispatches by `envelope.strategy` under the hood.
+- If `step.contract.ops` metadata is present, `normalizeOpsTopLevel(...)` normalizes envelopes for `trees`, `shrubs`, `groundCover` by contract ops keys only (no nested traversal).
+  - Op normalization consults the op’s compile-time normalization hook (`normalize`), which dispatches by `envelope.strategy` under the hood.
 
 ### Example C — Ops injection into `plot-vegetation` (why “bind ops” is not just indirection)
 
@@ -173,15 +157,23 @@ Canonical pattern:
 - step **modules** bind op contracts to implementations from the domain registry (by id)
 - runtime `step.run` uses injected ops; it does not import op implementations directly
 
-One plausible (NEW (planned)) step module shape:
+One plausible step module shape:
 
 ```ts
-import { bindRuntimeOps, createStep } from "@swooper/mapgen-core/authoring";
+import { bindCompileOps, bindRuntimeOps } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@mapgen/authoring/steps";
 
 import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 
-// Module-scope closure binding (canonical): ops are not passed through engine signatures.
-const ops = bindRuntimeOps(PlotVegetationContract.ops, ecology.runtimeOpsById);
+const opContracts = {
+  trees: ecologyContracts.planTreeVegetation,
+  shrubs: ecologyContracts.planShrubVegetation,
+  groundCover: ecologyContracts.planGroundCover,
+} as const;
+
+const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
+const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
 
 export default createStep(PlotVegetationContract, {
   // Compile-time only normalization hook; sees `{ env, knobs }`.
@@ -192,7 +184,7 @@ export default createStep(PlotVegetationContract, {
       return {
         ...config,
         trees: {
-          ...config.trees,
+          ...compileOps.trees.normalize(config.trees, { env, knobs }),
           config: {
             ...config.trees.config,
             density: config.trees.config.density + knobs.vegetationDensityBias,
@@ -205,9 +197,9 @@ export default createStep(PlotVegetationContract, {
 
   // Runtime handler: uses injected ops and canonical config; no defaulting/cleaning here.
   run: (context, config) => {
-    const treePlacements = ops.trees.runValidated(/* input */, config.trees);
-    const shrubPlacements = ops.shrubs.runValidated(/* input */, config.shrubs);
-    const coverPlacements = ops.groundCover.runValidated(/* input */, config.groundCover);
+    const treePlacements = runtimeOps.trees.run(/* input */, config.trees);
+    const shrubPlacements = runtimeOps.shrubs.run(/* input */, config.shrubs);
+    const coverPlacements = runtimeOps.groundCover.run(/* input */, config.groundCover);
     // apply/publish effects (step boundary)
     void treePlacements;
     void shrubPlacements;

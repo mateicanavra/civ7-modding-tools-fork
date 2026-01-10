@@ -2,6 +2,7 @@ import type { TSchema } from "typebox";
 import { Value } from "typebox/value";
 
 import type { Env, NormalizeCtx } from "./env";
+import { applySchemaDefaults } from "../authoring/schema.js";
 import { buildOpEnvelopeSchema, bindCompileOps, type CompileOpsById, type DomainOpCompileAny } from "./ops";
 import type { StepModuleAny } from "./steps";
 import type { StageToInternalResult } from "./stages";
@@ -11,6 +12,7 @@ export type CompileErrorCode =
   | "config.invalid"
   | "stage.compile.failed"
   | "stage.unknown-step-id"
+  | "op.config.invalid"
   | "op.missing"
   | "step.normalize.failed"
   | "op.normalize.failed"
@@ -34,6 +36,16 @@ export class RecipeCompileError extends Error {
     super(`Recipe compile failed: ${message}`);
     this.name = "RecipeCompileError";
     this.errors = errors;
+  }
+}
+
+export class OpConfigInvalidError extends Error {
+  readonly opId?: string;
+
+  constructor(message: string, opId?: string) {
+    super(message);
+    this.name = "OpConfigInvalidError";
+    this.opId = opId;
   }
 }
 
@@ -113,7 +125,34 @@ function findUnknownKeyErrors(
 }
 
 function buildValue(schema: TSchema, input: unknown): { converted: unknown; cleaned: unknown } {
-  const cloned = Value.Clone(input ?? {});
+  const normalizedInput = input ?? {};
+  const typed = schema as { anyOf?: TSchema[]; oneOf?: TSchema[] };
+  const unionCandidates = Array.isArray(typed.anyOf)
+    ? typed.anyOf
+    : Array.isArray(typed.oneOf)
+      ? typed.oneOf
+      : null;
+
+  if (unionCandidates) {
+    let best: { errors: number; converted: unknown; cleaned: unknown } | null = null;
+    for (const candidate of unionCandidates) {
+      const initial = applySchemaDefaults(candidate, normalizedInput);
+      const cloned = Value.Clone(initial ?? {});
+      const converted = Value.Default(candidate, cloned);
+      const errorCount = Array.from(Value.Errors(candidate, converted)).length;
+      const cleaned = Value.Clean(candidate, converted);
+      if (!best || errorCount < best.errors) {
+        best = { errors: errorCount, converted, cleaned };
+        if (errorCount === 0) break;
+      }
+    }
+    if (best) {
+      return { converted: best.converted, cleaned: best.cleaned };
+    }
+  }
+
+  const initial = applySchemaDefaults(schema, normalizedInput);
+  const cloned = Value.Clone(initial ?? {});
   const defaulted = Value.Default(schema, cloned);
   const cleaned = Value.Clean(schema, defaulted);
   return { converted: defaulted, cleaned };
@@ -228,13 +267,23 @@ export function normalizeOpsTopLevel(
         const next = (op as any).normalize(envelope, ctx);
         value = { ...value, [opKey]: next };
       } catch (err) {
-        errors.push({
-          code: "op.normalize.failed",
-          path: `${path}/${opKey}`,
-          message: err instanceof Error ? err.message : "op.normalize failed",
-          opKey,
-          opId: op.id,
-        });
+        if (err instanceof OpConfigInvalidError) {
+          errors.push({
+            code: "op.config.invalid",
+            path: `${path}/${opKey}`,
+            message: err.message,
+            opKey,
+            opId: op.id,
+          });
+        } else {
+          errors.push({
+            code: "op.normalize.failed",
+            path: `${path}/${opKey}`,
+            message: err instanceof Error ? err.message : "op.normalize failed",
+            opKey,
+            opId: op.id,
+          });
+        }
       }
     }
   }

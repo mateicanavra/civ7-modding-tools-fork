@@ -1,7 +1,6 @@
 import { Type, type Static, type TObject, type TSchema } from "typebox";
 
-import type { Env } from "./env";
-import type { StepContractAny, StepConfigInputOf, StepModule } from "./steps";
+import type { Step } from "./steps";
 
 export const RESERVED_STAGE_KEY = "knobs" as const;
 export type ReservedStageKey = typeof RESERVED_STAGE_KEY;
@@ -10,6 +9,14 @@ export type StageToInternalResult<StepId extends string, Knobs> = Readonly<{
   knobs: Knobs;
   rawSteps: Partial<Record<StepId, unknown>>;
 }>;
+
+function assertSchema(value: unknown, stepId?: string, stageId?: string): void {
+  if (value == null) {
+    const label = stepId ? `step "${stepId}"` : "step";
+    const scope = stageId ? ` in stage "${stageId}"` : "";
+    throw new Error(`createStage requires an explicit schema for ${label}${scope}`);
+  }
+}
 
 export function assertNoReservedStageKeys(input: {
   stageId: string;
@@ -25,20 +32,17 @@ export function assertNoReservedStageKeys(input: {
   }
 }
 
-type StepsArray<TContext, Knobs> = readonly StepModule<StepContractAny, TContext, Knobs>[];
+type StepsArray<TContext> = readonly Step<TContext, any>[];
 
-type StepIdOf<TSteps extends StepsArray<any, any>> = TSteps[number]["contract"]["id"] & string;
-type NonReservedStepIdOf<TSteps extends StepsArray<any, any>> = Exclude<StepIdOf<TSteps>, ReservedStageKey>;
-
-type StepContractById<TSteps extends StepsArray<any, any>, Id extends StepIdOf<TSteps>> = Extract<
-  TSteps[number],
-  { contract: { id: Id } }
->["contract"];
+type StepIdOf<TSteps extends StepsArray<any>> = TSteps[number]["contract"]["id"] & string;
+type NonReservedStepIdOf<TSteps extends StepsArray<any>> = Exclude<StepIdOf<TSteps>, ReservedStageKey>;
 
 type StepConfigInputById<
-  TSteps extends StepsArray<any, any>,
-  Id extends NonReservedStepIdOf<TSteps>,
-> = StepConfigInputOf<StepContractById<TSteps, Id>>;
+  TSteps extends StepsArray<any>,
+  TStepId extends StepIdOf<TSteps>,
+> = Extract<TSteps[number], { contract: { id: TStepId } }> extends Step<any, infer TConfig>
+  ? TConfig
+  : unknown;
 
 const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -64,32 +68,28 @@ function buildInternalAsPublicSurfaceSchema(stepIds: readonly string[], knobsSch
   for (const stepId of stepIds) {
     properties[stepId] = Type.Optional(Type.Unknown());
   }
-  return Type.Object(properties, { additionalProperties: false, default: {} });
+  return Type.Object(properties, { additionalProperties: false });
 }
 
 function buildPublicSurfaceSchema(publicSchema: TObject, knobsSchema: TObject): TObject {
   return Type.Object(
     { knobs: Type.Optional(knobsSchema), ...objectProperties(publicSchema) },
-    { additionalProperties: false, default: {} }
+    { additionalProperties: false }
   );
 }
 
 export type StageCompileFn<PublicSchema extends TObject, StepId extends string, Knobs> = (args: {
-  env: Env;
+  env: unknown;
   knobs: Knobs;
   config: Static<PublicSchema>;
 }) => Partial<Record<StepId, unknown>>;
 
-// Stage authoring surface (Option A):
-// - stage may define `public` + `compile` (public → internal)
-// - otherwise stage is internal-as-public
-// - `createStage` computes `surfaceSchema` and provides a standard `toInternal` wrapper
 export type StageDef<
   Id extends string,
   TContext,
   KnobsSchema extends TObject,
   Knobs = Static<KnobsSchema>,
-  TSteps extends StepsArray<TContext, Knobs> = StepsArray<TContext, Knobs>,
+  TSteps extends StepsArray<TContext> = StepsArray<TContext>,
   PublicSchema extends TObject | undefined = undefined,
 > = Readonly<{
   id: Id;
@@ -106,14 +106,12 @@ export type StageContract<
   TContext,
   KnobsSchema extends TObject,
   Knobs = Static<KnobsSchema>,
-  TSteps extends StepsArray<TContext, Knobs> = StepsArray<TContext, Knobs>,
+  TSteps extends StepsArray<TContext> = StepsArray<TContext>,
   PublicSchema extends TObject | undefined = undefined,
 > = StageDef<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema> &
   Readonly<{
-    // Computed strict author-facing schema: knobs + (public fields OR step ids).
     surfaceSchema: TObject;
-    // Deterministic “public → internal” mapping: extracts knobs and produces raw step map.
-    toInternal: (args: { env: Env; stageConfig: unknown }) => StageToInternalResult<
+    toInternal: (args: { env: unknown; stageConfig: unknown }) => StageToInternalResult<
       NonReservedStepIdOf<TSteps>,
       Knobs
     >;
@@ -121,15 +119,26 @@ export type StageContract<
 
 export type StageContractAny = StageContract<string, any, any, any, any, any>;
 
-// Factory surface (pinned):
-// - stage may optionally define `public` + `compile` (public → internal)
-// - `createStage` computes `surfaceSchema` (single author-facing surface) and provides a standard `toInternal`
-// - reserved key enforcement is a hard throw
-// - step ids are kebab-case (pinned convention)
-export function createStage<const TDef extends StageDef<string, any, any, any, any, any>>(
+type StageContractOf<TDef extends StageDef<string, any, TObject, any, any, TObject | undefined>> =
+  TDef extends StageDef<
+    infer Id,
+    infer TContext,
+    infer KnobsSchema,
+    infer Knobs,
+    infer TSteps,
+    infer PublicSchema
+  >
+    ? StageContract<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema>
+    : never;
+
+export function createStage<
+  const TDef extends StageDef<string, any, TObject, any, any, TObject | undefined>,
+>(
   def: TDef
-): StageContractAny {
-  const stepIds = def.steps.map((s) => s.contract.id);
+): StageContractOf<TDef> {
+  const stepIds = (def.steps as ReadonlyArray<{ contract: { id: string } }>).map(
+    (step) => step.contract.id
+  );
   assertNoReservedStageKeys({ stageId: def.id, stepIds, publicSchema: def.public });
   assertKebabCaseStepIds({ stageId: def.id, stepIds });
 
@@ -137,26 +146,38 @@ export function createStage<const TDef extends StageDef<string, any, any, any, a
     throw new Error(`stage("${def.id}") defines "public" but does not define "compile"`);
   }
 
+  for (const step of def.steps as ReadonlyArray<{ contract: { id: string; schema: unknown } }>) {
+    assertSchema(step.contract.schema, step.contract.id, def.id);
+  }
+
   const surfaceSchema = def.public
     ? buildPublicSurfaceSchema(def.public, def.knobsSchema)
-    : buildInternalAsPublicSurfaceSchema(stepIds, def.knobsSchema);
+    : buildInternalAsPublicSurfaceSchema(
+        stepIds.filter((id: string) => id !== RESERVED_STAGE_KEY),
+        def.knobsSchema
+      );
 
-  const toInternal = ({ env, stageConfig }: { env: Env; stageConfig: any }) => {
-    const { knobs = {}, ...configPart } = stageConfig as any;
-    if (def.public) {
-      return {
-        knobs,
-        rawSteps: (def as any).compile({ env, knobs, config: configPart }),
-      };
+  const toInternal = ({
+    env,
+    stageConfig,
+  }: {
+    env: unknown;
+    stageConfig: unknown;
+  }): StageToInternalResult<string, unknown> => {
+    const { knobs = {}, ...configPart } = stageConfig as Record<string, unknown>;
+    const rawSteps = def.public
+      ? (def as any).compile({ env, knobs, config: configPart }) ?? {}
+      : configPart;
+    if (Object.prototype.hasOwnProperty.call(rawSteps, RESERVED_STAGE_KEY)) {
+      throw new Error(`stage("${def.id}") compile returned reserved key "${RESERVED_STAGE_KEY}"`);
     }
-    return { knobs, rawSteps: configPart };
+    return { knobs, rawSteps };
   };
 
-  return { ...(def as any), surfaceSchema, toInternal } as StageContractAny;
+  return { ...(def as any), surfaceSchema, toInternal };
 }
 
 export type StageConfigInputOf<TStage extends StageContractAny> =
-  // Knobs are always present as a field (defaulting handled by `surfaceSchema`).
   Readonly<{ knobs?: Partial<Static<TStage["knobsSchema"]>> }> &
     (TStage["public"] extends TObject
       ? Static<TStage["public"]>

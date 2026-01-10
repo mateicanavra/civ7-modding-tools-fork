@@ -21,7 +21,7 @@ Spec package structure:
 
 - `00-fundamentals.md` (this file) — Goals, invariants, mental model, layering, and the locked O1/O2/O3 statements
 - `01-config-model.md` — Configuration model, knobs, and hook semantics
-- `02-compilation.md` — Compilation pipeline, op envelopes, ops-derived schema, and normalization rules
+- `02-compilation.md` — Compilation pipeline, op envelopes, and normalization rules
 - `03-authoring-patterns.md` — Step module pattern, bindings, and type flow
 - `04-type-surfaces.md` — Canonical TypeScript definitions (includes Appendix A surfaces)
 - `05-file-reconciliation.md` — What changes where in the repo
@@ -30,8 +30,9 @@ Spec package structure:
 ### 1.1 Goals (what this architecture is for)
 
 - **Composition-first**: recipe/stage composition produces a fully canonical internal execution shape.
-- **No engine-time config resolution**: engine plan compilation validates; it does not default/clean/mutate configs and does not call any config “resolver”.
+- **No engine-time config resolution**: engine plan compilation does not default/clean/mutate configs and does not call any config “resolver”; it only validates step identity.
 - **No runtime schema defaulting/cleaning**: runtime handlers (`step.run`, `strategy.run`) treat configs as already canonical.
+- **Explicit step schemas**: step contracts always include a schema; compiler-owned normalization handles defaults/cleaning before runtime.
 - **One canonical internal config shape** at runtime:
   - stage boundary uses **step-id keyed internal step config maps**
   - op envelopes are **top-level properties** in step configs (keyed by `step.contract.ops`)
@@ -58,7 +59,7 @@ This section is the **curated “rules of the road”**. If a future change viol
 #### I2 — No runtime config resolution/defaulting
 
 - Runtime handlers (`step.run`, `strategy.run`) must not default/clean/normalize configs.
-- Engine plan compilation validates; it must not mutate config objects and must not call any step/op “resolver”.
+- Engine plan compilation only validates step identity; it must not mutate config objects and must not call any step/op “resolver”.
 - All schema defaulting/cleaning lives in compiler-only modules, owned by the recipe compiler pipeline.
 
 #### I3 — `compile` vs `normalize` semantics are strict
@@ -78,7 +79,7 @@ This section is the **curated “rules of the road”**. If a future change viol
 
 - If a stage defines a `public` view, it defines the schema for the **non-knob** portion of the stage surface.
 - The stage’s single author-facing schema is a computed **stage surface schema** that includes:
-  - `knobs` (validated by the stage’s knobs schema, defaulting to `{}`), and
+  - `knobs` (validated by the stage’s knobs schema), and
   - either stage public fields (when `public` is present) or step-id keys (for internal-as-public stages).
 - Internal-as-public stage surface validation must not validate step configs (step fields are `unknown`); strict step validation happens later during step canonicalization (after op-prefill).
 - Stage exposes a deterministic `toInternal(...)` plumbing hook: no “shape detection”.
@@ -89,12 +90,12 @@ This section is the **curated “rules of the road”**. If a future change viol
 - Op envelopes are top-level properties in step configs: `stepConfig[opKey]`.
 - No nested traversal, arrays, or scanning config shapes to infer ops.
 
-#### I7 — Inline schema strictness + ops-derived step schema (DX)
+#### I7 — Inline schema strictness + explicit step schema (DX)
 
 - Inline schema field-map shorthands are supported only inside definition factories, and default to `additionalProperties: false`.
-- If a step contract declares `ops` and omits `schema`, the factory may derive a strict step schema from op envelope schemas.
-- There is no separate “input schema” for step configs in v1; author-input partiality is handled by the compiler pipeline (op-prefill before strict validation) plus type-level author input types (O2).
-- This landing does **not** support adding “extra” top-level keys on top of an ops-derived schema; authors must provide an explicit schema (and include any op envelope keys they want) if they need extra keys.
+- Step contracts require an explicit schema; op envelopes are included directly in the schema (typically via `op.config`).
+- There is no separate “input schema” for step configs in v1; author input uses the same schema shape with compiler-side defaults/cleaning.
+- `createStep(...)` enforces the presence of `contract.schema` and `createStage(...)` asserts that each step contract supplies one.
 
 ---
 
@@ -125,7 +126,6 @@ Domain (ops + strategies + contracts)
 
 Step (internal node; orchestration)
   └── defines internal schema (required)
-  └── declares which op envelopes exist (optional; declared as op contracts, derived to op refs)
   └── optional value-only normalize hook
   └── runtime run handler can call ops (injected), without importing implementations directly
 
@@ -139,7 +139,7 @@ Recipe (composition + compilation orchestrator)
   └── instantiates engine recipe only from compiled internal configs
 
 Engine (execution plan + executor)
-  └── validates runtime envelope + compiled step configs
+  └── validates step identity and executes compiled configs
   └── builds plan + executes
   └── must not default/clean/mutate config
 ```
@@ -156,7 +156,7 @@ O1/O2/O3 were previously tracked as “known unknowns”, but are now **locked i
 
 - **O1 (closed)**: shared op envelope derivation is implemented and used by both `createOp(...)` and `opRef(...)` via `packages/mapgen-core/src/authoring/op/envelope.ts`.
 - **O2 (closed)**: recipe config typing is split into author input vs compiled output via `RecipeConfigInputOf<...>` and `CompiledRecipeConfigOf<...>` in `packages/mapgen-core/src/authoring/types.ts` (baseline note: `CompiledRecipeConfigOf` is currently an alias; the split is a locked design requirement for v1).
-- **O3 (closed)**: no “derive ops schema + add extra top-level fields implicitly” hybrid. If you want non-op fields, you must provide an explicit step schema (op-key schemas are still overwritten from `ops` contracts so authors don’t duplicate envelope schemas).
+- **O3 (closed)**: no implicit derived step schemas or “extras” hybrid; step authors must provide an explicit schema.
 
 No additional open questions are tracked in this document yet.
 
