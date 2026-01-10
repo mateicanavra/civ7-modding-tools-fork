@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
-import { biomeSymbolFromIndex, classifyBiomes } from "../../src/domain/ecology/ops/classify-biomes/index.js";
+import classifyBiomes from "../../src/domain/ecology/ops/classify-biomes/index.js";
+import { biomeSymbolFromIndex } from "../../src/domain/ecology/types.js";
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 describe("classifyBiomes operation", () => {
