@@ -126,8 +126,8 @@ export default [
   },
   {
     files: [
-      "mods/**/src/domain/**/ops/**/contract.ts",
-      "mods/**/src/recipes/**/steps/**/contract.ts"
+      "mods/**/src/domain/**/ops/**/*.contract.ts",
+      "mods/**/src/recipes/**/steps/**/*.contract.ts"
     ],
     rules: {
       "no-restricted-syntax": [

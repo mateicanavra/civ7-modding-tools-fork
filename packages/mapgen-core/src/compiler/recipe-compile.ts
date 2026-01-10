@@ -107,6 +107,17 @@ export function compileRecipeConfig<const TStages extends readonly StageContract
     const stageOut: Record<string, unknown> = {};
     const { knobs, rawSteps } = internal;
 
+    if (stage.steps.some((step) => step.contract.id === RESERVED_STAGE_KEY)) {
+      errors.push({
+        code: "stage.unknown-step-id",
+        path: `${stagePath}/${RESERVED_STAGE_KEY}`,
+        message: `Step id "${RESERVED_STAGE_KEY}" is reserved; choose a different step id`,
+        stageId,
+        stepId: RESERVED_STAGE_KEY,
+      });
+      continue;
+    }
+
     const declaredStepIds = new Set(
       stage.steps.map((step) => step.contract.id).filter((id) => id !== RESERVED_STAGE_KEY)
     );

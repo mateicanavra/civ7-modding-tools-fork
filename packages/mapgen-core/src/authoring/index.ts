@@ -9,7 +9,6 @@ export {
   runtimeOp,
 } from "./bindings.js";
 export { createOp, createStrategy, defineOp, opRef } from "./op/index.js";
-export { defineOpSchema } from "./schema.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
 export { Type } from "typebox";
 export {
