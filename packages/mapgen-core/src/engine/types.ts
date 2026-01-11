@@ -1,5 +1,4 @@
 import type { TSchema } from "typebox";
-import type { RunSettings } from "@mapgen/engine/execution-plan.js";
 import type { TraceScope } from "@mapgen/trace/index.js";
 
 export interface EngineContext {
@@ -15,6 +14,10 @@ export type GenerationPhase =
   | "placement";
 
 export type DependencyTag = string;
+export type NormalizeContext<TEnv = unknown, TKnobs = unknown> = Readonly<{
+  env: TEnv;
+  knobs: TKnobs;
+}>;
 
 export interface MapGenStep<TContext = EngineContext, TConfig = unknown> {
   id: string;
@@ -22,7 +25,7 @@ export interface MapGenStep<TContext = EngineContext, TConfig = unknown> {
   requires: readonly DependencyTag[];
   provides: readonly DependencyTag[];
   configSchema?: TSchema;
-  resolveConfig?: (config: TConfig, settings: RunSettings) => TConfig;
+  normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
   run: (context: TContext, config: TConfig) => void | Promise<void>;
 }
 

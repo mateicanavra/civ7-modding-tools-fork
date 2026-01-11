@@ -43,7 +43,7 @@ const normalizeSelector = (selector: { typeName: string }): PlotEffectSelector =
   typeName: normalizePlotEffectKey(selector.typeName),
 });
 
-const resolveConfig = (input: Config): ResolvedConfig => {
+const normalize = (input: Config): ResolvedConfig => {
   const resolved = applySchemaDefaults(
     PlanPlotEffectsContract.strategies.default,
     input
@@ -164,6 +164,6 @@ const planPlotEffects = (input: Input, config: ResolvedConfig): Placement[] => {
 };
 
 export const defaultStrategy = createStrategy(PlanPlotEffectsContract, "default", {
-  resolveConfig,
-  run: (input: Input, config: Config) => ({ placements: planPlotEffects(input, resolveConfig(config)) }),
+  normalize,
+  run: (input: Input, config: Config) => ({ placements: planPlotEffects(input, normalize(config)) }),
 });

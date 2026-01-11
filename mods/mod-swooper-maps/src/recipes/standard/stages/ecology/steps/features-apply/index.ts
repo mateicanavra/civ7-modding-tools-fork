@@ -12,8 +12,8 @@ import { resolveFeatureKeyLookups } from "../features/feature-keys.js";
 type FeaturesApplyConfig = Static<typeof FeaturesApplyStepContract.schema>;
 
 export default createStep(FeaturesApplyStepContract, {
-  resolveConfig: (config, settings) => ({
-    apply: ecology.ops.applyFeatures.resolveConfig(config.apply, settings),
+  normalize: (config, ctx) => ({
+    apply: ecology.ops.applyFeatures.normalize(config.apply, ctx),
   }),
   run: (context, config: FeaturesApplyConfig) => {
     const intents = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.featureIntentsV1);

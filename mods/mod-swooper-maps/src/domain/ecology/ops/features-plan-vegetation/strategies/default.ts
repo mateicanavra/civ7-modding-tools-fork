@@ -7,13 +7,13 @@ const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 type Config = Static<typeof PlanVegetationContract["strategies"]["default"]>;
 
 const EMPTY_CONFIG: Config = {} as Config;
-const resolveConfig = (input?: Config) =>
+const normalize = (input?: Config) =>
   applySchemaDefaults(PlanVegetationContract.strategies.default, input ?? EMPTY_CONFIG);
 
 export const defaultStrategy = createStrategy(PlanVegetationContract, "default", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
     const fertility = (input.fertility as Float32Array | undefined) ?? new Float32Array(width * height);

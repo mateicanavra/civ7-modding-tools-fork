@@ -5,13 +5,13 @@ import { defaultStrategy } from "./default.js";
 const EMPTY_CONFIG: Static<typeof PedologyClassifyContract["strategies"]["orogeny-boosted"]> = {} as Static<
   typeof PedologyClassifyContract["strategies"]["orogeny-boosted"]
 >;
-const resolveConfig = (input?: Static<typeof PedologyClassifyContract["strategies"]["orogeny-boosted"]>) =>
+const normalize = (input?: Static<typeof PedologyClassifyContract["strategies"]["orogeny-boosted"]>) =>
   applySchemaDefaults(PedologyClassifyContract.strategies["orogeny-boosted"], input ?? EMPTY_CONFIG);
 
 export const orogenyBoostedStrategy = createStrategy(PedologyClassifyContract, "orogeny-boosted", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     // Uplifted terrain: relief has more influence, fertility ceiling lower.
     const boosted = {
       ...resolved,

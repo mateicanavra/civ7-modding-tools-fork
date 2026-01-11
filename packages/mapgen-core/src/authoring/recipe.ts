@@ -81,8 +81,8 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
           requires: authored.contract.requires,
           provides: authored.contract.provides,
           configSchema: authored.contract.schema,
-          resolveConfig: authored.resolveConfig as
-            | MapGenStep<TContext, unknown>["resolveConfig"]
+          normalize: authored.normalize as
+            | MapGenStep<TContext, unknown>["normalize"]
             | undefined,
           run: authored.run as unknown as MapGenStep<TContext, unknown>["run"],
         },

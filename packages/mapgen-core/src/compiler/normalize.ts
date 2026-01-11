@@ -215,7 +215,7 @@ export function normalizeOpsTopLevel(
 
     if (typeof op.normalize === "function") {
       try {
-        const next = op.normalize(envelope, ctx);
+        const next = op.normalize(envelope as any, ctx);
         value = { ...value, [opKey]: next };
       } catch (err) {
         errors.push({

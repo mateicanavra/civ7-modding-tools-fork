@@ -12,9 +12,9 @@ import { PlotEffectsStepContract } from "./contract.js";
 type PlotEffectsStepConfig = Static<typeof PlotEffectsStepContract.schema>;
 
 export default createStep(PlotEffectsStepContract, {
-  resolveConfig: (config, settings) => {
+  normalize: (config, ctx) => {
     return {
-      plotEffects: ecology.ops.planPlotEffects.resolveConfig(config.plotEffects, settings),
+      plotEffects: ecology.ops.planPlotEffects.normalize(config.plotEffects, ctx),
     };
   },
   run: (context: ExtendedMapContext, config: PlotEffectsStepConfig) => {

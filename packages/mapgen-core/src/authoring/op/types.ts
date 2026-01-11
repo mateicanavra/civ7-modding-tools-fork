@@ -1,6 +1,6 @@
 import type { Static, TSchema, TUnsafe } from "typebox";
 
-import type { RunSettings } from "@mapgen/engine/execution-plan.js";
+import type { NormalizeContext } from "@mapgen/engine/index.js";
 import type { ValidationError, OpRunValidatedOptions, OpValidateOptions } from "../validation.js";
 import type { StrategySelection } from "./strategy.js";
 
@@ -78,11 +78,11 @@ export type DomainOp<
     options?: OpRunValidatedOptions
   ) => Static<OutputSchema>;
   /**
-   * Optional compile-time config normalization hook (called by step resolvers).
-   * This is never invoked at runtime.
+   * Compile-time config normalization hook (called by the compiler).
+   * This is never invoked at runtime; default behavior returns the input envelope unchanged.
    */
-  resolveConfig: (
+  normalize: (
     config: StrategySelection<Strategies>,
-    settings: RunSettings
+    ctx: NormalizeContext
   ) => StrategySelection<Strategies>;
 }>;

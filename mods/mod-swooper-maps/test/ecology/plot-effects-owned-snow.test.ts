@@ -54,7 +54,7 @@ describe("plot effects (owned)", () => {
         burned: { enabled: false },
       },
     };
-    const resolvedConfig = planPlotEffects.resolveConfig(config, settings);
+    const resolvedConfig = planPlotEffects.normalize(config, { env: settings, knobs: {} });
     const result = planPlotEffects.runValidated(input, resolvedConfig, { validateOutput: true });
 
     expect(result.placements.length).toBeGreaterThan(0);

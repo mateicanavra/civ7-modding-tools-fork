@@ -6,7 +6,7 @@ type Config = Static<typeof FeaturesApplyContract["strategies"]["default"]>;
 const EMPTY_CONFIG: Config = {} as Config;
 
 export const defaultStrategy = createStrategy(FeaturesApplyContract, "default", {
-  resolveConfig: (config?: Config) =>
+  normalize: (config?: Config) =>
     applySchemaDefaults(FeaturesApplyContract.strategies.default, config ?? EMPTY_CONFIG),
   run: (input, config) => {
     const seen = new Map<number, Placement[]>();

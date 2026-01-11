@@ -1,23 +1,23 @@
 import type { Static, TSchema } from "typebox";
 
-import type { RunSettings } from "@mapgen/engine/execution-plan.js";
+import type { NormalizeContext } from "@mapgen/engine/index.js";
 import type { OpContract } from "./contract.js";
 
 type NoInfer<T> = [T][T extends any ? 0 : never];
 
 export type OpStrategy<ConfigSchema extends TSchema, Input, Output> = Readonly<{
   config: ConfigSchema;
-  resolveConfig?: (
+  normalize?: (
     config: Static<NoInfer<ConfigSchema>>,
-    settings: RunSettings
+    ctx: NormalizeContext
   ) => Static<NoInfer<ConfigSchema>>;
   run: (input: Input, config: Static<NoInfer<ConfigSchema>>) => Output;
 }>;
 
 export type StrategyImpl<ConfigSchema extends TSchema, Input, Output> = Readonly<{
-  resolveConfig?: (
+  normalize?: (
     config: Static<NoInfer<ConfigSchema>>,
-    settings: RunSettings
+    ctx: NormalizeContext
   ) => Static<NoInfer<ConfigSchema>>;
   run: (input: Input, config: Static<NoInfer<ConfigSchema>>) => Output;
 }>;

@@ -4,13 +4,13 @@ import { PlanIceContract } from "../contract.js";
 const EMPTY_CONFIG: Static<typeof PlanIceContract["strategies"]["default"]> = {} as Static<
   typeof PlanIceContract["strategies"]["default"]
 >;
-const resolveConfig = (input?: Static<typeof PlanIceContract["strategies"]["default"]>) =>
+const normalize = (input?: Static<typeof PlanIceContract["strategies"]["default"]>) =>
   applySchemaDefaults(PlanIceContract.strategies.continentality, input ?? EMPTY_CONFIG);
 
 export const continentalityStrategy = createStrategy(PlanIceContract, "continentality", {
-  resolveConfig,
+  normalize,
   run: (input, config) => {
-    const resolved = resolveConfig(config);
+    const resolved = normalize(config);
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
     for (let y = 0; y < height; y++) {
