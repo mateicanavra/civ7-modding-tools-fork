@@ -36,6 +36,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** compileExecutionPlan now treats missing config as `step.config.invalid` instead of defaulting `{}`; ensure all compiled recipes supply explicit step configs.
   - **Next check:** before F1 no-shims audit or when onboarding external recipe entrypoints.
 
+- **Compile-time validation contract + compiler-backed validated runner** [Source: LOCAL-TBD-M7-REVIEW]
+  - **Context:** M7 runtime validation removal: compiler normalization is canonical; runtime execution is fail-fast and invariant-only.
+  - **Type:** triage
+  - **Notes:** Tests/tooling must use the compiler-backed runner (`normalizeStrict` → `op.normalize` → `normalizeStrict` → `op.run`). Runtime execution should not reintroduce schema defaulting/validation; artifact handlers enforce runtime invariants.
+  - **Next check:** before adding new ops/tests or exposing tooling APIs that run ops directly.
+
 - **Ecology preset config dropped legacy `features` step** [Source: LOCAL-TBD-M7-C2]
   - **Context:** C2 stage config alignment removed `ecology.features` blocks from map presets so compiler validation only sees step-id keyed inputs.
   - **Type:** triage
