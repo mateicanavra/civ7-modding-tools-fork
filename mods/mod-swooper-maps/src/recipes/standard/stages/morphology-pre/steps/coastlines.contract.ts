@@ -1,8 +1,8 @@
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 
 import { M4_EFFECT_TAGS } from "../../../tags.js";
 
-const CoastlinesStepContract = defineStepContract({
+const CoastlinesStepContract = defineStep({
   id: "coastlines",
   phase: "morphology",
   requires: [M4_EFFECT_TAGS.engine.landmassApplied],

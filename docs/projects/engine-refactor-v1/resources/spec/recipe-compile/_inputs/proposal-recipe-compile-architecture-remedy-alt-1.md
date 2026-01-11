@@ -788,25 +788,25 @@ type SchemaFromOps<Ops extends StepOpsDecl> =
   TObject<{ [K in keyof Ops & string]: Ops[K]["config"] }>;
 
 // Overload A: explicit schema (ops optional)
-export function defineStepContract<
+export function defineStep<
   const Id extends string,
   const Schema extends TObject,
   const Ops extends StepOpsDecl | undefined = undefined,
 >(def: Omit<StepContract<Id, Schema, Ops>, "schema"> & { schema: Schema; ops?: Ops }): StepContract<Id, Schema, Ops>;
 
 // Overload B: ops-derived schema (schema omitted, ops required) — O3: no extra fields
-export function defineStepContract<
+export function defineStep<
   const Id extends string,
   const Ops extends StepOpsDecl,
 >(def: Omit<StepContract<Id, any, Ops>, "schema"> & { ops: Ops; schema?: undefined }): StepContract<Id, SchemaFromOps<Ops>, Ops>;
 
-export function defineStepContract(def: any): any {
+export function defineStep(def: any): any {
   if (def.id === STAGE_KNOBS_KEY) {
     throw new Error(`Step id "${STAGE_KNOBS_KEY}" is reserved`);
   }
 
   if (!def.schema) {
-    if (!def.ops) throw new Error(`defineStepContract(${def.id}) requires schema or ops`);
+    if (!def.ops) throw new Error(`defineStep(${def.id}) requires schema or ops`);
     // schema is derived strictly from ops keys only (O3).
     const fields: Record<string, TSchema> = {};
     for (const k of Object.keys(def.ops)) fields[k] = def.ops[k].config;

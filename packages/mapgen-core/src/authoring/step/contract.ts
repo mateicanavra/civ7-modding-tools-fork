@@ -14,7 +14,7 @@ export type StepContract<Schema extends TSchema, Id extends string> = Readonly<{
 
 const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
-export function defineStepContract<const Schema extends TSchema, const Id extends string>(
+export function defineStep<const Schema extends TSchema, const Id extends string>(
   def: StepContract<Schema, Id>
 ): typeof def {
   if (!STEP_ID_RE.test(def.id)) {

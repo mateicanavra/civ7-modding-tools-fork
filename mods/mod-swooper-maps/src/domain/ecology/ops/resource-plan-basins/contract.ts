@@ -1,6 +1,6 @@
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
-const ResourcePlanBasinsContract = defineOpContract({
+const ResourcePlanBasinsContract = defineOp({
   kind: "plan",
   id: "ecology/resources/plan-basins",
   input: Type.Object({

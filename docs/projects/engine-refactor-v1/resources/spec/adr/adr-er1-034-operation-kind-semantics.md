@@ -77,7 +77,7 @@ This ADR is the canonical home for DD-001 from `docs/projects/engine-refactor-v1
 An operation module exports exactly one operation:
 
 ```ts
-export const myOpContract = defineOpContract({
+export const myOpContract = defineOp({
   kind: "compute" | "plan" | "score" | "select",
   id: "domain/path/opName",
   input: InputSchema,

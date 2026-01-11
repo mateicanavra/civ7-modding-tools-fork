@@ -1,9 +1,9 @@
-import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { ClimateConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
-const ClimateRefineStepContract = defineStepContract({
+const ClimateRefineStepContract = defineStep({
   id: "climate-refine",
   phase: "hydrology",
   requires: [

@@ -130,7 +130,7 @@ This preserves the “domain public surface” rule while keeping op internals c
 
 Each `ops/<op-slug>/index.ts` should export:
 
-* `contract` (defineOpContract)
+* `contract` (defineOp)
 * `types` (OpTypeBag)
 * `op` (createOp(contract, strategies)) — this is the **compile-surface op**, not the runtime op
 

@@ -9,7 +9,7 @@ import {
   createRecipe,
   createStage,
   createStep,
-  defineStepContract,
+  defineStep,
   runtimeOp,
 } from "@mapgen/authoring/index.js";
 import type { DomainOpCompileAny } from "@mapgen/authoring/index.js";
@@ -24,7 +24,7 @@ describe("authoring SDK", () => {
   const EmptyKnobsSchema = Type.Object({}, { additionalProperties: false, default: {} });
 
   const makeContract = (id: string, schema = EmptyStepConfigSchema) =>
-    defineStepContract({
+    defineStep({
       id,
       phase: "foundation",
       requires: [],
@@ -52,9 +52,9 @@ describe("authoring SDK", () => {
     ).not.toThrow();
   });
 
-  it("defineStepContract rejects non-kebab step ids", () => {
+  it("defineStep rejects non-kebab step ids", () => {
     expect(() =>
-      defineStepContract({
+      defineStep({
         id: "BadId",
         phase: "foundation",
         requires: [],
@@ -144,7 +144,7 @@ describe("authoring SDK", () => {
 
   it("createStage rejects reserved knobs key in steps or public schema", () => {
     const knobsStep = createStep(
-      defineStepContract({
+      defineStep({
         id: "knobs",
         phase: "foundation",
         requires: [],
@@ -267,7 +267,7 @@ describe("authoring SDK", () => {
 
   it("createRecipe rejects invalid tag prefixes", () => {
     const step = createStep(
-      defineStepContract({
+      defineStep({
         id: "alpha",
         phase: "foundation",
         requires: ["bad:tag"],

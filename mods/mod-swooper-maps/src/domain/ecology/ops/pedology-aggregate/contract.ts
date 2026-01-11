@@ -1,6 +1,6 @@
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
-const AggregatePedologyContract = defineOpContract({
+const AggregatePedologyContract = defineOp({
   kind: "compute",
   id: "ecology/pedology/aggregate",
   input: Type.Object({

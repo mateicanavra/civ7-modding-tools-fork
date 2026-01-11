@@ -211,9 +211,9 @@ files:
   - path: packages/mapgen-core/src/authoring/index.ts
     notes: Export the standardized factory/binder names.
   - path: packages/mapgen-core/src/authoring/op/contract.ts
-    notes: If renaming `defineOpContract`, do it here (and update exports/call sites).
+    notes: If renaming `defineOp`, do it here (and update exports/call sites).
   - path: packages/mapgen-core/src/authoring/step/contract.ts
-    notes: If renaming `defineStepContract`, do it here (and update exports/call sites).
+    notes: If renaming `defineStep`, do it here (and update exports/call sites).
   - path: mods/mod-swooper-maps/src/**/*
     notes: Update call sites and imports to match the standardized names.
 ```

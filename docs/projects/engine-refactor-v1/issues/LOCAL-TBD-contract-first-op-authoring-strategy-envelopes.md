@@ -27,7 +27,7 @@ related_to:
 - **Ops are contract-first:** op IO + per-strategy config schemas live in `contract.ts`; strategies are implemented out-of-line and remain fully typed.
 - **Strategy config is always envelope-shaped:** op config at the runtime boundary is always `{ strategy: "<id>", config: <innerConfig> }` (no alternate shapes).
 - **Op types are centralized:** each op exports a single `OpTypeBag` from `types.ts`; rules import types from `types.ts` only and never export types themselves.
-- **Steps are contract-first:** step contracts are metadata only; runtime behavior (`run`, optional `resolveConfig`) is attached via a factory, mirroring `defineOpContract` / `createOp`.
+- **Steps are contract-first:** step contracts are metadata only; runtime behavior (`run`, optional `resolveConfig`) is attached via a factory, mirroring `defineOp` / `createOp`.
 - **Step typing parity with ops:** step implementations use a bound factory `createStepFor<TContext>()` so `run`/`resolveConfig` have full context autocomplete without manual type imports.
 - **No architectural churn:** Recipe v2 + step registry compilation remain as-is; only pass optional step `resolveConfig` through compilation so normalization still works.
 - **No shims:** remove or replace any legacy authoring APIs/call paths rather than keeping compatibility exports.
@@ -44,8 +44,8 @@ related_to:
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-031-strategy-config-encoding.md`
 
 ## Deliverables
-- [x] Sub-issue A: Implement op authoring surface in `packages/mapgen-core/src/authoring/op/**` (`defineOpContract`, `createStrategy`, `createOp`).
-- [x] Sub-issue B: Implement step authoring surface in `packages/mapgen-core/src/authoring/step/**` (`defineStepContract`, `createStep`, `createStepFor<TContext>`), export from `packages/mapgen-core/src/authoring/index.ts`.
+- [x] Sub-issue A: Implement op authoring surface in `packages/mapgen-core/src/authoring/op/**` (`defineOp`, `createStrategy`, `createOp`).
+- [x] Sub-issue B: Implement step authoring surface in `packages/mapgen-core/src/authoring/step/**` (`defineStep`, `createStep`, `createStepFor<TContext>`), export from `packages/mapgen-core/src/authoring/index.ts`.
 - [x] Sub-issue C: Wire step `resolveConfig` through recipe compilation and engine types (pass-through only; no compilation redesign).
 - [x] Sub-issue D: Standardize mod path aliasing (`@mapgen/domain/*`, `@mapgen/authoring/*`) and add `mods/mod-swooper-maps/src/authoring/steps.ts` binder.
 - [x] Sub-issue E: Convert ops to canonical layout + envelope config, and update call sites (no compat exports).
@@ -105,7 +105,7 @@ This section is written for implementers (human or agent). It assumes the conver
 - **Non-negotiable:** do not accept “flat” config or strategy hidden behind implicit defaults at the boundary.
 
 ### D2) Step contracts are metadata-only; implementation is factory-attached
-- **Decision:** `defineStepContract(...)` returns metadata only (`id`, `phase`, `requires`, `provides`, `schema`).
+- **Decision:** `defineStep(...)` returns metadata only (`id`, `phase`, `requires`, `provides`, `schema`).
 - **Decision:** `createStep(contract, { resolveConfig?, run })` attaches behavior; the contract file contains no runtime code.
 
 ### D3) `createStepFor<TContext>()` is required for step typing parity
@@ -136,7 +136,7 @@ This section is written for implementers (human or agent). It assumes the conver
 
 Implement as a Graphite stack with one logical change per branch (A → H). Do not mix migrations with authoring-surface changes; keep each layer reviewable.
 
-### Sub-issue A) Land contract-first op authoring (`defineOpContract` / `createStrategy` / `createOp`)
+### Sub-issue A) Land contract-first op authoring (`defineOp` / `createStrategy` / `createOp`)
 **In scope**
 - Implement the canonical op authoring surface in `packages/mapgen-core/src/authoring/op/**` exactly as described in `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`.
 - Ensure `createOp(...)` derives (and exports) the envelope config schema and defaults in a compile-time-available way.
@@ -159,9 +159,9 @@ Implement as a Graphite stack with one logical change per branch (A → H). Do n
 - `op.config` and `op.defaultConfig` are envelope-shaped and compile-time available.
 - There is exactly one op authoring path in the codebase (no dual APIs or compat exports).
 
-### Sub-issue B) Land contract-first step authoring (`defineStepContract` / `createStep` / `createStepFor<TContext>`)
+### Sub-issue B) Land contract-first step authoring (`defineStep` / `createStep` / `createStepFor<TContext>`)
 **In scope**
-- Implement `defineStepContract(...)` (metadata only) and `createStep(contract, impl)` that attaches `run` + optional `resolveConfig`.
+- Implement `defineStep(...)` (metadata only) and `createStep(contract, impl)` that attaches `run` + optional `resolveConfig`.
 - Implement `createStepFor<TContext>()` binder and require it for step implementations (DX parity with ops).
 - Export from `packages/mapgen-core/src/authoring/index.ts`.
 
@@ -233,7 +233,7 @@ Implement as a Graphite stack with one logical change per branch (A → H). Do n
 ### Sub-issue F) Convert steps to contract-first modules + binder-based implementations
 **In scope**
 - Convert steps to the canonical layout:
-  - `contract.ts`: metadata-only `defineStepContract(...)`
+  - `contract.ts`: metadata-only `defineStep(...)`
   - `index.ts`: `export default createStep(contract, { resolveConfig?, run })`
   - `lib/**`: local helpers with no registry awareness
 - Ensure step code remains orchestration/action oriented and uses domain ops as functions.
@@ -282,7 +282,7 @@ Implement as a Graphite stack with one logical change per branch (A → H). Do n
 ### High-signal searches for implementers
 - Find existing step authoring entrypoints: `rg -n "createStep\\b|defineStep\\b|StepContract\\b" packages/mapgen-core/src/authoring`
 - Find recipe compilation touchpoints: `rg -n "createRecipe\\b|configSchema\\b|resolveConfig\\b" packages/mapgen-core/src/authoring packages/mapgen-core/src/engine`
-- Find op authoring call sites: `rg -n "createOp\\b|defineOpContract\\b|createStrategy\\b" mods/mod-swooper-maps/src`
+- Find op authoring call sites: `rg -n "createOp\\b|defineOp\\b|createStrategy\\b" mods/mod-swooper-maps/src`
 
 ### Hard guardrails (required before marking the issue done)
 - No deep relative imports into core authoring:

@@ -520,7 +520,7 @@ export const biomesDependencies = {
   },
 } as const;
 
-export const biomesStepContract = defineStepContract({
+export const biomesStepContract = defineStep({
   id: "biomes",
   phase: "ecology",
   dependencies: biomesDependencies, // (see below)
@@ -528,7 +528,7 @@ export const biomesStepContract = defineStepContract({
 });
 ```
 
-`defineStepContract` can flatten this into the required runtime arrays:
+`defineStep` can flatten this into the required runtime arrays:
 
 * `requires: string[]`
 * `provides: string[]`
@@ -601,7 +601,7 @@ This gives you:
 * **Keep** `fields` (do not rename to buffers). “Buffers” already means something different in core (`MapBuffers` vs `MapFields`).
 * **Keys live in catalogs**, not in step contracts; **step contracts re-export a step-local dependency handle** so implementations import only the contract.
 
-If you want, I can next sketch the exact `defineStepContract({ dependencies })` typing so that:
+If you want, I can next sketch the exact `defineStep({ dependencies })` typing so that:
 
 * the flattened `requires/provides` arrays are guaranteed to match the structured `dependencies` object, and
 * step contracts can only reference dependency keys from the recipe catalog (no arbitrary strings), while still supporting reuse across domains/recipes.

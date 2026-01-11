@@ -55,7 +55,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 - Create/update the op module(s) needed by this slice under `mods/mod-swooper-maps/src/domain/<domain>/ops/**`.
 - Op contracts are POJO/POJO-ish only (typed arrays ok); no adapters/context/RNG callbacks cross the boundary.
 - Each op module is contract-first and follows the canonical shape:
-  - `contract.ts` via `defineOpContract`
+  - `contract.ts` via `defineOp`
   - `types.ts` exporting a single `OpTypeBag`
   - `rules/` + `rules/index.ts`
   - `strategies/` + `strategies/index.ts`
@@ -67,7 +67,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 <step name="wire-steps-for-slice">
 
 - Promote the migrated step(s) into the contract-first step module shape:
-  - `contract.ts` (metadata-only via `defineStepContract`)
+  - `contract.ts` (metadata-only via `defineStep`)
   - `index.ts` (orchestration only, created via bound `createStep`)
   - `lib/**` (pure helpers such as `inputs.ts`/`apply.ts`, optional)
 - Steps call `op.runValidated(...)` (validation required).

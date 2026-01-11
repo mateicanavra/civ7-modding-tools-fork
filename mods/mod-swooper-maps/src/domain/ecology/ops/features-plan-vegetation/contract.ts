@@ -1,7 +1,7 @@
-import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 import { FeaturePlacementSchema } from "../../shared/placement-schema.js";
 
-const PlanVegetationContract = defineOpContract({
+const PlanVegetationContract = defineOp({
   kind: "plan",
   id: "ecology/features/plan-vegetation",
   input: Type.Object({

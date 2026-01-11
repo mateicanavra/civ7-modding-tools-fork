@@ -302,7 +302,7 @@ export type OpContract<
   __kind: "OpContract";
 }>;
 
-export function defineOpContract<
+export function defineOp<
   const Id extends string,
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
@@ -511,7 +511,7 @@ export type StepModule<C extends StepContract<any, any, any, any, any>, TRuntime
   run: (ctx: StepContext<TRuntime, TArtifacts>, config: StepPlanConfigOf<C>) => void | Promise<void>;
 }>;
 
-export function defineStepContract<
+export function defineStep<
   const Id extends string,
   const Phase extends StepPhase,
   Ops extends Record<string, Op<any> | OpBinding>,
@@ -971,14 +971,14 @@ export const placementDeps = defineDeps({
 import { Type } from "typebox";
 import { S } from "./S";
 import { defineDomain } from "./domain";
-import { defineOpContract, createOp, createStrategy } from "./op";
+import { defineOp, createOp, createStrategy } from "./op";
 
 const placementKnobs = S.obj({
   wonderDensity: S.int({ default: 3, minimum: 0, maximum: 10 }),
   startDistance: S.int({ default: 8, minimum: 4, maximum: 20 }),
 });
 
-const PlanWonders = defineOpContract({
+const PlanWonders = defineOp({
   id: "placement.planWonders",
   inputSchema: Type.Any(),
   outputSchema: Type.Any(),
@@ -1028,11 +1028,11 @@ export const placement = defineDomain({
 ### `derivePlacementInputs.step.ts`
 
 ```ts
-import { defineStepContract, createStep } from "./step";
+import { defineStep, createStep } from "./step";
 import { placementDeps } from "./placement.deps";
 import { placement } from "./placement.domain";
 
-export const derivePlacementInputsContract = defineStepContract({
+export const derivePlacementInputsContract = defineStep({
   id: "derivePlacementInputs",
   phase: "placement",
   requires: [placementDeps.field.plotMap],

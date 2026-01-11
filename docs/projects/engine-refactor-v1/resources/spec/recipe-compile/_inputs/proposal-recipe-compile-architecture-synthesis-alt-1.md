@@ -27,7 +27,7 @@ A step module should export:
 
 A step module should import:
 
-* `defineStepContract` and `createStep` from authoring (core)
+* `defineStep` and `createStep` from authoring (core)
 * `bindRuntimeOps` and `bindCompileOps` binding helpers
 * Domain **contracts** for op declarations (IDs + schemas)
 * Domain **ops registry** for runtime binding (by id) if the step needs ops at runtime
@@ -40,7 +40,7 @@ A step module should import:
 
 import { Type } from "typebox";
 
-import { defineStepContract, createStep } from "@mapgen/authoring/step";
+import { defineStep, createStep } from "@mapgen/authoring/step";
 import { bindRuntimeOps } from "@mapgen/authoring/bindings";
 
 // Domain contracts (pure) — used only for ops declaration + schema derivation
@@ -50,7 +50,7 @@ import { PlanShrubVegetationContract } from "@mapgen/domain/ecology/ops/plan-shr
 // Domain runtime ops registry (impl) — used only for runtime binding
 import { ecologyOpsById } from "@mapgen/domain/ecology/ops-by-id"; // recommended registry shape
 
-export const contract = defineStepContract({
+export const contract = defineStep({
   id: "plot-vegetation",
   phase: "ecology",
   requires: ["artifact:biomes", "artifact:heightfield"],
@@ -67,7 +67,7 @@ export const contract = defineStepContract({
   schema: Type.Object(
     {
       densityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
-      trees: Type.Any(),  // will be replaced by derived envelope schema (see defineStepContract rules)
+      trees: Type.Any(),  // will be replaced by derived envelope schema (see defineStep rules)
       shrubs: Type.Any(), // replaced by derived envelope schema
     },
     { additionalProperties: false, default: {} }

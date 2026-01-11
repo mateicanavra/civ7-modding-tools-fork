@@ -3,7 +3,7 @@
   ### Alt1 v6 (integrated “two planes”, engine-compile centered)
 
   - Ops
-      - Explicit op contract (defineOpContract) contains id/kind/input/output + strategies:
+      - Explicit op contract (defineOp) contains id/kind/input/output + strategies:
         { <id>: { config: TSchema } }.
       - Op implementation (createOp(opContract, { strategies })) derives the envelope config
         union { strategy, config }, defaultConfig, resolveConfig dispatcher, run/runValidated.
@@ -13,7 +13,7 @@
       - Strategy config type is inferred from the contract’s strategy config schema.
   - Steps
       - Introduces step contracts with two modes:
-          - Composition-first baseline: defineStepContract({ ops: { key:
+          - Composition-first baseline: defineStep({ ops: { key:
             domain.ops.someOp, ... } }) and the SDK auto-derives:
               - step.configSchema (composition of op.config envelope schemas with defaults from
                 op.defaultConfig)

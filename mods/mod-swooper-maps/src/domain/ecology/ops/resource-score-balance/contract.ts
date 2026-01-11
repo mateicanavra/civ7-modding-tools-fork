@@ -1,6 +1,6 @@
-import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
+import { Type, defineOp } from "@swooper/mapgen-core/authoring";
 
-const ResourceScoreBalanceContract = defineOpContract({
+const ResourceScoreBalanceContract = defineOp({
   kind: "score",
   id: "ecology/resources/score-balance",
   input: Type.Object({

@@ -1,4 +1,4 @@
-export { defineStepContract } from "./contract.js";
+export { defineStep } from "./contract.js";
 export { createStep, createStepFor } from "./create.js";
 
 export type { StepContract } from "./contract.js";
