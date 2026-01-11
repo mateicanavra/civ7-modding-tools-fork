@@ -11,3 +11,5 @@ export const planFloodplains = createOp(PlanFloodplainsContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default planFloodplains;

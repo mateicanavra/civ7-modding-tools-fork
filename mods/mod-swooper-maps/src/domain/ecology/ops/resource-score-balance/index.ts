@@ -10,3 +10,5 @@ export const scoreResourceBasins = createOp(ResourceScoreBalanceContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default scoreResourceBasins;

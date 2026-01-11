@@ -25,3 +25,5 @@ export const ClimateBaselineStepContract = defineStepContract({
   ],
   schema: ClimateBaselineStepConfigSchema,
 });
+
+export default ClimateBaselineStepContract;

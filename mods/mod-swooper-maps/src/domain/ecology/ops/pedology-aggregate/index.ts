@@ -10,3 +10,5 @@ export const aggregatePedology = createOp(AggregatePedologyContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default aggregatePedology;

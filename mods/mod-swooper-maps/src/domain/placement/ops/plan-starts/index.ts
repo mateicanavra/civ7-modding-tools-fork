@@ -11,3 +11,5 @@ export const planStarts = createOp(PlanStartsContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default planStarts;

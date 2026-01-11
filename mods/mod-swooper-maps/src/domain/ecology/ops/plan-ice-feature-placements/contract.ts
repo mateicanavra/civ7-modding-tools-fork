@@ -75,3 +75,5 @@ export const PlanIceFeaturePlacementsContract = defineOpContract({
     default: IceFeaturePlacementsConfigSchema,
   },
 });
+
+export default PlanIceFeaturePlacementsContract;

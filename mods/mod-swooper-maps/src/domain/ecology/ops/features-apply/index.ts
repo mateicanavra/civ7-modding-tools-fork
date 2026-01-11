@@ -10,3 +10,5 @@ export const applyFeatures = createOp(FeaturesApplyContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default applyFeatures;

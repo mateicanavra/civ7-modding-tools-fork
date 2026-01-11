@@ -66,3 +66,5 @@ export const PlanStartsContract = defineOpContract({
     default: StartsConfigWrapperSchema,
   },
 });
+
+export default PlanStartsContract;

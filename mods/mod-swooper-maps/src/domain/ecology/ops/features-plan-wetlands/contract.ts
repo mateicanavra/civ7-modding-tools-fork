@@ -40,3 +40,5 @@ export const PlanWetlandsContract = defineOpContract({
     "delta-focused": PlanWetlandsConfigSchema,
   },
 });
+
+export default PlanWetlandsContract;

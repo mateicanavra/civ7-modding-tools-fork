@@ -11,3 +11,5 @@ export const planIce = createOp(PlanIceContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default planIce;

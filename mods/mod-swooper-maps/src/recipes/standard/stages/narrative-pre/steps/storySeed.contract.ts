@@ -20,3 +20,5 @@ export const StorySeedStepContract = defineStepContract({
   ],
   schema: StorySeedStepConfigSchema,
 });
+
+export default StorySeedStepContract;

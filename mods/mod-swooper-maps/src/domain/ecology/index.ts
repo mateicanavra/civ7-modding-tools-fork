@@ -61,3 +61,5 @@ export {
   type FeatureKey,
   type PlotEffectKey,
 } from "./types.js";
+
+export default ops;

@@ -11,3 +11,5 @@ export const LakesStepContract = defineStepContract({
   provides: [M3_DEPENDENCY_TAGS.artifact.heightfield],
   schema: EmptySchema,
 });
+
+export default LakesStepContract;
