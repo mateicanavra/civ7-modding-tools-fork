@@ -31,23 +31,15 @@ export function buildSchemaDefaults(schema: TSchema): unknown {
     let hasDefaults = false;
 
     if (typed.default !== undefined) {
-      if (!isPlainObject(typed.default)) {
-        return cloneDefault(typed.default);
-      }
-      Object.assign(out, cloneDefault(typed.default));
-      hasDefaults = true;
+      return cloneDefault(typed.default);
     }
 
     for (const [key, propSchema] of Object.entries(props)) {
-      if (out[key] === undefined) {
-        const value = buildSchemaDefaults(propSchema);
-        if (value !== undefined) {
-          out[key] = value;
-          hasDefaults = true;
-        }
-        continue;
+      const value = buildSchemaDefaults(propSchema);
+      if (value !== undefined) {
+        out[key] = value;
+        hasDefaults = true;
       }
-      out[key] = applySchemaDefaults(propSchema, out[key]);
     }
 
     return hasDefaults ? out : undefined;
@@ -77,9 +69,7 @@ export function applySchemaDefaults<T extends TSchema>(
       if (out[key] === undefined) {
         const value = buildSchemaDefaults(propSchema);
         if (value !== undefined) out[key] = value;
-        continue;
       }
-      out[key] = applySchemaDefaults(propSchema, out[key]);
     }
 
     return out as Static<T>;

@@ -17,6 +17,16 @@ export type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
 
 export type StepModuleAny = Readonly<{ contract?: Readonly<{ ops?: StepOpsDecl }> }>;
 
+export class OpConfigInvalidError extends Error {
+  readonly opId?: string;
+
+  constructor(message: string, opId?: string) {
+    super(message);
+    this.name = "OpConfigInvalidError";
+    this.opId = opId;
+  }
+}
+
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
   const proto = Object.getPrototypeOf(value);
@@ -218,13 +228,23 @@ export function normalizeOpsTopLevel(
         const next = op.normalize(envelope as any, ctx);
         value = { ...value, [opKey]: next };
       } catch (err) {
-        errors.push({
-          code: "op.normalize.failed",
-          path: `${path}/${opKey}`,
-          message: err instanceof Error ? err.message : "op.normalize failed",
-          opKey,
-          opId: op.id,
-        });
+        if (err instanceof OpConfigInvalidError) {
+          errors.push({
+            code: "op.config.invalid",
+            path: `${path}/${opKey}`,
+            message: err.message,
+            opKey,
+            opId: op.id,
+          });
+        } else {
+          errors.push({
+            code: "op.normalize.failed",
+            path: `${path}/${opKey}`,
+            message: err instanceof Error ? err.message : "op.normalize failed",
+            opKey,
+            opId: op.id,
+          });
+        }
       }
     }
   }

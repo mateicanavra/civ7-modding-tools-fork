@@ -9,6 +9,7 @@ export type CompileErrorCode =
   | "config.invalid"
   | "stage.compile.failed"
   | "stage.unknown-step-id"
+  | "op.config.invalid"
   | "op.missing"
   | "step.normalize.failed"
   | "op.normalize.failed"
