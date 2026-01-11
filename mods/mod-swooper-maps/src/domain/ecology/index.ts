@@ -16,10 +16,9 @@ import { planVegetation } from "./ops/features-plan-vegetation/index.js";
 import { planWetlands } from "./ops/features-plan-wetlands/index.js";
 import { planReefs } from "./ops/features-plan-reefs/index.js";
 import { planIce } from "./ops/features-plan-ice/index.js";
-import type { DomainOpCompileAny, DomainOpRuntime, OpsById } from "@swooper/mapgen-core/authoring";
-import { runtimeOp } from "@swooper/mapgen-core/authoring";
+import { createDomainOpsSurface } from "@swooper/mapgen-core/authoring";
 
-export const ops = {
+const opImplementations = {
   classifyBiomes,
   classifyPedology,
   aggregatePedology,
@@ -38,12 +37,9 @@ export const ops = {
   planReefs,
   planIce,
   applyFeatures,
-};
+} as const;
 
-type EcologyOp = (typeof ops)[keyof typeof ops];
-
-export const compileOpsById: OpsById<EcologyOp> = buildOpsById(ops);
-export const runtimeOpsById: OpsById<DomainOpRuntime<EcologyOp>> = buildRuntimeOpsById(ops);
+export const ops = createDomainOpsSurface(opImplementations);
 
 export * from "./contracts.js";
 
@@ -65,25 +61,3 @@ export {
   type FeatureKey,
   type PlotEffectKey,
 } from "./types.js";
-
-function buildOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
-  input: TOps
-): OpsById<TOps[keyof TOps]> {
-  const out: Partial<OpsById<TOps[keyof TOps]>> = {};
-  for (const op of Object.values(input) as Array<TOps[keyof TOps]>) {
-    out[op.id as TOps[keyof TOps]["id"]] = op as OpsById<TOps[keyof TOps]>[TOps[keyof TOps]["id"]];
-  }
-  return out as OpsById<TOps[keyof TOps]>;
-}
-
-function buildRuntimeOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
-  input: TOps
-): OpsById<DomainOpRuntime<TOps[keyof TOps]>> {
-  const out: Partial<OpsById<DomainOpRuntime<TOps[keyof TOps]>>> = {};
-  for (const op of Object.values(input) as Array<TOps[keyof TOps]>) {
-    const runtime = runtimeOp(op);
-    out[runtime.id as DomainOpRuntime<TOps[keyof TOps]>["id"]] =
-      runtime as OpsById<DomainOpRuntime<TOps[keyof TOps]>>[DomainOpRuntime<TOps[keyof TOps]>["id"]];
-  }
-  return out as OpsById<DomainOpRuntime<TOps[keyof TOps]>>;
-}
