@@ -17,8 +17,10 @@ const BiomesStepContract = defineStep({
     M3_DEPENDENCY_TAGS.field.biomeId,
     M4_EFFECT_TAGS.engine.biomesApplied,
   ],
+  ops: {
+    classify: ecology.contracts.classifyBiomes,
+  },
   schema: Type.Object({
-    classify: ecology.ops.classifyBiomes.config,
     bindings: Type.Optional(ecology.BiomeEngineBindingsSchema),
   }),
 });

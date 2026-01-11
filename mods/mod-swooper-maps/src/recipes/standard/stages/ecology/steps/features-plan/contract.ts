@@ -11,12 +11,13 @@ const FeaturesPlanStepContract = defineStep({
     M3_DEPENDENCY_TAGS.artifact.pedologyV1,
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.featureIntentsV1],
-  schema: Type.Object({
-    vegetation: ecology.ops.planVegetation.config,
-    wetlands: ecology.ops.planWetlands.config,
-    reefs: ecology.ops.planReefs.config,
-    ice: ecology.ops.planIce.config,
-  }),
+  ops: {
+    vegetation: ecology.contracts.planVegetation,
+    wetlands: ecology.contracts.planWetlands,
+    reefs: ecology.contracts.planReefs,
+    ice: ecology.contracts.planIce,
+  },
+  schema: Type.Object({}),
 });
 
 export default FeaturesPlanStepContract;

@@ -11,10 +11,11 @@ const ResourceBasinsStepContract = defineStep({
     M3_DEPENDENCY_TAGS.artifact.climateField,
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1],
-  schema: Type.Object({
-    plan: ecology.ops.planResourceBasins.config,
-    score: ecology.ops.scoreResourceBasins.config,
-  }),
+  ops: {
+    plan: ecology.contracts.planResourceBasins,
+    score: ecology.contracts.scoreResourceBasins,
+  },
+  schema: Type.Object({}),
 });
 
 export default ResourceBasinsStepContract;

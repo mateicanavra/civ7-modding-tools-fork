@@ -20,6 +20,6 @@ export type RuntimeOpFromContract<C extends OpContractAny> = Readonly<{
   run: (input: Static<C["input"]>, config: OpTypeBag<C>["envelope"]) => Static<C["output"]>;
 }>;
 
-export type StepRuntimeOps<Decl extends StepOpsDecl | undefined> = Decl extends StepOpsDecl
+export type StepRuntimeOps<Decl> = [Decl] extends [StepOpsDecl]
   ? { [K in keyof Decl]: RuntimeOpFromContract<Decl[K]> }
   : {};

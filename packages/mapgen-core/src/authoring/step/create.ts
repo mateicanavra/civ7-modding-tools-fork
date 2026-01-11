@@ -6,7 +6,7 @@ import type { StepRuntimeOps } from "./ops.js";
 import type { StepModule } from "../types.js";
 
 type StepConfigOf<C extends StepContract<any, any, any>> = Static<C["schema"]>;
-type StepOpsOf<C extends StepContract<any, any, any>> = StepRuntimeOps<C["ops"]>;
+type StepOpsOf<C extends StepContract<any, any, any>> = StepRuntimeOps<NonNullable<C["ops"]>>;
 
 type StepImpl<TContext, TConfig, TOps> = Readonly<{
   normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;

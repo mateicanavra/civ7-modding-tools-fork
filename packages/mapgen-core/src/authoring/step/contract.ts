@@ -58,11 +58,19 @@ export type StepContract<
 
 const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
+export function defineStep<const Schema extends TObject, const Id extends string>(
+  def: StepContract<Schema, Id, undefined>
+): StepContract<Schema, Id, undefined>;
+
 export function defineStep<
   const Schema extends TObject,
   const Id extends string,
-  const Ops extends StepOpsDecl | undefined,
->(def: StepContract<Schema, Id, Ops>): StepContract<SchemaWithOps<Schema, Ops>, Id, Ops> {
+  const Ops extends StepOpsDecl,
+>(
+  def: StepContract<Schema, Id, Ops> & { ops: Ops }
+): StepContract<SchemaWithOps<Schema, Ops>, Id, Ops>;
+
+export function defineStep(def: any): any {
   if (!STEP_ID_RE.test(def.id)) {
     throw new Error(`step id "${def.id}" must be kebab-case (e.g. "plot-vegetation")`);
   }
@@ -74,6 +82,6 @@ export function defineStep<
 
   return {
     ...def,
-    schema: schema as any,
+    schema,
   };
 }
