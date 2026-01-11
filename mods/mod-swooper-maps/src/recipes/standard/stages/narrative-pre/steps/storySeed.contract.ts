@@ -3,12 +3,6 @@ import { NarrativeConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
-const StorySeedStepConfigSchema = Type.Object(
-  {
-    margins: NarrativeConfigSchema.properties.margins},
-  {}
-);
-
 const StorySeedStepContract = defineStepContract({
   id: "story-seed",
   phase: "morphology",
@@ -17,6 +11,9 @@ const StorySeedStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.storyOverlays,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
   ],
-  schema: StorySeedStepConfigSchema});
+  schema: Type.Object({
+    margins: NarrativeConfigSchema.properties.margins,
+  }),
+});
 
 export default StorySeedStepContract;

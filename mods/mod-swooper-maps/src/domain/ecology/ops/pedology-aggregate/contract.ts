@@ -1,43 +1,31 @@
 import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
 
-const AggregatePedologyInputSchema = Type.Object(
-  {
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
-    soilType: TypedArraySchemas.u8({ description: "Soil palette indices." }),
-    fertility: TypedArraySchemas.f32({ description: "Fertility values (0..1)." })},
-  {}
-);
-
-const AggregatePedologyOutputSchema = Type.Object(
-  {
-    cells: Type.Array(
-      Type.Object(
-        {
-          x: Type.Integer({ minimum: 0 }),
-          y: Type.Integer({ minimum: 0 }),
-          width: Type.Integer({ minimum: 1 }),
-          height: Type.Integer({ minimum: 1 }),
-          meanFertility: Type.Number({ minimum: 0, maximum: 1 }),
-          dominantSoil: Type.Integer({ minimum: 0 })},
-        {}
-      )
-    )},
-  {}
-);
-
-const AggregatePedologyConfigSchema = Type.Object(
-  {
-    cellSize: Type.Integer({ minimum: 1, default: 8 })},
-  {}
-);
-
 const AggregatePedologyContract = defineOpContract({
   kind: "compute",
   id: "ecology/pedology/aggregate",
-  input: AggregatePedologyInputSchema,
-  output: AggregatePedologyOutputSchema,
+  input: Type.Object({
+    width: Type.Integer({ minimum: 1 }),
+    height: Type.Integer({ minimum: 1 }),
+    soilType: TypedArraySchemas.u8({ description: "Soil palette indices." }),
+    fertility: TypedArraySchemas.f32({ description: "Fertility values (0..1)." }),
+  }),
+  output: Type.Object({
+    cells: Type.Array(
+      Type.Object({
+        x: Type.Integer({ minimum: 0 }),
+        y: Type.Integer({ minimum: 0 }),
+        width: Type.Integer({ minimum: 1 }),
+        height: Type.Integer({ minimum: 1 }),
+        meanFertility: Type.Number({ minimum: 0, maximum: 1 }),
+        dominantSoil: Type.Integer({ minimum: 0 }),
+      })
+    ),
+  }),
   strategies: {
-    default: AggregatePedologyConfigSchema}});
+    default: Type.Object({
+      cellSize: Type.Integer({ minimum: 1, default: 8 }),
+    }),
+  },
+});
 
 export default AggregatePedologyContract;

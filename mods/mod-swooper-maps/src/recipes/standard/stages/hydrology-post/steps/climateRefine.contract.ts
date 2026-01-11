@@ -3,17 +3,6 @@ import { ClimateConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/confi
 
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
-const ClimateRefineStepConfigSchema = Type.Object(
-  {
-    climate: ClimateConfigSchema,
-    story: Type.Object(
-      {
-        orogeny: NarrativeConfigSchema.properties.story.properties.orogeny},
-      {}
-    )},
-  {}
-);
-
 const ClimateRefineStepContract = defineStepContract({
   id: "climate-refine",
   phase: "hydrology",
@@ -26,6 +15,12 @@ const ClimateRefineStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
-  schema: ClimateRefineStepConfigSchema});
+  schema: Type.Object({
+    climate: ClimateConfigSchema,
+    story: Type.Object({
+      orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,
+    }),
+  }),
+});
 
 export default ClimateRefineStepContract;

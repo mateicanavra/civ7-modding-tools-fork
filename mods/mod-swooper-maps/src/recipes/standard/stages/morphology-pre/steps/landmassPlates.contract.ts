@@ -3,18 +3,15 @@ import { LandmassConfigSchema, MorphologyConfigSchema } from "@mapgen/domain/con
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
-const LandmassStepConfigSchema = Type.Object(
-  {
-    landmass: LandmassConfigSchema,
-    oceanSeparation: MorphologyConfigSchema.properties.oceanSeparation},
-  {}
-);
-
 const LandmassPlatesStepContract = defineStepContract({
   id: "landmass-plates",
   phase: "morphology",
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
   provides: [M4_EFFECT_TAGS.engine.landmassApplied],
-  schema: LandmassStepConfigSchema});
+  schema: Type.Object({
+    landmass: LandmassConfigSchema,
+    oceanSeparation: MorphologyConfigSchema.properties.oceanSeparation,
+  }),
+});
 
 export default LandmassPlatesStepContract;
