@@ -24,6 +24,23 @@ related_to:
   - domain modules stop duplicating op key lists across `index.ts` and `contracts.ts`,
   - the canonical public surfaces remain tiny: `domainContracts.<opKey>` and `domainOps.ops` / `domainOps.ops.bind(...)`.
 
+## Architecture (target import graph)
+The core constraint: in ESM/TS, importing a “barrel” that re-exports runtime implementations eagerly evaluates those modules. So we need **two explicit entrypoints** and a strong “allowed import edges” policy.
+
+```mermaid
+flowchart TD
+  StepContract[step contract.ts] --> DomainContracts["@mapgen/domain/<domain>/contracts"]
+  DomainContracts --> OpContracts["./ops/*/contract.ts"]
+
+  RecipeCompile[recipe compilation] --> DomainOps["@mapgen/domain/<domain>/ops"]
+  DomainOps --> OpImpls["./ops/*/index.ts (runtime impls)"]
+  OpImpls --> OpContracts
+```
+
+**Consequences**
+- Step contracts must never import any module that eagerly pulls op implementations (directly or indirectly).
+- Recipes/compilers must never depend on step contract entrypoints to access implementations (avoid cycles).
+
 ## Problem
 - Current domain entrypoints (e.g. `@mapgen/domain/ecology`) import **all runtime op implementations** up front.
   - Step contracts often import that entrypoint to access op contracts, which incidentally loads runtime code (noise, slower typecheck, higher risk of cycles).
@@ -58,7 +75,8 @@ related_to:
   - Exports `ops` surface (key → op implementation) via `createDomainOpsSurface`.
   - Imports op implementations and (optionally) the `contracts` object to type-check keys.
 - `src/domain/<domain>/index.ts`
-  - Barrel only: re-export `contracts` and `ops` plus domain public types/config.
+  - Barrel only: re-export `contracts` plus domain public types/config.
+  - Intentionally does **not** re-export `ops` (to keep `@mapgen/domain/<domain>` safe to import from step contracts if it happens, and to reduce temptation to “just import the barrel”).
 
 ### Author-facing import rules (intended)
 - Step contracts: `import domainContracts from "@mapgen/domain/<domain>/contracts"`
@@ -195,6 +213,14 @@ const compileOpsById = collectCompileOps(ecologyDomain, placementDomain);
 - `pnpm check`
 - `pnpm -C mods/mod-swooper-maps check`
 - `pnpm -C mods/mod-swooper-maps test`
+
+## Alternatives considered (brief)
+- Keep using `@mapgen/domain/<domain>` as the canonical import:
+  - Rejected because “barrel imports” are indistinguishable from “imports contracts only” in authoring code, and ESM eagerly evaluates runtime exports.
+- Re-export `ops` from `index.ts` for convenience:
+  - Rejected because it reintroduces accidental runtime imports in step contracts and defeats the clarity of “contracts vs ops” entrypoints.
+- Filesystem-based registry/codegen:
+  - Deferred; acceptable later once the authoring surface stabilizes.
 
 ## Notes / Followups
 - If we want to reduce import noise further (one import per op, not two), consider a followup to re-export each op’s contract from its `index.ts` (implementation module) so domain registry can import `{ contract }` alongside the default op implementation. This is optional and can be staged domain-by-domain.
