@@ -197,3 +197,30 @@ This is the real cutover lever: `createRecipe` now compiles author config via `c
 ### Cross-cutting Risks
 
 - Recipe boundary is now the canonical compilation choke point; any drift between stage `surfaceSchema` and `compile` semantics will be concentrated here.
+
+## REVIEW m7-t08-stage-step-config-shape
+
+### Quick Take
+
+Pragmatic migration move: align stage inputs to the new “single object per stage” shape, and drop legacy preset blocks that would fail strict compiler validation rather than introducing shims.
+
+### High-Leverage Issues
+
+- Removing `ecology.features` from presets is a real behavior loss (tuning knobs go away); it’s correctly captured in `triage.md`, but it will surprise anyone comparing old preset output. Make sure E2/E3 explicitly restores an authored surface for those knobs.
+- This change is mostly “content wiring” churn; keep tests that exercise standard runs as the primary safety net (they’re doing the real work here).
+
+### Fix Now (Recommended)
+
+- Add a short doc note (or issue breadcrumb) in E2/E3 pointing back to this decision so “restore preset feature tuning” doesn’t get forgotten during ecology migration.
+
+### Defer / Follow-up
+
+- Consider extracting a small “preset migration” helper so map presets can be updated mechanically as stage ids / step ids evolve.
+
+### Needs Discussion
+
+- For presets, do we want a stable author-facing schema with backwards-compat mapping (later), or is “no shims ever” strictness intended even for end-user mod configs?
+
+### Cross-cutting Risks
+
+- Content-level config removals can mask compiler issues by “making inputs empty”; keep at least one preset intentionally non-trivial per stage so compilation is exercised.
