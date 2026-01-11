@@ -62,7 +62,7 @@ function findUnknownKeyErrors(
   value: unknown,
   path = ""
 ): Array<{ path: string; message: string }> {
-  if (!isPlainObject(schema)) return [];
+  if (!isPlainObject(schema) || !isPlainObject(value)) return [];
 
   const anyOf = Array.isArray(schema.anyOf) ? (schema.anyOf as unknown[]) : null;
   const oneOf = Array.isArray(schema.oneOf) ? (schema.oneOf as unknown[]) : null;
@@ -76,26 +76,6 @@ function findUnknownKeyErrors(
     }
     return best ?? [];
   }
-
-  if (Array.isArray(value)) {
-    const items = schema.items;
-    if (!items) return [];
-    const errors: Array<{ path: string; message: string }> = [];
-    if (Array.isArray(items)) {
-      for (let i = 0; i < value.length; i += 1) {
-        const itemSchema = items[i];
-        if (!itemSchema) continue;
-        errors.push(...findUnknownKeyErrors(itemSchema, value[i], `${path}/${i}`));
-      }
-      return errors;
-    }
-    for (let i = 0; i < value.length; i += 1) {
-      errors.push(...findUnknownKeyErrors(items, value[i], `${path}/${i}`));
-    }
-    return errors;
-  }
-
-  if (!isPlainObject(value)) return [];
 
   const properties = isPlainObject(schema.properties)
     ? (schema.properties as Record<string, unknown>)
