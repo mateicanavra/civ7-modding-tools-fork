@@ -525,14 +525,14 @@ const config = {
     pedology: {
       classify: { strategy: "default", config: {} },
     },
-    "resource-basins": {
+    resourceBasins: {
       plan: { strategy: "mixed", config: {} },  // Variety in resource distribution
       score: { strategy: "default", config: {} },
     },
-    "biome-edge-refine": {
+    biomeEdgeRefine: {
       refine: { strategy: "gaussian", config: {} },  // Smoother Earth-like biome transitions
     },
-    "features-plan": {
+    featuresPlan: {
       vegetation: { strategy: "clustered", config: {} },  // Natural forest grouping
       wetlands: { strategy: "delta-focused", config: {} },  // River-mouth wetlands
       reefs: { strategy: "default", config: {} },
@@ -612,7 +612,7 @@ const config = {
         marine: "BIOME_MARINE",
       },
     },
-    "plot-effects": {
+    plotEffects: {
       plotEffects: {
         strategy: "default",
         config: {

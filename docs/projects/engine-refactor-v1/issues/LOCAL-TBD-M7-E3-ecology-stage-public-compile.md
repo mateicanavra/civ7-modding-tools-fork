@@ -29,9 +29,9 @@ Use ecology to demonstrate the optional stage public schema and compile mapping 
 
 ## Acceptance Criteria
 
-- [ ] Ecology stage defines `knobsSchema` and an explicit `public` schema.
-- [ ] Ecology stage `compile` maps public fields to internal per-step configs deterministically.
-- [ ] Compiler error examples (unknown step ids, unknown keys, schema errors) are exercised end-to-end using ecology as the reference.
+- [x] Ecology stage defines `knobsSchema` and an explicit `public` schema.
+- [x] Ecology stage `compile` maps public fields to internal per-step configs deterministically.
+- [x] Compiler error examples (unknown step ids, unknown keys, schema errors) are exercised end-to-end using ecology as the reference.
 
 ## Scope Boundaries
 
@@ -73,3 +73,12 @@ Use ecology to demonstrate the optional stage public schema and compile mapping 
 - [Scope Boundaries](#scope-boundaries)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Implementation Decisions
+
+### Expose ecology stage public fields as camelCase mirrors of step ids (including featuresApply)
+- **Context:** Stage public schema requires an explicit author-facing surface; spec does not dictate which fields to expose or naming.
+- **Options:** Keep internal-as-public (step id keys), expose camelCase fields for only map-used steps, expose camelCase fields for all ecology steps.
+- **Choice:** Expose camelCase fields for all ecology steps and map them to kebab-case step ids in `compile`.
+- **Rationale:** Demonstrates the public-schema mapping end-to-end while keeping all step configs reachable and optional.
+- **Risk:** Public surface may feel broader than necessary; future docs may prefer a narrower curated surface.
