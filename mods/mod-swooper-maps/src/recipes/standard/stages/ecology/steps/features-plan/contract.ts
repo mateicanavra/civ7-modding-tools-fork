@@ -16,10 +16,8 @@ const FeaturesPlanStepContract = defineStepContract({
       vegetation: ecology.ops.planVegetation.config,
       wetlands: ecology.ops.planWetlands.config,
       reefs: ecology.ops.planReefs.config,
-      ice: ecology.ops.planIce.config,
-    },
-    { additionalProperties: false }
-  ),
-});
+      ice: ecology.ops.planIce.config},
+    {}
+  )});
 
 export default FeaturesPlanStepContract;

@@ -37,9 +37,8 @@ const WetChancesSchema = Type.Object(
     FEATURE_TUNDRA_BOG: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
     FEATURE_MANGROVE: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
     FEATURE_OASIS: Type.Number({ default: 50, minimum: 0, maximum: 100 }),
-    FEATURE_WATERING_HOLE: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
-  },
-  { additionalProperties: false }
+    FEATURE_WATERING_HOLE: Type.Number({ default: 30, minimum: 0, maximum: 100 })},
+  {}
 );
 
 const WetRulesSchema = Type.Object(
@@ -52,9 +51,8 @@ const WetRulesSchema = Type.Object(
     coastalAdjacencyRadius: Type.Number({ default: 1, minimum: 1 }),
     isolatedRiverRadius: Type.Number({ default: 1, minimum: 1 }),
     isolatedSpacingRadius: Type.Number({ default: 1, minimum: 1 }),
-    oasisBiomeSymbols: Type.Array(BiomeSymbolSchema, { default: ["desert", "temperateDry"] }),
-  },
-  { additionalProperties: false }
+    oasisBiomeSymbols: Type.Array(BiomeSymbolSchema, { default: ["desert", "temperateDry"] })},
+  {}
 );
 
 const WetFeaturePlacementsConfigSchema = Type.Object(
@@ -62,12 +60,10 @@ const WetFeaturePlacementsConfigSchema = Type.Object(
     multiplier: Type.Number({
       description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
       default: 1,
-      minimum: 0,
-    }),
+      minimum: 0}),
     chances: WetChancesSchema,
-    rules: WetRulesSchema,
-  },
-  { additionalProperties: false }
+    rules: WetRulesSchema},
+  {}
 );
 
 const WetFeaturePlacementsInputSchema = Type.Object(
@@ -80,29 +76,25 @@ const WetFeaturePlacementsInputSchema = Type.Object(
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     terrainType: TypedArraySchemas.u8({ description: "Terrain type id per tile." }),
     featureKeyField: TypedArraySchemas.i16({
-      description: "Existing feature key indices per tile (-1 for empty).",
-    }),
+      description: "Existing feature key indices per tile (-1 for empty)."}),
     nearRiverMask: TypedArraySchemas.u8({ description: "River adjacency mask for near-river checks." }),
     isolatedRiverMask: TypedArraySchemas.u8({ description: "River adjacency mask for isolation checks." }),
-    navigableRiverTerrain: Type.Integer({ description: "Terrain id for navigable rivers." }),
-  },
-  { additionalProperties: false }
+    navigableRiverTerrain: Type.Integer({ description: "Terrain id for navigable rivers." })},
+  {}
 );
 
 const WetPlacementSchema = Type.Object(
   {
     x: Type.Integer({ minimum: 0 }),
     y: Type.Integer({ minimum: 0 }),
-    feature: WetFeatureKeySchema,
-  },
-  { additionalProperties: false }
+    feature: WetFeatureKeySchema},
+  {}
 );
 
 const WetFeaturePlacementsOutputSchema = Type.Object(
   {
-    placements: Type.Array(WetPlacementSchema),
-  },
-  { additionalProperties: false }
+    placements: Type.Array(WetPlacementSchema)},
+  {}
 );
 
 const PlanWetFeaturePlacementsContract = defineOpContract({
@@ -111,8 +103,6 @@ const PlanWetFeaturePlacementsContract = defineOpContract({
   input: WetFeaturePlacementsInputSchema,
   output: WetFeaturePlacementsOutputSchema,
   strategies: {
-    default: WetFeaturePlacementsConfigSchema,
-  },
-});
+    default: WetFeaturePlacementsConfigSchema}});
 
 export default PlanWetFeaturePlacementsContract;

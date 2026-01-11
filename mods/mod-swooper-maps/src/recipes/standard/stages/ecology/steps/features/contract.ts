@@ -10,14 +10,12 @@ const FeaturesStepConfigSchema = Type.Object(
         vegetated: ecology.ops.planVegetatedFeaturePlacements.config,
         wet: ecology.ops.planWetFeaturePlacements.config,
         aquatic: ecology.ops.planAquaticFeaturePlacements.config,
-        ice: ecology.ops.planIceFeaturePlacements.config,
-      },
-      { additionalProperties: false }
+        ice: ecology.ops.planIceFeaturePlacements.config},
+      {}
     ),
     reefEmbellishments: ecology.ops.planReefEmbellishments.config,
-    vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.config,
-  },
-  { additionalProperties: false }
+    vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.config},
+  {}
 );
 
 const FeaturesStepContract = defineStepContract({
@@ -32,7 +30,6 @@ const FeaturesStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
   ],
   provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
-  schema: FeaturesStepConfigSchema,
-});
+  schema: FeaturesStepConfigSchema});
 
 export default FeaturesStepContract;

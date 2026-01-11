@@ -7,12 +7,10 @@ const StoryHotspotsStepConfigSchema = Type.Object(
   {
     story: Type.Object(
       {
-        hotspot: NarrativeConfigSchema.properties.story.properties.hotspot,
-      },
-      { additionalProperties: false }
-    ),
-  },
-  { additionalProperties: false }
+        hotspot: NarrativeConfigSchema.properties.story.properties.hotspot},
+      {}
+    )},
+  {}
 );
 
 const StoryHotspotsStepContract = defineStepContract({
@@ -23,7 +21,6 @@ const StoryHotspotsStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.storyOverlays,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
   ],
-  schema: StoryHotspotsStepConfigSchema,
-});
+  schema: StoryHotspotsStepConfigSchema});
 
 export default StoryHotspotsStepContract;

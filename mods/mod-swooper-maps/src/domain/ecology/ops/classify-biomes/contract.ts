@@ -24,12 +24,9 @@ const BiomeClassificationConfigSchema = Type.Object(
     /** Noise settings for moisture variation. */
     noise: NoiseSchema,
     /** Narrative overlay moisture bonuses. */
-    overlays: OverlaySchema,
-  },
+    overlays: OverlaySchema},
   {
-    additionalProperties: false,
-    description: "Biome classification parameters for temperature, moisture, vegetation, and overlays.",
-  }
+    description: "Biome classification parameters for temperature, moisture, vegetation, and overlays."}
 );
 
 const BiomeClassificationInputSchema = Type.Object(
@@ -42,9 +39,8 @@ const BiomeClassificationInputSchema = Type.Object(
     latitude: TypedArraySchemas.f32({ description: "Latitude per tile (degrees)." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     corridorMask: TypedArraySchemas.u8({ description: "Narrative corridor mask per tile." }),
-    riftShoulderMask: TypedArraySchemas.u8({ description: "Rift shoulder mask per tile." }),
-  },
-  { additionalProperties: false }
+    riftShoulderMask: TypedArraySchemas.u8({ description: "Rift shoulder mask per tile." })},
+  {}
 );
 
 const BiomeClassificationOutputSchema = Type.Object(
@@ -54,9 +50,8 @@ const BiomeClassificationOutputSchema = Type.Object(
     effectiveMoisture: TypedArraySchemas.f32({ description: "Effective moisture per tile." }),
     surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature per tile (C)." }),
     aridityIndex: TypedArraySchemas.f32({ description: "Aridity index per tile (0..1)." }),
-    freezeIndex: TypedArraySchemas.f32({ description: "Freeze index per tile (0..1)." }),
-  },
-  { additionalProperties: false }
+    freezeIndex: TypedArraySchemas.f32({ description: "Freeze index per tile (0..1)." })},
+  {}
 );
 
 const BiomeClassificationContract = defineOpContract({
@@ -65,8 +60,6 @@ const BiomeClassificationContract = defineOpContract({
   input: BiomeClassificationInputSchema,
   output: BiomeClassificationOutputSchema,
   strategies: {
-    default: BiomeClassificationConfigSchema,
-  },
-});
+    default: BiomeClassificationConfigSchema}});
 
 export default BiomeClassificationContract;

@@ -2,16 +2,14 @@ import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
 
 const MapInfoSchema = Type.Object(
   {
-    NumNaturalWonders: Type.Optional(Type.Number()),
-  },
+    NumNaturalWonders: Type.Optional(Type.Number())},
   { additionalProperties: true }
 );
 
 const WondersInputSchema = Type.Object(
   {
-    mapInfo: MapInfoSchema,
-  },
-  { additionalProperties: false }
+    mapInfo: MapInfoSchema},
+  {}
 );
 
 const WondersConfigSchema = Type.Object(
@@ -19,17 +17,14 @@ const WondersConfigSchema = Type.Object(
     wondersPlusOne: Type.Boolean({
       description:
         "Whether to add one extra natural wonder beyond map-size defaults to diversify layouts.",
-      default: true,
-    }),
-  },
-  { additionalProperties: false }
+      default: true})},
+  {}
 );
 
 const WondersOutputSchema = Type.Object(
   {
-    wondersCount: Type.Integer({ minimum: 0 }),
-  },
-  { additionalProperties: false }
+    wondersCount: Type.Integer({ minimum: 0 })},
+  {}
 );
 
 const PlanWondersContract = defineOpContract({
@@ -38,8 +33,6 @@ const PlanWondersContract = defineOpContract({
   input: WondersInputSchema,
   output: WondersOutputSchema,
   strategies: {
-    default: WondersConfigSchema,
-  },
-});
+    default: WondersConfigSchema}});
 
 export default PlanWondersContract;

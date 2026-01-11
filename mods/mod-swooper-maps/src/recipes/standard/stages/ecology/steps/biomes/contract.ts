@@ -6,9 +6,8 @@ import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 const BiomesStepConfigSchema = Type.Object(
   {
     classify: ecology.ops.classifyBiomes.config,
-    bindings: Type.Optional(ecology.BiomeEngineBindingsSchema),
-  },
-  { additionalProperties: false }
+    bindings: Type.Optional(ecology.BiomeEngineBindingsSchema)},
+  {}
 );
 
 const BiomesStepContract = defineStepContract({
@@ -25,7 +24,6 @@ const BiomesStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.field.biomeId,
     M4_EFFECT_TAGS.engine.biomesApplied,
   ],
-  schema: BiomesStepConfigSchema,
-});
+  schema: BiomesStepConfigSchema});
 
 export default BiomesStepContract;

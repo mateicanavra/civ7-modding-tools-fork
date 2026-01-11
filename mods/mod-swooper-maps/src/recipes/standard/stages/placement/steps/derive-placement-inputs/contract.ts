@@ -7,9 +7,8 @@ const DerivePlacementInputsConfigSchema = Type.Object(
   {
     wonders: placement.ops.planWonders.config,
     floodplains: placement.ops.planFloodplains.config,
-    starts: placement.ops.planStarts.config,
-  },
-  { additionalProperties: false }
+    starts: placement.ops.planStarts.config},
+  {}
 );
 
 const DerivePlacementInputsContract = defineStepContract({
@@ -21,7 +20,6 @@ const DerivePlacementInputsContract = defineStepContract({
     M4_EFFECT_TAGS.engine.featuresApplied,
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
-  schema: DerivePlacementInputsConfigSchema,
-});
+  schema: DerivePlacementInputsConfigSchema});
 
 export default DerivePlacementInputsContract;

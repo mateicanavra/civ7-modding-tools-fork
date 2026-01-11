@@ -8,12 +8,10 @@ const ClimateRefineStepConfigSchema = Type.Object(
     climate: ClimateConfigSchema,
     story: Type.Object(
       {
-        orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,
-      },
-      { additionalProperties: false }
-    ),
-  },
-  { additionalProperties: false }
+        orogeny: NarrativeConfigSchema.properties.story.properties.orogeny},
+      {}
+    )},
+  {}
 );
 
 const ClimateRefineStepContract = defineStepContract({
@@ -28,7 +26,6 @@ const ClimateRefineStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
-  schema: ClimateRefineStepConfigSchema,
-});
+  schema: ClimateRefineStepConfigSchema});
 
 export default ClimateRefineStepContract;

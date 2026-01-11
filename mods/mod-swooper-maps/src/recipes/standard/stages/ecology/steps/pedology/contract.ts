@@ -9,10 +9,8 @@ const PedologyStepContract = defineStepContract({
   provides: [M3_DEPENDENCY_TAGS.artifact.pedologyV1],
   schema: Type.Object(
     {
-      classify: ecology.ops.classifyPedology.config,
-    },
-    { additionalProperties: false }
-  ),
-});
+      classify: ecology.ops.classifyPedology.config},
+    {}
+  )});
 
 export default PedologyStepContract;

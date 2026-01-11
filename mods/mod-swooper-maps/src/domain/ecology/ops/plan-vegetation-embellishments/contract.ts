@@ -1,8 +1,7 @@
 import {
   Type,
   defineOpContract,
-  TypedArraySchemas,
-} from "@swooper/mapgen-core/authoring";
+  TypedArraySchemas} from "@swooper/mapgen-core/authoring";
 
 import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
 
@@ -16,9 +15,8 @@ const FeaturesConfigSchema = Type.Object(
     volcanicForestMinRainfall: Type.Number({ default: 95, minimum: 0 }),
     volcanicTaigaMinLatitude: Type.Number({ default: 20, minimum: 0 }),
     volcanicTaigaMaxElevation: Type.Number({ default: 600 }),
-    volcanicTaigaMinRainfall: Type.Number({ default: 70, minimum: 0 }),
-  },
-  { additionalProperties: false }
+    volcanicTaigaMinRainfall: Type.Number({ default: 70, minimum: 0 })},
+  {}
 );
 
 const FeaturesDensityConfigSchema = Type.Object(
@@ -32,22 +30,19 @@ const FeaturesDensityConfigSchema = Type.Object(
     rainforestMinRainfall: Type.Number({ default: 130, minimum: 0 }),
     forestMinRainfall: Type.Number({ default: 100, minimum: 0 }),
     taigaMaxElevation: Type.Number({ default: 300 }),
-    minVegetationForBonus: Type.Number({ default: 0.01, minimum: 0, maximum: 1 }),
-  },
-  { additionalProperties: false }
+    minVegetationForBonus: Type.Number({ default: 0.01, minimum: 0, maximum: 1 })},
+  {}
 );
 
 const VegetationEmbellishmentsConfigSchema = Type.Object(
   {
     story: Type.Object(
       {
-        features: FeaturesConfigSchema,
-      },
-      { additionalProperties: false }
+        features: FeaturesConfigSchema},
+      {}
     ),
-    featuresDensity: FeaturesDensityConfigSchema,
-  },
-  { additionalProperties: false }
+    featuresDensity: FeaturesDensityConfigSchema},
+  {}
 );
 
 const FeatureKeySchema = Type.Unsafe<FeatureKey>(
@@ -65,33 +60,29 @@ const VegetationEmbellishmentsInputSchema = Type.Object(
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     terrainType: TypedArraySchemas.u8({ description: "Terrain type id per tile." }),
     featureKeyField: TypedArraySchemas.i16({
-      description: "Existing feature key indices per tile (-1 for empty).",
-    }),
+      description: "Existing feature key indices per tile (-1 for empty)."}),
     biomeIndex: TypedArraySchemas.u8({ description: "Biome symbol indices per tile." }),
     rainfall: TypedArraySchemas.u8({ description: "Rainfall per tile (0..255)." }),
     vegetationDensity: TypedArraySchemas.f32({ description: "Vegetation density per tile (0..1)." }),
     elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
     latitude: TypedArraySchemas.f32({ description: "Latitude per tile (degrees)." }),
     volcanicMask: TypedArraySchemas.u8({ description: "Volcanic hotspot mask per tile." }),
-    navigableRiverTerrain: Type.Integer({ description: "Terrain id for navigable rivers." }),
-  },
-  { additionalProperties: false }
+    navigableRiverTerrain: Type.Integer({ description: "Terrain id for navigable rivers." })},
+  {}
 );
 
 const VegetationEmbellishmentPlacementSchema = Type.Object(
   {
     x: Type.Integer({ minimum: 0 }),
     y: Type.Integer({ minimum: 0 }),
-    feature: FeatureKeySchema,
-  },
-  { additionalProperties: false }
+    feature: FeatureKeySchema},
+  {}
 );
 
 const VegetationEmbellishmentsOutputSchema = Type.Object(
   {
-    placements: Type.Array(VegetationEmbellishmentPlacementSchema),
-  },
-  { additionalProperties: false }
+    placements: Type.Array(VegetationEmbellishmentPlacementSchema)},
+  {}
 );
 
 const PlanVegetationEmbellishmentsContract = defineOpContract({
@@ -100,8 +91,6 @@ const PlanVegetationEmbellishmentsContract = defineOpContract({
   input: VegetationEmbellishmentsInputSchema,
   output: VegetationEmbellishmentsOutputSchema,
   strategies: {
-    default: VegetationEmbellishmentsConfigSchema,
-  },
-});
+    default: VegetationEmbellishmentsConfigSchema}});
 
 export default PlanVegetationEmbellishmentsContract;

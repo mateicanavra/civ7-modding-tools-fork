@@ -9,24 +9,19 @@ const FeaturesApplyContract = defineOpContract({
       vegetation: Type.Array(FeaturePlacementSchema),
       wetlands: Type.Array(FeaturePlacementSchema),
       reefs: Type.Array(FeaturePlacementSchema),
-      ice: Type.Array(FeaturePlacementSchema),
-    },
-    { additionalProperties: false }
+      ice: Type.Array(FeaturePlacementSchema)},
+    {}
   ),
   output: Type.Object(
     {
-      placements: Type.Array(FeaturePlacementSchema),
-    },
-    { additionalProperties: false }
+      placements: Type.Array(FeaturePlacementSchema)},
+    {}
   ),
   strategies: {
     default: Type.Object(
       {
-        maxPerTile: Type.Integer({ minimum: 1, default: 1 }),
-      },
-      { additionalProperties: false }
-    ),
-  },
-});
+        maxPerTile: Type.Integer({ minimum: 1, default: 1 })},
+      {}
+    )}});
 
 export default FeaturesApplyContract;

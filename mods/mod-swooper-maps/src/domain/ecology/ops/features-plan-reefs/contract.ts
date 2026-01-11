@@ -6,24 +6,21 @@ const PlanReefsInputSchema = Type.Object(
     width: Type.Integer({ minimum: 1 }),
     height: Type.Integer({ minimum: 1 }),
     landMask: TypedArraySchemas.u8({ description: "Land mask (1 = land, 0 = water)." }),
-    surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature (C)." }),
-  },
-  { additionalProperties: false }
+    surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature (C)." })},
+  {}
 );
 
 const PlanReefsOutputSchema = Type.Object(
   {
-    placements: Type.Array(FeaturePlacementSchema),
-  },
-  { additionalProperties: false }
+    placements: Type.Array(FeaturePlacementSchema)},
+  {}
 );
 
 const PlanReefsConfigSchema = Type.Object(
   {
     warmThreshold: Type.Number({ default: 12 }),
-    density: Type.Number({ minimum: 0, maximum: 1, default: 0.35 }),
-  },
-  { additionalProperties: false }
+    density: Type.Number({ minimum: 0, maximum: 1, default: 0.35 })},
+  {}
 );
 
 const PlanReefsContract = defineOpContract({
@@ -33,8 +30,6 @@ const PlanReefsContract = defineOpContract({
   output: PlanReefsOutputSchema,
   strategies: {
     default: PlanReefsConfigSchema,
-    "shipping-lanes": PlanReefsConfigSchema,
-  },
-});
+    "shipping-lanes": PlanReefsConfigSchema}});
 
 export default PlanReefsContract;

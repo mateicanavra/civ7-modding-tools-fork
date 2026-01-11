@@ -19,9 +19,8 @@ const AquaticChancesSchema = Type.Object(
     FEATURE_REEF: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
     FEATURE_COLD_REEF: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
     FEATURE_ATOLL: Type.Number({ default: 12, minimum: 0, maximum: 100 }),
-    FEATURE_LOTUS: Type.Number({ default: 15, minimum: 0, maximum: 100 }),
-  },
-  { additionalProperties: false }
+    FEATURE_LOTUS: Type.Number({ default: 15, minimum: 0, maximum: 100 })},
+  {}
 );
 
 const AquaticAtollSchema = Type.Object(
@@ -32,17 +31,15 @@ const AquaticAtollSchema = Type.Object(
     shallowWaterAdjacencyGateChance: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
     shallowWaterAdjacencyRadius: Type.Number({ default: 1, minimum: 1 }),
     growthChanceEquatorial: Type.Number({ default: 15, minimum: 0, maximum: 100 }),
-    growthChanceNonEquatorial: Type.Number({ default: 5, minimum: 0, maximum: 100 }),
-  },
-  { additionalProperties: false }
+    growthChanceNonEquatorial: Type.Number({ default: 5, minimum: 0, maximum: 100 })},
+  {}
 );
 
 const AquaticRulesSchema = Type.Object(
   {
     reefLatitudeSplit: Type.Number({ default: 55, minimum: 0, maximum: 90 }),
-    atoll: AquaticAtollSchema,
-  },
-  { additionalProperties: false }
+    atoll: AquaticAtollSchema},
+  {}
 );
 
 const AquaticFeaturePlacementsConfigSchema = Type.Object(
@@ -50,12 +47,10 @@ const AquaticFeaturePlacementsConfigSchema = Type.Object(
     multiplier: Type.Number({
       description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
       default: 1,
-      minimum: 0,
-    }),
+      minimum: 0}),
     chances: AquaticChancesSchema,
-    rules: AquaticRulesSchema,
-  },
-  { additionalProperties: false }
+    rules: AquaticRulesSchema},
+  {}
 );
 
 const AquaticFeaturePlacementsInputSchema = Type.Object(
@@ -67,25 +62,22 @@ const AquaticFeaturePlacementsInputSchema = Type.Object(
     terrainType: TypedArraySchemas.u8({ description: "Terrain type id per tile." }),
     latitude: TypedArraySchemas.f32({ description: "Latitude per tile (degrees)." }),
     featureKeyField: TypedArraySchemas.i16({ description: "Existing feature key indices per tile (-1 for empty)." }),
-    coastTerrain: Type.Integer({ description: "Terrain id for coast/shallow water." }),
-  },
-  { additionalProperties: false }
+    coastTerrain: Type.Integer({ description: "Terrain id for coast/shallow water." })},
+  {}
 );
 
 const AquaticPlacementSchema = Type.Object(
   {
     x: Type.Integer({ minimum: 0 }),
     y: Type.Integer({ minimum: 0 }),
-    feature: AquaticFeatureKeySchema,
-  },
-  { additionalProperties: false }
+    feature: AquaticFeatureKeySchema},
+  {}
 );
 
 const AquaticFeaturePlacementsOutputSchema = Type.Object(
   {
-    placements: Type.Array(AquaticPlacementSchema),
-  },
-  { additionalProperties: false }
+    placements: Type.Array(AquaticPlacementSchema)},
+  {}
 );
 
 const PlanAquaticFeaturePlacementsContract = defineOpContract({
@@ -94,8 +86,6 @@ const PlanAquaticFeaturePlacementsContract = defineOpContract({
   input: AquaticFeaturePlacementsInputSchema,
   output: AquaticFeaturePlacementsOutputSchema,
   strategies: {
-    default: AquaticFeaturePlacementsConfigSchema,
-  },
-});
+    default: AquaticFeaturePlacementsConfigSchema}});
 
 export default PlanAquaticFeaturePlacementsContract;

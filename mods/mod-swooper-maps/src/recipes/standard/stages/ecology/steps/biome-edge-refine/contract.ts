@@ -12,10 +12,8 @@ const BiomeEdgeRefineStepContract = defineStepContract({
   provides: [M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1],
   schema: Type.Object(
     {
-      refine: ecology.ops.refineBiomeEdges.config,
-    },
-    { additionalProperties: false }
-  ),
-});
+      refine: ecology.ops.refineBiomeEdges.config},
+    {}
+  )});
 
 export default BiomeEdgeRefineStepContract;

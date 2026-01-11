@@ -9,25 +9,22 @@ const PlanWetlandsInputSchema = Type.Object(
     effectiveMoisture: TypedArraySchemas.f32({ description: "Effective moisture per tile." }),
     surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature (C)." }),
     fertility: TypedArraySchemas.f32({ description: "Fertility overlay (0..1)." }),
-    elevation: TypedArraySchemas.i16({ description: "Elevation in meters." }),
-  },
-  { additionalProperties: false }
+    elevation: TypedArraySchemas.i16({ description: "Elevation in meters." })},
+  {}
 );
 
 const PlanWetlandsOutputSchema = Type.Object(
   {
-    placements: Type.Array(FeaturePlacementSchema),
-  },
-  { additionalProperties: false }
+    placements: Type.Array(FeaturePlacementSchema)},
+  {}
 );
 
 const PlanWetlandsConfigSchema = Type.Object(
   {
     moistureThreshold: Type.Number({ minimum: 0, maximum: 2, default: 0.75 }),
     fertilityThreshold: Type.Number({ minimum: 0, maximum: 1, default: 0.35 }),
-    maxElevation: Type.Integer({ default: 1200 }),
-  },
-  { additionalProperties: false }
+    maxElevation: Type.Integer({ default: 1200 })},
+  {}
 );
 
 const PlanWetlandsContract = defineOpContract({
@@ -37,8 +34,6 @@ const PlanWetlandsContract = defineOpContract({
   output: PlanWetlandsOutputSchema,
   strategies: {
     default: PlanWetlandsConfigSchema,
-    "delta-focused": PlanWetlandsConfigSchema,
-  },
-});
+    "delta-focused": PlanWetlandsConfigSchema}});
 
 export default PlanWetlandsContract;
