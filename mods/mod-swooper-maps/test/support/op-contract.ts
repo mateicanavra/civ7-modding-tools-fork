@@ -1,17 +1,9 @@
-type RunValidated = (
-  input: unknown,
-  config: unknown,
-  opts?: { validateOutput?: boolean }
-) => unknown;
+type Run = (input: unknown, config: unknown) => unknown;
 
 export type OpContract = {
-  runValidated: RunValidated;
+  run: Run;
 };
 
-export function runOpValidatedWithOutput(
-  op: OpContract,
-  input: unknown,
-  config: unknown
-): unknown {
-  return op.runValidated(input, config, { validateOutput: true });
+export function runOpWithOutput(op: OpContract, input: unknown, config: unknown): unknown {
+  return op.run(input, config);
 }

@@ -3,11 +3,10 @@ import { createStep } from "@mapgen/authoring/steps";
 import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
-import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
+import { heightfieldArtifact } from "../../../../artifacts.js";
 import { buildPlotEffectsInput } from "./inputs.js";
 import { applyPlotEffectPlacements } from "./apply.js";
 import { logSnowEligibilitySummary } from "./diagnostics.js";
-import { assertHeightfield } from "../biomes/helpers/inputs.js";
 import { PlotEffectsStepContract } from "./contract.js";
 
 type PlotEffectsStepConfig = Static<typeof PlotEffectsStepContract.schema>;
@@ -27,11 +26,10 @@ export default createStep(PlotEffectsStepContract, {
   },
   run: (context: ExtendedMapContext, config: PlotEffectsStepConfig) => {
     const input = buildPlotEffectsInput(context);
-    const result = runtimeOps.planPlotEffects.runValidated(input, config.plotEffects);
+    const result = runtimeOps.planPlotEffects.run(input, config.plotEffects);
 
     if (context.trace.isVerbose) {
-      const heightfield = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
-      assertHeightfield(heightfield, context.dimensions.width * context.dimensions.height);
+      const heightfield = heightfieldArtifact.get(context);
       logSnowEligibilitySummary(
         context.trace,
         input,

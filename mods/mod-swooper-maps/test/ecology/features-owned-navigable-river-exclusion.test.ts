@@ -1,7 +1,11 @@
 import { describe, expect, it } from "bun:test";
 
 import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
-import { createFeaturesTestContext, disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
+import {
+  buildFeaturesPlacementConfig,
+  createFeaturesTestContext,
+  disabledEmbellishmentsConfig,
+} from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
   it("never places land features on navigable river plots", () => {
@@ -19,13 +23,14 @@ describe("features (owned baseline)", () => {
     adapter.setTerrainType(riverX, riverY, navigableRiver);
     ctx.buffers.heightfield.terrain[riverY * width + riverX] = navigableRiver;
 
+    const featuresPlacement = buildFeaturesPlacementConfig({
+      vegetated: { chances: { FEATURE_FOREST: 100 } },
+      wet: { multiplier: 0 },
+      aquatic: { multiplier: 0 },
+      ice: { multiplier: 0 },
+    });
     const config = {
-      featuresPlacement: {
-        vegetated: { strategy: "default", config: { chances: { FEATURE_FOREST: 100 } } },
-        wet: { strategy: "default", config: { multiplier: 0 } },
-        aquatic: { strategy: "default", config: { multiplier: 0 } },
-        ice: { strategy: "default", config: { multiplier: 0 } },
-      },
+      featuresPlacement,
       reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
       vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
     };

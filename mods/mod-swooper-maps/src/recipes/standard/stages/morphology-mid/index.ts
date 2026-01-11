@@ -3,6 +3,6 @@ import { ruggedCoasts } from "./steps/index.js";
 
 export default createStage({
   id: "morphology-mid",
-  knobsSchema: Type.Object({}, { additionalProperties: false, default: {} }),
+  knobsSchema: Type.Object({}, { additionalProperties: false }),
   steps: [ruggedCoasts],
 } as const);

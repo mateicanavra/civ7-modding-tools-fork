@@ -1,7 +1,10 @@
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import type { Static } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
+import * as ecology from "@mapgen/domain/ecology";
+
+import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 import {
   buildNarrativeMotifsHotspotsV1,
@@ -35,6 +38,47 @@ export const disabledEmbellishmentsConfig = {
     minVegetationForBonus: 1,
   },
 };
+
+type VegetatedPlacementConfig = Static<
+  typeof ecology.ops.planVegetatedFeaturePlacements.strategies.default.config
+>;
+type WetPlacementConfig = Static<
+  typeof ecology.ops.planWetFeaturePlacements.strategies.default.config
+>;
+type AquaticPlacementConfig = Static<
+  typeof ecology.ops.planAquaticFeaturePlacements.strategies.default.config
+>;
+type IcePlacementConfig = Static<
+  typeof ecology.ops.planIceFeaturePlacements.strategies.default.config
+>;
+
+type FeaturesPlacementOverrides = {
+  vegetated?: Partial<VegetatedPlacementConfig>;
+  wet?: Partial<WetPlacementConfig>;
+  aquatic?: Partial<AquaticPlacementConfig>;
+  ice?: Partial<IcePlacementConfig>;
+};
+
+export function buildFeaturesPlacementConfig(overrides: FeaturesPlacementOverrides = {}) {
+  return {
+    vegetated: normalizeOpSelectionOrThrow(ecology.ops.planVegetatedFeaturePlacements, {
+      strategy: "default",
+      config: overrides.vegetated ?? {},
+    }),
+    wet: normalizeOpSelectionOrThrow(ecology.ops.planWetFeaturePlacements, {
+      strategy: "default",
+      config: overrides.wet ?? {},
+    }),
+    aquatic: normalizeOpSelectionOrThrow(ecology.ops.planAquaticFeaturePlacements, {
+      strategy: "default",
+      config: overrides.aquatic ?? {},
+    }),
+    ice: normalizeOpSelectionOrThrow(ecology.ops.planIceFeaturePlacements, {
+      strategy: "default",
+      config: overrides.ice ?? {},
+    }),
+  };
+}
 
 type WaterMask = (x: number, y: number) => boolean;
 
@@ -76,7 +120,11 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const adapter = createMockAdapter({ width, height, rng, canHaveFeature });
   adapter.fillWater(false);
 
-  const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
+  const directionality = normalizeStrictOrThrow(
+    FoundationDirectionalityConfigSchema,
+    {},
+    "/env/directionality"
+  );
   const env = {
     seed: 0,
     dimensions: { width, height },

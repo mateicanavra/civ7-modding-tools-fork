@@ -11,11 +11,6 @@ export const PedologyStepContract = defineStepContract({
     {
       classify: ecology.ops.classifyPedology.config,
     },
-    {
-      additionalProperties: false,
-      default: {
-        classify: ecology.ops.classifyPedology.defaultConfig,
-      },
-    }
+    { additionalProperties: false }
   ),
 });

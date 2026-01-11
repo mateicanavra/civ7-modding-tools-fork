@@ -28,7 +28,6 @@ const BiomeClassificationConfigSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Biome classification parameters for temperature, moisture, vegetation, and overlays.",
   }
 );

@@ -5,7 +5,6 @@ export { bindCompileOps, bindRuntimeOps, runtimeOp } from "./bindings.js";
 export { createOp, createStrategy, defineOpContract, opRef } from "./op/index.js";
 export { defineOpSchema } from "./schema.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
-export { OpValidationError } from "./validation.js";
 export { Type } from "typebox";
 export {
   assertFloat32Array,
@@ -61,9 +60,3 @@ export type {
 } from "./op/index.js";
 export type { CreateStepFor, StepContract } from "./step/index.js";
 export type { Static, TSchema } from "typebox";
-export type {
-  CustomValidateFn,
-  OpRunValidatedOptions,
-  OpValidateOptions,
-  ValidationError,
-} from "./validation.js";

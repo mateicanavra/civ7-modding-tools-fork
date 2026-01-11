@@ -3,6 +3,6 @@ import { derivePlacementInputs, placement } from "./steps/index.js";
 
 export default createStage({
   id: "placement",
-  knobsSchema: Type.Object({}, { additionalProperties: false, default: {} }),
+  knobsSchema: Type.Object({}, { additionalProperties: false }),
   steps: [derivePlacementInputs, placement],
 } as const);

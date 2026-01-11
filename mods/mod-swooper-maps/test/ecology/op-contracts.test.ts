@@ -1,11 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import type { Static } from "@swooper/mapgen-core/authoring";
-import { Value } from "typebox/value";
-
 import * as ecology from "../../src/domain/ecology/index.js";
 import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
 
 import { disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
+import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 const createFeatureKeyField = (size: number) => new Int16Array(size).fill(-1);
 
@@ -14,7 +12,11 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const result = ecology.ops.classifyPedology.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.classifyPedology, {
+      strategy: "default",
+      config: {},
+    });
+    const result = ecology.ops.classifyPedology.run(
       {
         width,
         height,
@@ -23,8 +25,7 @@ describe("ecology op contract surfaces", () => {
         rainfall: new Uint8Array(size).fill(180),
         humidity: new Uint8Array(size).fill(150),
       },
-      ecology.ops.classifyPedology.defaultConfig,
-      { validateOutput: true }
+      selection
     );
     expect(result.soilType.length).toBe(size);
     expect(result.fertility.length).toBe(size);
@@ -34,11 +35,11 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = Value.Default(
-      ecology.ops.classifyPedology.strategies["coastal-shelf"].config,
-      {}
-    );
-    const result = ecology.ops.classifyPedology.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.classifyPedology, {
+      strategy: "coastal-shelf",
+      config: {},
+    });
+    const result = ecology.ops.classifyPedology.run(
       {
         width,
         height,
@@ -47,8 +48,7 @@ describe("ecology op contract surfaces", () => {
         rainfall: new Uint8Array(size).fill(200),
         humidity: new Uint8Array(size).fill(180),
       },
-      { strategy: "coastal-shelf", config },
-      { validateOutput: true }
+      selection
     );
     expect(result.soilType.length).toBe(size);
   });
@@ -57,11 +57,11 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = Value.Default(
-      ecology.ops.classifyPedology.strategies["orogeny-boosted"].config,
-      {}
-    );
-    const result = ecology.ops.classifyPedology.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.classifyPedology, {
+      strategy: "orogeny-boosted",
+      config: {},
+    });
+    const result = ecology.ops.classifyPedology.run(
       {
         width,
         height,
@@ -70,8 +70,7 @@ describe("ecology op contract surfaces", () => {
         rainfall: new Uint8Array(size).fill(80),
         humidity: new Uint8Array(size).fill(50),
       },
-      { strategy: "orogeny-boosted", config },
-      { validateOutput: true }
+      selection
     );
     expect(result.soilType.length).toBe(size);
   });
@@ -80,10 +79,15 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = Value.Default(ecology.ops.planResourceBasins.strategies["hydro-fluvial"].config, {
-      resources: [{ id: "RESOURCE_OIL", target: 3, fertilityBias: 0.8, moistureBias: 1.5, spacing: 2 }],
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planResourceBasins, {
+      strategy: "default",
+      config: {
+        resources: [
+          { id: "RESOURCE_IRON", target: 2, fertilityBias: 1, moistureBias: 1, spacing: 1 },
+        ],
+      },
     });
-    const result = ecology.ops.planResourceBasins.runValidated(
+    const result = ecology.ops.planResourceBasins.run(
       {
         width,
         height,
@@ -93,13 +97,7 @@ describe("ecology op contract surfaces", () => {
         rainfall: new Uint8Array(size).fill(160),
         humidity: new Uint8Array(size).fill(120),
       },
-      {
-        strategy: "default",
-        config: {
-          resources: [{ id: "RESOURCE_IRON", target: 2, fertilityBias: 1, moistureBias: 1, spacing: 1 }],
-        },
-      },
-      { validateOutput: true }
+      selection
     );
     expect(result.basins.length).toBe(1);
     expect(result.basins[0]?.resourceId).toBe("RESOURCE_IRON");
@@ -109,10 +107,15 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = Value.Default(ecology.ops.planResourceBasins.strategies["hydro-fluvial"].config, {
-      resources: [{ id: "RESOURCE_OIL", target: 3, fertilityBias: 0.8, moistureBias: 1.5, spacing: 2 }],
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planResourceBasins, {
+      strategy: "hydro-fluvial",
+      config: {
+        resources: [
+          { id: "RESOURCE_OIL", target: 3, fertilityBias: 0.8, moistureBias: 1.5, spacing: 2 },
+        ],
+      },
     });
-    const result = ecology.ops.planResourceBasins.runValidated(
+    const result = ecology.ops.planResourceBasins.run(
       {
         width,
         height,
@@ -122,8 +125,7 @@ describe("ecology op contract surfaces", () => {
         rainfall: new Uint8Array(size).fill(220),
         humidity: new Uint8Array(size).fill(200),
       },
-      { strategy: "hydro-fluvial", config },
-      { validateOutput: true }
+      selection
     );
     expect(result.basins.length).toBe(1);
   });
@@ -132,15 +134,14 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const result = ecology.ops.refineBiomeEdges.runValidated(
+    const result = ecology.ops.refineBiomeEdges.run(
       {
         width,
         height,
         biomeIndex: new Uint8Array(size).fill(1),
         landMask: new Uint8Array(size).fill(1),
       },
-      ecology.ops.refineBiomeEdges.defaultConfig,
-      { validateOutput: true }
+      ecology.ops.refineBiomeEdges.defaultConfig
     );
     expect(result.biomeIndex.length).toBe(size);
   });
@@ -149,15 +150,14 @@ describe("ecology op contract surfaces", () => {
     const width = 3;
     const height = 3;
     const size = width * height;
-    const result = ecology.ops.refineBiomeEdges.runValidated(
+    const result = ecology.ops.refineBiomeEdges.run(
       {
         width,
         height,
         biomeIndex: new Uint8Array(size).fill(1),
         landMask: new Uint8Array(size).fill(1),
       },
-      { strategy: "gaussian", config: { radius: 1, iterations: 1 } },
-      { validateOutput: true }
+      { strategy: "gaussian", config: { radius: 1, iterations: 1 } }
     );
     expect(result.biomeIndex.length).toBe(size);
   });
@@ -166,8 +166,12 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
+      strategy: "default",
+      config: {},
+    });
 
-    const result = ecology.ops.classifyBiomes.runValidated(
+    const result = ecology.ops.classifyBiomes.run(
       {
         width,
         height,
@@ -179,8 +183,7 @@ describe("ecology op contract surfaces", () => {
         corridorMask: new Uint8Array(size).fill(0),
         riftShoulderMask: new Uint8Array(size).fill(0),
       },
-      ecology.ops.classifyBiomes.defaultConfig,
-      { validateOutput: true }
+      selection
     );
 
     expect(result.biomeIndex.length).toBe(size);
@@ -192,8 +195,15 @@ describe("ecology op contract surfaces", () => {
     const height = 2;
     const size = width * height;
     const temperateHumid = BIOME_SYMBOL_TO_INDEX.temperateHumid ?? 4;
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planVegetatedFeaturePlacements, {
+      strategy: "default",
+      config: {
+        chances: { FEATURE_FOREST: 100 },
+        rules: { vegetationChanceScalar: 1 },
+      },
+    });
 
-    const result = ecology.ops.planVegetatedFeaturePlacements.runValidated(
+    const result = ecology.ops.planVegetatedFeaturePlacements.run(
       {
         width,
         height,
@@ -209,11 +219,7 @@ describe("ecology op contract surfaces", () => {
         featureKeyField: createFeatureKeyField(size),
         navigableRiverTerrain: 255,
       },
-      {
-        strategy: "default",
-        config: { chances: { FEATURE_FOREST: 100 }, rules: { vegetationChanceScalar: 1 } },
-      },
-      { validateOutput: true }
+      selection
     );
 
     expect(result.placements.length).toBe(size);
@@ -225,8 +231,12 @@ describe("ecology op contract surfaces", () => {
     const height = 2;
     const size = width * height;
     const temperateHumid = BIOME_SYMBOL_TO_INDEX.temperateHumid ?? 4;
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planWetFeaturePlacements, {
+      strategy: "default",
+      config: { chances: { FEATURE_MARSH: 100 } },
+    });
 
-    const result = ecology.ops.planWetFeaturePlacements.runValidated(
+    const result = ecology.ops.planWetFeaturePlacements.run(
       {
         width,
         height,
@@ -240,8 +250,7 @@ describe("ecology op contract surfaces", () => {
         isolatedRiverMask: new Uint8Array(size).fill(0),
         navigableRiverTerrain: 255,
       },
-      { strategy: "default", config: { chances: { FEATURE_MARSH: 100 } } },
-      { validateOutput: true }
+      selection
     );
 
     expect(result.placements.length).toBe(size);
@@ -252,8 +261,15 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planAquaticFeaturePlacements, {
+      strategy: "default",
+      config: {
+        chances: { FEATURE_REEF: 100 },
+        rules: { reefLatitudeSplit: 90 },
+      },
+    });
 
-    const result = ecology.ops.planAquaticFeaturePlacements.runValidated(
+    const result = ecology.ops.planAquaticFeaturePlacements.run(
       {
         width,
         height,
@@ -264,8 +280,7 @@ describe("ecology op contract surfaces", () => {
         featureKeyField: createFeatureKeyField(size),
         coastTerrain: 1,
       },
-      { strategy: "default", config: { chances: { FEATURE_REEF: 100 }, rules: { reefLatitudeSplit: 90 } } },
-      { validateOutput: true }
+      selection
     );
 
     expect(result.placements.length).toBe(size);
@@ -276,8 +291,19 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planIceFeaturePlacements, {
+      strategy: "default",
+      config: {
+        chances: { FEATURE_ICE: 100 },
+        rules: {
+          minAbsLatitude: 0,
+          forbidAdjacentToLand: false,
+          forbidAdjacentToNaturalWonders: false,
+        },
+      },
+    });
 
-    const result = ecology.ops.planIceFeaturePlacements.runValidated(
+    const result = ecology.ops.planIceFeaturePlacements.run(
       {
         width,
         height,
@@ -287,18 +313,7 @@ describe("ecology op contract surfaces", () => {
         featureKeyField: createFeatureKeyField(size),
         naturalWonderMask: new Uint8Array(size).fill(0),
       },
-      {
-        strategy: "default",
-        config: {
-          chances: { FEATURE_ICE: 100 },
-          rules: {
-            minAbsLatitude: 0,
-            forbidAdjacentToLand: false,
-            forbidAdjacentToNaturalWonders: false,
-          },
-        },
-      },
-      { validateOutput: true }
+      selection
     );
 
     expect(result.placements.length).toBe(size);
@@ -310,7 +325,7 @@ describe("ecology op contract surfaces", () => {
     const height = 2;
     const size = width * height;
 
-    const result = ecology.ops.planReefEmbellishments.runValidated(
+    const result = ecology.ops.planReefEmbellishments.run(
       {
         width,
         height,
@@ -320,8 +335,7 @@ describe("ecology op contract surfaces", () => {
         paradiseMask: new Uint8Array(size).fill(0),
         passiveShelfMask: new Uint8Array(size).fill(0),
       },
-      { strategy: "default", config: disabledEmbellishmentsConfig },
-      { validateOutput: true }
+      { strategy: "default", config: disabledEmbellishmentsConfig }
     );
 
     expect(Array.isArray(result.placements)).toBe(true);
@@ -333,7 +347,7 @@ describe("ecology op contract surfaces", () => {
     const size = width * height;
     const temperateHumid = BIOME_SYMBOL_TO_INDEX.temperateHumid ?? 4;
 
-    const result = ecology.ops.planVegetationEmbellishments.runValidated(
+    const result = ecology.ops.planVegetationEmbellishments.run(
       {
         width,
         height,
@@ -349,8 +363,7 @@ describe("ecology op contract surfaces", () => {
         volcanicMask: new Uint8Array(size).fill(0),
         navigableRiverTerrain: 255,
       },
-      { strategy: "default", config: disabledEmbellishmentsConfig },
-      { validateOutput: true }
+      { strategy: "default", config: disabledEmbellishmentsConfig }
     );
 
     expect(Array.isArray(result.placements)).toBe(true);
@@ -360,7 +373,11 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const result = ecology.ops.planVegetation.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planVegetation, {
+      strategy: "default",
+      config: {},
+    });
+    const result = ecology.ops.planVegetation.run(
       {
         width,
         height,
@@ -371,8 +388,7 @@ describe("ecology op contract surfaces", () => {
         fertility: new Float32Array(size).fill(0.5),
         landMask: new Uint8Array(size).fill(1),
       },
-      ecology.ops.planVegetation.defaultConfig,
-      { validateOutput: true }
+      selection
     );
     expect(result.placements.length).toBeGreaterThan(0);
   });
@@ -381,8 +397,11 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = Value.Default(ecology.ops.planVegetation.strategies.clustered.config, {});
-    const result = ecology.ops.planVegetation.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planVegetation, {
+      strategy: "clustered",
+      config: {},
+    });
+    const result = ecology.ops.planVegetation.run(
       {
         width,
         height,
@@ -393,8 +412,7 @@ describe("ecology op contract surfaces", () => {
         fertility: new Float32Array(size).fill(0.5),
         landMask: new Uint8Array(size).fill(1),
       },
-      { strategy: "clustered", config },
-      { validateOutput: true }
+      selection
     );
     expect(result.placements.length).toBeGreaterThan(0);
   });
@@ -403,7 +421,11 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const result = ecology.ops.planWetlands.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planWetlands, {
+      strategy: "default",
+      config: {},
+    });
+    const result = ecology.ops.planWetlands.run(
       {
         width,
         height,
@@ -413,8 +435,7 @@ describe("ecology op contract surfaces", () => {
         fertility: new Float32Array(size).fill(0.6),
         elevation: new Int16Array(size).fill(100),
       },
-      ecology.ops.planWetlands.defaultConfig,
-      { validateOutput: true }
+      selection
     );
     expect(result.placements.length).toBeGreaterThan(0);
   });
@@ -423,8 +444,11 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = Value.Default(ecology.ops.planWetlands.strategies["delta-focused"].config, {});
-    const result = ecology.ops.planWetlands.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planWetlands, {
+      strategy: "delta-focused",
+      config: {},
+    });
+    const result = ecology.ops.planWetlands.run(
       {
         width,
         height,
@@ -434,8 +458,7 @@ describe("ecology op contract surfaces", () => {
         fertility: new Float32Array(size).fill(0.4),
         elevation: new Int16Array(size).fill(50),
       },
-      { strategy: "delta-focused", config },
-      { validateOutput: true }
+      selection
     );
     expect(result.placements.length).toBeGreaterThan(0);
   });
@@ -444,15 +467,18 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const result = ecology.ops.planReefs.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planReefs, {
+      strategy: "default",
+      config: {},
+    });
+    const result = ecology.ops.planReefs.run(
       {
         width,
         height,
         landMask: new Uint8Array(size).fill(0),
         surfaceTemperature: new Float32Array(size).fill(20),
       },
-      ecology.ops.planReefs.defaultConfig,
-      { validateOutput: true }
+      selection
     );
     expect(result.placements.length).toBeGreaterThanOrEqual(0);
   });
@@ -461,16 +487,18 @@ describe("ecology op contract surfaces", () => {
     const width = 3;
     const height = 3;
     const size = width * height;
-    const config = Value.Default(ecology.ops.planReefs.strategies["shipping-lanes"].config, {});
-    const result = ecology.ops.planReefs.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planReefs, {
+      strategy: "shipping-lanes",
+      config: {},
+    });
+    const result = ecology.ops.planReefs.run(
       {
         width,
         height,
         landMask: new Uint8Array(size).fill(0),
         surfaceTemperature: new Float32Array(size).fill(24),
       },
-      { strategy: "shipping-lanes", config },
-      { validateOutput: true }
+      selection
     );
     expect(result.placements.length).toBeGreaterThanOrEqual(0);
   });
@@ -479,7 +507,11 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const result = ecology.ops.planIce.runValidated(
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planIce, {
+      strategy: "default",
+      config: {},
+    });
+    const result = ecology.ops.planIce.run(
       {
         width,
         height,
@@ -487,8 +519,7 @@ describe("ecology op contract surfaces", () => {
         surfaceTemperature: new Float32Array(size).fill(-20),
         elevation: new Int16Array(size).fill(3000),
       },
-      ecology.ops.planIce.defaultConfig,
-      { validateOutput: true }
+      selection
     );
     expect(result.placements.length).toBeGreaterThan(0);
   });
@@ -497,10 +528,11 @@ describe("ecology op contract surfaces", () => {
     const width = 2;
     const height = 2;
     const size = width * height;
-    const config = Value.Default(ecology.ops.planIce.strategies.continentality.config, {
-      alpineThreshold: 1200,
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planIce, {
+      strategy: "continentality",
+      config: { alpineThreshold: 1200 },
     });
-    const result = ecology.ops.planIce.runValidated(
+    const result = ecology.ops.planIce.run(
       {
         width,
         height,
@@ -508,22 +540,20 @@ describe("ecology op contract surfaces", () => {
         surfaceTemperature: new Float32Array(size).fill(-5),
         elevation: new Int16Array(size).fill(1500),
       },
-      { strategy: "continentality", config },
-      { validateOutput: true }
+      selection
     );
     expect(result.placements.length).toBeGreaterThan(0);
   });
 
   it("applyFeatures merges placements", () => {
-    const result = ecology.ops.applyFeatures.runValidated(
+    const result = ecology.ops.applyFeatures.run(
       {
         vegetation: [{ x: 0, y: 0, feature: "FEATURE_FOREST" }],
         wetlands: [],
         reefs: [],
         ice: [],
       },
-      ecology.ops.applyFeatures.defaultConfig,
-      { validateOutput: true }
+      ecology.ops.applyFeatures.defaultConfig
     );
     expect(result.placements.length).toBe(1);
   });
@@ -533,8 +563,25 @@ describe("ecology op contract surfaces", () => {
     const height = 2;
     const size = width * height;
     const tundra = BIOME_SYMBOL_TO_INDEX.tundra ?? 1;
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planPlotEffects, {
+      strategy: "default",
+      config: {
+        snow: {
+          enabled: true,
+          elevationStrategy: "absolute",
+          elevationMin: 0,
+          elevationMax: 3000,
+          coverageChance: 100,
+          lightThreshold: 0,
+          mediumThreshold: 0,
+          heavyThreshold: 0,
+        },
+        sand: { enabled: false },
+        burned: { enabled: false },
+      },
+    });
 
-    const result = ecology.ops.planPlotEffects.runValidated(
+    const result = ecology.ops.planPlotEffects.run(
       {
         width,
         height,
@@ -548,24 +595,7 @@ describe("ecology op contract surfaces", () => {
         elevation: new Int16Array(size).fill(2400),
         landMask: new Uint8Array(size).fill(1),
       },
-      {
-        strategy: "default",
-        config: {
-          snow: {
-            enabled: true,
-            elevationStrategy: "absolute",
-            elevationMin: 0,
-            elevationMax: 3000,
-            coverageChance: 100,
-            lightThreshold: 0,
-            mediumThreshold: 0,
-            heavyThreshold: 0,
-          },
-          sand: { enabled: false },
-          burned: { enabled: false },
-        },
-      },
-      { validateOutput: true }
+      selection
     );
 
     expect(result.placements.length).toBeGreaterThan(0);

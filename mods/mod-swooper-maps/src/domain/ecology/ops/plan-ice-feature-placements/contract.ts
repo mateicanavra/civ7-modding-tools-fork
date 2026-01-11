@@ -10,7 +10,7 @@ export const IceChancesSchema = Type.Object(
   {
     FEATURE_ICE: Type.Optional(Type.Number({ default: 90, minimum: 0, maximum: 100 })),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export const IceRulesSchema = Type.Object(
@@ -21,7 +21,7 @@ export const IceRulesSchema = Type.Object(
     forbidAdjacentToNaturalWonders: Type.Optional(Type.Boolean({ default: true })),
     naturalWonderAdjacencyRadius: Type.Optional(Type.Number({ default: 1, minimum: 1 })),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export const IceFeaturePlacementsConfigSchema = Type.Object(
@@ -32,7 +32,7 @@ export const IceFeaturePlacementsConfigSchema = Type.Object(
     chances: Type.Optional(IceChancesSchema),
     rules: Type.Optional(IceRulesSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const IceFeaturePlacementsInputSchema = Type.Object(

@@ -35,7 +35,7 @@ const FoundationSeedConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -124,7 +124,7 @@ const FoundationPlatesConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -171,7 +171,7 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: false, default: {} }
+        { additionalProperties: false }
       )
     ),
     /** Variability settings for directional jitter. */
@@ -193,7 +193,7 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: false, default: {} }
+        { additionalProperties: false }
       )
     ),
     /** Hemisphere-specific settings for Coriolis effects. */
@@ -233,7 +233,7 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: false, default: {} }
+        { additionalProperties: false }
       )
     ),
     /** Coupling between plates, winds, and currents. */
@@ -268,11 +268,11 @@ export const FoundationDirectionalityConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: false, default: {} }
+        { additionalProperties: false }
       )
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -324,7 +324,7 @@ const FoundationDynamicsConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: false, default: {} }
+        { additionalProperties: false }
       )
     ),
     /** Atmospheric wind configuration for rainfall patterns. */
@@ -369,13 +369,13 @@ const FoundationDynamicsConfigSchema = Type.Object(
             })
           ),
         },
-        { additionalProperties: false, default: {} }
+        { additionalProperties: false }
       )
     ),
     /** Directionality controls for plates, winds, and currents alignment. */
     directionality: Type.Optional(FoundationDirectionalityConfigSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -390,7 +390,7 @@ export const FoundationConfigSchema = Type.Object(
     /** Wind, mantle convection, and directional coherence settings. */
     dynamics: FoundationDynamicsConfigSchema,
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export type FoundationConfig = Static<typeof FoundationConfigSchema>;

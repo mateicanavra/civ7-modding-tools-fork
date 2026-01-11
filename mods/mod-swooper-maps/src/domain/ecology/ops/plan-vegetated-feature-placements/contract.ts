@@ -42,7 +42,7 @@ const VegetatedMinByBiomeSchema = Type.Object(
     tropicalRainforest: Type.Number({ default: 0.05, minimum: 0, maximum: 1 }),
     desert: Type.Number({ default: 0.02, minimum: 0, maximum: 1 }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const VegetatedRulesSchema = Type.Object(
@@ -60,7 +60,7 @@ const VegetatedRulesSchema = Type.Object(
     tropicalSeasonalRainforestMoisture: Type.Number({ default: 140 }),
     tropicalSeasonalRainforestMaxAridity: Type.Number({ default: 0.6, minimum: 0, maximum: 1 }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const VegetatedChancesSchema = Type.Object(
@@ -71,7 +71,7 @@ const VegetatedChancesSchema = Type.Object(
     FEATURE_SAVANNA_WOODLAND: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
     FEATURE_SAGEBRUSH_STEPPE: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const VegetatedFeaturePlacementsConfigSchema = Type.Object(
@@ -84,7 +84,7 @@ const VegetatedFeaturePlacementsConfigSchema = Type.Object(
     chances: VegetatedChancesSchema,
     rules: VegetatedRulesSchema,
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const VegetatedFeaturePlacementsInputSchema = Type.Object(

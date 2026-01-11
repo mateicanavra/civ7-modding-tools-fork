@@ -8,9 +8,7 @@ const PlotEffectsStepConfigSchema = Type.Object(
     plotEffects: ecology.ops.planPlotEffects.config,
   },
   {
-    additionalProperties: false,
-    default: { plotEffects: ecology.ops.planPlotEffects.defaultConfig },
-  }
+    additionalProperties: false }
 );
 
 export const PlotEffectsStepContract = defineStepContract({

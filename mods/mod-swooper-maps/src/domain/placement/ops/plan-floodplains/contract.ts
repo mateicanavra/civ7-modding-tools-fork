@@ -1,6 +1,6 @@
 import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
 
-const FloodplainsInputSchema = Type.Object({}, { additionalProperties: false, default: {} });
+const FloodplainsInputSchema = Type.Object({}, { additionalProperties: false });
 
 const FloodplainsConfigSchema = Type.Object(
   {
@@ -15,7 +15,7 @@ const FloodplainsConfigSchema = Type.Object(
       default: 10,
     }),
   },
-  { additionalProperties: false, default: { minLength: 4, maxLength: 10 } }
+  { additionalProperties: false }
 );
 
 const FloodplainsOutputSchema = Type.Object(
@@ -31,7 +31,7 @@ const FloodplainsOutputSchema = Type.Object(
       default: 10,
     }),
   },
-  { additionalProperties: false, default: { minLength: 4, maxLength: 10 } }
+  { additionalProperties: false }
 );
 
 export const PlanFloodplainsContract = defineOpContract({

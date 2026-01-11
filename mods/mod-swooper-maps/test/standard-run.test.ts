@@ -1,15 +1,16 @@
 import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
+
+import { normalizeStrictOrThrow } from "./support/compiler-helpers.js";
 
 import standardRecipe from "../src/recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../src/recipes/standard/runtime.js";
 import { M3_DEPENDENCY_TAGS } from "../src/recipes/standard/tags.js";
 
-const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {
+const directionality = normalizeStrictOrThrow(FoundationDirectionalityConfigSchema, {
   cohesion: 0.15,
   primaryAxes: {
     plateAxisDeg: 12,
@@ -29,7 +30,7 @@ const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema,
     angleJitterDeg: 15,
     magnitudeVariance: 0.4,
   },
-});
+}, "/directionality");
 
 const landmassConfig = {
   baseWaterPercent: 68,
@@ -538,6 +539,7 @@ const standardConfig = {
     "story-seed": { margins: marginsConfig },
     "story-hotspots": { story: { hotspot: storyHotspotConfig } },
     "story-rifts": { story: { rift: storyRiftConfig } },
+    "story-corridors-pre": { corridors: corridorsConfig },
   },
   "morphology-mid": {
     "rugged-coasts": {
@@ -547,7 +549,6 @@ const standardConfig = {
   },
   "narrative-mid": {
     "story-orogeny": { story: { orogeny: storyOrogenyConfig } },
-    "story-corridors-pre": { corridors: corridorsConfig },
   },
   "morphology-post": {
     islands: {

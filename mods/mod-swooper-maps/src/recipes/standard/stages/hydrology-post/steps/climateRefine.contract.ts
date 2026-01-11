@@ -10,10 +10,10 @@ const ClimateRefineStepConfigSchema = Type.Object(
       {
         orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
   },
-  { additionalProperties: false, default: { climate: {}, story: {} } }
+  { additionalProperties: false }
 );
 
 export const ClimateRefineStepContract = defineStepContract({

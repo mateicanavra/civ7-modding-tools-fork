@@ -11,12 +11,12 @@ const publicSchema = Type.Object(
     featuresApply: Type.Optional(steps.featuresApply.contract.schema),
     plotEffects: Type.Optional(steps.plotEffects.contract.schema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export default createStage({
   id: "ecology",
-  knobsSchema: Type.Object({}, { additionalProperties: false, default: {} }),
+  knobsSchema: Type.Object({}, { additionalProperties: false }),
   public: publicSchema,
   compile: ({ env, knobs, config }) => {
     void env;

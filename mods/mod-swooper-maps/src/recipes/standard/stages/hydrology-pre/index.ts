@@ -3,6 +3,6 @@ import { climateBaseline, lakes } from "./steps/index.js";
 
 export default createStage({
   id: "hydrology-pre",
-  knobsSchema: Type.Object({}, { additionalProperties: false, default: {} }),
+  knobsSchema: Type.Object({}, { additionalProperties: false }),
   steps: [lakes, climateBaseline],
 } as const);

@@ -28,56 +28,31 @@ const VegetationBiomeModifierSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Per-biome vegetation multiplier/bonus applied after base density.",
   }
 );
 
-type VegetationBiomeModifierDefault = { multiplier: number; bonus: number };
-type VegetationBiomeModifiersDefault = {
-  snow: VegetationBiomeModifierDefault;
-  tundra: VegetationBiomeModifierDefault;
-  boreal: VegetationBiomeModifierDefault;
-  temperateDry: VegetationBiomeModifierDefault;
-  temperateHumid: VegetationBiomeModifierDefault;
-  tropicalSeasonal: VegetationBiomeModifierDefault;
-  tropicalRainforest: VegetationBiomeModifierDefault;
-  desert: VegetationBiomeModifierDefault;
-};
-
-const DEFAULT_VEGETATION_BIOME_MODIFIERS: VegetationBiomeModifiersDefault = {
-  snow: { multiplier: 0.05, bonus: 0 },
-  tundra: { multiplier: 0.35, bonus: 0 },
-  boreal: { multiplier: 0.75, bonus: 0 },
-  temperateDry: { multiplier: 0.75, bonus: 0 },
-  temperateHumid: { multiplier: 1, bonus: 0 },
-  tropicalSeasonal: { multiplier: 1, bonus: 0 },
-  tropicalRainforest: { multiplier: 1, bonus: 0.25 },
-  desert: { multiplier: 0.1, bonus: 0 },
-};
-
 const VegetationBiomeModifiersSchema = Type.Object(
   {
     /** Modifiers for snow/ice biomes. */
-    snow: Type.Optional(VegetationBiomeModifierSchema),
+    snow: VegetationBiomeModifierSchema,
     /** Modifiers for tundra biomes. */
-    tundra: Type.Optional(VegetationBiomeModifierSchema),
+    tundra: VegetationBiomeModifierSchema,
     /** Modifiers for boreal forests. */
-    boreal: Type.Optional(VegetationBiomeModifierSchema),
+    boreal: VegetationBiomeModifierSchema,
     /** Modifiers for dry temperate grasslands/steppes. */
-    temperateDry: Type.Optional(VegetationBiomeModifierSchema),
+    temperateDry: VegetationBiomeModifierSchema,
     /** Modifiers for humid temperate plains/forests. */
-    temperateHumid: Type.Optional(VegetationBiomeModifierSchema),
+    temperateHumid: VegetationBiomeModifierSchema,
     /** Modifiers for seasonal tropical savannas. */
-    tropicalSeasonal: Type.Optional(VegetationBiomeModifierSchema),
+    tropicalSeasonal: VegetationBiomeModifierSchema,
     /** Modifiers for tropical rainforest zones. */
-    tropicalRainforest: Type.Optional(VegetationBiomeModifierSchema),
+    tropicalRainforest: VegetationBiomeModifierSchema,
     /** Modifiers for desert basins. */
-    desert: Type.Optional(VegetationBiomeModifierSchema),
+    desert: VegetationBiomeModifierSchema,
   },
   {
     additionalProperties: false,
-    default: DEFAULT_VEGETATION_BIOME_MODIFIERS,
     description: "Per-biome vegetation adjustments applied after base density.",
   }
 );
@@ -129,11 +104,10 @@ export const VegetationSchema = Type.Object(
      * Per-biome vegetation modifiers applied after the base density calculation.
      * Use this to thin deserts/snow or boost tropical rainforest lushness.
      */
-    biomeModifiers: Type.Optional(VegetationBiomeModifiersSchema),
+    biomeModifiers: VegetationBiomeModifiersSchema,
   },
   {
     additionalProperties: false,
-    default: { biomeModifiers: DEFAULT_VEGETATION_BIOME_MODIFIERS },
     description: "Vegetation density model knobs (base, moisture/humidity weights, biome tweaks).",
   }
 );

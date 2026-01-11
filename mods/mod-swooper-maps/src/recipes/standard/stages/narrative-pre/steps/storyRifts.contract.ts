@@ -9,10 +9,10 @@ const StoryRiftsStepConfigSchema = Type.Object(
       {
         rift: NarrativeConfigSchema.properties.story.properties.rift,
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
   },
-  { additionalProperties: false, default: { story: {} } }
+  { additionalProperties: false }
 );
 
 export const StoryRiftsStepContract = defineStepContract({

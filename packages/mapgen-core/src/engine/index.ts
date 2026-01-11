@@ -15,6 +15,7 @@ export {
   InvalidDependencyTagDemoError,
   UnknownDependencyTagError,
   UnsatisfiedProvidesError,
+  StepExecutionError,
 } from "@mapgen/engine/errors.js";
 export {
   TagRegistry,

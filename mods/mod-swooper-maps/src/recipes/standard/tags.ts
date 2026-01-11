@@ -14,18 +14,21 @@ import {
 } from "@swooper/mapgen-core";
 import type { DependencyTagDefinition, TagOwner } from "@swooper/mapgen-core/engine";
 import {
-  isBiomeClassificationArtifactV1,
-  isFeatureIntentsArtifactV1,
-  isNarrativeCorridorsV1,
-  isNarrativeMotifsHotspotsV1,
-  isNarrativeMotifsMarginsV1,
-  isNarrativeMotifsOrogenyV1,
-  isNarrativeMotifsRiftsV1,
-  isPedologyArtifactV1,
-  isResourceBasinsArtifactV1,
+  biomeClassificationArtifact,
+  climateFieldArtifact,
+  featureIntentsArtifact,
+  heightfieldArtifact,
+  narrativeCorridorsArtifact,
+  narrativeMotifsHotspotsArtifact,
+  narrativeMotifsMarginsArtifact,
+  narrativeMotifsOrogenyArtifact,
+  narrativeMotifsRiftsArtifact,
+  pedologyArtifact,
+  placementInputsArtifact,
+  placementOutputsArtifact,
+  resourceBasinsArtifact,
+  riverAdjacencyArtifact,
 } from "./artifacts.js";
-import { isPlacementInputsV1 } from "./stages/placement/placement-inputs.js";
-import { isPlacementOutputsV1 } from "./stages/placement/placement-outputs.js";
 
 export const M3_DEPENDENCY_TAGS = {
   artifact: {
@@ -77,8 +80,6 @@ export const M3_CANONICAL_DEPENDENCY_TAGS: ReadonlySet<string> = new Set([
 ]);
 
 const VERIFIED_EFFECT_TAGS = new Set<string>([
-  M4_EFFECT_TAGS.engine.landmassApplied,
-  M4_EFFECT_TAGS.engine.coastlinesApplied,
   M4_EFFECT_TAGS.engine.biomesApplied,
   M4_EFFECT_TAGS.engine.placementApplied,
 ]);
@@ -100,6 +101,8 @@ const EFFECT_OWNERS: Record<string, TagOwner> = {
     stepId: "placement",
   },
 };
+
+const demoDimensions = { width: 0, height: 0 } as const;
 
 type SatisfactionState = {
   satisfied: ReadonlySet<string>;
@@ -135,38 +138,39 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
     id: M3_DEPENDENCY_TAGS.artifact.heightfield,
     kind: "artifact",
     satisfies: (context) =>
-      isHeightfieldBuffer(
+      heightfieldArtifact.validate(
         context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield),
-        getExpectedSize(context)
-      ),
+        context.dimensions
+      ).length === 0,
     demo: {
       elevation: new Int16Array(0),
       terrain: new Uint8Array(0),
       landMask: new Uint8Array(0),
     },
-    validateDemo: (demo) => isHeightfieldBuffer(demo),
+    validateDemo: (demo) => heightfieldArtifact.validate(demo, demoDimensions).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.climateField,
     kind: "artifact",
     satisfies: (context) =>
-      isClimateFieldBuffer(
+      climateFieldArtifact.validate(
         context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.climateField),
-        getExpectedSize(context)
-      ),
+        context.dimensions
+      ).length === 0,
     demo: {
       rainfall: new Uint8Array(0),
       humidity: new Uint8Array(0),
     },
-    validateDemo: (demo) => isClimateFieldBuffer(demo),
+    validateDemo: (demo) => climateFieldArtifact.validate(demo, demoDimensions).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
     kind: "artifact",
     satisfies: (context) =>
-      isBiomeClassificationArtifactV1(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1)
-      ),
+      biomeClassificationArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1),
+        context.dimensions
+      ).length === 0,
     demo: {
       width: 0,
       height: 0,
@@ -177,25 +181,35 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
       aridityIndex: new Float32Array(0),
       freezeIndex: new Float32Array(0),
     },
-    validateDemo: (demo) => isBiomeClassificationArtifactV1(demo),
+    validateDemo: (demo) =>
+      biomeClassificationArtifact.validate(demo, demoDimensions).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.pedologyV1,
     kind: "artifact",
     satisfies: (context) =>
-      isPedologyArtifactV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.pedologyV1)),
+      pedologyArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.pedologyV1),
+        context.dimensions
+      ).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1,
     kind: "artifact",
     satisfies: (context) =>
-      isResourceBasinsArtifactV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1)),
+      resourceBasinsArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1),
+        context.dimensions
+      ).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.featureIntentsV1,
     kind: "artifact",
     satisfies: (context) =>
-      isFeatureIntentsArtifactV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.featureIntentsV1)),
+      featureIntentsArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.featureIntentsV1),
+        context.dimensions
+      ).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.storyOverlays,
@@ -208,54 +222,66 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
     id: M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
     kind: "artifact",
     satisfies: (context) =>
-      isNarrativeCorridorsV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1)),
+      narrativeCorridorsArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1),
+        context.dimensions
+      ).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
     kind: "artifact",
     satisfies: (context) =>
-      isNarrativeMotifsMarginsV1(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1)
-      ),
+      narrativeMotifsMarginsArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1),
+        context.dimensions
+      ).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
     kind: "artifact",
     satisfies: (context) =>
-      isNarrativeMotifsHotspotsV1(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1)
-      ),
+      narrativeMotifsHotspotsArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1),
+        context.dimensions
+      ).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
     kind: "artifact",
     satisfies: (context) =>
-      isNarrativeMotifsRiftsV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1)),
+      narrativeMotifsRiftsArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1),
+        context.dimensions
+      ).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
     kind: "artifact",
     satisfies: (context) =>
-      isNarrativeMotifsOrogenyV1(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1)
-      ),
+      narrativeMotifsOrogenyArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1),
+        context.dimensions
+      ).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
     kind: "artifact",
     satisfies: (context) =>
-      isUint8Array(
+      riverAdjacencyArtifact.validate(
         context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency),
-        getExpectedSize(context)
-      ),
+        context.dimensions
+      ).length === 0,
     demo: new Uint8Array(0),
-    validateDemo: (demo) => isUint8Array(demo),
+    validateDemo: (demo) => riverAdjacencyArtifact.validate(demo, demoDimensions).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.placementInputsV1,
     kind: "artifact",
     satisfies: (context) =>
-      isPlacementInputsV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementInputsV1)),
+      placementInputsArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementInputsV1),
+        context.dimensions
+      ).length === 0,
     demo: {
       mapInfo: { NumNaturalWonders: 0 },
       starts: {
@@ -275,13 +301,16 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
         starts: { strategy: "default", config: {} },
       },
     },
-    validateDemo: (demo) => isPlacementInputsV1(demo),
+    validateDemo: (demo) => placementInputsArtifact.validate(demo, demoDimensions).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.artifact.placementOutputsV1,
     kind: "artifact",
     satisfies: (context) =>
-      isPlacementOutputsV1(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1)),
+      placementOutputsArtifact.validate(
+        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1),
+        context.dimensions
+      ).length === 0,
     demo: {
       naturalWondersCount: 0,
       floodplainsCount: 0,
@@ -290,7 +319,7 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
       startsAssigned: 0,
       discoveriesCount: 0,
     },
-    validateDemo: (demo) => isPlacementOutputsV1(demo),
+    validateDemo: (demo) => placementOutputsArtifact.validate(demo, demoDimensions).length === 0,
   },
   {
     id: M3_DEPENDENCY_TAGS.field.terrainType,
@@ -356,8 +385,12 @@ export function registerStandardTags(registry: {
 function isPlacementOutputSatisfied(context: ExtendedMapContext, state: SatisfactionState): boolean {
   if (!state.satisfied.has(M4_EFFECT_TAGS.engine.placementApplied)) return false;
 
-  const outputs = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1);
-  if (!isPlacementOutputsV1(outputs)) return false;
+  let outputs: ReturnType<typeof placementOutputsArtifact["get"]>;
+  try {
+    outputs = placementOutputsArtifact.get(context);
+  } catch {
+    return false;
+  }
 
   const counts = [
     outputs.naturalWondersCount,
@@ -370,11 +403,13 @@ function isPlacementOutputSatisfied(context: ExtendedMapContext, state: Satisfac
   if (!counts.every((value) => Number.isFinite(value) && value >= 0)) return false;
   if (!Number.isInteger(outputs.startsAssigned)) return false;
 
-  const inputs = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementInputsV1);
-  if (isPlacementInputsV1(inputs)) {
+  try {
+    const inputs = placementInputsArtifact.get(context);
     const expectedPlayers =
       (inputs.starts?.playersLandmass1 ?? 0) + (inputs.starts?.playersLandmass2 ?? 0);
     if (expectedPlayers > 0 && outputs.startsAssigned < expectedPlayers) return false;
+  } catch {
+    // Placement inputs validation is optional for placementApplied satisfaction.
   }
 
   return true;
@@ -458,20 +493,4 @@ function isInt16Array(value: unknown, expectedSize?: number): value is Int16Arra
   if (!(value instanceof Int16Array)) return false;
   if (expectedSize == null) return true;
   return value.length === expectedSize;
-}
-
-function isHeightfieldBuffer(value: unknown, expectedSize?: number): boolean {
-  if (value == null || typeof value !== "object") return false;
-  const candidate = value as { elevation?: unknown; terrain?: unknown; landMask?: unknown };
-  return (
-    isInt16Array(candidate.elevation, expectedSize) &&
-    isUint8Array(candidate.terrain, expectedSize) &&
-    isUint8Array(candidate.landMask, expectedSize)
-  );
-}
-
-function isClimateFieldBuffer(value: unknown, expectedSize?: number): boolean {
-  if (value == null || typeof value !== "object") return false;
-  const candidate = value as { rainfall?: unknown; humidity?: unknown };
-  return isUint8Array(candidate.rainfall, expectedSize) && isUint8Array(candidate.humidity, expectedSize);
 }

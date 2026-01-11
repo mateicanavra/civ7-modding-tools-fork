@@ -19,8 +19,6 @@ export type DomainOpRuntime<Op extends DomainOpCompileAny> = Op extends DomainOp
       id: Op["id"];
       kind: Op["kind"];
       run: Op["run"];
-      validate: Op["validate"];
-      runValidated: Op["runValidated"];
     }>
   : never;
 
@@ -84,7 +82,5 @@ export function runtimeOp<Op extends DomainOpCompileAny>(op: Op): DomainOpRuntim
     id: op.id,
     kind: op.kind,
     run: op.run,
-    validate: op.validate,
-    runValidated: op.runValidated,
   } as DomainOpRuntime<Op>;
 }
