@@ -116,3 +116,30 @@ Nice step toward the target architecture: stages can now expose a `public` autho
 ### Cross-cutting Risks
 
 - `surfaceSchema` becomes the de facto “public API surface” for authored config; any mismatch between stage compile semantics and schema defaults will cause subtle config drift.
+
+## REVIEW m7-t05-domain-ops-registries
+
+### Quick Take
+
+This lands the right “ownership boundary”: domains export `compileOpsById`/`runtimeOpsById`, and authoring gets canonical binding helpers (`bindCompileOps`/`bindRuntimeOps`).
+
+### High-Leverage Issues
+
+- `compileOpsById` merging at the recipe boundary is a plain object spread; add a guardrail for duplicate `op.id` collisions so two domains can’t silently overwrite each other.
+- `runtimeOp` is a nice narrow surface, but it relies on compile-time op shape; if compile-only fields grow, consider making runtime projection explicit and tested.
+
+### Fix Now (Recommended)
+
+- Add a tiny assertion helper like `mergeOpsById(...registries)` that throws on collisions; use it in recipes when assembling `compileOpsById`.
+
+### Defer / Follow-up
+
+- Consider migrating domains to export only registries (and discourage exporting a free-form `ops` bag) once enforcement rules are in place.
+
+### Needs Discussion
+
+- Do we want “domain entrypoint only” imports enforced at build/lint time now, or is it deferred to F2 enforcement tightening?
+
+### Cross-cutting Risks
+
+- Op id collision handling becomes an ecosystem safety concern as more domains adopt registries; silent overwrites are extremely hard to debug.
