@@ -1,8 +1,7 @@
+import { clamp01 } from "@swooper/mapgen-core";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { PlanVegetationContract } from "../contract.js";
 import { biomeSymbolFromIndex, FEATURE_PLACEMENT_KEYS } from "@mapgen/domain/ecology/types.js";
-
-const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
 export const clusteredStrategy = createStrategy(PlanVegetationContract, "clustered", {
   run: (input, config) => {
