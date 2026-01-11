@@ -1,44 +1,25 @@
 import { planFloodplains } from "./ops/plan-floodplains/index.js";
+import { PlanFloodplainsContract } from "./ops/plan-floodplains/contract.js";
 import { planStarts } from "./ops/plan-starts/index.js";
+import { PlanStartsContract } from "./ops/plan-starts/contract.js";
 import { planWonders } from "./ops/plan-wonders/index.js";
-import type { DomainOpCompileAny, DomainOpRuntime, OpsById } from "@swooper/mapgen-core/authoring";
-import { runtimeOp } from "@swooper/mapgen-core/authoring";
+import { PlanWondersContract } from "./ops/plan-wonders/contract.js";
+import { createDomainOpsSurface } from "@swooper/mapgen-core/authoring";
 
-export const ops = {
+const opImplementations = {
   planFloodplains,
   planStarts,
   planWonders,
 } as const;
 
-type PlacementOp = (typeof ops)[keyof typeof ops];
-
-export const compileOpsById: OpsById<PlacementOp> = buildOpsById(ops);
-export const runtimeOpsById: OpsById<DomainOpRuntime<PlacementOp>> = buildRuntimeOpsById(ops);
+export const ops = createDomainOpsSurface(opImplementations);
 
 export { planFloodplains, planStarts, planWonders };
 
-export { PlanFloodplainsContract } from "./ops/plan-floodplains/contract.js";
-export { PlanStartsContract } from "./ops/plan-starts/contract.js";
-export { PlanWondersContract } from "./ops/plan-wonders/contract.js";
+export { PlanFloodplainsContract, PlanStartsContract, PlanWondersContract };
 
-function buildOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
-  input: TOps
-): OpsById<TOps[keyof TOps]> {
-  const out: Partial<OpsById<TOps[keyof TOps]>> = {};
-  for (const op of Object.values(input) as Array<TOps[keyof TOps]>) {
-    out[op.id as TOps[keyof TOps]["id"]] = op as OpsById<TOps[keyof TOps]>[TOps[keyof TOps]["id"]];
-  }
-  return out as OpsById<TOps[keyof TOps]>;
-}
-
-function buildRuntimeOpsById<const TOps extends Record<string, DomainOpCompileAny>>(
-  input: TOps
-): OpsById<DomainOpRuntime<TOps[keyof TOps]>> {
-  const out: Partial<OpsById<DomainOpRuntime<TOps[keyof TOps]>>> = {};
-  for (const op of Object.values(input) as Array<TOps[keyof TOps]>) {
-    const runtime = runtimeOp(op);
-    out[runtime.id as DomainOpRuntime<TOps[keyof TOps]>["id"]] =
-      runtime as OpsById<DomainOpRuntime<TOps[keyof TOps]>>[DomainOpRuntime<TOps[keyof TOps]>["id"]];
-  }
-  return out as OpsById<DomainOpRuntime<TOps[keyof TOps]>>;
-}
+export const contracts = {
+  planFloodplains: PlanFloodplainsContract,
+  planStarts: PlanStartsContract,
+  planWonders: PlanWondersContract,
+} as const;
