@@ -1,16 +1,11 @@
 import { Type, type Static } from "typebox";
 import { BiomeEngineBindingsSchema } from "./biome-bindings.js";
-import classifyBiomes from "./ops/classify-biomes/index.js";
-import planAquaticFeaturePlacements from "./ops/plan-aquatic-feature-placements/index.js";
-import planIceFeaturePlacements from "./ops/plan-ice-feature-placements/index.js";
-import planPlotEffects from "./ops/plan-plot-effects/index.js";
-import planVegetatedFeaturePlacements from "./ops/plan-vegetated-feature-placements/index.js";
-import planWetFeaturePlacements from "./ops/plan-wet-feature-placements/index.js";
+import contracts from "./contracts.js";
 /**
  * Biome classification config (Holdridge/Whittaker-inspired).
  * Sourced from the ecology domain operation to keep schema + logic colocated.
  */
-const BiomeConfigSchema = classifyBiomes.config;
+const BiomeConfigSchema = contracts.classifyBiomes.config;
 
 /**
  * Optional bindings from biome symbols -> engine biome globals.
@@ -22,10 +17,10 @@ const BiomeBindingsSchema = BiomeEngineBindingsSchema;
  */
 const FeaturesPlacementConfigSchema = Type.Object(
   {
-    vegetated: planVegetatedFeaturePlacements.config,
-    wet: planWetFeaturePlacements.config,
-    aquatic: planAquaticFeaturePlacements.config,
-    ice: planIceFeaturePlacements.config,
+    vegetated: contracts.planVegetatedFeaturePlacements.config,
+    wet: contracts.planWetFeaturePlacements.config,
+    aquatic: contracts.planAquaticFeaturePlacements.config,
+    ice: contracts.planIceFeaturePlacements.config,
   },
   { additionalProperties: false }
 );
@@ -33,7 +28,7 @@ const FeaturesPlacementConfigSchema = Type.Object(
 /**
  * Config for climate/ecology plot effects (snow, sand, burned).
  */
-const PlotEffectsConfigSchema = planPlotEffects.config;
+const PlotEffectsConfigSchema = contracts.planPlotEffects.config;
 
 /**
  * Localized feature bonuses around story elements.

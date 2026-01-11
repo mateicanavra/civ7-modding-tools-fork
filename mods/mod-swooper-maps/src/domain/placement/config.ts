@@ -1,6 +1,6 @@
 import { Type, type Static } from "typebox";
 
-import * as placement from "@mapgen/domain/placement";
+import placementContracts from "@mapgen/domain/placement/contracts";
 
 /**
  * Late-stage placement config (wonders, floodplains, starts).
@@ -8,9 +8,9 @@ import * as placement from "@mapgen/domain/placement";
  */
 export const PlacementConfigSchema = Type.Object(
   {
-    wonders: placement.ops.planWonders.config,
-    floodplains: placement.ops.planFloodplains.config,
-    starts: placement.ops.planStarts.config,
+    wonders: placementContracts.planWonders.config,
+    floodplains: placementContracts.planFloodplains.config,
+    starts: placementContracts.planStarts.config,
   },
   { additionalProperties: false }
 );

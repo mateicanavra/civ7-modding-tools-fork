@@ -1,32 +1,23 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type * as placement from "@mapgen/domain/placement";
+import type { Static, StepRuntimeOps } from "@swooper/mapgen-core/authoring";
 import type { PlacementInputsV1 } from "../../placement-inputs.js";
 import { getBaseStarts, getStandardRuntime } from "../../../../runtime.js";
 
-type PlanWondersConfig = Parameters<typeof placement.ops.planWonders.run>[1];
-type PlanFloodplainsConfig = Parameters<typeof placement.ops.planFloodplains.run>[1];
-type PlanStartsConfig = Parameters<typeof placement.ops.planStarts.run>[1];
+import DerivePlacementInputsContract from "./contract.js";
 
-type PlacementRuntimeOps = {
-  planStarts: Pick<typeof placement.ops.planStarts, "run">;
-  planWonders: Pick<typeof placement.ops.planWonders, "run">;
-  planFloodplains: Pick<typeof placement.ops.planFloodplains, "run">;
-};
+type DerivePlacementInputsConfig = Static<typeof DerivePlacementInputsContract.schema>;
+type DerivePlacementInputsOps = StepRuntimeOps<NonNullable<typeof DerivePlacementInputsContract.ops>>;
 
 export function buildPlacementInputs(
   context: ExtendedMapContext,
-  config: {
-    wonders: PlanWondersConfig;
-    floodplains: PlanFloodplainsConfig;
-    starts: PlanStartsConfig;
-  },
-  ops: PlacementRuntimeOps
+  config: DerivePlacementInputsConfig,
+  ops: DerivePlacementInputsOps
 ): PlacementInputsV1 {
   const runtime = getStandardRuntime(context);
   const baseStarts = getBaseStarts(context);
-  const startsPlan = ops.planStarts.run({ baseStarts }, config.starts);
-  const wondersPlan = ops.planWonders.run({ mapInfo: runtime.mapInfo }, config.wonders);
-  const floodplainsPlan = ops.planFloodplains.run({}, config.floodplains);
+  const startsPlan = ops.starts.run({ baseStarts }, config.starts);
+  const wondersPlan = ops.wonders.run({ mapInfo: runtime.mapInfo }, config.wonders);
+  const floodplainsPlan = ops.floodplains.run({}, config.floodplains);
 
   return {
     mapInfo: runtime.mapInfo,

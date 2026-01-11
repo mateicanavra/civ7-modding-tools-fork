@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import * as ecology from "@mapgen/domain/ecology";
+import ecologyContracts from "@mapgen/domain/ecology/contracts";
 
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
@@ -12,7 +12,7 @@ const PlotEffectsStepContract = defineStep({
   ],
   provides: [],
   ops: {
-    plotEffects: ecology.contracts.planPlotEffects,
+    plotEffects: ecologyContracts.planPlotEffects,
   },
   schema: Type.Object({}),
 });

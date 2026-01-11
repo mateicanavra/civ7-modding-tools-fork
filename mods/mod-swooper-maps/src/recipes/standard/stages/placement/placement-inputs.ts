@@ -1,16 +1,15 @@
 import { Type, type Static } from "typebox";
-import {
-  ops,
+import placementContracts, {
   PlanFloodplainsContract,
-  PlanWondersContract,
   PlanStartsContract,
-} from "@mapgen/domain/placement";
+  PlanWondersContract,
+} from "@mapgen/domain/placement/contracts";
 
 export const PlacementInputsConfigSchema = Type.Object(
   {
-    wonders: ops.planWonders.config,
-    floodplains: ops.planFloodplains.config,
-    starts: ops.planStarts.config,
+    wonders: placementContracts.planWonders.config,
+    floodplains: placementContracts.planFloodplains.config,
+    starts: placementContracts.planStarts.config,
   },
   { additionalProperties: false }
 );

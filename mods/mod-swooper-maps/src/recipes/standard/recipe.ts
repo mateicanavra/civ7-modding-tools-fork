@@ -1,7 +1,7 @@
 import { collectCompileOps, createRecipe } from "@swooper/mapgen-core/authoring";
 import type { CompiledRecipeConfigOf, RecipeConfigInputOf } from "@swooper/mapgen-core/authoring";
-import * as ecologyDomain from "@mapgen/domain/ecology";
-import * as placementDomain from "@mapgen/domain/placement";
+import * as ecologyDomain from "@mapgen/domain/ecology/ops";
+import * as placementDomain from "@mapgen/domain/placement/ops";
 
 import ecology from "./stages/ecology/index.js";
 import foundation from "./stages/foundation/index.js";

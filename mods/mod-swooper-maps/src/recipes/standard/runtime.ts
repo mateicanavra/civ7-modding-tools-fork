@@ -1,6 +1,6 @@
 import type { ContinentBounds, EngineAdapter, MapInfo } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { PlanStartsContract } from "@mapgen/domain/placement";
+import { PlanStartsContract } from "@mapgen/domain/placement/contracts";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
 type StartsConfig = Static<typeof PlanStartsContract["output"]>;
