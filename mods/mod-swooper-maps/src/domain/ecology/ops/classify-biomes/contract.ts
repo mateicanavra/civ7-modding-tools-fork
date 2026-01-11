@@ -41,12 +41,8 @@ const BiomeClassificationInputSchema = Type.Object(
     elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
     latitude: TypedArraySchemas.f32({ description: "Latitude per tile (degrees)." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
-    corridorMask: Type.Optional(
-      TypedArraySchemas.u8({ description: "Narrative corridor mask per tile." })
-    ),
-    riftShoulderMask: Type.Optional(
-      TypedArraySchemas.u8({ description: "Rift shoulder mask per tile." })
-    ),
+    corridorMask: TypedArraySchemas.u8({ description: "Narrative corridor mask per tile." }),
+    riftShoulderMask: TypedArraySchemas.u8({ description: "Rift shoulder mask per tile." }),
   },
   { additionalProperties: false }
 );

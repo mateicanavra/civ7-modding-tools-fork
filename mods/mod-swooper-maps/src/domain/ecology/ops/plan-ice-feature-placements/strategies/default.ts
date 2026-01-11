@@ -20,25 +20,22 @@ const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
 const NO_FEATURE = -1;
 
 function normalizeConfig(config: Config): Config {
-  const chances = config.chances ?? {};
-  const rules = config.rules ?? {};
+  const chances = config.chances;
+  const rules = config.rules;
 
   return {
     ...config,
-    multiplier: Math.max(0, config.multiplier ?? 0),
+    multiplier: Math.max(0, config.multiplier),
     chances: {
-      FEATURE_ICE: clampChance(chances.FEATURE_ICE ?? 0),
+      FEATURE_ICE: clampChance(chances.FEATURE_ICE),
     },
     rules: {
       ...rules,
-      minAbsLatitude: clamp(rules.minAbsLatitude ?? 0, 0, 90),
-      landAdjacencyRadius: Math.max(1, Math.floor(rules.landAdjacencyRadius ?? 1)),
-      naturalWonderAdjacencyRadius: Math.max(
-        1,
-        Math.floor(rules.naturalWonderAdjacencyRadius ?? 1)
-      ),
-      forbidAdjacentToLand: rules.forbidAdjacentToLand ?? true,
-      forbidAdjacentToNaturalWonders: rules.forbidAdjacentToNaturalWonders ?? true,
+      minAbsLatitude: clamp(rules.minAbsLatitude, 0, 90),
+      landAdjacencyRadius: Math.max(1, Math.floor(rules.landAdjacencyRadius)),
+      naturalWonderAdjacencyRadius: Math.max(1, Math.floor(rules.naturalWonderAdjacencyRadius)),
+      forbidAdjacentToLand: rules.forbidAdjacentToLand,
+      forbidAdjacentToNaturalWonders: rules.forbidAdjacentToNaturalWonders,
     },
   };
 }
@@ -46,9 +43,9 @@ function normalizeConfig(config: Config): Config {
 export const defaultStrategy = createStrategy(PlanIceFeaturePlacementsContract, "default", {
   normalize: (config) => normalizeConfig(config),
   run: (input, config) => {
-    const chances = config.chances!;
-    const rules = config.rules!;
-    const multiplier = config.multiplier!;
+    const chances = config.chances;
+    const rules = config.rules;
+    const multiplier = config.multiplier;
     const rng = createLabelRng(input.seed);
 
     const { width, height, landMask, latitude, featureKeyField, naturalWonderMask } = input;
@@ -80,11 +77,11 @@ export const defaultStrategy = createStrategy(PlanIceFeaturePlacementsContract, 
       placements.push({ x, y, feature: featureKey });
     };
 
-    const minAbsLatitude = rules.minAbsLatitude!;
-    const forbidAdjacentToLand = rules.forbidAdjacentToLand!;
-    const landAdjacencyRadius = rules.landAdjacencyRadius!;
-    const forbidAdjacentToNaturalWonders = rules.forbidAdjacentToNaturalWonders!;
-    const naturalWonderAdjacencyRadius = rules.naturalWonderAdjacencyRadius!;
+    const minAbsLatitude = rules.minAbsLatitude;
+    const forbidAdjacentToLand = rules.forbidAdjacentToLand;
+    const landAdjacencyRadius = rules.landAdjacencyRadius;
+    const forbidAdjacentToNaturalWonders = rules.forbidAdjacentToNaturalWonders;
+    const naturalWonderAdjacencyRadius = rules.naturalWonderAdjacencyRadius;
 
     if (multiplier > 0) {
       const iceChance = clampChance(chances.FEATURE_ICE! * multiplier);
@@ -94,7 +91,7 @@ export const defaultStrategy = createStrategy(PlanIceFeaturePlacementsContract, 
             if (!isWater(x, y)) continue;
             if (!canPlaceAt(x, y)) continue;
 
-            const absLat = Math.abs(latitude[y * width + x] ?? 0);
+            const absLat = Math.abs(latitude[y * width + x]);
             if (absLat < minAbsLatitude) continue;
             if (
               forbidAdjacentToLand &&

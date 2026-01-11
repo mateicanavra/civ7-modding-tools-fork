@@ -4,10 +4,6 @@ import { AggregatePedologyContract } from "../contract.js";
 export const defaultStrategy = createStrategy(AggregatePedologyContract, "default", {
   run: (input, config) => {
     const { width, height } = input;
-    const size = width * height;
-    if (input.soilType.length !== size || input.fertility.length !== size) {
-      throw new Error("Aggregate pedology: mismatched input sizes.");
-    }
     const cellSize = config.cellSize;
     const cells = [];
 
@@ -20,8 +16,8 @@ export const defaultStrategy = createStrategy(AggregatePedologyContract, "defaul
           const row = (y + dy) * width;
           for (let dx = 0; dx < cellSize && x + dx < width; dx++) {
             const idx = row + x + dx;
-            totalFertility += input.fertility[idx] ?? 0;
-            const soil = input.soilType[idx] ?? 0;
+            totalFertility += input.fertility[idx];
+            const soil = input.soilType[idx];
             soilCounts[soil] = (soilCounts[soil] ?? 0) + 1;
             count += 1;
           }
