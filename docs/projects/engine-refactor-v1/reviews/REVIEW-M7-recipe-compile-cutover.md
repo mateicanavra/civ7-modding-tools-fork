@@ -89,3 +89,30 @@ Good guardrail: kebab-case enforcement is pushed into both `defineStepContract` 
 ### Cross-cutting Risks
 
 - Id convention enforcement will cascade into config keys and compiler paths; changing it later will be expensive, so treat it as locked once used in authored configs.
+
+## REVIEW m7-t04-stage-option-a
+
+### Quick Take
+
+Nice step toward the target architecture: stages can now expose a `public` authoring surface and a `compile` function, while still supporting “internal-as-public” fallback stages during migration.
+
+### High-Leverage Issues
+
+- `createStage` now synthesizes `surfaceSchema` and `toInternal`; this is a new public contract. Keep the reserved key rules (`knobs`) and compile-output restrictions enforced by tests, because many downstream failures will otherwise show up late in runtime.
+- The “internal-as-public” surface uses `Type.Unknown()` for step config slots; that’s fine as a migration bridge, but it’s also a footgun if it becomes long-lived (unknown keys won’t be caught until step-level strict normalization).
+
+### Fix Now (Recommended)
+
+- Add a test that a stage with `public` but missing `compile` throws, and that a `compile` returning `knobs` throws (reserved key enforcement).
+
+### Defer / Follow-up
+
+- Consider sharing the kebab-case validation helper between stage and step contract code to avoid diverging error messages.
+
+### Needs Discussion
+
+- Should `compile` be allowed to omit step ids entirely (treated as empty) vs. required to return at least `{}` for every declared step? Today it’s permissive; confirm that’s the intended authoring DX.
+
+### Cross-cutting Risks
+
+- `surfaceSchema` becomes the de facto “public API surface” for authored config; any mismatch between stage compile semantics and schema defaults will cause subtle config drift.
