@@ -45,3 +45,5 @@ export const AggregatePedologyContract = defineOpContract({
     default: AggregatePedologyConfigSchema,
   },
 });
+
+export default AggregatePedologyContract;

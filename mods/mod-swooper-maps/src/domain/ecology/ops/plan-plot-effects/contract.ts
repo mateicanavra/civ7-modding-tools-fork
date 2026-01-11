@@ -172,3 +172,5 @@ export const PlanPlotEffectsContract = defineOpContract({
     default: PlotEffectsConfigSchema,
   },
 });
+
+export default PlanPlotEffectsContract;

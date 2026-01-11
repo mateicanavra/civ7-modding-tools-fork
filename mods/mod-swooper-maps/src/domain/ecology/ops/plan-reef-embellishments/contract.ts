@@ -69,3 +69,5 @@ export const PlanReefEmbellishmentsContract = defineOpContract({
     default: ReefEmbellishmentsConfigSchema,
   },
 });
+
+export default PlanReefEmbellishmentsContract;

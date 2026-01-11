@@ -28,3 +28,5 @@ export const FeaturesApplyContract = defineOpContract({
     ),
   },
 });
+
+export default FeaturesApplyContract;

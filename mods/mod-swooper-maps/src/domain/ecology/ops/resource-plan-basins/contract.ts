@@ -60,3 +60,5 @@ export const ResourcePlanBasinsContract = defineOpContract({
     mixed: ResourcePlanBasinsConfigSchema,
   },
 });
+
+export default ResourcePlanBasinsContract;

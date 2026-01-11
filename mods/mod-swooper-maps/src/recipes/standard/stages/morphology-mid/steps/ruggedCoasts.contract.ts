@@ -22,3 +22,5 @@ export const RuggedCoastsStepContract = defineStepContract({
   provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
   schema: RuggedCoastsStepConfigSchema,
 });
+
+export default RuggedCoastsStepContract;

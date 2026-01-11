@@ -31,3 +31,5 @@ export const RiversStepContract = defineStepContract({
   ],
   schema: RiversStepConfigSchema,
 });
+
+export default RiversStepContract;

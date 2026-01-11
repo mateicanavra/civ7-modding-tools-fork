@@ -11,3 +11,5 @@ export const CoastlinesStepContract = defineStepContract({
   provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
   schema: EmptySchema,
 });
+
+export default CoastlinesStepContract;

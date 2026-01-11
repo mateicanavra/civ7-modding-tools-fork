@@ -10,3 +10,5 @@ export const planPlotEffects = createOp(PlanPlotEffectsContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default planPlotEffects;

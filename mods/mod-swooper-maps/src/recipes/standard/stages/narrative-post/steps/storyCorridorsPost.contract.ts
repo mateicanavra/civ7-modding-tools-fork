@@ -25,3 +25,5 @@ export const StoryCorridorsPostStepContract = defineStepContract({
   ],
   schema: StoryCorridorsStepConfigSchema,
 });
+
+export default StoryCorridorsPostStepContract;

@@ -10,3 +10,5 @@ export const planReefEmbellishments = createOp(PlanReefEmbellishmentsContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default planReefEmbellishments;

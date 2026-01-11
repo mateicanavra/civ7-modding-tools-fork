@@ -23,3 +23,5 @@ export const contracts = {
   planStarts: PlanStartsContract,
   planWonders: PlanWondersContract,
 } as const;
+
+export default ops;

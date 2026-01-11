@@ -16,3 +16,5 @@ export const classifyPedology = createOp(PedologyClassifyContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default classifyPedology;

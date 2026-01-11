@@ -41,3 +41,5 @@ export const PlanWondersContract = defineOpContract({
     default: WondersConfigSchema,
   },
 });
+
+export default PlanWondersContract;

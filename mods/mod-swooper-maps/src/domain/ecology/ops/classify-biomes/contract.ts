@@ -68,3 +68,5 @@ export const BiomeClassificationContract = defineOpContract({
     default: BiomeClassificationConfigSchema,
   },
 });
+
+export default BiomeClassificationContract;

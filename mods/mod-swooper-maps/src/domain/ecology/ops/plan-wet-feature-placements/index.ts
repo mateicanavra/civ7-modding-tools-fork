@@ -12,3 +12,4 @@ export const planWetFeaturePlacements = createOp(PlanWetFeaturePlacementsContrac
 export * from "./contract.js";
 export type * from "./types.js";
 
+export default planWetFeaturePlacements;

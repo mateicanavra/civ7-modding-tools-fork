@@ -28,3 +28,5 @@ export const StoryRiftsStepContract = defineStepContract({
   ],
   schema: StoryRiftsStepConfigSchema,
 });
+
+export default StoryRiftsStepContract;

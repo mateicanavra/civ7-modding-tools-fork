@@ -36,3 +36,5 @@ export const RefineBiomeEdgesContract = defineOpContract({
     gaussian: RefineBiomeEdgesConfigSchema,
   },
 });
+
+export default RefineBiomeEdgesContract;

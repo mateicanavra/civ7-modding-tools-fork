@@ -18,3 +18,5 @@ export const LandmassPlatesStepContract = defineStepContract({
   provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   schema: LandmassStepConfigSchema,
 });
+
+export default LandmassPlatesStepContract;

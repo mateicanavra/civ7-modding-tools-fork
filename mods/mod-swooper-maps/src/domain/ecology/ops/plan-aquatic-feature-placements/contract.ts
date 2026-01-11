@@ -97,3 +97,5 @@ export const PlanAquaticFeaturePlacementsContract = defineOpContract({
     default: AquaticFeaturePlacementsConfigSchema,
   },
 });
+
+export default PlanAquaticFeaturePlacementsContract;

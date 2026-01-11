@@ -25,3 +25,5 @@ export const StoryHotspotsStepContract = defineStepContract({
   ],
   schema: StoryHotspotsStepConfigSchema,
 });
+
+export default StoryHotspotsStepContract;

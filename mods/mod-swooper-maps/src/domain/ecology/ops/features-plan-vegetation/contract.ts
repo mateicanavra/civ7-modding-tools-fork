@@ -42,3 +42,5 @@ export const PlanVegetationContract = defineOpContract({
     clustered: PlanVegetationConfigSchema,
   },
 });
+
+export default PlanVegetationContract;

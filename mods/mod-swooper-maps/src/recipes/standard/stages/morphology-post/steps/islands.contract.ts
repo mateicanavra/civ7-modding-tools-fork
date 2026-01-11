@@ -37,3 +37,5 @@ export const IslandsStepContract = defineStepContract({
   ],
   schema: IslandsStepConfigSchema,
 });
+
+export default IslandsStepContract;

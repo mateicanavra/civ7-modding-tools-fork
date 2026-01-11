@@ -12,3 +12,5 @@ export const planResourceBasins = createOp(ResourcePlanBasinsContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default planResourceBasins;

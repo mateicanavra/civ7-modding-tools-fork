@@ -12,3 +12,4 @@ export const planIceFeaturePlacements = createOp(PlanIceFeaturePlacementsContrac
 export * from "./contract.js";
 export type * from "./types.js";
 
+export default planIceFeaturePlacements;
