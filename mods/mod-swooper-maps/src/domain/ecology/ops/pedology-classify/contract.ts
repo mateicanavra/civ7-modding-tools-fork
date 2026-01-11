@@ -1,7 +1,9 @@
 import { Type, TypedArraySchemas, defineOpContract } from "@swooper/mapgen-core/authoring";
 
-const PedologyClassifyInputSchema = Type.Object(
-  {
+const PedologyClassifyContract = defineOpContract({
+  kind: "compute",
+  id: "ecology/pedology/classify",
+  input: Type.Object({
     width: Type.Integer({ minimum: 1 }),
     height: Type.Integer({ minimum: 1 }),
     landMask: TypedArraySchemas.u8({ description: "Land mask (1 = land, 0 = water)." }),
@@ -25,35 +27,35 @@ const PedologyClassifyInputSchema = Type.Object(
         TypedArraySchemas.f32({ description: "Optional slope or relief proxy (0..1)." }),
         Type.Undefined(),
       ])
-    )},
-  {}
-);
-
-const PedologyClassifyOutputSchema = Type.Object(
-  {
+    ),
+  }),
+  output: Type.Object({
     soilType: TypedArraySchemas.u8({ description: "Soil palette index per tile." }),
-    fertility: TypedArraySchemas.f32({ description: "Fertility score per tile (0..1)." })},
-  {}
-);
-
-const PedologyClassifyConfigSchema = Type.Object(
-  {
-    climateWeight: Type.Number({ minimum: 0, maximum: 5, default: 1.2 }),
-    reliefWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.8 }),
-    sedimentWeight: Type.Number({ minimum: 0, maximum: 5, default: 1.1 }),
-    bedrockWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.6 }),
-    fertilityCeiling: Type.Number({ minimum: 0, maximum: 1, default: 0.95 })},
-  {}
-);
-
-const PedologyClassifyContract = defineOpContract({
-  kind: "compute",
-  id: "ecology/pedology/classify",
-  input: PedologyClassifyInputSchema,
-  output: PedologyClassifyOutputSchema,
+    fertility: TypedArraySchemas.f32({ description: "Fertility score per tile (0..1)." }),
+  }),
   strategies: {
-    default: PedologyClassifyConfigSchema,
-    "coastal-shelf": PedologyClassifyConfigSchema,
-    "orogeny-boosted": PedologyClassifyConfigSchema}});
+    default: Type.Object({
+      climateWeight: Type.Number({ minimum: 0, maximum: 5, default: 1.2 }),
+      reliefWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.8 }),
+      sedimentWeight: Type.Number({ minimum: 0, maximum: 5, default: 1.1 }),
+      bedrockWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.6 }),
+      fertilityCeiling: Type.Number({ minimum: 0, maximum: 1, default: 0.95 }),
+    }),
+    "coastal-shelf": Type.Object({
+      climateWeight: Type.Number({ minimum: 0, maximum: 5, default: 1.2 }),
+      reliefWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.8 }),
+      sedimentWeight: Type.Number({ minimum: 0, maximum: 5, default: 1.1 }),
+      bedrockWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.6 }),
+      fertilityCeiling: Type.Number({ minimum: 0, maximum: 1, default: 0.95 }),
+    }),
+    "orogeny-boosted": Type.Object({
+      climateWeight: Type.Number({ minimum: 0, maximum: 5, default: 1.2 }),
+      reliefWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.8 }),
+      sedimentWeight: Type.Number({ minimum: 0, maximum: 5, default: 1.1 }),
+      bedrockWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.6 }),
+      fertilityCeiling: Type.Number({ minimum: 0, maximum: 1, default: 0.95 }),
+    }),
+  },
+});
 
 export default PedologyClassifyContract;

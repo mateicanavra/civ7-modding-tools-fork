@@ -3,12 +3,6 @@ import { FoundationConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
-const FoundationStepConfigSchema = Type.Object(
-  {
-    foundation: FoundationConfigSchema},
-  {}
-);
-
 const FoundationStepContract = defineStepContract({
   id: "foundation",
   phase: "foundation",
@@ -20,6 +14,9 @@ const FoundationStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.foundationDiagnosticsV1,
     M3_DEPENDENCY_TAGS.artifact.foundationConfigV1,
   ],
-  schema: FoundationStepConfigSchema});
+  schema: Type.Object({
+    foundation: FoundationConfigSchema,
+  }),
+});
 
 export default FoundationStepContract;

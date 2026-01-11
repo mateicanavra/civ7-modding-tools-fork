@@ -3,16 +3,6 @@ import { NarrativeConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
-const StoryOrogenyStepConfigSchema = Type.Object(
-  {
-    story: Type.Object(
-      {
-        orogeny: NarrativeConfigSchema.properties.story.properties.orogeny},
-      {}
-    )},
-  {}
-);
-
 const StoryOrogenyStepContract = defineStepContract({
   id: "story-orogeny",
   phase: "morphology",
@@ -25,6 +15,11 @@ const StoryOrogenyStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.storyOverlays,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
   ],
-  schema: StoryOrogenyStepConfigSchema});
+  schema: Type.Object({
+    story: Type.Object({
+      orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,
+    }),
+  }),
+});
 
 export default StoryOrogenyStepContract;

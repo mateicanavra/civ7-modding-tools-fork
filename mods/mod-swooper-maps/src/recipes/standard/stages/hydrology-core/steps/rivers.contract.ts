@@ -3,20 +3,6 @@ import { ClimateConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
-const RiversStepConfigSchema = Type.Object(
-  {
-    climate: Type.Object(
-      {
-        story: Type.Object(
-          {
-            paleo: Type.Optional(ClimateConfigSchema.properties.story.properties.paleo)},
-          {}
-        )},
-      {}
-    )},
-  {}
-);
-
 const RiversStepContract = defineStepContract({
   id: "rivers",
   phase: "hydrology",
@@ -26,6 +12,13 @@ const RiversStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.heightfield,
     M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
   ],
-  schema: RiversStepConfigSchema});
+  schema: Type.Object({
+    climate: Type.Object({
+      story: Type.Object({
+        paleo: Type.Optional(ClimateConfigSchema.properties.story.properties.paleo),
+      }),
+    }),
+  }),
+});
 
 export default RiversStepContract;

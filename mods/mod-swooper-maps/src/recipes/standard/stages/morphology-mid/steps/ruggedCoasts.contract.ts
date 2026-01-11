@@ -3,13 +3,6 @@ import { MorphologyConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/co
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
-const RuggedCoastsStepConfigSchema = Type.Object(
-  {
-    coastlines: MorphologyConfigSchema.properties.coastlines,
-    corridors: NarrativeConfigSchema.properties.corridors},
-  {}
-);
-
 const RuggedCoastsStepContract = defineStepContract({
   id: "rugged-coasts",
   phase: "morphology",
@@ -19,6 +12,10 @@ const RuggedCoastsStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
   ],
   provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
-  schema: RuggedCoastsStepConfigSchema});
+  schema: Type.Object({
+    coastlines: MorphologyConfigSchema.properties.coastlines,
+    corridors: NarrativeConfigSchema.properties.corridors,
+  }),
+});
 
 export default RuggedCoastsStepContract;

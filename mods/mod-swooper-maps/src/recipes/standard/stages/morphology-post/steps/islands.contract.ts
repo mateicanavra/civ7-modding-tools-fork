@@ -3,22 +3,6 @@ import { MorphologyConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/co
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
-const IslandsStepConfigSchema = Type.Object(
-  {
-    islands: MorphologyConfigSchema.properties.islands,
-    story: Type.Object(
-      {
-        hotspot: NarrativeConfigSchema.properties.story.properties.hotspot},
-      {}
-    ),
-    corridors: Type.Object(
-      {
-        sea: NarrativeConfigSchema.properties.corridors.properties.sea},
-      {}
-    )},
-  {}
-);
-
 const IslandsStepContract = defineStepContract({
   id: "islands",
   phase: "morphology",
@@ -32,6 +16,15 @@ const IslandsStepContract = defineStepContract({
     M4_EFFECT_TAGS.engine.landmassApplied,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
   ],
-  schema: IslandsStepConfigSchema});
+  schema: Type.Object({
+    islands: MorphologyConfigSchema.properties.islands,
+    story: Type.Object({
+      hotspot: NarrativeConfigSchema.properties.story.properties.hotspot,
+    }),
+    corridors: Type.Object({
+      sea: NarrativeConfigSchema.properties.corridors.properties.sea,
+    }),
+  }),
+});
 
 export default IslandsStepContract;
