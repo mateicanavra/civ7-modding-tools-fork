@@ -1,5 +1,5 @@
 import { createLabelRng, type LabelRng } from "@swooper/mapgen-core";
-import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 
 import type { PlotEffectKey } from "@mapgen/domain/ecology/types.js";
 
@@ -8,6 +8,7 @@ import { PlanPlotEffectsContract } from "../contract.js";
 import { resolveSnowElevationRange } from "../rules/index.js";
 
 type PlotEffectSelector = { typeName: PlotEffectKey };
+type Config = Static<(typeof PlanPlotEffectsContract)["strategies"]["default"]>;
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
@@ -32,7 +33,30 @@ const normalizeSelector = (selector: { typeName: string }): PlotEffectSelector =
   typeName: normalizePlotEffectKey(selector.typeName),
 });
 
+function normalizeConfig(config: Config): Config {
+  return {
+    ...config,
+    snow: {
+      ...config.snow,
+      selectors: {
+        light: normalizeSelector(config.snow.selectors.light),
+        medium: normalizeSelector(config.snow.selectors.medium),
+        heavy: normalizeSelector(config.snow.selectors.heavy),
+      },
+    },
+    sand: {
+      ...config.sand,
+      selector: normalizeSelector(config.sand.selector),
+    },
+    burned: {
+      ...config.burned,
+      selector: normalizeSelector(config.burned.selector),
+    },
+  };
+}
+
 export const defaultStrategy = createStrategy(PlanPlotEffectsContract, "default", {
+  normalize: (config) => normalizeConfig(config),
   run: (input, config) => {
     const { width, height, landMask } = input;
     const placements: Array<{ x: number; y: number; plotEffect: PlotEffectKey }> = [];
@@ -42,13 +66,9 @@ export const defaultStrategy = createStrategy(PlanPlotEffectsContract, "default"
     const sand = config.sand;
     const burned = config.burned;
 
-    const snowSelectors = {
-      light: normalizeSelector(snow.selectors.light),
-      medium: normalizeSelector(snow.selectors.medium),
-      heavy: normalizeSelector(snow.selectors.heavy),
-    };
-    const sandSelector = normalizeSelector(sand.selector);
-    const burnedSelector = normalizeSelector(burned.selector);
+    const snowSelectors = snow.selectors;
+    const sandSelector = sand.selector;
+    const burnedSelector = burned.selector;
 
     const sandBiomeSet = new Set(sand.allowedBiomes);
     const burnedBiomeSet = new Set(burned.allowedBiomes);

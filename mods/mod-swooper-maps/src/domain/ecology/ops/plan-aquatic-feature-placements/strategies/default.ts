@@ -8,6 +8,7 @@ import {
 } from "../contract.js";
 import { hasAdjacentFeatureType, isAdjacentToShallowWater } from "../rules/index.js";
 
+type Config = Static<typeof AquaticFeaturePlacementsConfigSchema>;
 type Placement = Static<(typeof PlanAquaticFeaturePlacementsContract)["output"]>["placements"][number];
 
 const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
@@ -25,25 +26,46 @@ const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
 
 const NO_FEATURE = -1;
 
+function normalizeConfig(config: Config): Config {
+  const chances = config.chances ?? {};
+  const rules = config.rules ?? {};
+  const atoll = rules.atoll ?? {};
+
+  return {
+    ...config,
+    multiplier: Math.max(0, config.multiplier ?? 0),
+    chances: {
+      FEATURE_REEF: clampChance(chances.FEATURE_REEF ?? 0),
+      FEATURE_COLD_REEF: clampChance(chances.FEATURE_COLD_REEF ?? 0),
+      FEATURE_ATOLL: clampChance(chances.FEATURE_ATOLL ?? 0),
+      FEATURE_LOTUS: clampChance(chances.FEATURE_LOTUS ?? 0),
+    },
+    rules: {
+      ...rules,
+      reefLatitudeSplit: clamp(rules.reefLatitudeSplit ?? 0, 0, 90),
+      atoll: {
+        enableClustering: atoll.enableClustering ?? true,
+        clusterRadius: clamp(Math.floor(atoll.clusterRadius ?? 0), 0, 2),
+        equatorialBandMaxAbsLatitude: clamp(atoll.equatorialBandMaxAbsLatitude ?? 0, 0, 90),
+        shallowWaterAdjacencyGateChance: clampChance(atoll.shallowWaterAdjacencyGateChance ?? 0),
+        shallowWaterAdjacencyRadius: Math.max(1, Math.floor(atoll.shallowWaterAdjacencyRadius ?? 1)),
+        growthChanceEquatorial: clampChance(atoll.growthChanceEquatorial ?? 0),
+        growthChanceNonEquatorial: clampChance(atoll.growthChanceNonEquatorial ?? 0),
+      },
+    },
+  };
+}
+
 export const defaultStrategy = createStrategy(PlanAquaticFeaturePlacementsContract, "default", {
+  normalize: (config) => normalizeConfig(config),
   run: (input, config) => {
     const rng = createLabelRng(input.seed);
 
     const chances = config.chances!;
     const rules = config.rules!;
-    const atoll = rules.atoll!;
-    const multiplier = Math.max(0, config.multiplier!);
-
-    const reefLatitudeSplit = clamp(rules.reefLatitudeSplit!, 0, 90);
-    const atollCfg = {
-      enableClustering: atoll.enableClustering!,
-      clusterRadius: clamp(Math.floor(atoll.clusterRadius!), 0, 2),
-      equatorialBandMaxAbsLatitude: clamp(atoll.equatorialBandMaxAbsLatitude!, 0, 90),
-      shallowWaterAdjacencyGateChance: clampChance(atoll.shallowWaterAdjacencyGateChance!),
-      shallowWaterAdjacencyRadius: Math.max(1, Math.floor(atoll.shallowWaterAdjacencyRadius!)),
-      growthChanceEquatorial: clampChance(atoll.growthChanceEquatorial!),
-      growthChanceNonEquatorial: clampChance(atoll.growthChanceNonEquatorial!),
-    };
+    const atollCfg = rules.atoll!;
+    const multiplier = config.multiplier!;
+    const reefLatitudeSplit = rules.reefLatitudeSplit!;
 
     const { width, height, landMask, terrainType, latitude, featureKeyField, coastTerrain } = input;
     const isWater = (x: number, y: number): boolean => landMask[y * width + x] === 0;

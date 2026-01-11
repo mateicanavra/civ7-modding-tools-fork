@@ -1,4 +1,4 @@
-import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 import { createLabelRng, type LabelRng } from "@swooper/mapgen-core";
 
 import {
@@ -15,6 +15,8 @@ const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
   return acc;
 }, {} as Record<FeatureKey, number>);
 
+type Config = Static<(typeof PlanWetFeaturePlacementsContract)["strategies"]["default"]>;
+
 const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
 
 const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
@@ -22,7 +24,34 @@ const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
 
 const NO_FEATURE = -1;
 
+function normalizeRadius(value: number): number {
+  return Math.max(1, Math.floor(value));
+}
+
+function normalizeConfig(config: Config): Config {
+  const rules = config.rules;
+  return {
+    ...config,
+    multiplier: Math.max(0, config.multiplier),
+    chances: {
+      FEATURE_MARSH: clampChance(config.chances.FEATURE_MARSH),
+      FEATURE_TUNDRA_BOG: clampChance(config.chances.FEATURE_TUNDRA_BOG),
+      FEATURE_MANGROVE: clampChance(config.chances.FEATURE_MANGROVE),
+      FEATURE_OASIS: clampChance(config.chances.FEATURE_OASIS),
+      FEATURE_WATERING_HOLE: clampChance(config.chances.FEATURE_WATERING_HOLE),
+    },
+    rules: {
+      ...rules,
+      nearRiverRadius: normalizeRadius(rules.nearRiverRadius),
+      coastalAdjacencyRadius: normalizeRadius(rules.coastalAdjacencyRadius),
+      isolatedRiverRadius: normalizeRadius(rules.isolatedRiverRadius),
+      isolatedSpacingRadius: normalizeRadius(rules.isolatedSpacingRadius),
+    },
+  };
+}
+
 export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, "default", {
+  normalize: (config) => normalizeConfig(config),
   run: (input, config) => {
     const rng = createLabelRng(input.seed);
 
@@ -57,7 +86,7 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
       placements.push({ x, y, feature: featureKey });
     };
 
-    const multiplier = Math.max(0, config.multiplier);
+    const multiplier = config.multiplier;
     if (multiplier <= 0) {
       return { placements };
     }
@@ -65,8 +94,8 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
     const chances = config.chances;
     const rules = config.rules;
 
-    const marshChance = clampChance(clampChance(chances.FEATURE_MARSH) * multiplier);
-    const bogChance = clampChance(clampChance(chances.FEATURE_TUNDRA_BOG) * multiplier);
+    const marshChance = clampChance(chances.FEATURE_MARSH * multiplier);
+    const bogChance = clampChance(chances.FEATURE_TUNDRA_BOG * multiplier);
     if (marshChance > 0 || bogChance > 0) {
       const coldBiomeSet = new Set(rules.coldBiomeSymbols);
       for (let y = 0; y < height; y++) {
@@ -91,10 +120,10 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
       }
     }
 
-    const mangroveChance = clampChance(clampChance(chances.FEATURE_MANGROVE) * multiplier);
+    const mangroveChance = clampChance(chances.FEATURE_MANGROVE * multiplier);
     if (mangroveChance > 0) {
       const warmBiomeSet = new Set(rules.mangroveWarmBiomeSymbols);
-      const coastalRadius = Math.max(1, Math.floor(rules.coastalAdjacencyRadius));
+      const coastalRadius = rules.coastalAdjacencyRadius;
       for (let y = 0; y < height; y++) {
         const rowOffset = y * width;
         for (let x = 0; x < width; x++) {
@@ -117,14 +146,14 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
       }
     }
 
-    const oasisChance = clampChance(clampChance(chances.FEATURE_OASIS) * multiplier);
-    const wateringChance = clampChance(clampChance(chances.FEATURE_WATERING_HOLE) * multiplier);
+    const oasisChance = clampChance(chances.FEATURE_OASIS * multiplier);
+    const wateringChance = clampChance(chances.FEATURE_WATERING_HOLE * multiplier);
     if (oasisChance > 0 || wateringChance > 0) {
       const oasisBiomeSet = new Set(rules.oasisBiomeSymbols);
       const oasisIdx = FEATURE_KEY_INDEX.FEATURE_OASIS;
       const wateringIdx = FEATURE_KEY_INDEX.FEATURE_WATERING_HOLE;
-      const coastalRadius = Math.max(1, Math.floor(rules.coastalAdjacencyRadius));
-      const spacingRadius = Math.max(1, Math.floor(rules.isolatedSpacingRadius));
+      const coastalRadius = rules.coastalAdjacencyRadius;
+      const spacingRadius = rules.isolatedSpacingRadius;
       for (let y = 0; y < height; y++) {
         const rowOffset = y * width;
         for (let x = 0; x < width; x++) {
