@@ -78,7 +78,7 @@ This proposal **keeps that execution model**, but fixes authoring by making arti
 
 Extend step contracts so steps can declare artifacts they produce/consume in a structured, author-friendly way.
 
-**Key idea:** a step contract should be able to define artifacts with names that become the “public API surface” for artifact access.
+**Key idea:** an artifact contract includes a canonical `name` (flat, non-nested) that becomes the “public API surface” for artifact access everywhere it’s used.
 
 Example (sketch):
 
@@ -87,6 +87,7 @@ Example (sketch):
 import { Type, defineStep, defineArtifact } from "@mapgen/authoring";
 
 const featureIntents = defineArtifact({
+  name: "featureIntents",
   id: "artifact:ecology.featureIntents@v1",
   schema: Type.Object({ /* ... */ }, { additionalProperties: false }),
 });
@@ -95,8 +96,8 @@ export default defineStep({
   id: "feature-intents",
   phase: "ecology",
   artifacts: {
-    provides: { featureIntents },
-    requires: { /* ... */ },
+    provides: [featureIntents],
+    requires: [/* ... */],
   },
   schema: Type.Object({ /* config */ }),
 });
@@ -107,6 +108,19 @@ Contract-side consequences:
 - IDs and schemas are co-located with the owning producer step.
 - Consumers do not need to import tag constants to reference artifact IDs.
 - The step contract becomes the single declarative “shape” that downstream compilation can consume.
+
+#### Hard rule: no nested artifacts (and no per-step aliasing)
+
+Artifacts are **flat** at the contract surface and have a canonical name.
+
+- Allowed:
+  - `defineArtifact({ name: "featureIntents", ... })`
+  - `artifacts: { provides: [featureIntents, ...] }`
+- Not allowed:
+  - Any nested grouping in the artifact shape (e.g. `ecology: { featureIntents }`)
+  - “Renaming” an artifact per-step by giving it a different access name
+
+If authors want grouping, do it at the **file/module** level (folders/files), not in the artifact object shape. Artifact “names” should be globally meaningful and discoverable; stage/phase can live in the artifact `id` string (`artifact:ecology.featureIntents@v1`), not in object nesting.
 
 ### 2) Implement artifact runtime handlers next to the step implementation (runtime-side)
 
@@ -119,7 +133,7 @@ Example (sketch):
 import { createStep, implementArtifacts } from "@mapgen/authoring";
 import contract from "./contract.js";
 
-const artifacts = implementArtifacts(contract.artifacts, {
+const artifacts = implementArtifacts(contract.artifacts.provides, {
   // per-artifact runtime behavior
   featureIntents: {
     validate: (value, ctx) => { /* ... */ },
@@ -128,29 +142,43 @@ const artifacts = implementArtifacts(contract.artifacts, {
 });
 
 export default createStep(contract, {
-  run: (ctx, config, ops) => {
+  run: (ctx, config, ops, deps) => {
     // discoverable access: no random imports
-    const intents = ctx.deps.artifacts.featureIntents.read();
+    const intents = deps.artifacts.featureIntents.read(ctx);
     // ...
   },
   artifacts,
 });
 ```
 
-### 3) Attach a typed dependency surface to context (`ctx.deps`)
+### 3) Provide dependencies as a first-class `deps` parameter (recommended)
 
-Do not overload `ctx.artifacts` (currently a `Map`/`ArtifactStore`) with a new meaning.
+This matches the “thread runtime through binding” approach we already use for ops:
 
-Instead, attach a stable, discoverable surface:
+- `ops` is passed as a coherent object derived from the step contract
+- `deps` should be passed the same way, derived from the step contract and the compiled recipe
 
-- `ctx.deps.artifacts.<name>.read()` / `.publish(value)` / `.tryRead()`
-- `ctx.deps.fields.<fieldName>` (and/or helpers like `.require(...)`)
-- `ctx.deps.effects.<effectName>.emit()` (optional; see below)
+It also keeps the “low-level store” (`ctx.artifacts` as `ArtifactStore`) untouched and avoids context-mutation as a primary DX strategy.
+
+Shape goals:
+
+- `deps.artifacts.<name>.read(ctx)` / `.publish(ctx, value)` / `.tryRead(ctx)`
+- `deps.fields.<fieldName>` (and/or helpers like `.require(...)`)
+- `deps.effects.<effectName>.emit()` (optional; see below)
 
 This aligns with:
 
 - the existing “context holds shared runtime surfaces” precedent (e.g. `ctx.env`)
 - the tRPC “context typed at initialization, created at runtime” pattern
+
+### 3b) Why not `ctx.deps`?
+
+We can still attach `ctx.deps` internally if it helps implementation, but as an authoring surface it has two drawbacks:
+
+- It risks semantic confusion with `ctx.artifacts` (store) vs `ctx.deps.artifacts` (API).
+- It encourages “ambient dependencies” rather than explicit threading (which we’ve been moving away from with contract-first binding).
+
+So: prefer `deps` as a first-class parameter, with `ctx` remaining the runtime state container.
 
 ### 4) Compose step-level artifacts into recipe-level registries automatically
 
@@ -162,7 +190,7 @@ We extend compilation to:
 - assemble:
   - recipe-level artifact catalog (for tooling/introspection)
   - recipe-level `DependencyTagDefinition[]` entries for artifact tags, with satisfiers derived from artifact runtimes
-- attach `ctx.deps` at `recipe.run(...)` time (or at executor start) so steps always see the same API.
+- provide a stable `deps` surface to each step at runtime so steps always see the same API.
 
 This replaces the manual “roll-up tags + manual satisfiers” burden in `mods/mod-swooper-maps/src/recipes/standard/tags.ts` for artifacts.
 
@@ -184,7 +212,7 @@ export default createRecipe({
   // ...
   artifacts: {
     globals: {
-      heightfield: defineArtifact({ id: "artifact:heightfield", schema: Type.Any() }),
+      heightfield: defineArtifact({ name: "heightfield", id: "artifact:heightfield", schema: Type.Any() }),
     },
   },
 });
@@ -207,29 +235,34 @@ These signatures are representative; the final names can be tuned for local styl
 import type { Static, TSchema } from "typebox";
 
 export type ArtifactContract<
+  Name extends string = string,
   Id extends string = string,
   Schema extends TSchema = TSchema,
 > = Readonly<{
+  name: Name;
   id: Id;
   schema: Schema;
 }>;
 
-export type ArtifactValueOf<C extends ArtifactContract<any, any>> = Static<C["schema"]>;
+export type ArtifactValueOf<C extends ArtifactContract<any, any, any>> = Static<C["schema"]>;
 
-export function defineArtifact<const Id extends string, const Schema extends TSchema>(def: {
+export function defineArtifact<
+  const Name extends string,
+  const Id extends string,
+  const Schema extends TSchema,
+>(def: {
+  name: Name;
   id: Id;
   schema: Schema;
-}): ArtifactContract<Id, Schema>;
+}): ArtifactContract<Name, Id, Schema>;
 ```
 
 ### Step contract: artifacts block
 
 ```ts
-export type ArtifactContractsByName = Readonly<Record<string, ArtifactContract>>;
-
 export type StepArtifactsDecl = Readonly<{
-  requires?: ArtifactContractsByName;
-  provides?: ArtifactContractsByName;
+  requires?: readonly ArtifactContract[];
+  provides?: readonly ArtifactContract[];
 }>;
 ```
 
@@ -239,14 +272,19 @@ export type StepArtifactsDecl = Readonly<{
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { DependencyTagDefinition } from "@mapgen/engine/tags.js";
 
-export type ArtifactRuntime<C extends ArtifactContract, TContext extends ExtendedMapContext> =
+export type RequiredArtifactRuntime<C extends ArtifactContract, TContext extends ExtendedMapContext> =
   Readonly<{
     contract: C;
     read: (context: TContext) => ArtifactValueOf<C>;
     tryRead: (context: TContext) => ArtifactValueOf<C> | null;
-    publish: (context: TContext, value: ArtifactValueOf<C>) => ArtifactValueOf<C>;
-    satisfies: DependencyTagDefinition<TContext>["satisfies"];
   }>;
+
+export type ProvidedArtifactRuntime<C extends ArtifactContract, TContext extends ExtendedMapContext> =
+  RequiredArtifactRuntime<C, TContext> &
+    Readonly<{
+      publish: (context: TContext, value: ArtifactValueOf<C>) => ArtifactValueOf<C>;
+      satisfies: DependencyTagDefinition<TContext>["satisfies"];
+    }>;
 ```
 
 ### Implementer (contract -> runtime binding)
@@ -260,32 +298,39 @@ export type ArtifactRuntimeImpl<C extends ArtifactContract, TContext extends Ext
     freeze?: (value: ArtifactValueOf<C>) => ArtifactValueOf<C>; // default deep-freeze
     publish?: (context: TContext, value: ArtifactValueOf<C>) => void; // default store.set
     read?: (context: TContext) => unknown; // default store.get
+    satisfies?: DependencyTagDefinition<TContext>["satisfies"]; // default checks store.has + optional validate
   }>;
+
+type ArtifactsByName<T extends readonly ArtifactContract[]> = {
+  [C in T[number] as C["name"]]: C;
+};
 
 export function implementArtifacts<
   TContext extends ExtendedMapContext,
-  const Provides extends ArtifactContractsByName,
->(decl: { provides: Provides }, impl: {
-  [K in keyof Provides]: ArtifactRuntimeImpl<Provides[K], TContext>;
-}): { [K in keyof Provides]: ArtifactRuntime<Provides[K], TContext> };
+  const Provides extends readonly ArtifactContract[],
+>(provides: Provides, impl: {
+  [K in keyof ArtifactsByName<Provides>]: ArtifactRuntimeImpl<ArtifactsByName<Provides>[K], TContext>;
+}): { [K in keyof ArtifactsByName<Provides>]: ProvidedArtifactRuntime<ArtifactsByName<Provides>[K], TContext> };
 ```
 
-### Context surface (`ctx.deps`)
+### Step `deps` surface
 
 ```ts
 export type StepDeps<
   TContext extends ExtendedMapContext,
-  const Provides extends ArtifactContractsByName,
-  const Requires extends ArtifactContractsByName,
+  const Requires extends readonly ArtifactContract[],
+  const Provides extends readonly ArtifactContract[],
 > = Readonly<{
   artifacts: {
-    [K in keyof Provides | keyof Requires]:
-      ArtifactRuntime<
-        K extends keyof Provides ? Provides[K] :
-        K extends keyof Requires ? Requires[K] :
-        never,
-        TContext
-      >;
+    [K in keyof ArtifactsByName<Requires>]: RequiredArtifactRuntime<
+      ArtifactsByName<Requires>[K],
+      TContext
+    >;
+  } & {
+    [K in keyof ArtifactsByName<Provides>]: ProvidedArtifactRuntime<
+      ArtifactsByName<Provides>[K],
+      TContext
+    >;
   };
   fields: /* see fields plan */;
   effects: /* see effects plan */;
@@ -304,7 +349,7 @@ export type StepDeps<
 - Recipe compilation can validate:
   - tag existence
   - no duplicate tag IDs across recipe-level + step-level artifacts
-  - no name collisions in the `ctx.deps.artifacts` surface
+  - no name collisions in the step `deps.artifacts` surface (artifact names are flat; see “no nested artifacts”)
 
 ### Runtime (execution)
 
@@ -325,6 +370,26 @@ This fits current engine behavior:
 
 ---
 
+## Integration With `requires` / `provides` (Existing Step Gating)
+
+The current engine executes/gates steps using `StepContract.requires` and `StepContract.provides` (arrays of dependency tags). This proposal **does not** replace that mechanism.
+
+Instead:
+
+- A step’s `artifacts.requires` and `artifacts.provides` are authoring conveniences that compile into the underlying tag lists.
+- The recipe compiler (or `defineStep`) must ensure artifact tags are included in gating so executor behavior remains correct.
+
+Recommended invariant:
+
+- Authors should not manually list artifact tags in `requires`/`provides` when those same tags are declared via `contract.artifacts.*`.
+- The compiler should either:
+  - auto-merge artifact tags into `requires`/`provides`, or
+  - throw if a declared artifact tag appears redundantly in `requires`/`provides`.
+
+This keeps “what artifacts I need/produce” close to the step and avoids “double entry bookkeeping.”
+
+---
+
 ## Fields & Effects (Context Shape)
 
 Fields and effects can remain recipe-level dependencies (per the constraint), but the **access story** should match artifacts:
@@ -334,12 +399,12 @@ Fields and effects can remain recipe-level dependencies (per the constraint), bu
 
 Proposal direction (kept intentionally narrower than artifacts):
 
-- `ctx.deps.fields`:
+- `deps.fields`:
   - typed “ensure/require” helpers for `ctx.fields.<fieldName>`
   - optional allocation helpers for typed arrays (`ensureInt16(\"featureType\")`, etc.)
-- `ctx.deps.effects`:
+- `deps.effects`:
   - primarily a naming layer for `effect:*` tags that steps “provide”
-  - optional helper: `ctx.deps.effects.<name>.verify()` (thin wrapper over `ctx.adapter.verifyEffect`)
+  - optional helper: `deps.effects.<name>.verify(ctx)` (thin wrapper over `ctx.adapter.verifyEffect`)
 
 Fields/effects should not regress into a second artifact-like system; they should be context ergonomics and dependency naming, not a parallel data model.
 
@@ -366,14 +431,14 @@ Rejected as the default; kept only as an explicit escape hatch for true recipe-l
 - Pros: easiest to type and to make step-specific; no need to mutate context
 - Cons: artifacts are “data products” and conceptually belong on context; would create a second “parallel” dependency parameter alongside ops
 
-Not chosen, but compatible as an internal implementation tactic (e.g., `ctx.deps` can be derived from a bound artifact object).
+Not chosen as a separate parameter because this proposal bundles data-like dependencies (artifacts/fields/effects) together as `deps`.
 
 ### D) Replace `ctx.artifacts` (Map) with a new artifact API object
 
 - Pros: very clean calling sites: `ctx.artifacts.featureIntents.read()`
 - Cons: high churn: engine, executor satisfiers, existing code all assume `ctx.artifacts` is a `Map`
 
-Not chosen as the first move; we instead add `ctx.deps` and keep `ctx.artifacts` as the low-level store.
+Not chosen; we keep `ctx.artifacts` as the low-level store and thread a first-class `deps` surface into step runtime.
 
 ---
 
@@ -385,14 +450,13 @@ Not chosen as the first move; we instead add `ctx.deps` and keep `ctx.artifacts`
 4. Extend `createRecipe` to:
    - collect artifact contracts/runtimes from step modules
    - generate `DependencyTagDefinition[]` entries for those artifact tags (with satisfiers)
-   - attach a stable `ctx.deps` surface at runtime
+   - provide a stable `deps` surface at runtime
 5. Migrate `mods/mod-swooper-maps` standard recipe:
    - delete/flatten `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` into step-owned artifacts
    - remove artifact tag definitions and satisfiers from `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
    - update step contracts to declare artifact dependencies via the new step-centered artifact model
-   - update step implementations to use `ctx.deps.artifacts.*` instead of importing artifact handlers
+   - update step implementations to use `deps.artifacts.*` instead of importing artifact handlers
 6. Add tests:
    - compile-time “tag catalog completeness” tests for a recipe module (unit test)
    - runtime executor test(s) asserting missing provides fail with actionable errors
    - type-level tests (tsc/vitest) ensuring IntelliSense works (where we already have patterns)
-
