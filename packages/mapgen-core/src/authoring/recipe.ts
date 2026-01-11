@@ -15,6 +15,7 @@ import {
 import { createConsoleTraceSink } from "@mapgen/trace/index.js";
 import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
+import { bindRuntimeOps, runtimeOp, type DomainOpRuntimeAny } from "./bindings.js";
 import { compileRecipeConfig } from "../compiler/recipe-compile.js";
 import type {
   CompiledRecipeConfigOf,
@@ -61,6 +62,7 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
   namespace?: string;
   recipeId: string;
   stages: readonly AnyStage<TContext>[];
+  runtimeOpsById: Readonly<Record<string, DomainOpRuntimeAny>>;
 }): StepOccurrence<TContext>[] {
   const out: StepOccurrence<TContext>[] = [];
 
@@ -74,6 +76,10 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
         stepId,
       });
 
+      const ops = authored.contract.ops
+        ? bindRuntimeOps(authored.contract.ops as any, input.runtimeOpsById as any)
+        : {};
+
       out.push({
         stageId: stage.id,
         stepId,
@@ -86,7 +92,9 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
           normalize: authored.normalize as
             | MapGenStep<TContext, unknown>["normalize"]
             | undefined,
-          run: authored.run as unknown as MapGenStep<TContext, unknown>["run"],
+          run: ((context: TContext, config: unknown) => {
+            return (authored.run as any)(context, config, ops);
+          }) as unknown as MapGenStep<TContext, unknown>["run"],
         },
       });
     }
@@ -154,10 +162,17 @@ export function createRecipe<
 > {
   assertTagDefinitions(input.tagDefinitions);
 
+  const runtimeOpsById =
+    input.runtimeOpsById ??
+    (Object.fromEntries(
+      Object.entries(input.compileOpsById).map(([id, op]) => [id, runtimeOp(op)])
+    ) as Readonly<Record<string, DomainOpRuntimeAny>>);
+
   const occurrences = finalizeOccurrences({
     namespace: input.namespace,
     recipeId: input.id,
     stages: input.stages,
+    runtimeOpsById,
   });
   const registry = buildRegistry(occurrences, input.tagDefinitions);
   const recipe = toStructuralRecipeV2(input.id, occurrences);
