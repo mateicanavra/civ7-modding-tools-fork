@@ -6,9 +6,8 @@ import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 const LandmassStepConfigSchema = Type.Object(
   {
     landmass: LandmassConfigSchema,
-    oceanSeparation: MorphologyConfigSchema.properties.oceanSeparation,
-  },
-  { additionalProperties: false }
+    oceanSeparation: MorphologyConfigSchema.properties.oceanSeparation},
+  {}
 );
 
 const LandmassPlatesStepContract = defineStepContract({
@@ -16,7 +15,6 @@ const LandmassPlatesStepContract = defineStepContract({
   phase: "morphology",
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
   provides: [M4_EFFECT_TAGS.engine.landmassApplied],
-  schema: LandmassStepConfigSchema,
-});
+  schema: LandmassStepConfigSchema});
 
 export default LandmassPlatesStepContract;

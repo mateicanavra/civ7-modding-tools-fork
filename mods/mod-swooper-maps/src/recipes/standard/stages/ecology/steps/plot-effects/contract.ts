@@ -5,10 +5,8 @@ import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
 const PlotEffectsStepConfigSchema = Type.Object(
   {
-    plotEffects: ecology.ops.planPlotEffects.config,
-  },
-  {
-    additionalProperties: false }
+    plotEffects: ecology.ops.planPlotEffects.config},
+  {}
 );
 
 const PlotEffectsStepContract = defineStepContract({
@@ -19,7 +17,6 @@ const PlotEffectsStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
   ],
   provides: [],
-  schema: PlotEffectsStepConfigSchema,
-});
+  schema: PlotEffectsStepConfigSchema});
 
 export default PlotEffectsStepContract;

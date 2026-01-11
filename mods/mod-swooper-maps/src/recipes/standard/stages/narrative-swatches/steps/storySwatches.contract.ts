@@ -5,9 +5,8 @@ import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
 const StorySwatchesStepConfigSchema = Type.Object(
   {
-    climate: ClimateConfigSchema,
-  },
-  { additionalProperties: false }
+    climate: ClimateConfigSchema},
+  {}
 );
 
 const StorySwatchesStepContract = defineStepContract({
@@ -19,7 +18,6 @@ const StorySwatchesStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
-  schema: StorySwatchesStepConfigSchema,
-});
+  schema: StorySwatchesStepConfigSchema});
 
 export default StorySwatchesStepContract;

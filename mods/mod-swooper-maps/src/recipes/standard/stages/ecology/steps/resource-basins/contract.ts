@@ -14,10 +14,8 @@ const ResourceBasinsStepContract = defineStepContract({
   schema: Type.Object(
     {
       plan: ecology.ops.planResourceBasins.config,
-      score: ecology.ops.scoreResourceBasins.config,
-    },
-    { additionalProperties: false }
-  ),
-});
+      score: ecology.ops.scoreResourceBasins.config},
+    {}
+  )});
 
 export default ResourceBasinsStepContract;

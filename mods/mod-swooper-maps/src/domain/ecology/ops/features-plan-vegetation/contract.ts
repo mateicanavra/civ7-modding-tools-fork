@@ -10,16 +10,14 @@ const PlanVegetationInputSchema = Type.Object(
     effectiveMoisture: TypedArraySchemas.f32({ description: "Effective moisture per tile." }),
     surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature (C)." }),
     fertility: TypedArraySchemas.f32({ description: "Fertility overlay (0..1)." }),
-    landMask: TypedArraySchemas.u8({ description: "Land mask (1 = land, 0 = water)." }),
-  },
-  { additionalProperties: false }
+    landMask: TypedArraySchemas.u8({ description: "Land mask (1 = land, 0 = water)." })},
+  {}
 );
 
 const PlanVegetationOutputSchema = Type.Object(
   {
-    placements: Type.Array(FeaturePlacementSchema),
-  },
-  { additionalProperties: false }
+    placements: Type.Array(FeaturePlacementSchema)},
+  {}
 );
 
 const PlanVegetationConfigSchema = Type.Object(
@@ -27,9 +25,8 @@ const PlanVegetationConfigSchema = Type.Object(
     baseDensity: Type.Number({ minimum: 0, maximum: 1, default: 0.35 }),
     fertilityWeight: Type.Number({ minimum: 0, maximum: 2, default: 0.4 }),
     moistureWeight: Type.Number({ minimum: 0, maximum: 2, default: 0.6 }),
-    coldCutoff: Type.Number({ default: -10 }),
-  },
-  { additionalProperties: false }
+    coldCutoff: Type.Number({ default: -10 })},
+  {}
 );
 
 const PlanVegetationContract = defineOpContract({
@@ -39,8 +36,6 @@ const PlanVegetationContract = defineOpContract({
   output: PlanVegetationOutputSchema,
   strategies: {
     default: PlanVegetationConfigSchema,
-    clustered: PlanVegetationConfigSchema,
-  },
-});
+    clustered: PlanVegetationConfigSchema}});
 
 export default PlanVegetationContract;

@@ -5,9 +5,8 @@ import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
 const StorySeedStepConfigSchema = Type.Object(
   {
-    margins: NarrativeConfigSchema.properties.margins,
-  },
-  { additionalProperties: false }
+    margins: NarrativeConfigSchema.properties.margins},
+  {}
 );
 
 const StorySeedStepContract = defineStepContract({
@@ -18,7 +17,6 @@ const StorySeedStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.storyOverlays,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
   ],
-  schema: StorySeedStepConfigSchema,
-});
+  schema: StorySeedStepConfigSchema});
 
 export default StorySeedStepContract;

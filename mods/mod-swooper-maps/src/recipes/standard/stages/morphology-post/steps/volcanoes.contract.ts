@@ -5,9 +5,8 @@ import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
 const VolcanoesStepConfigSchema = Type.Object(
   {
-    volcanoes: MorphologyConfigSchema.properties.volcanoes,
-  },
-  { additionalProperties: false }
+    volcanoes: MorphologyConfigSchema.properties.volcanoes},
+  {}
 );
 
 const VolcanoesStepContract = defineStepContract({
@@ -15,7 +14,6 @@ const VolcanoesStepContract = defineStepContract({
   phase: "morphology",
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
   provides: [],
-  schema: VolcanoesStepConfigSchema,
-});
+  schema: VolcanoesStepConfigSchema});
 
 export default VolcanoesStepContract;
