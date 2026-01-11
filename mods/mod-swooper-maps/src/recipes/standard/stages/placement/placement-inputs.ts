@@ -1,29 +1,25 @@
 import { Type, type Static } from "typebox";
-import placementContracts, {
-  PlanFloodplainsContract,
-  PlanStartsContract,
-  PlanWondersContract,
-} from "@mapgen/domain/placement/contracts";
+import placement from "@mapgen/domain/placement";
 
 export const PlacementInputsConfigSchema = Type.Object(
   {
-    wonders: placementContracts.planWonders.config,
-    floodplains: placementContracts.planFloodplains.config,
-    starts: placementContracts.planStarts.config,
+    wonders: placement.ops.planWonders.config,
+    floodplains: placement.ops.planFloodplains.config,
+    starts: placement.ops.planStarts.config,
   },
   { additionalProperties: false }
 );
 
 export const PlacementInputsV1Schema = Type.Object(
   {
-    mapInfo: PlanWondersContract["input"].properties.mapInfo,
-    starts: PlanStartsContract["output"],
-    wonders: PlanWondersContract["output"],
-    floodplains: PlanFloodplainsContract["output"],
+    mapInfo: placement.ops.planWonders["input"].properties.mapInfo,
+    starts: placement.ops.planStarts["output"],
+    wonders: placement.ops.planWonders["output"],
+    floodplains: placement.ops.planFloodplains["output"],
     placementConfig: PlacementInputsConfigSchema,
   },
   { additionalProperties: false }
 );
 
-type MapInfo = Static<typeof PlanWondersContract["input"]["properties"]["mapInfo"]>;
+type MapInfo = Static<typeof placement.ops.planWonders["input"]["properties"]["mapInfo"]>;
 export type PlacementInputsV1 = Static<typeof PlacementInputsV1Schema> & { mapInfo: MapInfo };

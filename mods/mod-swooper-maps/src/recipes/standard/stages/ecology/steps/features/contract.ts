@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 
@@ -16,12 +16,12 @@ const FeaturesStepContract = defineStep({
   ],
   provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
   ops: {
-    iceFeaturePlacements: ecologyContracts.planIceFeaturePlacements,
-    aquaticFeaturePlacements: ecologyContracts.planAquaticFeaturePlacements,
-    wetFeaturePlacements: ecologyContracts.planWetFeaturePlacements,
-    vegetatedFeaturePlacements: ecologyContracts.planVegetatedFeaturePlacements,
-    reefEmbellishments: ecologyContracts.planReefEmbellishments,
-    vegetationEmbellishments: ecologyContracts.planVegetationEmbellishments,
+    iceFeaturePlacements: ecology.ops.planIceFeaturePlacements,
+    aquaticFeaturePlacements: ecology.ops.planAquaticFeaturePlacements,
+    wetFeaturePlacements: ecology.ops.planWetFeaturePlacements,
+    vegetatedFeaturePlacements: ecology.ops.planVegetatedFeaturePlacements,
+    reefEmbellishments: ecology.ops.planReefEmbellishments,
+    vegetationEmbellishments: ecology.ops.planVegetationEmbellishments,
   },
   schema: Type.Object({}),
 });

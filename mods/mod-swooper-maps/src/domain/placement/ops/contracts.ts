@@ -1,6 +1,6 @@
-import PlanFloodplainsContract from "./ops/plan-floodplains/contract.js";
-import PlanStartsContract from "./ops/plan-starts/contract.js";
-import PlanWondersContract from "./ops/plan-wonders/contract.js";
+import PlanFloodplainsContract from "./plan-floodplains/contract.js";
+import PlanStartsContract from "./plan-starts/contract.js";
+import PlanWondersContract from "./plan-wonders/contract.js";
 
 export const contracts = {
   planFloodplains: PlanFloodplainsContract,
@@ -11,4 +11,3 @@ export const contracts = {
 export default contracts;
 
 export { PlanFloodplainsContract, PlanStartsContract, PlanWondersContract };
-

@@ -1,9 +1,9 @@
 import type { ContinentBounds, EngineAdapter, MapInfo } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { PlanStartsContract } from "@mapgen/domain/placement/contracts";
+import placement from "@mapgen/domain/placement";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
-type StartsConfig = Static<typeof PlanStartsContract["output"]>;
+type StartsConfig = Static<typeof placement.ops.planStarts["output"]>;
 
 export type StandardRuntime = {
   logPrefix: string;

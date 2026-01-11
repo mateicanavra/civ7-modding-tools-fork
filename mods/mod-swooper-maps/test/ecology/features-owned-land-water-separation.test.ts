@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import * as ecology from "@mapgen/domain/ecology/ops";
+import ecology from "@mapgen/domain/ecology/ops";
 import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
 import {
   buildFeaturesPlacementConfig,

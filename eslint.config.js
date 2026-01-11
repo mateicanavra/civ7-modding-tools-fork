@@ -142,23 +142,16 @@ export default [
       "no-restricted-imports": [
         "error",
         {
-          paths: [
-            {
-              name: "@mapgen/domain/ecology",
-              message:
-                "Step contracts must import op contracts from @mapgen/domain/ecology/contracts."
-            },
-            {
-              name: "@mapgen/domain/placement",
-              message:
-                "Step contracts must import op contracts from @mapgen/domain/placement/contracts."
-            }
-          ],
           patterns: [
             {
               group: ["@mapgen/domain/*/ops", "@mapgen/domain/*/ops/*"],
               message:
-                "Step contracts must never import runtime ops; import contracts from @mapgen/domain/<domain>/contracts."
+                "Step contracts must never import runtime ops; import contracts from @mapgen/domain/<domain>."
+            },
+            {
+              group: ["@mapgen/domain/*/contracts"],
+              message:
+                "Step contracts must import domain contracts from @mapgen/domain/<domain>."
             }
           ]
         }

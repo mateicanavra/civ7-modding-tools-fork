@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Empty ops manifests for non-op domains** [Source: LOCAL-TBD-M8-U20]
+  - **Context:** U20 domain authoring sweep aligned all domains to defineDomain/createDomain, including domains without ops.
+  - **Type:** triage
+  - **Notes:** Empty ops manifests keep the entrypoint pattern uniform; monitor if this creates expectations for ops where none exist.
+  - **Next check:** if future domains add ops or if entrypoint purity becomes a boundary concern.
+
 - **Object schema defaults now merge nested defaults** [Source: LOCAL-TBD-M7-F2]
   - **Context:** F2 updated `buildSchemaDefaults` to merge explicit object defaults with nested defaults so op default configs validate under runtime-only validation.
   - **Type:** triage
