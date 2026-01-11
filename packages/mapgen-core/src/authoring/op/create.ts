@@ -8,7 +8,6 @@ import type {
 } from "./strategy.js";
 import type { DomainOp, OpConfigSchema } from "./types.js";
 import type { OpContract } from "./contract.js";
-import { buildOpEnvelopeSchema } from "./envelope.js";
 
 type RuntimeStrategiesForContract<C extends OpContract<any, any, any, any, any>> = Readonly<{
   [K in keyof C["strategies"] & string]: OpStrategy<
@@ -44,16 +43,18 @@ export function createOp(contract: any, impl: any): any {
     throw new Error(`createOp(${contract?.id ?? "unknown"}) requires strategies`);
   }
 
-  if (!Object.prototype.hasOwnProperty.call(rawStrategySchemas, "default")) {
-    throw new Error(`createOp(${contract?.id}) missing required "default" strategy schema`);
+  const strategySchemas = rawStrategySchemas as typeof rawStrategySchemas & { default: TSchema };
+  const configSchema = contract.config as TSchema | undefined;
+  const defaultConfig = contract.defaultConfig as unknown;
+  const strategyIds = Object.keys(strategySchemas);
+
+  if (!configSchema) {
+    throw new Error(`createOp(${contract?.id}) requires contract.config`);
   }
 
-  const strategySchemas = rawStrategySchemas as typeof rawStrategySchemas & { default: TSchema };
-
-  const { schema: configSchema, defaultConfig, strategyIds } = buildOpEnvelopeSchema(
-    contract.id,
-    strategySchemas
-  );
+  if (!defaultConfig) {
+    throw new Error(`createOp(${contract?.id}) requires contract.defaultConfig`);
+  }
 
   const runtimeStrategies: Record<string, OpStrategy<TSchema, unknown, unknown>> = {};
   for (const id of strategyIds) {
@@ -100,7 +101,7 @@ export function createOp(contract: any, impl: any): any {
     output: contract.output,
     strategies: runtimeStrategies,
     config,
-    defaultConfig,
+    defaultConfig: defaultConfig as StrategySelection<typeof runtimeStrategies>,
     normalize,
     run: (input: any, cfg: any) => {
       if (!cfg || typeof cfg.strategy !== "string") {

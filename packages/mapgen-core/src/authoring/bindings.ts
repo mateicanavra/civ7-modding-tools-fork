@@ -14,6 +14,11 @@ export type DomainOpCompileAny = DomainOp<
   string
 >;
 
+export type DomainOpImplementationsFor<
+  TContracts extends Record<string, { id: string }>,
+  TOp extends DomainOpCompileAny = DomainOpCompileAny,
+> = Readonly<{ [K in keyof TContracts]: TOp }>;
+
 export type DomainOpRuntime<Op extends DomainOpCompileAny> = Op extends DomainOpCompileAny
   ? Readonly<{
       id: Op["id"];
