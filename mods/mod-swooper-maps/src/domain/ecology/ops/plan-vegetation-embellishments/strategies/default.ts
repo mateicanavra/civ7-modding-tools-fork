@@ -1,4 +1,4 @@
-import { createLabelRng } from "@swooper/mapgen-core";
+import { clampChance, createLabelRng } from "@swooper/mapgen-core";
 import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 
 import type { BiomeSymbol } from "@mapgen/domain/ecology/types.js";
@@ -27,8 +27,6 @@ const GRASSLAND_BIOMES: ReadonlySet<BiomeSymbol> = new Set(["temperateHumid", "t
 const TUNDRA_BIOMES: ReadonlySet<BiomeSymbol> = new Set(["snow", "tundra", "boreal"]);
 
 type Config = Static<(typeof PlanVegetationEmbellishmentsContract)["strategies"]["default"]>;
-
-const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
 
 function normalizeConfig(config: Config): Config {
   const featuresCfg = config.story.features;

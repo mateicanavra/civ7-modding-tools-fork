@@ -1,8 +1,10 @@
 import {
+  clamp01,
   devLogJson,
   FLAT_TERRAIN,
   HILL_TERRAIN,
   MOUNTAIN_TERRAIN,
+  normalizeRange,
 } from "@swooper/mapgen-core";
 import type { TraceScope } from "@swooper/mapgen-core";
 import type * as ecology from "@mapgen/domain/ecology";
@@ -34,13 +36,6 @@ type ScoreStats = {
   mean: number;
   min: number;
   max: number;
-};
-
-const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
-
-const normalizeRange = (value: number, min: number, max: number): number => {
-  if (max <= min) return value >= max ? 1 : 0;
-  return clamp01((value - min) / (max - min));
 };
 
 const pickPercentile = (sorted: number[], ratio: number): number => {

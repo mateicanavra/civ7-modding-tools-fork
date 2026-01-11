@@ -1,5 +1,5 @@
 import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
-import { createLabelRng, type LabelRng } from "@swooper/mapgen-core";
+import { clampChance, createLabelRng, rollPercent } from "@swooper/mapgen-core";
 
 import {
   FEATURE_PLACEMENT_KEYS,
@@ -16,11 +16,6 @@ const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
 }, {} as Record<FeatureKey, number>);
 
 type Config = Static<(typeof PlanWetFeaturePlacementsContract)["strategies"]["default"]>;
-
-const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
-
-const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
-  chance > 0 && rng(100, label) < chance;
 
 const NO_FEATURE = -1;
 
