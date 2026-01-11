@@ -1,5 +1,5 @@
 import { Type, type Static } from "typebox";
-import { Value } from "typebox/value";
+import TypeCompiler from "typebox/compile";
 
 const PlacementMethodCallSchema = Type.Object(
   {
@@ -24,6 +24,8 @@ export const PlacementOutputsV1Schema = Type.Object(
 
 export type PlacementOutputsV1 = Static<typeof PlacementOutputsV1Schema>;
 
+const placementOutputsCheck = TypeCompiler.Compile(PlacementOutputsV1Schema);
+
 export function isPlacementOutputsV1(value: unknown): value is PlacementOutputsV1 {
-  return Value.Check(PlacementOutputsV1Schema, value);
+  return placementOutputsCheck.Check(value);
 }

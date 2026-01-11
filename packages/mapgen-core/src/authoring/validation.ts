@@ -1,5 +1,5 @@
-import { Value } from "typebox/value";
 import type { TSchema } from "typebox";
+import TypeCompiler from "typebox/compile";
 
 export type ValidationError = Readonly<{
   path: string;
@@ -51,9 +51,20 @@ function joinPath(basePath: string, rawPath: string): string {
   return `${basePath}${p}`;
 }
 
+const schemaCache = new WeakMap<TSchema, ReturnType<typeof TypeCompiler.Compile>>();
+
+function getCompiler(schema: TSchema): ReturnType<typeof TypeCompiler.Compile> {
+  const cached = schemaCache.get(schema);
+  if (cached) return cached;
+  const compiled = TypeCompiler.Compile(schema);
+  schemaCache.set(schema, compiled);
+  return compiled;
+}
+
 function formatSchemaErrors(schema: TSchema, value: unknown, basePath: string): ValidationError[] {
   const errors: ValidationError[] = [];
-  for (const err of Value.Errors(schema, value)) {
+  const checker = getCompiler(schema);
+  for (const err of checker.Errors(value)) {
     const path =
       (err as { path?: string; instancePath?: string }).path ??
       (err as { instancePath?: string }).instancePath ??

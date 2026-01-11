@@ -30,9 +30,9 @@ This is where enforcement becomes real: tighten import boundaries, finalize nami
 
 ## Acceptance Criteria
 
-- [ ] Import boundaries match `06-enforcement.md` (domain entrypoint-only; no deep imports).
-- [ ] `settings` is renamed to `env` and `Env` type/schema lives in core (no long-lived alias).
-- [ ] Repo guardrails pass (lint + tests) and drift checks are in place.
+- [x] Import boundaries match `06-enforcement.md` (domain entrypoint-only; no deep imports).
+- [x] `settings` is renamed to `env` and `Env` type/schema lives in core (no long-lived alias).
+- [x] Repo guardrails pass (lint + tests) and drift checks are in place.
 
 ## Scope Boundaries
 
@@ -79,3 +79,26 @@ This is where enforcement becomes real: tighten import boundaries, finalize nami
 - [Scope Boundaries](#scope-boundaries)
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
+
+## Implementation Decisions
+
+### Use TypeCompiler for runtime validation (avoid typebox/value)
+- **Context:** Runtime validation must remain validate-only while avoiding `typebox/value` imports in engine/runtime paths.
+- **Options:** Keep `Value.Errors` from `typebox/value`; switch to `TypeCompiler` from `typebox/compile`; build custom validators.
+- **Choice:** Switch to `TypeCompiler` for error enumeration in runtime validation.
+- **Rationale:** Satisfies the no-`typebox/value` guardrail without reintroducing runtime normalization helpers.
+- **Risk:** Error shapes/paths could differ slightly from `Value.Errors`, affecting downstream expectations.
+
+### Distribute runtime op typing across unions
+- **Context:** Binding runtime ops by contract ids collapsed to `never` because union op ids were losing correlation.
+- **Options:** Keep non-distributive runtime op typing and cast at each callsite; make `DomainOpRuntime` distributive and assert in `runtimeOp`.
+- **Choice:** Make `DomainOpRuntime` distributive and assert the runtime projection in `runtimeOp`.
+- **Rationale:** Preserves op-specific runtime types without scattering casts across step implementations.
+- **Risk:** The type assertion could mask a projection mismatch if `runtimeOp` ever diverges from the compile op surface.
+
+### Merge object defaults with nested schema defaults
+- **Context:** Op config schemas with `default: {}` were producing invalid default configs in runtime validation.
+- **Options:** Respect the explicit object default verbatim; merge nested defaults into object defaults; remove object defaults from schemas.
+- **Choice:** Merge nested defaults into object defaults when building schema defaults.
+- **Rationale:** Keeps `default: {}` ergonomics while ensuring default configs validate.
+- **Risk:** Default configs now include nested defaults that were previously omitted, which could change baseline behavior.

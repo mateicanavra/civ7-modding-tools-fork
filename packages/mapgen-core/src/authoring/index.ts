@@ -37,7 +37,13 @@ export type {
   Step,
   StepModule,
 } from "./types.js";
-export type { DomainOpCompileAny, DomainOpRuntimeAny, OpId, OpsById } from "./bindings.js";
+export type {
+  DomainOpCompileAny,
+  DomainOpRuntime,
+  DomainOpRuntimeAny,
+  OpId,
+  OpsById,
+} from "./bindings.js";
 export type {
   DomainOp,
   DomainOpKind,

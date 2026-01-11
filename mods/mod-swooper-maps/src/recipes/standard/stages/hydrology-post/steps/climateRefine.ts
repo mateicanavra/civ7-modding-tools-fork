@@ -18,9 +18,9 @@ type ClimateRefineStepConfig = Static<typeof ClimateRefineStepContract.schema>;
 export default createStep(ClimateRefineStepContract, {
   run: (context: ExtendedMapContext, config: ClimateRefineStepConfig) => {
     const { width, height } = context.dimensions;
-    const directionality = context.settings.directionality as FoundationDirectionalityConfig;
+    const directionality = context.env.directionality as FoundationDirectionalityConfig;
     if (!directionality) {
-      throw new Error("climate-refine requires settings.directionality.");
+      throw new Error("climate-refine requires env.directionality.");
     }
     const rifts = getPublishedNarrativeMotifsRifts(context);
     if (!rifts) {

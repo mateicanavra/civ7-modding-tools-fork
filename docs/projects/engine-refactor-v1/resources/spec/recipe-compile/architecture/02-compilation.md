@@ -309,7 +309,7 @@ function normalizeOpsTopLevel(
     if (envelope === undefined) continue;
 
     // Compile-time op normalization (optional).
-    // In baseline code this is `op.resolveConfig(envelope, settings)`. In the target architecture
+    // In baseline code this is `op.resolveConfig(envelope, env)`. In the target architecture
     // it is renamed to `op.normalize(envelope, ctx)` (compile-time only) and dispatches by
     // `envelope.strategy` under the hood.
     if (typeof (op as any).normalize === "function") {

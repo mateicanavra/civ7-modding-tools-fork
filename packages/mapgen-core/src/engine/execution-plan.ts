@@ -2,68 +2,13 @@
 import "../polyfills/text-encoder";
 
 import { Type, type Static, type TSchema } from "typebox";
-import { Value } from "typebox/value";
+import TypeCompiler from "typebox/compile";
 
 import type { StepRegistry } from "@mapgen/engine/StepRegistry.js";
 import type { GenerationPhase } from "@mapgen/engine/types.js";
+import { EnvSchema, type Env } from "@mapgen/core/env.js";
 
 const UnknownRecord = Type.Record(Type.String(), Type.Unknown(), { default: {} });
-
-export const TraceLevelSchema = Type.Union([
-  Type.Literal("off"),
-  Type.Literal("basic"),
-  Type.Literal("verbose"),
-]);
-
-export const TraceConfigSchema = Type.Object(
-  {
-    enabled: Type.Optional(
-      Type.Boolean({
-        description: "Master tracing switch.",
-      })
-    ),
-    steps: Type.Optional(
-      Type.Record(Type.String(), TraceLevelSchema, {
-        default: {},
-        description: "Per-step trace verbosity (off/basic/verbose).",
-      })
-    ),
-  },
-  { additionalProperties: false, default: {} }
-);
-
-export const RunSettingsSchema = Type.Object(
-  {
-    seed: Type.Number(),
-    dimensions: Type.Object(
-      {
-        width: Type.Number(),
-        height: Type.Number(),
-      },
-      { additionalProperties: false }
-    ),
-    latitudeBounds: Type.Object(
-      {
-        topLatitude: Type.Number(),
-        bottomLatitude: Type.Number(),
-      },
-      { additionalProperties: false }
-    ),
-    wrap: Type.Object(
-      {
-        wrapX: Type.Boolean(),
-        wrapY: Type.Boolean(),
-      },
-      { additionalProperties: false }
-    ),
-    directionality: Type.Optional(UnknownRecord),
-    metadata: Type.Optional(UnknownRecord),
-    trace: Type.Optional(TraceConfigSchema),
-  },
-  { additionalProperties: false }
-);
-
-export type RunSettings = Static<typeof RunSettingsSchema>;
 
 /**
  * Recipe schema version 2 (locked):
@@ -95,7 +40,7 @@ export type RecipeV2 = Static<typeof RecipeV2Schema>;
 export const RunRequestSchema = Type.Object(
   {
     recipe: RecipeV2Schema,
-    settings: RunSettingsSchema,
+    env: EnvSchema,
   },
   { additionalProperties: false }
 );
@@ -113,7 +58,7 @@ export interface ExecutionPlanNode {
 export interface ExecutionPlan {
   recipeSchemaVersion: number;
   recipeId?: string;
-  settings: RunSettings;
+  env: Env;
   nodes: ExecutionPlanNode[];
 }
 
@@ -212,14 +157,25 @@ function joinPath(basePath: string, rawPath: string): string {
   return `${basePath}${rawPath}`;
 }
 
+const schemaCache = new WeakMap<TSchema, ReturnType<typeof TypeCompiler.Compile>>();
+
+function getCompiler(schema: TSchema): ReturnType<typeof TypeCompiler.Compile> {
+  const cached = schemaCache.get(schema);
+  if (cached) return cached;
+  const compiled = TypeCompiler.Compile(schema);
+  schemaCache.set(schema, compiled);
+  return compiled;
+}
+
 function formatErrors(
   schema: TSchema,
   value: unknown,
   basePath: string
 ): Array<{ path: string; message: string }> {
   const formattedErrors: Array<{ path: string; message: string }> = [];
+  const checker = getCompiler(schema);
 
-  for (const err of Value.Errors(schema, value)) {
+  for (const err of checker.Errors(value)) {
     const path =
       (err as { path?: string; instancePath?: string }).path ??
       (err as { instancePath?: string }).instancePath ??
@@ -277,7 +233,7 @@ export function compileExecutionPlan<TContext>(
   registry: StepRegistry<TContext>
 ): ExecutionPlan {
   const normalized = parseRunRequest(runRequest);
-  const { recipe, settings } = normalized;
+  const { recipe, env } = normalized;
 
   const errors: ExecutionPlanCompileErrorItem[] = [];
   const nodes: ExecutionPlanNode[] = [];
@@ -310,7 +266,7 @@ export function compileExecutionPlan<TContext>(
 
     const registryStep = registry.get(step.id);
     const configPath = `/recipe/steps/${index}/config`;
-    let config = step.config;
+    let config: unknown = step.config;
     if (registryStep.configSchema) {
       const { value, errors: configErrors } = validateStepConfig(
         registryStep.configSchema,
@@ -345,7 +301,7 @@ export function compileExecutionPlan<TContext>(
   return {
     recipeSchemaVersion: recipe.schemaVersion,
     recipeId: recipe.id,
-    settings,
+    env,
     nodes,
   };
 }

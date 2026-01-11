@@ -7,7 +7,7 @@ import type {
   NormalizeContext,
   RecipeV2,
   RunRequest,
-  RunSettings,
+  Env,
 } from "@mapgen/engine/index.js";
 import type { DependencyTagDefinition } from "@mapgen/engine/tags.js";
 import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
@@ -85,7 +85,7 @@ export type Stage<
   TContext = ExtendedMapContext,
   TSteps extends StepsArray<TContext> = StepsArray<TContext>,
   KnobsSchema extends TObject = TObject,
-  PublicSchema extends TObject | undefined = undefined,
+  PublicSchema extends TObject | undefined = TObject | undefined,
 > = StageContract<string, TContext, KnobsSchema, Static<KnobsSchema>, TSteps, PublicSchema>;
 
 export type RecipeConfig = Readonly<Record<string, Readonly<Record<string, unknown>>>>;
@@ -162,12 +162,12 @@ export type RecipeModule<
   readonly id: string;
   readonly recipe: RecipeV2;
   instantiate: (config: TConfigCompiled) => RecipeV2;
-  compileConfig: (settings: RunSettings, config?: TConfigInput) => TConfigCompiled;
-  runRequest: (settings: RunSettings, config: TConfigCompiled) => RunRequest;
-  compile: (settings: RunSettings, config?: TConfigInput) => ExecutionPlan;
+  compileConfig: (env: Env, config?: TConfigInput) => TConfigCompiled;
+  runRequest: (env: Env, config: TConfigCompiled) => RunRequest;
+  compile: (env: Env, config?: TConfigInput) => ExecutionPlan;
   run: (
     context: TContext,
-    settings: RunSettings,
+    env: Env,
     config?: TConfigInput,
     options?: {
       trace?: TraceSession | null;

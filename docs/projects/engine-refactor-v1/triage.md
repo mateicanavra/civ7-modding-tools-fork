@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Object schema defaults now merge nested defaults** [Source: LOCAL-TBD-M7-F2]
+  - **Context:** F2 updated `buildSchemaDefaults` to merge explicit object defaults with nested defaults so op default configs validate under runtime-only validation.
+  - **Type:** triage
+  - **Notes:** Default configs may now include nested defaults that were previously omitted; keep an eye on baseline behavior for ops that relied on sparse defaults.
+  - **Next check:** during next config-default audit or if default-based regressions appear in ecology/placement tests.
+
 - **Authoring schema defaults now derive from schema defaults only** [Source: LOCAL-TBD-M7-F1]
   - **Context:** F1 removed `Value.Default/Convert/Clean` from authoring and replaced `applySchemaDefaults`/`buildDefaultConfigValue` with schema-default extraction.
   - **Type:** triage

@@ -65,9 +65,23 @@ function buildPublicSurfaceSchema(publicSchema: TObject, knobsSchema: TObject): 
   );
 }
 
-export function createStage<const TDef extends StageDef<string, any, any, any, any, any>>(
+type StageContractOf<TDef extends StageDef<string, any, TObject, any, any, TObject | undefined>> =
+  TDef extends StageDef<
+    infer Id,
+    infer TContext,
+    infer KnobsSchema,
+    infer Knobs,
+    infer TSteps,
+    infer PublicSchema
+  >
+    ? StageContract<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema>
+    : never;
+
+export function createStage<
+  const TDef extends StageDef<string, any, TObject, any, any, TObject | undefined>,
+>(
   def: TDef
-): StageContract<string, any, any, any, any, any> {
+): StageContractOf<TDef> {
   const stepIds = (def.steps as ReadonlyArray<{ contract: { id: string } }>).map(
     (step) => step.contract.id
   );

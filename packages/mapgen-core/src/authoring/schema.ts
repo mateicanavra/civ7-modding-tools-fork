@@ -25,23 +25,35 @@ function cloneDefault(value: unknown): unknown {
 
 export function buildSchemaDefaults(schema: TSchema): unknown {
   const typed = schema as SchemaWithDefaults;
-  if (typed.default !== undefined) return cloneDefault(typed.default);
-
   if (typed.type === "object") {
     const props = typed.properties ?? {};
     const out: Record<string, unknown> = {};
     let hasDefaults = false;
 
-    for (const [key, propSchema] of Object.entries(props)) {
-      const value = buildSchemaDefaults(propSchema);
-      if (value !== undefined) {
-        out[key] = value;
-        hasDefaults = true;
+    if (typed.default !== undefined) {
+      if (!isPlainObject(typed.default)) {
+        return cloneDefault(typed.default);
       }
+      Object.assign(out, cloneDefault(typed.default));
+      hasDefaults = true;
+    }
+
+    for (const [key, propSchema] of Object.entries(props)) {
+      if (out[key] === undefined) {
+        const value = buildSchemaDefaults(propSchema);
+        if (value !== undefined) {
+          out[key] = value;
+          hasDefaults = true;
+        }
+        continue;
+      }
+      out[key] = applySchemaDefaults(propSchema, out[key]);
     }
 
     return hasDefaults ? out : undefined;
   }
+
+  if (typed.default !== undefined) return cloneDefault(typed.default);
 
   return undefined;
 }

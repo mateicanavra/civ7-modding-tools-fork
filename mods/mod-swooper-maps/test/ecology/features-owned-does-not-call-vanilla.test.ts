@@ -21,7 +21,7 @@ describe("features (owned baseline)", () => {
       reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
       vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
     };
-    const resolvedConfig = featuresStep.normalize(config, { env: ctx.settings, knobs: {} });
+    const resolvedConfig = featuresStep.normalize(config, { env: ctx.env, knobs: {} });
 
     featuresStep.run(ctx, resolvedConfig);
 

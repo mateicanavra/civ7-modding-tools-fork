@@ -30,7 +30,7 @@ export function storyTagClimateSwatches(
   const { width, height } = ctx.dimensions;
 
   if (!options.directionality) {
-    throw new Error("storyTagClimateSwatches requires settings.directionality.");
+    throw new Error("storyTagClimateSwatches requires env.directionality.");
   }
 
   const result = applyClimateSwatches(width, height, ctx, {
