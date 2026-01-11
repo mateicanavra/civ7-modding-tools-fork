@@ -528,26 +528,26 @@ const standardConfig = {
     },
   },
   "morphology-pre": {
-    landmassPlates: {
+    "landmass-plates": {
       landmass: landmassConfig,
       oceanSeparation: oceanSeparationConfig,
     },
     coastlines: {},
   },
   "narrative-pre": {
-    storySeed: { margins: marginsConfig },
-    storyHotspots: { story: { hotspot: storyHotspotConfig } },
-    storyRifts: { story: { rift: storyRiftConfig } },
+    "story-seed": { margins: marginsConfig },
+    "story-hotspots": { story: { hotspot: storyHotspotConfig } },
+    "story-rifts": { story: { rift: storyRiftConfig } },
   },
   "morphology-mid": {
-    ruggedCoasts: {
+    "rugged-coasts": {
       coastlines: coastlinesConfig,
       corridors: corridorsConfig,
     },
   },
   "narrative-mid": {
-    storyOrogeny: { story: { orogeny: storyOrogenyConfig } },
-    storyCorridorsPre: { corridors: corridorsConfig },
+    "story-orogeny": { story: { orogeny: storyOrogenyConfig } },
+    "story-corridors-pre": { corridors: corridorsConfig },
   },
   "morphology-post": {
     islands: {
@@ -560,19 +560,19 @@ const standardConfig = {
   },
   "hydrology-pre": {
     lakes: {},
-    climateBaseline: { climate: { baseline: climateConfig.baseline } },
+    "climate-baseline": { climate: { baseline: climateConfig.baseline } },
   },
   "narrative-swatches": {
-    storySwatches: { climate: climateConfig },
+    "story-swatches": { climate: climateConfig },
   },
   "hydrology-core": {
     rivers: { climate: { story: { paleo: climatePaleoConfig } } },
   },
   "narrative-post": {
-    storyCorridorsPost: { corridors: corridorsConfig },
+    "story-corridors-post": { corridors: corridorsConfig },
   },
   "hydrology-post": {
-    climateRefine: { climate: climateConfig, story: { orogeny: storyOrogenyConfig } },
+    "climate-refine": { climate: climateConfig, story: { orogeny: storyOrogenyConfig } },
   },
   ecology: {
     biomes: { classify: biomesConfig, bindings: biomeBindingsConfig },
@@ -593,10 +593,10 @@ const standardConfig = {
         },
       },
     },
-    plotEffects: { plotEffects: plotEffectsConfig },
+    "plot-effects": { plotEffects: plotEffectsConfig },
   },
   placement: {
-    derivePlacementInputs: placementConfig,
+    "derive-placement-inputs": placementConfig,
     placement: {},
   },
 } satisfies StandardRecipeConfig;

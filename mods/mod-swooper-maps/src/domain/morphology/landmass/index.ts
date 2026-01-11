@@ -71,7 +71,7 @@ export function createPlateDrivenLandmasses(
   ctx: ExtendedMapContext,
   options: CreateLandmassesOptions = {}
 ): LandmassGenerationResult | null {
-  const plates = assertFoundationPlates(ctx, "landmassPlates");
+  const plates = assertFoundationPlates(ctx, "landmass-plates");
   const { width: ctxWidth, height: ctxHeight } = ctx.dimensions;
   if (ctxWidth !== width || ctxHeight !== height) {
     throw new Error(

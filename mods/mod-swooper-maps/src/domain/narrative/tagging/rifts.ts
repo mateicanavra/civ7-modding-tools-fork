@@ -20,7 +20,7 @@ export function storyTagRiftValleys(
   ctx: ExtendedMapContext,
   config: { story: StoryConfig }
 ): RiftValleysResult {
-  const plates = assertFoundationPlates(ctx, "storyRifts");
+  const plates = assertFoundationPlates(ctx, "story-rifts");
   const { width, height } = getDims(ctx);
   const storyCfg = config.story as Record<string, unknown>;
   const riftCfg = storyCfg.rift as Record<string, number>;

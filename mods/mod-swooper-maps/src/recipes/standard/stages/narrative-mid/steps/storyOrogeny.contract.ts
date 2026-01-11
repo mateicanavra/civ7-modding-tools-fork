@@ -16,7 +16,7 @@ const StoryOrogenyStepConfigSchema = Type.Object(
 );
 
 export const StoryOrogenyStepContract = defineStepContract({
-  id: "storyOrogeny",
+  id: "story-orogeny",
   phase: "morphology",
   requires: [
     M4_EFFECT_TAGS.engine.coastlinesApplied,

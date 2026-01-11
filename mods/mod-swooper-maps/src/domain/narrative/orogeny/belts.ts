@@ -35,7 +35,7 @@ export function storyTagOrogenyBelts(
   ctx: ExtendedMapContext,
   storyConfig: StoryConfig
 ): { snapshot: StoryOverlaySnapshot; motifs: NarrativeMotifsOrogeny } {
-  const plates = assertFoundationPlates(ctx, "storyOrogeny");
+  const plates = assertFoundationPlates(ctx, "story-orogeny");
   const cache = getOrogenyCache(ctx);
   cache.belts.clear();
   cache.windward.clear();
@@ -64,7 +64,7 @@ export function storyTagOrogenyBelts(
 
   // Common Windward/Lee Tagging
   if (cache.belts.size >= minLenSoft) {
-    const { windU, windV } = assertFoundationDynamics(ctx, "storyOrogeny");
+    const { windU, windV } = assertFoundationDynamics(ctx, "story-orogeny");
     tagWindwardLee(ctx, cache, width, height, radius, windU, windV);
   } else {
     // If belts are too small/fragmented, discard them to avoid noise

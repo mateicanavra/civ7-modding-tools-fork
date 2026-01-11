@@ -20,7 +20,7 @@ export default createStep(ClimateRefineStepContract, {
     const { width, height } = context.dimensions;
     const directionality = context.settings.directionality as FoundationDirectionalityConfig;
     if (!directionality) {
-      throw new Error("climateRefine requires settings.directionality.");
+      throw new Error("climate-refine requires settings.directionality.");
     }
     const rifts = getPublishedNarrativeMotifsRifts(context);
     if (!rifts) {

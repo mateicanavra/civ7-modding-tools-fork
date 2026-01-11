@@ -19,7 +19,7 @@ export default createStep(StorySwatchesStepContract, {
 
     const directionality = context.settings.directionality as FoundationDirectionalityConfig;
     if (!directionality) {
-      throw new Error("storySwatches requires settings.directionality.");
+      throw new Error("story-swatches requires settings.directionality.");
     }
     storyTagClimateSwatches(context, {
       orogenyCache: getOrogenyCache(context),
