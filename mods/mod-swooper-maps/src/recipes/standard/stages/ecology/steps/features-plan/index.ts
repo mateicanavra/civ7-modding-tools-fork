@@ -1,13 +1,13 @@
 import { createStep } from "@mapgen/authoring/steps";
-import type { HeightfieldBuffer } from "@swooper/mapgen-core";
 import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import {
-  isBiomeClassificationArtifactV1,
-  isPedologyArtifactV1,
+  biomeClassificationArtifact,
+  featureIntentsArtifact,
+  heightfieldArtifact,
+  pedologyArtifact,
 } from "../../../../artifacts.js";
-import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { FeaturesPlanStepContract } from "./contract.js";
 
 type FeaturesPlanConfig = Static<typeof FeaturesPlanStepContract.schema>;
@@ -22,17 +22,6 @@ const opContracts = {
 const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
 const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
 
-const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer => {
-  if (!value || typeof value !== "object") return false;
-  const candidate = value as Partial<HeightfieldBuffer>;
-  return (
-    candidate.landMask instanceof Uint8Array &&
-    candidate.elevation instanceof Int16Array &&
-    candidate.landMask.length === size &&
-    candidate.elevation.length === size
-  );
-};
-
 export default createStep(FeaturesPlanStepContract, {
   normalize: (config, ctx) => ({
     vegetation: compileOps.planVegetation.normalize(config.vegetation, ctx),
@@ -41,29 +30,12 @@ export default createStep(FeaturesPlanStepContract, {
     ice: compileOps.planIce.normalize(config.ice, ctx),
   }),
   run: (context, config: FeaturesPlanConfig) => {
-    const classificationArtifact = context.artifacts.get(
-      M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1
-    );
-    if (!isBiomeClassificationArtifactV1(classificationArtifact)) {
-      throw new Error("FeaturesPlanStep: Missing biome classification artifact.");
-    }
-    const classification = classificationArtifact;
-
-    const pedologyArtifact = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.pedologyV1);
-    if (!isPedologyArtifactV1(pedologyArtifact)) {
-      throw new Error("FeaturesPlanStep: Missing pedology artifact.");
-    }
-    const pedology = pedologyArtifact;
-
-    const heightfieldArtifact = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
-    const size = context.dimensions.width * context.dimensions.height;
-    if (!isHeightfield(heightfieldArtifact, size)) {
-      throw new Error("FeaturesPlanStep: Missing heightfield artifact.");
-    }
-    const heightfield = heightfieldArtifact as HeightfieldBuffer;
+    const classification = biomeClassificationArtifact.get(context);
+    const pedology = pedologyArtifact.get(context);
+    const heightfield = heightfieldArtifact.get(context);
 
     const { width, height } = context.dimensions;
-    const vegetationPlan = runtimeOps.planVegetation.runValidated(
+    const vegetationPlan = runtimeOps.planVegetation.run(
       {
         width,
         height,
@@ -77,7 +49,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.vegetation
     );
 
-    const wetlandsPlan = runtimeOps.planWetlands.runValidated(
+    const wetlandsPlan = runtimeOps.planWetlands.run(
       {
         width,
         height,
@@ -90,7 +62,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.wetlands
     );
 
-    const reefsPlan = runtimeOps.planReefs.runValidated(
+    const reefsPlan = runtimeOps.planReefs.run(
       {
         width,
         height,
@@ -100,7 +72,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.reefs
     );
 
-    const icePlan = runtimeOps.planIce.runValidated(
+    const icePlan = runtimeOps.planIce.run(
       {
         width,
         height,
@@ -111,7 +83,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.ice
     );
 
-    context.artifacts.set(M3_DEPENDENCY_TAGS.artifact.featureIntentsV1, {
+    featureIntentsArtifact.set(context, {
       vegetation: vegetationPlan.placements,
       wetlands: wetlandsPlan.placements,
       reefs: reefsPlan.placements,

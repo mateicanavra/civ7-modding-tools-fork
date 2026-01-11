@@ -9,10 +9,10 @@ const StoryOrogenyStepConfigSchema = Type.Object(
       {
         orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
   },
-  { additionalProperties: false, default: { story: {} } }
+  { additionalProperties: false }
 );
 
 export const StoryOrogenyStepContract = defineStepContract({

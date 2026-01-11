@@ -23,17 +23,8 @@ export default createStep(ClimateRefineStepContract, {
       throw new Error("climate-refine requires env.directionality.");
     }
     const rifts = getPublishedNarrativeMotifsRifts(context);
-    if (!rifts) {
-      throw new Error("[Hydrology] Missing artifact:narrative.motifs.rifts@v1.");
-    }
     const hotspots = getPublishedNarrativeMotifsHotspots(context);
-    if (!hotspots) {
-      throw new Error("[Hydrology] Missing artifact:narrative.motifs.hotspots@v1.");
-    }
     const riverAdjacency = getPublishedRiverAdjacency(context);
-    if (!riverAdjacency) {
-      throw new Error("[Hydrology] Missing artifact:riverAdjacency.");
-    }
     refineClimateEarthlike(width, height, context, {
       climate: config.climate,
       story: config.story,

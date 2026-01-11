@@ -85,7 +85,7 @@ const HotspotTunablesSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 
@@ -128,7 +128,7 @@ const OrogenyTunablesSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -169,7 +169,7 @@ const RiftTunablesSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -207,7 +207,7 @@ const ContinentalMarginsConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -224,7 +224,7 @@ const StoryConfigSchema = Type.Object(
     /** Localized feature bonuses around story elements. */
     features: Type.Optional(EcologyConfigSchema.properties.features),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -309,7 +309,7 @@ const SeaCorridorPolicySchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const IslandHopCorridorConfigSchema = Type.Object(
@@ -330,7 +330,7 @@ const IslandHopCorridorConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const LandCorridorConfigSchema = Type.Object(
@@ -376,7 +376,7 @@ const LandCorridorConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const RiverCorridorConfigSchema = Type.Object(
@@ -438,7 +438,7 @@ const RiverCorridorConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -455,7 +455,7 @@ export const CorridorsConfigSchema = Type.Object(
     /** Island-hop corridor tagging policy (hotspot-driven). */
     islandHop: Type.Optional(IslandHopCorridorConfigSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export const NarrativeConfigSchema = Type.Object(
@@ -464,7 +464,7 @@ export const NarrativeConfigSchema = Type.Object(
     corridors: Type.Optional(CorridorsConfigSchema),
     margins: Type.Optional(ContinentalMarginsConfigSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export type NarrativeConfig = Static<typeof NarrativeConfigSchema>;

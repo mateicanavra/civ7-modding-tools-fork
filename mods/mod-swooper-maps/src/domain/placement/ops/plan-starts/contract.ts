@@ -38,7 +38,6 @@ const StartsConfigSchema = Type.Object(
 );
 
 const StartsOverrideSchema = Type.Partial(StartsConfigSchema, {
-  default: {},
   additionalProperties: false,
 });
 
@@ -46,7 +45,7 @@ const StartsConfigWrapperSchema = Type.Object(
   {
     overrides: Type.Optional(StartsOverrideSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const StartsInputSchema = Type.Object(

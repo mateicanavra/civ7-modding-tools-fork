@@ -90,7 +90,7 @@ describe("tag registry", () => {
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
     const plan = compilePlan(registry, baseEnv, ["biomes"]);
-    const { stepResults } = executor.executePlan(ctx, plan);
+    const { stepResults } = executor.executePlanReport(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(false);
     expect(stepResults[0]?.error).toContain(TEST_TAGS.effect.biomesApplied);
@@ -116,7 +116,7 @@ describe("tag registry", () => {
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
     const plan = compilePlan(registry, baseEnv, ["coastlines"]);
-    const { stepResults } = executor.executePlan(ctx, plan);
+    const { stepResults } = executor.executePlanReport(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(true);
   });

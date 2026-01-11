@@ -8,7 +8,7 @@ const RuggedCoastsStepConfigSchema = Type.Object(
     coastlines: MorphologyConfigSchema.properties.coastlines,
     corridors: NarrativeConfigSchema.properties.corridors,
   },
-  { additionalProperties: false, default: { coastlines: {}, corridors: {} } }
+  { additionalProperties: false }
 );
 
 export const RuggedCoastsStepContract = defineStepContract({

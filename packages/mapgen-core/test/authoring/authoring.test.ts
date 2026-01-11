@@ -215,8 +215,6 @@ describe("authoring SDK", () => {
       id: "ecology/trees",
       kind: "plan",
       run: () => "ok",
-      validate: () => ({ ok: true, errors: [] }),
-      runValidated: () => "ok",
     } as DomainOpCompileAny;
 
     const compileOps = bindCompileOps(decl, { [compileOp.id]: compileOp });

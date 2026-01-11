@@ -1,7 +1,6 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import {
   compileExecutionPlan,
@@ -15,13 +14,18 @@ import {
   publishRiverAdjacencyArtifact,
 } from "../../src/recipes/standard/artifacts.js";
 import { M3_DEPENDENCY_TAGS, STANDARD_TAG_DEFINITIONS } from "../../src/recipes/standard/tags.js";
+import { normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 const baseEnv = {
   seed: 0,
   dimensions: { width: 4, height: 3 },
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
   wrap: { wrapX: false, wrapY: false },
-  directionality: applySchemaDefaults(FoundationDirectionalityConfigSchema, {}),
+  directionality: normalizeStrictOrThrow(
+    FoundationDirectionalityConfigSchema,
+    {},
+    "/env/directionality"
+  ),
 };
 
 function compilePlan<TContext>(
@@ -112,7 +116,7 @@ describe("pipeline artifacts", () => {
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
     const plan = compilePlan(registry, baseEnv, ["climate-baseline"]);
-    const { stepResults } = executor.executePlan(ctx, plan);
+    const { stepResults } = executor.executePlanReport(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(false);
     expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
@@ -144,7 +148,7 @@ describe("pipeline artifacts", () => {
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
     const plan = compilePlan(registry, baseEnv, ["rivers"]);
-    const { stepResults } = executor.executePlan(ctx, plan);
+    const { stepResults } = executor.executePlanReport(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(true);
     expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency)).toBeInstanceOf(Uint8Array);

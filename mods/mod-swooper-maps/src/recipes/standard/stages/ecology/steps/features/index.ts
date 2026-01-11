@@ -64,7 +64,7 @@ export default createStep(FeaturesStepContract, {
     const featureLookups = resolveFeatureKeyLookups(context.adapter);
 
     const iceInput = buildIceFeaturePlacementsInput(context, featureLookups);
-    const iceResult = runtimeOps.planIceFeaturePlacements.runValidated(
+    const iceResult = runtimeOps.planIceFeaturePlacements.run(
       iceInput,
       config.featuresPlacement.ice
     );
@@ -73,7 +73,7 @@ export default createStep(FeaturesStepContract, {
     }
 
     const aquaticInput = buildAquaticFeaturePlacementsInput(context, featureLookups);
-    const aquaticResult = runtimeOps.planAquaticFeaturePlacements.runValidated(
+    const aquaticResult = runtimeOps.planAquaticFeaturePlacements.run(
       aquaticInput,
       config.featuresPlacement.aquatic
     );
@@ -86,7 +86,7 @@ export default createStep(FeaturesStepContract, {
       config.featuresPlacement.wet.config,
       featureLookups
     );
-    const wetResult = runtimeOps.planWetFeaturePlacements.runValidated(
+    const wetResult = runtimeOps.planWetFeaturePlacements.run(
       wetInput,
       config.featuresPlacement.wet
     );
@@ -95,7 +95,7 @@ export default createStep(FeaturesStepContract, {
     }
 
     const vegetatedInput = buildVegetatedFeaturePlacementsInput(context, featureLookups);
-    const vegetatedResult = runtimeOps.planVegetatedFeaturePlacements.runValidated(
+    const vegetatedResult = runtimeOps.planVegetatedFeaturePlacements.run(
       vegetatedInput,
       config.featuresPlacement.vegetated
     );
@@ -104,7 +104,7 @@ export default createStep(FeaturesStepContract, {
     }
 
     const reefInput = buildReefEmbellishmentsInput(context, featureLookups);
-    const reefResult = runtimeOps.planReefEmbellishments.runValidated(
+    const reefResult = runtimeOps.planReefEmbellishments.run(
       reefInput,
       config.reefEmbellishments
     );
@@ -114,7 +114,7 @@ export default createStep(FeaturesStepContract, {
     }
 
     const vegetationInput = buildVegetationEmbellishmentsInput(context, featureLookups);
-    const vegetationResult = runtimeOps.planVegetationEmbellishments.runValidated(
+    const vegetationResult = runtimeOps.planVegetationEmbellishments.run(
       vegetationInput,
       config.vegetationEmbellishments
     );

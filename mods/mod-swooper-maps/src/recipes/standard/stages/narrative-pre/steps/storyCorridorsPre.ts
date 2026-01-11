@@ -6,8 +6,8 @@ import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/i
 import {
   getPublishedNarrativeMotifsHotspots,
   getPublishedNarrativeMotifsRifts,
+  narrativeCorridorsArtifact,
 } from "../../../artifacts.js";
-import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 import { StoryCorridorsPreStepContract } from "./storyCorridorsPre.contract.js";
 
 type StoryCorridorsStepConfig = Static<typeof StoryCorridorsPreStepContract.schema>;
@@ -20,13 +20,7 @@ export default createStep(StoryCorridorsPreStepContract, {
       throw new Error("[Narrative] Missing env.directionality.");
     }
     const hotspots = getPublishedNarrativeMotifsHotspots(context);
-    if (!hotspots) {
-      throw new Error("[Narrative] Missing artifact:narrative.motifs.hotspots@v1.");
-    }
     const rifts = getPublishedNarrativeMotifsRifts(context);
-    if (!rifts) {
-      throw new Error("[Narrative] Missing artifact:narrative.motifs.rifts@v1.");
-    }
     const result = storyTagStrategicCorridors(
       context,
       "preIslands",
@@ -36,9 +30,6 @@ export default createStep(StoryCorridorsPreStepContract, {
       },
       { hotspots, rifts }
     );
-    context.artifacts.set(
-      M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
-      result.corridors
-    );
+    narrativeCorridorsArtifact.set(context, result.corridors);
   },
 });

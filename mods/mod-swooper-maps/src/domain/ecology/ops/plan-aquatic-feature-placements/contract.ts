@@ -21,7 +21,7 @@ export const AquaticChancesSchema = Type.Object(
     FEATURE_ATOLL: Type.Optional(Type.Number({ default: 12, minimum: 0, maximum: 100 })),
     FEATURE_LOTUS: Type.Optional(Type.Number({ default: 15, minimum: 0, maximum: 100 })),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export const AquaticAtollSchema = Type.Object(
@@ -34,7 +34,7 @@ export const AquaticAtollSchema = Type.Object(
     growthChanceEquatorial: Type.Optional(Type.Number({ default: 15, minimum: 0, maximum: 100 })),
     growthChanceNonEquatorial: Type.Optional(Type.Number({ default: 5, minimum: 0, maximum: 100 })),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export const AquaticRulesSchema = Type.Object(
@@ -42,7 +42,7 @@ export const AquaticRulesSchema = Type.Object(
     reefLatitudeSplit: Type.Optional(Type.Number({ default: 55, minimum: 0, maximum: 90 })),
     atoll: Type.Optional(AquaticAtollSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export const AquaticFeaturePlacementsConfigSchema = Type.Object(
@@ -57,7 +57,7 @@ export const AquaticFeaturePlacementsConfigSchema = Type.Object(
     chances: Type.Optional(AquaticChancesSchema),
     rules: Type.Optional(AquaticRulesSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const AquaticFeaturePlacementsInputSchema = Type.Object(

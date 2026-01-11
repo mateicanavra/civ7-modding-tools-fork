@@ -25,11 +25,11 @@ describe("recipes/artifacts (narrative)", () => {
     ctx = { artifacts: new ArtifactStore() } as ExtendedMapContext;
   });
 
-  it("returns null when artifacts are missing", () => {
-    expect(getPublishedNarrativeCorridors(ctx)).toBeNull();
-    expect(getPublishedNarrativeMotifsMargins(ctx)).toBeNull();
-    expect(getPublishedNarrativeMotifsHotspots(ctx)).toBeNull();
-    expect(getPublishedNarrativeMotifsRifts(ctx)).toBeNull();
+  it("throws when artifacts are missing", () => {
+    expect(() => getPublishedNarrativeCorridors(ctx)).toThrow();
+    expect(() => getPublishedNarrativeMotifsMargins(ctx)).toThrow();
+    expect(() => getPublishedNarrativeMotifsHotspots(ctx)).toThrow();
+    expect(() => getPublishedNarrativeMotifsRifts(ctx)).toThrow();
   });
 
   it("returns artifacts when present and validated", () => {

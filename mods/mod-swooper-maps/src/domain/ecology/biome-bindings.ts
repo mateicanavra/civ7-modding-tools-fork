@@ -73,7 +73,6 @@ export const BiomeEngineBindingsSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description:
       "Mappings from biome symbols to Civ7 engine biome globals (used to populate field:biomeId).",
   }

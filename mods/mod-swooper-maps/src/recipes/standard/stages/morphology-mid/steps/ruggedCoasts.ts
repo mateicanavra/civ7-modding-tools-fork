@@ -14,9 +14,6 @@ export default createStep(RuggedCoastsStepContract, {
   run: (context: ExtendedMapContext, config: RuggedCoastsStepConfig) => {
     const { width, height } = context.dimensions;
     const margins = getPublishedNarrativeMotifsMargins(context);
-    if (!margins) {
-      throw new Error("[Morphology] Missing artifact:narrative.motifs.margins@v1.");
-    }
     const corridors = getPublishedNarrativeCorridors(context);
     addRuggedCoasts(width, height, context, config, { margins, corridors });
   },

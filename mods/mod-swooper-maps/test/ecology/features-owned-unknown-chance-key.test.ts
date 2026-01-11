@@ -1,9 +1,10 @@
 import { describe, expect, it } from "bun:test";
 
 import * as ecology from "@mapgen/domain/ecology";
+import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 describe("baseline feature placement config", () => {
-  it("rejects unknown chance keys", () => {
+  it("rejects unknown chance keys via compiler-backed validation", () => {
     const input = {
       width: 1,
       height: 1,
@@ -20,16 +21,23 @@ describe("baseline feature placement config", () => {
       navigableRiverTerrain: -1,
     };
 
-    const config = {
-      strategy: "default",
-      config: {
-        chances: {
-          FEATURE_FAKE_FEATURE: 20,
+    expect(() =>
+      normalizeOpSelectionOrThrow(ecology.ops.planVegetatedFeaturePlacements, {
+        strategy: "default",
+        config: {
+          chances: {
+            FEATURE_FAKE_FEATURE: 20,
+            FEATURE_FOREST: 0,
+            FEATURE_RAINFOREST: 0,
+            FEATURE_TAIGA: 0,
+            FEATURE_SAVANNA_WOODLAND: 0,
+            FEATURE_SAGEBRUSH_STEPPE: 0,
+          },
+          multiplier: 1,
         },
-      },
-    } as unknown as Parameters<typeof ecology.ops.planVegetatedFeaturePlacements.validate>[1];
+      })
+    ).toThrow(/Unknown key/);
 
-    const result = ecology.ops.planVegetatedFeaturePlacements.validate(input, config);
-    expect(result.ok).toBe(false);
+    expect(() => ecology.ops.planVegetatedFeaturePlacements.run(input, ecology.ops.planVegetatedFeaturePlacements.defaultConfig)).not.toThrow();
   });
 });

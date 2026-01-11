@@ -28,15 +28,7 @@ const FeaturesPlacementConfigSchema = Type.Object(
     aquatic: planAquaticFeaturePlacements.config,
     ice: planIceFeaturePlacements.config,
   },
-  {
-    additionalProperties: false,
-    default: {
-      vegetated: planVegetatedFeaturePlacements.defaultConfig,
-      wet: planWetFeaturePlacements.defaultConfig,
-      aquatic: planAquaticFeaturePlacements.defaultConfig,
-      ice: planIceFeaturePlacements.defaultConfig,
-    },
-  }
+  { additionalProperties: false }
 );
 
 /**
@@ -169,7 +161,7 @@ const FeaturesConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -325,7 +317,7 @@ const FeaturesDensityConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export const EcologyConfigSchema = Type.Object(
@@ -337,7 +329,7 @@ export const EcologyConfigSchema = Type.Object(
     features: Type.Optional(FeaturesConfigSchema),
     featuresDensity: Type.Optional(FeaturesDensityConfigSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export type BiomeConfig = Static<typeof EcologyConfigSchema["properties"]["biomes"]>;

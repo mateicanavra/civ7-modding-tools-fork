@@ -1,5 +1,7 @@
 import type { TSchema } from "typebox";
 
+import { applySchemaConventions } from "../schema.js";
+
 import type { DependencyTag, GenerationPhase } from "@mapgen/engine/index.js";
 
 export type StepContract<Schema extends TSchema, Id extends string> = Readonly<{
@@ -18,5 +20,6 @@ export function defineStepContract<const Schema extends TSchema, const Id extend
   if (!STEP_ID_RE.test(def.id)) {
     throw new Error(`step id "${def.id}" must be kebab-case (e.g. "plot-vegetation")`);
   }
+  applySchemaConventions(def.schema, `step:${def.id}.schema`);
   return def;
 }

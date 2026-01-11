@@ -1,8 +1,6 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import type { Static } from "@swooper/mapgen-core/authoring";
-import { Value } from "typebox/value";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import {
   getStoryOverlay,
@@ -11,12 +9,17 @@ import {
 import {
   storyTagOrogenyBelts,
 } from "@mapgen/domain/narrative/orogeny/index.js";
+import { normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 describe("story/orogeny", () => {
   it("fails fast when foundation context is missing", () => {
     const width = 30;
     const height = 20;
-    const directionality = Value.Default(FoundationDirectionalityConfigSchema, {}) as Static<typeof FoundationDirectionalityConfigSchema>;
+    const directionality = normalizeStrictOrThrow(
+      FoundationDirectionalityConfigSchema,
+      {},
+      "/env/directionality"
+    );
     const env = {
       seed: 0,
       dimensions: { width, height },

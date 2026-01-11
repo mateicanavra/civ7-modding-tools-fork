@@ -11,13 +11,13 @@ const RiversStepConfigSchema = Type.Object(
           {
             paleo: Type.Optional(ClimateConfigSchema.properties.story.properties.paleo),
           },
-          { additionalProperties: false, default: {} }
+          { additionalProperties: false }
         ),
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
   },
-  { additionalProperties: false, default: { climate: {} } }
+  { additionalProperties: false }
 );
 
 export const RiversStepContract = defineStepContract({

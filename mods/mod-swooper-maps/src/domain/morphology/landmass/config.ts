@@ -79,7 +79,7 @@ const LandmassTectonicsConfigSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -146,7 +146,7 @@ const LandmassGeometrySchema = Type.Object(
   {
     post: Type.Optional(LandmassGeometryPostSchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 /**
@@ -308,7 +308,7 @@ export const LandmassConfigSchema = Type.Object(
     /** Geometry post-processing adjustments. */
     geometry: Type.Optional(LandmassGeometrySchema),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 export type LandmassConfig = Static<typeof LandmassConfigSchema>;

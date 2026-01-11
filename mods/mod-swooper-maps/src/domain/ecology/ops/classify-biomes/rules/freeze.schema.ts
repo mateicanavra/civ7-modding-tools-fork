@@ -21,7 +21,6 @@ export const FreezeSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Freeze index thresholds for snow/ice suitability.",
   }
 );

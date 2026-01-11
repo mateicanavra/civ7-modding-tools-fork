@@ -1,7 +1,11 @@
 import { describe, expect, it } from "bun:test";
 
 import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
-import { createFeaturesTestContext, disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
+import {
+  buildFeaturesPlacementConfig,
+  createFeaturesTestContext,
+  disabledEmbellishmentsConfig,
+} from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
   it("respects adapter.canHaveFeature gating", () => {
@@ -19,24 +23,22 @@ describe("features (owned baseline)", () => {
       canHaveFeature: (_x, _y, featureType) => featureType !== forestIdx,
     });
 
-    const config = {
-      featuresPlacement: {
-        vegetated: {
-          strategy: "default",
-          config: {
-            chances: {
-              FEATURE_FOREST: 100,
-              FEATURE_RAINFOREST: 0,
-              FEATURE_TAIGA: 0,
-              FEATURE_SAVANNA_WOODLAND: 0,
-              FEATURE_SAGEBRUSH_STEPPE: 0,
-            },
-          },
+    const featuresPlacement = buildFeaturesPlacementConfig({
+      vegetated: {
+        chances: {
+          FEATURE_FOREST: 100,
+          FEATURE_RAINFOREST: 0,
+          FEATURE_TAIGA: 0,
+          FEATURE_SAVANNA_WOODLAND: 0,
+          FEATURE_SAGEBRUSH_STEPPE: 0,
         },
-        wet: { strategy: "default", config: { multiplier: 0 } },
-        aquatic: { strategy: "default", config: { multiplier: 0 } },
-        ice: { strategy: "default", config: { multiplier: 0 } },
       },
+      wet: { multiplier: 0 },
+      aquatic: { multiplier: 0 },
+      ice: { multiplier: 0 },
+    });
+    const config = {
+      featuresPlacement,
       reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
       vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
     };

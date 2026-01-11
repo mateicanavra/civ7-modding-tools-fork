@@ -86,3 +86,16 @@ export class UnsatisfiedProvidesError extends Error {
     this.missingProvides = missingProvides;
   }
 }
+
+export class StepExecutionError extends Error {
+  readonly stepId: string;
+  readonly cause: unknown;
+
+  constructor(stepId: string, cause: unknown) {
+    const message = cause instanceof Error ? cause.message : String(cause);
+    super(`Step "${stepId}" failed: ${message}`);
+    this.name = "StepExecutionError";
+    this.stepId = stepId;
+    this.cause = cause;
+  }
+}

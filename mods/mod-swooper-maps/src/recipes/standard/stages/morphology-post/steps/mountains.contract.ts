@@ -7,7 +7,7 @@ const MountainsStepConfigSchema = Type.Object(
   {
     mountains: MorphologyConfigSchema.properties.mountains,
   },
-  { additionalProperties: false, default: { mountains: {} } }
+  { additionalProperties: false }
 );
 
 export const MountainsStepContract = defineStepContract({
