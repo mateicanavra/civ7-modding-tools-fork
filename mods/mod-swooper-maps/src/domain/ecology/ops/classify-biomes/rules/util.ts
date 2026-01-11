@@ -1,6 +1,4 @@
-export function clamp01(value: number): number {
-  return Math.max(0, Math.min(1, value));
-}
+export { clamp01 } from "@swooper/mapgen-core";
 
 export function ensureSize(buffer: { length: number }, expected: number, label: string): void {
   if (buffer.length !== expected) {

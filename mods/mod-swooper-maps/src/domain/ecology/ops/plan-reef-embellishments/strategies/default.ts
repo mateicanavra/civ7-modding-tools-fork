@@ -1,4 +1,4 @@
-import { createLabelRng } from "@swooper/mapgen-core";
+import { clampChance, createLabelRng } from "@swooper/mapgen-core";
 import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 
 import { FEATURE_KEY_INDEX } from "@mapgen/domain/ecology/types.js";
@@ -10,8 +10,6 @@ type Config = Static<(typeof PlanReefEmbellishmentsContract)["strategies"]["defa
 type Placement = Static<(typeof PlanReefEmbellishmentsContract)["output"]>["placements"][number];
 
 const NO_FEATURE = -1;
-
-const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
 
 function normalizeConfig(config: Config): Config {
   return {

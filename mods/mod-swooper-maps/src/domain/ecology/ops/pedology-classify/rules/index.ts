@@ -1,6 +1,6 @@
-import type { PedologyClassifyInput } from "../types.js";
+import { clamp01 } from "@swooper/mapgen-core";
 
-const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
+import type { PedologyClassifyInput } from "../types.js";
 
 export function ensureSize(array: ArrayLike<number>, expected: number, label: string): void {
   if (array.length !== expected) {

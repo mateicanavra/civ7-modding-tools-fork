@@ -1,7 +1,6 @@
+import { clamp01 } from "@swooper/mapgen-core";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { ResourcePlanBasinsContract } from "../contract.js";
-
-const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
 export const defaultStrategy = createStrategy(ResourcePlanBasinsContract, "default", {
   run: (input, config) => {

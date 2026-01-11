@@ -13,6 +13,9 @@ reviewer: AI agent
 Mostly yes: the ecology `ops/**` layer now matches the intended “pure ops + strict kinds + key-based plans” contract. The remaining gaps are primarily (1) runtime validation looseness for plot-effect keys and (2) continued adapter usage in non-op ecology exports (biome bindings), which conflicts with the issue’s “engine binding lives in steps” target outcome.
 Note: the issue title/id says `[M6]`, but based on milestone context this should have been tracked as **M7**; the review is filed under M7 accordingly.
 
+### Status
+Resolved. Both high-leverage gaps are addressed.
+
 ### What’s strong
 - `mods/mod-swooper-maps/src/domain/ecology/ops/**` is contract-pure (no adapter/TraceScope/devLogJson/Type.Any; typed-array schemas used).
 - Strict op kinds/naming: single `compute` (`classifyBiomes`); placements/embellishments are verb-forward `plan*`.
@@ -45,6 +48,9 @@ Note: the issue title/id says `[M6]`, but based on milestone context this should
 ### Quick take
 Mostly yes: the core authoring surfaces landed and mod call sites now use envelope configs + bound step factories. The main gap is rules/type-boundary enforcement (Decision D8), where rule modules still import/emit types outside the op `types.ts` surface.
 
+### Status
+Resolved, with one nice-to-have still open.
+
 ### What’s strong
 - Contract-first authoring APIs are in place for ops/steps (`defineOpContract`/`createOp`/`createStrategy`, `defineStepContract`/`createStep`/`createStepFor`).
 - Recipe compilation forwards step `resolveConfig`, and execution-plan normalization re-validates resolver output.
@@ -71,3 +77,24 @@ Mostly yes: the core authoring surfaces landed and mod call sites now use envelo
 - Additional fixes (to unblock full suite): op config schema typing now uses `TUnsafe` for strategy envelope `Static<>` inference, ecology ops use `@mapgen/domain` aliases for cross-module imports, and contract `as const` assertions were removed to match authoring spec.
 - Validation: `pnpm check`, `pnpm build`, `pnpm test`, `pnpm lint`.
 - A1 review follow-up: added `normalizeOpsTopLevel` tests for `op.missing` + `op.normalize.failed` in `packages/mapgen-core/test/compiler/normalize.test.ts`.
+- A1 review follow-up: unknown-key detection now traverses array items for stable paths (test added in `packages/mapgen-core/test/compiler/normalize.test.ts`).
+
+## PR Thread Status (Stack Review Follow-up)
+
+### Resolved
+- PR #432: `Static` import added for `plan-vegetated-feature-placements` strategy config typing.
+- PR #430: recursive defaults + schema conventions preserve nested defaults.
+- PR #409: object-level defaults no longer mask property defaults (schema conventions).
+- PR #398: stage public config compile happens before recipe run.
+- PR #397: map configs updated to new kebab-case step ids.
+- PR #395: unknown-key detection now traverses array items with stable paths.
+
+### Superseded
+- PR #428: `applySchemaDefaults` export removed; call sites updated to new conventions.
+
+### Still open
+- PR #445: update default-only export consumers (classify-biomes, plan-plot-effects tests).
+- PR #435: lint glob should match `**/*.contract.ts`.
+- PR #401: double normalization risk (step `resolveConfig` invoked after compile-time normalize).
+- PR #396: reject reserved step id `knobs`.
+- Nice-to-have: remove legacy `defineOpSchema` export from `packages/mapgen-core/src/authoring/index.ts`.

@@ -1,4 +1,4 @@
-import { createLabelRng, type LabelRng } from "@swooper/mapgen-core";
+import { clamp01, createLabelRng, normalizeRange, rollPercent } from "@swooper/mapgen-core";
 import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 
 import type { PlotEffectKey } from "@mapgen/domain/ecology/types.js";
@@ -9,16 +9,6 @@ import { resolveSnowElevationRange } from "../rules/index.js";
 
 type PlotEffectSelector = { typeName: PlotEffectKey };
 type Config = Static<(typeof PlanPlotEffectsContract)["strategies"]["default"]>;
-
-const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
-
-const normalizeRange = (value: number, min: number, max: number): number => {
-  if (max <= min) return value >= max ? 1 : 0;
-  return clamp01((value - min) / (max - min));
-};
-
-const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
-  chance > 0 && rng(100, label) < chance;
 
 const normalizePlotEffectKey = (value: string): PlotEffectKey => {
   const trimmed = value.trim();

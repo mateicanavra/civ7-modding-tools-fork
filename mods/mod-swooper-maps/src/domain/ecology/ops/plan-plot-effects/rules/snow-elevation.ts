@@ -1,3 +1,5 @@
+import { clamp01 } from "@swooper/mapgen-core";
+
 type PlotEffectsInput = {
   width: number;
   height: number;
@@ -24,8 +26,6 @@ type SnowElevationRange = {
     max: number;
   };
 };
-
-const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
 const pickPercentile = (sorted: number[], ratio: number): number => {
   if (sorted.length === 0) return 0;
