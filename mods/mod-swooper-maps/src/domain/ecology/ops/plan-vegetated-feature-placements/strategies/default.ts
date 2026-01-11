@@ -10,6 +10,8 @@ const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
   return acc;
 }, {} as Record<FeatureKey, number>);
 
+type Config = Static<(typeof PlanVegetatedFeaturePlacementsContract)["strategies"]["default"]>;
+
 const clampChance = (value: number): number =>
   Math.max(0, Math.min(100, Math.round(value)));
 
@@ -20,7 +22,44 @@ const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
 
 const NO_FEATURE = -1;
 
+function normalizeConfig(config: Config): Config {
+  const rules = config.rules;
+  return {
+    ...config,
+    multiplier: Math.max(0, config.multiplier),
+    chances: {
+      FEATURE_FOREST: clampChance(config.chances.FEATURE_FOREST),
+      FEATURE_RAINFOREST: clampChance(config.chances.FEATURE_RAINFOREST),
+      FEATURE_TAIGA: clampChance(config.chances.FEATURE_TAIGA),
+      FEATURE_SAVANNA_WOODLAND: clampChance(config.chances.FEATURE_SAVANNA_WOODLAND),
+      FEATURE_SAGEBRUSH_STEPPE: clampChance(config.chances.FEATURE_SAGEBRUSH_STEPPE),
+    },
+    rules: {
+      ...rules,
+      minVegetationByBiome: {
+        snow: clamp01(rules.minVegetationByBiome.snow),
+        tundra: clamp01(rules.minVegetationByBiome.tundra),
+        boreal: clamp01(rules.minVegetationByBiome.boreal),
+        temperateDry: clamp01(rules.minVegetationByBiome.temperateDry),
+        temperateHumid: clamp01(rules.minVegetationByBiome.temperateHumid),
+        tropicalSeasonal: clamp01(rules.minVegetationByBiome.tropicalSeasonal),
+        tropicalRainforest: clamp01(rules.minVegetationByBiome.tropicalRainforest),
+        desert: clamp01(rules.minVegetationByBiome.desert),
+      },
+      vegetationChanceScalar: Math.max(0, rules.vegetationChanceScalar),
+      desertSagebrushMinVegetation: clamp01(rules.desertSagebrushMinVegetation),
+      desertSagebrushMaxAridity: clamp01(rules.desertSagebrushMaxAridity),
+      tundraTaigaMinVegetation: clamp01(rules.tundraTaigaMinVegetation),
+      tundraTaigaMaxFreeze: clamp01(rules.tundraTaigaMaxFreeze),
+      temperateDryForestMaxAridity: clamp01(rules.temperateDryForestMaxAridity),
+      temperateDryForestVegetation: clamp01(rules.temperateDryForestVegetation),
+      tropicalSeasonalRainforestMaxAridity: clamp01(rules.tropicalSeasonalRainforestMaxAridity),
+    },
+  };
+}
+
 export const defaultStrategy = createStrategy(PlanVegetatedFeaturePlacementsContract, "default", {
+  normalize: (config) => normalizeConfig(config),
   run: (input, config) => {
     const rng = createLabelRng(input.seed);
 
@@ -42,7 +81,7 @@ export const defaultStrategy = createStrategy(PlanVegetatedFeaturePlacementsCont
       placements.push({ x, y, feature: featureKey });
     };
 
-    const multiplier = Math.max(0, config.multiplier);
+    const multiplier = config.multiplier;
     if (multiplier <= 0) {
       return { placements };
     }
@@ -60,7 +99,7 @@ export const defaultStrategy = createStrategy(PlanVegetatedFeaturePlacementsCont
 
         const vegetationValue = input.vegetationDensity[idx] ?? 0;
         const symbolIndex = input.biomeIndex[idx] | 0;
-        const minVeg = clamp01(minVegetationByBiome[biomeSymbolFromIndex(symbolIndex)]);
+        const minVeg = minVegetationByBiome[biomeSymbolFromIndex(symbolIndex)];
         if (vegetationValue < minVeg) continue;
 
         const featureKey = pickVegetatedFeature({
@@ -71,24 +110,24 @@ export const defaultStrategy = createStrategy(PlanVegetatedFeaturePlacementsCont
           aridityIndex: input.aridityIndex[idx] ?? 0,
           freezeIndex: input.freezeIndex[idx] ?? 0,
           rules: {
-            desertSagebrushMinVegetation: clamp01(rules.desertSagebrushMinVegetation),
-            desertSagebrushMaxAridity: clamp01(rules.desertSagebrushMaxAridity),
-            tundraTaigaMinVegetation: clamp01(rules.tundraTaigaMinVegetation),
+            desertSagebrushMinVegetation: rules.desertSagebrushMinVegetation,
+            desertSagebrushMaxAridity: rules.desertSagebrushMaxAridity,
+            tundraTaigaMinVegetation: rules.tundraTaigaMinVegetation,
             tundraTaigaMinTemperature: rules.tundraTaigaMinTemperature,
-            tundraTaigaMaxFreeze: clamp01(rules.tundraTaigaMaxFreeze),
+            tundraTaigaMaxFreeze: rules.tundraTaigaMaxFreeze,
             temperateDryForestMoisture: rules.temperateDryForestMoisture,
-            temperateDryForestMaxAridity: clamp01(rules.temperateDryForestMaxAridity),
-            temperateDryForestVegetation: clamp01(rules.temperateDryForestVegetation),
+            temperateDryForestMaxAridity: rules.temperateDryForestMaxAridity,
+            temperateDryForestVegetation: rules.temperateDryForestVegetation,
             tropicalSeasonalRainforestMoisture: rules.tropicalSeasonalRainforestMoisture,
-            tropicalSeasonalRainforestMaxAridity: clamp01(rules.tropicalSeasonalRainforestMaxAridity),
+            tropicalSeasonalRainforestMaxAridity: rules.tropicalSeasonalRainforestMaxAridity,
           },
         });
         if (!featureKey) continue;
         if (!canPlaceAt(x, y)) continue;
 
-        const baseChance = clampChance((chances[featureKey] ?? 0) * multiplier);
+        const baseChance = clampChance(chances[featureKey] * multiplier);
         const vegetationScalar = clamp01(
-          (vegetationValue ?? 0) * Math.max(0, rules.vegetationChanceScalar)
+          (vegetationValue ?? 0) * rules.vegetationChanceScalar
         );
         const chance = clampChance(baseChance * vegetationScalar);
         if (!rollPercent(rng, `features:plan:vegetated:${featureKey}`, chance)) continue;

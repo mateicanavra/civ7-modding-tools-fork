@@ -27,11 +27,36 @@ const rollPercent = (rng: LabelRng, label: string, chance: number): boolean =>
 
 const NO_FEATURE = -1;
 
+function normalizeConfig(config: Config): Config {
+  const chances = config.chances ?? {};
+  const rules = config.rules ?? {};
+
+  return {
+    ...config,
+    multiplier: Math.max(0, config.multiplier ?? 0),
+    chances: {
+      FEATURE_ICE: clampChance(chances.FEATURE_ICE ?? 0),
+    },
+    rules: {
+      ...rules,
+      minAbsLatitude: clamp(rules.minAbsLatitude ?? 0, 0, 90),
+      landAdjacencyRadius: Math.max(1, Math.floor(rules.landAdjacencyRadius ?? 1)),
+      naturalWonderAdjacencyRadius: Math.max(
+        1,
+        Math.floor(rules.naturalWonderAdjacencyRadius ?? 1)
+      ),
+      forbidAdjacentToLand: rules.forbidAdjacentToLand ?? true,
+      forbidAdjacentToNaturalWonders: rules.forbidAdjacentToNaturalWonders ?? true,
+    },
+  };
+}
+
 export const defaultStrategy = createStrategy(PlanIceFeaturePlacementsContract, "default", {
+  normalize: (config) => normalizeConfig(config),
   run: (input, config) => {
     const chances = config.chances!;
     const rules = config.rules!;
-    const multiplier = Math.max(0, config.multiplier!);
+    const multiplier = config.multiplier!;
     const rng = createLabelRng(input.seed);
 
     const { width, height, landMask, latitude, featureKeyField, naturalWonderMask } = input;
@@ -63,11 +88,11 @@ export const defaultStrategy = createStrategy(PlanIceFeaturePlacementsContract, 
       placements.push({ x, y, feature: featureKey });
     };
 
-    const minAbsLatitude = clamp(rules.minAbsLatitude!, 0, 90);
+    const minAbsLatitude = rules.minAbsLatitude!;
     const forbidAdjacentToLand = rules.forbidAdjacentToLand!;
-    const landAdjacencyRadius = Math.max(1, Math.floor(rules.landAdjacencyRadius!));
+    const landAdjacencyRadius = rules.landAdjacencyRadius!;
     const forbidAdjacentToNaturalWonders = rules.forbidAdjacentToNaturalWonders!;
-    const naturalWonderAdjacencyRadius = Math.max(1, Math.floor(rules.naturalWonderAdjacencyRadius!));
+    const naturalWonderAdjacencyRadius = rules.naturalWonderAdjacencyRadius!;
 
     if (multiplier > 0) {
       const iceChance = clampChance(chances.FEATURE_ICE! * multiplier);

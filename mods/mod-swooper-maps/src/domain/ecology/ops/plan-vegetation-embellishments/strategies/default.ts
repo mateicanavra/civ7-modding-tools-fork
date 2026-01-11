@@ -1,5 +1,5 @@
 import { createLabelRng } from "@swooper/mapgen-core";
-import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 
 import type { BiomeSymbol } from "@mapgen/domain/ecology/types.js";
 import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
@@ -16,8 +16,6 @@ const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
 
 const NO_FEATURE = -1;
 
-const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
-
 const WARM_BIOMES: ReadonlySet<BiomeSymbol> = new Set([
   "temperateHumid",
   "tropicalSeasonal",
@@ -28,7 +26,38 @@ const GRASSLAND_BIOMES: ReadonlySet<BiomeSymbol> = new Set(["temperateHumid", "t
 
 const TUNDRA_BIOMES: ReadonlySet<BiomeSymbol> = new Set(["snow", "tundra", "boreal"]);
 
+type Config = Static<(typeof PlanVegetationEmbellishmentsContract)["strategies"]["default"]>;
+
+const clampChance = (value: number): number => Math.max(0, Math.min(100, Math.round(value)));
+
+function normalizeConfig(config: Config): Config {
+  const featuresCfg = config.story.features;
+  const densityCfg = config.featuresDensity;
+
+  return {
+    ...config,
+    story: {
+      ...config.story,
+      features: {
+        ...featuresCfg,
+        volcanicForestChance: clampChance(featuresCfg.volcanicForestChance),
+        volcanicTaigaChance: clampChance(featuresCfg.volcanicTaigaChance),
+        volcanicForestBonus: clampChance(featuresCfg.volcanicForestBonus),
+        volcanicTaigaBonus: clampChance(featuresCfg.volcanicTaigaBonus),
+        volcanicRadius: Math.max(1, Math.floor(featuresCfg.volcanicRadius)),
+      },
+    },
+    featuresDensity: {
+      ...densityCfg,
+      rainforestExtraChance: clampChance(densityCfg.rainforestExtraChance),
+      forestExtraChance: clampChance(densityCfg.forestExtraChance),
+      taigaExtraChance: clampChance(densityCfg.taigaExtraChance),
+    },
+  };
+}
+
 export const defaultStrategy = createStrategy(PlanVegetationEmbellishmentsContract, "default", {
+  normalize: (config) => normalizeConfig(config),
   run: (input, config) => {
     const {
       width,
@@ -66,13 +95,13 @@ export const defaultStrategy = createStrategy(PlanVegetationEmbellishmentsContra
     const featuresCfg = config.story.features;
     const densityCfg = config.featuresDensity;
 
-    const baseVolcanicForestChance = clampChance(featuresCfg.volcanicForestChance);
-    const baseVolcanicTaigaChance = clampChance(featuresCfg.volcanicTaigaChance);
+    const baseVolcanicForestChance = featuresCfg.volcanicForestChance;
+    const baseVolcanicTaigaChance = featuresCfg.volcanicTaigaChance;
     const volcanicForestChance = clampChance(
       baseVolcanicForestChance + featuresCfg.volcanicForestBonus
     );
     const volcanicTaigaChance = clampChance(baseVolcanicTaigaChance + featuresCfg.volcanicTaigaBonus);
-    const volcanicRadius = Math.max(1, Math.floor(featuresCfg.volcanicRadius));
+    const volcanicRadius = featuresCfg.volcanicRadius;
 
     const volcanicForestMinRainfall = featuresCfg.volcanicForestMinRainfall;
     const volcanicTaigaMinLatitude = featuresCfg.volcanicTaigaMinLatitude;
