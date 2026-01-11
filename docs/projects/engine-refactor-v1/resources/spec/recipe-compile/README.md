@@ -19,6 +19,11 @@ This folder contains the spec/architecture for the composition-first recipe comp
 - `examples/EXAMPLES.md` — Illustrative examples (Ecology stage,
   plot-vegetation step, ops injection)
 
+## DX Playbooks
+
+- `DX-CLEANUP-PLAYBOOK.md` — Reusable guide for DX refactors (steps/domains/ops
+  wiring, boundaries, verification)
+
 ## Source Materials
 
 - `_inputs/` — Original proposal documents and synthesis inputs (reference
