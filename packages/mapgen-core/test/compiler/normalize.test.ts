@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { Type } from "typebox";
 
 import { defineOp } from "@mapgen/authoring/index.js";
+import type { DomainOpCompileAny, OpsById } from "@mapgen/authoring/index.js";
 import {
   normalizeOpsTopLevel,
   normalizeStrict,
@@ -123,20 +124,20 @@ describe("compiler normalize helpers", () => {
       },
     };
 
-    const result = normalizeOpsTopLevel(
-      step,
-      { trees: { strategy: "default", config: {} } },
-      { env: {}, knobs: {} },
-      {
-        "test/plan": {
-          id: "test/plan",
-          normalize: () => {
-            throw new Error("normalize exploded");
-          },
-        },
-      },
-      "/config/ops"
-    );
+	    const result = normalizeOpsTopLevel(
+	      step,
+	      { trees: { strategy: "default", config: {} } },
+	      { env: {}, knobs: {} },
+	      {
+	        "test/plan": {
+	          id: "test/plan",
+	          normalize: () => {
+	            throw new Error("normalize exploded");
+	          },
+	        },
+	      } as unknown as OpsById<DomainOpCompileAny>,
+	      "/config/ops"
+	    );
 
     expect(result.errors).toEqual([
       {

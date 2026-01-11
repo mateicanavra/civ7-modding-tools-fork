@@ -62,8 +62,11 @@ describe("compileRecipeConfig", () => {
         },
         { additionalProperties: false, default: {} }
       ),
-      toInternal: ({ stageConfig }: { stageConfig: { knobs?: Record<string, unknown>; alpha?: unknown } }) => {
-        const { knobs = {}, ...rest } = stageConfig ?? {};
+      toInternal: ({ stageConfig }: { env: unknown; stageConfig: unknown }) => {
+        const { knobs = {}, ...rest } = (stageConfig ?? {}) as {
+          knobs?: Record<string, unknown>;
+          alpha?: unknown;
+        };
         return { knobs, rawSteps: { alpha: rest.alpha ?? {} } };
       },
       steps: [step],
@@ -76,13 +79,13 @@ describe("compileRecipeConfig", () => {
           calls.push("op.normalize");
           return { ...envelope, config: { ...(envelope.config ?? {}), tag: "op" } };
         },
-      } as DomainOpCompileAny,
+      } as unknown as DomainOpCompileAny,
     };
 
     const result = compileRecipeConfig({
       env: {},
-      recipe: { stages: [stage] },
-      config: { stage: { alpha: {} } },
+      recipe: { stages: [stage as any] },
+      config: { stage: { alpha: {} } } as any,
       compileOpsById,
     });
 
