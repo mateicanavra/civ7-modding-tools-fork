@@ -332,3 +332,30 @@ Good exemplar move: ecology now has a contract-only surface (`@mapgen/domain/eco
 ### Cross-cutting Risks
 
 - Import-boundary enforcement will affect dev ergonomics; when it tightens (F2), expect some churn across tests/steps.
+
+## REVIEW m7-t13-ecology-steps-migration
+
+### Quick Take
+
+This is the right migration pattern: steps bind ops by id, do compile-time normalization via `normalize`, and runtime calls go through `runtimeOpsById` (no deep imports, no runtime config shaping).
+
+### High-Leverage Issues
+
+- Binding ops at module load time will throw early if registries drift; that’s good, but it means “importing a step” can now fail hard. Keep error messages crisp (OpBindingError is good).
+- Ensure step-level `normalize` remains shape-preserving and schema-validating; otherwise, failures will surface later with less context. Prefer tests for the most complex steps (`features` / `features-plan`).
+
+### Fix Now (Recommended)
+
+- Add one focused test that asserts an ecology step no longer imports from `@mapgen/domain/ecology/ops/**` (an rg-based test or lint rule), since this was the main “no regression” goal.
+
+### Defer / Follow-up
+
+- Consider factoring the repeated `bindCompileOps`/`bindRuntimeOps` pattern into a tiny helper per domain/step family to reduce boilerplate without reintroducing implicit globals.
+
+### Needs Discussion
+
+- Should step `normalize` call `op.normalize` directly (as done here) or should we rely solely on the compiler’s `normalizeOpsTopLevel` pass to avoid duplication?
+
+### Cross-cutting Risks
+
+- As more steps adopt this pattern, the distinction between compile-time ops vs runtime ops becomes critical; accidental mixing will be subtle and hard to debug without enforcement.
