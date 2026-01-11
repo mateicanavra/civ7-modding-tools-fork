@@ -1,8 +1,7 @@
 import {
   Type,
   defineOpContract,
-  TypedArraySchemas,
-} from "@swooper/mapgen-core/authoring";
+  TypedArraySchemas} from "@swooper/mapgen-core/authoring";
 
 import type { PlotEffectKey } from "@mapgen/domain/ecology/types.js";
 
@@ -19,8 +18,7 @@ const BiomeSymbolSchema = Type.Union(
   ],
   {
     description:
-      "Biome symbol names used by the ecology classifier (maps to engine biome bindings).",
-  }
+      "Biome symbol names used by the ecology classifier (maps to engine biome bindings)."}
 );
 
 const createPlotEffectSelectorSchema = (
@@ -30,23 +28,18 @@ const createPlotEffectSelectorSchema = (
     {
       typeName: Type.Unsafe<PlotEffectKey>(
         Type.String({
-          description: "Explicit plot effect type name (ex: PLOTEFFECT_SAND).",
-        })
-      ),
-    },
+          description: "Explicit plot effect type name (ex: PLOTEFFECT_SAND)."})
+      )},
     {
-      additionalProperties: false,
-      default: defaultValue,
-    }
+      default: defaultValue}
   );
 
 const PlotEffectsSnowSelectorsSchema = Type.Object(
   {
     light: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SNOW_LIGHT_PERMANENT" }),
     medium: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT" }),
-    heavy: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT" }),
-  },
-  { additionalProperties: false }
+    heavy: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT" })},
+  {}
 );
 
 const SnowElevationStrategySchema = Type.Union(
@@ -54,8 +47,7 @@ const SnowElevationStrategySchema = Type.Union(
   {
     description:
       "Elevation normalization strategy for snow scoring: absolute meters or percentile-based land elevation.",
-    default: "absolute",
-  }
+    default: "absolute"}
 );
 
 const PlotEffectsSnowSchema = Type.Object(
@@ -79,9 +71,8 @@ const PlotEffectsSnowSchema = Type.Object(
     moistureMin: Type.Number({ default: 40, minimum: 0 }),
     moistureMax: Type.Number({ default: 160, minimum: 0 }),
     maxTemperature: Type.Number({ default: 4 }),
-    maxAridity: Type.Number({ default: 0.9, minimum: 0, maximum: 1 }),
-  },
-  { additionalProperties: false }
+    maxAridity: Type.Number({ default: 0.9, minimum: 0, maximum: 1 })},
+  {}
 );
 
 const PlotEffectsSandSchema = Type.Object(
@@ -94,9 +85,8 @@ const PlotEffectsSandSchema = Type.Object(
     maxFreeze: Type.Number({ default: 0.25, minimum: 0, maximum: 1 }),
     maxVegetation: Type.Number({ default: 0.2, minimum: 0, maximum: 1 }),
     maxMoisture: Type.Number({ default: 90, minimum: 0 }),
-    allowedBiomes: Type.Array(BiomeSymbolSchema, { default: ["desert", "temperateDry"] }),
-  },
-  { additionalProperties: false }
+    allowedBiomes: Type.Array(BiomeSymbolSchema, { default: ["desert", "temperateDry"] })},
+  {}
 );
 
 const PlotEffectsBurnedSchema = Type.Object(
@@ -109,25 +99,22 @@ const PlotEffectsBurnedSchema = Type.Object(
     maxFreeze: Type.Number({ default: 0.2, minimum: 0, maximum: 1 }),
     maxVegetation: Type.Number({ default: 0.35, minimum: 0, maximum: 1 }),
     maxMoisture: Type.Number({ default: 110, minimum: 0 }),
-    allowedBiomes: Type.Array(BiomeSymbolSchema, { default: ["temperateDry", "tropicalSeasonal"] }),
-  },
-  { additionalProperties: false }
+    allowedBiomes: Type.Array(BiomeSymbolSchema, { default: ["temperateDry", "tropicalSeasonal"] })},
+  {}
 );
 
 const PlotEffectsConfigSchema = Type.Object(
   {
     snow: PlotEffectsSnowSchema,
     sand: PlotEffectsSandSchema,
-    burned: PlotEffectsBurnedSchema,
-  },
-  { additionalProperties: false }
+    burned: PlotEffectsBurnedSchema},
+  {}
 );
 
 const PlotEffectKeySchema = Type.Unsafe<PlotEffectKey>(
   Type.String({
     description: "Plot effect key (PLOTEFFECT_*).",
-    pattern: "^PLOTEFFECT_",
-  })
+    pattern: "^PLOTEFFECT_"})
 );
 
 const PlotEffectsInputSchema = Type.Object(
@@ -142,25 +129,22 @@ const PlotEffectsInputSchema = Type.Object(
     aridityIndex: TypedArraySchemas.f32({ description: "Aridity index per tile (0..1)." }),
     freezeIndex: TypedArraySchemas.f32({ description: "Freeze index per tile (0..1)." }),
     elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
-    landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
-  },
-  { additionalProperties: false }
+    landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." })},
+  {}
 );
 
 const PlotEffectPlacementSchema = Type.Object(
   {
     x: Type.Integer({ minimum: 0 }),
     y: Type.Integer({ minimum: 0 }),
-    plotEffect: PlotEffectKeySchema,
-  },
-  { additionalProperties: false }
+    plotEffect: PlotEffectKeySchema},
+  {}
 );
 
 const PlotEffectsOutputSchema = Type.Object(
   {
-    placements: Type.Array(PlotEffectPlacementSchema),
-  },
-  { additionalProperties: false }
+    placements: Type.Array(PlotEffectPlacementSchema)},
+  {}
 );
 
 const PlanPlotEffectsContract = defineOpContract({
@@ -169,8 +153,6 @@ const PlanPlotEffectsContract = defineOpContract({
   input: PlotEffectsInputSchema,
   output: PlotEffectsOutputSchema,
   strategies: {
-    default: PlotEffectsConfigSchema,
-  },
-});
+    default: PlotEffectsConfigSchema}});
 
 export default PlanPlotEffectsContract;

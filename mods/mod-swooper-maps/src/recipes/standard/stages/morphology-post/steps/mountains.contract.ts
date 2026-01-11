@@ -5,9 +5,8 @@ import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
 const MountainsStepConfigSchema = Type.Object(
   {
-    mountains: MorphologyConfigSchema.properties.mountains,
-  },
-  { additionalProperties: false }
+    mountains: MorphologyConfigSchema.properties.mountains},
+  {}
 );
 
 const MountainsStepContract = defineStepContract({
@@ -15,7 +14,6 @@ const MountainsStepContract = defineStepContract({
   phase: "morphology",
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],
   provides: [],
-  schema: MountainsStepConfigSchema,
-});
+  schema: MountainsStepConfigSchema});
 
 export default MountainsStepContract;

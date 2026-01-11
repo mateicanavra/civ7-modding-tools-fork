@@ -7,12 +7,10 @@ const StoryOrogenyStepConfigSchema = Type.Object(
   {
     story: Type.Object(
       {
-        orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,
-      },
-      { additionalProperties: false }
-    ),
-  },
-  { additionalProperties: false }
+        orogeny: NarrativeConfigSchema.properties.story.properties.orogeny},
+      {}
+    )},
+  {}
 );
 
 const StoryOrogenyStepContract = defineStepContract({
@@ -27,7 +25,6 @@ const StoryOrogenyStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.storyOverlays,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
   ],
-  schema: StoryOrogenyStepConfigSchema,
-});
+  schema: StoryOrogenyStepConfigSchema});
 
 export default StoryOrogenyStepContract;

@@ -5,9 +5,8 @@ const AggregatePedologyInputSchema = Type.Object(
     width: Type.Integer({ minimum: 1 }),
     height: Type.Integer({ minimum: 1 }),
     soilType: TypedArraySchemas.u8({ description: "Soil palette indices." }),
-    fertility: TypedArraySchemas.f32({ description: "Fertility values (0..1)." }),
-  },
-  { additionalProperties: false }
+    fertility: TypedArraySchemas.f32({ description: "Fertility values (0..1)." })},
+  {}
 );
 
 const AggregatePedologyOutputSchema = Type.Object(
@@ -20,20 +19,17 @@ const AggregatePedologyOutputSchema = Type.Object(
           width: Type.Integer({ minimum: 1 }),
           height: Type.Integer({ minimum: 1 }),
           meanFertility: Type.Number({ minimum: 0, maximum: 1 }),
-          dominantSoil: Type.Integer({ minimum: 0 }),
-        },
-        { additionalProperties: false }
+          dominantSoil: Type.Integer({ minimum: 0 })},
+        {}
       )
-    ),
-  },
-  { additionalProperties: false }
+    )},
+  {}
 );
 
 const AggregatePedologyConfigSchema = Type.Object(
   {
-    cellSize: Type.Integer({ minimum: 1, default: 8 }),
-  },
-  { additionalProperties: false }
+    cellSize: Type.Integer({ minimum: 1, default: 8 })},
+  {}
 );
 
 const AggregatePedologyContract = defineOpContract({
@@ -42,8 +38,6 @@ const AggregatePedologyContract = defineOpContract({
   input: AggregatePedologyInputSchema,
   output: AggregatePedologyOutputSchema,
   strategies: {
-    default: AggregatePedologyConfigSchema,
-  },
-});
+    default: AggregatePedologyConfigSchema}});
 
 export default AggregatePedologyContract;

@@ -7,12 +7,10 @@ const ClimateBaselineStepConfigSchema = Type.Object(
   {
     climate: Type.Object(
       {
-        baseline: ClimateConfigSchema.properties.baseline,
-      },
-      { additionalProperties: false }
-    ),
-  },
-  { additionalProperties: false }
+        baseline: ClimateConfigSchema.properties.baseline},
+      {}
+    )},
+  {}
 );
 
 const ClimateBaselineStepContract = defineStepContract({
@@ -23,7 +21,6 @@ const ClimateBaselineStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.heightfield,
     M3_DEPENDENCY_TAGS.artifact.climateField,
   ],
-  schema: ClimateBaselineStepConfigSchema,
-});
+  schema: ClimateBaselineStepConfigSchema});
 
 export default ClimateBaselineStepContract;

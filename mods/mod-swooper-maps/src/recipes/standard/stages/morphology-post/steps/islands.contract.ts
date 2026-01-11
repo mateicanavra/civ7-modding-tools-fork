@@ -8,18 +8,15 @@ const IslandsStepConfigSchema = Type.Object(
     islands: MorphologyConfigSchema.properties.islands,
     story: Type.Object(
       {
-        hotspot: NarrativeConfigSchema.properties.story.properties.hotspot,
-      },
-      { additionalProperties: false }
+        hotspot: NarrativeConfigSchema.properties.story.properties.hotspot},
+      {}
     ),
     corridors: Type.Object(
       {
-        sea: NarrativeConfigSchema.properties.corridors.properties.sea,
-      },
-      { additionalProperties: false }
-    ),
-  },
-  { additionalProperties: false }
+        sea: NarrativeConfigSchema.properties.corridors.properties.sea},
+      {}
+    )},
+  {}
 );
 
 const IslandsStepContract = defineStepContract({
@@ -35,7 +32,6 @@ const IslandsStepContract = defineStepContract({
     M4_EFFECT_TAGS.engine.landmassApplied,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
   ],
-  schema: IslandsStepConfigSchema,
-});
+  schema: IslandsStepConfigSchema});
 
 export default IslandsStepContract;

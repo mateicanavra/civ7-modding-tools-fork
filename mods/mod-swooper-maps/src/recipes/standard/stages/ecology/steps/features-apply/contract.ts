@@ -9,10 +9,8 @@ const FeaturesApplyStepContract = defineStepContract({
   provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
   schema: Type.Object(
     {
-      apply: ecology.ops.applyFeatures.config,
-    },
-    { additionalProperties: false }
-  ),
-});
+      apply: ecology.ops.applyFeatures.config},
+    {}
+  )});
 
 export default FeaturesApplyStepContract;

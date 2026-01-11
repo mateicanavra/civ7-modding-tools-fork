@@ -8,9 +8,8 @@ const ResourcePlanBasinsInputSchema = Type.Object(
     fertility: TypedArraySchemas.f32({ description: "Fertility field (0..1)." }),
     soilType: TypedArraySchemas.u8({ description: "Soil palette indices." }),
     rainfall: TypedArraySchemas.u8({ description: "Rainfall per tile (0..255)." }),
-    humidity: TypedArraySchemas.u8({ description: "Humidity per tile (0..255)." }),
-  },
-  { additionalProperties: false }
+    humidity: TypedArraySchemas.u8({ description: "Humidity per tile (0..255)." })},
+  {}
 );
 
 const ResourcePlanBasinsOutputSchema = Type.Object(
@@ -21,13 +20,11 @@ const ResourcePlanBasinsOutputSchema = Type.Object(
           resourceId: Type.String(),
           plots: Type.Array(Type.Integer({ minimum: 0 })),
           intensity: Type.Array(Type.Number({ minimum: 0, maximum: 1 })),
-          confidence: Type.Number({ minimum: 0, maximum: 1 }),
-        },
-        { additionalProperties: false }
+          confidence: Type.Number({ minimum: 0, maximum: 1 })},
+        {}
       )
-    ),
-  },
-  { additionalProperties: false }
+    )},
+  {}
 );
 
 const ResourcePlanBasinsConfigSchema = Type.Object(
@@ -39,14 +36,12 @@ const ResourcePlanBasinsConfigSchema = Type.Object(
           target: Type.Integer({ minimum: 1, default: 6 }),
           fertilityBias: Type.Number({ minimum: 0, maximum: 2, default: 1 }),
           moistureBias: Type.Number({ minimum: 0, maximum: 2, default: 1 }),
-          spacing: Type.Integer({ minimum: 1, default: 4 }),
-        },
-        { additionalProperties: false }
+          spacing: Type.Integer({ minimum: 1, default: 4 })},
+        {}
       ),
       { default: [] }
-    ),
-  },
-  { additionalProperties: false }
+    )},
+  {}
 );
 
 const ResourcePlanBasinsContract = defineOpContract({
@@ -57,8 +52,6 @@ const ResourcePlanBasinsContract = defineOpContract({
   strategies: {
     default: ResourcePlanBasinsConfigSchema,
     "hydro-fluvial": ResourcePlanBasinsConfigSchema,
-    mixed: ResourcePlanBasinsConfigSchema,
-  },
-});
+    mixed: ResourcePlanBasinsConfigSchema}});
 
 export default ResourcePlanBasinsContract;

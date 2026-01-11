@@ -7,24 +7,21 @@ const PlanIceInputSchema = Type.Object(
     height: Type.Integer({ minimum: 1 }),
     landMask: TypedArraySchemas.u8({ description: "Land mask (1 = land, 0 = water)." }),
     surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature (C)." }),
-    elevation: TypedArraySchemas.i16({ description: "Elevation (meters)." }),
-  },
-  { additionalProperties: false }
+    elevation: TypedArraySchemas.i16({ description: "Elevation (meters)." })},
+  {}
 );
 
 const PlanIceOutputSchema = Type.Object(
   {
-    placements: Type.Array(FeaturePlacementSchema),
-  },
-  { additionalProperties: false }
+    placements: Type.Array(FeaturePlacementSchema)},
+  {}
 );
 
 const PlanIceConfigSchema = Type.Object(
   {
     seaIceThreshold: Type.Number({ default: -8 }),
-    alpineThreshold: Type.Integer({ default: 2800 }),
-  },
-  { additionalProperties: false }
+    alpineThreshold: Type.Integer({ default: 2800 })},
+  {}
 );
 
 const PlanIceContract = defineOpContract({
@@ -34,8 +31,6 @@ const PlanIceContract = defineOpContract({
   output: PlanIceOutputSchema,
   strategies: {
     default: PlanIceConfigSchema,
-    continentality: PlanIceConfigSchema,
-  },
-});
+    continentality: PlanIceConfigSchema}});
 
 export default PlanIceContract;

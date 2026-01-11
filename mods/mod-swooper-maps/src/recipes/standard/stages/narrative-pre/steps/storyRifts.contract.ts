@@ -7,12 +7,10 @@ const StoryRiftsStepConfigSchema = Type.Object(
   {
     story: Type.Object(
       {
-        rift: NarrativeConfigSchema.properties.story.properties.rift,
-      },
-      { additionalProperties: false }
-    ),
-  },
-  { additionalProperties: false }
+        rift: NarrativeConfigSchema.properties.story.properties.rift},
+      {}
+    )},
+  {}
 );
 
 const StoryRiftsStepContract = defineStepContract({
@@ -26,7 +24,6 @@ const StoryRiftsStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.storyOverlays,
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
   ],
-  schema: StoryRiftsStepConfigSchema,
-});
+  schema: StoryRiftsStepConfigSchema});
 
 export default StoryRiftsStepContract;

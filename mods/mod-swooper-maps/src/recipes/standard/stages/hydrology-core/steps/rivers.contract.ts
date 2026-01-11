@@ -9,15 +9,12 @@ const RiversStepConfigSchema = Type.Object(
       {
         story: Type.Object(
           {
-            paleo: Type.Optional(ClimateConfigSchema.properties.story.properties.paleo),
-          },
-          { additionalProperties: false }
-        ),
-      },
-      { additionalProperties: false }
-    ),
-  },
-  { additionalProperties: false }
+            paleo: Type.Optional(ClimateConfigSchema.properties.story.properties.paleo)},
+          {}
+        )},
+      {}
+    )},
+  {}
 );
 
 const RiversStepContract = defineStepContract({
@@ -29,7 +26,6 @@ const RiversStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.heightfield,
     M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
   ],
-  schema: RiversStepConfigSchema,
-});
+  schema: RiversStepConfigSchema});
 
 export default RiversStepContract;

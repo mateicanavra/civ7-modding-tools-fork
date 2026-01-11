@@ -40,9 +40,8 @@ const VegetatedMinByBiomeSchema = Type.Object(
     temperateHumid: Type.Number({ default: 0.05, minimum: 0, maximum: 1 }),
     tropicalSeasonal: Type.Number({ default: 0.05, minimum: 0, maximum: 1 }),
     tropicalRainforest: Type.Number({ default: 0.05, minimum: 0, maximum: 1 }),
-    desert: Type.Number({ default: 0.02, minimum: 0, maximum: 1 }),
-  },
-  { additionalProperties: false }
+    desert: Type.Number({ default: 0.02, minimum: 0, maximum: 1 })},
+  {}
 );
 
 const VegetatedRulesSchema = Type.Object(
@@ -58,9 +57,8 @@ const VegetatedRulesSchema = Type.Object(
     temperateDryForestMaxAridity: Type.Number({ default: 0.65, minimum: 0, maximum: 1 }),
     temperateDryForestVegetation: Type.Number({ default: 0.45, minimum: 0, maximum: 1 }),
     tropicalSeasonalRainforestMoisture: Type.Number({ default: 140 }),
-    tropicalSeasonalRainforestMaxAridity: Type.Number({ default: 0.6, minimum: 0, maximum: 1 }),
-  },
-  { additionalProperties: false }
+    tropicalSeasonalRainforestMaxAridity: Type.Number({ default: 0.6, minimum: 0, maximum: 1 })},
+  {}
 );
 
 const VegetatedChancesSchema = Type.Object(
@@ -69,9 +67,8 @@ const VegetatedChancesSchema = Type.Object(
     FEATURE_RAINFOREST: Type.Number({ default: 65, minimum: 0, maximum: 100 }),
     FEATURE_TAIGA: Type.Number({ default: 50, minimum: 0, maximum: 100 }),
     FEATURE_SAVANNA_WOODLAND: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
-    FEATURE_SAGEBRUSH_STEPPE: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
-  },
-  { additionalProperties: false }
+    FEATURE_SAGEBRUSH_STEPPE: Type.Number({ default: 30, minimum: 0, maximum: 100 })},
+  {}
 );
 
 const VegetatedFeaturePlacementsConfigSchema = Type.Object(
@@ -79,12 +76,10 @@ const VegetatedFeaturePlacementsConfigSchema = Type.Object(
     multiplier: Type.Number({
       description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
       default: 1,
-      minimum: 0,
-    }),
+      minimum: 0}),
     chances: VegetatedChancesSchema,
-    rules: VegetatedRulesSchema,
-  },
-  { additionalProperties: false }
+    rules: VegetatedRulesSchema},
+  {}
 );
 
 const VegetatedFeaturePlacementsInputSchema = Type.Object(
@@ -101,27 +96,23 @@ const VegetatedFeaturePlacementsInputSchema = Type.Object(
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     terrainType: TypedArraySchemas.u8({ description: "Terrain type id per tile." }),
     featureKeyField: TypedArraySchemas.i16({
-      description: "Existing feature key indices per tile (-1 for empty).",
-    }),
-    navigableRiverTerrain: Type.Integer({ description: "Terrain id for navigable rivers." }),
-  },
-  { additionalProperties: false }
+      description: "Existing feature key indices per tile (-1 for empty)."}),
+    navigableRiverTerrain: Type.Integer({ description: "Terrain id for navigable rivers." })},
+  {}
 );
 
 const VegetatedPlacementSchema = Type.Object(
   {
     x: Type.Integer({ minimum: 0 }),
     y: Type.Integer({ minimum: 0 }),
-    feature: VegetatedFeatureKeySchema,
-  },
-  { additionalProperties: false }
+    feature: VegetatedFeatureKeySchema},
+  {}
 );
 
 const VegetatedFeaturePlacementsOutputSchema = Type.Object(
   {
-    placements: Type.Array(VegetatedPlacementSchema),
-  },
-  { additionalProperties: false }
+    placements: Type.Array(VegetatedPlacementSchema)},
+  {}
 );
 
 const PlanVegetatedFeaturePlacementsContract = defineOpContract({
@@ -130,8 +121,6 @@ const PlanVegetatedFeaturePlacementsContract = defineOpContract({
   input: VegetatedFeaturePlacementsInputSchema,
   output: VegetatedFeaturePlacementsOutputSchema,
   strategies: {
-    default: VegetatedFeaturePlacementsConfigSchema,
-  },
-});
+    default: VegetatedFeaturePlacementsConfigSchema}});
 
 export default PlanVegetatedFeaturePlacementsContract;

@@ -25,17 +25,15 @@ const PedologyClassifyInputSchema = Type.Object(
         TypedArraySchemas.f32({ description: "Optional slope or relief proxy (0..1)." }),
         Type.Undefined(),
       ])
-    ),
-  },
-  { additionalProperties: false }
+    )},
+  {}
 );
 
 const PedologyClassifyOutputSchema = Type.Object(
   {
     soilType: TypedArraySchemas.u8({ description: "Soil palette index per tile." }),
-    fertility: TypedArraySchemas.f32({ description: "Fertility score per tile (0..1)." }),
-  },
-  { additionalProperties: false }
+    fertility: TypedArraySchemas.f32({ description: "Fertility score per tile (0..1)." })},
+  {}
 );
 
 const PedologyClassifyConfigSchema = Type.Object(
@@ -44,9 +42,8 @@ const PedologyClassifyConfigSchema = Type.Object(
     reliefWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.8 }),
     sedimentWeight: Type.Number({ minimum: 0, maximum: 5, default: 1.1 }),
     bedrockWeight: Type.Number({ minimum: 0, maximum: 5, default: 0.6 }),
-    fertilityCeiling: Type.Number({ minimum: 0, maximum: 1, default: 0.95 }),
-  },
-  { additionalProperties: false }
+    fertilityCeiling: Type.Number({ minimum: 0, maximum: 1, default: 0.95 })},
+  {}
 );
 
 const PedologyClassifyContract = defineOpContract({
@@ -57,8 +54,6 @@ const PedologyClassifyContract = defineOpContract({
   strategies: {
     default: PedologyClassifyConfigSchema,
     "coastal-shelf": PedologyClassifyConfigSchema,
-    "orogeny-boosted": PedologyClassifyConfigSchema,
-  },
-});
+    "orogeny-boosted": PedologyClassifyConfigSchema}});
 
 export default PedologyClassifyContract;
