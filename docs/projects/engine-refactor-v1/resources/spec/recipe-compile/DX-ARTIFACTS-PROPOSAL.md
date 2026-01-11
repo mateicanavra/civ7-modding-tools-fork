@@ -171,6 +171,15 @@ This aligns with:
 - the existing “context holds shared runtime surfaces” precedent (e.g. `ctx.env`)
 - the tRPC “context typed at initialization, created at runtime” pattern
 
+### 3b) Why not `ctx.deps`?
+
+We can still attach `ctx.deps` internally if it helps implementation, but as an authoring surface it has two drawbacks:
+
+- It risks semantic confusion with `ctx.artifacts` (store) vs `ctx.deps.artifacts` (API).
+- It encourages “ambient dependencies” rather than explicit threading (which we’ve been moving away from with contract-first binding).
+
+So: prefer `deps` as a first-class parameter, with `ctx` remaining the runtime state container.
+
 ### 4) Compose step-level artifacts into recipe-level registries automatically
 
 `createRecipe(...)` already has visibility into all `stages -> steps` at recipe construction time.
@@ -287,6 +296,8 @@ export type ArtifactRuntimeImpl<C extends ArtifactContract, TContext extends Ext
   Readonly<{
     validate?: (value: unknown, context: TContext) => readonly { message: string }[];
     freeze?: (value: ArtifactValueOf<C>) => ArtifactValueOf<C>; // default deep-freeze
+    publish?: (context: TContext, value: ArtifactValueOf<C>) => void; // default store.set
+    read?: (context: TContext) => unknown; // default store.get
     satisfies?: DependencyTagDefinition<TContext>["satisfies"]; // default checks store.has + optional validate
   }>;
 
