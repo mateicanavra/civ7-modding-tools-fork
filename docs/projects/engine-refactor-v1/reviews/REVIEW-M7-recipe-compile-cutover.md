@@ -305,3 +305,30 @@ This completes the engine-side cut: `compileExecutionPlan` becomes validate-only
 ### Cross-cutting Risks
 
 - Once both compiler and planner validate strictly, any mismatch in schema defaults (e.g. missing `default: {}`) will become a sharp edge for content authors.
+
+## REVIEW m7-t12-ecology-domain-entrypoint
+
+### Quick Take
+
+Good exemplar move: ecology now has a contract-only surface (`@mapgen/domain/ecology/contracts`) plus a canonical entrypoint exporting `compileOpsById`/`runtimeOpsById`, reducing deep-import sprawl.
+
+### High-Leverage Issues
+
+- Ensure “contract-only” stays true over time: it’s easy for a contract file to start importing runtime helpers; enforcement should catch that early.
+- Domain entrypoint still has a large `ops` bag; that’s fine internally, but once import-boundary enforcement tightens, prefer consumers depend on registries/contracts rather than reaching into implementation exports.
+
+### Fix Now (Recommended)
+
+- Add an automated check (lint/rg gate) that blocks imports from `@mapgen/domain/ecology/ops/**` outside the domain module itself, so this doesn’t regress quietly.
+
+### Defer / Follow-up
+
+- Consider mirroring this pattern in other domains once ecology migration is stable (so recipe compilation assembly doesn’t become ecology-special).
+
+### Needs Discussion
+
+- Do we want contracts as named exports only (no `contracts` bag), or is the `contracts` bag intentionally the ergonomic primary surface?
+
+### Cross-cutting Risks
+
+- Import-boundary enforcement will affect dev ergonomics; when it tightens (F2), expect some churn across tests/steps.
