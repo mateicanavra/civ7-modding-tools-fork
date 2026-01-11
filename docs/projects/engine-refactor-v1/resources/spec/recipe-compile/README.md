@@ -23,6 +23,8 @@ This folder contains the spec/architecture for the composition-first recipe comp
 
 - `DX-CLEANUP-PLAYBOOK.md` — Reusable guide for DX refactors (steps/domains/ops
   wiring, boundaries, verification)
+- `DX-ARTIFACTS-PROPOSAL.md` — Proposal for step-centered artifact authoring,
+  composition, and context access patterns
 
 ## Source Materials
 
