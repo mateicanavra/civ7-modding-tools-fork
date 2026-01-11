@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 
 const FeaturesApplyStepContract = defineStep({
@@ -8,7 +8,7 @@ const FeaturesApplyStepContract = defineStep({
   requires: [M3_DEPENDENCY_TAGS.artifact.featureIntentsV1],
   provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
   ops: {
-    apply: ecologyContracts.applyFeatures,
+    apply: ecology.ops.applyFeatures,
   },
   schema: Type.Object({}),
 });

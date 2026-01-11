@@ -2,7 +2,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
-import * as ecology from "@mapgen/domain/ecology/ops";
+import ecology from "@mapgen/domain/ecology/ops";
 
 import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 

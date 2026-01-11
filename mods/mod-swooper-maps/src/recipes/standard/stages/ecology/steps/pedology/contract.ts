@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
 const PedologyStepContract = defineStep({
@@ -8,7 +8,7 @@ const PedologyStepContract = defineStep({
   requires: [M3_DEPENDENCY_TAGS.artifact.heightfield, M3_DEPENDENCY_TAGS.artifact.climateField],
   provides: [M3_DEPENDENCY_TAGS.artifact.pedologyV1],
   ops: {
-    classify: ecologyContracts.classifyPedology,
+    classify: ecology.ops.classifyPedology,
   },
   schema: Type.Object({}),
 });

@@ -8,7 +8,7 @@ import {
   getPublishedNarrativeMotifsHotspots,
   getPublishedNarrativeMotifsMargins,
 } from "../../../../artifacts.js";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 import { buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";
 import type { FeatureKeyLookups } from "./feature-keys.js";
@@ -16,18 +16,18 @@ import type { FeatureKeyLookups } from "./feature-keys.js";
 const NO_FEATURE = -1;
 const UNKNOWN_FEATURE = -2;
 
-type ReefEmbellishmentsInput = Static<typeof ecologyContracts.planReefEmbellishments.input>;
+type ReefEmbellishmentsInput = Static<typeof ecology.ops.planReefEmbellishments.input>;
 type VegetationEmbellishmentsInput =
-  Static<typeof ecologyContracts.planVegetationEmbellishments.input>;
+  Static<typeof ecology.ops.planVegetationEmbellishments.input>;
 type VegetatedPlacementInput =
-  Static<typeof ecologyContracts.planVegetatedFeaturePlacements.input>;
-type WetPlacementInput = Static<typeof ecologyContracts.planWetFeaturePlacements.input>;
+  Static<typeof ecology.ops.planVegetatedFeaturePlacements.input>;
+type WetPlacementInput = Static<typeof ecology.ops.planWetFeaturePlacements.input>;
 type AquaticPlacementInput =
-  Static<typeof ecologyContracts.planAquaticFeaturePlacements.input>;
-type IcePlacementInput = Static<typeof ecologyContracts.planIceFeaturePlacements.input>;
+  Static<typeof ecology.ops.planAquaticFeaturePlacements.input>;
+type IcePlacementInput = Static<typeof ecology.ops.planIceFeaturePlacements.input>;
 
 type WetInnerConfig =
-  OpTypeBag<typeof ecologyContracts.planWetFeaturePlacements>["config"]["default"];
+  OpTypeBag<typeof ecology.ops.planWetFeaturePlacements>["config"]["default"];
 
 const getHeightfieldArtifact = (context: ExtendedMapContext) => heightfieldArtifact.get(context);
 

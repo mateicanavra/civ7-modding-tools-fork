@@ -1,10 +1,10 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { getPublishedBiomeClassification, heightfieldArtifact } from "../../../../artifacts.js";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 import { deriveStepSeed } from "../helpers/seed.js";
 
-type PlotEffectsInput = Static<typeof ecologyContracts.planPlotEffects.input>;
+type PlotEffectsInput = Static<typeof ecology.ops.planPlotEffects.input>;
 
 export function buildPlotEffectsInput(context: ExtendedMapContext): PlotEffectsInput {
   const { width, height } = context.dimensions;

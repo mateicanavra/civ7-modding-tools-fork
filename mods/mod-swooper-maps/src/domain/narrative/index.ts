@@ -1,3 +1,11 @@
+import { defineDomain } from "@swooper/mapgen-core/authoring";
+
+import ops from "./ops/contracts.js";
+
+const domain = defineDomain({ id: "narrative", ops } as const);
+
+export default domain;
+
 export * from "@mapgen/domain/narrative/overlays/index.js";
 export * from "@mapgen/domain/narrative/models.js";
 export * from "@mapgen/domain/narrative/tagging/index.js";
