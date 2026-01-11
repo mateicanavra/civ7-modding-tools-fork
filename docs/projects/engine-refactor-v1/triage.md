@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Plan compilation requires explicit step configs when a schema exists** [Source: LOCAL-TBD-M7-D2]
+  - **Context:** D2 validate-only planner removes defaulting/cleaning; missing configs should surface as errors.
+  - **Type:** triage
+  - **Notes:** compileExecutionPlan now treats missing config as `step.config.invalid` instead of defaulting `{}`; ensure all compiled recipes supply explicit step configs.
+  - **Next check:** before F1 no-shims audit or when onboarding external recipe entrypoints.
+
 - **Ecology preset config dropped legacy `features` step** [Source: LOCAL-TBD-M7-C2]
   - **Context:** C2 stage config alignment removed `ecology.features` blocks from map presets so compiler validation only sees step-id keyed inputs.
   - **Type:** triage
