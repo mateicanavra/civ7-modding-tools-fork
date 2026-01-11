@@ -30,9 +30,9 @@ Make stages the authoritative "author-facing config surface" owner. Stage config
 
 ## Acceptance Criteria
 
-- [ ] `createStage(...)` computes and attaches `surfaceSchema` for the stage (including `"knobs"` reserved key handling).
-- [ ] Stage Option A exists: stages may declare optional `public` schema and a `compile` mapping; internal-as-public stages remain valid.
-- [ ] Reserved key enforcement: authors cannot declare a step id/key named `"knobs"` and `"knobs"` must not appear inside step configs post-compilation.
+- [x] `createStage(...)` computes and attaches `surfaceSchema` for the stage (including `"knobs"` reserved key handling).
+- [x] Stage Option A exists: stages may declare optional `public` schema and a `compile` mapping; internal-as-public stages remain valid.
+- [x] Reserved key enforcement: authors cannot declare a step id/key named `"knobs"` and `"knobs"` must not appear inside step configs post-compilation.
 
 ## Scope Boundaries
 
@@ -53,6 +53,15 @@ Make stages the authoritative "author-facing config surface" owner. Stage config
 - **Blocks:** [LOCAL-TBD-M7-C1](./LOCAL-TBD-M7-C1-recipe-boundary-compilation.md), [LOCAL-TBD-M7-C2](./LOCAL-TBD-M7-C2-stage-step-config-shape.md)
 - **Reference disclaimer:** DO NOT consult non-target MapGen architecture/spec docs outside `docs/projects/engine-refactor-v1/resources/spec/recipe-compile`; they conflict with the target spec and will cause confusion.
 - See `non_target_arch_docs_off_limits` in the milestone doc for off-limits paths.
+
+## Implementation Decisions
+
+### Adopt contract-owned step modules early
+- **Context:** Stage Option A requires stage surfaces derived from step IDs and the compiler expects contract-owned fields; we needed to choose between keeping top-level step fields with shims or moving to contract-owned fields now.
+- **Options:** Keep top-level step fields + compatibility shims; migrate to contract-owned step fields immediately.
+- **Choice:** Migrate to contract-owned step fields immediately.
+- **Rationale:** Aligns with the spec surface and compiler pipeline while avoiding dual APIs or shims.
+- **Risk:** Broad API shift could break authoring call sites; mitigated by updating stage/recipe wiring and running full mapgen-core + mod test suites.
 
 ---
 

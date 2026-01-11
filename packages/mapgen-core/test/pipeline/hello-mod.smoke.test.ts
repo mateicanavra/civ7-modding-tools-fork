@@ -15,6 +15,7 @@ const baseSettings = {
   latitudeBounds: { topLatitude: 90, bottomLatitude: -90 },
   wrap: { wrapX: true, wrapY: false },
 };
+const EmptyKnobsSchema = Type.Object({}, { additionalProperties: false, default: {} });
 
 describe("authoring: hello recipe compile/execute", () => {
   it("compiles and executes a minimal recipe module", () => {
@@ -33,6 +34,7 @@ describe("authoring: hello recipe compile/execute", () => {
 
     const helloStage = createStage({
       id: "foundation",
+      knobsSchema: EmptyKnobsSchema,
       steps: [helloStep],
     });
 

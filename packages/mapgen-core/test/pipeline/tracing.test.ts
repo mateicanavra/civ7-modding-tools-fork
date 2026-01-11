@@ -16,6 +16,8 @@ import {
 } from "@mapgen/engine/index.js";
 import type { TraceEvent } from "@mapgen/trace/index.js";
 
+const EmptyKnobsSchema = Type.Object({}, { additionalProperties: false, default: {} });
+
 describe("pipeline tracing", () => {
   it("emits run/step timing events with runId and plan fingerprint", () => {
     const registry = new StepRegistry<unknown>();
@@ -160,7 +162,7 @@ describe("pipeline tracing", () => {
       schema: Type.Object({}, { additionalProperties: false }),
     });
     const step = createStep(contract, { run: () => {} });
-    const stage = createStage({ id: "foundation", steps: [step] });
+    const stage = createStage({ id: "foundation", knobsSchema: EmptyKnobsSchema, steps: [step] });
     const recipe = createRecipe({
       id: "trace",
       tagDefinitions: [],
