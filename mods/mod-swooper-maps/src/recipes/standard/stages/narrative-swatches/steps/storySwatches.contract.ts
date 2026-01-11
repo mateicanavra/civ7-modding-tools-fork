@@ -3,12 +3,6 @@ import { ClimateConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
 
-const StorySwatchesStepConfigSchema = Type.Object(
-  {
-    climate: ClimateConfigSchema},
-  {}
-);
-
 const StorySwatchesStepContract = defineStepContract({
   id: "story-swatches",
   phase: "hydrology",
@@ -18,6 +12,9 @@ const StorySwatchesStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.climateField],
-  schema: StorySwatchesStepConfigSchema});
+  schema: Type.Object({
+    climate: ClimateConfigSchema,
+  }),
+});
 
 export default StorySwatchesStepContract;

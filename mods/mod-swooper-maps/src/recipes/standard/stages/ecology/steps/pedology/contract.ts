@@ -7,10 +7,9 @@ const PedologyStepContract = defineStepContract({
   phase: "ecology",
   requires: [M3_DEPENDENCY_TAGS.artifact.heightfield, M3_DEPENDENCY_TAGS.artifact.climateField],
   provides: [M3_DEPENDENCY_TAGS.artifact.pedologyV1],
-  schema: Type.Object(
-    {
-      classify: ecology.ops.classifyPedology.config},
-    {}
-  )});
+  schema: Type.Object({
+    classify: ecology.ops.classifyPedology.config,
+  }),
+});
 
 export default PedologyStepContract;

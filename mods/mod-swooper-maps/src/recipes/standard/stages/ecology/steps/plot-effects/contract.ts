@@ -3,12 +3,6 @@ import * as ecology from "@mapgen/domain/ecology";
 
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
-const PlotEffectsStepConfigSchema = Type.Object(
-  {
-    plotEffects: ecology.ops.planPlotEffects.config},
-  {}
-);
-
 const PlotEffectsStepContract = defineStepContract({
   id: "plot-effects",
   phase: "ecology",
@@ -17,6 +11,9 @@ const PlotEffectsStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
   ],
   provides: [],
-  schema: PlotEffectsStepConfigSchema});
+  schema: Type.Object({
+    plotEffects: ecology.ops.planPlotEffects.config,
+  }),
+});
 
 export default PlotEffectsStepContract;

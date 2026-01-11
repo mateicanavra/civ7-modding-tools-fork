@@ -9,28 +9,11 @@ import { NoiseSchema } from "./rules/noise.schema.js";
 import { OverlaySchema } from "./rules/overlays.schema.js";
 
 /** Biome classification parameters for temperature, moisture, vegetation, and overlays. */
-const BiomeClassificationConfigSchema = Type.Object(
-  {
-    /** Temperature model knobs (degrees C, lapse rate, thresholds). */
-    temperature: TemperatureSchema,
-    /** Moisture model knobs (thresholds, humidity weight, bias). */
-    moisture: MoistureSchema,
-    /** Aridity/PET proxy knobs (used to shift moisture zones). */
-    aridity: AriditySchema,
-    /** Freeze index thresholds used for snow/ice suitability. */
-    freeze: FreezeSchema,
-    /** Vegetation density model knobs (0..1 weights). */
-    vegetation: VegetationSchema,
-    /** Noise settings for moisture variation. */
-    noise: NoiseSchema,
-    /** Narrative overlay moisture bonuses. */
-    overlays: OverlaySchema},
-  {
-    description: "Biome classification parameters for temperature, moisture, vegetation, and overlays."}
-);
 
-const BiomeClassificationInputSchema = Type.Object(
-  {
+const BiomeClassificationContract = defineOpContract({
+  kind: "compute",
+  id: "ecology/biomes/classify",
+  input: Type.Object({
     width: Type.Integer({ minimum: 1 }),
     height: Type.Integer({ minimum: 1 }),
     rainfall: TypedArraySchemas.u8({ description: "Rainfall per tile (0..255)." }),
@@ -39,27 +22,44 @@ const BiomeClassificationInputSchema = Type.Object(
     latitude: TypedArraySchemas.f32({ description: "Latitude per tile (degrees)." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     corridorMask: TypedArraySchemas.u8({ description: "Narrative corridor mask per tile." }),
-    riftShoulderMask: TypedArraySchemas.u8({ description: "Rift shoulder mask per tile." })},
-  {}
-);
-
-const BiomeClassificationOutputSchema = Type.Object(
-  {
+    riftShoulderMask: TypedArraySchemas.u8({ description: "Rift shoulder mask per tile." }),
+  }),
+  output: Type.Object({
     biomeIndex: TypedArraySchemas.u8({ description: "Biome symbol indices per tile." }),
-    vegetationDensity: TypedArraySchemas.f32({ description: "Vegetation density per tile (0..1)." }),
+    vegetationDensity: TypedArraySchemas.f32({
+      description: "Vegetation density per tile (0..1).",
+    }),
     effectiveMoisture: TypedArraySchemas.f32({ description: "Effective moisture per tile." }),
-    surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature per tile (C)." }),
+    surfaceTemperature: TypedArraySchemas.f32({
+      description: "Surface temperature per tile (C).",
+    }),
     aridityIndex: TypedArraySchemas.f32({ description: "Aridity index per tile (0..1)." }),
-    freezeIndex: TypedArraySchemas.f32({ description: "Freeze index per tile (0..1)." })},
-  {}
-);
-
-const BiomeClassificationContract = defineOpContract({
-  kind: "compute",
-  id: "ecology/biomes/classify",
-  input: BiomeClassificationInputSchema,
-  output: BiomeClassificationOutputSchema,
+    freezeIndex: TypedArraySchemas.f32({ description: "Freeze index per tile (0..1)." }),
+  }),
   strategies: {
-    default: BiomeClassificationConfigSchema}});
+    default: Type.Object(
+      {
+        /** Temperature model knobs (degrees C, lapse rate, thresholds). */
+        temperature: TemperatureSchema,
+        /** Moisture model knobs (thresholds, humidity weight, bias). */
+        moisture: MoistureSchema,
+        /** Aridity/PET proxy knobs (used to shift moisture zones). */
+        aridity: AriditySchema,
+        /** Freeze index thresholds used for snow/ice suitability. */
+        freeze: FreezeSchema,
+        /** Vegetation density model knobs (0..1 weights). */
+        vegetation: VegetationSchema,
+        /** Noise settings for moisture variation. */
+        noise: NoiseSchema,
+        /** Narrative overlay moisture bonuses. */
+        overlays: OverlaySchema,
+      },
+      {
+        description:
+          "Biome classification parameters for temperature, moisture, vegetation, and overlays.",
+      }
+    ),
+  },
+});
 
 export default BiomeClassificationContract;

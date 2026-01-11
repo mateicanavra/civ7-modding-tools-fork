@@ -3,13 +3,6 @@ import * as ecology from "@mapgen/domain/ecology";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 
-const BiomesStepConfigSchema = Type.Object(
-  {
-    classify: ecology.ops.classifyBiomes.config,
-    bindings: Type.Optional(ecology.BiomeEngineBindingsSchema)},
-  {}
-);
-
 const BiomesStepContract = defineStepContract({
   id: "biomes",
   phase: "ecology",
@@ -24,6 +17,10 @@ const BiomesStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.field.biomeId,
     M4_EFFECT_TAGS.engine.biomesApplied,
   ],
-  schema: BiomesStepConfigSchema});
+  schema: Type.Object({
+    classify: ecology.ops.classifyBiomes.config,
+    bindings: Type.Optional(ecology.BiomeEngineBindingsSchema),
+  }),
+});
 
 export default BiomesStepContract;

@@ -3,12 +3,6 @@ import { NarrativeConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
-const StoryCorridorsStepConfigSchema = Type.Object(
-  {
-    corridors: NarrativeConfigSchema.properties.corridors},
-  {}
-);
-
 const StoryCorridorsPreStepContract = defineStepContract({
   id: "story-corridors-pre",
   phase: "morphology",
@@ -21,6 +15,9 @@ const StoryCorridorsPreStepContract = defineStepContract({
     M3_DEPENDENCY_TAGS.artifact.storyOverlays,
     M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
   ],
-  schema: StoryCorridorsStepConfigSchema});
+  schema: Type.Object({
+    corridors: NarrativeConfigSchema.properties.corridors,
+  }),
+});
 
 export default StoryCorridorsPreStepContract;
