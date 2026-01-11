@@ -23,3 +23,5 @@ export const FoundationStepContract = defineStepContract({
   ],
   schema: FoundationStepConfigSchema,
 });
+
+export default FoundationStepContract;

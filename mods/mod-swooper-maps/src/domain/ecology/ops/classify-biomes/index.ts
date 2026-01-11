@@ -18,3 +18,5 @@ export function biomeSymbolAt(index: number): BiomeSymbol {
 }
 
 export { biomeSymbolFromIndex };
+
+export default classifyBiomes;

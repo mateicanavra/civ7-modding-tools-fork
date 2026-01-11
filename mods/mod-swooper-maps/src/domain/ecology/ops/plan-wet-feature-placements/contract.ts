@@ -114,3 +114,5 @@ export const PlanWetFeaturePlacementsContract = defineOpContract({
     default: WetFeaturePlacementsConfigSchema,
   },
 });
+
+export default PlanWetFeaturePlacementsContract;

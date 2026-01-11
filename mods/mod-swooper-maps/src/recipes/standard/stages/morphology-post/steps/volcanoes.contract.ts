@@ -17,3 +17,5 @@ export const VolcanoesStepContract = defineStepContract({
   provides: [],
   schema: VolcanoesStepConfigSchema,
 });
+
+export default VolcanoesStepContract;

@@ -103,3 +103,5 @@ export const PlanVegetationEmbellishmentsContract = defineOpContract({
     default: VegetationEmbellishmentsConfigSchema,
   },
 });
+
+export default PlanVegetationEmbellishmentsContract;

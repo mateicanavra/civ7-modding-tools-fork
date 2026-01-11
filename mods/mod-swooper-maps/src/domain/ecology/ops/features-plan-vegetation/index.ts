@@ -11,3 +11,5 @@ export const planVegetation = createOp(PlanVegetationContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default planVegetation;

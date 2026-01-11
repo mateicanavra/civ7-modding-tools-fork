@@ -51,3 +51,5 @@ export const ResourceScoreBalanceContract = defineOpContract({
     default: ResourceScoreBalanceConfigSchema,
   },
 });
+
+export default ResourceScoreBalanceContract;

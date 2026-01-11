@@ -17,3 +17,5 @@ export const MountainsStepContract = defineStepContract({
   provides: [],
   schema: MountainsStepConfigSchema,
 });
+
+export default MountainsStepContract;

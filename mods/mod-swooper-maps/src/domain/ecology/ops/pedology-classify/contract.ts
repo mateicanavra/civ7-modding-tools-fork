@@ -60,3 +60,5 @@ export const PedologyClassifyContract = defineOpContract({
     "orogeny-boosted": PedologyClassifyConfigSchema,
   },
 });
+
+export default PedologyClassifyContract;

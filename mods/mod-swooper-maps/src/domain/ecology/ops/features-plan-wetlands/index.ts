@@ -11,3 +11,5 @@ export const planWetlands = createOp(PlanWetlandsContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default planWetlands;

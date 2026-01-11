@@ -11,3 +11,5 @@ export const planReefs = createOp(PlanReefsContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default planReefs;

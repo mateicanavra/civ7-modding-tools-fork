@@ -36,3 +36,5 @@ export const PlanReefsContract = defineOpContract({
     "shipping-lanes": PlanReefsConfigSchema,
   },
 });
+
+export default PlanReefsContract;

@@ -12,3 +12,5 @@ export const refineBiomeEdges = createOp(RefineBiomeEdgesContract, {
 
 export * from "./contract.js";
 export type * from "./types.js";
+
+export default refineBiomeEdges;

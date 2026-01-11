@@ -29,3 +29,5 @@ export const StoryOrogenyStepContract = defineStepContract({
   ],
   schema: StoryOrogenyStepConfigSchema,
 });
+
+export default StoryOrogenyStepContract;

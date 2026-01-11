@@ -133,3 +133,5 @@ export const PlanVegetatedFeaturePlacementsContract = defineOpContract({
     default: VegetatedFeaturePlacementsConfigSchema,
   },
 });
+
+export default PlanVegetatedFeaturePlacementsContract;

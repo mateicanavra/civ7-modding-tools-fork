@@ -37,3 +37,5 @@ export const PlanIceContract = defineOpContract({
     continentality: PlanIceConfigSchema,
   },
 });
+
+export default PlanIceContract;
