@@ -42,7 +42,7 @@ const ResourceScoreBalanceConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const ResourceScoreBalanceContract = defineOpContract({
+const ResourceScoreBalanceContract = defineOpContract({
   kind: "score",
   id: "ecology/resources/score-balance",
   input: ResourceScoreBalanceInputSchema,

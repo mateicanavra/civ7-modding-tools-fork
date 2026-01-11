@@ -15,7 +15,7 @@ const StoryOrogenyStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const StoryOrogenyStepContract = defineStepContract({
+const StoryOrogenyStepContract = defineStepContract({
   id: "story-orogeny",
   phase: "morphology",
   requires: [

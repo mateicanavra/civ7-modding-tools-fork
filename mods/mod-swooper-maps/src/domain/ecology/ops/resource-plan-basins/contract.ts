@@ -49,7 +49,7 @@ const ResourcePlanBasinsConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const ResourcePlanBasinsContract = defineOpContract({
+const ResourcePlanBasinsContract = defineOpContract({
   kind: "plan",
   id: "ecology/resources/plan-basins",
   input: ResourcePlanBasinsInputSchema,

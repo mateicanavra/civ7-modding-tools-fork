@@ -4,8 +4,7 @@ import type { Static } from "@swooper/mapgen-core/authoring";
 import { NarrativeConfigSchema, type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
 import { getPublishedNarrativeCorridors, narrativeCorridorsArtifact } from "../../../artifacts.js";
-import { StoryCorridorsPostStepContract } from "./storyCorridorsPost.contract.js";
-
+import StoryCorridorsPostStepContract from "./storyCorridorsPost.contract.js";
 type StoryCorridorsStepConfig = Static<typeof StoryCorridorsPostStepContract.schema>;
 
 export default createStep(StoryCorridorsPostStepContract, {

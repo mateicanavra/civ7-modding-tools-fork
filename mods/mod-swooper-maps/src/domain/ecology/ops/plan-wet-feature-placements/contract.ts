@@ -105,7 +105,7 @@ const WetFeaturePlacementsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanWetFeaturePlacementsContract = defineOpContract({
+const PlanWetFeaturePlacementsContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/wet-placement",
   input: WetFeaturePlacementsInputSchema,

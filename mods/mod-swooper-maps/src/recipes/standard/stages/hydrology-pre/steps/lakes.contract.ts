@@ -4,7 +4,7 @@ import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
 
 const EmptySchema = Type.Object({}, { additionalProperties: false });
 
-export const LakesStepContract = defineStepContract({
+const LakesStepContract = defineStepContract({
   id: "lakes",
   phase: "hydrology",
   requires: [M4_EFFECT_TAGS.engine.landmassApplied],

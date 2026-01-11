@@ -34,7 +34,7 @@ const FloodplainsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanFloodplainsContract = defineOpContract({
+const PlanFloodplainsContract = defineOpContract({
   kind: "plan",
   id: "placement/plan-floodplains",
   input: FloodplainsInputSchema,

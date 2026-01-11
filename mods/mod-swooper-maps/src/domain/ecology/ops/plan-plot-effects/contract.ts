@@ -163,7 +163,7 @@ const PlotEffectsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanPlotEffectsContract = defineOpContract({
+const PlanPlotEffectsContract = defineOpContract({
   kind: "plan",
   id: "ecology/plot-effects/placement",
   input: PlotEffectsInputSchema,

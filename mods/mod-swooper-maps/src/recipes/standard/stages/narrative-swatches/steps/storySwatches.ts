@@ -5,8 +5,7 @@ import { type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { publishClimateFieldArtifact } from "../../../artifacts.js";
 import { getOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
 import { storyTagClimateSwatches } from "@mapgen/domain/narrative/swatches.js";
-import { StorySwatchesStepContract } from "./storySwatches.contract.js";
-
+import StorySwatchesStepContract from "./storySwatches.contract.js";
 type StorySwatchesStepConfig = Static<typeof StorySwatchesStepContract.schema>;
 
 export default createStep(StorySwatchesStepContract, {

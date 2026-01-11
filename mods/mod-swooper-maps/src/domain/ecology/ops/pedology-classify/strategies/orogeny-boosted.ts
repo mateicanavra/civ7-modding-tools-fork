@@ -1,5 +1,5 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { PedologyClassifyContract } from "../contract.js";
+import PedologyClassifyContract from "../contract.js";
 import { defaultStrategy } from "./default.js";
 
 export const orogenyBoostedStrategy = createStrategy(PedologyClassifyContract, "orogeny-boosted", {

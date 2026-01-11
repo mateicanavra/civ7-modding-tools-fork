@@ -1,7 +1,6 @@
 import { clamp01 } from "@swooper/mapgen-core";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { ResourcePlanBasinsContract } from "../contract.js";
-
+import ResourcePlanBasinsContract from "../contract.js";
 export const defaultStrategy = createStrategy(ResourcePlanBasinsContract, "default", {
   run: (input, config) => {
     const { width, height } = input;

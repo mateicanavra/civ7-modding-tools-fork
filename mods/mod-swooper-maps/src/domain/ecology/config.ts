@@ -1,12 +1,11 @@
 import { Type, type Static } from "typebox";
 import { BiomeEngineBindingsSchema } from "./biome-bindings.js";
-import { classifyBiomes } from "./ops/classify-biomes/index.js";
-import { planAquaticFeaturePlacements } from "./ops/plan-aquatic-feature-placements/index.js";
-import { planIceFeaturePlacements } from "./ops/plan-ice-feature-placements/index.js";
-import { planPlotEffects } from "./ops/plan-plot-effects/index.js";
-import { planVegetatedFeaturePlacements } from "./ops/plan-vegetated-feature-placements/index.js";
-import { planWetFeaturePlacements } from "./ops/plan-wet-feature-placements/index.js";
-
+import classifyBiomes from "./ops/classify-biomes/index.js";
+import planAquaticFeaturePlacements from "./ops/plan-aquatic-feature-placements/index.js";
+import planIceFeaturePlacements from "./ops/plan-ice-feature-placements/index.js";
+import planPlotEffects from "./ops/plan-plot-effects/index.js";
+import planVegetatedFeaturePlacements from "./ops/plan-vegetated-feature-placements/index.js";
+import planWetFeaturePlacements from "./ops/plan-wet-feature-placements/index.js";
 /**
  * Biome classification config (Holdridge/Whittaker-inspired).
  * Sourced from the ecology domain operation to keep schema + logic colocated.

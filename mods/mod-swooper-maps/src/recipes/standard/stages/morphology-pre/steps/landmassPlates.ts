@@ -17,8 +17,7 @@ import {
   type LandmassWindow,
 } from "@mapgen/domain/morphology/landmass/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { LandmassPlatesStepContract } from "./landmassPlates.contract.js";
-
+import LandmassPlatesStepContract from "./landmassPlates.contract.js";
 type LandmassStepConfig = Static<typeof LandmassPlatesStepContract.schema>;
 
 function windowToContinentBounds(window: LandmassWindow, continent: number): ContinentBounds {

@@ -10,7 +10,7 @@ const FoundationStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const FoundationStepContract = defineStepContract({
+const FoundationStepContract = defineStepContract({
   id: "foundation",
   phase: "foundation",
   requires: [],

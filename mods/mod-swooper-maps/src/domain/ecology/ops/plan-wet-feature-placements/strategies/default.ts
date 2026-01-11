@@ -7,7 +7,7 @@ import {
   type FeatureKey,
 } from "@mapgen/domain/ecology/types.js";
 
-import { PlanWetFeaturePlacementsContract } from "../contract.js";
+import PlanWetFeaturePlacementsContract from "../contract.js";
 import { hasAdjacentFeatureType, isCoastalLand } from "../rules/index.js";
 
 const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {

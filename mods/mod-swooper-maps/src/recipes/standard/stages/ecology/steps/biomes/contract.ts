@@ -11,7 +11,7 @@ const BiomesStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const BiomesStepContract = defineStepContract({
+const BiomesStepContract = defineStepContract({
   id: "biomes",
   phase: "ecology",
   requires: [
@@ -27,3 +27,5 @@ export const BiomesStepContract = defineStepContract({
   ],
   schema: BiomesStepConfigSchema,
 });
+
+export default BiomesStepContract;

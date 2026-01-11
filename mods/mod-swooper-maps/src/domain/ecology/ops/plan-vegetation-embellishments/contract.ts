@@ -94,7 +94,7 @@ const VegetationEmbellishmentsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanVegetationEmbellishmentsContract = defineOpContract({
+const PlanVegetationEmbellishmentsContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/vegetation-embellishments",
   input: VegetationEmbellishmentsInputSchema,

@@ -2,13 +2,10 @@ import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 import { clamp, clampChance, createLabelRng, rollPercent } from "@swooper/mapgen-core";
 
 import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
-import {
-  AquaticFeaturePlacementsConfigSchema,
-  PlanAquaticFeaturePlacementsContract,
-} from "../contract.js";
+import PlanAquaticFeaturePlacementsContract from "../contract.js";
 import { hasAdjacentFeatureType, isAdjacentToShallowWater } from "../rules/index.js";
 
-type Config = Static<typeof AquaticFeaturePlacementsConfigSchema>;
+type Config = Static<(typeof PlanAquaticFeaturePlacementsContract)["strategies"]["default"]>;
 type Placement = Static<(typeof PlanAquaticFeaturePlacementsContract)["output"]>["placements"][number];
 
 const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {

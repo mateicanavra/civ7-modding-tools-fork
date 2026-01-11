@@ -4,8 +4,7 @@ import type { Static } from "@swooper/mapgen-core/authoring";
 import { storyTagContinentalMargins } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { narrativeMotifsMarginsArtifact } from "../../../artifacts.js";
-import { StorySeedStepContract } from "./storySeed.contract.js";
-
+import StorySeedStepContract from "./storySeed.contract.js";
 type StorySeedStepConfig = Static<typeof StorySeedStepContract.schema>;
 
 export default createStep(StorySeedStepContract, {

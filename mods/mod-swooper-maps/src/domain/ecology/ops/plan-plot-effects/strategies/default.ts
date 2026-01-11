@@ -3,8 +3,8 @@ import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 
 import type { PlotEffectKey } from "@mapgen/domain/ecology/types.js";
 
-import { biomeSymbolFromIndex } from "../../classify-biomes/index.js";
-import { PlanPlotEffectsContract } from "../contract.js";
+import { biomeSymbolFromIndex } from "@mapgen/domain/ecology/types.js";
+import PlanPlotEffectsContract from "../contract.js";
 import { resolveSnowElevationRange } from "../rules/index.js";
 
 type PlotEffectSelector = { typeName: PlotEffectKey };

@@ -10,7 +10,7 @@ const VolcanoesStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const VolcanoesStepContract = defineStepContract({
+const VolcanoesStepContract = defineStepContract({
   id: "volcanoes",
   phase: "morphology",
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],

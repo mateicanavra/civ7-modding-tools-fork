@@ -11,7 +11,7 @@ const PlotEffectsStepConfigSchema = Type.Object(
     additionalProperties: false }
 );
 
-export const PlotEffectsStepContract = defineStepContract({
+const PlotEffectsStepContract = defineStepContract({
   id: "plot-effects",
   phase: "ecology",
   requires: [
@@ -21,3 +21,5 @@ export const PlotEffectsStepContract = defineStepContract({
   provides: [],
   schema: PlotEffectsStepConfigSchema,
 });
+
+export default PlotEffectsStepContract;

@@ -13,8 +13,7 @@ import {
 } from "../../../artifacts.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { applyClimateBaseline } from "@mapgen/domain/hydrology/climate/index.js";
-import { ClimateBaselineStepContract } from "./climateBaseline.contract.js";
-
+import ClimateBaselineStepContract from "./climateBaseline.contract.js";
 type ClimateBaselineStepConfig = Static<typeof ClimateBaselineStepContract.schema>;
 
 export default createStep(ClimateBaselineStepContract, {

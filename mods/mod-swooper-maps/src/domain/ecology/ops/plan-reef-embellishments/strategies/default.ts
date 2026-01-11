@@ -3,7 +3,7 @@ import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 
 import { FEATURE_KEY_INDEX } from "@mapgen/domain/ecology/types.js";
 
-import { PlanReefEmbellishmentsContract } from "../contract.js";
+import PlanReefEmbellishmentsContract from "../contract.js";
 import { planParadiseReefs, planShelfReefs } from "../rules/index.js";
 
 type Config = Static<(typeof PlanReefEmbellishmentsContract)["strategies"]["default"]>;

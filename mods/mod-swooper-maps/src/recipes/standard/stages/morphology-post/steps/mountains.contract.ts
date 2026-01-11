@@ -10,7 +10,7 @@ const MountainsStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const MountainsStepContract = defineStepContract({
+const MountainsStepContract = defineStepContract({
   id: "mountains",
   phase: "morphology",
   requires: [M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1],

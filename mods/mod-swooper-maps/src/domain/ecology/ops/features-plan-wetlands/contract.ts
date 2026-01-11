@@ -30,7 +30,7 @@ const PlanWetlandsConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanWetlandsContract = defineOpContract({
+const PlanWetlandsContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/plan-wetlands",
   input: PlanWetlandsInputSchema,

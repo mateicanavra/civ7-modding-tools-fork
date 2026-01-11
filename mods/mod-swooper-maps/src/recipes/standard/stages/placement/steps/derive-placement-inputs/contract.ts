@@ -12,7 +12,7 @@ const DerivePlacementInputsConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const DerivePlacementInputsContract = defineStepContract({
+const DerivePlacementInputsContract = defineStepContract({
   id: "derive-placement-inputs",
   phase: "placement",
   requires: [
@@ -23,3 +23,5 @@ export const DerivePlacementInputsContract = defineStepContract({
   provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
   schema: DerivePlacementInputsConfigSchema,
 });
+
+export default DerivePlacementInputsContract;

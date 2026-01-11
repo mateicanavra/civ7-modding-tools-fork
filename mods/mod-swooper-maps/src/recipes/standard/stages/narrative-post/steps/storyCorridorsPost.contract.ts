@@ -10,7 +10,7 @@ const StoryCorridorsStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const StoryCorridorsPostStepContract = defineStepContract({
+const StoryCorridorsPostStepContract = defineStepContract({
   id: "story-corridors-post",
   phase: "hydrology",
   requires: [

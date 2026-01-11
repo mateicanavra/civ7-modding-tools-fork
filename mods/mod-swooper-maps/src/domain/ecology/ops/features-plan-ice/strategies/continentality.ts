@@ -1,6 +1,5 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { PlanIceContract } from "../contract.js";
-
+import PlanIceContract from "../contract.js";
 export const continentalityStrategy = createStrategy(PlanIceContract, "continentality", {
   run: (input, config) => {
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];

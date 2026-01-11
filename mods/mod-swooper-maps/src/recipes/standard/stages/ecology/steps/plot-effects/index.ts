@@ -6,8 +6,7 @@ import { heightfieldArtifact } from "../../../../artifacts.js";
 import { buildPlotEffectsInput } from "./inputs.js";
 import { applyPlotEffectPlacements } from "./apply.js";
 import { logSnowEligibilitySummary } from "./diagnostics.js";
-import { PlotEffectsStepContract } from "./contract.js";
-
+import PlotEffectsStepContract from "./contract.js";
 type PlotEffectsStepConfig = Static<typeof PlotEffectsStepContract.schema>;
 
 const opContracts = {

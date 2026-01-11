@@ -4,8 +4,7 @@ import type { Static } from "@swooper/mapgen-core/authoring";
 import { storyTagHotspotTrails } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { narrativeMotifsHotspotsArtifact } from "../../../artifacts.js";
-import { StoryHotspotsStepContract } from "./storyHotspots.contract.js";
-
+import StoryHotspotsStepContract from "./storyHotspots.contract.js";
 type StoryHotspotsStepConfig = Static<typeof StoryHotspotsStepContract.schema>;
 
 export default createStep(StoryHotspotsStepContract, {

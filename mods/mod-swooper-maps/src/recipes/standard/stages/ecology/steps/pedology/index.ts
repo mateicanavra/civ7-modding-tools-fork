@@ -2,8 +2,7 @@ import { createStep } from "@mapgen/authoring/steps";
 import { type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import { getPublishedClimateField, heightfieldArtifact, pedologyArtifact } from "../../../../artifacts.js";
-import { PedologyStepContract } from "./contract.js";
-
+import PedologyStepContract from "./contract.js";
 type PedologyStepConfig = Static<typeof PedologyStepContract.schema>;
 
 const opContracts = {

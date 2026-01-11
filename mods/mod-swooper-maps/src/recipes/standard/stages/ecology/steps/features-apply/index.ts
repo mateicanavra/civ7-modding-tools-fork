@@ -4,7 +4,7 @@ import * as ecology from "@mapgen/domain/ecology";
 import type { FeatureKey } from "@mapgen/domain/ecology";
 import { syncHeightfield } from "@swooper/mapgen-core";
 import { featureIntentsArtifact } from "../../../../artifacts.js";
-import { FeaturesApplyStepContract } from "./contract.js";
+import FeaturesApplyStepContract from "./contract.js";
 import { applyFeaturePlacements, reifyFeatureField } from "../features/apply.js";
 import { resolveFeatureKeyLookups } from "../features/feature-keys.js";
 

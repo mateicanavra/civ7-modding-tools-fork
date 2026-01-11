@@ -6,8 +6,7 @@ import {
   getPublishedNarrativeCorridors,
   getPublishedNarrativeMotifsMargins,
 } from "../../../artifacts.js";
-import { RuggedCoastsStepContract } from "./ruggedCoasts.contract.js";
-
+import RuggedCoastsStepContract from "./ruggedCoasts.contract.js";
 type RuggedCoastsStepConfig = Static<typeof RuggedCoastsStepContract.schema>;
 
 export default createStep(RuggedCoastsStepContract, {

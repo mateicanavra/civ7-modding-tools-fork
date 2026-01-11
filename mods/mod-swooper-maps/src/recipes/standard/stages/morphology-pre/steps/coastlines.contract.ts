@@ -4,7 +4,7 @@ import { M4_EFFECT_TAGS } from "../../../tags.js";
 
 const EmptySchema = Type.Object({}, { additionalProperties: false });
 
-export const CoastlinesStepContract = defineStepContract({
+const CoastlinesStepContract = defineStepContract({
   id: "coastlines",
   phase: "morphology",
   requires: [M4_EFFECT_TAGS.engine.landmassApplied],
