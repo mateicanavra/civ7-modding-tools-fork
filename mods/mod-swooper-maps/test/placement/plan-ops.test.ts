@@ -1,11 +1,9 @@
 import { describe, expect, it } from "bun:test";
 
-import {
-  planFloodplains,
-  planStarts,
-  planWonders,
-} from "../../src/domain/placement/index.js";
+import placementOps from "../../src/domain/placement/ops.js";
 import { runOpValidated } from "../support/compiler-helpers.js";
+
+const { planFloodplains, planStarts, planWonders } = placementOps;
 
 describe("placement plan operations", () => {
   it("plans wonders with plus-one default", () => {

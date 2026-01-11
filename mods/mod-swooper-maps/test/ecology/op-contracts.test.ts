@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import * as ecology from "../../src/domain/ecology/index.js";
+import * as ecology from "../../src/domain/ecology/ops.js";
 import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
 
 import { disabledEmbellishmentsConfig } from "./features-owned.helpers.js";

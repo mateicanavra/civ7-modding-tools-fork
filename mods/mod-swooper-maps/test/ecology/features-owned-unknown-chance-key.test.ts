@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import * as ecology from "@mapgen/domain/ecology";
+import * as ecology from "@mapgen/domain/ecology/ops";
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 describe("baseline feature placement config", () => {
