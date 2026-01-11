@@ -7,6 +7,8 @@
   "scripts": {
     "build": "tsup",
     "check": "tsc --noEmit",
+    "precheck:dev": "pnpm -C ../../packages/mapgen-core build",
+    "check:dev": "tsc --noEmit -p tsconfig.check.dev.json",
     "test": "bun test",
     "deploy": "pnpm run build && pnpm exec civ7 mod manage deploy --input ./mod --id mod-swooper-maps"
   },

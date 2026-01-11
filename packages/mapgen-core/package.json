@@ -66,11 +66,11 @@
   "scripts": {
     "build": "tsup",
     "precheck": "pnpm -C ../civ7-adapter build",
-    "precheck:compiler-tests": "pnpm run precheck",
     "pretest": "pnpm -C ../civ7-adapter build",
     "test": "bun test",
     "check": "tsc --noEmit",
-    "check:compiler-tests": "tsc --noEmit -p tsconfig.test.compiler.json"
+    "precheck:dev": "pnpm run precheck",
+    "check:dev": "tsc --noEmit -p tsconfig.test.compiler.json"
   },
   "dependencies": {
     "@civ7/adapter": "workspace:*",
