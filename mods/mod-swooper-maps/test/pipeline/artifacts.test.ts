@@ -4,6 +4,7 @@ import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import {
+  compileExecutionPlan,
   PipelineExecutor,
   StepRegistry,
   isDependencyTagSatisfied,
@@ -22,6 +23,23 @@ const baseSettings = {
   wrap: { wrapX: false, wrapY: false },
   directionality: applySchemaDefaults(FoundationDirectionalityConfigSchema, {}),
 };
+
+function compilePlan<TContext>(
+  registry: StepRegistry<TContext>,
+  settings: typeof baseSettings,
+  steps: readonly string[]
+) {
+  return compileExecutionPlan(
+    {
+      recipe: {
+        schemaVersion: 2,
+        steps: steps.map((id) => ({ id, config: {} })),
+      },
+      settings,
+    },
+    registry
+  );
+}
 
 describe("pipeline artifacts", () => {
   it("treats artifact:climateField as unsatisfied until published", () => {
@@ -93,7 +111,8 @@ describe("pipeline artifacts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const { stepResults } = executor.execute(ctx, ["climate-baseline"]);
+    const plan = compilePlan(registry, baseSettings, ["climate-baseline"]);
+    const { stepResults } = executor.executePlan(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(false);
     expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
@@ -124,7 +143,8 @@ describe("pipeline artifacts", () => {
     });
 
     const executor = new PipelineExecutor(registry, { log: () => {} });
-    const { stepResults } = executor.execute(ctx, ["rivers"]);
+    const plan = compilePlan(registry, baseSettings, ["rivers"]);
+    const { stepResults } = executor.executePlan(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(true);
     expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency)).toBeInstanceOf(Uint8Array);

@@ -1,5 +1,3 @@
-import type { TSchema } from "typebox";
-import { Value } from "typebox/value";
 import {
   MissingDependencyError,
   UnsatisfiedProvidesError,
@@ -36,13 +34,6 @@ function nowMs(): number {
   return Date.now();
 }
 
-function resolveStepConfig(schema: TSchema | undefined): unknown {
-  if (!schema) return {};
-  const defaulted = Value.Default(schema, {});
-  const converted = Value.Convert(schema, defaulted);
-  return Value.Clean(schema, converted);
-}
-
 export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown> {
   private readonly registry: StepRegistry<TContext>;
   private readonly log: (message: string) => void;
@@ -52,21 +43,6 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
     this.registry = registry;
     this.log = options.log ?? (() => undefined);
     this.logPrefix = options.logPrefix ?? "[PipelineExecutor]";
-  }
-
-  execute(
-    context: TContext,
-    recipe: readonly string[],
-    options: PipelineExecutionOptions = {}
-  ): { stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> } {
-    const nodes = recipe.map((id) => {
-      const step = this.registry.get<TConfig>(id);
-      return {
-        step,
-        config: resolveStepConfig(step.configSchema) as TConfig,
-      };
-    });
-    return this.executeNodes(context, nodes, options);
   }
 
   executePlan(
@@ -126,7 +102,7 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
           const res = step.run(context, node.config);
           if (res && typeof (res as Promise<void>).then === "function") {
             throw new Error(
-              `Step "${step.id}" returned a Promise in a sync executor call. Use executeAsync().`
+              `Step "${step.id}" returned a Promise in a sync executor call. Use executePlanAsync().`
             );
           }
           for (const tag of step.provides) satisfied.add(tag);
@@ -183,21 +159,6 @@ export class PipelineExecutor<TContext extends EngineContext, TConfig = unknown>
     } finally {
       context.trace = baseTrace;
     }
-  }
-
-  async executeAsync(
-    context: TContext,
-    recipe: readonly string[],
-    options: PipelineExecutionOptions = {}
-  ): Promise<{ stepResults: PipelineStepResult[]; satisfied: ReadonlySet<string> }> {
-    const nodes = recipe.map((id) => {
-      const step = this.registry.get<TConfig>(id);
-      return {
-        step,
-        config: resolveStepConfig(step.configSchema) as TConfig,
-      };
-    });
-    return this.executeNodesAsync(context, nodes, options);
   }
 
   async executePlanAsync(
