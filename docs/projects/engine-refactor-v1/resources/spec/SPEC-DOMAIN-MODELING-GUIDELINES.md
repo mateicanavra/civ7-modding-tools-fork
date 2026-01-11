@@ -4,7 +4,7 @@
 
 1) Purpose
 - Establish a single, canonical way to model a domain into operations, strategies, rules, and steps.
-- Prevent ambiguous ownership and keep composition consistent with the contract-first architecture.
+- Prevent ambiguous ownership and keep composition consistent with the current contract-first + compile-first architecture.
 
 2) Definitions (behavioral)
 - Rule: small, pure, single-purpose heuristic or decision.
@@ -20,7 +20,7 @@
 
 4) Composition boundaries
 - Steps call ops; ops do not call steps.
-- Strategies are internal to ops; steps select via config only.
+- Strategies are internal to ops; steps select via config only (strategy selection lives in op config).
 - Rules are internal to ops and never exported as step-callable surfaces.
 
 5) Op sizing rules
@@ -55,7 +55,12 @@
 
 ### 1) Purpose and scope
 
-This document defines how to model a domain into **operations**, **strategies**, **rules**, and **steps** under the contract-first architecture. It is the canonical guide for composition decisions and ownership boundaries. If local code or precedent conflicts with this spec, this spec wins.
+This document defines how to model a domain into **operations**, **strategies**, **rules**, and **steps** under the architecture as implemented on this branch:
+
+- **Contract-first**: ops and steps have explicit schemas and stable identifiers.
+- **Compile-first**: config defaulting/cleaning/canonicalization happens during recipe compilation, not during runtime execution.
+
+This document is intentionally aligned to the implemented surfaces in `packages/mapgen-core/src/authoring/**` and `packages/mapgen-core/src/compiler/**`.
 
 ### 2) Core concepts and responsibilities
 
@@ -68,16 +73,31 @@ This document defines how to model a domain into **operations**, **strategies**,
 - An algorithmic variant for one op.
 - Must preserve the op’s input/output contract.
 - Changes behavior only; it does not change the schema shape.
+- Selected by config via the op’s strategy envelope: `{ strategy: "<id>", config: <schema> }`.
 
 **Operation (op)**
 - A stable, step-callable contract with explicit schemas.
-- Pure input + config -> output. No engine, no adapter, no step context.
+- Pure `run(input, config) -> output`. No engine, no adapter, no step context.
 - The unit we expect to reuse, test, and evolve independently.
+- In code, ops are authored as:
+  - `defineOp(...)` contract (`ops/<op>/contract.ts`)
+  - `createOp(contract, { strategies })` implementation (`ops/<op>/index.ts`)
+
+**Compile-time vs runtime behavior (op)**
+- `strategy.normalize` (and the op-level dispatcher `op.normalize`) are **compile-time** canonicalization hooks.
+- `strategy.run` (and `op.run`) are **runtime** behavior.
 
 **Step**
 - The smallest runtime unit in a recipe pipeline.
 - Orchestrates inputs, calls ops, then applies/publishes results.
 - Owns `requires/provides` and interaction with runtime/engine surfaces.
+- In code, steps are authored as:
+  - `defineStep({ id, phase, requires, provides, schema })` contract
+  - `createStep(contract, { normalize?, run })` implementation
+
+**Compile-time vs runtime behavior (step)**
+- `step.normalize(config, { env, knobs })` is **compile-time only** (invoked by the recipe compiler).
+- `step.run(context, config)` is **runtime** execution.
 
 ### 3) Composition boundaries (hard rules)
 
@@ -85,6 +105,27 @@ This document defines how to model a domain into **operations**, **strategies**,
 - Steps **never** import or call op rules or strategy modules directly.
 - Strategies are internal to ops; steps select strategies via config only.
 - Rules are internal to ops; they are not exposed as contracts.
+
+### 3.1) Architectural mapping (where these live)
+
+Use this as the “current mental model” for refactors:
+
+- **Domain** (ops + strategies + rules)
+  - Location (example): `mods/mod-swooper-maps/src/domain/<domain>/ops/**`
+  - Public surface exports:
+    - `contracts` (op contracts)
+    - `ops` (a `createDomainOpsSurface(...)` router that can bind contracts to `compile` and `runtime` surfaces)
+- **Step** (orchestration)
+  - Location (example): `mods/mod-swooper-maps/src/recipes/**/steps/**`
+  - Binds ops via `domain.ops.bind({ ...contracts })`, then:
+    - calls `compile.<opKey>.normalize(...)` from `step.normalize`
+    - calls `runtime.<opKey>.run(...)` from `step.run`
+- **Stage** (author-facing surface)
+  - Location (example): `mods/mod-swooper-maps/src/recipes/**/stages/<stage>/index.ts`
+  - Defined via `createStage({ id, knobsSchema, public?, compile?, steps })`
+- **Recipe compiler**
+  - `compileRecipeConfig(...)` in `packages/mapgen-core/src/compiler/recipe-compile.ts`
+  - This is where `step.normalize` is invoked and where strict schema normalization happens.
 
 ### 4) Decision framework (what becomes what)
 
@@ -98,6 +139,7 @@ Use this decision table when mapping legacy logic to the target architecture:
 - **Strategy**
   - If the op contract is stable but the algorithm should vary.
   - If the only difference is internal computation (same inputs/outputs).
+  - If “which algorithm?” should be selectable by config rather than by imports.
 
 - **Rule**
   - If the logic is a small heuristic or decision point.
@@ -140,8 +182,9 @@ Rules should be:
 - Named after the decision they make (e.g., `enforceMinDistance`, `pickWeightedIndex`).
 
 Rules should not:
-- Export types (types are centralized in `types.ts`).
+- Export types (shared/public types live in the op module’s `types.ts` surface).
 - Import op contracts (rules consume types only).
+- Import step/recipe/engine code.
 
 ### 8) Step modeling and orchestration
 
@@ -153,6 +196,17 @@ Steps are **action boundaries**:
 Steps are **not** planning units:
 - Planning belongs to ops.
 - A step named “plan-*” is a modeling smell; rename it to reflect action (e.g., `plot-*`, `apply-*`, `publish-*`).
+
+**Compile-first configuration rule (current architecture)**
+- Any config canonicalization that would otherwise happen in `step.run` must be moved to:
+  - schema defaults (via op strategy schemas and step schemas), and/or
+  - `step.normalize` (compile-time), and/or
+  - `strategy.normalize` / `op.normalize` (compile-time).
+
+Recommended pattern inside `step.normalize` when the step is driven by op envelope configs:
+- Bind compile/runtime op surfaces once via `domain.ops.bind({ ...contracts })`.
+- Invoke `compile.<opKey>.normalize(config.<opKey>, ctx)` for each op envelope config used by the step.
+- Apply any cross-op or knob-driven canonicalization in a shape-preserving way.
 
 ### 9) Domain modeling workflow (practical use)
 
@@ -209,3 +263,35 @@ When refactoring a domain:
 Key modeling point:
 - Planning lives inside ops; the step is the orchestration boundary.
 - If only tree planning inputs change, only the tree op contract changes (no global “plan vegetation” op with shape-shifting inputs).
+
+---
+
+## Appendix: Refactor checklist (ecology-ready)
+
+Use this checklist when refactoring the ecology domain under the current architecture:
+
+1) **Inventory** existing ecology behavior and classify:
+   - engine/adapter/artifact I/O → step
+   - deterministic computation over typed inputs + config → op/strategy/rule
+
+2) **Define or confirm op contracts** (`defineOp`) and keep them stable:
+   - pick `kind` (`plan`/`compute`/`score`/`select`) deliberately
+   - keep input/output schemas independent of step/runtime
+
+3) **Choose strategies only for algorithmic variants** (same I/O):
+   - strategy selection lives in config (`config.strategy`)
+   - strategy-specific schema lives in the op contract under `strategies`
+
+4) **Move all canonicalization out of runtime**:
+   - strategy-level config canonicalization → `strategy.normalize`
+   - step-level composition/knob adjustments → `step.normalize`
+   - runtime `step.run` and `strategy.run` do not default/clean/normalize configs
+
+5) **Bind ops in steps using the domain router**:
+   - build an `opContracts` object from `domain.contracts`
+   - `const { compile, runtime } = domain.ops.bind(opContracts)`
+   - use `compile.*.normalize` in `step.normalize`, `runtime.*.run` in `step.run`
+
+6) **Keep rule boundaries clean**:
+   - rules live under `ops/<op>/rules/**`
+   - shared/public types live in `ops/<op>/types.ts` (rules import types, rules do not export types)
