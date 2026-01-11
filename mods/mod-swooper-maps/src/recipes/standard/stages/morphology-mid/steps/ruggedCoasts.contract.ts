@@ -11,7 +11,7 @@ const RuggedCoastsStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const RuggedCoastsStepContract = defineStepContract({
+const RuggedCoastsStepContract = defineStepContract({
   id: "rugged-coasts",
   phase: "morphology",
   requires: [

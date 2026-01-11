@@ -20,7 +20,7 @@ const FeaturesStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const FeaturesStepContract = defineStepContract({
+const FeaturesStepContract = defineStepContract({
   id: "features",
   phase: "ecology",
   requires: [
@@ -34,3 +34,5 @@ export const FeaturesStepContract = defineStepContract({
   provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
   schema: FeaturesStepConfigSchema,
 });
+
+export default FeaturesStepContract;

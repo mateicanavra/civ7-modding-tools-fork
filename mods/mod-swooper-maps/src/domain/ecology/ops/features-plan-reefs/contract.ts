@@ -26,7 +26,7 @@ const PlanReefsConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanReefsContract = defineOpContract({
+const PlanReefsContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/plan-reefs",
   input: PlanReefsInputSchema,

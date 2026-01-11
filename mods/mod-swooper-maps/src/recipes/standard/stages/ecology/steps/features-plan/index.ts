@@ -7,8 +7,7 @@ import {
   heightfieldArtifact,
   pedologyArtifact,
 } from "../../../../artifacts.js";
-import { FeaturesPlanStepContract } from "./contract.js";
-
+import FeaturesPlanStepContract from "./contract.js";
 type FeaturesPlanConfig = Static<typeof FeaturesPlanStepContract.schema>;
 
 const opContracts = {

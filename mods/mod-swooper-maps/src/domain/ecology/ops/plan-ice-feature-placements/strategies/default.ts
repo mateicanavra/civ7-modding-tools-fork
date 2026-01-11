@@ -2,13 +2,10 @@ import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 import { clamp, clampChance, createLabelRng, rollPercent } from "@swooper/mapgen-core";
 
 import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
-import {
-  IceFeaturePlacementsConfigSchema,
-  PlanIceFeaturePlacementsContract,
-} from "../contract.js";
+import PlanIceFeaturePlacementsContract from "../contract.js";
 import { isAdjacentToLand } from "../rules/index.js";
 
-type Config = Static<typeof IceFeaturePlacementsConfigSchema>;
+type Config = Static<(typeof PlanIceFeaturePlacementsContract)["strategies"]["default"]>;
 type Input = Static<(typeof PlanIceFeaturePlacementsContract)["input"]>;
 type Placement = Static<(typeof PlanIceFeaturePlacementsContract)["output"]>["placements"][number];
 

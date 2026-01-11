@@ -14,7 +14,7 @@ const AquaticFeatureKeySchema = Type.Unsafe<FeatureKey>(
   )
 );
 
-export const AquaticChancesSchema = Type.Object(
+const AquaticChancesSchema = Type.Object(
   {
     FEATURE_REEF: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
     FEATURE_COLD_REEF: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
@@ -24,7 +24,7 @@ export const AquaticChancesSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const AquaticAtollSchema = Type.Object(
+const AquaticAtollSchema = Type.Object(
   {
     enableClustering: Type.Boolean({ default: true }),
     clusterRadius: Type.Number({ default: 1, minimum: 0, maximum: 2 }),
@@ -37,7 +37,7 @@ export const AquaticAtollSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const AquaticRulesSchema = Type.Object(
+const AquaticRulesSchema = Type.Object(
   {
     reefLatitudeSplit: Type.Number({ default: 55, minimum: 0, maximum: 90 }),
     atoll: AquaticAtollSchema,
@@ -45,7 +45,7 @@ export const AquaticRulesSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const AquaticFeaturePlacementsConfigSchema = Type.Object(
+const AquaticFeaturePlacementsConfigSchema = Type.Object(
   {
     multiplier: Type.Number({
       description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
@@ -88,7 +88,7 @@ const AquaticFeaturePlacementsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanAquaticFeaturePlacementsContract = defineOpContract({
+const PlanAquaticFeaturePlacementsContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/aquatic-placement",
   input: AquaticFeaturePlacementsInputSchema,

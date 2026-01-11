@@ -59,7 +59,7 @@ const BiomeClassificationOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const BiomeClassificationContract = defineOpContract({
+const BiomeClassificationContract = defineOpContract({
   kind: "compute",
   id: "ecology/biomes/classify",
   input: BiomeClassificationInputSchema,

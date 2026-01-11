@@ -1,14 +1,14 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { PlanReefEmbellishmentsContract } from "./contract.js";
+import PlanReefEmbellishmentsContract from "./contract.js";
 import { defaultStrategy } from "./strategies/index.js";
 
-export const planReefEmbellishments = createOp(PlanReefEmbellishmentsContract, {
+const planReefEmbellishments = createOp(PlanReefEmbellishmentsContract, {
   strategies: {
     default: defaultStrategy,
   },
 });
 
-export * from "./contract.js";
+export type * from "./contract.js";
 export type * from "./types.js";
 
 export default planReefEmbellishments;

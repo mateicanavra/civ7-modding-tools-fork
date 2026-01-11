@@ -1,6 +1,5 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { ResourceScoreBalanceContract } from "../contract.js";
-
+import ResourceScoreBalanceContract from "../contract.js";
 export const defaultStrategy = createStrategy(ResourceScoreBalanceContract, "default", {
   run: (input, config) => {
     const basins = input.basins

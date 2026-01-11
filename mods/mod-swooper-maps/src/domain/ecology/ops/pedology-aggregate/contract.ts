@@ -36,7 +36,7 @@ const AggregatePedologyConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const AggregatePedologyContract = defineOpContract({
+const AggregatePedologyContract = defineOpContract({
   kind: "compute",
   id: "ecology/pedology/aggregate",
   input: AggregatePedologyInputSchema,

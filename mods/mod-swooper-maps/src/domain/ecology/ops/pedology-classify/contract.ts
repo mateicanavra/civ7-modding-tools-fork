@@ -49,7 +49,7 @@ const PedologyClassifyConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PedologyClassifyContract = defineOpContract({
+const PedologyClassifyContract = defineOpContract({
   kind: "compute",
   id: "ecology/pedology/classify",
   input: PedologyClassifyInputSchema,

@@ -1,6 +1,5 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { PlanReefsContract } from "../contract.js";
-
+import PlanReefsContract from "../contract.js";
 export const shippingLanesStrategy = createStrategy(PlanReefsContract, "shipping-lanes", {
   run: (input, config) => {
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];

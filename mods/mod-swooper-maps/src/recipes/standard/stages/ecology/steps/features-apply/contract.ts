@@ -2,7 +2,7 @@ import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 
-export const FeaturesApplyStepContract = defineStepContract({
+const FeaturesApplyStepContract = defineStepContract({
   id: "features-apply",
   phase: "ecology",
   requires: [M3_DEPENDENCY_TAGS.artifact.featureIntentsV1],
@@ -14,3 +14,5 @@ export const FeaturesApplyStepContract = defineStepContract({
     { additionalProperties: false }
   ),
 });
+
+export default FeaturesApplyStepContract;

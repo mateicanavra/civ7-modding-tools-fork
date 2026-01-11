@@ -16,7 +16,7 @@ const ClimateRefineStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const ClimateRefineStepContract = defineStepContract({
+const ClimateRefineStepContract = defineStepContract({
   id: "climate-refine",
   phase: "hydrology",
   requires: [

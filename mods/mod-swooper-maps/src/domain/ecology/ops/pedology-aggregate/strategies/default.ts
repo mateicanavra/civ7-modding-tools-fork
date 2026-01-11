@@ -1,6 +1,5 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { AggregatePedologyContract } from "../contract.js";
-
+import AggregatePedologyContract from "../contract.js";
 export const defaultStrategy = createStrategy(AggregatePedologyContract, "default", {
   run: (input, config) => {
     const { width, height } = input;

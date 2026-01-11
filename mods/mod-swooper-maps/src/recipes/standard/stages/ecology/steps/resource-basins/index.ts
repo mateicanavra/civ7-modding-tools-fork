@@ -7,8 +7,7 @@ import {
   pedologyArtifact,
   resourceBasinsArtifact,
 } from "../../../../artifacts.js";
-import { ResourceBasinsStepContract } from "./contract.js";
-
+import ResourceBasinsStepContract from "./contract.js";
 type ResourceBasinsStepConfig = Static<typeof ResourceBasinsStepContract.schema>;
 
 const opContracts = {

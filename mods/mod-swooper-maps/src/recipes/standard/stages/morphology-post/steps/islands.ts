@@ -8,8 +8,7 @@ import {
   getPublishedNarrativeMotifsMargins,
   narrativeMotifsHotspotsArtifact,
 } from "../../../artifacts.js";
-import { IslandsStepContract } from "./islands.contract.js";
-
+import IslandsStepContract from "./islands.contract.js";
 type IslandsStepConfig = Static<typeof IslandsStepContract.schema>;
 
 export default createStep(IslandsStepContract, {

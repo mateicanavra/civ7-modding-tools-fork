@@ -3,7 +3,7 @@ import { type Static } from "@swooper/mapgen-core/authoring";
 import * as placement from "@mapgen/domain/placement";
 
 import { publishPlacementInputs } from "./apply.js";
-import { DerivePlacementInputsContract } from "./contract.js";
+import DerivePlacementInputsContract from "./contract.js";
 import { buildPlacementInputs } from "./inputs.js";
 
 type DerivePlacementInputsConfig = Static<typeof DerivePlacementInputsContract.schema>;

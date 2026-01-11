@@ -1,6 +1,5 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { FeaturesApplyContract } from "../contract.js";
-
+import FeaturesApplyContract from "../contract.js";
 type Placement = { x: number; y: number; feature: string; weight?: number };
 
 export const defaultStrategy = createStrategy(FeaturesApplyContract, "default", {

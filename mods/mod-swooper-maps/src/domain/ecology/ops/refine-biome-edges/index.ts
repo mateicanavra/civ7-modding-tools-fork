@@ -1,8 +1,8 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { RefineBiomeEdgesContract } from "./contract.js";
+import RefineBiomeEdgesContract from "./contract.js";
 import { defaultStrategy, gaussianStrategy } from "./strategies/index.js";
 
-export const refineBiomeEdges = createOp(RefineBiomeEdgesContract, {
+const refineBiomeEdges = createOp(RefineBiomeEdgesContract, {
   strategies: {
     default: defaultStrategy,
     morphological: defaultStrategy,
@@ -10,7 +10,7 @@ export const refineBiomeEdges = createOp(RefineBiomeEdgesContract, {
   },
 });
 
-export * from "./contract.js";
+export type * from "./contract.js";
 export type * from "./types.js";
 
 export default refineBiomeEdges;

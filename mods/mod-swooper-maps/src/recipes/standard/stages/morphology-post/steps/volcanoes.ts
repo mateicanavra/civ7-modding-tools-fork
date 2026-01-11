@@ -3,8 +3,7 @@ import { createStep } from "@mapgen/authoring/steps";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import type { VolcanoesConfig } from "@mapgen/domain/config";
 import { layerAddVolcanoesPlateAware } from "@mapgen/domain/morphology/volcanoes/index.js";
-import { VolcanoesStepContract } from "./volcanoes.contract.js";
-
+import VolcanoesStepContract from "./volcanoes.contract.js";
 type VolcanoesStepConfig = Static<typeof VolcanoesStepContract.schema>;
 
 export default createStep(VolcanoesStepContract, {
