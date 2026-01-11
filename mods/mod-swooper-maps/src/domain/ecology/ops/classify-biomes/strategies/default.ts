@@ -54,9 +54,15 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
         biomeIndex[i] = 255;
         vegetationDensity[i] = 0;
         effectiveMoisture[i] = 0;
-        surfaceTemperature[i] = resolvedConfig.temperature.pole;
+        const temperature = computeTemperature({
+          latitudeAbs: Math.abs(latitude[i]),
+          maxLatitude,
+          elevationMeters: 0,
+          cfg: resolvedConfig.temperature,
+        });
+        surfaceTemperature[i] = temperature;
         aridityIndex[i] = 0;
-        freezeIndex[i] = 0;
+        freezeIndex[i] = computeFreezeIndex(temperature, resolvedConfig.freeze);
         continue;
       }
 

@@ -7,6 +7,7 @@ export const defaultStrategy = createStrategy(PlanVegetationContract, "default",
   run: (input, config) => {
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
+    const moistureNormalization = Math.max(0.0001, config.moistureNormalization ?? 230);
     const fertility = input.fertility;
 
     for (let y = 0; y < height; y++) {
@@ -21,10 +22,12 @@ export const defaultStrategy = createStrategy(PlanVegetationContract, "default",
 
         const fertilityValue = fertility[idx];
         const moisture = input.effectiveMoisture[idx];
+        const moistureNorm = clamp01(moisture / moistureNormalization);
         const weight = clamp01(
-          config.baseDensity +
-            fertilityValue * config.fertilityWeight +
-            moisture * config.moistureWeight
+          vegetation *
+            (config.baseDensity +
+              fertilityValue * config.fertilityWeight +
+              moistureNorm * config.moistureWeight)
         );
         if (weight < 0.15) continue;
 
