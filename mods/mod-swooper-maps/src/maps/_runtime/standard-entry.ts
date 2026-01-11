@@ -3,7 +3,7 @@ import type { RecipeModule } from "@swooper/mapgen-core/authoring";
 import type { RunSettings } from "@swooper/mapgen-core/engine";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 
-import type { StandardRecipeConfig } from "../../recipes/standard/recipe.js";
+import type { StandardRecipeCompiledConfig, StandardRecipeConfig } from "../../recipes/standard/recipe.js";
 import { applyMapInitData, resolveMapInitData } from "./map-init.js";
 import type { MapRuntimeOptions } from "./types.js";
 import { runStandardRecipe } from "./run-standard.js";
@@ -14,7 +14,11 @@ type CivEngine = {
 
 type StandardMapEntry = {
   engine: CivEngine;
-  recipe: RecipeModule<ExtendedMapContext, StandardRecipeConfig | null>;
+  recipe: RecipeModule<
+    ExtendedMapContext,
+    StandardRecipeConfig | null,
+    StandardRecipeCompiledConfig
+  >;
   config: StandardRecipeConfig | null;
   directionality: Record<string, unknown>;
   options: MapRuntimeOptions;

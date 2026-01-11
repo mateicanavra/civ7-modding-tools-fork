@@ -167,6 +167,7 @@ describe("pipeline tracing", () => {
       id: "trace",
       tagDefinitions: [],
       stages: [stage],
+      compileOpsById: {},
     });
 
     const logs: unknown[] = [];
