@@ -16,46 +16,44 @@ const AquaticFeatureKeySchema = Type.Unsafe<FeatureKey>(
 
 export const AquaticChancesSchema = Type.Object(
   {
-    FEATURE_REEF: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
-    FEATURE_COLD_REEF: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
-    FEATURE_ATOLL: Type.Optional(Type.Number({ default: 12, minimum: 0, maximum: 100 })),
-    FEATURE_LOTUS: Type.Optional(Type.Number({ default: 15, minimum: 0, maximum: 100 })),
+    FEATURE_REEF: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
+    FEATURE_COLD_REEF: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
+    FEATURE_ATOLL: Type.Number({ default: 12, minimum: 0, maximum: 100 }),
+    FEATURE_LOTUS: Type.Number({ default: 15, minimum: 0, maximum: 100 }),
   },
   { additionalProperties: false }
 );
 
 export const AquaticAtollSchema = Type.Object(
   {
-    enableClustering: Type.Optional(Type.Boolean({ default: true })),
-    clusterRadius: Type.Optional(Type.Number({ default: 1, minimum: 0, maximum: 2 })),
-    equatorialBandMaxAbsLatitude: Type.Optional(Type.Number({ default: 23, minimum: 0, maximum: 90 })),
-    shallowWaterAdjacencyGateChance: Type.Optional(Type.Number({ default: 30, minimum: 0, maximum: 100 })),
-    shallowWaterAdjacencyRadius: Type.Optional(Type.Number({ default: 1, minimum: 1 })),
-    growthChanceEquatorial: Type.Optional(Type.Number({ default: 15, minimum: 0, maximum: 100 })),
-    growthChanceNonEquatorial: Type.Optional(Type.Number({ default: 5, minimum: 0, maximum: 100 })),
+    enableClustering: Type.Boolean({ default: true }),
+    clusterRadius: Type.Number({ default: 1, minimum: 0, maximum: 2 }),
+    equatorialBandMaxAbsLatitude: Type.Number({ default: 23, minimum: 0, maximum: 90 }),
+    shallowWaterAdjacencyGateChance: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
+    shallowWaterAdjacencyRadius: Type.Number({ default: 1, minimum: 1 }),
+    growthChanceEquatorial: Type.Number({ default: 15, minimum: 0, maximum: 100 }),
+    growthChanceNonEquatorial: Type.Number({ default: 5, minimum: 0, maximum: 100 }),
   },
   { additionalProperties: false }
 );
 
 export const AquaticRulesSchema = Type.Object(
   {
-    reefLatitudeSplit: Type.Optional(Type.Number({ default: 55, minimum: 0, maximum: 90 })),
-    atoll: Type.Optional(AquaticAtollSchema),
+    reefLatitudeSplit: Type.Number({ default: 55, minimum: 0, maximum: 90 }),
+    atoll: AquaticAtollSchema,
   },
   { additionalProperties: false }
 );
 
 export const AquaticFeaturePlacementsConfigSchema = Type.Object(
   {
-    multiplier: Type.Optional(
-      Type.Number({
-        description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
-        default: 1,
-        minimum: 0,
-      })
-    ),
-    chances: Type.Optional(AquaticChancesSchema),
-    rules: Type.Optional(AquaticRulesSchema),
+    multiplier: Type.Number({
+      description: "Scalar multiplier applied to all per-feature chances (0..2 typical).",
+      default: 1,
+      minimum: 0,
+    }),
+    chances: AquaticChancesSchema,
+    rules: AquaticRulesSchema,
   },
   { additionalProperties: false }
 );
@@ -99,4 +97,3 @@ export const PlanAquaticFeaturePlacementsContract = defineOpContract({
     default: AquaticFeaturePlacementsConfigSchema,
   },
 });
-

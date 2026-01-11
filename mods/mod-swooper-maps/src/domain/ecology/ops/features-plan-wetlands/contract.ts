@@ -8,7 +8,7 @@ const PlanWetlandsInputSchema = Type.Object(
     landMask: TypedArraySchemas.u8({ description: "Land mask (1 = land, 0 = water)." }),
     effectiveMoisture: TypedArraySchemas.f32({ description: "Effective moisture per tile." }),
     surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature (C)." }),
-    fertility: Type.Optional(TypedArraySchemas.f32({ description: "Optional fertility overlay." })),
+    fertility: TypedArraySchemas.f32({ description: "Fertility overlay (0..1)." }),
     elevation: TypedArraySchemas.i16({ description: "Elevation in meters." }),
   },
   { additionalProperties: false }

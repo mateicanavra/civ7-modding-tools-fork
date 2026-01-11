@@ -19,8 +19,8 @@ export const defaultStrategy = createStrategy(ResourcePlanBasinsContract, "defau
       let seededCount = 0;
       for (let i = 0; i < size; i++) {
         if (input.landMask[i] === 0) continue;
-        const fertility = input.fertility[i] ?? 0;
-        const moisture = (input.rainfall[i]! + input.humidity[i]!) / 510;
+        const fertility = input.fertility[i];
+        const moisture = (input.rainfall[i] + input.humidity[i]) / 510;
         const soilBonus = input.soilType[i] === 2 ? 0.1 : 0; // loam preference
         const score =
           fertility * resource.fertilityBias +

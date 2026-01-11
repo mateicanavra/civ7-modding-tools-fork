@@ -30,7 +30,7 @@ type SnowElevationRange = {
 const pickPercentile = (sorted: number[], ratio: number): number => {
   if (sorted.length === 0) return 0;
   const idx = Math.min(sorted.length - 1, Math.max(0, Math.floor(ratio * (sorted.length - 1))));
-  return sorted[idx] ?? 0;
+  return sorted[idx]!;
 };
 
 const computeStats = (sorted: number[]): SnowElevationStats => {
@@ -40,8 +40,8 @@ const computeStats = (sorted: number[]): SnowElevationStats => {
 
   return {
     count: sorted.length,
-    min: sorted[0] ?? 0,
-    max: sorted[sorted.length - 1] ?? 0,
+    min: sorted[0]!,
+    max: sorted[sorted.length - 1]!,
     p50: pickPercentile(sorted, 0.5),
     p90: pickPercentile(sorted, 0.9),
     p99: pickPercentile(sorted, 0.99),
@@ -57,7 +57,7 @@ const collectLandElevations = (input: PlotEffectsInput): number[] => {
     for (let x = 0; x < width; x++) {
       if (landMask[rowOffset + x] === 0) continue;
       const idx = rowOffset + x;
-      elevations.push(elevation[idx] ?? 0);
+      elevations.push(elevation[idx]);
     }
   }
 

@@ -7,20 +7,20 @@ export const defaultStrategy = createStrategy(PlanVegetationContract, "default",
   run: (input, config) => {
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
-    const fertility = (input.fertility as Float32Array | undefined) ?? new Float32Array(width * height);
+    const fertility = input.fertility;
 
     for (let y = 0; y < height; y++) {
       const row = y * width;
       for (let x = 0; x < width; x++) {
         const idx = row + x;
         if (input.landMask[idx] === 0) continue;
-        const vegetation = input.vegetationDensity[idx] ?? 0;
+        const vegetation = input.vegetationDensity[idx];
         if (vegetation <= 0) continue;
-        const temp = input.surfaceTemperature[idx] ?? 0;
+        const temp = input.surfaceTemperature[idx];
         if (temp < config.coldCutoff) continue;
 
-        const fertilityValue = fertility[idx] ?? 0;
-        const moisture = input.effectiveMoisture[idx] ?? vegetation;
+        const fertilityValue = fertility[idx];
+        const moisture = input.effectiveMoisture[idx];
         const weight = clamp01(
           config.baseDensity +
             fertilityValue * config.fertilityWeight +
@@ -28,7 +28,7 @@ export const defaultStrategy = createStrategy(PlanVegetationContract, "default",
         );
         if (weight < 0.15) continue;
 
-        const biomeSymbol = biomeSymbolFromIndex(input.biomeIndex[idx]!);
+        const biomeSymbol = biomeSymbolFromIndex(input.biomeIndex[idx]);
         const feature =
           biomeSymbol === "boreal"
             ? "FEATURE_TAIGA"

@@ -131,13 +131,13 @@ export const defaultStrategy = createStrategy(PlanVegetationEmbellishmentsContra
         if (featureField[idx] !== NO_FEATURE) continue;
         if (isNavigableRiverPlot(idx)) continue;
 
-        const vegetation = vegetationDensity[idx] ?? 0;
+        const vegetation = vegetationDensity[idx];
         if (vegetation < minVegetationForBonus) continue;
 
         const biome = biomeSymbolFromIndex(biomeIndex[idx] | 0);
-        const elevationValue = elevation[idx] ?? 0;
+        const elevationValue = elevation[idx];
         const rainfallValue = rainfall[idx] | 0;
-        const latAbs = Math.abs(latitude[idx] ?? 0);
+        const latAbs = Math.abs(latitude[idx]);
 
         if (hasVolcanicHotspots) {
           if (

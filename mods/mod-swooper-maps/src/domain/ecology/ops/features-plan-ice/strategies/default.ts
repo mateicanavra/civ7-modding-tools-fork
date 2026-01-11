@@ -1,4 +1,4 @@
-import { createStrategy} from "@swooper/mapgen-core/authoring";
+import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { PlanIceContract } from "../contract.js";
 
 export const defaultStrategy = createStrategy(PlanIceContract, "default", {
@@ -9,12 +9,12 @@ export const defaultStrategy = createStrategy(PlanIceContract, "default", {
       const row = y * width;
       for (let x = 0; x < width; x++) {
         const idx = row + x;
-        const temperature = input.surfaceTemperature[idx] ?? 0;
+        const temperature = input.surfaceTemperature[idx];
         if (input.landMask[idx] === 0) {
           if (temperature <= config.seaIceThreshold) {
             placements.push({ x, y, feature: "FEATURE_ICE", weight: 1 });
           }
-        } else if (input.elevation[idx]! >= config.alpineThreshold) {
+        } else if (input.elevation[idx] >= config.alpineThreshold) {
           placements.push({ x, y, feature: "FEATURE_ICE", weight: 1 });
         }
       }

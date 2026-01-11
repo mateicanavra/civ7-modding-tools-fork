@@ -19,30 +19,30 @@ const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {
 const NO_FEATURE = -1;
 
 function normalizeConfig(config: Config): Config {
-  const chances = config.chances ?? {};
-  const rules = config.rules ?? {};
-  const atoll = rules.atoll ?? {};
+  const chances = config.chances;
+  const rules = config.rules;
+  const atoll = rules.atoll;
 
   return {
     ...config,
-    multiplier: Math.max(0, config.multiplier ?? 0),
+    multiplier: Math.max(0, config.multiplier),
     chances: {
-      FEATURE_REEF: clampChance(chances.FEATURE_REEF ?? 0),
-      FEATURE_COLD_REEF: clampChance(chances.FEATURE_COLD_REEF ?? 0),
-      FEATURE_ATOLL: clampChance(chances.FEATURE_ATOLL ?? 0),
-      FEATURE_LOTUS: clampChance(chances.FEATURE_LOTUS ?? 0),
+      FEATURE_REEF: clampChance(chances.FEATURE_REEF),
+      FEATURE_COLD_REEF: clampChance(chances.FEATURE_COLD_REEF),
+      FEATURE_ATOLL: clampChance(chances.FEATURE_ATOLL),
+      FEATURE_LOTUS: clampChance(chances.FEATURE_LOTUS),
     },
     rules: {
       ...rules,
-      reefLatitudeSplit: clamp(rules.reefLatitudeSplit ?? 0, 0, 90),
+      reefLatitudeSplit: clamp(rules.reefLatitudeSplit, 0, 90),
       atoll: {
-        enableClustering: atoll.enableClustering ?? true,
-        clusterRadius: clamp(Math.floor(atoll.clusterRadius ?? 0), 0, 2),
-        equatorialBandMaxAbsLatitude: clamp(atoll.equatorialBandMaxAbsLatitude ?? 0, 0, 90),
-        shallowWaterAdjacencyGateChance: clampChance(atoll.shallowWaterAdjacencyGateChance ?? 0),
-        shallowWaterAdjacencyRadius: Math.max(1, Math.floor(atoll.shallowWaterAdjacencyRadius ?? 1)),
-        growthChanceEquatorial: clampChance(atoll.growthChanceEquatorial ?? 0),
-        growthChanceNonEquatorial: clampChance(atoll.growthChanceNonEquatorial ?? 0),
+        enableClustering: atoll.enableClustering,
+        clusterRadius: clamp(Math.floor(atoll.clusterRadius), 0, 2),
+        equatorialBandMaxAbsLatitude: clamp(atoll.equatorialBandMaxAbsLatitude, 0, 90),
+        shallowWaterAdjacencyGateChance: clampChance(atoll.shallowWaterAdjacencyGateChance),
+        shallowWaterAdjacencyRadius: Math.max(1, Math.floor(atoll.shallowWaterAdjacencyRadius)),
+        growthChanceEquatorial: clampChance(atoll.growthChanceEquatorial),
+        growthChanceNonEquatorial: clampChance(atoll.growthChanceNonEquatorial),
       },
     },
   };
@@ -53,15 +53,15 @@ export const defaultStrategy = createStrategy(PlanAquaticFeaturePlacementsContra
   run: (input, config) => {
     const rng = createLabelRng(input.seed);
 
-    const chances = config.chances!;
-    const rules = config.rules!;
-    const atollCfg = rules.atoll!;
-    const multiplier = config.multiplier!;
-    const reefLatitudeSplit = rules.reefLatitudeSplit!;
+    const chances = config.chances;
+    const rules = config.rules;
+    const atollCfg = rules.atoll;
+    const multiplier = config.multiplier;
+    const reefLatitudeSplit = rules.reefLatitudeSplit;
 
     const { width, height, landMask, terrainType, latitude, featureKeyField, coastTerrain } = input;
     const isWater = (x: number, y: number): boolean => landMask[y * width + x] === 0;
-    const getTerrainType = (x: number, y: number): number => terrainType[y * width + x] ?? -1;
+    const getTerrainType = (x: number, y: number): number => terrainType[y * width + x];
 
     const featureField = featureKeyField.slice();
     const placements: Placement[] = [];
@@ -86,7 +86,7 @@ export const defaultStrategy = createStrategy(PlanAquaticFeaturePlacementsContra
         for (let x = 0; x < width; x++) {
           if (!isWater(x, y)) continue;
           if (!canPlaceAt(x, y)) continue;
-          const absLat = Math.abs(latitude[y * width + x] ?? 0);
+          const absLat = Math.abs(latitude[y * width + x]);
           const useCold = absLat >= reefLatitudeSplit;
           const featureKey: FeatureKey = useCold ? "FEATURE_COLD_REEF" : "FEATURE_REEF";
           const chance = useCold ? coldReefChance : reefChance;
@@ -108,7 +108,7 @@ export const defaultStrategy = createStrategy(PlanAquaticFeaturePlacementsContra
           let chance = baseAtollChance;
           if (atollCfg.enableClustering && atollCfg.clusterRadius > 0) {
             if (hasAdjacentFeatureType(featureField, width, height, x, y, atollIdx, atollCfg.clusterRadius)) {
-              const absLat = Math.abs(latitude[y * width + x] ?? 0);
+              const absLat = Math.abs(latitude[y * width + x]);
               chance =
                 absLat <= atollCfg.equatorialBandMaxAbsLatitude
                   ? atollCfg.growthChanceEquatorial

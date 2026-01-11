@@ -9,14 +9,14 @@ export const continentalityStrategy = createStrategy(PlanIceContract, "continent
       const row = y * width;
       for (let x = 0; x < width; x++) {
         const idx = row + x;
-        const temperature = input.surfaceTemperature[idx] ?? 0;
+        const temperature = input.surfaceTemperature[idx];
         const continentality = Math.abs(x - width / 2) / (width / 2);
         const adjustedThreshold = config.seaIceThreshold + continentality * -2;
         if (input.landMask[idx] === 0) {
           if (temperature <= adjustedThreshold) {
             placements.push({ x, y, feature: "FEATURE_ICE", weight: 1 });
           }
-        } else if (input.elevation[idx]! >= config.alpineThreshold - 200 * continentality) {
+        } else if (input.elevation[idx] >= config.alpineThreshold - 200 * continentality) {
           placements.push({ x, y, feature: "FEATURE_ICE", weight: 1 });
         }
       }

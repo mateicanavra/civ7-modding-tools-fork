@@ -9,7 +9,7 @@ const PlanVegetationInputSchema = Type.Object(
     vegetationDensity: TypedArraySchemas.f32({ description: "Vegetation density (0..1)." }),
     effectiveMoisture: TypedArraySchemas.f32({ description: "Effective moisture per tile." }),
     surfaceTemperature: TypedArraySchemas.f32({ description: "Surface temperature (C)." }),
-    fertility: Type.Optional(TypedArraySchemas.f32({ description: "Optional fertility overlay." })),
+    fertility: TypedArraySchemas.f32({ description: "Fertility overlay (0..1)." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask (1 = land, 0 = water)." }),
   },
   { additionalProperties: false }
