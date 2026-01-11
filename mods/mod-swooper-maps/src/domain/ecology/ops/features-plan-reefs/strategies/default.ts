@@ -1,16 +1,8 @@
-import { applySchemaDefaults, createStrategy, type Static } from "@swooper/mapgen-core/authoring";
+import {createStrategy } from "@swooper/mapgen-core/authoring";
 import { PlanReefsContract } from "../contract.js";
 
-const EMPTY_CONFIG: Static<typeof PlanReefsContract["strategies"]["default"]> = {} as Static<
-  typeof PlanReefsContract["strategies"]["default"]
->;
-const normalize = (input?: Static<typeof PlanReefsContract["strategies"]["default"]>) =>
-  applySchemaDefaults(PlanReefsContract.strategies.default, input ?? EMPTY_CONFIG);
-
 export const defaultStrategy = createStrategy(PlanReefsContract, "default", {
-  normalize,
   run: (input, config) => {
-    const resolved = normalize(config);
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
     for (let y = 0; y < height; y++) {
@@ -19,9 +11,9 @@ export const defaultStrategy = createStrategy(PlanReefsContract, "default", {
         const idx = row + x;
         if (input.landMask[idx] !== 0) continue; // water only
         const temperature = input.surfaceTemperature[idx] ?? 0;
-        if (temperature < resolved.warmThreshold) continue;
+        if (temperature < config.warmThreshold) continue;
         if ((x + y) % 3 !== 0) continue; // simple spacing
-        placements.push({ x, y, feature: "FEATURE_REEF", weight: resolved.density });
+        placements.push({ x, y, feature: "FEATURE_REEF", weight: config.density });
       }
     }
     return { placements };

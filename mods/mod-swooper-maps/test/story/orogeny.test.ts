@@ -1,7 +1,8 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import { Value } from "typebox/value";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import {
   getStoryOverlay,
@@ -15,7 +16,7 @@ describe("story/orogeny", () => {
   it("fails fast when foundation context is missing", () => {
     const width = 30;
     const height = 20;
-    const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
+    const directionality = Value.Default(FoundationDirectionalityConfigSchema, {}) as Static<typeof FoundationDirectionalityConfigSchema>;
     const env = {
       seed: 0,
       dimensions: { width, height },

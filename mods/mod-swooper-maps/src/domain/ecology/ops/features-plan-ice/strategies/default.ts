@@ -1,16 +1,8 @@
-import { applySchemaDefaults, createStrategy, type Static } from "@swooper/mapgen-core/authoring";
+import { createStrategy} from "@swooper/mapgen-core/authoring";
 import { PlanIceContract } from "../contract.js";
 
-const EMPTY_CONFIG: Static<typeof PlanIceContract["strategies"]["default"]> = {} as Static<
-  typeof PlanIceContract["strategies"]["default"]
->;
-const normalize = (input?: Static<typeof PlanIceContract["strategies"]["default"]>) =>
-  applySchemaDefaults(PlanIceContract.strategies.default, input ?? EMPTY_CONFIG);
-
 export const defaultStrategy = createStrategy(PlanIceContract, "default", {
-  normalize,
   run: (input, config) => {
-    const resolved = normalize(config);
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
     for (let y = 0; y < height; y++) {
@@ -19,10 +11,10 @@ export const defaultStrategy = createStrategy(PlanIceContract, "default", {
         const idx = row + x;
         const temperature = input.surfaceTemperature[idx] ?? 0;
         if (input.landMask[idx] === 0) {
-          if (temperature <= resolved.seaIceThreshold) {
+          if (temperature <= config.seaIceThreshold) {
             placements.push({ x, y, feature: "FEATURE_ICE", weight: 1 });
           }
-        } else if (input.elevation[idx]! >= resolved.alpineThreshold) {
+        } else if (input.elevation[idx]! >= config.alpineThreshold) {
           placements.push({ x, y, feature: "FEATURE_ICE", weight: 1 });
         }
       }

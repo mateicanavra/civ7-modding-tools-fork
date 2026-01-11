@@ -1,5 +1,6 @@
 import { describe, it, expect } from "bun:test";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import { Value } from "typebox/value";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import { planPlotEffects } from "../../src/domain/ecology/ops/plan-plot-effects/index.js";
 import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
@@ -27,7 +28,7 @@ const createInput = () => {
 describe("plot effects (owned)", () => {
   it("places permanent snow plot effects when thresholds pass", () => {
     const input = createInput();
-    const directionality = applySchemaDefaults(FoundationDirectionalityConfigSchema, {});
+    const directionality = Value.Default(FoundationDirectionalityConfigSchema, {}) as Static<typeof FoundationDirectionalityConfigSchema>;
     const env = {
       seed: 0,
       dimensions: { width: input.width, height: input.height },

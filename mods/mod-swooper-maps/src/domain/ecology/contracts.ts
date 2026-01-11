@@ -59,5 +59,4 @@ export {
   ResourceScoreBalanceContract,
 };
 
-export { WetRulesSchema } from "./ops/plan-wet-feature-placements/contract.js";
 export type { PlanWetFeaturePlacementsTypes } from "./ops/plan-wet-feature-placements/types.js";
