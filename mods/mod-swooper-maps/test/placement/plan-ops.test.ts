@@ -1,28 +1,41 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "bun:test";
 
 import {
   planFloodplains,
   planStarts,
   planWonders,
 } from "../../src/domain/placement/index.js";
+import { runOpValidated } from "../support/compiler-helpers.js";
 
 describe("placement plan operations", () => {
   it("plans wonders with plus-one default", () => {
-    const result = planWonders.run({ mapInfo: { NumNaturalWonders: 2 } }, planWonders.defaultConfig);
+    const result = runOpValidated(planWonders, { mapInfo: { NumNaturalWonders: 2 } }, {
+      strategy: "default",
+      config: {},
+    });
     expect(result.wondersCount).toBe(3);
   });
 
   it("plans wonders without plus-one when disabled", () => {
-    const result = planWonders.run(
-      { mapInfo: { NumNaturalWonders: 2 } },
-      { strategy: "default", config: { wondersPlusOne: false } }
-    );
+    const result = runOpValidated(planWonders, { mapInfo: { NumNaturalWonders: 2 } }, {
+      strategy: "default",
+      config: { wondersPlusOne: false },
+    });
     expect(result.wondersCount).toBe(2);
   });
 
   it("plans floodplains respecting min/max", () => {
-    const result = planFloodplains.run({}, planFloodplains.defaultConfig);
+    const result = runOpValidated(planFloodplains, {}, { strategy: "default", config: {} });
     expect(result.minLength).toBe(4);
+    expect(result.maxLength).toBe(10);
+  });
+
+  it("normalizes floodplains maxLength >= minLength", () => {
+    const result = runOpValidated(planFloodplains, {}, {
+      strategy: "default",
+      config: { minLength: 10, maxLength: 4 },
+    });
+    expect(result.minLength).toBe(10);
     expect(result.maxLength).toBe(10);
   });
 
@@ -37,19 +50,16 @@ describe("placement plan operations", () => {
       startSectors: [1, 2],
     };
 
-    const result = planStarts.run(
-      { baseStarts },
-      {
-        strategy: "default",
-        config: {
-          overrides: {
-            playersLandmass1: 3,
-            startSectorRows: 3,
-            startSectors: [5],
-          },
+    const result = runOpValidated(planStarts, { baseStarts }, {
+      strategy: "default",
+      config: {
+        overrides: {
+          playersLandmass1: 3,
+          startSectorRows: 3,
+          startSectors: [5],
         },
-      }
-    );
+      },
+    });
 
     expect(result.playersLandmass1).toBe(3);
     expect(result.playersLandmass2).toBe(1);
