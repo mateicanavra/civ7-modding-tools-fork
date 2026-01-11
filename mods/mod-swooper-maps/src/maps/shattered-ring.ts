@@ -70,7 +70,7 @@ const config = {
     },
   },
   "morphology-pre": {
-    landmassPlates: {
+    "landmass-plates": {
       landmass: {
         // Central crater sea with ring continent
         baseWaterPercent: 62,
@@ -115,7 +115,7 @@ const config = {
     coastlines: {},
   },
   "narrative-pre": {
-    storySeed: {
+    "story-seed": {
       margins: {
         // High active fraction for ring volcanism
         activeFraction: 0.45,
@@ -123,7 +123,7 @@ const config = {
         minSegmentLength: 10,
       },
     },
-    storyHotspots: {
+    "story-hotspots": {
       story: {
         hotspot: {
           paradiseBias: 2,
@@ -132,10 +132,10 @@ const config = {
         },
       },
     },
-    storyRifts: { story: { rift: {} } },
+    "story-rifts": { story: { rift: {} } },
   },
   "morphology-mid": {
-    ruggedCoasts: {
+    "rugged-coasts": {
       coastlines: {
         plateBias: {
           threshold: 0.4,
@@ -160,8 +160,8 @@ const config = {
     },
   },
   "narrative-mid": {
-    storyOrogeny: { story: { orogeny: {} } },
-    storyCorridorsPre: {
+    "story-orogeny": { story: { orogeny: {} } },
+    "story-corridors-pre": {
       corridors: {
         sea: {},
         land: {},
@@ -227,7 +227,7 @@ const config = {
   },
   "hydrology-pre": {
     lakes: {},
-    climateBaseline: {
+    "climate-baseline": {
       climate: {
         baseline: {
           blend: {
@@ -283,7 +283,7 @@ const config = {
     },
   },
   "narrative-swatches": {
-    storySwatches: {
+    "story-swatches": {
       climate: {
         baseline: {
           blend: {
@@ -415,7 +415,7 @@ const config = {
     rivers: { climate: { story: { paleo: {} } } },
   },
   "narrative-post": {
-    storyCorridorsPost: {
+    "story-corridors-post": {
       corridors: {
         sea: {},
         land: {},
@@ -425,7 +425,7 @@ const config = {
     },
   },
   "hydrology-post": {
-    climateRefine: {
+    "climate-refine": {
       climate: {
         baseline: {
           blend: {
@@ -559,14 +559,14 @@ const config = {
     pedology: {
       classify: { strategy: "orogeny-boosted", config: {} },  // Volcanic terrain soils
     },
-    resourceBasins: {
+    "resource-basins": {
       plan: { strategy: "default", config: {} },
       score: { strategy: "default", config: {} },
     },
-    biomeEdgeRefine: {
+    "biome-edge-refine": {
       refine: { strategy: "default", config: {} },
     },
-    featuresPlan: {
+    "features-plan": {
       vegetation: { strategy: "clustered", config: {} },     // Volcanic forest clusters
       wetlands: { strategy: "delta-focused", config: {} },   // Volcanic valley wetlands
       reefs: { strategy: "default", config: {} },
@@ -646,177 +646,7 @@ const config = {
         marine: "BIOME_MARINE",
       },
     },
-    features: {
-      featuresPlacement: {
-        vegetated: {
-          strategy: "default",
-          config: {
-            multiplier: 1.2,
-            chances: {
-              FEATURE_FOREST: 45,
-              FEATURE_RAINFOREST: 55,
-              FEATURE_TAIGA: 45,
-              FEATURE_SAVANNA_WOODLAND: 25,
-              FEATURE_SAGEBRUSH_STEPPE: 25,
-            },
-            rules: {
-              minVegetationByBiome: {
-                snow: 0.08,
-                tundra: 0.05,
-                boreal: 0.07,
-                temperateDry: 0.06,
-                temperateHumid: 0.05,
-                tropicalSeasonal: 0.05,
-                tropicalRainforest: 0.05,
-                desert: 0.02,
-              },
-              vegetationChanceScalar: 0.95,
-              desertSagebrushMinVegetation: 0.12,
-              desertSagebrushMaxAridity: 0.88,
-              tundraTaigaMinVegetation: 0.1,
-              tundraTaigaMinTemperature: -2,
-              tundraTaigaMaxFreeze: 0.9,
-              temperateDryForestMoisture: 120,
-              temperateDryForestMaxAridity: 0.55,
-              temperateDryForestVegetation: 0.42,
-              tropicalSeasonalRainforestMoisture: 145,
-              tropicalSeasonalRainforestMaxAridity: 0.58,
-            },
-          },
-        },
-        wet: {
-          strategy: "default",
-          config: {
-            multiplier: 0.7,
-            chances: {
-              FEATURE_MARSH: 25,
-              FEATURE_TUNDRA_BOG: 20,
-              FEATURE_MANGROVE: 25,
-              FEATURE_OASIS: 20,
-              FEATURE_WATERING_HOLE: 25,
-            },
-            rules: {
-              nearRiverRadius: 2,
-              coldTemperatureMax: 2,
-              coldBiomeSymbols: ["snow", "tundra", "boreal"],
-              mangroveWarmTemperatureMin: 18,
-              mangroveWarmBiomeSymbols: ["tropicalRainforest", "tropicalSeasonal"],
-              coastalAdjacencyRadius: 1,
-              isolatedRiverRadius: 1,
-              isolatedSpacingRadius: 1,
-              oasisBiomeSymbols: ["desert", "temperateDry"],
-            },
-          },
-        },
-        aquatic: {
-          strategy: "default",
-          config: {
-            multiplier: 0.7,
-            chances: {
-              FEATURE_REEF: 35,
-              FEATURE_COLD_REEF: 25,
-              FEATURE_ATOLL: 12,
-              FEATURE_LOTUS: 12,
-            },
-            rules: {
-              reefLatitudeSplit: 55,
-              atoll: {
-                enableClustering: true,
-                clusterRadius: 1,
-                equatorialBandMaxAbsLatitude: 23,
-                shallowWaterAdjacencyGateChance: 35,
-                shallowWaterAdjacencyRadius: 1,
-                growthChanceEquatorial: 12,
-                growthChanceNonEquatorial: 4,
-              },
-            },
-          },
-        },
-        ice: {
-          strategy: "default",
-          config: {
-            multiplier: 1,
-            chances: { FEATURE_ICE: 90 },
-            rules: {
-              minAbsLatitude: 78,
-              forbidAdjacentToLand: true,
-              landAdjacencyRadius: 1,
-              forbidAdjacentToNaturalWonders: true,
-              naturalWonderAdjacencyRadius: 1,
-            },
-          },
-        },
-      },
-      reefEmbellishments: {
-        strategy: "default",
-        config: {
-          story: {
-            features: {
-              paradiseReefChance: 20,
-              paradiseReefRadius: 2,
-              volcanicForestChance: 24,
-              volcanicForestBonus: 6,
-              volcanicForestMinRainfall: 100,
-              volcanicTaigaChance: 20,
-              volcanicTaigaBonus: 5,
-              volcanicRadius: 1,
-              volcanicTaigaMinLatitude: 56,
-              volcanicTaigaMaxElevation: 420,
-              volcanicTaigaMinRainfall: 62,
-            },
-          },
-          featuresDensity: {
-            shelfReefMultiplier: 0.7,
-            shelfReefRadius: 1,
-            rainforestExtraChance: 35,
-            forestExtraChance: 30,
-            taigaExtraChance: 20,
-            rainforestVegetationScale: 40,
-            forestVegetationScale: 25,
-            taigaVegetationScale: 20,
-            rainforestMinRainfall: 125,
-            forestMinRainfall: 100,
-            taigaMaxElevation: 320,
-            minVegetationForBonus: 0.02,
-          },
-        },
-      },
-      vegetationEmbellishments: {
-        strategy: "default",
-        config: {
-          story: {
-            features: {
-              paradiseReefChance: 20,
-              paradiseReefRadius: 2,
-              volcanicForestChance: 24,
-              volcanicForestBonus: 6,
-              volcanicForestMinRainfall: 100,
-              volcanicTaigaChance: 20,
-              volcanicTaigaBonus: 5,
-              volcanicRadius: 1,
-              volcanicTaigaMinLatitude: 56,
-              volcanicTaigaMaxElevation: 420,
-              volcanicTaigaMinRainfall: 62,
-            },
-          },
-          featuresDensity: {
-            shelfReefMultiplier: 0.7,
-            shelfReefRadius: 1,
-            rainforestExtraChance: 35,
-            forestExtraChance: 30,
-            taigaExtraChance: 20,
-            rainforestVegetationScale: 40,
-            forestVegetationScale: 25,
-            taigaVegetationScale: 20,
-            rainforestMinRainfall: 125,
-            forestMinRainfall: 100,
-            taigaMaxElevation: 320,
-            minVegetationForBonus: 0.02,
-          },
-        },
-      },
-    },
-    plotEffects: {
+    "plot-effects": {
       plotEffects: {
         strategy: "default",
         config: {
@@ -890,7 +720,7 @@ const config = {
     },
   },
   placement: {
-    derivePlacementInputs: {
+    "derive-placement-inputs": {
       wonders: { strategy: "default", config: { wondersPlusOne: true } },
       floodplains: { strategy: "default", config: { minLength: 4, maxLength: 10 } },
       starts: { strategy: "default", config: {} },

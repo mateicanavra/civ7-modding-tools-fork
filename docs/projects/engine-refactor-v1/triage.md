@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Ecology preset config dropped legacy `features` step** [Source: LOCAL-TBD-M7-C2]
+  - **Context:** C2 stage config alignment removed `ecology.features` blocks from map presets so compiler validation only sees step-id keyed inputs.
+  - **Type:** triage
+  - **Notes:** Preset tuning for feature placement/embellishments now relies on defaults until E2/E3 reintroduce explicit config mapping.
+  - **Next check:** during E2/E3 ecology migration or when retuning map presets.
+
 - **Authoring step contracts own IDs/metadata (Stage Option A)** [Source: LOCAL-TBD-M7-B2]
   - **Context:** Stage Option A requires stage surfaces derived from step IDs; we moved step fields under `contract` to align with compile surfaces.
   - **Type:** triage
