@@ -7,6 +7,7 @@ export const clusteredStrategy = createStrategy(PlanVegetationContract, "cluster
   run: (input, config) => {
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
+    const moistureNormalization = Math.max(0.0001, config.moistureNormalization ?? 230);
     const fertility = input.fertility;
 
     const noise = (x: number, y: number) => (Math.sin((x + 1.3) * (y + 0.7)) + 1) * 0.25;
@@ -23,12 +24,14 @@ export const clusteredStrategy = createStrategy(PlanVegetationContract, "cluster
 
         const fertilityValue = fertility[idx];
         const moisture = input.effectiveMoisture[idx];
+        const moistureNorm = clamp01(moisture / moistureNormalization);
         const clusterBonus = noise(x, y);
         const weight = clamp01(
-          config.baseDensity +
-            fertilityValue * config.fertilityWeight +
-            moisture * config.moistureWeight +
-            clusterBonus * 0.15
+          vegetation *
+            (config.baseDensity +
+              fertilityValue * config.fertilityWeight +
+              moistureNorm * config.moistureWeight +
+              clusterBonus * 0.15)
         );
         if (weight < 0.15) continue;
 
