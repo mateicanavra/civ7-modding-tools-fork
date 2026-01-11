@@ -48,8 +48,8 @@ export const defaultStrategy = createStrategy(PlanReefEmbellishmentsContract, "d
       placements.push({ x, y, feature: "FEATURE_REEF" });
     };
 
-    const featuresCfg = config.story!.features!;
-    const densityCfg = config.featuresDensity!;
+    const featuresCfg = config.story.features;
+    const densityCfg = config.featuresDensity;
 
     const paradiseReefChance = featuresCfg.paradiseReefChance;
     const paradiseReefRadius = featuresCfg.paradiseReefRadius;

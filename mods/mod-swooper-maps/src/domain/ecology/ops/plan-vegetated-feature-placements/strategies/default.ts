@@ -1,4 +1,4 @@
-import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 import { clamp01, clampChance, createLabelRng, rollPercent } from "@swooper/mapgen-core";
 
 import { FEATURE_PLACEMENT_KEYS, biomeSymbolFromIndex, type FeatureKey } from "@mapgen/domain/ecology/types.js";
@@ -56,7 +56,7 @@ export const defaultStrategy = createStrategy(PlanVegetatedFeaturePlacementsCont
     const rng = createLabelRng(input.seed);
 
     const { width, height, landMask, terrainType, featureKeyField, navigableRiverTerrain } = input;
-    const getTerrainType = (x: number, y: number): number => terrainType[y * width + x] ?? -1;
+    const getTerrainType = (x: number, y: number): number => terrainType[y * width + x];
     const isNavigableRiverPlot = (x: number, y: number): boolean =>
       navigableRiverTerrain >= 0 && getTerrainType(x, y) === navigableRiverTerrain;
 
@@ -89,18 +89,18 @@ export const defaultStrategy = createStrategy(PlanVegetatedFeaturePlacementsCont
         if (landMask[idx] === 0) continue;
         if (isNavigableRiverPlot(x, y)) continue;
 
-        const vegetationValue = input.vegetationDensity[idx] ?? 0;
+        const vegetationValue = input.vegetationDensity[idx];
         const symbolIndex = input.biomeIndex[idx] | 0;
         const minVeg = minVegetationByBiome[biomeSymbolFromIndex(symbolIndex)];
         if (vegetationValue < minVeg) continue;
 
         const featureKey = pickVegetatedFeature({
           symbolIndex,
-          moistureValue: input.effectiveMoisture[idx] ?? 0,
-          temperatureValue: input.surfaceTemperature[idx] ?? 0,
+          moistureValue: input.effectiveMoisture[idx],
+          temperatureValue: input.surfaceTemperature[idx],
           vegetationValue,
-          aridityIndex: input.aridityIndex[idx] ?? 0,
-          freezeIndex: input.freezeIndex[idx] ?? 0,
+          aridityIndex: input.aridityIndex[idx],
+          freezeIndex: input.freezeIndex[idx],
           rules: {
             desertSagebrushMinVegetation: rules.desertSagebrushMinVegetation,
             desertSagebrushMaxAridity: rules.desertSagebrushMaxAridity,
@@ -118,9 +118,7 @@ export const defaultStrategy = createStrategy(PlanVegetatedFeaturePlacementsCont
         if (!canPlaceAt(x, y)) continue;
 
         const baseChance = clampChance(chances[featureKey] * multiplier);
-        const vegetationScalar = clamp01(
-          (vegetationValue ?? 0) * rules.vegetationChanceScalar
-        );
+        const vegetationScalar = clamp01(vegetationValue * rules.vegetationChanceScalar);
         const chance = clampChance(baseChance * vegetationScalar);
         if (!rollPercent(rng, `features:plan:vegetated:${featureKey}`, chance)) continue;
         setPlanned(x, y, featureKey);

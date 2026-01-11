@@ -44,7 +44,7 @@ const pickPercentile = (sorted: number[], ratio: number): number => {
     sorted.length - 1,
     Math.max(0, Math.floor(ratio * (sorted.length - 1)))
   );
-  return sorted[idx] ?? 0;
+  return sorted[idx]!;
 };
 
 const computeSnowElevationStats = (sorted: number[]) => {
@@ -54,8 +54,8 @@ const computeSnowElevationStats = (sorted: number[]) => {
 
   return {
     count: sorted.length,
-    min: sorted[0] ?? 0,
-    max: sorted[sorted.length - 1] ?? 0,
+    min: sorted[0]!,
+    max: sorted[sorted.length - 1]!,
     p50: pickPercentile(sorted, 0.5),
     p90: pickPercentile(sorted, 0.9),
     p99: pickPercentile(sorted, 0.99),
@@ -71,7 +71,7 @@ const collectLandElevations = (input: PlotEffectsInput): number[] => {
     for (let x = 0; x < width; x++) {
       if (landMask[rowOffset + x] === 0) continue;
       const idx = rowOffset + x;
-      elevations.push(elevation[idx] ?? 0);
+      elevations.push(elevation[idx]);
     }
   }
 
@@ -181,7 +181,7 @@ export function logSnowEligibilitySummary(
       const idx = rowOffset + x;
       if (input.landMask[idx] === 0) continue;
 
-      const terrain = terrainType[idx] ?? 0;
+      const terrain = terrainType[idx];
       const isMountain = terrain === MOUNTAIN_TERRAIN;
       const isHill = terrain === HILL_TERRAIN;
       const isFlat = terrain === FLAT_TERRAIN;
@@ -200,11 +200,11 @@ export function logSnowEligibilitySummary(
         bucketFlat.total += 1;
       }
 
-      const temp = input.surfaceTemperature[idx] ?? 0;
-      const moisture = input.effectiveMoisture[idx] ?? 0;
-      const aridity = input.aridityIndex[idx] ?? 0;
-      const freeze = input.freezeIndex[idx] ?? 0;
-      const elevation = input.elevation[idx] ?? 0;
+      const temp = input.surfaceTemperature[idx];
+      const moisture = input.effectiveMoisture[idx];
+      const aridity = input.aridityIndex[idx];
+      const freeze = input.freezeIndex[idx];
+      const elevation = input.elevation[idx];
 
       const elevationFactor = normalizeRange(elevation, elevationMin, elevationMax);
       const moistureFactor = normalizeRange(

@@ -67,7 +67,7 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
     const placements: Array<{ x: number; y: number; feature: FeatureKey }> = [];
 
     const isWater = (x: number, y: number): boolean => landMask[y * width + x] === 0;
-    const getTerrainType = (x: number, y: number): number => terrainType[y * width + x] ?? -1;
+    const getTerrainType = (x: number, y: number): number => terrainType[y * width + x];
     const isNavigableRiverPlot = (x: number, y: number): boolean =>
       navigableRiverTerrain >= 0 && getTerrainType(x, y) === navigableRiverTerrain;
 
@@ -104,7 +104,7 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
           const symbol = biomeSymbolFromIndex(biomeIndex[idx] | 0);
           const isCold =
             coldBiomeSet.has(symbol) ||
-            (surfaceTemperature[idx] ?? 0) <= rules.coldTemperatureMax;
+            surfaceTemperature[idx] <= rules.coldTemperatureMax;
           const featureKey: FeatureKey = isCold ? "FEATURE_TUNDRA_BOG" : "FEATURE_MARSH";
           const chance = isCold ? bogChance : marshChance;
           if (chance <= 0) continue;
@@ -132,7 +132,7 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
           const symbol = biomeSymbolFromIndex(biomeIndex[idx] | 0);
           const isWarm =
             warmBiomeSet.has(symbol) ||
-            (surfaceTemperature[idx] ?? 0) >= rules.mangroveWarmTemperatureMin;
+            surfaceTemperature[idx] >= rules.mangroveWarmTemperatureMin;
           if (!isWarm) continue;
           if (!canPlaceAt(x, y)) continue;
           if (!rollPercent(rng, "features:plan:wet:mangrove", mangroveChance)) continue;

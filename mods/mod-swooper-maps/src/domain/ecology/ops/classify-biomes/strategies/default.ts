@@ -11,7 +11,6 @@ import {
   computeFreezeIndex,
   computeMaxLatitude,
   computeTemperature,
-  ensureSize,
   moistureZoneOf,
   overlayMoistureBonus,
   pseudoRandom01,
@@ -31,16 +30,8 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
     const elevation = input.elevation as Int16Array;
     const latitude = input.latitude as Float32Array;
     const landMask = input.landMask as Uint8Array;
-    const corridorMask = (input.corridorMask as Uint8Array | undefined) ?? new Uint8Array(size);
-    const riftShoulderMask = (input.riftShoulderMask as Uint8Array | undefined) ?? new Uint8Array(size);
-
-    ensureSize(rainfall, size, "rainfall");
-    ensureSize(humidity, size, "humidity");
-    ensureSize(elevation, size, "elevation");
-    ensureSize(latitude, size, "latitude");
-    ensureSize(landMask, size, "landMask");
-    ensureSize(corridorMask, size, "corridorMask");
-    ensureSize(riftShoulderMask, size, "riftShoulderMask");
+    const corridorMask = input.corridorMask as Uint8Array;
+    const riftShoulderMask = input.riftShoulderMask as Uint8Array;
 
     const biomeIndex = new Uint8Array(size).fill(255);
     const vegetationDensity = new Float32Array(size);
@@ -70,9 +61,9 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
       }
 
       const temperature = computeTemperature({
-        latitudeAbs: Math.abs(latitude[i]!),
+        latitudeAbs: Math.abs(latitude[i]),
         maxLatitude,
-        elevationMeters: elevation[i]!,
+        elevationMeters: elevation[i],
         cfg: resolvedConfig.temperature,
       });
       surfaceTemperature[i] = temperature;
@@ -80,13 +71,13 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
 
       const noise = (pseudoRandom01(i, resolvedConfig.noise.seed) - 0.5) * 2;
       const overlayBonus = overlayMoistureBonus(
-        corridorMask[i]!,
-        riftShoulderMask[i]!,
+        corridorMask[i],
+        riftShoulderMask[i],
         resolvedConfig.overlays
       );
       const moisture = computeEffectiveMoisture({
-        rainfall: rainfall[i]!,
-        humidity: humidity[i]!,
+        rainfall: rainfall[i],
+        humidity: humidity[i],
         bias: resolvedConfig.moisture.bias,
         humidityWeight: resolvedConfig.moisture.humidityWeight,
         overlayBonus,
@@ -98,8 +89,8 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
 
       const aridity = computeAridityIndex({
         temperature,
-        humidity: humidity[i]!,
-        rainfall: rainfall[i]!,
+        humidity: humidity[i],
+        rainfall: rainfall[i],
         cfg: resolvedConfig.aridity,
       });
       aridityIndex[i] = aridity;
@@ -113,7 +104,7 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
       biomeIndex[i] = BIOME_SYMBOL_TO_INDEX[symbol]!;
 
       const moistureNorm = clamp01(moisture / moistureNormalization);
-      const humidityNorm = clamp01(humidity[i]! / 255);
+      const humidityNorm = clamp01(humidity[i] / 255);
       vegetationDensity[i] = vegetationDensityForBiome(symbol, {
         base: resolvedConfig.vegetation.base,
         moistureWeight: resolvedConfig.vegetation.moistureWeight,

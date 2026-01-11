@@ -27,10 +27,10 @@ export default createStep(FeaturesApplyStepContract, {
 
     const merged = runtimeOps.applyFeatures.run(
       {
-        vegetation: intents.vegetation ?? [],
-        wetlands: intents.wetlands ?? [],
-        reefs: intents.reefs ?? [],
-        ice: intents.ice ?? [],
+        vegetation: intents.vegetation,
+        wetlands: intents.wetlands,
+        reefs: intents.reefs,
+        ice: intents.ice,
       },
       config.apply
     );

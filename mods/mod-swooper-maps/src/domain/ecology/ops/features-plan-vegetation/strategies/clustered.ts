@@ -7,7 +7,7 @@ export const clusteredStrategy = createStrategy(PlanVegetationContract, "cluster
   run: (input, config) => {
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
-    const fertility = (input.fertility as Float32Array | undefined) ?? new Float32Array(width * height);
+    const fertility = input.fertility;
 
     const noise = (x: number, y: number) => (Math.sin((x + 1.3) * (y + 0.7)) + 1) * 0.25;
 
@@ -16,13 +16,13 @@ export const clusteredStrategy = createStrategy(PlanVegetationContract, "cluster
       for (let x = 0; x < width; x++) {
         const idx = row + x;
         if (input.landMask[idx] === 0) continue;
-        const vegetation = input.vegetationDensity[idx] ?? 0;
+        const vegetation = input.vegetationDensity[idx];
         if (vegetation <= 0) continue;
-        const temp = input.surfaceTemperature[idx] ?? 0;
+        const temp = input.surfaceTemperature[idx];
         if (temp < config.coldCutoff) continue;
 
-        const fertilityValue = fertility[idx] ?? 0;
-        const moisture = input.effectiveMoisture[idx] ?? vegetation;
+        const fertilityValue = fertility[idx];
+        const moisture = input.effectiveMoisture[idx];
         const clusterBonus = noise(x, y);
         const weight = clamp01(
           config.baseDensity +
@@ -32,7 +32,7 @@ export const clusteredStrategy = createStrategy(PlanVegetationContract, "cluster
         );
         if (weight < 0.15) continue;
 
-        const biomeSymbol = biomeSymbolFromIndex(input.biomeIndex[idx]!);
+        const biomeSymbol = biomeSymbolFromIndex(input.biomeIndex[idx]);
         const feature =
           biomeSymbol === "boreal"
             ? "FEATURE_TAIGA"

@@ -83,13 +83,13 @@ export const defaultStrategy = createStrategy(PlanPlotEffectsContract, "default"
         const idx = rowOffset + x;
         if (landMask[idx] === 0) continue;
 
-        const temp = input.surfaceTemperature[idx] ?? 0;
-        const moisture = input.effectiveMoisture[idx] ?? 0;
-        const vegetation = input.vegetationDensity[idx] ?? 0;
-        const aridity = input.aridityIndex[idx] ?? 0;
-        const freeze = input.freezeIndex[idx] ?? 0;
-        const elevation = input.elevation[idx] ?? 0;
-        const symbol = biomeSymbolFromIndex(input.biomeIndex[idx] ?? 0);
+        const temp = input.surfaceTemperature[idx];
+        const moisture = input.effectiveMoisture[idx];
+        const vegetation = input.vegetationDensity[idx];
+        const aridity = input.aridityIndex[idx];
+        const freeze = input.freezeIndex[idx];
+        const elevation = input.elevation[idx];
+        const symbol = biomeSymbolFromIndex(input.biomeIndex[idx]);
 
         if (snowEnabled) {
           if (temp <= snow.maxTemperature && aridity <= snow.maxAridity) {

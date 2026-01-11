@@ -8,29 +8,31 @@ const IceFeatureKeySchema = Type.Unsafe<FeatureKey>(
 
 export const IceChancesSchema = Type.Object(
   {
-    FEATURE_ICE: Type.Optional(Type.Number({ default: 90, minimum: 0, maximum: 100 })),
+    FEATURE_ICE: Type.Number({ default: 90, minimum: 0, maximum: 100 }),
   },
   { additionalProperties: false }
 );
 
 export const IceRulesSchema = Type.Object(
   {
-    minAbsLatitude: Type.Optional(Type.Number({ default: 78, minimum: 0, maximum: 90 })),
-    forbidAdjacentToLand: Type.Optional(Type.Boolean({ default: true })),
-    landAdjacencyRadius: Type.Optional(Type.Number({ default: 1, minimum: 1 })),
-    forbidAdjacentToNaturalWonders: Type.Optional(Type.Boolean({ default: true })),
-    naturalWonderAdjacencyRadius: Type.Optional(Type.Number({ default: 1, minimum: 1 })),
+    minAbsLatitude: Type.Number({ default: 78, minimum: 0, maximum: 90 }),
+    forbidAdjacentToLand: Type.Boolean({ default: true }),
+    landAdjacencyRadius: Type.Number({ default: 1, minimum: 1 }),
+    forbidAdjacentToNaturalWonders: Type.Boolean({ default: true }),
+    naturalWonderAdjacencyRadius: Type.Number({ default: 1, minimum: 1 }),
   },
   { additionalProperties: false }
 );
 
 export const IceFeaturePlacementsConfigSchema = Type.Object(
   {
-    multiplier: Type.Optional(
-      Type.Number({ description: "Scalar multiplier applied to ice chance (0..2 typical).", default: 1, minimum: 0 })
-    ),
-    chances: Type.Optional(IceChancesSchema),
-    rules: Type.Optional(IceRulesSchema),
+    multiplier: Type.Number({
+      description: "Scalar multiplier applied to ice chance (0..2 typical).",
+      default: 1,
+      minimum: 0,
+    }),
+    chances: IceChancesSchema,
+    rules: IceRulesSchema,
   },
   { additionalProperties: false }
 );
@@ -73,4 +75,3 @@ export const PlanIceFeaturePlacementsContract = defineOpContract({
     default: IceFeaturePlacementsConfigSchema,
   },
 });
-

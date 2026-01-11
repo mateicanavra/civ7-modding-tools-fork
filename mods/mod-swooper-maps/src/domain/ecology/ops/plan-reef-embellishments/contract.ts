@@ -4,7 +4,7 @@ import {
   TypedArraySchemas,
 } from "@swooper/mapgen-core/authoring";
 
-import { EcologyConfigSchema } from "../../config.js";
+import { FeaturesConfigSchema, FeaturesDensityConfigSchema } from "../../config.js";
 import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
 
 
@@ -44,11 +44,11 @@ const ReefEmbellishmentsConfigSchema = Type.Object(
   {
     story: Type.Object(
       {
-        features: EcologyConfigSchema.properties.features,
+        features: FeaturesConfigSchema,
       },
       { additionalProperties: false }
     ),
-    featuresDensity: EcologyConfigSchema.properties.featuresDensity,
+    featuresDensity: FeaturesDensityConfigSchema,
   },
   { additionalProperties: false }
 );
