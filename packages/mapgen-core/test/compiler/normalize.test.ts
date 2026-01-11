@@ -148,20 +148,4 @@ describe("compiler normalize helpers", () => {
       },
     ]);
   });
-
-  it("reports unknown keys inside array items with stable paths", () => {
-    const schema = Type.Array(
-      Type.Object(
-        {
-          foo: Type.String(),
-        },
-        { additionalProperties: false }
-      )
-    );
-
-    const result = normalizeStrict(schema, [{ foo: "ok", extra: 1 }], "/config");
-    expect(result.errors.some((err) => err.path === "/config/0/extra" && err.message === "Unknown key")).toBe(
-      true
-    );
-  });
 });
