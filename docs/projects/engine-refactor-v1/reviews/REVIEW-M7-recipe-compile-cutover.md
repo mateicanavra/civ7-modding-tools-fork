@@ -774,3 +774,18 @@ This is a strong “make it real” pass: `settings` → `env` is fully cut over
 ### Cross-cutting Risks
 
 - Enforcement tightening is great, but it increases the cost of incremental refactors; ensure guardrails scripts are fast and clearly actionable when they fail.
+
+## Remediation Status (Post-Implementation)
+
+Remediation plan items 1-13 are complete via the stacked remediation branches:
+
+- `m7-remediate-runtime-validation` (fail-fast execution, compiler-backed op runner for dev/test, runtime validation removal, artifact handler invariants).
+- `m7-remediate-op-runtime-defaulting` (moved strategy normalization into compile-time `normalize` hooks).
+- `m7-remediate-docs-validation-contract` (docs/triage updates for the validated runner contract).
+- `m7-remediate-core-utils` (centralized clamp/roll/range helpers in `mapgen-core` + updated imports).
+- `m7-remediate-lint-guardrails` (lint rules for runtime validation surfaces, schema default authoring, and shared utility imports).
+- `m7-remediate-milestone-tracking` (milestone tracking updates with remediation references).
+
+Notes:
+- Runtime schema validation/defaulting is removed from production execution paths; compiler-backed validation is the sole dev/test/tooling runner.
+- Defaults come from property defaults; object-level defaults that mask deep defaults are blocked via lint guardrails.
