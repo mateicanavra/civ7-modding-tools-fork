@@ -1,8 +1,6 @@
-import { Type, type TObject, type TSchema, type TUnsafe } from "typebox";
+import { Type, type TObject, type TSchema } from "typebox";
 
 import { applySchemaConventions } from "../schema.js";
-import { buildOpEnvelopeSchema } from "../op/envelope.js";
-import type { OpTypeBag } from "../op/types.js";
 
 import type { DependencyTag, GenerationPhase } from "@mapgen/engine/index.js";
 import type { StepOpsDecl } from "./ops.js";
@@ -10,7 +8,7 @@ import type { StepOpsDecl } from "./ops.js";
 type PropsOf<T extends TObject> = T extends TObject<infer P> ? P : never;
 
 type OpPropsFromDecl<Ops extends StepOpsDecl> = {
-  [K in keyof Ops]: TUnsafe<OpTypeBag<Ops[K]>["envelope"]>;
+  [K in keyof Ops]: Ops[K]["config"];
 };
 
 type SchemaWithOps<Schema extends TObject, Ops extends StepOpsDecl | undefined> =
@@ -37,7 +35,10 @@ function buildSchemaWithOps<const Schema extends TObject, const Ops extends Step
       );
     }
     const contract = input.ops[opKey]!;
-    opProps[opKey] = buildOpEnvelopeSchema(contract.id, contract.strategies).schema;
+    if (!contract.config) {
+      throw new Error(`step "${input.stepId}" op "${String(opKey)}" missing contract.config`);
+    }
+    opProps[opKey] = contract.config;
   }
 
   return Type.Object({ ...baseProps, ...(opProps as any) }, { additionalProperties: false }) as any;
