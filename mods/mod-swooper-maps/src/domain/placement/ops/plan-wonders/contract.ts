@@ -32,7 +32,7 @@ const WondersOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanWondersContract = defineOpContract({
+const PlanWondersContract = defineOpContract({
   kind: "plan",
   id: "placement/plan-wonders",
   input: WondersInputSchema,

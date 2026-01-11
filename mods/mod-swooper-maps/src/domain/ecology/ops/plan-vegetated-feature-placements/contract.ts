@@ -124,7 +124,7 @@ const VegetatedFeaturePlacementsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanVegetatedFeaturePlacementsContract = defineOpContract({
+const PlanVegetatedFeaturePlacementsContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/vegetated-placement",
   input: VegetatedFeaturePlacementsInputSchema,

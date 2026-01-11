@@ -4,7 +4,7 @@ import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 
 const EmptySchema = Type.Object({}, { additionalProperties: false });
 
-export const PlacementStepContract = defineStepContract({
+const PlacementStepContract = defineStepContract({
   id: "placement",
   phase: "placement",
   requires: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
@@ -14,3 +14,5 @@ export const PlacementStepContract = defineStepContract({
   ],
   schema: EmptySchema,
 });
+
+export default PlacementStepContract;

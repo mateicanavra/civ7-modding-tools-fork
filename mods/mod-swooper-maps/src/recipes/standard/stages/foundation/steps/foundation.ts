@@ -2,8 +2,7 @@ import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@mapgen/authoring/steps";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { runFoundationStage } from "../producer.js";
-import { FoundationStepContract } from "./foundation.contract.js";
-
+import FoundationStepContract from "./foundation.contract.js";
 type FoundationStepConfig = Static<typeof FoundationStepContract.schema>;
 
 export default createStep(FoundationStepContract, {

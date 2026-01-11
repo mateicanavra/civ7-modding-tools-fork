@@ -25,7 +25,7 @@ const RefineBiomeEdgesConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const RefineBiomeEdgesContract = defineOpContract({
+const RefineBiomeEdgesContract = defineOpContract({
   kind: "compute",
   id: "ecology/biomes/refine-edge",
   input: RefineBiomeEdgesInputSchema,

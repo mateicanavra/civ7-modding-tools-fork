@@ -60,7 +60,7 @@ const ReefEmbellishmentsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanReefEmbellishmentsContract = defineOpContract({
+const PlanReefEmbellishmentsContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/reef-embellishments",
   input: ReefEmbellishmentsInputSchema,

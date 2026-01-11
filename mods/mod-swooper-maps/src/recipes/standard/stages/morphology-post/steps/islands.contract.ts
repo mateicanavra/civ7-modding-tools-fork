@@ -22,7 +22,7 @@ const IslandsStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const IslandsStepContract = defineStepContract({
+const IslandsStepContract = defineStepContract({
   id: "islands",
   phase: "morphology",
   requires: [

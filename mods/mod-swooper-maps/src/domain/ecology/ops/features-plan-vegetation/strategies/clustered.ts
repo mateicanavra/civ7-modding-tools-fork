@@ -1,6 +1,6 @@
 import { clamp01 } from "@swooper/mapgen-core";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { PlanVegetationContract } from "../contract.js";
+import PlanVegetationContract from "../contract.js";
 import { biomeSymbolFromIndex, FEATURE_PLACEMENT_KEYS } from "@mapgen/domain/ecology/types.js";
 
 export const clusteredStrategy = createStrategy(PlanVegetationContract, "clustered", {

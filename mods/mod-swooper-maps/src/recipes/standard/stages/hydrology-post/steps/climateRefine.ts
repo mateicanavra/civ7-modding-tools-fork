@@ -11,8 +11,7 @@ import {
   publishClimateFieldArtifact,
 } from "../../../artifacts.js";
 import { refineClimateEarthlike } from "@mapgen/domain/hydrology/climate/index.js";
-import { ClimateRefineStepContract } from "./climateRefine.contract.js";
-
+import ClimateRefineStepContract from "./climateRefine.contract.js";
 type ClimateRefineStepConfig = Static<typeof ClimateRefineStepContract.schema>;
 
 export default createStep(ClimateRefineStepContract, {

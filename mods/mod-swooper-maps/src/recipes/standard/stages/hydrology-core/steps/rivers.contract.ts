@@ -20,7 +20,7 @@ const RiversStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const RiversStepContract = defineStepContract({
+const RiversStepContract = defineStepContract({
   id: "rivers",
   phase: "hydrology",
   requires: [M3_DEPENDENCY_TAGS.artifact.heightfield],

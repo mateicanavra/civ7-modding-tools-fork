@@ -1,8 +1,8 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { ResourcePlanBasinsContract } from "./contract.js";
+import ResourcePlanBasinsContract from "./contract.js";
 import { defaultStrategy, hydroFluvialStrategy, mixedStrategy } from "./strategies/index.js";
 
-export const planResourceBasins = createOp(ResourcePlanBasinsContract, {
+const planResourceBasins = createOp(ResourcePlanBasinsContract, {
   strategies: {
     default: defaultStrategy,
     "hydro-fluvial": hydroFluvialStrategy,
@@ -10,7 +10,7 @@ export const planResourceBasins = createOp(ResourcePlanBasinsContract, {
   },
 });
 
-export * from "./contract.js";
+export type * from "./contract.js";
 export type * from "./types.js";
 
 export default planResourceBasins;

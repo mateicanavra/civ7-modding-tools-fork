@@ -4,8 +4,7 @@ import type { Static } from "@swooper/mapgen-core/authoring";
 import { storyTagRiftValleys } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { narrativeMotifsRiftsArtifact } from "../../../artifacts.js";
-import { StoryRiftsStepContract } from "./storyRifts.contract.js";
-
+import StoryRiftsStepContract from "./storyRifts.contract.js";
 type StoryRiftsStepConfig = Static<typeof StoryRiftsStepContract.schema>;
 
 export default createStep(StoryRiftsStepContract, {

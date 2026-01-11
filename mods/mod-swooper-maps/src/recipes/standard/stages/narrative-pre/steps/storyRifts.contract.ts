@@ -15,7 +15,7 @@ const StoryRiftsStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const StoryRiftsStepContract = defineStepContract({
+const StoryRiftsStepContract = defineStepContract({
   id: "story-rifts",
   phase: "morphology",
   requires: [

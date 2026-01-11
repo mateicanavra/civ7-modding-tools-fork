@@ -57,7 +57,7 @@ const StartsInputSchema = Type.Object(
 
 const StartsOutputSchema = StartsConfigSchema;
 
-export const PlanStartsContract = defineOpContract({
+const PlanStartsContract = defineOpContract({
   kind: "plan",
   id: "placement/plan-starts",
   input: StartsInputSchema,

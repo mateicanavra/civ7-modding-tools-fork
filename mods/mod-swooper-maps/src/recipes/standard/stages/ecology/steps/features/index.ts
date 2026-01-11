@@ -2,7 +2,7 @@ import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { createStep } from "@mapgen/authoring/steps";
 import { type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
-import { FeaturesStepContract } from "./contract.js";
+import FeaturesStepContract from "./contract.js";
 import {
   buildAquaticFeaturePlacementsInput,
   buildIceFeaturePlacementsInput,

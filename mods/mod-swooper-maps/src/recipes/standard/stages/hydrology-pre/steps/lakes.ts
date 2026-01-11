@@ -2,8 +2,7 @@ import { createStep } from "@mapgen/authoring/steps";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { publishHeightfieldArtifact } from "../../../artifacts.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { LakesStepContract } from "./lakes.contract.js";
-
+import LakesStepContract from "./lakes.contract.js";
 export default createStep(LakesStepContract, {
   run: (context: ExtendedMapContext) => {
     const runtime = getStandardRuntime(context);

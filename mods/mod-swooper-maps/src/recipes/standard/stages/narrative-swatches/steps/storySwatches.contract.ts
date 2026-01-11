@@ -10,7 +10,7 @@ const StorySwatchesStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const StorySwatchesStepContract = defineStepContract({
+const StorySwatchesStepContract = defineStepContract({
   id: "story-swatches",
   phase: "hydrology",
   requires: [

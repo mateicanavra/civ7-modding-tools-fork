@@ -1,7 +1,6 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 
-import { PlanWondersContract } from "../contract.js";
-
+import PlanWondersContract from "../contract.js";
 export const defaultStrategy = createStrategy(PlanWondersContract, "default", {
   run: (input, config) => {
     const mapInfo = input.mapInfo;

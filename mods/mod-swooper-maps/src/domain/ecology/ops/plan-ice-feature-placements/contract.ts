@@ -6,14 +6,14 @@ const IceFeatureKeySchema = Type.Unsafe<FeatureKey>(
   Type.Union([Type.Literal("FEATURE_ICE")], { description: "Baseline ice feature key." })
 );
 
-export const IceChancesSchema = Type.Object(
+const IceChancesSchema = Type.Object(
   {
     FEATURE_ICE: Type.Number({ default: 90, minimum: 0, maximum: 100 }),
   },
   { additionalProperties: false }
 );
 
-export const IceRulesSchema = Type.Object(
+const IceRulesSchema = Type.Object(
   {
     minAbsLatitude: Type.Number({ default: 78, minimum: 0, maximum: 90 }),
     forbidAdjacentToLand: Type.Boolean({ default: true }),
@@ -24,7 +24,7 @@ export const IceRulesSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const IceFeaturePlacementsConfigSchema = Type.Object(
+const IceFeaturePlacementsConfigSchema = Type.Object(
   {
     multiplier: Type.Number({
       description: "Scalar multiplier applied to ice chance (0..2 typical).",
@@ -66,7 +66,7 @@ const IceFeaturePlacementsOutputSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanIceFeaturePlacementsContract = defineOpContract({
+const PlanIceFeaturePlacementsContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/ice-placement",
   input: IceFeaturePlacementsInputSchema,

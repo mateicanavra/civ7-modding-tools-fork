@@ -15,7 +15,7 @@ const StoryHotspotsStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const StoryHotspotsStepContract = defineStepContract({
+const StoryHotspotsStepContract = defineStepContract({
   id: "story-hotspots",
   phase: "morphology",
   requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],

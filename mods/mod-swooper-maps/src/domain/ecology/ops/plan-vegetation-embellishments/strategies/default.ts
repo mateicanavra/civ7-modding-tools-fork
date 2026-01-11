@@ -4,8 +4,8 @@ import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 import type { BiomeSymbol } from "@mapgen/domain/ecology/types.js";
 import { FEATURE_PLACEMENT_KEYS, type FeatureKey } from "@mapgen/domain/ecology/types.js";
 
-import { biomeSymbolFromIndex } from "../../classify-biomes/index.js";
-import { PlanVegetationEmbellishmentsContract } from "../contract.js";
+import { biomeSymbolFromIndex } from "@mapgen/domain/ecology/types.js";
+import PlanVegetationEmbellishmentsContract from "../contract.js";
 import { planDensityTweaksAtTile } from "../rules/density-tweaks.js";
 import { planVolcanicVegetationAtTile } from "../rules/volcanic-vegetation.js";
 

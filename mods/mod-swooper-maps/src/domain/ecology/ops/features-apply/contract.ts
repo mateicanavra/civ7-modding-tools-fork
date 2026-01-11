@@ -1,7 +1,7 @@
 import { Type, defineOpContract } from "@swooper/mapgen-core/authoring";
 import { FeaturePlacementSchema } from "../../shared/placement-schema.js";
 
-export const FeaturesApplyContract = defineOpContract({
+const FeaturesApplyContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/apply",
   input: Type.Object(

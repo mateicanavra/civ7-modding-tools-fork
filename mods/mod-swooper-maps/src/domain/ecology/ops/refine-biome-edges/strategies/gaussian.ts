@@ -1,6 +1,5 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { RefineBiomeEdgesContract } from "../contract.js";
-
+import RefineBiomeEdgesContract from "../contract.js";
 export const gaussianStrategy = createStrategy(RefineBiomeEdgesContract, "gaussian", {
   run: (input, config) => {
     const { width, height } = input;

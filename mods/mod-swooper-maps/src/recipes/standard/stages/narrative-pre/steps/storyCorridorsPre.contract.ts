@@ -10,7 +10,7 @@ const StoryCorridorsStepConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const StoryCorridorsPreStepContract = defineStepContract({
+const StoryCorridorsPreStepContract = defineStepContract({
   id: "story-corridors-pre",
   phase: "morphology",
   requires: [

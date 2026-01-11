@@ -15,8 +15,7 @@ import {
 } from "../../../artifacts.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
-import { RiversStepContract } from "./rivers.contract.js";
-
+import RiversStepContract from "./rivers.contract.js";
 type RiversStepConfig = Static<typeof RiversStepContract.schema>;
 
 export default createStep(RiversStepContract, {

@@ -27,7 +27,7 @@ const PlanIceConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const PlanIceContract = defineOpContract({
+const PlanIceContract = defineOpContract({
   kind: "plan",
   id: "ecology/features/plan-ice",
   input: PlanIceInputSchema,

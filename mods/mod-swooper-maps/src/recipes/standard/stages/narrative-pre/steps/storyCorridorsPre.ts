@@ -8,8 +8,7 @@ import {
   getPublishedNarrativeMotifsRifts,
   narrativeCorridorsArtifact,
 } from "../../../artifacts.js";
-import { StoryCorridorsPreStepContract } from "./storyCorridorsPre.contract.js";
-
+import StoryCorridorsPreStepContract from "./storyCorridorsPre.contract.js";
 type StoryCorridorsStepConfig = Static<typeof StoryCorridorsPreStepContract.schema>;
 
 export default createStep(StoryCorridorsPreStepContract, {

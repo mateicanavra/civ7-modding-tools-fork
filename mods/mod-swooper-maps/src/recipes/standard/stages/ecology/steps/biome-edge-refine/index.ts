@@ -2,8 +2,7 @@ import { createStep } from "@mapgen/authoring/steps";
 import { type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import { biomeClassificationArtifact, heightfieldArtifact } from "../../../../artifacts.js";
-import { BiomeEdgeRefineStepContract } from "./contract.js";
-
+import BiomeEdgeRefineStepContract from "./contract.js";
 type BiomeEdgeRefineConfig = Static<typeof BiomeEdgeRefineStepContract.schema>;
 
 const opContracts = {

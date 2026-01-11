@@ -9,7 +9,7 @@ import {
   publishBiomeClassificationArtifact,
 } from "../../../../artifacts.js";
 import * as ecology from "@mapgen/domain/ecology";
-import { BiomesStepContract } from "./contract.js";
+import BiomesStepContract from "./contract.js";
 import {
   buildLatitudeField,
   combineCorridorMasks,

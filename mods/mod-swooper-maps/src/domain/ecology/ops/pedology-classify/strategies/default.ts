@@ -1,5 +1,5 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { PedologyClassifyContract } from "../contract.js";
+import PedologyClassifyContract from "../contract.js";
 import { computeReliefProxy, fertilityForTile, soilPaletteIndex } from "../rules/index.js";
 
 export const defaultStrategy = createStrategy(PedologyClassifyContract, "default", {

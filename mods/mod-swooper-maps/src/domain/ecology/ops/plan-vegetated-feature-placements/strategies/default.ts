@@ -2,7 +2,7 @@ import { createStrategy, type Static } from "@swooper/mapgen-core/authoring";
 import { clamp01, clampChance, createLabelRng, rollPercent } from "@swooper/mapgen-core";
 
 import { FEATURE_PLACEMENT_KEYS, biomeSymbolFromIndex, type FeatureKey } from "@mapgen/domain/ecology/types.js";
-import { PlanVegetatedFeaturePlacementsContract } from "../contract.js";
+import PlanVegetatedFeaturePlacementsContract from "../contract.js";
 import { pickVegetatedFeature } from "../rules/index.js";
 
 const FEATURE_KEY_INDEX = FEATURE_PLACEMENT_KEYS.reduce((acc, key, index) => {

@@ -1,5 +1,5 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { ResourcePlanBasinsContract } from "../contract.js";
+import ResourcePlanBasinsContract from "../contract.js";
 import { defaultStrategy } from "./default.js";
 
 export const mixedStrategy = createStrategy(ResourcePlanBasinsContract, "mixed", {
