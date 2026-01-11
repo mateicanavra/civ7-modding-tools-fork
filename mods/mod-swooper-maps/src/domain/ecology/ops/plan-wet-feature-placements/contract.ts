@@ -39,7 +39,7 @@ const WetChancesSchema = Type.Object(
     FEATURE_OASIS: Type.Number({ default: 50, minimum: 0, maximum: 100 }),
     FEATURE_WATERING_HOLE: Type.Number({ default: 30, minimum: 0, maximum: 100 }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const WetRulesSchema = Type.Object(
@@ -54,7 +54,7 @@ const WetRulesSchema = Type.Object(
     isolatedSpacingRadius: Type.Number({ default: 1, minimum: 1 }),
     oasisBiomeSymbols: Type.Array(BiomeSymbolSchema, { default: ["desert", "temperateDry"] }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const WetFeaturePlacementsConfigSchema = Type.Object(
@@ -67,7 +67,7 @@ const WetFeaturePlacementsConfigSchema = Type.Object(
     chances: WetChancesSchema,
     rules: WetRulesSchema,
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const WetFeaturePlacementsInputSchema = Type.Object(

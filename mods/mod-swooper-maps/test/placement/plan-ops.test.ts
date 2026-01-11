@@ -8,12 +8,12 @@ import {
 
 describe("placement plan operations", () => {
   it("plans wonders with plus-one default", () => {
-    const result = planWonders.runValidated({ mapInfo: { NumNaturalWonders: 2 } }, planWonders.defaultConfig);
+    const result = planWonders.run({ mapInfo: { NumNaturalWonders: 2 } }, planWonders.defaultConfig);
     expect(result.wondersCount).toBe(3);
   });
 
   it("plans wonders without plus-one when disabled", () => {
-    const result = planWonders.runValidated(
+    const result = planWonders.run(
       { mapInfo: { NumNaturalWonders: 2 } },
       { strategy: "default", config: { wondersPlusOne: false } }
     );
@@ -21,7 +21,7 @@ describe("placement plan operations", () => {
   });
 
   it("plans floodplains respecting min/max", () => {
-    const result = planFloodplains.runValidated({}, planFloodplains.defaultConfig);
+    const result = planFloodplains.run({}, planFloodplains.defaultConfig);
     expect(result.minLength).toBe(4);
     expect(result.maxLength).toBe(10);
   });
@@ -37,7 +37,7 @@ describe("placement plan operations", () => {
       startSectors: [1, 2],
     };
 
-    const result = planStarts.runValidated(
+    const result = planStarts.run(
       { baseStarts },
       {
         strategy: "default",

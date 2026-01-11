@@ -1,5 +1,7 @@
 import type { TSchema } from "typebox";
 
+import { applySchemaConventions } from "../schema.js";
+
 import type { DomainOpKind } from "./types.js";
 
 export type StrategyConfigSchemas = Readonly<Record<string, TSchema>>;
@@ -25,5 +27,10 @@ export function defineOpContract<
   const OutputSchema extends TSchema,
   const Strategies extends StrategyConfigSchemas & { default: TSchema },
 >(def: OpContract<Kind, Id, InputSchema, OutputSchema, Strategies>): typeof def {
+  applySchemaConventions(def.input, `op:${def.id}.input`);
+  applySchemaConventions(def.output, `op:${def.id}.output`);
+  for (const [strategyId, schema] of Object.entries(def.strategies)) {
+    applySchemaConventions(schema, `op:${def.id}.strategies.${strategyId}`);
+  }
   return def;
 }

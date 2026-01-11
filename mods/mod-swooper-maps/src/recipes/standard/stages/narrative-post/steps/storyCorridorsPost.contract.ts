@@ -7,7 +7,7 @@ const StoryCorridorsStepConfigSchema = Type.Object(
   {
     corridors: NarrativeConfigSchema.properties.corridors,
   },
-  { additionalProperties: false, default: { corridors: {} } }
+  { additionalProperties: false }
 );
 
 export const StoryCorridorsPostStepContract = defineStepContract({

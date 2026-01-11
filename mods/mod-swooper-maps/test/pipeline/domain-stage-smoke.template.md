@@ -19,7 +19,7 @@ Then replace the placeholders and follow the steps below. This template is inten
 import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import { applySchemaDefaults } from "@swooper/mapgen-core/authoring";
+import { normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../src/recipes/standard/tags.js";
@@ -33,7 +33,7 @@ const env = {
   dimensions: { width: 4, height: 3 },
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
   wrap: { wrapX: false, wrapY: false },
-  directionality: applySchemaDefaults(FoundationDirectionalityConfigSchema, {}),
+  directionality: normalizeStrictOrThrow(FoundationDirectionalityConfigSchema, {}, "/env/directionality"),
 };
 
 describe("__DOMAIN__ stage smoke", () => {

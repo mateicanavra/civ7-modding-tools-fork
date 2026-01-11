@@ -1,6 +1,7 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import {
   computeRiverAdjacencyMask,
+  heightfieldArtifact,
   getPublishedBiomeClassification,
   getPublishedClimateField,
   getPublishedNarrativeMotifsHotspots,
@@ -8,8 +9,7 @@ import {
 } from "../../../../artifacts.js";
 import type * as ecology from "@mapgen/domain/ecology";
 import type { PlanWetFeaturePlacementsTypes } from "@mapgen/domain/ecology/contracts";
-import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
-import { assertHeightfield, buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
+import { buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";
 import type { FeatureKeyLookups } from "./feature-keys.js";
 
@@ -27,20 +27,7 @@ type IcePlacementInput = Parameters<typeof ecology.ops.planIceFeaturePlacements.
 
 type WetInnerConfig = PlanWetFeaturePlacementsTypes["config"]["default"];
 
-type HeightfieldArtifact = {
-  elevation: Int16Array;
-  terrain: Uint8Array;
-  landMask: Uint8Array;
-};
-
-const getHeightfieldArtifact = (
-  context: ExtendedMapContext,
-  expectedSize: number
-): HeightfieldArtifact => {
-  const heightfield = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
-  assertHeightfield(heightfield, expectedSize);
-  return heightfield;
-};
+const getHeightfieldArtifact = (context: ExtendedMapContext) => heightfieldArtifact.get(context);
 
 const buildFeatureKeyField = (
   context: ExtendedMapContext,
@@ -75,7 +62,7 @@ export function buildIceFeaturePlacementsInput(
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const heightfield = getHeightfieldArtifact(context, size);
+  const heightfield = getHeightfieldArtifact(context);
   const latitude = buildLatitudeField(context.adapter, width, height);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
@@ -97,7 +84,7 @@ export function buildAquaticFeaturePlacementsInput(
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const heightfield = getHeightfieldArtifact(context, size);
+  const heightfield = getHeightfieldArtifact(context);
   const latitude = buildLatitudeField(context.adapter, width, height);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
@@ -122,11 +109,8 @@ export function buildWetFeaturePlacementsInput(
   const size = width * height;
 
   const classification = getPublishedBiomeClassification(context);
-  if (!classification) {
-    throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
-  }
 
-  const heightfield = getHeightfieldArtifact(context, size);
+  const heightfield = getHeightfieldArtifact(context);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
   return {
@@ -158,11 +142,8 @@ export function buildVegetatedFeaturePlacementsInput(
   const size = width * height;
 
   const classification = getPublishedBiomeClassification(context);
-  if (!classification) {
-    throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
-  }
 
-  const heightfield = getHeightfieldArtifact(context, size);
+  const heightfield = getHeightfieldArtifact(context);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
   return {
@@ -189,17 +170,11 @@ export function buildReefEmbellishmentsInput(
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const heightfield = getHeightfieldArtifact(context, size);
+  const heightfield = getHeightfieldArtifact(context);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
   const hotspots = getPublishedNarrativeMotifsHotspots(context);
-  if (!hotspots) {
-    throw new Error("FeaturesStep: Missing artifact:narrative.motifs.hotspots@v1.");
-  }
   const margins = getPublishedNarrativeMotifsMargins(context);
-  if (!margins) {
-    throw new Error("FeaturesStep: Missing artifact:narrative.motifs.margins@v1.");
-  }
 
   return {
     width,
@@ -220,23 +195,14 @@ export function buildVegetationEmbellishmentsInput(
   const size = width * height;
 
   const classification = getPublishedBiomeClassification(context);
-  if (!classification) {
-    throw new Error("FeaturesStep: Missing artifact:ecology.biomeClassification@v1.");
-  }
 
   const climateField = getPublishedClimateField(context);
-  if (!climateField?.rainfall) {
-    throw new Error("FeaturesStep: Missing artifact:climateField rainfall field.");
-  }
 
-  const heightfield = getHeightfieldArtifact(context, size);
+  const heightfield = getHeightfieldArtifact(context);
   const latitude = buildLatitudeField(context.adapter, width, height);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
   const hotspots = getPublishedNarrativeMotifsHotspots(context);
-  if (!hotspots) {
-    throw new Error("FeaturesStep: Missing artifact:narrative.motifs.hotspots@v1.");
-  }
 
   return {
     width,

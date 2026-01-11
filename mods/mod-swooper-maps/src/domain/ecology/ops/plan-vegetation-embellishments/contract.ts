@@ -18,7 +18,7 @@ const FeaturesConfigSchema = Type.Object(
     volcanicTaigaMaxElevation: Type.Number({ default: 600 }),
     volcanicTaigaMinRainfall: Type.Number({ default: 70, minimum: 0 }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const FeaturesDensityConfigSchema = Type.Object(
@@ -34,7 +34,7 @@ const FeaturesDensityConfigSchema = Type.Object(
     taigaMaxElevation: Type.Number({ default: 300 }),
     minVegetationForBonus: Type.Number({ default: 0.01, minimum: 0, maximum: 1 }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const VegetationEmbellishmentsConfigSchema = Type.Object(
@@ -43,11 +43,11 @@ const VegetationEmbellishmentsConfigSchema = Type.Object(
       {
         features: FeaturesConfigSchema,
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
     featuresDensity: FeaturesDensityConfigSchema,
   },
-  { additionalProperties: false, default: { story: {}, featuresDensity: {} } }
+  { additionalProperties: false }
 );
 
 const FeatureKeySchema = Type.Unsafe<FeatureKey>(

@@ -7,7 +7,7 @@ const VolcanoesStepConfigSchema = Type.Object(
   {
     volcanoes: MorphologyConfigSchema.properties.volcanoes,
   },
-  { additionalProperties: false, default: { volcanoes: {} } }
+  { additionalProperties: false }
 );
 
 export const VolcanoesStepContract = defineStepContract({

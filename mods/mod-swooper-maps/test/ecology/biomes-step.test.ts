@@ -2,8 +2,6 @@ import { describe, expect, it } from "bun:test";
 
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import type { Static } from "@swooper/mapgen-core/authoring";
-import { Value } from "typebox/value";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import * as ecology from "@mapgen/domain/ecology";
 
@@ -15,13 +13,18 @@ import {
   publishHeightfieldArtifact,
 } from "../../src/recipes/standard/artifacts.js";
 import { M3_DEPENDENCY_TAGS } from "../../src/recipes/standard/tags.js";
+import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 describe("biomes step", () => {
   it("assigns marine biome to water tiles", () => {
     const width = 4;
     const height = 3;
     const size = width * height;
-    const directionality = Value.Default(FoundationDirectionalityConfigSchema, {}) as Static<typeof FoundationDirectionalityConfigSchema>;
+    const directionality = normalizeStrictOrThrow(
+      FoundationDirectionalityConfigSchema,
+      {},
+      "/env/directionality"
+    );
     const env = {
       seed: 0,
       dimensions: { width, height },
@@ -62,8 +65,13 @@ describe("biomes step", () => {
       buildNarrativeMotifsRiftsV1({ riftLine: [], riftShoulder: [] })
     );
 
+    const classifyConfig = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
+      strategy: "default",
+      config: {},
+    });
+
     biomesStep.run(ctx, {
-      classify: ecology.ops.classifyBiomes.defaultConfig,
+      classify: classifyConfig,
       bindings: {},
     });
 

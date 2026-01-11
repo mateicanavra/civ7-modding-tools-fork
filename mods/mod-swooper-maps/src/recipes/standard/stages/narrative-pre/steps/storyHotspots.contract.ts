@@ -9,10 +9,10 @@ const StoryHotspotsStepConfigSchema = Type.Object(
       {
         hotspot: NarrativeConfigSchema.properties.story.properties.hotspot,
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
   },
-  { additionalProperties: false, default: { story: {} } }
+  { additionalProperties: false }
 );
 
 export const StoryHotspotsStepContract = defineStepContract({

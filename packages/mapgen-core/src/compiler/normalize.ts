@@ -4,6 +4,7 @@ import { Value } from "typebox/value";
 import type { DomainOpCompileAny, OpsById } from "../authoring/bindings.js";
 import { bindCompileOps, OpBindingError } from "../authoring/bindings.js";
 import { buildOpEnvelopeSchema } from "../authoring/op/envelope.js";
+import { applySchemaDefaults } from "../authoring/schema.js";
 import type { CompileErrorItem } from "./recipe-compile.js";
 
 export type NormalizeCtx<TEnv = unknown, TKnobs = unknown> = Readonly<{ env: TEnv; knobs: TKnobs }>;
@@ -103,7 +104,34 @@ function findUnknownKeyErrors(
 }
 
 function buildValue(schema: TSchema, input: unknown): { converted: unknown; cleaned: unknown } {
-  const cloned = Value.Clone(input ?? {});
+  const normalizedInput = input ?? {};
+  const typed = schema as { anyOf?: TSchema[]; oneOf?: TSchema[] };
+  const unionCandidates = Array.isArray(typed.anyOf)
+    ? typed.anyOf
+    : Array.isArray(typed.oneOf)
+      ? typed.oneOf
+      : null;
+
+  if (unionCandidates) {
+    let best: { errors: number; converted: unknown; cleaned: unknown } | null = null;
+    for (const candidate of unionCandidates) {
+      const initial = applySchemaDefaults(candidate, normalizedInput);
+      const cloned = Value.Clone(initial ?? {});
+      const converted = Value.Default(candidate, cloned);
+      const errorCount = Array.from(Value.Errors(candidate, converted)).length;
+      const cleaned = Value.Clean(candidate, converted);
+      if (!best || errorCount < best.errors) {
+        best = { errors: errorCount, converted, cleaned };
+        if (errorCount === 0) break;
+      }
+    }
+    if (best) {
+      return { converted: best.converted, cleaned: best.cleaned };
+    }
+  }
+
+  const initial = applySchemaDefaults(schema, normalizedInput);
+  const cloned = Value.Clone(initial ?? {});
   const defaulted = Value.Default(schema, cloned);
   const cleaned = Value.Clean(schema, defaulted);
   return { converted: defaulted, cleaned };

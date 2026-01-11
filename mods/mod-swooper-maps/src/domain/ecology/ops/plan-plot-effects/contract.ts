@@ -46,7 +46,7 @@ const PlotEffectsSnowSelectorsSchema = Type.Object(
     medium: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SNOW_MEDIUM_PERMANENT" }),
     heavy: createPlotEffectSelectorSchema({ typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT" }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const SnowElevationStrategySchema = Type.Union(
@@ -81,7 +81,7 @@ const PlotEffectsSnowSchema = Type.Object(
     maxTemperature: Type.Number({ default: 4 }),
     maxAridity: Type.Number({ default: 0.9, minimum: 0, maximum: 1 }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const PlotEffectsSandSchema = Type.Object(
@@ -96,7 +96,7 @@ const PlotEffectsSandSchema = Type.Object(
     maxMoisture: Type.Number({ default: 90, minimum: 0 }),
     allowedBiomes: Type.Array(BiomeSymbolSchema, { default: ["desert", "temperateDry"] }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const PlotEffectsBurnedSchema = Type.Object(
@@ -111,7 +111,7 @@ const PlotEffectsBurnedSchema = Type.Object(
     maxMoisture: Type.Number({ default: 110, minimum: 0 }),
     allowedBiomes: Type.Array(BiomeSymbolSchema, { default: ["temperateDry", "tropicalSeasonal"] }),
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const PlotEffectsConfigSchema = Type.Object(
@@ -120,7 +120,7 @@ const PlotEffectsConfigSchema = Type.Object(
     sand: PlotEffectsSandSchema,
     burned: PlotEffectsBurnedSchema,
   },
-  { additionalProperties: false, default: {} }
+  { additionalProperties: false }
 );
 
 const PlotEffectKeySchema = Type.Unsafe<PlotEffectKey>(

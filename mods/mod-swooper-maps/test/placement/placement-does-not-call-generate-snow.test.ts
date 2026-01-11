@@ -24,15 +24,15 @@ describe("placement", () => {
     const runtime = getStandardRuntime(context);
     const baseStarts = getBaseStarts(context);
 
-    const starts = placement.ops.planStarts.runValidated(
+    const starts = placement.ops.planStarts.run(
       { baseStarts },
       placement.ops.planStarts.defaultConfig
     );
-    const wonders = placement.ops.planWonders.runValidated(
+    const wonders = placement.ops.planWonders.run(
       { mapInfo: runtime.mapInfo },
       placement.ops.planWonders.defaultConfig
     );
-    const floodplains = placement.ops.planFloodplains.runValidated(
+    const floodplains = placement.ops.planFloodplains.run(
       {},
       placement.ops.planFloodplains.defaultConfig
     );

@@ -9,10 +9,10 @@ const ClimateBaselineStepConfigSchema = Type.Object(
       {
         baseline: ClimateConfigSchema.properties.baseline,
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
   },
-  { additionalProperties: false, default: { climate: {} } }
+  { additionalProperties: false }
 );
 
 export const ClimateBaselineStepContract = defineStepContract({

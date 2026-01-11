@@ -7,6 +7,11 @@ type SchemaWithDefaults = TSchema & {
   type?: string;
   properties?: Record<string, TSchema>;
   items?: TSchema | TSchema[];
+  anyOf?: TSchema[];
+  oneOf?: TSchema[];
+  allOf?: TSchema[];
+  not?: TSchema;
+  additionalProperties?: boolean | TSchema;
 };
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -21,6 +26,65 @@ function cloneDefault(value: unknown): unknown {
     return structuredClone(value);
   }
   return JSON.parse(JSON.stringify(value));
+}
+
+function schemaProvidesDefaults(schema: TSchema): boolean {
+  const typed = schema as SchemaWithDefaults;
+  if (typed.default !== undefined) return true;
+  if (typed.type === "object") {
+    const props = typed.properties ?? {};
+    return Object.values(props).some(schemaProvidesDefaults);
+  }
+  if (typed.items) {
+    const items = Array.isArray(typed.items) ? typed.items : [typed.items];
+    return items.some(schemaProvidesDefaults);
+  }
+  if (Array.isArray(typed.anyOf)) return typed.anyOf.some(schemaProvidesDefaults);
+  if (Array.isArray(typed.oneOf)) return typed.oneOf.some(schemaProvidesDefaults);
+  if (Array.isArray(typed.allOf)) return typed.allOf.some(schemaProvidesDefaults);
+  if (typed.not) return schemaProvidesDefaults(typed.not);
+  return false;
+}
+
+function enforceSchemaConventions(schema: TSchema, path: string): void {
+  const typed = schema as SchemaWithDefaults;
+  if (typed.type === "object") {
+    const props = typed.properties ?? {};
+    const hasPropertyDefaults = Object.values(props).some(schemaProvidesDefaults);
+    if (typed.default !== undefined && hasPropertyDefaults) {
+      throw new Error(
+        `schema(${path}) defines an object default while properties already declare defaults`
+      );
+    }
+    if (typed.additionalProperties === undefined) {
+      typed.additionalProperties = false;
+    }
+    for (const [key, propSchema] of Object.entries(props)) {
+      enforceSchemaConventions(propSchema, `${path}.${key}`);
+    }
+  }
+
+  if (typed.items) {
+    const items = Array.isArray(typed.items) ? typed.items : [typed.items];
+    items.forEach((item, index) => enforceSchemaConventions(item, `${path}[${index}]`));
+  }
+  if (Array.isArray(typed.anyOf)) {
+    typed.anyOf.forEach((item, index) => enforceSchemaConventions(item, `${path}.anyOf[${index}]`));
+  }
+  if (Array.isArray(typed.oneOf)) {
+    typed.oneOf.forEach((item, index) => enforceSchemaConventions(item, `${path}.oneOf[${index}]`));
+  }
+  if (Array.isArray(typed.allOf)) {
+    typed.allOf.forEach((item, index) => enforceSchemaConventions(item, `${path}.allOf[${index}]`));
+  }
+  if (typed.not) {
+    enforceSchemaConventions(typed.not, `${path}.not`);
+  }
+}
+
+export function applySchemaConventions(schema: TSchema, path: string): TSchema {
+  enforceSchemaConventions(schema, path);
+  return schema;
 }
 
 export function buildSchemaDefaults(schema: TSchema): unknown {
@@ -69,6 +133,12 @@ export function applySchemaDefaults<T extends TSchema>(
       if (out[key] === undefined) {
         const value = buildSchemaDefaults(propSchema);
         if (value !== undefined) out[key] = value;
+        continue;
+      }
+
+      const next = applySchemaDefaults(propSchema, out[key]);
+      if (next !== out[key]) {
+        out[key] = next;
       }
     }
 

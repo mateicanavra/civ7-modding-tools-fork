@@ -8,7 +8,7 @@ const LandmassStepConfigSchema = Type.Object(
     landmass: LandmassConfigSchema,
     oceanSeparation: MorphologyConfigSchema.properties.oceanSeparation,
   },
-  { additionalProperties: false, default: { landmass: {}, oceanSeparation: {} } }
+  { additionalProperties: false }
 );
 
 export const LandmassPlatesStepContract = defineStepContract({

@@ -2,7 +2,7 @@ import { Type, defineStepContract } from "@swooper/mapgen-core/authoring";
 
 import { M4_EFFECT_TAGS } from "../../../tags.js";
 
-const EmptySchema = Type.Object({}, { additionalProperties: false, default: {} });
+const EmptySchema = Type.Object({}, { additionalProperties: false });
 
 export const CoastlinesStepContract = defineStepContract({
   id: "coastlines",

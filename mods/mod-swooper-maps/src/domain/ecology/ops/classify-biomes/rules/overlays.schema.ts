@@ -21,7 +21,6 @@ export const OverlaySchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Narrative overlay moisture bonuses (corridors, rifts).",
   }
 );

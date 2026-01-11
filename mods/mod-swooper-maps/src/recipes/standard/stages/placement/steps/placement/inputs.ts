@@ -22,9 +22,6 @@ export type PlacementPlanBundle = {
 
 export function buildPlacementPlanInput(context: ExtendedMapContext): PlacementPlanBundle {
   const derivedInputs = getPublishedPlacementInputs(context);
-  if (!derivedInputs) {
-    throw new Error("Missing required artifact: placementInputs@v1");
-  }
 
   return {
     artifact: derivedInputs,

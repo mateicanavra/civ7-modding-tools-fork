@@ -1,4 +1,4 @@
-import type { ExtendedMapContext, HeightfieldBuffer } from "@swooper/mapgen-core";
+import type { ExtendedMapContext } from "@swooper/mapgen-core";
 
 export function maskFromCoordSet(
   source: ReadonlySet<string> | null | undefined,
@@ -43,27 +43,4 @@ export function buildLatitudeField(
     }
   }
   return latitude;
-}
-
-export function assertHeightfield(
-  artifact: unknown,
-  expectedSize: number
-): asserts artifact is HeightfieldBuffer {
-  if (
-    !artifact ||
-    typeof artifact !== "object" ||
-    !(artifact as HeightfieldBuffer).elevation ||
-    !(artifact as HeightfieldBuffer).terrain ||
-    !(artifact as HeightfieldBuffer).landMask
-  ) {
-    throw new Error("BiomesStep: Missing or invalid heightfield artifact.");
-  }
-
-  if (
-    (artifact as HeightfieldBuffer).elevation.length !== expectedSize ||
-    (artifact as HeightfieldBuffer).terrain.length !== expectedSize ||
-    (artifact as HeightfieldBuffer).landMask.length !== expectedSize
-  ) {
-    throw new Error("BiomesStep: Heightfield artifact has unexpected dimensions.");
-  }
 }

@@ -21,7 +21,6 @@ export const NoiseSchema = Type.Object(
   },
   {
     additionalProperties: false,
-    default: {},
     description: "Noise settings for biome moisture variation.",
   }
 );

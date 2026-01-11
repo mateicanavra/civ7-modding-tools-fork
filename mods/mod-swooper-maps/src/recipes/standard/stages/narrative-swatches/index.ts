@@ -3,6 +3,6 @@ import { storySwatches } from "./steps/index.js";
 
 export default createStage({
   id: "narrative-swatches",
-  knobsSchema: Type.Object({}, { additionalProperties: false, default: {} }),
+  knobsSchema: Type.Object({}, { additionalProperties: false }),
   steps: [storySwatches],
 } as const);

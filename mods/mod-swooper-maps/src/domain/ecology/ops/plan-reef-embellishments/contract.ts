@@ -46,11 +46,11 @@ const ReefEmbellishmentsConfigSchema = Type.Object(
       {
         features: EcologyConfigSchema.properties.features,
       },
-      { additionalProperties: false, default: {} }
+      { additionalProperties: false }
     ),
     featuresDensity: EcologyConfigSchema.properties.featuresDensity,
   },
-  { additionalProperties: false, default: { story: {}, featuresDensity: {} } }
+  { additionalProperties: false }
 );
 
 const ReefEmbellishmentsOutputSchema = Type.Object(

@@ -7,7 +7,7 @@ const StorySeedStepConfigSchema = Type.Object(
   {
     margins: NarrativeConfigSchema.properties.margins,
   },
-  { additionalProperties: false, default: { margins: {} } }
+  { additionalProperties: false }
 );
 
 export const StorySeedStepContract = defineStepContract({

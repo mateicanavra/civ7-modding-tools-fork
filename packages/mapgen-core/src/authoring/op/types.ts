@@ -1,7 +1,6 @@
 import type { Static, TSchema, TUnsafe } from "typebox";
 
 import type { NormalizeContext } from "@mapgen/engine/index.js";
-import type { ValidationError, OpRunValidatedOptions, OpValidateOptions } from "../validation.js";
 import type { StrategySelection } from "./strategy.js";
 
 // Allow ops with specific input/config types to flow through generic registries.
@@ -71,14 +70,6 @@ export type DomainOp<
   strategies: Strategies;
   run: BivariantCallback<
     [Static<InputSchema>, StrategySelection<Strategies>],
-    Static<OutputSchema>
-  >;
-  validate: BivariantCallback<
-    [Static<InputSchema>, StrategySelection<Strategies>, OpValidateOptions?],
-    { ok: boolean; errors: ValidationError[] }
-  >;
-  runValidated: BivariantCallback<
-    [Static<InputSchema>, StrategySelection<Strategies>, OpRunValidatedOptions?],
     Static<OutputSchema>
   >;
   /**

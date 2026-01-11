@@ -55,13 +55,13 @@ function buildInternalAsPublicSurfaceSchema(stepIds: readonly string[], knobsSch
   for (const stepId of stepIds) {
     properties[stepId] = Type.Optional(Type.Unknown());
   }
-  return Type.Object(properties, { additionalProperties: false, default: {} });
+  return Type.Object(properties, { additionalProperties: false });
 }
 
 function buildPublicSurfaceSchema(publicSchema: TObject, knobsSchema: TObject): TObject {
   return Type.Object(
     { knobs: Type.Optional(knobsSchema), ...objectProperties(publicSchema) },
-    { additionalProperties: false, default: {} }
+    { additionalProperties: false }
   );
 }
 

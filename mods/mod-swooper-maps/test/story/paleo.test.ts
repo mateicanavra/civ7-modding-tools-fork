@@ -6,9 +6,8 @@ import {
   FLAT_TERRAIN,
   createExtendedMapContext,
 } from "@swooper/mapgen-core";
-import type { Static } from "@swooper/mapgen-core/authoring";
-import { Value } from "typebox/value";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
+import { normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 describe("story/paleo", () => {
   beforeEach(() => {});
@@ -16,7 +15,11 @@ describe("story/paleo", () => {
   it("applies a delta rainfall fan on coastal river-adjacent tiles", () => {
     const width = 12;
     const height = 8;
-    const directionality = Value.Default(FoundationDirectionalityConfigSchema, {}) as Static<typeof FoundationDirectionalityConfigSchema>;
+    const directionality = normalizeStrictOrThrow(
+      FoundationDirectionalityConfigSchema,
+      {},
+      "/env/directionality"
+    );
     const env = {
       seed: 0,
       dimensions: { width, height },

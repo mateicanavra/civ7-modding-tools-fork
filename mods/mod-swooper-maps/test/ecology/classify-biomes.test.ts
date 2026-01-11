@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
 import { biomeSymbolFromIndex, classifyBiomes } from "../../src/domain/ecology/ops/classify-biomes/index.js";
+import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 describe("classifyBiomes operation", () => {
   it("maps temperature + moisture into biome symbols", () => {
@@ -16,7 +17,12 @@ describe("classifyBiomes operation", () => {
     const corridorMask = new Uint8Array(size).fill(0);
     const riftShoulderMask = new Uint8Array(size).fill(0);
 
-    const result = classifyBiomes.runValidated(
+    const selection = normalizeOpSelectionOrThrow(classifyBiomes, {
+      strategy: "default",
+      config: {},
+    });
+
+    const result = classifyBiomes.run(
       {
         width,
         height,
@@ -28,8 +34,7 @@ describe("classifyBiomes operation", () => {
         corridorMask,
         riftShoulderMask,
       },
-      classifyBiomes.defaultConfig,
-      { validateOutput: true }
+      selection
     );
 
     expect(result.biomeIndex.length).toBe(size);
