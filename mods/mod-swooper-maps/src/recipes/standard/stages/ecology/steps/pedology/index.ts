@@ -1,12 +1,20 @@
 import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import { getPublishedClimateField } from "../../../../artifacts.js";
 import type { HeightfieldBuffer } from "@swooper/mapgen-core";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { PedologyStepContract } from "./contract.js";
 
 type PedologyStepConfig = Static<typeof PedologyStepContract.schema>;
+
+const opContracts = {
+  classifyPedology: ecologyContracts.PedologyClassifyContract,
+} as const;
+
+const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
+const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
 
 function assertHeightfield(
   value: unknown,
@@ -28,7 +36,7 @@ function assertHeightfield(
 
 export default createStep(PedologyStepContract, {
   normalize: (config, ctx) => ({
-    classify: ecology.ops.classifyPedology.normalize(config.classify, ctx),
+    classify: compileOps.classifyPedology.normalize(config.classify, ctx),
   }),
   run: (context, config: PedologyStepConfig) => {
     const { width, height } = context.dimensions;
@@ -42,7 +50,7 @@ export default createStep(PedologyStepContract, {
     const heightfieldArtifact = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield);
     assertHeightfield(heightfieldArtifact, size);
 
-    const result = ecology.ops.classifyPedology.runValidated(
+    const result = runtimeOps.classifyPedology.runValidated(
       {
         width,
         height,

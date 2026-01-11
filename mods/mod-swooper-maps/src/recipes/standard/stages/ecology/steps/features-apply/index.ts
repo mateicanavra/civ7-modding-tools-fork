@@ -1,6 +1,7 @@
 import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import type { FeatureKey } from "@mapgen/domain/ecology";
 import { syncHeightfield } from "@swooper/mapgen-core";
 import { isFeatureIntentsArtifactV1 } from "../../../../artifacts.js";
@@ -11,9 +12,16 @@ import { resolveFeatureKeyLookups } from "../features/feature-keys.js";
 
 type FeaturesApplyConfig = Static<typeof FeaturesApplyStepContract.schema>;
 
+const opContracts = {
+  applyFeatures: ecologyContracts.FeaturesApplyContract,
+} as const;
+
+const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
+const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
+
 export default createStep(FeaturesApplyStepContract, {
   normalize: (config, ctx) => ({
-    apply: ecology.ops.applyFeatures.normalize(config.apply, ctx),
+    apply: compileOps.applyFeatures.normalize(config.apply, ctx),
   }),
   run: (context, config: FeaturesApplyConfig) => {
     const intents = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.featureIntentsV1);
@@ -21,7 +29,7 @@ export default createStep(FeaturesApplyStepContract, {
       throw new Error("FeaturesApplyStep: Missing artifact:ecology.featureIntents@v1.");
     }
 
-    const merged = ecology.ops.applyFeatures.runValidated(
+    const merged = runtimeOps.applyFeatures.runValidated(
       {
         vegetation: intents.vegetation ?? [],
         wetlands: intents.wetlands ?? [],

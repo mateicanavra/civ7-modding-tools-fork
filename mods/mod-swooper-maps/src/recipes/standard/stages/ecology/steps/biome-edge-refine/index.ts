@@ -1,12 +1,20 @@
 import { createStep } from "@mapgen/authoring/steps";
 import type { HeightfieldBuffer } from "@swooper/mapgen-core";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { bindCompileOps, bindRuntimeOps, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
+import * as ecologyContracts from "@mapgen/domain/ecology/contracts";
 import { isBiomeClassificationArtifactV1 } from "../../../../artifacts.js";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 import { BiomeEdgeRefineStepContract } from "./contract.js";
 
 type BiomeEdgeRefineConfig = Static<typeof BiomeEdgeRefineStepContract.schema>;
+
+const opContracts = {
+  refineBiomeEdges: ecologyContracts.RefineBiomeEdgesContract,
+} as const;
+
+const compileOps = bindCompileOps(opContracts, ecology.compileOpsById);
+const runtimeOps = bindRuntimeOps(opContracts, ecology.runtimeOpsById);
 
 const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer => {
   if (!value || typeof value !== "object") return false;
@@ -16,7 +24,7 @@ const isHeightfield = (value: unknown, size: number): value is HeightfieldBuffer
 
 export default createStep(BiomeEdgeRefineStepContract, {
   normalize: (config, ctx) => ({
-    refine: ecology.ops.refineBiomeEdges.normalize(config.refine, ctx),
+    refine: compileOps.refineBiomeEdges.normalize(config.refine, ctx),
   }),
   run: (context, config: BiomeEdgeRefineConfig) => {
     const classification = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1);
@@ -31,7 +39,7 @@ export default createStep(BiomeEdgeRefineStepContract, {
     }
     const heightfield = heightfieldArtifact as HeightfieldBuffer;
 
-    const refined = ecology.ops.refineBiomeEdges.runValidated(
+    const refined = runtimeOps.refineBiomeEdges.runValidated(
       {
         width,
         height,
