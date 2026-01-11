@@ -412,3 +412,30 @@ High-value cleanup: removes lingering non-compiler `Value.*` defaulting by intro
 ### Cross-cutting Risks
 
 - Defaulting semantics are now split between compiler and authoring; keep them aligned intentionally or you’ll get “it works in tests but not in compilation” class bugs.
+
+## REVIEW m7-t16-final-hygiene
+
+### Quick Take
+
+This is a strong “make it real” pass: `settings` → `env` is fully cut over, runtime validation no longer imports `typebox/value`, and domain-refactor guardrails are tightened.
+
+### High-Leverage Issues
+
+- Switching runtime validation from `Value.Errors` to `TypeCompiler.Errors` may subtly change error messages/paths; keep tests pinned to the contract you want (or loosen them to “contains path fragment”) so refactors don’t churn error UX.
+- The `env` rename touches *every* boundary; any external entrypoint still producing `settings` will now fail hard. Ensure mod entrypoints and any CLI/tooling examples are updated in lockstep.
+
+### Fix Now (Recommended)
+
+- Add one explicit “RunRequest schema rejects settings key” test (or guardrails check) so no legacy callsite can reintroduce `settings` quietly.
+
+### Defer / Follow-up
+
+- Consider consolidating “strict unknown-key detection” logic (compiler/planner/authoring) once the error surface is stable, to reduce drift risk.
+
+### Needs Discussion
+
+- Should `EnvSchema` remain tightly aligned with `RunSettings` historical shape, or do we want to slim it to only what the compiler/runtime truly needs (and move the rest to `metadata`)?
+
+### Cross-cutting Risks
+
+- Enforcement tightening is great, but it increases the cost of incremental refactors; ensure guardrails scripts are fast and clearly actionable when they fail.
