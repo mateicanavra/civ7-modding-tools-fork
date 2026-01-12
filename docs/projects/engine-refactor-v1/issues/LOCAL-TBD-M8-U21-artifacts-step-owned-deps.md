@@ -178,32 +178,32 @@ artifacts:
 This sweep removes naming-only `@vN` suffixes from `artifact:*` ids in non-archived code + docs (archives intentionally left unchanged).
 
 **Inventory (before sweep):**
-- **Non-archived:** 25 unique ids across 22 files (159 total occurrences).
-  - `artifact:climateField@v1`
-  - `artifact:ecology.biomeClassification@v1`
-  - `artifact:ecology.featureIntents@v1`
-  - `artifact:ecology.resourceBasins@v1`
-  - `artifact:ecology.soils@v1`
-  - `artifact:ecology.vegetation@v1`
-  - `artifact:foundation.*@v1`
-  - `artifact:foundation.config@v1`
-  - `artifact:foundation.crust@v1`
-  - `artifact:foundation.diagnostics@v1`
-  - `artifact:foundation.dynamics@v1`
-  - `artifact:foundation.mesh@v1`
-  - `artifact:foundation.plateGraph@v1`
-  - `artifact:foundation.plates@v1`
-  - `artifact:foundation.seed@v1`
-  - `artifact:foundation.tectonics@v1`
-  - `artifact:narrative.*@v1`
-  - `artifact:narrative.corridors@v1`
-  - `artifact:narrative.motifs.hotspots.stories.<storyId>@v1`
-  - `artifact:narrative.motifs.hotspots@v1`
-  - `artifact:narrative.motifs.margins@v1`
-  - `artifact:narrative.motifs.orogeny@v1`
-  - `artifact:narrative.motifs.rifts@v1`
-  - `artifact:placementInputs@v1`
-  - `artifact:placementOutputs@v1`
+- **Non-archived:** 25 unique ids across 22 files (159 total occurrences); all matches were `@v1`.
+  - `artifact:climateField`
+  - `artifact:ecology.biomeClassification`
+  - `artifact:ecology.featureIntents`
+  - `artifact:ecology.resourceBasins`
+  - `artifact:ecology.soils`
+  - `artifact:ecology.vegetation`
+  - `artifact:foundation.*`
+  - `artifact:foundation.config`
+  - `artifact:foundation.crust`
+  - `artifact:foundation.diagnostics`
+  - `artifact:foundation.dynamics`
+  - `artifact:foundation.mesh`
+  - `artifact:foundation.plateGraph`
+  - `artifact:foundation.plates`
+  - `artifact:foundation.seed`
+  - `artifact:foundation.tectonics`
+  - `artifact:narrative.*`
+  - `artifact:narrative.corridors`
+  - `artifact:narrative.motifs.hotspots.stories.<storyId>`
+  - `artifact:narrative.motifs.hotspots`
+  - `artifact:narrative.motifs.margins`
+  - `artifact:narrative.motifs.orogeny`
+  - `artifact:narrative.motifs.rifts`
+  - `artifact:placementInputs`
+  - `artifact:placementOutputs`
 - **Archived (left unchanged):** 22 unique ids across 25 files (195 total occurrences).
 
 **Sweep (executed):**
@@ -305,28 +305,6 @@ This sweep removes naming-only `@vN` suffixes from `artifact:*` ids in non-archi
 - **Compatibility:** internal validators may throw; they are wrapped at the artifact boundary and normalized into issues.
 - **Fail-fast:** `publish(...)` throws `ArtifactValidationError` when issues exist.
 - **Reporting/testing:** tests and reporting tools can catch `ArtifactValidationError` and introspect issues without introducing an alternate publication/read API path.
-
-## Prework Prompt (Agent Brief): remove `@vN` suffixes from artifact ids (mechanical sweep)
-**Purpose:** eliminate fake artifact id version suffixes and prevent reintroduction.
-
-**Expected output:**
-1) A complete list of all artifact ids containing `@vN` (code + docs).
-2) A mechanical rename plan + executed sweep (single branch) updating:
-   - stage-owned artifact contracts (`stages/<stage>/artifacts.ts`)
-   - step contracts (`artifacts.requires/provides`)
-   - any manual or legacy references (including `mods/.../recipes/.../standard/tags.ts`, `mods/.../recipes/.../standard/artifacts.ts`)
-   - docs/specs mentioning `@vN` ids
-3) Verification commands passing.
-
-**Sources to check (minimum):**
-```bash
-rg -n \"artifact:[^\\s'\\\"]+@v[0-9]+\" packages/mapgen-core mods docs
-rg -n \"@v[0-9]+\" mods/mod-swooper-maps/src/recipes/standard -S
-```
-
-**Notes:**
-- Do not invent a new “real versioning system” here; this is a naming cleanup.
-- The new ids must remain semantically meaningful (avoid “v2 theater”).
 
 ## Proposed API (mapgen-core) — explicit signatures
 These signatures are the contract for author DX, inference, and completion.
