@@ -35,6 +35,9 @@ related_to:
   - `eslint.config.js`: step-contract deep-import restrictions + recipe compilation restrictions (generalized, not hard-coded to Ecology).
   - `mods/mod-swooper-maps/package.json`: add a `lint` script so `pnpm lint` actually lints mod sources.
   - `scripts/lint/lint-domain-refactor-guardrails.sh`: add a targeted Ecology step-contract deep-import check so `pnpm check` catches regressions even if a lint task is skipped.
+- Make tests “canonical by default” (but not over-restricted):
+  - Update existing tests to prefer public import surfaces (`@mapgen/domain/<domain>`, `@mapgen/domain/<domain>/ops`) where feasible.
+  - Allow deep/internal imports only when necessary, and require they are intentional (annotated + documented; see Implementation Details).
 - Optional (behavior-preserving) DX polish in Ecology stage/steps (imports/layout/types only; no modeling changes).
 
 ## Acceptance Criteria
@@ -54,6 +57,9 @@ related_to:
   - [ ] `pnpm test` remains green.
   - [ ] `pnpm build` and `pnpm deploy:mods` remain green.
 - [ ] Deferred modeling refactors are not touched (see Deferred section in Implementation Details).
+- [ ] Tests follow the “canonical by default” posture:
+  - [ ] Any remaining deep/internal imports in `mods/mod-swooper-maps/test/**` have a short rationale comment in the file (example format in Implementation Details).
+  - [ ] A short guideline note exists documenting this posture (path TBD in Implementation Details).
 
 ## Testing / Verification
 - Baseline:
@@ -214,29 +220,52 @@ Edge cases to watch:
 - Avoid “fixing” deep imports by switching to `@mapgen/domain/ecology/index.js` (still a deep import).
 - Ensure the Ecology contract entrypoint does not accidentally import/runtime-link to `ops.ts` or any op runtime implementation modules.
 
-### Step 3 — Decide test posture (strict exemplar vs mixed)
-**Purpose:** choose whether tests should be held to the same import boundary rules as step contracts.
+### Step 3 — Normalize tests (canonical by default; exceptions allowed)
+**Decision:** tests should prefer the same import surfaces as “real” code, but may deep-import when actually necessary (and that exception must be intentional/documented).
 
-Open Questions:
-- Should we enforce the same `@mapgen/domain/*/*` restriction for:
-  - `mods/mod-swooper-maps/test/**/*.ts`?
-Options:
-- (A) Strict exemplar: apply restrictions to tests; tests import from public entrypoints only.
-- (B) Mixed: allow deep relative imports for op unit tests; add guidance and restrict only exemplar tests.
+**Rules (tests posture):**
+- Default: tests import via public surfaces:
+  - `@mapgen/domain/<domain>` for contract shapes/schemas
+  - `@mapgen/domain/<domain>/ops` for runtime ops modules
+- Allowed exception: deep/internal imports for tests that truly need internal access (e.g., tight unit tests around internal helpers or fixtures).
+- Requirement when using a deep import: add a short rationale comment near the import (so it can’t become a silent backdoor), e.g.:
+  - `// Deep import (test-only): needed for <reason>; no stable public surface exists yet.`
 
-Prework Prompt (Agent Brief)
-**Purpose:** inventory current deep imports in `mods/mod-swooper-maps/test/**` and categorize them.
-**Expected Output:** list of files grouped by “public surface OK” vs “internal op unit test”.
+**Prework Prompt (Agent Brief)**
+**Purpose:** inventory current deep imports in `mods/mod-swooper-maps/test/**` and identify which can be replaced with public-surface imports.
+**Expected Output:** a categorized list:
+- “Can switch to public imports now” (with suggested replacement import)
+- “Keep deep import (required)” (with reason to record in-file)
 **Sources to Check:**
 - `rg -n "@mapgen/domain/" mods/mod-swooper-maps/test -S`
 - `rg -n "\\.\\./\\.\\./src/domain/" mods/mod-swooper-maps/test -S`
 
-### Step 3.1 — Enforce “no export *” posture (if desired)
-Open Question:
-- Should we enforce “no `export *`” in domain contract entrypoints via lint for `mods/**/src/domain/**/index.ts`?
-Options:
-- (A) Yes: enforce via ESLint `no-restricted-syntax` / `no-restricted-exports`-style checks (fast feedback, more rigidity).
-- (B) No: keep as guidance + code review expectation (more flexibility, weaker guardrail).
+**Documentation requirement (lightweight; no new test surface yet):**
+- Add a short guideline note documenting this posture (“canonical by default; deep imports allowed only when necessary and documented”).
+- Location (pick one; prefer the most local):
+  - Option A: `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/06-enforcement.md`
+  - Option B: `docs/system/libs/mapgen/` (only if we want it evergreen across projects)
+
+### Step 3.1 — Enforce “no export *” where it is dangerous (scoped lint)
+**Decision:** enforce “no `export *`” only in file types where it is high-risk for contract/public surfaces; do not ban it globally.
+
+Scope targets (examples; confirm with prework scan):
+- Step contract files:
+  - `mods/**/src/recipes/**/stages/**/steps/**/contract.ts`
+- Domain op contract-ish files:
+  - `mods/**/src/domain/**/ops/**/contract.ts`
+  - `mods/**/src/domain/**/ops/**/types.ts`
+  - `mods/**/src/domain/**/ops/**/rules/**`
+  - `mods/**/src/domain/**/ops/**/strategies/**`
+
+Non-targets for now:
+- Domain contract entrypoints (`mods/**/src/domain/**/index.ts`): keep Ecology curated (no `export *`) as the exemplar, but do not enforce via lint until we see broader patterns/false positives.
+
+Prework Prompt (Agent Brief)
+**Purpose:** find where `export *` exists today in the above scopes and confirm we won’t create high-churn lint violations.
+**Expected Output:** list of existing `export *` occurrences + recommended scope globs for ESLint.
+**Sources to Check:**
+- `rg -n "^export \\* from" mods/mod-swooper-maps/src -S`
 
 ### Step 4 — Optional mechanical DX polish (only if safe)
 **Goal:** make Ecology maximally copy/paste-able as the exemplar without changing behavior.
