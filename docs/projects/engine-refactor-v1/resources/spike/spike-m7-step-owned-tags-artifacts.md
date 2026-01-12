@@ -21,15 +21,15 @@ Using architecture skill to structure a step-owned tag/artifact refactor plan ag
    - Lakes step owns: `artifact:heightfield` (publish/get helper; used by climateBaseline and rivers).
    - ClimateBaseline step owns: `artifact:climateField` (publish/get helper; used by storySwatches + climateRefine + rivers).
    - Rivers step owns: `artifact:riverAdjacency` and `effect:engine.riversModeled`.
-   - StorySeed step owns: `artifact:storyOverlays` and `artifact:narrative.motifs.margins@v1`.
-   - StoryHotspots step owns: `artifact:narrative.motifs.hotspots@v1`.
-   - StoryRifts step owns: `artifact:narrative.motifs.rifts@v1`.
-   - StoryOrogeny step owns: `artifact:narrative.motifs.orogeny@v1`.
-   - StoryCorridorsPre step owns: `artifact:narrative.corridors@v1`.
-   - Biomes step owns: `artifact:ecology.biomeClassification@v1`, `field:biomeId`, `effect:engine.biomesApplied`.
+   - StorySeed step owns: `artifact:storyOverlays` and `artifact:narrative.motifs.margins`.
+   - StoryHotspots step owns: `artifact:narrative.motifs.hotspots`.
+   - StoryRifts step owns: `artifact:narrative.motifs.rifts`.
+   - StoryOrogeny step owns: `artifact:narrative.motifs.orogeny`.
+   - StoryCorridorsPre step owns: `artifact:narrative.corridors`.
+   - Biomes step owns: `artifact:ecology.biomeClassification`, `field:biomeId`, `effect:engine.biomesApplied`.
    - Features step owns: `field:featureType`, `effect:engine.featuresApplied`.
-   - Derive-placement-inputs step owns: `artifact:placementInputs@v1`.
-   - Placement step owns: `artifact:placementOutputs@v1`, `effect:engine.placementApplied` (custom satisfies logic).
+   - Derive-placement-inputs step owns: `artifact:placementInputs`.
+   - Placement step owns: `artifact:placementOutputs`, `effect:engine.placementApplied` (custom satisfies logic).
    - **Gotcha:** `field:terrainType`, `field:elevation`, `field:rainfall` are defined today but not provided by any step. Decide whether to keep them as "engine field tags" in a small non-step module (recommended) or drop/update tests (would be a behavioral change). I recommend keeping them in a tiny `recipes/standard/tags/engine-fields.ts` module that only exports tag definitions, and include it in the recipe aggregation.
 
 2. **Normalize step directories (add `tags.ts` + `artifacts.ts`)**
@@ -114,7 +114,7 @@ Using architecture skill to structure a step-owned tag/artifact refactor plan ag
    - Run `pnpm -C mods/mod-swooper-maps check`, `pnpm -C mods/mod-swooper-maps test`, `pnpm -C mods/mod-swooper-maps build`.
 
 **Gotchas to handle explicitly**
-- **Multi-provider tags** (e.g., `effect:engine.coastlinesApplied`, `artifact:narrative.corridors@v1`, `artifact:heightfield`) must have a single `DependencyTagDefinition` owner; other steps should only reuse the tag ID.
+- **Multi-provider tags** (e.g., `effect:engine.coastlinesApplied`, `artifact:narrative.corridors`, `artifact:heightfield`) must have a single `DependencyTagDefinition` owner; other steps should only reuse the tag ID.
 - **Tag/artifact circular imports**: define artifact tag IDs in `artifacts.ts` and re-export them in `tags.ts`; keep `tags.ts -> artifacts.ts` dependency only.
 - **Engine field tags** are currently "unowned"; decide whether to keep them in a small `engine-fields.ts` module (recommended) or drop them and update tests.
 

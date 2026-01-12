@@ -1,6 +1,6 @@
 ---
 id: ADR-ER1-011
-title: "Placement consumes explicit `artifact:placementInputs@v1` (implementation deferred per DEF-006)"
+title: "Placement consumes explicit `artifact:placementInputs` (implementation deferred per DEF-006)"
 status: accepted
 date: 2025-12-21
 project: engine-refactor-v1
@@ -16,7 +16,7 @@ sources:
   - "M4-target-architecture-cutover-legacy-cleanup (Scope Areas; Triage “Placement inputs” notes)"
 ---
 
-# ADR-ER1-011: Placement consumes explicit `artifact:placementInputs@v1` (implementation deferred per DEF-006)
+# ADR-ER1-011: Placement consumes explicit `artifact:placementInputs` (implementation deferred per DEF-006)
 
 ## Context
 
@@ -24,7 +24,7 @@ Placement prerequisites were partly implicit engine reads, which makes compositi
 
 ## Decision
 
-- Placement consumes an explicit, TS-canonical `artifact:placementInputs@v1` produced upstream and referenced via `requires/provides`.
+- Placement consumes an explicit, TS-canonical `artifact:placementInputs` produced upstream and referenced via `requires/provides`.
 - Placement may delegate writes/side-effects to the engine via the adapter, but must not rely on implicit “read engine later” state as a dependency surface.
 
 ## Consequences

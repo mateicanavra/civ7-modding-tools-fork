@@ -37,7 +37,7 @@ Define the canonical registry contract and tag inventory for the target MapGen a
 - **Hydrology:** `artifact:riverAdjacency`; `buffer:climateField`, `buffer:rainfall`, `buffer:temperature`.
 - **Ecology:** `artifact:soils`, `artifact:biomes`, `artifact:resources`, `artifact:features`; `buffer:biomes`, `buffer:features`.
 - **Narrative/playability:** story entries published as `artifact:narrative.motifs.<motifId>.stories.<storyId>@vN`; views are derived on demand.
-- **Placement:** `artifact:placementInputs@v1`, `artifact:placementOutputs`.
+- **Placement:** `artifact:placementInputs`, `artifact:placementOutputs`.
 - **Effects:** `effect:engine.heightfieldApplied`, `effect:engine.featuresApplied`.
 - **Deferred inventory:** `artifact:riverGraph` remains deferred; `artifact:riverAdjacency` stays canonical until an accepted replacement lands.
 

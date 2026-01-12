@@ -1,13 +1,13 @@
-# CONTRACT: `artifact:foundation.*@v1` (Foundation Inventory)
+# CONTRACT: `artifact:foundation.*` (Foundation Inventory)
 
 **Update (2025-12-27, M5 execution):** The monolithic foundation artifact (`artifact:foundation` at
 `ctx.artifacts.foundation`) is retired. Foundation now publishes discrete artifacts:
 
-- `artifact:foundation.plates@v1`
-- `artifact:foundation.dynamics@v1`
-- `artifact:foundation.seed@v1`
-- `artifact:foundation.diagnostics@v1`
-- `artifact:foundation.config@v1`
+- `artifact:foundation.plates`
+- `artifact:foundation.dynamics`
+- `artifact:foundation.seed`
+- `artifact:foundation.diagnostics`
+- `artifact:foundation.config`
 
 This document defines the binding contract for these discrete artifacts.
 
@@ -43,7 +43,7 @@ Authoritative implementation references:
 - `width * height` must match the length of every per-tile tensor.
 - All payload objects are treated as immutable snapshots. Do not mutate the arrays.
 
-### 3.2 `artifact:foundation.plates@v1`
+### 3.2 `artifact:foundation.plates`
 
 Shape: `FoundationPlateFields` from `packages/mapgen-core/src/core/types.ts`.
 
@@ -55,28 +55,28 @@ Shape: `FoundationPlateFields` from `packages/mapgen-core/src/core/types.ts`.
 - `movementU`, `movementV`, `rotation` (`Int8Array`, `-127..127`): relative motion/rotation
   proxies (units may evolve).
 
-### 3.3 `artifact:foundation.dynamics@v1`
+### 3.3 `artifact:foundation.dynamics`
 
 Shape: `FoundationDynamicsFields` from `packages/mapgen-core/src/core/types.ts`.
 
 - `windU`, `windV`, `currentU`, `currentV` (`Int8Array`, `-127..127`): coarse vector components.
 - `pressure` (`Uint8Array`, `0..255`): normalized mantle-pressure proxy (relative, unitless).
 
-### 3.4 `artifact:foundation.seed@v1`
+### 3.4 `artifact:foundation.seed`
 
 Shape: `SeedSnapshot` (see `packages/mapgen-core/src/foundation/types.ts`).
 
 - Optional snapshot used for reproducibility and diagnostics.
 - When present, it is treated as immutable and may include seed locations/config metadata.
 
-### 3.5 `artifact:foundation.diagnostics@v1`
+### 3.5 `artifact:foundation.diagnostics`
 
 Shape: `FoundationDiagnosticsFields` from `packages/mapgen-core/src/core/types.ts`.
 
 - Debug-only surface; explicitly non-stable.
 - Currently includes `boundaryTree` (often `null`).
 
-### 3.6 `artifact:foundation.config@v1`
+### 3.6 `artifact:foundation.config`
 
 Shape: `FoundationConfigSnapshot` from `packages/mapgen-core/src/core/types.ts`.
 
@@ -88,7 +88,7 @@ Shape: `FoundationConfigSnapshot` from `packages/mapgen-core/src/core/types.ts`.
 
 - The foundation stage publishes **all** foundation artifacts listed above.
 - Downstream steps must declare `requires` against the specific artifacts they consume.
-  - Example: steps reading plate tensors must require `artifact:foundation.plates@v1`.
+  - Example: steps reading plate tensors must require `artifact:foundation.plates`.
 - The legacy `artifact:foundation` tag and `ctx.artifacts.foundation` must not be used.
 - Missing artifacts are wiring/recipe errors and should fail fast.
 
@@ -100,7 +100,7 @@ Shape: `FoundationConfigSnapshot` from `packages/mapgen-core/src/core/types.ts`.
   - optional seed snapshot (when available),
   - debug-only diagnostics payload (when available),
   - a shallow config snapshot for reproducibility/debugging.
-- All artifacts are published into `context.artifacts` via the `artifact:foundation.*@v1` tags.
+- All artifacts are published into `context.artifacts` via the `artifact:foundation.*` tags.
 
 ## 6. Historical Notes
 

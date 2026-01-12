@@ -88,7 +88,7 @@ import { Type, defineStep, defineArtifact } from "@mapgen/authoring";
 
 const featureIntents = defineArtifact({
   name: "featureIntents",
-  id: "artifact:ecology.featureIntents@v1",
+  id: "artifact:ecology.featureIntents",
   schema: Type.Object({ /* ... */ }, { additionalProperties: false }),
 });
 
@@ -120,7 +120,7 @@ Artifacts are **flat** at the contract surface and have a canonical name.
   - Any nested grouping in the artifact shape (e.g. `ecology: { featureIntents }`)
   - “Renaming” an artifact per-step by giving it a different access name
 
-If authors want grouping, do it at the **file/module** level (folders/files), not in the artifact object shape. Artifact “names” should be globally meaningful and discoverable; stage/phase can live in the artifact `id` string (`artifact:ecology.featureIntents@v1`), not in object nesting.
+If authors want grouping, do it at the **file/module** level (folders/files), not in the artifact object shape. Artifact “names” should be globally meaningful and discoverable; stage/phase can live in the artifact `id` string (`artifact:ecology.featureIntents`), not in object nesting.
 
 ### 2) Implement artifact runtime handlers next to the step implementation (runtime-side)
 

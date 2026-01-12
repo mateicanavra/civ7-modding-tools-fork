@@ -150,29 +150,92 @@ artifacts:
   # Direction (locked in): remove all fake `@vN` suffixes via one mechanical rename sweep.
 
   # foundation artifacts (currently published directly via ctx.artifacts.set in producer)
-  - id: artifact:foundation.plates@v1
-  - id: artifact:foundation.dynamics@v1
-  - id: artifact:foundation.seed@v1
-  - id: artifact:foundation.diagnostics@v1
-  - id: artifact:foundation.config@v1
+  - id: artifact:foundation.plates
+  - id: artifact:foundation.dynamics
+  - id: artifact:foundation.seed
+  - id: artifact:foundation.diagnostics
+  - id: artifact:foundation.config
 
   # standard recipe artifacts (current)
   - id: artifact:heightfield
   - id: artifact:climateField
   - id: artifact:storyOverlays
   - id: artifact:riverAdjacency
-  - id: artifact:ecology.biomeClassification@v1
-  - id: artifact:ecology.soils@v1
-  - id: artifact:ecology.resourceBasins@v1
-  - id: artifact:ecology.featureIntents@v1
-  - id: artifact:narrative.corridors@v1
-  - id: artifact:narrative.motifs.margins@v1
-  - id: artifact:narrative.motifs.hotspots@v1
-  - id: artifact:narrative.motifs.rifts@v1
-  - id: artifact:narrative.motifs.orogeny@v1
-  - id: artifact:placementInputs@v1
-  - id: artifact:placementOutputs@v1
+  - id: artifact:ecology.biomeClassification
+  - id: artifact:ecology.soils
+  - id: artifact:ecology.resourceBasins
+  - id: artifact:ecology.featureIntents
+  - id: artifact:narrative.corridors
+  - id: artifact:narrative.motifs.margins
+  - id: artifact:narrative.motifs.hotspots
+  - id: artifact:narrative.motifs.rifts
+  - id: artifact:narrative.motifs.orogeny
+  - id: artifact:placementInputs
+  - id: artifact:placementOutputs
 ```
+
+### 4) Prework Results (Resolved): remove fake `@vN` suffixes from artifact ids
+This sweep removes naming-only `@vN` suffixes from `artifact:*` ids in non-archived code + docs (archives intentionally left unchanged).
+
+**Inventory (before sweep):**
+- **Non-archived:** 25 unique ids across 22 files (159 total occurrences).
+  - `artifact:climateField@v1`
+  - `artifact:ecology.biomeClassification@v1`
+  - `artifact:ecology.featureIntents@v1`
+  - `artifact:ecology.resourceBasins@v1`
+  - `artifact:ecology.soils@v1`
+  - `artifact:ecology.vegetation@v1`
+  - `artifact:foundation.*@v1`
+  - `artifact:foundation.config@v1`
+  - `artifact:foundation.crust@v1`
+  - `artifact:foundation.diagnostics@v1`
+  - `artifact:foundation.dynamics@v1`
+  - `artifact:foundation.mesh@v1`
+  - `artifact:foundation.plateGraph@v1`
+  - `artifact:foundation.plates@v1`
+  - `artifact:foundation.seed@v1`
+  - `artifact:foundation.tectonics@v1`
+  - `artifact:narrative.*@v1`
+  - `artifact:narrative.corridors@v1`
+  - `artifact:narrative.motifs.hotspots.stories.<storyId>@v1`
+  - `artifact:narrative.motifs.hotspots@v1`
+  - `artifact:narrative.motifs.margins@v1`
+  - `artifact:narrative.motifs.orogeny@v1`
+  - `artifact:narrative.motifs.rifts@v1`
+  - `artifact:placementInputs@v1`
+  - `artifact:placementOutputs@v1`
+- **Archived (left unchanged):** 22 unique ids across 25 files (195 total occurrences).
+
+**Sweep (executed):**
+- Mechanical rename: `artifact:<name>@vN` → `artifact:<name>`.
+- Updated 22 non-archived files:
+  - `packages/mapgen-core/src/core/types.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/tags.ts`
+  - `mods/mod-swooper-maps/AGENTS.md`
+  - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U21-artifacts-step-owned-deps.md`
+  - `docs/projects/engine-refactor-v1/deferrals.md`
+  - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-placement-domain-refactor.md`
+  - `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md`
+  - `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md`
+  - `docs/projects/engine-refactor-v1/resources/PRD-target-narrative-and-playability.md`
+  - `docs/projects/engine-refactor-v1/resources/PRD-target-registry-and-tag-catalog.md`
+  - `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
+  - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
+  - `docs/projects/engine-refactor-v1/resources/spec/SPEC-tag-registry.md`
+  - `docs/projects/engine-refactor-v1/resources/spec/adr/ADR.md`
+  - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-011-placement-consumes-explicit-artifact-placementinputs-v1-implementation-deferred-per-def-006.md`
+  - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-020-effect-engine-placementapplied-is-verified-via-a-minimal-ts-owned-artifact-placementoutputs-v1.md`
+  - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-024-hotspot-categories-live-in-a-single-narrative-hotspots-artifact-no-split-artifacts-in-v1.md`
+  - `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/DX-ARTIFACTS-PROPOSAL.md`
+  - `docs/projects/engine-refactor-v1/resources/spike/spike-m7-step-owned-tags-artifacts.md`
+  - `docs/projects/engine-refactor-v1/resources/spike/step-domain-modules/proposals/gpt-pro-proposal-v7-alt-1.md`
+  - `docs/projects/engine-refactor-v1/triage.md`
+  - `docs/system/libs/mapgen/ecology.md`
+- No `artifact:*@vN` matches in `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` (no changes needed).
+- Stage-owned artifact contract files do not exist yet (no `stages/<stage>/artifacts.ts` to update).
+
+**Verification (post-sweep):**
+- `rg -n \"artifact:[^\\s'\\\"]+@v[0-9]+\" packages/mapgen-core mods docs --glob '!**/_archive/**' --glob '!**/_archived/**'` (expect zero)
 
 ## Decisions (locked — do not re-litigate)
 
@@ -218,7 +281,7 @@ artifacts:
 - **Rule:** do not introduce new `@vN`-suffixed ids.
 
 ### 6) Multi-producer `biomeClassification` is an anti-pattern to eliminate (no “draft/final” ids)
-- **Current reality:** `biomes` and `biome-edge-refine` both write `artifact:ecology.biomeClassification@v1` today.
+- **Current reality:** `biomes` and `biome-edge-refine` both write `artifact:ecology.biomeClassification` today.
 - **Choice:** keep a single conceptual artifact: `artifact:ecology.biomeClassification` (post-sweep) produced once.
 - **Direction:** remove the dual-writer setup by restructuring step boundaries:
   - Refinement is expressed inside the single producer’s runtime, or by producing a *semantically distinct* artifact (not “draft vs final”).
@@ -801,7 +864,7 @@ Run from repo root unless otherwise specified.
 - `pnpm -C mods/mod-swooper-maps test`
 - `rg -n \"ctx\\.deps\" -S .` (expect zero)
 - `rg -n \"ctx\\.overlays\" -S .` (expect zero)
-- `rg -n \"artifact:[^\\s'\\\"]+@v[0-9]+\" packages/mapgen-core mods docs` (expect zero)
+- `rg -n \"artifact:[^\\s'\\\"]+@v[0-9]+\" packages/mapgen-core mods docs --glob '!**/_archive/**' --glob '!**/_archived/**'` (expect zero)
 - `rg -n \"from \\\"\\.\\./\\.\\./\\.\\./artifacts\\.js\\\"\" -S mods/mod-swooper-maps/src/recipes/standard/stages` (expect zero for step impls after migration)
 
 ## Ideal file structure (one end-to-end slice)

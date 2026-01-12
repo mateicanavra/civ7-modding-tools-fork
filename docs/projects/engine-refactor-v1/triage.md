@@ -181,13 +181,13 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Next check:** before merging any branches that still reference the old helper names.
 
 - **Narrative artifacts use Set/Map snapshots in M4** [Source: CIV-73]
-  - **Context:** CIV-73 publishes `artifact:narrative.*@v1` using Set/Map snapshots that mirror StoryTags (corridor metadata retained; hotspot trails omitted).
+  - **Context:** CIV-73 publishes `artifact:narrative.*` using Set/Map snapshots that mirror StoryTags (corridor metadata retained; hotspot trails omitted).
   - **Type:** triage
   - **Notes:** Revisit contract shape/serialization before consumer cutover to avoid downstream assumptions.
   - **Next check:** before CIV-74 consumer migration or any external artifact export.
 
 - **Placement inputs cutover landed early in CIV-71** [Source: CIV-71/CIV-72]
-  - **Context:** CIV-71 implementation now requires `artifact:placementInputs@v1` and removes legacy placement input wiring, even though the CIV-71 AC said additive-only. CIV-72 currently focuses on placement outputs verification.
+  - **Context:** CIV-71 implementation now requires `artifact:placementInputs` and removes legacy placement input wiring, even though the CIV-71 AC said additive-only. CIV-72 currently focuses on placement outputs verification.
   - **Type:** triage
   - **Notes:** Decide whether to accept the sequencing shift (CIV-71 does cutover + derive step, CIV-72 does outputs verification) or re-split to align with original ACs. If accepted, update CIV-71/CIV-72 scope expectations accordingly.
   - **Next check:** before restacking/merging the placement inputs branches.
@@ -200,7 +200,7 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Next check:** before PIPELINE-4 runtime cutover or when `RunSettings` expands.
 
 - **Foundation artifact contract docs out of sync with DEF-014 split** [Source: M5-U11]
-  - **Context:** M5-U11 replaces monolithic `artifact:foundation` with discrete `artifact:foundation.*@v1` artifacts.
+  - **Context:** M5-U11 replaces monolithic `artifact:foundation` with discrete `artifact:foundation.*` artifacts.
   - **Type:** triage
   - **Notes:** `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` still describes the monolithic contract; decide whether to replace it with a single inventory contract or add per-artifact contracts.
   - **Next check:** before merging M5-U11 or shipping consumer guidance.

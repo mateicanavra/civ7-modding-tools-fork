@@ -39,7 +39,7 @@ Define the end-state narrative/playability contract: typed narrative **story ent
 
 ### 4.3 Consumption & Downstream Contracts
 - **REQ-NAR-9:** Downstream steps that need narrative semantics must require the relevant story entry artifacts (and then derive any views they need at point-of-use).
-- **REQ-NAR-10:** Placement consumers rely on explicit narrative and placement input artifacts (`artifact:placementInputs@v1`) rather than engine reads or global flags.
+- **REQ-NAR-10:** Placement consumers rely on explicit narrative and placement input artifacts (`artifact:placementInputs`) rather than engine reads or global flags.
 
 ### 4.4 State & Caching Rules
 - **REQ-NAR-11:** Story entries are stored within `MapGenContext.artifacts`. Any caching of derived views must be context-owned and keyed to the run; no module-level or cross-run caches are allowed.

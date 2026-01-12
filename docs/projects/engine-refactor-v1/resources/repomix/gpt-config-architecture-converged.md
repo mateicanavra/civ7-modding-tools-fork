@@ -1156,10 +1156,10 @@ const VEGETATION_DEPENDENCIES = [
   "field:biomeId@v1",
   "field:rainfall@v1",
   "field:elevation@v1",
-  "artifact:climateField@v1",
+  "artifact:climateField",
 ];
 
-const VEGETATION_PROVIDES = ["artifact:ecology.vegetation@v1"];
+const VEGETATION_PROVIDES = ["artifact:ecology.vegetation"];
 
 export const PlotVegetationStepContract = defineStep({
   id: "plot-vegetation",
@@ -1243,7 +1243,7 @@ export default createStep(PlotVegetationStepContract, {
     const treePlan = ecology.ops.planTreeVegetation.runValidated(input, config.trees);
     const shrubPlan = ecology.ops.planShrubVegetation.runValidated(input, config.shrubs);
 
-    context.artifacts.set("artifact:ecology.vegetation@v1", {
+    context.artifacts.set("artifact:ecology.vegetation", {
       trees: treePlan.placements,
       shrubs: shrubPlan.placements,
     });

@@ -161,7 +161,7 @@ Each deferral follows this structure:
 
 **Deferred:** 2025-12-22
 **Trigger:** If “cheap invariants + call evidence” verifiers miss real wiring failures, are flaky in CI, or if we need stronger guarantees that match actual engine state (especially for `effect:engine.landmassApplied` / `effect:engine.coastlinesApplied` / `effect:engine.riversModeled`).
-**Context:** M4’s goal is “no asserted-but-unverified scheduling edges,” but expanding `EngineAdapter` with new read-back APIs (plot tags, landmass region IDs, coastline status, river readbacks, placement readbacks) increases engine-surface coupling and coordination risk. For M4, we prefer minimal verifiers using existing adapter reads and TS-owned artifacts (e.g., `artifact:placementOutputs@v1`).
+**Context:** M4’s goal is “no asserted-but-unverified scheduling edges,” but expanding `EngineAdapter` with new read-back APIs (plot tags, landmass region IDs, coastline status, river readbacks, placement readbacks) increases engine-surface coupling and coordination risk. For M4, we prefer minimal verifiers using existing adapter reads and TS-owned artifacts (e.g., `artifact:placementOutputs`).
 **Scope:**
 - Design and add explicit adapter read-back APIs needed for robust verification (and implement them in both Civ adapter + MockAdapter).
 - Update `effect:*` verifiers to rely on read-back surfaces rather than call evidence where appropriate.
@@ -211,17 +211,17 @@ Each deferral follows this structure:
 
 **Deferred:** 2025-12-14  
 **Trigger:** When we need engine-less placement testing, want placement composition that depends on a stable “placement inputs” artifact, or are ready to cut over M3 placement wiring to the accepted target contract.  
-**Context:** Placement currently consumes a mix of map-init inputs and engine-surface state, not a single TS-owned “inputs” artifact. In M3 we keep placement as an engine-effect step and avoid blocking on a full placement-input contract design. Target decision 3.7 is now accepted: placement consumes an explicit `artifact:placementInputs@v1` and does not rely on implicit engine reads as a cross-step dependency surface. This deferral remains only to sequence the implementation safely.  
+**Context:** Placement currently consumes a mix of map-init inputs and engine-surface state, not a single TS-owned “inputs” artifact. In M3 we keep placement as an engine-effect step and avoid blocking on a full placement-input contract design. Target decision 3.7 is now accepted: placement consumes an explicit `artifact:placementInputs` and does not rely on implicit engine reads as a cross-step dependency surface. This deferral remains only to sequence the implementation safely.  
 **Scope:**
-- Add `artifact:placementInputs@v1` to the tag registry with a safe demo payload.
-- Introduce a `derivePlacementInputs` step (or small cluster) that produces `artifact:placementInputs@v1` from explicit prerequisites and reifies any engine-only reads that become cross-step dependencies.
-- Update placement to `requires: ["artifact:placementInputs@v1"]` and publish a verified `effect:engine.placementApplied` when it mutates the engine.
+- Add `artifact:placementInputs` to the tag registry with a safe demo payload.
+- Introduce a `derivePlacementInputs` step (or small cluster) that produces `artifact:placementInputs` from explicit prerequisites and reifies any engine-only reads that become cross-step dependencies.
+- Update placement to `requires: ["artifact:placementInputs"]` and publish a verified `effect:engine.placementApplied` when it mutates the engine.
 - Remove `state:*` placement scheduling once `effect:*` + artifact prerequisites are in place (align with DEF-008).  
 **Impact:**
 - Placement contracts are less data-centric and more “engine state” centric in M3.
 - Harder to test placement purely in-memory without adapter/engine involvement.
-- **Status (2025-12-21):** The target contract (3.7) is accepted; remaining work is implementation cutover from the current engine-effect wiring to the explicit `artifact:placementInputs@v1` + verified `effect:*` model.
-- **Status (2025-12-24):** Resolved in CIV-72 by cutting placement to `artifact:placementInputs@v1` + `artifact:placementOutputs@v1` and verifying `effect:engine.placementApplied` via the outputs artifact (ADR-ER1-020).
+- **Status (2025-12-21):** The target contract (3.7) is accepted; remaining work is implementation cutover from the current engine-effect wiring to the explicit `artifact:placementInputs` + verified `effect:*` model.
+- **Status (2025-12-24):** Resolved in CIV-72 by cutting placement to `artifact:placementInputs` + `artifact:placementOutputs` and verifying `effect:engine.placementApplied` via the outputs artifact (ADR-ER1-020).
 
 ---
 

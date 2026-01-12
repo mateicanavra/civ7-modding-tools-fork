@@ -12,17 +12,17 @@
 ### 3.2 Canonical dependency tag inventory (standard recipe)
 
 Artifacts:
-- `artifact:foundation.plates@v1`
-- `artifact:foundation.dynamics@v1`
-- `artifact:foundation.seed@v1`
-- `artifact:foundation.diagnostics@v1`
-- `artifact:foundation.config@v1`
+- `artifact:foundation.plates`
+- `artifact:foundation.dynamics`
+- `artifact:foundation.seed`
+- `artifact:foundation.diagnostics`
+- `artifact:foundation.config`
 - `artifact:riverAdjacency`
-- `artifact:placementInputs@v1`
-- `artifact:placementOutputs@v1`
+- `artifact:placementInputs`
+- `artifact:placementOutputs`
 
 Notes:
-- `artifact:foundation.diagnostics@v1` is a debug-only artifact (a data product dependency), not a “diagnostics toggle plane”.
+- `artifact:foundation.diagnostics` is a debug-only artifact (a data product dependency), not a “diagnostics toggle plane”.
 - Logging/observability is controlled via `RunRequest.settings.trace` and enforced through per-step trace scopes.
 
 Buffers:

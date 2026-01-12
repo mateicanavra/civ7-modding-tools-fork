@@ -24,7 +24,7 @@ Consumers (notably features) expect “paradise” vs “volcanic” hotspot sem
 
 ## Decision
 
-- Publish hotspot outputs as a **single** canonical story entry artifact under the `hotspots` motif (`artifact:narrative.motifs.hotspots.stories.<storyId>@v1`).
+- Publish hotspot outputs as a **single** canonical story entry artifact under the `hotspots` motif (`artifact:narrative.motifs.hotspots.stories.<storyId>`).
 - Encode hotspot categories **within** that story entry payload (e.g., separate categorized tile sets/keys for `paradise` and `volcanic`), rather than splitting into multiple story entries.
 - Consumers migrate to read hotspot categories from the hotspots story entry (not StoryTags).
 
