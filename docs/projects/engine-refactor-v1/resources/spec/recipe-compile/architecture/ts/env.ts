@@ -57,6 +57,3 @@ export const EnvSchema = Type.Object(
 );
 
 export type Env = Static<typeof EnvSchema>;
-
-export type NormalizeCtx<TEnv, TKnobs> = Readonly<{ env: TEnv; knobs: TKnobs }>;
-

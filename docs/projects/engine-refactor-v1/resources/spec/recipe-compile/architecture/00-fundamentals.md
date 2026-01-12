@@ -1,11 +1,11 @@
 # Fundamentals
 
 This document establishes the foundational rules, mental models, and
-boundaries for the composition-first recipe compiler architecture.
+boundaries for the recipe compiler architecture as implemented on this branch.
 
 # Proposal: Composition-first recipe compiler (canonical architecture)
 
-This document is a **canonical consolidation pass** for the “composition-first recipe compiler” work. It is intended to replace “read 3–4 versions and reconcile mentally” with **one** coherent read.
+This document is a consolidation pass for the “recipe compile” architecture, aligned to the codebase as implemented.
 
 **Primary sources (verbatim or near-verbatim, selectively merged):**
 - `gpt-pro-recipe-compile-v4.md` (single-mode stage `public`, mechanical op envelope normalization, ops-derived step schema, “no runtime defaulting”, knobs lock-in)
@@ -30,11 +30,11 @@ Spec package structure:
 ### 1.1 Goals (what this architecture is for)
 
 - **Composition-first**: recipe/stage composition produces a fully canonical internal execution shape.
-- **No engine-time config resolution**: engine plan compilation validates; it does not default/clean/mutate configs and does not call any config “resolver”.
+- **No engine-time config resolution**: engine plan compilation is structural (step selection + registry lookup). It does not default/clean/mutate configs and does not invoke any compile-time normalization hooks.
 - **No runtime schema defaulting/cleaning**: runtime handlers (`step.run`, `strategy.run`) treat configs as already canonical.
 - **One canonical internal config shape** at runtime:
   - stage boundary uses **step-id keyed internal step config maps**
-  - op envelopes are **top-level properties** in step configs (keyed by `step.contract.ops`)
+  - op envelopes (when used) are **top-level properties** in step configs (declared by the step schema; selected by config)
 - **Incremental adoption is per-stage**, without recipe-wide “modes” and without runtime branching/mode detection.
 
 Non-goals for this landing:
@@ -58,7 +58,7 @@ This section is the **curated “rules of the road”**. If a future change viol
 #### I2 — No runtime config resolution/defaulting
 
 - Runtime handlers (`step.run`, `strategy.run`) must not default/clean/normalize configs.
-- Engine plan compilation validates; it must not mutate config objects and must not call any step/op “resolver”.
+- Engine plan compilation is validate-only for structural concerns (e.g., unknown steps, duplicate ids); it must not mutate config objects and must not call any step/op normalization hooks.
 - All schema defaulting/cleaning lives in compiler-only modules, owned by the recipe compiler pipeline.
 
 #### I3 — `compile` vs `normalize` semantics are strict
@@ -85,16 +85,15 @@ This section is the **curated “rules of the road”**. If a future change viol
 
 #### I6 — Op envelope discovery is contract-driven and top-level only
 
-- Op envelopes are discovered **only** via `step.contract.ops`.
-- Op envelopes are top-level properties in step configs: `stepConfig[opKey]`.
-- No nested traversal, arrays, or scanning config shapes to infer ops.
+- Op envelope configs (strategy selections) are modeled as **top-level properties** in step config objects.
+- Steps select strategies via config (the op’s strategy envelope) and do not import strategy modules.
+- The recipe compiler does not scan nested config shapes to infer ops. Any mechanical op-envelope handling must be contract-driven and top-level only.
 
 #### I7 — Inline schema strictness + ops-derived step schema (DX)
 
 - Inline schema field-map shorthands are supported only inside definition factories, and default to `additionalProperties: false`.
-- If a step contract declares `ops` and omits `schema`, the factory may derive a strict step schema from op envelope schemas.
-- There is no separate “input schema” for step configs in v1; author-input partiality is handled by the compiler pipeline (op-prefill before strict validation) plus type-level author input types (O2).
-- This landing does **not** support adding “extra” top-level keys on top of an ops-derived schema; authors must provide an explicit schema (and include any op envelope keys they want) if they need extra keys.
+- Step contracts must provide an explicit `schema`. Steps may reuse `op.config` (strategy envelope schema) directly inside the step schema.
+- There is no separate “input schema” for step configs in v1; author-input partiality is handled via `RecipeConfigInputOf<...>` plus compiler defaulting/cleaning.
 
 ---
 
@@ -115,9 +114,7 @@ This architecture becomes tractable once these are treated as distinct channels:
 Domain (ops + strategies + contracts)
   └── exports a domain public surface (`src/domain/<domain>/index.ts`):
       - `contracts` (contract-only; safe for step contracts)
-      - `ops` (compile-surface implementations; developer convenience)
-      - `compileOpsById` (compile-surface registry by `op.id`; deterministic; built, not hand-maintained)
-      - `runtimeOpsById` (runtime-surface registry by `op.id`; deterministic; built, not hand-maintained)
+      - `ops` (a `createDomainOpsSurface(...)` router that can bind contracts to `compile` + `runtime` surfaces)
   └── cross-module consumers import only from:
       - `@mapgen/domain/<domain>` (domain public surface), and
       - `@mapgen/domain/<domain>/contracts` (contract-only; safe narrow import),
@@ -125,9 +122,8 @@ Domain (ops + strategies + contracts)
 
 Step (internal node; orchestration)
   └── defines internal schema (required)
-  └── declares which op envelopes exist (optional; declared as op contracts, derived to op refs)
-  └── optional value-only normalize hook
-  └── runtime run handler can call ops (injected), without importing implementations directly
+  └── optional value-only normalize hook (compile-time only)
+  └── runtime run handler can call ops (bound via domain router), without importing implementations directly
 
 Stage (author-facing unit)
   └── owns optional stage-level public view (schema + compile hook)
@@ -136,10 +132,11 @@ Stage (author-facing unit)
 Recipe (composition + compilation orchestrator)
   └── composes stages
   └── owns the compile pipeline (stage public→internal if present, then step/op canonicalization)
+  └── assembles `compileOpsById` via `collectCompileOps(domainA, domainB, ...)`
   └── instantiates engine recipe only from compiled internal configs
 
 Engine (execution plan + executor)
-  └── validates runtime envelope + compiled step configs
+  └── executes compiled configs (no schema defaulting/cleaning/normalization)
   └── builds plan + executes
   └── must not default/clean/mutate config
 ```
@@ -156,7 +153,7 @@ O1/O2/O3 were previously tracked as “known unknowns”, but are now **locked i
 
 - **O1 (closed)**: shared op envelope derivation is implemented and used by both `createOp(...)` and `opRef(...)` via `packages/mapgen-core/src/authoring/op/envelope.ts`.
 - **O2 (closed)**: recipe config typing is split into author input vs compiled output via `RecipeConfigInputOf<...>` and `CompiledRecipeConfigOf<...>` in `packages/mapgen-core/src/authoring/types.ts` (baseline note: `CompiledRecipeConfigOf` is currently an alias; the split is a locked design requirement for v1).
-- **O3 (closed)**: no “derive ops schema + add extra top-level fields implicitly” hybrid. If you want non-op fields, you must provide an explicit step schema (op-key schemas are still overwritten from `ops` contracts so authors don’t duplicate envelope schemas).
+- **O3 (closed)**: there is no “ops-derived step schema” shortcut in v1; steps provide explicit schemas and may reference `op.config` directly.
 
 No additional open questions are tracked in this document yet.
 

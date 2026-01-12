@@ -47,7 +47,7 @@ export const ecologyStage = createStage({
     {
       vegetationDensityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
     },
-    { additionalProperties: false, default: {} }
+    { additionalProperties: false }
   ),
 
   // Public schema is the non-knob portion when a public view is present.
@@ -57,11 +57,11 @@ export const ecologyStage = createStage({
         {
           densityBias: Type.Number({ minimum: -1, maximum: 1, default: 0 }),
         },
-        { additionalProperties: false, default: {} }
+        { additionalProperties: false }
       ),
-      wetlands: Type.Object({}, { additionalProperties: false, default: {} }),
+      wetlands: Type.Object({}, { additionalProperties: false }),
     },
-    { additionalProperties: false, default: {} }
+    { additionalProperties: false }
   ),
 
   // `createStage` computes `surfaceSchema` (single author-facing schema) and provides `toInternal`.
