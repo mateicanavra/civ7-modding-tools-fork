@@ -1,13 +1,13 @@
-import type { Static, TSchema } from "typebox";
+import type { Static, TSchema, TUnsafe } from "typebox";
 
 import { applySchemaConventions } from "../schema.js";
 
-import type { DomainOpKind } from "./types.js";
+import type { DomainOpKind, OpTypeBag } from "./types.js";
 import { buildOpEnvelopeSchema } from "./envelope.js";
 
 export type StrategyConfigSchemas = Readonly<Record<string, TSchema>>;
 
-export type OpContract<
+export type OpContractCore<
   Kind extends DomainOpKind,
   Id extends string,
   InputSchema extends TSchema,
@@ -19,9 +19,19 @@ export type OpContract<
   input: InputSchema;
   output: OutputSchema;
   strategies: Strategies;
-  config: TSchema;
-  defaultConfig: Readonly<{ strategy: "default"; config: Static<Strategies["default"]> }>;
 }>;
+
+export type OpContract<
+  Kind extends DomainOpKind,
+  Id extends string,
+  InputSchema extends TSchema,
+  OutputSchema extends TSchema,
+  Strategies extends StrategyConfigSchemas & { default: TSchema },
+> = OpContractCore<Kind, Id, InputSchema, OutputSchema, Strategies> &
+  Readonly<{
+    config: TUnsafe<OpTypeBag<OpContractCore<Kind, Id, InputSchema, OutputSchema, Strategies>>["envelope"]>;
+    defaultConfig: Readonly<{ strategy: "default"; config: Static<Strategies["default"]> }>;
+  }>;
 
 export function defineOp<
   const Kind extends DomainOpKind,
@@ -29,7 +39,7 @@ export function defineOp<
   const InputSchema extends TSchema,
   const OutputSchema extends TSchema,
   const Strategies extends StrategyConfigSchemas & { default: TSchema },
->(def: Omit<OpContract<Kind, Id, InputSchema, OutputSchema, Strategies>, "config" | "defaultConfig">) {
+>(def: OpContractCore<Kind, Id, InputSchema, OutputSchema, Strategies>) {
   applySchemaConventions(def.input, `op:${def.id}.input`);
   applySchemaConventions(def.output, `op:${def.id}.output`);
   for (const [strategyId, schema] of Object.entries(def.strategies)) {
@@ -41,7 +51,13 @@ export function defineOp<
 
   return {
     ...def,
-    config: configSchema,
-    defaultConfig: defaultConfig as OpContract<Kind, Id, InputSchema, OutputSchema, Strategies>["defaultConfig"],
+    config: configSchema as unknown as TUnsafe<OpTypeBag<typeof def>["envelope"]>,
+    defaultConfig: defaultConfig as unknown as OpContract<
+      Kind,
+      Id,
+      InputSchema,
+      OutputSchema,
+      Strategies
+    >["defaultConfig"],
   } as const;
 }
