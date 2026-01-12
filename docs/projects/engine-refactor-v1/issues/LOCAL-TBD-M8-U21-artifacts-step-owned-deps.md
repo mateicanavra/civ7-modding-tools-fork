@@ -1,6 +1,6 @@
 ---
 id: LOCAL-TBD-M8-U21
-title: "[M8] Artifacts DX: step-owned artifact contracts + single-path deps access"
+title: "[M8] Artifacts DX: stage-owned artifact contracts + single-path deps access"
 state: planned
 priority: 1
 estimate: 8
@@ -19,9 +19,10 @@ related_to:
 ---
 
 ## TL;DR
-- Make artifacts **step-owned** and **contract-first**:
-  - Each produced artifact is defined in the producing step’s `contract.ts` (canonical `name` + `id` + `schema`).
-  - Artifact runtime behavior (validation, freezing, satisfies) lives next to the producing step implementation.
+- Make artifacts **stage-owned (contracts)** and **contract-first**:
+  - Each stage defines its artifact contracts in `stages/<stage>/artifacts.ts` (canonical `name` + `id` + `schema`).
+  - Steps reference those contracts in their `defineStep` contracts (`artifacts.requires/provides`).
+  - Artifact runtime behavior (validation, freezing, satisfies) lives next to the producing step implementation and is bound via `implementArtifacts(...)`.
 - Eliminate ad-hoc artifact imports inside steps:
   - Step `run(...)` receives a first-class `deps` parameter.
   - Steps access artifacts via `deps.artifacts.<artifactName>.read(ctx)` / `.publish(ctx, value)`.
@@ -63,8 +64,11 @@ This creates:
 The engine already has a clean gating primitive (`TagRegistry` + `DependencyTagDefinition.satisfies` + executor `satisfied` set). This issue keeps that execution model and fixes the authoring model.
 
 ## Design goals
-- Step-owned artifacts:
-  - the artifact is defined where it is produced.
+- Stage-owned artifact contracts (stable boundary):
+  - artifact contracts live in the stage module boundary, not inside a specific step folder.
+  - steps can be split/merged/renamed without forcing contract imports to chase step file layout.
+- Step-owned runtime responsibility:
+  - publishing the artifact and binding its runtime behavior stays with the producer step runtime module.
 - Contract vs runtime separation:
   - contract: stable `name` + `id` + schema metadata
   - runtime: validate/freeze/satisfies, publish enforcement
@@ -75,6 +79,7 @@ The engine already has a clean gating primitive (`TagRegistry` + `DependencyTagD
 - Strong guardrails:
   - no nested artifact shapes
   - no per-step aliasing (“renaming”) of artifacts
+  - exactly one provider step per artifact id (duplicates fail fast at recipe-compile time)
   - no shims/fallbacks; migrate everything to the new model
 
 ## Non-goals
@@ -84,11 +89,12 @@ The engine already has a clean gating primitive (`TagRegistry` + `DependencyTagD
 
 ## Mental model (target)
 - Artifacts are published data products keyed by dependency tag ID (e.g. `artifact:ecology.featureIntents@v1`) stored in `ctx.artifacts`.
+- Artifact contracts are stage-owned (single canonical file per stage).
 - Steps:
   - **publish** artifacts (producer steps)
   - **read/consume** artifacts (consumer steps)
 - Recipe compilation:
-  - composes step-owned artifact contracts into a recipe-level artifact registry and tag definitions,
+  - composes step-declared artifact dependencies (contracts are stage-owned) into a recipe-level artifact registry and tag definitions,
   - enforces gating via `DependencyTagDefinition.satisfies`,
   - threads a typed `deps` surface into each step’s `run(...)`.
 
@@ -178,12 +184,14 @@ These must be resolved explicitly during implementation. Default stance: add a t
    - Decide whether wrapper errors should always throw `Error` with a standardized prefix, or introduce a typed error class (prefer keeping it simple unless tests need structured error fields).
 
 ### Larger design / architectural (requires a deliberate decision)
-1) **Multi-producer artifacts (single canonical contract)**
-   - Example: `artifact:ecology.biomeClassification@v1` is currently written by multiple steps (`biomes` and `biome-edge-refine`).
-   - Under “step-owned” contracts, decide the canonical home for the `defineArtifact(...)` contract when multiple producers exist:
-     - Option A: treat it as owned by the *first producer* step contract; other producer steps import the contract and list it in `artifacts.provides`.
-     - Option B: promote it to a domain-level artifact contract module (still a single canonical file), while preserving producer runtime validation ownership.
-   - This decision affects DX and file layout; cannot be silently assumed.
+1) **Split the existing multi-producer artifact (`artifact:ecology.biomeClassification@v1`)**
+   - Policy: **single producer per artifact id** (locked in by this issue).
+   - Current reality: both `biomes` and `biome-edge-refine` write the same artifact id.
+   - Required: change the refiner step to produce a *different* artifact id, and update all consumers to depend on the appropriate id.
+   - Open question: pick the new id naming scheme (and migration strategy), e.g.:
+     - Option A: keep `artifact:ecology.biomeClassification@v1` as the final product and add `artifact:ecology.biomeClassification.raw@v1` for the earlier step.
+     - Option B: introduce `artifact:ecology.biomeClassification@v2` as the refined product and keep `@v1` as the earlier output.
+   - Recommendation: Option A (least churn for downstream consumers that want “final classification”).
 2) **`artifact:storyOverlays` cutover**
    - Today the satisfier checks `ctx.overlays` instead of `ctx.artifacts`.
    - Under this issue’s “single canonical publication/read path” rule, decide whether:
@@ -304,17 +312,18 @@ export type StepDeps<
 ## End-to-end authoring examples (target DX)
 These are “what it should feel like” examples for step authors after this issue lands.
 
-### Example A: producer step publishes an artifact (no artifact imports)
-Target file layout (two-file split, consistent with standard steps):
-- `.../steps/features-plan/contract.ts` (contract)
-- `.../steps/features-plan/index.ts` (runtime module)
+### Example A: producer step publishes an artifact (no artifact helper imports)
+Target file layout (stage-owned contracts + step-owned runtime):
+- `.../stages/ecology/artifacts.ts` (stage artifact contracts)
+- `.../steps/features-plan/contract.ts` (step contract references stage artifacts)
+- `.../steps/features-plan/index.ts` (runtime module binds artifact runtime + publishes)
 
-`contract.ts`:
+`stages/ecology/artifacts.ts`:
 ```ts
-import { Type, defineArtifact, defineStep } from "@swooper/mapgen-core/authoring";
-import ecology from "@mapgen/domain/ecology";
+import { Type, defineArtifact } from "@swooper/mapgen-core/authoring";
 
-export const FeatureIntentsArtifact = defineArtifact({
+export const ecologyArtifacts = {
+  featureIntents: defineArtifact({
   name: "featureIntents",
   id: "artifact:ecology.featureIntents@v1",
   schema: Type.Object({
@@ -323,7 +332,15 @@ export const FeatureIntentsArtifact = defineArtifact({
     reefs: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
     ice: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
   }),
-});
+  }),
+} as const;
+```
+
+`contract.ts`:
+```ts
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
+import ecology from "@mapgen/domain/ecology";
+import { ecologyArtifacts } from "../../artifacts.js";
 
 const FeaturesPlanStepContract = defineStep({
   id: "features-plan",
@@ -332,7 +349,7 @@ const FeaturesPlanStepContract = defineStep({
     requires: [
       /* example: BiomeClassificationArtifact, PedologyArtifact, HeightfieldArtifact */
     ],
-    provides: [FeatureIntentsArtifact],
+    provides: [ecologyArtifacts.featureIntents],
   },
   ops: {
     vegetation: ecology.ops.planVegetation,
@@ -392,8 +409,8 @@ export default createStep(FeaturesPlanStepContract, {
 ```
 
 Key DX outcomes:
-- The only artifact identifier is the artifact contract in the step contract.
-- Step runtime never imports `.../artifacts.ts` helper modules.
+- Artifact contracts live in a single, stable stage-owned file (`stages/<stage>/artifacts.ts`).
+- Step runtime does not import recipe-level artifact helper modules (artifact access is only via `deps`).
 - `deps.artifacts.featureIntents` is fully typed and autocompletes.
 
 ### Example B: consumer step reads an artifact (no artifact imports)
@@ -402,13 +419,13 @@ Key DX outcomes:
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
 
-import { FeatureIntentsArtifact } from "../features-plan/contract.js";
+import { ecologyArtifacts } from "../../artifacts.js";
 
 const FeaturesApplyStepContract = defineStep({
   id: "features-apply",
   phase: "ecology",
   artifacts: {
-    requires: [FeatureIntentsArtifact],
+    requires: [ecologyArtifacts.featureIntents],
     provides: [],
   },
   ops: {
@@ -448,7 +465,8 @@ export default createStep(FeaturesApplyStepContract, {
 ## Architecture diagram (artifact ownership + gating)
 ```mermaid
 flowchart LR
-  A[Step contract<br/>defineStep + artifacts.requires/provides] --> B[createStep module<br/>run(ctx, config, ops, deps)]
+  A[Stage artifact contracts<br/>stages/*/artifacts.ts] --> S[Step contract<br/>defineStep + artifacts.requires/provides]
+  S --> B[createStep module<br/>run(ctx, config, ops, deps)]
   B --> C[createRecipe collects step contracts]
   B --> D[implementArtifacts binds provides to runtime<br/>(validate/freeze/satisfies)]
 
@@ -554,6 +572,7 @@ files:
 **In scope:**
 - Artifact tags are registered with `satisfies` derived from producer artifact runtime wrappers.
 - Explicit `input.tagDefinitions` remains the override/extension path for non-artifacts (effects/fields).
+- Enforce policy: **exactly one provider step per artifact id** at recipe-compile time (fail fast with an actionable error listing duplicates).
 
 **Acceptance criteria:**
 - [ ] Artifact tag defs are present in the registry even if not explicitly provided in `input.tagDefinitions`.
@@ -585,8 +604,10 @@ files:
     notes: remove artifact satisfiers/defs only; keep field/effect defs as needed
   - path: mods/mod-swooper-maps/src/recipes/standard/artifacts.ts
     notes: remove artifact registry role; validations move into producer step runtime impls
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/**/artifacts.ts
+    notes: new stage-owned artifact contract modules; single canonical contract per artifact id
   - path: mods/mod-swooper-maps/src/recipes/standard/stages/**/steps/**/contract.ts
-    notes: move produced artifact contracts into producer step contracts
+    notes: reference stage-owned artifact contracts in artifacts.requires/provides
   - path: mods/mod-swooper-maps/src/recipes/standard/stages/**/steps/**/index.ts
     notes: replace artifact imports with deps.artifacts.* usage; update run signature
   - path: mods/mod-swooper-maps/src/recipes/standard/stages/foundation/producer.ts
@@ -644,18 +665,19 @@ mods/mod-swooper-maps/src/
       │  └─ effects.ts             # recipe-level effect tag defs (allowed standalone)
       └─ stages/
          └─ ecology/
+            ├─ artifacts.ts         # stage-owned artifact contracts (defineArtifact)
             ├─ index.ts            # createStage(...) from step modules
             └─ steps/
                ├─ features-plan/
-               │  ├─ contract.ts   # defineStep + defineArtifact (produced artifacts)
+               │  ├─ contract.ts   # defineStep + artifacts.provides (imports stage artifacts)
                │  └─ index.ts      # createStep + implementArtifacts + run(ctx, config, ops, deps)
                └─ features-apply/
-                  ├─ contract.ts   # defineStep + artifacts.requires (imports artifact contracts only)
+                  ├─ contract.ts   # defineStep + artifacts.requires (imports stage artifacts)
                   └─ index.ts      # createStep + run(ctx, config, ops, deps)
 ```
 
 File placement rules (for authoring DX):
-- Artifact contracts live with their producer step contract (step-owned).
+- Artifact contracts live in the stage boundary (`stages/<stage>/artifacts.ts`) and are imported by step contracts.
 - Artifact runtime behavior (validate/freeze/satisfies) lives with the producer step implementation.
 - Fields/effects remain recipe-level for now (in `deps/`) until a follow-up completes their `deps.*` typing/threading story.
 
@@ -695,12 +717,13 @@ Recommendation for sequencing:
    - keeps the same runtime semantics (pure rename).
 
 ## Acceptance Criteria
-- Steps define produced artifacts via `defineArtifact` in the producing step’s `contract.ts`.
+- Stages define artifact contracts via `defineArtifact` in `stages/<stage>/artifacts.ts`.
 - Step artifact declarations are flat arrays (`contract.artifacts.requires/provides`), and runtime access is flat (`deps.artifacts.<name>`): no nested/grouped artifacts.
 - Step implementations do not import artifact helper modules (e.g. no `featureIntentsArtifact` imports); they use `deps.artifacts.<name>.*` instead.
 - Only one official runtime access path exists:
   - step `run(ctx, config, ops, deps)`
   - no `ctx.deps` usage exists in the repo.
+- Recipe compilation enforces **single producer per artifact id** (duplicate providers fail fast at compile-time).
 - Artifact publication/read behavior is canonical:
   - no `read`/`publish` override hooks exist in the authoring API.
   - publishing uses the wrapper and writes to `ctx.artifacts`.
@@ -708,7 +731,7 @@ Recommendation for sequencing:
 - `createRecipe` automatically registers artifact tag definitions with satisfiers so executor gating correctly enforces requires/provides.
 - Tests exist for the new wiring and pass.
 - The authoring DX shown in “End-to-end authoring examples” is achievable without extra helper files (artifact access is only via `deps`).
-- `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` no longer serves as an artifact contract registry; artifact contracts live on producer steps.
+- `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` no longer serves as an artifact contract registry; artifact contracts live in stage-owned `stages/**/artifacts.ts` modules.
 
 ## Alternatives considered (brief)
 - Keep manual artifact satisfiers in recipe tag files:
