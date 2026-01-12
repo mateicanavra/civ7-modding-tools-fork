@@ -238,6 +238,20 @@ export const compileOpsById = collectCompileOps(ecology, placement);
    - forbid importing `@mapgen/domain/<domain>/ops` from step contracts
    - forbid importing runtime op implementations from step contracts (existing rules can be narrowed/extended)
 
+## Implementation Notes (U20 scope updates)
+- Ignore the U19 status update in the migration plan; do not touch U19 docs or status.
+- Perform a horizontal sweep across all domain modules (no deep domain-specific refactors).
+- Update stages and steps to align with the new domain module pattern; remove legacy/stylistic leftovers.
+
+## Implementation Decisions
+
+### Add empty ops manifests for non-op domains
+- **Context:** U20 requires all domain modules to follow the defineDomain/createDomain pattern, but several domains have no ops.
+- **Options:** (A) Leave non-op domains unchanged, (B) Add empty ops manifests + domain entrypoints with default exports, (C) Restructure domains to split runtime vs contract exports.
+- **Choice:** Option B.
+- **Rationale:** Aligns all domains to the new pattern with minimal change and avoids deep refactors.
+- **Risk:** Contract entrypoints still re-export non-op helpers, which could blur the contract/runtime boundary if misused later.
+
 ## Acceptance criteria
 - Domain authoring:
   - Each domain has an obvious contract file (default export is `defineDomain(...)`).

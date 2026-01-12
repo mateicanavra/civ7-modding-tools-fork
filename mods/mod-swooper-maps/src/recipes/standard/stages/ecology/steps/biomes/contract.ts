@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 import { BiomeEngineBindingsSchema } from "@mapgen/domain/ecology/biome-bindings.js";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
@@ -19,7 +19,7 @@ const BiomesStepContract = defineStep({
     M4_EFFECT_TAGS.engine.biomesApplied,
   ],
   ops: {
-    classify: ecologyContracts.classifyBiomes,
+    classify: ecology.ops.classifyBiomes,
   },
   schema: Type.Object({
     bindings: Type.Optional(BiomeEngineBindingsSchema),

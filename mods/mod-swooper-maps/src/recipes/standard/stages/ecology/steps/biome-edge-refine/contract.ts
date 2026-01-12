@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
 const BiomeEdgeRefineStepContract = defineStep({
@@ -11,7 +11,7 @@ const BiomeEdgeRefineStepContract = defineStep({
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1],
   ops: {
-    refine: ecologyContracts.refineBiomeEdges,
+    refine: ecology.ops.refineBiomeEdges,
   },
   schema: Type.Object({}),
 });

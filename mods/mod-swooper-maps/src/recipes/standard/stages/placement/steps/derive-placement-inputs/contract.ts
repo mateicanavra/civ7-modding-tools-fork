@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import placementContracts from "@mapgen/domain/placement/contracts";
+import placement from "@mapgen/domain/placement";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 
@@ -13,9 +13,9 @@ const DerivePlacementInputsContract = defineStep({
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
   ops: {
-    wonders: placementContracts.planWonders,
-    floodplains: placementContracts.planFloodplains,
-    starts: placementContracts.planStarts,
+    wonders: placement.ops.planWonders,
+    floodplains: placement.ops.planFloodplains,
+    starts: placement.ops.planStarts,
   },
   schema: Type.Object({}),
 });

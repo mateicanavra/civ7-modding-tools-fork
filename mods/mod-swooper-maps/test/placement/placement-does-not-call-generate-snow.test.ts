@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import * as placement from "../../src/domain/placement/ops.js";
+import placement from "../../src/domain/placement/ops.js";
 import { getBaseStarts, getStandardRuntime } from "../../src/recipes/standard/runtime.js";
 import { applyPlacementPlan } from "../../src/recipes/standard/stages/placement/steps/placement/apply.js";
 

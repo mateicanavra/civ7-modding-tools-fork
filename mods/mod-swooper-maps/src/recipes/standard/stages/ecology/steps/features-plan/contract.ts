@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
 const FeaturesPlanStepContract = defineStep({
@@ -12,10 +12,10 @@ const FeaturesPlanStepContract = defineStep({
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.featureIntentsV1],
   ops: {
-    vegetation: ecologyContracts.planVegetation,
-    wetlands: ecologyContracts.planWetlands,
-    reefs: ecologyContracts.planReefs,
-    ice: ecologyContracts.planIce,
+    vegetation: ecology.ops.planVegetation,
+    wetlands: ecology.ops.planWetlands,
+    reefs: ecology.ops.planReefs,
+    ice: ecology.ops.planIce,
   },
   schema: Type.Object({}),
 });

@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
 
 const ResourceBasinsStepContract = defineStep({
@@ -12,8 +12,8 @@ const ResourceBasinsStepContract = defineStep({
   ],
   provides: [M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1],
   ops: {
-    plan: ecologyContracts.planResourceBasins,
-    score: ecologyContracts.scoreResourceBasins,
+    plan: ecology.ops.planResourceBasins,
+    score: ecology.ops.scoreResourceBasins,
   },
   schema: Type.Object({}),
 });

@@ -8,10 +8,10 @@ import {
 } from "@swooper/mapgen-core";
 import type { TraceScope } from "@swooper/mapgen-core";
 import type { Static } from "@swooper/mapgen-core/authoring";
-import ecologyContracts from "@mapgen/domain/ecology/contracts";
+import ecology from "@mapgen/domain/ecology";
 import type { PlotEffectKey } from "@mapgen/domain/ecology";
 
-type PlotEffectsInput = Static<typeof ecologyContracts.planPlotEffects.input>;
+type PlotEffectsInput = Static<typeof ecology.ops.planPlotEffects.input>;
 
 type PlotEffectPlacement = {
   x: number;

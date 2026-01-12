@@ -1,6 +1,7 @@
 export { createStep, createStepFor, defineStep } from "./step/index.js";
 export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
+export { createDomain, defineDomain } from "./domain.js";
 export {
   bindCompileOps,
   bindRuntimeOps,
@@ -41,6 +42,12 @@ export type {
   Step,
   StepModule,
 } from "./types.js";
+export type {
+  DomainContract,
+  DomainContractAny,
+  DomainModule,
+  DomainOpImplementationsForContracts,
+} from "./domain.js";
 export type {
   DomainOpCompileAny,
   DomainOpImplementationsFor,
