@@ -18,11 +18,6 @@ type BivariantFn<Args extends unknown[], R> = {
   bivarianceHack(...args: Args): R;
 }["bivarianceHack"];
 
-export type DomainOpImplementationsFor<
-  TContracts extends Record<string, { id: string }>,
-  TOp extends DomainOpCompileAny = DomainOpCompileAny,
-> = Readonly<{ [K in keyof TContracts]: TOp }>;
-
 export type DomainOpRuntime<Op extends DomainOpCompileAny> = Op extends DomainOpCompileAny
   ? BivariantFn<
       [input: Parameters<Op["run"]>[0], config: Parameters<Op["run"]>[1]],

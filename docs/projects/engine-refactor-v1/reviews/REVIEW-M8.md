@@ -32,12 +32,10 @@ Branches (downstack → upstack):
 ## Rolling summary (updated as branches are reviewed)
 
 ### Still relevant to fix
-- **Protect the “contract-only domain entrypoint” invariant long-term.**
-  - U20’s `@mapgen/domain/<domain>` entrypoints are now *structurally* contract-only for ops, but several also `export *` additional helpers. This is fine today, but it creates a fragile surface where a future helper import could accidentally pull runtime-only modules and break step-contract safety.
-  - Follow-up direction: keep contract entrypoints minimal (default export + types/constants), and require explicit imports for runtime helpers elsewhere.
-- **Optional cleanup:** `DomainOpImplementationsFor` is now effectively legacy (U20 uses `DomainOpImplementationsForContracts`); consider consolidating to one exported helper to avoid two similar “registry typing” patterns.
 - **Milestone completeness:** planned M8 U21 artifacts DX (step-owned deps) is documented but not implemented in this stack.
-- **Test reliability:** `pnpm -C mods/mod-swooper-maps test` requires `@swooper/mapgen-core` to be built (dist-only exports). In a clean checkout, tests fail with “Cannot find module '@swooper/mapgen-core/...'” until `pnpm -C packages/mapgen-core build` runs; consider adding a `pretest` or wiring this into the root `pnpm test` flow.
+- **(Resolved in follow-up stack)** Keep domain entrypoints contract-only (avoid `export * from "@mapgen/domain/..."`) + enforce via guardrails.
+- **(Resolved in follow-up stack)** Remove legacy `DomainOpImplementationsFor` in favor of `DomainOpImplementationsForContracts`.
+- **(Resolved in follow-up stack)** Make `mods/mod-swooper-maps` tests build `@swooper/mapgen-core` (and its workspace deps) automatically in a clean checkout.
 
 ### Fixed or superseded later in the stack
 - **U18 “step contracts importing domain barrels may eagerly load runtime”**: true at the time of PR #456, but resolved by U19/U20 restructuring (contracts vs runtime entrypoints + lint guardrails + `defineDomain/createDomain`).
@@ -128,7 +126,7 @@ Branches (downstack → upstack):
 - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U19-domain-module-registry-pattern.md`
 
 **Quick take**
-- Yes: adds the missing type-level enforcement (`DomainOpImplementationsFor<...>`) and makes op contracts more self-contained by baking in `config` + `defaultConfig`.
+- Yes: adds the missing type-level enforcement (`DomainOpImplementationsFor<...>`) and makes op contracts more self-contained by baking in `config` + `defaultConfig`. (Later superseded by `DomainOpImplementationsForContracts`; `DomainOpImplementationsFor` is removed in a follow-up stack.)
 
 **What’s strong**
 - Moves op envelope schema + default selection into `defineOp(...)` so consumers don’t need to repeatedly rebuild envelope schema from `(id, strategies)` pairs.
@@ -147,7 +145,7 @@ Branches (downstack → upstack):
 
 **What’s strong**
 - `mods/mod-swooper-maps/src/domain/<domain>/contracts.ts` becomes a contract-only module (safe for step contracts).
-- `mods/mod-swooper-maps/src/domain/<domain>/ops.ts` binds runtime implementations and uses `DomainOpImplementationsFor<typeof contracts>` to enforce key coverage.
+- `mods/mod-swooper-maps/src/domain/<domain>/ops.ts` binds runtime implementations and enforces key coverage via typing (later standardized on `DomainOpImplementationsForContracts`).
 - This resolves the U18 migration concern where step contracts imported `@mapgen/domain/<domain>` at a time when it could have eagerly imported runtime.
 
 ### `m8-u19-domain-module-registry-stepops` — PR #499 (`refactor(ops): simplify op config schema handling`)
